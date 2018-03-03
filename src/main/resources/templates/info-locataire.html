@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Locat.io</title>
+</head>
+<body>
+
+<div layout:fragment="content" th:remove="tag">
+    <div class="">
+        <div class="bg-white">
+            <div class="container">
+                <div class="space-separator">
+                    <a th:href="@{/home}" class="">
+                        <img src="assets/images/logo.svg" alt="" class="logo animated slideInLeft"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="banner-owner big-space-separator text-center animated-2 fadeIn">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4 ">
+                        <p class="little-title medium-padding-sides">
+                            Déposez votre dossier sur Locat.io et augmentez vos chances de trouver un appartement
+                        </p>`
+                        <!--<div class="space-separator">-->
+                        <!--<p class="line"></p>-->
+                        <!--</div>-->
+                        <!--<p class="padding-sides">-->
+                        <!--Notre produit vérifie que vos pièces sont conformes aux exigences légales et s’assure que les propriétaires ne procèdent-->
+                        <!--pas à des requêtes illicites.-->
+                        <!--</p>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--<div class="big-space-separator-top text-primary container animated-2 fadeIn">-->
+        <!--<div class="row">-->
+        <!--<div class="col-md-2"></div>-->
+        <!--<div class="col-md-8 space-separator-bottom">-->
+        <!--<p class="text-center medium-title">Déposez vos pièces, elles ne seront jamais communiquées sans votre accord express</p>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-md-4"></div>-->
+        <!--<div class="col-md-4 big-space-separator-bottom">-->
+        <!--<p class="text-center text-primary1">Votre Dossier est prêt à X %</p>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="row equal-cards-container">-->
+        <!--<div class="col-md-4">-->
+        <!--<div class="card medium-margin-bottom">-->
+        <!--<p class="subtitle1">Lorem Ipsum</p>-->
+        <!--<p class="text-primary1">-->
+        <!-- - Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
+        <!--<br/>- Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.-->
+        <!--<br/>- Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris consequat. </p>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-md-4">-->
+        <!--<div class="card medium-margin-bottom">-->
+        <!--<p class="subtitle1">Sed ut perspiciatis</p>-->
+        <!--<p class="text-primary1">-->
+        <!-- - Sed ut perspiciatis unde omnis.-->
+        <!--<br/> - Iste natus error sit voluptatem.-->
+        <!--<br/> - Accusantium doloremque laudantium, totam rem aperiam.-->
+        <!--</p>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="col-md-4">-->
+        <!--<div class="card medium-margin-bottom">-->
+        <!--<p class="subtitle1">Dignissimos ducimus</p>-->
+        <!--<p class="text-primary1">-->
+        <!-- - At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis.-->
+        <!--<br/> - Praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate-->
+        <!--non provident, dolorum fuga.-->
+        <!--</p>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="col-md-4 ">-->
+        <!--<div class="card">-->
+        <!--<p class="subtitle1">Et harum quidem</p>-->
+        <!--<p class="text-primary1">-->
+        <!--Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque-->
+        <!--nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda dolorrepellendus.-->
+        <!--</p>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-md-4 ">-->
+        <!--<div class="card">-->
+        <!--<p class="subtitle1">Nemo enim ipsam</p>-->
+        <!--<p class="text-primary1">-->
+        <!--Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione-->
+        <!--voluptatem sequi nesciunt.-->
+        <!--</p>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-md-4">-->
+        <!--<div class="card no-margin-bottom">-->
+        <!--<p class="subtitle1">Voluptatem</p>-->
+        <!--<p class="text-primary1">-->
+        <!--Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi-->
+        <!--tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.-->
+        <!--</p>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <div class="container-fluid bg-white big-space-separator animated-2 fadeIn">
+            <div class="container">
+                <div class="row">
+                    <!--<div class="col-md-8 text-primary title text-center col-md-push-2">-->
+                    <!--On vous accompagne-->
+                    <!--</div>-->
+                </div>
+                <div class="row animated-2 fadein">
+                    <div class="col-md-4 text-primary text-center medium-space-separator-top">
+                        <div class=" icon medium-space-separator-top">
+                            <img src="assets/icons/hands.svg" alt=""/>
+                        </div>
+                        <p class="subtitle space-separator">En un clic</p>
+                        <p class="text-primary1">En un seul clic envoyez votre dossier aux propriétaires dont le bien vous interesse</p>
+                    </div>
+                    <div class="col-md-4 text-primary text-center medium-space-separator-top">
+                        <div class=" icon medium-space-separator-top">
+                            &nbsp;&nbsp;
+                            <img src="assets/icons/coffe.svg" alt=""/>
+                        </div>
+                        <p class="subtitle space-separator">Démarquez-vous</p>
+                        <p class="text-primary1">Grâce à Locat.io et la série de tests effectués sur votre dossier vous augmentez de 60% la probabilité d'obtenir
+                            l'appartement de vos rêves</p>
+                    </div>
+                    <div class="col-md-4 text-primary text-center medium-space-separator-top">
+                        <div class=" icon medium-space-separator-top ">
+                            &nbsp;&nbsp;&nbsp;
+                            <img src="assets/icons/security.svg" alt=""/>
+                        </div>
+                        <p class="subtitle space-separator">Pas d'abus</p>
+                        <p class="text-primary1">Avec Locat.io ne fournissez que <a href="https://www.service-public.fr/particuliers/vosdroits/F1169"
+                                                                                    class="text-primary1" target="_blank"> les pièces autorisées</a> et rien de plus !</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center big-space-separator">
+            <div class="bg-primary text-center medium-space-separator text-primary">
+                <div class="container">
+                    <a th:href="@{/envoyer-dossier}" class="btn btn-primary btn-responsive animated bounceInUp">Envoyer votre dossier</a>
+                </div>
+            </div>
+        </div>
+        <footer style="background-color: white;">
+            <div class="container">
+                <div class="line-separator"></div>
+                <div class="row medium-space-separator-top big-space-separator-bottom">
+                    <div class="col-md-4">
+                        <a href="/">
+                            <img src="assets/images/logo.svg" alt="" class="img-responsive logo sutil-separator-xs-double"/>
+                        </a>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="sutil-separator-xs link">
+                            <span>Vous pouvez nous contacter à contact@locatio.beta.gouv.fr</span>
+                            <br/>
+                            <br/>
+                            <a class="text-primary1" href="https://beta.gouv.fr/" target="_blank">En savoir plus sur la démarche startup d'état</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!--<div class="container-fluid">-->
+            <!--<div class="bg-primary text-center medium-space-separator text-primary navbar-fixed-bottom ">-->
+                <!--<div class="container">-->
+                    <!--<a th:href="@{/envoyer-dossier}" class="btn btn-primary btn-responsive animated bounceInUp">Envoyer votre dossier</a>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+</div>
+</body>
+</html>

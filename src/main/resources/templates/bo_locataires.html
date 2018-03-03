@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Locat.io</title>
+</head>
+<body>
+
+<div layout:fragment="content" th:remove="tag">
+
+    <a href="/bo/proprios">Emails proprio</a>
+    <br/>
+    <a href="/bo/locataires">Dossiers locataires</a>
+
+    <br/><br/><br/>
+
+    <!--<ul>-->
+        <!--<li th:each="item : ${tenants}" th:text="${item}">Item description here...</li>-->
+    <!--</ul>-->
+
+    <table th:object="${tenants}" id="userTable" border="1">
+        <tr th:each="tenant : ${tenants}">
+            <td th:text="${tenant.getId()}"></td>
+            <td th:utext="${tenant.getCreationDateTime()}"></td>
+            <td th:text="${tenant.getName()}"></td>
+            <td th:text="${tenant.getLastName()}"></td>
+            <td th:text="${tenant.getEmail()}"></td>
+            <td><a th:text="${'Voir le document 1'}" th:href="${tenant.getUpload1()}" target="_blank"></a></td>
+            <td><a th:text="${'Voir le document 2'}" th:href="${tenant.getUpload2()}" target="_blank"></a></td>
+            <td><a th:text="${'Voir le document 3'}" th:href="${tenant.getUpload3()}" target="_blank"></a></td>
+            <td><a th:text="${'Voir le document 4'}" th:href="${tenant.getUpload4()}" target="_blank"></a></td>
+            <td th:text="${tenant.getEmailsList()}"></td>
+            <td>
+                <form id="proprio_subscribe" method="post" th:action="@{/bo/deleteTenant}">
+                    <input type="hidden" th:name="tenantId" th:value="${tenant.getId()}" />
+                    <button type="submit" name="action" value="delete">Supprimer</button>
+                </form>
+
+            </td>
+        </tr>
+    </table>
+
+</div>
+</body>
+</html>
