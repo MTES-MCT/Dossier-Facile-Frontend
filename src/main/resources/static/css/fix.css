@@ -1,0 +1,73 @@
+.add_owner {
+    background-color: #70a83b;
+    border-radius: 50%;
+    font-size: 25px;
+    padding: 2px 6px 5px;
+    color: white;
+    position: absolute;
+    top: 55px;
+    right: 6px;
+}
+
+#owners_emails_list {
+    position: relative;
+}
+
+.marg_top_10 {
+    margin-top: 10px;
+}
+
+@media (max-width: 991px) {
+
+    .footer_logo {
+        display: none;
+    }
+
+    .footer_content {
+        text-align: center;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 991px) {
+    .home_main_button {
+        min-width: 210px;
+    }
+}
+
+.home_main_button {
+    min-width: 245px;
+}
+
+.fixed-header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 36px;
+    z-index: 500;
+}
+
+.fixed-header-link-container {
+    position: absolute;
+    right: 0;
+}
+
+.fixed-header-link-container form {
+    display: inline;
+}
+
+.fixed-header-link {
+    text-decoration: none;
+    padding: 10px;
+}
+
+.fixed-header-link:hover {
+    text-decoration: none;
+}
+
+@media (max-width: 991px) {
+    .home_subtitle_text {
+        display: none;
+    }
+}

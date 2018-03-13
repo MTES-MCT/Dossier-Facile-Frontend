@@ -1,4 +1,4 @@
-package fr.gouv.locatio.services;
+package fr.gouv.locatio.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

@@ -71,7 +71,7 @@ $(document).ready(function () {
         });
         var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 
-        $('input[type="email"]').each(function () {
+        $('input[type="email"][required="required"]').each(function () {
             if (!filter.test($(this).val())) {
                 isValid = false;
                 $(this).addClass("invalid")
@@ -103,7 +103,7 @@ $(document).ready(function () {
 
 
     $(".clearEmails").click(function () {
-        $('#emailsList').val('');
+        $('.emailsList').val('');
         $('#confirm').modal('hide');
     });
 
@@ -127,14 +127,6 @@ $(document).ready(function () {
             }
         });
     }
-
-
-    $(".envoyer").click(function (e) {
-        e.preventDefault();
-        if (validate()) {
-            sendForm();
-        }
-    });
 
     function sendOwnerSubscriptionForm(e) {
         e.preventDefault();
@@ -163,5 +155,52 @@ $(document).ready(function () {
     });
     $("img.submit").click(function (e) {
         sendOwnerSubscriptionForm(e);
+    });
+    function enableTooltips() {
+        $('[data-toggle="tooltip"]').tooltip();
+    }
+    enableTooltips();
+
+    function addFileReaderInput() {
+        $(".input-file-container").each(function () {
+            var input = $(this).find(".input-file");
+            var id = input.attr("id");
+            var fileReader = $(this).find(".file-reader");
+
+            $(this).find(".img,img").click(function () {
+                fileReader.click()
+            });
+            input.click(function () {
+                fileReader.click()
+            });
+
+            fileReader.change(function () {
+                var value = $(this).val();
+                var latestValue = "";
+                for (var i = value.length; i > 0; i--) {
+                    if (!/\\/.test(value[i])) {
+                        if (value[i]) {
+                            latestValue = latestValue + value[i];
+                        }
+                    }
+                    else i = 0;
+                }
+                var result = "";
+                for (var i = latestValue.length; i >= 0; i--) {
+                    if (latestValue[i] !== undefined) {
+                        result = result + latestValue[i];
+                    }
+                }
+
+                input.val(result);
+            });
+
+        });
+    }
+    addFileReaderInput();
+
+    $(".add_owner").click(function (e) {
+        e.preventDefault();
+        $(".add_owner").before($('<input type="email" autocomplete="true" class="emailsList form-control form-control-formatted form-control-untouched marg_top_10" placeholder="Email" name="emailsList" value="">'));
     });
 });

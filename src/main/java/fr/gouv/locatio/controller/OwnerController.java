@@ -1,9 +1,8 @@
-package fr.gouv.locatio.controllers;
+package fr.gouv.locatio.controller;
 
-import fr.gouv.locatio.entities.Subscription;
-import fr.gouv.locatio.services.OwnerService;
+import fr.gouv.locatio.entity.Subscription;
+import fr.gouv.locatio.service.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,7 +17,7 @@ import javax.validation.Valid;
 public class OwnerController {
 
     @Autowired
-    OwnerService ownerService;
+    private OwnerService ownerService;
 
     @GetMapping("/info-proprietaire")
     public String infoProprietaire(Model model) {
@@ -29,11 +28,10 @@ public class OwnerController {
 
 
     @PostMapping("/subscription")
-    public String registerSubscriptions(@Valid Subscription subscription,
-                                              BindingResult result, WebRequest request, Errors errors, Model model) {
-        if(!result.hasErrors()){
+    public String registerSubscriptions(@Valid Subscription subscription, BindingResult result, WebRequest request, Errors errors, Model model) {
+        if (!result.hasErrors()) {
             ownerService.saveSubscription(subscription);
-            return  "redirect:/home";
+            return "redirect:/home";
         }
 
         return "/info-proprietaire";

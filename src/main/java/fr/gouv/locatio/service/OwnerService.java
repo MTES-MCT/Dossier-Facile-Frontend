@@ -1,7 +1,7 @@
-package fr.gouv.locatio.services;
+package fr.gouv.locatio.service;
 
-import fr.gouv.locatio.entities.Subscription;
-import fr.gouv.locatio.repositories.OwnerRepository;
+import fr.gouv.locatio.entity.Subscription;
+import fr.gouv.locatio.repository.OwnerRepository;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

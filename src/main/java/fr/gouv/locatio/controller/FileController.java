@@ -1,6 +1,6 @@
-package fr.gouv.locatio.controllers;
+package fr.gouv.locatio.controller;
 
-import fr.gouv.locatio.services.ConfigurationService;
+import fr.gouv.locatio.service.ConfigurationService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -24,7 +24,11 @@ public class FileController {
     public void getImageAsByteArray(HttpServletResponse response, @PathVariable String folderName, @PathVariable String fileName) throws IOException {
         String absolutePath = configurationService.getUploads() + File.separator + folderName + File.separator + fileName;
         InputStream in = new FileInputStream(new File(absolutePath));
-        response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+        if (fileName.endsWith(".pdf")) {
+            response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+        } else {
+            response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+        }
         IOUtils.copy(in, response.getOutputStream());
     }
 }

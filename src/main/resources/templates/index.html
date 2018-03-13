@@ -4,36 +4,34 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout">
 <head>
-    <title>Locat.io</title>
+    <title>Locatio</title>
 </head>
 <body>
 
 <div layout:fragment="content" th:remove="tag">
-
-
     <div class="banner">
         <div>
             <div class="container">
                 <div class="sutil-space-separator-top sutil-space-separator-bottom">
                     <a th:href="@{/home}" class="">
-                        <img src="assets/images/logo.svg" alt="" class="logo animated slideInLeft"/>
+                        <img src="/assets/images/logo.svg" alt="" class="logo animated slideInLeft"/>
                     </a>
                 </div>
             </div>
             <div class="container-fluid banner-gradient no-spaces animated-2 fadeIn">
-                <img src="assets/images/gradient.png" alt=""/>
+                <img src="/assets/images/gradient.png" alt=""/>
             </div>
             <div class="big-space-separator-top animated fadeIn">
                 <div class="image-text container text-center sutil-space-separator-bottom">
                     <div class="super-big-title text-primary">
-                        Locat.io
+                        Locatio
                     </div>
-                    <p class="big-title text-primary space-separator-bottom">
-                        Vérifie le dossier des locataires pour augmenter la confiance
+                    <p class="big-title text-primary space-separator-bottom home_subtitle_text">
+                        Rétablit la confiance entre propriétaires et locataires
                     </p>
                     <div class="container buttons-container text-center">
-                        <a th:href="@{/locataire}" class="btn btn-responsive btn-primary">Locataire</a>
-                        <a th:href="@{/info-proprietaire}" class="btn btn-responsive btn-primary">Propriétaire</a>
+                        <a th:href="@{/locataire}" class="btn btn-responsive btn-primary home_main_button">Locataire</a>
+                        <a th:href="@{/info-proprietaire}" class="btn btn-responsive btn-primary home_main_button">Propriétaire</a>
                     </div>
                 </div>
             </div>
@@ -43,30 +41,30 @@
     <div class="container banner-finish">
         <!--<div class="row">-->
         <!--<p class="col-md-8 text-primary title text-center col-md-push-2 medium-space-separator big-space-separator-top padding-sides">-->
-        <!--Locat.io: remettre la confiance au cœur de la relation entre propriétaires et locataires.-->
+        <!--Locatio: remettre la confiance au cœur de la relation entre propriétaires et locataires.-->
         <!--</p>-->
         <!--</div>-->
         <div class="row space-separator medium-space-separator-bottom">
             <div class="col-md-4 text-primary text-center">
                 <div class=" icon medium-space-separator-top">
-                    <img src="assets/icons/security.svg" alt=""/>
+                    <img src="/assets/icons/security.svg" alt=""/>
                 </div>
                 <p class="subtitle space-separator">Sécurité</p>
-                <p class="text-primary1">Locat.io s’assure que vos données sont protégées ! Elles ne seront jamais communiquées sans votre accord express, ne seront
+                <p class="text-primary1">Locatio s’assure que vos données sont protégées ! Elles ne seront jamais communiquées sans votre accord express, ne seront
                     jamais revendues et ne seront jamais stockées au delà de 30 jours. L'Etat à votre service, tout simplement
                 </p>
             </div>
             <div class="col-md-4 text-primary text-center">
                 <div class=" icon medium-space-separator-top">
-                    <img src="assets/icons/coffe.svg" alt=""/>
+                    <img src="/assets/icons/coffe.svg" alt=""/>
                 </div>
                 <p class="subtitle space-separator">Simplicité</p>
-                <p class="text-primary1">Notre produit a été construit avec une seule obsession: vous simplifier la vie. Avec Locat.io vous n’aurez jamais
+                <p class="text-primary1">Notre produit a été construit avec une seule obsession: vous simplifier la vie. Avec Locatio vous n’aurez jamais
                     de phobie administrative ;)</p>
             </div>
             <div class="col-md-4 text-primary text-center">
                 <div class=" icon medium-space-separator-top">
-                    <img src="assets/icons/hands.svg" alt=""/>
+                    <img src="/assets/icons/hands.svg" alt=""/>
                 </div>
                 <p class="subtitle space-separator">Confiance</p>
                 <p class="text-primary1">Parce que nous savons que la confiance doit être réciproque, nous nous engageons à agir gratuitement et en toute transparence
@@ -82,10 +80,10 @@
                     <tbody>
                     <tr>
                         <td class="icon-small">
-                            <img src="assets/icons/text.svg" alt=""/>
+                            <img src="/assets/icons/text.svg" alt=""/>
                         </td>
                         <td class="medium-space-separator-bottom">
-                            <p>Simple, efficace et pratique : Locat.io m'a aidé tout au long de ma recherche d'appartement. Je le recommande à tous ceux qui veulent se
+                            <p>Simple, efficace et pratique : Locatio m'a aidé tout au long de ma recherche d'appartement. Je le recommande à tous ceux qui veulent se
                                 simplifier la galère de trouver un appartement !</p>
                             <p class="subtitle" style="margin: 0">Caroline H.</p>
                             <p>Etudiante, 19 ans</p>
@@ -99,11 +97,11 @@
                     <tbody>
                     <tr>
                         <td class=" icon-small ">
-                            <img src="assets/icons/text.svg" alt=""/>
+                            <img src="/assets/icons/text.svg" alt=""/>
                         </td>
                         <td class="medium-space-separator-bottom">
                             <p>Louer est souvent source de stress, j'étais ravi de trouver de l'aide gratuite et de qualité. Je ne souhaitais pas recevoir d'appels
-                                d'agents immobiliers : ils ont été filtrés très simplement. Et surtout Locat.io m'a rassuré sur le choix de mon locataire.</p>
+                                d'agents immobiliers : ils ont été filtrés très simplement. Et surtout Locatio m'a rassuré sur le choix de mon locataire.</p>
                             <p class="subtitle" style="margin: 0">Marc C.</p>
                             <p>Propriétaire de deux appartements, 54 ans</p>
                         </td>
@@ -117,14 +115,14 @@
     <footer style="background-color: white;">
         <div class="container">
             <div class="line-separator"></div>
-            <div class="row medium-space-separator-top big-space-separator-bottom">
-                <div class="col-md-4">
+            <div class="row big-space-separator-bottom">
+                <div class="col-md-4 footer_logo">
                     <a href="/">
-                        <img src="assets/images/logo.svg" alt="" class="img-responsive logo sutil-separator-xs-double"/>
+                        <img src="/assets/images/logo.svg" alt="" class="img-responsive logo sutil-separator-xs-double"/>
                     </a>
                 </div>
                 <div class="col-md-8">
-                    <div class="sutil-separator-xs link">
+                    <div class="sutil-separator-xs link footer_content">
                         <span>Vous pouvez nous contacter à contact@locatio.beta.gouv.fr</span>
                         <br/>
                         <br/>

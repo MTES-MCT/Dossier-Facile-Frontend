@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Locatio</title>
+</head>
+<body>
+
+<div layout:fragment="content" th:remove="tag">
+    <div class="bg-white">
+        <div class="container">
+            <div class="space-separator">
+                <a th:href="@{/home}" class="">
+                    <img src="/assets/images/logo.svg" alt="" class="logo animated slideInLeft"/>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="container big-space-separator">
+        <div class="row" style="text-align: center;">
+            <div class="col-md-1 col-sm-1 col-xs-1"></div>
+            <div class="col-md-10 col-sm-10 col-xs-10">
+                <p class="little-title text-center padding border-bottom border-primary text-primary text-primary1 medium-margin-bottom">Mon dossier</p>
+                <p th:if="${tenant.getTenantFileStatus().name() == 'TO_PROCESS'}"><span>Ce dossier est en cours de vérification</span></p>
+                <p th:if="${tenant.getTenantFileStatus().name() == 'VALIDATED'}">
+                    <img src="/assets/icons/green_tick.svg" style="height: 50px;"/>
+                    <span>Nos tests n'ont fait ressortir aucun point d'attention sur ce dossier.</span><br/><br/>
+                </p>
+            </div>
+            <div class="col-md-1 col-sm-1 col-xs-1"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-sm-2 col-xs-1"></div>
+            <div class="col-md-8 col-sm-8 col-xs-10" style="text-align: center;">
+
+                <div class="form-group">
+                    <label for="info" class="text-primary1 space-separator-top">Informations personnelles</label>
+                    <p id="info" >
+                        <span th:text="${tenant.getUser().getFirstName()}"></span><br/>
+                        <span th:text="${tenant.getUser().getLastName()}"></span><br/>
+                        <span th:text="${tenant.getUser().getEmail()}"></span>
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="identity_card" class="text-primary1 space-separator-top">Pièce d'identité en cours de validité</label>
+                    <p id="info" >
+                        <a class="text-primary1" id="identity_card" th:text="${'Voir le document'}" th:href="${tenant.getUpload1()}" target="_blank"></a>
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="domicile" class="text-primary1 space-separator-top">Justificatif de domicile</label>
+                    <p id="domicile" >
+                        <a class="text-primary1" th:text="${'Voir le document'}" th:href="${tenant.getUpload2()}" target="_blank"></a>
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="work_status" class="text-primary1 space-separator-top">Justificatif de situation professionnelle</label>
+                    <p id="work_status" >
+                        <a class="text-primary1" th:text="${'Voir le document'}" th:href="${tenant.getUpload3()}" target="_blank"></a>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label for="justificatif_res" class="text-primary1 space-separator-top">Justificatif de ressources</label>
+                    <p id="justificatif_res" >
+                        <a class="text-primary1" th:text="${'Voir le document'}" th:href="${tenant.getUpload4()}" target="_blank"></a>
+                    </p>
+                </div>
+                <div id="owners_emails_list" class="form-group">
+                    <label for="ownersList" class="text-primary1 space-separator-top">Propriétaires ciblés&nbsp;:</label>
+                    <ul id="ownersList" style="list-style: none;padding: 0;">
+                        <li th:each="email : ${tenant.getEmailsList()}"><span th:text="${email}"></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${not magicLink and tenant.getTenantFileStatus().name() == 'VALIDATED'}" class="text-center">
+        <div class="bg-primary text-center medium-space-separator text-primary">
+            <div class="container">
+                <span> Vous pouvez dès à présent envoyer votre dossier aux propriétaires en utilisant cette URL privée générée pour votre dossier&nbsp;: </span>
+                <span style="font-weight: bold;" th:text="${'https://locatio.beta.gouv.fr/dossier-locataire/' + tenant.getToken()}"></span>
+            </div>
+        </div>
+    </div>
+    <div th:if="${magicLink}" class="text-center">
+        <div class="bg-primary text-center medium-space-separator text-primary">
+            <div class="container">
+                <a th:href="@{/info-proprietaire}" class="btn btn-primary btn-responsive animated bounceInUp">En savoir plus sur Locatio</a>
+            </div>
+        </div>
+    </div>
+    <footer style="background-color: white;">
+        <div class="container">
+            <div class="line-separator"></div>
+            <div class="row big-space-separator-bottom">
+                <div class="col-md-4 footer_logo">
+                    <a href="/">
+                        <img src="/assets/images/logo.svg" alt="" class="img-responsive logo sutil-separator-xs-double"/>
+                    </a>
+                </div>
+                <div class="col-md-8">
+                    <div class="sutil-separator-xs link footer_content">
+                        <span>Vous pouvez nous contacter à contact@locatio.beta.gouv.fr</span>
+                        <br/>
+                        <br/>
+                        <a class="text-primary1" href="https://beta.gouv.fr/" target="_blank">En savoir plus sur la démarche startup d'état</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-package fr.gouv.locatio.dtos;
+package fr.gouv.locatio.dto;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,7 +10,7 @@ public class TenantDTO {
 
     @NotNull
     @NotEmpty
-    private String name;
+    private String firstName;
 
     @NotNull
     @NotEmpty
@@ -28,12 +28,12 @@ public class TenantDTO {
     private String emailsList;
 
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {

@@ -1,37 +1,27 @@
-package fr.gouv.locatio.entities;
+package fr.gouv.locatio.entity;
 
 import org.hibernate.annotations.Type;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDateTime;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 @Entity
-@Table(name="tenant")
+@Table(name = "tenant")
 public class Tenant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(nullable = false)
-    private String name;
-
-    @Column(nullable = false)
-    private String lastName;
-
-    @Column(nullable = false)
-    private String email;
-
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(nullable = false)
     private String upload1;
 
     @Column(nullable = false)
     private String upload2;
-
 
     @Column(nullable = false)
     private String upload3;
@@ -40,11 +30,17 @@ public class Tenant {
     private String upload4;
 
     @Column(nullable = false)
+    private TenantFileStatus tenantFileStatus;
+
+    @Column(nullable = false)
     private String emailsList;
+
+    @Column
+    private String token;
 
     @Column(name = "creation_date")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
-    private LocalDateTime creationDateTime;
+    private LocalDateTime tokenEndDate;
 
     public Integer getId() {
         return id;
@@ -54,29 +50,12 @@ public class Tenant {
         this.id = id;
     }
 
-
-    public String getName() {
-        return name;
+    public User getUser() {
+        return user;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getUpload1() {
@@ -111,6 +90,14 @@ public class Tenant {
         this.upload4 = upload4;
     }
 
+    public TenantFileStatus getTenantFileStatus() {
+        return tenantFileStatus;
+    }
+
+    public void setTenantFileStatus(TenantFileStatus tenantFileStatus) {
+        this.tenantFileStatus = tenantFileStatus;
+    }
+
     public String getEmailsList() {
         return emailsList;
     }
@@ -119,11 +106,19 @@ public class Tenant {
         this.emailsList = emailsList;
     }
 
-    public LocalDateTime getCreationDateTime() {
-        return creationDateTime;
+    public String getToken() {
+        return token;
     }
 
-    public void setCreationDateTime(LocalDateTime creationDateTime) {
-        this.creationDateTime = creationDateTime;
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public LocalDateTime getTokenEndDate() {
+        return tokenEndDate;
+    }
+
+    public void setTokenEndDate(LocalDateTime tokenEndDate) {
+        this.tokenEndDate = tokenEndDate;
     }
 }

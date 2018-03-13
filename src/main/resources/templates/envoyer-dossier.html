@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout">
 <head>
-    <title>Locat.io</title>
+    <title>Locatio</title>
 </head>
 <body>
 
@@ -13,7 +13,7 @@
         <div class="container">
             <div class="space-separator">
                 <a th:href="@{/home}" class="">
-                    <img src="assets/images/logo.svg" alt="" class="logo animated slideInLeft" />
+                    <img src="/assets/images/logo.svg" alt="" class="logo animated slideInLeft" />
                 </a>
             </div>
         </div>
@@ -32,57 +32,67 @@
 
                 <form class="form" th:action="@{/info-locataire}" method="post" th:object="${tenant}" enctype="multipart/form-data" id="formLocataire">
                     <div class="form-group">
-                        <label for="name" class="text-primary1 formatted-label  medium-space-separator">Entrez vos informations personnelles:</label>
+                        <label for="lastName" class="text-primary1 formatted-label  medium-space-separator">Entrez vos informations personnelles:</label>
                         <!--Add or remove the class (invalid) for validations-->
-                        <input type="text" autocomplete="true" required="required" th:field="*{name}" class="form-control form-control-formatted form-control-untouched " placeholder="Nom" id="name"/>
+                        <input type="text" autocomplete="true" required="required" th:field="*{lastName}" class="form-control form-control-formatted form-control-untouched " placeholder="Nom" id="lastName"/>
                     </div>
                     <div class="form-group">
-                        <input type="text" required="required" autocomplete="true" th:field="*{lastName}" class="form-control form-control-formatted form-control-untouched" placeholder="Prenom"/>
+                        <input type="text" required="required" autocomplete="true" th:field="*{firstName}" class="form-control form-control-formatted form-control-untouched" placeholder="Prenom"/>
                     </div>
                     <div class="form-group">
                         <input type="email" required="required" autocomplete="true" th:field="*{email}" class="form-control form-control-formatted form-control-untouched" placeholder="Email"/>
                     </div>
+
                     <div class="form-group">
-                        <label for="name1" class="text-primary1 formatted-label space-separator">Pièce d'identité en cours de validité (carte d'identité OU passeport OU permis de conduire OU carte de séjour OU carte de résident)&nbsp;:</label>
-                        <div class="input-icon text-center green-icon">
-                            <input type="file" accept="image/*, .pdf" th:field="*{files}" class="form-control form-control-formatted form-control-untouched" placeholder="Dossier 01" id="name1" />
-                            <span class="img green-icon text-alter">
-                <span>+</span>
-              </span>
+                        <label for="identity_card" class="text-primary1 formatted-label space-separator">Pièce d'identité en cours de validité :</label>
+                        <div class="input-icon text-center info-icon input-file-container">
+                            <input type="text" class="form-control form-control-formatted form-control-untouched input-file" placeholder="Ajouter un document" id="identity_card" readonly="" />
+                            <input type="file" class="hidden file-reader" accept="image/*, .pdf" th:field="*{files}" name="identity_card" />
+                            <span class="img info-icon text-alter" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="carte d'identité OU passeport OU permis de conduire OU carte de séjour OU carte de résident">
+                            <span>?</span>
+                          </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="domicile" class="text-primary1 formatted-label space-separator">Justificatif de domicile :</label>
+                        <div class="input-icon text-center info-icon input-file-container">
+                            <input type="text" class="form-control form-control-formatted form-control-untouched input-file" placeholder="Ajouter un document" id="domicile" readonly="" />
+                            <input type="file" class="hidden file-reader" accept="image/*, .pdf" th:field="*{files}" name="domicile" />
+                            <span class="img info-icon text-alter" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="3 dernières quittances de loyer ou, à défaut, une attestation du précédent bailleur OU attestation sur l'honneur de l'hébergeant">
+                            <span>?</span>
+                          </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="work_status" class="text-primary1 formatted-label space-separator">Justificatif de situation professionnelle :</label>
+                        <div class="input-icon text-center info-icon input-file-container">
+                            <input type="text" class="form-control form-control-formatted form-control-untouched input-file" placeholder="Ajouter un document" id="work_status" readonly=""/>
+                            <input type="file" class="hidden file-reader" accept="image/*, .pdf" th:field="*{files}" name="work_status" />
+                            <span class="img info-icon text-alter" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="contrat de travail ou de stage ou, à défaut, attestation de l'employeur OU carte d'étudiant OU certificat de scolarité OU copie de la carte professionnelle (profession libérale) OU autre">
+                            <span>?</span>
+                          </span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="name1" class="text-primary1 formatted-label space-separator">Justificatif de domicile (3 dernières quittances de loyer ou, à défaut, une attestation du précédent bailleur OU attestation sur l'honneur de l'hébergeant)&nbsp;:</label>
-                        <div class="input-icon text-center green-icon">
-                            <input type="file" accept="image/*, .pdf" th:field="*{files}" class="form-control form-control-formatted form-control-untouched" placeholder="Dossier 02" />
-                            <span class="img green-icon text-alter">
-                <span>+</span>
-              </span>
+                        <label for="justificatif_res" class="text-primary1 formatted-label space-separator">Justificatif de ressources :</label>
+                        <div class="input-icon text-center info-icon input-file-container">
+                            <input type="text" class="form-control form-control-formatted form-control-untouched input-file" placeholder="Ajouter un document" id="justificatif_res" readonly=""/>
+                            <input type="file" class="hidden file-reader" accept="image/*, .pdf" th:field="*{files}" name="justificatif_res"/>
+                            <span class="img info-icon text-alter" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="dernier avis d'imposition ou de non-imposition ET 3 derniers bulletins de salaires OU justificatif de versement des indemnités de stage OU 2 derniers bilans comptables ou, à défaut attestation des ressources délivrée par un comptable (non-salariés)">
+                            <span>?</span>
+                          </span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="name1" class="text-primary1 formatted-label space-separator">Justificatif de situation professionnelle (contrat de travail ou de stage ou, à défaut, attestation de l'employeur OU carte d'étudiant OU certificat de scolarité OU copie de la carte professionnelle (profession libérale) OU autre)&nbsp;:</label>
-                        <div class="input-icon text-center green-icon">
-                            <input type="file" accept="image/*, .pdf" th:field="*{files}" class="form-control form-control-formatted form-control-untouched" placeholder="Dossier 03" />
-                            <span class="img green-icon text-alter">
-                <span>+</span>
-              </span>
-                        </div>
+                    <div id="owners_emails_list" class="form-group">
+                        <label for="emailsList" class="text-primary1 formatted-label space-separator">Emails des propriétaires&nbsp;:</label>
+                        <input id="emailsList" type="email" autocomplete="true" th:field="*{emailsList}" class="emailsList form-control form-control-formatted form-control-untouched" placeholder="Email"/>
+                        <span class="input-icon info-icon img add_owner">
+                            <span>+</span>
+                        </span>
                     </div>
-                    <div class="form-group">
-                        <label for="name3" class="text-primary1 formatted-label space-separator">Justificatif de ressources(dernier avis d'imposition ou de non-imposition ET 3 derniers bulletins de salaires OU justificatif de versement des indemnités de stage OU 2 derniers bilans comptables ou, à défaut attestation des ressources délivrée par un comptable (non-salariés))&nbsp;:</label>
-                        <div class="input-icon text-center green-icon">
-                            <input type="file" accept="image/*, .pdf" th:field="*{files}" class="form-control form-control-formatted form-control-untouched" placeholder="Dossier" />
-                            <span class="img green-icon text-alter">
-                <span>+</span>
-              </span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="emailsList" class="text-primary1 formatted-label medium-space-separator">Rentrez les emails des propriétaires à qui vous souhaitez envoyer votre dossier :</label>
-                        <textarea th:field="*{emailsList}" class="form-control form-control-formatted form-control-untouched" placeholder="example1@email.com,example2@email.com"
-                                  id="emailsList" style="border-radius:0"  rows="7"></textarea>
-                    </div>
+
                     <div class="text-center medium-space-separator">
                         <a href="" class="btn btn-primary btn-responsive animated subtitle1 envoyer" >Envoyer votre dossier</a>
                     </div>
@@ -97,15 +107,14 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content text-primary">
                                 <div class="modal-body text-center">
-                                    <p class="text-primary little-title space-separator border-bottom border-primary">Locataire</p>
+                                    <p class="text-primary little-title space-separator border-bottom border-primary">Compte créé</p>
                                     <p class="text-primary1 medium-space-separator padding-sides">
-                                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni, ipsum architecto quibusdam soluta hic aliquam
+                                        Merci d'avoir fait confiance à Locatio, un email vous a été envoyé pour finaliser votre compte, vous en recevrez un second dès que les pièces de votre dossier auront été validées.
+                                        <br/><br/>
+                                        Pour toute question, vous pouvez nous écrire à contact@locatio.beta.gouv.fr
                                     </p>
                                     <div class="medium-space-separator-top">
                                         <a th:href="@{/home}" class="btn btn-primary btn-responsive subtitle1" >Terminer</a>
-                                    </div>
-                                    <div class="medium-space-separator-top space-separator-bottom">
-                                        <a href="#" class="btn btn-default btn-responsive clearEmails subtitle1">Envoyer mon dossier à d'autres propriétaires</a>
                                     </div>
                                 </div>
                             </div>
@@ -113,31 +122,20 @@
                     </div>
                 </form>
 
-                <!--Remove or add this components for validations messages-->
-                <!--<div class="text-center">-->
-                    <!--<div class="alert alert-danger">Completéz les champs indiqués</div>-->
-                <!--</div>-->
-                <!--<div class="text-center">-->
-                    <!--<div class="alert alert-info">Dont do that</div>-->
-                <!--</div>-->
-                <!--<div class="text-center">-->
-                    <!--<div class="alert alert-success">Weel done!</div>-->
-                <!--</div>-->
-
             </div>
         </div>
     </div>
     <footer style="background-color: white;">
         <div class="container">
             <div class="line-separator"></div>
-            <div class="row medium-space-separator-top big-space-separator-bottom">
-                <div class="col-md-4">
+            <div class="row big-space-separator-bottom">
+                <div class="col-md-4 footer_logo">
                     <a href="/">
-                        <img src="assets/images/logo.svg" alt="" class="img-responsive logo sutil-separator-xs-double"/>
+                        <img src="/assets/images/logo.svg" alt="" class="img-responsive logo sutil-separator-xs-double"/>
                     </a>
                 </div>
                 <div class="col-md-8">
-                    <div class="sutil-separator-xs link">
+                    <div class="sutil-separator-xs link footer_content">
                         <span>Vous pouvez nous contacter à contact@locatio.beta.gouv.fr</span>
                         <br/>
                         <br/>

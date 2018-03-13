@@ -1,15 +1,14 @@
-package fr.gouv.locatio.controllers;
+package fr.gouv.locatio.controller;
 
-import fr.gouv.locatio.entities.Subscription;
-import fr.gouv.locatio.entities.Tenant;
-import fr.gouv.locatio.services.OwnerService;
-import fr.gouv.locatio.services.TenantService;
+import fr.gouv.locatio.entity.Subscription;
+import fr.gouv.locatio.entity.Tenant;
+import fr.gouv.locatio.service.OwnerService;
+import fr.gouv.locatio.service.TenantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 import java.util.List;
@@ -46,6 +45,12 @@ public class BackofficeController {
         List<Tenant> tenants = tenantService.listTenants();
         model.addAttribute("tenants",tenants);
         return "bo_locataires";
+    }
+
+    @PostMapping("/bo/validateTenantFile")
+    public String validateTenantFile(Integer tenantId) throws IOException {
+        tenantService.validateTenantFile(tenantId);
+        return "redirect:/bo/locataires";
     }
 
     @PostMapping("/bo/deleteTenant")

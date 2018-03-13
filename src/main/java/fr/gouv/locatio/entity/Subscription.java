@@ -1,4 +1,4 @@
-package fr.gouv.locatio.entities;
+package fr.gouv.locatio.entity;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;

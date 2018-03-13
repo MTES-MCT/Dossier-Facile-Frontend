@@ -4,17 +4,17 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout">
 <head>
-    <title>Locat.io</title>
+    <title>Locatio</title>
 </head>
 <body>
 
 <div layout:fragment="content" th:remove="tag">
-    <div class="">
+    <div class="bg-white">
         <div class="bg-white">
             <div class="container">
                 <div class="space-separator">
                     <a th:href="@{/home}" class="">
-                        <img src="assets/images/logo.svg" alt="" class="logo animated slideInLeft"/>
+                        <img src="/assets/images/logo.svg" alt="" class="logo animated slideInLeft"/>
                     </a>
                 </div>
             </div>
@@ -25,9 +25,9 @@
                 <div class="row">
                     <div class="col-sm-4"></div>
                     <div class="col-sm-4 ">
-                        <p class="little-title medium-padding-sides">
-                            Déposez votre dossier sur Locat.io et augmentez vos chances de trouver un appartement
-                        </p>`
+                        <!--<p class="little-title medium-padding-sides">-->
+                            <!--Déposez votre dossier sur Locatio et augmentez vos chances de trouver un appartement-->
+                        <!--</p>`-->
                         <!--<div class="space-separator">-->
                         <!--<p class="line"></p>-->
                         <!--</div>-->
@@ -39,7 +39,9 @@
                 </div>
             </div>
         </div>
-
+        <p class="text-center big-title text-primary medium-padding-sides space-separator-top">
+            Déposez votre dossier sur Locatio et augmentez vos chances de trouver un appartement
+        </p>
 
         <!--<div class="big-space-separator-top text-primary container animated-2 fadeIn">-->
         <!--<div class="row">-->
@@ -127,7 +129,7 @@
                 <div class="row animated-2 fadein">
                     <div class="col-md-4 text-primary text-center medium-space-separator-top">
                         <div class=" icon medium-space-separator-top">
-                            <img src="assets/icons/hands.svg" alt=""/>
+                            <img src="/assets/icons/hands.svg" alt=""/>
                         </div>
                         <p class="subtitle space-separator">En un clic</p>
                         <p class="text-primary1">En un seul clic envoyez votre dossier aux propriétaires dont le bien vous interesse</p>
@@ -135,43 +137,43 @@
                     <div class="col-md-4 text-primary text-center medium-space-separator-top">
                         <div class=" icon medium-space-separator-top">
                             &nbsp;&nbsp;
-                            <img src="assets/icons/coffe.svg" alt=""/>
+                            <img src="/assets/icons/coffe.svg" alt=""/>
                         </div>
                         <p class="subtitle space-separator">Démarquez-vous</p>
-                        <p class="text-primary1">Grâce à Locat.io et la série de tests effectués sur votre dossier vous augmentez de 60% la probabilité d'obtenir
+                        <p class="text-primary1">Grâce à Locatio et la série de tests effectués sur votre dossier vous augmentez de 60% la probabilité d'obtenir
                             l'appartement de vos rêves</p>
                     </div>
                     <div class="col-md-4 text-primary text-center medium-space-separator-top">
                         <div class=" icon medium-space-separator-top ">
                             &nbsp;&nbsp;&nbsp;
-                            <img src="assets/icons/security.svg" alt=""/>
+                            <img src="/assets/icons/security.svg" alt=""/>
                         </div>
                         <p class="subtitle space-separator">Pas d'abus</p>
-                        <p class="text-primary1">Avec Locat.io ne fournissez que <a href="https://www.service-public.fr/particuliers/vosdroits/F1169"
+                        <p class="text-primary1">Avec Locatio ne fournissez que <a href="https://www.service-public.fr/particuliers/vosdroits/F1169"
                                                                                     class="text-primary1" target="_blank"> les pièces autorisées</a> et rien de plus !</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="text-center big-space-separator">
+        <div class="text-center">
             <div class="bg-primary text-center medium-space-separator text-primary">
                 <div class="container">
-                    <a th:href="@{/envoyer-dossier}" class="btn btn-primary btn-responsive animated bounceInUp">Envoyer votre dossier</a>
+                    <a th:href="@{/creer-compte}" class="btn btn-primary btn-responsive animated bounceInUp">Créer un compte</a>
                 </div>
             </div>
         </div>
         <footer style="background-color: white;">
             <div class="container">
                 <div class="line-separator"></div>
-                <div class="row medium-space-separator-top big-space-separator-bottom">
-                    <div class="col-md-4">
+                <div class="row big-space-separator-bottom">
+                    <div class="col-md-4 footer_logo">
                         <a href="/">
-                            <img src="assets/images/logo.svg" alt="" class="img-responsive logo sutil-separator-xs-double"/>
+                            <img src="/assets/images/logo.svg" alt="" class="img-responsive logo sutil-separator-xs-double"/>
                         </a>
                     </div>
                     <div class="col-md-8">
-                        <div class="sutil-separator-xs link">
+                        <div class="sutil-separator-xs link footer_content">
                             <span>Vous pouvez nous contacter à contact@locatio.beta.gouv.fr</span>
                             <br/>
                             <br/>

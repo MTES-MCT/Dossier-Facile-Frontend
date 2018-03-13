@@ -1,4 +1,4 @@
-package fr.gouv.locatio.dtos;
+package fr.gouv.locatio.dto;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
