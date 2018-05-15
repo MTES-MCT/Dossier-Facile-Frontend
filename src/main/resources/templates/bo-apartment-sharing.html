@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Locatio</title>
+</head>
+<body>
+
+<div layout:fragment="content" th:remove="tag">
+
+    <a href="/bo/proprios">Emails proprio</a>
+    <br/>
+    <a href="/bo/colocation">Dossiers colocations</a>
+
+    <br/><br/><br/>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <td>Id</td>
+                <td>Creation date</td>
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Number of tenant</td>
+                <td>Status</td>
+                <td>See</td>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="apartmentSharing : ${apartmentSharings}">
+                <td th:text="${apartmentSharing.getId()}"></td>
+                <td th:utext="${apartmentSharing.getCreationDateTime()}"></td>
+                <td th:text="${apartmentSharing.getTenantApartmentSharing().getFirstName()}"></td>
+                <td th:text="${apartmentSharing.getTenantApartmentSharing().getLastName()}"></td>
+                <td th:text="${apartmentSharing.getNumberOfTenants()}"></td>
+                <td th:text="${apartmentSharing.getTenantFileStatus()}"></td>
+                <td><a class="fa fa-eye nounderline" th:href="@{/bo/colocation/} + ${apartmentSharing.getId()}"></a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
+

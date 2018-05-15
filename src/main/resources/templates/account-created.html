@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Locatio</title>
+</head>
+<body>
+
+<div layout:fragment="content" th:remove="tag">
+    <div class="row">
+        <div class="container" role="document">
+            <div class="text-primary">
+                <div class="text-center">
+                    <p class="text-primary little-title space-separator border-bottom border-primary">
+                        Compte créé</p>
+                    <p class="text-primary1 medium-space-separator padding-sides">
+                        Merci d'avoir fait confiance à Locatio, un email vous a été envoyé pour
+                        finaliser votre compte, vous en recevrez un second dès que les pièces de votre
+                        dossier auront été validées.
+                        <br/><br/>
+                        Pour toute question, vous pouvez nous écrire à contact@locatio.beta.gouv.fr
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

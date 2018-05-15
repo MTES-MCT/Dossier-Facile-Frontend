@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Locatio</title>
+</head>
+<body>
+
+<div layout:fragment="content" th:remove="tag">
+
+    <div class="container big-space-separator">
+        <div class="row">
+            <div class="col-md-2 col-sm-1 col-xs-1"></div>
+            <div class="col-md-8 col-sm-10 col-xs-10">
+                <p class="little-title text-center padding border-bottom border-primary text-primary text-primary1 medium-margin-bottom">
+                    Constituez votre dossier : seules les pièces autorisées par la loi vous sont demandées</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 col-sm-2 col-xs-1"></div>
+            <div class="col-md-6 col-sm-8 col-xs-10">
+
+                <form class="form" th:action="@{/creer-compte/alone}" method="post" th:object="${tenant}"
+                      onsubmit="return validate_form()"
+                      enctype="multipart/form-data" id="formLocataire" th:attrappend="data-type=${tenant.tenantType}">
+                    <div class="form-group" th:if="${tenant.tenantType}=='create'">
+                        <label for="numberOfTenants" class="text-primary1 formatted-label space-separator"
+                               th:text="#{form.number.of.tenants}"></label>
+                        <select id="numberOfTenants" th:field="*{numberOfTenants}"
+                                class=" rounded-select form-control form-control-formatted form-control-untouched"
+                                placeholder="Situation">
+                            <!--<option  th:text="#{tenant.form.situation.situation}"></option>-->
+                            <option th:value="2">2</option>
+                            <option th:value="3">3</option>
+                            <option th:value="4">4</option>
+                            <option th:value="5">5</option>
+                            <option th:value="6">6</option>
+
+                        </select>
+                    </div>
+                    <div class="form-group" th:if="${tenant.tenantType}=='join'">
+                        <label for="tenantEmail" class="text-primary1 formatted-label space-separator"
+                               th:text="#{form.join.apartmentSharing}"></label>
+                        <input type="email" id="tenantEmail" autocomplete="true"
+                               th:field="*{tenantEmail}"
+                               class="form-control form-control-formatted form-control-untouched"
+                               placeholder="Email"/>
+                        <span th:if="${#fields.hasErrors('tenantEmail')}" class="help-block" th:errors="*{tenantEmail}" style="color: red"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName" class="text-primary1 formatted-label  medium-space-separator">Entrez vos
+                            informations personnelles:</label>
+                        <!--Add or remove the class (invalid) for validations-->
+                        <input type="text" autocomplete="true" th:field="*{lastName}"
+                               class="form-control form-control-formatted form-control-untouched " placeholder="Nom"
+                               id="lastName"/>
+                        <span id="lastName-error" style="display: none; color: red"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" autocomplete="true" th:field="*{firstName}"
+                               class="form-control form-control-formatted form-control-untouched" placeholder="Prenom"
+                               id="firstName"/>
+                        <span id="firstName-error" style="display: none; color: red"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" autocomplete="true" th:field="*{email}"
+                               class="form-control form-control-formatted form-control-untouched" placeholder="Email"/>
+                        <span th:if="${#fields.hasErrors('email')}" class="help-block" th:errors="*{email}" style="color: red"></span>
+                    </div>
+                    <div class="form-group">
+                        <!--<input id="situation" required="required" autocomplete="true" th:field="*{situation}" class="form-control form-control-formatted form-control-untouched" placeholder="Situation"/>-->
+                        <select th:field="*{situation}"
+                                class=" rounded-select form-control form-control-formatted form-control-untouched"
+                                placeholder="Situation">
+                            <!--<option  th:text="#{tenant.form.situation.situation}"></option>-->
+                            <option th:value="0" th:text="#{tenant.form.situation.cdi}"></option>
+                            <option th:value="1" th:text="#{tenant.form.situation.cdi_trial}"></option>
+                            <option th:value="2" th:text="#{tenant.form.situation.cdd}"></option>
+                            <option th:value="3" th:text="#{tenant.form.situation.internship}"></option>
+                            <option th:value="4" th:text="#{tenant.form.situation.student}"></option>
+                            <option th:value="5" th:text="#{tenant.form.situation.public}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id="salary" autocomplete="true" th:field="*{salary}"
+                               class="form-control form-control-formatted form-control-untouched"
+                               placeholder="Salaire net mensuel"/>
+                        <!--<span id="email-error" style="display: none; color: red"></span>-->
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="identity_card" class="text-primary1 formatted-label space-separator">Pièce
+                            d'identité en cours de validité :</label>
+                        <div class="input-icon text-center info-icon input-file-container">
+                            <input type="text"
+                                   class="form-control form-control-formatted form-control-untouched input-file"
+                                   placeholder="Ajouter un document" id="identity_card" readonly="" data-id="0"/>
+                            <input type="file" class="hidden file-reader" accept="image/*, .pdf" th:field="*{files}"
+                                   name="identity_card"/>
+                            <span class="img info-icon text-alter" data-toggle="tooltip" data-placement="bottom"
+                                  title=""
+                                  data-original-title="carte d'identité OU passeport OU permis de conduire OU carte de séjour OU carte de résident">
+                            <span>?</span>
+                          </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="domicile" class="text-primary1 formatted-label space-separator">Justificatif de
+                            domicile :</label>
+                        <div class="input-icon text-center info-icon input-file-container">
+                            <input type="text"
+                                   class="form-control form-control-formatted form-control-untouched input-file"
+                                   placeholder="Ajouter un document" id="domicile" readonly="" data-id="1"/>
+                            <input type="file" class="hidden file-reader" accept="image/*, .pdf" th:field="*{files}"
+                                   name="domicile"/>
+                            <span class="img info-icon text-alter" data-toggle="tooltip" data-placement="bottom"
+                                  title=""
+                                  data-original-title="3 dernières quittances de loyer ou, à défaut, une attestation du précédent bailleur OU attestation sur l'honneur de l'hébergeant">
+                            <span>?</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="work_status" class="text-primary1 formatted-label space-separator">Justificatif de
+                            situation professionnelle :</label>
+                        <div class="input-icon text-center info-icon input-file-container">
+                            <input type="text"
+                                   class="form-control form-control-formatted form-control-untouched input-file"
+                                   placeholder="Ajouter un document" id="work_status" readonly="" data-id="2"/>
+                            <input type="file" class="hidden file-reader" accept="image/*, .pdf" th:field="*{files}"
+                                   name="work_status"/>
+                            <span class="img info-icon text-alter" data-toggle="tooltip" data-placement="bottom"
+                                  title=""
+                                  data-original-title="contrat de travail ou de stage ou, à défaut, attestation de l'employeur OU carte d'étudiant OU certificat de scolarité OU copie de la carte professionnelle (profession libérale) OU autre">
+                            <span>?</span>
+                          </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="impots" class="text-primary1 formatted-label space-separator">Avis d'imposition
+                            :</label>
+                        <div class="input-icon text-center info-icon input-file-container">
+                            <input type="text"
+                                   class="form-control form-control-formatted form-control-untouched input-file"
+                                   placeholder="Ajouter un document" id="impots" readonly="" data-id="3"/>
+                            <input type="file" class="hidden file-reader" accept="image/*, .pdf" th:field="*{files}"
+                                   name="justificatif_res"/>
+                            <span class="img info-icon text-alter" data-toggle="tooltip" data-placement="bottom"
+                                  title="" data-original-title="dernier avis d'imposition ou de non-imposition">
+                            <span>?</span>
+                          </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="justificatif_res" class="text-primary1 formatted-label space-separator">Justificatif
+                            de ressources :</label>
+                        <div class="input-icon text-center info-icon input-file-container">
+                            <input type="text"
+                                   class="form-control form-control-formatted form-control-untouched input-file"
+                                   placeholder="Ajouter un document" id="justificatif_res" readonly="" data-id="4"/>
+                            <input type="file" class="hidden file-reader" accept="image/*, .pdf" th:field="*{files}"
+                                   name="justificatif_res"/>
+                            <span class="img info-icon text-alter" data-toggle="tooltip" data-placement="bottom"
+                                  title=""
+                                  data-original-title="3 derniers bulletins de salaires OU justificatif de versement des indemnités de stage OU 2 derniers bilans comptables ou, à défaut attestation des ressources délivrée par un comptable (non-salariés)">
+                            <span>?</span>
+                          </span>
+                        </div>
+                    </div>
+                    <input type="hidden" th:field="*{tenantType}" name="tenantType"/>
+
+                    <div class="form-check">
+                        <input type="checkbox" data-toggle="collapse" data-target="#guarantorForm"
+                               th:field="*{hasGuarantor}" class="form-check-input" id="hasGuarantor"/>
+                        <label class="form-check-label text-primary1 " for="hasGuarantor">J'ai un garant</label>
+                    </div>
+
+                    <!--guarantor-->
+                    <div id="guarantorForm" class="collapse">
+
+                        <div th:replace="include/guarantor:: guarantor">
+                        </div>
+
+                    </div>
+                    <div id="errors">
+
+                    </div>
+
+                    <div class="text-center medium-space-separator">
+                        <button type="submit" data-loading-text="Création en cours..."
+                                id="create-tenant" class="btn btn-primary btn-responsive animated subtitle1">Créer un
+                            compte
+                        </button>
+                    </div>
+                    <div class="text-center space-separator-top medium-space-separator-bottom">
+                        <a th:href="@{/home}" class="text-primary text-primary1">
+                            Revenir
+                        </a>
+                    </div>
+
+                    <!-- Modal -->
+                    <!--<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="confirm">-->
+                    <!--<div class="modal-dialog" role="document">-->
+                    <!--<div class="modal-content text-primary">-->
+                    <!--<div class="modal-body text-center">-->
+                    <!--<p class="text-primary little-title space-separator border-bottom border-primary">-->
+                    <!--Compte créé</p>-->
+                    <!--<p class="text-primary1 medium-space-separator padding-sides">-->
+                    <!--Merci d'avoir fait confiance à Locatio, un email vous a été envoyé pour-->
+                    <!--finaliser votre compte, vous en recevrez un second dès que les pièces de votre-->
+                    <!--dossier auront été validées.-->
+                    <!--<br/><br/>-->
+                    <!--Pour toute question, vous pouvez nous écrire à contact@locatio.beta.gouv.fr-->
+                    <!--</p>-->
+                    <!--<div class="medium-space-separator-top">-->
+                    <!--<a th:href="@{/home}"-->
+                    <!--class="btn btn-primary btn-responsive subtitle1">Terminer</a>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
