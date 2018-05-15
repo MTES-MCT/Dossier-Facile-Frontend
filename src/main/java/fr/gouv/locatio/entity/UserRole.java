@@ -8,6 +8,19 @@ import javax.persistence.*;
 @Table(name = "user_roles")
 public class UserRole {
 
+    public UserRole() {
+    }
+
+    public UserRole(Owner owner) {
+        this.user = owner;
+        this.role = Role.ROLE_OWNER;
+    }
+
+    public UserRole(Tenant tenant) {
+        this.user = tenant;
+        this.role = Role.ROLE_TENANT;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;

@@ -27,14 +27,11 @@ body table {
 }
 
 .banner {
-    position: absolute;
     height: 100vh;
     width: 100%;
-    background-image: url("../assets/images/banner3.jpg");
     -webkit-transition: background-image 1s linear;
     transition: background-image 1s linear;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: url("../assets/images/banner3.jpg") no-repeat;
     background-size: cover;
     position: relative;
 }
@@ -316,7 +313,7 @@ body table {
 }
 
 .sutil-space-separator-bottom {
-    padding-bottom: 60px;
+    padding-bottom: 170px;
 }
 
 @media (max-width: 767px) {
@@ -487,7 +484,7 @@ textarea {
     line-height: 1.5;
 }
 
-input {
+input , select.rounded-select{
     border: 1px solid #003189 !important;
     padding-left: 20px !important;
     padding-right: 20px;
@@ -496,6 +493,17 @@ input {
 
 input.form-control {
     height: 40px;
+}
+
+.navbar-brand{
+    padding: 5px 15px 15px 15px !important;
+}
+
+.navbar-brand img.logo{
+    width: 250px;
+}
+#navbar .logout{
+    padding: 12px !important;
 }
 
 .form-control-untouched {
@@ -724,6 +732,13 @@ table.paired-td td > *:first-child {
 
 .tooltip-inner::first-letter {
     text-transform: capitalize;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
 

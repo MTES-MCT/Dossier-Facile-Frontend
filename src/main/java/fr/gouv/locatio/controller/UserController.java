@@ -44,4 +44,10 @@ public class UserController {
     public String displayLogin() {
         return "login";
     }
+
+    @GetMapping("/mon-compte")
+    public String displayAccount(@PathVariable("token") String token, Model model) {
+        model.addAttribute("token", token);
+        return "change-password";
+    }
 }

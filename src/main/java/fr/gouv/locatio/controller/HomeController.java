@@ -1,6 +1,5 @@
 package fr.gouv.locatio.controller;
 
-import fr.gouv.locatio.displayer.UserDisplayer;
 import fr.gouv.locatio.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,8 +15,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model) {
-        UserDisplayer userDisplayer = userService.createConnectedUserDisplayer();
-        model.addAttribute("displayer", userDisplayer);
         return "index";
     }
 

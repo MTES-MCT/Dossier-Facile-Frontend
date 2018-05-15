@@ -8,18 +8,21 @@ import java.util.Set;
 
 @Entity
 @Table(name = "user")
+@Inheritance(
+        strategy = InheritanceType.JOINED
+)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(nullable = false)
+    @Column()
     private String firstName;
 
-    @Column(nullable = false)
+    @Column()
     private String lastName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column
@@ -31,7 +34,10 @@ public class User {
 
     @Column(name = "creation_date")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
-    private LocalDateTime creationDateTime;
+    private LocalDateTime creationDateTime = LocalDateTime.now();
+
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private PasswordRecoveryToken passwordRecoveryToken;
 
     public Integer getId() {
         return id;
@@ -88,5 +94,13 @@ public class User {
 
     public void setCreationDateTime(LocalDateTime creationDateTime) {
         this.creationDateTime = creationDateTime;
+    }
+
+    public PasswordRecoveryToken getPasswordRecoveryToken() {
+        return passwordRecoveryToken;
+    }
+
+    public void setPasswordRecoveryToken(PasswordRecoveryToken passwordRecoveryToken) {
+        this.passwordRecoveryToken = passwordRecoveryToken;
     }
 }

@@ -1,23 +1,39 @@
 package fr.gouv.locatio.controller;
 
-import fr.gouv.locatio.displayer.UserDisplayer;
+import fr.gouv.locatio.dto.GuarantorDTO;
 import fr.gouv.locatio.dto.TenantDTO;
+import fr.gouv.locatio.entity.ApartmentSharing;
+import fr.gouv.locatio.entity.Guarantor;
+import fr.gouv.locatio.entity.Owner;
 import fr.gouv.locatio.entity.Tenant;
-import fr.gouv.locatio.entity.User;
+import fr.gouv.locatio.repository.OwnerRepository;
+import fr.gouv.locatio.repository.TenantRepository;
+import fr.gouv.locatio.service.ApartmentSharingService;
+import fr.gouv.locatio.service.OwnerService;
 import fr.gouv.locatio.service.TenantService;
 import fr.gouv.locatio.service.UserService;
+import fr.gouv.locatio.validator.TenantAlone;
+import fr.gouv.locatio.validator.TenantCreateApartmentSharing;
+import fr.gouv.locatio.validator.TenantJoinApartmentSharing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class TenantController {
@@ -28,56 +44,219 @@ public class TenantController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private OwnerRepository ownerRepository;
+
+    @Autowired
+    private OwnerService ownerService;
+
+    @Autowired
+    private ApartmentSharingService apartmentSharingService;
+
+    @Autowired
+    private TenantRepository tenantRepository;
+
     @GetMapping("/locataire")
     public String getLocataire(Model model) {
-        UserDisplayer userDisplayer = userService.createConnectedUserDisplayer();
-        model.addAttribute("displayer", userDisplayer);
         return "info-locataire";
     }
 
-    @GetMapping("/creer-compte")
-    public String envoyerDossier(Model model) {
+    @GetMapping("/locataire/new")
+    public String envoyerDossier(Model model, @RequestParam(required = false) String apartmentSharing) {
         TenantDTO tenantDTO = new TenantDTO();
+        String tenantType = "alone";
+        if (apartmentSharing != null) {
+            tenantType = apartmentSharing;
+        }
+        tenantDTO.setTenantType(tenantType);
         model.addAttribute("tenant", tenantDTO);
-        return "envoyer-dossier";
+        //model.addAttribute("tenantType", tenantType);
+        return "tenant-form";
     }
 
-    @PostMapping("/info-locataire")
+    /*@PostMapping("/info-locataire")
     @ResponseBody
-    public ResponseEntity<?> registerTenant(@Valid TenantDTO tenantDTO, BindingResult result, Model model) {
+    public ResponseEntity<?> registerTenant(@Validated(CreateTenant.class) TenantDTO tenantDTO, BindingResult result, Model model) {
         if (!result.hasErrors()) {
-            if (tenantService.createAccount(tenantDTO, model)) {
+            if (tenantService.createAccount(tenantDTO)) {
                 return new ResponseEntity("Successfully uploaded!", HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         }
         model.addAttribute("tenant", tenantDTO);
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity(result.getAllErrors(), HttpStatus.BAD_REQUEST);
+    }*/
+
+    @GetMapping("/compte-cree")
+    public String accountCreated(Model model, @RequestParam(required = false) String apartmentSharing) {
+        return "account-created";
+    }
+
+    @PostMapping("/creer-compte/alone")
+    public String createAccountAlone(Model model, @Validated(TenantAlone.class) @ModelAttribute("tenant") TenantDTO tenantDTO, BindingResult result) {
+        if (result.hasErrors()) {
+            return "tenant-form";
+        }
+        tenantService.createAccount(tenantDTO);
+        return "redirect:/compte-cree";
+    }
+
+    @PostMapping("/creer-compte/create-colocation")
+    public String createAccountOwnerApartmentSharing(Model model, @Validated(TenantCreateApartmentSharing.class) @ModelAttribute("tenant") TenantDTO tenantDTO, BindingResult result) {
+        if (result.hasErrors()) {
+            return "tenant-form";
+        }
+        tenantService.createAccount(tenantDTO);
+        return "redirect:/compte-cree";
+
+    }
+
+    @PostMapping("/creer-compte/join-colocation")
+    public String createAccountJoinApartmentSharing(Model model, @Validated(TenantJoinApartmentSharing.class) @ModelAttribute("tenant") TenantDTO tenantDTO, BindingResult result) {
+        if (result.hasErrors()) {
+            return "tenant-form";
+        }
+        tenantService.createAccount(tenantDTO);
+        return "redirect:/compte-cree";
     }
 
 
     @GetMapping("/locataire/mon-compte")
-    public String displayTenantAccount(Model model) {
-        Tenant tenant = tenantService.displayAccount();
-        UserDisplayer displayer = userService.createConnectedUserDisplayer();
+    public String displayTenantAccount(Model model, Principal principal) {
+        Tenant tenant = tenantRepository.findOneByEmail(principal.getName());
         if (null == tenant) {
             return "redirect:/error";
         }
-        model.addAttribute("displayer", displayer);
+
+        ApartmentSharing apartmentSharing = null;
+        if (tenant.getApartmentSharings().size() > 0) {
+            apartmentSharing = tenant.getApartmentSharings().get(0);
+        } else if (tenant.getJoinedApartmentSharings().size() > 0) {
+            apartmentSharing = tenant.getJoinedApartmentSharings().get(0);
+        }
+
         model.addAttribute("tenant", tenant);
-        model.addAttribute("magicLink", false);
+        model.addAttribute("validApartmentSharing", apartmentSharingService.validateApartmentSharing(apartmentSharing));
+        model.addAttribute("apartmentSharing", apartmentSharing);
+        model.addAttribute("tenantOwnerApartmentSharing", apartmentSharing != null && apartmentSharing.getTenantApartmentSharing().getId().equals(tenant.getId()));
         return "mon-compte";
     }
 
     @GetMapping("/dossier-locataire/{token}")
-    public String displayTenantFile(@PathVariable("token") String token, Model model) {
-        Tenant tenant = tenantService.findTenantFileFromToken(token);
-        if (null == tenant) {
+    public String displayTenantFile(@PathVariable("token") String token, Model model, HttpServletRequest request, Principal principal) {
+        ApartmentSharing apartmentSharing = apartmentSharingService.findApartmentSharingFromToken(token);
+        if (null == apartmentSharing) {
+            return "redirect:/error";
+        }
+
+        if (principal != null) {
+            Owner owner = ownerRepository.findOneByEmail(principal.getName());
+            if (owner != null) {
+                ownerService.linkOwnerTenant(owner, token);
+            }
+        } else {
+            request.getSession().setAttribute("token", token);
+        }
+
+        model.addAttribute("token", token);
+
+        if (apartmentSharing.isForOneTenant()) {
+            model.addAttribute("tenant", apartmentSharing.getTenantApartmentSharing());
+            model.addAttribute("showFiles", true);
+            return "visit-file";
+        } else {
+            List<Tenant> tenants = new ArrayList<>();
+            tenants.add(apartmentSharing.getTenantApartmentSharing());
+            tenants.addAll(apartmentSharing.getTenants());
+            model.addAttribute("tenants", tenants);
+            model.addAttribute("apartmentSharing", apartmentSharing);
+            model.addAttribute("token", token);
+            model.addAttribute("totalSalary", apartmentSharingService.totalSalary(apartmentSharing));
+            return "visit-apartment-sharing-full";
+        }
+
+    }
+
+
+    @GetMapping("/visite-locataire/{tokenPublic}")
+    public String displayTenantInfoWithoutFile(@PathVariable("tokenPublic") String tokenPublic, Model model, HttpServletRequest request, Principal principal) {
+        ApartmentSharing apartmentSharing = apartmentSharingService.findApartmentSharingFromTokenPublic(tokenPublic);
+        if (null == apartmentSharing) {
+            return "redirect:/error";
+        }
+        if (principal != null) {
+            Owner owner = ownerRepository.findOneByEmail(principal.getName());
+            if (owner != null) {
+                ownerService.linkOwnerTenant(owner, tokenPublic);
+            }
+        } else {
+            request.getSession().setAttribute("token", tokenPublic);
+        }
+
+        model.addAttribute("token", tokenPublic);
+        if (apartmentSharing.isForOneTenant()) {
+            model.addAttribute("tenant", apartmentSharing.getTenantApartmentSharing());
+            model.addAttribute("showFiles", false);
+            return "visit-file";
+        } else {
+            List<Tenant> tenants = new ArrayList<>();
+            tenants.add(apartmentSharing.getTenantApartmentSharing());
+            tenants.addAll(apartmentSharing.getTenants());
+            model.addAttribute("tenants", tenants);
+            model.addAttribute("apartmentSharing", apartmentSharing);
+            model.addAttribute("token", tokenPublic);
+            model.addAttribute("totalSalary", apartmentSharingService.totalSalary(apartmentSharing));
+            request.getSession().setAttribute("token", apartmentSharing.getTokenPublic());
+            return "visit-apartment-sharing-restricted";
+        }
+    }
+
+    @GetMapping("/locataire/modifier-mon-compte")
+    public String modifyProfile(Model model) {
+        TenantDTO tenant = tenantService.getTenantLogged();
+        Tenant tenantEntity = tenantService.displayTenantAccount();
+        if (tenantEntity.getGuarantor() != null) {
+            Guarantor guarantor = tenantEntity.getGuarantor();
+            tenant.setGuarantor(new GuarantorDTO(guarantor));
+        }
+        if (null == tenant || tenantEntity.isValidated()) {
             return "redirect:/error";
         }
         model.addAttribute("tenant", tenant);
-        model.addAttribute("magicLink", true);
-        return "mon-compte";
+        model.addAttribute("tenantEntity", tenantEntity);
+        return "modifier-mon-compte";
     }
+
+    @PostMapping("/locataire/modifier-mon-compte")
+    public ResponseEntity<?> modifyTenant(@Valid TenantDTO tenantDTO, BindingResult result, Model model) {
+        if (!result.hasErrors()) {
+            if (tenantService.modifyAccount(tenantDTO)) {
+                return new ResponseEntity("Successfully uploaded!", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        }
+        model.addAttribute("tenant", tenantDTO);
+        return new ResponseEntity(result.getAllErrors(), HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/locataire/delete")
+    public String delete(Model model, HttpServletRequest request, HttpServletResponse response) {
+        Tenant tenantEntity = tenantService.displayTenantAccount();
+        if (tenantEntity != null) {
+            try {
+                tenantService.deleteTenant(tenantEntity.getId());
+            } catch (IOException e) {
+                System.out.println(e);
+            }
+        }
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/login?logout";
+    }
+
+
 }

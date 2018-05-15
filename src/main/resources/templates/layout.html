@@ -6,18 +6,10 @@
     <head th:replace="include/head :: head"></head>
 </head>
 <body>
-<header th:if="${displayer != null}" class="fixed-header">
-    <div class="fixed-header-link-container">
-        <a th:if="${not displayer.connected}" href="/login" class="btn-primary fixed-header-link" style="display: block;">Me connecter</a>
-        <a th:if="${displayer.connected}" href="/locataire/mon-compte" class="btn-primary fixed-header-link">Mon compte</a>
-        <form th:if="${displayer.connected}" th:method="post" th:action="@{/logout}">
-            <button th:type="submit" th:if="${displayer.connected}" class="btn-primary fixed-header-link">Me déconnecter</button>
-        </form>
-    </div>
-
-</header>
+<div th:replace="include/fixed-header :: fixed-header">...</div>
 <div layout:fragment="content"></div>
 <div th:replace="include/scripts :: script">...</div>
+<div th:replace="include/footer :: footer">...</div>
 <div layout:fragment="javascripts">
 </div>
 </body>

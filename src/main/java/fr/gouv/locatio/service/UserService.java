@@ -1,6 +1,5 @@
 package fr.gouv.locatio.service;
 
-import fr.gouv.locatio.displayer.UserDisplayer;
 import fr.gouv.locatio.entity.PasswordRecoveryToken;
 import fr.gouv.locatio.entity.User;
 import fr.gouv.locatio.repository.PasswordRecoveryTokenRepository;
@@ -10,8 +9,13 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,20 +35,35 @@ public class UserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Value("${domain.url}")
+    private String domainURL;
+
     public void launchPasswordRecoveryProcedure(String recoveryEmail, boolean accountCreation) {
         User user = userRepository.findOneByEmail(recoveryEmail);
         if (null != user) {
-            PasswordRecoveryToken passwordRecoveryToken = new PasswordRecoveryToken();
-            passwordRecoveryToken.setUser(user);
-            passwordRecoveryToken.setExpirationDate((new LocalDateTime()).plusDays(1));
-            passwordRecoveryToken.setToken(RandomStringUtils.randomAlphabetic(64));
+            PasswordRecoveryToken passwordRecoveryToken = passwordRecoveryTokenRepository.findOneByUser(user);
+            if (passwordRecoveryToken == null) {
+                passwordRecoveryToken = new PasswordRecoveryToken();
+                passwordRecoveryToken.setUser(user);
+                passwordRecoveryToken.setExpirationDate((new LocalDateTime()).plusDays(1));
+                passwordRecoveryToken.setToken(RandomStringUtils.randomAlphanumeric(8));
+            } else {
+                passwordRecoveryToken.setExpirationDate((new LocalDateTime()).plusDays(1));
+                passwordRecoveryToken.setToken(RandomStringUtils.randomAlphanumeric(8));
+            }
             passwordRecoveryTokenRepository.save(passwordRecoveryToken);
             String mailTitle = accountCreation ? "Bienvenue sur Locatio !" : "Mot de passe oublié !";
-            String tokenLink = "https://locatio.beta.gouv.fr/changer-de-mot-de-passe/" + passwordRecoveryToken.getToken();
+            String tokenLink = domainURL+"/changer-de-mot-de-passe/" + passwordRecoveryToken.getToken();
 
-            String mailMessage = "Bonjour,<br/><br/>Vous avez fait une demande de changement de mot de passe. Pour obtenir un nouveau mot de passe cliquez sur le lien suivant :<br/><br/><a href=\"\" + tokenLink + \"\\\">\" + tokenLink + \"</a>https://locatio.beta.gouv.fr/passwordRecovery?token=\" + passwordRecoveryToken.getToken() + \"</a><br/><br/>L'équipe Locatio<br/><br/>Pour toute question, vous pouvez nous écrire à : contact@locatio.beta.gouv.fr";
+            String mailMessage = "Bonjour,<br/><br/>Vous avez fait une demande de changement de mot de passe. Pour obtenir un nouveau mot de passe cliquez sur le lien suivant :<br/><br/><a href=\"" + tokenLink + "\">" + tokenLink + "</a><br/><br/>L'équipe Locatio<br/><br/>Pour toute question, vous pouvez nous écrire à : contact@locatio.beta.gouv.fr";
             if (accountCreation) {
-                mailMessage = "Bonjour,<br/><br/>Merci de faire confiance à Locatio. Pour activer votre compte cliquer sur le lien suivant :<br/><br/><a href=\"" + tokenLink + "\">" + tokenLink + "</a><br/><br/>Vous recevrez un email dès que les pièces de votre dossier auront été vérifiées. Cette opération nous prend généralement moins de 24 heures.<br/><br/>Une fois votre dossier vérifié, vous pourrez l'envoyer directement sous forme d'un lien aux propriétaires de votre choix.<br/><br/>L'équipe Locatio<br/><br/>Pour toute question, vous pouvez nous écrire à : contact@locatio.beta.gouv.fr";
+                mailMessage = "Bonjour,<br/><br/>Merci de faire confiance à Locatio. Pour activer votre compte, cliquez sur le lien suivant :<br/><br/><a href=\"" + tokenLink + "\">" + tokenLink + "</a><br/><br/>Vous recevrez un email dès que les pièces de votre dossier auront été vérifiées. Cette opération nous prend généralement moins de 24 heures.<br/><br/>Une fois votre dossier vérifié, vous pourrez l'envoyer directement sous forme d'un lien aux propriétaires de votre choix.<br/><br/>L'équipe Locatio<br/><br/>Pour toute question, vous pouvez nous écrire à : contact@locatio.beta.gouv.fr";
             }
             mailService.sendAsyncMail("contact@locatio.beta.gouv.fr", recoveryEmail, "contact@locatio.beta.gouv.fr", mailTitle, mailMessage);
         }
@@ -65,26 +84,23 @@ public class UserService {
 
         User user = passwordRecoveryToken.getUser();
         user.setPassword(bCryptPasswordEncoder.encode(password));
+//        passwordRecoveryTokenRepository.delete(passwordRecoveryToken);
+        user.setPasswordRecoveryToken(null);
+        passwordRecoveryToken.setUser(null);
         userRepository.save(user);
-        passwordRecoveryTokenRepository.delete(passwordRecoveryToken);
+        autologin(user.getEmail(), password);
         return ChangePasswordStatus.SUCCESS;
     }
 
-    public User getLoggedUser() {
-        if (SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken) {
-            return null;
+    public void autologin(String username, String password) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
+
+        authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+
+        if (usernamePasswordAuthenticationToken.isAuthenticated()) {
+            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         }
-        org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return userRepository.findOneByEmail(user.getUsername());
     }
 
-    public UserDisplayer createConnectedUserDisplayer() {
-        User user = getLoggedUser();
-        UserDisplayer userDisplayer = new UserDisplayer();
-        if (null != user) {
-            userDisplayer.setConnected(true);
-            userDisplayer.setUsername(user.getFirstName() + " " + user.getLastName());
-        }
-        return userDisplayer;
-    }
 }

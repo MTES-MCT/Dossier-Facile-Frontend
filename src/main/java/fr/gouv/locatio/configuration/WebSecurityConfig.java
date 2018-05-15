@@ -1,11 +1,15 @@
 package fr.gouv.locatio.configuration;
 
+import fr.gouv.locatio.security.RedirectAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,11 +19,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Properties;
+import java.util.concurrent.Executor;
 
 @Configuration
 @EnableWebSecurity
+@EnableAsync
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Value("${spring.mail.username}")
@@ -34,13 +41,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrfTokenRepository(csrfTokenRepository())
                 .and()
                 .authorizeRequests()
-                .antMatchers("/bo", "/bo/**").access("hasAnyRole('ROLE_ADMIN')")
-                .antMatchers("/locataire/mon-compte").access("hasAnyRole('ROLE_TENANT')")
+                .antMatchers("/bo", "/bo/**","/stats").access("hasAnyRole('ROLE_ADMIN')")
+                .antMatchers("/locataire/mon-compte", "/proprietaire/contacter/**", "/locataire/modifier-mon-compte").access("hasAnyRole('ROLE_TENANT')")
+                .antMatchers( "/proprietaire/contacter/**").access("hasAnyRole('ROLE_TENANT','ROLE_OWNER')")
+                .antMatchers("/proprietaire/mon-compte").access("hasAnyRole('ROLE_OWNER')")
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/login")
+                .successForwardUrl("/mon-compte")
                 .permitAll()
+                .successHandler(redirectAuthenticationSuccessHandler())
                 .and()
                 .logout()
                 .permitAll();
@@ -51,14 +62,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication().withUser(username).password(password).roles("ADMIN");
-//    }
-
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public RedirectAuthenticationSuccessHandler redirectAuthenticationSuccessHandler() {
+        return new RedirectAuthenticationSuccessHandler();
     }
 
     private CsrfTokenRepository csrfTokenRepository() {
@@ -82,10 +93,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public JavaMailSender mailSender() {
+    @Profile("prod")
+    public JavaMailSender mailSenderProd() {
+        return config("in-v3.mailjet.com");
+    }
+
+    @Bean
+    @Profile("dev")
+    public JavaMailSender mailSenderDev() {
+        return config("smtp.gmail.com");
+    }
+
+    private JavaMailSender config(String host) {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setDefaultEncoding("UTF-8");
-        mailSender.setHost("in-v3.mailjet.com");
+        mailSender.setHost(host);
         mailSender.setUsername(username);
         mailSender.setPassword(password);
         Properties properties = new Properties();
@@ -94,4 +116,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         mailSender.setJavaMailProperties(properties);
         return mailSender;
     }
+
+    @Bean
+    public Executor asyncExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(2);
+        executor.setMaxPoolSize(2);
+        executor.setQueueCapacity(500);
+        executor.setThreadNamePrefix("Mailer-");
+        executor.initialize();
+        return executor;
+    }
+
+    @Bean
+    public RestTemplate restTemplate(){
+        return new RestTemplate();
+    }
+
 }

@@ -1,21 +1,35 @@
 package fr.gouv.locatio.entity;
 
-import org.hibernate.annotations.Type;
-import org.joda.time.LocalDateTime;
+
+import fr.gouv.locatio.dto.TenantDTO;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tenant")
-public class Tenant {
+public class Tenant extends User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @OneToMany(mappedBy = "tenantApartmentSharing", cascade = CascadeType.ALL)
+    private List<ApartmentSharing> apartmentSharings = new ArrayList<>();
+
+    @OneToOne(mappedBy = "tenant", cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY, optional = false)
+    private Guarantor guarantor;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "tenant_apartment_sharing",
+            joinColumns = @JoinColumn(name = "Tenant_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "Apartment_Sharing_ID", referencedColumnName = "ID"))
+    private List<ApartmentSharing> joinedApartmentSharings = new ArrayList<>();
+
 
     @Column(nullable = false)
     private String upload1;
@@ -30,17 +44,38 @@ public class Tenant {
     private String upload4;
 
     @Column(nullable = false)
+    private String upload5;
+
+    @Column(nullable = false)
     private TenantFileStatus tenantFileStatus;
 
     @Column(nullable = false)
-    private String emailsList;
+    private TenantSituation tenantSituation;
 
-    @Column
-    private String token;
+    @Column(nullable = false)
+    private Integer salary;
 
-    @Column(name = "creation_date")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
-    private LocalDateTime tokenEndDate;
+
+    public Tenant() {
+    }
+
+    public Tenant(TenantDTO tenantDTO) {
+       super.setEmail(tenantDTO.getEmail());
+       super.setFirstName(tenantDTO.getFirstName().trim().replaceAll("\\s+", " "));
+       super.setLastName(tenantDTO.getLastName().trim().replaceAll("\\s+", " "));
+       this.tenantFileStatus = TenantFileStatus.TO_PROCESS;
+       this.salary = tenantDTO.getSalary();
+       this.setTenantSituation(TenantSituation.values()[tenantDTO.getSituation()]);
+
+    }
+
+    public List<ApartmentSharing> getApartmentSharings() {
+        return apartmentSharings;
+    }
+
+    public void setApartmentSharings(List<ApartmentSharing> apartmentSharings) {
+        this.apartmentSharings = apartmentSharings;
+    }
 
     public Integer getId() {
         return id;
@@ -48,14 +83,6 @@ public class Tenant {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public String getUpload1() {
@@ -90,6 +117,14 @@ public class Tenant {
         this.upload4 = upload4;
     }
 
+    public String getUpload5() {
+        return upload5;
+    }
+
+    public void setUpload5(String upload5) {
+        this.upload5 = upload5;
+    }
+
     public TenantFileStatus getTenantFileStatus() {
         return tenantFileStatus;
     }
@@ -98,27 +133,54 @@ public class Tenant {
         this.tenantFileStatus = tenantFileStatus;
     }
 
-    public String getEmailsList() {
-        return emailsList;
+    public TenantSituation getTenantSituation() {
+        return tenantSituation;
     }
 
-    public void setEmailsList(String emailsList) {
-        this.emailsList = emailsList;
+    public void setTenantSituation(TenantSituation tenantSituation) {
+        this.tenantSituation = tenantSituation;
     }
 
-    public String getToken() {
-        return token;
+    public Integer getSalary() {
+        return salary;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setSalary(Integer salary) {
+        this.salary = salary;
     }
 
-    public LocalDateTime getTokenEndDate() {
-        return tokenEndDate;
+    public String getSituationText() {
+        return TenantSituation.values()[this.getTenantSituation().ordinal()].getLabel();
     }
 
-    public void setTokenEndDate(LocalDateTime tokenEndDate) {
-        this.tokenEndDate = tokenEndDate;
+    public boolean isValidated() {
+        return tenantFileStatus == TenantFileStatus.VALIDATED;
+    }
+
+
+    public List<ApartmentSharing> getJoinedApartmentSharings() {
+        return joinedApartmentSharings;
+    }
+
+    public void setJoinedApartmentSharings(List<ApartmentSharing> joinedApartmentSharings) {
+        this.joinedApartmentSharings = joinedApartmentSharings;
+    }
+
+    public void addJoinedApartmentSharings(ApartmentSharing apartmentSharing) {
+        this.joinedApartmentSharings.add(apartmentSharing);
+    }
+
+
+    public Guarantor getGuarantor() {
+        return guarantor;
+    }
+
+    public void setGuarantor(Guarantor guarantor) {
+        this.guarantor = guarantor;
+    }
+
+    @Override
+    public String toString() {
+        return super.getFirstName() + " " + super.getLastName();
     }
 }

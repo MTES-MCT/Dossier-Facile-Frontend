@@ -8,16 +8,21 @@
     <link rel="stylesheet" href="/css/animate.css" />
     <link rel="stylesheet" href="/css/main.css" />
     <link rel="stylesheet" href="/css/fix.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <title>Locatio</title>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-50823626-2"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
 
-        gtag('config', 'UA-50823626-2');
-    </script>
+    <div th:if="${@environment.getProperty('google.analytics')}" th:remove="tag" >
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-50823626-2"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-50823626-2');
+        </script>
+    </div>
+
     <!-- Hotjar Tracking Code for http://locatio.beta.gouv.fr/home -->
     <script>
         (function(h,o,t,j,a,r){
