@@ -22,4 +22,19 @@ public class HomeController {
     public ModelAndView index(Model model) {
         return new ModelAndView("redirect:/");
     }
+
+    @GetMapping("/faq")
+    public String faq(){
+        return "faq";
+    }
+
+    @GetMapping("/tutorial")
+    public String tutorial(){
+        return "tutorial";
+    }
+
+    @GetMapping("/information")
+    public String information(){
+        return "information";
+    }
 }

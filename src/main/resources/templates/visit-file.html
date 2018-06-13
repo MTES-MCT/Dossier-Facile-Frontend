@@ -44,26 +44,26 @@
                     <span th:text="#{tenant.profile.restricted.subtitle3}"></span>
                 </p>
                 <p>
-                    -&nbsp;<span th:if="${not showFiles}" th:text="#{tenant.profile.link1.v2}"></span>
+                    -&nbsp;<span th:if="${not showFiles}" th:text="#{tenant.profile.link1.v2}" th:title="#{tenant.profile.link.info}" data-toggle="tooltip"></span>
                     <a th:if="${showFiles}" th:text="#{tenant.profile.link1.v2}" th:href="${tenant.getUpload1()}" target="_blank" style="text-decoration: underline;"></a>
                 </p>
 
                 <p>
-                    -&nbsp;<span th:if="${not showFiles}" th:text="#{tenant.profile.link2.v2}"></span>
+                    -&nbsp;<span th:if="${not showFiles}" th:text="#{tenant.profile.link2.v2}" th:title="#{tenant.profile.link.info}" data-toggle="tooltip"></span>
                     <a th:if="${showFiles}" th:text="#{tenant.profile.link2.v2}" th:href="${tenant.getUpload2()}" target="_blank" style="text-decoration: underline;"></a>
                 </p>
                 <p>
-                    -&nbsp;<span th:if="${not showFiles}" th:text="#{tenant.profile.link3.v2}"></span>
+                    -&nbsp;<span th:if="${not showFiles}" th:text="#{tenant.profile.link3.v2}" th:title="#{tenant.profile.link.info}" data-toggle="tooltip"></span>
                     <a th:if="${showFiles}" th:text="#{tenant.profile.link3.v2}" th:href="${tenant.getUpload3()}" target="_blank" style="text-decoration: underline;"></a>
                 </p>
                 <p>
-                    -&nbsp;<span th:if="${not showFiles}" th:text="#{tenant.profile.link4.v2}"></span>
+                    -&nbsp;<span th:if="${not showFiles}" th:text="#{tenant.profile.link4.v2}" th:title="#{tenant.profile.link.info}" data-toggle="tooltip"></span>
                     <a th:if="${showFiles}" th:text="#{tenant.profile.link4.v2}" th:href="${tenant.getUpload4()}" target="_blank" style="text-decoration: underline;"></a>
                 </p>
-                <p>
-                    -&nbsp;<span th:if="${not showFiles}" th:text="#{tenant.profile.link5.v2}"></span>
+                <div>
+                    -&nbsp;<span th:if="${not showFiles}" th:text="#{tenant.profile.link5.v2}" th:title="#{tenant.profile.link.info}" data-toggle="tooltip"></span>
                     <a th:if="${showFiles}" th:text="#{tenant.profile.link5.v2}" th:href="${tenant.getUpload5()}" target="_blank" style="text-decoration: underline;"></a>
-                </p>
+                </div>
 
                 <div class="medium-margin-top" th:if="${tenant.getGuarantor()!=null}">
                     <p>
@@ -111,8 +111,8 @@
     <div th:unless="${#authorization.expression('hasRole(''ROLE_OWNER'')')}" class="text-center">
         <div class="bg-primary text-center medium-space-separator text-primary">
             <div class="container">
-                <span th:text="#{tenant.profile.button5.label}"></span>
-                <br/><br/>
+                <!--<span th:text="#{tenant.profile.button5.label}"></span>-->
+                <!--<br/><br/>-->
                 <a th:href="@{/info-proprietaire(token=${token})}"
                    class="btn btn-primary btn-responsive animated bounceInUp" th:text="#{tenant.profile.button5}"></a>
             </div>

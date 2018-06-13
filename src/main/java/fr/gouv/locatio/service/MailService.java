@@ -18,9 +18,12 @@ public class MailService {
     @Autowired
     private JavaMailSender mailSender;
 
-    public boolean sendMail(final String from, final String to, final String replyToEmail, final String subject, final String msg) {
+    public boolean sendMail(final String from, final String to, final String bcc, final String replyToEmail, final String subject, final String msg) {
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            if (bcc != null) {
+                mimeMessage.setRecipient(Message.RecipientType.BCC, new InternetAddress(bcc));
+            }
             mimeMessage.setFrom(new InternetAddress(from));
             mimeMessage.setReplyTo(new javax.mail.Address[]
                     {
@@ -41,6 +44,11 @@ public class MailService {
 
     @Async
     public void sendAsyncMail(String from, String to, String replyToEmail, String subject, String msg) {
-        sendMail(from, to, replyToEmail, subject, msg);
+        sendMail(from, to, null, replyToEmail, subject, msg);
+    }
+
+    @Async
+    public void sendAsyncMail(String from, String to, String bcc, String replyToEmail, String subject, String msg) {
+        sendMail(from, to, bcc, replyToEmail, subject, msg);
     }
 }

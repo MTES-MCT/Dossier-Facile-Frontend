@@ -245,6 +245,112 @@ $(document).ready(function () {
         $("#toggleInfo").collapse('hide');
         $("#toggleInfo2").collapse('toggle');
     })
+
+    /*$('.files-input').each(function (i) {
+     $(this).change(function () {
+     createFileInputs(i, $(this));
+     })
+     })*/
+    /*function createFileInputs(id, o) {
+     var id1 = 'input-text' + id + '-1'
+     var id2 = 'input-file' + id + '-1'
+     var id3 = 'input-text' + id + '-2'
+     var id4 = 'input-file' + id + '-2'
+     var name = "";
+     if (o.hasClass('guarantor-file')) {
+     name = 'guarantor.quarantorFiles[' + (id - 5) + ']';
+     } else {
+     name = 'files[' + id + ']';
+
+     }
+     if (o.val() && o.val()) {
+     if (!$("#" + id1).length) {
+     o.parent().append('<input type="text" class="no-validate form-control form-control-formatted form-control-untouched input-file" placeholder="Ajouter un document" id="' + id1 + '" readonly="" style="margin-top: 10px;"/>')
+     o.parent().append('<input type="file" id="' + id2 + '" class="no-validate hidden" accept="image/!*, .pdf" name="' + name + '"/>')
+     $("#" + id1).click(function () {
+     $('#' + id2).click();
+     })
+     }
+     $("#" + id2).change(function () {
+     if ($(this).val() && $(this).val()) {
+     if (!$("#" + id3).length) {
+     $(this).parent().append('<input type="text" class="no-validate form-control form-control-formatted form-control-untouched input-file" placeholder="Ajouter un document" id="' + id3 + '" readonly="" style="margin-top: 10px;"/>')
+     $(this).parent().append('<input type="file" id="' + id4 + '" class="no-validate hidden" accept="image/!*, .pdf" name="' + name + '"/>')
+
+     $("#" + id3).click(function () {
+     $('#' + id4).click();
+     })
+     }
+     $("#" + id1).val($(this).val().split('\\')[2]);
+     $("#" + id4).change(function () {
+     if ($(this).val() && $(this).val()) {
+     $("#" + id3).val($(this).val().split('\\')[2]);
+     } else {
+     $("#" + id3).val("");
+     }
+     })
+
+     } else {
+     $("#" + id3).remove()
+     $("#" + id4).remove()
+     $("#" + id1).val("");
+     }
+     })
+
+     } else {
+     $("#" + id1).remove()
+     $("#" + id2).remove()
+     $("#" + id3).remove()
+     $("#" + id4).remove()
+     }
+     }*/
+    var cont = 0;
+    $('.add-input').click(function (e) {
+        e.preventDefault();
+        var id = $(this).attr('data-id');
+        var name = 'files[' + id + ']';
+        var div = $('#div-file-' + id);
+        var text = 'input-texts' + cont;
+        var file = 'input-files' + cont;
+        var minus = 'minus' + cont;
+        if (!$(this).hasClass('add-file-guarantor')) {
+            div.append('<div href="" class="input-icon text-center info-icon input-file-container top-buffer"> <input data-id="' + id + '" id="' + text + '"type="text" class="form-control form-control-formatted form-control-untouched input-file" placeholder="Ajouter un document" readonly=""/> <input type="file" id="' + file + '" class="files-input hidden file-reader" accept="image/*, .pdf"  name="' + name + '"/> <a class="img info-icon text-alter"> <span id="' + minus + '" class="blue-cross fa fa-times"></span> </a> </div>')
+
+        } else {
+            div.append('<div href="" class="input-icon text-center info-icon input-file-container top-buffer"> <input data-id="' + id + '" id="' + text + '"type="text" class="form-control form-control-formatted form-control-untouched input-file guarantor" placeholder="Ajouter un document" readonly=""/> <input type="file" id="' + file + '" class="files-input hidden file-reader" accept="image/*, .pdf"  name="guarantor.' + name + '"/> <a class="img info-icon text-alter"> <span id="' + minus + '" class="blue-cross fa fa-times"></span> </a> </div>')
+
+        }
+        $("#" + text).click(function () {
+            $('#' + file).click();
+        })
+
+        $("#" + file).change(function () {
+            if ($(this).val() && $(this).val()) {
+                $("#" + text).val($(this).val().split('\\')[2]);
+            } else {
+                $("#" + text).val("");
+            }
+        })
+        cont++;
+
+        var inputs = $('#div-file-' + id + ' input');
+
+        if ($(inputs).length == 6) {
+            $(this).attr('hidden', true);
+        }
+        var o = $(this)
+        $('#' + minus).click(function (e) {
+            e.preventDefault();
+            $(this).parent().parent().remove();
+            o.attr('hidden', false)
+        })
+    })
+
+    $("#guarantor").click(function () {
+        $(".info-guarantor").toggle()
+    })
+
+
 });
 
 function validate_form() {
@@ -304,6 +410,20 @@ function validate_form() {
             $(this).removeClass("invalid")
         }
     });
+    $('input[type="password"]').each(function () {
+        if ($(this).parent().parent().is(":visible")) {
+            if ($.trim($(this).val()) == '') {
+                isValid = false;
+                $(this).addClass("invalid")
+                $("#errors").append("<span style='color: red'>Le champ " + $(this).attr("placeholder") + " est manquant</span><br/>")
+            }
+            else {
+                $(this).removeClass("invalid")
+            }
+        } else {
+            $(this).removeClass("invalid")
+        }
+    });
     var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 
     $('input[type="email"]').each(function () {
@@ -328,7 +448,7 @@ function validate_form() {
 
     var allowedExtensions = ['jpg', 'jpeg', 'gif', 'png', 'pdf'];
     $('input[type="file"]').each(function () {
-        if ($(this).parent().parent().is(":visible")) {
+        if ($(this).parent().parent().is(":visible") && !$(this).hasClass('no-validate')) {
             var value = $(this).val();
             file = value.toLowerCase(),
                 extension = file.substring(file.lastIndexOf('.') + 1);

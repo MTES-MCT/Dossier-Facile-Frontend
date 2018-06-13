@@ -25,32 +25,37 @@ public class Guarantor {
     @Column()
     private String lastName;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String upload1;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String upload2;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String upload3;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String upload4;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String upload5;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private TenantFileStatus tenantFileStatus;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tenant_id")
     private Tenant tenant;
 
-    private MultipartFile[] files;
+    public Guarantor(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
-    public MultipartFile[] getFiles() {
-        return files;
+    public Guarantor() {
+    }
+    public Guarantor(Tenant tenant) {
+        this.tenant = tenant;
     }
 
     public Integer getId() {
@@ -140,5 +145,21 @@ public class Guarantor {
     @Override
     public String toString() {
         return getFirstName() + " " + getLastName();
+    }
+
+    public int getFileNumber() {
+        if (upload1 == null) {
+            return 1;
+        }
+        if (upload2 == null) {
+            return 2;
+        }
+        if (upload3 == null) {
+            return 3;
+        }
+        if (upload4 == null) {
+            return 4;
+        }
+        return 5;
     }
 }

@@ -9,61 +9,71 @@
 <body>
 <div layout:fragment="content" th:remove="tag">
 
-    <div class="row big-space-separator">
+    <div class="container">
+        <div class="big-space-separator">
 
-        <div class="col-md-6 col-md-offset-3 text-center" th:text="#{owner.profile.label.link}"></div>
-        <div class="col-md-6 col-md-offset-3 col-sm-8 col-xs-10 top-buffer">
-            <div id="info" class="input-icon info-icon input-file-container">
-                <p class="link-file"
-                   th:text="${@environment.getProperty('domain.url')} + '/proprietaire/contacter/' + ${owner.getToken()}"></p>
+            <div class="col-sm-12 col-xs-12 col-md-8 col-md-offset-2 text-center text-primary">
+                <span th:text="#{owner.profile.label.link}" style="font-weight: bold"></span>
+                <span data-toggle="tooltip" th:title="#{owner.profile.label.tooltip}" class="fa fa-info-circle"></span>
             </div>
-        </div>
-        <div class="col-md-offset-1 col-md-10  col-sm-12 col-xs-12">
-            <table class="table">
-                <thead>
-                <tr>
-                    <td th:text="#{owner.profile.table.date}"></td>
-                    <td th:text="#{owner.profile.table.status}"></td>
-                    <td th:text="#{owner.profile.table.firstName}"></td>
-                    <td th:text="#{owner.profile.table.lastName}"></td>
-                    <td th:text="#{owner.profile.table.salary}"></td>
-                    <td th:text="#{owner.profile.table.garant}"></td>
-                    <td th:text="#{owner.profile.table.profileType}"></td>
-                    <td th:text="#{owner.profile.table.actions}"></td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="ownerApartmentSharing : ${owner.getOwnerApartmentSharings()}"
-                    th:if="${ownerApartmentSharing.getApartmentSharing().getTenantFileStatus().name() == 'VALIDATED'}" th:with="isApartmentSharing=${not ownerApartmentSharing.getApartmentSharing().isForOneTenant()}">
+            <div class="col-sm-12 col-xs-12 col-md-6 col-md-offset-3 link-owner top-buffer"
+                 th:text="${@environment.getProperty('domain.url')} + '/proprietaire/contacter/' + ${owner.getToken()}">
 
-                    <td th:text="${ #dates.format(ownerApartmentSharing.getCreatedAt(),'dd-MMM HH:mm')}"></td>
+            </div>
+            <div class="table-responsive col-md-offset-1 col-md-10  col-sm-12 col-xs-12 top-buffer">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td th:text="#{owner.profile.table.date}"></td>
+                        <td th:text="#{owner.profile.table.status}"></td>
+                        <td th:text="#{owner.profile.table.firstName}"></td>
+                        <td th:text="#{owner.profile.table.lastName}"></td>
+                        <td th:text="#{owner.profile.table.salary}"></td>
+                        <td th:text="#{owner.profile.table.garant}"></td>
+                        <td th:text="#{owner.profile.table.profileType}"></td>
+                        <td></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="ownerApartmentSharing : ${owner.getOwnerApartmentSharings()}"
+                        th:if="${ownerApartmentSharing.getApartmentSharing().getTenantFileStatus().name() == 'VALIDATED'}"
+                        th:with="isApartmentSharing=${not ownerApartmentSharing.getApartmentSharing().isForOneTenant()}">
 
-                    <td th:if="${isApartmentSharing}" th:text="#{apartmentSharing}"></td>
-                    <td th:unless="${isApartmentSharing}" th:text="#{alone}"></td>
+                        <td th:text="${ #dates.format(ownerApartmentSharing.getCreatedAt(),'dd-MMM HH:mm')}"></td>
 
-                    <td th:text="${ownerApartmentSharing.getApartmentSharing().getTenantApartmentSharing().getFirstName()}"></td>
-                    <td th:text="${ownerApartmentSharing.getApartmentSharing().getTenantApartmentSharing().getLastName()}"></td>
+                        <td th:if="${isApartmentSharing}" th:text="#{apartmentSharing}"></td>
+                        <td th:unless="${isApartmentSharing}" th:text="#{alone}"></td>
 
-                    <td th:if="${isApartmentSharing}" th:text="${(#numbers.formatInteger(apartmentSharingTotalSalaries.get(ownerApartmentSharing.getId()),0,'WHITESPACE')) + ' €'} "></td>
-                    <td th:unless="${isApartmentSharing}" th:text="${(#numbers.formatInteger(ownerApartmentSharing.getApartmentSharing().getTenantApartmentSharing().getSalary(),0,'WHITESPACE')) + ' €'} "></td>
+                        <td th:text="${ownerApartmentSharing.getApartmentSharing().getTenantApartmentSharing().getFirstName()}"></td>
+                        <td th:text="${ownerApartmentSharing.getApartmentSharing().getTenantApartmentSharing().getLastName()}"></td>
 
-                    <td th:if="${ownerApartmentSharing.getApartmentSharing().getTenantApartmentSharing().getGuarantor()!=null}" th:text="#{yes}"></td>
-                    <td th:if="${ownerApartmentSharing.getApartmentSharing().getTenantApartmentSharing().getGuarantor()==null}" th:text="#{no}"></td>
-                    <td th:if="${ownerApartmentSharing.getAccessFull()}" th:text="#{owner.profile.table.access1}"></td>
-                    <td th:unless="${ownerApartmentSharing.getAccessFull()}" th:text="#{owner.profile.table.access2}"></td>
-                    <td th:if="${ownerApartmentSharing.getApartmentSharing().getTenantApartmentSharing().getTenantFileStatus().name() == 'VALIDATED' and ownerApartmentSharing.getAccessFull()}">
-                        <a class="fa fa-eye nounderline"
-                           th:href="@{'/dossier-locataire/'+ ${ownerApartmentSharing.getApartmentSharing().getToken()}}">
-                        </a>
-                    </td>
-                    <td th:if="${ownerApartmentSharing.getApartmentSharing().getTenantFileStatus().name() == 'VALIDATED' and not ownerApartmentSharing.getAccessFull()}">
-                        <a class="fa fa-eye nounderline"
-                           th:href="@{'/visite-locataire/'+ ${ownerApartmentSharing.getApartmentSharing().getTokenPublic()}}">
-                        </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                        <td th:if="${isApartmentSharing}"
+                            th:text="${(#numbers.formatInteger(apartmentSharingTotalSalaries.get(ownerApartmentSharing.getId()),0,'WHITESPACE')) + ' €'} "></td>
+                        <td th:unless="${isApartmentSharing}"
+                            th:text="${(#numbers.formatInteger(ownerApartmentSharing.getApartmentSharing().getTenantApartmentSharing().getSalary(),0,'WHITESPACE')) + ' €'} "></td>
+
+                        <td th:if="${ownerApartmentSharing.getApartmentSharing().getTenantApartmentSharing().getGuarantor()!=null}"
+                            th:text="#{yes}"></td>
+                        <td th:if="${ownerApartmentSharing.getApartmentSharing().getTenantApartmentSharing().getGuarantor()==null}"
+                            th:text="#{no}"></td>
+                        <td th:if="${ownerApartmentSharing.getAccessFull()}"
+                            th:text="#{owner.profile.table.access1}"></td>
+                        <td th:unless="${ownerApartmentSharing.getAccessFull()}"
+                            th:text="#{owner.profile.table.access2}"></td>
+                        <td th:if="${ownerApartmentSharing.getApartmentSharing().getTenantApartmentSharing().getTenantFileStatus().name() == 'VALIDATED' and ownerApartmentSharing.getAccessFull()}">
+                            <a class="fa fa-eye nounderline"
+                               th:href="@{'/dossier-locataire/'+ ${ownerApartmentSharing.getApartmentSharing().getToken()}}">
+                            </a>
+                        </td>
+                        <td th:if="${ownerApartmentSharing.getApartmentSharing().getTenantFileStatus().name() == 'VALIDATED' and not ownerApartmentSharing.getAccessFull()}">
+                            <a class="fa fa-eye nounderline"
+                               th:href="@{'/visite-locataire/'+ ${ownerApartmentSharing.getApartmentSharing().getTokenPublic()}}">
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

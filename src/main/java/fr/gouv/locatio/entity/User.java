@@ -1,6 +1,7 @@
 package fr.gouv.locatio.entity;
 
 import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 
 import javax.persistence.*;
@@ -22,7 +23,7 @@ public class User {
     @Column()
     private String lastName;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = true, unique = true)
     private String email;
 
     @Column
@@ -32,12 +33,28 @@ public class User {
     @JoinColumn(name = "user_id")
     private Set<UserRole> userRoles;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private Set<Log> logs;
+
     @Column(name = "creation_date")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime creationDateTime = LocalDateTime.now();
 
+    @Column(name = "last_login_date")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+    private LocalDateTime lastLoginDate = LocalDateTime.now();
+
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private PasswordRecoveryToken passwordRecoveryToken;
+
+    public User(String firstName, String lastName) {
+        this.firstName = firstName.trim().replaceAll("\\s+", " ");
+        this.lastName = lastName.trim().replaceAll("\\s+", " ");
+    }
+
+    public User() {
+    }
 
     public Integer getId() {
         return id;
@@ -102,5 +119,25 @@ public class User {
 
     public void setPasswordRecoveryToken(PasswordRecoveryToken passwordRecoveryToken) {
         this.passwordRecoveryToken = passwordRecoveryToken;
+    }
+
+    public LocalDateTime getLastLoginDate() {
+        return lastLoginDate;
+    }
+
+    public void setLastLoginDate(LocalDateTime lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
+    }
+
+    public Set<Log> getLogs() {
+        return logs;
+    }
+
+    public void setLogs(Set<Log> logs) {
+        this.logs = logs;
+    }
+
+    public String getFullName() {
+        return this.firstName + " " + this.getLastName();
     }
 }

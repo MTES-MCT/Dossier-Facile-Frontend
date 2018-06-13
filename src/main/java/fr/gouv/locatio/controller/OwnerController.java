@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.HashMap;
@@ -54,19 +55,31 @@ public class OwnerController {
     }
 
     @GetMapping("/proprietaire/contacter/{token}")
-    public String subcribeProprietaire(Model model, @PathVariable("token") String token, Principal principal) {
-        model.addAttribute("token", token);
-        Owner ownerToken = ownerRepository.findOneByToken(token);
-        if (null == ownerToken) {
+    public String subcribeProprietaire(Model model, @PathVariable("token") String token, Principal principal, HttpServletRequest request) {
+        Owner owner = ownerRepository.findOneByToken(token);
+        if (null == owner) {
             return "redirect:/error";
         }
-        model.addAttribute("status", ownerService.getStatusOwnerLink(principal.getName(), ownerToken));
+        request.getSession().setAttribute("ownerToken", token);
+        if (principal==null){
+            return "redirect:/locataire";
+        }
+        User user = userRepository.findOneByEmail(principal.getName());
+        if (user instanceof Owner){
+            return "redirect:/locataire";
+        }
+
+        model.addAttribute("token", token);
+        model.addAttribute("status", ownerService.getStatusOwnerLink(principal.getName(), owner));
         return "owner-subscriber";
     }
 
     @PostMapping("/proprietaire/owner-subscriber")
-    public String ownerSubcriber(String token, Boolean access, Model model) {
+    public String ownerSubcriber(String token, Boolean access, Model model, String tenantId) {
         Tenant tenant = tenantService.displayTenantAccount();
+        if (tenant == null && tenantId != null){
+            tenant = tenantService.find(Integer.valueOf(tenantId));
+        }
         if (tenant == null) {
             return "redirect:/error";
         }

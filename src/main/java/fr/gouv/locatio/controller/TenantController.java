@@ -8,10 +8,7 @@ import fr.gouv.locatio.entity.Owner;
 import fr.gouv.locatio.entity.Tenant;
 import fr.gouv.locatio.repository.OwnerRepository;
 import fr.gouv.locatio.repository.TenantRepository;
-import fr.gouv.locatio.service.ApartmentSharingService;
-import fr.gouv.locatio.service.OwnerService;
-import fr.gouv.locatio.service.TenantService;
-import fr.gouv.locatio.service.UserService;
+import fr.gouv.locatio.service.*;
 import fr.gouv.locatio.validator.TenantAlone;
 import fr.gouv.locatio.validator.TenantCreateApartmentSharing;
 import fr.gouv.locatio.validator.TenantJoinApartmentSharing;
@@ -29,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
@@ -56,8 +54,14 @@ public class TenantController {
     @Autowired
     private TenantRepository tenantRepository;
 
+    @Autowired
+    private StatisticService statisticService;
+
     @GetMapping("/locataire")
-    public String getLocataire(Model model) {
+    public String getLocataire(@RequestParam(required = false) String utm_source, HttpSession session) {
+        if (utm_source != null) {
+            session.setAttribute("utm_source", utm_source);
+        }
         return "info-locataire";
     }
 
@@ -70,54 +74,70 @@ public class TenantController {
         }
         tenantDTO.setTenantType(tenantType);
         model.addAttribute("tenant", tenantDTO);
-        //model.addAttribute("tenantType", tenantType);
         return "tenant-form";
     }
 
-    /*@PostMapping("/info-locataire")
-    @ResponseBody
-    public ResponseEntity<?> registerTenant(@Validated(CreateTenant.class) TenantDTO tenantDTO, BindingResult result, Model model) {
-        if (!result.hasErrors()) {
-            if (tenantService.createAccount(tenantDTO)) {
-                return new ResponseEntity("Successfully uploaded!", HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-        }
-        model.addAttribute("tenant", tenantDTO);
-        return new ResponseEntity(result.getAllErrors(), HttpStatus.BAD_REQUEST);
-    }*/
-
     @GetMapping("/compte-cree")
-    public String accountCreated(Model model, @RequestParam(required = false) String apartmentSharing) {
+    public String accountCreated(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        String ownerToken = (String) session.getAttribute("ownerToken");
+        String tenantId = (String) session.getAttribute("tenantId");
+
+        if (null != ownerToken) {
+            Owner owner = ownerRepository.findOneByToken(ownerToken);
+            if (owner != null) {
+                model.addAttribute("subscribe", true);
+                model.addAttribute("token", ownerToken);
+                model.addAttribute("tenantId", tenantId);
+                session.removeAttribute("ownerToken");
+                session.removeAttribute("tenantId");
+                return "account-created";
+            }
+
+        }
+
+        model.addAttribute("subscribe", false);
         return "account-created";
     }
 
     @PostMapping("/creer-compte/alone")
-    public String createAccountAlone(Model model, @Validated(TenantAlone.class) @ModelAttribute("tenant") TenantDTO tenantDTO, BindingResult result) {
+    public String createAccountAlone(@Validated(TenantAlone.class) @ModelAttribute("tenant") TenantDTO tenantDTO, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
             return "tenant-form";
         }
-        tenantService.createAccount(tenantDTO);
+        String utmSource = (String) session.getAttribute("utm_source");
+        if (utmSource!=null){
+            session.removeAttribute("utm_source");
+        }
+        int tenantId = tenantService.createAccount(tenantDTO,utmSource);
+        session.setAttribute("tenantId", String.valueOf(tenantId));
         return "redirect:/compte-cree";
     }
 
     @PostMapping("/creer-compte/create-colocation")
-    public String createAccountOwnerApartmentSharing(Model model, @Validated(TenantCreateApartmentSharing.class) @ModelAttribute("tenant") TenantDTO tenantDTO, BindingResult result) {
+    public String createAccountOwnerApartmentSharing(@Validated(TenantCreateApartmentSharing.class) @ModelAttribute("tenant") TenantDTO tenantDTO, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
             return "tenant-form";
         }
-        tenantService.createAccount(tenantDTO);
+        String utmSource = (String) session.getAttribute("utm_source");
+        if (utmSource!=null){
+            session.removeAttribute("utm_source");
+        }
+        int tenantId = tenantService.createAccount(tenantDTO,utmSource);
+        session.setAttribute("tenantId", String.valueOf(tenantId));
         return "redirect:/compte-cree";
-
     }
 
     @PostMapping("/creer-compte/join-colocation")
-    public String createAccountJoinApartmentSharing(Model model, @Validated(TenantJoinApartmentSharing.class) @ModelAttribute("tenant") TenantDTO tenantDTO, BindingResult result) {
+    public String createAccountJoinApartmentSharing(Model model, @Validated(TenantJoinApartmentSharing.class) @ModelAttribute("tenant") TenantDTO tenantDTO, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
             return "tenant-form";
         }
-        tenantService.createAccount(tenantDTO);
+        String utmSource = (String) session.getAttribute("utm_source");
+        if (utmSource!=null){
+            session.removeAttribute("utm_source");
+        }
+        tenantService.createAccount(tenantDTO,utmSource);
         return "redirect:/compte-cree";
     }
 

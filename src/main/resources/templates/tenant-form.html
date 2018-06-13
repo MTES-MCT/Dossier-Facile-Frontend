@@ -48,7 +48,8 @@
                                th:field="*{tenantEmail}"
                                class="form-control form-control-formatted form-control-untouched"
                                placeholder="Email"/>
-                        <span th:if="${#fields.hasErrors('tenantEmail')}" class="help-block" th:errors="*{tenantEmail}" style="color: red"></span>
+                        <span th:if="${#fields.hasErrors('tenantEmail')}" class="help-block" th:errors="*{tenantEmail}"
+                              style="color: red"></span>
                     </div>
                     <div class="form-group">
                         <label for="lastName" class="text-primary1 formatted-label  medium-space-separator">Entrez vos
@@ -68,7 +69,8 @@
                     <div class="form-group">
                         <input type="email" id="email" name="email" autocomplete="true" th:field="*{email}"
                                class="form-control form-control-formatted form-control-untouched" placeholder="Email"/>
-                        <span th:if="${#fields.hasErrors('email')}" class="help-block" th:errors="*{email}" style="color: red"></span>
+                        <span th:if="${#fields.hasErrors('email')}" class="help-block" th:errors="*{email}"
+                              style="color: red"></span>
                     </div>
                     <div class="form-group">
                         <!--<input id="situation" required="required" autocomplete="true" th:field="*{situation}" class="form-control form-control-formatted form-control-untouched" placeholder="Situation"/>-->
@@ -99,7 +101,7 @@
                             <input type="text"
                                    class="form-control form-control-formatted form-control-untouched input-file"
                                    placeholder="Ajouter un document" id="identity_card" readonly="" data-id="0"/>
-                            <input type="file" class="hidden file-reader" accept="image/*, .pdf" th:field="*{files}"
+                            <input type="file" class="hidden file-reader" accept="image/*, .pdf" th:field="*{files[0]}"
                                    name="identity_card"/>
                             <span class="img info-icon text-alter" data-toggle="tooltip" data-placement="bottom"
                                   title=""
@@ -116,7 +118,7 @@
                             <input type="text"
                                    class="form-control form-control-formatted form-control-untouched input-file"
                                    placeholder="Ajouter un document" id="domicile" readonly="" data-id="1"/>
-                            <input type="file" class="hidden file-reader" accept="image/*, .pdf" th:field="*{files}"
+                            <input type="file" class="hidden file-reader" accept="image/*, .pdf" th:field="*{files[1]}"
                                    name="domicile"/>
                             <span class="img info-icon text-alter" data-toggle="tooltip" data-placement="bottom"
                                   title=""
@@ -128,18 +130,26 @@
 
                     <div class="form-group">
                         <label for="work_status" class="text-primary1 formatted-label space-separator">Justificatif de
-                            situation professionnelle :</label>
-                        <div class="input-icon text-center info-icon input-file-container">
-                            <input type="text"
-                                   class="form-control form-control-formatted form-control-untouched input-file"
-                                   placeholder="Ajouter un document" id="work_status" readonly="" data-id="2"/>
-                            <input type="file" class="hidden file-reader" accept="image/*, .pdf" th:field="*{files}"
-                                   name="work_status"/>
-                            <span class="img info-icon text-alter" data-toggle="tooltip" data-placement="bottom"
-                                  title=""
-                                  data-original-title="contrat de travail ou de stage ou, à défaut, attestation de l'employeur OU carte d'étudiant OU certificat de scolarité OU copie de la carte professionnelle (profession libérale) OU autre">
+                            situation professionnelle :
+                            <span th:text="#{tenant.profile.help}" class="bold"></span>
+                        </label>
+                        <div id="div-file-2">
+                            <div class="input-icon text-center info-icon input-file-container">
+                                <input type="text"
+                                       class="form-control form-control-formatted form-control-untouched input-file"
+                                       placeholder="Ajouter un document" id="work_status" readonly="" data-id="2"/>
+                                <input type="file" class="files-input hidden file-reader" accept="image/*, .pdf"
+                                       th:field="*{files[2]}"
+                                       name="work_status"/>
+                                <span class="img info-icon text-alter" data-toggle="tooltip" data-placement="bottom"
+                                      title=""
+                                      data-original-title="contrat de travail ou de stage ou, à défaut, attestation de l'employeur OU carte d'étudiant OU certificat de scolarité OU copie de la carte professionnelle (profession libérale) OU autre">
                             <span>?</span>
                           </span>
+                            </div>
+                        </div>
+                        <div class="text-right" style="margin-top: 3px;">
+                            <a data-id="2" class="add-input" href="" th:text="#{tenant.profile.add.input}"></a>
                         </div>
                     </div>
                     <div class="form-group">
@@ -149,7 +159,7 @@
                             <input type="text"
                                    class="form-control form-control-formatted form-control-untouched input-file"
                                    placeholder="Ajouter un document" id="impots" readonly="" data-id="3"/>
-                            <input type="file" class="hidden file-reader" accept="image/*, .pdf" th:field="*{files}"
+                            <input type="file" class="hidden file-reader" accept="image/*, .pdf" th:field="*{files[3]}"
                                    name="justificatif_res"/>
                             <span class="img info-icon text-alter" data-toggle="tooltip" data-placement="bottom"
                                   title="" data-original-title="dernier avis d'imposition ou de non-imposition">
@@ -159,18 +169,26 @@
                     </div>
                     <div class="form-group">
                         <label for="justificatif_res" class="text-primary1 formatted-label space-separator">Justificatif
-                            de ressources :</label>
-                        <div class="input-icon text-center info-icon input-file-container">
-                            <input type="text"
-                                   class="form-control form-control-formatted form-control-untouched input-file"
-                                   placeholder="Ajouter un document" id="justificatif_res" readonly="" data-id="4"/>
-                            <input type="file" class="hidden file-reader" accept="image/*, .pdf" th:field="*{files}"
-                                   name="justificatif_res"/>
-                            <span class="img info-icon text-alter" data-toggle="tooltip" data-placement="bottom"
-                                  title=""
-                                  data-original-title="3 derniers bulletins de salaires OU justificatif de versement des indemnités de stage OU 2 derniers bilans comptables ou, à défaut attestation des ressources délivrée par un comptable (non-salariés)">
+                            de ressources :
+                            <span th:text="#{tenant.profile.help}" class="bold"></span>
+                        </label>
+                        <div id="div-file-4">
+                            <div class="input-icon text-center info-icon input-file-container">
+                                <input type="text"
+                                       class="form-control form-control-formatted form-control-untouched input-file"
+                                       placeholder="Ajouter un document" id="justificatif_res" readonly="" data-id="4"/>
+                                <input type="file" class="files-input hidden file-reader" accept="image/*, .pdf"
+                                       th:field="*{files[4]}"
+                                       name="justificatif_res"/>
+                                <span class="img info-icon text-alter" data-toggle="tooltip" data-placement="bottom"
+                                      title=""
+                                      data-original-title="3 derniers bulletins de salaires OU justificatif de versement des indemnités de stage OU 2 derniers bilans comptables ou, à défaut attestation des ressources délivrée par un comptable (non-salariés)">
                             <span>?</span>
                           </span>
+                            </div>
+                        </div>
+                        <div class="text-right" style="margin-top: 3px;">
+                            <a data-id="4" class="add-input" href="" th:text="#{tenant.profile.add.input}"></a>
                         </div>
                     </div>
                     <input type="hidden" th:field="*{tenantType}" name="tenantType"/>
@@ -203,29 +221,6 @@
                             Revenir
                         </a>
                     </div>
-
-                    <!-- Modal -->
-                    <!--<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="confirm">-->
-                    <!--<div class="modal-dialog" role="document">-->
-                    <!--<div class="modal-content text-primary">-->
-                    <!--<div class="modal-body text-center">-->
-                    <!--<p class="text-primary little-title space-separator border-bottom border-primary">-->
-                    <!--Compte créé</p>-->
-                    <!--<p class="text-primary1 medium-space-separator padding-sides">-->
-                    <!--Merci d'avoir fait confiance à Locatio, un email vous a été envoyé pour-->
-                    <!--finaliser votre compte, vous en recevrez un second dès que les pièces de votre-->
-                    <!--dossier auront été validées.-->
-                    <!--<br/><br/>-->
-                    <!--Pour toute question, vous pouvez nous écrire à contact@locatio.beta.gouv.fr-->
-                    <!--</p>-->
-                    <!--<div class="medium-space-separator-top">-->
-                    <!--<a th:href="@{/home}"-->
-                    <!--class="btn btn-primary btn-responsive subtitle1">Terminer</a>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</div>-->
                 </form>
 
             </div>

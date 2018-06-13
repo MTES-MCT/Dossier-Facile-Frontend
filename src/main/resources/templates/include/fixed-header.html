@@ -8,12 +8,20 @@
             </a>
         </div>
         <div class="fixed-header-link-container">
+            <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/bo}"
+               class="profile fixed-header-link" th:text="#{locatio.header.link.bo}"></a>
+            <a th:href="@{/faq}"
+               class="profile fixed-header-link" th:text="#{locatio.header.link.faq}"></a>
+            <a th:href="@{/information}"
+               class="profile fixed-header-link" th:text="#{locatio.header.link.information}"></a>
+            <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/tutorial}"
+               class="profile fixed-header-link" th:text="#{locatio.header.link.tutorial}"></a>
             <a sec:authorize="hasRole('ROLE_TENANT')" th:href="@{/locataire/mon-compte}"
                class="profile fixed-header-link" th:text="#{locatio.header.link.profile}"></a>
             <a sec:authorize="hasRole('ROLE_OWNER')" th:href="@{/proprietaire/mon-compte}"
                class="profile fixed-header-link" th:text="#{locatio.header.link.profile}"></a>
             <a th:unless="${#authorization.expression('isAuthenticated()')}" th:href="@{/login}"
-               th:text="#{locatio.header.link.login}" class="profile fixed-header-link" style="display: block;"></a>
+               th:text="#{locatio.header.link.login}" class="profile fixed-header-link"></a>
             <form th:if="${#authorization.expression('isAuthenticated()')}" th:method="post" th:action="@{/logout}">
                 <button th:type="submit" class="fixed-header-link logout"
                         th:text="#{locatio.header.link.logout}"></button>
@@ -37,23 +45,35 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
                 <ul class="nav navbar-nav">
-                    <li>
-                        <a sec:authorize="hasRole('ROLE_TENANT')" th:href="@{/locataire/mon-compte}"
-                           class="" th:text="#{locatio.header.link.profile}"></a>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a th:href="@{/bo}"
+                           class="profile fixed-header-link" th:text="#{locatio.header.link.bo}"></a>
                     </li>
                     <li>
-                        <a sec:authorize="hasRole('ROLE_OWNER')" th:href="@{/proprietaire/mon-compte}"
+                        <a th:href="@{/faq}"
+                           class="" th:text="#{locatio.header.link.faq}"></a>
+                    </li>
+                    <li>
+                        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/tutorial}"
+                           class="profile fixed-header-link" th:text="#{locatio.header.link.tutorial}"></a>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_TENANT')">
+                        <a th:href="@{/locataire/mon-compte}"
+                           class="" th:text="#{locatio.header.link.profile}"></a>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_OWNER')">
+                        <a th:href="@{/proprietaire/mon-compte}"
                            class="" th:text="#{locatio.header.link.profile}"></a>
 
                     </li>
-                 <li>
-                     <a th:unless="${#authorization.expression('isAuthenticated()')}" th:href="@{/login}"
-                        th:text="#{locatio.header.link.login}" class=""
-                        style="display: block;"></a>
+                    <li th:unless="${#authorization.expression('isAuthenticated()')}">
+                        <a th:href="@{/login}"
+                           th:text="#{locatio.header.link.login}" class=""
+                           style="display: block;"></a>
 
-                 </li>
-                    <li>
-                        <form th:if="${#authorization.expression('isAuthenticated()')}" th:method="post"
+                    </li>
+                    <li th:if="${#authorization.expression('isAuthenticated()')}">
+                        <form th:method="post"
                               th:action="@{/logout}">
                             <button th:type="submit" class="fixed-header-link logout"
                                     th:text="#{locatio.header.link.logout}"></button>

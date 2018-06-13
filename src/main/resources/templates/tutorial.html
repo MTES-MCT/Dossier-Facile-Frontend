@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Locatio</title>
+</head>
+<body>
+
+<div layout:fragment="content" th:remove="tag">
+
+    <div class="banner-owner big-space-separator text-center animated-2 fadeIn">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4 ">
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="text-center big-title text-primary medium-padding-sides space-separator-top">
+        Tutoriel
+    </p>
+    <div class="container ">
+        <div class="big-space-separator">
+            <div class="text-primary">Tutoriel Locatio</div>
+            <br/>
+            <div class="embed-responsive embed-responsive-16by9">
+                <video src="/videos/locatio_tutorial.mp4" controls="controls">
+                </video>
+                <!--<iframe class="embed-responsive-item"-->
+                        <!--src="https://www.youtube.com/embed/tgbNymZ7vqY">-->
+                <!--</iframe>-->
+            </div>
+        </div>
+        <div class="big-space-separator">
+            <div class="text-primary">Tutoriel Locataire</div>
+            <br/>
+            <div class="embed-responsive embed-responsive-16by9">
+                <!--<iframe class="embed-responsive-item"-->
+                        <!--src="https://www.youtube.com/embed/tgbNymZ7vqY">-->
+                <!--</iframe>-->
+                <video src="/videos/tenant_tutorial.mp4" controls="controls">
+                </video>
+            </div>
+        </div>
+        <div class="big-space-separator">
+            <div class="text-primary">Tutoriel Propriétaire</div>
+            <br/>
+            <div class="embed-responsive embed-responsive-16by9">
+                <video src="/videos/owner_tutorial.mp4" controls="controls">
+                </video>
+                <!--<iframe class="embed-responsive-item"-->
+                        <!--src="https://www.youtube.com/embed/tgbNymZ7vqY">-->
+                <!--</iframe>-->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

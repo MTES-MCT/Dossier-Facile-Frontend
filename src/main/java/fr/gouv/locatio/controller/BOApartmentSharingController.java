@@ -34,7 +34,7 @@ public class BOApartmentSharingController {
         tenants.add(apartmentSharing.getTenantApartmentSharing());
         tenants.addAll(apartmentSharing.getTenants());
         model.addAttribute("tenants", tenants);
-        return "bo-apartmentSharing-view";
+        return "bo-apartment-sharing-view";
     }
 
 

@@ -1,21 +1,15 @@
 package fr.gouv.locatio.service;
 
 import fr.gouv.locatio.entity.Tenant;
-import fr.gouv.locatio.service.FileProcess.File4Process;
-import fr.gouv.locatio.service.FileProcess.File5Process;
-import fr.gouv.locatio.service.FileProcess.FileUtils;
+import fr.gouv.locatio.service.file.process.File4Process;
+import fr.gouv.locatio.service.file.process.File5Process;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
 
 
 @Service

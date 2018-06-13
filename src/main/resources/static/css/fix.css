@@ -112,7 +112,6 @@ body{
     background-color: #eee;
     opacity: 1;
     border-radius: 50px !important;
-
     display: block;
     width: 100%;
     height: 40px;
@@ -159,4 +158,40 @@ body{
     padding: 6px 12px !important;
     font-size: 14px !important;
     line-height: 1;
+}
+
+@media screen and (max-width: 600px) {
+    .link-owner{
+        font-size: 10px !important;
+    }
+}
+
+.link-owner{
+    background-color: #eee;
+    opacity: 1;
+    border-radius: 50px !important;
+    padding: 9px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    border: 1px solid #ccc;
+}
+
+.link-owner:hover{
+    text-decoration: none;
+    border-color: #003189;
+    color: #003189;
+}
+
+.link-owner:focus{
+    text-decoration: none !important;
+    color: #003189;
+}
+
+.blue-cross {
+    right: 2px;
+    bottom: 4px;
+}
+.underline{
+    text-decoration: underline !important;
 }

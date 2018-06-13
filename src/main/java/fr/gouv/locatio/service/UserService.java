@@ -10,15 +10,19 @@ import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 
 @Service
 public class UserService {
@@ -100,7 +104,19 @@ public class UserService {
 
         if (usernamePasswordAuthenticationToken.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            User user = userRepository.findOneByEmail(username);
+            user.setLastLoginDate(LocalDateTime.now());
+            userRepository.save(user);
         }
     }
 
+    public void deleteOldAccount() {
+        LocalDateTime threeWeekLater = LocalDateTime.now().minusWeeks(3);
+        userRepository.deleteByLastLoginDateBefore(threeWeekLater);
+    }
+
+
+    public User find(int tenantId) {
+        return userRepository.findOne(tenantId);
+    }
 }

@@ -1,4 +1,6 @@
 package fr.gouv.locatio.validator;
 
-public interface TenantAlone {
+import javax.validation.groups.Default;
+
+public interface TenantAlone extends Default {
 }

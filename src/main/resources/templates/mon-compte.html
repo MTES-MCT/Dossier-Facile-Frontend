@@ -45,8 +45,8 @@
                     <div class="container-fluid">
 
                         <div class="row">
-                            <div class="col-sm-6 col-xs-12 border-right">
-                                <a href="" class="btn btn-primary btn-responsive animated subtitle1 visit-link"
+                            <div class="col-md-6 col-sm-12 col-xs-12 border-right">
+                                <a href="" class="btn btn-primary btn-responsive animated subtitle1 visit-link profile-button-tenant"
                                    th:text="#{tenant.profile.button1}"></a>
                                 <br/>
                                 <br/>
@@ -60,8 +60,8 @@
                                     votre
                                     dossier est complet et en ordre !</p>
                             </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <a href="" class="btn btn-primary btn-responsive animated subtitle1 file-link"
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <a href="" class="btn btn-primary btn-responsive animated subtitle1 file-link profile-button-tenant"
                                    th:text="#{tenant.profile.button2}"></a>
                                 <br/>
                                 <br/>
@@ -239,7 +239,7 @@
                     <div class="container-fluid">
 
                         <div class="row">
-                            <div class="col-sm-6 col-xs-12 border-right">
+                            <div class="col-md-6 col-sm-12 col-xs-12 border-right">
                                 <a th:if="${apartmentSharing.getNumberOfTenants()==1}" href="" class="btn btn-primary btn-responsive animated subtitle1 visit-link"
                                    th:text="#{tenant.profile.button1}"></a>
                                 <a th:if="${apartmentSharing.getNumberOfTenants()!=1}" href="" class="btn btn-primary btn-responsive animated subtitle1 visit-link"
@@ -256,7 +256,7 @@
                                     votre
                                     dossier est complet et en ordre !</p>
                             </div>
-                            <div class="col-sm-6 col-xs-12">
+                            <div class="col-md-6 col-sm-12 col-xs-12">
                                 <a th:if="${apartmentSharing.getNumberOfTenants()==1}" href="" class="btn btn-primary btn-responsive animated subtitle1 file-link"
                                    th:text="#{tenant.profile.button2}"></a>
                                 <a th:if="${apartmentSharing.getNumberOfTenants()!=1}" href="" class="btn btn-primary btn-responsive animated subtitle1 file-link"

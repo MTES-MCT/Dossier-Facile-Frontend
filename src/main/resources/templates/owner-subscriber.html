@@ -2,7 +2,7 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout">
+      layout:decorator="layout" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Locatio</title>
 </head>
@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-md-2 col-sm-1 col-xs-1"></div>
             <div class="col-md-8 col-sm-10 col-xs-10">
-                <p th:if="${status==null}" class="little-title text-center padding border-bottom border-primary text-primary text-primary1 medium-margin-bottom">Subscribe</p>
+                <p th:if="${status==null}" class="little-title text-center padding border-bottom border-primary text-primary text-primary1 medium-margin-bottom">Donner l'accès</p>
                 <p th:unless="${status==null}" class="little-title text-center padding border-bottom border-primary text-primary text-primary1 medium-margin-bottom" th:text="${status}"></p>
             </div>
         </div>
@@ -43,9 +43,9 @@
             </div>
         </div>
 
-        <div class="row">
+        <div sec:authorize="hasRole('ROLE_TENANT')" class="row">
             <div class="col-md-offset-3 col-md-8 col-sm-8 col-xs-10">
-                <div th:text="#{tenant.subscribe.link}"></div>
+                <a th:href="@{/locataire/mon-compte}" th:text="#{tenant.subscribe.link}"></a>
             </div>
 
         </div>

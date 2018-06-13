@@ -42,8 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/bo", "/bo/**","/stats").access("hasAnyRole('ROLE_ADMIN')")
-                .antMatchers("/locataire/mon-compte", "/proprietaire/contacter/**", "/locataire/modifier-mon-compte").access("hasAnyRole('ROLE_TENANT')")
-                .antMatchers( "/proprietaire/contacter/**").access("hasAnyRole('ROLE_TENANT','ROLE_OWNER')")
+                .antMatchers("/locataire/mon-compte", "/locataire/modifier-mon-compte").access("hasAnyRole('ROLE_TENANT')")
                 .antMatchers("/proprietaire/mon-compte").access("hasAnyRole('ROLE_OWNER')")
                 .anyRequest().permitAll()
                 .and()
@@ -61,6 +60,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
+
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication().withUser(username).password(password).roles("ADMIN");
+//    }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {

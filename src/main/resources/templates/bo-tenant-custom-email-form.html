@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Locatio</title>
+</head>
+<body>
+
+<div layout:fragment="content" th:remove="tag">
+
+    <a href="/bo/proprios">Emails proprio</a>
+    <br/>
+    <a href="/bo/colocation">Dossiers colocations</a>
+
+    <br/><br/><br/>
+    <div class="container">
+        <form th:method="post" th:action="@{/bo/tenant/} + ${appartment_sharing_id} + '/' + ${tenant.getId()} +'/customEmail'">
+
+            <div>
+                <p th:text="#{bo.tenant.custom.email.head1}"></p>
+
+                <p th:text="#{bo.tenant.custom.email.head2}"></p>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="0" name="checksTenant"/>
+                    <span th:text="#{bo.tenant.custom.email.option0}"> </span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="1" name="checksTenant"/>
+                    <span th:text="#{bo.tenant.custom.email.option1}"> </span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="2" name="checksTenant"/>
+                    <span th:text="#{bo.tenant.custom.email.option2}"> </span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="3" name="checksTenant"/>
+                    <span th:text="#{bo.tenant.custom.email.option3}"> </span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="4" name="checksTenant"/>
+                    <span th:text="#{bo.tenant.custom.email.option4}"> </span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="aditional-text1">Aditional text:</label>
+                <textarea name="textarea1" class="form-control" rows="5" id="aditional-text1"></textarea>
+            </div>
+            <br/>
+            <div class="checkbox">
+                <label>
+                    <input id="guarantor" type="checkbox" value="5" name="checksGuarantor"/>
+                    <span th:text="#{bo.tenant.custom.email.option5}"> </span>
+                </label>
+            </div>
+            <div class="info-guarantor" style="display: none">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="6" name="checksGuarantor"/>
+                        <span th:text="#{bo.tenant.custom.email.option6}"> </span>
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="7" name="checksGuarantor"/>
+                        <span th:text="#{bo.tenant.custom.email.option7}"> </span>
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="8" name="checksGuarantor"/>
+                        <span th:text="#{bo.tenant.custom.email.option8}"> </span>
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="9" name="checksGuarantor"/>
+                        <span th:text="#{bo.tenant.custom.email.option9}"> </span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="aditional-text2">Aditional text:</label>
+                    <textarea name="textarea2" class="form-control" rows="5" id="aditional-text2"></textarea>
+                </div>
+            </div>
+            <div>
+                <p th:text="#{bo.tenant.custom.email.footer1}"></p>
+
+                <p th:text="#{bo.tenant.custom.email.footer2}"></p>
+
+                <div>
+                    <span th:text="#{bo.tenant.custom.email.footer3}"></span><br/>
+                    <span th:text="#{bo.tenant.custom.email.footer4}"></span>
+                </div>
+            </div>
+
+            <button class="btn btn-primary bo-btn" type="submit" style="float: right">Envoyer</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Locatio</title>
+</head>
+<body>
+
+<div layout:fragment="content" th:remove="tag">
+
+    <div class="container big-space-separator">
+        <div class="row">
+            <div class="col-md-2 col-sm-1 col-xs-1"></div>
+            <div class="col-md-8 col-sm-10 col-xs-10">
+                <p class="little-title text-center padding border-bottom border-primary text-primary text-primary1 medium-margin-bottom">
+                    Constituez votre dossier : seules les pièces autorisées par la loi vous sont demandées</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 col-sm-2 col-xs-1"></div>
+            <div class="col-md-6 col-sm-8 col-xs-10">
+
+                <form autocomplete="off" class="form" th:action="@{/registerTenant/step8/} + ${tenantDTO.getId()}"
+                      method="post" th:object="${tenantDTO.guarantor}"
+                      onsubmit="return validate_form()"
+                      enctype="multipart/form-data" id="formLocataire">
+                    <input type="hidden" name="fileNumber" th:value="${fileNumber}"/>
+                    <div class="form-group" th:if="${fileNumber}==1">
+                        <label for="identity_card" class="text-primary1 formatted-label space-separator">Pièce
+                            d'identité en cours de validité :</label>
+                        <div class="input-icon text-center info-icon input-file-container">
+                            <input type="text"
+                                   class="form-control form-control-formatted form-control-untouched input-file guarantor"
+                                   placeholder="Ajouter un document" id="identity_card" readonly="" data-id="0"/>
+                            <input type="file" class="hidden file-reader guarantor-file" accept="image/*, .pdf" th:field="*{files[0]}"
+                                   name="identity_card"/>
+                            <span class="img info-icon text-alter" data-toggle="tooltip" data-placement="bottom"
+                                  title=""
+                                  data-original-title="carte d'identité OU passeport OU permis de conduire OU carte de séjour OU carte de résident">
+                            <span>?</span>
+                          </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" th:if="${fileNumber}==2">
+                        <label for="domicile" class="text-primary1 formatted-label space-separator">Justificatif de
+                            domicile :</label>
+                        <div class="input-icon text-center info-icon input-file-container">
+                            <input type="text"
+                                   class="form-control form-control-formatted form-control-untouched input-file guarantor"
+                                   placeholder="Ajouter un document" id="domicile" readonly="" data-id="0"/>
+                            <input type="file" class="hidden file-reader guarantor-file" accept="image/*, .pdf" th:field="*{files[0]}"
+                                   name="domicile"/>
+                            <span class="img info-icon text-alter" data-toggle="tooltip" data-placement="bottom"
+                                  title=""
+                                  data-original-title="3 dernières quittances de loyer ou, à défaut, une attestation du précédent bailleur OU attestation sur l'honneur de l'hébergeant">
+                            <span>?</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" th:if="${fileNumber}==3">
+                        <label for="work_status" class="text-primary1 formatted-label space-separator">Justificatif de
+                            situation professionnelle :
+                            <span th:text="#{tenant.profile.help}" class="bold"></span>
+                        </label>
+                        <div id="div-file-0">
+                            <div class="input-icon text-center info-icon input-file-container">
+                                <input type="text"
+                                       class="form-control form-control-formatted form-control-untouched input-file guarantor"
+                                       placeholder="Ajouter un document" id="work_status" readonly="" data-id="0"/>
+                                <input type="file" class="files-input hidden file-reader guarantor-file" accept="image/*, .pdf" th:field="*{files[0]}"
+                                       name="work_status"/>
+                                <span class="img info-icon text-alter" data-toggle="tooltip" data-placement="bottom"
+                                      title=""
+                                      data-original-title="contrat de travail ou de stage ou, à défaut, attestation de l'employeur OU carte d'étudiant OU certificat de scolarité OU copie de la carte professionnelle (profession libérale) OU autre">
+                            <span>?</span>
+                          </span>
+                            </div>
+                        </div>
+                        <div class="text-right" style="margin-top: 3px;">
+                            <a data-id="0" class="add-input add-file-guarantor" href="" th:text="#{tenant.profile.add.input}"></a>
+                        </div>
+                    </div>
+                    <div class="form-group" th:if="${fileNumber}==4">
+                        <label for="impots" class="text-primary1 formatted-label space-separator">Avis d'imposition
+                            :</label>
+                        <div class="input-icon text-center info-icon input-file-container">
+                            <input type="text"
+                                   class="form-control form-control-formatted form-control-untouched input-file guarantor"
+                                   placeholder="Ajouter un document" id="impots" readonly="" data-id="0"/>
+                            <input type="file" class="hidden file-reader guarantor-file" accept="image/*, .pdf" th:field="*{files[0]}"
+                                   name="justificatif_res"/>
+                            <span class="img info-icon text-alter" data-toggle="tooltip" data-placement="bottom"
+                                  title="" data-original-title="dernier avis d'imposition ou de non-imposition">
+                            <span>?</span>
+                          </span>
+                        </div>
+                    </div>
+                    <div class="form-group" th:if="${fileNumber}==5">
+                        <label for="justificatif_res" class="text-primary1 formatted-label space-separator">Justificatif
+                            de ressources :
+                            <span th:text="#{tenant.profile.help}" class="bold"></span>
+                        </label>
+                        <div id="div-file-0">
+                            <div class="input-icon text-center info-icon input-file-container">
+                                <input type="text"
+                                       class="form-control form-control-formatted form-control-untouched input-file guarantor"
+                                       placeholder="Ajouter un document" id="justificatif_res" readonly="" data-id="0"/>
+                                <input type="file" class="files-input hidden file-reader guarantor-file" accept="image/*, .pdf" th:field="*{files[0]}"
+                                       name="justificatif_res"/>
+                                <span class="img info-icon text-alter" data-toggle="tooltip" data-placement="bottom"
+                                      title=""
+                                      data-original-title="3 derniers bulletins de salaires OU justificatif de versement des indemnités de stage OU 2 derniers bilans comptables ou, à défaut attestation des ressources délivrée par un comptable (non-salariés)">
+                            <span>?</span>
+                          </span>
+                            </div>
+                        </div>
+                        <div class="text-right" style="margin-top: 3px;">
+                            <a data-id="0" class="add-input add-file-guarantor" href="" th:text="#{tenant.profile.add.input}"></a>
+                        </div>
+                    </div>
+                    <div class="text-center medium-space-separator">
+                        <button th:text="#{tenant.form.button.next}" type="submit" data-loading-text="Next step in course"
+                                id="create-tenant" class="btn btn-primary btn-responsive animated subtitle1">
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

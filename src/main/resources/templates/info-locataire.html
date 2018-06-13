@@ -10,7 +10,7 @@
 
 <div layout:fragment="content" th:remove="tag">
     <div class="bg-white">
-        
+
 
         <div class="banner-owner big-space-separator text-center animated-2 fadeIn">
             <div class="container-fluid">
@@ -36,7 +36,8 @@
                             <img src="/assets/icons/hands.svg" alt=""/>
                         </div>
                         <p class="subtitle space-separator">En un clic</p>
-                        <p class="text-primary1">En un seul clic envoyez votre dossier aux propriétaires dont le bien vous interesse</p>
+                        <p class="text-primary1">En un seul clic envoyez votre dossier aux propriétaires dont le bien
+                            vous interesse</p>
                     </div>
                     <div class="col-md-4 text-primary text-center medium-space-separator-top">
                         <div class=" icon medium-space-separator-top">
@@ -44,7 +45,8 @@
                             <img src="/assets/icons/coffe.svg" alt=""/>
                         </div>
                         <p class="subtitle space-separator">Démarquez-vous</p>
-                        <p class="text-primary1">Grâce à Locatio et la série de tests effectués sur votre dossier vous augmentez de 60% la probabilité d'obtenir
+                        <p class="text-primary1">Grâce à Locatio et la série de tests effectués sur votre dossier vous
+                            augmentez de 60% la probabilité d'obtenir
                             l'appartement de vos rêves</p>
                     </div>
                     <div class="col-md-4 text-primary text-center medium-space-separator-top">
@@ -53,8 +55,9 @@
                             <img src="/assets/icons/security.svg" alt=""/>
                         </div>
                         <p class="subtitle space-separator">Pas d'abus</p>
-                        <p class="text-primary1">Avec Locatio ne fournissez que <a href="https://www.service-public.fr/particuliers/vosdroits/F1169"
-                                                                                    class="text-primary1" target="_blank"> les pièces autorisées</a> et rien de plus !</p>
+                        <p class="text-primary1">Avec Locatio ne fournissez que <a
+                                href="https://www.service-public.fr/particuliers/vosdroits/F1169"
+                                class="text-primary1" target="_blank"> les pièces autorisées</a> et rien de plus !</p>
                     </div>
                 </div>
             </div>
@@ -63,9 +66,13 @@
         <div class="text-center">
             <div class="bg-primary text-center medium-space-separator text-primary">
                 <div class="container">
-                    <a href="#account-type" data-toggle="modal"  data-target="#account-type" class="btn btn-primary btn-responsive animated bounceInUp">Créer un compte</a>
-                    <!--<a th:href="@{/creer-compte}" class="btn btn-primary btn-responsive animated bounceInUp">Créer un compte</a>-->
+                    <!--<a href="#account-type" data-toggle="modal" data-target="#account-type"
+                       class="btn btn-primary btn-responsive animated bounceInUp">Créer un compte</a>-->
+                    <a th:href="@{/registerTenant/step1}" class="btn btn-primary btn-responsive animated bounceInUp">Créer un compte</a>
                 </div>
+                <br/>
+                <a th:href="@{/login}" class="medium-space-separator top-buffer">Me connecter</a>
+
             </div>
         </div>
 
@@ -79,7 +86,7 @@
                             <div class="rounded-badge bg-primary text-primary">1</div>
                         </div>
                         <div class="rounded border border-primary padding medium-size-container" style="margin:auto">
-                            <img src="/assets/icons/security.svg" alt="" class="img-responsive" />
+                            <img src="/assets/icons/security.svg" alt="" class="img-responsive"/>
                         </div>
                         <p class="text-primary text-primary1 text-center padding-sides space-separator-top">
                             Je crée mon compte Locatio en fournissant uniquement les pièces autorisées par la loi
@@ -90,10 +97,11 @@
                             <div class="rounded-badge bg-primary text-primary">2</div>
                         </div>
                         <div class="rounded border border-primary padding medium-size-container" style="margin:auto">
-                            <img src="/assets/icons/coffe.svg" alt="" class="img-responsive" />
+                            <img src="/assets/icons/coffe.svg" alt="" class="img-responsive"/>
                         </div>
                         <p class="text-primary text-primary1 text-center padding-sides space-separator-top">
-                            Locatio effectue une série de tests pour s'assurer que mon dossier est conforme aux attentes des propriétaires (revenus, fiche d'imposition, etc.)
+                            Locatio effectue une série de tests pour s'assurer que mon dossier est conforme aux attentes
+                            des propriétaires (revenus, fiche d'imposition, etc.)
                         </p>
                     </td>
                     <td class="border-right border-primary">
@@ -101,10 +109,11 @@
                             <div class="rounded-badge bg-primary text-primary">3</div>
                         </div>
                         <div class="rounded border border-primary padding medium-size-container" style="margin:auto">
-                            <img src="/assets/icons/email-03.svg" alt="" class="img-responsive" />
+                            <img src="/assets/icons/email-03.svg" alt="" class="img-responsive"/>
                         </div>
                         <p class="text-primary text-primary1 text-center padding-sides space-separator-top">
-                            Je reçois un lien unique à envoyer aux propriétaires leur permettant d'obtenir une assurance de la qualité de mon dossier sans avoir accès aux pièces (Etat tiers de confiance)
+                            Je reçois un lien unique à envoyer aux propriétaires leur permettant d'obtenir une assurance
+                            de la qualité de mon dossier sans avoir accès aux pièces (Etat tiers de confiance)
                         </p>
                     </td>
                     <td class="border-right border-primary">
@@ -112,10 +121,11 @@
                             <div class="rounded-badge bg-primary text-primary">4</div>
                         </div>
                         <div class="rounded border border-primary padding medium-size-container" style="margin:auto">
-                            <img src="/assets/icons/hands.svg" alt="" class="img-responsive" />
+                            <img src="/assets/icons/hands.svg" alt="" class="img-responsive"/>
                         </div>
                         <p class="text-primary text-primary1 text-center padding-sides space-separator-top">
-                            Les demandes comportant un mention de dossier Locatio ont jusqu'à 24% de chances de plus d'obtenir une visite
+                            Les demandes comportant un mention de dossier Locatio ont jusqu'à 24% de chances de plus
+                            d'obtenir une visite
                         </p>
                     </td>
                     <td>
@@ -123,10 +133,11 @@
                             <div class="rounded-badge bg-primary text-primary">5</div>
                         </div>
                         <div class="rounded border border-primary padding medium-size-container" style="margin:auto">
-                            <img src="/assets/icons/email-02.svg" alt="" class="img-responsive" />
+                            <img src="/assets/icons/email-02.svg" alt="" class="img-responsive"/>
                         </div>
                         <p class="text-primary text-primary1 text-center padding-sides space-separator-top">
-                            Lorsque je le souhaite, j'envoie simplement mon dossier aux propriétaires que j'ai sélectionnés en un clic
+                            Lorsque je le souhaite, j'envoie simplement mon dossier aux propriétaires que j'ai
+                            sélectionnés en un clic
                         </p>
                     </td>
                 </tr>
@@ -148,7 +159,7 @@
                         </td>
                         <td class="padding-sides">
                             <div class="rounded border border-primary padding medium-size-container">
-                                <img src="/assets/icons/security.svg" alt="" class="img-responsive" />
+                                <img src="/assets/icons/security.svg" alt="" class="img-responsive"/>
                             </div>
                         </td>
                         <td class="text-primary text-primary1 padding-right">
@@ -169,11 +180,12 @@
                         </td>
                         <td class="padding-sides">
                             <div class="rounded border border-primary padding medium-size-container">
-                                <img src="/assets/icons/link.svg" alt="" class="img-responsive" />
+                                <img src="/assets/icons/link.svg" alt="" class="img-responsive"/>
                             </div>
                         </td>
                         <td class="text-primary text-primary1 padding-right">
-                            Locatio effectue une série de tests pour s'assurer que mon dossier est conforme aux attentes des propriétaires (revenus, fiche d'imposition, etc.)
+                            Locatio effectue une série de tests pour s'assurer que mon dossier est conforme aux attentes
+                            des propriétaires (revenus, fiche d'imposition, etc.)
                         </td>
                     </tr>
                     </tbody>
@@ -190,11 +202,12 @@
                         </td>
                         <td class="padding-sides">
                             <div class="rounded border border-primary padding medium-size-container">
-                                <img src="/assets/icons/email-03.svg" alt="" class="img-responsive" />
+                                <img src="/assets/icons/email-03.svg" alt="" class="img-responsive"/>
                             </div>
                         </td>
                         <td class="text-primary text-primary1 padding-right">
-                            Je reçois un lien unique à envoyer aux propriétaires leur permettant d'obtenir une assurance de la qualité de mon dossier sans avoir accès aux pièces (Etat tiers de confiance)
+                            Je reçois un lien unique à envoyer aux propriétaires leur permettant d'obtenir une assurance
+                            de la qualité de mon dossier sans avoir accès aux pièces (Etat tiers de confiance)
                         </td>
                     </tr>
                     </tbody>
@@ -211,11 +224,12 @@
                         </td>
                         <td class="padding-sides">
                             <div class="rounded border border-primary padding medium-size-container">
-                                <img src="/assets/icons/dossiers.svg" alt="" class="img-responsive" />
+                                <img src="/assets/icons/dossiers.svg" alt="" class="img-responsive"/>
                             </div>
                         </td>
                         <td class="text-primary text-primary1 padding-right">
-                            Les demandes comportant un mention de dossier Locatio ont jusqu'à 24% de chances de plus d'obtenir une visite
+                            Les demandes comportant un mention de dossier Locatio ont jusqu'à 24% de chances de plus
+                            d'obtenir une visite
                         </td>
                     </tr>
                     </tbody>
@@ -232,7 +246,7 @@
                         </td>
                         <td class="padding-sides">
                             <div class="rounded border border-primary padding medium-size-container">
-                                <img src="/assets/icons/email-02.svg" alt="" class="img-responsive" />
+                                <img src="/assets/icons/email-02.svg" alt="" class="img-responsive"/>
                             </div>
                         </td>
                         <td class="text-primary text-primary1 padding-right">
@@ -246,13 +260,14 @@
 
     </div>
 
-<!--Modal for account type-->
+    <!--Modal for account type-->
     <div class="modal fade" id="account-type" tabindex="-1" role="dialog"
          aria-labelledby="link-info">
         <div class="modal-dialog" role="document">
             <div class="modal-content text-primary">
                 <div class="modal-body text-center">
-                    <p class="text-primary little-title space-separator border-bottom border-primary">Créer un compte</p>
+                    <p class="text-primary little-title space-separator border-bottom border-primary">Créer un
+                        compte</p>
 
                     <p class="text-primary1 padding-sides">
                         <span>

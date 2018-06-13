@@ -31,41 +31,49 @@ public class Tenant extends User {
     private List<ApartmentSharing> joinedApartmentSharings = new ArrayList<>();
 
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String upload1;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String upload2;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String upload3;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String upload4;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String upload5;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private TenantFileStatus tenantFileStatus;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private TenantSituation tenantSituation;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Integer salary;
+
+    @Column(nullable = true)
+    private String partnerId;
 
 
     public Tenant() {
     }
 
     public Tenant(TenantDTO tenantDTO) {
-       super.setEmail(tenantDTO.getEmail());
-       super.setFirstName(tenantDTO.getFirstName().trim().replaceAll("\\s+", " "));
-       super.setLastName(tenantDTO.getLastName().trim().replaceAll("\\s+", " "));
-       this.tenantFileStatus = TenantFileStatus.TO_PROCESS;
-       this.salary = tenantDTO.getSalary();
-       this.setTenantSituation(TenantSituation.values()[tenantDTO.getSituation()]);
+        super.setEmail(tenantDTO.getEmail());
+        super.setFirstName(tenantDTO.getFirstName().trim().replaceAll("\\s+", " "));
+        super.setLastName(tenantDTO.getLastName().trim().replaceAll("\\s+", " "));
+        this.tenantFileStatus = TenantFileStatus.TO_PROCESS;
+        this.salary = tenantDTO.getSalary();
+        this.setTenantSituation(TenantSituation.values()[tenantDTO.getSituation()]);
+
+    }
+
+    public Tenant(String firstName, String lastName) {
+        super(firstName, lastName);
 
     }
 
@@ -182,5 +190,40 @@ public class Tenant extends User {
     @Override
     public String toString() {
         return super.getFirstName() + " " + super.getLastName();
+    }
+
+    public String getPartnerId() {
+        return partnerId;
+    }
+
+    public void setPartnerId(String partnerId) {
+        this.partnerId = partnerId;
+    }
+
+    public void updateTenant(TenantDTO tenantDTO) {
+        super.setFirstName(tenantDTO.getFirstName());
+        super.setLastName(tenantDTO.getLastName());
+        super.setEmail(tenantDTO.getEmail());
+        this.tenantFileStatus = TenantFileStatus.TO_PROCESS;
+        this.salary = tenantDTO.getSalary();
+        if (tenantDTO.getSituation() != null) {
+            this.setTenantSituation(TenantSituation.values()[tenantDTO.getSituation()]);
+        }
+    }
+
+    public int getFileNumber() {
+        if (upload1 == null) {
+            return 1;
+        }
+        if (upload2 == null) {
+            return 2;
+        }
+        if (upload3 == null) {
+            return 3;
+        }
+        if (upload4 == null) {
+            return 4;
+        }
+        return 5;
     }
 }

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Locatio</title>
+</head>
+<body>
+
+<div layout:fragment="content" th:remove="tag">
+
+    <div class="container big-space-separator">
+        <div class="row">
+            <div class="col-md-2 col-sm-1 col-xs-1"></div>
+            <div class="col-md-8 col-sm-10 col-xs-10">
+                <p class="little-title text-center padding border-bottom border-primary text-primary text-primary1 medium-margin-bottom">
+                    Constituez votre dossier : seules les pièces autorisées par la loi vous sont demandées</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 col-sm-2 col-xs-1"></div>
+            <div class="col-md-6 col-sm-8 col-xs-10">
+
+                <form autocomplete="off" class="form" th:action="@{/registerTenant/step6/} + ${tenantDTO.getId()}"
+                      method="post" th:object="${tenantDTO}"
+                      onsubmit="return validate_form()"
+                      enctype="multipart/form-data" id="formLocataire">
+                    <div class="form-check">
+                        <input type="checkbox" data-toggle="collapse" data-target="#guarantorForm"
+                               th:field="*{hasGuarantor}" class="form-check-input" id="hasGuarantor"/>
+                        <label class="form-check-label text-primary1 " for="hasGuarantor">J'ai un garant</label>
+                    </div>
+                    <div class="text-center medium-space-separator">
+                        <button th:text="#{tenant.form.button.next}" type="submit" data-loading-text="Next step in course"
+                                id="create-tenant" class="btn btn-primary btn-responsive animated subtitle1">
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

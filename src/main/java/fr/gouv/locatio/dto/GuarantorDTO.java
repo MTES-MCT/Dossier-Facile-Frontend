@@ -31,7 +31,7 @@ public class GuarantorDTO {
     @Pattern(regexp="[A-Za-z0-9._%-+]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}",groups = {CreateTenant.class})
     private String email;
 
-    private MultipartFile[] quarantorFiles;
+    private MultipartFile[][] files;
 
     public GuarantorDTO() {
     }
@@ -72,12 +72,12 @@ public class GuarantorDTO {
         this.email = email;
     }
 
-    public MultipartFile[] getQuarantorFiles() {
-        return quarantorFiles;
+    public MultipartFile[][] getFiles() {
+        return files;
     }
 
-    public void setQuarantorFiles(MultipartFile[] files) {
-        this.quarantorFiles = files;
+    public void setFiles(MultipartFile[][] files) {
+        this.files = files;
     }
 
     public Integer getSituation() {

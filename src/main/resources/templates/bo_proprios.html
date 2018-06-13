@@ -21,8 +21,11 @@
 
             <tr th:each="owner : ${owners}">
                 <td th:text="${owner.getId()}"></td>
+                <td th:text="${owner.getFirstName()}"></td>
+                <td th:text="${owner.getLastName()}"></td>
                 <td th:text="${owner.getEmail()}"></td>
                 <td th:utext="${owner.getCreationDateTime()}"></td>
+                <td th:text="${@environment.getProperty('domain.url')}+@{/proprietaire/contacter/}+${owner.getToken()}"></td>
                 <td>
                     <form id="proprio_subscribe" method="post" th:action="@{/bo/deleteOwner}">
                         <input type="hidden" th:name="subscriptionId" th:value="${owner.getId()}"/>

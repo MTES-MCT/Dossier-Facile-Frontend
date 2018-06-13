@@ -1,5 +1,7 @@
 package fr.gouv.locatio.validator;
 
 
-public interface TenantJoinApartmentSharing {
+import javax.validation.groups.Default;
+
+public interface TenantJoinApartmentSharing extends Default {
 }

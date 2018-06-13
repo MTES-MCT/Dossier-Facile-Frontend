@@ -62,8 +62,8 @@
     <div th:unless="${#authorization.expression('hasRole(''ROLE_OWNER'')')}" class="text-center">
         <div class="bg-primary text-center medium-space-separator text-primary">
             <div class="container">
-                <span th:text="#{tenant.profile.button5.label}"></span>
-                <br/><br/>
+                <!--<span th:text="#{tenant.profile.button5.label}"></span>-->
+                <!--<br/><br/>-->
                 <a th:href="@{/info-proprietaire(token=${token})}"
                    class="btn btn-primary btn-responsive animated bounceInUp" th:text="#{tenant.profile.button5}"></a>
             </div>

@@ -136,9 +136,9 @@ public class OwnerService {
                 }
             } else {
                 if (!apartmentSharingService.validateApartmentSharing(apartmentSharing) && apartmentSharing.getTenantApartmentSharing().equals(tenant)) {
-                    return "Vous n'etes pas autorisé à inscrire votre apartmentSharing auprès de ce propriétaire : votre dossier n'est pas encore validé";
+                    return "Vous n'êtes pas autorisé à vous inscrire auprès de ce propriétaire : votre dossier n'est pas encore validé";
                 }else if (!apartmentSharingService.validateApartmentSharing(apartmentSharing)){
-                    return "Demandez au créateur de la apartmentSharing pour donner accès à votre dossier";
+                    return "Demandez au créateur de la colocation pour donner accès à votre dossier";
                 }
 
             }
