@@ -1,0 +1,47 @@
+.bg-orange {
+    background-color: rgb(248, 191, 160) !important;
+}
+
+.border-orange {
+    border-color: rgb(248, 191, 160) !important;
+}
+
+.text-orange {
+    color: rgb(248, 191, 160) !important;
+}
+
+.text-bleu-fonce {
+    color: rgb(4, 31, 84) !important;
+}
+
+.text-bleu-clair {
+    color: rgb(74, 144, 226) !important;
+}
+
+.text-lead-color {
+    color: rgb(128, 128, 128) !important;
+}
+
+.bg-blue-dark {
+    background-color: rgb(4, 31, 84) !important;
+}
+
+.bg-button-chat-red {
+    background-color: rgb(224, 86, 68);
+}
+
+.bg-button-chat-green {
+    background-color: rgb(0, 178, 79);
+}
+
+.bg-button-chat-red:hover {
+    border: 0;
+}
+
+.bg-button-chat-green:hover {
+    border: 0;
+}
+
+.color-white {
+    color: white !important;
+}

@@ -1,0 +1,42 @@
+{
+  "name": "dossierfacile",
+  "private": true,
+  "license": "MIT",
+  "version": "3.0.0",
+  "description": "Frontend for DossierFacile",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:MTES-MCT/Dossier-Facile-Frontend.git"
+  },
+  "workspaces": [
+    "bo",
+    "main",
+    "tenant",
+    "owner",
+    "df-shared"
+  ],
+  "scripts": {
+    "bo": "yarn workspace bo",
+    "main": "yarn workspace main",
+    "tenant": "yarn workspace tenant",
+    "owner": "yarn workspace owner",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "dependencies": {
+    "@vue/cli": "^4.5.8",
+    "global": "^4.4.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@kazupon/vue-i18n-loader": "^0.5.0",
+    "@storybook/addon-actions": "^6.0.27",
+    "@storybook/addon-essentials": "^6.0.27",
+    "@storybook/addon-links": "^6.0.27",
+    "@storybook/vue": "^6.0.27",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "babel-loader": "^8.1.0",
+    "react-is": "^17.0.1",
+    "vue-cli-plugin-i18n": "~1.0.1"
+  }
+}
