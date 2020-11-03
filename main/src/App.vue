@@ -70,8 +70,8 @@ export default class App extends Vue {
     );
   }
   onCreateAccount() {
-    // FIXME redirect to tenant app
-    this.$router.push("/register");
+    // FIXME open modal to redirect to tenant app
+
   }
 }
 </script>

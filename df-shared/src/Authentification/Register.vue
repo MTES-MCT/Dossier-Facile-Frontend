@@ -83,7 +83,7 @@ export default class Register extends Vue {
   user: User = new User();
   loading = false;
 
-  handleRegitser() {
+  handleRegister() {
     this.loading = true;
     this.$emit("on-register", this.user);
   }
