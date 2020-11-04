@@ -8,11 +8,11 @@
             <form name="form" @submit.prevent="handleRegister">
               <div class="col-md-12 text-left">
                 <validation-provider rules="required" v-slot="{ errors }">
-                  <label for="email"><span>Email :</span></label>
+                  <label for="username"><span>Email :</span></label>
                   <input
                     v-model="user.username"
                     class="form-control validate-required"
-                    id="email"
+                    id="username"
                     name="username"
                     placeholder="Ex : exemple@exemple.fr"
                     type="email"
