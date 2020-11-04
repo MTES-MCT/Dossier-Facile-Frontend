@@ -4,7 +4,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-8 col-lg-6">
-            <h2>{{$t('title')}}</h2>
+            <h2>{{ $t("title") }}</h2>
             <form name="form" @submit.prevent="handleRegister">
               <div class="col-md-12 text-left">
                 <validation-provider rules="required" v-slot="{ errors }">
@@ -37,6 +37,14 @@
                 </validation-provider>
               </div>
 
+              <div class="col-12 justify-content-center align-content-center">
+                <vue-recaptcha
+                  sitekey="6LcfXvcUAAAAALLhnF408wgF7MH1OwJ4P0WPYjeu"
+                  :loadRecaptchaScript="true"
+                  v-on:verify="onVerify"
+                ></vue-recaptcha>
+              </div>
+
               <div
                 class="col-md-12 mt-4 justify-content-center align-content-center"
               >
@@ -61,6 +69,7 @@ import { User } from "df-shared/src/models/User";
 import { ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
 import { required, email } from "vee-validate/dist/rules";
+import VueRecaptcha from "vue-recaptcha";
 
 // No message specified.
 extend("email", {
@@ -76,7 +85,8 @@ extend("required", {
 
 @Component({
   components: {
-    ValidationProvider
+    ValidationProvider,
+    VueRecaptcha
   }
 })
 export default class Register extends Vue {
@@ -86,6 +96,10 @@ export default class Register extends Vue {
   handleRegister() {
     this.loading = true;
     this.$emit("on-register", this.user);
+  }
+
+  onVerify(captcha: string) {
+    this.user.captcha = captcha;
   }
 }
 </script>
