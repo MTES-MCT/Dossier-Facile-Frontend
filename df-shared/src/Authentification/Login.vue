@@ -4,7 +4,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-8 col-lg-6">
-            <h2>{{ $t('title') }}</h2>
+            <h2>{{ $t("title") }}</h2>
             <form name="form" @submit.prevent="handleLogin">
               <div class="col-md-12 text-left">
                 <validation-provider rules="required" v-slot="{ errors }">

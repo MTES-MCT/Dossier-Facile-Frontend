@@ -9,9 +9,7 @@
         <Menu />
       </div>
     </header>
-    <article class="rf-container">
-      <router-view />
-    </article>
+    <router-view />
     <MyFooter />
 
     <Modal v-show="isCreateModalVisible" @close="closeModal">
@@ -20,8 +18,7 @@
           <div class="row justify-content-center">
             <div class="col-12 col-md-8">
               <p>
-                Afin de créer votre compte, nous avons besoin de quelques
-                informations. Vous êtes…<br />
+                {{ $t("register-information") }}
               </p>
               <div class="row">
                 <div class="col-md-6">
@@ -30,12 +27,12 @@
                     type="submit"
                     @click="registerTenant"
                   >
-                    Locataire
+                    {{ $t("tenant") }}
                   </button>
                 </div>
                 <div class="col-md-6">
                   <button class="btn btn--primary" type="submit">
-                    Propriétaire
+                    {{ $t("owner") }}
                   </button>
                 </div>
               </div>
@@ -60,12 +57,12 @@
                     type="submit"
                     @click="loginTenant"
                   >
-                    Locataire
+                    {{ $t("tenant") }}
                   </button>
                 </div>
                 <div class="col-md-6">
                   <button class="btn btn--primary" type="submit">
-                    Propriétaire
+                    {{ $t("owner") }}
                   </button>
                 </div>
               </div>
@@ -178,10 +175,16 @@ a {
 <i18n>
 {
 "en": {
-"login-choice": "Choisissez votre mode de connexion :"
+"login-choice": "Choisissez votre mode de connexion :",
+"tenant": "Locataire",
+"owner": "Propriétaire",
+"register-information": "Afin de créer votre compte, nous avons besoin de quelques informations. Vous êtes…"
 },
 "fr": {
-"login-choice": "Choisissez votre mode de connexion :"
+"login-choice": "Choisissez votre mode de connexion :",
+"tenant": "Locataire",
+"owner": "Propriétaire",
+"register-information": "Afin de créer votre compte, nous avons besoin de quelques informations. Vous êtes…"
 }
 }
 </i18n>

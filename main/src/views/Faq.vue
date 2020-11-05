@@ -1,5 +1,5 @@
 <template>
-  <div class="rf-container">
+  <div>
     <section class="text-center imagebg" data-overlay="4">
       <div class="background-image-holder">
         <img
