@@ -3,11 +3,11 @@
     <header class="rf-header">
       <div class="rf-container">
         <MyHeader
-            :user="user"
-            :logged-in="status.loggedIn"
-            v-on:on-login="onLogin"
-            v-on:on-logout="onLogout"
-            v-on:on-create-account="onCreateAccount"
+          :user="user"
+          :logged-in="status.loggedIn"
+          v-on:on-login="onLogin"
+          v-on:on-logout="onLogout"
+          v-on:on-create-account="onCreateAccount"
         />
         <Menu />
       </div>
@@ -44,12 +44,12 @@ import $ from "jquery";
       if (document.readyState == "complete") {
         $(".background-image-holder").each(function() {
           const imgSrc = $(this)
-              .children("img")
-              .attr("src");
+            .children("img")
+            .attr("src");
           $(this)
-              .css("background", 'url("' + imgSrc + '")')
-              .css("background-position", "initial")
-              .css("opacity", "1");
+            .css("background", 'url("' + imgSrc + '")')
+            .css("background-position", "initial")
+            .css("opacity", "1");
         });
       }
     };
@@ -61,12 +61,12 @@ export default class App extends Vue {
   }
   onLogout() {
     this.$store.dispatch("logout").then(
-        () => {
-          console.log("logged out !");
-        },
-        error => {
-          console.dir(error);
-        }
+      () => {
+        console.log("logged out !");
+      },
+      error => {
+        console.dir(error);
+      }
     );
   }
   onCreateAccount() {
@@ -75,8 +75,7 @@ export default class App extends Vue {
 }
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
 
 <i18n>
 {

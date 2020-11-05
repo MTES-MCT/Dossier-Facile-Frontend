@@ -16,6 +16,37 @@
       <router-view />
     </article>
     <MyFooter />
+
+    <Modal v-show="isModalVisible" @close="closeModal">
+      <template v-slot:body>
+        <div class="rf-container">
+          <div class="row justify-content-center">
+            <div class="col-12 col-md-8">
+              <p>
+                Afin de créer votre compte, nous avons besoin de quelques
+                informations. Vous êtes…<br />
+              </p>
+              <div class="row">
+                <div class="col-md-6">
+                  <button
+                    class="btn btn--primary"
+                    type="submit"
+                    @click="registerTenant"
+                  >
+                    Locataire
+                  </button>
+                </div>
+                <div class="col-md-6">
+                  <button class="btn btn--primary" type="submit">
+                    Propriétaire
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </Modal>
   </div>
 </template>
 
@@ -26,12 +57,14 @@ import MyFooter from "df-shared/src/Footer/Footer.vue";
 import Menu from "@/components/Menu.vue";
 import { mapState } from "vuex";
 import $ from "jquery";
+import Modal from "df-shared/src/components/Modal.vue";
 
 @Component({
   components: {
     MyHeader,
     MyFooter,
-    Menu
+    Menu,
+    Modal
   },
   computed: {
     ...mapState({
@@ -56,6 +89,8 @@ import $ from "jquery";
   }
 })
 export default class App extends Vue {
+  isModalVisible = false;
+
   onLogin() {
     this.$router.push("/login");
   }
@@ -70,8 +105,14 @@ export default class App extends Vue {
     );
   }
   onCreateAccount() {
-    // FIXME open modal to redirect to tenant app
+    this.isModalVisible = true;
+  }
+  closeModal() {
+    this.isModalVisible = false;
+  }
 
+  registerTenant() {
+    window.location.href = "http://localhost:9002/signup";
   }
 }
 </script>
