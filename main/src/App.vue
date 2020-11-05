@@ -121,8 +121,6 @@ export default class App extends Vue {
 @import "assets/csss/bootstrap4.css";
 @import "assets/csss/custom.css";
 @import "assets/csss/flickity.css";
-@import "assets/csss/iconsmind.css";
-@import "assets/csss/socicon.css";
 @import "assets/csss/stack-interface.css";
 @import "assets/csss/theme.css";
 

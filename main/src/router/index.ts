@@ -28,11 +28,8 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Blog - DossierFacile"
     },
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/blog/Blog.vue")
+      import(/* webpackChunkName: "blog" */ "../views/blog/Blog.vue")
   },
   {
     path: "/blog/article1",
@@ -40,11 +37,8 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Article 1 - Blog - DossierFacile"
     },
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/blog/Article1.vue")
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article1.vue")
   },
   {
     path: "/blog/article2",
@@ -52,11 +46,8 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Article 2 - Blog - DossierFacile"
     },
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/blog/Article2.vue")
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article2.vue")
   },
   {
     path: "/blog/article3",
@@ -64,11 +55,8 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Article 3 - Blog - DossierFacile"
     },
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/blog/Article3.vue")
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article3.vue")
   },
   {
     path: "/information",
@@ -77,7 +65,7 @@ const routes: Array<RouteConfig> = [
       title: "Information - DossierFacile"
     },
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Information.vue")
+      import(/* webpackChunkName: "information" */ "../views/Information.vue")
   },
   {
     path: "/securite-des-donnees",
@@ -86,7 +74,7 @@ const routes: Array<RouteConfig> = [
       title: "Sécurité des données - DossierFacile"
     },
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/SecuriteDesDonnees.vue")
+      import(/* webpackChunkName: "security" */ "../views/SecuriteDesDonnees.vue")
   },
   {
     path: "/faq",
@@ -94,7 +82,7 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "FAQ - DossierFacile"
     },
-    component: () => import(/* webpackChunkName: "about" */ "../views/Faq.vue")
+    component: () => import(/* webpackChunkName: "faq" */ "../views/Faq.vue")
   }
 ];
 
