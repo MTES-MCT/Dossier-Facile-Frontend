@@ -9,7 +9,10 @@ const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: "Home",
-    component: Home
+    component: Home,
+    meta: {
+      title: "DossierFacile"
+    },
   },
   {
     path: "/login",
@@ -22,9 +25,9 @@ const routes: Array<RouteConfig> = [
   {
     path: "/signup",
     name: "Signup",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    meta: {
+      title: "Création compte - DossierFacile"
+    },
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/SignupPage.vue")
   }
@@ -33,7 +36,15 @@ const routes: Array<RouteConfig> = [
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior() {
+    document.getElementById("app")?.scrollIntoView();
+  }
+});
+
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title;
+  next();
 });
 
 export default router;
