@@ -25,7 +25,7 @@
                     <router-link to="/blog/article1">
                       <img
                         alt="Image"
-                        src="../../assets/images/blog-article.png"
+                        src="../../assets/images/blog-article.jpg"
                       />
                     </router-link>
                     <p>
@@ -58,7 +58,7 @@
                     <router-link to="/blog/article2">
                       <img
                         alt="Image"
-                        src="../../assets/images/blog-article2.png"
+                        src="../../assets/images/blog-article2.jpg"
                       />
                     </router-link>
                     <p>
@@ -93,7 +93,7 @@
                     <router-link to="/blog/article3">
                       <img
                         alt="Image"
-                        src="../../assets/images/blog-article3.png"
+                        src="../../assets/images/blog-article3.jpg"
                       />
                     </router-link>
                     <p>

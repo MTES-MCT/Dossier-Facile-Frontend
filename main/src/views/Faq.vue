@@ -4,7 +4,7 @@
       <div class="background-image-holder">
         <img
           alt="background"
-          src="../assets/images/faq/livres_bleu_fonc_C3_A9.png"
+          src="../assets/images/faq/livres_bleu_fonc_C3_A9.jpg"
         />
       </div>
       <div class="container">
