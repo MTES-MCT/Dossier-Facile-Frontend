@@ -9,7 +9,7 @@
           v-on:on-logout="onLogout"
           v-on:on-create-account="onCreateAccount"
         />
-        <Menu />
+        <Menu v-if="status.loggedIn" />
       </div>
     </header>
     <article class="rf-container">
