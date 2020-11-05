@@ -3,10 +3,7 @@
     <header class="rf-header">
       <div class="rf-container">
         <MyHeader
-          :user="user"
-          :logged-in="status.loggedIn"
           v-on:on-login="onLogin"
-          v-on:on-logout="onLogout"
           v-on:on-create-account="onCreateAccount"
         />
         <Menu />
@@ -17,7 +14,7 @@
     </article>
     <MyFooter />
 
-    <Modal v-show="isModalVisible" @close="closeModal">
+    <Modal v-show="isCreateModalVisible" @close="closeModal">
       <template v-slot:body>
         <div class="rf-container">
           <div class="row justify-content-center">
@@ -32,6 +29,36 @@
                     class="btn btn--primary"
                     type="submit"
                     @click="registerTenant"
+                  >
+                    Locataire
+                  </button>
+                </div>
+                <div class="col-md-6">
+                  <button class="btn btn--primary" type="submit">
+                    Propriétaire
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </Modal>
+
+    <Modal v-show="isLoginModalVisible" @close="closeModal">
+      <template v-slot:body>
+        <div class="rf-container">
+          <div class="row justify-content-center">
+            <div class="col-12 col-md-8">
+              <p>
+                {{ $t("login-choice") }}
+              </p>
+              <div class="row">
+                <div class="col-md-6">
+                  <button
+                    class="btn btn--primary"
+                    type="submit"
+                    @click="loginTenant"
                   >
                     Locataire
                   </button>
@@ -89,28 +116,23 @@ import Modal from "df-shared/src/components/Modal.vue";
   }
 })
 export default class App extends Vue {
-  isModalVisible = false;
+  isCreateModalVisible = false;
+  isLoginModalVisible = false;
 
   onLogin() {
-    this.$router.push("/login");
-  }
-  onLogout() {
-    this.$store.dispatch("logout").then(
-      () => {
-        console.log("logged out !");
-      },
-      error => {
-        console.dir(error);
-      }
-    );
+    this.isLoginModalVisible = true;
   }
   onCreateAccount() {
-    this.isModalVisible = true;
+    this.isCreateModalVisible = true;
   }
   closeModal() {
-    this.isModalVisible = false;
+    this.isCreateModalVisible = false;
+    this.isLoginModalVisible = false;
   }
 
+  loginTenant() {
+    window.location.href = "http://localhost:9002/login";
+  }
   registerTenant() {
     window.location.href = "http://localhost:9002/signup";
   }
@@ -152,3 +174,14 @@ a {
   }
 }
 </style>
+
+<i18n>
+{
+"en": {
+"login-choice": "Choisissez votre mode de connexion :"
+},
+"fr": {
+"login-choice": "Choisissez votre mode de connexion :"
+}
+}
+</i18n>

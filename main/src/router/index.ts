@@ -1,7 +1,6 @@
 import Vue from "vue";
-import VueRouter, { RouteConfig } from "vue-router";
+import VueRouter, {RouteConfig} from "vue-router";
 import Home from "../views/Home.vue";
-import LoginPage from "@/views/LoginPage.vue";
 
 Vue.use(VueRouter);
 
@@ -12,14 +11,6 @@ const routes: Array<RouteConfig> = [
     component: Home,
     meta: {
       title: "Accueil - DossierFacile"
-    }
-  },
-  {
-    path: "/login",
-    name: "Login",
-    component: LoginPage,
-    meta: {
-      title: "Connexion - DossierFacile"
     }
   },
   {
