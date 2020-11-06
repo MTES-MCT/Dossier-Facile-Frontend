@@ -5,7 +5,7 @@
         <div class="background-image-holder">
           <img
             alt="background"
-            src="../assets/images/en-savoir-plus/en-savoir-plus-image2.png"
+            src="../assets/images/en-savoir-plus/en-savoir-plus-image2.jpg"
           />
         </div>
         <div class="container pos-vertical-center">

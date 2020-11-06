@@ -1,64 +1,73 @@
 <template>
-  <div class="main-container">
-    <section class="text-center">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8 col-lg-6">
-            <h2>Connexion à mon compte DossierFacile</h2>
-            <form name="form" @submit.prevent="handleLogin">
-              <div class="col-md-12 text-left">
-                <validation-provider rules="required" v-slot="{ errors }">
-                  <label for="email"><span>Email :</span></label>
-                  <input
-                    v-model="user.username"
-                    class="form-control validate-required"
-                    id="email"
-                    name="username"
-                    placeholder="Ex : exemple@exemple.fr"
-                    type="email"
-                  />
-                  <span>{{ errors[0] }}</span>
-                </validation-provider>
-              </div>
-              <div class="col-md-12 text-left">
-                <validation-provider rules="required" v-slot="{ errors }">
-                  <label for="password"
-                    ><span class="font">Mot de passe :</span></label
-                  >
-                  <input
-                    id="password"
-                    placeholder="Ex : 12345679"
-                    type="password"
-                    v-model="user.password"
-                    name="password"
-                    class="validate-required form-control"
-                  />
-                  <span>{{ errors[0] }}</span>
-                </validation-provider>
-              </div>
-
+  <section class="rf-grid-row rf-grid-row--center">
+    <div class="rf-col-md-8 col-lg-6">
+      <h2 class="rf-h2 text-center rf-margin-top-7N rf-margin-bottom-5N">
+        {{ $t("title") }}
+      </h2>
+      <form name="form" @submit.prevent="handleLogin">
+        <div class="rf-grid-row rf-grid-row--center">
+          <div class="rf-col-12 rf-margin-bottom-3N">
+            <validation-provider rules="required" v-slot="{ errors }">
               <div
-                class="col-md-12 mt-4 justify-content-center align-content-center"
+                class="rf-input-group"
+                :class="errors[0] ? 'rf-input-group--error' : ''"
               >
-                <button
-                  class="btn btn--primary w-25 text-uppercase"
-                  type="submit"
-                >
-                  valider
-                </button>
-                <a class="mt-4 d-block" href="/mot-de-passe-oublie"
-                  >mot de passe oublié</a
-                >
-                <a class="mt-4 d-block link-modal-connect" href="#"
-                  >je n'ai pas encore de compte</a
-                >
+                <label class="rf-label" for="email">Email :</label>
+                <input
+                  v-model="user.username"
+                  class="form-control rf-input validate-required"
+                  id="email"
+                  name="username"
+                  placeholder="Ex : exemple@exemple.fr"
+                  type="email"
+                />
+                <span class="rf-error-text" v-if="errors[0]">{{
+                  errors[0]
+                }}</span>
               </div>
-            </form>
+            </validation-provider>
+          </div>
+          <div class="rf-col-12 rf-margin-bottom-3N">
+            <validation-provider rules="required" v-slot="{ errors }">
+              <div
+                class="rf-input-group"
+                :class="errors[0] ? 'rf-input-group--error' : ''"
+              >
+                <label for="password" class="rf-label">Mot de passe :</label>
+                <input
+                  id="password"
+                  placeholder="Ex : 12345679"
+                  type="password"
+                  v-model="user.password"
+                  name="password"
+                  class="validate-required form-control rf-input"
+                />
+                <span class="rf-error-text" v-if="errors[0]">{{
+                  errors[0]
+                }}</span>
+              </div>
+            </validation-provider>
+          </div>
+
+          <div class="rf-col-12 text-center rf-margin-bottom-5N">
+            <button class="rf-btn" type="submit">
+              valider
+            </button>
+          </div>
+          <div class="rf-col-12 text-center rf-margin-bottom-3N">
+            <router-link to="/forgotten-password"
+              >mot de passe oublié</router-link
+            >
+          </div>
+          <div class="rf-col-12 text-center rf-margin-bottom-12N">
+            <router-link to="/register"
+              >je n'ai pas encore de compte</router-link
+            >
           </div>
         </div>
-      </div>
-    </section>
-  </div>
+      </form>
+    </div>
+  </section>
 </template>
 
 <script lang="ts">
@@ -99,10 +108,16 @@ export default class Login extends Vue {
 <i18n>
 {
 "en": {
-"msg": "Hello"
+"title": "Connexion à mon compte DossierFacile"
 },
 "fr": {
-"msg": "Hellofr"
+"title": "Connexion à mon compte DossierFacile"
 }
 }
 </i18n>
+
+<style lang="scss">
+.text-center {
+  text-align: center;
+}
+</style>

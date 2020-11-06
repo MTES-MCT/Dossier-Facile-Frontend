@@ -21,7 +21,7 @@
                 Cependant, efficacité et gratuité vont rarement de pair. Alors
                 pourquoi votre dossier de location est-il gratuit ?
               </p>
-              <img alt="Image" src="../../assets/images/blog-article3.png" />
+              <img alt="Image" src="../../assets/images/blog-article3.jpg" />
               <h3>
                 Pourquoi ce dossier de location est-il gratuit contrairement aux
                 autres ?

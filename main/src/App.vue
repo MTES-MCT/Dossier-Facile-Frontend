@@ -3,19 +3,74 @@
     <header class="rf-header">
       <div class="rf-container">
         <MyHeader
-          :user="user"
-          :logged-in="status.loggedIn"
           v-on:on-login="onLogin"
-          v-on:on-logout="onLogout"
           v-on:on-create-account="onCreateAccount"
         />
         <Menu />
       </div>
     </header>
-    <article class="rf-container">
-      <router-view />
-    </article>
+    <router-view />
     <MyFooter />
+
+    <Modal v-show="isCreateModalVisible" @close="closeModal">
+      <template v-slot:body>
+        <div class="rf-container">
+          <div class="row justify-content-center">
+            <div class="col-12 col-md-8">
+              <p>
+                {{ $t("register-information") }}
+              </p>
+              <div class="row">
+                <div class="col-md-6">
+                  <button
+                    class="btn btn--primary"
+                    type="submit"
+                    @click="registerTenant"
+                  >
+                    {{ $t("tenant") }}
+                  </button>
+                </div>
+                <div class="col-md-6">
+                  <button class="btn btn--primary" type="submit">
+                    {{ $t("owner") }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </Modal>
+
+    <Modal v-show="isLoginModalVisible" @close="closeModal">
+      <template v-slot:body>
+        <div class="rf-container">
+          <div class="row justify-content-center">
+            <div class="col-12 col-md-8">
+              <p>
+                {{ $t("login-choice") }}
+              </p>
+              <div class="row">
+                <div class="col-md-6">
+                  <button
+                    class="btn btn--primary"
+                    type="submit"
+                    @click="loginTenant"
+                  >
+                    {{ $t("tenant") }}
+                  </button>
+                </div>
+                <div class="col-md-6">
+                  <button class="btn btn--primary" type="submit">
+                    {{ $t("owner") }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </Modal>
   </div>
 </template>
 
@@ -26,12 +81,14 @@ import MyFooter from "df-shared/src/Footer/Footer.vue";
 import Menu from "@/components/Menu.vue";
 import { mapState } from "vuex";
 import $ from "jquery";
+import Modal from "df-shared/src/components/Modal.vue";
 
 @Component({
   components: {
     MyHeader,
     MyFooter,
-    Menu
+    Menu,
+    Modal
   },
   computed: {
     ...mapState({
@@ -56,22 +113,25 @@ import $ from "jquery";
   }
 })
 export default class App extends Vue {
+  isCreateModalVisible = false;
+  isLoginModalVisible = false;
+
   onLogin() {
-    this.$router.push("/login");
-  }
-  onLogout() {
-    this.$store.dispatch("logout").then(
-      () => {
-        console.log("logged out !");
-      },
-      error => {
-        console.dir(error);
-      }
-    );
+    this.isLoginModalVisible = true;
   }
   onCreateAccount() {
-    // FIXME redirect to tenant app
-    this.$router.push("/register");
+    this.isCreateModalVisible = true;
+  }
+  closeModal() {
+    this.isCreateModalVisible = false;
+    this.isLoginModalVisible = false;
+  }
+
+  loginTenant() {
+    window.location.href = "http://localhost:9002/login";
+  }
+  registerTenant() {
+    window.location.href = "http://localhost:9002/signup";
   }
 }
 </script>
@@ -80,10 +140,9 @@ export default class App extends Vue {
 @import "assets/csss/bootstrap4.css";
 @import "assets/csss/custom.css";
 @import "assets/csss/flickity.css";
-@import "assets/csss/iconsmind.css";
-@import "assets/csss/socicon.css";
 @import "assets/csss/stack-interface.css";
 @import "assets/csss/theme.css";
+@import "assets/csss/iconsmind.css";
 
 .background-image-holder {
   img {
@@ -113,3 +172,20 @@ a {
   }
 }
 </style>
+
+<i18n>
+{
+"en": {
+"login-choice": "Choisissez votre mode de connexion :",
+"tenant": "Locataire",
+"owner": "Propriétaire",
+"register-information": "Afin de créer votre compte, nous avons besoin de quelques informations. Vous êtes…"
+},
+"fr": {
+"login-choice": "Choisissez votre mode de connexion :",
+"tenant": "Locataire",
+"owner": "Propriétaire",
+"register-information": "Afin de créer votre compte, nous avons besoin de quelques informations. Vous êtes…"
+}
+}
+</i18n>

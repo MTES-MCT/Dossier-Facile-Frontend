@@ -2,7 +2,7 @@
   <div class="main-container">
     <section class="cover cover-features imagebg space--sm" data-overlay="1">
       <div class="background-image-holder">
-        <img alt="background" src="../assets/cover-features.png" />
+        <img alt="background" src="../assets/cover-features.jpg" />
       </div>
       <div class="container">
         <div class="row">

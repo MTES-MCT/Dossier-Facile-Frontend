@@ -1,32 +1,89 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <header class="rf-header">
+      <div class="rf-container">
+        <MyHeader
+          :user="user"
+          :logged-in="status.loggedIn"
+          v-on:on-login="onLogin"
+          v-on:on-logout="onLogout"
+          v-on:on-create-account="onCreateAccount"
+        />
+        <Menu />
+      </div>
+    </header>
+    <article class="rf-container">
+      <router-view />
+    </article>
+    <MyFooter />
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script lang="ts">
+import { Vue, Component } from "vue-property-decorator";
+import MyHeader from "df-shared/src/Header/Header.vue";
+import MyFooter from "df-shared/src/Footer/Footer.vue";
+import Menu from "@/components/Menu.vue";
+import { mapState } from "vuex";
+import $ from "jquery";
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+@Component({
+  components: {
+    MyHeader,
+    MyFooter,
+    Menu
+  },
+  computed: {
+    ...mapState({
+      user: "user",
+      status: "status"
+    })
+  },
+  mounted: function() {
+    document.onreadystatechange = () => {
+      if (document.readyState == "complete") {
+        $(".background-image-holder").each(function() {
+          const imgSrc = $(this)
+            .children("img")
+            .attr("src");
+          $(this)
+            .css("background", 'url("' + imgSrc + '")')
+            .css("background-position", "initial")
+            .css("opacity", "1");
+        });
+      }
+    };
+  }
+})
+export default class App extends Vue {
+  onLogin() {
+    this.$router.push("/login");
+  }
+  onLogout() {
+    this.$store.dispatch("logout").then(
+      () => {
+        console.log("logged out !");
+      },
+      error => {
+        console.dir(error);
+      }
+    );
+  }
+  onCreateAccount() {
+    this.$router.push("/signup");
   }
 }
-</style>
+</script>
+
+<style lang="scss"></style>
+
+<i18n>
+{
+"en": {
+"home": "Home"
+},
+"fr": {
+"home": "Home"
+}
+}
+</i18n>

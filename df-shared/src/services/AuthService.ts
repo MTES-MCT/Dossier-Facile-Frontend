@@ -1,4 +1,4 @@
-import { User } from "df-shared/src/models/User";
+import { User } from "../models/User";
 import axios from "axios";
 
 const API_URL = "http://localhost:8080/api/";
@@ -24,8 +24,8 @@ export const AuthService = {
   },
 
   register(user: User) {
-    return axios.post(API_URL + "signup", {
-      username: user.username,
+    return axios.post(API_URL + "register/step1", {
+      email: user.username,
       password: user.password
     });
   }
