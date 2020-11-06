@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
-import LoginPage from '@/views/LoginPage.vue';
+import LoginPage from "@/views/LoginPage.vue";
 
 Vue.use(VueRouter);
 
@@ -12,7 +12,7 @@ const routes: Array<RouteConfig> = [
     component: Home,
     meta: {
       title: "DossierFacile"
-    },
+    }
   },
   {
     path: "/login",
@@ -29,7 +29,16 @@ const routes: Array<RouteConfig> = [
       title: "Création compte - DossierFacile"
     },
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/SignupPage.vue")
+      import(/* webpackChunkName: "signup" */ "@/views/SignupPage.vue")
+  },
+  {
+    path: "/join-roommate",
+    name: "JoinRommate",
+    meta: {
+      title: "Rejoindre un colocataire - DossierFacile"
+    },
+    component: () =>
+      import(/* webpackChunkName: "register" */ "@/views/JoinRoommate.vue")
   }
 ];
 
