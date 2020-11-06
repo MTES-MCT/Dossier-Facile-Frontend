@@ -26,7 +26,9 @@ export const AuthService = {
   register(user: User) {
     return axios.post(API_URL + "register/step1", {
       email: user.username,
-      password: user.password
+      password: user.password,
+      confirm: user.confirm,
+      captcha: user.captcha
     });
   }
 };
