@@ -12,7 +12,7 @@
         <Menu />
       </div>
     </header>
-    <article class="rf-container">
+    <article class="page">
       <router-view />
     </article>
     <MyFooter />
@@ -75,7 +75,20 @@ export default class App extends Vue {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page {
+  flex: auto;
+  min-height: 300px;
+  display: flex;
+  align-items: stretch;
+}
+</style>
 
 <i18n>
 {
