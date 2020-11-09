@@ -28,18 +28,51 @@
             </validation-provider>
           </div>
           <div class="rf-col-12 rf-margin-bottom-3N">
-            <validation-provider rules="required" v-slot="{ errors }">
+            <validation-provider
+              rules="required"
+              v-slot="{ errors }"
+              name="password"
+              vid="password"
+            >
               <div
                 class="rf-input-group"
                 :class="errors[0] ? 'rf-input-group--error' : ''"
               >
-                <label class="rf-label" for="password">Mot de passe :</label>
+                <label class="rf-label" for="password">{{
+                  $t("password")
+                }}</label>
                 <input
                   id="password"
                   placeholder="Ex : 12345679"
                   type="password"
                   v-model="user.password"
                   name="password"
+                  class="validate-required form-control rf-input"
+                />
+                <span class="rf-error-text" v-if="errors[0]">{{
+                  errors[0]
+                }}</span>
+              </div>
+            </validation-provider>
+          </div>
+          <div class="rf-col-12 rf-margin-bottom-3N">
+            <validation-provider
+              rules="required|confirmed:password"
+              v-slot="{ errors }"
+            >
+              <div
+                class="rf-input-group"
+                :class="errors[0] ? 'rf-input-group--error' : ''"
+              >
+                <label class="rf-label" for="confirm-password">
+                  {{ $t("confirm-password") }}</label
+                >
+                <input
+                  id="confirm-password"
+                  placeholder="Ex : 12345679"
+                  type="password"
+                  v-model="user.confirm"
+                  name="confirm-password"
                   class="validate-required form-control rf-input"
                 />
                 <span class="rf-error-text" v-if="errors[0]">{{
@@ -73,7 +106,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { User } from "df-shared/src/models/User";
 import { ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
-import { required, email } from "vee-validate/dist/rules";
+import { required, email, confirmed } from "vee-validate/dist/rules";
 import VueRecaptcha from "vue-recaptcha";
 
 // No message specified.
@@ -86,6 +119,10 @@ extend("email", {
 extend("required", {
   ...required,
   message: "Ce champ est requis"
+});
+extend("confirmed", {
+  ...confirmed,
+  message: "Le mote de passe ne correspond pas"
 });
 
 @Component({
@@ -112,10 +149,14 @@ export default class Register extends Vue {
 <i18n>
 {
 "en": {
-"title": "Création de compte DossierFacile"
+"title": "Création de compte DossierFacile",
+"password": "Password",
+"confirm-password": "Confirm password :"
 },
 "fr": {
-"title": "Création de compte DossierFacile"
+"title": "Création de compte DossierFacile",
+"password": "Mot de passe :",
+"confirm-password": "Confirmation du mot de passe :"
 }
 }
 </i18n>
