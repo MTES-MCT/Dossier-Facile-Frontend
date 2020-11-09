@@ -7,27 +7,6 @@
       <form name="form" @submit.prevent="handleRegister">
         <div class="rf-grid-row rf-grid-row--center">
           <div class="rf-col-12 rf-margin-bottom-3N">
-            <validation-provider rules="required" v-slot="{ errors }">
-              <div
-                class="rf-input-group"
-                :class="errors[0] ? 'rf-input-group--error' : ''"
-              >
-                <label class="rf-label" for="username">Email :</label>
-                <input
-                  v-model="user.username"
-                  class="form-control validate-required rf-input"
-                  id="username"
-                  name="username"
-                  placeholder="Ex : exemple@exemple.fr"
-                  type="email"
-                />
-                <span class="rf-error-text" v-if="errors[0]">{{
-                  errors[0]
-                }}</span>
-              </div>
-            </validation-provider>
-          </div>
-          <div class="rf-col-12 rf-margin-bottom-3N">
             <validation-provider
               rules="required"
               v-slot="{ errors }"
@@ -106,16 +85,9 @@ import { Component, Vue } from "vue-property-decorator";
 import { User } from "df-shared/src/models/User";
 import { ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
-import { required, email, confirmed } from "vee-validate/dist/rules";
+import { required, confirmed } from "vee-validate/dist/rules";
 import VueRecaptcha from "vue-recaptcha";
 
-// No message specified.
-extend("email", {
-  ...email,
-  message: "Email non valide"
-});
-
-// Override the default message.
 extend("required", {
   ...required,
   message: "Ce champ est requis"
@@ -131,15 +103,22 @@ extend("confirmed", {
     VueRecaptcha
   }
 })
-export default class Register extends Vue {
+export default class JoinRoommate extends Vue {
   SITE_KEY = process.env.VUE_APP_CAPTCHA_SITE_KEY;
 
   user: User = new User();
-  loading = false;
-
-  handleRegister() {
-    this.loading = true;
-    this.$emit("on-register", this.user);
+  // FIXME add ID or email or…
+  onRegister(user: User) {
+    if (user.username && user.password) {
+      this.$store.dispatch("register", user).then(
+        () => {
+          console.log("TODO redirect to step 4.3");
+        },
+        error => {
+          console.dir(error);
+        }
+      );
+    }
   }
 
   onVerify(captcha: string) {
@@ -151,12 +130,12 @@ export default class Register extends Vue {
 <i18n>
 {
 "en": {
-"title": "Création de compte DossierFacile",
+"title": "Rejoindre une colocation",
 "password": "Password",
 "confirm-password": "Confirm password :"
 },
 "fr": {
-"title": "Création de compte DossierFacile",
+"title": "Rejoindre une colocation",
 "password": "Mot de passe :",
 "confirm-password": "Confirmation du mot de passe :"
 }
