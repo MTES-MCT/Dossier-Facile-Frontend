@@ -1,5 +1,4 @@
 import LeftEditMenu from "tenant/src/components/LeftEditMenu";
-import MyButton from "df-shared/src/Button/Button";
 
 export default {
     title: 'Example/LeftEditMenu',
@@ -24,4 +23,9 @@ Step0Story.args = {
 export const Step1Story = Template.bind({});
 Step1Story.args = {
     step: 1
+};
+
+export const Step2Story = Template.bind({});
+Step2Story.args = {
+    step: 2
 };
