@@ -30,7 +30,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
 export default class LeftEditMenu extends Vue {
-  @Prop({ default: 0 }) private step?: number;
+  @Prop({ default: 0 }) private step!: number;
 
   getClass(s: number) {
     if (s <= this.step) {
