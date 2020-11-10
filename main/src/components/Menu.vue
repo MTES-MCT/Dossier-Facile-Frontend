@@ -3,8 +3,8 @@
     <nav class="rf-nav" role="navigation" aria-label="Menu principal">
       <ul class="rf-nav__list">
         <li class="rf-nav__item">
-          <router-link to="/blog" class="rf-link">
-            {{ $t("blog") }}
+          <router-link to="/faq" class="rf-link">
+            {{ $t("faq") }}
           </router-link>
         </li>
         <li class="rf-nav__item">
@@ -13,8 +13,8 @@
           </router-link>
         </li>
         <li class="rf-nav__item">
-          <router-link to="/faq" class="rf-link">
-            {{ $t("faq") }}
+          <router-link to="/blog" class="rf-link">
+            {{ $t("blog") }}
           </router-link>
         </li>
       </ul>
