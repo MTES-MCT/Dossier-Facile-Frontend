@@ -51,6 +51,9 @@ export default class LeftEditMenu extends Vue {
   flex-direction: column;
   justify-content: space-around;
   padding-left: 10px;
+  @media all and (max-width: 768px) {
+    display: none;
+  }
 }
 
 .spacer {
