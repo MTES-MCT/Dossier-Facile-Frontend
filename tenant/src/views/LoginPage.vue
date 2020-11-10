@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="rf-container">
     <Login v-on:on-login="onLogin" />
   </div>
 </template>
