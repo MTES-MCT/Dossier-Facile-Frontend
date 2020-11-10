@@ -13,6 +13,7 @@
   "dependencies": {
     "@gouvfr/design-system": "^0.2.0",
     "core-js": "^3.6.5",
+    "df-shared": "0.1.0",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
     "vue-i18n": "^8.17.3",
