@@ -1,5 +1,19 @@
 <template>
-  <div><h1>summary</h1></div>
+  <div>
+    <h4>{{ $t("title") }}</h4>
+    <div class="rf-grid-row" style="justify-content: space-between">
+      <div>
+        Prénom et nom
+      </div>
+      <div>edit</div>
+    </div>
+    <div class="rf-grid-row" style="justify-content: space-between">
+      <div>
+        Type de location
+      </div>
+      <div>edit</div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -15,8 +29,10 @@ export default class EditSummary extends Vue {}
 <i18n>
 {
 "en": {
+"title": "Informations du locataire"
 },
 "fr": {
+"title": "Informations du locataire"
 }
 }
 </i18n>
