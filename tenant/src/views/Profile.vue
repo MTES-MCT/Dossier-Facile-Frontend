@@ -1,7 +1,7 @@
 <template>
   <div class="rf-container rf-container-full-size">
     <div class="rf-grid-row full-height">
-      <LeftEditMenu class="left-menu rf-col-md-2"></LeftEditMenu>
+      <LeftEditMenu class="left-menu rf-col-md-3 rf-col-lg-2"></LeftEditMenu>
       <div class="rf-col-md-6 rf-col-sm-12">
         <NameInformationForm></NameInformationForm>
       </div>
