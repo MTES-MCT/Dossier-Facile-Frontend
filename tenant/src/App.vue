@@ -9,7 +9,7 @@
           v-on:on-logout="onLogout"
           v-on:on-create-account="onCreateAccount"
         />
-        <Menu />
+        <Menu :user="user" />
       </div>
     </header>
     <article class="page">

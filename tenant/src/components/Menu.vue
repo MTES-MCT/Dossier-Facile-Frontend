@@ -1,16 +1,25 @@
 <template>
   <div class="rf-container">
     <nav class="rf-nav" role="navigation" aria-label="Menu principal">
-      <ul class="rf-nav__list"></ul>
+      <ul class="rf-nav__list">
+        <li class="rf-nav__item" v-if="user">
+          <router-link to="/profile" class="rf-link">
+            {{ $t("profile") }}
+          </router-link>
+        </li>
+      </ul>
     </nav>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { User } from "df-shared/src/models/User";
 
 @Component
-export default class Menu extends Vue {}
+export default class Menu extends Vue {
+  @Prop() private user?: User;
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -25,14 +34,10 @@ export default class Menu extends Vue {}
 <i18n>
 {
 "en": {
-"faq": "FAQ",
-"information": "En savoir plus",
-"blog": "Blog"
+"profile": "Profil"
 },
 "fr": {
-"faq": "FAQ",
-"information": "En savoir plus",
-"blog": "Blog"
+"profile": "Profil"
 }
 }
 </i18n>
