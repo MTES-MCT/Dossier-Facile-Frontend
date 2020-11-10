@@ -1,41 +1,29 @@
 <template>
-  <div>
-    <div class="rf-card rf-card--no-arrow">
-      <div class="rf-card__body">
-        <button
-          href="#"
-          class="rf-btn rf-card__link"
-          :aria-expanded="expanded"
-          aria-controls="card-content"
-          @click="expanded = !expanded"
-        >
-          {{ $t("title") }}
-        </button>
-        <div
-          id="card-content"
-          :class="{ hidden: !expanded }"
-          class="rf-card__desc"
-        >
-          <p>
-            {{ $t("paragraph1.0") }}<b>{{ $t("paragraph1.1") }}</b>
-          </p>
-          <p>
-            {{ $t("paragraph2") }}
-          </p>
-          <p>
-            {{ $t("paragraph3.0") }}<b>{{ $t("paragraph3.1") }}</b
-            >{{ $t("paragraph3.2") }}
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
+  <Card>
+    <template v-slot:header>
+      {{ $t("title") }}
+    </template>
+    <template v-slot:body>
+      <p>
+        {{ $t("paragraph1.0") }}<b>{{ $t("paragraph1.1") }}</b>
+      </p>
+      <p>
+        {{ $t("paragraph2") }}
+      </p>
+      <p>
+        {{ $t("paragraph3.0") }}<b>{{ $t("paragraph3.1") }}</b
+        >{{ $t("paragraph3.2") }}
+      </p>
+    </template>
+  </Card>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-
-@Component
+import Card from "@/components/Card.vue";
+@Component({
+  components: { Card }
+})
 export default class Help extends Vue {
   expanded = false;
 }

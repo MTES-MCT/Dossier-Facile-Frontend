@@ -1,25 +1,29 @@
 <template>
   <div>
-    <h4>{{ $t("title") }}</h4>
-    <div class="rf-grid-row" style="justify-content: space-between">
-      <div>
-        Prénom et nom
-      </div>
-      <div>edit</div>
-    </div>
-    <div class="rf-grid-row" style="justify-content: space-between">
-      <div>
-        Type de location
-      </div>
-      <div>edit</div>
-    </div>
+    <Card>
+      <template v-slot:header>
+        {{ $t("title") }}
+      </template>
+      <template v-slot:body>
+        <div>
+          Prénom et nom
+        </div>
+        <div>edit</div>
+        <div>
+          Type de location
+        </div>
+        <div>edit</div>
+      </template>
+    </Card>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-
-@Component
+import Card from "@/components/Card.vue";
+@Component({
+  components: { Card }
+})
 export default class EditSummary extends Vue {}
 </script>
 
