@@ -4,7 +4,9 @@
       <LeftEditMenu class="rf-col-md-3 rf-col-lg-2"></LeftEditMenu>
       <div class="rf-col-md-6 rf-col-sm-12">
         <div class="content">
-          <h1>{{ $t("title") }}</h1>
+          <h1>
+            {{ $t("title") }}
+          </h1>
           <NameInformationForm :user="user"></NameInformationForm>
         </div>
       </div>
@@ -22,14 +24,17 @@ import LeftEditMenu from "@/components/LeftEditMenu.vue";
 import EditSummary from "@/components/EditSummary.vue";
 import Help from "@/components/Help.vue";
 import NameInformationForm from "@/components/NameInformationForm.vue";
-import { User } from "df-shared/src/models/User";
+import { mapState } from "vuex";
 
 @Component({
-  components: { Help, EditSummary, LeftEditMenu, NameInformationForm }
+  components: { Help, EditSummary, LeftEditMenu, NameInformationForm },
+  computed: {
+    ...mapState({
+      user: "user"
+    })
+  }
 })
-export default class Home extends Vue {
-  user: User = new User();
-}
+export default class Home extends Vue {}
 </script>
 
 <style lang="scss" scoped>

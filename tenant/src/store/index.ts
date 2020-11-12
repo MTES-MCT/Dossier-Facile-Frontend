@@ -31,7 +31,8 @@ export default new Vuex.Store({
     registerFailure(state) {
       state.status.loggedIn = false;
     },
-    setNamesSuccess(state) {
+    setNamesSuccess(state, user) {
+      state.user = user;
       state.user.userNamesOk = true;
     }
   },
@@ -65,9 +66,9 @@ export default new Vuex.Store({
       );
     },
     setNames({ commit }, user) {
-      // TODO
-      console.dir(user);
-      commit("setNamesSuccess");
+      // TODO : call api
+      commit("setNamesSuccess", user);
+      localStorage.setItem("user", JSON.stringify(user));
     }
   },
   modules: {}
