@@ -38,19 +38,13 @@ export default class TenantInformationForm extends Vue {
   @Prop() private user!: User;
 
   handleNameInformation() {
-    this.$store.dispatch("setNames", this.user).then(
-      () => {
-        // TODO : go to step 2
-      },
-      error => {
-        console.dir(error);
-      }
-    );
+    this.$store.dispatch("setNames", this.user).then(null, error => {
+      console.dir(error);
+    });
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss"></style>
 
 <i18n>

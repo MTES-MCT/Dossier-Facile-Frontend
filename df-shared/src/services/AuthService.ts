@@ -1,7 +1,7 @@
 import { User } from "../models/User";
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/";
+const API_URL = "//" + process.env.VUE_APP_API_URL + "/api/";
 
 export const AuthService = {
   login(user: User) {
@@ -30,5 +30,14 @@ export const AuthService = {
       confirm: user.confirm,
       captcha: user.captcha
     });
+  },
+
+  authHeaders(user: User) {
+    if (user && user.token) {
+      return { Authorization: 'Bearer ' + user.token }
+    } else {
+      return {};
+    }
+
   }
 };

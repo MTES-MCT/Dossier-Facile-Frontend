@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { AuthService } from "df-shared/src/services/AuthService";
+import {ProfileService} from '@/services/ProfileService';
 
 Vue.use(Vuex);
 
@@ -25,9 +26,11 @@ export default new Vuex.Store({
     },
     registerSuccess(state) {
       state.status.loggedIn = false;
+      state.user = null;
     },
     registerFailure(state) {
       state.status.loggedIn = false;
+      state.user = null;
     },
     setNamesSuccess(state, user) {
       state.user = user;
@@ -65,8 +68,15 @@ export default new Vuex.Store({
     },
     setNames({ commit }, user) {
       // TODO : call api
-      commit("setNamesSuccess", user);
-      localStorage.setItem("user", JSON.stringify(user));
+      return ProfileService.saveNames(user).then(
+          () => {
+            commit("setNamesSuccess", user);
+            localStorage.setItem("user", JSON.stringify(user));
+          },
+          error => {
+            return Promise.reject(error);
+          }
+      );
     }
   },
   modules: {}
