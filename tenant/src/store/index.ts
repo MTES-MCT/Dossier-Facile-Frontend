@@ -5,13 +5,11 @@ import { AuthService } from "df-shared/src/services/AuthService";
 Vue.use(Vuex);
 
 const localUser = localStorage.getItem("user");
-const user = localUser !== null ? JSON.parse(localUser) : null;
-const initialState = user
-  ? { status: { loggedIn: true }, user }
-  : { status: { loggedIn: false }, user: null };
+const initialUser = localUser !== null ? JSON.parse(localUser) : null;
+const initialLoggedIn = !!initialUser;
 
 export default new Vuex.Store({
-  state: initialState,
+  state: {currentStep: 0, user: initialUser, status: {loggedIn: initialLoggedIn}},
   mutations: {
     loginSuccess(state, user) {
       state.status.loggedIn = true;
@@ -33,7 +31,7 @@ export default new Vuex.Store({
     },
     setNamesSuccess(state, user) {
       state.user = user;
-      state.user.userNamesOk = true;
+      state.currentStep++;
     }
   },
   actions: {

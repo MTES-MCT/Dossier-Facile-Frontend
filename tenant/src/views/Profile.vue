@@ -7,7 +7,14 @@
           <h1>
             {{ $t("title") }}
           </h1>
-          <NameInformationForm :user="user"></NameInformationForm>
+          <NameInformationForm
+            :user="user"
+            v-if="currentStep === 0"
+          ></NameInformationForm>
+          <TenantInformationForm
+            :user="user"
+            v-if="currentStep === 1"
+          ></TenantInformationForm>
         </div>
       </div>
       <div class="rf-col-md-3 rf-col-sm-12">
@@ -25,12 +32,20 @@ import EditSummary from "@/components/EditSummary.vue";
 import Help from "@/components/Help.vue";
 import NameInformationForm from "@/components/NameInformationForm.vue";
 import { mapState } from "vuex";
+import TenantInformationForm from "@/components/TenantInformationForm.vue";
 
 @Component({
-  components: { Help, EditSummary, LeftEditMenu, NameInformationForm },
+  components: {
+    TenantInformationForm,
+    Help,
+    EditSummary,
+    LeftEditMenu,
+    NameInformationForm
+  },
   computed: {
     ...mapState({
-      user: "user"
+      user: "user",
+      currentStep: "currentStep"
     })
   }
 })
