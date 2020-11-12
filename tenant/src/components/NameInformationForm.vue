@@ -111,7 +111,6 @@ export default class NameInformationForm extends Vue {
   @Prop() private user!: User;
 
   handleNameInformation() {
-    this.$emit("on-name-update", this.user);
     this.$store.dispatch("setNames", this.user).then(
       () => {
         // TODO : go to step 2
