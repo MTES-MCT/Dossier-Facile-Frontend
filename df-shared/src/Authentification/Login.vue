@@ -77,13 +77,11 @@ import { ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
 import { required, email } from "vee-validate/dist/rules";
 
-// No message specified.
 extend("email", {
   ...email,
   message: "Email non valide"
 });
 
-// Override the default message.
 extend("required", {
   ...required,
   message: "Ce champ est requis"

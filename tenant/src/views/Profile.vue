@@ -3,7 +3,10 @@
     <div class="rf-grid-row full-height">
       <LeftEditMenu class="rf-col-md-3 rf-col-lg-2"></LeftEditMenu>
       <div class="rf-col-md-6 rf-col-sm-12">
-        <NameInformationForm></NameInformationForm>
+        <div class="content">
+          <h1>{{ $t("title") }}</h1>
+          <NameInformationForm :user="user"></NameInformationForm>
+        </div>
       </div>
       <div class="rf-col-md-3 rf-col-sm-12">
         <EditSummary></EditSummary>
@@ -19,14 +22,17 @@ import LeftEditMenu from "@/components/LeftEditMenu.vue";
 import EditSummary from "@/components/EditSummary.vue";
 import Help from "@/components/Help.vue";
 import NameInformationForm from "@/components/NameInformationForm.vue";
+import { User } from "df-shared/src/models/User";
 
 @Component({
   components: { Help, EditSummary, LeftEditMenu, NameInformationForm }
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  user: User = new User();
+}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .rf-container-full-size {
   padding-left: 0;
   padding-right: 0;
@@ -36,4 +42,19 @@ export default class Home extends Vue {}
 .full-height {
   min-height: 100%;
 }
+
+.content {
+  padding: 2rem;
+}
 </style>
+
+<i18n>
+{
+"en": {
+"title": "Je renseigne mes informations"
+},
+"fr": {
+"title": "Je renseigne mes informations"
+}
+}
+</i18n>

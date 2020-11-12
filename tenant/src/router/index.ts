@@ -47,7 +47,7 @@ const routes: Array<RouteConfig> = [
       title: "Édition du profile - DossierFacile"
     },
     component: () =>
-        import(/* webpackChunkName: "profile" */ "@/views/Profile.vue")
+      import(/* webpackChunkName: "profile" */ "@/views/Profile.vue")
   }
 ];
 
