@@ -34,7 +34,7 @@ export default new Vuex.Store({
     setNamesSuccess(state) {
       state.user.userNamesOk = true;
     }
-},
+  },
   actions: {
     login({ commit }, user) {
       return AuthService.login(user).then(
