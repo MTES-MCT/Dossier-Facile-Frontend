@@ -1,23 +1,25 @@
 <template>
-  <div class="signup">
-    <Register v-on:on-register="onRegister" />
-    <Modal v-show="isValidModalVisible" @close="closeModal">
-      <template v-slot:body>
-        <div class="rf-container">
-          <div class="row justify-content-center">
-            <div class="col-12 col-md-8">
-              <p>
-                Un mail vous a été envoyé à l'adresse indiquée.
-              </p>
-              <p>
-                Veuillez cliquer sur le lien envoyé afin de confirmer votre
-                adresse mail et poursuivre votre inscription.
-              </p>
+  <div class="rf-container">
+    <div class="signup">
+      <Register v-on:on-register="onRegister" />
+      <Modal v-show="isValidModalVisible" @close="closeModal">
+        <template v-slot:body>
+          <div class="rf-container">
+            <div class="row justify-content-center">
+              <div class="col-12 col-md-8">
+                <p>
+                  Un mail vous a été envoyé à l'adresse indiquée.
+                </p>
+                <p>
+                  Veuillez cliquer sur le lien envoyé afin de confirmer votre
+                  adresse mail et poursuivre votre inscription.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </template>
-    </Modal>
+        </template>
+      </Modal>
+    </div>
   </div>
 </template>
 

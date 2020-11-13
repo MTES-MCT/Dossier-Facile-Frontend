@@ -9,10 +9,10 @@
           v-on:on-logout="onLogout"
           v-on:on-create-account="onCreateAccount"
         />
-        <Menu />
+        <Menu :user="user" />
       </div>
     </header>
-    <article class="rf-container">
+    <article class="page">
       <router-view />
     </article>
     <MyFooter />
@@ -75,7 +75,22 @@ export default class App extends Vue {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+@import "../node_modules/df-shared/src/scss/_main.scss";
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page {
+  flex: auto;
+  min-height: 300px;
+  display: flex;
+  align-items: stretch;
+}
+</style>
 
 <i18n>
 {

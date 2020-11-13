@@ -39,6 +39,15 @@ const routes: Array<RouteConfig> = [
     },
     component: () =>
       import(/* webpackChunkName: "register" */ "@/views/JoinRoommate.vue")
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    meta: {
+      title: "Édition du profile - DossierFacile"
+    },
+    component: () =>
+      import(/* webpackChunkName: "profile" */ "@/views/Profile.vue")
   }
 ];
 

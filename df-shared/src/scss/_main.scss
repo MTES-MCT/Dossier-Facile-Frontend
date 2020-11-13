@@ -1,0 +1,7 @@
+:focus {
+  outline: none !important;
+}
+:focus::before {
+  outline: none !important;
+}
+

@@ -1,6 +1,6 @@
 <template>
   <section class="rf-grid-row rf-grid-row--center">
-    <div class="rf-col-md-8 col-lg-6">
+    <div class="rf-col-md-8 rf-col-lg-6">
       <h2 class="rf-h2 text-center rf-margin-top-7N rf-margin-bottom-5N">
         {{ $t("title") }}
       </h2>
@@ -77,13 +77,11 @@ import { ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
 import { required, email } from "vee-validate/dist/rules";
 
-// No message specified.
 extend("email", {
   ...email,
   message: "Email non valide"
 });
 
-// Override the default message.
 extend("required", {
   ...required,
   message: "Ce champ est requis"

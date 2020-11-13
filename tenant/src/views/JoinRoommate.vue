@@ -1,81 +1,83 @@
 <template>
-  <div class="rf-grid-row rf-grid-row--center">
-    <div class="col-md-8 col-lg-6">
-      <h2 class="rf-h2 text-center rf-margin-top-7N rf-margin-bottom-5N">
-        {{ $t("title") }}
-      </h2>
-      <form name="form" @submit.prevent="handleRegister">
-        <div class="rf-grid-row rf-grid-row--center">
-          <div class="rf-col-12 rf-margin-bottom-3N">
-            <validation-provider
-              rules="required"
-              v-slot="{ errors }"
-              name="password"
-              vid="password"
-            >
-              <div
-                class="rf-input-group"
-                :class="errors[0] ? 'rf-input-group--error' : ''"
+  <div class="rf-container">
+    <div class="rf-grid-row rf-grid-row--center">
+      <div class="col-md-8 col-lg-6">
+        <h2 class="rf-h2 text-center rf-margin-top-7N rf-margin-bottom-5N">
+          {{ $t("title") }}
+        </h2>
+        <form name="form" @submit.prevent="handleRegister">
+          <div class="rf-grid-row rf-grid-row--center">
+            <div class="rf-col-12 rf-margin-bottom-3N">
+              <validation-provider
+                rules="required"
+                v-slot="{ errors }"
+                name="password"
+                vid="password"
               >
-                <label class="rf-label" for="password">{{
-                  $t("password")
-                }}</label>
-                <input
-                  id="password"
-                  placeholder="Ex : 12345679"
-                  type="password"
-                  v-model="user.password"
-                  name="password"
-                  class="validate-required form-control rf-input"
-                />
-                <span class="rf-error-text" v-if="errors[0]">{{
-                  errors[0]
-                }}</span>
-              </div>
-            </validation-provider>
-          </div>
-          <div class="rf-col-12 rf-margin-bottom-3N">
-            <validation-provider
-              rules="required|confirmed:password"
-              v-slot="{ errors }"
-            >
-              <div
-                class="rf-input-group"
-                :class="errors[0] ? 'rf-input-group--error' : ''"
-              >
-                <label class="rf-label" for="confirm-password">
-                  {{ $t("confirm-password") }}</label
+                <div
+                  class="rf-input-group"
+                  :class="errors[0] ? 'rf-input-group--error' : ''"
                 >
-                <input
-                  id="confirm-password"
-                  placeholder="Ex : 12345679"
-                  type="password"
-                  v-model="user.confirm"
-                  name="confirm-password"
-                  class="validate-required form-control rf-input"
-                />
-                <span class="rf-error-text" v-if="errors[0]">{{
-                  errors[0]
-                }}</span>
-              </div>
-            </validation-provider>
-          </div>
+                  <label class="rf-label" for="password">{{
+                    $t("password")
+                  }}</label>
+                  <input
+                    id="password"
+                    placeholder="Ex : 12345679"
+                    type="password"
+                    v-model="user.password"
+                    name="password"
+                    class="validate-required form-control rf-input"
+                  />
+                  <span class="rf-error-text" v-if="errors[0]">{{
+                    errors[0]
+                  }}</span>
+                </div>
+              </validation-provider>
+            </div>
+            <div class="rf-col-12 rf-margin-bottom-3N">
+              <validation-provider
+                rules="required|confirmed:password"
+                v-slot="{ errors }"
+              >
+                <div
+                  class="rf-input-group"
+                  :class="errors[0] ? 'rf-input-group--error' : ''"
+                >
+                  <label class="rf-label" for="confirm-password">
+                    {{ $t("confirm-password") }}</label
+                  >
+                  <input
+                    id="confirm-password"
+                    placeholder="Ex : 12345679"
+                    type="password"
+                    v-model="user.confirm"
+                    name="confirm-password"
+                    class="validate-required form-control rf-input"
+                  />
+                  <span class="rf-error-text" v-if="errors[0]">{{
+                    errors[0]
+                  }}</span>
+                </div>
+              </validation-provider>
+            </div>
 
-          <div class="rf-col-12 rf-margin-bottom-3N">
-            <vue-recaptcha
-              :sitekey="SITE_KEY"
-              :loadRecaptchaScript="true"
-              v-on:verify="onVerify"
-            ></vue-recaptcha>
-          </div>
+            <div class="rf-col-12 rf-margin-bottom-3N">
+              <vue-recaptcha
+                :sitekey="SITE_KEY"
+                :loadRecaptchaScript="true"
+                v-on:verify="onVerify"
+              ></vue-recaptcha>
+            </div>
 
-          <div class="rf-col-12 text-center rf-margin-bottom-5N">
-            <button class="rf-btn" type="submit">
-              valider
-            </button>
+            <div class="rf-col-12 text-center rf-margin-bottom-5N">
+              <button class="rf-btn" type="submit">
+                valider
+              </button>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 </template>
