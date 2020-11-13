@@ -30,14 +30,5 @@ export const AuthService = {
       confirm: user.confirm,
       captcha: user.captcha
     });
-  },
-
-  authHeaders(user: User) {
-    if (user && user.token) {
-      return { Authorization: 'Bearer ' + user.token }
-    } else {
-      return {};
-    }
-
   }
 };
