@@ -30,8 +30,12 @@
             />
             <label class="rf-label" for="couple">{{ $t("couple") }}</label>
           </div>
-          <RoommatesInformation couple="true" v-if="tenantStatus === 'couple'">
-          </RoommatesInformation>
+          <CoupleInformation
+            :couple-mail.sync="spouseEmail"
+            :authorize.sync="spouseAuthorize"
+            v-if="tenantStatus === 'couple'"
+          >
+          </CoupleInformation>
           <div class="rf-radio-group">
             <input
               type="radio"
@@ -41,14 +45,18 @@
             />
             <label class="rf-label" for="roommate">{{ $t("roommate") }}</label>
           </div>
-          <RoommatesInformation v-if="tenantStatus === 'roommate'">
+          <RoommatesInformation
+            v-if="tenantStatus === 'roommate'"
+            :roommates.sync="roommates"
+            :authorize.sync="authorize"
+          >
           </RoommatesInformation>
         </div>
       </fieldset>
     </div>
 
     <div class="rf-margin-bottom-5N">
-      <button class="rf-btn" type="submit">
+      <button class="rf-btn" type="submit" @click="handleOthersInformation">
         {{ $t("confirm") }}
       </button>
     </div>
@@ -62,6 +70,7 @@ import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
 import { required, regex } from "vee-validate/dist/rules";
 import RoommatesInformation from "@/components/RoommatesInformation.vue";
+import CoupleInformation from "@/components/CoupleInformation.vue";
 
 extend("regex", {
   ...regex,
@@ -75,6 +84,7 @@ extend("required", {
 
 @Component({
   components: {
+    CoupleInformation,
     RoommatesInformation,
     ValidationProvider,
     ValidationObserver
@@ -83,11 +93,23 @@ extend("required", {
 export default class TenantInformationForm extends Vue {
   @Prop() private user!: User;
   tenantStatus = "";
+  roommates = [{ email: "" }];
+  authorize = false;
+  spouseEmail = "";
+  spouseAuthorize = false;
 
-  handleNameInformation() {
-    this.$store.dispatch("setNames", this.user).then(null, error => {
-      console.dir(error);
-    });
+  handleOthersInformation() {
+    // this.$store.dispatch("setNames", this.user).then(null, error => {
+    //   console.dir(error);
+    // });
+  }
+  updateRoommates(roommates: { email: string }[]) {
+    // todo update vuex
+    this.roommates = roommates;
+  }
+  updateAuthorize(authorize: boolean) {
+    // todo update vuex
+    this.authorize = authorize;
   }
 }
 </script>
