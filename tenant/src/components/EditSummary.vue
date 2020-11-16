@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card>
+    <Card :expandable="false" :expanded="true">
       <template v-slot:header>
         {{ $t("title") }}
       </template>

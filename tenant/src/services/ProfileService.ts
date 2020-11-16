@@ -10,5 +10,15 @@ export const ProfileService = {
         lastName: user.lastname
       }
     );
+  },
+  saveRoommates(data: {
+    tenantType: string,
+    coTenantEmail: string[],
+    acceptAccess: boolean
+  }) {
+    return axios.post(
+      "//" + process.env.VUE_APP_API_URL + "/api/register/step3",
+      data
+    );
   }
 };

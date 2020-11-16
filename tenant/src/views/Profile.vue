@@ -49,7 +49,7 @@ import TenantInformationForm from "@/components/TenantInformationForm.vue";
     })
   }
 })
-export default class Home extends Vue {}
+export default class Profile extends Vue {}
 </script>
 
 <style lang="scss" scoped>

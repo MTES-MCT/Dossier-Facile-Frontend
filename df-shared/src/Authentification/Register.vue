@@ -12,7 +12,7 @@
                 class="rf-input-group"
                 :class="errors[0] ? 'rf-input-group--error' : ''"
               >
-                <label class="rf-label" for="username">Email :</label>
+                <label class="rf-label" for="username">{{ $t("email") }}</label>
                 <input
                   v-model="user.username"
                   class="form-control validate-required rf-input"
@@ -152,13 +152,15 @@ export default class Register extends Vue {
 {
 "en": {
 "title": "Création de compte DossierFacile",
-"password": "Password",
-"confirm-password": "Confirm password :"
+"password": "Mot de passe :",
+"confirm-password": "Confirmation du mot de passe :",
+"email": "Email :"
 },
 "fr": {
 "title": "Création de compte DossierFacile",
 "password": "Mot de passe :",
-"confirm-password": "Confirmation du mot de passe :"
+"confirm-password": "Confirmation du mot de passe :",
+"email": "Email :"
 }
 }
 </i18n>
