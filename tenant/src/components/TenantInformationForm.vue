@@ -13,42 +13,37 @@
       <fieldset class="rf-fieldset">
         <div class="rf-fieldset__content">
           <div class="rf-radio-group">
-            <input
-              type="radio"
-              id="alone"
-              value="alone"
-              v-model="tenantStatus"
-            />
+            <input type="radio" id="alone" value="ALONE" v-model="tenantType" />
             <label class="rf-label" for="alone">{{ $t("alone") }}</label>
           </div>
           <div class="rf-radio-group">
             <input
               type="radio"
               id="couple"
-              value="couple"
-              v-model="tenantStatus"
+              value="COUPLE"
+              v-model="tenantType"
             />
             <label class="rf-label" for="couple">{{ $t("couple") }}</label>
           </div>
           <CoupleInformation
             :couple-mail.sync="spouseEmail"
             :authorize.sync="spouseAuthorize"
-            v-if="tenantStatus === 'couple'"
+            v-if="tenantType === 'COUPLE'"
           >
           </CoupleInformation>
           <div class="rf-radio-group">
             <input
               type="radio"
               id="roommate"
-              value="roommate"
-              v-model="tenantStatus"
+              value="CREATE"
+              v-model="tenantType"
             />
             <label class="rf-label" for="roommate">{{ $t("roommate") }}</label>
           </div>
           <RoommatesInformation
-            v-if="tenantStatus === 'roommate'"
+            v-if="tenantType === 'CREATE'"
             :roommates.sync="roommates"
-            :authorize.sync="authorize"
+            :authorize.sync="coTenantAuthorize"
           >
           </RoommatesInformation>
         </div>
@@ -92,16 +87,39 @@ extend("required", {
 })
 export default class TenantInformationForm extends Vue {
   @Prop() private user!: User;
-  tenantStatus = "";
+  tenantType = "";
   roommates = [{ email: "" }];
-  authorize = false;
+  coTenantAuthorize = false;
   spouseEmail = "";
   spouseAuthorize = false;
 
   handleOthersInformation() {
-    // this.$store.dispatch("setNames", this.user).then(null, error => {
-    //   console.dir(error);
-    // });
+    if (
+      (this.tenantType === "COUPLE" && !this.spouseAuthorize) ||
+      (this.tenantType === "CREATE" && !this.coTenantAuthorize)
+    ) {
+      return;
+    }
+    let coTenantEmails: string[] = [];
+    let acceptAccess = false;
+    if (this.tenantType === "COUPLE") {
+      coTenantEmails = [this.spouseEmail];
+      acceptAccess = this.spouseAuthorize;
+    } else if (this.tenantType === "CREATE") {
+      coTenantEmails = this.roommates.map(function(r) {
+        return r.email;
+      });
+      acceptAccess = this.coTenantAuthorize;
+    }
+
+    const data = {
+      tenantType: this.tenantType,
+      coTenantEmail: coTenantEmails,
+      acceptAccess: acceptAccess
+    };
+    this.$store.dispatch("setRoommates", data).then(null, error => {
+      console.dir(error);
+    });
   }
   updateRoommates(roommates: { email: string }[]) {
     // todo update vuex
@@ -109,7 +127,7 @@ export default class TenantInformationForm extends Vue {
   }
   updateAuthorize(authorize: boolean) {
     // todo update vuex
-    this.authorize = authorize;
+    this.coTenantAuthorize = authorize;
   }
 }
 </script>

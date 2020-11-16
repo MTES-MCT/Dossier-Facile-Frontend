@@ -71,11 +71,21 @@ export default new Vuex.Store({
       );
     },
     setNames({ commit }, user) {
-      // TODO : call api
       return ProfileService.saveNames(user).then(
         () => {
           commit("setNamesSuccess", user);
           localStorage.setItem("user", JSON.stringify(user));
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
+    setRoommates({ commit }, data) {
+      return ProfileService.saveRoommates(data).then(
+        () => {
+          commit("setRommatesSuccess");
+          // localStorage.setItem("user", JSON.stringify(user));
         },
         error => {
           return Promise.reject(error);
