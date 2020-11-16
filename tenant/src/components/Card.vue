@@ -1,19 +1,20 @@
 <template>
-  <div>
-    <div class="rf-card rf-card--no-arrow">
-      <div class="rf-card__body">
-        <button
+  <div class="card">
+    <div>
+      <div>
+        <a
           href="#"
-          class="rf-btn rf-card__link"
-          :aria-expanded="expanded"
+          class="rf-link"
+          :aria-expanded="localExpanded"
           aria-controls="card-content"
-          @click="expanded = !expanded"
+          @click="localExpanded = expandable ? !localExpanded : expanded"
         >
           <slot name="header"></slot>
-        </button>
+        </a>
+        <hr />
         <div
           id="card-content"
-          :class="{ hidden: !expanded }"
+          :class="{ hidden: !localExpanded }"
           class="rf-card__desc"
         >
           <slot name="body"></slot>
@@ -24,11 +25,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
-export default class Help extends Vue {
-  expanded = false;
+export default class Card extends Vue {
+  @Prop({ default: true }) expanded?: boolean;
+  @Prop({ default: true }) expandable?: boolean;
+  localExpanded = this.expanded;
 }
 </script>
 
@@ -36,5 +39,32 @@ export default class Help extends Vue {
 <style scoped lang="scss">
 .hidden {
   display: none;
+}
+.card {
+  padding: 10px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  max-width: 500px;
+
+  -webkit-box-shadow: 0 7px 15px 0 rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 7px 15px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 7px 15px 0 rgba(0, 0, 0, 0.5);
+
+  a {
+    &:before {
+      content: none;
+    }
+  }
+}
+
+.rf-link {
+  flex-direction: row;
+}
+
+hr {
+  color: gray;
+  border-style: inset;
+  border-width: 1px;
+  margin: 0.5em auto;
 }
 </style>

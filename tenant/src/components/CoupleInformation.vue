@@ -53,7 +53,7 @@ extend("email", {
     ValidationObserver
   }
 })
-export default class RoommatesInformation extends Vue {
+export default class CoupleInformation extends Vue {
   @PropSync("coupleMail", { type: String })
   readonly mail!: string;
   @PropSync("authorize", { type: Boolean })
