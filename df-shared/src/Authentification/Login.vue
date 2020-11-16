@@ -62,9 +62,7 @@
             >
           </div>
           <div class="rf-col-12 text-center rf-margin-bottom-12N">
-            <router-link to="/register"
-              >je n'ai pas encore de compte</router-link
-            >
+            <router-link to="/signup">je n'ai pas encore de compte</router-link>
           </div>
         </div>
       </form>
