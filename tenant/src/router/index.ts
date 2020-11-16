@@ -29,7 +29,16 @@ const routes: Array<RouteConfig> = [
       title: "Création compte - DossierFacile"
     },
     component: () =>
-      import(/* webpackChunkName: "signup" */ "@/views/SignupPage.vue")
+        import(/* webpackChunkName: "signup" */ "@/views/SignupPage.vue")
+  },
+  {
+    path: "/forgotten-password",
+    name: "ForgottenPassword",
+    meta: {
+      title: "Mot de passe oublié - DossierFacile"
+    },
+    component: () =>
+      import(/* webpackChunkName: "signup" */ "@/views/ForgottenPasswordPage.vue")
   },
   {
     path: "/join-roommate",

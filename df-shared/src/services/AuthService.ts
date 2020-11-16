@@ -30,5 +30,12 @@ export const AuthService = {
       confirm: user.confirm,
       captcha: user.captcha
     });
-  }
+  },
+
+  resetPassword(user: User) {
+    return axios
+        .post(API_URL + "reset", {
+          username: user.username
+        });
+  },
 };
