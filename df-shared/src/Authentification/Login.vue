@@ -12,7 +12,7 @@
                 class="rf-input-group"
                 :class="errors[0] ? 'rf-input-group--error' : ''"
               >
-                <label class="rf-label" for="email">Email :</label>
+                <label class="rf-label" for="email">{{ $t("email") }}</label>
                 <input
                   v-model="user.username"
                   class="form-control rf-input validate-required"
@@ -33,7 +33,9 @@
                 class="rf-input-group"
                 :class="errors[0] ? 'rf-input-group--error' : ''"
               >
-                <label for="password" class="rf-label">Mot de passe :</label>
+                <label for="password" class="rf-label">{{
+                  $t("password")
+                }}</label>
                 <input
                   id="password"
                   placeholder="Ex : 12345679"
@@ -106,10 +108,14 @@ export default class Login extends Vue {
 <i18n>
 {
 "en": {
-"title": "Connexion à mon compte DossierFacile"
+"title": "Connexion à mon compte DossierFacile",
+"email": "Email :",
+"password": "Mot de passe :"
 },
 "fr": {
-"title": "Connexion à mon compte DossierFacile"
+"title": "Connexion à mon compte DossierFacile",
+"email": "Email :",
+"password": "Mot de passe :"
 }
 }
 </i18n>
