@@ -7,11 +7,9 @@
         et à l'amélioration de notre service, dans le respect de notre politique
         de protection de votre vie privée.
       </p>
-      <a class="btn btn--primary" href="#" @click="hideCookie">
-        <span class="btn__text">
-          J'ai compris
-        </span>
-      </a>
+      <button class="rf-btn" @click="hideCookie">
+        J'ai compris
+      </button>
     </div>
   </transition>
 </template>
