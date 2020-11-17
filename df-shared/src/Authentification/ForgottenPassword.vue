@@ -4,7 +4,7 @@
       <h2 class="rf-h2 text-center rf-margin-top-7N rf-margin-bottom-5N">
         {{ $t("title") }}
       </h2>
-      <form name="form" @submit.prevent="handleLogin">
+      <form name="form" @submit.prevent="handleSubmit">
         <div class="rf-grid-row rf-grid-row--center">
           <div class="rf-col-12 rf-margin-bottom-3N">
             <validation-provider rules="required" v-slot="{ errors }">
@@ -27,42 +27,11 @@
               </div>
             </validation-provider>
           </div>
-          <div class="rf-col-12 rf-margin-bottom-3N">
-            <validation-provider rules="required" v-slot="{ errors }">
-              <div
-                class="rf-input-group"
-                :class="errors[0] ? 'rf-input-group--error' : ''"
-              >
-                <label for="password" class="rf-label">{{
-                  $t("password")
-                }}</label>
-                <input
-                  id="password"
-                  placeholder="Ex : 12345679"
-                  type="password"
-                  v-model="user.password"
-                  name="password"
-                  class="validate-required form-control rf-input"
-                />
-                <span class="rf-error-text" v-if="errors[0]">{{
-                  errors[0]
-                }}</span>
-              </div>
-            </validation-provider>
-          </div>
 
           <div class="rf-col-12 text-center rf-margin-bottom-5N">
             <button class="rf-btn" type="submit">
               valider
             </button>
-          </div>
-          <div class="rf-col-12 text-center rf-margin-bottom-3N">
-            <router-link to="/forgotten-password"
-              >mot de passe oublié</router-link
-            >
-          </div>
-          <div class="rf-col-12 text-center rf-margin-bottom-12N">
-            <router-link to="/signup">je n'ai pas encore de compte</router-link>
           </div>
         </div>
       </form>
@@ -92,13 +61,13 @@ extend("required", {
     ValidationProvider
   }
 })
-export default class Login extends Vue {
+export default class ForgottenPassword extends Vue {
   user: User = new User();
   loading = false;
 
-  handleLogin() {
+  handleSubmit() {
     this.loading = true;
-    this.$emit("on-login", this.user);
+    this.$emit("on-forgotten-password", this.user);
   }
 }
 </script>
@@ -106,14 +75,12 @@ export default class Login extends Vue {
 <i18n>
 {
 "en": {
-"title": "Connexion à mon compte DossierFacile",
-"email": "Email :",
-"password": "Mot de passe :"
+"title": "Mot de passe perdu ?",
+"email": "Entrez l'email utilisé lors de la création du compte (attention aux majuscules) :"
 },
 "fr": {
-"title": "Connexion à mon compte DossierFacile",
-"email": "Email :",
-"password": "Mot de passe :"
+"title": "Mot de passe perdu ?",
+"email": "Entrez l'email utilisé lors de la création du compte (attention aux majuscules) :"
 }
 }
 </i18n>

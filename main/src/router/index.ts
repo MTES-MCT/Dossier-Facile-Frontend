@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueRouter, {RouteConfig} from "vue-router";
-import Home from "../views/Home.vue";
 import LandingPage from '@/views/LandingPage.vue';
 
 Vue.use(VueRouter);
@@ -25,7 +24,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/blog/article1",
-    name: "Blog",
+    name: "Article1",
     meta: {
       title: "Article 1 - Blog - DossierFacile"
     },
@@ -34,7 +33,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/blog/article2",
-    name: "Blog",
+    name: "Article2",
     meta: {
       title: "Article 2 - Blog - DossierFacile"
     },
@@ -43,7 +42,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/blog/article3",
-    name: "Blog",
+    name: "Article3",
     meta: {
       title: "Article 3 - Blog - DossierFacile"
     },
