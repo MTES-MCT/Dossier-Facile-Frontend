@@ -17883,6 +17883,11 @@ vue-codemod@^0.0.4:
     vue "^3.0.0-beta.15"
     yargs "^15.3.1"
 
+vue-cookies@^1.7.4:
+  version "1.7.4"
+  resolved "https://registry.yarnpkg.com/vue-cookies/-/vue-cookies-1.7.4.tgz#d241d0a0431da0795837651d10b4d73e7c8d3e8d"
+  integrity sha512-mOS5Btr8V9zvAtkmQ7/TfqJIropOx7etDAgBywPCmHjvfJl2gFbH2XgoMghleLoyyMTi5eaJss0mPN7arMoslA==
+
 vue-docgen-api@^4.29.1:
   version "4.33.4"
   resolved "https://registry.yarnpkg.com/vue-docgen-api/-/vue-docgen-api-4.33.4.tgz#b76858e492f67673adb1c04ee33ea617b52936d1"

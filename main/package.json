@@ -19,6 +19,7 @@
     "vee-validate": "^3.4.3",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
+    "vue-cookies": "^1.7.4",
     "vue-i18n": "^8.17.3",
     "vue-property-decorator": "^8.4.2",
     "vue-router": "^3.2.0",
