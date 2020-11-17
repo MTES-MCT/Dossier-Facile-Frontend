@@ -11,6 +11,7 @@
     </header>
     <router-view />
     <MyFooter />
+    <Cookies :hidden="cookieHidden" v-on:hide-cookie="hideCookie" />
 
     <Modal v-show="isCreateModalVisible" @close="closeModal">
       <template v-slot:body>
@@ -82,13 +83,15 @@ import Menu from "@/components/Menu.vue";
 import { mapState } from "vuex";
 import $ from "jquery";
 import Modal from "df-shared/src/components/Modal.vue";
+import Cookies from "df-shared/src/Footer/Cookies.vue";
 
 @Component({
   components: {
     MyHeader,
     MyFooter,
     Menu,
-    Modal
+    Modal,
+    Cookies
   },
   computed: {
     ...mapState({
@@ -115,6 +118,9 @@ import Modal from "df-shared/src/components/Modal.vue";
 export default class App extends Vue {
   isCreateModalVisible = false;
   isLoginModalVisible = false;
+  cookieHidden = this.$cookies.isKey("accept-cookie")
+    ? this.$cookies.get("accept-cookie")
+    : false;
 
   onLogin() {
     this.isLoginModalVisible = true;
@@ -132,6 +138,15 @@ export default class App extends Vue {
   }
   registerTenant() {
     window.location.href = "http://localhost:9002/signup";
+  }
+
+  hideCookie() {
+    this.cookieHidden = true;
+    this.$cookies.set(
+      "accept-cookie",
+      this.cookieHidden,
+      new Date(2050, 12, 31).toUTCString()
+    );
   }
 }
 </script>
