@@ -8,7 +8,7 @@
         de protection de votre vie privée.
       </p>
       <button class="rf-btn" @click="hideCookie">
-        J'ai compris
+        {{ $t("understood") }}
       </button>
     </div>
   </transition>
@@ -57,10 +57,10 @@ export default class Cookies extends Vue {
 <i18n>
 {
   "en": {
-    "contact": "Vous pouvez nous contacter à contact@dossierfacile.fr"
+    "understood": "J'ai compris"
   },
   "fr": {
-    "contact": "Vous pouvez nous contacter à contact@dossierfacile.fr"
+    "understood": "J'ai compris"
   }
 }
 </i18n>
