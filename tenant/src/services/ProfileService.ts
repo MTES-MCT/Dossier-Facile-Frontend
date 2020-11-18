@@ -12,9 +12,9 @@ export const ProfileService = {
     );
   },
   saveRoommates(data: {
-    tenantType: string,
-    coTenantEmail: string[],
-    acceptAccess: boolean
+    tenantType: string;
+    coTenantEmail: string[];
+    acceptAccess: boolean;
   }) {
     return axios.post(
       "//" + process.env.VUE_APP_API_URL + "/api/register/application",

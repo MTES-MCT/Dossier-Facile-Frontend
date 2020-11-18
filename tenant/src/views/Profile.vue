@@ -59,6 +59,8 @@ import UploadDocuments from "@/components/UploadDocuments.vue";
   }
 })
 export default class Profile extends Vue {
+  public currentStep!: number;
+
   getMenuStep() {
     switch (this.currentStep) {
       case 2:

@@ -10,8 +10,7 @@
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
-export default class Financial extends Vue {
-}
+export default class Financial extends Vue {}
 </script>
 
 <style scoped lang="scss"></style>

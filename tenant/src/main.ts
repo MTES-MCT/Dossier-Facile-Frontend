@@ -33,16 +33,19 @@ axios.interceptors.request.use(
 );
 
 axios.interceptors.response.use(
-    function(response) {
-        return response;
-    },
-    function(error) {
-        if (error.response && (401 === error.response.status || 403 === error.response.status)) {
-            store.dispatch("logout").then(null, error => {
-                console.dir(error);
-            });
-        } else {
-            return Promise.reject(error);
-        }
+  function(response) {
+    return response;
+  },
+  function(error) {
+    if (
+      error.response &&
+      (401 === error.response.status || 403 === error.response.status)
+    ) {
+      store.dispatch("logout").then(null, error => {
+        console.dir(error);
+      });
+    } else {
+      return Promise.reject(error);
     }
+  }
 );

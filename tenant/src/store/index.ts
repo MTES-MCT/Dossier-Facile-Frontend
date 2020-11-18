@@ -78,12 +78,13 @@ export default new Vuex.Store({
     },
     resetPassword({ commit }, user) {
       return AuthService.resetPassword(user).then(
-          user => {
-            return Promise.resolve(user);
-          },
-          error => {
-            return Promise.reject(error);
-          }
+        user => {
+          commit("setNamesSuccess", user);
+          return Promise.resolve(user);
+        },
+        error => {
+          return Promise.reject(error);
+        }
       );
     },
     setNames({ commit }, user) {
@@ -101,7 +102,6 @@ export default new Vuex.Store({
       return ProfileService.saveRoommates(data).then(
         () => {
           commit("setRoommatesSuccess");
-          // localStorage.setItem("user", JSON.stringify(user));
         },
         error => {
           return Promise.reject(error);
