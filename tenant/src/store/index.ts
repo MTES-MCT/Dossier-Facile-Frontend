@@ -39,6 +39,12 @@ export default new Vuex.Store({
     setNamesSuccess(state, user) {
       state.user = user;
       state.currentStep++;
+    },
+    setRoommatesSuccess(state) {
+      state.currentStep++;
+    },
+    setStep(state, n: number) {
+      state.currentStep = n;
     }
   },
   actions: {
@@ -94,7 +100,7 @@ export default new Vuex.Store({
     setRoommates({ commit }, data) {
       return ProfileService.saveRoommates(data).then(
         () => {
-          commit("setRommatesSuccess");
+          commit("setRoommatesSuccess");
           // localStorage.setItem("user", JSON.stringify(user));
         },
         error => {

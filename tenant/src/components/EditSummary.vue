@@ -8,11 +8,11 @@
         <div>
           Prénom et nom
         </div>
-        <div>edit</div>
+        <div @click="setStep(0)">edit</div>
         <div>
           Type de location
         </div>
-        <div>edit</div>
+        <div @click="setStep(1)">edit</div>
       </template>
     </Card>
   </div>
@@ -24,7 +24,11 @@ import Card from "@/components/Card.vue";
 @Component({
   components: { Card }
 })
-export default class EditSummary extends Vue {}
+export default class EditSummary extends Vue {
+  setStep(n: number) {
+    this.$store.commit("setStep", n);
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

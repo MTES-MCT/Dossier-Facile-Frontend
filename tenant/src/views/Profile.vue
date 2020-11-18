@@ -4,17 +4,21 @@
       <LeftEditMenu class="rf-col-md-3 rf-col-lg-2"></LeftEditMenu>
       <div class="rf-col-md-6 rf-col-sm-12">
         <div class="content">
-          <h1>
-            {{ $t("title") }}
-          </h1>
           <NameInformationForm
+            :title="$t('title-step1')"
             :user="user"
             v-if="currentStep === 0"
           ></NameInformationForm>
           <TenantInformationForm
+            :title="$t('title-step1')"
             :user="user"
             v-if="currentStep === 1"
           ></TenantInformationForm>
+          <UploadDocuments
+            :title="$t('title-step2')"
+            :user="user"
+            v-if="currentStep === 2"
+          ></UploadDocuments>
         </div>
       </div>
       <div class="rf-col-md-3 rf-col-sm-12">
@@ -33,6 +37,7 @@ import Help from "@/components/Help.vue";
 import NameInformationForm from "@/components/NameInformationForm.vue";
 import { mapState } from "vuex";
 import TenantInformationForm from "@/components/TenantInformationForm.vue";
+import UploadDocuments from "@/components/UploadDocuments.vue";
 
 @Component({
   components: {
@@ -40,7 +45,8 @@ import TenantInformationForm from "@/components/TenantInformationForm.vue";
     Help,
     EditSummary,
     LeftEditMenu,
-    NameInformationForm
+    NameInformationForm,
+    UploadDocuments
   },
   computed: {
     ...mapState({
@@ -71,10 +77,12 @@ export default class Profile extends Vue {}
 <i18n>
 {
 "en": {
-"title": "Je renseigne mes informations"
+"title-step1": "Je renseigne mes informations",
+"title-step2": "Je joins mes documents"
 },
 "fr": {
-"title": "Je renseigne mes informations"
+"title-step1": "Je renseigne mes informations",
+"title-step2": "Je joins mes documents"
 }
 }
 </i18n>
