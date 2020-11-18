@@ -1,7 +1,10 @@
 <template>
   <div class="rf-container rf-container-full-size">
     <div class="rf-grid-row full-height">
-      <LeftEditMenu class="rf-col-md-3 rf-col-lg-2"></LeftEditMenu>
+      <LeftEditMenu
+        :step="getMenuStep()"
+        class="rf-col-md-3 rf-col-lg-2"
+      ></LeftEditMenu>
       <div class="rf-col-md-6 rf-col-sm-12">
         <div class="content">
           <NameInformationForm
@@ -55,7 +58,18 @@ import UploadDocuments from "@/components/UploadDocuments.vue";
     })
   }
 })
-export default class Profile extends Vue {}
+export default class Profile extends Vue {
+  getMenuStep() {
+    switch (this.currentStep) {
+      case 2:
+        return 1;
+      case 3:
+        return 3;
+      default:
+        return 0;
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
