@@ -4,31 +4,51 @@
       {{ title }}
     </h1>
     <div>
-      <div @click="updateSubstep(1)">
+      <div
+        class="document-title"
+        :class="{ selected: substep === 1 }"
+        @click="updateSubstep(1)"
+      >
         <h2>{{ $t("identification") }}</h2>
       </div>
       <Identification v-if="substep === 1"></Identification>
     </div>
     <div>
-      <div @click="updateSubstep(2)">
+      <div
+        class="document-title"
+        :class="{ selected: substep === 2 }"
+        @click="updateSubstep(2)"
+      >
         <h2>{{ $t("residency") }}</h2>
       </div>
       <Residency v-if="substep === 2"></Residency>
     </div>
     <div>
-      <div @click="updateSubstep(3)">
+      <div
+        class="document-title"
+        :class="{ selected: substep === 3 }"
+        @click="updateSubstep(3)"
+      >
         <h2>{{ $t("professional") }}</h2>
       </div>
       <Professional v-if="substep === 3"></Professional>
     </div>
     <div>
-      <div @click="updateSubstep(4)">
+      <div
+        class="document-title"
+        :class="{ selected: substep === 4 }"
+        @click="updateSubstep(4)"
+      >
         <h2>{{ $t("financial") }}</h2>
       </div>
       <Financial v-if="substep === 4"></Financial>
     </div>
     <div>
-      <div @click="updateSubstep(5)">
+      <div
+        class="document-title"
+        :class="{ selected: substep === 5 }"
+        @click="updateSubstep(5)"
+      >
         <h2>{{ $t("tax") }}</h2>
       </div>
       <Tax v-if="substep === 5"></Tax>
@@ -60,8 +80,22 @@ export default class UploadDocuments extends Vue {
 </script>
 
 <style scoped lang="scss">
+@import "df-shared/src/scss/_variables.scss";
+
 h2 {
   font-size: 1rem;
+  margin: 0.5rem;
+}
+
+.document-title {
+  border: 1px solid #ececec;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.selected {
+  background-color: $secondary;
 }
 </style>
 
