@@ -93,12 +93,6 @@ import Cookies from "df-shared/src/Footer/Cookies.vue";
     Modal,
     Cookies
   },
-  computed: {
-    ...mapState({
-      user: "user",
-      status: "status"
-    })
-  },
   mounted: function() {
     document.onreadystatechange = () => {
       if (document.readyState == "complete") {
