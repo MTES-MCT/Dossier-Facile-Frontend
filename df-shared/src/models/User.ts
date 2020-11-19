@@ -7,4 +7,7 @@ export class User {
   lastname?: string;
   firstname?: string;
   zipCode?: string;
+  tenantType?: string;
+  identification?: string;
+  residency?: string;
 }
