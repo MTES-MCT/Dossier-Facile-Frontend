@@ -5,7 +5,12 @@
         J'ajoute une pièce d'identité en cours de validité. Attention, veillez à
         ajouter votre pièce recto-verso !
       </label>
-      <select class="rf-select" id="select" name="select">
+      <select
+        v-model="user.identification"
+        class="rf-select"
+        id="select"
+        name="select"
+      >
         <option value="" selected disabled hidden>- Select -</option>
         <option value="FRENCH_IDENTITY_CARD">{{ $t("cni") }}</option>
         <option value="FRENCH_PASSPORT">{{ $t("passport") }}</option>
@@ -13,13 +18,24 @@
         <option value="OTHER_IDENTIFICATION">{{ $t("other") }}</option>
       </select>
     </div>
+    <div>
+      J'ajoute un avis de taxes foncières de moins d'un an.
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { mapState } from "vuex";
 
-@Component
+@Component({
+  computed: {
+    ...mapState({
+      user: "user",
+      currentStep: "currentStep"
+    })
+  }
+})
 export default class Identification extends Vue {}
 </script>
 
