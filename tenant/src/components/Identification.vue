@@ -23,27 +23,10 @@
         Attention veillez à ajouter votre pièce recto-verso !
       </div>
       <div class="rf-margin-bottom-3N">
-        <table>
-          <tr>
-            <th>Les pièces acceptées</th>
-            <th>Les pièces refusées</th>
-          </tr>
-          <tr>
-            <td>
-              <ul>
-                <li>
-                  Carte d'identité française recto-verso
-                </li>
-              </ul>
-            </td>
-            <td>
-              <ul>
-                <li>Carte d'identité sans le verso ou périmée</li>
-                <li>Tout autre document</li>
-              </ul>
-            </td>
-          </tr>
-        </table>
+        <DocumentInsert
+          :allow-list="allowList"
+          :block-list="blockList"
+        ></DocumentInsert>
       </div>
     </div>
   </div>
@@ -52,8 +35,10 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapState } from "vuex";
+import DocumentInsert from "@/components/DocumentInsert.vue";
 
 @Component({
+  components: { DocumentInsert },
   computed: {
     ...mapState({
       user: "user",
@@ -61,7 +46,13 @@ import { mapState } from "vuex";
     })
   }
 })
-export default class Identification extends Vue {}
+export default class Identification extends Vue {
+  blockList = [
+    "Carte d'identité sans le verso ou périmée",
+    "Tout autre document"
+  ];
+  allowList = ["Carte d'identité française recto-verso"];
+}
 </script>
 
 <style scoped lang="scss">
