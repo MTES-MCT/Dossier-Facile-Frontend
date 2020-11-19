@@ -14,7 +14,6 @@
           ></NameInformationForm>
           <TenantInformationForm
             :title="$t('title-step1')"
-            :user="user"
             v-if="currentStep === 1"
           ></TenantInformationForm>
           <UploadDocuments
