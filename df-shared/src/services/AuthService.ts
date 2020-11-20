@@ -24,11 +24,11 @@ export const AuthService = {
   },
 
   register(user: User) {
-    return axios.post(API_URL + "register/step1", {
+    return axios.post(API_URL + "register/account", {
       email: user.username,
       password: user.password,
       confirm: user.confirm,
-      captcha: user.captcha
+      reCaptchaResponse: user.captcha
     });
   },
 
@@ -37,5 +37,9 @@ export const AuthService = {
         .post(API_URL + "reset", {
           username: user.username
         });
+  },
+
+  loadUser() {
+    return axios.get(API_URL + "tenant/profile");
   },
 };

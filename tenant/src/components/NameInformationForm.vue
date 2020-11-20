@@ -19,7 +19,7 @@
                   >{{ $t("lastname") }} :</label
                 >
                 <input
-                  v-model="user.lastname"
+                  v-model="user.lastName"
                   class="form-control rf-input validate-required"
                   id="lastname"
                   name="lastname"
@@ -45,7 +45,7 @@
                   id="firstname"
                   :placeholder="$t('firstname')"
                   type="text"
-                  v-model="user.firstname"
+                  v-model="user.firstName"
                   name="firstname"
                   class="validate-required form-control rf-input"
                 />

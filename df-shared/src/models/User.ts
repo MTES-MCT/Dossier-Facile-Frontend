@@ -4,8 +4,8 @@ export class User {
   token?: string;
   confirm?: string;
   captcha?: string;
-  lastname?: string;
-  firstname?: string;
+  lastName?: string;
+  firstName?: string;
   zipCode?: string;
   tenantType?: string;
   identification?: string;

@@ -45,6 +45,9 @@ export default new Vuex.Store({
     },
     setStep(state, n: number) {
       state.currentStep = n;
+    },
+    loadUser(state, user) {
+      state.user = user;
     }
   },
   actions: {
@@ -52,6 +55,7 @@ export default new Vuex.Store({
       return AuthService.login(user).then(
         user => {
           commit("loginSuccess", user);
+          this.dispatch("loadUser");
           return Promise.resolve(user);
         },
         error => {
@@ -87,11 +91,21 @@ export default new Vuex.Store({
         }
       );
     },
+    loadUser({ commit }) {
+      return AuthService.loadUser().then(
+          response => {
+            commit("loadUser", response.data);
+            return Promise.resolve(response.data);
+          },
+          error => {
+            return Promise.reject(error);
+          }
+      );
+    },
     setNames({ commit }, user) {
       return ProfileService.saveNames(user).then(
         () => {
           commit("setNamesSuccess", user);
-          localStorage.setItem("user", JSON.stringify(user));
         },
         error => {
           return Promise.reject(error);

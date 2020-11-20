@@ -6,8 +6,8 @@
     <p>
       {{
         $t("tenantPresentation", {
-          firstname: user.firstname,
-          lastname: user.lastname
+          firstname: user.firstName,
+          lastname: user.lastName
         })
       }}
     </p>
