@@ -12,7 +12,7 @@
         name="select"
       >
         <option value="" selected disabled hidden>- Select -</option>
-        <option value="FRENCH_IDENTITY_CARD">{{ $t("cni") }}</option>
+        <option value="FRENCH_IDENTITY_CARD">{{ $t("identity-card") }}</option>
         <option value="FRENCH_PASSPORT">{{ $t("passport") }}</option>
         <option value="FRENCH_RESIDENCE_PERMIT">{{ $t("permit") }}</option>
         <option value="OTHER_IDENTIFICATION">{{ $t("other") }}</option>
@@ -24,8 +24,32 @@
       </div>
       <div class="rf-margin-bottom-3N">
         <DocumentInsert
-          :allow-list="allowList"
-          :block-list="blockList"
+          :allow-list="identityAllowList"
+          :block-list="identityBlockList"
+        ></DocumentInsert>
+      </div>
+    </div>
+    <div v-if="user.identification === 'FRENCH_PASSPORT'">
+      <div class="rf-margin-bottom-3N">
+        <DocumentInsert
+          :allow-list="passportAllowList"
+          :block-list="passportBlockList"
+        ></DocumentInsert>
+      </div>
+    </div>
+    <div v-if="user.identification === 'FRENCH_RESIDENCE_PERMIT'">
+      <div class="rf-margin-bottom-3N">
+        <DocumentInsert
+          :allow-list="permitAllowList"
+          :block-list="permitBlockList"
+        ></DocumentInsert>
+      </div>
+    </div>
+    <div v-if="user.identification === 'OTHER_IDENTIFICATION'">
+      <div class="rf-margin-bottom-3N">
+        <DocumentInsert
+          :allow-list="otherAllowList"
+          :block-list="otherBlockList"
         ></DocumentInsert>
       </div>
     </div>
@@ -47,11 +71,26 @@ import DocumentInsert from "@/components/DocumentInsert.vue";
   }
 })
 export default class Identification extends Vue {
-  blockList = [
+  identityBlockList = [
     "Carte d'identité sans le verso ou périmée",
     "Tout autre document"
   ];
-  allowList = ["Carte d'identité française recto-verso"];
+  identityAllowList = ["Carte d'identité française recto-verso"];
+  passportBlockList = ["Tout autre document"];
+  passportAllowList = ["Passport français (pages 2 et 3)"];
+  permitBlockList = ["Tout autre document"];
+  permitAllowList = [
+    "Carte de séjour en France temporaire recto-verso en cours de validité, ou périmée si elle est accompagnée du récépissé de la demande de renouvellement de carte de séjour",
+    "Visa de travail ou d'études temporaire en France"
+  ];
+  otherBlockList = ["Tout autre document"];
+  otherAllowList = [
+    "Carte d'identité étrangère recto-verso",
+    "Passeport étranger (pages 2 et 3)",
+    "Permis de conduire français ou étranger recto-verso",
+    "Carte de résident",
+    "Carte de ressortissant d'un État membre de l'UE ou de l'EEE"
+  ];
 }
 </script>
 
@@ -70,13 +109,13 @@ td {
 <i18n>
 {
 "en": {
-"cni": "Carte nationale d'identité",
+"identity-card": "Carte nationale d'identité",
 "passport": "Passeport",
 "permit": "Permis de conduire",
 "other": "Autre"
 },
 "fr": {
-"cni": "Carte nationale d'identité",
+"identity-card": "Carte nationale d'identité",
 "passport": "Passeport",
 "permit": "Permis de conduire",
 "other": "Autre"
