@@ -39,7 +39,7 @@ const routes: Array<RouteConfig> = [
     },
     component: () =>
       import(
-        /* webpackChunkName: "signup" */ "@/views/ForgottenPasswordPage.vue"
+        /* webpackChunkName: "forgottenPassword" */ "@/views/ForgottenPasswordPage.vue"
       )
   },
   {
