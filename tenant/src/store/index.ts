@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import { AuthService } from "df-shared/src/services/AuthService";
 import { ProfileService } from "@/services/ProfileService";
+import router from "../router"
 
 Vue.use(Vuex);
 
@@ -67,6 +68,7 @@ export default new Vuex.Store({
     logout({ commit }) {
       AuthService.logout();
       commit("logout");
+      router.push("/").then();
     },
     register({ commit }, user) {
       return AuthService.register(user).then(
