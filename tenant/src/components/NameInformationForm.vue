@@ -1,5 +1,8 @@
 <template>
   <div>
+    <h1>
+      {{ title }}
+    </h1>
     <ValidationObserver v-slot="{ invalid, validate }">
       <form
         name="form"
@@ -16,7 +19,7 @@
                   >{{ $t("lastname") }} :</label
                 >
                 <input
-                  v-model="user.lastname"
+                  v-model="user.lastName"
                   class="form-control rf-input validate-required"
                   id="lastname"
                   name="lastname"
@@ -42,7 +45,7 @@
                   id="firstname"
                   :placeholder="$t('firstname')"
                   type="text"
-                  v-model="user.firstname"
+                  v-model="user.firstName"
                   name="firstname"
                   class="validate-required form-control rf-input"
                 />
@@ -115,6 +118,7 @@ extend("required", {
 })
 export default class NameInformationForm extends Vue {
   @Prop() private user!: User;
+  @Prop() private title!: string;
 
   handleNameInformation() {
     this.$store.dispatch("setNames", this.user).then(null, error => {

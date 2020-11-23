@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import { AuthService } from "df-shared/src/services/AuthService";
 import { ProfileService } from "@/services/ProfileService";
+import router from "../router"
 
 Vue.use(Vuex);
 
@@ -39,6 +40,15 @@ export default new Vuex.Store({
     setNamesSuccess(state, user) {
       state.user = user;
       state.currentStep++;
+    },
+    setRoommatesSuccess(state) {
+      state.currentStep++;
+    },
+    setStep(state, n: number) {
+      state.currentStep = n;
+    },
+    loadUser(state, user) {
+      state.user = user;
     }
   },
   actions: {
@@ -46,6 +56,7 @@ export default new Vuex.Store({
       return AuthService.login(user).then(
         user => {
           commit("loginSuccess", user);
+          this.dispatch("loadUser");
           return Promise.resolve(user);
         },
         error => {
@@ -57,6 +68,7 @@ export default new Vuex.Store({
     logout({ commit }) {
       AuthService.logout();
       commit("logout");
+      router.push("/").then();
     },
     register({ commit }, user) {
       return AuthService.register(user).then(
@@ -72,8 +84,20 @@ export default new Vuex.Store({
     },
     resetPassword({ commit }, user) {
       return AuthService.resetPassword(user).then(
-          user => {
-            return Promise.resolve(user);
+        user => {
+          commit("setNamesSuccess", user);
+          return Promise.resolve(user);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
+    loadUser({ commit }) {
+      return AuthService.loadUser().then(
+          response => {
+            commit("loadUser", response.data);
+            return Promise.resolve(response.data);
           },
           error => {
             return Promise.reject(error);
@@ -84,7 +108,6 @@ export default new Vuex.Store({
       return ProfileService.saveNames(user).then(
         () => {
           commit("setNamesSuccess", user);
-          localStorage.setItem("user", JSON.stringify(user));
         },
         error => {
           return Promise.reject(error);
@@ -94,8 +117,7 @@ export default new Vuex.Store({
     setRoommates({ commit }, data) {
       return ProfileService.saveRoommates(data).then(
         () => {
-          commit("setRommatesSuccess");
-          // localStorage.setItem("user", JSON.stringify(user));
+          commit("setRoommatesSuccess");
         },
         error => {
           return Promise.reject(error);

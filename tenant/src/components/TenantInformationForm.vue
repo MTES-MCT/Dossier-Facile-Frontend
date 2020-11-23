@@ -1,10 +1,13 @@
 <template>
   <div>
+    <h1>
+      {{ title }}
+    </h1>
     <p>
       {{
         $t("tenantPresentation", {
-          firstname: user.firstname,
-          lastname: user.lastname
+          firstname: user.firstName,
+          lastname: user.lastName
         })
       }}
     </p>
@@ -13,7 +16,12 @@
       <fieldset class="rf-fieldset">
         <div class="rf-fieldset__content">
           <div class="rf-radio-group">
-            <input type="radio" id="alone" value="ALONE" v-model="tenantType" />
+            <input
+              type="radio"
+              id="alone"
+              value="ALONE"
+              v-model="user.tenantType"
+            />
             <label class="rf-label" for="alone">{{ $t("alone") }}</label>
           </div>
           <div class="rf-radio-group">
@@ -21,14 +29,14 @@
               type="radio"
               id="couple"
               value="COUPLE"
-              v-model="tenantType"
+              v-model="user.tenantType"
             />
             <label class="rf-label" for="couple">{{ $t("couple") }}</label>
           </div>
           <CoupleInformation
             :couple-mail.sync="spouseEmail"
             :authorize.sync="spouseAuthorize"
-            v-if="tenantType === 'COUPLE'"
+            v-if="user.tenantType === 'COUPLE'"
           >
           </CoupleInformation>
           <div class="rf-radio-group">
@@ -36,12 +44,12 @@
               type="radio"
               id="roommate"
               value="CREATE"
-              v-model="tenantType"
+              v-model="user.tenantType"
             />
             <label class="rf-label" for="roommate">{{ $t("roommate") }}</label>
           </div>
           <RoommatesInformation
-            v-if="tenantType === 'CREATE'"
+            v-if="user.tenantType === 'CREATE'"
             :roommates.sync="roommates"
             :authorize.sync="coTenantAuthorize"
           >
@@ -66,6 +74,7 @@ import { extend } from "vee-validate";
 import { required, regex } from "vee-validate/dist/rules";
 import RoommatesInformation from "@/components/RoommatesInformation.vue";
 import CoupleInformation from "@/components/CoupleInformation.vue";
+import { mapState } from "vuex";
 
 extend("regex", {
   ...regex,
@@ -78,6 +87,11 @@ extend("required", {
 });
 
 @Component({
+  computed: {
+    ...mapState({
+      user: "user"
+    })
+  },
   components: {
     CoupleInformation,
     RoommatesInformation,
@@ -86,8 +100,8 @@ extend("required", {
   }
 })
 export default class TenantInformationForm extends Vue {
-  @Prop() private user!: User;
-  tenantType = "";
+  @Prop() private title!: string;
+  user!: User;
   roommates = [{ email: "" }];
   coTenantAuthorize = false;
   spouseEmail = "";
@@ -95,17 +109,17 @@ export default class TenantInformationForm extends Vue {
 
   handleOthersInformation() {
     if (
-      (this.tenantType === "COUPLE" && !this.spouseAuthorize) ||
-      (this.tenantType === "CREATE" && !this.coTenantAuthorize)
+      (this.user.tenantType === "COUPLE" && !this.spouseAuthorize) ||
+      (this.user.tenantType === "CREATE" && !this.coTenantAuthorize)
     ) {
       return;
     }
     let coTenantEmails: string[] = [];
     let acceptAccess = false;
-    if (this.tenantType === "COUPLE") {
+    if (this.user.tenantType === "COUPLE") {
       coTenantEmails = [this.spouseEmail];
       acceptAccess = this.spouseAuthorize;
-    } else if (this.tenantType === "CREATE") {
+    } else if (this.user.tenantType === "CREATE") {
       coTenantEmails = this.roommates.map(function(r) {
         return r.email;
       });
@@ -113,7 +127,7 @@ export default class TenantInformationForm extends Vue {
     }
 
     const data = {
-      tenantType: this.tenantType,
+      tenantType: this.user.tenantType,
       coTenantEmail: coTenantEmails,
       acceptAccess: acceptAccess
     };

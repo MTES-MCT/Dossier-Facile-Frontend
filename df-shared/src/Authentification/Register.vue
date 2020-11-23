@@ -122,7 +122,7 @@ extend("required", {
 });
 extend("confirmed", {
   ...confirmed,
-  message: "Le mote de passe ne correspond pas"
+  message: "Le mot de passe ne correspond pas"
 });
 
 @Component({
