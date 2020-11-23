@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import { AuthService } from "df-shared/src/services/AuthService";
 import { ProfileService } from "@/services/ProfileService";
-import router from "../router"
+import router from "../router";
 
 Vue.use(Vuex);
 
@@ -95,13 +95,13 @@ export default new Vuex.Store({
     },
     loadUser({ commit }) {
       return AuthService.loadUser().then(
-          response => {
-            commit("loadUser", response.data);
-            return Promise.resolve(response.data);
-          },
-          error => {
-            return Promise.reject(error);
-          }
+        response => {
+          commit("loadUser", response.data);
+          return Promise.resolve(response.data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
       );
     },
     setNames({ commit }, user) {
