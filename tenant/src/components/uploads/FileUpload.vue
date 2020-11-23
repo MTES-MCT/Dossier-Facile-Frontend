@@ -1,7 +1,6 @@
 <template>
   <div class="file-upload">
     <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving">
-      <h1>Ajouter un document</h1>
       <div class="dropbox">
         <input
           type="file"
