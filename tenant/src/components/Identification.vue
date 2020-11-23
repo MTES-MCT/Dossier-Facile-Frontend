@@ -18,6 +18,9 @@
         <option value="OTHER_IDENTIFICATION">{{ $t("other") }}</option>
       </select>
     </div>
+    <div v-if="user.identification" class="rf-margin-bottom-3N">
+      <FileUpload></FileUpload>
+    </div>
     <div v-if="user.identification === 'FRENCH_IDENTITY_CARD'">
       <div class="rf-margin-bottom-3N">
         Attention veillez à ajouter votre pièce recto-verso !
@@ -60,9 +63,10 @@
 import { Component, Vue } from "vue-property-decorator";
 import { mapState } from "vuex";
 import DocumentInsert from "@/components/DocumentInsert.vue";
+import FileUpload from "@/components/uploads/FileUpload.vue";
 
 @Component({
-  components: { DocumentInsert },
+  components: { DocumentInsert, FileUpload },
   computed: {
     ...mapState({
       user: "user",
