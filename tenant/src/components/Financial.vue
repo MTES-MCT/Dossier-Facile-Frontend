@@ -2,7 +2,7 @@
   <div>
     <div>
       <label class="rf-label" for="select">
-        Votre situation d'hébergement actuelle :
+        Attention, Veuillez renseigner uniquement vos propres revenus.
       </label>
       <select
         v-model="financialDocument"
