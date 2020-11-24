@@ -2,7 +2,7 @@
   <div>
     <div>
       <label class="rf-label" for="select">
-        Votre situation d'hébergement actuelle :
+        Votre situation professionnelle actuelle :
       </label>
       <select
         v-model="professionalDocument"
