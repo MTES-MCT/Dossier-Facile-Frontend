@@ -134,8 +134,18 @@ export default class Financial extends Vue {
 <i18n>
 {
 "en": {
+"salary": "Salaire",
+"social-service": "Versement de prestations sociales",
+"rent": "Rentes",
+"pension": "Pensions",
+"trading": "Bourses"
 },
 "fr": {
+"salary": "Salaire",
+"social-service": "Versement de prestations sociales",
+"rent": "Rentes",
+"pension": "Pensions",
+"trading": "Bourses"
 }
 }
 </i18n>
