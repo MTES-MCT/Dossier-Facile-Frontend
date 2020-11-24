@@ -33,13 +33,12 @@ export const AuthService = {
   },
 
   resetPassword(user: User) {
-    return axios
-        .post(API_URL + "reset", {
-          username: user.username
-        });
+    return axios.post(API_URL + "reset", {
+      username: user.username
+    });
   },
 
   loadUser() {
     return axios.get(API_URL + "tenant/profile");
-  },
+  }
 };
