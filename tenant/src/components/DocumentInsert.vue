@@ -29,9 +29,19 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
-export default class Identification extends Vue {
-  @Prop({ default: [] }) private allowList!: string[];
-  @Prop({ default: [] }) private blockList!: string[];
+export default class DocumentInsert extends Vue {
+  @Prop({
+    default() {
+      return [];
+    }
+  })
+  private allowList!: string[];
+  @Prop({
+    default() {
+      return [];
+    }
+  })
+  private blockList!: string[];
 }
 </script>
 
