@@ -10,4 +10,5 @@ export class User {
   tenantType?: string;
   identification?: string;
   residency?: string;
+  professional?: string;
 }
