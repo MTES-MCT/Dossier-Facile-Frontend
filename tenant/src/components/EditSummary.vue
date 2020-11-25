@@ -14,14 +14,18 @@
                   <div class="subtitle">Prénom et Nom</div>
                   {{ user.firstName }} {{ user.lastName }}
                 </div>
-                <div class="edit-step-btn" @click="setStep(0)">edit</div>
+                <div class="edit-step-btn" @click="setStep(0)">
+                  <unicon name="pen" fill="royalBlue"></unicon>
+                </div>
               </div>
               <div class="row" v-if="user.tenantType">
                 <div>
                   <div class="subtitle">Type de location</div>
                   {{ $t(user.tenantType) }}
                 </div>
-                <div class="edit-step-btn" @click="setStep(1)">edit</div>
+                <div class="edit-step-btn" @click="setStep(1)">
+                  <unicon name="pen" fill="royalBlue"></unicon>
+                </div>
               </div>
             </section>
           </div>
@@ -36,15 +40,23 @@
               <div class="row" v-if="user.identification">
                 <div class="subtitle">Pièce d'identité</div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="setStep(2)">watch</div>
-                  <div class="edit-step-btn" @click="setStep(2)">edit</div>
+                  <div class="edit-step-btn" @click="setStep(2)">
+                    <unicon name="eye" fill="royalBlue"></unicon>
+                  </div>
+                  <div class="edit-step-btn" @click="setStep(2)">
+                    <unicon name="pen" fill="royalBlue"></unicon>
+                  </div>
                 </div>
               </div>
               <div class="row" v-if="user.residency">
                 <div class="subtitle">Justificatif de domicile</div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="setStep(3)">watch</div>
-                  <div class="edit-step-btn" @click="setStep(3)">edit</div>
+                  <div class="edit-step-btn" @click="setStep(2)">
+                    <unicon name="eye" fill="royalBlue"></unicon>
+                  </div>
+                  <div class="edit-step-btn" @click="setStep(2)">
+                    <unicon name="pen" fill="royalBlue"></unicon>
+                  </div>
                 </div>
               </div>
               <div class="row" v-if="user.professional">
@@ -52,22 +64,34 @@
                   Justificatif de situation professionelle
                 </div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="setStep(4)">watch</div>
-                  <div class="edit-step-btn" @click="setStep(4)">edit</div>
+                  <div class="edit-step-btn" @click="setStep(2)">
+                    <unicon name="eye" fill="royalBlue"></unicon>
+                  </div>
+                  <div class="edit-step-btn" @click="setStep(2)">
+                    <unicon name="pen" fill="royalBlue"></unicon>
+                  </div>
                 </div>
               </div>
               <div class="row" v-if="user.financial">
                 <div class="subtitle">Justificatif de revenu</div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="setStep(5)">watch</div>
-                  <div class="edit-step-btn" @click="setStep(5)">edit</div>
+                  <div class="edit-step-btn" @click="setStep(2)">
+                    <unicon name="eye" fill="royalBlue"></unicon>
+                  </div>
+                  <div class="edit-step-btn" @click="setStep(2)">
+                    <unicon name="pen" fill="royalBlue"></unicon>
+                  </div>
                 </div>
               </div>
               <div class="row" v-if="user.tax">
                 <div class="subtitle">Avis d'imposition</div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="setStep(6)">watch</div>
-                  <div class="edit-step-btn" @click="setStep(6)">edit</div>
+                  <div class="edit-step-btn" @click="setStep(2)">
+                    <unicon name="eye" fill="royalBlue"></unicon>
+                  </div>
+                  <div class="edit-step-btn" @click="setStep(2)">
+                    <unicon name="pen" fill="royalBlue"></unicon>
+                  </div>
                 </div>
               </div>
             </section>
@@ -110,6 +134,7 @@ export default class EditSummary extends Vue {
 .edit-step-btn {
   align-self: center;
   padding: 0.2rem;
+  cursor: pointer;
 }
 .subtitle {
   font-weight: bold;
