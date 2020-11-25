@@ -81,7 +81,7 @@
     </div>
     <div class="rf-col-12 rf-margin-bottom-5N">
       <button class="rf-btn" type="submit">
-        Suivant
+        Enregistrer la pièce
       </button>
     </div>
   </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="file-upload">
+  <div class="file-upload rf-col-6">
     <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving">
       <div class="dropbox">
         <input
@@ -14,10 +14,9 @@
           class="input-file"
         />
         <p v-if="isInitial()">
-          Drag your file(s) here to begin<br />
-          or click to browse
+          Ajouter un ou plusieurs documents
         </p>
-        <p v-if="isSaving">Uploading {{ fileCount }} files...</p>
+        <p v-if="isSaving()">Téléchargement de {{ fileCount }} fichiers...</p>
       </div>
     </form>
     <div v-if="isSuccess()">
