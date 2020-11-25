@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import i18n from "./i18n";
 import axios from "axios";
+import "./unicon";
 
 Vue.config.productionTip = false;
 

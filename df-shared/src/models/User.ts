@@ -11,4 +11,6 @@ export class User {
   identification?: string;
   residency?: string;
   professional?: string;
+  financial?: string;
+  tax?: string;
 }
