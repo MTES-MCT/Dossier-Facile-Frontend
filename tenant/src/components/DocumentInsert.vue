@@ -81,16 +81,14 @@ export default class DocumentInsert extends Vue {
 
 ul li::before {
   content: none;
-  display: table;
+}
+
+ul li {
+  display: flex;
 }
 
 .title {
   font-weight: bold;
-}
-
-.list-item {
-  display: table-cell;
-  vertical-align: middle;
 }
 </style>
 
