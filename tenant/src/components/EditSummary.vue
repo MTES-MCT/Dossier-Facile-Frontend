@@ -1,8 +1,8 @@
 <template>
   <div>
-    <NakedCard>
+    <NakedCard v-if="user.lastName || hasDocument()">
       <template v-slot:content>
-        <div>
+        <div v-if="user.lastName">
           <a href="#" class="rf-link">
             {{ $t("title") }}
           </a>
@@ -30,7 +30,7 @@
             </section>
           </div>
         </div>
-        <div>
+        <div v-if="hasDocument()">
           <a href="#" class="rf-link">
             {{ $t("second-title") }}
           </a>
@@ -106,6 +106,8 @@
 import { Component, Vue } from "vue-property-decorator";
 import { mapState } from "vuex";
 import NakedCard from "@/components/NakedCard.vue";
+import { User } from "df-shared/src/models/User";
+
 @Component({
   components: { NakedCard },
   computed: {
@@ -116,8 +118,19 @@ import NakedCard from "@/components/NakedCard.vue";
   }
 })
 export default class EditSummary extends Vue {
+  user!: User;
+
   setStep(n: number) {
     this.$store.commit("setStep", n);
+  }
+  hasDocument() {
+    return (
+      this.user.identification ||
+      this.user.residency ||
+      this.user.professional ||
+      this.user.financial ||
+      this.user.tax
+    );
   }
 }
 </script>
