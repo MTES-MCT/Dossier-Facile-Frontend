@@ -118,7 +118,7 @@ export default class FileUpload extends Vue {
   outline-offset: -10px;
   color: dimgray;
   padding: 10px 10px;
-  min-height: 100px;
+  min-height: 50px;
   position: relative;
   cursor: pointer;
 }
@@ -136,7 +136,7 @@ export default class FileUpload extends Vue {
 }
 
 .dropbox p {
-  font-size: 1.2em;
+  font-size: 1em;
   text-align: center;
 }
 </style>
