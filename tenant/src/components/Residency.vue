@@ -80,7 +80,7 @@
       </div>
     </div>
     <div class="rf-col-12 rf-margin-bottom-5N">
-      <button class="rf-btn" type="submit">
+      <button class="rf-btn" type="submit" :disabled="!user.residency">
         Enregistrer la pièce
       </button>
     </div>
