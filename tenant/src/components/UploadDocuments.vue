@@ -9,6 +9,8 @@
         :class="{ selected: substep === 1 }"
         @click="updateSubstep(1)"
       >
+        <unicon :name="substep === 1 ? 'angle-down' : 'angle-up'"></unicon>
+        <unicon name="user"></unicon>
         <h2>{{ $t("identification") }}</h2>
       </div>
       <Identification v-if="substep === 1"></Identification>
@@ -19,6 +21,8 @@
         :class="{ selected: substep === 2 }"
         @click="updateSubstep(2)"
       >
+        <unicon :name="substep === 2 ? 'angle-down' : 'angle-up'"></unicon>
+        <unicon name="home"></unicon>
         <h2>{{ $t("residency") }}</h2>
       </div>
       <Residency v-if="substep === 2"></Residency>
@@ -29,6 +33,8 @@
         :class="{ selected: substep === 3 }"
         @click="updateSubstep(3)"
       >
+        <unicon :name="substep === 3 ? 'angle-down' : 'angle-up'"></unicon>
+        <unicon name="suitcase-alt"></unicon>
         <h2>{{ $t("professional") }}</h2>
       </div>
       <Professional v-if="substep === 3"></Professional>
@@ -39,6 +45,8 @@
         :class="{ selected: substep === 4 }"
         @click="updateSubstep(4)"
       >
+        <unicon :name="substep === 4 ? 'angle-down' : 'angle-up'"></unicon>
+        <unicon name="euro-circle"></unicon>
         <h2>{{ $t("financial") }}</h2>
       </div>
       <Financial v-if="substep === 4"></Financial>
@@ -49,6 +57,8 @@
         :class="{ selected: substep === 5 }"
         @click="updateSubstep(5)"
       >
+        <unicon :name="substep === 5 ? 'angle-down' : 'angle-up'"></unicon>
+        <unicon name="file-alt"></unicon>
         <h2>{{ $t("tax") }}</h2>
       </div>
       <Tax v-if="substep === 5"></Tax>
@@ -85,6 +95,8 @@ export default class UploadDocuments extends Vue {
 h2 {
   font-size: 1rem;
   margin: 0.5rem;
+  display: inline-block;
+  align-self: center;
 }
 
 .document-title {
@@ -92,6 +104,12 @@ h2 {
   border-radius: 5px;
   margin-bottom: 5px;
   cursor: pointer;
+  display: flex;
+}
+
+.unicon {
+  align-self: center;
+  margin: 0.2rem 0.5rem;
 }
 
 .selected {

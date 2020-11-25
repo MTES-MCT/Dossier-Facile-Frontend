@@ -1,27 +1,27 @@
 <template>
-  <div>
-    <table>
-      <tr>
-        <th>Les pièces acceptées</th>
-        <th>Les pièces refusées</th>
-      </tr>
-      <tr>
-        <td>
-          <ul>
-            <li v-for="(v, k) in allowList" :key="k">
-              {{ v }}
-            </li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li v-for="(v, k) in blockList" :key="k">
-              {{ v }}
-            </li>
-          </ul>
-        </td>
-      </tr>
-    </table>
+  <div class="rf-grid-row">
+    <div class="rf-col-6 title">Les pièces acceptées</div>
+    <div class="rf-col-6 title">Les pièces refusées</div>
+    <div class="content left rf-col-6">
+      <ul>
+        <li v-for="(v, k) in allowList" :key="k">
+          <unicon class="list-item" name="check" fill="limegreen"></unicon>
+          <div class="list-item">
+            {{ v }}
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="content rf-col-6">
+      <ul>
+        <li v-for="(v, k) in blockList" :key="k">
+          <unicon class="list-item" name="times" fill="red"></unicon>
+          <div class="list-item">
+            {{ v }}
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -46,14 +46,49 @@ export default class DocumentInsert extends Vue {
 </script>
 
 <style scoped lang="scss">
-table {
-  border-collapse: collapse;
+@import "df-shared/src/scss/_variables.scss";
+
+.rf-grid-row {
+  width: 100%;
+  background-color: $secondary;
+  border: 1px solid $primary;
+  border-radius: 10px;
+  > div {
+    padding: 1rem;
+    .title {
+      padding-left: 2rem;
+    }
+  }
 }
 
-table,
-th,
-td {
-  border: 1px solid #ececec;
+.left {
+  display: inline-block;
+  position: relative;
+  &:after {
+    position: absolute;
+    content: "";
+    border-left: 1px solid $primary;
+    height: 70%;
+    transform: translateY(-50%);
+    right: 0;
+    top: 50%;
+  }
+}
+
+.content {
+  padding: 10px;
+}
+
+ul li::before {
+  content: none;
+}
+
+ul li {
+  display: flex;
+}
+
+.title {
+  font-weight: bold;
 }
 </style>
 
