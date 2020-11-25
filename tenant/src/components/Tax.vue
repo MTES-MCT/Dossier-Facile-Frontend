@@ -1,7 +1,12 @@
 <template>
   <div>
     <div>
-      <select v-model="taxDocument" class="rf-select" id="select" name="select">
+      <select
+        v-model="taxDocument"
+        class="rf-select rf-margin-bottom-3N"
+        id="select"
+        name="select"
+      >
         <option value="" selected disabled hidden>- Select -</option>
         <option v-for="d in documents" :value="d" :key="d.key">{{
           $t(d.key)

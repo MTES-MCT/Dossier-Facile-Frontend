@@ -6,7 +6,7 @@
       </label>
       <select
         v-model="financialDocument"
-        class="rf-select"
+        class="rf-select rf-margin-bottom-3N"
         id="select"
         name="select"
       >

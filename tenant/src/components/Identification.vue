@@ -7,7 +7,7 @@
       </label>
       <select
         v-model="user.identification"
-        class="rf-select"
+        class="rf-select rf-margin-bottom-3N"
         id="select"
         name="select"
       >
