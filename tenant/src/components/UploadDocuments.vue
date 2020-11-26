@@ -1,8 +1,5 @@
 <template>
   <div>
-    <h1>
-      {{ title }}
-    </h1>
     <div>
       <div
         class="document-title"
@@ -84,7 +81,6 @@ import Tax from "@/components/Tax.vue";
 })
 export default class UploadDocuments extends Vue {
   @Prop() private user!: User;
-  @Prop() private title!: string;
 
   substep = 0;
 

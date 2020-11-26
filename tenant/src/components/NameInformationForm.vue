@@ -1,8 +1,5 @@
 <template>
   <div>
-    <h1>
-      {{ title }}
-    </h1>
     <ValidationObserver v-slot="{ invalid, validate }">
       <form
         name="form"
@@ -118,7 +115,6 @@ extend("required", {
 })
 export default class NameInformationForm extends Vue {
   @Prop() private user!: User;
-  @Prop() private title!: string;
 
   handleNameInformation() {
     this.$store.dispatch("setNames", this.user).then(null, error => {
