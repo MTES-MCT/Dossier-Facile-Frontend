@@ -38,7 +38,7 @@
           <div class="rf-card__desc">
             <section>
               <div class="row" v-if="user.identification">
-                <div class="subtitle">Pièce d'identité</div>
+                <div class="subtitle">Pièce d’identité</div>
                 <div class="row">
                   <div class="edit-step-btn" @click="setStep(2)">
                     <unicon name="eye"></unicon>
@@ -84,7 +84,7 @@
                 </div>
               </div>
               <div class="row" v-if="user.tax">
-                <div class="subtitle">Avis d'imposition</div>
+                <div class="subtitle">Avis d’imposition</div>
                 <div class="row">
                   <div class="edit-step-btn" @click="setStep(2)">
                     <unicon name="eye"></unicon>

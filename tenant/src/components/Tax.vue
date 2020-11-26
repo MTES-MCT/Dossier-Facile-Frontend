@@ -58,12 +58,12 @@ export default class Tax extends Vue {
       key: "my-name",
       value: "MY_NAME",
       explanationText:
-        "En joignant mon avis d'imposition, j'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts.\n" +
-        "J'ajoute un avis d'imposition à mon nom.",
-      acceptedProofs: ["Avis d'imposition de moins de 2 ans"],
+        "En joignant mon avis d’imposition, j’accepte que DossierFacile procède à une vérification automatisée de ma fiche d’imposition auprès des services des impôts.\n" +
+        "J’ajoute un avis d’imposition à mon nom.",
+      acceptedProofs: ["Avis d’imposition de moins de 2 ans"],
       refusedProofs: [
-        "Avis d'imposition incomplet (sans la première page)",
-        "Tout avis d'imposition plus ancien",
+        "Avis d’imposition incomplet (sans la première page)",
+        "Tout avis d’imposition plus ancien",
         "Tout autre document justificatif"
       ]
     },
@@ -71,14 +71,14 @@ export default class Tax extends Vue {
       key: "my-parents",
       value: "MY_PARENTS",
       explanationText:
-        "J'ai déclaré être rattaché·e au domicile fiscal de mes parents.",
+        "J’ai déclaré être rattaché·e au domicile fiscal de mes parents.",
       acceptedProofs: [],
       refusedProofs: []
     },
     {
       key: "less-than-year",
       value: "LESS_THAN_YEAR",
-      explanationText: "J'ai déclaré être en France depuis moins d'un an.",
+      explanationText: "J’ai déclaré être en France depuis moins d’un an.",
       acceptedProofs: [],
       refusedProofs: []
     },
@@ -86,7 +86,7 @@ export default class Tax extends Vue {
       key: "other-tax",
       value: "OTHER_TAX",
       explanationText:
-        "Afin d'améliorer mon dossier, j’explique ci-dessous pourquoi je ne reçois pas d’avis d’imposition. Mon explication sera ajoutée à mon dossier :",
+        "Afin d’améliorer mon dossier, j’explique ci-dessous pourquoi je ne reçois pas d’avis d’imposition. Mon explication sera ajoutée à mon dossier :",
       acceptedProofs: [],
       refusedProofs: []
     }
@@ -99,15 +99,15 @@ export default class Tax extends Vue {
 <i18n>
 {
 "en": {
-"my-name": "Vous avez un avis d'imposition à votre nom",
+"my-name": "Vous avez un avis d’imposition à votre nom",
 "my-parents": "Vous êtes rattaché fiscalement à vos parents",
-"less-than-year": "Vous êtes en France depuis moins d'un an",
+"less-than-year": "Vous êtes en France depuis moins d’un an",
 "other-tax": "Autre"
 },
 "fr": {
-"my-name": "Vous avez un avis d'imposition à votre nom",
+"my-name": "Vous avez un avis d’imposition à votre nom",
 "my-parents": "Vous êtes rattaché fiscalement à vos parents",
-"less-than-year": "Vous êtes en France depuis moins d'un an",
+"less-than-year": "Vous êtes en France depuis moins d’un an",
 "other-tax": "Autre"
 }
 }

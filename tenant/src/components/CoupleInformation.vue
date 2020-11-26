@@ -66,14 +66,14 @@ export default class CoupleInformation extends Vue {
 <i18n>
 {
 "en": {
-"spouseEmail": "Veuillez renseigner l'adresse email de votre conjoint",
+"spouseEmail": "Veuillez renseigner l’adresse email de votre conjoint",
 "addSpouse": "Ajouter un colocataire",
-"acceptAuthor": "J'accepte que mon partenaire ait accès à mes documents ainsi qu'à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés"
+"acceptAuthor": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés"
 },
 "fr": {
-"spouseEmail": "Veuillez renseigner l'adresse email de votre conjoint",
+"spouseEmail": "Veuillez renseigner l’adresse email de votre conjoint",
 "addSpouse": "Ajouter un colocataire",
-"acceptAuthor": "J'accepte que mon partenaire ait accès à mes documents ainsi qu'à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés"
+"acceptAuthor": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés"
 }
 }
 </i18n>

@@ -121,18 +121,18 @@ h2 {
 <i18n>
 {
 "en": {
-"identification": "Pièce d'identité",
+"identification": "Pièce d’identité",
 "residency": "Justificatif de domicile",
 "professional": "Justificatif de situation professionelle et financière",
 "financial": "Justificatif de revenu",
-"tax": "Avis d'imposition"
+"tax": "Avis d’imposition"
 },
 "fr": {
-"identification": "Pièce d'identité",
+"identification": "Pièce d’identité",
 "residency": "Justificatif de domicile",
 "professional": "Justificatif de situation professionelle et financière",
 "financial": "Justificatif de revenu",
-"tax": "Avis d'imposition"
+"tax": "Avis d’imposition"
 }
 }
 </i18n>

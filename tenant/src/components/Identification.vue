@@ -2,7 +2,7 @@
   <div>
     <div>
       <label class="rf-label" for="select">
-        J'ajoute une pièce d'identité en cours de validité. Attention, veillez à
+        J’ajoute une pièce d’identité en cours de validité. Attention, veillez à
         ajouter votre pièce recto-verso !
       </label>
       <select
@@ -65,9 +65,9 @@ export default class Identification extends Vue {
       key: "identity-card",
       value: "FRENCH_IDENTITY_CARD",
       explanationText: "Attention veillez à ajouter votre pièce recto-verso !",
-      acceptedProofs: ["Carte d'identité française recto-verso"],
+      acceptedProofs: ["Carte d’identité française recto-verso"],
       refusedProofs: [
-        "Carte d'identité sans le verso ou périmée",
+        "Carte d’identité sans le verso ou périmée",
         "Tout autre document"
       ]
     },
@@ -82,7 +82,7 @@ export default class Identification extends Vue {
       value: "FRENCH_RESIDENCE_PERMIT",
       acceptedProofs: [
         "Carte de séjour en France temporaire recto-verso en cours de validité, ou périmée si elle est accompagnée du récépissé de la demande de renouvellement de carte de séjour",
-        "Visa de travail ou d'études temporaire en France"
+        "Visa de travail ou d’études temporaire en France"
       ],
       refusedProofs: ["Tout autre document"]
     },
@@ -90,11 +90,11 @@ export default class Identification extends Vue {
       key: "other",
       value: "OTHER_IDENTIFICATION",
       acceptedProofs: [
-        "Carte d'identité étrangère recto-verso",
+        "Carte d’identité étrangère recto-verso",
         "Passeport étranger (pages 2 et 3)",
         "Permis de conduire français ou étranger recto-verso",
         "Carte de résident",
-        "Carte de ressortissant d'un État membre de l'UE ou de l'EEE"
+        "Carte de ressortissant d’un État membre de l’UE ou de l’EEE"
       ],
       refusedProofs: ["Tout autre document"]
     }
@@ -117,13 +117,13 @@ td {
 <i18n>
 {
 "en": {
-"identity-card": "Carte nationale d'identité",
+"identity-card": "Carte nationale d’identité",
 "passport": "Passeport",
 "permit": "Permis de conduire",
 "other": "Autre"
 },
 "fr": {
-"identity-card": "Carte nationale d'identité",
+"identity-card": "Carte nationale d’identité",
 "passport": "Passeport",
 "permit": "Permis de conduire",
 "other": "Autre"
