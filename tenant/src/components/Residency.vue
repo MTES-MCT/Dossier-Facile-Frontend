@@ -6,7 +6,7 @@
       </label>
       <select
         v-model="user.residency"
-        class="rf-select"
+        class="rf-select rf-margin-bottom-3N"
         id="select"
         name="select"
       >
@@ -78,6 +78,11 @@
           :block-list="guestParentsBlockList"
         ></DocumentInsert>
       </div>
+    </div>
+    <div class="rf-col-12 rf-margin-bottom-5N">
+      <button class="rf-btn" type="submit" :disabled="!user.residency">
+        Enregistrer la pièce
+      </button>
     </div>
   </div>
 </template>

@@ -1,7 +1,12 @@
 <template>
   <div>
     <div>
-      <select v-model="taxDocument" class="rf-select" id="select" name="select">
+      <select
+        v-model="taxDocument"
+        class="rf-select rf-margin-bottom-3N"
+        id="select"
+        name="select"
+      >
         <option value="" selected disabled hidden>- Select -</option>
         <option v-for="d in documents" :value="d" :key="d.key">{{
           $t(d.key)
@@ -21,6 +26,11 @@
           :block-list="taxDocument.refusedProofs"
         ></DocumentInsert>
       </div>
+    </div>
+    <div class="rf-col-12 rf-margin-bottom-5N">
+      <button class="rf-btn" type="submit" :disabled="!taxDocument">
+        Enregistrer la pièce
+      </button>
     </div>
   </div>
 </template>

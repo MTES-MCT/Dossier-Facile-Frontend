@@ -1,8 +1,5 @@
 <template>
   <div>
-    <h1>
-      {{ title }}
-    </h1>
     <p>
       {{
         $t("tenantPresentation", {
@@ -100,7 +97,6 @@ extend("required", {
   }
 })
 export default class TenantInformationForm extends Vue {
-  @Prop() private title!: string;
   user!: User;
   roommates = [{ email: "" }];
   coTenantAuthorize = false;

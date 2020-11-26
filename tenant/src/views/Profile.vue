@@ -7,17 +7,22 @@
       ></LeftEditMenu>
       <div class="rf-col-md-6 rf-col-sm-12">
         <div class="content">
+          <div class="step rf-margin-bottom-5N" v-if="currentStep <= 1">
+            <div class="step-number">1</div>
+            <div class="step-title">{{ $t("title-step1") }}</div>
+          </div>
+          <div class="step rf-margin-bottom-5N" v-if="currentStep === 2">
+            <div class="step-number">2</div>
+            <div class="step-title">{{ $t("title-step2") }}</div>
+          </div>
           <NameInformationForm
-            :title="$t('title-step1')"
             :user="user"
             v-if="currentStep === 0"
           ></NameInformationForm>
           <TenantInformationForm
-            :title="$t('title-step1')"
             v-if="currentStep === 1"
           ></TenantInformationForm>
           <UploadDocuments
-            :title="$t('title-step2')"
             :user="user"
             v-if="currentStep === 2"
           ></UploadDocuments>
@@ -74,6 +79,8 @@ export default class Profile extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import "df-shared/src/scss/_variables.scss";
+
 .rf-container-full-size {
   padding-left: 0;
   padding-right: 0;
@@ -86,6 +93,27 @@ export default class Profile extends Vue {
 
 .content {
   padding: 2rem;
+}
+
+.step-number {
+  padding: 5px;
+  background-color: $primary;
+  color: white;
+  margin: 0 5px;
+  border-radius: 50%;
+  display: inline-block;
+  height: 25px;
+  width: 25px;
+  min-width: 25px;
+  text-align: center;
+  z-index: 1;
+}
+.step {
+  display: flex;
+  align-items: center;
+}
+.step-title {
+  font-size: 1.5rem;
 }
 </style>
 

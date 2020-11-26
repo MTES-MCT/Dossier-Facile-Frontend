@@ -6,7 +6,7 @@
       </label>
       <select
         v-model="professionalDocument"
-        class="rf-select"
+        class="rf-select rf-margin-bottom-3N"
         id="select"
         name="select"
       >
@@ -29,6 +29,11 @@
           :block-list="professionalDocument.refusedProofs"
         ></DocumentInsert>
       </div>
+    </div>
+    <div class="rf-col-12 rf-margin-bottom-5N">
+      <button class="rf-btn" type="submit" :disabled="!professionalDocument">
+        Enregistrer la pièce
+      </button>
     </div>
   </div>
 </template>
