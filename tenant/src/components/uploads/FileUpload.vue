@@ -5,10 +5,9 @@
         <input
           type="file"
           multiple
-          :name="uploadFieldName"
           :disabled="isSaving()"
           @change="
-            filesChange($event.target.name, $event.target.files);
+            filesChange($event.target.files);
             fileCount = $event.target.files.length;
           "
           class="input-file"
@@ -17,48 +16,48 @@
           Ajouter un ou plusieurs documents
         </p>
         <p v-if="isSaving()">Téléchargement de {{ fileCount }} fichiers...</p>
+        <div v-if="isSuccess()">
+          <h2>Uploaded {{ uploadedFiles.length }} file(s) successfully.</h2>
+          <p>
+            <a href="javascript:void(0)" @click="reset()">Upload again</a>
+          </p>
+          <ul class="list-unstyled">
+            <li v-for="(item, k) in uploadedFiles" :key="k">
+              <img
+                :src="item.url"
+                class="img-responsive img-thumbnail"
+                :alt="item.originalName"
+              />
+            </li>
+          </ul>
+        </div>
+        <div v-if="isFailed()">
+          <h2>Problème d'envoie.</h2>
+          <p>
+            <a href="javascript:void(0)" @click="reset()">Réessayer</a>
+          </p>
+        </div>
       </div>
     </form>
-    <div v-if="isSuccess()">
-      <h2>Uploaded {{ uploadedFiles.length }} file(s) successfully.</h2>
-      <p>
-        <a href="javascript:void(0)" @click="reset()">Upload again</a>
-      </p>
-      <ul class="list-unstyled">
-        <li v-for="(item, k) in uploadedFiles" :key="k">
-          <img
-            :src="item.url"
-            class="img-responsive img-thumbnail"
-            :alt="item.originalName"
-          />
-        </li>
-      </ul>
-    </div>
-    <div v-if="isFailed()">
-      <h2>Uploaded failed.</h2>
-      <p>
-        <a href="javascript:void(0)" @click="reset()">Try again</a>
-      </p>
-      <pre>{{ uploadError }}</pre>
-    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { UploadService } from "./UploadService";
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { UploadStatus } from "@/components/uploads/UploadStatus";
 
-const STATUS_INITIAL = 0,
-  STATUS_SAVING = 1,
-  STATUS_SUCCESS = 2,
-  STATUS_FAILED = 3;
+const {
+  STATUS_INITIAL,
+  STATUS_SUCCESS,
+  STATUS_SAVING,
+  STATUS_FAILED
+} = UploadStatus;
 
 @Component
 export default class FileUpload extends Vue {
+  @Prop({ default: STATUS_INITIAL }) currentStatus!: number;
+
   uploadedFiles = [];
-  uploadError = null;
-  currentStatus: number = STATUS_INITIAL;
-  uploadFieldName = "documents";
   fileCount = 0;
 
   isInitial() {
@@ -78,35 +77,13 @@ export default class FileUpload extends Vue {
   }
 
   reset() {
-    this.currentStatus = STATUS_INITIAL;
     this.uploadedFiles = [];
-    this.uploadError = null;
+    this.fileCount = 0;
+    this.$emit("reset-files");
   }
 
-  save(formData: FormData) {
-    this.currentStatus = STATUS_SAVING;
-
-    UploadService.upload(formData)
-      .then(x => {
-        this.uploadedFiles = [].concat(x);
-        this.currentStatus = STATUS_SUCCESS;
-      })
-      .catch(err => {
-        this.uploadError = err.response;
-        this.currentStatus = STATUS_FAILED;
-      });
-  }
-
-  filesChange(fieldName: string, fileList: File[]) {
-    const formData = new FormData();
-
-    if (!fileList.length) return;
-
-    Array.from(Array(fileList.length).keys()).map(x => {
-      formData.append(fieldName, fileList[x], fileList[x].name);
-    });
-
-    this.save(formData);
+  filesChange(fileList: File[]) {
+    this.$emit("add-files", fileList);
   }
 }
 </script>
