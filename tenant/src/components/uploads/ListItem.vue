@@ -1,5 +1,5 @@
 <template>
-  <div class="rf-grid-row">
+  <div class="rf-grid-row row">
     <div class="text">
       {{ filename }}
     </div>

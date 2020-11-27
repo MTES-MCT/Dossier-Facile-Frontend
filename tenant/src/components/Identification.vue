@@ -141,7 +141,7 @@ export default class Identification extends Vue {
     const formData = new FormData();
     if (!this.files.length) return;
     Array.from(Array(this.files.length).keys()).map(x => {
-      formData.append(fieldName[x], this.files[x], this.files[x].name);
+      formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
     });
 
     formData.append(
