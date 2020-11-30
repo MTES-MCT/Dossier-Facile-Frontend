@@ -1,7 +1,7 @@
 <template>
   <div class="main-container">
     <section class="imageblock switchable height-100 rf-grid-row">
-      <div class="imageblock__content rf-col-lg-6 rf-col-md-4">
+      <div class="imageblock__content rf-col-lg-6 rf-col-md-4 rf-col-12">
         <div class="background-image-holder">
           <img
             alt="beautiful building"
@@ -9,39 +9,39 @@
           />
         </div>
       </div>
-      <div class="container pos-vertical-center rf-col-lg-6 rf-col-md-8">
-        <div class="rf-grid-row">
-          <div class="rf-col-lg-5 rf-col-md-7">
-            <h1>DossierFacile, le dossier de location intelligent</h1>
-            <p class="lead">
-              Déposez votre dossier sur DossierFacile et augmentez vos chances
-              de trouver l'appartement de vos rêves !
-            </p>
+      <div class="pos-vertical-center rf-col-lg-6 rf-col-md-8 rf-col-12">
+        <div class="rf-grid-row rf-margin-5N">
+          <h1>DossierFacile, le dossier de location intelligent</h1>
+          <p class="lead">
+            Déposez votre dossier sur DossierFacile et augmentez vos chances de
+            trouver l'appartement de vos rêves !
+          </p>
 
-            <div class="pull-left">
-              <div>
-                <DfButton
-                  primary="true"
-                  size="small"
-                  v-on:on-click="signup"
-                  :label="$t('signup')"
-                />
-              </div>
-              <div class="mt-2 text-center">
-                <router-link to="/login">
-                  Je me connecte
-                </router-link>
-              </div>
+          <div class="pull-left">
+            <div>
+              <DfButton
+                primary="true"
+                size="small"
+                v-on:on-click="signup"
+                :label="$t('signup')"
+              />
+            </div>
+            <div class="rf-margin-top-2N text-center">
+              <router-link to="/login">
+                Je me connecte
+              </router-link>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="text-lg-center text-md-center text-sm-left">
-      <div class="container">
+    <section
+      class="text-lg-center text-md-center text-sm-left rf-margin-top-5N"
+    >
+      <div class="rf-container">
         <div class="rf-grid-row">
-          <div class="rf-col-md-12">
+          <div class="rf-col-md-12 text-center">
             <h2>Faites la différence avec DossierFacile</h2>
             <p class="lead">Des dossiers Clairs, Complets et Cohérents.</p>
           </div>
@@ -49,7 +49,7 @@
       </div>
     </section>
     <section>
-      <div class="container">
+      <div class="rf-container">
         <div class="rf-grid-row">
           <div class="rf-col-md-6 rf-col-lg-3">
             <div class="feature feature-6">
@@ -101,7 +101,7 @@
     </section>
 
     <section class="cover cover-features space--lg bg-orange pt-2">
-      <div class="container">
+      <div class="rf-container">
         <div class="rf-grid-row">
           <div class="rf-col-md-9 rf-col-lg-7">
             <h1 class="text-white">
@@ -143,7 +143,11 @@
                 Gratuit et entièrement dématerialisé, Visale est votre garant
                 pour louer votre logement !
               </p>
-              <a class="text-bleu-clair" href="https://www.visale.fr/#!/">
+              <a
+                class="text-bleu-clair"
+                href="https://www.visale.fr/#!/"
+                target="_blank"
+              >
                 Obtenez votre visa
               </a>
             </div>
@@ -184,9 +188,9 @@
     </section>
 
     <section class="text-center mt-5">
-      <div class="container">
+      <div class="rf-container">
         <div class="rf-grid-row">
-          <div class="rf-col-md-9 rf-col-lg-7">
+          <div class="rf-col-12">
             <h2>Boostez votre dossier en 3 étapes</h2>
             <p class="lead">
               Nous vous accompagnons gratuitement dans la constitution de votre
@@ -198,7 +202,7 @@
     </section>
 
     <section>
-      <div class="container">
+      <div class="rf-container">
         <div class="process-2 rf-grid-row">
           <div class="rf-col-md-4">
             <div class="process__item">
@@ -260,6 +264,7 @@ export default class Home extends Vue {
 
 .imageblock__content {
   position: relative;
+  min-height: 150px;
 }
 
 .background-image-holder {
@@ -297,6 +302,25 @@ export default class Home extends Vue {
   background-color: white !important;
 }
 
+.process-2 {
+  position: relative;
+}
+
+.process-2:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  top: 0.92857143em;
+  left: 0;
+  background: #4a90e2;
+  margin-left: -10px;
+}
+
+.process__item {
+  padding-top: 2rem;
+}
+
 .process__item:after {
   content: "";
   width: 1.85714286em;
@@ -312,6 +336,16 @@ export default class Home extends Vue {
   position: absolute;
   top: 0;
   margin-left: 1px;
+}
+
+.feature {
+  padding: 1rem;
+  margin: 2rem;
+  border-radius: 6px;
+}
+
+.pos-vertical-center {
+  align-self: center;
 }
 </style>
 
