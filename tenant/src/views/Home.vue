@@ -201,7 +201,7 @@
       </div>
     </section>
 
-    <section>
+    <section class="rf-margin-bottom-5N">
       <div class="rf-container">
         <div class="process-2 rf-grid-row">
           <div class="rf-col-md-4">
@@ -317,8 +317,19 @@ export default class Home extends Vue {
   margin-left: -10px;
 }
 
+@media all and (max-width: 767px) {
+  .process-2:before {
+    height: 100%;
+    width: 2px;
+    left: 14px;
+    margin-left: 2px;
+  }
+}
+
 .process__item {
   padding-top: 2rem;
+  padding-left: 3rem;
+  position: relative;
 }
 
 .process__item:after {
@@ -336,6 +347,17 @@ export default class Home extends Vue {
   position: absolute;
   top: 0;
   margin-left: 1px;
+}
+
+@media all and (max-width: 767px) {
+  .process-2 .process__item:after {
+    top: 3rem;
+    left: 0;
+  }
+}
+.process-2 .process__item:after {
+  display: inline-block;
+  text-align: center;
 }
 
 .feature {
