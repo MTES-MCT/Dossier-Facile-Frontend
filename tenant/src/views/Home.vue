@@ -53,7 +53,7 @@
         <div class="rf-grid-row">
           <div class="rf-col-md-6 rf-col-lg-3">
             <div class="feature feature-6">
-              <i class="icon color--primary icon-Magic-Wand icon--sm"></i>
+              <unicon name="star"></unicon>
               <h5>Un dossier plus simple</h5>
               <p>
                 Car dossier incomplet rime souvent avec appartement refusé, nous
@@ -64,7 +64,7 @@
           </div>
           <div class="rf-col-md-6 rf-col-lg-3">
             <div class="feature feature-6">
-              <i class="icon color--primary icon-Green-House icon--sm"></i>
+              <unicon name="home"></unicon>
               <h5>Faites la différence</h5>
               <p>
                 Rassurer votre propriétaire grâce au standard « 3C » et
@@ -75,7 +75,7 @@
           </div>
           <div class="rf-col-md-6 rf-col-lg-3">
             <div class="feature feature-6">
-              <i class="icon color--primary icon-Mouse-2 icon--sm"></i>
+              <unicon name="mouse"></unicon>
               <h5>100% en ligne</h5>
               <p>
                 Avec DossierFacile tout se passe en ligne et en 3 minutes : fini
@@ -86,7 +86,7 @@
           </div>
           <div class="rf-col-md-6 rf-col-lg-3">
             <div class="feature feature-6">
-              <i class="icon color--primary icon-Cloud-Lock icon--sm"></i>
+              <unicon name="folder-lock"></unicon>
               <h5>Vos données protégées</h5>
               <p>
                 Nous avons à coeur la protections de vos données. Elles ne
