@@ -85,6 +85,7 @@ export default class MyHeader extends Vue {
 <style lang="scss" scoped>
 .logo {
   max-height: 50px;
+  max-width: calc(100% - 40px);
 }
 </style>
 
