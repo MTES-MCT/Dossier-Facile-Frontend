@@ -79,14 +79,14 @@ export default class RoommatesInformation extends Vue {
 <i18n>
 {
 "en": {
-"roommateEmail": "Veuillez renseigner l'adresse email de votre colocataire",
+"roommateEmail": "Veuillez renseigner l’adresse email de votre colocataire",
 "addRommate": "Ajouter un colocataire",
-"acceptAuthor": "J'accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu'à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés"
+"acceptAuthor": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés"
 },
 "fr": {
-"roommateEmail": "Veuillez renseigner l'adresse email de votre colocataire",
+"roommateEmail": "Veuillez renseigner l’adresse email de votre colocataire",
 "addRommate": "Ajouter un colocataire",
-"acceptAuthor": "J'accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu'à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés"
+"acceptAuthor": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés"
 }
 }
 </i18n>

@@ -21,7 +21,11 @@
         {{ professionalDocument.explanationText }}
       </div>
       <div class="rf-margin-bottom-3N">
-        <FileUpload></FileUpload>
+        <FileUpload
+          :current-status="fileUploadStatus"
+          v-on:add-files="addFiles"
+          v-on:reset-files="resetFiles"
+        ></FileUpload>
       </div>
       <div class="rf-margin-bottom-3N">
         <DocumentInsert
@@ -30,8 +34,26 @@
         ></DocumentInsert>
       </div>
     </div>
-    <div class="rf-col-12 rf-margin-bottom-5N">
-      <button class="rf-btn" type="submit" :disabled="!professionalDocument">
+    <div>
+      <ListItem
+        v-for="file in files"
+        :key="file.name"
+        :filename="file.name"
+        :uploadState="
+          uploadProgress[file.name] ? uploadProgress[file.name].state : 'idle'
+        "
+        :percentage="
+          uploadProgress[file.name] ? uploadProgress[file.name].percentage : 0
+        "
+      />
+    </div>
+    <div class="rf-col-12 rf-margin-bottom-5N" v-if="professionalDocument">
+      <button
+        class="rf-btn"
+        type="submit"
+        @click="save"
+        :disabled="files.length <= 0"
+      >
         Enregistrer la pièce
       </button>
     </div>
@@ -44,9 +66,12 @@ import DocumentInsert from "@/components/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { mapState } from "vuex";
 import { DocumentType } from "df-shared/src/models/Document";
+import { UploadStatus } from "@/components/uploads/UploadStatus";
+import axios from "axios";
+import ListItem from "@/components/uploads/ListItem.vue";
 
 @Component({
-  components: { DocumentInsert, FileUpload },
+  components: { DocumentInsert, FileUpload, ListItem },
   computed: {
     ...mapState({
       user: "user",
@@ -55,7 +80,45 @@ import { DocumentType } from "df-shared/src/models/Document";
   }
 })
 export default class Professional extends Vue {
+  private fileUploadStatus = UploadStatus.STATUS_INITIAL;
+  private files: File[] = [];
+  private uploadProgress: {
+    [key: string]: { state: string; percentage: number };
+  } = {};
   professionalDocument = new DocumentType();
+  addFiles(fileList: File[]) {
+    this.files = [...this.files, ...fileList];
+  }
+  resetFiles() {
+    this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
+  }
+  save() {
+    this.uploadProgress = {};
+    const fieldName = "documents";
+    const formData = new FormData();
+    if (!this.files.length) return;
+    Array.from(Array(this.files.length).keys()).map(x => {
+      formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
+    });
+
+    formData.append(
+      "typeDocumentProfessional",
+      this.professionalDocument.value
+    );
+
+    this.fileUploadStatus = UploadStatus.STATUS_SAVING;
+    const url = `//${process.env.VUE_APP_API_URL}/api/register/documentProfessional`;
+    axios
+      .post(url, formData)
+      .then(() => {
+        console.log("success");
+        this.fileUploadStatus = UploadStatus.STATUS_SUCCESS;
+      })
+      .catch(() => {
+        console.log("fail");
+        this.fileUploadStatus = UploadStatus.STATUS_FAILED;
+      });
+  }
   documents: DocumentType[] = [
     {
       key: "cdi",
@@ -65,7 +128,7 @@ export default class Professional extends Vue {
         "Et si vous n’avez pas de contrat de travail ? Vous pouvez joindre une attestation de votre employeur signée et datée de moins de 3 mois.",
       acceptedProofs: [
         "Contrat de travail en cours, complet, daté et signé",
-        "Attestation de votre employeur de moins de 3 mois précisant l'emploi et la rémunération proposée et la date d'entrée en fonctions"
+        "Attestation de votre employeur de moins de 3 mois précisant l’emploi et la rémunération proposée et la date d’entrée en fonctions"
       ],
       refusedProofs: [
         "Courrier/mail de confirmation d’embauche",
@@ -81,7 +144,7 @@ export default class Professional extends Vue {
         "Et si vous n’avez pas de contrat de travail ? Vous pouvez joindre une attestation de votre employeur signée et datée de moins de 3 mois.",
       acceptedProofs: [
         "Contrat de travail en cours, complet, daté et signé",
-        "Attestation de votre employeur de moins de 3 mois précisant l'emploi et la rémunération proposée, la date d'entrée en fonctions envisagée et la durée de la période d'essai."
+        "Attestation de votre employeur de moins de 3 mois précisant l’emploi et la rémunération proposée, la date d’entrée en fonctions envisagée et la durée de la période d’essai."
       ],
       refusedProofs: [
         "Courrier/mail de confirmation d’embauche",
@@ -97,7 +160,7 @@ export default class Professional extends Vue {
         "Et si vous n’avez pas de contrat de travail ? Vous pouvez joindre une attestation de votre employeur signée et datée de moins de 3 mois.",
       acceptedProofs: [
         "Contrat de travail en cours, complet, daté et signé",
-        "Attestation de votre employeur de moins de 3 mois précisant l'emploi et la rémunération proposée, la date d'entrée en fonctions et la durée du contrat"
+        "Attestation de votre employeur de moins de 3 mois précisant l’emploi et la rémunération proposée, la date d’entrée en fonctions et la durée du contrat"
       ],
       refusedProofs: [
         "Courrier/mail de confirmation d’embauche",
@@ -130,7 +193,7 @@ export default class Professional extends Vue {
       explanationText:
         "J’ajoute une copie de ma carte d’étudiant ou un certificat de scolarité pour l’année en cours.",
       acceptedProofs: [
-        "Carte d'étudiant ou certificat de scolarité pour l'année en cours"
+        "Carte d’étudiant ou certificat de scolarité pour l’année en cours"
       ],
       refusedProofs: [
         "Courrier/mail de confirmation d’inscription",
@@ -156,7 +219,7 @@ export default class Professional extends Vue {
         "Et si vous n’avez pas de contrat de travail ? Vous pouvez joindre une attestation de votre employeur signée et datée de moins de 3 mois.",
       acceptedProofs: [
         "Contrat de travail complet daté et signé",
-        "Attestation de votre employeur précisant l'emploi et la rémunération proposée, la date d'entrée en fonctions envisagée et la durée du contrat"
+        "Attestation de votre employeur précisant l’emploi et la rémunération proposée, la date d’entrée en fonctions envisagée et la durée du contrat"
       ],
       refusedProofs: ["Bulletins de salaire", "Relevés de comptes bancaires"]
     },
@@ -192,7 +255,7 @@ export default class Professional extends Vue {
       explanationText:
         "J’ajoute mon justificatif d’activité professionnelle indépendante en fonction de mon type d’activité.",
       acceptedProofs: [
-        "Certificat d'identification de l'Insee comportant les numéros d'identification",
+        "Certificat d’identification de l’Insee comportant les numéros d’identification",
         "Attestation d’inscription au statut d’auto-entrepreneur",
         "Carte professionnelle (profession libérale)",
         "Extrait D1 original du registre des métiers de moins de 3 mois (artisan)",
@@ -208,7 +271,7 @@ export default class Professional extends Vue {
       acceptedProofs: [
         "Attestation d’ouverture de droit AAH (adulte en situation de handicap)",
         "Attestation d’ouverture des droits au RSA (mère/père au foyer)",
-        "Toute pièce de moins de 3 mois attestant de l'activité professionnelle (autres cas d’activité)",
+        "Toute pièce de moins de 3 mois attestant de l’activité professionnelle (autres cas d’activité)",
         "Déclaration de non-activité si vous êtes sans activité"
       ],
       refusedProofs: ["Relevés de comptes bancaires"]
@@ -223,7 +286,7 @@ export default class Professional extends Vue {
 {
 "en": {
 "cdi": "CDI",
-"cdi-trial": "CDI (période d'essai)",
+"cdi-trial": "CDI (période d’essai)",
 "cdd": "CDD",
 "alternation": "Alternance",
 "internship": "Stage",
@@ -237,7 +300,7 @@ export default class Professional extends Vue {
 },
 "fr": {
 "cdi": "CDI",
-"cdi-trial": "CDI (période d'essai)",
+"cdi-trial": "CDI (période d’essai)",
 "cdd": "CDD",
 "alternation": "Alternance",
 "internship": "Stage",
