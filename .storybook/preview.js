@@ -1,5 +1,5 @@
-require('../node_modules/@gouvfr/design-system/dist/js/dsfr.js')
-require('../node_modules/@gouvfr/design-system/dist/css/dsfr.css')
+require('../node_modules/@gouvfr/all/dist/js/all.min.js')
+require('../node_modules/@gouvfr/all/dist/css/all.min.css')
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

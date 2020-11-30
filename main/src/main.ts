@@ -5,8 +5,8 @@ import store from "./store";
 import i18n from "./i18n";
 import VueCookies from "vue-cookies";
 
-require("../../node_modules/@gouvfr/design-system/dist/js/dsfr.js");
-require("../../node_modules/@gouvfr/design-system/dist/css/dsfr.css");
+require("../../node_modules/@gouvfr/all/dist/js/all.min.js");
+require("../../node_modules/@gouvfr/all/dist/css/all.min.css");
 
 Vue.config.productionTip = false;
 

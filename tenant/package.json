@@ -11,7 +11,7 @@
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
   },
   "dependencies": {
-    "@gouvfr/design-system": "^0.2.0",
+    "@gouvfr/all": "^0.3.1",
     "core-js": "^3.6.5",
     "df-shared": "0.1.0",
     "vue": "^2.6.11",

@@ -5,7 +5,7 @@
         <div class="background-image-holder">
           <img
             alt="beautiful building"
-            src="@/assets/beautiful-building-square.png"
+            src="@/assets/beautiful-building-square.jpg"
           />
         </div>
       </div>
