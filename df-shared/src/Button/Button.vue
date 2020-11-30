@@ -8,7 +8,7 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component
-export default class MyButton extends Vue {
+export default class DfButton extends Vue {
   @Prop() private label!: string;
   @Prop() private title!: string;
   @Prop({ default: false }) private primary?: boolean;
@@ -28,5 +28,4 @@ export default class MyButton extends Vue {
 }
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
