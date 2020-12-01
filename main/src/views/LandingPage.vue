@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="s1-background color--white rf-pd-2w rf-pb-5w">
+    <section class="s0-background color--white rf-pd-2w rf-pb-5w">
       <div class="rf-container">
         <div class="rf-col-md-8">
           <div class="rf-grid-col">
@@ -20,26 +20,32 @@
       </div>
     </section>
     <section>
-      <div class="rf-container">
+      <div class="rf-container rf-mt-7w">
         <div class="rf-grid-row">
-          <div class="rf-col-md-4 rf-grid-col">
-            <img src="TODO" />
-            <h2>{{ $t("s1.h1") }}</h2>
-            <p>
+          <div class="rf-col-md-4 rf-grid-col rf-p-2w">
+            <div>
+            <img src="../assets/icons/approval.svg" class="s1-icons" />
+            </div>
+            <h3 class="color--primary">{{ $t("s1.h1") }}</h3>
+            <p class="rf-mt-0">
               {{ $t("s1.p1") }}
             </p>
           </div>
-          <div class="rf-col-md-4 rf-grid-col">
-            <img src="TODO" />
-            <h2>{{ $t("s1.h2") }}</h2>
-            <p>
+          <div class="rf-col-md-4 rf-grid-col rf-p-2w">
+            <div>
+              <img src="../assets/icons/sports.svg" class="s1-icons" />
+            </div>
+            <h3 class="color--primary">{{ $t("s1.h3") }}</h3>
+            <p class="rf-mt-0">
               {{ $t("s1.p2") }}
             </p>
           </div>
-          <div class="rf-col-md-4 rf-grid-col">
-            <img src="TODO" />
-            <h2>{{ $t("s1.h3") }}</h2>
-            <p>
+          <div class="rf-col-md-4 rf-grid-col rf-p-2w">
+            <div>
+              <img src="../assets/icons/reading.svg" class="s1-icons" />
+            </div>
+            <h3 class="color--primary">{{ $t("s1.h3") }}</h3>
+            <p class="rf-mt-0">
               {{ $t("s1.p3") }}
             </p>
           </div>
@@ -61,7 +67,7 @@
             <p>{{ $t("s2.p3") }}</p>
           </div>
           <div class="rf-col-md-6">
-            <img src="TODO" />
+            <img src="../assets/icons/justif.svg" />
           </div>
         </div>
         <router-link to="/tenant">
@@ -123,7 +129,7 @@ export default class LandingPage extends Vue {}
 <style scoped lang="scss">
 @import "df-shared/src/scss/_main.scss";
 
-.s1-background {
+.s0-background {
   width: 100%;
   top: 0;
   left: 0;
@@ -132,6 +138,11 @@ export default class LandingPage extends Vue {}
   background-image: url("../assets/cover-features.jpg");
   z-index: 0;
 }
+
+.s1-icons {
+  height: 48px;
+}
+
 </style>
 
 <i18n>
