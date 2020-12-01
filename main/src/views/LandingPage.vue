@@ -57,13 +57,13 @@
         <h2>{{ $t("s2.title") }}</h2>
         <div class="rf-grid-row">
           <div class="rf-col-md-6 rf-grid-col">
-            <h3>{{ $t("s2.h1") }}</h3>
+            <h4>{{ $t("s2.h1") }}</h4>
             <p>{{ $t("s2.p1") }}</p>
 
-            <h3>{{ $t("s2.h2") }}</h3>
+            <h4>{{ $t("s2.h2") }}</h4>
             <p>{{ $t("s2.p2") }}</p>
 
-            <h3>{{ $t("s2.h3") }}</h3>
+            <h4>{{ $t("s2.h3") }}</h4>
             <p>{{ $t("s2.p3") }}</p>
           </div>
           <div class="rf-col-md-6">
