@@ -113,6 +113,13 @@
               </blockquote>
           </div>
         </div>
+        <div class="text-center rf-mt-5w rf-mb-5w">
+          <p>
+            <router-link class="rf-btn" to="/tenant">
+              {{ $t("s4.link") }}
+            </router-link>
+          </p>
+        </div>
       </div>
     </section>
   </div>
@@ -204,7 +211,8 @@ blockquote {
       "t2": "Simple, efficace et pratique : ça m'a fait gagner beaucoup de temps dans ma recherche d'appartement.",
       "author2": "Caroline, étudiante",
       "t3": "Je ne réussissais jamais à visiter un appartement avec mon dossier étranger. Avec DossierFacile, j'ai enfin eu plus de visites !",
-      "author3": "Irina, étudiante en Erasmus"
+      "author3": "Irina, étudiante en Erasmus",
+      "link": "Monter mon dossier de location"
     }
   },
   "fr": {
@@ -244,7 +252,8 @@ blockquote {
       "t2": "Simple, efficace et pratique : ça m'a fait gagner beaucoup de temps dans ma recherche d'appartement.",
       "author2": "Caroline, étudiante",
       "t3": "Je ne réussissais jamais à visiter un appartement avec mon dossier étranger. Avec DossierFacile, j'ai enfin eu plus de visites !",
-      "author3": "Irina, étudiante en Erasmus"
+      "author3": "Irina, étudiante en Erasmus",
+      "link": "Monter mon dossier de location"
     }
   }
 }
