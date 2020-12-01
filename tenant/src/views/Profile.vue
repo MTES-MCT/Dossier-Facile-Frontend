@@ -22,9 +22,7 @@
           <TenantInformationForm
             v-if="currentStep === 1"
           ></TenantInformationForm>
-          <UploadDocuments
-            v-if="currentStep === 2"
-          ></UploadDocuments>
+          <UploadDocuments v-if="currentStep === 2"></UploadDocuments>
         </div>
       </div>
       <div class="rf-col-md-3 rf-col-sm-12">

@@ -109,7 +109,6 @@ import Tax from "@/components/Tax.vue";
   components: { Tax, Financial, Professional, Residency, Identification }
 })
 export default class UploadDocuments extends Vue {
-
   substep = 0;
 
   updateSubstep(s: number) {

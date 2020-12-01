@@ -129,11 +129,6 @@ export default class App extends Vue {
 </script>
 
 <style lang="scss">
-@import "assets/csss/bootstrap4.css";
-@import "assets/csss/custom.css";
-@import "assets/csss/flickity.css";
-@import "assets/csss/stack-interface.css";
-@import "assets/csss/theme.css";
 @import "assets/csss/iconsmind.css";
 
 a {

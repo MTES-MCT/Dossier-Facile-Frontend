@@ -1,225 +1,106 @@
 <template>
-  <div class="main-container">
-    <section class="cover cover-features imagebg space--sm" data-overlay="1">
-      <div class="background-image-holder">
-        <img alt="background" src="../assets/cover-features.jpg" />
-      </div>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-9 col-lg-7">
-            <h1>
-              <b> Boostez votre dossier de location avec DossierFacile</b>
-            </h1>
-            <p class="lead">
-              <b>
-                DossierFacile accompagne les candidats locataires dans la
-                constitution de leur dossier de location pour les aider à mettre
-                toutes les chances de leur côté
-              </b>
-            </p>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="d-flex">
-                  <div class="mr-2 mb-2">
-                    <router-link
-                      class="btn btn--primary type--uppercase"
-                      to="/tenant"
-                    >
-                      <span class="btn__text">Locataire</span>
-                    </router-link>
-                  </div>
-                  <div class="">
-                    <router-link
-                      class="btn btn--primary type--uppercase"
-                      to="/launch"
-                    >
-                      <span class="btn__text">Professionnel</span>
-                    </router-link>
-                    <div class="text-center">
-                      <router-link to="/owner-info">
-                        <span class="font-weight-light color-white">
-                          Je suis un propriétaire particulier
-                        </span>
-                      </router-link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="feature feature-2 boxed boxed--border bg--white">
-              <i class="icon color--primary icon-Security-Check"></i>
-              <div class="feature__body">
-                <h4>Sécurité</h4>
-                <p>
-                  DossierFacile s’assure que vos données sont protégées ! Elles
-                  ne seront jamais communiquées sans votre accord express, ne
-                  seront jamais revendues et ne seront jamais stockées au delà
-                  de 30 jours. L'Etat à votre service, tout simplement
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="feature feature-2 boxed boxed--border bg--white">
-              <i class="icon color--primary icon-Check"></i>
-              <div class="feature__body">
-                <h4>Simplicité</h4>
-                <p>
-                  Notre produit a été construit avec une seule obsession: vous
-                  simplifier la vie. Avec DossierFacile vous n’aurez jamais de
-                  phobie administrative ;)
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="feature feature-2 boxed boxed--border bg--white">
-              <i class="icon color--primary icon-Handshake"></i>
-              <div class="feature__body">
-                <h4>Confiance</h4>
-                <p>
-                  Parce que nous savons que la confiance doit être réciproque,
-                  nous nous engageons à agir gratuitement et en toute
-                  transparence ainsi qu'à assurer le respect des droits des
-                  locataires et des propriétaires<br />
-                </p>
-              </div>
-            </div>
-          </div>
+  <div>
+    <section class="cover-features">
+      <div class="rf-container">
+        <div class="rf-grid-col">
+          <h1>
+            {{ $t("s0.title") }}
+          </h1>
+          <p>
+            {{ $t("s0.text") }}
+          </p>
+          <router-link to="/tenant">
+            {{ $t("s0.link") }}
+          </router-link>
         </div>
       </div>
     </section>
-
-    <section class="text-center">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-10 col-lg-8">
-            <h1>DossierFacile en chiffres</h1>
-            <p class="lead">
-              La transparence est une de nos valeurs, nous avons choisi de la
-              promouvoir.
+    <section>
+      <div class="rf-container">
+        <div class="rf-grid-row">
+          <div class="rf-col-md-4 rf-grid-col">
+            <img src="TODO" />
+            <h2>{{ $t("s1.h1") }}</h2>
+            <p>
+              {{ $t("s1.p1") }}
+            </p>
+          </div>
+          <div class="rf-col-md-4 rf-grid-col">
+            <img src="TODO" />
+            <h2>{{ $t("s1.h2") }}</h2>
+            <p>
+              {{ $t("s1.p2") }}
+            </p>
+          </div>
+          <div class="rf-col-md-4 rf-grid-col">
+            <img src="TODO" />
+            <h2>{{ $t("s1.h3") }}</h2>
+            <p>
+              {{ $t("s1.p3") }}
             </p>
           </div>
         </div>
       </div>
     </section>
+    <section>
+      <div class="rf-container">
+        <h2>{{ $t("s2.title") }}</h2>
+        <div class="rf-grid-row">
+          <div class="rf-col-md-6 rf-grid-col">
+            <h3>{{ $t("s2.h1") }}</h3>
+            <p>{{ $t("s2.p1") }}</p>
 
-    <a class="in-page-link" id="process-radial-1"></a>
-    <section class="text-center">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4 col-12">
-            <div class="feature">
-              <div
-                class="radial"
-                data-bar-width="8"
-                data-color="#4a90e2"
-                data-size="208"
-                data-value="75"
-              >
-                <span class="h3 radial__label">{{ uploadedDocsCount }}</span>
-              </div>
-              <p>nombre de documents déposés sur DossierFacile</p>
-            </div>
+            <h3>{{ $t("s2.h2") }}</h3>
+            <p>{{ $t("s2.p2") }}</p>
+
+            <h3>{{ $t("s2.h3") }}</h3>
+            <p>{{ $t("s2.p3") }}</p>
           </div>
-          <div class="col-md-4 col-12">
-            <div class="feature">
-              <div
-                class="radial"
-                data-bar-width="8"
-                data-color="#4a90e2"
-                data-size="208"
-                :data-value="pctSatisfaction"
-              >
-                <span class="h3 radial__label">{{ pctSatisfaction }} %</span>
-              </div>
-              <p>pourcentage d'utilisateurs satisfaits</p>
-            </div>
+          <div class="rf-col-md-6">
+            <img src="TODO" />
           </div>
-          <div class="col-md-4 col-12">
-            <div class="feature">
-              <div
-                class="radial"
-                data-bar-width="8"
-                data-color="#4a90e2"
-                data-size="208"
-                data-value="100"
-              >
-                <span class="h3 radial__label">{{ createdAccountTotal }}</span>
-              </div>
-              <p>nombre de dossiers DossierFacile créés</p>
-            </div>
-          </div>
+        </div>
+        <router-link to="/tenant">
+          {{ $t("s2.button") }}
+        </router-link>
+      </div>
+    </section>
+    <section>
+      <div class="bg--orange">
+        <div class="rf-container">
+          <h2>{{ $t("s3.title") }}</h2>
+          <p>
+            {{ $t("s3.text1") }}
+            <br>
+            {{ $t("s3.text2") }}
+          </p>
+<!--           <router-link to="/tenant">
+            {{ $t("s3.link") }}
+          </router-link> -->
         </div>
       </div>
     </section>
-
-    <section class="text-center">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-md-10">
-            <div class="slider" data-paging="true">
-              <ul class="slides">
-                <li>
-                  <div class="testimonial">
-                    <blockquote>
-                      “Simple, efficace et pratique : DossierFacile m'a aidé
-                      tout au long de ma recherche d'appartement.”
-                    </blockquote>
-                    <h5>Caroline H.</h5>
-                    <span>Etudiante, 19 ans</span>
-                  </div>
-                </li>
-                <li>
-                  <div class="testimonial">
-                    <blockquote>
-                      “Grâce à leur réactivité j'ai pu faire valider mon dossier
-                      dans la matinée et l'envoyer aux propriétaires des
-                      appartements que je voulais visiter.”
-                    </blockquote>
-                    <h5>Pierre-Louis C.</h5>
-                    <span>Ingénieur, 25 ans</span>
-                  </div>
-                </li>
-                <li>
-                  <div class="testimonial">
-                    <blockquote>
-                      “Je ne réussissais jamais à visiter un appartement avec
-                      mon dossier étranger. Grâce à DossierFacile et à Visale,
-                      j'ai eu plus de visites !”
-                    </blockquote>
-                    <h5>Irina S.</h5>
-                    <span>Etudiante erasmus, 23 ans</span>
-                  </div>
-                </li>
-                <li>
-                  <div class="testimonial">
-                    <blockquote>
-                      “..., tous mes candidats pour chaque appartement se
-                      retrouvent sur mes pages DossierFacile et les dossiers
-                      sont déjà ordonnés !”
-                    </blockquote>
-                    <h5>Hélène G.</h5>
-                    <span>Agent indépendante, 43 ans</span>
-                  </div>
-                </li>
-                <li>
-                  <div class="testimonial">
-                    <blockquote>
-                      “Le traitement des dossiers opéré par DossierFacile me
-                      permet de consacrer plus de temps à la prospection et de
-                      rentrer plus de mandats !”
-                    </blockquote>
-                    <h5>Antoine F.</h5>
-                    <span>Gestionnaire locatif, 29 ans</span>
-                  </div>
-                </li>
-              </ul>
-            </div>
+    <section>
+      <div class="rf-container">
+        <h2>{{ $t("s4.title") }}</h2>
+        <div class="rf-grid-row">
+          <div class="rf-col-md-4">
+            <blockquote>
+              <p>{{ $t("s4.t1") }}</p>
+              <cite>{{ $t("s4.author1") }}</cite>
+            </blockquote>
+          </div>
+          <div class="rf-col-md-4">
+            <blockquote>
+              <p>{{ $t("s4.t2") }}</p>
+              <cite>{{ $t("s4.author2") }}</cite>
+            </blockquote>
+          </div>
+          <div class="rf-col-md-4">
+            <blockquote>
+              <p>{{ $t("s4.t3") }}</p>
+              <cite>{{ $t("s4.author3") }}</cite>
+            </blockquote>
           </div>
         </div>
       </div>
@@ -231,21 +112,97 @@
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
-export default class LandingPage extends Vue {
-  uploadedDocsCount = 632000;
-  pctSatisfaction = 72;
-  createdAccountTotal = 233000;
-}
+export default class LandingPage extends Vue {}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.radial__label {
-  font-size: 1rem;
-  line-height: 1.5;
-}
-
-a {
-  box-shadow: none;
-}
+/*     // <div class="background-image-holder">
+    //   <img alt="background" src="../assets/cover-features.jpg" />
+    // </div> */
 </style>
+
+<i18n>
+{
+  "en": {
+    "s0": {
+      "title": "Montez un dossier de location en béton pour trouver le logement de vos rêves",
+      "text": "DossierFacile est un service public gratuit et sécurisé qui vous aide à constituer un dossier de location numérique de qualité pour mettre toutes les chances de votre côté.",
+      "link": "Monter votre dossier de location"
+    },
+    "s1": {
+      "h1": "Démarquez-vous grâce à un dossier de qualité",
+      "p1": "Transmettez aux propriétaires un dossier clair, complet et cohérent pour maximiser vos chances.",
+      "h2": "Soyez le premier à répondre à une annonce",
+      "p2": "Soyez le plus réactif en envoyant en un clic un dossier numérique complet avec toutes les pièces jointes nécessaires.",
+      "h3": "Rassurez votre futur·e propriétaire",
+      "p3": "Certifiez la qualité et la véracité de votre dossier de location grâce au label DossierFacile."
+    },
+    "s2": {
+      "title": "Constituez votre dossier de location en quelques clics",
+      "h1": "Je télécharge mes pièces",
+      "p1": "Pièce d'identité, avis d'imposition, fiches de paie…",
+      "h2": "DossierFacile valide mon dossier",
+      "p2": "Nos agents vérifient votre dossier et vous aident à corriger le vôtre si besoin.",
+      "h3": "Mon dossier est prêt à être envoyé",
+      "p3": "Plus besoin de refaire un dossier à chaque candidature : votre dossier sécurisé est disponible au format PDF ou en ligne pour être renvoyé aux propriétaires.",
+      "button": "Créer mon dossier de location"
+    },
+    "s3": {
+      "title": "Protégez vos informations personnelles",
+      "text1": "Avec DossierFacile, plus de papiers d'identité éparpillés dans la nature : votre dossier contient les pièces autorisées par la loi et rien de plus !",
+      "text2": "Vos pièces d'identité sont protégées par des filigranes pour vous protéger contre la fraude de propriétaires peu scrupuleux.",
+      "link": "En savoir plus sar la sécurité de DossierFacile"
+    },
+    "s4": {
+      "title": "Déjà 9000 locataires heureux grâce à DossierFacile",
+      "t1": "Le dossier de Karim s'est tout de suite démarqué : c'était le seul dossier reçu complet !",
+      "author1": "Joseph, propriétaire à Nantes",
+      "t2": "Simple, efficace et pratique : ça m'a fait gagner beaucoup de temps dans ma recherche d'appartement.",
+      "author2": "Caroline, étudiante",
+      "t3": "Je ne réussissais jamais à visiter un appartement avec mon dossier étranger. Avec DossierFacile, j'ai enfin eu plus de visites !",
+      "author3": "Irina, étudiante en Erasmus"
+    }
+  },
+  "fr": {
+    "s0": {
+      "title": "Montez un dossier de location en béton pour trouver le logement de vos rêves",
+      "text": "DossierFacile est un service public gratuit et sécurisé qui vous aide à constituer un dossier de location numérique de qualité pour mettre toutes les chances de votre côté.",
+      "link": "Monter votre dossier de location"
+    },
+    "s1": {
+      "h1": "Démarquez-vous grâce à un dossier de qualité",
+      "p1": "Transmettez aux propriétaires un dossier clair, complet et cohérent pour maximiser vos chances.",
+      "h2": "Soyez le premier à répondre à une annonce",
+      "p2": "Soyez le plus réactif en envoyant en un clic un dossier numérique complet avec toutes les pièces jointes nécessaires.",
+      "h3": "Rassurez votre futur·e propriétaire",
+      "p3": "Certifiez la qualité et la véracité de votre dossier de location grâce au label DossierFacile."
+    },
+    "s2": {
+      "title": "Constituez votre dossier de location en quelques clics",
+      "h1": "Je télécharge mes pièces",
+      "p1": "Pièce d'identité, avis d'imposition, fiches de paie…",
+      "h2": "DossierFacile valide mon dossier",
+      "p2": "Nos agents vérifient votre dossier et vous aident à corriger le vôtre si besoin.",
+      "h3": "Mon dossier est prêt à être envoyé",
+      "p3": "Plus besoin de refaire un dossier à chaque candidature : votre dossier sécurisé est disponible au format PDF ou en ligne pour être renvoyé aux propriétaires.",
+      "button": "Créer mon dossier de location"
+    },
+    "s3": {
+      "title": "Protégez vos informations personnelles",
+      "text1": "Avec DossierFacile, plus de papiers d'identité éparpillés dans la nature : votre dossier contient les pièces autorisées par la loi et rien de plus !",
+      "text2": "Vos pièces d'identité sont protégées par des filigranes pour vous protéger contre la fraude de propriétaires peu scrupuleux.",
+      "link": "En savoir plus sar la sécurité de DossierFacile"
+    },
+    "s4": {
+      "title": "Déjà 9000 locataires heureux grâce à DossierFacile",
+      "t1": "Le dossier de Karim s'est tout de suite démarqué : c'était le seul dossier reçu complet !",
+      "author1": "Joseph, propriétaire à Nantes",
+      "t2": "Simple, efficace et pratique : ça m'a fait gagner beaucoup de temps dans ma recherche d'appartement.",
+      "author2": "Caroline, étudiante",
+      "t3": "Je ne réussissais jamais à visiter un appartement avec mon dossier étranger. Avec DossierFacile, j'ai enfin eu plus de visites !",
+      "author3": "Irina, étudiante en Erasmus"
+    }
+  }
+}
+</i18n>
