@@ -3,7 +3,6 @@
     <header class="rf-header">
       <div class="rf-container">
         <MyHeader
-          :user="user"
           :logged-in="status.loggedIn"
           v-on:on-login="onLogin"
           v-on:on-logout="onLogout"

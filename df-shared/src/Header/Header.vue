@@ -57,7 +57,6 @@
 <script lang="ts">
 import DfButton from "../Button/Button.vue";
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { User } from "../models/User";
 
 @Component({
   components: {
@@ -65,7 +64,6 @@ import { User } from "../models/User";
   }
 })
 export default class MyHeader extends Vue {
-  @Prop() private user?: User;
   @Prop({ default: false }) private loggedIn?: boolean;
 
   onLogin() {
