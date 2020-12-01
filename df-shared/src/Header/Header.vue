@@ -26,21 +26,21 @@
       <div class="rf-shortcuts">
         <ul class="rf-shortcuts__list">
           <li class="rf-shortcuts__item" v-if="loggedIn">
-            <MyButton
+            <DfButton
               size="small"
               v-on:on-click="onLogout"
               :label="$t('logout')"
             />
           </li>
           <li class="rf-shortcuts__item" v-if="!loggedIn">
-            <MyButton
+            <DfButton
               size="small"
               v-on:on-click="onLogin"
               :label="$t('login')"
             />
           </li>
           <li class="rf-shortcuts__item" v-if="!loggedIn">
-            <MyButton
+            <DfButton
               class="rf-ml-3"
               primary="true"
               size="small"
@@ -55,13 +55,13 @@
 </template>
 
 <script lang="ts">
-import MyButton from "../Button/Button.vue";
+import DfButton from "../Button/Button.vue";
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { User } from "../models/User";
 
 @Component({
   components: {
-    MyButton
+    DfButton
   }
 })
 export default class MyHeader extends Vue {
@@ -85,6 +85,7 @@ export default class MyHeader extends Vue {
 <style lang="scss" scoped>
 .logo {
   max-height: 50px;
+  max-width: calc(100% - 40px);
 }
 </style>
 

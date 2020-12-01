@@ -1,8 +1,8 @@
-import MyButton from "../df-shared/src/Button/Button";
+import DfButton from "../df-shared/src/Button/Button";
 
 export default {
   title: 'Example/Button',
-  component: MyButton,
+  component: DfButton,
   argTypes: {
     size: { control: { type: 'select', options: ['small', 'medium', 'large'] } },
   },
@@ -10,8 +10,8 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  components: { MyButton },
-  template: '<MyButton @onClick="onClick" v-bind="$props"  label="button"/>',
+  components: { MyButton: DfButton },
+  template: '<DfButton @onClick="onClick" v-bind="$props"  label="button"/>',
 });
 
 export const Primary = Template.bind({});

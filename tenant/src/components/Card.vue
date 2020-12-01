@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import NakedCard from "@/components/NakedCard.vue";
+import NakedCard from "./NakedCard.vue";
 @Component({
   components: { NakedCard }
 })

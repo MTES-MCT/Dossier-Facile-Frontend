@@ -12,8 +12,12 @@ import {
   uniSuitcaseAlt,
   uniFileAlt,
   uniAngleUp,
-  uniAngleDown
+  uniAngleDown,
+  uniFolderLock,
+  uniMouse,
+  uniStar
 } from "vue-unicons/src/icons.js";
+
 Unicon.add([
   uniEye,
   uniPen,
@@ -25,7 +29,10 @@ Unicon.add([
   uniSuitcaseAlt,
   uniFileAlt,
   uniAngleUp,
-  uniAngleDown
+  uniAngleDown,
+  uniFolderLock,
+  uniMouse,
+  uniStar
 ]);
 Vue.use(Unicon, {
   fill: "royalBlue"

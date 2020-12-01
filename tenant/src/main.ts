@@ -4,12 +4,11 @@ import router from "./router";
 import store from "./store";
 import i18n from "./i18n";
 import axios from "axios";
-import "./unicon";
 
 Vue.config.productionTip = false;
 
-require("../../node_modules/@gouvfr/design-system/dist/js/dsfr.js");
-require("../../node_modules/@gouvfr/design-system/dist/css/dsfr.css");
+require("../../node_modules/@gouvfr/all/dist/js/all.min.js");
+require("../../node_modules/@gouvfr/all/dist/css/all.min.css");
 
 new Vue({
   router,

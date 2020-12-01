@@ -25,7 +25,6 @@ import MyHeader from "df-shared/src/Header/Header.vue";
 import MyFooter from "df-shared/src/Footer/Footer.vue";
 import Menu from "@/components/Menu.vue";
 import { mapState } from "vuex";
-import $ from "jquery";
 
 @Component({
   components: {
@@ -38,21 +37,6 @@ import $ from "jquery";
       user: "user",
       status: "status"
     })
-  },
-  mounted: function() {
-    document.onreadystatechange = () => {
-      if (document.readyState == "complete") {
-        $(".background-image-holder").each(function() {
-          const imgSrc = $(this)
-            .children("img")
-            .attr("src");
-          $(this)
-            .css("background", 'url("' + imgSrc + '")')
-            .css("background-position", "initial")
-            .css("opacity", "1");
-        });
-      }
-    };
   }
 })
 export default class App extends Vue {
