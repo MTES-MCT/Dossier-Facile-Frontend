@@ -1,49 +1,43 @@
 <template>
   <div class="main-container">
-    <section class="imageblock switchable height-100 rf-grid-row">
+    <section class="height-100 rf-grid-row">
       <div class="imageblock__content rf-col-lg-6 rf-col-md-4 rf-col-12">
-        <div class="background-image-holder">
-          <img
-            alt="beautiful building"
-            src="@/assets/beautiful-building-square.jpg"
-          />
-        </div>
+        <div class="background-image-holder"></div>
       </div>
       <div class="pos-vertical-center rf-col-lg-6 rf-col-md-8 rf-col-12">
-        <div class="rf-grid-row rf-margin-5N">
-          <h1>DossierFacile, le dossier de location intelligent</h1>
-          <p class="lead">
-            Déposez votre dossier sur DossierFacile et augmentez vos chances de
-            trouver l'appartement de vos rêves !
-          </p>
-
-          <div class="pull-left">
-            <div>
-              <DfButton
-                primary="true"
-                size="small"
-                v-on:on-click="signup"
-                :label="$t('signup')"
-              />
-            </div>
-            <div class="rf-margin-top-2N text-center">
-              <router-link to="/login">
-                Je me connecte
-              </router-link>
+        <div class="rf-m-3w">
+          <div class="rf-grid-col">
+            <h1>DossierFacile, le dossier de location intelligent</h1>
+            <p>
+              Déposez votre dossier sur DossierFacile et augmentez vos chances
+              de trouver l'appartement de vos rêves !
+            </p>
+            <div class="pull-left">
+              <div>
+                <DfButton
+                  primary="true"
+                  size="small"
+                  v-on:on-click="signup"
+                  :label="$t('signup')"
+                />
+              </div>
+              <div class="rf-mt-2w text-center">
+                <router-link to="/login">
+                  Je me connecte
+                </router-link>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section
-      class="text-lg-center text-md-center text-sm-left rf-margin-top-5N"
-    >
+    <section class="text-lg-center text-md-center text-sm-left rf-mt-5w">
       <div class="rf-container">
         <div class="rf-grid-row">
           <div class="rf-col-md-12 text-center">
             <h2>Faites la différence avec DossierFacile</h2>
-            <p class="lead">Des dossiers Clairs, Complets et Cohérents.</p>
+            <p>Des dossiers Clairs, Complets et Cohérents.</p>
           </div>
         </div>
       </div>
@@ -53,7 +47,7 @@
         <div class="rf-grid-row">
           <div class="rf-col-md-6 rf-col-lg-3">
             <div class="feature feature-6">
-              <unicon name="star"></unicon>
+              <!--              <unicon name="star"></unicon>-->
               <h5>Un dossier plus simple</h5>
               <p>
                 Car dossier incomplet rime souvent avec appartement refusé, nous
@@ -64,7 +58,7 @@
           </div>
           <div class="rf-col-md-6 rf-col-lg-3">
             <div class="feature feature-6">
-              <unicon name="home"></unicon>
+              <!--              <unicon name="home"></unicon>-->
               <h5>Faites la différence</h5>
               <p>
                 Rassurer votre propriétaire grâce au standard « 3C » et
@@ -75,7 +69,7 @@
           </div>
           <div class="rf-col-md-6 rf-col-lg-3">
             <div class="feature feature-6">
-              <unicon name="mouse"></unicon>
+              <!--              <unicon name="mouse"></unicon>-->
               <h5>100% en ligne</h5>
               <p>
                 Avec DossierFacile tout se passe en ligne et en 3 minutes : fini
@@ -86,7 +80,7 @@
           </div>
           <div class="rf-col-md-6 rf-col-lg-3">
             <div class="feature feature-6">
-              <unicon name="folder-lock"></unicon>
+              <!--              <unicon name="folder-lock"></unicon>-->
               <h5>Vos données protégées</h5>
               <p>
                 Nous avons à coeur la protections de vos données. Elles ne
@@ -107,7 +101,7 @@
             <h1 class="text-white">
               <b> Boostez votre dossier de location avec DossierFacile !</b>
             </h1>
-            <p class="lead text-white">
+            <p class="text-white">
               DossierFacile vous accompagne gratuitement dans la constitution de
               votre dossier de location pour vous aider à mettre toutes les
               chances de votre côté
@@ -192,7 +186,7 @@
         <div class="rf-grid-row">
           <div class="rf-col-12">
             <h2>Boostez votre dossier en 3 étapes</h2>
-            <p class="lead">
+            <p>
               Nous vous accompagnons gratuitement dans la constitution de votre
               dossier de location
             </p>
@@ -201,7 +195,7 @@
       </div>
     </section>
 
-    <section class="rf-margin-bottom-5N">
+    <section class="rf-mb-5w">
       <div class="rf-container">
         <div class="process-2 rf-grid-row">
           <div class="rf-col-md-4">
@@ -255,6 +249,10 @@ export default class Home extends Vue {
 </script>
 
 <style scoped lang="scss">
+.main-container {
+  width: 100%;
+}
+
 .height-100 {
   height: calc(100vh - 200px);
   @media all and (max-width: 768px) {
@@ -275,11 +273,10 @@ export default class Home extends Vue {
   left: 0;
   background-size: cover !important;
   background-position: 50% 50% !important;
+  background-image: url("../assets/beautiful-building-square.jpg");
   z-index: 0;
   transition: opacity 0.3s linear;
   -webkit-transition: opacity 0.3s linear;
-  opacity: 0;
-  background: #252525;
 
   img {
     display: none;
@@ -368,6 +365,9 @@ export default class Home extends Vue {
 
 .pos-vertical-center {
   align-self: center;
+}
+.pull-left {
+  float: left;
 }
 </style>
 

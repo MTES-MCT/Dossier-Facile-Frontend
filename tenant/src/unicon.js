@@ -17,6 +17,7 @@ import {
   uniMouse,
   uniStar
 } from "vue-unicons/src/icons.js";
+
 Unicon.add([
   uniEye,
   uniPen,
