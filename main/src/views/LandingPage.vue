@@ -1,17 +1,21 @@
 <template>
   <div>
-    <section class="cover-features">
+    <section class="s1-background color--white rf-pd-2w rf-pb-5w">
       <div class="rf-container">
-        <div class="rf-grid-col">
-          <h1>
-            {{ $t("s0.title") }}
-          </h1>
-          <p>
-            {{ $t("s0.text") }}
-          </p>
-          <router-link to="/tenant">
-            {{ $t("s0.link") }}
-          </router-link>
+        <div class="rf-col-md-8">
+          <div class="rf-grid-col">
+            <h1 class="color--white">
+              {{ $t("s0.title") }}
+            </h1>
+            <p>
+              {{ $t("s0.text") }}
+            </p>
+            <p>
+              <router-link class="rf-btn" to="/tenant">
+                {{ $t("s0.link") }}
+              </router-link>
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -117,9 +121,17 @@ export default class LandingPage extends Vue {}
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-/*     // <div class="background-image-holder">
-    //   <img alt="background" src="../assets/cover-features.jpg" />
-    // </div> */
+@import "df-shared/src/scss/_main.scss";
+
+.s1-background {
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-size: cover !important;
+  background-position: 50% 50% !important;
+  background-image: url("../assets/cover-features.jpg");
+  z-index: 0;
+}
 </style>
 
 <i18n>

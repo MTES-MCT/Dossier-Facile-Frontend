@@ -19,6 +19,15 @@
   color: red;
 }
 
+.color--white {
+  color: white;
+}
+
 .icon--sm {
   font-size: 2.5rem;
+}
+
+.rf-grid-col {
+  display: flex;
+  flex-direction: column;
 }
