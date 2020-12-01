@@ -23,7 +23,6 @@
             v-if="currentStep === 1"
           ></TenantInformationForm>
           <UploadDocuments
-            :user="user"
             v-if="currentStep === 2"
           ></UploadDocuments>
         </div>

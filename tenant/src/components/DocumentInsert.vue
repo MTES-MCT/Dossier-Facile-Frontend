@@ -4,9 +4,8 @@
     <div class="rf-col-6 title">Les pièces refusées</div>
     <div class="content left rf-col-6">
       <ul>
-        <li v-for="(v, k) in allowList" :key="k">
-          <unicon class="list-item" name="check" fill="limegreen"></unicon>
-          <div class="list-item">
+        <li v-for="(v, k) in allowList" :key="k" class="check">
+          <div>
             {{ v }}
           </div>
         </li>
@@ -14,9 +13,8 @@
     </div>
     <div class="content rf-col-6">
       <ul>
-        <li v-for="(v, k) in blockList" :key="k">
-          <unicon class="list-item" name="times" fill="red"></unicon>
-          <div class="list-item">
+        <li v-for="(v, k) in blockList" :key="k" class="times">
+          <div>
             {{ v }}
           </div>
         </li>
@@ -89,6 +87,20 @@ ul li {
 
 .title {
   font-weight: bold;
+}
+
+.check:before {
+  content: "\2713";
+  display: inline-block;
+  color: limegreen;
+  padding: 0 6px 0 0;
+}
+
+.times:before {
+  content: "\d7";
+  display: inline-block;
+  color: red;
+  padding: 0 6px 0 0;
 }
 </style>
 

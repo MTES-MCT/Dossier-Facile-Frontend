@@ -6,8 +6,14 @@
         :class="{ selected: substep === 1 }"
         @click="updateSubstep(1)"
       >
-        <unicon :name="substep === 1 ? 'angle-down' : 'angle-up'"></unicon>
-        <unicon name="user"></unicon>
+        <i
+          class="icon color--primary rf-p-1w"
+          :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+        ></i>
+        <i
+          class="icon color--primary rf-p-1w icon-User"
+          :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+        ></i>
         <h2>{{ $t("identification") }}</h2>
       </div>
       <Identification v-if="substep === 1"></Identification>
@@ -18,8 +24,14 @@
         :class="{ selected: substep === 2 }"
         @click="updateSubstep(2)"
       >
-        <unicon :name="substep === 2 ? 'angle-down' : 'angle-up'"></unicon>
-        <unicon name="home"></unicon>
+        <i
+          class="icon color--primary rf-p-1w"
+          :class="substep === 2 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+        ></i>
+        <i
+          class="icon color--primary rf-p-1w icon-Home-2"
+          :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+        ></i>
         <h2>{{ $t("residency") }}</h2>
       </div>
       <Residency v-if="substep === 2"></Residency>
@@ -30,8 +42,14 @@
         :class="{ selected: substep === 3 }"
         @click="updateSubstep(3)"
       >
-        <unicon :name="substep === 3 ? 'angle-down' : 'angle-up'"></unicon>
-        <unicon name="suitcase-alt"></unicon>
+        <i
+          class="icon color--primary rf-p-1w"
+          :class="substep === 3 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+        ></i>
+        <i
+          class="icon color--primary rf-p-1w icon-Suitcase"
+          :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+        ></i>
         <h2>{{ $t("professional") }}</h2>
       </div>
       <Professional v-if="substep === 3"></Professional>
@@ -42,8 +60,14 @@
         :class="{ selected: substep === 4 }"
         @click="updateSubstep(4)"
       >
-        <unicon :name="substep === 4 ? 'angle-down' : 'angle-up'"></unicon>
-        <unicon name="euro-circle"></unicon>
+        <i
+          class="icon color--primary rf-p-1w"
+          :class="substep === 4 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+        ></i>
+        <i
+          class="icon color--primary rf-p-1w icon-Euro-Sign2"
+          :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+        ></i>
         <h2>{{ $t("financial") }}</h2>
       </div>
       <Financial v-if="substep === 4"></Financial>
@@ -54,8 +78,14 @@
         :class="{ selected: substep === 5 }"
         @click="updateSubstep(5)"
       >
-        <unicon :name="substep === 5 ? 'angle-down' : 'angle-up'"></unicon>
-        <unicon name="file-alt"></unicon>
+        <i
+          class="icon color--primary rf-p-1w"
+          :class="substep === 5 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+        ></i>
+        <i
+          class="icon color--primary rf-p-1w icon-Files"
+          :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+        ></i>
         <h2>{{ $t("tax") }}</h2>
       </div>
       <Tax v-if="substep === 5"></Tax>
@@ -69,8 +99,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import { User } from "df-shared/src/models/User";
+import { Component, Vue } from "vue-property-decorator";
 import Identification from "@/components/Identification.vue";
 import Residency from "@/components/Residency.vue";
 import Professional from "@/components/Professional.vue";
@@ -80,7 +109,6 @@ import Tax from "@/components/Tax.vue";
   components: { Tax, Financial, Professional, Residency, Identification }
 })
 export default class UploadDocuments extends Vue {
-  @Prop() private user!: User;
 
   substep = 0;
 
@@ -100,17 +128,16 @@ h2 {
   align-self: center;
 }
 
+.icon {
+  align-self: center;
+}
+
 .document-title {
   border: 1px solid #ececec;
   border-radius: 5px;
   margin-bottom: 5px;
   cursor: pointer;
   display: flex;
-}
-
-.unicon {
-  align-self: center;
-  margin: 0.2rem 0.5rem;
 }
 
 .selected {
