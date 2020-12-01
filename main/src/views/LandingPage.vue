@@ -35,7 +35,7 @@
             <div>
               <img src="../assets/icons/sports.svg" class="s1-icons" />
             </div>
-            <h3 class="color--primary">{{ $t("s1.h3") }}</h3>
+            <h3 class="color--primary">{{ $t("s1.h2") }}</h3>
             <p class="rf-mt-0">
               {{ $t("s1.p2") }}
             </p>
@@ -76,7 +76,7 @@
       </div>
     </section>
     <section>
-      <div class="bg--orange">
+      <div class="bg--orange rf-pt-7w rf-pb-7w">
         <div class="rf-container">
           <h2>{{ $t("s3.title") }}</h2>
           <p>
@@ -91,26 +91,26 @@
       </div>
     </section>
     <section>
-      <div class="rf-container">
-        <h2>{{ $t("s4.title") }}</h2>
+      <div class="rf-container rf-mb-7w">
+        <h2 class="text-center">{{ $t("s4.title") }}</h2>
         <div class="rf-grid-row">
-          <div class="rf-col-md-4">
-            <blockquote>
-              <p>{{ $t("s4.t1") }}</p>
-              <cite>{{ $t("s4.author1") }}</cite>
-            </blockquote>
+          <div class="col rf-p-2w">
+              <blockquote class="bg--blue color--primary quote rf-p-2w">
+                <p class="rf-m-0 rf-mb-3w">{{ $t("s4.t1") }}</p>
+                <cite>{{ $t("s4.author1") }}</cite>
+              </blockquote>
           </div>
-          <div class="rf-col-md-4">
-            <blockquote>
-              <p>{{ $t("s4.t2") }}</p>
-              <cite>{{ $t("s4.author2") }}</cite>
-            </blockquote>
+          <div class="col rf-p-2w">
+              <blockquote class="bg--blue color--primary quote rf-p-2w">
+                <p class="rf-m-0 rf-mb-3w">{{ $t("s4.t2") }}</p>
+                <cite>{{ $t("s4.author2") }}</cite>
+              </blockquote>
           </div>
-          <div class="rf-col-md-4">
-            <blockquote>
-              <p>{{ $t("s4.t3") }}</p>
-              <cite>{{ $t("s4.author3") }}</cite>
-            </blockquote>
+          <div class="col rf-p-2w">
+              <blockquote class="bg--blue color--primary quote rf-p-2w">
+                <p class="rf-m-0 rf-mb-3w">{{ $t("s4.t3") }}</p>
+                <cite>{{ $t("s4.author3") }}</cite>
+              </blockquote>
           </div>
         </div>
       </div>
@@ -141,6 +141,26 @@ export default class LandingPage extends Vue {}
 
 .s1-icons {
   height: 48px;
+}
+
+cite {
+  font-weight: bold;
+}
+
+.col {
+  flex: 1;
+  @media (max-width: 768px) {
+    flex: auto;
+  }
+}
+
+blockquote {
+  margin: 0;
+  height: 100%;
+}
+
+.quote {
+  border-radius: 6px;
 }
 
 </style>
