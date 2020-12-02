@@ -1,19 +1,13 @@
 <template>
-  <section class="unpad">
+  <section class="rf-mb-12w">
     <article>
-      <div class="imagebg text-center height-40">
-        <div class="background-image-holder">
-          <img
-            alt="background"
-            src="../assets/images/en-savoir-plus/en-savoir-plus-image2.jpg"
-          />
-        </div>
-        <div class="container pos-vertical-center">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="article__title">
-                <h1><b>La démarche DossierFacile</b></h1>
-                <h4><b>Qui sommes nous ? </b></h4>
+      <div class="imagebg text-center">
+        <div class="rf-container">
+          <div class="rf-grid-row height-40">
+            <div class="rf-col-12">
+              <div>
+                <h1 class="color--white">La démarche DossierFacile</h1>
+                <h4 class="color--white">Qui sommes nous ?</h4>
               </div>
             </div>
           </div>
@@ -21,10 +15,10 @@
       </div>
 
       <div>
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-md-10 col-lg-8">
-              <div class="article__body">
+        <div class="rf-container">
+          <div class="rf-grid-row justify-content-center">
+            <div class="rf-col-md-10 rf-col-lg-8">
+              <div>
                 <h4>La démarche DossierFacile</h4>
                 <p>
                   Dans les zones où la demande de logement est plus forte que
@@ -170,23 +164,34 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import $ from "jquery";
 
-@Component({
-  components: {},
-  mounted: function() {
-    if (document.readyState == "complete") {
-      $(".background-image-holder").each(function() {
-        const imgSrc = $(this)
-          .children("img")
-          .attr("src");
-        $(this)
-          .css("background", 'url("' + imgSrc + '")')
-          .css("background-position", "initial")
-          .css("opacity", "1");
-      });
-    }
-  }
-})
+@Component
 export default class Information extends Vue {}
 </script>
+
+<style scoped lang="scss">
+@import "df-shared/src/scss/_variables.scss";
+
+a {
+  color: $light-blue;
+}
+
+.height-40 {
+  height: auto;
+  align-items: center;
+  @media (min-height: 600px) and (min-width: 767px) {
+    height: 40vh;
+  }
+}
+
+.imagebg {
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-size: cover !important;
+  background-position: 50% 50% !important;
+  background-image: url("../assets/images/en-savoir-plus/en-savoir-plus-image2.jpg");
+  z-index: 0;
+}
+
+</style>

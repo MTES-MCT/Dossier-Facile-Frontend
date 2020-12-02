@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="s0-background color--white rf-pb-5w">
+    <section class="s0-background rf-pb-5w">
       <div class="rf-container">
         <div class="rf-col-md-8">
           <div class="rf-grid-col">
