@@ -119,7 +119,4 @@ a {
   color: $light-blue;
 }
 
-.underline {
-  text-decoration: underline;
-}
 </style>

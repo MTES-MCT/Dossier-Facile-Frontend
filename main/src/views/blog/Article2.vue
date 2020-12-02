@@ -1,14 +1,14 @@
 <template>
-  <section>
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-10 col-lg-8">
+  <section class="rf-mb-12w">
+    <div class="rf-container">
+      <div class="rf-grid-row justify-content-center">
+        <div class="rf-col-md-10 rf-col-lg-8">
           <article>
-            <div class="article__title text-center">
-              <h1 class="h2">Constituer votre DossierFacile</h1>
+            <div class="text-center">
+              <h1>Constituer votre DossierFacile</h1>
               <span>December 12nd 2019 in </span>
               <span>
-                <a href="#">DossierFacile</a>
+                <a href="#" class="underline">DossierFacile</a>
               </span>
             </div>
             <!--end article title-->
@@ -126,3 +126,12 @@
     <!--end of container-->
   </section>
 </template>
+
+<style scoped lang="scss">
+@import "df-shared/src/scss/_variables.scss";
+
+a {
+  color: $light-blue;
+}
+
+</style>
