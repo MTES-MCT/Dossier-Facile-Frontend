@@ -3,8 +3,8 @@
     <header class="rf-header">
       <div class="rf-container">
         <MyHeader
-          v-on:on-login="onLogin"
-          v-on:on-create-account="onCreateAccount"
+          v-on:on-create-tenant="onCreateTenant"
+          v-on:on-create-owner="onCreateOwner"
         />
         <Menu />
       </div>
@@ -13,65 +13,6 @@
     <MyFooter />
     <Cookies :hidden="cookieHidden" v-on:hide-cookie="hideCookie" />
 
-    <Modal v-show="isCreateModalVisible" @close="closeModal">
-      <template v-slot:body>
-        <div class="rf-container">
-          <div class="row justify-content-center">
-            <div class="col-12 col-md-8">
-              <p>
-                {{ $t("register-information") }}
-              </p>
-              <div class="row">
-                <div class="col-md-6">
-                  <button
-                    class="btn btn--primary"
-                    type="submit"
-                    @click="registerTenant"
-                  >
-                    {{ $t("tenant") }}
-                  </button>
-                </div>
-                <div class="col-md-6">
-                  <button class="btn btn--primary" type="submit">
-                    {{ $t("owner") }}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </template>
-    </Modal>
-
-    <Modal v-show="isLoginModalVisible" @close="closeModal">
-      <template v-slot:body>
-        <div class="rf-container">
-          <div class="row justify-content-center">
-            <div class="col-12 col-md-8">
-              <p>
-                {{ $t("login-choice") }}
-              </p>
-              <div class="row">
-                <div class="col-md-6">
-                  <button
-                    class="btn btn--primary"
-                    type="submit"
-                    @click="loginTenant"
-                  >
-                    {{ $t("tenant") }}
-                  </button>
-                </div>
-                <div class="col-md-6">
-                  <button class="btn btn--primary" type="submit">
-                    {{ $t("owner") }}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </template>
-    </Modal>
   </div>
 </template>
 
@@ -93,27 +34,14 @@ import Cookies from "df-shared/src/Footer/Cookies.vue";
   }
 })
 export default class App extends Vue {
-  isCreateModalVisible = false;
-  isLoginModalVisible = false;
   cookieHidden = this.$cookies.isKey("accept-cookie")
     ? this.$cookies.get("accept-cookie")
     : false;
 
-  onLogin() {
-    this.isLoginModalVisible = true;
+  onCreateOwner() {
+    window.location.href = "http://localhost:9003/signup";
   }
-  onCreateAccount() {
-    this.isCreateModalVisible = true;
-  }
-  closeModal() {
-    this.isCreateModalVisible = false;
-    this.isLoginModalVisible = false;
-  }
-
-  loginTenant() {
-    window.location.href = "http://localhost:9002/login";
-  }
-  registerTenant() {
+  onCreateTenant() {
     window.location.href = "http://localhost:9002/signup";
   }
 
@@ -158,13 +86,11 @@ a {
 <i18n>
 {
 "en": {
-"login-choice": "Choisissez votre mode de connexion :",
 "tenant": "Locataire",
 "owner": "Propriétaire",
 "register-information": "Afin de créer votre compte, nous avons besoin de quelques informations. Vous êtes…"
 },
 "fr": {
-"login-choice": "Choisissez votre mode de connexion :",
 "tenant": "Locataire",
 "owner": "Propriétaire",
 "register-information": "Afin de créer votre compte, nous avons besoin de quelques informations. Vous êtes…"
