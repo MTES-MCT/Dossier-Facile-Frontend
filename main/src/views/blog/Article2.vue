@@ -12,7 +12,7 @@
               </span>
             </div>
             <!--end article title-->
-            <div class="article__body">
+            <div>
               <p>
                 Dans un contexte de pénurie de logements,
                 <router-link to="/blog/article1"

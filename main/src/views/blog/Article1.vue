@@ -15,7 +15,7 @@
               </span>
             </div>
             <!--end article title-->
-            <div class="article__body">
+            <div>
               <p>
                 A cause de l’augmentation de la demande immobilière, il devient
                 de plus en plus difficile de trouver un bon appartement à louer.
