@@ -1,6 +1,6 @@
 import Vue from "vue";
-import VueRouter, {RouteConfig} from "vue-router";
-import LandingPage from '@/views/LandingPage.vue';
+import VueRouter, { RouteConfig } from "vue-router";
+import LandingPage from "@/views/LandingPage.vue";
 
 Vue.use(VueRouter);
 
@@ -65,7 +65,9 @@ const routes: Array<RouteConfig> = [
       title: "Sécurité des données - DossierFacile"
     },
     component: () =>
-      import(/* webpackChunkName: "security" */ "../views/SecuriteDesDonnees.vue")
+      import(
+        /* webpackChunkName: "security" */ "../views/SecuriteDesDonnees.vue"
+      )
   },
   {
     path: "/faq",

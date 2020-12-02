@@ -80,8 +80,6 @@ import { Vue, Component } from "vue-property-decorator";
 import MyHeader from "df-shared/src/Header/Header.vue";
 import MyFooter from "df-shared/src/Footer/Footer.vue";
 import Menu from "@/components/Menu.vue";
-import { mapState } from "vuex";
-import $ from "jquery";
 import Modal from "df-shared/src/components/Modal.vue";
 import Cookies from "df-shared/src/Footer/Cookies.vue";
 
@@ -92,21 +90,6 @@ import Cookies from "df-shared/src/Footer/Cookies.vue";
     Menu,
     Modal,
     Cookies
-  },
-  mounted: function() {
-    document.onreadystatechange = () => {
-      if (document.readyState == "complete") {
-        $(".background-image-holder").each(function() {
-          const imgSrc = $(this)
-            .children("img")
-            .attr("src");
-          $(this)
-            .css("background", 'url("' + imgSrc + '")')
-            .css("background-position", "initial")
-            .css("opacity", "1");
-        });
-      }
-    };
   }
 })
 export default class App extends Vue {
@@ -146,18 +129,8 @@ export default class App extends Vue {
 </script>
 
 <style lang="scss">
-@import "assets/csss/bootstrap4.css";
-@import "assets/csss/custom.css";
-@import "assets/csss/flickity.css";
-@import "assets/csss/stack-interface.css";
-@import "assets/csss/theme.css";
 @import "assets/csss/iconsmind.css";
-
-.background-image-holder {
-  img {
-    opacity: 0;
-  }
-}
+@import "df-shared/src/scss/_main.scss";
 
 a {
   box-shadow: none !important;

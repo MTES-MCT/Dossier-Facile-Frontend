@@ -1,18 +1,18 @@
 <template>
-  <section>
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-10 col-lg-8">
+  <section class="rf-mb-12w">
+    <div class="rf-container">
+      <div class="rf-grid-row justify-content-center">
+        <div class="rf-col-md-10 rf-col-lg-8">
           <article>
-            <div class="article__title text-center">
-              <h1 class="h2">Pourquoi Dossier Facile est-il gratuit ?</h1>
+            <div class="text-center">
+              <h1>Pourquoi Dossier Facile est-il gratuit ?</h1>
               <span>July 21nd 2020 </span>
               <span>
-                <a href="#">DossierFacile</a>
+                <a href="#" class="underline">DossierFacile</a>
               </span>
             </div>
             <!--end article title-->
-            <div class="article__body">
+            <div>
               <p>
                 Dossier facile est une start-up qui propose une
                 <b>solution simple et gratuite</b> pour remettre la confiance au
@@ -112,3 +112,13 @@
     <!--end of container-->
   </section>
 </template>
+
+
+<style scoped lang="scss">
+@import "df-shared/src/scss/_variables.scss";
+
+a {
+  color: $light-blue;
+}
+
+</style>

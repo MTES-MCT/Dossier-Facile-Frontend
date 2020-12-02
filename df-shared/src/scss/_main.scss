@@ -11,6 +11,51 @@
   color: $primary;
 }
 
+.color--secondary {
+  color: $light-blue;
+}
+
+.color--green {
+  color: limegreen;
+}
+
+.color--red {
+  color: red;
+}
+
+.color--white {
+  color: white;
+}
+
+.bg--orange {
+  background-color: $salmon2;
+}
+
+.bg--blue {
+  background-color: $light-blue-transparent;
+}
+
 .icon--sm {
   font-size: 2.5rem;
+}
+
+.rf-grid-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.underline {
+  text-decoration: underline;
 }

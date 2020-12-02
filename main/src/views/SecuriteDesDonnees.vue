@@ -1,19 +1,13 @@
 <template>
-  <section class="unpad">
+  <section class="rf-mb-12w">
     <article>
-      <div class="imagebg text-center height-40">
-        <div class="background-image-holder">
-          <img
-            alt="background"
-            src="../assets/images/en-savoir-plus/en-savoir-plus-image2.jpg"
-          />
-        </div>
-        <div class="container pos-vertical-center">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="article__title">
-                <h1><b>Politique de confidentialité (standard RGPD)</b></h1>
-                <h3><b>Sécurité et protection des données personnelles </b></h3>
+      <div class="imagebg text-center">
+        <div class="rf-container">
+          <div class="rf-grid-row height-40">
+            <div class="rf-col-md-12">
+              <div>
+                <h1 class="color--white">Politique de confidentialité (standard RGPD)</h1>
+                <h3 class="color--white">Sécurité et protection des données personnelles</h3>
               </div>
             </div>
           </div>
@@ -21,10 +15,10 @@
       </div>
 
       <div>
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-md-10">
-              <div class="article__body">
+        <div class="rf-container">
+          <div class="rf-grid-row justify-content-center">
+            <div class="rf-col-md-10">
+              <div>
                 <h3>Définitions :</h3>
                 <p>
                   <b> L'Éditeur : </b> La personne, physique ou morale, qui
@@ -396,13 +390,33 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
-@Component({
-  components: {},
-  mounted: function() {
-    const localScript = document.createElement("script");
-    localScript.setAttribute("src", "/js/scripts.js");
-    document.head.appendChild(localScript);
-  }
-})
+@Component
 export default class SecuriteDesDonnees extends Vue {}
 </script>
+
+<style scoped lang="scss">
+@import "df-shared/src/scss/_variables.scss";
+
+a {
+  color: $light-blue;
+}
+
+.height-40 {
+  height: auto;
+  align-items: center;
+  @media (min-height: 600px) and (min-width: 767px) {
+    height: 40vh;
+  }
+}
+
+.imagebg {
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-size: cover !important;
+  background-position: 50% 50% !important;
+  background-image: url("../assets/images/en-savoir-plus/en-savoir-plus-image2.jpg");
+  z-index: 0;
+}
+
+</style>

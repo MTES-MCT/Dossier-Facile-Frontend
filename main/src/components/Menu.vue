@@ -36,6 +36,12 @@ export default class Menu extends Vue {}
     flex-direction: row-reverse;
   }
 }
+
+@media (min-width: 48em) {
+  .rf-header .rf-nav{
+      margin: 0 calc(50% - 49vw);
+  }
+}
 </style>
 
 <i18n>

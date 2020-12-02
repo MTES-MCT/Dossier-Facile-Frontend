@@ -7,7 +7,6 @@ import axios from "axios";
 
 Vue.config.productionTip = false;
 
-require("../../node_modules/@gouvfr/all/dist/js/all.min.js");
 require("../../node_modules/@gouvfr/all/dist/css/all.min.css");
 
 new Vue({

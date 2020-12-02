@@ -15,7 +15,7 @@
                   {{ user.firstName }} {{ user.lastName }}
                 </div>
                 <div class="edit-step-btn" @click="setStep(0)">
-                  <unicon name="pen"></unicon>
+                  <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
                 </div>
               </div>
               <div class="row" v-if="user.tenantType">
@@ -24,7 +24,7 @@
                   {{ $t(user.tenantType) }}
                 </div>
                 <div class="edit-step-btn" @click="setStep(1)">
-                  <unicon name="pen"></unicon>
+                  <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
                 </div>
               </div>
             </section>
@@ -41,10 +41,10 @@
                 <div class="subtitle">Pièce d’identité</div>
                 <div class="row">
                   <div class="edit-step-btn" @click="setStep(2)">
-                    <unicon name="eye"></unicon>
+                    <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
                   <div class="edit-step-btn" @click="setStep(2)">
-                    <unicon name="pen"></unicon>
+                    <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
                   </div>
                 </div>
               </div>
@@ -52,10 +52,10 @@
                 <div class="subtitle">Justificatif de domicile</div>
                 <div class="row">
                   <div class="edit-step-btn" @click="setStep(2)">
-                    <unicon name="eye"></unicon>
+                    <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
                   <div class="edit-step-btn" @click="setStep(2)">
-                    <unicon name="pen"></unicon>
+                    <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
                   </div>
                 </div>
               </div>
@@ -65,10 +65,10 @@
                 </div>
                 <div class="row">
                   <div class="edit-step-btn" @click="setStep(2)">
-                    <unicon name="eye"></unicon>
+                    <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
                   <div class="edit-step-btn" @click="setStep(2)">
-                    <unicon name="pen"></unicon>
+                    <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
                   </div>
                 </div>
               </div>
@@ -76,10 +76,10 @@
                 <div class="subtitle">Justificatif de revenu</div>
                 <div class="row">
                   <div class="edit-step-btn" @click="setStep(2)">
-                    <unicon name="eye"></unicon>
+                    <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
                   <div class="edit-step-btn" @click="setStep(2)">
-                    <unicon name="pen"></unicon>
+                    <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
                   </div>
                 </div>
               </div>
@@ -87,10 +87,10 @@
                 <div class="subtitle">Avis d’imposition</div>
                 <div class="row">
                   <div class="edit-step-btn" @click="setStep(2)">
-                    <unicon name="eye"></unicon>
+                    <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
                   <div class="edit-step-btn" @click="setStep(2)">
-                    <unicon name="pen"></unicon>
+                    <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
                   </div>
                 </div>
               </div>
