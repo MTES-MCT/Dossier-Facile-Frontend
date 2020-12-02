@@ -1,17 +1,17 @@
 <template>
-  <section>
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-10 col-lg-8">
+  <section class="rf-mb-12w">
+    <div class="rf-container">
+      <div class="rf-grid-row justify-content-center">
+        <div class="rf-col-md-10 rf-col-lg-8">
           <article>
-            <div class="article__title text-center">
-              <h1 class="h2">
+            <div class="text-center">
+              <h1>
                 Quelles pièces justificatives fournir pour mon dossier de
                 location ?
               </h1>
               <span>November 14th 2019 </span>
               <span>
-                <a href="#">DossierFacile</a>
+                <a href="#" class="underline">DossierFacile</a>
               </span>
             </div>
             <!--end article title-->
@@ -120,7 +120,7 @@
                 L’objectif en est également de simplifier les procédures et
                 d’éviter de constituer un dossier de location cumulant les
                 pièces inutiles. DossierFacile cherche à offrir
-                <router-link to="/blog/article2"
+                <router-link to="/blog/article2" class="underline"
                   >la démarche la plus simple et la plus intuitive possible au
                   locataire</router-link
                 >
@@ -141,3 +141,16 @@
     <!--end of container-->
   </section>
 </template>
+
+<style scoped lang="scss">
+@import "df-shared/src/scss/_variables.scss";
+
+a {
+  color: $light-blue;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+</style>
