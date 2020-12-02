@@ -134,7 +134,6 @@ export default class LandingPage extends Vue {}
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-@import "df-shared/src/scss/_main.scss";
 
 .s0-background {
   width: 100%;

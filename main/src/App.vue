@@ -130,6 +130,7 @@ export default class App extends Vue {
 
 <style lang="scss">
 @import "assets/csss/iconsmind.css";
+@import "df-shared/src/scss/_main.scss";
 
 a {
   box-shadow: none !important;
