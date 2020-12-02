@@ -11,6 +11,10 @@
   color: $primary;
 }
 
+.color--secondary {
+  color: $light-blue;
+}
+
 .color--green {
   color: limegreen;
 }
@@ -28,7 +32,7 @@
 }
 
 .bg--blue {
-  background-color: $light-blue;
+  background-color: $light-blue-transparent;
 }
 
 .icon--sm {
@@ -42,4 +46,8 @@
 
 .text-center {
   text-align: center;
+}
+
+.text-bold {
+  font-weight: bold;
 }

@@ -1,13 +1,13 @@
 <template>
   <div>
-    <section class="s0-background color--white rf-pd-2w rf-pb-5w">
+    <section class="s0-background color--white rf-pb-5w">
       <div class="rf-container">
         <div class="rf-col-md-8">
           <div class="rf-grid-col">
             <h1 class="color--white">
               {{ $t("s0.title") }}
             </h1>
-            <p>
+            <p class="text-bold">
               {{ $t("s0.text") }}
             </p>
             <p>
@@ -19,14 +19,14 @@
         </div>
       </div>
     </section>
-    <section>
-      <div class="rf-container rf-mt-7w">
+    <section class="rf-mt-12w">
+      <div class="rf-container">
         <div class="rf-grid-row">
           <div class="rf-col-md-4 rf-grid-col rf-p-2w">
             <div>
             <img src="../assets/icons/approval.svg" class="s1-icons" />
             </div>
-            <h3 class="color--primary">{{ $t("s1.h1") }}</h3>
+            <h3 class="color--secondary">{{ $t("s1.h1") }}</h3>
             <p class="rf-mt-0">
               {{ $t("s1.p1") }}
             </p>
@@ -35,7 +35,7 @@
             <div>
               <img src="../assets/icons/sports.svg" class="s1-icons" />
             </div>
-            <h3 class="color--primary">{{ $t("s1.h2") }}</h3>
+            <h3 class="color--secondary">{{ $t("s1.h2") }}</h3>
             <p class="rf-mt-0">
               {{ $t("s1.p2") }}
             </p>
@@ -44,7 +44,7 @@
             <div>
               <img src="../assets/icons/reading.svg" class="s1-icons" />
             </div>
-            <h3 class="color--primary">{{ $t("s1.h3") }}</h3>
+            <h3 class="color--secondary">{{ $t("s1.h3") }}</h3>
             <p class="rf-mt-0">
               {{ $t("s1.p3") }}
             </p>
@@ -52,33 +52,33 @@
         </div>
       </div>
     </section>
-    <section>
+    <section class="rf-mt-12w">
       <div class="rf-container">
-        <h2>{{ $t("s2.title") }}</h2>
+        <h2 class="s2-title">{{ $t("s2.title") }}</h2>
         <div class="rf-grid-row">
           <div class="rf-col-md-6 rf-grid-col">
-            <h4>{{ $t("s2.h1") }}</h4>
-            <p>{{ $t("s2.p1") }}</p>
+            <h4 class="color--secondary rf-mb-0">{{ $t("s2.h1") }}</h4>
+            <p>{{ $t("s2.p1a") }}<br>{{ $t("s2.p1b") }}</p>
 
-            <h4>{{ $t("s2.h2") }}</h4>
+            <h4 class="color--secondary rf-mb-0">{{ $t("s2.h2") }}</h4>
             <p>{{ $t("s2.p2") }}</p>
 
-            <h4>{{ $t("s2.h3") }}</h4>
+            <h4 class="color--secondary rf-mb-0">{{ $t("s2.h3") }}</h4>
             <p>{{ $t("s2.p3") }}</p>
           </div>
           <div class="rf-col-md-6">
             <img src="../assets/icons/justif.svg" />
           </div>
         </div>
-        <router-link to="/tenant">
+        <router-link class="rf-btn" to="/tenant">
           {{ $t("s2.button") }}
         </router-link>
       </div>
     </section>
-    <section>
+    <section class="rf-mt-12w">
       <div class="bg--orange rf-pt-7w rf-pb-7w">
         <div class="rf-container">
-          <h2>{{ $t("s3.title") }}</h2>
+          <h2 class="s3-title">{{ $t("s3.title") }}</h2>
           <p>
             {{ $t("s3.text1") }}
             <br>
@@ -90,9 +90,9 @@
         </div>
       </div>
     </section>
-    <section>
+    <section class="rf-mt-12w">
       <div class="rf-container rf-mb-7w">
-        <h2 class="text-center">{{ $t("s4.title") }}</h2>
+        <h2 class="text-center">{{ $t("s4.title1") }} <span class="color--secondary">{{ $t("s4.title2") }}</span> {{ $t("s4.title3") }}</h2>
         <div class="rf-grid-row">
           <div class="col rf-p-2w">
               <blockquote class="bg--blue color--primary quote rf-p-2w">
@@ -170,6 +170,20 @@ blockquote {
   border-radius: 6px;
 }
 
+.s2-title {
+  &:before {
+    margin-right: 10px;
+    content: url("../assets/icons/survey.svg")
+  }
+}
+
+.s3-title {
+  &:before {
+    margin-right: 10px;
+    content: url("../assets/icons/lock.svg")
+  }
+}
+
 </style>
 
 <i18n>
@@ -191,7 +205,8 @@ blockquote {
     "s2": {
       "title": "Constituez votre dossier de location en quelques clics",
       "h1": "Je télécharge mes pièces",
-      "p1": "Pièce d'identité, avis d'imposition, fiches de paie…",
+      "p1a": "Pièce d'identité, avis d'imposition, fiches de paie…",
+      "p1b": "DossierFacile vous guide pour ne rien oublier.",
       "h2": "DossierFacile valide mon dossier",
       "p2": "Nos agents vérifient votre dossier et vous aident à corriger le vôtre si besoin.",
       "h3": "Mon dossier est prêt à être envoyé",
@@ -205,7 +220,9 @@ blockquote {
       "link": "En savoir plus sar la sécurité de DossierFacile"
     },
     "s4": {
-      "title": "Déjà 9000 locataires heureux grâce à DossierFacile",
+      "title1": "Déjà",
+      "title2": "9000",
+      "title3": "locataires heureux grâce à DossierFacile",
       "t1": "Le dossier de Karim s'est tout de suite démarqué : c'était le seul dossier reçu complet !",
       "author1": "Joseph, propriétaire à Nantes",
       "t2": "Simple, efficace et pratique : ça m'a fait gagner beaucoup de temps dans ma recherche d'appartement.",
@@ -232,7 +249,8 @@ blockquote {
     "s2": {
       "title": "Constituez votre dossier de location en quelques clics",
       "h1": "Je télécharge mes pièces",
-      "p1": "Pièce d'identité, avis d'imposition, fiches de paie…",
+      "p1a": "Pièce d'identité, avis d'imposition, fiches de paie…",
+      "p1b": "DossierFacile vous guide pour ne rien oublier.",
       "h2": "DossierFacile valide mon dossier",
       "p2": "Nos agents vérifient votre dossier et vous aident à corriger le vôtre si besoin.",
       "h3": "Mon dossier est prêt à être envoyé",
