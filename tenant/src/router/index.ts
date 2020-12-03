@@ -59,6 +59,15 @@ const routes: Array<RouteConfig> = [
     },
     component: () =>
       import(/* webpackChunkName: "profile" */ "@/views/Profile.vue")
+  },
+  {
+    path: "/messaging",
+    name: "Messages",
+    meta: {
+      title: "Messages - DossierFacile"
+    },
+    component: () =>
+      import(/* webpackChunkName: "messages" */ "@/views/Messages.vue")
   }
 ];
 

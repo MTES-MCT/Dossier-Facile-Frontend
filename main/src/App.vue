@@ -31,6 +31,11 @@ import Cookies from "df-shared/src/Footer/Cookies.vue";
     Menu,
     Modal,
     Cookies
+  },
+  mounted: function () {
+    const localScript = document.createElement("script");
+    localScript.setAttribute("src", "/js/all.js");
+    document.head.appendChild(localScript);
   }
 })
 export default class App extends Vue {
