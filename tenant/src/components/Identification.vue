@@ -7,7 +7,7 @@
       </label>
       <select
         v-model="identificationDocument"
-        class="rf-select rf-margin-bottom-3N"
+        class="rf-select rf-mb-3w"
         id="select"
         name="select"
       >
@@ -20,18 +20,18 @@
     <div v-if="identificationDocument.key">
       <div
         v-if="identificationDocument.explanationText"
-        class="rf-margin-bottom-3N"
+        class="rf-mb-3w"
       >
         {{ identificationDocument.explanationText }}
       </div>
-      <div class="rf-margin-bottom-3N">
+      <div class="rf-mb-3w">
         <FileUpload
           :current-status="fileUploadStatus"
           v-on:add-files="addFiles"
           v-on:reset-files="resetFiles"
         ></FileUpload>
       </div>
-      <div class="rf-margin-bottom-3N">
+      <div class="rf-mb-3w">
         <DocumentInsert
           :allow-list="identificationDocument.acceptedProofs"
           :block-list="identificationDocument.refusedProofs"
@@ -51,7 +51,7 @@
         "
       />
     </div>
-    <div class="rf-col-12 rf-margin-bottom-5N" v-if="identificationDocument">
+    <div class="rf-col-12 rf-mb-5w" v-if="identificationDocument">
       <button
         class="rf-btn"
         type="submit"

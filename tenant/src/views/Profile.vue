@@ -7,11 +7,11 @@
       ></LeftEditMenu>
       <div class="rf-col-md-6 rf-col-sm-12">
         <div class="content">
-          <div class="step rf-margin-bottom-5N" v-if="currentStep <= 1">
+          <div class="step rf-mb-5w" v-if="currentStep <= 1">
             <div class="step-number">1</div>
             <div class="step-title">{{ $t("title-step1") }}</div>
           </div>
-          <div class="step rf-margin-bottom-5N" v-if="currentStep === 2">
+          <div class="step rf-mb-5w" v-if="currentStep === 2">
             <div class="step-number">2</div>
             <div class="step-title">{{ $t("title-step2") }}</div>
           </div>

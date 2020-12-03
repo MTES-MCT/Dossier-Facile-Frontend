@@ -55,7 +55,7 @@
       </fieldset>
     </div>
 
-    <div class="rf-margin-bottom-5N">
+    <div class="rf-mb-5w">
       <button class="rf-btn" type="submit" @click="handleOthersInformation">
         {{ $t("confirm") }}
       </button>

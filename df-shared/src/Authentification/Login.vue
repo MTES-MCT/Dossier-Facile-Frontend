@@ -1,12 +1,12 @@
 <template>
   <section class="rf-grid-row rf-grid-row--center">
     <div class="rf-col-md-8 rf-col-lg-6">
-      <h2 class="rf-h2 text-center rf-margin-top-7N rf-margin-bottom-5N">
+      <h2 class="rf-h2 text-center rf-mt-7w rf-mb-5w">
         {{ $t("title") }}
       </h2>
       <form name="form" @submit.prevent="handleLogin">
         <div class="rf-grid-row rf-grid-row--center">
-          <div class="rf-col-12 rf-margin-bottom-3N">
+          <div class="rf-col-12 rf-mb-3w">
             <validation-provider rules="required" v-slot="{ errors }">
               <div
                 class="rf-input-group"
@@ -27,7 +27,7 @@
               </div>
             </validation-provider>
           </div>
-          <div class="rf-col-12 rf-margin-bottom-3N">
+          <div class="rf-col-12 rf-mb-3w">
             <validation-provider rules="required" v-slot="{ errors }">
               <div
                 class="rf-input-group"
@@ -51,17 +51,17 @@
             </validation-provider>
           </div>
 
-          <div class="rf-col-12 text-center rf-margin-bottom-5N">
+          <div class="rf-col-12 text-center rf-mb-5w">
             <button class="rf-btn" type="submit">
               valider
             </button>
           </div>
-          <div class="rf-col-12 text-center rf-margin-bottom-3N">
+          <div class="rf-col-12 text-center rf-mb-3w">
             <router-link to="/forgotten-password"
               >mot de passe oublié</router-link
             >
           </div>
-          <div class="rf-col-12 text-center rf-margin-bottom-12N">
+          <div class="rf-col-12 text-center rf-mb-12w">
             <router-link to="/signup">je n'ai pas encore de compte</router-link>
           </div>
         </div>

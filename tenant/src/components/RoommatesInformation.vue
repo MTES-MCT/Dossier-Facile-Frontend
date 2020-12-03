@@ -5,7 +5,7 @@
         <div class="rf-col-12">
           <label class="rf-label">{{ $t("roommateEmail") }}</label>
           <div
-            class="rf-margin-bottom-1N"
+            class="rf-mb-1w"
             v-for="(roommate, key) in mails"
             v-bind:key="key"
           >
@@ -28,10 +28,10 @@
             </validation-provider>
           </div>
         </div>
-        <div class="rf-col-12 rf-margin-bottom-3N">
+        <div class="rf-col-12 rf-mb-3w">
           <a href="#" @click="addMail">{{ $t("addRommate") }}</a>
         </div>
-        <div class="rf-col-12 rf-margin-bottom-3N">
+        <div class="rf-col-12 rf-mb-3w">
           <input
             type="checkbox"
             id="authorize"

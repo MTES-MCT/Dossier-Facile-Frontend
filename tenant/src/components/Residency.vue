@@ -6,7 +6,7 @@
       </label>
       <select
         v-model="residencyDocument"
-        class="rf-select rf-margin-bottom-3N"
+        class="rf-select rf-mb-3w"
         id="select"
         name="select"
       >
@@ -17,17 +17,17 @@
       </select>
     </div>
     <div v-if="residencyDocument.key">
-      <div class="rf-margin-bottom-3N">
+      <div class="rf-mb-3w">
         {{ residencyDocument.explanationText }}
       </div>
-      <div class="rf-margin-bottom-3N">
+      <div class="rf-mb-3w">
         <FileUpload
           :current-status="fileUploadStatus"
           v-on:add-files="addFiles"
           v-on:reset-files="resetFiles"
         ></FileUpload>
       </div>
-      <div class="rf-margin-bottom-3N">
+      <div class="rf-mb-3w">
         <DocumentInsert
           :allow-list="residencyDocument.acceptedProofs"
           :block-list="residencyDocument.refusedProofs"
@@ -47,7 +47,7 @@
         "
       />
     </div>
-    <div class="rf-col-12 rf-margin-bottom-5N" v-if="residencyDocument">
+    <div class="rf-col-12 rf-mb-5w" v-if="residencyDocument">
       <button
         class="rf-btn"
         type="submit"

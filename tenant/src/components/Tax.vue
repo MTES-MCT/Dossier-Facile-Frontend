@@ -3,7 +3,7 @@
     <div>
       <select
         v-model="taxDocument"
-        class="rf-select rf-margin-bottom-3N"
+        class="rf-select rf-mb-3w"
         id="select"
         name="select"
       >
@@ -14,17 +14,17 @@
       </select>
     </div>
     <div v-if="taxDocument.key">
-      <div class="rf-margin-bottom-3N">
+      <div class="rf-mb-3w">
         {{ taxDocument.explanationText }}
       </div>
-      <div class="rf-margin-bottom-3N" v-if="taxDocument.key === 'my-name'">
+      <div class="rf-mb-3w" v-if="taxDocument.key === 'my-name'">
         <FileUpload
           :current-status="fileUploadStatus"
           v-on:add-files="addFiles"
           v-on:reset-files="resetFiles"
         ></FileUpload>
       </div>
-      <div class="rf-margin-bottom-3N" v-if="taxDocument.key === 'my-name'">
+      <div class="rf-mb-3w" v-if="taxDocument.key === 'my-name'">
         <DocumentInsert
           :allow-list="taxDocument.acceptedProofs"
           :block-list="taxDocument.refusedProofs"
@@ -44,7 +44,7 @@
         "
       />
     </div>
-    <div class="rf-col-12 rf-margin-bottom-5N" v-if="taxDocument">
+    <div class="rf-col-12 rf-mb-5w" v-if="taxDocument">
       <button
         class="rf-btn"
         type="submit"
