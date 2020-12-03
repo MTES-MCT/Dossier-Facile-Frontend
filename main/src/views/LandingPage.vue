@@ -7,7 +7,7 @@
             <h1 class="color--white">
               {{ $t("s0.title") }}
             </h1>
-            <p class="text-bold">
+            <p class="text-bold color--white">
               {{ $t("s0.text") }}
             </p>
             <p>

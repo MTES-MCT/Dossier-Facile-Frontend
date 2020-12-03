@@ -294,14 +294,6 @@ export default class Home extends Vue {
   max-height: 40px;
 }
 
-.bg-orange {
-  background-color: rgb(248, 191, 160) !important;
-}
-
-.bg--white {
-  background-color: white !important;
-}
-
 .process-2 {
   position: relative;
 }

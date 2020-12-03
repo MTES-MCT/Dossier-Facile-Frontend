@@ -34,18 +34,18 @@
           </li>
           <li class="rf-shortcuts__item" v-if="!loggedIn">
             <DfButton
+              class="rf-ml-3"
+              primary="true"
               size="small"
-              v-on:on-click="onLogin"
-              :label="$t('login')"
+              v-on:on-click="onCreateTenant"
+              :label="$t('signup')"
             />
           </li>
           <li class="rf-shortcuts__item" v-if="!loggedIn">
             <DfButton
-              class="rf-ml-3"
-              primary="true"
               size="small"
-              v-on:on-click="onCreateAccount"
-              :label="$t('signup')"
+              v-on:on-click="onCreateOwner"
+              :label="$t('owner')"
             />
           </li>
         </ul>
@@ -66,16 +66,16 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 export default class MyHeader extends Vue {
   @Prop({ default: false }) private loggedIn?: boolean;
 
-  onLogin() {
-    this.$emit("on-login");
+  onCreateTenant() {
+    this.$emit("on-create-tenant");
   }
 
   onLogout() {
     this.$emit("on-logout");
   }
 
-  onCreateAccount() {
-    this.$emit("on-create-account");
+  onCreateOwner() {
+    this.$emit("on-create-owner");
   }
 }
 </script>
@@ -90,14 +90,14 @@ export default class MyHeader extends Vue {
 <i18n>
 {
 "en": {
-"login": "Login",
 "logout": "Logout",
-"signup": "Signup"
+"signup": "S'inscrire",
+"owner": "Espace propriétaire"
 },
 "fr": {
-"login": "Me connecter",
-"logout": "Se déconnecter",
-"signup": "S'enregistrer"
+"logout": "Logout",
+"signup": "S'inscrire",
+"owner": "Espace propriétaire"
 }
 }
 </i18n>
