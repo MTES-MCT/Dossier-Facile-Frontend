@@ -551,7 +551,6 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import AccordionElement from "../components/AccordionElement.vue";
-/* const Accordion = require("../../../node_modules/@gouvfr/accordion/dist/js/accordion"); */
 
 @Component({
   mounted: function () {

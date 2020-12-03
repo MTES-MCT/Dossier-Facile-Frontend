@@ -10,15 +10,9 @@
                 <a href="#">
                   <span class="icon icon-Eye"></span>
                 </a>
-                <span
-                  class="icon icon-Hour text-warning text-success"
-                ></span>
-                <span
-                  class="icon icon-Close text-danger"
-                ></span>
-                <span
-                  class="icon icon-Yes text-success"
-                ></span>
+                <span class="icon icon-Hour text-warning text-success"></span>
+                <span class="icon icon-Close text-danger"></span>
+                <span class="icon icon-Yes text-success"></span>
               </li>
               <li>
                 <a class="modal-file-button" data-id="2" href="#"
@@ -102,7 +96,7 @@
               <ul class="menu-vertical">
                 <li>
                   <a class="modal-file-button" data-id="6" href="#"
-                    >Pièce di'identité</a
+                    >Pièce d'identité</a
                   >
                   <a
                     class="nounderline"
@@ -224,7 +218,9 @@
         <NakedCard>
           <template v-slot:content>
             <div class="rf-grid-row">
-              <i class="icon icon-Yes big-icon text-success rf-col-3 rf-p-2w"></i>
+              <i
+                class="icon icon-Yes big-icon text-success rf-col-3 rf-p-2w"
+              ></i>
               <div class="rf-col-9 rf-p-2w">
                 Votre pièce est validée ! Plus besoin d’y toucher
               </div>
@@ -234,7 +230,9 @@
         <NakedCard>
           <template v-slot:content>
             <div class="rf-grid-row">
-              <i class="icon icon-Hour big-icon text-warning rf-col-3 rf-p-2w"></i>
+              <i
+                class="icon icon-Hour big-icon text-warning rf-col-3 rf-p-2w"
+              ></i>
               <div class="rf-col-9 rf-p-2w">
                 Nous sommes en cours de traitement de cette pièce
               </div>
@@ -244,7 +242,9 @@
         <NakedCard>
           <template v-slot:content>
             <div class="rf-grid-row">
-              <i class="icon icon-Close big-icon text-danger rf-col-3 rf-p-2w"></i>
+              <i
+                class="icon icon-Close big-icon text-danger rf-col-3 rf-p-2w"
+              ></i>
               <div class="rf-col-9 rf-p-2w">
                 Vous devez modifier votre pièce afin que nous validions votre
                 dossier
@@ -254,90 +254,79 @@
         </NakedCard>
       </div>
 
-      <div class="rf-col-lg-8">
-        <div class="conversation__head boxed boxed--lg bg-orange">
-          <h4 class="text-white">Conversation</h4>
-          <span class="text-white">Conversation</span>
-        </div>
-        <div
-          class="conversation__reply boxed boxed--border"
-          th:if="${tenant.getTenantFileStatus().name() != 'VALIDATED'}"
-        >
-          <form
-            id="messageForm"
-            th:action="@{/message/new}"
-            th:method="post"
-            th:object="${message}"
+      <div class="rf-col-lg-8 rf-pl-5w rf-pr-3w">
+        <div class="right-container">
+          <div class="bg-orange rf-p-5w">
+            <h4>Conversation</h4>
+          </div>
+          <div
+            class="conversation__reply boxed boxed--border rf-p-3w"
+            v-if="isNotValidated()"
           >
-            <div class="row">
-              <div class="col-12">
-                <textarea
-                  autocomplete="off"
-                  autofocus="autofocus"
-                  id="message"
-                  placeholder="Tapez votre message ici"
-                  required="required"
-                  rows="4"
-                  th:field="*{message}"
-                  type="text"
-                ></textarea>
-              </div>
-              <div class="col-md-4">
-                <button class="btn" id="formChat" type="submit">
-                  Répondre
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-
-        <div class="comments conversation__comments">
-          <ul class="comments__list" id="messageArea">
-            <th:block th:each="messageIt: ${messages}">
-              <li>
-                <div class="comment" th:if="${messageIt.getFromUser()!=null}">
-                  <div class="comment__body w-100">
-                    <h5 class="type--fine-print" th:text="${name}"></h5>
-
-                    <div class="comment__meta">
-                      <span
-                        th:text="${#temporals.format(messageIt.getCreationDateTime(), 'dd MMMM YYYY, hh:mm a')}"
-                      ></span>
-                    </div>
-
-                    <p th:utext="${messageIt.message}"></p>
-                  </div>
-                </div>
-
-                <div class="comment" th:if="${messageIt.getFromUser()==null}">
-                  <div class="comment__avatar">
-                    <img
-                      alt="Image"
-                      src="/assets/images/marie.jpg"
-                      th:unless="${messageIt.customMessage}"
+            <form name="form" @submit.prevent="handleSubmit">
+              <div class="rf-grid-row">
+                <div class="rf-col-12 rf-mb-3w">
+                  <div
+                    class="rf-input-group"
+                  >
+                    <textarea
+                      v-model="sendMessage"
+                      class="form-control rf-input"
+                      autocomplete="off"
+                      autofocus="autofocus"
+                      id="sendMessage"
+                      placeholder="Tapez votre message ici"
+                      rows="4"
+                      name="sendMessage"
+                      type="text"
                     />
                   </div>
-                  <div
-                    class="comment__body"
-                    th:classappend="${messageIt.customMessage}?'w-100':''"
-                  >
-                    <h5 class="type--fine-print">DossierFacile</h5>
-
-                    <div class="comment__meta">
-                      <span
-                        th:text="${#temporals.format(messageIt.getCreationDateTime(), 'dd MMMM YYYY, hh:mm a')}"
-                      ></span>
-                    </div>
-
-                    <p th:utext="${messageIt.message}"></p>
-                  </div>
                 </div>
-                <!--end comment-->
-              </li>
-            </th:block>
+
+                <div class="rf-col-12 rf-margin-bottom-5N">
+                  <button class="rf-btn" type="submit" :disabled="!message">Répondre</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div>
+          <ul>
+            <li v-for="message in messages" v-bind:key="message.id">
+              <div v-if="message.getFromUser">
+                <div>
+                  <h5>{{ message.name }}</h5>
+
+                  <div>
+                    <span>{{ message.creationDateTime }}</span>
+                  </div>
+
+                  <p>{{ message.message }}</p>
+                </div>
+              </div>
+
+              <div v-if="!message.fromUser">
+                <div>
+                  <img
+                    alt="Image"
+                    src="@/assets/images/marie.jpg"
+                    v-if="!message.customMessage"
+                  />
+                </div>
+                <div >
+                  <h5 class="type--fine-print">DossierFacile</h5>
+
+                  <div class="comment__meta">
+                    <span>{{ message.creationDateTime }}</span>
+                  </div>
+
+                  <p>{{ message.message }}</p>
+                </div>
+              </div>
+            </li>
           </ul>
         </div>
-        <!--end comments-->
       </div>
     </div>
   </div>
@@ -351,6 +340,10 @@ import NakedCard from "../components/NakedCard.vue";
   components: { NakedCard },
 })
 export default class Messages extends Vue {
+  // TODO update messages (and put in store)
+  messages = [];
+  sendMessage = "";
+
   hasOwnGuarantor() {
     // TODO
     return true;
@@ -360,11 +353,26 @@ export default class Messages extends Vue {
     // TODO
     return true;
   }
+
+  isNotValidated() {
+    // TODO
+    return true;
+  }
+
+  handleSubmit() {
+    // TODO
+    /*             th:action="@{/message/new}"
+            th:method="post"
+            th:object="${message}" */
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .big-icon {
   font-size: 3em;
+}
+.right-container {
+  border: 1px solid #ececec;
 }
 </style>
