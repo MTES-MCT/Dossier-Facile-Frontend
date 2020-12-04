@@ -15,6 +15,10 @@
             <div class="step-number">2</div>
             <div class="step-title">{{ $t("title-step2") }}</div>
           </div>
+          <div class="step rf-mb-5w" v-if="currentStep === 3">
+            <div class="step-number">3</div>
+            <div class="step-title">{{ $t("title-step3") }}</div>
+          </div>
           <NameInformationForm
             :user="user"
             v-if="currentStep === 0"
@@ -23,6 +27,7 @@
             v-if="currentStep === 1"
           ></TenantInformationForm>
           <UploadDocuments v-if="currentStep === 2"></UploadDocuments>
+          <GuarantorDocuments v-if="currentStep === 3"></GuarantorDocuments>
         </div>
       </div>
       <div class="rf-col-md-3 rf-col-sm-12">
@@ -42,6 +47,7 @@ import NameInformationForm from "@/components/NameInformationForm.vue";
 import { mapState } from "vuex";
 import TenantInformationForm from "@/components/TenantInformationForm.vue";
 import UploadDocuments from "@/components/UploadDocuments.vue";
+import GuarantorDocuments from "@/components/GuarantorDocuments.vue";
 
 @Component({
   components: {
@@ -50,7 +56,8 @@ import UploadDocuments from "@/components/UploadDocuments.vue";
     EditSummary,
     LeftEditMenu,
     NameInformationForm,
-    UploadDocuments
+    UploadDocuments,
+    GuarantorDocuments
   },
   computed: {
     ...mapState({
@@ -118,11 +125,13 @@ export default class Profile extends Vue {
 {
 "en": {
 "title-step1": "Je renseigne mes informations",
-"title-step2": "Je joins mes documents"
+"title-step2": "Je joins mes documents",
+"title-step3": "Je renseigne mon garant"
 },
 "fr": {
 "title-step1": "Je renseigne mes informations",
-"title-step2": "Je joins mes documents"
+"title-step2": "Je joins mes documents",
+"title-step3": "Je renseigne mon garant"
 }
 }
 </i18n>

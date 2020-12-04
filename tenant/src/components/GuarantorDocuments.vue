@@ -1,6 +1,9 @@
 <template>
   <div>
     <div>
+      <AskGuarantor></AskGuarantor>
+    </div>
+    <div>
       <div
         class="document-title"
         :class="{ selected: substep === 1 }"
@@ -91,7 +94,7 @@
       <Tax v-if="substep === 5"></Tax>
     </div>
     <div class="rf-col-12 rf-mb-5w">
-      <button class="rf-btn" type="submit" aria-disabled="documentsFilled()" :disabled="documentsFilled()" @click="goToGuarantor()">
+      <button class="rf-btn" type="submit" aria-disabled="documentsFilled()" :disabled="documentsFilled()">
         Suivant
       </button>
     </div>
@@ -105,10 +108,11 @@ import Residency from "@/components/Residency.vue";
 import Professional from "@/components/Professional.vue";
 import Financial from "@/components/Financial.vue";
 import Tax from "@/components/Tax.vue";
+import AskGuarantor from "@/components/AskGuarantor.vue";
 @Component({
-  components: { Tax, Financial, Professional, Residency, Identification }
+  components: { AskGuarantor, Tax, Financial, Professional, Residency, Identification }
 })
-export default class UploadDocuments extends Vue {
+export default class GuarantorDocuments extends Vue {
   substep = 0;
 
   updateSubstep(s: number) {
@@ -118,10 +122,6 @@ export default class UploadDocuments extends Vue {
   documentsFilled() {
     // TODO
     return false;
-  }
-
-  goToGuarantor() {
-    this.$store.commit("setStep", 3);
   }
 }
 </script>
