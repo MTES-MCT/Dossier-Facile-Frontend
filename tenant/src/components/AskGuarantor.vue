@@ -22,7 +22,7 @@ import DfButton from "df-shared/src/Button/Button.vue";
 })
 export default class AskGuarantor extends Vue {
     addGuarantor() {
-        // TODO
+        this.$emit("on-next-step");
     }
 
     goValidateFile() {

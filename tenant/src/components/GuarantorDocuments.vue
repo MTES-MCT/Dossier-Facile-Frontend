@@ -1,8 +1,28 @@
 <template>
   <div>
-    <div>
-      <AskGuarantor></AskGuarantor>
+    <div v-if="guarantorStep === 0">
+      <AskGuarantor @on-next-step="guarantorStep=1"></AskGuarantor>
     </div>
+    <div v-if="guarantorStep === 1">
+      <div>
+        <label class="rf-label" for="select">
+          Sélectionnez un choix
+        </label>
+        <select
+          v-model="guarantorType"
+          class="rf-select rf-mb-3w"
+          id="select"
+          name="select"
+        >
+          <option value="" selected disabled hidden>- Select -</option>
+          <option value="naturalPerson">Un garant physique classique</option>
+          <option value="organism">Un organisme se porte garant pour moi (VISALE par exemple)</option>
+          <option value="legalPerson">Un garant moral</option>
+        </select>
+      </div>
+
+    </div>
+    <div v-if="guarantorType">
     <div>
       <div
         class="document-title"
@@ -94,9 +114,13 @@
       <Tax v-if="substep === 5"></Tax>
     </div>
     <div class="rf-col-12 rf-mb-5w">
+      <div v-if="guarantorType === 'naturalPerson'">
+      J'ajoute un nouveau garant
+      </div>
       <button class="rf-btn" type="submit" aria-disabled="documentsFilled()" :disabled="documentsFilled()">
-        Suivant
+        Étape suivante - Valider le dossier
       </button>
+    </div>
     </div>
   </div>
 </template>
@@ -113,7 +137,10 @@ import AskGuarantor from "@/components/AskGuarantor.vue";
   components: { AskGuarantor, Tax, Financial, Professional, Residency, Identification }
 })
 export default class GuarantorDocuments extends Vue {
+  guarantorStep = 0;
   substep = 0;
+  guarantorSelected = null;
+  guarantorType = "";
 
   updateSubstep(s: number) {
     this.substep = s === this.substep ? 0 : s;
