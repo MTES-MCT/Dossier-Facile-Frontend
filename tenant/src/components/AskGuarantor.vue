@@ -9,7 +9,7 @@
         <p>
             {{ $t("not-required")}}
         </p>
-        <DfButton class="rf-btn" :label="$t('validate')" @click="validate()"></DfButton>
+        <DfButton class="rf-btn" :label="$t('validate')" @on-click="goValidateFile"></DfButton>
     </div>
 </div>
 </template>
@@ -25,8 +25,8 @@ export default class AskGuarantor extends Vue {
         // TODO
     }
 
-    validate() {
-        // TODO
+    goValidateFile() {
+        this.$store.commit("setStep", 4);
     }
 }
 </script>
@@ -52,7 +52,4 @@ export default class AskGuarantor extends Vue {
 </i18n>
 
 <style lang="scss" scoped>
-.info {
-
-}
 </style>

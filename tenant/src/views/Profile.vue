@@ -28,6 +28,7 @@
           ></TenantInformationForm>
           <UploadDocuments v-if="currentStep === 2"></UploadDocuments>
           <GuarantorDocuments v-if="currentStep === 3"></GuarantorDocuments>
+          <ValidateFile v-if="currentStep === 4"></ValidateFile>
         </div>
       </div>
       <div class="rf-col-md-3 rf-col-sm-12">
@@ -48,6 +49,7 @@ import { mapState } from "vuex";
 import TenantInformationForm from "@/components/TenantInformationForm.vue";
 import UploadDocuments from "@/components/UploadDocuments.vue";
 import GuarantorDocuments from "@/components/GuarantorDocuments.vue";
+import ValidateFile from "@/components/ValidateFile.vue";
 
 @Component({
   components: {
@@ -57,7 +59,8 @@ import GuarantorDocuments from "@/components/GuarantorDocuments.vue";
     LeftEditMenu,
     NameInformationForm,
     UploadDocuments,
-    GuarantorDocuments
+    GuarantorDocuments,
+    ValidateFile
   },
   computed: {
     ...mapState({
@@ -74,6 +77,7 @@ export default class Profile extends Vue {
       case 2:
         return 1;
       case 3:
+      case 4:
         return 3;
       default:
         return 0;
