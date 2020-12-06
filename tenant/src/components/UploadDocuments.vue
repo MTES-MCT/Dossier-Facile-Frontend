@@ -100,11 +100,11 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Identification from "@/components/Identification.vue";
-import Residency from "@/components/Residency.vue";
-import Professional from "@/components/Professional.vue";
-import Financial from "@/components/Financial.vue";
-import Tax from "@/components/Tax.vue";
+import Identification from "@/components/documents/Identification.vue";
+import Residency from "@/components/documents/Residency.vue";
+import Professional from "@/components/documents/Professional.vue";
+import Financial from "@/components/documents/Financial.vue";
+import Tax from "@/components/documents/Tax.vue";
 @Component({
   components: { Tax, Financial, Professional, Residency, Identification }
 })

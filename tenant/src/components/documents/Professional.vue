@@ -62,7 +62,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import DocumentInsert from "@/components/DocumentInsert.vue";
+import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { mapState } from "vuex";
 import { DocumentType } from "df-shared/src/models/Document";
