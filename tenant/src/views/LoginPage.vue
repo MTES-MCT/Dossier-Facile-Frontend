@@ -1,6 +1,6 @@
 <template>
   <div class="rf-container">
-    <Login v-on:on-login="onLogin" />
+    <Login @on-login="onLogin" />
   </div>
 </template>
 

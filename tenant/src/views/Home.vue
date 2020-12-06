@@ -17,7 +17,7 @@
                 <DfButton
                   primary="true"
                   size="small"
-                  v-on:on-click="signup"
+                  @on-click="signup"
                   :label="$t('signup')"
                 />
               </div>
@@ -109,7 +109,7 @@
             <DfButton
               primary="true"
               size="small"
-              v-on:on-click="signup"
+              @on-click="signup"
               :label="$t('signup')"
             />
           </div>

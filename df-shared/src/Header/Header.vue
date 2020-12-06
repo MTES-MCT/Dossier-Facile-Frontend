@@ -28,7 +28,7 @@
           <li class="rf-shortcuts__item" v-if="loggedIn">
             <DfButton
               size="small"
-              v-on:on-click="onLogout"
+              @on-click="onLogout"
               :label="$t('logout')"
             />
           </li>
@@ -37,14 +37,14 @@
               class="rf-ml-3"
               primary="true"
               size="small"
-              v-on:on-click="onCreateTenant"
+              @on-click="onCreateTenant"
               :label="$t('signup')"
             />
           </li>
           <li class="rf-shortcuts__item" v-if="!loggedIn">
             <DfButton
               size="small"
-              v-on:on-click="onCreateOwner"
+              @on-click="onCreateOwner"
               :label="$t('owner')"
             />
           </li>

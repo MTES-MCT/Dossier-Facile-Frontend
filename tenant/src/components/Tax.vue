@@ -20,8 +20,8 @@
       <div class="rf-mb-3w" v-if="taxDocument.key === 'my-name'">
         <FileUpload
           :current-status="fileUploadStatus"
-          v-on:add-files="addFiles"
-          v-on:reset-files="resetFiles"
+          @add-files="addFiles"
+          @reset-files="resetFiles"
         ></FileUpload>
       </div>
       <div class="rf-mb-3w" v-if="taxDocument.key === 'my-name'">

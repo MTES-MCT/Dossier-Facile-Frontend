@@ -86,7 +86,7 @@
             <vue-recaptcha
               :sitekey="SITE_KEY"
               :loadRecaptchaScript="true"
-              v-on:verify="onVerify"
+              @verify="onVerify"
             ></vue-recaptcha>
           </div>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="rf-container">
     <div class="signup">
-      <Register v-on:on-register="onRegister" />
+      <Register @on-register="onRegister" />
       <Modal v-show="isValidModalVisible" @close="closeModal">
         <template v-slot:body>
           <div class="rf-container">
