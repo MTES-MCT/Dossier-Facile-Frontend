@@ -9,12 +9,13 @@ Vue.config.productionTip = false;
 
 require("../../node_modules/@gouvfr/all/dist/css/all.min.css");
 
-new Vue({
+const app = new Vue({
   router,
   store,
   i18n,
   render: h => h(App)
-}).$mount("#app");
+});
+app.$mount("#app");
 
 axios.interceptors.request.use(
   config => {
@@ -48,3 +49,5 @@ axios.interceptors.response.use(
     }
   }
 );
+
+app.$store.dispatch("loadUser");
