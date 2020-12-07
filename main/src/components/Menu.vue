@@ -48,7 +48,7 @@ export default class Menu extends Vue {}
 {
 "en": {
 "faq": "FAQ",
-"information": "En savoir plus",
+"information": "Information",
 "blog": "Blog"
 },
 "fr": {

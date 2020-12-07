@@ -18,11 +18,11 @@
                   class="form-control validate-required rf-input"
                   id="username"
                   name="username"
-                  placeholder="Ex : exemple@exemple.fr"
+                  :placeholder="$t('username-placeholder')"
                   type="email"
                 />
                 <span class="rf-error-text" v-if="errors[0]">{{
-                  errors[0]
+                  $t(errors[0])
                 }}</span>
               </div>
             </validation-provider>
@@ -43,14 +43,14 @@
                 }}</label>
                 <input
                   id="password"
-                  placeholder="Ex : 12345679"
+                  :placeholder="$t('password-placeholder')"
                   type="password"
                   v-model="user.password"
                   name="password"
                   class="validate-required form-control rf-input"
                 />
                 <span class="rf-error-text" v-if="errors[0]">{{
-                  errors[0]
+                  $t(errors[0])
                 }}</span>
               </div>
             </validation-provider>
@@ -69,14 +69,14 @@
                 >
                 <input
                   id="confirm-password"
-                  placeholder="Ex : 12345679"
+                  :placeholder="$t('password-placeholder')"
                   type="password"
                   v-model="user.confirm"
                   name="confirm-password"
                   class="validate-required form-control rf-input"
                 />
                 <span class="rf-error-text" v-if="errors[0]">{{
-                  errors[0]
+                  $t(errors[0])
                 }}</span>
               </div>
             </validation-provider>
@@ -92,7 +92,7 @@
 
           <div class="rf-col-12 text-center rf-mb-5w">
             <button class="rf-btn" type="submit">
-              valider
+              {{ $t("submit") }}
             </button>
           </div>
         </div>
@@ -112,17 +112,17 @@ import VueRecaptcha from "vue-recaptcha";
 // No message specified.
 extend("email", {
   ...email,
-  message: "Email non valide"
+  message: "email-not-valid"
 });
 
 // Override the default message.
 extend("required", {
   ...required,
-  message: "Ce champ est requis"
+  message: "field-required"
 });
 extend("confirmed", {
   ...confirmed,
-  message: "Le mot de passe ne correspond pas"
+  message: "password-not-confirmed"
 });
 
 @Component({
@@ -151,16 +151,28 @@ export default class Register extends Vue {
 <i18n>
 {
 "en": {
-"title": "Création de compte DossierFacile",
-"password": "Mot de passe :",
-"confirm-password": "Confirmation du mot de passe :",
-"email": "Email :"
+"title": "Create account",
+"password": "Password :",
+"username-placeholder": "E.g. : example@example.fr",
+"password-placeholder": "E.g. : 12345679",
+"confirm-password": "Confirm password :",
+"email": "Email :",
+"submit": "Submit",
+"email-not-valid": "Email not valid",
+"field-required": "This field is required",
+"password-not-confirmed": "Password not confirmed"
 },
 "fr": {
 "title": "Création de compte DossierFacile",
 "password": "Mot de passe :",
 "confirm-password": "Confirmation du mot de passe :",
-"email": "Email :"
+"username-placeholder": "Ex : exemple@exemple.fr",
+"password-placeholder": "Ex : 12345679",
+"email": "Email :",
+"submit": "Valider",
+"email-not-valid": "Email non valide",
+"field-required": "Ce champ est requis",
+"password-not-confirmed": "Le mot de passe ne correspond pas"
 }
 }
 </i18n>

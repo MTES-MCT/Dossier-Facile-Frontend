@@ -20,8 +20,9 @@ function loadLocaleMessages(): LocaleMessages {
   return messages;
 }
 
+console.dir(navigator.language);
 export default new VueI18n({
-  locale: process.env.VUE_APP_I18N_LOCALE || "en",
-  fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || "en",
+  locale: /^en\b/.test(navigator.language) ? "en":"fr",
+  fallbackLocale: /^en\b/.test(navigator.language) ? "en":"fr",
   messages: loadLocaleMessages()
 });
