@@ -2,13 +2,10 @@
   <transition name="fade">
     <div class="cookie" v-if="!hidden">
       <p>
-        En poursuivant votre navigation sur notre site, vous acceptez
-        l'utilisation des cookies contribuant à la réalisation de statistiques
-        et à l'amélioration de notre service, dans le respect de notre politique
-        de protection de votre vie privée.
+        {{ $t("cookies-text") }}
       </p>
       <button class="rf-btn" @click="hideCookie">
-        {{ $t("understood") }}
+        {{ $t("understand") }}
       </button>
     </div>
   </transition>
@@ -57,10 +54,12 @@ export default class Cookies extends Vue {
 <i18n>
 {
   "en": {
-    "understood": "J'ai compris"
+    "understand": "I understand",
+    "cookies-text": "By continuing your visit to this website, you agree to our use of cookies for statistics and to improve our service, in accordance with our policy of protecting your privacy."
   },
   "fr": {
-    "understood": "J'ai compris"
+    "understand": "J'ai compris",
+    "cookies-text": "En poursuivant votre navigation sur notre site, vous acceptez l'utilisation des cookies contribuant à la réalisation de statistiques et à l'amélioration de notre service, dans le respect de notre politique de protection de votre vie privée."
   }
 }
 </i18n>
