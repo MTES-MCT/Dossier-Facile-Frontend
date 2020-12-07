@@ -22,7 +22,7 @@
                   type="email"
                 />
                 <span class="rf-error-text" v-if="errors[0]">{{
-                  errors[0]
+                  $t(errors[0])
                 }}</span>
               </div>
             </validation-provider>
@@ -48,12 +48,12 @@ import { required, email } from "vee-validate/dist/rules";
 
 extend("email", {
   ...email,
-  message: "Email non valide"
+  message: "email-not-valid"
 });
 
 extend("required", {
   ...required,
-  message: "Ce champ est requis"
+  message: "field-required"
 });
 
 @Component({
@@ -79,14 +79,16 @@ export default class ForgottenPassword extends Vue {
 "email": "Enter the email address used when creating the account (attention to case sensitivity) :",
 "submit": "Submit",
 "placeholder": "E.g. : example@example.fr",
-"email-notvalid": "Email non valide"
+"email-not-valid": "Email not valid",
+"field-required": "This field is required"
 },
 "fr": {
 "title": "Mot de passe perdu ?",
 "email": "Entrez l'email utilisé lors de la création du compte (attention aux majuscules) :",
 "submit": "Valider",
 "placeholder": "Ex : exemple@exemple.fr",
-"email-notvalid": "Email non valide"
+"email-not-valid": "Email non valide",
+"field-required": "Ce champ est requis"
 }
 }
 </i18n>

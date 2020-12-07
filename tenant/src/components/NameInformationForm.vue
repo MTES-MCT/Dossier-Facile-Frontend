@@ -47,7 +47,7 @@
                   class="validate-required form-control rf-input"
                 />
                 <span class="rf-error-text" v-if="errors[0]">{{
-                  errors[0]
+                  $t(errors[0])
                 }}</span>
               </div>
             </validation-provider>
@@ -73,7 +73,7 @@
                   class="validate-required form-control rf-input"
                 />
                 <span class="rf-error-text" v-if="errors[0]">{{
-                  errors[0]
+                  $t(errors[0])
                 }}</span>
               </div>
             </validation-provider>
@@ -99,12 +99,12 @@ import { required, regex } from "vee-validate/dist/rules";
 
 extend("regex", {
   ...regex,
-  message: "Code postal non valide"
+  message: "zipcode-not-valid"
 });
 
 extend("required", {
   ...required,
-  message: "Ce champ est requis"
+  message: "field-required"
 });
 
 @Component({
@@ -132,13 +132,17 @@ export default class NameInformationForm extends Vue {
 "confirm": "Confirmer",
 "firstname": "Prénom du locataire",
 "lastname": "Nom du locataire",
-"zipcode": "Code postal"
+"zipcode": "Code postal",
+"zipcode-not-valid": "Zipcode not valid.",
+"field-required": "This field is required"
 },
 "fr": {
 "confirm": "Confirmer",
 "firstname": "Prénom du locataire",
 "lastname": "Nom du locataire",
-"zipcode": "Code postal"
+"zipcode": "Code postal",
+"zipcode-not-valid": "Code postal non valide.",
+"field-required": "Ce champ est requis"
 }
 }
 </i18n>

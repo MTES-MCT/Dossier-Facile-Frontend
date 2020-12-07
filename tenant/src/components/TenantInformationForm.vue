@@ -68,15 +68,10 @@ import { Component, Vue } from "vue-property-decorator";
 import { User } from "df-shared/src/models/User";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
-import { required, regex } from "vee-validate/dist/rules";
+import { required } from "vee-validate/dist/rules";
 import RoommatesInformation from "@/components/RoommatesInformation.vue";
 import CoupleInformation from "@/components/CoupleInformation.vue";
 import { mapState } from "vuex";
-
-extend("regex", {
-  ...regex,
-  message: "Code postal non valide"
-});
 
 extend("required", {
   ...required,
