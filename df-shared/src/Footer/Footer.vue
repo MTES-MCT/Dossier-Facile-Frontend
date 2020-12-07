@@ -31,12 +31,12 @@
           </li>
           <li>
             <router-link to="/faq">
-              FAQ
+              {{ $t("faq") }}
             </router-link>
           </li>
           <li>
             <router-link to="/securite-des-donnees">
-              Mentions Légales - CGU
+              {{ $t("legals") }}
             </router-link>
           </li>
           <li>
@@ -67,10 +67,14 @@ export default class MyFooter extends Vue {}
 <i18n>
 {
   "en": {
-    "contact": "Vous pouvez nous contacter à contact@dossierfacile.fr"
+    "contact": "You can contact us at contact@dossierfacile.fr",
+    "legals": "Legal notice",
+    "faq": "FAQ"
   },
   "fr": {
-    "contact": "Vous pouvez nous contacter à contact@dossierfacile.fr"
+    "contact": "Vous pouvez nous contacter à contact@dossierfacile.fr",
+    "legals": "Mentions Légales - CGU",
+    "faq": "FAQ"
   }
 }
 </i18n>
