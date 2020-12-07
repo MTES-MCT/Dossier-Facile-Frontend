@@ -1,25 +1,8 @@
 <template>
   <div>
     <div>
-      <label class="rf-label" for="select">
-        J’ajoute une pièce d’identité en cours de validité. Attention, veillez à
-        ajouter votre pièce recto-verso !
-      </label>
-      <select
-        v-model="identificationDocument"
-        class="rf-select rf-mb-3w"
-        id="select"
-        name="select"
-      >
-        <option value="" selected disabled hidden>- Select -</option>
-        <option v-for="d in documents" :value="d" :key="d.key">{{
-          $t(d.key)
-        }}</option>
-      </select>
-    </div>
-    <div v-if="identificationDocument.key">
-      <div v-if="identificationDocument.explanationText" class="rf-mb-3w">
-        {{ identificationDocument.explanationText }}
+      <div class="rf-mb-3w">
+        {{ $t("organism-label") }}
       </div>
       <div class="rf-mb-3w">
         <FileUpload
@@ -30,8 +13,8 @@
       </div>
       <div class="rf-mb-3w">
         <DocumentInsert
-          :allow-list="identificationDocument.acceptedProofs"
-          :block-list="identificationDocument.refusedProofs"
+          :allow-list="acceptedProofs"
+          :block-list="refusedProofs"
         ></DocumentInsert>
       </div>
     </div>
@@ -72,7 +55,11 @@ import axios from "axios";
 import ListItem from "@/components/uploads/ListItem.vue";
 
 @Component({
-  components: { DocumentInsert, FileUpload, ListItem },
+  components: {
+    DocumentInsert,
+    FileUpload,
+    ListItem
+  },
   computed: {
     ...mapState({
       user: "user",
@@ -80,47 +67,11 @@ import ListItem from "@/components/uploads/ListItem.vue";
     })
   }
 })
-export default class Identification extends Vue {
+export default class OrganismCert extends Vue {
+  acceptedProofs = ["Certificat de garantie valide d'un organisme"];
+  refusedProofs = ["Tout autre document"];
+
   identificationDocument = new DocumentType();
-  documents: DocumentType[] = [
-    {
-      key: "identity-card",
-      value: "FRENCH_IDENTITY_CARD",
-      explanationText: "Attention veillez à ajouter votre pièce recto-verso !",
-      acceptedProofs: ["Carte d’identité française recto-verso"],
-      refusedProofs: [
-        "Carte d’identité sans le verso ou périmée",
-        "Tout autre document"
-      ]
-    },
-    {
-      key: "passport",
-      value: "FRENCH_PASSPORT",
-      acceptedProofs: ["Passport français (pages 2 et 3)"],
-      refusedProofs: ["Tout autre document"]
-    },
-    {
-      key: "permit",
-      value: "FRENCH_RESIDENCE_PERMIT",
-      acceptedProofs: [
-        "Carte de séjour en France temporaire recto-verso en cours de validité, ou périmée si elle est accompagnée du récépissé de la demande de renouvellement de carte de séjour",
-        "Visa de travail ou d’études temporaire en France"
-      ],
-      refusedProofs: ["Tout autre document"]
-    },
-    {
-      key: "other",
-      value: "OTHER_IDENTIFICATION",
-      acceptedProofs: [
-        "Carte d’identité étrangère recto-verso",
-        "Passeport étranger (pages 2 et 3)",
-        "Permis de conduire français ou étranger recto-verso",
-        "Carte de résident",
-        "Carte de ressortissant d’un État membre de l’UE ou de l’EEE"
-      ],
-      refusedProofs: ["Tout autre document"]
-    }
-  ];
 
   private files: File[] = [];
   private fileUploadStatus = UploadStatus.STATUS_INITIAL;
@@ -181,16 +132,10 @@ td {
 <i18n>
 {
 "en": {
-"identity-card": "Carte nationale d’identité",
-"passport": "Passeport",
-"permit": "Permis de conduire",
-"other": "Autre"
+  "organism-label": "J'ajoute un certificat ou un visa délivré par l'organisme qui se porte garant pour moi."
 },
 "fr": {
-"identity-card": "Carte nationale d’identité",
-"passport": "Passeport",
-"permit": "Permis de conduire",
-"other": "Autre"
+  "organism-label": "J'ajoute un certificat ou un visa délivré par l'organisme qui se porte garant pour moi."
 }
 }
 </i18n>

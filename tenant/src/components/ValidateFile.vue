@@ -1,16 +1,14 @@
 <template>
-    <div>
-        <h1>{{ $t("title") }}</h1>
-    </div>
+  <div>
+    <h1>{{ $t("title") }}</h1>
+  </div>
 </template>
-
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
-export default class ValidateFile extends Vue {
-}
+export default class ValidateFile extends Vue {}
 </script>
 
 <i18n>

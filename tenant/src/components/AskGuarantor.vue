@@ -1,33 +1,39 @@
 <template>
-<div>
+  <div>
     <p>
-        {{ $t("add-guarantor-question")}}
+      {{ $t("add-guarantor-question") }}
     </p>
-    <button class="rf-btn" @click="addGuarantor()">{{ $t("add-guarantor-btn") }}</button>
+    <button class="rf-btn" @click="addGuarantor()">
+      {{ $t("add-guarantor-btn") }}
+    </button>
     <div class="bg--blue info rf-p-2w rf-mt-2w rf-mb-2w border--radius">
-        <h4 class="rf-mt-0">{{ $t("remark")}}</h4>
-        <p>
-            {{ $t("not-required")}}
-        </p>
-        <DfButton class="rf-btn" :label="$t('validate')" @on-click="goValidateFile"></DfButton>
+      <h4 class="rf-mt-0">{{ $t("remark") }}</h4>
+      <p>
+        {{ $t("not-required") }}
+      </p>
+      <DfButton
+        class="rf-btn"
+        :label="$t('validate')"
+        @on-click="goValidateFile"
+      ></DfButton>
     </div>
-</div>
+  </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import DfButton from "df-shared/src/Button/Button.vue";
 
 @Component({
-    components: { DfButton }
+  components: { DfButton }
 })
 export default class AskGuarantor extends Vue {
-    addGuarantor() {
-        this.$emit("on-next-step");
-    }
+  addGuarantor() {
+    this.$emit("on-next-step");
+  }
 
-    goValidateFile() {
-        this.$store.commit("setStep", 4);
-    }
+  goValidateFile() {
+    this.$store.commit("setStep", 4);
+  }
 }
 </script>
 
@@ -51,5 +57,4 @@ export default class AskGuarantor extends Vue {
 
 </i18n>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

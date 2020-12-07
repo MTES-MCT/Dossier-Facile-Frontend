@@ -266,9 +266,7 @@
             <form name="form" @submit.prevent="handleSubmit">
               <div class="rf-grid-row">
                 <div class="rf-col-12 rf-mb-3w">
-                  <div
-                    class="rf-input-group"
-                  >
+                  <div class="rf-input-group">
                     <textarea
                       v-model="sendMessage"
                       class="form-control rf-input"
@@ -284,7 +282,9 @@
                 </div>
 
                 <div class="rf-col-12 rf-mb-5w">
-                  <button class="rf-btn" type="submit" :disabled="!message">Répondre</button>
+                  <button class="rf-btn" type="submit" :disabled="!message">
+                    Répondre
+                  </button>
                 </div>
               </div>
             </form>
@@ -314,7 +314,7 @@
                     v-if="!message.customMessage"
                   />
                 </div>
-                <div >
+                <div>
                   <h5 class="type--fine-print">DossierFacile</h5>
 
                   <div class="comment__meta">
@@ -337,7 +337,7 @@ import { Vue, Component } from "vue-property-decorator";
 import NakedCard from "../components/NakedCard.vue";
 
 @Component({
-  components: { NakedCard },
+  components: { NakedCard }
 })
 export default class Messages extends Vue {
   // TODO update messages (and put in store)

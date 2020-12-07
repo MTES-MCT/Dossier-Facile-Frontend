@@ -17,7 +17,7 @@
           <option value="organism">
             Un organisme se porte garant pour moi (VISALE par exemple)
           </option>
-          <option value="legalPerson">Un garant moral</option>
+          <option value="corporation">Un garant moral</option>
         </select>
       </div>
     </div>
@@ -114,6 +114,9 @@
       </div>
     </div>
     <div v-if="guarantorType === 'organism'">
+      <OrganismCert></OrganismCert>
+    </div>
+    <div v-if="guarantorType === 'corporation'">
       <div>
         <div
           class="document-title"
@@ -128,9 +131,11 @@
             class="icon color--primary rf-p-1w icon-User"
             :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
           ></i>
-          <h2>{{ $t("identification") }}</h2>
+          <h2>{{ $t("representative-identification") }}</h2>
         </div>
-        <OrganismIdentification v-if="substep === 1"></OrganismIdentification>
+        <CorporationIdentification
+          v-if="substep === 1"
+        ></CorporationIdentification>
       </div>
       <div>
         <div
@@ -146,9 +151,11 @@
             class="icon color--primary rf-p-1w icon-Home-2"
             :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
           ></i>
-          <h2>{{ $t("residency") }}</h2>
+          <h2>{{ $t("corporation-identification") }}</h2>
         </div>
-        <RepresentativeIdentification v-if="substep === 2"></RepresentativeIdentification>
+        <RepresentativeIdentification
+          v-if="substep === 2"
+        ></RepresentativeIdentification>
       </div>
     </div>
     <div class="rf-col-12 rf-mb-5w" v-if="guarantorType">
@@ -171,7 +178,8 @@
 import { Component, Vue } from "vue-property-decorator";
 import Identification from "@/components/documents/Identification.vue";
 import RepresentativeIdentification from "@/components/documents/RepresentativeIdentification.vue";
-import OrganismIdentification from "@/components/documents/OrganismIdentification.vue";
+import CorporationIdentification from "@/components/documents/CorporationIdentification.vue";
+import OrganismCert from "@/components/documents/OrganismCert.vue";
 import Residency from "@/components/documents/Residency.vue";
 import Professional from "@/components/documents/Professional.vue";
 import Financial from "@/components/documents/Financial.vue";
@@ -186,8 +194,9 @@ import AskGuarantor from "@/components/AskGuarantor.vue";
     Residency,
     Identification,
     RepresentativeIdentification,
-    OrganismIdentification
-  },
+    CorporationIdentification,
+    OrganismCert
+  }
 })
 export default class GuarantorDocuments extends Vue {
   guarantorStep = 0;
@@ -240,14 +249,18 @@ h2 {
 "residency": "Justificatif de domicile",
 "professional": "Justificatif de situation professionelle et financière",
 "financial": "Justificatif de revenu",
-"tax": "Avis d’imposition"
+"tax": "Avis d’imposition",
+"representative-identification": "Identité de la personne morale",
+"corporation-identification": "Identité du représentant de la personne morale"
 },
 "fr": {
 "identification": "Pièce d’identité",
 "residency": "Justificatif de domicile",
 "professional": "Justificatif de situation professionelle et financière",
 "financial": "Justificatif de revenu",
-"tax": "Avis d’imposition"
+"tax": "Avis d’imposition",
+"representative-identification": "Identité de la personne morale",
+"corporation-identification": "Identité du représentant de la personne morale"
 }
 }
 </i18n>

@@ -80,7 +80,7 @@ import { required } from "vee-validate/dist/rules";
 
 extend("required", {
   ...required,
-  message: "Ce champ est requis",
+  message: "Ce champ est requis"
 });
 
 @Component({
@@ -89,26 +89,26 @@ extend("required", {
     FileUpload,
     ListItem,
     ValidationProvider,
-    ValidationObserver,
+    ValidationObserver
   },
   computed: {
     ...mapState({
       user: "user",
-      currentStep: "currentStep",
-    }),
-  },
+      currentStep: "currentStep"
+    })
+  }
 })
-export default class OrganismIdentification extends Vue {
+export default class CorporationIdentification extends Vue {
   organismName = "";
   acceptedProofs = [
     "Extrait K bis original de la société",
     "Statuts de la personne morale",
-    "Toute autre pièce justifiant de l'existance légale de la personne, prouvant qu'une déclaration a été effectuée auprès d'une administration, une juridiction ou un organisme professionnel.",
+    "Toute autre pièce justifiant de l'existance légale de la personne, prouvant qu'une déclaration a été effectuée auprès d'une administration, une juridiction ou un organisme professionnel."
   ];
   refusedProofs = [
     "Bilan comptable",
     "Attestation cotisation Urssaf",
-    "Toute autre pièce",
+    "Toute autre pièce"
   ];
 
   identificationDocument = new DocumentType();
@@ -128,7 +128,7 @@ export default class OrganismIdentification extends Vue {
     const fieldName = "documents";
     const formData = new FormData();
     if (!this.files.length) return;
-    Array.from(Array(this.files.length).keys()).map((x) => {
+    Array.from(Array(this.files.length).keys()).map(x => {
       formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
     });
 
@@ -139,7 +139,7 @@ export default class OrganismIdentification extends Vue {
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     // TODO use service with right url
-    const url = `//${process.env.VUE_APP_API_URL}/api/register/organismIdentification`;
+    const url = `//${process.env.VUE_APP_API_URL}/api/register/corporationIdentification`;
     axios
       .post(url, formData)
       .then(() => {
