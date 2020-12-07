@@ -18,11 +18,11 @@
                   class="form-control rf-input validate-required"
                   id="email"
                   name="username"
-                  placeholder="Ex : exemple@exemple.fr"
+                  :placeholder="$t('username-placeholder')"
                   type="email"
                 />
                 <span class="rf-error-text" v-if="errors[0]">{{
-                  errors[0]
+                  $t(errors[0])
                 }}</span>
               </div>
             </validation-provider>
@@ -38,14 +38,14 @@
                 }}</label>
                 <input
                   id="password"
-                  placeholder="Ex : 12345679"
+                  :placeholder="$t('password-placeholder')"
                   type="password"
                   v-model="user.password"
                   name="password"
                   class="validate-required form-control rf-input"
                 />
                 <span class="rf-error-text" v-if="errors[0]">{{
-                  errors[0]
+                  $t(errors[0])
                 }}</span>
               </div>
             </validation-provider>
@@ -53,16 +53,16 @@
 
           <div class="rf-col-12 text-center rf-mb-5w">
             <button class="rf-btn" type="submit">
-              valider
+              {{ $t("submit")}}
             </button>
           </div>
           <div class="rf-col-12 text-center rf-mb-3w">
             <router-link to="/forgotten-password"
-              >mot de passe oublié</router-link
+              >{{ $t("forgotten-password") }}</router-link
             >
           </div>
           <div class="rf-col-12 text-center rf-mb-12w">
-            <router-link to="/signup">je n'ai pas encore de compte</router-link>
+            <router-link to="/signup">{{ $t("no-account") }}</router-link>
           </div>
         </div>
       </form>
@@ -79,12 +79,12 @@ import { required, email } from "vee-validate/dist/rules";
 
 extend("email", {
   ...email,
-  message: "Email non valide"
+  message: "email-not-valid"
 });
 
 extend("required", {
   ...required,
-  message: "Ce champ est requis"
+  message: "field-required"
 });
 
 @Component({
@@ -106,14 +106,28 @@ export default class Login extends Vue {
 <i18n>
 {
 "en": {
-"title": "Connexion à mon compte DossierFacile",
+"title": "Connection to my account DossierFacile",
 "email": "Email :",
-"password": "Mot de passe :"
+"password": "Password :",
+"username-placeholder": "E.g. : example@example.fr",
+"password-placeholder": "E.g. : 12345679",
+"submit": "Submit",
+"forgotten-password": "Forgotten password",
+"no-account": "I don't have an account yet",
+"email-not-valid": "Email not valid",
+"field-required": "This field is required"
 },
 "fr": {
 "title": "Connexion à mon compte DossierFacile",
 "email": "Email :",
-"password": "Mot de passe :"
+"password": "Mot de passe :",
+"username-placeholder": "Ex : exemple@exemple.fr",
+"password-placeholder": "Ex : 12345679",
+"submit": "Valider",
+"forgotten-password": "mot de passe oublié",
+"no-account": "je n'ai pas encore de compte",
+"email-not-valid": "Email non valide",
+"field-required": "Ce champ est requis"
 }
 }
 </i18n>
