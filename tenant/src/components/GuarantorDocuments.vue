@@ -1,13 +1,11 @@
 <template>
   <div>
     <div v-if="guarantorStep === 0">
-      <AskGuarantor @on-next-step="guarantorStep=1"></AskGuarantor>
+      <AskGuarantor @on-next-step="guarantorStep = 1"></AskGuarantor>
     </div>
     <div v-if="guarantorStep === 1">
       <div>
-        <label class="rf-label" for="select">
-          Sélectionnez un choix
-        </label>
+        <label class="rf-label" for="select"> Sélectionnez un choix </label>
         <select
           v-model="guarantorType"
           class="rf-select rf-mb-3w"
@@ -16,111 +14,155 @@
         >
           <option value="" selected disabled hidden>- Select -</option>
           <option value="naturalPerson">Un garant physique classique</option>
-          <option value="organism">Un organisme se porte garant pour moi (VISALE par exemple)</option>
+          <option value="organism">
+            Un organisme se porte garant pour moi (VISALE par exemple)
+          </option>
           <option value="legalPerson">Un garant moral</option>
         </select>
       </div>
-
     </div>
-    <div v-if="guarantorType">
-    <div>
-      <div
-        class="document-title"
-        :class="{ selected: substep === 1 }"
-        @click="updateSubstep(1)"
-      >
-        <i
-          class="icon color--primary rf-p-1w"
-          :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
-        ></i>
-        <i
-          class="icon color--primary rf-p-1w icon-User"
-          :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
-        ></i>
-        <h2>{{ $t("identification") }}</h2>
+    <div v-if="guarantorType === 'naturalPerson'">
+      <div>
+        <div
+          class="document-title"
+          :class="{ selected: substep === 1 }"
+          @click="updateSubstep(1)"
+        >
+          <i
+            class="icon color--primary rf-p-1w"
+            :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+          ></i>
+          <i
+            class="icon color--primary rf-p-1w icon-User"
+            :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+          ></i>
+          <h2>{{ $t("identification") }}</h2>
+        </div>
+        <Identification v-if="substep === 1"></Identification>
       </div>
-      <Identification v-if="substep === 1"></Identification>
-    </div>
-    <div>
-      <div
-        class="document-title"
-        :class="{ selected: substep === 2 }"
-        @click="updateSubstep(2)"
-      >
-        <i
-          class="icon color--primary rf-p-1w"
-          :class="substep === 2 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
-        ></i>
-        <i
-          class="icon color--primary rf-p-1w icon-Home-2"
-          :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
-        ></i>
-        <h2>{{ $t("residency") }}</h2>
+      <div>
+        <div
+          class="document-title"
+          :class="{ selected: substep === 2 }"
+          @click="updateSubstep(2)"
+        >
+          <i
+            class="icon color--primary rf-p-1w"
+            :class="substep === 2 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+          ></i>
+          <i
+            class="icon color--primary rf-p-1w icon-Home-2"
+            :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+          ></i>
+          <h2>{{ $t("residency") }}</h2>
+        </div>
+        <Residency v-if="substep === 2"></Residency>
       </div>
-      <Residency v-if="substep === 2"></Residency>
-    </div>
-    <div>
-      <div
-        class="document-title"
-        :class="{ selected: substep === 3 }"
-        @click="updateSubstep(3)"
-      >
-        <i
-          class="icon color--primary rf-p-1w"
-          :class="substep === 3 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
-        ></i>
-        <i
-          class="icon color--primary rf-p-1w icon-Suitcase"
-          :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
-        ></i>
-        <h2>{{ $t("professional") }}</h2>
+      <div>
+        <div
+          class="document-title"
+          :class="{ selected: substep === 3 }"
+          @click="updateSubstep(3)"
+        >
+          <i
+            class="icon color--primary rf-p-1w"
+            :class="substep === 3 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+          ></i>
+          <i
+            class="icon color--primary rf-p-1w icon-Suitcase"
+            :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+          ></i>
+          <h2>{{ $t("professional") }}</h2>
+        </div>
+        <Professional v-if="substep === 3"></Professional>
       </div>
-      <Professional v-if="substep === 3"></Professional>
-    </div>
-    <div>
-      <div
-        class="document-title"
-        :class="{ selected: substep === 4 }"
-        @click="updateSubstep(4)"
-      >
-        <i
-          class="icon color--primary rf-p-1w"
-          :class="substep === 4 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
-        ></i>
-        <i
-          class="icon color--primary rf-p-1w icon-Euro-Sign2"
-          :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
-        ></i>
-        <h2>{{ $t("financial") }}</h2>
+      <div>
+        <div
+          class="document-title"
+          :class="{ selected: substep === 4 }"
+          @click="updateSubstep(4)"
+        >
+          <i
+            class="icon color--primary rf-p-1w"
+            :class="substep === 4 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+          ></i>
+          <i
+            class="icon color--primary rf-p-1w icon-Euro-Sign2"
+            :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+          ></i>
+          <h2>{{ $t("financial") }}</h2>
+        </div>
+        <Financial v-if="substep === 4"></Financial>
       </div>
-      <Financial v-if="substep === 4"></Financial>
-    </div>
-    <div>
-      <div
-        class="document-title"
-        :class="{ selected: substep === 5 }"
-        @click="updateSubstep(5)"
-      >
-        <i
-          class="icon color--primary rf-p-1w"
-          :class="substep === 5 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
-        ></i>
-        <i
-          class="icon color--primary rf-p-1w icon-Files"
-          :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
-        ></i>
-        <h2>{{ $t("tax") }}</h2>
+      <div>
+        <div
+          class="document-title"
+          :class="{ selected: substep === 5 }"
+          @click="updateSubstep(5)"
+        >
+          <i
+            class="icon color--primary rf-p-1w"
+            :class="substep === 5 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+          ></i>
+          <i
+            class="icon color--primary rf-p-1w icon-Files"
+            :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+          ></i>
+          <h2>{{ $t("tax") }}</h2>
+        </div>
+        <Tax v-if="substep === 5"></Tax>
       </div>
-      <Tax v-if="substep === 5"></Tax>
     </div>
-    <div class="rf-col-12 rf-mb-5w">
+    <div v-if="guarantorType === 'organism'">
+      <div>
+        <div
+          class="document-title"
+          :class="{ selected: substep === 1 }"
+          @click="updateSubstep(1)"
+        >
+          <i
+            class="icon color--primary rf-p-1w"
+            :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+          ></i>
+          <i
+            class="icon color--primary rf-p-1w icon-User"
+            :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+          ></i>
+          <h2>{{ $t("identification") }}</h2>
+        </div>
+        <OrganismIdentification v-if="substep === 1"></OrganismIdentification>
+      </div>
+      <div>
+        <div
+          class="document-title"
+          :class="{ selected: substep === 2 }"
+          @click="updateSubstep(2)"
+        >
+          <i
+            class="icon color--primary rf-p-1w"
+            :class="substep === 2 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+          ></i>
+          <i
+            class="icon color--primary rf-p-1w icon-Home-2"
+            :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+          ></i>
+          <h2>{{ $t("residency") }}</h2>
+        </div>
+        <RepresentativeIdentification v-if="substep === 2"></RepresentativeIdentification>
+      </div>
+    </div>
+    <div class="rf-col-12 rf-mb-5w" v-if="guarantorType">
       <div v-if="guarantorType === 'naturalPerson'">
-      J'ajoute un nouveau garant
+        J'ajoute un nouveau garant
       </div>
-      <button class="rf-btn" type="submit" aria-disabled="documentsFilled()" :disabled="documentsFilled()">
+      <button
+        class="rf-btn"
+        type="submit"
+        aria-disabled="documentsFilled()"
+        :disabled="documentsFilled()"
+      >
         Étape suivante - Valider le dossier
       </button>
-    </div>
     </div>
   </div>
 </template>
@@ -128,13 +170,24 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Identification from "@/components/documents/Identification.vue";
+import RepresentativeIdentification from "@/components/documents/RepresentativeIdentification.vue";
+import OrganismIdentification from "@/components/documents/OrganismIdentification.vue";
 import Residency from "@/components/documents/Residency.vue";
 import Professional from "@/components/documents/Professional.vue";
 import Financial from "@/components/documents/Financial.vue";
 import Tax from "@/components/documents/Tax.vue";
 import AskGuarantor from "@/components/AskGuarantor.vue";
 @Component({
-  components: { AskGuarantor, Tax, Financial, Professional, Residency, Identification }
+  components: {
+    AskGuarantor,
+    Tax,
+    Financial,
+    Professional,
+    Residency,
+    Identification,
+    RepresentativeIdentification,
+    OrganismIdentification
+  },
 })
 export default class GuarantorDocuments extends Vue {
   guarantorStep = 0;
