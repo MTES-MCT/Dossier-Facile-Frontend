@@ -33,8 +33,8 @@ export const AuthService = {
   },
 
   resetPassword(user: User) {
-    return axios.post(API_URL + "reset", {
-      username: user.username
+    return axios.post(API_URL + "user/forgotPassword", {
+      email: user.username
     });
   },
 
