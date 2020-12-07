@@ -172,12 +172,12 @@ td {
 {
 "en": {
   "organism-name": "Nom de la personne morale",
-  "organism-name-placeholder": "",
+  "organism-name-placeholder": "Nom",
   "kbis-label": "J’ajoute un extrait K bis de la société, ou toute autre pièce justifiant de l'existence légale de la personne."
 },
 "fr": {
   "organism-name": "Nom de la personne morale",
-  "organism-name-placeholder": "",
+  "organism-name-placeholder": "Nom",
   "kbis-label": "J’ajoute un extrait K bis de la société, ou toute autre pièce justifiant de l'existence légale de la personne."
 }
 }
