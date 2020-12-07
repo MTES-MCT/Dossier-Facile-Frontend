@@ -18,7 +18,7 @@
                   class="form-control rf-input validate-required"
                   id="email"
                   name="username"
-                  placeholder="Ex : exemple@exemple.fr"
+                  :placeholder="$t('placeholder')"
                   type="email"
                 />
                 <span class="rf-error-text" v-if="errors[0]">{{
@@ -30,7 +30,7 @@
 
           <div class="rf-col-12 text-center rf-mb-5w">
             <button class="rf-btn" type="submit">
-              valider
+              {{ $t('submit')}}
             </button>
           </div>
         </div>
@@ -75,12 +75,18 @@ export default class ForgottenPassword extends Vue {
 <i18n>
 {
 "en": {
-"title": "Mot de passe perdu ?",
-"email": "Entrez l'email utilisé lors de la création du compte (attention aux majuscules) :"
+"title": "Forgotten password ?",
+"email": "Enter the email address used when creating the account (attention to case sensitivity) :",
+"submit": "Submit",
+"placeholder": "E.g. : example@example.fr",
+"email-notvalid": "Email non valide"
 },
 "fr": {
 "title": "Mot de passe perdu ?",
-"email": "Entrez l'email utilisé lors de la création du compte (attention aux majuscules) :"
+"email": "Entrez l'email utilisé lors de la création du compte (attention aux majuscules) :",
+"submit": "Valider",
+"placeholder": "Ex : exemple@exemple.fr",
+"email-notvalid": "Email non valide"
 }
 }
 </i18n>
