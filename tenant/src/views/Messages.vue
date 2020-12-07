@@ -334,7 +334,7 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import NakedCard from "../components/NakedCard.vue";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 @Component({
   components: { NakedCard }

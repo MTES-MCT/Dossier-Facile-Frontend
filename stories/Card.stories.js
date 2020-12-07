@@ -1,4 +1,4 @@
-import Card from "tenant/src/components/Card";
+import Card from "df-shared/src/components/Card";
 
 export default {
     title: 'Example/Card',
