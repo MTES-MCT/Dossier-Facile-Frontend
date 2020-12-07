@@ -22,7 +22,7 @@
             </div>
           </validation-provider>
         </div>
-        <div class="rf-col-12 rf-margin-bottom-3N">
+        <div class="rf-col-12 rf-mb-3w">
           <input
             type="checkbox"
             id="authorize"

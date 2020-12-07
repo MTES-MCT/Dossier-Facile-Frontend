@@ -36,6 +36,7 @@ export default class LeftEditMenu extends Vue {
     if (s <= this.step) {
       return "active";
     }
+    return "";
   }
 }
 </script>
@@ -59,7 +60,7 @@ export default class LeftEditMenu extends Vue {
 .spacer {
   flex: auto;
   margin-left: 17px;
-  margin-top: -17px;
+  margin-top: -26px;
   margin-bottom: -17px;
   border-left: 1px solid white;
   z-index: 0;
@@ -74,7 +75,7 @@ export default class LeftEditMenu extends Vue {
 }
 
 .step-number {
-  padding: 5px;
+  padding: 1px;
   background-color: white;
   margin: 0 5px;
   border-radius: 50%;

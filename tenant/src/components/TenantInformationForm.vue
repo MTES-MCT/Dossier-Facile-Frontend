@@ -55,7 +55,7 @@
       </fieldset>
     </div>
 
-    <div class="rf-margin-bottom-5N">
+    <div class="rf-mb-5w">
       <button class="rf-btn" type="submit" @click="handleOthersInformation">
         {{ $t("confirm") }}
       </button>
@@ -64,7 +64,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import { User } from "df-shared/src/models/User";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";

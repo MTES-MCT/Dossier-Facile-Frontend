@@ -3,15 +3,15 @@
     <header class="rf-header">
       <div class="rf-container">
         <MyHeader
-          v-on:on-create-tenant="onCreateTenant"
-          v-on:on-create-owner="onCreateOwner"
+          @on-create-tenant="onCreateTenant"
+          @on-create-owner="onCreateOwner"
         />
         <Menu />
       </div>
     </header>
     <router-view />
     <MyFooter />
-    <Cookies :hidden="cookieHidden" v-on:hide-cookie="hideCookie" />
+    <Cookies :hidden="cookieHidden" @hide-cookie="hideCookie" />
 
   </div>
 </template>

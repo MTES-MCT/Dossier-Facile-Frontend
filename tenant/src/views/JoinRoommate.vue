@@ -2,12 +2,12 @@
   <div class="rf-container">
     <div class="rf-grid-row rf-grid-row--center">
       <div class="col-md-8 col-lg-6">
-        <h2 class="rf-h2 text-center rf-margin-top-7N rf-margin-bottom-5N">
+        <h2 class="rf-h2 text-center rf-mt-7w rf-mb-5w">
           {{ $t("title") }}
         </h2>
         <form name="form" @submit.prevent="handleRegister">
           <div class="rf-grid-row rf-grid-row--center">
-            <div class="rf-col-12 rf-margin-bottom-3N">
+            <div class="rf-col-12 rf-mb-3w">
               <validation-provider
                 rules="required"
                 v-slot="{ errors }"
@@ -35,7 +35,7 @@
                 </div>
               </validation-provider>
             </div>
-            <div class="rf-col-12 rf-margin-bottom-3N">
+            <div class="rf-col-12 rf-mb-3w">
               <validation-provider
                 rules="required|confirmed:password"
                 v-slot="{ errors }"
@@ -62,15 +62,15 @@
               </validation-provider>
             </div>
 
-            <div class="rf-col-12 rf-margin-bottom-3N">
+            <div class="rf-col-12 rf-mb-3w">
               <vue-recaptcha
                 :sitekey="SITE_KEY"
                 :loadRecaptchaScript="true"
-                v-on:verify="onVerify"
+                @verify="onVerify"
               ></vue-recaptcha>
             </div>
 
-            <div class="rf-col-12 text-center rf-margin-bottom-5N">
+            <div class="rf-col-12 text-center rf-mb-5w">
               <button class="rf-btn" type="submit">
                 valider
               </button>

@@ -4,9 +4,9 @@
       <div class="rf-container">
         <MyHeader
           :logged-in="status.loggedIn"
-          v-on:on-login="onLogin"
-          v-on:on-logout="onLogout"
-          v-on:on-create-account="onCreateAccount"
+          @on-login="onLogin"
+          @on-logout="onLogout"
+          @on-create-account="onCreateAccount"
         />
         <Menu :user="user" />
       </div>

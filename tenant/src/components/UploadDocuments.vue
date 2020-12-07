@@ -90,8 +90,14 @@
       </div>
       <Tax v-if="substep === 5"></Tax>
     </div>
-    <div class="rf-col-12 rf-margin-bottom-5N">
-      <button class="rf-btn" type="submit" aria-disabled="true" disabled>
+    <div class="rf-col-12 rf-mb-5w">
+      <button
+        class="rf-btn"
+        type="submit"
+        aria-disabled="documentsFilled()"
+        :disabled="documentsFilled()"
+        @click="goToGuarantor()"
+      >
         Suivant
       </button>
     </div>
@@ -100,11 +106,11 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Identification from "@/components/Identification.vue";
-import Residency from "@/components/Residency.vue";
-import Professional from "@/components/Professional.vue";
-import Financial from "@/components/Financial.vue";
-import Tax from "@/components/Tax.vue";
+import Identification from "@/components/documents/Identification.vue";
+import Residency from "@/components/documents/Residency.vue";
+import Professional from "@/components/documents/Professional.vue";
+import Financial from "@/components/documents/Financial.vue";
+import Tax from "@/components/documents/Tax.vue";
 @Component({
   components: { Tax, Financial, Professional, Residency, Identification }
 })
@@ -113,6 +119,15 @@ export default class UploadDocuments extends Vue {
 
   updateSubstep(s: number) {
     this.substep = s === this.substep ? 0 : s;
+  }
+
+  documentsFilled() {
+    // TODO
+    return false;
+  }
+
+  goToGuarantor() {
+    this.$store.commit("setStep", 3);
   }
 }
 </script>

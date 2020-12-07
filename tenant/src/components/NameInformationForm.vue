@@ -6,7 +6,7 @@
         @submit.prevent="validate().then(handleNameInformation)"
       >
         <div class="rf-grid-row rf-grid-row--center">
-          <div class="rf-col-12 rf-margin-bottom-3N">
+          <div class="rf-col-12 rf-mb-3w">
             <validation-provider rules="required" v-slot="{ errors }">
               <div
                 class="rf-input-group"
@@ -29,7 +29,7 @@
               </div>
             </validation-provider>
           </div>
-          <div class="rf-col-12 rf-margin-bottom-3N">
+          <div class="rf-col-12 rf-mb-3w">
             <validation-provider rules="required" v-slot="{ errors }">
               <div
                 class="rf-input-group"
@@ -52,7 +52,7 @@
               </div>
             </validation-provider>
           </div>
-          <div class="rf-col-12 rf-margin-bottom-3N">
+          <div class="rf-col-12 rf-mb-3w">
             <validation-provider
               :rules="{ regex: /^[0-9]{4,5}$/ }"
               v-slot="{ errors }"
@@ -79,7 +79,7 @@
             </validation-provider>
           </div>
 
-          <div class="rf-col-12 rf-margin-bottom-5N">
+          <div class="rf-col-12 rf-mb-5w">
             <button class="rf-btn" type="submit">
               {{ $t("confirm") }}
             </button>

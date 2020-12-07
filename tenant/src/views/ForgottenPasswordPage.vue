@@ -1,6 +1,6 @@
 <template>
   <div class="rf-container">
-    <ForgottenPassword v-on:on-forgotten-password="onForgottenPassword" />
+    <ForgottenPassword @on-forgotten-password="onForgottenPassword" />
   </div>
 </template>
 
