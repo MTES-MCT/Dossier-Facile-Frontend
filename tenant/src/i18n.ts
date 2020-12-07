@@ -21,7 +21,7 @@ function loadLocaleMessages(): LocaleMessages {
 }
 
 export default new VueI18n({
-  locale: process.env.VUE_APP_I18N_LOCALE || "en",
-  fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || "en",
+  locale: navigator.language || "fr",
+  fallbackLocale: navigator.language || "fr",
   messages: loadLocaleMessages()
 });
