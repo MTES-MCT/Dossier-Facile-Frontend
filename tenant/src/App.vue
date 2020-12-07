@@ -4,9 +4,9 @@
       <div class="rf-container">
         <MyHeader
           :logged-in="status.loggedIn"
-          @on-login="onLogin"
+          @on-create-tenant="onCreateTenant"
+          @on-create-owner="onCreateOwner"
           @on-logout="onLogout"
-          @on-create-account="onCreateAccount"
         />
         <Menu :user="user" />
       </div>
@@ -52,8 +52,12 @@ export default class App extends Vue {
       }
     );
   }
-  onCreateAccount() {
+  onCreateTenant() {
     this.$router.push("/signup");
+  }
+
+  onCreateOwner() {
+    window.location.href = "http://localhost:9003/signup";
   }
 }
 </script>

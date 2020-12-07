@@ -105,7 +105,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapState } from "vuex";
-import NakedCard from "./NakedCard.vue";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
 import { User } from "df-shared/src/models/User";
 
 @Component({
