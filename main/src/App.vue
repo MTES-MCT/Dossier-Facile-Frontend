@@ -6,7 +6,6 @@
           @on-create-tenant="onCreateTenant"
           @on-create-owner="onCreateOwner"
         />
-        <Menu />
       </div>
     </header>
     <router-view />
@@ -20,7 +19,6 @@
 import { Vue, Component } from "vue-property-decorator";
 import MyHeader from "df-shared/src/Header/Header.vue";
 import MyFooter from "df-shared/src/Footer/Footer.vue";
-import Menu from "@/components/Menu.vue";
 import Modal from "df-shared/src/components/Modal.vue";
 import Cookies from "df-shared/src/Footer/Cookies.vue";
 
@@ -28,7 +26,6 @@ import Cookies from "df-shared/src/Footer/Cookies.vue";
   components: {
     MyHeader,
     MyFooter,
-    Menu,
     Modal,
     Cookies
   },

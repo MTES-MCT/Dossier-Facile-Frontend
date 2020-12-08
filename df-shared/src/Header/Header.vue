@@ -7,7 +7,7 @@
         title="Ministère de la transition écologique et solidaire"
       >
         <span class="rf-logo__title">
-          Ministère <br />de la transition <br />écologique <br />et solidaire
+          République <br />française
         </span>
       </a>
     </div>
