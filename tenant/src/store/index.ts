@@ -13,6 +13,7 @@ const initialLoggedIn = !!initialUser;
 export default new Vuex.Store({
   state: {
     currentStep: 0,
+    guarantorStep: 0,
     user: initialUser,
     status: { loggedIn: initialLoggedIn }
   },
@@ -46,6 +47,9 @@ export default new Vuex.Store({
     },
     setStep(state, n: number) {
       state.currentStep = n;
+    },
+    setGuarantorStep(state, n: number) {
+      state.guarantorStep = n;
     },
     loadUser(state, user) {
       state.user = user;

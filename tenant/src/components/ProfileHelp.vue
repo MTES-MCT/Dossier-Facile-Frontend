@@ -1,23 +1,28 @@
 <template>
 <div>
   <NameInformationHelp v-if="currentStep === 0"></NameInformationHelp>
+  <DocumentHelp v-if="currentStep === 2"></DocumentHelp>
+  <GuarantorChoiceHelp v-if="currentStep === 3 && guarantorStep === 0"></GuarantorChoiceHelp>
 </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import NameInformationHelp from "./helps/NameInformationHelp.vue";
+import GuarantorChoiceHelp from "./helps/GuarantorChoiceHelp.vue";
+import DocumentHelp from "./helps/DocumentHelp.vue";
 import { mapState } from "vuex";
 
 @Component({
-  components: { NameInformationHelp },
+  components: { NameInformationHelp, DocumentHelp, GuarantorChoiceHelp },
   computed: {
     ...mapState({
-      currentStep: "currentStep"
+      currentStep: "currentStep",
+      guarantorStep: "guarantorStep"
     })
   }
 })
-export default class Help extends Vue {
+export default class ProfileHelp extends Vue {
   public currentStep!: number;
   expanded = false;
 }

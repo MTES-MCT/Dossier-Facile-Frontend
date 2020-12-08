@@ -33,7 +33,7 @@
       </div>
       <div class="rf-col-md-3 rf-col-sm-12">
         <EditSummary></EditSummary>
-        <Help></Help>
+        <ProfileHelp></ProfileHelp>
       </div>
     </div>
   </div>
@@ -43,7 +43,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import LeftEditMenu from "@/components/LeftEditMenu.vue";
 import EditSummary from "@/components/EditSummary.vue";
-import Help from "@/components/Help.vue";
+import ProfileHelp from "@/components/ProfileHelp.vue";
 import NameInformationForm from "@/components/NameInformationForm.vue";
 import { mapState } from "vuex";
 import TenantInformationForm from "@/components/TenantInformationForm.vue";
@@ -54,7 +54,7 @@ import ValidateFile from "@/components/ValidateFile.vue";
 @Component({
   components: {
     TenantInformationForm,
-    Help,
+    ProfileHelp,
     EditSummary,
     LeftEditMenu,
     NameInformationForm,
