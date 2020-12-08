@@ -30,14 +30,24 @@
             <a href="https://beta.gouv.fr/">Les startups d'Etat</a>
           </li>
           <li>
-            <router-link to="/faq">
+            <a :href="`${VUE_APP_MAIN_URL}/faq`">
               {{ $t("faq") }}
-            </router-link>
+            </a>
           </li>
           <li>
-            <router-link to="/securite-des-donnees">
+            <a :href="`${VUE_APP_MAIN_URL}/blog`">
+              {{ $t("blog") }}
+            </a>
+          </li>
+          <li>
+            <a :href="`${VUE_APP_MAIN_URL}/information`">
+              {{ $t("information") }}
+            </a>
+          </li>
+          <li>
+            <a :href="`${VUE_APP_MAIN_URL}/securite-des-donnees`">
               {{ $t("legals") }}
-            </router-link>
+            </a>
           </li>
           <li>
             <a href="mailto:contact@dossierfacile.fr">{{ $t("contact") }}</a>
@@ -54,8 +64,11 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
+
 @Component
-export default class MyFooter extends Vue {}
+export default class MyFooter extends Vue {
+  VUE_APP_MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+}
 </script>
 
 <style lang="scss" scoped>
@@ -69,12 +82,16 @@ export default class MyFooter extends Vue {}
   "en": {
     "contact": "You can contact us at contact@dossierfacile.fr",
     "legals": "Legal notice",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "blog": "Blog",
+    "information": "Information"
   },
   "fr": {
     "contact": "Vous pouvez nous contacter à contact@dossierfacile.fr",
     "legals": "Mentions Légales - CGU",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "blog": "Blog",
+    "information": "En savoir plus"
   }
 }
 </i18n>
