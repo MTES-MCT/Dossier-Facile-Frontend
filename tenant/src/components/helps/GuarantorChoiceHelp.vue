@@ -6,9 +6,14 @@
     <template v-slot:body>
       <p>
         {{ $t("paragraph1") }}
+        <br>
+        {{ $t("paragraph2") }}
       </p>
       <p>
-        {{ $t("paragraph2") }}
+        {{ $t("paragraph3") }}
+      </p>
+      <p>
+        {{ $t("paragraph4") }}
       </p>
     </template>
   </Card>

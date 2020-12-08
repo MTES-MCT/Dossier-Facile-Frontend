@@ -2,7 +2,7 @@
 <div>
   <NameInformationHelp v-if="currentStep === 0"></NameInformationHelp>
   <DocumentHelp v-if="currentStep === 2"></DocumentHelp>
-  <GuarantorChoiceHelp v-if="currentStep === 3 && guarantorStep === 0"></GuarantorChoiceHelp>
+  <GuarantorChoiceHelp v-if="currentStep === 3"></GuarantorChoiceHelp>
 </div>
 </template>
 
@@ -17,8 +17,7 @@ import { mapState } from "vuex";
   components: { NameInformationHelp, DocumentHelp, GuarantorChoiceHelp },
   computed: {
     ...mapState({
-      currentStep: "currentStep",
-      guarantorStep: "guarantorStep"
+      currentStep: "currentStep"
     })
   }
 })
