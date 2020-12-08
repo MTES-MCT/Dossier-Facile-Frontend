@@ -1,31 +1,28 @@
 <template>
-  <Card>
-    <template v-slot:header>
-      {{ $t("title") }}
-    </template>
-    <template v-slot:body>
-      <p>
-        {{ $t("paragraph1.0") }}<b>{{ $t("paragraph1.1") }}</b>
-      </p>
-      <p>
-        {{ $t("paragraph2") }}
-      </p>
-      <p>
-        {{ $t("paragraph3.0") }}<b>{{ $t("paragraph3.1") }}</b
-        >{{ $t("paragraph3.2") }}
-      </p>
-    </template>
-  </Card>
+<div>
+  <NameInformationHelp v-if="currentStep === 0"></NameInformationHelp>
+  <DocumentHelp v-if="currentStep === 2"></DocumentHelp>
+  <GuarantorChoiceHelp v-if="currentStep === 3"></GuarantorChoiceHelp>
+</div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Card from "df-shared/src/components/Card.vue";
+import NameInformationHelp from "./helps/NameInformationHelp.vue";
+import GuarantorChoiceHelp from "./helps/GuarantorChoiceHelp.vue";
+import DocumentHelp from "./helps/DocumentHelp.vue";
+import { mapState } from "vuex";
 
 @Component({
-  components: { Card }
+  components: { NameInformationHelp, DocumentHelp, GuarantorChoiceHelp },
+  computed: {
+    ...mapState({
+      currentStep: "currentStep"
+    })
+  }
 })
-export default class Help extends Vue {
+export default class ProfileHelp extends Vue {
+  public currentStep!: number;
   expanded = false;
 }
 </script>

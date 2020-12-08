@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="guarantorStep === 0">
-      <AskGuarantor @on-next-step="guarantorStep = 1"></AskGuarantor>
+      <AskGuarantor @on-next-step="setGuarantorStep(1)"></AskGuarantor>
     </div>
     <div v-if="guarantorStep === 1">
       <div>
@@ -185,6 +185,8 @@ import Professional from "@/components/documents/Professional.vue";
 import Financial from "@/components/documents/Financial.vue";
 import Tax from "@/components/documents/Tax.vue";
 import AskGuarantor from "@/components/AskGuarantor.vue";
+import { mapState } from "vuex";
+
 @Component({
   components: {
     AskGuarantor,
@@ -196,10 +198,14 @@ import AskGuarantor from "@/components/AskGuarantor.vue";
     RepresentativeIdentification,
     CorporationIdentification,
     OrganismCert
+  },
+  computed: {
+    ...mapState({
+      guarantorStep: "guarantorStep"
+    })
   }
 })
 export default class GuarantorDocuments extends Vue {
-  guarantorStep = 0;
   substep = 0;
   guarantorSelected = null;
   guarantorType = "";
@@ -211,6 +217,10 @@ export default class GuarantorDocuments extends Vue {
   documentsFilled() {
     // TODO
     return false;
+  }
+
+  setGuarantorStep(n: number) {
+    this.$store.commit("setGuarantorStep", n);
   }
 }
 </script>
