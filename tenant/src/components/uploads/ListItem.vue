@@ -3,8 +3,14 @@
     <div class="text">
       {{ filename }}
     </div>
+    <div class="text">
+      {{ $t(documentSubCategory) }}
+    </div>
     <div class="progress">
       <Progress :percentage="percentage" :state="uploadState" />
+    </div>
+    <div class="cursor--pointer" @click="remove()">
+      <span class="icon icon-Close text-danger"></span>
     </div>
   </div>
 </template>
@@ -18,12 +24,14 @@ import Progress from "./Progress.vue";
   }
 })
 export default class ListItem extends Vue {
-  @Prop({ default: "" })
-  private filename!: string;
-  @Prop({ default: "idle" })
-  private uploadState!: string;
-  @Prop({ default: 0 })
-  private percentage!: number;
+  @Prop({ default: "" }) filename!: string;
+  @Prop({ default: "" }) documentSubCategory!: string;
+  @Prop({ default: "idle" }) uploadState!: string;
+  @Prop({ default: 0 }) percentage!: number;
+
+  remove() {
+    this.$emit("remove");
+  }
 }
 </script>
 
@@ -42,3 +50,23 @@ export default class ListItem extends Vue {
   align-items: center;
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "FRENCH_IDENTITY_CARD": "Carte d'identité",
+    "FRENCH_PASSPORT": "Passport",
+    "FRENCH_RESIDENCE_PERMIT": "Permis de conduire",
+    "OTHER_IDENTIFICATION": "Autre",
+    "CERTIFICATE_VISA": "Visa"
+  },
+  "fr": {
+    "FRENCH_IDENTITY_CARD": "Carte d'identité",
+    "FRENCH_PASSPORT": "Passport",
+    "FRENCH_RESIDENCE_PERMIT": "Permis de conduire",
+    "OTHER_IDENTIFICATION": "Autre",
+    "CERTIFICATE_VISA": "Visa"
+  }
+}
+</i18n>
+

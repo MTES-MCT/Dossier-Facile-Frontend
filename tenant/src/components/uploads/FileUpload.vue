@@ -1,6 +1,6 @@
 <template>
   <div class="file-upload rf-col-6">
-    <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving">
+    <form enctype="multipart/form-data" novalidate>
       <div class="dropbox">
         <input
           type="file"
@@ -12,25 +12,10 @@
           "
           class="input-file"
         />
-        <p v-if="isInitial()">
+        <p v-if="canUpload()">
           Ajouter un ou plusieurs documents
         </p>
         <p v-if="isSaving()">Téléchargement de {{ fileCount }} fichiers...</p>
-        <div v-if="isSuccess()">
-          <h2>Uploaded {{ uploadedFiles.length }} file(s) successfully.</h2>
-          <p>
-            <a href="javascript:void(0)" @click="reset()">Upload again</a>
-          </p>
-          <ul class="list-unstyled">
-            <li v-for="(item, k) in uploadedFiles" :key="k">
-              <img
-                :src="item.url"
-                class="img-responsive img-thumbnail"
-                :alt="item.originalName"
-              />
-            </li>
-          </ul>
-        </div>
         <div v-if="isFailed()">
           <h2>Problème d'envoie.</h2>
           <p>
@@ -60,8 +45,8 @@ export default class FileUpload extends Vue {
   uploadedFiles = [];
   fileCount = 0;
 
-  isInitial() {
-    return this.currentStatus === STATUS_INITIAL;
+  canUpload() {
+    return this.currentStatus === STATUS_INITIAL || this.currentStatus === STATUS_SUCCESS;
   }
 
   isSaving() {

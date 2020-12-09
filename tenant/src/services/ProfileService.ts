@@ -12,7 +12,7 @@ export const ProfileService = {
     );
   },
   saveRoommates(data: {
-    tenantType: string;
+    applicationType: string;
     coTenantEmail: string[];
     acceptAccess: boolean;
   }) {
