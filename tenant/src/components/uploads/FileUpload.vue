@@ -46,7 +46,10 @@ export default class FileUpload extends Vue {
   fileCount = 0;
 
   canUpload() {
-    return this.currentStatus === STATUS_INITIAL || this.currentStatus === STATUS_SUCCESS;
+    return (
+      this.currentStatus === STATUS_INITIAL ||
+      this.currentStatus === STATUS_SUCCESS
+    );
   }
 
   isSaving() {

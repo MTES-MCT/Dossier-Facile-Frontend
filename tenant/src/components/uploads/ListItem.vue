@@ -69,4 +69,3 @@ export default class ListItem extends Vue {
   }
 }
 </i18n>
-

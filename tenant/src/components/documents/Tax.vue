@@ -71,7 +71,11 @@
         class="rf-btn"
         type="submit"
         @click="save"
-        :disabled="!taxDocument.key || taxDocument.key === 'my-name' && (files.length <= 0 || !acceptVerification)"
+        :disabled="
+          !taxDocument.key ||
+            (taxDocument.key === 'my-name' &&
+              (files.length <= 0 || !acceptVerification))
+        "
       >
         Enregistrer la pièce
       </button>
@@ -94,9 +98,9 @@ import ListItem from "@/components/uploads/ListItem.vue";
   computed: {
     ...mapState({
       user: "user",
-      currentStep: "currentStep",
-    }),
-  },
+      currentStep: "currentStep"
+    })
+  }
 })
 export default class Tax extends Vue {
   acceptVerification = false;
@@ -118,7 +122,7 @@ export default class Tax extends Vue {
     const fieldName = "documents";
     const formData = new FormData();
     if (!this.files.length) return;
-    Array.from(Array(this.files.length).keys()).map((x) => {
+    Array.from(Array(this.files.length).keys()).map(x => {
       formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
     });
 
@@ -152,8 +156,8 @@ export default class Tax extends Vue {
       refusedProofs: [
         "Avis d’imposition incomplet (sans la première page)",
         "Tout avis d’imposition plus ancien",
-        "Tout autre document justificatif",
-      ],
+        "Tout autre document justificatif"
+      ]
     },
     {
       key: "my-parents",
@@ -161,14 +165,14 @@ export default class Tax extends Vue {
       explanationText:
         "J’ai déclaré être rattaché·e au domicile fiscal de mes parents.",
       acceptedProofs: [],
-      refusedProofs: [],
+      refusedProofs: []
     },
     {
       key: "less-than-year",
       value: "LESS_THAN_YEAR",
       explanationText: "J’ai déclaré être en France depuis moins d’un an.",
       acceptedProofs: [],
-      refusedProofs: [],
+      refusedProofs: []
     },
     {
       key: "other-tax",
@@ -176,8 +180,8 @@ export default class Tax extends Vue {
       explanationText:
         "Afin d’améliorer mon dossier, j’explique ci-dessous pourquoi je ne reçois pas d’avis d’imposition. Mon explication sera ajoutée à mon dossier :",
       acceptedProofs: [],
-      refusedProofs: [],
-    },
+      refusedProofs: []
+    }
   ];
 }
 </script>

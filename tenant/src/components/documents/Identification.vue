@@ -163,8 +163,16 @@ export default class Identification extends Vue {
   }
 
   identificationDocuments() {
-    const newFiles = this.files.map(f => { return {documentSubCategory: this.identificationDocument.value, id: f.name}});
-    const existingFiles = this.user?.documents?.filter(d => { return d.documentCategory === 'IDENTIFICATION'}) || [];
+    const newFiles = this.files.map(f => {
+      return {
+        documentSubCategory: this.identificationDocument.value,
+        id: f.name
+      };
+    });
+    const existingFiles =
+      this.user?.documents?.filter(d => {
+        return d.documentCategory === "IDENTIFICATION";
+      }) || [];
     return [...newFiles, ...existingFiles];
   }
 

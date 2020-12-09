@@ -1,9 +1,9 @@
 <template>
-<div>
-  <NameInformationHelp v-if="currentStep === 0"></NameInformationHelp>
-  <DocumentHelp v-if="currentStep === 2"></DocumentHelp>
-  <GuarantorChoiceHelp v-if="currentStep === 3"></GuarantorChoiceHelp>
-</div>
+  <div>
+    <NameInformationHelp v-if="currentStep === 0"></NameInformationHelp>
+    <DocumentHelp v-if="currentStep === 2"></DocumentHelp>
+    <GuarantorChoiceHelp v-if="currentStep === 3"></GuarantorChoiceHelp>
+  </div>
 </template>
 
 <script lang="ts">

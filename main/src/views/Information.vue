@@ -193,5 +193,4 @@ a {
   background-image: url("../assets/images/en-savoir-plus/en-savoir-plus-image2.jpg");
   z-index: 0;
 }
-
 </style>

@@ -6,7 +6,7 @@
     <template v-slot:body>
       <p>
         {{ $t("paragraph1") }}
-        <br>
+        <br />
         {{ $t("paragraph2") }}
       </p>
       <p>
@@ -24,7 +24,7 @@ import { Component, Vue } from "vue-property-decorator";
 import Card from "df-shared/src/components/Card.vue";
 
 @Component({
-  components: { Card },
+  components: { Card }
 })
 export default class GuarantorChoiceHelp extends Vue {
   expanded = false;

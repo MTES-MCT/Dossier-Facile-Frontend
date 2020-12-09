@@ -11,7 +11,6 @@
     <router-view />
     <MyFooter />
     <Cookies :hidden="cookieHidden" @hide-cookie="hideCookie" />
-
   </div>
 </template>
 
@@ -29,7 +28,7 @@ import Cookies from "df-shared/src/Footer/Cookies.vue";
     Modal,
     Cookies
   },
-  mounted: function () {
+  mounted: function() {
     const localScript = document.createElement("script");
     localScript.setAttribute("src", "/js/all.js");
     document.head.appendChild(localScript);

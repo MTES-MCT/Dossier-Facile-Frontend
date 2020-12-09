@@ -3,7 +3,7 @@ import Vuex from "vuex";
 import { AuthService } from "df-shared/src/services/AuthService";
 import { ProfileService } from "@/services/ProfileService";
 import router from "../router";
-import { Guarantor } from 'df-shared/src/models/Guarantor';
+import { Guarantor } from "df-shared/src/models/Guarantor";
 
 Vue.use(Vuex);
 
@@ -16,7 +16,7 @@ export default new Vuex.Store({
     currentStep: 0,
     guarantorStep: 0,
     user: initialUser,
-    selectedGuarantor: new Guarantor,
+    selectedGuarantor: new Guarantor(),
     status: { loggedIn: initialLoggedIn }
   },
   mutations: {
