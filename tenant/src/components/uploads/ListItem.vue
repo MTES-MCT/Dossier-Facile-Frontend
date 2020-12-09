@@ -3,6 +3,9 @@
     <div class="text">
       {{ filename }}
     </div>
+    <div class="text">
+      {{ $t(documentSubCategory) }}
+    </div>
     <div class="progress">
       <Progress :percentage="percentage" :state="uploadState" />
     </div>
@@ -20,6 +23,7 @@ import Progress from "./Progress.vue";
 })
 export default class ListItem extends Vue {
   @Prop({ default: "" }) filename!: string;
+  @Prop({ default: "" }) documentSubCategory!: string;
   @Prop({ default: "idle" }) uploadState!: string;
   @Prop({ default: 0 }) percentage!: number;
 }
@@ -40,3 +44,23 @@ export default class ListItem extends Vue {
   align-items: center;
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "FRENCH_IDENTITY_CARD": "Carte d'identité",
+    "FRENCH_PASSPORT": "Passport",
+    "FRENCH_RESIDENCE_PERMIT": "Permis de conduire",
+    "OTHER_IDENTIFICATION": "Autre",
+    "CERTIFICATE_VISA": "Visa"
+  },
+  "fr": {
+    "FRENCH_IDENTITY_CARD": "Carte d'identité",
+    "FRENCH_PASSPORT": "Passport",
+    "FRENCH_RESIDENCE_PERMIT": "Permis de conduire",
+    "OTHER_IDENTIFICATION": "Autre",
+    "CERTIFICATE_VISA": "Visa"
+  }
+}
+</i18n>
+

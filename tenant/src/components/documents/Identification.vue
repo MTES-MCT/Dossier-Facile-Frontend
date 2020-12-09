@@ -11,7 +11,6 @@
         id="select"
         name="select"
       >
-        <option value="" selected disabled hidden>- Select -</option>
         <option v-for="d in documents" :value="d" :key="d.key">{{
           $t(d.key)
         }}</option>
@@ -41,6 +40,7 @@
         v-for="file in identificationDocuments()"
         :key="file.id"
         :filename="file.id"
+        :documentSubCategory="file.documentSubCategory"
       />
     </div>
     <div class="rf-col-12 rf-mb-5w" v-if="identificationDocument">
