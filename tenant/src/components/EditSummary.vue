@@ -197,10 +197,15 @@ export default class EditSummary extends Vue {
     return this.user.documents !== undefined && this.user.documents?.length > 0;
   }
   hasDoc(docType: string) {
-    return this.user.documents?.find((d) => {return d.documentCategory === docType});
+    return this.user.documents?.find(d => {
+      return d.documentCategory === docType;
+    });
   }
   hasGuarantor() {
-    return this.selectedGuarantor?.documents !== undefined && this.selectedGuarantor.documents.length > 0;
+    return (
+      this.selectedGuarantor?.documents !== undefined &&
+      this.selectedGuarantor.documents.length > 0
+    );
   }
 }
 </script>

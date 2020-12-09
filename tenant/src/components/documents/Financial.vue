@@ -126,9 +126,9 @@ import { ValidationProvider } from "vee-validate";
   computed: {
     ...mapState({
       user: "user",
-      currentStep: "currentStep",
-    }),
-  },
+      currentStep: "currentStep"
+    })
+  }
 })
 export default class Financial extends Vue {
   noDocument = false;
@@ -154,13 +154,17 @@ export default class Financial extends Vue {
       if (!this.files.length) {
         return;
       }
-      Array.from(Array(this.files.length).keys()).map((x) => {
-        formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
+      Array.from(Array(this.files.length).keys()).map(x => {
+        formData.append(
+          `${fieldName}[${x}]`,
+          this.files[x],
+          this.files[x].name
+        );
       });
     }
 
     formData.append("typeDocumentFinancial", this.financialDocument.value);
-    formData.append("noDocument", this.noDocument ? 'true' : 'false');
+    formData.append("noDocument", this.noDocument ? "true" : "false");
     if (this.monthlySum) {
       formData.append("monthlySum", this.monthlySum.toString());
     }
@@ -188,15 +192,15 @@ export default class Financial extends Vue {
       acceptedProofs: [
         "3 derniers bulletins de salaire",
         "Justificatif de versement des indemnités de stage",
-        "2 derniers bilans comptables ou, si nécessaire, attestation des ressources pour l’exercice en cours délivrés par un comptable (non-salariés)",
+        "2 derniers bilans comptables ou, si nécessaire, attestation des ressources pour l’exercice en cours délivrés par un comptable (non-salariés)"
       ],
       refusedProofs: [
         "Pièces trop anciennes",
         "Attestation de l’employeur",
         "Relevés de comptes bancaires",
         "RIB",
-        "Avis d’imposition",
-      ],
+        "Avis d’imposition"
+      ]
     },
     {
       key: "social-service",
@@ -206,14 +210,14 @@ export default class Financial extends Vue {
       acceptedProofs: [
         "3 derniers justificatifs de versement des prestations sociales et familiales et allocations (ARE, CAF, Crous, etc.)",
         "Justificatif de l’ouverture des droits établis par l’organisme payeur",
-        "Attestation de simulation pour les aides au logement établie par la CAF ou par la MSA pour le locataire",
+        "Attestation de simulation pour les aides au logement établie par la CAF ou par la MSA pour le locataire"
       ],
       refusedProofs: [
         "Pièces trop anciennes",
         "Relevés de comptes bancaires",
         "RIB",
-        "Avis d’imposition",
-      ],
+        "Avis d’imposition"
+      ]
     },
     {
       key: "rent",
@@ -223,9 +227,9 @@ export default class Financial extends Vue {
       acceptedProofs: [
         "Justification de revenus fonciers, de rentes viagères ou de revenus de valeurs et capitaux mobiliers",
         "Titre de propriété d’un bien immobilier ou dernier avis de taxe foncière",
-        "Dernier ou avant-dernier avis d’imposition avec nom et revenus de la rente visibles",
+        "Dernier ou avant-dernier avis d’imposition avec nom et revenus de la rente visibles"
       ],
-      refusedProofs: ["Relevés de comptes bancaires", "RIB"],
+      refusedProofs: ["Relevés de comptes bancaires", "RIB"]
     },
     {
       key: "pension",
@@ -234,13 +238,13 @@ export default class Financial extends Vue {
         "J’ajoute un bulletin de pension, une attestation de pension, ou un avis d’imposition avec noms et revenus de la pension visibles.",
       acceptedProofs: [
         "Justificatif de versement des indemnités, retraites, pensions perçues lors des 3 derniers mois ou justificatif de l’ouverture des droits établis par l’organisme payeur",
-        "Dernier ou avant-dernier avis d’imposition avec nom et revenus de la pension visibles",
+        "Dernier ou avant-dernier avis d’imposition avec nom et revenus de la pension visibles"
       ],
       refusedProofs: [
         "Pièces trop anciennes",
         "Relevés de comptes bancaires",
-        "RIB",
-      ],
+        "RIB"
+      ]
     },
     {
       key: "trading",
@@ -250,9 +254,9 @@ export default class Financial extends Vue {
       refusedProofs: [
         "Pièces trop anciennes",
         "Relevés de comptes bancaires",
-        "RIB",
-      ],
-    },
+        "RIB"
+      ]
+    }
   ];
 }
 </script>
