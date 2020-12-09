@@ -8,21 +8,43 @@
         name="select"
       >
         <option value="" selected disabled hidden>- Select -</option>
-        <option v-for="d in documents" :value="d" :key="d.key">{{
-          $t(d.key)
-        }}</option>
+        <option v-for="d in documents" :value="d" :key="d.key">
+          {{ $t(d.key) }}
+        </option>
       </select>
     </div>
-    <div v-if="taxDocument.key">
+    <div v-if="taxDocument.key && taxDocument.key === 'other-tax'">
+      <div class="rf-input-group">
+        <label class="rf-label" for="customText">{{ $t("custom-text") }}</label>
+        <input
+          v-model="customText"
+          class="form-control rf-input validate-required"
+          id="customText"
+          name="customText"
+          placeholder=""
+          type="text"
+        />
+      </div>
+    </div>
+    <div v-if="taxDocument.key && taxDocument.key === 'my-name'">
       <div class="rf-mb-3w">
         {{ taxDocument.explanationText }}
       </div>
-      <div class="rf-mb-3w" v-if="taxDocument.key === 'my-name'">
+      <div class="rf-mb-3w">
         <FileUpload
           :current-status="fileUploadStatus"
           @add-files="addFiles"
           @reset-files="resetFiles"
         ></FileUpload>
+      </div>
+      <div class="rf-col-12 rf-mb-3w">
+        <input
+          type="checkbox"
+          id="acceptVerification"
+          value="false"
+          v-model="acceptVerification"
+        />
+        <label for="acceptVerification">{{ $t("accept-verification") }}</label>
       </div>
       <div class="rf-mb-3w" v-if="taxDocument.key === 'my-name'">
         <DocumentInsert
@@ -44,12 +66,12 @@
         "
       />
     </div>
-    <div class="rf-col-12 rf-mb-5w" v-if="taxDocument">
+    <div class="rf-col-12 rf-mb-5w" v-if="taxDocument.key">
       <button
         class="rf-btn"
         type="submit"
         @click="save"
-        :disabled="files.length <= 0"
+        :disabled="!taxDocument.key || taxDocument.key === 'my-name' && (files.length <= 0 || !acceptVerification)"
       >
         Enregistrer la pièce
       </button>
@@ -72,11 +94,13 @@ import ListItem from "@/components/uploads/ListItem.vue";
   computed: {
     ...mapState({
       user: "user",
-      currentStep: "currentStep"
-    })
-  }
+      currentStep: "currentStep",
+    }),
+  },
 })
 export default class Tax extends Vue {
+  acceptVerification = false;
+  customText = "";
   private fileUploadStatus = UploadStatus.STATUS_INITIAL;
   private files: File[] = [];
   private uploadProgress: {
@@ -94,11 +118,15 @@ export default class Tax extends Vue {
     const fieldName = "documents";
     const formData = new FormData();
     if (!this.files.length) return;
-    Array.from(Array(this.files.length).keys()).map(x => {
+    Array.from(Array(this.files.length).keys()).map((x) => {
       formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
     });
 
     formData.append("typeDocumentTax", this.taxDocument.value);
+    formData.append(
+      "acceptVerification",
+      this.acceptVerification ? "true" : "false"
+    );
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     const url = `//${process.env.VUE_APP_API_URL}/api/register/documentTax`;
@@ -124,8 +152,8 @@ export default class Tax extends Vue {
       refusedProofs: [
         "Avis d’imposition incomplet (sans la première page)",
         "Tout avis d’imposition plus ancien",
-        "Tout autre document justificatif"
-      ]
+        "Tout autre document justificatif",
+      ],
     },
     {
       key: "my-parents",
@@ -133,14 +161,14 @@ export default class Tax extends Vue {
       explanationText:
         "J’ai déclaré être rattaché·e au domicile fiscal de mes parents.",
       acceptedProofs: [],
-      refusedProofs: []
+      refusedProofs: [],
     },
     {
       key: "less-than-year",
       value: "LESS_THAN_YEAR",
       explanationText: "J’ai déclaré être en France depuis moins d’un an.",
       acceptedProofs: [],
-      refusedProofs: []
+      refusedProofs: [],
     },
     {
       key: "other-tax",
@@ -148,8 +176,8 @@ export default class Tax extends Vue {
       explanationText:
         "Afin d’améliorer mon dossier, j’explique ci-dessous pourquoi je ne reçois pas d’avis d’imposition. Mon explication sera ajoutée à mon dossier :",
       acceptedProofs: [],
-      refusedProofs: []
-    }
+      refusedProofs: [],
+    },
   ];
 }
 </script>
@@ -162,13 +190,17 @@ export default class Tax extends Vue {
 "my-name": "Vous avez un avis d’imposition à votre nom",
 "my-parents": "Vous êtes rattaché fiscalement à vos parents",
 "less-than-year": "Vous êtes en France depuis moins d’un an",
-"other-tax": "Autre"
+"other-tax": "Autre",
+"accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
+"custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'impositon. Votre explication sera ajoutée à votre dossier :"
 },
 "fr": {
 "my-name": "Vous avez un avis d’imposition à votre nom",
 "my-parents": "Vous êtes rattaché fiscalement à vos parents",
 "less-than-year": "Vous êtes en France depuis moins d’un an",
-"other-tax": "Autre"
+"other-tax": "Autre",
+"accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
+"custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'impositon. Votre explication sera ajoutée à votre dossier :"
 }
 }
 </i18n>
