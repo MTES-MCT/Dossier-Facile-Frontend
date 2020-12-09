@@ -5,7 +5,6 @@ import store from "./store";
 import i18n from "./i18n";
 import VueCookies from "vue-cookies";
 
-
 require("../../node_modules/@gouvfr/all/dist/css/all.min.css");
 
 Vue.config.productionTip = false;

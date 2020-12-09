@@ -103,11 +103,11 @@ import { Component, Vue } from "vue-property-decorator";
 
 @Component({
   components: {},
-  mounted: function () {
+  mounted: function() {
     // const localScript = document.createElement("script");
     // localScript.setAttribute("src", "/js/scripts.js");
     // document.head.appendChild(localScript);
-  },
+  }
 })
 export default class Blog extends Vue {}
 </script>
@@ -118,5 +118,4 @@ export default class Blog extends Vue {}
 a {
   color: $light-blue;
 }
-
 </style>

@@ -113,12 +113,10 @@
   </section>
 </template>
 
-
 <style scoped lang="scss">
 @import "df-shared/src/scss/_variables.scss";
 
 a {
   color: $light-blue;
 }
-
 </style>

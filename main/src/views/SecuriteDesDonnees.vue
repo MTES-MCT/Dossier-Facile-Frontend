@@ -6,8 +6,12 @@
           <div class="rf-grid-row height-40">
             <div class="rf-col-md-12">
               <div>
-                <h1 class="color--white">Politique de confidentialité (standard RGPD)</h1>
-                <h3 class="color--white">Sécurité et protection des données personnelles</h3>
+                <h1 class="color--white">
+                  Politique de confidentialité (standard RGPD)
+                </h1>
+                <h3 class="color--white">
+                  Sécurité et protection des données personnelles
+                </h3>
               </div>
             </div>
           </div>
@@ -418,5 +422,4 @@ a {
   background-image: url("../assets/images/en-savoir-plus/en-savoir-plus-image2.jpg");
   z-index: 0;
 }
-
 </style>

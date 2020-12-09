@@ -24,7 +24,7 @@
         <div class="rf-grid-row">
           <div class="rf-col-md-4 rf-grid-col rf-p-2w">
             <div>
-            <img src="../assets/icons/approval.svg" class="s1-icons" />
+              <img src="../assets/icons/approval.svg" class="s1-icons" />
             </div>
             <h3 class="color--secondary">{{ $t("s1.h1") }}</h3>
             <p class="rf-mt-0">
@@ -88,13 +88,13 @@
           <h2 class="s3-title">{{ $t("s3.title") }}</h2>
           <p>
             {{ $t("s3.text1") }}
-            <br>
+            <br />
             {{ $t("s3.text2") }}
           </p>
           <p>
             {{ $t("s3.text3") }}
           </p>
-<!--           <router-link to="/tenant">
+          <!--           <router-link to="/tenant">
             {{ $t("s3.link") }}
           </router-link> -->
         </div>
@@ -102,25 +102,29 @@
     </section>
     <section class="rf-mt-12w">
       <div class="rf-container rf-mb-7w">
-        <h2 class="text-center">{{ $t("s4.title1") }} <span class="color--secondary">{{ $t("s4.title2") }}</span> {{ $t("s4.title3") }}</h2>
+        <h2 class="text-center">
+          {{ $t("s4.title1") }}
+          <span class="color--secondary">{{ $t("s4.title2") }}</span>
+          {{ $t("s4.title3") }}
+        </h2>
         <div class="rf-grid-row">
           <div class="col rf-p-2w">
-              <blockquote class="bg--blue color--primary quote rf-p-2w">
-                <p class="rf-m-0 rf-mb-3w">{{ $t("s4.t1") }}</p>
-                <cite>{{ $t("s4.author1") }}</cite>
-              </blockquote>
+            <blockquote class="bg--blue color--primary quote rf-p-2w">
+              <p class="rf-m-0 rf-mb-3w">{{ $t("s4.t1") }}</p>
+              <cite>{{ $t("s4.author1") }}</cite>
+            </blockquote>
           </div>
           <div class="col rf-p-2w">
-              <blockquote class="bg--blue color--primary quote rf-p-2w">
-                <p class="rf-m-0 rf-mb-3w">{{ $t("s4.t2") }}</p>
-                <cite>{{ $t("s4.author2") }}</cite>
-              </blockquote>
+            <blockquote class="bg--blue color--primary quote rf-p-2w">
+              <p class="rf-m-0 rf-mb-3w">{{ $t("s4.t2") }}</p>
+              <cite>{{ $t("s4.author2") }}</cite>
+            </blockquote>
           </div>
           <div class="col rf-p-2w">
-              <blockquote class="bg--blue color--primary quote rf-p-2w">
-                <p class="rf-m-0 rf-mb-3w">{{ $t("s4.t3") }}</p>
-                <cite>{{ $t("s4.author3") }}</cite>
-              </blockquote>
+            <blockquote class="bg--blue color--primary quote rf-p-2w">
+              <p class="rf-m-0 rf-mb-3w">{{ $t("s4.t3") }}</p>
+              <cite>{{ $t("s4.author3") }}</cite>
+            </blockquote>
           </div>
         </div>
         <div class="text-center rf-mt-5w rf-mb-5w">
@@ -144,7 +148,6 @@ export default class LandingPage extends Vue {}
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
 .s0-background {
   width: 100%;
   top: 0;
@@ -182,14 +185,14 @@ blockquote {
 .s2-title {
   &:before {
     margin-right: 10px;
-    content: url("../assets/icons/survey.svg")
+    content: url("../assets/icons/survey.svg");
   }
 }
 
 .s3-title {
   &:before {
     margin-right: 10px;
-    content: url("../assets/icons/lock.svg")
+    content: url("../assets/icons/lock.svg");
   }
 }
 
@@ -204,7 +207,6 @@ ul li:before {
   color: limegreen;
   font-size: 1rem;
 }
-
 </style>
 
 <i18n>
