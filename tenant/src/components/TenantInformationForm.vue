@@ -17,7 +17,7 @@
               type="radio"
               id="alone"
               value="ALONE"
-              v-model="user.tenantType"
+              v-model="user.applicationType"
             />
             <label class="rf-label" for="alone">{{ $t("alone") }}</label>
           </div>
@@ -26,14 +26,14 @@
               type="radio"
               id="couple"
               value="COUPLE"
-              v-model="user.tenantType"
+              v-model="user.applicationType"
             />
             <label class="rf-label" for="couple">{{ $t("couple") }}</label>
           </div>
           <CoupleInformation
             :couple-mail.sync="spouseEmail"
             :authorize.sync="spouseAuthorize"
-            v-if="user.tenantType === 'COUPLE'"
+            v-if="user.applicationType === 'COUPLE'"
           >
           </CoupleInformation>
           <div class="rf-radio-group">
@@ -41,12 +41,12 @@
               type="radio"
               id="roommate"
               value="CREATE"
-              v-model="user.tenantType"
+              v-model="user.applicationType"
             />
             <label class="rf-label" for="roommate">{{ $t("roommate") }}</label>
           </div>
           <RoommatesInformation
-            v-if="user.tenantType === 'CREATE'"
+            v-if="user.applicationType === 'CREATE'"
             :roommates.sync="roommates"
             :authorize.sync="coTenantAuthorize"
           >
@@ -100,17 +100,17 @@ export default class TenantInformationForm extends Vue {
 
   handleOthersInformation() {
     if (
-      (this.user.tenantType === "COUPLE" && !this.spouseAuthorize) ||
-      (this.user.tenantType === "CREATE" && !this.coTenantAuthorize)
+      (this.user.applicationType === "COUPLE" && !this.spouseAuthorize) ||
+      (this.user.applicationType === "CREATE" && !this.coTenantAuthorize)
     ) {
       return;
     }
     let coTenantEmails: string[] = [];
     let acceptAccess = false;
-    if (this.user.tenantType === "COUPLE") {
+    if (this.user.applicationType === "COUPLE") {
       coTenantEmails = [this.spouseEmail];
       acceptAccess = this.spouseAuthorize;
-    } else if (this.user.tenantType === "CREATE") {
+    } else if (this.user.applicationType === "CREATE") {
       coTenantEmails = this.roommates.map(function(r) {
         return r.email;
       });
@@ -118,7 +118,7 @@ export default class TenantInformationForm extends Vue {
     }
 
     const data = {
-      tenantType: this.user.tenantType,
+      applicationType: this.user.applicationType,
       coTenantEmail: coTenantEmails,
       acceptAccess: acceptAccess
     };

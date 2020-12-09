@@ -36,16 +36,11 @@
       </div>
     </div>
     <div>
+      <h5>files</h5>
       <ListItem
-        v-for="file in files"
-        :key="file.name"
-        :filename="file.name"
-        :uploadState="
-          uploadProgress[file.name] ? uploadProgress[file.name].state : 'idle'
-        "
-        :percentage="
-          uploadProgress[file.name] ? uploadProgress[file.name].percentage : 0
-        "
+        v-for="file in identificationDocuments()"
+        :key="file.id"
+        :filename="file.id"
       />
     </div>
     <div class="rf-col-12 rf-mb-5w" v-if="identificationDocument">
@@ -70,6 +65,7 @@ import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "@/components/uploads/UploadStatus";
 import axios from "axios";
 import ListItem from "@/components/uploads/ListItem.vue";
+import { User } from "df-shared/src/models/User";
 
 @Component({
   components: { DocumentInsert, FileUpload, ListItem },
@@ -81,6 +77,7 @@ import ListItem from "@/components/uploads/ListItem.vue";
   }
 })
 export default class Identification extends Vue {
+  user!: User;
   identificationDocument = new DocumentType();
   documents: DocumentType[] = [
     {
@@ -162,6 +159,10 @@ export default class Identification extends Vue {
 
   resetFiles() {
     this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
+  }
+
+  identificationDocuments() {
+    return this.user?.documents?.filter(d => { return d.documentCategory === 'IDENTIFICATION'})
   }
 }
 </script>

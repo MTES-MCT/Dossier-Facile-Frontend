@@ -6,6 +6,7 @@
     <div class="progress">
       <Progress :percentage="percentage" :state="uploadState" />
     </div>
+    <div>delete</div>
   </div>
 </template>
 
@@ -18,12 +19,9 @@ import Progress from "./Progress.vue";
   }
 })
 export default class ListItem extends Vue {
-  @Prop({ default: "" })
-  private filename!: string;
-  @Prop({ default: "idle" })
-  private uploadState!: string;
-  @Prop({ default: 0 })
-  private percentage!: number;
+  @Prop({ default: "" }) filename!: string;
+  @Prop({ default: "idle" }) uploadState!: string;
+  @Prop({ default: 0 }) percentage!: number;
 }
 </script>
 
