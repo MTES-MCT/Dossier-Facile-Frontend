@@ -9,7 +9,9 @@
     <div class="progress">
       <Progress :percentage="percentage" :state="uploadState" />
     </div>
-    <div>delete</div>
+    <div class="cursor--pointer" @click="remove()">
+      <span class="icon icon-Close text-danger"></span>
+    </div>
   </div>
 </template>
 
@@ -26,6 +28,10 @@ export default class ListItem extends Vue {
   @Prop({ default: "" }) documentSubCategory!: string;
   @Prop({ default: "idle" }) uploadState!: string;
   @Prop({ default: 0 }) percentage!: number;
+
+  remove() {
+    this.$emit("remove");
+  }
 }
 </script>
 

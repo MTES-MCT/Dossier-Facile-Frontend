@@ -41,6 +41,7 @@
         :key="file.id"
         :filename="file.id"
         :documentSubCategory="file.documentSubCategory"
+        @remove="remove(file.id)"
       />
     </div>
     <div class="rf-col-12 rf-mb-5w" v-if="identificationDocument">
@@ -162,7 +163,15 @@ export default class Identification extends Vue {
   }
 
   identificationDocuments() {
-    return this.user?.documents?.filter(d => { return d.documentCategory === 'IDENTIFICATION'})
+    const newFiles = this.files.map(f => { return {documentSubCategory: this.identificationDocument.value, id: f.name}});
+    const existingFiles = this.user?.documents?.filter(d => { return d.documentCategory === 'IDENTIFICATION'}) || [];
+    return [...newFiles, ...existingFiles];
+  }
+
+  remove(id: number) {
+    const url = `//${process.env.VUE_APP_API_URL}/api/file/${id}`;
+    // TODO remove locally or update user
+    axios.delete(url);
   }
 }
 </script>
