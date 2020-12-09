@@ -11,12 +11,38 @@
         name="select"
       >
         <option value="" selected disabled hidden>- Select -</option>
-        <option v-for="d in documents" :value="d" :key="d.key">{{
-          $t(d.key)
-        }}</option>
+        <option v-for="d in documents" :value="d" :key="d.key">
+          {{ $t(d.key) }}
+        </option>
       </select>
     </div>
     <div v-if="financialDocument.key">
+      <div>
+        <validation-provider
+          :rules="{ regex: /^[0-9., ]+$/ }"
+          v-slot="{ errors }"
+        >
+          <div
+            class="rf-input-group"
+            :class="errors[0] ? 'rf-input-group--error' : ''"
+          >
+            <label for="monthlySum" class="rf-label"
+              >{{ $t("monthlySum-label") }} :</label
+            >
+            <input
+              id="monthlySum"
+              :placeholder="$t('monthlySum')"
+              type="text"
+              v-model="monthlySum"
+              name="monthlySum"
+              class="validate-required form-control rf-input"
+            />
+            <span class="rf-error-text" v-if="errors[0]">{{
+              $t(errors[0])
+            }}</span>
+          </div>
+        </validation-provider>
+      </div>
       <div class="rf-mb-3w">
         {{ financialDocument.explanationText }}
       </div>
@@ -26,6 +52,30 @@
           @add-files="addFiles"
           @reset-files="resetFiles"
         ></FileUpload>
+      </div>
+      <div class="rf-col-12 rf-mb-3w">
+        <input
+          type="checkbox"
+          id="noDocument"
+          value="false"
+          v-model="noDocument"
+        />
+        <label for="noDocument">{{ $t("noDocument") }}</label>
+      </div>
+      <div class="rf-mb-5w" v-if="noDocument">
+        <div class="rf-input-group">
+          <label class="rf-label" for="customText">{{
+            $t("customText")
+          }}</label>
+          <input
+            v-model="customText"
+            class="form-control rf-input validate-required"
+            id="customText"
+            name="customText"
+            placeholder=""
+            type="text"
+          />
+        </div>
       </div>
       <div class="rf-mb-3w">
         <DocumentInsert
@@ -52,7 +102,7 @@
         class="rf-btn"
         type="submit"
         @click="save"
-        :disabled="files.length <= 0"
+        :disabled="files.length <= 0 && !noDocument"
       >
         Enregistrer la pièce
       </button>
@@ -69,17 +119,21 @@ import { mapState } from "vuex";
 import { UploadStatus } from "@/components/uploads/UploadStatus";
 import axios from "axios";
 import ListItem from "@/components/uploads/ListItem.vue";
+import { ValidationProvider } from "vee-validate";
 
 @Component({
-  components: { DocumentInsert, FileUpload, ListItem },
+  components: { ValidationProvider, DocumentInsert, FileUpload, ListItem },
   computed: {
     ...mapState({
       user: "user",
-      currentStep: "currentStep"
-    })
-  }
+      currentStep: "currentStep",
+    }),
+  },
 })
 export default class Financial extends Vue {
+  noDocument = false;
+  customText = "";
+  monthlySum?: number;
   private fileUploadStatus = UploadStatus.STATUS_INITIAL;
   private files: File[] = [];
   private uploadProgress: {
@@ -96,12 +150,21 @@ export default class Financial extends Vue {
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    if (!this.files.length) return;
-    Array.from(Array(this.files.length).keys()).map(x => {
-      formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
-    });
+    if (!this.noDocument) {
+      if (!this.files.length) {
+        return;
+      }
+      Array.from(Array(this.files.length).keys()).map((x) => {
+        formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
+      });
+    }
 
     formData.append("typeDocumentFinancial", this.financialDocument.value);
+    formData.append("noDocument", this.noDocument ? 'true' : 'false');
+    if (this.monthlySum) {
+      formData.append("monthlySum", this.monthlySum.toString());
+    }
+    formData.append("customText", this.customText);
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     const url = `//${process.env.VUE_APP_API_URL}/api/register/documentFinancial`;
@@ -125,15 +188,15 @@ export default class Financial extends Vue {
       acceptedProofs: [
         "3 derniers bulletins de salaire",
         "Justificatif de versement des indemnités de stage",
-        "2 derniers bilans comptables ou, si nécessaire, attestation des ressources pour l’exercice en cours délivrés par un comptable (non-salariés)"
+        "2 derniers bilans comptables ou, si nécessaire, attestation des ressources pour l’exercice en cours délivrés par un comptable (non-salariés)",
       ],
       refusedProofs: [
         "Pièces trop anciennes",
         "Attestation de l’employeur",
         "Relevés de comptes bancaires",
         "RIB",
-        "Avis d’imposition"
-      ]
+        "Avis d’imposition",
+      ],
     },
     {
       key: "social-service",
@@ -143,14 +206,14 @@ export default class Financial extends Vue {
       acceptedProofs: [
         "3 derniers justificatifs de versement des prestations sociales et familiales et allocations (ARE, CAF, Crous, etc.)",
         "Justificatif de l’ouverture des droits établis par l’organisme payeur",
-        "Attestation de simulation pour les aides au logement établie par la CAF ou par la MSA pour le locataire"
+        "Attestation de simulation pour les aides au logement établie par la CAF ou par la MSA pour le locataire",
       ],
       refusedProofs: [
         "Pièces trop anciennes",
         "Relevés de comptes bancaires",
         "RIB",
-        "Avis d’imposition"
-      ]
+        "Avis d’imposition",
+      ],
     },
     {
       key: "rent",
@@ -160,9 +223,9 @@ export default class Financial extends Vue {
       acceptedProofs: [
         "Justification de revenus fonciers, de rentes viagères ou de revenus de valeurs et capitaux mobiliers",
         "Titre de propriété d’un bien immobilier ou dernier avis de taxe foncière",
-        "Dernier ou avant-dernier avis d’imposition avec nom et revenus de la rente visibles"
+        "Dernier ou avant-dernier avis d’imposition avec nom et revenus de la rente visibles",
       ],
-      refusedProofs: ["Relevés de comptes bancaires", "RIB"]
+      refusedProofs: ["Relevés de comptes bancaires", "RIB"],
     },
     {
       key: "pension",
@@ -171,13 +234,13 @@ export default class Financial extends Vue {
         "J’ajoute un bulletin de pension, une attestation de pension, ou un avis d’imposition avec noms et revenus de la pension visibles.",
       acceptedProofs: [
         "Justificatif de versement des indemnités, retraites, pensions perçues lors des 3 derniers mois ou justificatif de l’ouverture des droits établis par l’organisme payeur",
-        "Dernier ou avant-dernier avis d’imposition avec nom et revenus de la pension visibles"
+        "Dernier ou avant-dernier avis d’imposition avec nom et revenus de la pension visibles",
       ],
       refusedProofs: [
         "Pièces trop anciennes",
         "Relevés de comptes bancaires",
-        "RIB"
-      ]
+        "RIB",
+      ],
     },
     {
       key: "trading",
@@ -187,9 +250,9 @@ export default class Financial extends Vue {
       refusedProofs: [
         "Pièces trop anciennes",
         "Relevés de comptes bancaires",
-        "RIB"
-      ]
-    }
+        "RIB",
+      ],
+    },
   ];
 }
 </script>
@@ -203,14 +266,22 @@ export default class Financial extends Vue {
 "social-service": "Versement de prestations sociales",
 "rent": "Rentes",
 "pension": "Pensions",
-"trading": "Bourses"
+"trading": "Bourses",
+"monthlySum": "Salaire",
+"monthlySum-label": "Montant du revenu (après impôts)",
+"noDocument": "Je ne peux pas fournir mes trois derniers bulletins de salaire",
+"customText": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes trois derniers bulletins de salaire :"
 },
 "fr": {
 "salary": "Salaire",
 "social-service": "Versement de prestations sociales",
 "rent": "Rentes",
 "pension": "Pensions",
-"trading": "Bourses"
+"trading": "Bourses",
+"monthlySum": "Salaire",
+"monthlySum-label": "Montant du revenu (après impôts)",
+"noDocument": "Je ne peux pas fournir mes trois derniers bulletins de salaire",
+"customText": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes trois derniers bulletins de salaire :"
 }
 }
 </i18n>
