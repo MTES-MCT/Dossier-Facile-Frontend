@@ -7,6 +7,17 @@
           @on-create-owner="onCreateOwner"
         />
       </div>
+      <div class="rf-container">
+        <nav class="rf-nav" role="navigation" aria-label="Menu principal">
+          <ul class="rf-nav__list">
+            <li class="rf-nav__item" v-if="isMobile()">
+              <router-link to="/faq" class="rf-link">
+                {{ $t("faq") }}
+              </router-link>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </header>
     <router-view />
     <MyFooter />
@@ -27,11 +38,6 @@ import Cookies from "df-shared/src/Footer/Cookies.vue";
     MyFooter,
     Modal,
     Cookies
-  },
-  mounted: function() {
-    const localScript = document.createElement("script");
-    localScript.setAttribute("src", "/js/all.js");
-    document.head.appendChild(localScript);
   }
 })
 export default class App extends Vue {
@@ -53,6 +59,10 @@ export default class App extends Vue {
       this.cookieHidden,
       new Date(2050, 12, 31).toUTCString()
     );
+  }
+
+  isMobile() {
+    return window.innerWidth < 768;
   }
 }
 </script>
@@ -89,12 +99,14 @@ a {
 "en": {
 "tenant": "Locataire",
 "owner": "Propriétaire",
-"register-information": "Afin de créer votre compte, nous avons besoin de quelques informations. Vous êtes…"
+"register-information": "Afin de créer votre compte, nous avons besoin de quelques informations. Vous êtes…",
+"faq": "FAQ"
 },
 "fr": {
 "tenant": "Locataire",
 "owner": "Propriétaire",
-"register-information": "Afin de créer votre compte, nous avons besoin de quelques informations. Vous êtes…"
+"register-information": "Afin de créer votre compte, nous avons besoin de quelques informations. Vous êtes…",
+"faq": "FAQ"
 }
 }
 </i18n>
