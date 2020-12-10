@@ -9,11 +9,9 @@
             v-for="(roommate, key) in mails"
             v-bind:key="key"
           >
-            <validation-provider rules="email" v-slot="{ errors }">
-              <div
-                class="rf-input-group"
-                :class="errors[0] ? 'rf-input-group--error' : ''"
-              >
+          <div class="rf-grid-row">
+            <validation-provider rules="email" v-slot="{ errors }" class="rf-col-10">
+              <div class="rf-input-group" :class="errors[0] ? 'rf-input-group--error' : ''" >
                 <input
                   v-model="roommate.email"
                   class="form-control rf-input"
@@ -26,6 +24,13 @@
                 }}</span>
               </div>
             </validation-provider>
+              <div class="rf-col-2">
+                <button class="rf-btn rf-btn--icon rf-btn--secondary" :title="$t('delete')" :disabled="mails.length <= 1"
+                  @click="remove(key)">
+                  <span class="icon icon-Close text-danger"></span>
+                </button>
+              </div>
+          </div>
           </div>
         </div>
         <div class="rf-col-12 rf-mb-3w">
@@ -71,6 +76,10 @@ export default class RoommatesInformation extends Vue {
   addMail() {
     this.mails.push({ email: "" });
   }
+
+  remove(key: number) {
+    this.mails.splice(key, 1);
+  }
 }
 </script>
 
@@ -81,12 +90,14 @@ export default class RoommatesInformation extends Vue {
 "en": {
 "roommateEmail": "Veuillez renseigner l’adresse email de votre colocataire",
 "addRommate": "Ajouter un colocataire",
-"acceptAuthor": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés"
+"acceptAuthor": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",
+"delete": "Supprimer"
 },
 "fr": {
 "roommateEmail": "Veuillez renseigner l’adresse email de votre colocataire",
 "addRommate": "Ajouter un colocataire",
-"acceptAuthor": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés"
+"acceptAuthor": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",
+"delete": "Supprimer"
 }
 }
 </i18n>
