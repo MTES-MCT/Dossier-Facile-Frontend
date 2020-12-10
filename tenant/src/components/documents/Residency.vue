@@ -152,9 +152,9 @@ export default class Residency extends Vue {
       key: "guest",
       value: "GUEST",
       explanationText:
-        "J’ajoute une attestation sur l’honneur d’hébergement à titre gratuit," +
-        "une copie de la pièce d’identité et un justificatif de domicile de mon" +
-        "hébergeant (une facture suffit). Vous pouvez utiliser un modèle en ligne" +
+        "J’ajoute une attestation sur l’honneur d’hébergement à titre gratuit, " +
+        "une copie de la pièce d’identité et un justificatif de domicile de mon " +
+        "hébergeant (une facture suffit). Vous pouvez utiliser un modèle en ligne " +
         "sur le site service-public.fr",
       acceptedProofs: [
         "Attestation sur l’honneur du parent datée et signée indiquant que le candidat à la location réside à son domicile, accompagnée d’une pièce d’identité et d’un justificatif de domicile du parent (une simple facture suffit)"
@@ -167,7 +167,7 @@ export default class Residency extends Vue {
       explanationText:
         "J’ajoute une attestation sur l’honneur d’hébergement à titre gratuit, " +
         "une copie de la pièce d’identité et un justificatif de domicile du " +
-        "parent (une facture suffit). Vous pouvez utiliser un modèle en ligne sur" +
+        "parent (une facture suffit). Vous pouvez utiliser un modèle en ligne sur " +
         "le site service-public.fr",
       acceptedProofs: [
         "Attestation sur l’honneur de l’hébergeant datée de moins de trois mois et signée indiquant que le candidat à la location réside à son domicile, accompagnée d’une pièce d’identité et d’un justificatif de domicile de l’hébergeant (une simple facture suffit)",

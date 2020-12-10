@@ -7,6 +7,12 @@
           @on-create-owner="onCreateOwner"
         />
       </div>
+      <div class="rf-container">
+        <nav class="rf-nav" role="navigation" aria-label="Menu principal">
+          <ul class="rf-nav__list">
+          </ul>
+        </nav>
+      </div>
     </header>
     <router-view />
     <MyFooter />
@@ -27,11 +33,6 @@ import Cookies from "df-shared/src/Footer/Cookies.vue";
     MyFooter,
     Modal,
     Cookies
-  },
-  mounted: function() {
-    const localScript = document.createElement("script");
-    localScript.setAttribute("src", "/js/all.js");
-    document.head.appendChild(localScript);
   }
 })
 export default class App extends Vue {

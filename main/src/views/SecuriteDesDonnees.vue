@@ -394,7 +394,13 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
-@Component
+@Component({
+  mounted: function() {
+    const localScript = document.createElement("script");
+    localScript.setAttribute("src", "/js/all.js");
+    document.head.appendChild(localScript);
+  }
+})
 export default class SecuriteDesDonnees extends Vue {}
 </script>
 
