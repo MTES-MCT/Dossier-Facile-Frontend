@@ -132,7 +132,7 @@ import { ValidationProvider } from "vee-validate";
 export default class Financial extends Vue {
   noDocument = false;
   customText = "";
-  monthlySum?: number;
+  monthlySum?: number = 0;
   private fileUploadStatus = UploadStatus.STATUS_INITIAL;
   private files: File[] = [];
   private uploadProgress: {
