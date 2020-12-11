@@ -16,7 +16,7 @@ import { User } from "df-shared/src/models/User";
 })
 export default class LoginPage extends Vue {
   onLogin(user: User) {
-    if (user.username && user.password) {
+    if (user.email && user.password) {
       this.$store.dispatch("login", user).then(
         () => {
           console.log("logged !");

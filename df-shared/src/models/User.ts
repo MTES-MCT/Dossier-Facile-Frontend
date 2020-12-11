@@ -2,7 +2,8 @@ import { DfDocument } from "./DfDocument";
 import { Guarantor } from "./Guarantor";
 
 export class User {
-  username!: string;
+  id!: number;
+  email!: string;
   password?: string;
   token?: string;
   confirm?: string;
@@ -19,7 +20,7 @@ export class User {
   financial?: string;
   tax?: string;
 
-  appartmentSharing?: {id?: number, tenants: User[]};
+  apartmentSharing?: {id?: number, tenants: User[]};
   guarantors?: Guarantor[];
   documents?: DfDocument[];
 }

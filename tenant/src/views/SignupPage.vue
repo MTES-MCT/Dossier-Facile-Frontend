@@ -38,7 +38,7 @@ import Modal from "df-shared/src/components/Modal.vue";
 export default class SignupPage extends Vue {
   isValidModalVisible = false;
   onRegister(user: User) {
-    if (user.username && user.password) {
+    if (user.email && user.password) {
       this.$store.dispatch("register", user).then(
         () => {
           this.isValidModalVisible = true;

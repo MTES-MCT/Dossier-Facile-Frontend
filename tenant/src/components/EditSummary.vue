@@ -237,7 +237,7 @@ export default class EditSummary extends Vue {
 "third-title": "Documents du garant",
 "ALONE": "Seul",
 "COUPLE": "En couple",
-"CREATE": "En colocation"
+"GROUP": "En colocation"
 },
 "fr": {
 "title": "Information du locataire",
@@ -245,7 +245,7 @@ export default class EditSummary extends Vue {
 "third-title": "Documents du garant",
 "ALONE": "Seul",
 "COUPLE": "En couple",
-"CREATE": "En colocation"
+"GROUP": "En colocation"
 }
 }
 </i18n>

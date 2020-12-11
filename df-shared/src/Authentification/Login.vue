@@ -14,11 +14,11 @@
               >
                 <label class="rf-label" for="email">{{ $t("email") }}</label>
                 <input
-                  v-model="user.username"
+                  v-model="user.email"
                   class="form-control rf-input validate-required"
                   id="email"
-                  name="username"
-                  :placeholder="$t('username-placeholder')"
+                  name="email"
+                  :placeholder="$t('email-placeholder')"
                   type="email"
                 />
                 <span class="rf-error-text" v-if="errors[0]">{{
@@ -109,7 +109,7 @@ export default class Login extends Vue {
 "title": "Connection to my account DossierFacile",
 "email": "Email :",
 "password": "Password :",
-"username-placeholder": "E.g. : example@example.fr",
+"email-placeholder": "E.g. : example@example.fr",
 "password-placeholder": "E.g. : 12345679",
 "submit": "Submit",
 "forgotten-password": "Forgotten password",
@@ -121,7 +121,7 @@ export default class Login extends Vue {
 "title": "Connexion à mon compte DossierFacile",
 "email": "Email :",
 "password": "Mot de passe :",
-"username-placeholder": "Ex : exemple@exemple.fr",
+"email-placeholder": "Ex : exemple@exemple.fr",
 "password-placeholder": "Ex : 12345679",
 "submit": "Valider",
 "forgotten-password": "mot de passe oublié",
