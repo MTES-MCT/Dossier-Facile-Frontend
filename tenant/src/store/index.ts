@@ -13,7 +13,7 @@ const initialLoggedIn = !!initialUser;
 
 export default new Vuex.Store({
   state: {
-    currentStep: 0,
+    tenantStep: 0,
     guarantorStep: 0,
     user: initialUser,
     selectedGuarantor: new Guarantor(),
@@ -42,13 +42,13 @@ export default new Vuex.Store({
     },
     setNamesSuccess(state, user) {
       state.user = user;
-      state.currentStep++;
+      state.tenantStep++;
     },
     setRoommatesSuccess(state) {
-      state.currentStep++;
+      state.tenantStep++;
     },
     setStep(state, n: number) {
-      state.currentStep = n;
+      state.tenantStep = n;
     },
     setGuarantorStep(state, n: number) {
       state.guarantorStep = n;

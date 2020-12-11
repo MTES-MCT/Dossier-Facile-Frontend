@@ -9,28 +9,39 @@
             v-for="(roommate, key) in mails"
             v-bind:key="key"
           >
-          <div class="rf-grid-row">
-            <validation-provider rules="email" v-slot="{ errors }" class="rf-col-10">
-              <div class="rf-input-group" :class="errors[0] ? 'rf-input-group--error' : ''" >
-                <input
-                  v-model="roommate.email"
-                  class="form-control rf-input"
-                  name="email"
-                  placeholder="Ex : exemple@exemple.fr"
-                  type="email"
-                />
-                <span class="rf-error-text" v-if="errors[0]">{{
-                  errors[0]
-                }}</span>
-              </div>
-            </validation-provider>
+            <div class="rf-grid-row">
+              <validation-provider
+                rules="email"
+                v-slot="{ errors }"
+                class="rf-col-10"
+              >
+                <div
+                  class="rf-input-group"
+                  :class="errors[0] ? 'rf-input-group--error' : ''"
+                >
+                  <input
+                    v-model="roommate.email"
+                    class="form-control rf-input"
+                    name="email"
+                    placeholder="Ex : exemple@exemple.fr"
+                    type="email"
+                  />
+                  <span class="rf-error-text" v-if="errors[0]">{{
+                    errors[0]
+                  }}</span>
+                </div>
+              </validation-provider>
               <div class="rf-col-2">
-                <button class="rf-btn rf-btn--icon rf-btn--secondary" :title="$t('delete')" :disabled="mails.length <= 1"
-                  @click="remove(key)">
+                <button
+                  class="rf-btn rf-btn--icon rf-btn--secondary"
+                  :title="$t('delete')"
+                  :disabled="mails.length <= 1"
+                  @click="remove(key)"
+                >
                   <span class="icon icon-Close text-danger"></span>
                 </button>
               </div>
-          </div>
+            </div>
           </div>
         </div>
         <div class="rf-col-12 rf-mb-3w">

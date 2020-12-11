@@ -74,8 +74,7 @@ import ListItem from "@/components/uploads/ListItem.vue";
   components: { DocumentInsert, FileUpload, ListItem },
   computed: {
     ...mapState({
-      user: "user",
-      currentStep: "currentStep"
+      user: "user"
     })
   }
 })

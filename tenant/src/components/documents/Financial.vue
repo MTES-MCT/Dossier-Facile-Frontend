@@ -125,8 +125,7 @@ import { ValidationProvider } from "vee-validate";
   components: { ValidationProvider, DocumentInsert, FileUpload, ListItem },
   computed: {
     ...mapState({
-      user: "user",
-      currentStep: "currentStep"
+      user: "user"
     })
   }
 })

@@ -181,7 +181,7 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
   computed: {
     ...mapState({
       user: "user",
-      currentStep: "currentStep",
+      tenantStep: "tenantStep",
       selectedGuarantor: "selectedGuarantor"
     })
   }

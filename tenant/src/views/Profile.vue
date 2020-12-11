@@ -7,28 +7,28 @@
       ></LeftEditMenu>
       <div class="rf-col-md-6 rf-col-sm-12">
         <div class="content">
-          <div class="step rf-mb-5w" v-if="currentStep <= 1">
+          <div class="step rf-mb-5w" v-if="tenantStep <= 1">
             <div class="step-number">1</div>
             <div class="step-title">{{ $t("title-step1") }}</div>
           </div>
-          <div class="step rf-mb-5w" v-if="currentStep === 2">
+          <div class="step rf-mb-5w" v-if="tenantStep === 2">
             <div class="step-number">2</div>
             <div class="step-title">{{ $t("title-step2") }}</div>
           </div>
-          <div class="step rf-mb-5w" v-if="currentStep === 3">
+          <div class="step rf-mb-5w" v-if="tenantStep === 3">
             <div class="step-number">3</div>
             <div class="step-title">{{ $t("title-step3") }}</div>
           </div>
           <NameInformationForm
             :user="user"
-            v-if="currentStep === 0"
+            v-if="tenantStep === 0"
           ></NameInformationForm>
           <TenantInformationForm
-            v-if="currentStep === 1"
+            v-if="tenantStep === 1"
           ></TenantInformationForm>
-          <UploadDocuments v-if="currentStep === 2"></UploadDocuments>
-          <GuarantorDocuments v-if="currentStep === 3"></GuarantorDocuments>
-          <ValidateFile v-if="currentStep === 4"></ValidateFile>
+          <UploadDocuments v-if="tenantStep === 2"></UploadDocuments>
+          <GuarantorDocuments v-if="tenantStep === 3"></GuarantorDocuments>
+          <ValidateFile v-if="tenantStep === 4"></ValidateFile>
         </div>
       </div>
       <div class="rf-col-md-3 rf-col-sm-12">
@@ -65,15 +65,15 @@ import ValidateFile from "@/components/ValidateFile.vue";
   computed: {
     ...mapState({
       user: "user",
-      currentStep: "currentStep"
+      tenantStep: "tenantStep"
     })
   }
 })
 export default class Profile extends Vue {
-  public currentStep!: number;
+  public tenantStep!: number;
 
   getMenuStep() {
-    switch (this.currentStep) {
+    switch (this.tenantStep) {
       case 2:
         return 1;
       case 3:

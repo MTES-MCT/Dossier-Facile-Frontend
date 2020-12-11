@@ -93,8 +93,7 @@ extend("required", {
   },
   computed: {
     ...mapState({
-      user: "user",
-      currentStep: "currentStep"
+      user: "user"
     })
   }
 })

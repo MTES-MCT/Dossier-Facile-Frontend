@@ -1,8 +1,8 @@
 <template>
   <div>
-    <NameInformationHelp v-if="currentStep === 0"></NameInformationHelp>
-    <DocumentHelp v-if="currentStep === 2"></DocumentHelp>
-    <GuarantorChoiceHelp v-if="currentStep === 3"></GuarantorChoiceHelp>
+    <NameInformationHelp v-if="tenantStep === 0"></NameInformationHelp>
+    <DocumentHelp v-if="tenantStep === 2"></DocumentHelp>
+    <GuarantorChoiceHelp v-if="tenantStep === 3"></GuarantorChoiceHelp>
   </div>
 </template>
 
@@ -17,12 +17,12 @@ import { mapState } from "vuex";
   components: { NameInformationHelp, DocumentHelp, GuarantorChoiceHelp },
   computed: {
     ...mapState({
-      currentStep: "currentStep"
+      tenantStep: "tenantStep"
     })
   }
 })
 export default class ProfileHelp extends Vue {
-  public currentStep!: number;
+  public tenantStep!: number;
   expanded = false;
 }
 </script>

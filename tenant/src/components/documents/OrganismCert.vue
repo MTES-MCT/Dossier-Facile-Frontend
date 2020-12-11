@@ -62,8 +62,7 @@ import ListItem from "@/components/uploads/ListItem.vue";
   },
   computed: {
     ...mapState({
-      user: "user",
-      currentStep: "currentStep"
+      user: "user"
     })
   }
 })

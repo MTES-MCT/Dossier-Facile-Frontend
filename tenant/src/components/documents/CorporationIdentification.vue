@@ -94,7 +94,7 @@ extend("required", {
   computed: {
     ...mapState({
       user: "user",
-      currentStep: "currentStep"
+      tenantStep: "tenantStep"
     })
   }
 })
