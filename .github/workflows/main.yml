@@ -31,7 +31,7 @@ jobs:
           cmd: main build # will run `yarn build` command
       - uses: borales/actions-yarn@v2.0.0
         with:
-          cmd: main test # will run `yarn test` command
+          cmd: main test:unit # will run `yarn test` command
       
       - uses: borales/actions-yarn@v2.0.0
         with:
@@ -41,4 +41,4 @@ jobs:
           cmd: tenant build
       - uses: borales/actions-yarn@v2.0.0
         with:
-          cmd: tenant test
+          cmd: tenant test:unit
