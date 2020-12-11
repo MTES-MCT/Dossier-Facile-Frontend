@@ -59,8 +59,15 @@ export default new Vuex.Store({
     },
     loadUser(state, user) {
       state.user = user;
-      if (state.user?.apartmentSharing && state.user.apartmentSharing.tenants.length > 0) {
+      if (state.user) {
+        state.user.applicationType = "ALONE";
+      }
+      if (state.user?.apartmentSharing && state.user.apartmentSharing.tenants.length > 1) {
+        state.user.applicationType = "COUPLE";
         state.roommates = state.user.apartmentSharing.tenants
+        if (state.user.apartmentSharing.tenants.length > 2) {
+          state.user.applicationType = "GROUP";
+        }
       }
     },
     setSelectedGuarantor(state, guarantor: Guarantor) {
