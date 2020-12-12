@@ -5,6 +5,7 @@ import { ProfileService } from "@/services/ProfileService";
 import router from "../router";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { User } from "df-shared/src/models/User";
+import i18n from '@/i18n';
 
 Vue.use(Vuex);
 
@@ -150,6 +151,9 @@ export default new Vuex.Store({
         }
       );
     },
+    setLang({commit}, lang) {
+      i18n.locale = lang;
+    }
   },
   modules: {}
 });
