@@ -39,8 +39,7 @@
       <ListItem
         v-for="file in identificationDocuments()"
         :key="file.id"
-        :filename="file.id"
-        :documentSubCategory="file.documentSubCategory"
+        :file="file"
         @remove="remove(file.id)"
       />
     </div>
@@ -63,7 +62,7 @@ import { mapState } from "vuex";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
-import { UploadStatus } from "@/components/uploads/UploadStatus";
+import { UploadStatus } from "../uploads/UploadStatus";
 import axios from "axios";
 import ListItem from "@/components/uploads/ListItem.vue";
 import { User } from "df-shared/src/models/User";
@@ -169,9 +168,9 @@ export default class Identification extends Vue {
       };
     });
     const existingFiles =
-      this.user?.documents?.filter(d => {
+      this.user?.documents?.find(d => {
         return d.documentCategory === "IDENTIFICATION";
-      }) || [];
+      })?.files || [];
     return [...newFiles, ...existingFiles];
   }
 
