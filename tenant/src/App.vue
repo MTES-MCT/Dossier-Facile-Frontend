@@ -12,7 +12,7 @@
       </div>
     </header>
     <div class="change-lang">
-      <button :class="rf-btn" @click="changeLang">
+      <button class="rf-btn" @click="changeLang">
         {{ getLang() }}
       </button>
     </div>

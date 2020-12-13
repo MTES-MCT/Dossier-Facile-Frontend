@@ -78,6 +78,17 @@ import { DfFile } from "df-shared/src/models/DfFile";
     ...mapState({
       user: "user"
     })
+  },
+  mounted: function() {
+    if (this.user.documents !== null ) {
+      const doc = this.user.documents?.find((d) => { return d.documentCategory === 'RESIDENCY'});
+      if (doc !== undefined) {
+        const localDoc = this.documents.find((d) => { return d.value === doc.documentSubCategory});
+        if (localDoc !== undefined) {
+          this.residencyDocument = localDoc
+        }
+      }
+    }
   }
 })
 export default class Residency extends Vue {
@@ -88,6 +99,18 @@ export default class Residency extends Vue {
     [key: string]: { state: string; percentage: number };
   } = {};
   residencyDocument = new DocumentType();
+
+  setDefaultDocument() {
+    if (this.user.documents !== null ) {
+      const doc = this.user.documents?.find((d) => { return d.documentCategory === 'RESIDENCY'});
+      if (doc !== undefined) {
+        const localDoc = this.documents.find((d) => { return d.value === doc.documentSubCategory});
+        if (localDoc !== undefined) {
+          this.residencyDocument = localDoc
+        }
+      }
+    }
+  }
 
   addFiles(fileList: File[]) {
     const nf = Array.from(fileList).map(f => { return { name: f.name, file: f} });
