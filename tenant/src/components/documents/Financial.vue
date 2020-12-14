@@ -192,7 +192,7 @@ export default class Financial extends Vue {
       });
   }
 
-  taxFiles() {
+  financialFiles() {
     const newFiles = this.files.map(f => {
       return {
         documentSubCategory: this.financialDocument.value,
