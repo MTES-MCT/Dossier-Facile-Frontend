@@ -33,12 +33,13 @@
         ></DocumentInsert>
       </div>
     </div>
-    <div>
-      <h5>files</h5>
+    <div v-if="residencyFiles()">
+      <h5>{{ $t("files") }}</h5>
       <ListItem
         v-for="file in residencyFiles()"
         :key="file.id"
         :file="file"
+        @remove="remove(file.id)"
         :uploadState="
           uploadProgress[file.id] ? uploadProgress[file.id].state : 'idle'
         "
@@ -71,6 +72,7 @@ import axios from "axios";
 import ListItem from "@/components/uploads/ListItem.vue";
 import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
+import { DfDocument } from "df-shared/src/models/DfDocument";
 
 @Component({
   components: { DocumentInsert, FileUpload, ListItem },
@@ -78,17 +80,6 @@ import { DfFile } from "df-shared/src/models/DfFile";
     ...mapState({
       user: "user"
     })
-  },
-  mounted: function() {
-    if (this.user.documents !== null ) {
-      const doc = this.user.documents?.find((d) => { return d.documentCategory === 'RESIDENCY'});
-      if (doc !== undefined) {
-        const localDoc = this.documents.find((d) => { return d.value === doc.documentSubCategory});
-        if (localDoc !== undefined) {
-          this.residencyDocument = localDoc
-        }
-      }
-    }
   }
 })
 export default class Residency extends Vue {
@@ -100,11 +91,11 @@ export default class Residency extends Vue {
   } = {};
   residencyDocument = new DocumentType();
 
-  setDefaultDocument() {
+  mounted() {
     if (this.user.documents !== null ) {
-      const doc = this.user.documents?.find((d) => { return d.documentCategory === 'RESIDENCY'});
+      const doc = this.user.documents?.find((d: DfDocument) => { return d.documentCategory === 'RESIDENCY'});
       if (doc !== undefined) {
-        const localDoc = this.documents.find((d) => { return d.value === doc.documentSubCategory});
+        const localDoc = this.documents.find((d: DocumentType) => { return d.value === doc.documentSubCategory});
         if (localDoc !== undefined) {
           this.residencyDocument = localDoc
         }
@@ -126,9 +117,8 @@ export default class Residency extends Vue {
     const newFiles = this.files.filter((f) => {return !f.id});
     if (!newFiles.length) return;
     Array.from(Array(newFiles.length).keys()).map(x => {
-      if (newFiles[x].file !== undefined) {
-        formData.append(`${fieldName}[${x}]`, newFiles[x].file, newFiles[x].name);
-      }
+      const f:File = newFiles[x].file || new File([], "");
+      formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
     });
 
     formData.append("typeDocumentResidency", this.residencyDocument.value);
@@ -159,6 +149,12 @@ export default class Residency extends Vue {
         return d.documentCategory === "RESIDENCY";
       })?.files || [];
     return [...newFiles, ...existingFiles];
+  }
+
+  remove(id: number) {
+    const url = `//${process.env.VUE_APP_API_URL}/api/file/${id}`;
+    // TODO remove locally or update user
+    axios.delete(url);
   }
 
   documents: DocumentType[] = [
@@ -231,13 +227,15 @@ export default class Residency extends Vue {
 "tenant": "Vous êtes locataire",
 "owner": "Vous êtes propriétaire",
 "guest": "Vous êtes hébergé gratuitement",
-"guest-parents": "Vous habitez chez vos parents"
+"guest-parents": "Vous habitez chez vos parents",
+"files": "Documents"
 },
 "fr": {
 "tenant": "Vous êtes locataire",
 "owner": "Vous êtes propriétaire",
 "guest": "Vous êtes hébergé gratuitement",
-"guest-parents": "Vous habitez chez vos parents"
+"guest-parents": "Vous habitez chez vos parents",
+"files": "Documents"
 }
 }
 </i18n>

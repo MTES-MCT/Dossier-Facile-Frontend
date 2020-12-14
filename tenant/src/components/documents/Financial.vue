@@ -10,7 +10,6 @@
         id="select"
         name="select"
       >
-        <option value="" selected disabled hidden>- Select -</option>
         <option v-for="d in documents" :value="d" :key="d.key">
           {{ $t(d.key) }}
         </option>
@@ -84,17 +83,13 @@
         ></DocumentInsert>
       </div>
     </div>
-    <div>
+    <div v-if="financialFiles().length > 0">
+      <h5>{{ $t("files") }}</h5>
       <ListItem
-        v-for="file in files"
-        :key="file.name"
-        :filename="file.name"
-        :uploadState="
-          uploadProgress[file.name] ? uploadProgress[file.name].state : 'idle'
-        "
-        :percentage="
-          uploadProgress[file.name] ? uploadProgress[file.name].percentage : 0
-        "
+        v-for="file in financialFiles()"
+        :key="file.id"
+        :file="file"
+        @remove="remove(file.id)"
       />
     </div>
     <div class="rf-col-12 rf-mb-5w" v-if="financialDocument">
@@ -120,6 +115,9 @@ import { UploadStatus } from "@/components/uploads/UploadStatus";
 import axios from "axios";
 import ListItem from "@/components/uploads/ListItem.vue";
 import { ValidationProvider } from "vee-validate";
+import { User } from "df-shared/src/models/User";
+import { DfFile } from "df-shared/src/models/DfFile";
+import { DfDocument } from "df-shared/src/models/DfDocument";
 
 @Component({
   components: { ValidationProvider, DocumentInsert, FileUpload, ListItem },
@@ -127,20 +125,35 @@ import { ValidationProvider } from "vee-validate";
     ...mapState({
       user: "user"
     })
-  }
+  },
 })
 export default class Financial extends Vue {
+  user!: User;
   noDocument = false;
   customText = "";
   monthlySum?: number = 0;
-  private fileUploadStatus = UploadStatus.STATUS_INITIAL;
-  private files: File[] = [];
-  private uploadProgress: {
+  files: DfFile[] = [];
+  fileUploadStatus = UploadStatus.STATUS_INITIAL;
+  uploadProgress: {
     [key: string]: { state: string; percentage: number };
   } = {};
   financialDocument = new DocumentType();
+
+  mounted() {
+    if (this.user.documents !== null ) {
+      const doc = this.user.documents?.find((d: DfDocument) => { return d.documentCategory === 'FINANCIAL'});
+      if (doc !== undefined) {
+        const localDoc = this.documents.find((d: DocumentType) => { return d.value === doc.documentSubCategory});
+        if (localDoc !== undefined) {
+          this.financialDocument = localDoc
+        }
+      }
+    }
+  }
+
   addFiles(fileList: File[]) {
-    this.files = [...this.files, ...fileList];
+    const nf = Array.from(fileList).map(f => { return { name: f.name, file: f} });
+    this.files = [...this.files, ...nf];
   }
   resetFiles() {
     this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
@@ -150,15 +163,11 @@ export default class Financial extends Vue {
     const fieldName = "documents";
     const formData = new FormData();
     if (!this.noDocument) {
-      if (!this.files.length) {
-        return;
-      }
-      Array.from(Array(this.files.length).keys()).map(x => {
-        formData.append(
-          `${fieldName}[${x}]`,
-          this.files[x],
-          this.files[x].name
-        );
+      const newFiles = this.files.filter((f) => {return !f.id});
+      if (!newFiles.length) return;
+      Array.from(Array(newFiles.length).keys()).map(x => {
+        const f:File = newFiles[x].file || new File([], "");
+        formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
       });
     }
 
@@ -182,6 +191,27 @@ export default class Financial extends Vue {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
       });
   }
+
+  taxFiles() {
+    const newFiles = this.files.map(f => {
+      return {
+        documentSubCategory: this.financialDocument.value,
+        id: f.name
+      };
+    });
+    const existingFiles =
+      this.user?.documents?.find(d => {
+        return d.documentCategory === "FINANCIAL";
+      })?.files || [];
+    return [...newFiles, ...existingFiles];
+  }
+
+  remove(id: number) {
+    const url = `//${process.env.VUE_APP_API_URL}/api/file/${id}`;
+    // TODO remove locally or update user
+    axios.delete(url);
+  }
+
   documents: DocumentType[] = [
     {
       key: "salary",

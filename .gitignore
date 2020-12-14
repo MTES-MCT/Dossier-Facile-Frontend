@@ -11,7 +11,7 @@ dist
 .env.*.local
 
 # prod env files
-.env.production
+.env.*
 
 # Log files
 npm-debug.log*
