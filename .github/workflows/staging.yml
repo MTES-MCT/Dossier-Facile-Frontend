@@ -29,6 +29,11 @@ jobs:
         with:
           cmd: main install # will run `yarn install` command
       - uses: borales/actions-yarn@v2.0.0
+        env:
+          VUE_APP_CAPTCHA_SITE_KEY: ${{ secrets.VUE_APP_CAPTCHA_SITE_KEY }}
+          VUE_APP_MAIN_URL: ${{ SECRETS.VUE_APP_MAIN_URL }}
+          VUE_APP_TENANT_URL: ${{ VUE_APP_TENANT_URL }}
+          VUE_APP_API_URL: ${{ VUE_APP_API_URL }}
         with:
           cmd: main build # will run `yarn build` command
       - name: Copy files to staging with the AWS CLI
@@ -39,6 +44,11 @@ jobs:
         with:
           cmd: tenant install
       - uses: borales/actions-yarn@v2.0.0
+        env:
+          VUE_APP_CAPTCHA_SITE_KEY: ${{ secrets.STAGING_VUE_APP_CAPTCHA_SITE_KEY }}
+          VUE_APP_MAIN_URL: ${{ secrets.STAGING_VUE_APP_MAIN_URL }}
+          VUE_APP_TENANT_URL: ${{ secrets.STAGING_VUE_APP_TENANT_URL }}
+          VUE_APP_API_URL: ${{ secrets.STAGING_VUE_APP_API_URL }}
         with:
           cmd: tenant build
       - name: Copy files to staging website with the AWS CLI
