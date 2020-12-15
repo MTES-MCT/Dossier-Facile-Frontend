@@ -25,7 +25,8 @@
   },
   "dependencies": {
     "@vue/cli": "^4.5.8",
-    "global": "^4.4.0"
+    "global": "^4.4.0",
+    "highlight.js": "10.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
