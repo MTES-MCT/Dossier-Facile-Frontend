@@ -11,6 +11,11 @@
         <Menu :user="user" />
       </div>
     </header>
+    <div class="change-lang">
+      <button class="rf-btn" @click="changeLang">
+        {{ getLang() }}
+      </button>
+    </div>
     <article class="page">
       <router-view />
     </article>
@@ -24,6 +29,7 @@ import MyHeader from "df-shared/src/Header/Header.vue";
 import MyFooter from "df-shared/src/Footer/Footer.vue";
 import Menu from "@/components/Menu.vue";
 import { mapState } from "vuex";
+import i18n from '@/i18n';
 
 @Component({
   components: {
@@ -59,6 +65,13 @@ export default class App extends Vue {
   onCreateOwner() {
     window.location.href = "http://localhost:9003/signup";
   }
+  getLang() {
+    return i18n.locale;
+  }
+  changeLang() {
+    const lang = i18n.locale === "fr" ? "en" : "fr";
+    this.$store.dispatch("setLang", lang);
+  }
 }
 </script>
 
@@ -76,6 +89,12 @@ export default class App extends Vue {
   min-height: 300px;
   display: flex;
   align-items: stretch;
+}
+
+.change-lang {
+  position: absolute;
+  right: 30px;
+  top: 330px;
 }
 </style>
 

@@ -87,3 +87,9 @@
 .cursor--pointer {
   cursor: pointer;
 }
+
+input[type=checkbox]:focus+label::before {
+  outline: none !important;
+  outline-offset: none !important;
+  z-index: 0 !important;
+}

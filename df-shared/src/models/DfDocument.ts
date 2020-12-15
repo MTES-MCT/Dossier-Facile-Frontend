@@ -5,5 +5,7 @@ export class DfDocument {
   documentCategory?: string;
   documentSubCategory?: string;
   customText?: string;
-  monthlySum?: string;
+  monthlySum?: number;
+  files?: [];
+  noDocument?: boolean;
 }

@@ -34,13 +34,12 @@
         ></DocumentInsert>
       </div>
     </div>
-    <div>
-      <h5>files</h5>
+    <div v-if="identificationFiles().length > 0">
+      <h5>{{ $t("files") }}</h5>
       <ListItem
-        v-for="file in identificationDocuments()"
+        v-for="file in identificationFiles()"
         :key="file.id"
-        :filename="file.id"
-        :documentSubCategory="file.documentSubCategory"
+        :file="file"
         @remove="remove(file.id)"
       />
     </div>
@@ -63,23 +62,98 @@ import { mapState } from "vuex";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
-import { UploadStatus } from "@/components/uploads/UploadStatus";
+import { UploadStatus } from "../uploads/UploadStatus";
 import axios from "axios";
 import ListItem from "@/components/uploads/ListItem.vue";
 import { User } from "df-shared/src/models/User";
+import { DfFile } from "df-shared/src/models/DfFile";
+import { DfDocument } from "df-shared/src/models/DfDocument";
 
 @Component({
   components: { DocumentInsert, FileUpload, ListItem },
   computed: {
     ...mapState({
-      user: "user",
-      currentStep: "currentStep"
+      user: "user"
     })
   }
 })
 export default class Identification extends Vue {
   user!: User;
+  fileUploadStatus = UploadStatus.STATUS_INITIAL;
+  files: DfFile[] = [];
+  uploadProgress: {
+    [key: string]: { state: string; percentage: number };
+  } = {};
   identificationDocument = new DocumentType();
+
+  mounted() {
+    if (this.user.documents !== null ) {
+      const doc = this.user.documents?.find((d: DfDocument) => { return d.documentCategory === 'IDENTIFICATION'});
+      if (doc !== undefined) {
+        const localDoc = this.documents.find((d: DocumentType) => { return d.value === doc.documentSubCategory});
+        if (localDoc !== undefined) {
+          this.identificationDocument = localDoc
+        }
+      }
+    }
+  }
+
+  addFiles(fileList: File[]) {
+    const nf = Array.from(fileList).map(f => { return { name: f.name, file: f} });
+    this.files = [...this.files, ...nf];
+  }
+
+  resetFiles() {
+    this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
+  }
+
+  save() {
+    this.uploadProgress = {};
+    const fieldName = "documents";
+    const formData = new FormData();
+    const newFiles = this.files.filter((f) => {return !f.id});
+    if (!newFiles.length) return;
+    Array.from(Array(newFiles.length).keys()).map(x => {
+      const f:File = newFiles[x].file || new File([], "");
+      formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
+    });
+
+    formData.append( "typeDocumentIdentification", this.identificationDocument.value);
+
+    this.fileUploadStatus = UploadStatus.STATUS_SAVING;
+    const url = `//${process.env.VUE_APP_API_URL}/api/register/documentIdentification`;
+    axios
+      .post(url, formData)
+      .then(() => {
+        console.log("success");
+        this.fileUploadStatus = UploadStatus.STATUS_SUCCESS;
+      })
+      .catch(() => {
+        console.log("fail");
+        this.fileUploadStatus = UploadStatus.STATUS_FAILED;
+      });
+  }
+
+  identificationFiles() {
+    const newFiles = this.files.map(f => {
+      return {
+        documentSubCategory: this.identificationDocument.value,
+        id: f.name
+      };
+    });
+    const existingFiles =
+      this.user?.documents?.find(d => {
+        return d.documentCategory === "IDENTIFICATION";
+      })?.files || [];
+    return [...newFiles, ...existingFiles];
+  }
+
+  remove(id: number) {
+    const url = `//${process.env.VUE_APP_API_URL}/api/file/${id}`;
+    // TODO remove locally or update user
+    axios.delete(url);
+  }
+
   documents: DocumentType[] = [
     {
       key: "identity-card",
@@ -119,69 +193,8 @@ export default class Identification extends Vue {
       refusedProofs: ["Tout autre document"]
     }
   ];
-
-  private files: File[] = [];
-  private fileUploadStatus = UploadStatus.STATUS_INITIAL;
-  private uploadProgress: {
-    [key: string]: { state: string; percentage: number };
-  } = {};
-
-  addFiles(fileList: File[]) {
-    this.files = [...this.files, ...fileList];
-  }
-
-  save() {
-    this.uploadProgress = {};
-    const fieldName = "documents";
-    const formData = new FormData();
-    if (!this.files.length) return;
-    Array.from(Array(this.files.length).keys()).map(x => {
-      formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
-    });
-
-    formData.append(
-      "typeDocumentIdentification",
-      this.identificationDocument.value
-    );
-
-    this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    const url = `//${process.env.VUE_APP_API_URL}/api/register/documentIdentification`;
-    axios
-      .post(url, formData)
-      .then(() => {
-        console.log("success");
-        this.fileUploadStatus = UploadStatus.STATUS_SUCCESS;
-      })
-      .catch(() => {
-        console.log("fail");
-        this.fileUploadStatus = UploadStatus.STATUS_FAILED;
-      });
-  }
-
-  resetFiles() {
-    this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
-  }
-
-  identificationDocuments() {
-    const newFiles = this.files.map(f => {
-      return {
-        documentSubCategory: this.identificationDocument.value,
-        id: f.name
-      };
-    });
-    const existingFiles =
-      this.user?.documents?.filter(d => {
-        return d.documentCategory === "IDENTIFICATION";
-      }) || [];
-    return [...newFiles, ...existingFiles];
-  }
-
-  remove(id: number) {
-    const url = `//${process.env.VUE_APP_API_URL}/api/file/${id}`;
-    // TODO remove locally or update user
-    axios.delete(url);
-  }
 }
+
 </script>
 
 <style scoped lang="scss">
@@ -202,13 +215,15 @@ td {
 "identity-card": "Carte nationale d’identité",
 "passport": "Passeport",
 "permit": "Permis de conduire",
-"other": "Autre"
+"other": "Autre",
+"files": "Documents"
 },
 "fr": {
 "identity-card": "Carte nationale d’identité",
 "passport": "Passeport",
 "permit": "Permis de conduire",
-"other": "Autre"
+"other": "Autre",
+"files": "Documents"
 }
 }
 </i18n>

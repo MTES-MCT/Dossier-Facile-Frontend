@@ -111,7 +111,7 @@ export default class JoinRoommate extends Vue {
   user: User = new User();
   // FIXME add ID or email or…
   onRegister(user: User) {
-    if (user.username && user.password) {
+    if (user.email && user.password) {
       this.$store.dispatch("register", user).then(
         () => {
           console.log("TODO redirect to step 4.3");

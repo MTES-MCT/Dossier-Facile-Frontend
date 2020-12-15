@@ -50,7 +50,7 @@ import { mapState } from "vuex";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
-import { UploadStatus } from "@/components/uploads/UploadStatus";
+import { UploadStatus } from "../uploads/UploadStatus";
 import axios from "axios";
 import ListItem from "@/components/uploads/ListItem.vue";
 
@@ -62,8 +62,7 @@ import ListItem from "@/components/uploads/ListItem.vue";
   },
   computed: {
     ...mapState({
-      user: "user",
-      currentStep: "currentStep"
+      user: "user"
     })
   }
 })

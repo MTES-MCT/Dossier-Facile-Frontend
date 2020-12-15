@@ -6,31 +6,42 @@
           <label class="rf-label">{{ $t("roommateEmail") }}</label>
           <div
             class="rf-mb-1w"
-            v-for="(roommate, key) in mails"
+            v-for="(roommate, key) in roommatesNotMe()"
             v-bind:key="key"
           >
-          <div class="rf-grid-row">
-            <validation-provider rules="email" v-slot="{ errors }" class="rf-col-10">
-              <div class="rf-input-group" :class="errors[0] ? 'rf-input-group--error' : ''" >
-                <input
-                  v-model="roommate.email"
-                  class="form-control rf-input"
-                  name="email"
-                  placeholder="Ex : exemple@exemple.fr"
-                  type="email"
-                />
-                <span class="rf-error-text" v-if="errors[0]">{{
-                  errors[0]
-                }}</span>
-              </div>
-            </validation-provider>
+            <div class="rf-grid-row">
+              <validation-provider
+                rules="email"
+                v-slot="{ errors }"
+                class="rf-col-10"
+              >
+                <div
+                  class="rf-input-group"
+                  :class="errors[0] ? 'rf-input-group--error' : ''"
+                >
+                  <input
+                    v-model="roommate.email"
+                    class="form-control rf-input"
+                    name="email"
+                    placeholder="Ex : exemple@exemple.fr"
+                    type="email"
+                  />
+                  <span class="rf-error-text" v-if="errors[0]">{{
+                    errors[0]
+                  }}</span>
+                </div>
+              </validation-provider>
               <div class="rf-col-2">
-                <button class="rf-btn rf-btn--icon rf-btn--secondary" :title="$t('delete')" :disabled="mails.length <= 1"
-                  @click="remove(key)">
+                <button
+                  class="rf-btn rf-btn--icon rf-btn--secondary"
+                  :title="$t('delete')"
+                  :disabled="roommates.length <= 1"
+                  @click="remove(key)"
+                >
                   <span class="icon icon-Close text-danger"></span>
                 </button>
               </div>
-          </div>
+            </div>
           </div>
         </div>
         <div class="rf-col-12 rf-mb-3w">
@@ -55,6 +66,8 @@ import { Component, PropSync, Vue } from "vue-property-decorator";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
 import { email } from "vee-validate/dist/rules";
+import { User } from "df-shared/src/models/User";
+import { mapState } from "vuex";
 
 extend("email", {
   ...email,
@@ -65,20 +78,30 @@ extend("email", {
   components: {
     ValidationProvider,
     ValidationObserver
-  }
+  },
+  computed: {
+    ...mapState({
+      roommates: "roommates",
+      user: "user"
+    })
+  },
 })
 export default class RoommatesInformation extends Vue {
-  @PropSync("roommates")
-  readonly mails!: { email: string }[];
+  roommates!: User[];
+  user!: User;
   @PropSync("authorize", { type: Boolean })
   readonly author!: boolean;
 
   addMail() {
-    this.mails.push({ email: "" });
+    this.$store.commit("createRoommates");
   }
 
   remove(key: number) {
-    this.mails.splice(key, 1);
+    this.roommates.splice(key, 1);
+  }
+
+  roommatesNotMe() {
+    return this.roommates.filter((r: User) => { return r.id != this.user.id});
   }
 }
 </script>

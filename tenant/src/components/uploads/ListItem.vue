@@ -1,10 +1,10 @@
 <template>
   <div class="rf-grid-row row">
     <div class="text">
-      {{ filename }}
+      {{ file.name }}
     </div>
     <div class="text">
-      {{ $t(documentSubCategory) }}
+      {{ $t(file.documentSubCategory) }}
     </div>
     <div class="progress">
       <Progress :percentage="percentage" :state="uploadState" />
@@ -16,6 +16,7 @@
 </template>
 
 <script lang="ts">
+import { DfFile } from "df-shared/src/models/DfFile";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import Progress from "./Progress.vue";
 @Component({
@@ -24,8 +25,7 @@ import Progress from "./Progress.vue";
   }
 })
 export default class ListItem extends Vue {
-  @Prop({ default: "" }) filename!: string;
-  @Prop({ default: "" }) documentSubCategory!: string;
+  @Prop({ default: "" }) file!: DfFile;
   @Prop({ default: "idle" }) uploadState!: string;
   @Prop({ default: 0 }) percentage!: number;
 

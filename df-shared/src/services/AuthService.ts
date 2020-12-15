@@ -7,7 +7,7 @@ export const AuthService = {
   login(user: User) {
     return axios
       .post(API_URL + "auth", {
-        username: user.username,
+        username: user.email,
         password: user.password
       })
       .then(response => {
@@ -25,7 +25,7 @@ export const AuthService = {
 
   register(user: User) {
     return axios.post(API_URL + "register/account", {
-      email: user.username,
+      email: user.email,
       password: user.password,
       confirm: user.confirm,
       reCaptchaResponse: user.captcha
@@ -34,7 +34,7 @@ export const AuthService = {
 
   resetPassword(user: User) {
     return axios.post(API_URL + "user/forgotPassword", {
-      email: user.username
+      email: user.email
     });
   },
 

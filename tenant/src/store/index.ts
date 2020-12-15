@@ -4,6 +4,8 @@ import { AuthService } from "df-shared/src/services/AuthService";
 import { ProfileService } from "@/services/ProfileService";
 import router from "../router";
 import { Guarantor } from "df-shared/src/models/Guarantor";
+import { User } from "df-shared/src/models/User";
+import i18n from '@/i18n';
 
 Vue.use(Vuex);
 
@@ -11,14 +13,17 @@ const localUser = localStorage.getItem("user");
 const initialUser = localUser !== null ? JSON.parse(localUser) : null;
 const initialLoggedIn = !!initialUser;
 
+export class DfState {
+    tenantStep = 0
+    guarantorStep = 0
+    user: User | null = initialUser
+    roommates: User[] = []
+    selectedGuarantor = new Guarantor()
+    status = { loggedIn: initialLoggedIn }
+  };
+
 export default new Vuex.Store({
-  state: {
-    currentStep: 0,
-    guarantorStep: 0,
-    user: initialUser,
-    selectedGuarantor: new Guarantor(),
-    status: { loggedIn: initialLoggedIn }
-  },
+  state: new DfState(),
   mutations: {
     loginSuccess(state, user) {
       state.status.loggedIn = true;
@@ -42,22 +47,35 @@ export default new Vuex.Store({
     },
     setNamesSuccess(state, user) {
       state.user = user;
-      state.currentStep++;
+      state.tenantStep++;
     },
     setRoommatesSuccess(state) {
-      state.currentStep++;
+      state.tenantStep++;
     },
     setStep(state, n: number) {
-      state.currentStep = n;
+      state.tenantStep = n;
     },
     setGuarantorStep(state, n: number) {
       state.guarantorStep = n;
     },
     loadUser(state, user) {
       state.user = user;
+      if (state.user) {
+        state.user.applicationType = "ALONE";
+      }
+      if (state.user?.apartmentSharing && state.user.apartmentSharing.tenants.length > 1) {
+        state.user.applicationType = "COUPLE";
+        state.roommates = state.user.apartmentSharing.tenants
+        if (state.user.apartmentSharing.tenants.length > 2) {
+          state.user.applicationType = "GROUP";
+        }
+      }
     },
     setSelectedGuarantor(state, guarantor: Guarantor) {
       state.selectedGuarantor = guarantor;
+    },
+    createRoommates(state) {
+      state.roommates.push(new User());
     }
   },
   actions: {
@@ -132,6 +150,9 @@ export default new Vuex.Store({
           return Promise.reject(error);
         }
       );
+    },
+    setLang({commit}, lang) {
+      i18n.locale = lang;
     }
   },
   modules: {}

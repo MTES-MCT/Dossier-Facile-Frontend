@@ -16,7 +16,7 @@ import ForgottenPassword from "df-shared/src/Authentification/ForgottenPassword.
 })
 export default class ForgottenPasswordPage extends Vue {
   onForgottenPassword(user: User) {
-    if (user.username) {
+    if (user.email) {
       this.$store.dispatch("resetPassword", user).then(
         () => {
           this.$router.push("/");

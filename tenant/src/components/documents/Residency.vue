@@ -10,7 +10,6 @@
         id="select"
         name="select"
       >
-        <option value="" selected disabled hidden>- Select -</option>
         <option v-for="d in documents" :value="d" :key="d.key">{{
           $t(d.key)
         }}</option>
@@ -34,16 +33,18 @@
         ></DocumentInsert>
       </div>
     </div>
-    <div>
+    <div v-if="residencyFiles()">
+      <h5>{{ $t("files") }}</h5>
       <ListItem
-        v-for="file in files"
-        :key="file.name"
-        :filename="file.name"
+        v-for="file in residencyFiles()"
+        :key="file.id"
+        :file="file"
+        @remove="remove(file.id)"
         :uploadState="
-          uploadProgress[file.name] ? uploadProgress[file.name].state : 'idle'
+          uploadProgress[file.id] ? uploadProgress[file.id].state : 'idle'
         "
         :percentage="
-          uploadProgress[file.name] ? uploadProgress[file.name].percentage : 0
+          uploadProgress[file.id] ? uploadProgress[file.id].percentage : 0
         "
       />
     </div>
@@ -66,29 +67,45 @@ import { mapState } from "vuex";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
-import { UploadStatus } from "@/components/uploads/UploadStatus";
+import { UploadStatus } from "../uploads/UploadStatus";
 import axios from "axios";
 import ListItem from "@/components/uploads/ListItem.vue";
+import { User } from "df-shared/src/models/User";
+import { DfFile } from "df-shared/src/models/DfFile";
+import { DfDocument } from "df-shared/src/models/DfDocument";
 
 @Component({
   components: { DocumentInsert, FileUpload, ListItem },
   computed: {
     ...mapState({
-      user: "user",
-      currentStep: "currentStep"
+      user: "user"
     })
   }
 })
 export default class Residency extends Vue {
-  private fileUploadStatus = UploadStatus.STATUS_INITIAL;
-  private files: File[] = [];
-  private uploadProgress: {
+  user!: User;
+  fileUploadStatus = UploadStatus.STATUS_INITIAL;
+  files: DfFile[] = [];
+  uploadProgress: {
     [key: string]: { state: string; percentage: number };
   } = {};
   residencyDocument = new DocumentType();
 
+  mounted() {
+    if (this.user.documents !== null ) {
+      const doc = this.user.documents?.find((d: DfDocument) => { return d.documentCategory === 'RESIDENCY'});
+      if (doc !== undefined) {
+        const localDoc = this.documents.find((d: DocumentType) => { return d.value === doc.documentSubCategory});
+        if (localDoc !== undefined) {
+          this.residencyDocument = localDoc
+        }
+      }
+    }
+  }
+
   addFiles(fileList: File[]) {
-    this.files = [...this.files, ...fileList];
+    const nf = Array.from(fileList).map(f => { return { name: f.name, file: f} });
+    this.files = [...this.files, ...nf];
   }
   resetFiles() {
     this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
@@ -97,9 +114,11 @@ export default class Residency extends Vue {
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    if (!this.files.length) return;
-    Array.from(Array(this.files.length).keys()).map(x => {
-      formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
+    const newFiles = this.files.filter((f) => {return !f.id});
+    if (!newFiles.length) return;
+    Array.from(Array(newFiles.length).keys()).map(x => {
+      const f:File = newFiles[x].file || new File([], "");
+      formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
     });
 
     formData.append("typeDocumentResidency", this.residencyDocument.value);
@@ -117,6 +136,27 @@ export default class Residency extends Vue {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
       });
   }
+
+  residencyFiles() {
+    const newFiles = this.files.map(f => {
+      return {
+        documentSubCategory: this.residencyDocument.value,
+        id: f.name
+      };
+    });
+    const existingFiles =
+      this.user?.documents?.find(d => {
+        return d.documentCategory === "RESIDENCY";
+      })?.files || [];
+    return [...newFiles, ...existingFiles];
+  }
+
+  remove(id: number) {
+    const url = `//${process.env.VUE_APP_API_URL}/api/file/${id}`;
+    // TODO remove locally or update user
+    axios.delete(url);
+  }
+
   documents: DocumentType[] = [
     {
       key: "tenant",
@@ -187,13 +227,15 @@ export default class Residency extends Vue {
 "tenant": "Vous êtes locataire",
 "owner": "Vous êtes propriétaire",
 "guest": "Vous êtes hébergé gratuitement",
-"guest-parents": "Vous habitez chez vos parents"
+"guest-parents": "Vous habitez chez vos parents",
+"files": "Documents"
 },
 "fr": {
 "tenant": "Vous êtes locataire",
 "owner": "Vous êtes propriétaire",
 "guest": "Vous êtes hébergé gratuitement",
-"guest-parents": "Vous habitez chez vos parents"
+"guest-parents": "Vous habitez chez vos parents",
+"files": "Documents"
 }
 }
 </i18n>

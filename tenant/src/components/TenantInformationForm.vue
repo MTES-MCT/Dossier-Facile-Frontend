@@ -40,14 +40,13 @@
             <input
               type="radio"
               id="roommate"
-              value="CREATE"
+              value="GROUP"
               v-model="user.applicationType"
             />
             <label class="rf-label" for="roommate">{{ $t("roommate") }}</label>
           </div>
           <RoommatesInformation
-            v-if="user.applicationType === 'CREATE'"
-            :roommates.sync="roommates"
+            v-if="user.applicationType === 'GROUP'"
             :authorize.sync="coTenantAuthorize"
           >
           </RoommatesInformation>
@@ -81,7 +80,8 @@ extend("required", {
 @Component({
   computed: {
     ...mapState({
-      user: "user"
+      user: "user",
+      roommates: "roommates"
     })
   },
   components: {
@@ -93,7 +93,7 @@ extend("required", {
 })
 export default class TenantInformationForm extends Vue {
   user!: User;
-  roommates = [{ email: "" }];
+  roommates!: User[];
   coTenantAuthorize = false;
   spouseEmail = "";
   spouseAuthorize = false;
@@ -101,7 +101,7 @@ export default class TenantInformationForm extends Vue {
   handleOthersInformation() {
     if (
       (this.user.applicationType === "COUPLE" && !this.spouseAuthorize) ||
-      (this.user.applicationType === "CREATE" && !this.coTenantAuthorize)
+      (this.user.applicationType === "GROUP" && !this.coTenantAuthorize)
     ) {
       return;
     }
@@ -110,8 +110,8 @@ export default class TenantInformationForm extends Vue {
     if (this.user.applicationType === "COUPLE") {
       coTenantEmails = [this.spouseEmail];
       acceptAccess = this.spouseAuthorize;
-    } else if (this.user.applicationType === "CREATE") {
-      coTenantEmails = this.roommates.map(function(r) {
+    } else if (this.user.applicationType === "GROUP") {
+      coTenantEmails = this.roommates.filter((r: User) => { return r.id != this.user.id}).map(function(r) {
         return r.email;
       });
       acceptAccess = this.coTenantAuthorize;
@@ -125,14 +125,6 @@ export default class TenantInformationForm extends Vue {
     this.$store.dispatch("setRoommates", data).then(null, error => {
       console.dir(error);
     });
-  }
-  updateRoommates(roommates: { email: string }[]) {
-    // todo update vuex
-    this.roommates = roommates;
-  }
-  updateAuthorize(authorize: boolean) {
-    // todo update vuex
-    this.coTenantAuthorize = authorize;
   }
 }
 </script>

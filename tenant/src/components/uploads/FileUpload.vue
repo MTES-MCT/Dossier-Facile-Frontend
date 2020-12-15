@@ -29,7 +29,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { UploadStatus } from "@/components/uploads/UploadStatus";
+import { UploadStatus } from "./UploadStatus";
 
 const {
   STATUS_INITIAL,

@@ -12,13 +12,13 @@
                 class="rf-input-group"
                 :class="errors[0] ? 'rf-input-group--error' : ''"
               >
-                <label class="rf-label" for="username">{{ $t("email") }}</label>
+                <label class="rf-label" for="email">{{ $t("email") }}</label>
                 <input
-                  v-model="user.username"
+                  v-model="user.email"
                   class="form-control validate-required rf-input"
-                  id="username"
-                  name="username"
-                  :placeholder="$t('username-placeholder')"
+                  id="email"
+                  name="email"
+                  :placeholder="$t('email-placeholder')"
                   type="email"
                 />
                 <span class="rf-error-text" v-if="errors[0]">{{
@@ -153,7 +153,7 @@ export default class Register extends Vue {
 "en": {
 "title": "Create account",
 "password": "Password :",
-"username-placeholder": "E.g. : example@example.fr",
+"email-placeholder": "E.g. : example@example.fr",
 "password-placeholder": "E.g. : 12345679",
 "confirm-password": "Confirm password :",
 "email": "Email :",
@@ -166,7 +166,7 @@ export default class Register extends Vue {
 "title": "Création de compte DossierFacile",
 "password": "Mot de passe :",
 "confirm-password": "Confirmation du mot de passe :",
-"username-placeholder": "Ex : exemple@exemple.fr",
+"email-placeholder": "Ex : exemple@exemple.fr",
 "password-placeholder": "Ex : 12345679",
 "email": "Email :",
 "submit": "Valider",

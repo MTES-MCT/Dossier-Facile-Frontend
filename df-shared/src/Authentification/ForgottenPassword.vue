@@ -14,10 +14,10 @@
               >
                 <label class="rf-label" for="email">{{ $t("email") }}</label>
                 <input
-                  v-model="user.username"
+                  v-model="user.email"
                   class="form-control rf-input validate-required"
                   id="email"
-                  name="username"
+                  name="email"
                   :placeholder="$t('placeholder')"
                   type="email"
                 />

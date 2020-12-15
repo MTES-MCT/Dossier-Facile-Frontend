@@ -33,13 +33,13 @@ export default class DocumentInsert extends Vue {
       return [];
     }
   })
-  private allowList!: string[];
+  allowList!: string[];
   @Prop({
     default() {
       return [];
     }
   })
-  private blockList!: string[];
+  blockList!: string[];
 }
 </script>
 
