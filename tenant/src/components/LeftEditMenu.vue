@@ -1,27 +1,25 @@
 <template>
   <div class="left-edit-menu">
-    <div class="spacer hidden"></div>
-    <div class="active step">
-      <div class="step-number">1</div>
-      <div class="step-title">je renseigne mes informations</div>
-    </div>
-    <div class="spacer active"></div>
-    <div class="spacer" :class="getClass(1)"></div>
-    <div class="step" :class="getClass(1)">
-      <div class="step-number">2</div>
-      <div class="step-title">
-        je joins mes documents
+    <div class="inner-left-edit">
+      <div class="spacer hidden"></div>
+      <div class="active step">
+        <div class="step-number">1</div>
+        <div class="step-title">je renseigne mes informations</div>
       </div>
-    </div>
-    <div class="spacer" :class="getClass(1)"></div>
-    <div class="spacer" :class="getClass(2)"></div>
-    <div class="step" :class="getClass(2)">
-      <div class="step-number">3</div>
-      <div class="step-title">
-        je renseigne mon garant
+      <div class="spacer active"></div>
+      <div class="spacer" :class="getClass(1)"></div>
+      <div class="step" :class="getClass(1)">
+        <div class="step-number">2</div>
+        <div class="step-title">je joins mes documents</div>
       </div>
+      <div class="spacer" :class="getClass(1)"></div>
+      <div class="spacer" :class="getClass(2)"></div>
+      <div class="step" :class="getClass(2)">
+        <div class="step-number">3</div>
+        <div class="step-title">je renseigne mon garant</div>
+      </div>
+      <div class="spacer hidden"></div>
     </div>
-    <div class="spacer hidden"></div>
   </div>
 </template>
 
@@ -46,15 +44,20 @@ export default class LeftEditMenu extends Vue {
 @import "df-shared/src/scss/_variables.scss";
 
 .left-edit-menu {
-  min-height: 300px;
   background-color: $brick;
+  @media all and (max-width: 768px) {
+    display: none;
+  }
+}
+
+.inner-left-edit {
+  min-height: 300px;
+  height: 100%;
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   padding-left: 10px;
-  @media all and (max-width: 768px) {
-    display: none;
-  }
 }
 
 .spacer {
