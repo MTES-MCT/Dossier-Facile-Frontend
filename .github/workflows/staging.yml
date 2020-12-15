@@ -1,7 +1,7 @@
 name: CI
 
 on:
-  pull_request:
+  push:
     branches: [ develop ]
 
   # Allows you to run this workflow manually from the Actions tab
@@ -18,6 +18,12 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      - name: Configure AWS credentials from staging
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.STAGING_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.STAGING_AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-3
 
       - uses: borales/actions-yarn@v2.0.0
         with:
@@ -25,9 +31,9 @@ jobs:
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: main build # will run `yarn build` command
-      - uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: main test:unit # will run `yarn test` command
+      - name: Copy files to staging with the AWS CLI
+        run: |
+          aws s3 sync ./main/dist s3://www-dev.dossierfacile.fr --delete --acl public-read
       
       - uses: borales/actions-yarn@v2.0.0
         with:
@@ -35,6 +41,6 @@ jobs:
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: tenant build
-      - uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: tenant test:unit
+      - name: Copy files to staging website with the AWS CLI
+        run: |
+          aws s3 sync ./tenant/dist s3://locataire-dev.dossierfacile.fr --delete --acl public-read
