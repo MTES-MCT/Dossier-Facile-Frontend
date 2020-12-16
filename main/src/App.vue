@@ -45,11 +45,13 @@ export default class App extends Vue {
     ? this.$cookies.get("accept-cookie")
     : false;
 
+  TENANT_URL = "//" + process.env.VUE_APP_TENANT_URL;
+
   onCreateOwner() {
     window.location.href = "http://localhost:9003/signup";
   }
   onCreateTenant() {
-    window.location.href = "http://localhost:9002/signup";
+    window.location.href = `${this.TENANT_URL}/signup`;
   }
 
   hideCookie() {

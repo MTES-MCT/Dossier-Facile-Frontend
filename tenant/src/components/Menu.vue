@@ -38,7 +38,7 @@ import { User } from "df-shared/src/models/User";
 
 @Component
 export default class Menu extends Vue {
-  @Prop() private user?: User;
+  @Prop() user?: User;
 
   MAIN_URL = "//" + process.env.VUE_APP_MAIN_URL;
 }
