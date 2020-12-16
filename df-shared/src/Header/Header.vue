@@ -64,7 +64,7 @@ import { Vue, Component, Prop } from "vue-property-decorator";
   }
 })
 export default class MyHeader extends Vue {
-  @Prop({ default: false }) private loggedIn?: boolean;
+  @Prop({ default: false }) loggedIn?: boolean;
 
   onCreateTenant() {
     this.$emit("on-create-tenant");
@@ -96,7 +96,7 @@ export default class MyHeader extends Vue {
 },
 "fr": {
 "logout": "Logout",
-"signup": "S'inscrire",
+"signup": "Mon dossier",
 "owner": "Espace propriétaire"
 }
 }

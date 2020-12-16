@@ -11,9 +11,9 @@
               {{ $t("s0.text") }}
             </p>
             <p>
-              <router-link class="rf-btn" to="/tenant">
-                {{ $t("s0.link") }}
-              </router-link>
+              <a class="rf-btn" :href="`${TENANT_URL}/signup`">
+                {{ $t("button") }}
+              </a>
             </p>
           </div>
         </div>
@@ -77,9 +77,9 @@
             <img src="../assets/icons/justif.svg" />
           </div>
         </div>
-        <router-link class="rf-btn rf-mt-3w" to="/tenant">
-          {{ $t("s2.button") }}
-        </router-link>
+        <a class="rf-btn rf-mt-3w" :href="`${TENANT_URL}/signup`">
+          {{ $t("button") }}
+        </a>
       </div>
     </section>
     <section class="rf-mt-12w">
@@ -129,9 +129,9 @@
         </div>
         <div class="text-center rf-mt-5w rf-mb-5w">
           <p>
-            <router-link class="rf-btn" to="/tenant">
-              {{ $t("s4.link") }}
-            </router-link>
+            <a class="rf-btn" :href="`${TENANT_URL}/signup`">
+              {{ $t("button") }}
+            </a>
           </p>
         </div>
       </div>
@@ -149,7 +149,10 @@ import { Component, Vue } from "vue-property-decorator";
     document.head.appendChild(localScript);
   }
 })
-export default class LandingPage extends Vue {}
+export default class LandingPage extends Vue {
+  TENANT_URL = "//" + process.env.VUE_APP_TENANT_URL;
+
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -218,10 +221,10 @@ ul li:before {
 <i18n>
 {
   "en": {
+    "button": "Monter mon dossier de location",
     "s0": {
       "title": "Montez un dossier de location en béton pour trouver le logement de vos rêves",
-      "text": "DossierFacile vous aide à constituer un dossier de location numérique de qualité pour mettre toutes les chances de votre côté.",
-      "link": "Monter votre dossier de location"
+      "text": "DossierFacile vous aide à constituer un dossier de location numérique de qualité pour mettre toutes les chances de votre côté."
     },
     "s1": {
       "h1": "Démarquez-vous grâce à un dossier de qualité",
@@ -243,8 +246,7 @@ ul li:before {
       "h2": "DossierFacile valide mon dossier",
       "p2": "Nos agents vérifient votre dossier et vous aident à le corriger si besoin.",
       "h3": "Mon dossier est prêt à être envoyé",
-      "p3": "Votre dossier sécurisé sous forme de lien URL ou au format PDF est prêt à être envoyé aux propriétaires.",
-      "button": "Monter mon dossier de location"
+      "p3": "Votre dossier sécurisé sous forme de lien URL ou au format PDF est prêt à être envoyé aux propriétaires."
     },
     "s3": {
       "title": "Protégez vos informations personnelles",
@@ -262,15 +264,14 @@ ul li:before {
       "t2": "Simple, efficace et pratique : ça m'a fait gagner beaucoup de temps dans ma recherche d'appartement.",
       "author2": "Caroline, étudiante",
       "t3": "Je ne réussissais jamais à visiter un appartement avec mon dossier étranger. Avec DossierFacile, j'ai enfin eu plus de visites !",
-      "author3": "Irina, étudiante en Erasmus",
-      "link": "Monter mon dossier de location"
+      "author3": "Irina, étudiante en Erasmus"
     }
   },
   "fr": {
+    "button": "Monter mon dossier de location",
     "s0": {
       "title": "Montez un dossier de location en béton pour trouver le logement de vos rêves",
-      "text": "DossierFacile vous aide à constituer un dossier de location numérique de qualité pour mettre toutes les chances de votre côté.",
-      "link": "Monter votre dossier de location"
+      "text": "DossierFacile vous aide à constituer un dossier de location numérique de qualité pour mettre toutes les chances de votre côté."
     },
     "s1": {
       "h1": "Démarquez-vous grâce à un dossier de qualité",
@@ -292,8 +293,7 @@ ul li:before {
       "h2": "DossierFacile valide mon dossier",
       "p2": "Nos agents vérifient votre dossier et vous aident à le corriger si besoin.",
       "h3": "Mon dossier est prêt à être envoyé",
-      "p3": "Votre dossier sécurisé sous forme de lien URL ou au format PDF est prêt à être envoyé aux propriétaires.",
-      "button": "Monter mon dossier de location"
+      "p3": "Votre dossier sécurisé sous forme de lien URL ou au format PDF est prêt à être envoyé aux propriétaires."
     },
     "s3": {
       "title": "Protégez vos informations personnelles",
@@ -311,8 +311,7 @@ ul li:before {
       "t2": "Simple, efficace et pratique : ça m'a fait gagner beaucoup de temps dans ma recherche d'appartement.",
       "author2": "Caroline, étudiante",
       "t3": "Je ne réussissais jamais à visiter un appartement avec mon dossier étranger. Avec DossierFacile, j'ai enfin eu plus de visites !",
-      "author3": "Irina, étudiante en Erasmus",
-      "link": "Monter mon dossier de location"
+      "author3": "Irina, étudiante en Erasmus"
     }
   }
 }
