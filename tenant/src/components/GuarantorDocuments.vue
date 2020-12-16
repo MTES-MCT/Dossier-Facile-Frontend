@@ -12,7 +12,6 @@
           id="select"
           name="select"
         >
-          <option value="" selected disabled hidden>- Select -</option>
           <option value="naturalPerson">Un garant physique classique</option>
           <option value="organism">
             Un organisme se porte garant pour moi (VISALE par exemple)
