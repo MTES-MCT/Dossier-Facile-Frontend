@@ -17,7 +17,8 @@
               type="radio"
               id="alone"
               value="ALONE"
-              v-model="user.applicationType"
+              name="applicationType"
+              v-model="applicationType"
             />
             <label class="rf-label" for="alone">{{ $t("alone") }}</label>
           </div>
@@ -26,14 +27,15 @@
               type="radio"
               id="couple"
               value="COUPLE"
-              v-model="user.applicationType"
+              name="applicationType"
+              v-model="applicationType"
             />
             <label class="rf-label" for="couple">{{ $t("couple") }}</label>
           </div>
           <CoupleInformation
             :couple-mail.sync="spouseEmail"
             :authorize.sync="spouseAuthorize"
-            v-if="user.applicationType === 'COUPLE'"
+            v-if="applicationType === 'COUPLE'"
           >
           </CoupleInformation>
           <div class="rf-radio-group">
@@ -41,12 +43,13 @@
               type="radio"
               id="roommate"
               value="GROUP"
-              v-model="user.applicationType"
+              name="applicationType"
+              v-model="applicationType"
             />
             <label class="rf-label" for="roommate">{{ $t("roommate") }}</label>
           </div>
           <RoommatesInformation
-            v-if="user.applicationType === 'GROUP'"
+            v-if="applicationType === 'GROUP'"
             :authorize.sync="coTenantAuthorize"
           >
           </RoommatesInformation>
@@ -97,20 +100,27 @@ export default class TenantInformationForm extends Vue {
   coTenantAuthorize = false;
   spouseEmail = "";
   spouseAuthorize = false;
+  applicationType = "";
+
+  mounted() {
+    if (this.user.applicationType) {
+      this.applicationType = this.user.applicationType
+    }
+  }
 
   handleOthersInformation() {
     if (
-      (this.user.applicationType === "COUPLE" && !this.spouseAuthorize) ||
-      (this.user.applicationType === "GROUP" && !this.coTenantAuthorize)
+      (this.applicationType === "COUPLE" && !this.spouseAuthorize) ||
+      (this.applicationType === "GROUP" && !this.coTenantAuthorize)
     ) {
       return;
     }
     let coTenantEmails: string[] = [];
     let acceptAccess = false;
-    if (this.user.applicationType === "COUPLE") {
+    if (this.applicationType === "COUPLE") {
       coTenantEmails = [this.spouseEmail];
       acceptAccess = this.spouseAuthorize;
-    } else if (this.user.applicationType === "GROUP") {
+    } else if (this.applicationType === "GROUP") {
       coTenantEmails = this.roommates.filter((r: User) => { return r.id != this.user.id}).map(function(r) {
         return r.email;
       });
@@ -118,7 +128,7 @@ export default class TenantInformationForm extends Vue {
     }
 
     const data = {
-      applicationType: this.user.applicationType,
+      applicationType: this.applicationType,
       coTenantEmail: coTenantEmails,
       acceptAccess: acceptAccess
     };
