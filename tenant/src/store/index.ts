@@ -153,6 +153,9 @@ export default new Vuex.Store({
     },
     setLang({commit}, lang) {
       i18n.locale = lang;
+    },
+    validateFile({commit}) {
+      commit("setStep", 5);
     }
   },
   modules: {}
