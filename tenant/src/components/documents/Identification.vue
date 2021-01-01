@@ -141,10 +141,10 @@ export default class Identification extends Vue {
         id: f.name
       };
     });
-    const existingFiles =
-      this.user?.documents?.find(d => {
+    const d = this.user?.documents?.find(d => {
         return d.documentCategory === "IDENTIFICATION";
-      })?.files || [];
+      });
+    const existingFiles = d?.files?.map((file: DfFile) => { return {id: file.id, path: file.path, documentSubCategory: d.documentSubCategory}}) || []
     return [...newFiles, ...existingFiles];
   }
 

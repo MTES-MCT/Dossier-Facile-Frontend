@@ -36,7 +36,7 @@
     <div v-if="professionalFiles().length > 0">
       <h5>{{ $t("files") }}</h5>
       <ListItem
-        v-for="file in identificationFiles()"
+        v-for="file in professionalFiles()"
         :key="file.id"
         :file="file"
         @remove="remove(file.id)"
@@ -134,16 +134,17 @@ export default class Professional extends Vue {
       });
   }
 
-  professionalFiles() {    const newFiles = this.files.map(f => {
+  professionalFiles() {
+      const newFiles = this.files.map(f => {
         return {
           documentSubCategory: this.professionalDocument.value,
           id: f.name
         };
       });
-      const existingFiles =
-        this.user?.documents?.find(d => {
+    const d = this.user?.documents?.find(d => {
           return d.documentCategory === "PROFESSIONAL";
-        })?.files || [];
+      });
+    const existingFiles = d?.files?.map((file: DfFile) => { return {id: file.id, path: file.path, documentSubCategory: d.documentSubCategory}}) || []
       return [...newFiles, ...existingFiles];
   }
 

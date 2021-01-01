@@ -1,9 +1,12 @@
 <template>
   <div class="rf-grid-row row">
-    <div class="text">
-      {{ file.name }}
+    <div class="text sm">
+      {{ file.id }}
     </div>
     <div class="text">
+      {{ file.path }}
+    </div>
+    <div class="text text-center">
       {{ $t(file.documentSubCategory) }}
     </div>
     <div class="progress">
@@ -41,7 +44,13 @@ export default class ListItem extends Vue {
 }
 .text {
   float: right;
-  flex: 1;
+  flex: 2;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  &.sm {
+    flex: 1;
+  }
 }
 .row {
   height: 42px;

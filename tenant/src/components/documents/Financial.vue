@@ -245,10 +245,10 @@ export default class Financial extends Vue {
         id: file.name,
       };
     });
-    const existingFiles =
-      this.user?.documents?.find((d) => {
-        return d.documentCategory === "FINANCIAL";
-      })?.files || [];
+    const d = this.user?.documents?.find(d => {
+          return d.documentCategory === "FINANCIAL";
+      });
+    const existingFiles = d?.files?.map((file: DfFile) => { return {id: file.id, path: file.path, documentSubCategory: d.documentSubCategory}}) || []
     return [...newFiles, ...existingFiles];
   }
 
