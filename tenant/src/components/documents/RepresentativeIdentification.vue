@@ -6,20 +6,36 @@
           class="rf-input-group"
           :class="errors[0] ? 'rf-input-group--error' : ''"
         >
-          <label class="rf-label" for="organismName"
+          <label class="rf-label" for="firstName"
             >{{ $t("organism-name") }} :</label
           >
           <input
-            v-model="organismName"
+            v-model="firstName"
             class="form-control rf-input validate-required"
-            id="organismName"
-            name="organismName"
+            id="firstName"
+            name="firstName"
             :placeholder="$t('organism-name-placeholder')"
             type="text"
           />
           <span class="rf-error-text" v-if="errors[0]">{{ errors[0] }}</span>
         </div>
       </validation-provider>
+      <div>
+        <label class="rf-label" for="select">
+          J’ajoute une pièce d’identité en cours de validité. Attention, veillez à
+          ajouter votre pièce recto-verso !
+        </label>
+        <select
+          v-model="identificationDocument"
+          class="rf-select rf-mb-3w"
+          id="select"
+          name="select"
+        >
+          <option v-for="d in documents" :value="d" :key="d.key">{{
+            $t(d.key)
+          }}</option>
+        </select>
+      </div>
       <div>
         <div class="rf-mb-3w">
           {{ $t("kbis-label") }}
@@ -111,11 +127,12 @@ export default class RepresentativeIdentification extends Vue {
 
   identificationDocument = new DocumentType();
 
-  private files: File[] = [];
-  private fileUploadStatus = UploadStatus.STATUS_INITIAL;
-  private uploadProgress: {
+  files: File[] = [];
+  fileUploadStatus = UploadStatus.STATUS_INITIAL;
+  uploadProgress: {
     [key: string]: { state: string; percentage: number };
   } = {};
+  firstName = "";
 
   addFiles(fileList: File[]) {
     this.files = [...this.files, ...fileList];
@@ -135,8 +152,13 @@ export default class RepresentativeIdentification extends Vue {
       this.identificationDocument.value
     );
 
+    formData.append(
+      "firstName",
+      this.identificationDocument.value
+    );
+
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    const url = `//${process.env.VUE_APP_API_URL}/api/register/documentIdentification`;
+    const url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorLegalPerson/documentRepresentanIdentification`;
     axios
       .post(url, formData)
       .then(() => {
@@ -152,6 +174,47 @@ export default class RepresentativeIdentification extends Vue {
   resetFiles() {
     this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
   }
+
+  // TODO : extract duplicate code
+  documents: DocumentType[] = [
+    {
+      key: "identity-card",
+      value: "FRENCH_IDENTITY_CARD",
+      explanationText: "Attention veillez à ajouter votre pièce recto-verso !",
+      acceptedProofs: ["Carte d’identité française recto-verso"],
+      refusedProofs: [
+        "Carte d’identité sans le verso ou périmée",
+        "Tout autre document"
+      ]
+    },
+    {
+      key: "passport",
+      value: "FRENCH_PASSPORT",
+      acceptedProofs: ["Passport français (pages 2 et 3)"],
+      refusedProofs: ["Tout autre document"]
+    },
+    {
+      key: "permit",
+      value: "FRENCH_RESIDENCE_PERMIT",
+      acceptedProofs: [
+        "Carte de séjour en France temporaire recto-verso en cours de validité, ou périmée si elle est accompagnée du récépissé de la demande de renouvellement de carte de séjour",
+        "Visa de travail ou d’études temporaire en France"
+      ],
+      refusedProofs: ["Tout autre document"]
+    },
+    {
+      key: "other",
+      value: "OTHER_IDENTIFICATION",
+      acceptedProofs: [
+        "Carte d’identité étrangère recto-verso",
+        "Passeport étranger (pages 2 et 3)",
+        "Permis de conduire français ou étranger recto-verso",
+        "Carte de résident",
+        "Carte de ressortissant d’un État membre de l’UE ou de l’EEE"
+      ],
+      refusedProofs: ["Tout autre document"]
+    }
+  ];
 }
 </script>
 
@@ -170,14 +233,22 @@ td {
 <i18n>
 {
 "en": {
-  "organism-name": "Nom de la personne morale",
+  "organism-name": "Nom du représentant de la personne morale",
   "organism-name-placeholder": "Nom",
-  "kbis-label": "J’ajoute un extrait K bis de la société, ou toute autre pièce justifiant de l'existence légale de la personne."
+  "kbis-label": "J’ajoute un extrait K bis de la société, ou toute autre pièce justifiant de l'existence légale de la personne.",
+  "identity-card": "Carte nationale d’identité",
+  "passport": "Passeport",
+  "permit": "Permis de conduire",
+  "other": "Autre"
 },
 "fr": {
-  "organism-name": "Nom de la personne morale",
+  "organism-name": "Nom du représentant de la personne morale",
   "organism-name-placeholder": "Nom",
-  "kbis-label": "J’ajoute un extrait K bis de la société, ou toute autre pièce justifiant de l'existence légale de la personne."
+  "kbis-label": "J’ajoute un extrait K bis de la société, ou toute autre pièce justifiant de l'existence légale de la personne.",
+  "identity-card": "Carte nationale d’identité",
+  "passport": "Passeport",
+  "permit": "Permis de conduire",
+  "other": "Autre"
 }
 }
 </i18n>

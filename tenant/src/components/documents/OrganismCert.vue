@@ -72,9 +72,9 @@ export default class OrganismCert extends Vue {
 
   identificationDocument = new DocumentType();
 
-  private files: File[] = [];
-  private fileUploadStatus = UploadStatus.STATUS_INITIAL;
-  private uploadProgress: {
+  files: File[] = [];
+  fileUploadStatus = UploadStatus.STATUS_INITIAL;
+  uploadProgress: {
     [key: string]: { state: string; percentage: number };
   } = {};
 
