@@ -97,7 +97,7 @@ export default class OrganismCert extends Vue {
     );
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    const url = `//${process.env.VUE_APP_API_URL}/api/register/documentIdentification`;
+    const url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorOrganism/documentIdentification`;
     axios
       .post(url, formData)
       .then(() => {

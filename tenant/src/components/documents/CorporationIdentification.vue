@@ -42,7 +42,7 @@
         <ListItem
           v-for="file in files"
           :key="file.name"
-          :filename="file.name"
+          :file="file"
           :uploadState="
             uploadProgress[file.name] ? uploadProgress[file.name].state : 'idle'
           "
@@ -51,7 +51,7 @@
           "
         />
       </div>
-      <div class="rf-col-12 rf-mb-5w" v-if="identificationDocument">
+      <div class="rf-col-12 rf-mb-5w" v-if="organismName">
         <button
           class="rf-btn"
           type="submit"
@@ -70,7 +70,6 @@ import { Component, Vue } from "vue-property-decorator";
 import { mapState } from "vuex";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
-import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "../uploads/UploadStatus";
 import axios from "axios";
 import ListItem from "@/components/uploads/ListItem.vue";
@@ -111,11 +110,9 @@ export default class CorporationIdentification extends Vue {
     this.$i18n.t("all-other")
   ];
 
-  identificationDocument = new DocumentType();
-
-  private files: File[] = [];
-  private fileUploadStatus = UploadStatus.STATUS_INITIAL;
-  private uploadProgress: {
+  files: File[] = [];
+  fileUploadStatus = UploadStatus.STATUS_INITIAL;
+  uploadProgress: {
     [key: string]: { state: string; percentage: number };
   } = {};
 
@@ -133,13 +130,13 @@ export default class CorporationIdentification extends Vue {
     });
 
     formData.append(
-      "typeDocumentIdentification",
-      this.identificationDocument.value
+      "legalPersonName",
+      this.organismName
     );
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     // TODO use service with right url
-    const url = `//${process.env.VUE_APP_API_URL}/api/register/corporationIdentification`;
+    const url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorLegalPerson/documentIdentification`;
     axios
       .post(url, formData)
       .then(() => {
