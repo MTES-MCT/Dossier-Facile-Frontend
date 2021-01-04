@@ -178,14 +178,18 @@ export default class Identification extends Vue {
       url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentIdentification`
       formData.append( "firstName", this.firstName);
       formData.append( "lastName", this.lastName);
+      if (this.$store.getters.guarantor.id) {
+        formData.append( "guarantorId", this.$store.getters.guarantor.id);
+      }
     } else {
       url = `//${process.env.VUE_APP_API_URL}/api/register/documentIdentification`;
     }
     axios
       .post(url, formData)
-      .then(() => {
+      .then((data) => {
         console.log("success");
         this.fileUploadStatus = UploadStatus.STATUS_SUCCESS;
+        this.$store.dispatch('updateGuarantor', data)
       })
       .catch(() => {
         console.log("fail");

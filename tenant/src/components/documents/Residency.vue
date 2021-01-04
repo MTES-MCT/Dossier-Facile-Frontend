@@ -127,6 +127,7 @@ export default class Residency extends Vue {
     let url: string;
     if (this.$store.getters.isGuarantor) {
       url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentResidency`
+      formData.append( "guarantorId", this.$store.getters.guarantor.id);
     } else {
       url = `//${process.env.VUE_APP_API_URL}/api/register/documentResidency`;
     }
