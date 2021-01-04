@@ -104,7 +104,7 @@
           <hr />
           <div class="rf-card__desc">
             <section>
-              <div class="row" v-if="user.identification">
+              <div class="row" v-if="guarantorHasDoc('IDENTIFICATION')">
                 <div class="subtitle">Pièce d’identité</div>
                 <div class="row">
                   <div class="edit-step-btn" @click="setGuarantorStep(2)">
@@ -115,7 +115,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row" v-if="user.residency">
+              <div class="row" v-if="guarantorHasDoc('RESIDENCY')">
                 <div class="subtitle">Justificatif de domicile</div>
                 <div class="row">
                   <div class="edit-step-btn" @click="setGuarantorStep(2)">
@@ -126,7 +126,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row" v-if="user.professional">
+              <div class="row" v-if="guarantorHasDoc('PROFESSIONAL')">
                 <div class="subtitle">
                   Justificatif de situation professionelle
                 </div>
@@ -139,7 +139,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row" v-if="user.financial">
+              <div class="row" v-if="guarantorHasDoc('FINANCIAL')">
                 <div class="subtitle">Justificatif de revenu</div>
                 <div class="row">
                   <div class="edit-step-btn" @click="setGuarantorStep(2)">
@@ -150,7 +150,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row" v-if="user.tax">
+              <div class="row" v-if="guarantorHasDoc('TAX')">
                 <div class="subtitle">Avis d’imposition</div>
                 <div class="row">
                   <div class="edit-step-btn" @click="setGuarantorStep(2)">
@@ -198,6 +198,11 @@ export default class EditSummary extends Vue {
   }
   hasDoc(docType: string) {
     return this.user.documents?.find(d => {
+      return d.documentCategory === docType;
+    });
+  }
+  guarantorHasDoc(docType: string) {
+    return this.selectedGuarantor.documents?.find(d => {
       return d.documentCategory === docType;
     });
   }

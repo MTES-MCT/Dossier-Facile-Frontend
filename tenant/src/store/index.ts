@@ -6,6 +6,7 @@ import router from "../router";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { User } from "df-shared/src/models/User";
 import i18n from '@/i18n';
+import { DfDocument } from "df-shared/src/models/DfDocument";
 
 Vue.use(Vuex);
 
@@ -68,6 +69,12 @@ export default new Vuex.Store({
         state.roommates = state.user.apartmentSharing.tenants
         if (state.user.apartmentSharing.tenants.length > 2) {
           state.user.applicationType = "GROUP";
+        }
+      }
+      if (state.user?.guarantors && state.user.guarantors.length > 0) {
+        state.selectedGuarantor = user.guarantors[0]
+        if (state.selectedGuarantor) {
+          state.guarantorStep = 2;
         }
       }
     },
@@ -153,6 +160,23 @@ export default new Vuex.Store({
     },
     setLang({commit}, lang) {
       i18n.locale = lang;
+    },
+    validateFile({commit}) {
+      commit("setStep", 5);
+    }
+  },
+  getters: {
+    getDocuments(state): DfDocument[] {
+      if (state.tenantStep === 3) {
+        return state.selectedGuarantor.documents || []
+      }
+      return state.user?.documents || [];
+    },
+    isGuarantor(state): boolean {
+      return state.tenantStep === 3;
+    },
+    guarantor(state): Guarantor {
+      return state.selectedGuarantor;
     }
   },
   modules: {}

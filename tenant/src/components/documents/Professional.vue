@@ -36,7 +36,7 @@
     <div v-if="professionalFiles().length > 0">
       <h5>{{ $t("files") }}</h5>
       <ListItem
-        v-for="file in identificationFiles()"
+        v-for="file in professionalFiles()"
         :key="file.id"
         :file="file"
         @remove="remove(file.id)"
@@ -121,7 +121,13 @@ export default class Professional extends Vue {
     );
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    const url = `//${process.env.VUE_APP_API_URL}/api/register/documentProfessional`;
+    let url: string;
+    if (this.$store.getters.isGuarantor) {
+      url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentProfessional`
+      formData.append( "guarantorId", this.$store.getters.guarantor.id);
+    } else {
+      url = `//${process.env.VUE_APP_API_URL}/api/register/documentProfessional`;
+    }
     axios
       .post(url, formData)
       .then(() => {
@@ -134,16 +140,16 @@ export default class Professional extends Vue {
       });
   }
 
-  professionalFiles() {    const newFiles = this.files.map(f => {
+  professionalFiles() {
+      const newFiles = this.files.map(f => {
         return {
           documentSubCategory: this.professionalDocument.value,
           id: f.name
         };
       });
-      const existingFiles =
-        this.user?.documents?.find(d => {
-          return d.documentCategory === "PROFESSIONAL";
-        })?.files || [];
+    const existingFiles = this.$store.getters.getDocuments?.find((d: DfDocument) => {
+        return d.documentCategory === "PROFESSIONAL";
+      })?.files || [];
       return [...newFiles, ...existingFiles];
   }
 
