@@ -71,6 +71,9 @@ export default new Vuex.Store({
           state.user.applicationType = "GROUP";
         }
       }
+      if (state.user?.guarantors && state.user.guarantors.length > 0) {
+        state.selectedGuarantor = user.guarantors[0]
+      }
     },
     setSelectedGuarantor(state, guarantor: Guarantor) {
       state.selectedGuarantor = guarantor;
@@ -168,6 +171,9 @@ export default new Vuex.Store({
     },
     isGuarantor(state): boolean {
       return state.tenantStep === 3;
+    },
+    guarantor(state): Guarantor {
+      return state.selectedGuarantor;
     }
   },
   modules: {}
