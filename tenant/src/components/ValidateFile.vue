@@ -130,7 +130,7 @@ export default class ValidateFile extends Vue {
 
   hasGuarantors() {
     return this.user.guarantors && this.user.guarantors.length > 0 && this.user.guarantors.find((g : Guarantor) => {
-      return g.typeGuarantor !== "organism"
+      return g.typeGuarantor !== "ORGANISM"
     })
   }
 }

@@ -73,6 +73,9 @@ export default new Vuex.Store({
       }
       if (state.user?.guarantors && state.user.guarantors.length > 0) {
         state.selectedGuarantor = user.guarantors[0]
+        if (state.selectedGuarantor) {
+          state.guarantorStep = 2;
+        }
       }
     },
     setSelectedGuarantor(state, guarantor: Guarantor) {

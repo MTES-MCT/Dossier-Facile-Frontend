@@ -12,15 +12,15 @@
           id="select"
           name="select"
         >
-          <option value="naturalPerson">Un garant physique classique</option>
-          <option value="organism">
+          <option value="NATURAL_PERSON">Un garant physique classique</option>
+          <option value="ORGANISM">
             Un organisme se porte garant pour moi (VISALE par exemple)
           </option>
-          <option value="corporation">Un garant moral</option>
+          <option value="CORPORATION">Un garant moral</option>
         </select>
       </div>
     </div>
-    <div v-if="guarantorType === 'naturalPerson'">
+    <div v-if="guarantorType === 'NATURAL_PERSON'">
       <div>
         <div
           class="document-title"
@@ -112,10 +112,10 @@
         <Tax v-if="substep === 5"></Tax>
       </div>
     </div>
-    <div v-if="guarantorType === 'organism'">
+    <div v-if="guarantorType === 'ORGANISM'">
       <OrganismCert></OrganismCert>
     </div>
-    <div v-if="guarantorType === 'corporation'">
+    <div v-if="guarantorType === 'CORPORATION'">
       <div>
         <div
           class="document-title"
@@ -185,6 +185,7 @@ import Financial from "@/components/documents/Financial.vue";
 import Tax from "@/components/documents/Tax.vue";
 import AskGuarantor from "@/components/AskGuarantor.vue";
 import { mapState } from "vuex";
+import { Guarantor } from "df-shared/src/models/Guarantor";
 
 @Component({
   components: {
@@ -200,14 +201,21 @@ import { mapState } from "vuex";
   },
   computed: {
     ...mapState({
-      guarantorStep: "guarantorStep"
+      guarantorStep: "guarantorStep",
+      selectedGuarantor: "selectedGuarantor"
     })
   }
 })
 export default class GuarantorDocuments extends Vue {
+  selectedGuarantor!: Guarantor;
   substep = 0;
-  guarantorSelected = null;
   guarantorType = "";
+
+  mounted() {
+    if (this.selectedGuarantor.typeGuarantor) {
+      this.guarantorType = this.selectedGuarantor.typeGuarantor;
+    }
+  }
 
   updateSubstep(s: number) {
     this.substep = s === this.substep ? 0 : s;

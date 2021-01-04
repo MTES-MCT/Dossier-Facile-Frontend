@@ -118,17 +118,20 @@ import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { ValidationProvider } from "vee-validate";
+import { Guarantor } from "df-shared/src/models/Guarantor";
 
 @Component({
   components: { DocumentInsert, FileUpload, ListItem, ValidationProvider },
   computed: {
     ...mapState({
-      user: "user"
+      user: "user",
+      selectedGuarantor: "selectedGuarantor"
     })
   }
 })
 export default class Identification extends Vue {
   user!: User;
+  selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
   uploadProgress: {
@@ -147,6 +150,13 @@ export default class Identification extends Vue {
           this.identificationDocument = localDoc
         }
       }
+    }
+
+    if (this.selectedGuarantor.firstName) {
+      this.firstName = this.selectedGuarantor.firstName;
+    }
+    if (this.selectedGuarantor.lastName) {
+      this.lastName = this.selectedGuarantor.lastName;
     }
   }
 
