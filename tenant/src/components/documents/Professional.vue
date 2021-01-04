@@ -121,7 +121,12 @@ export default class Professional extends Vue {
     );
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    const url = `//${process.env.VUE_APP_API_URL}/api/register/documentProfessional`;
+    let url: string;
+    if (this.$store.getters.isGuarantor) {
+      url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentProfessional`
+    } else {
+      url = `//${process.env.VUE_APP_API_URL}/api/register/documentProfessional`;
+    }
     axios
       .post(url, formData)
       .then(() => {
@@ -141,10 +146,9 @@ export default class Professional extends Vue {
           id: f.name
         };
       });
-    const d = this.user?.documents?.find(d => {
-          return d.documentCategory === "PROFESSIONAL";
-      });
-    const existingFiles = d?.files?.map((file: DfFile) => { return {id: file.id, path: file.path, documentSubCategory: d.documentSubCategory}}) || []
+    const existingFiles = this.$store.getters.getDocuments?.find((d: DfDocument) => {
+        return d.documentCategory === "PROFESSIONAL";
+      })?.files || [];
       return [...newFiles, ...existingFiles];
   }
 

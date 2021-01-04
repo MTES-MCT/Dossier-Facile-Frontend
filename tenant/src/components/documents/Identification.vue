@@ -1,5 +1,54 @@
 <template>
   <div>
+    <div v-if="isGuarantor()" class="rf-grid-row rf-grid-row--center">
+          <div class="rf-col-12 rf-mb-3w">
+            <validation-provider rules="required" v-slot="{ errors }">
+              <div
+                class="rf-input-group"
+                :class="errors[0] ? 'rf-input-group--error' : ''"
+              >
+                <label class="rf-label" for="lastname"
+                  >{{ $t("lastname") }} :</label
+                >
+                <input
+                  v-model="lastName"
+                  class="form-control rf-input validate-required"
+                  id="lastname"
+                  name="lastname"
+                  :placeholder="$t('lastname')"
+                  type="text"
+                />
+                <span class="rf-error-text" v-if="errors[0]">{{
+                  errors[0]
+                }}</span>
+              </div>
+            </validation-provider>
+          </div>
+          <div class="rf-col-12 rf-mb-3w">
+            <validation-provider rules="required" v-slot="{ errors }">
+              <div
+                class="rf-input-group"
+                :class="errors[0] ? 'rf-input-group--error' : ''"
+              >
+                <label for="firstname" class="rf-label"
+                  >{{ $t("firstname") }} :</label
+                >
+                <input
+                  id="firstname"
+                  :placeholder="$t('firstname')"
+                  type="text"
+                  v-model="firstName"
+                  name="firstname"
+                  class="validate-required form-control rf-input"
+                />
+                <span class="rf-error-text" v-if="errors[0]">{{
+                  $t(errors[0])
+                }}</span>
+              </div>
+            </validation-provider>
+          </div>
+
+    </div>
     <div>
       <label class="rf-label" for="select">
         J’ajoute une pièce d’identité en cours de validité. Attention, veillez à
@@ -68,9 +117,10 @@ import ListItem from "@/components/uploads/ListItem.vue";
 import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
+import { ValidationProvider } from "vee-validate";
 
 @Component({
-  components: { DocumentInsert, FileUpload, ListItem },
+  components: { DocumentInsert, FileUpload, ListItem, ValidationProvider },
   computed: {
     ...mapState({
       user: "user"
@@ -85,6 +135,8 @@ export default class Identification extends Vue {
     [key: string]: { state: string; percentage: number };
   } = {};
   identificationDocument = new DocumentType();
+  firstName = "";
+  lastName = "";
 
   mounted() {
     if (this.user.documents !== null ) {
@@ -121,7 +173,14 @@ export default class Identification extends Vue {
     formData.append( "typeDocumentIdentification", this.identificationDocument.value);
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    const url = `//${process.env.VUE_APP_API_URL}/api/register/documentIdentification`;
+    let url: string;
+    if (this.$store.getters.isGuarantor) {
+      url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentIdentification`
+      formData.append( "firstName", this.firstName);
+      formData.append( "lastName", this.lastName);
+    } else {
+      url = `//${process.env.VUE_APP_API_URL}/api/register/documentIdentification`;
+    }
     axios
       .post(url, formData)
       .then(() => {
@@ -141,10 +200,9 @@ export default class Identification extends Vue {
         id: f.name
       };
     });
-    const d = this.user?.documents?.find(d => {
+    const existingFiles = this.$store.getters.getDocuments?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION";
-      });
-    const existingFiles = d?.files?.map((file: DfFile) => { return {id: file.id, path: file.path, documentSubCategory: d.documentSubCategory}}) || []
+      })?.files || [];
     return [...newFiles, ...existingFiles];
   }
 
@@ -152,6 +210,10 @@ export default class Identification extends Vue {
     const url = `//${process.env.VUE_APP_API_URL}/api/file/${id}`;
     // TODO remove locally or update user
     axios.delete(url);
+  }
+
+  isGuarantor() {
+    return this.$store.getters.isGuarantor;
   }
 
   documents: DocumentType[] = [

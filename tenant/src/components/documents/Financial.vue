@@ -225,7 +225,12 @@ export default class Financial extends Vue {
     formData.append("customText", f.customText);
 
     f.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    const url = `//${process.env.VUE_APP_API_URL}/api/register/documentFinancial`;
+    let url: string;
+    if (this.$store.getters.isGuarantor) {
+      url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentFinancial`
+    } else {
+      url = `//${process.env.VUE_APP_API_URL}/api/register/documentFinancial`;
+    }
     axios
       .post(url, formData)
       .then(() => {
@@ -245,10 +250,9 @@ export default class Financial extends Vue {
         id: file.name,
       };
     });
-    const d = this.user?.documents?.find(d => {
-          return d.documentCategory === "FINANCIAL";
-      });
-    const existingFiles = d?.files?.map((file: DfFile) => { return {id: file.id, path: file.path, documentSubCategory: d.documentSubCategory}}) || []
+    const existingFiles = this.$store.getters.getDocuments?.find((d: DfDocument) => {
+        return d.documentCategory === "FINANCIAL";
+      })?.files || [];
     return [...newFiles, ...existingFiles];
   }
 

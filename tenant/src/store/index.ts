@@ -6,6 +6,7 @@ import router from "../router";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { User } from "df-shared/src/models/User";
 import i18n from '@/i18n';
+import { DfDocument } from "df-shared/src/models/DfDocument";
 
 Vue.use(Vuex);
 
@@ -156,6 +157,17 @@ export default new Vuex.Store({
     },
     validateFile({commit}) {
       commit("setStep", 5);
+    }
+  },
+  getters: {
+    getDocuments(state): DfDocument[] {
+      if (state.tenantStep === 3) {
+        return state.selectedGuarantor.documents || []
+      }
+      return state.user?.documents || [];
+    },
+    isGuarantor(state): boolean {
+      return state.tenantStep === 3;
     }
   },
   modules: {}

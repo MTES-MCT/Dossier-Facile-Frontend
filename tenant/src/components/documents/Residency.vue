@@ -124,7 +124,12 @@ export default class Residency extends Vue {
     formData.append("typeDocumentResidency", this.residencyDocument.value);
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    const url = `//${process.env.VUE_APP_API_URL}/api/register/documentResidency`;
+    let url: string;
+    if (this.$store.getters.isGuarantor) {
+      url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentResidency`
+    } else {
+      url = `//${process.env.VUE_APP_API_URL}/api/register/documentResidency`;
+    }
     axios
       .post(url, formData)
       .then(() => {
@@ -145,7 +150,7 @@ export default class Residency extends Vue {
       };
     });
     const existingFiles =
-      this.user?.documents?.find(d => {
+      this.$store.getters.getDocuments?.find((d: DfDocument) => {
         return d.documentCategory === "RESIDENCY";
       })?.files || [];
     return [...newFiles, ...existingFiles];
