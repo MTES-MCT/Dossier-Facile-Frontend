@@ -363,6 +363,7 @@ export default class Home extends Vue {
 }
 .pull-left {
   float: left;
+  width: fit-content;
 }
 </style>
 
