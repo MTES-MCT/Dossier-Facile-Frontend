@@ -40,10 +40,10 @@
               <div class="row" v-if="hasDoc('IDENTIFICATION')">
                 <div class="subtitle">Pièce d’identité</div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="setStep(2)">
+                  <div class="edit-step-btn" @click="setTenantStep(1)">
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
-                  <div class="edit-step-btn" @click="setStep(2)">
+                  <div class="edit-step-btn" @click="setTenantStep(1)">
                     <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
                   </div>
                 </div>
@@ -51,10 +51,10 @@
               <div class="row" v-if="hasDoc('RESIDENCY')">
                 <div class="subtitle">Justificatif de domicile</div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="setStep(2)">
+                  <div class="edit-step-btn" @click="setTenantStep(2)">
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
-                  <div class="edit-step-btn" @click="setStep(2)">
+                  <div class="edit-step-btn" @click="setTenantStep(2)">
                     <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
                   </div>
                 </div>
@@ -64,10 +64,10 @@
                   Justificatif de situation professionelle
                 </div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="setStep(2)">
+                  <div class="edit-step-btn" @click="setTenantStep(3)">
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
-                  <div class="edit-step-btn" @click="setStep(2)">
+                  <div class="edit-step-btn" @click="setTenantStep(3)">
                     <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
                   </div>
                 </div>
@@ -75,10 +75,10 @@
               <div class="row" v-if="hasDoc('FINANCIAL')">
                 <div class="subtitle">Justificatif de revenu</div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="setStep(2)">
+                  <div class="edit-step-btn" @click="setTenantStep(4)">
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
-                  <div class="edit-step-btn" @click="setStep(2)">
+                  <div class="edit-step-btn" @click="setTenantStep(4)">
                     <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
                   </div>
                 </div>
@@ -86,10 +86,10 @@
               <div class="row" v-if="hasDoc('TAX')">
                 <div class="subtitle">Avis d’imposition</div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="setStep(2)">
+                  <div class="edit-step-btn" @click="setTenantStep(5)">
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
-                  <div class="edit-step-btn" @click="setStep(2)">
+                  <div class="edit-step-btn" @click="setTenantStep(5)">
                     <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
                   </div>
                 </div>
@@ -107,10 +107,10 @@
               <div class="row" v-if="guarantorHasDoc('IDENTIFICATION')">
                 <div class="subtitle">Pièce d’identité</div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="setGuarantorStep(2)">
+                  <div class="edit-step-btn" @click="setGuarantorStep(1)">
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
-                  <div class="edit-step-btn" @click="setGuarantorStep(2)">
+                  <div class="edit-step-btn" @click="setGuarantorStep(1)">
                     <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
                   </div>
                 </div>
@@ -131,10 +131,10 @@
                   Justificatif de situation professionelle
                 </div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="setGuarantorStep(2)">
+                  <div class="edit-step-btn" @click="setGuarantorStep(3)">
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
-                  <div class="edit-step-btn" @click="setGuarantorStep(2)">
+                  <div class="edit-step-btn" @click="setGuarantorStep(3)">
                     <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
                   </div>
                 </div>
@@ -142,10 +142,10 @@
               <div class="row" v-if="guarantorHasDoc('FINANCIAL')">
                 <div class="subtitle">Justificatif de revenu</div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="setGuarantorStep(2)">
+                  <div class="edit-step-btn" @click="setGuarantorStep(4)">
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
-                  <div class="edit-step-btn" @click="setGuarantorStep(2)">
+                  <div class="edit-step-btn" @click="setGuarantorStep(4)">
                     <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
                   </div>
                 </div>
@@ -153,10 +153,10 @@
               <div class="row" v-if="guarantorHasDoc('TAX')">
                 <div class="subtitle">Avis d’imposition</div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="setGuarantorStep(2)">
+                  <div class="edit-step-btn" @click="setGuarantorStep(5)">
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
-                  <div class="edit-step-btn" @click="setGuarantorStep(2)">
+                  <div class="edit-step-btn" @click="setGuarantorStep(5)">
                     <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
                   </div>
                 </div>
@@ -189,6 +189,16 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 export default class EditSummary extends Vue {
   user!: User;
   selectedGuarantor!: Guarantor;
+
+  setTenantStep(n: number) {
+    this.$store.commit("setTenantSubstep", n);
+    this.setStep(2);
+  }
+
+  setGuarantorStep(n: number) {
+    this.$store.commit("setGuarantorSubstep", n);
+    this.setStep(3);
+  }
 
   setStep(n: number) {
     this.$store.commit("setStep", n);

@@ -3,92 +3,92 @@
     <div>
       <div
         class="document-title"
-        :class="{ selected: substep === 1 }"
+        :class="{ selected: tenantSubStep === 1 }"
         @click="updateSubstep(1)"
       >
         <i
           class="icon color--primary rf-p-1w"
-          :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+          :class="tenantSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
         ></i>
         <i
           class="icon color--primary rf-p-1w icon-User"
-          :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+          :class="tenantSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
         ></i>
         <h2>{{ $t("identification") }}</h2>
       </div>
-      <Identification v-if="substep === 1"></Identification>
+      <Identification v-if="tenantSubStep === 1"></Identification>
     </div>
     <div>
       <div
         class="document-title"
-        :class="{ selected: substep === 2 }"
+        :class="{ selected: tenantSubStep === 2 }"
         @click="updateSubstep(2)"
       >
         <i
           class="icon color--primary rf-p-1w"
-          :class="substep === 2 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+          :class="tenantSubStep === 2 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
         ></i>
         <i
           class="icon color--primary rf-p-1w icon-Home-2"
-          :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+          :class="tenantSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
         ></i>
         <h2>{{ $t("residency") }}</h2>
       </div>
-      <Residency v-if="substep === 2"></Residency>
+      <Residency v-if="tenantSubStep === 2"></Residency>
     </div>
     <div>
       <div
         class="document-title"
-        :class="{ selected: substep === 3 }"
+        :class="{ selected: tenantSubStep === 3 }"
         @click="updateSubstep(3)"
       >
         <i
           class="icon color--primary rf-p-1w"
-          :class="substep === 3 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+          :class="tenantSubStep === 3 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
         ></i>
         <i
           class="icon color--primary rf-p-1w icon-Suitcase"
-          :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+          :class="tenantSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
         ></i>
         <h2>{{ $t("professional") }}</h2>
       </div>
-      <Professional v-if="substep === 3"></Professional>
+      <Professional v-if="tenantSubStep === 3"></Professional>
     </div>
     <div>
       <div
         class="document-title"
-        :class="{ selected: substep === 4 }"
+        :class="{ selected: tenantSubStep === 4 }"
         @click="updateSubstep(4)"
       >
         <i
           class="icon color--primary rf-p-1w"
-          :class="substep === 4 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+          :class="tenantSubStep === 4 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
         ></i>
         <i
           class="icon color--primary rf-p-1w icon-Euro-Sign2"
-          :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+          :class="tenantSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
         ></i>
         <h2>{{ $t("financial") }}</h2>
       </div>
-      <Financial v-if="substep === 4"></Financial>
+      <Financial v-if="tenantSubStep === 4"></Financial>
     </div>
     <div>
       <div
         class="document-title"
-        :class="{ selected: substep === 5 }"
+        :class="{ selected: tenantSubStep === 5 }"
         @click="updateSubstep(5)"
       >
         <i
           class="icon color--primary rf-p-1w"
-          :class="substep === 5 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+          :class="tenantSubStep === 5 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
         ></i>
         <i
           class="icon color--primary rf-p-1w icon-Files"
-          :class="substep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+          :class="tenantSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
         ></i>
         <h2>{{ $t("tax") }}</h2>
       </div>
-      <Tax v-if="substep === 5"></Tax>
+      <Tax v-if="tenantSubStep === 5"></Tax>
     </div>
     <div class="rf-col-12 rf-mb-5w">
       <button
@@ -111,14 +111,20 @@ import Residency from "@/components/documents/Residency.vue";
 import Professional from "@/components/documents/Professional.vue";
 import Financial from "@/components/documents/Financial.vue";
 import Tax from "@/components/documents/Tax.vue";
+import { mapState } from "vuex";
 @Component({
-  components: { Tax, Financial, Professional, Residency, Identification }
+  components: { Tax, Financial, Professional, Residency, Identification },
+  computed: {
+    ...mapState({
+      tenantSubStep: "tenantSubStep",
+    }),
+  },
 })
 export default class UploadDocuments extends Vue {
-  substep = 0;
+  tenantSubStep!: number;
 
   updateSubstep(s: number) {
-    this.substep = s === this.substep ? 0 : s;
+    this.$store.commit("setTenantSubstep", s === this.tenantSubStep ? 0 : s);
   }
 
   documentsFilled() {
