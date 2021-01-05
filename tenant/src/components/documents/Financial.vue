@@ -43,6 +43,9 @@
               <span class="rf-error-text" v-if="errors[0]">{{
                 $t(errors[0])
               }}</span>
+              <span class="rf-error-text" v-if="f.monthlySum > 10000">
+                {{ $t("high-salary") }}
+              </span>
             </div>
           </validation-provider>
         </div>
@@ -362,7 +365,8 @@ export default class Financial extends Vue {
 "monthlySum": "Salaire",
 "monthlySum-label": "Montant du revenu (après impôts)",
 "noDocument": "Je ne peux pas fournir mes trois derniers bulletins de salaire",
-"customText": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes trois derniers bulletins de salaire :"
+"customText": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes trois derniers bulletins de salaire :",
+"high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?"
 },
 "fr": {
 "salary": "Salaire",
@@ -373,7 +377,8 @@ export default class Financial extends Vue {
 "monthlySum": "Salaire",
 "monthlySum-label": "Montant du revenu (après impôts)",
 "noDocument": "Je ne peux pas fournir mes trois derniers bulletins de salaire",
-"customText": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes trois derniers bulletins de salaire :"
+"customText": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes trois derniers bulletins de salaire :",
+"high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?"
 }
 }
 </i18n>
