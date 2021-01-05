@@ -16,7 +16,9 @@ const initialLoggedIn = !!initialUser;
 
 export class DfState {
     tenantStep = 0
+    tenantSubStep = 0
     guarantorStep = 0
+    guarantorSubStep = 0
     user: User | null = initialUser
     roommates: User[] = []
     selectedGuarantor = new Guarantor()
@@ -83,6 +85,13 @@ export default new Vuex.Store({
     },
     createRoommates(state) {
       state.roommates.push(new User());
+    },
+    setTenantSubstep(state, subStep: number) {
+      console.log(subStep);
+      state.tenantSubStep = subStep;
+    },
+    setGuarantorSubstep(state, subStep: number) {
+      state.guarantorSubStep = subStep;
     }
   },
   actions: {
