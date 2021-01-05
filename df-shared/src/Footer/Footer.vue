@@ -8,17 +8,35 @@
           </a>
         </div>
         <div class="rf-footer__content">
-          <ul class="rf-footer__content-links links-center">
-            <li>
+          <ul class="rf-footer__content-links links-center rf-grid-row">
+            <li class="rf-col-lg-3 rf-col-6">
+              <a href="https://beta.gouv.fr/">Les startups d'Etat</a>
+            </li>
+            <li class="rf-col-lg-3 rf-col-6">
+              <a :href="`${VUE_APP_MAIN_URL}/faq`">
+                {{ $t("faq") }}
+              </a>
+            </li>
+            <li class="rf-col-lg-3 rf-col-6">
+              <a :href="`${VUE_APP_MAIN_URL}/blog`">
+                {{ $t("blog") }}
+              </a>
+            </li>
+            <li class="rf-col-lg-3 rf-col-6">
+              <a :href="`${VUE_APP_MAIN_URL}/information`">
+                {{ $t("information") }}
+              </a>
+            </li>
+            <li class="rf-col-lg-3 rf-col-6">
               <a href="http://legifrance.gouv.fr">legifrance.gouv.fr</a>
             </li>
-            <li>
+            <li class="rf-col-lg-3 rf-col-6">
               <a href="http://gouvernement.fr">gouvernement.fr</a>
             </li>
-            <li>
+            <li class="rf-col-lg-3 rf-col-6">
               <a href="http://service-public.fr">service-public.fr</a>
             </li>
-            <li>
+            <li class="rf-col-lg-3 rf-col-6">
               <a href="http://data.gouv.fr">data.gouv.fr</a>
             </li>
           </ul>
@@ -27,35 +45,20 @@
       <div class="rf-footer__bottom">
         <ul class="rf-footer__bottom-list">
           <li>
-            <a href="https://beta.gouv.fr/">Les startups d'Etat</a>
-          </li>
-          <li>
-            <a :href="`${VUE_APP_MAIN_URL}/faq`">
-              {{ $t("faq") }}
-            </a>
-          </li>
-          <li>
-            <a :href="`${VUE_APP_MAIN_URL}/blog`">
-              {{ $t("blog") }}
-            </a>
-          </li>
-          <li>
-            <a :href="`${VUE_APP_MAIN_URL}/information`">
-              {{ $t("information") }}
-            </a>
+            <a href="mailto:contact@dossierfacile.fr">{{ $t("contact") }}</a>
           </li>
           <li>
             <a :href="`${VUE_APP_MAIN_URL}/securite-des-donnees`">
               {{ $t("legals") }}
             </a>
           </li>
-          <li>
-            <a href="mailto:contact@dossierfacile.fr">{{ $t("contact") }}</a>
+          <li class="rf-footer__bottom-item">
+            <a class="rf-footer__bottom-link" href="#"
+              >Accessibilité: partiellement conforme</a
+            >
           </li>
         </ul>
-        <div class="rf-footer__bottom-copy">
-          © République Française 2020
-        </div>
+        <div class="rf-footer__bottom-copy">© République Française 2020</div>
       </div>
     </div>
   </footer>
@@ -63,7 +66,6 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-
 
 @Component
 export default class MyFooter extends Vue {
@@ -74,6 +76,14 @@ export default class MyFooter extends Vue {
 <style lang="scss" scoped>
 .links-center {
   align-self: center;
+}
+.rf-grid-row {
+  width: 100%;
+}
+li {
+  &.rf-col-lg-3 {
+    margin-right: 0;
+  }
 }
 </style>
 
@@ -88,7 +98,7 @@ export default class MyFooter extends Vue {
   },
   "fr": {
     "contact": "Vous pouvez nous contacter à contact@dossierfacile.fr",
-    "legals": "Mentions Légales - CGU",
+    "legals": "Mentions légales",
     "faq": "FAQ",
     "blog": "Blog",
     "information": "En savoir plus"
