@@ -16,8 +16,8 @@ const initialLoggedIn = !!initialUser;
 
 export class DfState {
     tenantStep = 0
-    tenantSubStep = 0
-    guarantorStep = 0
+    tenantSubStep = 1
+    guarantorStep = 1
     guarantorSubStep = 0
     user: User | null = initialUser
     roommates: User[] = []
