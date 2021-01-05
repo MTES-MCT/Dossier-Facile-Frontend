@@ -45,6 +45,8 @@ import i18n from '@/i18n';
   }
 })
 export default class App extends Vue {
+  OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
+
   onLogin() {
     this.$router.push("/login");
   }
@@ -63,7 +65,7 @@ export default class App extends Vue {
   }
 
   onCreateOwner() {
-    window.location.href = "http://localhost:9003/signup";
+    window.location.href = this.OWNER_URL;
   }
   getLang() {
     return i18n.locale;
