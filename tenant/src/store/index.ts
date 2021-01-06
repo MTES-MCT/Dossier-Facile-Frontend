@@ -87,7 +87,6 @@ export default new Vuex.Store({
       state.roommates.push(new User());
     },
     setTenantSubstep(state, subStep: number) {
-      console.log(subStep);
       state.tenantSubStep = subStep;
     },
     setGuarantorSubstep(state, subStep: number) {

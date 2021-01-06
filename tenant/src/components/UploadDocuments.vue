@@ -15,6 +15,7 @@
           :class="tenantSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
         ></i>
         <h2>{{ $t("identification") }}</h2>
+        <i v-if="hasDoc('IDENTIFICATION')" class="color--primary icon-Yes check"></i>
       </div>
       <Identification v-if="tenantSubStep === 1"></Identification>
     </div>
@@ -33,6 +34,7 @@
           :class="tenantSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
         ></i>
         <h2>{{ $t("residency") }}</h2>
+        <i v-if="hasDoc('RESIDENCY')" class="color--primary icon-Yes check"></i>
       </div>
       <Residency v-if="tenantSubStep === 2"></Residency>
     </div>
@@ -51,6 +53,7 @@
           :class="tenantSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
         ></i>
         <h2>{{ $t("professional") }}</h2>
+        <i v-if="hasDoc('PROFESSIONAL')" class="color--primary icon-Yes check"></i>
       </div>
       <Professional v-if="tenantSubStep === 3"></Professional>
     </div>
@@ -69,6 +72,7 @@
           :class="tenantSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
         ></i>
         <h2>{{ $t("financial") }}</h2>
+        <i v-if="hasDoc('FINANCIAL')" class="color--primary icon-Yes check"></i>
       </div>
       <Financial v-if="tenantSubStep === 4"></Financial>
     </div>
@@ -87,6 +91,7 @@
           :class="tenantSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
         ></i>
         <h2>{{ $t("tax") }}</h2>
+        <i v-if="hasDoc('TAX')" class="color--primary icon-Yes check"></i>
       </div>
       <Tax v-if="tenantSubStep === 5"></Tax>
     </div>
@@ -94,8 +99,8 @@
       <button
         class="rf-btn"
         type="submit"
-        aria-disabled="documentsFilled()"
-        :disabled="documentsFilled()"
+        aria-disabled="!documentsFilled()"
+        :disabled="!documentsFilled()"
         @click="goToGuarantor()"
       >
         Suivant
@@ -112,28 +117,41 @@ import Professional from "@/components/documents/Professional.vue";
 import Financial from "@/components/documents/Financial.vue";
 import Tax from "@/components/documents/Tax.vue";
 import { mapState } from "vuex";
+import { User } from "df-shared/src/models/User";
 @Component({
   components: { Tax, Financial, Professional, Residency, Identification },
   computed: {
     ...mapState({
       tenantSubStep: "tenantSubStep",
+      user: "user"
     }),
   },
 })
 export default class UploadDocuments extends Vue {
   tenantSubStep!: number;
+  user!: User;
 
   updateSubstep(s: number) {
     this.$store.commit("setTenantSubstep", s === this.tenantSubStep ? 0 : s);
   }
 
   documentsFilled() {
-    // TODO
-    return false;
+    return this.hasDoc('IDENTIFICATION') &&
+          this.hasDoc('PROFESSIONAL') &&
+          this.hasDoc('RESIDENCY') &&
+          this.hasDoc('FINANCIAL') &&
+          this.hasDoc('TAX');
   }
 
   goToGuarantor() {
     this.$store.commit("setStep", 3);
+  }
+
+  hasDoc(docType: string) {
+    const f = this.user.documents?.find(d => {
+      return d.documentCategory === docType;
+    })?.files
+    return f && f.length > 0;
   }
 }
 </script>
@@ -162,6 +180,12 @@ h2 {
 
 .selected {
   background-color: $secondary;
+}
+
+.check {
+  padding: 0.5rem;
+  margin-left: auto;
+  color: green;
 }
 </style>
 

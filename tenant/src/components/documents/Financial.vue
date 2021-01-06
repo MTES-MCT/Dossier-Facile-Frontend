@@ -239,11 +239,15 @@ export default class Financial extends Vue {
       .post(url, formData)
       .then(() => {
         console.log("success");
+        f.files = [];
         f.fileUploadStatus = UploadStatus.STATUS_SUCCESS;
       })
       .catch(() => {
         console.log("fail");
         f.fileUploadStatus = UploadStatus.STATUS_FAILED;
+      })
+      .finally(() => {
+        this.$store.dispatch("loadUser");
       });
   }
 
@@ -262,8 +266,9 @@ export default class Financial extends Vue {
 
   remove(id: number) {
     const url = `//${process.env.VUE_APP_API_URL}/api/file/${id}`;
-    // TODO remove locally or update user
-    axios.delete(url);
+    axios.delete(url).finally(() => {
+      this.$store.dispatch("loadUser");
+    });
   }
 
   addFinancial() {
