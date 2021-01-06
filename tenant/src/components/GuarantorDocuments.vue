@@ -169,8 +169,9 @@
       <button
         class="rf-btn"
         type="submit"
-        aria-disabled="documentsFilled()"
-        :disabled="documentsFilled()"
+        aria-disabled="!documentsFilled()"
+        :disabled="!documentsFilled()"
+        @click="nextStep()"
       >
         Étape suivante - Valider le dossier
       </button>
@@ -244,6 +245,10 @@ export default class GuarantorDocuments extends Vue {
 
   setGuarantorStep(n: number) {
     this.$store.commit("setGuarantorStep", n);
+  }
+
+  nextStep() {
+    this.$store.commit("setStep", 4);
   }
 }
 </script>
