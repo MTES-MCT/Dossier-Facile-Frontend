@@ -163,7 +163,7 @@ export default class RepresentativeIdentification extends Vue {
       .post(url, formData)
       .then(() => {
         console.log("success");
-        this.fileUploadStatus = UploadStatus.STATUS_SUCCESS;
+        this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
       })
       .catch(() => {
         console.log("fail");

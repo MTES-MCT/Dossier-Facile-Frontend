@@ -196,11 +196,10 @@ export default class Identification extends Vue {
     }
     axios
       .post(url, formData)
-      .then((data) => {
+      .then(() => {
         console.log("success");
-        this.fileUploadStatus = UploadStatus.STATUS_SUCCESS;
+        this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         this.files = [];
-        this.$store.dispatch('updateGuarantor', data)
       })
       .catch(() => {
         console.log("fail");

@@ -136,7 +136,7 @@ export default class Residency extends Vue {
       .then(() => {
         console.log("success");
         this.files = [];
-        this.fileUploadStatus = UploadStatus.STATUS_SUCCESS;
+        this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
       })
       .catch(() => {
         console.log("fail");
