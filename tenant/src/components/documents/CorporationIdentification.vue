@@ -49,6 +49,7 @@
           :percentage="
             uploadProgress[file.name] ? uploadProgress[file.name].percentage : 0
           "
+          @remove="remove(file.id)"
         />
       </div>
       <div class="rf-col-12 rf-mb-5w" v-if="organismName">
@@ -141,16 +142,27 @@ export default class CorporationIdentification extends Vue {
       .post(url, formData)
       .then(() => {
         console.log("success");
+        this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_SUCCESS;
       })
       .catch(() => {
         console.log("fail");
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
+      })
+      .finally(() => {
+        this.$store.dispatch("loadUser");
       });
   }
 
   resetFiles() {
     this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
+  }
+
+  remove(id: number) {
+    const url = `//${process.env.VUE_APP_API_URL}/api/file/${id}`;
+    axios.delete(url).finally(() => {
+      this.$store.dispatch("loadUser");
+    });
   }
 }
 </script>

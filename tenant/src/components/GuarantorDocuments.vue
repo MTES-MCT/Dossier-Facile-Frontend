@@ -54,6 +54,9 @@
             :class="guarantorSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
           ></i>
           <h2>{{ $t("residency") }}</h2>
+          <i
+            class="check"
+          ></i>
         </div>
         <Residency v-if="guarantorSubStep === 2"></Residency>
       </div>

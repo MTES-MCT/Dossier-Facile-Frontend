@@ -135,11 +135,15 @@ export default class Residency extends Vue {
       .post(url, formData)
       .then(() => {
         console.log("success");
+        this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_SUCCESS;
       })
       .catch(() => {
         console.log("fail");
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
+      })
+      .finally(() => {
+        this.$store.dispatch("loadUser");
       });
   }
 
@@ -159,8 +163,9 @@ export default class Residency extends Vue {
 
   remove(id: number) {
     const url = `//${process.env.VUE_APP_API_URL}/api/file/${id}`;
-    // TODO remove locally or update user
-    axios.delete(url);
+    axios.delete(url).finally(() => {
+      this.$store.dispatch("loadUser");
+    });
   }
 
   documents: DocumentType[] = [
