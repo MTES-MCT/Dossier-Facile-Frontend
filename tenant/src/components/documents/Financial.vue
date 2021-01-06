@@ -240,7 +240,7 @@ export default class Financial extends Vue {
       .then(() => {
         console.log("success");
         f.files = [];
-        f.fileUploadStatus = UploadStatus.STATUS_SUCCESS;
+        f.fileUploadStatus = UploadStatus.STATUS_INITIAL;
       })
       .catch(() => {
         console.log("fail");

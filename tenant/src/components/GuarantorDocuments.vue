@@ -36,6 +36,7 @@
             :class="guarantorSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
           ></i>
           <h2>{{ $t("identification") }}</h2>
+          <i v-if="hasDoc('IDENTIFICATION')" class="icon-Yes check"></i>
         </div>
         <Identification v-if="guarantorSubStep === 1"></Identification>
       </div>
@@ -54,9 +55,7 @@
             :class="guarantorSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
           ></i>
           <h2>{{ $t("residency") }}</h2>
-          <i
-            class="check"
-          ></i>
+          <i v-if="hasDoc('RESIDENCY')" class="icon-Yes check"></i>
         </div>
         <Residency v-if="guarantorSubStep === 2"></Residency>
       </div>
@@ -75,6 +74,7 @@
             :class="guarantorSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
           ></i>
           <h2>{{ $t("professional") }}</h2>
+        <i v-if="hasDoc('PROFESSIONAL')" class="icon-Yes check"></i>
         </div>
         <Professional v-if="guarantorSubStep === 3"></Professional>
       </div>
@@ -93,6 +93,7 @@
             :class="guarantorSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
           ></i>
           <h2>{{ $t("financial") }}</h2>
+          <i v-if="hasDoc('FINANCIAL')" class="icon-Yes check"></i>
         </div>
         <Financial v-if="guarantorSubStep === 4"></Financial>
       </div>
@@ -111,6 +112,7 @@
             :class="guarantorSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
           ></i>
           <h2>{{ $t("tax") }}</h2>
+          <i v-if="hasDoc('TAX')" class="icon-Yes check"></i>
         </div>
         <Tax v-if="guarantorSubStep === 5"></Tax>
       </div>
@@ -226,8 +228,18 @@ export default class GuarantorDocuments extends Vue {
   }
 
   documentsFilled() {
-    // TODO
-    return false;
+    return this.guarantorType !== 'naturalPerson' || this.hasDoc('IDENTIFICATION') &&
+          this.hasDoc('PROFESSIONAL') &&
+          this.hasDoc('RESIDENCY') &&
+          this.hasDoc('FINANCIAL') &&
+          this.hasDoc('TAX');
+  }
+
+  hasDoc(docType: string) {
+    const f = this.selectedGuarantor.documents?.find(d => {
+      return d.documentCategory === docType;
+    })?.files
+    return f && f.length > 0;
   }
 
   setGuarantorStep(n: number) {
@@ -260,6 +272,12 @@ h2 {
 
 .selected {
   background-color: $secondary;
+}
+
+.check {
+  padding: 0.5rem;
+  margin-left: auto;
+  color: green;
 }
 </style>
 
