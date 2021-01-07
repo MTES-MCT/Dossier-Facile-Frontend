@@ -29,7 +29,7 @@ import MyHeader from "df-shared/src/Header/Header.vue";
 import MyFooter from "df-shared/src/Footer/Footer.vue";
 import Menu from "@/components/Menu.vue";
 import { mapState } from "vuex";
-import i18n from '@/i18n';
+import i18n from "@/i18n";
 
 @Component({
   components: {

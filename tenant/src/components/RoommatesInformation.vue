@@ -84,7 +84,7 @@ extend("email", {
       roommates: "roommates",
       user: "user"
     })
-  },
+  }
 })
 export default class RoommatesInformation extends Vue {
   roommates!: User[];
@@ -101,7 +101,9 @@ export default class RoommatesInformation extends Vue {
   }
 
   roommatesNotMe() {
-    return this.roommates.filter((r: User) => { return r.id != this.user.id});
+    return this.roommates.filter((r: User) => {
+      return r.id != this.user.id;
+    });
   }
 }
 </script>
