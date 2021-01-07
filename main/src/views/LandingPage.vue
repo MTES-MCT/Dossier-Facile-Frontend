@@ -74,7 +74,7 @@
             <p>{{ $t("s2.p3") }}</p>
           </div>
           <div class="rf-col-md-6">
-            <img src="../assets/icons/justif.svg" />
+            <img src="../assets/icons/justif.png" />
           </div>
         </div>
         <a class="rf-btn rf-mt-3w" :href="`${TENANT_URL}/signup`">
