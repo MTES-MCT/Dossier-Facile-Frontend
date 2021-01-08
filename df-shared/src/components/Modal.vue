@@ -55,10 +55,12 @@ export default class Modal extends Vue {
 .modal {
   background: #ffffff;
   box-shadow: 2px 2px 20px 1px;
-  overflow-x: auto;
   display: flex;
   flex-direction: column;
   min-width: 400px;
+  max-width: 90%;
+  max-height: 98%;
+  overflow: auto;
   position: relative;
 }
 

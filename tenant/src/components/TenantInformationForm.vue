@@ -104,7 +104,7 @@ export default class TenantInformationForm extends Vue {
 
   mounted() {
     if (this.user.applicationType) {
-      this.applicationType = this.user.applicationType
+      this.applicationType = this.user.applicationType;
     }
   }
 
@@ -121,9 +121,13 @@ export default class TenantInformationForm extends Vue {
       coTenantEmails = [this.spouseEmail];
       acceptAccess = this.spouseAuthorize;
     } else if (this.applicationType === "GROUP") {
-      coTenantEmails = this.roommates.filter((r: User) => { return r.id != this.user.id}).map(function(r) {
-        return r.email;
-      });
+      coTenantEmails = this.roommates
+        .filter((r: User) => {
+          return r.id != this.user.id;
+        })
+        .map(function(r) {
+          return r.email;
+        });
       acceptAccess = this.coTenantAuthorize;
     }
 

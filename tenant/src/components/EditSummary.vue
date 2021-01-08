@@ -40,7 +40,7 @@
               <div class="row" v-if="hasDoc('IDENTIFICATION')">
                 <div class="subtitle">Pièce d’identité</div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="setTenantStep(1)">
+                  <div class="edit-step-btn" @click="openDoc('IDENTIFICATION')">
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
                   <div class="edit-step-btn" @click="setTenantStep(1)">
@@ -51,7 +51,7 @@
               <div class="row" v-if="hasDoc('RESIDENCY')">
                 <div class="subtitle">Justificatif de domicile</div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="setTenantStep(2)">
+                  <div class="edit-step-btn" @click="openDoc('RESIDENCY')">
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
                   <div class="edit-step-btn" @click="setTenantStep(2)">
@@ -64,7 +64,7 @@
                   Justificatif de situation professionelle
                 </div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="setTenantStep(3)">
+                  <div class="edit-step-btn" @click="openDoc('PROFESSIONAL')">
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
                   <div class="edit-step-btn" @click="setTenantStep(3)">
@@ -75,7 +75,7 @@
               <div class="row" v-if="hasDoc('FINANCIAL')">
                 <div class="subtitle">Justificatif de revenu</div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="setTenantStep(4)">
+                  <div class="edit-step-btn" @click="openDoc('FINANCIAL')">
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
                   <div class="edit-step-btn" @click="setTenantStep(4)">
@@ -86,7 +86,7 @@
               <div class="row" v-if="hasDoc('TAX')">
                 <div class="subtitle">Avis d’imposition</div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="setTenantStep(5)">
+                  <div class="edit-step-btn" @click="openDoc('TAX')">
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
                   <div class="edit-step-btn" @click="setTenantStep(5)">
@@ -107,7 +107,10 @@
               <div class="row" v-if="guarantorHasDoc('IDENTIFICATION')">
                 <div class="subtitle">Pièce d’identité</div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="setGuarantorStep(1)">
+                  <div
+                    class="edit-step-btn"
+                    @click="openGuarantorDoc('IDENTIFICATION')"
+                  >
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
                   <div class="edit-step-btn" @click="setGuarantorStep(1)">
@@ -118,7 +121,10 @@
               <div class="row" v-if="guarantorHasDoc('RESIDENCY')">
                 <div class="subtitle">Justificatif de domicile</div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="setGuarantorStep(2)">
+                  <div
+                    class="edit-step-btn"
+                    @click="openGuarantorDoc('RESIDENCY')"
+                  >
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
                   <div class="edit-step-btn" @click="setGuarantorStep(2)">
@@ -131,7 +137,10 @@
                   Justificatif de situation professionelle
                 </div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="setGuarantorStep(3)">
+                  <div
+                    class="edit-step-btn"
+                    @click="openGuarantorDoc('PROFESSIONAL')"
+                  >
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
                   <div class="edit-step-btn" @click="setGuarantorStep(3)">
@@ -142,7 +151,10 @@
               <div class="row" v-if="guarantorHasDoc('FINANCIAL')">
                 <div class="subtitle">Justificatif de revenu</div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="setGuarantorStep(4)">
+                  <div
+                    class="edit-step-btn"
+                    @click="openGuarantorDoc('FINANCIAL')"
+                  >
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
                   <div class="edit-step-btn" @click="setGuarantorStep(4)">
@@ -153,7 +165,7 @@
               <div class="row" v-if="guarantorHasDoc('TAX')">
                 <div class="subtitle">Avis d’imposition</div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="setGuarantorStep(5)">
+                  <div class="edit-step-btn" @click="openGuarantorDoc('TAX')">
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
                   <div class="edit-step-btn" @click="setGuarantorStep(5)">
@@ -166,6 +178,20 @@
         </div>
       </template>
     </NakedCard>
+    <Modal v-show="isDocModalVisible" @close="isDocModalVisible = false">
+      <template v-slot:body>
+        <div class="rf-container">
+          <div class="row justify-content-center">
+            <div class="col-12 col-md-8">
+              <div v-for="f in files" v-bind:key="f.id">
+                <img :src="getUrl(f.path)" v-if="isImage(f.path)">
+                <PdfViewer :src="getUrl(f.path)" v-if="!isImage(f.path)"></PdfViewer>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </Modal>
   </div>
 </template>
 
@@ -175,20 +201,25 @@ import { mapState } from "vuex";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import { User } from "df-shared/src/models/User";
 import { Guarantor } from "df-shared/src/models/Guarantor";
+import { DfFile } from "df-shared/src/models/DfFile";
+import Modal from "df-shared/src/components/Modal.vue";
+import PdfViewer from "../components/PdfViewer.vue";
 
 @Component({
-  components: { NakedCard },
+  components: { NakedCard, Modal, PdfViewer },
   computed: {
     ...mapState({
       user: "user",
       tenantStep: "tenantStep",
-      selectedGuarantor: "selectedGuarantor"
-    })
-  }
+      selectedGuarantor: "selectedGuarantor",
+    }),
+  },
 })
 export default class EditSummary extends Vue {
   user!: User;
   selectedGuarantor!: Guarantor;
+  isDocModalVisible = false;
+  files: DfFile[] = [];
 
   setTenantStep(n: number) {
     this.$store.commit("setTenantSubstep", n);
@@ -207,12 +238,12 @@ export default class EditSummary extends Vue {
     return this.user.documents !== undefined && this.user.documents?.length > 0;
   }
   hasDoc(docType: string) {
-    return this.user.documents?.find(d => {
+    return this.user.documents?.find((d) => {
       return d.documentCategory === docType;
     });
   }
   guarantorHasDoc(docType: string) {
-    return this.selectedGuarantor.documents?.find(d => {
+    return this.selectedGuarantor.documents?.find((d) => {
       return d.documentCategory === docType;
     });
   }
@@ -221,6 +252,27 @@ export default class EditSummary extends Vue {
       this.selectedGuarantor?.documents !== undefined &&
       this.selectedGuarantor.documents.length > 0
     );
+  }
+  openDoc(documentCategory: string) {
+    const docs = this.user.documents?.filter((d) => {
+      return d.documentCategory === documentCategory;
+    });
+    this.files = [];
+    if (docs === undefined) {
+      return
+    }
+    for (let i=0; i< docs.length ; i++) {
+        this.files = this.files.concat(docs[i].files || []);
+    }
+    this.isDocModalVisible = true;
+  }
+
+  isImage(path: string) {
+    return !path.endsWith('pdf');
+  }
+
+  getUrl(path: string) {
+    return `//${process.env.VUE_APP_API_URL}/api/file/tenants_file/${path}`;
   }
 }
 </script>

@@ -22,8 +22,8 @@
       </validation-provider>
       <div>
         <label class="rf-label" for="select">
-          J’ajoute une pièce d’identité en cours de validité. Attention, veillez à
-          ajouter votre pièce recto-verso !
+          J’ajoute une pièce d’identité en cours de validité. Attention, veillez
+          à ajouter votre pièce recto-verso !
         </label>
         <select
           v-model="identificationDocument"
@@ -152,10 +152,7 @@ export default class RepresentativeIdentification extends Vue {
       this.identificationDocument.value
     );
 
-    formData.append(
-      "firstName",
-      this.identificationDocument.value
-    );
+    formData.append("firstName", this.identificationDocument.value);
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     const url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorLegalPerson/documentRepresentanIdentification`;

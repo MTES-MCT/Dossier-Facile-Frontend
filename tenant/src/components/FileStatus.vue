@@ -14,13 +14,12 @@ import { User } from "df-shared/src/models/User";
   components: { ValidationProvider },
   computed: {
     ...mapState({
-      user: "user",
-    }),
-  },
+      user: "user"
+    })
+  }
 })
 export default class FileStatus extends Vue {
   user!: User;
-
 }
 </script>
 

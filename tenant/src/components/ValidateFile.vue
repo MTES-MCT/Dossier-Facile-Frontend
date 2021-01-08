@@ -39,8 +39,13 @@
         </validation-provider>
       </div>
       <div>
-        <button class="rf-btn" type="submit" @click="validate()" :disabled="canValidate()">
-          {{ $t('validate') }}
+        <button
+          class="rf-btn"
+          type="submit"
+          @click="validate()"
+          :disabled="canValidate()"
+        >
+          {{ $t("validate") }}
         </button>
       </div>
     </div>
@@ -91,8 +96,13 @@
         </validation-provider>
       </div>
       <div>
-        <button class="rf-btn" type="submit" @click="validate()" :disabled="canValidate()">
-          {{ $t('validate') }}
+        <button
+          class="rf-btn"
+          type="submit"
+          @click="validate()"
+          :disabled="canValidate()"
+        >
+          {{ $t("validate") }}
         </button>
       </div>
     </div>
@@ -110,9 +120,9 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
   components: { ValidationProvider },
   computed: {
     ...mapState({
-      user: "user",
-    }),
-  },
+      user: "user"
+    })
+  }
 })
 export default class ValidateFile extends Vue {
   user!: User;
@@ -121,7 +131,7 @@ export default class ValidateFile extends Vue {
   declaration2 = false;
 
   validate() {
-    this.$store.dispatch("validateFile")
+    this.$store.dispatch("validateFile");
   }
 
   canValidate() {
@@ -129,9 +139,13 @@ export default class ValidateFile extends Vue {
   }
 
   hasGuarantors() {
-    return this.user.guarantors && this.user.guarantors.length > 0 && this.user.guarantors.find((g : Guarantor) => {
-      return g.typeGuarantor !== "ORGANISM"
-    })
+    return (
+      this.user.guarantors &&
+      this.user.guarantors.length > 0 &&
+      this.user.guarantors.find((g: Guarantor) => {
+        return g.typeGuarantor !== "ORGANISM";
+      })
+    );
   }
 }
 </script>

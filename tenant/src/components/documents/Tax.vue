@@ -112,19 +112,25 @@ export default class Tax extends Vue {
   customText = "";
 
   mounted() {
-    if (this.user.documents !== null ) {
-      const doc = this.user.documents?.find((d: DfDocument) => { return d.documentCategory === 'TAX'});
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "TAX";
+      });
       if (doc !== undefined) {
-        const localDoc = this.documents.find((d: DocumentType) => { return d.value === doc.documentSubCategory});
+        const localDoc = this.documents.find((d: DocumentType) => {
+          return d.value === doc.documentSubCategory;
+        });
         if (localDoc !== undefined) {
-          this.taxDocument = localDoc
+          this.taxDocument = localDoc;
         }
       }
     }
   }
 
   addFiles(fileList: File[]) {
-    const nf = Array.from(fileList).map(f => { return { name: f.name, file: f} });
+    const nf = Array.from(fileList).map(f => {
+      return { name: f.name, file: f };
+    });
     this.files = [...this.files, ...nf];
   }
 
@@ -135,10 +141,12 @@ export default class Tax extends Vue {
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    const newFiles = this.files.filter((f) => {return !f.id});
+    const newFiles = this.files.filter(f => {
+      return !f.id;
+    });
     if (!newFiles.length) return;
     Array.from(Array(newFiles.length).keys()).map(x => {
-      const f:File = newFiles[x].file || new File([], "");
+      const f: File = newFiles[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
     });
 
@@ -151,8 +159,8 @@ export default class Tax extends Vue {
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     let url: string;
     if (this.$store.getters.isGuarantor) {
-      url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentTax`
-      formData.append( "guarantorId", this.$store.getters.guarantor.id);
+      url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentTax`;
+      formData.append("guarantorId", this.$store.getters.guarantor.id);
     } else {
       url = `//${process.env.VUE_APP_API_URL}/api/register/documentTax`;
     }
@@ -179,7 +187,8 @@ export default class Tax extends Vue {
         id: f.name
       };
     });
-    const existingFiles = this.$store.getters.getDocuments?.find((d: DfDocument) => {
+    const existingFiles =
+      this.$store.getters.getDocuments?.find((d: DfDocument) => {
         return d.documentCategory === "TAX";
       })?.files || [];
     return [...newFiles, ...existingFiles];

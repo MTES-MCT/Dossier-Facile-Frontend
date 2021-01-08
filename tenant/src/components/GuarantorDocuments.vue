@@ -29,11 +29,15 @@
         >
           <i
             class="icon color--primary rf-p-1w"
-            :class="guarantorSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+            :class="
+              guarantorSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'
+            "
           ></i>
           <i
             class="icon color--primary rf-p-1w icon-User"
-            :class="guarantorSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+            :class="
+              guarantorSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'
+            "
           ></i>
           <h2>{{ $t("identification") }}</h2>
           <i v-if="hasDoc('IDENTIFICATION')" class="icon-Yes check"></i>
@@ -48,11 +52,15 @@
         >
           <i
             class="icon color--primary rf-p-1w"
-            :class="guarantorSubStep === 2 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+            :class="
+              guarantorSubStep === 2 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'
+            "
           ></i>
           <i
             class="icon color--primary rf-p-1w icon-Home-2"
-            :class="guarantorSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+            :class="
+              guarantorSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'
+            "
           ></i>
           <h2>{{ $t("residency") }}</h2>
           <i v-if="hasDoc('RESIDENCY')" class="icon-Yes check"></i>
@@ -67,14 +75,18 @@
         >
           <i
             class="icon color--primary rf-p-1w"
-            :class="guarantorSubStep === 3 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+            :class="
+              guarantorSubStep === 3 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'
+            "
           ></i>
           <i
             class="icon color--primary rf-p-1w icon-Suitcase"
-            :class="guarantorSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+            :class="
+              guarantorSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'
+            "
           ></i>
           <h2>{{ $t("professional") }}</h2>
-        <i v-if="hasDoc('PROFESSIONAL')" class="icon-Yes check"></i>
+          <i v-if="hasDoc('PROFESSIONAL')" class="icon-Yes check"></i>
         </div>
         <Professional v-if="guarantorSubStep === 3"></Professional>
       </div>
@@ -86,11 +98,15 @@
         >
           <i
             class="icon color--primary rf-p-1w"
-            :class="guarantorSubStep === 4 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+            :class="
+              guarantorSubStep === 4 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'
+            "
           ></i>
           <i
             class="icon color--primary rf-p-1w icon-Euro-Sign2"
-            :class="guarantorSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+            :class="
+              guarantorSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'
+            "
           ></i>
           <h2>{{ $t("financial") }}</h2>
           <i v-if="hasDoc('FINANCIAL')" class="icon-Yes check"></i>
@@ -105,11 +121,15 @@
         >
           <i
             class="icon color--primary rf-p-1w"
-            :class="guarantorSubStep === 5 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+            :class="
+              guarantorSubStep === 5 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'
+            "
           ></i>
           <i
             class="icon color--primary rf-p-1w icon-Files"
-            :class="guarantorSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+            :class="
+              guarantorSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'
+            "
           ></i>
           <h2>{{ $t("tax") }}</h2>
           <i v-if="hasDoc('TAX')" class="icon-Yes check"></i>
@@ -129,11 +149,15 @@
         >
           <i
             class="icon color--primary rf-p-1w"
-            :class="guarantorSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+            :class="
+              guarantorSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'
+            "
           ></i>
           <i
             class="icon color--primary rf-p-1w icon-User"
-            :class="guarantorSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+            :class="
+              guarantorSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'
+            "
           ></i>
           <h2>{{ $t("representative-identification") }}</h2>
         </div>
@@ -149,11 +173,15 @@
         >
           <i
             class="icon color--primary rf-p-1w"
-            :class="guarantorSubStep === 2 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+            :class="
+              guarantorSubStep === 2 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'
+            "
           ></i>
           <i
             class="icon color--primary rf-p-1w icon-Home-2"
-            :class="guarantorSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
+            :class="
+              guarantorSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'
+            "
           ></i>
           <h2>{{ $t("corporation-identification") }}</h2>
         </div>
@@ -225,21 +253,27 @@ export default class GuarantorDocuments extends Vue {
   }
 
   updateSubstep(s: number) {
-    this.$store.commit("setGuarantorSubstep", s === this.guarantorSubStep ? 0 : s);
+    this.$store.commit(
+      "setGuarantorSubstep",
+      s === this.guarantorSubStep ? 0 : s
+    );
   }
 
   documentsFilled() {
-    return this.guarantorType !== 'naturalPerson' || this.hasDoc('IDENTIFICATION') &&
-          this.hasDoc('PROFESSIONAL') &&
-          this.hasDoc('RESIDENCY') &&
-          this.hasDoc('FINANCIAL') &&
-          this.hasDoc('TAX');
+    return (
+      this.guarantorType !== "naturalPerson" ||
+      (this.hasDoc("IDENTIFICATION") &&
+        this.hasDoc("PROFESSIONAL") &&
+        this.hasDoc("RESIDENCY") &&
+        this.hasDoc("FINANCIAL") &&
+        this.hasDoc("TAX"))
+    );
   }
 
   hasDoc(docType: string) {
     const f = this.selectedGuarantor.documents?.find(d => {
       return d.documentCategory === docType;
-    })?.files
+    })?.files;
     return f && f.length > 0;
   }
 

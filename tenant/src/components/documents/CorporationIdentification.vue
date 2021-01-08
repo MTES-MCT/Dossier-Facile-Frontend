@@ -130,10 +130,7 @@ export default class CorporationIdentification extends Vue {
       formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
     });
 
-    formData.append(
-      "legalPersonName",
-      this.organismName
-    );
+    formData.append("legalPersonName", this.organismName);
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     // TODO use service with right url

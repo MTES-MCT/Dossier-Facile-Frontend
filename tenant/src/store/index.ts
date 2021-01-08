@@ -5,7 +5,7 @@ import { ProfileService } from "@/services/ProfileService";
 import router from "../router";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { User } from "df-shared/src/models/User";
-import i18n from '@/i18n';
+import i18n from "@/i18n";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 
 Vue.use(Vuex);
@@ -15,15 +15,15 @@ const initialUser = localUser !== null ? JSON.parse(localUser) : null;
 const initialLoggedIn = !!initialUser;
 
 export class DfState {
-    tenantStep = 0
-    tenantSubStep = 1
-    guarantorStep = 0
-    guarantorSubStep = 1
-    user: User | null = initialUser
-    roommates: User[] = []
-    selectedGuarantor = new Guarantor()
-    status = { loggedIn: initialLoggedIn }
-  };
+  tenantStep = 0;
+  tenantSubStep = 1;
+  guarantorStep = 0;
+  guarantorSubStep = 1;
+  user: User | null = initialUser;
+  roommates: User[] = [];
+  selectedGuarantor = new Guarantor();
+  status = { loggedIn: initialLoggedIn };
+}
 
 export default new Vuex.Store({
   state: new DfState(),
@@ -66,15 +66,18 @@ export default new Vuex.Store({
       if (state.user) {
         state.user.applicationType = "ALONE";
       }
-      if (state.user?.apartmentSharing && state.user.apartmentSharing.tenants.length > 1) {
+      if (
+        state.user?.apartmentSharing &&
+        state.user.apartmentSharing.tenants.length > 1
+      ) {
         state.user.applicationType = "COUPLE";
-        state.roommates = state.user.apartmentSharing.tenants
+        state.roommates = state.user.apartmentSharing.tenants;
         if (state.user.apartmentSharing.tenants.length > 2) {
           state.user.applicationType = "GROUP";
         }
       }
       if (state.user?.guarantors && state.user.guarantors.length > 0) {
-        state.selectedGuarantor = user.guarantors[0]
+        state.selectedGuarantor = user.guarantors[0];
         if (state.selectedGuarantor) {
           state.guarantorStep = 2;
         }
@@ -166,17 +169,17 @@ export default new Vuex.Store({
         }
       );
     },
-    setLang({commit}, lang) {
+    setLang({ commit }, lang) {
       i18n.locale = lang;
     },
-    validateFile({commit}) {
+    validateFile({ commit }) {
       commit("setStep", 5);
     }
   },
   getters: {
     getDocuments(state): DfDocument[] {
       if (state.tenantStep === 3) {
-        return state.selectedGuarantor.documents || []
+        return state.selectedGuarantor.documents || [];
       }
       return state.user?.documents || [];
     },

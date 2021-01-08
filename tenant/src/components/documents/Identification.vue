@@ -1,53 +1,50 @@
 <template>
   <div>
     <div v-if="isGuarantor()" class="rf-grid-row rf-grid-row--center">
-          <div class="rf-col-12 rf-mb-3w">
-            <validation-provider rules="required" v-slot="{ errors }">
-              <div
-                class="rf-input-group"
-                :class="errors[0] ? 'rf-input-group--error' : ''"
-              >
-                <label class="rf-label" for="lastname"
-                  >{{ $t("lastname") }} :</label
-                >
-                <input
-                  v-model="lastName"
-                  class="form-control rf-input validate-required"
-                  id="lastname"
-                  name="lastname"
-                  :placeholder="$t('lastname')"
-                  type="text"
-                />
-                <span class="rf-error-text" v-if="errors[0]">{{
-                  errors[0]
-                }}</span>
-              </div>
-            </validation-provider>
+      <div class="rf-col-12 rf-mb-3w">
+        <validation-provider rules="required" v-slot="{ errors }">
+          <div
+            class="rf-input-group"
+            :class="errors[0] ? 'rf-input-group--error' : ''"
+          >
+            <label class="rf-label" for="lastname"
+              >{{ $t("lastname") }} :</label
+            >
+            <input
+              v-model="lastName"
+              class="form-control rf-input validate-required"
+              id="lastname"
+              name="lastname"
+              :placeholder="$t('lastname')"
+              type="text"
+            />
+            <span class="rf-error-text" v-if="errors[0]">{{ errors[0] }}</span>
           </div>
-          <div class="rf-col-12 rf-mb-3w">
-            <validation-provider rules="required" v-slot="{ errors }">
-              <div
-                class="rf-input-group"
-                :class="errors[0] ? 'rf-input-group--error' : ''"
-              >
-                <label for="firstname" class="rf-label"
-                  >{{ $t("firstname") }} :</label
-                >
-                <input
-                  id="firstname"
-                  :placeholder="$t('firstname')"
-                  type="text"
-                  v-model="firstName"
-                  name="firstname"
-                  class="validate-required form-control rf-input"
-                />
-                <span class="rf-error-text" v-if="errors[0]">{{
-                  $t(errors[0])
-                }}</span>
-              </div>
-            </validation-provider>
+        </validation-provider>
+      </div>
+      <div class="rf-col-12 rf-mb-3w">
+        <validation-provider rules="required" v-slot="{ errors }">
+          <div
+            class="rf-input-group"
+            :class="errors[0] ? 'rf-input-group--error' : ''"
+          >
+            <label for="firstname" class="rf-label"
+              >{{ $t("firstname") }} :</label
+            >
+            <input
+              id="firstname"
+              :placeholder="$t('firstname')"
+              type="text"
+              v-model="firstName"
+              name="firstname"
+              class="validate-required form-control rf-input"
+            />
+            <span class="rf-error-text" v-if="errors[0]">{{
+              $t(errors[0])
+            }}</span>
           </div>
-
+        </validation-provider>
+      </div>
     </div>
     <div>
       <label class="rf-label" for="select">
@@ -142,12 +139,16 @@ export default class Identification extends Vue {
   lastName = "";
 
   mounted() {
-    if (this.user.documents !== null ) {
-      const doc = this.user.documents?.find((d: DfDocument) => { return d.documentCategory === 'IDENTIFICATION'});
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "IDENTIFICATION";
+      });
       if (doc !== undefined) {
-        const localDoc = this.documents.find((d: DocumentType) => { return d.value === doc.documentSubCategory});
+        const localDoc = this.documents.find((d: DocumentType) => {
+          return d.value === doc.documentSubCategory;
+        });
         if (localDoc !== undefined) {
-          this.identificationDocument = localDoc
+          this.identificationDocument = localDoc;
         }
       }
     }
@@ -161,7 +162,9 @@ export default class Identification extends Vue {
   }
 
   addFiles(fileList: File[]) {
-    const nf = Array.from(fileList).map(f => { return { name: f.name, file: f} });
+    const nf = Array.from(fileList).map(f => {
+      return { name: f.name, file: f };
+    });
     this.files = [...this.files, ...nf];
   }
 
@@ -173,23 +176,28 @@ export default class Identification extends Vue {
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    const newFiles = this.files.filter((f) => {return !f.id});
+    const newFiles = this.files.filter(f => {
+      return !f.id;
+    });
     if (!newFiles.length) return;
     Array.from(Array(newFiles.length).keys()).map(x => {
-      const f:File = newFiles[x].file || new File([], "");
+      const f: File = newFiles[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
     });
 
-    formData.append( "typeDocumentIdentification", this.identificationDocument.value);
+    formData.append(
+      "typeDocumentIdentification",
+      this.identificationDocument.value
+    );
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     let url: string;
     if (this.$store.getters.isGuarantor) {
-      url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentIdentification`
-      formData.append( "firstName", this.firstName);
-      formData.append( "lastName", this.lastName);
+      url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentIdentification`;
+      formData.append("firstName", this.firstName);
+      formData.append("lastName", this.lastName);
       if (this.$store.getters.guarantor.id) {
-        formData.append( "guarantorId", this.$store.getters.guarantor.id);
+        formData.append("guarantorId", this.$store.getters.guarantor.id);
       }
     } else {
       url = `//${process.env.VUE_APP_API_URL}/api/register/documentIdentification`;
@@ -217,7 +225,8 @@ export default class Identification extends Vue {
         id: f.name
       };
     });
-    const existingFiles = this.$store.getters.getDocuments?.find((d: DfDocument) => {
+    const existingFiles =
+      this.$store.getters.getDocuments?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION";
       })?.files || [];
     return [...newFiles, ...existingFiles];
@@ -274,7 +283,6 @@ export default class Identification extends Vue {
     }
   ];
 }
-
 </script>
 
 <style scoped lang="scss">

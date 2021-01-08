@@ -15,7 +15,10 @@
           :class="tenantSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
         ></i>
         <h2>{{ $t("identification") }}</h2>
-        <i v-if="hasDoc('IDENTIFICATION')" class="color--primary icon-Yes check"></i>
+        <i
+          v-if="hasDoc('IDENTIFICATION')"
+          class="color--primary icon-Yes check"
+        ></i>
       </div>
       <Identification v-if="tenantSubStep === 1"></Identification>
     </div>
@@ -53,7 +56,10 @@
           :class="tenantSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
         ></i>
         <h2>{{ $t("professional") }}</h2>
-        <i v-if="hasDoc('PROFESSIONAL')" class="color--primary icon-Yes check"></i>
+        <i
+          v-if="hasDoc('PROFESSIONAL')"
+          class="color--primary icon-Yes check"
+        ></i>
       </div>
       <Professional v-if="tenantSubStep === 3"></Professional>
     </div>
@@ -124,8 +130,8 @@ import { User } from "df-shared/src/models/User";
     ...mapState({
       tenantSubStep: "tenantSubStep",
       user: "user"
-    }),
-  },
+    })
+  }
 })
 export default class UploadDocuments extends Vue {
   tenantSubStep!: number;
@@ -136,11 +142,13 @@ export default class UploadDocuments extends Vue {
   }
 
   documentsFilled() {
-    return this.hasDoc('IDENTIFICATION') &&
-          this.hasDoc('PROFESSIONAL') &&
-          this.hasDoc('RESIDENCY') &&
-          this.hasDoc('FINANCIAL') &&
-          this.hasDoc('TAX');
+    return (
+      this.hasDoc("IDENTIFICATION") &&
+      this.hasDoc("PROFESSIONAL") &&
+      this.hasDoc("RESIDENCY") &&
+      this.hasDoc("FINANCIAL") &&
+      this.hasDoc("TAX")
+    );
   }
 
   goToGuarantor() {
@@ -150,7 +158,7 @@ export default class UploadDocuments extends Vue {
   hasDoc(docType: string) {
     const f = this.user.documents?.find(d => {
       return d.documentCategory === docType;
-    })?.files
+    })?.files;
     return f && f.length > 0;
   }
 }

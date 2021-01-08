@@ -86,19 +86,25 @@ export default class Professional extends Vue {
   professionalDocument = new DocumentType();
 
   mounted() {
-    if (this.user.documents !== null ) {
-      const doc = this.user.documents?.find((d: DfDocument) => { return d.documentCategory === 'PROFESSIONAL'});
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "PROFESSIONAL";
+      });
       if (doc !== undefined) {
-        const localDoc = this.documents.find((d: DocumentType) => { return d.value === doc.documentSubCategory});
+        const localDoc = this.documents.find((d: DocumentType) => {
+          return d.value === doc.documentSubCategory;
+        });
         if (localDoc !== undefined) {
-          this.professionalDocument = localDoc
+          this.professionalDocument = localDoc;
         }
       }
     }
   }
 
   addFiles(fileList: File[]) {
-    const nf = Array.from(fileList).map(f => { return { name: f.name, file: f} });
+    const nf = Array.from(fileList).map(f => {
+      return { name: f.name, file: f };
+    });
     this.files = [...this.files, ...nf];
   }
   resetFiles() {
@@ -108,10 +114,12 @@ export default class Professional extends Vue {
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    const newFiles = this.files.filter((f) => {return !f.id});
+    const newFiles = this.files.filter(f => {
+      return !f.id;
+    });
     if (!newFiles.length) return;
     Array.from(Array(newFiles.length).keys()).map(x => {
-      const f:File = newFiles[x].file || new File([], "");
+      const f: File = newFiles[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
     });
 
@@ -123,8 +131,8 @@ export default class Professional extends Vue {
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     let url: string;
     if (this.$store.getters.isGuarantor) {
-      url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentProfessional`
-      formData.append( "guarantorId", this.$store.getters.guarantor.id);
+      url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentProfessional`;
+      formData.append("guarantorId", this.$store.getters.guarantor.id);
     } else {
       url = `//${process.env.VUE_APP_API_URL}/api/register/documentProfessional`;
     }
@@ -145,16 +153,17 @@ export default class Professional extends Vue {
   }
 
   professionalFiles() {
-      const newFiles = this.files.map(f => {
-        return {
-          documentSubCategory: this.professionalDocument.value,
-          id: f.name
-        };
-      });
-    const existingFiles = this.$store.getters.getDocuments?.find((d: DfDocument) => {
+    const newFiles = this.files.map(f => {
+      return {
+        documentSubCategory: this.professionalDocument.value,
+        id: f.name
+      };
+    });
+    const existingFiles =
+      this.$store.getters.getDocuments?.find((d: DfDocument) => {
         return d.documentCategory === "PROFESSIONAL";
       })?.files || [];
-      return [...newFiles, ...existingFiles];
+    return [...newFiles, ...existingFiles];
   }
 
   remove(id: number) {

@@ -1,3 +1,4 @@
+import { DfFile } from "./DfFile";
 
 export class DfDocument {
   id?: number;
@@ -6,6 +7,6 @@ export class DfDocument {
   documentSubCategory?: string;
   customText?: string;
   monthlySum?: number;
-  files?: [];
+  files?: DfFile[];
   noDocument?: boolean;
 }
