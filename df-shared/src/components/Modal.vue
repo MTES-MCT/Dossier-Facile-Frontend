@@ -59,6 +59,7 @@ export default class Modal extends Vue {
   display: flex;
   flex-direction: column;
   min-width: 400px;
+  max-width: 90%;
   position: relative;
 }
 

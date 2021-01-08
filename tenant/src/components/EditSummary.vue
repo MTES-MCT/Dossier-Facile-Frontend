@@ -184,7 +184,7 @@
           <div class="row justify-content-center">
             <div class="col-12 col-md-8">
               <div v-for="f in files" v-bind:key="f.id">
-                {{ f }}
+                <img :src="getUrl(f.path)" v-if="isImage(f.path)">
               </div>
             </div>
           </div>
@@ -252,7 +252,6 @@ export default class EditSummary extends Vue {
     );
   }
   openDoc(documentCategory: string) {
-    debugger;
     const docs = this.user.documents?.filter((d) => {
       return d.documentCategory === documentCategory;
     });
@@ -263,8 +262,15 @@ export default class EditSummary extends Vue {
     for (let i=0; i< docs.length ; i++) {
         this.files = this.files.concat(docs[i].files || []);
     }
-    console.dir(this.files);
     this.isDocModalVisible = true;
+  }
+
+  isImage(path: string) {
+    return !path.endsWith('pdf');
+  }
+
+  getUrl(path: string) {
+    return `//${process.env.VUE_APP_API_URL}/api/file/tenants_file/${path}`;
   }
 }
 </script>
