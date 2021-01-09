@@ -5,6 +5,8 @@
         <MyHeader
           @on-create-tenant="onCreateTenant"
           @on-create-owner="onCreateOwner"
+          @on-change-lang="changeLang"
+          :lang="getLang()"
         />
       </div>
       <div class="rf-container">
@@ -31,6 +33,7 @@ import MyHeader from "df-shared/src/Header/Header.vue";
 import MyFooter from "df-shared/src/Footer/Footer.vue";
 import Modal from "df-shared/src/components/Modal.vue";
 import Cookies from "df-shared/src/Footer/Cookies.vue";
+import i18n from "./i18n";
 
 @Component({
   components: {
@@ -66,6 +69,15 @@ export default class App extends Vue {
 
   isMobile() {
     return window.innerWidth < 768;
+  }
+
+  changeLang() {
+    const lang = i18n.locale === "fr" ? "en" : "fr";
+    this.$store.dispatch("setLang", lang);
+  }
+
+  getLang() {
+    return i18n.locale;
   }
 }
 </script>

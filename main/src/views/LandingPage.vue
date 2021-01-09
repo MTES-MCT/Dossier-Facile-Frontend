@@ -8,7 +8,8 @@
               {{ $t("s0.title") }}
             </h1>
             <p class="text-bold color--white">
-              {{ $t("s0.text") }}
+              {{ $t("s0.text") }}<br>
+              {{ $t("s0.text2") }}
             </p>
             <p>
               <a class="rf-btn" :href="`${TENANT_URL}/signup`">
@@ -224,7 +225,8 @@ ul li:before {
     "button": "Monter mon dossier de location",
     "s0": {
       "title": "Montez un dossier de location en béton pour trouver le logement de vos rêves",
-      "text": "DossierFacile vous aide à constituer un dossier de location numérique de qualité pour mettre toutes les chances de votre côté."
+      "text": "DossierFacile vous aide à constituer un dossier de location numérique ",
+      "text2": "de qualité pour mettre toutes les chances de votre côté."
     },
     "s1": {
       "h1": "Démarquez-vous grâce à un dossier de qualité",
@@ -271,7 +273,8 @@ ul li:before {
     "button": "Monter mon dossier de location",
     "s0": {
       "title": "Montez un dossier de location en béton pour trouver le logement de vos rêves",
-      "text": "DossierFacile vous aide à constituer un dossier de location numérique de qualité pour mettre toutes les chances de votre côté."
+      "text": "DossierFacile vous aide à constituer un dossier de location numérique ",
+      "text2": "de qualité pour mettre toutes les chances de votre côté."
     },
     "s1": {
       "h1": "Démarquez-vous grâce à un dossier de qualité",

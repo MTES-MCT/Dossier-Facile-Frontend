@@ -48,6 +48,11 @@
               :label="$t('owner')"
             />
           </li>
+          <li class="rf-shortcuts__item">
+              <button class="rf-btn rf-ml-3 rf-btn--secondary rf-btn--sm lang" @click="changeLang">
+                <span :class="{underline: lang === 'fr'}">FR</span> | <span :class="{underline: lang === 'en'}">EN</span>
+              </button>
+          </li>
         </ul>
       </div>
     </div>
@@ -65,6 +70,7 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 })
 export default class MyHeader extends Vue {
   @Prop({ default: false }) loggedIn?: boolean;
+  @Prop({ default: 'fr' }) lang?: string;
 
   onCreateTenant() {
     this.$emit("on-create-tenant");
@@ -77,6 +83,10 @@ export default class MyHeader extends Vue {
   onCreateOwner() {
     this.$emit("on-create-owner");
   }
+
+  changeLang() {
+    this.$emit("on-change-lang");
+  }
 }
 </script>
 
@@ -84,6 +94,10 @@ export default class MyHeader extends Vue {
 .logo {
   max-height: 50px;
   max-width: calc(100% - 40px);
+}
+
+.lang {
+  box-shadow: none;
 }
 </style>
 
