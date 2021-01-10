@@ -253,8 +253,23 @@ export default class EditSummary extends Vue {
       this.selectedGuarantor.documents.length > 0
     );
   }
+
   openDoc(documentCategory: string) {
     const docs = this.user.documents?.filter((d) => {
+      return d.documentCategory === documentCategory;
+    });
+    this.files = [];
+    if (docs === undefined) {
+      return
+    }
+    for (let i=0; i< docs.length ; i++) {
+        this.files = this.files.concat(docs[i].files || []);
+    }
+    this.isDocModalVisible = true;
+  }
+
+  openGuarantorDoc(documentCategory: string) {
+    const docs = this.selectedGuarantor.documents?.filter((d) => {
       return d.documentCategory === documentCategory;
     });
     this.files = [];

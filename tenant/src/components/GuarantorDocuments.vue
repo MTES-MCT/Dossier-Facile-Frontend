@@ -22,6 +22,7 @@
     </div>
     <div v-if="guarantorType === 'NATURAL_PERSON'">
       <div>
+        <div><button v-for="(g, k) in user.guarantors" :key="k" @click="selectGuarantor(k)">{{getName(g, k)}}</button></div>
         <div
           class="document-title"
           :class="{ selected: guarantorSubStep === 1 }"
@@ -191,9 +192,14 @@
       </div>
     </div>
     <div class="rf-col-12 rf-mb-5w" v-if="guarantorType">
-      <div v-if="guarantorType === 'naturalPerson'">
+      <div class="rf-grid-row rf-mb-3w buttons">
+      <button v-if="guarantorType === 'NATURAL_PERSON'"
+        class="rf-btn rf-btn--secondary"
+        type="submit"
+        @click="addGuarantor()"
+      >
         J'ajoute un nouveau garant
-      </div>
+      </button>
       <button
         class="rf-btn"
         type="submit"
@@ -203,6 +209,7 @@
       >
         Étape suivante - Valider le dossier
       </button>
+      </div>
     </div>
   </div>
 </template>
@@ -220,6 +227,8 @@ import Tax from "@/components/documents/Tax.vue";
 import AskGuarantor from "@/components/AskGuarantor.vue";
 import { mapState } from "vuex";
 import { Guarantor } from "df-shared/src/models/Guarantor";
+import { User } from "df-shared/src/models/User";
+import i18n from "../../../main/src/i18n";
 
 @Component({
   components: {
@@ -235,6 +244,7 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
   },
   computed: {
     ...mapState({
+      user: "user",
       guarantorStep: "guarantorStep",
       selectedGuarantor: "selectedGuarantor",
       guarantorSubStep: "guarantorSubStep"
@@ -242,6 +252,7 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
   }
 })
 export default class GuarantorDocuments extends Vue {
+  user!: User;
   selectedGuarantor!: Guarantor;
   guarantorSubStep!: number;
   guarantorType = "";
@@ -284,6 +295,21 @@ export default class GuarantorDocuments extends Vue {
   nextStep() {
     this.$store.commit("setStep", 4);
   }
+
+  addGuarantor() {
+    this.$store.dispatch("addGuarantor");
+  }
+
+  getName(g: Guarantor, k: number) {
+    if (g.lastName) {
+      return `${g.lastName} ${g.firstName}`;
+    }
+    return i18n.t('guarantor') + " " + k;
+  }
+
+  selectGuarantor(k: number) {
+    this.$store.commit("selectGuarantor", k);
+  }
 }
 </script>
 
@@ -318,6 +344,11 @@ h2 {
   margin-left: auto;
   color: green;
 }
+
+.buttons {
+  justify-content: space-between;
+}
+
 </style>
 
 <i18n>
@@ -329,7 +360,8 @@ h2 {
 "financial": "Justificatif de revenu",
 "tax": "Avis d’imposition",
 "representative-identification": "Identité de la personne morale",
-"corporation-identification": "Identité du représentant de la personne morale"
+"corporation-identification": "Identité du représentant de la personne morale",
+"guarantor": "Guarantor"
 },
 "fr": {
 "identification": "Pièce d’identité",
@@ -338,7 +370,8 @@ h2 {
 "financial": "Justificatif de revenu",
 "tax": "Avis d’imposition",
 "representative-identification": "Identité de la personne morale",
-"corporation-identification": "Identité du représentant de la personne morale"
+"corporation-identification": "Identité du représentant de la personne morale",
+"guarantor": "Guarant"
 }
 }
 </i18n>

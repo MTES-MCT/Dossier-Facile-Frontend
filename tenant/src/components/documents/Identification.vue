@@ -103,7 +103,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapState } from "vuex";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
@@ -137,6 +137,12 @@ export default class Identification extends Vue {
   identificationDocument = new DocumentType();
   firstName = "";
   lastName = "";
+
+  @Watch('selectedGuarantor') 
+  onGuarantorChange(val: Guarantor) {
+    this.firstName = val.firstName || "";
+    this.lastName = val.lastName || "";
+  }
 
   mounted() {
     if (this.user.documents !== null) {
