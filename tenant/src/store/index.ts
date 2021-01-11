@@ -78,7 +78,7 @@ export default new Vuex.Store({
       }
       if (state.user?.guarantors && state.user.guarantors.length > 0) {
         if (state.selectedGuarantor.id) {
-          const guarantor = user.guarantors.find( (g) => {return g.id === state.selectedGuarantor.id})
+          const guarantor = user.guarantors.find( (g: any) => {return g.id === state.selectedGuarantor.id})
           state.selectedGuarantor = guarantor;
         } else {
           state.selectedGuarantor = user.guarantors[user.guarantors.length-1];
