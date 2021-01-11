@@ -92,6 +92,12 @@ export default class RoommatesInformation extends Vue {
   @PropSync("authorize", { type: Boolean })
   readonly author!: boolean;
 
+  mounted() {
+    if (this.roommates.length === 0) {
+      this.$store.commit("createRoommates");
+    }
+  }
+
   addMail() {
     this.$store.commit("createRoommates");
   }
