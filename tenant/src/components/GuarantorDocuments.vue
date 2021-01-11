@@ -22,7 +22,7 @@
     </div>
     <div v-if="guarantorType === 'NATURAL_PERSON'">
       <div>
-        <div><button v-for="(g, k) in user.guarantors" :key="k" @click="selectGuarantor(k)">{{getName(g, k)}}</button></div>
+        <div><button class="rf-mr-3w rf-mb-3w" :class="{guarantorselected: selectedGuarantor === g}" v-for="(g, k) in user.guarantors" :key="k" @click="selectGuarantor(k)">{{getName(g, k)}}</button></div>
         <div
           class="document-title"
           :class="{ selected: guarantorSubStep === 1 }"
@@ -347,6 +347,10 @@ h2 {
 
 .buttons {
   justify-content: space-between;
+}
+
+.guarantorselected {
+  background-color: $light-blue-transparent;
 }
 
 </style>
