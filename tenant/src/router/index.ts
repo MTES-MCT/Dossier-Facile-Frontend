@@ -61,6 +61,15 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "profile" */ "@/views/Profile.vue")
   },
   {
+    path: "/status",
+    name: "Status",
+    meta: {
+      title: "Statut du dossier - DossierFacile"
+    },
+    component: () =>
+      import(/* webpackChunkName: "profile" */ "@/views/FileStatus.vue")
+  },
+  {
     path: "/messaging",
     name: "Messages",
     meta: {

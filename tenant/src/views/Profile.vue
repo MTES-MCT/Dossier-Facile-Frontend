@@ -28,8 +28,7 @@
           ></TenantInformationForm>
           <UploadDocuments v-if="tenantStep === 2"></UploadDocuments>
           <GuarantorDocuments v-if="tenantStep === 3"></GuarantorDocuments>
-          <ValidateFile v-if="tenantStep === 4"></ValidateFile>
-          <FileStatus v-if="tenantStep === 5"></FileStatus>
+          <ValidateFile v-if="tenantStep >= 4"></ValidateFile>
         </div>
       </div>
       <div class="rf-col-md-3 rf-col-sm-12">
@@ -51,7 +50,6 @@ import TenantInformationForm from "@/components/TenantInformationForm.vue";
 import UploadDocuments from "@/components/UploadDocuments.vue";
 import GuarantorDocuments from "@/components/GuarantorDocuments.vue";
 import ValidateFile from "@/components/ValidateFile.vue";
-import FileStatus from "@/components/FileStatus.vue";
 
 @Component({
   components: {
@@ -62,8 +60,7 @@ import FileStatus from "@/components/FileStatus.vue";
     NameInformationForm,
     UploadDocuments,
     GuarantorDocuments,
-    ValidateFile,
-    FileStatus
+    ValidateFile
   },
   computed: {
     ...mapState({

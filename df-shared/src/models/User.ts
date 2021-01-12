@@ -12,6 +12,8 @@ export class User {
   firstName?: string;
   zipCode?: string;
   applicationType?: string;
+  status?: string;
+  lastUpdate?: string;
 
 
   identification?: string;
@@ -20,7 +22,7 @@ export class User {
   financial?: string;
   tax?: string;
 
-  apartmentSharing?: {id?: number, tenants: User[]};
+  apartmentSharing?: {id?: number, tenants: User[], status: string, token: string, tokenPublic: string};
   guarantors?: Guarantor[];
   documents?: DfDocument[];
 }

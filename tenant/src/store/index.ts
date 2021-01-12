@@ -190,7 +190,7 @@ export default new Vuex.Store({
       i18n.locale = lang;
     },
     validateFile({ commit }) {
-      commit("setStep", 5);
+      router.push("/status");
     },
     addGuarantor({commit}) {
       commit("addGuarantor");
