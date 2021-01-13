@@ -25,32 +25,26 @@ jobs:
           aws-secret-access-key: ${{ secrets.STAGING_AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-3
 
-      - uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: main install # will run `yarn install` command
-      - uses: borales/actions-yarn@v2.0.0
+      - uses: actions/setup-node@v2
+      - run: yarn main install # will run `yarn install` command
+      - run: yarn main build # will run `yarn build` command
         env:
           VUE_APP_CAPTCHA_SITE_KEY: ${{ secrets.STAGING_VUE_APP_CAPTCHA_SITE_KEY }}
           VUE_APP_MAIN_URL: ${{ secrets.STAGING_VUE_APP_MAIN_URL }}
           VUE_APP_TENANT_URL: ${{ secrets.STAGING_VUE_APP_TENANT_URL }}
           VUE_APP_API_URL: ${{ secrets.STAGING_VUE_APP_API_URL }}
-        with:
-          cmd: main build # will run `yarn build` command
       - name: Copy files to staging with the AWS CLI
         run: |
           aws s3 sync ./main/dist s3://www-dev.dossierfacile.fr --delete --acl public-read
       
-      - uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: tenant install
-      - uses: borales/actions-yarn@v2.0.0
+      - uses: actions/setup-node@v2
+      - run: yarn tenant install
+      - run: yarn tenant build
         env:
           VUE_APP_CAPTCHA_SITE_KEY: ${{ secrets.STAGING_VUE_APP_CAPTCHA_SITE_KEY }}
           VUE_APP_MAIN_URL: ${{ secrets.STAGING_VUE_APP_MAIN_URL }}
           VUE_APP_TENANT_URL: ${{ secrets.STAGING_VUE_APP_TENANT_URL }}
           VUE_APP_API_URL: ${{ secrets.STAGING_VUE_APP_API_URL }}
-        with:
-          cmd: tenant build
       - name: Copy files to staging website with the AWS CLI
         run: |
           aws s3 sync ./tenant/dist s3://locataire-dev.dossierfacile.fr --delete --acl public-read

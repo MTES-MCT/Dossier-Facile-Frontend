@@ -18,23 +18,10 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
-      - uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: main install # will run `yarn install` command
-      - uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: main build # will run `yarn build` command
-      - uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: main test:unit # will run `yarn test` command
-      
-      - uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: tenant install
-      - uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: tenant build
-      - uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: tenant test:unit
+      - uses: actions/setup-node@v2
+      - run: yarn main install
+      - run: yarn main build
+      - run: yarn main test:unit
+      - run: yarn tenant install
+      - run: yarn tenant build
+      - run: yarn tenant test:unit

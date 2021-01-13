@@ -93,3 +93,11 @@ input[type=checkbox]:focus+label::before {
   outline-offset: none !important;
   z-index: 0 !important;
 }
+
+.rf-fi-menu-fill {
+  visibility: hidden;
+}
+
+.rf-fi-menu-fill:last-child {
+  visibility: visible !important;
+}
