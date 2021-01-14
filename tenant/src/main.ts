@@ -4,10 +4,12 @@ import router from "./router";
 import store from "./store";
 import i18n from "./i18n";
 import axios from "axios";
+import Loading from 'vue-loading-overlay';
 
 Vue.config.productionTip = false;
 
 require("../../node_modules/@gouvfr/all/dist/css/all.min.css");
+import "vue-loading-overlay/dist/vue-loading.css";
 
 const app = new Vue({
   router,
@@ -51,3 +53,5 @@ axios.interceptors.response.use(
 );
 
 app.$store.dispatch("loadUser");
+
+Vue.use(Loading);

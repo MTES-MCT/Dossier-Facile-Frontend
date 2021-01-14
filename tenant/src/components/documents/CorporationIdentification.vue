@@ -135,6 +135,7 @@ export default class CorporationIdentification extends Vue {
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     // TODO use service with right url
     const url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorLegalPerson/documentIdentification`;
+    const loader = this.$loading.show();
     axios
       .post(url, formData)
       .then(() => {
@@ -148,6 +149,7 @@ export default class CorporationIdentification extends Vue {
       })
       .finally(() => {
         this.$store.dispatch("loadUser");
+        loader.hide();
       });
   }
 
@@ -156,9 +158,11 @@ export default class CorporationIdentification extends Vue {
   }
 
   remove(id: number) {
+    const loader = this.$loading.show();
     const url = `//${process.env.VUE_APP_API_URL}/api/file/${id}`;
     axios.delete(url).finally(() => {
       this.$store.dispatch("loadUser");
+      loader.hide();
     });
   }
 }

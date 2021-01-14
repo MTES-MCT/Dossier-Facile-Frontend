@@ -139,6 +139,7 @@ export default class Residency extends Vue {
     } else {
       url = `//${process.env.VUE_APP_API_URL}/api/register/documentResidency`;
     }
+    const loader = this.$loading.show();
     axios
       .post(url, formData)
       .then(() => {
@@ -152,6 +153,7 @@ export default class Residency extends Vue {
       })
       .finally(() => {
         this.$store.dispatch("loadUser");
+        loader.hide();
       });
   }
 
@@ -171,8 +173,10 @@ export default class Residency extends Vue {
 
   remove(id: number) {
     const url = `//${process.env.VUE_APP_API_URL}/api/file/${id}`;
+    const loader = this.$loading.show();
     axios.delete(url).finally(() => {
       this.$store.dispatch("loadUser");
+      loader.hide();
     });
   }
 

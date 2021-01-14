@@ -99,6 +99,7 @@ export default class OrganismCert extends Vue {
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     const url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorOrganism/documentIdentification`;
+    const loader = this.$loading.show();
     axios
       .post(url, formData)
       .then(() => {
@@ -112,6 +113,7 @@ export default class OrganismCert extends Vue {
       })
       .finally(() => {
         this.$store.dispatch("loadUser");
+        loader.hide();
       });
   }
 
@@ -120,9 +122,11 @@ export default class OrganismCert extends Vue {
   }
 
   remove(id: number) {
+    const loader = this.$loading.show();
     const url = `//${process.env.VUE_APP_API_URL}/api/file/${id}`;
     axios.delete(url).finally(() => {
       this.$store.dispatch("loadUser");
+      loader.hide();
     });
   }
 }
