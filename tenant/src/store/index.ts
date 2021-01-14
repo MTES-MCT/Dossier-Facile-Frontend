@@ -156,15 +156,17 @@ export default new Vuex.Store({
       );
     },
     loadUser({ commit }) {
-      return AuthService.loadUser().then(
-        response => {
-          commit("loadUser", response.data);
-          return Promise.resolve(response.data);
-        },
-        error => {
-          return Promise.reject(error);
-        }
-      );
+      if (this.state.user !== null) {
+        return AuthService.loadUser().then(
+          response => {
+            commit("loadUser", response.data);
+            return Promise.resolve(response.data);
+          },
+          error => {
+            return Promise.reject(error);
+          }
+        );
+      }
     },
     setNames({ commit }, user) {
       return ProfileService.saveNames(user).then(
