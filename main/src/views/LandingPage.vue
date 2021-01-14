@@ -8,7 +8,7 @@
               {{ $t("s0.title") }}
             </h1>
             <p class="text-bold color--white">
-              {{ $t("s0.text") }}<br>
+              {{ $t("s0.text") }}<br />
               {{ $t("s0.text2") }}
             </p>
             <p>
@@ -152,7 +152,6 @@ import { Component, Vue } from "vue-property-decorator";
 })
 export default class LandingPage extends Vue {
   TENANT_URL = "//" + process.env.VUE_APP_TENANT_URL;
-
 }
 </script>
 

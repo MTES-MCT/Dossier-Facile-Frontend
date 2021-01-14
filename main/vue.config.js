@@ -1,5 +1,6 @@
-var PrerenderSpaPlugin = require('prerender-spa-plugin')
-var path = require('path')
+const PrerenderSpaPlugin = require("prerender-spa-plugin");
+const path = require("path");
+
 
 module.exports = {
   pluginOptions: {
@@ -8,20 +9,32 @@ module.exports = {
       fallbackLocale: "en",
       localeDir: "locales",
       enableInSFC: true
+    },
+    sitemap: {
+      urls: [
+        'https://dossierfacile.fr/',
+        'https://dossierfacile.fr/faq',
+        'https://dossierfacile.fr/blog',
+        'https://dossierfacile.fr/blog/article1',
+        'https://dossierfacile.fr/blog/article2',
+        'https://dossierfacile.fr/blog/article3',
+        'https://dossierfacile.fr/information',
+        'https://dossierfacile.fr/securite-des-donnees',
+      ]
     }
   },
   configureWebpack: config => {
-    if (process.env.NODE_ENV !== 'production') return
+    if (process.env.NODE_ENV !== "production") return;
 
     return {
       plugins: [
         new PrerenderSpaPlugin(
           // Absolute path to compiled SPA
-          path.resolve(__dirname, 'dist'),
+          path.resolve(__dirname, "dist"),
           // List of routes to prerender
-          [ '/', '/blog'],
-        ),
+          ["/", "/blog"]
+        )
       ]
-    }
+    };
   }
-}
+};
