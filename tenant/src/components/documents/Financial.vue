@@ -225,6 +225,7 @@ export default class Financial extends Vue {
     } else {
       url = `//${process.env.VUE_APP_API_URL}/api/register/documentFinancial`;
     }
+    const loader = this.$loading.show();
     axios
       .post(url, formData)
       .then(() => {
@@ -238,6 +239,7 @@ export default class Financial extends Vue {
       })
       .finally(() => {
         this.$store.dispatch("loadUser");
+        loader.hide();
       });
   }
 
@@ -256,9 +258,11 @@ export default class Financial extends Vue {
   }
 
   remove(id: number) {
+    const loader = this.$loading.show();
     const url = `//${process.env.VUE_APP_API_URL}/api/file/${id}`;
     axios.delete(url).finally(() => {
       this.$store.dispatch("loadUser");
+      loader.hide();
     });
   }
 

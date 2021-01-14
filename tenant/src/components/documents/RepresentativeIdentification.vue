@@ -156,6 +156,7 @@ export default class RepresentativeIdentification extends Vue {
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     const url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorLegalPerson/documentRepresentanIdentification`;
+    const loader = this.$loading.show();
     axios
       .post(url, formData)
       .then(() => {
@@ -165,6 +166,7 @@ export default class RepresentativeIdentification extends Vue {
       .catch(() => {
         console.log("fail");
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
+        loader.hide();
       });
   }
 

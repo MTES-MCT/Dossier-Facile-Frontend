@@ -117,9 +117,12 @@ export default class NameInformationForm extends Vue {
   @Prop() private user!: User;
 
   handleNameInformation() {
+    const loader = this.$loading.show();
     this.$store.dispatch("setNames", this.user).then(null, error => {
       console.dir(error);
-    });
+    }).finally(() => {
+      loader.hide()
+     });
   }
 }
 </script>

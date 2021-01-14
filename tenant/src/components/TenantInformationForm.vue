@@ -136,9 +136,11 @@ export default class TenantInformationForm extends Vue {
       coTenantEmail: coTenantEmails,
       acceptAccess: acceptAccess
     };
+
+    const loader = this.$loading.show();
     this.$store.dispatch("setRoommates", data).then(null, error => {
       console.dir(error);
-    });
+    }).finally(()=>{loader.hide()});
   }
 }
 </script>
