@@ -39,7 +39,7 @@
         v-for="file in residencyFiles()"
         :key="file.id"
         :file="file"
-        @remove="remove(file.id)"
+        @remove="remove(file)"
         :uploadState="
           uploadProgress[file.id] ? uploadProgress[file.id].state : 'idle'
         "
@@ -161,7 +161,8 @@ export default class Residency extends Vue {
     const newFiles = this.files.map(f => {
       return {
         documentSubCategory: this.residencyDocument.value,
-        id: f.name
+        id: f.name,
+        name: f.name
       };
     });
     const existingFiles =
@@ -171,13 +172,19 @@ export default class Residency extends Vue {
     return [...newFiles, ...existingFiles];
   }
 
-  remove(id: number) {
-    const url = `//${process.env.VUE_APP_API_URL}/api/file/${id}`;
-    const loader = this.$loading.show();
-    axios.delete(url).finally(() => {
-      this.$store.dispatch("loadUser");
-      loader.hide();
-    });
+  remove(file: DfFile) {
+    if (file.path) {
+      const url = `//${process.env.VUE_APP_API_URL}/api/file/${file.id}`;
+      const loader = this.$loading.show();
+      axios.delete(url).finally(() => {
+        this.$store.dispatch("loadUser");
+        loader.hide();
+      });
+    } else {
+      this.files = this.files.filter((f: DfFile) => {
+        return f.name !== file.name;
+      })
+    }
   }
 
   documents: DocumentType[] = [

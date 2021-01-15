@@ -86,7 +86,7 @@
         v-for="file in identificationFiles()"
         :key="file.id"
         :file="file"
-        @remove="remove(file.id)"
+        @remove="remove(file)"
       />
     </div>
     <div class="rf-col-12 rf-mb-5w" v-if="identificationDocument">
@@ -230,7 +230,8 @@ export default class Identification extends Vue {
     const newFiles = this.files.map(f => {
       return {
         documentSubCategory: this.identificationDocument.value,
-        id: f.name
+        id: f.name,
+        name: f.name
       };
     });
     const existingFiles =
@@ -240,13 +241,19 @@ export default class Identification extends Vue {
     return [...newFiles, ...existingFiles];
   }
 
-  remove(id: number) {
-    const loader = this.$loading.show();
-    const url = `//${process.env.VUE_APP_API_URL}/api/file/${id}`;
-    axios.delete(url).finally(() => {
-      this.$store.dispatch("loadUser");
-      loader.hide();
-    });
+  remove(file: DfFile) {
+    if (file.path) {
+      const loader = this.$loading.show();
+      const url = `//${process.env.VUE_APP_API_URL}/api/file/${file.id}`;
+      axios.delete(url).finally(() => {
+        this.$store.dispatch("loadUser");
+        loader.hide();
+      });
+    } else {
+      this.files = this.files.filter((f: DfFile) => {
+        return f.name !== file.name;
+      })
+    }
   }
 
   isGuarantor() {
