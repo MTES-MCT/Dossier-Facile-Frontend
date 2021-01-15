@@ -131,7 +131,9 @@ export default class ValidateFile extends Vue {
   declaration2 = false;
 
   validate() {
-    this.$store.dispatch("validateFile");
+    if (this.declaration && (!this.hasGuarantors() || this.declaration2)) {
+      this.$store.dispatch("validateFile", true);
+    }
   }
 
   canValidate() {
@@ -139,13 +141,15 @@ export default class ValidateFile extends Vue {
   }
 
   hasGuarantors() {
-    return (
+    const res = (
       this.user.guarantors &&
       this.user.guarantors.length > 0 &&
-      this.user.guarantors.find((g: Guarantor) => {
+      this.user.guarantors.findIndex((g: Guarantor) => {
         return g.typeGuarantor !== "ORGANISM";
-      })
-    );
+      }) >= 0
+    )
+
+    return res;
   }
 }
 </script>

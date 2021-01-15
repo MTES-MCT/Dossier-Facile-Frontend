@@ -4,7 +4,7 @@ import axios from "axios";
 export const ProfileService = {
   saveNames(user: User) {
     return axios.post(
-      "//" + process.env.VUE_APP_API_URL + "/api/register/names",
+      `//${process.env.VUE_APP_API_URL}/api/register/names`,
       {
         firstName: user.firstName,
         lastName: user.lastName
@@ -17,8 +17,11 @@ export const ProfileService = {
     acceptAccess: boolean;
   }) {
     return axios.post(
-      "//" + process.env.VUE_APP_API_URL + "/api/register/application",
+      `//${process.env.VUE_APP_API_URL}/api/register/application`,
       data
     );
+  },
+  validateFile(honorDeclaration: boolean) {
+    return axios.post(`//${process.env.VUE_APP_API_URL}/api/register/honorDeclaration`, {honorDeclaration})
   }
 };
