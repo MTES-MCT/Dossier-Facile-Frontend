@@ -128,9 +128,9 @@ export default class Profile extends Vue {
 <i18n>
 {
 "en": {
-"title-step1": "Je renseigne mes informations",
-"title-step2": "Je joins mes documents",
-"title-step3": "Je renseigne mon garant"
+"title-step1": "I fulfill my information",
+"title-step2": "I join my documents",
+"title-step3": "I fulfill my guarantor"
 },
 "fr": {
 "title-step1": "Je renseigne mes informations",
