@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
 import LoginPage from "@/views/LoginPage.vue";
+import store from "@/store";
 
 Vue.use(VueRouter);
 
@@ -11,7 +12,8 @@ const routes: Array<RouteConfig> = [
     name: "Home",
     component: Home,
     meta: {
-      title: "DossierFacile"
+      title: "DossierFacile",
+      hideForAuth: true
     }
   },
   {
@@ -19,14 +21,16 @@ const routes: Array<RouteConfig> = [
     name: "Login",
     component: LoginPage,
     meta: {
-      title: "Connexion - DossierFacile"
+      title: "Connexion - DossierFacile",
+      hideForAuth: true
     }
   },
   {
     path: "/signup",
     name: "Signup",
     meta: {
-      title: "Création compte - DossierFacile"
+      title: "Création compte - DossierFacile",
+      hideForAuth: true
     },
     component: () =>
       import(/* webpackChunkName: "signup" */ "@/views/SignupPage.vue")
@@ -35,7 +39,8 @@ const routes: Array<RouteConfig> = [
     path: "/forgotten-password",
     name: "ForgottenPassword",
     meta: {
-      title: "Mot de passe oublié - DossierFacile"
+      title: "Mot de passe oublié - DossierFacile",
+      hideForAuth: true
     },
     component: () =>
       import(
@@ -46,7 +51,8 @@ const routes: Array<RouteConfig> = [
     path: "/join-roommate",
     name: "JoinRommate",
     meta: {
-      title: "Rejoindre un colocataire - DossierFacile"
+      title: "Rejoindre un colocataire - DossierFacile",
+      hideForAuth: true
     },
     component: () =>
       import(/* webpackChunkName: "register" */ "@/views/JoinRoommate.vue")
@@ -55,7 +61,8 @@ const routes: Array<RouteConfig> = [
     path: "/profile",
     name: "Profile",
     meta: {
-      title: "Édition du profile - DossierFacile"
+      title: "Édition du profile - DossierFacile",
+      requiresAuth: true
     },
     component: () =>
       import(/* webpackChunkName: "profile" */ "@/views/Profile.vue")
@@ -64,7 +71,8 @@ const routes: Array<RouteConfig> = [
     path: "/status",
     name: "Status",
     meta: {
-      title: "Statut du dossier - DossierFacile"
+      title: "Statut du dossier - DossierFacile",
+      requiresAuth: true
     },
     component: () =>
       import(/* webpackChunkName: "profile" */ "@/views/FileStatus.vue")
@@ -73,7 +81,8 @@ const routes: Array<RouteConfig> = [
     path: "/messaging",
     name: "Messages",
     meta: {
-      title: "Messages - DossierFacile"
+      title: "Messages - DossierFacile",
+      requiresAuth: true
     },
     component: () =>
       import(/* webpackChunkName: "messages" */ "@/views/Messages.vue")
@@ -90,6 +99,15 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!store.getters.isLoggedIn) {
+      next({name: 'Login'});
+    }
+  } else if (to.matched.some(record => record.meta.hideForAuth)) {
+    if (store.getters.isLoggedIn) {
+      next({name: 'Profile'});
+    }
+  }
   document.title = to.meta.title;
   next();
 });
