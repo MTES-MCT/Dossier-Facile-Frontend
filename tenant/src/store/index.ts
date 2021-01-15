@@ -191,8 +191,15 @@ export default new Vuex.Store({
     setLang({ commit }, lang) {
       i18n.locale = lang;
     },
-    validateFile({ commit }) {
-      router.push("/status");
+    validateFile({ commit }, honorDeclaration: boolean) {
+      return ProfileService.validateFile(honorDeclaration).then(
+        () => {
+          router.push("/status");
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
     },
     addGuarantor({commit}) {
       commit("addGuarantor");
