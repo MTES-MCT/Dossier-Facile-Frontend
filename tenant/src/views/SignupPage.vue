@@ -13,11 +13,10 @@
             <div class="row justify-content-center">
               <div class="col-12 col-md-8">
                 <p>
-                  Un mail vous a été envoyé à l'adresse indiquée.
+                  {{$t('mail-sent')}}
                 </p>
                 <p>
-                  Veuillez cliquer sur le lien envoyé afin de confirmer votre
-                  adresse mail et poursuivre votre inscription.
+                  {{$t('clic-to-confirm')}}
                 </p>
               </div>
             </div>
@@ -64,10 +63,14 @@ export default class SignupPage extends Vue {
 <i18n>
 {
 "en": {
-    "existing-account": "J'ai déjà un compte"
+    "existing-account": "J'ai déjà un compte",
+    "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
+    "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre votre inscription."
 },
 "fr": {
-    "existing-account": "J'ai déjà un compte"
+    "existing-account": "J'ai déjà un compte",
+    "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
+    "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre votre inscription."
 }
 }
 </i18n>
