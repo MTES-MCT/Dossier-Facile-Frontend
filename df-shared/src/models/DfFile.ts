@@ -1,6 +1,6 @@
 
 export class DfFile {
-  id?: number;
+  id?: number | string;
   path?: string;
   name?: string;
   file?: File;

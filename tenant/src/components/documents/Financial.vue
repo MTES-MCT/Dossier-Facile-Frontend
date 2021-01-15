@@ -94,7 +94,7 @@
           v-for="file in financialFiles(f)"
           :key="file.id"
           :file="file"
-          @remove="remove(file.id)"
+          @remove="remove(f, file)"
         />
       </div>
       <div class="rf-col-12 rf-mb-5w" v-if="f.documentType">
@@ -247,7 +247,8 @@ export default class Financial extends Vue {
     const newFiles = f.files.map((file: DfFile) => {
       return {
         documentSubCategory: f.documentType?.value,
-        id: file.name
+        id: file.name,
+        name: file.name
       };
     });
     const existingFiles =
@@ -257,13 +258,19 @@ export default class Financial extends Vue {
     return [...newFiles, ...existingFiles];
   }
 
-  remove(id: number) {
-    const loader = this.$loading.show();
-    const url = `//${process.env.VUE_APP_API_URL}/api/file/${id}`;
-    axios.delete(url).finally(() => {
-      this.$store.dispatch("loadUser");
-      loader.hide();
-    });
+  remove(f: F, file: DfFile) {
+    if (file.path) {
+      const loader = this.$loading.show();
+      const url = `//${process.env.VUE_APP_API_URL}/api/file/${file.id}`;
+      axios.delete(url).finally(() => {
+        this.$store.dispatch("loadUser");
+        loader.hide();
+      });
+    } else {
+      f.files = f.files.filter((f: DfFile) => {
+        return f.name !== file.name;
+      })
+    }
   }
 
   addFinancial() {

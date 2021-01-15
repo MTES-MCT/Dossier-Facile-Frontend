@@ -58,7 +58,7 @@
         v-for="file in taxFiles()"
         :key="file.id"
         :file="file"
-        @remove="remove(file.id)"
+        @remove="remove(file)"
       />
     </div>
     <div class="rf-col-12 rf-mb-5w" v-if="taxDocument">
@@ -186,7 +186,8 @@ export default class Tax extends Vue {
     const newFiles = this.files.map(f => {
       return {
         documentSubCategory: this.taxDocument.value,
-        id: f.name
+        id: f.name,
+        name: f.name
       };
     });
     const existingFiles =
@@ -196,13 +197,19 @@ export default class Tax extends Vue {
     return [...newFiles, ...existingFiles];
   }
 
-  remove(id: number) {
-    const url = `//${process.env.VUE_APP_API_URL}/api/file/${id}`;
-    const loader = this.$loading.show();
-    axios.delete(url).finally(() => {
-      this.$store.dispatch("loadUser");
-      loader.hide();
-    });
+  remove(file: DfFile) {
+    if (file.path ) {
+      const url = `//${process.env.VUE_APP_API_URL}/api/file/${file.id}`;
+      const loader = this.$loading.show();
+      axios.delete(url).finally(() => {
+        this.$store.dispatch("loadUser");
+        loader.hide();
+      });
+    } else {
+      this.files = this.files.filter((f: DfFile) => {
+        return f.name !== file.name;
+      })
+    }
   }
 
   documents: DocumentType[] = [
