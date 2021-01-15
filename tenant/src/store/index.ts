@@ -210,6 +210,9 @@ export default new Vuex.Store({
     },
     guarantor(state): Guarantor {
       return state.selectedGuarantor;
+    },
+    isLoggedIn(state): boolean {
+      return state.status.loggedIn;
     }
   },
   modules: {}
