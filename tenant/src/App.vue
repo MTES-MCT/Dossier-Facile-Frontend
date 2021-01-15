@@ -39,6 +39,11 @@ import i18n from "./i18n";
       user: "user",
       status: "status"
     })
+  },
+  mounted: function() {
+    const localScript = document.createElement("script");
+    localScript.setAttribute("src", "/js/all.js");
+    document.head.appendChild(localScript);
   }
 })
 export default class App extends Vue {
