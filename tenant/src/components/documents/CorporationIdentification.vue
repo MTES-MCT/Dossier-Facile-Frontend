@@ -16,6 +16,7 @@
             name="organismName"
             :placeholder="$t('organism-name-placeholder')"
             type="text"
+            required
           />
           <span class="rf-error-text" v-if="errors[0]">{{ errors[0] }}</span>
         </div>

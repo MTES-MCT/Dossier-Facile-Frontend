@@ -20,6 +20,7 @@
                   name="email"
                   :placeholder="$t('placeholder')"
                   type="email"
+                  required
                 />
                 <span class="rf-error-text" v-if="errors[0]">{{
                   $t(errors[0])

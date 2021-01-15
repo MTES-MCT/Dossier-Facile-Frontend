@@ -28,6 +28,7 @@
                     v-model="user.password"
                     name="password"
                     class="validate-required form-control rf-input"
+                    required
                   />
                   <span class="rf-error-text" v-if="errors[0]">{{
                     errors[0]
@@ -54,6 +55,7 @@
                     v-model="user.confirm"
                     name="confirm-password"
                     class="validate-required form-control rf-input"
+                    required
                   />
                   <span class="rf-error-text" v-if="errors[0]">{{
                     errors[0]
