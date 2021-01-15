@@ -22,6 +22,7 @@
                   name="lastname"
                   :placeholder="$t('lastname')"
                   type="text"
+                  required
                 />
                 <span class="rf-error-text" v-if="errors[0]">{{
                   errors[0]
@@ -45,6 +46,7 @@
                   v-model="user.firstName"
                   name="firstname"
                   class="validate-required form-control rf-input"
+                  required
                 />
                 <span class="rf-error-text" v-if="errors[0]">{{
                   $t(errors[0])

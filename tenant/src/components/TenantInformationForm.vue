@@ -68,17 +68,9 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { User } from "df-shared/src/models/User";
-import { ValidationObserver, ValidationProvider } from "vee-validate";
-import { extend } from "vee-validate";
-import { required } from "vee-validate/dist/rules";
 import RoommatesInformation from "@/components/RoommatesInformation.vue";
 import CoupleInformation from "@/components/CoupleInformation.vue";
 import { mapState } from "vuex";
-
-extend("required", {
-  ...required,
-  message: "Ce champ est requis"
-});
 
 @Component({
   computed: {
@@ -89,9 +81,7 @@ extend("required", {
   },
   components: {
     CoupleInformation,
-    RoommatesInformation,
-    ValidationProvider,
-    ValidationObserver
+    RoommatesInformation
   }
 })
 export default class TenantInformationForm extends Vue {
