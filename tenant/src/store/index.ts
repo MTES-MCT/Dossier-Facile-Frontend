@@ -182,6 +182,7 @@ export default new Vuex.Store({
       return ProfileService.saveRoommates(data).then(
         () => {
           commit("setRoommatesSuccess");
+          this.dispatch("loadUser");
         },
         error => {
           return Promise.reject(error);
