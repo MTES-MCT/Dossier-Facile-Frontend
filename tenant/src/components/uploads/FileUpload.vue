@@ -11,6 +11,7 @@
             fileCount = $event.target.files.length;
           "
           class="input-file"
+          accept="image/png, image/jpeg, application/pdf"
         />
         <p v-if="canUpload()">
           Ajouter un ou plusieurs documents
