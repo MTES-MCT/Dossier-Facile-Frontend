@@ -74,7 +74,7 @@
 
             <div class="rf-col-12 text-center rf-mb-5w">
               <button class="rf-btn" type="submit">
-                valider
+                {{ $t("validate") }}
               </button>
             </div>
           </div>
@@ -134,14 +134,16 @@ export default class JoinRoommate extends Vue {
 <i18n>
 {
 "en": {
-"title": "Rejoindre une colocation",
+"title": "Join a flatsharing",
 "password": "Password",
-"confirm-password": "Confirm password :"
+"confirm-password": "Confirm password :",
+"validate": "Validate"
 },
 "fr": {
 "title": "Rejoindre une colocation",
 "password": "Mot de passe :",
-"confirm-password": "Confirmation du mot de passe :"
+"confirm-password": "Confirmation du mot de passe :",
+"validate": "Valider"
 }
 }
 </i18n>

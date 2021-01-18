@@ -101,3 +101,7 @@ input[type=checkbox]:focus+label::before {
 .rf-fi-menu-fill:last-child {
   visibility: visible !important;
 }
+
+.rf-header {
+  z-index: 1;
+}
