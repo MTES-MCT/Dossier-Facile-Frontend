@@ -7,10 +7,9 @@
       <div class="pos-vertical-center rf-col-lg-6 rf-col-md-8 rf-col-12">
         <div class="rf-m-3w">
           <div class="rf-grid-col">
-            <h1>DossierFacile, le dossier de location intelligent</h1>
+            <h1>{{ $t("h1") }}</h1>
             <p>
-              Déposez votre dossier sur DossierFacile et augmentez vos chances
-              de trouver l'appartement de vos rêves !
+              {{ $t("p1") }}
             </p>
             <div class="pull-left">
               <div>
@@ -23,7 +22,7 @@
               </div>
               <div class="rf-mt-2w text-center">
                 <router-link to="/login">
-                  Je me connecte
+                  {{ $t("login") }}
                 </router-link>
               </div>
             </div>
@@ -36,8 +35,8 @@
       <div class="rf-container">
         <div class="rf-grid-row">
           <div class="rf-col-md-12 text-center">
-            <h2>Faites la différence avec DossierFacile</h2>
-            <p>Des dossiers Clairs, Complets et Cohérents.</p>
+            <h2>{{ $t("h2-1") }}</h2>
+            <p>{{ $t("p2") }}</p>
           </div>
         </div>
       </div>
@@ -48,45 +47,36 @@
           <div class="rf-col-md-6 rf-col-lg-3">
             <div class="feature feature-6">
               <i class="icon color--primary icon-Magic-Wand icon--sm"></i>
-              <h5>Un dossier plus simple</h5>
+              <h5>{{ $t("h5-1") }}</h5>
               <p>
-                Car dossier incomplet rime souvent avec appartement refusé, nous
-                vous guidons à chaque étape pour construire un dossier de
-                location parfait et conforme à la legislation.
+                {{ $t("p3")}}
               </p>
             </div>
           </div>
           <div class="rf-col-md-6 rf-col-lg-3">
             <div class="feature feature-6">
               <i class="icon color--primary icon-Green-House icon--sm"></i>
-              <h5>Faites la différence</h5>
+              <h5>{{ $t("h5-2") }}</h5>
               <p>
-                Rassurer votre propriétaire grâce au standard « 3C » et
-                augmentez de 24% vos chances d’obtenir une visite pour
-                l’appartement de vos rêves.
+                {{ $t("p4")}}
               </p>
             </div>
           </div>
           <div class="rf-col-md-6 rf-col-lg-3">
             <div class="feature feature-6">
               <i class="icon color--primary icon-Mouse-2 icon--sm"></i>
-              <h5>100% en ligne</h5>
+              <h5>{{ $t("h5-3") }}</h5>
               <p>
-                Avec DossierFacile tout se passe en ligne et en 3 minutes : fini
-                la paperasse. Vous pouvez envoyer aux propriétaires en un clic
-                par mail ou par SMS !
+                {{ $t("p5")}}
               </p>
             </div>
           </div>
           <div class="rf-col-md-6 rf-col-lg-3">
             <div class="feature feature-6">
               <i class="icon color--primary icon-Cloud-Lock icon--sm"></i>
-              <h5>Vos données protégées</h5>
+              <h5>{{ $t("h5-4") }}</h5>
               <p>
-                Nous avons à coeur la protections de vos données. Elles ne
-                seront jamais communiquées sans votre accord express. Notre
-                système de watermarking vous aide également à vous protéger
-                contre la fraude.
+                {{ $t("p6")}}
               </p>
             </div>
           </div>
@@ -98,13 +88,9 @@
       <div class="rf-container">
         <div class="rf-grid-row">
           <div class="rf-col-md-9 rf-col-lg-7">
-            <h1 class="text-white">
-              <b> Boostez votre dossier de location avec DossierFacile !</b>
-            </h1>
-            <p class="text-white">
-              DossierFacile vous accompagne gratuitement dans la constitution de
-              votre dossier de location pour vous aider à mettre toutes les
-              chances de votre côté
+            <h2>{{ $t("h2-2") }}</h2>
+            <p>
+                {{ $t("p7")}}
             </p>
             <DfButton
               primary="true"
@@ -122,7 +108,7 @@
             >
               <div class="rf-grid-row">
                 <div class="rf-col-8">
-                  <h5>VISALE</h5>
+                  <h5>{{ $t("h5-5") }}</h5>
                 </div>
                 <div class="rf-col-4">
                   <img
@@ -134,15 +120,14 @@
               </div>
 
               <p>
-                Gratuit et entièrement dématerialisé, Visale est votre garant
-                pour louer votre logement !
+                {{ $t("p8")}}
               </p>
               <a
                 class="text-bleu-clair"
                 href="https://www.visale.fr/#!/"
                 target="_blank"
               >
-                Obtenez votre visa
+                {{ $t("visale-link")}}
               </a>
             </div>
           </div>
@@ -153,7 +138,7 @@
             >
               <div class="rf-grid-row">
                 <div class="rf-col-8">
-                  <h5>ANIL</h5>
+                  <h5>{{ $t("h5-6") }}</h5>
                 </div>
                 <div class="rf-col-4">
                   <img
@@ -165,15 +150,14 @@
               </div>
 
               <p>
-                Pour toutes questions relatives au logement, renseignez-vous
-                auprès de l'ANIL ou de votre ADIL.
+                {{ $t("p9")}}
               </p>
               <a
                 class="text-bleu-clair"
                 href="https://www.anil.org/"
                 target="_blank"
               >
-                En savoir plus
+                {{ $t("anil-link")}}
               </a>
             </div>
           </div>
@@ -185,10 +169,9 @@
       <div class="rf-container">
         <div class="rf-grid-row">
           <div class="rf-col-12">
-            <h2>Boostez votre dossier en 3 étapes</h2>
+            <h2>{{ $t("h2-3") }}</h2>
             <p>
-              Nous vous accompagnons gratuitement dans la constitution de votre
-              dossier de location
+              {{ $t("p10")}}
             </p>
           </div>
         </div>
@@ -200,31 +183,25 @@
         <div class="process-2 rf-grid-row">
           <div class="rf-col-md-4">
             <div class="process__item">
-              <h5>JE CREE MON COMPTE EN 3 MINUTES</h5>
+              <h5>{{ $t("h5-7") }}</h5>
               <p>
-                Je crée mon compte DossierFacile en quelques minutes en ajoutant
-                uniquement les documents demandés par la loi.
+                {{ $t("p11")}}
               </p>
             </div>
           </div>
           <div class="rf-col-md-4">
             <div class="process__item">
-              <h5>JE COMPLETE SI NECESSAIRE</h5>
+              <h5>{{ $t("h5-8") }}</h5>
               <p>
-                DossierFacile vérifie que votre dossier est Clair, Complet et
-                Cohérent pour vous aider à mettre toutes les chances de votre
-                coté.
+                {{ $t("p12")}}
               </p>
             </div>
           </div>
           <div class="rf-col-md-3">
             <div class="process__item">
-              <h5>J’ENVOIE MON LIEN AUX PROPRIETAIRES</h5>
+              <h5>{{ $t("h5-9") }}</h5>
               <p>
-                Une fois mon dossier validé, je peux l'envoyer à n'importe quel
-                propriétaire par internet ou par sms. Grâce à DossierFacile je
-                mets toutes les chances de mon coté pour obtenir l'appartement
-                de mes rêves
+                {{ $t("p13")}}
               </p>
             </div>
           </div>
@@ -370,10 +347,69 @@ export default class Home extends Vue {
 <i18n>
 {
 "en": {
-"signup": "JE CRÉE MON COMPTE"
+"signup": "I CREATE MY ACCOUNT",
+"h1": "DossierFacile, the smart location file",
+"p1": "Drop your file on DossierFacile and increase your probability to find the flat of your dream !",
+"login": "I log in",
+"h2-1": "Make the difference with DossierFacile",
+"p2": "Clear, completed and consistent files.",
+"h5-1": "An easier file",
+"h5-2": "Make the difference",
+"h5-3": "100% online",
+"h5-4": "Your data is protected",
+"h5-5": "VISALE",
+"h5-6": "ANIL",
+"h5-7": "I CREATE AN ACCOUNT IN 3 MINUTES",
+"h5-8": "I COMPLETE IF NECESSARY",
+"h5-9": "I SEND MY LINK TO OWNERS",
+"h2-2": "Boost your location file with DossierFacile !",
+"p3": "Because incomplete file rhymes with refused flat, we guide you throw each step to build a perfect location file and compliant to the law.",
+"p4": "Reassure the owner with the  « 3C » standard and increase by 24% your probability to visit the flat of your dream.",
+"p5": "With DossierFacile everything happens online and in 3 minutes : end of the paperwork. You can send to owners in 1 click by mail or SMS !",
+"p6": "We care about protecting your data. They will never be communicated without your express consent. Our watermarking system helps you protect yourself against fraud.",
+"p7": "DossierFacile helps you free of charge in the constitution of your rental file to help you put the odds on your side",
+"p8": "Free and online, Visale is your guarantor to rent your housing !",
+"visale-link": "Get your visa",
+"p9": "For any question about rent, inquire with ANIL or your ADIL.",
+"anil-link": "Find out more",
+"h2-3": "Boost your file in 3 steps",
+"p10": "We help you free of charge to make your rent file",
+"p11": "I create my DossierFacile account in a few minutes by adding only the documents allowed by the law.",
+"p12": "DossierFacile check that your file is Clear, Completed and Consistent to help you put the odds on your side.",
+"p13": "Once my file is validated, I can send it to any owner by internet or by sms. Thanks to DossierFacile I put the odds on my side to get the flat of my dream"
 },
 "fr": {
-"signup": "JE CRÉE MON COMPTE"
+"signup": "JE CRÉE MON COMPTE",
+"h1": "DossierFacile, le dossier de location intelligent",
+"p1": "Déposez votre dossier sur DossierFacile et augmentez vos chances de trouver l'appartement de vos rêves !",
+"login": "Je me connecte",
+"h2-1": "Faites la différence avec DossierFacile",
+"p2": "Des dossiers Clairs, Complets et Cohérents.",
+"h5-1": "Un dossier plus simple",
+"h5-2": "Faites la différence",
+"h5-3": "100% en ligne",
+"h5-4": "Vos données protégées",
+"h5-5": "VISALE",
+"h5-6": "ANIL",
+"h5-7": "JE CREE MON COMPTE EN 3 MINUTES",
+"h5-8": "JE COMPLETE SI NECESSAIRE",
+"h5-9": "J’ENVOIE MON LIEN AUX PROPRIETAIRES",
+"h2-2": "Boostez votre dossier de location avec DossierFacile !",
+"p3": "Car dossier incomplet rime souvent avec appartement refusé, nous vous guidons à chaque étape pour construire un dossier de location parfait et conforme à la legislation.",
+"p4": "Rassurer votre propriétaire grâce au standard « 3C » et augmentez de 24% vos chances d’obtenir une visite pour l’appartement de vos rêves.",
+"p5": "Avec DossierFacile tout se passe en ligne et en 3 minutes : fini la paperasse. Vous pouvez envoyer aux propriétaires en un clic par mail ou par SMS !",
+"p6": "Nous avons à coeur la protections de vos données. Elles ne seront jamais communiquées sans votre accord express. Notre système de watermarking vous aide également à vous protéger contre la fraude.",
+"p7": "DossierFacile vous accompagne gratuitement dans la constitution de votre dossier de location pour vous aider à mettre toutes les chances de votre côté",
+"p8": "Gratuit et entièrement dématerialisé, Visale est votre garant pour louer votre logement !",
+"visale-link": "Obtenez votre visa",
+"p9": "Pour toutes questions relatives au logement, renseignez-vous auprès de l'ANIL ou de votre ADIL.",
+"anil-link": "En savoir plus",
+"h2-3": "Boostez votre dossier en 3 étapes",
+"p10": "Nous vous accompagnons gratuitement dans la constitution de votre dossier de location",
+"p11": "Je crée mon compte DossierFacile en quelques minutes en ajoutant uniquement les documents demandés par la loi.",
+"p12": "DossierFacile vérifie que votre dossier est Clair, Complet et Cohérent pour vous aider à mettre toutes les chances de votre coté.",
+"p13": "Une fois mon dossier validé, je peux l'envoyer à n'importe quel propriétaire par internet ou par sms. Grâce à DossierFacile je mets toutes les chances de mon coté pour obtenir l'appartement de mes rêves"
+
 }
 }
 </i18n>
