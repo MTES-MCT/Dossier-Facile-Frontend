@@ -4,4 +4,5 @@ export class DocumentType {
   explanationText?: string;
   acceptedProofs!: string[];
   refusedProofs!: string[];
+  customText?: string;
 }
