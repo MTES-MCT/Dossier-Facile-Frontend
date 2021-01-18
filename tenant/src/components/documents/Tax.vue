@@ -22,6 +22,7 @@
           name="customText"
           placeholder=""
           type="text"
+          required
         />
       </div>
     </div>
@@ -72,7 +73,7 @@
               (files.length <= 0 || !acceptVerification))
         "
       >
-        Enregistrer la pièce
+        {{ $t('register')}}
       </button>
     </div>
   </div>
@@ -117,6 +118,7 @@ export default class Tax extends Vue {
         return d.documentCategory === "TAX";
       });
       if (doc !== undefined) {
+        this.customText = doc.customText || '';
         const localDoc = this.documents.find((d: DocumentType) => {
           return d.value === doc.documentSubCategory;
         });
@@ -144,17 +146,22 @@ export default class Tax extends Vue {
     const newFiles = this.files.filter(f => {
       return !f.id;
     });
-    if (!newFiles.length) return;
-    Array.from(Array(newFiles.length).keys()).map(x => {
-      const f: File = newFiles[x].file || new File([], "");
-      formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
-    });
+    if (newFiles.length) {
+      Array.from(Array(newFiles.length).keys()).map(x => {
+        const f: File = newFiles[x].file || new File([], "");
+        formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
+      });
+      formData.append(
+        "acceptVerification",
+        this.acceptVerification ? "true" : "false"
+      );
+    }
 
     formData.append("typeDocumentTax", this.taxDocument.value);
-    formData.append(
-      "acceptVerification",
-      this.acceptVerification ? "true" : "false"
-    );
+
+    if (this.taxDocument.key === 'other-tax') {
+      formData.append("customText", this.customText);
+    }
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     let url: string;
@@ -264,7 +271,8 @@ export default class Tax extends Vue {
 "other-tax": "Autre",
 "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
 "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'impositon. Votre explication sera ajoutée à votre dossier :",
-"files": "Documents"
+"files": "Documents",
+"register": "Register"
 },
 "fr": {
 "my-name": "Vous avez un avis d’imposition à votre nom",
@@ -273,7 +281,8 @@ export default class Tax extends Vue {
 "other-tax": "Autre",
 "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
 "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'impositon. Votre explication sera ajoutée à votre dossier :",
-"files": "Documents"
+"files": "Documents",
+"register": "Enregistrer"
 }
 }
 </i18n>

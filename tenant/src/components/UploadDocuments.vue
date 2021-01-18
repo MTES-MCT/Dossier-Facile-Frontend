@@ -97,7 +97,7 @@
           :class="tenantSubStep === 1 ? 'icon-Arrow-Up' : 'icon-Arrow-Down'"
         ></i>
         <h2>{{ $t("tax") }}</h2>
-        <i v-if="hasDoc('TAX')" class="color--primary icon-Yes check"></i>
+        <i v-if="isTaxValid()" class="color--primary icon-Yes check"></i>
       </div>
       <Tax v-if="tenantSubStep === 5"></Tax>
     </div>
@@ -147,7 +147,7 @@ export default class UploadDocuments extends Vue {
       this.hasDoc("PROFESSIONAL") &&
       this.hasDoc("RESIDENCY") &&
       this.hasDoc("FINANCIAL") &&
-      this.hasDoc("TAX")
+      this.isTaxValid()
     );
   }
 
@@ -160,6 +160,23 @@ export default class UploadDocuments extends Vue {
       return d.documentCategory === docType;
     })?.files;
     return f && f.length > 0;
+  }
+
+  isTaxValid() {
+    const doc = this.user.documents?.find(d => {
+      return d.documentCategory === 'TAX';
+    });
+    if (!doc) {
+      return false;
+    }
+    if (doc.files) {
+      return true;
+    }
+    if (doc.documentSubCategory !== 'my-name') {
+      return true;
+    }
+
+    return false;
   }
 }
 </script>

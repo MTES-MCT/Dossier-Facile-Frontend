@@ -133,7 +133,7 @@
             "
           ></i>
           <h2>{{ $t("tax") }}</h2>
-          <i v-if="hasDoc('TAX')" class="icon-Yes check"></i>
+          <i v-if="isTaxValid()" class="icon-Yes check"></i>
         </div>
         <Tax v-if="guarantorSubStep === 5"></Tax>
       </div>
@@ -277,7 +277,7 @@ export default class GuarantorDocuments extends Vue {
         this.hasDoc("PROFESSIONAL") &&
         this.hasDoc("RESIDENCY") &&
         this.hasDoc("FINANCIAL") &&
-        this.hasDoc("TAX"))
+        this.isTaxValid())
     );
   }
 
@@ -309,6 +309,23 @@ export default class GuarantorDocuments extends Vue {
 
   selectGuarantor(k: number) {
     this.$store.commit("selectGuarantor", k);
+  }
+
+  isTaxValid() {
+    const doc = this.user.documents?.find(d => {
+      return d.documentCategory === 'TAX';
+    });
+    if (!doc) {
+      return false;
+    }
+    if (doc.files) {
+      return true;
+    }
+    if (doc.documentSubCategory !== 'my-name') {
+      return true;
+    }
+
+    return false;
   }
 }
 </script>
