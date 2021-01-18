@@ -86,6 +86,16 @@ const routes: Array<RouteConfig> = [
     },
     component: () =>
       import(/* webpackChunkName: "messages" */ "@/views/Messages.vue")
+  },
+  {
+    path: "/confirmAccount/:token",
+    name: "Confirm",
+    meta: {
+      title: "Confirmation de compte - DossierFacile",
+      hideForAuth: true
+    },
+    component: () =>
+      import(/* webpackChunkName: "confirmAccount" */ "@/views/ConfirmAccount.vue")
   }
 ];
 
