@@ -12,7 +12,7 @@
     <div class="progress">
       <Progress :percentage="percentage" :state="uploadState" />
     </div>
-    <div class="cursor--pointer" @click="remove()">
+    <div class="cursor--pointer" @click="remove()" :title="$t('remove')">
       <span class="icon icon-Close text-danger"></span>
     </div>
   </div>
@@ -63,18 +63,20 @@ export default class ListItem extends Vue {
 <i18n>
 {
   "en": {
-    "FRENCH_IDENTITY_CARD": "Carte d'identité",
+    "FRENCH_IDENTITY_CARD": "Identity card",
     "FRENCH_PASSPORT": "Passport",
-    "FRENCH_RESIDENCE_PERMIT": "Permis de conduire",
-    "OTHER_IDENTIFICATION": "Autre",
-    "CERTIFICATE_VISA": "Visa"
+    "FRENCH_RESIDENCE_PERMIT": "Driver's license",
+    "OTHER_IDENTIFICATION": "Other",
+    "CERTIFICATE_VISA": "Visa",
+    "remove": "Delete the file"
   },
   "fr": {
     "FRENCH_IDENTITY_CARD": "Carte d'identité",
     "FRENCH_PASSPORT": "Passport",
     "FRENCH_RESIDENCE_PERMIT": "Permis de conduire",
     "OTHER_IDENTIFICATION": "Autre",
-    "CERTIFICATE_VISA": "Visa"
+    "CERTIFICATE_VISA": "Visa",
+    "remove": "Supprimer la pièce"
   }
 }
 </i18n>
