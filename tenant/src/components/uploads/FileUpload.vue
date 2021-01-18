@@ -17,7 +17,7 @@
         </p>
         <p v-if="isSaving()">Téléchargement de {{ fileCount }} fichiers...</p>
         <div v-if="isFailed()">
-          <h2>Problème d'envoie.</h2>
+          <h2>{{ $t('send-problem') }}</h2>
           <p>
             <a href="javascript:void(0)" @click="reset()">Réessayer</a>
           </p>
@@ -104,3 +104,14 @@ export default class FileUpload extends Vue {
   text-align: center;
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "send-problem": "Problème d'envoi."
+  },
+  "fr": {
+    "send-problem": "Problème d'envoi."
+  }
+}
+</i18n>
