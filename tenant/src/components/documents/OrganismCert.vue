@@ -144,9 +144,6 @@ export default class OrganismCert extends Vue {
       this.$store.getters.getDocuments?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION";
       })?.files || [];
-      console.log(existingFiles[0])
-      console.log(existingFiles[0].id)
-      console.log(existingFiles[0].path)
     return [...newFiles, ...existingFiles];
   }
 }
