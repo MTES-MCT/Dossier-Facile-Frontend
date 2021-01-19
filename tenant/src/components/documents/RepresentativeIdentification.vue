@@ -185,6 +185,8 @@ export default class RepresentativeIdentification extends Vue {
       .catch(() => {
         console.log("fail");
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
+      })
+      .finally(() => {
         loader.hide();
       });
   }
