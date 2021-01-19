@@ -170,7 +170,6 @@ export default class CorporationIdentification extends Vue {
   }
 
   listFiles() {
-    console.log('auie')
     const newFiles = this.files.map(f => {
       return {
         id: f.name,

@@ -16,7 +16,7 @@
           <option value="ORGANISM">
             Un organisme se porte garant pour moi (VISALE par exemple)
           </option>
-          <option value="CORPORATION">Un garant moral</option>
+          <option value="LEGAL_PERSON">Un garant moral</option>
         </select>
       </div>
     </div>
@@ -141,7 +141,7 @@
     <div v-if="guarantorType === 'ORGANISM'">
       <OrganismCert></OrganismCert>
     </div>
-    <div v-if="guarantorType === 'CORPORATION'">
+    <div v-if="guarantorType === 'LEGAL_PERSON'">
       <div>
         <div
           class="document-title"
@@ -272,7 +272,7 @@ export default class GuarantorDocuments extends Vue {
 
   documentsFilled() {
     return (
-      this.guarantorType !== "naturalPerson" ||
+      this.guarantorType !== "NATURAL_PERSON" ||
       (this.hasDoc("IDENTIFICATION") &&
         this.hasDoc("PROFESSIONAL") &&
         this.hasDoc("RESIDENCY") &&
