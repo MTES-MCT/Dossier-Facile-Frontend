@@ -6,10 +6,7 @@
           type="file"
           multiple
           :disabled="isSaving()"
-          @change="
-            filesChange($event.target.files);
-            fileCount = $event.target.files.length;
-          "
+          @change="filesChange"
           class="input-file"
           accept="image/png, image/jpeg, application/pdf"
         />
@@ -30,6 +27,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import i18n from "../../../../main/src/i18n";
 import { UploadStatus } from "./UploadStatus";
 
 const {
@@ -71,7 +69,18 @@ export default class FileUpload extends Vue {
     this.$emit("reset-files");
   }
 
-  filesChange(fileList: File[]) {
+  filesChange(e: any) {
+    [...e.target.files].forEach((f: File) =>
+    {
+      if (f.size > 3 * 1024 * 1024) {
+        this.$toasted.show(this.$i18n.t('file-too-big').toString(), {type: 'error', duration: 5000})
+        return false;
+      }
+      return true;
+    });
+    const fileList = [...e.target.files].filter((f: File) => {
+      return f.size < 3 * 1024 * 1024;
+    });
     this.$emit("add-files", fileList);
   }
 }
@@ -109,10 +118,12 @@ export default class FileUpload extends Vue {
 <i18n>
 {
   "en": {
-    "send-problem": "Problème d'envoi."
+    "send-problem": "Problème d'envoi.",
+    "file-too-big": "The file is limited to 3MB"
   },
   "fr": {
-    "send-problem": "Problème d'envoi."
+    "send-problem": "Problème d'envoi.",
+    "file-too-big": "La taille d'un fichier ne doit pas dépasser 3Mo"
   }
 }
 </i18n>
