@@ -20,16 +20,16 @@
     </div>
     <div>
       <ListItem
-        v-for="file in files"
-        :key="file.name"
-        :filename="file.name"
+        v-for="file in listFiles()"
+        :key="file.id"
+        :file="file"
+        @remove="remove(file)"
         :uploadState="
-          uploadProgress[file.name] ? uploadProgress[file.name].state : 'idle'
+          uploadProgress[file.id] ? uploadProgress[file.id].state : 'idle'
         "
         :percentage="
-          uploadProgress[file.name] ? uploadProgress[file.name].percentage : 0
+          uploadProgress[file.id] ? uploadProgress[file.id].percentage : 0
         "
-        @remove="remove(file.id)"
       />
     </div>
     <div class="rf-col-12 rf-mb-5w" v-if="identificationDocument">
@@ -54,6 +54,8 @@ import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "../uploads/UploadStatus";
 import axios from "axios";
 import ListItem from "@/components/uploads/ListItem.vue";
+import { DfDocument } from "df-shared/src/models/DfDocument";
+import { DfFile } from "df-shared/src/models/DfFile";
 
 @Component({
   components: {
@@ -121,13 +123,31 @@ export default class OrganismCert extends Vue {
     this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
   }
 
-  remove(id: number) {
+  remove(file: DfFile) {
     const loader = this.$loading.show();
-    const url = `//${process.env.VUE_APP_API_URL}/api/file/${id}`;
+    const url = `//${process.env.VUE_APP_API_URL}/api/file/${file.id}`;
     axios.delete(url).finally(() => {
       this.$store.dispatch("loadUser");
       loader.hide();
     });
+  }
+
+  listFiles() {
+    const newFiles = this.files.map(f => {
+      return {
+        documentSubCategory: this.identificationDocument.value,
+        id: f.name,
+        name: f.name
+      };
+    });
+    const existingFiles =
+      this.$store.getters.getDocuments?.find((d: DfDocument) => {
+        return d.documentCategory === "IDENTIFICATION";
+      })?.files || [];
+      console.log(existingFiles[0])
+      console.log(existingFiles[0].id)
+      console.log(existingFiles[0].path)
+    return [...newFiles, ...existingFiles];
   }
 }
 </script>

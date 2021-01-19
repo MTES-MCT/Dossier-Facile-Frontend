@@ -41,24 +41,24 @@
       </div>
       <div>
         <ListItem
-          v-for="file in files"
-          :key="file.name"
+          v-for="file in listFiles()"
+          :key="file.id"
           :file="file"
+          @remove="remove(file)"
           :uploadState="
-            uploadProgress[file.name] ? uploadProgress[file.name].state : 'idle'
+            uploadProgress[file.id] ? uploadProgress[file.id].state : 'idle'
           "
           :percentage="
-            uploadProgress[file.name] ? uploadProgress[file.name].percentage : 0
+            uploadProgress[file.id] ? uploadProgress[file.id].percentage : 0
           "
-          @remove="remove(file.id)"
         />
       </div>
-      <div class="rf-col-12 rf-mb-5w" v-if="organismName">
+      <div class="rf-col-12 rf-mb-5w">
         <button
           class="rf-btn"
           type="submit"
           @click="save"
-          :disabled="files.length <= 0"
+          :disabled="!organismName || files.length <= 0"
         >
           {{ $t("register") }}
         </button>
@@ -78,6 +78,8 @@ import ListItem from "@/components/uploads/ListItem.vue";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
+import { DfDocument } from "df-shared/src/models/DfDocument";
+import { DfFile } from "df-shared/src/models/DfFile";
 
 extend("required", {
   ...required,
@@ -158,13 +160,29 @@ export default class CorporationIdentification extends Vue {
     this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
   }
 
-  remove(id: number) {
+  remove(file: DfFile) {
     const loader = this.$loading.show();
-    const url = `//${process.env.VUE_APP_API_URL}/api/file/${id}`;
+    const url = `//${process.env.VUE_APP_API_URL}/api/file/${file.id}`;
     axios.delete(url).finally(() => {
       this.$store.dispatch("loadUser");
       loader.hide();
     });
+  }
+
+  listFiles() {
+    const newFiles = this.files.map(f => {
+      return {
+        id: f.name,
+        name: f.name
+      };
+    });
+    const existingFiles =
+      this.$store.getters.getDocuments?.find((d: DfDocument) => {
+        return d.documentCategory === "IDENTIFICATION";
+      })?.files || [];
+      console.dir(this.$store.getters.getDocuments)
+      console.dir(existingFiles)
+    return [...newFiles, ...existingFiles];
   }
 }
 </script>
