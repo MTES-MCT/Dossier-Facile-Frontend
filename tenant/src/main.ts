@@ -5,6 +5,7 @@ import store from "./store";
 import i18n from "./i18n";
 import axios from "axios";
 import Loading from 'vue-loading-overlay';
+import Toasted from 'vue-toasted';
 
 Vue.config.productionTip = false;
 
@@ -55,3 +56,5 @@ axios.interceptors.response.use(
 app.$store.dispatch("loadUser");
 
 Vue.use(Loading);
+ 
+Vue.use(Toasted)

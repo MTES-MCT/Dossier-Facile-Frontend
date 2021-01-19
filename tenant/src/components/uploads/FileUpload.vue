@@ -27,6 +27,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import i18n from "../../../../main/src/i18n";
 import { UploadStatus } from "./UploadStatus";
 
 const {
@@ -72,7 +73,7 @@ export default class FileUpload extends Vue {
     [...e.target.files].forEach((f: File) =>
     {
       if (f.size > 3 * 1024 * 1024) {
-        console.log("file too big")
+        this.$toasted.show(this.$i18n.t('file-too-big').toString(), {type: 'error', duration: 5000})
         return false;
       }
       return true;
@@ -117,10 +118,12 @@ export default class FileUpload extends Vue {
 <i18n>
 {
   "en": {
-    "send-problem": "Problème d'envoi."
+    "send-problem": "Problème d'envoi.",
+    "file-too-big": "The file is limited to 3MB"
   },
   "fr": {
-    "send-problem": "Problème d'envoi."
+    "send-problem": "Problème d'envoi.",
+    "file-too-big": "La taille d'un fichier ne doit pas dépasser 3Mo"
   }
 }
 </i18n>
