@@ -6,10 +6,7 @@
           type="file"
           multiple
           :disabled="isSaving()"
-          @change="
-            filesChange($event.target.files);
-            fileCount = $event.target.files.length;
-          "
+          @change="filesChange"
           class="input-file"
           accept="image/png, image/jpeg, application/pdf"
         />
@@ -71,7 +68,18 @@ export default class FileUpload extends Vue {
     this.$emit("reset-files");
   }
 
-  filesChange(fileList: File[]) {
+  filesChange(e: any) {
+    [...e.target.files].forEach((f: File) =>
+    {
+      if (f.size > 3 * 1024 * 1024) {
+        console.log("file too big")
+        return false;
+      }
+      return true;
+    });
+    const fileList = [...e.target.files].filter((f: File) => {
+      return f.size < 3 * 1024 * 1024;
+    });
     this.$emit("add-files", fileList);
   }
 }
