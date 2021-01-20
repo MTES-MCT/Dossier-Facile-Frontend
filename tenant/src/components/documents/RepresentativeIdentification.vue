@@ -57,8 +57,8 @@
       </div>
       <div>
         <ListItem
-          v-for="file in listFiles()"
-          :key="file.id"
+          v-for="(file, k) in listFiles()"
+          :key="k"
           :file="file"
           @remove="remove(file)"
           :uploadState="
