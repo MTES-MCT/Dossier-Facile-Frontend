@@ -103,5 +103,11 @@ input[type=checkbox]:focus+label::before {
 }
 
 .rf-header {
-  z-index: 1;
+  z-index: 10;
+}
+
+@media (min-width: 48em) {
+.rf-header .rf-nav {
+    margin: 0 calc(50% - 49vw) !important;
+}
 }

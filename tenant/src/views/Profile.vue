@@ -5,7 +5,7 @@
         :step="getMenuStep()"
         class="rf-col-md-3 rf-col-lg-2"
       ></LeftEditMenu>
-      <div class="rf-col-md-6 rf-col-xs-12">
+      <div class="rf-col-lg-7 rf-col-md-6 rf-col-xs-12">
         <div class="content">
           <div class="step rf-mb-5w" v-if="tenantStep <= 1">
             <div class="step-number">1</div>
@@ -31,7 +31,7 @@
           <ValidateFile v-if="tenantStep >= 4"></ValidateFile>
         </div>
       </div>
-      <div class="rf-col-md-3 rf-col-xs-12">
+      <div class="rf-col-md-3 rf-col-xs-12 rf-p-2w">
         <EditSummary></EditSummary>
         <ProfileHelp></ProfileHelp>
       </div>
