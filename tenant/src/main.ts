@@ -11,6 +11,7 @@ Vue.config.productionTip = false;
 
 require("../../node_modules/@gouvfr/all/dist/css/all.min.css");
 import "vue-loading-overlay/dist/vue-loading.css";
+import approuter from "./router/index";
 
 const app = new Vue({
   router,
@@ -42,7 +43,8 @@ axios.interceptors.response.use(
   function(error) {
     if (
       error.response &&
-      (401 === error.response.status || 403 === error.response.status)
+      (401 === error.response.status || 403 === error.response.status) &&
+      !error.response.request.responseURL.endsWith("/api/auth")
     ) {
       store.dispatch("logout").then(null, error => {
         console.dir(error);
