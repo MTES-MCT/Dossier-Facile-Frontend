@@ -36,8 +36,8 @@
     <div v-if="residencyFiles()">
       <h5>{{ $t("files") }}</h5>
       <ListItem
-        v-for="file in residencyFiles()"
-        :key="file.id"
+        v-for="(file, k) in residencyFiles()"
+        :key="k"
         :file="file"
         @remove="remove(file)"
         :uploadState="

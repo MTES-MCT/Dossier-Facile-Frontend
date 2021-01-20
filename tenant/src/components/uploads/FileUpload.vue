@@ -1,6 +1,6 @@
 <template>
   <div class="file-upload rf-col-6">
-    <form enctype="multipart/form-data" novalidate>
+    <form name="uploadForm" enctype="multipart/form-data" novalidate>
       <div class="dropbox">
         <input
           type="file"
@@ -27,7 +27,6 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import i18n from "../../../../main/src/i18n";
 import { UploadStatus } from "./UploadStatus";
 
 const {
@@ -82,6 +81,10 @@ export default class FileUpload extends Vue {
       return f.size < 3 * 1024 * 1024;
     });
     this.$emit("add-files", fileList);
+    const form = document.getElementsByName("uploadForm");
+    form.forEach((f: any) => {
+      f.reset();
+    })
   }
 }
 </script>

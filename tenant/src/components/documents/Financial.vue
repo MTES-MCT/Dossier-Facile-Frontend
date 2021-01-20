@@ -91,8 +91,8 @@
       <div v-if="financialFiles(f).length > 0">
         <h5>{{ $t("files") }}</h5>
         <ListItem
-          v-for="file in financialFiles(f)"
-          :key="file.id"
+          v-for="(file, k) in financialFiles(f)"
+          :key="k"
           :file="file"
           @remove="remove(f, file)"
         />
