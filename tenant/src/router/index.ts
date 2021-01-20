@@ -61,7 +61,7 @@ const routes: Array<RouteConfig> = [
     path: "/profile",
     name: "Profile",
     meta: {
-      title: "Édition du profile - DossierFacile",
+      title: "Édition du profil - DossierFacile",
       requiresAuth: true
     },
     component: () =>
