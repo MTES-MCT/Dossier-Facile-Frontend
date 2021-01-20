@@ -225,7 +225,7 @@ import Professional from "@/components/documents/Professional.vue";
 import Financial from "@/components/documents/Financial.vue";
 import Tax from "@/components/documents/Tax.vue";
 import AskGuarantor from "@/components/AskGuarantor.vue";
-import { mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { User } from "df-shared/src/models/User";
 import i18n from "../../../main/src/i18n";
@@ -244,10 +244,12 @@ import i18n from "../../../main/src/i18n";
   },
   computed: {
     ...mapState({
-      user: "user",
       guarantorStep: "guarantorStep",
       selectedGuarantor: "selectedGuarantor",
       guarantorSubStep: "guarantorSubStep"
+    }),
+    ...mapGetters({
+      user: "userToEdit",
     })
   }
 })

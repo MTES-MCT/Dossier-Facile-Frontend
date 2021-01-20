@@ -84,24 +84,25 @@ import { Component, Vue } from "vue-property-decorator";
 import { DocumentType } from "df-shared/src/models/Document";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import { UploadStatus } from "../uploads/UploadStatus";
 import axios from "axios";
 import ListItem from "@/components/uploads/ListItem.vue";
 import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
+import { Guarantor } from "df-shared/src/models/Guarantor";
 
 @Component({
   components: { DocumentInsert, FileUpload, ListItem },
   computed: {
-    ...mapState({
-      user: "user"
+    ...mapGetters({
+      user: "userToEdit"
     })
   }
 })
 export default class Tax extends Vue {
-  user!: User;
+  user!: User | Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
   uploadProgress: {

@@ -221,6 +221,12 @@ export default new Vuex.Store({
     },
     isLoggedIn(state): boolean {
       return state.status.loggedIn;
+    },
+    userToEdit(state): User | Guarantor | null {
+      if (state.tenantStep === 3) {
+        return state.selectedGuarantor;
+      }
+      return state.user;
     }
   },
   modules: {}

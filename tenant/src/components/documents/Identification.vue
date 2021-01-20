@@ -104,7 +104,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
-import { mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
@@ -121,13 +121,15 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
   components: { DocumentInsert, FileUpload, ListItem, ValidationProvider },
   computed: {
     ...mapState({
-      user: "user",
       selectedGuarantor: "selectedGuarantor"
+    }),
+    ...mapGetters({
+      user: "userToEdit",
     })
   }
 })
 export default class Identification extends Vue {
-  user!: User;
+  user!: User | Guarantor;
   selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
@@ -321,14 +323,18 @@ td {
 "passport": "Passeport",
 "permit": "Permis de conduire",
 "other": "Autre",
-"files": "Documents"
+"files": "Documents",
+"lastname": "Lastname",
+"firstname": "Firstname"
 },
 "fr": {
 "identity-card": "Carte nationale d’identité",
 "passport": "Passeport",
 "permit": "Permis de conduire",
 "other": "Autre",
-"files": "Documents"
+"files": "Documents",
+"lastname": "Nom",
+"firstname": "Prénom"
 }
 }
 </i18n>

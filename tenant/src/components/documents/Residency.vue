@@ -63,7 +63,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
@@ -77,8 +77,8 @@ import { DfDocument } from "df-shared/src/models/DfDocument";
 @Component({
   components: { DocumentInsert, FileUpload, ListItem },
   computed: {
-    ...mapState({
-      user: "user"
+    ...mapGetters({
+      user: "userToEdit"
     })
   }
 })
