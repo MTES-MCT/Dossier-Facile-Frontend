@@ -4,64 +4,73 @@
       {{
         $t("tenantPresentation", {
           firstname: user.firstName,
-          lastname: user.lastName
+          lastname: user.lastName,
         })
       }}
     </p>
 
-    <div class="rf-form-group">
-      <fieldset class="rf-fieldset">
-        <div class="rf-fieldset__content">
-          <div class="rf-radio-group">
-            <input
-              type="radio"
-              id="alone"
-              value="ALONE"
-              name="applicationType"
-              v-model="applicationType"
-            />
-            <label class="rf-label" for="alone">{{ $t("alone") }}</label>
-          </div>
-          <div class="rf-radio-group">
-            <input
-              type="radio"
-              id="couple"
-              value="COUPLE"
-              name="applicationType"
-              v-model="applicationType"
-            />
-            <label class="rf-label" for="couple">{{ $t("couple") }}</label>
-          </div>
-          <CoupleInformation
-            :couple-mail.sync="spouseEmail"
-            :authorize.sync="spouseAuthorize"
-            v-if="applicationType === 'COUPLE'"
-          >
-          </CoupleInformation>
-          <div class="rf-radio-group">
-            <input
-              type="radio"
-              id="roommate"
-              value="GROUP"
-              name="applicationType"
-              v-model="applicationType"
-            />
-            <label class="rf-label" for="roommate">{{ $t("roommate") }}</label>
-          </div>
-          <RoommatesInformation
-            v-if="applicationType === 'GROUP'"
-            :authorize.sync="coTenantAuthorize"
-          >
-          </RoommatesInformation>
+    <ValidationObserver v-slot="{ invalid, validate }">
+      <form
+        name="form"
+        @submit.prevent="validate().then(handleOthersInformation)"
+      >
+        <div class="rf-form-group">
+          <fieldset class="rf-fieldset">
+            <div class="rf-fieldset__content">
+              <div class="rf-radio-group">
+                <input
+                  type="radio"
+                  id="alone"
+                  value="ALONE"
+                  name="applicationType"
+                  v-model="applicationType"
+                />
+                <label class="rf-label" for="alone">{{ $t("alone") }}</label>
+              </div>
+              <div class="rf-radio-group">
+                <input
+                  type="radio"
+                  id="couple"
+                  value="COUPLE"
+                  name="applicationType"
+                  v-model="applicationType"
+                />
+                <label class="rf-label" for="couple">{{ $t("couple") }}</label>
+              </div>
+              <CoupleInformation
+                :couple-mail.sync="spouseEmail"
+                :authorize.sync="spouseAuthorize"
+                v-if="applicationType === 'COUPLE'"
+              >
+              </CoupleInformation>
+              <div class="rf-radio-group">
+                <input
+                  type="radio"
+                  id="roommate"
+                  value="GROUP"
+                  name="applicationType"
+                  v-model="applicationType"
+                />
+                <label class="rf-label" for="roommate">{{
+                  $t("roommate")
+                }}</label>
+              </div>
+              <RoommatesInformation
+                v-if="applicationType === 'GROUP'"
+                :authorize.sync="coTenantAuthorize"
+              >
+              </RoommatesInformation>
+            </div>
+          </fieldset>
         </div>
-      </fieldset>
-    </div>
 
-    <div class="rf-mb-5w">
-      <button class="rf-btn" type="submit" @click="handleOthersInformation">
-        {{ $t("confirm") }}
-      </button>
-    </div>
+        <div class="rf-mb-5w">
+          <button class="rf-btn" type="submit">
+            {{ $t("confirm") }}
+          </button>
+        </div>
+      </form>
+    </ValidationObserver>
   </div>
 </template>
 
@@ -71,18 +80,20 @@ import { User } from "df-shared/src/models/User";
 import RoommatesInformation from "@/components/RoommatesInformation.vue";
 import CoupleInformation from "@/components/CoupleInformation.vue";
 import { mapState } from "vuex";
+import { ValidationObserver } from "vee-validate";
 
 @Component({
   computed: {
     ...mapState({
       user: "user",
-      roommates: "roommates"
-    })
+      roommates: "roommates",
+    }),
   },
   components: {
     CoupleInformation,
-    RoommatesInformation
-  }
+    RoommatesInformation,
+    ValidationObserver,
+  },
 })
 export default class TenantInformationForm extends Vue {
   user!: User;
@@ -115,7 +126,7 @@ export default class TenantInformationForm extends Vue {
         .filter((r: User) => {
           return r.id != this.user.id;
         })
-        .map(function(r) {
+        .map(function (r) {
           return r.email;
         });
       acceptAccess = this.coTenantAuthorize;
@@ -124,13 +135,18 @@ export default class TenantInformationForm extends Vue {
     const data = {
       applicationType: this.applicationType,
       coTenantEmail: coTenantEmails,
-      acceptAccess: acceptAccess
+      acceptAccess: acceptAccess,
     };
 
     const loader = this.$loading.show();
-    this.$store.dispatch("setRoommates", data).then(null, error => {
-      console.dir(error);
-    }).finally(()=>{loader.hide()});
+    this.$store
+      .dispatch("setRoommates", data)
+      .then(null, (error) => {
+        console.dir(error);
+      })
+      .finally(() => {
+        loader.hide();
+      });
   }
 }
 </script>
