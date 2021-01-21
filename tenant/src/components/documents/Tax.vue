@@ -37,16 +37,7 @@
           @reset-files="resetFiles"
         ></FileUpload>
       </div>
-      <div class="rf-col-12 rf-mb-3w">
-        <input
-          type="checkbox"
-          id="acceptVerification"
-          value="false"
-          v-model="acceptVerification"
-        />
-        <label for="acceptVerification">{{ $t("accept-verification") }}</label>
-      </div>
-      <div class="rf-mb-3w" v-if="taxDocument.key === 'my-name'">
+      <div class="rf-mb-3w">
         <DocumentInsert
           :allow-list="taxDocument.acceptedProofs"
           :block-list="taxDocument.refusedProofs"
@@ -62,6 +53,15 @@
         @remove="remove(file)"
       />
     </div>
+    <div class="rf-col-12 rf-mb-3w" v-if="taxDocument.key === 'my-name'">
+      <input
+        type="checkbox"
+        id="acceptVerification"
+        value="false"
+        v-model="acceptVerification"
+      />
+      <label for="acceptVerification">{{ $t("accept-verification") }}</label>
+    </div>
     <div class="rf-col-12 rf-mb-5w" v-if="taxDocument">
       <button
         class="rf-btn"
@@ -69,11 +69,11 @@
         @click="save"
         :disabled="
           !taxDocument.key ||
-            (taxDocument.key === 'my-name' &&
-              (files.length <= 0 || !acceptVerification))
+          (taxDocument.key === 'my-name' &&
+            (files.length <= 0 || !acceptVerification))
         "
       >
-        {{ $t('register')}}
+        {{ $t("register") }}
       </button>
     </div>
   </div>
@@ -97,9 +97,9 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
   components: { DocumentInsert, FileUpload, ListItem },
   computed: {
     ...mapGetters({
-      user: "userToEdit"
-    })
-  }
+      user: "userToEdit",
+    }),
+  },
 })
 export default class Tax extends Vue {
   user!: User | Guarantor;
@@ -119,7 +119,7 @@ export default class Tax extends Vue {
         return d.documentCategory === "TAX";
       });
       if (doc !== undefined) {
-        this.customText = doc.customText || '';
+        this.customText = doc.customText || "";
         const localDoc = this.documents.find((d: DocumentType) => {
           return d.value === doc.documentSubCategory;
         });
@@ -131,7 +131,7 @@ export default class Tax extends Vue {
   }
 
   addFiles(fileList: File[]) {
-    const nf = Array.from(fileList).map(f => {
+    const nf = Array.from(fileList).map((f) => {
       return { name: f.name, file: f };
     });
     this.files = [...this.files, ...nf];
@@ -144,11 +144,11 @@ export default class Tax extends Vue {
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    const newFiles = this.files.filter(f => {
+    const newFiles = this.files.filter((f) => {
       return !f.id;
     });
     if (newFiles.length) {
-      Array.from(Array(newFiles.length).keys()).map(x => {
+      Array.from(Array(newFiles.length).keys()).map((x) => {
         const f: File = newFiles[x].file || new File([], "");
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
       });
@@ -160,7 +160,7 @@ export default class Tax extends Vue {
 
     formData.append("typeDocumentTax", this.taxDocument.value);
 
-    if (this.taxDocument.key === 'other-tax') {
+    if (this.taxDocument.key === "other-tax") {
       formData.append("customText", this.customText);
     }
 
@@ -191,11 +191,11 @@ export default class Tax extends Vue {
   }
 
   taxFiles() {
-    const newFiles = this.files.map(f => {
+    const newFiles = this.files.map((f) => {
       return {
         documentSubCategory: this.taxDocument.value,
         id: f.name,
-        name: f.name
+        name: f.name,
       };
     });
     const existingFiles =
@@ -206,7 +206,7 @@ export default class Tax extends Vue {
   }
 
   remove(file: DfFile) {
-    if (file.path ) {
+    if (file.path) {
       const url = `//${process.env.VUE_APP_API_URL}/api/file/${file.id}`;
       const loader = this.$loading.show();
       axios.delete(url).finally(() => {
@@ -216,7 +216,7 @@ export default class Tax extends Vue {
     } else {
       this.files = this.files.filter((f: DfFile) => {
         return f.name !== file.name;
-      })
+      });
     }
   }
 
@@ -231,8 +231,8 @@ export default class Tax extends Vue {
       refusedProofs: [
         "Avis d’imposition incomplet (sans la première page)",
         "Tout avis d’imposition plus ancien",
-        "Tout autre document justificatif"
-      ]
+        "Tout autre document justificatif",
+      ],
     },
     {
       key: "my-parents",
@@ -240,14 +240,14 @@ export default class Tax extends Vue {
       explanationText:
         "J’ai déclaré être rattaché·e au domicile fiscal de mes parents.",
       acceptedProofs: [],
-      refusedProofs: []
+      refusedProofs: [],
     },
     {
       key: "less-than-year",
       value: "LESS_THAN_YEAR",
       explanationText: "J’ai déclaré être en France depuis moins d’un an.",
       acceptedProofs: [],
-      refusedProofs: []
+      refusedProofs: [],
     },
     {
       key: "other-tax",
@@ -255,8 +255,8 @@ export default class Tax extends Vue {
       explanationText:
         "Afin d’améliorer mon dossier, j’explique ci-dessous pourquoi je ne reçois pas d’avis d’imposition. Mon explication sera ajoutée à mon dossier :",
       acceptedProofs: [],
-      refusedProofs: []
-    }
+      refusedProofs: [],
+    },
   ];
 }
 </script>
