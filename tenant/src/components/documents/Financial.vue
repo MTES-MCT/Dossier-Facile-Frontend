@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="(f, k) in financialDocuments" :key="f.id">
+    <div v-for="(f, k) in financialDocuments" :key="k">
       <div>Revenu {{ k + 1 }}</div>
       <div>
         <label class="rf-label" for="select">
@@ -44,6 +44,9 @@
               <span class="rf-error-text" v-if="f.monthlySum > 10000">
                 {{ $t("high-salary") }}
               </span>
+              <span class="rf-error-text" v-if="f.monthlySum <= 0">
+                {{ $t("low-salary") }}
+              </span>
             </div>
           </validation-provider>
         </div>
@@ -60,21 +63,21 @@
         <div class="rf-col-12 rf-mb-3w">
           <input
             type="checkbox"
-            id="noDocument"
+            :id="`noDocument${k}`"
             value="false"
             v-model="f.noDocument"
           />
-          <label for="noDocument">{{ $t("noDocument") }}</label>
+          <label :for="`noDocument${k}`">{{ $t("noDocument") }}</label>
         </div>
         <div class="rf-mb-5w" v-if="f.noDocument">
           <div class="rf-input-group">
-            <label class="rf-label" for="customText">{{
+            <label class="rf-label" :for="`customText${k}`">{{
               $t("customText")
             }}</label>
             <input
               v-model="f.customText"
               class="form-control rf-input validate-required"
-              id="customText"
+              :id="`customText${k}`"
               name="customText"
               placeholder=""
               type="text"
@@ -125,7 +128,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { DocumentType } from "df-shared/src/models/Document";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
-import { mapGetters, mapState } from "vuex";
+import { mapGetters } from "vuex";
 import { UploadStatus } from "../uploads/UploadStatus";
 import axios from "axios";
 import ListItem from "@/components/uploads/ListItem.vue";
@@ -134,6 +137,13 @@ import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { Guarantor } from "df-shared/src/models/Guarantor";
+import { extend } from "vee-validate";
+import { regex } from "vee-validate/dist/rules";
+
+extend("regex", {
+  ...regex,
+  message: "number-not-valid"
+});
 
 class F {
   id?: number;
@@ -142,7 +152,7 @@ class F {
   files: DfFile[] = [];
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   customText = "";
-  monthlySum = 0;
+  monthlySum?: number;
 }
 
 @Component({
@@ -374,7 +384,9 @@ export default class Financial extends Vue {
 "monthlySum-label": "Montant du revenu (après impôts)",
 "noDocument": "Je ne peux pas fournir mes trois derniers bulletins de salaire",
 "customText": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes trois derniers bulletins de salaire :",
-"high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?"
+"high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
+"low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
+"number-not-valid": "Number not valid"
 },
 "fr": {
 "salary": "Salaire",
@@ -386,7 +398,9 @@ export default class Financial extends Vue {
 "monthlySum-label": "Montant du revenu (après impôts)",
 "noDocument": "Je ne peux pas fournir mes trois derniers bulletins de salaire",
 "customText": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes trois derniers bulletins de salaire :",
-"high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?"
+"high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
+"low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
+"number-not-valid": "Nombre incorrect"
 }
 }
 </i18n>
