@@ -1,81 +1,90 @@
 <template>
   <div>
-    <div>
-      <select
-        v-model="taxDocument"
-        class="rf-select rf-mb-3w"
-        id="select"
-        name="select"
-      >
-        <option v-for="d in documents" :value="d" :key="d.key">
-          {{ $t(d.key) }}
-        </option>
-      </select>
-    </div>
-    <div v-if="taxDocument.key && taxDocument.key === 'other-tax'">
-      <div class="rf-input-group">
-        <label class="rf-label" for="customText">{{ $t("custom-text") }}</label>
-        <input
-          v-model="customText"
-          class="form-control rf-input validate-required"
-          id="customText"
-          name="customText"
-          placeholder=""
-          type="text"
-          required
-        />
-      </div>
-    </div>
-    <div v-if="taxDocument.key && taxDocument.key === 'my-name'">
-      <div class="rf-mb-3w">
-        {{ taxDocument.explanationText }}
-      </div>
-      <div class="rf-mb-3w">
-        <FileUpload
-          :current-status="fileUploadStatus"
-          @add-files="addFiles"
-          @reset-files="resetFiles"
-        ></FileUpload>
-      </div>
-      <div class="rf-mb-3w">
-        <DocumentInsert
-          :allow-list="taxDocument.acceptedProofs"
-          :block-list="taxDocument.refusedProofs"
-        ></DocumentInsert>
-      </div>
-    </div>
-    <div v-if="taxFiles().length > 0">
-      <h5>{{ $t("files") }}</h5>
-      <ListItem
-        v-for="(file, k) in taxFiles()"
-        :key="k"
-        :file="file"
-        @remove="remove(file)"
-      />
-    </div>
-    <div class="rf-col-12 rf-mb-3w" v-if="taxDocument.key === 'my-name'">
-      <input
-        type="checkbox"
-        id="acceptVerification"
-        value="false"
-        v-model="acceptVerification"
-      />
-      <label for="acceptVerification">{{ $t("accept-verification") }}</label>
-    </div>
-    <div class="rf-col-12 rf-mb-5w" v-if="taxDocument">
-      <button
-        class="rf-btn"
-        type="submit"
-        @click="save"
-        :disabled="
-          !taxDocument.key ||
-          (taxDocument.key === 'my-name' &&
-            (files.length <= 0 || !acceptVerification))
-        "
-      >
-        {{ $t("register") }}
-      </button>
-    </div>
+    <ValidationObserver v-slot="{ invalid, validate }">
+      <form name="form" @submit.prevent="validate().then(save)">
+        <div>
+          <select
+            v-model="taxDocument"
+            class="rf-select rf-mb-3w"
+            id="select"
+            name="select"
+          >
+            <option v-for="d in documents" :value="d" :key="d.key">
+              {{ $t(d.key) }}
+            </option>
+          </select>
+        </div>
+        <div v-if="taxDocument.key && taxDocument.key === 'other-tax'">
+          <div class="rf-input-group">
+            <label class="rf-label" for="customText">{{
+              $t("custom-text")
+            }}</label>
+            <input
+              v-model="customText"
+              class="form-control rf-input validate-required"
+              id="customText"
+              name="customText"
+              placeholder=""
+              type="text"
+              required
+            />
+          </div>
+        </div>
+        <div v-if="taxDocument.key && taxDocument.key === 'my-name'">
+          <div class="rf-mb-3w">
+            {{ taxDocument.explanationText }}
+          </div>
+          <div class="rf-mb-3w">
+            <FileUpload
+              :current-status="fileUploadStatus"
+              @add-files="addFiles"
+              @reset-files="resetFiles"
+            ></FileUpload>
+          </div>
+          <div class="rf-mb-3w">
+            <DocumentInsert
+              :allow-list="taxDocument.acceptedProofs"
+              :block-list="taxDocument.refusedProofs"
+            ></DocumentInsert>
+          </div>
+        </div>
+        <div v-if="taxFiles().length > 0">
+          <h5>{{ $t("files") }}</h5>
+          <ListItem
+            v-for="(file, k) in taxFiles()"
+            :key="k"
+            :file="file"
+            @remove="remove(file)"
+          />
+        </div>
+        <div class="rf-col-12 rf-mb-3w" v-if="taxDocument.key === 'my-name'">
+          <validation-provider rules="is" v-slot="{ errors }" class="rf-col-10">
+            <div
+              class="rf-input-group"
+              :class="errors[0] ? 'rf-input-group--error' : ''"
+            >
+              <input
+                type="checkbox"
+                id="acceptVerification"
+                value="false"
+                v-model="acceptVerification"
+              />
+              <label for="acceptVerification">{{
+                $t("accept-verification")
+              }}</label>
+              <span class="rf-error-text" v-if="errors[0]">{{
+                $t(errors[0])
+              }}</span>
+            </div>
+          </validation-provider>
+        </div>
+        <div class="rf-col-12 rf-mb-5w" v-if="taxDocument">
+          <button class="rf-btn" type="submit" :disabled="!taxDocument.key">
+            {{ $t("register") }}
+          </button>
+        </div>
+      </form>
+    </ValidationObserver>
   </div>
 </template>
 
@@ -92,9 +101,24 @@ import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { Guarantor } from "df-shared/src/models/Guarantor";
+import { extend } from "vee-validate";
+import { is } from "vee-validate/dist/rules";
+import { ValidationObserver, ValidationProvider } from "vee-validate";
+
+extend("is", {
+  ...is,
+  message: "field-required",
+  validate: (value) => !!value,
+});
 
 @Component({
-  components: { DocumentInsert, FileUpload, ListItem },
+  components: {
+    DocumentInsert,
+    FileUpload,
+    ListItem,
+    ValidationObserver,
+    ValidationProvider,
+  },
   computed: {
     ...mapGetters({
       user: "userToEdit",
@@ -141,6 +165,12 @@ export default class Tax extends Vue {
     this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
   }
   save() {
+    if (
+      !this.taxDocument.key ||
+      (this.taxDocument.key === "my-name" && !this.acceptVerification)
+    ) {
+      return;
+    }
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
@@ -152,6 +182,8 @@ export default class Tax extends Vue {
         const f: File = newFiles[x].file || new File([], "");
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
       });
+    }
+    if (this.taxDocument.key === "my-name") {
       formData.append(
         "acceptVerification",
         this.acceptVerification ? "true" : "false"
@@ -273,7 +305,8 @@ export default class Tax extends Vue {
 "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
 "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'impositon. Votre explication sera ajoutée à votre dossier :",
 "files": "Documents",
-"register": "Register"
+"register": "Register",
+"field-required": "This field is required"
 },
 "fr": {
 "my-name": "Vous avez un avis d’imposition à votre nom",
@@ -283,7 +316,8 @@ export default class Tax extends Vue {
 "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
 "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'impositon. Votre explication sera ajoutée à votre dossier :",
 "files": "Documents",
-"register": "Enregistrer"
+"register": "Enregistrer",
+"field-required": "Ce champ est requis"
 }
 }
 </i18n>
