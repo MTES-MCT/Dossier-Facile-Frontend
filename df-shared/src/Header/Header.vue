@@ -16,7 +16,7 @@
         <a class="rf-service__title" href="/" title="Dossier Facile">
           <img
             class="logo"
-            src="./logo_dossierfacile.png"
+            src="./logo_dossierfacile.webp"
             alt="Dossier Facile"
           />
         </a>

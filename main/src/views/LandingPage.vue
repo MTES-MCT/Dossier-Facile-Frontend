@@ -75,7 +75,7 @@
             <p>{{ $t("s2.p3") }}</p>
           </div>
           <div class="rf-col-md-6">
-            <img src="../assets/icons/justif.png" />
+            <img src="../assets/icons/justif.webp" />
           </div>
         </div>
         <a class="rf-btn rf-mt-3w" :href="`${TENANT_URL}/signup`">
@@ -163,7 +163,12 @@ export default class LandingPage extends Vue {
   left: 0;
   background-size: cover !important;
   background-position: 50% 50% !important;
-  background-image: url("../assets/cover-features.jpg");
+  background-image: url("../assets/cover-features.webp");
+
+  @media (max-width: 768px) {
+    background-image: url("../assets/cover-features-mobile.webp");
+  }
+
   z-index: 0;
 }
 

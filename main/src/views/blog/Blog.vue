@@ -19,7 +19,7 @@
             <!--end article title-->
             <div class="article__body">
               <router-link to="/blog/article1">
-                <img alt="Image" src="../../assets/images/blog-article.jpg" />
+                <img alt="Image" src="../../assets/images/blog-article.webp" />
               </router-link>
               <p>
                 A cause de l’augmentation de la demande immobilière, il devient
@@ -48,7 +48,7 @@
             <!--end article title-->
             <div class="article__body">
               <router-link to="/blog/article2">
-                <img alt="Image" src="../../assets/images/blog-article2.jpg" />
+                <img alt="Image" src="../../assets/images/blog-article2.webp" />
               </router-link>
               <p>
                 Dans un contexte de pénurie de logements,
@@ -77,7 +77,7 @@
             <!--end article title-->
             <div class="article__body">
               <router-link to="/blog/article3">
-                <img alt="Image" src="../../assets/images/blog-article3.jpg" />
+                <img alt="Image" src="../../assets/images/blog-article3.webp" />
               </router-link>
               <p>
                 Dossier facile est une start-up qui propose une solution simple
