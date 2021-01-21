@@ -48,7 +48,7 @@ export default class DocumentInsert extends Vue {
 
 .rf-grid-row {
   width: 100%;
-  background-color: $secondary;
+  background-color: var(--g200);
   border: 1px solid $primary;
   border-radius: 10px;
   > div {
