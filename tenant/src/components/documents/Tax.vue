@@ -41,12 +41,6 @@
               @reset-files="resetFiles"
             ></FileUpload>
           </div>
-          <div class="rf-mb-3w">
-            <DocumentInsert
-              :allow-list="taxDocument.acceptedProofs"
-              :block-list="taxDocument.refusedProofs"
-            ></DocumentInsert>
-          </div>
         </div>
         <div v-if="taxFiles().length > 0">
           <h5>{{ $t("files") }}</h5>
@@ -78,10 +72,19 @@
             </div>
           </validation-provider>
         </div>
-        <div class="rf-col-12 rf-mb-5w" v-if="taxDocument">
+        <div class="rf-col-12 rf-mb-2w" v-if="taxDocument">
           <button class="rf-btn" type="submit" :disabled="!taxDocument.key">
             {{ $t("register") }}
           </button>
+        </div>
+        <div
+          class="rf-mb-5w"
+          v-if="taxDocument.key && taxDocument.key === 'my-name'"
+        >
+          <DocumentInsert
+            :allow-list="taxDocument.acceptedProofs"
+            :block-list="taxDocument.refusedProofs"
+          ></DocumentInsert>
         </div>
       </form>
     </ValidationObserver>

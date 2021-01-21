@@ -32,9 +32,9 @@
           id="select"
           name="select"
         >
-          <option v-for="d in documents" :value="d" :key="d.key">{{
-            $t(d.key)
-          }}</option>
+          <option v-for="d in documents" :value="d" :key="d.key">
+            {{ $t(d.key) }}
+          </option>
         </select>
       </div>
       <div>
@@ -47,12 +47,6 @@
             @add-files="addFiles"
             @reset-files="resetFiles"
           ></FileUpload>
-        </div>
-        <div class="rf-mb-3w">
-          <DocumentInsert
-            :allow-list="acceptedProofs"
-            :block-list="refusedProofs"
-          ></DocumentInsert>
         </div>
       </div>
       <div>
@@ -69,7 +63,7 @@
           "
         />
       </div>
-      <div class="rf-col-12 rf-mb-5w" v-if="identificationDocument">
+      <div class="rf-col-12 rf-mb-2w" v-if="identificationDocument">
         <button
           class="rf-btn"
           type="submit"
@@ -78,6 +72,12 @@
         >
           Enregistrer la pièce
         </button>
+      </div>
+      <div class="rf-mb-5w">
+        <DocumentInsert
+          :allow-list="acceptedProofs"
+          :block-list="refusedProofs"
+        ></DocumentInsert>
       </div>
     </ValidationObserver>
   </div>
@@ -100,7 +100,7 @@ import { DfFile } from "df-shared/src/models/DfFile";
 
 extend("required", {
   ...required,
-  message: "Ce champ est requis"
+  message: "Ce champ est requis",
 });
 
 @Component({
@@ -109,24 +109,24 @@ extend("required", {
     FileUpload,
     ListItem,
     ValidationProvider,
-    ValidationObserver
+    ValidationObserver,
   },
   computed: {
     ...mapState({
-      user: "user"
-    })
-  }
+      user: "user",
+    }),
+  },
 })
 export default class RepresentativeIdentification extends Vue {
   acceptedProofs = [
     "Extrait K bis original de la société",
     "Statuts de la personne morale",
-    "Toute autre pièce justifiant de l'existance légale de la personne, prouvant qu'une déclaration a été effectuée auprès d'une administration, une juridiction ou un organisme professionnel."
+    "Toute autre pièce justifiant de l'existance légale de la personne, prouvant qu'une déclaration a été effectuée auprès d'une administration, une juridiction ou un organisme professionnel.",
   ];
   refusedProofs = [
     "Bilan comptable",
     "Attestation cotisation Urssaf",
-    "Toute autre pièce"
+    "Toute autre pièce",
   ];
 
   identificationDocument = new DocumentType();
@@ -153,7 +153,7 @@ export default class RepresentativeIdentification extends Vue {
     } else {
       this.files = this.files.filter((f: DfFile) => {
         return f.name !== file.name;
-      })
+      });
     }
   }
 
@@ -162,7 +162,7 @@ export default class RepresentativeIdentification extends Vue {
     const fieldName = "documents";
     const formData = new FormData();
     if (!this.files.length) return;
-    Array.from(Array(this.files.length).keys()).map(x => {
+    Array.from(Array(this.files.length).keys()).map((x) => {
       formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
     });
 
@@ -196,12 +196,12 @@ export default class RepresentativeIdentification extends Vue {
   }
 
   listFiles() {
-    console.log('bauie')
-    const newFiles = this.files.map(f => {
+    console.log("bauie");
+    const newFiles = this.files.map((f) => {
       return {
         documentSubCategory: this.identificationDocument.value,
         id: f.name,
-        name: f.name
+        name: f.name,
       };
     });
     const existingFiles =
@@ -220,23 +220,23 @@ export default class RepresentativeIdentification extends Vue {
       acceptedProofs: ["Carte d’identité française recto-verso"],
       refusedProofs: [
         "Carte d’identité sans le verso ou périmée",
-        "Tout autre document"
-      ]
+        "Tout autre document",
+      ],
     },
     {
       key: "passport",
       value: "FRENCH_PASSPORT",
       acceptedProofs: ["Passport français (pages 2 et 3)"],
-      refusedProofs: ["Tout autre document"]
+      refusedProofs: ["Tout autre document"],
     },
     {
       key: "permit",
       value: "FRENCH_RESIDENCE_PERMIT",
       acceptedProofs: [
         "Carte de séjour en France temporaire recto-verso en cours de validité, ou périmée si elle est accompagnée du récépissé de la demande de renouvellement de carte de séjour",
-        "Visa de travail ou d’études temporaire en France"
+        "Visa de travail ou d’études temporaire en France",
       ],
-      refusedProofs: ["Tout autre document"]
+      refusedProofs: ["Tout autre document"],
     },
     {
       key: "other",
@@ -246,10 +246,10 @@ export default class RepresentativeIdentification extends Vue {
         "Passeport étranger (pages 2 et 3)",
         "Permis de conduire français ou étranger recto-verso",
         "Carte de résident",
-        "Carte de ressortissant d’un État membre de l’UE ou de l’EEE"
+        "Carte de ressortissant d’un État membre de l’UE ou de l’EEE",
       ],
-      refusedProofs: ["Tout autre document"]
-    }
+      refusedProofs: ["Tout autre document"],
+    },
   ];
 }
 </script>
