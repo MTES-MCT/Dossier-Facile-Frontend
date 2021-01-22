@@ -33,7 +33,7 @@
           ></FileUpload>
         </div>
       </div>
-      <div>
+      <div class="rf-col-lg-8 rf-col-md-12 rf-mb-3w">
         <ListItem
           v-for="(file, k) in listFiles()"
           :key="k"
@@ -174,14 +174,13 @@ export default class CorporationIdentification extends Vue {
       return {
         id: f.name,
         name: f.name,
+        size: f.size
       };
     });
     const existingFiles =
       this.$store.getters.getDocuments?.find((d: DfDocument) => {
-        return d.documentCategory === "IDENTIFICATION";
+        return d.documentCategory === "IDENTIFICATION_LEGAL_PERSON";
       })?.files || [];
-    console.dir(this.$store.getters.getDocuments);
-    console.dir(existingFiles);
     return [...newFiles, ...existingFiles];
   }
 }

@@ -1,20 +1,28 @@
 <template>
-  <div class="rf-grid-row row">
-    <div class="text sm">
-      {{ file.id }}
+  <div class="rf-p-1w list-item rf-mb-1w">
+    <div class="rf-grid-row">
+      <div class="rf-p-2w">
+        <span class="icon icon-File"></span>
+      </div>
+      <div class="text rf-pr-2w">
+        {{ getName() }}<br>
+        <span class="size">{{ getSize() }}</span>
+      </div>
+      <div class="progress">
+        <Progress :percentage="percentage" :state="uploadState" />
+      </div>
+      <div class="action-btn rf-p-2w" @click="openDoc()" :title="$t('show')" v-if="file.path">
+        <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
+      </div>
+      <div class="action-btn rf-p-2w" @click="remove()" :title="$t('remove')">
+        <span class="icon icon-Recycling text-danger"></span>
+      </div>
     </div>
-    <div class="text">
-      {{ file.path }}
-    </div>
-    <div class="text text-center">
-      {{ $t(file.documentSubCategory) }}
-    </div>
-    <div class="progress">
-      <Progress :percentage="percentage" :state="uploadState" />
-    </div>
-    <div class="cursor--pointer" @click="remove()" :title="$t('remove')">
-      <span class="icon icon-Close text-danger"></span>
-    </div>
+    <Modal v-show="isDocModalVisible" @close="isDocModalVisible = false" v-if="file.path">
+      <template v-slot:body>
+        <ShowDoc :file="file"></ShowDoc>
+      </template>
+    </Modal>
   </div>
 </template>
 
@@ -22,18 +30,49 @@
 import { DfFile } from "df-shared/src/models/DfFile";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import Progress from "./Progress.vue";
+import ShowDoc from "../documents/ShowDoc.vue";
+import Modal from "df-shared/src/components/Modal.vue";
+
 @Component({
   components: {
-    Progress
-  }
+    Progress,
+    ShowDoc,
+    Modal,
+  },
 })
 export default class ListItem extends Vue {
   @Prop({ default: "" }) file!: DfFile;
   @Prop({ default: "idle" }) uploadState!: string;
   @Prop({ default: 0 }) percentage!: number;
 
+  isDocModalVisible = false;
+
   remove() {
     this.$emit("remove");
+  }
+
+  openDoc() {
+    this.isDocModalVisible = true;
+  }
+
+  getUrl(path: string) {
+    return `//${process.env.VUE_APP_API_URL}/api/file/tenants_file/${path}`;
+  }
+
+  getSize() {
+    if (this.file.size) {
+      const kb = this.file.size / 1000;
+      if (kb > 1000) {
+        const mb = kb / 1000;
+      return `${mb.toFixed(2)} ${this.$i18n.t('mb')}`;
+      }
+      return `${kb.toFixed(2)} ${this.$i18n.t('kb')}`;
+    }
+    return "-";
+  }
+
+  getName() {
+    return this.file.name ? this.file.name : this.file.path;
   }
 }
 </script>
@@ -58,6 +97,19 @@ export default class ListItem extends Vue {
   flex-direction: row;
   align-items: center;
 }
+
+.action-btn {
+  align-self: center;
+  cursor: pointer;
+}
+
+.list-item {
+  background-color: var(--g200);
+}
+
+.size {
+  color: var(--g500);
+}
 </style>
 
 <i18n>
@@ -68,7 +120,10 @@ export default class ListItem extends Vue {
     "FRENCH_RESIDENCE_PERMIT": "Driver's license",
     "OTHER_IDENTIFICATION": "Other",
     "CERTIFICATE_VISA": "Visa",
-    "remove": "Delete the file"
+    "remove": "Delete the file",
+    "show": "Show the file",
+    "mb": "MB",
+    "kb": "KB"
   },
   "fr": {
     "FRENCH_IDENTITY_CARD": "Carte d'identité",
@@ -76,7 +131,10 @@ export default class ListItem extends Vue {
     "FRENCH_RESIDENCE_PERMIT": "Permis de conduire",
     "OTHER_IDENTIFICATION": "Autre",
     "CERTIFICATE_VISA": "Visa",
-    "remove": "Supprimer la pièce"
+    "remove": "Supprimer la pièce",
+    "show": "Afficher la pièce",
+    "mb": "Mo",
+    "kb": "Ko"
   }
 }
 </i18n>
