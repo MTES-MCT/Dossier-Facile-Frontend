@@ -94,6 +94,8 @@ export default class FileUpload extends Vue {
   outline: 2px dashed grey;
   outline-offset: -10px;
   color: dimgray;
+  background-color: var(--bf500);
+  color: var(--g100);
   padding: 10px 10px;
   min-height: 50px;
   position: relative;
@@ -109,7 +111,9 @@ export default class FileUpload extends Vue {
 }
 
 .dropbox:hover {
-  background: lightblue;
+  background-image: linear-gradient(0deg,var(--color-active),var(--color-active));
+  --color-hover: rgba(0, 0, 246, 0.5);
+  --color-active: rgba(91, 91, 255, 0.5);
 }
 
 .dropbox p {

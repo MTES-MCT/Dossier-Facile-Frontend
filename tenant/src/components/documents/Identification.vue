@@ -57,9 +57,9 @@
         id="select"
         name="select"
       >
-        <option v-for="d in documents" :value="d" :key="d.key">{{
-          $t(d.key)
-        }}</option>
+        <option v-for="d in documents" :value="d" :key="d.key">
+          {{ $t(d.key) }}
+        </option>
       </select>
     </div>
     <div v-if="identificationDocument.key">
@@ -73,12 +73,6 @@
           @reset-files="resetFiles"
         ></FileUpload>
       </div>
-      <div class="rf-mb-3w">
-        <DocumentInsert
-          :allow-list="identificationDocument.acceptedProofs"
-          :block-list="identificationDocument.refusedProofs"
-        ></DocumentInsert>
-      </div>
     </div>
     <div v-if="identificationFiles().length > 0">
       <h5>{{ $t("files") }}</h5>
@@ -89,7 +83,7 @@
         @remove="remove(file)"
       />
     </div>
-    <div class="rf-col-12 rf-mb-5w" v-if="identificationDocument">
+    <div class="rf-col-12 rf-mb-2w" v-if="identificationDocument">
       <button
         class="rf-btn"
         type="submit"
@@ -98,6 +92,12 @@
       >
         Enregistrer la pièce
       </button>
+    </div>
+    <div class="rf-mb-5w" v-if="identificationDocument.key">
+      <DocumentInsert
+        :allow-list="identificationDocument.acceptedProofs"
+        :block-list="identificationDocument.refusedProofs"
+      ></DocumentInsert>
     </div>
   </div>
 </template>
@@ -121,12 +121,12 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
   components: { DocumentInsert, FileUpload, ListItem, ValidationProvider },
   computed: {
     ...mapState({
-      selectedGuarantor: "selectedGuarantor"
+      selectedGuarantor: "selectedGuarantor",
     }),
     ...mapGetters({
       user: "userToEdit",
-    })
-  }
+    }),
+  },
 })
 export default class Identification extends Vue {
   user!: User | Guarantor;
@@ -140,7 +140,7 @@ export default class Identification extends Vue {
   firstName = "";
   lastName = "";
 
-  @Watch('selectedGuarantor') 
+  @Watch("selectedGuarantor")
   onGuarantorChange(val: Guarantor) {
     this.firstName = val.firstName || "";
     this.lastName = val.lastName || "";
@@ -170,7 +170,7 @@ export default class Identification extends Vue {
   }
 
   addFiles(fileList: File[]) {
-    const nf = Array.from(fileList).map(f => {
+    const nf = Array.from(fileList).map((f) => {
       return { name: f.name, file: f };
     });
     this.files = [...this.files, ...nf];
@@ -184,11 +184,11 @@ export default class Identification extends Vue {
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    const newFiles = this.files.filter(f => {
+    const newFiles = this.files.filter((f) => {
       return !f.id;
     });
     if (!newFiles.length) return;
-    Array.from(Array(newFiles.length).keys()).map(x => {
+    Array.from(Array(newFiles.length).keys()).map((x) => {
       const f: File = newFiles[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
     });
@@ -229,11 +229,11 @@ export default class Identification extends Vue {
   }
 
   identificationFiles() {
-    const newFiles = this.files.map(f => {
+    const newFiles = this.files.map((f) => {
       return {
         documentSubCategory: this.identificationDocument.value,
         id: f.name,
-        name: f.name
+        name: f.name,
       };
     });
     const existingFiles =
@@ -254,7 +254,7 @@ export default class Identification extends Vue {
     } else {
       this.files = this.files.filter((f: DfFile) => {
         return f.name !== file.name;
-      })
+      });
     }
   }
 
@@ -270,23 +270,23 @@ export default class Identification extends Vue {
       acceptedProofs: ["Carte d’identité française recto-verso"],
       refusedProofs: [
         "Carte d’identité sans le verso ou périmée",
-        "Tout autre document"
-      ]
+        "Tout autre document",
+      ],
     },
     {
       key: "passport",
       value: "FRENCH_PASSPORT",
       acceptedProofs: ["Passport français (pages 2 et 3)"],
-      refusedProofs: ["Tout autre document"]
+      refusedProofs: ["Tout autre document"],
     },
     {
       key: "permit",
       value: "FRENCH_RESIDENCE_PERMIT",
       acceptedProofs: [
         "Carte de séjour en France temporaire recto-verso en cours de validité, ou périmée si elle est accompagnée du récépissé de la demande de renouvellement de carte de séjour",
-        "Visa de travail ou d’études temporaire en France"
+        "Visa de travail ou d’études temporaire en France",
       ],
-      refusedProofs: ["Tout autre document"]
+      refusedProofs: ["Tout autre document"],
     },
     {
       key: "other",
@@ -296,10 +296,10 @@ export default class Identification extends Vue {
         "Passeport étranger (pages 2 et 3)",
         "Permis de conduire français ou étranger recto-verso",
         "Carte de résident",
-        "Carte de ressortissant d’un État membre de l’UE ou de l’EEE"
+        "Carte de ressortissant d’un État membre de l’UE ou de l’EEE",
       ],
-      refusedProofs: ["Tout autre document"]
-    }
+      refusedProofs: ["Tout autre document"],
+    },
   ];
 }
 </script>

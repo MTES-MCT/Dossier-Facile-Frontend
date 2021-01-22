@@ -32,12 +32,6 @@
             @reset-files="resetFiles"
           ></FileUpload>
         </div>
-        <div class="rf-mb-3w">
-          <DocumentInsert
-            :allow-list="acceptedProofs"
-            :block-list="refusedProofs"
-          ></DocumentInsert>
-        </div>
       </div>
       <div>
         <ListItem
@@ -53,7 +47,7 @@
           "
         />
       </div>
-      <div class="rf-col-12 rf-mb-5w">
+      <div class="rf-col-12 rf-mb-2w">
         <button
           class="rf-btn"
           type="submit"
@@ -62,6 +56,12 @@
         >
           {{ $t("register") }}
         </button>
+      </div>
+      <div class="rf-mb-5w">
+        <DocumentInsert
+          :allow-list="acceptedProofs"
+          :block-list="refusedProofs"
+        ></DocumentInsert>
       </div>
     </ValidationObserver>
   </div>
@@ -83,7 +83,7 @@ import { DfFile } from "df-shared/src/models/DfFile";
 
 extend("required", {
   ...required,
-  message: "Ce champ est requis"
+  message: "Ce champ est requis",
 });
 
 @Component({
@@ -92,26 +92,26 @@ extend("required", {
     FileUpload,
     ListItem,
     ValidationProvider,
-    ValidationObserver
+    ValidationObserver,
   },
   computed: {
     ...mapState({
       user: "user",
-      tenantStep: "tenantStep"
-    })
-  }
+      tenantStep: "tenantStep",
+    }),
+  },
 })
 export default class CorporationIdentification extends Vue {
   organismName = "";
   acceptedProofs = [
     this.$i18n.t("kbis"),
     this.$i18n.t("status"),
-    this.$i18n.t("all-accepted")
+    this.$i18n.t("all-accepted"),
   ];
   refusedProofs = [
     this.$i18n.t("balance-sheet"),
     this.$i18n.t("urssaf"),
-    this.$i18n.t("all-other")
+    this.$i18n.t("all-other"),
   ];
 
   files: File[] = [];
@@ -129,7 +129,7 @@ export default class CorporationIdentification extends Vue {
     const fieldName = "documents";
     const formData = new FormData();
     if (!this.files.length) return;
-    Array.from(Array(this.files.length).keys()).map(x => {
+    Array.from(Array(this.files.length).keys()).map((x) => {
       formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
     });
 
@@ -170,18 +170,18 @@ export default class CorporationIdentification extends Vue {
   }
 
   listFiles() {
-    const newFiles = this.files.map(f => {
+    const newFiles = this.files.map((f) => {
       return {
         id: f.name,
-        name: f.name
+        name: f.name,
       };
     });
     const existingFiles =
       this.$store.getters.getDocuments?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION";
       })?.files || [];
-      console.dir(this.$store.getters.getDocuments)
-      console.dir(existingFiles)
+    console.dir(this.$store.getters.getDocuments);
+    console.dir(existingFiles);
     return [...newFiles, ...existingFiles];
   }
 }

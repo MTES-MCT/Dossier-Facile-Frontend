@@ -11,12 +11,6 @@
           @reset-files="resetFiles"
         ></FileUpload>
       </div>
-      <div class="rf-mb-3w">
-        <DocumentInsert
-          :allow-list="acceptedProofs"
-          :block-list="refusedProofs"
-        ></DocumentInsert>
-      </div>
     </div>
     <div>
       <ListItem
@@ -32,7 +26,7 @@
         "
       />
     </div>
-    <div class="rf-col-12 rf-mb-5w" v-if="identificationDocument">
+    <div class="rf-col-12 rf-mb-2w" v-if="identificationDocument">
       <button
         class="rf-btn"
         type="submit"
@@ -41,6 +35,12 @@
       >
         Enregistrer la pièce
       </button>
+    </div>
+    <div class="rf-mb-5w">
+      <DocumentInsert
+        :allow-list="acceptedProofs"
+        :block-list="refusedProofs"
+      ></DocumentInsert>
     </div>
   </div>
 </template>
@@ -61,13 +61,13 @@ import { DfFile } from "df-shared/src/models/DfFile";
   components: {
     DocumentInsert,
     FileUpload,
-    ListItem
+    ListItem,
   },
   computed: {
     ...mapState({
-      user: "user"
-    })
-  }
+      user: "user",
+    }),
+  },
 })
 export default class OrganismCert extends Vue {
   acceptedProofs = ["Certificat de garantie valide d'un organisme"];
@@ -90,7 +90,7 @@ export default class OrganismCert extends Vue {
     const fieldName = "documents";
     const formData = new FormData();
     if (!this.files.length) return;
-    Array.from(Array(this.files.length).keys()).map(x => {
+    Array.from(Array(this.files.length).keys()).map((x) => {
       formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
     });
 
@@ -133,11 +133,11 @@ export default class OrganismCert extends Vue {
   }
 
   listFiles() {
-    const newFiles = this.files.map(f => {
+    const newFiles = this.files.map((f) => {
       return {
         documentSubCategory: this.identificationDocument.value,
         id: f.name,
-        name: f.name
+        name: f.name,
       };
     });
     const existingFiles =
