@@ -27,8 +27,7 @@
         ></FileUpload>
       </div>
     </div>
-    <div v-if="residencyFiles()">
-      <h5>{{ $t("files") }}</h5>
+    <div v-if="residencyFiles()" class="rf-col-lg-8 rf-col-md-12 rf-mb-3w">
       <ListItem
         v-for="(file, k) in residencyFiles()"
         :key="k"
@@ -109,7 +108,7 @@ export default class Residency extends Vue {
 
   addFiles(fileList: File[]) {
     const nf = Array.from(fileList).map((f) => {
-      return { name: f.name, file: f };
+      return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
   }
@@ -163,6 +162,7 @@ export default class Residency extends Vue {
         documentSubCategory: this.residencyDocument.value,
         id: f.name,
         name: f.name,
+        size: f.size
       };
     });
     const existingFiles =

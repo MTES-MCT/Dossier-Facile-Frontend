@@ -4,4 +4,5 @@ export class DfFile {
   path?: string;
   name?: string;
   file?: File;
+  size?: number;
 }

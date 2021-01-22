@@ -1,5 +1,5 @@
 <template>
-  <div class="file-upload rf-col-6">
+  <div class="file-upload rf-col-lg-6 rf-col-md-12">
     <form name="uploadForm" enctype="multipart/form-data" novalidate>
       <div class="dropbox">
         <input

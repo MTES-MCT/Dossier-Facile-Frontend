@@ -85,8 +85,7 @@
           </div>
         </div>
       </div>
-      <div v-if="financialFiles(f).length > 0">
-        <h5>{{ $t("files") }}</h5>
+      <div v-if="financialFiles(f).length > 0" class="rf-col-lg-8 rf-col-md-12 rf-mb-3w">
         <ListItem
           v-for="(file, k) in financialFiles(f)"
           :key="k"
@@ -196,7 +195,7 @@ export default class Financial extends Vue {
 
   addFiles(f: F, fileList: File[]) {
     const nf = Array.from(fileList).map((f) => {
-      return { name: f.name, file: f };
+      return { name: f.name, file: f, size: f.size };
     });
     f.files = [...f.files, ...nf];
   }

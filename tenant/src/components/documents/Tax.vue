@@ -42,8 +42,7 @@
             ></FileUpload>
           </div>
         </div>
-        <div v-if="taxFiles().length > 0">
-          <h5>{{ $t("files") }}</h5>
+        <div v-if="taxFiles().length > 0" class="rf-col-lg-8 rf-col-md-12 rf-mb-3w">
           <ListItem
             v-for="(file, k) in taxFiles()"
             :key="k"
@@ -159,7 +158,7 @@ export default class Tax extends Vue {
 
   addFiles(fileList: File[]) {
     const nf = Array.from(fileList).map((f) => {
-      return { name: f.name, file: f };
+      return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
   }
@@ -231,6 +230,8 @@ export default class Tax extends Vue {
         documentSubCategory: this.taxDocument.value,
         id: f.name,
         name: f.name,
+        file: f,
+        size: f.size
       };
     });
     const existingFiles =
