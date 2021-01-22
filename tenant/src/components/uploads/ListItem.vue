@@ -61,7 +61,12 @@ export default class ListItem extends Vue {
 
   getSize() {
     if (this.file.size) {
-      return `${this.file.size / 1024} Kb`;
+      const kb = this.file.size / 1000;
+      if (kb > 1000) {
+        const mb = kb / 1000;
+      return `${mb.toFixed(2)} ${this.$i18n.t('mb')}`;
+      }
+      return `${kb.toFixed(2)} ${this.$i18n.t('kb')}`;
     }
     return "-";
   }
@@ -116,7 +121,9 @@ export default class ListItem extends Vue {
     "OTHER_IDENTIFICATION": "Other",
     "CERTIFICATE_VISA": "Visa",
     "remove": "Delete the file",
-    "show": "Show the file"
+    "show": "Show the file",
+    "mb": "MB",
+    "kb": "KB"
   },
   "fr": {
     "FRENCH_IDENTITY_CARD": "Carte d'identité",
@@ -125,7 +132,9 @@ export default class ListItem extends Vue {
     "OTHER_IDENTIFICATION": "Autre",
     "CERTIFICATE_VISA": "Visa",
     "remove": "Supprimer la pièce",
-    "show": "Afficher la pièce"
+    "show": "Afficher la pièce",
+    "mb": "Mo",
+    "kb": "Ko"
   }
 }
 </i18n>
