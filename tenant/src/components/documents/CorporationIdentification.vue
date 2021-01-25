@@ -73,7 +73,6 @@ import { mapState } from "vuex";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { UploadStatus } from "../uploads/UploadStatus";
-import axios from "axios";
 import ListItem from "@/components/uploads/ListItem.vue";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
@@ -165,8 +164,8 @@ export default class CorporationIdentification extends Vue {
   }
 
   remove(file: DfFile) {
-    const loader = this.$loading.show();
     if (file.path && file.id) {
+    const loader = this.$loading.show();
       RegisterService.deleteFile(file.id).then(() => {
         this.$toasted.show(this.$i18n.t("delete-ok").toString(), {
           type: "success",
@@ -180,6 +179,10 @@ export default class CorporationIdentification extends Vue {
       }).finally(() => {
         this.$store.dispatch("loadUser");
         loader.hide();
+      });
+    } else {
+      this.files = this.files.filter((f: DfFile) => {
+        return f.name !== file.name;
       });
     }
   }
