@@ -59,4 +59,24 @@ app.$store.dispatch("loadUser");
 
 Vue.use(Loading);
  
-Vue.use(Toasted)
+Vue.use(Toasted);
+
+Vue.toasted.register('delete_failed', i18n.t("delete-failed").toString(), {
+  type : 'error',
+  duration: 5000
+});
+
+Vue.toasted.register('delete_success', i18n.t("delete-success").toString(), {
+  type : 'success',
+  duration: 5000
+});
+
+Vue.toasted.register('upload_failed', i18n.t("upload-failed").toString(), {
+  type : 'error',
+  duration: 5000
+});
+
+Vue.toasted.register('upload_success', i18n.t("upload-success").toString(), {
+  type : 'success',
+  duration: 5000
+});

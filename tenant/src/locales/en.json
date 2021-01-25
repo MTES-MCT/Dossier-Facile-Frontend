@@ -1,3 +1,7 @@
 {
-  "message": "hello i18n !!"
+  "message": "hello i18n !!",
+  "upload-success": "Upload ok",
+  "upload-failed": "Upload failed",
+  "delete-success": "Delete ok",
+  "delete-failed": "Delete failed"
 }

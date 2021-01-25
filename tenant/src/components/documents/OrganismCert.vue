@@ -56,6 +56,7 @@ import axios from "axios";
 import ListItem from "@/components/uploads/ListItem.vue";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { DfFile } from "df-shared/src/models/DfFile";
+import { RegisterService } from "../../services/RegisterService";
 
 @Component({
   components: {
@@ -100,18 +101,22 @@ export default class OrganismCert extends Vue {
     );
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    const url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorOrganism/documentIdentification`;
     const loader = this.$loading.show();
-    axios
-      .post(url, formData)
+    RegisterService.saveOrganismIdentification(formData)
       .then(() => {
-        console.log("success");
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
+        this.$toasted.show(this.$i18n.t("upload-ok").toString(), {
+          type: "success",
+          duration: 5000,
+        });
       })
       .catch(() => {
-        console.log("fail");
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
+        this.$toasted.show(this.$i18n.t("upload-failed").toString(), {
+          type: "error",
+          duration: 5000,
+        });
       })
       .finally(() => {
         this.$store.dispatch("loadUser");
@@ -124,12 +129,13 @@ export default class OrganismCert extends Vue {
   }
 
   remove(file: DfFile) {
-    const loader = this.$loading.show();
-    const url = `//${process.env.VUE_APP_API_URL}/api/file/${file.id}`;
-    axios.delete(url).finally(() => {
-      this.$store.dispatch("loadUser");
-      loader.hide();
-    });
+    if (file.path && file.id) {
+      RegisterService.deleteFile(file.id);
+    } else {
+      this.files = this.files.filter((f: DfFile) => {
+        return f.name !== file.name;
+      });
+    }
   }
 
   listFiles() {
@@ -138,7 +144,7 @@ export default class OrganismCert extends Vue {
         documentSubCategory: this.identificationDocument.value,
         id: f.name,
         name: f.name,
-        size: f.size
+        size: f.size,
       };
     });
     const existingFiles =

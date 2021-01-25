@@ -74,7 +74,10 @@
         ></FileUpload>
       </div>
     </div>
-    <div v-if="identificationFiles().length > 0" class="rf-col-lg-8 rf-col-md-12 rf-mb-3w">
+    <div
+      v-if="identificationFiles().length > 0"
+      class="rf-col-lg-8 rf-col-md-12 rf-mb-3w"
+    >
       <ListItem
         v-for="(file, k) in identificationFiles()"
         :key="k"
@@ -115,6 +118,7 @@ import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { ValidationProvider } from "vee-validate";
 import { Guarantor } from "df-shared/src/models/Guarantor";
+import { RegisterService } from "../../services/RegisterService";
 
 @Component({
   components: { DocumentInsert, FileUpload, ListItem, ValidationProvider },
@@ -234,7 +238,7 @@ export default class Identification extends Vue {
         id: f.name,
         name: f.name,
         file: f.file,
-        size: f.file?.size
+        size: f.file?.size,
       };
     });
     const existingFiles =
@@ -245,13 +249,8 @@ export default class Identification extends Vue {
   }
 
   remove(file: DfFile) {
-    if (file.path) {
-      const loader = this.$loading.show();
-      const url = `//${process.env.VUE_APP_API_URL}/api/file/${file.id}`;
-      axios.delete(url).finally(() => {
-        this.$store.dispatch("loadUser");
-        loader.hide();
-      });
+    if (file.path && file.id) {
+      RegisterService.deleteFile(file.id);
     } else {
       this.files = this.files.filter((f: DfFile) => {
         return f.name !== file.name;
@@ -320,22 +319,26 @@ td {
 <i18n>
 {
 "en": {
-"identity-card": "Carte nationale d’identité",
-"passport": "Passeport",
-"permit": "Permis de conduire",
-"other": "Autre",
-"files": "Documents",
-"lastname": "Lastname",
-"firstname": "Firstname"
+  "identity-card": "Carte nationale d’identité",
+  "passport": "Passeport",
+  "permit": "Permis de conduire",
+  "other": "Autre",
+  "files": "Documents",
+  "lastname": "Lastname",
+  "firstname": "Firstname",
+  "upload-ok": "Upload ok",
+  "upload-failed": "Upload failed"
 },
 "fr": {
-"identity-card": "Carte nationale d’identité",
-"passport": "Passeport",
-"permit": "Permis de conduire",
-"other": "Autre",
-"files": "Documents",
-"lastname": "Nom",
-"firstname": "Prénom"
+  "identity-card": "Carte nationale d’identité",
+  "passport": "Passeport",
+  "permit": "Permis de conduire",
+  "other": "Autre",
+  "files": "Documents",
+  "lastname": "Nom",
+  "firstname": "Prénom",
+  "upload-ok": "Envoi réussi",
+  "upload-failed": "Erreur lors de l'envoi"
 }
 }
 </i18n>

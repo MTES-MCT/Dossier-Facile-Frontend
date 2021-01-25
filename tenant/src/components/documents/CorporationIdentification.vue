@@ -165,21 +165,7 @@ export default class CorporationIdentification extends Vue {
 
   remove(file: DfFile) {
     if (file.path && file.id) {
-    const loader = this.$loading.show();
-      RegisterService.deleteFile(file.id).then(() => {
-        this.$toasted.show(this.$i18n.t("delete-ok").toString(), {
-          type: "success",
-          duration: 5000,
-        });
-      }).catch(()=>{
-        this.$toasted.show(this.$i18n.t("delete-failed").toString(), {
-          type: "error",
-          duration: 5000,
-        });
-      }).finally(() => {
-        this.$store.dispatch("loadUser");
-        loader.hide();
-      });
+      RegisterService.deleteFile(file.id);
     } else {
       this.files = this.files.filter((f: DfFile) => {
         return f.name !== file.name;
@@ -230,9 +216,7 @@ td {
   "all-other": "Any other document",
   "register": "Register documents",
   "upload-ok": "Upload ok",
-  "upload-failed": "Upload failed",
-  "delete-ok": "Delete ok",
-  "delete-failed": "Delete failed"
+  "upload-failed": "Upload failed"
 },
 "fr": {
   "organism-name": "Nom de la personne morale",
@@ -246,9 +230,7 @@ td {
   "all-other": "Toute autre pièce",
   "register": "Enregistrer la pièce",
   "upload-ok": "Envoi réussi",
-  "upload-failed": "Erreur lors de l'envoi",
-  "delete-ok": "Suppression réussie",
-  "delete-failed": "Erreur lors de la suppression"
+  "upload-failed": "Erreur lors de l'envoi"
 }
 }
 </i18n>
