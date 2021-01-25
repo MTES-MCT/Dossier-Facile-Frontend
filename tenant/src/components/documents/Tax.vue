@@ -106,6 +106,7 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 import { extend } from "vee-validate";
 import { is } from "vee-validate/dist/rules";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
+import { RegisterService } from "../../services/RegisterService";
 
 extend("is", {
   ...is,
@@ -242,13 +243,8 @@ export default class Tax extends Vue {
   }
 
   remove(file: DfFile) {
-    if (file.path) {
-      const url = `//${process.env.VUE_APP_API_URL}/api/file/${file.id}`;
-      const loader = this.$loading.show();
-      axios.delete(url).finally(() => {
-        this.$store.dispatch("loadUser");
-        loader.hide();
-      });
+    if (file.path && file.id) {
+      RegisterService.deleteFile(file.id);
     } else {
       this.files = this.files.filter((f: DfFile) => {
         return f.name !== file.name;

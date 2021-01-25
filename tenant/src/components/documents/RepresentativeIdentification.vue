@@ -97,6 +97,7 @@ import { extend } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { DfFile } from "df-shared/src/models/DfFile";
+import { RegisterService } from "../../services/RegisterService";
 
 extend("required", {
   ...required,
@@ -143,13 +144,8 @@ export default class RepresentativeIdentification extends Vue {
   }
 
   remove(file: DfFile) {
-    if (file.path) {
-      const url = `//${process.env.VUE_APP_API_URL}/api/file/${file.id}`;
-      const loader = this.$loading.show();
-      axios.delete(url).finally(() => {
-        this.$store.dispatch("loadUser");
-        loader.hide();
-      });
+    if (file.path && file.id) {
+      RegisterService.deleteFile(file.id);
     } else {
       this.files = this.files.filter((f: DfFile) => {
         return f.name !== file.name;

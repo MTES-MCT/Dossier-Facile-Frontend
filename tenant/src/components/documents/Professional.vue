@@ -66,6 +66,7 @@ import ListItem from "@/components/uploads/ListItem.vue";
 import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
+import { RegisterService } from "../../services/RegisterService";
 
 @Component({
   components: { DocumentInsert, FileUpload, ListItem },
@@ -170,13 +171,8 @@ export default class Professional extends Vue {
   }
 
   remove(file: DfFile) {
-    if (file.path) {
-      const url = `//${process.env.VUE_APP_API_URL}/api/file/${file.id}`;
-      const loader = this.$loading.show();
-      axios.delete(url).finally(() => {
-        this.$store.dispatch("loadUser");
-        loader.hide();
-      });
+    if (file.path && file.id) {
+      RegisterService.deleteFile(file.id);
     } else {
       this.files = this.files.filter((f: DfFile) => {
         return f.name !== file.name;
