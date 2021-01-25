@@ -80,6 +80,7 @@ import { extend } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { DfFile } from "df-shared/src/models/DfFile";
+import { RegisterService } from "../../services/RegisterService";
 
 extend("required", {
   ...required,
@@ -136,19 +137,22 @@ export default class CorporationIdentification extends Vue {
     formData.append("legalPersonName", this.organismName);
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    // TODO use service with right url
-    const url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorLegalPerson/documentIdentification`;
     const loader = this.$loading.show();
-    axios
-      .post(url, formData)
+    RegisterService.saveCorporationIdentification(formData)
       .then(() => {
-        console.log("success");
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
+        this.$toasted.show(this.$i18n.t("upload-ok").toString(), {
+          type: "success",
+          duration: 5000,
+        });
       })
       .catch(() => {
-        console.log("fail");
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
+        this.$toasted.show(this.$i18n.t("upload-failed").toString(), {
+          type: "error",
+          duration: 5000,
+        });
       })
       .finally(() => {
         this.$store.dispatch("loadUser");
@@ -162,11 +166,22 @@ export default class CorporationIdentification extends Vue {
 
   remove(file: DfFile) {
     const loader = this.$loading.show();
-    const url = `//${process.env.VUE_APP_API_URL}/api/file/${file.id}`;
-    axios.delete(url).finally(() => {
-      this.$store.dispatch("loadUser");
-      loader.hide();
-    });
+    if (file.path && file.id) {
+      RegisterService.deleteFile(file.id).then(() => {
+        this.$toasted.show(this.$i18n.t("delete-ok").toString(), {
+          type: "success",
+          duration: 5000,
+        });
+      }).catch(()=>{
+        this.$toasted.show(this.$i18n.t("delete-failed").toString(), {
+          type: "error",
+          duration: 5000,
+        });
+      }).finally(() => {
+        this.$store.dispatch("loadUser");
+        loader.hide();
+      });
+    }
   }
 
   listFiles() {
@@ -174,7 +189,7 @@ export default class CorporationIdentification extends Vue {
       return {
         id: f.name,
         name: f.name,
-        size: f.size
+        size: f.size,
       };
     });
     const existingFiles =
@@ -210,7 +225,11 @@ td {
   "balance-sheet": "Balance sheet",
   "urssaf": "Urssaf certificate",
   "all-other": "Any other document",
-  "register": "Register documents"
+  "register": "Register documents",
+  "upload-ok": "Upload ok",
+  "upload-failed": "Upload failed",
+  "delete-ok": "Delete ok",
+  "delete-failed": "Delete failed"
 },
 "fr": {
   "organism-name": "Nom de la personne morale",
@@ -222,7 +241,11 @@ td {
   "balance-sheet": "Bilan comptable",
   "urssaf": "Attestation cotisation Urssaf",
   "all-other": "Toute autre pièce",
-  "register": "Enregistrer la pièce"
+  "register": "Enregistrer la pièce",
+  "upload-ok": "Envoi réussi",
+  "upload-failed": "Erreur lors de l'envoi",
+  "delete-ok": "Suppression réussie",
+  "delete-failed": "Erreur lors de la suppression"
 }
 }
 </i18n>
