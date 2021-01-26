@@ -90,7 +90,6 @@ import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "../uploads/UploadStatus";
-import axios from "axios";
 import ListItem from "@/components/uploads/ListItem.vue";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
@@ -170,10 +169,8 @@ export default class RepresentativeIdentification extends Vue {
     formData.append("firstName", this.identificationDocument.value);
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    const url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorLegalPerson/documentRepresentanIdentification`;
     const loader = this.$loading.show();
-    axios
-      .post(url, formData)
+    RegisterService.saveRepresentativeIdentification(formData)
       .then(() => {
         console.log("success");
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;

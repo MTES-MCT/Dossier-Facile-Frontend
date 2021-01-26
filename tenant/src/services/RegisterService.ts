@@ -57,5 +57,10 @@ export const RegisterService = {
             url = `//${process.env.VUE_APP_API_URL}/api/register/documentProfessional`;
         }
         return axios.post(url, formData)
+    },
+
+    saveRepresentativeIdentification(formData: FormData) {
+        const url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorLegalPerson/documentRepresentanIdentification`;
+        return axios.post(url, formData)
     }
 };
