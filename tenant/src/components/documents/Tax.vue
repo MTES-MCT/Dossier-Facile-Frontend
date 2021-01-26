@@ -183,6 +183,12 @@ export default class Tax extends Vue {
       return !f.id;
     });
     if (newFiles.length) {
+
+      if (this.taxDocument.maxFileCount && this.taxFiles.length > this.taxDocument.maxFileCount) {
+          Vue.toasted.global.max_file();
+          return;
+      }
+
       Array.from(Array(newFiles.length).keys()).map(x => {
         const f: File = newFiles[x].file || new File([], "");
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
@@ -202,7 +208,7 @@ export default class Tax extends Vue {
     }
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    if (this.$store.getters.isGuarantor) {
+    if (this.$store.getters.isGuarantor && this.$store.getters.guarantor.id) {
       formData.append("guarantorId", this.$store.getters.guarantor.id);
     }
     const loader = this.$loading.show();
@@ -261,7 +267,8 @@ export default class Tax extends Vue {
         "Avis d’imposition incomplet (sans la première page)",
         "Tout avis d’imposition plus ancien",
         "Tout autre document justificatif"
-      ]
+      ],
+      maxFileCount: 1
     },
     {
       key: "my-parents",
@@ -269,14 +276,16 @@ export default class Tax extends Vue {
       explanationText:
         "J’ai déclaré être rattaché·e au domicile fiscal de mes parents.",
       acceptedProofs: [],
-      refusedProofs: []
+      refusedProofs: [],
+      maxFileCount: 0
     },
     {
       key: "less-than-year",
       value: "LESS_THAN_YEAR",
       explanationText: "J’ai déclaré être en France depuis moins d’un an.",
       acceptedProofs: [],
-      refusedProofs: []
+      refusedProofs: [],
+      maxFileCount: 0
     },
     {
       key: "other-tax",
@@ -284,7 +293,8 @@ export default class Tax extends Vue {
       explanationText:
         "Afin d’améliorer mon dossier, j’explique ci-dessous pourquoi je ne reçois pas d’avis d’imposition. Mon explication sera ajoutée à mon dossier :",
       acceptedProofs: [],
-      refusedProofs: []
+      refusedProofs: [],
+      maxFileCount: 0
     }
   ];
 }

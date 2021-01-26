@@ -70,7 +70,8 @@ export default class FileUpload extends Vue {
 
   filesChange(e: any) {
     [...e.target.files].forEach((f: File) => {
-      if (f.size > 3 * 1024 * 1024) {
+      // TODO parameterize this number
+      if (f.size > 5 * 1024 * 1024) {
         this.$toasted.show(this.$i18n.t("file-too-big").toString(), {
           type: "error",
           duration: 5000
@@ -80,7 +81,7 @@ export default class FileUpload extends Vue {
       return true;
     });
     const fileList = [...e.target.files].filter((f: File) => {
-      return f.size < 3 * 1024 * 1024;
+      return f.size < 5 * 1024 * 1024;
     });
     this.$emit("add-files", fileList);
     const form = document.getElementsByName("uploadForm");

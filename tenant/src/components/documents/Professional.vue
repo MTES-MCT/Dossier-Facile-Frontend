@@ -79,6 +79,7 @@ import { RegisterService } from "../../services/RegisterService";
   }
 })
 export default class Professional extends Vue {
+  MAX_FILE_COUNT = 5;
   user!: User;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
@@ -120,6 +121,11 @@ export default class Professional extends Vue {
       return !f.id;
     });
     if (!newFiles.length) return;
+
+    if (this.professionalDocument.maxFileCount && this.professionalFiles().length > this.professionalDocument.maxFileCount) {
+        Vue.toasted.global.max_file();
+        return;
+    }
     Array.from(Array(newFiles.length).keys()).map(x => {
       const f: File = newFiles[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
@@ -131,7 +137,7 @@ export default class Professional extends Vue {
     );
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    if (this.$store.getters.isGuarantor) {
+    if (this.$store.getters.isGuarantor && this.$store.getters.guarantor.id) {
       formData.append("guarantorId", this.$store.getters.guarantor.id);
     }
     const loader = this.$loading.show();
@@ -192,7 +198,8 @@ export default class Professional extends Vue {
         "Courrier/mail de confirmation d’embauche",
         "Bulletins de salaire",
         "Relevés de comptes bancaires"
-      ]
+      ],
+      maxFileCount: 10
     },
     {
       key: "cdi-trial",
@@ -208,7 +215,8 @@ export default class Professional extends Vue {
         "Courrier/mail de confirmation d’embauche",
         "Bulletins de salaire",
         "Relevés de comptes bancaires"
-      ]
+      ],
+      maxFileCount: 10
     },
     {
       key: "cdd",
@@ -224,7 +232,8 @@ export default class Professional extends Vue {
         "Courrier/mail de confirmation d’embauche",
         "Bulletins de salaire",
         "Relevés de comptes bancaires"
-      ]
+      ],
+      maxFileCount: 10
     },
     {
       key: "alternation",
@@ -235,7 +244,8 @@ export default class Professional extends Vue {
         "Contrat d’alternance",
         "Contrat de professionnalisation"
       ],
-      refusedProofs: ["Certificat de scolarité"]
+      refusedProofs: ["Certificat de scolarité"],
+      maxFileCount: 10
     },
     {
       key: "internship",
@@ -243,7 +253,8 @@ export default class Professional extends Vue {
       explanationText:
         "J’ajoute ma convention de stage en cours, complète et signée.",
       acceptedProofs: ["Convention de stage"],
-      refusedProofs: ["Certificat de scolarité"]
+      refusedProofs: ["Certificat de scolarité"],
+      maxFileCount: 10
     },
     {
       key: "student",
@@ -257,7 +268,8 @@ export default class Professional extends Vue {
         "Courrier/mail de confirmation d’inscription",
         "Attestation de paiement CVEC",
         "Bulletin scolaire"
-      ]
+      ],
+      maxFileCount: 10
     },
     {
       key: "public",
@@ -267,7 +279,8 @@ export default class Professional extends Vue {
         "Arrêté de nomination",
         "Attestation de votre employeur"
       ],
-      refusedProofs: ["Bulletins de salaire", "Relevés de comptes bancaires"]
+      refusedProofs: ["Bulletins de salaire", "Relevés de comptes bancaires"],
+      maxFileCount: 10
     },
     {
       key: "ctt",
@@ -279,7 +292,8 @@ export default class Professional extends Vue {
         "Contrat de travail complet daté et signé",
         "Attestation de votre employeur précisant l’emploi et la rémunération proposée, la date d’entrée en fonctions envisagée et la durée du contrat"
       ],
-      refusedProofs: ["Bulletins de salaire", "Relevés de comptes bancaires"]
+      refusedProofs: ["Bulletins de salaire", "Relevés de comptes bancaires"],
+      maxFileCount: 10
     },
     {
       key: "retired",
@@ -292,7 +306,8 @@ export default class Professional extends Vue {
         "Titre de pension de retraite",
         "Avis d’imposition complet de moins de 2 ans"
       ],
-      refusedProofs: ["Relevés de comptes bancaires"]
+      refusedProofs: ["Relevés de comptes bancaires"],
+      maxFileCount: 10
     },
     {
       key: "unemployed",
@@ -305,7 +320,8 @@ export default class Professional extends Vue {
       ],
       refusedProofs: [
         "Attestation de versement de paiement de cotisations sociales"
-      ]
+      ],
+      maxFileCount: 10
     },
     {
       key: "independent",
@@ -319,7 +335,8 @@ export default class Professional extends Vue {
         "Extrait D1 original du registre des métiers de moins de 3 mois (artisan)",
         "Extrait K ou K bis du registre du commerce et des sociétés de moins de 3 mois (commerçant)"
       ],
-      refusedProofs: ["Relevés de comptes bancaires"]
+      refusedProofs: ["Relevés de comptes bancaires"],
+      maxFileCount: 10
     },
     {
       key: "other",
@@ -332,7 +349,8 @@ export default class Professional extends Vue {
         "Toute pièce de moins de 3 mois attestant de l’activité professionnelle (autres cas d’activité)",
         "Déclaration de non-activité si vous êtes sans activité"
       ],
-      refusedProofs: ["Relevés de comptes bancaires"]
+      refusedProofs: ["Relevés de comptes bancaires"],
+      maxFileCount: 10
     }
   ];
 }

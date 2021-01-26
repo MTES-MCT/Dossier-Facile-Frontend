@@ -131,6 +131,8 @@ import { RegisterService } from "../../services/RegisterService";
   }
 })
 export default class Identification extends Vue {
+  MAX_FILE_COUNT = 3;
+
   user!: User | Guarantor;
   selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
@@ -190,6 +192,12 @@ export default class Identification extends Vue {
       return !f.id;
     });
     if (!newFiles.length) return;
+
+    if (this.identificationDocument.maxFileCount && this.identificationFiles().length > this.identificationDocument.maxFileCount) {
+        Vue.toasted.global.max_file();
+        return;
+    }
+
     Array.from(Array(newFiles.length).keys()).map(x => {
       const f: File = newFiles[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
@@ -265,13 +273,15 @@ export default class Identification extends Vue {
       refusedProofs: [
         "Carte d’identité sans le verso ou périmée",
         "Tout autre document"
-      ]
+      ],
+      maxFileCount: 3
     },
     {
       key: "passport",
       value: "FRENCH_PASSPORT",
       acceptedProofs: ["Passport français (pages 2 et 3)"],
-      refusedProofs: ["Tout autre document"]
+      refusedProofs: ["Tout autre document"],
+      maxFileCount: 3
     },
     {
       key: "permit",
@@ -280,7 +290,8 @@ export default class Identification extends Vue {
         "Carte de séjour en France temporaire recto-verso en cours de validité, ou périmée si elle est accompagnée du récépissé de la demande de renouvellement de carte de séjour",
         "Visa de travail ou d’études temporaire en France"
       ],
-      refusedProofs: ["Tout autre document"]
+      refusedProofs: ["Tout autre document"],
+      maxFileCount: 3
     },
     {
       key: "other",
@@ -292,7 +303,8 @@ export default class Identification extends Vue {
         "Carte de résident",
         "Carte de ressortissant d’un État membre de l’UE ou de l’EEE"
       ],
-      refusedProofs: ["Tout autre document"]
+      refusedProofs: ["Tout autre document"],
+      maxFileCount: 3
     }
   ];
 }

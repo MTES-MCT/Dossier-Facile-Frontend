@@ -123,6 +123,12 @@ export default class Residency extends Vue {
       return !f.id;
     });
     if (!newFiles.length) return;
+
+    if (this.residencyDocument.maxFileCount && this.residencyFiles().length > this.residencyDocument.maxFileCount) {
+        Vue.toasted.global.max_file();
+        return;
+    }
+
     Array.from(Array(newFiles.length).keys()).map(x => {
       const f: File = newFiles[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
@@ -131,7 +137,7 @@ export default class Residency extends Vue {
     formData.append("typeDocumentResidency", this.residencyDocument.value);
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    if (this.$store.getters.isGuarantor) {
+    if (this.$store.getters.isGuarantor && this.$store.getters.guarantor.id) {
       formData.append("guarantorId", this.$store.getters.guarantor.id);
     }
     const loader = this.$loading.show();
@@ -191,7 +197,8 @@ export default class Residency extends Vue {
         "Factures",
         "Avis de taxe d’habitation",
         "Relevés de compte bancaire"
-      ]
+      ],
+      maxFileCount: 3
     },
     {
       key: "owner",
@@ -206,7 +213,8 @@ export default class Residency extends Vue {
         "Factures",
         "Avis de taxe d’habitation",
         "Relevés de compte bancaire"
-      ]
+      ],
+      maxFileCount: 2
     },
     {
       key: "guest",
@@ -219,7 +227,8 @@ export default class Residency extends Vue {
       acceptedProofs: [
         "Attestation sur l’honneur du parent datée et signée indiquant que le candidat à la location réside à son domicile, accompagnée d’une pièce d’identité et d’un justificatif de domicile du parent (une simple facture suffit)"
       ],
-      refusedProofs: ["Tout autre document"]
+      refusedProofs: ["Tout autre document"],
+      maxFileCount: 2
     },
     {
       key: "guest-parents",
@@ -233,7 +242,8 @@ export default class Residency extends Vue {
         "Attestation sur l’honneur de l’hébergeant datée de moins de trois mois et signée indiquant que le candidat à la location réside à son domicile, accompagnée d’une pièce d’identité et d’un justificatif de domicile de l’hébergeant (une simple facture suffit)",
         "Attestation d’élection de domicile datée de moins de trois mois et signée de l’organisme d’hébergement (hébergement d’urgence, placement…) indiquant l’adresse de l’hébergement (téléchargeable sur le site https://www.service-public.fr/simulateur/calcul/16030 ) "
       ],
-      refusedProofs: ["Tout autre document"]
+      refusedProofs: ["Tout autre document"],
+      maxFileCount: 2
     }
   ];
 }

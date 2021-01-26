@@ -5,4 +5,5 @@ export class DocumentType {
   acceptedProofs!: string[];
   refusedProofs!: string[];
   customText?: string;
+  maxFileCount?: number;
 }
