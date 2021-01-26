@@ -62,5 +62,15 @@ export const RegisterService = {
     saveRepresentativeIdentification(formData: FormData) {
         const url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorLegalPerson/documentRepresentanIdentification`;
         return axios.post(url, formData)
+    },
+
+    saveResidency(formData: FormData) {
+        let url: string;
+        if (store.getters.isGuarantor) {
+            url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentResidency`;
+        } else {
+            url = `//${process.env.VUE_APP_API_URL}/api/register/documentResidency`;
+        }
+        return axios.post(url, formData)
     }
 };
