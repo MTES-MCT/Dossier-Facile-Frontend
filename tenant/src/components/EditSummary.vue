@@ -184,8 +184,11 @@
           <div class="row justify-content-center">
             <div class="col-12 col-md-8">
               <div v-for="f in files" v-bind:key="f.id">
-                <img :src="getUrl(f.path)" v-if="isImage(f.path)">
-                <PdfViewer :src="getUrl(f.path)" v-if="!isImage(f.path)"></PdfViewer>
+                <img :src="getUrl(f.path)" v-if="isImage(f.path)" />
+                <PdfViewer
+                  :src="getUrl(f.path)"
+                  v-if="!isImage(f.path)"
+                ></PdfViewer>
               </div>
             </div>
           </div>
@@ -211,9 +214,9 @@ import PdfViewer from "../components/PdfViewer.vue";
     ...mapState({
       user: "user",
       tenantStep: "tenantStep",
-      selectedGuarantor: "selectedGuarantor",
-    }),
-  },
+      selectedGuarantor: "selectedGuarantor"
+    })
+  }
 })
 export default class EditSummary extends Vue {
   user!: User;
@@ -238,12 +241,12 @@ export default class EditSummary extends Vue {
     return this.user.documents !== undefined && this.user.documents?.length > 0;
   }
   hasDoc(docType: string) {
-    return this.user.documents?.find((d) => {
+    return this.user.documents?.find(d => {
       return d.documentCategory === docType;
     });
   }
   guarantorHasDoc(docType: string) {
-    return this.selectedGuarantor.documents?.find((d) => {
+    return this.selectedGuarantor.documents?.find(d => {
       return d.documentCategory === docType;
     });
   }
@@ -255,35 +258,35 @@ export default class EditSummary extends Vue {
   }
 
   openDoc(documentCategory: string) {
-    const docs = this.user.documents?.filter((d) => {
+    const docs = this.user.documents?.filter(d => {
       return d.documentCategory === documentCategory;
     });
     this.files = [];
     if (docs === undefined) {
-      return
+      return;
     }
-    for (let i=0; i< docs.length ; i++) {
-        this.files = this.files.concat(docs[i].files || []);
+    for (let i = 0; i < docs.length; i++) {
+      this.files = this.files.concat(docs[i].files || []);
     }
     this.isDocModalVisible = true;
   }
 
   openGuarantorDoc(documentCategory: string) {
-    const docs = this.selectedGuarantor.documents?.filter((d) => {
+    const docs = this.selectedGuarantor.documents?.filter(d => {
       return d.documentCategory === documentCategory;
     });
     this.files = [];
     if (docs === undefined) {
-      return
+      return;
     }
-    for (let i=0; i< docs.length ; i++) {
-        this.files = this.files.concat(docs[i].files || []);
+    for (let i = 0; i < docs.length; i++) {
+      this.files = this.files.concat(docs[i].files || []);
     }
     this.isDocModalVisible = true;
   }
 
   isImage(path: string) {
-    return !path.endsWith('pdf');
+    return !path.endsWith("pdf");
   }
 
   getUrl(path: string) {

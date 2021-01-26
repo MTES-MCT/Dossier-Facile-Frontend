@@ -24,9 +24,15 @@ export default class LoginPage extends Vue {
         },
         error => {
           if (error.response.status === 401) {
-            this.$toasted.show(this.$i18n.t('password-error').toString(), {type: 'error', duration: 7000})
+            this.$toasted.show(this.$i18n.t("password-error").toString(), {
+              type: "error",
+              duration: 7000
+            });
           } else {
-            this.$toasted.show(error.message, {type: 'error', duration: 5000})
+            this.$toasted.show(error.message, {
+              type: "error",
+              duration: 5000
+            });
           }
         }
       );

@@ -164,7 +164,7 @@ export default class UploadDocuments extends Vue {
 
   isTaxValid() {
     const doc = this.user.documents?.find(d => {
-      return d.documentCategory === 'TAX';
+      return d.documentCategory === "TAX";
     });
     if (!doc) {
       return false;
@@ -172,7 +172,7 @@ export default class UploadDocuments extends Vue {
     if (doc.files) {
       return true;
     }
-    if (doc.documentSubCategory !== 'my-name') {
+    if (doc.documentSubCategory !== "my-name") {
       return true;
     }
 

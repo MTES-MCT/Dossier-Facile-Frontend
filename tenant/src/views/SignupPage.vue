@@ -13,10 +13,10 @@
             <div class="row justify-content-center">
               <div class="col-12 col-md-8">
                 <p>
-                  {{$t('mail-sent')}}
+                  {{ $t("mail-sent") }}
                 </p>
                 <p>
-                  {{$t('clic-to-confirm')}}
+                  {{ $t("clic-to-confirm") }}
                 </p>
               </div>
             </div>

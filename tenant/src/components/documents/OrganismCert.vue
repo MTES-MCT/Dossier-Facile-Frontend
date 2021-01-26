@@ -61,13 +61,13 @@ import { RegisterService } from "../../services/RegisterService";
   components: {
     DocumentInsert,
     FileUpload,
-    ListItem,
+    ListItem
   },
   computed: {
     ...mapState({
-      user: "user",
-    }),
-  },
+      user: "user"
+    })
+  }
 })
 export default class OrganismCert extends Vue {
   acceptedProofs = ["Certificat de garantie valide d'un organisme"];
@@ -90,7 +90,7 @@ export default class OrganismCert extends Vue {
     const fieldName = "documents";
     const formData = new FormData();
     if (!this.files.length) return;
-    Array.from(Array(this.files.length).keys()).map((x) => {
+    Array.from(Array(this.files.length).keys()).map(x => {
       formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
     });
 
@@ -132,12 +132,12 @@ export default class OrganismCert extends Vue {
   }
 
   listFiles() {
-    const newFiles = this.files.map((f) => {
+    const newFiles = this.files.map(f => {
       return {
         documentSubCategory: this.identificationDocument.value,
         id: f.name,
         name: f.name,
-        size: f.size,
+        size: f.size
       };
     });
     const existingFiles =

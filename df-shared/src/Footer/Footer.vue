@@ -116,7 +116,6 @@ li {
 .rf-footer__content-links {
   margin-bottom: 0;
 }
-
 </style>
 
 <i18n>

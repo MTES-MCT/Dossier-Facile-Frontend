@@ -55,20 +55,20 @@ import { email, is } from "vee-validate/dist/rules";
 
 extend("email", {
   ...email,
-  message: "email-not-valid",
+  message: "email-not-valid"
 });
 
 extend("is", {
   ...is,
   message: "field-required",
-  validate: (value) => !!value,
+  validate: value => !!value
 });
 
 @Component({
   components: {
     ValidationProvider,
-    ValidationObserver,
-  },
+    ValidationObserver
+  }
 })
 export default class CoupleInformation extends Vue {
   @PropSync("coupleMail", { type: String })

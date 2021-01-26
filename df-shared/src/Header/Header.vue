@@ -6,9 +6,7 @@
         href="/"
         title="Ministère de la transition écologique et solidaire"
       >
-        <span class="rf-logo__title">
-          République <br />française
-        </span>
+        <span class="rf-logo__title"> République <br />française </span>
       </a>
     </div>
     <div class="rf-header__navbar">
@@ -26,11 +24,7 @@
       <div class="rf-shortcuts">
         <ul class="rf-shortcuts__list">
           <li class="rf-shortcuts__item" v-if="loggedIn">
-            <DfButton
-              size="small"
-              @on-click="onLogout"
-              :label="$t('logout')"
-            />
+            <DfButton size="small" @on-click="onLogout" :label="$t('logout')" />
           </li>
           <li class="rf-shortcuts__item" v-if="!loggedIn">
             <DfButton
@@ -49,9 +43,13 @@
             />
           </li>
           <li class="rf-shortcuts__item">
-              <button class="rf-btn rf-ml-3 rf-btn--secondary rf-btn--sm lang" @click="changeLang">
-                <span :class="{underline: lang === 'fr'}">FR</span> | <span :class="{underline: lang === 'en'}">EN</span>
-              </button>
+            <button
+              class="rf-btn rf-ml-3 rf-btn--secondary rf-btn--sm lang"
+              @click="changeLang"
+            >
+              <span :class="{ underline: lang === 'fr' }">FR</span> |
+              <span :class="{ underline: lang === 'en' }">EN</span>
+            </button>
           </li>
         </ul>
       </div>
@@ -70,7 +68,7 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 })
 export default class MyHeader extends Vue {
   @Prop({ default: false }) loggedIn?: boolean;
-  @Prop({ default: 'fr' }) lang?: string;
+  @Prop({ default: "fr" }) lang?: string;
 
   onCreateTenant() {
     this.$emit("on-create-tenant");

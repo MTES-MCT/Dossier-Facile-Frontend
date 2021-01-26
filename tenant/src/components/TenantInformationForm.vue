@@ -4,7 +4,7 @@
       {{
         $t("tenantPresentation", {
           firstname: user.firstName,
-          lastname: user.lastName,
+          lastname: user.lastName
         })
       }}
     </p>
@@ -86,14 +86,14 @@ import { ValidationObserver } from "vee-validate";
   computed: {
     ...mapState({
       user: "user",
-      roommates: "roommates",
-    }),
+      roommates: "roommates"
+    })
   },
   components: {
     CoupleInformation,
     RoommatesInformation,
-    ValidationObserver,
-  },
+    ValidationObserver
+  }
 })
 export default class TenantInformationForm extends Vue {
   user!: User;
@@ -126,7 +126,7 @@ export default class TenantInformationForm extends Vue {
         .filter((r: User) => {
           return r.id != this.user.id;
         })
-        .map(function (r) {
+        .map(function(r) {
           return r.email;
         });
       acceptAccess = this.coTenantAuthorize;
@@ -135,13 +135,13 @@ export default class TenantInformationForm extends Vue {
     const data = {
       applicationType: this.applicationType,
       coTenantEmail: coTenantEmails,
-      acceptAccess: acceptAccess,
+      acceptAccess: acceptAccess
     };
 
     const loader = this.$loading.show();
     this.$store
       .dispatch("setRoommates", data)
-      .then(null, (error) => {
+      .then(null, error => {
         console.dir(error);
       })
       .finally(() => {

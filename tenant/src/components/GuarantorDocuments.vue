@@ -22,7 +22,17 @@
     </div>
     <div v-if="guarantorType === 'NATURAL_PERSON'">
       <div>
-        <div><button class="rf-mr-3w rf-mb-3w" :class="{guarantorselected: selectedGuarantor === g}" v-for="(g, k) in user.guarantors" :key="k" @click="selectGuarantor(k)">{{getName(g, k)}}</button></div>
+        <div>
+          <button
+            class="rf-mr-3w rf-mb-3w"
+            :class="{ guarantorselected: selectedGuarantor === g }"
+            v-for="(g, k) in user.guarantors"
+            :key="k"
+            @click="selectGuarantor(k)"
+          >
+            {{ getName(g, k) }}
+          </button>
+        </div>
         <div
           class="document-title"
           :class="{ selected: guarantorSubStep === 1 }"
@@ -193,22 +203,23 @@
     </div>
     <div class="rf-col-12 rf-mb-5w" v-if="guarantorType">
       <div class="rf-grid-row rf-mb-3w buttons">
-      <button v-if="guarantorType === 'NATURAL_PERSON'"
-        class="rf-btn rf-btn--secondary"
-        type="submit"
-        @click="addGuarantor()"
-      >
-        J'ajoute un nouveau garant
-      </button>
-      <button
-        class="rf-btn"
-        type="submit"
-        aria-disabled="!documentsFilled()"
-        :disabled="!documentsFilled()"
-        @click="nextStep()"
-      >
-        Étape suivante - Valider le dossier
-      </button>
+        <button
+          v-if="guarantorType === 'NATURAL_PERSON'"
+          class="rf-btn rf-btn--secondary"
+          type="submit"
+          @click="addGuarantor()"
+        >
+          J'ajoute un nouveau garant
+        </button>
+        <button
+          class="rf-btn"
+          type="submit"
+          aria-disabled="!documentsFilled()"
+          :disabled="!documentsFilled()"
+          @click="nextStep()"
+        >
+          Étape suivante - Valider le dossier
+        </button>
       </div>
     </div>
   </div>
@@ -249,7 +260,7 @@ import i18n from "../../../main/src/i18n";
       guarantorSubStep: "guarantorSubStep"
     }),
     ...mapGetters({
-      user: "userToEdit",
+      user: "userToEdit"
     })
   }
 })
@@ -306,7 +317,7 @@ export default class GuarantorDocuments extends Vue {
     if (g.lastName) {
       return `${g.lastName} ${g.firstName}`;
     }
-    return i18n.t('guarantor') + " " + k;
+    return i18n.t("guarantor") + " " + k;
   }
 
   selectGuarantor(k: number) {
@@ -315,7 +326,7 @@ export default class GuarantorDocuments extends Vue {
 
   isTaxValid() {
     const doc = this.user.documents?.find(d => {
-      return d.documentCategory === 'TAX';
+      return d.documentCategory === "TAX";
     });
     if (!doc) {
       return false;
@@ -323,7 +334,7 @@ export default class GuarantorDocuments extends Vue {
     if (doc.files) {
       return true;
     }
-    if (doc.documentSubCategory !== 'my-name') {
+    if (doc.documentSubCategory !== "my-name") {
       return true;
     }
 
@@ -371,7 +382,6 @@ h2 {
 .guarantorselected {
   background-color: $light-blue-transparent;
 }
-
 </style>
 
 <i18n>

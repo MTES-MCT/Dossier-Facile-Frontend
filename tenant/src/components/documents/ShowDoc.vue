@@ -4,10 +4,7 @@
       <div class="col-12 col-md-8">
         <div>
           <img :src="getUrl(file.path)" v-if="isImage()" />
-          <PdfViewer
-            :src="getUrl(file.path)"
-            v-if="!isImage()"
-          ></PdfViewer>
+          <PdfViewer :src="getUrl(file.path)" v-if="!isImage()"></PdfViewer>
         </div>
       </div>
     </div>
@@ -33,9 +30,9 @@ export default class ShowDoc extends Vue {
 
   isImage() {
     if (this.file.path) {
-      return !this.file.path.endsWith('pdf');
+      return !this.file.path.endsWith("pdf");
     }
-    return !this.file.name?.endsWith('pdf');
+    return !this.file.name?.endsWith("pdf");
   }
 }
 </script>

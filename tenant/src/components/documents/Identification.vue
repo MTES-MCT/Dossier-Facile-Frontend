@@ -123,12 +123,12 @@ import { RegisterService } from "../../services/RegisterService";
   components: { DocumentInsert, FileUpload, ListItem, ValidationProvider },
   computed: {
     ...mapState({
-      selectedGuarantor: "selectedGuarantor",
+      selectedGuarantor: "selectedGuarantor"
     }),
     ...mapGetters({
-      user: "userToEdit",
-    }),
-  },
+      user: "userToEdit"
+    })
+  }
 })
 export default class Identification extends Vue {
   user!: User | Guarantor;
@@ -172,7 +172,7 @@ export default class Identification extends Vue {
   }
 
   addFiles(fileList: File[]) {
-    const nf = Array.from(fileList).map((f) => {
+    const nf = Array.from(fileList).map(f => {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
@@ -186,11 +186,11 @@ export default class Identification extends Vue {
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    const newFiles = this.files.filter((f) => {
+    const newFiles = this.files.filter(f => {
       return !f.id;
     });
     if (!newFiles.length) return;
-    Array.from(Array(newFiles.length).keys()).map((x) => {
+    Array.from(Array(newFiles.length).keys()).map(x => {
       const f: File = newFiles[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
     });
@@ -226,13 +226,13 @@ export default class Identification extends Vue {
   }
 
   identificationFiles() {
-    const newFiles = this.files.map((f) => {
+    const newFiles = this.files.map(f => {
       return {
         documentSubCategory: this.identificationDocument.value,
         id: f.name,
         name: f.name,
         file: f.file,
-        size: f.file?.size,
+        size: f.file?.size
       };
     });
     const existingFiles =
@@ -264,23 +264,23 @@ export default class Identification extends Vue {
       acceptedProofs: ["Carte d’identité française recto-verso"],
       refusedProofs: [
         "Carte d’identité sans le verso ou périmée",
-        "Tout autre document",
-      ],
+        "Tout autre document"
+      ]
     },
     {
       key: "passport",
       value: "FRENCH_PASSPORT",
       acceptedProofs: ["Passport français (pages 2 et 3)"],
-      refusedProofs: ["Tout autre document"],
+      refusedProofs: ["Tout autre document"]
     },
     {
       key: "permit",
       value: "FRENCH_RESIDENCE_PERMIT",
       acceptedProofs: [
         "Carte de séjour en France temporaire recto-verso en cours de validité, ou périmée si elle est accompagnée du récépissé de la demande de renouvellement de carte de séjour",
-        "Visa de travail ou d’études temporaire en France",
+        "Visa de travail ou d’études temporaire en France"
       ],
-      refusedProofs: ["Tout autre document"],
+      refusedProofs: ["Tout autre document"]
     },
     {
       key: "other",
@@ -290,10 +290,10 @@ export default class Identification extends Vue {
         "Passeport étranger (pages 2 et 3)",
         "Permis de conduire français ou étranger recto-verso",
         "Carte de résident",
-        "Carte de ressortissant d’un État membre de l’UE ou de l’EEE",
+        "Carte de ressortissant d’un État membre de l’UE ou de l’EEE"
       ],
-      refusedProofs: ["Tout autre document"],
-    },
+      refusedProofs: ["Tout autre document"]
+    }
   ];
 }
 </script>

@@ -31,7 +31,7 @@
 
           <div class="rf-col-12 text-center rf-mb-5w">
             <button class="rf-btn" type="submit">
-              {{ $t('submit')}}
+              {{ $t("submit") }}
             </button>
           </div>
         </div>

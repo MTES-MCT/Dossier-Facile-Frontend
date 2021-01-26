@@ -15,7 +15,7 @@
         </p>
         <p v-if="isSaving()">Téléchargement de {{ fileCount }} fichiers...</p>
         <div v-if="isFailed()">
-          <h2>{{ $t('send-problem') }}</h2>
+          <h2>{{ $t("send-problem") }}</h2>
           <p>
             <a href="javascript:void(0)" @click="reset()">Réessayer</a>
           </p>
@@ -69,10 +69,12 @@ export default class FileUpload extends Vue {
   }
 
   filesChange(e: any) {
-    [...e.target.files].forEach((f: File) =>
-    {
+    [...e.target.files].forEach((f: File) => {
       if (f.size > 3 * 1024 * 1024) {
-        this.$toasted.show(this.$i18n.t('file-too-big').toString(), {type: 'error', duration: 5000})
+        this.$toasted.show(this.$i18n.t("file-too-big").toString(), {
+          type: "error",
+          duration: 5000
+        });
         return false;
       }
       return true;
@@ -84,7 +86,7 @@ export default class FileUpload extends Vue {
     const form = document.getElementsByName("uploadForm");
     form.forEach((f: any) => {
       f.reset();
-    })
+    });
   }
 }
 </script>
@@ -111,7 +113,11 @@ export default class FileUpload extends Vue {
 }
 
 .dropbox:hover {
-  background-image: linear-gradient(0deg,var(--color-active),var(--color-active));
+  background-image: linear-gradient(
+    0deg,
+    var(--color-active),
+    var(--color-active)
+  );
   --color-hover: rgba(0, 0, 246, 0.5);
   --color-active: rgba(91, 91, 255, 0.5);
 }

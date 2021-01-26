@@ -27,7 +27,10 @@
         ></FileUpload>
       </div>
     </div>
-    <div v-if="professionalFiles().length > 0" class="rf-col-lg-8 rf-col-md-12 rf-mb-3w">
+    <div
+      v-if="professionalFiles().length > 0"
+      class="rf-col-lg-8 rf-col-md-12 rf-mb-3w"
+    >
       <ListItem
         v-for="(file, k) in professionalFiles()"
         :key="k"
@@ -71,9 +74,9 @@ import { RegisterService } from "../../services/RegisterService";
   components: { DocumentInsert, FileUpload, ListItem },
   computed: {
     ...mapGetters({
-      user: "userToEdit",
-    }),
-  },
+      user: "userToEdit"
+    })
+  }
 })
 export default class Professional extends Vue {
   user!: User;
@@ -101,7 +104,7 @@ export default class Professional extends Vue {
   }
 
   addFiles(fileList: File[]) {
-    const nf = Array.from(fileList).map((f) => {
+    const nf = Array.from(fileList).map(f => {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
@@ -113,11 +116,11 @@ export default class Professional extends Vue {
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    const newFiles = this.files.filter((f) => {
+    const newFiles = this.files.filter(f => {
       return !f.id;
     });
     if (!newFiles.length) return;
-    Array.from(Array(newFiles.length).keys()).map((x) => {
+    Array.from(Array(newFiles.length).keys()).map(x => {
       const f: File = newFiles[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
     });
@@ -149,7 +152,7 @@ export default class Professional extends Vue {
   }
 
   professionalFiles() {
-    const newFiles = this.files.map((f) => {
+    const newFiles = this.files.map(f => {
       return {
         documentSubCategory: this.professionalDocument.value,
         id: f.name,
@@ -183,13 +186,13 @@ export default class Professional extends Vue {
         "Et si vous n’avez pas de contrat de travail ? Vous pouvez joindre une attestation de votre employeur signée et datée de moins de 3 mois.",
       acceptedProofs: [
         "Contrat de travail en cours, complet, daté et signé",
-        "Attestation de votre employeur de moins de 3 mois précisant l’emploi et la rémunération proposée et la date d’entrée en fonctions",
+        "Attestation de votre employeur de moins de 3 mois précisant l’emploi et la rémunération proposée et la date d’entrée en fonctions"
       ],
       refusedProofs: [
         "Courrier/mail de confirmation d’embauche",
         "Bulletins de salaire",
-        "Relevés de comptes bancaires",
-      ],
+        "Relevés de comptes bancaires"
+      ]
     },
     {
       key: "cdi-trial",
@@ -199,13 +202,13 @@ export default class Professional extends Vue {
         "Et si vous n’avez pas de contrat de travail ? Vous pouvez joindre une attestation de votre employeur signée et datée de moins de 3 mois.",
       acceptedProofs: [
         "Contrat de travail en cours, complet, daté et signé",
-        "Attestation de votre employeur de moins de 3 mois précisant l’emploi et la rémunération proposée, la date d’entrée en fonctions envisagée et la durée de la période d’essai.",
+        "Attestation de votre employeur de moins de 3 mois précisant l’emploi et la rémunération proposée, la date d’entrée en fonctions envisagée et la durée de la période d’essai."
       ],
       refusedProofs: [
         "Courrier/mail de confirmation d’embauche",
         "Bulletins de salaire",
-        "Relevés de comptes bancaires",
-      ],
+        "Relevés de comptes bancaires"
+      ]
     },
     {
       key: "cdd",
@@ -215,13 +218,13 @@ export default class Professional extends Vue {
         "Et si vous n’avez pas de contrat de travail ? Vous pouvez joindre une attestation de votre employeur signée et datée de moins de 3 mois.",
       acceptedProofs: [
         "Contrat de travail en cours, complet, daté et signé",
-        "Attestation de votre employeur de moins de 3 mois précisant l’emploi et la rémunération proposée, la date d’entrée en fonctions et la durée du contrat",
+        "Attestation de votre employeur de moins de 3 mois précisant l’emploi et la rémunération proposée, la date d’entrée en fonctions et la durée du contrat"
       ],
       refusedProofs: [
         "Courrier/mail de confirmation d’embauche",
         "Bulletins de salaire",
-        "Relevés de comptes bancaires",
-      ],
+        "Relevés de comptes bancaires"
+      ]
     },
     {
       key: "alternation",
@@ -230,9 +233,9 @@ export default class Professional extends Vue {
         "J’ajoute mon contrat d’alternance en cours, complet et signé.",
       acceptedProofs: [
         "Contrat d’alternance",
-        "Contrat de professionnalisation",
+        "Contrat de professionnalisation"
       ],
-      refusedProofs: ["Certificat de scolarité"],
+      refusedProofs: ["Certificat de scolarité"]
     },
     {
       key: "internship",
@@ -240,7 +243,7 @@ export default class Professional extends Vue {
       explanationText:
         "J’ajoute ma convention de stage en cours, complète et signée.",
       acceptedProofs: ["Convention de stage"],
-      refusedProofs: ["Certificat de scolarité"],
+      refusedProofs: ["Certificat de scolarité"]
     },
     {
       key: "student",
@@ -248,13 +251,13 @@ export default class Professional extends Vue {
       explanationText:
         "J’ajoute une copie de ma carte d’étudiant ou un certificat de scolarité pour l’année en cours.",
       acceptedProofs: [
-        "Carte d’étudiant ou certificat de scolarité pour l’année en cours",
+        "Carte d’étudiant ou certificat de scolarité pour l’année en cours"
       ],
       refusedProofs: [
         "Courrier/mail de confirmation d’inscription",
         "Attestation de paiement CVEC",
-        "Bulletin scolaire",
-      ],
+        "Bulletin scolaire"
+      ]
     },
     {
       key: "public",
@@ -262,9 +265,9 @@ export default class Professional extends Vue {
       explanationText: "J’ajoute un arrêté de nomination.",
       acceptedProofs: [
         "Arrêté de nomination",
-        "Attestation de votre employeur",
+        "Attestation de votre employeur"
       ],
-      refusedProofs: ["Bulletins de salaire", "Relevés de comptes bancaires"],
+      refusedProofs: ["Bulletins de salaire", "Relevés de comptes bancaires"]
     },
     {
       key: "ctt",
@@ -274,9 +277,9 @@ export default class Professional extends Vue {
         "Et si vous n’avez pas de contrat de travail ? Vous pouvez joindre une attestation de votre employeur signée et datée de moins de 3 mois.",
       acceptedProofs: [
         "Contrat de travail complet daté et signé",
-        "Attestation de votre employeur précisant l’emploi et la rémunération proposée, la date d’entrée en fonctions envisagée et la durée du contrat",
+        "Attestation de votre employeur précisant l’emploi et la rémunération proposée, la date d’entrée en fonctions envisagée et la durée du contrat"
       ],
-      refusedProofs: ["Bulletins de salaire", "Relevés de comptes bancaires"],
+      refusedProofs: ["Bulletins de salaire", "Relevés de comptes bancaires"]
     },
     {
       key: "retired",
@@ -287,9 +290,9 @@ export default class Professional extends Vue {
         "Bulletin de pension retraite",
         "Attestation de droit à une pension",
         "Titre de pension de retraite",
-        "Avis d’imposition complet de moins de 2 ans",
+        "Avis d’imposition complet de moins de 2 ans"
       ],
-      refusedProofs: ["Relevés de comptes bancaires"],
+      refusedProofs: ["Relevés de comptes bancaires"]
     },
     {
       key: "unemployed",
@@ -298,11 +301,11 @@ export default class Professional extends Vue {
         "J’ajoute une attestation d’ouverture de droits à l’ARE ou un avis de situation Pôle Emploi de moins de 3 mois.",
       acceptedProofs: [
         "Attestation d’ouverture de droits à l’ARE",
-        "Avis de situation Pôle Emploi de moins de 3 mois",
+        "Avis de situation Pôle Emploi de moins de 3 mois"
       ],
       refusedProofs: [
-        "Attestation de versement de paiement de cotisations sociales",
-      ],
+        "Attestation de versement de paiement de cotisations sociales"
+      ]
     },
     {
       key: "independent",
@@ -314,9 +317,9 @@ export default class Professional extends Vue {
         "Attestation d’inscription au statut d’auto-entrepreneur",
         "Carte professionnelle (profession libérale)",
         "Extrait D1 original du registre des métiers de moins de 3 mois (artisan)",
-        "Extrait K ou K bis du registre du commerce et des sociétés de moins de 3 mois (commerçant)",
+        "Extrait K ou K bis du registre du commerce et des sociétés de moins de 3 mois (commerçant)"
       ],
-      refusedProofs: ["Relevés de comptes bancaires"],
+      refusedProofs: ["Relevés de comptes bancaires"]
     },
     {
       key: "other",
@@ -327,10 +330,10 @@ export default class Professional extends Vue {
         "Attestation d’ouverture de droit AAH (adulte en situation de handicap)",
         "Attestation d’ouverture des droits au RSA (mère/père au foyer)",
         "Toute pièce de moins de 3 mois attestant de l’activité professionnelle (autres cas d’activité)",
-        "Déclaration de non-activité si vous êtes sans activité",
+        "Déclaration de non-activité si vous êtes sans activité"
       ],
-      refusedProofs: ["Relevés de comptes bancaires"],
-    },
+      refusedProofs: ["Relevés de comptes bancaires"]
+    }
   ];
 }
 </script>
