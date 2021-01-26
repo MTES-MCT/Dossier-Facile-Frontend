@@ -15,16 +15,26 @@ export const RegisterService = {
     },
 
     deleteFile(id: number | string) {
-    const loader = Vue.$loading.show();
-    const url = `//${process.env.VUE_APP_API_URL}/api/file/${id}`;
-    return axios.delete(url).then(() => {
-        Vue.toasted.global.delete_success();
-      }).catch(()=>{
-        Vue.toasted.global.delete_failed();
-      }).finally(() => {
-        loader.hide();
-        store.dispatch("loadUser");
-      });
+        const loader = Vue.$loading.show();
+        const url = `//${process.env.VUE_APP_API_URL}/api/file/${id}`;
+        return axios.delete(url).then(() => {
+            Vue.toasted.global.delete_success();
+        }).catch(() => {
+            Vue.toasted.global.delete_failed();
+        }).finally(() => {
+            loader.hide();
+            store.dispatch("loadUser");
+        });
 
+    },
+
+    saveFinancial(formData: FormData) {
+        let url: string;
+        if (store.getters.isGuarantor) {
+            url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentFinancial`;
+        } else {
+            url = `//${process.env.VUE_APP_API_URL}/api/register/documentFinancial`;
+        }
+        return axios.post(url, formData)
     }
 };

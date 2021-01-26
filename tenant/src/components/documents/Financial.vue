@@ -129,7 +129,6 @@ import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { mapGetters } from "vuex";
 import { UploadStatus } from "../uploads/UploadStatus";
-import axios from "axios";
 import ListItem from "@/components/uploads/ListItem.vue";
 import { ValidationProvider } from "vee-validate";
 import { User } from "df-shared/src/models/User";
@@ -138,6 +137,7 @@ import { DfDocument } from "df-shared/src/models/DfDocument";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { extend } from "vee-validate";
 import { regex } from "vee-validate/dist/rules";
+import { RegisterService } from "../../services/RegisterService";
 
 extend("regex", {
   ...regex,
@@ -228,23 +228,16 @@ export default class Financial extends Vue {
     formData.append("customText", f.customText);
 
     f.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    let url: string;
     if (this.$store.getters.isGuarantor) {
-      url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentFinancial`;
       formData.append("guarantorId", this.$store.getters.guarantor.id);
-    } else {
-      url = `//${process.env.VUE_APP_API_URL}/api/register/documentFinancial`;
     }
     const loader = this.$loading.show();
-    axios
-      .post(url, formData)
+    RegisterService.saveFinancial(formData)
       .then(() => {
-        console.log("success");
         f.files = [];
         f.fileUploadStatus = UploadStatus.STATUS_INITIAL;
       })
       .catch(() => {
-        console.log("fail");
         f.fileUploadStatus = UploadStatus.STATUS_FAILED;
       })
       .finally(() => {
@@ -269,13 +262,8 @@ export default class Financial extends Vue {
   }
 
   remove(f: F, file: DfFile) {
-    if (file.path) {
-      const loader = this.$loading.show();
-      const url = `//${process.env.VUE_APP_API_URL}/api/file/${file.id}`;
-      axios.delete(url).finally(() => {
-        this.$store.dispatch("loadUser");
-        loader.hide();
-      });
+    if (file.path && file.id) {
+      RegisterService.deleteFile(file.id);
     } else {
       f.files = f.files.filter((f: DfFile) => {
         return f.name !== file.name;
