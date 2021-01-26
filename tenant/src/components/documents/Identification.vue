@@ -111,7 +111,6 @@ import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "../uploads/UploadStatus";
-import axios from "axios";
 import ListItem from "@/components/uploads/ListItem.vue";
 import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
@@ -202,20 +201,17 @@ export default class Identification extends Vue {
     );
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    let url: string;
     if (this.$store.getters.isGuarantor) {
-      url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentIdentification`;
       formData.append("firstName", this.firstName);
       formData.append("lastName", this.lastName);
       if (this.$store.getters.guarantor.id) {
         formData.append("guarantorId", this.$store.getters.guarantor.id);
       }
     } else {
-      url = `//${process.env.VUE_APP_API_URL}/api/register/documentIdentification`;
     }
     const loader = this.$loading.show();
-    axios
-      .post(url, formData)
+    RegisterService
+      .saveIdentification(formData)
       .then(() => {
         console.log("success");
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
