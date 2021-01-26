@@ -78,10 +78,12 @@ export default new Vuex.Store({
       }
       if (state.user?.guarantors && state.user.guarantors.length > 0) {
         if (state.selectedGuarantor.id) {
-          const guarantor = user.guarantors.find( (g: any) => {return g.id === state.selectedGuarantor.id})
+          const guarantor = user.guarantors.find((g: any) => {
+            return g.id === state.selectedGuarantor.id;
+          });
           state.selectedGuarantor = guarantor;
         } else {
-          state.selectedGuarantor = user.guarantors[user.guarantors.length-1];
+          state.selectedGuarantor = user.guarantors[user.guarantors.length - 1];
         }
         if (state.selectedGuarantor) {
           state.guarantorStep = 2;
@@ -102,13 +104,16 @@ export default new Vuex.Store({
     },
     addGuarantor(state) {
       if (state.user?.guarantors !== undefined) {
-        const g = new Guarantor()
-        state.user?.guarantors.push(g)
+        const g = new Guarantor();
+        state.user?.guarantors.push(g);
         state.selectedGuarantor = g;
       }
     },
     selectGuarantor(state, position) {
-      if (state.user?.guarantors !== undefined && state.user?.guarantors.length > position) {
+      if (
+        state.user?.guarantors !== undefined &&
+        state.user?.guarantors.length > position
+      ) {
         state.selectedGuarantor = state.user?.guarantors[position];
       }
     }
@@ -202,7 +207,7 @@ export default new Vuex.Store({
         }
       );
     },
-    addGuarantor({commit}) {
+    addGuarantor({ commit }) {
       commit("addGuarantor");
     }
   },

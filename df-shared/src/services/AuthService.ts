@@ -43,6 +43,6 @@ export const AuthService = {
   },
 
   confirmAccount(token: string) {
-    return axios.get(`${API_URL}register/confirmAccount/${token}`)
+    return axios.get(`${API_URL}register/confirmAccount/${token}`);
   }
 };

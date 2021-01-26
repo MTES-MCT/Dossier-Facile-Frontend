@@ -3,13 +3,10 @@ import axios from "axios";
 
 export const ProfileService = {
   saveNames(user: User) {
-    return axios.post(
-      `//${process.env.VUE_APP_API_URL}/api/register/names`,
-      {
-        firstName: user.firstName,
-        lastName: user.lastName
-      }
-    );
+    return axios.post(`//${process.env.VUE_APP_API_URL}/api/register/names`, {
+      firstName: user.firstName,
+      lastName: user.lastName
+    });
   },
   saveRoommates(data: {
     applicationType: string;
@@ -22,6 +19,9 @@ export const ProfileService = {
     );
   },
   validateFile(honorDeclaration: boolean) {
-    return axios.post(`//${process.env.VUE_APP_API_URL}/api/register/honorDeclaration`, {honorDeclaration})
+    return axios.post(
+      `//${process.env.VUE_APP_API_URL}/api/register/honorDeclaration`,
+      { honorDeclaration }
+    );
   }
 };

@@ -1,4 +1,3 @@
-
 export class DfFile {
   id?: number | string;
   path?: string;

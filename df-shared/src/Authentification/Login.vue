@@ -55,13 +55,13 @@
 
           <div class="rf-col-12 text-center rf-mb-5w">
             <button class="rf-btn" type="submit">
-              {{ $t("submit")}}
+              {{ $t("submit") }}
             </button>
           </div>
           <div class="rf-col-12 text-center rf-mb-3w">
-            <router-link to="/forgotten-password"
-              >{{ $t("forgotten-password") }}</router-link
-            >
+            <router-link to="/forgotten-password">{{
+              $t("forgotten-password")
+            }}</router-link>
           </div>
           <div class="rf-col-12 text-center rf-mb-12w">
             <router-link to="/signup">{{ $t("no-account") }}</router-link>

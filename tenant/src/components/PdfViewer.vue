@@ -41,7 +41,7 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 import pdf from "vue-pdf";
 
 @Component({
-  components: { pdf },
+  components: { pdf }
 })
 export default class PdfViewer extends Vue {
   @Prop() private src!: string;
@@ -53,19 +53,19 @@ export default class PdfViewer extends Vue {
   rotate = 0;
 
   decreasePage() {
-      if (this.page > 1) {
-        this.page--;
-      }
+    if (this.page > 1) {
+      this.page--;
+    }
   }
 
   increasePage() {
-      if (this.page < this.numPages) {
-        this.page++;
-      }
+    if (this.page < this.numPages) {
+      this.page++;
+    }
   }
 
   error(err: any) {
-      console.log(err);
+    console.log(err);
   }
 }
 </script>

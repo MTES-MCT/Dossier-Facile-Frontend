@@ -49,7 +49,7 @@
               <i class="icon color--primary icon-Magic-Wand icon--sm"></i>
               <h5>{{ $t("h5-1") }}</h5>
               <p>
-                {{ $t("p3")}}
+                {{ $t("p3") }}
               </p>
             </div>
           </div>
@@ -58,7 +58,7 @@
               <i class="icon color--primary icon-Green-House icon--sm"></i>
               <h5>{{ $t("h5-2") }}</h5>
               <p>
-                {{ $t("p4")}}
+                {{ $t("p4") }}
               </p>
             </div>
           </div>
@@ -67,7 +67,7 @@
               <i class="icon color--primary icon-Mouse-2 icon--sm"></i>
               <h5>{{ $t("h5-3") }}</h5>
               <p>
-                {{ $t("p5")}}
+                {{ $t("p5") }}
               </p>
             </div>
           </div>
@@ -76,7 +76,7 @@
               <i class="icon color--primary icon-Cloud-Lock icon--sm"></i>
               <h5>{{ $t("h5-4") }}</h5>
               <p>
-                {{ $t("p6")}}
+                {{ $t("p6") }}
               </p>
             </div>
           </div>
@@ -90,7 +90,7 @@
           <div class="rf-col-md-9 rf-col-lg-7">
             <h2>{{ $t("h2-2") }}</h2>
             <p>
-                {{ $t("p7")}}
+              {{ $t("p7") }}
             </p>
             <DfButton
               primary="true"
@@ -120,14 +120,14 @@
               </div>
 
               <p>
-                {{ $t("p8")}}
+                {{ $t("p8") }}
               </p>
               <a
                 class="text-bleu-clair"
                 href="https://www.visale.fr/#!/"
                 target="_blank"
               >
-                {{ $t("visale-link")}}
+                {{ $t("visale-link") }}
               </a>
             </div>
           </div>
@@ -150,14 +150,14 @@
               </div>
 
               <p>
-                {{ $t("p9")}}
+                {{ $t("p9") }}
               </p>
               <a
                 class="text-bleu-clair"
                 href="https://www.anil.org/"
                 target="_blank"
               >
-                {{ $t("anil-link")}}
+                {{ $t("anil-link") }}
               </a>
             </div>
           </div>
@@ -171,7 +171,7 @@
           <div class="rf-col-12">
             <h2>{{ $t("h2-3") }}</h2>
             <p>
-              {{ $t("p10")}}
+              {{ $t("p10") }}
             </p>
           </div>
         </div>
@@ -185,7 +185,7 @@
             <div class="process__item">
               <h5>{{ $t("h5-7") }}</h5>
               <p>
-                {{ $t("p11")}}
+                {{ $t("p11") }}
               </p>
             </div>
           </div>
@@ -193,7 +193,7 @@
             <div class="process__item">
               <h5>{{ $t("h5-8") }}</h5>
               <p>
-                {{ $t("p12")}}
+                {{ $t("p12") }}
               </p>
             </div>
           </div>
@@ -201,7 +201,7 @@
             <div class="process__item">
               <h5>{{ $t("h5-9") }}</h5>
               <p>
-                {{ $t("p13")}}
+                {{ $t("p13") }}
               </p>
             </div>
           </div>

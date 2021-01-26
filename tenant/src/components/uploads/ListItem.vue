@@ -5,20 +5,29 @@
         <span class="icon icon-File"></span>
       </div>
       <div class="text rf-pr-2w">
-        {{ getName() }}<br>
+        {{ getName() }}<br />
         <span class="size">{{ getSize() }}</span>
       </div>
       <div class="progress">
         <Progress :percentage="percentage" :state="uploadState" />
       </div>
-      <div class="action-btn rf-p-2w" @click="openDoc()" :title="$t('show')" v-if="file.path">
+      <div
+        class="action-btn rf-p-2w"
+        @click="openDoc()"
+        :title="$t('show')"
+        v-if="file.path"
+      >
         <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
       </div>
       <div class="action-btn rf-p-2w" @click="remove()" :title="$t('remove')">
         <span class="icon icon-Recycling text-danger"></span>
       </div>
     </div>
-    <Modal v-show="isDocModalVisible" @close="isDocModalVisible = false" v-if="file.path">
+    <Modal
+      v-show="isDocModalVisible"
+      @close="isDocModalVisible = false"
+      v-if="file.path"
+    >
       <template v-slot:body>
         <ShowDoc :file="file"></ShowDoc>
       </template>
@@ -37,8 +46,8 @@ import Modal from "df-shared/src/components/Modal.vue";
   components: {
     Progress,
     ShowDoc,
-    Modal,
-  },
+    Modal
+  }
 })
 export default class ListItem extends Vue {
   @Prop({ default: "" }) file!: DfFile;
@@ -64,9 +73,9 @@ export default class ListItem extends Vue {
       const kb = this.file.size / 1000;
       if (kb > 1000) {
         const mb = kb / 1000;
-      return `${mb.toFixed(2)} ${this.$i18n.t('mb')}`;
+        return `${mb.toFixed(2)} ${this.$i18n.t("mb")}`;
       }
-      return `${kb.toFixed(2)} ${this.$i18n.t('kb')}`;
+      return `${kb.toFixed(2)} ${this.$i18n.t("kb")}`;
     }
     return "-";
   }

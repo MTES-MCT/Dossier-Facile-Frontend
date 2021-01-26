@@ -120,11 +120,14 @@ export default class NameInformationForm extends Vue {
 
   handleNameInformation() {
     const loader = this.$loading.show();
-    this.$store.dispatch("setNames", this.user).then(null, error => {
-      console.dir(error);
-    }).finally(() => {
-      loader.hide()
-     });
+    this.$store
+      .dispatch("setNames", this.user)
+      .then(null, error => {
+        console.dir(error);
+      })
+      .finally(() => {
+        loader.hide();
+      });
   }
 }
 </script>

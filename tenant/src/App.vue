@@ -96,7 +96,6 @@ export default class App extends Vue {
   display: flex;
   align-items: stretch;
 }
-
 </style>
 
 <i18n>

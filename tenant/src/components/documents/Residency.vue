@@ -67,19 +67,19 @@ import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "../uploads/UploadStatus";
-import axios from "axios";
 import ListItem from "@/components/uploads/ListItem.vue";
 import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
+import { RegisterService } from "../../services/RegisterService";
 
 @Component({
   components: { DocumentInsert, FileUpload, ListItem },
   computed: {
     ...mapGetters({
-      user: "userToEdit",
-    }),
-  },
+      user: "userToEdit"
+    })
+  }
 })
 export default class Residency extends Vue {
   user!: User;
@@ -107,7 +107,7 @@ export default class Residency extends Vue {
   }
 
   addFiles(fileList: File[]) {
-    const nf = Array.from(fileList).map((f) => {
+    const nf = Array.from(fileList).map(f => {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
@@ -119,11 +119,11 @@ export default class Residency extends Vue {
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    const newFiles = this.files.filter((f) => {
+    const newFiles = this.files.filter(f => {
       return !f.id;
     });
     if (!newFiles.length) return;
-    Array.from(Array(newFiles.length).keys()).map((x) => {
+    Array.from(Array(newFiles.length).keys()).map(x => {
       const f: File = newFiles[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
     });
@@ -131,24 +131,19 @@ export default class Residency extends Vue {
     formData.append("typeDocumentResidency", this.residencyDocument.value);
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    let url: string;
     if (this.$store.getters.isGuarantor) {
-      url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentResidency`;
       formData.append("guarantorId", this.$store.getters.guarantor.id);
-    } else {
-      url = `//${process.env.VUE_APP_API_URL}/api/register/documentResidency`;
     }
     const loader = this.$loading.show();
-    axios
-      .post(url, formData)
+    RegisterService.saveResidency(formData)
       .then(() => {
-        console.log("success");
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
+        Vue.toasted.global.save_success();
       })
       .catch(() => {
-        console.log("fail");
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
+        Vue.toasted.global.save_failed();
       })
       .finally(() => {
         this.$store.dispatch("loadUser");
@@ -157,7 +152,7 @@ export default class Residency extends Vue {
   }
 
   residencyFiles() {
-    const newFiles = this.files.map((f) => {
+    const newFiles = this.files.map(f => {
       return {
         documentSubCategory: this.residencyDocument.value,
         id: f.name,
@@ -173,13 +168,8 @@ export default class Residency extends Vue {
   }
 
   remove(file: DfFile) {
-    if (file.path) {
-      const url = `//${process.env.VUE_APP_API_URL}/api/file/${file.id}`;
-      const loader = this.$loading.show();
-      axios.delete(url).finally(() => {
-        this.$store.dispatch("loadUser");
-        loader.hide();
-      });
+    if (file.path && file.id) {
+      RegisterService.deleteFile(file.id);
     } else {
       this.files = this.files.filter((f: DfFile) => {
         return f.name !== file.name;
@@ -195,13 +185,13 @@ export default class Residency extends Vue {
         "J’ajoute mes quittances de loyer pour les trois derniers mois.",
       acceptedProofs: [
         "Quittances de loyer des trois derniers mois",
-        "Attestation du propriétaire (ou de son mandataire) indiquant que le locataire est à jour de ses loyers et charges",
+        "Attestation du propriétaire (ou de son mandataire) indiquant que le locataire est à jour de ses loyers et charges"
       ],
       refusedProofs: [
         "Factures",
         "Avis de taxe d’habitation",
-        "Relevés de compte bancaire",
-      ],
+        "Relevés de compte bancaire"
+      ]
     },
     {
       key: "owner",
@@ -209,14 +199,14 @@ export default class Residency extends Vue {
       explanationText: "J’ajoute un avis de taxe foncière de moins d’un an.",
       acceptedProofs: [
         "Dernier avis de taxe foncière",
-        "Titre de propriété de la résidence principale",
+        "Titre de propriété de la résidence principale"
       ],
       refusedProofs: [
         "Appel de fonds pour charges de copropriété",
         "Factures",
         "Avis de taxe d’habitation",
-        "Relevés de compte bancaire",
-      ],
+        "Relevés de compte bancaire"
+      ]
     },
     {
       key: "guest",
@@ -227,9 +217,9 @@ export default class Residency extends Vue {
         "hébergeant (une facture suffit). Vous pouvez utiliser un modèle en ligne " +
         "sur le site service-public.fr",
       acceptedProofs: [
-        "Attestation sur l’honneur du parent datée et signée indiquant que le candidat à la location réside à son domicile, accompagnée d’une pièce d’identité et d’un justificatif de domicile du parent (une simple facture suffit)",
+        "Attestation sur l’honneur du parent datée et signée indiquant que le candidat à la location réside à son domicile, accompagnée d’une pièce d’identité et d’un justificatif de domicile du parent (une simple facture suffit)"
       ],
-      refusedProofs: ["Tout autre document"],
+      refusedProofs: ["Tout autre document"]
     },
     {
       key: "guest-parents",
@@ -241,10 +231,10 @@ export default class Residency extends Vue {
         "le site service-public.fr",
       acceptedProofs: [
         "Attestation sur l’honneur de l’hébergeant datée de moins de trois mois et signée indiquant que le candidat à la location réside à son domicile, accompagnée d’une pièce d’identité et d’un justificatif de domicile de l’hébergeant (une simple facture suffit)",
-        "Attestation d’élection de domicile datée de moins de trois mois et signée de l’organisme d’hébergement (hébergement d’urgence, placement…) indiquant l’adresse de l’hébergement (téléchargeable sur le site https://www.service-public.fr/simulateur/calcul/16030 ) ",
+        "Attestation d’élection de domicile datée de moins de trois mois et signée de l’organisme d’hébergement (hébergement d’urgence, placement…) indiquant l’adresse de l’hébergement (téléchargeable sur le site https://www.service-public.fr/simulateur/calcul/16030 ) "
       ],
-      refusedProofs: ["Tout autre document"],
-    },
+      refusedProofs: ["Tout autre document"]
+    }
   ];
 }
 </script>

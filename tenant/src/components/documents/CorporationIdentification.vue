@@ -73,17 +73,17 @@ import { mapState } from "vuex";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { UploadStatus } from "../uploads/UploadStatus";
-import axios from "axios";
 import ListItem from "@/components/uploads/ListItem.vue";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { DfFile } from "df-shared/src/models/DfFile";
+import { RegisterService } from "../../services/RegisterService";
 
 extend("required", {
   ...required,
-  message: "Ce champ est requis",
+  message: "Ce champ est requis"
 });
 
 @Component({
@@ -92,26 +92,26 @@ extend("required", {
     FileUpload,
     ListItem,
     ValidationProvider,
-    ValidationObserver,
+    ValidationObserver
   },
   computed: {
     ...mapState({
       user: "user",
-      tenantStep: "tenantStep",
-    }),
-  },
+      tenantStep: "tenantStep"
+    })
+  }
 })
 export default class CorporationIdentification extends Vue {
   organismName = "";
   acceptedProofs = [
     this.$i18n.t("kbis"),
     this.$i18n.t("status"),
-    this.$i18n.t("all-accepted"),
+    this.$i18n.t("all-accepted")
   ];
   refusedProofs = [
     this.$i18n.t("balance-sheet"),
     this.$i18n.t("urssaf"),
-    this.$i18n.t("all-other"),
+    this.$i18n.t("all-other")
   ];
 
   files: File[] = [];
@@ -129,26 +129,23 @@ export default class CorporationIdentification extends Vue {
     const fieldName = "documents";
     const formData = new FormData();
     if (!this.files.length) return;
-    Array.from(Array(this.files.length).keys()).map((x) => {
+    Array.from(Array(this.files.length).keys()).map(x => {
       formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
     });
 
     formData.append("legalPersonName", this.organismName);
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    // TODO use service with right url
-    const url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorLegalPerson/documentIdentification`;
     const loader = this.$loading.show();
-    axios
-      .post(url, formData)
+    RegisterService.saveCorporationIdentification(formData)
       .then(() => {
-        console.log("success");
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
+        Vue.toasted.global.save_success();
       })
       .catch(() => {
-        console.log("fail");
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
+        Vue.toasted.global.save_failed();
       })
       .finally(() => {
         this.$store.dispatch("loadUser");
@@ -161,16 +158,17 @@ export default class CorporationIdentification extends Vue {
   }
 
   remove(file: DfFile) {
-    const loader = this.$loading.show();
-    const url = `//${process.env.VUE_APP_API_URL}/api/file/${file.id}`;
-    axios.delete(url).finally(() => {
-      this.$store.dispatch("loadUser");
-      loader.hide();
-    });
+    if (file.path && file.id) {
+      RegisterService.deleteFile(file.id);
+    } else {
+      this.files = this.files.filter((f: DfFile) => {
+        return f.name !== file.name;
+      });
+    }
   }
 
   listFiles() {
-    const newFiles = this.files.map((f) => {
+    const newFiles = this.files.map(f => {
       return {
         id: f.name,
         name: f.name,

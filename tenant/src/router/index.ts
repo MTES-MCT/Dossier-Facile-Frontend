@@ -95,7 +95,9 @@ const routes: Array<RouteConfig> = [
       hideForAuth: true
     },
     component: () =>
-      import(/* webpackChunkName: "confirmAccount" */ "@/views/ConfirmAccount.vue")
+      import(
+        /* webpackChunkName: "confirmAccount" */ "@/views/ConfirmAccount.vue"
+      )
   }
 ];
 
@@ -111,11 +113,11 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!store.getters.isLoggedIn) {
-      next({name: 'Login'});
+      next({ name: "Login" });
     }
   } else if (to.matched.some(record => record.meta.hideForAuth)) {
     if (store.getters.isLoggedIn) {
-      next({name: 'Profile'});
+      next({ name: "Profile" });
     }
   }
   document.title = to.meta.title;

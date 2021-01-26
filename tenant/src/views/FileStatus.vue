@@ -11,16 +11,27 @@
                   Votre lien sera généré dès que votre dossier sera validé. Vous
                   êtes actuellement à l'étape TODO
 
-                    <div v-if="user.status === 'TO_PROCESS'"> dossier complété. </div>
-                    <div v-if="user.status === 'VALIDATED'"> dossier validé. </div>
-                    <div v-if="user.status === 'DECLINED'"> dossier étudié. </div>
-                    <div v-if="!user.status || user.status === 'INCOMPLETE'"> dossier créé. </div>
+                  <div v-if="user.status === 'TO_PROCESS'">
+                    dossier complété.
+                  </div>
+                  <div v-if="user.status === 'VALIDATED'">dossier validé.</div>
+                  <div v-if="user.status === 'DECLINED'">dossier étudié.</div>
+                  <div v-if="!user.status || user.status === 'INCOMPLETE'">
+                    dossier créé.
+                  </div>
                 </h5>
 
                 <div class="mt-5">
-                  <span>{{ $t('subtitle', [user.firstName, user.lastName, user.situation+'TODO', user.salary+'TODO'])}}</span>
+                  <span>{{
+                    $t("subtitle", [
+                      user.firstName,
+                      user.lastName,
+                      user.situation + "TODO",
+                      user.salary + "TODO"
+                    ])
+                  }}</span>
                   <router-link to="/profile"> (Modifier)</router-link><br />
-                  <span>{{ $t('last-update', [user.lastUpdate])}}TODO</span>
+                  <span>{{ $t("last-update", [user.lastUpdate]) }}TODO</span>
                 </div>
                 <div
                   class="d-flex flex-column"
@@ -123,8 +134,8 @@
                   <h4>Attention</h4>
                   <p>
                     Vous avez mis à jour votre dossier pour la dernière fois le
-                    <span>{{ user.lastUpdate }} TODO"</span
-                    >. Afin qu'il reste! <b>convaincant</b>, il est important de
+                    <span>{{ user.lastUpdate }} TODO"</span>. Afin qu'il reste!
+                    <b>convaincant</b>, il est important de
                     <b>maintenir à jour vos justificatifs</b>.<br />
                     <a href="#suivi-dossier">Je mets à jour mes documents</a>
                   </p>
@@ -138,9 +149,7 @@
           <div class="container">
             <div class="process-2 row">
               <div class="col-md-3" v-if="user.status === 'INCOMPLETE'">
-                <div
-                  class="process__item process__item_active"
-                >
+                <div class="process__item process__item_active">
                   <h5>Dossier créé</h5>
                   <p>
                     Votre dossier a été créé, merci de faire confiance à
@@ -150,9 +159,7 @@
                 </div>
               </div>
               <div class="col-md-3" v-if="user.status === 'TO_PROCESS'">
-                <div
-                  class="process__item process__item_active"
-                >
+                <div class="process__item process__item_active">
                   <h5>Dossier complété</h5>
                   <p>
                     Votre dossier est complet, merci pour votre efficacité ! Il
@@ -161,9 +168,7 @@
                 </div>
               </div>
               <div class="col-md-3" v-if="user.status === 'DECLINED'">
-                <div
-                  class="process__item process__item_active"
-                >
+                <div class="process__item process__item_active">
                   <h5>Dossier étudié</h5>
                   <p>
                     Votre dossier est actuellement à l'étude. Pour correspondre
@@ -173,9 +178,7 @@
                 </div>
               </div>
               <div class="col-md-3" v-if="user.status === 'VALIDATED'">
-                <div
-                  class="process__item process__item_active"
-                >
+                <div class="process__item process__item_active">
                   <h5>Dossier validé</h5>
                   <p>
                     Super, votre dossier est à présent validé ! Maintenant vous
@@ -203,9 +206,9 @@ import { DfDocument } from "df-shared/src/models/DfDocument";
   components: { ValidationProvider },
   computed: {
     ...mapState({
-      user: "user",
-    }),
-  },
+      user: "user"
+    })
+  }
 })
 export default class FileStatus extends Vue {
   user!: User;
@@ -220,15 +223,17 @@ export default class FileStatus extends Vue {
 
   oldUpdateDocument() {
     // TODO
-    const now = new Date()
+    const now = new Date();
     const lastMonth = new Date(now.getDate() - 30);
-    const lastUpdate = new Date(this.user.lastUpdate || new Date())
+    const lastUpdate = new Date(this.user.lastUpdate || new Date());
     return lastUpdate < lastMonth;
   }
 
   isStudent() {
-    const doc = this.user.documents?.find((d: DfDocument) => {return d.documentCategory === 'PROFESSIONAL'});
-    return doc?.documentSubCategory === 'STUDENT'
+    const doc = this.user.documents?.find((d: DfDocument) => {
+      return d.documentCategory === "PROFESSIONAL";
+    });
+    return doc?.documentSubCategory === "STUDENT";
   }
 }
 </script>

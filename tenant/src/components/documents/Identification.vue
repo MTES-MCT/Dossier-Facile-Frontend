@@ -74,7 +74,10 @@
         ></FileUpload>
       </div>
     </div>
-    <div v-if="identificationFiles().length > 0" class="rf-col-lg-8 rf-col-md-12 rf-mb-3w">
+    <div
+      v-if="identificationFiles().length > 0"
+      class="rf-col-lg-8 rf-col-md-12 rf-mb-3w"
+    >
       <ListItem
         v-for="(file, k) in identificationFiles()"
         :key="k"
@@ -108,24 +111,24 @@ import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "../uploads/UploadStatus";
-import axios from "axios";
 import ListItem from "@/components/uploads/ListItem.vue";
 import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { ValidationProvider } from "vee-validate";
 import { Guarantor } from "df-shared/src/models/Guarantor";
+import { RegisterService } from "../../services/RegisterService";
 
 @Component({
   components: { DocumentInsert, FileUpload, ListItem, ValidationProvider },
   computed: {
     ...mapState({
-      selectedGuarantor: "selectedGuarantor",
+      selectedGuarantor: "selectedGuarantor"
     }),
     ...mapGetters({
-      user: "userToEdit",
-    }),
-  },
+      user: "userToEdit"
+    })
+  }
 })
 export default class Identification extends Vue {
   user!: User | Guarantor;
@@ -169,7 +172,7 @@ export default class Identification extends Vue {
   }
 
   addFiles(fileList: File[]) {
-    const nf = Array.from(fileList).map((f) => {
+    const nf = Array.from(fileList).map(f => {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
@@ -183,11 +186,11 @@ export default class Identification extends Vue {
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    const newFiles = this.files.filter((f) => {
+    const newFiles = this.files.filter(f => {
       return !f.id;
     });
     if (!newFiles.length) return;
-    Array.from(Array(newFiles.length).keys()).map((x) => {
+    Array.from(Array(newFiles.length).keys()).map(x => {
       const f: File = newFiles[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
     });
@@ -198,28 +201,23 @@ export default class Identification extends Vue {
     );
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    let url: string;
     if (this.$store.getters.isGuarantor) {
-      url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentIdentification`;
       formData.append("firstName", this.firstName);
       formData.append("lastName", this.lastName);
       if (this.$store.getters.guarantor.id) {
         formData.append("guarantorId", this.$store.getters.guarantor.id);
       }
-    } else {
-      url = `//${process.env.VUE_APP_API_URL}/api/register/documentIdentification`;
     }
     const loader = this.$loading.show();
-    axios
-      .post(url, formData)
+    RegisterService.saveIdentification(formData)
       .then(() => {
-        console.log("success");
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         this.files = [];
+        Vue.toasted.global.save_success();
       })
       .catch(() => {
-        console.log("fail");
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
+        Vue.toasted.global.save_failed();
       })
       .finally(() => {
         this.$store.dispatch("loadUser");
@@ -228,7 +226,7 @@ export default class Identification extends Vue {
   }
 
   identificationFiles() {
-    const newFiles = this.files.map((f) => {
+    const newFiles = this.files.map(f => {
       return {
         documentSubCategory: this.identificationDocument.value,
         id: f.name,
@@ -245,13 +243,8 @@ export default class Identification extends Vue {
   }
 
   remove(file: DfFile) {
-    if (file.path) {
-      const loader = this.$loading.show();
-      const url = `//${process.env.VUE_APP_API_URL}/api/file/${file.id}`;
-      axios.delete(url).finally(() => {
-        this.$store.dispatch("loadUser");
-        loader.hide();
-      });
+    if (file.path && file.id) {
+      RegisterService.deleteFile(file.id);
     } else {
       this.files = this.files.filter((f: DfFile) => {
         return f.name !== file.name;
@@ -271,23 +264,23 @@ export default class Identification extends Vue {
       acceptedProofs: ["Carte d’identité française recto-verso"],
       refusedProofs: [
         "Carte d’identité sans le verso ou périmée",
-        "Tout autre document",
-      ],
+        "Tout autre document"
+      ]
     },
     {
       key: "passport",
       value: "FRENCH_PASSPORT",
       acceptedProofs: ["Passport français (pages 2 et 3)"],
-      refusedProofs: ["Tout autre document"],
+      refusedProofs: ["Tout autre document"]
     },
     {
       key: "permit",
       value: "FRENCH_RESIDENCE_PERMIT",
       acceptedProofs: [
         "Carte de séjour en France temporaire recto-verso en cours de validité, ou périmée si elle est accompagnée du récépissé de la demande de renouvellement de carte de séjour",
-        "Visa de travail ou d’études temporaire en France",
+        "Visa de travail ou d’études temporaire en France"
       ],
-      refusedProofs: ["Tout autre document"],
+      refusedProofs: ["Tout autre document"]
     },
     {
       key: "other",
@@ -297,10 +290,10 @@ export default class Identification extends Vue {
         "Passeport étranger (pages 2 et 3)",
         "Permis de conduire français ou étranger recto-verso",
         "Carte de résident",
-        "Carte de ressortissant d’un État membre de l’UE ou de l’EEE",
+        "Carte de ressortissant d’un État membre de l’UE ou de l’EEE"
       ],
-      refusedProofs: ["Tout autre document"],
-    },
+      refusedProofs: ["Tout autre document"]
+    }
   ];
 }
 </script>
@@ -320,22 +313,22 @@ td {
 <i18n>
 {
 "en": {
-"identity-card": "Carte nationale d’identité",
-"passport": "Passeport",
-"permit": "Permis de conduire",
-"other": "Autre",
-"files": "Documents",
-"lastname": "Lastname",
-"firstname": "Firstname"
+  "identity-card": "Carte nationale d’identité",
+  "passport": "Passeport",
+  "permit": "Permis de conduire",
+  "other": "Autre",
+  "files": "Documents",
+  "lastname": "Lastname",
+  "firstname": "Firstname"
 },
 "fr": {
-"identity-card": "Carte nationale d’identité",
-"passport": "Passeport",
-"permit": "Permis de conduire",
-"other": "Autre",
-"files": "Documents",
-"lastname": "Nom",
-"firstname": "Prénom"
+  "identity-card": "Carte nationale d’identité",
+  "passport": "Passeport",
+  "permit": "Permis de conduire",
+  "other": "Autre",
+  "files": "Documents",
+  "lastname": "Nom",
+  "firstname": "Prénom"
 }
 }
 </i18n>

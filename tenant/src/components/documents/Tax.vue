@@ -42,7 +42,10 @@
             ></FileUpload>
           </div>
         </div>
-        <div v-if="taxFiles().length > 0" class="rf-col-lg-8 rf-col-md-12 rf-mb-3w">
+        <div
+          v-if="taxFiles().length > 0"
+          class="rf-col-lg-8 rf-col-md-12 rf-mb-3w"
+        >
           <ListItem
             v-for="(file, k) in taxFiles()"
             :key="k"
@@ -97,7 +100,6 @@ import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { mapGetters } from "vuex";
 import { UploadStatus } from "../uploads/UploadStatus";
-import axios from "axios";
 import ListItem from "@/components/uploads/ListItem.vue";
 import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
@@ -106,11 +108,12 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 import { extend } from "vee-validate";
 import { is } from "vee-validate/dist/rules";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
+import { RegisterService } from "../../services/RegisterService";
 
 extend("is", {
   ...is,
   message: "field-required",
-  validate: (value) => !!value,
+  validate: value => !!value
 });
 
 @Component({
@@ -119,13 +122,13 @@ extend("is", {
     FileUpload,
     ListItem,
     ValidationObserver,
-    ValidationProvider,
+    ValidationProvider
   },
   computed: {
     ...mapGetters({
-      user: "userToEdit",
-    }),
-  },
+      user: "userToEdit"
+    })
+  }
 })
 export default class Tax extends Vue {
   user!: User | Guarantor;
@@ -157,7 +160,7 @@ export default class Tax extends Vue {
   }
 
   addFiles(fileList: File[]) {
-    const nf = Array.from(fileList).map((f) => {
+    const nf = Array.from(fileList).map(f => {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
@@ -176,11 +179,11 @@ export default class Tax extends Vue {
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    const newFiles = this.files.filter((f) => {
+    const newFiles = this.files.filter(f => {
       return !f.id;
     });
     if (newFiles.length) {
-      Array.from(Array(newFiles.length).keys()).map((x) => {
+      Array.from(Array(newFiles.length).keys()).map(x => {
         const f: File = newFiles[x].file || new File([], "");
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
       });
@@ -199,24 +202,19 @@ export default class Tax extends Vue {
     }
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    let url: string;
     if (this.$store.getters.isGuarantor) {
-      url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentTax`;
       formData.append("guarantorId", this.$store.getters.guarantor.id);
-    } else {
-      url = `//${process.env.VUE_APP_API_URL}/api/register/documentTax`;
     }
     const loader = this.$loading.show();
-    axios
-      .post(url, formData)
+    RegisterService.saveTax(formData)
       .then(() => {
-        console.log("success");
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
+        Vue.toasted.global.save_success();
       })
       .catch(() => {
-        console.log("fail");
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
+        Vue.toasted.global.save_failed();
       })
       .finally(() => {
         this.$store.dispatch("loadUser");
@@ -225,7 +223,7 @@ export default class Tax extends Vue {
   }
 
   taxFiles() {
-    const newFiles = this.files.map((f) => {
+    const newFiles = this.files.map(f => {
       return {
         documentSubCategory: this.taxDocument.value,
         id: f.name,
@@ -242,13 +240,8 @@ export default class Tax extends Vue {
   }
 
   remove(file: DfFile) {
-    if (file.path) {
-      const url = `//${process.env.VUE_APP_API_URL}/api/file/${file.id}`;
-      const loader = this.$loading.show();
-      axios.delete(url).finally(() => {
-        this.$store.dispatch("loadUser");
-        loader.hide();
-      });
+    if (file.path && file.id) {
+      RegisterService.deleteFile(file.id);
     } else {
       this.files = this.files.filter((f: DfFile) => {
         return f.name !== file.name;
@@ -267,8 +260,8 @@ export default class Tax extends Vue {
       refusedProofs: [
         "Avis d’imposition incomplet (sans la première page)",
         "Tout avis d’imposition plus ancien",
-        "Tout autre document justificatif",
-      ],
+        "Tout autre document justificatif"
+      ]
     },
     {
       key: "my-parents",
@@ -276,14 +269,14 @@ export default class Tax extends Vue {
       explanationText:
         "J’ai déclaré être rattaché·e au domicile fiscal de mes parents.",
       acceptedProofs: [],
-      refusedProofs: [],
+      refusedProofs: []
     },
     {
       key: "less-than-year",
       value: "LESS_THAN_YEAR",
       explanationText: "J’ai déclaré être en France depuis moins d’un an.",
       acceptedProofs: [],
-      refusedProofs: [],
+      refusedProofs: []
     },
     {
       key: "other-tax",
@@ -291,8 +284,8 @@ export default class Tax extends Vue {
       explanationText:
         "Afin d’améliorer mon dossier, j’explique ci-dessous pourquoi je ne reçois pas d’avis d’imposition. Mon explication sera ajoutée à mon dossier :",
       acceptedProofs: [],
-      refusedProofs: [],
-    },
+      refusedProofs: []
+    }
   ];
 }
 </script>

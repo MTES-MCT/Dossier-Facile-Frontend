@@ -52,22 +52,22 @@ import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "../uploads/UploadStatus";
-import axios from "axios";
 import ListItem from "@/components/uploads/ListItem.vue";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { DfFile } from "df-shared/src/models/DfFile";
+import { RegisterService } from "../../services/RegisterService";
 
 @Component({
   components: {
     DocumentInsert,
     FileUpload,
-    ListItem,
+    ListItem
   },
   computed: {
     ...mapState({
-      user: "user",
-    }),
-  },
+      user: "user"
+    })
+  }
 })
 export default class OrganismCert extends Vue {
   acceptedProofs = ["Certificat de garantie valide d'un organisme"];
@@ -90,7 +90,7 @@ export default class OrganismCert extends Vue {
     const fieldName = "documents";
     const formData = new FormData();
     if (!this.files.length) return;
-    Array.from(Array(this.files.length).keys()).map((x) => {
+    Array.from(Array(this.files.length).keys()).map(x => {
       formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
     });
 
@@ -100,18 +100,16 @@ export default class OrganismCert extends Vue {
     );
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    const url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorOrganism/documentIdentification`;
     const loader = this.$loading.show();
-    axios
-      .post(url, formData)
+    RegisterService.saveOrganismIdentification(formData)
       .then(() => {
-        console.log("success");
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
+        Vue.toasted.global.save_success();
       })
       .catch(() => {
-        console.log("fail");
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
+        Vue.toasted.global.save_failed();
       })
       .finally(() => {
         this.$store.dispatch("loadUser");
@@ -124,16 +122,17 @@ export default class OrganismCert extends Vue {
   }
 
   remove(file: DfFile) {
-    const loader = this.$loading.show();
-    const url = `//${process.env.VUE_APP_API_URL}/api/file/${file.id}`;
-    axios.delete(url).finally(() => {
-      this.$store.dispatch("loadUser");
-      loader.hide();
-    });
+    if (file.path && file.id) {
+      RegisterService.deleteFile(file.id);
+    } else {
+      this.files = this.files.filter((f: DfFile) => {
+        return f.name !== file.name;
+      });
+    }
   }
 
   listFiles() {
-    const newFiles = this.files.map((f) => {
+    const newFiles = this.files.map(f => {
       return {
         documentSubCategory: this.identificationDocument.value,
         id: f.name,

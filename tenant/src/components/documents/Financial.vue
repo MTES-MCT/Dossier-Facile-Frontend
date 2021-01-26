@@ -85,7 +85,10 @@
           </div>
         </div>
       </div>
-      <div v-if="financialFiles(f).length > 0" class="rf-col-lg-8 rf-col-md-12 rf-mb-3w">
+      <div
+        v-if="financialFiles(f).length > 0"
+        class="rf-col-lg-8 rf-col-md-12 rf-mb-3w"
+      >
         <ListItem
           v-for="(file, k) in financialFiles(f)"
           :key="k"
@@ -129,7 +132,6 @@ import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { mapGetters } from "vuex";
 import { UploadStatus } from "../uploads/UploadStatus";
-import axios from "axios";
 import ListItem from "@/components/uploads/ListItem.vue";
 import { ValidationProvider } from "vee-validate";
 import { User } from "df-shared/src/models/User";
@@ -138,10 +140,11 @@ import { DfDocument } from "df-shared/src/models/DfDocument";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { extend } from "vee-validate";
 import { regex } from "vee-validate/dist/rules";
+import { RegisterService } from "../../services/RegisterService";
 
 extend("regex", {
   ...regex,
-  message: "number-not-valid",
+  message: "number-not-valid"
 });
 
 class F {
@@ -158,9 +161,9 @@ class F {
   components: { ValidationProvider, DocumentInsert, FileUpload, ListItem },
   computed: {
     ...mapGetters({
-      user: "userToEdit",
-    }),
-  },
+      user: "userToEdit"
+    })
+  }
 })
 export default class Financial extends Vue {
   user!: User | Guarantor;
@@ -194,7 +197,7 @@ export default class Financial extends Vue {
   }
 
   addFiles(f: F, fileList: File[]) {
-    const nf = Array.from(fileList).map((f) => {
+    const nf = Array.from(fileList).map(f => {
       return { name: f.name, file: f, size: f.size };
     });
     f.files = [...f.files, ...nf];
@@ -206,11 +209,11 @@ export default class Financial extends Vue {
     const fieldName = "documents";
     const formData = new FormData();
     if (!f.noDocument) {
-      const newFiles = f.files.filter((f) => {
+      const newFiles = f.files.filter(f => {
         return !f.id;
       });
       if (!newFiles.length) return;
-      Array.from(Array(newFiles.length).keys()).map((x) => {
+      Array.from(Array(newFiles.length).keys()).map(x => {
         const f: File = newFiles[x].file || new File([], "");
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
       });
@@ -228,24 +231,19 @@ export default class Financial extends Vue {
     formData.append("customText", f.customText);
 
     f.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    let url: string;
     if (this.$store.getters.isGuarantor) {
-      url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentFinancial`;
       formData.append("guarantorId", this.$store.getters.guarantor.id);
-    } else {
-      url = `//${process.env.VUE_APP_API_URL}/api/register/documentFinancial`;
     }
     const loader = this.$loading.show();
-    axios
-      .post(url, formData)
+    RegisterService.saveFinancial(formData)
       .then(() => {
-        console.log("success");
         f.files = [];
         f.fileUploadStatus = UploadStatus.STATUS_INITIAL;
+        Vue.toasted.global.save_success();
       })
       .catch(() => {
-        console.log("fail");
         f.fileUploadStatus = UploadStatus.STATUS_FAILED;
+        Vue.toasted.global.save_failed();
       })
       .finally(() => {
         this.$store.dispatch("loadUser");
@@ -258,7 +256,7 @@ export default class Financial extends Vue {
       return {
         documentSubCategory: f.documentType?.value,
         id: file.name,
-        name: file.name,
+        name: file.name
       };
     });
     const existingFiles =
@@ -269,13 +267,8 @@ export default class Financial extends Vue {
   }
 
   remove(f: F, file: DfFile) {
-    if (file.path) {
-      const loader = this.$loading.show();
-      const url = `//${process.env.VUE_APP_API_URL}/api/file/${file.id}`;
-      axios.delete(url).finally(() => {
-        this.$store.dispatch("loadUser");
-        loader.hide();
-      });
+    if (file.path && file.id) {
+      RegisterService.deleteFile(file.id);
     } else {
       f.files = f.files.filter((f: DfFile) => {
         return f.name !== file.name;
@@ -300,15 +293,15 @@ export default class Financial extends Vue {
       acceptedProofs: [
         "3 derniers bulletins de salaire",
         "Justificatif de versement des indemnités de stage",
-        "2 derniers bilans comptables ou, si nécessaire, attestation des ressources pour l’exercice en cours délivrés par un comptable (non-salariés)",
+        "2 derniers bilans comptables ou, si nécessaire, attestation des ressources pour l’exercice en cours délivrés par un comptable (non-salariés)"
       ],
       refusedProofs: [
         "Pièces trop anciennes",
         "Attestation de l’employeur",
         "Relevés de comptes bancaires",
         "RIB",
-        "Avis d’imposition",
-      ],
+        "Avis d’imposition"
+      ]
     },
     {
       key: "social-service",
@@ -318,14 +311,14 @@ export default class Financial extends Vue {
       acceptedProofs: [
         "3 derniers justificatifs de versement des prestations sociales et familiales et allocations (ARE, CAF, Crous, etc.)",
         "Justificatif de l’ouverture des droits établis par l’organisme payeur",
-        "Attestation de simulation pour les aides au logement établie par la CAF ou par la MSA pour le locataire",
+        "Attestation de simulation pour les aides au logement établie par la CAF ou par la MSA pour le locataire"
       ],
       refusedProofs: [
         "Pièces trop anciennes",
         "Relevés de comptes bancaires",
         "RIB",
-        "Avis d’imposition",
-      ],
+        "Avis d’imposition"
+      ]
     },
     {
       key: "rent",
@@ -335,9 +328,9 @@ export default class Financial extends Vue {
       acceptedProofs: [
         "Justification de revenus fonciers, de rentes viagères ou de revenus de valeurs et capitaux mobiliers",
         "Titre de propriété d’un bien immobilier ou dernier avis de taxe foncière",
-        "Dernier ou avant-dernier avis d’imposition avec nom et revenus de la rente visibles",
+        "Dernier ou avant-dernier avis d’imposition avec nom et revenus de la rente visibles"
       ],
-      refusedProofs: ["Relevés de comptes bancaires", "RIB"],
+      refusedProofs: ["Relevés de comptes bancaires", "RIB"]
     },
     {
       key: "pension",
@@ -346,13 +339,13 @@ export default class Financial extends Vue {
         "J’ajoute un bulletin de pension, une attestation de pension, ou un avis d’imposition avec noms et revenus de la pension visibles.",
       acceptedProofs: [
         "Justificatif de versement des indemnités, retraites, pensions perçues lors des 3 derniers mois ou justificatif de l’ouverture des droits établis par l’organisme payeur",
-        "Dernier ou avant-dernier avis d’imposition avec nom et revenus de la pension visibles",
+        "Dernier ou avant-dernier avis d’imposition avec nom et revenus de la pension visibles"
       ],
       refusedProofs: [
         "Pièces trop anciennes",
         "Relevés de comptes bancaires",
-        "RIB",
-      ],
+        "RIB"
+      ]
     },
     {
       key: "trading",
@@ -362,9 +355,9 @@ export default class Financial extends Vue {
       refusedProofs: [
         "Pièces trop anciennes",
         "Relevés de comptes bancaires",
-        "RIB",
-      ],
-    },
+        "RIB"
+      ]
+    }
   ];
 }
 </script>
