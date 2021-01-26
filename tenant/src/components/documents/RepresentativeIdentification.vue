@@ -37,7 +37,7 @@
           </option>
         </select>
       </div>
-      <div>
+      <div v-if="identificationDocument.key">
         <div class="rf-mb-3w">
           {{ $t("kbis-label") }}
         </div>
@@ -49,7 +49,7 @@
           ></FileUpload>
         </div>
       </div>
-      <div class="rf-col-lg-8 rf-col-md-12 rf-mb-3w">
+      <div class="rf-col-lg-8 rf-col-md-12 rf-mb-3w" v-if="listFiles().length > 0">
         <ListItem
           v-for="(file, k) in listFiles()"
           :key="k"
@@ -63,7 +63,7 @@
           "
         />
       </div>
-      <div class="rf-col-12 rf-mb-2w" v-if="identificationDocument">
+      <div class="rf-col-12 rf-mb-2w" v-if="identificationDocument.key">
         <button
           class="rf-btn"
           type="submit"
@@ -73,10 +73,10 @@
           Enregistrer la pièce
         </button>
       </div>
-      <div class="rf-mb-5w">
+      <div class="rf-mb-5w" v-if="identificationDocument.key">
         <DocumentInsert
-          :allow-list="acceptedProofs"
-          :block-list="refusedProofs"
+          :allow-list="identificationDocument.acceptedProofs"
+          :block-list="identificationDocument.refusedProofs"
         ></DocumentInsert>
       </div>
     </ValidationObserver>
@@ -129,6 +129,8 @@ export default class RepresentativeIdentification extends Vue {
     "Toute autre pièce"
   ];
 
+  MAX_FILE_COUNT = 5;
+
   identificationDocument = new DocumentType();
 
   files: File[] = [];
@@ -160,6 +162,12 @@ export default class RepresentativeIdentification extends Vue {
     Array.from(Array(this.files.length).keys()).map(x => {
       formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
     });
+
+    if (this.listFiles().length > this.MAX_FILE_COUNT) {
+        Vue.toasted.global.max_file();
+        return;
+    }
+
 
     formData.append(
       "typeDocumentIdentification",

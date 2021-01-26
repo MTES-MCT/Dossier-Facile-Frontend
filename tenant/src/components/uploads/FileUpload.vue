@@ -70,6 +70,7 @@ export default class FileUpload extends Vue {
 
   filesChange(e: any) {
     [...e.target.files].forEach((f: File) => {
+      // TODO parameterize this number
       if (f.size > 3 * 1024 * 1024) {
         this.$toasted.show(this.$i18n.t("file-too-big").toString(), {
           type: "error",

@@ -166,6 +166,9 @@ class F {
   }
 })
 export default class Financial extends Vue {
+  MAX_FILE_COUNT = 5;
+  MAX_FILE_SIZE = 5;
+
   user!: User | Guarantor;
   financialDocuments: F[] = [];
 
@@ -213,6 +216,12 @@ export default class Financial extends Vue {
         return !f.id;
       });
       if (!newFiles.length) return;
+
+      if (f.documentType.maxFileCount && this.financialFiles(f).length > f.documentType.maxFileCount) {
+          Vue.toasted.global.max_file();
+          return;
+      }
+
       Array.from(Array(newFiles.length).keys()).map(x => {
         const f: File = newFiles[x].file || new File([], "");
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
@@ -301,7 +310,8 @@ export default class Financial extends Vue {
         "Relevés de comptes bancaires",
         "RIB",
         "Avis d’imposition"
-      ]
+      ],
+      maxFileCount: 3
     },
     {
       key: "social-service",
@@ -318,7 +328,8 @@ export default class Financial extends Vue {
         "Relevés de comptes bancaires",
         "RIB",
         "Avis d’imposition"
-      ]
+      ],
+      maxFileCount: 3
     },
     {
       key: "rent",
@@ -330,7 +341,8 @@ export default class Financial extends Vue {
         "Titre de propriété d’un bien immobilier ou dernier avis de taxe foncière",
         "Dernier ou avant-dernier avis d’imposition avec nom et revenus de la rente visibles"
       ],
-      refusedProofs: ["Relevés de comptes bancaires", "RIB"]
+      refusedProofs: ["Relevés de comptes bancaires", "RIB"],
+      maxFileCount: 3
     },
     {
       key: "pension",
@@ -345,7 +357,8 @@ export default class Financial extends Vue {
         "Pièces trop anciennes",
         "Relevés de comptes bancaires",
         "RIB"
-      ]
+      ],
+      maxFileCount: 3
     },
     {
       key: "trading",
@@ -356,7 +369,8 @@ export default class Financial extends Vue {
         "Pièces trop anciennes",
         "Relevés de comptes bancaires",
         "RIB"
-      ]
+      ],
+      maxFileCount: 3
     }
   ];
 }

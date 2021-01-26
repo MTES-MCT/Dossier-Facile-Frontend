@@ -80,3 +80,8 @@ Vue.toasted.register("save_success", i18n.t("save-success").toString(), {
   type: "success",
   duration: 5000
 });
+
+Vue.toasted.register("max_file", i18n.t("max-file").toString(), {
+  type: "error",
+  duration: 7000
+});
