@@ -1,7 +1,7 @@
 {
   "message": "hello i18n !!",
-  "upload-success": "Envoi réussi",
-  "upload-failed": "Erreur lors de l'envoi",
+  "upload-success": "Enregistrement réussi",
+  "upload-failed": "Erreur lors de l'enregistrement",
   "delete-success": "Suppression réussie",
   "delete-failed": "Erreur lors de la suppression"
 }
