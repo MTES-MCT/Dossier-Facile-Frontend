@@ -131,7 +131,7 @@ export default class Residency extends Vue {
     formData.append("typeDocumentResidency", this.residencyDocument.value);
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    if (this.$store.getters.isGuarantor) {
+    if (this.$store.getters.isGuarantor && this.$store.getters.guarantor.id) {
       formData.append("guarantorId", this.$store.getters.guarantor.id);
     }
     const loader = this.$loading.show();

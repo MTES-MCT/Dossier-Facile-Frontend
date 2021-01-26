@@ -231,7 +231,7 @@ export default class Financial extends Vue {
     formData.append("customText", f.customText);
 
     f.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    if (this.$store.getters.isGuarantor) {
+    if (this.$store.getters.isGuarantor && this.$store.getters.guarantor.id) {
       formData.append("guarantorId", this.$store.getters.guarantor.id);
     }
     const loader = this.$loading.show();
