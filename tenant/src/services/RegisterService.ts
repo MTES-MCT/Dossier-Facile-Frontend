@@ -47,5 +47,15 @@ export const RegisterService = {
         }
         return axios
             .post(url, formData)
+    },
+
+    saveProfessional(formData: FormData) {
+        let url: string;
+        if (store.getters.isGuarantor) {
+            url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentProfessional`;
+        } else {
+            url = `//${process.env.VUE_APP_API_URL}/api/register/documentProfessional`;
+        }
+        return axios.post(url, formData)
     }
 };
