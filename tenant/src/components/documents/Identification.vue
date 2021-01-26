@@ -207,7 +207,6 @@ export default class Identification extends Vue {
       if (this.$store.getters.guarantor.id) {
         formData.append("guarantorId", this.$store.getters.guarantor.id);
       }
-    } else {
     }
     const loader = this.$loading.show();
     RegisterService
