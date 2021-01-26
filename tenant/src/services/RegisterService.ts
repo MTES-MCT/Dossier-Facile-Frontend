@@ -72,5 +72,15 @@ export const RegisterService = {
             url = `//${process.env.VUE_APP_API_URL}/api/register/documentResidency`;
         }
         return axios.post(url, formData)
+    },
+
+    saveTax(formData: FormData) {
+        let url: string;
+        if (store.getters.isGuarantor) {
+            url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentTax`;
+        } else {
+            url = `//${process.env.VUE_APP_API_URL}/api/register/documentTax`;
+        }
+        return axios.post(url, formData)
     }
 };
