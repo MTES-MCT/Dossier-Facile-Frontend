@@ -1,6 +1,6 @@
 {
-  "upload-success": "Saved",
-  "upload-failed": "Failed",
+  "save-success": "Saved",
+  "save-failed": "Failed",
   "delete-success": "Delete ok",
   "delete-failed": "Delete failed"
 }

@@ -136,9 +136,11 @@ export default class Professional extends Vue {
       .then(() => {
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
+        Vue.toasted.global.save_success();
       })
       .catch(() => {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
+        Vue.toasted.global.save_failed();
       })
       .finally(() => {
         this.$store.dispatch("loadUser");

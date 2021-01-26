@@ -209,16 +209,15 @@ export default class Identification extends Vue {
       }
     }
     const loader = this.$loading.show();
-    RegisterService
-      .saveIdentification(formData)
+    RegisterService.saveIdentification(formData)
       .then(() => {
-        console.log("success");
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         this.files = [];
+        Vue.toasted.global.save_success();
       })
       .catch(() => {
-        console.log("fail");
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
+        Vue.toasted.global.save_failed();
       })
       .finally(() => {
         this.$store.dispatch("loadUser");
@@ -320,9 +319,7 @@ td {
   "other": "Autre",
   "files": "Documents",
   "lastname": "Lastname",
-  "firstname": "Firstname",
-  "upload-ok": "Upload ok",
-  "upload-failed": "Upload failed"
+  "firstname": "Firstname"
 },
 "fr": {
   "identity-card": "Carte nationale d’identité",
@@ -331,9 +328,7 @@ td {
   "other": "Autre",
   "files": "Documents",
   "lastname": "Nom",
-  "firstname": "Prénom",
-  "upload-ok": "Envoi réussi",
-  "upload-failed": "Erreur lors de l'envoi"
+  "firstname": "Prénom"
 }
 }
 </i18n>

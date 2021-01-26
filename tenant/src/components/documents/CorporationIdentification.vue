@@ -141,17 +141,11 @@ export default class CorporationIdentification extends Vue {
       .then(() => {
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
-        this.$toasted.show(this.$i18n.t("upload-ok").toString(), {
-          type: "success",
-          duration: 5000,
-        });
+        Vue.toasted.global.save_success();
       })
       .catch(() => {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
-        this.$toasted.show(this.$i18n.t("upload-failed").toString(), {
-          type: "error",
-          duration: 5000,
-        });
+        Vue.toasted.global.save_failed();
       })
       .finally(() => {
         this.$store.dispatch("loadUser");
@@ -214,9 +208,7 @@ td {
   "balance-sheet": "Balance sheet",
   "urssaf": "Urssaf certificate",
   "all-other": "Any other document",
-  "register": "Register documents",
-  "upload-ok": "Upload ok",
-  "upload-failed": "Upload failed"
+  "register": "Register documents"
 },
 "fr": {
   "organism-name": "Nom de la personne morale",
@@ -228,9 +220,7 @@ td {
   "balance-sheet": "Bilan comptable",
   "urssaf": "Attestation cotisation Urssaf",
   "all-other": "Toute autre pièce",
-  "register": "Enregistrer la pièce",
-  "upload-ok": "Envoi réussi",
-  "upload-failed": "Erreur lors de l'envoi"
+  "register": "Enregistrer la pièce"
 }
 }
 </i18n>

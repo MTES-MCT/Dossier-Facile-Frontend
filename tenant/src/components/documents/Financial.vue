@@ -236,9 +236,11 @@ export default class Financial extends Vue {
       .then(() => {
         f.files = [];
         f.fileUploadStatus = UploadStatus.STATUS_INITIAL;
+        Vue.toasted.global.save_success();
       })
       .catch(() => {
         f.fileUploadStatus = UploadStatus.STATUS_FAILED;
+        Vue.toasted.global.save_failed();
       })
       .finally(() => {
         this.$store.dispatch("loadUser");

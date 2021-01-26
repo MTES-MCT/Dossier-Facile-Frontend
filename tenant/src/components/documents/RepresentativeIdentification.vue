@@ -172,12 +172,12 @@ export default class RepresentativeIdentification extends Vue {
     const loader = this.$loading.show();
     RegisterService.saveRepresentativeIdentification(formData)
       .then(() => {
-        console.log("success");
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
+        Vue.toasted.global.save_success();
       })
       .catch(() => {
-        console.log("fail");
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
+        Vue.toasted.global.save_failed();
       })
       .finally(() => {
         loader.hide();

@@ -71,12 +71,12 @@ Vue.toasted.register('delete_success', i18n.t("delete-success").toString(), {
   duration: 5000
 });
 
-Vue.toasted.register('upload_failed', i18n.t("upload-failed").toString(), {
+Vue.toasted.register('save_failed', i18n.t("save-failed").toString(), {
   type : 'error',
   duration: 5000
 });
 
-Vue.toasted.register('upload_success', i18n.t("upload-success").toString(), {
+Vue.toasted.register('save_success', i18n.t("save-success").toString(), {
   type : 'success',
   duration: 5000
 });

@@ -105,17 +105,11 @@ export default class OrganismCert extends Vue {
       .then(() => {
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
-        this.$toasted.show(this.$i18n.t("upload-ok").toString(), {
-          type: "success",
-          duration: 5000,
-        });
+        Vue.toasted.global.save_success();
       })
       .catch(() => {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
-        this.$toasted.show(this.$i18n.t("upload-failed").toString(), {
-          type: "error",
-          duration: 5000,
-        });
+        Vue.toasted.global.save_failed();
       })
       .finally(() => {
         this.$store.dispatch("loadUser");

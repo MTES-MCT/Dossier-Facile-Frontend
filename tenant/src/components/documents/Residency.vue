@@ -137,13 +137,13 @@ export default class Residency extends Vue {
     const loader = this.$loading.show();
     RegisterService.saveResidency(formData)
       .then(() => {
-        console.log("success");
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
+        Vue.toasted.global.save_success();
       })
       .catch(() => {
-        console.log("fail");
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
+        Vue.toasted.global.save_failed();
       })
       .finally(() => {
         this.$store.dispatch("loadUser");
