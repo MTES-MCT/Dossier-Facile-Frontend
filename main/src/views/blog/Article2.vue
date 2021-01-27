@@ -52,26 +52,26 @@
                 Votre compte est automatiquement supprimé au bout de trois
                 semaines d’inactivité, et toutes vos données avec lui. Vous
                 pouvez aussi supprimer un document à tout bout de champ :
-                <b>nous ne gardons ni ne divulguons rien !</b> Un accompagnement
+                <b>nous ne gardons ni ne divulguons rien !</b> Un accompagnement
                 vous est aussi proposé pour vous aider à ne communiquer que les
                 documents nécessaires aux propriétaires.
               </p>
               <p>
-                Mais ce n’est pas tout ! <b>Votre service est</b> aussi
-                <b> personnalisé !</b> En effet, l’étude de vos documents n’est
+                Mais ce n’est pas tout ! <b>Votre service est</b> aussi
+                <b> personnalisé !</b> En effet, l’étude de vos documents n’est
                 pas faite par un robot mais par un être humain. Ce sont nos
                 équipes qui s’attellent à vérifier vos documents et à vous faire
-                <b>des retours adaptés</b> le cas échéant ! Chez
+                <b>des retours adaptés</b> le cas échéant ! Chez
                 DossierFacile,<b>
                   vous n’êtes pas enfermés dans des cases et ne sortez jamais
-                  des clous !</b
+                  des clous !</b
                 >
                 Quelle que soit votre situation, nous nous engageons à toujours
                 trouver une solution pour vous aider à constituer votre dossier.
               </p>
               <h3>Est-ce gratuit ?</h3>
               <p>
-                Assurément ! DossierFacile est entièrement gratuit ! Voir
+                Assurément ! DossierFacile est entièrement gratuit ! Voir
                 là-dessus notre article :
                 <router-link to="/blog/article1"
                   >Pourquoi DossierFacile est-il gratuit ?</router-link
@@ -107,7 +107,7 @@
               <p>
                 Recommencez les mêmes opérations pour votre garant si vous en
                 avez un, cochez la case de prévention des risques pour
-                production de faux et c’est bon !
+                production de faux et c’est bon !
               </p>
               <p>
                 Nous vérifions ensuite rapidement vos pièces (moins de 24h) et,

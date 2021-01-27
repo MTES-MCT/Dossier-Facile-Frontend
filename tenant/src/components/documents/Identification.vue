@@ -268,7 +268,7 @@ export default class Identification extends Vue {
     {
       key: "identity-card",
       value: "FRENCH_IDENTITY_CARD",
-      explanationText: "Attention veillez à ajouter votre pièce recto-verso !",
+      explanationText: "Attention veillez à ajouter votre pièce recto-verso !",
       acceptedProofs: ["Carte d’identité française recto-verso"],
       refusedProofs: [
         "Carte d’identité sans le verso ou périmée",

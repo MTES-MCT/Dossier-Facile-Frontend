@@ -44,14 +44,14 @@ export default class GuarantorChoiceHelp extends Vue {
     "title": "Aide",
     "paragraph1": "Un garant (ou caution) est une personne physique ou morale qui s’engage envers le propriétaire du logement loué à payer les dettes locatives du locataire.",
     "paragraph2": "Plus d’informations sur  https://www.service-public.fr/particuliers/vosdroits/F31267",
-    "paragraph3": "Certains organismes peuvent aussi constituer une garantie, obtenez gratuitement une garantie Visale sur www.visale.fr !",
+    "paragraph3": "Certains organismes peuvent aussi constituer une garantie, obtenez gratuitement une garantie Visale sur www.visale.fr !",
     "paragraph4": "Attention : vous n’êtes pas obligé‧e d’ajouter un garant. Cependant, certains propriétaires peuvent en exiger un."
   },
   "fr": {
     "title": "Aide",
     "paragraph1": "Un garant (ou caution) est une personne physique ou morale qui s’engage envers le propriétaire du logement loué à payer les dettes locatives du locataire.",
     "paragraph2": "Plus d’informations sur  https://www.service-public.fr/particuliers/vosdroits/F31267",
-    "paragraph3": "Certains organismes peuvent aussi constituer une garantie, obtenez gratuitement une garantie Visale sur www.visale.fr !",
+    "paragraph3": "Certains organismes peuvent aussi constituer une garantie, obtenez gratuitement une garantie Visale sur www.visale.fr !",
     "paragraph4": "Attention : vous n’êtes pas obligé‧e d’ajouter un garant. Cependant, certains propriétaires peuvent en exiger un."
   }
 }

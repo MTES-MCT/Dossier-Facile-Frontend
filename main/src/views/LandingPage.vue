@@ -243,7 +243,7 @@ ul li:before {
     "s2": {
       "title": "Constituez votre dossier de location en trois étapes",
       "h1": "Je télécharge mes pièces",
-      "p1": "DossierFacile vous demande les pièces nécessaires et rien que celles-là !",
+      "p1": "DossierFacile vous demande les pièces nécessaires et rien que celles-là !",
       "u1a": "Pièce d'identité",
       "u1b": "Justificatif de domicile",
       "u1c": "Justificatif de situation professionnelle",
@@ -256,20 +256,20 @@ ul li:before {
     },
     "s3": {
       "title": "Protégez vos informations personnelles",
-      "text1": "Avec DossierFacile, plus de papiers d'identité éparpillés dans la nature !",
+      "text1": "Avec DossierFacile, plus de papiers d'identité éparpillés dans la nature !",
       "text2": "Vos documents sont recouverts de filigranes pour vous protéger contre la fraude de propriétaires peu scrupuleux.",
-      "text3": "Vous pouvez paramétrer l'ouverture de votre lien dossier : vous pouvez le supprimer à tout moment !",
+      "text3": "Vous pouvez paramétrer l'ouverture de votre lien dossier : vous pouvez le supprimer à tout moment !",
       "link": "En savoir plus sur la sécurité des données chez DossierFacile"
     },
     "s4": {
       "title1": "Déjà",
       "title2": "65 000",
       "title3": "Dossiers labellisés grâce à DossierFacile",
-      "t1": "Le dossier de Karim s'est tout de suite démarqué : c'était le seul dossier reçu complet !",
+      "t1": "Le dossier de Karim s'est tout de suite démarqué : c'était le seul dossier reçu complet !",
       "author1": "Joseph, propriétaire à Nantes",
       "t2": "Simple, efficace et pratique : ça m'a fait gagner beaucoup de temps dans ma recherche d'appartement.",
       "author2": "Caroline, étudiante",
-      "t3": "Je ne réussissais jamais à visiter un appartement avec mon dossier étranger. Avec DossierFacile, j'ai enfin eu plus de visites !",
+      "t3": "Je ne réussissais jamais à visiter un appartement avec mon dossier étranger. Avec DossierFacile, j'ai enfin eu plus de visites !",
       "author3": "Irina, étudiante en Erasmus"
     }
   },
@@ -291,7 +291,7 @@ ul li:before {
     "s2": {
       "title": "Constituez votre dossier de location en trois étapes",
       "h1": "Je télécharge mes pièces",
-      "p1": "DossierFacile vous demande les pièces nécessaires et rien que celles-là !",
+      "p1": "DossierFacile vous demande les pièces nécessaires et rien que celles-là !",
       "u1a": "Pièce d'identité",
       "u1b": "Justificatif de domicile",
       "u1c": "Justificatif de situation professionnelle",
@@ -304,20 +304,20 @@ ul li:before {
     },
     "s3": {
       "title": "Protégez vos informations personnelles",
-      "text1": "Avec DossierFacile, plus de papiers d'identité éparpillés dans la nature !",
+      "text1": "Avec DossierFacile, plus de papiers d'identité éparpillés dans la nature !",
       "text2": "Vos documents sont recouverts de filigranes pour vous protéger contre la fraude de propriétaires peu scrupuleux.",
-      "text3": "Vous pouvez paramétrer l'ouverture de votre lien dossier : vous pouvez le supprimer à tout moment !",
+      "text3": "Vous pouvez paramétrer l'ouverture de votre lien dossier : vous pouvez le supprimer à tout moment !",
       "link": "En savoir plus sur la sécurité des données chez DossierFacile"
     },
     "s4": {
       "title1": "Déjà",
       "title2": "65 000",
       "title3": "Dossiers labellisés grâce à DossierFacile",
-      "t1": "Le dossier de Karim s'est tout de suite démarqué : c'était le seul dossier reçu complet !",
+      "t1": "Le dossier de Karim s'est tout de suite démarqué : c'était le seul dossier reçu complet !",
       "author1": "Joseph, propriétaire à Nantes",
       "t2": "Simple, efficace et pratique : ça m'a fait gagner beaucoup de temps dans ma recherche d'appartement.",
       "author2": "Caroline, étudiante",
-      "t3": "Je ne réussissais jamais à visiter un appartement avec mon dossier étranger. Avec DossierFacile, j'ai enfin eu plus de visites !",
+      "t3": "Je ne réussissais jamais à visiter un appartement avec mon dossier étranger. Avec DossierFacile, j'ai enfin eu plus de visites !",
       "author3": "Irina, étudiante en Erasmus"
     }
   }
