@@ -4,7 +4,7 @@
       <div class="rf-container">
         <div class="rf-grid-row height-40">
           <div class="rf-col-md-10 rf-col-lg-8">
-            <h2 class="color--white">Questions fréquemment posées</h2>
+            <h2 class="rf-h2 color--white">Questions fréquemment posées</h2>
             <p class="color--white">
               <b>
                 Vous avez rencontré une difficulté ? Découvrez toutes<br />nos
