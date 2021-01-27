@@ -7,7 +7,7 @@
       <div class="pos-vertical-center rf-col-lg-6 rf-col-md-8 rf-col-12">
         <div class="rf-m-3w">
           <div class="rf-grid-col">
-            <h1>{{ $t("h1") }}</h1>
+            <h1 class="rf-h1">{{ $t("h1") }}</h1>
             <p>
               {{ $t("p1") }}
             </p>
@@ -35,7 +35,7 @@
       <div class="rf-container">
         <div class="rf-grid-row">
           <div class="rf-col-md-12 text-center">
-            <h2>{{ $t("h2-1") }}</h2>
+            <h2 class="rf-h2">{{ $t("h2-1") }}</h2>
             <p>{{ $t("p2") }}</p>
           </div>
         </div>
@@ -47,7 +47,7 @@
           <div class="rf-col-md-6 rf-col-lg-3">
             <div class="feature feature-6">
               <i class="icon color--primary icon-Magic-Wand icon--sm"></i>
-              <h5>{{ $t("h5-1") }}</h5>
+              <h5 class="rf-h5">{{ $t("h5-1") }}</h5>
               <p>
                 {{ $t("p3") }}
               </p>
@@ -56,7 +56,7 @@
           <div class="rf-col-md-6 rf-col-lg-3">
             <div class="feature feature-6">
               <i class="icon color--primary icon-Green-House icon--sm"></i>
-              <h5>{{ $t("h5-2") }}</h5>
+              <h5 class="rf-h5">{{ $t("h5-2") }}</h5>
               <p>
                 {{ $t("p4") }}
               </p>
@@ -65,7 +65,7 @@
           <div class="rf-col-md-6 rf-col-lg-3">
             <div class="feature feature-6">
               <i class="icon color--primary icon-Mouse-2 icon--sm"></i>
-              <h5>{{ $t("h5-3") }}</h5>
+              <h5 class="rf-h5">{{ $t("h5-3") }}</h5>
               <p>
                 {{ $t("p5") }}
               </p>
@@ -74,7 +74,7 @@
           <div class="rf-col-md-6 rf-col-lg-3">
             <div class="feature feature-6">
               <i class="icon color--primary icon-Cloud-Lock icon--sm"></i>
-              <h5>{{ $t("h5-4") }}</h5>
+              <h5 class="rf-h5">{{ $t("h5-4") }}</h5>
               <p>
                 {{ $t("p6") }}
               </p>
@@ -88,7 +88,7 @@
       <div class="rf-container">
         <div class="rf-grid-row">
           <div class="rf-col-md-9 rf-col-lg-7">
-            <h2>{{ $t("h2-2") }}</h2>
+            <h2 class="rf-h2">{{ $t("h2-2") }}</h2>
             <p>
               {{ $t("p7") }}
             </p>
@@ -108,7 +108,7 @@
             >
               <div class="rf-grid-row">
                 <div class="rf-col-8">
-                  <h5>{{ $t("h5-5") }}</h5>
+                  <h5 class="rf-h5">{{ $t("h5-5") }}</h5>
                 </div>
                 <div class="rf-col-4">
                   <img
@@ -138,7 +138,7 @@
             >
               <div class="rf-grid-row">
                 <div class="rf-col-8">
-                  <h5>{{ $t("h5-6") }}</h5>
+                  <h5 class="rf-h5">{{ $t("h5-6") }}</h5>
                 </div>
                 <div class="rf-col-4">
                   <img
@@ -169,7 +169,7 @@
       <div class="rf-container">
         <div class="rf-grid-row">
           <div class="rf-col-12">
-            <h2>{{ $t("h2-3") }}</h2>
+            <h2 class="rf-h2">{{ $t("h2-3") }}</h2>
             <p>
               {{ $t("p10") }}
             </p>
@@ -183,7 +183,7 @@
         <div class="process-2 rf-grid-row">
           <div class="rf-col-md-4">
             <div class="process__item">
-              <h5>{{ $t("h5-7") }}</h5>
+              <h5 class="rf-h5">{{ $t("h5-7") }}</h5>
               <p>
                 {{ $t("p11") }}
               </p>
@@ -191,7 +191,7 @@
           </div>
           <div class="rf-col-md-4">
             <div class="process__item">
-              <h5>{{ $t("h5-8") }}</h5>
+              <h5 class="rf-h5">{{ $t("h5-8") }}</h5>
               <p>
                 {{ $t("p12") }}
               </p>
@@ -199,7 +199,7 @@
           </div>
           <div class="rf-col-md-3">
             <div class="process__item">
-              <h5>{{ $t("h5-9") }}</h5>
+              <h5 class="rf-h5">{{ $t("h5-9") }}</h5>
               <p>
                 {{ $t("p13") }}
               </p>
