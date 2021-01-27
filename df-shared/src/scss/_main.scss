@@ -1,5 +1,9 @@
 @import "variables";
 
+body {
+  color: var(--g700);
+}
+
 :focus {
   outline: none !important;
 }
@@ -110,4 +114,9 @@ input[type=checkbox]:focus+label::before {
 .rf-header .rf-nav {
     margin: 0 calc(50% - 49vw) !important;
 }
+}
+
+img {
+  max-width: 100%;
+  display: block;
 }

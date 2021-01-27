@@ -5,7 +5,7 @@
         <div class="rf-col-md-10 rf-col-lg-8">
           <article>
             <div class="text-center">
-              <h1>
+              <h1 class="rf-h1">
                 Quelles pièces justificatives fournir pour mon dossier de
                 location ?
               </h1>
@@ -33,7 +33,7 @@
                 précédent domicile, de son activité professionnelle, de ses
                 ressources.
               </p>
-              <h3>
+              <h3 class="rf-h3">
                 La carte nationale d’identité ou les documents alternatifs
               </h3>
               <p>
@@ -43,7 +43,7 @@
                 <b>carte</b> de séjour peut également convenir si celle-ci est
                 valable.
               </p>
-              <h3>Le justificatif de domicile ou de bon paiement des loyers</h3>
+              <h3 class="rf-h3">Le justificatif de domicile ou de bon paiement des loyers</h3>
               <p>
                 En ce qui concerne le justificatif de domicile, il faut
                 distinguer plusieurs cas :
@@ -70,7 +70,7 @@
                   émanant de la personne qui l’hébergeait.
                 </li>
               </ul>
-              <h3>Le contrat de travail et/ou les documents alternatifs</h3>
+              <h3 class="rf-h3">Le contrat de travail et/ou les documents alternatifs</h3>
               <p>
                 Enfin un
                 <b>contrat de travail ou une attestation équivalente</b>
@@ -83,7 +83,7 @@
                 Les <b>trois dernières fiches de paie </b> sont aussi demandées
                 de manière presque systématiques à cette même fin.
               </p>
-              <h3>
+              <h3 class="rf-h3">
                 Cette liste est-elle exhaustive ou le propriétaire peut-il
                 demander tous les documents qu’il veut dans le dossier de
                 location ?

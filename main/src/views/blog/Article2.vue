@@ -5,7 +5,7 @@
         <div class="rf-col-md-10 rf-col-lg-8">
           <article>
             <div class="text-center">
-              <h1>Constituer votre DossierFacile</h1>
+              <h1 class="rf-h1">Constituer votre DossierFacile</h1>
               <span>December 12nd 2019 in </span>
               <span>
                 <a href="#" class="underline">DossierFacile</a>
@@ -34,7 +34,7 @@
                 documents, cela <b>peut prendre moins de 5 minutes</b> quelle
                 que soit votre situation.
               </p>
-              <h3>Pourquoi constituer un Dossier Facile ?</h3>
+              <h3 class="rf-h3">Pourquoi constituer un Dossier Facile ?</h3>
               <p>
                 Parce que nous avons déjà fait nos preuves ! Sur quasiment 80
                 000 locataires qui ont utilisé nos services, 91,2% d’eux se sont
@@ -69,7 +69,7 @@
                 Quelle que soit votre situation, nous nous engageons à toujours
                 trouver une solution pour vous aider à constituer votre dossier.
               </p>
-              <h3>Est-ce gratuit ?</h3>
+              <h3 class="rf-h3">Est-ce gratuit ?</h3>
               <p>
                 Assurément ! DossierFacile est entièrement gratuit ! Voir
                 là-dessus notre article :
@@ -77,7 +77,7 @@
                   >Pourquoi DossierFacile est-il gratuit ?</router-link
                 >
               </p>
-              <h3>Comment constituer un Dossier Facile ?</h3>
+              <h3 class="rf-h3">Comment constituer un Dossier Facile ?</h3>
               <p>
                 Pour constituer votre DossierFacile, vous devrez d’abord vous
                 inscrire en rentrant votre nom, votre prénom, votre adresse-mail
@@ -91,7 +91,7 @@
               <p>
                 Tour à tour, vous rentrerez :
               </p>
-              <ul class="bullets">
+              <ul>
                 <li>votre pièce d’identité</li>
                 <li>
                   vos trois dernières quittances de loyer (locataires), un avis
