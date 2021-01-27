@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ $t("title") }}</h1>
+    <h1 class="rf-h1">{{ $t("title") }}</h1>
     <div v-if="!hasGuarantors()">
       <p>{{ $t("read-no-guarantor") }}</p>
       <div>
