@@ -86,7 +86,7 @@
     <section class="rf-mt-12w">
       <div class="bg--orange rf-pt-7w rf-pb-7w">
         <div class="rf-container">
-          <h2 class="s3-title">{{ $t("s3.title") }}</h2>
+          <h2 class="rf-h2 s3-title">{{ $t("s3.title") }}</h2>
           <p>
             {{ $t("s3.text1") }}
             <br />
@@ -103,7 +103,7 @@
     </section>
     <section class="rf-mt-12w">
       <div class="rf-container rf-mb-7w">
-        <h2 class="text-center">
+        <h2 class="rf-h2 text-center">
           {{ $t("s4.title1") }}
           <span class="color--secondary">{{ $t("s4.title2") }}</span>
           {{ $t("s4.title3") }}
