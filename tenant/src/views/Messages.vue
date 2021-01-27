@@ -222,7 +222,7 @@
                 class="icon icon-Yes big-icon text-success rf-col-3 rf-p-2w"
               ></i>
               <div class="rf-col-9 rf-p-2w">
-                Votre pièce est validée ! Plus besoin d’y toucher
+                Votre pièce est validée ! Plus besoin d’y toucher
               </div>
             </div>
           </template>

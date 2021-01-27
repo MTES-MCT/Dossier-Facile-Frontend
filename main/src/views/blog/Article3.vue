@@ -66,7 +66,7 @@
               <p>
                 On peut donc dire qu’à travers DossierFacile,
                 <b> l’Etat s’implique dans la promotion de la confiance </b>
-                entre bailleurs et locataires !
+                entre bailleurs et locataires !
               </p>
               <h3>
                 Quel rapport entre un dossier de location gratuit et l’égalité ?

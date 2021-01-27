@@ -110,8 +110,7 @@
                           <p class="lead pr-5">
                             Contactez votre propriétaire en ajoutant votre
                             lien-synthèse unique et augmentez de 25% vos chances
-                            d'obtenir une visite pour l'appartement de vos rêves
-                            !
+                            d'obtenir une visite pour l'appartement de vos rêves !
                           </p>
                         </div>
                       </div>
@@ -126,7 +125,7 @@
                       et au montant total des revenus mensuels. Le propriétaire
                       n'aura pas accès aux pièces de votre dossier, mais la
                       mention DossierFacile lui indiquera que votre dossier est
-                      complet et en ordre ! os
+                      complet et en ordre !
                     </p>
                   </div>
                 </div>
@@ -153,7 +152,7 @@
                   <h5>Dossier créé</h5>
                   <p>
                     Votre dossier a été créé, merci de faire confiance à
-                    DossierFacile ! Maintenant, il vous reste encore à ajouter
+                    DossierFacile ! Maintenant, il vous reste encore à ajouter
                     toutes vos pièces.
                   </p>
                 </div>
@@ -162,7 +161,7 @@
                 <div class="process__item process__item_active">
                   <h5>Dossier complété</h5>
                   <p>
-                    Votre dossier est complet, merci pour votre efficacité ! Il
+                    Votre dossier est complet, merci pour votre efficacité ! Il
                     va maintenant passer par la série de tests DossierFacile...
                   </p>
                 </div>
@@ -173,7 +172,7 @@
                   <p>
                     Votre dossier est actuellement à l'étude. Pour correspondre
                     avec les équipes DossierFacile n'oubliez pas d'aller
-                    regarder votre onglet "messagerie" !
+                    regarder votre onglet "messagerie" !
                   </p>
                 </div>
               </div>
@@ -181,9 +180,9 @@
                 <div class="process__item process__item_active">
                   <h5>Dossier validé</h5>
                   <p>
-                    Super, votre dossier est à présent validé ! Maintenant vous
+                    Super, votre dossier est à présent validé ! Maintenant vous
                     pouvez envoyer vos liens en toute sécurité : nous vous
-                    souhaitons bon courage pour vos recherches !
+                    souhaitons bon courage pour vos recherches !
                   </p>
                 </div>
               </div>
