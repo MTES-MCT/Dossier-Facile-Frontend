@@ -30,7 +30,7 @@
           </div>
           <div class="rf-col-12 rf-mb-3w">
             <validation-provider
-              rules="required"
+              :rules="`required|strength:${score}`"
               v-slot="{ errors }"
               name="password"
               vid="password"
@@ -51,6 +51,7 @@
                   class="validate-required form-control rf-input"
                   required
                 />
+                <password v-model="user.password" :strength-meter-only="true" @score="setScore" />
                 <span class="rf-error-text" v-if="errors[0]">{{
                   $t(errors[0])
                 }}</span>
@@ -111,6 +112,7 @@ import { ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
 import { required, email, confirmed } from "vee-validate/dist/rules";
 import VueRecaptcha from "vue-recaptcha";
+import Password from "vue-password-strength-meter";
 
 // No message specified.
 extend("email", {
@@ -123,15 +125,28 @@ extend("required", {
   ...required,
   message: "field-required"
 });
+
 extend("confirmed", {
   ...confirmed,
   message: "password-not-confirmed"
 });
 
+
+const MIN_SCORE = 2;
+extend("strength", {
+  message: "pwd-not-complex",
+  validate: (_value, args: any) => {
+    if (args !== undefined) {
+      return args[0] >= MIN_SCORE
+    }
+    return true}
+});
+
 @Component({
   components: {
     ValidationProvider,
-    VueRecaptcha
+    VueRecaptcha,
+    Password
   }
 })
 export default class Register extends Vue {
@@ -139,14 +154,22 @@ export default class Register extends Vue {
 
   user: User = new User();
   loading = false;
+  score = 0;
 
   handleRegister() {
+    if (this.score < MIN_SCORE) {
+      return;
+    }
     this.loading = true;
     this.$emit("on-register", this.user);
   }
 
   onVerify(captcha: string) {
     this.user.captcha = captcha;
+  }
+
+  setScore(s: number) {
+    this.score = s;
   }
 }
 </script>
@@ -163,7 +186,8 @@ export default class Register extends Vue {
 "submit": "Submit",
 "email-not-valid": "Email not valid",
 "field-required": "This field is required",
-"password-not-confirmed": "Password not confirmed"
+"password-not-confirmed": "Password not confirmed",
+"pwd-not-complex": "Password not secure enough"
 },
 "fr": {
 "title": "Création de compte DossierFacile",
@@ -175,7 +199,8 @@ export default class Register extends Vue {
 "submit": "Valider",
 "email-not-valid": "Email non valide",
 "field-required": "Ce champ est requis",
-"password-not-confirmed": "Le mot de passe ne correspond pas"
+"password-not-confirmed": "Le mot de passe ne correspond pas",
+"pwd-not-complex": "Mot de passe trop simple"
 }
 }
 </i18n>
