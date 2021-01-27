@@ -6,8 +6,8 @@
           <div class="rf-grid-row height-40">
             <div class="rf-col-12">
               <div>
-                <h1 class="color--white">La démarche DossierFacile</h1>
-                <h4 class="color--white">Qui sommes nous ?</h4>
+                <h1 class="rf-h1 color--white">La démarche DossierFacile</h1>
+                <h4 class="rf-h4 color--white">Qui sommes nous ?</h4>
               </div>
             </div>
           </div>
@@ -19,7 +19,7 @@
           <div class="rf-grid-row justify-content-center">
             <div class="rf-col-md-10 rf-col-lg-8">
               <div>
-                <h4>La démarche DossierFacile</h4>
+                <h4 class="rf-h4">La démarche DossierFacile</h4>
                 <p>
                   Dans les zones où la demande de logement est plus forte que
                   l’offre, nous savons que le parcours n’est simple ni pour les
@@ -49,7 +49,7 @@
                   vicieux.
                 </p>
 
-                <h4>Notre solution ?</h4>
+                <h4 class="rf-h4">Notre solution ?</h4>
                 <p>
                   Remettre la confiance au centre de la relation entre
                   propriétaires et locataire grâce à notre outil 100 % en ligne,
@@ -83,7 +83,7 @@
                   sur contact@dossierfacile.fr.
                 </p>
 
-                <h4>La démarche startup d’État</h4>
+                <h4 class="rf-h4">La démarche startup d’État</h4>
                 <p>
                   Depuis juin 2013, l’État a expérimenté une nouvelle manière de
                   construire des services publics numériques. Cette expérience a
@@ -110,7 +110,7 @@
                   votre service : tout simplement !
                 </p>
 
-                <h4>La confiance, c’est quoi ?</h4>
+                <h4 class="rf-h4">La confiance, c’est quoi ?</h4>
                 <p>
                   Difficile à établir et pourtant essentielle, la confiance
                   n’est pas un bien comme un autre. Chez DossierFacile, nous
@@ -123,7 +123,7 @@
                   nous pensons être les piliers de la confiance :
                 </p>
 
-                <ul class="bullets">
+                <ul>
                   <li>
                     <b> la bienveillance : </b> missionnés par l’État, notre
                     seul objectif est de vous rendre service. Vos données ne
