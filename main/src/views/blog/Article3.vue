@@ -5,7 +5,7 @@
         <div class="rf-col-md-10 rf-col-lg-8">
           <article>
             <div class="text-center">
-              <h1>Pourquoi Dossier Facile est-il gratuit ?</h1>
+              <h1 class="rf-h1">Pourquoi Dossier Facile est-il gratuit ?</h1>
               <span>July 21nd 2020 </span>
               <span>
                 <a href="#" class="underline">DossierFacile</a>
@@ -22,7 +22,7 @@
                 pourquoi votre dossier de location est-il gratuit ?
               </p>
               <img alt="Image" src="../../assets/images/blog-article3.webp" />
-              <h3>
+              <h3 class="rf-h3">
                 Pourquoi ce dossier de location est-il gratuit contrairement aux
                 autres ?
               </h3>
@@ -40,7 +40,7 @@
                 bailleur-locataire et de
                 <b> promouvoir une égalité des chances</b> face à la location.
               </p>
-              <h3>
+              <h3 class="rf-h3">
                 Quel rapport entre un dossier de location gratuit et la
                 confiance ?
               </h3>
@@ -68,7 +68,7 @@
                 <b> l’Etat s’implique dans la promotion de la confiance </b>
                 entre bailleurs et locataires !
               </p>
-              <h3>
+              <h3 class="rf-h3">
                 Quel rapport entre un dossier de location gratuit et l’égalité ?
               </h3>
               <p>

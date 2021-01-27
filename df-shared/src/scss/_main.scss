@@ -1,5 +1,9 @@
 @import "variables";
 
+body {
+  color: var(--g700);
+}
+
 :focus {
   outline: none !important;
 }
@@ -8,23 +12,23 @@
 }
 
 .color--primary {
-  color: $primary;
+  color: $primary !important;
 }
 
 .color--secondary {
-  color: $light-blue;
+  color: $light-blue !important;
 }
 
 .color--green {
-  color: limegreen;
+  color: limegreen !important;
 }
 
 .color--red {
-  color: red;
+  color: red !important;
 }
 
 .color--white {
-  color: white;
+  color: white !important;
 }
 
 .bg--orange {
@@ -110,4 +114,9 @@ input[type=checkbox]:focus+label::before {
 .rf-header .rf-nav {
     margin: 0 calc(50% - 49vw) !important;
 }
+}
+
+img {
+  max-width: 100%;
+  display: block;
 }

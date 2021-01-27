@@ -6,7 +6,7 @@
           <article class="rf-mb-12w">
             <div class="text-center">
               <router-link to="/blog/article1">
-                <h2>
+                <h2 class="rf-h2">
                   Quelles pièces justificatives fournir pour mon dossier de
                   location ?
                 </h2>
@@ -38,7 +38,7 @@
           <article class="rf-mb-12w">
             <div class="text-center">
               <router-link to="/blog/article2">
-                <h2>Constituer votre Dossier Facile</h2>
+                <h2 class="rf-h2">Constituer votre Dossier Facile</h2>
               </router-link>
               <span>December 12nd 2019 in </span>
               <span>
@@ -67,7 +67,7 @@
           <article class="rf-mb-12w">
             <div class="text-center">
               <router-link to="/blog/article3">
-                <h2>Pourquoi Dossier Facile est-il gratuit ?</h2>
+                <h2 class="rf-h2">Pourquoi Dossier Facile est-il gratuit ?</h2>
               </router-link>
               <span>July 21nd 2020 in </span>
               <span>
@@ -117,5 +117,9 @@ export default class Blog extends Vue {}
 
 a {
   color: $light-blue;
+}
+
+.article__body {
+  margin-top: 1rem;
 }
 </style>

@@ -4,7 +4,7 @@
       <div class="rf-container">
         <div class="rf-col-md-8">
           <div class="rf-grid-col">
-            <h1 class="color--white">
+            <h1 class="rf-h1 color--white">
               {{ $t("s0.title") }}
             </h1>
             <p class="text-bold color--white">
@@ -27,7 +27,7 @@
             <div>
               <img src="../assets/icons/approval.svg" class="s1-icons" />
             </div>
-            <h3 class="color--secondary">{{ $t("s1.h1") }}</h3>
+            <h3 class="rf-h3 color--secondary">{{ $t("s1.h1") }}</h3>
             <p class="rf-mt-0">
               {{ $t("s1.p1") }}
             </p>
@@ -36,7 +36,7 @@
             <div>
               <img src="../assets/icons/sports.svg" class="s1-icons" />
             </div>
-            <h3 class="color--secondary">{{ $t("s1.h2") }}</h3>
+            <h3 class="rf-h3 color--secondary">{{ $t("s1.h2") }}</h3>
             <p class="rf-mt-0">
               {{ $t("s1.p2") }}
             </p>
@@ -45,7 +45,7 @@
             <div>
               <img src="../assets/icons/reading.svg" class="s1-icons" />
             </div>
-            <h3 class="color--secondary">{{ $t("s1.h3") }}</h3>
+            <h3 class="rf-h3 color--secondary">{{ $t("s1.h3") }}</h3>
             <p class="rf-mt-0">
               {{ $t("s1.p3") }}
             </p>
@@ -55,10 +55,10 @@
     </section>
     <section class="rf-mt-12w">
       <div class="rf-container">
-        <h2 class="s2-title">{{ $t("s2.title") }}</h2>
+        <h2 class="rf-h2 s2-title">{{ $t("s2.title") }}</h2>
         <div class="rf-grid-row">
           <div class="rf-col-md-6 rf-grid-col">
-            <h4 class="color--secondary rf-mb-0">{{ $t("s2.h1") }}</h4>
+            <h4 class="rf-h4 color--secondary rf-mb-0">{{ $t("s2.h1") }}</h4>
             <p>{{ $t("s2.p1") }}</p>
             <ul>
               <li>{{ $t("s2.u1a") }}</li>
@@ -68,10 +68,10 @@
               <li>{{ $t("s2.u1e") }}</li>
             </ul>
 
-            <h4 class="color--secondary rf-mb-0">{{ $t("s2.h2") }}</h4>
+            <h4 class="rf-h4 color--secondary rf-mb-0">{{ $t("s2.h2") }}</h4>
             <p>{{ $t("s2.p2") }}</p>
 
-            <h4 class="color--secondary rf-mb-0">{{ $t("s2.h3") }}</h4>
+            <h4 class="rf-h4 color--secondary rf-mb-0">{{ $t("s2.h3") }}</h4>
             <p>{{ $t("s2.p3") }}</p>
           </div>
           <div class="rf-col-md-6">
@@ -86,7 +86,7 @@
     <section class="rf-mt-12w">
       <div class="bg--orange rf-pt-7w rf-pb-7w">
         <div class="rf-container">
-          <h2 class="s3-title">{{ $t("s3.title") }}</h2>
+          <h2 class="rf-h2 s3-title">{{ $t("s3.title") }}</h2>
           <p>
             {{ $t("s3.text1") }}
             <br />
@@ -103,7 +103,7 @@
     </section>
     <section class="rf-mt-12w">
       <div class="rf-container rf-mb-7w">
-        <h2 class="text-center">
+        <h2 class="rf-h2 text-center">
           {{ $t("s4.title1") }}
           <span class="color--secondary">{{ $t("s4.title2") }}</span>
           {{ $t("s4.title3") }}
@@ -220,6 +220,11 @@ ul li:before {
   display: inline-block;
   color: limegreen;
   font-size: 1rem;
+}
+
+img {
+  max-width: 100%;
+  display: block;
 }
 </style>
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ $t("title") }}</h1>
+    <h1 class="rf-h1">{{ $t("title") }}</h1>
     <div v-if="!hasGuarantors()">
       <p>{{ $t("read-no-guarantor") }}</p>
       <div>
@@ -14,27 +14,28 @@
       </div>
       <div>
         <validation-provider
-          :rules="{ regex: /^[0-9., ]+$/ }"
           v-slot="{ errors }"
         >
           <div
             class="rf-input-group"
             :class="errors[0] ? 'rf-input-group--error' : ''"
           >
-            <label for="precision" class="rf-label"
-              >{{ $t("precision") }} :</label
-            >
-            <input
-              id="precision"
-              :placeholder="$t('placeholder')"
-              type="text"
-              v-model="precision"
-              name="precision"
-              class="validate-required form-control rf-input"
-            />
-            <span class="rf-error-text" v-if="errors[0]">{{
-              $t(errors[0])
-            }}</span>
+            <p>
+              <label for="precision" class="rf-label"
+                >{{ $t("precision") }} :</label
+              >
+              <input
+                id="precision"
+                :placeholder="$t('placeholder')"
+                type="text"
+                v-model="precision"
+                name="precision"
+                class="validate-required form-control rf-input"
+              />
+              <span class="rf-error-text" v-if="errors[0]">{{
+                $t(errors[0])
+              }}</span>
+            </p>
           </div>
         </validation-provider>
       </div>
@@ -71,27 +72,28 @@
       </div>
       <div>
         <validation-provider
-          :rules="{ regex: /^[0-9., ]+$/ }"
           v-slot="{ errors }"
         >
           <div
             class="rf-input-group"
             :class="errors[0] ? 'rf-input-group--error' : ''"
           >
-            <label for="precision" class="rf-label"
-              >{{ $t("precision") }} :</label
-            >
-            <input
-              id="precision"
-              :placeholder="$t('placeholder')"
-              type="text"
-              v-model="precision"
-              name="precision"
-              class="validate-required form-control rf-input"
-            />
-            <span class="rf-error-text" v-if="errors[0]">{{
-              $t(errors[0])
-            }}</span>
+            <p>
+              <label for="precision" class="rf-label"
+                >{{ $t("precision") }} :</label
+              >
+              <input
+                id="precision"
+                :placeholder="$t('placeholder')"
+                type="text"
+                v-model="precision"
+                name="precision"
+                class="validate-required form-control rf-input"
+              />
+              <span class="rf-error-text" v-if="errors[0]">{{
+                $t(errors[0])
+              }}</span>
+            </p>
           </div>
         </validation-provider>
       </div>
