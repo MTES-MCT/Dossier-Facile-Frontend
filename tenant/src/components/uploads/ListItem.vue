@@ -12,15 +12,15 @@
         <Progress :percentage="percentage" :state="uploadState" />
       </div>
       <div
-        class="action-btn rf-p-2w"
+        class="action-btn rf-p-1w"
         @click="openDoc()"
         :title="$t('show')"
         v-if="file.path"
       >
-        <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
+        <i class="icon color--primary icon-lg icon-Eye-2"></i>
       </div>
-      <div class="action-btn rf-p-2w" @click="remove()" :title="$t('remove')">
-        <span class="icon icon-Recycling text-danger"></span>
+      <div class="action-btn rf-p-1w" @click="remove()" :title="$t('remove')">
+        <span class="icon icon-Recycling icon-md text-danger"></span>
       </div>
     </div>
     <Modal
@@ -118,6 +118,14 @@ export default class ListItem extends Vue {
 
 .size {
   color: var(--g500);
+}
+
+.icon-md {
+  font-size: 1.5rem;
+}
+
+.icon-lg {
+  font-size: 2rem;
 }
 </style>
 
