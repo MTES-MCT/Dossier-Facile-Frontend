@@ -2,7 +2,7 @@
   <div class="rf-container">
     <div class="signup">
       <Register @on-register="onRegister" />
-      <div class="text-center">
+      <div class="text-center rf-mb-5w">
         <router-link to="/login">
           {{ $t("existing-account") }}
         </router-link>
