@@ -13,12 +13,10 @@ export default class ConfirmAccount extends Vue {
   error?: any = null;
 
   mounted() {
-    console.log("truc");
     const token = this.$route.params.token;
-    console.dir(token);
     AuthService.confirmAccount(token)
       .then(() => {
-        this.$router.push("/login");
+        this.$router.push("/profile");
       })
       .catch(err => {
         this.error = err;
