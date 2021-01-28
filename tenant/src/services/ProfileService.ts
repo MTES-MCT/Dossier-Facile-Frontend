@@ -5,7 +5,8 @@ export const ProfileService = {
   saveNames(user: User) {
     return axios.post(`//${process.env.VUE_APP_API_URL}/api/register/names`, {
       firstName: user.firstName,
-      lastName: user.lastName
+      lastName: user.lastName,
+      zipCode: user.zipCode
     });
   },
   saveRoommates(data: {
