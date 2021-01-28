@@ -7,9 +7,6 @@
       <p>
         {{ $t("paragraph1") }}
       </p>
-      <p>
-        {{ $t("paragraph2") }}
-      </p>
     </template>
   </Card>
 </template>
@@ -37,13 +34,11 @@ export default class DocumentHelp extends Vue {
 {
   "en": {
     "title": "Aide",
-    "paragraph1": "Si vous ne possédez pas la/les pièce(s) demandée(s), nous vous conseillons d’ajouter un document pour pouvoir poursuivre.",
-    "paragraph2": "Si votre pièce est trop lourde, nous vous conseillons de scanner votre pièce (avec une application gratuite pour smartphone par exemple). Si cela ne suffit pas, contactez-nous par mail à l’adresse contact@dossierfacile.fr, nous nous efforcerons de répondre au plus vite !"
+    "paragraph1": "Si votre pièce est trop lourde, nous vous conseillons de scanner votre pièce (avec une application gratuite pour smartphone par exemple). Si cela ne suffit pas, contactez-nous par mail à l’adresse contact@dossierfacile.fr, nous nous efforcerons de répondre au plus vite !"
   },
   "fr": {
     "title": "Aide",
-    "paragraph1": "Si vous ne possédez pas la/les pièce(s) demandée(s), nous vous conseillons d’ajouter un document pour pouvoir poursuivre.",
-    "paragraph2": "Si votre pièce est trop lourde, nous vous conseillons de scanner votre pièce (avec une application gratuite pour smartphone par exemple). Si cela ne suffit pas, contactez-nous par mail à l’adresse contact@dossierfacile.fr, nous nous efforcerons de répondre au plus vite !"
+    "paragraph1": "Si votre pièce est trop lourde, nous vous conseillons de scanner votre pièce (avec une application gratuite pour smartphone par exemple). Si cela ne suffit pas, contactez-nous par mail à l’adresse contact@dossierfacile.fr, nous nous efforcerons de répondre au plus vite !"
   }
 }
 </i18n>
