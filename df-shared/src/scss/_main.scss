@@ -106,6 +106,13 @@ input[type=checkbox]:focus+label::before {
   visibility: visible !important;
 }
 
+.rf-fi-close-line {
+  visibility: hidden;
+}
+.rf-fi-close-line:last-child {
+  visibility: visible !important;
+}
+
 .rf-header {
   z-index: 10;
 }
