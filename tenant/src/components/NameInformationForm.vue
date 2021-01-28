@@ -56,7 +56,7 @@
           </div>
           <div class="rf-col-12 rf-mb-3w">
             <validation-provider
-              :rules="{ regex: /^[0-9]{4,5}$/ }"
+              :rules="{ zipcode: /^[0-9]{5}$/ }"
               v-slot="{ errors }"
             >
               <div
@@ -99,7 +99,7 @@ import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
 import { required, regex } from "vee-validate/dist/rules";
 
-extend("regex", {
+extend("zipcode", {
   ...regex,
   message: "zipcode-not-valid"
 });
