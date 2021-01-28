@@ -75,7 +75,7 @@
           </validation-provider>
         </div>
         <div class="rf-col-12 rf-mb-2w" v-if="taxDocument">
-          <button class="rf-btn" type="submit" :disabled="!taxDocument.key">
+          <button class="rf-btn" type="submit" :disabled="isButtonDisabled()">
             {{ $t("register") }}
           </button>
         </div>
@@ -142,7 +142,7 @@ export default class Tax extends Vue {
   acceptVerification = false;
   customText = "";
 
-  mounted() {
+  getRegisteredDoc() {
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "TAX";
@@ -152,10 +152,16 @@ export default class Tax extends Vue {
         const localDoc = this.documents.find((d: DocumentType) => {
           return d.value === doc.documentSubCategory;
         });
-        if (localDoc !== undefined) {
-          this.taxDocument = localDoc;
-        }
+        return localDoc;
       }
+    }
+    return undefined;
+  }
+
+  mounted() {
+    const localDoc = this.getRegisteredDoc();
+    if (localDoc !== undefined) {
+      this.taxDocument = localDoc;
     }
   }
 
@@ -169,6 +175,7 @@ export default class Tax extends Vue {
   resetFiles() {
     this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
   }
+
   save() {
     if (
       !this.taxDocument.key ||
@@ -184,7 +191,7 @@ export default class Tax extends Vue {
     });
     if (newFiles.length) {
 
-      if (this.taxDocument.maxFileCount && this.taxFiles.length > this.taxDocument.maxFileCount) {
+      if (this.taxDocument.maxFileCount && this.taxFiles().length > this.taxDocument.maxFileCount) {
           Vue.toasted.global.max_file();
           return;
       }
@@ -243,6 +250,20 @@ export default class Tax extends Vue {
         return d.documentCategory === "TAX";
       })?.files || [];
     return [...newFiles, ...existingFiles];
+  }
+
+  isButtonDisabled() {
+    if (!this.taxDocument.key) {
+      return true;
+    }
+    if (this.taxDocument.key === 'my-name') {
+      return this.files.length <= 0;
+    }
+    const localDoc = this.getRegisteredDoc();
+    if (localDoc && localDoc.key === this.taxDocument.key) {
+      return true;
+    }
+    return false;
   }
 
   remove(file: DfFile) {
