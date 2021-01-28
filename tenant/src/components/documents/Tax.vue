@@ -2,7 +2,7 @@
   <div>
     <ValidationObserver v-slot="{ invalid, validate }">
       <form name="form" @submit.prevent="validate().then(save)">
-        <div>
+        <div class="rf-mb-3w">
           <select
             v-model="taxDocument"
             class="rf-select rf-mb-3w"
@@ -14,7 +14,7 @@
             </option>
           </select>
         </div>
-        <div v-if="taxDocument.key && taxDocument.key === 'other-tax'">
+        <div class="rf-mb-3w" v-if="taxDocument.key && taxDocument.key === 'other-tax'">
           <div class="rf-input-group">
             <label class="rf-label" for="customText">{{
               $t("custom-text")
@@ -74,7 +74,7 @@
             </div>
           </validation-provider>
         </div>
-        <div class="rf-col-12 rf-mb-2w" v-if="taxDocument">
+        <div class="rf-col-12 rf-mb-5w" v-if="taxDocument">
           <button class="rf-btn" type="submit" :disabled="isButtonDisabled()">
             {{ $t("register") }}
           </button>
@@ -147,19 +147,28 @@ export default class Tax extends Vue {
       const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "TAX";
       });
-      if (doc !== undefined) {
-        this.customText = doc.customText || "";
-        const localDoc = this.documents.find((d: DocumentType) => {
-          return d.value === doc.documentSubCategory;
-        });
-        return localDoc;
-      }
+      return doc;
+    }
+    return undefined;
+  }
+
+  getLocalDoc() {
+    const doc = this.getRegisteredDoc();
+    if (doc !== undefined) {
+      const localDoc = this.documents.find((d: DocumentType) => {
+        return d.value === doc.documentSubCategory;
+      });
+      return localDoc;
     }
     return undefined;
   }
 
   mounted() {
-    const localDoc = this.getRegisteredDoc();
+    const doc = this.getRegisteredDoc();
+    if (doc !== undefined) {
+      this.customText = doc.customText || "";
+    }
+    const localDoc = this.getLocalDoc();
     if (localDoc !== undefined) {
       this.taxDocument = localDoc;
     }
@@ -259,7 +268,7 @@ export default class Tax extends Vue {
     if (this.taxDocument.key === 'my-name') {
       return this.files.length <= 0;
     }
-    const localDoc = this.getRegisteredDoc();
+    const localDoc = this.getLocalDoc();
     if (localDoc && localDoc.key === this.taxDocument.key) {
       return true;
     }
