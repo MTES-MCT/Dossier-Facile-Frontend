@@ -25,7 +25,7 @@
         <div>
           <button
             class="rf-mr-3w rf-mb-3w"
-            :class="{ guarantorselected: selectedGuarantor === g }"
+            :class="{ guarantorselected: guarantor === g }"
             v-for="(g, k) in user.guarantors"
             :key="k"
             @click="selectGuarantor(k)"
@@ -256,23 +256,23 @@ import i18n from "../../../main/src/i18n";
   computed: {
     ...mapState({
       guarantorStep: "guarantorStep",
-      selectedGuarantor: "selectedGuarantor",
-      guarantorSubStep: "guarantorSubStep"
+      guarantorSubStep: "guarantorSubStep",
+      user: "user"
     }),
     ...mapGetters({
-      user: "userToEdit"
+      guarantor: "guarantor"
     })
   }
 })
 export default class GuarantorDocuments extends Vue {
   user!: User;
-  selectedGuarantor!: Guarantor;
+  guarantor!: Guarantor;
   guarantorSubStep!: number;
   guarantorType = "";
 
   mounted() {
-    if (this.selectedGuarantor.typeGuarantor) {
-      this.guarantorType = this.selectedGuarantor.typeGuarantor;
+    if (this.guarantor.typeGuarantor) {
+      this.guarantorType = this.guarantor.typeGuarantor;
     }
   }
 
@@ -295,7 +295,7 @@ export default class GuarantorDocuments extends Vue {
   }
 
   hasDoc(docType: string) {
-    const f = this.selectedGuarantor.documents?.find(d => {
+    const f = this.guarantor.documents?.find(d => {
       return d.documentCategory === docType;
     })?.files;
     return f && f.length > 0;
@@ -325,7 +325,7 @@ export default class GuarantorDocuments extends Vue {
   }
 
   isTaxValid() {
-    const doc = this.user.documents?.find(d => {
+    const doc = this.guarantor.documents?.find(d => {
       return d.documentCategory === "TAX";
     });
     if (!doc) {

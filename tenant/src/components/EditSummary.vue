@@ -40,7 +40,11 @@
               <div class="row" v-if="hasDoc('IDENTIFICATION')">
                 <div class="subtitle">Pièce d’identité</div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="openDoc('IDENTIFICATION')">
+                  <div
+                    class="edit-step-btn"
+                    @click="openDoc('IDENTIFICATION')"
+                    v-if="hasFile('IDENTIFICATION')"
+                  >
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
                   <div class="edit-step-btn" @click="setTenantStep(1)">
@@ -51,7 +55,11 @@
               <div class="row" v-if="hasDoc('RESIDENCY')">
                 <div class="subtitle">Justificatif de domicile</div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="openDoc('RESIDENCY')">
+                  <div
+                    class="edit-step-btn"
+                    @click="openDoc('RESIDENCY')"
+                    v-if="hasFile('RESIDENCY')"
+                  >
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
                   <div class="edit-step-btn" @click="setTenantStep(2)">
@@ -64,7 +72,11 @@
                   Justificatif de situation professionelle
                 </div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="openDoc('PROFESSIONAL')">
+                  <div
+                    class="edit-step-btn"
+                    @click="openDoc('PROFESSIONAL')"
+                    v-if="hasFile('PROFESSIONAL')"
+                  >
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
                   <div class="edit-step-btn" @click="setTenantStep(3)">
@@ -75,7 +87,11 @@
               <div class="row" v-if="hasDoc('FINANCIAL')">
                 <div class="subtitle">Justificatif de revenu</div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="openDoc('FINANCIAL')">
+                  <div
+                    class="edit-step-btn"
+                    @click="openDoc('FINANCIAL')"
+                    v-if="hasFile('FINANCIAL')"
+                  >
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
                   <div class="edit-step-btn" @click="setTenantStep(4)">
@@ -86,7 +102,11 @@
               <div class="row" v-if="hasDoc('TAX')">
                 <div class="subtitle">Avis d’imposition</div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="openDoc('TAX')">
+                  <div
+                    class="edit-step-btn"
+                    @click="openDoc('TAX')"
+                    v-if="hasFile('TAX')"
+                  >
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
                   <div class="edit-step-btn" @click="setTenantStep(5)">
@@ -110,6 +130,7 @@
                   <div
                     class="edit-step-btn"
                     @click="openGuarantorDoc('IDENTIFICATION')"
+                    v-if="guarantorHasFile('IDENTIFICATION')"
                   >
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
@@ -124,6 +145,7 @@
                   <div
                     class="edit-step-btn"
                     @click="openGuarantorDoc('RESIDENCY')"
+                    v-if="guarantorHasFile('RESIDENCY')"
                   >
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
@@ -140,6 +162,7 @@
                   <div
                     class="edit-step-btn"
                     @click="openGuarantorDoc('PROFESSIONAL')"
+                    v-if="guarantorHasFile('PROFESSIONAL')"
                   >
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
@@ -154,6 +177,7 @@
                   <div
                     class="edit-step-btn"
                     @click="openGuarantorDoc('FINANCIAL')"
+                    v-if="guarantorHasFile('FINANCIAL')"
                   >
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
@@ -165,7 +189,11 @@
               <div class="row" v-if="guarantorHasDoc('TAX')">
                 <div class="subtitle">Avis d’imposition</div>
                 <div class="row">
-                  <div class="edit-step-btn" @click="openGuarantorDoc('TAX')">
+                  <div
+                    class="edit-step-btn"
+                    @click="openGuarantorDoc('TAX')"
+                    v-if="guarantorHasFile('TAX')"
+                  >
                     <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
                   </div>
                   <div class="edit-step-btn" @click="setGuarantorStep(5)">
@@ -184,11 +212,7 @@
           <div class="row justify-content-center">
             <div class="col-12 col-md-8">
               <div v-for="f in files" v-bind:key="f.id">
-                <img :src="getUrl(f.path)" v-if="isImage(f.path)" />
-                <PdfViewer
-                  :src="getUrl(f.path)"
-                  v-if="!isImage(f.path)"
-                ></PdfViewer>
+                <ShowDoc :file="f"></ShowDoc>
               </div>
             </div>
           </div>
@@ -207,16 +231,17 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 import { DfFile } from "df-shared/src/models/DfFile";
 import Modal from "df-shared/src/components/Modal.vue";
 import PdfViewer from "../components/PdfViewer.vue";
+import ShowDoc from "./documents/ShowDoc.vue";
 
 @Component({
-  components: { NakedCard, Modal, PdfViewer },
+  components: { NakedCard, Modal, PdfViewer, ShowDoc },
   computed: {
     ...mapState({
       user: "user",
       tenantStep: "tenantStep",
-      selectedGuarantor: "selectedGuarantor"
-    })
-  }
+      selectedGuarantor: "selectedGuarantor",
+    }),
+  },
 })
 export default class EditSummary extends Vue {
   user!: User;
@@ -241,12 +266,20 @@ export default class EditSummary extends Vue {
     return this.user.documents !== undefined && this.user.documents?.length > 0;
   }
   hasDoc(docType: string) {
-    return this.user.documents?.find(d => {
+    return this.user.documents?.find((d) => {
       return d.documentCategory === docType;
     });
   }
+  hasFile(docType: string) {
+    const document = this.hasDoc(docType);
+    return (document?.files?.length || 0) > 0;
+  }
+  guarantorHasFile(docType: string) {
+    const document = this.guarantorHasDoc(docType);
+    return (document?.files?.length || 0) > 0;
+  }
   guarantorHasDoc(docType: string) {
-    return this.selectedGuarantor.documents?.find(d => {
+    return this.selectedGuarantor.documents?.find((d) => {
       return d.documentCategory === docType;
     });
   }
@@ -258,7 +291,7 @@ export default class EditSummary extends Vue {
   }
 
   openDoc(documentCategory: string) {
-    const docs = this.user.documents?.filter(d => {
+    const docs = this.user.documents?.filter((d) => {
       return d.documentCategory === documentCategory;
     });
     this.files = [];
@@ -272,7 +305,7 @@ export default class EditSummary extends Vue {
   }
 
   openGuarantorDoc(documentCategory: string) {
-    const docs = this.selectedGuarantor.documents?.filter(d => {
+    const docs = this.selectedGuarantor.documents?.filter((d) => {
       return d.documentCategory === documentCategory;
     });
     this.files = [];

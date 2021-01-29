@@ -26,6 +26,11 @@ export default class NakedCard extends Vue {}
   -moz-box-shadow: 0 7px 15px 0 rgba(0, 0, 0, 0.5);
   box-shadow: 0 7px 15px 0 rgba(0, 0, 0, 0.5);
 
+  background: rgba(250,247,245,0.7);
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(5px);
+
   a {
     &:before {
       content: none;

@@ -1,7 +1,7 @@
 <template>
-  <div class="rf-p-1w list-item rf-mb-1w">
-    <div class="rf-grid-row">
-      <div class="rf-p-2w">
+  <div class="list-item rf-mb-1w">
+    <div class="rf-grid-row" style="align-items: center">
+      <div class="rf-pl-2w rf-pr-2w">
         <span class="icon icon-File"></span>
       </div>
       <div class="text rf-pr-2w">
