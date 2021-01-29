@@ -1,7 +1,17 @@
 <template>
   <div>
     <div v-for="(f, k) in financialDocuments" :key="k">
-      <div>Revenu {{ k + 1 }}</div>
+      <div class="rf-grid-row rf-mb-3w" style="justify-content: space-between">
+        <span>
+          Revenu {{ k + 1 }}
+        </span>
+        <DfButton
+          class="rf-btn"
+          size="small"
+          :label="$t('delete-financial')"
+          @on-click="removeFinancial(k)">
+        </DfButton>
+        </div>
       <div>
         <label class="rf-label" for="select">
           Attention, Veuillez renseigner uniquement vos propres revenus.
@@ -105,9 +115,6 @@
         >
           Enregistrer la pièce
         </button>
-        <button class="rf-btn" type="submit" @click="removeFinancial(k)">
-          Supprimer ce revenu
-        </button>
       </div>
       <div class="rf-mb-5w">
         <DocumentInsert
@@ -141,6 +148,7 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 import { extend } from "vee-validate";
 import { regex } from "vee-validate/dist/rules";
 import { RegisterService } from "../../services/RegisterService";
+import DfButton from "df-shared/src/Button/Button.vue";
 
 extend("regex", {
   ...regex,
@@ -158,7 +166,7 @@ class F {
 }
 
 @Component({
-  components: { ValidationProvider, DocumentInsert, FileUpload, ListItem },
+  components: { ValidationProvider, DocumentInsert, FileUpload, ListItem, DfButton },
   computed: {
     ...mapGetters({
       user: "userToEdit"
@@ -392,7 +400,8 @@ export default class Financial extends Vue {
 "customText": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes trois derniers bulletins de salaire :",
 "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
 "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
-"number-not-valid": "Number not valid"
+"number-not-valid": "Number not valid",
+"delete-financial":  "Delete this salary"
 },
 "fr": {
 "salary": "Salaire",
@@ -406,7 +415,8 @@ export default class Financial extends Vue {
 "customText": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes trois derniers bulletins de salaire :",
 "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
 "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
-"number-not-valid": "Nombre incorrect"
+"number-not-valid": "Nombre incorrect",
+"delete-financial":  "Supprimer ce revenu"
 }
 }
 </i18n>
