@@ -46,12 +46,12 @@ export default class Modal extends Vue {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(1, 7, 19, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
    backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
+  background-color: rgba(1, 7, 19, 0.5);
 }
 
 .modal {
