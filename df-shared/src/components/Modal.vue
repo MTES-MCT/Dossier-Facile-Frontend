@@ -55,11 +55,11 @@ export default class Modal extends Vue {
 }
 
 .modal {
-   background: rgba(255,255,255,0.88);
-   border-radius: 10px;
-   border: 1px solid rgba(255,255,255,0.2);
-   position: absolute;
-   backdrop-filter: blur(5px);
+  background: rgba(255,255,255,0.88);
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.2);
+  position: absolute;
+  backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   display: flex;
   flex-direction: column;
