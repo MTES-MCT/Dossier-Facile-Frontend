@@ -184,11 +184,7 @@
           <div class="row justify-content-center">
             <div class="col-12 col-md-8">
               <div v-for="f in files" v-bind:key="f.id">
-                <img :src="getUrl(f.path)" v-if="isImage(f.path)" />
-                <PdfViewer
-                  :src="getUrl(f.path)"
-                  v-if="!isImage(f.path)"
-                ></PdfViewer>
+                <ShowDoc :file="f"></ShowDoc>
               </div>
             </div>
           </div>
@@ -207,9 +203,10 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 import { DfFile } from "df-shared/src/models/DfFile";
 import Modal from "df-shared/src/components/Modal.vue";
 import PdfViewer from "../components/PdfViewer.vue";
+import ShowDoc from "./documents/ShowDoc.vue";
 
 @Component({
-  components: { NakedCard, Modal, PdfViewer },
+  components: { NakedCard, Modal, PdfViewer, ShowDoc },
   computed: {
     ...mapState({
       user: "user",
