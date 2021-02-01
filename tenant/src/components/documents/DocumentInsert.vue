@@ -102,6 +102,10 @@ ul li {
   color: red;
   padding: 0 6px 0 0;
 }
+
+ul {
+  padding-inline-start: 0;
+}
 </style>
 
 <i18n>

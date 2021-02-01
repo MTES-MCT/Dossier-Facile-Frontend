@@ -1,11 +1,8 @@
 <template>
-  <div>
-    <div layout:fragment="content" th:remove="tag">
-      <div class="main-container">
-        <section class="text-center pt-5">
-          <div class="container pt-4">
-            <div class="row">
-              <div class="col-md-10 col-lg-8">
+      <div class="rf-container">
+        <section class="text-center rf-pt-3w">
+            <div class="rf-grid-row rf-grid-row--center">
+              <div class="rf-col-md-10 rf-col-lg-8">
                 <h1>{{ $t("title") }}</h1>
                 <h5 class="w-60 mx-auto font-weight-normal text-lead-color">
                   Votre lien sera généré dès que votre dossier sera validé. Vous
@@ -21,7 +18,7 @@
                   </div>
                 </h5>
 
-                <div class="mt-5">
+                <div class="rf-mt-5w">
                   <span>{{
                     $t("subtitle", [
                       user.firstName,
@@ -37,7 +34,7 @@
                   class="d-flex flex-column"
                   v-if="user.status === 'VALIDATED'"
                 >
-                  <div class="mt-5 modal-instance">
+                  <div class="rf-mt-5w modal-instance">
                     <div class="modal-trigger">
                       <a
                         class="btn btn--primary type--uppercase"
@@ -141,11 +138,9 @@
                 </div>
               </div>
             </div>
-          </div>
         </section>
 
         <section>
-          <div class="container">
             <div class="process-2 row">
               <div class="col-md-3" v-if="user.status === 'INCOMPLETE'">
                 <div class="process__item process__item_active">
@@ -187,11 +182,8 @@
                 </div>
               </div>
             </div>
-          </div>
         </section>
       </div>
-    </div>
-  </div>
 </template>
 
 <script lang="ts">
