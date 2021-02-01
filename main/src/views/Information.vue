@@ -165,14 +165,9 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
-@Component({
-  mounted: function() {
-    const localScript = document.createElement("script");
-    localScript.setAttribute("src", "/js/all.js");
-    document.head.appendChild(localScript);
-  }
-})
-export default class Information extends Vue {}
+@Component
+export default class Information extends Vue {
+}
 </script>
 
 <style scoped lang="scss">

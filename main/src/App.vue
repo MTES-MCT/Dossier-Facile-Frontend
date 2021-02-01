@@ -34,6 +34,7 @@ import MyFooter from "df-shared/src/Footer/Footer.vue";
 import Modal from "df-shared/src/components/Modal.vue";
 import Cookies from "df-shared/src/Footer/Cookies.vue";
 import i18n from "./i18n";
+import { Header } from "./gouvfr/header.js";
 
 @Component({
   components: {
@@ -50,6 +51,10 @@ export default class App extends Vue {
 
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
+
+  mounted() {
+    new Header();
+  }
 
   onCreateOwner() {
     window.location.href = this.OWNER_URL;

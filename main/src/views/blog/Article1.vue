@@ -43,7 +43,9 @@
                 <b>carte</b> de séjour peut également convenir si celle-ci est
                 valable.
               </p>
-              <h3 class="rf-h3">Le justificatif de domicile ou de bon paiement des loyers</h3>
+              <h3 class="rf-h3">
+                Le justificatif de domicile ou de bon paiement des loyers
+              </h3>
               <p>
                 En ce qui concerne le justificatif de domicile, il faut
                 distinguer plusieurs cas :
@@ -70,7 +72,9 @@
                   émanant de la personne qui l’hébergeait.
                 </li>
               </ul>
-              <h3 class="rf-h3">Le contrat de travail et/ou les documents alternatifs</h3>
+              <h3 class="rf-h3">
+                Le contrat de travail et/ou les documents alternatifs
+              </h3>
               <p>
                 Enfin un
                 <b>contrat de travail ou une attestation équivalente</b>

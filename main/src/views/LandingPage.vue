@@ -143,13 +143,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
-@Component({
-  mounted: function() {
-    const localScript = document.createElement("script");
-    localScript.setAttribute("src", "/js/all.js");
-    document.head.appendChild(localScript);
-  }
-})
+@Component
 export default class LandingPage extends Vue {
   TENANT_URL = "//" + process.env.VUE_APP_TENANT_URL;
 }

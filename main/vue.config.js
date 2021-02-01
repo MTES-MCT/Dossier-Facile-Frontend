@@ -1,7 +1,6 @@
 const PrerenderSpaPlugin = require("prerender-spa-plugin");
 const path = require("path");
 
-
 module.exports = {
   pluginOptions: {
     i18n: {
@@ -12,14 +11,14 @@ module.exports = {
     },
     sitemap: {
       urls: [
-        'https://dossierfacile.fr/',
-        'https://dossierfacile.fr/faq',
-        'https://dossierfacile.fr/blog',
-        'https://dossierfacile.fr/blog/article1',
-        'https://dossierfacile.fr/blog/article2',
-        'https://dossierfacile.fr/blog/article3',
-        'https://dossierfacile.fr/information',
-        'https://dossierfacile.fr/securite-des-donnees',
+        "https://dossierfacile.fr/",
+        "https://dossierfacile.fr/faq",
+        "https://dossierfacile.fr/blog",
+        "https://dossierfacile.fr/blog/article1",
+        "https://dossierfacile.fr/blog/article2",
+        "https://dossierfacile.fr/blog/article3",
+        "https://dossierfacile.fr/information",
+        "https://dossierfacile.fr/securite-des-donnees"
       ]
     }
   },

@@ -573,19 +573,19 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import AccordionElement from "../components/AccordionElement.vue";
+import { Accordion } from "../gouvfr/accordion";
 
 @Component({
-  mounted: function() {
-    const localScript = document.createElement("script");
-    localScript.setAttribute("src", "/js/all.js");
-    document.head.appendChild(localScript);
-  },
   components: {
     AccordionElement
   }
 })
 export default class Faq extends Vue {
   section = 0;
+
+  mounted() {
+    new Accordion();
+  }
 }
 </script>
 
