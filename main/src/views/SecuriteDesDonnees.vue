@@ -83,7 +83,9 @@
                   de son Garant. <br />
                 </p>
 
-                <h3 class="rf-h3">Communication des données personnelles à des tiers</h3>
+                <h3 class="rf-h3">
+                  Communication des données personnelles à des tiers
+                </h3>
                 <p>
                   <b> Pas de communication à des tiers </b><br />
                   Vos données ne font l'objet d'aucune communication de la part
@@ -325,7 +327,9 @@
                   en question.
                 </p>
 
-                <h3 class="rf-h3">Stockage des données personnelles à l'étranger</h3>
+                <h3 class="rf-h3">
+                  Stockage des données personnelles à l'étranger
+                </h3>
                 <p>
                   <b> Pas de stockage en dehors de l'Union européenne </b><br />
                   Nous nous engageons à ne pas stocker les données personnelles
@@ -394,14 +398,9 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
-@Component({
-  mounted: function() {
-    const localScript = document.createElement("script");
-    localScript.setAttribute("src", "/js/all.js");
-    document.head.appendChild(localScript);
-  }
-})
-export default class SecuriteDesDonnees extends Vue {}
+@Component
+export default class SecuriteDesDonnees extends Vue {
+}
 </script>
 
 <style scoped lang="scss">

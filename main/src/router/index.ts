@@ -11,7 +11,8 @@ const routes: Array<RouteConfig> = [
     component: LandingPage,
     meta: {
       title: "Accueil - DossierFacile",
-      description: "Montez un dossier de location en béton pour trouver le logement de vos rêves. DossierFacile vous aide à constituer un dossier de location numérique de qualité"
+      description:
+        "Montez un dossier de location en béton pour trouver le logement de vos rêves. DossierFacile vous aide à constituer un dossier de location numérique de qualité"
     }
   },
   {
@@ -92,14 +93,14 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title;
   if (to.meta.description) {
-    const tag = document.createElement('meta');
-    tag.setAttribute('name', 'description');
-    tag.setAttribute('content', to.meta.description);
+    const tag = document.createElement("meta");
+    tag.setAttribute("name", "description");
+    tag.setAttribute("content", to.meta.description);
     document.head.appendChild(tag);
 
-    const prop = document.createElement('meta');
-    prop.setAttribute('property', 'og:description');
-    prop.setAttribute('content', to.meta.description);
+    const prop = document.createElement("meta");
+    prop.setAttribute("property", "og:description");
+    prop.setAttribute("content", to.meta.description);
     document.head.appendChild(prop);
   }
   next();

@@ -27,6 +27,7 @@ import MyFooter from "df-shared/src/Footer/Footer.vue";
 import Menu from "@/components/Menu.vue";
 import { mapState } from "vuex";
 import i18n from "./i18n";
+import { Header } from "./gouvfr/header.js";
 
 @Component({
   components: {
@@ -39,15 +40,14 @@ import i18n from "./i18n";
       user: "user",
       status: "status"
     })
-  },
-  mounted: function() {
-    const localScript = document.createElement("script");
-    localScript.setAttribute("src", "/js/all.js");
-    document.head.appendChild(localScript);
   }
 })
 export default class App extends Vue {
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
+
+  mounted() {
+    new Header();
+  }
 
   onLogin() {
     this.$router.push("/login");
