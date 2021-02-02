@@ -45,10 +45,24 @@ export default class SignupPage extends Vue {
     if (user.email && user.password) {
       this.$store.dispatch("register", user).then(
         () => {
+          this.$toasted.show(this.$i18n.t("password-reset").toString(), {
+            type: "success",
+            duration: 7000
+          });
           this.isValidModalVisible = true;
         },
         error => {
-          console.dir(error);
+          if (error.response.data.errors.indexOf("email: the emails are already being used") >= 0) {
+            this.$toasted.show(this.$i18n.t("duplicate-email").toString(), {
+              type: "error",
+              duration: 7000
+            });
+          } else {
+            this.$toasted.show(this.$i18n.t("register-error").toString(), {
+              type: "error",
+              duration: 7000
+            });
+          }
         }
       );
     }
@@ -65,12 +79,16 @@ export default class SignupPage extends Vue {
 "en": {
     "existing-account": "I have an account already",
     "mail-sent": "An email has been sent to the requested address.",
-    "clic-to-confirm": "Please click on the given link to confirm your email and continue you inscription."
+    "clic-to-confirm": "Please click on the given link to confirm your email and continue you inscription.",
+    "duplicate-email": "This email is already used",
+    "register-error": "An error occured"
 },
 "fr": {
     "existing-account": "J'ai déjà un compte",
     "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
-    "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre votre inscription."
+    "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre votre inscription.",
+    "duplicate-email": "Cet email est déjà utilisé",
+    "register-error": "Une erreur est survenue"
 }
 }
 </i18n>
