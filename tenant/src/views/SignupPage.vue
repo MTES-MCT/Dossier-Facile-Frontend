@@ -45,10 +45,6 @@ export default class SignupPage extends Vue {
     if (user.email && user.password) {
       this.$store.dispatch("register", user).then(
         () => {
-          this.$toasted.show(this.$i18n.t("password-reset").toString(), {
-            type: "success",
-            duration: 7000
-          });
           this.isValidModalVisible = true;
         },
         error => {
