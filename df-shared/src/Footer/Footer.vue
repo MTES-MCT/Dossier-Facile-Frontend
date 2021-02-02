@@ -47,14 +47,14 @@
             >
           </li>
           <li class="rf-footer__bottom-item">
-            <a class="rf-footer__bottom-link" :href="`${VUE_APP_MAIN_URL}/faq`">
+            <a class="rf-footer__bottom-link" :href="`${VUE_APP_MAIN_URL}/faq?lang=${$i18n.locale}`">
               {{ $t("faq") }}
             </a>
           </li>
           <li class="rf-footer__bottom-item">
             <a
               class="rf-footer__bottom-link"
-              :href="`${VUE_APP_MAIN_URL}/blog`"
+              :href="`${VUE_APP_MAIN_URL}/blog?lang=${$i18n.locale}`"
             >
               {{ $t("blog") }}
             </a>
@@ -82,7 +82,7 @@
           <li class="rf-footer__bottom-item">
             <a
               class="rf-footer__bottom-link"
-              :href="`${VUE_APP_MAIN_URL}/securite-des-donnees`"
+              :href="`${VUE_APP_MAIN_URL}/securite-des-donnees?lang=${$i18n.locale}`"
             >
               {{ $t("legals") }}
             </a>
@@ -90,7 +90,7 @@
           <li class="rf-footer__bottom-item">
             <a
               class="rf-footer__bottom-link"
-              :href="`${VUE_APP_MAIN_URL}/information`"
+              :href="`${VUE_APP_MAIN_URL}/information?lang=${$i18n.locale}`"
             >
               {{ $t("information") }}
             </a>

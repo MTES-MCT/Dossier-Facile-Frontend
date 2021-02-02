@@ -13,17 +13,17 @@
           </router-link>
         </li>
         <li class="rf-nav__item">
-          <a :href="MAIN_URL + '/faq'" class="rf-link">
+          <a :href="`${MAIN_URL}/faq?lang=${$i18n.locale}`" class="rf-link">
             {{ $t("faq") }}
           </a>
         </li>
         <li class="rf-nav__item">
-          <a :href="MAIN_URL + '/information'" class="rf-link">
+          <a :href="`${MAIN_URL}/information?lang=${$i18n.locale}`" class="rf-link">
             {{ $t("information") }}
           </a>
         </li>
         <li class="rf-nav__item">
-          <a :href="MAIN_URL + '/blog'" class="rf-link">
+          <a :href="`${MAIN_URL}/blog?lang=${$i18n.locale}`" class="rf-link">
             {{ $t("blog") }}
           </a>
         </li>

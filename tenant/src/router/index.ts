@@ -111,6 +111,12 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  const q = to.query;
+  if (q) {
+    const locale = q.lang === "en" ? "en" : "fr";
+    store.dispatch("setLang", locale);
+  }
+
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!store.getters.isLoggedIn) {
       next({ name: "Login" });
