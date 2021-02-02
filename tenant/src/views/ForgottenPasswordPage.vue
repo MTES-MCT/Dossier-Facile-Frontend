@@ -19,13 +19,34 @@ export default class ForgottenPasswordPage extends Vue {
     if (user.email) {
       this.$store.dispatch("resetPassword", user).then(
         () => {
+          this.$toasted.show(this.$i18n.t("password-reset").toString(), {
+            type: "success",
+            duration: 7000
+          });
           this.$router.push("/");
         },
-        error => {
-          console.dir(error);
+        () => {
+          this.$toasted.show(this.$i18n.t("email-not-found").toString(), {
+            type: "error",
+            duration: 7000
+          });
         }
       );
     }
   }
 }
 </script>
+
+<i18n>
+{
+  "en": {
+    "email-not-found": "Email not found",
+    "password-reset": "An email has been sent"
+  },
+  "fr": {
+    "email-not-found": "Email non trouvé",
+    "password-reset": "Un email a été envoyé"
+  }
+}
+
+</i18n>
