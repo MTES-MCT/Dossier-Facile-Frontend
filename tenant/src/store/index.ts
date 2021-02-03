@@ -10,23 +10,25 @@ import { DfDocument } from "df-shared/src/models/DfDocument";
 
 Vue.use(Vuex);
 
-const localUser = localStorage.getItem("user");
-const initialUser = localUser !== null ? JSON.parse(localUser) : null;
-const initialLoggedIn = !!initialUser;
-
 export class DfState {
   tenantStep = 0;
   tenantSubStep = 1;
   guarantorStep = 0;
   guarantorSubStep = 1;
-  user: User | null = initialUser;
+  user: User | null = null;
   roommates: User[] = [];
   selectedGuarantor = new Guarantor();
-  status = { loggedIn: initialLoggedIn };
+  status = { loggedIn: false };
 }
 
-export default new Vuex.Store({
-  state: new DfState(),
+const localStore = localStorage.getItem("store");
+const initialStore = localStore !== null ? JSON.parse(localStore) : new DfState();
+if (initialStore.lang) {
+  i18n.locale = initialStore.lang;
+}
+
+const store = new Vuex.Store({
+  state: initialStore,
   mutations: {
     loginSuccess(state, user) {
       state.status.loggedIn = true;
@@ -39,6 +41,9 @@ export default new Vuex.Store({
     logout(state) {
       state.status.loggedIn = false;
       state.user = null;
+    },
+    setLang(state, lang) {
+      state.lang = lang;
     },
     registerSuccess(state) {
       state.status.loggedIn = false;
@@ -196,6 +201,7 @@ export default new Vuex.Store({
     },
     setLang({ commit }, lang) {
       i18n.locale = lang;
+      commit("setLang", lang);
     },
     validateFile({ commit }, honorDeclaration: boolean) {
       return ProfileService.validateFile(honorDeclaration).then(
@@ -236,3 +242,10 @@ export default new Vuex.Store({
   },
   modules: {}
 });
+
+export default store;
+
+store.subscribe((mutation, state) => {
+  localStorage.setItem('store', JSON.stringify(state));
+});
+

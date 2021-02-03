@@ -3,7 +3,7 @@
     <div class="rf-header__brand">
       <a
         class="rf-logo"
-        href="/"
+        :href="`/?lang=${$i18n.locale}`"
         title="Ministère de la transition écologique et solidaire"
       >
         <span class="rf-logo__title"> République <br />française </span>
@@ -11,7 +11,8 @@
     </div>
     <div class="rf-header__navbar">
       <div class="rf-service">
-        <a class="rf-service__title" href="/" title="Dossier Facile">
+        <a class="rf-service__title" title="Dossier Facile"
+        :href="`/?lang=${$i18n.locale}`">
           <img
             class="logo"
             src="./logo_dossierfacile.webp"

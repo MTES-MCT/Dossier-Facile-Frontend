@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import LandingPage from "@/views/LandingPage.vue";
+import store from "@/store";
 
 Vue.use(VueRouter);
 
@@ -91,6 +92,11 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  if (to.query.lang) {
+    const locale = to.query.lang === "en" ? "en" : "fr";
+    store.dispatch("setLang", locale);
+  }
+
   document.title = to.meta.title;
   if (to.meta.description) {
     const tag = document.createElement("meta");

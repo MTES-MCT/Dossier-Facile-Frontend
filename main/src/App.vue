@@ -60,7 +60,7 @@ export default class App extends Vue {
     window.location.href = this.OWNER_URL;
   }
   onCreateTenant() {
-    window.location.href = `${this.TENANT_URL}/signup`;
+    window.location.href = `${this.TENANT_URL}/signup?lang=${this.$i18n.locale}`;
   }
 
   hideCookie() {
