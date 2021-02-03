@@ -77,7 +77,13 @@
             value="false"
             v-model="f.noDocument"
           />
-          <label :for="`noDocument${k}`">{{ $t("noDocument") }}</label>
+          <label :for="`noDocument${k}`">
+            <template v-if="f.documentType.key === 'salary'">{{ $t("noDocument-salary") }}</template>
+            <template v-if="f.documentType.key === 'pension'">{{ $t("noDocument-pension") }}</template>
+            <template v-if="f.documentType.key === 'rent'">{{ $t("noDocument-rent") }}</template>
+            <template v-if="f.documentType.key === 'trading'">{{ $t("noDocument-trading") }}</template>
+            <template v-if="f.documentType.key === 'social-service'">{{ $t("noDocument-social") }}</template>
+          </label>
         </div>
         <div class="rf-mb-5w" v-if="f.noDocument">
           <div class="rf-input-group">
@@ -394,9 +400,13 @@ export default class Financial extends Vue {
 "rent": "Rentes",
 "pension": "Pensions",
 "trading": "Bourses",
-"monthlySum": "Salaire",
+"monthlySum": "Value in euros",
 "monthlySum-label": "Montant du revenu (après impôts)",
-"noDocument": "Je ne peux pas fournir mes trois derniers bulletins de salaire",
+"noDocument-social": "I cannot provide proof of payment of social benefits",
+"noDocument-salary": "I cannot provide my last three payslips",
+"noDocument-rent": "I cannot provide proof of rent",
+"noDocument-pension": "I cannot provide proof of pension",
+"noDocument-trading": "I cannot provide proof of trading",
 "customText": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes trois derniers bulletins de salaire :",
 "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
 "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
@@ -409,9 +419,13 @@ export default class Financial extends Vue {
 "rent": "Rentes",
 "pension": "Pensions",
 "trading": "Bourses",
-"monthlySum": "Salaire",
+"monthlySum": "Montant en euros",
 "monthlySum-label": "Montant du revenu (après impôts)",
-"noDocument": "Je ne peux pas fournir mes trois derniers bulletins de salaire",
+"noDocument-social": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
+"noDocument-salary": "Je ne peux pas fournir mes trois derniers bulletins de salaire",
+"noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",
+"noDocument-rent": "Je ne peux pas fournir de justificatifs de versement de rente",
+"noDocument-trading": "Je ne peux pas fournir de justificatifs d'attribution de bourse",
 "customText": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes trois derniers bulletins de salaire :",
 "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
 "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
