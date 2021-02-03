@@ -37,6 +37,7 @@ jobs:
         run: |
           aws s3 sync ./main/dist s3://www-dev.dossierfacile.fr --delete --acl public-read --cache-control max-age=31536000,public
           aws s3 cp s3://www-dev.dossierfacile.fr/index.html s3://www-dev.dossierfacile.fr/index.html --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate --content-type text/html --acl public-read
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.STAGING_AWS_MAIN_CLOUDFRONT_ID }} --paths '/*'
       
       - uses: actions/setup-node@v2
       - run: yarn tenant install
@@ -50,3 +51,4 @@ jobs:
         run: |
           aws s3 sync ./tenant/dist s3://locataire-dev.dossierfacile.fr --delete --acl public-read --cache-control max-age=31536000,public
           aws s3 cp s3://www-dev.dossierfacile.fr/index.html s3://www-dev.dossierfacile.fr/index.html --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate --content-type text/html --acl public-read
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.STAGING_AWS_TENANT_CLOUDFRONT_ID }} --paths '/*'
