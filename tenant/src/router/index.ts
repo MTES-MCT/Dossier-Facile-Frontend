@@ -111,9 +111,8 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const q = to.query;
-  if (q) {
-    const locale = q.lang === "en" ? "en" : "fr";
+  if (to.query.lang) {
+    const locale = to.query.lang === "en" ? "en" : "fr";
     store.dispatch("setLang", locale);
   }
 
