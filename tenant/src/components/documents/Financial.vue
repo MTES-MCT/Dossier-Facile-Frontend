@@ -187,6 +187,10 @@ export default class Financial extends Vue {
   financialDocuments: F[] = [];
 
   mounted() {
+    this.initialize();
+  }
+
+  initialize() {
     if (this.user.documents !== null) {
       const docs = this.user.documents?.filter((d: DfDocument) => {
         return d.documentCategory === "FINANCIAL";
@@ -269,7 +273,9 @@ export default class Financial extends Vue {
         Vue.toasted.global.save_failed();
       })
       .finally(() => {
-        this.$store.dispatch("loadUser");
+        this.$store.dispatch("loadUser").then(()=>{
+          this.initialize();
+        });
         loader.hide();
       });
   }
