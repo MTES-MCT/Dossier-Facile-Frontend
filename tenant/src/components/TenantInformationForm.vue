@@ -8,6 +8,14 @@
         })
       }}
     </p>
+    <p v-if="removeRoommates()">
+      <i class="icon color--primary rf-p-1w icon-Danger"></i>
+      {{ $t('remove-roommates')}}
+    </p>
+    <p v-if="removeCouple()">
+      <i class="icon color--primary rf-p-1w icon-Danger"></i>
+      {{ $t('remove-couple')}}
+    </p>
 
     <ValidationObserver v-slot="{ invalid, validate }">
       <form
@@ -142,11 +150,23 @@ export default class TenantInformationForm extends Vue {
     this.$store
       .dispatch("setRoommates", data)
       .then(null, error => {
+        this.$toasted.show(this.$i18n.t("error").toString(), {
+          type: "error",
+          duration: 7000
+        });
         console.dir(error);
       })
       .finally(() => {
         loader.hide();
       });
+  }
+
+  removeRoommates() {
+    return this.user.applicationType === "GROUP" && this.applicationType !== "GROUP"
+  }
+
+  removeCouple() {
+    return this.user.applicationType === "COUPLE" && this.applicationType !== "COUPLE"
   }
 }
 </script>
@@ -161,9 +181,12 @@ export default class TenantInformationForm extends Vue {
 "lastname": "Nom du locataire",
 "zipcode": "Code postal",
 "tenantPresentation": "Le locataire sera {firstname} {lastname}. Vous désirez louer un logement :",
-"alone": "Seul",
-"couple": "En couple",
-"roommate": "En colocation"
+"alone": "Alone",
+"couple": "Couple",
+"roommate": "Flatsharing",
+"remove-roommates": "Be careful! Your file will be disconnected from your roommates files",
+"remove-couple": "Be careful! Your file will be disconnected from your spouse file",
+"error": "An error occured"
 },
 "fr": {
 "confirm": "Confirmer",
@@ -173,7 +196,10 @@ export default class TenantInformationForm extends Vue {
 "tenantPresentation": "Le locataire sera {firstname} {lastname}. Vous désirez louer un logement :",
 "alone": "Seul",
 "couple": "En couple",
-"roommate": "En colocation"
+"roommate": "En colocation",
+"remove-roommates": "Attention, cela aura pour effet de dissocier votre dossier de vos colocataires",
+"remove-couple": "Attention, cela aura pour effet de dissocier votre dossier de ceux de votre conjoint·e",
+"error": "Une erreur est survenue"
 }
 }
 </i18n>
