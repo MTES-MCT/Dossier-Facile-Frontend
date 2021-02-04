@@ -124,9 +124,12 @@ export default class Residency extends Vue {
     });
     if (!newFiles.length) return;
 
-    if (this.residencyDocument.maxFileCount && this.residencyFiles().length > this.residencyDocument.maxFileCount) {
-        Vue.toasted.global.max_file();
-        return;
+    if (
+      this.residencyDocument.maxFileCount &&
+      this.residencyFiles().length > this.residencyDocument.maxFileCount
+    ) {
+      Vue.toasted.global.max_file();
+      return;
     }
 
     Array.from(Array(newFiles.length).keys()).map(x => {

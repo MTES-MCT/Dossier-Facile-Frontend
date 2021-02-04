@@ -4,8 +4,8 @@
       <div class="col-12 col-md-8">
         <div v-if="file.path">
           <vue-load-image v-if="isImage()">
-            <img slot="image" :src="getUrl(file.path)"/>
-            <img slot="preloader" src="../../assets/images/image-loader.gif"/>
+            <img slot="image" :src="getUrl(file.path)" />
+            <img slot="preloader" src="../../assets/images/image-loader.gif" />
             <div slot="error">error message</div>
           </vue-load-image>
           <PdfViewer :src="getUrl(file.path)" v-if="!isImage()"></PdfViewer>

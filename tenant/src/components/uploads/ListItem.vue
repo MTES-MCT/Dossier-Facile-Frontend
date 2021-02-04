@@ -2,7 +2,7 @@
   <div class="list-item rf-mb-1w">
     <div class="rf-grid-row" style="align-items: center">
       <div class="rf-pl-2w rf-pr-2w">
-        <span class="icon icon-File"></span>
+        <span class="material-icons">file_present</span>
       </div>
       <div class="text rf-pr-2w">
         {{ getName() }}<br />
@@ -17,10 +17,10 @@
         :title="$t('show')"
         v-if="file.path"
       >
-        <i class="icon color--primary icon-lg icon-Eye-2"></i>
+        <span class="color--primary material-icons md-36">visibility</span>
       </div>
-      <div class="action-btn rf-p-1w" @click="remove()" :title="$t('remove')">
-        <span class="icon icon-Recycling icon-md text-danger"></span>
+      <div class="action-btn rf-pr-1w" @click="remove()" :title="$t('remove')">
+        <span class="material-icons md-36 text-danger">delete_forever</span>
       </div>
     </div>
     <Modal
@@ -118,14 +118,6 @@ export default class ListItem extends Vue {
 
 .size {
   color: var(--g500);
-}
-
-.icon-md {
-  font-size: 1.5rem;
-}
-
-.icon-lg {
-  font-size: 2rem;
 }
 </style>
 

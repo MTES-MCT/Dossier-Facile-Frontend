@@ -122,9 +122,12 @@ export default class Professional extends Vue {
     });
     if (!newFiles.length) return;
 
-    if (this.professionalDocument.maxFileCount && this.professionalFiles().length > this.professionalDocument.maxFileCount) {
-        Vue.toasted.global.max_file();
-        return;
+    if (
+      this.professionalDocument.maxFileCount &&
+      this.professionalFiles().length > this.professionalDocument.maxFileCount
+    ) {
+      Vue.toasted.global.max_file();
+      return;
     }
     Array.from(Array(newFiles.length).keys()).map(x => {
       const f: File = newFiles[x].file || new File([], "");

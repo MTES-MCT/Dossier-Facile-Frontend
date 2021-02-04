@@ -49,7 +49,10 @@
           ></FileUpload>
         </div>
       </div>
-      <div class="rf-col-lg-8 rf-col-md-12 rf-mb-3w" v-if="listFiles().length > 0">
+      <div
+        class="rf-col-lg-8 rf-col-md-12 rf-mb-3w"
+        v-if="listFiles().length > 0"
+      >
         <ListItem
           v-for="(file, k) in listFiles()"
           :key="k"
@@ -164,10 +167,9 @@ export default class RepresentativeIdentification extends Vue {
     });
 
     if (this.listFiles().length > this.MAX_FILE_COUNT) {
-        Vue.toasted.global.max_file();
-        return;
+      Vue.toasted.global.max_file();
+      return;
     }
-
 
     formData.append(
       "typeDocumentIdentification",

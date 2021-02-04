@@ -13,9 +13,7 @@
         <label for="declaration">{{ $t("declaration") }}</label>
       </div>
       <div>
-        <validation-provider
-          v-slot="{ errors }"
-        >
+        <validation-provider v-slot="{ errors }">
           <div
             class="rf-input-group"
             :class="errors[0] ? 'rf-input-group--error' : ''"
@@ -71,9 +69,7 @@
         <label for="declaration2">{{ $t("declaration2") }}</label>
       </div>
       <div>
-        <validation-provider
-          v-slot="{ errors }"
-        >
+        <validation-provider v-slot="{ errors }">
           <div
             class="rf-input-group"
             :class="errors[0] ? 'rf-input-group--error' : ''"

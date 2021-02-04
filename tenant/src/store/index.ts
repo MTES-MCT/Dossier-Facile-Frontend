@@ -22,7 +22,8 @@ export class DfState {
 }
 
 const localStore = localStorage.getItem("store");
-const initialStore = localStore !== null ? JSON.parse(localStore) : new DfState();
+const initialStore =
+  localStore !== null ? JSON.parse(localStore) : new DfState();
 if (initialStore.lang) {
   i18n.locale = initialStore.lang;
 }
@@ -246,6 +247,5 @@ const store = new Vuex.Store({
 export default store;
 
 store.subscribe((mutation, state) => {
-  localStorage.setItem('store', JSON.stringify(state));
+  localStorage.setItem("store", JSON.stringify(state));
 });
-

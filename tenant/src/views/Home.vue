@@ -46,7 +46,9 @@
         <div class="rf-grid-row">
           <div class="rf-col-md-6 rf-col-lg-3">
             <div class="feature feature-6">
-              <i class="icon color--primary icon-Magic-Wand icon--sm"></i>
+              <span class="color--primary material-icons md-48"
+                >auto_fix_high</span
+              >
               <h5 class="rf-h5">{{ $t("h5-1") }}</h5>
               <p>
                 {{ $t("p3") }}
@@ -55,7 +57,7 @@
           </div>
           <div class="rf-col-md-6 rf-col-lg-3">
             <div class="feature feature-6">
-              <i class="icon color--primary icon-Green-House icon--sm"></i>
+              <span class="color--primary material-icons md-48">house</span>
               <h5 class="rf-h5">{{ $t("h5-2") }}</h5>
               <p>
                 {{ $t("p4") }}
@@ -64,7 +66,7 @@
           </div>
           <div class="rf-col-md-6 rf-col-lg-3">
             <div class="feature feature-6">
-              <i class="icon color--primary icon-Mouse-2 icon--sm"></i>
+              <span class="color--primary material-icons md-48">mouse</span>
               <h5 class="rf-h5">{{ $t("h5-3") }}</h5>
               <p>
                 {{ $t("p5") }}
@@ -73,7 +75,9 @@
           </div>
           <div class="rf-col-md-6 rf-col-lg-3">
             <div class="feature feature-6">
-              <i class="icon color--primary icon-Cloud-Lock icon--sm"></i>
+              <span class="color--primary material-icons md-48"
+                >verified_user</span
+              >
               <h5 class="rf-h5">{{ $t("h5-4") }}</h5>
               <p>
                 {{ $t("p6") }}
@@ -226,7 +230,6 @@ export default class Home extends Vue {
 </script>
 
 <style scoped lang="scss">
-@import "../assets/iconsmind.css";
 @import "df-shared/src/scss/_main.scss";
 
 .main-container {

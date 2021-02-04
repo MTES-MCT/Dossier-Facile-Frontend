@@ -88,7 +88,6 @@ export default class App extends Vue {
 </script>
 
 <style lang="scss">
-@import "assets/csss/iconsmind.css";
 @import "df-shared/src/scss/_main.scss";
 
 a {

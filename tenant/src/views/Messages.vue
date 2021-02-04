@@ -7,12 +7,12 @@
             <ul class="menu-vertical">
               <li>
                 <a href="#">Pièce d'identité</a>
-                <a href="#">
-                  <span class="icon icon-Eye"></span>
-                </a>
-                <span class="icon icon-Hour text-warning text-success"></span>
-                <span class="icon icon-Close text-danger"></span>
-                <span class="icon icon-Yes text-success"></span>
+                <span class="material-icons">visibility</span>
+                <span class="text-warning material-icons">more_time</span>
+                <span class="text-danger material-icons">cancel</span>
+                <span class="text-success material-icons"
+                  >check_circle_outline</span
+                >
               </li>
               <li>
                 <a class="modal-file-button" data-id="2" href="#"
@@ -24,7 +24,7 @@
                   target="_blank"
                   th:href="${tenant.getUpload2Route()}"
                 >
-                  <span class="btn__text icon icon-Eye icon--xs"></span>
+                  <span class="material-icons">visibility</span>
                 </a>
                 <span
                   class="btn__text"
@@ -42,7 +42,7 @@
                   target="_blank"
                   th:href="${tenant.getUpload3Route()}"
                 >
-                  <span class="btn__text icon icon-Eye icon--xs"></span>
+                  <span class="material-icons">visibility</span>
                 </a>
                 <span
                   class="btn__text"
@@ -60,7 +60,7 @@
                   target="_blank"
                   th:href="${tenant.getUpload4Route()}"
                 >
-                  <span class="btn__text icon icon-Eye icon--xs"></span>
+                  <span class="material-icons">visibility</span>
                 </a>
                 <span
                   class="btn__text"
@@ -78,7 +78,7 @@
                   target="_blank"
                   th:href="${tenant.getUpload5Route()}"
                 >
-                  <span class="btn__text icon icon-Eye icon--xs"></span>
+                  <span class="material-icons">visibility</span>
                 </a>
                 <span
                   class="btn__text"
@@ -104,7 +104,7 @@
                     target="_blank"
                     th:href="${tenant.getGuarantor().getUpload1Route()}"
                   >
-                    <span class="btn__text icon icon-Eye icon--xs"></span>
+                    <span class="material-icons">visibility</span>
                   </a>
                   <span
                     class="btn__text"
@@ -122,7 +122,7 @@
                     target="_blank"
                     th:href="${tenant.getGuarantor().getUpload2Route()}"
                   >
-                    <span class="btn__text icon icon-Eye icon--xs"></span>
+                    <span class="material-icons">visibility</span>
                   </a>
                   <span
                     class="btn__text"
@@ -140,7 +140,7 @@
                     target="_blank"
                     th:href="${tenant.getGuarantor().getUpload3Route()}"
                   >
-                    <span class="btn__text icon icon-Eye icon--xs"></span>
+                    <span class="material-icons">visibility</span>
                   </a>
                   <span
                     class="btn__text"
@@ -158,7 +158,7 @@
                     target="_blank"
                     th:href="${tenant.getGuarantor().getUpload4Route()}"
                   >
-                    <span class="btn__text icon icon-Eye icon--xs"></span>
+                    <span class="material-icons">visibility</span>
                   </a>
                   <span
                     class="btn__text"
@@ -176,7 +176,7 @@
                     target="_blank"
                     th:href="${tenant.getGuarantor().getUpload5Route()}"
                   >
-                    <span class="btn__text icon icon-Eye icon--xs"></span>
+                    <span class="material-icons">visibility</span>
                   </a>
                   <span
                     class="btn__text"
@@ -203,7 +203,7 @@
                     target="_blank"
                     th:href="${tenant.getGuarantor().getUpload1Route()}"
                   >
-                    <span class="btn__text icon icon-Eye icon--xs"></span>
+                    <span class="material-icons">visibility</span>
                   </a>
                   <span
                     class="btn__text"
@@ -218,9 +218,11 @@
         <NakedCard>
           <template v-slot:content>
             <div class="rf-grid-row">
-              <i
-                class="icon icon-Yes big-icon text-success rf-col-3 rf-p-2w"
-              ></i>
+              <div class="rf-col-3 rf-p-2w">
+                <span class="text-success material-icons big-icon"
+                  >check_circle_outline</span
+                >
+              </div>
               <div class="rf-col-9 rf-p-2w">
                 Votre pièce est validée ! Plus besoin d’y toucher
               </div>
@@ -230,9 +232,11 @@
         <NakedCard>
           <template v-slot:content>
             <div class="rf-grid-row">
-              <i
-                class="icon icon-Hour big-icon text-warning rf-col-3 rf-p-2w"
-              ></i>
+              <div class="rf-col-3 rf-p-2w">
+                <span class="text-warning material-icons big-icon"
+                  >more_time</span
+                >
+              </div>
               <div class="rf-col-9 rf-p-2w">
                 Nous sommes en cours de traitement de cette pièce
               </div>
@@ -242,9 +246,9 @@
         <NakedCard>
           <template v-slot:content>
             <div class="rf-grid-row">
-              <i
-                class="icon icon-Close big-icon text-danger rf-col-3 rf-p-2w"
-              ></i>
+              <div class="rf-col-3 rf-p-2w">
+                <span class="text-danger material-icons big-icon">cancel</span>
+              </div>
               <div class="rf-col-9 rf-p-2w">
                 Vous devez modifier votre pièce afin que nous validions votre
                 dossier
@@ -282,7 +286,7 @@
                 </div>
 
                 <div class="rf-col-12 rf-mb-5w">
-                  <button class="rf-btn" type="submit" :disabled="!message">
+                  <button class="rf-btn" type="submit" :disabled="!sendMessage">
                     Répondre
                   </button>
                 </div>
