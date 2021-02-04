@@ -17,7 +17,7 @@
     </div>
     <div v-if="residencyDocument.key">
       <div class="rf-mb-3w">
-        {{ residencyDocument.explanationText }}
+        <p v-html="residencyDocument.explanationText"></p>
       </div>
       <div class="rf-mb-3w">
         <FileUpload
@@ -191,7 +191,7 @@ export default class Residency extends Vue {
       key: "tenant",
       value: "TENANT",
       explanationText:
-        "J’ajoute mes quittances de loyer pour les trois derniers mois.",
+        "J’ajoute mes <b>quittances de loyer pour les trois derniers mois.</b>",
       acceptedProofs: [
         "Quittances de loyer des trois derniers mois",
         "Attestation du propriétaire (ou de son mandataire) indiquant que le locataire est à jour de ses loyers et charges"
@@ -206,7 +206,7 @@ export default class Residency extends Vue {
     {
       key: "owner",
       value: "OWNER",
-      explanationText: "J’ajoute un avis de taxe foncière de moins d’un an.",
+      explanationText: "J’ajoute un <b>avis de taxe foncière de moins d’un an.</b>",
       acceptedProofs: [
         "Dernier avis de taxe foncière",
         "Titre de propriété de la résidence principale"
@@ -223,12 +223,12 @@ export default class Residency extends Vue {
       key: "guest",
       value: "GUEST",
       explanationText:
-        "J’ajoute une attestation sur l’honneur d’hébergement à titre gratuit, " +
+        "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, " +
         "une copie de la pièce d’identité et un justificatif de domicile de mon " +
-        "hébergeant (une facture suffit). Vous pouvez utiliser un modèle en ligne " +
+        "hébergeant</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne " +
         "sur le site service-public.fr",
       acceptedProofs: [
-        "Attestation sur l’honneur du parent datée et signée indiquant que le candidat à la location réside à son domicile, accompagnée d’une pièce d’identité et d’un justificatif de domicile du parent (une simple facture suffit)"
+        "Attestation sur l’honneur du parent <b>datée et signée</b> indiquant que le candidat à la location réside à son domicile, accompagnée d’une pièce d’identité et d’un justificatif de domicile du parent (une simple facture suffit)"
       ],
       refusedProofs: ["Tout autre document"],
       maxFileCount: 2
@@ -237,13 +237,13 @@ export default class Residency extends Vue {
       key: "guest-parents",
       value: "GUEST_PARENTS",
       explanationText:
-        "J’ajoute une attestation sur l’honneur d’hébergement à titre gratuit, " +
+        "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, " +
         "une copie de la pièce d’identité et un justificatif de domicile du " +
-        "parent (une facture suffit). Vous pouvez utiliser un modèle en ligne sur " +
+        "parent</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne sur " +
         "le site service-public.fr",
       acceptedProofs: [
-        "Attestation sur l’honneur de l’hébergeant datée de moins de trois mois et signée indiquant que le candidat à la location réside à son domicile, accompagnée d’une pièce d’identité et d’un justificatif de domicile de l’hébergeant (une simple facture suffit)",
-        "Attestation d’élection de domicile datée de moins de trois mois et signée de l’organisme d’hébergement (hébergement d’urgence, placement…) indiquant l’adresse de l’hébergement (téléchargeable sur le site <a target='_blank' href='https://www.service-public.fr/simulateur/calcul/16030'>https://www.service-public.fr/simulateur/calcul/16030</a> ) "
+        "Attestation sur l’honneur de l’hébergeant <b>datée de moins de trois mois et signée</b> indiquant que le candidat à la location réside à son domicile, accompagnée d’une pièce d’identité et d’un justificatif de domicile de l’hébergeant (une simple facture suffit)",
+        "Attestation d’élection de domicile <b>datée de moins de trois mois et signée</b> de l’organisme d’hébergement (hébergement d’urgence, placement…) indiquant l’adresse de l’hébergement (téléchargeable sur le site <a target='_blank' href='https://www.service-public.fr/simulateur/calcul/16030'>https://www.service-public.fr/simulateur/calcul/16030</a> ) "
       ],
       refusedProofs: ["Tout autre document"],
       maxFileCount: 2
