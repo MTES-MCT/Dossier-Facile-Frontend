@@ -5,18 +5,14 @@
     <div class="content left rf-col-6">
       <ul>
         <li v-for="(v, k) in allowList" :key="k" class="check">
-          <div>
-            {{ v }}
-          </div>
+          <p class="rf-mt-0" v-html="v"></p>
         </li>
       </ul>
     </div>
     <div class="content rf-col-6">
       <ul>
         <li v-for="(v, k) in blockList" :key="k" class="times">
-          <div>
-            {{ v }}
-          </div>
+            <p class="rf-mt-0" v-html="v"></p>
         </li>
       </ul>
     </div>

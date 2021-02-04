@@ -64,7 +64,7 @@
     </div>
     <div v-if="identificationDocument.key">
       <div v-if="identificationDocument.explanationText" class="rf-mb-3w">
-        {{ identificationDocument.explanationText }}
+        <p v-html="identificationDocument.explanationText"></p>
       </div>
       <div class="rf-mb-3w">
         <FileUpload
@@ -272,10 +272,10 @@ export default class Identification extends Vue {
     {
       key: "identity-card",
       value: "FRENCH_IDENTITY_CARD",
-      explanationText: "Attention veillez à ajouter votre pièce recto-verso !",
-      acceptedProofs: ["Carte d’identité française recto-verso"],
+      explanationText: "Attention veillez à ajouter votre pièce <b>recto-verso !</b>",
+      acceptedProofs: ["Carte d’identité française <b>recto-verso</b>"],
       refusedProofs: [
-        "Carte d’identité sans le verso ou périmée",
+        "Carte d’identité <b>sans le verso ou périmée</b>",
         "Tout autre document"
       ],
       maxFileCount: 3
@@ -301,9 +301,9 @@ export default class Identification extends Vue {
       key: "other",
       value: "OTHER_IDENTIFICATION",
       acceptedProofs: [
-        "Carte d’identité étrangère recto-verso",
+        "Carte d’identité étrangère <b>recto-verso</b>",
         "Passeport étranger (pages 2 et 3)",
-        "Permis de conduire français ou étranger recto-verso",
+        "Permis de conduire français ou étranger <b>recto-verso</b>",
         "Carte de résident",
         "Carte de ressortissant d’un État membre de l’UE ou de l’EEE"
       ],
