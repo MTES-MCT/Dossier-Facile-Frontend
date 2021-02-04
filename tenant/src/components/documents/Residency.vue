@@ -51,7 +51,7 @@
         Enregistrer la pièce
       </button>
     </div>
-    <div class="rf-mb-5w">
+    <div class="rf-mb-5w" v-if="residencyDocument.key">
       <DocumentInsert
         :allow-list="residencyDocument.acceptedProofs"
         :block-list="residencyDocument.refusedProofs"
