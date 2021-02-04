@@ -48,7 +48,7 @@
         Enregistrer la pièce
       </button>
     </div>
-    <div class="rf-mb-5w">
+    <div class="rf-mb-5w" v-if="professionalDocument.key">
       <DocumentInsert
         :allow-list="professionalDocument.acceptedProofs"
         :block-list="professionalDocument.refusedProofs"
