@@ -193,9 +193,13 @@ export default class Identification extends Vue {
     });
     if (!newFiles.length) return;
 
-    if (this.identificationDocument.maxFileCount && this.identificationFiles().length > this.identificationDocument.maxFileCount) {
-        Vue.toasted.global.max_file();
-        return;
+    if (
+      this.identificationDocument.maxFileCount &&
+      this.identificationFiles().length >
+        this.identificationDocument.maxFileCount
+    ) {
+      Vue.toasted.global.max_file();
+      return;
     }
 
     Array.from(Array(newFiles.length).keys()).map(x => {

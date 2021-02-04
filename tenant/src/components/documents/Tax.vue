@@ -14,7 +14,10 @@
             </option>
           </select>
         </div>
-        <div class="rf-mb-3w" v-if="taxDocument.key && taxDocument.key === 'other-tax'">
+        <div
+          class="rf-mb-3w"
+          v-if="taxDocument.key && taxDocument.key === 'other-tax'"
+        >
           <div class="rf-input-group">
             <label class="rf-label" for="customText">{{
               $t("custom-text")
@@ -199,10 +202,12 @@ export default class Tax extends Vue {
       return !f.id;
     });
     if (newFiles.length) {
-
-      if (this.taxDocument.maxFileCount && this.taxFiles().length > this.taxDocument.maxFileCount) {
-          Vue.toasted.global.max_file();
-          return;
+      if (
+        this.taxDocument.maxFileCount &&
+        this.taxFiles().length > this.taxDocument.maxFileCount
+      ) {
+        Vue.toasted.global.max_file();
+        return;
       }
 
       Array.from(Array(newFiles.length).keys()).map(x => {
@@ -265,7 +270,7 @@ export default class Tax extends Vue {
     if (!this.taxDocument.key) {
       return true;
     }
-    if (this.taxDocument.key === 'my-name') {
+    if (this.taxDocument.key === "my-name") {
       return this.files.length <= 0;
     }
     const localDoc = this.getLocalDoc();

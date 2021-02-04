@@ -70,7 +70,7 @@ import { RegisterService } from "../../services/RegisterService";
   }
 })
 export default class OrganismCert extends Vue {
-  MAX_FILE_COUNT=3;
+  MAX_FILE_COUNT = 3;
   acceptedProofs = ["Certificat de garantie valide d'un organisme"];
   refusedProofs = ["Tout autre document"];
 
@@ -93,8 +93,8 @@ export default class OrganismCert extends Vue {
     if (!this.files.length) return;
 
     if (this.listFiles().length > this.MAX_FILE_COUNT) {
-        Vue.toasted.global.max_file();
-        return;
+      Vue.toasted.global.max_file();
+      return;
     }
 
     Array.from(Array(this.files.length).keys()).map(x => {

@@ -10,7 +10,9 @@
                 <span class="material-icons">visibility</span>
                 <span class="text-warning material-icons">more_time</span>
                 <span class="text-danger material-icons">cancel</span>
-                <span class="text-success material-icons">check_circle_outline</span>
+                <span class="text-success material-icons"
+                  >check_circle_outline</span
+                >
               </li>
               <li>
                 <a class="modal-file-button" data-id="2" href="#"
@@ -102,7 +104,7 @@
                     target="_blank"
                     th:href="${tenant.getGuarantor().getUpload1Route()}"
                   >
-                  <span class="material-icons">visibility</span>
+                    <span class="material-icons">visibility</span>
                   </a>
                   <span
                     class="btn__text"
@@ -120,7 +122,7 @@
                     target="_blank"
                     th:href="${tenant.getGuarantor().getUpload2Route()}"
                   >
-                  <span class="material-icons">visibility</span>
+                    <span class="material-icons">visibility</span>
                   </a>
                   <span
                     class="btn__text"
@@ -138,7 +140,7 @@
                     target="_blank"
                     th:href="${tenant.getGuarantor().getUpload3Route()}"
                   >
-                  <span class="material-icons">visibility</span>
+                    <span class="material-icons">visibility</span>
                   </a>
                   <span
                     class="btn__text"
@@ -156,7 +158,7 @@
                     target="_blank"
                     th:href="${tenant.getGuarantor().getUpload4Route()}"
                   >
-                  <span class="material-icons">visibility</span>
+                    <span class="material-icons">visibility</span>
                   </a>
                   <span
                     class="btn__text"
@@ -174,7 +176,7 @@
                     target="_blank"
                     th:href="${tenant.getGuarantor().getUpload5Route()}"
                   >
-                  <span class="material-icons">visibility</span>
+                    <span class="material-icons">visibility</span>
                   </a>
                   <span
                     class="btn__text"
@@ -201,7 +203,7 @@
                     target="_blank"
                     th:href="${tenant.getGuarantor().getUpload1Route()}"
                   >
-                  <span class="material-icons">visibility</span>
+                    <span class="material-icons">visibility</span>
                   </a>
                   <span
                     class="btn__text"
@@ -217,7 +219,9 @@
           <template v-slot:content>
             <div class="rf-grid-row">
               <div class="rf-col-3 rf-p-2w">
-                <span class="text-success material-icons big-icon">check_circle_outline</span>
+                <span class="text-success material-icons big-icon"
+                  >check_circle_outline</span
+                >
               </div>
               <div class="rf-col-9 rf-p-2w">
                 Votre pièce est validée ! Plus besoin d’y toucher
@@ -229,7 +233,9 @@
           <template v-slot:content>
             <div class="rf-grid-row">
               <div class="rf-col-3 rf-p-2w">
-                <span class="text-warning material-icons big-icon">more_time</span>
+                <span class="text-warning material-icons big-icon"
+                  >more_time</span
+                >
               </div>
               <div class="rf-col-9 rf-p-2w">
                 Nous sommes en cours de traitement de cette pièce

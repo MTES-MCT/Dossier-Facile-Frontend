@@ -10,11 +10,11 @@
     </p>
     <p v-if="removeRoommates()">
       <span class="color--primary material-icons warning">warning</span>
-      <span>{{ $t('remove-roommates')}}</span>
+      <span>{{ $t("remove-roommates") }}</span>
     </p>
     <p v-if="removeCouple()">
       <span class="color--primary material-icons warning">warning</span>
-      <span>{{ $t('remove-couple')}}</span>
+      <span>{{ $t("remove-couple") }}</span>
     </p>
 
     <ValidationObserver v-slot="{ invalid, validate }">
@@ -162,11 +162,16 @@ export default class TenantInformationForm extends Vue {
   }
 
   removeRoommates() {
-    return this.user.applicationType === "GROUP" && this.applicationType !== "GROUP"
+    return (
+      this.user.applicationType === "GROUP" && this.applicationType !== "GROUP"
+    );
   }
 
   removeCouple() {
-    return this.user.applicationType === "COUPLE" && this.applicationType !== "COUPLE"
+    return (
+      this.user.applicationType === "COUPLE" &&
+      this.applicationType !== "COUPLE"
+    );
   }
 }
 </script>

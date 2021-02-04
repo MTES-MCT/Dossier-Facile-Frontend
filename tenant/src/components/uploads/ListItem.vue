@@ -2,7 +2,7 @@
   <div class="list-item rf-mb-1w">
     <div class="rf-grid-row" style="align-items: center">
       <div class="rf-pl-2w rf-pr-2w">
-          <span class="material-icons">file_present</span>
+        <span class="material-icons">file_present</span>
       </div>
       <div class="text rf-pr-2w">
         {{ getName() }}<br />
@@ -119,7 +119,6 @@ export default class ListItem extends Vue {
 .size {
   color: var(--g500);
 }
-
 </style>
 
 <i18n>

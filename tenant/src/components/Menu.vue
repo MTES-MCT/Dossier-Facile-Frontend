@@ -18,7 +18,10 @@
           </a>
         </li>
         <li class="rf-nav__item">
-          <a :href="`${MAIN_URL}/information?lang=${$i18n.locale}`" class="rf-link">
+          <a
+            :href="`${MAIN_URL}/information?lang=${$i18n.locale}`"
+            class="rf-link"
+          >
             {{ $t("information") }}
           </a>
         </li>

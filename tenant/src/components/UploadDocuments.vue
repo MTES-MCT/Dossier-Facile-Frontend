@@ -6,12 +6,20 @@
         :class="{ selected: tenantSubStep === 1 }"
         @click="updateSubstep(1)"
       >
-        <span v-if="tenantSubStep === 1" class="color--primary material-icons">keyboard_arrow_up</span>
-        <span v-if="tenantSubStep !== 1" class="color--primary material-icons">keyboard_arrow_down</span>
+        <span v-if="tenantSubStep === 1" class="color--primary material-icons"
+          >keyboard_arrow_up</span
+        >
+        <span v-if="tenantSubStep !== 1" class="color--primary material-icons"
+          >keyboard_arrow_down</span
+        >
         <span class="color--primary material-icons">person</span>
         <h2>{{ $t("identification") }}</h2>
         <span class="spacer"></span>
-        <span v-if="hasDoc('IDENTIFICATION')" class="color--primary material-icons">check_circle_outline</span>
+        <span
+          v-if="hasDoc('IDENTIFICATION')"
+          class="color--primary material-icons"
+          >check_circle_outline</span
+        >
       </div>
       <Identification v-if="tenantSubStep === 1"></Identification>
     </div>
@@ -21,12 +29,18 @@
         :class="{ selected: tenantSubStep === 2 }"
         @click="updateSubstep(2)"
       >
-        <span v-if="tenantSubStep === 2" class="color--primary material-icons">keyboard_arrow_up</span>
-        <span v-if="tenantSubStep !== 2" class="color--primary material-icons">keyboard_arrow_down</span>
+        <span v-if="tenantSubStep === 2" class="color--primary material-icons"
+          >keyboard_arrow_up</span
+        >
+        <span v-if="tenantSubStep !== 2" class="color--primary material-icons"
+          >keyboard_arrow_down</span
+        >
         <span class="color--primary material-icons">home</span>
         <h2>{{ $t("residency") }}</h2>
         <span class="spacer"></span>
-        <span v-if="hasDoc('RESIDENCY')" class="color--primary material-icons">check_circle_outline</span>
+        <span v-if="hasDoc('RESIDENCY')" class="color--primary material-icons"
+          >check_circle_outline</span
+        >
       </div>
       <Residency v-if="tenantSubStep === 2"></Residency>
     </div>
@@ -36,12 +50,20 @@
         :class="{ selected: tenantSubStep === 3 }"
         @click="updateSubstep(3)"
       >
-        <span v-if="tenantSubStep === 3" class="color--primary material-icons">keyboard_arrow_up</span>
-        <span v-if="tenantSubStep !== 3" class="color--primary material-icons">keyboard_arrow_down</span>
+        <span v-if="tenantSubStep === 3" class="color--primary material-icons"
+          >keyboard_arrow_up</span
+        >
+        <span v-if="tenantSubStep !== 3" class="color--primary material-icons"
+          >keyboard_arrow_down</span
+        >
         <span class="color--primary material-icons">work</span>
         <h2>{{ $t("professional") }}</h2>
         <span class="spacer"></span>
-        <span v-if="hasDoc('PROFESSIONAL')" class="color--primary material-icons">check_circle_outline</span>
+        <span
+          v-if="hasDoc('PROFESSIONAL')"
+          class="color--primary material-icons"
+          >check_circle_outline</span
+        >
       </div>
       <Professional v-if="tenantSubStep === 3"></Professional>
     </div>
@@ -51,12 +73,18 @@
         :class="{ selected: tenantSubStep === 4 }"
         @click="updateSubstep(4)"
       >
-        <span v-if="tenantSubStep === 4" class="color--primary material-icons">keyboard_arrow_up</span>
-        <span v-if="tenantSubStep !== 4" class="color--primary material-icons">keyboard_arrow_down</span>
+        <span v-if="tenantSubStep === 4" class="color--primary material-icons"
+          >keyboard_arrow_up</span
+        >
+        <span v-if="tenantSubStep !== 4" class="color--primary material-icons"
+          >keyboard_arrow_down</span
+        >
         <span class="color--primary material-icons">euro</span>
         <h2>{{ $t("financial") }}</h2>
         <span class="spacer"></span>
-        <span v-if="hasDoc('FINANCIAL')" class="color--primary material-icons">check_circle_outline</span>
+        <span v-if="hasDoc('FINANCIAL')" class="color--primary material-icons"
+          >check_circle_outline</span
+        >
       </div>
       <Financial v-if="tenantSubStep === 4"></Financial>
     </div>
@@ -66,12 +94,18 @@
         :class="{ selected: tenantSubStep === 5 }"
         @click="updateSubstep(5)"
       >
-        <span v-if="tenantSubStep === 5" class="color--primary material-icons">keyboard_arrow_up</span>
-        <span v-if="tenantSubStep !== 5" class="color--primary material-icons">keyboard_arrow_down</span>
+        <span v-if="tenantSubStep === 5" class="color--primary material-icons"
+          >keyboard_arrow_up</span
+        >
+        <span v-if="tenantSubStep !== 5" class="color--primary material-icons"
+          >keyboard_arrow_down</span
+        >
         <span class="color--primary material-icons">content_copy</span>
         <h2>{{ $t("tax") }}</h2>
         <span class="spacer"></span>
-        <span v-if="isTaxValid()" class="color--primary material-icons">check_circle_outline</span>
+        <span v-if="isTaxValid()" class="color--primary material-icons"
+          >check_circle_outline</span
+        >
       </div>
       <Tax v-if="tenantSubStep === 5"></Tax>
     </div>
@@ -191,7 +225,7 @@ h2 {
   display: flex;
   align-items: center;
   span {
-    padding: .5rem;
+    padding: 0.5rem;
     line-height: 1rem;
   }
 }

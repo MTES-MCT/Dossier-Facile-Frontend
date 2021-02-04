@@ -2,16 +2,15 @@
   <div>
     <div v-for="(f, k) in financialDocuments" :key="k">
       <div class="rf-grid-row rf-mb-3w" style="justify-content: space-between">
-        <span>
-          Revenu {{ k + 1 }}
-        </span>
+        <span> Revenu {{ k + 1 }} </span>
         <DfButton
           class="rf-btn"
           size="small"
           :label="$t('delete-financial')"
-          @on-click="removeFinancial(k)">
+          @on-click="removeFinancial(k)"
+        >
         </DfButton>
-        </div>
+      </div>
       <div>
         <label class="rf-label" for="select">
           Attention, Veuillez renseigner uniquement vos propres revenus.
@@ -78,11 +77,21 @@
             v-model="f.noDocument"
           />
           <label :for="`noDocument${k}`">
-            <template v-if="f.documentType.key === 'salary'">{{ $t("noDocument-salary") }}</template>
-            <template v-if="f.documentType.key === 'pension'">{{ $t("noDocument-pension") }}</template>
-            <template v-if="f.documentType.key === 'rent'">{{ $t("noDocument-rent") }}</template>
-            <template v-if="f.documentType.key === 'trading'">{{ $t("noDocument-trading") }}</template>
-            <template v-if="f.documentType.key === 'social-service'">{{ $t("noDocument-social") }}</template>
+            <template v-if="f.documentType.key === 'salary'">{{
+              $t("noDocument-salary")
+            }}</template>
+            <template v-if="f.documentType.key === 'pension'">{{
+              $t("noDocument-pension")
+            }}</template>
+            <template v-if="f.documentType.key === 'rent'">{{
+              $t("noDocument-rent")
+            }}</template>
+            <template v-if="f.documentType.key === 'trading'">{{
+              $t("noDocument-trading")
+            }}</template>
+            <template v-if="f.documentType.key === 'social-service'">{{
+              $t("noDocument-social")
+            }}</template>
           </label>
         </div>
         <div class="rf-mb-5w" v-if="f.noDocument">
@@ -172,7 +181,13 @@ class F {
 }
 
 @Component({
-  components: { ValidationProvider, DocumentInsert, FileUpload, ListItem, DfButton },
+  components: {
+    ValidationProvider,
+    DocumentInsert,
+    FileUpload,
+    ListItem,
+    DfButton
+  },
   computed: {
     ...mapGetters({
       user: "userToEdit"
@@ -235,9 +250,12 @@ export default class Financial extends Vue {
       });
       if (!newFiles.length) return;
 
-      if (f.documentType.maxFileCount && this.financialFiles(f).length > f.documentType.maxFileCount) {
-          Vue.toasted.global.max_file();
-          return;
+      if (
+        f.documentType.maxFileCount &&
+        this.financialFiles(f).length > f.documentType.maxFileCount
+      ) {
+        Vue.toasted.global.max_file();
+        return;
       }
 
       Array.from(Array(newFiles.length).keys()).map(x => {
@@ -273,7 +291,7 @@ export default class Financial extends Vue {
         Vue.toasted.global.save_failed();
       })
       .finally(() => {
-        this.$store.dispatch("loadUser").then(()=>{
+        this.$store.dispatch("loadUser").then(() => {
           this.initialize();
         });
         loader.hide();

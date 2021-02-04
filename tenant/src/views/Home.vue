@@ -46,7 +46,9 @@
         <div class="rf-grid-row">
           <div class="rf-col-md-6 rf-col-lg-3">
             <div class="feature feature-6">
-              <span class="color--primary material-icons md-48">auto_fix_high</span>
+              <span class="color--primary material-icons md-48"
+                >auto_fix_high</span
+              >
               <h5 class="rf-h5">{{ $t("h5-1") }}</h5>
               <p>
                 {{ $t("p3") }}
@@ -73,7 +75,9 @@
           </div>
           <div class="rf-col-md-6 rf-col-lg-3">
             <div class="feature feature-6">
-              <span class="color--primary material-icons md-48">verified_user</span>
+              <span class="color--primary material-icons md-48"
+                >verified_user</span
+              >
               <h5 class="rf-h5">{{ $t("h5-4") }}</h5>
               <p>
                 {{ $t("p6") }}

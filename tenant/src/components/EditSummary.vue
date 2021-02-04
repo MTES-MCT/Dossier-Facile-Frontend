@@ -45,10 +45,14 @@
                     @click="openDoc('IDENTIFICATION')"
                     v-if="hasFile('IDENTIFICATION')"
                   >
-                    <span class="color--primary material-icons md-18">visibility</span>
+                    <span class="color--primary material-icons md-18"
+                      >visibility</span
+                    >
                   </div>
                   <div class="edit-step-btn" @click="setTenantStep(1)">
-                    <span class="color--primary material-icons md-18">edit</span>
+                    <span class="color--primary material-icons md-18"
+                      >edit</span
+                    >
                   </div>
                 </div>
               </div>
@@ -60,10 +64,14 @@
                     @click="openDoc('RESIDENCY')"
                     v-if="hasFile('RESIDENCY')"
                   >
-                    <span class="color--primary material-icons md-18">visibility</span>
+                    <span class="color--primary material-icons md-18"
+                      >visibility</span
+                    >
                   </div>
                   <div class="edit-step-btn" @click="setTenantStep(2)">
-                    <span class="color--primary material-icons md-18">edit</span>
+                    <span class="color--primary material-icons md-18"
+                      >edit</span
+                    >
                   </div>
                 </div>
               </div>
@@ -77,10 +85,14 @@
                     @click="openDoc('PROFESSIONAL')"
                     v-if="hasFile('PROFESSIONAL')"
                   >
-                    <span class="color--primary material-icons md-18">visibility</span>
+                    <span class="color--primary material-icons md-18"
+                      >visibility</span
+                    >
                   </div>
                   <div class="edit-step-btn" @click="setTenantStep(3)">
-                    <span class="color--primary material-icons md-18">edit</span>
+                    <span class="color--primary material-icons md-18"
+                      >edit</span
+                    >
                   </div>
                 </div>
               </div>
@@ -92,10 +104,14 @@
                     @click="openDoc('FINANCIAL')"
                     v-if="hasFile('FINANCIAL')"
                   >
-                    <span class="color--primary material-icons md-18">visibility</span>
+                    <span class="color--primary material-icons md-18"
+                      >visibility</span
+                    >
                   </div>
                   <div class="edit-step-btn" @click="setTenantStep(4)">
-                    <span class="color--primary material-icons md-18">edit</span>
+                    <span class="color--primary material-icons md-18"
+                      >edit</span
+                    >
                   </div>
                 </div>
               </div>
@@ -107,10 +123,14 @@
                     @click="openDoc('TAX')"
                     v-if="hasFile('TAX')"
                   >
-                    <span class="color--primary material-icons md-18">visibility</span>
+                    <span class="color--primary material-icons md-18"
+                      >visibility</span
+                    >
                   </div>
                   <div class="edit-step-btn" @click="setTenantStep(5)">
-                    <span class="color--primary material-icons md-18">edit</span>
+                    <span class="color--primary material-icons md-18"
+                      >edit</span
+                    >
                   </div>
                 </div>
               </div>
@@ -132,10 +152,14 @@
                     @click="openGuarantorDoc('IDENTIFICATION')"
                     v-if="guarantorHasFile('IDENTIFICATION')"
                   >
-                    <span class="color--primary material-icons md-18">visibility</span>
+                    <span class="color--primary material-icons md-18"
+                      >visibility</span
+                    >
                   </div>
                   <div class="edit-step-btn" @click="setGuarantorStep(1)">
-                    <span class="color--primary material-icons md-18">edit</span>
+                    <span class="color--primary material-icons md-18"
+                      >edit</span
+                    >
                   </div>
                 </div>
               </div>
@@ -147,10 +171,14 @@
                     @click="openGuarantorDoc('RESIDENCY')"
                     v-if="guarantorHasFile('RESIDENCY')"
                   >
-                    <span class="color--primary material-icons md-18">visibility</span>
+                    <span class="color--primary material-icons md-18"
+                      >visibility</span
+                    >
                   </div>
                   <div class="edit-step-btn" @click="setGuarantorStep(2)">
-                    <span class="color--primary material-icons md-18">edit</span>
+                    <span class="color--primary material-icons md-18"
+                      >edit</span
+                    >
                   </div>
                 </div>
               </div>
@@ -164,10 +192,14 @@
                     @click="openGuarantorDoc('PROFESSIONAL')"
                     v-if="guarantorHasFile('PROFESSIONAL')"
                   >
-                    <span class="color--primary material-icons md-18">visibility</span>
+                    <span class="color--primary material-icons md-18"
+                      >visibility</span
+                    >
                   </div>
                   <div class="edit-step-btn" @click="setGuarantorStep(3)">
-                    <span class="color--primary material-icons md-18">edit</span>
+                    <span class="color--primary material-icons md-18"
+                      >edit</span
+                    >
                   </div>
                 </div>
               </div>
@@ -179,10 +211,14 @@
                     @click="openGuarantorDoc('FINANCIAL')"
                     v-if="guarantorHasFile('FINANCIAL')"
                   >
-                    <span class="color--primary material-icons md-18">visibility</span>
+                    <span class="color--primary material-icons md-18"
+                      >visibility</span
+                    >
                   </div>
                   <div class="edit-step-btn" @click="setGuarantorStep(4)">
-                    <span class="color--primary material-icons md-18">edit</span>
+                    <span class="color--primary material-icons md-18"
+                      >edit</span
+                    >
                   </div>
                 </div>
               </div>
@@ -194,10 +230,14 @@
                     @click="openGuarantorDoc('TAX')"
                     v-if="guarantorHasFile('TAX')"
                   >
-                    <span class="color--primary material-icons md-18">visibility</span>
+                    <span class="color--primary material-icons md-18"
+                      >visibility</span
+                    >
                   </div>
                   <div class="edit-step-btn" @click="setGuarantorStep(5)">
-                    <span class="color--primary material-icons md-18">edit</span>
+                    <span class="color--primary material-icons md-18"
+                      >edit</span
+                    >
                   </div>
                 </div>
               </div>
@@ -239,9 +279,9 @@ import ShowDoc from "./documents/ShowDoc.vue";
     ...mapState({
       user: "user",
       tenantStep: "tenantStep",
-      selectedGuarantor: "selectedGuarantor",
-    }),
-  },
+      selectedGuarantor: "selectedGuarantor"
+    })
+  }
 })
 export default class EditSummary extends Vue {
   user!: User;
@@ -266,7 +306,7 @@ export default class EditSummary extends Vue {
     return this.user.documents !== undefined && this.user.documents?.length > 0;
   }
   hasDoc(docType: string) {
-    return this.user.documents?.find((d) => {
+    return this.user.documents?.find(d => {
       return d.documentCategory === docType;
     });
   }
@@ -279,7 +319,7 @@ export default class EditSummary extends Vue {
     return (document?.files?.length || 0) > 0;
   }
   guarantorHasDoc(docType: string) {
-    return this.selectedGuarantor.documents?.find((d) => {
+    return this.selectedGuarantor.documents?.find(d => {
       return d.documentCategory === docType;
     });
   }
@@ -291,7 +331,7 @@ export default class EditSummary extends Vue {
   }
 
   openDoc(documentCategory: string) {
-    const docs = this.user.documents?.filter((d) => {
+    const docs = this.user.documents?.filter(d => {
       return d.documentCategory === documentCategory;
     });
     this.files = [];
@@ -305,7 +345,7 @@ export default class EditSummary extends Vue {
   }
 
   openGuarantorDoc(documentCategory: string) {
-    const docs = this.selectedGuarantor.documents?.filter((d) => {
+    const docs = this.selectedGuarantor.documents?.filter(d => {
       return d.documentCategory === documentCategory;
     });
     this.files = [];
