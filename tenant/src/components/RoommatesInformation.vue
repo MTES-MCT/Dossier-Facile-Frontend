@@ -39,7 +39,7 @@
                   :disabled="roommates.length <= 1"
                   @click="remove(key)"
                 >
-                  <span class="icon icon-Close text-danger"></span>
+                  <span class="text-danger material-icons">delete_forever</span>
                 </button>
               </div>
             </div>

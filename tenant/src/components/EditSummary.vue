@@ -15,7 +15,7 @@
                   {{ user.firstName }} {{ user.lastName }}
                 </div>
                 <div class="edit-step-btn" @click="setStep(0)">
-                  <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
+                  <span class="color--primary material-icons md-18">edit</span>
                 </div>
               </div>
               <div class="row" v-if="user.applicationType">
@@ -24,7 +24,7 @@
                   {{ $t(user.applicationType) }}
                 </div>
                 <div class="edit-step-btn" @click="setStep(1)">
-                  <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
+                  <span class="color--primary material-icons md-18">edit</span>
                 </div>
               </div>
             </section>
@@ -45,10 +45,10 @@
                     @click="openDoc('IDENTIFICATION')"
                     v-if="hasFile('IDENTIFICATION')"
                   >
-                    <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
+                    <span class="color--primary material-icons md-18">visibility</span>
                   </div>
                   <div class="edit-step-btn" @click="setTenantStep(1)">
-                    <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
+                    <span class="color--primary material-icons md-18">edit</span>
                   </div>
                 </div>
               </div>
@@ -60,10 +60,10 @@
                     @click="openDoc('RESIDENCY')"
                     v-if="hasFile('RESIDENCY')"
                   >
-                    <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
+                    <span class="color--primary material-icons md-18">visibility</span>
                   </div>
                   <div class="edit-step-btn" @click="setTenantStep(2)">
-                    <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
+                    <span class="color--primary material-icons md-18">edit</span>
                   </div>
                 </div>
               </div>
@@ -77,10 +77,10 @@
                     @click="openDoc('PROFESSIONAL')"
                     v-if="hasFile('PROFESSIONAL')"
                   >
-                    <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
+                    <span class="color--primary material-icons md-18">visibility</span>
                   </div>
                   <div class="edit-step-btn" @click="setTenantStep(3)">
-                    <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
+                    <span class="color--primary material-icons md-18">edit</span>
                   </div>
                 </div>
               </div>
@@ -92,10 +92,10 @@
                     @click="openDoc('FINANCIAL')"
                     v-if="hasFile('FINANCIAL')"
                   >
-                    <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
+                    <span class="color--primary material-icons md-18">visibility</span>
                   </div>
                   <div class="edit-step-btn" @click="setTenantStep(4)">
-                    <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
+                    <span class="color--primary material-icons md-18">edit</span>
                   </div>
                 </div>
               </div>
@@ -107,10 +107,10 @@
                     @click="openDoc('TAX')"
                     v-if="hasFile('TAX')"
                   >
-                    <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
+                    <span class="color--primary material-icons md-18">visibility</span>
                   </div>
                   <div class="edit-step-btn" @click="setTenantStep(5)">
-                    <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
+                    <span class="color--primary material-icons md-18">edit</span>
                   </div>
                 </div>
               </div>
@@ -132,10 +132,10 @@
                     @click="openGuarantorDoc('IDENTIFICATION')"
                     v-if="guarantorHasFile('IDENTIFICATION')"
                   >
-                    <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
+                    <span class="color--primary material-icons md-18">visibility</span>
                   </div>
                   <div class="edit-step-btn" @click="setGuarantorStep(1)">
-                    <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
+                    <span class="color--primary material-icons md-18">edit</span>
                   </div>
                 </div>
               </div>
@@ -147,10 +147,10 @@
                     @click="openGuarantorDoc('RESIDENCY')"
                     v-if="guarantorHasFile('RESIDENCY')"
                   >
-                    <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
+                    <span class="color--primary material-icons md-18">visibility</span>
                   </div>
                   <div class="edit-step-btn" @click="setGuarantorStep(2)">
-                    <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
+                    <span class="color--primary material-icons md-18">edit</span>
                   </div>
                 </div>
               </div>
@@ -164,10 +164,10 @@
                     @click="openGuarantorDoc('PROFESSIONAL')"
                     v-if="guarantorHasFile('PROFESSIONAL')"
                   >
-                    <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
+                    <span class="color--primary material-icons md-18">visibility</span>
                   </div>
                   <div class="edit-step-btn" @click="setGuarantorStep(3)">
-                    <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
+                    <span class="color--primary material-icons md-18">edit</span>
                   </div>
                 </div>
               </div>
@@ -179,10 +179,10 @@
                     @click="openGuarantorDoc('FINANCIAL')"
                     v-if="guarantorHasFile('FINANCIAL')"
                   >
-                    <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
+                    <span class="color--primary material-icons md-18">visibility</span>
                   </div>
                   <div class="edit-step-btn" @click="setGuarantorStep(4)">
-                    <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
+                    <span class="color--primary material-icons md-18">edit</span>
                   </div>
                 </div>
               </div>
@@ -194,10 +194,10 @@
                     @click="openGuarantorDoc('TAX')"
                     v-if="guarantorHasFile('TAX')"
                   >
-                    <i class="icon color--primary rf-p-1w icon-Eye-2"></i>
+                    <span class="color--primary material-icons md-18">visibility</span>
                   </div>
                   <div class="edit-step-btn" @click="setGuarantorStep(5)">
-                    <i class="icon color--primary rf-p-1w icon-Pen-4"></i>
+                    <span class="color--primary material-icons md-18">edit</span>
                   </div>
                 </div>
               </div>
@@ -344,6 +344,10 @@ export default class EditSummary extends Vue {
 }
 .subtitle {
   font-weight: bold;
+}
+
+.material-icons.md-18 {
+  padding: 0.2rem;
 }
 </style>
 
