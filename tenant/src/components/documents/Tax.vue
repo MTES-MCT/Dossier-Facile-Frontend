@@ -35,7 +35,7 @@
         </div>
         <div v-if="taxDocument.key && taxDocument.key === 'my-name'">
           <div class="rf-mb-3w">
-            {{ taxDocument.explanationText }}
+            <p v-html="taxDocument.explanationText"></p>
           </div>
           <div class="rf-mb-3w">
             <FileUpload
@@ -296,7 +296,7 @@ export default class Tax extends Vue {
       value: "MY_NAME",
       explanationText:
         "En joignant mon avis d’imposition, j’accepte que DossierFacile procède à une vérification automatisée de ma fiche d’imposition auprès des services des impôts.\n" +
-        "J’ajoute un avis d’imposition à mon nom.",
+        "J’ajoute un <b>avis d’imposition à mon nom.</b>",
       acceptedProofs: ["Avis d’imposition de moins de 2 ans"],
       refusedProofs: [
         "Avis d’imposition incomplet (sans la première page)",
