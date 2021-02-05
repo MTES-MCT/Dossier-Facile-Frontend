@@ -69,7 +69,8 @@ const store = new Vuex.Store({
     },
     loadUser(state, user) {
       state.user = user;
-      if (state.user) {
+      if (state.user?.lastName && state.user?.apartmentSharing &&
+        state.user.apartmentSharing.tenants.length > 0) {
         state.user.applicationType = "ALONE";
       }
       if (
@@ -78,10 +79,11 @@ const store = new Vuex.Store({
       ) {
         state.user.applicationType = "COUPLE";
         state.roommates = state.user.apartmentSharing.tenants;
-        if (state.user.apartmentSharing.tenants.length > 2) {
-          state.user.applicationType = "GROUP";
-        }
       }
+      if (state.user.apartmentSharing.tenants.length > 2) {
+        state.user.applicationType = "GROUP";
+      }
+
       if (state.user?.guarantors && state.user.guarantors.length > 0) {
         if (state.selectedGuarantor.id) {
           const guarantor = user.guarantors.find((g: any) => {
