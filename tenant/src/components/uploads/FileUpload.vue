@@ -132,7 +132,7 @@ export default class FileUpload extends Vue {
 <i18n>
 {
   "en": {
-    "send-problem": "Problème d'envoi.",
+    "send-problem": "Send error.",
     "file-too-big": "The file is limited to 3MB"
   },
   "fr": {
