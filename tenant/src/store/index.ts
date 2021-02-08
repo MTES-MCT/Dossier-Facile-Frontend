@@ -16,6 +16,7 @@ export class DfState {
   guarantorStep = 0;
   guarantorSubStep = 1;
   user: User | null = null;
+  // TODO use getter on user.apartmentSharing.tenants
   roommates: User[] = [];
   selectedGuarantor = new Guarantor();
   status = { loggedIn: false };
@@ -69,19 +70,9 @@ const store = new Vuex.Store({
     },
     loadUser(state, user) {
       state.user = user;
-      if (state.user?.lastName && state.user?.apartmentSharing &&
-        state.user.apartmentSharing.tenants.length > 0) {
-        state.user.applicationType = "ALONE";
-      }
-      if (
-        state.user?.apartmentSharing &&
-        state.user.apartmentSharing.tenants.length > 1
-      ) {
-        state.user.applicationType = "COUPLE";
+      state.user.applicationType = state.user?.apartmentSharing.applicationType;
+      if (state.user.applicationType === "COUPLE") {
         state.roommates = state.user.apartmentSharing.tenants;
-      }
-      if (state.user.apartmentSharing.tenants.length > 2) {
-        state.user.applicationType = "GROUP";
       }
 
       if (state.user?.guarantors && state.user.guarantors.length > 0) {
@@ -94,7 +85,7 @@ const store = new Vuex.Store({
           state.selectedGuarantor = user.guarantors[user.guarantors.length - 1];
         }
         if (state.selectedGuarantor) {
-          state.guarantorStep = 2;
+          state.guarantorStep = 1;
         }
       }
     },
@@ -218,6 +209,17 @@ const store = new Vuex.Store({
     },
     addGuarantor({ commit }) {
       commit("addGuarantor");
+    },
+    setGuarantorType({commit}, guarantorType: string) {
+      return ProfileService.setGuarantorType(guarantorType).then(
+        response => {
+          commit("loadUser", response.data);
+          return Promise.resolve(response.data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
     }
   },
   getters: {

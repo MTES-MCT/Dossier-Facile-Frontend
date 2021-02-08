@@ -156,7 +156,7 @@
                       >visibility</span
                     >
                   </div>
-                  <div class="edit-step-btn" @click="setGuarantorStep(1)">
+                  <div class="edit-step-btn" @click="setGuarantorSubStep(1)">
                     <span class="color--primary material-icons md-18"
                       >edit</span
                     >
@@ -175,7 +175,7 @@
                       >visibility</span
                     >
                   </div>
-                  <div class="edit-step-btn" @click="setGuarantorStep(2)">
+                  <div class="edit-step-btn" @click="setGuarantorSubStep(2)">
                     <span class="color--primary material-icons md-18"
                       >edit</span
                     >
@@ -196,7 +196,7 @@
                       >visibility</span
                     >
                   </div>
-                  <div class="edit-step-btn" @click="setGuarantorStep(3)">
+                  <div class="edit-step-btn" @click="setGuarantorSubStep(3)">
                     <span class="color--primary material-icons md-18"
                       >edit</span
                     >
@@ -215,7 +215,7 @@
                       >visibility</span
                     >
                   </div>
-                  <div class="edit-step-btn" @click="setGuarantorStep(4)">
+                  <div class="edit-step-btn" @click="setGuarantorSubStep(4)">
                     <span class="color--primary material-icons md-18"
                       >edit</span
                     >
@@ -234,7 +234,7 @@
                       >visibility</span
                     >
                   </div>
-                  <div class="edit-step-btn" @click="setGuarantorStep(5)">
+                  <div class="edit-step-btn" @click="setGuarantorSubStep(5)">
                     <span class="color--primary material-icons md-18"
                       >edit</span
                     >
@@ -294,7 +294,7 @@ export default class EditSummary extends Vue {
     this.setStep(2);
   }
 
-  setGuarantorStep(n: number) {
+  setGuarantorSubStep(n: number) {
     this.$store.commit("setGuarantorSubstep", n);
     this.setStep(3);
   }
