@@ -116,9 +116,9 @@ a {
 <i18n>
 {
 "en": {
-"tenant": "Locataire",
-"owner": "Propriétaire",
-"register-information": "Afin de créer votre compte, nous avons besoin de quelques informations. Vous êtes…",
+"tenant": "Tenant",
+"owner": "Owner",
+"register-information": "In order to create your account, we need some information. You are…",
 "faq": "FAQ"
 },
 "fr": {
