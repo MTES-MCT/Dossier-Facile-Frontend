@@ -108,7 +108,7 @@ export default class MyHeader extends Vue {
 "owner": "Owner area"
 },
 "fr": {
-"logout": "Logout",
+"logout": "Se déconnecter",
 "signup": "Mon dossier",
 "owner": "Espace propriétaire"
 }
