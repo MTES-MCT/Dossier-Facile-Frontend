@@ -24,5 +24,11 @@ export const ProfileService = {
       `//${process.env.VUE_APP_API_URL}/api/register/honorDeclaration`,
       { honorDeclaration }
     );
+  },
+  setGuarantorType(typeGuarantor: string) {
+    return axios.post(
+      `//${process.env.VUE_APP_API_URL}/api/register/guarantorType`,
+      { typeGuarantor }
+    );
   }
 };
