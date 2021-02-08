@@ -159,13 +159,13 @@ export default class MyFooter extends Vue {
 <i18n>
 {
   "en": {
-    "contact": "Nous écrire",
+    "contact": "Contact us",
     "legals": "Legal notice",
     "faq": "FAQ",
     "blog": "Blog",
     "information": "Information",
-    "sources": "Code source",
-    "accessibility": "Accessibilité: partiellement"
+    "sources": "Source code",
+    "accessibility": "Accessibility: partial"
   },
   "fr": {
     "contact": "Nous écrire",
