@@ -144,16 +144,6 @@ export default class MyFooter extends Vue {
   }
 }
 
-/*
-
-.rf-footer__logo {
-  min-width: 100px;
-}
-
-.rf-footer__content-links {
-  margin-bottom: 0;
-}
- */
 </style>
 
 <i18n>
