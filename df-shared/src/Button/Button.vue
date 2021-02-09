@@ -1,6 +1,6 @@
 <template>
   <button :class="classes()" class="rf-btn" :title="title" @click="onClick">
-    {{ label }}
+    <slot></slot>
   </button>
 </template>
 
@@ -9,7 +9,6 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component
 export default class DfButton extends Vue {
-  @Prop() private label!: string;
   @Prop() private title!: string;
   @Prop({ default: false }) private primary?: boolean;
   @Prop({ default: "normal" }) private size?: string;
@@ -18,7 +17,8 @@ export default class DfButton extends Vue {
     return {
       "rf-btn--secondary": !this.primary,
       "rf-btn--lg": this.size === "large",
-      "rf-btn--sm": this.size === "small"
+      "rf-btn--sm": this.size === "small",
+      "rf-btn--icon": this.size === "icon"
     };
   }
 

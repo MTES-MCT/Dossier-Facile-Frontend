@@ -22,24 +22,32 @@
           <DfButton
             class="rf-btn"
             primary="true"
-            :label="$t('validate')"
             @on-click="setGuarantorType()"
-          ></DfButton>
+          >
+            {{$t('validate')}}
+          </DfButton>
         </div>
       </div>
       <div v-if="guarantorType">
         <div v-if="guarantorType === 'NATURAL_PERSON'">
           <div>
-            <div>
-              <button
-                class="rf-mr-3w rf-mb-3w"
+            <div class="rf-grid-row">
+              <div
+                class="rf-grid-row rf-mr-3w rf-mb-3w btn-group"
                 :class="{ guarantorselected: guarantor === g }"
                 v-for="(g, k) in user.guarantors"
                 :key="k"
-                @click="selectGuarantor(k)"
               >
-                {{ getName(g, k) }}
-              </button>
+                <DfButton
+                @on-click="selectGuarantor(k)">
+                <span>
+                {{getName(g, k)}}
+                </span>
+                </DfButton>
+                <DfButton size="icon" @on-click="remove(k)" >
+                  <span class="material-icons text-danger">delete_forever</span>
+                </DfButton>
+              </div>
             </div>
             <div
               class="document-title title-bar"
@@ -353,6 +361,13 @@ export default class GuarantorDocuments extends Vue {
     this.$store.commit("selectGuarantor", k);
   }
 
+  remove(k: number) {
+    this.$toasted.show("TODO : remove " + k, {
+      type: "error",
+      duration: 7000
+    });
+  }
+
   isTaxValid() {
     const doc = this.guarantor.documents?.find((d) => {
       return d.documentCategory === "TAX";
@@ -423,6 +438,10 @@ h2 {
     padding: 0.5rem;
     line-height: 1rem;
   }
+}
+
+.btn-group {
+  width: fit-content;
 }
 </style>
 

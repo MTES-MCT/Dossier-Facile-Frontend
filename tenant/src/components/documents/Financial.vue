@@ -6,9 +6,9 @@
         <DfButton
           class="rf-btn"
           size="small"
-          :label="$t('delete-financial')"
           @on-click="removeFinancial(k)"
         >
+          {{$t('delete-financial')}}
         </DfButton>
       </div>
       <div>

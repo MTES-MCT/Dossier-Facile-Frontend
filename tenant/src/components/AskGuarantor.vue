@@ -13,9 +13,10 @@
       </p>
       <DfButton
         class="rf-btn"
-        :label="$t('validate')"
         @on-click="goValidateFile"
-      ></DfButton>
+      >
+        {{$t('validate')}}
+      </DfButton>
     </div>
   </div>
 </template>
