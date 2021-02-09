@@ -17,7 +17,8 @@ export default class DfButton extends Vue {
     return {
       "rf-btn--secondary": !this.primary,
       "rf-btn--lg": this.size === "large",
-      "rf-btn--sm": this.size === "small"
+      "rf-btn--sm": this.size === "small",
+      "rf-btn--icon": this.size === "icon"
     };
   }
 
