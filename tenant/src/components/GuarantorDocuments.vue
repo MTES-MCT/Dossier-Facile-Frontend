@@ -22,24 +22,33 @@
           <DfButton
             class="rf-btn"
             primary="true"
-            :label="$t('validate')"
             @on-click="setGuarantorType()"
-          ></DfButton>
+          >
+            {{$t('validate')}}
+          </DfButton>
         </div>
       </div>
       <div v-if="guarantorType">
         <div v-if="guarantorType === 'NATURAL_PERSON'">
           <div>
             <div>
-              <button
+              <span
                 class="rf-mr-3w rf-mb-3w"
                 :class="{ guarantorselected: guarantor === g }"
                 v-for="(g, k) in user.guarantors"
                 :key="k"
-                @click="selectGuarantor(k)"
               >
-                {{ getName(g, k) }}
-              </button>
+                <DfButton
+                @on-click="selectGuarantor(k)">
+                {{getName(g, k)}}
+                </DfButton>
+                <DfButton
+                  class="rf-btn rf-btn--icon rf-btn--secondary"
+                  @click="remove(key)"
+                >
+                  {{$t('delete')}}
+                </DfButton>
+              </span>
             </div>
             <div
               class="document-title title-bar"

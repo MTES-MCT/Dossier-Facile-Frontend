@@ -11,7 +11,7 @@ export default {
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { MyButton: DfButton },
-  template: '<DfButton @onClick="onClick" v-bind="$props"  label="button"/>',
+  template: '<DfButton @onClick="onClick" v-bind="$props" >button</DfButton>',
 });
 
 export const Primary = Template.bind({});

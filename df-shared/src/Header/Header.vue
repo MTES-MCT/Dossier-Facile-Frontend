@@ -25,7 +25,9 @@
       <div class="rf-shortcuts">
         <ul class="rf-shortcuts__list">
           <li class="rf-shortcuts__item" v-if="loggedIn">
-            <DfButton size="small" @on-click="onLogout" :label="$t('logout')" />
+            <DfButton size="small" @on-click="onLogout">
+              {{$t('logout')}}
+            </DfButton>
           </li>
           <li class="rf-shortcuts__item" v-if="!loggedIn">
             <DfButton
@@ -33,15 +35,17 @@
               primary="true"
               size="small"
               @on-click="onCreateTenant"
-              :label="$t('signup')"
-            />
+            >
+              {{$t('signup')}}
+            </DfButton>
           </li>
           <li class="rf-shortcuts__item" v-if="!loggedIn">
             <DfButton
               size="small"
               @on-click="onCreateOwner"
-              :label="$t('owner')"
-            />
+            >
+              {{$t('owner')}}
+            </DfButton>
           </li>
           <li class="rf-shortcuts__item">
             <button

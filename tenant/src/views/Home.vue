@@ -17,8 +17,9 @@
                   primary="true"
                   size="small"
                   @on-click="signup"
-                  :label="$t('signup')"
-                />
+                >
+                  {{$t('signup')}}
+                </DfButton>
               </div>
               <div class="rf-mt-2w text-center">
                 <router-link to="/login">
@@ -100,8 +101,9 @@
               primary="true"
               size="small"
               @on-click="signup"
-              :label="$t('signup')"
-            />
+            >
+              {{$t('signup')}}
+            </DfButton>
           </div>
         </div>
 
