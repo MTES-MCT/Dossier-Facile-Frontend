@@ -144,28 +144,18 @@ export default class MyFooter extends Vue {
   }
 }
 
-/*
-
-.rf-footer__logo {
-  min-width: 100px;
-}
-
-.rf-footer__content-links {
-  margin-bottom: 0;
-}
- */
 </style>
 
 <i18n>
 {
   "en": {
-    "contact": "Nous écrire",
+    "contact": "Contact us",
     "legals": "Legal notice",
     "faq": "FAQ",
     "blog": "Blog",
     "information": "Information",
-    "sources": "Code source",
-    "accessibility": "Accessibilité: partiellement"
+    "sources": "Source code",
+    "accessibility": "Accessibility: partial"
   },
   "fr": {
     "contact": "Nous écrire",

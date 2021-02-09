@@ -225,51 +225,51 @@ img {
 <i18n>
 {
   "en": {
-    "button": "Monter mon dossier de location",
+    "button": "Build my rental file",
     "s0": {
-      "title": "Montez un dossier de location en béton pour trouver le logement de vos rêves",
-      "text": "DossierFacile vous aide à constituer un dossier de location numérique ",
-      "text2": "de qualité pour mettre toutes les chances de votre côté."
+      "title": "Build a concrete rental file to find the accommodation of your dreams",
+      "text": "DossierFacile helps you build a high-quality digital rental",
+      "text2": "file to ensure you have the best possible results."
     },
     "s1": {
-      "h1": "Démarquez-vous grâce à un dossier de qualité",
-      "p1": "Transmettez aux propriétaires un dossier clair, complet et cohérent pour maximiser vos chances.",
-      "h2": "Soyez le premier à répondre à une annonce",
-      "p2": "Soyez le plus réactif en envoyant en un clic votre dossier numérique.",
-      "h3": "Rassurez votre futur·e propriétaire",
-      "p3": "Après une batterie de tests par nos opérateurs, votre dossier est labellisé par l'État."
+      "h1": "Stand out thanks to a quality file",
+      "p1": "Send owners a clear, complete and coherent file to maximize your chances.",
+      "h2": "Be the first to respond to an ad",
+      "p2": "Be the most responsive by sending your digital file with one click.",
+      "h3": "Reassure your future owner",
+      "p3": "After a battery of tests by our operators, your file is certified by the State."
     },
     "s2": {
-      "title": "Constituez votre dossier de location en trois étapes",
-      "h1": "Je télécharge mes pièces",
-      "p1": "DossierFacile vous demande les pièces nécessaires et rien que celles-là !",
-      "u1a": "Pièce d'identité",
-      "u1b": "Justificatif de domicile",
-      "u1c": "Justificatif de situation professionnelle",
-      "u1d": "Avis d'imposition",
-      "u1e": "Justificatif de ressources",
-      "h2": "DossierFacile valide mon dossier",
-      "p2": "Nos agents vérifient votre dossier et vous aident à le corriger si besoin.",
-      "h3": "Mon dossier est prêt à être envoyé",
-      "p3": "Votre dossier sécurisé sous forme de lien URL ou au format PDF est prêt à être envoyé aux propriétaires."
+      "title": "Build your rental file in three steps",
+      "h1": "I download my file",
+      "p1": "DossierFacile asks you for the necessary documents and just those!",
+      "u1a": "Identity card",
+      "u1b": "Proof of address",
+      "u1c": "Proof of professional situation",
+      "u1d": "Tax notice",
+      "u1e": "Proof of resources",
+      "h2": "DossierFacile validates my file",
+      "p2": "Our agents check your file and help you correct it if necessary.",
+      "h3": "My file is ready to be sent",
+      "p3": "Your secure file as a URL link or in PDF format is ready to be sent to the owners."
     },
     "s3": {
-      "title": "Protégez vos informations personnelles",
-      "text1": "Avec DossierFacile, plus de papiers d'identité éparpillés dans la nature !",
-      "text2": "Vos documents sont recouverts de filigranes pour vous protéger contre la fraude de propriétaires peu scrupuleux.",
-      "text3": "Vous pouvez paramétrer l'ouverture de votre lien dossier : vous pouvez le supprimer à tout moment !",
-      "link": "En savoir plus sur la sécurité des données chez DossierFacile"
+      "title": "Protect your personal information",
+      "text1": "With DossierFacile, no more identity papers scattered around the countryside!",
+      "text2": "Your documents are covered with watermarks to protect you against fraud by unscrupulous owners.",
+      "text3": "You can configure the opening of your folder link: you can delete it at any time!",
+      "link": "Learn more about data security at DossierFacile"
     },
     "s4": {
-      "title1": "Déjà",
+      "title1": "Already",
       "title2": "65 000",
-      "title3": "Dossiers labellisés grâce à DossierFacile",
-      "t1": "Le dossier de Karim s'est tout de suite démarqué : c'était le seul dossier reçu complet !",
-      "author1": "Joseph, propriétaire à Nantes",
-      "t2": "Simple, efficace et pratique : ça m'a fait gagner beaucoup de temps dans ma recherche d'appartement.",
-      "author2": "Caroline, étudiante",
-      "t3": "Je ne réussissais jamais à visiter un appartement avec mon dossier étranger. Avec DossierFacile, j'ai enfin eu plus de visites !",
-      "author3": "Irina, étudiante en Erasmus"
+      "title3": "certified dossiers thanks to DossierFacile",
+      "t1": "Karim's file immediately stood out: it was the only file received that was complete!",
+      "author1": "Joseph, owner in Nantes",
+      "t2": "Simple, efficient and practical: it saved me a lot of time in my apartment search.",
+      "author2": "Caroline, student",
+      "t3": "I never managed to visit an apartment with my foreign file. With DossierFacile, I finally had more visits!",
+      "author3": "Irina, Erasmus student"
     }
   },
   "fr": {
