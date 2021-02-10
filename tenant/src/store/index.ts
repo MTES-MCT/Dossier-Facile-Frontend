@@ -220,6 +220,17 @@ const store = new Vuex.Store({
           return Promise.reject(error);
         }
       );
+    },
+    changePassword({commit}, user: User) {
+      return AuthService.changePassword(user).then(
+        response => {
+          commit("loadUser", response.data);
+          return Promise.resolve(user);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
     }
   },
   getters: {

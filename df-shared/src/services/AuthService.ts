@@ -38,6 +38,14 @@ export const AuthService = {
     });
   },
 
+  changePassword(user: User) {
+    return axios.post(API_URL + "user/changePassword", {
+      password: user.password,
+      confirm: user.confirm,
+      token: user.token
+    });
+  },
+
   loadUser() {
     return axios.get(API_URL + "tenant/profile");
   },

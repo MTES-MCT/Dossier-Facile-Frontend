@@ -79,14 +79,71 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { User } from "df-shared/src/models/User";
+import { ValidationProvider } from "vee-validate";
+import { extend } from "vee-validate";
+import { required, confirmed } from "vee-validate/dist/rules";
+import Password from "vue-password-strength-meter";
 
-@Component
+extend("required", {
+  ...required,
+  message: "field-required"
+});
+
+extend("confirmed", {
+  ...confirmed,
+  message: "password-not-confirmed"
+});
+
+
+const MIN_SCORE = 2;
+extend("strength", {
+  message: "pwd-not-complex",
+  validate: (_value, args: any) => {
+    if (args !== undefined) {
+      return args[0] >= MIN_SCORE
+    }
+    return true}
+});
+
+@Component({
+  components: {
+    ValidationProvider,
+    Password
+  }
+})
 export default class ChangePassword extends Vue {
+  score = 0;
   user: User = new User();
   handleRegister() {
-    this.$emit("on-register", this.user);
+    this.$emit("on-change-password", this.user);
   }
 
+  setScore(s: number) {
+    this.score = s;
+  }
     
 }
 </script>
+
+<i18n>
+{
+  "en": {
+    "title": "Password update",
+    "password": "Password",
+    "confirm-password": "Confirm password :",
+    "password-placeholder": "Ex : 12345679",
+    "confirm": "Confirm password",
+    "password-not-confirmed": "Password not confirmed",
+    "pwd-not-complex": "Password not secure enough"
+  },
+  "fr": {
+    "title": "Modification du mot de passe",
+    "password": "Nouveau mot de passe",
+    "confirm-password": "Confirmation du mot de passe :",
+    "password-placeholder": "Ex : 12345679",
+    "confirm": "Confirmation du mot de passe",
+    "password-not-confirmed": "Le mot de passe ne correspond pas",
+    "pwd-not-complex": "Mot de passe trop simple"
+  }
+}
+</i18n>
