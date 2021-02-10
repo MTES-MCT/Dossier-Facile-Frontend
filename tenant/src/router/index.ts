@@ -98,6 +98,18 @@ const routes: Array<RouteConfig> = [
       import(
         /* webpackChunkName: "confirmAccount" */ "@/views/ConfirmAccount.vue"
       )
+  },
+  {
+    path: "/changePassword/:token",
+    name: "Password",
+    meta: {
+      title: "Nouveau mot de passe - DossierFacile",
+      hideForAuth: true
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "changePassword" */ "@/views/ChangePasswordPage.vue"
+      )
   }
 ];
 
