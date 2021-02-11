@@ -64,10 +64,6 @@ export default class ListItem extends Vue {
     this.isDocModalVisible = true;
   }
 
-  getUrl(path: string) {
-    return `//${process.env.VUE_APP_API_URL}/api/file/tenants_file/${path}`;
-  }
-
   getSize() {
     if (this.file.size) {
       const kb = this.file.size / 1000;

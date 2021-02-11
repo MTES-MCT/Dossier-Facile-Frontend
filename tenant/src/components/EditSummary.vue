@@ -358,13 +358,6 @@ export default class EditSummary extends Vue {
     this.isDocModalVisible = true;
   }
 
-  isImage(path: string) {
-    return !path.endsWith("pdf");
-  }
-
-  getUrl(path: string) {
-    return `//${process.env.VUE_APP_API_URL}/api/file/tenants_file/${path}`;
-  }
 }
 </script>
 

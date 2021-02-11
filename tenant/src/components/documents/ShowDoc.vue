@@ -4,11 +4,11 @@
       <div class="col-12 col-md-8">
         <div v-if="file.path">
           <vue-load-image v-if="isImage()">
-            <img slot="image" :src="getUrl(file.path)" />
+            <img slot="image" :src="file.path" />
             <img slot="preloader" src="../../assets/images/image-loader.gif" />
             <div slot="error">error message</div>
           </vue-load-image>
-          <PdfViewer :src="getUrl(file.path)" v-if="!isImage()"></PdfViewer>
+          <PdfViewer :src="file.path" v-if="!isImage()"></PdfViewer>
         </div>
       </div>
     </div>
@@ -29,10 +29,6 @@ import VueLoadImage from "vue-load-image";
 })
 export default class ShowDoc extends Vue {
   @Prop({ default: "" }) file!: DfFile;
-
-  getUrl(path: string) {
-    return `//${process.env.VUE_APP_API_URL}/api/file/tenants_file/${path}`;
-  }
 
   isImage() {
     if (this.file.path) {
