@@ -7,12 +7,23 @@
             <ul class="menu-vertical">
               <li>
                 <a href="#">Pièce d'identité</a>
-                <span class="material-icons">visibility</span>
-                <span class="text-warning material-icons">more_time</span>
-                <span class="text-danger material-icons">cancel</span>
-                <span class="text-success material-icons"
-                  >check_circle_outline</span
-                >
+                <div class="row">
+                  <div
+                    class="edit-step-btn"
+                    @click="openGuarantorDoc('IDENTIFICATION')"
+                    v-if="guarantorHasFile('IDENTIFICATION')"
+                  >
+                    <span class="color--primary material-icons md-18"
+                      >visibility</span
+                    >
+                  </div>
+                  <div class="edit-step-btn" @click="setGuarantorSubStep(1)">
+                    <span class="color--primary material-icons md-18"
+                      >edit</span
+                    >
+                  </div>
+                </div>
+                <FileStatusIcon></FileStatusIcon>
               </li>
               <li>
                 <a class="modal-file-button" data-id="2" href="#"
@@ -339,9 +350,10 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import FileStatusIcon from "df-shared/src/components/FileStatusIcon.vue";
 
 @Component({
-  components: { NakedCard }
+  components: { NakedCard, FileStatusIcon }
 })
 export default class Messages extends Vue {
   // TODO update messages (and put in store)
