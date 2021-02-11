@@ -362,9 +362,6 @@ export default class EditSummary extends Vue {
     return !path.endsWith("pdf");
   }
 
-  getUrl(path: string) {
-    return `//${process.env.VUE_APP_API_URL}/api/file/tenants_file/${path}`;
-  }
 }
 </script>
 
