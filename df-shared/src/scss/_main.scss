@@ -178,3 +178,12 @@ img {
 .spacer {
   flex: auto;
 }
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.2rem;
+  div {
+    align-self: center;
+  }
+}

@@ -395,19 +395,12 @@ export default class EditSummary extends Vue {
 </script>
 
 <style scoped lang="scss">
-.row {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.2rem;
-  div {
-    align-self: center;
-  }
-}
 .edit-step-btn {
   align-self: center;
   padding: 0.2rem;
   cursor: pointer;
 }
+
 .subtitle {
   font-weight: bold;
 }
