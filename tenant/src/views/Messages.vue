@@ -102,7 +102,7 @@
         </NakedCard>
         <NakedCard>
           <template v-slot:content>
-            <div class="boxed boxed--lg boxed--border" v-if="hasOwnGuarantor()">
+            <div class="boxed boxed--lg boxed--border" v-if="hasGuarantor()">
               <h5>Les documents de mon garant</h5>
               <ul class="menu-vertical">
                 <li>
@@ -351,6 +351,7 @@
 import { Vue, Component } from "vue-property-decorator";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import FileStatusIcon from "df-shared/src/components/FileStatusIcon.vue";
+import { DocumentService } from "../services/DocumentService";
 
 @Component({
   components: { NakedCard, FileStatusIcon }
@@ -359,11 +360,6 @@ export default class Messages extends Vue {
   // TODO update messages (and put in store)
   messages = [];
   sendMessage = "";
-
-  hasOwnGuarantor() {
-    // TODO
-    return true;
-  }
 
   hasVisaleGuarantor() {
     // TODO
@@ -380,6 +376,37 @@ export default class Messages extends Vue {
     /*             th:action="@{/message/new}"
             th:method="post"
             th:object="${message}" */
+  }
+
+  hasDocument() {
+    return DocumentService.hasDocument();
+  }
+  hasDoc(docType: string) {
+    return DocumentService.hasDoc(docType);
+  }
+  hasFile(docType: string) {
+    return DocumentService.hasFile(docType);
+  }
+  guarantorHasFile(docType: string) {
+    return DocumentService.guarantorHasFile(docType);
+  }
+  guarantorHasDoc(docType: string) {
+    return DocumentService.guarantorHasDoc(docType);
+  }
+  hasGuarantor() {
+    return DocumentService.hasGuarantor();
+  }
+  openDoc(documentCategory: string) {
+    this.files = DocumentService.getFiles(documentCategory);
+    if (this.files.length > 0) {
+      this.isDocModalVisible = true;
+    }
+  }
+  openGuarantorDoc(documentCategory: string) {
+    this.files = DocumentService.getGuarantorFiles(documentCategory);
+    if (this.files.length > 0) {
+      this.isDocModalVisible = true;
+    }
   }
 }
 </script>

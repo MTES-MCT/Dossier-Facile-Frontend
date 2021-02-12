@@ -260,7 +260,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import Identification from "@/components/documents/Identification.vue";
 import RepresentativeIdentification from "@/components/documents/RepresentativeIdentification.vue";
 import CorporationIdentification from "@/components/documents/CorporationIdentification.vue";
@@ -311,6 +311,11 @@ export default class GuarantorDocuments extends Vue {
     if (this.guarantor.typeGuarantor) {
       this.guarantorType = this.guarantor.typeGuarantor;
     }
+  }
+
+  @Watch("guarantor")
+  onGuarantorChange(val: Guarantor) {
+    this.guarantorType = val.typeGuarantor || "";
   }
 
   updateSubstep(s: number) {

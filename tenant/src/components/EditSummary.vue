@@ -137,7 +137,63 @@
             </section>
           </div>
         </div>
-        <div v-if="hasGuarantor()">
+        <div v-if="hasGuarantor('LEGAL_PERSON')">
+          <a href="#" class="rf-link">
+            {{ $t("representative-identification") }}
+          </a>
+          <hr />
+          <div class="rf-card__desc">
+            <section v-if="guarantorHasDoc('TODO-REPRESENTATIVE-IDENTIFICATION')">
+              <div class="subtitle">{{ $t('organism') }}</div>
+              <div class="row">
+                <div
+                  class="edit-step-btn"
+                  @click="openGuarantorDoc('TODO-REPRESENTATIVE-IDENTIFICATION')"
+                  v-if="guarantorHasFile('TODO-REPRESENTATIVE-IDENTIFICATION')"
+                >
+                  <span class="color--primary material-icons md-18"
+                    >visibility</span
+                  >
+                </div>
+                <div class="edit-step-btn" @click="setGuarantorSubStep(1)">
+                  <span class="color--primary material-icons md-18"
+                    >edit</span
+                  >
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div v-if="hasGuarantor('ORGANISM')">
+          <a href="#" class="rf-link">
+            {{ $t("third-title") }}
+          </a>
+          <hr />
+          <div class="rf-card__desc">
+            <section>
+              <div class="row">
+                <div class="subtitle">{{ $t('organism') }}</div>
+                <div class="row">
+                  <div
+                    class="edit-step-btn"
+                    @click="openGuarantorDoc('IDENTIFICATION')"
+                    v-if="guarantorHasFile('IDENTIFICATION')"
+                  >
+                    <span class="color--primary material-icons md-18"
+                      >visibility</span
+                    >
+                  </div>
+                  <div class="edit-step-btn" @click="setGuarantorSubStep(1)">
+                    <span class="color--primary material-icons md-18"
+                      >edit</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div v-if="hasGuarantor('NATURAL_PERSON')">
           <a href="#" class="rf-link">
             {{ $t("third-title") }}
           </a>
@@ -272,6 +328,7 @@ import { DfFile } from "df-shared/src/models/DfFile";
 import Modal from "df-shared/src/components/Modal.vue";
 import PdfViewer from "../components/PdfViewer.vue";
 import ShowDoc from "./documents/ShowDoc.vue";
+import { DocumentService } from "../services/DocumentService";
 
 @Component({
   components: { NakedCard, Modal, PdfViewer, ShowDoc },
@@ -302,60 +359,36 @@ export default class EditSummary extends Vue {
   setStep(n: number) {
     this.$store.commit("setStep", n);
   }
+
   hasDocument() {
-    return this.user.documents !== undefined && this.user.documents?.length > 0;
+    return DocumentService.hasDocument();
   }
   hasDoc(docType: string) {
-    return this.user.documents?.find(d => {
-      return d.documentCategory === docType;
-    });
+    return DocumentService.hasDoc(docType);
   }
   hasFile(docType: string) {
-    const document = this.hasDoc(docType);
-    return (document?.files?.length || 0) > 0;
+    return DocumentService.hasFile(docType);
   }
   guarantorHasFile(docType: string) {
-    const document = this.guarantorHasDoc(docType);
-    return (document?.files?.length || 0) > 0;
+    return DocumentService.guarantorHasFile(docType);
   }
   guarantorHasDoc(docType: string) {
-    return this.selectedGuarantor.documents?.find(d => {
-      return d.documentCategory === docType;
-    });
+    return DocumentService.guarantorHasDoc(docType);
   }
-  hasGuarantor() {
-    return (
-      this.selectedGuarantor?.documents !== undefined &&
-      this.selectedGuarantor.documents.length > 0
-    );
+  hasGuarantor(guarantorType: string) {
+    return DocumentService.hasGuarantor(guarantorType);
   }
-
   openDoc(documentCategory: string) {
-    const docs = this.user.documents?.filter(d => {
-      return d.documentCategory === documentCategory;
-    });
-    this.files = [];
-    if (docs === undefined) {
-      return;
+    this.files = DocumentService.getFiles(documentCategory);
+    if (this.files.length > 0) {
+      this.isDocModalVisible = true;
     }
-    for (let i = 0; i < docs.length; i++) {
-      this.files = this.files.concat(docs[i].files || []);
-    }
-    this.isDocModalVisible = true;
   }
-
   openGuarantorDoc(documentCategory: string) {
-    const docs = this.selectedGuarantor.documents?.filter(d => {
-      return d.documentCategory === documentCategory;
-    });
-    this.files = [];
-    if (docs === undefined) {
-      return;
+    this.files = DocumentService.getGuarantorFiles(documentCategory);
+    if (this.files.length > 0) {
+      this.isDocModalVisible = true;
     }
-    for (let i = 0; i < docs.length; i++) {
-      this.files = this.files.concat(docs[i].files || []);
-    }
-    this.isDocModalVisible = true;
   }
 
 }

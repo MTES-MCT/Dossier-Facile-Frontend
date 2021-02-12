@@ -100,6 +100,9 @@ export default class OrganismCert extends Vue {
     Array.from(Array(this.files.length).keys()).map(x => {
       formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
     });
+    if (this.$store.getters.guarantor.id) {
+      formData.append("guarantorId", this.$store.getters.guarantor.id);
+    }
 
     formData.append(
       "typeDocumentIdentification",
