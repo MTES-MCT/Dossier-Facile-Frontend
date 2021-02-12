@@ -1,4 +1,5 @@
 import { DfDocument } from "df-shared/src/models/DfDocument";
+import { Guarantor } from "df-shared/src/models/Guarantor";
 import { User } from "df-shared/src/models/User";
 import store from "../store";
 
@@ -15,13 +16,13 @@ export const DocumentService = {
     const document = this.hasDoc(docType);
     return (document?.files?.length || 0) > 0;
   },
-  guarantorHasDoc(docType: string) {
-    return store.state.selectedGuarantor.documents?.find((d: DfDocument) => {
+  guarantorHasDoc(g: Guarantor, docType: string) {
+    return g.documents?.find((d: DfDocument) => {
       return d.documentCategory === docType;
     });
   },
-  guarantorHasFile(docType: string) {
-    const document = this.guarantorHasDoc(docType);
+  guarantorHasFile(g: Guarantor, docType: string) {
+    const document = this.guarantorHasDoc(g, docType);
     return (document?.files?.length || 0) > 0;
   },
   hasGuarantor(guarantorType: string) {
@@ -42,8 +43,8 @@ export const DocumentService = {
 
     return files;
   },
-  getGuarantorFiles(documentCategory: string) {
-    const docs = store.state.selectedGuarantor.documents?.filter((d: DfDocument) => {
+  getGuarantorFiles(g: Guarantor, documentCategory: string) {
+    const docs = g.documents?.filter((d: DfDocument) => {
       return d.documentCategory === documentCategory;
     });
     let files: any[] = [];

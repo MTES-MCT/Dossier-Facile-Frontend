@@ -119,196 +119,103 @@
               <div class="boxed boxed--lg boxed--border">
                 <h5>Les documents de mon garant</h5>
 
-                <div class="row" v-if="guarantorHasDoc('IDENTIFICATION')">
+                <div class="row" v-if="guarantorHasDoc(g, 'IDENTIFICATION')">
                   <div class="subtitle">Pièce d’identité</div>
                   <div class="row">
                     <div
                       class="edit-step-btn"
-                      @click="openGuarantorDoc('IDENTIFICATION')"
-                      v-if="guarantorHasFile('IDENTIFICATION')"
+                      @click="openGuarantorDoc(g, 'IDENTIFICATION')"
+                      v-if="guarantorHasFile(g, 'IDENTIFICATION')"
                     >
                       <span class="color--primary material-icons md-18"
                         >visibility</span
                       >
                     </div>
-                    <div class="edit-step-btn" @click="setGuarantorSubStep(1)">
+                    <div class="edit-step-btn" @click="setGuarantorSubStep(1, g)">
                       <span class="color--primary material-icons md-18"
                         >edit</span
                       >
                     </div>
                   </div>
                 </div>
-                <div class="row" v-if="guarantorHasDoc('RESIDENCY')">
+                <div class="row" v-if="guarantorHasDoc(g, 'RESIDENCY')">
                   <div class="subtitle">Justificatif de domicile</div>
                   <div class="row">
                     <div
                       class="edit-step-btn"
-                      @click="openGuarantorDoc('RESIDENCY')"
-                      v-if="guarantorHasFile('RESIDENCY')"
+                      @click="openGuarantorDoc(g, 'RESIDENCY')"
+                      v-if="guarantorHasFile(g, 'RESIDENCY')"
                     >
                       <span class="color--primary material-icons md-18"
                         >visibility</span
                       >
                     </div>
-                    <div class="edit-step-btn" @click="setGuarantorSubStep(2)">
+                    <div class="edit-step-btn" @click="setGuarantorSubStep(2, g)">
                       <span class="color--primary material-icons md-18"
                         >edit</span
                       >
                     </div>
                   </div>
                 </div>
-                <div class="row" v-if="guarantorHasDoc('PROFESSIONAL')">
+                <div class="row" v-if="guarantorHasDoc(g, 'PROFESSIONAL')">
                   <div class="subtitle">
                     Justificatif de situation professionelle
                   </div>
                   <div class="row">
                     <div
                       class="edit-step-btn"
-                      @click="openGuarantorDoc('PROFESSIONAL')"
-                      v-if="guarantorHasFile('PROFESSIONAL')"
+                      @click="openGuarantorDoc(g, 'PROFESSIONAL')"
+                      v-if="guarantorHasFile(g, 'PROFESSIONAL')"
                     >
                       <span class="color--primary material-icons md-18"
                         >visibility</span
                       >
                     </div>
-                    <div class="edit-step-btn" @click="setGuarantorSubStep(3)">
+                    <div class="edit-step-btn" @click="setGuarantorSubStep(3, g)">
                       <span class="color--primary material-icons md-18"
                         >edit</span
                       >
                     </div>
                   </div>
                 </div>
-                <div class="row" v-if="guarantorHasDoc('FINANCIAL')">
+                <div class="row" v-if="guarantorHasDoc(g, 'FINANCIAL')">
                   <div class="subtitle">Justificatif de revenu</div>
                   <div class="row">
                     <div
                       class="edit-step-btn"
-                      @click="openGuarantorDoc('FINANCIAL')"
-                      v-if="guarantorHasFile('FINANCIAL')"
+                      @click="openGuarantorDoc(g, 'FINANCIAL')"
+                      v-if="guarantorHasFile(g, 'FINANCIAL')"
                     >
                       <span class="color--primary material-icons md-18"
                         >visibility</span
                       >
                     </div>
-                    <div class="edit-step-btn" @click="setGuarantorSubStep(4)">
+                    <div class="edit-step-btn" @click="setGuarantorSubStep(4, g)">
                       <span class="color--primary material-icons md-18"
                         >edit</span
                       >
                     </div>
                   </div>
                 </div>
-                <div class="row" v-if="guarantorHasDoc('TAX')">
+                <div class="row" v-if="guarantorHasDoc(g, 'TAX')">
                   <div class="subtitle">Avis d’imposition</div>
                   <div class="row">
                     <div
                       class="edit-step-btn"
-                      @click="openGuarantorDoc('TAX')"
-                      v-if="guarantorHasFile('TAX')"
+                      @click="openGuarantorDoc(g, 'TAX')"
+                      v-if="guarantorHasFile(g, 'TAX')"
                     >
                       <span class="color--primary material-icons md-18"
                         >visibility</span
                       >
                     </div>
-                    <div class="edit-step-btn" @click="setGuarantorSubStep(5)">
+                    <div class="edit-step-btn" @click="setGuarantorSubStep(5, g)">
                       <span class="color--primary material-icons md-18"
                         >edit</span
                       >
                     </div>
                   </div>
                 </div>
-
-                <ul class="menu-vertical">
-                  <li>
-                    <a class="modal-file-button" data-id="6" href="#"
-                      >Pièce d'identité</a
-                    >
-                    <a
-                      class="nounderline"
-                      id="link-file-6"
-                      target="_blank"
-                      th:href="${tenant.getGuarantor().getUpload1Route()}"
-                    >
-                      <span class="material-icons">visibility</span>
-                    </a>
-                    <span
-                      class="btn__text"
-                      th:remove="tag"
-                      th:replace="include/file-status-profile:: status-span(6)"
-                    ></span>
-                  </li>
-                  <li>
-                    <a class="modal-file-button" data-id="7" href="#"
-                      >Justificatif de domicile</a
-                    >
-                    <a
-                      class="nounderline"
-                      id="link-file-7"
-                      target="_blank"
-                      th:href="${tenant.getGuarantor().getUpload2Route()}"
-                    >
-                      <span class="material-icons">visibility</span>
-                    </a>
-                    <span
-                      class="btn__text"
-                      th:remove="tag"
-                      th:replace="include/file-status-profile:: status-span(7)"
-                    ></span>
-                  </li>
-                  <li>
-                    <a class="modal-file-button" data-id="8" href="#"
-                      >Contrat de travail</a
-                    >
-                    <a
-                      class="nounderline"
-                      id="link-file-8"
-                      target="_blank"
-                      th:href="${tenant.getGuarantor().getUpload3Route()}"
-                    >
-                      <span class="material-icons">visibility</span>
-                    </a>
-                    <span
-                      class="btn__text"
-                      th:remove="tag"
-                      th:replace="include/file-status-profile:: status-span(8)"
-                    ></span>
-                  </li>
-                  <li>
-                    <a class="modal-file-button" data-id="9" href="#"
-                      >Avis d'imposition</a
-                    >
-                    <a
-                      class="nounderline"
-                      id="link-file-9"
-                      target="_blank"
-                      th:href="${tenant.getGuarantor().getUpload4Route()}"
-                    >
-                      <span class="material-icons">visibility</span>
-                    </a>
-                    <span
-                      class="btn__text"
-                      th:remove="tag"
-                      th:replace="include/file-status-profile:: status-span(9)"
-                    ></span>
-                  </li>
-                  <li>
-                    <a class="modal-file-button" data-id="10" href="#"
-                      >Justificatif de ressources</a
-                    >
-                    <a
-                      class="nounderline"
-                      id="link-file-10"
-                      target="_blank"
-                      th:href="${tenant.getGuarantor().getUpload5Route()}"
-                    >
-                      <span class="material-icons">visibility</span>
-                    </a>
-                    <span
-                      class="btn__text"
-                      th:remove="tag"
-                      th:replace="include/file-status-profile:: status-span(10)"
-                    ></span>
-                  </li>
-                </ul>
               </div>
             </template>
           </NakedCard>
@@ -506,6 +413,7 @@ import PdfViewer from "../components/PdfViewer.vue";
 import ShowDoc from "../components/documents/ShowDoc.vue";
 import { mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
+import { Guarantor } from "df-shared/src/models/Guarantor";
 
 @Component({
   components: { NakedCard, Modal, PdfViewer, ShowDoc, FileStatusIcon },
@@ -534,6 +442,13 @@ export default class Messages extends Vue {
     this.$router.push("/profile");
   }
 
+  setGuarantorSubStep(n: number, g: Guarantor) {
+    this.$store.commit("setSelectedGuarantor", g)
+    this.$store.commit("setGuarantorSubstep", n);
+    this.setStep(3);
+    this.$router.push("/profile");
+  }
+
   setStep(n: number) {
     this.$store.commit("setStep", n);
   }
@@ -551,11 +466,11 @@ export default class Messages extends Vue {
   hasFile(docType: string) {
     return DocumentService.hasFile(docType);
   }
-  guarantorHasFile(docType: string) {
-    return DocumentService.guarantorHasFile(docType);
+  guarantorHasFile(g: Guarantor, docType: string) {
+    return DocumentService.guarantorHasFile(g, docType);
   }
-  guarantorHasDoc(docType: string) {
-    return DocumentService.guarantorHasDoc(docType);
+  guarantorHasDoc(g: Guarantor, docType: string) {
+    return DocumentService.guarantorHasDoc(g, docType);
   }
   hasGuarantor(guarantorType: string) {
     return DocumentService.hasGuarantor(guarantorType);
@@ -566,8 +481,8 @@ export default class Messages extends Vue {
       this.isDocModalVisible = true;
     }
   }
-  openGuarantorDoc(documentCategory: string) {
-    this.files = DocumentService.getGuarantorFiles(documentCategory);
+  openGuarantorDoc(g: Guarantor, documentCategory: string) {
+    this.files = DocumentService.getGuarantorFiles(g, documentCategory);
     if (this.files.length > 0) {
       this.isDocModalVisible = true;
     }

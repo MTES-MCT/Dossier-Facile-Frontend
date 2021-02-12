@@ -370,10 +370,10 @@ export default class EditSummary extends Vue {
     return DocumentService.hasFile(docType);
   }
   guarantorHasFile(docType: string) {
-    return DocumentService.guarantorHasFile(docType);
+    return DocumentService.guarantorHasFile(this.selectedGuarantor, docType);
   }
   guarantorHasDoc(docType: string) {
-    return DocumentService.guarantorHasDoc(docType);
+    return DocumentService.guarantorHasDoc(this.selectedGuarantor, docType);
   }
   hasGuarantor(guarantorType: string) {
     return DocumentService.hasGuarantor(guarantorType);
@@ -385,7 +385,7 @@ export default class EditSummary extends Vue {
     }
   }
   openGuarantorDoc(documentCategory: string) {
-    this.files = DocumentService.getGuarantorFiles(documentCategory);
+    this.files = DocumentService.getGuarantorFiles(this.selectedGuarantor, documentCategory);
     if (this.files.length > 0) {
       this.isDocModalVisible = true;
     }
