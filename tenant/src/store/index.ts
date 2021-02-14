@@ -87,6 +87,8 @@ const store = new Vuex.Store({
         if (state.selectedGuarantor) {
           state.guarantorStep = 1;
         }
+      } else {
+        state.selectedGuarantor = new Guarantor();
       }
     },
     setSelectedGuarantor(state, guarantor: Guarantor) {

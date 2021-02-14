@@ -1,5 +1,4 @@
 import axios from "axios";
-import { LoaderComponent } from "vue-loading-overlay";
 import store from "../store";
 import Vue from "vue";
 
