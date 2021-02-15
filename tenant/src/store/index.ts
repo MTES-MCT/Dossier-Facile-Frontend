@@ -88,6 +88,8 @@ const store = new Vuex.Store({
           state.guarantorStep = 1;
         }
       } else {
+        state.guarantorStep = 0;
+        state.guarantorSubStep = 1;
         state.selectedGuarantor = new Guarantor();
       }
     },
