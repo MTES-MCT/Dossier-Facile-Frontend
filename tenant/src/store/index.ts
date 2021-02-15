@@ -228,7 +228,7 @@ const store = new Vuex.Store({
     setGuarantorType({commit}, guarantorType: string) {
       return ProfileService.setGuarantorType(guarantorType).then(
         response => {
-          commit("loadUser", response.data);
+          this.dispatch("loadUser");
           return Promise.resolve(response.data);
         },
         error => {
@@ -241,6 +241,16 @@ const store = new Vuex.Store({
         response => {
           commit("loadUser", response.data);
           return Promise.resolve(user);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
+    deleteDocument({commit}, docId: number) {
+      return ProfileService.deleteDocument(docId).then(
+        () => {
+          return this.dispatch("loadUser");
         },
         error => {
           return Promise.reject(error);

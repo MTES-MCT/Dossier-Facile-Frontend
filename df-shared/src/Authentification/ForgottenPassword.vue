@@ -64,10 +64,8 @@ extend("required", {
 })
 export default class ForgottenPassword extends Vue {
   user: User = new User();
-  loading = false;
 
   handleSubmit() {
-    this.loading = true;
     this.$emit("on-forgotten-password", this.user);
   }
 }

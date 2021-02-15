@@ -34,5 +34,8 @@ export const ProfileService = {
   },
   deleteGuarantor(g: Guarantor) {
     return axios.delete(`//${process.env.VUE_APP_API_URL}/api/guarantor/${g.id}`);
+  },
+  deleteDocument(id: number) {
+    return axios.delete(`//${process.env.VUE_APP_API_URL}/api/document/${id}`);
   }
 };

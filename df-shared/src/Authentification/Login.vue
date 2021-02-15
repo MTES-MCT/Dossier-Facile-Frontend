@@ -96,10 +96,8 @@ extend("required", {
 })
 export default class Login extends Vue {
   user: User = new User();
-  loading = false;
 
   handleLogin() {
-    this.loading = true;
     this.$emit("on-login", this.user);
   }
 }
