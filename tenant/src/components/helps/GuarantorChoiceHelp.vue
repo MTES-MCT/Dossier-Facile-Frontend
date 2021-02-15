@@ -28,6 +28,11 @@ export default class GuarantorChoiceHelp extends Vue {
 .hidden {
   display: none;
 }
+
+p {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
 </style>
 
 <i18n>
