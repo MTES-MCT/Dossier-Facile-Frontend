@@ -88,6 +88,8 @@ const store = new Vuex.Store({
           state.guarantorStep = 1;
         }
       } else {
+        state.guarantorStep = 0;
+        state.guarantorSubStep = 1;
         state.selectedGuarantor = new Guarantor();
       }
     },
@@ -212,10 +214,21 @@ const store = new Vuex.Store({
     addGuarantor({ commit }) {
       commit("addGuarantor");
     },
+    deleteGuarantor({commit}, k) {
+      return ProfileService.deleteGuarantor(this.state.user.guarantors[k]).then(
+        response => {
+          commit("loadUser", response.data);
+          return Promise.resolve(response.data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
     setGuarantorType({commit}, guarantorType: string) {
       return ProfileService.setGuarantorType(guarantorType).then(
         response => {
-          commit("loadUser", response.data);
+          this.dispatch("loadUser");
           return Promise.resolve(response.data);
         },
         error => {
@@ -228,6 +241,16 @@ const store = new Vuex.Store({
         response => {
           commit("loadUser", response.data);
           return Promise.resolve(user);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
+    deleteDocument({commit}, docId: number) {
+      return ProfileService.deleteDocument(docId).then(
+        () => {
+          return this.dispatch("loadUser");
         },
         error => {
           return Promise.reject(error);

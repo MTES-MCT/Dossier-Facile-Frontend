@@ -153,14 +153,12 @@ export default class Register extends Vue {
   SITE_KEY = process.env.VUE_APP_CAPTCHA_SITE_KEY;
 
   user: User = new User();
-  loading = false;
   score = 0;
 
   handleRegister() {
     if (this.score < MIN_SCORE) {
       return;
     }
-    this.loading = true;
     this.$emit("on-register", this.user);
   }
 

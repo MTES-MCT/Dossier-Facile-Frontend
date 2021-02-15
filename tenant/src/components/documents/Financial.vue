@@ -6,7 +6,7 @@
         <DfButton
           class="rf-btn"
           size="small"
-          @on-click="removeFinancial(k)"
+          @on-click="removeFinancial(f)"
         >
           {{$t('delete-financial')}}
         </DfButton>
@@ -206,6 +206,7 @@ export default class Financial extends Vue {
   }
 
   initialize() {
+    this.financialDocuments = [];
     if (this.user.documents !== null) {
       const docs = this.user.documents?.filter((d: DfDocument) => {
         return d.documentCategory === "FINANCIAL";
@@ -327,8 +328,18 @@ export default class Financial extends Vue {
     this.financialDocuments.push(new F());
   }
 
-  removeFinancial(k: number) {
-    this.financialDocuments.splice(k, 1);
+  removeFinancial(f: DfDocument) {
+    if (f.id) {
+      const loader = Vue.$loading.show();
+      this.$store.dispatch("deleteDocument", f.id).then(null, () => {
+        Vue.toasted.global.error();
+      }).finally(() => {
+        loader.hide();
+        this.initialize();
+      })
+    } else {
+      this.financialDocuments = this.financialDocuments.filter((d:DfDocument) => { return d !== f});
+    }
   }
 
   documents: DocumentType[] = [

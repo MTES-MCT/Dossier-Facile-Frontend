@@ -1,5 +1,6 @@
 import { User } from "df-shared/src/models/User";
 import axios from "axios";
+import { Guarantor } from "df-shared/src/models/Guarantor";
 
 export const ProfileService = {
   saveNames(user: User) {
@@ -30,5 +31,11 @@ export const ProfileService = {
       `//${process.env.VUE_APP_API_URL}/api/register/guarantorType`,
       { typeGuarantor }
     );
+  },
+  deleteGuarantor(g: Guarantor) {
+    return axios.delete(`//${process.env.VUE_APP_API_URL}/api/guarantor/${g.id}`);
+  },
+  deleteDocument(id: number) {
+    return axios.delete(`//${process.env.VUE_APP_API_URL}/api/document/${id}`);
   }
 };

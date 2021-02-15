@@ -77,7 +77,7 @@ export default class ListItem extends Vue {
   }
 
   getName() {
-    return this.file.name ? this.file.name : this.file.path;
+    return this.file.name ? this.file.name : this.file.originalName;
   }
 }
 </script>
