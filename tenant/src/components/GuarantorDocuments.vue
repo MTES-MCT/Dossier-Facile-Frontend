@@ -367,9 +367,8 @@ export default class GuarantorDocuments extends Vue {
   }
 
   remove(k: number) {
-    this.$toasted.show("TODO : remove " + k, {
-      type: "error",
-      duration: 7000
+    this.$store.dispatch("deleteGuarantor", k).then(null, () => {
+        Vue.toasted.global.error();
     });
   }
 

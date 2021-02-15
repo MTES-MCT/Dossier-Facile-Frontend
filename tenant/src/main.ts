@@ -61,6 +61,11 @@ Vue.use(Loading);
 
 Vue.use(Toasted);
 
+Vue.toasted.register("error", i18n.t("error").toString(), {
+  type: "error",
+  duration: 5000
+});
+
 Vue.toasted.register("delete_failed", i18n.t("delete-failed").toString(), {
   type: "error",
   duration: 5000

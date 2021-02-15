@@ -212,6 +212,17 @@ const store = new Vuex.Store({
     addGuarantor({ commit }) {
       commit("addGuarantor");
     },
+    deleteGuarantor({commit}, k) {
+      return ProfileService.deleteGuarantor(this.state.user.guarantors[k]).then(
+        response => {
+          commit("loadUser", response.data);
+          return Promise.resolve(response.data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
     setGuarantorType({commit}, guarantorType: string) {
       return ProfileService.setGuarantorType(guarantorType).then(
         response => {
