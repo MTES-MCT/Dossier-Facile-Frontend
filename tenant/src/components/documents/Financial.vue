@@ -1,6 +1,8 @@
 <template>
   <div>
     <div v-for="(f, k) in financialDocuments" :key="k">
+    <ValidationObserver v-slot="{ invalid, validate }">
+      <form name="form" @submit.prevent="validate().then(save(f))">
       <div class="rf-grid-row rf-mb-3w" style="justify-content: space-between">
         <span> Revenu {{ k + 1 }} </span>
         <DfButton
@@ -29,7 +31,7 @@
       <div v-if="f.documentType && f.documentType.key">
         <div>
           <validation-provider
-            :rules="{ regex: /^[0-9., ]+$/ }"
+            :rules="{ required:true, regex: /^[0-9., ]+$/ }"
             v-slot="{ errors }"
           >
             <div
@@ -46,6 +48,7 @@
                 v-model="f.monthlySum"
                 name="monthlySum"
                 class="validate-required form-control rf-input"
+                required
               />
               <span class="rf-error-text" v-if="errors[0]">{{
                 $t(errors[0])
@@ -125,7 +128,6 @@
         <button
           class="rf-btn"
           type="submit"
-          @click="save(f)"
           :disabled="f.files.length <= 0 && !f.noDocument"
         >
           Enregistrer la pièce
@@ -137,6 +139,8 @@
           :block-list="f.documentType.refusedProofs"
         ></DocumentInsert>
       </div>
+      </form>
+    </ValidationObserver>
       <hr />
     </div>
     <div class="rf-col-12 rf-mb-5w">
@@ -155,19 +159,24 @@ import FileUpload from "@/components/uploads/FileUpload.vue";
 import { mapGetters } from "vuex";
 import { UploadStatus } from "../uploads/UploadStatus";
 import ListItem from "@/components/uploads/ListItem.vue";
-import { ValidationProvider } from "vee-validate";
 import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { extend } from "vee-validate";
-import { regex } from "vee-validate/dist/rules";
 import { RegisterService } from "../../services/RegisterService";
 import DfButton from "df-shared/src/Button/Button.vue";
+import { ValidationObserver, ValidationProvider } from "vee-validate";
+import { required, regex } from "vee-validate/dist/rules";
 
 extend("regex", {
   ...regex,
   message: "number-not-valid"
+});
+
+extend("required", {
+  ...required,
+  message: "field-required"
 });
 
 class F {
@@ -183,6 +192,7 @@ class F {
 @Component({
   components: {
     ValidationProvider,
+    ValidationObserver,
     DocumentInsert,
     FileUpload,
     ListItem,
@@ -304,7 +314,8 @@ export default class Financial extends Vue {
       return {
         documentSubCategory: f.documentType?.value,
         id: file.name,
-        name: file.name
+        name: file.name,
+        size: file.size
       };
     });
     const existingFiles =
@@ -446,7 +457,8 @@ export default class Financial extends Vue {
 "high-salary": "You have entered a salary greater than € 10,000 are you sure you have entered your monthly salary?",
 "low-salary": "You have entered a salary equal to 0 € are you sure you have entered your monthly salary?",
 "number-not-valid": "Number not valid",
-"delete-financial":  "Delete this salary"
+"delete-financial":  "Delete this salary",
+"field-required": "This field is required"
 },
 "fr": {
 "salary": "Salaire",
@@ -465,7 +477,8 @@ export default class Financial extends Vue {
 "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
 "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
 "number-not-valid": "Nombre incorrect",
-"delete-financial":  "Supprimer ce revenu"
+"delete-financial":  "Supprimer ce revenu",
+"field-required": "Ce champ est requis"
 }
 }
 </i18n>
