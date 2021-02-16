@@ -314,7 +314,8 @@ export default class Financial extends Vue {
       return {
         documentSubCategory: f.documentType?.value,
         id: file.name,
-        name: file.name
+        name: file.name,
+        size: file.size
       };
     });
     const existingFiles =
