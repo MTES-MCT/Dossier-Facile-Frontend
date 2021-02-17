@@ -1,10 +1,7 @@
 <template>
   <div class="rf-container rf-container-full-size">
     <div class="rf-grid-row full-height">
-      <LeftEditMenu
-        :step="getMenuStep()"
-        class="rf-col-md-3 rf-col-lg-2"
-      ></LeftEditMenu>
+      <LeftEditMenu class="rf-col-md-3 rf-col-lg-2"></LeftEditMenu>
       <div class="rf-col-lg-7 rf-col-md-6 rf-col-xs-12">
         <div class="content">
           <div class="step rf-mb-5w" v-if="tenantStep <= 1">
@@ -60,29 +57,17 @@ import ValidateFile from "@/components/ValidateFile.vue";
     NameInformationForm,
     UploadDocuments,
     GuarantorDocuments,
-    ValidateFile
+    ValidateFile,
   },
   computed: {
     ...mapState({
       user: "user",
-      tenantStep: "tenantStep"
-    })
-  }
+      tenantStep: "tenantStep",
+    }),
+  },
 })
 export default class Profile extends Vue {
   public tenantStep!: number;
-
-  getMenuStep() {
-    switch (this.tenantStep) {
-      case 2:
-        return 1;
-      case 3:
-      case 4:
-        return 3;
-      default:
-        return 0;
-    }
-  }
 }
 </script>
 
@@ -105,7 +90,7 @@ export default class Profile extends Vue {
 
 .step-number {
   padding: 1px;
-  background-color: $primary;
+  background-color: var(--tertiary);
   color: white;
   margin: 0 5px;
   border-radius: 50%;

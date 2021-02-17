@@ -1,40 +1,64 @@
 <template>
   <div class="left-edit-menu">
-    <div class="inner-left-edit">
-      <div class="spacer hidden"></div>
+    <div class="inner-left-edit rf-mt-7w">
       <div class="active step">
         <div class="step-number">1</div>
         <div class="step-title">je renseigne mes informations</div>
       </div>
-      <div class="spacer active"></div>
-      <div class="spacer" :class="getClass(1)"></div>
+      <div class="vline" :class="getClass(1)"></div>
       <div class="step" :class="getClass(1)">
         <div class="step-number">2</div>
         <div class="step-title">je joins mes documents</div>
       </div>
-      <div class="spacer" :class="getClass(1)"></div>
-      <div class="spacer" :class="getClass(2)"></div>
+      <div class="vline" :class="getClass(2)"></div>
       <div class="step" :class="getClass(2)">
         <div class="step-number">3</div>
         <div class="step-title">je renseigne mon garant</div>
       </div>
-      <div class="spacer hidden"></div>
+      <div class="vline" :class="getClass(3)"></div>
+      <div class="step" :class="getClass(3)">
+        <div class="step-number">4</div>
+        <div class="step-title">je valide mon dossier</div>
+      </div>
+      <div class="spacer"></div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
+import { mapState } from "vuex";
 
-@Component
+@Component({
+  computed: {
+    ...mapState({
+      tenantStep: "tenantStep",
+    }),
+  },
+})
 export default class LeftEditMenu extends Vue {
-  @Prop({ default: 0 }) private step!: number;
+  public tenantStep!: number;
 
   getClass(s: number) {
-    if (s <= this.step) {
+    if (this.getStep(s)) {
       return "active";
     }
-    return "";
+  }
+
+  getStep(s: number) {
+    switch (this.tenantStep) {
+      case 0:
+      case 1:
+        return s <= 0;
+      case 2:
+        return s <= 1;
+      case 3:
+        return s <= 2;
+      case 4:
+        return s <= 3;
+      default:
+        return s <= 0;
+    }
   }
 }
 </script>
@@ -60,15 +84,15 @@ export default class LeftEditMenu extends Vue {
   padding-left: 10px;
 }
 
-.spacer {
-  flex: auto;
+.vline {
   margin-left: 17px;
   margin-top: -26px;
   margin-bottom: -17px;
   border-left: 1px solid white;
   z-index: 0;
+  height: 77px;
   &.active {
-    border-left: 1px solid $primary;
+    border-left: 1px solid var(--tertiary);
   }
 }
 
@@ -91,7 +115,7 @@ export default class LeftEditMenu extends Vue {
 }
 
 .active .step-number {
-  background-color: $primary;
+  background-color: var(--tertiary);
   color: white;
 }
 
