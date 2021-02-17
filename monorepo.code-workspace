@@ -1,0 +1,43 @@
+{
+  "folders": [
+    {
+      "name": "📂 DossierFacile",
+      "path": "."
+    },
+    {
+      "name": "🚀 main",
+      "path": "main"
+    },
+    {
+      "name": "🙂 tenant",
+      "path": "tenant"
+    },
+    {
+      "name": "😈 bo",
+      "path": "bo"
+    }
+    {
+      "name": "🏠 owner",
+      "path": "owner"
+    }
+    {
+      "name": "📘 df-shared",
+      "path": "df-shared"
+    }
+  ],
+  "settings": {
+    "eslint.validate": [
+      "javascript",
+      "typescript"
+    ],
+    "editor.codeActionsOnSave": {
+      "source.fixAll": true
+    },
+    "editor.formatOnSave": true,
+    "files.autoSave": "off",
+    "typescript.implementationsCodeLens.enabled": true,
+    "typescript.tsdk": "./node_modules/typescript/lib",
+    "editor.tabSize": 2,
+    "jest.disabledWorkspaceFolders": ["📂 DossierFacile", "😈 bo", "🏠 owner"]
+  }
+}
