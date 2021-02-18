@@ -2,8 +2,10 @@
   <div class="rf-container rf-container-full-size">
     <div class="bg-grey rf-grid-row full-height">
       <LeftEditMenu class="rf-col-md-3 rf-col-lg-2"></LeftEditMenu>
-      <div class="rf-col-lg-7 rf-col-md-6 rf-col-xs-12">
-        <div class="content">
+      <div
+        class="rf-container rf-col-lg-7 rf-col-md-6 rf-col-xs-12 rf-grid-row rf-grid-row--center"
+      >
+        <div class="content rf-col-lg-10 rf-col-12">
           <div class="step rf-mb-5w" v-if="tenantStep <= 1">
             <div class="step-number">1</div>
             <div class="step-title">{{ $t("title-step1") }}</div>
@@ -86,6 +88,7 @@ export default class Profile extends Vue {
 
 .content {
   padding: 2rem;
+  max-width: 600px;
 }
 
 .step-number {

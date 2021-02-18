@@ -27,7 +27,7 @@
         <div class="rf-form-group">
           <fieldset class="rf-fieldset">
             <div class="rf-fieldset__content">
-              <div class="rf-grid-row">
+              <div class="rf-grid-row space-around">
                 <BigRadio val="ALONE" v-model="applicationType">
                   <div class="rf-grid-col spa">
                     <div class="icon-container">
@@ -68,11 +68,7 @@
           </fieldset>
         </div>
 
-        <div class="rf-mb-5w">
-          <button class="rf-btn" type="submit">
-            {{ $t("confirm") }}
-          </button>
-        </div>
+        <SubmitButton></SubmitButton>
       </form>
     </ValidationObserver>
   </div>
@@ -86,6 +82,7 @@ import CoupleInformation from "@/components/CoupleInformation.vue";
 import { mapState } from "vuex";
 import { ValidationObserver } from "vee-validate";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
+import SubmitButton from "df-shared/src/Button/SubmitButton.vue";
 
 @Component({
   computed: {
@@ -99,6 +96,7 @@ import BigRadio from "df-shared/src/Button/BigRadio.vue";
     RoommatesInformation,
     ValidationObserver,
     BigRadio,
+    SubmitButton,
   },
 })
 export default class TenantInformationForm extends Vue {
@@ -184,6 +182,11 @@ export default class TenantInformationForm extends Vue {
   align-content: space-around;
   height: 100%;
   align-items: center;
+}
+
+.space-around {
+  justify-content: space-between;
+  align-content: space-around;
 }
 
 .selected {

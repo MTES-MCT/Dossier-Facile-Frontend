@@ -5,17 +5,17 @@
         <div class="step-number">1</div>
         <div class="step-title">je renseigne mes informations</div>
       </div>
-      <div class="vline" :class="getClass(1)"></div>
+      <div class="vline" :class="getClass(0)"></div>
       <div class="step" :class="getClass(1)">
         <div class="step-number">2</div>
         <div class="step-title">je joins mes documents</div>
       </div>
-      <div class="vline" :class="getClass(2)"></div>
+      <div class="vline" :class="getClass(1)"></div>
       <div class="step" :class="getClass(2)">
         <div class="step-number">3</div>
         <div class="step-title">je renseigne mon garant</div>
       </div>
-      <div class="vline" :class="getClass(3)"></div>
+      <div class="vline" :class="getClass(2)"></div>
       <div class="step" :class="getClass(3)">
         <div class="step-number">4</div>
         <div class="step-title">je valide mon dossier</div>
@@ -86,11 +86,9 @@ export default class LeftEditMenu extends Vue {
 
 .vline {
   margin-left: 17px;
-  margin-top: -26px;
-  margin-bottom: -17px;
   border-left: 1px solid var(--g400-t);
   z-index: 0;
-  height: 77px;
+  height: 25px;
   &.active {
     border-left: 1px solid var(--tertiary);
   }

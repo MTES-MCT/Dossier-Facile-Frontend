@@ -1,6 +1,6 @@
 <template>
   <div
-    class="rf-m-2w rf-p-2w br"
+    class="rf-mb-5w rf-p-2w br"
     :class="{ selected: value === val }"
     @click="setValue()"
   >
