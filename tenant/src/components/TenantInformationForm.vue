@@ -4,17 +4,19 @@
       {{
         $t("tenantPresentation", {
           firstname: user.firstName,
-          lastname: user.lastName
+          lastname: user.lastName,
         })
       }}
     </p>
-    <p v-if="removeRoommates()">
-      <span class="color--primary material-icons warning">warning</span>
-      <span>{{ $t("remove-roommates") }}</span>
-    </p>
-    <p v-if="removeCouple()">
-      <span class="color--primary material-icons warning">warning</span>
-      <span>{{ $t("remove-couple") }}</span>
+    <p>
+      <template v-if="removeRoommates()">
+        <span class="color--primary material-icons warning">warning</span>
+        <span>{{ $t("remove-roommates") }}</span>
+      </template>
+      <template v-if="removeCouple()">
+        <span class="color--primary material-icons warning">warning</span>
+        <span>{{ $t("remove-couple") }}</span>
+      </template>
     </p>
 
     <ValidationObserver v-slot="{ invalid, validate }">
@@ -25,25 +27,31 @@
         <div class="rf-form-group">
           <fieldset class="rf-fieldset">
             <div class="rf-fieldset__content">
-              <div class="rf-radio-group">
-                <input
-                  type="radio"
-                  id="alone"
-                  value="ALONE"
-                  name="applicationType"
-                  v-model="applicationType"
-                />
-                <label class="rf-label" for="alone">{{ $t("alone") }}</label>
-              </div>
-              <div class="rf-radio-group">
-                <input
-                  type="radio"
-                  id="couple"
-                  value="COUPLE"
-                  name="applicationType"
-                  v-model="applicationType"
-                />
-                <label class="rf-label" for="couple">{{ $t("couple") }}</label>
+              <div class="rf-grid-row">
+                <BigRadio val="ALONE" v-model="applicationType">
+                  <div class="rf-grid-col spa">
+                    <div class="icon-container">
+                      <span class="material-icons md-36">person</span>
+                    </div>
+                    <span>{{ $t("alone") }}</span>
+                  </div>
+                </BigRadio>
+                <BigRadio val="COUPLE" v-model="applicationType">
+                  <div class="rf-grid-col spa">
+                    <div class="icon-container">
+                      <span class="material-icons md-36">group</span>
+                    </div>
+                    <span>{{ $t("couple") }}</span>
+                  </div>
+                </BigRadio>
+                <BigRadio val="GROUP" v-model="applicationType">
+                  <div class="rf-grid-col spa">
+                    <div class="icon-container">
+                      <span class="material-icons md-36">groups</span>
+                    </div>
+                    <span>{{ $t("roommate") }}</span>
+                  </div>
+                </BigRadio>
               </div>
               <CoupleInformation
                 :couple-mail.sync="spouseEmail"
@@ -51,18 +59,6 @@
                 v-if="applicationType === 'COUPLE'"
               >
               </CoupleInformation>
-              <div class="rf-radio-group">
-                <input
-                  type="radio"
-                  id="roommate"
-                  value="GROUP"
-                  name="applicationType"
-                  v-model="applicationType"
-                />
-                <label class="rf-label" for="roommate">{{
-                  $t("roommate")
-                }}</label>
-              </div>
               <RoommatesInformation
                 v-if="applicationType === 'GROUP'"
                 :authorize.sync="coTenantAuthorize"
@@ -89,19 +85,21 @@ import RoommatesInformation from "@/components/RoommatesInformation.vue";
 import CoupleInformation from "@/components/CoupleInformation.vue";
 import { mapState } from "vuex";
 import { ValidationObserver } from "vee-validate";
+import BigRadio from "df-shared/src/Button/BigRadio.vue";
 
 @Component({
   computed: {
     ...mapState({
       user: "user",
-      roommates: "roommates"
-    })
+      roommates: "roommates",
+    }),
   },
   components: {
     CoupleInformation,
     RoommatesInformation,
-    ValidationObserver
-  }
+    ValidationObserver,
+    BigRadio,
+  },
 })
 export default class TenantInformationForm extends Vue {
   user!: User;
@@ -134,7 +132,7 @@ export default class TenantInformationForm extends Vue {
         .filter((r: User) => {
           return r.id != this.user.id;
         })
-        .map(function(r) {
+        .map(function (r) {
           return r.email;
         });
       acceptAccess = this.coTenantAuthorize;
@@ -143,16 +141,16 @@ export default class TenantInformationForm extends Vue {
     const data = {
       applicationType: this.applicationType,
       coTenantEmail: coTenantEmails,
-      acceptAccess: acceptAccess
+      acceptAccess: acceptAccess,
     };
 
     const loader = this.$loading.show();
     this.$store
       .dispatch("setRoommates", data)
-      .then(null, error => {
+      .then(null, (error) => {
         this.$toasted.show(this.$i18n.t("error").toString(), {
           type: "error",
-          duration: 7000
+          duration: 7000,
         });
         console.dir(error);
       })
@@ -180,6 +178,33 @@ export default class TenantInformationForm extends Vue {
 .warning {
   padding: 0.5rem;
 }
+
+.spa {
+  justify-content: space-around;
+  align-content: space-around;
+  height: 100%;
+  align-items: center;
+}
+
+.selected {
+  .icon-container {
+    color: var(--tertiary);
+    border: 1px solid var(--tertiary);
+    background-color: var(--bd300);
+  }
+}
+
+.icon-container {
+  border-radius: 15%;
+  background-color: var(--tertiary);
+  color: white;
+  height: 50px;
+  width: 70px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>
 
 <i18n>
@@ -203,7 +228,7 @@ export default class TenantInformationForm extends Vue {
 "lastname": "Nom du locataire",
 "zipcode": "Code postal",
 "tenantPresentation": "Le locataire sera {firstname} {lastname}. Vous désirez louer un logement :",
-"alone": "Seul",
+"alone": "Seul·e",
 "couple": "En couple",
 "roommate": "En colocation",
 "remove-roommates": "Attention, cela aura pour effet de dissocier votre dossier de vos colocataires",
