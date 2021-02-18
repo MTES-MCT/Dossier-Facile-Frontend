@@ -68,7 +68,7 @@ export default class LeftEditMenu extends Vue {
 @import "df-shared/src/scss/_variables.scss";
 
 .left-edit-menu {
-  background-color: $brick;
+  background-color: var(--w);
   @media all and (max-width: 768px) {
     display: none;
   }
@@ -88,7 +88,7 @@ export default class LeftEditMenu extends Vue {
   margin-left: 17px;
   margin-top: -26px;
   margin-bottom: -17px;
-  border-left: 1px solid white;
+  border-left: 1px solid var(--g400-t);
   z-index: 0;
   height: 77px;
   &.active {
@@ -104,6 +104,7 @@ export default class LeftEditMenu extends Vue {
 .step-number {
   padding: 1px;
   background-color: white;
+  border: 1px solid var(--g400-t);
   margin: 0 5px;
   border-radius: 50%;
   display: inline-block;
