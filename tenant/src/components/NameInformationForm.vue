@@ -81,11 +81,7 @@
             </validation-provider>
           </div>
 
-          <div class="rf-col-12 rf-mb-5w">
-            <button class="rf-btn" type="submit">
-              {{ $t("confirm") }}
-            </button>
-          </div>
+          <SubmitButton></SubmitButton>
         </div>
       </form>
     </ValidationObserver>
@@ -98,22 +94,24 @@ import { User } from "df-shared/src/models/User";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
 import { required, regex } from "vee-validate/dist/rules";
+import SubmitButton from "df-shared/src/Button/SubmitButton.vue";
 
 extend("zipcode", {
   ...regex,
-  message: "zipcode-not-valid"
+  message: "zipcode-not-valid",
 });
 
 extend("required", {
   ...required,
-  message: "field-required"
+  message: "field-required",
 });
 
 @Component({
   components: {
     ValidationProvider,
-    ValidationObserver
-  }
+    ValidationObserver,
+    SubmitButton,
+  },
 })
 export default class NameInformationForm extends Vue {
   @Prop() private user!: User;
@@ -122,7 +120,7 @@ export default class NameInformationForm extends Vue {
     const loader = this.$loading.show();
     this.$store
       .dispatch("setNames", this.user)
-      .then(null, error => {
+      .then(null, (error) => {
         console.dir(error);
       })
       .finally(() => {
