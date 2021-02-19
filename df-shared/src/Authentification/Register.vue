@@ -51,7 +51,11 @@
                   class="validate-required form-control rf-input"
                   required
                 />
-                <password v-model="user.password" :strength-meter-only="true" @score="setScore" />
+                <password
+                  v-model="user.password"
+                  :strength-meter-only="true"
+                  @score="setScore"
+                />
                 <span class="rf-error-text" v-if="errors[0]">{{
                   $t(errors[0])
                 }}</span>
@@ -106,7 +110,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import { User } from "df-shared/src/models/User";
 import { ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
@@ -117,43 +121,49 @@ import Password from "vue-password-strength-meter";
 // No message specified.
 extend("email", {
   ...email,
-  message: "email-not-valid"
+  message: "email-not-valid",
 });
 
 // Override the default message.
 extend("required", {
   ...required,
-  message: "field-required"
+  message: "field-required",
 });
 
 extend("confirmed", {
   ...confirmed,
-  message: "password-not-confirmed"
+  message: "password-not-confirmed",
 });
-
 
 const MIN_SCORE = 2;
 extend("strength", {
   message: "pwd-not-complex",
   validate: (_value, args: any) => {
     if (args !== undefined) {
-      return args[0] >= MIN_SCORE
+      return args[0] >= MIN_SCORE;
     }
-    return true}
+    return true;
+  },
 });
 
 @Component({
   components: {
     ValidationProvider,
     VueRecaptcha,
-    Password
-  }
+    Password,
+  },
 })
 export default class Register extends Vue {
   SITE_KEY = process.env.VUE_APP_CAPTCHA_SITE_KEY;
 
+  @Prop({ default: "" }) email!: string;
+
   user: User = new User();
   score = 0;
+
+  mounted() {
+    this.user.email = this.email;
+  }
 
   handleRegister() {
     if (this.score < MIN_SCORE) {

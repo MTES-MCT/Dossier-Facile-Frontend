@@ -140,8 +140,8 @@ const store = new Vuex.Store({
       commit("logout");
       router.push("/").then();
     },
-    register({ commit }, user) {
-      return AuthService.register(user).then(
+    register({ commit }, { user, source, internalPartnerId }) {
+      return AuthService.register(user, source, internalPartnerId).then(
         response => {
           commit("registerSuccess");
           return Promise.resolve(response.data);
@@ -214,7 +214,7 @@ const store = new Vuex.Store({
     addGuarantor({ commit }) {
       commit("addGuarantor");
     },
-    deleteGuarantor({commit}, k) {
+    deleteGuarantor({ commit }, k) {
       return ProfileService.deleteGuarantor(this.state.user.guarantors[k]).then(
         response => {
           commit("loadUser", response.data);
@@ -225,7 +225,7 @@ const store = new Vuex.Store({
         }
       );
     },
-    setGuarantorType({commit}, guarantorType: string) {
+    setGuarantorType({ commit }, guarantorType: string) {
       return ProfileService.setGuarantorType(guarantorType).then(
         response => {
           this.dispatch("loadUser");
@@ -236,7 +236,7 @@ const store = new Vuex.Store({
         }
       );
     },
-    changePassword({commit}, user: User) {
+    changePassword({ commit }, user: User) {
       return AuthService.changePassword(user).then(
         response => {
           commit("loadUser", response.data);
@@ -247,7 +247,7 @@ const store = new Vuex.Store({
         }
       );
     },
-    deleteDocument({commit}, docId: number) {
+    deleteDocument({ commit }, docId: number) {
       return ProfileService.deleteDocument(docId).then(
         () => {
           return this.dispatch("loadUser");

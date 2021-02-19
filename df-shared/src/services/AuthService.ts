@@ -23,12 +23,16 @@ export const AuthService = {
     localStorage.removeItem("user");
   },
 
-  register(user: User) {
+  register(user: User, source: string, internalPartnerId: string) {
     return axios.post(API_URL + "register/account", {
       email: user.email,
       password: user.password,
       confirm: user.confirm,
-      reCaptchaResponse: user.captcha
+      reCaptchaResponse: user.captcha,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      source: source,
+      internalPartnerId: internalPartnerId
     });
   },
 
