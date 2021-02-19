@@ -19,7 +19,7 @@
       </template>
     </p>
 
-    <ValidationObserver v-slot="{ invalid, validate }">
+    <ValidationObserver v-slot="{ validate }">
       <form
         name="form"
         @submit.prevent="validate().then(handleOthersInformation)"
