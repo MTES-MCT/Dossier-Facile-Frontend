@@ -36,18 +36,18 @@ import Modal from "df-shared/src/components/Modal.vue";
 @Component({
   components: {
     Register,
-    Modal
-  }
+    Modal,
+  },
 })
 export default class SignupPage extends Vue {
   isValidModalVisible = false;
   onRegister(user: User) {
     if (user.email && user.password) {
-      this.$store.dispatch("register", user).then(
+      this.$store.dispatch("register", { user: user }).then(
         () => {
           this.isValidModalVisible = true;
         },
-        error => {
+        (error) => {
           if (
             error.response.data.errors.indexOf(
               "email: the emails are already being used"
@@ -55,12 +55,12 @@ export default class SignupPage extends Vue {
           ) {
             this.$toasted.show(this.$i18n.t("duplicate-email").toString(), {
               type: "error",
-              duration: 7000
+              duration: 7000,
             });
           } else {
             this.$toasted.show(this.$i18n.t("register-error").toString(), {
               type: "error",
-              duration: 7000
+              duration: 7000,
             });
           }
         }
