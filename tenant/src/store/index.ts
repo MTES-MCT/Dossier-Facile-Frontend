@@ -32,6 +32,9 @@ if (initialStore.lang) {
 const store = new Vuex.Store({
   state: initialStore,
   mutations: {
+    initState(state) {
+      Object.assign(state, new DfState());
+    },
     loginSuccess(state, user) {
       state.status.loggedIn = true;
       state.user = user;
@@ -123,6 +126,7 @@ const store = new Vuex.Store({
   },
   actions: {
     login({ commit }, user) {
+      commit("initState");
       return AuthService.login(user).then(
         user => {
           commit("loginSuccess", user);
@@ -138,6 +142,7 @@ const store = new Vuex.Store({
     logout({ commit }) {
       AuthService.logout();
       commit("logout");
+      commit("initState");
       router.push("/").then();
     },
     register({ commit }, { user, source, internalPartnerId }) {
