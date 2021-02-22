@@ -1,9 +1,9 @@
 <template>
   <div class="rf-container">
-    <section class="text-center rf-mt-3w">
+    <section class="rf-mt-3w">
       <div class="rf-grid-row rf-grid-row--center">
         <div class="rf-col-md-10 rf-col-lg-8">
-          <h1>{{ $t("title") }}</h1>
+          <h1>{{ $t("title", [user.firstName, "TODO"]) }}</h1>
           <div class="rf-callout">
             <h4>{{ $t("file-update-title") }}</h4>
             <p
@@ -12,7 +12,26 @@
                 $t('file-update-text', [$d(getDate(user.lastUpdate), 'short')])
               "
             ></p>
+            <DfButton @on-click="goToProfile" primary="true">{{
+              $t("update-file-btn")
+            }}</DfButton>
           </div>
+          <div class="main">
+            <div class="main-bar rf-grid-row">
+              <span>{{ $t("my-file") }}</span>
+              <span>TODO</span>
+              <DfButton @on-click="shareMail">{{
+                $t("share-by-mail")
+              }}</DfButton>
+              <DfButton @on-click="copyLink" primary="true">{{
+                $t("copy-link")
+              }}</DfButton>
+            </div>
+            <div class="main-description"></div>
+            <div class="main-information"></div>
+            <div class="main-guarantor-information"></div>
+          </div>
+          <div class="partners"></div>
           <h5 class="w-60 mx-auto font-weight-normal text-lead-color">
             Votre lien sera généré dès que votre dossier sera validé. Vous êtes
             actuellement à l'étape TODO
@@ -195,9 +214,10 @@ import { ValidationProvider } from "vee-validate";
 import { mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
 import { DfDocument } from "df-shared/src/models/DfDocument";
+import DfButton from "df-shared/src/Button/Button.vue";
 
 @Component({
-  components: { ValidationProvider },
+  components: { ValidationProvider, DfButton },
   computed: {
     ...mapState({
       user: "user",
@@ -230,6 +250,10 @@ export default class FileStatus extends Vue {
     return doc?.documentSubCategory === "STUDENT";
   }
 
+  goToProfile() {
+    this.$router.push("/profile");
+  }
+
   getDate(d: Date) {
     // FIXME we should remove getDate and only use user.lastUpdate
     if (!d) {
@@ -240,21 +264,33 @@ export default class FileStatus extends Vue {
 }
 </script>
 
+<style scoped lang="scss">
+.main-bar {
+  display: flex;
+}
+</style>
+
 <i18n>
 {
   "en": {
-      "title": "Suivi de mon dossier",
+      "title": "Hello {0}, your file is validated",
       "subtitle": "Vous avez indiqué être {0} {1}, être en {2} et gagner {3}.",
       "last-update": "Dernière mise à jour du dossier le {0}",
       "file-update-title": "File update",
-      "file-update-text": "Vous avez mis à jour votre dossier, pour la dernière fois le {0}.<br> Afin qu'il reste convaincant, il est important de maintenir à jour vos justificatifs."
+      "file-update-text": "Vous avez mis à jour votre dossier, pour la dernière fois le {0}.<br> Afin qu'il reste convaincant, il est important de maintenir à jour vos justificatifs.",
+      "update-file-btn": "Update my documents",
+      "copy-link":"Copy my file link",
+      "share-by-mail": "Share by mail"
   },
   "fr": {
-      "title": "Suivi de mon dossier",
+      "title": "Bonjour {0}, votre dossier est {1} !",
       "subtitle": "Vous avez indiqué être {0} {1}, être en {2} et gagner {3}.",
       "last-update": "Dernière mise à jour du dossier le {0}",
       "file-update-title": "Mise-à-jour de votre dossier",
-      "file-update-text": "Vous avez mis à jour votre dossier, pour la dernière fois le {0}.<br> Afin qu'il reste convaincant, il est important de maintenir à jour vos justificatifs."
+      "file-update-text": "Vous avez mis à jour votre dossier, pour la dernière fois le {0}.<br> Afin qu'il reste convaincant, il est important de maintenir à jour vos justificatifs.",
+      "update-file-btn": "Mettre à jour mes documents",
+      "copy-link":"Copier mon lien dossier",
+      "share-by-mail": "Partager par mail"
   }
 }
 </i18n>
