@@ -1,16 +1,23 @@
 <template>
   <div class="rf-container">
-    <section class="text-center rf-pt-3w">
+    <section class="text-center rf-mt-3w">
       <div class="rf-grid-row rf-grid-row--center">
         <div class="rf-col-md-10 rf-col-lg-8">
           <h1>{{ $t("title") }}</h1>
+          <div class="rf-callout">
+            <h4>{{ $t("file-update-title") }}</h4>
+            <p
+              class="rf-callout__text"
+              v-html="
+                $t('file-update-text', [$d(getDate(user.lastUpdate), 'short')])
+              "
+            ></p>
+          </div>
           <h5 class="w-60 mx-auto font-weight-normal text-lead-color">
             Votre lien sera généré dès que votre dossier sera validé. Vous êtes
             actuellement à l'étape TODO
 
-            <div v-if="user.status === 'TO_PROCESS'">
-              dossier complété.
-            </div>
+            <div v-if="user.status === 'TO_PROCESS'">dossier complété.</div>
             <div v-if="user.status === 'VALIDATED'">dossier validé.</div>
             <div v-if="user.status === 'DECLINED'">dossier étudié.</div>
             <div v-if="!user.status || user.status === 'INCOMPLETE'">
@@ -24,7 +31,7 @@
                 user.firstName,
                 user.lastName,
                 user.situation + "TODO",
-                user.salary + "TODO"
+                user.salary + "TODO",
               ])
             }}</span>
             <router-link to="/profile"> (Modifier)</router-link><br />
@@ -193,9 +200,9 @@ import { DfDocument } from "df-shared/src/models/DfDocument";
   components: { ValidationProvider },
   computed: {
     ...mapState({
-      user: "user"
-    })
-  }
+      user: "user",
+    }),
+  },
 })
 export default class FileStatus extends Vue {
   user!: User;
@@ -222,6 +229,14 @@ export default class FileStatus extends Vue {
     });
     return doc?.documentSubCategory === "STUDENT";
   }
+
+  getDate(d: Date) {
+    // FIXME we should remove getDate and only use user.lastUpdate
+    if (!d) {
+      d = new Date();
+    }
+    return d;
+  }
 }
 </script>
 
@@ -230,12 +245,16 @@ export default class FileStatus extends Vue {
   "en": {
       "title": "Suivi de mon dossier",
       "subtitle": "Vous avez indiqué être {0} {1}, être en {2} et gagner {3}.",
-      "last-update": "Dernière mise à jour du dossier le {0}"
+      "last-update": "Dernière mise à jour du dossier le {0}",
+      "file-update-title": "File update",
+      "file-update-text": "Vous avez mis à jour votre dossier, pour la dernière fois le {0}.<br> Afin qu'il reste convaincant, il est important de maintenir à jour vos justificatifs."
   },
   "fr": {
       "title": "Suivi de mon dossier",
       "subtitle": "Vous avez indiqué être {0} {1}, être en {2} et gagner {3}.",
-      "last-update": "Dernière mise à jour du dossier le {0}"
+      "last-update": "Dernière mise à jour du dossier le {0}",
+      "file-update-title": "Mise-à-jour de votre dossier",
+      "file-update-text": "Vous avez mis à jour votre dossier, pour la dernière fois le {0}.<br> Afin qu'il reste convaincant, il est important de maintenir à jour vos justificatifs."
   }
 }
 </i18n>
