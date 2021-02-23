@@ -20,7 +20,42 @@ function loadLocaleMessages(): LocaleMessages {
   return messages;
 }
 
+const dateTimeFormats = {
+  'en': {
+    short: {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    },
+    long: {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      weekday: 'long',
+      hour: 'numeric',
+      minute: 'numeric'
+    }
+  },
+  'fr': {
+    short: {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    },
+    long: {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      weekday: 'long',
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true
+    }
+  }
+}
+
 export default new VueI18n({
+  dateTimeFormats,
   locale: /^en\b/.test(navigator.language) ? "en" : "fr",
   fallbackLocale: /^en\b/.test(navigator.language) ? "en" : "fr",
   messages: loadLocaleMessages()
