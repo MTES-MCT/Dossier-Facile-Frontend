@@ -1,5 +1,5 @@
 <template>
-  <div class="rf-container">
+  <div class="rf-container-fluid">
     <section class="rf-mt-3w">
       <div class="rf-grid-row rf-grid-row--center">
         <div class="rf-col-12 rf-col-lg-10">
@@ -18,7 +18,7 @@
           </div>
           <div class="main rf-mt-5w">
             <div class="main-bar rf-grid-row">
-              <span class="rf-mr-2w">{{ $t("my-file") }}</span>
+              <h4 class="rf-mr-2w rf-mb-0 rf-mt-0">{{ $t("my-file") }}</h4>
 
               <p class="rf-tag">
                 <span v-if="user.status === 'TO_PROCESS'"
@@ -43,7 +43,117 @@
               Vous avez indiqué être en cdd etc.
             </div>
             <hr />
-            <div class="main-information"></div>
+            <div class="main-information">
+              <h4>{{ $t("my-information") }}</h4>
+              <div class="rf-grid-row rf-grid-row--gutters">
+                <div class="rf-col-6 rf-col-lg-4 rf-pt-1w">
+                  <div class="rf-tile rf-tile--horizontal">
+                    <div class="rf-tile__img-wrap">
+                      <img
+                        src="https://place-hold.it/80x80"
+                        titre="Texte alternatif à l‘image"
+                        alt="Texte alternatif à l‘image"
+                      />
+                    </div>
+                    <div class="rf-tile__body">
+                      <h4 class="rf-tile__title">
+                        <a class="rf-tile__link" href>{{
+                          $t("my-information")
+                        }}</a>
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rf-grid-row rf-grid-row--gutters">
+                <div class="rf-col-6 rf-col-lg-4 rf-pt-1w">
+                  <div class="rf-tile rf-tile--horizontal">
+                    <div class="rf-tile__img-wrap">
+                      <img
+                        src="https://place-hold.it/80x80"
+                        titre="Texte alternatif à l‘image"
+                        alt="Texte alternatif à l‘image"
+                      />
+                    </div>
+                    <div class="rf-tile__body">
+                      <h4 class="rf-tile__title">
+                        <a class="rf-tile__link" href>{{
+                          $t("identification")
+                        }}</a>
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="rf-col-6 rf-col-lg-4 rf-pt-1w">
+                  <div class="rf-tile rf-tile--horizontal">
+                    <div class="rf-tile__img-wrap">
+                      <img
+                        src="https://place-hold.it/80x80"
+                        titre="Texte alternatif à l‘image"
+                        alt="Texte alternatif à l‘image"
+                      />
+                    </div>
+                    <div class="rf-tile__body">
+                      <h4 class="rf-tile__title">
+                        <a class="rf-tile__link" href>{{ $t("residency") }}</a>
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="rf-col-6 rf-col-lg-4 rf-pt-1w">
+                  <div class="rf-tile rf-tile--horizontal">
+                    <div class="rf-tile__img-wrap">
+                      <img
+                        src="https://place-hold.it/80x80"
+                        titre="Texte alternatif à l‘image"
+                        alt="Texte alternatif à l‘image"
+                      />
+                    </div>
+                    <div class="rf-tile__body">
+                      <h4 class="rf-tile__title">
+                        <a class="rf-tile__link" href>{{
+                          $t("professional")
+                        }}</a>
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="rf-col-6 rf-col-lg-4 rf-pt-1w">
+                  <div class="rf-tile rf-tile--horizontal">
+                    <div class="rf-tile__img-wrap">
+                      <img
+                        src="https://place-hold.it/80x80"
+                        titre="Texte alternatif à l‘image"
+                        alt="Texte alternatif à l‘image"
+                      />
+                    </div>
+                    <div class="rf-tile__body">
+                      <h4 class="rf-tile__title">
+                        <a class="rf-tile__link" href>{{ $t("financial") }}</a>
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="rf-col-6 rf-col-lg-4 rf-pt-1w">
+                  <div class="rf-tile rf-tile--horizontal">
+                    <div class="rf-tile__img-wrap">
+                      <img
+                        src="https://place-hold.it/80x80"
+                        titre="Texte alternatif à l‘image"
+                        alt="Texte alternatif à l‘image"
+                      />
+                    </div>
+                    <div class="rf-tile__body">
+                      <h4 class="rf-tile__title">
+                        <a class="rf-tile__link" href>{{ $t("tax") }}</a>
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="main-guarantor-information"></div>
           </div>
           <div class="partners"></div>
@@ -126,26 +236,44 @@ export default class FileStatus extends Vue {
 <i18n>
 {
   "en": {
-      "title": "Hello {0}, your file is validated",
-      "subtitle": "Vous avez indiqué être {0} {1}, être en {2} et gagner {3}.",
-      "last-update": "Dernière mise à jour du dossier le {0}",
-      "file-update-title": "File update",
-      "file-update-text": "Vous avez mis à jour votre dossier, pour la dernière fois le {0}.<br> Afin qu'il reste convaincant, il est important de maintenir à jour vos justificatifs.",
-      "update-file-btn": "Update my documents",
-      "copy-link":"Copy my file link",
-      "share-by-mail": "Share by mail",
-      "my-file": "My rent file"
+    "title": "Hello {0}, your file is validated",
+    "subtitle": "Vous avez indiqué être {0} {1}, être en {2} et gagner {3}.",
+    "last-update": "Dernière mise à jour du dossier le {0}",
+    "file-update-title": "File update",
+    "file-update-text": "Vous avez mis à jour votre dossier, pour la dernière fois le {0}.<br> Afin qu'il reste convaincant, il est important de maintenir à jour vos justificatifs.",
+    "update-file-btn": "Update my documents",
+    "copy-link":"Copy my file link",
+    "share-by-mail": "Share by mail",
+    "my-file": "My rent file",
+    "my-information": "My information",
+    "identification": "Identification",
+    "residency": "Residency",
+    "professional": "Professional",
+    "financial": "Financial",
+    "tax": "Tax",
+    "representative-identification": "Representative identification",
+    "corporation-identification": "Corporation identification",
+    "guarantor": "Guarantor"
   },
   "fr": {
-      "title": "Bonjour {0}, votre dossier est {1} !",
-      "subtitle": "Vous avez indiqué être {0} {1}, être en {2} et gagner {3}.",
-      "last-update": "Dernière mise à jour du dossier le {0}",
-      "file-update-title": "Mise-à-jour de votre dossier",
-      "file-update-text": "Vous avez mis à jour votre dossier, pour la dernière fois le {0}.<br> Afin qu'il reste convaincant, il est important de maintenir à jour vos justificatifs.",
-      "update-file-btn": "Mettre à jour mes documents",
-      "copy-link":"Copier mon lien dossier",
-      "share-by-mail": "Partager par mail",
-      "my-file": "Mon dossier de location"
+    "title": "Bonjour {0}, votre dossier est {1} !",
+    "subtitle": "Vous avez indiqué être {0} {1}, être en {2} et gagner {3}.",
+    "last-update": "Dernière mise à jour du dossier le {0}",
+    "file-update-title": "Mise-à-jour de votre dossier",
+    "file-update-text": "Vous avez mis à jour votre dossier, pour la dernière fois le {0}.<br> Afin qu'il reste convaincant, il est important de maintenir à jour vos justificatifs.",
+    "update-file-btn": "Mettre à jour mes documents",
+    "copy-link":"Copier mon lien dossier",
+    "share-by-mail": "Partager par mail",
+    "my-file": "Mon dossier de location",
+    "my-information": "Mes informations",
+    "identification": "Pièce d'identité",
+    "residency": "Justificatif de domicile",
+    "professional": "Justificatif de situation professionelle",
+    "financial": "Justificatif de revenu",
+    "tax": "Avis d’imposition",
+    "representative-identification": "Identité de la personne morale",
+    "corporation-identification": "Identité du représentant de la personne morale",
+    "guarantor": "Guarant"
   }
 }
 </i18n>
