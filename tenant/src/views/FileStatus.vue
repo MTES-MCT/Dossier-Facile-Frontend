@@ -16,7 +16,7 @@
               $t("update-file-btn")
             }}</DfButton>
           </div>
-          <div class="main rf-mt-5w">
+          <div class="main rf-mt-5w rf-p-2w">
             <div class="main-bar rf-grid-row">
               <h4 class="rf-mr-2w rf-mb-0 rf-mt-0">{{ $t("my-file") }}</h4>
 
@@ -46,7 +46,7 @@
             <div class="main-information">
               <h4>{{ $t("my-information") }}</h4>
               <div class="rf-grid-row rf-grid-row--gutters">
-                <div class="rf-col-6 rf-col-lg-4 rf-pt-1w">
+                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
                       <img
@@ -67,7 +67,7 @@
               </div>
 
               <div class="rf-grid-row rf-grid-row--gutters">
-                <div class="rf-col-6 rf-col-lg-4 rf-pt-1w">
+                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
                       <img
@@ -85,7 +85,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="rf-col-6 rf-col-lg-4 rf-pt-1w">
+                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
                       <img
@@ -101,7 +101,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="rf-col-6 rf-col-lg-4 rf-pt-1w">
+                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
                       <img
@@ -120,7 +120,7 @@
                   </div>
                 </div>
 
-                <div class="rf-col-6 rf-col-lg-4 rf-pt-1w">
+                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
                       <img
@@ -136,7 +136,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="rf-col-6 rf-col-lg-4 rf-pt-1w">
+                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
                       <img
@@ -154,7 +154,118 @@
                 </div>
               </div>
             </div>
-            <div class="main-guarantor-information"></div>
+            <hr />
+            <div class="main-guarantor-information">
+              <h4>{{ $t("guarantors-information") }}</h4>
+              <div class="rf-grid-row rf-grid-row--gutters">
+                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                  <div class="rf-tile rf-tile--horizontal">
+                    <div class="rf-tile__img-wrap">
+                      <img
+                        src="https://place-hold.it/80x80"
+                        titre="Texte alternatif à l‘image"
+                        alt="Texte alternatif à l‘image"
+                      />
+                    </div>
+                    <div class="rf-tile__body">
+                      <h4 class="rf-tile__title">
+                        <a class="rf-tile__link" href>{{
+                          $t("my-information")
+                        }}</a>
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rf-grid-row rf-grid-row--gutters">
+                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                  <div class="rf-tile rf-tile--horizontal">
+                    <div class="rf-tile__img-wrap">
+                      <img
+                        src="https://place-hold.it/80x80"
+                        titre="Texte alternatif à l‘image"
+                        alt="Texte alternatif à l‘image"
+                      />
+                    </div>
+                    <div class="rf-tile__body">
+                      <h4 class="rf-tile__title">
+                        <a class="rf-tile__link" href>{{
+                          $t("identification")
+                        }}</a>
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                  <div class="rf-tile rf-tile--horizontal">
+                    <div class="rf-tile__img-wrap">
+                      <img
+                        src="https://place-hold.it/80x80"
+                        titre="Texte alternatif à l‘image"
+                        alt="Texte alternatif à l‘image"
+                      />
+                    </div>
+                    <div class="rf-tile__body">
+                      <h4 class="rf-tile__title">
+                        <a class="rf-tile__link" href>{{ $t("residency") }}</a>
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                  <div class="rf-tile rf-tile--horizontal">
+                    <div class="rf-tile__img-wrap">
+                      <img
+                        src="https://place-hold.it/80x80"
+                        titre="Texte alternatif à l‘image"
+                        alt="Texte alternatif à l‘image"
+                      />
+                    </div>
+                    <div class="rf-tile__body">
+                      <h4 class="rf-tile__title">
+                        <a class="rf-tile__link" href>{{
+                          $t("professional")
+                        }}</a>
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                  <div class="rf-tile rf-tile--horizontal">
+                    <div class="rf-tile__img-wrap">
+                      <img
+                        src="https://place-hold.it/80x80"
+                        titre="Texte alternatif à l‘image"
+                        alt="Texte alternatif à l‘image"
+                      />
+                    </div>
+                    <div class="rf-tile__body">
+                      <h4 class="rf-tile__title">
+                        <a class="rf-tile__link" href>{{ $t("financial") }}</a>
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                  <div class="rf-tile rf-tile--horizontal">
+                    <div class="rf-tile__img-wrap">
+                      <img
+                        src="https://place-hold.it/80x80"
+                        titre="Texte alternatif à l‘image"
+                        alt="Texte alternatif à l‘image"
+                      />
+                    </div>
+                    <div class="rf-tile__body">
+                      <h4 class="rf-tile__title">
+                        <a class="rf-tile__link" href>{{ $t("tax") }}</a>
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="partners"></div>
         </div>
@@ -231,6 +342,10 @@ export default class FileStatus extends Vue {
 .main-bar {
   display: flex;
 }
+
+.main {
+  background-color: var(--g200);
+}
 </style>
 
 <i18n>
@@ -253,7 +368,8 @@ export default class FileStatus extends Vue {
     "tax": "Tax",
     "representative-identification": "Representative identification",
     "corporation-identification": "Corporation identification",
-    "guarantor": "Guarantor"
+    "guarantor": "Guarantor",
+    "guarantors-information": "My guarantors information"
   },
   "fr": {
     "title": "Bonjour {0}, votre dossier est {1} !",
@@ -273,7 +389,8 @@ export default class FileStatus extends Vue {
     "tax": "Avis d’imposition",
     "representative-identification": "Identité de la personne morale",
     "corporation-identification": "Identité du représentant de la personne morale",
-    "guarantor": "Guarant"
+    "guarantor": "Guarant",
+    "guarantors-information": "Les informations de mes guarants"
   }
 }
 </i18n>
