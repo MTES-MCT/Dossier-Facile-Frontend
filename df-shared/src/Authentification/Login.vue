@@ -58,14 +58,6 @@
               {{ $t("submit") }}
             </button>
           </div>
-          <div class="rf-col-12 text-center rf-mb-3w">
-            <router-link to="/forgotten-password">{{
-              $t("forgotten-password")
-            }}</router-link>
-          </div>
-          <div class="rf-col-12 text-center rf-mb-12w">
-            <router-link to="/signup">{{ $t("no-account") }}</router-link>
-          </div>
         </div>
       </form>
     </div>
@@ -81,18 +73,18 @@ import { required, email } from "vee-validate/dist/rules";
 
 extend("email", {
   ...email,
-  message: "email-not-valid"
+  message: "email-not-valid",
 });
 
 extend("required", {
   ...required,
-  message: "field-required"
+  message: "field-required",
 });
 
 @Component({
   components: {
-    ValidationProvider
-  }
+    ValidationProvider,
+  },
 })
 export default class Login extends Vue {
   user: User = new User();
@@ -112,8 +104,6 @@ export default class Login extends Vue {
 "email-placeholder": "E.g. : example@example.fr",
 "password-placeholder": "E.g. : 12345679",
 "submit": "Submit",
-"forgotten-password": "Forgotten password",
-"no-account": "I don't have an account yet",
 "email-not-valid": "Email not valid",
 "field-required": "This field is required"
 },
@@ -124,8 +114,6 @@ export default class Login extends Vue {
 "email-placeholder": "Ex : exemple@exemple.fr",
 "password-placeholder": "Ex : 12345679",
 "submit": "Valider",
-"forgotten-password": "mot de passe oublié",
-"no-account": "je n'ai pas encore de compte",
 "email-not-valid": "Email non valide",
 "field-required": "Ce champ est requis"
 }

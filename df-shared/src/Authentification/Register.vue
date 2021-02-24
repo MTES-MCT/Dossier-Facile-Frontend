@@ -110,7 +110,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { User } from "df-shared/src/models/User";
 import { ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
@@ -162,6 +162,11 @@ export default class Register extends Vue {
   score = 0;
 
   mounted() {
+    this.user.email = this.email;
+  }
+
+  @Watch("email")
+  updateEmail() {
     this.user.email = this.email;
   }
 

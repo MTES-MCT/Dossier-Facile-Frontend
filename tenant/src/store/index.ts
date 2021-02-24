@@ -125,9 +125,9 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    login({ commit }, user) {
+    login({ commit }, { user, source, internalPartnerId }) {
       commit("initState");
-      return AuthService.login(user).then(
+      return AuthService.login(user, source, internalPartnerId).then(
         user => {
           commit("loginSuccess", user);
           this.dispatch("loadUser");
