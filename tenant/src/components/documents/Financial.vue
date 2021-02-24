@@ -1,146 +1,158 @@
 <template>
   <div>
     <div v-for="(f, k) in financialDocuments" :key="k">
-    <ValidationObserver v-slot="{ invalid, validate }">
-      <form name="form" @submit.prevent="validate().then(save(f))">
-      <div class="rf-grid-row rf-mb-3w" style="justify-content: space-between">
-        <span> Revenu {{ k + 1 }} </span>
-        <DfButton
-          class="rf-btn"
-          size="small"
-          @on-click="removeFinancial(f)"
-        >
-          {{$t('delete-financial')}}
-        </DfButton>
-      </div>
-      <div>
-        <label class="rf-label" for="select">
-          Attention, Veuillez renseigner uniquement vos propres revenus.
-        </label>
-        <select
-          v-model="f.documentType"
-          class="rf-select rf-mb-3w"
-          id="select"
-          name="select"
-        >
-          <option v-for="d in documents" :value="d" :key="d.key">
-            {{ $t(d.key) }}
-          </option>
-        </select>
-      </div>
-      <div v-if="f.documentType && f.documentType.key">
-        <div>
-          <validation-provider
-            :rules="{ required:true, regex: /^[0-9., ]+$/ }"
-            v-slot="{ errors }"
+      <ValidationObserver v-slot="{ validate }">
+        <form name="form" @submit.prevent="validate().then(save(f))">
+          <div
+            class="rf-grid-row rf-mb-3w"
+            style="justify-content: space-between"
           >
-            <div
-              class="rf-input-group"
-              :class="errors[0] ? 'rf-input-group--error' : ''"
+            <span> Revenu {{ k + 1 }} </span>
+            <DfButton
+              class="rf-btn"
+              size="small"
+              @on-click="removeFinancial(f)"
             >
-              <label for="monthlySum" class="rf-label"
-                >{{ $t("monthlySum-label") }} :</label
+              {{ $t("delete-financial") }}
+            </DfButton>
+          </div>
+          <div>
+            <label class="rf-label" for="select">
+              Attention, Veuillez renseigner uniquement vos propres revenus.
+            </label>
+            <select
+              v-model="f.documentType"
+              class="rf-select rf-mb-3w"
+              id="select"
+              name="select"
+            >
+              <option v-for="d in documents" :value="d" :key="d.key">
+                {{ $t(d.key) }}
+              </option>
+            </select>
+          </div>
+          <div v-if="f.documentType && f.documentType.key">
+            <div>
+              <validation-provider
+                :rules="{ required: true, regex: /^[0-9., ]+$/ }"
+                v-slot="{ errors }"
               >
-              <input
-                id="monthlySum"
-                :placeholder="$t('monthlySum')"
-                type="text"
-                v-model="f.monthlySum"
-                name="monthlySum"
-                class="validate-required form-control rf-input"
-                required
-              />
-              <span class="rf-error-text" v-if="errors[0]">{{
-                $t(errors[0])
-              }}</span>
-              <span class="rf-error-text" v-if="f.monthlySum > 10000">
-                {{ $t("high-salary") }}
-              </span>
-              <span class="rf-error-text" v-if="f.monthlySum <= 0">
-                {{ $t("low-salary") }}
-              </span>
+                <div
+                  class="rf-input-group"
+                  :class="errors[0] ? 'rf-input-group--error' : ''"
+                >
+                  <label for="monthlySum" class="rf-label"
+                    >{{ $t("monthlySum-label") }} :</label
+                  >
+                  <input
+                    id="monthlySum"
+                    :placeholder="$t('monthlySum')"
+                    type="text"
+                    v-model="f.monthlySum"
+                    name="monthlySum"
+                    class="validate-required form-control rf-input"
+                    required
+                  />
+                  <span class="rf-error-text" v-if="errors[0]">{{
+                    $t(errors[0])
+                  }}</span>
+                  <span class="rf-error-text" v-if="f.monthlySum > 10000">
+                    {{ $t("high-salary") }}
+                  </span>
+                  <span class="rf-error-text" v-if="f.monthlySum <= 0">
+                    {{ $t("low-salary") }}
+                  </span>
+                </div>
+              </validation-provider>
             </div>
-          </validation-provider>
-        </div>
-        <div class="rf-mb-3w">
-          {{ f.documentType.explanationText }}
-        </div>
-        <div class="rf-mb-3w">
-          <FileUpload
-            :current-status="f.fileUploadStatus"
-            @add-files="addFiles(f, ...arguments)"
-            @reset-files="resetFiles(f, ...arguments)"
-          ></FileUpload>
-        </div>
-        <div class="rf-col-12 rf-mb-3w">
-          <input
-            type="checkbox"
-            :id="`noDocument${k}`"
-            value="false"
-            v-model="f.noDocument"
-          />
-          <label :for="`noDocument${k}`">
-            <template v-if="f.documentType.key === 'salary'">{{
-              $t("noDocument-salary")
-            }}</template>
-            <template v-if="f.documentType.key === 'pension'">{{
-              $t("noDocument-pension")
-            }}</template>
-            <template v-if="f.documentType.key === 'rent'">{{
-              $t("noDocument-rent")
-            }}</template>
-            <template v-if="f.documentType.key === 'trading'">{{
-              $t("noDocument-trading")
-            }}</template>
-            <template v-if="f.documentType.key === 'social-service'">{{
-              $t("noDocument-social")
-            }}</template>
-          </label>
-        </div>
-        <div class="rf-mb-5w" v-if="f.noDocument">
-          <div class="rf-input-group">
-            <label class="rf-label" :for="`customText${k}`">{{
-              $t("customText")
-            }}</label>
-            <input
-              v-model="f.customText"
-              class="form-control rf-input validate-required"
-              :id="`customText${k}`"
-              name="customText"
-              placeholder=""
-              type="text"
+            <div class="rf-mb-3w">
+              {{ f.documentType.explanationText }}
+            </div>
+            <div class="rf-mb-3w">
+              <FileUpload
+                :current-status="f.fileUploadStatus"
+                @add-files="addFiles(f, ...arguments)"
+                @reset-files="resetFiles(f, ...arguments)"
+              ></FileUpload>
+            </div>
+            <div class="rf-col-12 rf-mb-3w">
+              <input
+                type="checkbox"
+                :id="`noDocument${k}`"
+                value="false"
+                v-model="f.noDocument"
+              />
+              <label :for="`noDocument${k}`">
+                <template v-if="f.documentType.key === 'salary'">{{
+                  $t("noDocument-salary")
+                }}</template>
+                <template v-if="f.documentType.key === 'pension'">{{
+                  $t("noDocument-pension")
+                }}</template>
+                <template v-if="f.documentType.key === 'rent'">{{
+                  $t("noDocument-rent")
+                }}</template>
+                <template v-if="f.documentType.key === 'trading'">{{
+                  $t("noDocument-trading")
+                }}</template>
+                <template v-if="f.documentType.key === 'social-service'">{{
+                  $t("noDocument-social")
+                }}</template>
+              </label>
+            </div>
+            <div class="rf-mb-5w" v-if="f.noDocument">
+              <validation-provider
+                :rules="{ required: true }"
+                v-slot="{ errors }"
+              >
+                <div class="rf-input-group">
+                  <label class="rf-label" :for="`customText${k}`">{{
+                    $t("customText")
+                  }}</label>
+                  <input
+                    v-model="f.customText"
+                    class="form-control rf-input validate-required"
+                    :id="`customText${k}`"
+                    name="customText"
+                    placeholder=""
+                    type="text"
+                    required
+                  />
+                  <span class="rf-error-text" v-if="errors[0]">{{
+                    $t(errors[0])
+                  }}</span>
+                </div>
+              </validation-provider>
+            </div>
+          </div>
+          <div
+            v-if="financialFiles(f).length > 0"
+            class="rf-col-lg-8 rf-col-md-12 rf-mb-3w"
+          >
+            <ListItem
+              v-for="(file, k) in financialFiles(f)"
+              :key="k"
+              :file="file"
+              @remove="remove(f, file)"
             />
           </div>
-        </div>
-      </div>
-      <div
-        v-if="financialFiles(f).length > 0"
-        class="rf-col-lg-8 rf-col-md-12 rf-mb-3w"
-      >
-        <ListItem
-          v-for="(file, k) in financialFiles(f)"
-          :key="k"
-          :file="file"
-          @remove="remove(f, file)"
-        />
-      </div>
-      <div class="rf-col-12 rf-mb-5w" v-if="f.documentType">
-        <button
-          class="rf-btn"
-          type="submit"
-          :disabled="f.files.length <= 0 && !f.noDocument"
-        >
-          Enregistrer la pièce
-        </button>
-      </div>
-      <div class="rf-mb-5w">
-        <DocumentInsert
-          :allow-list="f.documentType.acceptedProofs"
-          :block-list="f.documentType.refusedProofs"
-        ></DocumentInsert>
-      </div>
-      </form>
-    </ValidationObserver>
+          <div class="rf-col-12 rf-mb-5w" v-if="f.documentType">
+            <button
+              class="rf-btn"
+              type="submit"
+              :disabled="f.files.length <= 0 && !f.noDocument"
+            >
+              Enregistrer la pièce
+            </button>
+          </div>
+          <div class="rf-mb-5w">
+            <DocumentInsert
+              :allow-list="f.documentType.acceptedProofs"
+              :block-list="f.documentType.refusedProofs"
+            ></DocumentInsert>
+          </div>
+        </form>
+      </ValidationObserver>
       <hr />
     </div>
     <div class="rf-col-12 rf-mb-5w">
@@ -171,12 +183,12 @@ import { required, regex } from "vee-validate/dist/rules";
 
 extend("regex", {
   ...regex,
-  message: "number-not-valid"
+  message: "number-not-valid",
 });
 
 extend("required", {
   ...required,
-  message: "field-required"
+  message: "field-required",
 });
 
 class F {
@@ -196,13 +208,13 @@ class F {
     DocumentInsert,
     FileUpload,
     ListItem,
-    DfButton
+    DfButton,
   },
   computed: {
     ...mapGetters({
-      user: "userToEdit"
-    })
-  }
+      user: "userToEdit",
+    }),
+  },
 })
 export default class Financial extends Vue {
   MAX_FILE_COUNT = 5;
@@ -244,7 +256,7 @@ export default class Financial extends Vue {
   }
 
   addFiles(f: F, fileList: File[]) {
-    const nf = Array.from(fileList).map(f => {
+    const nf = Array.from(fileList).map((f) => {
       return { name: f.name, file: f, size: f.size };
     });
     f.files = [...f.files, ...nf];
@@ -256,7 +268,7 @@ export default class Financial extends Vue {
     const fieldName = "documents";
     const formData = new FormData();
     if (!f.noDocument) {
-      const newFiles = f.files.filter(f => {
+      const newFiles = f.files.filter((f) => {
         return !f.id;
       });
       if (!newFiles.length) return;
@@ -269,7 +281,7 @@ export default class Financial extends Vue {
         return;
       }
 
-      Array.from(Array(newFiles.length).keys()).map(x => {
+      Array.from(Array(newFiles.length).keys()).map((x) => {
         const f: File = newFiles[x].file || new File([], "");
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
       });
@@ -315,7 +327,7 @@ export default class Financial extends Vue {
         documentSubCategory: f.documentType?.value,
         id: file.name,
         name: file.name,
-        size: file.size
+        size: file.size,
       };
     });
     const existingFiles =
@@ -342,14 +354,21 @@ export default class Financial extends Vue {
   removeFinancial(f: DfDocument) {
     if (f.id) {
       const loader = Vue.$loading.show();
-      this.$store.dispatch("deleteDocument", f.id).then(null, () => {
-        Vue.toasted.global.error();
-      }).finally(() => {
-        loader.hide();
-        this.initialize();
-      })
+      this.$store
+        .dispatch("deleteDocument", f.id)
+        .then(null, () => {
+          Vue.toasted.global.error();
+        })
+        .finally(() => {
+          loader.hide();
+          this.initialize();
+        });
     } else {
-      this.financialDocuments = this.financialDocuments.filter((d:DfDocument) => { return d !== f});
+      this.financialDocuments = this.financialDocuments.filter(
+        (d: DfDocument) => {
+          return d !== f;
+        }
+      );
     }
   }
 
@@ -362,16 +381,16 @@ export default class Financial extends Vue {
       acceptedProofs: [
         "3 derniers bulletins de salaire",
         "Justificatif de versement des indemnités de stage",
-        "2 derniers bilans comptables ou, si nécessaire, attestation des ressources pour l’exercice en cours délivrés par un comptable (non-salariés)"
+        "2 derniers bilans comptables ou, si nécessaire, attestation des ressources pour l’exercice en cours délivrés par un comptable (non-salariés)",
       ],
       refusedProofs: [
         "Pièces trop anciennes",
         "Attestation de l’employeur",
         "Relevés de comptes bancaires",
         "RIB",
-        "Avis d’imposition"
+        "Avis d’imposition",
       ],
-      maxFileCount: 3
+      maxFileCount: 3,
     },
     {
       key: "social-service",
@@ -381,15 +400,15 @@ export default class Financial extends Vue {
       acceptedProofs: [
         "3 derniers justificatifs de versement des prestations sociales et familiales et allocations (ARE, CAF, Crous, etc.)",
         "Justificatif de l’ouverture des droits établis par l’organisme payeur",
-        "Attestation de simulation pour les aides au logement établie par la CAF ou par la MSA pour le locataire"
+        "Attestation de simulation pour les aides au logement établie par la CAF ou par la MSA pour le locataire",
       ],
       refusedProofs: [
         "Pièces trop anciennes",
         "Relevés de comptes bancaires",
         "RIB",
-        "Avis d’imposition"
+        "Avis d’imposition",
       ],
-      maxFileCount: 3
+      maxFileCount: 3,
     },
     {
       key: "rent",
@@ -399,10 +418,10 @@ export default class Financial extends Vue {
       acceptedProofs: [
         "Justification de revenus fonciers, de rentes viagères ou de revenus de valeurs et capitaux mobiliers",
         "Titre de propriété d’un bien immobilier ou dernier avis de taxe foncière",
-        "Dernier ou avant-dernier avis d’imposition avec nom et revenus de la rente visibles"
+        "Dernier ou avant-dernier avis d’imposition avec nom et revenus de la rente visibles",
       ],
       refusedProofs: ["Relevés de comptes bancaires", "RIB"],
-      maxFileCount: 3
+      maxFileCount: 3,
     },
     {
       key: "pension",
@@ -411,14 +430,14 @@ export default class Financial extends Vue {
         "J’ajoute un bulletin de pension, une attestation de pension, ou un avis d’imposition avec noms et revenus de la pension visibles.",
       acceptedProofs: [
         "Justificatif de versement des indemnités, retraites, pensions perçues lors des 3 derniers mois ou justificatif de l’ouverture des droits établis par l’organisme payeur",
-        "Dernier ou avant-dernier avis d’imposition avec nom et revenus de la pension visibles"
+        "Dernier ou avant-dernier avis d’imposition avec nom et revenus de la pension visibles",
       ],
       refusedProofs: [
         "Pièces trop anciennes",
         "Relevés de comptes bancaires",
-        "RIB"
+        "RIB",
       ],
-      maxFileCount: 3
+      maxFileCount: 3,
     },
     {
       key: "trading",
@@ -428,10 +447,10 @@ export default class Financial extends Vue {
       refusedProofs: [
         "Pièces trop anciennes",
         "Relevés de comptes bancaires",
-        "RIB"
+        "RIB",
       ],
-      maxFileCount: 3
-    }
+      maxFileCount: 3,
+    },
   ];
 }
 </script>
