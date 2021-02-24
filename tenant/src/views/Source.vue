@@ -1,7 +1,19 @@
 <template>
-  <div class="rf-container">
+  <div class="rf-container rf-mt-3w">
     <div class="signup">
-      <Register :email="email" @on-register="onRegister" />
+      <DfButton @on-click="existingAccount = false" v-if="existingAccount">
+        {{ $t("register") }}
+      </DfButton>
+      <DfButton @on-click="existingAccount = true" v-if="!existingAccount">
+        {{ $t("existing-account") }}
+      </DfButton>
+      <Register
+        :email="email"
+        @on-register="onRegister"
+        v-if="!existingAccount"
+      />
+      <Login @on-login="onLogin" v-if="existingAccount" />
+
       <Modal v-show="isValidModalVisible" @close="closeModal">
         <template v-slot:body>
           <div class="rf-container">
@@ -26,12 +38,16 @@
 import { Vue, Component } from "vue-property-decorator";
 import { User } from "df-shared/src/models/User";
 import Register from "df-shared/src/Authentification/Register.vue";
+import Login from "df-shared/src/Authentification/Login.vue";
 import Modal from "df-shared/src/components/Modal.vue";
+import DfButton from "df-shared/src/Button/Button.vue";
 
 @Component({
   components: {
     Register,
     Modal,
+    DfButton,
+    Login,
   },
 })
 export default class Source extends Vue {
@@ -40,6 +56,7 @@ export default class Source extends Vue {
   firstName = "";
   lastName = "";
   email = "";
+  existingAccount = false;
 
   mounted() {
     this.source = this.$route.params.source;
@@ -86,6 +103,38 @@ export default class Source extends Vue {
         );
     }
   }
+
+  onLogin(user: User) {
+    user.firstName = this.firstName;
+    user.lastName = this.lastName;
+    if (user.email && user.password) {
+      this.$store
+        .dispatch("login", {
+          user,
+          source: this.source,
+          internalPartnerId: this.internalPartnerId,
+        })
+        .then(
+          () => {
+            this.$router.push("/profile");
+          },
+          (error) => {
+            if (error.response.status === 401) {
+              this.$toasted.show(this.$i18n.t("password-error").toString(), {
+                type: "error",
+                duration: 7000,
+              });
+            } else {
+              this.$toasted.show(error.message, {
+                type: "error",
+                duration: 5000,
+              });
+            }
+          }
+        );
+    }
+  }
+
   closeModal() {
     this.isValidModalVisible = false;
     this.$router.push("/");
@@ -97,11 +146,15 @@ export default class Source extends Vue {
 {
 "en": {
     "mail-sent": "An email has been sent to the requested address.",
-    "clic-to-confirm": "Please click on the given link to confirm your email and continue you inscription."
+    "clic-to-confirm": "Please click on the given link to confirm your email and continue you inscription.",
+    "existing-account": "I have an account already",
+    "register": "Register a new account"
 },
 "fr": {
     "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
-    "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre votre inscription."
+    "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre votre inscription.",
+    "existing-account": "Lier un compte existant",
+    "register": "Créer un nouveau compte"
 }
 }
 </i18n>

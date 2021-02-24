@@ -41,8 +41,8 @@ import { Header } from "./gouvfr/header.js";
     MyHeader,
     MyFooter,
     Modal,
-    Cookies
-  }
+    Cookies,
+  },
 })
 export default class App extends Vue {
   cookieHidden = this.$cookies.isKey("accept-cookie")
@@ -59,6 +59,7 @@ export default class App extends Vue {
   onCreateOwner() {
     window.location.href = this.OWNER_URL;
   }
+
   onCreateTenant() {
     window.location.href = `${this.TENANT_URL}/signup?lang=${this.$i18n.locale}`;
   }
