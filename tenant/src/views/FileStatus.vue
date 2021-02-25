@@ -375,7 +375,7 @@ export default class FileStatus extends Vue {
     "title": "Bonjour {0}, votre dossier est {1} !",
     "subtitle": "Vous avez indiqué être {0} {1}, être en {2} et gagner {3}.",
     "last-update": "Dernière mise à jour du dossier le {0}",
-    "file-update-title": "Mise-à-jour de votre dossier",
+    "file-update-title": "Mise à jour de votre dossier",
     "file-update-text": "Vous avez mis à jour votre dossier, pour la dernière fois le {0}.<br> Afin qu'il reste convaincant, il est important de maintenir à jour vos justificatifs.",
     "update-file-btn": "Mettre à jour mes documents",
     "copy-link":"Copier mon lien dossier",
@@ -385,12 +385,12 @@ export default class FileStatus extends Vue {
     "identification": "Pièce d'identité",
     "residency": "Justificatif de domicile",
     "professional": "Justificatif de situation professionelle",
-    "financial": "Justificatif de revenu",
+    "financial": "Justificatif de ressources",
     "tax": "Avis d’imposition",
     "representative-identification": "Identité de la personne morale",
     "corporation-identification": "Identité du représentant de la personne morale",
-    "guarantor": "Guarant",
-    "guarantors-information": "Les informations de mes guarants"
+    "guarantor": "Garant",
+    "guarantors-information": "Les informations de mes garants"
   }
 }
 </i18n>
