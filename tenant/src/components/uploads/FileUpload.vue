@@ -10,16 +10,8 @@
           class="input-file"
           accept="image/png, image/jpeg, application/pdf"
         />
-        <p v-if="canUpload()">
-          Ajouter un ou plusieurs documents
-        </p>
-        <p v-if="isSaving()">Téléchargement de {{ fileCount }} fichiers...</p>
-        <div v-if="isFailed()">
-          <h2>{{ $t("send-problem") }}</h2>
-          <p>
-            <a href="javascript:void(0)" @click="reset()">Réessayer</a>
-          </p>
-        </div>
+        <p v-if="!isSaving()">Ajouter un ou plusieurs documents</p>
+        <p v-if="isSaving()">Téléchargement des fichiers...</p>
       </div>
     </form>
   </div>
@@ -33,7 +25,7 @@ const {
   STATUS_INITIAL,
   STATUS_SUCCESS,
   STATUS_SAVING,
-  STATUS_FAILED
+  STATUS_FAILED,
 } = UploadStatus;
 
 @Component
@@ -74,7 +66,7 @@ export default class FileUpload extends Vue {
       if (f.size > 5 * 1024 * 1024) {
         this.$toasted.show(this.$i18n.t("file-too-big").toString(), {
           type: "error",
-          duration: 5000
+          duration: 5000,
         });
         return false;
       }

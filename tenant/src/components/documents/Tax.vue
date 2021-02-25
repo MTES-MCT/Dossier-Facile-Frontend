@@ -116,7 +116,7 @@ import { RegisterService } from "../../services/RegisterService";
 extend("is", {
   ...is,
   message: "field-required",
-  validate: value => !!value
+  validate: (value) => !!value,
 });
 
 @Component({
@@ -125,13 +125,13 @@ extend("is", {
     FileUpload,
     ListItem,
     ValidationObserver,
-    ValidationProvider
+    ValidationProvider,
   },
   computed: {
     ...mapGetters({
-      user: "userToEdit"
-    })
-  }
+      user: "userToEdit",
+    }),
+  },
 })
 export default class Tax extends Vue {
   user!: User | Guarantor;
@@ -178,7 +178,7 @@ export default class Tax extends Vue {
   }
 
   addFiles(fileList: File[]) {
-    const nf = Array.from(fileList).map(f => {
+    const nf = Array.from(fileList).map((f) => {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
@@ -198,7 +198,7 @@ export default class Tax extends Vue {
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    const newFiles = this.files.filter(f => {
+    const newFiles = this.files.filter((f) => {
       return !f.id;
     });
     if (newFiles.length) {
@@ -210,7 +210,7 @@ export default class Tax extends Vue {
         return;
       }
 
-      Array.from(Array(newFiles.length).keys()).map(x => {
+      Array.from(Array(newFiles.length).keys()).map((x) => {
         const f: File = newFiles[x].file || new File([], "");
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
       });
@@ -250,13 +250,13 @@ export default class Tax extends Vue {
   }
 
   taxFiles() {
-    const newFiles = this.files.map(f => {
+    const newFiles = this.files.map((f) => {
       return {
         documentSubCategory: this.taxDocument.value,
         id: f.name,
         name: f.name,
         file: f,
-        size: f.size
+        size: f.size,
       };
     });
     const existingFiles =
@@ -301,9 +301,9 @@ export default class Tax extends Vue {
       refusedProofs: [
         "Avis d’imposition incomplet (sans la première page)",
         "Tout avis d’imposition plus ancien",
-        "Tout autre document justificatif"
+        "Tout autre document justificatif",
       ],
-      maxFileCount: 1
+      maxFileCount: 1,
     },
     {
       key: "my-parents",
@@ -312,7 +312,7 @@ export default class Tax extends Vue {
         "J’ai déclaré être rattaché·e au domicile fiscal de mes parents.",
       acceptedProofs: [],
       refusedProofs: [],
-      maxFileCount: 0
+      maxFileCount: 0,
     },
     {
       key: "less-than-year",
@@ -320,7 +320,7 @@ export default class Tax extends Vue {
       explanationText: "J’ai déclaré être en France depuis moins d’un an.",
       acceptedProofs: [],
       refusedProofs: [],
-      maxFileCount: 0
+      maxFileCount: 0,
     },
     {
       key: "other-tax",
@@ -329,8 +329,8 @@ export default class Tax extends Vue {
         "Afin d’améliorer mon dossier, j’explique ci-dessous pourquoi je ne reçois pas d’avis d’imposition. Mon explication sera ajoutée à mon dossier :",
       acceptedProofs: [],
       refusedProofs: [],
-      maxFileCount: 0
-    }
+      maxFileCount: 0,
+    },
   ];
 }
 </script>
