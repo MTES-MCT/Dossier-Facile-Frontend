@@ -24,7 +24,7 @@
             primary="true"
             @on-click="setGuarantorType()"
           >
-            {{$t('validate')}}
+            {{ $t("validate") }}
           </DfButton>
         </div>
       </div>
@@ -38,13 +38,12 @@
                 v-for="(g, k) in user.guarantors"
                 :key="k"
               >
-                <DfButton
-                @on-click="selectGuarantor(k)">
-                <span>
-                {{getName(g, k)}}
-                </span>
+                <DfButton @on-click="selectGuarantor(k)">
+                  <span>
+                    {{ getName(g, k) }}
+                  </span>
                 </DfButton>
-                <DfButton size="icon" @on-click="remove(k)" >
+                <DfButton size="icon" @on-click="remove(k)">
                   <span class="material-icons text-danger">delete_forever</span>
                 </DfButton>
               </div>
@@ -368,7 +367,7 @@ export default class GuarantorDocuments extends Vue {
 
   remove(k: number) {
     this.$store.dispatch("deleteGuarantor", k).then(null, () => {
-        Vue.toasted.global.error();
+      Vue.toasted.global.error();
     });
   }
 
@@ -459,7 +458,8 @@ h2 {
 "tax": "Avis d’imposition",
 "representative-identification": "Identité de la personne morale",
 "corporation-identification": "Identité du représentant de la personne morale",
-"guarantor": "Guarantor"
+"guarantor": "Guarantor",
+"validate": "Validate"
 },
 "fr": {
 "identification": "Pièce d’identité",
@@ -469,7 +469,8 @@ h2 {
 "tax": "Avis d’imposition",
 "representative-identification": "Identité de la personne morale",
 "corporation-identification": "Identité du représentant de la personne morale",
-"guarantor": "Guarant"
+"guarantor": "Guarant",
+"validate": "Valider"
 }
 }
 </i18n>
