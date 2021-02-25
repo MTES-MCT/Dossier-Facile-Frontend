@@ -1,12 +1,14 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { AuthService } from "df-shared/src/services/AuthService";
+import { MessageService } from "@/services/MessageService";
 import { ProfileService } from "@/services/ProfileService";
 import router from "../router";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { User } from "df-shared/src/models/User";
 import i18n from "@/i18n";
 import { DfDocument } from "df-shared/src/models/DfDocument";
+import { DfMessage } from "df-shared/src/models/DfMessage";
 
 Vue.use(Vuex);
 
@@ -20,6 +22,8 @@ export class DfState {
   roommates: User[] = [];
   selectedGuarantor = new Guarantor();
   status = { loggedIn: false };
+  messages: DfMessage[] = [];
+  hasNewMessage = false;
 }
 
 const localStore = localStorage.getItem("store");
@@ -122,6 +126,9 @@ const store = new Vuex.Store({
       ) {
         state.selectedGuarantor = state.user?.guarantors[position];
       }
+    },
+    updateMessages(state, messageList: DfMessage[]) {
+      state.messageList = messageList;
     }
   },
   actions: {
@@ -259,6 +266,13 @@ const store = new Vuex.Store({
         },
         error => {
           return Promise.reject(error);
+        }
+      );
+    },
+    updateMessages({ commit }) {
+      MessageService.updateMessages().then(
+        (data) => {
+          this.commit("updateMessages", data.data);
         }
       );
     }
