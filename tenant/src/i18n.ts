@@ -49,7 +49,7 @@ const dateTimeFormats = {
       weekday: 'long',
       hour: 'numeric',
       minute: 'numeric',
-      hour12: true
+      hour12: false
     }
   }
 }

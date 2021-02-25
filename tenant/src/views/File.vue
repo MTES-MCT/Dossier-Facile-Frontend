@@ -85,14 +85,9 @@ import DfButton from "df-shared/src/Button/Button.vue";
   components: {
     DfButton,
   },
-  computed: {
-    ...mapState({
-      user: "user",
-    }),
-  },
 })
 export default class File extends Vue {
-  user!: User;
+  user = new User();
   tabIndex = 0;
   tabsSize = "600px";
 

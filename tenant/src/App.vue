@@ -25,7 +25,7 @@ import { Vue, Component } from "vue-property-decorator";
 import MyHeader from "df-shared/src/Header/Header.vue";
 import MyFooter from "df-shared/src/Footer/Footer.vue";
 import Menu from "@/components/Menu.vue";
-import { mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import i18n from "./i18n";
 import { Header } from "./gouvfr/header.js";
 
@@ -33,35 +33,46 @@ import { Header } from "./gouvfr/header.js";
   components: {
     MyHeader,
     MyFooter,
-    Menu
+    Menu,
   },
   computed: {
     ...mapState({
       user: "user",
-      status: "status"
-    })
-  }
+      status: "status",
+    }),
+    ...mapGetters({
+      isLoggedIn: "isLoggedIn",
+    }),
+  },
 })
 export default class App extends Vue {
+  isLoggedIn!: boolean;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
 
   mounted() {
     new Header();
+    setInterval(() => {
+      if (this.isLoggedIn) {
+        this.$store.dispatch("updateMessages");
+      }
+    }, 60000);
   }
 
   onLogin() {
     this.$router.push("/login");
   }
+
   onLogout() {
     this.$store.dispatch("logout").then(
       () => {
         console.log("logged out !");
       },
-      error => {
+      (error) => {
         console.dir(error);
       }
     );
   }
+
   onCreateTenant() {
     this.$router.push("/signup");
   }

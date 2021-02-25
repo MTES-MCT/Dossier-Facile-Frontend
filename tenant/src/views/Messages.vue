@@ -131,7 +131,10 @@
                         >visibility</span
                       >
                     </div>
-                    <div class="edit-step-btn" @click="setGuarantorSubStep(1, g)">
+                    <div
+                      class="edit-step-btn"
+                      @click="setGuarantorSubStep(1, g)"
+                    >
                       <span class="color--primary material-icons md-18"
                         >edit</span
                       >
@@ -150,7 +153,10 @@
                         >visibility</span
                       >
                     </div>
-                    <div class="edit-step-btn" @click="setGuarantorSubStep(2, g)">
+                    <div
+                      class="edit-step-btn"
+                      @click="setGuarantorSubStep(2, g)"
+                    >
                       <span class="color--primary material-icons md-18"
                         >edit</span
                       >
@@ -171,7 +177,10 @@
                         >visibility</span
                       >
                     </div>
-                    <div class="edit-step-btn" @click="setGuarantorSubStep(3, g)">
+                    <div
+                      class="edit-step-btn"
+                      @click="setGuarantorSubStep(3, g)"
+                    >
                       <span class="color--primary material-icons md-18"
                         >edit</span
                       >
@@ -190,7 +199,10 @@
                         >visibility</span
                       >
                     </div>
-                    <div class="edit-step-btn" @click="setGuarantorSubStep(4, g)">
+                    <div
+                      class="edit-step-btn"
+                      @click="setGuarantorSubStep(4, g)"
+                    >
                       <span class="color--primary material-icons md-18"
                         >edit</span
                       >
@@ -209,7 +221,10 @@
                         >visibility</span
                       >
                     </div>
-                    <div class="edit-step-btn" @click="setGuarantorSubStep(5, g)">
+                    <div
+                      class="edit-step-btn"
+                      @click="setGuarantorSubStep(5, g)"
+                    >
                       <span class="color--primary material-icons md-18"
                         >edit</span
                       >
@@ -320,6 +335,15 @@
             class="conversation__reply boxed boxed--border rf-p-3w"
             v-if="isNotValidated()"
           >
+            <div class="messages rf-mb-3w">
+              <div v-for="m in messageList" :key="m.id" class="message">
+                <p v-html="m.messageBody"></p>
+                <div class="date">
+                  {{ $d(new Date(m.creationDateTime), "long") }}
+                </div>
+              </div>
+            </div>
+
             <form name="form" @submit.prevent="handleSubmit">
               <div class="rf-grid-row">
                 <div class="rf-col-12 rf-mb-3w">
@@ -408,6 +432,7 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 import FileStatusIcon from "df-shared/src/components/FileStatusIcon.vue";
 import { DocumentService } from "../services/DocumentService";
 import { DfFile } from "df-shared/src/models/DfFile";
+import { DfMessage } from "df-shared/src/models/DfMessage";
 import Modal from "df-shared/src/components/Modal.vue";
 import PdfViewer from "../components/PdfViewer.vue";
 import ShowDoc from "../components/documents/ShowDoc.vue";
@@ -420,11 +445,13 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
   computed: {
     ...mapState({
       user: "user",
+      messageList: "messageList",
     }),
   },
 })
 export default class Messages extends Vue {
   user!: User;
+  messageList!: DfMessage[];
   // TODO update messages (and put in store)
   messages = [];
   sendMessage = "";
@@ -443,7 +470,7 @@ export default class Messages extends Vue {
   }
 
   setGuarantorSubStep(n: number, g: Guarantor) {
-    this.$store.commit("setSelectedGuarantor", g)
+    this.$store.commit("setSelectedGuarantor", g);
     this.$store.commit("setGuarantorSubstep", n);
     this.setStep(3);
     this.$router.push("/profile");
@@ -511,5 +538,24 @@ export default class Messages extends Vue {
 
 .material-icons.md-18 {
   padding: 0.2rem;
+}
+
+.messages {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.message {
+  padding: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background-color: var(--g300);
+  border-radius: 1rem;
+}
+
+.date {
+  text-align: right;
+  color: var(--g600);
+  font-size: 0.8rem;
 }
 </style>
