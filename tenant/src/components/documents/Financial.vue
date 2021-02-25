@@ -234,7 +234,7 @@ export default class Financial extends Vue {
         return d.documentCategory === "FINANCIAL";
       });
       if (docs !== undefined && docs.length > 0) {
-        docs.forEach((d: DfDocument) => {
+        docs.sort().forEach((d: DfDocument) => {
           const f = new F();
           f.noDocument = d.noDocument || false;
           f.customText = d.customText || "";
