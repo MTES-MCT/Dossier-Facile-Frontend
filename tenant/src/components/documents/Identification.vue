@@ -62,6 +62,9 @@
         </option>
       </select>
     </div>
+    <WarningMessage class="rf-mb-3w" v-if="isNewDocument()">
+      <span>{{ $t("will-delete-files") }}</span>
+    </WarningMessage>
     <div v-if="identificationDocument.key">
       <div v-if="identificationDocument.explanationText" class="rf-mb-3w">
         <p v-html="identificationDocument.explanationText"></p>
@@ -118,17 +121,24 @@ import { DfDocument } from "df-shared/src/models/DfDocument";
 import { ValidationProvider } from "vee-validate";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { RegisterService } from "../../services/RegisterService";
+import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 
 @Component({
-  components: { DocumentInsert, FileUpload, ListItem, ValidationProvider },
+  components: {
+    DocumentInsert,
+    FileUpload,
+    ListItem,
+    ValidationProvider,
+    WarningMessage,
+  },
   computed: {
     ...mapState({
-      selectedGuarantor: "selectedGuarantor"
+      selectedGuarantor: "selectedGuarantor",
     }),
     ...mapGetters({
-      user: "userToEdit"
-    })
-  }
+      user: "userToEdit",
+    }),
+  },
 })
 export default class Identification extends Vue {
   MAX_FILE_COUNT = 3;
@@ -148,6 +158,18 @@ export default class Identification extends Vue {
   onGuarantorChange(val: Guarantor) {
     this.firstName = val.firstName || "";
     this.lastName = val.lastName || "";
+  }
+
+  isNewDocument() {
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "IDENTIFICATION";
+      });
+      if (doc !== undefined) {
+        return doc.documentSubCategory !== this.identificationDocument.value;
+      }
+    }
+    return false;
   }
 
   mounted() {
@@ -174,7 +196,7 @@ export default class Identification extends Vue {
   }
 
   addFiles(fileList: File[]) {
-    const nf = Array.from(fileList).map(f => {
+    const nf = Array.from(fileList).map((f) => {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
@@ -188,7 +210,7 @@ export default class Identification extends Vue {
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    const newFiles = this.files.filter(f => {
+    const newFiles = this.files.filter((f) => {
       return !f.id;
     });
     if (!newFiles.length) return;
@@ -202,7 +224,7 @@ export default class Identification extends Vue {
       return;
     }
 
-    Array.from(Array(newFiles.length).keys()).map(x => {
+    Array.from(Array(newFiles.length).keys()).map((x) => {
       const f: File = newFiles[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
     });
@@ -238,13 +260,13 @@ export default class Identification extends Vue {
   }
 
   identificationFiles() {
-    const newFiles = this.files.map(f => {
+    const newFiles = this.files.map((f) => {
       return {
         documentSubCategory: this.identificationDocument.value,
         id: f.name,
         name: f.name,
         file: f.file,
-        size: f.file?.size
+        size: f.file?.size,
       };
     });
     const existingFiles =
@@ -272,30 +294,31 @@ export default class Identification extends Vue {
     {
       key: "identity-card",
       value: "FRENCH_IDENTITY_CARD",
-      explanationText: "Attention veillez à ajouter votre pièce <b>recto-verso !</b>",
+      explanationText:
+        "Attention veillez à ajouter votre pièce <b>recto-verso !</b>",
       acceptedProofs: ["Carte d’identité française <b>recto-verso</b>"],
       refusedProofs: [
         "Carte d’identité <b>sans le verso ou périmée</b>",
-        "Tout autre document"
+        "Tout autre document",
       ],
-      maxFileCount: 3
+      maxFileCount: 3,
     },
     {
       key: "passport",
       value: "FRENCH_PASSPORT",
       acceptedProofs: ["Passport français (pages 2 et 3)"],
       refusedProofs: ["Tout autre document"],
-      maxFileCount: 3
+      maxFileCount: 3,
     },
     {
       key: "permit",
       value: "FRENCH_RESIDENCE_PERMIT",
       acceptedProofs: [
         "Carte de séjour en France temporaire recto-verso en cours de validité, ou périmée si elle est accompagnée du récépissé de la demande de renouvellement de carte de séjour",
-        "Visa de travail ou d’études temporaire en France"
+        "Visa de travail ou d’études temporaire en France",
       ],
       refusedProofs: ["Tout autre document"],
-      maxFileCount: 3
+      maxFileCount: 3,
     },
     {
       key: "other",
@@ -305,11 +328,11 @@ export default class Identification extends Vue {
         "Passeport étranger (pages 2 et 3)",
         "Permis de conduire français ou étranger <b>recto-verso</b>",
         "Carte de résident",
-        "Carte de ressortissant d’un État membre de l’UE ou de l’EEE"
+        "Carte de ressortissant d’un État membre de l’UE ou de l’EEE",
       ],
       refusedProofs: ["Tout autre document"],
-      maxFileCount: 3
-    }
+      maxFileCount: 3,
+    },
   ];
 }
 </script>
@@ -335,7 +358,8 @@ td {
   "other": "Autre",
   "files": "Documents",
   "lastname": "Lastname",
-  "firstname": "Firstname"
+  "firstname": "Firstname",
+  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again."
 },
 "fr": {
   "identity-card": "Carte nationale d’identité",
@@ -344,7 +368,8 @@ td {
   "other": "Autre",
   "files": "Documents",
   "lastname": "Nom",
-  "firstname": "Prénom"
+  "firstname": "Prénom",
+  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation."
 }
 }
 </i18n>

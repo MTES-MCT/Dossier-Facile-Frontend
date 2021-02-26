@@ -31,6 +31,9 @@
               </option>
             </select>
           </div>
+          <WarningMessage class="rf-mb-3w" v-if="isNewDocument(f)">
+            <span>{{ $t("will-delete-files") }}</span>
+          </WarningMessage>
           <div v-if="f.documentType && f.documentType.key">
             <div>
               <validation-provider
@@ -180,6 +183,7 @@ import { RegisterService } from "../../services/RegisterService";
 import DfButton from "df-shared/src/Button/Button.vue";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { required, regex } from "vee-validate/dist/rules";
+import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 
 extend("regex", {
   ...regex,
@@ -209,6 +213,7 @@ class F {
     FileUpload,
     ListItem,
     DfButton,
+    WarningMessage,
   },
   computed: {
     ...mapGetters({
@@ -223,6 +228,18 @@ export default class Financial extends Vue {
   user!: User | Guarantor;
   financialDocuments: F[] = [];
 
+  isNewDocument(f: F) {
+    if (f.id !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
+        return d.id === f.id;
+      });
+      if (doc !== undefined) {
+        return doc.documentSubCategory !== f.documentType.value;
+      }
+    }
+    return false;
+  }
+
   mounted() {
     this.initialize();
   }
@@ -234,21 +251,25 @@ export default class Financial extends Vue {
         return d.documentCategory === "FINANCIAL";
       });
       if (docs !== undefined && docs.length > 0) {
-        docs.sort().forEach((d: DfDocument) => {
-          const f = new F();
-          f.noDocument = d.noDocument || false;
-          f.customText = d.customText || "";
-          f.monthlySum = d.monthlySum || 0;
-          f.id = d.id;
+        docs
+          .sort((a, b) => {
+            return (a?.id || 0) - (b?.id || 0);
+          })
+          .forEach((d: DfDocument) => {
+            const f = new F();
+            f.noDocument = d.noDocument || false;
+            f.customText = d.customText || "";
+            f.monthlySum = d.monthlySum || 0;
+            f.id = d.id;
 
-          const localDoc = this.documents.find((d2: DocumentType) => {
-            return d2.value === d.documentSubCategory;
+            const localDoc = this.documents.find((d2: DocumentType) => {
+              return d2.value === d.documentSubCategory;
+            });
+            if (localDoc !== undefined) {
+              f.documentType = localDoc;
+            }
+            this.financialDocuments.push(f);
           });
-          if (localDoc !== undefined) {
-            f.documentType = localDoc;
-          }
-          this.financialDocuments.push(f);
-        });
       }
     } else {
       this.financialDocuments.push(new F());
@@ -460,44 +481,46 @@ export default class Financial extends Vue {
 <i18n>
 {
 "en": {
-"salary": "Salary",
-"social-service": "Social benefit payments",
-"rent": "Annuities",
-"pension": "Pensions",
-"trading": "Trading",
-"monthlySum": "Value in euros",
-"monthlySum-label": "Salary (after tax)",
-"noDocument-social": "I cannot provide proof of payment of social benefits",
-"noDocument-salary": "I cannot provide my last three payslips",
-"noDocument-rent": "I cannot provide proof of rent",
-"noDocument-pension": "I cannot provide proof of pension",
-"noDocument-trading": "I cannot provide proof of trading",
-"customText": "In order to improve my file, I explain why I cannot provide my last three payslips:",
-"high-salary": "You have entered a salary greater than € 10,000 are you sure you have entered your monthly salary?",
-"low-salary": "You have entered a salary equal to 0 € are you sure you have entered your monthly salary?",
-"number-not-valid": "Number not valid",
-"delete-financial":  "Delete this salary",
-"field-required": "This field is required"
+  "salary": "Salary",
+  "social-service": "Social benefit payments",
+  "rent": "Annuities",
+  "pension": "Pensions",
+  "trading": "Trading",
+  "monthlySum": "Value in euros",
+  "monthlySum-label": "Salary (after tax)",
+  "noDocument-social": "I cannot provide proof of payment of social benefits",
+  "noDocument-salary": "I cannot provide my last three payslips",
+  "noDocument-rent": "I cannot provide proof of rent",
+  "noDocument-pension": "I cannot provide proof of pension",
+  "noDocument-trading": "I cannot provide proof of trading",
+  "customText": "In order to improve my file, I explain why I cannot provide my last three payslips:",
+  "high-salary": "You have entered a salary greater than € 10,000 are you sure you have entered your monthly salary?",
+  "low-salary": "You have entered a salary equal to 0 € are you sure you have entered your monthly salary?",
+  "number-not-valid": "Number not valid",
+  "delete-financial":  "Delete this salary",
+  "field-required": "This field is required",
+  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again."
 },
 "fr": {
-"salary": "Salaire",
-"social-service": "Versement de prestations sociales",
-"rent": "Rentes",
-"pension": "Pensions",
-"trading": "Bourses",
-"monthlySum": "Montant en euros",
-"monthlySum-label": "Montant du revenu (après impôts)",
-"noDocument-social": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
-"noDocument-salary": "Je ne peux pas fournir mes trois derniers bulletins de salaire",
-"noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",
-"noDocument-rent": "Je ne peux pas fournir de justificatifs de versement de rente",
-"noDocument-trading": "Je ne peux pas fournir de justificatifs d'attribution de bourse",
-"customText": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes trois derniers bulletins de salaire :",
-"high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
-"low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
-"number-not-valid": "Nombre incorrect",
-"delete-financial":  "Supprimer ce revenu",
-"field-required": "Ce champ est requis"
+  "salary": "Salaire",
+  "social-service": "Versement de prestations sociales",
+  "rent": "Rentes",
+  "pension": "Pensions",
+  "trading": "Bourses",
+  "monthlySum": "Montant en euros",
+  "monthlySum-label": "Montant du revenu (après impôts)",
+  "noDocument-social": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
+  "noDocument-salary": "Je ne peux pas fournir mes trois derniers bulletins de salaire",
+  "noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",
+  "noDocument-rent": "Je ne peux pas fournir de justificatifs de versement de rente",
+  "noDocument-trading": "Je ne peux pas fournir de justificatifs d'attribution de bourse",
+  "customText": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes trois derniers bulletins de salaire :",
+  "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
+  "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
+  "number-not-valid": "Nombre incorrect",
+  "delete-financial":  "Supprimer ce revenu",
+  "field-required": "Ce champ est requis",
+  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation."
 }
 }
 </i18n>

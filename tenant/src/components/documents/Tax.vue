@@ -14,6 +14,9 @@
             </option>
           </select>
         </div>
+        <WarningMessage class="rf-mb-3w" v-if="isNewDocument()">
+          <span>{{ $t("will-delete-files") }}</span>
+        </WarningMessage>
         <div
           class="rf-mb-3w"
           v-if="taxDocument.key && taxDocument.key === 'other-tax'"
@@ -112,6 +115,7 @@ import { extend } from "vee-validate";
 import { is } from "vee-validate/dist/rules";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { RegisterService } from "../../services/RegisterService";
+import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 
 extend("is", {
   ...is,
@@ -126,6 +130,7 @@ extend("is", {
     ListItem,
     ValidationObserver,
     ValidationProvider,
+    WarningMessage,
   },
   computed: {
     ...mapGetters({
@@ -164,6 +169,18 @@ export default class Tax extends Vue {
       return localDoc;
     }
     return undefined;
+  }
+
+  isNewDocument() {
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "TAX";
+      });
+      if (doc !== undefined) {
+        return doc.documentSubCategory !== this.taxDocument.value;
+      }
+    }
+    return false;
   }
 
   mounted() {
@@ -340,26 +357,28 @@ export default class Tax extends Vue {
 <i18n>
 {
 "en": {
-"my-name": "Vous avez un avis d’imposition à votre nom",
-"my-parents": "Vous êtes rattaché fiscalement à vos parents",
-"less-than-year": "Vous êtes en France depuis moins d’un an",
-"other-tax": "Autre",
-"accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
-"custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'impositon. Votre explication sera ajoutée à votre dossier :",
-"files": "Documents",
-"register": "Register",
-"field-required": "This field is required"
+  "my-name": "Vous avez un avis d’imposition à votre nom",
+  "my-parents": "Vous êtes rattaché fiscalement à vos parents",
+  "less-than-year": "Vous êtes en France depuis moins d’un an",
+  "other-tax": "Autre",
+  "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
+  "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'impositon. Votre explication sera ajoutée à votre dossier :",
+  "files": "Documents",
+  "register": "Register",
+  "field-required": "This field is required",
+  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again."
 },
 "fr": {
-"my-name": "Vous avez un avis d’imposition à votre nom",
-"my-parents": "Vous êtes rattaché fiscalement à vos parents",
-"less-than-year": "Vous êtes en France depuis moins d’un an",
-"other-tax": "Autre",
-"accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
-"custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'impositon. Votre explication sera ajoutée à votre dossier :",
-"files": "Documents",
-"register": "Enregistrer",
-"field-required": "Ce champ est requis"
+  "my-name": "Vous avez un avis d’imposition à votre nom",
+  "my-parents": "Vous êtes rattaché fiscalement à vos parents",
+  "less-than-year": "Vous êtes en France depuis moins d’un an",
+  "other-tax": "Autre",
+  "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
+  "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'impositon. Votre explication sera ajoutée à votre dossier :",
+  "files": "Documents",
+  "register": "Enregistrer",
+  "field-required": "Ce champ est requis",
+  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation."
 }
 }
 </i18n>
