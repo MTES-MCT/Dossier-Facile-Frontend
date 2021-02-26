@@ -8,23 +8,23 @@
         })
       }}
     </p>
-    <p>
-      <template v-if="removeRoommates()">
-        <span class="color--primary material-icons warning">warning</span>
+    <template v-if="removeRoommates()">
+      <WarningMessage>
         <span>{{ $t("remove-roommates") }}</span>
-      </template>
-      <template v-if="removeCouple()">
-        <span class="color--primary material-icons warning">warning</span>
+      </WarningMessage>
+    </template>
+    <template v-if="removeCouple()">
+      <WarningMessage>
         <span>{{ $t("remove-couple") }}</span>
-      </template>
-    </p>
+      </WarningMessage>
+    </template>
 
     <ValidationObserver v-slot="{ validate }">
       <form
         name="form"
         @submit.prevent="validate().then(handleOthersInformation)"
       >
-        <div class="rf-form-group">
+        <div class="rf-form-group rf-mt-3w">
           <fieldset class="rf-fieldset">
             <div class="rf-fieldset__content">
               <div class="rf-grid-row space-around">
@@ -83,6 +83,7 @@ import { mapState } from "vuex";
 import { ValidationObserver } from "vee-validate";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import SubmitButton from "df-shared/src/Button/SubmitButton.vue";
+import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 
 @Component({
   computed: {
@@ -97,6 +98,7 @@ import SubmitButton from "df-shared/src/Button/SubmitButton.vue";
     ValidationObserver,
     BigRadio,
     SubmitButton,
+    WarningMessage,
   },
 })
 export default class TenantInformationForm extends Vue {
