@@ -359,7 +359,7 @@ td {
   "files": "Documents",
   "lastname": "Lastname",
   "firstname": "Firstname",
-  "will-delete-files": "Be careful, if you modify the document type then your files will be deleted"
+  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again."
 },
 "fr": {
   "identity-card": "Carte nationale d’identité",
@@ -369,7 +369,7 @@ td {
   "files": "Documents",
   "lastname": "Nom",
   "firstname": "Prénom",
-  "will-delete-files": "Attention, si vous modifiez le type de documents alors vos fichiers seront supprimés"
+  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation."
 }
 }
 </i18n>

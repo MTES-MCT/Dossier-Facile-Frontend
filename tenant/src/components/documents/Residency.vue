@@ -15,6 +15,9 @@
         </option>
       </select>
     </div>
+    <WarningMessage class="rf-mb-3w" v-if="isNewDocument()">
+      <span>{{ $t("will-delete-files") }}</span>
+    </WarningMessage>
     <div v-if="residencyDocument.key">
       <div class="rf-mb-3w">
         <p v-html="residencyDocument.explanationText"></p>
@@ -72,14 +75,15 @@ import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { RegisterService } from "../../services/RegisterService";
+import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 
 @Component({
-  components: { DocumentInsert, FileUpload, ListItem },
+  components: { DocumentInsert, FileUpload, ListItem, WarningMessage },
   computed: {
     ...mapGetters({
-      user: "userToEdit"
-    })
-  }
+      user: "userToEdit",
+    }),
+  },
 })
 export default class Residency extends Vue {
   user!: User;
@@ -106,8 +110,28 @@ export default class Residency extends Vue {
     }
   }
 
+  isNewDocument() {
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "RESIDENCY";
+      });
+      if (doc !== undefined) {
+        if (
+          (doc.documentSubCategory === "GUEST" &&
+            this.residencyDocument.value === "GUEST_PARENTS") ||
+          (doc.documentSubCategory === "GUEST_PARENTS" &&
+            this.residencyDocument.value === "GUEST")
+        ) {
+          return false;
+        }
+        return doc.documentSubCategory !== this.residencyDocument.value;
+      }
+    }
+    return false;
+  }
+
   addFiles(fileList: File[]) {
-    const nf = Array.from(fileList).map(f => {
+    const nf = Array.from(fileList).map((f) => {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
@@ -119,7 +143,7 @@ export default class Residency extends Vue {
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    const newFiles = this.files.filter(f => {
+    const newFiles = this.files.filter((f) => {
       return !f.id;
     });
     if (!newFiles.length) return;
@@ -132,7 +156,7 @@ export default class Residency extends Vue {
       return;
     }
 
-    Array.from(Array(newFiles.length).keys()).map(x => {
+    Array.from(Array(newFiles.length).keys()).map((x) => {
       const f: File = newFiles[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
     });
@@ -161,12 +185,12 @@ export default class Residency extends Vue {
   }
 
   residencyFiles() {
-    const newFiles = this.files.map(f => {
+    const newFiles = this.files.map((f) => {
       return {
         documentSubCategory: this.residencyDocument.value,
         id: f.name,
         name: f.name,
-        size: f.size
+        size: f.size,
       };
     });
     const existingFiles =
@@ -194,30 +218,31 @@ export default class Residency extends Vue {
         "J’ajoute mes <b>quittances de loyer pour les trois derniers mois.</b>",
       acceptedProofs: [
         "Quittances de loyer des trois derniers mois",
-        "Attestation du propriétaire (ou de son mandataire) indiquant que le locataire est à jour de ses loyers et charges"
+        "Attestation du propriétaire (ou de son mandataire) indiquant que le locataire est à jour de ses loyers et charges",
       ],
       refusedProofs: [
         "Factures",
         "Avis de taxe d’habitation",
-        "Relevés de compte bancaire"
+        "Relevés de compte bancaire",
       ],
-      maxFileCount: 3
+      maxFileCount: 3,
     },
     {
       key: "owner",
       value: "OWNER",
-      explanationText: "J’ajoute un <b>avis de taxe foncière de moins d’un an.</b>",
+      explanationText:
+        "J’ajoute un <b>avis de taxe foncière de moins d’un an.</b>",
       acceptedProofs: [
         "Dernier avis de taxe foncière",
-        "Titre de propriété de la résidence principale"
+        "Titre de propriété de la résidence principale",
       ],
       refusedProofs: [
         "Appel de fonds pour charges de copropriété",
         "Factures",
         "Avis de taxe d’habitation",
-        "Relevés de compte bancaire"
+        "Relevés de compte bancaire",
       ],
-      maxFileCount: 2
+      maxFileCount: 2,
     },
     {
       key: "guest",
@@ -228,10 +253,10 @@ export default class Residency extends Vue {
         "hébergeant</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne " +
         "sur le site service-public.fr",
       acceptedProofs: [
-        "Attestation sur l’honneur du parent <b>datée et signée</b> indiquant que le candidat à la location réside à son domicile, accompagnée d’une pièce d’identité et d’un justificatif de domicile du parent (une simple facture suffit)"
+        "Attestation sur l’honneur du parent <b>datée et signée</b> indiquant que le candidat à la location réside à son domicile, accompagnée d’une pièce d’identité et d’un justificatif de domicile du parent (une simple facture suffit)",
       ],
       refusedProofs: ["Tout autre document"],
-      maxFileCount: 2
+      maxFileCount: 2,
     },
     {
       key: "guest-parents",
@@ -243,11 +268,11 @@ export default class Residency extends Vue {
         "le site service-public.fr",
       acceptedProofs: [
         "Attestation sur l’honneur de l’hébergeant <b>datée de moins de trois mois et signée</b> indiquant que le candidat à la location réside à son domicile, accompagnée d’une pièce d’identité et d’un justificatif de domicile de l’hébergeant (une simple facture suffit)",
-        "Attestation d’élection de domicile <b>datée de moins de trois mois et signée</b> de l’organisme d’hébergement (hébergement d’urgence, placement…) indiquant l’adresse de l’hébergement (téléchargeable sur le site <a target='_blank' href='https://www.service-public.fr/simulateur/calcul/16030'>https://www.service-public.fr/simulateur/calcul/16030</a> ) "
+        "Attestation d’élection de domicile <b>datée de moins de trois mois et signée</b> de l’organisme d’hébergement (hébergement d’urgence, placement…) indiquant l’adresse de l’hébergement (téléchargeable sur le site <a target='_blank' href='https://www.service-public.fr/simulateur/calcul/16030'>https://www.service-public.fr/simulateur/calcul/16030</a> ) ",
       ],
       refusedProofs: ["Tout autre document"],
-      maxFileCount: 2
-    }
+      maxFileCount: 2,
+    },
   ];
 }
 </script>
@@ -257,18 +282,20 @@ export default class Residency extends Vue {
 <i18n>
 {
 "en": {
-"tenant": "Vous êtes locataire",
-"owner": "Vous êtes propriétaire",
-"guest": "Vous êtes hébergé gratuitement",
-"guest-parents": "Vous habitez chez vos parents",
-"files": "Documents"
+  "tenant": "Vous êtes locataire",
+  "owner": "Vous êtes propriétaire",
+  "guest": "Vous êtes hébergé gratuitement",
+  "guest-parents": "Vous habitez chez vos parents",
+  "files": "Documents",
+  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again."
 },
 "fr": {
-"tenant": "Vous êtes locataire",
-"owner": "Vous êtes propriétaire",
-"guest": "Vous êtes hébergé gratuitement",
-"guest-parents": "Vous habitez chez vos parents",
-"files": "Documents"
+  "tenant": "Vous êtes locataire",
+  "owner": "Vous êtes propriétaire",
+  "guest": "Vous êtes hébergé gratuitement",
+  "guest-parents": "Vous habitez chez vos parents",
+  "files": "Documents",
+  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation."
 }
 }
 </i18n>
