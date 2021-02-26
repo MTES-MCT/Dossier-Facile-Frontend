@@ -357,27 +357,27 @@ export default class Tax extends Vue {
 <i18n>
 {
 "en": {
-"my-name": "Vous avez un avis d’imposition à votre nom",
-"my-parents": "Vous êtes rattaché fiscalement à vos parents",
-"less-than-year": "Vous êtes en France depuis moins d’un an",
-"other-tax": "Autre",
-"accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
-"custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'impositon. Votre explication sera ajoutée à votre dossier :",
-"files": "Documents",
-"register": "Register",
-"field-required": "This field is required",
+  "my-name": "Vous avez un avis d’imposition à votre nom",
+  "my-parents": "Vous êtes rattaché fiscalement à vos parents",
+  "less-than-year": "Vous êtes en France depuis moins d’un an",
+  "other-tax": "Autre",
+  "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
+  "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'impositon. Votre explication sera ajoutée à votre dossier :",
+  "files": "Documents",
+  "register": "Register",
+  "field-required": "This field is required",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again."
 },
 "fr": {
-"my-name": "Vous avez un avis d’imposition à votre nom",
-"my-parents": "Vous êtes rattaché fiscalement à vos parents",
-"less-than-year": "Vous êtes en France depuis moins d’un an",
-"other-tax": "Autre",
-"accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
-"custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'impositon. Votre explication sera ajoutée à votre dossier :",
-"files": "Documents",
-"register": "Enregistrer",
-"field-required": "Ce champ est requis",
+  "my-name": "Vous avez un avis d’imposition à votre nom",
+  "my-parents": "Vous êtes rattaché fiscalement à vos parents",
+  "less-than-year": "Vous êtes en France depuis moins d’un an",
+  "other-tax": "Autre",
+  "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
+  "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'impositon. Votre explication sera ajoutée à votre dossier :",
+  "files": "Documents",
+  "register": "Enregistrer",
+  "field-required": "Ce champ est requis",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation."
 }
 }
