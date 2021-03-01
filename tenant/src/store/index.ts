@@ -229,7 +229,7 @@ const store = new Vuex.Store({
     deleteGuarantor({ commit }, k) {
       return ProfileService.deleteGuarantor(this.state.user.guarantors[k]).then(
         response => {
-          commit("loadUser", response.data);
+          this.dispatch("loadUser");
           return Promise.resolve(response.data);
         },
         error => {
