@@ -122,7 +122,7 @@ import { ValidationProvider } from "vee-validate";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { RegisterService } from "../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
-import { IDENTIFICATION_DOCS } from "./DocumentsType";
+import { DocumentTypeConstants } from "./DocumentTypeConstants";
 
 @Component({
   components: {
@@ -143,7 +143,7 @@ import { IDENTIFICATION_DOCS } from "./DocumentsType";
 })
 export default class Identification extends Vue {
   MAX_FILE_COUNT = 3;
-  documents = IDENTIFICATION_DOCS;
+  documents = DocumentTypeConstants.IDENTIFICATION_DOCS;
 
   user!: User | Guarantor;
   selectedGuarantor!: Guarantor;

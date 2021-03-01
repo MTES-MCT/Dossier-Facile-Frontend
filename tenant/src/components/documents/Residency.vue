@@ -73,7 +73,7 @@ import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { RegisterService } from "../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
-import { RESIDENCY_DOCS } from "./DocumentsType";
+import { DocumentTypeConstants } from "./DocumentTypeConstants";
 
 @Component({
   components: { DocumentInsert, FileUpload, ListItem, WarningMessage },
@@ -92,7 +92,7 @@ export default class Residency extends Vue {
   } = {};
   residencyDocument = new DocumentType();
 
-  documents = RESIDENCY_DOCS;
+  documents = DocumentTypeConstants.RESIDENCY_DOCS;
 
   mounted() {
     if (this.user.documents !== null) {

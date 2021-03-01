@@ -73,7 +73,7 @@ import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { RegisterService } from "../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
-import { PROFESSIONAL_DOCS } from "./DocumentsType";
+import { DocumentTypeConstants } from "./DocumentTypeConstants";
 
 @Component({
   components: { DocumentInsert, FileUpload, ListItem, WarningMessage },
@@ -93,7 +93,7 @@ export default class Professional extends Vue {
   } = {};
   professionalDocument = new DocumentType();
 
-  documents = PROFESSIONAL_DOCS;
+  documents = DocumentTypeConstants.PROFESSIONAL_DOCS;
 
   mounted() {
     if (this.user.documents !== null) {

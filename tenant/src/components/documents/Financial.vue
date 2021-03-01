@@ -184,6 +184,7 @@ import DfButton from "df-shared/src/Button/Button.vue";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { required, regex } from "vee-validate/dist/rules";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
+import { DocumentTypeConstants } from "./DocumentTypeConstants";
 
 extend("regex", {
   ...regex,
@@ -227,6 +228,8 @@ export default class Financial extends Vue {
 
   user!: User | Guarantor;
   financialDocuments: F[] = [];
+
+  documents = DocumentTypeConstants.FINANCIAL_DOCS;
 
   isNewDocument(f: F) {
     if (f.id !== null) {
@@ -392,87 +395,6 @@ export default class Financial extends Vue {
       );
     }
   }
-
-  documents: DocumentType[] = [
-    {
-      key: "salary",
-      value: "SALARY",
-      explanationText:
-        "J’ajoute mes trois derniers bulletins de salaire, ou un justificatif de mes indemnités de stage, ou mes deux derniers bilans comptables (non-salariés).",
-      acceptedProofs: [
-        "3 derniers bulletins de salaire",
-        "Justificatif de versement des indemnités de stage",
-        "2 derniers bilans comptables ou, si nécessaire, attestation des ressources pour l’exercice en cours délivrés par un comptable (non-salariés)",
-      ],
-      refusedProofs: [
-        "Pièces trop anciennes",
-        "Attestation de l’employeur",
-        "Relevés de comptes bancaires",
-        "RIB",
-        "Avis d’imposition",
-      ],
-      maxFileCount: 3,
-    },
-    {
-      key: "social-service",
-      value: "SOCIAL_SERVICE",
-      explanationText:
-        "J’ajoute mes trois derniers justificatifs de versement de prestations sociales (ARE, CAF, Crous…), un justificatif d’ouverture des droits, ou une attestation de simulation pour les aides au logement.",
-      acceptedProofs: [
-        "3 derniers justificatifs de versement des prestations sociales et familiales et allocations (ARE, CAF, Crous, etc.)",
-        "Justificatif de l’ouverture des droits établis par l’organisme payeur",
-        "Attestation de simulation pour les aides au logement établie par la CAF ou par la MSA pour le locataire",
-      ],
-      refusedProofs: [
-        "Pièces trop anciennes",
-        "Relevés de comptes bancaires",
-        "RIB",
-        "Avis d’imposition",
-      ],
-      maxFileCount: 3,
-    },
-    {
-      key: "rent",
-      value: "RENT",
-      explanationText:
-        "J’ajoute un justificatif de paiement de rente, ou un avis d’imposition avec noms et revenus de la rente visibles.",
-      acceptedProofs: [
-        "Justification de revenus fonciers, de rentes viagères ou de revenus de valeurs et capitaux mobiliers",
-        "Titre de propriété d’un bien immobilier ou dernier avis de taxe foncière",
-        "Dernier ou avant-dernier avis d’imposition avec nom et revenus de la rente visibles",
-      ],
-      refusedProofs: ["Relevés de comptes bancaires", "RIB"],
-      maxFileCount: 3,
-    },
-    {
-      key: "pension",
-      value: "PENSION",
-      explanationText:
-        "J’ajoute un bulletin de pension, une attestation de pension, ou un avis d’imposition avec noms et revenus de la pension visibles.",
-      acceptedProofs: [
-        "Justificatif de versement des indemnités, retraites, pensions perçues lors des 3 derniers mois ou justificatif de l’ouverture des droits établis par l’organisme payeur",
-        "Dernier ou avant-dernier avis d’imposition avec nom et revenus de la pension visibles",
-      ],
-      refusedProofs: [
-        "Pièces trop anciennes",
-        "Relevés de comptes bancaires",
-        "RIB",
-      ],
-      maxFileCount: 3,
-    },
-    {
-      key: "trading",
-      value: "TRADING",
-      explanationText: "J’ajoute un avis d’attribution de bourse.",
-      acceptedProofs: ["Avis d’attribution de bourse pour l’année en cours"],
-      refusedProofs: [
-        "Pièces trop anciennes",
-        "Relevés de comptes bancaires",
-        "RIB",
-      ],
-      maxFileCount: 3,
-    },
-  ];
 }
 </script>
 
