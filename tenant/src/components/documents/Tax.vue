@@ -116,6 +116,7 @@ import { is } from "vee-validate/dist/rules";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { RegisterService } from "../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
+import { DocumentTypeConstants } from "./DocumentTypeConstants";
 
 extend("is", {
   ...is,
@@ -149,6 +150,8 @@ export default class Tax extends Vue {
 
   acceptVerification = false;
   customText = "";
+
+  documents = DocumentTypeConstants.TAX_DOCS;
 
   getRegisteredDoc() {
     if (this.user.documents !== null) {
@@ -306,49 +309,6 @@ export default class Tax extends Vue {
       });
     }
   }
-
-  documents: DocumentType[] = [
-    {
-      key: "my-name",
-      value: "MY_NAME",
-      explanationText:
-        "En joignant mon avis d’imposition, j’accepte que DossierFacile procède à une vérification automatisée de ma fiche d’imposition auprès des services des impôts.\n" +
-        "J’ajoute un <b>avis d’imposition à mon nom.</b>",
-      acceptedProofs: ["Avis d’imposition de moins de 2 ans"],
-      refusedProofs: [
-        "Avis d’imposition incomplet (sans la première page)",
-        "Tout avis d’imposition plus ancien",
-        "Tout autre document justificatif",
-      ],
-      maxFileCount: 1,
-    },
-    {
-      key: "my-parents",
-      value: "MY_PARENTS",
-      explanationText:
-        "J’ai déclaré être rattaché·e au domicile fiscal de mes parents.",
-      acceptedProofs: [],
-      refusedProofs: [],
-      maxFileCount: 0,
-    },
-    {
-      key: "less-than-year",
-      value: "LESS_THAN_YEAR",
-      explanationText: "J’ai déclaré être en France depuis moins d’un an.",
-      acceptedProofs: [],
-      refusedProofs: [],
-      maxFileCount: 0,
-    },
-    {
-      key: "other-tax",
-      value: "OTHER_TAX",
-      explanationText:
-        "Afin d’améliorer mon dossier, j’explique ci-dessous pourquoi je ne reçois pas d’avis d’imposition. Mon explication sera ajoutée à mon dossier :",
-      acceptedProofs: [],
-      refusedProofs: [],
-      maxFileCount: 0,
-    },
-  ];
 }
 </script>
 
