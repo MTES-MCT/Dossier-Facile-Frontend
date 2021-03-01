@@ -95,7 +95,7 @@
         @click="save"
         :disabled="files.length <= 0"
       >
-        Enregistrer la pièce
+        {{ $t("register") }}
       </button>
     </div>
     <div class="rf-mb-5w" v-if="identificationDocument.key">
@@ -122,6 +122,7 @@ import { ValidationProvider } from "vee-validate";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { RegisterService } from "../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
+import { IDENTIFICATION_DOCS } from "./DocumentsType";
 
 @Component({
   components: {
@@ -142,6 +143,7 @@ import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 })
 export default class Identification extends Vue {
   MAX_FILE_COUNT = 3;
+  documents = IDENTIFICATION_DOCS;
 
   user!: User | Guarantor;
   selectedGuarantor!: Guarantor;
@@ -178,7 +180,7 @@ export default class Identification extends Vue {
         return d.documentCategory === "IDENTIFICATION";
       });
       if (doc !== undefined) {
-        const localDoc = this.documents.find((d: DocumentType) => {
+        const localDoc = IDENTIFICATION_DOCS.find((d: DocumentType) => {
           return d.value === doc.documentSubCategory;
         });
         if (localDoc !== undefined) {
@@ -289,51 +291,6 @@ export default class Identification extends Vue {
   isGuarantor() {
     return this.$store.getters.isGuarantor;
   }
-
-  documents: DocumentType[] = [
-    {
-      key: "identity-card",
-      value: "FRENCH_IDENTITY_CARD",
-      explanationText:
-        "Attention veillez à ajouter votre pièce <b>recto-verso !</b>",
-      acceptedProofs: ["Carte d’identité française <b>recto-verso</b>"],
-      refusedProofs: [
-        "Carte d’identité <b>sans le verso ou périmée</b>",
-        "Tout autre document",
-      ],
-      maxFileCount: 3,
-    },
-    {
-      key: "passport",
-      value: "FRENCH_PASSPORT",
-      acceptedProofs: ["Passport français (pages 2 et 3)"],
-      refusedProofs: ["Tout autre document"],
-      maxFileCount: 3,
-    },
-    {
-      key: "permit",
-      value: "FRENCH_RESIDENCE_PERMIT",
-      acceptedProofs: [
-        "Carte de séjour en France temporaire recto-verso en cours de validité, ou périmée si elle est accompagnée du récépissé de la demande de renouvellement de carte de séjour",
-        "Visa de travail ou d’études temporaire en France",
-      ],
-      refusedProofs: ["Tout autre document"],
-      maxFileCount: 3,
-    },
-    {
-      key: "other",
-      value: "OTHER_IDENTIFICATION",
-      acceptedProofs: [
-        "Carte d’identité étrangère <b>recto-verso</b>",
-        "Passeport étranger (pages 2 et 3)",
-        "Permis de conduire français ou étranger <b>recto-verso</b>",
-        "Carte de résident",
-        "Carte de ressortissant d’un État membre de l’UE ou de l’EEE",
-      ],
-      refusedProofs: ["Tout autre document"],
-      maxFileCount: 3,
-    },
-  ];
 }
 </script>
 
@@ -359,7 +316,8 @@ td {
   "files": "Documents",
   "lastname": "Lastname",
   "firstname": "Firstname",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again."
+  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
+  "register": "Register"
 },
 "fr": {
   "identity-card": "Carte nationale d’identité",
@@ -369,7 +327,8 @@ td {
   "files": "Documents",
   "lastname": "Nom",
   "firstname": "Prénom",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation."
+  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
+  "register": "Enregistrer la pièce"
 }
 }
 </i18n>

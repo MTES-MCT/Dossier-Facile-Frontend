@@ -20,7 +20,7 @@
     </WarningMessage>
     <div v-if="residencyDocument.key">
       <div class="rf-mb-3w">
-        <p v-html="residencyDocument.explanationText"></p>
+        <p v-html="$t(residencyDocument.explanationText)"></p>
       </div>
       <div class="rf-mb-3w">
         <FileUpload
@@ -30,18 +30,15 @@
         ></FileUpload>
       </div>
     </div>
-    <div v-if="residencyFiles()" class="rf-col-lg-8 rf-col-md-12 rf-mb-3w">
+    <div
+      v-if="residencyFiles().length > 0"
+      class="rf-col-lg-8 rf-col-md-12 rf-mb-3w"
+    >
       <ListItem
         v-for="(file, k) in residencyFiles()"
         :key="k"
         :file="file"
         @remove="remove(file)"
-        :uploadState="
-          uploadProgress[file.id] ? uploadProgress[file.id].state : 'idle'
-        "
-        :percentage="
-          uploadProgress[file.id] ? uploadProgress[file.id].percentage : 0
-        "
       />
     </div>
     <div class="rf-col-12 rf-mb-2w" v-if="residencyDocument">
