@@ -180,7 +180,7 @@ export default class Identification extends Vue {
         return d.documentCategory === "IDENTIFICATION";
       });
       if (doc !== undefined) {
-        const localDoc = IDENTIFICATION_DOCS.find((d: DocumentType) => {
+        const localDoc = this.documents.find((d: DocumentType) => {
           return d.value === doc.documentSubCategory;
         });
         if (localDoc !== undefined) {
