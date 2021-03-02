@@ -35,25 +35,45 @@
             <section>
               <div class="row" v-if="hasDoc('IDENTIFICATION')">
                 <div class="subtitle">Pièce d’identité</div>
-                <ViewEditBtn :canView="hasFile('IDENTIFICATION')" @view="openDoc('IDENTIFICATION')" @edit="setTenantStep(1)"></ViewEditBtn>
+                <ViewEditBtn
+                  :canView="hasFile('IDENTIFICATION')"
+                  @view="openDoc('IDENTIFICATION')"
+                  @edit="setTenantStep(1)"
+                ></ViewEditBtn>
               </div>
               <div class="row" v-if="hasDoc('RESIDENCY')">
                 <div class="subtitle">Justificatif de domicile</div>
-                <ViewEditBtn :canView="hasFile('RESIDENCY')" @view="openDoc('RESIDENCY')" @edit="setTenantStep(2)"></ViewEditBtn>
+                <ViewEditBtn
+                  :canView="hasFile('RESIDENCY')"
+                  @view="openDoc('RESIDENCY')"
+                  @edit="setTenantStep(2)"
+                ></ViewEditBtn>
               </div>
               <div class="row" v-if="hasDoc('PROFESSIONAL')">
                 <div class="subtitle">
                   Justificatif de situation professionelle
                 </div>
-                <ViewEditBtn :canView="hasFile('PROFESSIONAL')" @view="openDoc('PROFESSIONAL')" @edit="setTenantStep(3)"></ViewEditBtn>
+                <ViewEditBtn
+                  :canView="hasFile('PROFESSIONAL')"
+                  @view="openDoc('PROFESSIONAL')"
+                  @edit="setTenantStep(3)"
+                ></ViewEditBtn>
               </div>
               <div class="row" v-if="hasDoc('FINANCIAL')">
                 <div class="subtitle">Justificatif de revenu</div>
-                <ViewEditBtn :canView="hasFile('FINANCIAL')" @view="openDoc('FINANCIAL')" @edit="setTenantStep(4)"></ViewEditBtn>
+                <ViewEditBtn
+                  :canView="hasFile('FINANCIAL')"
+                  @view="openDoc('FINANCIAL')"
+                  @edit="setTenantStep(4)"
+                ></ViewEditBtn>
               </div>
               <div class="row" v-if="hasDoc('TAX')">
                 <div class="subtitle">Avis d’imposition</div>
-                <ViewEditBtn :canView="hasFile('TAX')" @view="openDoc('TAX')" @edit="setTenantStep(5)"></ViewEditBtn>
+                <ViewEditBtn
+                  :canView="hasFile('TAX')"
+                  @view="openDoc('TAX')"
+                  @edit="setTenantStep(5)"
+                ></ViewEditBtn>
               </div>
             </section>
           </div>
@@ -64,10 +84,17 @@
           </a>
           <hr />
           <div class="rf-card__desc">
-            <section v-if="guarantorHasDoc('TODO-REPRESENTATIVE-IDENTIFICATION')">
-              <div class="subtitle">{{ $t('organism') }}</div>
-              <ViewEditBtn :canView="guarantorHasFile('TODO-REPRESENTATIVE-IDENTIFICATION')"
-                 @view="openGuarantorDoc('TODO-REPRESENTATIVE-IDENTIFICATION')" @edit="setGuarantorSubStep(1)"></ViewEditBtn>
+            <section
+              v-if="guarantorHasDoc('TODO-REPRESENTATIVE-IDENTIFICATION')"
+            >
+              <div class="subtitle">{{ $t("organism") }}</div>
+              <ViewEditBtn
+                :canView="
+                  guarantorHasFile('TODO-REPRESENTATIVE-IDENTIFICATION')
+                "
+                @view="openGuarantorDoc('TODO-REPRESENTATIVE-IDENTIFICATION')"
+                @edit="setGuarantorSubStep(1)"
+              ></ViewEditBtn>
             </section>
           </div>
         </div>
@@ -79,9 +106,12 @@
           <div class="rf-card__desc">
             <section>
               <div class="row">
-                <div class="subtitle">{{ $t('organism') }}</div>
-                <ViewEditBtn :canView="guarantorHasFile('IDENTIFICATION')"
-                 @view="openGuarantorDoc('IDENTIFICATION')" @edit="setGuarantorSubStep(1)"></ViewEditBtn>
+                <div class="subtitle">{{ $t("organism") }}</div>
+                <ViewEditBtn
+                  :canView="guarantorHasFile('IDENTIFICATION')"
+                  @view="openGuarantorDoc('IDENTIFICATION')"
+                  @edit="setGuarantorSubStep(1)"
+                ></ViewEditBtn>
               </div>
             </section>
           </div>
@@ -93,32 +123,47 @@
           <hr />
           <div class="rf-card__desc">
             <section>
-              <div class="row" v-if="guarantorHasDoc('IDENTIFICATION')">
+              <div class="row">
                 <div class="subtitle">Pièce d’identité</div>
-                <ViewEditBtn :canView="guarantorHasFile('IDENTIFICATION')"
-                 @view="openGuarantorDoc('IDENTIFICATION')" @edit="setGuarantorSubStep(1)"></ViewEditBtn>
+                <ViewEditBtn
+                  :canView="guarantorHasFile('IDENTIFICATION')"
+                  @view="openGuarantorDoc('IDENTIFICATION')"
+                  @edit="setGuarantorSubStep(1)"
+                ></ViewEditBtn>
               </div>
               <div class="row" v-if="guarantorHasDoc('RESIDENCY')">
                 <div class="subtitle">Justificatif de domicile</div>
-                <ViewEditBtn :canView="guarantorHasFile('RESIDENCY')"
-                 @view="openGuarantorDoc('RESIDENCY')" @edit="setGuarantorSubStep(2)"></ViewEditBtn>
+                <ViewEditBtn
+                  :canView="guarantorHasFile('RESIDENCY')"
+                  @view="openGuarantorDoc('RESIDENCY')"
+                  @edit="setGuarantorSubStep(2)"
+                ></ViewEditBtn>
               </div>
               <div class="row" v-if="guarantorHasDoc('PROFESSIONAL')">
                 <div class="subtitle">
                   Justificatif de situation professionelle
                 </div>
-                <ViewEditBtn :canView="guarantorHasFile('PROFESSIONAL')"
-                 @view="openGuarantorDoc('PROFESSIONAL')" @edit="setGuarantorSubStep(3)"></ViewEditBtn>
+                <ViewEditBtn
+                  :canView="guarantorHasFile('PROFESSIONAL')"
+                  @view="openGuarantorDoc('PROFESSIONAL')"
+                  @edit="setGuarantorSubStep(3)"
+                ></ViewEditBtn>
               </div>
               <div class="row" v-if="guarantorHasDoc('FINANCIAL')">
                 <div class="subtitle">Justificatif de revenu</div>
-                <ViewEditBtn :canView="guarantorHasFile('FINANCIAL')"
-                 @view="openGuarantorDoc('FINANCIAL')" @edit="setGuarantorSubStep(4)"></ViewEditBtn>
+                <ViewEditBtn
+                  :canView="guarantorHasFile('FINANCIAL')"
+                  @view="openGuarantorDoc('FINANCIAL')"
+                  @edit="setGuarantorSubStep(4)"
+                ></ViewEditBtn>
               </div>
               <div class="row" v-if="guarantorHasDoc('TAX')">
                 <div class="subtitle">Avis d’imposition</div>
-                <ViewEditBtn :canView="guarantorHasFile('TAX')"
-                 @view="openGuarantorDoc('TAX')" @edit="setGuarantorSubStep(5)"></ViewEditBtn>
+                <ViewEditBtn
+                  :canView="guarantorHasFile('TAX')"
+                  @view="openGuarantorDoc('TAX')"
+                  @edit="setGuarantorSubStep(5)"
+                ></ViewEditBtn>
               </div>
             </section>
           </div>
@@ -160,9 +205,9 @@ import ViewEditBtn from "./ViewEditBtn.vue";
     ...mapState({
       user: "user",
       tenantStep: "tenantStep",
-      selectedGuarantor: "selectedGuarantor"
-    })
-  }
+      selectedGuarantor: "selectedGuarantor",
+    }),
+  },
 })
 export default class EditSummary extends Vue {
   user!: User;
@@ -209,12 +254,14 @@ export default class EditSummary extends Vue {
     }
   }
   openGuarantorDoc(documentCategory: string) {
-    this.files = DocumentService.getGuarantorFiles(this.selectedGuarantor, documentCategory);
+    this.files = DocumentService.getGuarantorFiles(
+      this.selectedGuarantor,
+      documentCategory
+    );
     if (this.files.length > 0) {
       this.isDocModalVisible = true;
     }
   }
-
 }
 </script>
 
