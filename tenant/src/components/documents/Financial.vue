@@ -248,6 +248,9 @@ export default class Financial extends Vue {
   }
 
   initialize() {
+    if (this.$store.getters.isGuarantor) {
+      this.documents = DocumentTypeConstants.GUARANTOR_FINANCIAL_DOCS;
+    }
     this.financialDocuments = [];
     if (this.user.documents !== null) {
       const docs = this.user.documents?.filter((d: DfDocument) => {
@@ -404,6 +407,7 @@ export default class Financial extends Vue {
 {
 "en": {
   "salary": "Salary",
+  "guarantor_salary": "Salary or other professional income",
   "social-service": "Social benefit payments",
   "rent": "Annuities",
   "pension": "Pensions",
@@ -425,6 +429,7 @@ export default class Financial extends Vue {
 },
 "fr": {
   "salary": "Salaire",
+  "guarantor_salary": "Salaires ou autres revenus d’activité professionnelle",
   "social-service": "Versement de prestations sociales",
   "rent": "Rentes",
   "pension": "Pensions",

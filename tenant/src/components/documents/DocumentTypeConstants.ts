@@ -622,6 +622,80 @@ export const DocumentTypeConstants = {
     },
   ],
 
+  GUARANTOR_FINANCIAL_DOCS: [
+    {
+      key: "guarantor_salary",
+      value: "SALARY",
+      explanationText:
+        "J’ajoute un bulletin de salaire de mon garant de moins de 3 mois, une attestation de son employeur, un justificatif " +
+        "de versement de ses indemnités de stage, un bilan comptable ou un avis d’imposition à son nom, complet et de moins de 2 ans.",
+      acceptedProofs: [
+        "Bulletin de salaire de moins de 3 mois",
+        "Attestation de revenus salariés de l’employeur de moins de 3 mois",
+        "Justificatif de versement des indemnités de stage",
+        "Dernier bilan comptable ou, si nécessaire, attestation des ressources pour l'exercice en cours délivrés par un comptable (non-salariés)",
+        "Avis d’imposition complet de moins de 2 ans avec nom du garant visible",
+      ],
+      refusedProofs: [
+        "Relevés de comptes bancaires",
+      ],
+      maxFileCount: 3,
+    },
+    {
+      key: "social-service",
+      value: "SOCIAL_SERVICE",
+      explanationText:
+        "J’ajoute un justificatif de versement de prestations sociales (ARE, CAF, Crous…) de mon garant de moins de 3 mois, un justificatif d’ouverture de ses droits ou une attestation de simulation pour les aides au logement.",
+      acceptedProofs: [
+        "Justificatif de versement des prestations sociales et familiales et allocations (ARE, CAF, Crous, etc.) de moins de 3 mois",
+        "Justificatif de l'ouverture des droits établis par l'organisme payeur",
+        "Attestation de simulation pour les aides au logement établie par la CAF ou par la MSA pour le garant",
+        "Avis d’imposition complet de moins de 2 ans avec nom du garant visible",
+      ],
+      refusedProofs: [
+        "Relevés de comptes bancaires",
+      ],
+      maxFileCount: 3,
+    },
+    {
+      key: "rent",
+      value: "RENT",
+      explanationText:
+        "J’ajoute un justificatif de paiement de rente de mon garant, ou un avis d’imposition à son nom, complet et de moins de 2 ans.",
+      acceptedProofs: [
+        "Justification de revenus fonciers, de rentes viagères ou de revenus de valeurs et capitaux mobiliers",
+        "Titre de propriété d’un bien immobilier ou dernier avis de taxe foncière",
+        "Avis d’imposition complet de moins de 2 ans avec nom du garant visible",
+      ],
+      refusedProofs: ["Relevés de comptes bancaires"],
+      maxFileCount: 3,
+    },
+    {
+      key: "pension",
+      value: "PENSION",
+      explanationText:
+        "J’ajoute un bulletin ou une attestation de pension de mon garant, ou un avis d’imposition à son nom, complet et de moins de 2 ans.",
+      acceptedProofs: [
+        "Justificatif de versement des indemnités, retraites, pensions perçues lors des 3 derniers mois ou justificatif de l'ouverture des droits établis par l'organisme payeur",
+        "Avis d’imposition complet de moins de 2 ans avec nom du garant visible",
+      ],
+      refusedProofs: [
+        "Relevés de comptes bancaires",
+      ],
+      maxFileCount: 3,
+    },
+    {
+      key: "trading",
+      value: "TRADING",
+      explanationText: "J’ajoute un avis d'attribution de bourse de mon garant.",
+      acceptedProofs: ["Avis d’attribution de bourse pour l’année en cours"],
+      refusedProofs: [
+        "Relevés de comptes bancaires",
+      ],
+      maxFileCount: 3,
+    },
+  ],
+
   TAX_DOCS: [
     {
       key: "my-name",
