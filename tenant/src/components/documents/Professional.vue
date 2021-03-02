@@ -96,6 +96,10 @@ export default class Professional extends Vue {
   documents = DocumentTypeConstants.PROFESSIONAL_DOCS;
 
   mounted() {
+    if (this.$store.getters.isGuarantor) {
+      this.documents = DocumentTypeConstants.GUARANTOR_PROFESSIONAL_DOCS;
+    }
+
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "PROFESSIONAL";
@@ -239,7 +243,8 @@ export default class Professional extends Vue {
   "unemployed": "Chômage",
   "independent": "Indépendant",
   "other": "Autre",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation."
+  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
+  "guarantor_cdi": "CDI / CDI (période d'essai) / CDD"
 }
 }
 </i18n>

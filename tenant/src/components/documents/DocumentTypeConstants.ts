@@ -391,6 +391,156 @@ export const DocumentTypeConstants = {
     },
   ],
 
+  GUARANTOR_PROFESSIONAL_DOCS: [
+    {
+      key: "guarantor_cdi",
+      value: "CDI",
+      explanationText:
+        "J’ajoute un bulletin de salaire de moins de 3 mois de mon garant, son contrat de travail complet et signé, " +
+        "une attestation employeur de moins de 3 mois ou encore son avis d’imposition complet de moins de 2 ans.",
+      acceptedProofs: [
+        "Bulletin de salaire de moins de 3 mois",
+        "Contrat de travail complet daté et signé",
+        "Attestation employeur de moins de 3 mois",
+        "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
+      ],
+      refusedProofs: [
+        "Courrier/mail de confirmation d’embauche",
+        "Relevés de comptes bancaires",
+      ],
+      maxFileCount: 10,
+    },
+    {
+      key: "alternation",
+      value: "ALTERNATION",
+      explanationText:
+        "J’ajoute un bulletin de salaire de moins de 3 mois de mon garant ou son contrat d’alternance complet et signé.",
+      acceptedProofs: [
+        "Bulletin de salaire de moins de 3 mois",
+        "Contrat d’alternance",
+      ],
+      refusedProofs: [
+        "Relevés de comptes bancaires",
+        "Certificat de scolarité"
+      ],
+      maxFileCount: 10,
+    },
+    {
+      key: "internship",
+      value: "INTERNSHIP",
+      explanationText:
+        "J’ajoute la convention de stage complète et signée de mon garant.",
+      acceptedProofs: ["Convention de stage"],
+      refusedProofs: [
+        "Relevés de comptes bancaires",
+        "Certificat de scolarité"
+      ],
+      maxFileCount: 10,
+    },
+    {
+      key: "student",
+      value: "STUDENT",
+      explanationText:
+        "J’ajoute une copie de la carte d’étudiant de mon garant ou son certificat de scolarité pour l’année en cours.",
+      acceptedProofs: [
+        "Carte d’étudiant ou certificat de scolarité pour l’année en cours",
+      ],
+      refusedProofs: [
+        "Courrier/mail de confirmation d’inscription",
+        "Attestation de paiement CVEC",
+        "Bulletin scolaire",
+      ],
+      maxFileCount: 10,
+    },
+    {
+      key: "public",
+      value: "PUBLIC",
+      explanationText: "J’ajoute un bulletin de salaire de moins de 3 mois de mon garant, une attestation employeur de " +
+        "moins de 3 mois, son arrêté de nomination ou encore son avis d’imposition complet de moins de 2 ans.",
+      acceptedProofs: [
+        "Bulletin de salaire de moins de 3 mois",
+        "Arrêté de nomination",
+        "Attestation employeur de moins de 3 mois",
+        "Avis d’imposition complet de moins de 2 ans avec nom du garant visible",
+      ],
+      refusedProofs: ["Relevés de comptes bancaires"],
+      maxFileCount: 10,
+    },
+    {
+      key: "ctt",
+      value: "CTT",
+      explanationText:
+        "J’ajoute un bulletin de salaire de moins de 3 mois de mon garant, son contrat de travail complet et signé, " +
+        "une attestation employeur de moins de 3 mois ou encore son avis d’imposition complet de moins de 2 ans.",
+      acceptedProofs: [
+        "Bulletin de salaire de moins de 3 mois",
+        "Contrat de travail complet daté et signé",
+        "Attestation employeur de moins de 3 mois",
+        "Avis d’imposition complet de moins de 2 ans avec nom du garant visible",
+      ],
+      refusedProofs: ["Relevés de comptes bancaires"],
+      maxFileCount: 10,
+    },
+    {
+      key: "retired",
+      value: "RETIRED",
+      explanationText:
+        "J’ajoute un bulletin une attestation ou titre de pension retraite de mon garant ou encore " +
+        "son avis d'imposition complet de moins de 2 ans.",
+      acceptedProofs: [
+        "Bulletin de pension retraite",
+        "Attestation de droit à une pension",
+        "Un titre de pension de retraite",
+        "Avis d’imposition complet de moins de 2 ans avec nom du garant visible",
+      ],
+      refusedProofs: ["Relevés de comptes bancaires"],
+      maxFileCount: 10,
+    },
+    {
+      key: "unemployed",
+      value: "UNEMPLOYED",
+      explanationText:
+        "J’ajoute une attestation d’ouverture de droits à l’ARE de mon garant ou son avis de situation Pôle Emploi de moins de 3 mois.",
+      acceptedProofs: [
+        "Attestation d’ouverture de droits ARE",
+        "Avis de situation Pôle Emploi de moins de 3 mois",
+      ],
+      refusedProofs: [
+        "Attestation de versement de paiement de cotisations sociales",
+      ],
+      maxFileCount: 10,
+    },
+    {
+      key: "independent",
+      value: "INDEPENDENT",
+      explanationText:
+        "J’ajoute un justificatif d’activité professionnelle indépendante de mon garant.",
+      acceptedProofs: [
+        "Certificat d’identification de l’Insee comportant les numéros d’identification",
+        "Attestation d’inscription au statut d’auto-entrepreneur",
+        "Carte professionnelle (profession libérale)",
+        "Extrait D1 original du registre des métiers de moins de 3 mois (artisan)",
+        "Extrait K ou K bis du registre du commerce et des sociétés de moins de 3 mois (commerçant)",
+      ],
+      refusedProofs: ["Relevés de comptes bancaires"],
+      maxFileCount: 10,
+    },
+    {
+      key: "other",
+      value: "OTHER",
+      explanationText:
+        "J’ajoute un document de moins de 3 mois justifiant de l’activité professionnelle de mon garant ou une déclaration de non-activité le cas échéant.",
+      acceptedProofs: [
+        "Attestation d’ouverture de droit AAH (adulte en situation de handicap)",
+        "Attestation d’ouverture des droits au RSA (mère/père au foyer)",
+        "Toute pièce de moins de 3 mois attestant de l’activité professionnelle (autres cas d’activité)",
+        "Déclaration de non-activité si vous êtes sans activité",
+      ],
+      refusedProofs: ["Relevés de comptes bancaires"],
+      maxFileCount: 10,
+    },
+  ],
+
   FINANCIAL_DOCS: [
     {
       key: "salary",
