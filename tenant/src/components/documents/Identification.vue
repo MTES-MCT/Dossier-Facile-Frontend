@@ -149,9 +149,6 @@ export default class Identification extends Vue {
   selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
-  uploadProgress: {
-    [key: string]: { state: string; percentage: number };
-  } = {};
   identificationDocument = new DocumentType();
   firstName = "";
   lastName = "";
@@ -175,6 +172,10 @@ export default class Identification extends Vue {
   }
 
   mounted() {
+    if (this.isGuarantor()) {
+      this.documents = DocumentTypeConstants.GUARANTOR_IDENTIFICATION_DOCS;
+    }
+
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION";
@@ -209,7 +210,6 @@ export default class Identification extends Vue {
   }
 
   save() {
-    this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
     const newFiles = this.files.filter((f) => {
