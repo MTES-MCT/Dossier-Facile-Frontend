@@ -2,7 +2,7 @@
   <div>
     <div>
       <label class="rf-label" for="select">
-        Votre situation d’hébergement actuelle :
+        {{ $t("select-label") }}
       </label>
       <select
         v-model="residencyDocument"
@@ -226,7 +226,8 @@ export default class Residency extends Vue {
   "guest-parents": "Vous habitez chez vos parents",
   "files": "Documents",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-  "register": "Register"
+  "register": "Register",
+  "select-label": "Your current accommodation situation:"
 },
 "fr": {
   "tenant": "Vous êtes locataire",
@@ -235,7 +236,8 @@ export default class Residency extends Vue {
   "guest-parents": "Vous habitez chez vos parents",
   "files": "Documents",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "register": "Enregistrer"
+  "register": "Enregistrer",
+  "select-label": "Votre situation d’hébergement actuelle :"
 }
 }
 </i18n>

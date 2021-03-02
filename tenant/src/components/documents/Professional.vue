@@ -2,7 +2,7 @@
   <div>
     <div>
       <label class="rf-label" for="select">
-        Votre situation professionnelle actuelle :
+        {{ $t("select-label") }}
       </label>
       <select
         v-model="professionalDocument"
@@ -229,7 +229,8 @@ export default class Professional extends Vue {
   "independent": "Indépendant",
   "other": "Autre",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-  "register": "Register"
+  "register": "Register",
+  "select-label": "Your current professional situation:"
 },
 "fr": {
   "cdi": "CDI",
@@ -246,7 +247,8 @@ export default class Professional extends Vue {
   "other": "Autre",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
   "guarantor_cdi": "CDI / CDI (période d'essai) / CDD",
-  "register": "Enregistrer"
+  "register": "Enregistrer",
+  "select-label": "Votre situation professionnelle actuelle :"
 }
 }
 </i18n>

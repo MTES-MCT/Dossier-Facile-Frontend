@@ -18,7 +18,7 @@
           </div>
           <div>
             <label class="rf-label" for="select">
-              Attention, Veuillez renseigner uniquement vos propres revenus.
+              {{ $t("select-label") }}
             </label>
             <select
               v-model="f.documentType"
@@ -426,7 +426,8 @@ export default class Financial extends Vue {
   "delete-financial":  "Delete this salary",
   "field-required": "This field is required",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-  "register": "Register"
+  "register": "Register",
+  "select-label": "Attention, Please enter only your own income."
 },
 "fr": {
   "salary": "Salaire",
@@ -449,7 +450,8 @@ export default class Financial extends Vue {
   "delete-financial":  "Supprimer ce revenu",
   "field-required": "Ce champ est requis",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "register": "Enregistrer"
+  "register": "Enregistrer",
+  "select-label": "Attention, Veuillez renseigner uniquement vos propres revenus."
 }
 }
 </i18n>

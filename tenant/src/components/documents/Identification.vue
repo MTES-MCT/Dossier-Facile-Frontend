@@ -48,8 +48,7 @@
     </div>
     <div>
       <label class="rf-label" for="select">
-        J’ajoute une pièce d’identité en cours de validité. Attention, veillez à
-        ajouter votre pièce recto-verso !
+        {{ $t("select-label") }}
       </label>
       <select
         v-model="identificationDocument"
@@ -317,7 +316,8 @@ td {
   "lastname": "Lastname",
   "firstname": "Firstname",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-  "register": "Register"
+  "register": "Register",
+  "select-label": "I add a valid identity document. Attention, be sure to add your double-sided part!"
 },
 "fr": {
   "identity-card": "Carte nationale d’identité",
@@ -328,7 +328,8 @@ td {
   "lastname": "Nom",
   "firstname": "Prénom",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "register": "Enregistrer la pièce"
+  "register": "Enregistrer la pièce",
+  "select-label": "J’ajoute une pièce d’identité en cours de validité. Attention, veillez à ajouter votre pièce recto-verso !"
 }
 }
 </i18n>
