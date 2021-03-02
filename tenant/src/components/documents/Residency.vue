@@ -95,6 +95,9 @@ export default class Residency extends Vue {
   documents = DocumentTypeConstants.RESIDENCY_DOCS;
 
   mounted() {
+    if (this.$store.getters.isGuarantor) {
+      this.documents = DocumentTypeConstants.GUARANTOR_RESIDENCY_DOCS;
+    }
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "RESIDENCY";
