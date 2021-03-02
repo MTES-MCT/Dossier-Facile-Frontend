@@ -321,6 +321,7 @@ export default class Tax extends Vue {
 {
 "en": {
   "my-name": "Vous avez un avis d’imposition à votre nom",
+  "guarantor_my-name": "Vous avez un avis d’imposition à votre nom",
   "my-parents": "Vous êtes rattaché fiscalement à vos parents",
   "less-than-year": "Vous êtes en France depuis moins d’un an",
   "other-tax": "Autre",
@@ -333,6 +334,7 @@ export default class Tax extends Vue {
 },
 "fr": {
   "my-name": "Vous avez un avis d’imposition à votre nom",
+  "guarantor_my-name": "J'ai un avis d'imposition au nom de mon garant",
   "my-parents": "Vous êtes rattaché fiscalement à vos parents",
   "less-than-year": "Vous êtes en France depuis moins d’un an",
   "other-tax": "Autre",

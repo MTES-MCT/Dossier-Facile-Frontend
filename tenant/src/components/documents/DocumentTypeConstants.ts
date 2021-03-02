@@ -741,7 +741,7 @@ export const DocumentTypeConstants = {
 
   GUARANTOR_TAX_DOCS: [
     {
-      key: "my-name",
+      key: "guarantor_my-name",
       value: "MY_NAME",
       explanationText:
         "En joignant mon avis d’imposition, j’accepte que DossierFacile procède à une vérification automatisée de ma fiche d’imposition auprès des services des impôts.\n" +
