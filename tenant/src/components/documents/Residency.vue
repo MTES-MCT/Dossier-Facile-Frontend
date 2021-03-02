@@ -48,7 +48,7 @@
         @click="save"
         :disabled="files.length <= 0"
       >
-        Enregistrer la pièce
+        {{ $t("register") }}
       </button>
     </div>
     <div class="rf-mb-5w" v-if="residencyDocument.key">
@@ -225,7 +225,8 @@ export default class Residency extends Vue {
   "guest": "Vous êtes hébergé gratuitement",
   "guest-parents": "Vous habitez chez vos parents",
   "files": "Documents",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again."
+  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
+  "register": "Register"
 },
 "fr": {
   "tenant": "Vous êtes locataire",
@@ -233,7 +234,8 @@ export default class Residency extends Vue {
   "guest": "Vous êtes hébergé gratuitement",
   "guest-parents": "Vous habitez chez vos parents",
   "files": "Documents",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation."
+  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
+  "register": "Enregistrer"
 }
 }
 </i18n>

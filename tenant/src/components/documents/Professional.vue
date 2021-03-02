@@ -48,7 +48,7 @@
         @click="save"
         :disabled="files.length <= 0"
       >
-        Enregistrer la pièce
+        {{ $t("register") }}
       </button>
     </div>
     <div class="rf-mb-5w" v-if="professionalDocument.key">
@@ -228,7 +228,8 @@ export default class Professional extends Vue {
   "unemployed": "Chômage",
   "independent": "Indépendant",
   "other": "Autre",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again."
+  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
+  "register": "Register"
 },
 "fr": {
   "cdi": "CDI",
@@ -244,7 +245,8 @@ export default class Professional extends Vue {
   "independent": "Indépendant",
   "other": "Autre",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "guarantor_cdi": "CDI / CDI (période d'essai) / CDD"
+  "guarantor_cdi": "CDI / CDI (période d'essai) / CDD",
+  "register": "Enregistrer"
 }
 }
 </i18n>

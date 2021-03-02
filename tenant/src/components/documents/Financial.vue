@@ -145,7 +145,7 @@
               type="submit"
               :disabled="f.files.length <= 0 && !f.noDocument"
             >
-              Enregistrer la pièce
+              {{ $t("register") }}
             </button>
           </div>
           <div class="rf-mb-5w">
@@ -425,7 +425,8 @@ export default class Financial extends Vue {
   "number-not-valid": "Number not valid",
   "delete-financial":  "Delete this salary",
   "field-required": "This field is required",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again."
+  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
+  "register": "Register"
 },
 "fr": {
   "salary": "Salaire",
@@ -447,7 +448,8 @@ export default class Financial extends Vue {
   "number-not-valid": "Nombre incorrect",
   "delete-financial":  "Supprimer ce revenu",
   "field-required": "Ce champ est requis",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation."
+  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
+  "register": "Enregistrer"
 }
 }
 </i18n>
