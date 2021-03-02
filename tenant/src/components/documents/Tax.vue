@@ -187,6 +187,9 @@ export default class Tax extends Vue {
   }
 
   mounted() {
+    if (this.$store.getters.isGuarantor) {
+      this.documents = DocumentTypeConstants.GUARANTOR_TAX_DOCS;
+    }
     const doc = this.getRegisteredDoc();
     if (doc !== undefined) {
       this.customText = doc.customText || "";
