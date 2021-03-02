@@ -48,8 +48,7 @@
     </div>
     <div>
       <label class="rf-label" for="select">
-        J’ajoute une pièce d’identité en cours de validité. Attention, veillez à
-        ajouter votre pièce recto-verso !
+        {{ $t("select-label") }}
       </label>
       <select
         v-model="identificationDocument"
@@ -95,7 +94,7 @@
         @click="save"
         :disabled="files.length <= 0"
       >
-        Enregistrer la pièce
+        {{ $t("register") }}
       </button>
     </div>
     <div class="rf-mb-5w" v-if="identificationDocument.key">
@@ -122,6 +121,7 @@ import { ValidationProvider } from "vee-validate";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { RegisterService } from "../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
+import { DocumentTypeConstants } from "./DocumentTypeConstants";
 
 @Component({
   components: {
@@ -142,14 +142,12 @@ import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 })
 export default class Identification extends Vue {
   MAX_FILE_COUNT = 3;
+  documents = DocumentTypeConstants.IDENTIFICATION_DOCS;
 
   user!: User | Guarantor;
   selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
-  uploadProgress: {
-    [key: string]: { state: string; percentage: number };
-  } = {};
   identificationDocument = new DocumentType();
   firstName = "";
   lastName = "";
@@ -173,6 +171,10 @@ export default class Identification extends Vue {
   }
 
   mounted() {
+    if (this.isGuarantor()) {
+      this.documents = DocumentTypeConstants.GUARANTOR_IDENTIFICATION_DOCS;
+    }
+
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION";
@@ -207,7 +209,6 @@ export default class Identification extends Vue {
   }
 
   save() {
-    this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
     const newFiles = this.files.filter((f) => {
@@ -289,51 +290,6 @@ export default class Identification extends Vue {
   isGuarantor() {
     return this.$store.getters.isGuarantor;
   }
-
-  documents: DocumentType[] = [
-    {
-      key: "identity-card",
-      value: "FRENCH_IDENTITY_CARD",
-      explanationText:
-        "Attention veillez à ajouter votre pièce <b>recto-verso !</b>",
-      acceptedProofs: ["Carte d’identité française <b>recto-verso</b>"],
-      refusedProofs: [
-        "Carte d’identité <b>sans le verso ou périmée</b>",
-        "Tout autre document",
-      ],
-      maxFileCount: 3,
-    },
-    {
-      key: "passport",
-      value: "FRENCH_PASSPORT",
-      acceptedProofs: ["Passport français (pages 2 et 3)"],
-      refusedProofs: ["Tout autre document"],
-      maxFileCount: 3,
-    },
-    {
-      key: "permit",
-      value: "FRENCH_RESIDENCE_PERMIT",
-      acceptedProofs: [
-        "Carte de séjour en France temporaire recto-verso en cours de validité, ou périmée si elle est accompagnée du récépissé de la demande de renouvellement de carte de séjour",
-        "Visa de travail ou d’études temporaire en France",
-      ],
-      refusedProofs: ["Tout autre document"],
-      maxFileCount: 3,
-    },
-    {
-      key: "other",
-      value: "OTHER_IDENTIFICATION",
-      acceptedProofs: [
-        "Carte d’identité étrangère <b>recto-verso</b>",
-        "Passeport étranger (pages 2 et 3)",
-        "Permis de conduire français ou étranger <b>recto-verso</b>",
-        "Carte de résident",
-        "Carte de ressortissant d’un État membre de l’UE ou de l’EEE",
-      ],
-      refusedProofs: ["Tout autre document"],
-      maxFileCount: 3,
-    },
-  ];
 }
 </script>
 
@@ -359,7 +315,9 @@ td {
   "files": "Documents",
   "lastname": "Lastname",
   "firstname": "Firstname",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again."
+  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
+  "register": "Register",
+  "select-label": "I add a valid identity document. Attention, be sure to add your double-sided part!"
 },
 "fr": {
   "identity-card": "Carte nationale d’identité",
@@ -369,7 +327,9 @@ td {
   "files": "Documents",
   "lastname": "Nom",
   "firstname": "Prénom",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation."
+  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
+  "register": "Enregistrer la pièce",
+  "select-label": "J’ajoute une pièce d’identité en cours de validité. Attention, veillez à ajouter votre pièce recto-verso !"
 }
 }
 </i18n>

@@ -2,7 +2,7 @@
   <div>
     <div>
       <label class="rf-label" for="select">
-        Votre situation professionnelle actuelle :
+        {{ $t("select-label") }}
       </label>
       <select
         v-model="professionalDocument"
@@ -48,7 +48,7 @@
         @click="save"
         :disabled="files.length <= 0"
       >
-        Enregistrer la pièce
+        {{ $t("register") }}
       </button>
     </div>
     <div class="rf-mb-5w" v-if="professionalDocument.key">
@@ -73,6 +73,7 @@ import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { RegisterService } from "../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
+import { DocumentTypeConstants } from "./DocumentTypeConstants";
 
 @Component({
   components: { DocumentInsert, FileUpload, ListItem, WarningMessage },
@@ -92,7 +93,13 @@ export default class Professional extends Vue {
   } = {};
   professionalDocument = new DocumentType();
 
+  documents = DocumentTypeConstants.PROFESSIONAL_DOCS;
+
   mounted() {
+    if (this.$store.getters.isGuarantor) {
+      this.documents = DocumentTypeConstants.GUARANTOR_PROFESSIONAL_DOCS;
+    }
+
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "PROFESSIONAL";
@@ -201,177 +208,6 @@ export default class Professional extends Vue {
       });
     }
   }
-
-  documents: DocumentType[] = [
-    {
-      key: "cdi",
-      value: "CDI",
-      explanationText:
-        "J’ajoute mon contrat de travail en cours, complet et signé.\n" +
-        "Et si vous n’avez pas de contrat de travail ? Vous pouvez joindre une attestation de votre employeur signée et datée de moins de 3 mois.",
-      acceptedProofs: [
-        "Contrat de travail en cours, complet, daté et signé",
-        "Attestation de votre employeur de moins de 3 mois précisant l’emploi et la rémunération proposée et la date d’entrée en fonctions",
-      ],
-      refusedProofs: [
-        "Courrier/mail de confirmation d’embauche",
-        "Bulletins de salaire",
-        "Relevés de comptes bancaires",
-      ],
-      maxFileCount: 10,
-    },
-    {
-      key: "cdi-trial",
-      value: "CDI_TRIAL",
-      explanationText:
-        "J’ajoute mon contrat de travail en cours, complet et signé.\n" +
-        "Et si vous n’avez pas de contrat de travail ? Vous pouvez joindre une attestation de votre employeur signée et datée de moins de 3 mois.",
-      acceptedProofs: [
-        "Contrat de travail en cours, complet, daté et signé",
-        "Attestation de votre employeur de moins de 3 mois précisant l’emploi et la rémunération proposée, la date d’entrée en fonctions envisagée et la durée de la période d’essai.",
-      ],
-      refusedProofs: [
-        "Courrier/mail de confirmation d’embauche",
-        "Bulletins de salaire",
-        "Relevés de comptes bancaires",
-      ],
-      maxFileCount: 10,
-    },
-    {
-      key: "cdd",
-      value: "CDD",
-      explanationText:
-        "J’ajoute mon contrat de travail en cours, complet et signé.\n" +
-        "Et si vous n’avez pas de contrat de travail ? Vous pouvez joindre une attestation de votre employeur signée et datée de moins de 3 mois.",
-      acceptedProofs: [
-        "Contrat de travail en cours, complet, daté et signé",
-        "Attestation de votre employeur de moins de 3 mois précisant l’emploi et la rémunération proposée, la date d’entrée en fonctions et la durée du contrat",
-      ],
-      refusedProofs: [
-        "Courrier/mail de confirmation d’embauche",
-        "Bulletins de salaire",
-        "Relevés de comptes bancaires",
-      ],
-      maxFileCount: 10,
-    },
-    {
-      key: "alternation",
-      value: "ALTERNATION",
-      explanationText:
-        "J’ajoute mon contrat d’alternance en cours, complet et signé.",
-      acceptedProofs: [
-        "Contrat d’alternance",
-        "Contrat de professionnalisation",
-      ],
-      refusedProofs: ["Certificat de scolarité"],
-      maxFileCount: 10,
-    },
-    {
-      key: "internship",
-      value: "INTERNSHIP",
-      explanationText:
-        "J’ajoute ma convention de stage en cours, complète et signée.",
-      acceptedProofs: ["Convention de stage"],
-      refusedProofs: ["Certificat de scolarité"],
-      maxFileCount: 10,
-    },
-    {
-      key: "student",
-      value: "STUDENT",
-      explanationText:
-        "J’ajoute une copie de ma carte d’étudiant ou un certificat de scolarité pour l’année en cours.",
-      acceptedProofs: [
-        "Carte d’étudiant ou certificat de scolarité pour l’année en cours",
-      ],
-      refusedProofs: [
-        "Courrier/mail de confirmation d’inscription",
-        "Attestation de paiement CVEC",
-        "Bulletin scolaire",
-      ],
-      maxFileCount: 10,
-    },
-    {
-      key: "public",
-      value: "PUBLIC",
-      explanationText: "J’ajoute un arrêté de nomination.",
-      acceptedProofs: [
-        "Arrêté de nomination",
-        "Attestation de votre employeur",
-      ],
-      refusedProofs: ["Bulletins de salaire", "Relevés de comptes bancaires"],
-      maxFileCount: 10,
-    },
-    {
-      key: "ctt",
-      value: "CTT",
-      explanationText:
-        "J’ajoute mon contrat de travail en cours, complet et signé.\n" +
-        "Et si vous n’avez pas de contrat de travail ? Vous pouvez joindre une attestation de votre employeur signée et datée de moins de 3 mois.",
-      acceptedProofs: [
-        "Contrat de travail complet daté et signé",
-        "Attestation de votre employeur précisant l’emploi et la rémunération proposée, la date d’entrée en fonctions envisagée et la durée du contrat",
-      ],
-      refusedProofs: ["Bulletins de salaire", "Relevés de comptes bancaires"],
-      maxFileCount: 10,
-    },
-    {
-      key: "retired",
-      value: "RETIRED",
-      explanationText:
-        "J’ajoute un bulletin de pension retraite. Et si vous n’en avez pas? Vous pouvez joindre votre dernier avis d’imposition complet de moins de 2 ans.",
-      acceptedProofs: [
-        "Bulletin de pension retraite",
-        "Attestation de droit à une pension",
-        "Titre de pension de retraite",
-        "Avis d’imposition complet de moins de 2 ans",
-      ],
-      refusedProofs: ["Relevés de comptes bancaires"],
-      maxFileCount: 10,
-    },
-    {
-      key: "unemployed",
-      value: "UNEMPLOYED",
-      explanationText:
-        "J’ajoute une attestation d’ouverture de droits à l’ARE ou un avis de situation Pôle Emploi de moins de 3 mois.",
-      acceptedProofs: [
-        "Attestation d’ouverture de droits à l’ARE",
-        "Avis de situation Pôle Emploi de moins de 3 mois",
-      ],
-      refusedProofs: [
-        "Attestation de versement de paiement de cotisations sociales",
-      ],
-      maxFileCount: 10,
-    },
-    {
-      key: "independent",
-      value: "INDEPENDENT",
-      explanationText:
-        "J’ajoute mon justificatif d’activité professionnelle indépendante en fonction de mon type d’activité.",
-      acceptedProofs: [
-        "Certificat d’identification de l’Insee comportant les numéros d’identification",
-        "Attestation d’inscription au statut d’auto-entrepreneur",
-        "Carte professionnelle (profession libérale)",
-        "Extrait D1 original du registre des métiers de moins de 3 mois (artisan)",
-        "Extrait K ou K bis du registre du commerce et des sociétés de moins de 3 mois (commerçant)",
-      ],
-      refusedProofs: ["Relevés de comptes bancaires"],
-      maxFileCount: 10,
-    },
-    {
-      key: "other",
-      value: "OTHER",
-      explanationText:
-        "J’ajoute un document de moins de 3 mois justifiant de mon activité professionnelle.",
-      acceptedProofs: [
-        "Attestation d’ouverture de droit AAH (adulte en situation de handicap)",
-        "Attestation d’ouverture des droits au RSA (mère/père au foyer)",
-        "Toute pièce de moins de 3 mois attestant de l’activité professionnelle (autres cas d’activité)",
-        "Déclaration de non-activité si vous êtes sans activité",
-      ],
-      refusedProofs: ["Relevés de comptes bancaires"],
-      maxFileCount: 10,
-    },
-  ];
 }
 </script>
 
@@ -392,7 +228,9 @@ export default class Professional extends Vue {
   "unemployed": "Chômage",
   "independent": "Indépendant",
   "other": "Autre",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again."
+  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
+  "register": "Register",
+  "select-label": "Your current professional situation:"
 },
 "fr": {
   "cdi": "CDI",
@@ -407,7 +245,10 @@ export default class Professional extends Vue {
   "unemployed": "Chômage",
   "independent": "Indépendant",
   "other": "Autre",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation."
+  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
+  "guarantor_cdi": "CDI / CDI (période d'essai) / CDD",
+  "register": "Enregistrer",
+  "select-label": "Votre situation professionnelle actuelle :"
 }
 }
 </i18n>

@@ -2,7 +2,7 @@
   <div>
     <div>
       <label class="rf-label" for="select">
-        Votre situation d’hébergement actuelle :
+        {{ $t("select-label") }}
       </label>
       <select
         v-model="residencyDocument"
@@ -20,7 +20,7 @@
     </WarningMessage>
     <div v-if="residencyDocument.key">
       <div class="rf-mb-3w">
-        <p v-html="residencyDocument.explanationText"></p>
+        <p v-html="$t(residencyDocument.explanationText)"></p>
       </div>
       <div class="rf-mb-3w">
         <FileUpload
@@ -30,18 +30,15 @@
         ></FileUpload>
       </div>
     </div>
-    <div v-if="residencyFiles()" class="rf-col-lg-8 rf-col-md-12 rf-mb-3w">
+    <div
+      v-if="residencyFiles().length > 0"
+      class="rf-col-lg-8 rf-col-md-12 rf-mb-3w"
+    >
       <ListItem
         v-for="(file, k) in residencyFiles()"
         :key="k"
         :file="file"
         @remove="remove(file)"
-        :uploadState="
-          uploadProgress[file.id] ? uploadProgress[file.id].state : 'idle'
-        "
-        :percentage="
-          uploadProgress[file.id] ? uploadProgress[file.id].percentage : 0
-        "
       />
     </div>
     <div class="rf-col-12 rf-mb-2w" v-if="residencyDocument">
@@ -51,7 +48,7 @@
         @click="save"
         :disabled="files.length <= 0"
       >
-        Enregistrer la pièce
+        {{ $t("register") }}
       </button>
     </div>
     <div class="rf-mb-5w" v-if="residencyDocument.key">
@@ -76,6 +73,7 @@ import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { RegisterService } from "../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
+import { DocumentTypeConstants } from "./DocumentTypeConstants";
 
 @Component({
   components: { DocumentInsert, FileUpload, ListItem, WarningMessage },
@@ -94,7 +92,12 @@ export default class Residency extends Vue {
   } = {};
   residencyDocument = new DocumentType();
 
+  documents = DocumentTypeConstants.RESIDENCY_DOCS;
+
   mounted() {
+    if (this.$store.getters.isGuarantor) {
+      this.documents = DocumentTypeConstants.GUARANTOR_RESIDENCY_DOCS;
+    }
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "RESIDENCY";
@@ -209,71 +212,6 @@ export default class Residency extends Vue {
       });
     }
   }
-
-  documents: DocumentType[] = [
-    {
-      key: "tenant",
-      value: "TENANT",
-      explanationText:
-        "J’ajoute mes <b>quittances de loyer pour les trois derniers mois.</b>",
-      acceptedProofs: [
-        "Quittances de loyer des trois derniers mois",
-        "Attestation du propriétaire (ou de son mandataire) indiquant que le locataire est à jour de ses loyers et charges",
-      ],
-      refusedProofs: [
-        "Factures",
-        "Avis de taxe d’habitation",
-        "Relevés de compte bancaire",
-      ],
-      maxFileCount: 3,
-    },
-    {
-      key: "owner",
-      value: "OWNER",
-      explanationText:
-        "J’ajoute un <b>avis de taxe foncière de moins d’un an.</b>",
-      acceptedProofs: [
-        "Dernier avis de taxe foncière",
-        "Titre de propriété de la résidence principale",
-      ],
-      refusedProofs: [
-        "Appel de fonds pour charges de copropriété",
-        "Factures",
-        "Avis de taxe d’habitation",
-        "Relevés de compte bancaire",
-      ],
-      maxFileCount: 2,
-    },
-    {
-      key: "guest",
-      value: "GUEST",
-      explanationText:
-        "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, " +
-        "une copie de la pièce d’identité et un justificatif de domicile de mon " +
-        "hébergeant</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne " +
-        "sur le site service-public.fr",
-      acceptedProofs: [
-        "Attestation sur l’honneur du parent <b>datée et signée</b> indiquant que le candidat à la location réside à son domicile, accompagnée d’une pièce d’identité et d’un justificatif de domicile du parent (une simple facture suffit)",
-      ],
-      refusedProofs: ["Tout autre document"],
-      maxFileCount: 2,
-    },
-    {
-      key: "guest-parents",
-      value: "GUEST_PARENTS",
-      explanationText:
-        "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, " +
-        "une copie de la pièce d’identité et un justificatif de domicile du " +
-        "parent</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne sur " +
-        "le site service-public.fr",
-      acceptedProofs: [
-        "Attestation sur l’honneur de l’hébergeant <b>datée de moins de trois mois et signée</b> indiquant que le candidat à la location réside à son domicile, accompagnée d’une pièce d’identité et d’un justificatif de domicile de l’hébergeant (une simple facture suffit)",
-        "Attestation d’élection de domicile <b>datée de moins de trois mois et signée</b> de l’organisme d’hébergement (hébergement d’urgence, placement…) indiquant l’adresse de l’hébergement (téléchargeable sur le site <a target='_blank' href='https://www.service-public.fr/simulateur/calcul/16030'>https://www.service-public.fr/simulateur/calcul/16030</a> ) ",
-      ],
-      refusedProofs: ["Tout autre document"],
-      maxFileCount: 2,
-    },
-  ];
 }
 </script>
 
@@ -287,7 +225,9 @@ export default class Residency extends Vue {
   "guest": "Vous êtes hébergé gratuitement",
   "guest-parents": "Vous habitez chez vos parents",
   "files": "Documents",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again."
+  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
+  "register": "Register",
+  "select-label": "Your current accommodation situation:"
 },
 "fr": {
   "tenant": "Vous êtes locataire",
@@ -295,7 +235,9 @@ export default class Residency extends Vue {
   "guest": "Vous êtes hébergé gratuitement",
   "guest-parents": "Vous habitez chez vos parents",
   "files": "Documents",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation."
+  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
+  "register": "Enregistrer",
+  "select-label": "Votre situation d’hébergement actuelle :"
 }
 }
 </i18n>
