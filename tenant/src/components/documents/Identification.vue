@@ -51,6 +51,7 @@
         {{ $t("select-label") }}
       </label>
       <select
+        @change="onSelectChange()"
         v-model="identificationDocument"
         class="rf-select rf-mb-3w"
         id="select"
@@ -61,9 +62,23 @@
         </option>
       </select>
     </div>
-    <WarningMessage class="rf-mb-3w" v-if="isNewDocument()">
-      <span>{{ $t("will-delete-files") }}</span>
-    </WarningMessage>
+    <Modal v-show="isDocDeleteVisible" @close="undoSelect()">
+      <template v-slot:body>
+        <div class="rf-container">
+          <div class="row justify-content-center">
+            <div class="col-12 col-md-8 rf-grid-row">
+              <p>
+                {{ $t("will-delete-files") }}
+              </p>
+              <DfButton @on-click="validSelect()" primary="true">{{
+                $t("validate")
+              }}</DfButton>
+              <DfButton @on-click="undoSelect()">{{ $t("cancel") }}</DfButton>
+            </div>
+          </div>
+        </div>
+      </template>
+    </Modal>
     <div v-if="identificationDocument.key">
       <div v-if="identificationDocument.explanationText" class="rf-mb-3w">
         <p v-html="identificationDocument.explanationText"></p>
@@ -122,6 +137,8 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 import { RegisterService } from "../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
+import Modal from "df-shared/src/components/Modal.vue";
+import DfButton from "df-shared/src/Button/Button.vue";
 
 @Component({
   components: {
@@ -130,6 +147,8 @@ import { DocumentTypeConstants } from "./DocumentTypeConstants";
     ListItem,
     ValidationProvider,
     WarningMessage,
+    Modal,
+    DfButton,
   },
   computed: {
     ...mapState({
@@ -151,6 +170,7 @@ export default class Identification extends Vue {
   identificationDocument = new DocumentType();
   firstName = "";
   lastName = "";
+  isDocDeleteVisible = false;
 
   @Watch("selectedGuarantor")
   onGuarantorChange(val: Guarantor) {
@@ -158,16 +178,51 @@ export default class Identification extends Vue {
     this.lastName = val.lastName || "";
   }
 
-  isNewDocument() {
+  onSelectChange() {
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION";
       });
       if (doc !== undefined) {
-        return doc.documentSubCategory !== this.identificationDocument.value;
+        this.isDocDeleteVisible =
+          (doc.files?.length || 0) > 0 &&
+          doc.documentSubCategory !== this.identificationDocument.value;
       }
     }
     return false;
+  }
+
+  undoSelect() {
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "IDENTIFICATION";
+      });
+      if (doc !== undefined) {
+        const localDoc = this.documents.find((d: DocumentType) => {
+          return d.value === doc.documentSubCategory;
+        });
+        if (localDoc !== undefined) {
+          this.identificationDocument = localDoc;
+        }
+      }
+    }
+    this.isDocDeleteVisible = false;
+  }
+
+  validSelect() {
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "IDENTIFICATION";
+      });
+      if (doc !== undefined) {
+        doc.files?.forEach((f) => {
+          if (f.id) {
+            this.remove(f, true);
+          }
+        });
+      }
+    }
+    this.isDocDeleteVisible = false;
   }
 
   mounted() {
@@ -277,9 +332,9 @@ export default class Identification extends Vue {
     return [...newFiles, ...existingFiles];
   }
 
-  remove(file: DfFile) {
+  remove(file: DfFile, silent = false) {
     if (file.path && file.id) {
-      RegisterService.deleteFile(file.id);
+      RegisterService.deleteFile(file.id, silent);
     } else {
       this.files = this.files.filter((f: DfFile) => {
         return f.name !== file.name;
@@ -317,7 +372,9 @@ td {
   "firstname": "Firstname",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
   "register": "Register",
-  "select-label": "I add a valid identity document. Attention, be sure to add your double-sided part!"
+  "select-label": "I add a valid identity document. Attention, be sure to add your double-sided part!",
+  "validate": "Validate",
+  "cancel": "Cancel"
 },
 "fr": {
   "identity-card": "Carte nationale d’identité",
@@ -329,7 +386,9 @@ td {
   "firstname": "Prénom",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
   "register": "Enregistrer la pièce",
-  "select-label": "J’ajoute une pièce d’identité en cours de validité. Attention, veillez à ajouter votre pièce recto-verso !"
+  "select-label": "J’ajoute une pièce d’identité en cours de validité. Attention, veillez à ajouter votre pièce recto-verso !",
+  "validate": "Valider",
+  "cancel": "Annuler"
 }
 }
 </i18n>

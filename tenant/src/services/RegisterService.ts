@@ -13,13 +13,15 @@ export const RegisterService = {
     return axios.post(url, formData);
   },
 
-  deleteFile(id: number | string) {
+  deleteFile(id: number | string, silent = false) {
     const loader = Vue.$loading.show();
     const url = `//${process.env.VUE_APP_API_URL}/api/file/${id}`;
     return axios
       .delete(url)
       .then(() => {
-        Vue.toasted.global.delete_success();
+        if (!silent) {
+          Vue.toasted.global.delete_success();
+        }
       })
       .catch(() => {
         Vue.toasted.global.delete_failed();
