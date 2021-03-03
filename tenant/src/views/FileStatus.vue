@@ -32,9 +32,6 @@
               </p>
 
               <span class="spacer"></span>
-              <DfButton @on-click="shareMail" size="small">{{
-                $t("share-by-mail")
-              }}</DfButton>
               <DfButton @on-click="copyLink" primary="true" size="small">{{
                 $t("copy-link")
               }}</DfButton>
