@@ -3,8 +3,8 @@
     <section class="rf-mt-3w">
       <div class="rf-grid-row rf-grid-row--center">
         <div class="rf-col-12 rf-col-lg-10">
-          <h1>{{ $t("title", [user.firstName, "TODO"]) }}</h1>
-          <div class="rf-callout">
+          <h1>{{ $t("title", [user.firstName, $t(user.status)]) }}</h1>
+          <div class="rf-callout" v-if="isOld()">
             <h4>{{ $t("file-update-title") }}</h4>
             <p
               class="rf-callout__text"
@@ -293,6 +293,11 @@ import DfButton from "df-shared/src/Button/Button.vue";
 export default class FileStatus extends Vue {
   user!: User;
 
+  isOld() {
+    // TODO
+    return true;
+  }
+
   getFileLink() {
     return `https://${process.env.VUE_APP_TENANT_URL}/dossier-locataire/${this.user?.apartmentSharing?.token}`;
   }
@@ -369,7 +374,11 @@ export default class FileStatus extends Vue {
     "representative-identification": "Representative identification",
     "corporation-identification": "Corporation identification",
     "guarantor": "Guarantor",
-    "guarantors-information": "My guarantors information"
+    "guarantors-information": "My guarantors information",
+    "TO_PROCESS":"to process",
+    "VALIDATED":"validated",
+    "DECLINED":"declined",
+    "INCOMPLETE":"incomplete"
   },
   "fr": {
     "title": "Bonjour {0}, votre dossier est {1} !",
@@ -390,7 +399,11 @@ export default class FileStatus extends Vue {
     "representative-identification": "Identité de la personne morale",
     "corporation-identification": "Identité du représentant de la personne morale",
     "guarantor": "Garant",
-    "guarantors-information": "Les informations de mes garants"
+    "guarantors-information": "Les informations de mes garants",
+    "TO_PROCESS":"non vérifié",
+    "VALIDATED":"vérifié",
+    "DECLINED":"modification demandée",
+    "INCOMPLETE":"non terminé"
   }
 }
 </i18n>
