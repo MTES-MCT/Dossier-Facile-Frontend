@@ -1,5 +1,12 @@
 <template>
   <div>
+    <ConfirmModal
+      v-if="isDocDeleteVisible"
+      @valid="validSelect()"
+      @cancel="undoSelect()"
+    >
+      <span>{{ $t("will-delete-files") }}</span>
+    </ConfirmModal>
     <ValidationObserver v-slot="{ invalid, validate }">
       <form name="form" @submit.prevent="validate().then(save)">
         <div class="rf-mb-3w">
@@ -8,15 +15,13 @@
             class="rf-select rf-mb-3w"
             id="select"
             name="select"
+            @change="onSelectChange()"
           >
             <option v-for="d in documents" :value="d" :key="d.key">
               {{ $t(d.key) }}
             </option>
           </select>
         </div>
-        <WarningMessage class="rf-mb-3w" v-if="isNewDocument()">
-          <span>{{ $t("will-delete-files") }}</span>
-        </WarningMessage>
         <div
           class="rf-mb-3w"
           v-if="taxDocument.key && taxDocument.key === 'other-tax'"
@@ -117,6 +122,7 @@ import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { RegisterService } from "../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
+import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 
 extend("is", {
   ...is,
@@ -132,6 +138,7 @@ extend("is", {
     ValidationObserver,
     ValidationProvider,
     WarningMessage,
+    ConfirmModal,
   },
   computed: {
     ...mapGetters({
@@ -152,6 +159,7 @@ export default class Tax extends Vue {
   customText = "";
 
   documents = DocumentTypeConstants.TAX_DOCS;
+  isDocDeleteVisible = false;
 
   getRegisteredDoc() {
     if (this.user.documents !== null) {
@@ -174,16 +182,51 @@ export default class Tax extends Vue {
     return undefined;
   }
 
-  isNewDocument() {
+  onSelectChange() {
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "TAX";
       });
       if (doc !== undefined) {
-        return doc.documentSubCategory !== this.taxDocument.value;
+        this.isDocDeleteVisible =
+          (doc.files?.length || 0) > 0 &&
+          doc.documentSubCategory !== this.taxDocument.value;
       }
     }
     return false;
+  }
+
+  undoSelect() {
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "TAX";
+      });
+      if (doc !== undefined) {
+        const localDoc = this.documents.find((d: DocumentType) => {
+          return d.value === doc.documentSubCategory;
+        });
+        if (localDoc !== undefined) {
+          this.taxDocument = localDoc;
+        }
+      }
+    }
+    this.isDocDeleteVisible = false;
+  }
+
+  validSelect() {
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "TAX";
+      });
+      if (doc !== undefined) {
+        doc.files?.forEach((f) => {
+          if (f.id) {
+            this.remove(f, true);
+          }
+        });
+      }
+    }
+    this.isDocDeleteVisible = false;
   }
 
   mounted() {
@@ -303,9 +346,9 @@ export default class Tax extends Vue {
     return false;
   }
 
-  remove(file: DfFile) {
+  remove(file: DfFile, silent = false) {
     if (file.path && file.id) {
-      RegisterService.deleteFile(file.id);
+      RegisterService.deleteFile(file.id, silent);
     } else {
       this.files = this.files.filter((f: DfFile) => {
         return f.name !== file.name;
