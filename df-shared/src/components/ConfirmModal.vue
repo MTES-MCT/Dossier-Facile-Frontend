@@ -3,14 +3,21 @@
     <template v-slot:body>
       <div class="rf-container">
         <div class="row justify-content-center">
-          <div class="col-12 col-md-8 rf-grid-row">
+          <div class="col-12 col-md-8">
             <p>
               <slot></slot>
             </p>
-            <DfButton @on-click="validSelect()" primary="true">{{
-              $t("validate")
-            }}</DfButton>
-            <DfButton @on-click="undoSelect()">{{ $t("cancel") }}</DfButton>
+            <div class="align--right">
+              <DfButton
+                class="rf-mr-3w"
+                @on-click="validSelect()"
+                primary="true"
+                >{{ $t("validate") }}</DfButton
+              >
+              <DfButton class="rf-mr-3w" @on-click="undoSelect()">{{
+                $t("cancel")
+              }}</DfButton>
+            </div>
           </div>
         </div>
       </div>
@@ -39,6 +46,12 @@ export default class ConfirmModal extends Vue {
   }
 }
 </script>
+
+<style scoped lang="scss">
+.align--right {
+  text-align: right;
+}
+</style>
 
 <i18n>
 {
