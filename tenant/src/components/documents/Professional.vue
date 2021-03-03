@@ -9,15 +9,20 @@
         class="rf-select rf-mb-3w"
         id="select"
         name="select"
+        @change="onSelectChange()"
       >
         <option v-for="d in documents" :value="d" :key="d.key">
           {{ $t(d.key) }}
         </option>
       </select>
     </div>
-    <WarningMessage class="rf-mb-3w" v-if="isNewDocument()">
+    <ConfirmModal
+      v-if="isDocDeleteVisible"
+      @valid="validSelect()"
+      @cancel="undoSelect()"
+    >
       <span>{{ $t("will-delete-files") }}</span>
-    </WarningMessage>
+    </ConfirmModal>
     <div v-if="professionalDocument.key">
       <div class="rf-mb-3w">
         {{ professionalDocument.explanationText }}
@@ -74,9 +79,16 @@ import { DfDocument } from "df-shared/src/models/DfDocument";
 import { RegisterService } from "../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
+import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 
 @Component({
-  components: { DocumentInsert, FileUpload, ListItem, WarningMessage },
+  components: {
+    DocumentInsert,
+    FileUpload,
+    ListItem,
+    WarningMessage,
+    ConfirmModal,
+  },
   computed: {
     ...mapGetters({
       user: "userToEdit",
@@ -92,8 +104,8 @@ export default class Professional extends Vue {
     [key: string]: { state: string; percentage: number };
   } = {};
   professionalDocument = new DocumentType();
-
   documents = DocumentTypeConstants.PROFESSIONAL_DOCS;
+  isDocDeleteVisible = false;
 
   mounted() {
     if (this.$store.getters.isGuarantor) {
@@ -115,16 +127,51 @@ export default class Professional extends Vue {
     }
   }
 
-  isNewDocument() {
+  onSelectChange() {
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "PROFESSIONAL";
       });
       if (doc !== undefined) {
-        return doc.documentSubCategory !== this.professionalDocument.value;
+        this.isDocDeleteVisible =
+          (doc.files?.length || 0) > 0 &&
+          doc.documentSubCategory !== this.professionalDocument.value;
       }
     }
     return false;
+  }
+
+  undoSelect() {
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "PROFESSIONAL";
+      });
+      if (doc !== undefined) {
+        const localDoc = this.documents.find((d: DocumentType) => {
+          return d.value === doc.documentSubCategory;
+        });
+        if (localDoc !== undefined) {
+          this.professionalDocument = localDoc;
+        }
+      }
+    }
+    this.isDocDeleteVisible = false;
+  }
+
+  validSelect() {
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "PROFESSIONAL";
+      });
+      if (doc !== undefined) {
+        doc.files?.forEach((f) => {
+          if (f.id) {
+            this.remove(f, true);
+          }
+        });
+      }
+    }
+    this.isDocDeleteVisible = false;
   }
 
   addFiles(fileList: File[]) {
@@ -199,9 +246,9 @@ export default class Professional extends Vue {
     return [...newFiles, ...existingFiles];
   }
 
-  remove(file: DfFile) {
+  remove(file: DfFile, silent = false) {
     if (file.path && file.id) {
-      RegisterService.deleteFile(file.id);
+      RegisterService.deleteFile(file.id, silent);
     } else {
       this.files = this.files.filter((f: DfFile) => {
         return f.name !== file.name;

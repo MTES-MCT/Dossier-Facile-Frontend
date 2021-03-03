@@ -1,5 +1,12 @@
 <template>
   <div>
+    <ConfirmModal
+      v-if="isDocDeleteVisible"
+      @valid="validSelect()"
+      @cancel="undoSelect()"
+    >
+      <span>{{ $t("will-delete-files") }}</span>
+    </ConfirmModal>
     <div v-for="(f, k) in financialDocuments" :key="k">
       <ValidationObserver v-slot="{ validate }">
         <form name="form" @submit.prevent="validate().then(save(f))">
@@ -25,15 +32,13 @@
               class="rf-select rf-mb-3w"
               id="select"
               name="select"
+              @change="onSelectChange(f)"
             >
               <option v-for="d in documents" :value="d" :key="d.key">
                 {{ $t(d.key) }}
               </option>
             </select>
           </div>
-          <WarningMessage class="rf-mb-3w" v-if="isNewDocument(f)">
-            <span>{{ $t("will-delete-files") }}</span>
-          </WarningMessage>
           <div v-if="f.documentType && f.documentType.key">
             <div>
               <validation-provider
@@ -185,6 +190,7 @@ import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { required, regex } from "vee-validate/dist/rules";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
+import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 
 extend("regex", {
   ...regex,
@@ -215,6 +221,7 @@ class F {
     ListItem,
     DfButton,
     WarningMessage,
+    ConfirmModal,
   },
   computed: {
     ...mapGetters({
@@ -230,6 +237,8 @@ export default class Financial extends Vue {
   financialDocuments: F[] = [];
 
   documents = DocumentTypeConstants.FINANCIAL_DOCS;
+  isDocDeleteVisible = false;
+  selectedDoc?: F;
 
   isNewDocument(f: F) {
     if (f.id !== null) {
@@ -241,6 +250,54 @@ export default class Financial extends Vue {
       }
     }
     return false;
+  }
+
+  onSelectChange(f: F) {
+    if (f.id !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
+        return d.id === f.id;
+      });
+      if (doc !== undefined) {
+        this.selectedDoc = f;
+        this.isDocDeleteVisible =
+          (doc.files?.length || 0) > 0 &&
+          doc.documentSubCategory !== f.documentType.value;
+      }
+    }
+    return false;
+  }
+
+  undoSelect() {
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
+        return d.id === this.selectedDoc?.id;
+      });
+      if (doc !== undefined) {
+        const localDoc = this.documents.find((d: DocumentType) => {
+          return d.value === doc.documentSubCategory;
+        });
+        if (localDoc !== undefined && this.selectedDoc) {
+          this.selectedDoc.documentType = localDoc;
+        }
+      }
+    }
+    this.isDocDeleteVisible = false;
+  }
+
+  validSelect() {
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
+        return d.id === this.selectedDoc?.id;
+      });
+      if (doc !== undefined) {
+        doc.files?.forEach((f) => {
+          if (f.id && this.selectedDoc) {
+            this.remove(this.selectedDoc, f, true);
+          }
+        });
+      }
+    }
+    this.isDocDeleteVisible = false;
   }
 
   mounted() {
@@ -323,7 +380,9 @@ export default class Financial extends Vue {
     if (f.id) {
       formData.append("id", f.id.toString());
     }
-    formData.append("customText", f.customText);
+    if (f.customText != "") {
+      formData.append("customText", f.customText);
+    }
 
     f.fileUploadStatus = UploadStatus.STATUS_SAVING;
     if (this.$store.getters.isGuarantor && this.$store.getters.guarantor.id) {
@@ -364,9 +423,9 @@ export default class Financial extends Vue {
     return [...newFiles, ...existingFiles];
   }
 
-  remove(f: F, file: DfFile) {
+  remove(f: F, file: DfFile, silent = false) {
     if (file.path && file.id) {
-      RegisterService.deleteFile(file.id);
+      RegisterService.deleteFile(file.id, silent);
     } else {
       f.files = f.files.filter((f: DfFile) => {
         return f.name !== file.name;
