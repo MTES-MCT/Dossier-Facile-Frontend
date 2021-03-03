@@ -39,3 +39,16 @@ export default class ConfirmModal extends Vue {
   }
 }
 </script>
+
+<i18n>
+{
+  "en": {
+    "validate": "Validate",
+    "cancel": "Cancel"
+  },
+  "fr": {
+    "validate": "Valider",
+    "cancel": "Annuler"
+  }
+}
+</i18n>
