@@ -264,7 +264,15 @@
               </div>
             </div>
           </div>
-          <div class="partners"></div>
+          <div class="partners">
+            <h2>{{ $t("partners") }}</h2>
+          </div>
+          <div class="delete">
+            <h2>{{ $t("delete") }}</h2>
+          </div>
+          <div class="opinion">
+            <h2>{{ $t("opinion") }}</h2>
+          </div>
         </div>
       </div>
     </section>
@@ -346,7 +354,25 @@ export default class FileStatus extends Vue {
 }
 
 .main {
-  background-color: var(--g200);
+  background-color: var(--w);
+}
+
+.rf-container-fluid {
+  background-color: var(--bf100-g750);
+}
+
+.rf-callout {
+  background-color: var(--w);
+}
+
+h1 {
+  color: var(--bf500);
+  font-size: 2rem;
+}
+
+h2 {
+  color: var(--bf500);
+  font-size: 2rem;
 }
 </style>
 
@@ -375,7 +401,10 @@ export default class FileStatus extends Vue {
     "TO_PROCESS":"to process",
     "VALIDATED":"validated",
     "DECLINED":"declined",
-    "INCOMPLETE":"incomplete"
+    "INCOMPLETE":"incomplete",
+    "partners": "Our partners",
+    "delete": "Deletion of my account",
+    "opinion": "Tell us about your experience DossierFacile.fr"
   },
   "fr": {
     "title": "Bonjour {0}, votre dossier est {1} !",
@@ -400,7 +429,10 @@ export default class FileStatus extends Vue {
     "TO_PROCESS":"non vérifié",
     "VALIDATED":"vérifié",
     "DECLINED":"modification demandée",
-    "INCOMPLETE":"non terminé"
+    "INCOMPLETE":"non terminé",
+    "partners": "Nos partenaires",
+    "delete": "Suppression de mon compte",
+    "opinion": "Racontez-nous votre expérience DossierFacile.fr"
   }
 }
 </i18n>
