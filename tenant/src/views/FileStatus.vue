@@ -20,9 +20,7 @@
             <div class="main-bar rf-grid-row">
               <h4 class="rf-mr-2w rf-mb-0 rf-mt-0">{{ $t("my-file") }}</h4>
 
-              <p class="rf-tag">
-                <span>{{ $t(user.status) }}</span>
-              </p>
+              <StatusTag :status="user.status"></StatusTag>
 
               <span class="spacer"></span>
               <DfButton @on-click="copyLink" primary="true" size="small">{{
@@ -328,9 +326,10 @@ import { User } from "df-shared/src/models/User";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import DfButton from "df-shared/src/Button/Button.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import StatusTag from "df-shared/src/components/StatusTag.vue";
 
 @Component({
-  components: { ValidationProvider, DfButton, NakedCard },
+  components: { ValidationProvider, DfButton, NakedCard, StatusTag },
   computed: {
     ...mapState({
       user: "user",
