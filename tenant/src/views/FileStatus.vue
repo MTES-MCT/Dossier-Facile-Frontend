@@ -264,13 +264,13 @@
             <h2>{{ $t("partners") }}</h2>
             <div class="rf-grid-row rf-grid-row--gutters">
               <div class="rf-col">
-                <div class="align--center bg-white">
-                  <p>Visale</p>
+                <div class="bg-white">
+                  <img class="visale-img" src="../assets/visale_grey.webp" />
                 </div>
               </div>
               <div class="rf-col">
-                <div class="align--center bg-white">
-                  <p>Anil</p>
+                <div class="bg-white">
+                  <img class="anil-img" src="../assets/anil_grey.webp" />
                 </div>
               </div>
             </div>
@@ -448,6 +448,22 @@ h2 {
   background-color: var(--error);
   --color-hover: rgba(246, 0, 0, 0.5);
   --color-active: rgba(255, 91, 91, 0.5);
+}
+
+.visale-img {
+  height: 72px;
+  margin: auto;
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+
+.anil-img {
+  margin: auto;
+  height: 100px;
+}
+
+.partners .bg-white {
+  padding: 2rem;
 }
 </style>
 
