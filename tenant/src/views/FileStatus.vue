@@ -460,9 +460,9 @@ export default class FileStatus extends Vue {
   }
 
   copyLink() {
-    const tl = document.querySelector("#tokenLink");
+    const tl = document.querySelector("#tokenLink") as HTMLInputElement;
 
-    tl.setAttribute("type", "text");
+    tl?.setAttribute("type", "text");
     tl?.select();
 
     try {
@@ -470,7 +470,7 @@ export default class FileStatus extends Vue {
     } catch (err) {
       alert("Oops, unable to copy");
     }
-    tl.setAttribute("type", "hidden");
+    tl?.setAttribute("type", "hidden");
   }
 
   deleteAccount() {
