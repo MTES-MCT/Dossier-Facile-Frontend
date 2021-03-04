@@ -16,16 +16,79 @@
               $t("update-file-btn")
             }}</DfButton>
           </div>
-          <div class="main rf-mt-5w rf-p-2w">
+          <div class="main rf-mt-5w rf-p-2w bg-white">
             <div class="main-bar rf-grid-row">
               <h4 class="rf-mr-2w rf-mb-0 rf-mt-0">{{ $t("my-file") }}</h4>
 
               <StatusTag :status="user.status"></StatusTag>
 
               <span class="spacer"></span>
-              <DfButton @on-click="copyLink" primary="true" size="small">{{
+              <DfButton @on-click="copyLink()" primary="true" size="small">{{
                 $t("copy-link")
               }}</DfButton>
+              <div class="grp">
+                <input id="tokenLink" type="hidden" :value="getToken()" />
+                <button
+                  class="rf-btn grp-btn"
+                  :class="{
+                    'rf-fi-arrow-down-s-line': !radioVisible,
+                    'rf-fi-arrow-up-s-line': radioVisible,
+                  }"
+                  title="Label bouton MD"
+                  @click="radioVisible = !radioVisible"
+                >
+                  <span class="sr-only"> Label bouton MD </span>
+                </button>
+                <div class="grp-modal bg-white" v-show="radioVisible">
+                  <h4>{{ $t("share-file") }}</h4>
+
+                  <div class="rf-form-group">
+                    <fieldset class="rf-fieldset">
+                      <div class="rf-fieldset__content">
+                        <div class="rf-radio-group">
+                          <input
+                            type="radio"
+                            id="radio-1"
+                            name="radio"
+                            v-model="pub"
+                            value="true"
+                          />
+                          <label
+                            class="rf-label"
+                            for="radio-1"
+                            v-html="$t('file-resume')"
+                          ></label>
+                        </div>
+                        <hr />
+                        <div class="rf-radio-group">
+                          <input
+                            type="radio"
+                            id="radio-2"
+                            name="radio"
+                            v-model="pub"
+                            value="false"
+                          />
+                          <label
+                            class="rf-label"
+                            for="radio-2"
+                            v-html="$t('file-full')"
+                          >
+                          </label>
+                        </div>
+                        <div class="flex copy-btn">
+                          <input type="text" :value="getToken()" readonly />
+                          <DfButton
+                            class="rf-ml-1w"
+                            primary="true"
+                            @on-click="copyLink()"
+                            >{{ $t("copy") }}</DfButton
+                          >
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="main-description">
               Vous avez indiqué être en cdd etc.
@@ -343,18 +406,19 @@ import StatusTag from "df-shared/src/components/StatusTag.vue";
 })
 export default class FileStatus extends Vue {
   user!: User;
+  radioVisible = false;
+  pub = "false";
 
   isOld() {
     // TODO
     return true;
   }
 
-  getFileLink() {
-    return `https://${process.env.VUE_APP_TENANT_URL}/dossier-locataire/${this.user?.apartmentSharing?.token}`;
-  }
-
-  getPublicFileLink() {
-    return `https://${process.env.VUE_APP_TENANT_URL}/dossier-locataire/${this.user?.apartmentSharing?.tokenPublic}`;
+  getToken() {
+    if (this.pub === "true") {
+      return this.user.apartmentSharing?.tokenPublic;
+    }
+    return this.user.apartmentSharing?.token;
   }
 
   oldUpdateDocument() {
@@ -396,7 +460,17 @@ export default class FileStatus extends Vue {
   }
 
   copyLink() {
-    // TODO
+    const tl = document.querySelector("#tokenLink");
+
+    tl.setAttribute("type", "text");
+    tl?.select();
+
+    try {
+      document.execCommand("copy");
+    } catch (err) {
+      alert("Oops, unable to copy");
+    }
+    tl.setAttribute("type", "hidden");
   }
 
   deleteAccount() {
@@ -465,6 +539,38 @@ h2 {
 .partners .bg-white {
   padding: 2rem;
 }
+
+.grp {
+  display: block;
+  position: relative;
+}
+
+.grp-btn {
+  border-left: 1px solid var(--w);
+  position: relative;
+}
+
+.grp-modal {
+  position: absolute;
+  border-radius: 5px;
+  right: 0;
+  left: auto;
+
+  &:before {
+    top: -16px;
+    right: 9px;
+    left: auto;
+    border: 8px solid transparent;
+    border-bottom: 8px solid var(--color-border-overlay);
+    position: absolute;
+    display: inline-block;
+    content: "";
+  }
+}
+
+h4 {
+  min-width: 300px;
+}
 </style>
 
 <i18n>
@@ -498,7 +604,11 @@ h2 {
     "partners": "Our partners",
     "delete": "Deletion of my account",
     "opinion": "Tell us about your experience DossierFacile.fr",
-    "delete-account": "Delete my account"
+    "delete-account": "Delete my account",
+    "share-file": "Share my file",
+    "file-resume": "Share resumed file <br>(without supporting document)",
+    "file-full": "Share full file <br>(with supporting document)",
+    "copy": "Copy"
   },
   "fr": {
     "title": "Bonjour {0}, votre dossier est {1} !",
@@ -529,7 +639,11 @@ h2 {
     "partners": "Nos partenaires",
     "delete": "Suppression de mon compte",
     "opinion": "Racontez-nous votre expérience DossierFacile.fr",
-    "delete-account": "Supprimer mon compte"
+    "delete-account": "Supprimer mon compte",
+    "share-file": "Partager mon dossier",
+    "file-resume": "Partager mon dossier de synthèse <br>(sans pièce justificative)",
+    "file-full": "Partager mon dossier complet<br>(avec pièces justificatives)",
+    "copy": "Copier"
   }
 }
 </i18n>
