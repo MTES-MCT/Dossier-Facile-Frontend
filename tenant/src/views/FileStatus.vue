@@ -57,7 +57,7 @@
                 </div>
               </div>
               <hr />
-              <h4>{{ $t("my-personnal-files") }}</h4>
+              <h4>{{ $t("my-files") }}</h4>
 
               <div class="rf-grid-row rf-grid-row--gutters">
                 <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
