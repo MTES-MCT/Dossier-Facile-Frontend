@@ -32,7 +32,7 @@
             </div>
             <hr />
             <div class="main-information">
-              <h4>{{ $t("my-information") }}</h4>
+              <h4>{{ $t("my-personnal-information") }}</h4>
               <div class="rf-grid-row rf-grid-row--gutters">
                 <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
                   <div class="rf-tile rf-tile--horizontal">
@@ -49,10 +49,15 @@
                           $t("my-information")
                         }}</a>
                       </h4>
+                      <StatusTag
+                        :status="getStatus('IDENTIFICATION')"
+                      ></StatusTag>
                     </div>
                   </div>
                 </div>
               </div>
+              <hr />
+              <h4>{{ $t("my-personnal-files") }}</h4>
 
               <div class="rf-grid-row rf-grid-row--gutters">
                 <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
@@ -367,6 +372,13 @@ export default class FileStatus extends Vue {
     return doc?.documentSubCategory === "STUDENT";
   }
 
+  getStatus(docType: string) {
+    const doc = this.user.documents?.find((d: DfDocument) => {
+      return d.documentCategory === docType;
+    });
+    return doc?.documentStatus;
+  }
+
   goToProfile() {
     this.$router.push("/profile");
   }
@@ -451,7 +463,9 @@ h2 {
     "copy-link":"Copy my file link",
     "share-by-mail": "Share by mail",
     "my-file": "My rent file",
+    "my-personnal-information": "My personnal information",
     "my-information": "My information",
+    "my-files": "My documents",
     "identification": "Identification",
     "residency": "Residency",
     "professional": "Professional",
@@ -480,7 +494,9 @@ h2 {
     "copy-link":"Copier mon lien dossier",
     "share-by-mail": "Partager par mail",
     "my-file": "Mon dossier de location",
+    "my-personnal-information": "Mes informations personnelles",
     "my-information": "Mes informations",
+    "my-files": "Mes pièces justificatives",
     "identification": "Pièce d'identité",
     "residency": "Justificatif de domicile",
     "professional": "Justificatif de situation professionelle",
