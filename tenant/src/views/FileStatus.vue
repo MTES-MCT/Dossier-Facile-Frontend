@@ -21,14 +21,7 @@
               <h4 class="rf-mr-2w rf-mb-0 rf-mt-0">{{ $t("my-file") }}</h4>
 
               <p class="rf-tag">
-                <span v-if="user.status === 'TO_PROCESS'"
-                  >dossier complété.</span
-                >
-                <span v-if="user.status === 'VALIDATED'">dossier validé.</span>
-                <span v-if="user.status === 'DECLINED'">dossier étudié.</span>
-                <span v-if="!user.status || user.status === 'INCOMPLETE'">
-                  dossier créé.
-                </span>
+                <span>{{ $t(user.status) }}</span>
               </p>
 
               <span class="spacer"></span>
@@ -266,12 +259,60 @@
           </div>
           <div class="partners">
             <h2>{{ $t("partners") }}</h2>
+            <div class="rf-grid-row rf-grid-row--gutters">
+              <div class="rf-col">
+                <div class="align--center bg-white">
+                  <p>Visale</p>
+                </div>
+              </div>
+              <div class="rf-col">
+                <div class="align--center bg-white">
+                  <p>Anil</p>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="delete">
             <h2>{{ $t("delete") }}</h2>
+            <div class="bg-white">
+              <p>
+                Vous pouvez supprimer votre compte DossierFacile à tout moment.
+                La suppression de votre compte entrainera automatiquement
+                l’effacement définitif de vos pièces justificatives.
+              </p>
+              <div class="align--center">
+                <DfButton
+                  class="delete-btn"
+                  primary="true"
+                  @on-click="deleteAccount()"
+                  >{{ $t("delete-account") }}</DfButton
+                >
+              </div>
+            </div>
           </div>
-          <div class="opinion">
+          <div class="opinion rf-mb-5w">
             <h2>{{ $t("opinion") }}</h2>
+            <div class="bg-white">
+              <p>
+                Nous cherchons constamment à améliorer la qualité de notre
+                service. Dans le cadre de cette démarche d’amélioration, nous
+                cherchons à obtenir votre retour d’expérience. En cliquant sur
+                le bouton ci-dessous, vous pourrez évaluer DossierFacile.fr. Vos
+                commentaires nous sont précieux ! Merci.
+              </p>
+              <div class="align--center">
+                <a
+                  href="https://voxusagers.numerique.gouv.fr/Demarches/2871?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=f2f9b35326f6b085c219faef71d0a3f2"
+                >
+                  <img
+                    src="https://voxusagers.numerique.gouv.fr/static/bouton-bleu.svg"
+                    alt="Je donne mon avis"
+                    title="Je donne mon avis sur cette démarche"
+                    class="align--center"
+                  />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -286,9 +327,10 @@ import { mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import DfButton from "df-shared/src/Button/Button.vue";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 @Component({
-  components: { ValidationProvider, DfButton },
+  components: { ValidationProvider, DfButton, NakedCard },
   computed: {
     ...mapState({
       user: "user",
@@ -345,6 +387,10 @@ export default class FileStatus extends Vue {
   copyLink() {
     // TODO
   }
+
+  deleteAccount() {
+    // TODO
+  }
 }
 </script>
 
@@ -373,6 +419,24 @@ h1 {
 h2 {
   color: var(--bf500);
   font-size: 2rem;
+}
+
+.align--center {
+  text-align: center;
+  margin: auto;
+}
+
+.bg-white {
+  padding: 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 10px;
+  background: var(--w);
+}
+
+.rf-btn.delete-btn {
+  background-color: var(--error);
+  --color-hover: rgba(246, 0, 0, 0.5);
+  --color-active: rgba(255, 91, 91, 0.5);
 }
 </style>
 
@@ -404,7 +468,8 @@ h2 {
     "INCOMPLETE":"incomplete",
     "partners": "Our partners",
     "delete": "Deletion of my account",
-    "opinion": "Tell us about your experience DossierFacile.fr"
+    "opinion": "Tell us about your experience DossierFacile.fr",
+    "delete-account": "Delete my account"
   },
   "fr": {
     "title": "Bonjour {0}, votre dossier est {1} !",
@@ -432,7 +497,8 @@ h2 {
     "INCOMPLETE":"non terminé",
     "partners": "Nos partenaires",
     "delete": "Suppression de mon compte",
-    "opinion": "Racontez-nous votre expérience DossierFacile.fr"
+    "opinion": "Racontez-nous votre expérience DossierFacile.fr",
+    "delete-account": "Supprimer mon compte"
   }
 }
 </i18n>
