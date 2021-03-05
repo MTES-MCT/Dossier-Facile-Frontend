@@ -23,10 +23,17 @@
               <StatusTag :status="user.status"></StatusTag>
 
               <span class="spacer"></span>
-              <DfButton @on-click="copyLink()" primary="true" size="small">{{
-                $t("copy-link")
-              }}</DfButton>
-              <div class="grp">
+              <DfButton
+                v-if="user.apartmentSharing.status === 'VALIDATED'"
+                @on-click="copyLink()"
+                primary="true"
+                size="small"
+                >{{ $t("copy-link") }}</DfButton
+              >
+              <div
+                v-if="user.apartmentSharing.status === 'VALIDATED'"
+                class="grp"
+              >
                 <input id="tokenLink" type="hidden" :value="getToken()" />
                 <button
                   class="rf-btn grp-btn"
@@ -34,10 +41,10 @@
                     'rf-fi-arrow-down-s-line': !radioVisible,
                     'rf-fi-arrow-up-s-line': radioVisible,
                   }"
-                  title="Label bouton MD"
+                  title="Copy"
                   @click="radioVisible = !radioVisible"
                 >
-                  <span class="sr-only"> Label bouton MD </span>
+                  <span class="sr-only"> Copy </span>
                 </button>
                 <div class="grp-modal bg-white" v-show="radioVisible">
                   <h4>{{ $t("share-file") }}</h4>
@@ -96,15 +103,13 @@
             <hr />
             <div class="main-information">
               <h4>{{ $t("my-personnal-information") }}</h4>
-              <div class="rf-grid-row rf-grid-row--gutters">
-                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+              <div class="rf-grid-row rf-grid-row--gutters" @click="setStep(0)">
+                <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
-                      <img
-                        src="https://place-hold.it/80x80"
-                        titre="Texte alternatif à l‘image"
-                        alt="Texte alternatif à l‘image"
-                      />
+                      <span class="color--primary material-icons md-80"
+                        >person</span
+                      >
                     </div>
                     <div class="rf-tile__body">
                       <h4 class="rf-tile__title">
@@ -112,10 +117,17 @@
                           $t("my-information")
                         }}</a>
                       </h4>
-                      <StatusTag
-                        :status="getStatus('IDENTIFICATION')"
-                      ></StatusTag>
+                      <p>
+                        {{ user.firstName }} {{ user.lastName }}<br />
+                        {{ user.email }}
+                      </p>
                     </div>
+                    <button
+                      class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                      title="Edit"
+                    >
+                      <span class="sr-only"> Edit </span>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -123,14 +135,15 @@
               <h4>{{ $t("my-files") }}</h4>
 
               <div class="rf-grid-row rf-grid-row--gutters">
-                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                <div
+                  class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                  @click="setTenantStep(1)"
+                >
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
-                      <img
-                        src="https://place-hold.it/80x80"
-                        titre="Texte alternatif à l‘image"
-                        alt="Texte alternatif à l‘image"
-                      />
+                      <span class="color--primary material-icons md-80"
+                        >person</span
+                      >
                     </div>
                     <div class="rf-tile__body">
                       <h4 class="rf-tile__title">
@@ -138,33 +151,51 @@
                           $t("identification")
                         }}</a>
                       </h4>
+                      <StatusTag
+                        :status="getStatus('IDENTIFICATION')"
+                      ></StatusTag>
+                      <button
+                        class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                        title="Edit"
+                      >
+                        <span class="sr-only"> Edit </span>
+                      </button>
                     </div>
                   </div>
                 </div>
-                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                <div
+                  class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                  @click="setTenantStep(2)"
+                >
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
-                      <img
-                        src="https://place-hold.it/80x80"
-                        titre="Texte alternatif à l‘image"
-                        alt="Texte alternatif à l‘image"
-                      />
+                      <span class="color--primary material-icons md-80"
+                        >home</span
+                      >
                     </div>
                     <div class="rf-tile__body">
                       <h4 class="rf-tile__title">
                         <a class="rf-tile__link" href>{{ $t("residency") }}</a>
                       </h4>
+                      <StatusTag :status="getStatus('RESIDENCY')"></StatusTag>
+                      <button
+                        class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                        title="Edit"
+                      >
+                        <span class="sr-only"> Edit </span>
+                      </button>
                     </div>
                   </div>
                 </div>
-                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                <div
+                  class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                  @click="setTenantStep(3)"
+                >
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
-                      <img
-                        src="https://place-hold.it/80x80"
-                        titre="Texte alternatif à l‘image"
-                        alt="Texte alternatif à l‘image"
-                      />
+                      <span class="color--primary material-icons md-80"
+                        >work</span
+                      >
                     </div>
                     <div class="rf-tile__body">
                       <h4 class="rf-tile__title">
@@ -172,151 +203,234 @@
                           $t("professional")
                         }}</a>
                       </h4>
+                      <StatusTag
+                        :status="getStatus('PROFESSIONAL')"
+                      ></StatusTag>
+                      <button
+                        class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                        title="Edit"
+                      >
+                        <span class="sr-only"> Edit </span>
+                      </button>
                     </div>
                   </div>
                 </div>
 
-                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                <div
+                  class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                  @click="setTenantStep(4)"
+                >
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
-                      <img
-                        src="https://place-hold.it/80x80"
-                        titre="Texte alternatif à l‘image"
-                        alt="Texte alternatif à l‘image"
-                      />
+                      <span class="color--primary material-icons md-80"
+                        >euro</span
+                      >
                     </div>
                     <div class="rf-tile__body">
                       <h4 class="rf-tile__title">
                         <a class="rf-tile__link" href>{{ $t("financial") }}</a>
                       </h4>
+                      <StatusTag :status="getStatus('FINANCIAL')"></StatusTag>
+                      <button
+                        class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                        title="Edit"
+                      >
+                        <span class="sr-only"> Edit </span>
+                      </button>
                     </div>
                   </div>
                 </div>
-                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                <div
+                  class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                  @click="setTenantStep(5)"
+                >
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
-                      <img
-                        src="https://place-hold.it/80x80"
-                        titre="Texte alternatif à l‘image"
-                        alt="Texte alternatif à l‘image"
-                      />
+                      <span class="color--primary material-icons md-80"
+                        >content_copy</span
+                      >
                     </div>
                     <div class="rf-tile__body">
                       <h4 class="rf-tile__title">
                         <a class="rf-tile__link" href>{{ $t("tax") }}</a>
                       </h4>
+                      <StatusTag :status="getStatus('TAX')"></StatusTag>
+                      <button
+                        class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                        title="Edit"
+                      >
+                        <span class="sr-only"> Edit </span>
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <hr />
-            <div class="main-guarantor-information">
+            <hr v-if="user.guarantors.length > 0" />
+            <div
+              class="main-guarantor-information"
+              v-if="user.guarantors.length > 0"
+            >
               <h4>{{ $t("guarantors-information") }}</h4>
-              <div class="rf-grid-row rf-grid-row--gutters">
-                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
-                  <div class="rf-tile rf-tile--horizontal">
-                    <div class="rf-tile__img-wrap">
-                      <img
-                        src="https://place-hold.it/80x80"
-                        titre="Texte alternatif à l‘image"
-                        alt="Texte alternatif à l‘image"
-                      />
-                    </div>
-                    <div class="rf-tile__body">
-                      <h4 class="rf-tile__title">
-                        <a class="rf-tile__link" href>{{
-                          $t("my-information")
-                        }}</a>
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
-              <div class="rf-grid-row rf-grid-row--gutters">
-                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
-                  <div class="rf-tile rf-tile--horizontal">
-                    <div class="rf-tile__img-wrap">
-                      <img
-                        src="https://place-hold.it/80x80"
-                        titre="Texte alternatif à l‘image"
-                        alt="Texte alternatif à l‘image"
-                      />
-                    </div>
-                    <div class="rf-tile__body">
-                      <h4 class="rf-tile__title">
-                        <a class="rf-tile__link" href>{{
-                          $t("identification")
-                        }}</a>
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
-                  <div class="rf-tile rf-tile--horizontal">
-                    <div class="rf-tile__img-wrap">
-                      <img
-                        src="https://place-hold.it/80x80"
-                        titre="Texte alternatif à l‘image"
-                        alt="Texte alternatif à l‘image"
-                      />
-                    </div>
-                    <div class="rf-tile__body">
-                      <h4 class="rf-tile__title">
-                        <a class="rf-tile__link" href>{{ $t("residency") }}</a>
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
-                  <div class="rf-tile rf-tile--horizontal">
-                    <div class="rf-tile__img-wrap">
-                      <img
-                        src="https://place-hold.it/80x80"
-                        titre="Texte alternatif à l‘image"
-                        alt="Texte alternatif à l‘image"
-                      />
-                    </div>
-                    <div class="rf-tile__body">
-                      <h4 class="rf-tile__title">
-                        <a class="rf-tile__link" href>{{
-                          $t("professional")
-                        }}</a>
-                      </h4>
+              <div v-for="g in user.guarantors" v-bind:key="g.id">
+                <div class="rf-grid-row rf-grid-row--gutters">
+                  <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
+                    <div class="rf-tile rf-tile--horizontal">
+                      <div class="rf-tile__img-wrap">
+                        <span class="color--primary material-icons md-80"
+                          >person</span
+                        >
+                      </div>
+                      <div class="rf-tile__body">
+                        <h4 class="rf-tile__title">
+                          <a class="rf-tile__link" href>{{
+                            $t("my-information")
+                          }}</a>
+                        </h4>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
-                  <div class="rf-tile rf-tile--horizontal">
-                    <div class="rf-tile__img-wrap">
-                      <img
-                        src="https://place-hold.it/80x80"
-                        titre="Texte alternatif à l‘image"
-                        alt="Texte alternatif à l‘image"
-                      />
-                    </div>
-                    <div class="rf-tile__body">
-                      <h4 class="rf-tile__title">
-                        <a class="rf-tile__link" href>{{ $t("financial") }}</a>
-                      </h4>
+                <div class="rf-grid-row rf-grid-row--gutters">
+                  <div
+                    class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                    @click="setGuarantorStep(1)"
+                  >
+                    <div class="rf-tile rf-tile--horizontal">
+                      <div class="rf-tile__img-wrap">
+                        <span class="color--primary material-icons md-80"
+                          >person</span
+                        >
+                      </div>
+                      <div class="rf-tile__body">
+                        <h4 class="rf-tile__title">
+                          <a class="rf-tile__link" href>{{
+                            $t("identification")
+                          }}</a>
+                        </h4>
+                        <StatusTag
+                          :status="getGuarantorStatus('INFORMATION')"
+                        ></StatusTag>
+                        <button
+                          class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                          title="Edit"
+                        >
+                          <span class="sr-only"> Edit </span>
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
-                  <div class="rf-tile rf-tile--horizontal">
-                    <div class="rf-tile__img-wrap">
-                      <img
-                        src="https://place-hold.it/80x80"
-                        titre="Texte alternatif à l‘image"
-                        alt="Texte alternatif à l‘image"
-                      />
+                  <div
+                    class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                    @click="setGuarantorStep(2)"
+                  >
+                    <div class="rf-tile rf-tile--horizontal">
+                      <div class="rf-tile__img-wrap">
+                        <span class="color--primary material-icons md-80"
+                          >home</span
+                        >
+                      </div>
+                      <div class="rf-tile__body">
+                        <h4 class="rf-tile__title">
+                          <a class="rf-tile__link" href>{{
+                            $t("residency")
+                          }}</a>
+                        </h4>
+                        <StatusTag
+                          :status="getGuarantorStatus('RESIDENCY')"
+                        ></StatusTag>
+                        <button
+                          class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                          title="Edit"
+                        >
+                          <span class="sr-only"> Edit </span>
+                        </button>
+                      </div>
                     </div>
-                    <div class="rf-tile__body">
-                      <h4 class="rf-tile__title">
-                        <a class="rf-tile__link" href>{{ $t("tax") }}</a>
-                      </h4>
+                  </div>
+                  <div
+                    class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                    @click="setGuarantorStep(3)"
+                  >
+                    <div class="rf-tile rf-tile--horizontal">
+                      <div class="rf-tile__img-wrap">
+                        <span class="color--primary material-icons md-80"
+                          >work</span
+                        >
+                      </div>
+                      <div class="rf-tile__body">
+                        <h4 class="rf-tile__title">
+                          <a class="rf-tile__link" href>{{
+                            $t("professional")
+                          }}</a>
+                        </h4>
+                        <StatusTag
+                          :status="getGuarantorStatus('PROFESSIONAL')"
+                        ></StatusTag>
+                        <button
+                          class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                          title="Edit"
+                        >
+                          <span class="sr-only"> Edit </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                    @click="setGuarantorStep(4)"
+                  >
+                    <div class="rf-tile rf-tile--horizontal">
+                      <div class="rf-tile__img-wrap">
+                        <span class="color--primary material-icons md-80"
+                          >euro</span
+                        >
+                      </div>
+                      <div class="rf-tile__body">
+                        <h4 class="rf-tile__title">
+                          <a class="rf-tile__link" href>{{
+                            $t("financial")
+                          }}</a>
+                        </h4>
+                        <StatusTag
+                          :status="getGuarantorStatus('FINANCIAL')"
+                        ></StatusTag>
+                        <button
+                          class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                          title="Edit"
+                        >
+                          <span class="sr-only"> Edit </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                    @click="setGuarantorStep(5)"
+                  >
+                    <div class="rf-tile rf-tile--horizontal">
+                      <div class="rf-tile__img-wrap">
+                        <span class="color--primary material-icons md-80"
+                          >content_copy</span
+                        >
+                      </div>
+                      <div class="rf-tile__body">
+                        <h4 class="rf-tile__title">
+                          <a class="rf-tile__link" href>{{ $t("tax") }}</a>
+                        </h4>
+                        <StatusTag
+                          :status="getGuarantorStatus('TAX')"
+                        ></StatusTag>
+                        <button
+                          class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                          title="Edit"
+                        >
+                          <span class="sr-only"> Edit </span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -476,6 +590,22 @@ export default class FileStatus extends Vue {
   deleteAccount() {
     // TODO
   }
+
+  setStep(n: number) {
+    this.$store.commit("setStep", n);
+    this.$router.push("/profile");
+    return false;
+  }
+
+  setTenantStep(n: number) {
+    this.$store.commit("setTenantSubstep", n);
+    this.setStep(2);
+  }
+
+  setGuarantorSubStep(n: number) {
+    this.$store.commit("setGuarantorSubstep", n);
+    this.setStep(3);
+  }
 }
 </script>
 
@@ -568,8 +698,16 @@ h2 {
   }
 }
 
-h4 {
-  min-width: 300px;
+p {
+  word-break: break-word;
+}
+
+.edit-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  box-shadow: none;
 }
 </style>
 
