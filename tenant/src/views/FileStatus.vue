@@ -119,7 +119,10 @@
                           $t("my-information")
                         }}</a>
                       </h4>
-                      <p>{{ user.firstName }} {{ user.lastName }}</p>
+                      <p>
+                        {{ user.firstName }} {{ user.lastName }}<br />
+                        {{ user.email }}
+                      </p>
                     </div>
                   </div>
                 </div>
