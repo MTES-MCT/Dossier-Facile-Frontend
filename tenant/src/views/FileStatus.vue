@@ -107,11 +107,9 @@
                 <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
-                      <img
-                        src="https://place-hold.it/80x80"
-                        titre="Texte alternatif à l‘image"
-                        alt="Texte alternatif à l‘image"
-                      />
+                      <span class="color--primary material-icons md-80"
+                        >person</span
+                      >
                     </div>
                     <div class="rf-tile__body">
                       <h4 class="rf-tile__title">
@@ -143,11 +141,9 @@
                 >
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
-                      <img
-                        src="https://place-hold.it/80x80"
-                        titre="Texte alternatif à l‘image"
-                        alt="Texte alternatif à l‘image"
-                      />
+                      <span class="color--primary material-icons md-80"
+                        >person</span
+                      >
                     </div>
                     <div class="rf-tile__body">
                       <h4 class="rf-tile__title">
@@ -173,11 +169,9 @@
                 >
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
-                      <img
-                        src="https://place-hold.it/80x80"
-                        titre="Texte alternatif à l‘image"
-                        alt="Texte alternatif à l‘image"
-                      />
+                      <span class="color--primary material-icons md-80"
+                        >home</span
+                      >
                     </div>
                     <div class="rf-tile__body">
                       <h4 class="rf-tile__title">
@@ -199,11 +193,9 @@
                 >
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
-                      <img
-                        src="https://place-hold.it/80x80"
-                        titre="Texte alternatif à l‘image"
-                        alt="Texte alternatif à l‘image"
-                      />
+                      <span class="color--primary material-icons md-80"
+                        >work</span
+                      >
                     </div>
                     <div class="rf-tile__body">
                       <h4 class="rf-tile__title">
@@ -230,11 +222,9 @@
                 >
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
-                      <img
-                        src="https://place-hold.it/80x80"
-                        titre="Texte alternatif à l‘image"
-                        alt="Texte alternatif à l‘image"
-                      />
+                      <span class="color--primary material-icons md-80"
+                        >euro</span
+                      >
                     </div>
                     <div class="rf-tile__body">
                       <h4 class="rf-tile__title">
@@ -256,11 +246,9 @@
                 >
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
-                      <img
-                        src="https://place-hold.it/80x80"
-                        titre="Texte alternatif à l‘image"
-                        alt="Texte alternatif à l‘image"
-                      />
+                      <span class="color--primary material-icons md-80"
+                        >content_copy</span
+                      >
                     </div>
                     <div class="rf-tile__body">
                       <h4 class="rf-tile__title">
@@ -290,11 +278,9 @@
                   <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
                     <div class="rf-tile rf-tile--horizontal">
                       <div class="rf-tile__img-wrap">
-                        <img
-                          src="https://place-hold.it/80x80"
-                          titre="Texte alternatif à l‘image"
-                          alt="Texte alternatif à l‘image"
-                        />
+                        <span class="color--primary material-icons md-80"
+                          >person</span
+                        >
                       </div>
                       <div class="rf-tile__body">
                         <h4 class="rf-tile__title">
@@ -314,11 +300,9 @@
                   >
                     <div class="rf-tile rf-tile--horizontal">
                       <div class="rf-tile__img-wrap">
-                        <img
-                          src="https://place-hold.it/80x80"
-                          titre="Texte alternatif à l‘image"
-                          alt="Texte alternatif à l‘image"
-                        />
+                        <span class="color--primary material-icons md-80"
+                          >person</span
+                        >
                       </div>
                       <div class="rf-tile__body">
                         <h4 class="rf-tile__title">
@@ -344,11 +328,9 @@
                   >
                     <div class="rf-tile rf-tile--horizontal">
                       <div class="rf-tile__img-wrap">
-                        <img
-                          src="https://place-hold.it/80x80"
-                          titre="Texte alternatif à l‘image"
-                          alt="Texte alternatif à l‘image"
-                        />
+                        <span class="color--primary material-icons md-80"
+                          >home</span
+                        >
                       </div>
                       <div class="rf-tile__body">
                         <h4 class="rf-tile__title">
@@ -374,11 +356,9 @@
                   >
                     <div class="rf-tile rf-tile--horizontal">
                       <div class="rf-tile__img-wrap">
-                        <img
-                          src="https://place-hold.it/80x80"
-                          titre="Texte alternatif à l‘image"
-                          alt="Texte alternatif à l‘image"
-                        />
+                        <span class="color--primary material-icons md-80"
+                          >work</span
+                        >
                       </div>
                       <div class="rf-tile__body">
                         <h4 class="rf-tile__title">
@@ -405,11 +385,9 @@
                   >
                     <div class="rf-tile rf-tile--horizontal">
                       <div class="rf-tile__img-wrap">
-                        <img
-                          src="https://place-hold.it/80x80"
-                          titre="Texte alternatif à l‘image"
-                          alt="Texte alternatif à l‘image"
-                        />
+                        <span class="color--primary material-icons md-80"
+                          >euro</span
+                        >
                       </div>
                       <div class="rf-tile__body">
                         <h4 class="rf-tile__title">
@@ -435,11 +413,9 @@
                   >
                     <div class="rf-tile rf-tile--horizontal">
                       <div class="rf-tile__img-wrap">
-                        <img
-                          src="https://place-hold.it/80x80"
-                          titre="Texte alternatif à l‘image"
-                          alt="Texte alternatif à l‘image"
-                        />
+                        <span class="color--primary material-icons md-80"
+                          >content_copy</span
+                        >
                       </div>
                       <div class="rf-tile__body">
                         <h4 class="rf-tile__title">
