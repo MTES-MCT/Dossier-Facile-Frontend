@@ -103,7 +103,7 @@
             <hr />
             <div class="main-information">
               <h4>{{ $t("my-personnal-information") }}</h4>
-              <div class="rf-grid-row rf-grid-row--gutters">
+              <div class="rf-grid-row rf-grid-row--gutters" @click="setStep(0)">
                 <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
@@ -137,7 +137,10 @@
               <h4>{{ $t("my-files") }}</h4>
 
               <div class="rf-grid-row rf-grid-row--gutters">
-                <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
+                <div
+                  class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                  @click="setTenantStep(1)"
+                >
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
                       <img
@@ -164,7 +167,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
+                <div
+                  class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                  @click="setTenantStep(2)"
+                >
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
                       <img
@@ -187,7 +193,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
+                <div
+                  class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                  @click="setTenantStep(3)"
+                >
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
                       <img
@@ -215,7 +224,10 @@
                   </div>
                 </div>
 
-                <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
+                <div
+                  class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                  @click="setTenantStep(4)"
+                >
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
                       <img
@@ -238,7 +250,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
+                <div
+                  class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                  @click="setTenantStep(5)"
+                >
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
                       <img
@@ -293,7 +308,10 @@
                 </div>
 
                 <div class="rf-grid-row rf-grid-row--gutters">
-                  <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
+                  <div
+                    class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                    @click="setGuarantorStep(1)"
+                  >
                     <div class="rf-tile rf-tile--horizontal">
                       <div class="rf-tile__img-wrap">
                         <img
@@ -320,7 +338,10 @@
                       </div>
                     </div>
                   </div>
-                  <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
+                  <div
+                    class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                    @click="setGuarantorStep(2)"
+                  >
                     <div class="rf-tile rf-tile--horizontal">
                       <div class="rf-tile__img-wrap">
                         <img
@@ -347,7 +368,10 @@
                       </div>
                     </div>
                   </div>
-                  <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
+                  <div
+                    class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                    @click="setGuarantorStep(3)"
+                  >
                     <div class="rf-tile rf-tile--horizontal">
                       <div class="rf-tile__img-wrap">
                         <img
@@ -375,7 +399,10 @@
                     </div>
                   </div>
 
-                  <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
+                  <div
+                    class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                    @click="setGuarantorStep(4)"
+                  >
                     <div class="rf-tile rf-tile--horizontal">
                       <div class="rf-tile__img-wrap">
                         <img
@@ -402,7 +429,10 @@
                       </div>
                     </div>
                   </div>
-                  <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
+                  <div
+                    class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                    @click="setGuarantorStep(5)"
+                  >
                     <div class="rf-tile rf-tile--horizontal">
                       <div class="rf-tile__img-wrap">
                         <img
@@ -583,6 +613,22 @@ export default class FileStatus extends Vue {
 
   deleteAccount() {
     // TODO
+  }
+
+  setStep(n: number) {
+    this.$store.commit("setStep", n);
+    this.$router.push("/profile");
+    return false;
+  }
+
+  setTenantStep(n: number) {
+    this.$store.commit("setTenantSubstep", n);
+    this.setStep(2);
+  }
+
+  setGuarantorSubStep(n: number) {
+    this.$store.commit("setGuarantorSubstep", n);
+    this.setStep(3);
   }
 }
 </script>
