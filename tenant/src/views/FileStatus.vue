@@ -23,10 +23,17 @@
               <StatusTag :status="user.status"></StatusTag>
 
               <span class="spacer"></span>
-              <DfButton @on-click="copyLink()" primary="true" size="small">{{
-                $t("copy-link")
-              }}</DfButton>
-              <div class="grp">
+              <DfButton
+                v-if="user.apartmentSharing.status === 'VALIDATED'"
+                @on-click="copyLink()"
+                primary="true"
+                size="small"
+                >{{ $t("copy-link") }}</DfButton
+              >
+              <div
+                v-if="user.apartmentSharing.status === 'VALIDATED'"
+                class="grp"
+              >
                 <input id="tokenLink" type="hidden" :value="getToken()" />
                 <button
                   class="rf-btn grp-btn"
