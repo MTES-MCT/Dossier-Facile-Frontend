@@ -41,10 +41,10 @@
                     'rf-fi-arrow-down-s-line': !radioVisible,
                     'rf-fi-arrow-up-s-line': radioVisible,
                   }"
-                  title="Label bouton MD"
+                  title="Copy"
                   @click="radioVisible = !radioVisible"
                 >
-                  <span class="sr-only"> Label bouton MD </span>
+                  <span class="sr-only"> Copy </span>
                 </button>
                 <div class="grp-modal bg-white" v-show="radioVisible">
                   <h4>{{ $t("share-file") }}</h4>
@@ -104,7 +104,7 @@
             <div class="main-information">
               <h4>{{ $t("my-personnal-information") }}</h4>
               <div class="rf-grid-row rf-grid-row--gutters">
-                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
                       <img
@@ -124,6 +124,12 @@
                         {{ user.email }}
                       </p>
                     </div>
+                    <button
+                      class="rf-btn grp-btn rf-fi-edit-line edit-btn"
+                      title="Edit"
+                    >
+                      <span class="sr-only"> Edit </span>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -131,7 +137,7 @@
               <h4>{{ $t("my-files") }}</h4>
 
               <div class="rf-grid-row rf-grid-row--gutters">
-                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
                       <img
@@ -149,10 +155,16 @@
                       <StatusTag
                         :status="getStatus('IDENTIFICATION')"
                       ></StatusTag>
+                      <button
+                        class="rf-btn grp-btn rf-fi-edit-line edit-btn"
+                        title="Edit"
+                      >
+                        <span class="sr-only"> Edit </span>
+                      </button>
                     </div>
                   </div>
                 </div>
-                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
                       <img
@@ -166,10 +178,16 @@
                         <a class="rf-tile__link" href>{{ $t("residency") }}</a>
                       </h4>
                       <StatusTag :status="getStatus('RESIDENCY')"></StatusTag>
+                      <button
+                        class="rf-btn grp-btn rf-fi-edit-line edit-btn"
+                        title="Edit"
+                      >
+                        <span class="sr-only"> Edit </span>
+                      </button>
                     </div>
                   </div>
                 </div>
-                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
                       <img
@@ -187,11 +205,17 @@
                       <StatusTag
                         :status="getStatus('PROFESSIONAL')"
                       ></StatusTag>
+                      <button
+                        class="rf-btn grp-btn rf-fi-edit-line edit-btn"
+                        title="Edit"
+                      >
+                        <span class="sr-only"> Edit </span>
+                      </button>
                     </div>
                   </div>
                 </div>
 
-                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
                       <img
@@ -205,10 +229,16 @@
                         <a class="rf-tile__link" href>{{ $t("financial") }}</a>
                       </h4>
                       <StatusTag :status="getStatus('FINANCIAL')"></StatusTag>
+                      <button
+                        class="rf-btn grp-btn rf-fi-edit-line edit-btn"
+                        title="Edit"
+                      >
+                        <span class="sr-only"> Edit </span>
+                      </button>
                     </div>
                   </div>
                 </div>
-                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
                       <img
@@ -222,6 +252,12 @@
                         <a class="rf-tile__link" href>{{ $t("tax") }}</a>
                       </h4>
                       <StatusTag :status="getStatus('TAX')"></StatusTag>
+                      <button
+                        class="rf-btn grp-btn rf-fi-edit-line edit-btn"
+                        title="Edit"
+                      >
+                        <span class="sr-only"> Edit </span>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -236,7 +272,7 @@
 
               <div v-for="g in user.guarantors" v-bind:key="g.id">
                 <div class="rf-grid-row rf-grid-row--gutters">
-                  <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                  <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
                     <div class="rf-tile rf-tile--horizontal">
                       <div class="rf-tile__img-wrap">
                         <img
@@ -257,7 +293,7 @@
                 </div>
 
                 <div class="rf-grid-row rf-grid-row--gutters">
-                  <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                  <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
                     <div class="rf-tile rf-tile--horizontal">
                       <div class="rf-tile__img-wrap">
                         <img
@@ -275,10 +311,16 @@
                         <StatusTag
                           :status="getGuarantorStatus('INFORMATION')"
                         ></StatusTag>
+                        <button
+                          class="rf-btn grp-btn rf-fi-edit-line edit-btn"
+                          title="Edit"
+                        >
+                          <span class="sr-only"> Edit </span>
+                        </button>
                       </div>
                     </div>
                   </div>
-                  <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                  <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
                     <div class="rf-tile rf-tile--horizontal">
                       <div class="rf-tile__img-wrap">
                         <img
@@ -296,10 +338,16 @@
                         <StatusTag
                           :status="getGuarantorStatus('RESIDENCY')"
                         ></StatusTag>
+                        <button
+                          class="rf-btn grp-btn rf-fi-edit-line edit-btn"
+                          title="Edit"
+                        >
+                          <span class="sr-only"> Edit </span>
+                        </button>
                       </div>
                     </div>
                   </div>
-                  <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                  <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
                     <div class="rf-tile rf-tile--horizontal">
                       <div class="rf-tile__img-wrap">
                         <img
@@ -317,11 +365,17 @@
                         <StatusTag
                           :status="getGuarantorStatus('PROFESSIONAL')"
                         ></StatusTag>
+                        <button
+                          class="rf-btn grp-btn rf-fi-edit-line edit-btn"
+                          title="Edit"
+                        >
+                          <span class="sr-only"> Edit </span>
+                        </button>
                       </div>
                     </div>
                   </div>
 
-                  <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                  <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
                     <div class="rf-tile rf-tile--horizontal">
                       <div class="rf-tile__img-wrap">
                         <img
@@ -339,10 +393,16 @@
                         <StatusTag
                           :status="getGuarantorStatus('FINANCIAL')"
                         ></StatusTag>
+                        <button
+                          class="rf-btn grp-btn rf-fi-edit-line edit-btn"
+                          title="Edit"
+                        >
+                          <span class="sr-only"> Edit </span>
+                        </button>
                       </div>
                     </div>
                   </div>
-                  <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                  <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
                     <div class="rf-tile rf-tile--horizontal">
                       <div class="rf-tile__img-wrap">
                         <img
@@ -358,6 +418,12 @@
                         <StatusTag
                           :status="getGuarantorStatus('TAX')"
                         ></StatusTag>
+                        <button
+                          class="rf-btn grp-btn rf-fi-edit-line edit-btn"
+                          title="Edit"
+                        >
+                          <span class="sr-only"> Edit </span>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -608,6 +674,16 @@ h2 {
     display: inline-block;
     content: "";
   }
+}
+
+p {
+  word-break: break-word;
+}
+
+.edit-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 </style>
 
