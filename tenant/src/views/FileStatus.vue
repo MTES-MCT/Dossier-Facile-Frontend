@@ -574,10 +574,6 @@ h2 {
     content: "";
   }
 }
-
-h4 {
-  min-width: 300px;
-}
 </style>
 
 <i18n>
