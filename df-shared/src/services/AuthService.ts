@@ -40,6 +40,12 @@ export const AuthService = {
     });
   },
 
+  deleteAccount(password: string) {
+    return axios.post(API_URL + "register/deleteAccount", {
+      password: password
+    });
+  },
+
   resetPassword(user: User) {
     return axios.post(API_URL + "user/forgotPassword", {
       email: user.email

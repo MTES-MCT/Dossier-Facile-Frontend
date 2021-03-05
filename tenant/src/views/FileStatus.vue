@@ -464,7 +464,7 @@
                 <DfButton
                   class="delete-btn"
                   primary="true"
-                  @on-click="deleteAccount()"
+                  @on-click="openDeleteModal()"
                   >{{ $t("delete-account") }}</DfButton
                 >
               </div>
@@ -497,21 +497,64 @@
         </div>
       </div>
     </section>
+    <ValidationObserver v-slot="{ validate }">
+      <form name="form" @submit.prevent="validate().then(validDelete())">
+        <ConfirmModal v-show="isDeleteModalVisible" @cancel="undoSelect()">
+          <div class="rf-container">
+            <div class="row justify-content-center">
+              <div class="col-12 col-md-8">
+                <div class="rf-col-12 rf-mb-3w">
+                  <validation-provider rules="required" v-slot="{ errors }">
+                    <div
+                      class="rf-input-group"
+                      :class="errors[0] ? 'rf-input-group--error' : ''"
+                    >
+                      <label for="password" class="rf-label">{{
+                        $t("password")
+                      }}</label>
+                      <input
+                        id="password"
+                        type="password"
+                        v-model="password"
+                        name="password"
+                        class="validate-required form-control rf-input"
+                        required
+                      />
+                      <span class="rf-error-text" v-if="errors[0]">{{
+                        $t(errors[0])
+                      }}</span>
+                    </div>
+                  </validation-provider>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ConfirmModal>
+      </form>
+    </ValidationObserver>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { ValidationProvider } from "vee-validate";
+import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import DfButton from "df-shared/src/Button/Button.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import StatusTag from "df-shared/src/components/StatusTag.vue";
+import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 
 @Component({
-  components: { ValidationProvider, DfButton, NakedCard, StatusTag },
+  components: {
+    ValidationProvider,
+    ValidationObserver,
+    DfButton,
+    NakedCard,
+    StatusTag,
+    ConfirmModal,
+  },
   computed: {
     ...mapState({
       user: "user",
@@ -522,6 +565,8 @@ export default class FileStatus extends Vue {
   user!: User;
   radioVisible = false;
   pub = "false";
+  isDeleteModalVisible = false;
+  password = "";
 
   isOld() {
     // TODO
@@ -587,8 +632,23 @@ export default class FileStatus extends Vue {
     tl?.setAttribute("type", "hidden");
   }
 
-  deleteAccount() {
-    // TODO
+  openDeleteModal() {
+    this.isDeleteModalVisible = true;
+  }
+
+  validDelete() {
+    this.isDeleteModalVisible = false;
+    this.$store.dispatch("deleteAccount", this.password).then(null, (error) => {
+      this.$toasted.show(this.$i18n.t("try-again").toString(), {
+        type: "error",
+        duration: 7000,
+      });
+    });
+  }
+
+  undoSelect() {
+    this.isDeleteModalVisible = false;
+    return false;
   }
 
   setStep(n: number) {
@@ -746,7 +806,10 @@ p {
     "share-file": "Share my file",
     "file-resume": "Share resumed file <br>(without supporting document)",
     "file-full": "Share full file <br>(with supporting document)",
-    "copy": "Copy"
+    "copy": "Copy",
+    "password": "Please enter your password to confirm the complete deletion of the account",
+    "try-again": "An error occured, please try again later.",
+    "field-required": "This field is required"
   },
   "fr": {
     "title": "Bonjour {0}, votre dossier est {1} !",
@@ -781,7 +844,10 @@ p {
     "share-file": "Partager mon dossier",
     "file-resume": "Partager mon dossier de synthèse <br>(sans pièce justificative)",
     "file-full": "Partager mon dossier complet<br>(avec pièces justificatives)",
-    "copy": "Copier"
+    "copy": "Copier",
+    "password": "Veuillez saisir votre mot de passe pour confirmer la suppression complète du compte",
+    "try-again": "Une erreur est survenue, veuillez réessayer plus tard.",
+    "field-required": "Ce champ est requis"
   }
 }
 </i18n>
