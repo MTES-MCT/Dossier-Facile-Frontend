@@ -119,9 +119,7 @@
                           $t("my-information")
                         }}</a>
                       </h4>
-                      <StatusTag
-                        :status="getStatus('IDENTIFICATION')"
-                      ></StatusTag>
+                      <p>{{ user.firstName }} {{ user.lastName }}</p>
                     </div>
                   </div>
                 </div>
@@ -145,6 +143,9 @@
                           $t("identification")
                         }}</a>
                       </h4>
+                      <StatusTag
+                        :status="getStatus('IDENTIFICATION')"
+                      ></StatusTag>
                     </div>
                   </div>
                 </div>
@@ -161,6 +162,7 @@
                       <h4 class="rf-tile__title">
                         <a class="rf-tile__link" href>{{ $t("residency") }}</a>
                       </h4>
+                      <StatusTag :status="getStatus('RESIDENCY')"></StatusTag>
                     </div>
                   </div>
                 </div>
@@ -179,6 +181,9 @@
                           $t("professional")
                         }}</a>
                       </h4>
+                      <StatusTag
+                        :status="getStatus('PROFESSIONAL')"
+                      ></StatusTag>
                     </div>
                   </div>
                 </div>
@@ -196,6 +201,7 @@
                       <h4 class="rf-tile__title">
                         <a class="rf-tile__link" href>{{ $t("financial") }}</a>
                       </h4>
+                      <StatusTag :status="getStatus('FINANCIAL')"></StatusTag>
                     </div>
                   </div>
                 </div>
@@ -212,118 +218,144 @@
                       <h4 class="rf-tile__title">
                         <a class="rf-tile__link" href>{{ $t("tax") }}</a>
                       </h4>
+                      <StatusTag :status="getStatus('TAX')"></StatusTag>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <hr />
-            <div class="main-guarantor-information">
+            <hr v-if="user.guarantors.length > 0" />
+            <div
+              class="main-guarantor-information"
+              v-if="user.guarantors.length > 0"
+            >
               <h4>{{ $t("guarantors-information") }}</h4>
-              <div class="rf-grid-row rf-grid-row--gutters">
-                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
-                  <div class="rf-tile rf-tile--horizontal">
-                    <div class="rf-tile__img-wrap">
-                      <img
-                        src="https://place-hold.it/80x80"
-                        titre="Texte alternatif à l‘image"
-                        alt="Texte alternatif à l‘image"
-                      />
-                    </div>
-                    <div class="rf-tile__body">
-                      <h4 class="rf-tile__title">
-                        <a class="rf-tile__link" href>{{
-                          $t("my-information")
-                        }}</a>
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
-              <div class="rf-grid-row rf-grid-row--gutters">
-                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
-                  <div class="rf-tile rf-tile--horizontal">
-                    <div class="rf-tile__img-wrap">
-                      <img
-                        src="https://place-hold.it/80x80"
-                        titre="Texte alternatif à l‘image"
-                        alt="Texte alternatif à l‘image"
-                      />
-                    </div>
-                    <div class="rf-tile__body">
-                      <h4 class="rf-tile__title">
-                        <a class="rf-tile__link" href>{{
-                          $t("identification")
-                        }}</a>
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
-                  <div class="rf-tile rf-tile--horizontal">
-                    <div class="rf-tile__img-wrap">
-                      <img
-                        src="https://place-hold.it/80x80"
-                        titre="Texte alternatif à l‘image"
-                        alt="Texte alternatif à l‘image"
-                      />
-                    </div>
-                    <div class="rf-tile__body">
-                      <h4 class="rf-tile__title">
-                        <a class="rf-tile__link" href>{{ $t("residency") }}</a>
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
-                  <div class="rf-tile rf-tile--horizontal">
-                    <div class="rf-tile__img-wrap">
-                      <img
-                        src="https://place-hold.it/80x80"
-                        titre="Texte alternatif à l‘image"
-                        alt="Texte alternatif à l‘image"
-                      />
-                    </div>
-                    <div class="rf-tile__body">
-                      <h4 class="rf-tile__title">
-                        <a class="rf-tile__link" href>{{
-                          $t("professional")
-                        }}</a>
-                      </h4>
+              <div v-for="g in user.guarantors" v-bind:key="g.id">
+                <div class="rf-grid-row rf-grid-row--gutters">
+                  <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                    <div class="rf-tile rf-tile--horizontal">
+                      <div class="rf-tile__img-wrap">
+                        <img
+                          src="https://place-hold.it/80x80"
+                          titre="Texte alternatif à l‘image"
+                          alt="Texte alternatif à l‘image"
+                        />
+                      </div>
+                      <div class="rf-tile__body">
+                        <h4 class="rf-tile__title">
+                          <a class="rf-tile__link" href>{{
+                            $t("my-information")
+                          }}</a>
+                        </h4>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
-                  <div class="rf-tile rf-tile--horizontal">
-                    <div class="rf-tile__img-wrap">
-                      <img
-                        src="https://place-hold.it/80x80"
-                        titre="Texte alternatif à l‘image"
-                        alt="Texte alternatif à l‘image"
-                      />
-                    </div>
-                    <div class="rf-tile__body">
-                      <h4 class="rf-tile__title">
-                        <a class="rf-tile__link" href>{{ $t("financial") }}</a>
-                      </h4>
+                <div class="rf-grid-row rf-grid-row--gutters">
+                  <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                    <div class="rf-tile rf-tile--horizontal">
+                      <div class="rf-tile__img-wrap">
+                        <img
+                          src="https://place-hold.it/80x80"
+                          titre="Texte alternatif à l‘image"
+                          alt="Texte alternatif à l‘image"
+                        />
+                      </div>
+                      <div class="rf-tile__body">
+                        <h4 class="rf-tile__title">
+                          <a class="rf-tile__link" href>{{
+                            $t("identification")
+                          }}</a>
+                        </h4>
+                        <StatusTag
+                          :status="getGuarantorStatus('INFORMATION')"
+                        ></StatusTag>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
-                  <div class="rf-tile rf-tile--horizontal">
-                    <div class="rf-tile__img-wrap">
-                      <img
-                        src="https://place-hold.it/80x80"
-                        titre="Texte alternatif à l‘image"
-                        alt="Texte alternatif à l‘image"
-                      />
+                  <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                    <div class="rf-tile rf-tile--horizontal">
+                      <div class="rf-tile__img-wrap">
+                        <img
+                          src="https://place-hold.it/80x80"
+                          titre="Texte alternatif à l‘image"
+                          alt="Texte alternatif à l‘image"
+                        />
+                      </div>
+                      <div class="rf-tile__body">
+                        <h4 class="rf-tile__title">
+                          <a class="rf-tile__link" href>{{
+                            $t("residency")
+                          }}</a>
+                        </h4>
+                        <StatusTag
+                          :status="getGuarantorStatus('RESIDENCY')"
+                        ></StatusTag>
+                      </div>
                     </div>
-                    <div class="rf-tile__body">
-                      <h4 class="rf-tile__title">
-                        <a class="rf-tile__link" href>{{ $t("tax") }}</a>
-                      </h4>
+                  </div>
+                  <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                    <div class="rf-tile rf-tile--horizontal">
+                      <div class="rf-tile__img-wrap">
+                        <img
+                          src="https://place-hold.it/80x80"
+                          titre="Texte alternatif à l‘image"
+                          alt="Texte alternatif à l‘image"
+                        />
+                      </div>
+                      <div class="rf-tile__body">
+                        <h4 class="rf-tile__title">
+                          <a class="rf-tile__link" href>{{
+                            $t("professional")
+                          }}</a>
+                        </h4>
+                        <StatusTag
+                          :status="getGuarantorStatus('PROFESSIONAL')"
+                        ></StatusTag>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                    <div class="rf-tile rf-tile--horizontal">
+                      <div class="rf-tile__img-wrap">
+                        <img
+                          src="https://place-hold.it/80x80"
+                          titre="Texte alternatif à l‘image"
+                          alt="Texte alternatif à l‘image"
+                        />
+                      </div>
+                      <div class="rf-tile__body">
+                        <h4 class="rf-tile__title">
+                          <a class="rf-tile__link" href>{{
+                            $t("financial")
+                          }}</a>
+                        </h4>
+                        <StatusTag
+                          :status="getGuarantorStatus('FINANCIAL')"
+                        ></StatusTag>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="rf-col-6 rf-col-xl-4 rf-pt-1w">
+                    <div class="rf-tile rf-tile--horizontal">
+                      <div class="rf-tile__img-wrap">
+                        <img
+                          src="https://place-hold.it/80x80"
+                          titre="Texte alternatif à l‘image"
+                          alt="Texte alternatif à l‘image"
+                        />
+                      </div>
+                      <div class="rf-tile__body">
+                        <h4 class="rf-tile__title">
+                          <a class="rf-tile__link" href>{{ $t("tax") }}</a>
+                        </h4>
+                        <StatusTag
+                          :status="getGuarantorStatus('TAX')"
+                        ></StatusTag>
+                      </div>
                     </div>
                   </div>
                 </div>
