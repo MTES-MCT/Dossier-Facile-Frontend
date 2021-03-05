@@ -125,7 +125,7 @@
                       </p>
                     </div>
                     <button
-                      class="rf-btn grp-btn rf-fi-edit-line edit-btn"
+                      class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
                       title="Edit"
                     >
                       <span class="sr-only"> Edit </span>
@@ -156,7 +156,7 @@
                         :status="getStatus('IDENTIFICATION')"
                       ></StatusTag>
                       <button
-                        class="rf-btn grp-btn rf-fi-edit-line edit-btn"
+                        class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
                         title="Edit"
                       >
                         <span class="sr-only"> Edit </span>
@@ -179,7 +179,7 @@
                       </h4>
                       <StatusTag :status="getStatus('RESIDENCY')"></StatusTag>
                       <button
-                        class="rf-btn grp-btn rf-fi-edit-line edit-btn"
+                        class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
                         title="Edit"
                       >
                         <span class="sr-only"> Edit </span>
@@ -206,7 +206,7 @@
                         :status="getStatus('PROFESSIONAL')"
                       ></StatusTag>
                       <button
-                        class="rf-btn grp-btn rf-fi-edit-line edit-btn"
+                        class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
                         title="Edit"
                       >
                         <span class="sr-only"> Edit </span>
@@ -230,7 +230,7 @@
                       </h4>
                       <StatusTag :status="getStatus('FINANCIAL')"></StatusTag>
                       <button
-                        class="rf-btn grp-btn rf-fi-edit-line edit-btn"
+                        class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
                         title="Edit"
                       >
                         <span class="sr-only"> Edit </span>
@@ -253,7 +253,7 @@
                       </h4>
                       <StatusTag :status="getStatus('TAX')"></StatusTag>
                       <button
-                        class="rf-btn grp-btn rf-fi-edit-line edit-btn"
+                        class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
                         title="Edit"
                       >
                         <span class="sr-only"> Edit </span>
@@ -312,7 +312,7 @@
                           :status="getGuarantorStatus('INFORMATION')"
                         ></StatusTag>
                         <button
-                          class="rf-btn grp-btn rf-fi-edit-line edit-btn"
+                          class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
                           title="Edit"
                         >
                           <span class="sr-only"> Edit </span>
@@ -339,7 +339,7 @@
                           :status="getGuarantorStatus('RESIDENCY')"
                         ></StatusTag>
                         <button
-                          class="rf-btn grp-btn rf-fi-edit-line edit-btn"
+                          class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
                           title="Edit"
                         >
                           <span class="sr-only"> Edit </span>
@@ -366,7 +366,7 @@
                           :status="getGuarantorStatus('PROFESSIONAL')"
                         ></StatusTag>
                         <button
-                          class="rf-btn grp-btn rf-fi-edit-line edit-btn"
+                          class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
                           title="Edit"
                         >
                           <span class="sr-only"> Edit </span>
@@ -394,7 +394,7 @@
                           :status="getGuarantorStatus('FINANCIAL')"
                         ></StatusTag>
                         <button
-                          class="rf-btn grp-btn rf-fi-edit-line edit-btn"
+                          class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
                           title="Edit"
                         >
                           <span class="sr-only"> Edit </span>
@@ -419,7 +419,7 @@
                           :status="getGuarantorStatus('TAX')"
                         ></StatusTag>
                         <button
-                          class="rf-btn grp-btn rf-fi-edit-line edit-btn"
+                          class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
                           title="Edit"
                         >
                           <span class="sr-only"> Edit </span>
@@ -684,6 +684,8 @@ p {
   position: absolute;
   right: 0;
   top: 0;
+
+  box-shadow: none;
 }
 </style>
 
