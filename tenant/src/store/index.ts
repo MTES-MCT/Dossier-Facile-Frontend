@@ -282,6 +282,9 @@ const store = new Vuex.Store({
           this.commit("updateMessages", data.data);
         }
       );
+    },
+    sendMessage({ commit }, message: string) {
+      return MessageService.postMessage({ messageBody: message }).then(() => { this.dispatch('updateMessages') });
     }
   },
   getters: {

@@ -336,7 +336,15 @@
             v-if="isNotValidated()"
           >
             <div class="messages rf-mb-3w">
-              <div v-for="m in messageList" :key="m.id" class="message">
+              <div
+                v-for="m in messageList"
+                :key="m.id"
+                class="message"
+                :class="{
+                  tenant: m.typeMessage === 'FROM_TENANT',
+                  operator: m.typeMessage === 'TO_TENANT',
+                }"
+              >
                 <p v-html="m.messageBody"></p>
                 <div class="date">
                   {{ $d(new Date(m.creationDateTime), "long") }}
@@ -370,43 +378,6 @@
               </div>
             </form>
           </div>
-        </div>
-
-        <div>
-          <ul>
-            <li v-for="message in messages" v-bind:key="message.id">
-              <div v-if="message.getFromUser">
-                <div>
-                  <h5>{{ message.name }}</h5>
-
-                  <div>
-                    <span>{{ message.creationDateTime }}</span>
-                  </div>
-
-                  <p>{{ message.message }}</p>
-                </div>
-              </div>
-
-              <div v-if="!message.fromUser">
-                <div>
-                  <img
-                    alt="Image"
-                    src="@/assets/images/marie.jpg"
-                    v-if="!message.customMessage"
-                  />
-                </div>
-                <div>
-                  <h5 class="type--fine-print">DossierFacile</h5>
-
-                  <div class="comment__meta">
-                    <span>{{ message.creationDateTime }}</span>
-                  </div>
-
-                  <p>{{ message.message }}</p>
-                </div>
-              </div>
-            </li>
-          </ul>
         </div>
       </div>
     </div>
@@ -452,8 +423,6 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 export default class Messages extends Vue {
   user!: User;
   messageList!: DfMessage[];
-  // TODO update messages (and put in store)
-  messages = [];
   sendMessage = "";
   files: DfFile[] = [];
   isDocModalVisible = false;
@@ -514,6 +483,12 @@ export default class Messages extends Vue {
       this.isDocModalVisible = true;
     }
   }
+
+  handleSubmit() {
+    this.$store.dispatch("sendMessage", this.sendMessage).then(() => {
+      this.sendMessage = "";
+    });
+  }
 }
 </script>
 
@@ -557,5 +532,15 @@ export default class Messages extends Vue {
   text-align: right;
   color: var(--g600);
   font-size: 0.8rem;
+}
+
+.tenant {
+  max-width: 90%;
+  margin-left: auto;
+  background-color: var(--g200);
+}
+
+.operator {
+  max-width: 90%;
 }
 </style>
