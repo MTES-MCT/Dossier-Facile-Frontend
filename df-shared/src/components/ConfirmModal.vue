@@ -9,6 +9,7 @@
             </p>
             <div class="align--right">
               <DfButton
+                type="submit"
                 class="rf-mr-3w"
                 @on-click="validSelect()"
                 primary="true"

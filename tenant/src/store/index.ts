@@ -152,6 +152,13 @@ const store = new Vuex.Store({
       commit("initState");
       router.push("/").then();
     },
+    deleteAccount({ commit }, password) {
+      return AuthService.deleteAccount(password).then(response => {
+        this.dispatch('logout');
+        return Promise.resolve(response)
+      }, error => { return Promise.reject(error) });
+
+    },
     register({ commit }, { user, source, internalPartnerId }) {
       return AuthService.register(user, source, internalPartnerId).then(
         response => {
@@ -275,6 +282,9 @@ const store = new Vuex.Store({
           this.commit("updateMessages", data.data);
         }
       );
+    },
+    sendMessage({ commit }, message: string) {
+      return MessageService.postMessage({ messageBody: message }).then(() => { this.dispatch('updateMessages') });
     }
   },
   getters: {
