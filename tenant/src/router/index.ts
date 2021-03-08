@@ -82,6 +82,12 @@ const routes: Array<RouteConfig> = [
       title: "Mon compte - DossierFacile",
       requiresAuth: true
     },
+    beforeEnter: (to, from, next) => {
+      if (store.state.user.status === 'INCOMPLETE') {
+        next({ name: "Profile" });
+      }
+      next();
+    },
     component: () =>
       import(/* webpackChunkName: "profile" */ "@/views/Account.vue")
   },
