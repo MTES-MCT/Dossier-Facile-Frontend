@@ -91,9 +91,6 @@ const store = new Vuex.Store({
         } else {
           state.selectedGuarantor = user.guarantors[user.guarantors.length - 1];
         }
-        if (state.selectedGuarantor) {
-          state.guarantorStep = 1;
-        }
       } else {
         state.guarantorStep = 0;
         state.guarantorSubStep = 1;
@@ -247,6 +244,7 @@ const store = new Vuex.Store({
       return ProfileService.setGuarantorType(guarantorType).then(
         response => {
           this.dispatch("loadUser");
+          this.commit("setGuarantorStep", 2);
           return Promise.resolve(response.data);
         },
         error => {

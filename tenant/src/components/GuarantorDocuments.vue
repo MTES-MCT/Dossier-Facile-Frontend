@@ -3,8 +3,8 @@
     <div v-if="guarantorStep === 0">
       <AskGuarantor @on-next-step="setGuarantorStep(1)"></AskGuarantor>
     </div>
-    <div v-if="guarantorStep === 1">
-      <div v-if="!guarantorType">
+    <div>
+      <div v-if="guarantorStep === 1">
         <label class="rf-label" for="select"> Sélectionnez un choix </label>
         <select
           v-model="tmpGuarantorType"
@@ -28,7 +28,7 @@
           </DfButton>
         </div>
       </div>
-      <div v-if="guarantorType">
+      <div v-if="guarantorStep === 2">
         <div v-if="guarantorType === 'NATURAL_PERSON'">
           <div>
             <div class="rf-grid-row">
@@ -358,7 +358,7 @@ export default class GuarantorDocuments extends Vue {
     if (g.lastName) {
       return `${g.lastName} ${g.firstName}`;
     }
-    return i18n.t("guarantor") + " " + k;
+    return this.$i18n.t("guarantor") + " " + k;
   }
 
   selectGuarantor(k: number) {
@@ -469,7 +469,7 @@ h2 {
 "tax": "Avis d’imposition",
 "representative-identification": "Identité de la personne morale",
 "corporation-identification": "Identité du représentant de la personne morale",
-"guarantor": "Guarant",
+"guarantor": "Garant",
 "validate": "Valider"
 }
 }

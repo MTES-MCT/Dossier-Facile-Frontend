@@ -160,6 +160,7 @@ export default class UploadDocuments extends Vue {
   }
 
   goToGuarantor() {
+    this.$store.commit("setGuarantorStep", 1);
     this.$store.commit("setStep", 3);
   }
 

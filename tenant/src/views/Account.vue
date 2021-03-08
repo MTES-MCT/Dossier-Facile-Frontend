@@ -294,7 +294,7 @@
                   <div class="rf-grid-row rf-grid-row--gutters">
                     <div
                       class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
-                      @click="setGuarantorStep(1)"
+                      @click="setGuarantorStep(2)"
                     >
                       <div class="rf-tile rf-tile--horizontal">
                         <div class="rf-tile__img-wrap">
@@ -350,7 +350,7 @@
                     </div>
                     <div
                       class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
-                      @click="setGuarantorStep(3)"
+                      @click="setGuarantorStep(2)"
                     >
                       <div class="rf-tile rf-tile--horizontal">
                         <div class="rf-tile__img-wrap">
@@ -379,7 +379,7 @@
 
                     <div
                       class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
-                      @click="setGuarantorStep(4)"
+                      @click="setGuarantorStep(2)"
                     >
                       <div class="rf-tile rf-tile--horizontal">
                         <div class="rf-tile__img-wrap">
@@ -407,7 +407,7 @@
                     </div>
                     <div
                       class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
-                      @click="setGuarantorStep(5)"
+                      @click="setGuarantorStep(2)"
                     >
                       <div class="rf-tile rf-tile--horizontal">
                         <div class="rf-tile__img-wrap">
