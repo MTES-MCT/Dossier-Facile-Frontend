@@ -20,7 +20,7 @@ import InitPassword from "df-shared/src/Authentification/InitPassword.vue";
 export default class JoinCouple extends Vue {
   onInitPassword(user: User) {
     user.token = this.$route.params.token;
-    this.$store.dispatch("createPasswordGroup", user).then(
+    this.$store.dispatch("createPasswordCouple", user).then(
       () => {
         this.$toasted.show(this.$i18n.t("password-update").toString(), {
           type: "success",
