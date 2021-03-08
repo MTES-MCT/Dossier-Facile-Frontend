@@ -274,162 +274,164 @@
               <h4>{{ $t("guarantors-information") }}</h4>
 
               <div v-for="g in user.guarantors" v-bind:key="g.id">
-                <div class="rf-grid-row rf-grid-row--gutters">
-                  <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
-                    <div class="rf-tile rf-tile--horizontal">
-                      <div class="rf-tile__img-wrap">
-                        <span class="color--primary material-icons md-80"
-                          >person</span
-                        >
-                      </div>
-                      <div class="rf-tile__body">
-                        <h4 class="rf-tile__title">
-                          <a class="rf-tile__link" href>{{
-                            $t("my-information")
-                          }}</a>
-                        </h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="rf-grid-row rf-grid-row--gutters">
-                  <div
-                    class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
-                    @click="setGuarantorStep(1)"
-                  >
-                    <div class="rf-tile rf-tile--horizontal">
-                      <div class="rf-tile__img-wrap">
-                        <span class="color--primary material-icons md-80"
-                          >person</span
-                        >
-                      </div>
-                      <div class="rf-tile__body">
-                        <h4 class="rf-tile__title">
-                          <a class="rf-tile__link" href>{{
-                            $t("identification")
-                          }}</a>
-                        </h4>
-                        <StatusTag
-                          :status="getGuarantorStatus('INFORMATION')"
-                        ></StatusTag>
-                        <button
-                          class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
-                          title="Edit"
-                        >
-                          <span class="sr-only"> Edit </span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
-                    @click="setGuarantorStep(2)"
-                  >
-                    <div class="rf-tile rf-tile--horizontal">
-                      <div class="rf-tile__img-wrap">
-                        <span class="color--primary material-icons md-80"
-                          >home</span
-                        >
-                      </div>
-                      <div class="rf-tile__body">
-                        <h4 class="rf-tile__title">
-                          <a class="rf-tile__link" href>{{
-                            $t("residency")
-                          }}</a>
-                        </h4>
-                        <StatusTag
-                          :status="getGuarantorStatus('RESIDENCY')"
-                        ></StatusTag>
-                        <button
-                          class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
-                          title="Edit"
-                        >
-                          <span class="sr-only"> Edit </span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
-                    @click="setGuarantorStep(3)"
-                  >
-                    <div class="rf-tile rf-tile--horizontal">
-                      <div class="rf-tile__img-wrap">
-                        <span class="color--primary material-icons md-80"
-                          >work</span
-                        >
-                      </div>
-                      <div class="rf-tile__body">
-                        <h4 class="rf-tile__title">
-                          <a class="rf-tile__link" href>{{
-                            $t("professional")
-                          }}</a>
-                        </h4>
-                        <StatusTag
-                          :status="getGuarantorStatus('PROFESSIONAL')"
-                        ></StatusTag>
-                        <button
-                          class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
-                          title="Edit"
-                        >
-                          <span class="sr-only"> Edit </span>
-                        </button>
+                <div v-if="g.typeGuarantor === 'NATURAL_PERSON'">
+                  <div class="rf-grid-row rf-grid-row--gutters">
+                    <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
+                      <div class="rf-tile rf-tile--horizontal">
+                        <div class="rf-tile__img-wrap">
+                          <span class="color--primary material-icons md-80"
+                            >person</span
+                          >
+                        </div>
+                        <div class="rf-tile__body">
+                          <h4 class="rf-tile__title">
+                            <a class="rf-tile__link" href>{{
+                              $t("my-information")
+                            }}</a>
+                          </h4>
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  <div
-                    class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
-                    @click="setGuarantorStep(4)"
-                  >
-                    <div class="rf-tile rf-tile--horizontal">
-                      <div class="rf-tile__img-wrap">
-                        <span class="color--primary material-icons md-80"
-                          >euro</span
-                        >
-                      </div>
-                      <div class="rf-tile__body">
-                        <h4 class="rf-tile__title">
-                          <a class="rf-tile__link" href>{{
-                            $t("financial")
-                          }}</a>
-                        </h4>
-                        <StatusTag
-                          :status="getGuarantorStatus('FINANCIAL')"
-                        ></StatusTag>
-                        <button
-                          class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
-                          title="Edit"
-                        >
-                          <span class="sr-only"> Edit </span>
-                        </button>
+                  <div class="rf-grid-row rf-grid-row--gutters">
+                    <div
+                      class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                      @click="setGuarantorStep(1)"
+                    >
+                      <div class="rf-tile rf-tile--horizontal">
+                        <div class="rf-tile__img-wrap">
+                          <span class="color--primary material-icons md-80"
+                            >person</span
+                          >
+                        </div>
+                        <div class="rf-tile__body">
+                          <h4 class="rf-tile__title">
+                            <a class="rf-tile__link" href>{{
+                              $t("identification")
+                            }}</a>
+                          </h4>
+                          <StatusTag
+                            :status="getGuarantorStatus('INFORMATION')"
+                          ></StatusTag>
+                          <button
+                            class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                            title="Edit"
+                          >
+                            <span class="sr-only"> Edit </span>
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div
-                    class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
-                    @click="setGuarantorStep(5)"
-                  >
-                    <div class="rf-tile rf-tile--horizontal">
-                      <div class="rf-tile__img-wrap">
-                        <span class="color--primary material-icons md-80"
-                          >content_copy</span
-                        >
+                    <div
+                      class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                      @click="setGuarantorStep(2)"
+                    >
+                      <div class="rf-tile rf-tile--horizontal">
+                        <div class="rf-tile__img-wrap">
+                          <span class="color--primary material-icons md-80"
+                            >home</span
+                          >
+                        </div>
+                        <div class="rf-tile__body">
+                          <h4 class="rf-tile__title">
+                            <a class="rf-tile__link" href>{{
+                              $t("residency")
+                            }}</a>
+                          </h4>
+                          <StatusTag
+                            :status="getGuarantorStatus('RESIDENCY')"
+                          ></StatusTag>
+                          <button
+                            class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                            title="Edit"
+                          >
+                            <span class="sr-only"> Edit </span>
+                          </button>
+                        </div>
                       </div>
-                      <div class="rf-tile__body">
-                        <h4 class="rf-tile__title">
-                          <a class="rf-tile__link" href>{{ $t("tax") }}</a>
-                        </h4>
-                        <StatusTag
-                          :status="getGuarantorStatus('TAX')"
-                        ></StatusTag>
-                        <button
-                          class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
-                          title="Edit"
-                        >
-                          <span class="sr-only"> Edit </span>
-                        </button>
+                    </div>
+                    <div
+                      class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                      @click="setGuarantorStep(3)"
+                    >
+                      <div class="rf-tile rf-tile--horizontal">
+                        <div class="rf-tile__img-wrap">
+                          <span class="color--primary material-icons md-80"
+                            >work</span
+                          >
+                        </div>
+                        <div class="rf-tile__body">
+                          <h4 class="rf-tile__title">
+                            <a class="rf-tile__link" href>{{
+                              $t("professional")
+                            }}</a>
+                          </h4>
+                          <StatusTag
+                            :status="getGuarantorStatus('PROFESSIONAL')"
+                          ></StatusTag>
+                          <button
+                            class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                            title="Edit"
+                          >
+                            <span class="sr-only"> Edit </span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                      @click="setGuarantorStep(4)"
+                    >
+                      <div class="rf-tile rf-tile--horizontal">
+                        <div class="rf-tile__img-wrap">
+                          <span class="color--primary material-icons md-80"
+                            >euro</span
+                          >
+                        </div>
+                        <div class="rf-tile__body">
+                          <h4 class="rf-tile__title">
+                            <a class="rf-tile__link" href>{{
+                              $t("financial")
+                            }}</a>
+                          </h4>
+                          <StatusTag
+                            :status="getGuarantorStatus('FINANCIAL')"
+                          ></StatusTag>
+                          <button
+                            class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                            title="Edit"
+                          >
+                            <span class="sr-only"> Edit </span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                      @click="setGuarantorStep(5)"
+                    >
+                      <div class="rf-tile rf-tile--horizontal">
+                        <div class="rf-tile__img-wrap">
+                          <span class="color--primary material-icons md-80"
+                            >content_copy</span
+                          >
+                        </div>
+                        <div class="rf-tile__body">
+                          <h4 class="rf-tile__title">
+                            <a class="rf-tile__link" href>{{ $t("tax") }}</a>
+                          </h4>
+                          <StatusTag
+                            :status="getGuarantorStatus('TAX')"
+                          ></StatusTag>
+                          <button
+                            class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                            title="Edit"
+                          >
+                            <span class="sr-only"> Edit </span>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
