@@ -61,13 +61,13 @@ import { RegisterService } from "../../services/RegisterService";
   components: {
     DocumentInsert,
     FileUpload,
-    ListItem
+    ListItem,
   },
   computed: {
     ...mapState({
-      user: "user"
-    })
-  }
+      user: "user",
+    }),
+  },
 })
 export default class OrganismCert extends Vue {
   MAX_FILE_COUNT = 3;
@@ -97,17 +97,14 @@ export default class OrganismCert extends Vue {
       return;
     }
 
-    Array.from(Array(this.files.length).keys()).map(x => {
+    Array.from(Array(this.files.length).keys()).map((x) => {
       formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
     });
     if (this.$store.getters.guarantor.id) {
       formData.append("guarantorId", this.$store.getters.guarantor.id);
     }
 
-    formData.append(
-      "typeDocumentIdentification",
-      this.identificationDocument.value
-    );
+    formData.append("noDocument", "false");
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     const loader = this.$loading.show();
@@ -142,12 +139,12 @@ export default class OrganismCert extends Vue {
   }
 
   listFiles() {
-    const newFiles = this.files.map(f => {
+    const newFiles = this.files.map((f) => {
       return {
         documentSubCategory: this.identificationDocument.value,
         id: f.name,
         name: f.name,
-        size: f.size
+        size: f.size,
       };
     });
     const existingFiles =
