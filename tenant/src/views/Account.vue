@@ -24,16 +24,13 @@
 
               <span class="spacer"></span>
               <DfButton
-                v-if="user.apartmentSharing.status === 'VALIDATED'"
+                v-if="user.status === 'VALIDATED'"
                 @on-click="copyLink()"
                 primary="true"
                 size="small"
                 >{{ $t("copy-link") }}</DfButton
               >
-              <div
-                v-if="user.apartmentSharing.status === 'VALIDATED'"
-                class="grp"
-              >
+              <div v-if="user.status === 'VALIDATED'" class="grp">
                 <input id="tokenLink" type="hidden" :value="getToken()" />
                 <button
                   class="rf-btn grp-btn"
