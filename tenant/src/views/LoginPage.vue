@@ -29,7 +29,7 @@ export default class LoginPage extends Vue {
     if (user.email && user.password) {
       this.$store.dispatch("login", { user }).then(
         () => {
-          this.$router.push("/profile");
+          this.$router.push("/account");
         },
         (error) => {
           if (error.response.status === 401) {

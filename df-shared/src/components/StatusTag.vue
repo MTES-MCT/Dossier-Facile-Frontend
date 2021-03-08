@@ -16,16 +16,16 @@ export default class StatusTag extends Vue {
 <i18n>
 {
   "en": {
-    "TO_PROCESS":"to process",
-    "VALIDATED":"validated",
-    "DECLINED":"declined",
-    "INCOMPLETE":"incomplete"
+    "TO_PROCESS":"To process",
+    "VALIDATED":"Validated",
+    "DECLINED":"Declined",
+    "INCOMPLETE":"Incomplete"
   },
   "fr": {
-    "TO_PROCESS":"non vérifié",
-    "VALIDATED":"vérifié",
-    "DECLINED":"modification demandée",
-    "INCOMPLETE":"non terminé"
+    "TO_PROCESS":"En cours de traitement",
+    "VALIDATED":"Vérifié",
+    "DECLINED":"Modification demandée",
+    "INCOMPLETE":"Non terminé"
   }
 }
 </i18n>

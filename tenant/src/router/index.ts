@@ -76,14 +76,20 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "source" */ "@/views/Source.vue")
   },
   {
-    path: "/status",
-    name: "Status",
+    path: "/account",
+    name: "Compte",
     meta: {
-      title: "Statut du dossier - DossierFacile",
+      title: "Mon compte - DossierFacile",
       requiresAuth: true
     },
+    beforeEnter: (to, from, next) => {
+      if (store.state.user.status === 'INCOMPLETE') {
+        next({ name: "Profile" });
+      }
+      next();
+    },
     component: () =>
-      import(/* webpackChunkName: "profile" */ "@/views/FileStatus.vue")
+      import(/* webpackChunkName: "profile" */ "@/views/Account.vue")
   },
   {
     path: "/messaging",
