@@ -94,23 +94,29 @@ import VueRecaptcha from "vue-recaptcha";
 
 extend("required", {
   ...required,
-  message: "Ce champ est requis"
+  message: "Ce champ est requis",
 });
 extend("confirmed", {
   ...confirmed,
-  message: "Le mot de passe ne correspond pas"
+  message: "Le mot de passe ne correspond pas",
 });
 
 @Component({
   components: {
     ValidationProvider,
-    VueRecaptcha
-  }
+    VueRecaptcha,
+  },
 })
 export default class JoinRoommate extends Vue {
   SITE_KEY = process.env.VUE_APP_CAPTCHA_SITE_KEY;
 
   user: User = new User();
+
+  mounted() {
+    // TODO if logged in -> ask to delog
+    const token = this.$route.params.token;
+  }
+
   // FIXME add ID or email or…
   onRegister(user: User) {
     if (user.email && user.password) {
@@ -118,7 +124,7 @@ export default class JoinRoommate extends Vue {
         () => {
           console.log("TODO redirect to step 4.3");
         },
-        error => {
+        (error) => {
           console.dir(error);
         }
       );
