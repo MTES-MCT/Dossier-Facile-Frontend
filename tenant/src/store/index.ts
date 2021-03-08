@@ -266,6 +266,28 @@ const store = new Vuex.Store({
         }
       );
     },
+    createPasswordCouple({ commit }, user: User) {
+      return AuthService.createPasswordCouple(user).then(
+        response => {
+          commit("loadUser", response.data);
+          return Promise.resolve(user);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
+    createPasswordGroup({ commit }, user: User) {
+      return AuthService.createPasswordGroup(user).then(
+        response => {
+          commit("loadUser", response.data);
+          return Promise.resolve(user);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
     deleteDocument({ commit }, docId: number) {
       return ProfileService.deleteDocument(docId).then(
         () => {

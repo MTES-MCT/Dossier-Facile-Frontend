@@ -48,16 +48,6 @@ const routes: Array<RouteConfig> = [
       )
   },
   {
-    path: "/join-roommate",
-    name: "JoinRommate",
-    meta: {
-      title: "Rejoindre un colocataire - DossierFacile",
-      hideForAuth: true
-    },
-    component: () =>
-      import(/* webpackChunkName: "register" */ "@/views/JoinRoommate.vue")
-  },
-  {
     path: "/profile",
     name: "Profile",
     meta: {
@@ -115,6 +105,28 @@ const routes: Array<RouteConfig> = [
     component: () =>
       import(
         /* webpackChunkName: "confirmAccount" */ "@/views/ConfirmAccount.vue"
+      )
+  },
+  {
+    path: "/ajout-couple/:token",
+    name: "Couple",
+    meta: {
+      title: "Confirmation de compte - DossierFacile"
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "register" */ "@/views/JoinCouple.vue"
+      )
+  },
+  {
+    path: "/ajout-groupe/:token",
+    name: "Group",
+    meta: {
+      title: "Confirmation de compte - DossierFacile"
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "register" */ "@/views/JoinGroup.vue"
       )
   },
   {

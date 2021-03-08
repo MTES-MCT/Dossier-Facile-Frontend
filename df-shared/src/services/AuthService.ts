@@ -59,6 +59,20 @@ export const AuthService = {
       token: user.token
     });
   },
+  createPasswordCouple(user: User) {
+    return axios.post(API_URL + "user/password", {
+      password: user.password,
+      confirm: user.confirm,
+      token: user.token
+    });
+  },
+  createPasswordGroup(user: User) {
+    return axios.post(API_URL + "user/password", {
+      password: user.password,
+      confirm: user.confirm,
+      token: user.token
+    });
+  },
 
   loadUser() {
     return axios.get(API_URL + "tenant/profile");
