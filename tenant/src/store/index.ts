@@ -137,8 +137,7 @@ const store = new Vuex.Store({
       return AuthService.login(user, source, internalPartnerId).then(
         user => {
           commit("loginSuccess", user);
-          this.dispatch("loadUser");
-          return Promise.resolve(user);
+          return this.dispatch("loadUser");
         },
         error => {
           commit("loginFailure");
