@@ -223,7 +223,7 @@ const store = new Vuex.Store({
     validateFile({ commit }, honorDeclaration: boolean) {
       return ProfileService.validateFile(honorDeclaration).then(
         () => {
-          router.push("/status");
+          router.push("/account");
         },
         error => {
           return Promise.reject(error);

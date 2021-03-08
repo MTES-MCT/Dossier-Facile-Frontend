@@ -561,7 +561,7 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
     }),
   },
 })
-export default class FileStatus extends Vue {
+export default class Account extends Vue {
   user!: User;
   radioVisible = false;
   pub = "false";

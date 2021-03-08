@@ -3,7 +3,7 @@
     <nav class="rf-nav" role="navigation" aria-label="Menu principal">
       <ul class="rf-nav__list">
         <li class="rf-nav__item" v-if="user">
-          <router-link to="/profile" class="rf-link">
+          <router-link to="/account" class="rf-link">
             {{ $t("profile") }}
           </router-link>
         </li>
