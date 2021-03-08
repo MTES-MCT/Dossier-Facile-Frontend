@@ -498,7 +498,7 @@
       </div>
     </section>
     <ValidationObserver v-slot="{ validate }">
-      <form name="form" @submit.prevent="validate().then(validDelete())">
+      <form name="form" @submit.prevent="validate().then(validDelete)">
         <ConfirmModal v-show="isDeleteModalVisible" @cancel="undoSelect()">
           <div class="rf-container">
             <div class="row justify-content-center">

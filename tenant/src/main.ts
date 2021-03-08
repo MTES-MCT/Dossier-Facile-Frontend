@@ -37,10 +37,10 @@ axios.interceptors.request.use(
 );
 
 axios.interceptors.response.use(
-  function(response) {
+  function (response) {
     return response;
   },
-  function(error) {
+  function (error) {
     if (
       error.response &&
       (401 === error.response.status || 403 === error.response.status) &&
