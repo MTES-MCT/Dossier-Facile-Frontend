@@ -130,17 +130,6 @@ const routes: Array<RouteConfig> = [
       )
   },
   {
-    path: "/reset-password/:token",
-    name: "Reset",
-    meta: {
-      title: "Mot de passe - DossierFacile"
-    },
-    component: () =>
-      import(
-        /* webpackChunkName: "register" */ "@/views/ResetPassword.vue"
-      )
-  },
-  {
     path: "/changePassword/:token",
     name: "Password",
     meta: {
