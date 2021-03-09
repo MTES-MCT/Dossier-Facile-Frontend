@@ -11,6 +11,7 @@
           class="rf-select rf-mb-3w"
           id="select"
           name="select"
+          @change="onSelectChange()"
         >
           <option value="NATURAL_PERSON">Un garant physique classique</option>
           <option value="ORGANISM">
@@ -255,6 +256,13 @@
         </div>
       </div>
     </div>
+    <ConfirmModal
+      v-if="changeGuarantorVisible"
+      @valid="validSelect()"
+      @cancel="undoSelect()"
+    >
+      <span>{{ $t("will-delete-guarantor") }}</span>
+    </ConfirmModal>
   </div>
 </template>
 
@@ -272,8 +280,8 @@ import AskGuarantor from "@/components/AskGuarantor.vue";
 import { mapGetters, mapState } from "vuex";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { User } from "df-shared/src/models/User";
-import i18n from "../../../main/src/i18n";
 import DfButton from "df-shared/src/Button/Button.vue";
+import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 
 @Component({
   components: {
@@ -287,6 +295,7 @@ import DfButton from "df-shared/src/Button/Button.vue";
     RepresentativeIdentification,
     CorporationIdentification,
     OrganismCert,
+    ConfirmModal,
   },
   computed: {
     ...mapState({
@@ -305,10 +314,12 @@ export default class GuarantorDocuments extends Vue {
   guarantorSubStep!: number;
   guarantorType = "";
   tmpGuarantorType = "";
+  changeGuarantorVisible = false;
 
   mounted() {
     if (this.guarantor.typeGuarantor) {
       this.guarantorType = this.guarantor.typeGuarantor;
+      this.tmpGuarantorType = this.guarantor.typeGuarantor;
     }
   }
 
@@ -389,7 +400,39 @@ export default class GuarantorDocuments extends Vue {
   }
 
   setGuarantorType() {
-    this.$store.dispatch("setGuarantorType", this.tmpGuarantorType);
+    if (this.tmpGuarantorType != this.guarantorType) {
+      this.$store.dispatch("setGuarantorType", this.tmpGuarantorType);
+    } else {
+      this.$store.commit("setGuarantorStep", 2);
+    }
+  }
+
+  onSelectChange() {
+    if (this.guarantorType !== null) {
+      if (
+        this.guarantorType !== this.tmpGuarantorType &&
+        (this.user.guarantors?.length || 0) > 0
+      ) {
+        this.changeGuarantorVisible = true;
+      }
+    }
+    return false;
+  }
+
+  validSelect() {
+    this.$store.dispatch("deleteAllGuarantors").then(
+      () => {
+        this.changeGuarantorVisible = false;
+      },
+      () => {
+        Vue.toasted.global.error();
+      }
+    );
+  }
+
+  undoSelect() {
+    this.tmpGuarantorType = this.guarantorType;
+    this.changeGuarantorVisible = false;
   }
 }
 </script>
@@ -459,7 +502,8 @@ h2 {
 "representative-identification": "Identité de la personne morale",
 "corporation-identification": "Identité du représentant de la personne morale",
 "guarantor": "Guarantor",
-"validate": "Validate"
+"validate": "Validate",
+"will-delete-guarantor": "Are you sure you want to change the type of guarantor?"
 },
 "fr": {
 "identification": "Pièce d’identité",
@@ -470,7 +514,8 @@ h2 {
 "representative-identification": "Identité de la personne morale",
 "corporation-identification": "Identité du représentant de la personne morale",
 "guarantor": "Garant",
-"validate": "Valider"
+"validate": "Valider",
+"will-delete-guarantor": "Êtes-vous sûr de vouloir changer le type de garant ?"
 }
 }
 </i18n>

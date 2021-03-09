@@ -221,6 +221,7 @@ export default class EditSummary extends Vue {
   }
 
   setGuarantorSubStep(n: number) {
+    this.$store.commit("setGuarantorStep", 2);
     this.$store.commit("setGuarantorSubstep", n);
     this.setStep(3);
   }
