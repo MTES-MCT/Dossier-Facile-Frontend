@@ -41,7 +41,7 @@
             />
           </div>
         </div>
-        <div v-if="taxDocument.key && taxDocument.key === 'my-name'">
+        <div v-if="taxDocument.key && taxDocument.key.endsWith('my-name')">
           <div class="rf-mb-3w">
             <p v-html="taxDocument.explanationText"></p>
           </div>
@@ -64,7 +64,10 @@
             @remove="remove(file)"
           />
         </div>
-        <div class="rf-col-12 rf-mb-3w" v-if="taxDocument.key === 'my-name'">
+        <div
+          class="rf-col-12 rf-mb-3w"
+          v-if="taxDocument.key && taxDocument.key.endsWith('my-name')"
+        >
           <validation-provider rules="is" v-slot="{ errors }" class="rf-col-10">
             <div
               class="rf-input-group"
@@ -92,7 +95,7 @@
         </div>
         <div
           class="rf-mb-5w"
-          v-if="taxDocument.key && taxDocument.key === 'my-name'"
+          v-if="taxDocument.key && taxDocument.key.endsWith('my-name')"
         >
           <DocumentInsert
             :allow-list="taxDocument.acceptedProofs"
@@ -257,7 +260,7 @@ export default class Tax extends Vue {
   save() {
     if (
       !this.taxDocument.key ||
-      (this.taxDocument.key === "my-name" && !this.acceptVerification)
+      (this.taxDocument.key.endsWith("my-name") && !this.acceptVerification)
     ) {
       return;
     }
@@ -281,7 +284,7 @@ export default class Tax extends Vue {
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
       });
     }
-    if (this.taxDocument.key === "my-name") {
+    if (this.taxDocument.key.endsWith("my-name")) {
       formData.append(
         "acceptVerification",
         this.acceptVerification ? "true" : "false"
@@ -336,7 +339,7 @@ export default class Tax extends Vue {
     if (!this.taxDocument.key) {
       return true;
     }
-    if (this.taxDocument.key === "my-name") {
+    if (this.taxDocument.key.endsWith("my-name")) {
       return this.files.length <= 0;
     }
     const localDoc = this.getLocalDoc();
