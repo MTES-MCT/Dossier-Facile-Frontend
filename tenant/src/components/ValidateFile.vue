@@ -118,9 +118,9 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
   components: { ValidationProvider },
   computed: {
     ...mapState({
-      user: "user"
-    })
-  }
+      user: "user",
+    }),
+  },
 })
 export default class ValidateFile extends Vue {
   user!: User;
@@ -130,7 +130,15 @@ export default class ValidateFile extends Vue {
 
   validate() {
     if (this.declaration && (!this.hasGuarantors() || this.declaration2)) {
-      this.$store.dispatch("validateFile", true);
+      const loader = Vue.$loading.show();
+      this.$store
+        .dispatch("validateFile", true)
+        .catch(() => {
+          Vue.toasted.global.error();
+        })
+        .finally(() => {
+          loader.hide();
+        });
     }
   }
 
