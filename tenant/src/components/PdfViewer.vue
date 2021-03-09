@@ -1,9 +1,8 @@
 <template>
-  <div class="container">
+  <div>
     <div class="rf-grid-col main-content">
       <div class="rf-mb-3w">
         <div class="rf-grid-row">
-          <input type="checkbox" v-model="show" />
           <input v-model.number="page" type="number" style="width: 5em" /> /{{
             numPages
           }}
@@ -20,7 +19,6 @@
           {{ Math.floor(loadedRatio * 100) }}%
         </div>
         <pdf
-          v-if="show"
           ref="pdf"
           style="border: 1px solid red"
           :src="src"
@@ -41,12 +39,11 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 import pdf from "vue-pdf";
 
 @Component({
-  components: { pdf }
+  components: { pdf },
 })
 export default class PdfViewer extends Vue {
   @Prop() private src!: string;
 
-  show = true;
   loadedRatio = 0;
   page = 1;
   numPages = 0;
@@ -71,29 +68,12 @@ export default class PdfViewer extends Vue {
 </script>
 
 <style scoped lang="scss">
-@media (min-width: 576px) {
-  .container {
-    min-width: 540px;
-  }
-}
-@media (min-width: 768px) {
-  .container {
-    min-width: 720px;
-  }
-}
-@media (min-width: 992px) {
-  .container {
-    min-width: 960px;
-  }
-}
-@media (min-width: 1200px) {
-  .container {
-    min-width: 1140px;
-  }
-}
-
 .main-content {
   width: 80%;
   margin: auto;
+}
+
+.pdf-content {
+  width: 100%;
 }
 </style>
