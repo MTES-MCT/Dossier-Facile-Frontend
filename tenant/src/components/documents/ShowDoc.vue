@@ -24,8 +24,8 @@ import VueLoadImage from "vue-load-image";
 @Component({
   components: {
     PdfViewer,
-    VueLoadImage
-  }
+    VueLoadImage,
+  },
 })
 export default class ShowDoc extends Vue {
   @Prop({ default: "" }) file!: DfFile;

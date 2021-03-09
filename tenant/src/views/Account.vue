@@ -309,7 +309,7 @@
                             }}</a>
                           </h4>
                           <StatusTag
-                            :status="getGuarantorStatus('INFORMATION')"
+                            :status="getGuarantorStatus(g, 'INFORMATION')"
                           ></StatusTag>
                           <button
                             class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
@@ -337,7 +337,7 @@
                             }}</a>
                           </h4>
                           <StatusTag
-                            :status="getGuarantorStatus('RESIDENCY')"
+                            :status="getGuarantorStatus(g, 'RESIDENCY')"
                           ></StatusTag>
                           <button
                             class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
@@ -365,7 +365,7 @@
                             }}</a>
                           </h4>
                           <StatusTag
-                            :status="getGuarantorStatus('PROFESSIONAL')"
+                            :status="getGuarantorStatus(g, 'PROFESSIONAL')"
                           ></StatusTag>
                           <button
                             class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
@@ -394,7 +394,7 @@
                             }}</a>
                           </h4>
                           <StatusTag
-                            :status="getGuarantorStatus('FINANCIAL')"
+                            :status="getGuarantorStatus(g, 'FINANCIAL')"
                           ></StatusTag>
                           <button
                             class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
@@ -420,7 +420,7 @@
                             <a class="rf-tile__link" href>{{ $t("tax") }}</a>
                           </h4>
                           <StatusTag
-                            :status="getGuarantorStatus('TAX')"
+                            :status="getGuarantorStatus(g, 'TAX')"
                           ></StatusTag>
                           <button
                             class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
@@ -545,6 +545,7 @@ import DfButton from "df-shared/src/Button/Button.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import StatusTag from "df-shared/src/components/StatusTag.vue";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
+import { Guarantor } from "df-shared/src/models/Guarantor";
 
 @Component({
   components: {
@@ -597,6 +598,13 @@ export default class Account extends Vue {
 
   getStatus(docType: string) {
     const doc = this.user.documents?.find((d: DfDocument) => {
+      return d.documentCategory === docType;
+    });
+    return doc?.documentStatus;
+  }
+
+  getGuarantorStatus(g: Guarantor, docType: string) {
+    const doc = g.documents?.find((d: DfDocument) => {
       return d.documentCategory === docType;
     });
     return doc?.documentStatus;
