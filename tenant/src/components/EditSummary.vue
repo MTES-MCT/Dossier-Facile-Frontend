@@ -80,7 +80,7 @@
         </div>
         <div v-if="hasGuarantor('LEGAL_PERSON')">
           <a href="#" class="rf-link">
-            {{ $t("representative-identification") }}
+            {{ $t("legal-person") }}
           </a>
           <hr />
           <div class="rf-card__desc">
@@ -280,7 +280,8 @@ export default class EditSummary extends Vue {
 "third-title": "Documents du garant",
 "ALONE": "Seul",
 "COUPLE": "En couple",
-"GROUP": "En colocation"
+"GROUP": "En colocation",
+"legal-person": "Legal person"
 },
 "fr": {
 "title": "Information du locataire",
@@ -288,7 +289,8 @@ export default class EditSummary extends Vue {
 "third-title": "Documents du garant",
 "ALONE": "Seul",
 "COUPLE": "En couple",
-"GROUP": "En colocation"
+"GROUP": "En colocation",
+"legal-person": "Personne morale"
 }
 }
 </i18n>
