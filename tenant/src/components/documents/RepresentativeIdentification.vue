@@ -212,7 +212,7 @@ export default class RepresentativeIdentification extends Vue {
     });
     const existingFiles =
       this.$store.getters.getDocuments?.find((d: DfDocument) => {
-        return d.documentCategory === "RESIDENCY";
+        return d.documentCategory === "IDENTIFICATION";
       })?.files || [];
     return [...newFiles, ...existingFiles];
   }
