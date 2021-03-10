@@ -69,17 +69,17 @@
 import { Component, Vue } from "vue-property-decorator";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
-import { mapGetters } from "vuex";
+import { mapState } from "vuex";
 import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "../uploads/UploadStatus";
 import ListItem from "@/components/uploads/ListItem.vue";
-import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { RegisterService } from "../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
+import { Guarantor } from "df-shared/src/models/Guarantor";
 
 @Component({
   components: {
@@ -90,14 +90,14 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
     ConfirmModal,
   },
   computed: {
-    ...mapGetters({
-      user: "userToEdit",
+    ...mapState({
+      selectedGuarantor: "selectedGuarantor",
     }),
   },
 })
 export default class Professional extends Vue {
   MAX_FILE_COUNT = 5;
-  user!: User;
+  selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
   uploadProgress: {
@@ -108,12 +108,8 @@ export default class Professional extends Vue {
   isDocDeleteVisible = false;
 
   mounted() {
-    if (this.$store.getters.isGuarantor) {
-      this.documents = DocumentTypeConstants.GUARANTOR_PROFESSIONAL_DOCS;
-    }
-
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "PROFESSIONAL";
       });
       if (doc !== undefined) {
@@ -128,8 +124,8 @@ export default class Professional extends Vue {
   }
 
   onSelectChange() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "PROFESSIONAL";
       });
       if (doc !== undefined) {
@@ -142,8 +138,8 @@ export default class Professional extends Vue {
   }
 
   undoSelect() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "PROFESSIONAL";
       });
       if (doc !== undefined) {
@@ -159,8 +155,8 @@ export default class Professional extends Vue {
   }
 
   validSelect() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "PROFESSIONAL";
       });
       if (doc !== undefined) {
@@ -210,9 +206,6 @@ export default class Professional extends Vue {
     );
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    if (this.$store.getters.isGuarantor && this.$store.getters.guarantor.id) {
-      formData.append("guarantorId", this.$store.getters.guarantor.id);
-    }
     const loader = this.$loading.show();
     RegisterService.saveProfessional(formData)
       .then(() => {
@@ -293,7 +286,6 @@ export default class Professional extends Vue {
   "independent": "Indépendant",
   "other": "Autre",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "guarantor_cdi": "CDI / CDI (période d'essai) / CDD",
   "register": "Enregistrer",
   "select-label": "Votre situation professionnelle actuelle :"
 }

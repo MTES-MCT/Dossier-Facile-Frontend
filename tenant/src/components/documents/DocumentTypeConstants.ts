@@ -50,7 +50,7 @@ export const DocumentTypeConstants = {
       key: "identity-card",
       value: "FRENCH_IDENTITY_CARD",
       explanationText:
-        "Attention veillez à ajouter votre pièce <b>recto-verso !</b>",
+        "J’ajoute une <b>pièce d’identité en cours de validité.</b>",
       acceptedProofs: ["Carte d’identité française <b>recto-verso</b>"],
       refusedProofs: [
         "Carte d’identité <b>sans le verso ou périmée</b>",
@@ -160,15 +160,16 @@ export const DocumentTypeConstants = {
       key: "tenant",
       value: "TENANT",
       explanationText:
-        "J’ajoute mes <b>quittances de loyer pour les trois derniers mois.</b>",
+        "J’ajoute un <b>justificatif de domicile de mon garant</b> datant de <b>moins de trois mois.</b>",
       acceptedProofs: [
-        "Quittances de loyer des trois derniers mois",
+        "Quittances de loyer de moins de trois mois",
+        "Facture de moins de trois mois",
+        "Dernier avis de taxe d’habitation",
         "Attestation du propriétaire (ou de son mandataire) indiquant que le locataire est à jour de ses loyers et charges",
       ],
       refusedProofs: [
-        "Factures",
-        "Avis de taxe d’habitation",
         "Relevés de compte bancaire",
+        "Factures de plus de trois mois",
       ],
       maxFileCount: 3,
     },
@@ -176,16 +177,15 @@ export const DocumentTypeConstants = {
       key: "owner",
       value: "OWNER",
       explanationText:
-        "J’ajoute un <b>avis de taxe foncière de moins d’un an.</b>",
+        "J’ajoute un <b>justificatif de domicile de mon garant</b> datant de <b>moins de trois mois.</b>",
       acceptedProofs: [
         "Dernier avis de taxe foncière",
+        "Facture de moins de trois mois",
         "Titre de propriété de la résidence principale",
       ],
       refusedProofs: [
-        "Appel de fonds pour charges de copropriété",
-        "Factures",
-        "Avis de taxe d’habitation",
         "Relevés de compte bancaire",
+        "Factures de plus de trois mois",
       ],
       maxFileCount: 2,
     },
@@ -193,27 +193,11 @@ export const DocumentTypeConstants = {
       key: "guest",
       value: "GUEST",
       explanationText:
-        "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, " +
-        "une copie de la pièce d’identité et un justificatif de domicile de mon " +
-        "hébergeant</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne " +
-        "sur le site service-public.fr",
+        "J’ajoute une <b>attestation sur l’honneur d’hébergement de mon garant à titre gratuit.</b>" +
+        " Vous pouvez utiliser un modèle en ligne sur le site <a target='_blank' href='//www.service-public.fr'>www.service-public.fr</a>",
       acceptedProofs: [
-        "Attestation sur l’honneur du parent <b>datée et signée</b> indiquant que le candidat à la location réside à son domicile, accompagnée d’une pièce d’identité et d’un justificatif de domicile du parent (une simple facture suffit)",
-      ],
-      refusedProofs: ["Tout autre document"],
-      maxFileCount: 2,
-    },
-    {
-      key: "guest-parents",
-      value: "GUEST_PARENTS",
-      explanationText:
-        "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, " +
-        "une copie de la pièce d’identité et un justificatif de domicile du " +
-        "parent</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne sur " +
-        "le site service-public.fr",
-      acceptedProofs: [
-        "Attestation sur l’honneur de l’hébergeant <b>datée de moins de trois mois et signée</b> indiquant que le candidat à la location réside à son domicile, accompagnée d’une pièce d’identité et d’un justificatif de domicile de l’hébergeant (une simple facture suffit)",
-        "Attestation d’élection de domicile <b>datée de moins de trois mois et signée</b> de l’organisme d’hébergement (hébergement d’urgence, placement…) indiquant l’adresse de l’hébergement (téléchargeable sur le site <a target='_blank' href='https://www.service-public.fr/simulateur/calcul/16030'>https://www.service-public.fr/simulateur/calcul/16030</a> ) ",
+        "Attestation sur l'honneur de l’hébergeant <b>datée de moins de trois mois et signée</b>",
+        "Attestation <b>datée de moins de trois mois et signée</b> de l’organisme d’hébergement (hébergement d’urgence, placement…) indiquant l’adresse de l’hébergement",
       ],
       refusedProofs: ["Tout autre document"],
       maxFileCount: 2,
@@ -393,8 +377,44 @@ export const DocumentTypeConstants = {
 
   GUARANTOR_PROFESSIONAL_DOCS: [
     {
-      key: "guarantor_cdi",
+      key: "cdi",
       value: "CDI",
+      explanationText:
+        "J’ajoute un bulletin de salaire de moins de 3 mois de mon garant, son contrat de travail complet et signé, " +
+        "une attestation employeur de moins de 3 mois ou encore son avis d’imposition complet de moins de 2 ans.",
+      acceptedProofs: [
+        "Bulletin de salaire de moins de 3 mois",
+        "Contrat de travail complet daté et signé",
+        "Attestation employeur de moins de 3 mois",
+        "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
+      ],
+      refusedProofs: [
+        "Courrier/mail de confirmation d’embauche",
+        "Relevés de comptes bancaires",
+      ],
+      maxFileCount: 10,
+    },
+    {
+      key: "cdi-trial",
+      value: "CDI_TRIAL",
+      explanationText:
+        "J’ajoute un bulletin de salaire de moins de 3 mois de mon garant, son contrat de travail complet et signé, " +
+        "une attestation employeur de moins de 3 mois ou encore son avis d’imposition complet de moins de 2 ans.",
+      acceptedProofs: [
+        "Bulletin de salaire de moins de 3 mois",
+        "Contrat de travail complet daté et signé",
+        "Attestation employeur de moins de 3 mois",
+        "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
+      ],
+      refusedProofs: [
+        "Courrier/mail de confirmation d’embauche",
+        "Relevés de comptes bancaires",
+      ],
+      maxFileCount: 10,
+    },
+    {
+      key: "cdd",
+      value: "CDD",
       explanationText:
         "J’ajoute un bulletin de salaire de moins de 3 mois de mon garant, son contrat de travail complet et signé, " +
         "une attestation employeur de moins de 3 mois ou encore son avis d’imposition complet de moins de 2 ans.",
@@ -741,12 +761,12 @@ export const DocumentTypeConstants = {
 
   GUARANTOR_TAX_DOCS: [
     {
-      key: "guarantor_my-name",
+      key: "my-name",
       value: "MY_NAME",
       explanationText:
-        "En joignant mon avis d’imposition, j’accepte que DossierFacile procède à une vérification automatisée de ma fiche d’imposition auprès des services des impôts.\n" +
-        "J’ajoute un <b>avis d’imposition à mon nom.</b>",
-      acceptedProofs: ["Avis d’imposition de moins de 2 ans"],
+        "J’ajoute un <b>avis d’imposition de moins de deux ans</b> au nom de mon garant. Le numéro fiscal et le revenu fiscal de référence doivent être lisibles." +
+        "En joignant l’avis d’imposition, j’accepte que DossierFacile procède à une vérification automatisée de la fiche d’imposition auprès des services des impôts.",
+      acceptedProofs: ["Avis d’imposition complet de moins de 2 ans avec nom du garant visible"],
       refusedProofs: [
         "Avis d’imposition incomplet (sans la première page)",
         "Tout avis d’imposition plus ancien",
@@ -755,18 +775,9 @@ export const DocumentTypeConstants = {
       maxFileCount: 1,
     },
     {
-      key: "my-parents",
-      value: "MY_PARENTS",
-      explanationText:
-        "J’ai déclaré être rattaché·e au domicile fiscal de mes parents.",
-      acceptedProofs: [],
-      refusedProofs: [],
-      maxFileCount: 0,
-    },
-    {
       key: "less-than-year",
       value: "LESS_THAN_YEAR",
-      explanationText: "J’ai déclaré être en France depuis moins d’un an.",
+      explanationText: "J’ai renseigné l’ensemble des pièces de mon garant",
       acceptedProofs: [],
       refusedProofs: [],
       maxFileCount: 0,
@@ -775,7 +786,7 @@ export const DocumentTypeConstants = {
       key: "other-tax",
       value: "OTHER_TAX",
       explanationText:
-        "Afin d’améliorer mon dossier, j’explique ci-dessous pourquoi je ne reçois pas d’avis d’imposition. Mon explication sera ajoutée à mon dossier :",
+        "Afin d’améliorer mon dossier, j’explique ci-dessous pourquoi je n'ai pas d’avis d’imposition au nom de mon garant. Cette explication sera ajoutée à mon dossier :",
       acceptedProofs: [],
       refusedProofs: [],
       maxFileCount: 0,

@@ -112,12 +112,12 @@ import { Component, Vue } from "vue-property-decorator";
 import { DocumentType } from "df-shared/src/models/Document";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
-import { mapGetters } from "vuex";
+import { mapState } from "vuex";
 import { UploadStatus } from "../uploads/UploadStatus";
 import ListItem from "@/components/uploads/ListItem.vue";
-import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
+import { Guarantor } from "df-shared/src/models/Guarantor";
 import { extend } from "vee-validate";
 import { is } from "vee-validate/dist/rules";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
@@ -143,13 +143,13 @@ extend("is", {
     ConfirmModal,
   },
   computed: {
-    ...mapGetters({
-      user: "userToEdit",
+    ...mapState({
+      selectedGuarantor: "selectedGuarantor",
     }),
   },
 })
 export default class Tax extends Vue {
-  user!: User;
+  selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
   uploadProgress: {
@@ -160,12 +160,12 @@ export default class Tax extends Vue {
   acceptVerification = false;
   customText = "";
 
-  documents = DocumentTypeConstants.TAX_DOCS;
+  documents = DocumentTypeConstants.GUARANTOR_TAX_DOCS;
   isDocDeleteVisible = false;
 
   getRegisteredDoc() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "TAX";
       });
       return doc;
@@ -185,8 +185,8 @@ export default class Tax extends Vue {
   }
 
   onSelectChange() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "TAX";
       });
       if (doc !== undefined) {
@@ -199,8 +199,8 @@ export default class Tax extends Vue {
   }
 
   undoSelect() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "TAX";
       });
       if (doc !== undefined) {
@@ -216,8 +216,8 @@ export default class Tax extends Vue {
   }
 
   validSelect() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "TAX";
       });
       if (doc !== undefined) {
@@ -294,6 +294,9 @@ export default class Tax extends Vue {
     }
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
+    if (this.$store.getters.isGuarantor && this.$store.getters.guarantor.id) {
+      formData.append("guarantorId", this.$store.getters.guarantor.id);
+    }
     const loader = this.$loading.show();
     RegisterService.saveTax(formData)
       .then(() => {
@@ -359,8 +362,7 @@ export default class Tax extends Vue {
 <i18n>
 {
 "en": {
-  "my-name": "Vous avez un avis d’imposition à votre nom",
-  "my-parents": "Vous êtes rattaché fiscalement à vos parents",
+  "my-name": "J’ai un avis d’imposition au nom de mon garant",
   "less-than-year": "Vous êtes en France depuis moins d’un an",
   "other-tax": "Autre",
   "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
@@ -371,9 +373,8 @@ export default class Tax extends Vue {
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again."
 },
 "fr": {
-  "my-name": "Vous avez un avis d’imposition à votre nom",
-  "my-parents": "Vous êtes rattaché fiscalement à vos parents",
-  "less-than-year": "Vous êtes en France depuis moins d’un an",
+  "my-name": "J’ai un avis d’imposition au nom de mon garant",
+  "less-than-year": "Mon garant est en France depuis moins d'un an",
   "other-tax": "Autre",
   "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
   "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'impositon. Votre explication sera ajoutée à votre dossier :",

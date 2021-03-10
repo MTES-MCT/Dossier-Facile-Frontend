@@ -73,7 +73,9 @@
                 >check_circle_outline</span
               >
             </div>
-            <Identification v-if="guarantorSubStep === 1"></Identification>
+            <GuarantorIdentification
+              v-if="guarantorSubStep === 1"
+            ></GuarantorIdentification>
           </div>
           <div>
             <div
@@ -100,7 +102,9 @@
                 >check_circle_outline</span
               >
             </div>
-            <Residency v-if="guarantorSubStep === 2"></Residency>
+            <GuarantorResidency
+              v-if="guarantorSubStep === 2"
+            ></GuarantorResidency>
           </div>
           <div>
             <div
@@ -127,7 +131,9 @@
                 >check_circle_outline</span
               >
             </div>
-            <Professional v-if="guarantorSubStep === 3"></Professional>
+            <GuarantorProfessional
+              v-if="guarantorSubStep === 3"
+            ></GuarantorProfessional>
           </div>
           <div>
             <div
@@ -154,7 +160,9 @@
                 >check_circle_outline</span
               >
             </div>
-            <Financial v-if="guarantorSubStep === 4"></Financial>
+            <GuarantorFinancial
+              v-if="guarantorSubStep === 4"
+            ></GuarantorFinancial>
           </div>
           <div>
             <div
@@ -179,7 +187,7 @@
                 >check_circle_outline</span
               >
             </div>
-            <Tax v-if="guarantorSubStep === 5"></Tax>
+            <GuarantorTax v-if="guarantorSubStep === 5"></GuarantorTax>
           </div>
         </div>
         <div v-if="guarantorType === 'ORGANISM'">
@@ -268,14 +276,14 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
-import Identification from "@/components/documents/Identification.vue";
+import GuarantorIdentification from "@/components/documents/GuarantorIdentification.vue";
 import RepresentativeIdentification from "@/components/documents/RepresentativeIdentification.vue";
 import CorporationIdentification from "@/components/documents/CorporationIdentification.vue";
 import OrganismCert from "@/components/documents/OrganismCert.vue";
-import Residency from "@/components/documents/Residency.vue";
-import Professional from "@/components/documents/Professional.vue";
-import Financial from "@/components/documents/Financial.vue";
-import Tax from "@/components/documents/Tax.vue";
+import GuarantorResidency from "@/components/documents/GuarantorResidency.vue";
+import GuarantorProfessional from "@/components/documents/GuarantorProfessional.vue";
+import GuarantorFinancial from "@/components/documents/GuarantorFinancial.vue";
+import GuarantorTax from "@/components/documents/GuarantorTax.vue";
 import AskGuarantor from "@/components/AskGuarantor.vue";
 import { mapGetters, mapState } from "vuex";
 import { Guarantor } from "df-shared/src/models/Guarantor";
@@ -287,11 +295,11 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
   components: {
     AskGuarantor,
     DfButton,
-    Tax,
-    Financial,
-    Professional,
-    Residency,
-    Identification,
+    GuarantorTax,
+    GuarantorFinancial,
+    GuarantorProfessional,
+    GuarantorResidency,
+    GuarantorIdentification,
     RepresentativeIdentification,
     CorporationIdentification,
     OrganismCert,

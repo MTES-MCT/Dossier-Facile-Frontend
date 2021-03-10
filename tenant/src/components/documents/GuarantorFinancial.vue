@@ -162,12 +162,11 @@ import { Component, Vue } from "vue-property-decorator";
 import { DocumentType } from "df-shared/src/models/Document";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
-import { mapGetters } from "vuex";
 import { UploadStatus } from "../uploads/UploadStatus";
 import ListItem from "@/components/uploads/ListItem.vue";
-import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
+import { Guarantor } from "df-shared/src/models/Guarantor";
 import { extend } from "vee-validate";
 import { RegisterService } from "../../services/RegisterService";
 import DfButton from "df-shared/src/Button/Button.vue";
@@ -176,6 +175,7 @@ import { required, regex } from "vee-validate/dist/rules";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
+import { mapState } from "vuex";
 
 extend("regex", {
   ...regex,
@@ -209,25 +209,25 @@ class F {
     ConfirmModal,
   },
   computed: {
-    ...mapGetters({
-      user: "userToEdit",
+    ...mapState({
+      selectedGuarantor: "selectedGuarantor",
     }),
   },
 })
-export default class Financial extends Vue {
+export default class GuarantorFinancial extends Vue {
   MAX_FILE_COUNT = 5;
   MAX_FILE_SIZE = 5;
 
-  user!: User;
+  selectedGuarantor!: Guarantor;
   financialDocuments: F[] = [];
 
-  documents = DocumentTypeConstants.FINANCIAL_DOCS;
+  documents = DocumentTypeConstants.GUARANTOR_FINANCIAL_DOCS;
   isDocDeleteVisible = false;
   selectedDoc?: F;
 
   isNewDocument(f: F) {
     if (f.id !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.id === f.id;
       });
       if (doc !== undefined) {
@@ -239,7 +239,7 @@ export default class Financial extends Vue {
 
   onSelectChange(f: F) {
     if (f.id !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.id === f.id;
       });
       if (doc !== undefined) {
@@ -253,8 +253,8 @@ export default class Financial extends Vue {
   }
 
   undoSelect() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.id === this.selectedDoc?.id;
       });
       if (doc !== undefined) {
@@ -270,8 +270,8 @@ export default class Financial extends Vue {
   }
 
   validSelect() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.id === this.selectedDoc?.id;
       });
       if (doc !== undefined) {
@@ -291,8 +291,8 @@ export default class Financial extends Vue {
 
   initialize() {
     this.financialDocuments = [];
-    if (this.user.documents !== null) {
-      const docs = this.user.documents?.filter((d: DfDocument) => {
+    if (this.selectedGuarantor.documents !== null) {
+      const docs = this.selectedGuarantor.documents?.filter((d: DfDocument) => {
         return d.documentCategory === "FINANCIAL";
       });
       if (docs !== undefined && docs.length > 0) {
@@ -367,6 +367,9 @@ export default class Financial extends Vue {
     }
 
     f.fileUploadStatus = UploadStatus.STATUS_SAVING;
+    if (this.$store.getters.isGuarantor && this.$store.getters.guarantor.id) {
+      formData.append("guarantorId", this.$store.getters.guarantor.id);
+    }
     const loader = this.$loading.show();
     RegisterService.saveFinancial(formData)
       .then(() => {
@@ -437,8 +440,12 @@ export default class Financial extends Vue {
     }
   }
 
+  isGuarantor() {
+    return this.$store.getters.isGuarantor;
+  }
+
   getCheckboxLabel(key: string) {
-    if (key === "salary") {
+    if (key === "guarantor_salary") {
       return "noDocument-salary";
     }
     if (key === "pension") {
@@ -456,7 +463,7 @@ export default class Financial extends Vue {
   }
 
   getCustomTextLabel(key: string) {
-    if (key === "salary") {
+    if (key === "guarantor_salary") {
       return "customText-salary";
     }
     if (key === "pension") {
@@ -489,23 +496,23 @@ export default class Financial extends Vue {
   "monthlySum": "Value in euros",
   "monthlySum-label": "Salary (after tax)",
   "noDocument-social": "I cannot provide proof of payment of social benefits",
-  "noDocument-salary": "I cannot provide my last three payslips",
+  "noDocument-salary": "I cannot provide my guarantor last three payslips",
   "noDocument-rent": "I cannot provide proof of rent",
   "noDocument-pension": "I cannot provide proof of pension",
   "noDocument-trading": "I cannot provide proof of trading",
-  "customText-social": "In order to improve my file, I explain why I cannot provide my justificatives:",
-  "customText-salary": "In order to improve my file, I explain why I cannot provide my last three payslips:",
-  "customText-pension": "In order to improve my file, I explain why I cannot provide my justificatives:",
-  "customText-rent": "In order to improve my file, I explain why I cannot provide my justificatives:",
-  "customText-trading": "In order to improve my file, I explain why I cannot provide my justificatives:",
-  "high-salary": "You have entered a salary greater than € 10,000 are you sure you have entered your monthly salary?",
-  "low-salary": "You have entered a salary equal to 0 € are you sure you have entered your monthly salary?",
+  "customText-social": "In order to improve my file, I explain why I cannot provide the justificatives:",
+  "customText-salary": "In order to improve my file, I explain why I cannot provide the last three payslips of my guarantor:",
+  "customText-rent": "In order to improve my file, I explain why I cannot provide the justificatives:",
+  "customText-pension": "In order to improve my file, I explain why I cannot provide the justificatives:",
+  "customText-trading": "In order to improve my file, I explain why I cannot provide the justificatives:",
+  "high-salary": "You have entered a salary greater than € 10,000 are you sure you have entered your guarantor monthly salary?",
+  "low-salary": "You have entered a salary equal to 0 € are you sure you have entered your guarantor monthly salary?",
   "number-not-valid": "Number not valid",
   "delete-financial":  "Delete this salary",
   "field-required": "This field is required",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
   "register": "Register",
-  "select-label": "Attention, Please enter only your own income."
+  "select-label": "Attention, Please enter only your guarantor own income."
 },
 "fr": {
   "salary": "Salaire",
@@ -517,23 +524,23 @@ export default class Financial extends Vue {
   "monthlySum": "Montant en euros",
   "monthlySum-label": "Montant du revenu (après impôts)",
   "noDocument-social": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
-  "noDocument-salary": "Je ne peux pas fournir mes trois derniers bulletins de salaire",
+  "noDocument-salary": "Je ne peux pas fournir les trois derniers bulletins de salaire de mon garant",
   "noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",
   "noDocument-rent": "Je ne peux pas fournir de justificatifs de versement de rente",
   "noDocument-trading": "Je ne peux pas fournir de justificatifs d'attribution de bourse",
-  "customText-social": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
-  "customText-salary": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes trois derniers bulletins de salaire :",
-  "customText-pension": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
-  "customText-rent": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
-  "customText-trading": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
-  "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
-  "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
+  "customText-social": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
+  "customText-salary": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les trois derniers bulletins de salaire de mon garant :",
+  "customText-pension": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
+  "customText-rent": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
+  "customText-trading": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
+  "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
+  "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
   "number-not-valid": "Nombre incorrect",
   "delete-financial":  "Supprimer ce revenu",
   "field-required": "Ce champ est requis",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
+  "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à la situation de votre garant.",
   "register": "Enregistrer",
-  "select-label": "Attention, Veuillez renseigner uniquement vos propres revenus."
+  "select-label": "Attention, Veuillez renseigner uniquement les revenus de votre garant."
 }
 }
 </i18n>
