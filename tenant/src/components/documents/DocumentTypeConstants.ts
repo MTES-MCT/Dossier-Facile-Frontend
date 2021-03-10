@@ -761,12 +761,12 @@ export const DocumentTypeConstants = {
 
   GUARANTOR_TAX_DOCS: [
     {
-      key: "guarantor_my-name",
+      key: "my-name",
       value: "MY_NAME",
       explanationText:
-        "En joignant mon avis d’imposition, j’accepte que DossierFacile procède à une vérification automatisée de ma fiche d’imposition auprès des services des impôts.\n" +
-        "J’ajoute un <b>avis d’imposition à mon nom.</b>",
-      acceptedProofs: ["Avis d’imposition de moins de 2 ans"],
+        "J’ajoute un <b>avis d’imposition de moins de deux ans</b> au nom de mon garant. Le numéro fiscal et le revenu fiscal de référence doivent être lisibles." +
+        "En joignant l’avis d’imposition, j’accepte que DossierFacile procède à une vérification automatisée de la fiche d’imposition auprès des services des impôts.",
+      acceptedProofs: ["Avis d’imposition complet de moins de 2 ans avec nom du garant visible"],
       refusedProofs: [
         "Avis d’imposition incomplet (sans la première page)",
         "Tout avis d’imposition plus ancien",
@@ -775,18 +775,9 @@ export const DocumentTypeConstants = {
       maxFileCount: 1,
     },
     {
-      key: "my-parents",
-      value: "MY_PARENTS",
-      explanationText:
-        "J’ai déclaré être rattaché·e au domicile fiscal de mes parents.",
-      acceptedProofs: [],
-      refusedProofs: [],
-      maxFileCount: 0,
-    },
-    {
       key: "less-than-year",
       value: "LESS_THAN_YEAR",
-      explanationText: "J’ai déclaré être en France depuis moins d’un an.",
+      explanationText: "J’ai renseigné l’ensemble des pièces de mon garant",
       acceptedProofs: [],
       refusedProofs: [],
       maxFileCount: 0,
@@ -795,7 +786,7 @@ export const DocumentTypeConstants = {
       key: "other-tax",
       value: "OTHER_TAX",
       explanationText:
-        "Afin d’améliorer mon dossier, j’explique ci-dessous pourquoi je ne reçois pas d’avis d’imposition. Mon explication sera ajoutée à mon dossier :",
+        "Afin d’améliorer mon dossier, j’explique ci-dessous pourquoi je n'ai pas d’avis d’imposition au nom de mon garant. Cette explication sera ajoutée à mon dossier :",
       acceptedProofs: [],
       refusedProofs: [],
       maxFileCount: 0,

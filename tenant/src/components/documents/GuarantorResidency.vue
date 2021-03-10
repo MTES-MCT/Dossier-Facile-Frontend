@@ -67,19 +67,19 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "../uploads/UploadStatus";
 import ListItem from "@/components/uploads/ListItem.vue";
-import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { RegisterService } from "../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
+import { Guarantor } from "df-shared/src/models/Guarantor";
 
 @Component({
   components: {
@@ -90,13 +90,13 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
     ConfirmModal,
   },
   computed: {
-    ...mapGetters({
-      user: "userToEdit",
+    ...mapState({
+      selectedGuarantor: "selectedGuarantor",
     }),
   },
 })
 export default class Residency extends Vue {
-  user!: User;
+  selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
   uploadProgress: {
@@ -108,8 +108,8 @@ export default class Residency extends Vue {
   isDocDeleteVisible = false;
 
   mounted() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "RESIDENCY";
       });
       if (doc !== undefined) {
@@ -124,8 +124,8 @@ export default class Residency extends Vue {
   }
 
   onSelectChange() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "RESIDENCY";
       });
       if (doc !== undefined) {
@@ -138,8 +138,8 @@ export default class Residency extends Vue {
   }
 
   undoSelect() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "RESIDENCY";
       });
       if (doc !== undefined) {
@@ -155,8 +155,8 @@ export default class Residency extends Vue {
   }
 
   validSelect() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "RESIDENCY";
       });
       if (doc !== undefined) {
@@ -171,8 +171,8 @@ export default class Residency extends Vue {
   }
 
   isNewDocument() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "RESIDENCY";
       });
       if (doc !== undefined) {

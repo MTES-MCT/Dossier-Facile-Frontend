@@ -187,7 +187,7 @@
                 >check_circle_outline</span
               >
             </div>
-            <Tax v-if="guarantorSubStep === 5"></Tax>
+            <GuarantorTax v-if="guarantorSubStep === 5"></GuarantorTax>
           </div>
         </div>
         <div v-if="guarantorType === 'ORGANISM'">
@@ -283,7 +283,7 @@ import OrganismCert from "@/components/documents/OrganismCert.vue";
 import GuarantorResidency from "@/components/documents/GuarantorResidency.vue";
 import GuarantorProfessional from "@/components/documents/GuarantorProfessional.vue";
 import GuarantorFinancial from "@/components/documents/GuarantorFinancial.vue";
-import Tax from "@/components/documents/Tax.vue";
+import GuarantorTax from "@/components/documents/GuarantorTax.vue";
 import AskGuarantor from "@/components/AskGuarantor.vue";
 import { mapGetters, mapState } from "vuex";
 import { Guarantor } from "df-shared/src/models/Guarantor";
@@ -295,7 +295,7 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
   components: {
     AskGuarantor,
     DfButton,
-    Tax,
+    GuarantorTax,
     GuarantorFinancial,
     GuarantorProfessional,
     GuarantorResidency,
