@@ -50,7 +50,7 @@ export const DocumentTypeConstants = {
       key: "identity-card",
       value: "FRENCH_IDENTITY_CARD",
       explanationText:
-        "Attention veillez à ajouter votre pièce <b>recto-verso !</b>",
+        "J’ajoute une <b>pièce d’identité en cours de validité.</b>",
       acceptedProofs: ["Carte d’identité française <b>recto-verso</b>"],
       refusedProofs: [
         "Carte d’identité <b>sans le verso ou périmée</b>",

@@ -1,5 +1,51 @@
 <template>
   <div>
+    <div class="rf-grid-row rf-grid-row--center">
+      <div class="rf-col-12 rf-mb-3w">
+        <validation-provider rules="required" v-slot="{ errors }">
+          <div
+            class="rf-input-group"
+            :class="errors[0] ? 'rf-input-group--error' : ''"
+          >
+            <label class="rf-label" for="lastname"
+              >{{ $t("lastname") }} :</label
+            >
+            <input
+              v-model="lastName"
+              class="form-control rf-input validate-required"
+              id="lastname"
+              name="lastname"
+              :placeholder="$t('lastname')"
+              type="text"
+            />
+            <span class="rf-error-text" v-if="errors[0]">{{ errors[0] }}</span>
+          </div>
+        </validation-provider>
+      </div>
+      <div class="rf-col-12 rf-mb-3w">
+        <validation-provider rules="required" v-slot="{ errors }">
+          <div
+            class="rf-input-group"
+            :class="errors[0] ? 'rf-input-group--error' : ''"
+          >
+            <label for="firstname" class="rf-label"
+              >{{ $t("firstname") }} :</label
+            >
+            <input
+              id="firstname"
+              :placeholder="$t('firstname')"
+              type="text"
+              v-model="firstName"
+              name="firstname"
+              class="validate-required form-control rf-input"
+            />
+            <span class="rf-error-text" v-if="errors[0]">{{
+              $t(errors[0])
+            }}</span>
+          </div>
+        </validation-provider>
+      </div>
+    </div>
     <div>
       <label class="rf-label" for="select">
         {{ $t("select-label") }}
@@ -83,7 +129,6 @@ import FileUpload from "@/components/uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "../uploads/UploadStatus";
 import ListItem from "@/components/uploads/ListItem.vue";
-import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { ValidationProvider } from "vee-validate";
@@ -105,24 +150,32 @@ import DfButton from "df-shared/src/Button/Button.vue";
     DfButton,
   },
   computed: {
-    ...mapGetters({
-      user: "userToEdit",
+    ...mapState({
+      selectedGuarantor: "selectedGuarantor",
     }),
   },
 })
 export default class Identification extends Vue {
   MAX_FILE_COUNT = 3;
-  documents = DocumentTypeConstants.IDENTIFICATION_DOCS;
+  documents = DocumentTypeConstants.GUARANTOR_IDENTIFICATION_DOCS;
 
-  user!: User;
+  selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
   identificationDocument = new DocumentType();
+  firstName = "";
+  lastName = "";
   isDocDeleteVisible = false;
 
+  @Watch("selectedGuarantor")
+  onGuarantorChange(val: Guarantor) {
+    this.firstName = val.firstName || "";
+    this.lastName = val.lastName || "";
+  }
+
   onSelectChange() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION";
       });
       if (doc !== undefined) {
@@ -135,8 +188,8 @@ export default class Identification extends Vue {
   }
 
   undoSelect() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION";
       });
       if (doc !== undefined) {
@@ -152,8 +205,8 @@ export default class Identification extends Vue {
   }
 
   validSelect() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION";
       });
       if (doc !== undefined) {
@@ -168,8 +221,8 @@ export default class Identification extends Vue {
   }
 
   mounted() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION";
       });
       if (doc !== undefined) {
@@ -180,6 +233,13 @@ export default class Identification extends Vue {
           this.identificationDocument = localDoc;
         }
       }
+    }
+
+    if (this.selectedGuarantor.firstName) {
+      this.firstName = this.selectedGuarantor.firstName;
+    }
+    if (this.selectedGuarantor.lastName) {
+      this.lastName = this.selectedGuarantor.lastName;
     }
   }
 
@@ -222,6 +282,11 @@ export default class Identification extends Vue {
     );
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
+    formData.append("firstName", this.firstName);
+    formData.append("lastName", this.lastName);
+    if (this.$store.getters.guarantor.id) {
+      formData.append("guarantorId", this.$store.getters.guarantor.id);
+    }
     const loader = this.$loading.show();
     RegisterService.saveIdentification(formData)
       .then(() => {
@@ -288,6 +353,8 @@ td {
   "permit": "Permis de conduire",
   "other": "Autre",
   "files": "Documents",
+  "lastname": "Lastname",
+  "firstname": "Firstname",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
   "register": "Register",
   "select-label": "I add a valid identity document. Attention, be sure to add your double-sided part!",
@@ -300,9 +367,11 @@ td {
   "permit": "Permis de conduire",
   "other": "Autre",
   "files": "Documents",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
+  "lastname": "Nom",
+  "firstname": "Prénom",
+  "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs.",
   "register": "Enregistrer la pièce",
-  "select-label": "J’ajoute une pièce d’identité en cours de validité. Attention, veillez à ajouter votre pièce recto-verso !",
+  "select-label": "J’ajoute une pièce d’identité en cours de validité. Attention, veillez à ajouter une pièce recto-verso !",
   "validate": "Valider",
   "cancel": "Annuler"
 }

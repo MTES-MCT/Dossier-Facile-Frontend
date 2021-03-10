@@ -73,7 +73,9 @@
                 >check_circle_outline</span
               >
             </div>
-            <Identification v-if="guarantorSubStep === 1"></Identification>
+            <GuarantorIdentification
+              v-if="guarantorSubStep === 1"
+            ></GuarantorIdentification>
           </div>
           <div>
             <div
@@ -270,7 +272,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
-import Identification from "@/components/documents/Identification.vue";
+import GuarantorIdentification from "@/components/documents/GuarantorIdentification.vue";
 import RepresentativeIdentification from "@/components/documents/RepresentativeIdentification.vue";
 import CorporationIdentification from "@/components/documents/CorporationIdentification.vue";
 import OrganismCert from "@/components/documents/OrganismCert.vue";
@@ -293,7 +295,7 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
     GuarantorFinancial,
     Professional,
     Residency,
-    Identification,
+    GuarantorIdentification,
     RepresentativeIdentification,
     CorporationIdentification,
     OrganismCert,
