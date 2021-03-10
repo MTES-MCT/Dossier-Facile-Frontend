@@ -154,7 +154,9 @@
                 >check_circle_outline</span
               >
             </div>
-            <Financial v-if="guarantorSubStep === 4"></Financial>
+            <GuarantorFinancial
+              v-if="guarantorSubStep === 4"
+            ></GuarantorFinancial>
           </div>
           <div>
             <div
@@ -274,7 +276,7 @@ import CorporationIdentification from "@/components/documents/CorporationIdentif
 import OrganismCert from "@/components/documents/OrganismCert.vue";
 import Residency from "@/components/documents/Residency.vue";
 import Professional from "@/components/documents/Professional.vue";
-import Financial from "@/components/documents/Financial.vue";
+import GuarantorFinancial from "@/components/documents/GuarantorFinancial.vue";
 import Tax from "@/components/documents/Tax.vue";
 import AskGuarantor from "@/components/AskGuarantor.vue";
 import { mapGetters, mapState } from "vuex";
@@ -288,7 +290,7 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
     AskGuarantor,
     DfButton,
     Tax,
-    Financial,
+    GuarantorFinancial,
     Professional,
     Residency,
     Identification,
