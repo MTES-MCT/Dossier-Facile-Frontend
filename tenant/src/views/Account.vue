@@ -446,7 +446,74 @@
                     </div>
                   </div>
                 </div>
-                <div v-if="g.typeGuarantor === 'LEGAL_PERSON'"></div>
+                <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
+                  <div class="rf-grid-row rf-grid-row--gutters">
+                    <div
+                      class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                      @click="setGuarantorSubStep(1)"
+                    >
+                      <div class="rf-tile rf-tile--horizontal">
+                        <div class="rf-tile__img-wrap">
+                          <span class="color--primary material-icons md-80"
+                            >person</span
+                          >
+                        </div>
+                        <div class="rf-tile__body">
+                          <h4 class="rf-tile__title">
+                            <a class="rf-tile__link" href>{{
+                              $t("identification")
+                            }}</a>
+                          </h4>
+                          <StatusTag
+                            :status="
+                              getGuarantorStatus(
+                                g,
+                                'IDENTIFICATION_LEGAL_PERSON'
+                              )
+                            "
+                          ></StatusTag>
+                          <button
+                            class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                            title="Edit"
+                          >
+                            <span class="sr-only"> Edit </span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="rf-grid-row rf-grid-row--gutters">
+                    <div
+                      class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                      @click="setGuarantorSubStep(2)"
+                    >
+                      <div class="rf-tile rf-tile--horizontal">
+                        <div class="rf-tile__img-wrap">
+                          <span class="color--primary material-icons md-80"
+                            >person</span
+                          >
+                        </div>
+                        <div class="rf-tile__body">
+                          <h4 class="rf-tile__title">
+                            <a class="rf-tile__link" href>{{
+                              $t("identification")
+                            }}</a>
+                          </h4>
+                          <StatusTag
+                            :status="getGuarantorStatus(g, 'RESIDENCY')"
+                          ></StatusTag>
+                          <button
+                            class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                            title="Edit"
+                          >
+                            <span class="sr-only"> Edit </span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

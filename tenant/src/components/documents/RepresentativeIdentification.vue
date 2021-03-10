@@ -202,7 +202,6 @@ export default class RepresentativeIdentification extends Vue {
   }
 
   listFiles() {
-    console.log("bauie");
     const newFiles = this.files.map((f) => {
       return {
         documentSubCategory: this.identificationDocument.value,
