@@ -80,6 +80,7 @@ import { required } from "vee-validate/dist/rules";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { RegisterService } from "../../services/RegisterService";
+import { Guarantor } from "df-shared/src/models/Guarantor";
 
 extend("required", {
   ...required,
@@ -96,8 +97,7 @@ extend("required", {
   },
   computed: {
     ...mapState({
-      user: "user",
-      tenantStep: "tenantStep",
+      selectedGuarantor: "selectedGuarantor",
     }),
   },
 })
@@ -114,6 +114,8 @@ export default class CorporationIdentification extends Vue {
     this.$i18n.t("all-other"),
   ];
 
+  selectedGuarantor!: Guarantor;
+
   files: File[] = [];
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   uploadProgress: {
@@ -121,7 +123,7 @@ export default class CorporationIdentification extends Vue {
   } = {};
 
   mounted() {
-    this.organismName = this.$store.getters.selectedGuarantor.legalPersonName;
+    this.organismName = this.selectedGuarantor.legalPersonName || "";
   }
 
   addFiles(fileList: File[]) {

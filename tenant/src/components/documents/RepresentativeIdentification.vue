@@ -100,6 +100,7 @@ import { required } from "vee-validate/dist/rules";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { RegisterService } from "../../services/RegisterService";
+import { Guarantor } from "df-shared/src/models/Guarantor";
 
 extend("required", {
   ...required,
@@ -116,7 +117,7 @@ extend("required", {
   },
   computed: {
     ...mapState({
-      user: "user",
+      selectedGuarantor: "selectedGuarantor",
     }),
   },
 })
@@ -142,9 +143,10 @@ export default class RepresentativeIdentification extends Vue {
     [key: string]: { state: string; percentage: number };
   } = {};
   firstName = "";
+  selectedGuarantor!: Guarantor;
 
   mounted() {
-    this.firstName = this.$store.getters.selectedGuarantor.firstName;
+    this.firstName = this.selectedGuarantor.firstName || "";
   }
 
   addFiles(fileList: File[]) {
