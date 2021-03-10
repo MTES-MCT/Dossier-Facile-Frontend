@@ -120,6 +120,10 @@ export default class CorporationIdentification extends Vue {
     [key: string]: { state: string; percentage: number };
   } = {};
 
+  mounted() {
+    this.organismName = this.$store.getters.selectedGuarantor.legalPersonName;
+  }
+
   addFiles(fileList: File[]) {
     this.files = [...this.files, ...fileList];
   }

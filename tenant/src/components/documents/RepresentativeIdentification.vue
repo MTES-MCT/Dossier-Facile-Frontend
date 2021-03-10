@@ -143,6 +143,10 @@ export default class RepresentativeIdentification extends Vue {
   } = {};
   firstName = "";
 
+  mounted() {
+    this.firstName = this.$store.getters.selectedGuarantor.firstName;
+  }
+
   addFiles(fileList: File[]) {
     this.files = [...this.files, ...fileList];
   }
@@ -176,7 +180,7 @@ export default class RepresentativeIdentification extends Vue {
       this.identificationDocument.value
     );
 
-    formData.append("firstName", this.identificationDocument.value);
+    formData.append("firstName", this.firstName);
     if (this.$store.getters.guarantor.id) {
       formData.append("guarantorId", this.$store.getters.guarantor.id);
     }
