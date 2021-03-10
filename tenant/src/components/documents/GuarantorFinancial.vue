@@ -162,10 +162,8 @@ import { Component, Vue } from "vue-property-decorator";
 import { DocumentType } from "df-shared/src/models/Document";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
-import { mapGetters } from "vuex";
 import { UploadStatus } from "../uploads/UploadStatus";
 import ListItem from "@/components/uploads/ListItem.vue";
-import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { Guarantor } from "df-shared/src/models/Guarantor";
@@ -177,6 +175,7 @@ import { required, regex } from "vee-validate/dist/rules";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
+import { mapState } from "vuex";
 
 extend("regex", {
   ...regex,
@@ -210,8 +209,8 @@ class F {
     ConfirmModal,
   },
   computed: {
-    ...mapGetters({
-      user: "userToEdit",
+    ...mapState({
+      selectedGuarantor: "selectedGuarantor",
     }),
   },
 })
@@ -219,16 +218,16 @@ export default class GuarantorFinancial extends Vue {
   MAX_FILE_COUNT = 5;
   MAX_FILE_SIZE = 5;
 
-  user!: Guarantor;
+  selectedGuarantor!: Guarantor;
   financialDocuments: F[] = [];
 
-  documents = DocumentTypeConstants.FINANCIAL_DOCS;
+  documents = DocumentTypeConstants.GUARANTOR_FINANCIAL_DOCS;
   isDocDeleteVisible = false;
   selectedDoc?: F;
 
   isNewDocument(f: F) {
     if (f.id !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.id === f.id;
       });
       if (doc !== undefined) {
@@ -240,7 +239,7 @@ export default class GuarantorFinancial extends Vue {
 
   onSelectChange(f: F) {
     if (f.id !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.id === f.id;
       });
       if (doc !== undefined) {
@@ -254,8 +253,8 @@ export default class GuarantorFinancial extends Vue {
   }
 
   undoSelect() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.id === this.selectedDoc?.id;
       });
       if (doc !== undefined) {
@@ -271,8 +270,8 @@ export default class GuarantorFinancial extends Vue {
   }
 
   validSelect() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.id === this.selectedDoc?.id;
       });
       if (doc !== undefined) {
@@ -291,12 +290,9 @@ export default class GuarantorFinancial extends Vue {
   }
 
   initialize() {
-    if (this.$store.getters.isGuarantor) {
-      this.documents = DocumentTypeConstants.GUARANTOR_FINANCIAL_DOCS;
-    }
     this.financialDocuments = [];
-    if (this.user.documents !== null) {
-      const docs = this.user.documents?.filter((d: DfDocument) => {
+    if (this.selectedGuarantor.documents !== null) {
+      const docs = this.selectedGuarantor.documents?.filter((d: DfDocument) => {
         return d.documentCategory === "FINANCIAL";
       });
       if (docs !== undefined && docs.length > 0) {

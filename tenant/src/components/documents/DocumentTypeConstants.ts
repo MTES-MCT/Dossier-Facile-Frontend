@@ -377,8 +377,44 @@ export const DocumentTypeConstants = {
 
   GUARANTOR_PROFESSIONAL_DOCS: [
     {
-      key: "guarantor_cdi",
+      key: "cdi",
       value: "CDI",
+      explanationText:
+        "J’ajoute un bulletin de salaire de moins de 3 mois de mon garant, son contrat de travail complet et signé, " +
+        "une attestation employeur de moins de 3 mois ou encore son avis d’imposition complet de moins de 2 ans.",
+      acceptedProofs: [
+        "Bulletin de salaire de moins de 3 mois",
+        "Contrat de travail complet daté et signé",
+        "Attestation employeur de moins de 3 mois",
+        "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
+      ],
+      refusedProofs: [
+        "Courrier/mail de confirmation d’embauche",
+        "Relevés de comptes bancaires",
+      ],
+      maxFileCount: 10,
+    },
+    {
+      key: "cdi-trial",
+      value: "CDI_TRIAL",
+      explanationText:
+        "J’ajoute un bulletin de salaire de moins de 3 mois de mon garant, son contrat de travail complet et signé, " +
+        "une attestation employeur de moins de 3 mois ou encore son avis d’imposition complet de moins de 2 ans.",
+      acceptedProofs: [
+        "Bulletin de salaire de moins de 3 mois",
+        "Contrat de travail complet daté et signé",
+        "Attestation employeur de moins de 3 mois",
+        "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
+      ],
+      refusedProofs: [
+        "Courrier/mail de confirmation d’embauche",
+        "Relevés de comptes bancaires",
+      ],
+      maxFileCount: 10,
+    },
+    {
+      key: "cdd",
+      value: "CDD",
       explanationText:
         "J’ajoute un bulletin de salaire de moins de 3 mois de mon garant, son contrat de travail complet et signé, " +
         "une attestation employeur de moins de 3 mois ou encore son avis d’imposition complet de moins de 2 ans.",

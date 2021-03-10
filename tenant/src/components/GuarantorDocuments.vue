@@ -131,7 +131,9 @@
                 >check_circle_outline</span
               >
             </div>
-            <Professional v-if="guarantorSubStep === 3"></Professional>
+            <GuarantorProfessional
+              v-if="guarantorSubStep === 3"
+            ></GuarantorProfessional>
           </div>
           <div>
             <div
@@ -279,7 +281,7 @@ import RepresentativeIdentification from "@/components/documents/RepresentativeI
 import CorporationIdentification from "@/components/documents/CorporationIdentification.vue";
 import OrganismCert from "@/components/documents/OrganismCert.vue";
 import GuarantorResidency from "@/components/documents/GuarantorResidency.vue";
-import Professional from "@/components/documents/Professional.vue";
+import GuarantorProfessional from "@/components/documents/GuarantorProfessional.vue";
 import GuarantorFinancial from "@/components/documents/GuarantorFinancial.vue";
 import Tax from "@/components/documents/Tax.vue";
 import AskGuarantor from "@/components/AskGuarantor.vue";
@@ -295,7 +297,7 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
     DfButton,
     Tax,
     GuarantorFinancial,
-    Professional,
+    GuarantorProfessional,
     GuarantorResidency,
     GuarantorIdentification,
     RepresentativeIdentification,

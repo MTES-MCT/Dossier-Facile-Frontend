@@ -104,7 +104,7 @@ export default class Professional extends Vue {
     [key: string]: { state: string; percentage: number };
   } = {};
   professionalDocument = new DocumentType();
-  documents = DocumentTypeConstants.PROFESSIONAL_DOCS;
+  documents = DocumentTypeConstants.GUARANTOR_PROFESSIONAL_DOCS;
   isDocDeleteVisible = false;
 
   mounted() {
@@ -206,6 +206,9 @@ export default class Professional extends Vue {
     );
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
+    if (this.$store.getters.guarantor.id) {
+      formData.append("guarantorId", this.$store.getters.guarantor.id);
+    }
     const loader = this.$loading.show();
     RegisterService.saveProfessional(formData)
       .then(() => {
@@ -287,7 +290,7 @@ export default class Professional extends Vue {
   "other": "Autre",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
   "register": "Enregistrer",
-  "select-label": "Votre situation professionnelle actuelle :"
+  "select-label": "La situation professionnelle actuelle de mon garant :"
 }
 }
 </i18n>
