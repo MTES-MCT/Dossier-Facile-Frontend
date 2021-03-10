@@ -501,7 +501,7 @@
                             }}</a>
                           </h4>
                           <StatusTag
-                            :status="getGuarantorStatus(g, 'RESIDENCY')"
+                            :status="getGuarantorStatus(g, 'IDENTIFICATION')"
                           ></StatusTag>
                           <button
                             class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
