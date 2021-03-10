@@ -160,15 +160,16 @@ export const DocumentTypeConstants = {
       key: "tenant",
       value: "TENANT",
       explanationText:
-        "J’ajoute mes <b>quittances de loyer pour les trois derniers mois.</b>",
+        "J’ajoute un <b>justificatif de domicile de mon garant</b> datant de <b>moins de trois mois.</b>",
       acceptedProofs: [
-        "Quittances de loyer des trois derniers mois",
+        "Quittances de loyer de moins de trois mois",
+        "Facture de moins de trois mois",
+        "Dernier avis de taxe d’habitation",
         "Attestation du propriétaire (ou de son mandataire) indiquant que le locataire est à jour de ses loyers et charges",
       ],
       refusedProofs: [
-        "Factures",
-        "Avis de taxe d’habitation",
         "Relevés de compte bancaire",
+        "Factures de plus de trois mois",
       ],
       maxFileCount: 3,
     },
@@ -176,16 +177,15 @@ export const DocumentTypeConstants = {
       key: "owner",
       value: "OWNER",
       explanationText:
-        "J’ajoute un <b>avis de taxe foncière de moins d’un an.</b>",
+        "J’ajoute un <b>justificatif de domicile de mon garant</b> datant de <b>moins de trois mois.</b>",
       acceptedProofs: [
         "Dernier avis de taxe foncière",
+        "Facture de moins de trois mois",
         "Titre de propriété de la résidence principale",
       ],
       refusedProofs: [
-        "Appel de fonds pour charges de copropriété",
-        "Factures",
-        "Avis de taxe d’habitation",
         "Relevés de compte bancaire",
+        "Factures de plus de trois mois",
       ],
       maxFileCount: 2,
     },
@@ -193,27 +193,11 @@ export const DocumentTypeConstants = {
       key: "guest",
       value: "GUEST",
       explanationText:
-        "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, " +
-        "une copie de la pièce d’identité et un justificatif de domicile de mon " +
-        "hébergeant</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne " +
-        "sur le site service-public.fr",
+        "J’ajoute une <b>attestation sur l’honneur d’hébergement de mon garant à titre gratuit.</b>" +
+        " Vous pouvez utiliser un modèle en ligne sur le site <a target='_blank' href='//www.service-public.fr'>www.service-public.fr</a>",
       acceptedProofs: [
-        "Attestation sur l’honneur du parent <b>datée et signée</b> indiquant que le candidat à la location réside à son domicile, accompagnée d’une pièce d’identité et d’un justificatif de domicile du parent (une simple facture suffit)",
-      ],
-      refusedProofs: ["Tout autre document"],
-      maxFileCount: 2,
-    },
-    {
-      key: "guest-parents",
-      value: "GUEST_PARENTS",
-      explanationText:
-        "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, " +
-        "une copie de la pièce d’identité et un justificatif de domicile du " +
-        "parent</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne sur " +
-        "le site service-public.fr",
-      acceptedProofs: [
-        "Attestation sur l’honneur de l’hébergeant <b>datée de moins de trois mois et signée</b> indiquant que le candidat à la location réside à son domicile, accompagnée d’une pièce d’identité et d’un justificatif de domicile de l’hébergeant (une simple facture suffit)",
-        "Attestation d’élection de domicile <b>datée de moins de trois mois et signée</b> de l’organisme d’hébergement (hébergement d’urgence, placement…) indiquant l’adresse de l’hébergement (téléchargeable sur le site <a target='_blank' href='https://www.service-public.fr/simulateur/calcul/16030'>https://www.service-public.fr/simulateur/calcul/16030</a> ) ",
+        "Attestation sur l'honneur de l’hébergeant <b>datée de moins de trois mois et signée</b>",
+        "Attestation <b>datée de moins de trois mois et signée</b> de l’organisme d’hébergement (hébergement d’urgence, placement…) indiquant l’adresse de l’hébergement",
       ],
       refusedProofs: ["Tout autre document"],
       maxFileCount: 2,

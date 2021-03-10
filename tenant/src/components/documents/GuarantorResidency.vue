@@ -104,7 +104,7 @@ export default class Residency extends Vue {
   } = {};
   residencyDocument = new DocumentType();
 
-  documents = DocumentTypeConstants.RESIDENCY_DOCS;
+  documents = DocumentTypeConstants.GUARANTOR_RESIDENCY_DOCS;
   isDocDeleteVisible = false;
 
   mounted() {
@@ -224,6 +224,9 @@ export default class Residency extends Vue {
     formData.append("typeDocumentResidency", this.residencyDocument.value);
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
+    if (this.$store.getters.guarantor.id) {
+      formData.append("guarantorId", this.$store.getters.guarantor.id);
+    }
     const loader = this.$loading.show();
     RegisterService.saveResidency(formData)
       .then(() => {
@@ -281,17 +284,17 @@ export default class Residency extends Vue {
   "files": "Documents",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
   "register": "Register",
-  "select-label": "Your current accommodation situation:"
+  "select-label": "Your guarantor current accommodation situation:"
 },
 "fr": {
-  "tenant": "Vous êtes locataire",
-  "owner": "Vous êtes propriétaire",
-  "guest": "Vous êtes hébergé gratuitement",
+  "tenant": "Locataire",
+  "owner": "Propriétaire",
+  "guest": "Hébergé·e à titre gratuit",
   "guest-parents": "Vous habitez chez vos parents",
   "files": "Documents",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
   "register": "Enregistrer",
-  "select-label": "Votre situation d’hébergement actuelle :"
+  "select-label": "La situation d’hébergement actuelle de mon garant :"
 }
 }
 </i18n>

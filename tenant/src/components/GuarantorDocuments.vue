@@ -102,7 +102,9 @@
                 >check_circle_outline</span
               >
             </div>
-            <Residency v-if="guarantorSubStep === 2"></Residency>
+            <GuarantorResidency
+              v-if="guarantorSubStep === 2"
+            ></GuarantorResidency>
           </div>
           <div>
             <div
@@ -276,7 +278,7 @@ import GuarantorIdentification from "@/components/documents/GuarantorIdentificat
 import RepresentativeIdentification from "@/components/documents/RepresentativeIdentification.vue";
 import CorporationIdentification from "@/components/documents/CorporationIdentification.vue";
 import OrganismCert from "@/components/documents/OrganismCert.vue";
-import Residency from "@/components/documents/Residency.vue";
+import GuarantorResidency from "@/components/documents/GuarantorResidency.vue";
 import Professional from "@/components/documents/Professional.vue";
 import GuarantorFinancial from "@/components/documents/GuarantorFinancial.vue";
 import Tax from "@/components/documents/Tax.vue";
@@ -294,7 +296,7 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
     Tax,
     GuarantorFinancial,
     Professional,
-    Residency,
+    GuarantorResidency,
     GuarantorIdentification,
     RepresentativeIdentification,
     CorporationIdentification,
