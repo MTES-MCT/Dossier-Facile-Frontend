@@ -345,12 +345,16 @@ export default class GuarantorDocuments extends Vue {
 
   documentsFilled() {
     return (
-      this.guarantorType !== "NATURAL_PERSON" ||
-      (this.hasDoc("IDENTIFICATION") &&
+      (this.guarantorType === "NATURAL_PERSON" &&
+        this.hasDoc("IDENTIFICATION") &&
         this.hasDoc("PROFESSIONAL") &&
         this.hasDoc("RESIDENCY") &&
         this.hasDoc("FINANCIAL") &&
-        this.isTaxValid())
+        this.isTaxValid()) ||
+      (this.guarantorType === "LEGAL_PERSON" &&
+        this.hasDoc("IDENTIFICATION") &&
+        this.hasDoc("IDENTIFICATION_LEGAL_PERSON")) ||
+      (this.guarantorType === "ORGANISM" && this.hasDoc("IDENTIFICATION"))
     );
   }
 
