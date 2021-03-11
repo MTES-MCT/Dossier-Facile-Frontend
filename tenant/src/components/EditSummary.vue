@@ -84,18 +84,27 @@
           </a>
           <hr />
           <div class="rf-card__desc">
-            <section
-              v-if="guarantorHasDoc('TODO-REPRESENTATIVE-IDENTIFICATION')"
+            <div
+              class="row"
+              v-if="guarantorHasDoc('IDENTIFICATION_LEGAL_PERSON')"
             >
-              <div class="subtitle">{{ $t("organism") }}</div>
+              <div class="subtitle">
+                {{ $t("identification-legal-person") }}
+              </div>
               <ViewEditBtn
-                :canView="
-                  guarantorHasFile('TODO-REPRESENTATIVE-IDENTIFICATION')
-                "
-                @view="openGuarantorDoc('TODO-REPRESENTATIVE-IDENTIFICATION')"
+                :canView="guarantorHasFile('IDENTIFICATION_LEGAL_PERSON')"
+                @view="openGuarantorDoc('IDENTIFICATION_LEGAL_PERSON')"
                 @edit="setGuarantorSubStep(1)"
               ></ViewEditBtn>
-            </section>
+            </div>
+            <div class="row" v-if="guarantorHasDoc('IDENTIFICATION')">
+              <div class="subtitle">{{ $t("identity-represent") }}</div>
+              <ViewEditBtn
+                :canView="guarantorHasFile('IDENTIFICATION')"
+                @view="openGuarantorDoc('IDENTIFICATION')"
+                @edit="setGuarantorSubStep(2)"
+              ></ViewEditBtn>
+            </div>
           </div>
         </div>
         <div v-if="hasGuarantor('ORGANISM')">
@@ -281,7 +290,9 @@ export default class EditSummary extends Vue {
 "ALONE": "Seul",
 "COUPLE": "En couple",
 "GROUP": "En colocation",
-"legal-person": "Legal person"
+"legal-person": "Legal person",
+"identification-legal-person": "Legal person identity",
+"identity-represent": "Identity"
 },
 "fr": {
 "title": "Information du locataire",
@@ -290,7 +301,9 @@ export default class EditSummary extends Vue {
 "ALONE": "Seul",
 "COUPLE": "En couple",
 "GROUP": "En colocation",
-"legal-person": "Personne morale"
+"legal-person": "Personne morale",
+"identification-legal-person": "Identité personne morale",
+"identity-represent": "Identité représentant"
 }
 }
 </i18n>
