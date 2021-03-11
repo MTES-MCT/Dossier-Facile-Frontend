@@ -243,7 +243,9 @@ export default class TenantInformationForm extends Vue {
   }
 
   isOwner() {
-    return this.user.tenantType === "CREATE";
+    return (
+      this.user.tenantType === undefined || this.user.tenantType === "CREATE"
+    );
   }
 
   authorize() {
