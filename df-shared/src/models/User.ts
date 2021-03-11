@@ -12,6 +12,7 @@ export class User {
   firstName?: string;
   zipCode?: string;
   applicationType?: string;
+  tenantType?: string;
   status?: string;
   lastUpdate?: string;
 
