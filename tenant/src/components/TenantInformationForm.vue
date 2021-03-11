@@ -54,14 +54,13 @@
                 </BigRadio>
               </div>
               <CoupleInformation
-                :couple-mail.sync="spouseEmail"
-                :authorize.sync="spouseAuthorize"
+                @update-couple="updateCouple"
                 v-if="applicationType === 'COUPLE'"
               >
               </CoupleInformation>
               <RoommatesInformation
+                @update-roommates="updateRoommates"
                 v-if="applicationType === 'GROUP'"
-                :authorize.sync="coTenantAuthorize"
               >
               </RoommatesInformation>
             </div>
@@ -79,7 +78,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { User } from "df-shared/src/models/User";
 import RoommatesInformation from "@/components/RoommatesInformation.vue";
 import CoupleInformation from "@/components/CoupleInformation.vue";
-import { mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import { ValidationObserver } from "vee-validate";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import SubmitButton from "df-shared/src/Button/SubmitButton.vue";
@@ -89,7 +88,9 @@ import WarningMessage from "df-shared/src/components/WarningMessage.vue";
   computed: {
     ...mapState({
       user: "user",
-      roommates: "roommates",
+    }),
+    ...mapGetters({
+      roommates: "getRoommates",
     }),
   },
   components: {
@@ -170,6 +171,15 @@ export default class TenantInformationForm extends Vue {
       this.user.applicationType === "COUPLE" &&
       this.applicationType !== "COUPLE"
     );
+  }
+
+  updateCouple(email: string, authorize: boolean) {
+    this.spouseEmail = email;
+    this.spouseAuthorize = authorize;
+  }
+
+  updateRoommates(authorize: boolean) {
+    this.coTenantAuthorize = authorize;
   }
 }
 </script>

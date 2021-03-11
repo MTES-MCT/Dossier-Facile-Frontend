@@ -128,6 +128,12 @@ const store = new Vuex.Store({
     },
     updateMessages(state, messageList: DfMessage[]) {
       state.messageList = messageList;
+    },
+    deleteRoommates(state, pos) {
+      state.user.apartmentSharing?.tenants.splice(pos, 1);
+    },
+    updateRoommates(state, roommates: User[]) {
+      state.user.apartmentSharing.tenants = roommates;
     }
   },
   actions: {
@@ -321,6 +327,9 @@ const store = new Vuex.Store({
     },
     sendMessage({ commit }, message: string) {
       return MessageService.postMessage({ messageBody: message }).then(() => { this.dispatch('updateMessages') });
+    },
+    updateRoommates({ commit }, roommates: User[]) {
+      commit("updateRoommates", roommates);
     }
   },
   getters: {
@@ -344,6 +353,9 @@ const store = new Vuex.Store({
         return state.selectedGuarantor;
       }
       return state.user;
+    },
+    getRoommates(state): User[] {
+      return state.user.apartmentSharing.tenants.map((u: User) => ({ ...u }));
     }
   },
   modules: {}
