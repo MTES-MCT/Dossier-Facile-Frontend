@@ -1,7 +1,7 @@
 <template>
   <div class="rf-container">
-    <div class="row justify-content-center">
-      <div class="col-12 col-md-8">
+    <div class="rf-grid-row justify-content-center">
+      <div class="rf-col-12">
         <div v-if="file.path">
           <vue-load-image v-if="isImage()">
             <img slot="image" :src="file.path" />

@@ -582,8 +582,8 @@
       <form name="form" @submit.prevent="validate().then(validDelete)">
         <ConfirmModal v-show="isDeleteModalVisible" @cancel="undoSelect()">
           <div class="rf-container">
-            <div class="row justify-content-center">
-              <div class="col-12 col-md-8">
+            <div class="rf-grid-row justify-content-center">
+              <div class="rf-col-12">
                 <div class="rf-col-12 rf-mb-3w">
                   <validation-provider rules="required" v-slot="{ errors }">
                     <div

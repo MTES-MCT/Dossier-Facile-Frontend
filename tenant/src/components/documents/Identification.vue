@@ -16,23 +16,13 @@
         </option>
       </select>
     </div>
-    <Modal v-show="isDocDeleteVisible" @close="undoSelect()">
-      <template v-slot:body>
-        <div class="rf-container">
-          <div class="row justify-content-center">
-            <div class="col-12 col-md-8 rf-grid-row">
-              <p>
-                {{ $t("will-delete-files") }}
-              </p>
-              <DfButton @on-click="validSelect()" primary="true">{{
-                $t("validate")
-              }}</DfButton>
-              <DfButton @on-click="undoSelect()">{{ $t("cancel") }}</DfButton>
-            </div>
-          </div>
-        </div>
-      </template>
-    </Modal>
+    <ConfirmModal
+      v-if="isDocDeleteVisible"
+      @valid="validSelect()"
+      @cancel="undoSelect()"
+    >
+      <span>{{ $t("will-delete-files") }}</span>
+    </ConfirmModal>
     <div v-if="identificationDocument.key">
       <div v-if="identificationDocument.explanationText" class="rf-mb-3w">
         <p v-html="identificationDocument.explanationText"></p>
@@ -91,7 +81,7 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 import { RegisterService } from "../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
-import Modal from "df-shared/src/components/Modal.vue";
+import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
 
 @Component({
@@ -101,7 +91,7 @@ import DfButton from "df-shared/src/Button/Button.vue";
     ListItem,
     ValidationProvider,
     WarningMessage,
-    Modal,
+    ConfirmModal,
     DfButton,
   },
   computed: {

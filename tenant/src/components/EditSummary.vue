@@ -173,8 +173,8 @@
     <Modal v-show="isDocModalVisible" @close="isDocModalVisible = false">
       <template v-slot:body>
         <div class="rf-container">
-          <div class="row justify-content-center">
-            <div class="col-12 col-md-8">
+          <div class="rf-grid-row justify-content-center">
+            <div class="rf-col-12">
               <div v-for="f in files" v-bind:key="f.id">
                 <ShowDoc :file="f"></ShowDoc>
               </div>
