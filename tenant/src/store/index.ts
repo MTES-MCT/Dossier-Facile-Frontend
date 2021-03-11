@@ -128,6 +128,9 @@ const store = new Vuex.Store({
     },
     updateMessages(state, messageList: DfMessage[]) {
       state.messageList = messageList;
+    },
+    deleteRoommates(state, pos) {
+      state.user.apartmentSharing?.tenants.splice(pos, 1);
     }
   },
   actions: {

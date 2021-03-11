@@ -10,11 +10,12 @@
               :class="errors[0] ? 'rf-input-group--error' : ''"
             >
               <input
-                v-model="mail"
+                v-model="coupleMail"
                 class="form-control rf-input"
                 name="email"
                 placeholder="Ex : exemple@exemple.fr"
                 type="email"
+                @change="updateCouple()"
                 required
               />
               <span class="rf-error-text" v-if="errors[0]">{{
@@ -33,7 +34,8 @@
                 type="checkbox"
                 id="authorize"
                 value="false"
-                v-model="author"
+                v-model="authorize"
+                @change="updateCouple()"
               />
               <label for="authorize">{{ $t("acceptAuthor") }}</label>
               <span class="rf-error-text" v-if="errors[0]">{{
@@ -48,33 +50,53 @@
 </template>
 
 <script lang="ts">
-import { Component, PropSync, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
 import { email, is } from "vee-validate/dist/rules";
+import { mapState } from "vuex";
+import { User } from "df-shared/src/models/User";
 
 extend("email", {
   ...email,
-  message: "email-not-valid"
+  message: "email-not-valid",
 });
 
 extend("is", {
   ...is,
   message: "field-required",
-  validate: value => !!value
+  validate: (value) => !!value,
 });
 
 @Component({
   components: {
     ValidationProvider,
-    ValidationObserver
-  }
+    ValidationObserver,
+  },
+  computed: {
+    ...mapState({
+      user: "user",
+    }),
+  },
 })
 export default class CoupleInformation extends Vue {
-  @PropSync("coupleMail", { type: String })
-  readonly mail!: string;
-  @PropSync("authorize", { type: Boolean })
-  readonly author!: boolean;
+  coupleMail = "";
+  authorize = false;
+
+  user!: User;
+
+  mounted() {
+    if ((this.user.apartmentSharing?.tenants.length || 0) > 1) {
+      this.coupleMail =
+        this.user.apartmentSharing?.tenants.find((t) => {
+          return t.email != this.user.email;
+        })?.email || "";
+    }
+  }
+
+  updateCouple() {
+    this.$emit("update-couple", this.coupleMail, this.authorize);
+  }
 }
 </script>
 

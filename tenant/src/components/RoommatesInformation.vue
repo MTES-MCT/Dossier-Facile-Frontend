@@ -36,7 +36,7 @@
                 <button
                   class="rf-btn rf-btn--icon rf-btn--secondary"
                   :title="$t('delete')"
-                  :disabled="roommates.length <= 1"
+                  :disabled="user.apartmentSharing.tenants.length <= 1"
                   @click="remove(key)"
                 >
                   <span class="text-danger material-icons">delete_forever</span>
@@ -78,39 +78,37 @@ import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
 import { email, is } from "vee-validate/dist/rules";
 import { User } from "df-shared/src/models/User";
-import { mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
 
 extend("email", {
   ...email,
-  message: "email-not-valid"
+  message: "email-not-valid",
 });
 
 extend("is", {
   ...is,
   message: "field-required",
-  validate: value => !!value
+  validate: (value) => !!value,
 });
 
 @Component({
   components: {
     ValidationProvider,
-    ValidationObserver
+    ValidationObserver,
   },
   computed: {
     ...mapState({
-      roommates: "roommates",
-      user: "user"
-    })
-  }
+      user: "user",
+    }),
+  },
 })
 export default class RoommatesInformation extends Vue {
-  roommates!: User[];
   user!: User;
   @PropSync("authorize", { type: Boolean })
   readonly author!: boolean;
 
   mounted() {
-    if (this.roommates.length === 0) {
+    if (this.user.apartmentSharing?.tenants.length === 0) {
       this.$store.commit("createRoommates");
     }
   }
@@ -120,11 +118,12 @@ export default class RoommatesInformation extends Vue {
   }
 
   remove(key: number) {
-    this.roommates.splice(key, 1);
+    this.$store.commit("deleteRoommates", key);
+    return false;
   }
 
   roommatesNotMe() {
-    return this.roommates.filter((r: User) => {
+    return this.user.apartmentSharing?.tenants.filter((r: User) => {
       return r.id != this.user.id;
     });
   }

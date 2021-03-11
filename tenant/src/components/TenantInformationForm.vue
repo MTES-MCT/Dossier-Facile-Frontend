@@ -54,8 +54,7 @@
                 </BigRadio>
               </div>
               <CoupleInformation
-                :couple-mail.sync="spouseEmail"
-                :authorize.sync="spouseAuthorize"
+                @update-couple="updateCouple"
                 v-if="applicationType === 'COUPLE'"
               >
               </CoupleInformation>
@@ -170,6 +169,11 @@ export default class TenantInformationForm extends Vue {
       this.user.applicationType === "COUPLE" &&
       this.applicationType !== "COUPLE"
     );
+  }
+
+  updateCouple(email: string, authorize: boolean) {
+    this.spouseEmail = email;
+    this.spouseAuthorize = authorize;
   }
 }
 </script>
