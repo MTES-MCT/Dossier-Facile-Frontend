@@ -3,11 +3,17 @@
     <div class="rf-grid-col main-content">
       <div class="rf-mb-3w">
         <div class="rf-grid-row">
-          <input v-model.number="page" type="number" style="width: 5em" /> /{{
-            numPages
-          }}
-          <button @click="decreasePage()">«</button>
-          <button @click="increasePage()">»</button>
+          <div class="rf-col-2">
+            <input v-model.number="page" type="number" style="width: 5em" /> /{{
+              numPages
+            }}
+          </div>
+          <div class="rf-col-1">
+            <button @click="decreasePage()">«</button>
+          </div>
+          <div class="rf-col-1">
+            <button @click="increasePage()">»</button>
+          </div>
         </div>
       </div>
       <div class="pdf-content">

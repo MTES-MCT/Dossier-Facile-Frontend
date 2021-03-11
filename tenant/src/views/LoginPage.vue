@@ -14,8 +14,8 @@
     <Modal v-show="redirectModalVisible" @close="redirectModalVisible = false">
       <template v-slot:body>
         <div class="rf-container">
-          <div class="row justify-content-center">
-            <div class="col-12 col-md-8">
+          <div class="rf-grid-row justify-content-center">
+            <div class="rf-col-12">
               <p v-html="$t('error-occured')"></p>
             </div>
           </div>

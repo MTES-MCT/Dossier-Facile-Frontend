@@ -136,7 +136,7 @@ const routes: Array<RouteConfig> = [
       )
   },
   {
-    path: "/changePassword/:token",
+    path: "/reset-password/:token",
     name: "Password",
     meta: {
       title: "Nouveau mot de passe - DossierFacile",

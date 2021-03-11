@@ -41,7 +41,7 @@ export const AuthService = {
   },
 
   deleteAccount(password: string) {
-    return axios.post(API_URL + "register/deleteAccount", {
+    return axios.post(API_URL + "user/deleteAccount", {
       password: password
     });
   },
@@ -55,22 +55,18 @@ export const AuthService = {
   changePassword(user: User) {
     return axios.post(API_URL + "user/changePassword", {
       password: user.password,
-      confirm: user.confirm,
+      passwordConfirmation: user.confirm,
       token: user.token
     });
   },
   createPasswordCouple(user: User) {
-    return axios.post(API_URL + "user/password", {
-      password: user.password,
-      confirm: user.confirm,
-      token: user.token
+    return axios.post(`${API_URL}user/createPassword/${user.token}`, {
+      password: user.password
     });
   },
   createPasswordGroup(user: User) {
-    return axios.post(API_URL + "user/password", {
-      password: user.password,
-      confirm: user.confirm,
-      token: user.token
+    return axios.post(`${API_URL}user/createPassword/${user.token}`, {
+      password: user.password
     });
   },
 
