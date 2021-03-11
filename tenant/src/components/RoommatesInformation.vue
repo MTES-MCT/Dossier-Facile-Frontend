@@ -25,6 +25,7 @@
                     name="email"
                     placeholder="Ex : exemple@exemple.fr"
                     type="email"
+                    @change="updateRoommates()"
                     required
                   />
                   <span class="rf-error-text" v-if="errors[0]">{{
@@ -58,7 +59,8 @@
                 type="checkbox"
                 id="authorize"
                 value="false"
-                v-model="author"
+                v-model="authorize"
+                @change="updateAuthorize()"
               />
               <label for="authorize">{{ $t("acceptAuthor") }}</label>
               <span class="rf-error-text" v-if="errors[0]">{{
@@ -100,12 +102,15 @@ extend("is", {
     ...mapState({
       user: "user",
     }),
+    ...mapGetters({
+      roommates: "getRoommates",
+    }),
   },
 })
 export default class RoommatesInformation extends Vue {
   user!: User;
-  @PropSync("authorize", { type: Boolean })
-  readonly author!: boolean;
+  authorize = false;
+  roommates!: User[];
 
   mounted() {
     if (this.user.apartmentSharing?.tenants.length === 0) {
@@ -126,6 +131,14 @@ export default class RoommatesInformation extends Vue {
     return this.user.apartmentSharing?.tenants.filter((r: User) => {
       return r.id != this.user.id;
     });
+  }
+
+  updateAuthorize() {
+    this.$emit("update-roommates", this.authorize);
+  }
+
+  updateRoommates() {
+    this.$store.commit("updateRoommates", this.roommates);
   }
 }
 </script>
