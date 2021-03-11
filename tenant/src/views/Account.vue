@@ -95,7 +95,16 @@
               </div>
             </div>
             <div class="main-description">
-              Vous avez indiqué être en cdd etc.
+              <p
+                class="description"
+                v-html="
+                  $t('status-description', [
+                    user.firstName,
+                    getProfession(),
+                    getIncome(),
+                  ])
+                "
+              ></p>
             </div>
             <hr />
             <div class="main-information">
@@ -755,6 +764,27 @@ export default class Account extends Vue {
     this.$store.commit("setGuarantorSubstep", n);
     this.setStep(3);
   }
+
+  getProfession() {
+    const doc = this.user.documents?.find((d: DfDocument) => {
+      return d.documentCategory === "PROFESSIONAL";
+    });
+    return this.$i18n.t(doc?.documentSubCategory || "none");
+  }
+
+  getIncome() {
+    const sum = this.user.documents
+      ?.filter((d: DfDocument) => {
+        return d.documentCategory === "FINANCIAL";
+      })
+      .reduce((sum, current) => sum + (current.monthlySum || 0), 0);
+    if (sum === 0) {
+      return this.$i18n.t("no-income");
+    }
+    return this.$i18n.t("income", [sum]);
+    /* {PRENOM}, vous avez indiqué être {PROFESSION} et {ne pas avoir de revenu || avoir un revenu net mensuel de {SOMME}}.
+ Si votre situation a changé, mettez à jour vos documents ! */
+  }
 }
 </script>
 
@@ -858,12 +888,17 @@ p {
 
   box-shadow: none;
 }
+
+.description:first-letter {
+  text-transform: uppercase;
+}
 </style>
 
 <i18n>
 {
   "en": {
     "title": "Hello {0}, your file is validated",
+    "status-description":"{0}, you are {1} and {2}.<br>if your situation has changed, please update your documents !",
     "subtitle": "Vous avez indiqué être {0} {1}, être en {2} et gagner {3}.",
     "last-update": "Dernière mise à jour du dossier le {0}",
     "file-update-title": "File update",
@@ -898,10 +933,25 @@ p {
     "copy": "Copy",
     "password": "Please enter your password to confirm the complete deletion of the account",
     "try-again": "An error occured, please try again later.",
-    "field-required": "This field is required"
+    "field-required": "This field is required",
+  "CDI": "CDI",
+  "CDI_TRIAL": "CDI (période d’essai)",
+  "CDD": "CDD",
+  "ALTERNATION": "Alternance",
+  "INTERNSHIP": "Stage",
+  "STUDENT": "Études",
+  "PUBLIC": "Fonction publique",
+  "CTT": "CTT (intérimaire)",
+  "RETIRED": "Retraité",
+  "UNEMPLOYED": "Chômage",
+  "INDEPENDENT": "Indépendant",
+  "OTHER": "Autre",
+  "no-income": "have no income",
+  "income": "have a monthly income of {0}"
   },
   "fr": {
     "title": "Bonjour {0}, votre dossier est {1} !",
+    "status-description":"{0}, vous avez indiqué être {1} et {2}.<br>Si votre situation a changé, mettez à jour vos documents !",
     "subtitle": "Vous avez indiqué être {0} {1}, être en {2} et gagner {3}.",
     "last-update": "Dernière mise à jour du dossier le {0}",
     "file-update-title": "Mise à jour de votre dossier",
@@ -936,7 +986,21 @@ p {
     "copy": "Copier",
     "password": "Veuillez saisir votre mot de passe pour confirmer la suppression complète du compte",
     "try-again": "Une erreur est survenue, veuillez réessayer plus tard.",
-    "field-required": "Ce champ est requis"
+    "field-required": "Ce champ est requis",
+  "CDI": "en CDI",
+  "CDI_TRIAL": "en CDI (période d’essai)",
+  "CDD": "en CDD",
+  "ALTERNATION": "en alternance",
+  "INTERNSHIP": "en stage",
+  "STUDENT": "étudiant",
+  "PUBLIC": "dans la fonction publique",
+  "CTT": "en CTT (intérimaire)",
+  "RETIRED": "retraité",
+  "UNEMPLOYED": "au chômage",
+  "INDEPENDENT": "indépendant",
+  "OTHER": "Autre",
+  "no-income": "ne pas avoir de revenu",
+  "income": "avoir un revenu net mensuel de {0}"
   }
 }
 </i18n>
