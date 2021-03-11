@@ -55,10 +55,8 @@ export const AuthService = {
   },
 
   changePassword(user: User) {
-    return axios.post(API_URL + "user/changePassword", {
-      password: user.password,
-      passwordConfirmation: user.confirm,
-      token: user.token
+    return axios.post(`${API_URL}user/createPassword/${user.token}`, {
+      password: user.password
     });
   },
   createPasswordCouple(user: User) {
