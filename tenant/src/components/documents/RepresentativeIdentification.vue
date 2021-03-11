@@ -147,6 +147,19 @@ export default class RepresentativeIdentification extends Vue {
 
   mounted() {
     this.firstName = this.selectedGuarantor.firstName || "";
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "IDENTIFICATION";
+      });
+      if (doc !== undefined) {
+        const localDoc = this.documents.find((d: DocumentType) => {
+          return d.value === doc.documentSubCategory;
+        });
+        if (localDoc !== undefined) {
+          this.identificationDocument = localDoc;
+        }
+      }
+    }
   }
 
   addFiles(fileList: File[]) {
@@ -191,6 +204,7 @@ export default class RepresentativeIdentification extends Vue {
     const loader = this.$loading.show();
     RegisterService.saveRepresentativeIdentification(formData)
       .then(() => {
+        this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         Vue.toasted.global.save_success();
       })
@@ -199,6 +213,7 @@ export default class RepresentativeIdentification extends Vue {
         Vue.toasted.global.save_failed();
       })
       .finally(() => {
+        this.$store.dispatch("loadUser");
         loader.hide();
       });
   }
