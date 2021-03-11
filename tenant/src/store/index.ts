@@ -18,8 +18,6 @@ export class DfState {
   guarantorStep = 0;
   guarantorSubStep = 1;
   user: User | null = null;
-  // TODO use getter on user.apartmentSharing.tenants
-  roommates: User[] = [];
   selectedGuarantor = new Guarantor();
   status = { loggedIn: false };
   messages: DfMessage[] = [];
@@ -78,9 +76,6 @@ const store = new Vuex.Store({
     loadUser(state, user) {
       state.user = user;
       state.user.applicationType = state.user?.apartmentSharing.applicationType;
-      if (state.user.applicationType === "COUPLE") {
-        state.roommates = state.user.apartmentSharing.tenants;
-      }
 
       if (state.user?.guarantors && state.user.guarantors.length > 0) {
         if (state.selectedGuarantor?.id) {
@@ -103,7 +98,7 @@ const store = new Vuex.Store({
       state.selectedGuarantor = guarantor;
     },
     createRoommates(state) {
-      state.roommates.push(new User());
+      state.user.apartmentSharing.tenants.push(new User());
     },
     setTenantSubstep(state, subStep: number) {
       state.tenantSubStep = subStep;
@@ -133,7 +128,9 @@ const store = new Vuex.Store({
       state.user.apartmentSharing?.tenants.splice(pos, 1);
     },
     updateRoommates(state, roommates: User[]) {
+      const u = state.user.apartmentSharing.tenants.find((t: User) => { return t.email = state.user.email })
       state.user.apartmentSharing.tenants = roommates;
+      state.user.apartmentSharing.tenants.push(u);
     }
   },
   actions: {
@@ -355,7 +352,9 @@ const store = new Vuex.Store({
       return state.user;
     },
     getRoommates(state): User[] {
-      return state.user.apartmentSharing.tenants.map((u: User) => ({ ...u }));
+      return state.user.apartmentSharing.tenants.filter((r: User) => {
+        return r.email != state.user.email;
+      }).map((u: User) => ({ ...u }));
     }
   },
   modules: {}

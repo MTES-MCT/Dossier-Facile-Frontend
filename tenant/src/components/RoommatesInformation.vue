@@ -6,7 +6,7 @@
           <label class="rf-label">{{ $t("roommateEmail") }}</label>
           <div
             class="rf-mb-1w"
-            v-for="(roommate, key) in roommatesNotMe()"
+            v-for="(roommate, key) in roommates"
             v-bind:key="key"
           >
             <div class="rf-grid-row">
@@ -113,7 +113,7 @@ export default class RoommatesInformation extends Vue {
   roommates!: User[];
 
   mounted() {
-    if (this.user.apartmentSharing?.tenants.length === 0) {
+    if ((this.user.apartmentSharing?.tenants.length || 0) < 2) {
       this.$store.commit("createRoommates");
     }
   }
@@ -125,12 +125,6 @@ export default class RoommatesInformation extends Vue {
   remove(key: number) {
     this.$store.commit("deleteRoommates", key);
     return false;
-  }
-
-  roommatesNotMe() {
-    return this.user.apartmentSharing?.tenants.filter((r: User) => {
-      return r.id != this.user.id;
-    });
   }
 
   updateAuthorize() {
