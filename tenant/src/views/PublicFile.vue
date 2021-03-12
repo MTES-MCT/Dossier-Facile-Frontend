@@ -40,34 +40,19 @@
               <div class="rf-prose">
                 <h4 class="rf-h4">{{ $t("personnal-file") }}</h4>
                 <div class="rf-grid-row file-item">
-                  <span>{{ $t("identification") }}</span
-                  ><DfButton @on-click="open(tenant, 'IDENTIFICATION')">{{
-                    $t("see")
-                  }}</DfButton>
+                  <span>{{ $t("identification") }}</span>
                 </div>
                 <div class="rf-grid-row file-item">
-                  <span>{{ $t("residency") }}</span
-                  ><DfButton @on-click="open(tenant, 'RESIDENCY')">{{
-                    $t("see")
-                  }}</DfButton>
+                  <span>{{ $t("residency") }}</span>
                 </div>
                 <div class="rf-grid-row file-item">
-                  <span>{{ $t("professional") }}</span
-                  ><DfButton @on-click="open(tenant, 'PROFESSIONAL')">{{
-                    $t("see")
-                  }}</DfButton>
+                  <span>{{ $t("professional") }}</span>
                 </div>
                 <div class="rf-grid-row file-item">
-                  <span>{{ $t("financial") }}</span
-                  ><DfButton @on-click="open(tenant, 'FINANCIAL')">{{
-                    $t("see")
-                  }}</DfButton>
+                  <span>{{ $t("financial") }}</span>
                 </div>
                 <div class="rf-grid-row file-item">
-                  <span>{{ $t("tax") }}</span
-                  ><DfButton @on-click="open(tenant, 'TAX')">{{
-                    $t("see")
-                  }}</DfButton>
+                  <span>{{ $t("tax") }}</span>
                 </div>
                 <div v-if="hasGuarantor(tenant)">
                   <h4 class="rf-h4">
@@ -115,7 +100,7 @@ export default class File extends Vue {
 
   mounted() {
     const token = this.$route.params.token;
-    ProfileService.getUserByToken(token).then((d) => {
+    ProfileService.getPublicUserByToken(token).then((d) => {
       this.user = d.data;
       const el = this.$el.querySelector("#rf-tabs");
       const h = (el?.scrollHeight || 0) > 100 ? el?.scrollHeight : 600;
