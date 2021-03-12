@@ -65,11 +65,9 @@
         </ul>
       </div>
     </section>
-    <section class="rf-mb-5w fix-mt" :style="`margin-top: ${tabsSize}`">
-      <DfButton primary="true" @on-click="download">{{
-        $t("download-all")
-      }}</DfButton>
-    </section>
+    <div :style="`margin-top: ${tabsSize}`">
+      <!-- TODO: fix dummy spacer -->
+    </div>
   </div>
 </template>
 
