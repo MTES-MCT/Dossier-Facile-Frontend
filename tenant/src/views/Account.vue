@@ -653,6 +653,8 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
   },
 })
 export default class Account extends Vue {
+  TENANT_URL = `https://${process.env.VUE_APP_TENANT_URL}`;
+
   user!: User;
   radioVisible = false;
   pub = "false";
@@ -666,9 +668,9 @@ export default class Account extends Vue {
 
   getToken() {
     if (this.pub === "true") {
-      return this.user.apartmentSharing?.tokenPublic;
+      return `${this.TENANT_URL}/file/${this.user.apartmentSharing?.tokenPublic}`;
     }
-    return this.user.apartmentSharing?.token;
+    return `${this.TENANT_URL}/file/${this.user.apartmentSharing?.token}`;
   }
 
   oldUpdateDocument() {
