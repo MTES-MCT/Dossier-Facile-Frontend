@@ -15,6 +15,7 @@ export class User {
   tenantType?: string;
   status?: string;
   lastUpdate?: string;
+  honorDeclaration?: boolean;
 
   identification?: string;
   residency?: string;

@@ -128,6 +128,13 @@ export default class ValidateFile extends Vue {
   declaration = false;
   declaration2 = false;
 
+  mounted() {
+    if (this.user.honorDeclaration) {
+      this.declaration = true;
+      this.declaration2 = true;
+    }
+  }
+
   validate() {
     if (this.declaration && (!this.hasGuarantors() || this.declaration2)) {
       const loader = Vue.$loading.show();
