@@ -137,7 +137,7 @@ export default class File extends Vue {
   }
 
   download() {
-    window.open(this.user?.pdfLink, "_blank");
+    window.open(this.user?.dossierPDFUrl, "_blank");
   }
 
   hasGuarantor(tenant: User) {
