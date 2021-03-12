@@ -10,4 +10,5 @@ export class DfDocument {
   monthlySum?: number;
   files?: DfFile[];
   noDocument?: boolean;
+  name?: string;
 }

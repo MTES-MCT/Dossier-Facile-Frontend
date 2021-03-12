@@ -37,5 +37,11 @@ export const ProfileService = {
   },
   deleteDocument(id: number) {
     return axios.delete(`//${process.env.VUE_APP_API_URL}/api/document/${id}`);
+  },
+  getUserByToken(token: string) {
+    return axios.get(`//${process.env.VUE_APP_API_URL}/api/application/full/${token}`);
+  },
+  getPublicUserByToken(token: string) {
+    return axios.get(`//${process.env.VUE_APP_API_URL}/api/application/light/${token}`);
   }
 };

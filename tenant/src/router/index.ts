@@ -58,6 +58,15 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "profile" */ "@/views/Profile.vue")
   },
   {
+    path: "/public-file/:token",
+    name: "Dossier",
+    meta: {
+      title: "Dossier - DossierFacile"
+    },
+    component: () =>
+      import(/* webpackChunkName: "file" */ "@/views/PublicFile.vue")
+  },
+  {
     path: "/file/:token",
     name: "Dossier",
     meta: {
