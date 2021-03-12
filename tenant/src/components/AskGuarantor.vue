@@ -11,11 +11,8 @@
       <p>
         {{ $t("not-required") }}
       </p>
-      <DfButton
-        class="rf-btn"
-        @on-click="goValidateFile"
-      >
-        {{$t('validate')}}
+      <DfButton class="rf-btn" @on-click="goValidateFile">
+        {{ $t("validate") }}
       </DfButton>
     </div>
   </div>

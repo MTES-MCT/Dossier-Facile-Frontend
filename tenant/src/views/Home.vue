@@ -13,12 +13,8 @@
             </p>
             <div class="pull-left">
               <div>
-                <DfButton
-                  primary="true"
-                  size="small"
-                  @on-click="signup"
-                >
-                  {{$t('signup')}}
+                <DfButton primary="true" size="small" @on-click="signup">
+                  {{ $t("signup") }}
                 </DfButton>
               </div>
               <div class="rf-mt-2w text-center">
@@ -97,12 +93,8 @@
             <p>
               {{ $t("p7") }}
             </p>
-            <DfButton
-              primary="true"
-              size="small"
-              @on-click="signup"
-            >
-              {{$t('signup')}}
+            <DfButton primary="true" size="small" @on-click="signup">
+              {{ $t("signup") }}
             </DfButton>
           </div>
         </div>

@@ -84,28 +84,28 @@ import { mapGetters, mapState } from "vuex";
 
 extend("email", {
   ...email,
-  message: "email-not-valid",
+  message: "email-not-valid"
 });
 
 extend("is", {
   ...is,
   message: "field-required",
-  validate: (value) => !!value,
+  validate: value => !!value
 });
 
 @Component({
   components: {
     ValidationProvider,
-    ValidationObserver,
+    ValidationObserver
   },
   computed: {
     ...mapState({
-      user: "user",
+      user: "user"
     }),
     ...mapGetters({
-      roommates: "getRoommates",
-    }),
-  },
+      roommates: "getRoommates"
+    })
+  }
 })
 export default class RoommatesInformation extends Vue {
   user!: User;

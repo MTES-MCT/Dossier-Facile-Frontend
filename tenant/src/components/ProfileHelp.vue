@@ -16,7 +16,12 @@ import TaxHelp from "./helps/TaxHelp.vue";
 import { mapState } from "vuex";
 
 @Component({
-  components: { NameInformationHelp, DocumentHelp, TaxHelp, GuarantorChoiceHelp },
+  components: {
+    NameInformationHelp,
+    DocumentHelp,
+    TaxHelp,
+    GuarantorChoiceHelp
+  },
   computed: {
     ...mapState({
       tenantStep: "tenantStep",

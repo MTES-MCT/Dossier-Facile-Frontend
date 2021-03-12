@@ -5,7 +5,10 @@ import store from "../store";
 
 export const DocumentService = {
   hasDocument() {
-    return store.state.user.documents !== undefined && store.state.user.documents?.length > 0;
+    return (
+      store.state.user.documents !== undefined &&
+      store.state.user.documents?.length > 0
+    );
   },
   hasDoc(docType: string) {
     return store.state.user.documents?.find((d: DfDocument) => {
@@ -26,8 +29,12 @@ export const DocumentService = {
     return (document?.files?.length || 0) > 0;
   },
   hasGuarantor(guarantorType: string) {
-    const g = store.state.selectedGuarantor
-    return g !== undefined && g.documents !== undefined && g.typeGuarantor === guarantorType
+    const g = store.state.selectedGuarantor;
+    return (
+      g !== undefined &&
+      g.documents !== undefined &&
+      g.typeGuarantor === guarantorType
+    );
   },
   getFiles(documentCategory: string) {
     const docs = store.state.user.documents?.filter((d: DfDocument) => {

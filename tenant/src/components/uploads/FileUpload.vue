@@ -25,7 +25,7 @@ const {
   STATUS_INITIAL,
   STATUS_SUCCESS,
   STATUS_SAVING,
-  STATUS_FAILED,
+  STATUS_FAILED
 } = UploadStatus;
 
 @Component
@@ -66,7 +66,7 @@ export default class FileUpload extends Vue {
       if (f.size > 5 * 1024 * 1024) {
         this.$toasted.show(this.$i18n.t("file-too-big").toString(), {
           type: "error",
-          duration: 5000,
+          duration: 5000
         });
         return false;
       }

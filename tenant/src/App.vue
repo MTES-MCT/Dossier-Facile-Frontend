@@ -33,17 +33,17 @@ import { Header } from "./gouvfr/header.js";
   components: {
     MyHeader,
     MyFooter,
-    Menu,
+    Menu
   },
   computed: {
     ...mapState({
       user: "user",
-      status: "status",
+      status: "status"
     }),
     ...mapGetters({
-      isLoggedIn: "isLoggedIn",
-    }),
-  },
+      isLoggedIn: "isLoggedIn"
+    })
+  }
 })
 export default class App extends Vue {
   isLoggedIn!: boolean;
@@ -67,7 +67,7 @@ export default class App extends Vue {
       () => {
         console.log("logged out !");
       },
-      (error) => {
+      error => {
         console.dir(error);
       }
     );

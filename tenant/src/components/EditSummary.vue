@@ -214,9 +214,9 @@ import ViewEditBtn from "./ViewEditBtn.vue";
     ...mapState({
       user: "user",
       tenantStep: "tenantStep",
-      selectedGuarantor: "selectedGuarantor",
-    }),
-  },
+      selectedGuarantor: "selectedGuarantor"
+    })
+  }
 })
 export default class EditSummary extends Vue {
   user!: User;

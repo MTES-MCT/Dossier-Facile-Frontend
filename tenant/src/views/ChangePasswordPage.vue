@@ -21,14 +21,14 @@ export default class ChangePasswordPage extends Vue {
       () => {
         this.$toasted.show(this.$i18n.t("password-update").toString(), {
           type: "success",
-          duration: 7000,
+          duration: 7000
         });
         this.$router.push("/profile");
       },
       () => {
         this.$toasted.show(this.$i18n.t("error").toString(), {
           type: "error",
-          duration: 7000,
+          duration: 7000
         });
       }
     );

@@ -128,7 +128,9 @@ const store = new Vuex.Store({
       state.user.apartmentSharing?.tenants.splice(pos, 1);
     },
     updateRoommates(state, roommates: User[]) {
-      const u = state.user.apartmentSharing.tenants.find((t: User) => { return t.email = state.user.email })
+      const u = state.user.apartmentSharing.tenants.find((t: User) => {
+        return (t.email = state.user.email);
+      });
       state.user.apartmentSharing.tenants = roommates;
       state.user.apartmentSharing.tenants.push(u);
     }
@@ -154,11 +156,15 @@ const store = new Vuex.Store({
       router.push("/").then();
     },
     deleteAccount({ commit }, password) {
-      return AuthService.deleteAccount(password).then(response => {
-        this.dispatch('logout');
-        return Promise.resolve(response)
-      }, error => { return Promise.reject(error) });
-
+      return AuthService.deleteAccount(password).then(
+        response => {
+          this.dispatch("logout");
+          return Promise.resolve(response);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
     },
     register({ commit }, { user, source, internalPartnerId }) {
       return AuthService.register(user, source, internalPartnerId).then(
@@ -247,7 +253,7 @@ const store = new Vuex.Store({
         error => {
           return Promise.reject(error);
         }
-      )
+      );
     },
     deleteGuarantor({ commit }, k) {
       return ProfileService.deleteGuarantor(this.state.user.guarantors[k]).then(
@@ -316,14 +322,14 @@ const store = new Vuex.Store({
       );
     },
     updateMessages({ commit }) {
-      MessageService.updateMessages().then(
-        (data) => {
-          this.commit("updateMessages", data.data);
-        }
-      );
+      MessageService.updateMessages().then(data => {
+        this.commit("updateMessages", data.data);
+      });
     },
     sendMessage({ commit }, message: string) {
-      return MessageService.postMessage({ messageBody: message }).then(() => { this.dispatch('updateMessages') });
+      return MessageService.postMessage({ messageBody: message }).then(() => {
+        this.dispatch("updateMessages");
+      });
     },
     updateRoommates({ commit }, roommates: User[]) {
       commit("updateRoommates", roommates);
@@ -352,9 +358,11 @@ const store = new Vuex.Store({
       return state.user;
     },
     getRoommates(state): User[] {
-      return state.user.apartmentSharing.tenants.filter((r: User) => {
-        return r.email != state.user.email;
-      }).map((u: User) => ({ ...u }));
+      return state.user.apartmentSharing.tenants
+        .filter((r: User) => {
+          return r.email != state.user.email;
+        })
+        .map((u: User) => ({ ...u }));
     }
   },
   modules: {}

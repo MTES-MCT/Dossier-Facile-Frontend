@@ -98,20 +98,20 @@ import SubmitButton from "df-shared/src/Button/SubmitButton.vue";
 
 extend("zipcode", {
   ...regex,
-  message: "zipcode-not-valid",
+  message: "zipcode-not-valid"
 });
 
 extend("required", {
   ...required,
-  message: "field-required",
+  message: "field-required"
 });
 
 @Component({
   components: {
     ValidationProvider,
     ValidationObserver,
-    SubmitButton,
-  },
+    SubmitButton
+  }
 })
 export default class NameInformationForm extends Vue {
   @Prop() private user!: User;
@@ -120,7 +120,7 @@ export default class NameInformationForm extends Vue {
     const loader = this.$loading.show();
     this.$store
       .dispatch("setNames", this.user)
-      .then(null, (error) => {
+      .then(null, error => {
         console.dir(error);
       })
       .finally(() => {

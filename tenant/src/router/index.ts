@@ -72,8 +72,7 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Dossier - DossierFacile"
     },
-    component: () =>
-      import(/* webpackChunkName: "file" */ "@/views/File.vue")
+    component: () => import(/* webpackChunkName: "file" */ "@/views/File.vue")
   },
   {
     path: "/source/:source",
@@ -92,7 +91,7 @@ const routes: Array<RouteConfig> = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if (store.state.user.status === 'INCOMPLETE') {
+      if (store.state.user.status === "INCOMPLETE") {
         next({ name: "Profile" });
       }
       next();
@@ -129,9 +128,7 @@ const routes: Array<RouteConfig> = [
       title: "Confirmation de compte - DossierFacile"
     },
     component: () =>
-      import(
-        /* webpackChunkName: "register" */ "@/views/JoinCouple.vue"
-      )
+      import(/* webpackChunkName: "register" */ "@/views/JoinCouple.vue")
   },
   {
     path: "/ajout-groupe/:token",
@@ -140,9 +137,7 @@ const routes: Array<RouteConfig> = [
       title: "Confirmation de compte - DossierFacile"
     },
     component: () =>
-      import(
-        /* webpackChunkName: "register" */ "@/views/JoinGroup.vue"
-      )
+      import(/* webpackChunkName: "register" */ "@/views/JoinGroup.vue")
   },
   {
     path: "/reset-password/:token",

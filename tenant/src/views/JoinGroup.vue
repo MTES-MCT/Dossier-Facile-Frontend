@@ -14,8 +14,8 @@ import InitPassword from "df-shared/src/Authentification/InitPassword.vue";
 
 @Component({
   components: {
-    InitPassword,
-  },
+    InitPassword
+  }
 })
 export default class JoinCouple extends Vue {
   onInitPassword(user: User) {
@@ -24,14 +24,14 @@ export default class JoinCouple extends Vue {
       () => {
         this.$toasted.show(this.$i18n.t("password-update").toString(), {
           type: "success",
-          duration: 7000,
+          duration: 7000
         });
         this.$router.push("/profile");
       },
       () => {
         this.$toasted.show(this.$i18n.t("error").toString(), {
           type: "error",
-          duration: 7000,
+          duration: 7000
         });
       }
     );
