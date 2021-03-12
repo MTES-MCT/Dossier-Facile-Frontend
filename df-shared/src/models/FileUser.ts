@@ -5,5 +5,5 @@ export class FileUser {
   applicationType?: string;
 
   tenants?: User[];
-  pdfLink?: string;
+  dossierPDFUrl?: string;
 }
