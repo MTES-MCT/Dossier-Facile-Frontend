@@ -47,8 +47,8 @@ import DfButton from "df-shared/src/Button/Button.vue";
     Register,
     Modal,
     DfButton,
-    Login,
-  },
+    Login
+  }
 })
 export default class Source extends Vue {
   source = "";
@@ -77,13 +77,13 @@ export default class Source extends Vue {
         .dispatch("register", {
           user,
           source: this.source,
-          internalPartnerId: this.internalPartnerId,
+          internalPartnerId: this.internalPartnerId
         })
         .then(
           () => {
             this.isValidModalVisible = true;
           },
-          (error) => {
+          error => {
             if (
               error.response.data.errors.indexOf(
                 "email: the emails are already being used"
@@ -91,12 +91,12 @@ export default class Source extends Vue {
             ) {
               this.$toasted.show(this.$i18n.t("duplicate-email").toString(), {
                 type: "error",
-                duration: 7000,
+                duration: 7000
               });
             } else {
               this.$toasted.show(this.$i18n.t("register-error").toString(), {
                 type: "error",
-                duration: 7000,
+                duration: 7000
               });
             }
           }
@@ -112,22 +112,22 @@ export default class Source extends Vue {
         .dispatch("login", {
           user,
           source: this.source,
-          internalPartnerId: this.internalPartnerId,
+          internalPartnerId: this.internalPartnerId
         })
         .then(
           () => {
             this.$router.push("/profile");
           },
-          (error) => {
+          error => {
             if (error.response.status === 401) {
               this.$toasted.show(this.$i18n.t("password-error").toString(), {
                 type: "error",
-                duration: 7000,
+                duration: 7000
               });
             } else {
               this.$toasted.show(error.message, {
                 type: "error",
-                duration: 5000,
+                duration: 5000
               });
             }
           }

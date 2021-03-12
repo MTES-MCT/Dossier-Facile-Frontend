@@ -137,9 +137,9 @@ import { User } from "df-shared/src/models/User";
   computed: {
     ...mapState({
       tenantSubStep: "tenantSubStep",
-      user: "user",
-    }),
-  },
+      user: "user"
+    })
+  }
 })
 export default class UploadDocuments extends Vue {
   tenantSubStep!: number;
@@ -166,14 +166,14 @@ export default class UploadDocuments extends Vue {
 
   hasDoc(docType: string) {
     // FIXME check for status TO_PROCESS or VALIDATED
-    const f = this.user.documents?.find((d) => {
+    const f = this.user.documents?.find(d => {
       return d.documentCategory === docType;
     })?.files;
     return f && f.length > 0;
   }
 
   isTaxValid() {
-    const doc = this.user.documents?.find((d) => {
+    const doc = this.user.documents?.find(d => {
       return d.documentCategory === "TAX";
     });
     if (!doc) {

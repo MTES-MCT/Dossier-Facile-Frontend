@@ -33,15 +33,21 @@ export const ProfileService = {
     );
   },
   deleteGuarantor(g: Guarantor) {
-    return axios.delete(`//${process.env.VUE_APP_API_URL}/api/guarantor/${g.id}`);
+    return axios.delete(
+      `//${process.env.VUE_APP_API_URL}/api/guarantor/${g.id}`
+    );
   },
   deleteDocument(id: number) {
     return axios.delete(`//${process.env.VUE_APP_API_URL}/api/document/${id}`);
   },
   getUserByToken(token: string) {
-    return axios.get(`//${process.env.VUE_APP_API_URL}/api/application/full/${token}`);
+    return axios.get(
+      `//${process.env.VUE_APP_API_URL}/api/application/full/${token}`
+    );
   },
   getPublicUserByToken(token: string) {
-    return axios.get(`//${process.env.VUE_APP_API_URL}/api/application/light/${token}`);
+    return axios.get(
+      `//${process.env.VUE_APP_API_URL}/api/application/light/${token}`
+    );
   }
 };

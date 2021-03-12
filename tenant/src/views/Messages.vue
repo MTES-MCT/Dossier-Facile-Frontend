@@ -342,7 +342,7 @@
                 class="message"
                 :class="{
                   tenant: m.typeMessage === 'FROM_TENANT',
-                  operator: m.typeMessage === 'TO_TENANT',
+                  operator: m.typeMessage === 'TO_TENANT'
                 }"
               >
                 <p v-html="m.messageBody"></p>
@@ -416,9 +416,9 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
   computed: {
     ...mapState({
       user: "user",
-      messageList: "messageList",
-    }),
-  },
+      messageList: "messageList"
+    })
+  }
 })
 export default class Messages extends Vue {
   user!: User;

@@ -118,9 +118,9 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
   components: { ValidationProvider },
   computed: {
     ...mapState({
-      user: "user",
-    }),
-  },
+      user: "user"
+    })
+  }
 })
 export default class ValidateFile extends Vue {
   user!: User;

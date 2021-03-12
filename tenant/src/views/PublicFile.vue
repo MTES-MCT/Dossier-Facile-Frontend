@@ -84,8 +84,8 @@ import { DfDocument } from "df-shared/src/models/DfDocument";
 
 @Component({
   components: {
-    DfButton,
-  },
+    DfButton
+  }
 })
 export default class File extends Vue {
   user: FileUser | null = null;
@@ -101,7 +101,7 @@ export default class File extends Vue {
 
   mounted() {
     const token = this.$route.params.token;
-    ProfileService.getPublicUserByToken(token).then((d) => {
+    ProfileService.getPublicUserByToken(token).then(d => {
       this.user = d.data;
       const el = this.$el.querySelector("#rf-tabs");
       const h = (el?.scrollHeight || 0) > 100 ? el?.scrollHeight : 600;
@@ -113,10 +113,10 @@ export default class File extends Vue {
 
   getTenants() {
     const users: (User | Guarantor)[] = [];
-    this.user?.tenants?.forEach((t) => {
+    this.user?.tenants?.forEach(t => {
       users.push(t);
       if (t.guarantors && t.guarantors.length > 0) {
-        t.guarantors.forEach((g) => {
+        t.guarantors.forEach(g => {
           if (g.typeGuarantor === "NATURAL_PERSON") {
             users.push(g);
           }
@@ -128,7 +128,7 @@ export default class File extends Vue {
   }
 
   open(tenant: User, s: string) {
-    const doc = tenant.documents?.find((d) => {
+    const doc = tenant.documents?.find(d => {
       return d.documentCategory === s;
     });
     if (doc?.name) {
@@ -144,7 +144,7 @@ export default class File extends Vue {
     if (!tenant.guarantors || tenant.guarantors.length <= 0) {
       return false;
     }
-    tenant.guarantors.forEach((g) => {
+    tenant.guarantors.forEach(g => {
       if (g.typeGuarantor !== "NATURAL_PERSON") {
         return true;
       }

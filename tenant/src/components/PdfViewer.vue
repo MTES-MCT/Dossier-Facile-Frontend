@@ -45,7 +45,7 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 import pdf from "vue-pdf";
 
 @Component({
-  components: { pdf },
+  components: { pdf }
 })
 export default class PdfViewer extends Vue {
   @Prop() private src!: string;

@@ -84,7 +84,7 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 
 extend("required", {
   ...required,
-  message: "Ce champ est requis",
+  message: "Ce champ est requis"
 });
 
 @Component({
@@ -93,25 +93,25 @@ extend("required", {
     FileUpload,
     ListItem,
     ValidationProvider,
-    ValidationObserver,
+    ValidationObserver
   },
   computed: {
     ...mapState({
-      selectedGuarantor: "selectedGuarantor",
-    }),
-  },
+      selectedGuarantor: "selectedGuarantor"
+    })
+  }
 })
 export default class CorporationIdentification extends Vue {
   organismName = "";
   acceptedProofs = [
     this.$i18n.t("kbis"),
     this.$i18n.t("status"),
-    this.$i18n.t("all-accepted"),
+    this.$i18n.t("all-accepted")
   ];
   refusedProofs = [
     this.$i18n.t("balance-sheet"),
     this.$i18n.t("urssaf"),
-    this.$i18n.t("all-other"),
+    this.$i18n.t("all-other")
   ];
 
   selectedGuarantor!: Guarantor;
@@ -135,7 +135,7 @@ export default class CorporationIdentification extends Vue {
     const fieldName = "documents";
     const formData = new FormData();
     if (!this.files.length) return;
-    Array.from(Array(this.files.length).keys()).map((x) => {
+    Array.from(Array(this.files.length).keys()).map(x => {
       formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
     });
 
@@ -177,11 +177,11 @@ export default class CorporationIdentification extends Vue {
   }
 
   listFiles() {
-    const newFiles = this.files.map((f) => {
+    const newFiles = this.files.map(f => {
       return {
         id: f.name,
         name: f.name,
-        size: f.size,
+        size: f.size
       };
     });
     const existingFiles =

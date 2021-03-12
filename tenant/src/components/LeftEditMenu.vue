@@ -32,9 +32,9 @@ import { mapState } from "vuex";
 @Component({
   computed: {
     ...mapState({
-      tenantStep: "tenantStep",
-    }),
-  },
+      tenantStep: "tenantStep"
+    })
+  }
 })
 export default class LeftEditMenu extends Vue {
   public tenantStep!: number;

@@ -87,13 +87,13 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
     FileUpload,
     ListItem,
     WarningMessage,
-    ConfirmModal,
+    ConfirmModal
   },
   computed: {
     ...mapState({
-      selectedGuarantor: "selectedGuarantor",
-    }),
-  },
+      selectedGuarantor: "selectedGuarantor"
+    })
+  }
 })
 export default class Residency extends Vue {
   selectedGuarantor!: Guarantor;
@@ -160,7 +160,7 @@ export default class Residency extends Vue {
         return d.documentCategory === "RESIDENCY";
       });
       if (doc !== undefined) {
-        doc.files?.forEach((f) => {
+        doc.files?.forEach(f => {
           if (f.id) {
             this.remove(f, true);
           }
@@ -191,7 +191,7 @@ export default class Residency extends Vue {
   }
 
   addFiles(fileList: File[]) {
-    const nf = Array.from(fileList).map((f) => {
+    const nf = Array.from(fileList).map(f => {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
@@ -203,7 +203,7 @@ export default class Residency extends Vue {
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    const newFiles = this.files.filter((f) => {
+    const newFiles = this.files.filter(f => {
       return !f.id;
     });
     if (!newFiles.length) return;
@@ -216,7 +216,7 @@ export default class Residency extends Vue {
       return;
     }
 
-    Array.from(Array(newFiles.length).keys()).map((x) => {
+    Array.from(Array(newFiles.length).keys()).map(x => {
       const f: File = newFiles[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
     });
@@ -245,12 +245,12 @@ export default class Residency extends Vue {
   }
 
   residencyFiles() {
-    const newFiles = this.files.map((f) => {
+    const newFiles = this.files.map(f => {
       return {
         documentSubCategory: this.residencyDocument.value,
         id: f.name,
         name: f.name,
-        size: f.size,
+        size: f.size
       };
     });
     const existingFiles =

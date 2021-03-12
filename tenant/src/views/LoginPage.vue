@@ -40,8 +40,8 @@ import DfButton from "df-shared/src/Button/Button.vue";
   components: {
     Login,
     Modal,
-    DfButton,
-  },
+    DfButton
+  }
 })
 export default class LoginPage extends Vue {
   redirectModalVisible = false;
@@ -51,7 +51,7 @@ export default class LoginPage extends Vue {
         () => {
           this.$router.push("/account");
         },
-        (error) => {
+        error => {
           this.redirectModalVisible = true;
           /*           if (error.response.status === 401) {
             this.$toasted.show(this.$i18n.t("password-error").toString(), {

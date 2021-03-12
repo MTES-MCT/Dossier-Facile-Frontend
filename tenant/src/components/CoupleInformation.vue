@@ -59,25 +59,25 @@ import { User } from "df-shared/src/models/User";
 
 extend("email", {
   ...email,
-  message: "email-not-valid",
+  message: "email-not-valid"
 });
 
 extend("is", {
   ...is,
   message: "field-required",
-  validate: (value) => !!value,
+  validate: value => !!value
 });
 
 @Component({
   components: {
     ValidationProvider,
-    ValidationObserver,
+    ValidationObserver
   },
   computed: {
     ...mapState({
-      user: "user",
-    }),
-  },
+      user: "user"
+    })
+  }
 })
 export default class CoupleInformation extends Vue {
   coupleMail = "";
@@ -88,7 +88,7 @@ export default class CoupleInformation extends Vue {
   mounted() {
     if ((this.user.apartmentSharing?.tenants.length || 0) > 1) {
       this.coupleMail =
-        this.user.apartmentSharing?.tenants.find((t) => {
+        this.user.apartmentSharing?.tenants.find(t => {
           return t.email != this.user.email;
         })?.email || "";
     }
