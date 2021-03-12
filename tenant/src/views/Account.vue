@@ -784,8 +784,6 @@ export default class Account extends Vue {
       return this.$i18n.t("no-income");
     }
     return this.$i18n.t("income", [sum]);
-    /* {PRENOM}, vous avez indiqué être {PROFESSION} et {ne pas avoir de revenu || avoir un revenu net mensuel de {SOMME}}.
- Si votre situation a changé, mettez à jour vos documents ! */
   }
 }
 </script>
