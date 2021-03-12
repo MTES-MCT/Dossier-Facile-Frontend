@@ -8,7 +8,7 @@
               {{ $t("title", [getName()]) }}
             </h1>
             <p class="text-bold color--white">
-              {{ $t("description", ["4200"]) }}
+              {{ $t("description", [getStatus(), getIncomeSum()]) }}
             </p>
           </div>
         </div>
@@ -95,6 +95,7 @@ import { FileUser } from "df-shared/src/models/FileUser";
 import { Vue, Component } from "vue-property-decorator";
 import DfButton from "df-shared/src/Button/Button.vue";
 import { ProfileService } from "@/services/ProfileService";
+import { DfDocument } from "df-shared/src/models/DfDocument";
 
 @Component({
   components: {
@@ -164,6 +165,30 @@ export default class File extends Vue {
       }
     });
   }
+
+  getStatus() {
+    if (this.user?.applicationType) {
+      return this.$i18n.t(this.user.applicationType);
+    }
+  }
+
+  getIncomeSum() {
+    if (this.user?.tenants) {
+      let sum = 0;
+      for (const t of this.user?.tenants) {
+        const localsum = t.documents
+          ?.filter((d: DfDocument) => {
+            return d.documentCategory === "FINANCIAL";
+          })
+          .reduce((sum, current) => sum + (current.monthlySum || 0), 0);
+        sum += localsum || 0;
+      }
+      if (sum === 0) {
+        return this.$i18n.t("no-income");
+      }
+      return this.$i18n.t("income", [sum]);
+    }
+  }
 }
 </script>
 
@@ -201,7 +226,7 @@ export default class File extends Vue {
 {
   "en": {
     "title": "Rent file of {0}",
-    "description": "Couple avec {0}€ net",
+    "description": "{0} {1}",
     "guarant": "Guarantee",
     "personnal-file": "Personal files",
     "identification": "Identification",
@@ -210,11 +235,16 @@ export default class File extends Vue {
     "financial": "Financial",
     "tax": "Tax",
     "see": "See",
-    "download-all": "Download the complete file (.pdf)"
+    "download-all": "Download the complete file (.pdf)",
+    "ALONE": "Seul",
+    "COUPLE": "En couple",
+    "GROUP": "En colocation",
+    "no-income": "sans revenu",
+    "income": "avec un revenu net mensuel de {0}€"
   },
   "fr": {
     "title": "Dossier locataire de {0}",
-    "description": "Couple avec {0}€ net",
+    "description": "{0} {1}",
     "guarant": "Garantie",
     "personnal-file": "Pièces personnelles",
     "identification": "Pièce d’identité",
@@ -223,7 +253,12 @@ export default class File extends Vue {
     "financial": "Justificatif de revenu",
     "tax": "Avis d’imposition",
     "see": "Voir",
-    "download-all": "Télécharger le dossier complet (.pdf)"
+    "download-all": "Télécharger le dossier complet (.pdf)",
+    "ALONE": "Seul",
+    "COUPLE": "En couple",
+    "GROUP": "En colocation",
+    "no-income": "sans revenu",
+    "income": "avec un revenu net mensuel de {0}€"
   }
 }
 </i18n>
