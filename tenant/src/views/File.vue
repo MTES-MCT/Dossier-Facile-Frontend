@@ -76,6 +76,33 @@
                 </div>
               </div>
             </div>
+            <div v-if="tenant.guarantors">
+              <div v-for="g in tenant.guarantors" v-bind:key="g.id">
+                <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
+                  <div class="rf-grid-row file-item">
+                    <span>{{ $t("identification-legal-person") }}</span
+                    ><DfButton
+                      @on-click="open(tenant, 'IDENTIFICATION_LEGAL_PERSON')"
+                      >{{ $t("see") }}</DfButton
+                    >
+                  </div>
+                  <div class="rf-grid-row file-item">
+                    <span>{{ $t("identification") }}</span
+                    ><DfButton @on-click="open(tenant, 'IDENTIFICATION')">{{
+                      $t("see")
+                    }}</DfButton>
+                  </div>
+                </div>
+                <div v-if="g.typeGuarantor === 'ORGANISM'">
+                  <div class="rf-grid-row file-item">
+                    <span>{{ $t("organism") }}</span
+                    ><DfButton @on-click="open(tenant, 'IDENTIFICATION')">{{
+                      $t("see")
+                    }}</DfButton>
+                  </div>
+                </div>
+              </div>
+            </div>
           </li>
         </ul>
       </div>
@@ -99,8 +126,8 @@ import { DfDocument } from "df-shared/src/models/DfDocument";
 
 @Component({
   components: {
-    DfButton
-  }
+    DfButton,
+  },
 })
 export default class File extends Vue {
   user: FileUser | null = null;
@@ -116,7 +143,7 @@ export default class File extends Vue {
 
   mounted() {
     const token = this.$route.params.token;
-    ProfileService.getUserByToken(token).then(d => {
+    ProfileService.getUserByToken(token).then((d) => {
       this.user = d.data;
       const el = this.$el.querySelector("#rf-tabs");
       const h = (el?.scrollHeight || 0) > 100 ? el?.scrollHeight : 600;
@@ -128,10 +155,10 @@ export default class File extends Vue {
 
   getTenants() {
     const users: (User | Guarantor)[] = [];
-    this.user?.tenants?.forEach(t => {
+    this.user?.tenants?.forEach((t) => {
       users.push(t);
       if (t.guarantors && t.guarantors.length > 0) {
-        t.guarantors.forEach(g => {
+        t.guarantors.forEach((g) => {
           if (g.typeGuarantor === "NATURAL_PERSON") {
             users.push(g);
           }
@@ -143,7 +170,7 @@ export default class File extends Vue {
   }
 
   open(tenant: User, s: string) {
-    const doc = tenant.documents?.find(d => {
+    const doc = tenant.documents?.find((d) => {
       return d.documentCategory === s;
     });
     if (doc?.name) {
@@ -159,7 +186,7 @@ export default class File extends Vue {
     if (!tenant.guarantors || tenant.guarantors.length <= 0) {
       return false;
     }
-    tenant.guarantors.forEach(g => {
+    tenant.guarantors.forEach((g) => {
       if (g.typeGuarantor !== "NATURAL_PERSON") {
         return true;
       }
@@ -240,7 +267,9 @@ export default class File extends Vue {
     "COUPLE": "En couple",
     "GROUP": "En colocation",
     "no-income": "sans revenu",
-    "income": "avec un revenu net mensuel de {0}€"
+    "income": "avec un revenu net mensuel de {0}€",
+    "organism": "Organism",
+    "identification-legal-person": "Legal person identification"
   },
   "fr": {
     "title": "Dossier locataire de {0}",
@@ -258,7 +287,9 @@ export default class File extends Vue {
     "COUPLE": "En couple",
     "GROUP": "En colocation",
     "no-income": "sans revenu",
-    "income": "avec un revenu net mensuel de {0}€"
+    "income": "avec un revenu net mensuel de {0}€",
+    "organism": "Organisme",
+    "identification-legal-person": "Identification de la personne morale"
   }
 }
 </i18n>
