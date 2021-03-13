@@ -36,7 +36,7 @@
                   class="rf-btn grp-btn"
                   :class="{
                     'rf-fi-arrow-down-s-line': !radioVisible,
-                    'rf-fi-arrow-up-s-line': radioVisible
+                    'rf-fi-arrow-up-s-line': radioVisible,
                   }"
                   title="Copy"
                   @click="radioVisible = !radioVisible"
@@ -101,7 +101,7 @@
                   $t('status-description', [
                     user.firstName,
                     getProfession(),
-                    getIncome()
+                    getIncome(),
                   ])
                 "
               ></p>
@@ -470,7 +470,7 @@
                         <div class="rf-tile__body">
                           <h4 class="rf-tile__title">
                             <a class="rf-tile__link" href>{{
-                              $t("identification")
+                              $t("identification-legal-person")
                             }}</a>
                           </h4>
                           <StatusTag
@@ -644,13 +644,13 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
     DfButton,
     NakedCard,
     StatusTag,
-    ConfirmModal
+    ConfirmModal,
   },
   computed: {
     ...mapState({
-      user: "user"
-    })
-  }
+      user: "user",
+    }),
+  },
 })
 export default class Account extends Vue {
   TENANT_URL = `https://${process.env.VUE_APP_TENANT_URL}`;
@@ -738,10 +738,10 @@ export default class Account extends Vue {
 
   validDelete() {
     this.isDeleteModalVisible = false;
-    this.$store.dispatch("deleteAccount", this.password).then(null, error => {
+    this.$store.dispatch("deleteAccount", this.password).then(null, (error) => {
       this.$toasted.show(this.$i18n.t("try-again").toString(), {
         type: "error",
-        duration: 7000
+        duration: 7000,
       });
     });
   }
@@ -947,7 +947,8 @@ p {
     "INDEPENDENT": "Indépendant",
     "OTHER": "Autre",
     "no-income": "have no income",
-    "income": "have a monthly income of {0}"
+    "income": "have a monthly income of {0}",
+    "identification-legal-person": "Legal person identification"
   },
   "fr": {
     "title": "Bonjour {0}, votre dossier est {1} !",
@@ -1000,7 +1001,8 @@ p {
     "INDEPENDENT": "indépendant",
     "OTHER": "Autre",
     "no-income": "ne pas avoir de revenu",
-    "income": "avoir un revenu net mensuel de {0}"
+    "income": "avoir un revenu net mensuel de {0}",
+    "identification-legal-person": "Identification de la personne morale"
   }
 }
 </i18n>
