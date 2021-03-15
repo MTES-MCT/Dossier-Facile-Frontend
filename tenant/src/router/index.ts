@@ -150,7 +150,8 @@ const routes: Array<RouteConfig> = [
       import(
         /* webpackChunkName: "changePassword" */ "@/views/ChangePasswordPage.vue"
       )
-  }
+  },
+  { path: "*", redirect: "/" }
 ];
 
 const router = new VueRouter({
