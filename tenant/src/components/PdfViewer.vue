@@ -3,15 +3,15 @@
     <div class="rf-grid-col main-content">
       <div class="rf-mb-3w">
         <div class="rf-grid-row">
-          <div class="rf-col-2">
+          <div class="rf-col-4 rf-col-md-2">
             <input v-model.number="page" type="number" style="width: 5em" /> /{{
               numPages
             }}
           </div>
-          <div class="rf-col-1">
+          <div class="rf-col-2 rf-col-md-1">
             <button @click="decreasePage()">«</button>
           </div>
-          <div class="rf-col-1">
+          <div class="rf-col-2 rf-col-md-1">
             <button @click="increasePage()">»</button>
           </div>
         </div>
@@ -45,7 +45,7 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 import pdf from "vue-pdf";
 
 @Component({
-  components: { pdf }
+  components: { pdf },
 })
 export default class PdfViewer extends Vue {
   @Prop() private src!: string;
@@ -75,7 +75,10 @@ export default class PdfViewer extends Vue {
 
 <style scoped lang="scss">
 .main-content {
-  width: 80%;
+  width: 768px;
+  @media all and (max-width: 992px) {
+    width: 95%;
+  }
   margin: auto;
 }
 

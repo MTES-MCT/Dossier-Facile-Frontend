@@ -20,21 +20,19 @@ import { DfFile } from "df-shared/src/models/DfFile";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import PdfViewer from "../PdfViewer.vue";
 import VueLoadImage from "vue-load-image";
+import { ImageService } from "@/services/ImageService";
 
 @Component({
   components: {
     PdfViewer,
-    VueLoadImage
-  }
+    VueLoadImage,
+  },
 })
 export default class ShowDoc extends Vue {
   @Prop({ default: "" }) file!: DfFile;
 
   isImage() {
-    if (this.file.path) {
-      return !this.file.path.endsWith("pdf");
-    }
-    return !this.file.name?.endsWith("pdf");
+    return ImageService.isImage(this.file);
   }
 }
 </script>
