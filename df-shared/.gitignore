@@ -1,6 +1,6 @@
 .DS_Store
 node_modules
-dist
+/dist
 
 /tests/e2e/videos/
 /tests/e2e/screenshots/
@@ -9,9 +9,6 @@ dist
 # local env files
 .env.local
 .env.*.local
-
-# prod env files
-.env.*
 
 # Log files
 npm-debug.log*

@@ -1,0 +1,8 @@
+{
+  "save-success": "Saved",
+  "save-failed": "Failed",
+  "delete-success": "Delete ok",
+  "delete-failed": "Delete failed",
+  "max-file": "Too much files uploaded",
+  "error": "An error occured"
+}

@@ -1,0 +1,8 @@
+{
+  "save-success": "Enregistrement réussi",
+  "save-failed": "Erreur lors de l'enregistrement",
+  "delete-success": "Suppression réussie",
+  "delete-failed": "Erreur lors de la suppression",
+  "max-file": "Nombre de fichier maximum atteint, veuillez en supprimer",
+  "error": "Une erreur est survenue"
+}
