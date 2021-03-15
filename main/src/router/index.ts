@@ -79,7 +79,8 @@ const routes: Array<RouteConfig> = [
       title: "FAQ - DossierFacile"
     },
     component: () => import(/* webpackChunkName: "faq" */ "../views/Faq.vue")
-  }
+  },
+  { path: "*", redirect: "/" }
 ];
 
 const router = new VueRouter({
