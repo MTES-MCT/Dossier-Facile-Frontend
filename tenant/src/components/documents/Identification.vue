@@ -30,6 +30,7 @@
       <div class="rf-mb-3w">
         <FileUpload
           :current-status="fileUploadStatus"
+          :page="4"
           @add-files="addFiles"
           @reset-files="resetFiles"
         ></FileUpload>

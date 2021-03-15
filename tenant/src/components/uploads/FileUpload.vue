@@ -10,7 +10,17 @@
           class="input-file"
           accept="image/png, image/jpeg, application/pdf"
         />
-        <p v-if="!isSaving()">Ajouter un ou plusieurs documents</p>
+        <p v-if="!isSaving()">
+          Glissez et déposez vos documents
+          <br />
+          JPG, PNG ou PDF<br />
+          {{ getSizeLimit() }}<br />
+          {{ getPagesLimit() }}
+        </p>
+        <p>
+          ou<br />
+          <a href="#">Parcourez vos fichiers</a>
+        </p>
         <p v-if="isSaving()">Téléchargement des fichiers...</p>
       </div>
     </form>
@@ -25,12 +35,14 @@ const {
   STATUS_INITIAL,
   STATUS_SUCCESS,
   STATUS_SAVING,
-  STATUS_FAILED
+  STATUS_FAILED,
 } = UploadStatus;
 
 @Component
 export default class FileUpload extends Vue {
   @Prop({ default: STATUS_INITIAL }) currentStatus!: number;
+  @Prop({ default: 0 }) page!: number;
+  @Prop({ default: 5 }) size!: number;
 
   uploadedFiles = [];
   fileCount = 0;
@@ -66,7 +78,7 @@ export default class FileUpload extends Vue {
       if (f.size > 5 * 1024 * 1024) {
         this.$toasted.show(this.$i18n.t("file-too-big").toString(), {
           type: "error",
-          duration: 5000
+          duration: 5000,
         });
         return false;
       }
@@ -81,16 +93,28 @@ export default class FileUpload extends Vue {
       f.reset();
     });
   }
+
+  getSizeLimit() {
+    if (this.size > 0) {
+      return this.$i18n.t("size", [this.size]);
+    }
+    return "";
+  }
+
+  getPagesLimit() {
+    if (this.page > 0) {
+      return this.$i18n.t("pages", [this.page]);
+    }
+    return "";
+  }
 }
 </script>
 
 <style scoped lang="scss">
 .dropbox {
-  outline: 2px dashed grey;
+  outline: 2px dashed var(--tertiary);
   outline-offset: -10px;
-  color: dimgray;
-  background-color: var(--bf500);
-  color: var(--g100);
+  background-color: var(--g200);
   padding: 10px 10px;
   min-height: 50px;
   position: relative;
@@ -111,8 +135,8 @@ export default class FileUpload extends Vue {
     var(--color-active),
     var(--color-active)
   );
-  --color-hover: rgba(0, 0, 246, 0.5);
-  --color-active: rgba(91, 91, 255, 0.5);
+  --color-hover: rgba(0, 0, 246, 0.1);
+  --color-active: rgba(91, 91, 255, 0.1);
 }
 
 .dropbox p {
@@ -125,11 +149,15 @@ export default class FileUpload extends Vue {
 {
   "en": {
     "send-problem": "Send error.",
-    "file-too-big": "The file is limited to 3MB"
+    "file-too-big": "The file is limited to 3MB",
+    "pages": "{0} pages maximum",
+    "size": " {0}MB maximum per file"
   },
   "fr": {
     "send-problem": "Problème d'envoi.",
-    "file-too-big": "La taille d'un fichier ne doit pas dépasser 3Mo"
+    "file-too-big": "La taille d'un fichier ne doit pas dépasser 3Mo",
+    "pages": "{0} pages maximum",
+    "size": " {0}Mo maximum par fichier"
   }
 }
 </i18n>
