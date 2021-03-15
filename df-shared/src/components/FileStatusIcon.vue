@@ -1,8 +1,14 @@
 <template>
   <span>
-    <span v-if="status === 'PENDING'" class="text-warning material-icons">more_time</span>
-    <span v-if="status === 'CANCEL'" class="text-danger material-icons">cancel</span>
-    <span v-if="status === 'VALID'" class="text-success material-icons">check_circle_outline</span>
+    <span v-if="status === 'TO_PROCESS'" class="text-warning material-icons"
+      >more_time</span
+    >
+    <span v-if="status === 'DECLINED'" class="text-danger material-icons"
+      >cancel</span
+    >
+    <span v-if="status === 'VALIDATED'" class="text-success material-icons"
+      >check_circle_outline</span
+    >
   </span>
 </template>
 
@@ -11,8 +17,6 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
 export default class FileStatusIcon extends Vue {
-    
-  @Prop({ default: "PENDING" }) status?: string;
-
+  @Prop({ default: "TO_PROCESS" }) status?: string;
 }
 </script>

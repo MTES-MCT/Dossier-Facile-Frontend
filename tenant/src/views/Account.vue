@@ -44,12 +44,12 @@
                   <span class="sr-only"> Copy </span>
                 </button>
                 <div class="grp-modal bg-white" v-show="radioVisible">
-                  <h4>{{ $t("share-file") }}</h4>
+                  <h4 class="p10">{{ $t("share-file") }}</h4>
 
-                  <div class="rf-form-group">
+                  <div>
                     <fieldset class="rf-fieldset">
                       <div class="rf-fieldset__content">
-                        <div class="rf-radio-group">
+                        <div class="rf-radio-group p10">
                           <input
                             type="radio"
                             id="radio-1"
@@ -64,7 +64,7 @@
                           ></label>
                         </div>
                         <hr />
-                        <div class="rf-radio-group">
+                        <div class="rf-radio-group p10">
                           <input
                             type="radio"
                             id="radio-2"
@@ -726,6 +726,10 @@ export default class Account extends Vue {
 
     try {
       document.execCommand("copy");
+      this.$toasted.show(this.$i18n.t("copied").toString(), {
+        type: "success",
+        duration: 3000,
+      });
     } catch (err) {
       alert("Oops, unable to copy");
     }
@@ -859,11 +863,18 @@ h2 {
   position: relative;
 }
 
+.p10 {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 .grp-modal {
   position: absolute;
   border-radius: 5px;
   right: 0;
   left: auto;
+  width: max-content;
+  padding: 0;
 
   &:before {
     top: -16px;
@@ -875,6 +886,12 @@ h2 {
     display: inline-block;
     content: "";
   }
+}
+
+.copy-btn {
+  margin: 0;
+  padding: 1rem;
+  background-color: #f2f2f9;
 }
 
 p {
@@ -948,7 +965,8 @@ p {
     "OTHER": "Autre",
     "no-income": "have no income",
     "income": "have a monthly income of {0}",
-    "identification-legal-person": "Legal person identification"
+    "identification-legal-person": "Legal person identification",
+    "copied": "Copied !"
   },
   "fr": {
     "title": "Bonjour {0}, votre dossier est {1} !",
@@ -1002,7 +1020,8 @@ p {
     "OTHER": "Autre",
     "no-income": "ne pas avoir de revenu",
     "income": "avoir un revenu net mensuel de {0}",
-    "identification-legal-person": "Identification de la personne morale"
+    "identification-legal-person": "Identification de la personne morale",
+    "copied": "Copié !"
   }
 }
 </i18n>
