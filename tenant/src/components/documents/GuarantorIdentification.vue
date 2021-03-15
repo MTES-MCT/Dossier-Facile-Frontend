@@ -18,7 +18,9 @@
               :placeholder="$t('lastname')"
               type="text"
             />
-            <span class="rf-error-text" v-if="errors[0]">{{ errors[0] }}</span>
+            <span class="rf-error-text" v-if="errors[0]">{{
+              $t(errors[0])
+            }}</span>
           </div>
         </validation-provider>
       </div>
@@ -137,13 +139,13 @@ import DfButton from "df-shared/src/Button/Button.vue";
     ValidationProvider,
     WarningMessage,
     ConfirmModal,
-    DfButton
+    DfButton,
   },
   computed: {
     ...mapState({
-      selectedGuarantor: "selectedGuarantor"
-    })
-  }
+      selectedGuarantor: "selectedGuarantor",
+    }),
+  },
 })
 export default class Identification extends Vue {
   MAX_FILE_COUNT = 3;
@@ -200,7 +202,7 @@ export default class Identification extends Vue {
         return d.documentCategory === "IDENTIFICATION";
       });
       if (doc !== undefined) {
-        doc.files?.forEach(f => {
+        doc.files?.forEach((f) => {
           if (f.id) {
             this.remove(f, true);
           }
@@ -234,7 +236,7 @@ export default class Identification extends Vue {
   }
 
   addFiles(fileList: File[]) {
-    const nf = Array.from(fileList).map(f => {
+    const nf = Array.from(fileList).map((f) => {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
@@ -247,7 +249,7 @@ export default class Identification extends Vue {
   save() {
     const fieldName = "documents";
     const formData = new FormData();
-    const newFiles = this.files.filter(f => {
+    const newFiles = this.files.filter((f) => {
       return !f.id;
     });
     if (!newFiles.length) return;
@@ -261,7 +263,7 @@ export default class Identification extends Vue {
       return;
     }
 
-    Array.from(Array(newFiles.length).keys()).map(x => {
+    Array.from(Array(newFiles.length).keys()).map((x) => {
       const f: File = newFiles[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
     });
@@ -295,13 +297,13 @@ export default class Identification extends Vue {
   }
 
   identificationFiles() {
-    const newFiles = this.files.map(f => {
+    const newFiles = this.files.map((f) => {
       return {
         documentSubCategory: this.identificationDocument.value,
         id: f.name,
         name: f.name,
         file: f.file,
-        size: f.file?.size
+        size: f.file?.size,
       };
     });
     const existingFiles =
@@ -349,7 +351,8 @@ td {
   "register": "Register",
   "select-label": "I add a valid identity document. Attention, be sure to add your double-sided part!",
   "validate": "Validate",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "field-required": "This field is required"
 },
 "fr": {
   "identity-card": "Carte nationale d’identité",
@@ -363,7 +366,8 @@ td {
   "register": "Enregistrer la pièce",
   "select-label": "J’ajoute une pièce d’identité en cours de validité. Attention, veillez à ajouter une pièce recto-verso !",
   "validate": "Valider",
-  "cancel": "Annuler"
+  "cancel": "Annuler",
+  "field-required": "Ce champ est requis"
 }
 }
 </i18n>
