@@ -14,7 +14,9 @@
           aria-label="Close modal"
         ></button>
         <header class="modal-header" id="modalTitle">
-          <slot name="header"><span style="visibility: hidden">title</span></slot>
+          <slot name="header"
+            ><span style="visibility: hidden">title</span></slot
+          >
         </header>
         <section class="modal-body" id="modalDescription">
           <slot name="body"> </slot>
@@ -49,15 +51,15 @@ export default class Modal extends Vue {
   display: flex;
   justify-content: center;
   align-items: center;
-   backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
   background-color: rgba(1, 7, 19, 0.5);
 }
 
 .modal {
-  background: rgba(255,255,255,0.88);
+  background: rgba(255, 255, 255, 0.88);
   border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   position: absolute;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
