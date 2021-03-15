@@ -11,7 +11,15 @@ Vue.config.productionTip = false;
 
 require("../../node_modules/@gouvfr/all/dist/css/all.min.css");
 import "vue-loading-overlay/dist/vue-loading.css";
-import approuter from "./router/index";
+import VueGtag from "vue-gtag";
+
+Vue.use(
+  VueGtag,
+  {
+    config: { id: "UA-50823626-2" }
+  },
+  router
+);
 
 const app = new Vue({
   router,
@@ -37,10 +45,10 @@ axios.interceptors.request.use(
 );
 
 axios.interceptors.response.use(
-  function(response) {
+  function (response) {
     return response;
   },
-  function(error) {
+  function (error) {
     if (
       error.response &&
       (401 === error.response.status || 403 === error.response.status) &&
