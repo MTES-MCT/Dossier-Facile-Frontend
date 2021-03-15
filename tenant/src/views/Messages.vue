@@ -23,7 +23,9 @@
                         >edit</span
                       >
                     </div>
-                    <FileStatusIcon></FileStatusIcon>
+                    <FileStatusIcon
+                      :status="getStatus('IDENTIFICATION')"
+                    ></FileStatusIcon>
                   </div>
                 </div>
                 <div class="row" v-if="hasDoc('RESIDENCY')">
@@ -43,7 +45,9 @@
                         >edit</span
                       >
                     </div>
-                    <FileStatusIcon></FileStatusIcon>
+                    <FileStatusIcon
+                      :status="getStatus('RESIDENCY')"
+                    ></FileStatusIcon>
                   </div>
                 </div>
                 <div class="row" v-if="hasDoc('PROFESSIONAL')">
@@ -65,7 +69,9 @@
                         >edit</span
                       >
                     </div>
-                    <FileStatusIcon></FileStatusIcon>
+                    <FileStatusIcon
+                      :status="getStatus('PROFESSIONAL')"
+                    ></FileStatusIcon>
                   </div>
                 </div>
                 <div class="row" v-if="hasDoc('FINANCIAL')">
@@ -85,7 +91,9 @@
                         >edit</span
                       >
                     </div>
-                    <FileStatusIcon></FileStatusIcon>
+                    <FileStatusIcon
+                      :status="getStatus('FINANCIAL')"
+                    ></FileStatusIcon>
                   </div>
                 </div>
                 <div class="row" v-if="hasDoc('TAX')">
@@ -105,7 +113,7 @@
                         >edit</span
                       >
                     </div>
-                    <FileStatusIcon></FileStatusIcon>
+                    <FileStatusIcon :status="getStatus('TAX')"></FileStatusIcon>
                   </div>
                 </div>
               </section>
@@ -342,7 +350,7 @@
                 class="message"
                 :class="{
                   tenant: m.typeMessage === 'FROM_TENANT',
-                  operator: m.typeMessage === 'TO_TENANT'
+                  operator: m.typeMessage === 'TO_TENANT',
                 }"
               >
                 <p v-html="m.messageBody"></p>
@@ -410,15 +418,16 @@ import ShowDoc from "../components/documents/ShowDoc.vue";
 import { mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
 import { Guarantor } from "df-shared/src/models/Guarantor";
+import { DfDocument } from "df-shared/src/models/DfDocument";
 
 @Component({
   components: { NakedCard, Modal, PdfViewer, ShowDoc, FileStatusIcon },
   computed: {
     ...mapState({
       user: "user",
-      messageList: "messageList"
-    })
-  }
+      messageList: "messageList",
+    }),
+  },
 })
 export default class Messages extends Vue {
   user!: User;
@@ -488,6 +497,13 @@ export default class Messages extends Vue {
     this.$store.dispatch("sendMessage", this.sendMessage).then(() => {
       this.sendMessage = "";
     });
+  }
+
+  getStatus(docType: string) {
+    const doc = this.user.documents?.find((d: DfDocument) => {
+      return d.documentCategory === docType;
+    });
+    return doc?.documentStatus;
   }
 }
 </script>
