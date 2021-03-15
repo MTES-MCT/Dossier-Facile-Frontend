@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import Vue from "vue";
 import Vuex from "vuex";
 import { AuthService } from "df-shared/src/services/AuthService";
@@ -40,10 +41,16 @@ const store = new Vuex.Store({
     loginSuccess(state, user) {
       state.status.loggedIn = true;
       state.user = user;
+      Vue.prototype.$gtag.event("login success", {
+        event_category: "login"
+      });
     },
     loginFailure(state) {
       state.status.loggedIn = false;
       state.user = null;
+      Vue.prototype.$gtag.event("login fail", {
+        event_category: "login"
+      });
     },
     logout(state) {
       state.status.loggedIn = false;
@@ -55,10 +62,16 @@ const store = new Vuex.Store({
     registerSuccess(state) {
       state.status.loggedIn = false;
       state.user = null;
+      Vue.prototype.$gtag.event("register success", {
+        event_category: "login"
+      });
     },
     registerFailure(state) {
       state.status.loggedIn = false;
       state.user = null;
+      Vue.prototype.$gtag.event("register success", {
+        event_category: "login"
+      });
     },
     setNamesSuccess(state, user) {
       state.user = user;
@@ -223,6 +236,9 @@ const store = new Vuex.Store({
     validateFile({ commit }, honorDeclaration: boolean) {
       return ProfileService.validateFile(honorDeclaration).then(
         () => {
+          Vue.prototype.$gtag.event("validate file", {
+            event_category: "file"
+          });
           this.dispatch("loadUser").then(() => {
             router.push("/account");
           });
