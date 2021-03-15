@@ -245,9 +245,9 @@
           <div class="rf-grid-row rf-mb-3w buttons">
             <button
               v-if="guarantorType === 'NATURAL_PERSON'"
-              class="rf-btn rf-btn--secondary"
+              class="rf-btn rf-btn--secondary rf-mb-2w rf-mt-2w"
               type="submit"
-              @click="addGuarantor()"
+              @click="addNaturalGuarantor()"
             >
               J'ajoute un nouveau garant
             </button>
@@ -303,18 +303,18 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
     RepresentativeIdentification,
     CorporationIdentification,
     OrganismCert,
-    ConfirmModal
+    ConfirmModal,
   },
   computed: {
     ...mapState({
       guarantorStep: "guarantorStep",
       guarantorSubStep: "guarantorSubStep",
-      user: "user"
+      user: "user",
     }),
     ...mapGetters({
-      guarantor: "guarantor"
-    })
-  }
+      guarantor: "guarantor",
+    }),
+  },
 })
 export default class GuarantorDocuments extends Vue {
   user!: User;
@@ -359,7 +359,7 @@ export default class GuarantorDocuments extends Vue {
   }
 
   hasDoc(docType: string) {
-    const f = this.guarantor.documents?.find(d => {
+    const f = this.guarantor.documents?.find((d) => {
       return d.documentCategory === docType;
     })?.files;
     return f && f.length > 0;
@@ -373,8 +373,8 @@ export default class GuarantorDocuments extends Vue {
     this.$store.commit("setStep", 4);
   }
 
-  addGuarantor() {
-    this.$store.dispatch("addGuarantor");
+  addNaturalGuarantor() {
+    this.$store.dispatch("addNaturalGuarantor");
   }
 
   getName(g: Guarantor, k: number) {
@@ -395,7 +395,7 @@ export default class GuarantorDocuments extends Vue {
   }
 
   isTaxValid() {
-    const doc = this.guarantor.documents?.find(d => {
+    const doc = this.guarantor.documents?.find((d) => {
       return d.documentCategory === "TAX";
     });
     if (!doc) {

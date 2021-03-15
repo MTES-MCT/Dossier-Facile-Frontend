@@ -106,13 +106,6 @@ const store = new Vuex.Store({
     setGuarantorSubstep(state, subStep: number) {
       state.guarantorSubStep = subStep;
     },
-    addGuarantor(state) {
-      if (state.user?.guarantors !== undefined) {
-        const g = new Guarantor();
-        state.user?.guarantors.push(g);
-        state.selectedGuarantor = g;
-      }
-    },
     selectGuarantor(state, position) {
       if (
         state.user?.guarantors !== undefined &&
@@ -239,8 +232,18 @@ const store = new Vuex.Store({
         }
       );
     },
-    addGuarantor({ commit }) {
-      commit("addGuarantor");
+    addNaturalGuarantor({ commit }) {
+      return ProfileService.setGuarantorType("NATURAL_PERSON").then(
+        response => {
+          commit("loadUser", response.data);
+          commit("selectGuarantor", this.state.user.guarantors.length - 1);
+          commit("setGuarantorStep", 2);
+          return Promise.resolve(response.data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
     },
     async deleteAllGuarantors({ commit }) {
       const promises = this.state.user.guarantors.map(async (g: Guarantor) => {
