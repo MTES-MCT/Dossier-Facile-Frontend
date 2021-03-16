@@ -69,7 +69,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "../uploads/UploadStatus";
 import ListItem from "@/components/uploads/ListItem.vue";
@@ -79,7 +79,7 @@ import { RegisterService } from "../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
-import { Guarantor } from "df-shared/src/models/Guarantor";
+import { User } from "df-shared/src/models/User";
 
 @Component({
   components: {
@@ -87,17 +87,17 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
     FileUpload,
     ListItem,
     WarningMessage,
-    ConfirmModal
+    ConfirmModal,
   },
   computed: {
-    ...mapState({
-      selectedGuarantor: "selectedGuarantor"
-    })
-  }
+    ...mapGetters({
+      user: "userToEdit",
+    }),
+  },
 })
 export default class Professional extends Vue {
   MAX_FILE_COUNT = 5;
-  selectedGuarantor!: Guarantor;
+  user!: User;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
   uploadProgress: {
@@ -108,8 +108,8 @@ export default class Professional extends Vue {
   isDocDeleteVisible = false;
 
   mounted() {
-    if (this.selectedGuarantor.documents !== null) {
-      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "PROFESSIONAL";
       });
       if (doc !== undefined) {
@@ -124,8 +124,8 @@ export default class Professional extends Vue {
   }
 
   onSelectChange() {
-    if (this.selectedGuarantor.documents !== null) {
-      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "PROFESSIONAL";
       });
       if (doc !== undefined) {
@@ -138,8 +138,8 @@ export default class Professional extends Vue {
   }
 
   undoSelect() {
-    if (this.selectedGuarantor.documents !== null) {
-      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "PROFESSIONAL";
       });
       if (doc !== undefined) {
@@ -155,12 +155,12 @@ export default class Professional extends Vue {
   }
 
   validSelect() {
-    if (this.selectedGuarantor.documents !== null) {
-      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "PROFESSIONAL";
       });
       if (doc !== undefined) {
-        doc.files?.forEach(f => {
+        doc.files?.forEach((f) => {
           if (f.id) {
             this.remove(f, true);
           }
@@ -171,7 +171,7 @@ export default class Professional extends Vue {
   }
 
   addFiles(fileList: File[]) {
-    const nf = Array.from(fileList).map(f => {
+    const nf = Array.from(fileList).map((f) => {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
@@ -183,7 +183,7 @@ export default class Professional extends Vue {
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    const newFiles = this.files.filter(f => {
+    const newFiles = this.files.filter((f) => {
       return !f.id;
     });
     if (!newFiles.length) return;
@@ -195,7 +195,7 @@ export default class Professional extends Vue {
       Vue.toasted.global.max_file();
       return;
     }
-    Array.from(Array(newFiles.length).keys()).map(x => {
+    Array.from(Array(newFiles.length).keys()).map((x) => {
       const f: File = newFiles[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
     });
@@ -224,12 +224,12 @@ export default class Professional extends Vue {
   }
 
   professionalFiles() {
-    const newFiles = this.files.map(f => {
+    const newFiles = this.files.map((f) => {
       return {
         documentSubCategory: this.professionalDocument.value,
         id: f.name,
         name: f.name,
-        size: f.size
+        size: f.size,
       };
     });
     const existingFiles =

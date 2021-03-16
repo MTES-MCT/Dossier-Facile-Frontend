@@ -3,14 +3,14 @@
     <nav class="rf-nav" role="navigation" aria-label="Menu principal">
       <ul class="rf-nav__list">
         <li class="rf-nav__item" v-if="user">
-          <router-link to="/account" class="rf-link">
+          <a href="/account" class="rf-link">
             {{ $t("profile") }}
-          </router-link>
+          </a>
         </li>
         <li class="rf-nav__item" v-if="user">
-          <router-link to="/messaging" class="rf-link">
+          <a href="/messaging" class="rf-link">
             {{ $t("messaging") }}
-          </router-link>
+          </a>
         </li>
         <li class="rf-nav__item">
           <a :href="`${MAIN_URL}/faq?lang=${$i18n.locale}`" class="rf-link">
