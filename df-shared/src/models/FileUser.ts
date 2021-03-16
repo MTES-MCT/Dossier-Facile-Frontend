@@ -5,7 +5,5 @@ export class FileUser {
   applicationType?: string;
 
   tenants?: User[];
-  apartmentSharing?: {
-    dossierPdfUrl?: string;
-  };
+  dossierPdfUrl?: string;
 }
