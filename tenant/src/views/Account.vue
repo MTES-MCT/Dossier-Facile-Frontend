@@ -113,7 +113,7 @@
                 <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
-                      <span class="color--primary material-icons md-80"
+                      <span class="color--primary material-icons md-adapt"
                         >person</span
                       >
                     </div>
@@ -147,7 +147,7 @@
                 >
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
-                      <span class="color--primary material-icons md-80"
+                      <span class="color--primary material-icons md-adapt"
                         >person</span
                       >
                     </div>
@@ -175,7 +175,7 @@
                 >
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
-                      <span class="color--primary material-icons md-80"
+                      <span class="color--primary material-icons md-adapt"
                         >home</span
                       >
                     </div>
@@ -199,7 +199,7 @@
                 >
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
-                      <span class="color--primary material-icons md-80"
+                      <span class="color--primary material-icons md-adapt"
                         >work</span
                       >
                     </div>
@@ -228,7 +228,7 @@
                 >
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
-                      <span class="color--primary material-icons md-80"
+                      <span class="color--primary material-icons md-adapt"
                         >euro</span
                       >
                     </div>
@@ -252,7 +252,7 @@
                 >
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
-                      <span class="color--primary material-icons md-80"
+                      <span class="color--primary material-icons md-adapt"
                         >content_copy</span
                       >
                     </div>
@@ -288,7 +288,7 @@
                     >
                       <div class="rf-tile rf-tile--horizontal">
                         <div class="rf-tile__img-wrap">
-                          <span class="color--primary material-icons md-80"
+                          <span class="color--primary material-icons md-adapt"
                             >person</span
                           >
                         </div>
@@ -316,7 +316,7 @@
                     >
                       <div class="rf-tile rf-tile--horizontal">
                         <div class="rf-tile__img-wrap">
-                          <span class="color--primary material-icons md-80"
+                          <span class="color--primary material-icons md-adapt"
                             >home</span
                           >
                         </div>
@@ -344,7 +344,7 @@
                     >
                       <div class="rf-tile rf-tile--horizontal">
                         <div class="rf-tile__img-wrap">
-                          <span class="color--primary material-icons md-80"
+                          <span class="color--primary material-icons md-adapt"
                             >work</span
                           >
                         </div>
@@ -373,7 +373,7 @@
                     >
                       <div class="rf-tile rf-tile--horizontal">
                         <div class="rf-tile__img-wrap">
-                          <span class="color--primary material-icons md-80"
+                          <span class="color--primary material-icons md-adapt"
                             >euro</span
                           >
                         </div>
@@ -401,7 +401,7 @@
                     >
                       <div class="rf-tile rf-tile--horizontal">
                         <div class="rf-tile__img-wrap">
-                          <span class="color--primary material-icons md-80"
+                          <span class="color--primary material-icons md-adapt"
                             >content_copy</span
                           >
                         </div>
@@ -431,7 +431,7 @@
                     >
                       <div class="rf-tile rf-tile--horizontal">
                         <div class="rf-tile__img-wrap">
-                          <span class="color--primary material-icons md-80"
+                          <span class="color--primary material-icons md-adapt"
                             >person</span
                           >
                         </div>
@@ -463,7 +463,7 @@
                     >
                       <div class="rf-tile rf-tile--horizontal">
                         <div class="rf-tile__img-wrap">
-                          <span class="color--primary material-icons md-80"
+                          <span class="color--primary material-icons md-adapt"
                             >person</span
                           >
                         </div>
@@ -499,7 +499,7 @@
                     >
                       <div class="rf-tile rf-tile--horizontal">
                         <div class="rf-tile__img-wrap">
-                          <span class="color--primary material-icons md-80"
+                          <span class="color--primary material-icons md-adapt"
                             >person</span
                           >
                         </div>
@@ -908,6 +908,13 @@ p {
 
 .description:first-letter {
   text-transform: uppercase;
+}
+
+.material-icons.md-adapt {
+  font-size: 80px;
+  @media (max-width: 768px) {
+    font-size: 48px;
+  }
 }
 </style>
 
