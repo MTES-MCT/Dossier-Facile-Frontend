@@ -82,7 +82,7 @@
         <span class="color--primary material-icons">euro</span>
         <h2>{{ $t("financial") }}</h2>
         <span class="spacer"></span>
-        <span v-if="hasDoc('FINANCIAL')" class="color--primary material-icons"
+        <span v-if="isFinancialValid()" class="color--primary material-icons"
           >check_circle_outline</span
         >
       </div>
@@ -154,7 +154,7 @@ export default class UploadDocuments extends Vue {
       this.hasDoc("IDENTIFICATION") &&
       this.hasDoc("PROFESSIONAL") &&
       this.hasDoc("RESIDENCY") &&
-      this.hasDoc("FINANCIAL") &&
+      this.isFinancialValid() &&
       this.isTaxValid()
     );
   }
@@ -170,6 +170,23 @@ export default class UploadDocuments extends Vue {
       return d.documentCategory === docType;
     })?.files;
     return f && f.length > 0;
+  }
+
+  isFinancialValid() {
+    const docs = this.user.documents?.filter((d) => {
+      return d.documentCategory === "FINANCIAL";
+    });
+    if (!docs || docs.length === 0) {
+      return false;
+    }
+
+    for (const doc of docs) {
+      if (!doc.noDocument && (doc.files?.length || 0) <= 0) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   isTaxValid() {

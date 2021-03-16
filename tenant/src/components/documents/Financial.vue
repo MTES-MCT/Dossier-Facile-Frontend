@@ -9,20 +9,16 @@
     </ConfirmModal>
     <div v-for="(f, k) in financialDocuments" :key="k">
       <ValidationObserver v-slot="{ validate }">
+        <div
+          class="rf-grid-row rf-mb-3w"
+          style="justify-content: space-between"
+        >
+          <span> Revenu {{ k + 1 }} </span>
+          <DfButton class="rf-btn" size="small" @on-click="removeFinancial(f)">
+            {{ $t("delete-financial") }}
+          </DfButton>
+        </div>
         <form name="form" @submit.prevent="validate().then(save(f))">
-          <div
-            class="rf-grid-row rf-mb-3w"
-            style="justify-content: space-between"
-          >
-            <span> Revenu {{ k + 1 }} </span>
-            <DfButton
-              class="rf-btn"
-              size="small"
-              @on-click="removeFinancial(f)"
-            >
-              {{ $t("delete-financial") }}
-            </DfButton>
-          </div>
           <div>
             <label class="rf-label" for="select">
               {{ $t("select-label") }}
@@ -179,12 +175,12 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 
 extend("regex", {
   ...regex,
-  message: "number-not-valid"
+  message: "number-not-valid",
 });
 
 extend("required", {
   ...required,
-  message: "field-required"
+  message: "field-required",
 });
 
 class F {
@@ -206,13 +202,13 @@ class F {
     ListItem,
     DfButton,
     WarningMessage,
-    ConfirmModal
+    ConfirmModal,
   },
   computed: {
     ...mapGetters({
-      user: "userToEdit"
-    })
-  }
+      user: "userToEdit",
+    }),
+  },
 })
 export default class Financial extends Vue {
   MAX_FILE_COUNT = 5;
@@ -275,7 +271,7 @@ export default class Financial extends Vue {
         return d.id === this.selectedDoc?.id;
       });
       if (doc !== undefined) {
-        doc.files?.forEach(f => {
+        doc.files?.forEach((f) => {
           if (f.id && this.selectedDoc) {
             this.remove(this.selectedDoc, f, true);
           }
@@ -322,7 +318,7 @@ export default class Financial extends Vue {
   }
 
   addFiles(f: F, fileList: File[]) {
-    const nf = Array.from(fileList).map(f => {
+    const nf = Array.from(fileList).map((f) => {
       return { name: f.name, file: f, size: f.size };
     });
     f.files = [...f.files, ...nf];
@@ -334,7 +330,7 @@ export default class Financial extends Vue {
     const fieldName = "documents";
     const formData = new FormData();
     if (!f.noDocument) {
-      const newFiles = f.files.filter(f => {
+      const newFiles = f.files.filter((f) => {
         return !f.id;
       });
       if (!newFiles.length) return;
@@ -347,7 +343,7 @@ export default class Financial extends Vue {
         return;
       }
 
-      Array.from(Array(newFiles.length).keys()).map(x => {
+      Array.from(Array(newFiles.length).keys()).map((x) => {
         const f: File = newFiles[x].file || new File([], "");
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
       });
@@ -392,7 +388,7 @@ export default class Financial extends Vue {
         documentSubCategory: f.documentType?.value,
         id: file.name,
         name: file.name,
-        size: file.size
+        size: file.size,
       };
     });
     const existingFiles =
