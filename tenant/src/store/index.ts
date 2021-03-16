@@ -22,7 +22,7 @@ export class DfState {
   selectedGuarantor = new Guarantor();
   status = { loggedIn: false };
   messages: DfMessage[] = [];
-  hasNewMessage = false;
+  newMessage = 0;
 }
 
 const localStore = localStorage.getItem("store");
@@ -139,6 +139,9 @@ const store = new Vuex.Store({
       });
       state.user.apartmentSharing.tenants = roommates;
       state.user.apartmentSharing.tenants.push(u);
+    },
+    readMessage(state) {
+      state.newMessage = 0;
     }
   },
   actions: {
@@ -382,6 +385,9 @@ const store = new Vuex.Store({
           return r.email != state.user.email;
         })
         .map((u: User) => ({ ...u }));
+    },
+    newMessage(state): boolean {
+      return state.newMessage;
     }
   },
   modules: {}
