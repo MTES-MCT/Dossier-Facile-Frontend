@@ -214,9 +214,9 @@ import ViewEditBtn from "./ViewEditBtn.vue";
     ...mapState({
       user: "user",
       tenantStep: "tenantStep",
-      selectedGuarantor: "selectedGuarantor"
-    })
-  }
+      selectedGuarantor: "selectedGuarantor",
+    }),
+  },
 })
 export default class EditSummary extends Vue {
   user!: User;
@@ -292,7 +292,8 @@ export default class EditSummary extends Vue {
 "GROUP": "En colocation",
 "legal-person": "Legal person",
 "identification-legal-person": "Legal person identity",
-"identity-represent": "Identity"
+"identity-represent": "Identity",
+"organism": "Organism"
 },
 "fr": {
 "title": "Information du locataire",
@@ -303,7 +304,8 @@ export default class EditSummary extends Vue {
 "GROUP": "En colocation",
 "legal-person": "Personne morale",
 "identification-legal-person": "Identité personne morale",
-"identity-represent": "Identité représentant"
+"identity-represent": "Identité représentant",
+"organism": "Organisme"
 }
 }
 </i18n>
