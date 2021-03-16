@@ -151,10 +151,6 @@ export default class File extends Vue {
     }
   }
 
-  download() {
-    window.open(this.user?.dossierPDFUrl, "_blank");
-  }
-
   hasGuarantor(tenant: User) {
     if (!tenant.guarantors || tenant.guarantors.length <= 0) {
       return false;
@@ -235,7 +231,6 @@ export default class File extends Vue {
     "financial": "Financial",
     "tax": "Tax",
     "see": "See",
-    "download-all": "Download the complete file (.pdf)",
     "ALONE": "Seul",
     "COUPLE": "En couple",
     "GROUP": "En colocation",
@@ -255,7 +250,6 @@ export default class File extends Vue {
     "financial": "Justificatif de ressources",
     "tax": "Avis d’imposition",
     "see": "Voir",
-    "download-all": "Télécharger le dossier complet (.pdf)",
     "ALONE": "Seul",
     "COUPLE": "En couple",
     "GROUP": "En colocation",

@@ -179,7 +179,7 @@ export default class File extends Vue {
   }
 
   download() {
-    window.open(this.user?.dossierPDFUrl, "_blank");
+    window.open(this.user?.apartmentSharing?.dossierPdfUrl, "_blank");
   }
 
   hasGuarantor(tenant: User) {
