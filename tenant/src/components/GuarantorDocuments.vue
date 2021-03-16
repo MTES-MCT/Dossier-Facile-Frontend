@@ -508,7 +508,7 @@ h2 {
 "en": {
 "identification": "Pièce d’identité",
 "residency": "Justificatif de domicile",
-"professional": "Justificatif de situation professionelle et financière",
+"professional": "Justificatif de situation professionnelle",
 "financial": "Justificatif de revenu",
 "tax": "Avis d’imposition",
 "representative-identification": "Identité de la personne morale",
@@ -520,7 +520,7 @@ h2 {
 "fr": {
 "identification": "Pièce d’identité",
 "residency": "Justificatif de domicile",
-"professional": "Justificatif de situation professionelle et financière",
+"professional": "Justificatif de situation professionnelle",
 "financial": "Justificatif de revenu",
 "tax": "Avis d’imposition",
 "representative-identification": "Identité de la personne morale",

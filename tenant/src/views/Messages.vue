@@ -52,7 +52,7 @@
                 </div>
                 <div class="row" v-if="hasDoc('PROFESSIONAL')">
                   <div class="subtitle">
-                    Justificatif de situation professionelle
+                    Justificatif de situation professionnelle
                   </div>
                   <div class="row">
                     <div
@@ -173,7 +173,7 @@
                 </div>
                 <div class="row" v-if="guarantorHasDoc(g, 'PROFESSIONAL')">
                   <div class="subtitle">
-                    Justificatif de situation professionelle
+                    Justificatif de situation professionnelle
                   </div>
                   <div class="row">
                     <div

@@ -278,7 +278,7 @@ export default class File extends Vue {
     "personnal-file": "Pièces personnelles",
     "identification": "Pièce d’identité",
     "residency": "Justificatif de domicile",
-    "professional": "Justificatif de situation professionelle et financière",
+    "professional": "Justificatif de situation professionnelle",
     "financial": "Justificatif de revenu",
     "tax": "Avis d’imposition",
     "see": "Voir",

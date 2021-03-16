@@ -51,7 +51,7 @@
               </div>
               <div class="row" v-if="hasDoc('PROFESSIONAL')">
                 <div class="subtitle">
-                  Justificatif de situation professionelle
+                  Justificatif de situation professionnelle
                 </div>
                 <ViewEditBtn
                   :canView="hasFile('PROFESSIONAL')"
@@ -150,7 +150,7 @@
               </div>
               <div class="row" v-if="guarantorHasDoc('PROFESSIONAL')">
                 <div class="subtitle">
-                  Justificatif de situation professionelle
+                  Justificatif de situation professionnelle
                 </div>
                 <ViewEditBtn
                   :canView="guarantorHasFile('PROFESSIONAL')"

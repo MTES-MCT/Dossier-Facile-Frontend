@@ -984,7 +984,7 @@ p {
     "my-files": "Mes pièces justificatives",
     "identification": "Pièce d'identité",
     "residency": "Justificatif de domicile",
-    "professional": "Justificatif de situation professionelle",
+    "professional": "Justificatif de situation professionnelle",
     "financial": "Justificatif de ressources",
     "tax": "Avis d’imposition",
     "representative-identification": "Identité de la personne morale",
