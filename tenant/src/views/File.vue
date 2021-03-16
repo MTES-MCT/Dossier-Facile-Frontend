@@ -73,32 +73,36 @@
                   <h4 class="rf-h4">
                     {{ $t("guarant") }}
                   </h4>
-                </div>
-              </div>
-            </div>
-            <div v-if="tenant.guarantors">
-              <div v-for="g in tenant.guarantors" v-bind:key="g.id">
-                <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
-                  <div class="rf-grid-row file-item">
-                    <span>{{ $t("identification-legal-person") }}</span
-                    ><DfButton
-                      @on-click="open(tenant, 'IDENTIFICATION_LEGAL_PERSON')"
-                      >{{ $t("see") }}</DfButton
-                    >
-                  </div>
-                  <div class="rf-grid-row file-item">
-                    <span>{{ $t("identification") }}</span
-                    ><DfButton @on-click="open(tenant, 'IDENTIFICATION')">{{
-                      $t("see")
-                    }}</DfButton>
-                  </div>
-                </div>
-                <div v-if="g.typeGuarantor === 'ORGANISM'">
-                  <div class="rf-grid-row file-item">
-                    <span>{{ $t("organism") }}</span
-                    ><DfButton @on-click="open(tenant, 'IDENTIFICATION')">{{
-                      $t("see")
-                    }}</DfButton>
+                  <div v-if="tenant.guarantors">
+                    <div v-for="g in tenant.guarantors" v-bind:key="g.id">
+                      <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
+                        <div class="rf-grid-row file-item">
+                          <span>{{ $t("identification-legal-person") }}</span
+                          ><DfButton
+                            @on-click="
+                              open(tenant, 'IDENTIFICATION_LEGAL_PERSON')
+                            "
+                            >{{ $t("see") }}</DfButton
+                          >
+                        </div>
+                        <div class="rf-grid-row file-item">
+                          <span>{{ $t("identification") }}</span
+                          ><DfButton
+                            @on-click="open(tenant, 'IDENTIFICATION')"
+                            >{{ $t("see") }}</DfButton
+                          >
+                        </div>
+                      </div>
+                      <div v-if="g.typeGuarantor === 'ORGANISM'">
+                        <div class="rf-grid-row file-item">
+                          <span>{{ $t("organism") }}</span
+                          ><DfButton
+                            @on-click="open(tenant, 'IDENTIFICATION')"
+                            >{{ $t("see") }}</DfButton
+                          >
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -107,7 +111,7 @@
         </ul>
       </div>
     </section>
-    <section class="rf-mb-5w fix-mt" :style="`margin-top: ${tabsSize}`">
+    <section class="rf-mb-7w fix-mt" :style="`margin-top: ${tabsSize}`">
       <DfButton primary="true" @on-click="download">{{
         $t("download-all")
       }}</DfButton>
@@ -148,7 +152,7 @@ export default class File extends Vue {
       const el = this.$el.querySelector("#rf-tabs");
       const h = (el?.scrollHeight || 0) > 100 ? el?.scrollHeight : 600;
       if (h) {
-        this.tabsSize = `${h + 20}px`;
+        this.tabsSize = `${h + 150}px`;
       }
     });
   }
@@ -179,18 +183,19 @@ export default class File extends Vue {
   }
 
   download() {
-    window.open(this.user?.dossierPDFUrl, "_blank");
+    window.open(this.user?.dossierPdfUrl, "_blank");
   }
 
   hasGuarantor(tenant: User) {
     if (!tenant.guarantors || tenant.guarantors.length <= 0) {
       return false;
     }
-    tenant.guarantors.forEach((g) => {
+    for (const g of tenant.guarantors) {
       if (g.typeGuarantor !== "NATURAL_PERSON") {
         return true;
       }
-    });
+    }
+    return false;
   }
 
   getStatus() {
@@ -278,8 +283,8 @@ export default class File extends Vue {
     "personnal-file": "Pièces personnelles",
     "identification": "Pièce d’identité",
     "residency": "Justificatif de domicile",
-    "professional": "Justificatif de situation professionelle et financière",
-    "financial": "Justificatif de revenu",
+    "professional": "Justificatif de situation professionnelle",
+    "financial": "Justificatif de ressources",
     "tax": "Avis d’imposition",
     "see": "Voir",
     "download-all": "Télécharger le dossier complet (.pdf)",

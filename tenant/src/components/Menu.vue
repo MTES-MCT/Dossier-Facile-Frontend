@@ -3,14 +3,15 @@
     <nav class="rf-nav" role="navigation" aria-label="Menu principal">
       <ul class="rf-nav__list">
         <li class="rf-nav__item" v-if="user">
-          <router-link to="/account" class="rf-link">
+          <a href="/account" class="rf-link">
             {{ $t("profile") }}
-          </router-link>
+          </a>
         </li>
         <li class="rf-nav__item" v-if="user">
-          <router-link to="/messaging" class="rf-link">
+          <a href="/messaging" class="rf-link">
             {{ $t("messaging") }}
-          </router-link>
+            <span v-if="newMessage > 0" class="badge">{{ newMessage }}</span>
+          </a>
         </li>
         <li class="rf-nav__item">
           <a :href="`${MAIN_URL}/faq?lang=${$i18n.locale}`" class="rf-link">
@@ -38,10 +39,19 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { User } from "df-shared/src/models/User";
+import { mapGetters } from "vuex";
 
-@Component
+@Component({
+  computed: {
+    ...mapGetters({
+      user: "userToEdit",
+      newMessage: "newMessage",
+    }),
+  },
+})
 export default class Menu extends Vue {
-  @Prop() user?: User;
+  user?: User;
+  newMessage!: number;
 
   MAIN_URL = "//" + process.env.VUE_APP_MAIN_URL;
 }
@@ -53,6 +63,20 @@ export default class Menu extends Vue {
   .rf-nav__list {
     flex-direction: row-reverse;
   }
+}
+.badge {
+  position: absolute;
+  top: -2px;
+  right: 0px;
+  padding: 5px 10px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+  z-index: 1;
+}
+
+.rf-nav__item {
+  position: relative;
 }
 </style>
 

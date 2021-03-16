@@ -82,7 +82,7 @@
         <span class="color--primary material-icons">euro</span>
         <h2>{{ $t("financial") }}</h2>
         <span class="spacer"></span>
-        <span v-if="hasDoc('FINANCIAL')" class="color--primary material-icons"
+        <span v-if="isFinancialValid()" class="color--primary material-icons"
           >check_circle_outline</span
         >
       </div>
@@ -137,9 +137,9 @@ import { User } from "df-shared/src/models/User";
   computed: {
     ...mapState({
       tenantSubStep: "tenantSubStep",
-      user: "user"
-    })
-  }
+      user: "user",
+    }),
+  },
 })
 export default class UploadDocuments extends Vue {
   tenantSubStep!: number;
@@ -154,7 +154,7 @@ export default class UploadDocuments extends Vue {
       this.hasDoc("IDENTIFICATION") &&
       this.hasDoc("PROFESSIONAL") &&
       this.hasDoc("RESIDENCY") &&
-      this.hasDoc("FINANCIAL") &&
+      this.isFinancialValid() &&
       this.isTaxValid()
     );
   }
@@ -166,14 +166,31 @@ export default class UploadDocuments extends Vue {
 
   hasDoc(docType: string) {
     // FIXME check for status TO_PROCESS or VALIDATED
-    const f = this.user.documents?.find(d => {
+    const f = this.user.documents?.find((d) => {
       return d.documentCategory === docType;
     })?.files;
     return f && f.length > 0;
   }
 
+  isFinancialValid() {
+    const docs = this.user.documents?.filter((d) => {
+      return d.documentCategory === "FINANCIAL";
+    });
+    if (!docs || docs.length === 0) {
+      return false;
+    }
+
+    for (const doc of docs) {
+      if (!doc.noDocument && (doc.files?.length || 0) <= 0) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   isTaxValid() {
-    const doc = this.user.documents?.find(d => {
+    const doc = this.user.documents?.find((d) => {
       return d.documentCategory === "TAX";
     });
     if (!doc) {
@@ -238,15 +255,15 @@ h2 {
 "en": {
 "identification": "Pièce d’identité",
 "residency": "Justificatif de domicile",
-"professional": "Justificatif de situation professionelle et financière",
-"financial": "Justificatif de revenu",
+"professional": "Justificatif de situation professionnelle",
+"financial": "Justificatif de ressources",
 "tax": "Avis d’imposition"
 },
 "fr": {
 "identification": "Pièce d’identité",
 "residency": "Justificatif de domicile",
-"professional": "Justificatif de situation professionelle et financière",
-"financial": "Justificatif de revenu",
+"professional": "Justificatif de situation professionnelle",
+"financial": "Justificatif de ressources",
 "tax": "Avis d’imposition"
 }
 }

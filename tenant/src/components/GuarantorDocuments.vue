@@ -155,7 +155,7 @@
               <h2>{{ $t("financial") }}</h2>
               <span class="spacer"></span>
               <span
-                v-if="hasDoc('FINANCIAL')"
+                v-if="isFinancialValid()"
                 class="color--primary material-icons"
                 >check_circle_outline</span
               >
@@ -349,7 +349,7 @@ export default class GuarantorDocuments extends Vue {
         this.hasDoc("IDENTIFICATION") &&
         this.hasDoc("PROFESSIONAL") &&
         this.hasDoc("RESIDENCY") &&
-        this.hasDoc("FINANCIAL") &&
+        this.isFinancialValid() &&
         this.isTaxValid()) ||
       (this.guarantorType === "LEGAL_PERSON" &&
         this.hasDoc("IDENTIFICATION") &&
@@ -392,6 +392,23 @@ export default class GuarantorDocuments extends Vue {
     this.$store.dispatch("deleteGuarantor", k).then(null, () => {
       Vue.toasted.global.error();
     });
+  }
+
+  isFinancialValid() {
+    const docs = this.guarantor.documents?.filter((d) => {
+      return d.documentCategory === "FINANCIAL";
+    });
+    if (!docs || docs.length === 0) {
+      return false;
+    }
+
+    for (const doc of docs) {
+      if (!doc.noDocument && (doc.files?.length || 0) <= 0) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   isTaxValid() {
@@ -508,8 +525,8 @@ h2 {
 "en": {
 "identification": "Pièce d’identité",
 "residency": "Justificatif de domicile",
-"professional": "Justificatif de situation professionelle et financière",
-"financial": "Justificatif de revenu",
+"professional": "Justificatif de situation professionnelle",
+"financial": "Justificatif de ressources",
 "tax": "Avis d’imposition",
 "representative-identification": "Identité de la personne morale",
 "corporation-identification": "Identité du représentant de la personne morale",
@@ -520,8 +537,8 @@ h2 {
 "fr": {
 "identification": "Pièce d’identité",
 "residency": "Justificatif de domicile",
-"professional": "Justificatif de situation professionelle et financière",
-"financial": "Justificatif de revenu",
+"professional": "Justificatif de situation professionnelle",
+"financial": "Justificatif de ressources",
 "tax": "Avis d’imposition",
 "representative-identification": "Identité de la personne morale",
 "corporation-identification": "Identité du représentant de la personne morale",

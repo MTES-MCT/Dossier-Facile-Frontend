@@ -113,7 +113,7 @@
                 <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
-                      <span class="color--primary material-icons md-80"
+                      <span class="color--primary material-icons md-adapt"
                         >person</span
                       >
                     </div>
@@ -147,7 +147,7 @@
                 >
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
-                      <span class="color--primary material-icons md-80"
+                      <span class="color--primary material-icons md-adapt"
                         >person</span
                       >
                     </div>
@@ -175,7 +175,7 @@
                 >
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
-                      <span class="color--primary material-icons md-80"
+                      <span class="color--primary material-icons md-adapt"
                         >home</span
                       >
                     </div>
@@ -199,7 +199,7 @@
                 >
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
-                      <span class="color--primary material-icons md-80"
+                      <span class="color--primary material-icons md-adapt"
                         >work</span
                       >
                     </div>
@@ -228,7 +228,7 @@
                 >
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
-                      <span class="color--primary material-icons md-80"
+                      <span class="color--primary material-icons md-adapt"
                         >euro</span
                       >
                     </div>
@@ -252,7 +252,7 @@
                 >
                   <div class="rf-tile rf-tile--horizontal">
                     <div class="rf-tile__img-wrap">
-                      <span class="color--primary material-icons md-80"
+                      <span class="color--primary material-icons md-adapt"
                         >content_copy</span
                       >
                     </div>
@@ -288,7 +288,7 @@
                     >
                       <div class="rf-tile rf-tile--horizontal">
                         <div class="rf-tile__img-wrap">
-                          <span class="color--primary material-icons md-80"
+                          <span class="color--primary material-icons md-adapt"
                             >person</span
                           >
                         </div>
@@ -316,7 +316,7 @@
                     >
                       <div class="rf-tile rf-tile--horizontal">
                         <div class="rf-tile__img-wrap">
-                          <span class="color--primary material-icons md-80"
+                          <span class="color--primary material-icons md-adapt"
                             >home</span
                           >
                         </div>
@@ -344,7 +344,7 @@
                     >
                       <div class="rf-tile rf-tile--horizontal">
                         <div class="rf-tile__img-wrap">
-                          <span class="color--primary material-icons md-80"
+                          <span class="color--primary material-icons md-adapt"
                             >work</span
                           >
                         </div>
@@ -373,7 +373,7 @@
                     >
                       <div class="rf-tile rf-tile--horizontal">
                         <div class="rf-tile__img-wrap">
-                          <span class="color--primary material-icons md-80"
+                          <span class="color--primary material-icons md-adapt"
                             >euro</span
                           >
                         </div>
@@ -401,7 +401,7 @@
                     >
                       <div class="rf-tile rf-tile--horizontal">
                         <div class="rf-tile__img-wrap">
-                          <span class="color--primary material-icons md-80"
+                          <span class="color--primary material-icons md-adapt"
                             >content_copy</span
                           >
                         </div>
@@ -431,7 +431,7 @@
                     >
                       <div class="rf-tile rf-tile--horizontal">
                         <div class="rf-tile__img-wrap">
-                          <span class="color--primary material-icons md-80"
+                          <span class="color--primary material-icons md-adapt"
                             >person</span
                           >
                         </div>
@@ -463,7 +463,7 @@
                     >
                       <div class="rf-tile rf-tile--horizontal">
                         <div class="rf-tile__img-wrap">
-                          <span class="color--primary material-icons md-80"
+                          <span class="color--primary material-icons md-adapt"
                             >person</span
                           >
                         </div>
@@ -499,7 +499,7 @@
                     >
                       <div class="rf-tile rf-tile--horizontal">
                         <div class="rf-tile__img-wrap">
-                          <span class="color--primary material-icons md-80"
+                          <span class="color--primary material-icons md-adapt"
                             >person</span
                           >
                         </div>
@@ -909,12 +909,19 @@ p {
 .description:first-letter {
   text-transform: uppercase;
 }
+
+.material-icons.md-adapt {
+  font-size: 80px;
+  @media (max-width: 768px) {
+    font-size: 48px;
+  }
+}
 </style>
 
 <i18n>
 {
   "en": {
-    "title": "Hello {0}, your file is validated",
+    "title": "Hello {0}, your file {1}",
     "status-description":"{0}, you are {1} and {2}.<br>if your situation has changed, please update your documents !",
     "subtitle": "Vous avez indiqué être {0} {1}, être en {2} et gagner {3}.",
     "last-update": "Dernière mise à jour du dossier le {0}",
@@ -936,10 +943,10 @@ p {
     "corporation-identification": "Corporation identification",
     "guarantor": "Guarantor",
     "guarantors-information": "My guarantors information",
-    "TO_PROCESS":"to process",
-    "VALIDATED":"validated",
-    "DECLINED":"declined",
-    "INCOMPLETE":"incomplete",
+    "TO_PROCESS":"s to process",
+    "VALIDATED":"is validated",
+    "DECLINED":"is declined",
+    "INCOMPLETE":"is incomplete",
     "partners": "Our partners",
     "delete": "Deletion of my account",
     "opinion": "Tell us about your experience DossierFacile.fr",
@@ -969,7 +976,7 @@ p {
     "copied": "Copied !"
   },
   "fr": {
-    "title": "Bonjour {0}, votre dossier est {1} !",
+    "title": "Bonjour {0}, votre dossier {1} !",
     "status-description":"{0}, vous avez indiqué être {1} et {2}.<br>Si votre situation a changé, mettez à jour vos documents !",
     "subtitle": "Vous avez indiqué être {0} {1}, être en {2} et gagner {3}.",
     "last-update": "Dernière mise à jour du dossier le {0}",
@@ -984,17 +991,17 @@ p {
     "my-files": "Mes pièces justificatives",
     "identification": "Pièce d'identité",
     "residency": "Justificatif de domicile",
-    "professional": "Justificatif de situation professionelle",
+    "professional": "Justificatif de situation professionnelle",
     "financial": "Justificatif de ressources",
     "tax": "Avis d’imposition",
     "representative-identification": "Identité de la personne morale",
     "corporation-identification": "Identité du représentant de la personne morale",
     "guarantor": "Garant",
     "guarantors-information": "Les informations de mes garants",
-    "TO_PROCESS":"non vérifié",
-    "VALIDATED":"vérifié",
-    "DECLINED":"modification demandée",
-    "INCOMPLETE":"non terminé",
+    "TO_PROCESS":"est non vérifié",
+    "VALIDATED":"est vérifié",
+    "DECLINED":"nécessite une modification",
+    "INCOMPLETE":"est non terminé",
     "partners": "Nos partenaires",
     "delete": "Suppression de mon compte",
     "opinion": "Racontez-nous votre expérience DossierFacile.fr",

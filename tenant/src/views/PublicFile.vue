@@ -58,22 +58,22 @@
                   <h4 class="rf-h4">
                     {{ $t("guarant") }}
                   </h4>
-                </div>
-              </div>
-            </div>
-            <div v-if="tenant.guarantors">
-              <div v-for="g in tenant.guarantors" v-bind:key="g.id">
-                <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
-                  <div class="rf-grid-row file-item">
-                    <span>{{ $t("identification-legal-person") }}</span>
-                  </div>
-                  <div class="rf-grid-row file-item">
-                    <span>{{ $t("identification") }}</span>
-                  </div>
-                </div>
-                <div v-if="g.typeGuarantor === 'ORGANISM'">
-                  <div class="rf-grid-row file-item">
-                    <span>{{ $t("organism") }}</span>
+                  <div v-if="tenant.guarantors">
+                    <div v-for="g in tenant.guarantors" v-bind:key="g.id">
+                      <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
+                        <div class="rf-grid-row file-item">
+                          <span>{{ $t("identification-legal-person") }}</span>
+                        </div>
+                        <div class="rf-grid-row file-item">
+                          <span>{{ $t("identification") }}</span>
+                        </div>
+                      </div>
+                      <div v-if="g.typeGuarantor === 'ORGANISM'">
+                        <div class="rf-grid-row file-item">
+                          <span>{{ $t("organism") }}</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -151,19 +151,16 @@ export default class File extends Vue {
     }
   }
 
-  download() {
-    window.open(this.user?.dossierPDFUrl, "_blank");
-  }
-
   hasGuarantor(tenant: User) {
     if (!tenant.guarantors || tenant.guarantors.length <= 0) {
       return false;
     }
-    tenant.guarantors.forEach((g) => {
+    for (const g of tenant.guarantors) {
       if (g.typeGuarantor !== "NATURAL_PERSON") {
         return true;
       }
-    });
+    }
+    return false;
   }
 
   getStatus() {
@@ -235,7 +232,6 @@ export default class File extends Vue {
     "financial": "Financial",
     "tax": "Tax",
     "see": "See",
-    "download-all": "Download the complete file (.pdf)",
     "ALONE": "Seul",
     "COUPLE": "En couple",
     "GROUP": "En colocation",
@@ -251,11 +247,10 @@ export default class File extends Vue {
     "personnal-file": "Pièces personnelles",
     "identification": "Pièce d’identité",
     "residency": "Justificatif de domicile",
-    "professional": "Justificatif de situation professionelle et financière",
-    "financial": "Justificatif de revenu",
+    "professional": "Justificatif de situation professionnelle",
+    "financial": "Justificatif de ressources",
     "tax": "Avis d’imposition",
     "see": "Voir",
-    "download-all": "Télécharger le dossier complet (.pdf)",
     "ALONE": "Seul",
     "COUPLE": "En couple",
     "GROUP": "En colocation",
