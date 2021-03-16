@@ -246,23 +246,15 @@
             <template v-slot:content>
               <div class="boxed boxed--lg boxed--border">
                 <h5>Les documents de mon garant</h5>
-                <ul class="menu-vertical">
-                  <li>
-                    <a class="modal-file-button" data-id="6" href="#">Visa</a>
-                    <a
-                      id="link-file-6"
-                      target="_blank"
-                      th:href="${tenant.getGuarantor().getUpload1Route()}"
-                    >
-                      <span class="material-icons">visibility</span>
-                    </a>
-                    <span
-                      class="btn__text"
-                      th:remove="tag"
-                      th:replace="include/file-status-profile:: status-span(6)"
-                    ></span>
-                  </li>
-                </ul>
+
+                <div class="row">
+                  <div class="subtitle">{{ $t("organism") }}</div>
+                  <ViewEditBtn
+                    :canView="guarantorHasFile(g, 'IDENTIFICATION')"
+                    @view="openGuarantorDoc(g, 'IDENTIFICATION')"
+                    @edit="setGuarantorSubStep(1, g)"
+                  ></ViewEditBtn>
+                </div>
               </div>
             </template>
           </NakedCard>
@@ -270,23 +262,26 @@
             <template v-slot:content>
               <div class="boxed boxed--lg boxed--border">
                 <h5>Les documents de mon garant</h5>
-                <ul class="menu-vertical">
-                  <li>
-                    <a class="modal-file-button" data-id="6" href="#">Visa</a>
-                    <a
-                      id="link-file-6"
-                      target="_blank"
-                      th:href="${tenant.getGuarantor().getUpload1Route()}"
-                    >
-                      <span class="material-icons">visibility</span>
-                    </a>
-                    <span
-                      class="btn__text"
-                      th:remove="tag"
-                      th:replace="include/file-status-profile:: status-span(6)"
-                    ></span>
-                  </li>
-                </ul>
+                <div class="row">
+                  <div class="subtitle">
+                    {{ $t("identification-legal-person") }}
+                  </div>
+                  <ViewEditBtn
+                    :canView="
+                      guarantorHasFile(g, 'IDENTIFICATION_LEGAL_PERSON')
+                    "
+                    @view="openGuarantorDoc(g, 'IDENTIFICATION_LEGAL_PERSON')"
+                    @edit="setGuarantorSubStep(1, g)"
+                  ></ViewEditBtn>
+                </div>
+                <div class="row">
+                  <div class="subtitle">{{ $t("identity-represent") }}</div>
+                  <ViewEditBtn
+                    :canView="guarantorHasFile(g, 'IDENTIFICATION')"
+                    @view="openGuarantorDoc(g, 'IDENTIFICATION')"
+                    @edit="setGuarantorSubStep(2, g)"
+                  ></ViewEditBtn>
+                </div>
               </div>
             </template>
           </NakedCard>
@@ -419,9 +414,17 @@ import { mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { DfDocument } from "df-shared/src/models/DfDocument";
+import ViewEditBtn from "../components/ViewEditBtn.vue";
 
 @Component({
-  components: { NakedCard, Modal, PdfViewer, ShowDoc, FileStatusIcon },
+  components: {
+    NakedCard,
+    Modal,
+    PdfViewer,
+    ShowDoc,
+    FileStatusIcon,
+    ViewEditBtn,
+  },
   computed: {
     ...mapState({
       user: "user",
@@ -560,3 +563,18 @@ export default class Messages extends Vue {
   max-width: 90%;
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "identification-legal-person": "Legal person identity",
+    "identity-represent": "Identity",
+    "organism": "Organism"
+  },
+  "fr": {
+    "identification-legal-person": "Identité personne morale",
+    "identity-represent": "Identité représentant",
+    "organism": "Organisme"
+  }
+}
+</i18n>
