@@ -58,22 +58,22 @@
                   <h4 class="rf-h4">
                     {{ $t("guarant") }}
                   </h4>
-                </div>
-              </div>
-            </div>
-            <div v-if="tenant.guarantors">
-              <div v-for="g in tenant.guarantors" v-bind:key="g.id">
-                <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
-                  <div class="rf-grid-row file-item">
-                    <span>{{ $t("identification-legal-person") }}</span>
-                  </div>
-                  <div class="rf-grid-row file-item">
-                    <span>{{ $t("identification") }}</span>
-                  </div>
-                </div>
-                <div v-if="g.typeGuarantor === 'ORGANISM'">
-                  <div class="rf-grid-row file-item">
-                    <span>{{ $t("organism") }}</span>
+                  <div v-if="tenant.guarantors">
+                    <div v-for="g in tenant.guarantors" v-bind:key="g.id">
+                      <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
+                        <div class="rf-grid-row file-item">
+                          <span>{{ $t("identification-legal-person") }}</span>
+                        </div>
+                        <div class="rf-grid-row file-item">
+                          <span>{{ $t("identification") }}</span>
+                        </div>
+                      </div>
+                      <div v-if="g.typeGuarantor === 'ORGANISM'">
+                        <div class="rf-grid-row file-item">
+                          <span>{{ $t("organism") }}</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -155,11 +155,12 @@ export default class File extends Vue {
     if (!tenant.guarantors || tenant.guarantors.length <= 0) {
       return false;
     }
-    tenant.guarantors.forEach((g) => {
+    for (const g of tenant.guarantors) {
       if (g.typeGuarantor !== "NATURAL_PERSON") {
         return true;
       }
-    });
+    }
+    return false;
   }
 
   getStatus() {
