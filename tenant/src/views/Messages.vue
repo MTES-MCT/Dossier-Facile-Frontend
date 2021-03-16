@@ -439,6 +439,10 @@ export default class Messages extends Vue {
   files: DfFile[] = [];
   isDocModalVisible = false;
 
+  mounted() {
+    this.$store.commit("readMessage");
+  }
+
   isNotValidated() {
     // TODO
     return true;
