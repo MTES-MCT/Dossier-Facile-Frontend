@@ -75,7 +75,7 @@
                   </div>
                 </div>
                 <div class="row" v-if="hasDoc('FINANCIAL')">
-                  <div class="subtitle">Justificatif de revenu</div>
+                  <div class="subtitle">Justificatif de ressources</div>
                   <div class="row">
                     <div
                       class="edit-step-btn"
@@ -196,7 +196,7 @@
                   </div>
                 </div>
                 <div class="row" v-if="guarantorHasDoc(g, 'FINANCIAL')">
-                  <div class="subtitle">Justificatif de revenu</div>
+                  <div class="subtitle">Justificatif de ressources</div>
                   <div class="row">
                     <div
                       class="edit-step-btn"

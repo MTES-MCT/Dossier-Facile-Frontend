@@ -239,14 +239,14 @@ h2 {
 "identification": "Pièce d’identité",
 "residency": "Justificatif de domicile",
 "professional": "Justificatif de situation professionnelle",
-"financial": "Justificatif de revenu",
+"financial": "Justificatif de ressources",
 "tax": "Avis d’imposition"
 },
 "fr": {
 "identification": "Pièce d’identité",
 "residency": "Justificatif de domicile",
 "professional": "Justificatif de situation professionnelle",
-"financial": "Justificatif de revenu",
+"financial": "Justificatif de ressources",
 "tax": "Avis d’imposition"
 }
 }

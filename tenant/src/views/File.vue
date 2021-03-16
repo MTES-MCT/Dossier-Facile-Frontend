@@ -279,7 +279,7 @@ export default class File extends Vue {
     "identification": "Pièce d’identité",
     "residency": "Justificatif de domicile",
     "professional": "Justificatif de situation professionnelle",
-    "financial": "Justificatif de revenu",
+    "financial": "Justificatif de ressources",
     "tax": "Avis d’imposition",
     "see": "Voir",
     "download-all": "Télécharger le dossier complet (.pdf)",

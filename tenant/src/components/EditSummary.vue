@@ -60,7 +60,7 @@
                 ></ViewEditBtn>
               </div>
               <div class="row" v-if="hasDoc('FINANCIAL')">
-                <div class="subtitle">Justificatif de revenu</div>
+                <div class="subtitle">Justificatif de ressources</div>
                 <ViewEditBtn
                   :canView="hasFile('FINANCIAL')"
                   @view="openDoc('FINANCIAL')"
@@ -159,7 +159,7 @@
                 ></ViewEditBtn>
               </div>
               <div class="row" v-if="guarantorHasDoc('FINANCIAL')">
-                <div class="subtitle">Justificatif de revenu</div>
+                <div class="subtitle">Justificatif de ressources</div>
                 <ViewEditBtn
                   :canView="guarantorHasFile('FINANCIAL')"
                   @view="openGuarantorDoc('FINANCIAL')"
