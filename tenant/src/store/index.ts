@@ -158,11 +158,13 @@ const store = new Vuex.Store({
         }
       );
     },
-    logout({ commit }) {
+    logout({ commit }, redirect = true) {
       AuthService.logout();
       commit("logout");
       commit("initState");
-      router.push("/").then();
+      if (redirect) {
+        router.push("/").then();
+      }
     },
     deleteAccount({ commit }, password) {
       return AuthService.deleteAccount(password).then(
