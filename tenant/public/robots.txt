@@ -1,4 +1,9 @@
 User-agent: *
-Disallow: /signup
-Disallow: /login
 Disallow: /profile
+Disallow: /forgotten-password
+Disallow: /reset-password
+Disallow: /public-file/*
+Disallow: /file/*
+Disallow: /ajout-couple
+Disallow: /ajout-groupe
+Disallow: /confirmAccount
