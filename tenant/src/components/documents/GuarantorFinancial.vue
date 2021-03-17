@@ -179,12 +179,12 @@ import { mapState } from "vuex";
 
 extend("regex", {
   ...regex,
-  message: "number-not-valid"
+  message: "number-not-valid",
 });
 
 extend("required", {
   ...required,
-  message: "field-required"
+  message: "field-required",
 });
 
 class F {
@@ -206,13 +206,13 @@ class F {
     ListItem,
     DfButton,
     WarningMessage,
-    ConfirmModal
+    ConfirmModal,
   },
   computed: {
     ...mapState({
-      selectedGuarantor: "selectedGuarantor"
-    })
-  }
+      selectedGuarantor: "selectedGuarantor",
+    }),
+  },
 })
 export default class GuarantorFinancial extends Vue {
   MAX_FILE_COUNT = 5;
@@ -275,7 +275,7 @@ export default class GuarantorFinancial extends Vue {
         return d.id === this.selectedDoc?.id;
       });
       if (doc !== undefined) {
-        doc.files?.forEach(f => {
+        doc.files?.forEach((f) => {
           if (f.id && this.selectedDoc) {
             this.remove(this.selectedDoc, f, true);
           }
@@ -322,7 +322,7 @@ export default class GuarantorFinancial extends Vue {
   }
 
   addFiles(f: F, fileList: File[]) {
-    const nf = Array.from(fileList).map(f => {
+    const nf = Array.from(fileList).map((f) => {
       return { name: f.name, file: f, size: f.size };
     });
     f.files = [...f.files, ...nf];
@@ -334,7 +334,7 @@ export default class GuarantorFinancial extends Vue {
     const fieldName = "documents";
     const formData = new FormData();
     if (!f.noDocument) {
-      const newFiles = f.files.filter(f => {
+      const newFiles = f.files.filter((f) => {
         return !f.id;
       });
       if (!newFiles.length) return;
@@ -347,7 +347,7 @@ export default class GuarantorFinancial extends Vue {
         return;
       }
 
-      Array.from(Array(newFiles.length).keys()).map(x => {
+      Array.from(Array(newFiles.length).keys()).map((x) => {
         const f: File = newFiles[x].file || new File([], "");
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
       });
@@ -395,7 +395,7 @@ export default class GuarantorFinancial extends Vue {
         documentSubCategory: f.documentType?.value,
         id: file.name,
         name: file.name,
-        size: file.size
+        size: file.size,
       };
     });
     const existingFiles =
@@ -454,8 +454,8 @@ export default class GuarantorFinancial extends Vue {
     if (key === "rent") {
       return "noDocument-rent";
     }
-    if (key === "trading") {
-      return "noDocument-trading";
+    if (key === "scholarship") {
+      return "noDocument-scholarship";
     }
     if (key === "social-service") {
       return "noDocument-social";
@@ -472,8 +472,8 @@ export default class GuarantorFinancial extends Vue {
     if (key === "rent") {
       return "customText-rent";
     }
-    if (key === "trading") {
-      return "customText-trading";
+    if (key === "scholarship") {
+      return "customText-scholarship";
     }
     if (key === "social-service") {
       return "customText-social";
@@ -492,19 +492,19 @@ export default class GuarantorFinancial extends Vue {
   "social-service": "Social benefit payments",
   "rent": "Annuities",
   "pension": "Pensions",
-  "trading": "Trading",
+  "scholarship": "Scholarship",
   "monthlySum": "Value in euros",
   "monthlySum-label": "Salary (after tax)",
   "noDocument-social": "I cannot provide proof of payment of social benefits",
   "noDocument-salary": "I cannot provide my guarantor last three payslips",
   "noDocument-rent": "I cannot provide proof of rent",
   "noDocument-pension": "I cannot provide proof of pension",
-  "noDocument-trading": "I cannot provide proof of trading",
+  "noDocument-scholarship": "I cannot provide proof of scholarship",
   "customText-social": "In order to improve my file, I explain why I cannot provide the justificatives:",
   "customText-salary": "In order to improve my file, I explain why I cannot provide the last three payslips of my guarantor:",
   "customText-rent": "In order to improve my file, I explain why I cannot provide the justificatives:",
   "customText-pension": "In order to improve my file, I explain why I cannot provide the justificatives:",
-  "customText-trading": "In order to improve my file, I explain why I cannot provide the justificatives:",
+  "customText-scholarship": "In order to improve my file, I explain why I cannot provide the justificatives:",
   "high-salary": "You have entered a salary greater than € 10,000 are you sure you have entered your guarantor monthly salary?",
   "low-salary": "You have entered a salary equal to 0 € are you sure you have entered your guarantor monthly salary?",
   "number-not-valid": "Number not valid",
@@ -520,19 +520,19 @@ export default class GuarantorFinancial extends Vue {
   "social-service": "Versement de prestations sociales",
   "rent": "Rentes",
   "pension": "Pensions",
-  "trading": "Bourses",
+  "scholarship": "Bourses",
   "monthlySum": "Montant en euros",
   "monthlySum-label": "Montant du revenu (après impôts)",
   "noDocument-social": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
   "noDocument-salary": "Je ne peux pas fournir les trois derniers bulletins de salaire de mon garant",
   "noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",
   "noDocument-rent": "Je ne peux pas fournir de justificatifs de versement de rente",
-  "noDocument-trading": "Je ne peux pas fournir de justificatifs d'attribution de bourse",
+  "noDocument-scholarship": "Je ne peux pas fournir de justificatifs d'attribution de bourse",
   "customText-social": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
   "customText-salary": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les trois derniers bulletins de salaire de mon garant :",
   "customText-pension": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
   "customText-rent": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
-  "customText-trading": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
+  "customText-scholarship": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
   "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
   "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
   "number-not-valid": "Nombre incorrect",
