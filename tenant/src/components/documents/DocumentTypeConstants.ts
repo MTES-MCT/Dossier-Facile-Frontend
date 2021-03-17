@@ -629,8 +629,8 @@ export const DocumentTypeConstants = {
       maxFileCount: 3
     },
     {
-      key: "trading",
-      value: "TRADING",
+      key: "scholarship",
+      value: "SCHOLARSHIP",
       explanationText: "J’ajoute un avis d’attribution de bourse.",
       acceptedProofs: ["Avis d’attribution de bourse pour l’année en cours"],
       refusedProofs: [
@@ -699,8 +699,8 @@ export const DocumentTypeConstants = {
       maxFileCount: 3
     },
     {
-      key: "trading",
-      value: "TRADING",
+      key: "scholarship",
+      value: "SCHOLARSHIP",
       explanationText:
         "J’ajoute un avis d'attribution de bourse de mon garant.",
       acceptedProofs: ["Avis d’attribution de bourse pour l’année en cours"],
