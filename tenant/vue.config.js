@@ -8,6 +8,13 @@ module.exports = {
       fallbackLocale: "en",
       localeDir: "locales",
       enableInSFC: true
+    },
+    sitemap: {
+      urls: [
+        "https://locataire.dossierfacile.fr/",
+        "https://locataire.dossierfacile.fr/login",
+        "https://locataire.dossierfacile.fr/signup"
+      ]
     }
   },
   configureWebpack: config => {

@@ -12,7 +12,10 @@
               {{ $t("s0.text2") }}
             </p>
             <p>
-              <a class="rf-btn" :href="`${TENANT_URL}/signup?lang=${$i18n.locale}`">
+              <a
+                class="rf-btn"
+                :href="`${TENANT_URL}/signup?lang=${$i18n.locale}`"
+              >
                 {{ $t("button") }}
               </a>
             </p>
@@ -78,7 +81,10 @@
             <img src="../assets/icons/justif.webp" />
           </div>
         </div>
-        <a class="rf-btn rf-mt-3w" :href="`${TENANT_URL}/signup?lang=${$i18n.locale}`">
+        <a
+          class="rf-btn rf-mt-3w"
+          :href="`${TENANT_URL}/signup?lang=${$i18n.locale}`"
+        >
           {{ $t("button") }}
         </a>
       </div>
@@ -130,7 +136,10 @@
         </div>
         <div class="text-center rf-mt-5w rf-mb-5w">
           <p>
-            <a class="rf-btn" :href="`${TENANT_URL}/signup?lang=${$i18n.locale}`">
+            <a
+              class="rf-btn"
+              :href="`${TENANT_URL}/signup?lang=${$i18n.locale}`"
+            >
               {{ $t("button") }}
             </a>
           </p>

@@ -25,8 +25,8 @@ import { ImageService } from "@/services/ImageService";
 @Component({
   components: {
     PdfViewer,
-    VueLoadImage,
-  },
+    VueLoadImage
+  }
 })
 export default class ShowDoc extends Vue {
   @Prop({ default: "" }) file!: DfFile;

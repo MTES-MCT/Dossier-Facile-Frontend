@@ -87,13 +87,13 @@ import { User } from "df-shared/src/models/User";
     FileUpload,
     ListItem,
     WarningMessage,
-    ConfirmModal,
+    ConfirmModal
   },
   computed: {
     ...mapGetters({
-      user: "userToEdit",
-    }),
-  },
+      user: "userToEdit"
+    })
+  }
 })
 export default class Professional extends Vue {
   MAX_FILE_COUNT = 5;
@@ -160,7 +160,7 @@ export default class Professional extends Vue {
         return d.documentCategory === "PROFESSIONAL";
       });
       if (doc !== undefined) {
-        doc.files?.forEach((f) => {
+        doc.files?.forEach(f => {
           if (f.id) {
             this.remove(f, true);
           }
@@ -171,7 +171,7 @@ export default class Professional extends Vue {
   }
 
   addFiles(fileList: File[]) {
-    const nf = Array.from(fileList).map((f) => {
+    const nf = Array.from(fileList).map(f => {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
@@ -183,7 +183,7 @@ export default class Professional extends Vue {
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    const newFiles = this.files.filter((f) => {
+    const newFiles = this.files.filter(f => {
       return !f.id;
     });
     if (!newFiles.length) return;
@@ -195,7 +195,7 @@ export default class Professional extends Vue {
       Vue.toasted.global.max_file();
       return;
     }
-    Array.from(Array(newFiles.length).keys()).map((x) => {
+    Array.from(Array(newFiles.length).keys()).map(x => {
       const f: File = newFiles[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
     });
@@ -224,12 +224,12 @@ export default class Professional extends Vue {
   }
 
   professionalFiles() {
-    const newFiles = this.files.map((f) => {
+    const newFiles = this.files.map(f => {
       return {
         documentSubCategory: this.professionalDocument.value,
         id: f.name,
         name: f.name,
-        size: f.size,
+        size: f.size
       };
     });
     const existingFiles =

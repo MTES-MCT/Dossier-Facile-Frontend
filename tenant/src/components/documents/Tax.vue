@@ -129,7 +129,7 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 extend("is", {
   ...is,
   message: "field-required",
-  validate: (value) => !!value,
+  validate: value => !!value
 });
 
 @Component({
@@ -140,13 +140,13 @@ extend("is", {
     ValidationObserver,
     ValidationProvider,
     WarningMessage,
-    ConfirmModal,
+    ConfirmModal
   },
   computed: {
     ...mapGetters({
-      user: "userToEdit",
-    }),
-  },
+      user: "userToEdit"
+    })
+  }
 })
 export default class Tax extends Vue {
   user!: User;
@@ -221,7 +221,7 @@ export default class Tax extends Vue {
         return d.documentCategory === "TAX";
       });
       if (doc !== undefined) {
-        doc.files?.forEach((f) => {
+        doc.files?.forEach(f => {
           if (f.id) {
             this.remove(f, true);
           }
@@ -243,7 +243,7 @@ export default class Tax extends Vue {
   }
 
   addFiles(fileList: File[]) {
-    const nf = Array.from(fileList).map((f) => {
+    const nf = Array.from(fileList).map(f => {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
@@ -263,7 +263,7 @@ export default class Tax extends Vue {
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    const newFiles = this.files.filter((f) => {
+    const newFiles = this.files.filter(f => {
       return !f.id;
     });
     if (newFiles.length) {
@@ -275,7 +275,7 @@ export default class Tax extends Vue {
         return;
       }
 
-      Array.from(Array(newFiles.length).keys()).map((x) => {
+      Array.from(Array(newFiles.length).keys()).map(x => {
         const f: File = newFiles[x].file || new File([], "");
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
       });
@@ -314,13 +314,13 @@ export default class Tax extends Vue {
   }
 
   taxFiles() {
-    const newFiles = this.files.map((f) => {
+    const newFiles = this.files.map(f => {
       return {
         documentSubCategory: this.taxDocument.value,
         id: f.name,
         name: f.name,
         file: f,
-        size: f.size,
+        size: f.size
       };
     });
     const existingFiles =

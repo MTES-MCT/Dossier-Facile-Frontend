@@ -11,9 +11,9 @@ const routes: Array<RouteConfig> = [
     name: "Home",
     component: LandingPage,
     meta: {
-      title: "Accueil - DossierFacile",
+      title: "DossierFacile, le dossier de location numérique de l’État",
       description:
-        "Montez un dossier de location en béton pour trouver le logement de vos rêves. DossierFacile vous aide à constituer un dossier de location numérique de qualité"
+        "Constituez un dossier de location numérique clair, complet et cohérent pour augmenter vos chances de trouver un logement !"
     }
   },
   {
@@ -56,7 +56,9 @@ const routes: Array<RouteConfig> = [
     path: "/information",
     name: "Information",
     meta: {
-      title: "Information - DossierFacile"
+      title: "Qui sommes-nous ? - DossierFacile",
+      description:
+        "Remettre la confiance au centre de la relation entre propriétaire et locataire grâce à notre outil 100 % en ligne, simple et gratuit."
     },
     component: () =>
       import(/* webpackChunkName: "information" */ "../views/Information.vue")
@@ -76,7 +78,9 @@ const routes: Array<RouteConfig> = [
     path: "/faq",
     name: "Faq",
     meta: {
-      title: "FAQ - DossierFacile"
+      title: "FAQ - DossierFacile",
+      description:
+        "Vous rencontrez des difficultés à monter votre dossier de location ? Découvrez toutes nos solutions pour vous aider dans votre démarche"
     },
     component: () => import(/* webpackChunkName: "faq" */ "../views/Faq.vue")
   },
