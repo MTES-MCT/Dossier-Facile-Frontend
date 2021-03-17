@@ -41,8 +41,8 @@ import { Header } from "./gouvfr/header.js";
     MyHeader,
     MyFooter,
     Modal,
-    Cookies,
-  },
+    Cookies
+  }
 })
 export default class App extends Vue {
   cookieHidden = this.$cookies.isKey("accept-cookie")

@@ -303,18 +303,18 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
     RepresentativeIdentification,
     CorporationIdentification,
     OrganismCert,
-    ConfirmModal,
+    ConfirmModal
   },
   computed: {
     ...mapState({
       guarantorStep: "guarantorStep",
       guarantorSubStep: "guarantorSubStep",
-      user: "user",
+      user: "user"
     }),
     ...mapGetters({
-      guarantor: "guarantor",
-    }),
-  },
+      guarantor: "guarantor"
+    })
+  }
 })
 export default class GuarantorDocuments extends Vue {
   user!: User;
@@ -359,7 +359,7 @@ export default class GuarantorDocuments extends Vue {
   }
 
   hasDoc(docType: string) {
-    const f = this.guarantor.documents?.find((d) => {
+    const f = this.guarantor.documents?.find(d => {
       return d.documentCategory === docType;
     })?.files;
     return f && f.length > 0;
@@ -395,7 +395,7 @@ export default class GuarantorDocuments extends Vue {
   }
 
   isFinancialValid() {
-    const docs = this.guarantor.documents?.filter((d) => {
+    const docs = this.guarantor.documents?.filter(d => {
       return d.documentCategory === "FINANCIAL";
     });
     if (!docs || docs.length === 0) {
@@ -412,7 +412,7 @@ export default class GuarantorDocuments extends Vue {
   }
 
   isTaxValid() {
-    const doc = this.guarantor.documents?.find((d) => {
+    const doc = this.guarantor.documents?.find(d => {
       return d.documentCategory === "TAX";
     });
     if (!doc) {
