@@ -1,9 +1,12 @@
 import Vue from "vue";
-import VueRouter, { RouteConfig } from "vue-router";
+import VueRouter, { Route, RouteConfig } from "vue-router";
 import LandingPage from "@/views/LandingPage.vue";
 import store from "@/store";
 
 Vue.use(VueRouter);
+
+const TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
+const OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
 
 const routes: Array<RouteConfig> = [
   {
@@ -83,6 +86,32 @@ const routes: Array<RouteConfig> = [
         "Vous rencontrez des difficultés à monter votre dossier de location ? Découvrez toutes nos solutions pour vous aider dans votre démarche"
     },
     component: () => import(/* webpackChunkName: "faq" */ "../views/Faq.vue")
+  },
+  {
+    path: "/info-proprietaire",
+    redirect: () => {
+      window.location.href = `${OWNER_URL}`;
+      return "/info-proprietaire";
+    }
+  },
+  {
+    path: "/locataire",
+    redirect: () => {
+      window.location.href = `${TENANT_URL}/locataire`;
+      return "/locataire";
+    }
+  },
+  {
+    path: "/source/:source",
+    redirect: (to: Route) => {
+      const source = to.params.source;
+      const internalPartnerId = to.query.internalPartnerId.toString();
+      const firstName = to.query.firstName.toString();
+      const lastName = to.query.lastName.toString();
+      const email = to.query.email.toString();
+      window.location.href = `${TENANT_URL}/source/${source}?internalPartnerId=${internalPartnerId}&firstName=${firstName}&lastName=${lastName}&email=${email}`;
+      return "/source";
+    }
   },
   { path: "*", redirect: "/" }
 ];
