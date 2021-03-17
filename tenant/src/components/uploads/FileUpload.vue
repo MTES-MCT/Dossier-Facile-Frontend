@@ -149,13 +149,13 @@ export default class FileUpload extends Vue {
 {
   "en": {
     "send-problem": "Send error.",
-    "file-too-big": "The file is limited to 3MB",
+    "file-too-big": "The file is limited to 5MB",
     "pages": "{0} pages maximum",
     "size": " {0}MB maximum per file"
   },
   "fr": {
     "send-problem": "Problème d'envoi.",
-    "file-too-big": "La taille d'un fichier ne doit pas dépasser 3Mo",
+    "file-too-big": "La taille d'un fichier ne doit pas dépasser 5Mo",
     "pages": "{0} pages maximum",
     "size": " {0}Mo maximum par fichier"
   }
