@@ -4,7 +4,7 @@
       {{
         $t("tenantPresentation", {
           firstname: user.firstName,
-          lastname: user.lastName
+          lastname: user.lastName,
         })
       }}
     </p>
@@ -113,10 +113,7 @@
                   v-if="applicationType === 'COUPLE'"
                 >
                 </CoupleInformation>
-                <RoommatesInformation
-                  @update-roommates="updateRoommates"
-                  v-if="applicationType === 'GROUP'"
-                >
+                <RoommatesInformation v-if="applicationType === 'GROUP'">
                 </RoommatesInformation>
               </div>
             </fieldset>
@@ -144,11 +141,13 @@ import DfButton from "df-shared/src/Button/Button.vue";
 @Component({
   computed: {
     ...mapState({
-      user: "user"
+      user: "user",
     }),
     ...mapGetters({
-      roommates: "getRoommates"
-    })
+      roommates: "getRoommates",
+      coTenantAuthorize: "coTenantAuthorize",
+      spouseAuthorize: "spouseAuthorize",
+    }),
   },
   components: {
     CoupleInformation,
@@ -158,15 +157,15 @@ import DfButton from "df-shared/src/Button/Button.vue";
     BigRadio,
     SubmitButton,
     WarningMessage,
-    DfButton
-  }
+    DfButton,
+  },
 })
 export default class TenantInformationForm extends Vue {
   user!: User;
   roommates!: User[];
-  coTenantAuthorize = false;
+  coTenantAuthorize!: boolean;
   spouseEmail = "";
-  spouseAuthorize = false;
+  spouseAuthorize!: boolean;
   applicationType = "";
 
   mounted() {
@@ -193,7 +192,7 @@ export default class TenantInformationForm extends Vue {
         .filter((r: User) => {
           return r.id != this.user.id;
         })
-        .map(function(r) {
+        .map(function (r) {
           return r.email;
         });
       acceptAccess = this.coTenantAuthorize;
@@ -202,16 +201,16 @@ export default class TenantInformationForm extends Vue {
     const data = {
       applicationType: this.applicationType,
       coTenantEmail: coTenantEmails,
-      acceptAccess: acceptAccess
+      acceptAccess: acceptAccess,
     };
 
     const loader = this.$loading.show();
     this.$store
       .dispatch("setRoommates", data)
-      .then(null, error => {
+      .then(null, (error) => {
         this.$toasted.show(this.$i18n.t("error").toString(), {
           type: "error",
-          duration: 7000
+          duration: 7000,
         });
         console.dir(error);
       })
@@ -233,13 +232,8 @@ export default class TenantInformationForm extends Vue {
     );
   }
 
-  updateCouple(email: string, authorize: boolean) {
+  updateCouple(email: string) {
     this.spouseEmail = email;
-    this.spouseAuthorize = authorize;
-  }
-
-  updateRoommates(authorize: boolean) {
-    this.coTenantAuthorize = authorize;
   }
 
   isOwner() {
@@ -286,11 +280,11 @@ export default class TenantInformationForm extends Vue {
 }
 
 .icon-container {
-  border-radius: 15%;
+  border-radius: 0.5rem;
   background-color: var(--tertiary);
   color: white;
-  height: 50px;
-  width: 70px;
+  height: 5rem;
+  width: 6rem;
 
   display: flex;
   justify-content: center;
