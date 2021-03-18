@@ -59,14 +59,14 @@ import ValidateFile from "@/components/ValidateFile.vue";
     NameInformationForm,
     UploadDocuments,
     GuarantorDocuments,
-    ValidateFile
+    ValidateFile,
   },
   computed: {
     ...mapState({
       user: "user",
-      tenantStep: "tenantStep"
-    })
-  }
+      tenantStep: "tenantStep",
+    }),
+  },
 })
 export default class Profile extends Vue {
   public tenantStep!: number;
@@ -112,7 +112,7 @@ export default class Profile extends Vue {
   font-size: 1.5rem;
 }
 .bg-grey {
-  background-color: var(--g100);
+  background-color: var(--bf100-g750);
 }
 </style>
 

@@ -84,32 +84,33 @@ import { mapGetters, mapState } from "vuex";
 
 extend("email", {
   ...email,
-  message: "email-not-valid"
+  message: "email-not-valid",
 });
 
 extend("is", {
   ...is,
   message: "field-required",
-  validate: value => !!value
+  validate: (value) => !!value,
 });
 
 @Component({
   components: {
     ValidationProvider,
-    ValidationObserver
+    ValidationObserver,
   },
   computed: {
     ...mapState({
-      user: "user"
+      user: "user",
     }),
     ...mapGetters({
-      roommates: "getRoommates"
-    })
-  }
+      roommates: "getRoommates",
+      authorize: "coTenantAuthorize",
+    }),
+  },
 })
 export default class RoommatesInformation extends Vue {
   user!: User;
-  authorize = false;
+  authorize!: boolean;
   roommates!: User[];
 
   mounted() {
@@ -128,7 +129,7 @@ export default class RoommatesInformation extends Vue {
   }
 
   updateAuthorize() {
-    this.$emit("update-roommates", this.authorize);
+    this.$store.commit("updateCoTenantAuthorize", this.authorize);
   }
 
   updateRoommates() {
