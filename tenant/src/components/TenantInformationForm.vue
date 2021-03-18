@@ -320,7 +320,7 @@ export default class TenantInformationForm extends Vue {
 "couple": "En couple",
 "roommate": "En colocation",
 "remove-roommates": "Attention, cela aura pour effet de dissocier votre dossier de vos colocataires",
-"remove-couple": "Attention, cela aura pour effet de dissocier votre dossier de ceux de votre conjoint·e",
+"remove-couple": "Attention, cela aura pour effet de dissocier votre dossier de celui de votre conjoint·e",
 "error": "Une erreur est survenue",
 "acceptAuthorSpouse": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
 "acceptAuthorCoTenant": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",
