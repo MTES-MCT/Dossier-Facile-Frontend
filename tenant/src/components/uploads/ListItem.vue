@@ -49,8 +49,8 @@ import Modal from "df-shared/src/components/Modal.vue";
   components: {
     Progress,
     ShowDoc,
-    Modal,
-  },
+    Modal
+  }
 })
 export default class ListItem extends Vue {
   @Prop({ default: "" }) file!: DfFile;

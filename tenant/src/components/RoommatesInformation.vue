@@ -35,6 +35,7 @@
               </validation-provider>
               <div class="rf-col-2">
                 <button
+                  type="button"
                   class="rf-btn rf-btn--icon rf-btn--secondary"
                   :title="$t('delete')"
                   :disabled="user.apartmentSharing.tenants.length <= 1"
@@ -84,29 +85,29 @@ import { mapGetters, mapState } from "vuex";
 
 extend("email", {
   ...email,
-  message: "email-not-valid",
+  message: "email-not-valid"
 });
 
 extend("is", {
   ...is,
   message: "field-required",
-  validate: (value) => !!value,
+  validate: value => !!value
 });
 
 @Component({
   components: {
     ValidationProvider,
-    ValidationObserver,
+    ValidationObserver
   },
   computed: {
     ...mapState({
-      user: "user",
+      user: "user"
     }),
     ...mapGetters({
       roommates: "getRoommates",
-      coTenantAuthorize: "coTenantAuthorize",
-    }),
-  },
+      coTenantAuthorize: "coTenantAuthorize"
+    })
+  }
 })
 export default class RoommatesInformation extends Vue {
   user!: User;

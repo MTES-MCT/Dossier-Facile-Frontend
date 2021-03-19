@@ -300,7 +300,7 @@
                 class="message"
                 :class="{
                   tenant: m.typeMessage === 'FROM_TENANT',
-                  operator: m.typeMessage === 'TO_TENANT',
+                  operator: m.typeMessage === 'TO_TENANT'
                 }"
               >
                 <p v-html="m.messageBody"></p>
@@ -378,14 +378,14 @@ import ViewEditBtn from "../components/ViewEditBtn.vue";
     PdfViewer,
     ShowDoc,
     FileStatusIcon,
-    ViewEditBtn,
+    ViewEditBtn
   },
   computed: {
     ...mapState({
       user: "user",
-      messageList: "messageList",
-    }),
-  },
+      messageList: "messageList"
+    })
+  }
 })
 export default class Messages extends Vue {
   user!: User;
