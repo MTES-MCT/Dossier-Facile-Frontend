@@ -84,39 +84,41 @@ import { mapGetters, mapState } from "vuex";
 
 extend("email", {
   ...email,
-  message: "email-not-valid"
+  message: "email-not-valid",
 });
 
 extend("is", {
   ...is,
   message: "field-required",
-  validate: value => !!value
+  validate: (value) => !!value,
 });
 
 @Component({
   components: {
     ValidationProvider,
-    ValidationObserver
+    ValidationObserver,
   },
   computed: {
     ...mapState({
-      user: "user"
+      user: "user",
     }),
     ...mapGetters({
       roommates: "getRoommates",
-      authorize: "coTenantAuthorize"
-    })
-  }
+      coTenantAuthorize: "coTenantAuthorize",
+    }),
+  },
 })
 export default class RoommatesInformation extends Vue {
   user!: User;
-  authorize!: boolean;
+  authorize = false;
+  coTenantAuthorize!: boolean;
   roommates!: User[];
 
   mounted() {
     if ((this.user.apartmentSharing?.tenants.length || 0) < 2) {
       this.$store.commit("createRoommates");
     }
+    this.authorize = this.coTenantAuthorize;
   }
 
   addMail() {
