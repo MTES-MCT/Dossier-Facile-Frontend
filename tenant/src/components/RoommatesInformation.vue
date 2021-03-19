@@ -118,6 +118,7 @@ export default class RoommatesInformation extends Vue {
     if ((this.user.apartmentSharing?.tenants.length || 0) < 2) {
       this.$store.commit("createRoommates");
     }
+    this.authorize = this.coTenantAuthorize;
   }
 
   addMail() {
