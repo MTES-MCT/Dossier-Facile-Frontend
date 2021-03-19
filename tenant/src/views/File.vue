@@ -279,8 +279,8 @@ export default class File extends Vue {
   "fr": {
     "title": "Dossier locataire de {0}",
     "description": "{0} {1}",
-    "guarant": "Garantie",
-    "personnal-file": "Pièces personnelles",
+    "guarant": "Pièces du garant",
+    "personnal-file": "Pièces du candidat",
     "identification": "Pièce d’identité",
     "residency": "Justificatif de domicile",
     "professional": "Justificatif de situation professionnelle",
@@ -293,7 +293,7 @@ export default class File extends Vue {
     "GROUP": "En colocation",
     "no-income": "sans revenu",
     "income": "avec un revenu net mensuel de {0}€",
-    "organism": "Organisme",
+    "organism": "Certificat de l'organisme",
     "identification-legal-person": "Identification de la personne morale"
   }
 }
