@@ -4,7 +4,7 @@
       {{
         $t("tenantPresentation", {
           firstname: user.firstName,
-          lastname: user.lastName,
+          lastname: user.lastName
         })
       }}
     </p>
@@ -141,13 +141,13 @@ import DfButton from "df-shared/src/Button/Button.vue";
 @Component({
   computed: {
     ...mapState({
-      user: "user",
+      user: "user"
     }),
     ...mapGetters({
       roommates: "getRoommates",
       coTenantAuthorize: "coTenantAuthorize",
-      spouseAuthorize: "spouseAuthorize",
-    }),
+      spouseAuthorize: "spouseAuthorize"
+    })
   },
   components: {
     CoupleInformation,
@@ -157,8 +157,8 @@ import DfButton from "df-shared/src/Button/Button.vue";
     BigRadio,
     SubmitButton,
     WarningMessage,
-    DfButton,
-  },
+    DfButton
+  }
 })
 export default class TenantInformationForm extends Vue {
   user!: User;
@@ -192,7 +192,7 @@ export default class TenantInformationForm extends Vue {
         .filter((r: User) => {
           return r.id != this.user.id;
         })
-        .map(function (r) {
+        .map(function(r) {
           return r.email;
         });
       acceptAccess = this.coTenantAuthorize;
@@ -201,16 +201,16 @@ export default class TenantInformationForm extends Vue {
     const data = {
       applicationType: this.applicationType,
       coTenantEmail: coTenantEmails,
-      acceptAccess: acceptAccess,
+      acceptAccess: acceptAccess
     };
 
     const loader = this.$loading.show();
     this.$store
       .dispatch("setRoommates", data)
-      .then(null, (error) => {
+      .then(null, error => {
         this.$toasted.show(this.$i18n.t("error").toString(), {
           type: "error",
-          duration: 7000,
+          duration: 7000
         });
         console.dir(error);
       })
