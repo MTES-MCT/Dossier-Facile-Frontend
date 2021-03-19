@@ -33,12 +33,12 @@ export default class BigRadio extends Vue {
   background-color: var(--w);
 
   &:hover {
-    border: 1px solid var(--tertiary);
+    border: 1px solid var(--primary);
     background-color: var(--bd300);
   }
 
   &.selected {
-    border: 1px solid var(--tertiary);
+    border: 1px solid var(--primary);
     background-color: var(--bd300);
     box-shadow: 0 0 0.666em rgba(0, 0, 0, 0.25);
   }
