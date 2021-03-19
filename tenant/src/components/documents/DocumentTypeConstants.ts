@@ -130,7 +130,7 @@ export const DocumentTypeConstants = {
         "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, " +
         "une copie de la pièce d’identité et un justificatif de domicile de mon " +
         "hébergeant</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne " +
-        "sur le site service-public.fr",
+        "sur le site <a href='https://service-public.fr' target='_blank'>service-public.fr</a>",
       acceptedProofs: [
         "Attestation sur l’honneur du parent <b>datée et signée</b> indiquant que le candidat à la location réside à son domicile, accompagnée d’une pièce d’identité et d’un justificatif de domicile du parent (une simple facture suffit)"
       ],
@@ -144,7 +144,7 @@ export const DocumentTypeConstants = {
         "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, " +
         "une copie de la pièce d’identité et un justificatif de domicile du " +
         "parent</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne sur " +
-        "le site service-public.fr",
+        "le site <a href='https://service-public.fr' target='_blank'>service-public.fr</a>",
       acceptedProofs: [
         "Attestation sur l’honneur de l’hébergeant <b>datée de moins de trois mois et signée</b> indiquant que le candidat à la location réside à son domicile, accompagnée d’une pièce d’identité et d’un justificatif de domicile de l’hébergeant (une simple facture suffit)",
         "Attestation d’élection de domicile <b>datée de moins de trois mois et signée</b> de l’organisme d’hébergement (hébergement d’urgence, placement…) indiquant l’adresse de l’hébergement (téléchargeable sur le site <a target='_blank' href='https://www.service-public.fr/simulateur/calcul/16030'>https://www.service-public.fr/simulateur/calcul/16030</a> ) "
