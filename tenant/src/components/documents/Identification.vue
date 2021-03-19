@@ -219,13 +219,13 @@ export default class Identification extends Vue {
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         this.files = [];
         Vue.toasted.global.save_success();
+        this.$store.dispatch("loadUser");
       })
       .catch(() => {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
         Vue.toasted.global.save_failed();
       })
       .finally(() => {
-        this.$store.dispatch("loadUser");
         loader.hide();
       });
   }
