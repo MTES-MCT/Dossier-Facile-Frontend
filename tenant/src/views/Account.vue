@@ -542,12 +542,20 @@
               <div class="rf-grid-row rf-grid-row--gutters">
                 <div class="rf-col">
                   <div class="bg-white">
-                    <img class="visale-img" src="../assets/visale_grey.webp" />
+                    <img
+                      alt="logo visale"
+                      class="visale-img"
+                      src="../assets/visale_grey.webp"
+                    />
                   </div>
                 </div>
                 <div class="rf-col">
                   <div class="bg-white">
-                    <img class="anil-img" src="../assets/anil_grey.webp" />
+                    <img
+                      alt="logo anil"
+                      class="anil-img"
+                      src="../assets/anil_grey.webp"
+                    />
                   </div>
                 </div>
               </div>
