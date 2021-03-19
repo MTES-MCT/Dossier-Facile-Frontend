@@ -27,13 +27,13 @@
 
                 <span class="spacer"></span>
                 <DfButton
-                  v-if="user.status === 'VALIDATED'"
                   @on-click="copyLink()"
                   primary="true"
                   size="small"
+                  :disabled="!canCopyLink()"
                   >{{ $t("copy-link") }}</DfButton
                 >
-                <div v-if="user.status === 'VALIDATED'" class="grp">
+                <div class="grp">
                   <input id="tokenLink" type="hidden" :value="getToken()" />
                   <button
                     class="rf-btn grp-btn"
@@ -43,6 +43,7 @@
                     }"
                     title="Copy"
                     @click="radioVisible = !radioVisible"
+                    :disabled="!canCopyLink()"
                   >
                     <span class="sr-only"> Copy </span>
                   </button>
@@ -800,6 +801,14 @@ export default class Account extends Vue {
       return this.$i18n.t("no-income");
     }
     return this.$i18n.t("income", [sum]);
+  }
+
+  canCopyLink() {
+    return (
+      this.user.status === "VALIDATED" &&
+      this.user.apartmentSharing?.tokenPublic !== undefined &&
+      this.user.apartmentSharing?.tokenPublic !== ""
+    );
   }
 }
 </script>
