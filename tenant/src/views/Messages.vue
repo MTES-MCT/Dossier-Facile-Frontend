@@ -8,21 +8,12 @@
               <section>
                 <div class="row" v-if="hasDoc('IDENTIFICATION')">
                   <div class="subtitle">Pièce d’identité</div>
-                  <div class="row">
-                    <div
-                      class="edit-step-btn"
-                      @click="openDoc('IDENTIFICATION')"
-                      v-if="hasFile('IDENTIFICATION')"
-                    >
-                      <span class="color--primary material-icons md-18"
-                        >visibility</span
-                      >
-                    </div>
-                    <div class="edit-step-btn" @click="setTenantStep(1)">
-                      <span class="color--primary material-icons md-18"
-                        >edit</span
-                      >
-                    </div>
+                  <div class="row align--center">
+                    <ViewEditBtn
+                      :canView="hasFile('IDENTIFICATION')"
+                      @view="openDoc('IDENTIFICATION')"
+                      @edit="setTenantStep(1)"
+                    ></ViewEditBtn>
                     <FileStatusIcon
                       :status="getStatus('IDENTIFICATION')"
                     ></FileStatusIcon>
@@ -30,21 +21,12 @@
                 </div>
                 <div class="row" v-if="hasDoc('RESIDENCY')">
                   <div class="subtitle">Justificatif de domicile</div>
-                  <div class="row">
-                    <div
-                      class="edit-step-btn"
-                      @click="openDoc('RESIDENCY')"
-                      v-if="hasFile('RESIDENCY')"
-                    >
-                      <span class="color--primary material-icons md-18"
-                        >visibility</span
-                      >
-                    </div>
-                    <div class="edit-step-btn" @click="setTenantStep(2)">
-                      <span class="color--primary material-icons md-18"
-                        >edit</span
-                      >
-                    </div>
+                  <div class="row align--center">
+                    <ViewEditBtn
+                      :canView="hasFile('RESIDENCY')"
+                      @view="openDoc('RESIDENCY')"
+                      @edit="setTenantStep(2)"
+                    ></ViewEditBtn>
                     <FileStatusIcon
                       :status="getStatus('RESIDENCY')"
                     ></FileStatusIcon>
@@ -54,21 +36,12 @@
                   <div class="subtitle">
                     Justificatif de situation professionnelle
                   </div>
-                  <div class="row">
-                    <div
-                      class="edit-step-btn"
-                      @click="openDoc('PROFESSIONAL')"
-                      v-if="hasFile('PROFESSIONAL')"
-                    >
-                      <span class="color--primary material-icons md-18"
-                        >visibility</span
-                      >
-                    </div>
-                    <div class="edit-step-btn" @click="setTenantStep(3)">
-                      <span class="color--primary material-icons md-18"
-                        >edit</span
-                      >
-                    </div>
+                  <div class="row align--center">
+                    <ViewEditBtn
+                      :canView="hasFile('PROFESSIONAL')"
+                      @view="openDoc('PROFESSIONAL')"
+                      @edit="setTenantStep(3)"
+                    ></ViewEditBtn>
                     <FileStatusIcon
                       :status="getStatus('PROFESSIONAL')"
                     ></FileStatusIcon>
@@ -76,21 +49,12 @@
                 </div>
                 <div class="row" v-if="hasDoc('FINANCIAL')">
                   <div class="subtitle">Justificatif de ressources</div>
-                  <div class="row">
-                    <div
-                      class="edit-step-btn"
-                      @click="openDoc('FINANCIAL')"
-                      v-if="hasFile('FINANCIAL')"
-                    >
-                      <span class="color--primary material-icons md-18"
-                        >visibility</span
-                      >
-                    </div>
-                    <div class="edit-step-btn" @click="setTenantStep(4)">
-                      <span class="color--primary material-icons md-18"
-                        >edit</span
-                      >
-                    </div>
+                  <div class="row align--center">
+                    <ViewEditBtn
+                      :canView="hasFile('FINANCIAL')"
+                      @view="openDoc('FINANCIAL')"
+                      @edit="setTenantStep(4)"
+                    ></ViewEditBtn>
                     <FileStatusIcon
                       :status="getStatus('FINANCIAL')"
                     ></FileStatusIcon>
@@ -98,21 +62,12 @@
                 </div>
                 <div class="row" v-if="hasDoc('TAX')">
                   <div class="subtitle">Avis d’imposition</div>
-                  <div class="row">
-                    <div
-                      class="edit-step-btn"
-                      @click="openDoc('TAX')"
-                      v-if="hasFile('TAX')"
-                    >
-                      <span class="color--primary material-icons md-18"
-                        >visibility</span
-                      >
-                    </div>
-                    <div class="edit-step-btn" @click="setTenantStep(5)">
-                      <span class="color--primary material-icons md-18"
-                        >edit</span
-                      >
-                    </div>
+                  <div class="row align--center">
+                    <ViewEditBtn
+                      :canView="hasFile('TAX')"
+                      @view="openDoc('TAX')"
+                      @edit="setTenantStep(5)"
+                    ></ViewEditBtn>
                     <FileStatusIcon :status="getStatus('TAX')"></FileStatusIcon>
                   </div>
                 </div>
@@ -345,7 +300,7 @@
                 class="message"
                 :class="{
                   tenant: m.typeMessage === 'FROM_TENANT',
-                  operator: m.typeMessage === 'TO_TENANT'
+                  operator: m.typeMessage === 'TO_TENANT',
                 }"
               >
                 <p v-html="m.messageBody"></p>
@@ -423,14 +378,14 @@ import ViewEditBtn from "../components/ViewEditBtn.vue";
     PdfViewer,
     ShowDoc,
     FileStatusIcon,
-    ViewEditBtn
+    ViewEditBtn,
   },
   computed: {
     ...mapState({
       user: "user",
-      messageList: "messageList"
-    })
-  }
+      messageList: "messageList",
+    }),
+  },
 })
 export default class Messages extends Vue {
   user!: User;
@@ -565,6 +520,10 @@ export default class Messages extends Vue {
 
 .operator {
   max-width: 90%;
+}
+
+.align--center {
+  align-items: center;
 }
 </style>
 
