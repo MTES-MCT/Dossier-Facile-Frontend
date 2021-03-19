@@ -6,7 +6,9 @@
       @click="view"
       v-if="canView"
     >
-      <span class="color--primary material-icons md-18">visibility</span>
+      <span class="color--primary material-icons-outlined md-18"
+        >visibility</span
+      >
     </button>
     <button
       class="rf-btn rf-btn--secondary icon-btn"
@@ -51,7 +53,8 @@ export default class ViewEditBtn extends Vue {
   overflow: hidden;
 }
 
-.material-icons {
+.material-icons,
+.material-icons-outlined {
   border-radius: 50%;
   --color-hover: var(--block-color-hover);
   --color-active: var(--block-color-active);
