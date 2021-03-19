@@ -59,14 +59,14 @@ import ValidateFile from "@/components/ValidateFile.vue";
     NameInformationForm,
     UploadDocuments,
     GuarantorDocuments,
-    ValidateFile,
+    ValidateFile
   },
   computed: {
     ...mapState({
       user: "user",
-      tenantStep: "tenantStep",
-    }),
-  },
+      tenantStep: "tenantStep"
+    })
+  }
 })
 export default class Profile extends Vue {
   public tenantStep!: number;

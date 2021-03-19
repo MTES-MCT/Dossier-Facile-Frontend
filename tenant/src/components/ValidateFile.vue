@@ -150,7 +150,7 @@ export default class ValidateFile extends Vue {
   }
 
   canValidate() {
-    return !this.declaration;
+    return !(this.declaration && (!this.hasGuarantors() || this.declaration2));
   }
 
   hasGuarantors() {
