@@ -376,15 +376,15 @@ export default class GuarantorFinancial extends Vue {
         f.files = [];
         f.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         Vue.toasted.global.save_success();
+        this.$store.dispatch("loadUser").then(() => {
+          this.initialize();
+        });
       })
       .catch(() => {
         f.fileUploadStatus = UploadStatus.STATUS_FAILED;
         Vue.toasted.global.save_failed();
       })
       .finally(() => {
-        this.$store.dispatch("loadUser").then(() => {
-          this.initialize();
-        });
         loader.hide();
       });
   }

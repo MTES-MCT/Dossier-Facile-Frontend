@@ -150,6 +150,7 @@ export default class CorporationIdentification extends Vue {
       .then(() => {
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
+        this.$store.dispatch("loadUser");
         Vue.toasted.global.save_success();
       })
       .catch(() => {
@@ -157,7 +158,6 @@ export default class CorporationIdentification extends Vue {
         Vue.toasted.global.save_failed();
       })
       .finally(() => {
-        this.$store.dispatch("loadUser");
         loader.hide();
       });
   }
