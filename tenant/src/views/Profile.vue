@@ -112,7 +112,7 @@ export default class Profile extends Vue {
   font-size: 1.5rem;
 }
 .bg-grey {
-  background-color: var(--bf100-g750);
+  background-color: var(--g100);
 }
 </style>
 
