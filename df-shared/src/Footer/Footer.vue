@@ -7,7 +7,11 @@
             <span class="rf-logo__title">république <br />française</span>
           </a>
           <a href="#">
-            <img class="footer-logo" src="./logo-betagouvfr.svg" />
+            <img
+              alt="footer logo dossierfacile"
+              class="footer-logo"
+              src="./logo-betagouvfr.svg"
+            />
           </a>
         </div>
         <div class="rf-footer__content">
@@ -47,7 +51,10 @@
             >
           </li>
           <li class="rf-footer__bottom-item">
-            <a class="rf-footer__bottom-link" :href="`${VUE_APP_MAIN_URL}/faq?lang=${$i18n.locale}`">
+            <a
+              class="rf-footer__bottom-link"
+              :href="`${VUE_APP_MAIN_URL}/faq?lang=${$i18n.locale}`"
+            >
               {{ $t("faq") }}
             </a>
           </li>
@@ -143,7 +150,6 @@ export default class MyFooter extends Vue {
     margin-right: 0;
   }
 }
-
 </style>
 
 <i18n>

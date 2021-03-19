@@ -28,7 +28,7 @@
         <div class="rf-grid-row">
           <div class="rf-col-md-4 rf-grid-col rf-p-2w">
             <div>
-              <img src="../assets/icons/approval.svg" class="s1-icons" />
+              <img src="../assets/icons/approval.svg" class="s1-icons" alt="" />
             </div>
             <h3 class="rf-h3 color--secondary">{{ $t("s1.h1") }}</h3>
             <p class="rf-mt-0">
@@ -37,7 +37,7 @@
           </div>
           <div class="rf-col-md-4 rf-grid-col rf-p-2w">
             <div>
-              <img src="../assets/icons/sports.svg" class="s1-icons" />
+              <img src="../assets/icons/sports.svg" class="s1-icons" alt="" />
             </div>
             <h3 class="rf-h3 color--secondary">{{ $t("s1.h2") }}</h3>
             <p class="rf-mt-0">
@@ -46,7 +46,7 @@
           </div>
           <div class="rf-col-md-4 rf-grid-col rf-p-2w">
             <div>
-              <img src="../assets/icons/reading.svg" class="s1-icons" />
+              <img src="../assets/icons/reading.svg" class="s1-icons" alt="" />
             </div>
             <h3 class="rf-h3 color--secondary">{{ $t("s1.h3") }}</h3>
             <p class="rf-mt-0">
@@ -78,7 +78,7 @@
             <p>{{ $t("s2.p3") }}</p>
           </div>
           <div class="rf-col-md-6">
-            <img src="../assets/icons/justif.webp" />
+            <img src="../assets/icons/justif.webp" alt="" />
           </div>
         </div>
         <a
