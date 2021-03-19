@@ -1,19 +1,19 @@
 <template>
   <div style="display: flex">
     <button
-      class="rf-btn rf-btn--secondary rf-fi-eye-line"
+      class="rf-btn rf-btn--secondary icon-btn"
       title="View"
       @click="view"
       v-if="canView"
     >
-      <span class="sr-only"> Edit </span>
+      <span class="color--primary material-icons md-18">visibility</span>
     </button>
     <button
-      class="rf-btn rf-btn--secondary rf-fi-edit-line"
+      class="rf-btn rf-btn--secondary icon-btn"
       title="Edit"
       @click="edit"
     >
-      <span class="sr-only"> Edit </span>
+      <span class="color--primary material-icons md-18">edit</span>
     </button>
   </div>
 </template>
@@ -36,7 +36,25 @@ export default class ViewEditBtn extends Vue {
 
 <style scoped lang="scss">
 .rf-btn {
-  border-radius: 50%;
   box-shadow: none;
+  background-color: none;
+  --color-hover: none;
+  --color-active: none;
+  padding: 0;
+}
+
+.icon-btn {
+  display: block;
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.material-icons {
+  border-radius: 50%;
+  --color-hover: var(--block-color-hover);
+  --color-active: var(--block-color-active);
+  padding: 0.25rem;
 }
 </style>
