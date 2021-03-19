@@ -113,6 +113,15 @@ const routes: Array<RouteConfig> = [
       return "/source";
     }
   },
+  {
+    path: "/tenants_files/:path/:token",
+    redirect: (to: Route) => {
+      const token = to.params.token;
+      const path = to.params.path;
+      window.location.href = `https://old.dossierfacile.fr/tenants_files/${path}/${token}`;
+      return `https://old.dossierfacile.fr/tenants_files/${path}/${token}`;
+    }
+  },
   { path: "*", redirect: "/" }
 ];
 

@@ -4,7 +4,7 @@
       <div class="rf-container">
         <div class="rf-col-md-8">
           <div class="rf-grid-col">
-            <h1 class="rf-h1 color--white">
+            <h1 :class="getH1Class()" class="rf-h1 color--white">
               {{ $t("s0.title") }}
             </h1>
             <p class="text-bold color--white">
@@ -155,6 +155,10 @@ import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class LandingPage extends Vue {
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
+
+  getH1Class() {
+    return window.innerWidth < 992 ? "rf-h2" : "rf-h1";
+  }
 }
 </script>
 
