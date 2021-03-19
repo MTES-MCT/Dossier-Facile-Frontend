@@ -93,7 +93,7 @@ export default class Profile extends Vue {
 
 .step-number {
   padding: 1px;
-  background-color: var(--tertiary);
+  background-color: var(--primary);
   color: white;
   margin: 0 5px;
   border-radius: 50%;
@@ -112,7 +112,7 @@ export default class Profile extends Vue {
   font-size: 1.5rem;
 }
 .bg-grey {
-  background-color: var(--bf100-g750);
+  background-color: var(--g100);
 }
 </style>
 

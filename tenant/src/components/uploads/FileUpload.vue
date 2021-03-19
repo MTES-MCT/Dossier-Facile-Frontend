@@ -112,7 +112,7 @@ export default class FileUpload extends Vue {
 
 <style scoped lang="scss">
 .dropbox {
-  outline: 2px dashed var(--tertiary);
+  outline: 2px dashed var(--primary);
   outline-offset: -10px;
   background-color: var(--g200);
   padding: 10px 10px;
