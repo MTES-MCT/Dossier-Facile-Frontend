@@ -113,10 +113,7 @@
                   v-if="applicationType === 'COUPLE'"
                 >
                 </CoupleInformation>
-                <RoommatesInformation
-                  @update-roommates="updateRoommates"
-                  v-if="applicationType === 'GROUP'"
-                >
+                <RoommatesInformation v-if="applicationType === 'GROUP'">
                 </RoommatesInformation>
               </div>
             </fieldset>
@@ -147,7 +144,9 @@ import DfButton from "df-shared/src/Button/Button.vue";
       user: "user"
     }),
     ...mapGetters({
-      roommates: "getRoommates"
+      roommates: "getRoommates",
+      coTenantAuthorize: "coTenantAuthorize",
+      spouseAuthorize: "spouseAuthorize"
     })
   },
   components: {
@@ -164,9 +163,9 @@ import DfButton from "df-shared/src/Button/Button.vue";
 export default class TenantInformationForm extends Vue {
   user!: User;
   roommates!: User[];
-  coTenantAuthorize = false;
+  coTenantAuthorize!: boolean;
   spouseEmail = "";
-  spouseAuthorize = false;
+  spouseAuthorize!: boolean;
   applicationType = "";
 
   mounted() {
@@ -233,13 +232,8 @@ export default class TenantInformationForm extends Vue {
     );
   }
 
-  updateCouple(email: string, authorize: boolean) {
+  updateCouple(email: string) {
     this.spouseEmail = email;
-    this.spouseAuthorize = authorize;
-  }
-
-  updateRoommates(authorize: boolean) {
-    this.coTenantAuthorize = authorize;
   }
 
   isOwner() {
@@ -279,18 +273,18 @@ export default class TenantInformationForm extends Vue {
 
 .selected {
   .icon-container {
-    color: var(--tertiary);
-    border: 1px solid var(--tertiary);
+    color: var(--primary);
+    border: 1px solid var(--primary);
     background-color: var(--bd300);
   }
 }
 
 .icon-container {
-  border-radius: 15%;
-  background-color: var(--tertiary);
+  border-radius: 0.5rem;
+  background-color: var(--primary);
   color: white;
-  height: 50px;
-  width: 70px;
+  height: 5rem;
+  width: 6rem;
 
   display: flex;
   justify-content: center;
@@ -326,7 +320,7 @@ export default class TenantInformationForm extends Vue {
 "couple": "En couple",
 "roommate": "En colocation",
 "remove-roommates": "Attention, cela aura pour effet de dissocier votre dossier de vos colocataires",
-"remove-couple": "Attention, cela aura pour effet de dissocier votre dossier de ceux de votre conjoint·e",
+"remove-couple": "Attention, cela aura pour effet de dissocier votre dossier de celui de votre conjoint·e",
 "error": "Une erreur est survenue",
 "acceptAuthorSpouse": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
 "acceptAuthorCoTenant": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",

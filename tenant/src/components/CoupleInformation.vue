@@ -35,7 +35,7 @@
                 id="authorize"
                 value="false"
                 v-model="authorize"
-                @change="updateCouple()"
+                @change="updateAuthorize()"
               />
               <label for="authorize">{{ $t("acceptAuthor") }}</label>
               <span class="rf-error-text" v-if="errors[0]">{{
@@ -54,7 +54,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
 import { email, is } from "vee-validate/dist/rules";
-import { mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
 
 extend("email", {
@@ -76,12 +76,16 @@ extend("is", {
   computed: {
     ...mapState({
       user: "user"
+    }),
+    ...mapGetters({
+      spouseAuthorize: "spouseAuthorize"
     })
   }
 })
 export default class CoupleInformation extends Vue {
   coupleMail = "";
   authorize = false;
+  spouseAuthorize!: boolean;
 
   user!: User;
 
@@ -92,10 +96,15 @@ export default class CoupleInformation extends Vue {
           return t.email != this.user.email;
         })?.email || "";
     }
+    this.authorize = this.spouseAuthorize;
   }
 
   updateCouple() {
-    this.$emit("update-couple", this.coupleMail, this.authorize);
+    this.$emit("update-couple", this.coupleMail);
+  }
+
+  updateAuthorize() {
+    this.$store.commit("updateCoupleAuthorize", this.authorize);
   }
 }
 </script>

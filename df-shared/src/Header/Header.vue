@@ -11,12 +11,15 @@
     </div>
     <div class="rf-header__navbar">
       <div class="rf-service">
-        <a class="rf-service__title" title="Dossier Facile"
-        :href="`/?lang=${$i18n.locale}`">
+        <a
+          class="rf-service__title"
+          title="Dossier Facile"
+          :href="`/?lang=${$i18n.locale}`"
+        >
           <img
             class="logo"
             src="./logo_dossierfacile.webp"
-            alt="Dossier Facile"
+            alt="logo Dossier Facile"
           />
         </a>
       </div>
@@ -26,7 +29,7 @@
         <ul class="rf-shortcuts__list">
           <li class="rf-shortcuts__item" v-if="loggedIn">
             <DfButton size="small" @on-click="onLogout">
-              {{$t('logout')}}
+              {{ $t("logout") }}
             </DfButton>
           </li>
           <li class="rf-shortcuts__item" v-if="!loggedIn">
@@ -36,15 +39,12 @@
               size="small"
               @on-click="onCreateTenant"
             >
-              {{$t('signup')}}
+              {{ $t("signup") }}
             </DfButton>
           </li>
           <li class="rf-shortcuts__item" v-if="!loggedIn">
-            <DfButton
-              size="small"
-              @on-click="onCreateOwner"
-            >
-              {{$t('owner')}}
+            <DfButton size="small" @on-click="onCreateOwner">
+              {{ $t("owner") }}
             </DfButton>
           </li>
           <li class="rf-shortcuts__item">
@@ -68,8 +68,8 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component({
   components: {
-    DfButton
-  }
+    DfButton,
+  },
 })
 export default class MyHeader extends Vue {
   @Prop({ default: false }) loggedIn?: boolean;

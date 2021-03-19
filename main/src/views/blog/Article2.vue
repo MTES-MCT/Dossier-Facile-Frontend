@@ -22,7 +22,7 @@
                 les documents nécessaires sans tomber dans le désordre d’un pdf
                 de cinquante pages ? Existe-t-il un outil facile et gratuit ?
               </p>
-              <img alt="Image" src="../../assets/images/blog-article2.webp" />
+              <img alt="" src="../../assets/images/blog-article2.webp" />
               <p>
                 Toute la difficulté est ici de rester le plus simple possible.
                 <b>
@@ -88,9 +88,7 @@
                 en couple, vous devrez indiquer votre situation professionnelle
                 et votre salaire
               </p>
-              <p>
-                Tour à tour, vous rentrerez :
-              </p>
+              <p>Tour à tour, vous rentrerez :</p>
               <ul>
                 <li>votre pièce d’identité</li>
                 <li>

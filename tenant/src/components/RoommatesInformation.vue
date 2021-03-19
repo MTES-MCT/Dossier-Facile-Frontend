@@ -35,6 +35,7 @@
               </validation-provider>
               <div class="rf-col-2">
                 <button
+                  type="button"
                   class="rf-btn rf-btn--icon rf-btn--secondary"
                   :title="$t('delete')"
                   :disabled="user.apartmentSharing.tenants.length <= 1"
@@ -103,19 +104,22 @@ extend("is", {
       user: "user"
     }),
     ...mapGetters({
-      roommates: "getRoommates"
+      roommates: "getRoommates",
+      coTenantAuthorize: "coTenantAuthorize"
     })
   }
 })
 export default class RoommatesInformation extends Vue {
   user!: User;
   authorize = false;
+  coTenantAuthorize!: boolean;
   roommates!: User[];
 
   mounted() {
     if ((this.user.apartmentSharing?.tenants.length || 0) < 2) {
       this.$store.commit("createRoommates");
     }
+    this.authorize = this.coTenantAuthorize;
   }
 
   addMail() {
@@ -128,7 +132,7 @@ export default class RoommatesInformation extends Vue {
   }
 
   updateAuthorize() {
-    this.$emit("update-roommates", this.authorize);
+    this.$store.commit("updateCoTenantAuthorize", this.authorize);
   }
 
   updateRoommates() {

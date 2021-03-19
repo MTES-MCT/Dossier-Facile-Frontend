@@ -24,21 +24,21 @@ export default class BigRadio extends Vue {
 
 <style scoped lang="scss">
 .br {
-  height: 9rem;
-  width: 8rem;
+  height: 12rem;
+  width: 10rem;
   cursor: pointer;
-  border-radius: 10%;
+  border-radius: 0.8rem;
   text-align: center;
   border: 1px solid var(--g300);
   background-color: var(--w);
 
   &:hover {
-    border: 1px solid var(--tertiary);
+    border: 1px solid var(--primary);
     background-color: var(--bd300);
   }
 
   &.selected {
-    border: 1px solid var(--tertiary);
+    border: 1px solid var(--primary);
     background-color: var(--bd300);
     box-shadow: 0 0 0.666em rgba(0, 0, 0, 0.25);
   }

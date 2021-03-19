@@ -23,6 +23,8 @@ export class DfState {
   status = { loggedIn: false };
   messages: DfMessage[] = [];
   newMessage = 0;
+  spouseAuthorize = false;
+  coTenantAuthorize = false;
 }
 
 const localStore = localStorage.getItem("store");
@@ -106,6 +108,12 @@ const store = new Vuex.Store({
         state.guarantorSubStep = 1;
         state.selectedGuarantor = new Guarantor();
       }
+      if (state.user?.apartmentSharing?.applicationType === "COUPLE") {
+        state.spouseAuthorize = true;
+      }
+      if (state.user?.apartmentSharing?.applicationType === "GROUP") {
+        state.coTenantAuthorize = true;
+      }
     },
     setSelectedGuarantor(state, guarantor: Guarantor) {
       state.selectedGuarantor = guarantor;
@@ -142,6 +150,12 @@ const store = new Vuex.Store({
     },
     readMessage(state) {
       state.newMessage = 0;
+    },
+    updateCoupleAuthorize(state, authorize) {
+      state.spouseAuthorize = authorize;
+    },
+    updateCoTenantAuthorize(state, authorize) {
+      state.coTenantAuthorize = authorize;
     }
   },
   actions: {
@@ -158,11 +172,13 @@ const store = new Vuex.Store({
         }
       );
     },
-    logout({ commit }) {
+    logout({ commit }, redirect = true) {
       AuthService.logout();
       commit("logout");
       commit("initState");
-      router.push("/").then();
+      if (redirect) {
+        router.push("/").then();
+      }
     },
     deleteAccount({ commit }, password) {
       return AuthService.deleteAccount(password).then(
@@ -388,6 +404,12 @@ const store = new Vuex.Store({
     },
     newMessage(state): boolean {
       return state.newMessage;
+    },
+    spouseAuthorize(state): boolean {
+      return state.spouseAuthorize;
+    },
+    coTenantAuthorize(state): boolean {
+      return state.coTenantAuthorize;
     }
   },
   modules: {}

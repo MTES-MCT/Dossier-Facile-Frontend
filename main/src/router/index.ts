@@ -1,9 +1,12 @@
 import Vue from "vue";
-import VueRouter, { RouteConfig } from "vue-router";
+import VueRouter, { Route, RouteConfig } from "vue-router";
 import LandingPage from "@/views/LandingPage.vue";
 import store from "@/store";
 
 Vue.use(VueRouter);
+
+const TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
+const OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
 
 const routes: Array<RouteConfig> = [
   {
@@ -11,9 +14,9 @@ const routes: Array<RouteConfig> = [
     name: "Home",
     component: LandingPage,
     meta: {
-      title: "Accueil - DossierFacile",
+      title: "DossierFacile, le dossier de location numérique de l’État",
       description:
-        "Montez un dossier de location en béton pour trouver le logement de vos rêves. DossierFacile vous aide à constituer un dossier de location numérique de qualité"
+        "Constituez un dossier de location numérique clair, complet et cohérent pour augmenter vos chances de trouver un logement !"
     }
   },
   {
@@ -56,7 +59,9 @@ const routes: Array<RouteConfig> = [
     path: "/information",
     name: "Information",
     meta: {
-      title: "Information - DossierFacile"
+      title: "Qui sommes-nous ? - DossierFacile",
+      description:
+        "Remettre la confiance au centre de la relation entre propriétaire et locataire grâce à notre outil 100 % en ligne, simple et gratuit."
     },
     component: () =>
       import(/* webpackChunkName: "information" */ "../views/Information.vue")
@@ -76,9 +81,46 @@ const routes: Array<RouteConfig> = [
     path: "/faq",
     name: "Faq",
     meta: {
-      title: "FAQ - DossierFacile"
+      title: "FAQ - DossierFacile",
+      description:
+        "Vous rencontrez des difficultés à monter votre dossier de location ? Découvrez toutes nos solutions pour vous aider dans votre démarche"
     },
     component: () => import(/* webpackChunkName: "faq" */ "../views/Faq.vue")
+  },
+  {
+    path: "/info-proprietaire",
+    redirect: () => {
+      window.location.href = `${OWNER_URL}`;
+      return "/info-proprietaire";
+    }
+  },
+  {
+    path: "/locataire",
+    redirect: () => {
+      window.location.href = `${TENANT_URL}/locataire`;
+      return "/locataire";
+    }
+  },
+  {
+    path: "/source/:source",
+    redirect: (to: Route) => {
+      const source = to.params.source;
+      const internalPartnerId = to.query.internalPartnerId.toString();
+      const firstName = to.query.firstName.toString();
+      const lastName = to.query.lastName.toString();
+      const email = to.query.email.toString();
+      window.location.href = `${TENANT_URL}/source/${source}?internalPartnerId=${internalPartnerId}&firstName=${firstName}&lastName=${lastName}&email=${email}`;
+      return "/source";
+    }
+  },
+  {
+    path: "/tenants_files/:path/:token",
+    redirect: (to: Route) => {
+      const token = to.params.token;
+      const path = to.params.path;
+      window.location.href = `https://old.dossierfacile.fr/tenants_files/${path}/${token}`;
+      return `https://old.dossierfacile.fr/tenants_files/${path}/${token}`;
+    }
   },
   { path: "*", redirect: "/" }
 ];

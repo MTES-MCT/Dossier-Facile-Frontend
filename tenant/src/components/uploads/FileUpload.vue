@@ -35,7 +35,7 @@ const {
   STATUS_INITIAL,
   STATUS_SUCCESS,
   STATUS_SAVING,
-  STATUS_FAILED,
+  STATUS_FAILED
 } = UploadStatus;
 
 @Component
@@ -78,7 +78,7 @@ export default class FileUpload extends Vue {
       if (f.size > 5 * 1024 * 1024) {
         this.$toasted.show(this.$i18n.t("file-too-big").toString(), {
           type: "error",
-          duration: 5000,
+          duration: 5000
         });
         return false;
       }
@@ -112,7 +112,7 @@ export default class FileUpload extends Vue {
 
 <style scoped lang="scss">
 .dropbox {
-  outline: 2px dashed var(--tertiary);
+  outline: 2px dashed var(--primary);
   outline-offset: -10px;
   background-color: var(--g200);
   padding: 10px 10px;
@@ -149,13 +149,13 @@ export default class FileUpload extends Vue {
 {
   "en": {
     "send-problem": "Send error.",
-    "file-too-big": "The file is limited to 3MB",
+    "file-too-big": "The file is limited to 5MB",
     "pages": "{0} pages maximum",
     "size": " {0}MB maximum per file"
   },
   "fr": {
     "send-problem": "Problème d'envoi.",
-    "file-too-big": "La taille d'un fichier ne doit pas dépasser 3Mo",
+    "file-too-big": "La taille d'un fichier ne doit pas dépasser 5Mo",
     "pages": "{0} pages maximum",
     "size": " {0}Mo maximum par fichier"
   }

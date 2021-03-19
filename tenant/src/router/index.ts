@@ -12,7 +12,9 @@ const routes: Array<RouteConfig> = [
     name: "Home",
     component: Home,
     meta: {
-      title: "DossierFacile",
+      title: "DossierFacile, le dossier de location numérique de l’État",
+      description:
+        "Constituez un dossier de location numérique clair, complet et cohérent pour augmenter vos chances de trouver un logement !",
       hideForAuth: true
     }
   },
@@ -21,7 +23,9 @@ const routes: Array<RouteConfig> = [
     name: "Login",
     component: LoginPage,
     meta: {
-      title: "Connexion - DossierFacile",
+      title: "Connexion à mon compte - DossierFacile",
+      description:
+        "Connectez vous à votre espace personnel et constituez votre dossier de location numérique clair, complet et cohérent",
       hideForAuth: true
     }
   },
@@ -29,7 +33,9 @@ const routes: Array<RouteConfig> = [
     path: "/signup",
     name: "Signup",
     meta: {
-      title: "Création compte - DossierFacile",
+      title: "Le dossier de location numérique de l’État - DossierFacile",
+      description:
+        "Constituez un dossier de location numérique clair, complet et cohérent pour augmenter vos chances de trouver un logement !",
       hideForAuth: true
     },
     component: () =>

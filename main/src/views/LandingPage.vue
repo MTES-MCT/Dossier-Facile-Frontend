@@ -4,7 +4,7 @@
       <div class="rf-container">
         <div class="rf-col-md-8">
           <div class="rf-grid-col">
-            <h1 class="rf-h1 color--white">
+            <h1 :class="getH1Class()" class="rf-h1 color--white">
               {{ $t("s0.title") }}
             </h1>
             <p class="text-bold color--white">
@@ -12,7 +12,10 @@
               {{ $t("s0.text2") }}
             </p>
             <p>
-              <a class="rf-btn" :href="`${TENANT_URL}/signup?lang=${$i18n.locale}`">
+              <a
+                class="rf-btn"
+                :href="`${TENANT_URL}/signup?lang=${$i18n.locale}`"
+              >
                 {{ $t("button") }}
               </a>
             </p>
@@ -25,7 +28,7 @@
         <div class="rf-grid-row">
           <div class="rf-col-md-4 rf-grid-col rf-p-2w">
             <div>
-              <img src="../assets/icons/approval.svg" class="s1-icons" />
+              <img src="../assets/icons/approval.svg" class="s1-icons" alt="" />
             </div>
             <h3 class="rf-h3 color--secondary">{{ $t("s1.h1") }}</h3>
             <p class="rf-mt-0">
@@ -34,7 +37,7 @@
           </div>
           <div class="rf-col-md-4 rf-grid-col rf-p-2w">
             <div>
-              <img src="../assets/icons/sports.svg" class="s1-icons" />
+              <img src="../assets/icons/sports.svg" class="s1-icons" alt="" />
             </div>
             <h3 class="rf-h3 color--secondary">{{ $t("s1.h2") }}</h3>
             <p class="rf-mt-0">
@@ -43,7 +46,7 @@
           </div>
           <div class="rf-col-md-4 rf-grid-col rf-p-2w">
             <div>
-              <img src="../assets/icons/reading.svg" class="s1-icons" />
+              <img src="../assets/icons/reading.svg" class="s1-icons" alt="" />
             </div>
             <h3 class="rf-h3 color--secondary">{{ $t("s1.h3") }}</h3>
             <p class="rf-mt-0">
@@ -75,10 +78,13 @@
             <p>{{ $t("s2.p3") }}</p>
           </div>
           <div class="rf-col-md-6">
-            <img src="../assets/icons/justif.webp" />
+            <img src="../assets/icons/justif.webp" alt="" />
           </div>
         </div>
-        <a class="rf-btn rf-mt-3w" :href="`${TENANT_URL}/signup?lang=${$i18n.locale}`">
+        <a
+          class="rf-btn rf-mt-3w"
+          :href="`${TENANT_URL}/signup?lang=${$i18n.locale}`"
+        >
           {{ $t("button") }}
         </a>
       </div>
@@ -130,7 +136,10 @@
         </div>
         <div class="text-center rf-mt-5w rf-mb-5w">
           <p>
-            <a class="rf-btn" :href="`${TENANT_URL}/signup?lang=${$i18n.locale}`">
+            <a
+              class="rf-btn"
+              :href="`${TENANT_URL}/signup?lang=${$i18n.locale}`"
+            >
               {{ $t("button") }}
             </a>
           </p>
@@ -146,6 +155,10 @@ import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class LandingPage extends Vue {
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
+
+  getH1Class() {
+    return window.innerWidth < 992 ? "rf-h2" : "rf-h1";
+  }
 }
 </script>
 

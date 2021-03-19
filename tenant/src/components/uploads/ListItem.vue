@@ -17,7 +17,10 @@
         :title="$t('show')"
         v-if="file.path"
       >
-        <span class="color--primary material-icons md-36">visibility</span>
+        <span
+          class="color--primary material-icons material-icons-outlined md-36"
+          >visibility</span
+        >
       </div>
       <div class="action-btn rf-pr-1w" @click="remove()" :title="$t('remove')">
         <span class="material-icons md-36 text-danger">delete_forever</span>

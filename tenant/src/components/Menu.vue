@@ -45,9 +45,9 @@ import { mapGetters } from "vuex";
   computed: {
     ...mapGetters({
       user: "userToEdit",
-      newMessage: "newMessage",
-    }),
-  },
+      newMessage: "newMessage"
+    })
+  }
 })
 export default class Menu extends Vue {
   user?: User;

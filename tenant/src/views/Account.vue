@@ -1,627 +1,648 @@
 <template>
-  <div class="rf-container-fluid">
-    <section class="rf-mt-3w">
-      <div class="rf-grid-row rf-grid-row--center">
-        <div class="rf-col-12 rf-col-lg-10">
-          <h1>{{ $t("title", [user.firstName, $t(user.status)]) }}</h1>
-          <div class="rf-callout" v-if="isOld()">
-            <h4>{{ $t("file-update-title") }}</h4>
-            <p
-              class="rf-callout__text"
-              v-html="
-                $t('file-update-text', [$d(getDate(user.lastUpdate), 'short')])
-              "
-            ></p>
-            <DfButton @on-click="goToProfile" primary="true">{{
-              $t("update-file-btn")
-            }}</DfButton>
-          </div>
-          <div class="main rf-mt-5w rf-p-2w bg-white">
-            <div class="main-bar rf-grid-row">
-              <h4 class="rf-mr-2w rf-mb-0 rf-mt-0">{{ $t("my-file") }}</h4>
-
-              <StatusTag :status="user.status"></StatusTag>
-
-              <span class="spacer"></span>
-              <DfButton
-                v-if="user.status === 'VALIDATED'"
-                @on-click="copyLink()"
-                primary="true"
-                size="small"
-                >{{ $t("copy-link") }}</DfButton
-              >
-              <div v-if="user.status === 'VALIDATED'" class="grp">
-                <input id="tokenLink" type="hidden" :value="getToken()" />
-                <button
-                  class="rf-btn grp-btn"
-                  :class="{
-                    'rf-fi-arrow-down-s-line': !radioVisible,
-                    'rf-fi-arrow-up-s-line': radioVisible,
-                  }"
-                  title="Copy"
-                  @click="radioVisible = !radioVisible"
-                >
-                  <span class="sr-only"> Copy </span>
-                </button>
-                <div class="grp-modal bg-white" v-show="radioVisible">
-                  <h4 class="p10">{{ $t("share-file") }}</h4>
-
-                  <div>
-                    <fieldset class="rf-fieldset">
-                      <div class="rf-fieldset__content">
-                        <div class="rf-radio-group p10">
-                          <input
-                            type="radio"
-                            id="radio-1"
-                            name="radio"
-                            v-model="pub"
-                            value="true"
-                          />
-                          <label
-                            class="rf-label"
-                            for="radio-1"
-                            v-html="$t('file-resume')"
-                          ></label>
-                        </div>
-                        <hr />
-                        <div class="rf-radio-group p10">
-                          <input
-                            type="radio"
-                            id="radio-2"
-                            name="radio"
-                            v-model="pub"
-                            value="false"
-                          />
-                          <label
-                            class="rf-label"
-                            for="radio-2"
-                            v-html="$t('file-full')"
-                          >
-                          </label>
-                        </div>
-                        <div class="flex copy-btn">
-                          <input type="text" :value="getToken()" readonly />
-                          <DfButton
-                            class="rf-ml-1w"
-                            primary="true"
-                            @on-click="copyLink()"
-                            >{{ $t("copy") }}</DfButton
-                          >
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="main-description">
+  <div class="bg-blue">
+    <div class="rf-container">
+      <section class="rf-mt-3w">
+        <div class="rf-grid-row rf-grid-row--center">
+          <div class="rf-col-12">
+            <h1>{{ $t("title", [user.firstName, $t(user.status)]) }}</h1>
+            <div class="rf-callout" v-if="isOld()">
+              <h4>{{ $t("file-update-title") }}</h4>
               <p
-                class="description"
+                class="rf-callout__text"
                 v-html="
-                  $t('status-description', [
-                    user.firstName,
-                    getProfession(),
-                    getIncome(),
+                  $t('file-update-text', [
+                    $d(getDate(user.lastUpdate), 'short')
                   ])
                 "
               ></p>
+              <DfButton @on-click="goToProfile" primary="true">{{
+                $t("update-file-btn")
+              }}</DfButton>
             </div>
-            <hr />
-            <div class="main-information">
-              <h4>{{ $t("my-personnal-information") }}</h4>
-              <div class="rf-grid-row rf-grid-row--gutters" @click="setStep(0)">
-                <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
-                  <div class="rf-tile rf-tile--horizontal">
-                    <div class="rf-tile__img-wrap">
-                      <span class="color--primary material-icons md-adapt"
-                        >person</span
-                      >
+            <div class="main rf-mt-5w rf-p-2w bg-white">
+              <div class="main-bar rf-grid-row">
+                <h4 class="rf-mr-2w rf-mb-0 rf-mt-0">{{ $t("my-file") }}</h4>
+
+                <StatusTag :status="user.status"></StatusTag>
+
+                <span class="spacer"></span>
+                <DfButton
+                  @on-click="copyLink()"
+                  primary="true"
+                  size="small"
+                  :disabled="!canCopyLink()"
+                  >{{ $t("copy-link") }}</DfButton
+                >
+                <div class="grp">
+                  <input id="tokenLink" type="hidden" :value="getToken()" />
+                  <button
+                    class="rf-btn grp-btn"
+                    :class="{
+                      'rf-fi-arrow-down-s-line': !radioVisible,
+                      'rf-fi-arrow-up-s-line': radioVisible
+                    }"
+                    title="Copy"
+                    @click="radioVisible = !radioVisible"
+                    :disabled="!canCopyLink()"
+                  >
+                    <span class="sr-only"> Copy </span>
+                  </button>
+                  <div class="grp-modal bg-white" v-show="radioVisible">
+                    <h4 class="p10">{{ $t("share-file") }}</h4>
+
+                    <div>
+                      <fieldset class="rf-fieldset">
+                        <div class="rf-fieldset__content">
+                          <div class="rf-radio-group p10">
+                            <input
+                              type="radio"
+                              id="radio-1"
+                              name="radio"
+                              v-model="pub"
+                              value="true"
+                            />
+                            <label
+                              class="rf-label"
+                              for="radio-1"
+                              v-html="$t('file-resume')"
+                            ></label>
+                          </div>
+                          <hr />
+                          <div class="rf-radio-group p10">
+                            <input
+                              type="radio"
+                              id="radio-2"
+                              name="radio"
+                              v-model="pub"
+                              value="false"
+                            />
+                            <label
+                              class="rf-label"
+                              for="radio-2"
+                              v-html="$t('file-full')"
+                            >
+                            </label>
+                          </div>
+                          <div class="flex copy-btn">
+                            <input type="text" :value="getToken()" readonly />
+                            <DfButton
+                              class="rf-ml-1w"
+                              primary="true"
+                              @on-click="copyLink()"
+                              >{{ $t("copy") }}</DfButton
+                            >
+                          </div>
+                        </div>
+                      </fieldset>
                     </div>
-                    <div class="rf-tile__body">
-                      <h4 class="rf-tile__title">
-                        <a class="rf-tile__link" href>{{
-                          $t("my-information")
-                        }}</a>
-                      </h4>
-                      <p>
-                        {{ user.firstName }} {{ user.lastName }}<br />
-                        {{ user.email }}
-                      </p>
-                    </div>
-                    <button
-                      class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
-                      title="Edit"
-                    >
-                      <span class="sr-only"> Edit </span>
-                    </button>
                   </div>
                 </div>
+              </div>
+              <div class="main-description">
+                <p
+                  class="description"
+                  v-html="
+                    $t('status-description', [
+                      user.firstName,
+                      getProfession(),
+                      getIncome()
+                    ])
+                  "
+                ></p>
               </div>
               <hr />
-              <h4>{{ $t("my-files") }}</h4>
+              <div class="main-information">
+                <h4>{{ $t("my-personnal-information") }}</h4>
+                <div
+                  class="rf-grid-row rf-grid-row--gutters"
+                  @click="setStep(0)"
+                >
+                  <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
+                    <div class="rf-tile rf-tile--horizontal">
+                      <div class="rf-tile__img-wrap">
+                        <span class="color--primary material-icons md-adapt"
+                          >person</span
+                        >
+                      </div>
+                      <div class="rf-tile__body">
+                        <h4 class="rf-tile__title">
+                          <a class="rf-tile__link" href>{{
+                            $t("my-information")
+                          }}</a>
+                        </h4>
+                        <p>
+                          {{ user.firstName }} {{ user.lastName }}<br />
+                          {{ user.email }}
+                        </p>
+                      </div>
+                      <button
+                        class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                        title="Edit"
+                      >
+                        <span class="sr-only"> Edit </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <hr />
+                <h4>{{ $t("my-files") }}</h4>
 
+                <div class="rf-grid-row rf-grid-row--gutters">
+                  <div
+                    class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                    @click="setTenantStep(1)"
+                  >
+                    <div class="rf-tile rf-tile--horizontal">
+                      <div class="rf-tile__img-wrap">
+                        <span class="color--primary material-icons md-adapt"
+                          >person</span
+                        >
+                      </div>
+                      <div class="rf-tile__body">
+                        <h4 class="rf-tile__title">
+                          <a class="rf-tile__link" href>{{
+                            $t("identification")
+                          }}</a>
+                        </h4>
+                        <StatusTag
+                          :status="getStatus('IDENTIFICATION')"
+                        ></StatusTag>
+                        <button
+                          class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                          title="Edit"
+                        >
+                          <span class="sr-only"> Edit </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                    @click="setTenantStep(2)"
+                  >
+                    <div class="rf-tile rf-tile--horizontal">
+                      <div class="rf-tile__img-wrap">
+                        <span class="color--primary material-icons md-adapt"
+                          >home</span
+                        >
+                      </div>
+                      <div class="rf-tile__body">
+                        <h4 class="rf-tile__title">
+                          <a class="rf-tile__link" href>{{
+                            $t("residency")
+                          }}</a>
+                        </h4>
+                        <StatusTag :status="getStatus('RESIDENCY')"></StatusTag>
+                        <button
+                          class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                          title="Edit"
+                        >
+                          <span class="sr-only"> Edit </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                    @click="setTenantStep(3)"
+                  >
+                    <div class="rf-tile rf-tile--horizontal">
+                      <div class="rf-tile__img-wrap">
+                        <span class="color--primary material-icons md-adapt"
+                          >work</span
+                        >
+                      </div>
+                      <div class="rf-tile__body">
+                        <h4 class="rf-tile__title">
+                          <a class="rf-tile__link" href>{{
+                            $t("professional")
+                          }}</a>
+                        </h4>
+                        <StatusTag
+                          :status="getStatus('PROFESSIONAL')"
+                        ></StatusTag>
+                        <button
+                          class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                          title="Edit"
+                        >
+                          <span class="sr-only"> Edit </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                    @click="setTenantStep(4)"
+                  >
+                    <div class="rf-tile rf-tile--horizontal">
+                      <div class="rf-tile__img-wrap">
+                        <span class="color--primary material-icons md-adapt"
+                          >euro</span
+                        >
+                      </div>
+                      <div class="rf-tile__body">
+                        <h4 class="rf-tile__title">
+                          <a class="rf-tile__link" href>{{
+                            $t("financial")
+                          }}</a>
+                        </h4>
+                        <StatusTag :status="getStatus('FINANCIAL')"></StatusTag>
+                        <button
+                          class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                          title="Edit"
+                        >
+                          <span class="sr-only"> Edit </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                    @click="setTenantStep(5)"
+                  >
+                    <div class="rf-tile rf-tile--horizontal">
+                      <div class="rf-tile__img-wrap">
+                        <span class="color--primary material-icons md-adapt"
+                          >content_copy</span
+                        >
+                      </div>
+                      <div class="rf-tile__body">
+                        <h4 class="rf-tile__title">
+                          <a class="rf-tile__link" href>{{ $t("tax") }}</a>
+                        </h4>
+                        <StatusTag :status="getStatus('TAX')"></StatusTag>
+                        <button
+                          class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                          title="Edit"
+                        >
+                          <span class="sr-only"> Edit </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr v-if="user.guarantors.length > 0" />
+              <div
+                class="main-guarantor-information"
+                v-if="user.guarantors.length > 0"
+              >
+                <h4>{{ $t("guarantors-information") }}</h4>
+
+                <div v-for="g in user.guarantors" v-bind:key="g.id">
+                  <div v-if="g.typeGuarantor === 'NATURAL_PERSON'">
+                    <div class="rf-grid-row rf-grid-row--gutters">
+                      <div
+                        class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                        @click="setGuarantorSubStep(1)"
+                      >
+                        <div class="rf-tile rf-tile--horizontal">
+                          <div class="rf-tile__img-wrap">
+                            <span class="color--primary material-icons md-adapt"
+                              >person</span
+                            >
+                          </div>
+                          <div class="rf-tile__body">
+                            <h4 class="rf-tile__title">
+                              <a class="rf-tile__link" href>{{
+                                $t("identification")
+                              }}</a>
+                            </h4>
+                            <StatusTag
+                              :status="getGuarantorStatus(g, 'IDENTIFICATION')"
+                            ></StatusTag>
+                            <button
+                              class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                              title="Edit"
+                            >
+                              <span class="sr-only"> Edit </span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                        @click="setGuarantorSubStep(2)"
+                      >
+                        <div class="rf-tile rf-tile--horizontal">
+                          <div class="rf-tile__img-wrap">
+                            <span class="color--primary material-icons md-adapt"
+                              >home</span
+                            >
+                          </div>
+                          <div class="rf-tile__body">
+                            <h4 class="rf-tile__title">
+                              <a class="rf-tile__link" href>{{
+                                $t("residency")
+                              }}</a>
+                            </h4>
+                            <StatusTag
+                              :status="getGuarantorStatus(g, 'RESIDENCY')"
+                            ></StatusTag>
+                            <button
+                              class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                              title="Edit"
+                            >
+                              <span class="sr-only"> Edit </span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                        @click="setGuarantorSubStep(3)"
+                      >
+                        <div class="rf-tile rf-tile--horizontal">
+                          <div class="rf-tile__img-wrap">
+                            <span class="color--primary material-icons md-adapt"
+                              >work</span
+                            >
+                          </div>
+                          <div class="rf-tile__body">
+                            <h4 class="rf-tile__title">
+                              <a class="rf-tile__link" href>{{
+                                $t("professional")
+                              }}</a>
+                            </h4>
+                            <StatusTag
+                              :status="getGuarantorStatus(g, 'PROFESSIONAL')"
+                            ></StatusTag>
+                            <button
+                              class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                              title="Edit"
+                            >
+                              <span class="sr-only"> Edit </span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                        @click="setGuarantorSubStep(4)"
+                      >
+                        <div class="rf-tile rf-tile--horizontal">
+                          <div class="rf-tile__img-wrap">
+                            <span class="color--primary material-icons md-adapt"
+                              >euro</span
+                            >
+                          </div>
+                          <div class="rf-tile__body">
+                            <h4 class="rf-tile__title">
+                              <a class="rf-tile__link" href>{{
+                                $t("financial")
+                              }}</a>
+                            </h4>
+                            <StatusTag
+                              :status="getGuarantorStatus(g, 'FINANCIAL')"
+                            ></StatusTag>
+                            <button
+                              class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                              title="Edit"
+                            >
+                              <span class="sr-only"> Edit </span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                        @click="setGuarantorSubStep(5)"
+                      >
+                        <div class="rf-tile rf-tile--horizontal">
+                          <div class="rf-tile__img-wrap">
+                            <span class="color--primary material-icons md-adapt"
+                              >content_copy</span
+                            >
+                          </div>
+                          <div class="rf-tile__body">
+                            <h4 class="rf-tile__title">
+                              <a class="rf-tile__link" href>{{ $t("tax") }}</a>
+                            </h4>
+                            <StatusTag
+                              :status="getGuarantorStatus(g, 'TAX')"
+                            ></StatusTag>
+                            <button
+                              class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                              title="Edit"
+                            >
+                              <span class="sr-only"> Edit </span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div v-if="g.typeGuarantor === 'ORGANISM'">
+                    <div class="rf-grid-row rf-grid-row--gutters">
+                      <div
+                        class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                        @click="setGuarantorSubStep(1)"
+                      >
+                        <div class="rf-tile rf-tile--horizontal">
+                          <div class="rf-tile__img-wrap">
+                            <span class="color--primary material-icons md-adapt"
+                              >person</span
+                            >
+                          </div>
+                          <div class="rf-tile__body">
+                            <h4 class="rf-tile__title">
+                              <a class="rf-tile__link" href>{{
+                                $t("identification")
+                              }}</a>
+                            </h4>
+                            <StatusTag
+                              :status="getGuarantorStatus(g, 'IDENTIFICATION')"
+                            ></StatusTag>
+                            <button
+                              class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                              title="Edit"
+                            >
+                              <span class="sr-only"> Edit </span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
+                    <div class="rf-grid-row rf-grid-row--gutters">
+                      <div
+                        class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                        @click="setGuarantorSubStep(1)"
+                      >
+                        <div class="rf-tile rf-tile--horizontal">
+                          <div class="rf-tile__img-wrap">
+                            <span class="color--primary material-icons md-adapt"
+                              >person</span
+                            >
+                          </div>
+                          <div class="rf-tile__body">
+                            <h4 class="rf-tile__title">
+                              <a class="rf-tile__link" href>{{
+                                $t("identification-legal-person")
+                              }}</a>
+                            </h4>
+                            <StatusTag
+                              :status="
+                                getGuarantorStatus(
+                                  g,
+                                  'IDENTIFICATION_LEGAL_PERSON'
+                                )
+                              "
+                            ></StatusTag>
+                            <button
+                              class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                              title="Edit"
+                            >
+                              <span class="sr-only"> Edit </span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="rf-grid-row rf-grid-row--gutters">
+                      <div
+                        class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
+                        @click="setGuarantorSubStep(2)"
+                      >
+                        <div class="rf-tile rf-tile--horizontal">
+                          <div class="rf-tile__img-wrap">
+                            <span class="color--primary material-icons md-adapt"
+                              >person</span
+                            >
+                          </div>
+                          <div class="rf-tile__body">
+                            <h4 class="rf-tile__title">
+                              <a class="rf-tile__link" href>{{
+                                $t("identification")
+                              }}</a>
+                            </h4>
+                            <StatusTag
+                              :status="getGuarantorStatus(g, 'IDENTIFICATION')"
+                            ></StatusTag>
+                            <button
+                              class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                              title="Edit"
+                            >
+                              <span class="sr-only"> Edit </span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="partners">
+              <h2>{{ $t("partners") }}</h2>
               <div class="rf-grid-row rf-grid-row--gutters">
-                <div
-                  class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
-                  @click="setTenantStep(1)"
-                >
-                  <div class="rf-tile rf-tile--horizontal">
-                    <div class="rf-tile__img-wrap">
-                      <span class="color--primary material-icons md-adapt"
-                        >person</span
-                      >
-                    </div>
-                    <div class="rf-tile__body">
-                      <h4 class="rf-tile__title">
-                        <a class="rf-tile__link" href>{{
-                          $t("identification")
-                        }}</a>
-                      </h4>
-                      <StatusTag
-                        :status="getStatus('IDENTIFICATION')"
-                      ></StatusTag>
-                      <button
-                        class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
-                        title="Edit"
-                      >
-                        <span class="sr-only"> Edit </span>
-                      </button>
-                    </div>
+                <div class="rf-col">
+                  <div class="bg-white">
+                    <img
+                      alt="logo visale"
+                      class="visale-img"
+                      src="../assets/visale_grey.webp"
+                    />
                   </div>
                 </div>
-                <div
-                  class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
-                  @click="setTenantStep(2)"
-                >
-                  <div class="rf-tile rf-tile--horizontal">
-                    <div class="rf-tile__img-wrap">
-                      <span class="color--primary material-icons md-adapt"
-                        >home</span
-                      >
-                    </div>
-                    <div class="rf-tile__body">
-                      <h4 class="rf-tile__title">
-                        <a class="rf-tile__link" href>{{ $t("residency") }}</a>
-                      </h4>
-                      <StatusTag :status="getStatus('RESIDENCY')"></StatusTag>
-                      <button
-                        class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
-                        title="Edit"
-                      >
-                        <span class="sr-only"> Edit </span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
-                  @click="setTenantStep(3)"
-                >
-                  <div class="rf-tile rf-tile--horizontal">
-                    <div class="rf-tile__img-wrap">
-                      <span class="color--primary material-icons md-adapt"
-                        >work</span
-                      >
-                    </div>
-                    <div class="rf-tile__body">
-                      <h4 class="rf-tile__title">
-                        <a class="rf-tile__link" href>{{
-                          $t("professional")
-                        }}</a>
-                      </h4>
-                      <StatusTag
-                        :status="getStatus('PROFESSIONAL')"
-                      ></StatusTag>
-                      <button
-                        class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
-                        title="Edit"
-                      >
-                        <span class="sr-only"> Edit </span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
-                  @click="setTenantStep(4)"
-                >
-                  <div class="rf-tile rf-tile--horizontal">
-                    <div class="rf-tile__img-wrap">
-                      <span class="color--primary material-icons md-adapt"
-                        >euro</span
-                      >
-                    </div>
-                    <div class="rf-tile__body">
-                      <h4 class="rf-tile__title">
-                        <a class="rf-tile__link" href>{{ $t("financial") }}</a>
-                      </h4>
-                      <StatusTag :status="getStatus('FINANCIAL')"></StatusTag>
-                      <button
-                        class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
-                        title="Edit"
-                      >
-                        <span class="sr-only"> Edit </span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
-                  @click="setTenantStep(5)"
-                >
-                  <div class="rf-tile rf-tile--horizontal">
-                    <div class="rf-tile__img-wrap">
-                      <span class="color--primary material-icons md-adapt"
-                        >content_copy</span
-                      >
-                    </div>
-                    <div class="rf-tile__body">
-                      <h4 class="rf-tile__title">
-                        <a class="rf-tile__link" href>{{ $t("tax") }}</a>
-                      </h4>
-                      <StatusTag :status="getStatus('TAX')"></StatusTag>
-                      <button
-                        class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
-                        title="Edit"
-                      >
-                        <span class="sr-only"> Edit </span>
-                      </button>
-                    </div>
+                <div class="rf-col">
+                  <div class="bg-white">
+                    <img
+                      alt="logo anil"
+                      class="anil-img"
+                      src="../assets/anil_grey.webp"
+                    />
                   </div>
                 </div>
               </div>
             </div>
-            <hr v-if="user.guarantors.length > 0" />
-            <div
-              class="main-guarantor-information"
-              v-if="user.guarantors.length > 0"
-            >
-              <h4>{{ $t("guarantors-information") }}</h4>
-
-              <div v-for="g in user.guarantors" v-bind:key="g.id">
-                <div v-if="g.typeGuarantor === 'NATURAL_PERSON'">
-                  <div class="rf-grid-row rf-grid-row--gutters">
-                    <div
-                      class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
-                      @click="setGuarantorSubStep(1)"
-                    >
-                      <div class="rf-tile rf-tile--horizontal">
-                        <div class="rf-tile__img-wrap">
-                          <span class="color--primary material-icons md-adapt"
-                            >person</span
-                          >
-                        </div>
-                        <div class="rf-tile__body">
-                          <h4 class="rf-tile__title">
-                            <a class="rf-tile__link" href>{{
-                              $t("identification")
-                            }}</a>
-                          </h4>
-                          <StatusTag
-                            :status="getGuarantorStatus(g, 'IDENTIFICATION')"
-                          ></StatusTag>
-                          <button
-                            class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
-                            title="Edit"
-                          >
-                            <span class="sr-only"> Edit </span>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
-                      @click="setGuarantorSubStep(2)"
-                    >
-                      <div class="rf-tile rf-tile--horizontal">
-                        <div class="rf-tile__img-wrap">
-                          <span class="color--primary material-icons md-adapt"
-                            >home</span
-                          >
-                        </div>
-                        <div class="rf-tile__body">
-                          <h4 class="rf-tile__title">
-                            <a class="rf-tile__link" href>{{
-                              $t("residency")
-                            }}</a>
-                          </h4>
-                          <StatusTag
-                            :status="getGuarantorStatus(g, 'RESIDENCY')"
-                          ></StatusTag>
-                          <button
-                            class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
-                            title="Edit"
-                          >
-                            <span class="sr-only"> Edit </span>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
-                      @click="setGuarantorSubStep(3)"
-                    >
-                      <div class="rf-tile rf-tile--horizontal">
-                        <div class="rf-tile__img-wrap">
-                          <span class="color--primary material-icons md-adapt"
-                            >work</span
-                          >
-                        </div>
-                        <div class="rf-tile__body">
-                          <h4 class="rf-tile__title">
-                            <a class="rf-tile__link" href>{{
-                              $t("professional")
-                            }}</a>
-                          </h4>
-                          <StatusTag
-                            :status="getGuarantorStatus(g, 'PROFESSIONAL')"
-                          ></StatusTag>
-                          <button
-                            class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
-                            title="Edit"
-                          >
-                            <span class="sr-only"> Edit </span>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div
-                      class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
-                      @click="setGuarantorSubStep(4)"
-                    >
-                      <div class="rf-tile rf-tile--horizontal">
-                        <div class="rf-tile__img-wrap">
-                          <span class="color--primary material-icons md-adapt"
-                            >euro</span
-                          >
-                        </div>
-                        <div class="rf-tile__body">
-                          <h4 class="rf-tile__title">
-                            <a class="rf-tile__link" href>{{
-                              $t("financial")
-                            }}</a>
-                          </h4>
-                          <StatusTag
-                            :status="getGuarantorStatus(g, 'FINANCIAL')"
-                          ></StatusTag>
-                          <button
-                            class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
-                            title="Edit"
-                          >
-                            <span class="sr-only"> Edit </span>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
-                      @click="setGuarantorSubStep(5)"
-                    >
-                      <div class="rf-tile rf-tile--horizontal">
-                        <div class="rf-tile__img-wrap">
-                          <span class="color--primary material-icons md-adapt"
-                            >content_copy</span
-                          >
-                        </div>
-                        <div class="rf-tile__body">
-                          <h4 class="rf-tile__title">
-                            <a class="rf-tile__link" href>{{ $t("tax") }}</a>
-                          </h4>
-                          <StatusTag
-                            :status="getGuarantorStatus(g, 'TAX')"
-                          ></StatusTag>
-                          <button
-                            class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
-                            title="Edit"
-                          >
-                            <span class="sr-only"> Edit </span>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div v-if="g.typeGuarantor === 'ORGANISM'">
-                  <div class="rf-grid-row rf-grid-row--gutters">
-                    <div
-                      class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
-                      @click="setGuarantorSubStep(1)"
-                    >
-                      <div class="rf-tile rf-tile--horizontal">
-                        <div class="rf-tile__img-wrap">
-                          <span class="color--primary material-icons md-adapt"
-                            >person</span
-                          >
-                        </div>
-                        <div class="rf-tile__body">
-                          <h4 class="rf-tile__title">
-                            <a class="rf-tile__link" href>{{
-                              $t("identification")
-                            }}</a>
-                          </h4>
-                          <StatusTag
-                            :status="getGuarantorStatus(g, 'IDENTIFICATION')"
-                          ></StatusTag>
-                          <button
-                            class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
-                            title="Edit"
-                          >
-                            <span class="sr-only"> Edit </span>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
-                  <div class="rf-grid-row rf-grid-row--gutters">
-                    <div
-                      class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
-                      @click="setGuarantorSubStep(1)"
-                    >
-                      <div class="rf-tile rf-tile--horizontal">
-                        <div class="rf-tile__img-wrap">
-                          <span class="color--primary material-icons md-adapt"
-                            >person</span
-                          >
-                        </div>
-                        <div class="rf-tile__body">
-                          <h4 class="rf-tile__title">
-                            <a class="rf-tile__link" href>{{
-                              $t("identification-legal-person")
-                            }}</a>
-                          </h4>
-                          <StatusTag
-                            :status="
-                              getGuarantorStatus(
-                                g,
-                                'IDENTIFICATION_LEGAL_PERSON'
-                              )
-                            "
-                          ></StatusTag>
-                          <button
-                            class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
-                            title="Edit"
-                          >
-                            <span class="sr-only"> Edit </span>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="rf-grid-row rf-grid-row--gutters">
-                    <div
-                      class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w"
-                      @click="setGuarantorSubStep(2)"
-                    >
-                      <div class="rf-tile rf-tile--horizontal">
-                        <div class="rf-tile__img-wrap">
-                          <span class="color--primary material-icons md-adapt"
-                            >person</span
-                          >
-                        </div>
-                        <div class="rf-tile__body">
-                          <h4 class="rf-tile__title">
-                            <a class="rf-tile__link" href>{{
-                              $t("identification")
-                            }}</a>
-                          </h4>
-                          <StatusTag
-                            :status="getGuarantorStatus(g, 'IDENTIFICATION')"
-                          ></StatusTag>
-                          <button
-                            class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
-                            title="Edit"
-                          >
-                            <span class="sr-only"> Edit </span>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+            <div class="delete">
+              <h2>{{ $t("delete") }}</h2>
+              <div class="bg-white">
+                <p>
+                  Vous pouvez supprimer votre compte DossierFacile à tout
+                  moment. La suppression de votre compte entrainera
+                  automatiquement l’effacement définitif de vos pièces
+                  justificatives.
+                </p>
+                <div class="align--center">
+                  <DfButton
+                    class="delete-btn"
+                    primary="true"
+                    @on-click="openDeleteModal()"
+                    >{{ $t("delete-account") }}</DfButton
+                  >
                 </div>
               </div>
             </div>
-          </div>
-          <div class="partners">
-            <h2>{{ $t("partners") }}</h2>
-            <div class="rf-grid-row rf-grid-row--gutters">
-              <div class="rf-col">
-                <div class="bg-white">
-                  <img class="visale-img" src="../assets/visale_grey.webp" />
+            <div class="opinion rf-mb-5w">
+              <h2>{{ $t("opinion") }}</h2>
+              <div class="bg-white">
+                <p>
+                  Nous cherchons constamment à améliorer la qualité de notre
+                  service. Dans le cadre de cette démarche d’amélioration, nous
+                  cherchons à obtenir votre retour d’expérience. En cliquant sur
+                  le bouton ci-dessous, vous pourrez évaluer DossierFacile.fr.
+                  Vos commentaires nous sont précieux ! Merci.
+                </p>
+                <div class="align--center">
+                  <a
+                    href="https://voxusagers.numerique.gouv.fr/Demarches/2871?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=f2f9b35326f6b085c219faef71d0a3f2"
+                    target="_blank"
+                  >
+                    <img
+                      src="https://voxusagers.numerique.gouv.fr/static/bouton-bleu.svg"
+                      alt="Je donne mon avis"
+                      title="Je donne mon avis sur cette démarche"
+                      class="align--center"
+                    />
+                  </a>
                 </div>
-              </div>
-              <div class="rf-col">
-                <div class="bg-white">
-                  <img class="anil-img" src="../assets/anil_grey.webp" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="delete">
-            <h2>{{ $t("delete") }}</h2>
-            <div class="bg-white">
-              <p>
-                Vous pouvez supprimer votre compte DossierFacile à tout moment.
-                La suppression de votre compte entrainera automatiquement
-                l’effacement définitif de vos pièces justificatives.
-              </p>
-              <div class="align--center">
-                <DfButton
-                  class="delete-btn"
-                  primary="true"
-                  @on-click="openDeleteModal()"
-                  >{{ $t("delete-account") }}</DfButton
-                >
-              </div>
-            </div>
-          </div>
-          <div class="opinion rf-mb-5w">
-            <h2>{{ $t("opinion") }}</h2>
-            <div class="bg-white">
-              <p>
-                Nous cherchons constamment à améliorer la qualité de notre
-                service. Dans le cadre de cette démarche d’amélioration, nous
-                cherchons à obtenir votre retour d’expérience. En cliquant sur
-                le bouton ci-dessous, vous pourrez évaluer DossierFacile.fr. Vos
-                commentaires nous sont précieux ! Merci.
-              </p>
-              <div class="align--center">
-                <a
-                  href="https://voxusagers.numerique.gouv.fr/Demarches/2871?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=f2f9b35326f6b085c219faef71d0a3f2"
-                  target="_blank"
-                >
-                  <img
-                    src="https://voxusagers.numerique.gouv.fr/static/bouton-bleu.svg"
-                    alt="Je donne mon avis"
-                    title="Je donne mon avis sur cette démarche"
-                    class="align--center"
-                  />
-                </a>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-    <ValidationObserver v-slot="{ validate }">
-      <form name="form" @submit.prevent="validate().then(validDelete)">
-        <ConfirmModal v-show="isDeleteModalVisible" @cancel="undoSelect()">
-          <div class="rf-container">
-            <div class="rf-grid-row justify-content-center">
-              <div class="rf-col-12">
-                <div class="rf-col-12 rf-mb-3w">
-                  <validation-provider rules="required" v-slot="{ errors }">
-                    <div
-                      class="rf-input-group"
-                      :class="errors[0] ? 'rf-input-group--error' : ''"
-                    >
-                      <label for="password" class="rf-label">{{
-                        $t("password")
-                      }}</label>
-                      <input
-                        id="password"
-                        type="password"
-                        v-model="password"
-                        name="password"
-                        class="validate-required form-control rf-input"
-                        required
-                      />
-                      <span class="rf-error-text" v-if="errors[0]">{{
-                        $t(errors[0])
-                      }}</span>
-                    </div>
-                  </validation-provider>
+      </section>
+      <ValidationObserver v-slot="{ validate }">
+        <form name="form" @submit.prevent="validate().then(validDelete)">
+          <ConfirmModal v-show="isDeleteModalVisible" @cancel="undoSelect()">
+            <div class="rf-container">
+              <div class="rf-grid-row justify-content-center">
+                <div class="rf-col-12">
+                  <div class="rf-col-12 rf-mb-3w">
+                    <validation-provider rules="required" v-slot="{ errors }">
+                      <div
+                        class="rf-input-group"
+                        :class="errors[0] ? 'rf-input-group--error' : ''"
+                      >
+                        <label for="password" class="rf-label">{{
+                          $t("password")
+                        }}</label>
+                        <input
+                          id="password"
+                          type="password"
+                          v-model="password"
+                          name="password"
+                          class="validate-required form-control rf-input"
+                          required
+                        />
+                        <span class="rf-error-text" v-if="errors[0]">{{
+                          $t(errors[0])
+                        }}</span>
+                      </div>
+                    </validation-provider>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </ConfirmModal>
-      </form>
-    </ValidationObserver>
+          </ConfirmModal>
+        </form>
+      </ValidationObserver>
+    </div>
   </div>
 </template>
 
@@ -644,13 +665,13 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
     DfButton,
     NakedCard,
     StatusTag,
-    ConfirmModal,
+    ConfirmModal
   },
   computed: {
     ...mapState({
-      user: "user",
-    }),
-  },
+      user: "user"
+    })
+  }
 })
 export default class Account extends Vue {
   TENANT_URL = `https://${process.env.VUE_APP_TENANT_URL}`;
@@ -663,7 +684,7 @@ export default class Account extends Vue {
 
   isOld() {
     // TODO
-    return true;
+    return false;
   }
 
   getToken() {
@@ -728,7 +749,7 @@ export default class Account extends Vue {
       document.execCommand("copy");
       this.$toasted.show(this.$i18n.t("copied").toString(), {
         type: "success",
-        duration: 3000,
+        duration: 3000
       });
     } catch (err) {
       alert("Oops, unable to copy");
@@ -742,10 +763,10 @@ export default class Account extends Vue {
 
   validDelete() {
     this.isDeleteModalVisible = false;
-    this.$store.dispatch("deleteAccount", this.password).then(null, (error) => {
+    this.$store.dispatch("deleteAccount", this.password).then(null, error => {
       this.$toasted.show(this.$i18n.t("try-again").toString(), {
         type: "error",
-        duration: 7000,
+        duration: 7000
       });
     });
   }
@@ -789,6 +810,14 @@ export default class Account extends Vue {
     }
     return this.$i18n.t("income", [sum]);
   }
+
+  canCopyLink() {
+    return (
+      this.user.status === "VALIDATED" &&
+      this.user.apartmentSharing?.tokenPublic !== undefined &&
+      this.user.apartmentSharing?.tokenPublic !== ""
+    );
+  }
 }
 </script>
 
@@ -801,7 +830,8 @@ export default class Account extends Vue {
   background-color: var(--w);
 }
 
-.rf-container-fluid {
+.bg-blue {
+  width: 100%;
   background-color: var(--bf100-g750);
 }
 
@@ -915,6 +945,10 @@ p {
   @media (max-width: 768px) {
     font-size: 48px;
   }
+}
+
+.rf-tag {
+  padding: 0.375rem 0.5rem;
 }
 </style>
 

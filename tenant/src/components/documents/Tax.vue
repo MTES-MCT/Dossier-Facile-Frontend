@@ -285,6 +285,9 @@ export default class Tax extends Vue {
         "acceptVerification",
         this.acceptVerification ? "true" : "false"
       );
+      formData.append("noDocument", "false");
+    } else {
+      formData.append("noDocument", "true");
     }
 
     formData.append("typeDocumentTax", this.taxDocument.value);
@@ -300,13 +303,13 @@ export default class Tax extends Vue {
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         Vue.toasted.global.save_success();
+        this.$store.dispatch("loadUser");
       })
       .catch(() => {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
         Vue.toasted.global.save_failed();
       })
       .finally(() => {
-        this.$store.dispatch("loadUser");
         loader.hide();
       });
   }

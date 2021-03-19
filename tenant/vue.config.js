@@ -8,6 +8,13 @@ module.exports = {
       fallbackLocale: "en",
       localeDir: "locales",
       enableInSFC: true
+    },
+    sitemap: {
+      urls: [
+        "https://locataire.dossierfacile.fr/",
+        "https://locataire.dossierfacile.fr/login",
+        "https://locataire.dossierfacile.fr/signup"
+      ]
     }
   },
   configureWebpack: config => {
@@ -19,7 +26,7 @@ module.exports = {
           // Absolute path to compiled SPA
           path.resolve(__dirname, "dist"),
           // List of routes to prerender
-          ["/"]
+          ["/", "/login", "/signup"]
         )
       ]
     };

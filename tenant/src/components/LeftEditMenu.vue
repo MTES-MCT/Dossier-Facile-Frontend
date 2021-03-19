@@ -90,7 +90,7 @@ export default class LeftEditMenu extends Vue {
   z-index: 0;
   height: 25px;
   &.active {
-    border-left: 1px solid var(--tertiary);
+    border-left: 1px solid var(--primary);
   }
 }
 
@@ -114,7 +114,7 @@ export default class LeftEditMenu extends Vue {
 }
 
 .active .step-number {
-  background-color: var(--tertiary);
+  background-color: var(--primary);
   color: white;
 }
 
