@@ -160,13 +160,20 @@ export default class File extends Vue {
   getTenants() {
     const users: (User | Guarantor)[] = [];
     this.user?.tenants?.forEach(t => {
-      users.push(t);
-      if (t.guarantors && t.guarantors.length > 0) {
-        t.guarantors.forEach(g => {
-          if (g.typeGuarantor === "NATURAL_PERSON") {
-            users.push(g);
-          }
-        });
+      if (
+        t.firstName &&
+        t.lastName &&
+        t.firstName !== "" &&
+        t.lastName !== ""
+      ) {
+        users.push(t);
+        if (t.guarantors && t.guarantors.length > 0) {
+          t.guarantors.forEach(g => {
+            if (g.typeGuarantor === "NATURAL_PERSON") {
+              users.push(g);
+            }
+          });
+        }
       }
     });
 
