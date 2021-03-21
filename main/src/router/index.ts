@@ -142,15 +142,11 @@ router.beforeEach((to, from, next) => {
 
   document.title = to.meta.title;
   if (to.meta.description) {
-    const tag = document.createElement("meta");
-    tag.setAttribute("name", "description");
-    tag.setAttribute("content", to.meta.description);
-    document.head.appendChild(tag);
+    const tag = document.querySelector('meta[name="description"]');
+    tag?.setAttribute("content", to.meta.description);
 
-    const prop = document.createElement("meta");
-    prop.setAttribute("property", "og:description");
-    prop.setAttribute("content", to.meta.description);
-    document.head.appendChild(prop);
+    const prop = document.querySelector('meta[name="og:description"]');
+    prop?.setAttribute("content", to.meta.description);
   }
   next();
 });
