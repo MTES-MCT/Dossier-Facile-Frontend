@@ -98,3 +98,9 @@ Vue.toasted.register("max_file", i18n.t("max-file").toString(), {
   type: "error",
   duration: 7000
 });
+
+app.$store.dispatch("updateMessages");
+
+setInterval(() => {
+  app.$store.dispatch("updateMessages");
+}, 60000);

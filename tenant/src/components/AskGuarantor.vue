@@ -41,14 +41,14 @@ export default class AskGuarantor extends Vue {
         "add-guarantor-question": "Si vous le souhaitez nous vous proposons d'ajouter un garant.",
         "add-guarantor-btn": "Ajouter un garant",
         "remark": "Remarque",
-        "not-required": "Ajouter un garant n'est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez cliquer dircetement sur le bouton ci-dessous «Valider mon dossier». Votre dossier sera alors enregistré pour être instruit.",
+        "not-required": "Ajouter un garant n'est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez cliquer directement sur le bouton ci-dessous «Valider mon dossier». Votre dossier sera alors enregistré pour être instruit.",
         "validate": "Valider mon dossier"
     },
     "fr": {
         "add-guarantor-question": "Si vous le souhaitez nous vous proposons d'ajouter un garant.",
         "add-guarantor-btn": "Ajouter un garant",
         "remark": "Remarque",
-        "not-required": "Ajouter un garant n'est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez cliquer dircetement sur le bouton ci-dessous «Valider mon dossier». Votre dossier sera alors enregistré pour être instruit.",
+        "not-required": "Ajouter un garant n'est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez cliquer directement sur le bouton ci-dessous «Valider mon dossier». Votre dossier sera alors enregistré pour être instruit.",
         "validate": "Valider mon dossier"
     }
 }

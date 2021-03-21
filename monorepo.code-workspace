@@ -33,11 +33,15 @@
     "editor.codeActionsOnSave": {
       "source.fixAll": true
     },
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": false,
     "files.autoSave": "off",
     "typescript.implementationsCodeLens.enabled": true,
     "typescript.tsdk": "./node_modules/typescript/lib",
     "editor.tabSize": 2,
-    "jest.disabledWorkspaceFolders": ["📂 DossierFacile", "😈 bo", "🏠 owner"]
+    "jest.disabledWorkspaceFolders": [
+      "📂 DossierFacile",
+      "😈 bo",
+      "🏠 owner"
+    ]
   }
 }
