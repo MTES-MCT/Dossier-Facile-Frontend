@@ -360,9 +360,11 @@ const store = new Vuex.Store({
       );
     },
     updateMessages({ commit }) {
-      MessageService.updateMessages().then(data => {
-        this.commit("updateMessages", data.data);
-      });
+      if (this.getters.isLoggedIn) {
+        MessageService.updateMessages().then(data => {
+          commit("updateMessages", data.data);
+        });
+      }
     },
     sendMessage({ commit }, message: string) {
       return MessageService.postMessage({ messageBody: message }).then(() => {
