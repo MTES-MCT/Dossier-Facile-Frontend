@@ -92,6 +92,7 @@
 
           <div class="rf-col-12 rf-mb-3w">
             <vue-recaptcha
+              ref="captcha"
               :sitekey="SITE_KEY"
               :loadRecaptchaScript="true"
               @verify="onVerify"
@@ -121,18 +122,18 @@ import Password from "vue-password-strength-meter";
 // No message specified.
 extend("email", {
   ...email,
-  message: "email-not-valid",
+  message: "email-not-valid"
 });
 
 // Override the default message.
 extend("required", {
   ...required,
-  message: "field-required",
+  message: "field-required"
 });
 
 extend("confirmed", {
   ...confirmed,
-  message: "password-not-confirmed",
+  message: "password-not-confirmed"
 });
 
 const MIN_SCORE = 2;
@@ -143,15 +144,15 @@ extend("strength", {
       return args[0] >= MIN_SCORE;
     }
     return true;
-  },
+  }
 });
 
 @Component({
   components: {
     ValidationProvider,
     VueRecaptcha,
-    Password,
-  },
+    Password
+  }
 })
 export default class Register extends Vue {
   SITE_KEY = process.env.VUE_APP_CAPTCHA_SITE_KEY;
@@ -175,6 +176,7 @@ export default class Register extends Vue {
       return;
     }
     this.$emit("on-register", this.user);
+    (this.$refs.captcha as VueRecaptcha).reset();
   }
 
   onVerify(captcha: string) {
