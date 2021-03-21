@@ -51,11 +51,6 @@ export default class App extends Vue {
 
   mounted() {
     new Header();
-    setInterval(() => {
-      if (this.isLoggedIn) {
-        this.$store.dispatch("updateMessages");
-      }
-    }, 60000);
   }
 
   onLogin() {

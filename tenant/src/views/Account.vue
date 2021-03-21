@@ -763,7 +763,7 @@ export default class Account extends Vue {
 
   validDelete() {
     this.isDeleteModalVisible = false;
-    this.$store.dispatch("deleteAccount", this.password).then(null, error => {
+    this.$store.dispatch("deleteAccount", this.password).then(null, () => {
       this.$toasted.show(this.$i18n.t("try-again").toString(), {
         type: "error",
         duration: 7000
@@ -1032,7 +1032,7 @@ p {
     "corporation-identification": "Identité du représentant de la personne morale",
     "guarantor": "Garant",
     "guarantors-information": "Les informations de mes garants",
-    "TO_PROCESS":"est non vérifié",
+    "TO_PROCESS":"est en cours de traitement",
     "VALIDATED":"est vérifié",
     "DECLINED":"nécessite une modification",
     "INCOMPLETE":"est non terminé",
