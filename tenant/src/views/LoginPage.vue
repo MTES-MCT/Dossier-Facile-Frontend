@@ -77,7 +77,7 @@ export default class LoginPage extends Vue {
     "password-error": "Incorrect username or password",
     "forgotten-password": "Forgotten password",
     "no-account": "I don't have an account yet",
-    "error-occured": "An error occured, if you already have an account on the old version, please go there: <a href='https://dossierfacile.fr/v1'>DossierFacile v1</a>",
+    "error-occured": "An error occured, if you already have an account on the old version, please go there: <a href='https://old.dossierfacile.fr'>DossierFacile v1</a>",
     "try-again": "Try again",
     "old-version": "DossierFacile v1"
   },
@@ -85,7 +85,7 @@ export default class LoginPage extends Vue {
     "password-error": "Utilisateur ou mot de passe incorrect",
     "forgotten-password": "mot de passe oublié",
     "no-account": "je n'ai pas encore de compte",
-    "error-occured": "Une erreur est survenue, si vous avez un compte sur l'ancienne version de DossierFacile, vous pouvez vous connecter ici : <a href='https://dossierfacile.fr/v1'>DossierFacile v1</a>",
+    "error-occured": "Une erreur est survenue, si vous avez un compte sur l'ancienne version de DossierFacile, vous pouvez vous connecter ici : <a href='https://old.dossierfacile.fr'>DossierFacile v1</a>",
     "try-again": "Réessayer",
     "old-version": "DossierFacile v1"
   }
