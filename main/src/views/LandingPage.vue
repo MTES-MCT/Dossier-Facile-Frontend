@@ -114,6 +114,12 @@
           <span class="color--secondary">{{ $t("s4.title2") }}</span>
           {{ $t("s4.title3") }}
         </h2>
+        <div class="text-center">
+          <router-link to="/stats">
+            <img src="../assets/icons/stats.webp" class="stats-icon" />
+            {{ $t("s4.link") }}
+          </router-link>
+        </div>
         <div class="rf-grid-row">
           <div class="col rf-p-2w">
             <blockquote class="bg--blue color--primary quote rf-p-2w">
@@ -319,6 +325,12 @@ img {
 a[target="_blank"].logo-link::after {
   content: none;
 }
+
+.stats-icon {
+  display: inline;
+  height: 3rem;
+  vertical-align: -0.75rem;
+}
 </style>
 
 <i18n>
@@ -368,7 +380,8 @@ a[target="_blank"].logo-link::after {
       "t2": "Simple, efficient and practical: it saved me a lot of time in my apartment search.",
       "author2": "Caroline, student",
       "t3": "I never managed to visit an apartment with my foreign file. With DossierFacile, I finally had more visits!",
-      "author3": "Irina, Erasmus student"
+      "author3": "Irina, Erasmus student",
+      "link": "Consult our statistics"
     },
     "s5": {
       "title1": "They",
@@ -420,7 +433,8 @@ a[target="_blank"].logo-link::after {
       "t2": "Simple, efficace et pratique : ça m'a fait gagner beaucoup de temps dans ma recherche d'appartement.",
       "author2": "Caroline, étudiante",
       "t3": "Je ne réussissais jamais à visiter un appartement avec mon dossier étranger. Avec DossierFacile, j'ai enfin eu plus de visites !",
-      "author3": "Irina, étudiante en Erasmus"
+      "author3": "Irina, étudiante en Erasmus",
+      "link": "Consulter nos statistiques"
     },
     "s5": {
       "title1": "Ils nous font",

@@ -149,6 +149,16 @@ const routes: Array<RouteConfig> = [
       return `https://old.dossierfacile.fr/visite-locataire/${token}`;
     }
   },
+  {
+    path: "/stats",
+    name: "Statistiques",
+    meta: {
+      title: "Statistiques - DossierFacile",
+      description: "Statistiques de DossierFacile"
+    },
+    component: () =>
+      import(/* webpackChunkName: "statistics" */ "../views/Statistics.vue")
+  },
   { path: "*", redirect: "/" }
 ];
 
