@@ -141,6 +141,14 @@ const routes: Array<RouteConfig> = [
       return `https://old.dossierfacile.fr/dossier-locataire/${token}`;
     }
   },
+  {
+    path: "/visite-locataire/:token",
+    redirect: (to: Route) => {
+      const token = to.params.token;
+      window.location.href = `https://old.dossierfacile.fr/visite-locataire/${token}`;
+      return `https://old.dossierfacile.fr/visite-locataire/${token}`;
+    }
+  },
   { path: "*", redirect: "/" }
 ];
 
