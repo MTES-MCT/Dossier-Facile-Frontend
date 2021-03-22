@@ -56,6 +56,17 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Article3.vue")
   },
   {
+    path: "/blog/locatio-devient-dossier-facile",
+    name: "Article0",
+    meta: {
+      title: "Locatio devient DossierFacile",
+      description:
+        "Locatio, le service d’Etat permettant de monter un dossier de location en ligne certifié clair, complet et cohérent,change de nom et devient DossierFacile.fr"
+    },
+    component: () =>
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article0.vue")
+  },
+  {
     path: "/information",
     name: "Information",
     meta: {
