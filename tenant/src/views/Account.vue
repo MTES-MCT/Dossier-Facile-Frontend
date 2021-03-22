@@ -540,10 +540,10 @@
               </div>
             </div>
             <div class="partners">
-              <h2>{{ $t("partners") }}</h2>
+              <h2 class="rf-pt-4w rf-pb-2w">{{ $t("partners") }}</h2>
               <div class="rf-grid-row rf-grid-row--gutters">
                 <div class="rf-col">
-                  <div class="bg-white">
+                  <div class="bg-white partner-box">
                     <img
                       alt="logo visale"
                       class="visale-img"
@@ -552,7 +552,7 @@
                   </div>
                 </div>
                 <div class="rf-col">
-                  <div class="bg-white">
+                  <div class="bg-white partner-box">
                     <img
                       alt="logo anil"
                       class="anil-img"
@@ -563,8 +563,8 @@
               </div>
             </div>
             <div class="delete">
-              <h2>{{ $t("delete") }}</h2>
-              <div class="bg-white">
+              <h2 class="rf-pt-4w rf-pb-2w">{{ $t("delete") }}</h2>
+              <div class="bg-white rf-p-4w">
                 <p>
                   Vous pouvez supprimer votre compte DossierFacile à tout
                   moment. La suppression de votre compte entrainera
@@ -582,8 +582,8 @@
               </div>
             </div>
             <div class="opinion rf-mb-5w">
-              <h2>{{ $t("opinion") }}</h2>
-              <div class="bg-white">
+              <h2 class="rf-pt-4w rf-pb-2w">{{ $t("opinion") }}</h2>
+              <div class="bg-white rf-p-4w">
                 <p>
                   Nous cherchons constamment à améliorer la qualité de notre
                   service. Dans le cadre de cette démarche d’amélioration, nous
@@ -857,7 +857,6 @@ h2 {
 }
 
 .bg-white {
-  padding: 2rem;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 10px;
   background: var(--w);
@@ -870,7 +869,7 @@ h2 {
 }
 
 .visale-img {
-  height: 72px;
+  max-height: 72px;
   margin: auto;
   margin-top: 14px;
   margin-bottom: 14px;
@@ -878,11 +877,14 @@ h2 {
 
 .anil-img {
   margin: auto;
-  height: 100px;
+  max-height: 100px;
 }
 
 .partners .bg-white {
   padding: 2rem;
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 }
 
 .grp {
@@ -964,6 +966,13 @@ hr {
   margin-left: 20%;
   margin-right: 20%;
   border-top: 1px solid var(--g400);
+}
+
+.partner-box {
+  height: 196px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
 
