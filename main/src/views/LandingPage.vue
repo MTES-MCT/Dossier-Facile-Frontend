@@ -156,35 +156,58 @@
           <div
             class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
           >
-            <img
-              class="partner-logo"
-              src="../assets/logos/monsieur_hugo.webp"
-            />
+            <a
+              target="_blank"
+              href="https://www.monsieurhugo.com/"
+              class="logo-link"
+            >
+              <img
+                class="partner-logo"
+                src="../assets/logos/monsieur_hugo.webp"
+              />
+            </a>
           </div>
           <div
             class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
           >
-            <img class="partner-logo" src="../assets/logos/visale.webp" />
+            <a target="_blank" href="https://www.visale.fr/" class="logo-link">
+              <img class="partner-logo" src="../assets/logos/visale.webp" />
+            </a>
           </div>
           <div
             class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
           >
-            <img class="partner-logo" src="../assets/logos/loc_service.webp" />
+            <a
+              target="_blank"
+              href="https://www.locservice.fr/"
+              class="logo-link"
+            >
+              <img
+                class="partner-logo"
+                src="../assets/logos/loc_service.webp"
+              />
+            </a>
           </div>
           <div
             class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
           >
-            <img class="partner-logo" src="../assets/logos/colivme.webp" />
+            <a target="_blank" href="https://colivme.com/" class="logo-link">
+              <img class="partner-logo" src="../assets/logos/colivme.webp" />
+            </a>
           </div>
           <div
             class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
           >
-            <img class="partner-logo" src="../assets/logos/whoomies.webp" />
+            <a target="_blank" href="https://whoomies.com/" class="logo-link">
+              <img class="partner-logo" src="../assets/logos/whoomies.webp" />
+            </a>
           </div>
           <div
             class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
           >
-            <img class="partner-logo" src="../assets/logos/anil.webp" />
+            <a target="_blank" href="https://www.anil.org/" class="logo-link">
+              <img class="partner-logo" src="../assets/logos/anil.webp" />
+            </a>
           </div>
         </div>
         <div class="text-center rf-mt-5w rf-mb-5w">
@@ -291,6 +314,10 @@ img {
   max-width: 100%;
   max-height: 60px;
   margin: auto;
+}
+
+a[target="_blank"].logo-link::after {
+  content: none;
 }
 </style>
 
