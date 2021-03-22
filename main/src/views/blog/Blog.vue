@@ -94,7 +94,7 @@
           <article class="rf-mb-12w">
             <div class="text-center">
               <router-link to="/blog/locatio-devient-dossier-facile">
-                <h2 class="rf-h2">Locatio devient DossierFacile.fr</h2>
+                <h2 class="rf-h2">Locatio devient DossierFacile</h2>
               </router-link>
               <span>21 mars 2019 dans </span>
               <span>
