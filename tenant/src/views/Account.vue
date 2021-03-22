@@ -106,6 +106,7 @@
                   v-html="
                     $t('status-description', [
                       user.firstName,
+                      getPersonnalStatus(),
                       getProfession(),
                       getIncome()
                     ])
@@ -121,12 +122,12 @@
                 >
                   <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
                     <div class="rf-tile rf-tile--horizontal">
-                      <div class="rf-tile__img-wrap">
+                      <div class="rf-tile__img-wrap rf-ml-2w">
                         <span class="color--primary material-icons md-adapt"
                           >person</span
                         >
                       </div>
-                      <div class="rf-tile__body">
+                      <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                         <h4 class="rf-tile__title">
                           <a class="rf-tile__link" href>{{
                             $t("my-information")
@@ -155,12 +156,12 @@
                     @click="setTenantStep(1)"
                   >
                     <div class="rf-tile rf-tile--horizontal">
-                      <div class="rf-tile__img-wrap">
+                      <div class="rf-tile__img-wrap rf-ml-2w">
                         <span class="color--primary material-icons md-adapt"
                           >person</span
                         >
                       </div>
-                      <div class="rf-tile__body">
+                      <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                         <h4 class="rf-tile__title">
                           <a class="rf-tile__link" href>{{
                             $t("identification")
@@ -183,12 +184,12 @@
                     @click="setTenantStep(2)"
                   >
                     <div class="rf-tile rf-tile--horizontal">
-                      <div class="rf-tile__img-wrap">
+                      <div class="rf-tile__img-wrap rf-ml-2w">
                         <span class="color--primary material-icons md-adapt"
                           >home</span
                         >
                       </div>
-                      <div class="rf-tile__body">
+                      <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                         <h4 class="rf-tile__title">
                           <a class="rf-tile__link" href>{{
                             $t("residency")
@@ -209,12 +210,12 @@
                     @click="setTenantStep(3)"
                   >
                     <div class="rf-tile rf-tile--horizontal">
-                      <div class="rf-tile__img-wrap">
+                      <div class="rf-tile__img-wrap rf-ml-2w">
                         <span class="color--primary material-icons md-adapt"
                           >work</span
                         >
                       </div>
-                      <div class="rf-tile__body">
+                      <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                         <h4 class="rf-tile__title">
                           <a class="rf-tile__link" href>{{
                             $t("professional")
@@ -238,12 +239,12 @@
                     @click="setTenantStep(4)"
                   >
                     <div class="rf-tile rf-tile--horizontal">
-                      <div class="rf-tile__img-wrap">
+                      <div class="rf-tile__img-wrap rf-ml-2w">
                         <span class="color--primary material-icons md-adapt"
                           >euro</span
                         >
                       </div>
-                      <div class="rf-tile__body">
+                      <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                         <h4 class="rf-tile__title">
                           <a class="rf-tile__link" href>{{
                             $t("financial")
@@ -264,12 +265,12 @@
                     @click="setTenantStep(5)"
                   >
                     <div class="rf-tile rf-tile--horizontal">
-                      <div class="rf-tile__img-wrap">
+                      <div class="rf-tile__img-wrap rf-ml-2w">
                         <span class="color--primary material-icons md-adapt"
                           >content_copy</span
                         >
                       </div>
-                      <div class="rf-tile__body">
+                      <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                         <h4 class="rf-tile__title">
                           <a class="rf-tile__link" href>{{ $t("tax") }}</a>
                         </h4>
@@ -300,12 +301,12 @@
                         @click="setGuarantorSubStep(1)"
                       >
                         <div class="rf-tile rf-tile--horizontal">
-                          <div class="rf-tile__img-wrap">
+                          <div class="rf-tile__img-wrap rf-ml-2w">
                             <span class="color--primary material-icons md-adapt"
                               >person</span
                             >
                           </div>
-                          <div class="rf-tile__body">
+                          <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                             <h4 class="rf-tile__title">
                               <a class="rf-tile__link" href>{{
                                 $t("identification")
@@ -328,12 +329,12 @@
                         @click="setGuarantorSubStep(2)"
                       >
                         <div class="rf-tile rf-tile--horizontal">
-                          <div class="rf-tile__img-wrap">
+                          <div class="rf-tile__img-wrap rf-ml-2w">
                             <span class="color--primary material-icons md-adapt"
                               >home</span
                             >
                           </div>
-                          <div class="rf-tile__body">
+                          <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                             <h4 class="rf-tile__title">
                               <a class="rf-tile__link" href>{{
                                 $t("residency")
@@ -356,12 +357,12 @@
                         @click="setGuarantorSubStep(3)"
                       >
                         <div class="rf-tile rf-tile--horizontal">
-                          <div class="rf-tile__img-wrap">
+                          <div class="rf-tile__img-wrap rf-ml-2w">
                             <span class="color--primary material-icons md-adapt"
                               >work</span
                             >
                           </div>
-                          <div class="rf-tile__body">
+                          <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                             <h4 class="rf-tile__title">
                               <a class="rf-tile__link" href>{{
                                 $t("professional")
@@ -385,12 +386,12 @@
                         @click="setGuarantorSubStep(4)"
                       >
                         <div class="rf-tile rf-tile--horizontal">
-                          <div class="rf-tile__img-wrap">
+                          <div class="rf-tile__img-wrap rf-ml-2w">
                             <span class="color--primary material-icons md-adapt"
                               >euro</span
                             >
                           </div>
-                          <div class="rf-tile__body">
+                          <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                             <h4 class="rf-tile__title">
                               <a class="rf-tile__link" href>{{
                                 $t("financial")
@@ -413,12 +414,12 @@
                         @click="setGuarantorSubStep(5)"
                       >
                         <div class="rf-tile rf-tile--horizontal">
-                          <div class="rf-tile__img-wrap">
+                          <div class="rf-tile__img-wrap rf-ml-2w">
                             <span class="color--primary material-icons md-adapt"
                               >content_copy</span
                             >
                           </div>
-                          <div class="rf-tile__body">
+                          <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                             <h4 class="rf-tile__title">
                               <a class="rf-tile__link" href>{{ $t("tax") }}</a>
                             </h4>
@@ -443,12 +444,12 @@
                         @click="setGuarantorSubStep(1)"
                       >
                         <div class="rf-tile rf-tile--horizontal">
-                          <div class="rf-tile__img-wrap">
+                          <div class="rf-tile__img-wrap rf-ml-2w">
                             <span class="color--primary material-icons md-adapt"
                               >person</span
                             >
                           </div>
-                          <div class="rf-tile__body">
+                          <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                             <h4 class="rf-tile__title">
                               <a class="rf-tile__link" href>{{
                                 $t("identification")
@@ -475,12 +476,12 @@
                         @click="setGuarantorSubStep(1)"
                       >
                         <div class="rf-tile rf-tile--horizontal">
-                          <div class="rf-tile__img-wrap">
+                          <div class="rf-tile__img-wrap rf-ml-2w">
                             <span class="color--primary material-icons md-adapt"
                               >person</span
                             >
                           </div>
-                          <div class="rf-tile__body">
+                          <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                             <h4 class="rf-tile__title">
                               <a class="rf-tile__link" href>{{
                                 $t("identification-legal-person")
@@ -511,12 +512,12 @@
                         @click="setGuarantorSubStep(2)"
                       >
                         <div class="rf-tile rf-tile--horizontal">
-                          <div class="rf-tile__img-wrap">
+                          <div class="rf-tile__img-wrap rf-ml-2w">
                             <span class="color--primary material-icons md-adapt"
                               >person</span
                             >
                           </div>
-                          <div class="rf-tile__body">
+                          <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                             <h4 class="rf-tile__title">
                               <a class="rf-tile__link" href>{{
                                 $t("identification")
@@ -794,6 +795,10 @@ export default class Account extends Vue {
     this.setStep(3);
   }
 
+  getPersonnalStatus() {
+    return this.$i18n.t(this.user.applicationType || "ALONE");
+  }
+
   getProfession() {
     const doc = this.user.documents?.find((d: DfDocument) => {
       return d.documentCategory === "PROFESSIONAL";
@@ -945,10 +950,7 @@ p {
 }
 
 .material-icons.md-adapt {
-  font-size: 80px;
-  @media (max-width: 768px) {
-    font-size: 48px;
-  }
+  font-size: 48px;
 }
 
 .rf-tag {
@@ -980,8 +982,7 @@ hr {
 {
   "en": {
     "title": "Hello {0}, your file {1}",
-    "status-description":"{0}, you are {1} and {2}.<br>if your situation has changed, please update your documents !",
-    "subtitle": "Vous avez indiqué être {0} {1}, être en {2} et gagner {3}.",
+    "status-description":"{0}, you are {1}, {2} and {3}.<br>if your situation has changed, please update your documents !",
     "last-update": "Dernière mise à jour du dossier le {0}",
     "file-update-title": "File update",
     "file-update-text": "Vous avez mis à jour votre dossier, pour la dernière fois le {0}.<br> Afin qu'il reste convaincant, il est important de maintenir à jour vos justificatifs.",
@@ -1031,12 +1032,14 @@ hr {
     "no-income": "have no income",
     "income": "have a monthly income of {0}€",
     "identification-legal-person": "Legal person identification",
-    "copied": "Copied !"
+    "copied": "Copied !",
+    "ALONE": "seul·e",
+    "COUPLE": "en couple",
+    "ROOMMATE": "en colocation"
   },
   "fr": {
     "title": "Bonjour {0}, votre dossier {1} !",
-    "status-description":"{0}, vous avez indiqué être {1} et {2}.<br>Si votre situation a changé, mettez à jour vos documents !",
-    "subtitle": "Vous avez indiqué être {0} {1}, être en {2} et gagner {3}.",
+    "status-description":"{0}, vous avez indiqué être {1}, {2} et {3}.<br>Si votre situation a changé, mettez à jour vos documents !",
     "last-update": "Dernière mise à jour du dossier le {0}",
     "file-update-title": "Mise à jour de votre dossier",
     "file-update-text": "Vous avez mis à jour votre dossier, pour la dernière fois le {0}.<br> Afin qu'il reste convaincant, il est important de maintenir à jour vos justificatifs.",
@@ -1086,7 +1089,10 @@ hr {
     "no-income": "ne pas avoir de revenu",
     "income": "avoir un revenu net mensuel de {0}€",
     "identification-legal-person": "Identification de la personne morale",
-    "copied": "Copié !"
+    "copied": "Copié !",
+    "ALONE": "seul·e",
+    "COUPLE": "en couple",
+    "ROOMMATE": "en colocation"
   }
 }
 </i18n>
