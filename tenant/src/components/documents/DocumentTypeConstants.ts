@@ -135,7 +135,7 @@ export const DocumentTypeConstants = {
         "Attestation sur l’honneur du parent <b>datée et signée</b> indiquant que le candidat à la location réside à son domicile, accompagnée d’une pièce d’identité et d’un justificatif de domicile du parent (une simple facture suffit)"
       ],
       refusedProofs: ["Tout autre document"],
-      maxFileCount: 2
+      maxFileCount: 10
     },
     {
       key: "guest-parents",
@@ -150,7 +150,7 @@ export const DocumentTypeConstants = {
         "Attestation d’élection de domicile <b>datée de moins de trois mois et signée</b> de l’organisme d’hébergement (hébergement d’urgence, placement…) indiquant l’adresse de l’hébergement (téléchargeable sur le site <a target='_blank' href='https://www.service-public.fr/simulateur/calcul/16030'>https://www.service-public.fr/simulateur/calcul/16030</a> ) "
       ],
       refusedProofs: ["Tout autre document"],
-      maxFileCount: 2
+      maxFileCount: 10
     }
   ],
 
@@ -199,7 +199,7 @@ export const DocumentTypeConstants = {
         "Attestation <b>datée de moins de trois mois et signée</b> de l’organisme d’hébergement (hébergement d’urgence, placement…) indiquant l’adresse de l’hébergement"
       ],
       refusedProofs: ["Tout autre document"],
-      maxFileCount: 2
+      maxFileCount: 10
     }
   ],
 
