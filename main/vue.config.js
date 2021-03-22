@@ -17,6 +17,7 @@ module.exports = {
         "https://dossierfacile.fr/blog/article1",
         "https://dossierfacile.fr/blog/article2",
         "https://dossierfacile.fr/blog/article3",
+        "https://dossierfacile.fr/blog/locatio-devient-dossier-facile",
         "https://dossierfacile.fr/information",
         "https://dossierfacile.fr/securite-des-donnees"
       ]
@@ -38,6 +39,7 @@ module.exports = {
             "/blog/article1",
             "/blog/article2",
             "/blog/article3",
+            "/blog/locatio-devient-dossier-facile",
             "/information",
             "/securite-des-donnees"
           ]
