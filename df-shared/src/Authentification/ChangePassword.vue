@@ -1,6 +1,6 @@
 <template>
   <div class="rf-grid-row rf-grid-row--center">
-    <div class="col-md-8 col-lg-6">
+    <div class="rf-col-md-8 rf-col-lg-6">
       <h2 class="rf-h2 text-center rf-mt-7w rf-mb-5w">
         {{ $t("title") }}
       </h2>
@@ -29,7 +29,11 @@
                   class="validate-required form-control rf-input"
                   required
                 />
-                <password v-model="user.password" :strength-meter-only="true" @score="setScore" />
+                <password
+                  v-model="user.password"
+                  :strength-meter-only="true"
+                  @score="setScore"
+                />
                 <span class="rf-error-text" v-if="errors[0]">{{
                   $t(errors[0])
                 }}</span>
@@ -73,7 +77,6 @@
       </form>
     </div>
   </div>
-    
 </template>
 
 <script lang="ts">
@@ -94,15 +97,15 @@ extend("confirmed", {
   message: "password-not-confirmed"
 });
 
-
 const MIN_SCORE = 2;
 extend("strength", {
   message: "pwd-not-complex",
   validate: (_value, args: any) => {
     if (args !== undefined) {
-      return args[0] >= MIN_SCORE
+      return args[0] >= MIN_SCORE;
     }
-    return true}
+    return true;
+  }
 });
 
 @Component({
@@ -121,7 +124,6 @@ export default class ChangePassword extends Vue {
   setScore(s: number) {
     this.score = s;
   }
-    
 }
 </script>
 

@@ -19,9 +19,11 @@
                 $t("update-file-btn")
               }}</DfButton>
             </div>
-            <div class="main rf-mt-5w rf-p-2w bg-white">
+            <div class="main rf-mt-5w rf-p-4w bg-white">
               <div class="main-bar rf-grid-row">
-                <h4 class="rf-mr-2w rf-mb-0 rf-mt-0">{{ $t("my-file") }}</h4>
+                <div class="header-title">
+                  <h4 class="rf-mr-2w rf-mb-0 rf-mt-0">{{ $t("my-file") }}</h4>
+                </div>
 
                 <StatusTag :status="user.status"></StatusTag>
 
@@ -855,7 +857,7 @@ h2 {
 }
 
 .bg-white {
-  padding: 10px;
+  padding: 2rem;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 10px;
   background: var(--w);
@@ -950,6 +952,12 @@ p {
 .rf-tag {
   padding: 0.375rem 0.5rem;
 }
+
+.header-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>
 
 <i18n>
@@ -1005,7 +1013,7 @@ p {
     "INDEPENDENT": "Indépendant",
     "OTHER": "Autre",
     "no-income": "have no income",
-    "income": "have a monthly income of {0}",
+    "income": "have a monthly income of {0}€",
     "identification-legal-person": "Legal person identification",
     "copied": "Copied !"
   },
@@ -1060,7 +1068,7 @@ p {
     "INDEPENDENT": "indépendant",
     "OTHER": "Autre",
     "no-income": "ne pas avoir de revenu",
-    "income": "avoir un revenu net mensuel de {0}",
+    "income": "avoir un revenu net mensuel de {0}€",
     "identification-legal-person": "Identification de la personne morale",
     "copied": "Copié !"
   }
