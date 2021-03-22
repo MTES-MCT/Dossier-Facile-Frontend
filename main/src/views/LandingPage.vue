@@ -154,34 +154,37 @@
         </h2>
         <div class="rf-grid-row">
           <div
-            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center"
+            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
           >
-            hugo
+            <img
+              class="partner-logo"
+              src="../assets/logos/monsieur_hugo.webp"
+            />
           </div>
           <div
-            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center"
+            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
           >
-            hugo
+            <img class="partner-logo" src="../assets/logos/visale.webp" />
           </div>
           <div
-            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center"
+            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
           >
-            hugo
+            <img class="partner-logo" src="../assets/logos/loc_service.webp" />
           </div>
           <div
-            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center"
+            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
           >
-            hugo
+            <img class="partner-logo" src="../assets/logos/colivme.webp" />
           </div>
           <div
-            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center"
+            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
           >
-            hugo
+            <img class="partner-logo" src="../assets/logos/whoomies.webp" />
           </div>
           <div
-            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center"
+            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
           >
-            hugo
+            <img class="partner-logo" src="../assets/logos/anil.webp" />
           </div>
         </div>
         <div class="text-center rf-mt-5w rf-mb-5w">
@@ -282,6 +285,12 @@ ul li:before {
 img {
   max-width: 100%;
   display: block;
+}
+
+.partner-logo {
+  max-width: 100%;
+  max-height: 60px;
+  margin: auto;
 }
 </style>
 
