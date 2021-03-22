@@ -579,7 +579,7 @@ export const DocumentTypeConstants = {
         "RIB",
         "Avis d’imposition"
       ],
-      maxFileCount: 3
+      maxFileCount: 20
     },
     {
       key: "social-service",
@@ -597,7 +597,7 @@ export const DocumentTypeConstants = {
         "RIB",
         "Avis d’imposition"
       ],
-      maxFileCount: 3
+      maxFileCount: 20
     },
     {
       key: "rent",
@@ -610,7 +610,7 @@ export const DocumentTypeConstants = {
         "Dernier ou avant-dernier avis d’imposition avec nom et revenus de la rente visibles"
       ],
       refusedProofs: ["Relevés de comptes bancaires", "RIB"],
-      maxFileCount: 3
+      maxFileCount: 20
     },
     {
       key: "pension",
@@ -626,7 +626,7 @@ export const DocumentTypeConstants = {
         "Relevés de comptes bancaires",
         "RIB"
       ],
-      maxFileCount: 3
+      maxFileCount: 20
     },
     {
       key: "scholarship",
@@ -638,7 +638,7 @@ export const DocumentTypeConstants = {
         "Relevés de comptes bancaires",
         "RIB"
       ],
-      maxFileCount: 3
+      maxFileCount: 20
     }
   ],
 
@@ -657,7 +657,7 @@ export const DocumentTypeConstants = {
         "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
       ],
       refusedProofs: ["Relevés de comptes bancaires"],
-      maxFileCount: 3
+      maxFileCount: 20
     },
     {
       key: "social-service",
@@ -671,7 +671,7 @@ export const DocumentTypeConstants = {
         "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
       ],
       refusedProofs: ["Relevés de comptes bancaires"],
-      maxFileCount: 3
+      maxFileCount: 20
     },
     {
       key: "rent",
@@ -684,7 +684,7 @@ export const DocumentTypeConstants = {
         "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
       ],
       refusedProofs: ["Relevés de comptes bancaires"],
-      maxFileCount: 3
+      maxFileCount: 20
     },
     {
       key: "pension",
@@ -696,7 +696,7 @@ export const DocumentTypeConstants = {
         "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
       ],
       refusedProofs: ["Relevés de comptes bancaires"],
-      maxFileCount: 3
+      maxFileCount: 20
     },
     {
       key: "scholarship",
@@ -705,7 +705,7 @@ export const DocumentTypeConstants = {
         "J’ajoute un avis d'attribution de bourse de mon garant.",
       acceptedProofs: ["Avis d’attribution de bourse pour l’année en cours"],
       refusedProofs: ["Relevés de comptes bancaires"],
-      maxFileCount: 3
+      maxFileCount: 20
     }
   ],
 
