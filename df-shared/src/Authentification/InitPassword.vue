@@ -1,6 +1,6 @@
 <template>
   <div class="rf-grid-row rf-grid-row--center">
-    <div class="col-md-8 col-lg-6">
+    <div class="rf-col-md-8 rf-col-lg-6">
       <ValidationObserver v-slot="{ validate }">
         <form name="form" @submit.prevent="validate().then(handleRegister)">
           <div class="rf-grid-row rf-grid-row--center">
@@ -88,12 +88,12 @@ import Password from "vue-password-strength-meter";
 
 extend("required", {
   ...required,
-  message: "field-required",
+  message: "field-required"
 });
 
 extend("confirmed", {
   ...confirmed,
-  message: "password-not-confirmed",
+  message: "password-not-confirmed"
 });
 
 const MIN_SCORE = 2;
@@ -104,15 +104,15 @@ extend("strength", {
       return args[0] >= MIN_SCORE;
     }
     return true;
-  },
+  }
 });
 
 @Component({
   components: {
     ValidationObserver,
     ValidationProvider,
-    Password,
-  },
+    Password
+  }
 })
 export default class InitPassword extends Vue {
   score = 0;

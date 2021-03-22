@@ -1,6 +1,6 @@
 <template>
   <div class="rf-grid-row rf-grid-row--center">
-    <div class="col-md-8 col-lg-6">
+    <div class="rf-col-md-8 rf-col-lg-6">
       <h2 class="rf-h2 text-center rf-mt-7w rf-mb-5w">
         {{ $t("title") }}
       </h2>

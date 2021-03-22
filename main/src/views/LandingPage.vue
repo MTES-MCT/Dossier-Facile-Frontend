@@ -146,6 +146,59 @@
         </div>
       </div>
     </section>
+    <section class="rf-mt-12w">
+      <div class="rf-container rf-mb-7w">
+        <h2 class="rf-h2 text-center">
+          {{ $t("s5.title1") }}
+          <span class="color--secondary">{{ $t("s5.title2") }}</span>
+        </h2>
+        <div class="rf-grid-row">
+          <div
+            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
+          >
+            <img
+              class="partner-logo"
+              src="../assets/logos/monsieur_hugo.webp"
+            />
+          </div>
+          <div
+            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
+          >
+            <img class="partner-logo" src="../assets/logos/visale.webp" />
+          </div>
+          <div
+            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
+          >
+            <img class="partner-logo" src="../assets/logos/loc_service.webp" />
+          </div>
+          <div
+            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
+          >
+            <img class="partner-logo" src="../assets/logos/colivme.webp" />
+          </div>
+          <div
+            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
+          >
+            <img class="partner-logo" src="../assets/logos/whoomies.webp" />
+          </div>
+          <div
+            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
+          >
+            <img class="partner-logo" src="../assets/logos/anil.webp" />
+          </div>
+        </div>
+        <div class="text-center rf-mt-5w rf-mb-5w">
+          <p>
+            <a
+              class="rf-btn"
+              :href="`${TENANT_URL}/signup?lang=${$i18n.locale}`"
+            >
+              {{ $t("button") }}
+            </a>
+          </p>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -233,6 +286,12 @@ img {
   max-width: 100%;
   display: block;
 }
+
+.partner-logo {
+  max-width: 100%;
+  max-height: 60px;
+  margin: auto;
+}
 </style>
 
 <i18n>
@@ -283,6 +342,10 @@ img {
       "author2": "Caroline, student",
       "t3": "I never managed to visit an apartment with my foreign file. With DossierFacile, I finally had more visits!",
       "author3": "Irina, Erasmus student"
+    },
+    "s5": {
+      "title1": "They",
+      "title2": "trust us"
     }
   },
   "fr": {
@@ -331,6 +394,10 @@ img {
       "author2": "Caroline, étudiante",
       "t3": "Je ne réussissais jamais à visiter un appartement avec mon dossier étranger. Avec DossierFacile, j'ai enfin eu plus de visites !",
       "author3": "Irina, étudiante en Erasmus"
+    },
+    "s5": {
+      "title1": "Ils nous font",
+      "title2": "confiance"
     }
   }
 }
