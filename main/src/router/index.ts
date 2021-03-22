@@ -116,10 +116,10 @@ const routes: Array<RouteConfig> = [
     path: "/source/:source",
     redirect: (to: Route) => {
       const source = to.params.source;
-      const internalPartnerId = to.query.internalPartnerId.toString();
-      const firstName = to.query.firstName.toString();
-      const lastName = to.query.lastName.toString();
-      const email = to.query.email.toString();
+      const internalPartnerId = to.query.internalPartnerId?.toString();
+      const firstName = to.query.firstName?.toString();
+      const lastName = to.query.lastName?.toString();
+      const email = to.query.email?.toString();
       window.location.href = `${TENANT_URL}/source/${source}?internalPartnerId=${internalPartnerId}&firstName=${firstName}&lastName=${lastName}&email=${email}`;
       return "/source";
     }
