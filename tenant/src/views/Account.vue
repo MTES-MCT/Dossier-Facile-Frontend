@@ -958,6 +958,13 @@ p {
   justify-content: center;
   align-items: center;
 }
+
+hr {
+  border: 0;
+  margin-left: 20%;
+  margin-right: 20%;
+  border-top: 1px solid var(--g400);
+}
 </style>
 
 <i18n>
