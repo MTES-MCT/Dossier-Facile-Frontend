@@ -4,7 +4,8 @@
       <h2 class="rf-h2 text-center rf-mt-7w rf-mb-5w">
         {{ $t("title") }}
       </h2>
-      <form name="form" @submit.prevent="handleRegister">
+    <ValidationObserver v-slot="{ validate }">
+      <form name="form" @submit.prevent="validate().then(handleRegister)">
         <div class="rf-grid-row rf-grid-row--center">
           <div class="rf-col-12 rf-mb-3w">
             <validation-provider rules="required" v-slot="{ errors }">
@@ -92,10 +93,33 @@
 
           <div class="rf-col-12 rf-mb-3w">
             <vue-recaptcha
+              ref="captcha"
               :sitekey="SITE_KEY"
               :loadRecaptchaScript="true"
               @verify="onVerify"
             ></vue-recaptcha>
+          </div>
+          <div class="rf-col-12 rf-mb-3w">
+            <validation-provider
+              rules="is"
+              v-slot="{ errors }"
+            >
+              <div
+                class="rf-input-group"
+                :class="errors[0] ? 'rf-input-group--error' : ''"
+              >
+                <input
+                  type="checkbox"
+                  id="acceptCgu"
+                  value="false"
+                  v-model="acceptCgu"
+                />
+                <label for="acceptCgu" v-html="$t('accept-cgu')"></label>
+                <span class="rf-error-text" v-if="errors[0]">{{
+                  $t(errors[0])
+                }}</span>
+              </div>
+            </validation-provider>
           </div>
 
           <div class="rf-col-12 text-center rf-mb-5w">
@@ -105,6 +129,7 @@
           </div>
         </div>
       </form>
+    </ValidationObserver>
     </div>
   </div>
 </template>
@@ -112,27 +137,27 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { User } from "df-shared/src/models/User";
-import { ValidationProvider } from "vee-validate";
+import { ValidationProvider, ValidationObserver } from "vee-validate";
 import { extend } from "vee-validate";
-import { required, email, confirmed } from "vee-validate/dist/rules";
+import { required, email, confirmed, is } from "vee-validate/dist/rules";
 import VueRecaptcha from "vue-recaptcha";
 import Password from "vue-password-strength-meter";
 
 // No message specified.
 extend("email", {
   ...email,
-  message: "email-not-valid",
+  message: "email-not-valid"
 });
 
 // Override the default message.
 extend("required", {
   ...required,
-  message: "field-required",
+  message: "field-required"
 });
 
 extend("confirmed", {
   ...confirmed,
-  message: "password-not-confirmed",
+  message: "password-not-confirmed"
 });
 
 const MIN_SCORE = 2;
@@ -143,15 +168,22 @@ extend("strength", {
       return args[0] >= MIN_SCORE;
     }
     return true;
-  },
+  }
+});
+
+extend("is", {
+  ...is,
+  message: "require-accept",
+  validate: value => !!value
 });
 
 @Component({
   components: {
     ValidationProvider,
+    ValidationObserver,
     VueRecaptcha,
-    Password,
-  },
+    Password
+  }
 })
 export default class Register extends Vue {
   SITE_KEY = process.env.VUE_APP_CAPTCHA_SITE_KEY;
@@ -160,6 +192,7 @@ export default class Register extends Vue {
 
   user: User = new User();
   score = 0;
+  acceptCgu=false;
 
   mounted() {
     this.user.email = this.email;
@@ -171,10 +204,11 @@ export default class Register extends Vue {
   }
 
   handleRegister() {
-    if (this.score < MIN_SCORE) {
+    if (this.score < MIN_SCORE || !this.acceptCgu) {
       return;
     }
     this.$emit("on-register", this.user);
+    (this.$refs.captcha as VueRecaptcha).reset();
   }
 
   onVerify(captcha: string) {
@@ -196,11 +230,13 @@ export default class Register extends Vue {
 "password-placeholder": "E.g. : 12345679",
 "confirm-password": "Confirm password :",
 "email": "Email :",
-"submit": "Submit",
+"submit": "I create my account",
 "email-not-valid": "Email not valid",
 "field-required": "This field is required",
 "password-not-confirmed": "Password not confirmed",
-"pwd-not-complex": "Password not secure enough"
+"pwd-not-complex": "Password not secure enough",
+"accept-cgu": "En cochant cette case et en cliquant sur \"Je crée mon compte\", j’accepte expressément les <a target=\"_blank\" href='https://dossierfacile.fr/securite-des-donnees'>Conditions générales</a> d’utilisation de DossierFacile et je comprends que mes données personnelles seront utilisées conformément à la <a target=\"_blank\" href='https://dossierfacile.fr/securite-des-donnees'>Politique de confidentialité</a> de DossierFacile",
+"require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer"
 },
 "fr": {
 "title": "Création de compte DossierFacile",
@@ -209,11 +245,13 @@ export default class Register extends Vue {
 "email-placeholder": "Ex : exemple@exemple.fr",
 "password-placeholder": "Ex : 12345679",
 "email": "Email :",
-"submit": "Valider",
+"submit": "Je crée mon compte",
 "email-not-valid": "Email non valide",
 "field-required": "Ce champ est requis",
 "password-not-confirmed": "Le mot de passe ne correspond pas",
-"pwd-not-complex": "Mot de passe trop simple"
+"pwd-not-complex": "Mot de passe trop simple",
+"accept-cgu": "En cochant cette case et en cliquant sur \"Je crée mon compte\", j’accepte expressément les <a target=\"_blank\" href='https://dossierfacile.fr/securite-des-donnees'>Conditions générales</a> d’utilisation de DossierFacile et je comprends que mes données personnelles seront utilisées conformément à la <a target=\"_blank\" href='https://dossierfacile.fr/securite-des-donnees'>Politique de confidentialité</a> de DossierFacile",
+"require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer"
 }
 }
 </i18n>

@@ -56,6 +56,17 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Article3.vue")
   },
   {
+    path: "/blog/locatio-devient-dossier-facile",
+    name: "Article0",
+    meta: {
+      title: "Locatio devient DossierFacile",
+      description:
+        "Locatio, le service d’Etat permettant de monter un dossier de location en ligne certifié clair, complet et cohérent,change de nom et devient DossierFacile.fr"
+    },
+    component: () =>
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article0.vue")
+  },
+  {
     path: "/information",
     name: "Information",
     meta: {
@@ -105,10 +116,10 @@ const routes: Array<RouteConfig> = [
     path: "/source/:source",
     redirect: (to: Route) => {
       const source = to.params.source;
-      const internalPartnerId = to.query.internalPartnerId?.toString();
-      const firstName = to.query.firstName?.toString();
-      const lastName = to.query.lastName?.toString();
-      const email = to.query.email?.toString();
+      const internalPartnerId = to.query.internalPartnerId?.toString() || "";
+      const firstName = to.query.firstName?.toString() || "";
+      const lastName = to.query.lastName?.toString() || "";
+      const email = to.query.email?.toString() || "";
       window.location.href = `${TENANT_URL}/source/${source}?internalPartnerId=${internalPartnerId}&firstName=${firstName}&lastName=${lastName}&email=${email}`;
       return "/source";
     }
@@ -120,6 +131,14 @@ const routes: Array<RouteConfig> = [
       const path = to.params.path;
       window.location.href = `https://old.dossierfacile.fr/tenants_files/${path}/${token}`;
       return `https://old.dossierfacile.fr/tenants_files/${path}/${token}`;
+    }
+  },
+  {
+    path: "/dossier-locataire/:token",
+    redirect: (to: Route) => {
+      const token = to.params.token;
+      window.location.href = `https://old.dossierfacile.fr/dossier-locataire/${token}`;
+      return `https://old.dossierfacile.fr/dossier-locataire/${token}`;
     }
   },
   { path: "*", redirect: "/" }
@@ -142,15 +161,11 @@ router.beforeEach((to, from, next) => {
 
   document.title = to.meta.title;
   if (to.meta.description) {
-    const tag = document.createElement("meta");
-    tag.setAttribute("name", "description");
-    tag.setAttribute("content", to.meta.description);
-    document.head.appendChild(tag);
+    const tag = document.querySelector('meta[name="description"]');
+    tag?.setAttribute("content", to.meta.description);
 
-    const prop = document.createElement("meta");
-    prop.setAttribute("property", "og:description");
-    prop.setAttribute("content", to.meta.description);
-    document.head.appendChild(prop);
+    const prop = document.querySelector('meta[name="og:description"]');
+    prop?.setAttribute("content", to.meta.description);
   }
   next();
 });
