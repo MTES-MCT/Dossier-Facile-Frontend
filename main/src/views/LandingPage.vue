@@ -114,6 +114,12 @@
           <span class="color--secondary">{{ $t("s4.title2") }}</span>
           {{ $t("s4.title3") }}
         </h2>
+        <div class="text-center">
+          <router-link to="/stats">
+            <img src="../assets/icons/stats.webp" class="stats-icon" />
+            {{ $t("s4.link") }}
+          </router-link>
+        </div>
         <div class="rf-grid-row">
           <div class="col rf-p-2w">
             <blockquote class="bg--blue color--primary quote rf-p-2w">
@@ -132,6 +138,82 @@
               <p class="rf-m-0 rf-mb-3w">{{ $t("s4.t3") }}</p>
               <cite>{{ $t("s4.author3") }}</cite>
             </blockquote>
+          </div>
+        </div>
+        <div class="text-center rf-mt-5w rf-mb-5w">
+          <p>
+            <a
+              class="rf-btn"
+              :href="`${TENANT_URL}/signup?lang=${$i18n.locale}`"
+            >
+              {{ $t("button") }}
+            </a>
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="rf-mt-12w">
+      <div class="rf-container rf-mb-7w">
+        <h2 class="rf-h2 text-center">
+          {{ $t("s5.title1") }}
+          <span class="color--secondary">{{ $t("s5.title2") }}</span>
+        </h2>
+        <div class="rf-grid-row">
+          <div
+            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
+          >
+            <a
+              target="_blank"
+              href="https://www.monsieurhugo.com/"
+              class="logo-link"
+            >
+              <img
+                class="partner-logo"
+                src="../assets/logos/monsieur_hugo.webp"
+              />
+            </a>
+          </div>
+          <div
+            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
+          >
+            <a target="_blank" href="https://www.visale.fr/" class="logo-link">
+              <img class="partner-logo" src="../assets/logos/visale.webp" />
+            </a>
+          </div>
+          <div
+            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
+          >
+            <a
+              target="_blank"
+              href="https://www.locservice.fr/"
+              class="logo-link"
+            >
+              <img
+                class="partner-logo"
+                src="../assets/logos/loc_service.webp"
+              />
+            </a>
+          </div>
+          <div
+            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
+          >
+            <a target="_blank" href="https://colivme.com/" class="logo-link">
+              <img class="partner-logo" src="../assets/logos/colivme.webp" />
+            </a>
+          </div>
+          <div
+            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
+          >
+            <a target="_blank" href="https://whoomies.com/" class="logo-link">
+              <img class="partner-logo" src="../assets/logos/whoomies.webp" />
+            </a>
+          </div>
+          <div
+            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
+          >
+            <a target="_blank" href="https://www.anil.org/" class="logo-link">
+              <img class="partner-logo" src="../assets/logos/anil.webp" />
+            </a>
           </div>
         </div>
         <div class="text-center rf-mt-5w rf-mb-5w">
@@ -233,6 +315,22 @@ img {
   max-width: 100%;
   display: block;
 }
+
+.partner-logo {
+  max-width: 100%;
+  max-height: 60px;
+  margin: auto;
+}
+
+a[target="_blank"].logo-link::after {
+  content: none;
+}
+
+.stats-icon {
+  display: inline;
+  height: 3rem;
+  vertical-align: -0.75rem;
+}
 </style>
 
 <i18n>
@@ -282,7 +380,12 @@ img {
       "t2": "Simple, efficient and practical: it saved me a lot of time in my apartment search.",
       "author2": "Caroline, student",
       "t3": "I never managed to visit an apartment with my foreign file. With DossierFacile, I finally had more visits!",
-      "author3": "Irina, Erasmus student"
+      "author3": "Irina, Erasmus student",
+      "link": "Consult our statistics"
+    },
+    "s5": {
+      "title1": "They",
+      "title2": "trust us"
     }
   },
   "fr": {
@@ -330,7 +433,12 @@ img {
       "t2": "Simple, efficace et pratique : ça m'a fait gagner beaucoup de temps dans ma recherche d'appartement.",
       "author2": "Caroline, étudiante",
       "t3": "Je ne réussissais jamais à visiter un appartement avec mon dossier étranger. Avec DossierFacile, j'ai enfin eu plus de visites !",
-      "author3": "Irina, étudiante en Erasmus"
+      "author3": "Irina, étudiante en Erasmus",
+      "link": "Consulter nos statistiques"
+    },
+    "s5": {
+      "title1": "Ils nous font",
+      "title2": "confiance"
     }
   }
 }

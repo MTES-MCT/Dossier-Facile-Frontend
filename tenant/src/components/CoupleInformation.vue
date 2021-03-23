@@ -1,6 +1,6 @@
 <template>
   <div class="rf-grid-row rf-grid-row--center">
-    <div class="col-md-8 col-lg-6">
+    <div class="rf-col-md-8">
       <div class="rf-grid-row rf-grid-row--center">
         <div class="rf-col-12">
           <label class="rf-label">{{ $t("spouseEmail") }}</label>
