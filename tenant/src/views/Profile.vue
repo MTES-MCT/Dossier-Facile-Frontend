@@ -5,7 +5,7 @@
       <div
         class="rf-col-xl-7 rf-col-md-6 rf-col-xs-12 rf-p-4w rf-grid-row rf-grid-row--center"
       >
-        <div class="rf-row rf-mt-3w max-600">
+        <div class="rf-col-12 rf-mt-3w max-600">
           <div class="step rf-mb-5w" v-if="tenantStep <= 1">
             <div class="step-number">1</div>
             <div class="step-title">{{ $t("title-step1") }}</div>
