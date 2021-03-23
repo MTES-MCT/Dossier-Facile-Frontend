@@ -4,17 +4,26 @@
       <label class="rf-label" for="select">
         {{ $t("select-label") }}
       </label>
-      <select
-        v-model="residencyDocument"
-        class="rf-select rf-mb-3w"
-        id="select"
-        name="select"
-        @change="onSelectChange()"
-      >
-        <option v-for="d in documents" :value="d" :key="d.key">
-          {{ $t(d.key) }}
-        </option>
-      </select>
+
+      <div class="rf-mt-3w">
+        <fieldset class="rf-fieldset">
+          <div class="rf-fieldset__content">
+            <div class="rf-grid-row">
+              <div v-for="d in documents" :key="d.key">
+                <BigRadio
+                  :val="d"
+                  v-model="residencyDocument"
+                  @input="onSelectChange()"
+                >
+                  <div class="rf-grid-col spa">
+                    <span>{{ $t(d.key) }}</span>
+                  </div>
+                </BigRadio>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
     </div>
     <ConfirmModal
       v-if="isDocDeleteVisible"
@@ -80,6 +89,7 @@ import { RegisterService } from "../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
+import BigRadio from "df-shared/src/Button/BigRadio.vue";
 
 @Component({
   components: {
@@ -87,7 +97,8 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
     FileUpload,
     ListItem,
     WarningMessage,
-    ConfirmModal
+    ConfirmModal,
+    BigRadio
   },
   computed: {
     ...mapGetters({
