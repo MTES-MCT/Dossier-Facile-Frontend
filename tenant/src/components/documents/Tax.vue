@@ -9,18 +9,24 @@
     </ConfirmModal>
     <ValidationObserver v-slot="{ invalid, validate }">
       <form name="form" @submit.prevent="validate().then(save)">
-        <div class="rf-mb-3w">
-          <select
-            v-model="taxDocument"
-            class="rf-select rf-mb-3w"
-            id="select"
-            name="select"
-            @change="onSelectChange()"
-          >
-            <option v-for="d in documents" :value="d" :key="d.key">
-              {{ $t(d.key) }}
-            </option>
-          </select>
+        <div class="rf-mt-3w">
+          <fieldset class="rf-fieldset">
+            <div class="rf-fieldset__content">
+              <div class="rf-grid-row">
+                <div v-for="d in documents" :key="d.key">
+                  <BigRadio
+                    :val="d"
+                    v-model="taxDocument"
+                    @input="onSelectChange()"
+                  >
+                    <div class="rf-grid-col spa">
+                      <span>{{ $t(d.key) }}</span>
+                    </div>
+                  </BigRadio>
+                </div>
+              </div>
+            </div>
+          </fieldset>
         </div>
         <div
           class="rf-mb-3w"
@@ -125,6 +131,7 @@ import { RegisterService } from "../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
+import BigRadio from "df-shared/src/Button/BigRadio.vue";
 
 extend("is", {
   ...is,
@@ -140,7 +147,8 @@ extend("is", {
     ValidationObserver,
     ValidationProvider,
     WarningMessage,
-    ConfirmModal
+    ConfirmModal,
+    BigRadio
   },
   computed: {
     ...mapGetters({

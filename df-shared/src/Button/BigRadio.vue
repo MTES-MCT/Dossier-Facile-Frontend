@@ -33,6 +33,7 @@ export default class BigRadio extends Vue {
   text-align: center;
   border: 1px solid var(--g300);
   background-color: var(--w);
+  max-width: 15rem;
 
   &:hover {
     border: 1px solid var(--primary);
