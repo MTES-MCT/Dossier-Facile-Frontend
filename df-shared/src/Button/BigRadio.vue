@@ -52,4 +52,12 @@ export default class BigRadio extends Vue {
   padding: 1rem;
   font-size: 1rem;
 }
+
+.small {
+  color: none;
+  &.selected {
+    background-color: var(--primary);
+    color: white;
+  }
+}
 </style>

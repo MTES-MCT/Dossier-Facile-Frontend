@@ -272,18 +272,18 @@ export default class TenantInformationForm extends Vue {
 
 .selected {
   .icon-container {
-    color: var(--primary);
-    border: 1px solid var(--primary);
-    background-color: var(--bd300);
+    background-color: var(--primary);
+    color: white;
   }
 }
 
 .icon-container {
   border-radius: 0.5rem;
-  background-color: var(--primary);
-  color: white;
   height: 5rem;
   width: 6rem;
+  color: var(--primary);
+  background-color: var(--white);
+  border: 1px solid var(--primary);
 
   display: flex;
   justify-content: center;
