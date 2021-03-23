@@ -83,7 +83,7 @@
             <fieldset class="rf-fieldset">
               <div class="rf-fieldset__content">
                 <div class="rf-grid-row space-around">
-                  <BigRadio val="ALONE" v-model="applicationType">
+                  <BigRadio :big="true" val="ALONE" v-model="applicationType">
                     <div class="rf-grid-col spa">
                       <div class="icon-container">
                         <span class="material-icons md-36">person</span>
@@ -91,7 +91,7 @@
                       <span>{{ $t("alone") }}</span>
                     </div>
                   </BigRadio>
-                  <BigRadio val="COUPLE" v-model="applicationType">
+                  <BigRadio :big="true" val="COUPLE" v-model="applicationType">
                     <div class="rf-grid-col spa">
                       <div class="icon-container">
                         <span class="material-icons md-36">group</span>
@@ -99,7 +99,7 @@
                       <span>{{ $t("couple") }}</span>
                     </div>
                   </BigRadio>
-                  <BigRadio val="GROUP" v-model="applicationType">
+                  <BigRadio :big="true" val="GROUP" v-model="applicationType">
                     <div class="rf-grid-col spa">
                       <div class="icon-container">
                         <span class="material-icons md-36">groups</span>
@@ -109,11 +109,15 @@
                   </BigRadio>
                 </div>
                 <CoupleInformation
+                  class="rf-mt-4w"
                   @update-couple="updateCouple"
                   v-if="applicationType === 'COUPLE'"
                 >
                 </CoupleInformation>
-                <RoommatesInformation v-if="applicationType === 'GROUP'">
+                <RoommatesInformation
+                  class="rf-mt-4w"
+                  v-if="applicationType === 'GROUP'"
+                >
                 </RoommatesInformation>
               </div>
             </fieldset>
@@ -264,11 +268,6 @@ export default class TenantInformationForm extends Vue {
   align-content: space-around;
   height: 100%;
   align-items: center;
-}
-
-.space-around {
-  justify-content: space-between;
-  align-content: space-around;
 }
 
 .selected {

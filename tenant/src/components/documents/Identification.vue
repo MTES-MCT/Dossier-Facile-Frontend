@@ -1,20 +1,29 @@
 <template>
   <div>
     <div>
-      <label class="rf-label" for="select">
+      <p>
         {{ $t("select-label") }}
-      </label>
-      <select
-        @change="onSelectChange()"
-        v-model="identificationDocument"
-        class="rf-select rf-mb-3w"
-        id="select"
-        name="select"
-      >
-        <option v-for="d in documents" :value="d" :key="d.key">
-          {{ $t(d.key) }}
-        </option>
-      </select>
+      </p>
+
+      <div class="rf-mt-3w">
+        <fieldset class="rf-fieldset">
+          <div class="rf-fieldset__content">
+            <div class="rf-grid-row">
+              <div v-for="d in documents" :key="d.key">
+                <BigRadio
+                  :val="d"
+                  v-model="identificationDocument"
+                  @input="onSelectChange()"
+                >
+                  <div class="rf-grid-col spa">
+                    <span>{{ $t(d.key) }}</span>
+                  </div>
+                </BigRadio>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
     </div>
     <ConfirmModal
       v-if="isDocDeleteVisible"
@@ -67,8 +76,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
-import { mapGetters, mapState } from "vuex";
+import { Component, Vue } from "vue-property-decorator";
+import { mapGetters } from "vuex";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
@@ -78,12 +87,12 @@ import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { ValidationProvider } from "vee-validate";
-import { Guarantor } from "df-shared/src/models/Guarantor";
 import { RegisterService } from "../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
+import BigRadio from "df-shared/src/Button/BigRadio.vue";
 
 @Component({
   components: {
@@ -93,7 +102,8 @@ import DfButton from "df-shared/src/Button/Button.vue";
     ValidationProvider,
     WarningMessage,
     ConfirmModal,
-    DfButton
+    DfButton,
+    BigRadio
   },
   computed: {
     ...mapGetters({
@@ -281,7 +291,7 @@ td {
   "files": "Documents",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
   "register": "Register",
-  "select-label": "I add a valid identity document. Attention, be sure to add your double-sided part!",
+  "select-label": "I add a valid identity document.",
   "validate": "Validate",
   "cancel": "Cancel"
 },
@@ -293,7 +303,7 @@ td {
   "files": "Documents",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
   "register": "Enregistrer la pièce",
-  "select-label": "J’ajoute une pièce d’identité en cours de validité. Attention, veillez à ajouter votre pièce recto-verso !",
+  "select-label": "J’ajoute une pièce d’identité en cours de validité.",
   "validate": "Valider",
   "cancel": "Annuler"
 }
