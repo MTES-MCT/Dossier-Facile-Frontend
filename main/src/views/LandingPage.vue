@@ -168,6 +168,7 @@
               class="logo-link"
             >
               <img
+                alt="logo monsieur hugo"
                 class="partner-logo"
                 src="../assets/logos/monsieur_hugo.webp"
               />
@@ -177,7 +178,11 @@
             class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
           >
             <a target="_blank" href="https://www.visale.fr/" class="logo-link">
-              <img class="partner-logo" src="../assets/logos/visale.webp" />
+              <img
+                alt="logo visale"
+                class="partner-logo"
+                src="../assets/logos/visale.webp"
+              />
             </a>
           </div>
           <div
@@ -189,6 +194,7 @@
               class="logo-link"
             >
               <img
+                alt="logo locservice"
                 class="partner-logo"
                 src="../assets/logos/loc_service.webp"
               />
@@ -198,21 +204,33 @@
             class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
           >
             <a target="_blank" href="https://colivme.com/" class="logo-link">
-              <img class="partner-logo" src="../assets/logos/colivme.webp" />
+              <img
+                alt="logo colivme"
+                class="partner-logo"
+                src="../assets/logos/colivme.webp"
+              />
             </a>
           </div>
           <div
             class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
           >
             <a target="_blank" href="https://whoomies.com/" class="logo-link">
-              <img class="partner-logo" src="../assets/logos/whoomies.webp" />
+              <img
+                alt="logo whoomies"
+                class="partner-logo"
+                src="../assets/logos/whoomies.webp"
+              />
             </a>
           </div>
           <div
             class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
           >
             <a target="_blank" href="https://www.anil.org/" class="logo-link">
-              <img class="partner-logo" src="../assets/logos/anil.webp" />
+              <img
+                alt="logo anil"
+                class="partner-logo"
+                src="../assets/logos/anil.webp"
+              />
             </a>
           </div>
         </div>
