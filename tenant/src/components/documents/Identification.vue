@@ -1,6 +1,9 @@
 <template>
   <div>
     <div>
+      <a href="#" @click="showHelp = true">
+        En difficulté pour répondre à la question ?
+      </a>
       <p>
         {{ $t("select-label") }}
       </p>
@@ -66,12 +69,23 @@
         {{ $t("register") }}
       </button>
     </div>
-    <div class="rf-mb-5w" v-if="identificationDocument.key">
-      <DocumentInsert
-        :allow-list="identificationDocument.acceptedProofs"
-        :block-list="identificationDocument.refusedProofs"
-      ></DocumentInsert>
-    </div>
+    <Modal v-show="showHelp" @close="showHelp = false">
+      <template v-slot:body>
+        <div class="rf-container">
+          <div class="rf-grid-row justify-content-center">
+            <div class="rf-col-12">
+              <div class="rf-mb-5w" v-if="identificationDocument.key">
+                <DocumentHelp></DocumentHelp>
+                <DocumentInsert
+                  :allow-list="identificationDocument.acceptedProofs"
+                  :block-list="identificationDocument.refusedProofs"
+                ></DocumentInsert>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </Modal>
   </div>
 </template>
 
@@ -93,6 +107,8 @@ import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
+import DocumentHelp from "../helps/DocumentHelp.vue";
+import Modal from "df-shared/src/components/Modal.vue";
 
 @Component({
   components: {
@@ -103,7 +119,9 @@ import BigRadio from "df-shared/src/Button/BigRadio.vue";
     WarningMessage,
     ConfirmModal,
     DfButton,
-    BigRadio
+    BigRadio,
+    Modal,
+    DocumentHelp
   },
   computed: {
     ...mapGetters({
@@ -120,6 +138,8 @@ export default class Identification extends Vue {
   files: DfFile[] = [];
   identificationDocument = new DocumentType();
   isDocDeleteVisible = false;
+
+  showHelp = false;
 
   onSelectChange() {
     if (this.user.documents !== null) {
