@@ -26,7 +26,9 @@
                 gratuité vont rarement de pair. Alors pourquoi votre dossier de
                 location est-il gratuit ?
               </p>
-              <router-link to="/blog/article3">Continue reading »</router-link>
+              <router-link to="/blog/article3"
+                >Continuer la lecture »</router-link
+              >
             </div>
           </article>
           <hr />
@@ -54,7 +56,9 @@
                 les documents nécessaires sans tomber dans le désordre d’un pdf
                 de cinquante pages ? Existe-t-il un outil facile et gratuit ?
               </p>
-              <router-link to="/blog/article2">Continue reading »</router-link>
+              <router-link to="/blog/article2"
+                >Continuer la lecture »</router-link
+              >
             </div>
           </article>
           <hr />
@@ -86,7 +90,9 @@
                 fournir pour avoir un dossier de location complet, clair et
                 cohérent.
               </p>
-              <router-link to="/blog/article1">Continue reading »</router-link>
+              <router-link to="/blog/article1"
+                >Continuer la lecture »</router-link
+              >
             </div>
           </article>
           <hr />
@@ -114,7 +120,7 @@
                 et gratuitement votre dossier de location en ligne.
               </p>
               <router-link to="/blog/locatio-devient-dossier-facile"
-                >Continue reading »</router-link
+                >Continuer la lecture »</router-link
               >
             </div>
           </article>
