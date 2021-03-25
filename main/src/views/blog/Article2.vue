@@ -6,7 +6,7 @@
           <article>
             <div class="text-center">
               <h1 class="rf-h1">Constituer votre DossierFacile</h1>
-              <span>December 12nd 2019 in </span>
+              <span>12 Décembre 2019 dans </span>
               <span>
                 <a href="#" class="underline">DossierFacile</a>
               </span>
