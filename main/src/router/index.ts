@@ -67,6 +67,17 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Article0.vue")
   },
   {
+    path: "/blog/5-astuces-pour-booster-votre-dossier-de-location",
+    name: "Article4",
+    meta: {
+      title: "5 astuces pour booster votre dossier de location",
+      description:
+        "Pour se distinguer des autres, un seul moyen : constituer un dossier de location clair, cohérent et complet"
+    },
+    component: () =>
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article4.vue")
+  },
+  {
     path: "/information",
     name: "Information",
     meta: {

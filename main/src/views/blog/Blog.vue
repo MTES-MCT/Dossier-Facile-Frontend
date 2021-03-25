@@ -6,6 +6,46 @@
           <article class="rf-mb-12w">
             <div class="text-center">
               <router-link to="/blog/article3">
+                <h2 class="rf-h2">
+                  5 astuces pour booster votre dossier de location
+                </h2>
+              </router-link>
+              <span>25 Mars 2021 dans </span>
+              <span>
+                <a href="#" class="underline">DossierFacile</a>
+              </span>
+            </div>
+            <!--end article title-->
+            <div class="article__body">
+              <router-link
+                to="/blog/5-astuces-pour-booster-votre-dossier-de-location"
+              >
+                <img
+                  class="img-center"
+                  alt=""
+                  src="../../assets/images/blog-article4.webp"
+                />
+              </router-link>
+              <p>
+                En pleine crise sanitaire, il est encore plus difficile que
+                d’habitude de trouver un logement de location. Pour se
+                distinguer des autres, un seul moyen : constituer un dossier de
+                location clair, cohérent et complet. En effet, c’est par le
+                dossier de location que le propriétaire prend connaissance des
+                informations qui vous sont relatives. C’est le seul moyen pour
+                lui de comparer les différents candidats. Alors voici 5 astuces
+                pour booster votre dossier de location.
+              </p>
+              <router-link
+                to="/blog/5-astuces-pour-booster-votre-dossier-de-location"
+                >Continuer la lecture »</router-link
+              >
+            </div>
+          </article>
+          <hr />
+          <article class="rf-mb-12w">
+            <div class="text-center">
+              <router-link to="/blog/article3">
                 <h2 class="rf-h2">Pourquoi Dossier Facile est-il gratuit ?</h2>
               </router-link>
               <span>21 Juillet 2020 dans </span>
