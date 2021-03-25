@@ -14,6 +14,11 @@
   </div>
 </template>
 <script>
+import "@gouvfr/core/dist/css/core.css";
+import "@gouvfr/links/dist/css/links.min.css";
+import "@gouvfr/buttons/dist/css/buttons.min.css";
+import "@gouvfr/schemes/dist/css/schemes.min.css";
+import "@gouvfr/schemes/dist/js/schemes.min.js";
 export default {
   name: "v-gouv-fr-button",
   props: {
