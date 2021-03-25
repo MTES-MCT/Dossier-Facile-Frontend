@@ -6,7 +6,7 @@
           <article>
             <div class="text-center">
               <h1 class="rf-h1">Pourquoi Dossier Facile est-il gratuit ?</h1>
-              <span>July 21nd 2020 </span>
+              <span>21 Juillet 2020 dans</span>
               <span>
                 <a href="#" class="underline">DossierFacile</a>
               </span>
@@ -59,7 +59,9 @@
                 l’Etat encourage les candidats locataires à être transparents et
                 les bailleurs à étudier sérieusement chaque dossier tout en
                 continuant à
-                <router-link to="/blog/article1">
+                <router-link
+                  to="/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location"
+                >
                   réguler la location du côté des bailleurs</router-link
                 >
               </p>

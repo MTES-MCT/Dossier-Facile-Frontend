@@ -9,7 +9,7 @@
                 Quelles pièces justificatives fournir pour mon dossier de
                 location ?
               </h1>
-              <span>November 14th 2019 in </span>
+              <span>14 Novembre 2019 dans </span>
               <span>
                 <a href="#" class="underline">DossierFacile</a>
               </span>
@@ -124,7 +124,9 @@
                 L’objectif en est également de simplifier les procédures et
                 d’éviter de constituer un dossier de location cumulant les
                 pièces inutiles. DossierFacile cherche à offrir
-                <router-link to="/blog/article2" class="underline"
+                <router-link
+                  to="/blog/constituer-votre-dossierFacile"
+                  class="underline"
                   >la démarche la plus simple et la plus intuitive possible au
                   locataire</router-link
                 >
