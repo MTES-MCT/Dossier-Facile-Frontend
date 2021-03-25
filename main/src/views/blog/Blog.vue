@@ -74,7 +74,7 @@
           <hr />
           <article class="rf-mb-12w">
             <div class="text-center">
-              <router-link to="/blog/article2">
+              <router-link to="/blog/constituer-votre-dossierFacile">
                 <h2 class="rf-h2">Constituer votre Dossier Facile</h2>
               </router-link>
               <span>12 Décembre 2019 dans </span>
@@ -84,7 +84,7 @@
             </div>
             <!--end article title-->
             <div class="article__body">
-              <router-link to="/blog/article2">
+              <router-link to="/blog/constituer-votre-dossierFacile">
                 <img alt="" src="../../assets/images/blog-article2.webp" />
               </router-link>
               <p>
@@ -98,7 +98,7 @@
                 les documents nécessaires sans tomber dans le désordre d’un pdf
                 de cinquante pages ? Existe-t-il un outil facile et gratuit ?
               </p>
-              <router-link to="/blog/article2"
+              <router-link to="/blog/constituer-votre-dossierFacile"
                 >Continuer la lecture »</router-link
               >
             </div>

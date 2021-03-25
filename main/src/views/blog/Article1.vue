@@ -124,7 +124,9 @@
                 L’objectif en est également de simplifier les procédures et
                 d’éviter de constituer un dossier de location cumulant les
                 pièces inutiles. DossierFacile cherche à offrir
-                <router-link to="/blog/article2" class="underline"
+                <router-link
+                  to="/blog/constituer-votre-dossierFacile"
+                  class="underline"
                   >la démarche la plus simple et la plus intuitive possible au
                   locataire</router-link
                 >

@@ -42,10 +42,12 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Article1.vue")
   },
   {
-    path: "/blog/article2",
+    path: "/blog/constituer-votre-dossierFacile",
     name: "Article2",
     meta: {
-      title: "Article 2 - Blog - DossierFacile"
+      title: "Constituer votre DossierFacile - Blog - DossierFacile",
+      description:
+        "Mais comment constituer un dossier de location qui regroupe tous les documents nécessaires sans tomber dans le désordre d’un pdf de cinquante pages ? Existe-t-il un outil facile et gratuit ?"
     },
     component: () =>
       import(/* webpackChunkName: "blog" */ "../views/blog/Article2.vue")
