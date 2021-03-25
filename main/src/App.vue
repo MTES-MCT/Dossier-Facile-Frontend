@@ -56,10 +56,6 @@ export default class App extends Vue {
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
 
-  mounted() {
-    new Header();
-  }
-
   onCreateOwner() {
     window.location.href = this.OWNER_URL;
   }

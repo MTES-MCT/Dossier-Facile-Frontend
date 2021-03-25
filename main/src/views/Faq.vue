@@ -573,7 +573,6 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import AccordionElement from "../components/AccordionElement.vue";
-import { Accordion } from "../gouvfr/accordion";
 
 @Component({
   components: {
@@ -582,10 +581,6 @@ import { Accordion } from "../gouvfr/accordion";
 })
 export default class Faq extends Vue {
   section = 0;
-
-  mounted() {
-    new Accordion();
-  }
 }
 </script>
 

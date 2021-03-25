@@ -59,10 +59,6 @@ export default class App extends Vue {
   isLoggedIn!: boolean;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
 
-  mounted() {
-    new Header();
-  }
-
   onLogin() {
     this.$router.push("/login");
   }
