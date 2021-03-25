@@ -53,10 +53,10 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Article2.vue")
   },
   {
-    path: "/blog/article3",
+    path: "/blog/pourquoi-dossierfacile-est-il-gratuit",
     name: "Article3",
     meta: {
-      title: "Article 3 - Blog - DossierFacile"
+      title: "Pourquoi Dossier Facile est-il gratuit - Blog - DossierFacile"
     },
     component: () =>
       import(/* webpackChunkName: "blog" */ "../views/blog/Article3.vue")

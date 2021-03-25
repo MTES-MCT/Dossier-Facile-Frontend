@@ -5,7 +5,9 @@
         <div class="rf-col-md-10 rf-col-lg-8">
           <article class="rf-mb-12w">
             <div class="text-center">
-              <router-link to="/blog/article3">
+              <router-link
+                to="/blog/5-astuces-pour-booster-votre-dossier-de-location"
+              >
                 <h2 class="rf-h2">
                   5 astuces pour booster votre dossier de location
                 </h2>
@@ -45,7 +47,7 @@
           <hr />
           <article class="rf-mb-12w">
             <div class="text-center">
-              <router-link to="/blog/article3">
+              <router-link to="/blog/pourquoi-dossierfacile-est-il-gratuit">
                 <h2 class="rf-h2">Pourquoi Dossier Facile est-il gratuit ?</h2>
               </router-link>
               <span>21 Juillet 2020 dans </span>
@@ -55,7 +57,7 @@
             </div>
             <!--end article title-->
             <div class="article__body">
-              <router-link to="/blog/article3">
+              <router-link to="/blog/pourquoi-dossierfacile-est-il-gratuit">
                 <img alt="" src="../../assets/images/blog-article3.webp" />
               </router-link>
               <p>
@@ -66,7 +68,7 @@
                 gratuité vont rarement de pair. Alors pourquoi votre dossier de
                 location est-il gratuit ?
               </p>
-              <router-link to="/blog/article3"
+              <router-link to="/blog/pourquoi-dossierfacile-est-il-gratuit"
                 >Continuer la lecture »</router-link
               >
             </div>
