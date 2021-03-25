@@ -6,7 +6,7 @@
           <article>
             <div class="text-center">
               <h1 class="rf-h1">Constituer votre DossierFacile</h1>
-              <span>December 12nd 2019 in </span>
+              <span>12 Décembre 2019 dans </span>
               <span>
                 <a href="#" class="underline">DossierFacile</a>
               </span>
@@ -15,7 +15,8 @@
             <div>
               <p>
                 Dans un contexte de pénurie de logements,
-                <router-link to="/blog/article1"
+                <router-link
+                  to="/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location"
                   >le dossier est devenu un facteur démarquant.</router-link
                 >
                 Mais comment constituer un dossier de location qui regroupe tous
@@ -73,7 +74,8 @@
               <p>
                 Assurément ! DossierFacile est entièrement gratuit ! Voir
                 là-dessus notre article :
-                <router-link to="/blog/article1"
+                <router-link
+                  to="/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location"
                   >Pourquoi DossierFacile est-il gratuit ?</router-link
                 >
               </p>

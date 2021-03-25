@@ -14,10 +14,11 @@ module.exports = {
         "https://dossierfacile.fr/",
         "https://dossierfacile.fr/faq",
         "https://dossierfacile.fr/blog",
-        "https://dossierfacile.fr/blog/article1",
-        "https://dossierfacile.fr/blog/article2",
-        "https://dossierfacile.fr/blog/article3",
+        "https://dossierfacile.fr/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location",
+        "https://dossierfacile.fr/blog/constituer-votre-dossierFacile",
+        "https://dossierfacile.fr/blog/pourquoi-dossierfacile-est-il-gratuit",
         "https://dossierfacile.fr/blog/locatio-devient-dossier-facile",
+        "https://dossierfacile.fr/blog/5-astuces-pour-booster-votre-dossier-de-location",
         "https://dossierfacile.fr/information",
         "https://dossierfacile.fr/securite-des-donnees"
       ]
@@ -36,10 +37,11 @@ module.exports = {
             "/",
             "/faq",
             "/blog",
-            "/blog/article1",
-            "/blog/article2",
-            "/blog/article3",
+            "/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location",
+            "/blog/constituer-votre-dossierFacile",
+            "/blog/pourquoi-dossierfacile-est-il-gratuit",
             "/blog/locatio-devient-dossier-facile",
+            "/blog/5-astuces-pour-booster-votre-dossier-de-location",
             "/information",
             "/securite-des-donnees"
           ]
