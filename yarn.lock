@@ -1240,6 +1240,16 @@
     "@gouvfr/links" "^0.4.0"
     "@gouvfr/schemes" "^0.4.0"
 
+"@gouvfr/accordions@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/accordions/-/accordions-0.5.3.tgz#e06497a8fb096053ea9476250a369c84a3f3b618"
+  integrity sha512-PJuo8W12gRMCQepaNSaYNP0dqO8Zyo5/ecs8rYlGgGCH9X5tG9gFJkKVUyNQEoKRHC/p7XO/HjE0YTHLCUTuVg==
+  dependencies:
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/links" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
+    "@gouvfr/utilities" "^0.5.3"
+
 "@gouvfr/all@0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@gouvfr/all/-/all-0.4.0.tgz#5eefa04eee32fbe949354a93d258f276a5268227"
@@ -1273,6 +1283,45 @@
     "@gouvfr/tiles" "^0.4.0"
     "@gouvfr/utilities" "^0.4.0"
 
+"@gouvfr/all@0.5.3", "@gouvfr/all@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/all/-/all-0.5.3.tgz#536c90783eb280770350cfc420940df3c962d547"
+  integrity sha512-PrTIxFW/Qosek34NCkXZg1+P6BmOHBTH7Kwfy/xixQqDLDfuhQRuNjzNOYmf1LkzjSLgiAP24YuWPzqxIqu30A==
+  dependencies:
+    "@gouvfr/accordions" "^0.5.3"
+    "@gouvfr/all" "^0.5.3"
+    "@gouvfr/breadcrumb" "^0.5.3"
+    "@gouvfr/buttons" "^0.5.3"
+    "@gouvfr/callouts" "^0.5.3"
+    "@gouvfr/cards" "^0.5.3"
+    "@gouvfr/checkboxes" "^0.5.3"
+    "@gouvfr/content" "^0.5.3"
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/footer" "^0.5.3"
+    "@gouvfr/forms" "^0.5.3"
+    "@gouvfr/header" "^0.5.3"
+    "@gouvfr/highlights" "^0.5.3"
+    "@gouvfr/ie11" "^0.5.3"
+    "@gouvfr/inputs" "^0.5.3"
+    "@gouvfr/links" "^0.5.3"
+    "@gouvfr/logo" "^0.5.3"
+    "@gouvfr/modal" "^0.5.3"
+    "@gouvfr/navigation" "^0.5.3"
+    "@gouvfr/pagination" "^0.5.3"
+    "@gouvfr/radios" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
+    "@gouvfr/search" "^0.5.3"
+    "@gouvfr/selects" "^0.5.3"
+    "@gouvfr/sidemenu" "^0.5.3"
+    "@gouvfr/skiplinks" "^0.5.3"
+    "@gouvfr/summary" "^0.5.3"
+    "@gouvfr/table" "^0.5.3"
+    "@gouvfr/tabs" "^0.5.3"
+    "@gouvfr/tags" "^0.5.3"
+    "@gouvfr/tiles" "^0.5.3"
+    "@gouvfr/toggle" "^0.5.3"
+    "@gouvfr/utilities" "^0.5.3"
+
 "@gouvfr/breadcrumb@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@gouvfr/breadcrumb/-/breadcrumb-0.4.0.tgz#7d5935c3d5fb2ed604c0e91c92b0503927d4d906"
@@ -1280,6 +1329,14 @@
   dependencies:
     "@gouvfr/core" "^0.4.0"
     "@gouvfr/schemes" "^0.4.0"
+
+"@gouvfr/breadcrumb@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/breadcrumb/-/breadcrumb-0.5.3.tgz#b84a72534a5915ba45ccc633fdae556cacd48558"
+  integrity sha512-nXNMhiwuCjHDvtt4k+QGw7sAcQXLJAA2bqkq6zyzK+JTh2GVH/x5u1BsTNrLA8VlhiNf8w3xOB/F1C42Ec8+RA==
+  dependencies:
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
 
 "@gouvfr/buttons@^0.4.0":
   version "0.4.0"
@@ -1290,6 +1347,15 @@
     "@gouvfr/links" "^0.4.0"
     "@gouvfr/schemes" "^0.4.0"
 
+"@gouvfr/buttons@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/buttons/-/buttons-0.5.3.tgz#7d5e49a04f74be6f9ecc329f99f7ff7be4ec6980"
+  integrity sha512-PqnmqSDoO23Oc4N5ULZNl3Kf4fjI59gjc0pqSfsexXUriOpe/snUdSEIGbk7repWHsyqA2bhv2k7JsqZOoz3mg==
+  dependencies:
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/links" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
+
 "@gouvfr/callouts@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@gouvfr/callouts/-/callouts-0.4.0.tgz#f17f989a4c83c641b6bd385fc0f172621b285076"
@@ -1298,6 +1364,14 @@
     "@gouvfr/core" "^0.4.0"
     "@gouvfr/schemes" "^0.4.0"
 
+"@gouvfr/callouts@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/callouts/-/callouts-0.5.3.tgz#010d1e96f7502b6607876d4d13f98778b8a68734"
+  integrity sha512-k30+Z+ey1q2aOV+g8scJrXQ2Zi8LvEwYwo/G2Lt2sUjetEbm99htTwHpvkg+E7SriYKFjIBRRvZjn7rSwtc3fA==
+  dependencies:
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
+
 "@gouvfr/cards@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@gouvfr/cards/-/cards-0.4.0.tgz#422e8d8c6e1fa74d4373303b935d0df48f8c5a37"
@@ -1305,6 +1379,14 @@
   dependencies:
     "@gouvfr/core" "^0.4.0"
     "@gouvfr/schemes" "^0.4.0"
+
+"@gouvfr/cards@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/cards/-/cards-0.5.3.tgz#dbd1dd5f0039a4e299482a95ef8492095e49a2bf"
+  integrity sha512-57/DjlNZknxLNz4hF+TT1Zj6xHP1r4jn6KWDWeQ0k8PaSlu9th2NaAWMFu8zyDrEeXCZ1Ee1OBPGklIzbnWayg==
+  dependencies:
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
 
 "@gouvfr/checkboxes@^0.4.0":
   version "0.4.0"
@@ -1315,6 +1397,15 @@
     "@gouvfr/forms" "^0.4.0"
     "@gouvfr/schemes" "^0.4.0"
 
+"@gouvfr/checkboxes@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/checkboxes/-/checkboxes-0.5.3.tgz#0ce6574c3a6f900571c052fde9c3e011a8a2ce4e"
+  integrity sha512-x9Yr9mjQP1sXu/wwV+2mi+P9xNrnmDbHWlu7AmziRG913JSjptqrpfep15WysrAr83Dm1ZeqM1ZIpvXBX2sCLA==
+  dependencies:
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/forms" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
+
 "@gouvfr/content@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@gouvfr/content/-/content-0.4.0.tgz#c260b42a1e792c912cf57204ef4f8cfe69018274"
@@ -1323,6 +1414,15 @@
     "@gouvfr/core" "^0.4.0"
     "@gouvfr/schemes" "^0.4.0"
 
+"@gouvfr/content@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/content/-/content-0.5.3.tgz#6a9be3abe6d8d7be8e60ca54b04731f5e3337fef"
+  integrity sha512-yIvzVH2vI2JW/tZWcaTMreSo/ieJFD7jJMIRDsI/X5jfO4xmx04J1jkVFiDEJRjFPlIDIqbgVgJG9fmiOjh4fw==
+  dependencies:
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/links" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
+
 "@gouvfr/core@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@gouvfr/core/-/core-0.4.0.tgz#0d14f774a2381d5f62d76585201b3f6e28141e55"
@@ -1330,6 +1430,13 @@
   dependencies:
     gently-copy "^3.2.0"
     prompt "^1.0.0"
+
+"@gouvfr/core@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/core/-/core-0.5.3.tgz#3cce7c85df131bbef66d000683fa7e2a1251c15d"
+  integrity sha512-0XEEZMxxNpZcCPrwReaT+DyyKuVvEB9hFkFfQl2EIV9SFNLJwY39F8mr5XqWAH+3XMlsvPqSkaUc28xUHa5IJQ==
+  dependencies:
+    "@gouvfr/schemes" "^0.5.3"
 
 "@gouvfr/footer@^0.4.0":
   version "0.4.0"
@@ -1341,6 +1448,16 @@
     "@gouvfr/logo" "^0.4.0"
     "@gouvfr/schemes" "^0.4.0"
 
+"@gouvfr/footer@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/footer/-/footer-0.5.3.tgz#29b37d2fa5c2a5d199a65315da4d3739df50324c"
+  integrity sha512-j8vmCrojQ5oRSQ8z0yguyVFA9wNRJUa2qlGs42+zJnZCvZgqmQUqLp20mGbrpnoQZ0CMmWTnI2QYMETiLH+50A==
+  dependencies:
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/links" "^0.5.3"
+    "@gouvfr/logo" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
+
 "@gouvfr/forms@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@gouvfr/forms/-/forms-0.4.0.tgz#48920f89df397ecbd599b3ad6462f6ca13c557cb"
@@ -1348,6 +1465,14 @@
   dependencies:
     "@gouvfr/core" "^0.4.0"
     "@gouvfr/schemes" "^0.4.0"
+
+"@gouvfr/forms@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/forms/-/forms-0.5.3.tgz#12720eb2fe15cc89da73393a90560d8335ff4e33"
+  integrity sha512-MO9643tIad556D64cHkK0htGcKPOJV+Taz8ommogTFeS2kW37MF0U9wYgAoQ5T0vqR7fAJjsTKll5KEFeD4ccA==
+  dependencies:
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
 
 "@gouvfr/grid@^0.4.0":
   version "0.4.0"
@@ -1367,6 +1492,17 @@
     "@gouvfr/schemes" "^0.4.0"
     "@gouvfr/search" "^0.4.0"
 
+"@gouvfr/header@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/header/-/header-0.5.3.tgz#d89ae4be4b99fd7609d41ec8f5949d0a2fc5035d"
+  integrity sha512-8hnV4J8ZaHFBdcQ2DWE+9E0oRXERtRQ+Cvwq3blv8bh5cEyifR/RpEdSLLqQLr9WEZeE4IFqdkc5TdX5wR6wuw==
+  dependencies:
+    "@gouvfr/buttons" "^0.5.3"
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/links" "^0.5.3"
+    "@gouvfr/logo" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
+
 "@gouvfr/highlights@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@gouvfr/highlights/-/highlights-0.4.0.tgz#1abf87428facb8ad32cb0dbc738cb64db6efb86f"
@@ -1375,12 +1511,30 @@
     "@gouvfr/core" "^0.4.0"
     "@gouvfr/schemes" "^0.4.0"
 
+"@gouvfr/highlights@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/highlights/-/highlights-0.5.3.tgz#69bbd8030a6046a3391fb2f9fce199587bcf9cba"
+  integrity sha512-+WCzeCrdntrCRCQxUXcg4V8hrdR/6dPpBfiBDgVxaRAK+DL4uhyCQUDl6La+PJnhM5hEVqC7Kzqct/0w4K1lLA==
+  dependencies:
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
+
 "@gouvfr/ie11@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@gouvfr/ie11/-/ie11-0.4.0.tgz#ca50184ff8f2c7ae64525881583428464086ba42"
   integrity sha512-FASqUxLyYryZBFSJ9EnCH1+mWWqFt2u/0/PFLj1HmvVr2RfP+mwdIaXoJAk5jIGUV8hv1IC0Jo6BZlJgPK+Y/Q==
   dependencies:
     "@gouvfr/core" "^0.4.0"
+
+"@gouvfr/ie11@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/ie11/-/ie11-0.5.3.tgz#0658077892169fce6d9abb93f94c273c31709458"
+  integrity sha512-9NyHOKQxkruLtFLvPqqoPx/rMZeRKHAMhii8sSo6wxjorrEoUzsXGB3aGaojGSeUOuhC1zmrGKli52U0Xdu3uA==
+  dependencies:
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/forms" "^0.5.3"
+    "@gouvfr/radios" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
 
 "@gouvfr/inputs@^0.4.0":
   version "0.4.0"
@@ -1391,6 +1545,15 @@
     "@gouvfr/forms" "^0.4.0"
     "@gouvfr/schemes" "^0.4.0"
 
+"@gouvfr/inputs@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/inputs/-/inputs-0.5.3.tgz#2128cdc0a532ee1b9d995aeaf5b567b44625494b"
+  integrity sha512-fJZwTbB/o25vtKdyVw8OmJ5w2BIL3DW2XNC9GKPgRqQQ2YV6OAECJXe5bFK9OHr8W5lYrnd7W0iDR90Ms+t04Q==
+  dependencies:
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/forms" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
+
 "@gouvfr/links@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@gouvfr/links/-/links-0.4.0.tgz#63c6517262bd8c5fa4b7af4bc076217f2f8c2d4a"
@@ -1399,6 +1562,14 @@
     "@gouvfr/core" "^0.4.0"
     "@gouvfr/schemes" "^0.4.0"
 
+"@gouvfr/links@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/links/-/links-0.5.3.tgz#7f372fd135e09061be1e128e05c5077576b68753"
+  integrity sha512-/rsEGBmsoV5ZbPCEM9AoQtmZJwsKxqtqqLCdXYkjaJNo8bKdDfROa6zzGwnnDlBfuKaSZgM42TEiD6KCdOKDNA==
+  dependencies:
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
+
 "@gouvfr/logo@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@gouvfr/logo/-/logo-0.4.0.tgz#8a5a84cc2609b663d309b7638c593efdf7c6408a"
@@ -1406,6 +1577,24 @@
   dependencies:
     "@gouvfr/core" "^0.4.0"
     "@gouvfr/schemes" "^0.4.0"
+
+"@gouvfr/logo@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/logo/-/logo-0.5.3.tgz#4bbf309007c51aeba62917be1a8143e55c13b10b"
+  integrity sha512-c46h6dZJI8HlyxbaOciVB6NkTziKJEdDUJZyOCxGDhg5e1hAceTAX2MZf/o/V1s5PqiOjAVWI57lo2ONkn85Mg==
+  dependencies:
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
+
+"@gouvfr/modal@^0.5.3":
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/@gouvfr/modal/-/modal-0.5.4.tgz#e342ce1d25b403b576d6a271482fcabb041bcf00"
+  integrity sha512-HVQkdOvaoQEFU7XBTVOVjYyC1E5m/fbDkqsN1r/N+SgUABZpG4THEvZwKUMFc6/aUDfhiQFGlk5C87e4kIJUrA==
+  dependencies:
+    "@gouvfr/buttons" "^0.5.3"
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/links" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
 
 "@gouvfr/navigation@^0.4.0":
   version "0.4.0"
@@ -1417,6 +1606,16 @@
     "@gouvfr/schemes" "^0.4.0"
     "@gouvfr/utilities" "^0.4.0"
 
+"@gouvfr/navigation@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/navigation/-/navigation-0.5.3.tgz#4069b2fd5eef5732987409273b4ad68f448d9455"
+  integrity sha512-6WZqYCQiLwfGOJOzzleHq3L087dqckQSTlqqMzvNCEjY4qQxaIdQRWwHH0a5THj/jpAWfzpgrNRPGb42pbNSKg==
+  dependencies:
+    "@gouvfr/buttons" "^0.5.3"
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/links" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
+
 "@gouvfr/pagination@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@gouvfr/pagination/-/pagination-0.4.0.tgz#a4efacc41e61c0839d57645fdd5fe978df0387e0"
@@ -1424,6 +1623,14 @@
   dependencies:
     "@gouvfr/core" "^0.4.0"
     "@gouvfr/schemes" "^0.4.0"
+
+"@gouvfr/pagination@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/pagination/-/pagination-0.5.3.tgz#c47b9acd7fb4cff2a0c00d179a3b188a16ee588f"
+  integrity sha512-rvJ/yz9EXrVXwr24i4oi4QF99+sfHESnvyYdIKzjqtDAhy7PykM3JxA6EeLUdZwCXV9oHzDffSyhrImTDPrzkg==
+  dependencies:
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
 
 "@gouvfr/radios@^0.4.0":
   version "0.4.0"
@@ -1434,12 +1641,26 @@
     "@gouvfr/forms" "^0.4.0"
     "@gouvfr/schemes" "^0.4.0"
 
+"@gouvfr/radios@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/radios/-/radios-0.5.3.tgz#2b69f57eaa5f8e0442292b9cc1678d7f6e5c8e75"
+  integrity sha512-+/vPIpV5ha2MZcAOa4ArdIFL2lCRPUvq6myA1tiscWO90vzN6YBDpMNKbwXUtDr+rUnNooxD/glqJ9hL8dikOw==
+  dependencies:
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/forms" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
+
 "@gouvfr/schemes@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@gouvfr/schemes/-/schemes-0.4.0.tgz#6d66d98cc9fa1d47271867214b008020fa5eb741"
   integrity sha512-yOI0/4rzL98rJG6R3Y+nc6wLju+fEteFmT4YMALJtScrdSWEnadifam/pbacLWLCQoh+r6xsfi8s/VeU5zy6wg==
   dependencies:
     "@gouvfr/core" "^0.4.0"
+
+"@gouvfr/schemes@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/schemes/-/schemes-0.5.3.tgz#5884fe02a8f656b2e6272edf803a931f999912d4"
+  integrity sha512-9BN5VH4H8U+j4Wcit+gc8a26wQLMPEAm6edlNmj0BhHrcgK2X7yNrS0Zg0J90KqILQRKNMDC8AxYg7GvtrWDKg==
 
 "@gouvfr/search@^0.4.0":
   version "0.4.0"
@@ -1452,6 +1673,16 @@
     "@gouvfr/inputs" "^0.4.0"
     "@gouvfr/schemes" "^0.4.0"
 
+"@gouvfr/search@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/search/-/search-0.5.3.tgz#ccea624f2db9ab75b4a155375203e0ed19b24fc7"
+  integrity sha512-lYcMa5N1xZfrzCnkDGgTfDMEIIdFJ1dI8OCNN5YfsH6gi8bUYh+a5r73LoWl4gZTS/xBiF4uegeGbyy5VVyGZQ==
+  dependencies:
+    "@gouvfr/buttons" "^0.5.3"
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/links" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
+
 "@gouvfr/selects@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@gouvfr/selects/-/selects-0.4.0.tgz#4ccd0b8a2d49a41cdec818afe5b94958b60a8443"
@@ -1461,6 +1692,43 @@
     "@gouvfr/forms" "^0.4.0"
     "@gouvfr/schemes" "^0.4.0"
 
+"@gouvfr/selects@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/selects/-/selects-0.5.3.tgz#acd9985273b35bb845f730a29f9153acec7bcea3"
+  integrity sha512-if/hBEmSPluflFz3z/V/kqe16MHz0VEOughgSR+qCU3Td7aN36WMhxMHSJcbIXYXK0QcEx4OquHsB1rBP/KGdw==
+  dependencies:
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/forms" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
+
+"@gouvfr/sidemenu@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/sidemenu/-/sidemenu-0.5.3.tgz#cceb2d78f43cdbd785ed18f7b75bee8761ce6737"
+  integrity sha512-OsNz5qbYPoWpNNW9wHBpBhIH75w69evrE2f3GIiF8pLxKVMBTdqllKaHD6ozbfhsWnnwERUXrXjQ3oeawMhltw==
+  dependencies:
+    "@gouvfr/buttons" "^0.5.3"
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/links" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
+
+"@gouvfr/skiplinks@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/skiplinks/-/skiplinks-0.5.3.tgz#7c729986288bb180cffebf9fca7d76c1241bcf2b"
+  integrity sha512-n6vPK6EDudZnHkww0EwVHm00zqULKaqv3LIu4sLfX7f8PEOWANdm7wovPObnEUDe8KgbLQghptJwEyQI5Wnw8Q==
+  dependencies:
+    "@gouvfr/buttons" "^0.5.3"
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/links" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
+
+"@gouvfr/summary@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/summary/-/summary-0.5.3.tgz#d51ef33273bd8f811b17042734afb7d4f184d553"
+  integrity sha512-Mqpc/3xKPXkCKQmhW8B0e2byrxgB3+tFR7EpLpYpNHkr0p3u3yr3bUZLswJUYEOfxGZIwWJD3LKSMJx15vUNZQ==
+  dependencies:
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
+
 "@gouvfr/table@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@gouvfr/table/-/table-0.4.0.tgz#8dd67adf4588b4093c2323dd32cd52458153f281"
@@ -1468,6 +1736,23 @@
   dependencies:
     "@gouvfr/core" "^0.4.0"
     "@gouvfr/schemes" "^0.4.0"
+
+"@gouvfr/table@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/table/-/table-0.5.3.tgz#b8da1c83abd127ea79970bf6500788666ccf4c1f"
+  integrity sha512-TCKhSGD6W2wvZ+gXiTUq2C3PdqNqHqqCqNfEkiwH8qU17AOTUfM8oWrnsDfmuGy91k1zuHa8ZWuZqNOtk6GkWA==
+  dependencies:
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
+
+"@gouvfr/tabs@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/tabs/-/tabs-0.5.3.tgz#b4be178b20fbf11e6615a04bf3b26ad2122231f1"
+  integrity sha512-4Cx8myWHlBzG058lcXUGbj6hiVYINdyNIDUlLGxn61VpJ3sBHk7kyjwEu1w3c8MZhQxYdogDrHBDFztp2zVQ3w==
+  dependencies:
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/links" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
 
 "@gouvfr/tags@^0.4.0":
   version "0.4.0"
@@ -1477,6 +1762,15 @@
     "@gouvfr/core" "^0.4.0"
     "@gouvfr/schemes" "^0.4.0"
 
+"@gouvfr/tags@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/tags/-/tags-0.5.3.tgz#a063e9d4188e8d7b589f2f9ae6aaa5c10228560e"
+  integrity sha512-zK9C35mW+mfM/Xr2RPsiIXUUb9tzkp36S7GvHQkbhKIECHkM8dY0fA1as3PTcUwiwoQjFHjK4AOxe9p9BuYdtg==
+  dependencies:
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/links" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
+
 "@gouvfr/tiles@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@gouvfr/tiles/-/tiles-0.4.0.tgz#c602c69fa1efbc433c436a0116bac79581afd406"
@@ -1485,12 +1779,37 @@
     "@gouvfr/core" "^0.4.0"
     "@gouvfr/schemes" "^0.4.0"
 
+"@gouvfr/tiles@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/tiles/-/tiles-0.5.3.tgz#45c6eb9c5de14b4b2072aa56126a92568ba73c5b"
+  integrity sha512-69pEAEiFHrVjKlaxe5tgUSWpHh4QjRynrmg+Q7Nn3f1483aBtM5XE7xfNACOpcAH0ua4qRHRt1PCvdVpAnXX6Q==
+  dependencies:
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
+
+"@gouvfr/toggle@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/toggle/-/toggle-0.5.3.tgz#1263b449b39261275beb9a47c238821b010524be"
+  integrity sha512-bXk5MsDGiUUJl2iYXMUzPKKTB/9Gh8MqSAw4JfhLy+NRKpDhEr2DQeKwpUb4GdSL+a88vn+wvOZ6SNBFPH3IIQ==
+  dependencies:
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/forms" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
+
 "@gouvfr/utilities@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@gouvfr/utilities/-/utilities-0.4.0.tgz#486d384045676d5a732ba140a728251f9cd38771"
   integrity sha512-8cNJ1IIFmzbxUht4+Z6B3vtSgbUIlB0xw2vymWUFjCnCuf197FiI/ZimiGtjcVM2I2QSnqrA9j17bY3v8GkDhA==
   dependencies:
     "@gouvfr/core" "^0.4.0"
+
+"@gouvfr/utilities@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/utilities/-/utilities-0.5.3.tgz#e790c40850abda407bd342faad60e9c27bef94d6"
+  integrity sha512-nGm6Nb2XoroNSoSgtlCLm/zwJblncb7+be6w93DWk44YodLTXee/9/lvfT2VF2BNl3fcrab7B5OWxGM7CdfmiQ==
+  dependencies:
+    "@gouvfr/core" "^0.5.3"
+    "@gouvfr/schemes" "^0.5.3"
 
 "@hapi/address@2.x.x":
   version "2.1.4"
