@@ -89,7 +89,9 @@
               </router-link>
               <p>
                 Dans un contexte de pénurie de logements,
-                <router-link to="/blog/article1" class="underline"
+                <router-link
+                  to="/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location"
+                  class="underline"
                   >le dossier est devenu un facteur démarquant.</router-link
                 >
                 Mais comment constituer un dossier de location qui regroupe tous
@@ -104,7 +106,9 @@
           <hr />
           <article class="rf-mb-12w">
             <div class="text-center">
-              <router-link to="/blog/article1">
+              <router-link
+                to="/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location"
+              >
                 <h2 class="rf-h2">
                   Quelles pièces justificatives fournir pour mon dossier de
                   location ?
@@ -117,7 +121,9 @@
             </div>
             <!--end article title-->
             <div class="article__body">
-              <router-link to="/blog/article1">
+              <router-link
+                to="/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location"
+              >
                 <img alt="" src="../../assets/images/blog-article.webp" />
               </router-link>
               <p>
@@ -130,7 +136,8 @@
                 fournir pour avoir un dossier de location complet, clair et
                 cohérent.
               </p>
-              <router-link to="/blog/article1"
+              <router-link
+                to="/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location"
                 >Continuer la lecture »</router-link
               >
             </div>

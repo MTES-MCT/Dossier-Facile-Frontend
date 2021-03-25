@@ -29,10 +29,14 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Blog.vue")
   },
   {
-    path: "/blog/article1",
+    path:
+      "/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location",
     name: "Article1",
     meta: {
-      title: "Article 1 - Blog - DossierFacile"
+      title:
+        "Quelles pièces justificatives fournir pour mon dossier de location - Blog - DossierFacile",
+      description:
+        "A cause de l’augmentation de la demande immobilière, il devient de plus en plus difficile de trouver un bon appartement à louer."
     },
     component: () =>
       import(/* webpackChunkName: "blog" */ "../views/blog/Article1.vue")

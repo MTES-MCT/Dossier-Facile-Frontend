@@ -59,7 +59,9 @@
                 l’Etat encourage les candidats locataires à être transparents et
                 les bailleurs à étudier sérieusement chaque dossier tout en
                 continuant à
-                <router-link to="/blog/article1">
+                <router-link
+                  to="/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location"
+                >
                   réguler la location du côté des bailleurs</router-link
                 >
               </p>
