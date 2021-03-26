@@ -28,9 +28,10 @@
       <div class="rf-shortcuts">
         <ul class="rf-shortcuts__list">
           <li class="rf-shortcuts__item" v-if="loggedIn">
-            <DfButton size="small" @on-click="onLogout">
-              {{ $t("logout") }}
-            </DfButton>
+            <v-gouv-fr-button
+              :label="$t('logout')"
+              @click="onLogout"
+            ></v-gouv-fr-button>
           </li>
           <li class="rf-shortcuts__item" v-if="!loggedIn">
             <DfButton
@@ -65,11 +66,13 @@
 <script lang="ts">
 import DfButton from "../Button/Button.vue";
 import { Vue, Component, Prop } from "vue-property-decorator";
+import VGouvFrButton from "../Button/v-gouv-fr-button/VGouvFrButton.vue";
 
 @Component({
   components: {
     DfButton,
-  },
+    VGouvFrButton
+  }
 })
 export default class MyHeader extends Vue {
   @Prop({ default: false }) loggedIn?: boolean;
