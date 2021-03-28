@@ -1,18 +1,14 @@
 <template>
   <div id="app">
-    <header class="rf-header">
-      <div class="rf-container">
-        <MyHeader
-          :logged-in="status.loggedIn"
-          @on-create-tenant="onCreateTenant"
-          @on-create-owner="onCreateOwner"
-          @on-logout="onLogout"
-          @on-change-lang="changeLang"
-          :lang="getLang()"
-        />
-        <Menu :user="user" />
-      </div>
-    </header>
+    <MyHeader
+      :logged-in="status.loggedIn"
+      @on-create-tenant="onCreateTenant"
+      @on-create-owner="onCreateOwner"
+      @on-logout="onLogout"
+      @on-change-lang="changeLang"
+      :lang="getLang()"
+    />
+    <Menu :user="user" />
     <article class="page">
       <router-view />
     </article>

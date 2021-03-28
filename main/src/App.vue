@@ -1,26 +1,19 @@
 <template>
   <div id="app">
-    <header class="rf-header">
-      <div class="rf-container">
-        <MyHeader
-          @on-create-tenant="onCreateTenant"
-          @on-create-owner="onCreateOwner"
-          @on-change-lang="changeLang"
-          :lang="getLang()"
-        />
-      </div>
-      <div class="rf-container">
-        <nav class="rf-nav" role="navigation" aria-label="Menu principal">
-          <ul class="rf-nav__list">
-            <li class="rf-nav__item" v-if="isMobile()">
-              <router-link to="/faq" class="rf-link">
-                {{ $t("faq") }}
-              </router-link>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+    <MyHeader
+      @on-create-tenant="onCreateTenant"
+      @on-create-owner="onCreateOwner"
+      @on-change-lang="changeLang"
+      :lang="getLang()"
+    >
+      <ul class="rf-nav__list">
+        <li class="rf-nav__item" v-if="isMobile()">
+          <router-link to="/faq" class="rf-link">
+            {{ $t("faq") }}
+          </router-link>
+        </li>
+      </ul>
+    </MyHeader>
     <router-view />
     <MyFooter />
     <Cookies
@@ -55,6 +48,12 @@ export default class App extends Vue {
 
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
+
+  mounted() {
+    const localScript = document.createElement("script");
+    localScript.setAttribute("src", "/js/dsfr.module.js");
+    document.head.appendChild(localScript);
+  }
 
   onCreateOwner() {
     window.location.href = this.OWNER_URL;

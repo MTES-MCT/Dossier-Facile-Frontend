@@ -1,66 +1,93 @@
 <template>
-  <div class="rf-header__body">
-    <div class="rf-header__brand">
-      <a
-        class="rf-logo"
-        :href="`/?lang=${$i18n.locale}`"
-        title="Ministère de la transition écologique et solidaire"
+  <header role="banner" class="rf-header">
+    <div class="rf-container">
+      <div class="rf-header__body">
+        <div class="rf-header__brand rf-enlarge-link">
+          <div class="rf-header__logo">
+            <p class="rf-logo">
+              République<br />
+              française
+            </p>
+          </div>
+          <div class="rf-header__service">
+            <a :href="`/?lang=${$i18n.locale}`" title="Retour à l’accueil">
+              <p class="rf-header__service-title">
+                <img
+                  class="logo"
+                  src="./logo_dossierfacile.webp"
+                  alt="logo Dossier Facile"
+                />
+              </p>
+            </a>
+            <p class="rf-header__service-tagline">
+              DossierFacile, le dossier de location numérique de l’État
+            </p>
+          </div>
+        </div>
+        <div class="rf-header__navbar">
+          <button
+            class="rf-btn--menu rf-btn"
+            data-rf-opened="false"
+            aria-controls="header-navigation"
+            aria-haspopup="menu"
+            title="Ouvrir le menu"
+          >
+            Ouvrir le menu
+          </button>
+        </div>
+        <div class="rf-header__tools">
+          <div class="rf-shortcuts">
+            <ul class="rf-shortcuts__list">
+              <li class="rf-shortcuts__item" v-if="loggedIn">
+                <v-gouv-fr-button
+                  :label="$t('logout')"
+                  @click="onLogout"
+                ></v-gouv-fr-button>
+              </li>
+              <li class="rf-shortcuts__item" v-if="!loggedIn">
+                <DfButton
+                  class="rf-ml-3"
+                  primary="true"
+                  size="small"
+                  @on-click="onCreateTenant"
+                >
+                  {{ $t("signup") }}
+                </DfButton>
+              </li>
+              <li class="rf-shortcuts__item" v-if="!loggedIn">
+                <DfButton size="small" @on-click="onCreateOwner">
+                  {{ $t("owner") }}
+                </DfButton>
+              </li>
+              <li class="rf-shortcuts__item">
+                <button
+                  class="rf-btn rf-ml-3 rf-btn--secondary rf-btn--sm lang"
+                  @click="changeLang"
+                >
+                  <span :class="{ underline: lang === 'fr' }">FR</span> |
+                  <span :class="{ underline: lang === 'en' }">EN</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <nav
+        class="rf-nav rf-modal"
+        id="header-navigation"
+        role="navigation"
+        aria-label="Menu principal"
       >
-        <span class="rf-logo__title"> République <br />française </span>
-      </a>
-    </div>
-    <div class="rf-header__navbar">
-      <div class="rf-service">
-        <a
-          class="rf-service__title"
-          title="Dossier Facile"
-          :href="`/?lang=${$i18n.locale}`"
+        <button
+          class="rf-link--close rf-link"
+          aria-controls="header-navigation"
         >
-          <img
-            class="logo"
-            src="./logo_dossierfacile.webp"
-            alt="logo Dossier Facile"
-          />
-        </a>
-      </div>
+          Fermer
+        </button>
+        <slot></slot>
+      </nav>
     </div>
-    <div class="rf-header__tools">
-      <div class="rf-shortcuts">
-        <ul class="rf-shortcuts__list">
-          <li class="rf-shortcuts__item" v-if="loggedIn">
-            <v-gouv-fr-button
-              :label="$t('logout')"
-              @click="onLogout"
-            ></v-gouv-fr-button>
-          </li>
-          <li class="rf-shortcuts__item" v-if="!loggedIn">
-            <DfButton
-              class="rf-ml-3"
-              primary="true"
-              size="small"
-              @on-click="onCreateTenant"
-            >
-              {{ $t("signup") }}
-            </DfButton>
-          </li>
-          <li class="rf-shortcuts__item" v-if="!loggedIn">
-            <DfButton size="small" @on-click="onCreateOwner">
-              {{ $t("owner") }}
-            </DfButton>
-          </li>
-          <li class="rf-shortcuts__item">
-            <button
-              class="rf-btn rf-ml-3 rf-btn--secondary rf-btn--sm lang"
-              @click="changeLang"
-            >
-              <span :class="{ underline: lang === 'fr' }">FR</span> |
-              <span :class="{ underline: lang === 'en' }">EN</span>
-            </button>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
+  </header>
 </template>
 
 <script lang="ts">

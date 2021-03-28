@@ -13,6 +13,7 @@
             </p>
             <div class="pull-left">
               <div>
+                <v-gouv-fr-modal></v-gouv-fr-modal>
                 <DfButton primary="true" size="small" @on-click="signup">
                   {{ $t("signup") }}
                 </DfButton>
@@ -212,9 +213,10 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import DfButton from "df-shared/src/Button/Button.vue";
+import VGouvFrModal from "df-shared/src/Button/v-gouv-fr-modal/VGouvFrModal.vue";
 
 @Component({
-  components: { DfButton }
+  components: { DfButton, VGouvFrModal }
 })
 export default class Home extends Vue {
   signup() {
