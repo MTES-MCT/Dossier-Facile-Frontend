@@ -6,6 +6,13 @@
       @on-change-lang="changeLang"
       :lang="getLang()"
     >
+      <ul class="rf-nav__list">
+        <li class="rf-nav__item" v-if="isMobile()">
+          <router-link to="/faq" class="rf-link">
+            {{ $t("faq") }}
+          </router-link>
+        </li>
+      </ul>
     </MyHeader>
     <router-view />
     <MyFooter />
