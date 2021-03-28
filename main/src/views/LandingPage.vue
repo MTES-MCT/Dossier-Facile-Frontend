@@ -4,7 +4,7 @@
       <div class="rf-container">
         <div class="rf-col-md-8">
           <div class="rf-grid-col">
-            <h1 :class="getH1Class()" class="rf-h1 color--white">
+            <h1 :class="getH1Class()" class="rf-mt-3w color--white">
               {{ $t("s0.title") }}
             </h1>
             <p class="text-bold color--white">
@@ -62,14 +62,15 @@
         <div class="rf-grid-row">
           <div class="rf-col-md-6 rf-grid-col">
             <h4 class="rf-h4 color--secondary rf-mb-0">{{ $t("s2.h1") }}</h4>
-            <p>{{ $t("s2.p1") }}</p>
-            <ul>
+            <p>{{ $t("s2.p1") }}
+            <ul class="rf-pt-2w">
               <li>{{ $t("s2.u1a") }}</li>
               <li>{{ $t("s2.u1b") }}</li>
               <li>{{ $t("s2.u1c") }}</li>
               <li>{{ $t("s2.u1d") }}</li>
               <li>{{ $t("s2.u1e") }}</li>
             </ul>
+            </p>
 
             <h4 class="rf-h4 color--secondary rf-mb-0">{{ $t("s2.h2") }}</h4>
             <p>{{ $t("s2.p2") }}</p>
@@ -160,7 +161,7 @@
         </h2>
         <div class="rf-grid-row">
           <div
-            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
+            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-12 text-center rf-p-1w"
           >
             <a
               target="_blank"
@@ -175,7 +176,7 @@
             </a>
           </div>
           <div
-            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
+            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-12 text-center rf-p-1w"
           >
             <a target="_blank" href="https://www.visale.fr/" class="logo-link">
               <img
@@ -186,7 +187,7 @@
             </a>
           </div>
           <div
-            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
+            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-12 text-center rf-p-1w"
           >
             <a
               target="_blank"
@@ -201,7 +202,7 @@
             </a>
           </div>
           <div
-            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
+            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-12 text-center rf-p-1w"
           >
             <a target="_blank" href="https://colivme.com/" class="logo-link">
               <img
@@ -212,7 +213,7 @@
             </a>
           </div>
           <div
-            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
+            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-12 text-center rf-p-1w"
           >
             <a target="_blank" href="https://whoomies.com/" class="logo-link">
               <img
@@ -223,7 +224,7 @@
             </a>
           </div>
           <div
-            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
+            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-12 text-center rf-p-1w"
           >
             <a target="_blank" href="https://www.anil.org/" class="logo-link">
               <img
