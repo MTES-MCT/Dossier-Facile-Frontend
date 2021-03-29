@@ -9,7 +9,7 @@
         <slot name="header"> </slot>
       </button>
     </h3>
-    <div class="rf-accordion__body" :id="id">
+    <div class="rf-collapse" :id="id">
       <div class="rf-accordion__inner">
         <p>
           <slot name="body"> </slot>

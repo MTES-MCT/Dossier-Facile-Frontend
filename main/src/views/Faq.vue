@@ -55,7 +55,7 @@
               id="rf-accordion-group-0"
               v-show="section === 0"
             >
-              <li class="rf-accordion-group__item">
+              <li>
                 <accordion-element id="rf-accordion-group-0-body-0">
                   <template v-slot:header>
                     <header>
@@ -68,7 +68,7 @@
                   </template>
                 </accordion-element>
               </li>
-              <li class="rf-accordion-group__item">
+              <li>
                 <AccordionElement id="rf-accordion-group-0-body-1">
                   <template v-slot:header>
                     <header>
@@ -91,7 +91,7 @@
                   </template>
                 </AccordionElement>
               </li>
-              <li class="rf-accordion-group__item">
+              <li>
                 <accordion-element id="rf-accordion-group-0-body-2">
                   <template v-slot:header>
                     <header>
@@ -211,7 +211,7 @@
                   </template>
                 </accordion-element>
               </li>
-              <li class="rf-accordion-group__item">
+              <li>
                 <AccordionElement id="rf-accordion-group-0-body-3">
                   <template v-slot:header>
                     <header>
@@ -231,7 +231,7 @@
                   </template>
                 </AccordionElement>
               </li>
-              <li class="rf-accordion-group__item">
+              <li>
                 <AccordionElement id="rf-accordion-group-0-body-4">
                   <template v-slot:header>
                     <header>
@@ -257,7 +257,7 @@
                   </template>
                 </AccordionElement>
               </li>
-              <li class="rf-accordion-group__item">
+              <li>
                 <AccordionElement id="rf-accordion-group-0-body-5">
                   <template v-slot:header>
                     <header>
@@ -278,7 +278,7 @@
                   </template>
                 </AccordionElement>
               </li>
-              <li class="rf-accordion-group__item">
+              <li>
                 <AccordionElement id="rf-accordion-group-0-body-6">
                   <template v-slot:header>
                     <header>
@@ -295,7 +295,7 @@
                   </template>
                 </AccordionElement>
               </li>
-              <li class="rf-accordion-group__item">
+              <li>
                 <AccordionElement id="rf-accordion-group-0-body-7">
                   <template v-slot:header>
                     <header>Quelles pièces sont demandées aux garants ?</header>
@@ -348,7 +348,7 @@
               id="rf-accordion-group-1"
               v-show="section === 1"
             >
-              <li class="rf-accordion-group__item">
+              <li>
                 <accordion-element id="rf-accordion-group-1-body-0">
                   <template v-slot:header>
                     <header>
@@ -369,7 +369,7 @@
                   </template>
                 </accordion-element>
               </li>
-              <li class="rf-accordion-group__item">
+              <li>
                 <accordion-element id="rf-accordion-group-1-body-1">
                   <template v-slot:header>
                     <header>
@@ -392,7 +392,7 @@
                   </template>
                 </accordion-element>
               </li>
-              <li class="rf-accordion-group__item">
+              <li>
                 <accordion-element id="rf-accordion-group-1-body-2">
                   <template v-slot:header>
                     <header>
@@ -416,7 +416,7 @@
               id="rf-accordion-group-2"
               v-show="section === 2"
             >
-              <li class="rf-accordion-group__item">
+              <li>
                 <accordion-element id="rf-accordion-group-2-body-0">
                   <template v-slot:header>
                     <header>
@@ -428,7 +428,7 @@
                   </template>
                 </accordion-element>
               </li>
-              <li class="rf-accordion-group__item">
+              <li>
                 <accordion-element id="rf-accordion-group-2-body-1">
                   <template v-slot:header>
                     <header>Des questions relatives au logement ?</header>
@@ -438,7 +438,7 @@
                   </template>
                 </accordion-element>
               </li>
-              <li class="rf-accordion-group__item">
+              <li>
                 <accordion-element id="rf-accordion-group-2-body-2">
                   <template v-slot:header>
                     <header>Je n’arrive pas à me connecter, que faire ?</header>
@@ -457,7 +457,7 @@
               id="rf-accordion-group-3"
               v-show="section === 3"
             >
-              <li class="rf-accordion-group__item">
+              <li>
                 <accordion-element id="rf-accordion-group-3-body-0">
                   <template v-slot:header>
                     <header>Mes données sont-elles sécurisées ?</header>
@@ -481,7 +481,7 @@
                   </template>
                 </accordion-element>
               </li>
-              <li class="rf-accordion-group__item">
+              <li>
                 <accordion-element id="rf-accordion-group-3-body-1">
                   <template v-slot:header>
                     <header>Que fait-on de mes données ?</header>
@@ -507,7 +507,7 @@
                   </template>
                 </accordion-element>
               </li>
-              <li class="rf-accordion-group__item">
+              <li>
                 <accordion-element id="rf-accordion-group-3-body-2">
                   <template v-slot:header>
                     <header>Pourquoi conserver des données anonymes ?</header>
@@ -540,7 +540,7 @@
                   </template>
                 </accordion-element>
               </li>
-              <li class="rf-accordion-group__item">
+              <li>
                 <accordion-element id="rf-accordion-group-3-body-3">
                   <template v-slot:header>
                     <header>
