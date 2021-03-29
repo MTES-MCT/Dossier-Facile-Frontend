@@ -4,7 +4,7 @@
       <div class="rf-grid-row justify-content-center">
         <div class="rf-col-md-10 rf-col-lg-8">
           <article>
-            <div class="text-center">
+            <div class="text-center rf-mt-3w rf-mb-3w">
               <h1 class="rf-h1">
                 5 astuces pour booster votre dossier de location
               </h1>

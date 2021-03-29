@@ -4,7 +4,7 @@
       <div class="rf-container">
         <div class="rf-col-md-8">
           <div class="rf-grid-col">
-            <h1 class="rf-h1 color--white">Locatio devient DossierFacile</h1>
+            <h1 class="rf-h1 color--white rf-mt-5w rf-mb-5w">Locatio devient DossierFacile</h1>
             <p class="text-bold color--white">
               Pas de panique ! Le nom change, mais le service reste le même !
             </p>
