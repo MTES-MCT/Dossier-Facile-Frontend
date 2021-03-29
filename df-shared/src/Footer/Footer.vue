@@ -173,7 +173,7 @@
             </a>
           </li>
         </ul>
-        <div class="rf-footer__bottom-copy">© République Française 2020</div>
+        <div class="rf-footer__bottom-copy">© République Française 2021</div>
       </div>
     </div>
   </footer>
