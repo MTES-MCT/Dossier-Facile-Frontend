@@ -19,7 +19,7 @@
           <div class="rf-grid-row justify-content-center">
             <div class="rf-col-md-10 rf-col-lg-8">
               <div>
-                <h4 class="rf-h4">La démarche DossierFacile</h4>
+                <h4 class="rf-h4 rf-mt-3w">La démarche DossierFacile</h4>
                 <p>
                   Dans les zones où la demande de logement est plus forte que
                   l’offre, nous savons que le parcours n’est simple ni pour les

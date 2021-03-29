@@ -23,7 +23,7 @@
           <div class="rf-grid-row justify-content-center">
             <div class="rf-col-md-10">
               <div>
-                <h3 class="rf-h3">Définitions :</h3>
+                <h3 class="rf-h3 rf-mt-3w">Définitions :</h3>
                 <p>
                   <b> L'Éditeur : </b> La personne, physique ou morale, qui
                   édite les services de communication au public en ligne. <br />
