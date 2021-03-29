@@ -7,10 +7,10 @@
       :lang="getLang()"
     >
       <ul class="rf-nav__list">
-        <li class="rf-nav__item" v-if="isMobile()">
-          <router-link to="/faq" class="rf-link">
+        <li class="rf-nav__item">
+          <a :href="`${MAIN_URL}/faq?lang=${$i18n.locale}`" class="rf-link">
             {{ $t("faq") }}
-          </router-link>
+          </a>
         </li>
       </ul>
     </MyHeader>
@@ -46,6 +46,7 @@ import router from "./router";
 export default class App extends Vue {
   cookieHidden = this.$cookies.isKey("accept-cookie");
 
+  MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
 
