@@ -13,7 +13,6 @@
             </p>
             <div class="pull-left">
               <div>
-                <v-gouv-fr-modal></v-gouv-fr-modal>
                 <DfButton primary="true" size="small" @on-click="signup">
                   {{ $t("signup") }}
                 </DfButton>

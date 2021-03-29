@@ -1,31 +1,31 @@
 <template>
     <ul class="rf-nav__list">
       <li class="rf-nav__item" v-if="user">
-        <a href="/account" class="rf-link">
+        <a href="/account" class="rf-nav__link">
           {{ $t("profile") }}
         </a>
       </li>
       <li class="rf-nav__item" v-if="user">
-        <a href="/messaging" class="rf-link">
+        <a href="/messaging" class="rf-nav__link">
           {{ $t("messaging") }}
           <span v-if="newMessage > 0" class="badge">{{ newMessage }}</span>
         </a>
       </li>
       <li class="rf-nav__item">
-        <a :href="`${MAIN_URL}/faq?lang=${$i18n.locale}`" class="rf-link">
+        <a :href="`${MAIN_URL}/faq?lang=${$i18n.locale}`" class="rf-nav__link">
           {{ $t("faq") }}
         </a>
       </li>
       <li class="rf-nav__item">
         <a
           :href="`${MAIN_URL}/information?lang=${$i18n.locale}`"
-          class="rf-link"
+          class="rf-nav__link"
         >
           {{ $t("information") }}
         </a>
       </li>
       <li class="rf-nav__item">
-        <a :href="`${MAIN_URL}/blog?lang=${$i18n.locale}`" class="rf-link">
+        <a :href="`${MAIN_URL}/blog?lang=${$i18n.locale}`" class="rf-nav__link">
           {{ $t("blog") }}
         </a>
       </li>
