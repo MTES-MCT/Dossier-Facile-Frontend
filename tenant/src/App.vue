@@ -7,8 +7,9 @@
       @on-logout="onLogout"
       @on-change-lang="changeLang"
       :lang="getLang()"
-    />
-    <Menu :user="user" />
+    >
+      <Menu :user="user" />
+    </MyHeader>
     <article class="page">
       <router-view />
     </article>
@@ -54,6 +55,12 @@ export default class App extends Vue {
   cookieHidden = this.$cookies.isKey("accept-cookie");
   isLoggedIn!: boolean;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
+
+  mounted() {
+    const localScript = document.createElement("script");
+    localScript.setAttribute("src", "/js/dsfr.module.js");
+    document.head.appendChild(localScript);
+  }
 
   onLogin() {
     this.$router.push("/login");
