@@ -1035,7 +1035,7 @@ hr {
     "copied": "Copied !",
     "ALONE": "seul·e",
     "COUPLE": "en couple",
-    "ROOMMATE": "en colocation"
+    "GROUP": "en colocation"
   },
   "fr": {
     "title": "Bonjour {0}, votre dossier {1} !",
@@ -1092,7 +1092,7 @@ hr {
     "copied": "Copié !",
     "ALONE": "seul·e",
     "COUPLE": "en couple",
-    "ROOMMATE": "en colocation"
+    "GROUP": "en colocation"
   }
 }
 </i18n>
