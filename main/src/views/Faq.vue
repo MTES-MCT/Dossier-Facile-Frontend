@@ -619,6 +619,17 @@ li {
   margin-bottom: 0;
 }
 
+ul > li {
+  &:before {
+    content: none;
+  }
+  padding-bottom: 0;
+}
+
+.rf-accordion {
+  box-shadow: 0 1px 0 0 var(--g300), 0 0px 0 0 var(--g300);
+}
+
 .tab__title {
   border: 1px solid black;
   cursor: pointer;
