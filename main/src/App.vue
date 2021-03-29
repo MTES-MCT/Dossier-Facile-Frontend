@@ -6,13 +6,6 @@
       @on-change-lang="changeLang"
       :lang="getLang()"
     >
-      <ul class="rf-nav__list">
-        <li class="rf-nav__item">
-          <a :href="`${MAIN_URL}/faq?lang=${$i18n.locale}`" class="rf-link">
-            {{ $t("faq") }}
-          </a>
-        </li>
-      </ul>
     </MyHeader>
     <router-view />
     <MyFooter />
