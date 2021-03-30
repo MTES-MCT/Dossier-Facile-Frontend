@@ -212,10 +212,9 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import DfButton from "df-shared/src/Button/Button.vue";
-import VGouvFrModal from "df-shared/src/Button/v-gouv-fr-modal/VGouvFrModal.vue";
 
 @Component({
-  components: { DfButton, VGouvFrModal }
+  components: { DfButton }
 })
 export default class Home extends Vue {
   signup() {

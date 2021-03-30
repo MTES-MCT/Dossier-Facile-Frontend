@@ -1,11 +1,24 @@
 <template>
   <div>
     <div>
-      <a href="#" @click="showHelp = true">
-        En difficulté pour répondre à la question ?
-      </a>
-
-      <button
+      <v-gouv-fr-modal>
+        <template v-slot:button>
+              En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:title>
+              En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:content>
+                  <p>
+                    <DocumentHelp></DocumentHelp>
+                    <DocumentInsert
+                      :allow-list="identificationDocument.acceptedProofs"
+                      :block-list="identificationDocument.refusedProofs"
+                    ></DocumentInsert>
+                  </p>
+        </template>
+      </v-gouv-fr-modal>
+<!--       <button
         class="rf-btn rf-modal-btn"
         title="Titre de modal simple (ouvre une fenêtre modale)"
         aria-expanded="false"
@@ -51,7 +64,7 @@
             </div>
           </div>
         </div>
-      </dialog>
+      </dialog> -->
 
       <p>
         {{ $t("select-label") }}
@@ -140,6 +153,7 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import DocumentHelp from "../helps/DocumentHelp.vue";
+import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 
 @Component({
   components: {
@@ -151,7 +165,8 @@ import DocumentHelp from "../helps/DocumentHelp.vue";
     ConfirmModal,
     DfButton,
     BigRadio,
-    DocumentHelp
+    DocumentHelp,
+    VGouvFrModal
   },
   computed: {
     ...mapGetters({
@@ -168,8 +183,6 @@ export default class Identification extends Vue {
   files: DfFile[] = [];
   identificationDocument = new DocumentType();
   isDocDeleteVisible = false;
-
-  showHelp = false;
 
   onSelectChange() {
     if (this.user.documents !== null) {

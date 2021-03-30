@@ -6,7 +6,8 @@
       aria-controls="rf-modal-1"
       title="Titre de modal simple (ouvre une fenêtre modale)"
     >
-      Titre de modal simple
+      <slot name="button">
+      </slot>
     </button>
     <dialog
       aria-labelledby="rf-modal-title-modal-1"
@@ -30,21 +31,12 @@
               </div>
               <div class="rf-modal__content">
                 <h1 id="rf-modal-title-modal-1" class="rf-modal__title">
-                  <span class="rf-fi-arrow-right-line rf-fi--lg"></span>Titre de
-                  la modale
+                  <span class="rf-fi-arrow-right-line rf-fi--lg"></span>
+                <slot name="title">
+                </slot>
                 </h1>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Maecenas varius tortor nibh, sit amet tempor nibh finibus et.
-                  Aenean eu enim justo. Vestibulum aliquam hendrerit molestie.
-                  Mauris malesuada nisi sit amet augue accumsan tincidunt.
-                  Maecenas tincidunt, velit ac porttitor pulvinar, tortor eros
-                  facilisis libero, vitae commodo nunc quam et ligula. Ut nec
-                  ipsum sapien. Interdum et malesuada fames ac ante ipsum primis
-                  in faucibus. Integer id nisi nec nulla luctus lacinia non eu
-                  turpis. Etiam in ex imperdiet justo tincidunt egestas. Ut
-                  porttitor urna ac augue cursus tincidunt sit amet sed orci.
-                </p>
+                <slot name="content">
+                </slot>
               </div>
             </div>
           </div>
@@ -60,9 +52,10 @@ export default {
   computed: {},
   methods: {},
   mounted: function() {
-    const localScript = document.createElement("script");
-    localScript.setAttribute("src", "/js/dsfr.module.js");
-    document.head.appendChild(localScript);
+window["dsfr"].Modal.build(document);
+/*     const api = window["dsfr"]
+    const MODAL_SELECTOR = api.core.ns.selector("modal");
+    new window.api.core.Initializer(MODAL_SELECTOR, [api.build$5]); */
   }
 };
 </script>
