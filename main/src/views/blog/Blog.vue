@@ -6,7 +6,7 @@
           <article class="rf-mb-12w">
             <div class="text-center">
               <router-link
-                to="/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-a-en-region-parisienne"
+                to="/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne"
               >
                 <h2 class="rf-h2">
                 5 conseils pour trouver l’appartement de ses rêves à en région
@@ -21,7 +21,7 @@
             <!--end article title-->
             <div class="article__body">
               <router-link
-                to="/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-a-en-region-parisienne"
+                to="/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne"
               >
                 <img
                   class="img-center"
@@ -40,7 +40,7 @@
                 de tes rêves.
               </p>
               <router-link
-                to="/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-a-en-region-parisienne"
+                to="/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne"
                 >Continuer la lecture »</router-link
               >
             </div>

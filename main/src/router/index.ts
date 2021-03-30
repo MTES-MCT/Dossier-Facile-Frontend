@@ -84,7 +84,7 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Article4.vue")
   },
   {
-    path: "/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-a-en-region-parisienne",
+    path: "/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne",
     name: "Article5",
     meta: {
       title: "5 conseils pour trouver l’appartement de ses rêves à en région parisienne",
