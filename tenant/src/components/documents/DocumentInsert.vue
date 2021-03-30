@@ -12,7 +12,7 @@
     <div class="content rf-col-6">
       <ul>
         <li v-for="(v, k) in blockList" :key="k" class="times">
-          <span class="rf-mt-0" v-html="v"></span>
+          <span v-html="v"></span>
         </li>
       </ul>
     </div>
