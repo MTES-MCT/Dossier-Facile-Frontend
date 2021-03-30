@@ -100,7 +100,6 @@ export default class LeftEditMenu extends Vue {
 }
 
 .step-number {
-  padding: 1px;
   background-color: white;
   border: 1px solid var(--g400-t);
   margin: 0 5px;
