@@ -1,14 +1,13 @@
 <template>
   <div class="v-gouv-fr-modal">
-    <button
-      class="rf-btn"
+    <a href="#"
       data-rf-opened="false"
       aria-controls="rf-modal-1"
       title="Titre de modal simple (ouvre une fenêtre modale)"
     >
       <slot name="button">
       </slot>
-    </button>
+    </a>
     <dialog
       aria-labelledby="rf-modal-title-modal-1"
       role="dialog"
