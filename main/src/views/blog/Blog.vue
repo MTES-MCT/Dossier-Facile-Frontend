@@ -9,7 +9,7 @@
                 to="/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne"
               >
                 <h2 class="rf-h2">
-                5 conseils pour trouver l’appartement de ses rêves à en région
+                5 conseils pour trouver l’appartement de ses rêves en région
                 parisienne (ou ailleurs…)
                 </h2>
               </router-link>

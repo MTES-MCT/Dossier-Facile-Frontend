@@ -87,7 +87,7 @@ const routes: Array<RouteConfig> = [
     path: "/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne",
     name: "Article5",
     meta: {
-      title: "5 conseils pour trouver l’appartement de ses rêves à en région parisienne",
+      title: "5 conseils pour trouver l’appartement de ses rêves en région parisienne",
       description:
         "Trouver l’appartement de ses rêves à Paris ou en région parisienne est un vrai défi"
     },
