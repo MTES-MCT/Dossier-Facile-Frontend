@@ -1,6 +1,6 @@
 <template>
   <div class="v-gouv-fr-modal">
-    <a href="#"
+    <a href="#" class="rf-link"
       data-rf-opened="false"
       aria-controls="rf-modal-1"
       title="Titre de modal simple (ouvre une fenêtre modale)"
