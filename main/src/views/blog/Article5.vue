@@ -7,7 +7,7 @@
           <article>
             <div class="text-center">
               <h1 class="rf-h1">
-                5 conseils pour trouver l’appartement de ses rêves à en région
+                5 conseils pour trouver l’appartement de ses rêves en région
                 parisienne (ou ailleurs…)
               </h1>
               <span>30 Mars 2021 dans </span>
