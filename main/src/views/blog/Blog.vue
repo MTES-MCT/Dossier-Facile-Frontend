@@ -6,6 +6,49 @@
           <article class="rf-mb-12w">
             <div class="text-center">
               <router-link
+                to="/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-a-en-region-parisienne"
+              >
+                <h2 class="rf-h2">
+                5 conseils pour trouver l’appartement de ses rêves à en région
+                parisienne (ou ailleurs…)
+                </h2>
+              </router-link>
+              <span>30 Mars 2021 dans </span>
+              <span>
+                <a href="#" class="underline">DossierFacile</a>
+              </span>
+            </div>
+            <!--end article title-->
+            <div class="article__body">
+              <router-link
+                to="/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-a-en-region-parisienne"
+              >
+                <img
+                  class="img-center"
+                  alt=""
+                  src="../../assets/images/blog-article5.webp"
+                />
+              </router-link>
+              <p>
+                Trouver l’appartement de ses rêves à Paris ou en région
+                parisienne est un vrai défi : la capitale est pleine de charme,
+                et par conséquent... très attractive. De plus en plus de
+                personnes souhaitent s’installer à Paris, et l’offre y est rare,
+                rendant difficile la recherche d’un appartement à louer (ou même
+                à acheter). Dans cet article, les équipes de DossierFacile te
+                livrent leurs cinq conseils pour trouver l’appartement parisien
+                de tes rêves.
+              </p>
+              <router-link
+                to="/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-a-en-region-parisienne"
+                >Continuer la lecture »</router-link
+              >
+            </div>
+          </article>
+          <hr />
+          <article class="rf-mb-12w">
+            <div class="text-center">
+              <router-link
                 to="/blog/5-astuces-pour-booster-votre-dossier-de-location"
               >
                 <h2 class="rf-h2">
