@@ -91,7 +91,6 @@ export default class Profile extends Vue {
 }
 
 .step-number {
-  padding: 1px;
   background-color: var(--primary);
   color: white;
   margin: 0 5px;
