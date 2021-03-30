@@ -122,28 +122,28 @@
                 >
                   <div class="rf-col-12 rf-col-md-6 rf-col-xl-4 rf-pt-1w">
                     <div class="rf-tile rf-tile--horizontal">
-                      <div class="rf-tile__img-wrap rf-ml-2w">
-                        <span class="color--primary material-icons md-adapt"
-                          >person</span
-                        >
-                      </div>
                       <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                         <h4 class="rf-tile__title">
                           <a class="rf-tile__link" href>{{
                             $t("my-information")
                           }}</a>
                         </h4>
-                        <p>
+                        <div>
                           {{ user.firstName }} {{ user.lastName }}<br />
                           {{ user.email }}
-                        </p>
+                        </div>
+                        <button
+                          class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
+                          title="Edit"
+                        >
+                          <span class="sr-only"> Edit </span>
+                        </button>
                       </div>
-                      <button
-                        class="rf-btn rf-btn--secondary rf-fi-edit-line edit-btn"
-                        title="Edit"
-                      >
-                        <span class="sr-only"> Edit </span>
-                      </button>
+                      <div class="rf-tile__img-wrap rf-ml-2w">
+                        <span class="color--primary material-icons md-adapt"
+                          >person</span
+                        >
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -156,11 +156,6 @@
                     @click="setTenantStep(1)"
                   >
                     <div class="rf-tile rf-tile--horizontal">
-                      <div class="rf-tile__img-wrap rf-ml-2w">
-                        <span class="color--primary material-icons md-adapt"
-                          >person</span
-                        >
-                      </div>
                       <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                         <h4 class="rf-tile__title">
                           <a class="rf-tile__link" href>{{
@@ -177,6 +172,11 @@
                           <span class="sr-only"> Edit </span>
                         </button>
                       </div>
+                      <div class="rf-tile__img-wrap rf-ml-2w">
+                        <span class="color--primary material-icons md-adapt"
+                          >person</span
+                        >
+                      </div>
                     </div>
                   </div>
                   <div
@@ -184,11 +184,6 @@
                     @click="setTenantStep(2)"
                   >
                     <div class="rf-tile rf-tile--horizontal">
-                      <div class="rf-tile__img-wrap rf-ml-2w">
-                        <span class="color--primary material-icons md-adapt"
-                          >home</span
-                        >
-                      </div>
                       <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                         <h4 class="rf-tile__title">
                           <a class="rf-tile__link" href>{{
@@ -203,6 +198,11 @@
                           <span class="sr-only"> Edit </span>
                         </button>
                       </div>
+                      <div class="rf-tile__img-wrap rf-ml-2w">
+                        <span class="color--primary material-icons md-adapt"
+                          >home</span
+                        >
+                      </div>
                     </div>
                   </div>
                   <div
@@ -210,11 +210,6 @@
                     @click="setTenantStep(3)"
                   >
                     <div class="rf-tile rf-tile--horizontal">
-                      <div class="rf-tile__img-wrap rf-ml-2w">
-                        <span class="color--primary material-icons md-adapt"
-                          >work</span
-                        >
-                      </div>
                       <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                         <h4 class="rf-tile__title">
                           <a class="rf-tile__link" href>{{
@@ -231,6 +226,11 @@
                           <span class="sr-only"> Edit </span>
                         </button>
                       </div>
+                      <div class="rf-tile__img-wrap rf-ml-2w">
+                        <span class="color--primary material-icons md-adapt"
+                          >work</span
+                        >
+                      </div>
                     </div>
                   </div>
 
@@ -239,11 +239,6 @@
                     @click="setTenantStep(4)"
                   >
                     <div class="rf-tile rf-tile--horizontal">
-                      <div class="rf-tile__img-wrap rf-ml-2w">
-                        <span class="color--primary material-icons md-adapt"
-                          >euro</span
-                        >
-                      </div>
                       <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                         <h4 class="rf-tile__title">
                           <a class="rf-tile__link" href>{{
@@ -258,6 +253,11 @@
                           <span class="sr-only"> Edit </span>
                         </button>
                       </div>
+                      <div class="rf-tile__img-wrap rf-ml-2w">
+                        <span class="color--primary material-icons md-adapt"
+                          >euro</span
+                        >
+                      </div>
                     </div>
                   </div>
                   <div
@@ -265,11 +265,6 @@
                     @click="setTenantStep(5)"
                   >
                     <div class="rf-tile rf-tile--horizontal">
-                      <div class="rf-tile__img-wrap rf-ml-2w">
-                        <span class="color--primary material-icons md-adapt"
-                          >content_copy</span
-                        >
-                      </div>
                       <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                         <h4 class="rf-tile__title">
                           <a class="rf-tile__link" href>{{ $t("tax") }}</a>
@@ -281,6 +276,11 @@
                         >
                           <span class="sr-only"> Edit </span>
                         </button>
+                      </div>
+                      <div class="rf-tile__img-wrap rf-ml-2w">
+                        <span class="color--primary material-icons md-adapt"
+                          >content_copy</span
+                        >
                       </div>
                     </div>
                   </div>
@@ -301,11 +301,6 @@
                         @click="setGuarantorSubStep(1)"
                       >
                         <div class="rf-tile rf-tile--horizontal">
-                          <div class="rf-tile__img-wrap rf-ml-2w">
-                            <span class="color--primary material-icons md-adapt"
-                              >person</span
-                            >
-                          </div>
                           <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                             <h4 class="rf-tile__title">
                               <a class="rf-tile__link" href>{{
@@ -322,6 +317,11 @@
                               <span class="sr-only"> Edit </span>
                             </button>
                           </div>
+                          <div class="rf-tile__img-wrap rf-ml-2w">
+                            <span class="color--primary material-icons md-adapt"
+                              >person</span
+                            >
+                          </div>
                         </div>
                       </div>
                       <div
@@ -329,11 +329,6 @@
                         @click="setGuarantorSubStep(2)"
                       >
                         <div class="rf-tile rf-tile--horizontal">
-                          <div class="rf-tile__img-wrap rf-ml-2w">
-                            <span class="color--primary material-icons md-adapt"
-                              >home</span
-                            >
-                          </div>
                           <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                             <h4 class="rf-tile__title">
                               <a class="rf-tile__link" href>{{
@@ -350,6 +345,11 @@
                               <span class="sr-only"> Edit </span>
                             </button>
                           </div>
+                          <div class="rf-tile__img-wrap rf-ml-2w">
+                            <span class="color--primary material-icons md-adapt"
+                              >home</span
+                            >
+                          </div>
                         </div>
                       </div>
                       <div
@@ -357,11 +357,6 @@
                         @click="setGuarantorSubStep(3)"
                       >
                         <div class="rf-tile rf-tile--horizontal">
-                          <div class="rf-tile__img-wrap rf-ml-2w">
-                            <span class="color--primary material-icons md-adapt"
-                              >work</span
-                            >
-                          </div>
                           <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                             <h4 class="rf-tile__title">
                               <a class="rf-tile__link" href>{{
@@ -378,6 +373,11 @@
                               <span class="sr-only"> Edit </span>
                             </button>
                           </div>
+                          <div class="rf-tile__img-wrap rf-ml-2w">
+                            <span class="color--primary material-icons md-adapt"
+                              >work</span
+                            >
+                          </div>
                         </div>
                       </div>
 
@@ -386,11 +386,6 @@
                         @click="setGuarantorSubStep(4)"
                       >
                         <div class="rf-tile rf-tile--horizontal">
-                          <div class="rf-tile__img-wrap rf-ml-2w">
-                            <span class="color--primary material-icons md-adapt"
-                              >euro</span
-                            >
-                          </div>
                           <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                             <h4 class="rf-tile__title">
                               <a class="rf-tile__link" href>{{
@@ -407,6 +402,11 @@
                               <span class="sr-only"> Edit </span>
                             </button>
                           </div>
+                          <div class="rf-tile__img-wrap rf-ml-2w">
+                            <span class="color--primary material-icons md-adapt"
+                              >euro</span
+                            >
+                          </div>
                         </div>
                       </div>
                       <div
@@ -414,11 +414,6 @@
                         @click="setGuarantorSubStep(5)"
                       >
                         <div class="rf-tile rf-tile--horizontal">
-                          <div class="rf-tile__img-wrap rf-ml-2w">
-                            <span class="color--primary material-icons md-adapt"
-                              >content_copy</span
-                            >
-                          </div>
                           <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                             <h4 class="rf-tile__title">
                               <a class="rf-tile__link" href>{{ $t("tax") }}</a>
@@ -433,6 +428,11 @@
                               <span class="sr-only"> Edit </span>
                             </button>
                           </div>
+                          <div class="rf-tile__img-wrap rf-ml-2w">
+                            <span class="color--primary material-icons md-adapt"
+                              >content_copy</span
+                            >
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -444,11 +444,6 @@
                         @click="setGuarantorSubStep(1)"
                       >
                         <div class="rf-tile rf-tile--horizontal">
-                          <div class="rf-tile__img-wrap rf-ml-2w">
-                            <span class="color--primary material-icons md-adapt"
-                              >person</span
-                            >
-                          </div>
                           <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                             <h4 class="rf-tile__title">
                               <a class="rf-tile__link" href>{{
@@ -465,6 +460,11 @@
                               <span class="sr-only"> Edit </span>
                             </button>
                           </div>
+                          <div class="rf-tile__img-wrap rf-ml-2w">
+                            <span class="color--primary material-icons md-adapt"
+                              >person</span
+                            >
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -476,11 +476,6 @@
                         @click="setGuarantorSubStep(1)"
                       >
                         <div class="rf-tile rf-tile--horizontal">
-                          <div class="rf-tile__img-wrap rf-ml-2w">
-                            <span class="color--primary material-icons md-adapt"
-                              >person</span
-                            >
-                          </div>
                           <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                             <h4 class="rf-tile__title">
                               <a class="rf-tile__link" href>{{
@@ -502,6 +497,11 @@
                               <span class="sr-only"> Edit </span>
                             </button>
                           </div>
+                          <div class="rf-tile__img-wrap rf-ml-2w">
+                            <span class="color--primary material-icons md-adapt"
+                              >person</span
+                            >
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -512,11 +512,6 @@
                         @click="setGuarantorSubStep(2)"
                       >
                         <div class="rf-tile rf-tile--horizontal">
-                          <div class="rf-tile__img-wrap rf-ml-2w">
-                            <span class="color--primary material-icons md-adapt"
-                              >person</span
-                            >
-                          </div>
                           <div class="rf-tile__body rf-ml-2w rf-mr-2w">
                             <h4 class="rf-tile__title">
                               <a class="rf-tile__link" href>{{
@@ -532,6 +527,11 @@
                             >
                               <span class="sr-only"> Edit </span>
                             </button>
+                          </div>
+                          <div class="rf-tile__img-wrap rf-ml-2w">
+                            <span class="color--primary material-icons md-adapt"
+                              >person</span
+                            >
                           </div>
                         </div>
                       </div>
