@@ -19,6 +19,7 @@ module.exports = {
         "https://dossierfacile.fr/blog/pourquoi-dossierfacile-est-il-gratuit",
         "https://dossierfacile.fr/blog/locatio-devient-dossier-facile",
         "https://dossierfacile.fr/blog/5-astuces-pour-booster-votre-dossier-de-location",
+        "https://dossierfacile.fr/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne",
         "https://dossierfacile.fr/information",
         "https://dossierfacile.fr/securite-des-donnees"
       ]
@@ -42,6 +43,7 @@ module.exports = {
             "/blog/pourquoi-dossierfacile-est-il-gratuit",
             "/blog/locatio-devient-dossier-facile",
             "/blog/5-astuces-pour-booster-votre-dossier-de-location",
+            "/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne",
             "/information",
             "/securite-des-donnees"
           ]
