@@ -24,7 +24,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@vue/cli": "^4.5.8",
+    "@vue/cli": "^4.5.12",
     "global": "^4.4.0",
     "highlight.js": "10.4.1"
   },
