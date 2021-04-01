@@ -47,8 +47,8 @@ import router from "./router";
     MyHeader,
     MyFooter,
     Modal,
-    Cookies,
-  },
+    Cookies
+  }
 })
 export default class App extends Vue {
   cookieHidden = this.$cookies.isKey("accept-cookie")
@@ -79,10 +79,11 @@ export default class App extends Vue {
     Vue.use(
       VueGtag,
       {
-        config: { id: "UA-50823626-2" },
+        config: { id: "UA-50823626-2" }
       },
       router
     );
+    Vue.prototype.inspectlet();
     this.cookieHidden = true;
   }
 
