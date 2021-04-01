@@ -23,7 +23,11 @@
     </header>
     <router-view />
     <MyFooter />
-    <Cookies :hidden="cookieHidden" @hide-cookie="hideCookie" />
+    <Cookies
+      :hidden="cookieHidden"
+      @accept="acceptCookies"
+      @deny="denyCookies"
+    />
   </div>
 </template>
 
@@ -35,14 +39,16 @@ import Modal from "df-shared/src/components/Modal.vue";
 import Cookies from "df-shared/src/Footer/Cookies.vue";
 import i18n from "./i18n";
 import { Header } from "./gouvfr/header.js";
+import VueGtag from "vue-gtag";
+import router from "./router";
 
 @Component({
   components: {
     MyHeader,
     MyFooter,
     Modal,
-    Cookies
-  }
+    Cookies,
+  },
 })
 export default class App extends Vue {
   cookieHidden = this.$cookies.isKey("accept-cookie")
@@ -64,13 +70,24 @@ export default class App extends Vue {
     window.location.href = `${this.TENANT_URL}/signup?lang=${this.$i18n.locale}`;
   }
 
-  hideCookie() {
-    this.cookieHidden = true;
+  acceptCookies() {
     this.$cookies.set(
       "accept-cookie",
       this.cookieHidden,
       new Date(2050, 12, 31).toUTCString()
     );
+    Vue.use(
+      VueGtag,
+      {
+        config: { id: "UA-50823626-2" },
+      },
+      router
+    );
+    this.cookieHidden = true;
+  }
+
+  denyCookies() {
+    this.cookieHidden = true;
   }
 
   isMobile() {
