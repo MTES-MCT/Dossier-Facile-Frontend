@@ -3,22 +3,23 @@
     <div>
       <v-gouv-fr-modal>
         <template v-slot:button>
-              En difficulté pour répondre à la question ?
+          En difficulté pour répondre à la question ?
         </template>
         <template v-slot:title>
-              En difficulté pour répondre à la question ?
+          En difficulté pour répondre à la question ?
         </template>
         <template v-slot:content>
-                  <p>
-                    <DocumentHelp></DocumentHelp>
-                    <DocumentInsert
-                      :allow-list="identificationDocument.acceptedProofs"
-                      :block-list="identificationDocument.refusedProofs"
-                    ></DocumentInsert>
-                  </p>
+          <p>
+            <DocumentHelp></DocumentHelp>
+            <DocumentInsert
+              :allow-list="identificationDocument.acceptedProofs"
+              :block-list="identificationDocument.refusedProofs"
+              v-if="identificationDocument.key"
+            ></DocumentInsert>
+          </p>
         </template>
       </v-gouv-fr-modal>
-<!--       <button
+      <!--       <button
         class="rf-btn rf-modal-btn"
         title="Titre de modal simple (ouvre une fenêtre modale)"
         aria-expanded="false"
