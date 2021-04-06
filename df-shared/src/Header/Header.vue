@@ -41,6 +41,7 @@
               <li class="rf-shortcuts__item" v-if="loggedIn">
                 <v-gouv-fr-button
                   :label="$t('logout')"
+                  :small="true"
                   @click="onLogout"
                 ></v-gouv-fr-button>
               </li>
