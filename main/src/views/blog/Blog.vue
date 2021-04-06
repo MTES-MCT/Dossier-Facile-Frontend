@@ -5,12 +5,50 @@
         <div class="rf-col-md-10 rf-col-lg-8">
           <article class="rf-mb-12w">
             <div class="text-center">
+              <router-link to="/blog/dossierfacile-fait-peau-neuve">
+                <h2 class="rf-h2">
+                  DossierFacile fait peau neuve
+                </h2>
+              </router-link>
+              <span>06 Avril 2021 dans </span>
+              <span>
+                <a href="#" class="underline">DossierFacile</a>
+              </span>
+            </div>
+            <!--end article title-->
+            <div class="article__body">
+              <router-link to="/blog/dossierfacile-fait-peau-neuve">
+                <img
+                  class="img-center"
+                  alt=""
+                  src="../../assets/images/blog-article6.webp"
+                />
+              </router-link>
+              <p>
+                Afin de mieux répondre aux besoins de nos locataires et
+                propriétaires, le service <a href="/">DossierFacile</a> fait
+                peau neuve avec un nouveau site ! Un parcours utilisateur plus
+                simple, un design plus recherché, une visualisation plus claire…
+                Le tout pour un service toujours plus efficace ! On est très
+                fiers de vous présenter le nouveau DossierFacile ! Notre
+                objectif ? Faciliter le téléchargement de vos pièces
+                justificatives : un gain de temps pour vous, pour nous, et pour
+                votre futur propriétaire !
+              </p>
+              <router-link to="/blog/dossierfacile-fait-peau-neuve"
+                >Continuer la lecture »</router-link
+              >
+            </div>
+          </article>
+          <hr />
+          <article class="rf-mb-12w">
+            <div class="text-center">
               <router-link
                 to="/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne"
               >
                 <h2 class="rf-h2">
-                5 conseils pour trouver l’appartement de ses rêves en région
-                parisienne (ou ailleurs…)
+                  5 conseils pour trouver l’appartement de ses rêves en région
+                  parisienne (ou ailleurs…)
                 </h2>
               </router-link>
               <span>30 Mars 2021 dans </span>

@@ -1,4 +1,3 @@
-
 <template>
   <section class="rf-mb-12w">
     <div class="rf-container">
@@ -23,9 +22,9 @@
                 et par conséquent... très attractive. De plus en plus de
                 personnes souhaitent s’installer à Paris, et l’offre y est rare,
                 rendant difficile la recherche d’un appartement à louer (ou même
-                à acheter). Dans cet article, les équipes de <a href="/">DossierFacile</a> te
-                livrent leurs cinq conseils pour trouver l’appartement parisien
-                de tes rêves.
+                à acheter). Dans cet article, les équipes de
+                <a href="/">DossierFacile</a> te livrent leurs cinq conseils
+                pour trouver l’appartement parisien de tes rêves.
               </p>
               <img
                 alt=""
@@ -96,9 +95,9 @@
                 par un appartement “pépite” à Paris. Il faut donc être
                 extrêmement réactif dans ta réponse. Prends contact avec le
                 propriétaire au plus vite, et tiens ton dossier prêt. Grâce à
-                <a href="/">DossierFacile</a>, tu peux notamment envoyer en un clic ton dossier
-                à l’agence ou au propriétaire. Premier arrivé, premier servi
-                !<br />
+                <a href="/">DossierFacile</a>, tu peux notamment envoyer en un
+                clic ton dossier à l’agence ou au propriétaire. Premier arrivé,
+                premier servi !<br />
                 N’oublie pas d’activer des alertes mails en fonction de tes
                 recherches, pour ne pas passer à côté de la perle rare.
                 Quoiqu’il arrive, pour trouver un appartement, il faut être
