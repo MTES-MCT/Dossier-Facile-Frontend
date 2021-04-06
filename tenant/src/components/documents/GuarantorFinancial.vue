@@ -55,7 +55,9 @@
                   <input
                     id="monthlySum"
                     :placeholder="$t('monthlySum')"
-                    type="text"
+                    type="number"
+                    min="0"
+                    step="1"
                     v-model="f.monthlySum"
                     name="monthlySum"
                     class="validate-required form-control rf-input"
