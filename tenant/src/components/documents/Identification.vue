@@ -19,54 +19,6 @@
           </p>
         </template>
       </v-gouv-fr-modal>
-      <!--       <button
-        class="rf-btn rf-modal-btn"
-        title="Titre de modal simple (ouvre une fenêtre modale)"
-        aria-expanded="false"
-        aria-controls="rf-modal-1"
-      >
-        Titre de modal simple
-      </button>
-
-      <dialog
-        aria-labelledby="rf-modal-title-modal-1"
-        role="dialog"
-        id="rf-modal-1"
-        class="rf-modal"
-      >
-        <div class="rf-container--fluid rf-container-md">
-          <div class="rf-grid-row rf-grid-row--center">
-            <div class="rf-col-12 rf-col-md-6">
-              <div class="rf-modal__body">
-                <div class="rf-modal__header">
-                  <button
-                    class="rf-link--close rf-link"
-                    title="Fermer la fenêtre modale"
-                    aria-controls="rf-modal-1"
-                    target="_self"
-                  >
-                    Fermer
-                  </button>
-                </div>
-                <div class="rf-modal__content">
-                  <h1 id="rf-modal-title-modal-1" class="rf-modal__title">
-                    <span class="rf-fi-arrow-right-line rf-fi--lg"></span>Titre
-                    de la modale
-                  </h1>
-                  <p>
-                    <DocumentHelp></DocumentHelp>
-                    <DocumentInsert
-                      :allow-list="identificationDocument.acceptedProofs"
-                      :block-list="identificationDocument.refusedProofs"
-                    ></DocumentInsert>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </dialog> -->
-
       <p>
         {{ $t("select-label") }}
       </p>
