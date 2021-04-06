@@ -5,6 +5,6 @@ export const ImageService = {
     if (file.originalName) {
       return !file.originalName?.toLowerCase().endsWith("pdf");
     }
-    return !file.name?.toLocaleLowerCase().endsWith("pdf");
+    return !file.name?.toLowerCase().endsWith("pdf");
   }
 };
