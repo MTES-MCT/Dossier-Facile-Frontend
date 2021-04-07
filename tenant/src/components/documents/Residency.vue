@@ -1,11 +1,30 @@
 <template>
   <div>
     <div>
-      <label class="rf-label" for="select">
+      <div class="rf-pl-3v">
         {{ $t("select-label") }}
-      </label>
+      </div>
 
-      <div class="rf-mt-3w">
+      <v-gouv-fr-modal>
+        <template v-slot:button>
+          En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:title>
+          En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:content>
+          <p>
+            <DocumentHelp></DocumentHelp>
+            <DocumentInsert
+              :allow-list="residencyDocument.acceptedProofs"
+              :block-list="residencyDocument.refusedProofs"
+              v-if="residencyDocument.key"
+            ></DocumentInsert>
+          </p>
+        </template>
+      </v-gouv-fr-modal>
+
+      <div class="rf-mt-1w">
         <fieldset class="rf-fieldset">
           <div class="rf-fieldset__content">
             <div class="rf-grid-row">
@@ -90,6 +109,8 @@ import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
+import DocumentHelp from "../helps/DocumentHelp.vue";
+import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 
 @Component({
   components: {
@@ -98,7 +119,9 @@ import BigRadio from "df-shared/src/Button/BigRadio.vue";
     ListItem,
     WarningMessage,
     ConfirmModal,
-    BigRadio
+    BigRadio,
+    VGouvFrModal,
+    DocumentHelp
   },
   computed: {
     ...mapGetters({

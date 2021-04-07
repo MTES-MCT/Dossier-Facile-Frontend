@@ -1,12 +1,13 @@
 <template>
   <div class="v-gouv-fr-modal">
-    <a href="#" class="rf-link"
+    <a
+      href="#"
+      class="rf-link"
       data-rf-opened="false"
       aria-controls="rf-modal-1"
       title="Titre de modal simple (ouvre une fenêtre modale)"
     >
-      <slot name="button">
-      </slot>
+      <slot name="button"> </slot>
     </a>
     <dialog
       aria-labelledby="rf-modal-title-modal-1"
@@ -31,11 +32,9 @@
               <div class="rf-modal__content">
                 <h1 id="rf-modal-title-modal-1" class="rf-modal__title">
                   <span class="rf-fi-arrow-right-line rf-fi--lg"></span>
-                <slot name="title">
-                </slot>
+                  <slot name="title"> </slot>
                 </h1>
-                <slot name="content">
-                </slot>
+                <slot name="content"> </slot>
               </div>
             </div>
           </div>
@@ -51,10 +50,7 @@ export default {
   computed: {},
   methods: {},
   mounted: function() {
-window["dsfr"].Modal.build(document);
-/*     const api = window["dsfr"]
-    const MODAL_SELECTOR = api.core.ns.selector("modal");
-    new window.api.core.Initializer(MODAL_SELECTOR, [api.build$5]); */
+    window["dsfr"].Modal.build(document);
   }
 };
 </script>
