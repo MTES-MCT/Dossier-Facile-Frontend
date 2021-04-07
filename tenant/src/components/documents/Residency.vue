@@ -63,7 +63,7 @@
         ></FileUpload>
       </div>
     </div>
-    <div v-if="residencyFiles().length > 0" class="rf-col-md-12 rf-mb-3w">
+    <div v-if="residencyFiles().length > 0" class="rf-col-12 rf-mb-3w">
       <ListItem
         v-for="(file, k) in residencyFiles()"
         :key="k"
