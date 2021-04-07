@@ -248,6 +248,10 @@ h2 {
     line-height: 1rem;
   }
 }
+
+h2 {
+  line-height: 1.5rem;
+}
 </style>
 
 <i18n>

@@ -1,6 +1,10 @@
 <template>
   <div>
     <div>
+      <div class="rf-pl-3v">
+        {{ $t("select-label") }}
+      </div>
+
       <v-gouv-fr-modal>
         <template v-slot:button>
           En difficulté pour répondre à la question ?
@@ -19,11 +23,8 @@
           </p>
         </template>
       </v-gouv-fr-modal>
-      <p>
-        {{ $t("select-label") }}
-      </p>
 
-      <div class="rf-mt-3w">
+      <div class="rf-mt-1w">
         <fieldset class="rf-fieldset">
           <div class="rf-fieldset__content">
             <div class="rf-grid-row">
@@ -51,8 +52,11 @@
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
     <div v-if="identificationDocument.key">
-      <div v-if="identificationDocument.explanationText" class="rf-mb-3w">
-        <p v-html="identificationDocument.explanationText"></p>
+      <div v-if="identificationDocument.explanationText">
+        <div
+          class="rf-mt-1w rf-mb-1w rf-ml-2w"
+          v-html="identificationDocument.explanationText"
+        ></div>
       </div>
       <div class="rf-mb-3w">
         <FileUpload
@@ -63,10 +67,7 @@
         ></FileUpload>
       </div>
     </div>
-    <div
-      v-if="identificationFiles().length > 0"
-      class="rf-col-lg-8 rf-col-md-12 rf-mb-3w"
-    >
+    <div v-if="identificationFiles().length > 0" class="rf-col-md-12 rf-mb-3w">
       <ListItem
         v-for="(file, k) in identificationFiles()"
         :key="k"
@@ -74,7 +75,7 @@
         @remove="remove(file)"
       />
     </div>
-    <div class="rf-col-12 rf-mb-2w" v-if="identificationDocument">
+    <div class="rf-col-12 rf-mb-3w rf-mt-2w" v-if="identificationDocument">
       <button
         class="rf-btn"
         type="submit"

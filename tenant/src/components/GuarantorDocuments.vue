@@ -518,6 +518,10 @@ h2 {
 .btn-group {
   width: fit-content;
 }
+
+h2 {
+  line-height: 1.5rem;
+}
 </style>
 
 <i18n>

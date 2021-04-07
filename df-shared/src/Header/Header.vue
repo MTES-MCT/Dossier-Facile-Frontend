@@ -42,6 +42,7 @@
                 <v-gouv-fr-button
                   :label="$t('logout')"
                   :small="true"
+                  :secondary="true"
                   @click="onLogout"
                 ></v-gouv-fr-button>
               </li>
