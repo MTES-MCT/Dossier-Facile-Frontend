@@ -7,19 +7,6 @@
     >
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
-    <Modal v-show="isNoIncomeAndFiles" @close="isNoIncomeAndFiles = false">
-      <template v-slot:body>
-        <div class="rf-container">
-          <div class="rf-grid-row justify-content-center">
-            <div class="rf-col-12">
-              <p>
-                {{ $t("warning-no-income-and-file") }}
-              </p>
-            </div>
-          </div>
-        </div>
-      </template>
-    </Modal>
     <div v-for="(f, k) in financialDocuments" :key="k">
       <ValidationObserver v-slot="{ validate }">
         <div
@@ -37,7 +24,7 @@
               {{ $t("select-label") }}
             </div>
 
-            <v-gouv-fr-modal>
+            <v-gouv-fr-modal v-if="k === 0">
               <template v-slot:button>
                 En difficulté pour répondre à la question ?
               </template>
@@ -46,7 +33,7 @@
               </template>
               <template v-slot:content>
                 <p>
-                  <GuarantorChoiceHelp></GuarantorChoiceHelp>
+                  <DocumentHelp></DocumentHelp>
                   <DocumentInsert
                     :allow-list="f.documentType.acceptedProofs"
                     :block-list="f.documentType.refusedProofs"
@@ -56,19 +43,33 @@
               </template>
             </v-gouv-fr-modal>
 
-            <select
-              v-model="f.documentType"
-              class="rf-select rf-mb-3w"
-              id="select"
-              name="select"
-              @change="onSelectChange(f)"
-            >
-              <option v-for="d in documents" :value="d" :key="d.key">
-                {{ $t(d.key) }}
-              </option>
-            </select>
+            <div class="rf-mt-3w">
+              <fieldset class="rf-fieldset">
+                <div class="rf-fieldset__content">
+                  <div class="rf-grid-row">
+                    <div v-for="d in documents" :key="d.key">
+                      <BigRadio
+                        :val="d"
+                        v-model="f.documentType"
+                        @input="onSelectChange(f)"
+                      >
+                        <div class="rf-grid-col spa">
+                          <span>{{ $t(d.key) }}</span>
+                        </div>
+                      </BigRadio>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
           </div>
-          <div v-if="f.documentType && f.documentType.key">
+          <div
+            v-if="
+              f.documentType &&
+                f.documentType.key &&
+                f.documentType.key !== 'no-income'
+            "
+          >
             <div>
               <validation-provider
                 :rules="{ required: true, regex: /^[0-9., ]+$/ }"
@@ -152,7 +153,7 @@
           </div>
           <div
             v-if="financialFiles(f).length > 0"
-            class="rf-col-lg-8 rf-col-md-12 rf-mb-3w"
+            class="rf-col-md-12 rf-mb-3w"
           >
             <ListItem
               v-for="(file, k) in financialFiles(f)"
@@ -165,11 +166,27 @@
             <button
               class="rf-btn"
               type="submit"
-              :disabled="f.files.length <= 0 && !f.noDocument"
+              :disabled="
+                f.files.length <= 0 &&
+                  !f.noDocument &&
+                  f.documentType.key !== 'no-income'
+              "
             >
               {{ $t("register") }}
             </button>
           </div>
+<<<<<<< HEAD
+          <div
+            class="rf-mb-5w"
+            v-if="f.documentType.key && f.documentType.key !== 'no-income'"
+          >
+            <DocumentInsert
+              :allow-list="f.documentType.acceptedProofs"
+              :block-list="f.documentType.refusedProofs"
+            ></DocumentInsert>
+          </div>
+=======
+>>>>>>> 04e751f (feat(financial): add help modal)
         </form>
       </ValidationObserver>
       <hr />
@@ -187,11 +204,12 @@ import { Component, Vue } from "vue-property-decorator";
 import { DocumentType } from "df-shared/src/models/Document";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
+import { mapGetters } from "vuex";
 import { UploadStatus } from "../uploads/UploadStatus";
 import ListItem from "@/components/uploads/ListItem.vue";
+import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
-import { Guarantor } from "df-shared/src/models/Guarantor";
 import { extend } from "vee-validate";
 import { RegisterService } from "../../services/RegisterService";
 import DfButton from "df-shared/src/Button/Button.vue";
@@ -200,9 +218,8 @@ import { required, regex } from "vee-validate/dist/rules";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
-import { mapState } from "vuex";
-import Modal from "df-shared/src/components/Modal.vue";
-import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
+import BigRadio from "df-shared/src/Button/BigRadio.vue";
+import DocumentHelp from "../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 
 extend("regex", {
@@ -235,31 +252,30 @@ class F {
     DfButton,
     WarningMessage,
     ConfirmModal,
-    Modal,
-    GuarantorChoiceHelp,
+    BigRadio,
+    DocumentHelp,
     VGouvFrModal
   },
   computed: {
-    ...mapState({
-      selectedGuarantor: "selectedGuarantor"
+    ...mapGetters({
+      user: "userToEdit"
     })
   }
 })
-export default class GuarantorFinancial extends Vue {
+export default class Financial extends Vue {
   MAX_FILE_COUNT = 5;
   MAX_FILE_SIZE = 5;
 
-  selectedGuarantor!: Guarantor;
+  user!: User;
   financialDocuments: F[] = [];
 
-  documents = DocumentTypeConstants.GUARANTOR_FINANCIAL_DOCS;
+  documents = DocumentTypeConstants.FINANCIAL_DOCS;
   isDocDeleteVisible = false;
   selectedDoc?: F;
-  isNoIncomeAndFiles = false;
 
   isNewDocument(f: F) {
     if (f.id !== null) {
-      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
+      const doc = this.user.documents?.find((d: DfDocument) => {
         return d.id === f.id;
       });
       if (doc !== undefined) {
@@ -271,7 +287,7 @@ export default class GuarantorFinancial extends Vue {
 
   onSelectChange(f: F) {
     if (f.id !== null) {
-      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
+      const doc = this.user.documents?.find((d: DfDocument) => {
         return d.id === f.id;
       });
       if (doc !== undefined) {
@@ -285,8 +301,8 @@ export default class GuarantorFinancial extends Vue {
   }
 
   undoSelect() {
-    if (this.selectedGuarantor.documents !== null) {
-      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
         return d.id === this.selectedDoc?.id;
       });
       if (doc !== undefined) {
@@ -302,8 +318,8 @@ export default class GuarantorFinancial extends Vue {
   }
 
   validSelect() {
-    if (this.selectedGuarantor.documents !== null) {
-      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
         return d.id === this.selectedDoc?.id;
       });
       if (doc !== undefined) {
@@ -323,8 +339,8 @@ export default class GuarantorFinancial extends Vue {
 
   initialize() {
     this.financialDocuments = [];
-    if (this.selectedGuarantor.documents !== null) {
-      const docs = this.selectedGuarantor.documents?.filter((d: DfDocument) => {
+    if (this.user.documents !== null) {
+      const docs = this.user.documents?.filter((d: DfDocument) => {
         return d.documentCategory === "FINANCIAL";
       });
       if (docs !== undefined && docs.length > 0) {
@@ -370,7 +386,7 @@ export default class GuarantorFinancial extends Vue {
       const newFiles = f.files.filter(f => {
         return !f.id;
       });
-      if (!newFiles.length) return;
+      if (!newFiles.length && f.documentType.key !== "no-income") return;
 
       if (
         f.documentType.maxFileCount &&
@@ -384,33 +400,30 @@ export default class GuarantorFinancial extends Vue {
         const f: File = newFiles[x].file || new File([], "");
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
       });
-    } else {
-      if (this.financialFiles(f).length > 0) {
-        this.isNoIncomeAndFiles = true;
-        return;
-      }
     }
 
     const typeDocumentFinancial = f.documentType?.value || "";
     formData.append("typeDocumentFinancial", typeDocumentFinancial);
 
+    if (f.documentType.key === "no-income") {
+      f.noDocument = true;
+    } else {
+      f.noDocument = false;
+    }
+
     formData.append("noDocument", f.noDocument ? "true" : "false");
-    formData.append("customText", f.customText);
 
     if (f.monthlySum) {
       formData.append("monthlySum", f.monthlySum.toString());
     }
     if (f.id) {
-      formData.append("documentId", f.id.toString());
+      formData.append("id", f.id.toString());
     }
     if (f.customText != "") {
       formData.append("customText", f.customText);
     }
 
     f.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    if (this.$store.getters.isGuarantor && this.$store.getters.guarantor.id) {
-      formData.append("guarantorId", this.$store.getters.guarantor.id);
-    }
     const loader = this.$loading.show();
     RegisterService.saveFinancial(formData)
       .then(() => {
@@ -481,12 +494,8 @@ export default class GuarantorFinancial extends Vue {
     }
   }
 
-  isGuarantor() {
-    return this.$store.getters.isGuarantor;
-  }
-
   getCheckboxLabel(key: string) {
-    if (key === "guarantor_salary") {
+    if (key === "salary") {
       return "noDocument-salary";
     }
     if (key === "pension") {
@@ -504,7 +513,7 @@ export default class GuarantorFinancial extends Vue {
   }
 
   getCustomTextLabel(key: string) {
-    if (key === "guarantor_salary") {
+    if (key === "salary") {
       return "customText-salary";
     }
     if (key === "pension") {
@@ -535,26 +544,26 @@ export default class GuarantorFinancial extends Vue {
   "pension": "Pensions",
   "scholarship": "Scholarship",
   "monthlySum": "Value in euros",
-  "monthlySum-label": "Monthly salary (after tax)",
+  "monthlySum-label": "Salary (after tax)",
   "noDocument-social": "I cannot provide proof of payment of social benefits",
-  "noDocument-salary": "I cannot provide the last three payslips or a balance sheet of my guarantor",
+  "noDocument-salary": "I cannot provide my last three payslips",
   "noDocument-rent": "I cannot provide proof of rent",
   "noDocument-pension": "I cannot provide proof of pension",
   "noDocument-scholarship": "I cannot provide proof of scholarship",
-  "customText-social": "In order to improve my file, I explain why I cannot provide the justificatives:",
-  "customText-salary": "In order to improve my file, I explain why I cannot provide the last three payslips or a balance sheet of my guarantor:",
-  "customText-rent": "In order to improve my file, I explain why I cannot provide the justificatives:",
-  "customText-pension": "In order to improve my file, I explain why I cannot provide the justificatives:",
-  "customText-scholarship": "In order to improve my file, I explain why I cannot provide the justificatives:",
-  "high-salary": "You have entered a salary greater than € 10,000 are you sure you have entered your guarantor monthly salary?",
-  "low-salary": "You have entered a salary equal to 0 € are you sure you have entered your guarantor monthly salary?",
+  "customText-social": "In order to improve my file, I explain why I cannot provide my justificatives:",
+  "customText-salary": "In order to improve my file, I explain why I cannot provide my last three payslips:",
+  "customText-pension": "In order to improve my file, I explain why I cannot provide my justificatives:",
+  "customText-rent": "In order to improve my file, I explain why I cannot provide my justificatives:",
+  "customText-scholarship": "In order to improve my file, I explain why I cannot provide my justificatives:",
+  "high-salary": "You have entered a salary greater than € 10,000 are you sure you have entered your monthly salary?",
+  "low-salary": "You have entered a salary equal to 0 € are you sure you have entered your monthly salary?",
   "number-not-valid": "Number not valid",
   "delete-financial":  "Delete this salary",
   "field-required": "This field is required",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
   "register": "Register",
-  "warning-no-income-and-file": "You can't have files and no income. You must uncheck the box or delete your files.",
-  "select-label": "Attention, Please enter only your guarantor own income."
+  "select-label": "Attention, Please enter only your own income.",
+  "no-income": "No income"
 },
 "fr": {
   "salary": "Salaire",
@@ -564,26 +573,26 @@ export default class GuarantorFinancial extends Vue {
   "pension": "Pensions",
   "scholarship": "Bourses",
   "monthlySum": "Montant en euros",
-  "monthlySum-label": "Montant du revenu mensuel (après impôts)",
+  "monthlySum-label": "Montant du revenu (après impôts)",
   "noDocument-social": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
-  "noDocument-salary": "Je ne peux pas fournir les trois derniers bulletins de salaire ou un bilan comptable de mon garant",
+  "noDocument-salary": "Je ne peux pas fournir mes trois derniers bulletins de salaire",
   "noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",
   "noDocument-rent": "Je ne peux pas fournir de justificatifs de versement de rente",
   "noDocument-scholarship": "Je ne peux pas fournir de justificatifs d'attribution de bourse",
-  "customText-social": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
-  "customText-salary": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les trois derniers bulletins de salaire ou un bilan comptable de mon garant :",
-  "customText-pension": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
-  "customText-rent": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
-  "customText-scholarship": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
-  "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
-  "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
+  "customText-social": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
+  "customText-salary": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes trois derniers bulletins de salaire :",
+  "customText-pension": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
+  "customText-rent": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
+  "customText-scholarship": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
+  "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
+  "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
   "number-not-valid": "Nombre incorrect",
   "delete-financial":  "Supprimer ce revenu",
   "field-required": "Ce champ est requis",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à la situation de votre garant.",
+  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
   "register": "Enregistrer",
-  "select-label": "Attention, Veuillez renseigner uniquement les revenus de votre garant.",
-  "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers."
+  "select-label": "Attention, Veuillez renseigner uniquement vos propres revenus.",
+  "no-income": "Pas de revenu"
 }
 }
 </i18n>
