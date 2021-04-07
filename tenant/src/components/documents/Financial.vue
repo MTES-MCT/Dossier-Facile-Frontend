@@ -699,7 +699,7 @@ export default class Financial extends Vue {
 "fr": {
   "salary": "Salaire",
   "guarantor_salary": "Salaires ou autres revenus d’activité professionnelle",
-  "social-service": "Versement de prestations sociales",
+  "social-service": "Prestations sociales",
   "rent": "Rentes",
   "pension": "Pensions",
   "scholarship": "Bourses",

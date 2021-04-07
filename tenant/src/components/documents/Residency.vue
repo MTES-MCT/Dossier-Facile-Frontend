@@ -299,20 +299,20 @@ export default class Residency extends Vue {
 <i18n>
 {
 "en": {
-  "tenant": "Vous êtes locataire",
-  "owner": "Vous êtes propriétaire",
-  "guest": "Vous êtes hébergé gratuitement",
-  "guest-parents": "Vous habitez chez vos parents",
+  "tenant": "Locataire",
+  "owner": "Propriétaire",
+  "guest": "Hébergé gratuitement",
+  "guest-parents": "Chez mes parents",
   "files": "Documents",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
   "register": "Register",
   "select-label": "Your current accommodation situation:"
 },
 "fr": {
-  "tenant": "Vous êtes locataire",
-  "owner": "Vous êtes propriétaire",
-  "guest": "Vous êtes hébergé gratuitement",
-  "guest-parents": "Vous habitez chez vos parents",
+  "tenant": "Locataire",
+  "owner": "Propriétaire",
+  "guest": "Hébergé gratuitement",
+  "guest-parents": "Chez mes parents",
   "files": "Documents",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
   "register": "Enregistrer",

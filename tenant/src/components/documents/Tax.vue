@@ -7,7 +7,26 @@
     >
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
-    <ValidationObserver v-slot="{ invalid, validate }">
+    <ValidationObserver v-slot="{ validate }">
+      <v-gouv-fr-modal>
+        <template v-slot:button>
+          En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:title>
+          En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:content>
+          <p>
+            <DocumentHelp></DocumentHelp>
+            <DocumentInsert
+              :allow-list="taxDocument.acceptedProofs"
+              :block-list="taxDocument.refusedProofs"
+              v-if="taxDocument.key && taxDocument.acceptedProofs.length > 0"
+            ></DocumentInsert>
+          </p>
+        </template>
+      </v-gouv-fr-modal>
+
       <form name="form" @submit.prevent="validate().then(save)">
         <div class="rf-mt-3w">
           <fieldset class="rf-fieldset">
@@ -99,15 +118,6 @@
             {{ $t("register") }}
           </button>
         </div>
-        <div
-          class="rf-mb-5w"
-          v-if="taxDocument.key && taxDocument.key === 'my-name'"
-        >
-          <DocumentInsert
-            :allow-list="taxDocument.acceptedProofs"
-            :block-list="taxDocument.refusedProofs"
-          ></DocumentInsert>
-        </div>
       </form>
     </ValidationObserver>
   </div>
@@ -132,6 +142,8 @@ import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
+import DocumentHelp from "../helps/DocumentHelp.vue";
+import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 
 extend("is", {
   ...is,
@@ -148,7 +160,9 @@ extend("is", {
     ValidationProvider,
     WarningMessage,
     ConfirmModal,
-    BigRadio
+    BigRadio,
+    DocumentHelp,
+    VGouvFrModal
   },
   computed: {
     ...mapGetters({
