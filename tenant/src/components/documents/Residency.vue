@@ -63,10 +63,7 @@
         ></FileUpload>
       </div>
     </div>
-    <div
-      v-if="residencyFiles().length > 0"
-      class="rf-col-lg-8 rf-col-md-12 rf-mb-3w"
-    >
+    <div v-if="residencyFiles().length > 0" class="rf-col-md-12 rf-mb-3w">
       <ListItem
         v-for="(file, k) in residencyFiles()"
         :key="k"
@@ -83,12 +80,6 @@
       >
         {{ $t("register") }}
       </button>
-    </div>
-    <div class="rf-mb-5w" v-if="residencyDocument.key">
-      <DocumentInsert
-        :allow-list="residencyDocument.acceptedProofs"
-        :block-list="residencyDocument.refusedProofs"
-      ></DocumentInsert>
     </div>
   </div>
 </template>
