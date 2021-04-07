@@ -639,6 +639,14 @@ export const DocumentTypeConstants = {
         "RIB"
       ],
       maxFileCount: 20
+    },
+    {
+      key: "no-income",
+      value: "NO_INCOME",
+      explanationText: "Je n'ai pas de revenu",
+      acceptedProofs: [],
+      refusedProofs: [],
+      maxFileCount: 0
     }
   ],
 
