@@ -49,20 +49,48 @@
       </div>
     </div>
     <div>
-      <label class="rf-label" for="select">
+      <div class="rf-pl-3v">
         {{ $t("select-label") }}
-      </label>
-      <select
-        @change="onSelectChange()"
-        v-model="identificationDocument"
-        class="rf-select rf-mb-3w"
-        id="select"
-        name="select"
-      >
-        <option v-for="d in documents" :value="d" :key="d.key">
-          {{ $t(d.key) }}
-        </option>
-      </select>
+      </div>
+
+      <v-gouv-fr-modal>
+        <template v-slot:button>
+          En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:title>
+          En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:content>
+          <p>
+            <DocumentHelp></DocumentHelp>
+            <DocumentInsert
+              :allow-list="identificationDocument.acceptedProofs"
+              :block-list="identificationDocument.refusedProofs"
+              v-if="identificationDocument.key"
+            ></DocumentInsert>
+          </p>
+        </template>
+      </v-gouv-fr-modal>
+
+      <div class="rf-mt-1w">
+        <fieldset class="rf-fieldset">
+          <div class="rf-fieldset__content">
+            <div class="rf-grid-row">
+              <div v-for="d in documents" :key="d.key">
+                <BigRadio
+                  :val="d"
+                  v-model="identificationDocument"
+                  @input="onSelectChange()"
+                >
+                  <div class="rf-grid-col spa">
+                    <span>{{ $t(d.key) }}</span>
+                  </div>
+                </BigRadio>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
     </div>
     <ConfirmModal
       v-if="isDocDeleteVisible"
@@ -84,10 +112,7 @@
         ></FileUpload>
       </div>
     </div>
-    <div
-      v-if="identificationFiles().length > 0"
-      class="rf-col-lg-8 rf-col-md-12 rf-mb-3w"
-    >
+    <div v-if="identificationFiles().length > 0" class="rf-col-md-12 rf-mb-3w">
       <ListItem
         v-for="(file, k) in identificationFiles()"
         :key="k"
@@ -104,12 +129,6 @@
       >
         {{ $t("register") }}
       </button>
-    </div>
-    <div class="rf-mb-5w" v-if="identificationDocument.key">
-      <DocumentInsert
-        :allow-list="identificationDocument.acceptedProofs"
-        :block-list="identificationDocument.refusedProofs"
-      ></DocumentInsert>
     </div>
   </div>
 </template>
@@ -131,6 +150,9 @@ import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
+import DocumentHelp from "../helps/DocumentHelp.vue";
+import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
+import BigRadio from "df-shared/src/Button/BigRadio.vue";
 
 @Component({
   components: {
@@ -140,7 +162,10 @@ import DfButton from "df-shared/src/Button/Button.vue";
     ValidationProvider,
     WarningMessage,
     ConfirmModal,
-    DfButton
+    DfButton,
+    DocumentHelp,
+    VGouvFrModal,
+    BigRadio
   },
   computed: {
     ...mapState({
