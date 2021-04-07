@@ -2,7 +2,6 @@
   <div>
     <NameInformationHelp v-if="tenantStep === 0"></NameInformationHelp>
     <TaxHelp v-if="tenantStep === 2 && tenantSubStep === 5"></TaxHelp>
-    <GuarantorChoiceHelp v-if="tenantStep === 3"></GuarantorChoiceHelp>
   </div>
 </template>
 
@@ -22,7 +21,8 @@ import { mapState } from "vuex";
   computed: {
     ...mapState({
       tenantStep: "tenantStep",
-      tenantSubStep: "tenantSubStep"
+      tenantSubStep: "tenantSubStep",
+      guarantorStep: "guarantorStep"
     })
   }
 })

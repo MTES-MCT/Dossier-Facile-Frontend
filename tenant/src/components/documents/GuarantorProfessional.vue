@@ -1,9 +1,29 @@
 <template>
   <div>
     <div>
-      <label class="rf-label" for="select">
+      <div class="rf-pl-3v">
         {{ $t("select-label") }}
-      </label>
+      </div>
+
+      <v-gouv-fr-modal>
+        <template v-slot:button>
+          En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:title>
+          En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:content>
+          <p>
+            <GuarantorChoiceHelp></GuarantorChoiceHelp>
+            <DocumentInsert
+              :allow-list="professionalDocument.acceptedProofs"
+              :block-list="professionalDocument.refusedProofs"
+              v-if="professionalDocument.key"
+            ></DocumentInsert>
+          </p>
+        </template>
+      </v-gouv-fr-modal>
+
       <select
         v-model="professionalDocument"
         class="rf-select rf-mb-3w"
@@ -80,6 +100,8 @@ import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { Guarantor } from "df-shared/src/models/Guarantor";
+import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
+import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 
 @Component({
   components: {
@@ -87,7 +109,9 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
     FileUpload,
     ListItem,
     WarningMessage,
-    ConfirmModal
+    ConfirmModal,
+    GuarantorChoiceHelp,
+    VGouvFrModal
   },
   computed: {
     ...mapState({

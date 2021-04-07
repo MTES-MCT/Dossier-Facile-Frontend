@@ -62,7 +62,7 @@
         </template>
         <template v-slot:content>
           <p>
-            <DocumentHelp></DocumentHelp>
+            <GuarantorChoiceHelp></GuarantorChoiceHelp>
             <DocumentInsert
               :allow-list="identificationDocument.acceptedProofs"
               :block-list="identificationDocument.refusedProofs"
@@ -150,7 +150,7 @@ import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
-import DocumentHelp from "../helps/DocumentHelp.vue";
+import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 
@@ -163,7 +163,7 @@ import BigRadio from "df-shared/src/Button/BigRadio.vue";
     WarningMessage,
     ConfirmModal,
     DfButton,
-    DocumentHelp,
+    GuarantorChoiceHelp,
     VGouvFrModal,
     BigRadio
   },

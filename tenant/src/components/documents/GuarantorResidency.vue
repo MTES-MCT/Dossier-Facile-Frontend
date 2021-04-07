@@ -14,7 +14,7 @@
         </template>
         <template v-slot:content>
           <p>
-            <DocumentHelp></DocumentHelp>
+            <GuarantorChoiceHelp></GuarantorChoiceHelp>
             <DocumentInsert
               :allow-list="residencyDocument.acceptedProofs"
               :block-list="residencyDocument.refusedProofs"
@@ -100,7 +100,7 @@ import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
-import DocumentHelp from "../helps/DocumentHelp.vue";
+import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 
 @Component({
@@ -111,7 +111,7 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
     WarningMessage,
     ConfirmModal,
     BigRadio,
-    DocumentHelp,
+    GuarantorChoiceHelp,
     VGouvFrModal
   },
   computed: {
