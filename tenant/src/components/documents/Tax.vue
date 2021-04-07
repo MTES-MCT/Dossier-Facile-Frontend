@@ -379,7 +379,12 @@ export default class Tax extends Vue {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.spa {
+  height: 3rem;
+  width: 14rem;
+}
+</style>
 
 <i18n>
 {
