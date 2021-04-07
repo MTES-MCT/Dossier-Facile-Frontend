@@ -301,7 +301,7 @@ export default class Residency extends Vue {
 "en": {
   "tenant": "Locataire",
   "owner": "Propriétaire",
-  "guest": "Hébergé gratuitement",
+  "guest": "Hébergé·e gratuitement",
   "guest-parents": "Chez mes parents",
   "files": "Documents",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
@@ -311,7 +311,7 @@ export default class Residency extends Vue {
 "fr": {
   "tenant": "Locataire",
   "owner": "Propriétaire",
-  "guest": "Hébergé gratuitement",
+  "guest": "Hébergé·e gratuitement",
   "guest-parents": "Chez mes parents",
   "files": "Documents",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
