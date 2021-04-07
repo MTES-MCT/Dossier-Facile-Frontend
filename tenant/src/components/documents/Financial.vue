@@ -61,9 +61,29 @@
         </div>
         <form name="form" @submit.prevent="validate().then(save(f))">
           <div>
-            <label class="rf-label" for="select">
+            <div class="rf-pl-3v">
               {{ $t("select-label") }}
-            </label>
+            </div>
+
+            <v-gouv-fr-modal v-if="k === 0">
+              <template v-slot:button>
+                En difficulté pour répondre à la question ?
+              </template>
+              <template v-slot:title>
+                En difficulté pour répondre à la question ?
+              </template>
+              <template v-slot:content>
+                <p>
+                  <DocumentHelp></DocumentHelp>
+                  <DocumentInsert
+                    :allow-list="f.documentType.acceptedProofs"
+                    :block-list="f.documentType.refusedProofs"
+                    v-if="f.documentType.key"
+                  ></DocumentInsert>
+                </p>
+              </template>
+            </v-gouv-fr-modal>
+
             <div class="rf-mt-3w">
               <fieldset class="rf-fieldset">
                 <div class="rf-fieldset__content">
@@ -217,13 +237,28 @@
             </div>
           </div>
           <div
-            class="rf-mb-5w"
-            v-if="f.documentType.key && f.documentType.key !== 'no-income'"
+            v-if="f.documentType.key && f.documentType.key !== 'no-income' && financialFiles(f).length > 0"
+            class="rf-col-md-12 rf-mb-3w"
           >
-            <DocumentInsert
-              :allow-list="f.documentType.acceptedProofs"
-              :block-list="f.documentType.refusedProofs"
-            ></DocumentInsert>
+            <ListItem
+              v-for="(file, k) in financialFiles(f)"
+              :key="k"
+              :file="file"
+              @remove="remove(f, file)"
+            />
+          </div>
+          <div class="rf-col-12 rf-mb-5w" v-if="f.documentType">
+            <button
+              class="rf-btn"
+              type="submit"
+              :disabled="
+                f.files.length <= 0 &&
+                  !f.noDocument &&
+                  f.documentType.key !== 'no-income'
+              "
+            >
+              {{ $t("register") }}
+            </button>
           </div>
         </form>
       </ValidationObserver>
@@ -261,6 +296,8 @@ import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import Modal from "df-shared/src/components/Modal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
+import DocumentHelp from "../helps/DocumentHelp.vue";
+import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 
 extend("regex", {
   ...regex,
@@ -293,7 +330,9 @@ class F {
     WarningMessage,
     ConfirmModal,
     Modal,
-    BigRadio
+    BigRadio,
+    DocumentHelp,
+    VGouvFrModal
   },
   computed: {
     ...mapGetters({
