@@ -7,20 +7,45 @@
     >
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
-    <ValidationObserver v-slot="{ invalid, validate }">
+    <ValidationObserver v-slot="{ validate }">
+      <v-gouv-fr-modal>
+        <template v-slot:button>
+          En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:title>
+          En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:content>
+          <p>
+            <GuarantorChoiceHelp></GuarantorChoiceHelp>
+            <DocumentInsert
+              :allow-list="taxDocument.acceptedProofs"
+              :block-list="taxDocument.refusedProofs"
+              v-if="taxDocument.key && taxDocument.acceptedProofs.length > 0"
+            ></DocumentInsert>
+          </p>
+        </template>
+      </v-gouv-fr-modal>
+
       <form name="form" @submit.prevent="validate().then(save)">
-        <div class="rf-mb-3w">
-          <select
-            v-model="taxDocument"
-            class="rf-select rf-mb-3w"
-            id="select"
-            name="select"
-            @change="onSelectChange()"
-          >
-            <option v-for="d in documents" :value="d" :key="d.key">
-              {{ $t(d.key) }}
-            </option>
-          </select>
+        <div class="rf-mt-3w">
+          <fieldset class="rf-fieldset">
+            <div class="rf-fieldset__content">
+              <div class="rf-grid-row">
+                <div v-for="d in documents" :key="d.key">
+                  <BigRadio
+                    :val="d"
+                    v-model="taxDocument"
+                    @input="onSelectChange()"
+                  >
+                    <div class="rf-grid-col spa">
+                      <span>{{ $t(d.key) }}</span>
+                    </div>
+                  </BigRadio>
+                </div>
+              </div>
+            </div>
+          </fieldset>
         </div>
         <div
           class="rf-mb-3w"
@@ -125,6 +150,9 @@ import { RegisterService } from "../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
+import BigRadio from "df-shared/src/Button/BigRadio.vue";
+import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
+import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
 
 extend("is", {
   ...is,
@@ -140,7 +168,10 @@ extend("is", {
     ValidationObserver,
     ValidationProvider,
     WarningMessage,
-    ConfirmModal
+    ConfirmModal,
+    BigRadio,
+    VGouvFrModal,
+    GuarantorChoiceHelp
   },
   computed: {
     ...mapState({
@@ -360,7 +391,12 @@ export default class Tax extends Vue {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.spa {
+  min-height: 2rem;
+  width: 14rem;
+}
+</style>
 
 <i18n>
 {
