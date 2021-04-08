@@ -7,6 +7,19 @@
     >
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
+    <Modal v-show="isNoIncomeAndFiles" @close="isNoIncomeAndFiles = false">
+      <template v-slot:body>
+        <div class="rf-container">
+          <div class="rf-grid-row justify-content-center">
+            <div class="rf-col-12">
+              <p>
+                {{ $t("warning-no-income-and-file") }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </template>
+    </Modal>
     <div v-if="hasNoIncome()" class="rf-mt-3w rf-mb-3w">
       {{ $t("has-no-income") }}
     </div>
@@ -102,10 +115,14 @@
               <div class="rf-mb-3w">
                 {{ f.documentType.explanationText }}
               </div>
-              <div
-                class="rf-col-12 rf-mb-3w"
-                v-if="financialFiles(f).length <= 0"
-              >
+              <div class="rf-mb-3w">
+                <FileUpload
+                  :current-status="f.fileUploadStatus"
+                  @add-files="addFiles(f, ...arguments)"
+                  @reset-files="resetFiles(f, ...arguments)"
+                ></FileUpload>
+              </div>
+              <div class="rf-col-12 rf-mb-3w">
                 <input
                   type="checkbox"
                   :id="`noDocument${k}`"
@@ -115,13 +132,6 @@
                 <label :for="`noDocument${k}`">
                   {{ $t(getCheckboxLabel(f.documentType.key)) }}
                 </label>
-              </div>
-              <div class="rf-mb-3w" v-if="!f.noDocument">
-                <FileUpload
-                  :current-status="f.fileUploadStatus"
-                  @add-files="addFiles(f, ...arguments)"
-                  @reset-files="resetFiles(f, ...arguments)"
-                ></FileUpload>
               </div>
               <div class="rf-mb-5w" v-if="f.noDocument">
                 <validation-provider
@@ -216,6 +226,7 @@ import { required, regex } from "vee-validate/dist/rules";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
+import Modal from "df-shared/src/components/Modal.vue";
 
 extend("regex", {
   ...regex,
@@ -246,7 +257,8 @@ class F {
     ListItem,
     DfButton,
     WarningMessage,
-    ConfirmModal
+    ConfirmModal,
+    Modal
   },
   computed: {
     ...mapGetters({
@@ -264,6 +276,7 @@ export default class Financial extends Vue {
   documents = DocumentTypeConstants.FINANCIAL_DOCS;
   isDocDeleteVisible = false;
   selectedDoc?: F;
+  isNoIncomeAndFiles = false;
 
   isNewDocument(f: F) {
     if (f.id !== null) {
@@ -391,6 +404,11 @@ export default class Financial extends Vue {
         const f: File = newFiles[x].file || new File([], "");
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
       });
+    } else {
+      if (f.files.length > 0) {
+        this.isNoIncomeAndFiles = true;
+        return;
+      }
     }
 
     const typeDocumentFinancial = f.documentType?.value || "";
@@ -597,7 +615,8 @@ export default class Financial extends Vue {
   "no-income": "No income",
   "custom-text": "In order to improve your file, you can add an eplanation :",
   "i-have-no-income": "I have no income",
-  "has-no-income": "You have no income"
+  "has-no-income": "You have no income",
+  "warning-no-income-and-file": "You can't have files and no income. You must uncheck the box or delete your files."
 },
 "fr": {
   "salary": "Salaire",
@@ -629,7 +648,8 @@ export default class Financial extends Vue {
   "no-income": "Pas de revenu",
   "custom-text": "Afin d'améliorer votre dossier, vous pouvez ajouter une explication :",
   "i-have-no-income": "Je n'ai pas de revenu",
-  "has-no-income": "Vous avez indiqué ne pas avoir de revenu"
+  "has-no-income": "Vous avez indiqué ne pas avoir de revenu",
+  "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et ne pas avoir de revenu. Veuillez décocher la case ou supprimer vos fichiers."
 }
 }
 </i18n>
