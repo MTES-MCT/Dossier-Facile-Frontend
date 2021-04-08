@@ -7,7 +7,10 @@
     >
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
-    <div v-for="(f, k) in financialDocuments" :key="k">
+    <div v-if="hasNoIncome()" class="rf-mt-3w rf-mb-3w">
+      {{ $t("has-no-income") }}
+    </div>
+    <div v-for="(f, k) in getFinancialDocuments()" :key="k">
       <ValidationObserver v-slot="{ validate }">
         <div
           class="rf-grid-row rf-mb-3w"
@@ -30,122 +33,142 @@
               name="select"
               @change="onSelectChange(f)"
             >
-              <option v-for="d in documents" :value="d" :key="d.key">
+              <option v-for="d in getDocuments()" :value="d" :key="d.key">
                 {{ $t(d.key) }}
               </option>
             </select>
           </div>
-          <div
-            v-if="
-              f.documentType &&
-                f.documentType.key &&
-                f.documentType.key !== 'no-income'
-            "
-          >
-            <div>
-              <validation-provider
-                :rules="{ required: true, regex: /^[0-9., ]+$/ }"
-                v-slot="{ errors }"
-              >
-                <div
-                  class="rf-input-group"
-                  :class="errors[0] ? 'rf-input-group--error' : ''"
-                >
-                  <label for="monthlySum" class="rf-label"
-                    >{{ $t("monthlySum-label") }} :</label
-                  >
-                  <input
-                    id="monthlySum"
-                    :placeholder="$t('monthlySum')"
-                    type="number"
-                    min="0"
-                    step="1"
-                    v-model="f.monthlySum"
-                    name="monthlySum"
-                    class="validate-required form-control rf-input"
-                    required
-                  />
-                  <span class="rf-error-text" v-if="errors[0]">{{
-                    $t(errors[0])
-                  }}</span>
-                  <span class="rf-error-text" v-if="f.monthlySum > 10000">
-                    {{ $t("high-salary") }}
-                  </span>
-                  <span class="rf-error-text" v-if="f.monthlySum <= 0">
-                    {{ $t("low-salary") }}
-                  </span>
-                </div>
-              </validation-provider>
+          <div>
+            <div
+              class="rf-mb-3w"
+              v-if="f.documentType.key && f.documentType.key === 'no-income'"
+            >
+              <div class="rf-input-group">
+                <label class="rf-label" for="customText">{{
+                  $t("custom-text")
+                }}</label>
+                <input
+                  v-model="f.customText"
+                  class="form-control rf-input"
+                  id="customText"
+                  name="customText"
+                  placeholder=""
+                  type="text"
+                />
+              </div>
             </div>
-            <div class="rf-mb-3w">
-              {{ f.documentType.explanationText }}
-            </div>
-            <div class="rf-mb-3w">
-              <FileUpload
-                :current-status="f.fileUploadStatus"
-                @add-files="addFiles(f, ...arguments)"
-                @reset-files="resetFiles(f, ...arguments)"
-              ></FileUpload>
-            </div>
-            <div class="rf-col-12 rf-mb-3w">
-              <input
-                type="checkbox"
-                :id="`noDocument${k}`"
-                value="false"
-                v-model="f.noDocument"
-              />
-              <label :for="`noDocument${k}`">
-                {{ $t(getCheckboxLabel(f.documentType.key)) }}
-              </label>
-            </div>
-            <div class="rf-mb-5w" v-if="f.noDocument">
-              <validation-provider
-                :rules="{ required: true }"
-                v-slot="{ errors }"
-              >
-                <div class="rf-input-group">
-                  <label class="rf-label" :for="`customText${k}`">
-                    {{ $t(getCustomTextLabel(f.documentType.key)) }}
-                  </label>
-                  <input
-                    v-model="f.customText"
-                    class="form-control rf-input validate-required"
-                    :id="`customText${k}`"
-                    name="customText"
-                    placeholder=""
-                    type="text"
-                    required
-                  />
-                  <span class="rf-error-text" v-if="errors[0]">{{
-                    $t(errors[0])
-                  }}</span>
-                </div>
-              </validation-provider>
-            </div>
-          </div>
-          <div
-            v-if="financialFiles(f).length > 0"
-            class="rf-col-lg-8 rf-col-md-12 rf-mb-3w"
-          >
-            <ListItem
-              v-for="(file, k) in financialFiles(f)"
-              :key="k"
-              :file="file"
-              @remove="remove(f, file)"
-            />
-          </div>
-          <div class="rf-col-12 rf-mb-5w" v-if="f.documentType">
-            <button
-              class="rf-btn"
-              type="submit"
-              :disabled="
-                f.files.length <= 0 &&
-                  !f.noDocument &&
+            <div
+              v-if="
+                f.documentType &&
+                  f.documentType.key &&
                   f.documentType.key !== 'no-income'
               "
             >
-              {{ $t("register") }}
-            </button>
+              <div>
+                <validation-provider
+                  :rules="{ required: true, regex: /^[0-9., ]+$/ }"
+                  v-slot="{ errors }"
+                >
+                  <div
+                    class="rf-input-group"
+                    :class="errors[0] ? 'rf-input-group--error' : ''"
+                  >
+                    <label for="monthlySum" class="rf-label"
+                      >{{ $t("monthlySum-label") }} :</label
+                    >
+                    <input
+                      id="monthlySum"
+                      :placeholder="$t('monthlySum')"
+                      type="number"
+                      min="0"
+                      step="1"
+                      v-model="f.monthlySum"
+                      name="monthlySum"
+                      class="validate-required form-control rf-input"
+                      required
+                    />
+                    <span class="rf-error-text" v-if="errors[0]">{{
+                      $t(errors[0])
+                    }}</span>
+                    <span class="rf-error-text" v-if="f.monthlySum > 10000">
+                      {{ $t("high-salary") }}
+                    </span>
+                    <span class="rf-error-text" v-if="f.monthlySum <= 0">
+                      {{ $t("low-salary") }}
+                    </span>
+                  </div>
+                </validation-provider>
+              </div>
+              <div class="rf-mb-3w">
+                {{ f.documentType.explanationText }}
+              </div>
+              <div class="rf-mb-3w">
+                <FileUpload
+                  :current-status="f.fileUploadStatus"
+                  @add-files="addFiles(f, ...arguments)"
+                  @reset-files="resetFiles(f, ...arguments)"
+                ></FileUpload>
+              </div>
+              <div class="rf-col-12 rf-mb-3w">
+                <input
+                  type="checkbox"
+                  :id="`noDocument${k}`"
+                  value="false"
+                  v-model="f.noDocument"
+                />
+                <label :for="`noDocument${k}`">
+                  {{ $t(getCheckboxLabel(f.documentType.key)) }}
+                </label>
+              </div>
+              <div class="rf-mb-5w" v-if="f.noDocument">
+                <validation-provider
+                  :rules="{ required: true }"
+                  v-slot="{ errors }"
+                >
+                  <div class="rf-input-group">
+                    <label class="rf-label" :for="`customText${k}`">
+                      {{ $t(`customText-${f.documentType.key}`) }}
+                    </label>
+                    <input
+                      v-model="f.customText"
+                      class="form-control rf-input validate-required"
+                      :id="`customText${k}`"
+                      name="customText"
+                      placeholder=""
+                      type="text"
+                      required
+                    />
+                    <span class="rf-error-text" v-if="errors[0]">{{
+                      $t(errors[0])
+                    }}</span>
+                  </div>
+                </validation-provider>
+              </div>
+            </div>
+            <div
+              v-if="financialFiles(f).length > 0"
+              class="rf-col-lg-8 rf-col-md-12 rf-mb-3w"
+            >
+              <ListItem
+                v-for="(file, k) in financialFiles(f)"
+                :key="k"
+                :file="file"
+                @remove="remove(f, file)"
+              />
+            </div>
+            <div class="rf-col-12 rf-mb-5w" v-if="f.documentType">
+              <button
+                class="rf-btn"
+                type="submit"
+                :disabled="
+                  f.files.length <= 0 &&
+                    !f.noDocument &&
+                    f.documentType.key !== 'no-income'
+                "
+              >
+                {{ $t("register") }}
+              </button>
+            </div>
           </div>
           <div
             class="rf-mb-5w"
@@ -160,10 +183,13 @@
       </ValidationObserver>
       <hr />
     </div>
-    <div class="rf-col-12 rf-mb-5w">
+    <div class="rf-col-12 rf-mb-5w rf-grid-row space-between">
       <button class="rf-btn" type="submit" @click="addFinancial()">
         Ajouter un revenu
       </button>
+      <DfButton class="rf-btn" size="small" @on-click="setNoIncome()">
+        {{ $t("i-have-no-income") }}
+      </DfButton>
     </div>
   </div>
 </template>
@@ -327,8 +353,7 @@ export default class Financial extends Vue {
             this.financialDocuments.push(f);
           });
       }
-    }
-    if (this.financialDocuments.length <= 0) {
+    } else {
       this.addFinancial();
     }
   }
@@ -370,20 +395,20 @@ export default class Financial extends Vue {
 
     if (f.documentType.key === "no-income") {
       f.noDocument = true;
-    } else {
-      f.noDocument = false;
     }
 
     formData.append("noDocument", f.noDocument ? "true" : "false");
+    if (f.documentType.key === "no-income") {
+      formData.append("customText", "-");
+    } else {
+      formData.append("customText", f.customText);
+    }
 
     if (f.monthlySum) {
       formData.append("monthlySum", f.monthlySum.toString());
     }
     if (f.id) {
       formData.append("id", f.id.toString());
-    }
-    if (f.customText != "") {
-      formData.append("customText", f.customText);
     }
 
     f.fileUploadStatus = UploadStatus.STATUS_SAVING;
@@ -433,7 +458,27 @@ export default class Financial extends Vue {
   }
 
   addFinancial() {
-    this.financialDocuments.push(new F());
+    if (
+      this.financialDocuments.length > 0 &&
+      this.financialDocuments[0].documentType.key === "no-income"
+    ) {
+      if (this.financialDocuments[0].id) {
+        this.$store
+          .dispatch("deleteDocument", this.financialDocuments[0].id)
+          .then(
+            () => {
+              this.financialDocuments = [new F()];
+            },
+            () => {
+              Vue.toasted.global.error();
+            }
+          );
+      } else {
+        this.financialDocuments = [new F()];
+      }
+    } else {
+      this.financialDocuments.push(new F());
+    }
   }
 
   removeFinancial(f: DfDocument) {
@@ -475,22 +520,42 @@ export default class Financial extends Vue {
     }
   }
 
-  getCustomTextLabel(key: string) {
-    if (key === "salary") {
-      return "customText-salary";
+  getDocuments() {
+    return this.documents.filter(d => {
+      return d.key !== "no-income";
+    });
+  }
+
+  setNoIncome() {
+    const doc = this.documents?.find(d => {
+      return d.key === "no-income";
+    });
+    if (doc !== undefined) {
+      const f = new F();
+      f.documentType = doc;
+      this.financialDocuments.forEach(f => {
+        this.removeFinancial(f);
+      });
+      this.financialDocuments = [f];
+
+      this.selectedDoc = f;
+      this.save(f);
     }
-    if (key === "pension") {
-      return "customText-pension";
-    }
-    if (key === "rent") {
-      return "customText-rent";
-    }
-    if (key === "scholarship") {
-      return "customText-scholarship";
-    }
-    if (key === "social-service") {
-      return "customText-social";
-    }
+  }
+
+  getFinancialDocuments() {
+    return this.financialDocuments.filter(f => {
+      return !f.documentType || f.documentType.key !== "no-income";
+    });
+  }
+
+  hasNoIncome() {
+    return (
+      this.financialDocuments.length > 0 &&
+      this.financialDocuments.find(f => {
+        return f.documentType && f.documentType.key !== "no-income";
+      }) === undefined
+    );
   }
 }
 </script>
@@ -513,7 +578,7 @@ export default class Financial extends Vue {
   "noDocument-rent": "I cannot provide proof of rent",
   "noDocument-pension": "I cannot provide proof of pension",
   "noDocument-scholarship": "I cannot provide proof of scholarship",
-  "customText-social": "In order to improve my file, I explain why I cannot provide my justificatives:",
+  "customText-social-service": "In order to improve my file, I explain why I cannot provide my justificatives:",
   "customText-salary": "In order to improve my file, I explain why I cannot provide my last three payslips:",
   "customText-pension": "In order to improve my file, I explain why I cannot provide my justificatives:",
   "customText-rent": "In order to improve my file, I explain why I cannot provide my justificatives:",
@@ -526,7 +591,10 @@ export default class Financial extends Vue {
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
   "register": "Register",
   "select-label": "Attention, Please enter only your own income.",
-  "no-income": "No income"
+  "no-income": "No income",
+  "custom-text": "In order to improve your file, you can add an eplanation :",
+  "i-have-no-income": "I have no income",
+  "has-no-income": "You have no income"
 },
 "fr": {
   "salary": "Salaire",
@@ -542,7 +610,7 @@ export default class Financial extends Vue {
   "noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",
   "noDocument-rent": "Je ne peux pas fournir de justificatifs de versement de rente",
   "noDocument-scholarship": "Je ne peux pas fournir de justificatifs d'attribution de bourse",
-  "customText-social": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
+  "customText-social-service": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
   "customText-salary": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes trois derniers bulletins de salaire :",
   "customText-pension": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
   "customText-rent": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
@@ -555,7 +623,10 @@ export default class Financial extends Vue {
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
   "register": "Enregistrer",
   "select-label": "Attention, Veuillez renseigner uniquement vos propres revenus.",
-  "no-income": "Pas de revenu"
+  "no-income": "Pas de revenu",
+  "custom-text": "Afin d'améliorer votre dossier, vous pouvez ajouter une explication :",
+  "i-have-no-income": "Je n'ai pas de revenu",
+  "has-no-income": "Vous avez indiqué ne pas avoir de revenu"
 }
 }
 </i18n>
