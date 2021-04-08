@@ -127,7 +127,7 @@
                 >
                   <div class="rf-input-group">
                     <label class="rf-label" :for="`customText${k}`">
-                      {{ $t(getCustomTextLabel(f.documentType.key)) }}
+                      {{ $t(`customText-${f.documentType.key}`) }}
                     </label>
                     <input
                       v-model="f.customText"
@@ -395,8 +395,6 @@ export default class Financial extends Vue {
 
     if (f.documentType.key === "no-income") {
       f.noDocument = true;
-    } else {
-      f.noDocument = false;
     }
 
     formData.append("noDocument", f.noDocument ? "true" : "false");
@@ -460,7 +458,27 @@ export default class Financial extends Vue {
   }
 
   addFinancial() {
-    this.financialDocuments.push(new F());
+    if (
+      this.financialDocuments.length > 0 &&
+      this.financialDocuments[0].documentType.key === "no-income"
+    ) {
+      if (this.financialDocuments[0].id) {
+        this.$store
+          .dispatch("deleteDocument", this.financialDocuments[0].id)
+          .then(
+            () => {
+              this.financialDocuments = [new F()];
+            },
+            () => {
+              Vue.toasted.global.error();
+            }
+          );
+      } else {
+        this.financialDocuments = [new F()];
+      }
+    } else {
+      this.financialDocuments.push(new F());
+    }
   }
 
   removeFinancial(f: DfDocument) {
@@ -502,24 +520,6 @@ export default class Financial extends Vue {
     }
   }
 
-  getCustomTextLabel(key: string) {
-    if (key === "salary") {
-      return "customText-salary";
-    }
-    if (key === "pension") {
-      return "customText-pension";
-    }
-    if (key === "rent") {
-      return "customText-rent";
-    }
-    if (key === "scholarship") {
-      return "customText-scholarship";
-    }
-    if (key === "social-service") {
-      return "customText-social";
-    }
-  }
-
   getDocuments() {
     return this.documents.filter(d => {
       return d.key !== "no-income";
@@ -551,6 +551,7 @@ export default class Financial extends Vue {
 
   hasNoIncome() {
     return (
+      this.financialDocuments.length > 0 &&
       this.financialDocuments.find(f => {
         return f.documentType && f.documentType.key !== "no-income";
       }) === undefined
@@ -577,7 +578,7 @@ export default class Financial extends Vue {
   "noDocument-rent": "I cannot provide proof of rent",
   "noDocument-pension": "I cannot provide proof of pension",
   "noDocument-scholarship": "I cannot provide proof of scholarship",
-  "customText-social": "In order to improve my file, I explain why I cannot provide my justificatives:",
+  "customText-social-service": "In order to improve my file, I explain why I cannot provide my justificatives:",
   "customText-salary": "In order to improve my file, I explain why I cannot provide my last three payslips:",
   "customText-pension": "In order to improve my file, I explain why I cannot provide my justificatives:",
   "customText-rent": "In order to improve my file, I explain why I cannot provide my justificatives:",
@@ -609,7 +610,7 @@ export default class Financial extends Vue {
   "noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",
   "noDocument-rent": "Je ne peux pas fournir de justificatifs de versement de rente",
   "noDocument-scholarship": "Je ne peux pas fournir de justificatifs d'attribution de bourse",
-  "customText-social": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
+  "customText-social-service": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
   "customText-salary": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes trois derniers bulletins de salaire :",
   "customText-pension": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
   "customText-rent": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
