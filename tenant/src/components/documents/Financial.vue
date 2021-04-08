@@ -102,14 +102,10 @@
               <div class="rf-mb-3w">
                 {{ f.documentType.explanationText }}
               </div>
-              <div class="rf-mb-3w">
-                <FileUpload
-                  :current-status="f.fileUploadStatus"
-                  @add-files="addFiles(f, ...arguments)"
-                  @reset-files="resetFiles(f, ...arguments)"
-                ></FileUpload>
-              </div>
-              <div class="rf-col-12 rf-mb-3w">
+              <div
+                class="rf-col-12 rf-mb-3w"
+                v-if="financialFiles(f).length <= 0"
+              >
                 <input
                   type="checkbox"
                   :id="`noDocument${k}`"
@@ -119,6 +115,13 @@
                 <label :for="`noDocument${k}`">
                   {{ $t(getCheckboxLabel(f.documentType.key)) }}
                 </label>
+              </div>
+              <div class="rf-mb-3w" v-if="!f.noDocument">
+                <FileUpload
+                  :current-status="f.fileUploadStatus"
+                  @add-files="addFiles(f, ...arguments)"
+                  @reset-files="resetFiles(f, ...arguments)"
+                ></FileUpload>
               </div>
               <div class="rf-mb-5w" v-if="f.noDocument">
                 <validation-provider
