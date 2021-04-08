@@ -39,31 +39,7 @@
               </option>
             </select>
           </div>
-          <div
-            class="rf-mb-3w"
-            v-if="f.documentType.key && f.documentType.key === 'no-income'"
-          >
-            <div class="rf-input-group">
-              <label class="rf-label" for="customText">{{
-                $t("custom-text")
-              }}</label>
-              <input
-                v-model="f.customText"
-                class="form-control rf-input"
-                id="customText"
-                name="customText"
-                placeholder=""
-                type="text"
-              />
-            </div>
-          </div>
-          <div
-            v-if="
-              f.documentType &&
-                f.documentType.key &&
-                f.documentType.key !== 'no-income'
-            "
-          >
+          <div v-if="f.documentType && f.documentType.key">
             <div>
               <validation-provider
                 :rules="{ required: true, regex: /^[0-9., ]+$/ }"
@@ -160,19 +136,12 @@
             <button
               class="rf-btn"
               type="submit"
-              :disabled="
-                f.files.length <= 0 &&
-                  !f.noDocument &&
-                  f.documentType.key !== 'no-income'
-              "
+              :disabled="f.files.length <= 0 && !f.noDocument"
             >
               {{ $t("register") }}
             </button>
           </div>
-          <div
-            class="rf-mb-5w"
-            v-if="f.documentType.key && f.documentType.key !== 'no-income'"
-          >
+          <div class="rf-mb-5w" v-if="f.documentType.key">
             <DocumentInsert
               :allow-list="f.documentType.acceptedProofs"
               :block-list="f.documentType.refusedProofs"
@@ -371,7 +340,7 @@ export default class GuarantorFinancial extends Vue {
       const newFiles = f.files.filter(f => {
         return !f.id;
       });
-      if (!newFiles.length && f.documentType.key !== "no-income") return;
+      if (!newFiles.length) return;
 
       if (
         f.documentType.maxFileCount &&
@@ -390,11 +359,6 @@ export default class GuarantorFinancial extends Vue {
     const typeDocumentFinancial = f.documentType?.value || "";
     formData.append("typeDocumentFinancial", typeDocumentFinancial);
 
-    if (f.documentType.key === "no-income") {
-      f.noDocument = true;
-    } else {
-      f.noDocument = false;
-    }
     formData.append("noDocument", f.noDocument ? "true" : "false");
     formData.append("customText", f.customText);
 
@@ -554,9 +518,7 @@ export default class GuarantorFinancial extends Vue {
   "field-required": "This field is required",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
   "register": "Register",
-  "select-label": "Attention, Please enter only your guarantor own income.",
-  "no-income": "No income",
-  "custom-text": "In order to improve your file, you can add an eplanation :"
+  "select-label": "Attention, Please enter only your guarantor own income."
 },
 "fr": {
   "salary": "Salaire",
@@ -584,9 +546,7 @@ export default class GuarantorFinancial extends Vue {
   "field-required": "Ce champ est requis",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à la situation de votre garant.",
   "register": "Enregistrer",
-  "select-label": "Attention, Veuillez renseigner uniquement les revenus de votre garant.",
-  "no-income": "Pas de revenu",
-  "custom-text": "Afin d'améliorer votre dossier, vous pouvez ajouter une explication :"
+  "select-label": "Attention, Veuillez renseigner uniquement les revenus de votre garant."
 }
 }
 </i18n>

@@ -714,14 +714,6 @@ export const DocumentTypeConstants = {
       acceptedProofs: ["Avis d’attribution de bourse pour l’année en cours"],
       refusedProofs: ["Relevés de comptes bancaires"],
       maxFileCount: 20
-    },
-    {
-      key: "no-income",
-      value: "NO_INCOME",
-      explanationText: "Je n'ai pas de revenu",
-      acceptedProofs: [],
-      refusedProofs: [],
-      maxFileCount: 0
     }
   ],
 
