@@ -40,6 +40,24 @@
             </select>
           </div>
           <div
+            class="rf-mb-3w"
+            v-if="f.documentType.key && f.documentType.key === 'no-income'"
+          >
+            <div class="rf-input-group">
+              <label class="rf-label" for="customText">{{
+                $t("custom-text")
+              }}</label>
+              <input
+                v-model="f.customText"
+                class="form-control rf-input"
+                id="customText"
+                name="customText"
+                placeholder=""
+                type="text"
+              />
+            </div>
+          </div>
+          <div
             v-if="
               f.documentType &&
                 f.documentType.key &&
@@ -371,7 +389,15 @@ export default class GuarantorFinancial extends Vue {
 
     const typeDocumentFinancial = f.documentType?.value || "";
     formData.append("typeDocumentFinancial", typeDocumentFinancial);
+
+    if (f.documentType.key === "no-income") {
+      f.noDocument = true;
+    } else {
+      f.noDocument = false;
+    }
     formData.append("noDocument", f.noDocument ? "true" : "false");
+    formData.append("customText", f.customText);
+
     if (f.monthlySum) {
       formData.append("monthlySum", f.monthlySum.toString());
     }
@@ -529,7 +555,8 @@ export default class GuarantorFinancial extends Vue {
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
   "register": "Register",
   "select-label": "Attention, Please enter only your guarantor own income.",
-  "no-income": "No income"
+  "no-income": "No income",
+  "custom-text": "In order to improve your file, you can add an eplanation :"
 },
 "fr": {
   "salary": "Salaire",
@@ -558,7 +585,8 @@ export default class GuarantorFinancial extends Vue {
   "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à la situation de votre garant.",
   "register": "Enregistrer",
   "select-label": "Attention, Veuillez renseigner uniquement les revenus de votre garant.",
-  "no-income": "Pas de revenu"
+  "no-income": "Pas de revenu",
+  "custom-text": "Afin d'améliorer votre dossier, vous pouvez ajouter une explication :"
 }
 }
 </i18n>

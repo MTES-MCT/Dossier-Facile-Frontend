@@ -36,6 +36,24 @@
             </select>
           </div>
           <div
+            class="rf-mb-3w"
+            v-if="f.documentType.key && f.documentType.key === 'no-income'"
+          >
+            <div class="rf-input-group">
+              <label class="rf-label" for="customText">{{
+                $t("custom-text")
+              }}</label>
+              <input
+                v-model="f.customText"
+                class="form-control rf-input"
+                id="customText"
+                name="customText"
+                placeholder=""
+                type="text"
+              />
+            </div>
+          </div>
+          <div
             v-if="
               f.documentType &&
                 f.documentType.key &&
@@ -375,15 +393,13 @@ export default class Financial extends Vue {
     }
 
     formData.append("noDocument", f.noDocument ? "true" : "false");
+    formData.append("customText", f.customText);
 
     if (f.monthlySum) {
       formData.append("monthlySum", f.monthlySum.toString());
     }
     if (f.id) {
       formData.append("id", f.id.toString());
-    }
-    if (f.customText != "") {
-      formData.append("customText", f.customText);
     }
 
     f.fileUploadStatus = UploadStatus.STATUS_SAVING;
@@ -526,7 +542,8 @@ export default class Financial extends Vue {
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
   "register": "Register",
   "select-label": "Attention, Please enter only your own income.",
-  "no-income": "No income"
+  "no-income": "No income",
+  "custom-text": "In order to improve your file, you can add an eplanation :"
 },
 "fr": {
   "salary": "Salaire",
@@ -555,7 +572,8 @@ export default class Financial extends Vue {
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
   "register": "Enregistrer",
   "select-label": "Attention, Veuillez renseigner uniquement vos propres revenus.",
-  "no-income": "Pas de revenu"
+  "no-income": "Pas de revenu",
+  "custom-text": "Afin d'améliorer votre dossier, vous pouvez ajouter une explication :"
 }
 }
 </i18n>
