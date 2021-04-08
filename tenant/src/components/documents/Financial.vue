@@ -367,7 +367,15 @@ export default class Financial extends Vue {
 
     const typeDocumentFinancial = f.documentType?.value || "";
     formData.append("typeDocumentFinancial", typeDocumentFinancial);
+
+    if (f.documentType.key === "no-income") {
+      f.noDocument = true;
+    } else {
+      f.noDocument = false;
+    }
+
     formData.append("noDocument", f.noDocument ? "true" : "false");
+
     if (f.monthlySum) {
       formData.append("monthlySum", f.monthlySum.toString());
     }
