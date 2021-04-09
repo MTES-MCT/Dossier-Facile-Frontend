@@ -352,7 +352,7 @@ a[target="_blank"].logo-link::after {
     },
     "s2": {
       "title": "Build your rental file in three steps",
-      "h1": "I download my file",
+      "h1": "I upload my documents",
       "p1": "DossierFacile asks you for the necessary documents and just those!",
       "u1a": "Identity card",
       "u1b": "Proof of address",
