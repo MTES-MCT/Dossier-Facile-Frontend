@@ -55,7 +55,9 @@
                   <input
                     id="monthlySum"
                     :placeholder="$t('monthlySum')"
-                    type="text"
+                    type="number"
+                    min="0"
+                    step="1"
                     v-model="f.monthlySum"
                     name="monthlySum"
                     class="validate-required form-control rf-input"
@@ -139,7 +141,7 @@
               {{ $t("register") }}
             </button>
           </div>
-          <div class="rf-mb-5w">
+          <div class="rf-mb-5w" v-if="f.documentType.key">
             <DocumentInsert
               :allow-list="f.documentType.acceptedProofs"
               :block-list="f.documentType.refusedProofs"
@@ -316,8 +318,9 @@ export default class GuarantorFinancial extends Vue {
             this.financialDocuments.push(f);
           });
       }
-    } else {
-      this.financialDocuments.push(new F());
+    }
+    if (this.financialDocuments.length <= 0) {
+      this.addFinancial();
     }
   }
 
@@ -355,7 +358,10 @@ export default class GuarantorFinancial extends Vue {
 
     const typeDocumentFinancial = f.documentType?.value || "";
     formData.append("typeDocumentFinancial", typeDocumentFinancial);
+
     formData.append("noDocument", f.noDocument ? "true" : "false");
+    formData.append("customText", f.customText);
+
     if (f.monthlySum) {
       formData.append("monthlySum", f.monthlySum.toString());
     }

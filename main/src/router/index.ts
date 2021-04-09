@@ -84,15 +84,28 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Article4.vue")
   },
   {
-    path: "/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne",
+    path:
+      "/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne",
     name: "Article5",
     meta: {
-      title: "5 conseils pour trouver l’appartement de ses rêves en région parisienne",
+      title:
+        "5 conseils pour trouver l’appartement de ses rêves en région parisienne",
       description:
         "Trouver l’appartement de ses rêves à Paris ou en région parisienne est un vrai défi"
     },
     component: () =>
       import(/* webpackChunkName: "blog" */ "../views/blog/Article5.vue")
+  },
+  {
+    path: "/blog/dossierfacile-fait-peau-neuve",
+    name: "Article6",
+    meta: {
+      title: "DossierFacile fait peau neuve !",
+      description:
+        "Afin de mieux répondre aux besoins de nos locataires et propriétaires, le service DossierFacile fait peau neuve avec un nouveau site"
+    },
+    component: () =>
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article6.vue")
   },
   {
     path: "/information",
