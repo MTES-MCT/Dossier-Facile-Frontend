@@ -22,6 +22,31 @@
     </Modal>
     <div v-if="hasNoIncome()" class="rf-mt-3w rf-mb-3w">
       {{ $t("has-no-income") }}
+      <div class="rf-mb-5w">
+        <ValidationObserver v-slot="{ validate }">
+          <form
+            name="customTextForm"
+            @submit.prevent="validate().then(save(financialDocuments[0]))"
+          >
+            <div class="rf-input-group">
+              <label class="rf-label" for="customTextNoDocument">
+                {{ $t("custom-text") }}
+              </label>
+              <input
+                v-model="financialDocuments[0].customText"
+                class="form-control rf-input validate-required"
+                id="customTextNoDocument"
+                name="customText"
+                placeholder=""
+                type="text"
+              />
+            </div>
+            <DfButton class="rf-btn" size="small">
+              {{ $t("save") }}
+            </DfButton>
+          </form>
+        </ValidationObserver>
+      </div>
     </div>
     <div v-for="(f, k) in getFinancialDocuments()" :key="k">
       <ValidationObserver v-slot="{ validate }">
@@ -357,6 +382,9 @@ export default class Financial extends Vue {
             const f = new F();
             f.noDocument = d.noDocument || false;
             f.customText = d.customText || "";
+            if (f.customText === "-") {
+              f.customText = "";
+            }
             f.monthlySum = d.monthlySum || 0;
             f.id = d.id;
 
@@ -419,7 +447,7 @@ export default class Financial extends Vue {
     }
 
     formData.append("noDocument", f.noDocument ? "true" : "false");
-    if (f.documentType.key === "no-income") {
+    if (f.documentType.key === "no-income" && !f.customText) {
       formData.append("customText", "-");
     } else {
       formData.append("customText", f.customText);
@@ -616,7 +644,8 @@ export default class Financial extends Vue {
   "custom-text": "In order to improve your file, you can add an eplanation :",
   "i-have-no-income": "I have no income",
   "has-no-income": "You have no income",
-  "warning-no-income-and-file": "You can't have files and no income. You must uncheck the box or delete your files."
+  "warning-no-income-and-file": "You can't have files and no income. You must uncheck the box or delete your files.",
+  "save": "Save"
 },
 "fr": {
   "salary": "Salaire",
@@ -649,7 +678,8 @@ export default class Financial extends Vue {
   "custom-text": "Afin d'améliorer votre dossier, vous pouvez ajouter une explication :",
   "i-have-no-income": "Je n'ai pas de revenu",
   "has-no-income": "Vous avez indiqué ne pas avoir de revenu",
-  "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et ne pas avoir de revenu. Veuillez décocher la case ou supprimer vos fichiers."
+  "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et ne pas avoir de revenu. Veuillez décocher la case ou supprimer vos fichiers.",
+  "save": "Sauvegarder"
 }
 }
 </i18n>
