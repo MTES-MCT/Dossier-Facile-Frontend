@@ -211,33 +211,13 @@
                 </validation-provider>
               </div>
             </div>
-            <div
-              v-if="financialFiles(f).length > 0"
-              class="rf-col-lg-8 rf-col-md-12 rf-mb-3w"
-            >
-              <ListItem
-                v-for="(file, k) in financialFiles(f)"
-                :key="k"
-                :file="file"
-                @remove="remove(f, file)"
-              />
-            </div>
-            <div class="rf-col-12 rf-mb-5w" v-if="f.documentType">
-              <button
-                class="rf-btn"
-                type="submit"
-                :disabled="
-                  f.files.length <= 0 &&
-                    !f.noDocument &&
-                    f.documentType.key !== 'no-income'
-                "
-              >
-                {{ $t("register") }}
-              </button>
-            </div>
           </div>
           <div
-            v-if="f.documentType.key && f.documentType.key !== 'no-income' && financialFiles(f).length > 0"
+            v-if="
+              f.documentType.key &&
+                f.documentType.key !== 'no-income' &&
+                financialFiles(f).length > 0
+            "
             class="rf-col-md-12 rf-mb-3w"
           >
             <ListItem
