@@ -976,6 +976,10 @@ hr {
   justify-content: center;
   align-items: center;
 }
+
+.rf-tile__body {
+  overflow: auto;
+}
 </style>
 
 <i18n>
