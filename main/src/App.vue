@@ -74,7 +74,9 @@ export default class App extends Vue {
     this.$cookies.set(
       "accept-cookie",
       true,
-      new Date(2050, 12, 31).toUTCString()
+      new Date(2050, 12, 31).toUTCString(),
+      "",
+      "dossierfacile.fr"
     );
     Vue.use(
       VueGtag,
@@ -90,7 +92,13 @@ export default class App extends Vue {
   denyCookies() {
     const d = new Date();
     d.setDate(d.getDate() + 1);
-    this.$cookies.set("accept-cookie", false, d.toUTCString());
+    this.$cookies.set(
+      "accept-cookie",
+      false,
+      d.toUTCString(),
+      "",
+      "dossierfacile.fr"
+    );
     this.cookieHidden = true;
   }
 
