@@ -17,6 +17,11 @@
       <router-view />
     </article>
     <MyFooter />
+    <Cookies
+      :hidden="cookieHidden"
+      @accept="acceptCookies"
+      @deny="denyCookies"
+    />
   </div>
 </template>
 
@@ -28,12 +33,16 @@ import Menu from "@/components/Menu.vue";
 import { mapGetters, mapState } from "vuex";
 import i18n from "./i18n";
 import { Header } from "./gouvfr/header.js";
+import Cookies from "df-shared/src/Footer/Cookies.vue";
+import VueGtag from "vue-gtag";
+import router from "./router";
 
 @Component({
   components: {
     MyHeader,
     MyFooter,
-    Menu
+    Menu,
+    Cookies
   },
   computed: {
     ...mapState({
@@ -46,6 +55,9 @@ import { Header } from "./gouvfr/header.js";
   }
 })
 export default class App extends Vue {
+  cookieHidden = this.$cookies.isKey("accept-cookie")
+    ? this.$cookies.get("accept-cookie")
+    : false;
   isLoggedIn!: boolean;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
 
@@ -83,6 +95,30 @@ export default class App extends Vue {
   changeLang() {
     const lang = i18n.locale === "fr" ? "en" : "fr";
     this.$store.dispatch("setLang", lang);
+  }
+
+  acceptCookies() {
+    this.$cookies.set(
+      "accept-cookie",
+      true,
+      new Date(2050, 12, 31).toUTCString()
+    );
+    Vue.use(
+      VueGtag,
+      {
+        config: { id: "UA-50823626-2" }
+      },
+      router
+    );
+    Vue.prototype.inspectlet();
+    this.cookieHidden = true;
+  }
+
+  denyCookies() {
+    const d = new Date();
+    d.setDate(d.getDate() + 1);
+    this.$cookies.set("accept-cookie", false, d.toUTCString());
+    this.cookieHidden = true;
   }
 }
 </script>
