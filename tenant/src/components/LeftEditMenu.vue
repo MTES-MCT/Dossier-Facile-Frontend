@@ -97,6 +97,7 @@ export default class LeftEditMenu extends Vue {
 .step {
   display: flex;
   align-items: center;
+  height: 4rem;
 }
 
 .step-number {
