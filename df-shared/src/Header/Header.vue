@@ -1,17 +1,17 @@
 <template>
-  <header role="banner" class="rf-header">
-    <div class="rf-container">
-      <div class="rf-header__body">
-        <div class="rf-header__brand rf-enlarge-link">
-          <div class="rf-header__logo">
-            <p class="rf-logo">
+  <header role="banner" class="fr-header">
+    <div class="fr-container">
+      <div class="fr-header__body">
+        <div class="fr-header__brand fr-enlarge-link">
+          <div class="fr-header__logo">
+            <p class="fr-logo">
               République<br />
               française
             </p>
           </div>
-          <div class="rf-header__service">
+          <div class="fr-header__service">
             <a :href="`/?lang=${$i18n.locale}`" title="Retour à l’accueil">
-              <p class="rf-header__service-title">
+              <p class="fr-header__service-title">
                 <img
                   class="logo"
                   src="./logo_dossierfacile.webp"
@@ -19,15 +19,15 @@
                 />
               </p>
             </a>
-            <p class="rf-header__service-tagline">
+            <p class="fr-header__service-tagline">
               DossierFacile, le dossier de location numérique de l’État
             </p>
           </div>
         </div>
-        <div class="rf-header__navbar">
+        <div class="fr-header__navbar">
           <button
-            class="rf-btn--menu rf-btn"
-            data-rf-opened="false"
+            class="fr-btn--menu fr-btn"
+            data-fr-opened="false"
             aria-controls="header-navigation"
             aria-haspopup="menu"
             title="Ouvrir le menu"
@@ -35,10 +35,10 @@
             Ouvrir le menu
           </button>
         </div>
-        <div class="rf-header__tools">
-          <div class="rf-shortcuts">
-            <ul class="rf-shortcuts__list">
-              <li class="rf-shortcuts__item" v-if="loggedIn">
+        <div class="fr-header__tools">
+          <div class="fr-shortcuts">
+            <ul class="fr-shortcuts__list">
+              <li class="fr-shortcuts__item" v-if="loggedIn">
                 <v-gouv-fr-button
                   :label="$t('logout')"
                   :small="true"
@@ -46,9 +46,9 @@
                   @click="onLogout"
                 ></v-gouv-fr-button>
               </li>
-              <li class="rf-shortcuts__item" v-if="!loggedIn">
+              <li class="fr-shortcuts__item" v-if="!loggedIn">
                 <DfButton
-                  class="rf-ml-3"
+                  class="fr-ml-3"
                   primary="true"
                   size="small"
                   @on-click="onCreateTenant"
@@ -56,14 +56,14 @@
                   {{ $t("signup") }}
                 </DfButton>
               </li>
-              <li class="rf-shortcuts__item" v-if="!loggedIn">
+              <li class="fr-shortcuts__item" v-if="!loggedIn">
                 <DfButton size="small" @on-click="onCreateOwner">
                   {{ $t("owner") }}
                 </DfButton>
               </li>
-              <li class="rf-shortcuts__item">
+              <li class="fr-shortcuts__item">
                 <button
-                  class="rf-btn rf-ml-3 rf-btn--secondary rf-btn--sm lang"
+                  class="fr-btn fr-ml-3 fr-btn--secondary fr-btn--sm lang"
                   @click="changeLang"
                 >
                   <span :class="{ underline: lang === 'fr' }">FR</span> |
@@ -75,13 +75,13 @@
         </div>
       </div>
       <nav
-        class="rf-nav rf-modal"
+        class="fr-nav fr-modal"
         id="header-navigation"
         role="navigation"
         aria-label="Menu principal"
       >
         <button
-          class="rf-link--close rf-link"
+          class="fr-link--close fr-link"
           aria-controls="header-navigation"
         >
           Fermer

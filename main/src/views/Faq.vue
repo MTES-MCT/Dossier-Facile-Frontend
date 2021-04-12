@@ -1,10 +1,10 @@
 <template>
-  <div class="rf-mb-12w">
+  <div class="fr-mb-12w">
     <section class="imagebg text-center">
-      <div class="rf-container">
-        <div class="rf-grid-row height-40">
-          <div class="rf-col-md-10 rf-col-lg-8">
-            <h2 class="rf-h2 color--white">Questions fréquemment posées</h2>
+      <div class="fr-container">
+        <div class="fr-grid-row height-40">
+          <div class="fr-col-md-10 fr-col-lg-8">
+            <h2 class="fr-h2 color--white">Questions fréquemment posées</h2>
             <p class="color--white">
               <b>
                 Vous avez rencontré une difficulté ? Découvrez toutes<br />nos
@@ -17,46 +17,46 @@
     </section>
 
     <section>
-      <div class="rf-container rf-mt-7w">
-        <div class="rf-grid-row">
-          <div class="rf-col-md-4 col rf-pr-7w">
+      <div class="fr-container fr-mt-7w">
+        <div class="fr-grid-row">
+          <div class="fr-col-md-4 col fr-pr-7w">
             <div
-              class="tab__title rf-p-2w"
+              class="tab__title fr-p-2w"
               :class="{ selected: section === 0 }"
               @click="section = 0"
             >
               <span class="type--uppercase">CRÉATION DE MON COMPTE</span>
             </div>
             <div
-              class="tab__title rf-p-2w"
+              class="tab__title fr-p-2w"
               :class="{ selected: section === 1 }"
               @click="section = 1"
             >
               <span class="type--uppercase">VALIDATION DE MON COMPTE</span>
             </div>
             <div
-              class="tab__title rf-p-2w"
+              class="tab__title fr-p-2w"
               :class="{ selected: section === 2 }"
               @click="section = 2"
             >
               <span class="type--uppercase">INFORMATIONS COMPLÉMENTAIRES</span>
             </div>
             <div
-              class="tab__title rf-p-2w"
+              class="tab__title fr-p-2w"
               :class="{ selected: section === 3 }"
               @click="section = 3"
             >
               <span class="type--uppercase">MES DONNÉES PERSONNELLES</span>
             </div>
           </div>
-          <div class="rf-col-md-8">
+          <div class="fr-col-md-8">
             <ul
-              class="rf-accordion-group"
-              id="rf-accordion-group-0"
+              class="fr-accordion-group"
+              id="fr-accordion-group-0"
               v-show="section === 0"
             >
               <li>
-                <accordion-element id="rf-accordion-group-0-body-0">
+                <accordion-element id="fr-accordion-group-0-body-0">
                   <template v-slot:header>
                     <header>
                       Est-il obligatoire de passer par DossierFacile ?
@@ -69,7 +69,7 @@
                 </accordion-element>
               </li>
               <li>
-                <AccordionElement id="rf-accordion-group-0-body-1">
+                <AccordionElement id="fr-accordion-group-0-body-1">
                   <template v-slot:header>
                     <header>
                       Je suis propriétaire : dois-je m’inscrire sur
@@ -92,7 +92,7 @@
                 </AccordionElement>
               </li>
               <li>
-                <accordion-element id="rf-accordion-group-0-body-2">
+                <accordion-element id="fr-accordion-group-0-body-2">
                   <template v-slot:header>
                     <header>
                       Quelles pièces sont demandées aux locataires ?
@@ -212,7 +212,7 @@
                 </accordion-element>
               </li>
               <li>
-                <AccordionElement id="rf-accordion-group-0-body-3">
+                <AccordionElement id="fr-accordion-group-0-body-3">
                   <template v-slot:header>
                     <header>
                       Je suis marié ou en couple : comment faire ?
@@ -232,7 +232,7 @@
                 </AccordionElement>
               </li>
               <li>
-                <AccordionElement id="rf-accordion-group-0-body-4">
+                <AccordionElement id="fr-accordion-group-0-body-4">
                   <template v-slot:header>
                     <header>
                       Je souhaite créer un dossier en mode « colocation » :
@@ -258,7 +258,7 @@
                 </AccordionElement>
               </li>
               <li>
-                <AccordionElement id="rf-accordion-group-0-body-5">
+                <AccordionElement id="fr-accordion-group-0-body-5">
                   <template v-slot:header>
                     <header>
                       Je suis étranger, puis-je bénéficier du service ?
@@ -279,7 +279,7 @@
                 </AccordionElement>
               </li>
               <li>
-                <AccordionElement id="rf-accordion-group-0-body-6">
+                <AccordionElement id="fr-accordion-group-0-body-6">
                   <template v-slot:header>
                     <header>
                       Je rentre en France après avoir vécu à l’étranger : je ne
@@ -296,7 +296,7 @@
                 </AccordionElement>
               </li>
               <li>
-                <AccordionElement id="rf-accordion-group-0-body-7">
+                <AccordionElement id="fr-accordion-group-0-body-7">
                   <template v-slot:header>
                     <header>Quelles pièces sont demandées aux garants ?</header>
                   </template>
@@ -344,12 +344,12 @@
               </li>
             </ul>
             <ul
-              class="rf-accordion-group"
-              id="rf-accordion-group-1"
+              class="fr-accordion-group"
+              id="fr-accordion-group-1"
               v-show="section === 1"
             >
               <li>
-                <accordion-element id="rf-accordion-group-1-body-0">
+                <accordion-element id="fr-accordion-group-1-body-0">
                   <template v-slot:header>
                     <header>
                       J'ai ajouté toutes mes pièces mais je n'arrive pas à
@@ -370,7 +370,7 @@
                 </accordion-element>
               </li>
               <li>
-                <accordion-element id="rf-accordion-group-1-body-1">
+                <accordion-element id="fr-accordion-group-1-body-1">
                   <template v-slot:header>
                     <header>
                       Mon dossier était validé et maintenant il ne l’est plus !
@@ -393,7 +393,7 @@
                 </accordion-element>
               </li>
               <li>
-                <accordion-element id="rf-accordion-group-1-body-2">
+                <accordion-element id="fr-accordion-group-1-body-2">
                   <template v-slot:header>
                     <header>
                       J’ai reçu un message me disant que mon compte était validé
@@ -412,12 +412,12 @@
             </ul>
 
             <ul
-              class="rf-accordion-group"
-              id="rf-accordion-group-2"
+              class="fr-accordion-group"
+              id="fr-accordion-group-2"
               v-show="section === 2"
             >
               <li>
-                <accordion-element id="rf-accordion-group-2-body-0">
+                <accordion-element id="fr-accordion-group-2-body-0">
                   <template v-slot:header>
                     <header>
                       Besoin d’informations complémentaires sur DossierFacile ?
@@ -429,7 +429,7 @@
                 </accordion-element>
               </li>
               <li>
-                <accordion-element id="rf-accordion-group-2-body-1">
+                <accordion-element id="fr-accordion-group-2-body-1">
                   <template v-slot:header>
                     <header>Des questions relatives au logement ?</header>
                   </template>
@@ -439,7 +439,7 @@
                 </accordion-element>
               </li>
               <li>
-                <accordion-element id="rf-accordion-group-2-body-2">
+                <accordion-element id="fr-accordion-group-2-body-2">
                   <template v-slot:header>
                     <header>Je n’arrive pas à me connecter, que faire ?</header>
                   </template>
@@ -453,12 +453,12 @@
             </ul>
 
             <ul
-              class="rf-accordion-group"
-              id="rf-accordion-group-3"
+              class="fr-accordion-group"
+              id="fr-accordion-group-3"
               v-show="section === 3"
             >
               <li>
-                <accordion-element id="rf-accordion-group-3-body-0">
+                <accordion-element id="fr-accordion-group-3-body-0">
                   <template v-slot:header>
                     <header>Mes données sont-elles sécurisées ?</header>
                   </template>
@@ -482,7 +482,7 @@
                 </accordion-element>
               </li>
               <li>
-                <accordion-element id="rf-accordion-group-3-body-1">
+                <accordion-element id="fr-accordion-group-3-body-1">
                   <template v-slot:header>
                     <header>Que fait-on de mes données ?</header>
                   </template>
@@ -508,7 +508,7 @@
                 </accordion-element>
               </li>
               <li>
-                <accordion-element id="rf-accordion-group-3-body-2">
+                <accordion-element id="fr-accordion-group-3-body-2">
                   <template v-slot:header>
                     <header>Pourquoi conserver des données anonymes ?</header>
                   </template>
@@ -541,7 +541,7 @@
                 </accordion-element>
               </li>
               <li>
-                <accordion-element id="rf-accordion-group-3-body-3">
+                <accordion-element id="fr-accordion-group-3-body-3">
                   <template v-slot:header>
                     <header>
                       Que faire si je ne souhaite pas que mes données anonymes
@@ -626,7 +626,7 @@ ul > li {
   padding-bottom: 0;
 }
 
-.rf-accordion {
+.fr-accordion {
   box-shadow: 0 1px 0 0 var(--g300), 0 0px 0 0 var(--g300);
 }
 

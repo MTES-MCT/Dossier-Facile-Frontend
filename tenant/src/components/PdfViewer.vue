@@ -1,17 +1,17 @@
 <template>
   <div>
-    <div class="rf-grid-col main-content">
-      <div class="rf-mb-3w">
-        <div class="rf-grid-row">
-          <div class="rf-col-4 rf-col-md-2">
+    <div class="fr-grid-col main-content">
+      <div class="fr-mb-3w">
+        <div class="fr-grid-row">
+          <div class="fr-col-4 fr-col-md-2">
             <input v-model.number="page" type="number" style="width: 5em" /> /{{
               numPages
             }}
           </div>
-          <div class="rf-col-2 rf-col-md-1">
+          <div class="fr-col-2 fr-col-md-1">
             <button @click="decreasePage()">«</button>
           </div>
-          <div class="rf-col-2 rf-col-md-1">
+          <div class="fr-col-2 fr-col-md-1">
             <button @click="increasePage()">»</button>
           </div>
         </div>

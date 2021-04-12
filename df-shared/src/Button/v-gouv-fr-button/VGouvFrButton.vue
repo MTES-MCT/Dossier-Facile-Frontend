@@ -1,7 +1,7 @@
 <template>
   <div class="v-gouv-fr-button">
     <button
-      :class="`rf-btn ` + typeClass + sizeClass + iconClass"
+      :class="`fr-btn ` + typeClass + sizeClass + iconClass"
       :disabled="disabled"
       :title="iconOnly ? label : undefined"
       @click="pushClick"
@@ -63,14 +63,14 @@ export default {
     //gets type class (primary or secondary)
     typeClass: function() {
       if (this.secondary && !this.primary) {
-        return "rf-btn--secondary "; //trailing space for next classes
+        return "fr-btn--secondary "; //trailing space for next classes
       }
       return "";
     },
     //gets size class (small, medium or large)
     sizeClass: function() {
-      if (this.small) return "rf-btn--sm ";
-      else if (this.large) return "rf-btn--lg ";
+      if (this.small) return "fr-btn--sm ";
+      else if (this.large) return "fr-btn--lg ";
       return "";
     },
     //gets icon class
@@ -81,9 +81,9 @@ export default {
       )
         return "";
 
-      let computedIconClass = "rf-fi-" + this.icon;
+      let computedIconClass = "fr-fi-" + this.icon;
       if (!this.iconOnly) {
-        computedIconClass += " rf-btn--icon-" + this.iconPosition;
+        computedIconClass += " fr-btn--icon-" + this.iconPosition;
       }
       return computedIconClass;
     }

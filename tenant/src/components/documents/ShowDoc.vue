@@ -1,7 +1,7 @@
 <template>
-  <div class="rf-container">
-    <div class="rf-grid-row justify-content-center">
-      <div class="rf-col-12">
+  <div class="fr-container">
+    <div class="fr-grid-row justify-content-center">
+      <div class="fr-col-12">
         <div v-if="file.path">
           <img slot="image" v-auth-image="file.path" v-if="isImage()" />
           <PdfViewer

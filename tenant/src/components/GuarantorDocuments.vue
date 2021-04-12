@@ -5,10 +5,10 @@
     </div>
     <div>
       <div v-if="guarantorStep === 1">
-        <label class="rf-label" for="select"> Sélectionnez un choix </label>
+        <label class="fr-label" for="select"> Sélectionnez un choix </label>
         <select
           v-model="tmpGuarantorType"
-          class="rf-select rf-mb-3w"
+          class="fr-select fr-mb-3w"
           id="select"
           name="select"
           @change="onSelectChange()"
@@ -21,7 +21,7 @@
         </select>
         <div>
           <DfButton
-            class="rf-btn"
+            class="fr-btn"
             primary="true"
             @on-click="setGuarantorType()"
           >
@@ -32,9 +32,9 @@
       <div v-if="guarantorStep === 2">
         <div v-if="guarantorType === 'NATURAL_PERSON'">
           <div>
-            <div class="rf-grid-row">
+            <div class="fr-grid-row">
               <div
-                class="rf-grid-row rf-mr-3w rf-mb-3w btn-group"
+                class="fr-grid-row fr-mr-3w fr-mb-3w btn-group"
                 :class="{ guarantorselected: guarantor === g }"
                 v-for="(g, k) in user.guarantors"
                 :key="k"
@@ -241,18 +241,18 @@
             ></RepresentativeIdentification>
           </div>
         </div>
-        <div class="rf-col-12 rf-mb-5w">
-          <div class="rf-grid-row rf-mb-3w buttons">
+        <div class="fr-col-12 fr-mb-5w">
+          <div class="fr-grid-row fr-mb-3w buttons">
             <button
               v-if="guarantorType === 'NATURAL_PERSON'"
-              class="rf-btn rf-btn--secondary rf-mb-2w rf-mt-2w"
+              class="fr-btn fr-btn--secondary fr-mb-2w fr-mt-2w"
               type="submit"
               @click="addNaturalGuarantor()"
             >
               J'ajoute un nouveau garant
             </button>
             <button
-              class="rf-btn"
+              class="fr-btn"
               type="submit"
               aria-disabled="!documentsFilled()"
               :disabled="!documentsFilled()"

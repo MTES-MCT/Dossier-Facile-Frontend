@@ -1,13 +1,13 @@
 <template>
   <div class="main-container">
-    <section class="height-100 rf-grid-row">
-      <div class="imageblock__content rf-col-lg-6 rf-col-md-4 rf-col-12">
+    <section class="height-100 fr-grid-row">
+      <div class="imageblock__content fr-col-lg-6 fr-col-md-4 fr-col-12">
         <div class="background-image-holder"></div>
       </div>
-      <div class="pos-vertical-center rf-col-lg-6 rf-col-md-8 rf-col-12">
-        <div class="rf-m-3w">
-          <div class="rf-grid-col">
-            <h1 class="rf-h1">{{ $t("h1") }}</h1>
+      <div class="pos-vertical-center fr-col-lg-6 fr-col-md-8 fr-col-12">
+        <div class="fr-m-3w">
+          <div class="fr-grid-col">
+            <h1 class="fr-h1">{{ $t("h1") }}</h1>
             <p>
               {{ $t("p1") }}
             </p>
@@ -18,7 +18,7 @@
                   {{ $t("signup") }}
                 </DfButton>
               </div>
-              <div class="rf-mt-2w text-center">
+              <div class="fr-mt-2w text-center">
                 <router-link to="/login">
                   {{ $t("login") }}
                 </router-link>
@@ -29,54 +29,54 @@
       </div>
     </section>
 
-    <section class="text-lg-center text-md-center text-sm-left rf-mt-5w">
-      <div class="rf-container">
-        <div class="rf-grid-row">
-          <div class="rf-col-md-12 text-center">
-            <h2 class="rf-h2">{{ $t("h2-1") }}</h2>
+    <section class="text-lg-center text-md-center text-sm-left fr-mt-5w">
+      <div class="fr-container">
+        <div class="fr-grid-row">
+          <div class="fr-col-md-12 text-center">
+            <h2 class="fr-h2">{{ $t("h2-1") }}</h2>
             <p>{{ $t("p2") }}</p>
           </div>
         </div>
       </div>
     </section>
     <section>
-      <div class="rf-container">
-        <div class="rf-grid-row">
-          <div class="rf-col-md-6 rf-col-lg-3">
+      <div class="fr-container">
+        <div class="fr-grid-row">
+          <div class="fr-col-md-6 fr-col-lg-3">
             <div class="feature feature-6">
               <span class="color--primary material-icons md-48"
                 >auto_fix_high</span
               >
-              <h5 class="rf-h5">{{ $t("h5-1") }}</h5>
+              <h5 class="fr-h5">{{ $t("h5-1") }}</h5>
               <p>
                 {{ $t("p3") }}
               </p>
             </div>
           </div>
-          <div class="rf-col-md-6 rf-col-lg-3">
+          <div class="fr-col-md-6 fr-col-lg-3">
             <div class="feature feature-6">
               <span class="color--primary material-icons md-48">house</span>
-              <h5 class="rf-h5">{{ $t("h5-2") }}</h5>
+              <h5 class="fr-h5">{{ $t("h5-2") }}</h5>
               <p>
                 {{ $t("p4") }}
               </p>
             </div>
           </div>
-          <div class="rf-col-md-6 rf-col-lg-3">
+          <div class="fr-col-md-6 fr-col-lg-3">
             <div class="feature feature-6">
               <span class="color--primary material-icons md-48">mouse</span>
-              <h5 class="rf-h5">{{ $t("h5-3") }}</h5>
+              <h5 class="fr-h5">{{ $t("h5-3") }}</h5>
               <p>
                 {{ $t("p5") }}
               </p>
             </div>
           </div>
-          <div class="rf-col-md-6 rf-col-lg-3">
+          <div class="fr-col-md-6 fr-col-lg-3">
             <div class="feature feature-6">
               <span class="color--primary material-icons md-48"
                 >verified_user</span
               >
-              <h5 class="rf-h5">{{ $t("h5-4") }}</h5>
+              <h5 class="fr-h5">{{ $t("h5-4") }}</h5>
               <p>
                 {{ $t("p6") }}
               </p>
@@ -87,10 +87,10 @@
     </section>
 
     <section class="cover cover-features space--lg bg-orange pt-2">
-      <div class="rf-container">
-        <div class="rf-grid-row">
-          <div class="rf-col-md-9 rf-col-lg-7">
-            <h2 class="rf-h2">{{ $t("h2-2") }}</h2>
+      <div class="fr-container">
+        <div class="fr-grid-row">
+          <div class="fr-col-md-9 fr-col-lg-7">
+            <h2 class="fr-h2">{{ $t("h2-2") }}</h2>
             <p>
               {{ $t("p7") }}
             </p>
@@ -100,16 +100,16 @@
           </div>
         </div>
 
-        <div class="rf-grid-row">
-          <div class="rf-col-md-4">
+        <div class="fr-grid-row">
+          <div class="fr-col-md-4">
             <div
               class="feature feature-1 boxed boxed--border bg--white z-index-0"
             >
-              <div class="rf-grid-row">
-                <div class="rf-col-8">
-                  <h5 class="rf-h5">{{ $t("h5-5") }}</h5>
+              <div class="fr-grid-row">
+                <div class="fr-col-8">
+                  <h5 class="fr-h5">{{ $t("h5-5") }}</h5>
                 </div>
-                <div class="rf-col-4">
+                <div class="fr-col-4">
                   <img
                     alt="beautiful building"
                     class="w-100 h-40"
@@ -131,15 +131,15 @@
             </div>
           </div>
 
-          <div class="rf-col-md-4 position-relative">
+          <div class="fr-col-md-4 position-relative">
             <div
               class="feature feature-1 boxed boxed--border bg--white position-relative"
             >
-              <div class="rf-grid-row">
-                <div class="rf-col-8">
-                  <h5 class="rf-h5">{{ $t("h5-6") }}</h5>
+              <div class="fr-grid-row">
+                <div class="fr-col-8">
+                  <h5 class="fr-h5">{{ $t("h5-6") }}</h5>
                 </div>
-                <div class="rf-col-4">
+                <div class="fr-col-4">
                   <img
                     alt="beautiful building"
                     class="w-100 h-40"
@@ -165,10 +165,10 @@
     </section>
 
     <section class="text-center mt-5">
-      <div class="rf-container">
-        <div class="rf-grid-row">
-          <div class="rf-col-12">
-            <h2 class="rf-h2">{{ $t("h2-3") }}</h2>
+      <div class="fr-container">
+        <div class="fr-grid-row">
+          <div class="fr-col-12">
+            <h2 class="fr-h2">{{ $t("h2-3") }}</h2>
             <p>
               {{ $t("p10") }}
             </p>
@@ -177,28 +177,28 @@
       </div>
     </section>
 
-    <section class="rf-mb-5w">
-      <div class="rf-container">
-        <div class="process-2 rf-grid-row">
-          <div class="rf-col-md-4">
+    <section class="fr-mb-5w">
+      <div class="fr-container">
+        <div class="process-2 fr-grid-row">
+          <div class="fr-col-md-4">
             <div class="process__item">
-              <h5 class="rf-h5">{{ $t("h5-7") }}</h5>
+              <h5 class="fr-h5">{{ $t("h5-7") }}</h5>
               <p>
                 {{ $t("p11") }}
               </p>
             </div>
           </div>
-          <div class="rf-col-md-4">
+          <div class="fr-col-md-4">
             <div class="process__item">
-              <h5 class="rf-h5">{{ $t("h5-8") }}</h5>
+              <h5 class="fr-h5">{{ $t("h5-8") }}</h5>
               <p>
                 {{ $t("p12") }}
               </p>
             </div>
           </div>
-          <div class="rf-col-md-3">
+          <div class="fr-col-md-3">
             <div class="process__item">
-              <h5 class="rf-h5">{{ $t("h5-9") }}</h5>
+              <h5 class="fr-h5">{{ $t("h5-9") }}</h5>
               <p>
                 {{ $t("p13") }}
               </p>

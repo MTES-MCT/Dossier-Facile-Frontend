@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <div class="rf-pl-3v">
+      <div class="fr-pl-3v">
         {{ $t("select-label") }}
       </div>
 
@@ -26,7 +26,7 @@
 
       <select
         v-model="professionalDocument"
-        class="rf-select rf-mb-3w"
+        class="fr-select fr-mb-3w"
         id="select"
         name="select"
         @change="onSelectChange()"
@@ -44,10 +44,10 @@
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
     <div v-if="professionalDocument.key">
-      <div class="rf-mb-3w">
+      <div class="fr-mb-3w">
         {{ professionalDocument.explanationText }}
       </div>
-      <div class="rf-mb-3w">
+      <div class="fr-mb-3w">
         <FileUpload
           :current-status="fileUploadStatus"
           @add-files="addFiles"
@@ -57,7 +57,7 @@
     </div>
     <div
       v-if="professionalFiles().length > 0"
-      class="rf-col-lg-8 rf-col-md-12 rf-mb-3w"
+      class="fr-col-lg-8 fr-col-md-12 fr-mb-3w"
     >
       <ListItem
         v-for="(file, k) in professionalFiles()"
@@ -66,9 +66,9 @@
         @remove="remove(file)"
       />
     </div>
-    <div class="rf-col-12 rf-mb-2w" v-if="professionalDocument">
+    <div class="fr-col-12 fr-mb-2w" v-if="professionalDocument">
       <button
-        class="rf-btn"
+        class="fr-btn"
         type="submit"
         @click="save"
         :disabled="files.length <= 0"
@@ -76,7 +76,7 @@
         {{ $t("register") }}
       </button>
     </div>
-    <div class="rf-mb-5w" v-if="professionalDocument.key">
+    <div class="fr-mb-5w" v-if="professionalDocument.key">
       <DocumentInsert
         :allow-list="professionalDocument.acceptedProofs"
         :block-list="professionalDocument.refusedProofs"

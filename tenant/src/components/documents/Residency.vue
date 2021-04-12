@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <div class="rf-pl-3v">
+      <div class="fr-pl-3v">
         {{ $t("select-label") }}
       </div>
 
@@ -24,17 +24,17 @@
         </template>
       </v-gouv-fr-modal>
 
-      <div class="rf-mt-1w">
-        <fieldset class="rf-fieldset">
-          <div class="rf-fieldset__content">
-            <div class="rf-grid-row">
+      <div class="fr-mt-1w">
+        <fieldset class="fr-fieldset">
+          <div class="fr-fieldset__content">
+            <div class="fr-grid-row">
               <div v-for="d in documents" :key="d.key">
                 <BigRadio
                   :val="d"
                   v-model="residencyDocument"
                   @input="onSelectChange()"
                 >
-                  <div class="rf-grid-col spa">
+                  <div class="fr-grid-col spa">
                     <span>{{ $t(d.key) }}</span>
                   </div>
                 </BigRadio>
@@ -52,10 +52,10 @@
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
     <div v-if="residencyDocument.key">
-      <div class="rf-mb-3w">
+      <div class="fr-mb-3w">
         <p v-html="$t(residencyDocument.explanationText)"></p>
       </div>
-      <div class="rf-mb-3w">
+      <div class="fr-mb-3w">
         <FileUpload
           :current-status="fileUploadStatus"
           @add-files="addFiles"
@@ -63,7 +63,7 @@
         ></FileUpload>
       </div>
     </div>
-    <div v-if="residencyFiles().length > 0" class="rf-col-12 rf-mb-3w">
+    <div v-if="residencyFiles().length > 0" class="fr-col-12 fr-mb-3w">
       <ListItem
         v-for="(file, k) in residencyFiles()"
         :key="k"
@@ -71,9 +71,9 @@
         @remove="remove(file)"
       />
     </div>
-    <div class="rf-col-12 rf-mb-2w" v-if="residencyDocument">
+    <div class="fr-col-12 fr-mb-2w" v-if="residencyDocument">
       <button
-        class="rf-btn"
+        class="fr-btn"
         type="submit"
         @click="save"
         :disabled="files.length <= 0"

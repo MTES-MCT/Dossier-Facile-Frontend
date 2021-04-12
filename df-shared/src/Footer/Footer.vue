@@ -1,10 +1,10 @@
 <template>
-  <footer class="rf-footer" role="contentinfo" id="footer">
-    <div class="rf-container">
-      <div class="rf-footer__body">
-        <div class="rf-footer__brand">
-          <a class="rf-logo" href="#" title="république française">
-            <span class="rf-logo__title">république <br />française</span>
+  <footer class="fr-footer" role="contentinfo" id="footer">
+    <div class="fr-container">
+      <div class="fr-footer__body">
+        <div class="fr-footer__brand">
+          <a class="fr-logo" href="#" title="république française">
+            <span class="fr-logo__title">république <br />française</span>
           </a>
           <a href="#">
             <img
@@ -14,81 +14,81 @@
             />
           </a>
         </div>
-        <div class="rf-footer__content">
-          <ul class="rf-footer__content-list links-center rf-grid-row">
-            <li class="rf-col-lg-3 rf-col-6 align-right">
+        <div class="fr-footer__content">
+          <ul class="fr-footer__content-list links-center fr-grid-row">
+            <li class="fr-col-lg-3 fr-col-6 align-right">
               <a
-                class="rf-footer__content-link"
+                class="fr-footer__content-link"
                 href="https://legifrance.gouv.fr"
                 >legifrance.gouv.fr</a
               >
             </li>
-            <li class="rf-col-lg-3 rf-col-6 align-right">
-              <a class="rf-footer__content-link" href="https://gouvernement.fr"
+            <li class="fr-col-lg-3 fr-col-6 align-right">
+              <a class="fr-footer__content-link" href="https://gouvernement.fr"
                 >gouvernement.fr</a
               >
             </li>
-            <li class="rf-col-lg-3 rf-col-6 align-right">
+            <li class="fr-col-lg-3 fr-col-6 align-right">
               <a
-                class="rf-footer__content-link"
+                class="fr-footer__content-link"
                 href="https://service-public.fr"
                 >service-public.fr</a
               >
             </li>
-            <li class="rf-col-lg-3 rf-col-6 align-right">
-              <a class="rf-footer__content-link" href="https://data.gouv.fr"
+            <li class="fr-col-lg-3 fr-col-6 align-right">
+              <a class="fr-footer__content-link" href="https://data.gouv.fr"
                 >data.gouv.fr</a
               >
             </li>
           </ul>
         </div>
       </div>
-      <div class="rf-footer__bottom">
-        <ul class="rf-footer__bottom-list">
-          <li class="rf-footer__bottom-item">
-            <a class="rf-footer__bottom-link" href="https://beta.gouv.fr/"
+      <div class="fr-footer__bottom">
+        <ul class="fr-footer__bottom-list">
+          <li class="fr-footer__bottom-item">
+            <a class="fr-footer__bottom-link" href="https://beta.gouv.fr/"
               >Les startups d'Etat</a
             >
           </li>
-          <li class="rf-footer__bottom-item">
+          <li class="fr-footer__bottom-item">
             <a
-              class="rf-footer__bottom-link"
+              class="fr-footer__bottom-link"
               :href="`${VUE_APP_MAIN_URL}/faq?lang=${$i18n.locale}`"
             >
               {{ $t("faq") }}
             </a>
           </li>
-          <li class="rf-footer__bottom-item">
+          <li class="fr-footer__bottom-item">
             <a
-              class="rf-footer__bottom-link"
+              class="fr-footer__bottom-link"
               :href="`${VUE_APP_MAIN_URL}/blog?lang=${$i18n.locale}`"
             >
               {{ $t("blog") }}
             </a>
           </li>
-          <li class="rf-footer__bottom-item">
+          <li class="fr-footer__bottom-item">
             <a
-              class="rf-footer__bottom-link"
+              class="fr-footer__bottom-link"
               href="https://github.com/MTES-MCT/Dossier-Facile-Frontend"
             >
               {{ $t("sources") }}
             </a>
           </li>
-          <li class="rf-footer__bottom-item">
+          <li class="fr-footer__bottom-item">
             <a
-              class="rf-footer__bottom-link blue--link"
+              class="fr-footer__bottom-link blue--link"
               href="mailto:contact@dossierfacile.fr"
               >{{ $t("contact") }}</a
             >
           </li>
-          <li class="rf-footer__bottom-item">
-            <a class="rf-footer__bottom-link" href="#">{{
+          <li class="fr-footer__bottom-item">
+            <a class="fr-footer__bottom-link" href="#">{{
               $t("accessibility")
             }}</a>
           </li>
-          <li class="rf-footer__bottom-item">
+          <li class="fr-footer__bottom-item">
             <a
-              class="rf-footer__bottom-link"
+              class="fr-footer__bottom-link"
               :href="
                 `${VUE_APP_MAIN_URL}/securite-des-donnees?lang=${$i18n.locale}`
               "
@@ -96,17 +96,17 @@
               {{ $t("legals") }}
             </a>
           </li>
-          <li class="rf-footer__bottom-item">
+          <li class="fr-footer__bottom-item">
             <a
-              class="rf-footer__bottom-link"
+              class="fr-footer__bottom-link"
               :href="`${VUE_APP_MAIN_URL}/information?lang=${$i18n.locale}`"
             >
               {{ $t("information") }}
             </a>
           </li>
-          <li class="rf-footer__bottom-item">
+          <li class="fr-footer__bottom-item">
             <a
-              class="rf-footer__bottom-link"
+              class="fr-footer__bottom-link"
               target="_blank"
               href="https://twitter.com/dossierfacile"
             >
@@ -128,7 +128,7 @@
               </svg>
             </a>
             <a
-              class="rf-footer__bottom-link"
+              class="fr-footer__bottom-link"
               target="_blank"
               href="https://www.facebook.com/DossierFacile.fr"
             >
@@ -150,7 +150,7 @@
               </svg>
             </a>
             <a
-              class="rf-footer__bottom-link"
+              class="fr-footer__bottom-link"
               target="_blank"
               href="https://www.linkedin.com/company/startup-d-etat-locatio/"
             >
@@ -173,7 +173,7 @@
             </a>
           </li>
         </ul>
-        <div class="rf-footer__bottom-copy">© République Française 2021</div>
+        <div class="fr-footer__bottom-copy">© République Française 2021</div>
       </div>
     </div>
   </footer>
@@ -206,11 +206,11 @@ export default class MyFooter extends Vue {
   align-self: center;
 }
 
-.rf-grid-row {
+.fr-grid-row {
   width: 100%;
 }
 
-.rf-footer__content-list {
+.fr-footer__content-list {
   margin-bottom: 0;
 }
 

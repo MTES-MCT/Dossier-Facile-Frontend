@@ -1,7 +1,7 @@
 <template>
   <div style="display: flex">
     <button
-      class="rf-btn rf-btn--secondary icon-btn"
+      class="fr-btn fr-btn--secondary icon-btn"
       title="View"
       @click="view"
       v-if="canView"
@@ -11,7 +11,7 @@
       >
     </button>
     <button
-      class="rf-btn rf-btn--secondary icon-btn"
+      class="fr-btn fr-btn--secondary icon-btn"
       title="Edit"
       @click="edit"
     >
@@ -37,7 +37,7 @@ export default class ViewEditBtn extends Vue {
 </script>
 
 <style scoped lang="scss">
-.rf-btn {
+.fr-btn {
   box-shadow: none;
   background-color: none;
   --color-hover: none;

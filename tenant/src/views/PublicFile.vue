@@ -1,10 +1,10 @@
 <template>
-  <div class="root rf-container">
-    <section class="background rf-pb-5w rf-mb-3w">
-      <div class="rf-container">
-        <div class="rf-col-md-8">
-          <div class="rf-grid-col">
-            <h1 class="rf-h1 color--white rf-mt-3w" v-if="user">
+  <div class="root fr-container">
+    <section class="background fr-pb-5w fr-mb-3w">
+      <div class="fr-container">
+        <div class="fr-col-md-8">
+          <div class="fr-grid-col">
+            <h1 class="fr-h1 color--white fr-mt-3w" v-if="user">
               {{ $t("title", [getName()]) }}
             </h1>
             <p class="text-bold color--white">
@@ -15,10 +15,10 @@
       </div>
     </section>
 
-    <section class="rf-mb-3w">
-      <div id="rf-tabs" class="rf-tabs">
+    <section class="fr-mb-3w">
+      <div id="fr-tabs" class="fr-tabs">
         <ul
-          class="rf-tabs__list"
+          class="fr-tabs__list"
           role="tablist"
           aria-label="[A modifier | nom du système d'onglet]"
         >
@@ -28,7 +28,7 @@
             role="presentation"
           >
             <button
-              class="rf-tabs__tab rf-fi-checkbox-line rf-tabs__tab--icon-left"
+              class="fr-tabs__tab fr-fi-checkbox-line fr-tabs__tab--icon-left"
               :id="`tabpanel-${k}`"
               :tabindex="tabIndex === k ? 0 : -1"
               role="tab"
@@ -45,49 +45,49 @@
           v-for="(tenant, k) in getTenants()"
           v-bind:key="`t${k}`"
           :id="`tabpanel-${k}-panel`"
-          class="rf-tabs__panel"
-          :class="{ 'rf-tabs__panel--selected': tabIndex === k }"
+          class="fr-tabs__panel"
+          :class="{ 'fr-tabs__panel--selected': tabIndex === k }"
           role="tabpanel"
           tabindex="0"
         >
-          <div class="rf-prose">
-            <h4 class="rf-h4" v-if="tenant.typeGuarantor === 'NATURAL_PERSON'">
+          <div class="fr-prose">
+            <h4 class="fr-h4" v-if="tenant.typeGuarantor === 'NATURAL_PERSON'">
               {{ $t("guarant") }}
             </h4>
-            <h4 class="rf-h4" v-if="tenant.typeGuarantor !== 'NATURAL_PERSON'">
+            <h4 class="fr-h4" v-if="tenant.typeGuarantor !== 'NATURAL_PERSON'">
               {{ $t("personnal-file") }}
             </h4>
-            <div class="rf-grid-row file-item">
+            <div class="fr-grid-row file-item">
               <span>{{ $t("identification") }}</span>
             </div>
-            <div class="rf-grid-row file-item">
+            <div class="fr-grid-row file-item">
               <span>{{ $t("residency") }}</span>
             </div>
-            <div class="rf-grid-row file-item">
+            <div class="fr-grid-row file-item">
               <span>{{ $t("professional") }}</span>
             </div>
-            <div class="rf-grid-row file-item">
+            <div class="fr-grid-row file-item">
               <span>{{ $t("financial") }}</span>
             </div>
-            <div class="rf-grid-row file-item">
+            <div class="fr-grid-row file-item">
               <span>{{ $t("tax") }}</span>
             </div>
             <div v-if="hasGuarantor(tenant)">
-              <h4 class="rf-h4">
+              <h4 class="fr-h4">
                 {{ $t("guarant") }}
               </h4>
               <div v-if="tenant.guarantors">
                 <div v-for="g in tenant.guarantors" v-bind:key="g.id">
                   <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
-                    <div class="rf-grid-row file-item">
+                    <div class="fr-grid-row file-item">
                       <span>{{ $t("identification-legal-person") }}</span>
                     </div>
-                    <div class="rf-grid-row file-item">
+                    <div class="fr-grid-row file-item">
                       <span>{{ $t("identification") }}</span>
                     </div>
                   </div>
                   <div v-if="g.typeGuarantor === 'ORGANISM'">
-                    <div class="rf-grid-row file-item">
+                    <div class="fr-grid-row file-item">
                       <span>{{ $t("organism") }}</span>
                     </div>
                   </div>

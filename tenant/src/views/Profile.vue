@@ -1,20 +1,20 @@
 <template>
-  <div class="rf-container rf-container-full-size">
-    <div class="bg-grey rf-grid-row full-height">
-      <LeftEditMenu class="rf-col-md-3 rf-col-xl-2"></LeftEditMenu>
+  <div class="fr-container fr-container-full-size">
+    <div class="bg-grey fr-grid-row full-height">
+      <LeftEditMenu class="fr-col-md-3 fr-col-xl-2"></LeftEditMenu>
       <div
-        class="rf-col-xl-7 rf-col-md-6 rf-col-xs-12 rf-p-4w rf-grid-row rf-grid-row--center"
+        class="fr-col-xl-7 fr-col-md-6 fr-col-xs-12 fr-p-4w fr-grid-row fr-grid-row--center"
       >
-        <div class="rf-col-12 rf-mt-3w max-600">
-          <div class="step rf-mb-5w" v-if="tenantStep <= 1">
+        <div class="fr-col-12 fr-mt-3w max-600">
+          <div class="step fr-mb-5w" v-if="tenantStep <= 1">
             <div class="step-number">1</div>
             <div class="step-title">{{ $t("title-step1") }}</div>
           </div>
-          <div class="step rf-mb-5w" v-if="tenantStep === 2">
+          <div class="step fr-mb-5w" v-if="tenantStep === 2">
             <div class="step-number">2</div>
             <div class="step-title">{{ $t("title-step2") }}</div>
           </div>
-          <div class="step rf-mb-5w" v-if="tenantStep === 3">
+          <div class="step fr-mb-5w" v-if="tenantStep === 3">
             <div class="step-number">3</div>
             <div class="step-title">{{ $t("title-step3") }}</div>
           </div>
@@ -30,7 +30,7 @@
           <ValidateFile v-if="tenantStep >= 4"></ValidateFile>
         </div>
       </div>
-      <div class="rf-col-md-3 rf-col-xs-12 rf-p-2w">
+      <div class="fr-col-md-3 fr-col-xs-12 fr-p-2w">
         <EditSummary></EditSummary>
         <ProfileHelp></ProfileHelp>
       </div>
@@ -76,7 +76,7 @@ export default class Profile extends Vue {
 <style lang="scss" scoped>
 @import "df-shared/src/scss/_variables.scss";
 
-.rf-container-full-size {
+.fr-container-full-size {
   padding-left: 0;
   padding-right: 0;
   max-width: 100%;

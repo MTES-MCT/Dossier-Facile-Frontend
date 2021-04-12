@@ -1,11 +1,11 @@
 <template>
-  <section class="rf-mb-12w">
-    <div class="rf-container">
-      <div class="rf-grid-row justify-content-center">
-        <div class="rf-col-md-10 rf-col-lg-8">
+  <section class="fr-mb-12w">
+    <div class="fr-container">
+      <div class="fr-grid-row justify-content-center">
+        <div class="fr-col-md-10 fr-col-lg-8">
           <article>
             <div class="text-center">
-              <h1 class="rf-h1">
+              <h1 class="fr-h1">
                 DossierFacile fait peau neuve !
               </h1>
               <span>06 Avril 2021 dans </span>

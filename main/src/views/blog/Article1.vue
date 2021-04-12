@@ -1,11 +1,11 @@
 <template>
-  <section class="rf-mb-12w">
-    <div class="rf-container">
-      <div class="rf-grid-row justify-content-center">
-        <div class="rf-col-md-10 rf-col-lg-8">
+  <section class="fr-mb-12w">
+    <div class="fr-container">
+      <div class="fr-grid-row justify-content-center">
+        <div class="fr-col-md-10 fr-col-lg-8">
           <article>
-            <div class="text-center rf-mt-3w rf-mb-3w">
-              <h1 class="rf-h1">
+            <div class="text-center fr-mt-3w fr-mb-3w">
+              <h1 class="fr-h1">
                 Quelles pièces justificatives fournir pour mon dossier de
                 location ?
               </h1>
@@ -33,7 +33,7 @@
                 précédent domicile, de son activité professionnelle, de ses
                 ressources.
               </p>
-              <h3 class="rf-h3">
+              <h3 class="fr-h3">
                 La carte nationale d’identité ou les documents alternatifs
               </h3>
               <p>
@@ -43,7 +43,7 @@
                 <b>carte</b> de séjour peut également convenir si celle-ci est
                 valable.
               </p>
-              <h3 class="rf-h3">
+              <h3 class="fr-h3">
                 Le justificatif de domicile ou de bon paiement des loyers
               </h3>
               <p>
@@ -72,7 +72,7 @@
                   émanant de la personne qui l’hébergeait.
                 </li>
               </ul>
-              <h3 class="rf-h3">
+              <h3 class="fr-h3">
                 Le contrat de travail et/ou les documents alternatifs
               </h3>
               <p>
@@ -87,7 +87,7 @@
                 Les <b>trois dernières fiches de paie </b> sont aussi demandées
                 de manière presque systématiques à cette même fin.
               </p>
-              <h3 class="rf-h3">
+              <h3 class="fr-h3">
                 Cette liste est-elle exhaustive ou le propriétaire peut-il
                 demander tous les documents qu’il veut dans le dossier de
                 location ?

@@ -6,37 +6,37 @@
       </a>
 
       <button
-        class="rf-btn rf-modal-btn"
+        class="fr-btn fr-modal-btn"
         title="Titre de modal simple (ouvre une fenêtre modale)"
         aria-expanded="false"
-        aria-controls="rf-modal-1"
+        aria-controls="fr-modal-1"
       >
         Titre de modal simple
       </button>
 
       <dialog
-        aria-labelledby="rf-modal-title-modal-1"
+        aria-labelledby="fr-modal-title-modal-1"
         role="dialog"
-        id="rf-modal-1"
-        class="rf-modal"
+        id="fr-modal-1"
+        class="fr-modal"
       >
-        <div class="rf-container--fluid rf-container-md">
-          <div class="rf-grid-row rf-grid-row--center">
-            <div class="rf-col-12 rf-col-md-6">
-              <div class="rf-modal__body">
-                <div class="rf-modal__header">
+        <div class="fr-container--fluid fr-container-md">
+          <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-col-md-6">
+              <div class="fr-modal__body">
+                <div class="fr-modal__header">
                   <button
-                    class="rf-link--close rf-link"
+                    class="fr-link--close fr-link"
                     title="Fermer la fenêtre modale"
-                    aria-controls="rf-modal-1"
+                    aria-controls="fr-modal-1"
                     target="_self"
                   >
                     Fermer
                   </button>
                 </div>
-                <div class="rf-modal__content">
-                  <h1 id="rf-modal-title-modal-1" class="rf-modal__title">
-                    <span class="rf-fi-arrow-right-line rf-fi--lg"></span>Titre
+                <div class="fr-modal__content">
+                  <h1 id="fr-modal-title-modal-1" class="fr-modal__title">
+                    <span class="fr-fi-arrow-right-line fr-fi--lg"></span>Titre
                     de la modale
                   </h1>
                   <p>
@@ -76,17 +76,17 @@
         </template>
       </v-gouv-fr-modal>
 
-      <div class="rf-mt-1w">
-        <fieldset class="rf-fieldset">
-          <div class="rf-fieldset__content">
-            <div class="rf-grid-row">
+      <div class="fr-mt-1w">
+        <fieldset class="fr-fieldset">
+          <div class="fr-fieldset__content">
+            <div class="fr-grid-row">
               <div v-for="d in documents" :key="d.key">
                 <BigRadio
                   :val="d"
                   v-model="identificationDocument"
                   @input="onSelectChange()"
                 >
-                  <div class="rf-grid-col spa">
+                  <div class="fr-grid-col spa">
                     <span>{{ $t(d.key) }}</span>
                   </div>
                 </BigRadio>
@@ -106,11 +106,11 @@
     <div v-if="identificationDocument.key">
       <div v-if="identificationDocument.explanationText">
         <div
-          class="rf-mt-1w rf-mb-1w rf-ml-2w"
+          class="fr-mt-1w fr-mb-1w fr-ml-2w"
           v-html="identificationDocument.explanationText"
         ></div>
       </div>
-      <div class="rf-mb-3w">
+      <div class="fr-mb-3w">
         <FileUpload
           :current-status="fileUploadStatus"
           :page="4"
@@ -119,7 +119,7 @@
         ></FileUpload>
       </div>
     </div>
-    <div v-if="identificationFiles().length > 0" class="rf-col-md-12 rf-mb-3w">
+    <div v-if="identificationFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
       <ListItem
         v-for="(file, k) in identificationFiles()"
         :key="k"
@@ -127,9 +127,9 @@
         @remove="remove(file)"
       />
     </div>
-    <div class="rf-col-12 rf-mb-3w rf-mt-2w" v-if="identificationDocument">
+    <div class="fr-col-12 fr-mb-3w fr-mt-2w" v-if="identificationDocument">
       <button
-        class="rf-btn"
+        class="fr-btn"
         type="submit"
         @click="save"
         :disabled="files.length <= 0"

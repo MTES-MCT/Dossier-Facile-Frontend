@@ -1,6 +1,6 @@
 <template>
   <div class="left-edit-menu">
-    <div class="inner-left-edit rf-mt-7w">
+    <div class="inner-left-edit fr-mt-7w">
       <div class="active step">
         <div class="step-number">1</div>
         <div class="step-title">je renseigne mes informations</div>

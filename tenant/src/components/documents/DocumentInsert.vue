@@ -1,15 +1,15 @@
 <template>
-  <div class="rf-grid-row">
-    <div class="rf-col-6 title">Les pièces acceptées</div>
-    <div class="rf-col-6 title">Les pièces refusées</div>
-    <div class="content left rf-col-6">
+  <div class="fr-grid-row">
+    <div class="fr-col-6 title">Les pièces acceptées</div>
+    <div class="fr-col-6 title">Les pièces refusées</div>
+    <div class="content left fr-col-6">
       <ul>
         <li v-for="(v, k) in allowList" :key="k" class="check">
           <span v-html="v"></span>
         </li>
       </ul>
     </div>
-    <div class="content rf-col-6">
+    <div class="content fr-col-6">
       <ul>
         <li v-for="(v, k) in blockList" :key="k" class="times">
           <span v-html="v"></span>
@@ -42,7 +42,7 @@ export default class DocumentInsert extends Vue {
 <style scoped lang="scss">
 @import "df-shared/src/scss/_variables.scss";
 
-.rf-grid-row {
+.fr-grid-row {
   width: 100%;
   background-color: var(--g200);
   border: 1px solid $primary;

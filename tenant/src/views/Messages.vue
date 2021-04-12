@@ -1,10 +1,10 @@
 <template>
-  <div class="rf-container">
-    <div class="rf-grid-row">
-      <div class="rf-col-lg-4">
+  <div class="fr-container">
+    <div class="fr-grid-row">
+      <div class="fr-col-lg-4">
         <NakedCard>
           <template v-slot:content>
-            <div class="rf-card__desc">
+            <div class="fr-card__desc">
               <section>
                 <div class="row" v-if="hasDoc('IDENTIFICATION')">
                   <div class="subtitle">Pièce d’identité</div>
@@ -243,13 +243,13 @@
         </div>
         <NakedCard>
           <template v-slot:content>
-            <div class="rf-grid-row">
-              <div class="rf-col-3 rf-p-2w">
+            <div class="fr-grid-row">
+              <div class="fr-col-3 fr-p-2w">
                 <span class="text-success material-icons big-icon"
                   >check_circle_outline</span
                 >
               </div>
-              <div class="rf-col-9 rf-p-2w">
+              <div class="fr-col-9 fr-p-2w">
                 Votre pièce est validée ! Plus besoin d’y toucher
               </div>
             </div>
@@ -257,13 +257,13 @@
         </NakedCard>
         <NakedCard>
           <template v-slot:content>
-            <div class="rf-grid-row">
-              <div class="rf-col-3 rf-p-2w">
+            <div class="fr-grid-row">
+              <div class="fr-col-3 fr-p-2w">
                 <span class="text-warning material-icons big-icon"
                   >more_time</span
                 >
               </div>
-              <div class="rf-col-9 rf-p-2w">
+              <div class="fr-col-9 fr-p-2w">
                 Nous sommes en cours de traitement de cette pièce
               </div>
             </div>
@@ -271,11 +271,11 @@
         </NakedCard>
         <NakedCard>
           <template v-slot:content>
-            <div class="rf-grid-row">
-              <div class="rf-col-3 rf-p-2w">
+            <div class="fr-grid-row">
+              <div class="fr-col-3 fr-p-2w">
                 <span class="text-danger material-icons big-icon">cancel</span>
               </div>
-              <div class="rf-col-9 rf-p-2w">
+              <div class="fr-col-9 fr-p-2w">
                 Vous devez modifier votre pièce afin que nous validions votre
                 dossier
               </div>
@@ -284,16 +284,16 @@
         </NakedCard>
       </div>
 
-      <div class="rf-col-lg-8 rf-pl-5w rf-pr-3w">
+      <div class="fr-col-lg-8 fr-pl-5w fr-pr-3w">
         <div class="right-container">
-          <div class="bg-orange rf-p-5w">
+          <div class="bg-orange fr-p-5w">
             <h4>Conversation</h4>
           </div>
           <div
-            class="conversation__reply boxed boxed--border rf-p-3w"
+            class="conversation__reply boxed boxed--border fr-p-3w"
             v-if="isNotValidated()"
           >
-            <div class="messages rf-mb-3w">
+            <div class="messages fr-mb-3w">
               <div
                 v-for="m in messageList"
                 :key="m.id"
@@ -311,12 +311,12 @@
             </div>
 
             <form name="form" @submit.prevent="handleSubmit">
-              <div class="rf-grid-row">
-                <div class="rf-col-12 rf-mb-3w">
-                  <div class="rf-input-group">
+              <div class="fr-grid-row">
+                <div class="fr-col-12 fr-mb-3w">
+                  <div class="fr-input-group">
                     <textarea
                       v-model="sendMessage"
-                      class="form-control rf-input"
+                      class="form-control fr-input"
                       autocomplete="off"
                       autofocus="autofocus"
                       id="sendMessage"
@@ -328,8 +328,8 @@
                   </div>
                 </div>
 
-                <div class="rf-col-12 rf-mb-5w">
-                  <button class="rf-btn" type="submit" :disabled="!sendMessage">
+                <div class="fr-col-12 fr-mb-5w">
+                  <button class="fr-btn" type="submit" :disabled="!sendMessage">
                     Répondre
                   </button>
                 </div>
@@ -341,9 +341,9 @@
     </div>
     <Modal v-if="isDocModalVisible" @close="isDocModalVisible = false">
       <template v-slot:body>
-        <div class="rf-container">
-          <div class="rf-grid-row justify-content-center">
-            <div class="rf-col-12">
+        <div class="fr-container">
+          <div class="fr-grid-row justify-content-center">
+            <div class="fr-col-12">
               <div v-for="f in files" v-bind:key="f.id">
                 <ShowDoc :file="f"></ShowDoc>
               </div>

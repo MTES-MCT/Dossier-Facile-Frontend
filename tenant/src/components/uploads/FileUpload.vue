@@ -1,5 +1,5 @@
 <template>
-  <div class="file-upload rf-col-md-12">
+  <div class="file-upload fr-col-md-12">
     <form name="uploadForm" enctype="multipart/form-data" novalidate>
       <div class="dropbox">
         <input
@@ -10,7 +10,7 @@
           class="input-file"
           accept="image/png, image/jpeg, application/pdf"
         />
-        <div v-if="!isSaving()" class="rf-mt-2w rf-mb-2w">
+        <div v-if="!isSaving()" class="fr-mt-2w fr-mb-2w">
           Glissez et déposez vos documents
           <br />
           JPG, PNG ou PDF<br />

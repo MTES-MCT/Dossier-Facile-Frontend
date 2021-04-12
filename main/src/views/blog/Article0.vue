@@ -1,10 +1,10 @@
 <template>
   <div>
-    <section class="s0-background rf-pb-9w">
-      <div class="rf-container">
-        <div class="rf-col-md-8">
-          <div class="rf-grid-col">
-            <h1 class="rf-h1 color--white rf-mt-5w rf-mb-5w">Locatio devient DossierFacile</h1>
+    <section class="s0-background fr-pb-9w">
+      <div class="fr-container">
+        <div class="fr-col-md-8">
+          <div class="fr-grid-col">
+            <h1 class="fr-h1 color--white fr-mt-5w fr-mb-5w">Locatio devient DossierFacile</h1>
             <p class="text-bold color--white">
               Pas de panique ! Le nom change, mais le service reste le même !
             </p>
@@ -12,9 +12,9 @@
         </div>
       </div>
     </section>
-    <section class="rf-mt-3w rf-mb-5w">
-      <div class="rf-container">
-        <div class="rf-grid-row">
+    <section class="fr-mt-3w fr-mb-5w">
+      <div class="fr-container">
+        <div class="fr-grid-row">
           <p>
             Grâce à DossierFacile, ex-Locatio, vous pouvez monter facilement et
             gratuitement votre dossier de location en ligne. Constituer votre
@@ -52,7 +52,7 @@
           </ol>
           <p class="p-btn">
               <a
-                class="rf-btn"
+                class="fr-btn"
                 :href="`${TENANT_URL}/signup?lang=${$i18n.locale}`"
               >
                 {{ $t("button") }}

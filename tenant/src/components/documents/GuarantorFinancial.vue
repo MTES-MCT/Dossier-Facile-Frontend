@@ -9,9 +9,9 @@
     </ConfirmModal>
     <Modal v-show="isNoIncomeAndFiles" @close="isNoIncomeAndFiles = false">
       <template v-slot:body>
-        <div class="rf-container">
-          <div class="rf-grid-row justify-content-center">
-            <div class="rf-col-12">
+        <div class="fr-container">
+          <div class="fr-grid-row justify-content-center">
+            <div class="fr-col-12">
               <p>
                 {{ $t("warning-no-income-and-file") }}
               </p>
@@ -23,17 +23,17 @@
     <div v-for="(f, k) in financialDocuments" :key="k">
       <ValidationObserver v-slot="{ validate }">
         <div
-          class="rf-grid-row rf-mb-3w"
+          class="fr-grid-row fr-mb-3w"
           style="justify-content: space-between"
         >
           <span> Revenu {{ k + 1 }} </span>
-          <DfButton class="rf-btn" size="small" @on-click="removeFinancial(f)">
+          <DfButton class="fr-btn" size="small" @on-click="removeFinancial(f)">
             {{ $t("delete-financial") }}
           </DfButton>
         </div>
         <form name="form" @submit.prevent="validate().then(save(f))">
           <div>
-            <div class="rf-pl-3v">
+            <div class="fr-pl-3v">
               {{ $t("select-label") }}
             </div>
 
@@ -58,7 +58,7 @@
 
             <select
               v-model="f.documentType"
-              class="rf-select rf-mb-3w"
+              class="fr-select fr-mb-3w"
               id="select"
               name="select"
               @change="onSelectChange(f)"
@@ -75,10 +75,10 @@
                 v-slot="{ errors }"
               >
                 <div
-                  class="rf-input-group"
-                  :class="errors[0] ? 'rf-input-group--error' : ''"
+                  class="fr-input-group"
+                  :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
-                  <label for="monthlySum" class="rf-label"
+                  <label for="monthlySum" class="fr-label"
                     >{{ $t("monthlySum-label") }} :</label
                   >
                   <input
@@ -89,32 +89,32 @@
                     step="1"
                     v-model="f.monthlySum"
                     name="monthlySum"
-                    class="validate-required form-control rf-input"
+                    class="validate-required form-control fr-input"
                     required
                   />
-                  <span class="rf-error-text" v-if="errors[0]">{{
+                  <span class="fr-error-text" v-if="errors[0]">{{
                     $t(errors[0])
                   }}</span>
-                  <span class="rf-error-text" v-if="f.monthlySum > 10000">
+                  <span class="fr-error-text" v-if="f.monthlySum > 10000">
                     {{ $t("high-salary") }}
                   </span>
-                  <span class="rf-error-text" v-if="f.monthlySum <= 0">
+                  <span class="fr-error-text" v-if="f.monthlySum <= 0">
                     {{ $t("low-salary") }}
                   </span>
                 </div>
               </validation-provider>
             </div>
-            <div class="rf-mb-3w">
+            <div class="fr-mb-3w">
               {{ f.documentType.explanationText }}
             </div>
-            <div class="rf-mb-3w">
+            <div class="fr-mb-3w">
               <FileUpload
                 :current-status="f.fileUploadStatus"
                 @add-files="addFiles(f, ...arguments)"
                 @reset-files="resetFiles(f, ...arguments)"
               ></FileUpload>
             </div>
-            <div class="rf-col-12 rf-mb-3w">
+            <div class="fr-col-12 fr-mb-3w">
               <input
                 type="checkbox"
                 :id="`noDocument${k}`"
@@ -125,25 +125,25 @@
                 {{ $t(getCheckboxLabel(f.documentType.key)) }}
               </label>
             </div>
-            <div class="rf-mb-5w" v-if="f.noDocument">
+            <div class="fr-mb-5w" v-if="f.noDocument">
               <validation-provider
                 :rules="{ required: true }"
                 v-slot="{ errors }"
               >
-                <div class="rf-input-group">
-                  <label class="rf-label" :for="`customText${k}`">
+                <div class="fr-input-group">
+                  <label class="fr-label" :for="`customText${k}`">
                     {{ $t(getCustomTextLabel(f.documentType.key)) }}
                   </label>
                   <input
                     v-model="f.customText"
-                    class="form-control rf-input validate-required"
+                    class="form-control fr-input validate-required"
                     :id="`customText${k}`"
                     name="customText"
                     placeholder=""
                     type="text"
                     required
                   />
-                  <span class="rf-error-text" v-if="errors[0]">{{
+                  <span class="fr-error-text" v-if="errors[0]">{{
                     $t(errors[0])
                   }}</span>
                 </div>
@@ -152,7 +152,7 @@
           </div>
           <div
             v-if="financialFiles(f).length > 0"
-            class="rf-col-lg-8 rf-col-md-12 rf-mb-3w"
+            class="fr-col-lg-8 fr-col-md-12 fr-mb-3w"
           >
             <ListItem
               v-for="(file, k) in financialFiles(f)"
@@ -161,9 +161,9 @@
               @remove="remove(f, file)"
             />
           </div>
-          <div class="rf-col-12 rf-mb-5w" v-if="f.documentType">
+          <div class="fr-col-12 fr-mb-5w" v-if="f.documentType">
             <button
-              class="rf-btn"
+              class="fr-btn"
               type="submit"
               :disabled="f.files.length <= 0 && !f.noDocument"
             >
@@ -174,8 +174,8 @@
       </ValidationObserver>
       <hr />
     </div>
-    <div class="rf-col-12 rf-mb-5w">
-      <button class="rf-btn" type="submit" @click="addFinancial()">
+    <div class="fr-col-12 fr-mb-5w">
+      <button class="fr-btn" type="submit" @click="addFinancial()">
         Ajouter un revenu
       </button>
     </div>

@@ -17,16 +17,16 @@
         </template>
       </v-gouv-fr-modal>
 
-      <button class="rf-btn" @click="addGuarantor()">
+      <button class="fr-btn" @click="addGuarantor()">
         {{ $t("add-guarantor-btn") }}
       </button>
     </p>
-    <div class="bg--blue info rf-p-2w rf-mt-2w rf-mb-2w border--radius">
-      <h4 class="rf-mt-0">{{ $t("remark") }}</h4>
+    <div class="bg--blue info fr-p-2w fr-mt-2w fr-mb-2w border--radius">
+      <h4 class="fr-mt-0">{{ $t("remark") }}</h4>
       <p>
         {{ $t("not-required") }}
       </p>
-      <DfButton class="rf-btn" @on-click="goValidateFile">
+      <DfButton class="fr-btn" @on-click="goValidateFile">
         {{ $t("validate") }}
       </DfButton>
     </div>

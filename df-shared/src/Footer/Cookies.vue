@@ -8,7 +8,7 @@
       <DfButton primary="true" size="small" @on-click="accept">
         {{ $t("accept") }}
       </DfButton>
-      <DfButton size="small" @on-click="deny" class="rf-ml-3w">
+      <DfButton size="small" @on-click="deny" class="fr-ml-3w">
         {{ $t("deny") }}
       </DfButton>
     </div>

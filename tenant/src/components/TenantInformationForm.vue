@@ -21,14 +21,14 @@
 
     <div v-if="!isOwner()">
       <div
-        class="rf-grid-row rf-grid-row--center"
+        class="fr-grid-row fr-grid-row--center"
         v-if="applicationType === 'COUPLE'"
       >
-        <div class="rf-col-12">
-          <validation-provider rules="is" v-slot="{ errors }" class="rf-col-10">
+        <div class="fr-col-12">
+          <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
             <div
-              class="rf-input-group"
-              :class="errors[0] ? 'rf-input-group--error' : ''"
+              class="fr-input-group"
+              :class="errors[0] ? 'fr-input-group--error' : ''"
             >
               <input
                 type="checkbox"
@@ -37,7 +37,7 @@
                 v-model="spouseAuthorize"
               />
               <label for="authorize">{{ $t("acceptAuthorSpouse") }}</label>
-              <span class="rf-error-text" v-if="errors[0]">{{
+              <span class="fr-error-text" v-if="errors[0]">{{
                 $t(errors[0])
               }}</span>
             </div>
@@ -45,14 +45,14 @@
         </div>
       </div>
       <div
-        class="rf-grid-row rf-grid-row--center"
+        class="fr-grid-row fr-grid-row--center"
         v-if="applicationType === 'GROUP'"
       >
-        <div class="rf-col-12">
-          <validation-provider rules="is" v-slot="{ errors }" class="rf-col-10">
+        <div class="fr-col-12">
+          <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
             <div
-              class="rf-input-group"
-              :class="errors[0] ? 'rf-input-group--error' : ''"
+              class="fr-input-group"
+              :class="errors[0] ? 'fr-input-group--error' : ''"
             >
               <input
                 type="checkbox"
@@ -61,7 +61,7 @@
                 v-model="coTenantAuthorize"
               />
               <label for="authorize">{{ $t("acceptAuthorCoTenant") }}</label>
-              <span class="rf-error-text" v-if="errors[0]">{{
+              <span class="fr-error-text" v-if="errors[0]">{{
                 $t(errors[0])
               }}</span>
             </div>
@@ -79,12 +79,12 @@
           name="form"
           @submit.prevent="validate().then(handleOthersInformation)"
         >
-          <div class="rf-form-group rf-mt-3w">
-            <fieldset class="rf-fieldset">
-              <div class="rf-fieldset__content">
-                <div class="rf-grid-row space-around">
+          <div class="fr-form-group fr-mt-3w">
+            <fieldset class="fr-fieldset">
+              <div class="fr-fieldset__content">
+                <div class="fr-grid-row space-around">
                   <BigRadio :big="true" val="ALONE" v-model="applicationType">
-                    <div class="rf-grid-col spa">
+                    <div class="fr-grid-col spa">
                       <div class="icon-container">
                         <span class="material-icons md-36">person</span>
                       </div>
@@ -92,7 +92,7 @@
                     </div>
                   </BigRadio>
                   <BigRadio :big="true" val="COUPLE" v-model="applicationType">
-                    <div class="rf-grid-col spa">
+                    <div class="fr-grid-col spa">
                       <div class="icon-container">
                         <span class="material-icons md-36">group</span>
                       </div>
@@ -100,7 +100,7 @@
                     </div>
                   </BigRadio>
                   <BigRadio :big="true" val="GROUP" v-model="applicationType">
-                    <div class="rf-grid-col spa">
+                    <div class="fr-grid-col spa">
                       <div class="icon-container">
                         <span class="material-icons md-36">groups</span>
                       </div>
@@ -109,13 +109,13 @@
                   </BigRadio>
                 </div>
                 <CoupleInformation
-                  class="rf-mt-4w"
+                  class="fr-mt-4w"
                   @update-couple="updateCouple"
                   v-if="applicationType === 'COUPLE'"
                 >
                 </CoupleInformation>
                 <RoommatesInformation
-                  class="rf-mt-4w"
+                  class="fr-mt-4w"
                   v-if="applicationType === 'GROUP'"
                 >
                 </RoommatesInformation>

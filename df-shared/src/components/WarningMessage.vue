@@ -1,6 +1,6 @@
 <template>
-  <div class="rf-callout">
-    <p class="rf-callout__text">
+  <div class="fr-callout">
+    <p class="fr-callout__text">
       <slot></slot>
     </p>
   </div>

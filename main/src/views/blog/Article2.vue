@@ -1,11 +1,11 @@
 <template>
-  <section class="rf-mb-12w">
-    <div class="rf-container">
-      <div class="rf-grid-row justify-content-center">
-        <div class="rf-col-md-10 rf-col-lg-8">
+  <section class="fr-mb-12w">
+    <div class="fr-container">
+      <div class="fr-grid-row justify-content-center">
+        <div class="fr-col-md-10 fr-col-lg-8">
           <article>
-            <div class="text-center rf-mt-3w rf-mb-3w">
-              <h1 class="rf-h1">Constituer votre DossierFacile</h1>
+            <div class="text-center fr-mt-3w fr-mb-3w">
+              <h1 class="fr-h1">Constituer votre DossierFacile</h1>
               <span>12 Décembre 2019 dans </span>
               <span>
                 <a href="#" class="underline">DossierFacile</a>
@@ -35,7 +35,7 @@
                 documents, cela <b>peut prendre moins de 5 minutes</b> quelle
                 que soit votre situation.
               </p>
-              <h3 class="rf-h3">Pourquoi constituer un Dossier Facile ?</h3>
+              <h3 class="fr-h3">Pourquoi constituer un Dossier Facile ?</h3>
               <p>
                 Parce que nous avons déjà fait nos preuves ! Sur quasiment 80
                 000 locataires qui ont utilisé nos services, 91,2% d’eux se sont
@@ -70,7 +70,7 @@
                 Quelle que soit votre situation, nous nous engageons à toujours
                 trouver une solution pour vous aider à constituer votre dossier.
               </p>
-              <h3 class="rf-h3">Est-ce gratuit ?</h3>
+              <h3 class="fr-h3">Est-ce gratuit ?</h3>
               <p>
                 Assurément ! DossierFacile est entièrement gratuit ! Voir
                 là-dessus notre article :
@@ -79,7 +79,7 @@
                   >Pourquoi DossierFacile est-il gratuit ?</router-link
                 >
               </p>
-              <h3 class="rf-h3">Comment constituer un Dossier Facile ?</h3>
+              <h3 class="fr-h3">Comment constituer un Dossier Facile ?</h3>
               <p>
                 Pour constituer votre DossierFacile, vous devrez d’abord vous
                 inscrire en rentrant votre nom, votre prénom, votre adresse-mail

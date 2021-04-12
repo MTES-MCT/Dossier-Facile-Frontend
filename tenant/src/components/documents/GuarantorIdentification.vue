@@ -1,36 +1,36 @@
 <template>
   <div>
-    <div class="rf-grid-row rf-grid-row--center">
-      <div class="rf-col-12 rf-mb-3w">
+    <div class="fr-grid-row fr-grid-row--center">
+      <div class="fr-col-12 fr-mb-3w">
         <validation-provider rules="required" v-slot="{ errors }">
           <div
-            class="rf-input-group"
-            :class="errors[0] ? 'rf-input-group--error' : ''"
+            class="fr-input-group"
+            :class="errors[0] ? 'fr-input-group--error' : ''"
           >
-            <label class="rf-label" for="lastname"
+            <label class="fr-label" for="lastname"
               >{{ $t("lastname") }} :</label
             >
             <input
               v-model="lastName"
-              class="form-control rf-input validate-required"
+              class="form-control fr-input validate-required"
               id="lastname"
               name="lastname"
               :placeholder="$t('lastname')"
               type="text"
             />
-            <span class="rf-error-text" v-if="errors[0]">{{
+            <span class="fr-error-text" v-if="errors[0]">{{
               $t(errors[0])
             }}</span>
           </div>
         </validation-provider>
       </div>
-      <div class="rf-col-12 rf-mb-3w">
+      <div class="fr-col-12 fr-mb-3w">
         <validation-provider rules="required" v-slot="{ errors }">
           <div
-            class="rf-input-group"
-            :class="errors[0] ? 'rf-input-group--error' : ''"
+            class="fr-input-group"
+            :class="errors[0] ? 'fr-input-group--error' : ''"
           >
-            <label for="firstname" class="rf-label"
+            <label for="firstname" class="fr-label"
               >{{ $t("firstname") }} :</label
             >
             <input
@@ -39,9 +39,9 @@
               type="text"
               v-model="firstName"
               name="firstname"
-              class="validate-required form-control rf-input"
+              class="validate-required form-control fr-input"
             />
-            <span class="rf-error-text" v-if="errors[0]">{{
+            <span class="fr-error-text" v-if="errors[0]">{{
               $t(errors[0])
             }}</span>
           </div>
@@ -49,7 +49,7 @@
       </div>
     </div>
     <div>
-      <div class="rf-pl-3v">
+      <div class="fr-pl-3v">
         {{ $t("select-label") }}
       </div>
 
@@ -72,17 +72,17 @@
         </template>
       </v-gouv-fr-modal>
 
-      <div class="rf-mt-1w">
-        <fieldset class="rf-fieldset">
-          <div class="rf-fieldset__content">
-            <div class="rf-grid-row">
+      <div class="fr-mt-1w">
+        <fieldset class="fr-fieldset">
+          <div class="fr-fieldset__content">
+            <div class="fr-grid-row">
               <div v-for="d in documents" :key="d.key">
                 <BigRadio
                   :val="d"
                   v-model="identificationDocument"
                   @input="onSelectChange()"
                 >
-                  <div class="rf-grid-col spa">
+                  <div class="fr-grid-col spa">
                     <span>{{ $t(d.key) }}</span>
                   </div>
                 </BigRadio>
@@ -100,10 +100,10 @@
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
     <div v-if="identificationDocument.key">
-      <div v-if="identificationDocument.explanationText" class="rf-mb-3w">
+      <div v-if="identificationDocument.explanationText" class="fr-mb-3w">
         <p v-html="identificationDocument.explanationText"></p>
       </div>
-      <div class="rf-mb-3w">
+      <div class="fr-mb-3w">
         <FileUpload
           :current-status="fileUploadStatus"
           :page="4"
@@ -112,7 +112,7 @@
         ></FileUpload>
       </div>
     </div>
-    <div v-if="identificationFiles().length > 0" class="rf-col-md-12 rf-mb-3w">
+    <div v-if="identificationFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
       <ListItem
         v-for="(file, k) in identificationFiles()"
         :key="k"
@@ -120,9 +120,9 @@
         @remove="remove(file)"
       />
     </div>
-    <div class="rf-col-12 rf-mb-2w" v-if="identificationDocument">
+    <div class="fr-col-12 fr-mb-2w" v-if="identificationDocument">
       <button
-        class="rf-btn"
+        class="fr-btn"
         type="submit"
         @click="save"
         :disabled="files.length <= 0"

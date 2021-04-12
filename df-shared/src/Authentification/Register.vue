@@ -1,35 +1,35 @@
 <template>
-  <div class="rf-grid-row rf-grid-row--center">
-    <div class="rf-col-md-8 rf-col-lg-6">
-      <h2 class="rf-h2 text-center rf-mt-7w rf-mb-5w">
+  <div class="fr-grid-row fr-grid-row--center">
+    <div class="fr-col-md-8 fr-col-lg-6">
+      <h2 class="fr-h2 text-center fr-mt-7w fr-mb-5w">
         {{ $t("title") }}
       </h2>
     <ValidationObserver v-slot="{ validate }">
       <form name="form" @submit.prevent="validate().then(handleRegister)">
-        <div class="rf-grid-row rf-grid-row--center">
-          <div class="rf-col-12 rf-mb-3w">
+        <div class="fr-grid-row fr-grid-row--center">
+          <div class="fr-col-12 fr-mb-3w">
             <validation-provider rules="required" v-slot="{ errors }">
               <div
-                class="rf-input-group"
-                :class="errors[0] ? 'rf-input-group--error' : ''"
+                class="fr-input-group"
+                :class="errors[0] ? 'fr-input-group--error' : ''"
               >
-                <label class="rf-label" for="email">{{ $t("email") }}</label>
+                <label class="fr-label" for="email">{{ $t("email") }}</label>
                 <input
                   v-model="user.email"
-                  class="form-control validate-required rf-input"
+                  class="form-control validate-required fr-input"
                   id="email"
                   name="email"
                   :placeholder="$t('email-placeholder')"
                   type="email"
                   required
                 />
-                <span class="rf-error-text" v-if="errors[0]">{{
+                <span class="fr-error-text" v-if="errors[0]">{{
                   $t(errors[0])
                 }}</span>
               </div>
             </validation-provider>
           </div>
-          <div class="rf-col-12 rf-mb-3w">
+          <div class="fr-col-12 fr-mb-3w">
             <validation-provider
               :rules="`required|strength:${score}`"
               v-slot="{ errors }"
@@ -37,10 +37,10 @@
               vid="password"
             >
               <div
-                class="rf-input-group"
-                :class="errors[0] ? 'rf-input-group--error' : ''"
+                class="fr-input-group"
+                :class="errors[0] ? 'fr-input-group--error' : ''"
               >
-                <label class="rf-label" for="password">{{
+                <label class="fr-label" for="password">{{
                   $t("password")
                 }}</label>
                 <input
@@ -49,7 +49,7 @@
                   type="password"
                   v-model="user.password"
                   name="password"
-                  class="validate-required form-control rf-input"
+                  class="validate-required form-control fr-input"
                   required
                 />
                 <password
@@ -57,22 +57,22 @@
                   :strength-meter-only="true"
                   @score="setScore"
                 />
-                <span class="rf-error-text" v-if="errors[0]">{{
+                <span class="fr-error-text" v-if="errors[0]">{{
                   $t(errors[0])
                 }}</span>
               </div>
             </validation-provider>
           </div>
-          <div class="rf-col-12 rf-mb-3w">
+          <div class="fr-col-12 fr-mb-3w">
             <validation-provider
               rules="required|confirmed:password"
               v-slot="{ errors }"
             >
               <div
-                class="rf-input-group"
-                :class="errors[0] ? 'rf-input-group--error' : ''"
+                class="fr-input-group"
+                :class="errors[0] ? 'fr-input-group--error' : ''"
               >
-                <label class="rf-label" for="confirm-password">
+                <label class="fr-label" for="confirm-password">
                   {{ $t("confirm-password") }}</label
                 >
                 <input
@@ -81,17 +81,17 @@
                   type="password"
                   v-model="user.confirm"
                   name="confirm-password"
-                  class="validate-required form-control rf-input"
+                  class="validate-required form-control fr-input"
                   required
                 />
-                <span class="rf-error-text" v-if="errors[0]">{{
+                <span class="fr-error-text" v-if="errors[0]">{{
                   $t(errors[0])
                 }}</span>
               </div>
             </validation-provider>
           </div>
 
-          <div class="rf-col-12 rf-mb-3w">
+          <div class="fr-col-12 fr-mb-3w">
             <vue-recaptcha
               ref="captcha"
               :sitekey="SITE_KEY"
@@ -99,14 +99,14 @@
               @verify="onVerify"
             ></vue-recaptcha>
           </div>
-          <div class="rf-col-12 rf-mb-3w">
+          <div class="fr-col-12 fr-mb-3w">
             <validation-provider
               rules="is"
               v-slot="{ errors }"
             >
               <div
-                class="rf-input-group"
-                :class="errors[0] ? 'rf-input-group--error' : ''"
+                class="fr-input-group"
+                :class="errors[0] ? 'fr-input-group--error' : ''"
               >
                 <input
                   type="checkbox"
@@ -115,15 +115,15 @@
                   v-model="acceptCgu"
                 />
                 <label for="acceptCgu" v-html="$t('accept-cgu')"></label>
-                <span class="rf-error-text" v-if="errors[0]">{{
+                <span class="fr-error-text" v-if="errors[0]">{{
                   $t(errors[0])
                 }}</span>
               </div>
             </validation-provider>
           </div>
 
-          <div class="rf-col-12 text-center rf-mb-5w">
-            <button class="rf-btn" type="submit">
+          <div class="fr-col-12 text-center fr-mb-5w">
+            <button class="fr-btn" type="submit">
               {{ $t("submit") }}
             </button>
           </div>

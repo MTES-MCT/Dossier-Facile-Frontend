@@ -1,31 +1,31 @@
 <template>
-    <ul class="rf-nav__list">
-      <li class="rf-nav__item" v-if="user">
-        <a href="/account" class="rf-nav__link">
+    <ul class="fr-nav__list">
+      <li class="fr-nav__item" v-if="user">
+        <a href="/account" class="fr-nav__link">
           {{ $t("profile") }}
         </a>
       </li>
-      <li class="rf-nav__item" v-if="user">
-        <a href="/messaging" class="rf-nav__link">
+      <li class="fr-nav__item" v-if="user">
+        <a href="/messaging" class="fr-nav__link">
           {{ $t("messaging") }}
           <span v-if="newMessage > 0" class="badge">{{ newMessage }}</span>
         </a>
       </li>
-      <li class="rf-nav__item">
-        <a :href="`${MAIN_URL}/faq?lang=${$i18n.locale}`" class="rf-nav__link">
+      <li class="fr-nav__item">
+        <a :href="`${MAIN_URL}/faq?lang=${$i18n.locale}`" class="fr-nav__link">
           {{ $t("faq") }}
         </a>
       </li>
-      <li class="rf-nav__item">
+      <li class="fr-nav__item">
         <a
           :href="`${MAIN_URL}/information?lang=${$i18n.locale}`"
-          class="rf-nav__link"
+          class="fr-nav__link"
         >
           {{ $t("information") }}
         </a>
       </li>
-      <li class="rf-nav__item">
-        <a :href="`${MAIN_URL}/blog?lang=${$i18n.locale}`" class="rf-nav__link">
+      <li class="fr-nav__item">
+        <a :href="`${MAIN_URL}/blog?lang=${$i18n.locale}`" class="fr-nav__link">
           {{ $t("blog") }}
         </a>
       </li>
@@ -56,7 +56,7 @@ export default class Menu extends Vue {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 @media all and (min-width: 768px) {
-  .rf-nav__list {
+  .fr-nav__list {
     flex-direction: row-reverse;
   }
 }
@@ -71,7 +71,7 @@ export default class Menu extends Vue {
   z-index: 1;
 }
 
-.rf-nav__item {
+.fr-nav__item {
   position: relative;
 }
 </style>

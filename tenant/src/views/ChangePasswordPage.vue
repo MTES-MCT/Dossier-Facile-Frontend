@@ -1,5 +1,5 @@
 <template>
-  <div class="rf-container">
+  <div class="fr-container">
     <ChangePassword @on-change-password="onChangePassword" />
   </div>
 </template>

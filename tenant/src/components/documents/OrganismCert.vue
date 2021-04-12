@@ -1,10 +1,10 @@
 <template>
   <div>
     <div>
-      <div class="rf-mb-3w">
+      <div class="fr-mb-3w">
         {{ $t("organism-label") }}
       </div>
-      <div class="rf-mb-3w">
+      <div class="fr-mb-3w">
         <FileUpload
           :current-status="fileUploadStatus"
           @add-files="addFiles"
@@ -12,7 +12,7 @@
         ></FileUpload>
       </div>
     </div>
-    <div class="rf-col-lg-8 rf-col-md-12 rf-mb-3w">
+    <div class="fr-col-lg-8 fr-col-md-12 fr-mb-3w">
       <ListItem
         v-for="(file, k) in listFiles()"
         :key="k"
@@ -26,9 +26,9 @@
         "
       />
     </div>
-    <div class="rf-col-12 rf-mb-2w" v-if="identificationDocument">
+    <div class="fr-col-12 fr-mb-2w" v-if="identificationDocument">
       <button
-        class="rf-btn"
+        class="fr-btn"
         type="submit"
         @click="save"
         :disabled="files.length <= 0"
@@ -36,7 +36,7 @@
         Enregistrer la pièce
       </button>
     </div>
-    <div class="rf-mb-5w">
+    <div class="fr-mb-5w">
       <DocumentInsert
         :allow-list="acceptedProofs"
         :block-list="refusedProofs"

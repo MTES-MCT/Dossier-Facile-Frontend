@@ -2,36 +2,36 @@
   <div class="v-gouv-fr-modal">
     <a
       href="#"
-      class="rf-link"
-      data-rf-opened="false"
-      aria-controls="rf-modal-1"
+      class="fr-link"
+      data-fr-opened="false"
+      aria-controls="fr-modal-1"
       title="Titre de modal simple (ouvre une fenêtre modale)"
     >
       <slot name="button"> </slot>
     </a>
     <dialog
-      aria-labelledby="rf-modal-title-modal-1"
+      aria-labelledby="fr-modal-title-modal-1"
       role="dialog"
-      id="rf-modal-1"
-      class="rf-modal"
+      id="fr-modal-1"
+      class="fr-modal"
     >
-      <div class="rf-container--fluid rf-container-md">
-        <div class="rf-grid-row rf-grid-row--center">
-          <div class="rf-col-12 rf-col-md-6">
-            <div class="rf-modal__body">
-              <div class="rf-modal__header">
+      <div class="fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+          <div class="fr-col-12 fr-col-md-6">
+            <div class="fr-modal__body">
+              <div class="fr-modal__header">
                 <button
-                  class="rf-link--close rf-link"
+                  class="fr-link--close fr-link"
                   title="Fermer la fenêtre modale"
-                  aria-controls="rf-modal-1"
+                  aria-controls="fr-modal-1"
                   target="_self"
                 >
                   Fermer
                 </button>
               </div>
-              <div class="rf-modal__content">
-                <h1 id="rf-modal-title-modal-1" class="rf-modal__title">
-                  <span class="rf-fi-arrow-right-line rf-fi--lg"></span>
+              <div class="fr-modal__content">
+                <h1 id="fr-modal-title-modal-1" class="fr-modal__title">
+                  <span class="fr-fi-arrow-right-line fr-fi--lg"></span>
                   <slot name="title"> </slot>
                 </h1>
                 <slot name="content"> </slot>
