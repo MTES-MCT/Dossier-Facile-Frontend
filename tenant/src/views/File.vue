@@ -97,13 +97,13 @@
                     <div class="fr-grid-row file-item">
                       <span>{{ $t("identification-legal-person") }}</span
                       ><DfButton
-                        @on-click="open(tenant, 'IDENTIFICATION_LEGAL_PERSON')"
+                        @on-click="open(g, 'IDENTIFICATION_LEGAL_PERSON')"
                         >{{ $t("see") }}</DfButton
                       >
                     </div>
                     <div class="fr-grid-row file-item">
                       <span>{{ $t("identification") }}</span
-                      ><DfButton @on-click="open(tenant, 'IDENTIFICATION')">{{
+                      ><DfButton @on-click="open(g, 'IDENTIFICATION')">{{
                         $t("see")
                       }}</DfButton>
                     </div>
@@ -111,7 +111,7 @@
                   <div v-if="g.typeGuarantor === 'ORGANISM'">
                     <div class="fr-grid-row file-item">
                       <span>{{ $t("organism") }}</span
-                      ><DfButton @on-click="open(tenant, 'IDENTIFICATION')">{{
+                      ><DfButton @on-click="open(g, 'IDENTIFICATION')">{{
                         $t("see")
                       }}</DfButton>
                     </div>
@@ -186,8 +186,8 @@ export default class File extends Vue {
     return users;
   }
 
-  open(tenant: User, s: string) {
-    const doc = tenant.documents?.find(d => {
+  open(u: User | Guarantor, s: string) {
+    const doc = u.documents?.find(d => {
       return d.documentCategory === s;
     });
     if (doc?.name) {

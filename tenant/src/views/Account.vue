@@ -447,7 +447,7 @@
                           <div class="fr-tile__body fr-ml-2w fr-mr-2w">
                             <h4 class="fr-tile__title">
                               <a class="fr-tile__link" href>{{
-                                $t("identification")
+                                $t("organism-identification")
                               }}</a>
                             </h4>
                             <StatusTag
@@ -1039,7 +1039,8 @@ hr {
     "copied": "Copied !",
     "ALONE": "seul·e",
     "COUPLE": "en couple",
-    "GROUP": "en colocation"
+    "GROUP": "en colocation",
+    "organism-identification": "Organism"
   },
   "fr": {
     "title": "Bonjour {0}, votre dossier {1} !",
@@ -1096,7 +1097,8 @@ hr {
     "copied": "Copié !",
     "ALONE": "seul·e",
     "COUPLE": "en couple",
-    "GROUP": "en colocation"
+    "GROUP": "en colocation",
+    "organism-identification": "Certificat de l'organisme"
   }
 }
 </i18n>
