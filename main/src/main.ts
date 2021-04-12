@@ -50,7 +50,7 @@ new Vue({
 const cookieHidden = Vue.$cookies.isKey("accept-cookie")
   ? Vue.$cookies.get("accept-cookie")
   : false;
-if (cookieHidden) {
+if (cookieHidden === "true") {
   inspectlet();
   Vue.use(
     VueGtag,
