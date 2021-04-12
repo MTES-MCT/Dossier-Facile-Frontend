@@ -41,8 +41,10 @@ export default class BigRadio extends Vue {
   &:hover {
     border: 1px solid var(--primary);
     background-color: var(--primary);
+    color: white;
     box-shadow: 0 0 0.666em rgba(0, 0, 0, 0.25);
     &.big {
+      color: var(--g800);
       background-color: var(--bd300);
     }
   }
@@ -50,7 +52,9 @@ export default class BigRadio extends Vue {
   &.selected {
     border: 1px solid var(--primary);
     background-color: var(--primary);
+    color: white;
     &.big {
+      color: var(--g800);
       background-color: var(--bd300);
     }
   }
