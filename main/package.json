@@ -12,7 +12,7 @@
     "sitemap": "vue-cli-service sitemap"
   },
   "dependencies": {
-    "@gouvfr/dsfr": "^0.6.0",
+    "@gouvfr/dsfr": "1.0.0",
     "@types/jquery": "^3.5.4",
     "axios": "^0.21.0",
     "core-js": "^3.6.5",
