@@ -200,7 +200,14 @@ const routes: Array<RouteConfig> = [
     component: () =>
       import(/* webpackChunkName: "statistics" */ "../views/Statistics.vue")
   },
-  { path: "*", redirect: "/" }
+  {
+    path: "*",
+    name: "404",
+    meta: {
+      title: "404 - DossierFacile"
+    },
+    component: () => import(/* webpackChunkName: "404" */ "@/views/404.vue")
+  }
 ];
 
 const router = new VueRouter({
