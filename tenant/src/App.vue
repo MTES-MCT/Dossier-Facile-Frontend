@@ -55,9 +55,7 @@ import router from "./router";
   }
 })
 export default class App extends Vue {
-  cookieHidden = this.$cookies.isKey("accept-cookie")
-    ? this.$cookies.get("accept-cookie")
-    : false;
+  cookieHidden = this.$cookies.isKey("accept-cookie");
   isLoggedIn!: boolean;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
 
