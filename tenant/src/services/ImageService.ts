@@ -2,9 +2,9 @@ import { DfFile } from "df-shared/src/models/DfFile";
 
 export const ImageService = {
   isImage(file: DfFile) {
-    if (file.path) {
-      return !file.path.endsWith("pdf");
+    if (file.originalName) {
+      return !file.originalName?.toLowerCase().endsWith("pdf");
     }
-    return !file.name?.endsWith("pdf");
+    return !file.name?.toLocaleLowerCase().endsWith("pdf");
   }
 };
