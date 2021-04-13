@@ -433,7 +433,7 @@ export default class Financial extends Vue {
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
       });
     } else {
-      if (f.files.length > 0) {
+      if (this.financialFiles(f).length > 0) {
         this.isNoIncomeAndFiles = true;
         return;
       }
@@ -678,7 +678,7 @@ export default class Financial extends Vue {
   "custom-text": "Afin d'améliorer votre dossier, vous pouvez ajouter une explication :",
   "i-have-no-income": "Je n'ai pas de revenu",
   "has-no-income": "Vous avez indiqué ne pas avoir de revenu",
-  "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et ne pas avoir de revenu. Veuillez décocher la case ou supprimer vos fichiers.",
+  "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers.",
   "save": "Sauvegarder"
 }
 }

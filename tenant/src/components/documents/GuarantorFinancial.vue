@@ -7,6 +7,19 @@
     >
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
+    <Modal v-show="isNoIncomeAndFiles" @close="isNoIncomeAndFiles = false">
+      <template v-slot:body>
+        <div class="rf-container">
+          <div class="rf-grid-row justify-content-center">
+            <div class="rf-col-12">
+              <p>
+                {{ $t("warning-no-income-and-file") }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </template>
+    </Modal>
     <div v-for="(f, k) in financialDocuments" :key="k">
       <ValidationObserver v-slot="{ validate }">
         <div
@@ -174,6 +187,7 @@ import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { mapState } from "vuex";
+import Modal from "df-shared/src/components/Modal.vue";
 
 extend("regex", {
   ...regex,
@@ -204,7 +218,8 @@ class F {
     ListItem,
     DfButton,
     WarningMessage,
-    ConfirmModal
+    ConfirmModal,
+    Modal
   },
   computed: {
     ...mapState({
@@ -222,6 +237,7 @@ export default class GuarantorFinancial extends Vue {
   documents = DocumentTypeConstants.GUARANTOR_FINANCIAL_DOCS;
   isDocDeleteVisible = false;
   selectedDoc?: F;
+  isNoIncomeAndFiles = false;
 
   isNewDocument(f: F) {
     if (f.id !== null) {
@@ -350,6 +366,11 @@ export default class GuarantorFinancial extends Vue {
         const f: File = newFiles[x].file || new File([], "");
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
       });
+    } else {
+      if (this.financialFiles(f).length > 0) {
+        this.isNoIncomeAndFiles = true;
+        return;
+      }
     }
 
     const typeDocumentFinancial = f.documentType?.value || "";
@@ -514,6 +535,7 @@ export default class GuarantorFinancial extends Vue {
   "field-required": "This field is required",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
   "register": "Register",
+  "warning-no-income-and-file": "You can't have files and no income. You must uncheck the box or delete your files.",
   "select-label": "Attention, Please enter only your guarantor own income."
 },
 "fr": {
@@ -542,7 +564,8 @@ export default class GuarantorFinancial extends Vue {
   "field-required": "Ce champ est requis",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à la situation de votre garant.",
   "register": "Enregistrer",
-  "select-label": "Attention, Veuillez renseigner uniquement les revenus de votre garant."
+  "select-label": "Attention, Veuillez renseigner uniquement les revenus de votre garant.",
+  "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers."
 }
 }
 </i18n>
