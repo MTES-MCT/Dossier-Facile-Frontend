@@ -383,7 +383,7 @@ export default class GuarantorFinancial extends Vue {
       formData.append("monthlySum", f.monthlySum.toString());
     }
     if (f.id) {
-      formData.append("id", f.id.toString());
+      formData.append("documentId", f.id.toString());
     }
     if (f.customText != "") {
       formData.append("customText", f.customText);
