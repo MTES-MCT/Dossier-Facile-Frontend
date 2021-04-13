@@ -38,7 +38,6 @@ export default class ShowDoc extends Vue {
   mounted() {
     if (this.file.path) {
       axios.get(this.file.path, { responseType: "blob" }).then(response => {
-        debugger;
         const blob = new Blob([response.data], { type: "application/pdf" });
         this.pdfContent = window.URL.createObjectURL(blob);
         this.isLoaded = true;
