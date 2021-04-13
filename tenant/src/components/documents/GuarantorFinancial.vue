@@ -9,20 +9,16 @@
     </ConfirmModal>
     <div v-for="(f, k) in financialDocuments" :key="k">
       <ValidationObserver v-slot="{ validate }">
+        <div
+          class="rf-grid-row rf-mb-3w"
+          style="justify-content: space-between"
+        >
+          <span> Revenu {{ k + 1 }} </span>
+          <DfButton class="rf-btn" size="small" @on-click="removeFinancial(f)">
+            {{ $t("delete-financial") }}
+          </DfButton>
+        </div>
         <form name="form" @submit.prevent="validate().then(save(f))">
-          <div
-            class="rf-grid-row rf-mb-3w"
-            style="justify-content: space-between"
-          >
-            <span> Revenu {{ k + 1 }} </span>
-            <DfButton
-              class="rf-btn"
-              size="small"
-              @on-click="removeFinancial(f)"
-            >
-              {{ $t("delete-financial") }}
-            </DfButton>
-          </div>
           <div>
             <label class="rf-label" for="select">
               {{ $t("select-label") }}
