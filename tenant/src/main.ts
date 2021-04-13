@@ -9,6 +9,7 @@ import Toasted from "vue-toasted";
 import VueCookies from "vue-cookies";
 import "vue-loading-overlay/dist/vue-loading.css";
 import VueGtag from "vue-gtag";
+import VueAuthImage from "vue-auth-image";
 
 require("../../node_modules/@gouvfr/all/dist/css/all.min.css");
 
@@ -22,6 +23,7 @@ declare global {
 Vue.config.productionTip = false;
 
 Vue.use(VueCookies);
+Vue.use(VueAuthImage);
 
 const app = new Vue({
   router,

@@ -3,11 +3,7 @@
     <div class="rf-grid-row justify-content-center">
       <div class="rf-col-12">
         <div v-if="file.path">
-          <vue-load-image v-if="isImage()">
-            <img slot="image" :src="file.path" />
-            <img slot="preloader" src="../../assets/images/image-loader.gif" />
-            <div slot="error">error message</div>
-          </vue-load-image>
+          <img slot="image" v-auth-image="file.path" v-if="isImage()" />
           <PdfViewer :src="file.path" v-if="!isImage()"></PdfViewer>
         </div>
       </div>
@@ -19,13 +15,11 @@
 import { DfFile } from "df-shared/src/models/DfFile";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import PdfViewer from "../PdfViewer.vue";
-import VueLoadImage from "vue-load-image";
 import { ImageService } from "@/services/ImageService";
 
 @Component({
   components: {
-    PdfViewer,
-    VueLoadImage
+    PdfViewer
   }
 })
 export default class ShowDoc extends Vue {
