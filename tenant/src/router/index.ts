@@ -157,7 +157,14 @@ const routes: Array<RouteConfig> = [
         /* webpackChunkName: "changePassword" */ "@/views/ChangePasswordPage.vue"
       )
   },
-  { path: "*", redirect: "/" }
+  {
+    path: "*",
+    name: "404",
+    meta: {
+      title: "404 - DossierFacile"
+    },
+    component: () => import(/* webpackChunkName: "404" */ "@/views/404.vue")
+  }
 ];
 
 const router = new VueRouter({

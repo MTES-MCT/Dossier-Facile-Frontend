@@ -7,22 +7,31 @@
     >
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
+    <Modal v-show="isNoIncomeAndFiles" @close="isNoIncomeAndFiles = false">
+      <template v-slot:body>
+        <div class="rf-container">
+          <div class="rf-grid-row justify-content-center">
+            <div class="rf-col-12">
+              <p>
+                {{ $t("warning-no-income-and-file") }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </template>
+    </Modal>
     <div v-for="(f, k) in financialDocuments" :key="k">
       <ValidationObserver v-slot="{ validate }">
+        <div
+          class="rf-grid-row rf-mb-3w"
+          style="justify-content: space-between"
+        >
+          <span> Revenu {{ k + 1 }} </span>
+          <DfButton class="rf-btn" size="small" @on-click="removeFinancial(f)">
+            {{ $t("delete-financial") }}
+          </DfButton>
+        </div>
         <form name="form" @submit.prevent="validate().then(save(f))">
-          <div
-            class="rf-grid-row rf-mb-3w"
-            style="justify-content: space-between"
-          >
-            <span> Revenu {{ k + 1 }} </span>
-            <DfButton
-              class="rf-btn"
-              size="small"
-              @on-click="removeFinancial(f)"
-            >
-              {{ $t("delete-financial") }}
-            </DfButton>
-          </div>
           <div>
             <label class="rf-label" for="select">
               {{ $t("select-label") }}
@@ -178,6 +187,7 @@ import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { mapState } from "vuex";
+import Modal from "df-shared/src/components/Modal.vue";
 
 extend("regex", {
   ...regex,
@@ -208,7 +218,8 @@ class F {
     ListItem,
     DfButton,
     WarningMessage,
-    ConfirmModal
+    ConfirmModal,
+    Modal
   },
   computed: {
     ...mapState({
@@ -226,6 +237,7 @@ export default class GuarantorFinancial extends Vue {
   documents = DocumentTypeConstants.GUARANTOR_FINANCIAL_DOCS;
   isDocDeleteVisible = false;
   selectedDoc?: F;
+  isNoIncomeAndFiles = false;
 
   isNewDocument(f: F) {
     if (f.id !== null) {
@@ -354,6 +366,11 @@ export default class GuarantorFinancial extends Vue {
         const f: File = newFiles[x].file || new File([], "");
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
       });
+    } else {
+      if (this.financialFiles(f).length > 0) {
+        this.isNoIncomeAndFiles = true;
+        return;
+      }
     }
 
     const typeDocumentFinancial = f.documentType?.value || "";
@@ -366,7 +383,7 @@ export default class GuarantorFinancial extends Vue {
       formData.append("monthlySum", f.monthlySum.toString());
     }
     if (f.id) {
-      formData.append("id", f.id.toString());
+      formData.append("documentId", f.id.toString());
     }
     if (f.customText != "") {
       formData.append("customText", f.customText);
@@ -500,14 +517,14 @@ export default class GuarantorFinancial extends Vue {
   "pension": "Pensions",
   "scholarship": "Scholarship",
   "monthlySum": "Value in euros",
-  "monthlySum-label": "Salary (after tax)",
+  "monthlySum-label": "Monthly salary (after tax)",
   "noDocument-social": "I cannot provide proof of payment of social benefits",
-  "noDocument-salary": "I cannot provide my guarantor last three payslips",
+  "noDocument-salary": "I cannot provide the last three payslips or a balance sheet of my guarantor",
   "noDocument-rent": "I cannot provide proof of rent",
   "noDocument-pension": "I cannot provide proof of pension",
   "noDocument-scholarship": "I cannot provide proof of scholarship",
   "customText-social": "In order to improve my file, I explain why I cannot provide the justificatives:",
-  "customText-salary": "In order to improve my file, I explain why I cannot provide the last three payslips of my guarantor:",
+  "customText-salary": "In order to improve my file, I explain why I cannot provide the last three payslips or a balance sheet of my guarantor:",
   "customText-rent": "In order to improve my file, I explain why I cannot provide the justificatives:",
   "customText-pension": "In order to improve my file, I explain why I cannot provide the justificatives:",
   "customText-scholarship": "In order to improve my file, I explain why I cannot provide the justificatives:",
@@ -518,6 +535,7 @@ export default class GuarantorFinancial extends Vue {
   "field-required": "This field is required",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
   "register": "Register",
+  "warning-no-income-and-file": "You can't have files and no income. You must uncheck the box or delete your files.",
   "select-label": "Attention, Please enter only your guarantor own income."
 },
 "fr": {
@@ -528,14 +546,14 @@ export default class GuarantorFinancial extends Vue {
   "pension": "Pensions",
   "scholarship": "Bourses",
   "monthlySum": "Montant en euros",
-  "monthlySum-label": "Montant du revenu (après impôts)",
+  "monthlySum-label": "Montant du revenu mensuel (après impôts)",
   "noDocument-social": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
-  "noDocument-salary": "Je ne peux pas fournir les trois derniers bulletins de salaire de mon garant",
+  "noDocument-salary": "Je ne peux pas fournir les trois derniers bulletins de salaire ou un bilan comptable de mon garant",
   "noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",
   "noDocument-rent": "Je ne peux pas fournir de justificatifs de versement de rente",
   "noDocument-scholarship": "Je ne peux pas fournir de justificatifs d'attribution de bourse",
   "customText-social": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
-  "customText-salary": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les trois derniers bulletins de salaire de mon garant :",
+  "customText-salary": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les trois derniers bulletins de salaire ou un bilan comptable de mon garant :",
   "customText-pension": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
   "customText-rent": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
   "customText-scholarship": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
@@ -546,7 +564,8 @@ export default class GuarantorFinancial extends Vue {
   "field-required": "Ce champ est requis",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à la situation de votre garant.",
   "register": "Enregistrer",
-  "select-label": "Attention, Veuillez renseigner uniquement les revenus de votre garant."
+  "select-label": "Attention, Veuillez renseigner uniquement les revenus de votre garant.",
+  "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers."
 }
 }
 </i18n>
