@@ -128,10 +128,7 @@ const inspectlet = function() {
 
 Vue.prototype.inspectlet = inspectlet;
 
-const cookieHidden = Vue.$cookies.isKey("accept-cookie")
-  ? Vue.$cookies.get("accept-cookie")
-  : false;
-if (cookieHidden === "true") {
+if (Vue.$cookies.get("accept-cookie") === "true") {
   inspectlet();
   Vue.use(
     VueGtag,

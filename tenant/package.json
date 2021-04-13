@@ -19,7 +19,7 @@
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
     "vue-cookies": "^1.7.4",
-    "vue-gtag": "^1.12.0",
+    "vue-gtag": "1.12.0",
     "vue-i18n": "^8.17.3",
     "vue-load-image": "^0.1.12",
     "vue-loading-overlay": "^3.4.2",
