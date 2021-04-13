@@ -179,7 +179,7 @@
         </div>
       </template>
     </NakedCard>
-    <Modal v-show="isDocModalVisible" @close="isDocModalVisible = false">
+    <Modal v-if="isDocModalVisible" @close="isDocModalVisible = false">
       <template v-slot:body>
         <div class="rf-container">
           <div class="rf-grid-row justify-content-center">
