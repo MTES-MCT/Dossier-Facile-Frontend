@@ -148,10 +148,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/locataire",
-    redirect: () => {
-      window.location.href = `${TENANT_URL}/locataire`;
-      return "/locataire";
-    }
+    redirect: "/"
   },
   {
     path: "/source/:source",
