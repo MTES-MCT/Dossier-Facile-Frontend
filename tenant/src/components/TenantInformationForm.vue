@@ -187,6 +187,14 @@ export default class TenantInformationForm extends Vue {
     if (this.applicationType === "COUPLE") {
       coTenantEmails = [this.spouseEmail];
       acceptAccess = this.spouseAuthorize;
+      if (
+        this.roommates.length === 1 &&
+        this.roommates[0].id &&
+        this.roommates[0].email === this.spouseEmail
+      ) {
+        this.$store.commit("setRoommatesSuccess");
+        return;
+      }
     } else if (this.applicationType === "GROUP") {
       coTenantEmails = this.roommates
         .filter((r: User) => {
