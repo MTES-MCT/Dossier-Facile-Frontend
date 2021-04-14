@@ -91,10 +91,11 @@ export default class CoupleInformation extends Vue {
 
   mounted() {
     if ((this.user.apartmentSharing?.tenants.length || 0) > 1) {
-      this.coupleMail =
-        this.user.apartmentSharing?.tenants.find(t => {
-          return t.email != this.user.email;
-        })?.email || "";
+      const partner = this.user.apartmentSharing?.tenants.find(t => {
+        return t.email != this.user.email;
+      });
+      this.coupleMail = partner?.email || "";
+      this.$emit("update-couple", this.coupleMail);
     }
     this.authorize = this.spouseAuthorize;
   }
