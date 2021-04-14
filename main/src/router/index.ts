@@ -112,6 +112,17 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Article6.vue")
   },
   {
+    path: "/blog/un-garant-qui-comment-pourquoi",
+    name: "Article7",
+    meta: {
+      title: "Un garant ? Qui ? Comment ? Pourquoi ?",
+      description:
+        "Afin de mieux répondre aux besoins de nos locataires et propriétaires, le service DossierFacile fait peau neuve avec un nouveau site"
+    },
+    component: () =>
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article7.vue")
+  },
+  {
     path: "/information",
     name: "Information",
     meta: {
