@@ -2,23 +2,40 @@
   <div class="rf-container">
     <nav class="rf-nav" role="navigation" aria-label="Menu principal">
       <ul class="rf-nav__list">
-        <li class="rf-nav__item" v-if="user">
+        <li
+          class="rf-nav__item"
+          v-if="user"
+          :class="{
+            'rf-nav__item--active':
+              $route.name === 'Compte' || $route.name === 'Profile'
+          }"
+        >
           <a href="/account" class="rf-link">
             {{ $t("profile") }}
           </a>
         </li>
-        <li class="rf-nav__item" v-if="user">
+        <li
+          class="rf-nav__item"
+          :class="{ 'rf-nav__item--active': $route.name === 'Messages' }"
+          v-if="user"
+        >
           <a href="/messaging" class="rf-link">
             {{ $t("messaging") }}
             <span v-if="newMessage > 0" class="badge">{{ newMessage }}</span>
           </a>
         </li>
-        <li class="rf-nav__item">
+        <li
+          class="rf-nav__item"
+          :class="{ 'rf-nav__item--active': $route.name === 'FAQ' }"
+        >
           <a :href="`${MAIN_URL}/faq?lang=${$i18n.locale}`" class="rf-link">
             {{ $t("faq") }}
           </a>
         </li>
-        <li class="rf-nav__item">
+        <li
+          class="rf-nav__item"
+          :class="{ 'rf-nav__item--active': $route.name === 'Information' }"
+        >
           <a
             :href="`${MAIN_URL}/information?lang=${$i18n.locale}`"
             class="rf-link"
@@ -26,7 +43,10 @@
             {{ $t("information") }}
           </a>
         </li>
-        <li class="rf-nav__item">
+        <li
+          class="rf-nav__item"
+          :class="{ 'rf-nav__item--active': $route.name === 'Blog' }"
+        >
           <a :href="`${MAIN_URL}/blog?lang=${$i18n.locale}`" class="rf-link">
             {{ $t("blog") }}
           </a>
