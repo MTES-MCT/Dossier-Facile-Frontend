@@ -158,6 +158,10 @@ const routes: Array<RouteConfig> = [
       )
   },
   {
+    path: "/locataire",
+    redirect: "/"
+  },
+  {
     path: "*",
     name: "404",
     meta: {
