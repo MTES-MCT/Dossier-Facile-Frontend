@@ -6,9 +6,9 @@
       @on-change-lang="changeLang"
       :lang="getLang()"
     >
-      <ul class="rf-nav__list">
-        <li class="rf-nav__item">
-          <a :href="`${MAIN_URL}/faq?lang=${$i18n.locale}`" class="rf-link">
+      <ul class="fr-nav__list">
+        <li class="fr-nav__item">
+          <a :href="`${MAIN_URL}/faq?lang=${$i18n.locale}`" class="fr-link">
             {{ $t("faq") }}
           </a>
         </li>
