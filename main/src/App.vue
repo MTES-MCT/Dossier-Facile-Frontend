@@ -62,7 +62,9 @@ export default class App extends Vue {
       true,
       new Date(2050, 12, 31).toUTCString(),
       "",
-      "dossierfacile.fr"
+      this.MAIN_URL.endsWith("dossierfacile.fr")
+        ? "dossierfacile.fr"
+        : "localhost"
     );
     Vue.use(
       VueGtag,
@@ -83,7 +85,9 @@ export default class App extends Vue {
       false,
       d.toUTCString(),
       "",
-      "dossierfacile.fr"
+      this.MAIN_URL.endsWith("dossierfacile.fr")
+        ? "dossierfacile.fr"
+        : "localhost"
     );
     this.cookieHidden = true;
   }

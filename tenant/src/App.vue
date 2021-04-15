@@ -54,6 +54,7 @@ export default class App extends Vue {
   cookieHidden = this.$cookies.isKey("accept-cookie");
   isLoggedIn!: boolean;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
+  MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
 
   mounted() {
     const localScript = document.createElement("script");
@@ -99,7 +100,9 @@ export default class App extends Vue {
       true,
       new Date(2050, 12, 31).toUTCString(),
       "",
-      "dossierfacile.fr"
+      this.MAIN_URL.endsWith("dossierfacile.fr")
+        ? "dossierfacile.fr"
+        : "localhost"
     );
     Vue.use(
       VueGtag,
@@ -120,7 +123,9 @@ export default class App extends Vue {
       false,
       d.toUTCString(),
       "",
-      "dossierfacile.fr"
+      this.MAIN_URL.endsWith("dossierfacile.fr")
+        ? "dossierfacile.fr"
+        : "localhost"
     );
     this.cookieHidden = true;
   }
