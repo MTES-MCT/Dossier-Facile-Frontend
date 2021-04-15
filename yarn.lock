@@ -1190,25 +1190,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.5.tgz#8eed982e2ee6f7f4e44c253e12962980791efd46"
   integrity sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==
 
-"@gouvfr/dsfr@1.0.0":
+"@gouvfr/dsfr@1.0.0-rc1":
   version "1.0.0-rc1"
   resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.0.0-rc1.tgz#5c4f201620426f60e35904b9d91fd3003c8f8000"
   integrity sha512-vV53WpTk/sPsncJGalurW1FARD3PJkCDfQvGhG5Sev7iyAitgc9ThTb7l2erTOCMvZoLc83te/PAuaHWHMLxFA==
-
-"@endemolshinegroup/cosmiconfig-typescript-loader@^1.0.0":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@endemolshinegroup/cosmiconfig-typescript-loader/-/cosmiconfig-typescript-loader-1.0.2.tgz#c1eadbb4c269f7898195ca8f7428bf5f5d1c449a"
-  integrity sha512-ZHkXKq2XFFmAUdmSZrmqUSIrRM4O9gtkdpxMmV+LQl7kScUnbo6pMnXu6+FTDgZ12aW6SDoZoOJfS56WD+Eu6A==
-  dependencies:
-    lodash.get "^4"
-    make-error "^1"
-    ts-node "^8"
-    tslib "^1"
-
-"@gouvfr/dsfr@^0.6.0":
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-0.6.0.tgz#0e4f5bc0d9d3269c06de3e2ebe631248e8d4663f"
-  integrity sha512-3S4rbTZu2ySlLICud67O90uH/6J4SJBiJN37sdHlfSRwC5OdHFf501q3bfXrOzcpqrOxoSGJHVMpnHwJQK6QUw==
 
 "@hapi/address@2.x.x":
   version "2.1.4"
@@ -6794,28 +6779,6 @@ es-abstract@^1.17.0-next.0, es-abstract@^1.17.0-next.1:
     object.assign "^4.1.1"
     string.prototype.trimend "^1.0.1"
     string.prototype.trimstart "^1.0.1"
-
-es-abstract@^1.17.2:
-  version "1.18.0"
-  resolved "https://registry.yarnpkg.com/es-abstract/-/es-abstract-1.18.0.tgz#ab80b359eecb7ede4c298000390bc5ac3ec7b5a4"
-  integrity sha512-LJzK7MrQa8TS0ja2w3YNLzUgJCGPdPOV1yVvezjNnS89D+VR08+Szt2mz3YB2Dck/+w5tfIq/RoUAFqJJGM2yw==
-  dependencies:
-    call-bind "^1.0.2"
-    es-to-primitive "^1.2.1"
-    function-bind "^1.1.1"
-    get-intrinsic "^1.1.1"
-    has "^1.0.3"
-    has-symbols "^1.0.2"
-    is-callable "^1.2.3"
-    is-negative-zero "^2.0.1"
-    is-regex "^1.1.2"
-    is-string "^1.0.5"
-    object-inspect "^1.9.0"
-    object-keys "^1.1.1"
-    object.assign "^4.1.2"
-    string.prototype.trimend "^1.0.4"
-    string.prototype.trimstart "^1.0.4"
-    unbox-primitive "^1.0.0"
 
 es-abstract@^1.17.2:
   version "1.18.0"
