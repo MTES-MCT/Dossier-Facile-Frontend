@@ -543,23 +543,23 @@
             <div class="partners">
               <h2 class="fr-pt-4w fr-pb-2w">{{ $t("partners") }}</h2>
               <div class="fr-grid-row fr-grid-row--gutters">
-                <div class="fr-col">
-                  <div class="bg-white partner-box">
-                    <img
-                      alt="logo visale"
-                      class="visale-img"
-                      src="../assets/visale_grey.webp"
-                    />
-                  </div>
+                <div class="fr-col-md-6 fr-col-12">
+                  <a
+                    class="cleana"
+                    href="https://www.visale.fr/#!/"
+                    target="_blank"
+                  >
+                    <div class="bg-white partner-box logo-visale"></div>
+                  </a>
                 </div>
-                <div class="fr-col">
-                  <div class="bg-white partner-box">
-                    <img
-                      alt="logo anil"
-                      class="anil-img"
-                      src="../assets/anil_grey.webp"
-                    />
-                  </div>
+                <div class="fr-col-md-6 fr-col-12">
+                  <a
+                    class="cleana"
+                    href="https://www.anil.org/"
+                    target="_blank"
+                  >
+                    <div class="bg-white partner-box logo-anil"></div>
+                  </a>
                 </div>
               </div>
             </div>
@@ -880,9 +880,22 @@ h2 {
   margin-bottom: 14px;
 }
 
-.anil-img {
-  margin: auto;
-  max-height: 100px;
+.logo-anil {
+  background-image: url("../assets/anil_grey.webp");
+  &:hover {
+    background-image: url("../assets/anil.webp");
+  }
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.logo-visale {
+  background-image: url("../assets/visale_grey.webp");
+  &:hover {
+    background-image: url("../assets/visale.webp");
+  }
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .partners .bg-white {
@@ -979,6 +992,12 @@ hr {
 
 .fr-tile__body {
   overflow: auto;
+}
+
+.cleana {
+  &:after {
+    content: none;
+  }
 }
 </style>
 

@@ -113,7 +113,7 @@
                   <img
                     alt="beautiful building"
                     class="w-100 h-40"
-                    src="@/assets/visale.png"
+                    src="@/assets/visale.webp"
                   />
                 </div>
               </div>
@@ -143,7 +143,7 @@
                   <img
                     alt="beautiful building"
                     class="w-100 h-40"
-                    src="@/assets/anil.png"
+                    src="@/assets/anil.webp"
                   />
                 </div>
               </div>
