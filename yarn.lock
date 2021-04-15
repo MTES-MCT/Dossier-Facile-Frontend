@@ -15894,6 +15894,11 @@ void-elements@^3.1.0:
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-3.1.0.tgz#614f7fbf8d801f0bb5f0661f5b2f5785750e4f09"
   integrity sha1-YU9/v42AHwu18GYfWy9XhXUOTwk=
 
+vue-auth-image@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/vue-auth-image/-/vue-auth-image-0.0.3.tgz#3d9cb524c56175994c11010ad33c3ceee68386ee"
+  integrity sha512-/x3+3crzDpJO3Wl8QjNj53QLLkUdQviDzQCrgpg/390R/1Ptp8UcilaDSYQknNQxNrUj/xQegWttodiTSfPRLA==
+
 vue-class-component@^7.1.0, vue-class-component@^7.2.3:
   version "7.2.6"
   resolved "https://registry.yarnpkg.com/vue-class-component/-/vue-class-component-7.2.6.tgz#8471e037b8e4762f5a464686e19e5afc708502e4"
@@ -16019,11 +16024,6 @@ vue-inbrowser-compiler-utils@^4.33.6:
   integrity sha512-g9ErL/xuTtRAdT6+VmzR4Lqxlw4hpH7ObEBGk8VGQgNqdcs9Pza8AMzlns160IGzQw4sI8gvvbYEPeZ54Z5OfA==
   dependencies:
     camelcase "^5.3.1"
-
-vue-load-image@^0.1.12:
-  version "0.1.12"
-  resolved "https://registry.yarnpkg.com/vue-load-image/-/vue-load-image-0.1.12.tgz#7eb5c6b2ca3e13a50fd3f4fef586989754887c7c"
-  integrity sha512-F2OwNP0hB0OG1wOy/r9SJ5oFiKvpgS1jluMkHtr3VFtbrhQPvuL53wNxatjkONn3Ciw6Ui54hBCgGBLAwwkZYw==
 
 "vue-loader-v16@npm:vue-loader@^16.1.0":
   version "16.2.0"

@@ -29,7 +29,6 @@ import MyFooter from "df-shared/src/Footer/Footer.vue";
 import Menu from "@/components/Menu.vue";
 import { mapGetters, mapState } from "vuex";
 import i18n from "./i18n";
-import { Header } from "./gouvfr/header.js";
 import Cookies from "df-shared/src/Footer/Cookies.vue";
 import VueGtag from "vue-gtag";
 import router from "./router";

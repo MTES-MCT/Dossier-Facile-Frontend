@@ -24,7 +24,6 @@ import MyFooter from "df-shared/src/Footer/Footer.vue";
 import Modal from "df-shared/src/components/Modal.vue";
 import Cookies from "df-shared/src/Footer/Cookies.vue";
 import i18n from "./i18n";
-import { Header } from "./gouvfr/header.js";
 import VueGtag from "vue-gtag";
 import router from "./router";
 
