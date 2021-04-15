@@ -102,6 +102,10 @@ ul li {
 ul {
   padding-inline-start: 0;
 }
+
+a {
+  word-break: break-all;
+}
 </style>
 
 <i18n>
