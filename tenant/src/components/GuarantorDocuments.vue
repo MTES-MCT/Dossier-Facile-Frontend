@@ -248,6 +248,7 @@
               :secondary="true"
               class="fr-mb-2w fr-mt-2w"
               :label="$t('add-guarantor')"
+              :disabled="user.guarantors.length > 1"
               @click="addNaturalGuarantor"
             ></v-gouv-fr-button>
             <v-gouv-fr-button
