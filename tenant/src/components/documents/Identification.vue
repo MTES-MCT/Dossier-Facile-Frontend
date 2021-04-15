@@ -53,7 +53,7 @@
         </div>
       </dialog>
 
-      <p>
+      <div>
         {{ $t("select-label") }}
       </div>
 
@@ -172,8 +172,7 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
     DfButton,
     BigRadio,
     DocumentHelp,
-    VGouvFrModal,
-    DocumentHelp
+    VGouvFrModal
   },
   computed: {
     ...mapGetters({
