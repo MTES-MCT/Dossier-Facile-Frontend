@@ -1,59 +1,7 @@
 <template>
   <div>
     <div>
-      <a href="#" @click="showHelp = true">
-        En difficulté pour répondre à la question ?
-      </a>
-
-      <button
-        class="fr-btn fr-modal-btn"
-        title="Titre de modal simple (ouvre une fenêtre modale)"
-        aria-expanded="false"
-        aria-controls="fr-modal-1"
-      >
-        Titre de modal simple
-      </button>
-
-      <dialog
-        aria-labelledby="fr-modal-title-modal-1"
-        role="dialog"
-        id="fr-modal-1"
-        class="fr-modal"
-      >
-        <div class="fr-container--fluid fr-container-md">
-          <div class="fr-grid-row fr-grid-row--center">
-            <div class="fr-col-12 fr-col-md-6">
-              <div class="fr-modal__body">
-                <div class="fr-modal__header">
-                  <button
-                    class="fr-link--close fr-link"
-                    title="Fermer la fenêtre modale"
-                    aria-controls="fr-modal-1"
-                    target="_self"
-                  >
-                    Fermer
-                  </button>
-                </div>
-                <div class="fr-modal__content">
-                  <h1 id="fr-modal-title-modal-1" class="fr-modal__title">
-                    <span class="fr-fi-arrow-right-line fr-fi--lg"></span>Titre
-                    de la modale
-                  </h1>
-                  <p>
-                    <DocumentHelp></DocumentHelp>
-                    <DocumentInsert
-                      :allow-list="identificationDocument.acceptedProofs"
-                      :block-list="identificationDocument.refusedProofs"
-                    ></DocumentInsert>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </dialog>
-
-      <div>
+      <div class="fr-pl-3v">
         {{ $t("select-label") }}
       </div>
 
