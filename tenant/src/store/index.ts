@@ -282,7 +282,8 @@ const store = new Vuex.Store({
         response => {
           commit("loadUser", response.data);
           commit("selectGuarantor", this.state.user.guarantors.length - 1);
-          commit("setGuarantorStep", 2);
+          commit("setGuarantorStep", 3);
+          commit("setGuarantorSubstep", 1);
           return Promise.resolve(response.data);
         },
         error => {

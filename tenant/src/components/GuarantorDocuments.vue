@@ -243,23 +243,19 @@
         </div>
         <div class="fr-col-12 fr-mb-5w">
           <div class="fr-grid-row fr-mb-3w buttons">
-            <button
+            <v-gouv-fr-button
               v-if="guarantorType === 'NATURAL_PERSON'"
-              class="fr-btn fr-btn--secondary fr-mb-2w fr-mt-2w"
-              type="submit"
-              @click="addNaturalGuarantor()"
-            >
-              J'ajoute un nouveau garant
-            </button>
-            <button
-              class="fr-btn"
-              type="submit"
-              aria-disabled="!documentsFilled()"
+              :secondary="true"
+              class="fr-mb-2w fr-mt-2w"
+              :label="$t('add-guarantor')"
+              @click="addNaturalGuarantor"
+            ></v-gouv-fr-button>
+            <v-gouv-fr-button
+              :label="$t('validate-file')"
+              @click="nextStep"
+              class="fr-mb-2w fr-mt-2w"
               :disabled="!documentsFilled()"
-              @click="nextStep()"
-            >
-              Étape suivante - Valider le dossier
-            </button>
+            ></v-gouv-fr-button>
           </div>
         </div>
       </div>
@@ -290,6 +286,7 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 import { User } from "df-shared/src/models/User";
 import DfButton from "df-shared/src/Button/Button.vue";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
+import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.vue";
 
 @Component({
   components: {
@@ -303,7 +300,8 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
     RepresentativeIdentification,
     CorporationIdentification,
     OrganismCert,
-    ConfirmModal
+    ConfirmModal,
+    VGouvFrButton
   },
   computed: {
     ...mapState({
@@ -381,7 +379,7 @@ export default class GuarantorDocuments extends Vue {
     if (g.lastName) {
       return `${g.lastName} ${g.firstName}`;
     }
-    return this.$i18n.t("guarantor") + " " + k;
+    return this.$i18n.t("guarantor") + " " + (k + 1);
   }
 
   selectGuarantor(k: number) {
@@ -536,7 +534,9 @@ h2 {
 "corporation-identification": "Identité du représentant de la personne morale",
 "guarantor": "Guarantor",
 "validate": "Validate",
-"will-delete-guarantor": "Are you sure you want to change the type of guarantor?"
+"will-delete-guarantor": "Are you sure you want to change the type of guarantor?",
+"validate-file": "Next step - Validate file",
+"add-guarantor": "I add a guarantor"
 },
 "fr": {
 "identification": "Pièce d’identité",
@@ -548,7 +548,9 @@ h2 {
 "corporation-identification": "Identité du représentant de la personne morale",
 "guarantor": "Garant",
 "validate": "Valider",
-"will-delete-guarantor": "Êtes-vous sûr de vouloir changer le type de garant ?"
+"will-delete-guarantor": "Êtes-vous sûr de vouloir changer le type de garant ?",
+"validate-file": "Étape suivante - Valider le dossier",
+"add-guarantor": "J'ajoute un nouveau garant"
 }
 }
 </i18n>
