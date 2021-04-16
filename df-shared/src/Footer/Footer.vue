@@ -6,7 +6,7 @@
           <a class="fr-logo" href="#" title="république française">
             <span class="fr-logo__title">république <br />française</span>
           </a>
-          <a href="#">
+          <a href="https://beta.gouv.fr/">
             <img
               alt="footer logo dossierfacile"
               class="footer-logo"
