@@ -9,20 +9,32 @@
 </template>
 
 <script lang="ts">
+import axios from "axios";
 import { Component, Vue } from "vue-property-decorator";
 import * as d3 from "d3";
 
 @Component
 export default class Statistics extends Vue {
   mounted() {
-    const data = [4, 8, 15, 16, 23, 42];
+    axios
+      .get(
+        "https://sheets.googleapis.com/v4/spreadsheets/1WI4vLK8eS_3N15t40NZp8SCLZBKV2St9zB68tdqMaMw/values:batchGet?key=AIzaSyAifGFaPrs6tkDizbIW8nLmtl0edfe5Vok&ranges=A1:M53&majorDimension=COLUMNS"
+      )
+      .then(response => {
+        this.updateBart(
+          response.data["valueRanges"][0]["values"][1].splice(1, 52)
+        );
+      });
+  }
+
+  updateBart(data: number[]) {
     d3.select(".chart")
       .selectAll("div")
       .data(data)
       .enter()
       .append("div")
       .style("width", function(d: number) {
-        return d * 10 + "px";
+        return d / 10 + "px";
       })
       .text(function(d: number) {
         return d;
