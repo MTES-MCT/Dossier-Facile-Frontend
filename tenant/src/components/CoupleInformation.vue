@@ -1,34 +1,34 @@
 <template>
-  <div class="rf-grid-row rf-grid-row--center">
-    <div class="rf-col-md-8">
-      <div class="rf-grid-row rf-grid-row--center">
-        <div class="rf-col-12">
-          <label class="rf-label">{{ $t("spouseEmail") }}</label>
+  <div class="fr-grid-row fr-grid-row--center">
+    <div class="fr-col-md-8">
+      <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-12">
+          <label class="fr-label">{{ $t("spouseEmail") }}</label>
           <validation-provider rules="email" v-slot="{ errors }">
             <div
-              class="rf-input-group"
-              :class="errors[0] ? 'rf-input-group--error' : ''"
+              class="fr-input-group"
+              :class="errors[0] ? 'fr-input-group--error' : ''"
             >
               <input
                 v-model="coupleMail"
-                class="form-control rf-input"
+                class="form-control fr-input"
                 name="email"
                 placeholder="Ex : exemple@exemple.fr"
                 type="email"
                 @change="updateCouple()"
                 required
               />
-              <span class="rf-error-text" v-if="errors[0]">{{
+              <span class="fr-error-text" v-if="errors[0]">{{
                 $t(errors[0])
               }}</span>
             </div>
           </validation-provider>
         </div>
-        <div class="rf-col-12 rf-mb-3w">
-          <validation-provider rules="is" v-slot="{ errors }" class="rf-col-10">
+        <div class="fr-col-12 fr-mb-3w">
+          <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
             <div
-              class="rf-input-group"
-              :class="errors[0] ? 'rf-input-group--error' : ''"
+              class="fr-input-group"
+              :class="errors[0] ? 'fr-input-group--error' : ''"
             >
               <input
                 type="checkbox"
@@ -38,7 +38,7 @@
                 @change="updateAuthorize()"
               />
               <label for="authorize">{{ $t("acceptAuthor") }}</label>
-              <span class="rf-error-text" v-if="errors[0]">{{
+              <span class="fr-error-text" v-if="errors[0]">{{
                 $t(errors[0])
               }}</span>
             </div>

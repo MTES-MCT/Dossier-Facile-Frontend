@@ -1,16 +1,16 @@
 <template>
-  <section class="rf-accordion">
-    <h3 class="accordion__title rf-m-0">
+  <section class="fr-accordion">
+    <h3 class="accordion__title fr-m-0">
       <button
-        class="rf-accordion__btn rf-accordion__btn--icon-right"
+        class="fr-accordion__btn fr-accordion__btn--icon-right"
         aria-expanded="false"
         :aria-controls="id"
       >
         <slot name="header"> </slot>
       </button>
     </h3>
-    <div class="rf-accordion__body" :id="id">
-      <div class="rf-accordion__inner">
+    <div class="fr-collapse" :id="id">
+      <div class="fr-accordion__inner">
         <p>
           <slot name="body"> </slot>
         </p>

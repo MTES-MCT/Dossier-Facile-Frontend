@@ -1,20 +1,48 @@
 <template>
   <div>
     <div>
-      <label class="rf-label" for="select">
+      <div class="fr-pl-3v">
         {{ $t("select-label") }}
-      </label>
-      <select
-        @change="onSelectChange()"
-        v-model="identificationDocument"
-        class="rf-select rf-mb-3w"
-        id="select"
-        name="select"
-      >
-        <option v-for="d in documents" :value="d" :key="d.key">
-          {{ $t(d.key) }}
-        </option>
-      </select>
+      </div>
+
+      <v-gouv-fr-modal>
+        <template v-slot:button>
+          En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:title>
+          En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:content>
+          <p>
+            <DocumentHelp></DocumentHelp>
+            <DocumentInsert
+              :allow-list="identificationDocument.acceptedProofs"
+              :block-list="identificationDocument.refusedProofs"
+              v-if="identificationDocument.key"
+            ></DocumentInsert>
+          </p>
+        </template>
+      </v-gouv-fr-modal>
+
+      <div class="fr-mt-1w">
+        <fieldset class="fr-fieldset">
+          <div class="fr-fieldset__content">
+            <div class="fr-grid-row">
+              <div v-for="d in documents" :key="d.key">
+                <BigRadio
+                  :val="d"
+                  v-model="identificationDocument"
+                  @input="onSelectChange()"
+                >
+                  <div class="fr-grid-col spa">
+                    <span>{{ $t(d.key) }}</span>
+                  </div>
+                </BigRadio>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
     </div>
     <ConfirmModal
       v-if="isDocDeleteVisible"
@@ -24,10 +52,13 @@
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
     <div v-if="identificationDocument.key">
-      <div v-if="identificationDocument.explanationText" class="rf-mb-3w">
-        <p v-html="identificationDocument.explanationText"></p>
+      <div v-if="identificationDocument.explanationText">
+        <div
+          class="fr-mt-1w fr-mb-1w fr-ml-2w"
+          v-html="identificationDocument.explanationText"
+        ></div>
       </div>
-      <div class="rf-mb-3w">
+      <div class="fr-mb-3w">
         <FileUpload
           :current-status="fileUploadStatus"
           :page="4"
@@ -36,10 +67,7 @@
         ></FileUpload>
       </div>
     </div>
-    <div
-      v-if="identificationFiles().length > 0"
-      class="rf-col-lg-8 rf-col-md-12 rf-mb-3w"
-    >
+    <div v-if="identificationFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
       <ListItem
         v-for="(file, k) in identificationFiles()"
         :key="k"
@@ -47,9 +75,9 @@
         @remove="remove(file)"
       />
     </div>
-    <div class="rf-col-12 rf-mb-2w" v-if="identificationDocument">
+    <div class="fr-col-12 fr-mb-3w fr-mt-2w" v-if="identificationDocument">
       <button
-        class="rf-btn"
+        class="fr-btn"
         type="submit"
         @click="save"
         :disabled="files.length <= 0"
@@ -57,18 +85,12 @@
         {{ $t("register") }}
       </button>
     </div>
-    <div class="rf-mb-5w" v-if="identificationDocument.key">
-      <DocumentInsert
-        :allow-list="identificationDocument.acceptedProofs"
-        :block-list="identificationDocument.refusedProofs"
-      ></DocumentInsert>
-    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
-import { mapGetters, mapState } from "vuex";
+import { Component, Vue } from "vue-property-decorator";
+import { mapGetters } from "vuex";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
@@ -78,12 +100,14 @@ import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { ValidationProvider } from "vee-validate";
-import { Guarantor } from "df-shared/src/models/Guarantor";
 import { RegisterService } from "../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
+import BigRadio from "df-shared/src/Button/BigRadio.vue";
+import DocumentHelp from "../helps/DocumentHelp.vue";
+import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 
 @Component({
   components: {
@@ -93,7 +117,10 @@ import DfButton from "df-shared/src/Button/Button.vue";
     ValidationProvider,
     WarningMessage,
     ConfirmModal,
-    DfButton
+    DfButton,
+    BigRadio,
+    DocumentHelp,
+    VGouvFrModal
   },
   computed: {
     ...mapGetters({
@@ -281,7 +308,7 @@ td {
   "files": "Documents",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
   "register": "Register",
-  "select-label": "I add a valid identity document. Attention, be sure to add your double-sided part!",
+  "select-label": "I add a valid identity document.",
   "validate": "Validate",
   "cancel": "Cancel"
 },
@@ -293,7 +320,7 @@ td {
   "files": "Documents",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
   "register": "Enregistrer la pièce",
-  "select-label": "J’ajoute une pièce d’identité en cours de validité. Attention, veillez à ajouter votre pièce recto-verso !",
+  "select-label": "J’ajoute une pièce d’identité en cours de validité.",
   "validate": "Valider",
   "cancel": "Annuler"
 }

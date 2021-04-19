@@ -4,7 +4,7 @@
       <div>
         <a
           href="#"
-          class="rf-link"
+          class="fr-link"
           :aria-expanded="localExpanded"
           aria-controls="card-content"
           @click="localExpanded = expandable ? !localExpanded : expanded"
@@ -15,7 +15,7 @@
         <div
           id="card-content"
           :class="{ hidden: !localExpanded }"
-          class="rf-card__desc"
+          class="fr-card__desc"
         >
           <slot name="body"></slot>
         </div>

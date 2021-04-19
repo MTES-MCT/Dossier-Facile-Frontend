@@ -1,17 +1,17 @@
 <template>
-  <div class="rf-container">
+  <div class="fr-container">
     <div class="signup">
       <Register @on-register="onRegister" />
-      <div class="text-center rf-mb-5w">
+      <div class="text-center fr-mb-5w">
         <router-link to="/login">
           {{ $t("existing-account") }}
         </router-link>
       </div>
       <Modal v-show="isValidModalVisible" @close="closeModal">
         <template v-slot:body>
-          <div class="rf-container">
-            <div class="rf-grid-row justify-content-center">
-              <div class="rf-col-12">
+          <div class="fr-container">
+            <div class="fr-grid-row justify-content-center">
+              <div class="fr-col-12">
                 <p>
                   {{ $t("mail-sent") }}
                 </p>

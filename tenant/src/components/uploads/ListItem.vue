@@ -1,10 +1,10 @@
 <template>
-  <div class="list-item rf-mb-1w">
-    <div class="rf-grid-row" style="align-items: center">
-      <div class="rf-pl-2w rf-pr-2w">
+  <div class="list-item fr-mb-1w">
+    <div class="fr-grid-row" style="align-items: center">
+      <div class="fr-pl-2w fr-pr-2w">
         <span class="material-icons">file_present</span>
       </div>
-      <div class="text rf-pr-2w">
+      <div class="text fr-pr-2w">
         {{ getName() }}<br />
         <span class="size">{{ getSize() }}</span>
       </div>
@@ -12,7 +12,7 @@
         <Progress :percentage="percentage" :state="uploadState" />
       </div>
       <div
-        class="action-btn rf-p-1w"
+        class="action-btn fr-p-1w"
         @click="openDoc()"
         :title="$t('show')"
         v-if="file.path"
@@ -22,7 +22,7 @@
           >visibility</span
         >
       </div>
-      <div class="action-btn rf-pr-1w" @click="remove()" :title="$t('remove')">
+      <div class="action-btn fr-pr-1w" @click="remove()" :title="$t('remove')">
         <span class="material-icons md-36 text-danger">delete_forever</span>
       </div>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <button :class="classes()" class="rf-btn" :title="title" @click="onClick">
+  <button :class="classes()" class="fr-btn" :title="title" @click="onClick">
     <slot></slot>
   </button>
 </template>
@@ -15,10 +15,10 @@ export default class DfButton extends Vue {
 
   classes() {
     return {
-      "rf-btn--secondary": !this.primary,
-      "rf-btn--lg": this.size === "large",
-      "rf-btn--sm": this.size === "small",
-      "rf-btn--icon": this.size === "icon"
+      "fr-btn--secondary": !this.primary,
+      "fr-btn--lg": this.size === "large",
+      "fr-btn--sm": this.size === "small",
+      "fr-btn--icon": this.size === "icon"
     };
   }
 

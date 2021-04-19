@@ -1,42 +1,42 @@
 <template>
-  <div class="rf-grid-row rf-grid-row--center">
-    <div class="rf-col-md-8">
-      <div class="rf-grid-row rf-grid-row--center">
-        <div class="rf-col-12">
-          <label class="rf-label">{{ $t("roommateEmail") }}</label>
+  <div class="fr-grid-row fr-grid-row--center">
+    <div class="fr-col-md-8">
+      <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-12">
+          <label class="fr-label">{{ $t("roommateEmail") }}</label>
           <div
-            class="rf-mb-1w"
+            class="fr-mb-1w"
             v-for="(roommate, key) in roommates"
             v-bind:key="key"
           >
-            <div class="rf-grid-row">
+            <div class="fr-grid-row">
               <validation-provider
                 rules="email"
                 v-slot="{ errors }"
-                class="rf-col-10"
+                class="fr-col-10"
               >
                 <div
-                  class="rf-input-group"
-                  :class="errors[0] ? 'rf-input-group--error' : ''"
+                  class="fr-input-group"
+                  :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
                   <input
                     v-model="roommate.email"
-                    class="form-control rf-input"
+                    class="form-control fr-input"
                     name="email"
                     placeholder="Ex : exemple@exemple.fr"
                     type="email"
                     @change="updateRoommates()"
                     required
                   />
-                  <span class="rf-error-text" v-if="errors[0]">{{
+                  <span class="fr-error-text" v-if="errors[0]">{{
                     $t(errors[0])
                   }}</span>
                 </div>
               </validation-provider>
-              <div class="rf-col-2">
+              <div class="fr-col-2">
                 <button
                   type="button"
-                  class="rf-btn rf-btn--icon rf-btn--secondary"
+                  class="fr-btn fr-btn--icon fr-btn--secondary"
                   :title="$t('delete')"
                   :disabled="user.apartmentSharing.tenants.length <= 1"
                   @click="remove(key)"
@@ -47,14 +47,14 @@
             </div>
           </div>
         </div>
-        <div class="rf-col-12 rf-mb-3w">
+        <div class="fr-col-12 fr-mb-3w">
           <a href="#" @click="addMail">{{ $t("addRommate") }}</a>
         </div>
-        <div class="rf-col-12 rf-mb-3w">
-          <validation-provider rules="is" v-slot="{ errors }" class="rf-col-10">
+        <div class="fr-col-12 fr-mb-3w">
+          <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
             <div
-              class="rf-input-group"
-              :class="errors[0] ? 'rf-input-group--error' : ''"
+              class="fr-input-group"
+              :class="errors[0] ? 'fr-input-group--error' : ''"
             >
               <input
                 type="checkbox"
@@ -64,7 +64,7 @@
                 @change="updateAuthorize()"
               />
               <label for="authorize">{{ $t("acceptAuthor") }}</label>
-              <span class="rf-error-text" v-if="errors[0]">{{
+              <span class="fr-error-text" v-if="errors[0]">{{
                 $t(errors[0])
               }}</span>
             </div>

@@ -1,12 +1,32 @@
 <template>
   <div>
     <div>
-      <label class="rf-label" for="select">
+      <div class="fr-pl-3v">
         {{ $t("select-label") }}
-      </label>
+      </div>
+
+      <v-gouv-fr-modal>
+        <template v-slot:button>
+          En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:title>
+          En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:content>
+          <p>
+            <DocumentHelp></DocumentHelp>
+            <DocumentInsert
+              :allow-list="professionalDocument.acceptedProofs"
+              :block-list="professionalDocument.refusedProofs"
+              v-if="professionalDocument.key"
+            ></DocumentInsert>
+          </p>
+        </template>
+      </v-gouv-fr-modal>
+
       <select
         v-model="professionalDocument"
-        class="rf-select rf-mb-3w"
+        class="fr-select fr-mb-3w fr-mt-2w"
         id="select"
         name="select"
         @change="onSelectChange()"
@@ -24,10 +44,10 @@
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
     <div v-if="professionalDocument.key">
-      <div class="rf-mb-3w">
+      <div class="fr-mb-3w">
         {{ professionalDocument.explanationText }}
       </div>
-      <div class="rf-mb-3w">
+      <div class="fr-mb-3w">
         <FileUpload
           :current-status="fileUploadStatus"
           @add-files="addFiles"
@@ -35,10 +55,7 @@
         ></FileUpload>
       </div>
     </div>
-    <div
-      v-if="professionalFiles().length > 0"
-      class="rf-col-lg-8 rf-col-md-12 rf-mb-3w"
-    >
+    <div v-if="professionalFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
       <ListItem
         v-for="(file, k) in professionalFiles()"
         :key="k"
@@ -46,21 +63,15 @@
         @remove="remove(file)"
       />
     </div>
-    <div class="rf-col-12 rf-mb-2w" v-if="professionalDocument">
+    <div class="fr-col-12 fr-mb-2w" v-if="professionalDocument">
       <button
-        class="rf-btn"
+        class="fr-btn"
         type="submit"
         @click="save"
         :disabled="files.length <= 0"
       >
         {{ $t("register") }}
       </button>
-    </div>
-    <div class="rf-mb-5w" v-if="professionalDocument.key">
-      <DocumentInsert
-        :allow-list="professionalDocument.acceptedProofs"
-        :block-list="professionalDocument.refusedProofs"
-      ></DocumentInsert>
     </div>
   </div>
 </template>
@@ -80,6 +91,8 @@ import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { User } from "df-shared/src/models/User";
+import DocumentHelp from "../helps/DocumentHelp.vue";
+import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 
 @Component({
   components: {
@@ -87,7 +100,9 @@ import { User } from "df-shared/src/models/User";
     FileUpload,
     ListItem,
     WarningMessage,
-    ConfirmModal
+    ConfirmModal,
+    DocumentHelp,
+    VGouvFrModal
   },
   computed: {
     ...mapGetters({

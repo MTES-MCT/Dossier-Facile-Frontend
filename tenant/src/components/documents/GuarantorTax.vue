@@ -7,32 +7,57 @@
     >
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
-    <ValidationObserver v-slot="{ invalid, validate }">
+    <ValidationObserver v-slot="{ validate }">
+      <v-gouv-fr-modal>
+        <template v-slot:button>
+          En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:title>
+          En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:content>
+          <p>
+            <GuarantorChoiceHelp></GuarantorChoiceHelp>
+            <DocumentInsert
+              :allow-list="taxDocument.acceptedProofs"
+              :block-list="taxDocument.refusedProofs"
+              v-if="taxDocument.key && taxDocument.acceptedProofs.length > 0"
+            ></DocumentInsert>
+          </p>
+        </template>
+      </v-gouv-fr-modal>
+
       <form name="form" @submit.prevent="validate().then(save)">
-        <div class="rf-mb-3w">
-          <select
-            v-model="taxDocument"
-            class="rf-select rf-mb-3w"
-            id="select"
-            name="select"
-            @change="onSelectChange()"
-          >
-            <option v-for="d in documents" :value="d" :key="d.key">
-              {{ $t(d.key) }}
-            </option>
-          </select>
+        <div class="fr-mt-3w">
+          <fieldset class="fr-fieldset">
+            <div class="fr-fieldset__content">
+              <div class="fr-grid-row">
+                <div v-for="d in documents" :key="d.key">
+                  <BigRadio
+                    :val="d"
+                    v-model="taxDocument"
+                    @input="onSelectChange()"
+                  >
+                    <div class="fr-grid-col spa">
+                      <span>{{ $t(d.key) }}</span>
+                    </div>
+                  </BigRadio>
+                </div>
+              </div>
+            </div>
+          </fieldset>
         </div>
         <div
-          class="rf-mb-3w"
+          class="fr-mb-3w"
           v-if="taxDocument.key && taxDocument.key === 'other-tax'"
         >
-          <div class="rf-input-group">
-            <label class="rf-label" for="customText">{{
+          <div class="fr-input-group">
+            <label class="fr-label" for="customText">{{
               $t("custom-text")
             }}</label>
             <input
               v-model="customText"
-              class="form-control rf-input validate-required"
+              class="form-control fr-input validate-required"
               id="customText"
               name="customText"
               placeholder=""
@@ -42,10 +67,10 @@
           </div>
         </div>
         <div v-if="taxDocument.key && taxDocument.key === 'my-name'">
-          <div class="rf-mb-3w">
+          <div class="fr-mb-3w">
             <p v-html="taxDocument.explanationText"></p>
           </div>
-          <div class="rf-mb-3w">
+          <div class="fr-mb-3w">
             <FileUpload
               :current-status="fileUploadStatus"
               @add-files="addFiles"
@@ -55,7 +80,7 @@
         </div>
         <div
           v-if="taxFiles().length > 0"
-          class="rf-col-lg-8 rf-col-md-12 rf-mb-3w"
+          class="fr-col-lg-8 fr-col-md-12 fr-mb-3w"
         >
           <ListItem
             v-for="(file, k) in taxFiles()"
@@ -65,13 +90,13 @@
           />
         </div>
         <div
-          class="rf-col-12 rf-mb-3w"
+          class="fr-col-12 fr-mb-3w"
           v-if="taxDocument.key && taxDocument.key === 'my-name'"
         >
-          <validation-provider rules="is" v-slot="{ errors }" class="rf-col-10">
+          <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
             <div
-              class="rf-input-group"
-              :class="errors[0] ? 'rf-input-group--error' : ''"
+              class="fr-input-group"
+              :class="errors[0] ? 'fr-input-group--error' : ''"
             >
               <input
                 type="checkbox"
@@ -82,19 +107,19 @@
               <label for="acceptVerification">{{
                 $t("accept-verification")
               }}</label>
-              <span class="rf-error-text" v-if="errors[0]">{{
+              <span class="fr-error-text" v-if="errors[0]">{{
                 $t(errors[0])
               }}</span>
             </div>
           </validation-provider>
         </div>
-        <div class="rf-col-12 rf-mb-5w" v-if="taxDocument">
-          <button class="rf-btn" type="submit" :disabled="isButtonDisabled()">
+        <div class="fr-col-12 fr-mb-5w" v-if="taxDocument">
+          <button class="fr-btn" type="submit" :disabled="isButtonDisabled()">
             {{ $t("register") }}
           </button>
         </div>
         <div
-          class="rf-mb-5w"
+          class="fr-mb-5w"
           v-if="taxDocument.key && taxDocument.key === 'my-name'"
         >
           <DocumentInsert
@@ -125,6 +150,9 @@ import { RegisterService } from "../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
+import BigRadio from "df-shared/src/Button/BigRadio.vue";
+import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
+import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
 
 extend("is", {
   ...is,
@@ -140,7 +168,10 @@ extend("is", {
     ValidationObserver,
     ValidationProvider,
     WarningMessage,
-    ConfirmModal
+    ConfirmModal,
+    BigRadio,
+    VGouvFrModal,
+    GuarantorChoiceHelp
   },
   computed: {
     ...mapState({
@@ -360,7 +391,12 @@ export default class Tax extends Vue {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.spa {
+  min-height: 2rem;
+  width: 14rem;
+}
+</style>
 
 <i18n>
 {

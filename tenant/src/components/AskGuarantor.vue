@@ -2,16 +2,31 @@
   <div>
     <p>
       {{ $t("add-guarantor-question") }}
+
+      <v-gouv-fr-modal>
+        <template v-slot:button>
+          {{ $t("more-information") }}
+        </template>
+        <template v-slot:title>
+          {{ $t("more-information") }}
+        </template>
+        <template v-slot:content>
+          <p>
+            <GuarantorChoiceHelp></GuarantorChoiceHelp>
+          </p>
+        </template>
+      </v-gouv-fr-modal>
+
+      <button class="fr-btn" @click="addGuarantor()">
+        {{ $t("add-guarantor-btn") }}
+      </button>
     </p>
-    <button class="rf-btn" @click="addGuarantor()">
-      {{ $t("add-guarantor-btn") }}
-    </button>
-    <div class="bg--blue info rf-p-2w rf-mt-2w rf-mb-2w border--radius">
-      <h4 class="rf-mt-0">{{ $t("remark") }}</h4>
+    <div class="bg--blue info fr-p-2w fr-mt-2w fr-mb-2w border--radius">
+      <h4 class="fr-mt-0">{{ $t("remark") }}</h4>
       <p>
         {{ $t("not-required") }}
       </p>
-      <DfButton class="rf-btn" @on-click="goValidateFile">
+      <DfButton class="fr-btn" @on-click="goValidateFile">
         {{ $t("validate") }}
       </DfButton>
     </div>
@@ -20,9 +35,11 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import DfButton from "df-shared/src/Button/Button.vue";
+import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
+import GuarantorChoiceHelp from "./helps/GuarantorChoiceHelp.vue";
 
 @Component({
-  components: { DfButton }
+  components: { DfButton, VGouvFrModal, GuarantorChoiceHelp }
 })
 export default class AskGuarantor extends Vue {
   addGuarantor() {
@@ -42,14 +59,16 @@ export default class AskGuarantor extends Vue {
         "add-guarantor-btn": "Ajouter un garant",
         "remark": "Remarque",
         "not-required": "Ajouter un garant n'est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez cliquer directement sur le bouton ci-dessous «Valider mon dossier». Votre dossier sera alors enregistré pour être instruit.",
-        "validate": "Valider mon dossier"
+        "validate": "Valider mon dossier",
+        "more-information": "More information"
     },
     "fr": {
         "add-guarantor-question": "Si vous le souhaitez nous vous proposons d'ajouter un garant.",
         "add-guarantor-btn": "Ajouter un garant",
         "remark": "Remarque",
         "not-required": "Ajouter un garant n'est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez cliquer directement sur le bouton ci-dessous «Valider mon dossier». Votre dossier sera alors enregistré pour être instruit.",
-        "validate": "Valider mon dossier"
+        "validate": "Valider mon dossier",
+        "more-information": "Plus d'informations"
     }
 }
 

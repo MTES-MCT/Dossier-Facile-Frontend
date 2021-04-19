@@ -1,5 +1,5 @@
 <template>
-  <div class="rf-m-12w">
+  <div class="fr-m-12w">
     Page en cours de réalisation
   </div>
 </template>

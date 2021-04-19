@@ -1,40 +1,40 @@
 <template>
-  <section class="rf-grid-row rf-grid-row--center">
-    <div class="rf-col-md-8 rf-col-lg-6">
-      <h2 class="rf-h2 text-center rf-mt-7w rf-mb-5w">
+  <section class="fr-grid-row fr-grid-row--center">
+    <div class="fr-col-md-8 fr-col-lg-6">
+      <h2 class="fr-h2 text-center fr-mt-7w fr-mb-5w">
         {{ $t("title") }}
       </h2>
       <form name="form" @submit.prevent="handleLogin">
-        <div class="rf-grid-row rf-grid-row--center">
-          <div class="rf-col-12 rf-mb-3w">
+        <div class="fr-grid-row fr-grid-row--center">
+          <div class="fr-col-12 fr-mb-3w">
             <validation-provider rules="required" v-slot="{ errors }">
               <div
-                class="rf-input-group"
-                :class="errors[0] ? 'rf-input-group--error' : ''"
+                class="fr-input-group"
+                :class="errors[0] ? 'fr-input-group--error' : ''"
               >
-                <label class="rf-label" for="email">{{ $t("email") }}</label>
+                <label class="fr-label" for="email">{{ $t("email") }}</label>
                 <input
                   v-model="user.email"
-                  class="form-control rf-input validate-required"
+                  class="form-control fr-input validate-required"
                   id="email"
                   name="email"
                   :placeholder="$t('email-placeholder')"
                   type="email"
                   required
                 />
-                <span class="rf-error-text" v-if="errors[0]">{{
+                <span class="fr-error-text" v-if="errors[0]">{{
                   $t(errors[0])
                 }}</span>
               </div>
             </validation-provider>
           </div>
-          <div class="rf-col-12 rf-mb-3w">
+          <div class="fr-col-12 fr-mb-3w">
             <validation-provider rules="required" v-slot="{ errors }">
               <div
-                class="rf-input-group"
-                :class="errors[0] ? 'rf-input-group--error' : ''"
+                class="fr-input-group"
+                :class="errors[0] ? 'fr-input-group--error' : ''"
               >
-                <label for="password" class="rf-label">{{
+                <label for="password" class="fr-label">{{
                   $t("password")
                 }}</label>
                 <input
@@ -43,18 +43,18 @@
                   type="password"
                   v-model="user.password"
                   name="password"
-                  class="validate-required form-control rf-input"
+                  class="validate-required form-control fr-input"
                   required
                 />
-                <span class="rf-error-text" v-if="errors[0]">{{
+                <span class="fr-error-text" v-if="errors[0]">{{
                   $t(errors[0])
                 }}</span>
               </div>
             </validation-provider>
           </div>
 
-          <div class="rf-col-12 text-center rf-mb-5w">
-            <button class="rf-btn" type="submit">
+          <div class="fr-col-12 text-center fr-mb-5w">
+            <button class="fr-btn" type="submit">
               {{ $t("submit") }}
             </button>
           </div>

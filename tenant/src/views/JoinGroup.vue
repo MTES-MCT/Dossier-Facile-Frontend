@@ -1,6 +1,6 @@
 <template>
-  <div class="rf-container">
-    <h2 class="rf-h2 text-center rf-mt-7w rf-mb-5w">
+  <div class="fr-container">
+    <h2 class="fr-h2 text-center fr-mt-7w fr-mb-5w">
       {{ $t("title") }}
     </h2>
     <InitPassword @on-init-password="onInitPassword" />

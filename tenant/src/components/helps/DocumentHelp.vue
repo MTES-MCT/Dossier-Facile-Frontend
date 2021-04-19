@@ -1,12 +1,5 @@
 <template>
-  <Card>
-    <template v-slot:header>
-      {{ $t("title") }}
-    </template>
-    <template v-slot:body>
-      <p v-html="$t('paragraph1')"></p>
-    </template>
-  </Card>
+  <p v-html="$t('paragraph1')"></p>
 </template>
 
 <script lang="ts">

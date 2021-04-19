@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="rf-h1">{{ $t("title") }}</h1>
+    <h1 class="fr-h1">{{ $t("title") }}</h1>
     <div v-if="!hasGuarantors()">
       <p>{{ $t("read-no-guarantor") }}</p>
       <div>
@@ -15,11 +15,11 @@
       <div>
         <validation-provider v-slot="{ errors }">
           <div
-            class="rf-input-group"
-            :class="errors[0] ? 'rf-input-group--error' : ''"
+            class="fr-input-group"
+            :class="errors[0] ? 'fr-input-group--error' : ''"
           >
             <p>
-              <label for="precision" class="rf-label"
+              <label for="precision" class="fr-label"
                 >{{ $t("precision") }} :</label
               >
               <input
@@ -28,9 +28,9 @@
                 type="text"
                 v-model="precision"
                 name="precision"
-                class="validate-required form-control rf-input"
+                class="validate-required form-control fr-input"
               />
-              <span class="rf-error-text" v-if="errors[0]">{{
+              <span class="fr-error-text" v-if="errors[0]">{{
                 $t(errors[0])
               }}</span>
             </p>
@@ -39,7 +39,7 @@
       </div>
       <div>
         <button
-          class="rf-btn"
+          class="fr-btn"
           type="submit"
           @click="validate()"
           :disabled="canValidate()"
@@ -71,11 +71,11 @@
       <div>
         <validation-provider v-slot="{ errors }">
           <div
-            class="rf-input-group"
-            :class="errors[0] ? 'rf-input-group--error' : ''"
+            class="fr-input-group"
+            :class="errors[0] ? 'fr-input-group--error' : ''"
           >
             <p>
-              <label for="precision" class="rf-label"
+              <label for="precision" class="fr-label"
                 >{{ $t("precision") }} :</label
               >
               <input
@@ -84,9 +84,9 @@
                 type="text"
                 v-model="precision"
                 name="precision"
-                class="validate-required form-control rf-input"
+                class="validate-required form-control fr-input"
               />
-              <span class="rf-error-text" v-if="errors[0]">{{
+              <span class="fr-error-text" v-if="errors[0]">{{
                 $t(errors[0])
               }}</span>
             </p>
@@ -95,7 +95,7 @@
       </div>
       <div>
         <button
-          class="rf-btn"
+          class="fr-btn"
           type="submit"
           @click="validate()"
           :disabled="canValidate()"

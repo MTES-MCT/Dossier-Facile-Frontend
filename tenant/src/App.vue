@@ -1,18 +1,15 @@
 <template>
   <div id="app">
-    <header class="rf-header">
-      <div class="rf-container">
-        <MyHeader
-          :logged-in="status.loggedIn"
-          @on-create-tenant="onCreateTenant"
-          @on-create-owner="onCreateOwner"
-          @on-logout="onLogout"
-          @on-change-lang="changeLang"
-          :lang="getLang()"
-        />
-        <Menu :user="user" />
-      </div>
-    </header>
+    <MyHeader
+      :logged-in="status.loggedIn"
+      @on-create-tenant="onCreateTenant"
+      @on-create-owner="onCreateOwner"
+      @on-logout="onLogout"
+      @on-change-lang="changeLang"
+      :lang="getLang()"
+    >
+      <Menu :user="user" />
+    </MyHeader>
     <article class="page">
       <router-view />
     </article>
@@ -32,7 +29,6 @@ import MyFooter from "df-shared/src/Footer/Footer.vue";
 import Menu from "@/components/Menu.vue";
 import { mapGetters, mapState } from "vuex";
 import i18n from "./i18n";
-import { Header } from "./gouvfr/header.js";
 import Cookies from "df-shared/src/Footer/Cookies.vue";
 import VueGtag from "vue-gtag";
 import router from "./router";
@@ -58,9 +54,12 @@ export default class App extends Vue {
   cookieHidden = this.$cookies.isKey("accept-cookie");
   isLoggedIn!: boolean;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
+  MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
 
   mounted() {
-    new Header();
+    const localScript = document.createElement("script");
+    localScript.setAttribute("src", "/js/dsfr.module.min.js");
+    document.head.appendChild(localScript);
   }
 
   onLogin() {
@@ -101,7 +100,9 @@ export default class App extends Vue {
       true,
       new Date(2050, 12, 31).toUTCString(),
       "",
-      "dossierfacile.fr"
+      this.MAIN_URL.endsWith("dossierfacile.fr")
+        ? "dossierfacile.fr"
+        : "localhost"
     );
     Vue.use(
       VueGtag,
@@ -122,7 +123,9 @@ export default class App extends Vue {
       false,
       d.toUTCString(),
       "",
-      "dossierfacile.fr"
+      this.MAIN_URL.endsWith("dossierfacile.fr")
+        ? "dossierfacile.fr"
+        : "localhost"
     );
     this.cookieHidden = true;
   }

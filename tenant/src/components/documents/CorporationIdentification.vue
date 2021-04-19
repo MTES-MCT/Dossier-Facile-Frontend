@@ -3,29 +3,29 @@
     <ValidationObserver>
       <validation-provider rules="required" v-slot="{ errors }">
         <div
-          class="rf-input-group"
-          :class="errors[0] ? 'rf-input-group--error' : ''"
+          class="fr-input-group"
+          :class="errors[0] ? 'fr-input-group--error' : ''"
         >
-          <label class="rf-label" for="organismName"
+          <label class="fr-label" for="organismName"
             >{{ $t("organism-name") }} :</label
           >
           <input
             v-model="organismName"
-            class="form-control rf-input validate-required"
+            class="form-control fr-input validate-required"
             id="organismName"
             name="organismName"
             :placeholder="$t('organism-name-placeholder')"
             type="text"
             required
           />
-          <span class="rf-error-text" v-if="errors[0]">{{ errors[0] }}</span>
+          <span class="fr-error-text" v-if="errors[0]">{{ errors[0] }}</span>
         </div>
       </validation-provider>
       <div>
-        <div class="rf-mb-3w">
+        <div class="fr-mb-3w">
           {{ $t("kbis-label") }}
         </div>
-        <div class="rf-mb-3w">
+        <div class="fr-mb-3w">
           <FileUpload
             :current-status="fileUploadStatus"
             @add-files="addFiles"
@@ -33,7 +33,7 @@
           ></FileUpload>
         </div>
       </div>
-      <div class="rf-col-lg-8 rf-col-md-12 rf-mb-3w">
+      <div class="fr-col-lg-8 fr-col-md-12 fr-mb-3w">
         <ListItem
           v-for="(file, k) in listFiles()"
           :key="k"
@@ -47,9 +47,9 @@
           "
         />
       </div>
-      <div class="rf-col-12 rf-mb-2w">
+      <div class="fr-col-12 fr-mb-2w">
         <button
-          class="rf-btn"
+          class="fr-btn"
           type="submit"
           @click="save"
           :disabled="!organismName || files.length <= 0"
@@ -57,7 +57,7 @@
           {{ $t("register") }}
         </button>
       </div>
-      <div class="rf-mb-5w">
+      <div class="fr-mb-5w">
         <DocumentInsert
           :allow-list="acceptedProofs"
           :block-list="refusedProofs"

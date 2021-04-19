@@ -1,5 +1,5 @@
 <template>
-  <div class="rf-container rf-mt-3w">
+  <div class="fr-container fr-mt-3w">
     <div class="signup">
       <DfButton @on-click="existingAccount = false" v-if="existingAccount">
         {{ $t("register") }}
@@ -16,9 +16,9 @@
 
       <Modal v-show="isValidModalVisible" @close="closeModal">
         <template v-slot:body>
-          <div class="rf-container">
-            <div class="rf-grid-row justify-content-center">
-              <div class="rf-col-12">
+          <div class="fr-container">
+            <div class="fr-grid-row justify-content-center">
+              <div class="fr-col-12">
                 <p>
                   {{ $t("mail-sent") }}
                 </p>

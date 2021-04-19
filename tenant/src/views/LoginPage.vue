@@ -1,26 +1,26 @@
 <template>
-  <div class="rf-container">
+  <div class="fr-container">
     <Login @on-login="onLogin" />
-    <div class="rf-grid-row">
-      <div class="rf-col-12 text-center rf-mb-3w">
+    <div class="fr-grid-row">
+      <div class="fr-col-12 text-center fr-mb-3w">
         <router-link to="/forgotten-password">{{
           $t("forgotten-password")
         }}</router-link>
       </div>
-      <div class="rf-col-12 text-center rf-mb-12w">
+      <div class="fr-col-12 text-center fr-mb-12w">
         <router-link to="/signup">{{ $t("no-account") }}</router-link>
       </div>
     </div>
     <Modal v-show="redirectModalVisible" @close="redirectModalVisible = false">
       <template v-slot:body>
-        <div class="rf-container">
-          <div class="rf-grid-row justify-content-center">
-            <div class="rf-col-12">
+        <div class="fr-container">
+          <div class="fr-grid-row justify-content-center">
+            <div class="fr-col-12">
               <p v-html="$t('error-occured')"></p>
             </div>
           </div>
 
-          <DfButton class="rf-mt-3w" @on-click="redirectModalVisible = false">{{
+          <DfButton class="fr-mt-3w" @on-click="redirectModalVisible = false">{{
             $t("try-again")
           }}</DfButton>
         </div>
