@@ -54,3 +54,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.fr-container-md {
+  margin: auto;
+}
+</style>
