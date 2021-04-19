@@ -1,9 +1,19 @@
 <template>
   <div class="fr-m-12w">
-    Page en cours de réalisation
-    <h2>Bar Chart I</h2>
-    <div class="container-chart text-align-left">
-      <div class="chart"></div>
+    <h1>{{ $t("title") }}</h1>
+    <div class="fr-grid-row">
+      <div class="fr-col-8">
+        <h2>Bar Chart I</h2>
+        <hr />
+        <div class="container-chart text-align-left">
+          <div class="chart"></div>
+        </div>
+      </div>
+      <div class="fr-col-4">t</div>
+      <div class="fr-col-8"></div>
+      <div class="fr-col-4"></div>
+      <div class="fr-col-8"></div>
+      <div class="fr-col-4"></div>
     </div>
   </div>
 </template>
@@ -56,3 +66,16 @@ export default class Statistics extends Vue {
   margin: auto;
 }
 </style>
+
+<i18n>
+{
+  "en":
+  {
+    "title": "Satistics"
+  },
+  "fr":
+  {
+    "title": "Satistiques"
+  }
+}
+</i18n>
