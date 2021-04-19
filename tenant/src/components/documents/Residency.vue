@@ -1,20 +1,48 @@
 <template>
   <div>
     <div>
-      <label class="rf-label" for="select">
+      <div class="fr-pl-3v">
         {{ $t("select-label") }}
-      </label>
-      <select
-        v-model="residencyDocument"
-        class="rf-select rf-mb-3w"
-        id="select"
-        name="select"
-        @change="onSelectChange()"
-      >
-        <option v-for="d in documents" :value="d" :key="d.key">
-          {{ $t(d.key) }}
-        </option>
-      </select>
+      </div>
+
+      <v-gouv-fr-modal>
+        <template v-slot:button>
+          En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:title>
+          En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:content>
+          <p>
+            <DocumentHelp></DocumentHelp>
+            <DocumentInsert
+              :allow-list="residencyDocument.acceptedProofs"
+              :block-list="residencyDocument.refusedProofs"
+              v-if="residencyDocument.key"
+            ></DocumentInsert>
+          </p>
+        </template>
+      </v-gouv-fr-modal>
+
+      <div class="fr-mt-1w">
+        <fieldset class="fr-fieldset">
+          <div class="fr-fieldset__content">
+            <div class="fr-grid-row">
+              <div v-for="d in documents" :key="d.key">
+                <BigRadio
+                  :val="d"
+                  v-model="residencyDocument"
+                  @input="onSelectChange()"
+                >
+                  <div class="fr-grid-col spa">
+                    <span>{{ $t(d.key) }}</span>
+                  </div>
+                </BigRadio>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
     </div>
     <ConfirmModal
       v-if="isDocDeleteVisible"
@@ -24,10 +52,10 @@
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
     <div v-if="residencyDocument.key">
-      <div class="rf-mb-3w">
+      <div class="fr-mb-3w">
         <p v-html="$t(residencyDocument.explanationText)"></p>
       </div>
-      <div class="rf-mb-3w">
+      <div class="fr-mb-3w">
         <FileUpload
           :current-status="fileUploadStatus"
           @add-files="addFiles"
@@ -35,10 +63,7 @@
         ></FileUpload>
       </div>
     </div>
-    <div
-      v-if="residencyFiles().length > 0"
-      class="rf-col-lg-8 rf-col-md-12 rf-mb-3w"
-    >
+    <div v-if="residencyFiles().length > 0" class="fr-col-12 fr-mb-3w">
       <ListItem
         v-for="(file, k) in residencyFiles()"
         :key="k"
@@ -46,21 +71,15 @@
         @remove="remove(file)"
       />
     </div>
-    <div class="rf-col-12 rf-mb-2w" v-if="residencyDocument">
+    <div class="fr-col-12 fr-mb-2w" v-if="residencyDocument">
       <button
-        class="rf-btn"
+        class="fr-btn"
         type="submit"
         @click="save"
         :disabled="files.length <= 0"
       >
         {{ $t("register") }}
       </button>
-    </div>
-    <div class="rf-mb-5w" v-if="residencyDocument.key">
-      <DocumentInsert
-        :allow-list="residencyDocument.acceptedProofs"
-        :block-list="residencyDocument.refusedProofs"
-      ></DocumentInsert>
     </div>
   </div>
 </template>
@@ -80,6 +99,9 @@ import { RegisterService } from "../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
+import BigRadio from "df-shared/src/Button/BigRadio.vue";
+import DocumentHelp from "../helps/DocumentHelp.vue";
+import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 
 @Component({
   components: {
@@ -87,7 +109,10 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
     FileUpload,
     ListItem,
     WarningMessage,
-    ConfirmModal
+    ConfirmModal,
+    BigRadio,
+    VGouvFrModal,
+    DocumentHelp
   },
   computed: {
     ...mapGetters({
@@ -274,20 +299,20 @@ export default class Residency extends Vue {
 <i18n>
 {
 "en": {
-  "tenant": "Vous êtes locataire",
-  "owner": "Vous êtes propriétaire",
-  "guest": "Vous êtes hébergé gratuitement",
-  "guest-parents": "Vous habitez chez vos parents",
+  "tenant": "Locataire",
+  "owner": "Propriétaire",
+  "guest": "Hébergé·e gratuitement",
+  "guest-parents": "Chez mes parents",
   "files": "Documents",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
   "register": "Register",
   "select-label": "Your current accommodation situation:"
 },
 "fr": {
-  "tenant": "Vous êtes locataire",
-  "owner": "Vous êtes propriétaire",
-  "guest": "Vous êtes hébergé gratuitement",
-  "guest-parents": "Vous habitez chez vos parents",
+  "tenant": "Locataire",
+  "owner": "Propriétaire",
+  "guest": "Hébergé·e gratuitement",
+  "guest-parents": "Chez mes parents",
   "files": "Documents",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
   "register": "Enregistrer",

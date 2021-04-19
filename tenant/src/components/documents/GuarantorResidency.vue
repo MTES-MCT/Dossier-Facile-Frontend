@@ -1,20 +1,48 @@
 <template>
   <div>
     <div>
-      <label class="rf-label" for="select">
+      <div class="fr-pl-3v">
         {{ $t("select-label") }}
-      </label>
-      <select
-        v-model="residencyDocument"
-        class="rf-select rf-mb-3w"
-        id="select"
-        name="select"
-        @change="onSelectChange()"
-      >
-        <option v-for="d in documents" :value="d" :key="d.key">
-          {{ $t(d.key) }}
-        </option>
-      </select>
+      </div>
+
+      <v-gouv-fr-modal>
+        <template v-slot:button>
+          En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:title>
+          En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:content>
+          <p>
+            <GuarantorChoiceHelp></GuarantorChoiceHelp>
+            <DocumentInsert
+              :allow-list="residencyDocument.acceptedProofs"
+              :block-list="residencyDocument.refusedProofs"
+              v-if="residencyDocument.key"
+            ></DocumentInsert>
+          </p>
+        </template>
+      </v-gouv-fr-modal>
+
+      <div class="fr-mt-1w">
+        <fieldset class="fr-fieldset">
+          <div class="fr-fieldset__content">
+            <div class="fr-grid-row">
+              <div v-for="d in documents" :key="d.key">
+                <BigRadio
+                  :val="d"
+                  v-model="residencyDocument"
+                  @input="onSelectChange()"
+                >
+                  <div class="fr-grid-col spa">
+                    <span>{{ $t(d.key) }}</span>
+                  </div>
+                </BigRadio>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
     </div>
     <ConfirmModal
       v-if="isDocDeleteVisible"
@@ -24,10 +52,10 @@
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
     <div v-if="residencyDocument.key">
-      <div class="rf-mb-3w">
+      <div class="fr-mb-3w">
         <p v-html="$t(residencyDocument.explanationText)"></p>
       </div>
-      <div class="rf-mb-3w">
+      <div class="fr-mb-3w">
         <FileUpload
           :current-status="fileUploadStatus"
           @add-files="addFiles"
@@ -35,10 +63,7 @@
         ></FileUpload>
       </div>
     </div>
-    <div
-      v-if="residencyFiles().length > 0"
-      class="rf-col-lg-8 rf-col-md-12 rf-mb-3w"
-    >
+    <div v-if="residencyFiles().length > 0" class="fr-col-12 fr-mb-3w">
       <ListItem
         v-for="(file, k) in residencyFiles()"
         :key="k"
@@ -46,9 +71,9 @@
         @remove="remove(file)"
       />
     </div>
-    <div class="rf-col-12 rf-mb-2w" v-if="residencyDocument">
+    <div class="fr-col-12 fr-mb-2w" v-if="residencyDocument">
       <button
-        class="rf-btn"
+        class="fr-btn"
         type="submit"
         @click="save"
         :disabled="files.length <= 0"
@@ -56,18 +81,12 @@
         {{ $t("register") }}
       </button>
     </div>
-    <div class="rf-mb-5w" v-if="residencyDocument.key">
-      <DocumentInsert
-        :allow-list="residencyDocument.acceptedProofs"
-        :block-list="residencyDocument.refusedProofs"
-      ></DocumentInsert>
-    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { mapGetters, mapState } from "vuex";
+import { mapState } from "vuex";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
@@ -80,6 +99,9 @@ import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { Guarantor } from "df-shared/src/models/Guarantor";
+import BigRadio from "df-shared/src/Button/BigRadio.vue";
+import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
+import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 
 @Component({
   components: {
@@ -87,7 +109,10 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
     FileUpload,
     ListItem,
     WarningMessage,
-    ConfirmModal
+    ConfirmModal,
+    BigRadio,
+    GuarantorChoiceHelp,
+    VGouvFrModal
   },
   computed: {
     ...mapState({

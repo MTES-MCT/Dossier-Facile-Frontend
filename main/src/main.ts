@@ -34,7 +34,7 @@ const inspectlet = function() {
 
 Vue.prototype.inspectlet = inspectlet;
 
-require("../../node_modules/@gouvfr/all/dist/css/all.min.css");
+require("../../node_modules/@gouvfr/dsfr/dist/css/dsfr.min.css");
 
 Vue.config.productionTip = false;
 

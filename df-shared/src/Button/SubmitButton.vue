@@ -1,6 +1,6 @@
 <template>
-  <div class="rf-col-12 rf-mb-5w right">
-    <button class="rf-btn" type="submit">
+  <div class="fr-col-12 fr-mb-5w right">
+    <button class="fr-btn" type="submit">
       <slot>
         {{ $t("confirm") }}
       </slot>

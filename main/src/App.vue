@@ -1,26 +1,12 @@
 <template>
   <div id="app">
-    <header class="rf-header">
-      <div class="rf-container">
-        <MyHeader
-          @on-create-tenant="onCreateTenant"
-          @on-create-owner="onCreateOwner"
-          @on-change-lang="changeLang"
-          :lang="getLang()"
-        />
-      </div>
-      <div class="rf-container">
-        <nav class="rf-nav" role="navigation" aria-label="Menu principal">
-          <ul class="rf-nav__list">
-            <li class="rf-nav__item" v-if="isMobile()">
-              <router-link to="/faq" class="rf-link">
-                {{ $t("faq") }}
-              </router-link>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+    <MyHeader
+      @on-create-tenant="onCreateTenant"
+      @on-create-owner="onCreateOwner"
+      @on-change-lang="changeLang"
+      :lang="getLang()"
+    >
+    </MyHeader>
     <router-view />
     <MyFooter />
     <Cookies
@@ -38,7 +24,6 @@ import MyFooter from "df-shared/src/Footer/Footer.vue";
 import Modal from "df-shared/src/components/Modal.vue";
 import Cookies from "df-shared/src/Footer/Cookies.vue";
 import i18n from "./i18n";
-import { Header } from "./gouvfr/header.js";
 import VueGtag from "vue-gtag";
 import router from "./router";
 
@@ -53,11 +38,14 @@ import router from "./router";
 export default class App extends Vue {
   cookieHidden = this.$cookies.isKey("accept-cookie");
 
+  MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
 
   mounted() {
-    new Header();
+    const localScript = document.createElement("script");
+    localScript.setAttribute("src", "/js/dsfr.module.js");
+    document.head.appendChild(localScript);
   }
 
   onCreateOwner() {
@@ -74,7 +62,9 @@ export default class App extends Vue {
       true,
       new Date(2050, 12, 31).toUTCString(),
       "",
-      "dossierfacile.fr"
+      this.MAIN_URL.endsWith("dossierfacile.fr")
+        ? "dossierfacile.fr"
+        : "localhost"
     );
     Vue.use(
       VueGtag,
@@ -95,7 +85,9 @@ export default class App extends Vue {
       false,
       d.toUTCString(),
       "",
-      "dossierfacile.fr"
+      this.MAIN_URL.endsWith("dossierfacile.fr")
+        ? "dossierfacile.fr"
+        : "localhost"
     );
     this.cookieHidden = true;
   }

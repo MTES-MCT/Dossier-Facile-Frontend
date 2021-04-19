@@ -7,11 +7,13 @@ import axios from "axios";
 import Loading from "vue-loading-overlay";
 import Toasted from "vue-toasted";
 import VueCookies from "vue-cookies";
+
+Vue.config.productionTip = false;
+
+require("../../node_modules/@gouvfr/dsfr/dist/css/dsfr.min.css");
 import "vue-loading-overlay/dist/vue-loading.css";
 import VueGtag from "vue-gtag";
 import VueAuthImage from "vue-auth-image";
-
-require("../../node_modules/@gouvfr/all/dist/css/all.min.css");
 
 declare global {
   interface Window {

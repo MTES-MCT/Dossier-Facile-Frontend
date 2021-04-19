@@ -1,15 +1,15 @@
 <template>
-  <section class="rf-mb-12w">
+  <section class="fr-mb-12w">
     <article>
       <div class="imagebg text-center">
-        <div class="rf-container">
-          <div class="rf-grid-row height-40">
-            <div class="rf-col-md-12">
+        <div class="fr-container">
+          <div class="fr-grid-row height-40">
+            <div class="fr-col-md-12">
               <div>
-                <h1 class="rf-h1 color--white">
+                <h1 class="fr-h1 color--white">
                   Politique de confidentialité (standard RGPD)
                 </h1>
-                <h3 class="rf-h3 color--white">
+                <h3 class="fr-h3 color--white">
                   Sécurité et protection des données personnelles
                 </h3>
               </div>
@@ -19,11 +19,11 @@
       </div>
 
       <div>
-        <div class="rf-container">
-          <div class="rf-grid-row justify-content-center">
-            <div class="rf-col-md-10">
+        <div class="fr-container">
+          <div class="fr-grid-row justify-content-center">
+            <div class="fr-col-md-10">
               <div>
-                <h3 class="rf-h3">Définitions :</h3>
+                <h3 class="fr-h3 fr-mt-3w">Définitions :</h3>
                 <p>
                   <b> L'Éditeur : </b> La personne, physique ou morale, qui
                   édite les services de communication au public en ligne. <br />
@@ -35,7 +35,7 @@
                   de sa recherche de logement.
                 </p>
 
-                <h3 class="rf-h3">Mentions légales :</h3>
+                <h3 class="fr-h3">Mentions légales :</h3>
                 <p>
                   <b> Éditeur : </b> Ministère de la transition écologique et
                   solidaire et ministère de la cohésion des territoires et des
@@ -45,7 +45,7 @@
                   <b> Prestataire d’hébergement : </b> OVH <br />
                 </p>
 
-                <h3 class="rf-h3">Nature des données collectées</h3>
+                <h3 class="fr-h3">Nature des données collectées</h3>
                 <p>
                   <b>
                     Dans le cadre de l'utilisation des Sites, l'Éditeur est
@@ -83,7 +83,7 @@
                   de son Garant. <br />
                 </p>
 
-                <h3 class="rf-h3">
+                <h3 class="fr-h3">
                   Communication des données personnelles à des tiers
                 </h3>
                 <p>
@@ -98,7 +98,7 @@
                   judiciaire compétente.
                 </p>
 
-                <h3 class="rf-h3">
+                <h3 class="fr-h3">
                   Information préalable pour la communication des données
                   personnelles à des tiers en cas de fusion / absorption
                 </h3>
@@ -115,7 +115,7 @@
                   confidentialité.
                 </p>
 
-                <h3 class="rf-h3">
+                <h3 class="fr-h3">
                   Finalité de la réutilisation des données personnelles
                   collectées
                 </h3>
@@ -183,7 +183,7 @@
                   à jour.
                 </p>
 
-                <h3 class="rf-h3">Collecte des données du terminal</h3>
+                <h3 class="fr-h3">Collecte des données du terminal</h3>
                 <p>
                   <b> Collecte des données techniques </b><br />
                   Nous pouvons collecter et conserver les données techniques de
@@ -191,7 +191,7 @@
                   Internet...).
                 </p>
 
-                <h3 class="rf-h3">Cookies</h3>
+                <h3 class="fr-h3">Cookies</h3>
                 <p>
                   <b> Durée de conservation des cookies </b><br />
                   Conformément aux recommandations de la CNIL, la durée maximale
@@ -226,7 +226,7 @@
                   passant par les options de réglage.
                 </p>
 
-                <h3 class="rf-h3">Conservation des données techniques</h3>
+                <h3 class="fr-h3">Conservation des données techniques</h3>
                 <p>
                   <b> Durée de conservation des données techniques </b><br />
                   Les données techniques sont conservées pour la durée
@@ -234,7 +234,7 @@
                   ci-avant.
                 </p>
 
-                <h3 class="rf-h3">
+                <h3 class="fr-h3">
                   Délai de conservation des données personnelles et
                   d'anonymisation
                 </h3>
@@ -270,7 +270,7 @@
                   données seront supprimées de nos bases de données.
                 </p>
 
-                <h3 class="rf-h3">Suppression du compte</h3>
+                <h3 class="fr-h3">Suppression du compte</h3>
                 <p>
                   <b> Suppression du compte à la demande </b><br />
                   L'Utilisateur a la possibilité de supprimer son Compte à tout
@@ -288,7 +288,7 @@
                   et à tous les Sites.
                 </p>
 
-                <h3 class="rf-h3">
+                <h3 class="fr-h3">
                   Indications en cas de faille de sécurité décelée par l'Éditeur
                 </h3>
                 <p>
@@ -327,7 +327,7 @@
                   en question.
                 </p>
 
-                <h3 class="rf-h3">
+                <h3 class="fr-h3">
                   Stockage des données personnelles à l'étranger
                 </h3>
                 <p>
@@ -336,7 +336,7 @@
                   de nos Utilisateurs en dehors de l'Union européenne.
                 </p>
 
-                <h3 class="rf-h3">
+                <h3 class="fr-h3">
                   Modification des CGU et de la politique de confidentialité
                 </h3>
                 <p>
@@ -352,7 +352,7 @@
                   sans vous en informer et obtenir votre consentement.
                 </p>
 
-                <h3 class="rf-h3">Droit applicable et modalités de recours</h3>
+                <h3 class="fr-h3">Droit applicable et modalités de recours</h3>
                 <p>
                   <b>
                     Application du droit français (législation CNIL) et

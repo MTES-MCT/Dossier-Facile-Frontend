@@ -1,6 +1,6 @@
 <template>
   <div class="left-edit-menu">
-    <div class="inner-left-edit rf-mt-7w">
+    <div class="inner-left-edit fr-mt-7w">
       <div class="active step">
         <div class="step-number">1</div>
         <div class="step-title">je renseigne mes informations</div>
@@ -97,10 +97,10 @@ export default class LeftEditMenu extends Vue {
 .step {
   display: flex;
   align-items: center;
+  height: 4rem;
 }
 
 .step-number {
-  padding: 1px;
   background-color: white;
   border: 1px solid var(--g400-t);
   margin: 0 5px;

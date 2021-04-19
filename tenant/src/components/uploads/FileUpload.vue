@@ -1,5 +1,5 @@
 <template>
-  <div class="file-upload rf-col-lg-8 rf-col-md-12">
+  <div class="file-upload fr-col-md-12">
     <form name="uploadForm" enctype="multipart/form-data" novalidate>
       <div class="dropbox">
         <input
@@ -10,18 +10,16 @@
           class="input-file"
           accept="image/png, image/jpeg, application/pdf"
         />
-        <p v-if="!isSaving()">
+        <div v-if="!isSaving()" class="fr-mt-2w fr-mb-2w">
           Glissez et déposez vos documents
           <br />
           JPG, PNG ou PDF<br />
           {{ getSizeLimit() }}<br />
-          {{ getPagesLimit() }}
-        </p>
-        <p>
+          {{ getPagesLimit() }}<br />
           ou<br />
           <a href="#">Parcourez vos fichiers</a>
-        </p>
-        <p v-if="isSaving()">Téléchargement des fichiers...</p>
+        </div>
+        <div v-if="isSaving()">Téléchargement des fichiers...</div>
       </div>
     </form>
   </div>
@@ -139,7 +137,7 @@ export default class FileUpload extends Vue {
   --color-active: rgba(91, 91, 255, 0.1);
 }
 
-.dropbox p {
+.dropbox div {
   font-size: 1em;
   text-align: center;
 }

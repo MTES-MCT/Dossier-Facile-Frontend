@@ -1,11 +1,11 @@
 <template>
-  <section class="rf-mb-12w">
-    <div class="rf-container">
-      <div class="rf-grid-row justify-content-center">
-        <div class="rf-col-md-10 rf-col-lg-8">
+  <section class="fr-mb-12w">
+    <div class="fr-container">
+      <div class="fr-grid-row justify-content-center">
+        <div class="fr-col-md-10 fr-col-lg-8">
           <article>
-            <div class="text-center">
-              <h1 class="rf-h1">
+            <div class="text-center fr-mt-3w fr-mb-3w">
+              <h1 class="fr-h1">
                 5 conseils pour trouver l’appartement de ses rêves en région
                 parisienne (ou ailleurs…)
               </h1>

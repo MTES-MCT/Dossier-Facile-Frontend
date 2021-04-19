@@ -5,38 +5,38 @@
         name="form"
         @submit.prevent="validate().then(handleNameInformation)"
       >
-        <div class="rf-grid-row rf-grid-row--center">
-          <div class="rf-col-12 rf-mb-3w">
+        <div class="fr-grid-row fr-grid-row--center">
+          <div class="fr-col-12 fr-mb-3w">
             <validation-provider rules="required" v-slot="{ errors }">
               <div
-                class="rf-input-group"
-                :class="errors[0] ? 'rf-input-group--error' : ''"
+                class="fr-input-group"
+                :class="errors[0] ? 'fr-input-group--error' : ''"
               >
-                <label class="rf-label" for="lastname"
+                <label class="fr-label" for="lastname"
                   >{{ $t("lastname") }} :</label
                 >
                 <input
                   v-model="user.lastName"
-                  class="form-control rf-input validate-required"
+                  class="form-control fr-input validate-required"
                   id="lastname"
                   name="lastname"
                   :placeholder="$t('lastname')"
                   type="text"
                   required
                 />
-                <span class="rf-error-text" v-if="errors[0]">{{
+                <span class="fr-error-text" v-if="errors[0]">{{
                   errors[0]
                 }}</span>
               </div>
             </validation-provider>
           </div>
-          <div class="rf-col-12 rf-mb-3w">
+          <div class="fr-col-12 fr-mb-3w">
             <validation-provider rules="required" v-slot="{ errors }">
               <div
-                class="rf-input-group"
-                :class="errors[0] ? 'rf-input-group--error' : ''"
+                class="fr-input-group"
+                :class="errors[0] ? 'fr-input-group--error' : ''"
               >
-                <label for="firstname" class="rf-label"
+                <label for="firstname" class="fr-label"
                   >{{ $t("firstname") }} :</label
                 >
                 <input
@@ -45,25 +45,25 @@
                   type="text"
                   v-model="user.firstName"
                   name="firstname"
-                  class="validate-required form-control rf-input"
+                  class="validate-required form-control fr-input"
                   required
                 />
-                <span class="rf-error-text" v-if="errors[0]">{{
+                <span class="fr-error-text" v-if="errors[0]">{{
                   $t(errors[0])
                 }}</span>
               </div>
             </validation-provider>
           </div>
-          <div class="rf-col-12 rf-mb-3w">
+          <div class="fr-col-12 fr-mb-3w">
             <validation-provider
               :rules="{ zipcode: /^[0-9]{5}$/ }"
               v-slot="{ errors }"
             >
               <div
-                class="rf-input-group"
-                :class="errors[0] ? 'rf-input-group--error' : ''"
+                class="fr-input-group"
+                :class="errors[0] ? 'fr-input-group--error' : ''"
               >
-                <label for="zipcode" class="rf-label"
+                <label for="zipcode" class="fr-label"
                   >{{ $t("zipcode") }} :</label
                 >
                 <input
@@ -72,9 +72,9 @@
                   type="text"
                   v-model="user.zipCode"
                   name="zipcode"
-                  class="validate-required form-control rf-input"
+                  class="validate-required form-control fr-input"
                 />
-                <span class="rf-error-text" v-if="errors[0]">{{
+                <span class="fr-error-text" v-if="errors[0]">{{
                   $t(errors[0])
                 }}</span>
               </div>

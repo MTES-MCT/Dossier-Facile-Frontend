@@ -109,9 +109,9 @@
       </div>
       <Tax v-if="tenantSubStep === 5"></Tax>
     </div>
-    <div class="rf-col-12 rf-mb-5w">
+    <div class="fr-col-12 fr-mb-5w">
       <button
-        class="rf-btn"
+        class="fr-btn"
         type="submit"
         aria-disabled="!documentsFilled()"
         :disabled="!documentsFilled()"
@@ -247,6 +247,10 @@ h2 {
     padding: 0.5rem;
     line-height: 1rem;
   }
+}
+
+h2 {
+  line-height: 1.5rem;
 }
 </style>
 

@@ -1,21 +1,21 @@
 <template>
   <Modal @close="undoSelect()">
     <template v-slot:body>
-      <div class="rf-container">
-        <div class="rf-grid-row justify-content-center">
-          <div class="rf-col-12">
+      <div class="fr-container">
+        <div class="fr-grid-row justify-content-center">
+          <div class="fr-col-12">
             <p>
               <slot></slot>
             </p>
             <div class="align--right">
               <DfButton
                 type="submit"
-                class="rf-mr-3w"
+                class="fr-mr-3w"
                 @on-click="validSelect()"
                 primary="true"
                 >{{ $t("validate") }}</DfButton
               >
-              <DfButton class="rf-mr-3w" @on-click="undoSelect()">{{
+              <DfButton class="fr-mr-3w" @on-click="undoSelect()">{{
                 $t("cancel")
               }}</DfButton>
             </div>

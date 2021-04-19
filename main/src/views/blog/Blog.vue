@@ -1,12 +1,12 @@
 <template>
   <section>
-    <div class="rf-mt-7w rf-container">
-      <div class="rf-grid-row justify-content-center">
-        <div class="rf-col-md-10 rf-col-lg-8">
-          <article class="rf-mb-12w">
+    <div class="fr-mt-7w fr-container">
+      <div class="fr-grid-row justify-content-center">
+        <div class="fr-col-md-10 fr-col-lg-8">
+          <article class="fr-mb-12w">
             <div class="text-center">
               <router-link to="/blog/dossierfacile-fait-peau-neuve">
-                <h2 class="rf-h2">
+                <h2 class="fr-h2">
                   DossierFacile fait peau neuve
                 </h2>
               </router-link>
@@ -41,12 +41,12 @@
             </div>
           </article>
           <hr />
-          <article class="rf-mb-12w">
+          <article class="fr-mb-12w">
             <div class="text-center">
               <router-link
                 to="/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne"
               >
-                <h2 class="rf-h2">
+                <h2 class="fr-h2">
                   5 conseils pour trouver l’appartement de ses rêves en région
                   parisienne (ou ailleurs…)
                 </h2>
@@ -84,12 +84,12 @@
             </div>
           </article>
           <hr />
-          <article class="rf-mb-12w">
+          <article class="fr-mb-12w">
             <div class="text-center">
               <router-link
                 to="/blog/5-astuces-pour-booster-votre-dossier-de-location"
               >
-                <h2 class="rf-h2">
+                <h2 class="fr-h2">
                   5 astuces pour booster votre dossier de location
                 </h2>
               </router-link>
@@ -126,10 +126,10 @@
             </div>
           </article>
           <hr />
-          <article class="rf-mb-12w">
+          <article class="fr-mb-12w">
             <div class="text-center">
               <router-link to="/blog/pourquoi-dossierfacile-est-il-gratuit">
-                <h2 class="rf-h2">Pourquoi Dossier Facile est-il gratuit ?</h2>
+                <h2 class="fr-h2">Pourquoi Dossier Facile est-il gratuit ?</h2>
               </router-link>
               <span>21 Juillet 2020 dans </span>
               <span>
@@ -155,10 +155,10 @@
             </div>
           </article>
           <hr />
-          <article class="rf-mb-12w">
+          <article class="fr-mb-12w">
             <div class="text-center">
               <router-link to="/blog/constituer-votre-dossierFacile">
-                <h2 class="rf-h2">Constituer votre Dossier Facile</h2>
+                <h2 class="fr-h2">Constituer votre Dossier Facile</h2>
               </router-link>
               <span>12 Décembre 2019 dans </span>
               <span>
@@ -187,12 +187,12 @@
             </div>
           </article>
           <hr />
-          <article class="rf-mb-12w">
+          <article class="fr-mb-12w">
             <div class="text-center">
               <router-link
                 to="/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location"
               >
-                <h2 class="rf-h2">
+                <h2 class="fr-h2">
                   Quelles pièces justificatives fournir pour mon dossier de
                   location ?
                 </h2>
@@ -227,10 +227,10 @@
           </article>
           <hr />
           <!--end item-->
-          <article class="rf-mb-12w">
+          <article class="fr-mb-12w">
             <div class="text-center">
               <router-link to="/blog/locatio-devient-dossier-facile">
-                <h2 class="rf-h2">Locatio devient DossierFacile</h2>
+                <h2 class="fr-h2">Locatio devient DossierFacile</h2>
               </router-link>
               <span>21 mars 2019 dans </span>
               <span>

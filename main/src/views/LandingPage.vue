@@ -1,10 +1,10 @@
 <template>
   <div>
-    <section class="s0-background rf-pb-5w">
-      <div class="rf-container">
-        <div class="rf-col-md-8">
-          <div class="rf-grid-col">
-            <h1 :class="getH1Class()" class="rf-h1 color--white">
+    <section class="s0-background fr-pb-5w">
+      <div class="fr-container">
+        <div class="fr-col-md-8">
+          <div class="fr-grid-col">
+            <h1 :class="getH1Class()" class="fr-mt-3w color--white">
               {{ $t("s0.title") }}
             </h1>
             <p class="text-bold color--white">
@@ -13,7 +13,7 @@
             </p>
             <p>
               <a
-                class="rf-btn"
+                class="fr-btn"
                 :href="`${TENANT_URL}/signup?lang=${$i18n.locale}`"
               >
                 {{ $t("button") }}
@@ -23,76 +23,77 @@
         </div>
       </div>
     </section>
-    <section class="rf-mt-12w">
-      <div class="rf-container">
-        <div class="rf-grid-row">
-          <div class="rf-col-md-4 rf-grid-col rf-p-2w">
+    <section class="fr-mt-12w">
+      <div class="fr-container">
+        <div class="fr-grid-row">
+          <div class="fr-col-md-4 fr-grid-col fr-p-2w">
             <div>
               <img src="../assets/icons/approval.svg" class="s1-icons" alt="" />
             </div>
-            <h3 class="rf-h3 color--secondary">{{ $t("s1.h1") }}</h3>
-            <p class="rf-mt-0">
+            <h3 class="fr-h3 color--secondary">{{ $t("s1.h1") }}</h3>
+            <p class="fr-mt-0">
               {{ $t("s1.p1") }}
             </p>
           </div>
-          <div class="rf-col-md-4 rf-grid-col rf-p-2w">
+          <div class="fr-col-md-4 fr-grid-col fr-p-2w">
             <div>
               <img src="../assets/icons/sports.svg" class="s1-icons" alt="" />
             </div>
-            <h3 class="rf-h3 color--secondary">{{ $t("s1.h2") }}</h3>
-            <p class="rf-mt-0">
+            <h3 class="fr-h3 color--secondary">{{ $t("s1.h2") }}</h3>
+            <p class="fr-mt-0">
               {{ $t("s1.p2") }}
             </p>
           </div>
-          <div class="rf-col-md-4 rf-grid-col rf-p-2w">
+          <div class="fr-col-md-4 fr-grid-col fr-p-2w">
             <div>
               <img src="../assets/icons/reading.svg" class="s1-icons" alt="" />
             </div>
-            <h3 class="rf-h3 color--secondary">{{ $t("s1.h3") }}</h3>
-            <p class="rf-mt-0">
+            <h3 class="fr-h3 color--secondary">{{ $t("s1.h3") }}</h3>
+            <p class="fr-mt-0">
               {{ $t("s1.p3") }}
             </p>
           </div>
         </div>
       </div>
     </section>
-    <section class="rf-mt-12w">
-      <div class="rf-container">
-        <h2 class="rf-h2 s2-title">{{ $t("s2.title") }}</h2>
-        <div class="rf-grid-row">
-          <div class="rf-col-md-6 rf-grid-col">
-            <h4 class="rf-h4 color--secondary rf-mb-0">{{ $t("s2.h1") }}</h4>
-            <p>{{ $t("s2.p1") }}</p>
-            <ul>
+    <section class="fr-mt-12w">
+      <div class="fr-container">
+        <h2 class="fr-h2 s2-title">{{ $t("s2.title") }}</h2>
+        <div class="fr-grid-row">
+          <div class="fr-col-md-6 fr-grid-col">
+            <h4 class="fr-h4 color--secondary fr-mb-0">{{ $t("s2.h1") }}</h4>
+            <p>{{ $t("s2.p1") }}
+            <ul class="fr-pt-2w">
               <li>{{ $t("s2.u1a") }}</li>
               <li>{{ $t("s2.u1b") }}</li>
               <li>{{ $t("s2.u1c") }}</li>
               <li>{{ $t("s2.u1d") }}</li>
               <li>{{ $t("s2.u1e") }}</li>
             </ul>
+            </p>
 
-            <h4 class="rf-h4 color--secondary rf-mb-0">{{ $t("s2.h2") }}</h4>
+            <h4 class="fr-h4 color--secondary fr-mb-0">{{ $t("s2.h2") }}</h4>
             <p>{{ $t("s2.p2") }}</p>
 
-            <h4 class="rf-h4 color--secondary rf-mb-0">{{ $t("s2.h3") }}</h4>
+            <h4 class="fr-h4 color--secondary fr-mb-0">{{ $t("s2.h3") }}</h4>
             <p>{{ $t("s2.p3") }}</p>
           </div>
-          <div class="rf-col-md-6">
+          <div class="fr-col-md-6">
             <img src="../assets/icons/justif.webp" alt="" />
           </div>
         </div>
         <a
-          class="rf-btn rf-mt-3w"
+          class="fr-btn fr-mt-3w"
           :href="`${TENANT_URL}/signup?lang=${$i18n.locale}`"
         >
           {{ $t("button") }}
         </a>
       </div>
     </section>
-    <section class="rf-mt-12w">
-      <div class="bg--orange rf-pt-7w rf-pb-7w">
-        <div class="rf-container">
-          <h2 class="rf-h2 s3-title">{{ $t("s3.title") }}</h2>
+    <section class="fr-mt-12w">
+      <div class="bg--orange fr-pt-7w fr-pb-7w">
+        <div class="fr-container">
+          <h2 class="fr-h2 s3-title">{{ $t("s3.title") }}</h2>
           <p>
             {{ $t("s3.text1") }}
             <br />
@@ -107,9 +108,9 @@
         </div>
       </div>
     </section>
-    <section class="rf-mt-12w">
-      <div class="rf-container rf-mb-7w">
-        <h2 class="rf-h2 text-center">
+    <section class="fr-mt-12w">
+      <div class="fr-container fr-mb-7w">
+        <h2 class="fr-h2 text-center">
           {{ $t("s4.title1") }}
           <span class="color--secondary">{{ $t("s4.title2") }}</span>
           {{ $t("s4.title3") }}
@@ -120,30 +121,30 @@
             {{ $t("s4.link") }}
           </router-link>
         </div>
-        <div class="rf-grid-row">
-          <div class="col rf-p-2w">
-            <blockquote class="bg--blue color--primary quote rf-p-2w">
-              <p class="rf-m-0 rf-mb-3w">{{ $t("s4.t1") }}</p>
+        <div class="fr-grid-row">
+          <div class="col fr-p-2w">
+            <blockquote class="bg--blue color--primary quote fr-p-2w">
+              <p class="fr-m-0 fr-mb-3w">{{ $t("s4.t1") }}</p>
               <cite>{{ $t("s4.author1") }}</cite>
             </blockquote>
           </div>
-          <div class="col rf-p-2w">
-            <blockquote class="bg--blue color--primary quote rf-p-2w">
-              <p class="rf-m-0 rf-mb-3w">{{ $t("s4.t2") }}</p>
+          <div class="col fr-p-2w">
+            <blockquote class="bg--blue color--primary quote fr-p-2w">
+              <p class="fr-m-0 fr-mb-3w">{{ $t("s4.t2") }}</p>
               <cite>{{ $t("s4.author2") }}</cite>
             </blockquote>
           </div>
-          <div class="col rf-p-2w">
-            <blockquote class="bg--blue color--primary quote rf-p-2w">
-              <p class="rf-m-0 rf-mb-3w">{{ $t("s4.t3") }}</p>
+          <div class="col fr-p-2w">
+            <blockquote class="bg--blue color--primary quote fr-p-2w">
+              <p class="fr-m-0 fr-mb-3w">{{ $t("s4.t3") }}</p>
               <cite>{{ $t("s4.author3") }}</cite>
             </blockquote>
           </div>
         </div>
-        <div class="text-center rf-mt-5w rf-mb-5w">
+        <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
             <a
-              class="rf-btn"
+              class="fr-btn"
               :href="`${TENANT_URL}/signup?lang=${$i18n.locale}`"
             >
               {{ $t("button") }}
@@ -152,15 +153,15 @@
         </div>
       </div>
     </section>
-    <section class="rf-mt-12w">
-      <div class="rf-container rf-mb-7w">
-        <h2 class="rf-h2 text-center">
+    <section class="fr-mt-12w">
+      <div class="fr-container fr-mb-7w">
+        <h2 class="fr-h2 text-center">
           {{ $t("s5.title1") }}
           <span class="color--secondary">{{ $t("s5.title2") }}</span>
         </h2>
-        <div class="rf-grid-row">
+        <div class="fr-grid-row">
           <div
-            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
+            class="fr-col-lg-2 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-1w"
           >
             <a
               target="_blank"
@@ -168,20 +169,25 @@
               class="logo-link"
             >
               <img
+                alt="logo monsieur hugo"
                 class="partner-logo"
                 src="../assets/logos/monsieur_hugo.webp"
               />
             </a>
           </div>
           <div
-            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
+            class="fr-col-lg-2 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-1w"
           >
             <a target="_blank" href="https://www.visale.fr/" class="logo-link">
-              <img class="partner-logo" src="../assets/logos/visale.webp" />
+              <img
+                alt="logo visale"
+                class="partner-logo"
+                src="../assets/logos/visale.webp"
+              />
             </a>
           </div>
           <div
-            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
+            class="fr-col-lg-2 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-1w"
           >
             <a
               target="_blank"
@@ -189,37 +195,50 @@
               class="logo-link"
             >
               <img
+                alt="logo locservice"
                 class="partner-logo"
                 src="../assets/logos/loc_service.webp"
               />
             </a>
           </div>
           <div
-            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
+            class="fr-col-lg-2 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-1w"
           >
             <a target="_blank" href="https://colivme.com/" class="logo-link">
-              <img class="partner-logo" src="../assets/logos/colivme.webp" />
+              <img
+                alt="logo colivme"
+                class="partner-logo"
+                src="../assets/logos/colivme.webp"
+              />
             </a>
           </div>
           <div
-            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
+            class="fr-col-lg-2 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-1w"
           >
             <a target="_blank" href="https://whoomies.com/" class="logo-link">
-              <img class="partner-logo" src="../assets/logos/whoomies.webp" />
+              <img
+                alt="logo whoomies"
+                class="partner-logo"
+                src="../assets/logos/whoomies.webp"
+              />
             </a>
           </div>
           <div
-            class="rf-col-lg-2 rf-col-md-4 rf-col-sm-6 rf-col-xs-12 text-center rf-p-1w"
+            class="fr-col-lg-2 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-1w"
           >
             <a target="_blank" href="https://www.anil.org/" class="logo-link">
-              <img class="partner-logo" src="../assets/logos/anil.webp" />
+              <img
+                alt="logo anil"
+                class="partner-logo"
+                src="../assets/logos/anil.webp"
+              />
             </a>
           </div>
         </div>
-        <div class="text-center rf-mt-5w rf-mb-5w">
+        <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
             <a
-              class="rf-btn"
+              class="fr-btn"
               :href="`${TENANT_URL}/signup?lang=${$i18n.locale}`"
             >
               {{ $t("button") }}
@@ -239,7 +258,7 @@ export default class LandingPage extends Vue {
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
 
   getH1Class() {
-    return window.innerWidth < 992 ? "rf-h2" : "rf-h1";
+    return window.innerWidth < 992 ? "fr-h2" : "fr-h1";
   }
 }
 </script>

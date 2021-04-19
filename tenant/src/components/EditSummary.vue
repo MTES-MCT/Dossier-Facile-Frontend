@@ -3,11 +3,11 @@
     <NakedCard v-if="user.lastName || hasDocument()">
       <template v-slot:content>
         <div v-if="user.lastName">
-          <a href="#" class="rf-link">
+          <a href="#" class="fr-link">
             {{ $t("title") }}
           </a>
           <hr />
-          <div class="rf-card__desc">
+          <div class="fr-card__desc">
             <section>
               <div class="row" v-if="user.lastName">
                 <div>
@@ -27,11 +27,11 @@
           </div>
         </div>
         <div v-if="hasDocument()">
-          <a href="#" class="rf-link">
+          <a href="#" class="fr-link">
             {{ $t("second-title") }}
           </a>
           <hr />
-          <div class="rf-card__desc">
+          <div class="fr-card__desc">
             <section>
               <div class="row" v-if="hasDoc('IDENTIFICATION')">
                 <div class="subtitle">Pièce d’identité</div>
@@ -79,11 +79,11 @@
           </div>
         </div>
         <div v-if="hasGuarantor('LEGAL_PERSON')">
-          <a href="#" class="rf-link">
+          <a href="#" class="fr-link">
             {{ $t("legal-person") }}
           </a>
           <hr />
-          <div class="rf-card__desc">
+          <div class="fr-card__desc">
             <div
               class="row"
               v-if="guarantorHasDoc('IDENTIFICATION_LEGAL_PERSON')"
@@ -108,11 +108,11 @@
           </div>
         </div>
         <div v-if="hasGuarantor('ORGANISM')">
-          <a href="#" class="rf-link">
+          <a href="#" class="fr-link">
             {{ $t("third-title") }}
           </a>
           <hr />
-          <div class="rf-card__desc">
+          <div class="fr-card__desc">
             <section>
               <div class="row">
                 <div class="subtitle">{{ $t("organism") }}</div>
@@ -126,11 +126,11 @@
           </div>
         </div>
         <div v-if="hasGuarantor('NATURAL_PERSON')">
-          <a href="#" class="rf-link">
+          <a href="#" class="fr-link">
             {{ $t("third-title") }}
           </a>
           <hr />
-          <div class="rf-card__desc">
+          <div class="fr-card__desc">
             <section>
               <div class="row">
                 <div class="subtitle">Pièce d’identité</div>
@@ -181,9 +181,9 @@
     </NakedCard>
     <Modal v-if="isDocModalVisible" @close="isDocModalVisible = false">
       <template v-slot:body>
-        <div class="rf-container">
-          <div class="rf-grid-row justify-content-center">
-            <div class="rf-col-12">
+        <div class="fr-container">
+          <div class="fr-grid-row justify-content-center">
+            <div class="fr-col-12">
               <div v-for="f in files" v-bind:key="f.id">
                 <ShowDoc :file="f"></ShowDoc>
               </div>

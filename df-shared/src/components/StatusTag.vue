@@ -1,5 +1,5 @@
 <template>
-  <p class="rf-tag" :class="getClass()">
+  <p class="fr-tag" :class="getClass()">
     <span>{{ $t(status) }}</span>
   </p>
 </template>

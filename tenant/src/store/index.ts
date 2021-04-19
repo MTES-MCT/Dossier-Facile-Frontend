@@ -105,7 +105,12 @@ const store = new Vuex.Store({
           const guarantor = user.guarantors.find((g: any) => {
             return g.id === state.selectedGuarantor.id;
           });
-          state.selectedGuarantor = guarantor;
+          if (guarantor !== undefined) {
+            state.selectedGuarantor = guarantor;
+          } else {
+            state.selectedGuarantor =
+              user.guarantors[user.guarantors.length - 1];
+          }
         } else {
           state.selectedGuarantor = user.guarantors[user.guarantors.length - 1];
         }
@@ -283,6 +288,7 @@ const store = new Vuex.Store({
           commit("loadUser", response.data);
           commit("selectGuarantor", this.state.user.guarantors.length - 1);
           commit("setGuarantorStep", 2);
+          commit("setGuarantorSubstep", 1);
           return Promise.resolve(response.data);
         },
         error => {

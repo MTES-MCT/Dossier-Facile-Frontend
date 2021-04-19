@@ -35,7 +35,7 @@ export default class NakedCard extends Vue {}
   }
 }
 
-.rf-link {
+.fr-link {
   flex-direction: row;
 }
 
