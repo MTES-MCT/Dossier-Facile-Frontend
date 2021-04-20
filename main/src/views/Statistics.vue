@@ -1,24 +1,50 @@
 <template>
-  <div class="fr-p-12w main">
-    <h1>{{ $t("title") }}</h1>
-    <div class="fr-grid-row">
-      <div class="fr-col-8">
-        <chart1></chart1>
-      </div>
-      <div class="fr-col-4">
-        <chart2></chart2>
-      </div>
-      <div class="fr-col-8">
-        <chart3></chart3>
-      </div>
-      <div class="fr-col-4">
-        <chart4></chart4>
-      </div>
-      <div class="fr-col-8">
-        <chart5></chart5>
-      </div>
-      <div class="fr-col-4">
-        <chart6></chart6>
+  <div class="main">
+    <div class="fr-container">
+      <h1>{{ $t("title") }}</h1>
+      <div class="fr-grid-row fr-grid-row--gutters">
+        <div class="fr-col-12 fr-col-xl-8">
+          <NakedCard>
+            <template v-slot:content>
+              <chart1></chart1>
+            </template>
+          </NakedCard>
+        </div>
+        <div class="fr-col-12 fr-col-xl-4">
+          <NakedCard>
+            <template v-slot:content>
+              <chart2></chart2>
+            </template>
+          </NakedCard>
+        </div>
+        <div class="fr-col-12 fr-col-xl-8">
+          <NakedCard>
+            <template v-slot:content>
+              <chart3></chart3>
+            </template>
+          </NakedCard>
+        </div>
+        <div class="fr-col-12 fr-col-xl-4">
+          <NakedCard>
+            <template v-slot:content>
+              <chart4></chart4>
+            </template>
+          </NakedCard>
+        </div>
+        <div class="fr-col-12 fr-col-xl-8">
+          <NakedCard>
+            <template v-slot:content>
+              <chart5></chart5>
+            </template>
+          </NakedCard>
+        </div>
+        <div class="fr-col-12 fr-col-xl-4">
+          <NakedCard>
+            <template v-slot:content>
+              <chart6></chart6>
+            </template>
+          </NakedCard>
+        </div>
       </div>
     </div>
   </div>
@@ -32,6 +58,7 @@ import chart3 from "./stats/chart3.vue";
 import chart4 from "./stats/chart4.vue";
 import chart5 from "./stats/chart5.vue";
 import chart6 from "./stats/chart6.vue";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 @Component({
   components: {
@@ -40,7 +67,8 @@ import chart6 from "./stats/chart6.vue";
     chart3,
     chart4,
     chart5,
-    chart6
+    chart6,
+    NakedCard
   }
 })
 export default class Statistics extends Vue {}

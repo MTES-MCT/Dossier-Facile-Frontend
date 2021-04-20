@@ -1,5 +1,8 @@
 <template>
-  <div>543<br />Partenaires utilisant DossierFacile</div>
+  <div>
+    <h2>2 354 543</h2>
+    <br />Partenaires utilisant DossierFacile
+  </div>
 </template>
 
 <script lang="ts">

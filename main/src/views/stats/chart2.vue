@@ -1,5 +1,8 @@
 <template>
-  <div>2 354 543<br />Dossiers accompagnés avec DossierFacile</div>
+  <div>
+    <h2>2 354 543</h2>
+    <br />Dossiers accompagnés avec DossierFacile
+  </div>
 </template>
 
 <script lang="ts">

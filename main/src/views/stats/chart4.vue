@@ -1,5 +1,8 @@
 <template>
-  <div>2 354 543<br />Liens partagés avec DossierFacile</div>
+  <div>
+    <h2>2 354 543</h2>
+    <br />Liens partagés avec DossierFacile
+  </div>
 </template>
 
 <script lang="ts">
