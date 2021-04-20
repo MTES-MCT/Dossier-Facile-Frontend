@@ -2,7 +2,7 @@
   <div class="fr-container">
     <div class="fr-grid-row">
       <div class="fr-col-lg-4">
-        <NakedCard>
+        <NakedCard class="fr-mt-3w fr-mb-2w">
           <template v-slot:content>
             <div class="fr-card__desc">
               <section>
@@ -77,7 +77,10 @@
         </NakedCard>
 
         <div v-for="g in guarantors()" v-bind:key="g.id">
-          <NakedCard v-if="g.typeGuarantor === 'NATURAL_PERSON'">
+          <NakedCard
+            v-if="g.typeGuarantor === 'NATURAL_PERSON'"
+            class="fr-mt-3w fr-mb-2w"
+          >
             <template v-slot:content>
               <div class="boxed boxed--lg boxed--border">
                 <h5>Les documents de mon garant</h5>
@@ -197,7 +200,10 @@
               </div>
             </template>
           </NakedCard>
-          <NakedCard v-if="g.typeGuarantor === 'ORGANISM'">
+          <NakedCard
+            v-if="g.typeGuarantor === 'ORGANISM'"
+            class="fr-mt-3w fr-mb-2w"
+          >
             <template v-slot:content>
               <div class="boxed boxed--lg boxed--border">
                 <h5>Les documents de mon garant</h5>
@@ -213,7 +219,10 @@
               </div>
             </template>
           </NakedCard>
-          <NakedCard v-if="g.typeGuarantor === 'LEGAL_PERSON'">
+          <NakedCard
+            v-if="g.typeGuarantor === 'LEGAL_PERSON'"
+            class="fr-mt-3w fr-mb-2w"
+          >
             <template v-slot:content>
               <div class="boxed boxed--lg boxed--border">
                 <h5>Les documents de mon garant</h5>
@@ -241,7 +250,7 @@
             </template>
           </NakedCard>
         </div>
-        <NakedCard>
+        <NakedCard class="fr-mt-3w fr-mb-2w">
           <template v-slot:content>
             <div class="fr-grid-row">
               <div class="fr-col-3 fr-p-2w">
@@ -255,7 +264,7 @@
             </div>
           </template>
         </NakedCard>
-        <NakedCard>
+        <NakedCard class="fr-mt-3w fr-mb-2w">
           <template v-slot:content>
             <div class="fr-grid-row">
               <div class="fr-col-3 fr-p-2w">
@@ -269,7 +278,7 @@
             </div>
           </template>
         </NakedCard>
-        <NakedCard>
+        <NakedCard class="fr-mt-3w fr-mb-2w">
           <template v-slot:content>
             <div class="fr-grid-row">
               <div class="fr-col-3 fr-p-2w">

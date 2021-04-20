@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <div class="fr-container">
+    <div class="fr-container fr-pt-5w fr-pb-5w">
       <h1>{{ $t("title") }}</h1>
       <div class="fr-grid-row fr-grid-row--gutters">
         <div class="fr-col-12 fr-col-xl-8">
@@ -85,9 +85,24 @@ export default class Statistics extends Vue {}
 }
 .container-chart {
   margin: auto;
+  overflow: auto;
 }
 .main {
   background-color: var(--bf100-g750);
+}
+.card {
+  height: 100%;
+}
+
+h2 {
+  display: inline-block;
+}
+
+.number {
+  color: var(--bf500);
+  width: 100%;
+  text-align: center;
+  margin-top: 2rem;
 }
 </style>
 

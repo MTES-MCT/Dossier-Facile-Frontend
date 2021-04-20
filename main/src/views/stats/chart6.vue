@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h2>2 354 543</h2>
-    <br />Partenaires utilisant DossierFacile
+    <h2 class="number">2 354 543</h2>
+    <p class="description">Partenaires utilisant DossierFacile</p>
   </div>
 </template>
 
@@ -13,3 +13,10 @@ import * as d3 from "d3";
 @Component
 export default class Chart6 extends Vue {}
 </script>
+
+<style scoped>
+.description {
+  width: 100%;
+  text-align: center;
+}
+</style>
