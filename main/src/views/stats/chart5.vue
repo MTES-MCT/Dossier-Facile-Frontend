@@ -23,11 +23,9 @@ export default class Chart5 extends Vue {
       )
       .then(response => {
         this.updateChart(
-          response.data["valueRanges"][0]["values"].map(
-            (d: (number | string)[]) => {
-              return { label: d[0], value: Number(d[1].replace("%", "")) };
-            }
-          )
+          response.data["valueRanges"][0]["values"].map((d: any[]) => {
+            return { label: d[0], value: Number(d[1].replace("%", "")) };
+          })
         );
       });
   }
@@ -59,13 +57,13 @@ export default class Chart5 extends Vue {
     const pie = d3
       .pie()
       .sort(null) // Do not sort group by size
-      .value(function(d) {
+      .value(function(d: any) {
         return d.value;
       });
     const dataReady = pie(data);
 
     // The arc generator
-    const arc = d3
+    const arc: any = d3
       .arc()
       .innerRadius(radius * 0.5) // This is the size of the donut hole
       .outerRadius(radius * 0.8);
@@ -83,9 +81,9 @@ export default class Chart5 extends Vue {
       .enter()
       .append("path")
       .attr("d", arc)
-      .attr("fill", function(d) {
+      .attr("fill", ((d: any) => {
         return color(d.data.label);
-      })
+      }) as any)
       .attr("stroke", "white")
       .style("stroke-width", "2px")
       .style("opacity", 0.7);
@@ -99,14 +97,14 @@ export default class Chart5 extends Vue {
       .attr("stroke", "black")
       .style("fill", "none")
       .attr("stroke-width", 1)
-      .attr("points", function(d) {
+      .attr("points", ((d: any) => {
         const posA = arc.centroid(d); // line insertion in the slice
         const posB = outerArc.centroid(d); // line break: we use the other arc generator that has been built only for that
         const posC = outerArc.centroid(d); // Label position = almost the same as posB
         const midangle = d.startAngle + (d.endAngle - d.startAngle) / 2; // we need the angle to see if the X position will be at the extreme right or extreme left
         posC[0] = radius * 0.95 * (midangle < Math.PI ? 1 : -1); // multiply by 1 or -1 to put it on the right or on the left
         return [posA, posB, posC];
-      });
+      }) as any);
 
     // Add the polylines between chart and labels:
     svg
@@ -114,10 +112,10 @@ export default class Chart5 extends Vue {
       .data(dataReady)
       .enter()
       .append("text")
-      .text(function(d) {
+      .text(function(d: any) {
         return d.data.label;
       })
-      .attr("transform", function(d) {
+      .attr("transform", function(d: any) {
         const pos = outerArc.centroid(d);
         const midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
         pos[0] = radius * 0.99 * (midangle < Math.PI ? 1 : -1);
