@@ -40,9 +40,9 @@ export default class Chart1 extends Vue {
 
   updateChart(data: [any[]]) {
     // set the dimensions and margins of the graph
-    const margin = { top: 30, right: 30, bottom: 30, left: 60 },
-      width = 600 - margin.left - margin.right,
-      height = 400 - margin.top - margin.bottom;
+    const margin = { top: 30, right: 30, bottom: 30, left: 60 };
+    const width = 600 - margin.left - margin.right;
+    const height = 400 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
     const svg = d3
@@ -145,9 +145,9 @@ export default class Chart1 extends Vue {
 
       svg
         .append("circle")
-        .attr("cx", 40)
+        .attr("cx", 30)
         .attr("cy", function(d) {
-          return 40 + i * 25;
+          return i * 25;
         })
         .attr("r", 7)
         .style("fill", function(d) {
@@ -156,9 +156,9 @@ export default class Chart1 extends Vue {
 
       svg
         .append("text")
-        .attr("x", 60)
+        .attr("x", 50)
         .attr("y", function(d) {
-          return 40 + i * 25;
+          return i * 25;
         })
         .style("fill", function(d) {
           return colors[i];

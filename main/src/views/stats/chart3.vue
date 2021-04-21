@@ -22,17 +22,23 @@ export default class Chart3 extends Vue {
         "https://sheets.googleapis.com/v4/spreadsheets/1WI4vLK8eS_3N15t40NZp8SCLZBKV2St9zB68tdqMaMw/values:batchGet?key=AIzaSyAifGFaPrs6tkDizbIW8nLmtl0edfe5Vok&ranges=3.link_w!A1:M53&majorDimension=COLUMNS"
       )
       .then(response => {
-        this.updateChart(
-          response.data["valueRanges"][0]["values"][3]
-            .splice(1, 52)
-            .map((v: number, k: number) => {
-              return [k, v];
-            })
-        );
+        this.updateChart(response.data["valueRanges"][0]["values"]);
       });
   }
 
-  updateChart(data: []) {
+  getMaxValue(data: [number[]]) {
+    let max = 0;
+    for (let i = 1; i < data.length; i++) {
+      for (let ii = 1; ii < data[i].length; ii++) {
+        if (Number(data[i][ii]) > max) {
+          max = Number(data[i][ii]);
+        }
+      }
+    }
+    return max;
+  }
+
+  updateChart(data: [any[]]) {
     // set the dimensions and margins of the graph
     const margin = { top: 30, right: 30, bottom: 30, left: 60 };
     const width = 600 - margin.left - margin.right;
@@ -49,7 +55,7 @@ export default class Chart3 extends Vue {
 
     const x = d3
       .scaleLinear()
-      .domain([0, 52])
+      .domain([1, 53])
       .range([0, width]);
     svg
       .append("g")
@@ -59,31 +65,122 @@ export default class Chart3 extends Vue {
     const y = d3
       .scaleLinear()
       .range([height, 0])
-      .domain([0, 5000]);
+      .domain([0, this.getMaxValue(data) * 1.1]);
     svg.append("g").call(d3.axisLeft(y));
 
-    // Plot the area
-    svg
-      .append("path")
-      .attr("class", "mypath")
-      .datum(data)
-      .attr("fill", "none")
-      .attr("opacity", ".6")
-      .attr("stroke", "#000")
-      .attr("stroke-width", 1)
-      .attr("stroke-linejoin", "round")
-      .attr(
-        "d",
-        d3
-          .line()
-          .curve(d3.curveBasis)
-          .x(function(d) {
-            return x(d[0]);
-          })
-          .y(function(d) {
-            return y(d[1]);
-          })
-      );
+    const colors = [
+      "#FF8D7E",
+      "#169B62",
+      "#5770BE",
+      "#A26859",
+      "#7D4E5B",
+      "#FF6F4C",
+      "#FDCF41",
+      "#D08A77",
+      "#484D7A",
+      "#958B62"
+    ];
+    const div = d3
+      .select("#chart1")
+      .append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0);
+
+    for (let i = 1; i < data.length - 1; i++) {
+      // Plot the area
+      const localData: any = data[i]
+        .splice(1, 53)
+        .map((v: number, k: number) => {
+          return { key: k + 1, value: v };
+        });
+      svg
+        .append("path")
+        .datum(localData)
+        .attr("fill", "none")
+        .attr("stroke", colors[i % 10])
+        .attr("stroke-width", 2)
+        .attr("stroke-linejoin", "round")
+        .attr(
+          "d",
+          d3
+            .line()
+            .x(function(d: any) {
+              return x(d.key);
+            })
+            .y(function(d: any) {
+              return y(d.value);
+            })
+        );
+
+      svg
+        .selectAll(".dot")
+        .data(localData)
+        .enter()
+        .append("circle")
+        .attr("fill", colors[i])
+        .attr("r", 3)
+        .attr("cx", function(d: any) {
+          return x(d.key);
+        })
+        .attr("cy", function(d: any) {
+          return y(Number(d.value));
+        })
+        .on("mouseover", function(d, i: any) {
+          div
+            .transition()
+            .duration(200)
+            .style("opacity", 0.9);
+          div
+            .html("semaine: " + i.key + "<br>" + i.value)
+            .style("left", d.pageX + "px")
+            .style("top", d.pageY - 28 + "px");
+        })
+        .on("mouseout", function(d) {
+          div
+            .transition()
+            .duration(500)
+            .style("opacity", 0);
+        });
+
+      svg
+        .append("circle")
+        .attr("cx", 30)
+        .attr("cy", function(d) {
+          return i * 25;
+        })
+        .attr("r", 7)
+        .style("fill", function(d) {
+          return colors[i];
+        });
+
+      svg
+        .append("text")
+        .attr("x", 50)
+        .attr("y", function(d) {
+          return i * 25;
+        })
+        .style("fill", function(d) {
+          return colors[i];
+        })
+        .text(data[i][0])
+        .attr("text-anchor", "left")
+        .style("alignment-baseline", "middle");
+    }
   }
 }
 </script>
+
+<style lang="scss">
+.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 80px;
+  height: 32px;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: lightsteelblue;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+</style>
