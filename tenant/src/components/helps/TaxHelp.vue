@@ -7,11 +7,8 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Card from "df-shared/src/components/Card.vue";
 
-@Component({
-  components: { Card }
-})
+@Component
 export default class TaxHelp extends Vue {
   expanded = false;
 }

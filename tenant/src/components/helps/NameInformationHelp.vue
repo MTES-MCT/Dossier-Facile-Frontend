@@ -1,23 +1,15 @@
 <template>
-  <Card>
-    <template v-slot:header>
-      {{ $t("title") }}
-    </template>
-    <template v-slot:body>
+<div>
       <p v-html="$t('paragraph1')"></p>
       <p v-html="$t('paragraph2')"></p>
       <p v-html="$t('paragraph3')"></p>
-    </template>
-  </Card>
+</div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Card from "df-shared/src/components/Card.vue";
 
-@Component({
-  components: { Card }
-})
+@Component
 export default class NameInformationHelp extends Vue {
   expanded = false;
 }
