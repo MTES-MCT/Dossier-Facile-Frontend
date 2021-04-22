@@ -21,6 +21,7 @@ module.exports = {
         "https://dossierfacile.fr/blog/5-astuces-pour-booster-votre-dossier-de-location",
         "https://dossierfacile.fr/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne",
         "https://dossierfacile.fr/blog/dossierfacile-fait-peau-neuve",
+        "https://dossierfacile.fr/stats",
         "https://dossierfacile.fr/information",
         "https://dossierfacile.fr/securite-des-donnees"
       ]
@@ -46,6 +47,7 @@ module.exports = {
             "/blog/5-astuces-pour-booster-votre-dossier-de-location",
             "/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne",
             "/blog/dossierfacile-fait-peau-neuve",
+            "/stats",
             "/information",
             "/securite-des-donnees"
           ]

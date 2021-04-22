@@ -23,7 +23,9 @@ const routes: Array<RouteConfig> = [
     path: "/blog",
     name: "Blog",
     meta: {
-      title: "Blog - DossierFacile"
+      title: "DossierFacile en articles - DossierFacile",
+      description:
+        "Venez découvrir nos articles de blog pour vous éclairer sur les points d’éventuelle difficulté que vous rencontrez en créant votre dossier de location"
     },
     component: () =>
       import(/* webpackChunkName: "blog" */ "../views/blog/Blog.vue")
@@ -56,7 +58,9 @@ const routes: Array<RouteConfig> = [
     path: "/blog/pourquoi-dossierfacile-est-il-gratuit",
     name: "Article3",
     meta: {
-      title: "Pourquoi Dossier Facile est-il gratuit - Blog - DossierFacile"
+      title: "Pourquoi Dossier Facile est-il gratuit - Blog - DossierFacile",
+      description:
+        "DossierFacile propose une solution numérique simple et gratuite pour remettre la confiance au cœur du processus de location"
     },
     component: () =>
       import(/* webpackChunkName: "blog" */ "../views/blog/Article3.vue")
@@ -122,7 +126,9 @@ const routes: Array<RouteConfig> = [
     path: "/securite-des-donnees",
     name: "SecuriteDesDonnees",
     meta: {
-      title: "Sécurité des données - DossierFacile"
+      title: "Sécurité et protection des données personnelles - DossierFacile",
+      description:
+        "DossierFacile s’engage à protéger vos données personnelles : créez vos dossiers de location en toute sécurité !"
     },
     component: () =>
       import(
@@ -191,8 +197,10 @@ const routes: Array<RouteConfig> = [
     path: "/stats",
     name: "Statistiques",
     meta: {
-      title: "Statistiques - DossierFacile",
-      description: "Statistiques de DossierFacile"
+      title:
+        "Dossier Facile : un service entièrement transparent - DossierFacile",
+      description:
+        "Consultez nos statistiques sur l’utilisation du service (nombre de dossiers créés, nombre de liens partagés, satisfaction des utilisateurs...)"
     },
     component: () =>
       import(/* webpackChunkName: "statistics" */ "../views/Statistics.vue")
