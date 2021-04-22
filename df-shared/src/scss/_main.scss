@@ -126,12 +126,6 @@ input[type=checkbox]:focus+label::before {
   z-index: 10;
 }
 
-@media (min-width: 48em) {
-.fr-header .fr-nav {
-    margin: 0 calc(50% - 49vw) !important;
-}
-}
-
 img {
   max-width: 100%;
   display: block;
