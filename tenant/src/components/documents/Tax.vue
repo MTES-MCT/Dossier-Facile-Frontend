@@ -17,7 +17,7 @@
         </template>
         <template v-slot:content>
           <p>
-            <DocumentHelp></DocumentHelp>
+            <TaxHelp></TaxHelp>
             <DocumentInsert
               :allow-list="taxDocument.acceptedProofs"
               :block-list="taxDocument.refusedProofs"
@@ -142,7 +142,7 @@ import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
-import DocumentHelp from "../helps/DocumentHelp.vue";
+import TaxHelp from "../helps/TaxHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 
 extend("is", {
@@ -161,7 +161,7 @@ extend("is", {
     WarningMessage,
     ConfirmModal,
     BigRadio,
-    DocumentHelp,
+    TaxHelp,
     VGouvFrModal
   },
   computed: {

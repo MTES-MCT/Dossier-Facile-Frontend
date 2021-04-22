@@ -1,7 +1,6 @@
 <template>
   <div>
     <NameInformationHelp v-if="tenantStep === 0"></NameInformationHelp>
-    <TaxHelp v-if="tenantStep === 2 && tenantSubStep === 5"></TaxHelp>
   </div>
 </template>
 
