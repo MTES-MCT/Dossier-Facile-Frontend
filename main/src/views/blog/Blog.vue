@@ -3,6 +3,8 @@
     <div class="fr-mt-7w fr-container">
       <div class="fr-grid-row justify-content-center">
         <div class="fr-col-md-10 fr-col-lg-8">
+          <h1>{{ $t("blog") }}</h1>
+          <hr />
           <article class="fr-mb-12w">
             <div class="text-center">
               <router-link to="/blog/dossierfacile-fait-peau-neuve">
@@ -279,3 +281,14 @@ a {
   margin-top: 1rem;
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "blog": "Blog"
+  },
+  "fr": {
+    "blog": "DossierFacile en articles"
+  }
+}
+</i18n>
