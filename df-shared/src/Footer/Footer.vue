@@ -6,7 +6,7 @@
           <a class="fr-logo" href="#" title="république française">
             <span class="fr-logo__title">république <br />française</span>
           </a>
-          <a href="https://beta.gouv.fr/">
+          <a class="beta-logo" href="https://beta.gouv.fr/">
             <img
               alt="footer logo dossierfacile"
               class="footer-logo"
@@ -225,6 +225,14 @@ export default class MyFooter extends Vue {
 .fa-icon {
   height: 1.5rem;
   vertical-align: -0.75em;
+}
+
+.fr-footer__brand .fr-logo {
+  margin-right: 0;
+}
+
+.beta-logo {
+  padding: 1em;
 }
 </style>
 
