@@ -24,7 +24,10 @@
               </div>
             </div>
             <div class="fr-header__service">
-              <a :href="`/?lang=${$i18n.locale}`" title="Retour à l’accueil">
+              <a
+                :href="`${MAIN_URL}/?lang=${$i18n.locale}`"
+                title="Retour à l’accueil"
+              >
                 <p class="fr-header__service-title">
                   <img
                     class="logo"
@@ -116,6 +119,7 @@ import VGouvFrButton from "../Button/v-gouv-fr-button/VGouvFrButton.vue";
   }
 })
 export default class MyHeader extends Vue {
+  MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
   @Prop({ default: false }) loggedIn?: boolean;
   @Prop({ default: "fr" }) lang?: string;
 
