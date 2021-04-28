@@ -1,6 +1,6 @@
 <template>
-  <div class="fr-container" v-if="owner.owner">
-    <div class="fr-grid-row fr-grid-row--center">
+  <div class="fr-container">
+    <div class="fr-grid-row fr-grid-row--center" v-if="owner.owner">
       <div class="fr-col-md-8 fr-col-lg-6">
         <h1 class="fr-h1 fr-mt-3w">{{ $t("title", [owner.name]) }}</h1>
         <p>{{ $t("subtitle") }}</p>
@@ -40,7 +40,7 @@
           </form>
         </ValidationObserver>
         <div v-if="!isLoggedIn">
-          <v-gouv-fr-modal :modal-id="'rf-modal-1'">
+          <v-gouv-fr-modal class="fr-mt-2w" :modal-id="'rf-modal-1'">
             <template v-slot:button>
               Se connecter
             </template>
@@ -51,7 +51,7 @@
               <Login @on-login="onLogin" />
             </template>
           </v-gouv-fr-modal>
-          <v-gouv-fr-modal :modal-id="'rf-modal-2'">
+          <v-gouv-fr-modal class="fr-mt-2w" :modal-id="'rf-modal-2'">
             <template v-slot:button>
               Créer un compte
             </template>
@@ -59,7 +59,11 @@
               Créer un compte
             </template>
             <template v-slot:content>
-              <Register @on-register="onRegister" />
+              <div>
+                <p v-html="$t('no-account-1')"></p>
+                <p v-html="$t('no-account-2')"></p>
+                <p v-html="$t('no-account-3')"></p>
+              </div>
             </template>
           </v-gouv-fr-modal>
         </div>
@@ -92,7 +96,6 @@ import { Owner } from "df-shared/src/models/Owner";
 import { ValidationProvider, ValidationObserver } from "vee-validate";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
-import Register from "df-shared/src/Authentification/Register.vue";
 import Modal from "df-shared/src/components/Modal.vue";
 import { OwnerService } from "../services/OwnerService";
 
@@ -109,7 +112,6 @@ extend("is", {
     ValidationObserver,
     VGouvFrModal,
     DfButton,
-    Register,
     Modal
   },
   computed: {
@@ -155,33 +157,6 @@ export default class OwnerShare extends Vue {
     }
   }
 
-  onRegister(user: User) {
-    if (user.email && user.password) {
-      this.$store.dispatch("register", { user: user }).then(
-        () => {
-          this.isValidModalVisible = true;
-        },
-        error => {
-          if (
-            error.response.data.errors.indexOf(
-              "email: the emails are already being used"
-            ) >= 0
-          ) {
-            this.$toasted.show(this.$i18n.t("duplicate-email").toString(), {
-              type: "error",
-              duration: 7000
-            });
-          } else {
-            this.$toasted.show(this.$i18n.t("register-error").toString(), {
-              type: "error",
-              duration: 7000
-            });
-          }
-        }
-      );
-    }
-  }
-
   closeModal() {
     this.isValidModalVisible = false;
     this.$router.push("/account");
@@ -219,7 +194,10 @@ export default class OwnerShare extends Vue {
     "login-error": "Problème de connexion",
     "accept-owner": "J'accepte que {0}, propriétaire situé au {1} ait accès aux informations de mon dossier. Conformément au RGPD, je peux révoquer cette autorisation à tout moment.",
     "field-required": "This field is required",
-    "connect-owner": "Let's go"
+    "connect-owner": "Let's go",
+    "no-account-1": "Si vous n'avez pas de compte, vous pouvez en <a href=\"/signup\">créer un</a> et revenir ultérieurement sur cette page",
+    "no-account-2": "Notre dossier est facile à remplir (en moins de 3 minutes c'est promis) et en plus il est conforme à la loi",
+    "no-account-3": "Et réutilisable pour toutes vos autres visites !"
   },
   "fr": {
     "title": "Candidatez pour le logement situé au {0}",
@@ -228,7 +206,10 @@ export default class OwnerShare extends Vue {
     "login-error": "Problème de connexion",
     "accept-owner": "J'accepte que {0}, propriétaire situé au {1} ait accès aux informations de mon dossier. Conformément au RGPD, je peux révoquer cette autorisation à tout moment.",
     "field-required": "Ce champ est requis",
-    "connect-owner": "C'est parti !"
+    "connect-owner": "C'est parti !",
+    "no-account-1": "Si vous n'avez pas de compte, vous pouvez en <a href=\"/signup\">créer un</a> et revenir ultérieurement sur cette page.",
+    "no-account-2": "Notre dossier est facile à remplir (en moins de 3 minutes c'est promis) et en plus il est conforme à la loi.",
+    "no-account-3": "Et réutilisable pour toutes vos autres visites !"
   }
 }
 </i18n>
