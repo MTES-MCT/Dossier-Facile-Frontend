@@ -1,38 +1,44 @@
 <template>
-  <div class="fr-container">
+  <div class="fr-container" v-if="owner.owner">
     <div class="fr-grid-row fr-grid-row--center">
       <div class="fr-col-md-8 fr-col-lg-6">
-        <h1 class="fr-h1 fr-mt-3w">{{ $t("title") }}</h1>
+        <h1 class="fr-h1 fr-mt-3w">{{ $t("title", [owner.name]) }}</h1>
         <p>{{ $t("subtitle") }}</p>
-        <form>
-          <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
-            <div
-              class="fr-input-group"
-              :class="errors[0] ? 'fr-input-group--error' : ''"
+        <ValidationObserver v-slot="{ validate }">
+          <form name="form" @submit.prevent="validate().then(connectOwner)">
+            <validation-provider
+              rules="is"
+              v-slot="{ errors }"
+              class="fr-col-10"
             >
-              <input
-                type="checkbox"
-                id="acceptOwner"
-                value="false"
-                v-model="acceptOwner"
-              />
-              <label for="acceptOwner">{{
-                $t("accept-owner", ["proprietaire", "adresse"])
-              }}</label>
-              <span class="fr-error-text" v-if="errors[0]">{{
-                $t(errors[0])
-              }}</span>
+              <div
+                class="fr-input-group"
+                :class="errors[0] ? 'fr-input-group--error' : ''"
+              >
+                <input
+                  type="checkbox"
+                  id="acceptOwner"
+                  value="false"
+                  v-model="acceptOwner"
+                />
+                <label for="acceptOwner">{{
+                  $t("accept-owner", [
+                    `${owner.owner.firstName} ${owner.owner.lastName}`,
+                    owner.name
+                  ])
+                }}</label>
+                <span class="fr-error-text" v-if="errors[0]">{{
+                  $t(errors[0])
+                }}</span>
+              </div>
+            </validation-provider>
+            <div v-if="isLoggedIn">
+              <DfButton type="submit" class="fr-mt-3w" :primary="true">{{
+                $t("connect-owner")
+              }}</DfButton>
             </div>
-          </validation-provider>
-        </form>
-        <div v-if="isLoggedIn">
-          <DfButton
-            class="fr-mt-3w"
-            :primary="true"
-            @on-click="redirectModalVisible = false"
-            >{{ $t("connect-owner") }}</DfButton
-          >
-        </div>
+          </form>
+        </ValidationObserver>
         <div v-if="!isLoggedIn">
           <v-gouv-fr-modal :modal-id="'rf-modal-1'">
             <template v-slot:button>
@@ -82,11 +88,13 @@ import { extend } from "vee-validate";
 import { mapGetters } from "vuex";
 import Login from "df-shared/src/Authentification/Login.vue";
 import { User } from "df-shared/src/models/User";
-import { ValidationProvider } from "vee-validate";
+import { Owner } from "df-shared/src/models/Owner";
+import { ValidationProvider, ValidationObserver } from "vee-validate";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
 import Register from "df-shared/src/Authentification/Register.vue";
 import Modal from "df-shared/src/components/Modal.vue";
+import { OwnerService } from "../services/OwnerService";
 
 extend("is", {
   ...is,
@@ -98,6 +106,7 @@ extend("is", {
   components: {
     Login,
     ValidationProvider,
+    ValidationObserver,
     VGouvFrModal,
     DfButton,
     Register,
@@ -114,8 +123,17 @@ export default class OwnerShare extends Vue {
   acceptOwner = false;
   token = "";
   isValidModalVisible = false;
+  owner: Owner = new Owner();
+
   mounted() {
     this.token = this.$route.params.token;
+    OwnerService.getOwnerData(this.token)
+      .then((data: any) => {
+        this.owner = data;
+      })
+      .catch((error: any) => {
+        console.dir(error);
+      });
   }
 
   onLogin(user: User) {
@@ -168,13 +186,34 @@ export default class OwnerShare extends Vue {
     this.isValidModalVisible = false;
     this.$router.push("/account");
   }
+
+  connectOwner() {
+    if (!this.acceptOwner) {
+      return;
+    }
+    OwnerService.registerToOwner(this.token).then(
+      () => {
+        this.$toasted.show(this.$i18n.t("login-success").toString(), {
+          type: "success",
+          duration: 7000
+        });
+        this.$router.push("/account");
+      },
+      error => {
+        this.$toasted.show(this.$i18n.t("login-error").toString(), {
+          type: "error",
+          duration: 7000
+        });
+      }
+    );
+  }
 }
 </script>
 
 <i18n>
 {
   "en": {
-    "title": "Candidatez pour le logement",
+    "title": "Candidatez pour le logement situé au {0}",
     "subtitle": "DossierFacile est une startup d'État qui vous permet de créer votre dossier de location intelligent et de le partager avec des propriétaires",
     "login-success": "Connecté",
     "login-error": "Problème de connexion",
@@ -183,7 +222,7 @@ export default class OwnerShare extends Vue {
     "connect-owner": "Let's go"
   },
   "fr": {
-    "title": "Candidatez pour le logement",
+    "title": "Candidatez pour le logement situé au {0}",
     "subtitle": "DossierFacile est une startup d'État qui vous permet de créer votre dossier de location intelligent et de le partager avec des propriétaires",
     "login-success": "Connecté",
     "login-error": "Problème de connexion",
