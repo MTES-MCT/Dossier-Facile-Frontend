@@ -158,6 +158,17 @@ const routes: Array<RouteConfig> = [
       )
   },
   {
+    path: "/inscription-locataire/:token",
+    name: "Inscription",
+    meta: {
+      title: "Inscription locataire - DossierFacile"
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "inscriptionLocataire" */ "@/views/OwnerShare.vue"
+      )
+  },
+  {
     path: "/locataire",
     redirect: "/"
   },

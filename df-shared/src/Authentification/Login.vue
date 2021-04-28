@@ -1,6 +1,6 @@
 <template>
-  <section class="fr-grid-row fr-grid-row--center">
-    <div class="fr-col-md-8 fr-col-lg-6">
+  <section>
+    <div>
       <h2 class="fr-h2 text-center fr-mt-7w fr-mb-5w">
         {{ $t("title") }}
       </h2>
@@ -73,18 +73,18 @@ import { required, email } from "vee-validate/dist/rules";
 
 extend("email", {
   ...email,
-  message: "email-not-valid",
+  message: "email-not-valid"
 });
 
 extend("required", {
   ...required,
-  message: "field-required",
+  message: "field-required"
 });
 
 @Component({
   components: {
-    ValidationProvider,
-  },
+    ValidationProvider
+  }
 })
 export default class Login extends Vue {
   user: User = new User();

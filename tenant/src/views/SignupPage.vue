@@ -1,11 +1,15 @@
 <template>
   <div class="fr-container">
     <div class="signup">
-      <Register @on-register="onRegister" />
-      <div class="text-center fr-mb-5w">
-        <router-link to="/login">
-          {{ $t("existing-account") }}
-        </router-link>
+      <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-8 fr-col-lg-6">
+          <Register @on-register="onRegister" />
+          <div class="text-center fr-mb-5w">
+            <router-link to="/login">
+              {{ $t("existing-account") }}
+            </router-link>
+          </div>
+        </div>
       </div>
       <Modal v-show="isValidModalVisible" @close="closeModal">
         <template v-slot:body>

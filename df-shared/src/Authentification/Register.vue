@@ -1,6 +1,6 @@
 <template>
-  <div class="fr-grid-row fr-grid-row--center">
-    <div class="fr-col-md-8 fr-col-lg-6">
+  <div>
+    <div>
       <h2 class="fr-h2 text-center fr-mt-7w fr-mb-5w">
         {{ $t("title") }}
       </h2>
