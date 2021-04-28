@@ -7,12 +7,16 @@
       <DfButton @on-click="existingAccount = true" v-if="!existingAccount">
         {{ $t("existing-account") }}
       </DfButton>
-      <Register
-        :email="email"
-        @on-register="onRegister"
-        v-if="!existingAccount"
-      />
-      <Login @on-login="onLogin" v-if="existingAccount" />
+      <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-8 fr-col-lg-6">
+          <Register
+            :email="email"
+            @on-register="onRegister"
+            v-if="!existingAccount"
+          />
+          <Login @on-login="onLogin" v-if="existingAccount" />
+        </div>
+      </div>
 
       <Modal v-show="isValidModalVisible" @close="closeModal">
         <template v-slot:body>

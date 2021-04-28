@@ -4,7 +4,7 @@
       href="#"
       class="fr-link"
       data-fr-opened="false"
-      aria-controls="fr-modal-1"
+      :aria-controls="modalId"
       title="Titre de modal simple (ouvre une fenêtre modale)"
     >
       <slot name="button"> </slot>
@@ -12,18 +12,18 @@
     <dialog
       aria-labelledby="fr-modal-title-modal-1"
       role="dialog"
-      id="fr-modal-1"
+      :id="modalId"
       class="fr-modal"
     >
       <div class="fr-container--fluid fr-container-md">
         <div class="fr-grid-row fr-grid-row--center">
-          <div class="fr-col-12 fr-col-md-6">
+          <div class="fr-col-12">
             <div class="fr-modal__body">
               <div class="fr-modal__header">
                 <button
                   class="fr-link--close fr-link"
                   title="Fermer la fenêtre modale"
-                  aria-controls="fr-modal-1"
+                  :aria-controls="modalId"
                   target="_self"
                 >
                   Fermer
@@ -46,7 +46,12 @@
 <script>
 export default {
   name: "v-gouv-fr-modal",
-  props: {},
+  props: {
+    modalId: {
+      type: String,
+      default: "rf-modal-1"
+    }
+  },
   computed: {},
   methods: {},
   mounted: function() {

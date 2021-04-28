@@ -59,7 +59,14 @@ export default class App extends Vue {
   mounted() {
     const localScript = document.createElement("script");
     localScript.setAttribute("src", "/js/dsfr.module.min.js");
+    localScript.setAttribute("type", "module");
     document.head.appendChild(localScript);
+
+    const localScript2 = document.createElement("script");
+    localScript2.setAttribute("src", "/js/dsfr.nomodule.min.js");
+    localScript2.setAttribute("type", "text/javascript");
+    localScript2.setAttribute("nomodule", "");
+    document.head.appendChild(localScript2);
   }
 
   onLogin() {
