@@ -821,11 +821,6 @@ export default class Account extends Vue {
         .toString();
     }
     return this.$i18n.t("ALONE");
-
-    /*     if (this.user.applicationType === "COUPLE") {
-      return this.$i18n.t("couple-with", []);
-    }
-    return this.$i18n.t(this.user.applicationType || "ALONE"); */
   }
 
   getProfession() {
