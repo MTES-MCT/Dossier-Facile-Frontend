@@ -1,22 +1,14 @@
 <template>
-  <Card>
-    <template v-slot:header>
-      {{ $t("title") }}
-    </template>
-    <template v-slot:body>
-      <p v-html="$t('paragraph1')"></p>
-      <p v-html="$t('paragraph2')"></p>
-    </template>
-  </Card>
+  <div>
+    <p v-html="$t('paragraph1')"></p>
+    <p v-html="$t('paragraph2')"></p>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Card from "df-shared/src/components/Card.vue";
 
-@Component({
-  components: { Card }
-})
+@Component
 export default class TaxHelp extends Vue {
   expanded = false;
 }
@@ -38,7 +30,7 @@ export default class TaxHelp extends Vue {
   },
   "fr": {
     "title": "Aide",
-    "paragraph1": "Vous pouvez désormais <b>télécharger votre avis d’imposition sur <a target='_blank' href='https://www.impots.gouv.fr'>www.impots.gouv.fr</a></b>",
+    "paragraph1": "Vous pouvez désormais <b>télécharger un avis d’imposition sur <a target='_blank' href='https://www.impots.gouv.fr'>www.impots.gouv.fr</a></b>",
     "paragraph2": "Si votre pièce est trop lourde, nous vous conseillons de scanner votre pièce (avec une application gratuite pour smartphone par exemple).<br> Si cela ne suffit pas, contactez-nous par mail à l’adresse <a href='mailto:contact@dossierfacile.fr'>contact@dossierfacile.fr</a>, nous nous efforcerons de répondre au plus vite !"
   }
 }

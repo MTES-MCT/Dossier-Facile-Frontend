@@ -4,7 +4,7 @@
       <div class="fr-container">
         <div class="fr-grid-row height-40">
           <div class="fr-col-md-10 fr-col-lg-8">
-            <h2 class="fr-h2 color--white">Questions fréquemment posées</h2>
+            <h1 class="fr-h1 color--white">Questions fréquemment posées</h1>
             <p class="color--white">
               <b>
                 Vous avez rencontré une difficulté ? Découvrez toutes<br />nos

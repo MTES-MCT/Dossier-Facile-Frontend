@@ -1,5 +1,5 @@
 <template>
-  <NakedCard>
+  <NakedCard class="fr-mt-3w fr-mb-2w">
     <template v-slot:content>
       <div>
         <a

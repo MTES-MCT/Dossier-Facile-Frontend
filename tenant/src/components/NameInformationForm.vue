@@ -1,6 +1,19 @@
 <template>
   <div>
     <ValidationObserver v-slot="{ invalid, validate }">
+      <v-gouv-fr-modal class="fr-mb-3w">
+        <template v-slot:button>
+          En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:title>
+          En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:content>
+          <p>
+            <NameInformationHelp></NameInformationHelp>
+          </p>
+        </template>
+      </v-gouv-fr-modal>
       <form
         name="form"
         @submit.prevent="validate().then(handleNameInformation)"
@@ -95,6 +108,8 @@ import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
 import { required, regex } from "vee-validate/dist/rules";
 import SubmitButton from "df-shared/src/Button/SubmitButton.vue";
+import NameInformationHelp from "./helps/NameInformationHelp.vue";
+import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 
 extend("zipcode", {
   ...regex,
@@ -110,7 +125,9 @@ extend("required", {
   components: {
     ValidationProvider,
     ValidationObserver,
-    SubmitButton
+    SubmitButton,
+    NameInformationHelp,
+    VGouvFrModal
   }
 })
 export default class NameInformationForm extends Vue {

@@ -730,7 +730,7 @@ export const DocumentTypeConstants = {
         "Tout avis d’imposition plus ancien",
         "Tout autre document justificatif"
       ],
-      maxFileCount: 1
+      maxFileCount: 4
     },
     {
       key: "my-parents",
@@ -775,7 +775,7 @@ export const DocumentTypeConstants = {
         "Tout avis d’imposition plus ancien",
         "Tout autre document justificatif"
       ],
-      maxFileCount: 1
+      maxFileCount: 4
     },
     {
       key: "less-than-year",

@@ -1,7 +1,9 @@
 <template>
   <div class="fr-container">
-    <Login @on-login="onLogin" />
-    <div class="fr-grid-row">
+    <div class="fr-grid-row fr-grid-row--center">
+      <div class="fr-col-md-8 fr-col-lg-6">
+        <Login @on-login="onLogin" />
+      </div>
       <div class="fr-col-12 text-center fr-mb-3w">
         <router-link to="/forgotten-password">{{
           $t("forgotten-password")
