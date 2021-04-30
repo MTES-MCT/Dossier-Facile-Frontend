@@ -796,7 +796,31 @@ export default class Account extends Vue {
   }
 
   getPersonnalStatus() {
-    return this.$i18n.t(this.user.applicationType || "ALONE");
+    if (
+      this.user?.apartmentSharing?.tenants !== undefined &&
+      this.user.applicationType !== "ALONE"
+    ) {
+      if (this.user.applicationType === "COUPLE") {
+        const spouse = this.user?.apartmentSharing?.tenants?.find((t: User) => {
+          return t.id !== this.user?.id;
+        });
+        if (spouse?.lastName !== undefined && spouse?.lastName !== "") {
+          return this.$i18n
+            .t("couple-with", [`${spouse?.firstName} ${spouse?.lastName}`])
+            .toString();
+        }
+        return this.$i18n
+          .t("couple-with", [this.$i18n.t("someone")])
+          .toString();
+      }
+      if (this.user?.apartmentSharing?.tenants.length === 1) {
+        return this.$i18n.t("group-with-one").toString();
+      }
+      return this.$i18n
+        .t("group-with", [this.user?.apartmentSharing?.tenants.length - 1])
+        .toString();
+    }
+    return this.$i18n.t("ALONE");
   }
 
   getProfession() {
@@ -1057,9 +1081,11 @@ hr {
     "identification-legal-person": "Legal person identification",
     "copied": "Copied !",
     "ALONE": "seul·e",
-    "COUPLE": "en couple",
-    "GROUP": "en colocation",
-    "organism-identification": "Organism"
+    "couple-with": "en couple avec {0}",
+    "organism-identification": "Organism",
+    "someone": " someone",
+    "group-with-one": "en colocation avec 1 personne",
+    "group-with": "en colocation avec {0} personnes"
   },
   "fr": {
     "title": "Bonjour {0}, votre dossier {1} !",
@@ -1115,9 +1141,11 @@ hr {
     "identification-legal-person": "Identification de la personne morale",
     "copied": "Copié !",
     "ALONE": "seul·e",
-    "COUPLE": "en couple",
-    "GROUP": "en colocation",
-    "organism-identification": "Certificat de l'organisme"
+    "couple-with": "en couple avec {0}",
+    "group-with-one": "en colocation avec {0} personnes",
+    "group-with": "en colocation avec 1 personne",
+    "organism-identification": "Certificat de l'organisme",
+    "someone": " quelqu'un"
   }
 }
 </i18n>

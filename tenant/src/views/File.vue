@@ -151,7 +151,16 @@ export default class File extends Vue {
 
   getName() {
     if (this.user?.tenants !== undefined) {
-      return `${this.user.tenants[0].firstName} ${this.user.tenants[0].lastName}`;
+      if (this.user?.tenants.length === 2) {
+        const userNames = this.user.tenants
+          .map(o => `${o.firstName} ${o.lastName}`)
+          .join(this.$i18n.t("and").toString());
+        return userNames;
+      }
+      const userNames = this.user.tenants
+        .map(o => `${o.firstName} ${o.lastName}`)
+        .join(", ");
+      return userNames;
     }
     return "";
   }
@@ -287,7 +296,8 @@ export default class File extends Vue {
     "no-income": "sans revenu",
     "income": "avec un revenu net mensuel de {0}€",
     "organism": "Organism",
-    "identification-legal-person": "Legal person identification"
+    "identification-legal-person": "Legal person identification",
+    "and": " and "
   },
   "fr": {
     "title": "Dossier locataire de {0}",
@@ -307,7 +317,8 @@ export default class File extends Vue {
     "no-income": "sans revenu",
     "income": "avec un revenu net mensuel de {0}€",
     "organism": "Certificat de l'organisme",
-    "identification-legal-person": "Identification de la personne morale"
+    "identification-legal-person": "Identification de la personne morale",
+    "and": " et "
   }
 }
 </i18n>
