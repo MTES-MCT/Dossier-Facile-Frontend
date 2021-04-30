@@ -130,8 +130,8 @@ export default class OwnerShare extends Vue {
   mounted() {
     this.token = this.$route.params.token;
     OwnerService.getOwnerData(this.token)
-      .then((data: any) => {
-        this.owner = data;
+      .then((response: any) => {
+        this.owner = response.data;
       })
       .catch((error: any) => {
         console.dir(error);
