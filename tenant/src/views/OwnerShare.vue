@@ -168,7 +168,7 @@ export default class OwnerShare extends Vue {
     }
     OwnerService.registerToOwner(this.token).then(
       () => {
-        this.$toasted.show(this.$i18n.t("login-success").toString(), {
+        this.$toasted.show(this.$i18n.t("connection-success").toString(), {
           type: "success",
           duration: 7000
         });
@@ -197,7 +197,8 @@ export default class OwnerShare extends Vue {
     "connect-owner": "Let's go",
     "no-account-1": "Si vous n'avez pas de compte, vous pouvez en <a href=\"/signup\">créer un</a> et revenir ultérieurement sur cette page",
     "no-account-2": "Notre dossier est facile à remplir (en moins de 3 minutes c'est promis) et en plus il est conforme à la loi",
-    "no-account-3": "Et réutilisable pour toutes vos autres visites !"
+    "no-account-3": "Et réutilisable pour toutes vos autres visites !",
+    "connection-success": "Your file has been successfully shared"
   },
   "fr": {
     "title": "Candidatez pour le logement situé au {0}",
@@ -209,7 +210,8 @@ export default class OwnerShare extends Vue {
     "connect-owner": "C'est parti !",
     "no-account-1": "Si vous n'avez pas de compte, vous pouvez en <a href=\"/signup\">créer un</a> et revenir ultérieurement sur cette page.",
     "no-account-2": "Notre dossier est facile à remplir (en moins de 3 minutes c'est promis) et en plus il est conforme à la loi.",
-    "no-account-3": "Et réutilisable pour toutes vos autres visites !"
+    "no-account-3": "Et réutilisable pour toutes vos autres visites !",
+    "connection-success": "Votre dossier a bien été partagé au propriétaire"
   }
 }
 </i18n>
