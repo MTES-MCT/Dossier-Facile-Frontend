@@ -40,7 +40,7 @@
           </form>
         </ValidationObserver>
         <div v-if="!isLoggedIn">
-          <v-gouv-fr-modal class="fr-mt-2w" :modal-id="'rf-modal-1'">
+          <v-gouv-fr-modal class="fr-mt-2w" modal-id="fr-modal-2">
             <template v-slot:button>
               Se connecter
             </template>
@@ -51,21 +51,11 @@
               <Login @on-login="onLogin" />
             </template>
           </v-gouv-fr-modal>
-          <v-gouv-fr-modal class="fr-mt-2w" :modal-id="'rf-modal-2'">
-            <template v-slot:button>
-              Créer un compte
-            </template>
-            <template v-slot:title>
-              Créer un compte
-            </template>
-            <template v-slot:content>
-              <div>
-                <p v-html="$t('no-account-1')"></p>
-                <p v-html="$t('no-account-2')"></p>
-                <p v-html="$t('no-account-3')"></p>
+              <div class="fr-mt-3w">
+                <div v-html="$t('no-account-1')"></div>
+                <div v-html="$t('no-account-2')"></div>
+                <div v-html="$t('no-account-3')"></div>
               </div>
-            </template>
-          </v-gouv-fr-modal>
         </div>
       </div>
     </div>
