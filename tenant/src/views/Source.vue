@@ -152,13 +152,15 @@ export default class Source extends Vue {
     "mail-sent": "An email has been sent to the requested address.",
     "clic-to-confirm": "Please click on the given link to confirm your email and continue you inscription.",
     "existing-account": "I have an account already",
-    "register": "Register a new account"
+    "register": "Register a new account",
+    "register-error": "An error occured"
 },
 "fr": {
     "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
     "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre votre inscription.",
     "existing-account": "Lier un compte existant",
-    "register": "Créer un nouveau compte"
+    "register": "Créer un nouveau compte",
+    "register-error": "Une erreur est survenue"
 }
 }
 </i18n>
