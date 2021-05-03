@@ -7,9 +7,9 @@
           <hr />
           <article class="fr-mb-12w">
             <div class="text-center">
-              <router-link to="/blog/un-garant-qui-comment-pourquoi">
+              <router-link to="/blog/tout-comprendre-a-la-vie-en-colocation">
                 <h2 class="rf-h2">
-                  Un garant ? Qui ? Comment ? Pourquoi ?
+                  Tout comprendre à la vie en colocation
                 </h2>
               </router-link>
               <span>14 Avril 2021 dans </span>
@@ -19,7 +19,7 @@
             </div>
             <!--end article title-->
             <div class="article__body">
-              <router-link to="/blog/un-garant-qui-comment-pourquoi">
+              <router-link to="/blog/tout-comprendre-a-la-vie-en-colocation">
                 <img
                   class="img-center"
                   alt=""
@@ -27,18 +27,21 @@
                 />
               </router-link>
               <p>
-                Dans la course effrénée au logement, il faut mettre toutes les
-                chances de votre côté pour échapper à la concurrence. Établir un
-                dossier de location <b>complet, clair et cohérent</b> est une
-                première étape dans laquelle DossierFacile vous accompagne. Un
-                autre élément quasi impératif est le garant. Qu’est-ce qu’une
-                garantie de loyer impayé ? Qui peut se porter garant ? Comment
-                faire pour l’intégrer à son dossier de location ?
+                Devant la hausse des loyers, de nombreux locataires choisissent
+                aujourd'hui de partager un logement afin de diviser le coût de
+                la location. Pour le bailleur, la colocation permet de louer
+                plus facilement un grand logement et de bénéficier d’une
+                solidarité entre les locataires.
+                <br />
+                Que ce soit entre amis, en famille ou bien avec des inconnus, la
+                colocation obéit toutefois à de nombreuses règles que nous
+                allons vous présenter.
               </p>
-              <router-link to="/blog/un-garant-qui-comment-pourquoi"
+              <router-link to="/blog/tout-comprendre-a-la-vie-en-colocation"
                 >Continuer la lecture »</router-link
               >
             </div>
+            <!--end article title-->
           </article>
           <hr />
           <article class="rf-mb-12w">

@@ -6,9 +6,9 @@
           <article>
             <div class="text-center">
               <h1 class="rf-h1">
-                Un garant ? Qui ? Comment ? Pourquoi ?
+                Tout comprendre à la vie en colocation
               </h1>
-              <span>14 Avril 2021 dans </span>
+              <span>03 Mai 2021 dans </span>
               <span>
                 <a href="#" class="underline">DossierFacile</a>
               </span>
@@ -16,107 +16,81 @@
             <!--end article title-->
             <div>
               <p>
-                Dans la course effrénée au logement, il faut mettre toutes les
-                chances de votre côté pour échapper à la concurrence. Établir un
-                dossier de location <b>complet, clair et cohérent</b> est une
-                première étape dans laquelle DossierFacile vous accompagne. Un
-                autre élément quasi impératif est le garant. Qu’est-ce qu’une
-                garantie de loyer impayé ? Qui peut se porter garant ? Comment
-                faire pour l’intégrer à son dossier de location ?
+                Devant la hausse des loyers, de nombreux locataires choisissent
+                aujourd'hui de partager un logement afin de diviser le coût de
+                la location. Pour le bailleur, la colocation permet de louer
+                plus facilement un grand logement et de bénéficier d’une
+                solidarité entre les locataires.
+                <br />
+                Que ce soit entre amis, en famille ou bien avec des inconnus, la
+                colocation obéit toutefois à de nombreuses règles que nous
+                allons vous présenter.
               </p>
               <img
                 alt=""
                 class="img-center"
                 src="../../assets/images/blog-article7.webp"
               />
-              <h2>1. Qu’est-ce qu’une garantie de loyer impayé&nbsp;?</h2>
+              <h2>1. Comment définir la colocation</h2>
               <p>
-                Une garantie de loyer impayé est l’acte par lequel une personne
-                (le garant) accepte d’endosser à la place du propriétaire le
-                risque que le locataire ne paie pas ses loyers. Si celui-ci fait
-                défaut de paiement, le garant assumera à sa place la charge du
+                La loi pour l’accès au logement et un urbanisme rénové (Alur)
+                met en place la pratique de la colocation
+                <a
+                  href="https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000038834725/2019-09-01"
+                  >par ces termes</a
+                >
+                : «La colocation est définie comme la location d’un même
+                logement par plusieurs locataires, constituant leur résidence
+                principale et formalisée par la conclusion d’un contrat unique
+                ou de plusieurs contrats entre les locataires et les bailleurs.»
+              </p>
+              <h2>2. Qu’est ce que la clause de solidarité?</h2>
+              <p>
+                Elle est souvent exigée par le propriétaire afin qu’il se
+                prémunisse contre les impayés. Ainsi, si un colocataire ne paie
+                pas sa part de loyer, le propriétaire peut se retourner contre
+                les autres pour exiger la somme due. En l’absence de cette
+                clause, chaque locataire n’est redevable que de sa quote-part du
                 loyer.
               </p>
+              <h2>3. Qu’est-ce que le dépôt de garantie?</h2>
               <p>
-                Cet élément du dossier n’est peut-être pas le plus facile à
-                justifier mais il est déterminant aux yeux du propriétaire car
-                très rassurant ! En effet, les principales réticences des
-                propriétaires à mettre leur bien en location et leur plus grande
-                peur dans le choix du locataire est que celui-ci ne paie pas ses
-                loyers. L’assurance que quoi qu’il arrive au locataire
-                (licenciement, accident…) les loyers seront payés a un poids
-                indéniable et conséquent qui peut faire changer votre dossier de
-                pile !
+                Le dépôt de garantie est partagé entre les colocataires
+                signataires du bail et versé à l’entrée des lieux. Il ne peut
+                être demandé que s’il est mentionné dans le contrat et que son
+                montant correspond à un mois de loyer hors taxe. Le propriétaire
+                n’est pas obligé de restituer le dépôt de garantie au
+                colocataire qui part seul en cours de bail. Le colocataire devra
+                attendre la fin du bail pour récupérer son dépôt de garantie
+                sinon, il peut toujours s’arranger avec le propriétaire pour que
+                son dépôt de garantie lui soit remboursé par celui qui le
+                remplace.
               </p>
-              <h2>2. Qui peut se porter garant ?</h2>
+              <h2>4. Peut-on percevoir des aides lors d’une colocation?</h2>
               <p>
-                En théorie, <b>n’importe qui</b> ! Cependant, voici quelques
-                critères qui augmenteront le crédit de votre garant aux yeux du
-                propriétaire :
+                Chaque colocataire peut obtenir une aide au logement pour la
+                part de loyer dont il est redevable, s'il remplit les conditions
+                pour y avoir droit. Chaque colocataire doit faire sa propre
+                demande, par exemple
+                <a href="https://www.caf.fr/">auprès de la Caf</a> (Caisse
+                d’allocations familiales).
               </p>
-              <ul>
-                <li>
-                  Il doit <b>gagner plus que vous</b> : dans le cas contraire,
-                  si vous faites défaut, il est probable qu’il ne puisse pas
-                  vraiment vous aider…
-                </li>
-                <li>
-                  Il doit <b>avoir un emploi stable</b> (périodes d’essai ou CDD
-                  à éviter) : en général, un défaut de paiement advient
-                  plusieurs mois après la location ; si le garant n’a plus son
-                  emploi à ce moment-là, c’est problématique !
-                </li>
-                <li>
-                  Si possible, <b>être lui-même propriétaire</b> : un deuxième
-                  loyer à payer pourrait être lourd à supporter.
-                </li>
-              </ul>
+              <h2>5. Comment réagir au départ d’un colocataire?</h2>
               <p>
-                Le garant idéal est donc quelqu’un de déjà installé
-                professionnellement et qui gagne aisément sa vie. Souvent, ce
-                sont les <b>parents</b> ou les <b>grands-parents</b> qui se
-                portent garants pour leurs enfants quand ils emménagent pour la
-                première fois.
-              </p>
-              <p>
-                Il existe aussi des organismes, privés ou publics, qui proposent
-                d’être garants. Par exemple,
-                <a href="https://www.visale.fr/">Visale est un garant public</a>
-                qui a pour mission d’aider gratuitement les jeunes et les
-                personnes ayant un emploi précaire à accéder à la location.
-                D’autres entreprises, privées, font payer leurs services pour se
-                porter garantes.
-              </p>
-              <h2>3. Comment intégrer son garant à son DossierFacile ?</h2>
-              <p>
-                Rien de plus facile ! A la fin de
-                <a href="https://locataire.dossierfacile.fr/signup"
-                  >votre démarche d’inscription</a
-                >, nous vous proposons quatre possibilités dans une étape
-                consacrée au garant :
-              </p>
-              <ul>
-                <li>Un garant physique classique</li>
-                <li>Un organisme se porte garant pour moi</li>
-                <li>Un garant moral</li>
-                <li>Je n'ai pas de garant</li>
-              </ul>
-              <p>
-                Choisissez celle des trois qui vous correspond ! Pour la
-                première option, vous passez directement à la suite ; pour la
-                deuxième, nous vous demandons simplement votre attestation
-                Visale ; pour la troisième, il faut un peu plus de pièces : la
-                carte d’identité du garant, un justificatif de domicile du
-                garant, des fiches de paie du garant et son avis d’imposition.
-              </p>
-              <p>
-                Vous vous êtes trompés dans cette étape ou votre situation a
-                changé et <b>vous voulez changer de garant</b> ? Aucun souci !
-                Vous pouvez
-                <a href="https://locataire.dossierfacile.fr/account"
-                  >modifier vos informations</a
-                >
-                à tout instant depuis votre espace « Mon Compte » !
+                Le colocataire souhaitant quitter le logement doit adresser au
+                propriétaire un congé par lettre recommandée avec accusé de
+                réception en respectant le délai de préavis prévu dans le
+                contrat de location. En général, ce préavis est de trois mois
+                pour les locations vides et de un mois pour les locations
+                meublées (La durée du préavis varie selon que votre logement se
+                trouve en zone tendue ou non,
+                <a
+                  href="https://www.service-public.fr/particuliers/vosdroits/F1168#:~:text=perte%20d'emploi-,D%C3%A9lai%20de%20pr%C3%A9avis%20%3A%201%20mois.,au%20cours%20du%20m%C3%AAme%20bail"
+                  >en savoir plus</a
+                >). <br />
+                Un avenant au bail doit être rédigé entre les colocataires qui
+                restent et celui qui arrive, afin de libérer l’ancien de ses
+                obligations et faire apparaître le nom du nouveau colocataire.
               </p>
             </div>
           </article>

@@ -80,7 +80,7 @@ const routes: Array<RouteConfig> = [
     path: "/blog/5-astuces-pour-booster-votre-dossier-de-location",
     name: "Article4",
     meta: {
-      title: "5 astuces pour booster votre dossier de location",
+      title: "5 astuces pour booster votre dossier de location - DossierFacile",
       description:
         "Pour se distinguer des autres, un seul moyen : constituer un dossier de location clair, cohérent et complet"
     },
@@ -93,7 +93,7 @@ const routes: Array<RouteConfig> = [
     name: "Article5",
     meta: {
       title:
-        "5 conseils pour trouver l’appartement de ses rêves en région parisienne",
+        "5 conseils pour trouver l’appartement de ses rêves en région parisienne - DossierFacile",
       description:
         "Trouver l’appartement de ses rêves à Paris ou en région parisienne est un vrai défi"
     },
@@ -104,7 +104,7 @@ const routes: Array<RouteConfig> = [
     path: "/blog/dossierfacile-fait-peau-neuve",
     name: "Article6",
     meta: {
-      title: "DossierFacile fait peau neuve !",
+      title: "DossierFacile fait peau neuve ! - DossierFacile",
       description:
         "Afin de mieux répondre aux besoins de nos locataires et propriétaires, le service DossierFacile fait peau neuve avec un nouveau site"
     },
@@ -112,15 +112,26 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Article6.vue")
   },
   {
-    path: "/blog/un-garant-qui-comment-pourquoi",
+    path: "/blog/tout-comprendre-a-la-vie-en-colocation",
     name: "Article7",
     meta: {
-      title: "Un garant ? Qui ? Comment ? Pourquoi ?",
+      title: "Tout comprendre à la vie en colocation - DossierFacile",
+      description:
+        "Quelles sont les règles à respecter avant de se mettre en colocation ? DossierFacile vous aide à y voir plus clair !"
+    },
+    component: () =>
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article7.vue")
+  },
+  {
+    path: "/blog/un-garant-qui-comment-pourquoi",
+    name: "Article8",
+    meta: {
+      title: "Un garant ? Qui ? Comment ? Pourquoi ? - DossierFacile",
       description:
         "Afin de mieux répondre aux besoins de nos locataires et propriétaires, le service DossierFacile fait peau neuve avec un nouveau site"
     },
     component: () =>
-      import(/* webpackChunkName: "blog" */ "../views/blog/Article7.vue")
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article8.vue")
   },
   {
     path: "/information",
