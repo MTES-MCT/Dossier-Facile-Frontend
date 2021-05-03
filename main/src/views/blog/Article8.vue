@@ -4,7 +4,7 @@
       <div class="fr-grid-row justify-content-center">
         <div class="fr-col-md-10 fr-col-lg-8">
           <article>
-            <div class="text-center">
+            <div class="text-center fr-mt-3w fr-mb-3w">
               <h1 class="fr-h1">
                 Un garant ? Qui ? Comment ? Pourquoi ?
               </h1>
