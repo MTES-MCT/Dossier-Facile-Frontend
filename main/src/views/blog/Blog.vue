@@ -8,7 +8,7 @@
           <article class="fr-mb-12w">
             <div class="text-center">
               <router-link to="/blog/tout-comprendre-a-la-vie-en-colocation">
-                <h2 class="rf-h2">
+                <h2 class="fr-h2">
                   Tout comprendre à la vie en colocation
                 </h2>
               </router-link>
@@ -44,7 +44,7 @@
             <!--end article title-->
           </article>
           <hr />
-          <article class="rf-mb-12w">
+          <article class="fr-mb-12w">
             <div class="text-center">
               <router-link to="/blog/dossierfacile-fait-peau-neuve">
                 <h2 class="fr-h2">
