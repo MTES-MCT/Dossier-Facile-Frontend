@@ -26,11 +26,13 @@
                 colocation obéit toutefois à de nombreuses règles que nous
                 allons vous présenter.
               </p>
-              <img
-                alt=""
-                class="img-center"
-                src="../../assets/images/blog-article7.webp"
-              />
+              <p>
+                <img
+                  alt=""
+                  class="img-center"
+                  src="../../assets/images/blog-article7.webp"
+                />
+              </p>
               <h2>1. Comment définir la colocation</h2>
               <p>
                 La loi pour l’accès au logement et un urbanisme rénové (Alur)
