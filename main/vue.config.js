@@ -23,6 +23,7 @@ module.exports = {
         "https://dossierfacile.fr/blog/dossierfacile-fait-peau-neuve",
         "https://dossierfacile.fr/stats",
         "https://dossierfacile.fr/blog/un-garant-qui-comment-pourquoi",
+        "https://dossierfacile.fr/blog/tout-comprendre-a-la-vie-en-colocation",
         "https://dossierfacile.fr/information",
         "https://dossierfacile.fr/securite-des-donnees"
       ]
@@ -50,6 +51,7 @@ module.exports = {
             "/blog/dossierfacile-fait-peau-neuve",
             "/stats",
             "/blog/un-garant-qui-comment-pourquoi",
+            "/blog/tout-comprendre-a-la-vie-en-colocation",
             "/information",
             "/securite-des-donnees"
           ]
