@@ -87,16 +87,28 @@
                 réception en respectant le délai de préavis prévu dans le
                 contrat de location. En général, ce préavis est de trois mois
                 pour les locations vides et de un mois pour les locations
-                meublées (La durée du préavis varie selon que votre logement se
+                meublées (la durée du préavis varie selon que votre logement se
                 trouve en zone tendue ou non,
                 <a
                   target="_blank"
                   href="https://www.service-public.fr/particuliers/vosdroits/F1168#:~:text=perte%20d'emploi-,D%C3%A9lai%20de%20pr%C3%A9avis%20%3A%201%20mois.,au%20cours%20du%20m%C3%AAme%20bail"
                   >en savoir plus</a
                 >). <br />
+              </p>
+              <p>
                 Un avenant au bail doit être rédigé entre les colocataires qui
                 restent et celui qui arrive, afin de libérer l’ancien de ses
                 obligations et faire apparaître le nom du nouveau colocataire.
+              </p>
+              <p>
+                Attention, si le bail contient une clause solidarité (voir 2.)
+                le colocataire quittant le logement reste tenu de payer les
+                loyers et charges dus jusqu'à la fin de son préavis si un
+                nouveau colocataire le remplace. S'il n'a pas de remplaçant, le
+                colocataire reste tenu du paiement des loyers et charges dus
+                jusqu'à 6 mois après la fin de son préavis. Les obligations de
+                la personne qui s'est portée caution pour le colocataire sortant
+                cesse dans les mêmes conditions.
               </p>
             </div>
           </article>
