@@ -43,7 +43,7 @@ export default {
   props: {
     modalId: {
       type: String,
-      default: "rf-modal-1"
+      default: "fr-modal-1"
     }
   },
   computed: {},
