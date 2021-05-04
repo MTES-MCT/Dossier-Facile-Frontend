@@ -5,30 +5,24 @@
     </div>
     <div class="fr-col-12">
       <label class="fr-label">{{ $t("roommateEmail") }}</label>
-      <div class="fr-grid-row">
-        <validation-provider
-          rules="email"
-          v-slot="{ errors }"
-          class="fr-col-10"
+      <validation-provider rules="email" v-slot="{ errors }">
+        <div
+          class="fr-input-group"
+          :class="errors[0] ? 'fr-input-group--error' : ''"
         >
-          <div
-            class="fr-input-group"
-            :class="errors[0] ? 'fr-input-group--error' : ''"
-          >
-            <input
-              v-model="newRoommate"
-              class="form-control fr-input"
-              name="email"
-              placeholder="Ex : exemple@exemple.fr"
-              type="email"
-              required
-            />
-            <span class="fr-error-text" v-if="errors[0]">{{
-              $t(errors[0])
-            }}</span>
-          </div>
-        </validation-provider>
-      </div>
+          <input
+            v-model="newRoommate"
+            class="form-control fr-input"
+            name="email"
+            placeholder="Ex : exemple@exemple.fr"
+            type="email"
+            required
+          />
+          <span class="fr-error-text" v-if="errors[0]">{{
+            $t(errors[0])
+          }}</span>
+        </div>
+      </validation-provider>
     </div>
     <div class="fr-col-12">
       <div class="fr-grid-row fr-grid-row--right fr-mt-2w fr-mb-3w">
@@ -51,8 +45,10 @@
         v-for="(roommate, key) in roommates"
         v-bind:key="key"
       >
-        <div>
-          {{ roommate.email }}
+        <div class="fr-grid-row">
+          <div class="fr-col-6">
+            {{ roommate.email }}
+          </div>
           <div class="fr-col-2">
             <button
               type="button"
