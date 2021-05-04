@@ -1,76 +1,75 @@
 <template>
   <div class="fr-grid-row fr-grid-row--center">
-    <div class="fr-col-md-8">
-      <div class="fr-grid-row fr-grid-row--center">
-        <div class="fr-col-12">
-          <label class="fr-label">{{ $t("roommateEmail") }}</label>
-          <div
-            class="fr-mb-1w"
-            v-for="(roommate, key) in roommates"
-            v-bind:key="key"
+    <div class="fr-col-12">
+      <h4>{{ $t("title") }}</h4>
+    </div>
+    <div class="fr-col-12">
+      <label class="fr-label">{{ $t("roommateEmail") }}</label>
+      <div
+        class="fr-mb-1w"
+        v-for="(roommate, key) in roommates"
+        v-bind:key="key"
+      >
+        <div class="fr-grid-row">
+          <validation-provider
+            rules="email"
+            v-slot="{ errors }"
+            class="fr-col-10"
           >
-            <div class="fr-grid-row">
-              <validation-provider
-                rules="email"
-                v-slot="{ errors }"
-                class="fr-col-10"
-              >
-                <div
-                  class="fr-input-group"
-                  :class="errors[0] ? 'fr-input-group--error' : ''"
-                >
-                  <input
-                    v-model="roommate.email"
-                    class="form-control fr-input"
-                    name="email"
-                    placeholder="Ex : exemple@exemple.fr"
-                    type="email"
-                    @change="updateRoommates()"
-                    required
-                  />
-                  <span class="fr-error-text" v-if="errors[0]">{{
-                    $t(errors[0])
-                  }}</span>
-                </div>
-              </validation-provider>
-              <div class="fr-col-2">
-                <button
-                  type="button"
-                  class="fr-btn fr-btn--icon fr-btn--secondary"
-                  :title="$t('delete')"
-                  :disabled="user.apartmentSharing.tenants.length <= 1"
-                  @click="remove(key)"
-                >
-                  <span class="text-danger material-icons">delete_forever</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="fr-col-12 fr-mb-3w">
-          <a href="#" @click="addMail">{{ $t("addRommate") }}</a>
-        </div>
-        <div class="fr-col-12 fr-mb-3w">
-          <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
             <div
               class="fr-input-group"
               :class="errors[0] ? 'fr-input-group--error' : ''"
             >
               <input
-                type="checkbox"
-                id="authorize"
-                value="false"
-                v-model="authorize"
-                @change="updateAuthorize()"
+                v-model="roommate.email"
+                class="form-control fr-input"
+                name="email"
+                placeholder="Ex : exemple@exemple.fr"
+                type="email"
+                @change="updateRoommates()"
+                required
               />
-              <label for="authorize">{{ $t("acceptAuthor") }}</label>
               <span class="fr-error-text" v-if="errors[0]">{{
                 $t(errors[0])
               }}</span>
             </div>
           </validation-provider>
+          <div class="fr-col-2">
+            <button
+              type="button"
+              class="fr-btn fr-btn--icon fr-btn--secondary"
+              :title="$t('delete')"
+              :disabled="user.apartmentSharing.tenants.length <= 1"
+              @click="remove(key)"
+            >
+              <span class="text-danger material-icons">delete_forever</span>
+            </button>
+          </div>
         </div>
       </div>
+    </div>
+    <div class="fr-col-12 fr-mb-3w">
+      <a href="#" @click="addMail">{{ $t("addRommate") }}</a>
+    </div>
+    <div class="fr-col-12 fr-mb-3w">
+      <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
+        <div
+          class="fr-input-group"
+          :class="errors[0] ? 'fr-input-group--error' : ''"
+        >
+          <input
+            type="checkbox"
+            id="authorize"
+            value="false"
+            v-model="authorize"
+            @change="updateAuthorize()"
+          />
+          <label for="authorize">{{ $t("acceptAuthor") }}</label>
+          <span class="fr-error-text" v-if="errors[0]">{{
+            $t(errors[0])
+          }}</span>
+        </div>
+      </validation-provider>
     </div>
   </div>
 </template>
@@ -146,20 +145,22 @@ export default class RoommatesInformation extends Vue {
 <i18n>
 {
 "en": {
-"roommateEmail": "Veuillez renseigner l’adresse email de votre colocataire",
-"addRommate": "Ajouter un colocataire",
-"acceptAuthor": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",
-"delete": "Supprimer",
+"roommateEmail": "Your roommates email",
+"addRommate": "Add a roommate",
+"acceptAuthor": "I agree that the other members of my roommate have access to my documents as well as those of my guarantor, if applicable, once all the files of the roommate have been validated",
+"delete": "Delete",
 "email-not-valid": "Email not valid",
-"field-required": "This field is required"
+"field-required": "This field is required",
+"title": "Who are your roommates ?"
 },
 "fr": {
-"roommateEmail": "Veuillez renseigner l’adresse email de votre colocataire",
+"roommateEmail": "L’adresse email de votre colocataire",
 "addRommate": "Ajouter un colocataire",
 "acceptAuthor": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",
 "delete": "Supprimer",
 "email-not-valid": "Email non valide",
-"field-required": "Ce champ est requis"
+"field-required": "Ce champ est requis",
+"title": "Qui seront vos colocataires ?"
 }
 }
 </i18n>
