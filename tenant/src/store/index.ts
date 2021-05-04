@@ -131,8 +131,10 @@ const store = new Vuex.Store({
     setSelectedGuarantor(state, guarantor: Guarantor) {
       state.selectedGuarantor = guarantor;
     },
-    createRoommates(state) {
-      state.user.apartmentSharing.tenants.push(new User());
+    createRoommates(state, email) {
+      const u = new User();
+      u.email = email;
+      state.user.apartmentSharing.tenants.push(u);
     },
     setTenantSubstep(state, subStep: number) {
       state.tenantSubStep = subStep;

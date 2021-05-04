@@ -5,35 +5,54 @@
     </div>
     <div class="fr-col-12">
       <label class="fr-label">{{ $t("roommateEmail") }}</label>
+      <div class="fr-grid-row">
+        <validation-provider
+          rules="email"
+          v-slot="{ errors }"
+          class="fr-col-10"
+        >
+          <div
+            class="fr-input-group"
+            :class="errors[0] ? 'fr-input-group--error' : ''"
+          >
+            <input
+              v-model="newRoommate"
+              class="form-control fr-input"
+              name="email"
+              placeholder="Ex : exemple@exemple.fr"
+              type="email"
+              required
+            />
+            <span class="fr-error-text" v-if="errors[0]">{{
+              $t(errors[0])
+            }}</span>
+          </div>
+        </validation-provider>
+      </div>
+    </div>
+    <div class="fr-col-12">
+      <div class="fr-grid-row fr-grid-row--right fr-mt-2w fr-mb-3w">
+        <v-gouv-fr-button
+          :secondary="true"
+          :label="$t('add-a-roommate')"
+          :btn-type="'button'"
+          @click="addMail"
+        ></v-gouv-fr-button>
+      </div>
+    </div>
+    <div class="fr-col-12">
+      <div v-if="roommates.length === 0">
+        <p>
+          {{ $t("no-roommate") }}
+        </p>
+      </div>
       <div
         class="fr-mb-1w"
         v-for="(roommate, key) in roommates"
         v-bind:key="key"
       >
-        <div class="fr-grid-row">
-          <validation-provider
-            rules="email"
-            v-slot="{ errors }"
-            class="fr-col-10"
-          >
-            <div
-              class="fr-input-group"
-              :class="errors[0] ? 'fr-input-group--error' : ''"
-            >
-              <input
-                v-model="roommate.email"
-                class="form-control fr-input"
-                name="email"
-                placeholder="Ex : exemple@exemple.fr"
-                type="email"
-                @change="updateRoommates()"
-                required
-              />
-              <span class="fr-error-text" v-if="errors[0]">{{
-                $t(errors[0])
-              }}</span>
-            </div>
-          </validation-provider>
+        <div>
+          {{ roommate.email }}
           <div class="fr-col-2">
             <button
               type="button"
@@ -47,9 +66,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="fr-col-12 fr-mb-3w">
-      <a href="#" @click="addMail">{{ $t("addRommate") }}</a>
     </div>
     <div class="fr-col-12 fr-mb-3w">
       <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
@@ -81,6 +97,7 @@ import { extend } from "vee-validate";
 import { email, is } from "vee-validate/dist/rules";
 import { User } from "df-shared/src/models/User";
 import { mapGetters, mapState } from "vuex";
+import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.vue";
 
 extend("email", {
   ...email,
@@ -96,7 +113,8 @@ extend("is", {
 @Component({
   components: {
     ValidationProvider,
-    ValidationObserver
+    ValidationObserver,
+    VGouvFrButton
   },
   computed: {
     ...mapState({
@@ -113,16 +131,14 @@ export default class RoommatesInformation extends Vue {
   authorize = false;
   coTenantAuthorize!: boolean;
   roommates!: User[];
+  newRoommate = "";
 
   mounted() {
-    if ((this.user.apartmentSharing?.tenants.length || 0) < 2) {
-      this.$store.commit("createRoommates");
-    }
     this.authorize = this.coTenantAuthorize;
   }
 
   addMail() {
-    this.$store.commit("createRoommates");
+    this.$store.commit("createRoommates", this.newRoommate);
   }
 
   remove(key: number) {
@@ -145,22 +161,26 @@ export default class RoommatesInformation extends Vue {
 <i18n>
 {
 "en": {
-"roommateEmail": "Your roommates email",
+"roommateEmail": "A roommate email",
 "addRommate": "Add a roommate",
 "acceptAuthor": "I agree that the other members of my roommate have access to my documents as well as those of my guarantor, if applicable, once all the files of the roommate have been validated",
 "delete": "Delete",
 "email-not-valid": "Email not valid",
 "field-required": "This field is required",
-"title": "Who are your roommates ?"
+"title": "Who are your roommates ?",
+"no-roommate":"Please add a roommate",
+"add-a-roommate": "Add a roommate"
 },
 "fr": {
-"roommateEmail": "L’adresse email de votre colocataire",
+"roommateEmail": "L’adresse email d'un colocataire",
 "addRommate": "Ajouter un colocataire",
 "acceptAuthor": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",
 "delete": "Supprimer",
 "email-not-valid": "Email non valide",
 "field-required": "Ce champ est requis",
-"title": "Qui seront vos colocataires ?"
+"title": "Qui seront vos colocataires ?",
+"no-roommate":"Veuillez ajouter un colocataire",
+"add-a-roommate": "Ajouter un colocataire"
 }
 }
 </i18n>
