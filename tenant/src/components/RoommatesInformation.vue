@@ -4,44 +4,12 @@
       <h4>{{ $t("title") }}</h4>
     </div>
     <div class="fr-col-12">
-      <label class="fr-label">{{ $t("roommateEmail") }}</label>
-      <validation-provider rules="email" v-slot="{ errors }">
-        <div
-          class="fr-input-group"
-          :class="errors[0] ? 'fr-input-group--error' : ''"
-        >
-          <input
-            v-model="newRoommate"
-            class="form-control fr-input"
-            name="email"
-            placeholder="Ex : exemple@exemple.fr"
-            type="email"
-          />
-          <span class="fr-error-text" v-if="errors[0]">{{
-            $t(errors[0])
-          }}</span>
-        </div>
-      </validation-provider>
-    </div>
-    <div class="fr-col-12">
-      <div class="fr-grid-row fr-grid-row--right fr-mt-2w fr-mb-3w">
-        <v-gouv-fr-button
-          :secondary="true"
-          :label="$t('add-a-roommate')"
-          :btn-type="'button'"
-          @click="addMail"
-          :disabled="newRoommate === ''"
-        ></v-gouv-fr-button>
-      </div>
-    </div>
-    <div class="fr-col-12">
       <div v-if="roommates.length === 0">
         <p>
           {{ $t("no-roommate") }}
         </p>
       </div>
       <div v-if="roommates.length > 0">
-        <h6>{{ $t("my-roommates") }}</h6>
         <div
           class="fr-mb-1w"
           v-for="(roommate, key) in roommates"
@@ -93,6 +61,37 @@
             </template>
           </NakedCard>
         </div>
+      </div>
+    </div>
+    <div class="fr-col-12">
+      <label class="fr-label">{{ $t("roommateEmail") }}</label>
+      <validation-provider rules="email" v-slot="{ errors }">
+        <div
+          class="fr-input-group"
+          :class="errors[0] ? 'fr-input-group--error' : ''"
+        >
+          <input
+            v-model="newRoommate"
+            class="form-control fr-input"
+            name="email"
+            placeholder="Ex : exemple@exemple.fr"
+            type="email"
+          />
+          <span class="fr-error-text" v-if="errors[0]">{{
+            $t(errors[0])
+          }}</span>
+        </div>
+      </validation-provider>
+    </div>
+    <div class="fr-col-12">
+      <div class="fr-grid-row fr-grid-row--right fr-mt-2w fr-mb-3w">
+        <v-gouv-fr-button
+          :secondary="true"
+          :label="$t('add-a-roommate')"
+          :btn-type="'button'"
+          @click="addMail"
+          :disabled="newRoommate === ''"
+        ></v-gouv-fr-button>
       </div>
     </div>
     <div class="fr-col-12 fr-mb-3w fr-mt-3w">
@@ -258,8 +257,8 @@ export default class RoommatesInformation extends Vue {
 "field-required": "Ce champ est requis",
 "title": "Qui seront vos colocataires ?",
 "no-roommate":"Veuillez ajouter un colocataire",
-"add-a-roommate": "Ajouter ce colocataire",
-"invite-waiting": "Invitation en attente de confirmation",
+"add-a-roommate": "Inviter ce colocataire",
+"invite-waiting": "Invitation en attente d'envoi",
 "invite-confirmed": "Invitation confirmée",
 "my-roommates": "Mes colocataires"
 }
