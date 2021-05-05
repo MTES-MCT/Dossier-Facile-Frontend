@@ -133,7 +133,7 @@ export default class OwnerShare extends Vue {
   }
 
   enableScroll() {
-    window["dsfr"].core.removeClass(document.documentElement, "fr-no-scroll");
+    (window as any)["dsfr"].core.removeClass(document.documentElement, "fr-no-scroll");
   }
 
   connectOwner() {
