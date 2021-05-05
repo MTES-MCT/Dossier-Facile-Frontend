@@ -16,7 +16,6 @@
             name="email"
             placeholder="Ex : exemple@exemple.fr"
             type="email"
-            required
           />
           <span class="fr-error-text" v-if="errors[0]">{{
             $t(errors[0])
@@ -31,6 +30,7 @@
           :label="$t('add-a-roommate')"
           :btn-type="'button'"
           @click="addMail"
+          :disabled="newRoommate === ''"
         ></v-gouv-fr-button>
       </div>
     </div>
@@ -40,30 +40,62 @@
           {{ $t("no-roommate") }}
         </p>
       </div>
-      <div
-        class="fr-mb-1w"
-        v-for="(roommate, key) in roommates"
-        v-bind:key="key"
-      >
-        <div class="fr-grid-row">
-          <div class="fr-col-6">
-            {{ roommate.email }}
-          </div>
-          <div class="fr-col-2">
-            <button
-              type="button"
-              class="fr-btn fr-btn--icon fr-btn--secondary"
-              :title="$t('delete')"
-              :disabled="user.apartmentSharing.tenants.length <= 1"
-              @click="remove(key)"
-            >
-              <span class="text-danger material-icons">delete_forever</span>
-            </button>
-          </div>
+      <div v-if="roommates.length > 0">
+        <h6>{{ $t("my-roommates") }}</h6>
+        <div
+          class="fr-mb-1w"
+          v-for="(roommate, key) in roommates"
+          v-bind:key="key"
+        >
+          <NakedCard>
+            <template v-slot:content>
+              <div class="fr-grid-row bg--white">
+                <div class="fr-col-10">
+                  <div class="fr-grid-row">
+                    <div class="fr-col-3 fr-col-md-2 center-icon">
+                      <span class="color--white material-icons md-24 round-icon"
+                        >person</span
+                      >
+                    </div>
+                    <div class="fr-col-9 fr-col-md-10">
+                      <div class="fr-grid-col overflow--auto">
+                        <div>
+                          <b>
+                            {{ roommate.email }}
+                          </b>
+                        </div>
+                        <div class="small-text">
+                          {{
+                            $t(
+                              roommate.id
+                                ? "invite-confirmed"
+                                : "invite-waiting"
+                            )
+                          }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="fr-col-2 center-icon">
+                  <button
+                    class="fr-btn fr-btn--secondary icon-btn"
+                    :title="$t('delete')"
+                    @click="remove(key)"
+                    type="button"
+                  >
+                    <span class="color--primary material-icons md-24"
+                      >delete_forever</span
+                    >
+                  </button>
+                </div>
+              </div>
+            </template>
+          </NakedCard>
         </div>
       </div>
     </div>
-    <div class="fr-col-12 fr-mb-3w">
+    <div class="fr-col-12 fr-mb-3w fr-mt-3w">
       <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
         <div
           class="fr-input-group"
@@ -87,13 +119,14 @@
 </template>
 
 <script lang="ts">
-import { Component, PropSync, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
 import { email, is } from "vee-validate/dist/rules";
 import { User } from "df-shared/src/models/User";
 import { mapGetters, mapState } from "vuex";
 import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.vue";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 extend("email", {
   ...email,
@@ -110,7 +143,8 @@ extend("is", {
   components: {
     ValidationProvider,
     ValidationObserver,
-    VGouvFrButton
+    VGouvFrButton,
+    NakedCard
   },
   computed: {
     ...mapState({
@@ -134,7 +168,10 @@ export default class RoommatesInformation extends Vue {
   }
 
   addMail() {
-    this.$store.commit("createRoommates", this.newRoommate);
+    if (this.newRoommate !== "") {
+      this.$store.commit("createRoommates", this.newRoommate);
+      this.newRoommate = "";
+    }
   }
 
   remove(key: number) {
@@ -152,31 +189,79 @@ export default class RoommatesInformation extends Vue {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.small-text {
+  font-size: 0.8rem;
+}
+
+.overflow--auto {
+  overflow: auto;
+}
+
+.fr-btn {
+  box-shadow: none;
+  background-color: none;
+  --color-hover: none;
+  --color-active: none;
+  padding: 0;
+}
+
+.icon-btn {
+  display: block;
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.material-icons,
+.material-icons-outlined {
+  border-radius: 50%;
+  --color-hover: var(--block-color-hover);
+  --color-active: var(--block-color-active);
+  padding: 0.25rem;
+}
+
+.center-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.round-icon {
+  border-radius: 50%;
+  background-color: var(--primary);
+  padding: 0.25rem;
+}
+</style>
 
 <i18n>
 {
 "en": {
 "roommateEmail": "A roommate email",
-"addRommate": "Add a roommate",
 "acceptAuthor": "I agree that the other members of my roommate have access to my documents as well as those of my guarantor, if applicable, once all the files of the roommate have been validated",
 "delete": "Delete",
 "email-not-valid": "Email not valid",
 "field-required": "This field is required",
 "title": "Who are your roommates ?",
 "no-roommate":"Please add a roommate",
-"add-a-roommate": "Add a roommate"
+"add-a-roommate": "Add this roommate",
+"invite-waiting": "Waiting for confirmation",
+"invite-confirmed": "Confirmed invitation",
+"my-roommates": "My roommates"
 },
 "fr": {
 "roommateEmail": "L’adresse email d'un colocataire",
-"addRommate": "Ajouter un colocataire",
 "acceptAuthor": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",
 "delete": "Supprimer",
 "email-not-valid": "Email non valide",
 "field-required": "Ce champ est requis",
 "title": "Qui seront vos colocataires ?",
 "no-roommate":"Veuillez ajouter un colocataire",
-"add-a-roommate": "Ajouter un colocataire"
+"add-a-roommate": "Ajouter ce colocataire",
+"invite-waiting": "Invitation en attente de confirmation",
+"invite-confirmed": "Invitation confirmée",
+"my-roommates": "Mes colocataires"
 }
 }
 </i18n>

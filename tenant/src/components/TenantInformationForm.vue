@@ -296,6 +296,10 @@ export default class TenantInformationForm extends Vue {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media all and (max-width: 991px) {
+    display: none;
+  }
 }
 </style>
 

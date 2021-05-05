@@ -61,7 +61,9 @@ export default class BigRadio extends Vue {
 }
 
 .big {
-  height: 12rem;
+  @media all and (min-width: 992px) {
+    height: 12rem;
+  }
   width: 10rem;
   padding: 1rem;
   font-size: 1rem;
