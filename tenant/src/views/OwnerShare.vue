@@ -39,8 +39,8 @@
             </div>
           </form>
         </ValidationObserver>
-        <div v-if="!isLoggedIn">
-          <v-gouv-fr-modal class="fr-mt-2w" modal-id="fr-modal-2">
+        <div v-show="!isLoggedIn">
+          <v-gouv-fr-modal class="fr-mt-2w">
             <template v-slot:button>
               Se connecter
             </template>
@@ -59,19 +59,6 @@
         </div>
       </div>
     </div>
-    <Modal v-show="isValidModalVisible" @close="closeModal">
-      <template v-slot:body>
-        <div class="fr-container">
-          <div class="fr-grid-row justify-content-center">
-            <div class="fr-col-12">
-              <p>
-                {{ $t("owner-connected") }}
-              </p>
-            </div>
-          </div>
-        </div>
-      </template>
-    </Modal>
   </div>
 </template>
 
@@ -86,7 +73,6 @@ import { Owner } from "df-shared/src/models/Owner";
 import { ValidationProvider, ValidationObserver } from "vee-validate";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
-import Modal from "df-shared/src/components/Modal.vue";
 import { OwnerService } from "../services/OwnerService";
 
 extend("is", {
@@ -101,8 +87,7 @@ extend("is", {
     ValidationProvider,
     ValidationObserver,
     VGouvFrModal,
-    DfButton,
-    Modal
+    DfButton
   },
   computed: {
     ...mapGetters({
@@ -114,7 +99,6 @@ export default class OwnerShare extends Vue {
   isLoggedIn!: boolean;
   acceptOwner = false;
   token = "";
-  isValidModalVisible = false;
   owner: Owner = new Owner();
 
   mounted() {
@@ -136,8 +120,9 @@ export default class OwnerShare extends Vue {
             type: "success",
             duration: 7000
           });
+          this.enableScroll();
         },
-        error => {
+        () => {
           this.$toasted.show(this.$i18n.t("login-error").toString(), {
             type: "error",
             duration: 7000
@@ -147,9 +132,8 @@ export default class OwnerShare extends Vue {
     }
   }
 
-  closeModal() {
-    this.isValidModalVisible = false;
-    this.$router.push("/account");
+  enableScroll() {
+    window["dsfr"].core.removeClass(document.documentElement, "fr-no-scroll");
   }
 
   connectOwner() {
@@ -164,7 +148,7 @@ export default class OwnerShare extends Vue {
         });
         this.$router.push("/account");
       },
-      error => {
+      () => {
         this.$toasted.show(this.$i18n.t("login-error").toString(), {
           type: "error",
           duration: 7000
