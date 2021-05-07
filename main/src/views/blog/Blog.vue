@@ -7,6 +7,45 @@
           <hr />
           <article class="fr-mb-12w">
             <div class="text-center">
+              <router-link to="/blog/tout-comprendre-a-la-vie-en-colocation">
+                <h2 class="fr-h2">
+                  Tout comprendre à la vie en colocation
+                </h2>
+              </router-link>
+              <span>03 Mai 2021 dans </span>
+              <span>
+                <a href="#" class="underline">DossierFacile</a>
+              </span>
+            </div>
+            <!--end article title-->
+            <div class="article__body">
+              <router-link to="/blog/tout-comprendre-a-la-vie-en-colocation">
+                <img
+                  class="img-center"
+                  alt=""
+                  src="../../assets/images/blog-article7.webp"
+                />
+              </router-link>
+              <p>
+                Devant la hausse des loyers, de nombreux locataires choisissent
+                aujourd'hui de partager un logement afin de diviser le coût de
+                la location. Pour le bailleur, la colocation permet de louer
+                plus facilement un grand logement et de bénéficier d’une
+                solidarité entre les locataires.
+                <br />
+                Que ce soit entre amis, en famille ou bien avec des inconnus, la
+                colocation obéit toutefois à de nombreuses règles que nous
+                allons vous présenter.
+              </p>
+              <router-link to="/blog/tout-comprendre-a-la-vie-en-colocation"
+                >Continuer la lecture »</router-link
+              >
+            </div>
+            <!--end article title-->
+          </article>
+          <hr />
+          <article class="fr-mb-12w">
+            <div class="text-center">
               <router-link to="/blog/dossierfacile-fait-peau-neuve">
                 <h2 class="fr-h2">
                   DossierFacile fait peau neuve

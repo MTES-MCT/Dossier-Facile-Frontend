@@ -1,12 +1,6 @@
 <template>
   <div class="v-gouv-fr-modal">
-    <a
-      href="#"
-      class="fr-link"
-      data-fr-opened="false"
-      :aria-controls="modalId"
-      title="Titre de modal simple (ouvre une fenêtre modale)"
-    >
+    <a href="#" class="fr-link" data-fr-opened="false" :aria-controls="modalId">
       <slot name="button"> </slot>
     </a>
     <dialog
@@ -49,7 +43,7 @@ export default {
   props: {
     modalId: {
       type: String,
-      default: "rf-modal-1"
+      default: "fr-modal-1"
     }
   },
   computed: {},

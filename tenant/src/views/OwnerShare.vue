@@ -39,8 +39,8 @@
             </div>
           </form>
         </ValidationObserver>
-        <div v-if="!isLoggedIn">
-          <v-gouv-fr-modal class="fr-mt-2w" :modal-id="'rf-modal-1'">
+        <div v-show="!isLoggedIn">
+          <v-gouv-fr-modal class="fr-mt-2w">
             <template v-slot:button>
               Se connecter
             </template>
@@ -51,37 +51,14 @@
               <Login @on-login="onLogin" />
             </template>
           </v-gouv-fr-modal>
-          <v-gouv-fr-modal class="fr-mt-2w" :modal-id="'rf-modal-2'">
-            <template v-slot:button>
-              Créer un compte
-            </template>
-            <template v-slot:title>
-              Créer un compte
-            </template>
-            <template v-slot:content>
-              <div>
-                <p v-html="$t('no-account-1')"></p>
-                <p v-html="$t('no-account-2')"></p>
-                <p v-html="$t('no-account-3')"></p>
+              <div class="fr-mt-3w">
+                <div v-html="$t('no-account-1')"></div>
+                <div v-html="$t('no-account-2')"></div>
+                <div v-html="$t('no-account-3')"></div>
               </div>
-            </template>
-          </v-gouv-fr-modal>
         </div>
       </div>
     </div>
-    <Modal v-show="isValidModalVisible" @close="closeModal">
-      <template v-slot:body>
-        <div class="fr-container">
-          <div class="fr-grid-row justify-content-center">
-            <div class="fr-col-12">
-              <p>
-                {{ $t("owner-connected") }}
-              </p>
-            </div>
-          </div>
-        </div>
-      </template>
-    </Modal>
   </div>
 </template>
 
@@ -96,7 +73,6 @@ import { Owner } from "df-shared/src/models/Owner";
 import { ValidationProvider, ValidationObserver } from "vee-validate";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
-import Modal from "df-shared/src/components/Modal.vue";
 import { OwnerService } from "../services/OwnerService";
 
 extend("is", {
@@ -111,8 +87,7 @@ extend("is", {
     ValidationProvider,
     ValidationObserver,
     VGouvFrModal,
-    DfButton,
-    Modal
+    DfButton
   },
   computed: {
     ...mapGetters({
@@ -124,14 +99,13 @@ export default class OwnerShare extends Vue {
   isLoggedIn!: boolean;
   acceptOwner = false;
   token = "";
-  isValidModalVisible = false;
   owner: Owner = new Owner();
 
   mounted() {
     this.token = this.$route.params.token;
     OwnerService.getOwnerData(this.token)
-      .then((data: any) => {
-        this.owner = data;
+      .then((response: any) => {
+        this.owner = response.data;
       })
       .catch((error: any) => {
         console.dir(error);
@@ -146,8 +120,9 @@ export default class OwnerShare extends Vue {
             type: "success",
             duration: 7000
           });
+          this.enableScroll();
         },
-        error => {
+        () => {
           this.$toasted.show(this.$i18n.t("login-error").toString(), {
             type: "error",
             duration: 7000
@@ -157,9 +132,8 @@ export default class OwnerShare extends Vue {
     }
   }
 
-  closeModal() {
-    this.isValidModalVisible = false;
-    this.$router.push("/account");
+  enableScroll() {
+    (window as any)["dsfr"].core.removeClass(document.documentElement, "fr-no-scroll");
   }
 
   connectOwner() {
@@ -168,13 +142,13 @@ export default class OwnerShare extends Vue {
     }
     OwnerService.registerToOwner(this.token).then(
       () => {
-        this.$toasted.show(this.$i18n.t("login-success").toString(), {
+        this.$toasted.show(this.$i18n.t("connection-success").toString(), {
           type: "success",
           duration: 7000
         });
         this.$router.push("/account");
       },
-      error => {
+      () => {
         this.$toasted.show(this.$i18n.t("login-error").toString(), {
           type: "error",
           duration: 7000
@@ -197,7 +171,8 @@ export default class OwnerShare extends Vue {
     "connect-owner": "Let's go",
     "no-account-1": "Si vous n'avez pas de compte, vous pouvez en <a href=\"/signup\">créer un</a> et revenir ultérieurement sur cette page",
     "no-account-2": "Notre dossier est facile à remplir (en moins de 3 minutes c'est promis) et en plus il est conforme à la loi",
-    "no-account-3": "Et réutilisable pour toutes vos autres visites !"
+    "no-account-3": "Et réutilisable pour toutes vos autres visites !",
+    "connection-success": "Your file has been successfully shared"
   },
   "fr": {
     "title": "Candidatez pour le logement situé au {0}",
@@ -209,7 +184,8 @@ export default class OwnerShare extends Vue {
     "connect-owner": "C'est parti !",
     "no-account-1": "Si vous n'avez pas de compte, vous pouvez en <a href=\"/signup\">créer un</a> et revenir ultérieurement sur cette page.",
     "no-account-2": "Notre dossier est facile à remplir (en moins de 3 minutes c'est promis) et en plus il est conforme à la loi.",
-    "no-account-3": "Et réutilisable pour toutes vos autres visites !"
+    "no-account-3": "Et réutilisable pour toutes vos autres visites !",
+    "connection-success": "Votre dossier a bien été partagé au propriétaire"
   }
 }
 </i18n>
