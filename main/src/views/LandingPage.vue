@@ -12,12 +12,12 @@
               {{ $t("s0.text2") }}
             </p>
             <p>
-              <a
-                class="fr-btn"
-                :href="`${TENANT_URL}/signup?lang=${$i18n.locale}`"
-              >
-                {{ $t("button") }}
-              </a>
+            <DfButton
+              primary="true"
+              @on-click="gotoTenant"
+            >
+              {{ $t("button") }}
+            </DfButton>
             </p>
           </div>
         </div>
@@ -82,12 +82,12 @@
             <img src="../assets/icons/justif.webp" alt="" />
           </div>
         </div>
-        <a
-          class="fr-btn fr-mt-3w"
-          :href="`${TENANT_URL}/signup?lang=${$i18n.locale}`"
+        <DfButton
+          primary="true"
+          @on-click="gotoTenant"
         >
           {{ $t("button") }}
-        </a>
+        </DfButton>
       </div>
     </section>
     <section class="fr-mt-12w">
@@ -143,12 +143,12 @@
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
-            <a
-              class="fr-btn"
-              :href="`${TENANT_URL}/signup?lang=${$i18n.locale}`"
+            <DfButton
+              primary="true"
+              @on-click="gotoTenant"
             >
               {{ $t("button") }}
-            </a>
+            </DfButton>
           </p>
         </div>
       </div>
@@ -237,12 +237,12 @@
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
-            <a
-              class="fr-btn"
-              :href="`${TENANT_URL}/signup?lang=${$i18n.locale}`"
+            <DfButton
+              primary="true"
+              @on-click="gotoTenant"
             >
               {{ $t("button") }}
-            </a>
+            </DfButton>
           </p>
         </div>
       </div>
@@ -252,13 +252,24 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import DfButton from "df-shared/src/Button/Button.vue";
 
-@Component
+@Component(
+  {
+    components: {
+      DfButton
+    }
+  }
+)
 export default class LandingPage extends Vue {
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
 
   getH1Class() {
     return window.innerWidth < 992 ? "fr-h2" : "fr-h1";
+  }
+
+  gotoTenant() {
+    window.location.href = `${this.TENANT_URL}/signup?lang=${this.$i18n.locale}`;
   }
 }
 </script>
