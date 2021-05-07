@@ -49,7 +49,7 @@
                   <button
                     class="fr-btn fr-btn--secondary icon-btn"
                     :title="$t('delete')"
-                    @click="remove(key)"
+                    @click="remove(roommate.email)"
                     type="button"
                   >
                     <span class="color--primary material-icons md-24"
@@ -173,8 +173,8 @@ export default class RoommatesInformation extends Vue {
     }
   }
 
-  remove(key: number) {
-    this.$store.commit("deleteRoommates", key);
+  remove(email: number) {
+    this.$store.commit("deleteRoommates", email);
     return false;
   }
 
