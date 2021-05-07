@@ -170,8 +170,52 @@ const routes: Array<RouteConfig> = [
   {
     path: "/info-proprietaire",
     redirect: () => {
-      window.location.href = `${OWNER_URL}`;
+      window.location.replace(`${OWNER_URL}`);
       return "/info-proprietaire";
+    }
+  },
+  {
+    path: "/blog/article1",
+    redirect: () => {
+      window.location.replace(
+        `/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location`
+      );
+      return "/";
+    }
+  },
+  {
+    path: "/blog/article2",
+    redirect: () => {
+      window.location.replace(`/blog/constituer-votre-dossierFacile`);
+      return "/";
+    }
+  },
+  {
+    path: "/blog/article3",
+    redirect: () => {
+      window.location.replace(`/blog/pourquoi-dossierfacile-est-il-gratuit`);
+      return "/";
+    }
+  },
+  {
+    path: "/login",
+    redirect: () => {
+      window.location.replace(`${TENANT_URL}/login`);
+      return "/";
+    }
+  },
+  {
+    path: "/registerTenant/step1",
+    redirect: () => {
+      window.location.replace(`${TENANT_URL}/signup`);
+      return "/";
+    }
+  },
+  {
+    path: "/registerOwner/step1",
+    redirect: () => {
+      window.location.replace(`${OWNER_URL}`);
+      return "/";
     }
   },
   {
@@ -186,7 +230,9 @@ const routes: Array<RouteConfig> = [
       const firstName = to.query.firstName?.toString() || "";
       const lastName = to.query.lastName?.toString() || "";
       const email = to.query.email?.toString() || "";
-      window.location.href = `${TENANT_URL}/source/${source}?internalPartnerId=${internalPartnerId}&firstName=${firstName}&lastName=${lastName}&email=${email}`;
+      window.location.replace(
+        `${TENANT_URL}/source/${source}?internalPartnerId=${internalPartnerId}&firstName=${firstName}&lastName=${lastName}&email=${email}`
+      );
       return "/source";
     }
   },
@@ -195,7 +241,9 @@ const routes: Array<RouteConfig> = [
     redirect: (to: Route) => {
       const token = to.params.token;
       const path = to.params.path;
-      window.location.href = `https://old.dossierfacile.fr/tenants_files/${path}/${token}`;
+      window.location.replace(
+        `https://old.dossierfacile.fr/tenants_files/${path}/${token}`
+      );
       return `https://old.dossierfacile.fr/tenants_files/${path}/${token}`;
     }
   },
@@ -203,7 +251,9 @@ const routes: Array<RouteConfig> = [
     path: "/dossier-locataire/:token",
     redirect: (to: Route) => {
       const token = to.params.token;
-      window.location.href = `https://old.dossierfacile.fr/dossier-locataire/${token}`;
+      window.location.replace(
+        `https://old.dossierfacile.fr/dossier-locataire/${token}`
+      );
       return `https://old.dossierfacile.fr/dossier-locataire/${token}`;
     }
   },
@@ -211,7 +261,9 @@ const routes: Array<RouteConfig> = [
     path: "/visite-locataire/:token",
     redirect: (to: Route) => {
       const token = to.params.token;
-      window.location.href = `https://old.dossierfacile.fr/visite-locataire/${token}`;
+      window.location.replace(
+        `https://old.dossierfacile.fr/visite-locataire/${token}`
+      );
       return `https://old.dossierfacile.fr/visite-locataire/${token}`;
     }
   },
