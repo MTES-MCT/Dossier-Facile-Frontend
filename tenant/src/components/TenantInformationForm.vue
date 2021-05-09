@@ -219,7 +219,14 @@ export default class TenantInformationForm extends Vue {
     const loader = this.$loading.show();
     this.$store
       .dispatch("setRoommates", data)
-      .then(null, error => {
+      .then(()=> {
+        if (this.applicationType === "GROUP") {
+        this.$toasted.show(this.$i18n.t("roommates-saved").toString(), {
+          type: "show",
+          duration: 7000
+        });
+        }
+      }, error => {
         this.$toasted.show(this.$i18n.t("error").toString(), {
           type: "error",
           duration: 7000
@@ -319,7 +326,8 @@ export default class TenantInformationForm extends Vue {
 "error": "An error occured",
 "acceptAuthorSpouse": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
 "acceptAuthorCoTenant": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",
-"validate": "Validate"
+"validate": "Validate",
+"roommates-saved": "Invitation sent to you roommates. Your roommates have been successfully added and an invitation has been sent to create their account."
 },
 "fr": {
 "confirm": "Confirmer",
@@ -335,7 +343,8 @@ export default class TenantInformationForm extends Vue {
 "error": "Une erreur est survenue",
 "acceptAuthorSpouse": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
 "acceptAuthorCoTenant": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",
-"validate": "Valider"
+"validate": "Valider",
+"roommates-saved": "Invitation envoyée à vos colocataires. Vos colocataires ont bien été ajoutés et une invitation de création de compte leur a été envoyée."
 }
 }
 </i18n>

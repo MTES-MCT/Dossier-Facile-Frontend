@@ -168,8 +168,16 @@ export default class RoommatesInformation extends Vue {
 
   addMail() {
     if (this.newRoommate !== "") {
-      this.$store.commit("createRoommates", this.newRoommate);
-      this.newRoommate = "";
+      const exists = this.roommates.find(r => r.email === this.newRoommate);
+      if (exists === undefined) {
+        this.$store.commit("createRoommates", this.newRoommate);
+        this.newRoommate = "";
+      } else {
+        this.$toasted.show(this.$i18n.t("email-exists").toString(), {
+          type: "error",
+          duration: 7000
+        });
+      }
     }
   }
 
@@ -182,9 +190,6 @@ export default class RoommatesInformation extends Vue {
     this.$store.commit("updateCoTenantAuthorize", this.authorize);
   }
 
-  updateRoommates() {
-    this.$store.commit("updateRoommates", this.roommates);
-  }
 }
 </script>
 
@@ -247,7 +252,9 @@ export default class RoommatesInformation extends Vue {
 "add-a-roommate": "Add this roommate",
 "invite-waiting": "Waiting for confirmation",
 "invite-confirmed": "Confirmed invitation",
-"my-roommates": "My roommates"
+"my-roommates": "My roommates",
+"email-exists": "You can not associate two account with only one email address ! <br>Fullfill a different email address.",
+"email-exists-2": "This email address already exists in DossierFacile. Please use an other email address."
 },
 "fr": {
 "roommateEmail": "L’adresse email d'un colocataire",
@@ -260,7 +267,9 @@ export default class RoommatesInformation extends Vue {
 "add-a-roommate": "Inviter ce colocataire",
 "invite-waiting": "Invitation en attente d'envoi",
 "invite-confirmed": "Invitation confirmée",
-"my-roommates": "Mes colocataires"
+"my-roommates": "Mes colocataires",
+"email-exists": "Vous ne pouvez pas associer deux comptes à une même adresse email ! <br>Renseignez une adresse email différente.",
+"email-exists-2": "Cette adresse email est déjà utilisée sur DossierFacile.<br>Renseignez une adresse email différente."
 }
 }
 </i18n>

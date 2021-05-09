@@ -159,13 +159,6 @@ const store = new Vuex.Store({
       });
       state.user.apartmentSharing.tenants = tenants;
     },
-    updateRoommates(state, roommates: User[]) {
-      const u = state.user.apartmentSharing.tenants.find((t: User) => {
-        return (t.email = state.user.email);
-      });
-      state.user.apartmentSharing.tenants = roommates;
-      state.user.apartmentSharing.tenants.push(u);
-    },
     readMessage(state) {
       state.newMessage = 0;
     },
@@ -390,9 +383,6 @@ const store = new Vuex.Store({
       return MessageService.postMessage({ messageBody: message }).then(() => {
         this.dispatch("updateMessages");
       });
-    },
-    updateRoommates({ commit }, roommates: User[]) {
-      commit("updateRoommates", roommates);
     }
   },
   getters: {
