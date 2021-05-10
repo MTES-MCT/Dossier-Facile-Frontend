@@ -34,7 +34,7 @@
                           {{
                             $t(
                               roommate.id
-                                ? "invite-confirmed"
+                                ? "invite-sent"
                                 : "invite-waiting"
                             )
                           }}
@@ -251,7 +251,7 @@ export default class RoommatesInformation extends Vue {
 "no-roommate":"Please add a roommate",
 "add-a-roommate": "Add this roommate",
 "invite-waiting": "Waiting for confirmation",
-"invite-confirmed": "Confirmed invitation",
+"invite-sent": "Invitation sent",
 "my-roommates": "My roommates",
 "email-exists": "You can not associate two account with only one email address ! <br>Fullfill a different email address.",
 "email-exists-2": "This email address already exists in DossierFacile. Please use an other email address."
@@ -266,7 +266,7 @@ export default class RoommatesInformation extends Vue {
 "no-roommate":"Veuillez ajouter un colocataire",
 "add-a-roommate": "Inviter ce colocataire",
 "invite-waiting": "Invitation en attente d'envoi",
-"invite-confirmed": "Invitation confirmée",
+"invite-sent": "Invitation envoyée",
 "my-roommates": "Mes colocataires",
 "email-exists": "Vous ne pouvez pas associer deux comptes à une même adresse email ! <br>Renseignez une adresse email différente.",
 "email-exists-2": "Cette adresse email est déjà utilisée sur DossierFacile.<br>Renseignez une adresse email différente."
