@@ -327,7 +327,7 @@ export default class TenantInformationForm extends Vue {
 "acceptAuthorSpouse": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
 "acceptAuthorCoTenant": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",
 "validate": "Validate",
-"roommates-saved": "Invitation sent to you roommates. Your roommates have been successfully added and an invitation has been sent to create their account."
+"roommates-saved": "Invitation sent to you roommates. Your roommates have been successfully added<br> and an invitation has been sent to create their account."
 },
 "fr": {
 "confirm": "Confirmer",
@@ -344,7 +344,7 @@ export default class TenantInformationForm extends Vue {
 "acceptAuthorSpouse": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
 "acceptAuthorCoTenant": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",
 "validate": "Valider",
-"roommates-saved": "Invitation envoyée à vos colocataires. Vos colocataires ont bien été ajoutés et une invitation de création de compte leur a été envoyée."
+"roommates-saved": "Invitation envoyée à vos colocataires. Vos colocataires ont bien été<br>ajoutés et une invitation de création de compte leur a été envoyée."
 }
 }
 </i18n>
