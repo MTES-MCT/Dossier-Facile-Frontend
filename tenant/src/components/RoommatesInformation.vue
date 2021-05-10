@@ -26,11 +26,9 @@
                       >
                     </div>
                     <div class="fr-col-9 fr-col-md-10">
-                      <div class="fr-grid-col overflow--auto">
-                        <div>
-                          <b>
+                      <div class="fr-grid-col overflow--hidden">
+                        <div :title="roommate.email">
                             {{ roommate.email }}
-                          </b>
                         </div>
                         <div class="small-text">
                           {{
@@ -198,8 +196,10 @@ export default class RoommatesInformation extends Vue {
   font-size: 0.8rem;
 }
 
-.overflow--auto {
-  overflow: auto;
+.overflow--hidden {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .fr-btn {
