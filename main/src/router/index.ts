@@ -309,10 +309,10 @@ router.beforeEach((to, from, next) => {
     const tag = document.querySelector('meta[name="description"]');
     tag?.setAttribute("content", to.meta.description);
 
-    const prop = document.querySelector('meta[name="og:description"]');
+    const prop = document.querySelector('meta[property="og:description"]');
     prop?.setAttribute("content", to.meta.description);
 
-    const title = document.querySelector('meta[name="og:title"]');
+    const title = document.querySelector('meta[property="og:title"]');
     title?.setAttribute("content", to.meta.title);
   }
   next();
