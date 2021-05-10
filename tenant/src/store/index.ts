@@ -131,8 +131,10 @@ const store = new Vuex.Store({
     setSelectedGuarantor(state, guarantor: Guarantor) {
       state.selectedGuarantor = guarantor;
     },
-    createRoommates(state) {
-      state.user.apartmentSharing.tenants.push(new User());
+    createRoommates(state, email) {
+      const u = new User();
+      u.email = email;
+      state.user.apartmentSharing.tenants.push(u);
     },
     setTenantSubstep(state, subStep: number) {
       state.tenantSubStep = subStep;
@@ -151,15 +153,11 @@ const store = new Vuex.Store({
     updateMessages(state, messageList: DfMessage[]) {
       state.messageList = messageList;
     },
-    deleteRoommates(state, pos) {
-      state.user.apartmentSharing?.tenants.splice(pos, 1);
-    },
-    updateRoommates(state, roommates: User[]) {
-      const u = state.user.apartmentSharing.tenants.find((t: User) => {
-        return (t.email = state.user.email);
+    deleteRoommates(state, email) {
+      const tenants = state.user.apartmentSharing.tenants.filter((t: User) => {
+        return t.email !== email;
       });
-      state.user.apartmentSharing.tenants = roommates;
-      state.user.apartmentSharing.tenants.push(u);
+      state.user.apartmentSharing.tenants = tenants;
     },
     readMessage(state) {
       state.newMessage = 0;
@@ -385,9 +383,6 @@ const store = new Vuex.Store({
       return MessageService.postMessage({ messageBody: message }).then(() => {
         this.dispatch("updateMessages");
       });
-    },
-    updateRoommates({ commit }, roommates: User[]) {
-      commit("updateRoommates", roommates);
     }
   },
   getters: {
