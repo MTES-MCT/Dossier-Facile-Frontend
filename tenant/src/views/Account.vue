@@ -813,7 +813,7 @@ export default class Account extends Vue {
           .t("couple-with", [this.$i18n.t("someone")])
           .toString();
       }
-      if (this.user?.apartmentSharing?.tenants.length === 1) {
+      if (this.user?.apartmentSharing?.tenants.length === 2) {
         return this.$i18n.t("group-with-one").toString();
       }
       return this.$i18n
@@ -1142,8 +1142,8 @@ hr {
     "copied": "Copié !",
     "ALONE": "seul·e",
     "couple-with": "en couple avec {0}",
-    "group-with-one": "en colocation avec {0} personnes",
-    "group-with": "en colocation avec 1 personne",
+    "group-with-one": "en colocation avec 1 personne",
+    "group-with": "en colocation avec {0} personnes",
     "organism-identification": "Certificat de l'organisme",
     "someone": " quelqu'un"
   }
