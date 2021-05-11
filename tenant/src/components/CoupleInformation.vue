@@ -1,6 +1,9 @@
 <template>
   <div class="fr-grid-row fr-grid-row--center">
-    <div class="fr-col-md-8">
+    <div class="fr-col-12">
+      <h4>{{ $t("title") }}</h4>
+    </div>
+    <div class="fr-col-12">
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12">
           <label class="fr-label">{{ $t("spouseEmail") }}</label>
@@ -118,13 +121,15 @@ export default class CoupleInformation extends Vue {
 "spouseEmail": "Veuillez renseigner l’adresse email de votre conjoint",
 "acceptAuthor": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
 "email-not-valid": "Email not valid",
-"field-required": "This field is required"
+"field-required": "This field is required",
+"title": "Who will be you spouse ?"
 },
 "fr": {
 "spouseEmail": "Veuillez renseigner l’adresse email de votre conjoint",
 "acceptAuthor": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
 "email-not-valid": "Email non valide",
-"field-required": "Ce champ est requis"
+"field-required": "Ce champ est requis",
+"title": "Qui sera votre conjoint·e ?"
 }
 }
 </i18n>
