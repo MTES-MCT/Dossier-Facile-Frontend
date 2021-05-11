@@ -219,20 +219,23 @@ export default class TenantInformationForm extends Vue {
     const loader = this.$loading.show();
     this.$store
       .dispatch("setRoommates", data)
-      .then(()=> {
-        if (this.applicationType === "GROUP") {
-        this.$toasted.show(this.$i18n.t("roommates-saved").toString(), {
-          type: "show",
-          duration: 7000
-        });
+      .then(
+        () => {
+          if (this.applicationType === "GROUP") {
+            this.$toasted.show(this.$i18n.t("roommates-saved").toString(), {
+              type: "show",
+              duration: 7000
+            });
+          }
+        },
+        error => {
+          this.$toasted.show(this.$i18n.t("error").toString(), {
+            type: "error",
+            duration: 7000
+          });
+          console.dir(error);
         }
-      }, error => {
-        this.$toasted.show(this.$i18n.t("error").toString(), {
-          type: "error",
-          duration: 7000
-        });
-        console.dir(error);
-      })
+      )
       .finally(() => {
         loader.hide();
       });

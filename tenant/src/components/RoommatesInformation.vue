@@ -28,15 +28,11 @@
                     <div class="fr-col-9 fr-col-md-10">
                       <div class="fr-grid-col overflow--hidden">
                         <div :title="roommate.email">
-                            {{ roommate.email }}
+                          {{ roommate.email }}
                         </div>
                         <div class="small-text">
                           {{
-                            $t(
-                              roommate.id
-                                ? "invite-sent"
-                                : "invite-waiting"
-                            )
+                            $t(roommate.id ? "invite-sent" : "invite-waiting")
                           }}
                         </div>
                       </div>
@@ -179,7 +175,7 @@ export default class RoommatesInformation extends Vue {
     }
   }
 
-  remove(email: number) {
+  remove(email: string) {
     this.$store.commit("deleteRoommates", email);
     return false;
   }
@@ -187,7 +183,6 @@ export default class RoommatesInformation extends Vue {
   updateAuthorize() {
     this.$store.commit("updateCoTenantAuthorize", this.authorize);
   }
-
 }
 </script>
 
