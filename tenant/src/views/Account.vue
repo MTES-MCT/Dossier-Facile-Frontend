@@ -1080,12 +1080,12 @@ hr {
     "income": "have a monthly income of {0}€",
     "identification-legal-person": "Legal person identification",
     "copied": "Copied !",
-    "ALONE": "seul·e",
-    "couple-with": "en couple avec {0}",
+    "ALONE": "alone",
+    "couple-with": "in relationship with {0}",
     "organism-identification": "Organism",
     "someone": " someone",
-    "group-with-one": "en colocation avec 1 personne",
-    "group-with": "en colocation avec {0} personnes"
+    "group-with-one": "in flatsharing with 1 person",
+    "group-with": "in flatsharing with {0} persons"
   },
   "fr": {
     "title": "Bonjour {0}, votre dossier {1} !",

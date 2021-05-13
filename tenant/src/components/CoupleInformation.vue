@@ -241,7 +241,8 @@ export default class CoupleInformation extends Vue {
 "field-required": "This field is required",
 "title": "Who will be you spouse ?",
 "invite-waiting": "Waiting for confirmation",
-"add-a-spouse": "Invite this spouse"
+"add-a-spouse": "Invite your spouse",
+"email-exists": "You can not associate two account with only one email address ! <br>Fullfill a different email address."
 },
 "fr": {
 "spouseEmail": "Veuillez renseigner l’adresse email de votre conjoint",
@@ -249,8 +250,9 @@ export default class CoupleInformation extends Vue {
 "email-not-valid": "Email non valide",
 "field-required": "Ce champ est requis",
 "title": "Qui sera votre conjoint·e ?",
-"add-a-spouse": "Inviter ce conjoint·e",
-"invite-waiting": "Invitation en attente d'envoi"
+"add-a-spouse": "Inviter votre conjoint·e",
+"invite-waiting": "Invitation en attente d'envoi",
+"email-exists": "Vous ne pouvez pas associer deux comptes à une même adresse email ! <br>Renseignez une adresse email différente."
 }
 }
 </i18n>
