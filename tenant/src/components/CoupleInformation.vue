@@ -3,6 +3,11 @@
     <div class="fr-col-12">
       <h4>{{ $t("title") }}</h4>
     </div>
+    <div class="fr-col-12 fr-mb-2w">
+      <div v-if="showEmailExists" class="fr-callout">
+        <p class="fr-mb-1w" v-html="$t('email-exists')"></p>
+      </div>
+    </div>
     <div class="fr-col-12" v-if="getPartner()">
       <NakedCard>
         <template v-slot:content>
@@ -46,7 +51,7 @@
     </div>
 
     <div class="fr-col-12" v-if="getPartner() === undefined">
-      <label class="fr-label">{{ $t("spouseEmail") }}</label>
+      <label class="fr-label fr-mb-1w">{{ $t("spouseEmail") }}</label>
       <validation-provider rules="email" v-slot="{ errors }">
         <div
           class="fr-input-group"
@@ -140,6 +145,7 @@ export default class CoupleInformation extends Vue {
   coupleMail = "";
   authorize = false;
   spouseAuthorize!: boolean;
+  showEmailExists = false;
 
   user!: User;
 
@@ -158,14 +164,12 @@ export default class CoupleInformation extends Vue {
   }
 
   addMail() {
+    this.showEmailExists = false;
     if (this.coupleMail !== "") {
       if (this.coupleMail !== this.user.email) {
         this.$store.commit("createCouple", this.coupleMail);
       } else {
-        this.$toasted.show(this.$i18n.t("email-exists").toString(), {
-          type: "error",
-          duration: 7000
-        });
+        this.showEmailExists = true;
       }
     }
   }

@@ -9,6 +9,9 @@
           {{ $t("no-roommate") }}
         </p>
       </div>
+      <div v-if="showEmailExists" class="fr-callout">
+        <p class="fr-mb-1w" v-html="$t('email-exists')"></p>
+      </div>
       <div v-if="roommates.length > 0">
         <div
           class="fr-mb-1w"
@@ -58,7 +61,7 @@
       </div>
     </div>
     <div class="fr-col-12">
-      <label class="fr-label">{{ $t("roommateEmail") }}</label>
+      <label class="fr-label fr-mb-1w">{{ $t("roommateEmail") }}</label>
       <validation-provider rules="email" v-slot="{ errors }">
         <div
           class="fr-input-group"
@@ -155,22 +158,20 @@ export default class RoommatesInformation extends Vue {
   coTenantAuthorize!: boolean;
   roommates!: User[];
   newRoommate = "";
+  showEmailExists = false;
 
   mounted() {
     this.authorize = this.coTenantAuthorize;
   }
 
   addMail() {
+    this.showEmailExists = false;
     if (this.newRoommate !== "") {
-      const exists = this.roommates.find(r => r.email === this.newRoommate);
-      if (exists === undefined) {
+      if (this.user.email !== this.newRoommate) {
         this.$store.commit("createRoommates", this.newRoommate);
         this.newRoommate = "";
       } else {
-        this.$toasted.show(this.$i18n.t("email-exists").toString(), {
-          type: "error",
-          duration: 7000
-        });
+        this.showEmailExists = true;
       }
     }
   }
@@ -263,7 +264,7 @@ export default class RoommatesInformation extends Vue {
 "invite-waiting": "Invitation en attente d'envoi",
 "invite-sent": "Invitation envoyée",
 "my-roommates": "Mes colocataires",
-"email-exists": "Vous ne pouvez pas associer deux comptes à une même adresse email ! <br>Renseignez une adresse email différente.",
+"email-exists": "Vous ne pouvez pas associer deux comptes à une même adresse email ! <br>Renseignez une adresse email différente de la votre.",
 "email-exists-2": "Cette adresse email est déjà utilisée sur DossierFacile.<br>Renseignez une adresse email différente."
 }
 }
