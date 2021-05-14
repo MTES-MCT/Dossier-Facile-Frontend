@@ -109,6 +109,7 @@
               class="fr-footer__bottom-link"
               target="_blank"
               href="https://twitter.com/dossierfacile"
+              rel="noreferrer"
             >
               <svg
                 title="twitter"
@@ -132,6 +133,7 @@
               class="fr-footer__bottom-link"
               target="_blank"
               href="https://www.facebook.com/DossierFacile.fr"
+              rel="noreferrer"
             >
               <svg
                 title="facebook"
@@ -155,6 +157,7 @@
               class="fr-footer__bottom-link"
               target="_blank"
               href="https://www.linkedin.com/company/startup-d-etat-locatio/"
+              rel="noreferrer"
             >
               <svg
                 title="linkedin"
