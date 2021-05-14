@@ -30,7 +30,7 @@
             <div>
               <img src="../assets/icons/approval.svg" class="s1-icons" alt="" />
             </div>
-            <h3 class="fr-h3 color--secondary">{{ $t("s1.h1") }}</h3>
+            <h2 class="fr-h3 color--secondary">{{ $t("s1.h1") }}</h2>
             <p class="fr-mt-0">
               {{ $t("s1.p1") }}
             </p>
@@ -39,7 +39,7 @@
             <div>
               <img src="../assets/icons/sports.svg" class="s1-icons" alt="" />
             </div>
-            <h3 class="fr-h3 color--secondary">{{ $t("s1.h2") }}</h3>
+            <h2 class="fr-h3 color--secondary">{{ $t("s1.h2") }}</h2>
             <p class="fr-mt-0">
               {{ $t("s1.p2") }}
             </p>
@@ -48,7 +48,7 @@
             <div>
               <img src="../assets/icons/reading.svg" class="s1-icons" alt="" />
             </div>
-            <h3 class="fr-h3 color--secondary">{{ $t("s1.h3") }}</h3>
+            <h2 class="fr-h3 color--secondary">{{ $t("s1.h3") }}</h2>
             <p class="fr-mt-0">
               {{ $t("s1.p3") }}
             </p>
@@ -61,7 +61,7 @@
         <h2 class="fr-h2 s2-title">{{ $t("s2.title") }}</h2>
         <div class="fr-grid-row">
           <div class="fr-col-md-6 fr-grid-col">
-            <h4 class="fr-h4 color--secondary fr-mb-0">{{ $t("s2.h1") }}</h4>
+            <h2 class="fr-h4 color--secondary fr-mb-0">{{ $t("s2.h1") }}</h2>
             <p>{{ $t("s2.p1") }}
             <ul class="fr-pt-2w">
               <li>{{ $t("s2.u1a") }}</li>
@@ -72,10 +72,10 @@
             </ul>
             </p>
 
-            <h4 class="fr-h4 color--secondary fr-mb-0">{{ $t("s2.h2") }}</h4>
+            <h2 class="fr-h4 color--secondary fr-mb-0">{{ $t("s2.h2") }}</h2>
             <p>{{ $t("s2.p2") }}</p>
 
-            <h4 class="fr-h4 color--secondary fr-mb-0">{{ $t("s2.h3") }}</h4>
+            <h2 class="fr-h4 color--secondary fr-mb-0">{{ $t("s2.h3") }}</h2>
             <p>{{ $t("s2.p3") }}</p>
           </div>
           <div class="fr-col-md-6">
