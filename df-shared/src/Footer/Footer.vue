@@ -111,6 +111,7 @@
               href="https://twitter.com/dossierfacile"
             >
               <svg
+                title="twitter"
                 aria-hidden="true"
                 focusable="false"
                 data-prefix="fab"
@@ -133,6 +134,7 @@
               href="https://www.facebook.com/DossierFacile.fr"
             >
               <svg
+                title="facebook"
                 aria-hidden="true"
                 focusable="false"
                 data-prefix="fab"
@@ -155,6 +157,7 @@
               href="https://www.linkedin.com/company/startup-d-etat-locatio/"
             >
               <svg
+                title="linkedin"
                 aria-hidden="true"
                 focusable="false"
                 data-prefix="fab"
