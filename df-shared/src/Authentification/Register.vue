@@ -221,9 +221,9 @@ export default class Register extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
-a {
-    text-decoration: underline;
+<style lang="scss">
+a.cgu {
+  text-decoration: underline;
 }
 </style>
 
@@ -256,7 +256,7 @@ a {
 "field-required": "Ce champ est requis",
 "password-not-confirmed": "Le mot de passe ne correspond pas",
 "pwd-not-complex": "Mot de passe trop simple",
-"accept-cgu": "En cochant cette case et en cliquant sur \"Je crée mon compte\", j’accepte expressément les <a target=\"_blank\" href='https://www.dossierfacile.fr/securite-des-donnees#securite'>Conditions générales</a> d’utilisation de DossierFacile et je comprends que mes données personnelles seront utilisées conformément à la <a target=\"_blank\" href='https://www.dossierfacile.fr/securite-des-donnees#confidentialite'>Politique de confidentialité</a> de DossierFacile",
+"accept-cgu": "En cochant cette case et en cliquant sur \"Je crée mon compte\", j’accepte expressément les <a class=\"cgu\" target=\"_blank\" href='https://www.dossierfacile.fr/securite-des-donnees#securite'>Conditions générales</a> d’utilisation de DossierFacile et je comprends que mes données personnelles seront utilisées conformément à la <a target=\"_blank\" class=\"cgu\" href='https://www.dossierfacile.fr/securite-des-donnees#confidentialite'>Politique de confidentialité</a> de DossierFacile",
 "require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer"
 }
 }
