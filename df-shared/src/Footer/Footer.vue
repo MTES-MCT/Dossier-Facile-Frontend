@@ -117,7 +117,7 @@
                 data-icon="twitter-square"
                 role="img"
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 666 512"
+                viewBox="0 0 900 512"
                 class="fa-icon"
               >
                 <path
@@ -139,7 +139,7 @@
                 data-icon="facebook-square"
                 role="img"
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 666 512"
+                viewBox="0 0 900 512"
                 class="fa-icon"
               >
                 <path
@@ -161,7 +161,7 @@
                 data-icon="linkedin"
                 role="img"
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 666 512"
+                viewBox="0 0 900 512"
                 class="fa-icon"
               >
                 <path
