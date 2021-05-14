@@ -161,7 +161,7 @@
         </h2>
         <div class="fr-grid-row">
           <div
-            class="fr-col-lg-2 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-1w"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a
               target="_blank"
@@ -176,7 +176,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-2 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-1w"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a target="_blank" href="https://www.visale.fr/" class="logo-link">
               <img
@@ -187,7 +187,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-2 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-1w"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a
               target="_blank"
@@ -202,7 +202,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-2 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-1w"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a target="_blank" href="https://colivme.com/" class="logo-link">
               <img
@@ -213,7 +213,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-2 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-1w"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a target="_blank" href="https://whoomies.com/" class="logo-link">
               <img
@@ -224,13 +224,24 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-2 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-1w"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a target="_blank" href="https://www.anil.org/" class="logo-link">
               <img
                 alt="logo anil"
                 class="partner-logo"
                 src="../assets/logos/anil.webp"
+              />
+            </a>
+          </div>
+          <div
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+          >
+            <a target="_blank" href="https://www.clickandrent.fr/" class="logo-link">
+              <img
+                alt="logo click and rent"
+                class="partner-logo"
+                src="../assets/logos/clickandrent.webp"
               />
             </a>
           </div>
@@ -360,6 +371,12 @@ a[target="_blank"].logo-link::after {
   display: inline;
   height: 3rem;
   vertical-align: -0.75rem;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
 
