@@ -167,6 +167,7 @@
               target="_blank"
               href="https://www.monsieurhugo.com/"
               class="logo-link"
+              rel="noreferrer"
             >
               <img
                 alt="logo monsieur hugo"
@@ -178,7 +179,9 @@
           <div
             class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
-            <a target="_blank" href="https://www.visale.fr/" class="logo-link">
+            <a target="_blank" href="https://www.visale.fr/" class="logo-link"
+              rel="noreferrer"
+            >
               <img
                 alt="logo visale"
                 class="partner-logo"
@@ -193,6 +196,7 @@
               target="_blank"
               href="https://www.locservice.fr/"
               class="logo-link"
+              rel="noreferrer"
             >
               <img
                 alt="logo locservice"
@@ -204,7 +208,9 @@
           <div
             class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
-            <a target="_blank" href="https://colivme.com/" class="logo-link">
+            <a target="_blank" href="https://colivme.com/" class="logo-link"
+              rel="noreferrer"
+            >
               <img
                 alt="logo colivme"
                 class="partner-logo"
@@ -215,7 +221,9 @@
           <div
             class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
-            <a target="_blank" href="https://whoomies.com/" class="logo-link">
+            <a target="_blank" href="https://whoomies.com/" class="logo-link"
+              rel="noreferrer"
+            >
               <img
                 alt="logo whoomies"
                 class="partner-logo"
@@ -226,7 +234,9 @@
           <div
             class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
-            <a target="_blank" href="https://www.anil.org/" class="logo-link">
+            <a target="_blank" href="https://www.anil.org/" class="logo-link"
+              rel="noreferrer"
+            >
               <img
                 alt="logo anil"
                 class="partner-logo"
@@ -237,7 +247,9 @@
           <div
             class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
-            <a target="_blank" href="https://www.clickandrent.fr/" class="logo-link">
+            <a target="_blank" href="https://www.clickandrent.fr/" class="logo-link"
+              rel="noreferrer"
+            >
               <img
                 alt="logo click and rent"
                 class="partner-logo"
