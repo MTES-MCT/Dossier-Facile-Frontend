@@ -117,7 +117,7 @@
         </h2>
         <div class="text-center">
           <router-link to="/stats">
-            <img src="../assets/icons/stats.webp" class="stats-icon" />
+            <img src="../assets/icons/stats.webp" class="stats-icon" alt="" />
             {{ $t("s4.link") }}
           </router-link>
         </div>

@@ -9,6 +9,9 @@
           {{ $t("no-roommate") }}
         </p>
       </div>
+      <div v-if="showEmailExists" class="fr-callout">
+        <p class="fr-mb-1w" v-html="$t('email-exists')"></p>
+      </div>
       <div v-if="roommates.length > 0">
         <div
           class="fr-mb-1w"
@@ -28,15 +31,11 @@
                     <div class="fr-col-9 fr-col-md-10">
                       <div class="fr-grid-col overflow--hidden">
                         <div :title="roommate.email">
-                            {{ roommate.email }}
+                          {{ roommate.email }}
                         </div>
                         <div class="small-text">
                           {{
-                            $t(
-                              roommate.id
-                                ? "invite-confirmed"
-                                : "invite-waiting"
-                            )
+                            $t(roommate.id ? "invite-sent" : "invite-waiting")
                           }}
                         </div>
                       </div>
@@ -62,7 +61,7 @@
       </div>
     </div>
     <div class="fr-col-12">
-      <label class="fr-label">{{ $t("roommateEmail") }}</label>
+      <label class="fr-label fr-mb-1w">{{ $t("roommateEmail") }}</label>
       <validation-provider rules="email" v-slot="{ errors }">
         <div
           class="fr-input-group"
@@ -159,27 +158,25 @@ export default class RoommatesInformation extends Vue {
   coTenantAuthorize!: boolean;
   roommates!: User[];
   newRoommate = "";
+  showEmailExists = false;
 
   mounted() {
     this.authorize = this.coTenantAuthorize;
   }
 
   addMail() {
+    this.showEmailExists = false;
     if (this.newRoommate !== "") {
-      const exists = this.roommates.find(r => r.email === this.newRoommate);
-      if (exists === undefined) {
+      if (this.user.email !== this.newRoommate) {
         this.$store.commit("createRoommates", this.newRoommate);
         this.newRoommate = "";
       } else {
-        this.$toasted.show(this.$i18n.t("email-exists").toString(), {
-          type: "error",
-          duration: 7000
-        });
+        this.showEmailExists = true;
       }
     }
   }
 
-  remove(email: number) {
+  remove(email: string) {
     this.$store.commit("deleteRoommates", email);
     return false;
   }
@@ -187,7 +184,6 @@ export default class RoommatesInformation extends Vue {
   updateAuthorize() {
     this.$store.commit("updateCoTenantAuthorize", this.authorize);
   }
-
 }
 </script>
 
@@ -251,7 +247,7 @@ export default class RoommatesInformation extends Vue {
 "no-roommate":"Please add a roommate",
 "add-a-roommate": "Add this roommate",
 "invite-waiting": "Waiting for confirmation",
-"invite-confirmed": "Confirmed invitation",
+"invite-sent": "Invitation sent",
 "my-roommates": "My roommates",
 "email-exists": "You can not associate two account with only one email address ! <br>Fullfill a different email address.",
 "email-exists-2": "This email address already exists in DossierFacile. Please use an other email address."
@@ -266,9 +262,9 @@ export default class RoommatesInformation extends Vue {
 "no-roommate":"Veuillez ajouter un colocataire",
 "add-a-roommate": "Inviter ce colocataire",
 "invite-waiting": "Invitation en attente d'envoi",
-"invite-confirmed": "Invitation confirmée",
+"invite-sent": "Invitation envoyée",
 "my-roommates": "Mes colocataires",
-"email-exists": "Vous ne pouvez pas associer deux comptes à une même adresse email ! <br>Renseignez une adresse email différente.",
+"email-exists": "Vous ne pouvez pas associer deux comptes à une même adresse email ! <br>Renseignez une adresse email différente de la votre.",
 "email-exists-2": "Cette adresse email est déjà utilisée sur DossierFacile.<br>Renseignez une adresse email différente."
 }
 }

@@ -1,50 +1,105 @@
 <template>
   <div class="fr-grid-row fr-grid-row--center">
-    <div class="fr-col-md-8">
-      <div class="fr-grid-row fr-grid-row--center">
-        <div class="fr-col-12">
-          <label class="fr-label">{{ $t("spouseEmail") }}</label>
-          <validation-provider rules="email" v-slot="{ errors }">
-            <div
-              class="fr-input-group"
-              :class="errors[0] ? 'fr-input-group--error' : ''"
-            >
-              <input
-                v-model="coupleMail"
-                class="form-control fr-input"
-                name="email"
-                placeholder="Ex : exemple@exemple.fr"
-                type="email"
-                @change="updateCouple()"
-                required
-              />
-              <span class="fr-error-text" v-if="errors[0]">{{
-                $t(errors[0])
-              }}</span>
-            </div>
-          </validation-provider>
-        </div>
-        <div class="fr-col-12 fr-mb-3w">
-          <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
-            <div
-              class="fr-input-group"
-              :class="errors[0] ? 'fr-input-group--error' : ''"
-            >
-              <input
-                type="checkbox"
-                id="authorize"
-                value="false"
-                v-model="authorize"
-                @change="updateAuthorize()"
-              />
-              <label for="authorize">{{ $t("acceptAuthor") }}</label>
-              <span class="fr-error-text" v-if="errors[0]">{{
-                $t(errors[0])
-              }}</span>
-            </div>
-          </validation-provider>
-        </div>
+    <div class="fr-col-12">
+      <h4>{{ $t("title") }}</h4>
+    </div>
+    <div class="fr-col-12 fr-mb-2w">
+      <div v-if="showEmailExists" class="fr-callout">
+        <p class="fr-mb-1w" v-html="$t('email-exists')"></p>
       </div>
+    </div>
+    <div class="fr-col-12" v-if="getPartner()">
+      <NakedCard>
+        <template v-slot:content>
+          <div class="fr-grid-row bg--white">
+            <div class="fr-col-10">
+              <div class="fr-grid-row">
+                <div class="fr-col-3 fr-col-md-2 center-icon">
+                  <span class="color--white material-icons md-24 round-icon"
+                    >person</span
+                  >
+                </div>
+                <div class="fr-col-9 fr-col-md-10">
+                  <div class="fr-grid-col overflow--hidden">
+                    <div :title="coupleMail">
+                      {{ getPartner().email }}
+                    </div>
+                    <div class="small-text">
+                      {{
+                        $t(getPartner().id ? "invite-sent" : "invite-waiting")
+                      }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fr-col-2 center-icon">
+              <button
+                class="fr-btn fr-btn--secondary icon-btn"
+                :title="$t('delete')"
+                @click="remove(getPartner().email)"
+                type="button"
+              >
+                <span class="color--primary material-icons md-24"
+                  >delete_forever</span
+                >
+              </button>
+            </div>
+          </div>
+        </template>
+      </NakedCard>
+    </div>
+
+    <div class="fr-col-12" v-if="getPartner() === undefined">
+      <label class="fr-label fr-mb-1w">{{ $t("spouseEmail") }}</label>
+      <validation-provider rules="email" v-slot="{ errors }">
+        <div
+          class="fr-input-group"
+          :class="errors[0] ? 'fr-input-group--error' : ''"
+        >
+          <input
+            v-model="coupleMail"
+            class="form-control fr-input"
+            name="email"
+            placeholder="Ex : exemple@exemple.fr"
+            type="email"
+          />
+          <span class="fr-error-text" v-if="errors[0]">{{
+            $t(errors[0])
+          }}</span>
+        </div>
+      </validation-provider>
+    </div>
+    <div class="fr-col-12" v-if="getPartner() === undefined">
+      <div class="fr-grid-row fr-grid-row--right fr-mt-2w fr-mb-3w">
+        <v-gouv-fr-button
+          :secondary="true"
+          :label="$t('add-a-spouse')"
+          :btn-type="'button'"
+          @click="addMail"
+          :disabled="coupleMail === ''"
+        ></v-gouv-fr-button>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-mb-3w fr-mt-3w">
+      <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
+        <div
+          class="fr-input-group"
+          :class="errors[0] ? 'fr-input-group--error' : ''"
+        >
+          <input
+            type="checkbox"
+            id="authorize"
+            value="false"
+            v-model="authorize"
+            @change="updateAuthorize()"
+          />
+          <label for="authorize">{{ $t("acceptAuthor") }}</label>
+          <span class="fr-error-text" v-if="errors[0]">{{
+            $t(errors[0])
+          }}</span>
+        </div>
+      </validation-provider>
     </div>
   </div>
 </template>
@@ -56,6 +111,8 @@ import { extend } from "vee-validate";
 import { email, is } from "vee-validate/dist/rules";
 import { mapGetters, mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
+import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.vue";
 
 extend("email", {
   ...email,
@@ -71,7 +128,9 @@ extend("is", {
 @Component({
   components: {
     ValidationProvider,
-    ValidationObserver
+    ValidationObserver,
+    VGouvFrButton,
+    NakedCard
   },
   computed: {
     ...mapState({
@@ -86,6 +145,7 @@ export default class CoupleInformation extends Vue {
   coupleMail = "";
   authorize = false;
   spouseAuthorize!: boolean;
+  showEmailExists = false;
 
   user!: User;
 
@@ -95,22 +155,86 @@ export default class CoupleInformation extends Vue {
         return t.email != this.user.email;
       });
       this.coupleMail = partner?.email || "";
-      this.$emit("update-couple", this.coupleMail);
     }
     this.authorize = this.spouseAuthorize;
-  }
-
-  updateCouple() {
-    this.$emit("update-couple", this.coupleMail);
   }
 
   updateAuthorize() {
     this.$store.commit("updateCoupleAuthorize", this.authorize);
   }
+
+  addMail() {
+    this.showEmailExists = false;
+    if (this.coupleMail !== "") {
+      if (this.coupleMail !== this.user.email) {
+        this.$store.commit("createCouple", this.coupleMail);
+      } else {
+        this.showEmailExists = true;
+      }
+    }
+  }
+
+  getPartner() {
+    const partner = this.user.apartmentSharing?.tenants.find(t => {
+      return t.email != this.user.email;
+    });
+    return partner;
+  }
+
+  remove(email: string) {
+    this.$store.commit("deleteRoommates", email);
+    return false;
+  }
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.small-text {
+  font-size: 0.8rem;
+}
+
+.overflow--hidden {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.fr-btn {
+  box-shadow: none;
+  background-color: none;
+  --color-hover: none;
+  --color-active: none;
+  padding: 0;
+}
+
+.icon-btn {
+  display: block;
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.material-icons,
+.material-icons-outlined {
+  border-radius: 50%;
+  --color-hover: var(--block-color-hover);
+  --color-active: var(--block-color-active);
+  padding: 0.25rem;
+}
+
+.center-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.round-icon {
+  border-radius: 50%;
+  background-color: var(--primary);
+  padding: 0.25rem;
+}
+</style>
 
 <i18n>
 {
@@ -118,13 +242,21 @@ export default class CoupleInformation extends Vue {
 "spouseEmail": "Veuillez renseigner l’adresse email de votre conjoint",
 "acceptAuthor": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
 "email-not-valid": "Email not valid",
-"field-required": "This field is required"
+"field-required": "This field is required",
+"title": "Who will be you spouse ?",
+"invite-waiting": "Waiting for confirmation",
+"add-a-spouse": "Invite your spouse",
+"email-exists": "You can not associate two account with only one email address ! <br>Fullfill a different email address."
 },
 "fr": {
 "spouseEmail": "Veuillez renseigner l’adresse email de votre conjoint",
 "acceptAuthor": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
 "email-not-valid": "Email non valide",
-"field-required": "Ce champ est requis"
+"field-required": "Ce champ est requis",
+"title": "Qui sera votre conjoint·e ?",
+"add-a-spouse": "Inviter votre conjoint·e",
+"invite-waiting": "Invitation en attente d'envoi",
+"email-exists": "Vous ne pouvez pas associer deux comptes à une même adresse email ! <br>Renseignez une adresse email différente."
 }
 }
 </i18n>

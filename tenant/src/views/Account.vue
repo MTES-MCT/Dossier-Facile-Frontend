@@ -813,7 +813,7 @@ export default class Account extends Vue {
           .t("couple-with", [this.$i18n.t("someone")])
           .toString();
       }
-      if (this.user?.apartmentSharing?.tenants.length === 1) {
+      if (this.user?.apartmentSharing?.tenants.length === 2) {
         return this.$i18n.t("group-with-one").toString();
       }
       return this.$i18n
@@ -1080,12 +1080,12 @@ hr {
     "income": "have a monthly income of {0}€",
     "identification-legal-person": "Legal person identification",
     "copied": "Copied !",
-    "ALONE": "seul·e",
-    "couple-with": "en couple avec {0}",
+    "ALONE": "alone",
+    "couple-with": "in relationship with {0}",
     "organism-identification": "Organism",
     "someone": " someone",
-    "group-with-one": "en colocation avec 1 personne",
-    "group-with": "en colocation avec {0} personnes"
+    "group-with-one": "in flatsharing with 1 person",
+    "group-with": "in flatsharing with {0} persons"
   },
   "fr": {
     "title": "Bonjour {0}, votre dossier {1} !",
@@ -1142,8 +1142,8 @@ hr {
     "copied": "Copié !",
     "ALONE": "seul·e",
     "couple-with": "en couple avec {0}",
-    "group-with-one": "en colocation avec {0} personnes",
-    "group-with": "en colocation avec 1 personne",
+    "group-with-one": "en colocation avec 1 personne",
+    "group-with": "en colocation avec {0} personnes",
     "organism-identification": "Certificat de l'organisme",
     "someone": " quelqu'un"
   }

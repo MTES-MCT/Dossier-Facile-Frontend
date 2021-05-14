@@ -110,7 +110,6 @@
                 </div>
                 <CoupleInformation
                   class="fr-mt-4w"
-                  @update-couple="updateCouple"
                   v-if="applicationType === 'COUPLE'"
                 >
                 </CoupleInformation>
@@ -168,7 +167,6 @@ export default class TenantInformationForm extends Vue {
   user!: User;
   roommates!: User[];
   coTenantAuthorize!: boolean;
-  spouseEmail = "";
   spouseAuthorize!: boolean;
   applicationType = "";
 
@@ -189,25 +187,31 @@ export default class TenantInformationForm extends Vue {
     let coTenantEmails: string[] = [];
     let acceptAccess = false;
     if (this.applicationType === "COUPLE") {
-      coTenantEmails = [this.spouseEmail];
       acceptAccess = this.spouseAuthorize;
-      if (
-        this.roommates.length === 1 &&
-        this.roommates[0].id &&
-        this.roommates[0].email === this.spouseEmail
-      ) {
-        this.$store.commit("setRoommatesSuccess");
-        return;
-      }
     } else if (this.applicationType === "GROUP") {
-      coTenantEmails = this.roommates
-        .filter((r: User) => {
-          return r.id != this.user.id;
-        })
-        .map(function(r) {
-          return r.email;
-        });
       acceptAccess = this.coTenantAuthorize;
+    }
+    coTenantEmails = this.roommates
+      .filter((r: User) => {
+        return r.id != this.user.id;
+      })
+      .map(function(r) {
+        return r.email;
+      });
+
+    if (this.applicationType === "COUPLE" && coTenantEmails.length < 1) {
+      this.$toasted.show(this.$i18n.t("couple-email-required").toString(), {
+        type: "error",
+        duration: 7000
+      });
+      return;
+    }
+    if (this.applicationType === "GROUP" && coTenantEmails.length < 1) {
+      this.$toasted.show(this.$i18n.t("roommate-email-required").toString(), {
+        type: "error",
+        duration: 7000
+      });
+      return;
     }
 
     const data = {
@@ -219,20 +223,43 @@ export default class TenantInformationForm extends Vue {
     const loader = this.$loading.show();
     this.$store
       .dispatch("setRoommates", data)
-      .then(()=> {
-        if (this.applicationType === "GROUP") {
-        this.$toasted.show(this.$i18n.t("roommates-saved").toString(), {
-          type: "show",
-          duration: 7000
-        });
+      .then(
+        () => {
+          if (this.applicationType === "COUPLE") {
+            this.$toasted.show(this.$i18n.t("couple-saved").toString(), {
+              type: "show",
+              duration: 7000
+            });
+            return;
+          }
+          if (this.applicationType === "GROUP") {
+            this.$toasted.show(this.$i18n.t("roommates-saved").toString(), {
+              type: "show",
+              duration: 7000
+            });
+            return;
+          }
+        },
+        error => {
+          if (
+            error.response.data.message.includes(
+              "emails are already being used"
+            )
+          ) {
+            this.$toasted.show(this.$i18n.t("email-exists").toString(), {
+              type: "error",
+              duration: 7000
+            });
+            return;
+          } else {
+            this.$toasted.show(this.$i18n.t("error").toString(), {
+              type: "error",
+              duration: 7000
+            });
+            return;
+          }
         }
-      }, error => {
-        this.$toasted.show(this.$i18n.t("error").toString(), {
-          type: "error",
-          duration: 7000
-        });
-        console.dir(error);
-      })
+      )
       .finally(() => {
         loader.hide();
       });
@@ -249,10 +276,6 @@ export default class TenantInformationForm extends Vue {
       this.user.applicationType === "COUPLE" &&
       this.applicationType !== "COUPLE"
     );
-  }
-
-  updateCouple(email: string) {
-    this.spouseEmail = email;
   }
 
   isOwner() {
@@ -327,7 +350,10 @@ export default class TenantInformationForm extends Vue {
 "acceptAuthorSpouse": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
 "acceptAuthorCoTenant": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",
 "validate": "Validate",
-"roommates-saved": "Invitation sent to you roommates. Your roommates have been successfully added and an invitation has been sent to create their account."
+"roommates-saved": "Invitation sent to you roommates. Your roommates have been successfully added<br> and an invitation has been sent to create their account.",
+"email-exists": "This email address already exists in DossierFacile. Please use an other email address.",
+"roommate-email-required": "You must fill at least one roommate adress.",
+"couple-email-required": "You must fill your spouse adress."
 },
 "fr": {
 "confirm": "Confirmer",
@@ -344,7 +370,12 @@ export default class TenantInformationForm extends Vue {
 "acceptAuthorSpouse": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
 "acceptAuthorCoTenant": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",
 "validate": "Valider",
-"roommates-saved": "Invitation envoyée à vos colocataires. Vos colocataires ont bien été ajoutés et une invitation de création de compte leur a été envoyée."
+"roommates-saved": "Invitation envoyée à vos colocataires. Vos colocataires ont bien été<br>ajoutés et une invitation de création de compte leur a été envoyée.",
+"couple-saved": "Invitation envoyée à votre conjoint·e. Votre conjoint·e a bien été<br>ajouté·e et une invitation de création de compte lui a été envoyée.",
+"email-exists": "Cette adresse email est déjà utilisée sur DossierFacile.<br>Renseignez une adresse email différente.",
+"roommate-email-required": "Vous devez saisir l'adresse email d'au moins un colocataire.",
+"couple-email-required": "Vous devez saisir l'adresse email de votre conjoint·e"
+
 }
 }
 </i18n>
