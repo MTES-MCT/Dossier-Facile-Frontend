@@ -223,7 +223,7 @@ export default class Register extends Vue {
 
 <style lang="scss" scoped>
 a {
-    box-shadow: var(--is-link) 0 1px 0 0 currentColor;
+    text-decoration: underline;
 }
 </style>
 
