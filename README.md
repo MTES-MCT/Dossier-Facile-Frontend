@@ -1,6 +1,12 @@
 # DossierFacile Front-end
 
-The project is being rewritten. It will be available soon at [DossierFacile.fr](https://dossierfacile.fr)
+<pre>
+DossierFacile.fr a été créé par le Ministère de la Transition écologique
+pour aider à la réalisation de dossiers de location.
+
+</pre>
+
+The project is available at [DossierFacile.fr](https://dossierfacile.fr)
 We are using [yarn](https://yarnpkg.com/) to build the project with monorepo, [storybook](https://storybook.js.org/) to build components, [Vue](https://vuejs.org/) for the framework.
 
 The project is composed of 4 apps : **main** for the homepage, blog etc. **tenant** for the tenant private part, **owner** for the owner private part and **bo** for the back-office used by the operators to validate records.

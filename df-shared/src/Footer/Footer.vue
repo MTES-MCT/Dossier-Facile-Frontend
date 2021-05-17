@@ -109,15 +109,17 @@
               class="fr-footer__bottom-link"
               target="_blank"
               href="https://twitter.com/dossierfacile"
+              rel="noreferrer"
             >
               <svg
+                title="twitter"
                 aria-hidden="true"
                 focusable="false"
                 data-prefix="fab"
                 data-icon="twitter-square"
                 role="img"
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 666 512"
+                viewBox="0 0 900 512"
                 class="fa-icon"
               >
                 <path
@@ -131,15 +133,17 @@
               class="fr-footer__bottom-link"
               target="_blank"
               href="https://www.facebook.com/DossierFacile.fr"
+              rel="noreferrer"
             >
               <svg
+                title="facebook"
                 aria-hidden="true"
                 focusable="false"
                 data-prefix="fab"
                 data-icon="facebook-square"
                 role="img"
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 666 512"
+                viewBox="0 0 900 512"
                 class="fa-icon"
               >
                 <path
@@ -153,15 +157,17 @@
               class="fr-footer__bottom-link"
               target="_blank"
               href="https://www.linkedin.com/company/startup-d-etat-locatio/"
+              rel="noreferrer"
             >
               <svg
+                title="linkedin"
                 aria-hidden="true"
                 focusable="false"
                 data-prefix="fab"
                 data-icon="linkedin"
                 role="img"
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 666 512"
+                viewBox="0 0 900 512"
                 class="fa-icon"
               >
                 <path

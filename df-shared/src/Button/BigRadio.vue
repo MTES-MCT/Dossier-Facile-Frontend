@@ -30,11 +30,7 @@ export default class BigRadio extends Vue {
   font-size: 0.9rem;
   cursor: pointer;
   border-radius: 0.4rem;
-  &.big {
-    border-radius: 0.8rem;
-  }
   text-align: center;
-  border: 1px solid var(--primary);
   background-color: var(--w);
   max-width: 15rem;
 
@@ -45,7 +41,7 @@ export default class BigRadio extends Vue {
     box-shadow: 0 0 0.666em rgba(0, 0, 0, 0.25);
     &.big {
       color: var(--g800);
-      background-color: var(--bd300);
+      background-color: var(--bf200-bf300);
     }
   }
 
@@ -55,13 +51,15 @@ export default class BigRadio extends Vue {
     color: white;
     &.big {
       color: var(--g800);
-      background-color: var(--bd300);
+      background-color: var(--bf200-bf300);
     }
   }
 }
 
 .big {
-  height: 12rem;
+  @media all and (min-width: 992px) {
+    height: 12rem;
+  }
   width: 10rem;
   padding: 1rem;
   font-size: 1rem;

@@ -5,6 +5,7 @@
       :disabled="disabled"
       :title="iconOnly ? label : undefined"
       @click="pushClick"
+      :type="btnType"
     >
       <span class="sr-only" v-if="iconOnly">{{ label }}</span>
       <template v-else>
@@ -52,6 +53,10 @@ export default {
     large: {
       type: Boolean,
       default: false
+    },
+    btnType: {
+      type: String,
+      default: "submit"
     }
   },
   computed: {

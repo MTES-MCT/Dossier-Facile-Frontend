@@ -45,7 +45,9 @@
                   <b> Prestataire d’hébergement : </b> OVH <br />
                 </p>
 
-                <h3 class="fr-h3">Nature des données collectées</h3>
+                <h3 class="fr-h3" id="confidentialite">
+                  Nature des données collectées
+                </h3>
                 <p>
                   <b>
                     Dans le cadre de l'utilisation des Sites, l'Éditeur est

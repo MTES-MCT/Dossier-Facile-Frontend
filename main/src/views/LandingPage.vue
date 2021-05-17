@@ -30,7 +30,7 @@
             <div>
               <img src="../assets/icons/approval.svg" class="s1-icons" alt="" />
             </div>
-            <h3 class="fr-h3 color--secondary">{{ $t("s1.h1") }}</h3>
+            <h2 class="fr-h3 color--secondary">{{ $t("s1.h1") }}</h2>
             <p class="fr-mt-0">
               {{ $t("s1.p1") }}
             </p>
@@ -39,7 +39,7 @@
             <div>
               <img src="../assets/icons/sports.svg" class="s1-icons" alt="" />
             </div>
-            <h3 class="fr-h3 color--secondary">{{ $t("s1.h2") }}</h3>
+            <h2 class="fr-h3 color--secondary">{{ $t("s1.h2") }}</h2>
             <p class="fr-mt-0">
               {{ $t("s1.p2") }}
             </p>
@@ -48,7 +48,7 @@
             <div>
               <img src="../assets/icons/reading.svg" class="s1-icons" alt="" />
             </div>
-            <h3 class="fr-h3 color--secondary">{{ $t("s1.h3") }}</h3>
+            <h2 class="fr-h3 color--secondary">{{ $t("s1.h3") }}</h2>
             <p class="fr-mt-0">
               {{ $t("s1.p3") }}
             </p>
@@ -61,7 +61,7 @@
         <h2 class="fr-h2 s2-title">{{ $t("s2.title") }}</h2>
         <div class="fr-grid-row">
           <div class="fr-col-md-6 fr-grid-col">
-            <h4 class="fr-h4 color--secondary fr-mb-0">{{ $t("s2.h1") }}</h4>
+            <h2 class="fr-h4 color--secondary fr-mb-0">{{ $t("s2.h1") }}</h2>
             <p>{{ $t("s2.p1") }}
             <ul class="fr-pt-2w">
               <li>{{ $t("s2.u1a") }}</li>
@@ -72,10 +72,10 @@
             </ul>
             </p>
 
-            <h4 class="fr-h4 color--secondary fr-mb-0">{{ $t("s2.h2") }}</h4>
+            <h2 class="fr-h4 color--secondary fr-mb-0">{{ $t("s2.h2") }}</h2>
             <p>{{ $t("s2.p2") }}</p>
 
-            <h4 class="fr-h4 color--secondary fr-mb-0">{{ $t("s2.h3") }}</h4>
+            <h2 class="fr-h4 color--secondary fr-mb-0">{{ $t("s2.h3") }}</h2>
             <p>{{ $t("s2.p3") }}</p>
           </div>
           <div class="fr-col-md-6">
@@ -117,7 +117,7 @@
         </h2>
         <div class="text-center">
           <router-link to="/stats">
-            <img src="../assets/icons/stats.webp" class="stats-icon" />
+            <img src="../assets/icons/stats.webp" class="stats-icon" alt="" />
             {{ $t("s4.link") }}
           </router-link>
         </div>
@@ -161,12 +161,13 @@
         </h2>
         <div class="fr-grid-row">
           <div
-            class="fr-col-lg-2 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-1w"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a
               target="_blank"
               href="https://www.monsieurhugo.com/"
               class="logo-link"
+              rel="noreferrer"
             >
               <img
                 alt="logo monsieur hugo"
@@ -176,9 +177,11 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-2 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-1w"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
-            <a target="_blank" href="https://www.visale.fr/" class="logo-link">
+            <a target="_blank" href="https://www.visale.fr/" class="logo-link"
+              rel="noreferrer"
+            >
               <img
                 alt="logo visale"
                 class="partner-logo"
@@ -187,12 +190,13 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-2 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-1w"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a
               target="_blank"
               href="https://www.locservice.fr/"
               class="logo-link"
+              rel="noreferrer"
             >
               <img
                 alt="logo locservice"
@@ -202,9 +206,11 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-2 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-1w"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
-            <a target="_blank" href="https://colivme.com/" class="logo-link">
+            <a target="_blank" href="https://colivme.com/" class="logo-link"
+              rel="noreferrer"
+            >
               <img
                 alt="logo colivme"
                 class="partner-logo"
@@ -213,9 +219,11 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-2 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-1w"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
-            <a target="_blank" href="https://whoomies.com/" class="logo-link">
+            <a target="_blank" href="https://whoomies.com/" class="logo-link"
+              rel="noreferrer"
+            >
               <img
                 alt="logo whoomies"
                 class="partner-logo"
@@ -224,13 +232,28 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-2 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-1w"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
-            <a target="_blank" href="https://www.anil.org/" class="logo-link">
+            <a target="_blank" href="https://www.anil.org/" class="logo-link"
+              rel="noreferrer"
+            >
               <img
                 alt="logo anil"
                 class="partner-logo"
                 src="../assets/logos/anil.webp"
+              />
+            </a>
+          </div>
+          <div
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+          >
+            <a target="_blank" href="https://www.clickandrent.fr/" class="logo-link"
+              rel="noreferrer"
+            >
+              <img
+                alt="logo click and rent"
+                class="partner-logo"
+                src="../assets/logos/clickandrent.webp"
               />
             </a>
           </div>
@@ -360,6 +383,12 @@ a[target="_blank"].logo-link::after {
   display: inline;
   height: 3rem;
   vertical-align: -0.75rem;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
 
