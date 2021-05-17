@@ -95,7 +95,7 @@
                 <accordion-element id="fr-accordion-group-0-body-2">
                   <template v-slot:header>
                     <header>
-                      Quelles pièces sont demandées aux locataires ?
+                      Quelles pièces sont demandées aux locataires pour un dossier de location ?
                     </header>
                   </template>
                   <template v-slot:body>
