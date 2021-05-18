@@ -472,14 +472,14 @@
                     <header>Que fait-on de mes données ?</header>
                   </template>
                   <template v-slot:body>
-                    <p><b>Pièces justificatives</b></p></br>
+                    <p><b>Pièces justificatives</b></p><br>
                       DossierFacile conserve vos pièces justificatives tant que
                       votre compte reste actif (c’est-à-dire que vous vous
-                      connectez).</br>
+                      connectez).<br>
                       Au bout de trois semaines d’inactivité consécutives, vos
                       pièces sont automatiquement supprimées.
                     </p>
-                    <p><b>Données personnelles</b></p></br>
+                    <p><b>Données personnelles</b></p><br>
                       Vos données personnelles sont anonymisées (suppression des
                       noms et prénoms permettant de vous identifier) et sont
                       conservées pendant 2 ans à compter de la création de votre
