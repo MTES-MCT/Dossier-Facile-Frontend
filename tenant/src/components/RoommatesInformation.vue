@@ -226,6 +226,12 @@ export default class RoommatesInformation extends Vue {
   background-color: var(--primary);
   padding: 0.25rem;
 }
+
+.card {
+  @media all and (min-width: 992px) {
+    padding: 1.5rem;
+  }
+}
 </style>
 
 <i18n>

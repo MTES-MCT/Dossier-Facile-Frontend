@@ -17,7 +17,7 @@ export default class NakedCard extends Vue {}
   display: none;
 }
 .card {
-  padding: 10px;
+  padding: 0.5rem;
 
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 
