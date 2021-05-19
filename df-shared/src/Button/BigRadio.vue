@@ -29,6 +29,7 @@ export default class BigRadio extends Vue {
   margin: 0.25rem;
   font-size: 0.9rem;
   cursor: pointer;
+  border: 1px solid var(--g300);
   border-radius: 0.4rem;
   text-align: center;
   background-color: var(--w);
