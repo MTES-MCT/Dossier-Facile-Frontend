@@ -1,14 +1,14 @@
 <template>
   <div class="fr-grid-row fr-grid-row--center">
     <div class="fr-col-12">
-      <h4>{{ $t("title") }}</h4>
+      <h5>{{ $t("title") }}</h5>
     </div>
-    <div class="fr-col-12 fr-mb-2w">
-      <div v-if="showEmailExists" class="fr-callout">
+    <div v-if="showEmailExists" class="fr-col-12 fr-mt-2w">
+      <div class="fr-callout">
         <p class="fr-mb-1w" v-html="$t('email-exists')"></p>
       </div>
     </div>
-    <div class="fr-col-12" v-if="getPartner()">
+    <div class="fr-col-12 fr-mt-2w" v-if="getPartner()">
       <NakedCard>
         <template v-slot:content>
           <div class="fr-grid-row bg--white">
@@ -22,7 +22,9 @@
                 <div class="fr-col-9 fr-col-md-10">
                   <div class="fr-grid-col overflow--hidden">
                     <div :title="coupleMail">
-                      {{ getPartner().email }}
+                      <b>
+                        {{ getPartner().email }}
+                      </b>
                     </div>
                     <div class="small-text">
                       {{
