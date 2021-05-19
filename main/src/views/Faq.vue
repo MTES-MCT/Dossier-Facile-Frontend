@@ -472,7 +472,8 @@
                     <header>Que fait-on de mes données ?</header>
                   </template>
                   <template v-slot:body>
-                    <p><b>Pièces justificatives</b></p><br>
+                    <p><b>Pièces justificatives</b></p>
+                    <p>
                       DossierFacile conserve vos pièces justificatives tant que
                       votre compte reste actif (c’est-à-dire que vous vous
                       connectez).<br>
