@@ -13,13 +13,13 @@
         <template v-slot:content>
           <div class="fr-grid-row bg--white">
             <div class="fr-col-10">
-              <div class="fr-grid-row">
-                <div class="fr-col-3 fr-col-md-2 center-icon">
+              <div class="fr-grid-row nowrap">
+                <div class="center-icon fr-mr-1w">
                   <span class="color--white material-icons md-24 round-icon"
                     >person</span
                   >
                 </div>
-                <div class="fr-col-9 fr-col-md-10">
+                <div>
                   <div class="fr-grid-col overflow--hidden">
                     <div :title="coupleMail">
                       <b>
@@ -242,6 +242,11 @@ export default class CoupleInformation extends Vue {
     padding: 1.5rem;
   }
 }
+
+.nowrap {
+  flex-wrap: nowrap;
+  overflow: auto;
+}
 </style>
 
 <i18n>
@@ -253,6 +258,7 @@ export default class CoupleInformation extends Vue {
 "field-required": "This field is required",
 "title": "Who will be you spouse ?",
 "invite-waiting": "Waiting for confirmation",
+"invite-sent": "Invitation sent",
 "add-a-spouse": "Invite your spouse",
 "email-exists": "You can not associate two account with only one email address ! <br>Fullfill a different email address."
 },
@@ -264,6 +270,7 @@ export default class CoupleInformation extends Vue {
 "title": "Qui sera votre conjoint·e ?",
 "add-a-spouse": "Inviter votre conjoint·e",
 "invite-waiting": "Invitation en attente d'envoi",
+"invite-sent": "Invitation envoyée",
 "email-exists": "Vous ne pouvez pas associer deux comptes à une même adresse email ! <br>Renseignez une adresse email différente."
 }
 }

@@ -13,13 +13,13 @@
             <template v-slot:content>
               <div class="fr-grid-row bg--white">
                 <div class="fr-col-10">
-                  <div class="fr-grid-row">
-                    <div class="fr-col-3 fr-col-md-2 center-icon">
+                  <div class="fr-grid-row nowrap">
+                    <div class="center-icon fr-mr-1w">
                       <span class="color--white material-icons md-24 round-icon"
                         >person</span
                       >
                     </div>
-                    <div class="fr-col-9 fr-col-md-10">
+                    <div>
                       <div class="fr-grid-col overflow--hidden">
                         <div :title="roommate.email">
                           <b>
@@ -53,7 +53,7 @@
         </div>
       </div>
     </div>
-    <div class="fr-col-12 fr-mt-2w">
+    <div class="fr-col-12 fr-col-xl-7 fr-mt-2w">
       <label class="fr-label fr-mb-1w">{{ $t("roommateEmail") }}</label>
       <validation-provider rules="email" v-slot="{ errors }">
         <div
@@ -73,8 +73,8 @@
         </div>
       </validation-provider>
     </div>
-    <div class="fr-col-12">
-      <div class="fr-grid-row fr-grid-row--right fr-mt-2w fr-mb-3w">
+    <div class="fr-col-12 fr-col-xl-5 align-bottom">
+      <div class="fr-grid-row fr-grid-row--right">
         <v-gouv-fr-button
           :secondary="true"
           :label="$t('add-a-roommate')"
@@ -84,7 +84,7 @@
         ></v-gouv-fr-button>
       </div>
     </div>
-    <div class="fr-col-12 fr-mb-3w fr-mt-3w">
+    <div class="fr-col-12 fr-mb-3w fr-mt-3w bg-bf200">
       <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
         <div
           class="fr-input-group"
@@ -181,6 +181,8 @@ export default class RoommatesInformation extends Vue {
 </script>
 
 <style scoped lang="scss">
+@import "df-shared/src/scss/_variables.scss";
+
 .small-text {
   font-size: 0.8rem;
 }
@@ -230,6 +232,25 @@ export default class RoommatesInformation extends Vue {
 .card {
   @media all and (min-width: 992px) {
     padding: 1.5rem;
+  }
+}
+
+.nowrap {
+  flex-wrap: nowrap;
+  overflow: auto;
+}
+
+.bg-bf200 {
+  background-color: var(--blue-france-200);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+
+.align-bottom {
+  align-self: flex-end;
+  @media all and (max-width: 1247px) {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
   }
 }
 </style>
