@@ -59,7 +59,7 @@
                 <accordion-element id="fr-accordion-group-0-body-0">
                   <template v-slot:header>
                     <header>
-                      Est-il obligatoire de passer par DossierFacile ?
+                      Est-il obligatoire de passer par DossierFacile pour créer un dossier de location ?
                     </header>
                   </template>
                   <template v-slot:body>
@@ -82,12 +82,9 @@
                       dossiers DossierFacile : les liens sont envoyés par mail
                       comme les dossiers traditionnels.
                     </p>
-                    <p>
                       Si le locataire vous a fourni un lien complet, vous pouvez
                       ouvrir et télécharger les pièces très facilement. Un lien
-                      DossierFacile c'est comme une pièce jointe, la qualité «
-                      3C » en plus !
-                    </p>
+                      DossierFacile c'est comme un dossier de location pièce jointe en mieux : 100% digital et vérifié par l'État.  
                   </template>
                 </AccordionElement>
               </li>
@@ -95,7 +92,7 @@
                 <accordion-element id="fr-accordion-group-0-body-2">
                   <template v-slot:header>
                     <header>
-                      Quelles pièces sont demandées aux locataires pour un dossier de location ?
+                      Quelles pièces sont demandées aux locataires pour créer un dossier de location ?
                     </header>
                   </template>
                   <template v-slot:body>
@@ -105,30 +102,30 @@
                     >
                     <p>
                       DossierFacile demande uniquement les pièces prévues par la
-                      loi:
+                      loi :
                     </p>
 
                     <p></p>
                     <ol style="margin-left: 1em">
                       <li>
-                        <b>Une pièce d’identité en cours de validité</b><br />
+                        <b>- Une pièce d’identité en cours de validité</b><br />
 
                         Sont acceptés : carte nationale d’identité, passeport,
                         titre de séjour recto-verso, récépissé de renouvellement
                         de titre de séjour accompagné de l’ancien titre
-                        recto-verso, permis de conduire
+                        recto-verso, permis de conduire.
                       </li>
                       <li>
-                        <b>Un justificatif de domicile:</b>
+                        <b>- Un justificatif de domicile :</b><br />
 
-                        vos 3 dernières quittances de loyer OU votre avis de
+                        Sont acceptés : vos 3 dernières quittances de loyer OU votre avis de
                         taxe foncière OU une attestation sur l’honneur
-                        d’hébergement, récente (moins de 3 mois) datée et
-                        signée, de la part de votre hébergeant OU une
-                        attestation d’élection de domicile
+                        d’hébergement récente (moins de 3 mois) datée et
+                        signée de la part de votre hébergeant OU une
+                        attestation d’élection de domicile.
                         <br />
                         Sont refusés : les factures en votre nom, les avis de
-                        taxe d’habitation, les RIB
+                        taxe d’habitation, les relevés d'identité bancaire (RIB).
                       </li>
                       <li>
                         <b>Un justificatif de votre activité professionnelle</b>
@@ -140,50 +137,50 @@
                         "
                         >
                           <li>
-                            <b>CDI, CDD, CTT: </b>
+                            <b>CDI, CDD, CTT : </b>
                             toutes les pages de votre contrat de travail signé
                             OU une attestation de votre employeur datant de
                             moins de 3 mois
                           </li>
                           <li>
-                            <b>Etudiant: </b>
+                            <b>Étudiant : </b>
                             un certificat de scolarité OU une copie de votre
                             carte étudiante
                           </li>
                           <li>
-                            <b>Stagiaire: </b>
+                            <b>Stagiaire : </b>
                             une convention de stage
                           </li>
                           <li>
-                            <b>Retraité: </b>
+                            <b>Retraité : </b>
                             une attestation de droit à une pension OU vos
                             bulletins de pension
                           </li>
                           <li>
-                            <b>Fonction publique: </b>
+                            <b>Fonction publique : </b>
                             un arrêté de nomination OU une attestation de votre
                             employeur
                           </li>
                           <li>
-                            <b>Indépendant: </b>
+                            <b>Indépendant : </b>
                             une attestation d’inscription au statut
                             d’auto-entrepreneur OU un extrait kbis de votre
                             société OU une attestation d’emploi couvrant les
                             trois derniers mois
                           </li>
                           <li>
-                            <b>Chômage: </b>
-                            une attestation d’ouverture de droit ARE
+                            <b>Chômage : </b>
+                            une attestation d’ouverture d'Allocation de Retour à l'Emploi (ARE)
                           </li>
                           <li>
-                            <b>Chômage: </b>
+                            <b>Autre : </b>
                             un document justifiant votre activité ces trois
                             derniers mois
                           </li>
                         </ul>
                       </li>
                       <li>
-                        <b>De justificatifs de vos ressources parmi: </b>
+                        <b>Un justificatif de  ressources parmi : </b>
 
                         <ul
                           style="
@@ -198,7 +195,7 @@
                           </li>
                           <li>Votre dernier bulletin de retraite</li>
                           <li>
-                            Justificatif d’autres types de ressources Sont
+                            Justificatif d’autres types de ressources. Sont
                             refusés : les RIB.
                           </li>
                         </ul>
@@ -215,16 +212,13 @@
                 <AccordionElement id="fr-accordion-group-0-body-3">
                   <template v-slot:header>
                     <header>
-                      Je suis marié ou en couple : comment faire ?
+                      Je suis marié ou en couple : comment créer un dossier de location ?
                     </header>
                   </template>
                   <template v-slot:body>
                     <p>
                       Vos dossiers de location sont liés, choisissez donc le
-                      mode « colocation ».
-                    </p>
-                    <p>
-                      Lorsque vous envoyez un message à un propriétaire, veillez
+                      mode « colocation ». Lorsque vous envoyez un message à un propriétaire, veillez
                       néanmoins à préciser que vous êtes en couple, et non en
                       colocation « classique ».
                     </p>
@@ -235,23 +229,16 @@
                 <AccordionElement id="fr-accordion-group-0-body-4">
                   <template v-slot:header>
                     <header>
-                      Je souhaite créer un dossier en mode « colocation » :
-                      est-ce que mes colocataires doivent aussi créer un dossier
+                      Je suis en colocation : est-ce que mes colocataires doivent aussi créer un dossier de location
                       DossierFacile ?
                     </header>
                   </template>
                   <template v-slot:body>
                     <p>
                       Oui, cela facilitera grandement la vie de vos futurs
-                      propriétaires !
-                    </p>
-                    <p>
-                      Tous les colocataires pourront ajouter des pièces de façon
+                      propriétaires ! Tous les colocataires pourront ajouter des pièces de façon
                       individuelle, tout en étant bien identifiés comme faisant
-                      partie d’une même colocation.
-                    </p>
-                    <p>
-                      Le résultat ? Une procédure simple pour vous, et un
+                      partie d’une même colocation. Le résultat ? Une procédure simple pour vous, et un
                       dossier final bien organisé pour les propriétaires !
                     </p>
                   </template>
@@ -261,7 +248,7 @@
                 <AccordionElement id="fr-accordion-group-0-body-5">
                   <template v-slot:header>
                     <header>
-                      Je suis étranger, puis-je bénéficier du service ?
+                      Je suis étranger : puis-je créer mon dossier de location avec DossierFacile  ?
                     </header>
                   </template>
                   <template v-slot:body>
@@ -270,8 +257,6 @@
                       les pièces nécessaires (c’est pourquoi nous ne sommes pas
                       encore en mesure de traiter toutes les demandes de
                       locataires étrangers).
-                    </p>
-                    <p>
                       Par ailleurs, nous ne pouvons malheureusement pas encore
                       accepter les documents en langue non française.
                     </p>
@@ -282,8 +267,8 @@
                 <AccordionElement id="fr-accordion-group-0-body-6">
                   <template v-slot:header>
                     <header>
-                      Je rentre en France après avoir vécu à l’étranger : je ne
-                      possède pas de quittances de loyer !
+                      Je rentre en France après avoir vécu à l’étranger et je ne
+                      possède pas de quittances de loyer : comment créer mon dossier de location DossierFacile ?
                     </header>
                   </template>
                   <template v-slot:body>
@@ -298,7 +283,7 @@
               <li>
                 <AccordionElement id="fr-accordion-group-0-body-7">
                   <template v-slot:header>
-                    <header>Quelles pièces sont demandées aux garants ?</header>
+                    <header>Quelles pièces sont demandées aux garants pour créer un dossier de location DossierFacile ?</header>
                   </template>
                   <template v-slot:body>
                     <a download href="/assets/pdf/Listedocuments.pdf"
@@ -353,7 +338,7 @@
                   <template v-slot:header>
                     <header>
                       J'ai ajouté toutes mes pièces mais je n'arrive pas à
-                      valider mon dossier : que faire ?
+                      valider mon dossier de location : que faire ?
                     </header>
                   </template>
                   <template v-slot:body>
@@ -373,7 +358,7 @@
                 <accordion-element id="fr-accordion-group-1-body-1">
                   <template v-slot:header>
                     <header>
-                      Mon dossier était validé et maintenant il ne l’est plus !
+                      Mon dossier de location DossierFacile était validé et maintenant il ne l’est plus !
                     </header>
                   </template>
                   <template v-slot:body>
@@ -396,8 +381,8 @@
                 <accordion-element id="fr-accordion-group-1-body-2">
                   <template v-slot:header>
                     <header>
-                      J’ai reçu un message me disant que mon compte était validé
-                      et pourtant
+                      J’ai reçu un message me disant que mon compte DossierFacile était validé
+                      et pourtant il ne l'est pas
                     </header>
                   </template>
                   <template v-slot:body>
@@ -487,23 +472,19 @@
                     <header>Que fait-on de mes données ?</header>
                   </template>
                   <template v-slot:body>
-                    <p>Pièces justificatives</p>
+                    <p><b>Pièces justificatives</b></p>
                     <p>
                       DossierFacile conserve vos pièces justificatives tant que
                       votre compte reste actif (c’est-à-dire que vous vous
-                      connectez).
-                    </p>
-                    <p>
+                      connectez).<br>
                       Au bout de trois semaines d’inactivité consécutives, vos
                       pièces sont automatiquement supprimées.
                     </p>
-                    <p>Données personnelles</p>
-                    <p>
+                    <p><b>Données personnelles</b></p><br>
                       Vos données personnelles sont anonymisées (suppression des
                       noms et prénoms permettant de vous identifier) et sont
                       conservées pendant 2 ans à compter de la création de votre
                       compte.
-                    </p>
                   </template>
                 </accordion-element>
               </li>
