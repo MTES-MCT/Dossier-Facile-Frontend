@@ -1,37 +1,30 @@
 <template>
   <div class="fr-grid-row fr-grid-row--center">
     <div class="fr-col-12">
-      <h4>{{ $t("title") }}</h4>
+      <h5>{{ $t("title") }}</h5>
     </div>
-    <div class="fr-col-12">
-      <div v-if="roommates.length === 0">
-        <p>
-          {{ $t("no-roommate") }}
-        </p>
-      </div>
+    <div class="fr-col-12 fr-mt-2w">
       <div v-if="showEmailExists" class="fr-callout">
         <p class="fr-mb-1w" v-html="$t('email-exists')"></p>
       </div>
       <div v-if="roommates.length > 0">
-        <div
-          class="fr-mb-1w"
-          v-for="(roommate, key) in roommates"
-          v-bind:key="key"
-        >
+        <div v-for="(roommate, key) in roommates" v-bind:key="key">
           <NakedCard>
             <template v-slot:content>
               <div class="fr-grid-row bg--white">
                 <div class="fr-col-10">
-                  <div class="fr-grid-row">
-                    <div class="fr-col-3 fr-col-md-2 center-icon">
+                  <div class="fr-grid-row nowrap">
+                    <div class="center-icon fr-mr-1w">
                       <span class="color--white material-icons md-24 round-icon"
                         >person</span
                       >
                     </div>
-                    <div class="fr-col-9 fr-col-md-10">
+                    <div>
                       <div class="fr-grid-col overflow--hidden">
                         <div :title="roommate.email">
-                          {{ roommate.email }}
+                          <b>
+                            {{ roommate.email }}
+                          </b>
                         </div>
                         <div class="small-text">
                           {{
@@ -60,7 +53,7 @@
         </div>
       </div>
     </div>
-    <div class="fr-col-12">
+    <div class="fr-col-12 fr-col-xl-7 fr-mt-2w">
       <label class="fr-label fr-mb-1w">{{ $t("roommateEmail") }}</label>
       <validation-provider rules="email" v-slot="{ errors }">
         <div
@@ -80,8 +73,8 @@
         </div>
       </validation-provider>
     </div>
-    <div class="fr-col-12">
-      <div class="fr-grid-row fr-grid-row--right fr-mt-2w fr-mb-3w">
+    <div class="fr-col-12 fr-col-xl-5 align-bottom">
+      <div class="fr-grid-row fr-grid-row--right">
         <v-gouv-fr-button
           :secondary="true"
           :label="$t('add-a-roommate')"
@@ -91,7 +84,7 @@
         ></v-gouv-fr-button>
       </div>
     </div>
-    <div class="fr-col-12 fr-mb-3w fr-mt-3w">
+    <div class="fr-col-12 fr-mb-3w fr-mt-3w bg-bf200">
       <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
         <div
           class="fr-input-group"
@@ -188,6 +181,8 @@ export default class RoommatesInformation extends Vue {
 </script>
 
 <style scoped lang="scss">
+@import "df-shared/src/scss/_variables.scss";
+
 .small-text {
   font-size: 0.8rem;
 }
@@ -233,18 +228,42 @@ export default class RoommatesInformation extends Vue {
   background-color: var(--primary);
   padding: 0.25rem;
 }
+
+.card {
+  @media all and (min-width: 992px) {
+    padding: 1.5rem;
+  }
+}
+
+.nowrap {
+  flex-wrap: nowrap;
+  overflow: auto;
+}
+
+.bg-bf200 {
+  background-color: var(--blue-france-200);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+
+.align-bottom {
+  align-self: flex-end;
+  @media all and (max-width: 1247px) {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+  }
+}
 </style>
 
 <i18n>
 {
 "en": {
-"roommateEmail": "A roommate email",
+"roommateEmail": "Add a roommate email",
 "acceptAuthor": "I agree that the other members of my roommate have access to my documents as well as those of my guarantor, if applicable, once all the files of the roommate have been validated",
 "delete": "Delete",
 "email-not-valid": "Email not valid",
 "field-required": "This field is required",
 "title": "Who are your roommates ?",
-"no-roommate":"Please add a roommate",
 "add-a-roommate": "Add this roommate",
 "invite-waiting": "Waiting for confirmation",
 "invite-sent": "Invitation sent",
@@ -253,13 +272,12 @@ export default class RoommatesInformation extends Vue {
 "email-exists-2": "This email address already exists in DossierFacile. Please use an other email address."
 },
 "fr": {
-"roommateEmail": "L’adresse email d'un colocataire",
+"roommateEmail": "Ajouter l’adresse email d'un colocataire",
 "acceptAuthor": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",
 "delete": "Supprimer",
 "email-not-valid": "Email non valide",
 "field-required": "Ce champ est requis",
 "title": "Qui seront vos colocataires ?",
-"no-roommate":"Veuillez ajouter un colocataire",
 "add-a-roommate": "Inviter ce colocataire",
 "invite-waiting": "Invitation en attente d'envoi",
 "invite-sent": "Invitation envoyée",

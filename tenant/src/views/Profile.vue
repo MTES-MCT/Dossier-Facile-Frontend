@@ -3,20 +3,26 @@
     <div class="bg-grey fr-grid-row full-height">
       <LeftEditMenu class="fr-col-md-3 fr-col-xl-2"></LeftEditMenu>
       <div
-        class="fr-col-xl-7 fr-col-md-6 fr-col-xs-12 fr-p-4w fr-grid-row fr-grid-row--center"
+        class="fr-col-xl-7 fr-col-md-6 fr-col-xs-12 fr-p-md-4w fr-p-2w fr-grid-row fr-grid-row--center"
       >
         <div class="fr-col-12 fr-mt-3w max-600">
           <div class="step fr-mb-3w" v-if="tenantStep <= 1">
             <div class="step-number">1</div>
-            <div class="step-title">{{ $t("title-step1") }}</div>
+            <div>
+              <h4>{{ $t("title-step1") }}</h4>
+            </div>
           </div>
           <div class="step fr-mb-3w" v-if="tenantStep === 2">
             <div class="step-number">2</div>
-            <div class="step-title">{{ $t("title-step2") }}</div>
+            <div>
+              <h4>{{ $t("title-step2") }}</h4>
+            </div>
           </div>
           <div class="step fr-mb-3w" v-if="tenantStep === 3">
             <div class="step-number">3</div>
-            <div class="step-title">{{ $t("title-step3") }}</div>
+            <div>
+              <h4>{{ $t("title-step3") }}</h4>
+            </div>
           </div>
           <NameInformationForm
             :user="user"
@@ -102,9 +108,6 @@ export default class Profile extends Vue {
 .step {
   display: flex;
   align-items: center;
-}
-.step-title {
-  font-size: 1.5rem;
 }
 .bg-grey {
   background-color: #f2f2f9;
