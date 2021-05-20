@@ -471,10 +471,42 @@ export default class Messages extends Vue {
   }
 
   getStatus(docType: string) {
+    if (docType === "FINANCIAL") {
+      const docs = this.user.documents?.filter(d => {
+        return d.documentCategory === "FINANCIAL";
+      });
+      return this.isFinancialValid(docs || []);
+    }
     const doc = this.user.documents?.find((d: DfDocument) => {
       return d.documentCategory === docType;
     });
     return doc?.documentStatus;
+  }
+
+  isFinancialValid(docs: any[]) {
+    if (!docs || docs.length === 0) {
+      return "INCOMPLETE";
+    }
+
+    for (const doc of docs) {
+      if (!doc.noDocument && (doc.files?.length || 0) <= 0) {
+        return "INCOMPLETE";
+      }
+    }
+
+    for (const doc of docs) {
+      if (doc.documentStatus === "DECLINED") {
+        return "DECLINED";
+      }
+    }
+
+    for (const doc of docs) {
+      if (doc.documentStatus === "TO_PROCESS") {
+        return "TO_PROCESS";
+      }
+    }
+
+    return "VALIDATED";
   }
 }
 </script>
