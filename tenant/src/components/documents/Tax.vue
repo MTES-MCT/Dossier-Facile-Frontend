@@ -360,6 +360,14 @@ export default class Tax extends Vue {
     if (this.taxDocument.key === "my-name") {
       return this.files.length <= 0;
     }
+
+    if (this.taxDocument.key === "other-tax") {
+      const doc = this.getRegisteredDoc();
+      if (doc !== undefined && this.customText !== doc.customText) {
+        return false;
+      }
+    }
+
     const localDoc = this.getLocalDoc();
     if (localDoc && localDoc.key === this.taxDocument.key) {
       return true;
