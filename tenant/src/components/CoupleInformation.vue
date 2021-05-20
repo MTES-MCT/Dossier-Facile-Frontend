@@ -54,21 +54,27 @@
 
     <div class="fr-col-12" v-if="getPartner() === undefined">
       <label class="fr-label fr-mb-1w">{{ $t("spouseEmail") }}</label>
-      <validation-provider rules="email" v-slot="{ errors }">
+      <validation-provider
+        v-slot="{ errors }"
+        :rules="{ email: true, custom: user.email }"
+      >
         <div
           class="fr-input-group"
           :class="errors[0] ? 'fr-input-group--error' : ''"
         >
           <input
             v-model="coupleMail"
-            class="form-control fr-input"
+            class="validate-required form-control fr-input"
+            :class="errors[0] ? 'fr-input--error' : ''"
             name="email"
             placeholder="Ex : exemple@exemple.fr"
             type="email"
           />
-          <span class="fr-error-text" v-if="errors[0]">{{
-            $t(errors[0])
-          }}</span>
+          <span
+            class="fr-error-text"
+            v-if="errors[0] && errors[0] !== 'none'"
+            >{{ $t(errors[0]) }}</span
+          >
         </div>
       </validation-provider>
     </div>
@@ -125,6 +131,14 @@ extend("is", {
   ...is,
   message: "field-required",
   validate: value => !!value
+});
+
+extend("custom", {
+  ...is,
+  message: "none",
+  validate: (v1, v2: any) => {
+    return v1 !== v2.other;
+  }
 });
 
 @Component({
