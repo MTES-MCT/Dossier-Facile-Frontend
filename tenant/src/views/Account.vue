@@ -660,6 +660,7 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 import StatusTag from "df-shared/src/components/StatusTag.vue";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { Guarantor } from "df-shared/src/models/Guarantor";
+import { AnalyticsService } from "@/services/AnalyticsService";
 
 @Component({
   components: {
@@ -792,6 +793,7 @@ export default class Account extends Vue {
         type: "success",
         duration: 3000
       });
+      AnalyticsService.copyLink(this.pub ? "resume": "full");
     } catch (err) {
       alert("Oops, unable to copy");
     }
@@ -804,7 +806,9 @@ export default class Account extends Vue {
 
   validDelete() {
     this.isDeleteModalVisible = false;
-    this.$store.dispatch("deleteAccount", this.password).then(null, () => {
+    this.$store.dispatch("deleteAccount", this.password).then(() =>{
+      AnalyticsService.deleteAccount();
+    }, () => {
       this.$toasted.show(this.$i18n.t("try-again").toString(), {
         type: "error",
         duration: 7000
@@ -824,11 +828,13 @@ export default class Account extends Vue {
   }
 
   setTenantStep(n: number) {
+    AnalyticsService.editFromAccount(n);
     this.$store.commit("setTenantSubstep", n);
     this.setStep(2);
   }
 
   setGuarantorSubStep(n: number) {
+    AnalyticsService.editFromAccount(n);
     this.$store.commit("setGuarantorSubstep", n);
     this.setStep(3);
   }

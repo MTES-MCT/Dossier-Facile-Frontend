@@ -10,7 +10,7 @@ import { User } from "df-shared/src/models/User";
 import i18n from "@/i18n";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { DfMessage } from "df-shared/src/models/DfMessage";
-import { AnaliticsService } from "@/services/AnalyticsService";
+import { AnalyticsService } from "@/services/AnalyticsService";
 
 Vue.use(Vuex);
 
@@ -44,12 +44,12 @@ const store = new Vuex.Store({
     loginSuccess(state, user) {
       state.status.loggedIn = true;
       state.user = user;
-      AnaliticsService.loginSuccess();
+      AnalyticsService.loginSuccess();
     },
     loginFailure(state) {
       state.status.loggedIn = false;
       state.user = null;
-      AnaliticsService.loginFail();
+      AnalyticsService.loginFail();
     },
     logout(state) {
       state.status.loggedIn = false;
@@ -61,12 +61,12 @@ const store = new Vuex.Store({
     registerSuccess(state) {
       state.status.loggedIn = false;
       state.user = null;
-      AnaliticsService.registerSuccess();
+      AnalyticsService.registerSuccess();
     },
     registerFailure(state) {
       state.status.loggedIn = false;
       state.user = null;
-      AnaliticsService.registerFail();
+      AnalyticsService.registerFail();
     },
     setNamesSuccess(state, user) {
       state.user = user;
@@ -255,7 +255,7 @@ const store = new Vuex.Store({
     validateFile({ commit }, honorDeclaration: boolean) {
       return ProfileService.validateFile(honorDeclaration).then(
         () => {
-          AnaliticsService.validateFile();
+          AnalyticsService.validateFile();
           this.dispatch("loadUser").then(() => {
             router.push("/account");
           });

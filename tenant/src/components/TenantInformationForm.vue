@@ -140,6 +140,7 @@ import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import SubmitButton from "df-shared/src/Button/SubmitButton.vue";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
+import { AnalyticsService } from "@/services/AnalyticsService";
 
 @Component({
   computed: {
@@ -225,6 +226,7 @@ export default class TenantInformationForm extends Vue {
       .dispatch("setRoommates", data)
       .then(
         () => {
+          AnalyticsService.confirmType();
           if (this.applicationType === "COUPLE") {
             this.$toasted.show(this.$i18n.t("couple-saved").toString(), {
               type: "show",

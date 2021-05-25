@@ -93,6 +93,7 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { User } from "df-shared/src/models/User";
 import DocumentHelp from "../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
+import { AnalyticsService } from "@/services/AnalyticsService";
 
 @Component({
   components: {
@@ -186,6 +187,7 @@ export default class Professional extends Vue {
   }
 
   addFiles(fileList: File[]) {
+    AnalyticsService.uploadFile("professional");
     const nf = Array.from(fileList).map(f => {
       return { name: f.name, file: f, size: f.size };
     });
@@ -195,6 +197,7 @@ export default class Professional extends Vue {
     this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
   }
   save() {
+    AnalyticsService.registerFile("professional");
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
@@ -255,6 +258,7 @@ export default class Professional extends Vue {
   }
 
   remove(file: DfFile, silent = false) {
+    AnalyticsService.deleteFile("professional");
     if (file.path && file.id) {
       RegisterService.deleteFile(file.id, silent);
     } else {
