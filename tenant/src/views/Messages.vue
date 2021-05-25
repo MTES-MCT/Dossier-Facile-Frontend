@@ -379,6 +379,7 @@ import { User } from "df-shared/src/models/User";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import ViewEditBtn from "../components/ViewEditBtn.vue";
+import { AnalyticsService } from "@/services/AnalyticsService";
 
 @Component({
   components: {
@@ -413,12 +414,14 @@ export default class Messages extends Vue {
   }
 
   setTenantStep(n: number) {
+    AnalyticsService.editFromMessage(n);
     this.$store.commit("setTenantSubstep", n);
     this.setStep(2);
     this.$router.push("/profile");
   }
 
   setGuarantorSubStep(n: number, g: Guarantor) {
+    AnalyticsService.editFromMessage(n);
     this.$store.commit("setSelectedGuarantor", g);
     this.$store.commit("setGuarantorSubstep", n);
     this.setStep(3);
@@ -452,12 +455,14 @@ export default class Messages extends Vue {
     return DocumentService.hasGuarantor(guarantorType);
   }
   openDoc(documentCategory: string) {
+    AnalyticsService.viewFromMessage(documentCategory);
     this.files = DocumentService.getFiles(documentCategory);
     if (this.files.length > 0) {
       this.isDocModalVisible = true;
     }
   }
   openGuarantorDoc(g: Guarantor, documentCategory: string) {
+    AnalyticsService.viewFromMessage(documentCategory);
     this.files = DocumentService.getGuarantorFiles(g, documentCategory);
     if (this.files.length > 0) {
       this.isDocModalVisible = true;

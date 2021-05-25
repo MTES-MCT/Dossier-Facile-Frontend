@@ -102,6 +102,7 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import DocumentHelp from "../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
+import { AnalyticsService } from "@/services/AnalyticsService";
 
 @Component({
   components: {
@@ -216,6 +217,7 @@ export default class Residency extends Vue {
   }
 
   addFiles(fileList: File[]) {
+    AnalyticsService.uploadFile("residency");
     const nf = Array.from(fileList).map(f => {
       return { name: f.name, file: f, size: f.size };
     });
@@ -225,6 +227,7 @@ export default class Residency extends Vue {
     this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
   }
   save() {
+    AnalyticsService.registerFile("residency");
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
@@ -283,6 +286,7 @@ export default class Residency extends Vue {
   }
 
   remove(file: DfFile, silent = false) {
+    AnalyticsService.deleteFile("residency");
     if (file.path && file.id) {
       RegisterService.deleteFile(file.id, silent);
     } else {

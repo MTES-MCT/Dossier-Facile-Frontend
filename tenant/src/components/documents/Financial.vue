@@ -278,6 +278,7 @@ import Modal from "df-shared/src/components/Modal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import DocumentHelp from "../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
+import { AnalyticsService } from "@/services/AnalyticsService";
 
 extend("regex", {
   ...regex,
@@ -432,6 +433,7 @@ export default class Financial extends Vue {
   }
 
   addFiles(f: F, fileList: File[]) {
+    AnalyticsService.uploadFile("financial");
     const nf = Array.from(fileList).map(f => {
       return { name: f.name, file: f, size: f.size };
     });
@@ -441,6 +443,7 @@ export default class Financial extends Vue {
     f.fileUploadStatus = UploadStatus.STATUS_INITIAL;
   }
   save(f: F) {
+    AnalyticsService.registerFile("financial");
     const fieldName = "documents";
     const formData = new FormData();
     if (!f.noDocument) {
@@ -526,6 +529,7 @@ export default class Financial extends Vue {
   }
 
   remove(f: F, file: DfFile, silent = false) {
+    AnalyticsService.deleteFile("financial");
     if (file.path && file.id) {
       RegisterService.deleteFile(file.id, silent);
     } else {
