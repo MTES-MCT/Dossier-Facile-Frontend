@@ -288,6 +288,7 @@ import { User } from "df-shared/src/models/User";
 import DfButton from "df-shared/src/Button/Button.vue";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.vue";
+import { AnalyticsService } from "@/services/AnalyticsService";
 
 @Component({
   components: {
@@ -428,6 +429,7 @@ export default class GuarantorDocuments extends Vue {
   }
 
   setGuarantorType() {
+    AnalyticsService.addGuarantor(this.guarantorType);
     if (this.tmpGuarantorType != this.guarantorType) {
       this.$store.dispatch("setGuarantorType", this.tmpGuarantorType);
     } else {

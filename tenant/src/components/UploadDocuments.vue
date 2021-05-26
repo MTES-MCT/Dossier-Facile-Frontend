@@ -132,6 +132,7 @@ import Financial from "@/components/documents/Financial.vue";
 import Tax from "@/components/documents/Tax.vue";
 import { mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
+import { AnalyticsService } from "@/services/AnalyticsService";
 @Component({
   components: { Tax, Financial, Professional, Residency, Identification },
   computed: {
@@ -160,6 +161,7 @@ export default class UploadDocuments extends Vue {
   }
 
   goToGuarantor() {
+    AnalyticsService.validateFunnel();
     this.$store.commit("setGuarantorStep", 0);
     this.$store.commit("setStep", 3);
   }

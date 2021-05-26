@@ -144,6 +144,7 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import TaxHelp from "../helps/TaxHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
+import { AnalyticsService } from "@/services/AnalyticsService";
 
 extend("is", {
   ...is,
@@ -265,6 +266,7 @@ export default class Tax extends Vue {
   }
 
   addFiles(fileList: File[]) {
+    AnalyticsService.uploadFile("tax");
     const nf = Array.from(fileList).map(f => {
       return { name: f.name, file: f, size: f.size };
     });
@@ -276,6 +278,7 @@ export default class Tax extends Vue {
   }
 
   save() {
+    AnalyticsService.registerFile("tax");
     if (
       !this.taxDocument.key ||
       (this.taxDocument.key === "my-name" && !this.acceptVerification)
@@ -360,6 +363,14 @@ export default class Tax extends Vue {
     if (this.taxDocument.key === "my-name") {
       return this.files.length <= 0;
     }
+
+    if (this.taxDocument.key === "other-tax") {
+      const doc = this.getRegisteredDoc();
+      if (doc !== undefined && this.customText !== doc.customText) {
+        return false;
+      }
+    }
+
     const localDoc = this.getLocalDoc();
     if (localDoc && localDoc.key === this.taxDocument.key) {
       return true;
@@ -368,6 +379,7 @@ export default class Tax extends Vue {
   }
 
   remove(file: DfFile, silent = false) {
+    AnalyticsService.deleteFile("tax");
     if (file.path && file.id) {
       RegisterService.deleteFile(file.id, silent);
     } else {

@@ -43,6 +43,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import Progress from "./Progress.vue";
 import ShowDoc from "../documents/ShowDoc.vue";
 import Modal from "df-shared/src/components/Modal.vue";
+import { AnalyticsService } from "@/services/AnalyticsService";
 
 @Component({
   components: {
@@ -63,6 +64,7 @@ export default class ListItem extends Vue {
   }
 
   openDoc() {
+    AnalyticsService.viewFromMain();
     this.isDocModalVisible = true;
   }
 

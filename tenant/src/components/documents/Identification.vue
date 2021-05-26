@@ -108,6 +108,7 @@ import DfButton from "df-shared/src/Button/Button.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import DocumentHelp from "../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
+import { AnalyticsService } from "@/services/AnalyticsService";
 
 @Component({
   components: {
@@ -202,6 +203,7 @@ export default class Identification extends Vue {
   }
 
   addFiles(fileList: File[]) {
+    AnalyticsService.uploadFile("identification");
     const nf = Array.from(fileList).map(f => {
       return { name: f.name, file: f, size: f.size };
     });
@@ -213,6 +215,7 @@ export default class Identification extends Vue {
   }
 
   save() {
+    AnalyticsService.registerFile("identification");
     const fieldName = "documents";
     const formData = new FormData();
     const newFiles = this.files.filter(f => {
@@ -275,6 +278,7 @@ export default class Identification extends Vue {
   }
 
   remove(file: DfFile, silent = false) {
+    AnalyticsService.deleteFile("identification");
     if (file.path && file.id) {
       RegisterService.deleteFile(file.id, silent);
     } else {

@@ -10,6 +10,7 @@ import { User } from "df-shared/src/models/User";
 import i18n from "@/i18n";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { DfMessage } from "df-shared/src/models/DfMessage";
+import { AnalyticsService } from "@/services/AnalyticsService";
 
 Vue.use(Vuex);
 
@@ -43,20 +44,12 @@ const store = new Vuex.Store({
     loginSuccess(state, user) {
       state.status.loggedIn = true;
       state.user = user;
-      if (Vue.$cookies.get("accept-cookie") === "true") {
-        Vue.prototype.$gtag.event("login success", {
-          event_category: "login"
-        });
-      }
+      AnalyticsService.loginSuccess();
     },
     loginFailure(state) {
       state.status.loggedIn = false;
       state.user = null;
-      if (Vue.$cookies.get("accept-cookie") === "true") {
-        Vue.prototype.$gtag.event("login fail", {
-          event_category: "login"
-        });
-      }
+      AnalyticsService.loginFail();
     },
     logout(state) {
       state.status.loggedIn = false;
@@ -68,20 +61,12 @@ const store = new Vuex.Store({
     registerSuccess(state) {
       state.status.loggedIn = false;
       state.user = null;
-      if (Vue.$cookies.get("accept-cookie") === "true") {
-        Vue.prototype.$gtag.event("register success", {
-          event_category: "login"
-        });
-      }
+      AnalyticsService.registerSuccess();
     },
     registerFailure(state) {
       state.status.loggedIn = false;
       state.user = null;
-      if (Vue.$cookies.get("accept-cookie") === "true") {
-        Vue.prototype.$gtag.event("register success", {
-          event_category: "login"
-        });
-      }
+      AnalyticsService.registerFail();
     },
     setNamesSuccess(state, user) {
       state.user = user;
@@ -270,11 +255,7 @@ const store = new Vuex.Store({
     validateFile({ commit }, honorDeclaration: boolean) {
       return ProfileService.validateFile(honorDeclaration).then(
         () => {
-          if (Vue.$cookies.get("accept-cookie") === "true") {
-            Vue.prototype.$gtag.event("validate file", {
-              event_category: "file"
-            });
-          }
+          AnalyticsService.validateFile();
           this.dispatch("loadUser").then(() => {
             router.push("/account");
           });

@@ -1,28 +1,30 @@
 <template>
   <div class="fr-grid-row fr-grid-row--center">
     <div class="fr-col-12">
-      <h4>{{ $t("title") }}</h4>
+      <h5>{{ $t("title") }}</h5>
     </div>
-    <div class="fr-col-12 fr-mb-2w">
-      <div v-if="showEmailExists" class="fr-callout">
+    <div v-if="showEmailExists" class="fr-col-12 fr-mt-2w">
+      <div class="fr-callout">
         <p class="fr-mb-1w" v-html="$t('email-exists')"></p>
       </div>
     </div>
-    <div class="fr-col-12" v-if="getPartner()">
+    <div class="fr-col-12 fr-mt-2w" v-if="getPartner()">
       <NakedCard>
         <template v-slot:content>
           <div class="fr-grid-row bg--white">
             <div class="fr-col-10">
-              <div class="fr-grid-row">
-                <div class="fr-col-3 fr-col-md-2 center-icon">
+              <div class="fr-grid-row nowrap">
+                <div class="center-icon fr-mr-1w">
                   <span class="color--white material-icons md-24 round-icon"
                     >person</span
                   >
                 </div>
-                <div class="fr-col-9 fr-col-md-10">
+                <div>
                   <div class="fr-grid-col overflow--hidden">
                     <div :title="coupleMail">
-                      {{ getPartner().email }}
+                      <b>
+                        {{ getPartner().email }}
+                      </b>
                     </div>
                     <div class="small-text">
                       {{
@@ -52,21 +54,27 @@
 
     <div class="fr-col-12" v-if="getPartner() === undefined">
       <label class="fr-label fr-mb-1w">{{ $t("spouseEmail") }}</label>
-      <validation-provider rules="email" v-slot="{ errors }">
+      <validation-provider
+        v-slot="{ errors }"
+        :rules="{ email: true, custom: user.email }"
+      >
         <div
           class="fr-input-group"
           :class="errors[0] ? 'fr-input-group--error' : ''"
         >
           <input
             v-model="coupleMail"
-            class="form-control fr-input"
+            class="validate-required form-control fr-input"
+            :class="errors[0] ? 'fr-input--error' : ''"
             name="email"
             placeholder="Ex : exemple@exemple.fr"
             type="email"
           />
-          <span class="fr-error-text" v-if="errors[0]">{{
-            $t(errors[0])
-          }}</span>
+          <span
+            class="fr-error-text"
+            v-if="errors[0] && errors[0] !== 'none'"
+            >{{ $t(errors[0]) }}</span
+          >
         </div>
       </validation-provider>
     </div>
@@ -123,6 +131,14 @@ extend("is", {
   ...is,
   message: "field-required",
   validate: value => !!value
+});
+
+extend("custom", {
+  ...is,
+  message: "none",
+  validate: (v1, v2: any) => {
+    return v1 !== v2.other;
+  }
 });
 
 @Component({
@@ -234,6 +250,17 @@ export default class CoupleInformation extends Vue {
   background-color: var(--primary);
   padding: 0.25rem;
 }
+
+.card {
+  @media all and (min-width: 992px) {
+    padding: 1.5rem;
+  }
+}
+
+.nowrap {
+  flex-wrap: nowrap;
+  overflow: auto;
+}
 </style>
 
 <i18n>
@@ -245,6 +272,7 @@ export default class CoupleInformation extends Vue {
 "field-required": "This field is required",
 "title": "Who will be you spouse ?",
 "invite-waiting": "Waiting for confirmation",
+"invite-sent": "Invitation sent",
 "add-a-spouse": "Invite your spouse",
 "email-exists": "You can not associate two account with only one email address ! <br>Fullfill a different email address."
 },
@@ -256,6 +284,7 @@ export default class CoupleInformation extends Vue {
 "title": "Qui sera votre conjoint·e ?",
 "add-a-spouse": "Inviter votre conjoint·e",
 "invite-waiting": "Invitation en attente d'envoi",
+"invite-sent": "Invitation envoyée",
 "email-exists": "Vous ne pouvez pas associer deux comptes à une même adresse email ! <br>Renseignez une adresse email différente."
 }
 }

@@ -110,6 +110,7 @@ import { required, regex } from "vee-validate/dist/rules";
 import SubmitButton from "df-shared/src/Button/SubmitButton.vue";
 import NameInformationHelp from "./helps/NameInformationHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
+import { AnalyticsService } from "@/services/AnalyticsService";
 
 extend("zipcode", {
   ...regex,
@@ -137,9 +138,14 @@ export default class NameInformationForm extends Vue {
     const loader = this.$loading.show();
     this.$store
       .dispatch("setNames", this.user)
-      .then(null, error => {
-        console.dir(error);
-      })
+      .then(
+        () => {
+          AnalyticsService.confirmName();
+        },
+        error => {
+          console.dir(error);
+        }
+      )
       .finally(() => {
         loader.hide();
       });

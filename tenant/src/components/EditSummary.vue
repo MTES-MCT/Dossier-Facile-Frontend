@@ -207,6 +207,7 @@ import PdfViewer from "../components/PdfViewer.vue";
 import ShowDoc from "./documents/ShowDoc.vue";
 import { DocumentService } from "../services/DocumentService";
 import ViewEditBtn from "./ViewEditBtn.vue";
+import { AnalyticsService } from "@/services/AnalyticsService";
 
 @Component({
   components: { NakedCard, Modal, PdfViewer, ShowDoc, ViewEditBtn },
@@ -225,11 +226,13 @@ export default class EditSummary extends Vue {
   files: DfFile[] = [];
 
   setTenantStep(n: number) {
+    AnalyticsService.editFromMenu(n);
     this.$store.commit("setTenantSubstep", n);
     this.setStep(2);
   }
 
   setGuarantorSubStep(n: number) {
+    AnalyticsService.editFromMenu(n);
     this.$store.commit("setGuarantorStep", 2);
     this.$store.commit("setGuarantorSubstep", n);
     this.setStep(3);
@@ -258,12 +261,14 @@ export default class EditSummary extends Vue {
     return DocumentService.hasGuarantor(guarantorType);
   }
   openDoc(documentCategory: string) {
+    AnalyticsService.viewFromMenu(documentCategory);
     this.files = DocumentService.getFiles(documentCategory);
     if (this.files.length > 0) {
       this.isDocModalVisible = true;
     }
   }
   openGuarantorDoc(documentCategory: string) {
+    AnalyticsService.viewFromMenu(documentCategory);
     this.files = DocumentService.getGuarantorFiles(
       this.selectedGuarantor,
       documentCategory
