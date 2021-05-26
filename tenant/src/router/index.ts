@@ -199,7 +199,12 @@ router.beforeEach((to, from, next) => {
 
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!store.getters.isLoggedIn) {
-      next({ name: "Login" });
+      next({
+        name: "Login",
+        query: {
+          nextUrl: to.fullPath
+        }
+      });
     }
   } else if (to.matched.some(record => record.meta.hideForAuth)) {
     if (store.getters.isLoggedIn) {
