@@ -298,7 +298,7 @@
                     <div class="fr-grid-row fr-grid-row--gutters">
                       <div
                         class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click="setGuarantorSubStep(1)"
+                        @click="setGuarantorSubStep(1, g)"
                       >
                         <div class="fr-tile fr-tile--horizontal">
                           <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -326,7 +326,7 @@
                       </div>
                       <div
                         class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click="setGuarantorSubStep(2)"
+                        @click="setGuarantorSubStep(2, g)"
                       >
                         <div class="fr-tile fr-tile--horizontal">
                           <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -354,7 +354,7 @@
                       </div>
                       <div
                         class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click="setGuarantorSubStep(3)"
+                        @click="setGuarantorSubStep(3, g)"
                       >
                         <div class="fr-tile fr-tile--horizontal">
                           <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -383,7 +383,7 @@
 
                       <div
                         class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click="setGuarantorSubStep(4)"
+                        @click="setGuarantorSubStep(4, g)"
                       >
                         <div class="fr-tile fr-tile--horizontal">
                           <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -411,7 +411,7 @@
                       </div>
                       <div
                         class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click="setGuarantorSubStep(5)"
+                        @click="setGuarantorSubStep(5, g)"
                       >
                         <div class="fr-tile fr-tile--horizontal">
                           <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -441,7 +441,7 @@
                     <div class="fr-grid-row fr-grid-row--gutters">
                       <div
                         class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click="setGuarantorSubStep(1)"
+                        @click="setGuarantorSubStep(1, g)"
                       >
                         <div class="fr-tile fr-tile--horizontal">
                           <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -473,7 +473,7 @@
                     <div class="fr-grid-row fr-grid-row--gutters">
                       <div
                         class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click="setGuarantorSubStep(1)"
+                        @click="setGuarantorSubStep(1, g)"
                       >
                         <div class="fr-tile fr-tile--horizontal">
                           <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -509,7 +509,7 @@
                     <div class="fr-grid-row fr-grid-row--gutters">
                       <div
                         class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click="setGuarantorSubStep(2)"
+                        @click="setGuarantorSubStep(2, g)"
                       >
                         <div class="fr-tile fr-tile--horizontal">
                           <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -793,7 +793,7 @@ export default class Account extends Vue {
         type: "success",
         duration: 3000
       });
-      AnalyticsService.copyLink(this.pub ? "resume": "full");
+      AnalyticsService.copyLink(this.pub ? "resume" : "full");
     } catch (err) {
       alert("Oops, unable to copy");
     }
@@ -806,14 +806,17 @@ export default class Account extends Vue {
 
   validDelete() {
     this.isDeleteModalVisible = false;
-    this.$store.dispatch("deleteAccount", this.password).then(() =>{
-      AnalyticsService.deleteAccount();
-    }, () => {
-      this.$toasted.show(this.$i18n.t("try-again").toString(), {
-        type: "error",
-        duration: 7000
-      });
-    });
+    this.$store.dispatch("deleteAccount", this.password).then(
+      () => {
+        AnalyticsService.deleteAccount();
+      },
+      () => {
+        this.$toasted.show(this.$i18n.t("try-again").toString(), {
+          type: "error",
+          duration: 7000
+        });
+      }
+    );
   }
 
   undoSelect() {
@@ -833,8 +836,10 @@ export default class Account extends Vue {
     this.setStep(2);
   }
 
-  setGuarantorSubStep(n: number) {
+  setGuarantorSubStep(n: number, g: Guarantor) {
     AnalyticsService.editFromAccount(n);
+    this.$store.commit("setGuarantorStep", 2);
+    this.$store.commit("setSelectedGuarantor", g);
     this.$store.commit("setGuarantorSubstep", n);
     this.setStep(3);
   }
