@@ -140,15 +140,15 @@ export const AnalyticsService = {
   getDoctypeByNumber(docType: number) {
     switch (docType) {
       case 1:
-        return "IDENTIFICATION";
+        return "identification";
       case 2:
-        return "RESIDENCY";
+        return "residency";
       case 3:
-        return "PROFESSIONAL";
+        return "professional";
       case 4:
-        return "FINANCIAL";
+        return "financial";
       case 5:
-        return "TAX";
+        return "tax";
       default:
         return "";
     }
