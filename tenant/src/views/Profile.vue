@@ -73,6 +73,14 @@ import ValidateFile from "@/components/ValidateFile.vue";
 })
 export default class Profile extends Vue {
   public tenantStep!: number;
+
+  mounted() {
+    window.Beacon('init', 'e9f4da7d-11be-4b40-9514-ac7ce3e68f67');
+  }
+
+  beforeDestroy() {
+    window.Beacon('destroy');
+  }
 }
 </script>
 
