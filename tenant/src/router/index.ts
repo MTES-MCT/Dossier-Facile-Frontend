@@ -14,7 +14,7 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "DossierFacile, le dossier de location numérique de l’État",
       description:
-        "Constituez un dossier de location numérique clair, complet et cohérent pour augmenter vos chances de trouver un logement !",
+        "Créez un dossier de location en ligne complet et vérifié par l'Etat pour trouver votre appartement ou votre logement",
       hideForAuth: true
     }
   },
@@ -25,7 +25,7 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Connexion à mon compte - DossierFacile",
       description:
-        "Connectez vous à votre espace personnel et constituez votre dossier de location numérique clair, complet et cohérent",
+        "Connectez-vous à votre espace personnel DossierFacile",
       hideForAuth: true
     }
   },
@@ -33,9 +33,9 @@ const routes: Array<RouteConfig> = [
     path: "/signup",
     name: "Signup",
     meta: {
-      title: "Le dossier de location numérique de l’État - DossierFacile",
+      title: "Création de compte - DossierFacile",
       description:
-        "Constituez un dossier de location numérique clair, complet et cohérent pour augmenter vos chances de trouver un logement !",
+        "Créez votre compte en quelques clics sur DossierFacile",
       hideForAuth: true
     },
     component: () =>
@@ -46,6 +46,8 @@ const routes: Array<RouteConfig> = [
     name: "ForgottenPassword",
     meta: {
       title: "Mot de passe oublié - DossierFacile",
+      description:
+        "Accédez à la procédure de mot de passe oublié pour votre compte DossierFacile",
       hideForAuth: true
     },
     component: () =>

@@ -16,14 +16,14 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "DossierFacile, le dossier de location numérique de l’État",
       description:
-        "Constituez un dossier de location numérique clair, complet et cohérent pour augmenter vos chances de trouver un logement !"
+        "Créez un dossier de location en ligne complet et vérifié par l'Etat pour trouver votre appartement ou votre logement"
     }
   },
   {
     path: "/blog",
     name: "Blog",
     meta: {
-      title: "DossierFacile en articles - DossierFacile",
+      title: "Le blog de DossierFacile",
       description:
         "Venez découvrir nos articles de blog pour vous éclairer sur les points d’éventuelle difficulté que vous rencontrez en créant votre dossier de location"
     },
@@ -150,7 +150,7 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Sécurité et protection des données personnelles - DossierFacile",
       description:
-        "DossierFacile s’engage à protéger vos données personnelles : créez vos dossiers de location en toute sécurité !"
+        "DossierFacile s’engage à protéger vos données personnelles : créez votre dossier de location en toute sécurité"
     },
     component: () =>
       import(
