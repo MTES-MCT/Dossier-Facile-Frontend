@@ -59,10 +59,7 @@
             >
           </li>
           <li class="fr-footer__bottom-item">
-            <a
-              class="fr-footer__bottom-link"
-              :href="`${VUE_APP_MAIN_URL}/faq?lang=${$i18n.locale}`"
-            >
+            <a class="fr-footer__bottom-link" :href="`${VUE_APP_DOCS_URL}`">
               {{ $t("faq") }}
             </a>
           </li>
@@ -202,6 +199,7 @@ import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class MyFooter extends Vue {
   VUE_APP_MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+  VUE_APP_DOCS_URL = `//${process.env.VUE_APP_DOCS_URL}`;
 }
 </script>
 
@@ -258,7 +256,7 @@ export default class MyFooter extends Vue {
   "en": {
     "contact": "Contact us",
     "legals": "Legal notice",
-    "faq": "FAQ",
+    "faq": "Help",
     "blog": "Blog",
     "information": "Information",
     "sources": "Source code",
@@ -267,7 +265,7 @@ export default class MyFooter extends Vue {
   "fr": {
     "contact": "Nous écrire",
     "legals": "Mentions légales",
-    "faq": "FAQ",
+    "faq": "Aide",
     "blog": "Blog",
     "information": "En savoir plus",
     "sources": "Code source",

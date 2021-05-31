@@ -50,7 +50,7 @@ export default class Menu extends Vue {
   newMessage!: number;
 
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
-  DOCS_URL = process.env.VUE_APP_DOCS_URL;
+  DOCS_URL = `//${process.env.VUE_APP_DOCS_URL}`;
 }
 </script>
 
