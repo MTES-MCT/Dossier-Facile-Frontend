@@ -12,7 +12,7 @@
       </a>
     </li>
     <li class="fr-nav__item">
-      <a :href="`${MAIN_URL}/faq?lang=${$i18n.locale}`" class="fr-nav__link">
+      <a :href="`${DOCS_URL}`" class="fr-nav__link">
         {{ $t("faq") }}
       </a>
     </li>
@@ -50,6 +50,7 @@ export default class Menu extends Vue {
   newMessage!: number;
 
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+  DOCS_URL = process.env.VUE_APP_DOCS_URL;
 }
 </script>
 
@@ -80,14 +81,14 @@ export default class Menu extends Vue {
 "en": {
 "profile": "Mon compte",
 "messaging": "Messagerie",
-"faq": "Faq",
+"faq": "Help",
 "blog": "Blog",
 "information": "En savoir plus"
 },
 "fr": {
 "profile": "Mon compte",
 "messaging": "Messagerie",
-"faq": "Faq",
+"faq": "Aide",
 "blog": "Blog",
 "information": "En savoir plus"
 }
