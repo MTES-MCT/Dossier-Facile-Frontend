@@ -87,114 +87,69 @@
 
                 <div class="row" v-if="guarantorHasDoc(g, 'IDENTIFICATION')">
                   <div class="subtitle">Pièce d’identité</div>
-                  <div class="row">
-                    <div
-                      class="edit-step-btn"
-                      @click="openGuarantorDoc(g, 'IDENTIFICATION')"
-                      v-if="guarantorHasFile(g, 'IDENTIFICATION')"
-                    >
-                      <span class="color--primary material-icons md-18"
-                        >visibility</span
-                      >
-                    </div>
-                    <div
-                      class="edit-step-btn"
-                      @click="setGuarantorSubStep(1, g)"
-                    >
-                      <span class="color--primary material-icons md-18"
-                        >edit</span
-                      >
-                    </div>
+                  <div class="row align--center">
+                    <ViewEditBtn
+                      :canView="guarantorHasFile(g, 'IDENTIFICATION')"
+                      @view="openGuarantorDoc(g, 'IDENTIFICATION')"
+                      @edit="setGuarantorSubStep(1, g)"
+                    ></ViewEditBtn>
+                    <FileStatusIcon
+                      :status="getGuarantorStatus(g, 'IDENTIFICATION')"
+                    ></FileStatusIcon>
                   </div>
                 </div>
                 <div class="row" v-if="guarantorHasDoc(g, 'RESIDENCY')">
                   <div class="subtitle">Justificatif de domicile</div>
-                  <div class="row">
-                    <div
-                      class="edit-step-btn"
-                      @click="openGuarantorDoc(g, 'RESIDENCY')"
-                      v-if="guarantorHasFile(g, 'RESIDENCY')"
-                    >
-                      <span class="color--primary material-icons md-18"
-                        >visibility</span
-                      >
-                    </div>
-                    <div
-                      class="edit-step-btn"
-                      @click="setGuarantorSubStep(2, g)"
-                    >
-                      <span class="color--primary material-icons md-18"
-                        >edit</span
-                      >
-                    </div>
+                  <div class="row align--center">
+                    <ViewEditBtn
+                      :canView="guarantorHasFile(g, 'RESIDENCY')"
+                      @view="guarantorHasFile(g, 'RESIDENCY')"
+                      @edit="setGuarantorSubStep(2, g)"
+                    ></ViewEditBtn>
+                    <FileStatusIcon
+                      :status="getGuarantorStatus(g, 'RESIDENCY')"
+                    ></FileStatusIcon>
                   </div>
                 </div>
                 <div class="row" v-if="guarantorHasDoc(g, 'PROFESSIONAL')">
                   <div class="subtitle">
                     Justificatif de situation professionnelle
                   </div>
-                  <div class="row">
-                    <div
-                      class="edit-step-btn"
-                      @click="openGuarantorDoc(g, 'PROFESSIONAL')"
-                      v-if="guarantorHasFile(g, 'PROFESSIONAL')"
-                    >
-                      <span class="color--primary material-icons md-18"
-                        >visibility</span
-                      >
-                    </div>
-                    <div
-                      class="edit-step-btn"
-                      @click="setGuarantorSubStep(3, g)"
-                    >
-                      <span class="color--primary material-icons md-18"
-                        >edit</span
-                      >
-                    </div>
+                  <div class="row align--center">
+                    <ViewEditBtn
+                      :canView="guarantorHasFile(g, 'PROFESSIONAL')"
+                      @view="guarantorHasFile(g, 'PROFESSIONAL')"
+                      @edit="setGuarantorSubStep(2, g)"
+                    ></ViewEditBtn>
+                    <FileStatusIcon
+                      :status="getGuarantorStatus(g, 'PROFESSIONAL')"
+                    ></FileStatusIcon>
                   </div>
                 </div>
                 <div class="row" v-if="guarantorHasDoc(g, 'FINANCIAL')">
                   <div class="subtitle">Justificatif de ressources</div>
-                  <div class="row">
-                    <div
-                      class="edit-step-btn"
-                      @click="openGuarantorDoc(g, 'FINANCIAL')"
-                      v-if="guarantorHasFile(g, 'FINANCIAL')"
-                    >
-                      <span class="color--primary material-icons md-18"
-                        >visibility</span
-                      >
-                    </div>
-                    <div
-                      class="edit-step-btn"
-                      @click="setGuarantorSubStep(4, g)"
-                    >
-                      <span class="color--primary material-icons md-18"
-                        >edit</span
-                      >
-                    </div>
+                  <div class="row align--center">
+                    <ViewEditBtn
+                      :canView="guarantorHasFile(g, 'FINANCIAL')"
+                      @view="guarantorHasFile(g, 'FINANCIAL')"
+                      @edit="setGuarantorSubStep(2, g)"
+                    ></ViewEditBtn>
+                    <FileStatusIcon
+                      :status="getGuarantorStatus(g, 'FINANCIAL')"
+                    ></FileStatusIcon>
                   </div>
                 </div>
                 <div class="row" v-if="guarantorHasDoc(g, 'TAX')">
                   <div class="subtitle">Avis d’imposition</div>
-                  <div class="row">
-                    <div
-                      class="edit-step-btn"
-                      @click="openGuarantorDoc(g, 'TAX')"
-                      v-if="guarantorHasFile(g, 'TAX')"
-                    >
-                      <span class="color--primary material-icons md-18"
-                        >visibility</span
-                      >
-                    </div>
-                    <div
-                      class="edit-step-btn"
-                      @click="setGuarantorSubStep(5, g)"
-                    >
-                      <span class="color--primary material-icons md-18"
-                        >edit</span
-                      >
-                    </div>
+                  <div class="row align--center">
+                    <ViewEditBtn
+                      :canView="guarantorHasFile(g, 'TAX')"
+                      @view="openGuarantorDoc(g, 'TAX')"
+                      @edit="setGuarantorSubStep(2, g)"
+                    ></ViewEditBtn>
+                    <FileStatusIcon
+                      :status="getGuarantorStatus(g, 'TAX')"
+                    ></FileStatusIcon>
                   </div>
                 </div>
               </div>
@@ -210,11 +165,16 @@
 
                 <div class="row">
                   <div class="subtitle">{{ $t("organism") }}</div>
-                  <ViewEditBtn
-                    :canView="guarantorHasFile(g, 'IDENTIFICATION')"
-                    @view="openGuarantorDoc(g, 'IDENTIFICATION')"
-                    @edit="setGuarantorSubStep(1, g)"
-                  ></ViewEditBtn>
+                  <div class="row align--center">
+                    <ViewEditBtn
+                      :canView="guarantorHasFile(g, 'IDENTIFICATION')"
+                      @view="openGuarantorDoc(g, 'IDENTIFICATION')"
+                      @edit="setGuarantorSubStep(1, g)"
+                    ></ViewEditBtn>
+                    <FileStatusIcon
+                      :status="getGuarantorStatus(g, 'IDENTIFICATION')"
+                    ></FileStatusIcon>
+                  </div>
                 </div>
               </div>
             </template>
@@ -230,21 +190,33 @@
                   <div class="subtitle">
                     {{ $t("identification-legal-person") }}
                   </div>
-                  <ViewEditBtn
-                    :canView="
-                      guarantorHasFile(g, 'IDENTIFICATION_LEGAL_PERSON')
-                    "
-                    @view="openGuarantorDoc(g, 'IDENTIFICATION_LEGAL_PERSON')"
-                    @edit="setGuarantorSubStep(1, g)"
-                  ></ViewEditBtn>
+                  <div class="row align--center">
+                    <ViewEditBtn
+                      :canView="
+                        guarantorHasFile(g, 'IDENTIFICATION_LEGAL_PERSON')
+                      "
+                      @view="openGuarantorDoc(g, 'IDENTIFICATION_LEGAL_PERSON')"
+                      @edit="setGuarantorSubStep(1, g)"
+                    ></ViewEditBtn>
+                    <FileStatusIcon
+                      :status="
+                        getGuarantorStatus(g, 'IDENTIFICATION_LEGAL_PERSON')
+                      "
+                    ></FileStatusIcon>
+                  </div>
                 </div>
                 <div class="row">
                   <div class="subtitle">{{ $t("identity-represent") }}</div>
-                  <ViewEditBtn
-                    :canView="guarantorHasFile(g, 'IDENTIFICATION')"
-                    @view="openGuarantorDoc(g, 'IDENTIFICATION')"
-                    @edit="setGuarantorSubStep(2, g)"
-                  ></ViewEditBtn>
+                  <div class="row align--center">
+                    <ViewEditBtn
+                      :canView="guarantorHasFile(g, 'IDENTIFICATION')"
+                      @view="openGuarantorDoc(g, 'IDENTIFICATION')"
+                      @edit="setGuarantorSubStep(2, g)"
+                    ></ViewEditBtn>
+                    <FileStatusIcon
+                      :status="getGuarantorStatus(g, 'IDENTIFICATION')"
+                    ></FileStatusIcon>
+                  </div>
                 </div>
               </div>
             </template>
@@ -422,6 +394,7 @@ export default class Messages extends Vue {
 
   setGuarantorSubStep(n: number, g: Guarantor) {
     AnalyticsService.editFromMessage(n);
+    this.$store.commit("setGuarantorStep", 2);
     this.$store.commit("setSelectedGuarantor", g);
     this.$store.commit("setGuarantorSubstep", n);
     this.setStep(3);
@@ -483,6 +456,19 @@ export default class Messages extends Vue {
       return this.isFinancialValid(docs || []);
     }
     const doc = this.user.documents?.find((d: DfDocument) => {
+      return d.documentCategory === docType;
+    });
+    return doc?.documentStatus;
+  }
+
+  getGuarantorStatus(g: Guarantor, docType: string) {
+    if (docType === "FINANCIAL") {
+      const docs = g.documents?.filter(d => {
+        return d.documentCategory === "FINANCIAL";
+      });
+      return this.isFinancialValid(docs || []);
+    }
+    const doc = g.documents?.find((d: DfDocument) => {
       return d.documentCategory === docType;
     });
     return doc?.documentStatus;
