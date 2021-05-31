@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="s0-background fr-pb-5w fr-pt-md-9w">
+    <section class="s0-background fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
       <div class="fr-container">
         <div class="fr-col-md-8">
           <div class="fr-grid-col">
@@ -23,40 +23,53 @@
         </div>
       </div>
     </section>
-    <section class="fr-mt-12w">
+    <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
       <div class="fr-container">
         <div class="fr-grid-row">
           <div class="fr-col-md-4 fr-grid-col fr-p-2w">
-            <div>
-              <img src="../assets/icons/approval.svg" class="s1-icons" alt="" />
+            <div class="fr-tile fr-enlarge-link">
+              <div class="fr-tile__body">
+                <h4 class="fr-tile__title">
+                  <a class="fr-tile__link" href>{{ $t("s1.h1") }}</a>
+                </h4>
+                <p class="fr-tile__desc">{{ $t("s1.p1") }}</p>
+              </div>
+              <div class="fr-tile__img">
+                <img src="../assets/icons/approval.svg" class="fr-responsive-img" alt="">
+              </div>
             </div>
-            <h2 class="fr-h3 color--secondary">{{ $t("s1.h1") }}</h2>
-            <p class="fr-mt-0">
-              {{ $t("s1.p1") }}
-            </p>
           </div>
           <div class="fr-col-md-4 fr-grid-col fr-p-2w">
-            <div>
-              <img src="../assets/icons/sports.svg" class="s1-icons" alt="" />
+            <div class="fr-tile fr-enlarge-link">
+              <div class="fr-tile__body">
+                <h4 class="fr-tile__title">
+                  <a class="fr-tile__link" href>{{ $t("s1.h2") }}</a>
+                </h4>
+                <p class="fr-tile__desc">{{ $t("s1.p2") }}</p>
+              </div>
+              <div class="fr-tile__img">
+                <img src="../assets/icons/sports.svg" class="fr-responsive-img" alt="">
+              </div>
             </div>
-            <h2 class="fr-h3 color--secondary">{{ $t("s1.h2") }}</h2>
-            <p class="fr-mt-0">
-              {{ $t("s1.p2") }}
-            </p>
           </div>
           <div class="fr-col-md-4 fr-grid-col fr-p-2w">
-            <div>
-              <img src="../assets/icons/reading.svg" class="s1-icons" alt="" />
+            <div class="fr-tile fr-enlarge-link">
+              <div class="fr-tile__body">
+                <h4 class="fr-tile__title">
+                  <a class="fr-tile__link" href>{{ $t("s1.h3") }}</a>
+                </h4>
+                <p class="fr-tile__desc">{{ $t("s1.p3") }}</p>
+              </div>
+              <div class="fr-tile__img">
+                <img src="../assets/icons/reading.svg" class="fr-responsive-img" alt="">
+              </div>
             </div>
-            <h2 class="fr-h3 color--secondary">{{ $t("s1.h3") }}</h2>
-            <p class="fr-mt-0">
-              {{ $t("s1.p3") }}
-            </p>
+
           </div>
         </div>
       </div>
     </section>
-    <section class="fr-mt-12w fr-pt-3w fr-pt-md-9w fr-pb-md-9w bg-blue-grey">
+    <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-3w bg-blue-grey">
       <div class="fr-container">
         <h2 class="fr-h2 s2-title">{{ $t("s2.title") }}</h2>
         <div class="fr-grid-row">
@@ -90,8 +103,8 @@
         </DfButton>
       </div>
     </section>
-    <section class="fr-mt-12w">
-      <div class="bg--orange fr-pt-7w fr-pb-7w">
+    <section class="bg--orange fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
+      <div class="fr-pt-7w fr-pb-7w">
         <div class="fr-container">
           <h2 class="fr-h2 s3-title">{{ $t("s3.title") }}</h2>
           <p>
@@ -108,7 +121,7 @@
         </div>
       </div>
     </section>
-    <section class="fr-mt-12w">
+    <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
       <div class="fr-container fr-mb-7w">
         <h2 class="fr-h2 text-center">
           {{ $t("s4.title1") }}
@@ -153,7 +166,7 @@
         </div>
       </div>
     </section>
-    <section class="fr-mt-12w">
+    <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
       <div class="fr-container fr-mb-7w">
         <h2 class="fr-h2 text-center">
           {{ $t("s5.title1") }}
