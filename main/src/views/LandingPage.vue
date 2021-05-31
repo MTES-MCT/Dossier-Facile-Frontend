@@ -29,9 +29,9 @@
           <div class="fr-col-md-4 fr-grid-col fr-p-2w">
             <div class="fr-tile fr-enlarge-link">
               <div class="fr-tile__body">
-                <h4 class="fr-tile__title">
-                  <a class="fr-tile__link" href>{{ $t("s1.h1") }}</a>
-                </h4>
+                <h2 class="fr-tile__title">
+                  <a class="fr-tile__link" href="#">{{ $t("s1.h1") }}</a>
+                </h2>
                 <p class="fr-tile__desc">{{ $t("s1.p1") }}</p>
               </div>
               <div class="fr-tile__img">
@@ -42,9 +42,9 @@
           <div class="fr-col-md-4 fr-grid-col fr-p-2w">
             <div class="fr-tile fr-enlarge-link">
               <div class="fr-tile__body">
-                <h4 class="fr-tile__title">
-                  <a class="fr-tile__link" href>{{ $t("s1.h2") }}</a>
-                </h4>
+                <h2 class="fr-tile__title">
+                  <a class="fr-tile__link" href="#">{{ $t("s1.h2") }}</a>
+                </h2>
                 <p class="fr-tile__desc">{{ $t("s1.p2") }}</p>
               </div>
               <div class="fr-tile__img">
@@ -55,9 +55,9 @@
           <div class="fr-col-md-4 fr-grid-col fr-p-2w">
             <div class="fr-tile fr-enlarge-link">
               <div class="fr-tile__body">
-                <h4 class="fr-tile__title">
-                  <a class="fr-tile__link" href>{{ $t("s1.h3") }}</a>
-                </h4>
+                <h2 class="fr-tile__title">
+                  <a class="fr-tile__link" href="#">{{ $t("s1.h3") }}</a>
+                </h2>
                 <p class="fr-tile__desc">{{ $t("s1.p3") }}</p>
               </div>
               <div class="fr-tile__img">
