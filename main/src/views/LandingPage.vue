@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="s0-background fr-pb-5w">
+    <section class="s0-background fr-pb-5w fr-pt-md-9w">
       <div class="fr-container">
         <div class="fr-col-md-8">
           <div class="fr-grid-col">
@@ -56,7 +56,7 @@
         </div>
       </div>
     </section>
-    <section class="fr-mt-12w">
+    <section class="fr-mt-12w fr-pt-3w fr-pt-md-9w fr-pb-md-9w bg-blue-grey">
       <div class="fr-container">
         <h2 class="fr-h2 s2-title">{{ $t("s2.title") }}</h2>
         <div class="fr-grid-row">
@@ -389,6 +389,10 @@ a[target="_blank"].logo-link::after {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.bg-blue-grey {
+  background-color: #f2f2f9;
 }
 </style>
 
