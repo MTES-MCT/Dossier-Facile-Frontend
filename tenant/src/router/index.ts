@@ -12,7 +12,13 @@ const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: "Home",
-    component: Home
+    component: Home,
+    meta: {
+      title: "DossierFacile, le dossier de location numérique de l’État",
+      description:
+        "Créez un dossier de location en ligne complet et vérifié par l'Etat pour trouver votre appartement ou votre logement",
+      hideForAuth: true
+    }
   },
   {
     path: "/login",
