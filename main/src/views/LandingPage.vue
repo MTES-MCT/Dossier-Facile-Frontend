@@ -72,20 +72,20 @@
     <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-3w bg-blue-grey">
       <div class="fr-container">
         <h2 class="fr-h2 s2-title">{{ $t("s2.title") }}</h2>
-        <div class="fr-grid-row">
+        <div class="fr-grid-row reverse-mobile">
           <div class="fr-col-md-6 fr-grid-col">
             <div class="fr-grid-row align-items--center">
               <div class="step-number">1</div>
               <h2 class="fr-h4 fr-mb-0">{{ $t("s2.h1") }}</h2>
             </div>
             <p>{{ $t("s2.p1") }}
-            <ul class="fr-pt-2w">
-              <li>{{ $t("s2.u1a") }}</li>
-              <li>{{ $t("s2.u1b") }}</li>
-              <li>{{ $t("s2.u1c") }}</li>
-              <li>{{ $t("s2.u1d") }}</li>
-              <li>{{ $t("s2.u1e") }}</li>
-            </ul>
+              <ul class="fr-pt-2w">
+                <li>{{ $t("s2.u1a") }}</li>
+                <li>{{ $t("s2.u1b") }}</li>
+                <li>{{ $t("s2.u1c") }}</li>
+                <li>{{ $t("s2.u1d") }}</li>
+                <li>{{ $t("s2.u1e") }}</li>
+              </ul>
             </p>
 
             <div class="fr-grid-row align-items--center">
@@ -446,6 +446,12 @@ a[target="_blank"].logo-link::after {
 
 .full-width {
   width: 100%;
+}
+
+.reverse-mobile {
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+  }
 }
 </style>
 
