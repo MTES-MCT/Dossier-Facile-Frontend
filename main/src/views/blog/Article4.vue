@@ -50,15 +50,15 @@
                 </li>
                 <li>
                   <b>Un justificatif d’activité professionnelle :</b> contrat de
-                  travail ou de stage, attestation de l'employeur, carte
-                  d'étudiant recto-verso ou certificat de scolarité pour l'année
-                  en cours, copie de la carte professionnelle (profession
-                  libérale), copie du certificat d'identification de l'Insee
-                  comportant les numéros d'identification (travailleur
-                  indépendant), extrait D1 original du registre des métiers de
-                  moins de 3 mois (artisan), extrait K ou K bis du registre du
-                  commerce et des sociétés de moins de 3 mois (entreprises
-                  commerciales).
+                  travail ou de stage ou d'engagement (service civique),
+                  attestation de l'employeur, carte d'étudiant recto-verso ou
+                  certificat de scolarité pour l'année en cours, copie de la
+                  carte professionnelle (profession libérale), copie du
+                  certificat d'identification de l'Insee comportant les numéros
+                  d'identification (travailleur indépendant), extrait D1
+                  original du registre des métiers de moins de 3 mois (artisan),
+                  extrait K ou K bis du registre du commerce et des sociétés de
+                  moins de 3 mois (entreprises commerciales).
                 </li>
                 <li>
                   <b>Un justificatif de ressources :</b> 3 derniers bulletins de
