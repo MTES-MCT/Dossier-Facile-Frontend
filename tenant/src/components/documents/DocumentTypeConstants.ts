@@ -367,7 +367,8 @@ export const DocumentTypeConstants = {
         "Attestation d’ouverture de droit AAH (adulte en situation de handicap)",
         "Attestation d’ouverture des droits au RSA (mère/père au foyer)",
         "Toute pièce de moins de 3 mois attestant de l’activité professionnelle (autres cas d’activité)",
-        "Déclaration de non-activité si vous êtes sans activité"
+        "Déclaration de non-activité si vous êtes sans activité",
+        "Contrat ou attestation d’engagement en service civique ou volontariat.<br> Photocopie (recto-verso) de votre carte du volontaire"
       ],
       refusedProofs: ["Relevés de comptes bancaires"],
       maxFileCount: 10
@@ -570,7 +571,8 @@ export const DocumentTypeConstants = {
       acceptedProofs: [
         "3 derniers bulletins de salaire",
         "Justificatif de versement des indemnités de stage",
-        "2 derniers bilans comptables ou, si nécessaire, attestation des ressources pour l’exercice en cours délivrés par un comptable (non-salariés)"
+        "2 derniers bilans comptables ou, si nécessaire, attestation des ressources pour l’exercice en cours délivrés par un comptable (non-salariés)",
+        "Justificatif de versement des indemnités de stage, de service civique ou la page de votre contrat mentionnant le montant de ces indemnités"
       ],
       refusedProofs: [
         "Pièces trop anciennes",
