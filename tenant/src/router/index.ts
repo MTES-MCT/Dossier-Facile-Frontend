@@ -6,17 +6,11 @@ import store from "@/store";
 
 Vue.use(VueRouter);
 
+const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+
 const routes: Array<RouteConfig> = [
   {
-    path: "/",
-    name: "Home",
-    component: Home,
-    meta: {
-      title: "DossierFacile, le dossier de location numérique de l’État",
-      description:
-        "Créez un dossier de location en ligne complet et vérifié par l'Etat pour trouver votre appartement ou votre logement",
-      hideForAuth: true
-    }
+    path: "/"
   },
   {
     path: "/login",
@@ -24,8 +18,7 @@ const routes: Array<RouteConfig> = [
     component: LoginPage,
     meta: {
       title: "Connexion à mon compte - DossierFacile",
-      description:
-        "Connectez-vous à votre espace personnel DossierFacile",
+      description: "Connectez-vous à votre espace personnel DossierFacile",
       hideForAuth: true
     }
   },
@@ -34,8 +27,7 @@ const routes: Array<RouteConfig> = [
     name: "Signup",
     meta: {
       title: "Création de compte - DossierFacile",
-      description:
-        "Créez votre compte en quelques clics sur DossierFacile",
+      description: "Créez votre compte en quelques clics sur DossierFacile",
       hideForAuth: true
     },
     component: () =>
@@ -172,7 +164,10 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/locataire",
-    redirect: "/"
+    redirect: () => {
+      window.location.replace(`${MAIN_URL}`);
+      return "/info-proprietaire";
+    }
   },
   {
     path: "*",
@@ -194,6 +189,16 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  if (to.fullPath === "/") {
+    if (store.getters.isLoggedIn) {
+      next({
+        name: "Compte"
+      });
+    } else {
+      window.location.replace(`${MAIN_URL}`);
+    }
+    return;
+  }
   if (to.query.lang) {
     const locale = to.query.lang === "en" ? "en" : "fr";
     store.dispatch("setLang", locale);
