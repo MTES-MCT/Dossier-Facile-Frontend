@@ -74,7 +74,10 @@
         <h2 class="fr-h2 s2-title">{{ $t("s2.title") }}</h2>
         <div class="fr-grid-row">
           <div class="fr-col-md-6 fr-grid-col">
-            <h2 class="fr-h4 color--secondary fr-mb-0">{{ $t("s2.h1") }}</h2>
+            <div class="fr-grid-row align-items--center">
+              <div class="step-number">1</div>
+              <h2 class="fr-h4 fr-mb-0">{{ $t("s2.h1") }}</h2>
+            </div>
             <p>{{ $t("s2.p1") }}
             <ul class="fr-pt-2w">
               <li>{{ $t("s2.u1a") }}</li>
@@ -85,10 +88,16 @@
             </ul>
             </p>
 
-            <h2 class="fr-h4 color--secondary fr-mb-0">{{ $t("s2.h2") }}</h2>
+            <div class="fr-grid-row align-items--center">
+              <div class="step-number">2</div>
+              <h2 class="fr-h4 fr-mb-0">{{ $t("s2.h2") }}</h2>
+            </div>
             <p>{{ $t("s2.p2") }}</p>
 
-            <h2 class="fr-h4 color--secondary fr-mb-0">{{ $t("s2.h3") }}</h2>
+            <div class="fr-grid-row align-items--center">
+              <div class="step-number">3</div>
+              <h2 class="fr-h4 fr-mb-0">{{ $t("s2.h3") }}</h2>
+            </div>
             <p>{{ $t("s2.p3") }}</p>
             <DfButton class="fr-mt-2w"
               @on-click="gotoDocs"
@@ -385,10 +394,23 @@ ul li {
 }
 
 ul li:before {
-  content: "\2713";
+  content: "";
   display: inline-block;
   color: limegreen;
   font-size: 1rem;
+}
+
+.step-number {
+  background-color: var(--primary);
+  color: white;
+  margin-right: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  height: 25px;
+  width: 25px;
+  min-width: 25px;
+  text-align: center;
+  z-index: 1;
 }
 
 img {
