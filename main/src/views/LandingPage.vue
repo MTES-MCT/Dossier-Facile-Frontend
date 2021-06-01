@@ -90,17 +90,26 @@
 
             <h2 class="fr-h4 color--secondary fr-mb-0">{{ $t("s2.h3") }}</h2>
             <p>{{ $t("s2.p3") }}</p>
+            <DfButton class="fr-mt-2w"
+              @on-click="gotoDocs"
+            >
+              <span class="text-center full-width">
+                {{ $t("docs") }}
+              </span>
+            </DfButton>
+            <DfButton class="fr-mt-2w"
+              primary="true"
+              @on-click="gotoTenant"
+            >
+              <span class="text-center full-width">
+                {{ $t("button") }}
+              </span>
+            </DfButton>
           </div>
           <div class="fr-col-md-6">
             <img src="../assets/icons/justif.webp" alt="" />
           </div>
         </div>
-        <DfButton
-          primary="true"
-          @on-click="gotoTenant"
-        >
-          {{ $t("button") }}
-        </DfButton>
       </div>
     </section>
     <section class="bg--orange fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
@@ -299,6 +308,7 @@ import DfButton from "df-shared/src/Button/Button.vue";
 )
 export default class LandingPage extends Vue {
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
+  DOCS_URL = `//${process.env.VUE_APP_DOCS_URL}`;
 
   getH1Class() {
     return window.innerWidth < 992 ? "fr-h2" : "fr-h1";
@@ -306,6 +316,10 @@ export default class LandingPage extends Vue {
 
   gotoTenant() {
     window.location.href = `${this.TENANT_URL}/signup?lang=${this.$i18n.locale}`;
+  }
+
+  gotoDocs() {
+    window.location.href = `${this.DOCS_URL}`;
   }
 }
 </script>
@@ -407,12 +421,17 @@ a[target="_blank"].logo-link::after {
 .bg-blue-grey {
   background-color: #f2f2f9;
 }
+
+.full-width {
+  width: 100%;
+}
 </style>
 
 <i18n>
 {
   "en": {
     "button": "Build my rental file",
+    "docs": "How to prepare my rental file",
     "s0": {
       "title": "Build a concrete rental file to find the accommodation of your dreams",
       "text": "DossierFacile helps you build a high-quality digital rental",
@@ -466,6 +485,7 @@ a[target="_blank"].logo-link::after {
   },
   "fr": {
     "button": "Monter mon dossier de location",
+    "docs": "Comment préparer mon dossier de location",
     "s0": {
       "title": "Montez un dossier de location en béton pour trouver le logement de vos rêves",
       "text": "DossierFacile vous aide à constituer un dossier de location numérique ",
