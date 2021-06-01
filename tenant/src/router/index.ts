@@ -10,7 +10,9 @@ const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
 
 const routes: Array<RouteConfig> = [
   {
-    path: "/"
+    path: "/",
+    name: "Home",
+    component: Home
   },
   {
     path: "/login",
@@ -189,16 +191,6 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.fullPath === "/") {
-    if (store.getters.isLoggedIn) {
-      next({
-        name: "Compte"
-      });
-    } else {
-      window.location.replace(`${MAIN_URL}`);
-    }
-    return;
-  }
   if (to.query.lang) {
     const locale = to.query.lang === "en" ? "en" : "fr";
     store.dispatch("setLang", locale);
