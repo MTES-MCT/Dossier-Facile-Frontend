@@ -104,7 +104,12 @@ export default class App extends Vue {
         config: {
           id: "UA-50823626-2",
           linker: {
-            domains: ["dossierfacile.fr"]
+            domains: [
+              "dossierfacile.fr",
+              "www.dossierfacile.fr",
+              "locataire.dossierfacile.fr",
+              "proprietaire.dossierfacile.fr"
+            ]
           }
         }
       },
