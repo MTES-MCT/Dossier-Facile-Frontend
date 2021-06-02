@@ -19,13 +19,15 @@ export default class Home extends Vue {
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
 
   mounted() {
-    if (this.isLoggedIn) {
-      window.location.replace(`${this.TENANT_URL}/account`);
-    } else {
-      console.dir(this.MAIN_URL);
-      window.location.href = `https://${this.MAIN_URL}`;
-    }
-    return;
+    this.$nextTick(function() {
+      window.stop();
+      if (this.isLoggedIn) {
+        window.location.replace(`${this.TENANT_URL}/account`);
+      } else {
+        window.location.replace(this.MAIN_URL);
+      }
+      return;
+    });
   }
 }
 </script>

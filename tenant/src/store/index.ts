@@ -14,6 +14,8 @@ import { AnalyticsService } from "@/services/AnalyticsService";
 
 Vue.use(Vuex);
 
+const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+
 export class DfState {
   tenantStep = 0;
   tenantSubStep = 1;
@@ -178,7 +180,7 @@ const store = new Vuex.Store({
       commit("logout");
       commit("initState");
       if (redirect) {
-        router.push("/").then();
+        window.location.replace(MAIN_URL);
       }
     },
     deleteAccount({ commit }, password) {
