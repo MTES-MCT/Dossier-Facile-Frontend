@@ -44,6 +44,7 @@ import Modal from "df-shared/src/components/Modal.vue";
   }
 })
 export default class SignupPage extends Vue {
+  MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
   isValidModalVisible = false;
   onRegister(user: User) {
     if (user.email && user.password) {
@@ -73,7 +74,7 @@ export default class SignupPage extends Vue {
   }
   closeModal() {
     this.isValidModalVisible = false;
-    this.$router.push("/");
+    window.location.replace(this.MAIN_URL);
   }
 }
 </script>
