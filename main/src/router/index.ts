@@ -123,15 +123,25 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Article7.vue")
   },
   {
-    path: "/blog/un-garant-qui-comment-pourquoi",
+    path: "/blog/comment-justifier-son-domicile",
     name: "Article8",
     meta: {
-      title: "Un garant ? Qui ? Comment ? Pourquoi ? - DossierFacile",
+      title: "Comment justifier son domicile - DossierFacile",
       description:
-        "Afin de mieux répondre aux besoins de nos locataires et propriétaires, le service DossierFacile fait peau neuve avec un nouveau site"
+        "On peut distinguer quatre cas classiques de justificatif de domicile mais il en existe en fait bien plus"
     },
     component: () =>
       import(/* webpackChunkName: "blog" */ "../views/blog/Article8.vue")
+  },
+  {
+    path: "/blog/un-garant-qui-comment-pourquoi",
+    name: "Article9",
+    meta: {
+      title: "Un garant ? Qui ? Comment ? Pourquoi ? - DossierFacile",
+      description: "Un garant ? Qui ? Comment ? Pourquoi ? - DossierFacile"
+    },
+    component: () =>
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article9.vue")
   },
   {
     path: "/information",
