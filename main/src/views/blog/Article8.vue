@@ -47,7 +47,7 @@
                 qui ne prouve pas nécessairement que vous êtes bon payeur !
               </p>
               <p>
-                S’il votre propriétaire n’a pas l’habitude de vous délivrer des
+                Si votre propriétaire n’a pas l’habitude de vous délivrer des
                 quittances de loyer, vous êtes cependant en droit de les lui
                 demander. Vous pouvez aussi lui demander un document équivalent
                 : une attestation de bon paiement des loyers, qui a l’avantage
@@ -117,7 +117,7 @@
               </p>
               <p>
                 En tout cas, quelle que soit votre situation, n’hésitez pas à
-                venir en discuter dans votre messagerie !
+                venir en discuter dans votre messagerie ou dans le chat !
               </p>
             </div>
           </article>
