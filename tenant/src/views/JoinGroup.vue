@@ -41,11 +41,22 @@ export default class JoinCouple extends Vue {
         });
         this.$router.push("/profile");
       },
-      () => {
-        this.$toasted.show(this.$i18n.t("error").toString(), {
-          type: "error",
-          duration: 7000
-        });
+      (error: any) => {
+        if (
+          error.response.data.message.includes(
+            "password recovery token or is expired"
+          )
+        ) {
+          this.$toasted.show(this.$i18n.t("token-expired").toString(), {
+            type: "error",
+            duration: 7000
+          });
+        } else {
+          this.$toasted.show(this.$i18n.t("error").toString(), {
+            type: "error",
+            duration: 7000
+          });
+        }
       }
     );
   }

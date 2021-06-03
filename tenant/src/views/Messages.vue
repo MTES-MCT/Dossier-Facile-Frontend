@@ -119,7 +119,7 @@
                     <ViewEditBtn
                       :canView="guarantorHasFile(g, 'PROFESSIONAL')"
                       @view="guarantorHasFile(g, 'PROFESSIONAL')"
-                      @edit="setGuarantorSubStep(2, g)"
+                      @edit="setGuarantorSubStep(3, g)"
                     ></ViewEditBtn>
                     <FileStatusIcon
                       :status="getGuarantorStatus(g, 'PROFESSIONAL')"
@@ -132,7 +132,7 @@
                     <ViewEditBtn
                       :canView="guarantorHasFile(g, 'FINANCIAL')"
                       @view="guarantorHasFile(g, 'FINANCIAL')"
-                      @edit="setGuarantorSubStep(2, g)"
+                      @edit="setGuarantorSubStep(4, g)"
                     ></ViewEditBtn>
                     <FileStatusIcon
                       :status="getGuarantorStatus(g, 'FINANCIAL')"
@@ -145,7 +145,7 @@
                     <ViewEditBtn
                       :canView="guarantorHasFile(g, 'TAX')"
                       @view="openGuarantorDoc(g, 'TAX')"
-                      @edit="setGuarantorSubStep(2, g)"
+                      @edit="setGuarantorSubStep(5, g)"
                     ></ViewEditBtn>
                     <FileStatusIcon
                       :status="getGuarantorStatus(g, 'TAX')"
