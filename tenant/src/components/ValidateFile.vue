@@ -139,7 +139,10 @@ export default class ValidateFile extends Vue {
     if (this.declaration && (!this.hasGuarantors() || this.declaration2)) {
       const loader = Vue.$loading.show();
       this.$store
-        .dispatch("validateFile", true)
+        .dispatch("validateFile", {
+          honorDeclaration: true,
+          clarification: this.precision
+        })
         .catch(() => {
           Vue.toasted.global.error();
         })
