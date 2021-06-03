@@ -59,7 +59,11 @@
             >
           </li>
           <li class="fr-footer__bottom-item">
-            <a class="fr-footer__bottom-link" :href="`${VUE_APP_DOCS_URL}`">
+            <a
+              class="fr-footer__bottom-link"
+              :href="`${VUE_APP_DOCS_URL}`"
+              target="_blank"
+            >
               {{ $t("faq") }}
             </a>
           </li>

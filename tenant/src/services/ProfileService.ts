@@ -20,10 +20,10 @@ export const ProfileService = {
       data
     );
   },
-  validateFile(honorDeclaration: boolean) {
+  validateFile(honorDeclaration: boolean, clarification: string) {
     return axios.post(
       `//${process.env.VUE_APP_API_URL}/api/register/honorDeclaration`,
-      { honorDeclaration }
+      { honorDeclaration, clarification }
     );
   },
   setGuarantorType(typeGuarantor: string) {

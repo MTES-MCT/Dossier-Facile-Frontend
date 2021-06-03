@@ -254,8 +254,14 @@ const store = new Vuex.Store({
       i18n.locale = lang;
       commit("setLang", lang);
     },
-    validateFile({ commit }, honorDeclaration: boolean) {
-      return ProfileService.validateFile(honorDeclaration).then(
+    validateFile(
+      { commit },
+      data: { honorDeclaration: boolean; clarification: string }
+    ) {
+      return ProfileService.validateFile(
+        data.honorDeclaration,
+        data.clarification
+      ).then(
         () => {
           AnalyticsService.validateFile();
           this.dispatch("loadUser").then(() => {
