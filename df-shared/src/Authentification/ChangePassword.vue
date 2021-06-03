@@ -137,7 +137,8 @@ export default class ChangePassword extends Vue {
     "confirm": "Confirm password",
     "password-not-confirmed": "Password not confirmed",
     "pwd-not-complex": "Password not secure enough",
-    "field-required": "This field is required"
+    "field-required": "This field is required",
+    "submit": "Submit"
   },
   "fr": {
     "title": "Modification du mot de passe",
@@ -147,7 +148,8 @@ export default class ChangePassword extends Vue {
     "confirm": "Confirmation du mot de passe",
     "password-not-confirmed": "Le mot de passe ne correspond pas",
     "pwd-not-complex": "Mot de passe trop simple",
-    "field-required": "Ce champ est requis"
+    "field-required": "Ce champ est requis",
+    "submit": "Valider"
   }
 }
 </i18n>
