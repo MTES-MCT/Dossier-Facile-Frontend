@@ -328,7 +328,7 @@ export default class LandingPage extends Vue {
   }
 
   gotoDocs() {
-    window.location.href = `${this.DOCS_URL}`;
+    window.open(`${this.DOCS_URL}`, "_blank");
   }
 }
 </script>

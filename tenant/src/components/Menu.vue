@@ -12,7 +12,7 @@
       </a>
     </li>
     <li class="fr-nav__item">
-      <a :href="`${DOCS_URL}`" class="fr-nav__link">
+      <a :href="`${DOCS_URL}`" class="fr-nav__link" target="_blank">
         {{ $t("faq") }}
       </a>
     </li>
