@@ -1,6 +1,5 @@
 User-agent: *
 Disallow: /profile
-Disallow: /forgotten-password
 Disallow: /reset-password
 Disallow: /public-file/*
 Disallow: /file/*
