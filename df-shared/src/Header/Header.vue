@@ -32,7 +32,7 @@
                   <img
                     class="logo"
                     src="./logo_dossierfacile.webp"
-                    alt="logo Dossier Facile"
+                    alt="logo"
                   />
                 </p>
               </a>
