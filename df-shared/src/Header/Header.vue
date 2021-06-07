@@ -15,7 +15,7 @@
                 <button
                   class="fr-btn--menu fr-btn"
                   data-fr-opened="false"
-                  aria-controls="modal-833"
+                  aria-controls="modal-dc"
                   aria-haspopup="menu"
                   title="Menu"
                 >
@@ -32,7 +32,7 @@
                   <img
                     class="logo"
                     src="./logo_dossierfacile.webp"
-                    alt="logo Dossier Facile"
+                    alt="logo"
                   />
                 </p>
               </a>
@@ -84,13 +84,9 @@
       </div>
     </div>
     <!-- Navigation principale -->
-    <div
-      class="fr-header__menu fr-modal"
-      id="modal-833"
-      aria-labelledby="button-834"
-    >
+    <div class="fr-header__menu fr-modal" id="modal-dc">
       <div class="fr-container">
-        <button class="fr-link--close fr-link" aria-controls="modal-833">
+        <button class="fr-link--close fr-link" aria-controls="modal-dc">
           Fermer
         </button>
         <div class="fr-header__menu-links"></div>

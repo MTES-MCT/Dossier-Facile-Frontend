@@ -25,11 +25,22 @@ export default class ChangePasswordPage extends Vue {
         });
         this.$router.push("/profile");
       },
-      () => {
-        this.$toasted.show(this.$i18n.t("error").toString(), {
-          type: "error",
-          duration: 7000
-        });
+      (error: any) => {
+        if (
+          error.response.data.message.includes(
+            "password recovery token or is expired"
+          )
+        ) {
+          this.$toasted.show(this.$i18n.t("token-expired").toString(), {
+            type: "error",
+            duration: 7000
+          });
+        } else {
+          this.$toasted.show(this.$i18n.t("error").toString(), {
+            type: "error",
+            duration: 7000
+          });
+        }
       }
     );
   }
@@ -40,11 +51,13 @@ export default class ChangePasswordPage extends Vue {
 {
   "en": {
     "error": "Error",
-    "password-update": "The password has been updated"
+    "password-update": "The password has been updated",
+    "token-expired": "The token has expired, please run the forgotten password process"
   },
   "fr": {
     "error": "Erreur",
-    "password-update": "Le mot de passe a été mis-à-jour"
+    "password-update": "Le mot de passe a été mis-à-jour",
+    "token-expired": "Le token a expiré, veuillez lancer la procédure de mot de passe oublié"
   }
 }
 

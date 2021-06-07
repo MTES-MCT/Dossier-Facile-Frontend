@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="s0-background fr-pb-5w">
+    <section class="s0-background fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
       <div class="fr-container">
         <div class="fr-col-md-8">
           <div class="fr-grid-col">
@@ -23,75 +23,106 @@
         </div>
       </div>
     </section>
-    <section class="fr-mt-12w">
+    <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
       <div class="fr-container">
         <div class="fr-grid-row">
           <div class="fr-col-md-4 fr-grid-col fr-p-2w">
-            <div>
-              <img src="../assets/icons/approval.svg" class="s1-icons" alt="" />
+            <div class="fr-tile fr-enlarge-link">
+              <div class="fr-tile__body">
+                <h2 class="fr-tile__title">
+                  <div class="fr-tile__link" href="#">{{ $t("s1.h1") }}</div>
+                </h2>
+                <p class="fr-tile__desc">{{ $t("s1.p1") }}</p>
+              </div>
+              <div class="fr-tile__img">
+                <img src="../assets/icons/approval.svg" class="fr-responsive-img" alt="">
+              </div>
             </div>
-            <h2 class="fr-h3 color--secondary">{{ $t("s1.h1") }}</h2>
-            <p class="fr-mt-0">
-              {{ $t("s1.p1") }}
-            </p>
           </div>
           <div class="fr-col-md-4 fr-grid-col fr-p-2w">
-            <div>
-              <img src="../assets/icons/sports.svg" class="s1-icons" alt="" />
+            <div class="fr-tile fr-enlarge-link">
+              <div class="fr-tile__body">
+                <h2 class="fr-tile__title">
+                  <div class="fr-tile__link" href="#">{{ $t("s1.h2") }}</div>
+                </h2>
+                <p class="fr-tile__desc">{{ $t("s1.p2") }}</p>
+              </div>
+              <div class="fr-tile__img">
+                <img src="../assets/icons/sports.svg" class="fr-responsive-img" alt="">
+              </div>
             </div>
-            <h2 class="fr-h3 color--secondary">{{ $t("s1.h2") }}</h2>
-            <p class="fr-mt-0">
-              {{ $t("s1.p2") }}
-            </p>
           </div>
           <div class="fr-col-md-4 fr-grid-col fr-p-2w">
-            <div>
-              <img src="../assets/icons/reading.svg" class="s1-icons" alt="" />
+            <div class="fr-tile fr-enlarge-link">
+              <div class="fr-tile__body">
+                <h2 class="fr-tile__title">
+                  <div class="fr-tile__link" href="#">{{ $t("s1.h3") }}</div>
+                </h2>
+                <p class="fr-tile__desc">{{ $t("s1.p3") }}</p>
+              </div>
+              <div class="fr-tile__img">
+                <img src="../assets/icons/reading.svg" class="fr-responsive-img" alt="">
+              </div>
             </div>
-            <h2 class="fr-h3 color--secondary">{{ $t("s1.h3") }}</h2>
-            <p class="fr-mt-0">
-              {{ $t("s1.p3") }}
-            </p>
+
           </div>
         </div>
       </div>
     </section>
-    <section class="fr-mt-12w">
+    <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-3w bg-blue-grey">
       <div class="fr-container">
         <h2 class="fr-h2 s2-title">{{ $t("s2.title") }}</h2>
-        <div class="fr-grid-row">
+        <div class="fr-grid-row reverse-mobile">
           <div class="fr-col-md-6 fr-grid-col">
-            <h2 class="fr-h4 color--secondary fr-mb-0">{{ $t("s2.h1") }}</h2>
+            <div class="fr-grid-row align-items--center">
+              <div class="step-number">1</div>
+              <h2 class="fr-h4 fr-mb-0">{{ $t("s2.h1") }}</h2>
+            </div>
             <p>{{ $t("s2.p1") }}
-            <ul class="fr-pt-2w">
-              <li>{{ $t("s2.u1a") }}</li>
-              <li>{{ $t("s2.u1b") }}</li>
-              <li>{{ $t("s2.u1c") }}</li>
-              <li>{{ $t("s2.u1d") }}</li>
-              <li>{{ $t("s2.u1e") }}</li>
-            </ul>
+              <ul class="fr-pt-2w">
+                <li>{{ $t("s2.u1a") }}</li>
+                <li>{{ $t("s2.u1b") }}</li>
+                <li>{{ $t("s2.u1c") }}</li>
+                <li>{{ $t("s2.u1d") }}</li>
+                <li>{{ $t("s2.u1e") }}</li>
+              </ul>
             </p>
 
-            <h2 class="fr-h4 color--secondary fr-mb-0">{{ $t("s2.h2") }}</h2>
+            <div class="fr-grid-row align-items--center">
+              <div class="step-number">2</div>
+              <h2 class="fr-h4 fr-mb-0">{{ $t("s2.h2") }}</h2>
+            </div>
             <p>{{ $t("s2.p2") }}</p>
 
-            <h2 class="fr-h4 color--secondary fr-mb-0">{{ $t("s2.h3") }}</h2>
+            <div class="fr-grid-row align-items--center">
+              <div class="step-number">3</div>
+              <h2 class="fr-h4 fr-mb-0">{{ $t("s2.h3") }}</h2>
+            </div>
             <p>{{ $t("s2.p3") }}</p>
+            <DfButton class="fr-mt-2w"
+              @on-click="gotoDocs"
+            >
+              <span class="text-center full-width">
+                {{ $t("docs") }}
+              </span>
+            </DfButton>
+            <DfButton class="fr-mt-2w"
+              primary="true"
+              @on-click="gotoTenant"
+            >
+              <span class="text-center full-width">
+                {{ $t("button") }}
+              </span>
+            </DfButton>
           </div>
           <div class="fr-col-md-6">
             <img src="../assets/icons/justif.webp" alt="" />
           </div>
         </div>
-        <DfButton
-          primary="true"
-          @on-click="gotoTenant"
-        >
-          {{ $t("button") }}
-        </DfButton>
       </div>
     </section>
-    <section class="fr-mt-12w">
-      <div class="bg--orange fr-pt-7w fr-pb-7w">
+    <section class="bg--orange fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
+      <div class="fr-pt-7w fr-pb-7w">
         <div class="fr-container">
           <h2 class="fr-h2 s3-title">{{ $t("s3.title") }}</h2>
           <p>
@@ -108,7 +139,7 @@
         </div>
       </div>
     </section>
-    <section class="fr-mt-12w">
+    <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
       <div class="fr-container fr-mb-7w">
         <h2 class="fr-h2 text-center">
           {{ $t("s4.title1") }}
@@ -153,7 +184,7 @@
         </div>
       </div>
     </section>
-    <section class="fr-mt-12w">
+    <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
       <div class="fr-container fr-mb-7w">
         <h2 class="fr-h2 text-center">
           {{ $t("s5.title1") }}
@@ -286,6 +317,7 @@ import DfButton from "df-shared/src/Button/Button.vue";
 )
 export default class LandingPage extends Vue {
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
+  DOCS_URL = `//${process.env.VUE_APP_DOCS_URL}`;
 
   getH1Class() {
     return window.innerWidth < 992 ? "fr-h2" : "fr-h1";
@@ -293,6 +325,10 @@ export default class LandingPage extends Vue {
 
   gotoTenant() {
     window.location.href = `${this.TENANT_URL}/signup?lang=${this.$i18n.locale}`;
+  }
+
+  gotoDocs() {
+    window.open(`${this.DOCS_URL}`, "_blank");
   }
 }
 </script>
@@ -358,10 +394,23 @@ ul li {
 }
 
 ul li:before {
-  content: "\2713";
+  content: "";
   display: inline-block;
   color: limegreen;
   font-size: 1rem;
+}
+
+.step-number {
+  background-color: var(--primary);
+  color: white;
+  margin-right: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  height: 25px;
+  width: 25px;
+  min-width: 25px;
+  text-align: center;
+  z-index: 1;
 }
 
 img {
@@ -390,12 +439,27 @@ a[target="_blank"].logo-link::after {
   align-items: center;
   justify-content: center;
 }
+
+.bg-blue-grey {
+  background-color: #f2f2f9;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.reverse-mobile {
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+  }
+}
 </style>
 
 <i18n>
 {
   "en": {
     "button": "Build my rental file",
+    "docs": "How to prepare my rental file",
     "s0": {
       "title": "Build a concrete rental file to find the accommodation of your dreams",
       "text": "DossierFacile helps you build a high-quality digital rental",
@@ -449,6 +513,7 @@ a[target="_blank"].logo-link::after {
   },
   "fr": {
     "button": "Monter mon dossier de location",
+    "docs": "Comment préparer mon dossier de location",
     "s0": {
       "title": "Montez un dossier de location en béton pour trouver le logement de vos rêves",
       "text": "DossierFacile vous aide à constituer un dossier de location numérique ",

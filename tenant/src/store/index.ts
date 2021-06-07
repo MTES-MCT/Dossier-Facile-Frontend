@@ -14,6 +14,8 @@ import { AnalyticsService } from "@/services/AnalyticsService";
 
 Vue.use(Vuex);
 
+const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+
 export class DfState {
   tenantStep = 0;
   tenantSubStep = 1;
@@ -178,7 +180,7 @@ const store = new Vuex.Store({
       commit("logout");
       commit("initState");
       if (redirect) {
-        router.push("/").then();
+        window.location.replace(MAIN_URL);
       }
     },
     deleteAccount({ commit }, password) {
@@ -252,8 +254,14 @@ const store = new Vuex.Store({
       i18n.locale = lang;
       commit("setLang", lang);
     },
-    validateFile({ commit }, honorDeclaration: boolean) {
-      return ProfileService.validateFile(honorDeclaration).then(
+    validateFile(
+      { commit },
+      data: { honorDeclaration: boolean; clarification: string }
+    ) {
+      return ProfileService.validateFile(
+        data.honorDeclaration,
+        data.clarification
+      ).then(
         () => {
           AnalyticsService.validateFile();
           this.dispatch("loadUser").then(() => {

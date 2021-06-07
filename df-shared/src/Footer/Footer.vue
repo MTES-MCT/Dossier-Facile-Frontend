@@ -18,25 +18,33 @@
           <ul class="fr-footer__content-list links-center fr-grid-row">
             <li class="fr-col-lg-3 fr-col-6 align-right">
               <a
+                aria-label="Legifrance"
                 class="fr-footer__content-link"
                 href="https://legifrance.gouv.fr"
                 >legifrance.gouv.fr</a
               >
             </li>
             <li class="fr-col-lg-3 fr-col-6 align-right">
-              <a class="fr-footer__content-link" href="https://gouvernement.fr"
+              <a
+                class="fr-footer__content-link"
+                href="https://gouvernement.fr"
+                aria-label="gouvernement"
                 >gouvernement.fr</a
               >
             </li>
             <li class="fr-col-lg-3 fr-col-6 align-right">
               <a
+                aria-label="service-public"
                 class="fr-footer__content-link"
                 href="https://service-public.fr"
                 >service-public.fr</a
               >
             </li>
             <li class="fr-col-lg-3 fr-col-6 align-right">
-              <a class="fr-footer__content-link" href="https://data.gouv.fr"
+              <a
+                class="fr-footer__content-link"
+                href="https://data.gouv.fr"
+                aria-label="data gouv"
                 >data.gouv.fr</a
               >
             </li>
@@ -53,7 +61,8 @@
           <li class="fr-footer__bottom-item">
             <a
               class="fr-footer__bottom-link"
-              :href="`${VUE_APP_MAIN_URL}/faq?lang=${$i18n.locale}`"
+              :href="`${VUE_APP_DOCS_URL}`"
+              target="_blank"
             >
               {{ $t("faq") }}
             </a>
@@ -109,6 +118,7 @@
               class="fr-footer__bottom-link"
               target="_blank"
               href="https://twitter.com/dossierfacile"
+              aria-label="twitter"
               rel="noreferrer"
             >
               <svg
@@ -134,6 +144,7 @@
               target="_blank"
               href="https://www.facebook.com/DossierFacile.fr"
               rel="noreferrer"
+              aria-label="facebook"
             >
               <svg
                 title="facebook"
@@ -158,6 +169,7 @@
               target="_blank"
               href="https://www.linkedin.com/company/startup-d-etat-locatio/"
               rel="noreferrer"
+              aria-label="linkedin"
             >
               <svg
                 title="linkedin"
@@ -191,6 +203,7 @@ import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class MyFooter extends Vue {
   VUE_APP_MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+  VUE_APP_DOCS_URL = `//${process.env.VUE_APP_DOCS_URL}`;
 }
 </script>
 
@@ -247,7 +260,7 @@ export default class MyFooter extends Vue {
   "en": {
     "contact": "Contact us",
     "legals": "Legal notice",
-    "faq": "FAQ",
+    "faq": "Help",
     "blog": "Blog",
     "information": "Information",
     "sources": "Source code",
@@ -256,7 +269,7 @@ export default class MyFooter extends Vue {
   "fr": {
     "contact": "Nous écrire",
     "legals": "Mentions légales",
-    "faq": "FAQ",
+    "faq": "Aide",
     "blog": "Blog",
     "information": "En savoir plus",
     "sources": "Code source",

@@ -141,7 +141,7 @@ export default class Source extends Vue {
 
   closeModal() {
     this.isValidModalVisible = false;
-    this.$router.push("/");
+    this.$router.push("/login");
   }
 }
 </script>

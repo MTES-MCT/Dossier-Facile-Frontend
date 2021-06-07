@@ -6,6 +6,8 @@ import store from "@/store";
 
 Vue.use(VueRouter);
 
+const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+
 const routes: Array<RouteConfig> = [
   {
     path: "/",
@@ -24,8 +26,7 @@ const routes: Array<RouteConfig> = [
     component: LoginPage,
     meta: {
       title: "Connexion à mon compte - DossierFacile",
-      description:
-        "Connectez-vous à votre espace personnel DossierFacile",
+      description: "Connectez-vous à votre espace personnel DossierFacile",
       hideForAuth: true
     }
   },
@@ -34,8 +35,7 @@ const routes: Array<RouteConfig> = [
     name: "Signup",
     meta: {
       title: "Création de compte - DossierFacile",
-      description:
-        "Créez votre compte en quelques clics sur DossierFacile",
+      description: "Créez votre compte en quelques clics sur DossierFacile",
       hideForAuth: true
     },
     component: () =>
@@ -172,7 +172,10 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/locataire",
-    redirect: "/"
+    redirect: () => {
+      window.location.replace(`${MAIN_URL}`);
+      return "/info-proprietaire";
+    }
   },
   {
     path: "*",

@@ -7,6 +7,44 @@
           <hr />
           <article class="fr-mb-12w">
             <div class="text-center">
+              <router-link to="/blog/comment-justifier-son-domicile">
+                <h2 class="fr-h2">
+                  Tout comprendre à la vie en colocation
+                </h2>
+              </router-link>
+              <span>02 Juin 2021 dans </span>
+              <span>
+                <a href="#" class="underline">DossierFacile</a>
+              </span>
+            </div>
+            <!--end article title-->
+            <div class="article__body">
+              <router-link to="/blog/comment-justifier-son-domicile">
+                <img
+                  class="img-center"
+                  alt=""
+                  src="../../assets/images/blog-article8.webp"
+                />
+              </router-link>
+              <p>
+                Dans un article précédent, nous avons vu les pièces nécessaires
+                à la constitution d’un dossier de location, mais l’une d’entre
+                elles est plus compliquée à fournir car elle varie d’un candidat
+                l’autre : le justificatif de domicile. On peut distinguer
+                <b>quatre cas</b> « classiques » mais il en existe en fait bien
+                plus… Chez DossierFacile, nous vous faisons la promesse que
+                quelle que soit votre situation, nous vous aiderons à aller au
+                bout !
+              </p>
+              <router-link to="/blog/comment-justifier-son-domicile"
+                >Continuer la lecture »</router-link
+              >
+            </div>
+            <!--end article title-->
+          </article>
+          <hr />
+          <article class="fr-mb-12w">
+            <div class="text-center">
               <router-link to="/blog/tout-comprendre-a-la-vie-en-colocation">
                 <h2 class="fr-h2">
                   Tout comprendre à la vie en colocation

@@ -23,7 +23,7 @@ export default class ForgottenPasswordPage extends Vue {
             type: "success",
             duration: 7000
           });
-          this.$router.push("/");
+          this.$router.push("/login");
         },
         () => {
           this.$toasted.show(this.$i18n.t("email-not-found").toString(), {
