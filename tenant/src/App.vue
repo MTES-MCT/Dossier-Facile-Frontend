@@ -56,10 +56,6 @@ export default class App extends Vue {
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
 
-  onLogin() {
-    this.$router.push("/login");
-  }
-
   onLogout() {
     this.$store.dispatch("logout").then(
       () => {
