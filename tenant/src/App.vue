@@ -32,6 +32,7 @@ import i18n from "./i18n";
 import Cookies from "df-shared/src/Footer/Cookies.vue";
 import VueGtag from "vue-gtag";
 import router from "./router";
+import { AuthService } from "df-shared/src/services/AuthService";
 
 @Component({
   components: {
@@ -68,7 +69,7 @@ export default class App extends Vue {
   }
 
   onCreateTenant() {
-    this.$router.push("/signup");
+    AuthService.login();
   }
 
   onCreateOwner() {
