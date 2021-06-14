@@ -18,6 +18,7 @@ const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
 
 export class DfState {
   tenantStep = 0;
+  token = "";
   tenantSubStep = 1;
   guarantorStep = 0;
   guarantorSubStep = 1;
@@ -43,18 +44,20 @@ const store = new Vuex.Store({
     initState(state) {
       Object.assign(state, new DfState());
     },
-    loginSuccess(state, user) {
+    setToken(state, token) {
       state.status.loggedIn = true;
-      state.user = user;
+      state.token = token;
       AnalyticsService.loginSuccess();
     },
     loginFailure(state) {
       state.status.loggedIn = false;
       state.user = null;
+      state.token = "";
       AnalyticsService.loginFail();
     },
     logout(state) {
       state.status.loggedIn = false;
+      state.token = "";
       state.user = null;
     },
     setLang(state, lang) {
@@ -63,11 +66,13 @@ const store = new Vuex.Store({
     registerSuccess(state) {
       state.status.loggedIn = false;
       state.user = null;
+      state.token = "";
       AnalyticsService.registerSuccess();
     },
     registerFailure(state) {
       state.status.loggedIn = false;
       state.user = null;
+      state.token = "";
       AnalyticsService.registerFail();
     },
     setNamesSuccess(state, user) {
@@ -162,6 +167,12 @@ const store = new Vuex.Store({
     }
   },
   actions: {
+    setToken({ commit }, token) {
+      commit("initState");
+      commit("setToken", token);
+      localStorage.setItem("token", token);
+      return this.dispatch("loadUser");
+    },
     login({ commit }, { user, source, internalPartnerId }) {
       commit("initState");
       return AuthService.login(user, source, internalPartnerId).then(
@@ -217,17 +228,15 @@ const store = new Vuex.Store({
       );
     },
     loadUser({ commit }) {
-      if (this.state.user !== null) {
-        return AuthService.loadUser().then(
-          response => {
-            commit("loadUser", response.data);
-            return Promise.resolve(response.data);
-          },
-          error => {
-            return Promise.reject(error);
-          }
-        );
-      }
+      return AuthService.loadUser().then(
+        response => {
+          commit("loadUser", response.data);
+          return Promise.resolve(response.data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
     },
     setNames({ commit }, user) {
       return ProfileService.saveNames(user).then(

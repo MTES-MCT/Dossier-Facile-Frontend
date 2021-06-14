@@ -38,10 +38,9 @@ app.$mount("#app");
 
 axios.interceptors.request.use(
   config => {
-    const localUserStr = localStorage.getItem("user");
-    const localUser = localUserStr !== null ? JSON.parse(localUserStr) : null;
-    if (localUser && localUser.token) {
-      config.headers["Authorization"] = `Bearer ${localUser.token}`;
+    const localToken = localStorage.getItem("token");
+    if (localToken) {
+      config.headers["Authorization"] = `Bearer ${localToken}`;
     }
     return config;
   },

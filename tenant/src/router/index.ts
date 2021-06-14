@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
-import LoginPage from "@/views/LoginPage.vue";
+import Account from "@/views/Account.vue";
 import store from "@/store";
 
 Vue.use(VueRouter);
@@ -21,13 +21,14 @@ const routes: Array<RouteConfig> = [
     }
   },
   {
-    path: "/login",
-    name: "Login",
-    component: LoginPage,
-    meta: {
-      title: "Connexion à mon compte - DossierFacile",
-      description: "Connectez-vous à votre espace personnel DossierFacile",
-      hideForAuth: true
+    path: "/auth/callback",
+    name: "Auth",
+    component: Account,
+    beforeEnter: (to, from, next) => {
+      if (to.query.code) {
+        const token = to.query.code;
+        store.dispatch("setToken", token);
+      }
     }
   },
   {
