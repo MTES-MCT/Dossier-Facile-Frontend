@@ -173,18 +173,8 @@ const store = new Vuex.Store({
       localStorage.setItem("token", token);
       return this.dispatch("loadUser");
     },
-    login({ commit }, { user, source, internalPartnerId }) {
-      commit("initState");
-      return AuthService.login(user, source, internalPartnerId).then(
-        user => {
-          commit("loginSuccess", user);
-          return this.dispatch("loadUser");
-        },
-        error => {
-          commit("loginFailure");
-          return Promise.reject(error);
-        }
-      );
+    login({ commit }, { source, internalPartnerId }) {
+      return AuthService.login({ source, internalPartnerId });
     },
     logout({ commit }, redirect = true) {
       AuthService.logout();

@@ -2,10 +2,21 @@ import { User } from "../models/User";
 import axios from "axios";
 
 const API_URL = `https://${process.env.VUE_APP_API_URL}/api/`;
+const SSO_ENDPOINT = process.env.VUE_APP_API_URL;
+const CALLBACK_URI = process.env.VUE_APP_CALLBACK_URI;
 
 export const AuthService = {
-  async login(user: User, source: string, internalPartnerId: string) {
-    const response = await axios.post(API_URL + "auth", {
+  login(params: any = {}) {
+    let searchParams = new URLSearchParams(params).toString();
+    if (searchParams !== "") {
+      searchParams = "?" + searchParams;
+    }
+
+    const url =
+      `${SSO_ENDPOINT}?response_type=code&state=&client_id=login-app&scope=openid&redirect_uri=` +
+      encodeURIComponent(CALLBACK_URI + searchParams);
+    window.location.href = url;
+/*     const response = await axios.post(API_URL + "auth", {
       username: user.email,
       password: user.password,
       firstName: user.firstName,
@@ -16,7 +27,7 @@ export const AuthService = {
     if (response.data.token) {
       localStorage.setItem("user", JSON.stringify(response.data));
     }
-    return response.data;
+    return response.data; */
   },
 
   logout() {
