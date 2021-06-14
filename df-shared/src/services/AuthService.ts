@@ -2,7 +2,7 @@ import { User } from "../models/User";
 import axios from "axios";
 
 const API_URL = `https://${process.env.VUE_APP_API_URL}/api/`;
-const SSO_ENDPOINT = process.env.VUE_APP_API_URL;
+const SSO_ENDPOINT = process.env.VUE_APP_SSO_ENDPOINT;
 const CALLBACK_URI = process.env.VUE_APP_CALLBACK_URI;
 
 export const AuthService = {
