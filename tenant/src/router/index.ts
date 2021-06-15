@@ -7,6 +7,7 @@ Vue.use(VueRouter);
 
 const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
 const TENANT_URL = process.env.VUE_APP_FULL_TENANT_URL;
+const REGISTER_URL = process.env.VUE_APP_REGISTER_URL;
 
 const routes: Array<RouteConfig> = [
   {
@@ -22,14 +23,10 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/signup",
-    name: "Signup",
-    meta: {
-      title: "Création de compte - DossierFacile",
-      description: "Créez votre compte en quelques clics sur DossierFacile",
-      hideForAuth: true
-    },
-    component: () =>
-      import(/* webpackChunkName: "signup" */ "@/views/SignupPage.vue")
+    redirect: () => {
+      window.location.replace(`${REGISTER_URL}`);
+      return "/signup";
+    }
   },
   {
     path: "/forgotten-password",
