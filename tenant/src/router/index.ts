@@ -1,12 +1,12 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
-import Account from "@/views/Account.vue";
 import store from "@/store";
 
 Vue.use(VueRouter);
 
 const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+const TENANT_URL = process.env.VUE_APP_FULL_TENANT_URL;
 
 const routes: Array<RouteConfig> = [
   {
@@ -18,17 +18,6 @@ const routes: Array<RouteConfig> = [
       description:
         "Créez un dossier de location en ligne complet et vérifié par l'Etat pour trouver votre appartement ou votre logement",
       hideForAuth: true
-    }
-  },
-  {
-    path: "/auth/callback",
-    name: "Auth",
-    component: Account,
-    beforeEnter: (to, from, next) => {
-      if (to.query.code) {
-        const token = to.query.code;
-        store.dispatch("setToken", token);
-      }
     }
   },
   {
@@ -222,7 +211,7 @@ router.beforeEach((to, from, next) => {
     if (!(Vue as any).$keycloak.authenticated) {
       // The page is protected and the user is not authenticated. Force a login.
       (Vue as any).$keycloak.login({
-        redirectUri: "http://localhost:9002" + to.path
+        redirectUri: TENANT_URL + to.path
       });
     } else {
       // The user was authenticated, and has the app role

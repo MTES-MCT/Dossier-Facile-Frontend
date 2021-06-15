@@ -170,7 +170,6 @@ const store = new Vuex.Store({
     setToken({ commit }, token) {
       commit("initState");
       commit("setToken", token);
-      localStorage.setItem("token", token);
       return this.dispatch("loadUser");
     },
     login({ commit }, { source, internalPartnerId }) {
