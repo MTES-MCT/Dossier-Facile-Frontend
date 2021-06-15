@@ -9,6 +9,8 @@ import Toasted from "vue-toasted";
 import VueCookies from "vue-cookies";
 import authentication from "./plugins/authentication";
 
+const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+
 Vue.use(authentication);
 
 Vue.config.productionTip = false;
@@ -53,10 +55,9 @@ Vue.use(VueAuthImage);
     function(error) {
       if (
         error.response &&
-        (401 === error.response.status || 403 === error.response.status) &&
-        !error.response.request.responseURL.endsWith("/api/auth")
+        (401 === error.response.status || 403 === error.response.status)
       ) {
-        store.dispatch("logout").then(null, error => {
+        store.dispatch("logout", MAIN_URL).then(null, error => {
           console.dir(error);
         });
       } else {

@@ -1,37 +1,18 @@
 import { User } from "../models/User";
 import axios from "axios";
+import Vue from "vue";
 
 const API_URL = `https://${process.env.VUE_APP_API_URL}/api/`;
-const SSO_ENDPOINT = process.env.VUE_APP_SSO_ENDPOINT;
-const CALLBACK_URI = process.env.VUE_APP_CALLBACK_URI;
 
 export const AuthService = {
-  login(params: any = {}) {
-    let searchParams = new URLSearchParams(params).toString();
-    if (searchParams !== "") {
-      searchParams = "?" + searchParams;
-    }
-
-    const url =
-      `${SSO_ENDPOINT}?response_type=code&state=&client_id=login-app&scope=openid&redirect_uri=` +
-      encodeURIComponent(CALLBACK_URI + searchParams);
-    window.location.href = url;
-/*     const response = await axios.post(API_URL + "auth", {
-      username: user.email,
-      password: user.password,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      source: source,
-      internalPartnerId: internalPartnerId
-    });
-    if (response.data.token) {
-      localStorage.setItem("user", JSON.stringify(response.data));
-    }
-    return response.data; */
-  },
-
-  logout() {
-    localStorage.removeItem("user");
+  logout(redirectUri: string) {
+    (Vue as any).$keycloak
+      .logout({
+        redirectUri: redirectUri
+      })
+      .then(() => {
+        localStorage.removeItem("user");
+      });
   },
 
   register(user: User, source: string, internalPartnerId: string) {

@@ -173,10 +173,10 @@ const store = new Vuex.Store({
       return this.dispatch("loadUser");
     },
     login({ commit }, { source, internalPartnerId }) {
-      return AuthService.login({ source, internalPartnerId });
+      window.location.replace(`/account`);
     },
     logout({ commit }, redirect = true) {
-      AuthService.logout();
+      AuthService.logout("/account");
       commit("logout");
       commit("initState");
       if (redirect) {

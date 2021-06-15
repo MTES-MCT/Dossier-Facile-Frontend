@@ -56,20 +56,14 @@ export default class App extends Vue {
   isLoggedIn!: boolean;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+  TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
 
   onLogout() {
-    this.$store.dispatch("logout").then(
-      () => {
-        console.log("logged out !");
-      },
-      error => {
-        console.dir(error);
-      }
-    );
+    this.$store.dispatch("logout", this.MAIN_URL);
   }
 
   onCreateTenant() {
-    AuthService.login();
+    window.location.href = this.TENANT_URL;
   }
 
   onCreateOwner() {

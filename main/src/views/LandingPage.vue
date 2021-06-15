@@ -307,7 +307,6 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import DfButton from "df-shared/src/Button/Button.vue";
-import { AuthService } from "df-shared/src/services/AuthService";
 
 @Component(
   {
@@ -325,7 +324,7 @@ export default class LandingPage extends Vue {
   }
 
   gotoTenant() {
-    AuthService.login();
+    window.location.replace(`${this.TENANT_URL}/account`);
   }
 
   gotoDocs() {

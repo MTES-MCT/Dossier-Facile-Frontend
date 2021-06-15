@@ -54,7 +54,7 @@ export default class App extends Vue {
   }
 
   onCreateTenant() {
-    window.location.replace(this.REGISTER_URL);
+    window.location.replace(`${this.TENANT_URL}/account`);
   }
 
   acceptCookies() {
