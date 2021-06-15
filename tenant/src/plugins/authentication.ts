@@ -3,9 +3,9 @@ import Keycloak from "keycloak-js";
 import { VueConstructor } from "vue/types/umd";
 
 const options = {
-  url: "https://sso-preprod.dossierfacile.fr/auth",
+  url: process.env.VUE_APP_SSO_ENDPOINT,
   realm: "dossier-facile",
-  clientId: "login-app"
+  clientId: "dossier-facile-frontend-localhost"
 };
 
 const _keycloak = Keycloak(options);

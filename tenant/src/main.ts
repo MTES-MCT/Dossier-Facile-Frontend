@@ -73,7 +73,6 @@ Vue.use(VueAuthImage);
   });
   app.$mount("#app");
 
-  app.$store.dispatch("loadUser");
   Vue.use(Loading);
   Vue.use(Toasted);
   Vue.toasted.register("error", i18n.t("error").toString(), {

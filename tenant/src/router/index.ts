@@ -197,45 +197,7 @@ const router = new VueRouter({
   }
 });
 
-router.beforeEach((to, from, next) => {
-  if (to.query.lang) {
-    const locale = to.query.lang === "en" ? "en" : "fr";
-    store.dispatch("setLang", locale);
-  }
-
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    const basePath = window.location.toString()
-    if (!(Vue as any).$keycloak.authenticated) {
-      // The page is protected and the user is not authenticated. Force a login.
-      (Vue as any).$keycloak.login({ redirectUri: 'http://localhost:9002/auth/callback' })
-    } else if ((Vue as any).$keycloak.hasResourceRole('tenant')) {
-      // The user was authenticated, and has the app role
-      (Vue as any).$keycloak.updateToken(70)
-        .then(() => {
-          next()
-        })
-        .catch((err: any) => {
-          console.error(err)
-        })
-    } else {
-      // The user was authenticated, but did not have the correct role
-      // Redirect to an error page
-      next({ name: 'Unauthorized' })
-    }
-/* 
-    if (!store.getters.isLoggedIn) {
-      next({
-        name: "Login",
-        query: {
-          nextUrl: to.fullPath
-        }
-      });
-    } */
-  } else if (to.matched.some(record => record.meta.hideForAuth)) {
-    if (store.getters.isLoggedIn) {
-      next({ name: "Profile" });
-    }
-  }
+function keepGoing(to: any, next: any) {
   document.title = to.meta.title;
   if (to.meta.description) {
     const tag = document.querySelector('meta[name="description"]');
@@ -248,6 +210,41 @@ router.beforeEach((to, from, next) => {
     title?.setAttribute("content", to.meta.title);
   }
   next();
+}
+
+router.beforeEach((to, from, next) => {
+  if (to.query.lang) {
+    const locale = to.query.lang === "en" ? "en" : "fr";
+    store.dispatch("setLang", locale);
+  }
+
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!(Vue as any).$keycloak.authenticated) {
+      // The page is protected and the user is not authenticated. Force a login.
+      (Vue as any).$keycloak.login({
+        redirectUri: "http://localhost:9002" + to.path
+      });
+    } else {
+      // The user was authenticated, and has the app role
+      (Vue as any).$keycloak
+        .updateToken(70)
+        .then(() => {
+          localStorage.setItem("token", (Vue as any).$keycloak.token);
+          store.dispatch("loadUser").then(()=>{
+            keepGoing(to, next);
+          });
+        })
+        .catch((err: any) => {
+          console.error(err);
+        });
+    }
+  } else if (to.matched.some(record => record.meta.hideForAuth)) {
+    if (store.getters.isLoggedIn) {
+      next({ name: "Profile" });
+    }
+  } else {
+    keepGoing(to, next);
+  }
 });
 
 export default router;
