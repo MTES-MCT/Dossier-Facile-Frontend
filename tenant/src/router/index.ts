@@ -204,6 +204,25 @@ router.beforeEach((to, from, next) => {
   }
 
   if (to.matched.some(record => record.meta.requiresAuth)) {
+    const basePath = window.location.toString()
+    if (!(Vue as any).$keycloak.authenticated) {
+      // The page is protected and the user is not authenticated. Force a login.
+      (Vue as any).$keycloak.login({ redirectUri: 'http://localhost:9002/auth/callback' })
+    } else if ((Vue as any).$keycloak.hasResourceRole('tenant')) {
+      // The user was authenticated, and has the app role
+      (Vue as any).$keycloak.updateToken(70)
+        .then(() => {
+          next()
+        })
+        .catch((err: any) => {
+          console.error(err)
+        })
+    } else {
+      // The user was authenticated, but did not have the correct role
+      // Redirect to an error page
+      next({ name: 'Unauthorized' })
+    }
+/* 
     if (!store.getters.isLoggedIn) {
       next({
         name: "Login",
@@ -211,7 +230,7 @@ router.beforeEach((to, from, next) => {
           nextUrl: to.fullPath
         }
       });
-    }
+    } */
   } else if (to.matched.some(record => record.meta.hideForAuth)) {
     if (store.getters.isLoggedIn) {
       next({ name: "Profile" });

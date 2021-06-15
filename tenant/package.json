@@ -15,6 +15,7 @@
     "@gouvfr/dsfr": "1.0.0-rc1",
     "core-js": "^3.6.5",
     "df-shared": "0.1.0",
+    "keycloak-js": "^13.0.1",
     "prerender-spa-plugin": "^3.4.0",
     "vue": "^2.6.11",
     "vue-auth-image": "^0.0.3",
