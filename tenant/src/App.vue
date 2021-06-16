@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <MyHeader
-      :logged-in="status.loggedIn"
+      :logged-in="isLoggedIn"
       @on-create-tenant="onCreateTenant"
       @on-create-owner="onCreateOwner"
       @on-logout="onLogout"
@@ -32,7 +32,6 @@ import i18n from "./i18n";
 import Cookies from "df-shared/src/Footer/Cookies.vue";
 import VueGtag from "vue-gtag";
 import router from "./router";
-import { AuthService } from "df-shared/src/services/AuthService";
 
 @Component({
   components: {

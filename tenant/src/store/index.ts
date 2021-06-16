@@ -44,11 +44,6 @@ const store = new Vuex.Store({
     initState(state) {
       Object.assign(state, new DfState());
     },
-    setToken(state, token) {
-      state.status.loggedIn = true;
-      state.token = token;
-      AnalyticsService.loginSuccess();
-    },
     loginFailure(state) {
       state.status.loggedIn = false;
       state.user = null;
@@ -90,6 +85,7 @@ const store = new Vuex.Store({
     },
     loadUser(state, user) {
       state.user = user;
+      state.status.loggedIn = true;
       state.user.applicationType = state.user?.apartmentSharing.applicationType;
 
       if (state.user?.guarantors && state.user.guarantors.length > 0) {
@@ -167,11 +163,6 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    setToken({ commit }, token) {
-      commit("initState");
-      commit("setToken", token);
-      return this.dispatch("loadUser");
-    },
     login({ commit }, { source, internalPartnerId }) {
       window.location.replace(`/account`);
     },
