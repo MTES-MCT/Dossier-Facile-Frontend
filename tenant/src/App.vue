@@ -62,7 +62,7 @@ export default class App extends Vue {
   }
 
   onCreateTenant() {
-    window.location.href = this.TENANT_URL;
+    this.$router.push("/signup");
   }
 
   onCreateOwner() {
