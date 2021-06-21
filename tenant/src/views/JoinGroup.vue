@@ -85,7 +85,7 @@ export default class JoinCouple extends Vue {
     "password-update": "Le mot de passe a été mis-à-jour",
     "title": "Création du mot de passe",
     "already-logged": "Vous êtes déjà connecté, voulez-vous vous déconnecter pour créer ce compte ?",
-    "token-expired": "Le token a expiré, veuillez lancer la procédure de mot de passe oublié"
+    "token-expired": "Le lien a expiré, veuillez lancer la procédure de mot de passe oublié"
   }
 }
 </i18n>
