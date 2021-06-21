@@ -167,7 +167,7 @@ export default class File extends Vue {
 
   mounted() {
     const token = this.$route.params.token;
-    ProfileService.getUserByToken(token).then(d => {
+    ProfileService.getUserByToken(token).then((d: any) => {
       this.user = d.data;
     });
   }
@@ -224,6 +224,7 @@ export default class File extends Vue {
     if (this.user?.applicationType) {
       return this.$i18n.t(this.user.applicationType);
     }
+    return;
   }
 
   getIncomeSum() {
@@ -242,6 +243,7 @@ export default class File extends Vue {
       }
       return this.$i18n.t("income", [sum]);
     }
+    return;
   }
 }
 </script>
