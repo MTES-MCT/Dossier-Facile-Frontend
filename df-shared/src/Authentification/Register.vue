@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <h2 class="fr-h2 text-center fr-mt-7w fr-mb-5w">
+      <h2 class="fr-h2 text-center fr-mt-7w fr-mb-5w blue-text">
         {{ $t("title") }}
       </h2>
     <ValidationObserver v-slot="{ validate }">
@@ -29,7 +29,7 @@
               </div>
             </validation-provider>
           </div>
-          <div class="fr-col-12 fr-mb-3w">
+          <div class="fr-col-12 fr-mb-1w">
             <validation-provider
               :rules="`required|strength:${score}`"
               v-slot="{ errors }"
@@ -220,14 +220,15 @@ export default class Register extends Vue {
 
   generatePlaceholder() {
     const chars = ["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz","0123456789", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", "#!?-_."];
-    return "Ex: " + [4,4,2,2].map(function(len, i) { return Array(len).fill(chars[i]).map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('') }).concat().join('').split('').sort(function(){return 0.5-Math.random()}).join('');
+    return this.$i18n.t('ex') + [4,4,2,2].map(function(len, i) { return Array(len).fill(chars[i]).map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('') }).concat().join('').split('').sort(function(){return 0.5-Math.random()}).join('');
   }
 }
 </script>
 
 <style lang="scss">
-a.cgu {
-  text-decoration: underline;
+.fr-btn {
+  width: 100%;
+  display: table-cell;
 }
 </style>
 
@@ -236,7 +237,7 @@ a.cgu {
 "en": {
 "title": "Create account",
 "password": "Password :",
-"email-placeholder": "E.g. : example@example.fr",
+"email-placeholder": "E.g.: example@example.fr",
 "confirm-password": "Confirm password :",
 "email": "Email :",
 "submit": "I create my account",
@@ -245,21 +246,23 @@ a.cgu {
 "password-not-confirmed": "Password not confirmed",
 "pwd-not-complex": "Password not secure enough",
 "accept-cgu": "En cochant cette case et en cliquant sur \"Je crée mon compte\", j’accepte expressément les <a target=\"_blank\" href='https://dossierfacile.fr/securite-des-donnees'>Conditions générales</a> d’utilisation de DossierFacile et je comprends que mes données personnelles seront utilisées conformément à la <a target=\"_blank\" href='https://dossierfacile.fr/securite-des-donnees'>Politique de confidentialité</a> de DossierFacile",
-"require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer"
+"require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer",
+"ex": "E.g.: "
 },
 "fr": {
 "title": "Rejoindre DossierFacile",
-"password": "Mot de passe :",
-"confirm-password": "Confirmation du mot de passe :",
+"password": "Votre mot de passe :",
+"confirm-password": "Confirmation de votre mot de passe :",
 "email-placeholder": "Ex : exemple@exemple.fr",
-"email": "Email :",
+"email": "Votre e-mail :",
 "submit": "Je crée mon compte",
 "email-not-valid": "Email non valide",
 "field-required": "Ce champ est requis",
 "password-not-confirmed": "Le mot de passe ne correspond pas",
 "pwd-not-complex": "Mot de passe trop simple",
 "accept-cgu": "En cochant cette case et en cliquant sur \"Je crée mon compte\", j’accepte expressément les <a class=\"cgu\" target=\"_blank\" href='https://www.dossierfacile.fr/securite-des-donnees#securite'>Conditions générales</a> d’utilisation de DossierFacile et je comprends que mes données personnelles seront utilisées conformément à la <a target=\"_blank\" class=\"cgu\" href='https://www.dossierfacile.fr/securite-des-donnees#confidentialite'>Politique de confidentialité</a> de DossierFacile",
-"require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer"
+"require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer",
+"ex": "Ex : "
 }
 }
 </i18n>

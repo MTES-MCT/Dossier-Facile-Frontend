@@ -48,7 +48,7 @@
             <Register @on-register="onRegister" />
             <div class="text-center fr-mb-5w">
               {{ $t("existing-account") }}
-              <router-link to="/account">
+              <router-link to="/account" class="blue-text">
                 {{ $t("connect") }}
               </router-link>
             </div>
@@ -135,7 +135,7 @@ export default class SignupPage extends Vue {
 },
 "fr": {
     "existing-account": "Déjà inscrit ?",
-    "connect": "Se connecter",
+    "connect": "S'identifier",
     "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
     "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre votre inscription.",
     "duplicate-email": "Cet email est déjà utilisé",
@@ -160,10 +160,6 @@ body {
   margin: 8px;
   border-radius: 4px;
   background-color: #e5e5f4;
-}
-
-.blue-text {
-  color: #000091;
 }
 
 .inline-block {
