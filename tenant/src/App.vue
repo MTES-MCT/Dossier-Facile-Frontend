@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <MyHeader
-      :logged-in="status.loggedIn"
+      :logged-in="isLoggedIn"
       @on-create-tenant="onCreateTenant"
       @on-create-owner="onCreateOwner"
       @on-logout="onLogout"
@@ -55,20 +55,10 @@ export default class App extends Vue {
   isLoggedIn!: boolean;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
-
-  onLogin() {
-    this.$router.push("/login");
-  }
+  TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
 
   onLogout() {
-    this.$store.dispatch("logout").then(
-      () => {
-        console.log("logged out !");
-      },
-      error => {
-        console.dir(error);
-      }
-    );
+    this.$store.dispatch("logout", this.MAIN_URL);
   }
 
   onCreateTenant() {

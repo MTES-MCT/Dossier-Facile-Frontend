@@ -5,7 +5,7 @@
         <div class="fr-col-md-8 fr-col-lg-6">
           <Register @on-register="onRegister" />
           <div class="text-center fr-mb-5w">
-            <router-link to="/login">
+            <router-link to="/account">
               {{ $t("existing-account") }}
             </router-link>
           </div>

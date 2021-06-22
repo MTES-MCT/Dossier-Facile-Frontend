@@ -210,7 +210,7 @@ const routes: Array<RouteConfig> = [
   {
     path: "/login",
     redirect: () => {
-      window.location.replace(`${TENANT_URL}/login`);
+      window.location.replace(`${TENANT_URL}/account`);
       return "/";
     }
   },

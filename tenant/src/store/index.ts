@@ -15,9 +15,11 @@ import { AnalyticsService } from "@/services/AnalyticsService";
 Vue.use(Vuex);
 
 const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+const TENANT_URL = process.env.VUE_APP_FULL_TENANT_URL;
 
 export class DfState {
   tenantStep = 0;
+  token = "";
   tenantSubStep = 1;
   guarantorStep = 0;
   guarantorSubStep = 1;
@@ -43,18 +45,15 @@ const store = new Vuex.Store({
     initState(state) {
       Object.assign(state, new DfState());
     },
-    loginSuccess(state, user) {
-      state.status.loggedIn = true;
-      state.user = user;
-      AnalyticsService.loginSuccess();
-    },
     loginFailure(state) {
       state.status.loggedIn = false;
       state.user = null;
+      state.token = "";
       AnalyticsService.loginFail();
     },
     logout(state) {
       state.status.loggedIn = false;
+      state.token = "";
       state.user = null;
     },
     setLang(state, lang) {
@@ -63,11 +62,13 @@ const store = new Vuex.Store({
     registerSuccess(state) {
       state.status.loggedIn = false;
       state.user = null;
+      state.token = "";
       AnalyticsService.registerSuccess();
     },
     registerFailure(state) {
       state.status.loggedIn = false;
       state.user = null;
+      state.token = "";
       AnalyticsService.registerFail();
     },
     setNamesSuccess(state, user) {
@@ -85,6 +86,7 @@ const store = new Vuex.Store({
     },
     loadUser(state, user) {
       state.user = user;
+      state.status.loggedIn = true;
       state.user.applicationType = state.user?.apartmentSharing.applicationType;
 
       if (state.user?.guarantors && state.user.guarantors.length > 0) {
@@ -162,26 +164,13 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    login({ commit }, { user, source, internalPartnerId }) {
-      commit("initState");
-      return AuthService.login(user, source, internalPartnerId).then(
-        user => {
-          commit("loginSuccess", user);
-          return this.dispatch("loadUser");
-        },
-        error => {
-          commit("loginFailure");
-          return Promise.reject(error);
-        }
-      );
+    login({ commit }, { source, internalPartnerId }) {
+      window.location.replace(`/account`);
     },
     logout({ commit }, redirect = true) {
-      AuthService.logout();
       commit("logout");
       commit("initState");
-      if (redirect) {
-        window.location.replace(MAIN_URL);
-      }
+      AuthService.logout(TENANT_URL + "/account");
     },
     deleteAccount({ commit }, password) {
       return AuthService.deleteAccount(password).then(
@@ -217,17 +206,15 @@ const store = new Vuex.Store({
       );
     },
     loadUser({ commit }) {
-      if (this.state.user !== null) {
-        return AuthService.loadUser().then(
-          response => {
-            commit("loadUser", response.data);
-            return Promise.resolve(response.data);
-          },
-          error => {
-            return Promise.reject(error);
-          }
-        );
-      }
+      return AuthService.loadUser().then(
+        response => {
+          commit("loadUser", response.data);
+          return Promise.resolve(response.data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
     },
     setNames({ commit }, user) {
       return ProfileService.saveNames(user).then(

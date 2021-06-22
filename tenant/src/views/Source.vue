@@ -112,7 +112,16 @@ export default class Source extends Vue {
     user.firstName = this.firstName;
     user.lastName = this.lastName;
     if (user.email && user.password) {
-      this.$store
+      const url =
+        "https://sso-preprod.dossierfacile.fr/auth/realms/dossier-facile/protocol/openid-connect/auth?" +
+        "response_type=code&state=&client_id=login-app&scope=openid&redirect_uri=https%3A%2F%2Flocataire-dev.dossierfacile.fr/auth/callback";
+      window.location.href = url;
+
+      // TODO : clean code
+      // login pre-prod: "https://sso-preprod.dossierfacile.fr/auth/realms/dossier-facile/protocol/openid-connect/auth?response_type=code&state=&client_id=login-app&scope=openid&redirect_uri=https%3A%2F%2Flocataire-dev.dossierfacile.fr/auth/callback";
+      // login localhost: "https://sso-preprod.dossierfacile.fr/auth/realms/dossier-facile/protocol/openid-connect/auth?response_type=code&state=&client_id=login-app&scope=openid&redirect_uri=http%3A%2F%2Flocalhost%3A9002/auth/callback"
+      // "https://locataire-dev.dossierfacile.fr/auth/callback?state=&session_state=6cb83e9e-8feb-4e58-a0a4-5a0ced703b1e&code=9d3493e1-f813-495f-9e1c-871876ac6c6f.6cb83e9e-8feb-4e58-a0a4-5a0ced703b1e.e5fba3a0-95aa-4345-a719-7d578b4ef4d9"
+      /*       this.$store
         .dispatch("login", {
           user,
           source: this.source,
@@ -135,7 +144,7 @@ export default class Source extends Vue {
               });
             }
           }
-        );
+        ); */
     }
   }
 
