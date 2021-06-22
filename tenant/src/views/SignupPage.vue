@@ -182,11 +182,6 @@ body {
   max-width: 400px;
 }
 
-.fr-btn {
-  width: 100%;
-  display: table-cell;
-}
-
 .left-row {
   margin-left: auto;
   margin-right: 32px;
