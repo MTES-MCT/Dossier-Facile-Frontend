@@ -122,7 +122,7 @@
           </div>
 
           <div class="fr-col-12 text-center fr-mb-5w">
-            <button class="fr-btn" type="submit">
+            <button class="fr-btn full-width-btn" type="submit">
               {{ $t("submit") }}
             </button>
           </div>
@@ -228,7 +228,7 @@ export default class Register extends Vue {
 </script>
 
 <style lang="scss">
-.fr-btn {
+.full-width-btn {
   width: 100%;
   display: table-cell;
 }
