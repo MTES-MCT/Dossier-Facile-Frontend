@@ -55,7 +55,8 @@ Vue.use(VueAuthImage);
     function(error) {
       if (
         error.response &&
-        (401 === error.response.status || 403 === error.response.status)
+        (401 === error.response.status || 403 === error.response.status) &&
+        !error.response.request.responseURL.endsWith("/api/register/account")
       ) {
         store.dispatch("logout", MAIN_URL).then(null, error => {
           console.dir(error);

@@ -213,6 +213,10 @@ export default class MyFooter extends Vue {
   color: $primary !important;
 }
 
+#footer {
+  background-color: white;
+}
+
 .footer-logo {
   min-width: 100px;
   max-width: 100%;

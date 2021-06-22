@@ -324,7 +324,7 @@ export default class LandingPage extends Vue {
   }
 
   gotoTenant() {
-    window.location.replace(`${this.TENANT_URL}/account`);
+    window.location.replace(`${this.TENANT_URL}/signup`);
   }
 
   gotoDocs() {
