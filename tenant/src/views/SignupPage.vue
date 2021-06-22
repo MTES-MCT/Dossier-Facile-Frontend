@@ -98,9 +98,9 @@ export default class SignupPage extends Vue {
         },
         error => {
           if (
-            error.response.data.errors.indexOf(
+            (error.response?.data?.errors?.indexOf(
               "email: the emails are already being used"
-            ) >= 0
+            ) || -1) >= 0
           ) {
             this.$toasted.show(this.$i18n.t("duplicate-email").toString(), {
               type: "error",

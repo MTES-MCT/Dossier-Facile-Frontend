@@ -45,7 +45,7 @@
                 }}</label>
                 <input
                   id="password"
-                  :placeholder="generatePlaceholder()"
+                  :placeholder="generatedPwd"
                   type="password"
                   v-model="user.password"
                   name="password"
@@ -192,9 +192,11 @@ export default class Register extends Vue {
   user: User = new User();
   score = 0;
   acceptCgu=false;
+  generatedPwd ="";
 
   mounted() {
     this.user.email = this.email;
+    this.generatePlaceholder();
   }
 
   @Watch("email")
@@ -220,7 +222,7 @@ export default class Register extends Vue {
 
   generatePlaceholder() {
     const chars = ["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz","0123456789", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", "#!?-_."];
-    return this.$i18n.t('ex') + [4,4,2,2].map(function(len, i) { return Array(len).fill(chars[i]).map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('') }).concat().join('').split('').sort(function(){return 0.5-Math.random()}).join('');
+    this.generatedPwd = this.$i18n.t('ex') + [4,4,2,2].map(function(len, i) { return Array(len).fill(chars[i]).map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('') }).concat().join('').split('').sort(function(){return 0.5-Math.random()}).join('');
   }
 }
 </script>
