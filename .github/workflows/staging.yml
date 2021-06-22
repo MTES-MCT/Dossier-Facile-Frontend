@@ -32,8 +32,12 @@ jobs:
           VUE_APP_CAPTCHA_SITE_KEY: ${{ secrets.STAGING_VUE_APP_CAPTCHA_SITE_KEY }}
           VUE_APP_MAIN_URL: ${{ secrets.STAGING_VUE_APP_MAIN_URL }}
           VUE_APP_TENANT_URL: ${{ secrets.STAGING_VUE_APP_TENANT_URL }}
+          VUE_APP_FULL_TENANT_URL: ${{ secrets.STAGING_VUE_APP_FULL_TENANT_URL }}
+          VUE_APP_DOCS_URL: ${{ secrets.STAGING_VUE_APP_DOCS_URL }}
           VUE_APP_OWNER_URL: ${{ secrets.STAGING_VUE_APP_OWNER_URL }}
           VUE_APP_API_URL: ${{ secrets.STAGING_VUE_APP_API_URL }}
+          VUE_APP_SSO_ENDPOINT: ${{ secrets.STAGING_VUE_APP_SSO_ENDPOINT }}
+          VUE_APP_REGISTER_URL: ${{ secrets.STAGING_VUE_APP_REGISTER_URL }}
       - name: Copy files to staging with the AWS CLI
         run: |
           aws s3 sync ./main/dist s3://www-dev.dossierfacile.fr --delete --acl public-read --cache-control max-age=31536000,public
@@ -47,8 +51,12 @@ jobs:
           VUE_APP_CAPTCHA_SITE_KEY: ${{ secrets.STAGING_VUE_APP_CAPTCHA_SITE_KEY }}
           VUE_APP_MAIN_URL: ${{ secrets.STAGING_VUE_APP_MAIN_URL }}
           VUE_APP_TENANT_URL: ${{ secrets.STAGING_VUE_APP_TENANT_URL }}
+          VUE_APP_FULL_TENANT_URL: ${{ secrets.STAGING_VUE_APP_FULL_TENANT_URL }}
+          VUE_APP_DOCS_URL: ${{ secrets.STAGING_VUE_APP_DOCS_URL }}
           VUE_APP_OWNER_URL: ${{ secrets.STAGING_VUE_APP_OWNER_URL }}
           VUE_APP_API_URL: ${{ secrets.STAGING_VUE_APP_API_URL }}
+          VUE_APP_SSO_ENDPOINT: ${{ secrets.STAGING_VUE_APP_SSO_ENDPOINT }}
+          VUE_APP_REGISTER_URL: ${{ secrets.STAGING_VUE_APP_REGISTER_URL }}
       - name: Copy files to staging website with the AWS CLI
         run: |
           aws s3 sync ./tenant/dist s3://locataire-dev.dossierfacile.fr --delete --acl public-read --cache-control max-age=31536000,public
