@@ -4,6 +4,15 @@
       <h2 class="fr-h2 text-center fr-mt-7w fr-mb-5w blue-text">
         {{ $t("title") }}
       </h2>
+
+      <div class="fr-mt-5w fr-mb-5w text-center ">
+        <a id="social-franceconnect-particulier" class="inline-block" type="button" href="/account">
+          <span class="">France Connect Particulier</span>
+        </a>
+      </div>
+
+      <hr>
+
     <ValidationObserver v-slot="{ validate }">
       <form name="form" @submit.prevent="validate().then(handleRegister)">
         <div class="fr-grid-row fr-grid-row--center">
@@ -231,6 +240,26 @@ export default class Register extends Vue {
 .full-width-btn {
   width: 100%;
   display: table-cell;
+}
+
+a#social-franceconnect-particulier {
+  background: url(https://partenaires.franceconnect.gouv.fr/images/fc_bouton_alt2_v2.png) no-repeat left top;
+  height: 56px;
+  width: 224px;
+}
+
+a#social-franceconnect-particulier:hover {
+  background: url(https://partenaires.franceconnect.gouv.fr/images/fc_bouton_alt3_v2.png) no-repeat left top !important;
+  height: 56px;
+  width: 224px;
+}
+
+a#social-franceconnect-particulier span {
+	display:none;
+}
+
+.inline-block {
+  display: inline-block;
 }
 </style>
 
