@@ -45,7 +45,7 @@
                 }}</label>
                 <input
                   id="password"
-                  :placeholder="$t('password-placeholder')"
+                  :placeholder="generatePlaceholder()"
                   type="password"
                   v-model="user.password"
                   name="password"
@@ -77,7 +77,6 @@
                 >
                 <input
                   id="confirm-password"
-                  :placeholder="$t('password-placeholder')"
                   type="password"
                   v-model="user.confirm"
                   name="confirm-password"
@@ -218,6 +217,11 @@ export default class Register extends Vue {
   setScore(s: number) {
     this.score = s;
   }
+
+  generatePlaceholder() {
+    const chars = ["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz","0123456789", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", "#!?-_."];
+    return "Ex: " + [4,4,2,2].map(function(len, i) { return Array(len).fill(chars[i]).map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('') }).concat().join('').split('').sort(function(){return 0.5-Math.random()}).join('');
+  }
 }
 </script>
 
@@ -233,7 +237,6 @@ a.cgu {
 "title": "Create account",
 "password": "Password :",
 "email-placeholder": "E.g. : example@example.fr",
-"password-placeholder": "E.g. : 12345679",
 "confirm-password": "Confirm password :",
 "email": "Email :",
 "submit": "I create my account",
@@ -245,11 +248,10 @@ a.cgu {
 "require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer"
 },
 "fr": {
-"title": "Création de compte DossierFacile",
+"title": "Rejoindre DossierFacile",
 "password": "Mot de passe :",
 "confirm-password": "Confirmation du mot de passe :",
 "email-placeholder": "Ex : exemple@exemple.fr",
-"password-placeholder": "Ex : 12345679",
 "email": "Email :",
 "submit": "Je crée mon compte",
 "email-not-valid": "Email non valide",
