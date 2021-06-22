@@ -168,12 +168,9 @@ const store = new Vuex.Store({
       window.location.replace(`/account`);
     },
     logout({ commit }, redirect = true) {
-      AuthService.logout(TENANT_URL + "/account");
       commit("logout");
       commit("initState");
-      if (redirect) {
-        window.location.replace(MAIN_URL);
-      }
+      AuthService.logout(TENANT_URL + "/account");
     },
     deleteAccount({ commit }, password) {
       return AuthService.deleteAccount(password).then(
