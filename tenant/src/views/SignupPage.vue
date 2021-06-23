@@ -37,7 +37,7 @@
               <div class="fr-pl-2w fr-pr-2w">
                 <p class="fr-mt-3w">
                   Vous avez tout ?! Super !<br />
-                  Commencons par sécuriser votre compte !
+                  Commençons par sécuriser votre compte !
                 </p>
               </div>
             </div>
