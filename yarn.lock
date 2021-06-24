@@ -1281,10 +1281,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.5.tgz#8eed982e2ee6f7f4e44c253e12962980791efd46"
   integrity sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==
 
-"@gouvfr/dsfr@1.0.0-rc1":
-  version "1.0.0-rc1"
-  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.0.0-rc1.tgz#5c4f201620426f60e35904b9d91fd3003c8f8000"
-  integrity sha512-vV53WpTk/sPsncJGalurW1FARD3PJkCDfQvGhG5Sev7iyAitgc9ThTb7l2erTOCMvZoLc83te/PAuaHWHMLxFA==
+"@gouvfr/dsfr@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.0.0.tgz#825cba4aef5ebe5da1980cbe4b7d102315710f51"
+  integrity sha512-rly0JstrdffkX+TkF3cqUpnF4eyOiBKmFVgMsT6D8Mr//RB83wWvBOxpsWlu+CiUJKgPlhIuIud2skeTyf0eCw==
 
 "@hapi/address@2.x.x":
   version "2.1.4"
