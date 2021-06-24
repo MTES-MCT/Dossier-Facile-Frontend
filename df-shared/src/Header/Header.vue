@@ -31,7 +31,7 @@
                 <p class="fr-header__service-title">
                   <img
                     class="logo"
-                    src="./logo_dossierfacile.webp"
+                    src="./logo_dossierfacile.png"
                     alt="logo"
                   />
                 </p>

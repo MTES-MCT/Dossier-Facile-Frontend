@@ -116,7 +116,7 @@
             </DfButton>
           </div>
           <div class="fr-col-md-6">
-            <img src="../assets/icons/justif.webp" alt="" />
+            <img src="../assets/icons/justif.png" alt="" />
           </div>
         </div>
       </div>
@@ -148,7 +148,7 @@
         </h2>
         <div class="text-center">
           <router-link to="/stats">
-            <img src="../assets/icons/stats.webp" class="stats-icon" alt="" />
+            <img src="../assets/icons/stats.png" class="stats-icon" alt="" />
             {{ $t("s4.link") }}
           </router-link>
         </div>
@@ -203,7 +203,7 @@
               <img
                 alt="logo monsieur hugo"
                 class="partner-logo"
-                src="../assets/logos/monsieur_hugo.webp"
+                src="../assets/logos/monsieur_hugo.png"
               />
             </a>
           </div>
@@ -216,7 +216,7 @@
               <img
                 alt="logo visale"
                 class="partner-logo"
-                src="../assets/logos/visale.webp"
+                src="../assets/logos/visale.png"
               />
             </a>
           </div>
@@ -232,7 +232,7 @@
               <img
                 alt="logo locservice"
                 class="partner-logo"
-                src="../assets/logos/loc_service.webp"
+                src="../assets/logos/loc_service.png"
               />
             </a>
           </div>
@@ -245,7 +245,7 @@
               <img
                 alt="logo colivme"
                 class="partner-logo"
-                src="../assets/logos/colivme.webp"
+                src="../assets/logos/colivme.png"
               />
             </a>
           </div>
@@ -258,7 +258,7 @@
               <img
                 alt="logo whoomies"
                 class="partner-logo"
-                src="../assets/logos/whoomies.webp"
+                src="../assets/logos/whoomies.png"
               />
             </a>
           </div>
@@ -271,7 +271,7 @@
               <img
                 alt="logo anil"
                 class="partner-logo"
-                src="../assets/logos/anil.webp"
+                src="../assets/logos/anil.png"
               />
             </a>
           </div>
@@ -284,7 +284,7 @@
               <img
                 alt="logo click and rent"
                 class="partner-logo"
-                src="../assets/logos/clickandrent.webp"
+                src="../assets/logos/clickandrent.png"
               />
             </a>
           </div>
@@ -341,10 +341,10 @@ export default class LandingPage extends Vue {
   left: 0;
   background-size: cover !important;
   background-position: 50% 50% !important;
-  background-image: url("../assets/cover-features.webp");
+  background-image: url("../assets/cover-features.png");
 
   @media (max-width: 768px) {
-    background-image: url("../assets/cover-features-mobile.webp");
+    background-image: url("../assets/cover-features-mobile.png");
   }
 
   z-index: 0;

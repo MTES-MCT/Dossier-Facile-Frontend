@@ -27,7 +27,7 @@
               <img
                 alt=""
                 class="img-center"
-                src="../../assets/images/blog-article9.webp"
+                src="../../assets/images/blog-article9.png"
               />
               <h2>1. Qu’est-ce qu’une garantie de loyer impayé&nbsp;?</h2>
               <p>

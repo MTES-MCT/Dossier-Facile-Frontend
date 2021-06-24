@@ -954,18 +954,18 @@ h2 {
 }
 
 .logo-anil {
-  background-image: url("../assets/anil_grey.webp");
+  background-image: url("../assets/anil_grey.png");
   &:hover {
-    background-image: url("../assets/anil.webp");
+    background-image: url("../assets/anil.png");
   }
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .logo-visale {
-  background-image: url("../assets/visale_grey.webp");
+  background-image: url("../assets/visale_grey.png");
   &:hover {
-    background-image: url("../assets/visale.webp");
+    background-image: url("../assets/visale.png");
   }
   background-repeat: no-repeat;
   background-position: center;
