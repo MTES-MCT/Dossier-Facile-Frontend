@@ -188,7 +188,7 @@ body {
 }
 
 .bg-pic {
-  background: url("../assets/Immeuble.webp") no-repeat;
+  background: url("../assets/Immeuble.png") no-repeat;
   background-size: cover;
   height: 100%;
   overflow: hidden;

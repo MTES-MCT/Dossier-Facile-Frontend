@@ -28,7 +28,7 @@
               <img
                 alt=""
                 class="img-center"
-                src="../../assets/images/blog-article4.webp"
+                src="../../assets/images/blog-article4.png"
               />
 
               <h2>1. Donner tous les documents obligatoires</h2>
