@@ -1,4 +1,4 @@
-/*! DSFR v1.0.0rc1 | restricted use */
+/*! DSFR v1.0.0 | SPDX-License-Identifier: MIT | License-Filename: LICENCE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -278,7 +278,7 @@
 
     switch (true) {
       case this.current !== null:
-      case !member.disclosed && !member.primal:
+      case !member.disclosed && !(member.primary && member.primary.disclosed):
         member.disclosed = false;
         break;
 
@@ -380,7 +380,7 @@
 
       if (buttons.length > 0) { for (var i = 0; i < buttons.length; i++) { this.addButton(buttons[i]); } }
 
-      this.disclosed = this.primal === true;
+      this.disclosed = this.primary && this.primary.disclosed;
 
       this.gather();
     }
@@ -418,9 +418,9 @@
     Disclosure.prototype.addButton = function addButton (element) {
       var button = this.buttonFactory(element);
       if (button.hasAttribute) {
-        if (this.primal === undefined) {
-          this.primal = button.disclosed;
-        } else { button.apply(this.primal); }
+        if (this.primary === undefined) {
+          this.primary = button;
+        } else { button.apply(this.primary.disclosed); }
       }
       this.buttons.push(button);
     };
@@ -980,7 +980,7 @@
     var focusables = this.focusables;
     if (focusables.length) { focusables[0].focus(); }
     this.element.setAttribute('aria-modal', true);
-    this.element.addEventListener('keydown', this.handling);
+    window.addEventListener('keydown', this.handling);
 
     this.stunneds = [];
     // this.stun(document.body);
@@ -1071,7 +1071,7 @@
     this.isTrapping = false;
 
     this.element.removeAttribute('aria-modal');
-    this.element.removeEventListener('keydown', this.handling);
+    window.removeEventListener('keydown', this.handling);
     this.element = null;
 
     // for (const stunned of this.stunneds) stunned.unstun();
@@ -1222,14 +1222,18 @@
         api.core.removeClass(this.body, SCROLL_SHADOW_CLASS);
       }
 
-      if (isResizing) {
-        this.body.style.maxHeight = (window.innerHeight - OFFSET_MOBILE) + 'px';
+      this.isMedium = window.matchMedia('(min-width: 48em)').matches;
 
-        // Une deuxième fois après positionnement des barres du navigateur (ios)
-        // TODO: à tester si fonctionnel sans setTimeout
-        api.core.engine.renderer.next(function () {
-          this$1.body.style.maxHeight = (window.innerHeight - OFFSET_MOBILE) + 'px';
-        });
+      if (isResizing) {
+        if (this.isMedium) {
+          this.body.style.removeProperty('max-height');
+        } else {
+          this.body.style.maxHeight = (window.innerHeight - OFFSET_MOBILE) + 'px';
+          // Une deuxième fois après positionnement des barres du navigateur (ios)
+          api.core.engine.renderer.next(function () {
+            this$1.body.style.maxHeight = (window.innerHeight - OFFSET_MOBILE) + 'px';
+          });
+        }
       }
     };
 
@@ -1780,6 +1784,7 @@
 
     TabsGroup.prototype.apply = function apply () {
       for (var i = 0; i < this._index; i++) { this.members[i].translate(-1); }
+      this.current.element.style.transition = '';
       this.current.element.style.transform = '';
       for (var i$1 = this._index + 1; i$1 < this.length; i$1++) { this.members[i$1].translate(1); }
       this.element.style.transition = '';
@@ -1834,9 +1839,8 @@
     };
 
     Tab.prototype.translate = function translate (direction, initial) {
-      if (initial) { this.element.style.transition = 'none'; }
+      this.element.style.transition = initial ? 'none' : '';
       this.element.style.transform = "translate(" + (direction * 100) + "%)";
-      if (initial) { this.element.style.transition = ''; }
     };
 
     Tab.prototype.reset = function reset () {
@@ -1883,7 +1887,7 @@
     if (!element) { return; }
     var modals = api.core.Instance.getInstances(element, api.Modal);
     if (!modals || !modals.length) { return; }
-    this.modals.push(modals[0]);
+    this.modals.push(new HeaderModal(modals[0]));
   };
 
   Header.prototype.init = function init () {
@@ -1904,21 +1908,28 @@
   Header.prototype.change = function change () {
     this.isLarge = window.matchMedia('(min-width: 62em)').matches;
 
-    if (this.isLarge) {
-      for (var i = 0; i < this.modals.length; i++) {
-        this.modals[i].conceal();
-        this.modals[i].element.removeAttribute('role');
-      }
-    } else {
-      for (var i$1 = 0; i$1 < this.modals.length; i$1++) {
-        this.modals[i$1].element.setAttribute('role', 'dialog');
-      }
-    }
+    if (this.isLarge) { this.modals.forEach(function (modal) { return modal.disable(); }); }
+    else { this.modals.forEach(function (modal) { return modal.enable(); }); }
 
     if (this.linksGroup !== null) {
       if (this.isLarge) { this.toolsLinks.appendChild(this.linksGroup); }
       else { this.menuLinks.appendChild(this.linksGroup); }
     }
+  };
+
+  var HeaderModal = function HeaderModal (modal) {
+    this.modal = modal;
+  };
+
+  HeaderModal.prototype.enable = function enable () {
+    this.modal.element.setAttribute('role', 'dialog');
+    this.modal.element.setAttribute('aria-labelledby', this.modal.primary.element.id);
+  };
+
+  HeaderModal.prototype.disable = function disable () {
+    this.modal.conceal();
+    this.modal.element.removeAttribute('role');
+    this.modal.element.removeAttribute('aria-labelledby');
   };
 
   api.Header = Header;
