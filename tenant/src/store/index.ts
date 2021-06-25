@@ -364,6 +364,12 @@ const store = new Vuex.Store({
       return MessageService.postMessage({ messageBody: message }).then(() => {
         this.dispatch("updateMessages");
       });
+    },
+    deleteCoTenant(_, tenant: any) {
+      if (tenant.id && tenant.id > 0) {
+        ProfileService.deleteCoTenant(tenant.id);
+      }
+      this.commit("deleteRoommates", tenant.email);
     }
   },
   getters: {

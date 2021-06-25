@@ -8,16 +8,6 @@
         })
       }}
     </p>
-    <template v-if="removeRoommates()">
-      <WarningMessage>
-        <span>{{ $t("remove-roommates") }}</span>
-      </WarningMessage>
-    </template>
-    <template v-if="removeCouple()">
-      <WarningMessage>
-        <span>{{ $t("remove-couple") }}</span>
-      </WarningMessage>
-    </template>
 
     <div v-if="!isOwner()">
       <div
@@ -83,7 +73,12 @@
             <fieldset class="fr-fieldset">
               <div class="fr-fieldset__content">
                 <div class="fr-grid-row space-around">
-                  <BigRadio :big="true" val="ALONE" v-model="applicationType">
+                  <BigRadio
+                    :big="true"
+                    val="ALONE"
+                    :value="applicationType"
+                    @input="updateApplicationType"
+                  >
                     <div class="fr-grid-col spa">
                       <div class="icon-container">
                         <span class="material-icons md-36">person</span>
@@ -91,7 +86,12 @@
                       <span>{{ $t("alone") }}</span>
                     </div>
                   </BigRadio>
-                  <BigRadio :big="true" val="COUPLE" v-model="applicationType">
+                  <BigRadio
+                    :big="true"
+                    val="COUPLE"
+                    :value="applicationType"
+                    @input="updateApplicationType"
+                  >
                     <div class="fr-grid-col spa">
                       <div class="icon-container">
                         <span class="material-icons md-36">group</span>
@@ -99,7 +99,12 @@
                       <span>{{ $t("couple") }}</span>
                     </div>
                   </BigRadio>
-                  <BigRadio :big="true" val="GROUP" v-model="applicationType">
+                  <BigRadio
+                    :big="true"
+                    val="GROUP"
+                    :value="applicationType"
+                    @input="updateApplicationType"
+                  >
                     <div class="fr-grid-col spa">
                       <div class="icon-container">
                         <span class="material-icons md-36">groups</span>
@@ -126,6 +131,20 @@
         </form>
       </ValidationObserver>
     </div>
+    <ConfirmModal
+      v-if="isDeleteGroupVisible"
+      @valid="validSelect()"
+      @cancel="undoSelect()"
+    >
+      <span>{{ $t("will-delete-roommates") }}</span>
+    </ConfirmModal>
+    <ConfirmModal
+      v-if="isDeleteCoupleVisible"
+      @valid="validSelect()"
+      @cancel="undoSelect()"
+    >
+      <span>{{ $t("will-delete-couple") }}</span>
+    </ConfirmModal>
   </div>
 </template>
 
@@ -141,6 +160,7 @@ import SubmitButton from "df-shared/src/Button/SubmitButton.vue";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
 import { AnalyticsService } from "@/services/AnalyticsService";
+import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 
 @Component({
   computed: {
@@ -161,7 +181,8 @@ import { AnalyticsService } from "@/services/AnalyticsService";
     BigRadio,
     SubmitButton,
     WarningMessage,
-    DfButton
+    DfButton,
+    ConfirmModal
   }
 })
 export default class TenantInformationForm extends Vue {
@@ -170,6 +191,9 @@ export default class TenantInformationForm extends Vue {
   coTenantAuthorize!: boolean;
   spouseAuthorize!: boolean;
   applicationType = "";
+  isDeleteCoupleVisible = false;
+  isDeleteGroupVisible = false;
+  newApplicationType = "";
 
   mounted() {
     if (this.user.applicationType) {
@@ -267,17 +291,46 @@ export default class TenantInformationForm extends Vue {
       });
   }
 
-  removeRoommates() {
-    return (
-      this.user.applicationType === "GROUP" && this.applicationType !== "GROUP"
-    );
+  updateApplicationType(value: string) {
+    this.newApplicationType = value;
+    if (
+      value !== this.applicationType &&
+      (this.user.apartmentSharing?.tenants.length || 0) > 1
+    ) {
+      if (this.applicationType === "COUPLE") {
+        this.isDeleteCoupleVisible = true;
+        return false;
+      }
+      if (this.applicationType === "GROUP") {
+        this.isDeleteGroupVisible = true;
+        return false;
+      }
+    }
+    this.applicationType = this.newApplicationType;
+    return false;
   }
 
-  removeCouple() {
-    return (
-      this.user.applicationType === "COUPLE" &&
-      this.applicationType !== "COUPLE"
-    );
+  undoSelect() {
+    this.isDeleteCoupleVisible = false;
+    this.isDeleteGroupVisible = false;
+  }
+
+  validSelect() {
+    this.applicationType = this.newApplicationType;
+    this.user.apartmentSharing?.tenants.forEach(t => {
+      if (t.tenantType !== "CREATE") {
+        this.$store
+          .dispatch("deleteCoTenant", t)
+          .then()
+          .catch(() => {
+            this.$toasted.global.error();
+            this.undoSelect();
+            return;
+          });
+      }
+    });
+    this.isDeleteCoupleVisible = false;
+    this.isDeleteGroupVisible = false;
   }
 
   isOwner() {
@@ -337,47 +390,50 @@ export default class TenantInformationForm extends Vue {
 
 <i18n>
 {
-"en": {
-"confirm": "Confirmer",
-"firstname": "Prénom du locataire",
-"lastname": "Nom du locataire",
-"zipcode": "Code postal",
-"tenantPresentation": "Le locataire sera {firstname} {lastname}. Vous désirez louer un logement :",
-"alone": "Alone",
-"couple": "Couple",
-"roommate": "Flatsharing",
-"remove-roommates": "Be careful! Your file will be disconnected from your roommates files",
-"remove-couple": "Be careful! Your file will be disconnected from your spouse file",
-"error": "An error occured",
-"acceptAuthorSpouse": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
-"acceptAuthorCoTenant": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",
-"validate": "Validate",
-"roommates-saved": "Invitation sent to you roommates. Your roommates have been successfully added<br> and an invitation has been sent to create their account.",
-"email-exists": "This email address already exists in DossierFacile. Please use an other email address.",
-"roommate-email-required": "You must fill at least one roommate adress.",
-"couple-email-required": "You must fill your spouse adress."
-},
-"fr": {
-"confirm": "Confirmer",
-"firstname": "Prénom du locataire",
-"lastname": "Nom du locataire",
-"zipcode": "Code postal",
-"tenantPresentation": "Le locataire sera {firstname} {lastname}. Vous désirez louer un logement :",
-"alone": "Seul·e",
-"couple": "En couple",
-"roommate": "En colocation",
-"remove-roommates": "Attention, cela aura pour effet de dissocier votre dossier de vos colocataires",
-"remove-couple": "Attention, cela aura pour effet de dissocier votre dossier de celui de votre conjoint·e",
-"error": "Une erreur est survenue",
-"acceptAuthorSpouse": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
-"acceptAuthorCoTenant": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",
-"validate": "Valider",
-"roommates-saved": "Invitation envoyée à vos colocataires. Vos colocataires ont bien été<br>ajoutés et une invitation de création de compte leur a été envoyée.",
-"couple-saved": "Invitation envoyée à votre conjoint·e. Votre conjoint·e a bien été<br>ajouté·e et une invitation de création de compte lui a été envoyée.",
-"email-exists": "Cette adresse email est déjà utilisée sur DossierFacile.<br>Renseignez une adresse email différente.",
-"roommate-email-required": "Vous devez saisir l'adresse email d'au moins un colocataire.",
-"couple-email-required": "Vous devez saisir l'adresse email de votre conjoint·e"
-
-}
+  "en": {
+  "confirm": "Confirmer",
+  "firstname": "Prénom du locataire",
+  "lastname": "Nom du locataire",
+  "zipcode": "Code postal",
+  "tenantPresentation": "Le locataire sera {firstname} {lastname}. Vous désirez louer un logement :",
+  "alone": "Alone",
+  "couple": "Couple",
+  "roommate": "Flatsharing",
+  "remove-roommates": "Be careful! Your file will be disconnected from your roommates files",
+  "remove-couple": "Be careful! Your file will be disconnected from your spouse file",
+  "error": "An error occured",
+  "acceptAuthorSpouse": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
+  "acceptAuthorCoTenant": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",
+  "validate": "Validate",
+  "roommates-saved": "Invitation sent to you roommates. Your roommates have been successfully added<br> and an invitation has been sent to create their account.",
+  "email-exists": "This email address already exists in DossierFacile. Please use an other email address.",
+  "roommate-email-required": "You must fill at least one roommate adress.",
+  "couple-email-required": "You must fill your spouse adress.",
+  "will-delete-couple": "This action will delete the link with your spouse",
+  "will-delete-roommates": "This action will delete the link with your roommates"
+  },
+  "fr": {
+  "confirm": "Confirmer",
+  "firstname": "Prénom du locataire",
+  "lastname": "Nom du locataire",
+  "zipcode": "Code postal",
+  "tenantPresentation": "Le locataire sera {firstname} {lastname}. Vous désirez louer un logement :",
+  "alone": "Seul·e",
+  "couple": "En couple",
+  "roommate": "En colocation",
+  "remove-roommates": "Attention, cela aura pour effet de dissocier votre dossier de vos colocataires",
+  "remove-couple": "Attention, cela aura pour effet de dissocier votre dossier de celui de votre conjoint·e",
+  "error": "Une erreur est survenue",
+  "acceptAuthorSpouse": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
+  "acceptAuthorCoTenant": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",
+  "validate": "Valider",
+  "roommates-saved": "Invitation envoyée à vos colocataires. Vos colocataires ont bien été<br>ajoutés et une invitation de création de compte leur a été envoyée.",
+  "couple-saved": "Invitation envoyée à votre conjoint·e. Votre conjoint·e a bien été<br>ajouté·e et une invitation de création de compte lui a été envoyée.",
+  "email-exists": "Cette adresse email est déjà utilisée sur DossierFacile.<br>Renseignez une adresse email différente.",
+  "roommate-email-required": "Vous devez saisir l'adresse email d'au moins un colocataire.",
+  "couple-email-required": "Vous devez saisir l'adresse email de votre conjoint·e",
+  "will-delete-couple": "Cette action va supprimer la liaison avec le dossier de votre conjoint·e",
+  "will-delete-roommates": "Cette action va supprimer la liaison avec le dossier de vos colocataires"
+  }
 }
 </i18n>
