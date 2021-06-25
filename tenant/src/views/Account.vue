@@ -686,6 +686,12 @@ export default class Account extends Vue {
   isDeleteModalVisible = false;
   password = "";
 
+  mounted() {
+    const localScript = document.createElement("script");
+    localScript.setAttribute("src", "/js/dsfr.module.min.js");
+    document.head.appendChild(localScript);
+  }
+
   isOld() {
     // TODO
     return false;
