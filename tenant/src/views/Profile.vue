@@ -81,7 +81,6 @@ export default class Profile extends Vue {
     document.head.appendChild(localScript);
   }
 
-
   beforeDestroy() {
     window.Beacon("destroy");
   }

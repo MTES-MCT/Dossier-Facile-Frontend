@@ -23,6 +23,11 @@ export const ProfileService = {
       data
     );
   },
+  async deleteCoTenant(id: number) {
+    await axios.delete(
+      `https://${process.env.VUE_APP_API_URL}/api/tenant/deleteCoTenant/${id}`
+    );
+  },
   validateFile(honorDeclaration: boolean, clarification: string) {
     return axios.post(
       `https://${process.env.VUE_APP_API_URL}/api/register/honorDeclaration`,
