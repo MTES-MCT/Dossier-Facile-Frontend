@@ -153,7 +153,7 @@ body {
 <style scoped lang="scss">
 .bg-white {
   background-color: white;
-  padding: 8px;
+  padding: 16px;
 }
 
 .bg-purple {

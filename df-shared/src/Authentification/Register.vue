@@ -11,12 +11,12 @@
         </a>
       </div>
 
-      <hr>
+      <div class="separator">{{ $t('or') }}</div>
 
     <ValidationObserver v-slot="{ validate }">
       <form name="form" @submit.prevent="validate().then(handleRegister)">
         <div class="fr-grid-row fr-grid-row--center">
-          <div class="fr-col-12 fr-mb-3w">
+          <div class="fr-col-12 fr-mb-3w fr-mt-5w">
             <validation-provider rules="required" v-slot="{ errors }">
               <div
                 class="fr-input-group"
@@ -261,6 +261,29 @@ a#social-franceconnect-particulier span {
 .inline-block {
   display: inline-block;
 }
+
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #6a6a6a;
+  font-size: 12px;
+}
+
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #cecece;
+}
+
+.separator:not(:empty)::before {
+  margin-right: 2rem;
+}
+
+.separator:not(:empty)::after {
+  margin-left: 2rem;
+}
 </style>
 
 <i18n>
@@ -278,7 +301,8 @@ a#social-franceconnect-particulier span {
 "pwd-not-complex": "Password not secure enough",
 "accept-cgu": "En cochant cette case et en cliquant sur \"Je crée mon compte\", j’accepte expressément les <a target=\"_blank\" href='https://dossierfacile.fr/securite-des-donnees'>Conditions générales</a> d’utilisation de DossierFacile et je comprends que mes données personnelles seront utilisées conformément à la <a target=\"_blank\" href='https://dossierfacile.fr/securite-des-donnees'>Politique de confidentialité</a> de DossierFacile",
 "require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer",
-"ex": "E.g.: "
+"ex": "E.g.: ",
+"or": "or"
 },
 "fr": {
 "title": "Rejoindre DossierFacile",
@@ -293,7 +317,8 @@ a#social-franceconnect-particulier span {
 "pwd-not-complex": "Mot de passe trop simple",
 "accept-cgu": "En cochant cette case et en cliquant sur \"Je crée mon compte\", j’accepte expressément les <a class=\"cgu\" target=\"_blank\" href='https://www.dossierfacile.fr/securite-des-donnees#securite'>Conditions générales</a> d’utilisation de DossierFacile et je comprends que mes données personnelles seront utilisées conformément à la <a target=\"_blank\" class=\"cgu\" href='https://www.dossierfacile.fr/securite-des-donnees#confidentialite'>Politique de confidentialité</a> de DossierFacile",
 "require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer",
-"ex": "Ex : "
+"ex": "Ex : ",
+"or": "Ou"
 }
 }
 </i18n>
