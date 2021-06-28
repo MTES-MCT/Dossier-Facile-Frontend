@@ -89,7 +89,7 @@ const routes: Array<RouteConfig> = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if (store.state.user.status === "INCOMPLETE") {
+      if (store.state.user?.status === "INCOMPLETE") {
         next({ name: "Profile" });
       }
       next();
