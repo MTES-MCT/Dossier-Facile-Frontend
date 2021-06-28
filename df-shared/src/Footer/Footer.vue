@@ -63,6 +63,7 @@
               class="fr-footer__bottom-link"
               :href="`${VUE_APP_DOCS_URL}`"
               target="_blank"
+              rel="noreferrer"
             >
               {{ $t("faq") }}
             </a>
