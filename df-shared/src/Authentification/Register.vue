@@ -5,13 +5,15 @@
         {{ $t("title") }}
       </h2>
 
-      <div class="fr-mt-5w fr-mb-5w text-center ">
-        <a id="social-franceconnect-particulier" class="inline-block" type="button" href="/account">
-          <span class="">France Connect Particulier</span>
-        </a>
-      </div>
+      <template v-if="franceConnect">
+        <div class="fr-mt-5w fr-mb-5w text-center ">
+          <a id="social-franceconnect-particulier" class="inline-block" type="button" href="/account">
+            <span class="">France Connect Particulier</span>
+          </a>
+        </div>
 
-      <div class="separator">{{ $t('or') }}</div>
+        <div class="separator">{{ $t('or') }}</div>
+      </template>
 
     <ValidationObserver v-slot="{ validate }">
       <form name="form" @submit.prevent="validate().then(handleRegister)">
@@ -197,6 +199,7 @@ export default class Register extends Vue {
   SITE_KEY = process.env.VUE_APP_CAPTCHA_SITE_KEY;
 
   @Prop({ default: "" }) email!: string;
+  @Prop({ default: false }) franceConnect!: boolean;
 
   user: User = new User();
   score = 0;

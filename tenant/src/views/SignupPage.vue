@@ -45,7 +45,7 @@
         </div>
         <div class="fr-col-lg-6 fr-col-12 bg-white">
           <div class="margin-auto max-400">
-            <Register @on-register="onRegister" />
+            <Register @on-register="onRegister" :franceConnect="false" />
             <div class="text-center fr-mb-5w">
               {{ $t("existing-account") }}
               <router-link to="/account" class="blue-text">

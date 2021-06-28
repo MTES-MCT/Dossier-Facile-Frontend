@@ -1,23 +1,64 @@
 <template>
-  <div class="fr-container fr-mt-3w">
+  <div class="fr-container">
     <div class="signup">
-      <DfButton @on-click="existingAccount = false" v-if="existingAccount">
-        {{ $t("register") }}
-      </DfButton>
-      <DfButton @on-click="existingAccount = true" v-if="!existingAccount">
-        {{ $t("existing-account") }}
-      </DfButton>
-      <div class="fr-grid-row fr-grid-row--center">
-        <div class="fr-col-md-8 fr-col-lg-6">
-          <Register
-            :email="email"
-            @on-register="onRegister"
-            v-if="!existingAccount"
-          />
-          <Login @on-login="onLogin" v-if="existingAccount" />
+      <div class="fr-grid-row">
+        <div class="fr-col-lg-6 fr-col-12">
+          <div class="bg-pic">
+            <div class="bg-white max-450 left-row fr-pt-3w fr-mt-7w fr-mb-7w">
+              <h2 class="fr-h5 blue-text text-center fr-mt-3w">
+                En route pour rejoindre DossierFacile !
+              </h2>
+              <div class="fr-pl-2w fr-pr-2w">
+                Afin de faciliter la constitution de votre dossier, préparez les
+                pièces suivantes :
+              </div>
+              <div
+                class="bg-purple blue-text fr-pr-2w fr-pl-2w fr-pt-3w fr-pb-3w"
+              >
+                <ul>
+                  <li>
+                    Votre pièce d’identité
+                  </li>
+                  <li>
+                    Un justificatif de domicile
+                  </li>
+                  <li>
+                    Un justificatif de situation professionnelle
+                  </li>
+                  <li>
+                    Vos justificatifs de ressource
+                  </li>
+                  <li>
+                    Votre dernier avis d’imposition
+                  </li>
+                </ul>
+                Pour vos garants ces mêmes pièces vous seront demandées.
+              </div>
+              <div class="fr-pl-2w fr-pr-2w">
+                <p class="fr-mt-3w">
+                  Vous avez tout ?! Super !<br />
+                  Commençons par sécuriser votre compte !
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="fr-col-lg-6 fr-col-12 bg-white">
+          <div class="margin-auto max-400">
+            <Register
+              :email="email"
+              :franceConnect="false"
+              @on-register="onRegister"
+            />
+            <div class="text-center fr-mb-5w">
+              {{ $t("existing-account") }}
+              <button @click="connect" class="blue-text">
+                {{ $t("connect") }}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-
       <Modal v-show="isValidModalVisible" @close="closeModal">
         <template v-slot:body>
           <div class="fr-container">
@@ -34,6 +75,13 @@
           </div>
         </template>
       </Modal>
+      <ConfirmModal
+        v-if="showConfirmModal"
+        @valid="validModal()"
+        @cancel="closeConfirmModal()"
+      >
+        <span>{{ $t("will-link-to-partner") }}</span>
+      </ConfirmModal>
     </div>
   </div>
 </template>
@@ -45,22 +93,34 @@ import Register from "df-shared/src/Authentification/Register.vue";
 import Login from "df-shared/src/Authentification/Login.vue";
 import Modal from "df-shared/src/components/Modal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
+import { mapGetters } from "vuex";
+import { RegisterService } from "../services/RegisterService";
+import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 
 @Component({
   components: {
     Register,
     Modal,
     DfButton,
-    Login
+    Login,
+    ConfirmModal
+  },
+  computed: {
+    ...mapGetters({
+      isLoggedIn: "isLoggedIn"
+    })
   }
 })
 export default class Source extends Vue {
+  isLoggedIn!: boolean;
   source = "";
   internalPartnerId = "";
   firstName = "";
   lastName = "";
   email = "";
-  existingAccount = false;
+
+  isValidModalVisible = false;
+  showConfirmModal = false;
 
   mounted() {
     this.source = this.$route.params.source;
@@ -69,9 +129,28 @@ export default class Source extends Vue {
     this.firstName = this.$route.query.firstName.toString();
     this.lastName = this.$route.query.lastName.toString();
     this.email = this.$route.query.email.toString();
+
+    if (this.isLoggedIn) {
+      this.showConfirmModal = true;
+    }
   }
 
-  isValidModalVisible = false;
+  validModal() {
+    RegisterService.connectSource(this.internalPartnerId, this.source)
+      .then(() => {
+        this.$toasted.show(this.$i18n.t("connected").toString(), {
+          type: "success",
+          duration: 3000
+        });
+        this.$router.push("/account");
+      })
+      .catch(() => {
+        this.$toasted.show(this.$i18n.t("register-error").toString(), {
+          type: "error",
+          duration: 7000
+        });
+      });
+  }
 
   onRegister(user: User) {
     user.firstName = this.firstName;
@@ -108,6 +187,12 @@ export default class Source extends Vue {
     }
   }
 
+  connect() {
+    (Vue as any).$keycloak.login({
+      redirectUri: this.$route.query.page
+    });
+  }
+
   onLogin(user: User) {
     user.firstName = this.firstName;
     user.lastName = this.lastName;
@@ -116,41 +201,17 @@ export default class Source extends Vue {
         "https://sso-preprod.dossierfacile.fr/auth/realms/dossier-facile/protocol/openid-connect/auth?" +
         "response_type=code&state=&client_id=login-app&scope=openid&redirect_uri=https%3A%2F%2Flocataire-dev.dossierfacile.fr/auth/callback";
       window.location.href = url;
-
-      // TODO : clean code
-      // login pre-prod: "https://sso-preprod.dossierfacile.fr/auth/realms/dossier-facile/protocol/openid-connect/auth?response_type=code&state=&client_id=login-app&scope=openid&redirect_uri=https%3A%2F%2Flocataire-dev.dossierfacile.fr/auth/callback";
-      // login localhost: "https://sso-preprod.dossierfacile.fr/auth/realms/dossier-facile/protocol/openid-connect/auth?response_type=code&state=&client_id=login-app&scope=openid&redirect_uri=http%3A%2F%2Flocalhost%3A9002/auth/callback"
-      // "https://locataire-dev.dossierfacile.fr/auth/callback?state=&session_state=6cb83e9e-8feb-4e58-a0a4-5a0ced703b1e&code=9d3493e1-f813-495f-9e1c-871876ac6c6f.6cb83e9e-8feb-4e58-a0a4-5a0ced703b1e.e5fba3a0-95aa-4345-a719-7d578b4ef4d9"
-      /*       this.$store
-        .dispatch("login", {
-          user,
-          source: this.source,
-          internalPartnerId: this.internalPartnerId
-        })
-        .then(
-          () => {
-            this.$router.push("/profile");
-          },
-          error => {
-            if (error.response.status === 401) {
-              this.$toasted.show(this.$i18n.t("password-error").toString(), {
-                type: "error",
-                duration: 7000
-              });
-            } else {
-              this.$toasted.show(error.message, {
-                type: "error",
-                duration: 5000
-              });
-            }
-          }
-        ); */
+      this.$router.push("/profile");
     }
+  }
+
+  closeConfirmModal() {
+    this.showConfirmModal = false;
   }
 
   closeModal() {
     this.isValidModalVisible = false;
-    this.$router.push("/login");
+    this.$router.push("/account");
   }
 }
 </script>
@@ -162,14 +223,86 @@ export default class Source extends Vue {
     "clic-to-confirm": "Please click on the given link to confirm your email and continue you inscription.",
     "existing-account": "I have an account already",
     "register": "Register a new account",
-    "register-error": "An error occured"
+    "register-error": "An error occured",
+    "connected": "Successfully connected to partner",
+    "will-link-to-partner": "Confirm connection to partner"
 },
 "fr": {
     "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
     "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre votre inscription.",
     "existing-account": "Lier un compte existant",
     "register": "Créer un nouveau compte",
-    "register-error": "Une erreur est survenue"
+    "register-error": "Une erreur est survenue",
+    "connected": "Connexion au partenaire réussie",
+    "will-link-to-partner": "Confirmer la connexion au partenaire"
 }
 }
 </i18n>
+
+<style lang="scss">
+body {
+  background-color: var(--g100);
+}
+
+.bg-pic {
+  &:before {
+    content: " ";
+    background-color: black;
+    height: 100%;
+    width: 100%;
+  }
+}
+.bg-pic {
+  background: linear-gradient(rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.5)),
+    url("../assets/Immeuble.png") no-repeat;
+  background-size: cover;
+  height: 100%;
+  overflow: hidden;
+}
+</style>
+
+<style scoped lang="scss">
+.bg-white {
+  background-color: white;
+  padding: 16px;
+}
+
+.bg-purple {
+  margin: 8px;
+  border-radius: 4px;
+  background-color: #e5e5f4;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.margin-auto {
+  margin: auto;
+}
+
+.max-450 {
+  max-width: 450px;
+}
+
+.max-400 {
+  max-width: 400px;
+}
+
+.left-row {
+  margin-left: auto;
+  margin-right: 32px;
+}
+
+li {
+  padding: 0 !important;
+}
+
+button.blue-text {
+  background-color: transparent;
+}
+</style>
