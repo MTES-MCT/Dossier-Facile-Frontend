@@ -12,7 +12,12 @@
       </a>
     </li>
     <li class="fr-nav__item">
-      <a :href="`${DOCS_URL}`" class="fr-nav__link" target="_blank">
+      <a
+        :href="`${DOCS_URL}`"
+        class="fr-nav__link"
+        target="_blank"
+        rel="noreferrer"
+      >
         {{ $t("faq") }}
       </a>
     </li>

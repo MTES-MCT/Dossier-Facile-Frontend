@@ -39,6 +39,7 @@
                 met en place la pratique de la colocation
                 <a
                   target="_blank"
+                  rel="noreferrer"
                   href="https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000038834725/2019-09-01"
                   >par ces termes</a
                 >
@@ -75,7 +76,7 @@
                 part de loyer dont il est redevable, s'il remplit les conditions
                 pour y avoir droit. Chaque colocataire doit faire sa propre
                 demande, par exemple
-                <a target="_blank" href="https://www.caf.fr/"
+                <a target="_blank" href="https://www.caf.fr/" rel="noreferrer"
                   >auprès de la Caf</a
                 >
                 (Caisse d’allocations familiales).
@@ -91,6 +92,7 @@
                 trouve en zone tendue ou non,
                 <a
                   target="_blank"
+                  rel="noreferrer"
                   href="https://www.service-public.fr/particuliers/vosdroits/F1168#:~:text=perte%20d'emploi-,D%C3%A9lai%20de%20pr%C3%A9avis%20%3A%201%20mois.,au%20cours%20du%20m%C3%AAme%20bail"
                   >en savoir plus</a
                 >). <br />
