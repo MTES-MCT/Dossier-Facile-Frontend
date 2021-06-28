@@ -194,7 +194,7 @@ const store = new Vuex.Store({
         }
       );
     },
-    resetPassword({ commit }, user) {
+    resetPassword(_, user) {
       return AuthService.resetPassword(user).then(
         user => {
           return Promise.resolve(user);
