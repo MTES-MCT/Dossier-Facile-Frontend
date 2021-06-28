@@ -85,5 +85,13 @@ export const RegisterService = {
       url = `https://${process.env.VUE_APP_API_URL}/api/register/documentTax`;
     }
     return axios.post(url, formData);
+  },
+
+  connectSource(internalPartnerId: string, source: string) {
+    const url = `https://${process.env.VUE_APP_API_URL}/api/tenant/linkTenantToPartner`;
+    return axios.post(url, {
+      internalPartnerId: internalPartnerId,
+      source: source
+    });
   }
 };

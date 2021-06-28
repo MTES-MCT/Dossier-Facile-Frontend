@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
 import store from "@/store";
+import { nextTick } from "vue/types/umd";
 
 Vue.use(VueRouter);
 
@@ -77,6 +78,23 @@ const routes: Array<RouteConfig> = [
     name: "Source",
     meta: {
       title: "Source - DossierFacile"
+    },
+    beforeEnter: (to, from, next) => {
+      if ((Vue as any).$keycloak.authenticated) {
+        (Vue as any).$keycloak
+          .updateToken(70)
+          .then(() => {
+            localStorage.setItem("token", (Vue as any).$keycloak.token);
+            store.dispatch("loadUser").then(() => {
+              next();
+            });
+          })
+          .catch((err: any) => {
+            console.error(err);
+          });
+      } else {
+        next();
+      }
     },
     component: () =>
       import(/* webpackChunkName: "source" */ "@/views/Source.vue")
@@ -219,7 +237,7 @@ router.beforeEach((to, from, next) => {
         .updateToken(70)
         .then(() => {
           localStorage.setItem("token", (Vue as any).$keycloak.token);
-          store.dispatch("loadUser").then(()=>{
+          store.dispatch("loadUser").then(() => {
             keepGoing(to, next);
           });
         })
