@@ -1,18 +1,17 @@
 import { User } from "../models/User";
 import axios from "axios";
-import Vue from "vue";
 
 const API_URL = `https://${process.env.VUE_APP_API_URL}/api/`;
+const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
 
 export const AuthService = {
-  logout(redirectUri: string) {
-    (Vue as any).$keycloak
-      .logout({
-        redirectUri: redirectUri
-      })
-      .then(() => {
-        localStorage.removeItem("user");
-      });
+  async logout(redirect: boolean) {
+    await axios.post(API_URL + "user/logout");
+    if (redirect) {
+      window.location.replace(MAIN_URL);
+      return;
+    }
+    location.reload;
   },
 
   register(user: User, source: string, internalPartnerId: string) {

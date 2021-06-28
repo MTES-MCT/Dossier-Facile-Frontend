@@ -29,11 +29,7 @@
                 title="Retour à l’accueil"
               >
                 <p class="fr-header__service-title">
-                  <img
-                    class="logo"
-                    src="./logo_dossierfacile.png"
-                    alt="logo"
-                  />
+                  <img class="logo" src="./logo_dossierfacile.png" alt="logo" />
                 </p>
               </a>
               <p class="fr-header__service-tagline">
