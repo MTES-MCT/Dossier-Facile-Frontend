@@ -115,8 +115,8 @@
               </span>
             </DfButton>
           </div>
-          <div class="fr-col-md-6">
-            <img src="../assets/icons/justif.png" alt="" />
+          <div class="fr-col-md-6 mx-auto">
+            <img src="../assets/icons/justif.png" alt="" class="justif-img" />
           </div>
         </div>
       </div>
@@ -202,7 +202,7 @@
             >
               <img
                 alt="logo monsieur hugo"
-                class="partner-logo"
+                class="partner-logo monsieurhugo"
                 src="../assets/logos/monsieur_hugo.png"
               />
             </a>
@@ -215,7 +215,7 @@
             >
               <img
                 alt="logo visale"
-                class="partner-logo"
+                class="partner-logo visale"
                 src="../assets/logos/visale.png"
               />
             </a>
@@ -231,7 +231,7 @@
             >
               <img
                 alt="logo locservice"
-                class="partner-logo"
+                class="partner-logo locservice"
                 src="../assets/logos/loc_service.png"
               />
             </a>
@@ -244,7 +244,7 @@
             >
               <img
                 alt="logo colivme"
-                class="partner-logo"
+                class="partner-logo colivme"
                 src="../assets/logos/colivme.png"
               />
             </a>
@@ -257,7 +257,7 @@
             >
               <img
                 alt="logo whoomies"
-                class="partner-logo"
+                class="partner-logo whoomies"
                 src="../assets/logos/whoomies.png"
               />
             </a>
@@ -270,7 +270,7 @@
             >
               <img
                 alt="logo anil"
-                class="partner-logo"
+                class="partner-logo anil"
                 src="../assets/logos/anil.png"
               />
             </a>
@@ -283,7 +283,7 @@
             >
               <img
                 alt="logo click and rent"
-                class="partner-logo"
+                class="partner-logo rent"
                 src="../assets/logos/clickandrent.png"
               />
             </a>
@@ -431,6 +431,7 @@ a[target="_blank"].logo-link::after {
 .stats-icon {
   display: inline;
   height: 3rem;
+  width: 4rem;
   vertical-align: -0.75rem;
 }
 
@@ -449,9 +450,60 @@ a[target="_blank"].logo-link::after {
 }
 
 .reverse-mobile {
-  @media (max-width: 768px) {
+  @media (max-width: 992px) {
     flex-direction: column-reverse;
   }
+}
+
+.justif-img {
+  @media (min-width: 1200px) {
+  width: 600px;
+  height: 572px;
+  }
+  @media (min-width: 500px) and (max-width: 1200px) {
+  width: 450px;
+  height: 429px;
+  }
+  @media (max-width: 500px) {
+  width: 300px;
+  height: 286px;
+  }
+}
+
+.fr-responsive-img {
+  width: 80px;
+  height: 80px;
+}
+
+.monsieurhugo {
+  width: 210px;
+  height: 39px;
+}
+
+.visale {
+  width: 187px;
+  height: 60px;
+}
+
+.locservice {
+  width: 144px;
+  height: 60px;
+}
+.colivme {
+  width: 60px;
+  height: 60px;
+}
+.whoomies {
+  width: 60px;
+  height: 60px;
+}
+.anil {
+  width: 60px;
+  height: 60px;
+}
+.rent {
+  width: 120px;
+  height: 16px;
 }
 </style>
 
