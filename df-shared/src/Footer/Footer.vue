@@ -222,7 +222,7 @@ export default class MyFooter extends Vue {
   min-width: 100px;
   max-width: 100%;
   width: 200px;
-  height: auto;
+  height: 68px;
   display: block;
 }
 
@@ -267,7 +267,7 @@ export default class MyFooter extends Vue {
     "legals": "Legal notice",
     "faq": "Help",
     "blog": "Blog",
-    "information": "Information",
+    "information": "Find out more",
     "sources": "Source code",
     "accessibility": "Accessibility: partial"
   },
