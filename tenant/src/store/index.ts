@@ -14,11 +14,8 @@ import { AnalyticsService } from "@/services/AnalyticsService";
 
 Vue.use(Vuex);
 
-const TENANT_URL = process.env.VUE_APP_FULL_TENANT_URL;
-
 export class DfState {
   tenantStep = 0;
-  token = "";
   tenantSubStep = 1;
   guarantorStep = 0;
   guarantorSubStep = 1;
@@ -47,12 +44,12 @@ const store = new Vuex.Store({
     loginFailure(state) {
       state.status.loggedIn = false;
       state.user = null;
-      state.token = "";
+      localStorage.setItem("token", "");
       AnalyticsService.loginFail();
     },
     logout(state) {
       state.status.loggedIn = false;
-      state.token = "";
+      localStorage.setItem("token", "");
       state.user = null;
     },
     setLang(state, lang) {
@@ -61,13 +58,13 @@ const store = new Vuex.Store({
     registerSuccess(state) {
       state.status.loggedIn = false;
       state.user = null;
-      state.token = "";
+      localStorage.setItem("token", "");
       AnalyticsService.registerSuccess();
     },
     registerFailure(state) {
       state.status.loggedIn = false;
       state.user = null;
-      state.token = "";
+      localStorage.setItem("token", "");
       AnalyticsService.registerFail();
     },
     setNamesSuccess(state, user) {
