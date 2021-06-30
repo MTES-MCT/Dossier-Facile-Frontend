@@ -664,6 +664,13 @@ import StatusTag from "df-shared/src/components/StatusTag.vue";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { AnalyticsService } from "@/services/AnalyticsService";
+import { extend } from "vee-validate";
+import { required } from "vee-validate/dist/rules";
+
+extend("required", {
+  ...required,
+  message: "Ce champ est requis"
+});
 
 @Component({
   components: {
