@@ -169,6 +169,13 @@ export default class File extends Vue {
     const token = this.$route.params.token;
     ProfileService.getUserByToken(token).then((d: any) => {
       this.user = d.data;
+      if (this.user) {
+        this.user.tenants = this.user?.tenants?.sort((t1, t2) => {
+          return t1.tenantType === "CREATE" && t2.tenantType !== "CREATE"
+            ? -1
+            : 1;
+        });
+      }
     });
   }
 
