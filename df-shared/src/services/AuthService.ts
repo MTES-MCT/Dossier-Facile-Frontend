@@ -2,16 +2,10 @@ import { User } from "../models/User";
 import axios from "axios";
 
 const API_URL = `https://${process.env.VUE_APP_API_URL}/api/`;
-const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
 
 export const AuthService = {
-  async logout(redirect: boolean) {
-    await axios.post(API_URL + "user/logout");
-    if (redirect) {
-      window.location.replace(MAIN_URL);
-      return;
-    }
-    location.reload;
+  logout() {
+    return axios.post(API_URL + "user/logout");
   },
 
   register(user: User, source: string, internalPartnerId: string) {
