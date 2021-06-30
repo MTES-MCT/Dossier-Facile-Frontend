@@ -322,9 +322,6 @@ class F {
   }
 })
 export default class Financial extends Vue {
-  MAX_FILE_COUNT = 5;
-  MAX_FILE_SIZE = 5;
-
   user!: User;
   financialDocuments: F[] = [];
 

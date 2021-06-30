@@ -112,7 +112,6 @@ import { AnalyticsService } from "@/services/AnalyticsService";
   }
 })
 export default class Professional extends Vue {
-  MAX_FILE_COUNT = 5;
   user!: User;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];

@@ -10,14 +10,14 @@ export const DocumentTypeConstants = {
         "Carte d’identité <b>sans le verso ou périmée</b>",
         "Tout autre document"
       ],
-      maxFileCount: 3
+      maxFileCount: 5
     },
     {
       key: "passport",
       value: "FRENCH_PASSPORT",
       acceptedProofs: ["Passport français (pages 2 et 3)"],
       refusedProofs: ["Tout autre document"],
-      maxFileCount: 3
+      maxFileCount: 5
     },
     {
       key: "permit",
@@ -27,7 +27,7 @@ export const DocumentTypeConstants = {
         "Visa de travail ou d’études temporaire en France"
       ],
       refusedProofs: ["Tout autre document"],
-      maxFileCount: 3
+      maxFileCount: 5
     },
     {
       key: "other",
@@ -40,7 +40,7 @@ export const DocumentTypeConstants = {
         "Carte de ressortissant d’un État membre de l’UE ou de l’EEE"
       ],
       refusedProofs: ["Tout autre document"],
-      maxFileCount: 3
+      maxFileCount: 5
     }
   ],
 
@@ -55,14 +55,14 @@ export const DocumentTypeConstants = {
         "Carte d’identité <b>sans le verso ou périmée</b>",
         "Tout autre document"
       ],
-      maxFileCount: 3
+      maxFileCount: 5
     },
     {
       key: "passport",
       value: "FRENCH_PASSPORT",
       acceptedProofs: ["Passport français (pages 2 et 3)"],
       refusedProofs: ["Tout autre document"],
-      maxFileCount: 3
+      maxFileCount: 5
     },
     {
       key: "permit",
@@ -72,7 +72,7 @@ export const DocumentTypeConstants = {
         "Visa de travail ou d’études temporaire en France"
       ],
       refusedProofs: ["Tout autre document"],
-      maxFileCount: 3
+      maxFileCount: 5
     },
     {
       key: "other",
@@ -85,7 +85,7 @@ export const DocumentTypeConstants = {
         "Carte de ressortissant d’un État membre de l’UE ou de l’EEE"
       ],
       refusedProofs: ["Tout autre document"],
-      maxFileCount: 3
+      maxFileCount: 5
     }
   ],
 
@@ -104,7 +104,7 @@ export const DocumentTypeConstants = {
         "Avis de taxe d’habitation",
         "Relevés de compte bancaire"
       ],
-      maxFileCount: 3
+      maxFileCount: 10
     },
     {
       key: "owner",
@@ -121,7 +121,7 @@ export const DocumentTypeConstants = {
         "Avis de taxe d’habitation",
         "Relevés de compte bancaire"
       ],
-      maxFileCount: 2
+      maxFileCount: 10
     },
     {
       key: "guest",
@@ -170,7 +170,7 @@ export const DocumentTypeConstants = {
         "Relevés de compte bancaire",
         "Factures de plus de trois mois"
       ],
-      maxFileCount: 3
+      maxFileCount: 10
     },
     {
       key: "owner",
@@ -186,7 +186,7 @@ export const DocumentTypeConstants = {
         "Relevés de compte bancaire",
         "Factures de plus de trois mois"
       ],
-      maxFileCount: 2
+      maxFileCount: 10
     },
     {
       key: "guest",
@@ -219,7 +219,7 @@ export const DocumentTypeConstants = {
         "Bulletins de salaire",
         "Relevés de comptes bancaires"
       ],
-      maxFileCount: 10
+      maxFileCount: 20
     },
     {
       key: "cdi-trial",
@@ -236,7 +236,7 @@ export const DocumentTypeConstants = {
         "Bulletins de salaire",
         "Relevés de comptes bancaires"
       ],
-      maxFileCount: 10
+      maxFileCount: 20
     },
     {
       key: "cdd",
@@ -253,7 +253,7 @@ export const DocumentTypeConstants = {
         "Bulletins de salaire",
         "Relevés de comptes bancaires"
       ],
-      maxFileCount: 10
+      maxFileCount: 20
     },
     {
       key: "alternation",
@@ -265,7 +265,7 @@ export const DocumentTypeConstants = {
         "Contrat de professionnalisation"
       ],
       refusedProofs: ["Certificat de scolarité"],
-      maxFileCount: 10
+      maxFileCount: 20
     },
     {
       key: "internship",
@@ -274,7 +274,7 @@ export const DocumentTypeConstants = {
         "J’ajoute ma convention de stage en cours, complète et signée.",
       acceptedProofs: ["Convention de stage"],
       refusedProofs: ["Certificat de scolarité"],
-      maxFileCount: 10
+      maxFileCount: 20
     },
     {
       key: "student",
@@ -289,7 +289,7 @@ export const DocumentTypeConstants = {
         "Attestation de paiement CVEC",
         "Bulletin scolaire"
       ],
-      maxFileCount: 10
+      maxFileCount: 20
     },
     {
       key: "public",
@@ -300,7 +300,7 @@ export const DocumentTypeConstants = {
         "Attestation de votre employeur"
       ],
       refusedProofs: ["Bulletins de salaire", "Relevés de comptes bancaires"],
-      maxFileCount: 10
+      maxFileCount: 20
     },
     {
       key: "ctt",
@@ -313,7 +313,7 @@ export const DocumentTypeConstants = {
         "Attestation de votre employeur précisant l’emploi et la rémunération proposée, la date d’entrée en fonctions envisagée et la durée du contrat"
       ],
       refusedProofs: ["Bulletins de salaire", "Relevés de comptes bancaires"],
-      maxFileCount: 10
+      maxFileCount: 20
     },
     {
       key: "retired",
@@ -327,7 +327,7 @@ export const DocumentTypeConstants = {
         "Avis d’imposition complet de moins de 2 ans"
       ],
       refusedProofs: ["Relevés de comptes bancaires"],
-      maxFileCount: 10
+      maxFileCount: 20
     },
     {
       key: "unemployed",
@@ -341,7 +341,7 @@ export const DocumentTypeConstants = {
       refusedProofs: [
         "Attestation de versement de paiement de cotisations sociales"
       ],
-      maxFileCount: 10
+      maxFileCount: 20
     },
     {
       key: "independent",
@@ -356,7 +356,7 @@ export const DocumentTypeConstants = {
         "Extrait K ou K bis du registre du commerce et des sociétés de moins de 3 mois (commerçant)"
       ],
       refusedProofs: ["Relevés de comptes bancaires"],
-      maxFileCount: 10
+      maxFileCount: 20
     },
     {
       key: "other",
@@ -371,7 +371,7 @@ export const DocumentTypeConstants = {
         "Contrat ou attestation d’engagement en service civique ou volontariat.<br> Photocopie (recto-verso) de votre carte du volontaire"
       ],
       refusedProofs: ["Relevés de comptes bancaires"],
-      maxFileCount: 10
+      maxFileCount: 20
     }
   ],
 
@@ -392,7 +392,7 @@ export const DocumentTypeConstants = {
         "Courrier/mail de confirmation d’embauche",
         "Relevés de comptes bancaires"
       ],
-      maxFileCount: 10
+      maxFileCount: 20
     },
     {
       key: "cdi-trial",
@@ -410,7 +410,7 @@ export const DocumentTypeConstants = {
         "Courrier/mail de confirmation d’embauche",
         "Relevés de comptes bancaires"
       ],
-      maxFileCount: 10
+      maxFileCount: 20
     },
     {
       key: "cdd",
@@ -428,7 +428,7 @@ export const DocumentTypeConstants = {
         "Courrier/mail de confirmation d’embauche",
         "Relevés de comptes bancaires"
       ],
-      maxFileCount: 10
+      maxFileCount: 20
     },
     {
       key: "alternation",
@@ -443,7 +443,7 @@ export const DocumentTypeConstants = {
         "Relevés de comptes bancaires",
         "Certificat de scolarité"
       ],
-      maxFileCount: 10
+      maxFileCount: 20
     },
     {
       key: "internship",
@@ -455,7 +455,7 @@ export const DocumentTypeConstants = {
         "Relevés de comptes bancaires",
         "Certificat de scolarité"
       ],
-      maxFileCount: 10
+      maxFileCount: 20
     },
     {
       key: "student",
@@ -470,7 +470,7 @@ export const DocumentTypeConstants = {
         "Attestation de paiement CVEC",
         "Bulletin scolaire"
       ],
-      maxFileCount: 10
+      maxFileCount: 20
     },
     {
       key: "public",
@@ -485,7 +485,7 @@ export const DocumentTypeConstants = {
         "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
       ],
       refusedProofs: ["Relevés de comptes bancaires"],
-      maxFileCount: 10
+      maxFileCount: 20
     },
     {
       key: "ctt",
@@ -500,7 +500,7 @@ export const DocumentTypeConstants = {
         "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
       ],
       refusedProofs: ["Relevés de comptes bancaires"],
-      maxFileCount: 10
+      maxFileCount: 20
     },
     {
       key: "retired",
@@ -515,7 +515,7 @@ export const DocumentTypeConstants = {
         "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
       ],
       refusedProofs: ["Relevés de comptes bancaires"],
-      maxFileCount: 10
+      maxFileCount: 20
     },
     {
       key: "unemployed",
@@ -529,7 +529,7 @@ export const DocumentTypeConstants = {
       refusedProofs: [
         "Attestation de versement de paiement de cotisations sociales"
       ],
-      maxFileCount: 10
+      maxFileCount: 20
     },
     {
       key: "independent",
@@ -544,7 +544,7 @@ export const DocumentTypeConstants = {
         "Extrait K ou K bis du registre du commerce et des sociétés de moins de 3 mois (commerçant)"
       ],
       refusedProofs: ["Relevés de comptes bancaires"],
-      maxFileCount: 10
+      maxFileCount: 20
     },
     {
       key: "other",
@@ -558,7 +558,7 @@ export const DocumentTypeConstants = {
         "Déclaration de non-activité si vous êtes sans activité"
       ],
       refusedProofs: ["Relevés de comptes bancaires"],
-      maxFileCount: 10
+      maxFileCount: 20
     }
   ],
 
@@ -581,7 +581,7 @@ export const DocumentTypeConstants = {
         "RIB",
         "Avis d’imposition"
       ],
-      maxFileCount: 20
+      maxFileCount: 10
     },
     {
       key: "social-service",
@@ -599,7 +599,7 @@ export const DocumentTypeConstants = {
         "RIB",
         "Avis d’imposition"
       ],
-      maxFileCount: 20
+      maxFileCount: 10
     },
     {
       key: "rent",
@@ -612,7 +612,7 @@ export const DocumentTypeConstants = {
         "Dernier ou avant-dernier avis d’imposition avec nom et revenus de la rente visibles"
       ],
       refusedProofs: ["Relevés de comptes bancaires", "RIB"],
-      maxFileCount: 20
+      maxFileCount: 10
     },
     {
       key: "pension",
@@ -628,7 +628,7 @@ export const DocumentTypeConstants = {
         "Relevés de comptes bancaires",
         "RIB"
       ],
-      maxFileCount: 20
+      maxFileCount: 10
     },
     {
       key: "scholarship",
@@ -640,7 +640,7 @@ export const DocumentTypeConstants = {
         "Relevés de comptes bancaires",
         "RIB"
       ],
-      maxFileCount: 20
+      maxFileCount: 10
     },
     {
       key: "no-income",
@@ -667,7 +667,7 @@ export const DocumentTypeConstants = {
         "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
       ],
       refusedProofs: ["Relevés de comptes bancaires"],
-      maxFileCount: 20
+      maxFileCount: 10
     },
     {
       key: "social-service",
@@ -681,7 +681,7 @@ export const DocumentTypeConstants = {
         "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
       ],
       refusedProofs: ["Relevés de comptes bancaires"],
-      maxFileCount: 20
+      maxFileCount: 10
     },
     {
       key: "rent",
@@ -694,7 +694,7 @@ export const DocumentTypeConstants = {
         "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
       ],
       refusedProofs: ["Relevés de comptes bancaires"],
-      maxFileCount: 20
+      maxFileCount: 10
     },
     {
       key: "pension",
@@ -706,7 +706,7 @@ export const DocumentTypeConstants = {
         "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
       ],
       refusedProofs: ["Relevés de comptes bancaires"],
-      maxFileCount: 20
+      maxFileCount: 10
     },
     {
       key: "scholarship",
@@ -715,7 +715,7 @@ export const DocumentTypeConstants = {
         "J’ajoute un avis d'attribution de bourse de mon garant.",
       acceptedProofs: ["Avis d’attribution de bourse pour l’année en cours"],
       refusedProofs: ["Relevés de comptes bancaires"],
-      maxFileCount: 20
+      maxFileCount: 10
     }
   ],
 
@@ -732,7 +732,7 @@ export const DocumentTypeConstants = {
         "Tout avis d’imposition plus ancien",
         "Tout autre document justificatif"
       ],
-      maxFileCount: 4
+      maxFileCount: 5
     },
     {
       key: "my-parents",
@@ -777,7 +777,7 @@ export const DocumentTypeConstants = {
         "Tout avis d’imposition plus ancien",
         "Tout autre document justificatif"
       ],
-      maxFileCount: 4
+      maxFileCount: 5
     },
     {
       key: "less-than-year",

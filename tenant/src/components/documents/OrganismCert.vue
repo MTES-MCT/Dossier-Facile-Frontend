@@ -70,7 +70,7 @@ import { RegisterService } from "../../services/RegisterService";
   }
 })
 export default class OrganismCert extends Vue {
-  MAX_FILE_COUNT = 3;
+  MAX_FILE_COUNT = 5;
   acceptedProofs = ["Certificat de garantie valide d'un organisme"];
   refusedProofs = ["Tout autre document"];
 

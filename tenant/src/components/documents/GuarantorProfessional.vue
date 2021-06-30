@@ -120,7 +120,6 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
   }
 })
 export default class Professional extends Vue {
-  MAX_FILE_COUNT = 5;
   selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];

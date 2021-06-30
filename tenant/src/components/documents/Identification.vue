@@ -130,7 +130,6 @@ import { AnalyticsService } from "@/services/AnalyticsService";
   }
 })
 export default class Identification extends Vue {
-  MAX_FILE_COUNT = 3;
   documents = DocumentTypeConstants.IDENTIFICATION_DOCS;
 
   user!: User;
