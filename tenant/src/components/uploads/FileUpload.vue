@@ -40,7 +40,7 @@ const {
 export default class FileUpload extends Vue {
   @Prop({ default: STATUS_INITIAL }) currentStatus!: number;
   @Prop({ default: 0 }) page!: number;
-  @Prop({ default: 5 }) size!: number;
+  @Prop({ default: 10 }) size!: number;
 
   uploadedFiles = [];
   fileCount = 0;
@@ -72,18 +72,20 @@ export default class FileUpload extends Vue {
 
   filesChange(e: any) {
     [...e.target.files].forEach((f: File) => {
-      // TODO parameterize this number
-      if (f.size > 5 * 1024 * 1024) {
-        this.$toasted.show(this.$i18n.t("file-too-big").toString(), {
-          type: "error",
-          duration: 5000
-        });
+      if (f.size > this.size * 1024 * 1024) {
+        this.$toasted.show(
+          this.$i18n.t("file-too-big", [this.size]).toString(),
+          {
+            type: "error",
+            duration: 5000
+          }
+        );
         return false;
       }
       return true;
     });
     const fileList = [...e.target.files].filter((f: File) => {
-      return f.size < 5 * 1024 * 1024;
+      return f.size < this.size * 1024 * 1024;
     });
     this.$emit("add-files", fileList);
     const form = document.getElementsByName("uploadForm");
@@ -147,13 +149,13 @@ export default class FileUpload extends Vue {
 {
   "en": {
     "send-problem": "Send error.",
-    "file-too-big": "The file is limited to 5MB",
+    "file-too-big": "The file is limited to {0}MB",
     "pages": "{0} pages maximum",
     "size": " {0}MB maximum per file"
   },
   "fr": {
     "send-problem": "Problème d'envoi.",
-    "file-too-big": "La taille d'un fichier ne doit pas dépasser 5Mo",
+    "file-too-big": "La taille d'un fichier ne doit pas dépasser {0}Mo",
     "pages": "{0} pages maximum",
     "size": " {0}Mo maximum par fichier"
   }
