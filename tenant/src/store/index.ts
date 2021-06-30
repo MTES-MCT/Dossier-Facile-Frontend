@@ -28,6 +28,8 @@ export class DfState {
   coTenantAuthorize = false;
 }
 
+const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+
 const localStore = localStorage.getItem("store");
 const initialStore =
   localStore !== null ? JSON.parse(localStore) : new DfState();
@@ -164,9 +166,15 @@ const store = new Vuex.Store({
       window.location.replace(`/account`);
     },
     logout({ commit }, redirect = true) {
-      commit("logout");
-      commit("initState");
-      AuthService.logout(redirect);
+      AuthService.logout().then(() => {
+        commit("logout");
+        commit("initState");
+        if (redirect) {
+          window.location.replace(MAIN_URL);
+          return;
+        }
+        location.reload;
+      });
     },
     deleteAccount({ commit }, password) {
       return AuthService.deleteAccount(password).then(
