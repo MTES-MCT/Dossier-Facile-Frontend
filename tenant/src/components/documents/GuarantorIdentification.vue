@@ -174,7 +174,6 @@ import BigRadio from "df-shared/src/Button/BigRadio.vue";
   }
 })
 export default class Identification extends Vue {
-  MAX_FILE_COUNT = 3;
   documents = DocumentTypeConstants.GUARANTOR_IDENTIFICATION_DOCS;
 
   selectedGuarantor!: Guarantor;

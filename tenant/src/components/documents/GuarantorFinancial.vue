@@ -246,9 +246,6 @@ class F {
   }
 })
 export default class GuarantorFinancial extends Vue {
-  MAX_FILE_COUNT = 5;
-  MAX_FILE_SIZE = 5;
-
   selectedGuarantor!: Guarantor;
   financialDocuments: F[] = [];
 
