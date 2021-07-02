@@ -51,10 +51,9 @@
               @on-register="onRegister"
             />
             <div class="text-center fr-mb-5w">
-              {{ $t("existing-account") }}
-              <button @click="connect" class="blue-text">
-                {{ $t("connect") }}
-              </button>
+              <a href="#" @click="connect" class="blue-text">
+                {{ $t("existing-account") }}
+              </a>
             </div>
           </div>
         </div>
