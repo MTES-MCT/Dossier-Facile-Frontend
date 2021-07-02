@@ -187,20 +187,12 @@ export default class Source extends Vue {
   }
 
   connect() {
-    (Vue as any).$keycloak.login({
-      redirectUri: this.$route.query.page
-    });
-  }
-
-  onLogin(user: User) {
-    user.firstName = this.firstName;
-    user.lastName = this.lastName;
-    if (user.email && user.password) {
-      const url =
-        "https://sso-preprod.dossierfacile.fr/auth/realms/dossier-facile/protocol/openid-connect/auth?" +
-        "response_type=code&state=&client_id=login-app&scope=openid&redirect_uri=https%3A%2F%2Flocataire-dev.dossierfacile.fr/auth/callback";
-      window.location.href = url;
-      this.$router.push("/profile");
+    if (this.isLoggedIn) {
+      this.showConfirmModal = true;
+    } else {
+      (Vue as any).$keycloak.login({
+        redirectUri: this.$route.query.page
+      });
     }
   }
 
