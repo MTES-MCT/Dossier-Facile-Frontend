@@ -33,6 +33,13 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "signup" */ "@/views/SignupPage.vue")
   },
   {
+    path: "/login",
+    redirect: () => {
+      window.location.replace(`${TENANT_URL}/account`);
+      return "/account";
+    }
+  },
+  {
     path: "/forgotten-password",
     name: "ForgottenPassword",
     meta: {
