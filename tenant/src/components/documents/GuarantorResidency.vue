@@ -237,7 +237,12 @@ export default class Residency extends Vue {
       this.residencyDocument.maxFileCount &&
       this.residencyFiles().length > this.residencyDocument.maxFileCount
     ) {
-      Vue.toasted.global.max_file();
+      Vue.toasted.global.max_file({
+        message: this.$i18n.t("max-file", [
+          this.residencyFiles().length,
+          this.residencyDocument.maxFileCount
+        ])
+      });
       return;
     }
 

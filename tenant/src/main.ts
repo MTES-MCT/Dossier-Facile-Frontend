@@ -98,10 +98,19 @@ Vue.use(VueAuthImage);
     type: "success",
     duration: 5000
   });
-  Vue.toasted.register("max_file", i18n.t("max-file").toString(), {
-    type: "error",
-    duration: 7000
-  });
+  Vue.toasted.register(
+    "max_file",
+    payload => {
+      if (!payload.message) {
+        return i18n.t("max-file-default").toString();
+      }
+      return payload.message;
+    },
+    {
+      type: "error",
+      duration: 7000
+    }
+  );
 
   app.$store.dispatch("updateMessages");
 

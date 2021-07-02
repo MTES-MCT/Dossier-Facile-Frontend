@@ -215,7 +215,12 @@ export default class Professional extends Vue {
       this.professionalDocument.maxFileCount &&
       this.professionalFiles().length > this.professionalDocument.maxFileCount
     ) {
-      Vue.toasted.global.max_file();
+      Vue.toasted.global.max_file({
+        message: this.$i18n.t("max-file", [
+          this.professionalFiles().length,
+          this.professionalDocument.maxFileCount
+        ])
+      });
       return;
     }
     Array.from(Array(newFiles.length).keys()).map(x => {

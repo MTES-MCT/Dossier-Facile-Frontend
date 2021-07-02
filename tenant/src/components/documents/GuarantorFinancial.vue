@@ -373,7 +373,12 @@ export default class GuarantorFinancial extends Vue {
         f.documentType.maxFileCount &&
         this.financialFiles(f).length > f.documentType.maxFileCount
       ) {
-        Vue.toasted.global.max_file();
+        Vue.toasted.global.max_file({
+          message: this.$i18n.t("max-file", [
+            this.financialFiles(f).length,
+            f.documentType.maxFileCount
+          ])
+        });
         return;
       }
 

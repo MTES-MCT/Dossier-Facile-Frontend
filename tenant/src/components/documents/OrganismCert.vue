@@ -93,7 +93,12 @@ export default class OrganismCert extends Vue {
     if (!this.files.length) return;
 
     if (this.listFiles().length > this.MAX_FILE_COUNT) {
-      Vue.toasted.global.max_file();
+      Vue.toasted.global.max_file({
+        message: this.$i18n.t("max-file", [
+          this.listFiles().length,
+          this.MAX_FILE_COUNT
+        ])
+      });
       return;
     }
 
