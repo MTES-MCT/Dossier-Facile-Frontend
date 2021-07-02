@@ -269,9 +269,10 @@ export default class Professional extends Vue {
     if (file.path && file.id) {
       RegisterService.deleteFile(file.id, silent);
     } else {
-      this.files = this.files.filter((f: DfFile) => {
-        return f.name !== file.name;
+      const firstIndex = this.files.findIndex(f => {
+        return f.name === file.name && f.file === file.file && !f.id;
       });
+      this.files.splice(firstIndex, 1);
     }
   }
 }
