@@ -3,6 +3,7 @@
   "save-failed": "Failed",
   "delete-success": "Delete ok",
   "delete-failed": "Delete failed",
-  "max-file": "Too much files uploaded",
+  "max-file-default": "Too much files uploaded",
+  "max-file": "Too much files uploaded (currently : {0} / maximum : {1} )",
   "error": "An error occured"
 }
