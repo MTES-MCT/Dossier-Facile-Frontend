@@ -39,6 +39,7 @@ jobs:
           VUE_APP_SSO_ENDPOINT: ${{ secrets.PROD_VUE_APP_SSO_ENDPOINT }}
           VUE_APP_REGISTER_URL: ${{ secrets.PROD_VUE_APP_REGISTER_URL }}
           VUE_APP_SSO_CLIENT_ID: ${{ secrets.PROD_VUE_APP_SSO_CLIENT_ID }}
+          VUE_APP_MAINTENANCE: ${{ secrets.PROD_VUE_APP_MAINTENANCE }}
       - name: Copy files to prod with the AWS CLI
         run: |
           aws s3 sync ./main/dist s3://www.dossierfacile.fr --delete --acl public-read --cache-control max-age=31536000,public
@@ -59,6 +60,7 @@ jobs:
           VUE_APP_SSO_ENDPOINT: ${{ secrets.PROD_VUE_APP_SSO_ENDPOINT }}
           VUE_APP_REGISTER_URL: ${{ secrets.PROD_VUE_APP_REGISTER_URL }}
           VUE_APP_SSO_CLIENT_ID: ${{ secrets.PROD_VUE_APP_SSO_CLIENT_ID }}
+          VUE_APP_MAINTENANCE: ${{ secrets.PROD_VUE_APP_MAINTENANCE }}
       - name: Copy files to prod website with the AWS CLI
         run: |
           aws s3 sync ./tenant/dist s3://locataire.dossierfacile.fr --delete --acl public-read --cache-control max-age=31536000,public
