@@ -179,7 +179,8 @@ const store = new Vuex.Store({
     deleteAccount({ commit }, password) {
       return AuthService.deleteAccount(password).then(
         response => {
-          this.dispatch("logout");
+          commit("logout");
+          commit("initState");
           return Promise.resolve(response);
         },
         error => {
