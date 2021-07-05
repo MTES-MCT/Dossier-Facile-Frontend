@@ -71,7 +71,7 @@ export default class App extends Vue {
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
-  IS_MAINTENANCE = `//${process.env.VUE_APP_MAINTENANCE}`;
+  IS_MAINTENANCE = false;
 
   onLogout() {
     this.$store.dispatch("logout", this.MAIN_URL);
