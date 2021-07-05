@@ -29,11 +29,7 @@
                 title="Retour à l’accueil"
               >
                 <p class="fr-header__service-title">
-                  <img
-                    class="logo"
-                    src="./logo_dossierfacile.webp"
-                    alt="logo"
-                  />
+                  <img class="logo" src="./logo_dossierfacile.png" alt="logo" />
                 </p>
               </a>
               <p class="fr-header__service-tagline">
@@ -139,6 +135,8 @@ export default class MyHeader extends Vue {
 
 <style lang="scss" scoped>
 .logo {
+  height: 50px;
+  width: 312px;
   max-height: 50px;
   max-width: calc(100% - 40px);
 }

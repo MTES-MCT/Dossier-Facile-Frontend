@@ -278,7 +278,7 @@ import Modal from "df-shared/src/components/Modal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import DocumentHelp from "../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
-import { AnalyticsService } from "@/services/AnalyticsService";
+import { AnalyticsService } from "../../services/AnalyticsService";
 
 extend("regex", {
   ...regex,
@@ -322,9 +322,6 @@ class F {
   }
 })
 export default class Financial extends Vue {
-  MAX_FILE_COUNT = 5;
-  MAX_FILE_SIZE = 5;
-
   user!: User;
   financialDocuments: F[] = [];
 
@@ -456,7 +453,12 @@ export default class Financial extends Vue {
         f.documentType.maxFileCount &&
         this.financialFiles(f).length > f.documentType.maxFileCount
       ) {
-        Vue.toasted.global.max_file();
+        Vue.toasted.global.max_file({
+          message: this.$i18n.t("max-file", [
+            this.financialFiles(f).length,
+            f.documentType.maxFileCount
+          ])
+        });
         return;
       }
 
@@ -533,9 +535,10 @@ export default class Financial extends Vue {
     if (file.path && file.id) {
       RegisterService.deleteFile(file.id, silent);
     } else {
-      f.files = f.files.filter((f: DfFile) => {
-        return f.name !== file.name;
+      const firstIndex = f.files.findIndex(f => {
+        return f.name === file.name && f.file === file.file && !f.id;
       });
+      f.files.splice(firstIndex, 1);
     }
   }
 
@@ -600,6 +603,7 @@ export default class Financial extends Vue {
     if (key === "social-service") {
       return "noDocument-social";
     }
+    return "";
   }
 
   getDocuments() {

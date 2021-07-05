@@ -170,9 +170,10 @@ export default class RepresentativeIdentification extends Vue {
     if (file.path && file.id) {
       RegisterService.deleteFile(file.id);
     } else {
-      this.files = this.files.filter((f: DfFile) => {
-        return f.name !== file.name;
+      const firstIndex = this.files.findIndex(f => {
+        return f.name === file.name && f.size === file.size;
       });
+      this.files.splice(firstIndex, 1);
     }
   }
 
@@ -186,7 +187,12 @@ export default class RepresentativeIdentification extends Vue {
     });
 
     if (this.listFiles().length > this.MAX_FILE_COUNT) {
-      Vue.toasted.global.max_file();
+      Vue.toasted.global.max_file({
+        message: this.$i18n.t("max-file", [
+          this.listFiles().length,
+          this.MAX_FILE_COUNT
+        ])
+      });
       return;
     }
 

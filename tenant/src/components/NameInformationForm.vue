@@ -38,7 +38,7 @@
                   required
                 />
                 <span class="fr-error-text" v-if="errors[0]">{{
-                  errors[0]
+                  $t(errors[0])
                 }}</span>
               </div>
             </validation-provider>

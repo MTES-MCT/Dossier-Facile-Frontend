@@ -41,6 +41,7 @@ export default class App extends Vue {
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
+  REGISTER_URL = process.env.VUE_APP_REGISTER_URL || "";
 
   mounted() {
     const localScript = document.createElement("script");
@@ -53,7 +54,7 @@ export default class App extends Vue {
   }
 
   onCreateTenant() {
-    window.location.href = `${this.TENANT_URL}/signup?lang=${this.$i18n.locale}`;
+    window.location.replace(`${this.TENANT_URL}/signup`);
   }
 
   acceptCookies() {

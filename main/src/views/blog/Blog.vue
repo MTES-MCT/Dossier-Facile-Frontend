@@ -23,7 +23,7 @@
                 <img
                   class="img-center"
                   alt=""
-                  src="../../assets/images/blog-article8.webp"
+                  src="../../assets/images/blog-article8.png"
                 />
               </router-link>
               <p>
@@ -61,7 +61,7 @@
                 <img
                   class="img-center"
                   alt=""
-                  src="../../assets/images/blog-article7.webp"
+                  src="../../assets/images/blog-article7.png"
                 />
               </router-link>
               <p>
@@ -100,7 +100,7 @@
                 <img
                   class="img-center"
                   alt=""
-                  src="../../assets/images/blog-article6.webp"
+                  src="../../assets/images/blog-article6.png"
                 />
               </router-link>
               <p>
@@ -143,7 +143,7 @@
                 <img
                   class="img-center"
                   alt=""
-                  src="../../assets/images/blog-article5.webp"
+                  src="../../assets/images/blog-article5.png"
                 />
               </router-link>
               <p>
@@ -185,7 +185,7 @@
                 <img
                   class="img-center"
                   alt=""
-                  src="../../assets/images/blog-article4.webp"
+                  src="../../assets/images/blog-article4.png"
                 />
               </router-link>
               <p>
@@ -218,7 +218,7 @@
             <!--end article title-->
             <div class="article__body">
               <router-link to="/blog/pourquoi-dossierfacile-est-il-gratuit">
-                <img alt="" src="../../assets/images/blog-article3.webp" />
+                <img alt="" src="../../assets/images/blog-article3.png" />
               </router-link>
               <p>
                 Dossier facile est une start-up qui propose une solution simple
@@ -247,7 +247,7 @@
             <!--end article title-->
             <div class="article__body">
               <router-link to="/blog/constituer-votre-dossierFacile">
-                <img alt="" src="../../assets/images/blog-article2.webp" />
+                <img alt="" src="../../assets/images/blog-article2.png" />
               </router-link>
               <p>
                 Dans un contexte de pénurie de logements,
@@ -286,7 +286,7 @@
               <router-link
                 to="/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location"
               >
-                <img alt="" src="../../assets/images/blog-article.webp" />
+                <img alt="" src="../../assets/images/blog-article.png" />
               </router-link>
               <p>
                 A cause de l’augmentation de la demande immobilière, il devient
@@ -319,7 +319,7 @@
             <!--end article title-->
             <div class="article__body">
               <router-link to="/blog/locatio-devient-dossier-facile">
-                <img alt="" src="../../assets/cover-features.webp" />
+                <img alt="" src="../../assets/cover-features.png" />
               </router-link>
               <p>
                 Pas de panique ! Le nom change, mais le service reste le même !

@@ -1,13 +1,13 @@
 <template>
   <div class="v-gouv-fr-modal">
-    <a href="#" class="fr-link" data-fr-opened="false" :aria-controls="modalId">
+    <a href="#" @click="isOpened = true" class="fr-link">
       <slot name="button"> </slot>
     </a>
     <dialog
       aria-labelledby="fr-modal-title-modal-1"
       role="dialog"
-      :id="modalId"
       class="fr-modal"
+      :class="{ 'fr-modal--opened': isOpened }"
     >
       <div class="fr-container--fluid fr-container-md">
         <div class="fr-grid-row fr-grid-row--center">
@@ -17,7 +17,7 @@
                 <button
                   class="fr-link--close fr-link"
                   title="Fermer la fenêtre modale"
-                  :aria-controls="modalId"
+                  @click="isOpened = false"
                   target="_self"
                 >
                   Fermer
@@ -46,11 +46,13 @@ export default {
       default: "fr-modal-1"
     }
   },
+  data: function() {
+    return {
+      isOpened: false
+    };
+  },
   computed: {},
-  methods: {},
-  mounted: function() {
-    window["dsfr"].Modal.build(document);
-  }
+  methods: {}
 };
 </script>
 

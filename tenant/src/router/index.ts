@@ -1,12 +1,13 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
-import LoginPage from "@/views/LoginPage.vue";
 import store from "@/store";
+import { nextTick } from "vue/types/umd";
 
 Vue.use(VueRouter);
 
 const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+const TENANT_URL = process.env.VUE_APP_FULL_TENANT_URL;
 
 const routes: Array<RouteConfig> = [
   {
@@ -21,16 +22,6 @@ const routes: Array<RouteConfig> = [
     }
   },
   {
-    path: "/login",
-    name: "Login",
-    component: LoginPage,
-    meta: {
-      title: "Connexion à mon compte - DossierFacile",
-      description: "Connectez-vous à votre espace personnel DossierFacile",
-      hideForAuth: true
-    }
-  },
-  {
     path: "/signup",
     name: "Signup",
     meta: {
@@ -40,6 +31,13 @@ const routes: Array<RouteConfig> = [
     },
     component: () =>
       import(/* webpackChunkName: "signup" */ "@/views/SignupPage.vue")
+  },
+  {
+    path: "/login",
+    redirect: () => {
+      window.location.replace(`${TENANT_URL}/account`);
+      return "/account";
+    }
   },
   {
     path: "/forgotten-password",
@@ -88,6 +86,23 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Source - DossierFacile"
     },
+    beforeEnter: (to, from, next) => {
+      if ((Vue as any).$keycloak.authenticated) {
+        (Vue as any).$keycloak
+          .updateToken(70)
+          .then(() => {
+            localStorage.setItem("token", (Vue as any).$keycloak.token);
+            store.dispatch("loadUser").then(() => {
+              next();
+            });
+          })
+          .catch((err: any) => {
+            console.error(err);
+          });
+      } else {
+        next();
+      }
+    },
     component: () =>
       import(/* webpackChunkName: "source" */ "@/views/Source.vue")
   },
@@ -99,7 +114,7 @@ const routes: Array<RouteConfig> = [
       requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
-      if (store.state.user.status === "INCOMPLETE") {
+      if (store.state.user?.status === "INCOMPLETE") {
         next({ name: "Profile" });
       }
       next();
@@ -196,26 +211,7 @@ const router = new VueRouter({
   }
 });
 
-router.beforeEach((to, from, next) => {
-  if (to.query.lang) {
-    const locale = to.query.lang === "en" ? "en" : "fr";
-    store.dispatch("setLang", locale);
-  }
-
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!store.getters.isLoggedIn) {
-      next({
-        name: "Login",
-        query: {
-          nextUrl: to.fullPath
-        }
-      });
-    }
-  } else if (to.matched.some(record => record.meta.hideForAuth)) {
-    if (store.getters.isLoggedIn) {
-      next({ name: "Profile" });
-    }
-  }
+function keepGoing(to: any, next: any) {
   document.title = to.meta.title;
   if (to.meta.description) {
     const tag = document.querySelector('meta[name="description"]');
@@ -228,6 +224,40 @@ router.beforeEach((to, from, next) => {
     title?.setAttribute("content", to.meta.title);
   }
   next();
+}
+
+router.beforeEach((to, from, next) => {
+  if (to.query.lang) {
+    const locale = to.query.lang === "en" ? "en" : "fr";
+    store.dispatch("setLang", locale);
+  }
+
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!(Vue as any).$keycloak.authenticated) {
+      // The page is protected and the user is not authenticated. Force a login.
+      (Vue as any).$keycloak.login({
+        redirectUri: TENANT_URL + to.path
+      });
+    } else {
+      // The user was authenticated, and has the app role
+      (Vue as any).$keycloak
+        .updateToken(70)
+        .then(() => {
+          localStorage.setItem("token", (Vue as any).$keycloak.token);
+          store.dispatch("loadUser").then(() => {
+            keepGoing(to, next);
+          });
+        })
+        .catch((err: any) => {
+          console.error(err);
+        });
+    }
+  } else if (to.matched.some(record => record.meta.hideForAuth)) {
+    if (store.getters.isLoggedIn) {
+      next({ name: "Profile" });
+    }
+  }
+  keepGoing(to, next);
 });
 
 export default router;

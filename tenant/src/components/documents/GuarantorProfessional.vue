@@ -120,7 +120,6 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
   }
 })
 export default class Professional extends Vue {
-  MAX_FILE_COUNT = 5;
   selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
@@ -216,7 +215,12 @@ export default class Professional extends Vue {
       this.professionalDocument.maxFileCount &&
       this.professionalFiles().length > this.professionalDocument.maxFileCount
     ) {
-      Vue.toasted.global.max_file();
+      Vue.toasted.global.max_file({
+        message: this.$i18n.t("max-file", [
+          this.professionalFiles().length,
+          this.professionalDocument.maxFileCount
+        ])
+      });
       return;
     }
     Array.from(Array(newFiles.length).keys()).map(x => {
@@ -270,9 +274,10 @@ export default class Professional extends Vue {
     if (file.path && file.id) {
       RegisterService.deleteFile(file.id, silent);
     } else {
-      this.files = this.files.filter((f: DfFile) => {
-        return f.name !== file.name;
+      const firstIndex = this.files.findIndex(f => {
+        return f.name === file.name && f.file === file.file && !f.id;
       });
+      this.files.splice(firstIndex, 1);
     }
   }
 }

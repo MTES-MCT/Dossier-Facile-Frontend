@@ -548,6 +548,7 @@
                     class="cleana"
                     href="https://www.visale.fr/#!/"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     <div class="bg-white partner-box logo-visale"></div>
                   </a>
@@ -557,6 +558,7 @@
                     class="cleana"
                     href="https://www.anil.org/"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     <div class="bg-white partner-box logo-anil"></div>
                   </a>
@@ -596,6 +598,7 @@
                   <a
                     href="https://voxusagers.numerique.gouv.fr/Demarches/2871?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=f2f9b35326f6b085c219faef71d0a3f2"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     <img
                       src="https://voxusagers.numerique.gouv.fr/static/bouton-bleu.svg"
@@ -661,6 +664,13 @@ import StatusTag from "df-shared/src/components/StatusTag.vue";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { AnalyticsService } from "@/services/AnalyticsService";
+import { extend } from "vee-validate";
+import { required } from "vee-validate/dist/rules";
+
+extend("required", {
+  ...required,
+  message: "Ce champ est requis"
+});
 
 @Component({
   components: {
@@ -679,12 +689,19 @@ import { AnalyticsService } from "@/services/AnalyticsService";
 })
 export default class Account extends Vue {
   TENANT_URL = `https://${process.env.VUE_APP_TENANT_URL}`;
+  MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
 
   user!: User;
   radioVisible = false;
   pub = "false";
   isDeleteModalVisible = false;
   password = "";
+
+  mounted() {
+    const localScript = document.createElement("script");
+    localScript.setAttribute("src", "/js/dsfr.module.min.js");
+    document.head.appendChild(localScript);
+  }
 
   isOld() {
     // TODO
@@ -809,6 +826,7 @@ export default class Account extends Vue {
     this.$store.dispatch("deleteAccount", this.password).then(
       () => {
         AnalyticsService.deleteAccount();
+        window.location.replace(this.MAIN_URL);
       },
       () => {
         this.$toasted.show(this.$i18n.t("try-again").toString(), {
@@ -954,18 +972,18 @@ h2 {
 }
 
 .logo-anil {
-  background-image: url("../assets/anil_grey.webp");
+  background-image: url("../assets/anil_grey.png");
   &:hover {
-    background-image: url("../assets/anil.webp");
+    background-image: url("../assets/anil.png");
   }
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .logo-visale {
-  background-image: url("../assets/visale_grey.webp");
+  background-image: url("../assets/visale_grey.png");
   &:hover {
-    background-image: url("../assets/visale.webp");
+    background-image: url("../assets/visale.png");
   }
   background-repeat: no-repeat;
   background-position: center;

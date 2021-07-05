@@ -83,10 +83,10 @@ export default class Article0 extends Vue {
   left: 0;
   background-size: cover !important;
   background-position: 50% 50% !important;
-  background-image: url("../../assets/cover-features.webp");
+  background-image: url("../../assets/cover-features.png");
 
   @media (max-width: 768px) {
-    background-image: url("../../assets/cover-features-mobile.webp");
+    background-image: url("../../assets/cover-features-mobile.png");
   }
 
   z-index: 0;

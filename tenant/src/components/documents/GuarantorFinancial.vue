@@ -246,9 +246,6 @@ class F {
   }
 })
 export default class GuarantorFinancial extends Vue {
-  MAX_FILE_COUNT = 5;
-  MAX_FILE_SIZE = 5;
-
   selectedGuarantor!: Guarantor;
   financialDocuments: F[] = [];
 
@@ -376,7 +373,12 @@ export default class GuarantorFinancial extends Vue {
         f.documentType.maxFileCount &&
         this.financialFiles(f).length > f.documentType.maxFileCount
       ) {
-        Vue.toasted.global.max_file();
+        Vue.toasted.global.max_file({
+          message: this.$i18n.t("max-file", [
+            this.financialFiles(f).length,
+            f.documentType.maxFileCount
+          ])
+        });
         return;
       }
 
@@ -450,9 +452,10 @@ export default class GuarantorFinancial extends Vue {
     if (file.path && file.id) {
       RegisterService.deleteFile(file.id, silent);
     } else {
-      f.files = f.files.filter((f: DfFile) => {
-        return f.name !== file.name;
+      const firstIndex = f.files.findIndex(f => {
+        return f.name === file.name && f.file === file.file && !f.id;
       });
+      f.files.splice(firstIndex, 1);
     }
   }
 

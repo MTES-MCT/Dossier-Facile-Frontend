@@ -32,7 +32,7 @@
                 <img
                   alt=""
                   class="img-center"
-                  src="../../assets/images/blog-article8.webp"
+                  src="../../assets/images/blog-article8.png"
                 />
               </p>
               <h2>1. Quel document fournir si je suis locataire ?</h2>

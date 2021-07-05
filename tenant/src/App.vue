@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <MyHeader
-      :logged-in="status.loggedIn"
+      :logged-in="isLoggedIn"
       @on-create-tenant="onCreateTenant"
       @on-create-owner="onCreateOwner"
       @on-logout="onLogout"
@@ -19,6 +19,19 @@
       @accept="acceptCookies"
       @deny="denyCookies"
     />
+    <Modal v-show="IS_MAINTENANCE" @close="closeModal">
+      <template v-slot:body>
+        <div class="fr-container">
+          <div class="fr-grid-row justify-content-center">
+            <div class="fr-col-12">
+              <p>
+                {{ $t("maintenance") }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </template>
+    </Modal>
   </div>
 </template>
 
@@ -32,13 +45,15 @@ import i18n from "./i18n";
 import Cookies from "df-shared/src/Footer/Cookies.vue";
 import VueGtag from "vue-gtag";
 import router from "./router";
+import Modal from "df-shared/src/components/Modal.vue";
 
 @Component({
   components: {
     MyHeader,
     MyFooter,
     Menu,
-    Cookies
+    Cookies,
+    Modal
   },
   computed: {
     ...mapState({
@@ -55,20 +70,11 @@ export default class App extends Vue {
   isLoggedIn!: boolean;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
-
-  onLogin() {
-    this.$router.push("/login");
-  }
+  TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
+  IS_MAINTENANCE = `//${process.env.VUE_APP_MAINTENANCE}`;
 
   onLogout() {
-    this.$store.dispatch("logout").then(
-      () => {
-        console.log("logged out !");
-      },
-      error => {
-        console.dir(error);
-      }
-    );
+    this.$store.dispatch("logout", this.MAIN_URL);
   }
 
   onCreateTenant() {
@@ -156,10 +162,12 @@ export default class App extends Vue {
 <i18n>
 {
 "en": {
-"home": "Home"
+"home": "Home",
+"maintenance": "The website is under maintenance, please try again in a few minutes"
 },
 "fr": {
-"home": "Home"
+"home": "Home",
+"maintenance": "Le site est en cours de maintenance, veuillez réessayer dans quelques minutes"
 }
 }
 </i18n>

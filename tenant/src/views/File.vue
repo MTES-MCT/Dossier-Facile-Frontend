@@ -167,8 +167,15 @@ export default class File extends Vue {
 
   mounted() {
     const token = this.$route.params.token;
-    ProfileService.getUserByToken(token).then(d => {
+    ProfileService.getUserByToken(token).then((d: any) => {
       this.user = d.data;
+      if (this.user) {
+        this.user.tenants = this.user?.tenants?.sort((t1, t2) => {
+          return t1.tenantType === "CREATE" && t2.tenantType !== "CREATE"
+            ? -1
+            : 1;
+        });
+      }
     });
   }
 
@@ -224,6 +231,7 @@ export default class File extends Vue {
     if (this.user?.applicationType) {
       return this.$i18n.t(this.user.applicationType);
     }
+    return;
   }
 
   getIncomeSum() {
@@ -242,6 +250,7 @@ export default class File extends Vue {
       }
       return this.$i18n.t("income", [sum]);
     }
+    return;
   }
 }
 </script>
@@ -253,10 +262,10 @@ export default class File extends Vue {
   left: 0;
   background-size: cover !important;
   background-position: 50% 50% !important;
-  background-image: url("../assets/cover-features.webp");
+  background-image: url("../assets/cover-features.png");
 
   @media (max-width: 768px) {
-    background-image: url("../assets/cover-features-mobile.webp");
+    background-image: url("../assets/cover-features-mobile.png");
   }
 
   z-index: 0;

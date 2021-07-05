@@ -63,6 +63,7 @@
               class="fr-footer__bottom-link"
               :href="`${VUE_APP_DOCS_URL}`"
               target="_blank"
+              rel="noreferrer"
             >
               {{ $t("faq") }}
             </a>
@@ -213,11 +214,15 @@ export default class MyFooter extends Vue {
   color: $primary !important;
 }
 
+#footer {
+  background-color: white;
+}
+
 .footer-logo {
   min-width: 100px;
   max-width: 100%;
   width: 200px;
-  height: auto;
+  height: 68px;
   display: block;
 }
 
@@ -262,7 +267,7 @@ export default class MyFooter extends Vue {
     "legals": "Legal notice",
     "faq": "Help",
     "blog": "Blog",
-    "information": "Information",
+    "information": "Find out more",
     "sources": "Source code",
     "accessibility": "Accessibility: partial"
   },

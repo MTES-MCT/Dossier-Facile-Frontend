@@ -4,18 +4,18 @@ import Vue from "vue";
 
 export const RegisterService = {
   saveCorporationIdentification(formData: FormData) {
-    const url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorLegalPerson/documentIdentification`;
+    const url = `https://${process.env.VUE_APP_API_URL}/api/register/guarantorLegalPerson/documentIdentification`;
     return axios.post(url, formData);
   },
 
   saveOrganismIdentification(formData: FormData) {
-    const url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorOrganism/documentIdentification`;
+    const url = `https://${process.env.VUE_APP_API_URL}/api/register/guarantorOrganism/documentIdentification`;
     return axios.post(url, formData);
   },
 
   deleteFile(id: number | string, silent = false) {
     const loader = Vue.$loading.show();
-    const url = `//${process.env.VUE_APP_API_URL}/api/file/${id}`;
+    const url = `https://${process.env.VUE_APP_API_URL}/api/file/${id}`;
     return axios
       .delete(url)
       .then(() => {
@@ -35,9 +35,9 @@ export const RegisterService = {
   saveFinancial(formData: FormData) {
     let url: string;
     if (store.getters.isGuarantor) {
-      url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentFinancial`;
+      url = `https://${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentFinancial`;
     } else {
-      url = `//${process.env.VUE_APP_API_URL}/api/register/documentFinancial`;
+      url = `https://${process.env.VUE_APP_API_URL}/api/register/documentFinancial`;
     }
     return axios.post(url, formData);
   },
@@ -45,9 +45,9 @@ export const RegisterService = {
   saveIdentification(formData: FormData) {
     let url: string;
     if (store.getters.isGuarantor) {
-      url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentIdentification`;
+      url = `https://${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentIdentification`;
     } else {
-      url = `//${process.env.VUE_APP_API_URL}/api/register/documentIdentification`;
+      url = `https://${process.env.VUE_APP_API_URL}/api/register/documentIdentification`;
     }
     return axios.post(url, formData);
   },
@@ -55,24 +55,24 @@ export const RegisterService = {
   saveProfessional(formData: FormData) {
     let url: string;
     if (store.getters.isGuarantor) {
-      url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentProfessional`;
+      url = `https://${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentProfessional`;
     } else {
-      url = `//${process.env.VUE_APP_API_URL}/api/register/documentProfessional`;
+      url = `https://${process.env.VUE_APP_API_URL}/api/register/documentProfessional`;
     }
     return axios.post(url, formData);
   },
 
   saveRepresentativeIdentification(formData: FormData) {
-    const url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorLegalPerson/documentRepresentanIdentification`;
+    const url = `https://${process.env.VUE_APP_API_URL}/api/register/guarantorLegalPerson/documentRepresentanIdentification`;
     return axios.post(url, formData);
   },
 
   saveResidency(formData: FormData) {
     let url: string;
     if (store.getters.isGuarantor) {
-      url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentResidency`;
+      url = `https://${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentResidency`;
     } else {
-      url = `//${process.env.VUE_APP_API_URL}/api/register/documentResidency`;
+      url = `https://${process.env.VUE_APP_API_URL}/api/register/documentResidency`;
     }
     return axios.post(url, formData);
   },
@@ -80,10 +80,18 @@ export const RegisterService = {
   saveTax(formData: FormData) {
     let url: string;
     if (store.getters.isGuarantor) {
-      url = `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentTax`;
+      url = `https://${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentTax`;
     } else {
-      url = `//${process.env.VUE_APP_API_URL}/api/register/documentTax`;
+      url = `https://${process.env.VUE_APP_API_URL}/api/register/documentTax`;
     }
     return axios.post(url, formData);
+  },
+
+  connectSource(internalPartnerId: string, source: string) {
+    const url = `https://${process.env.VUE_APP_API_URL}/api/tenant/linkTenantToPartner`;
+    return axios.post(url, {
+      internalPartnerId: internalPartnerId,
+      source: source
+    });
   }
 };
