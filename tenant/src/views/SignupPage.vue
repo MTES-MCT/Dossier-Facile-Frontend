@@ -44,14 +44,13 @@
           </div>
         </div>
         <div class="fr-col-lg-6 fr-col-12 bg-white">
+          <div class="fr-mt-2w align-end">
+            <router-link to="/account" class="fr-tag">
+              {{ $t("connect") }}
+            </router-link>
+          </div>
           <div class="margin-auto max-400">
             <Register @on-register="onRegister" :franceConnect="false" />
-            <div class="text-center fr-mb-5w">
-              {{ $t("existing-account") }}
-              <router-link to="/account" class="blue-text">
-                {{ $t("connect") }}
-              </router-link>
-            </div>
           </div>
         </div>
       </div>
@@ -126,16 +125,14 @@ export default class SignupPage extends Vue {
 <i18n>
 {
 "en": {
-    "existing-account": "Already registered ?",
-    "connect": "Connect",
+    "connect": "Already signed up ? Link existing account",
     "mail-sent": "An email has been sent to the requested address.",
     "clic-to-confirm": "Please click on the given link to confirm your email and continue you inscription.",
     "duplicate-email": "This email is already used",
     "register-error": "An error occured"
 },
 "fr": {
-    "existing-account": "Déjà inscrit ?",
-    "connect": "S'identifier",
+    "connect": "Déjà inscrit ? lier mon compte existant",
     "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
     "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre votre inscription.",
     "duplicate-email": "Cet email est déjà utilisé",
@@ -196,5 +193,11 @@ body {
 
 li {
   padding: 0 !important;
+}
+
+.align-end {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 20px;
 }
 </style>
