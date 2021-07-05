@@ -5,7 +5,7 @@ import { VueConstructor } from "vue/types/umd";
 const options = {
   url: process.env.VUE_APP_SSO_ENDPOINT,
   realm: "dossier-facile",
-  clientId: "dossier-facile-frontend-localhost"
+  clientId: process.env.VUE_APP_SSO_CLIENT_ID || ""
 };
 
 const _keycloak = Keycloak(options);
