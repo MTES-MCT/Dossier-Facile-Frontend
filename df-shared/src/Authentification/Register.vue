@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <h2 class="fr-h2 text-center fr-mt-7w fr-mb-5w blue-text">
+      <h2 class="fr-h2 text-center fr-mt-3w fr-mb-5w blue-text">
         {{ $t("title") }}
       </h2>
 

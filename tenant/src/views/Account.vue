@@ -689,6 +689,7 @@ extend("required", {
 })
 export default class Account extends Vue {
   TENANT_URL = `https://${process.env.VUE_APP_TENANT_URL}`;
+  MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
 
   user!: User;
   radioVisible = false;
@@ -825,6 +826,7 @@ export default class Account extends Vue {
     this.$store.dispatch("deleteAccount", this.password).then(
       () => {
         AnalyticsService.deleteAccount();
+        window.location.replace(this.MAIN_URL);
       },
       () => {
         this.$toasted.show(this.$i18n.t("try-again").toString(), {
