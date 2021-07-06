@@ -89,7 +89,6 @@
 import { Vue, Component } from "vue-property-decorator";
 import { User } from "df-shared/src/models/User";
 import Register from "df-shared/src/Authentification/Register.vue";
-import Login from "df-shared/src/Authentification/Login.vue";
 import Modal from "df-shared/src/components/Modal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
 import { mapGetters } from "vuex";
@@ -101,7 +100,6 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
     Register,
     Modal,
     DfButton,
-    Login,
     ConfirmModal
   },
   computed: {
