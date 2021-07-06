@@ -47,22 +47,17 @@
           </div>
         </div>
         <div v-show="!isLoggedIn">
-          <v-gouv-fr-modal class="fr-mt-2w">
-            <template v-slot:button>
-              Se connecter
-            </template>
-            <template v-slot:title>
-              Se connecter
-            </template>
-            <template v-slot:content>
-              <Login @on-login="onLogin" />
-            </template>
-          </v-gouv-fr-modal>
-              <div class="fr-mt-3w">
-                <div v-html="$t('no-account-1')"></div>
-                <div v-html="$t('no-account-2')"></div>
-                <div v-html="$t('no-account-3')"></div>
-              </div>
+          <v-gouv-fr-button class="fr-mt-2w"
+              :label="$t('login')"
+              :small="false"
+              :secondary="false"
+              @click="onLogin"
+           ></v-gouv-fr-button>
+          <div class="fr-mt-3w fr-mb-5w">
+            <div v-html="$t('no-account-1')"></div>
+            <div v-html="$t('no-account-2')"></div>
+            <div v-html="$t('no-account-3')"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -74,13 +69,13 @@ import { Component, Vue } from "vue-property-decorator";
 import { is } from "vee-validate/dist/rules";
 import { extend } from "vee-validate";
 import { mapGetters, mapState } from "vuex";
-import Login from "df-shared/src/Authentification/Login.vue";
 import { User } from "df-shared/src/models/User";
 import { Owner } from "df-shared/src/models/Owner";
 import { ValidationProvider, ValidationObserver } from "vee-validate";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
 import { OwnerService } from "../services/OwnerService";
+import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.vue";
 
 extend("is", {
   ...is,
@@ -90,11 +85,11 @@ extend("is", {
 
 @Component({
   components: {
-    Login,
     ValidationProvider,
     ValidationObserver,
     VGouvFrModal,
-    DfButton
+    DfButton,
+    VGouvFrButton
   },
   computed: {
     ...mapState({
@@ -123,24 +118,10 @@ export default class OwnerShare extends Vue {
       });
   }
 
-  onLogin(user: User) {
-    if (user.email && user.password) {
-      this.$store.dispatch("login", { user }).then(
-        () => {
-          this.$toasted.show(this.$i18n.t("login-success").toString(), {
-            type: "success",
-            duration: 7000
-          });
-          this.enableScroll();
-        },
-        () => {
-          this.$toasted.show(this.$i18n.t("login-error").toString(), {
-            type: "error",
-            duration: 7000
-          });
-        }
-      );
-    }
+  onLogin() {
+    (Vue as any).$keycloak.login({
+      redirectUri: this.$route.query.page
+    });
   }
 
   enableScroll() {
@@ -188,7 +169,8 @@ export default class OwnerShare extends Vue {
     "no-account-2": "Notre dossier est facile à remplir (en moins de 3 minutes c'est promis) et en plus il est conforme à la loi",
     "no-account-3": "Et réutilisable pour toutes vos autres visites !",
     "connection-success": "Your file has been successfully shared",
-    "join-account": "As guest account, you can't link your file to an owner. Please ask the main account to do it."
+    "join-account": "As guest account, you can't link your file to an owner. Please ask the main account to do it.",
+    "login": "Login"
   },
   "fr": {
     "title": "Candidatez pour le logement situé au {0}",
@@ -202,7 +184,8 @@ export default class OwnerShare extends Vue {
     "no-account-2": "Notre dossier est facile à remplir (en moins de 3 minutes c'est promis) et en plus il est conforme à la loi.",
     "no-account-3": "Et réutilisable pour toutes vos autres visites !",
     "connection-success": "Votre dossier a bien été partagé au propriétaire",
-    "join-account": "En tant que compte invité, vous ne pouvez pas lier votre dossier à un compte propriétaire. Veuillez demander au compte qui vous a invité de le faire."
+    "join-account": "En tant que compte invité, vous ne pouvez pas lier votre dossier à un compte propriétaire. Veuillez demander au compte qui vous a invité de le faire.",
+    "login": "Se connecter"
   }
 }
 </i18n>

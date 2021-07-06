@@ -180,6 +180,23 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Inscription locataire - DossierFacile"
     },
+    beforeEnter: (to, from, next) => {
+      if ((Vue as any).$keycloak.authenticated) {
+        (Vue as any).$keycloak
+          .updateToken(70)
+          .then(() => {
+            localStorage.setItem("token", (Vue as any).$keycloak.token);
+            store.dispatch("loadUser").then(() => {
+              next();
+            });
+          })
+          .catch((err: any) => {
+            console.error(err);
+          });
+      } else {
+        next();
+      }
+    },
     component: () =>
       import(
         /* webpackChunkName: "inscriptionLocataire" */ "@/views/OwnerShare.vue"
