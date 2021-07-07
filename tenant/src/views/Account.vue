@@ -100,7 +100,17 @@
                   </div>
                 </div>
               </div>
-              <div class="main-description">
+              <div class="fr-mt-1v alert-container">
+                <div class="red-alert" v-if="cotenantNotValidated()">
+                  <div v-if="user.applicationType === 'GROUP'">
+                    {{ $t("cotenant-cannot-copy-link") }}
+                  </div>
+                  <div v-if="user.applicationType === 'COUPLE'">
+                    {{ $t("spouse-cannot-copy-link") }}
+                  </div>
+                </div>
+              </div>
+              <div class="main-description fr-mt-2w">
                 <p
                   class="description"
                   v-html="
@@ -916,6 +926,17 @@ export default class Account extends Vue {
       this.user.apartmentSharing?.tokenPublic !== ""
     );
   }
+
+  cotenantNotValidated() {
+    if (this.user.status !== "VALIDATED") {
+      return false;
+    }
+    return (
+      this.user.apartmentSharing?.tenants.find(t => {
+        t.status !== "VALIDATED";
+      }) !== null
+    );
+  }
 }
 </script>
 
@@ -1090,6 +1111,20 @@ hr {
     content: none;
   }
 }
+
+.alert-container {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.red-alert {
+  background-color: #e10600;
+  color: white;
+  border-radius: 2px;
+  margin-right: 0;
+  margin-left: auto;
+  padding: 0.5rem;
+}
 </style>
 
 <i18n>
@@ -1152,7 +1187,9 @@ hr {
     "organism-identification": "Organism",
     "someone": " someone",
     "group-with-one": "in flatsharing with 1 person",
-    "group-with": "in flatsharing with {0} persons"
+    "group-with": "in flatsharing with {0} persons",
+    "cotenant-cannot-copy-link": "Your link is inactive because your roommate's file has not yet been validated",
+    "spouse-cannot-copy-link": "Your link is inactive because your spouse's file has not yet been validated"
   },
   "fr": {
     "title": "Bonjour {0}, votre dossier {1} !",
@@ -1212,7 +1249,9 @@ hr {
     "group-with-one": "en colocation avec 1 personne",
     "group-with": "en colocation avec {0} personnes",
     "organism-identification": "Certificat de l'organisme",
-    "someone": " quelqu'un"
+    "someone": " quelqu'un",
+    "spouse-cannot-copy-link": "Votre lien est inactif car le dossier de votre conjoint·e n'est pas encore validé",
+    "cotenant-cannot-copy-link": "Votre lien est inactif car le dossier de votre colocataire n'est pas encore validé"
   }
 }
 </i18n>
