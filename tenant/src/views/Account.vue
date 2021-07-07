@@ -933,8 +933,8 @@ export default class Account extends Vue {
     }
     return (
       this.user.apartmentSharing?.tenants.find(t => {
-        t.status !== "VALIDATED";
-      }) !== null
+        return t.status !== "VALIDATED";
+      }) !== undefined
     );
   }
 }
