@@ -86,23 +86,41 @@
           <div class="fr-card__desc">
             <div
               class="row"
-              v-if="guarantorHasDoc('IDENTIFICATION_LEGAL_PERSON')"
+              v-if="
+                guarantorHasDoc(
+                  'IDENTIFICATION_LEGAL_PERSON',
+                  selectedGuarantor
+                )
+              "
             >
               <div class="subtitle">
                 {{ $t("identification-legal-person") }}
               </div>
               <ViewEditBtn
-                :canView="guarantorHasFile('IDENTIFICATION_LEGAL_PERSON')"
-                @view="openGuarantorDoc('IDENTIFICATION_LEGAL_PERSON')"
-                @edit="setGuarantorSubStep(1)"
+                :canView="
+                  guarantorHasFile(
+                    'IDENTIFICATION_LEGAL_PERSON',
+                    selectedGuarantor
+                  )
+                "
+                @view="
+                  openGuarantorDoc(
+                    'IDENTIFICATION_LEGAL_PERSON',
+                    selectedGuarantor
+                  )
+                "
+                @edit="setGuarantorSubStep(1, selectedGuarantor)"
               ></ViewEditBtn>
             </div>
-            <div class="row" v-if="guarantorHasDoc('IDENTIFICATION')">
+            <div
+              class="row"
+              v-if="guarantorHasDoc('IDENTIFICATION', selectedGuarantor)"
+            >
               <div class="subtitle">{{ $t("identity-represent") }}</div>
               <ViewEditBtn
-                :canView="guarantorHasFile('IDENTIFICATION')"
-                @view="openGuarantorDoc('IDENTIFICATION')"
-                @edit="setGuarantorSubStep(2)"
+                :canView="guarantorHasFile('IDENTIFICATION', selectedGuarantor)"
+                @view="openGuarantorDoc('IDENTIFICATION', selectedGuarantor)"
+                @edit="setGuarantorSubStep(2, selectedGuarantor)"
               ></ViewEditBtn>
             </div>
           </div>
@@ -117,15 +135,17 @@
               <div class="row">
                 <div class="subtitle">{{ $t("organism") }}</div>
                 <ViewEditBtn
-                  :canView="guarantorHasFile('IDENTIFICATION')"
-                  @view="openGuarantorDoc('IDENTIFICATION')"
-                  @edit="setGuarantorSubStep(1)"
+                  :canView="
+                    guarantorHasFile('IDENTIFICATION', selectedGuarantor)
+                  "
+                  @view="openGuarantorDoc('IDENTIFICATION', selectedGuarantor)"
+                  @edit="setGuarantorSubStep(1, selectedGuarantor)"
                 ></ViewEditBtn>
               </div>
             </section>
           </div>
         </div>
-        <div v-if="hasGuarantor('NATURAL_PERSON')">
+        <div v-for="g in getNaturalGuarantors()" v-bind:key="g.id">
           <a href="#" class="fr-link">
             {{ $t("third-title") }}
           </a>
@@ -135,43 +155,43 @@
               <div class="row">
                 <div class="subtitle">Pièce d’identité</div>
                 <ViewEditBtn
-                  :canView="guarantorHasFile('IDENTIFICATION')"
-                  @view="openGuarantorDoc('IDENTIFICATION')"
-                  @edit="setGuarantorSubStep(1)"
+                  :canView="guarantorHasFile('IDENTIFICATION', g)"
+                  @view="openGuarantorDoc('IDENTIFICATION', g)"
+                  @edit="setGuarantorSubStep(1, g)"
                 ></ViewEditBtn>
               </div>
-              <div class="row" v-if="guarantorHasDoc('RESIDENCY')">
+              <div class="row" v-if="guarantorHasDoc('RESIDENCY', g)">
                 <div class="subtitle">Justificatif de domicile</div>
                 <ViewEditBtn
-                  :canView="guarantorHasFile('RESIDENCY')"
-                  @view="openGuarantorDoc('RESIDENCY')"
-                  @edit="setGuarantorSubStep(2)"
+                  :canView="guarantorHasFile('RESIDENCY', g)"
+                  @view="openGuarantorDoc('RESIDENCY', g)"
+                  @edit="setGuarantorSubStep(2, g)"
                 ></ViewEditBtn>
               </div>
-              <div class="row" v-if="guarantorHasDoc('PROFESSIONAL')">
+              <div class="row" v-if="guarantorHasDoc('PROFESSIONAL', g)">
                 <div class="subtitle">
                   Justificatif de situation professionnelle
                 </div>
                 <ViewEditBtn
-                  :canView="guarantorHasFile('PROFESSIONAL')"
-                  @view="openGuarantorDoc('PROFESSIONAL')"
-                  @edit="setGuarantorSubStep(3)"
+                  :canView="guarantorHasFile('PROFESSIONAL', g)"
+                  @view="openGuarantorDoc('PROFESSIONAL', g)"
+                  @edit="setGuarantorSubStep(3, g)"
                 ></ViewEditBtn>
               </div>
-              <div class="row" v-if="guarantorHasDoc('FINANCIAL')">
+              <div class="row" v-if="guarantorHasDoc('FINANCIAL', g)">
                 <div class="subtitle">Justificatif de ressources</div>
                 <ViewEditBtn
-                  :canView="guarantorHasFile('FINANCIAL')"
-                  @view="openGuarantorDoc('FINANCIAL')"
-                  @edit="setGuarantorSubStep(4)"
+                  :canView="guarantorHasFile('FINANCIAL', g)"
+                  @view="openGuarantorDoc('FINANCIAL', g)"
+                  @edit="setGuarantorSubStep(4, g)"
                 ></ViewEditBtn>
               </div>
-              <div class="row" v-if="guarantorHasDoc('TAX')">
+              <div class="row" v-if="guarantorHasDoc('TAX', g)">
                 <div class="subtitle">Avis d’imposition</div>
                 <ViewEditBtn
-                  :canView="guarantorHasFile('TAX')"
-                  @view="openGuarantorDoc('TAX')"
-                  @edit="setGuarantorSubStep(5)"
+                  :canView="guarantorHasFile('TAX', g)"
+                  @view="openGuarantorDoc('TAX', g)"
+                  @edit="setGuarantorSubStep(5, g)"
                 ></ViewEditBtn>
               </div>
             </section>
@@ -231,8 +251,9 @@ export default class EditSummary extends Vue {
     this.setStep(2);
   }
 
-  setGuarantorSubStep(n: number) {
+  setGuarantorSubStep(n: number, g: Guarantor) {
     AnalyticsService.editFromMenu(n);
+    this.$store.dispatch("setSelectedGuarantor", g);
     this.$store.commit("setGuarantorStep", 2);
     this.$store.commit("setGuarantorSubstep", n);
     this.setStep(3);
@@ -251,11 +272,11 @@ export default class EditSummary extends Vue {
   hasFile(docType: string) {
     return DocumentService.hasFile(docType);
   }
-  guarantorHasFile(docType: string) {
-    return DocumentService.guarantorHasFile(this.selectedGuarantor, docType);
+  guarantorHasFile(docType: string, g: Guarantor) {
+    return DocumentService.guarantorHasFile(g, docType);
   }
-  guarantorHasDoc(docType: string) {
-    return DocumentService.guarantorHasDoc(this.selectedGuarantor, docType);
+  guarantorHasDoc(docType: string, g: Guarantor) {
+    return DocumentService.guarantorHasDoc(g, docType);
   }
   hasGuarantor(guarantorType: string) {
     return DocumentService.hasGuarantor(guarantorType);
@@ -267,15 +288,19 @@ export default class EditSummary extends Vue {
       this.isDocModalVisible = true;
     }
   }
-  openGuarantorDoc(documentCategory: string) {
+  openGuarantorDoc(documentCategory: string, g: Guarantor) {
     AnalyticsService.viewFromMenu(documentCategory);
-    this.files = DocumentService.getGuarantorFiles(
-      this.selectedGuarantor,
-      documentCategory
-    );
+    this.files = DocumentService.getGuarantorFiles(g, documentCategory);
     if (this.files.length > 0) {
       this.isDocModalVisible = true;
     }
+  }
+  getNaturalGuarantors(): Guarantor[] {
+    return (
+      this.user.guarantors?.filter((g: Guarantor) => {
+        return g.typeGuarantor === "NATURAL_PERSON";
+      }) || []
+    );
   }
 }
 </script>
