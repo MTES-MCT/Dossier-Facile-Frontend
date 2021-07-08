@@ -245,6 +245,20 @@
         </div>
       </template>
     </Modal>
+    <ConfirmModal
+      v-if="confirmDeleteGuarantor"
+      @valid="validDeleteGuarantor()"
+      @cancel="undoDeleteGuarantor()"
+    >
+      <span v-if="selectedGuarantor.lastName">{{
+        $t("will-delete-guarantor-name", [
+          selectedGuarantor.lastName + " " + selectedGuarantor.firstName
+        ])
+      }}</span>
+      <span v-if="!selectedGuarantor.lastName">{{
+        $t("will-delete-guarantor")
+      }}</span>
+    </ConfirmModal>
   </div>
 </template>
 
@@ -261,9 +275,17 @@ import ShowDoc from "./documents/ShowDoc.vue";
 import { DocumentService } from "../services/DocumentService";
 import ViewEditBtn from "./ViewEditBtn.vue";
 import { AnalyticsService } from "@/services/AnalyticsService";
+import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 
 @Component({
-  components: { NakedCard, Modal, PdfViewer, ShowDoc, ViewEditBtn },
+  components: {
+    NakedCard,
+    Modal,
+    PdfViewer,
+    ShowDoc,
+    ViewEditBtn,
+    ConfirmModal
+  },
   computed: {
     ...mapState({
       user: "user",
@@ -277,6 +299,8 @@ export default class EditSummary extends Vue {
   selectedGuarantor!: Guarantor;
   isDocModalVisible = false;
   files: DfFile[] = [];
+  confirmDeleteGuarantor = false;
+  guarantorToDelete!: Guarantor;
 
   setTenantStep(n: number) {
     AnalyticsService.editFromMenu(n);
@@ -336,7 +360,25 @@ export default class EditSummary extends Vue {
     );
   }
   deleteGuarantor(g: Guarantor) {
-    this.$store.dispatch("deleteGuarantor", g);
+    this.guarantorToDelete = g;
+    this.confirmDeleteGuarantor = true;
+  }
+  undoDeleteGuarantor() {
+    this.confirmDeleteGuarantor = false;
+  }
+  validDeleteGuarantor() {
+    this.$store
+      .dispatch("deleteGuarantor", this.guarantorToDelete)
+      .then(() => {
+        this.$toasted.show(this.$i18n.t("delete-ok").toString(), {
+          type: "success",
+          duration: 7000
+        });
+      })
+      .catch(() => {
+        Vue.toasted.global.error();
+      });
+    this.confirmDeleteGuarantor = false;
   }
 }
 </script>
@@ -370,7 +412,10 @@ export default class EditSummary extends Vue {
 "identification-legal-person": "Legal person identity",
 "identity-represent": "Identity",
 "organism": "Organism",
-"delete-guarantor": "Delete guarantor"
+"delete-guarantor": "Delete guarantor",
+"will-delete-guarantor": "Do you really want to delete this guarantor ?",
+"will-delete-guarantor-name": "Do you really want this guarantor ? Name : {0}",
+"delete-ok": "Delete done"
 },
 "fr": {
 "title": "Information du locataire",
@@ -383,7 +428,10 @@ export default class EditSummary extends Vue {
 "identification-legal-person": "Identité personne morale",
 "identity-represent": "Identité représentant",
 "organism": "Organisme",
-"delete-guarantor": "Supprimer ce garant"
+"delete-guarantor": "Supprimer ce garant",
+"will-delete-guarantor": "Êtes-vous sûr de vouloir supprimer ce garant ?",
+"will-delete-guarantor-name": "Êtes-vous sûr de vouloir supprimer ce garant ? Nom : {0}",
+"delete-ok": "Suppression effectuée"
 }
 }
 </i18n>
