@@ -79,9 +79,20 @@
           </div>
         </div>
         <div v-if="hasGuarantor('LEGAL_PERSON')">
-          <a href="#" class="fr-link">
-            {{ $t("legal-person") }}
-          </a>
+          <div class="fr-grid-row space-between">
+            <a href="#" class="fr-link">
+              {{ $t("legal-person") }}
+            </a>
+            <button
+              @click="deleteGuarantor(selectedGuarantor)"
+              class="fr-tag"
+              :title="$t('delete-guarantor')"
+            >
+              X<span class="fr-ml-1w hide-small">{{
+                $t("delete-guarantor")
+              }}</span>
+            </button>
+          </div>
           <hr />
           <div class="fr-card__desc">
             <div
@@ -126,9 +137,20 @@
           </div>
         </div>
         <div v-if="hasGuarantor('ORGANISM')">
-          <a href="#" class="fr-link">
-            {{ $t("third-title") }}
-          </a>
+          <div class="fr-grid-row space-between">
+            <a href="#" class="fr-link">
+              {{ $t("third-title") }}
+            </a>
+            <button
+              @click="deleteGuarantor(selectedGuarantor)"
+              class="fr-tag"
+              :title="$t('delete-guarantor')"
+            >
+              X<span class="fr-ml-1w hide-small">{{
+                $t("delete-guarantor")
+              }}</span>
+            </button>
+          </div>
           <hr />
           <div class="fr-card__desc">
             <section>
@@ -146,9 +168,20 @@
           </div>
         </div>
         <div v-for="g in getNaturalGuarantors()" v-bind:key="g.id">
-          <a href="#" class="fr-link">
-            {{ $t("third-title") }}
-          </a>
+          <div class="fr-grid-row space-between">
+            <a href="#" class="fr-link">
+              {{ $t("third-title") }}
+            </a>
+            <button
+              @click="deleteGuarantor(g)"
+              class="fr-tag"
+              :title="$t('delete-guarantor')"
+            >
+              X<span class="fr-ml-1w hide-small">{{
+                $t("delete-guarantor")
+              }}</span>
+            </button>
+          </div>
           <hr />
           <div class="fr-card__desc">
             <section>
@@ -302,12 +335,25 @@ export default class EditSummary extends Vue {
       }) || []
     );
   }
+  deleteGuarantor(g: Guarantor) {
+    this.$store.dispatch("deleteGuarantor", g);
+  }
 }
 </script>
 
 <style scoped lang="scss">
 .subtitle {
   font-weight: bold;
+}
+
+.hide-small {
+  @media (max-width: 1750px) {
+    display: none;
+  }
+}
+
+.space-between {
+  justify-content: space-between;
 }
 </style>
 
@@ -323,7 +369,8 @@ export default class EditSummary extends Vue {
 "legal-person": "Legal person",
 "identification-legal-person": "Legal person identity",
 "identity-represent": "Identity",
-"organism": "Organism"
+"organism": "Organism",
+"delete-guarantor": "Delete guarantor"
 },
 "fr": {
 "title": "Information du locataire",
@@ -335,7 +382,8 @@ export default class EditSummary extends Vue {
 "legal-person": "Personne morale",
 "identification-legal-person": "Identité personne morale",
 "identity-represent": "Identité représentant",
-"organism": "Organisme"
+"organism": "Organisme",
+"delete-guarantor": "Supprimer ce garant"
 }
 }
 </i18n>
