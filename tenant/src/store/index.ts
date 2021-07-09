@@ -26,6 +26,7 @@ export class DfState {
   newMessage = 0;
   spouseAuthorize = false;
   coTenantAuthorize = false;
+  showFooter = true;
 }
 
 const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
@@ -159,6 +160,9 @@ const store = new Vuex.Store({
     },
     updateCoTenantAuthorize(state, authorize) {
       state.coTenantAuthorize = authorize;
+    },
+    showFooter(state, showFooter) {
+      state.showFooter = showFooter;
     }
   },
   actions: {

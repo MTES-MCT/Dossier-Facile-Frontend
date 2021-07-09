@@ -13,7 +13,7 @@
     <article class="page">
       <router-view />
     </article>
-    <TheFooter />
+    <TheFooter v-if="showFooter" />
     <Cookies
       :hidden="cookieHidden"
       @accept="acceptCookies"
@@ -43,7 +43,8 @@ import router from "./router";
   computed: {
     ...mapState({
       user: "user",
-      status: "status"
+      status: "status",
+      showFooter: "showFooter"
     }),
     ...mapGetters({
       isLoggedIn: "isLoggedIn"
@@ -51,6 +52,7 @@ import router from "./router";
   }
 })
 export default class App extends Vue {
+  showFooter!: boolean;
   cookieHidden = this.$cookies.isKey("accept-cookie");
   isLoggedIn!: boolean;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;

@@ -57,7 +57,8 @@ const routes: Array<RouteConfig> = [
     name: "Profile",
     meta: {
       title: "Édition du profil - DossierFacile",
-      requiresAuth: true
+      requiresAuth: true,
+      hideFooter: true
     },
     component: () =>
       import(/* webpackChunkName: "profile" */ "@/views/Profile.vue")
@@ -245,6 +246,12 @@ function keepGoing(to: any, next: any) {
 }
 
 router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.hideFooter)) {
+    store.commit("showFooter", false);
+  } else {
+    store.commit("showFooter", true);
+  }
+
   if (to.query.lang) {
     const locale = to.query.lang === "en" ? "en" : "fr";
     store.dispatch("setLang", locale);
