@@ -202,7 +202,7 @@
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
-export default class MyFooter extends Vue {
+export default class TheFooter extends Vue {
   VUE_APP_MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
   VUE_APP_DOCS_URL = `//${process.env.VUE_APP_DOCS_URL}`;
 }
