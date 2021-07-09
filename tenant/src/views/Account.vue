@@ -19,6 +19,16 @@
                 $t("update-file-btn")
               }}</DfButton>
             </div>
+            <div class="fr-callout warning" v-if="isDenied()">
+              <h4>{{ $t("amendment-required-title") }}</h4>
+              <p
+                class="fr-callout__text"
+                v-html="$t('amendment-required-text')"
+              ></p>
+              <DfButton @on-click="goToMessaging" primary="true">{{
+                $t("messaging")
+              }}</DfButton>
+            </div>
             <div class="main fr-mt-5w fr-p-4w bg-white">
               <div class="main-bar fr-grid-row">
                 <div class="header-title">
@@ -796,6 +806,10 @@ export default class Account extends Vue {
     this.$router.push("/profile");
   }
 
+  goToMessaging() {
+    this.$router.push("/messaging");
+  }
+
   getDate(d: Date) {
     // FIXME we should remove getDate and only use user.lastUpdate
     if (!d) {
@@ -937,6 +951,15 @@ export default class Account extends Vue {
       }) !== undefined
     );
   }
+
+  isDenied() {
+    return (
+      this.user.status === "DECLINED" ||
+      this.user.documents?.find(d => {
+        return d.documentStatus === "DECLINED";
+      }) !== undefined
+    );
+  }
 }
 </script>
 
@@ -956,6 +979,9 @@ export default class Account extends Vue {
 
 .fr-callout {
   background-color: var(--w);
+  &.warning {
+    box-shadow: inset 0.25rem 0 0 0 var(--error) !important;
+  }
 }
 
 h1 {
@@ -1189,7 +1215,10 @@ hr {
     "group-with-one": "in flatsharing with 1 person",
     "group-with": "in flatsharing with {0} persons",
     "cotenant-cannot-copy-link": "Your link is inactive because your roommate's file has not yet been validated",
-    "spouse-cannot-copy-link": "Your link is inactive because your spouse's file has not yet been validated"
+    "spouse-cannot-copy-link": "Your link is inactive because your spouse's file has not yet been validated",
+    "amendment-required-title": "Amendment required",
+    "amendment-required-text": "After examining your file, modifications are requested. <br> Check your mailbox for details.",
+    "messaging": "Messaging"
   },
   "fr": {
     "title": "Bonjour {0}, votre dossier {1} !",
@@ -1251,7 +1280,10 @@ hr {
     "organism-identification": "Certificat de l'organisme",
     "someone": " quelqu'un",
     "spouse-cannot-copy-link": "Votre lien est inactif car le dossier de votre conjoint·e n'est pas encore validé",
-    "cotenant-cannot-copy-link": "Votre lien est inactif car le dossier de votre colocataire n'est pas encore validé"
+    "cotenant-cannot-copy-link": "Votre lien est inactif car le dossier de votre colocataire n'est pas encore validé",
+    "amendment-required-title": "Modifications demandées",
+    "amendment-required-text": "Après examen de votre dossier, des modifications vous sont demandées. <br>Consultez votre messagerie pour en connaître le détail.",
+    "messaging": "Consulter ma messagerie"
   }
 }
 </i18n>
