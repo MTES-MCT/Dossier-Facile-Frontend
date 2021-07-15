@@ -12,7 +12,8 @@
         />
         <label for="declaration">{{ $t("declaration") }}</label>
       </div>
-      <div>
+
+      <div v-if="false">
         <validation-provider v-slot="{ errors }">
           <div
             class="fr-input-group"
@@ -38,7 +39,8 @@
           </div>
         </validation-provider>
       </div>
-      <div>
+
+      <div class="fr-mt-3w">
         <button
           class="fr-btn"
           type="submit"
