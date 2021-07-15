@@ -8,7 +8,11 @@
         <p class="fr-mb-1w" v-html="$t('email-exists')"></p>
       </div>
       <div v-if="roommates.length > 0">
-        <div v-for="(roommate, key) in roommates" v-bind:key="key">
+        <div
+          v-for="(roommate, key) in roommates"
+          v-bind:key="key"
+          class="fr-mb-1w"
+        >
           <NakedCard>
             <template v-slot:content>
               <div class="fr-grid-row bg--white">
