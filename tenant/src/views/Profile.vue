@@ -40,6 +40,7 @@
         <EditSummary></EditSummary>
       </div>
     </div>
+    <ProfileFooter></ProfileFooter>
   </div>
 </template>
 
@@ -53,6 +54,7 @@ import TenantInformationForm from "@/components/TenantInformationForm.vue";
 import UploadDocuments from "@/components/UploadDocuments.vue";
 import GuarantorDocuments from "@/components/GuarantorDocuments.vue";
 import ValidateFile from "@/components/ValidateFile.vue";
+import ProfileFooter from "@/components/ProfileFooter.vue";
 
 @Component({
   components: {
@@ -62,7 +64,8 @@ import ValidateFile from "@/components/ValidateFile.vue";
     NameInformationForm,
     UploadDocuments,
     GuarantorDocuments,
-    ValidateFile
+    ValidateFile,
+    ProfileFooter
   },
   computed: {
     ...mapState({
