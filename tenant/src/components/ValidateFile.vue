@@ -71,15 +71,15 @@
         />
         <label for="declaration2">{{ $t("declaration2") }}</label>
       </div>
-      <div>
+      <div v-if="false">
         <validation-provider v-slot="{ errors }">
           <div
             class="fr-input-group"
             :class="errors[0] ? 'fr-input-group--error' : ''"
           >
             <p>
-              <label for="precision" class="fr-label"
-                >{{ $t("precision") }} :</label
+              <label for="precision" class="fr-label">
+                {{ $t("precision") }}</label
               >
               <input
                 id="precision"
@@ -96,7 +96,7 @@
           </div>
         </validation-provider>
       </div>
-      <div>
+      <div class="fr-mt-3w">
         <button
           class="fr-btn"
           type="submit"
