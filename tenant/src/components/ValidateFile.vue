@@ -19,13 +19,14 @@
             :class="errors[0] ? 'fr-input-group--error' : ''"
           >
             <p>
-              <label for="precision" class="fr-label"
-                >{{ $t("precision") }} :</label
-              >
+              <label for="precision" class="fr-label">
+                {{ $t("precision") }}
+              </label>
               <input
                 id="precision"
                 :placeholder="$t('placeholder')"
                 type="text"
+                maxlength="500"
                 v-model="precision"
                 name="precision"
                 class="validate-required form-control fr-input"
@@ -175,7 +176,7 @@ export default class ValidateFile extends Vue {
         "title": "Je valide mon dossier",
         "read-no-guarantor": "Je lis et je coche la case suivante afin de valider mon dossier",
         "declaration": "Je déclare avoir pris connaissance de l'article 441-1 du code pénal qui punit le faux et l'usage de faux de trois ans d'emprisonnement et de 45000 euros d'amende.",
-        "precision": "Si je le souhaite, je peux préciser certains éléments importants de ma situation à mes futurs propriétaires. Mon texte sera ajouté au début de mon dossier.",
+        "precision": "Si je le souhaite, je peux préciser certains éléments importants de ma situation à mes futurs propriétaires. Mon texte sera ajouté au début de mon dossier:",
         "placeholder": "Renseignez votre commentaire ici",
         "validate": "Valider mon dossier",
         "read": "Je lis et je coche les cases suivantes afin de valider mon dossier",
@@ -185,7 +186,7 @@ export default class ValidateFile extends Vue {
         "title": "Je valide mon dossier",
         "read-no-guarantor": "Je lis et je coche la case suivante afin de valider mon dossier",
         "declaration": "Je déclare avoir pris connaissance de l'article 441-1 du code pénal qui punit le faux et l'usage de faux de trois ans d'emprisonnement et de 45000 euros d'amende.",
-        "precision": "Si je le souhaite, je peux préciser certains éléments importants de ma situation à mes futurs propriétaires. Mon texte sera ajouté au début de mon dossier.",
+        "precision": "Si je le souhaite, je peux préciser certains éléments importants de ma situation à mes futurs propriétaires. Mon texte sera ajouté au début de mon dossier :",
         "placeholder": "Renseignez votre commentaire ici",
         "validate": "Valider mon dossier",
         "read": "Je lis et je coche les cases suivantes afin de valider mon dossier",
