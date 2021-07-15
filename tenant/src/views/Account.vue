@@ -1279,7 +1279,7 @@ hr {
     "organism-identification": "Certificat de l'organisme",
     "someone": " quelqu'un",
     "spouse-cannot-copy-link": "Votre lien est inactif car le dossier de votre conjoint·e n'est pas encore validé",
-    "cotenant-cannot-copy-link": "Votre lien est inactif car le dossier de votre colocataire n'est pas encore validé",
+    "cotenant-cannot-copy-link": "Votre lien est inactif car le dossier de votre(vos) colocataire(s) n'est pas encore validé",
     "amendment-required-title": "Modifications demandées",
     "amendment-required-text": "Après examen de votre dossier, des modifications vous sont demandées. <br>Consultez votre messagerie pour en connaître le détail.",
     "messaging": "Consulter ma messagerie"
