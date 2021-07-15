@@ -954,7 +954,6 @@ export default class Account extends Vue {
 
   isDenied() {
     return (
-      this.user.status === "DECLINED" ||
       this.user.documents?.find(d => {
         return d.documentStatus === "DECLINED";
       }) !== undefined
