@@ -2,7 +2,6 @@ import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
 import store from "@/store";
-import { nextTick } from "vue/types/umd";
 
 Vue.use(VueRouter);
 
@@ -112,12 +111,6 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Mon compte - DossierFacile",
       requiresAuth: true
-    },
-    beforeEnter: (to, from, next) => {
-      if (store.state.user?.status === "INCOMPLETE") {
-        next({ name: "Profile" });
-      }
-      next();
     },
     component: () =>
       import(/* webpackChunkName: "profile" */ "@/views/Account.vue")
@@ -229,6 +222,14 @@ const router = new VueRouter({
 });
 
 function keepGoing(to: any, next: any) {
+  if (
+    to.matched.some((record: { path: string }) => {
+      return record.path === "/account";
+    }) &&
+    store.state.user?.status === "INCOMPLETE"
+  ) {
+    router.push("/profile");
+  }
   document.title = to.meta.title;
   if (to.meta.description) {
     const tag = document.querySelector('meta[name="description"]');
