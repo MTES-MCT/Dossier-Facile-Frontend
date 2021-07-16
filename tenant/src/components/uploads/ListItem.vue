@@ -1,11 +1,11 @@
 <template>
-  <div class="list-item fr-mb-1w">
+  <div class="list-item fr-mb-1w doc-container">
     <div class="fr-grid-row" style="align-items: center">
       <div class="fr-pl-2w fr-pr-2w">
-        <span class="material-icons">file_present</span>
+        <span class="material-icons big-blue">file_present</span>
       </div>
       <div class="text fr-pr-2w">
-        {{ getName() }}<br />
+        <span class="text-bold">{{ getName() }} </span><br />
         <span class="size">{{ getSize() }}</span>
       </div>
       <div class="progress">
@@ -100,6 +100,10 @@ export default class ListItem extends Vue {
     flex: 1;
   }
 }
+
+.text-bold {
+  font-weight: bold;
+}
 .row {
   height: 42px;
   display: flex;
@@ -117,7 +121,19 @@ export default class ListItem extends Vue {
 }
 
 .size {
+  font-size: 12px;
   color: var(--g500);
+}
+
+.doc-container {
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+
+.big-blue {
+  color: var(--focus);
+  font-size: 32px;
 }
 </style>
 
