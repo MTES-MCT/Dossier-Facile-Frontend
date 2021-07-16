@@ -1,30 +1,23 @@
 <template>
   <div class="list-item fr-mb-1w doc-container">
     <div class="fr-grid-row" style="align-items: center">
-      <div class="fr-pl-2w fr-pr-2w">
+      <div class="fr-pl-2w fr-pr-2w cursor--pointer" @click="openDoc()">
         <span class="material-icons big-blue">file_present</span>
       </div>
-      <div class="text fr-pr-2w">
-        <span class="text-bold">{{ getName() }} </span><br />
-        <span class="size">{{ getSize() }}</span>
+      <div class="text fr-pr-2w cursor--pointer" @click="openDoc()">
+        <div class="text-bold">{{ getName() }}</div>
+        <div class="size">{{ getSize() }}</div>
       </div>
       <div class="progress">
         <Progress :percentage="percentage" :state="uploadState" />
       </div>
-      <div
-        class="action-btn fr-p-1w"
-        @click="openDoc()"
-        :title="$t('show')"
-        v-if="file.path"
+      <button
+        class="fr-btn fr-btn--secondary icon-btn"
+        @click="remove()"
+        :title="$t('remove')"
       >
-        <span
-          class="color--primary material-icons material-icons-outlined md-36"
-          >visibility</span
-        >
-      </div>
-      <div class="action-btn fr-pr-1w" @click="remove()" :title="$t('remove')">
-        <span class="material-icons md-36 text-danger">delete_forever</span>
-      </div>
+        <span class="material-icons-outlined md-28">delete_forever</span>
+      </button>
     </div>
     <Modal
       @close="isDocModalVisible = false"
@@ -34,6 +27,13 @@
         <ShowDoc :file="file"></ShowDoc>
       </template>
     </Modal>
+    <ConfirmModal
+      v-if="confirmDeleteFile"
+      @valid="validDeleteFile()"
+      @cancel="undoDeleteFile()"
+    >
+      {{ $t("will-delete-file") }}
+    </ConfirmModal>
   </div>
 </template>
 
@@ -44,12 +44,14 @@ import Progress from "./Progress.vue";
 import ShowDoc from "../documents/ShowDoc.vue";
 import Modal from "df-shared/src/components/Modal.vue";
 import { AnalyticsService } from "@/services/AnalyticsService";
+import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 
 @Component({
   components: {
     Progress,
     ShowDoc,
-    Modal
+    Modal,
+    ConfirmModal
   }
 })
 export default class ListItem extends Vue {
@@ -58,9 +60,20 @@ export default class ListItem extends Vue {
   @Prop({ default: 0 }) percentage!: number;
 
   isDocModalVisible = false;
+  confirmDeleteFile = false;
 
   remove() {
+    this.confirmDeleteFile = true;
+  }
+
+  validDeleteFile() {
     this.$emit("remove");
+    this.confirmDeleteFile = false;
+  }
+
+  undoDeleteFile() {
+    this.confirmDeleteFile = false;
+    return false;
   }
 
   openDoc() {
@@ -111,11 +124,6 @@ export default class ListItem extends Vue {
   align-items: center;
 }
 
-.action-btn {
-  align-self: center;
-  cursor: pointer;
-}
-
 .list-item {
   background-color: var(--g200);
 }
@@ -135,6 +143,33 @@ export default class ListItem extends Vue {
   color: var(--focus);
   font-size: 32px;
 }
+
+.material-icons,
+.material-icons-outlined {
+  border-radius: 50%;
+  --color-hover: var(--block-color-hover);
+  --color-active: var(--block-color-active);
+  padding: 0.25rem;
+}
+
+.fr-btn {
+  box-shadow: none;
+  background-color: none;
+  --color-hover: none;
+  --color-active: none;
+  padding: 0;
+}
+
+.icon-btn {
+  &:hover {
+    color: #dc3545 !important;
+  }
+  display: block;
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
 </style>
 
 <i18n>
@@ -148,7 +183,8 @@ export default class ListItem extends Vue {
     "remove": "Delete the file",
     "show": "Show the file",
     "mb": "MB",
-    "kb": "KB"
+    "kb": "KB",
+    "will-delete-file": "Are you sure you want to delete this file ?"
   },
   "fr": {
     "FRENCH_IDENTITY_CARD": "Carte d'identité",
@@ -159,7 +195,8 @@ export default class ListItem extends Vue {
     "remove": "Supprimer la pièce",
     "show": "Afficher la pièce",
     "mb": "Mo",
-    "kb": "Ko"
+    "kb": "Ko",
+    "will-delete-file": "Êtes-vous sûr·e de vouloir supprimer ce fichier ?"
   }
 }
 </i18n>
