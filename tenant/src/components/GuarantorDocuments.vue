@@ -44,7 +44,7 @@
                     {{ getName(g, k) }}
                   </span>
                 </DfButton>
-                <DfButton size="icon" @on-click="remove(k)">
+                <DfButton size="icon" @on-click="remove(g)">
                   <span class="material-icons text-danger">delete_forever</span>
                 </DfButton>
               </div>
@@ -388,8 +388,8 @@ export default class GuarantorDocuments extends Vue {
     this.$store.commit("selectGuarantor", k);
   }
 
-  remove(k: number) {
-    this.$store.dispatch("deleteGuarantor", k).then(null, () => {
+  remove(g: Guarantor) {
+    this.$store.dispatch("deleteGuarantor", g).then(null, () => {
       Vue.toasted.global.error();
     });
   }

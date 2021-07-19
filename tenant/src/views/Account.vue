@@ -19,6 +19,16 @@
                 $t("update-file-btn")
               }}</DfButton>
             </div>
+            <div class="fr-callout warning" v-if="isDenied()">
+              <h4>{{ $t("amendment-required-title") }}</h4>
+              <p
+                class="fr-callout__text"
+                v-html="$t('amendment-required-text')"
+              ></p>
+              <DfButton @on-click="goToMessaging" primary="true">{{
+                $t("messaging")
+              }}</DfButton>
+            </div>
             <div class="main fr-mt-5w fr-p-4w bg-white">
               <div class="main-bar fr-grid-row">
                 <div class="header-title">
@@ -100,7 +110,17 @@
                   </div>
                 </div>
               </div>
-              <div class="main-description">
+              <div class="fr-mt-1v alert-container">
+                <div class="red-alert" v-if="cotenantNotValidated()">
+                  <div v-if="user.applicationType === 'GROUP'">
+                    {{ $t("cotenant-cannot-copy-link") }}
+                  </div>
+                  <div v-if="user.applicationType === 'COUPLE'">
+                    {{ $t("spouse-cannot-copy-link") }}
+                  </div>
+                </div>
+              </div>
+              <div class="main-description fr-mt-2w">
                 <p
                   class="description"
                   v-html="
@@ -786,6 +806,10 @@ export default class Account extends Vue {
     this.$router.push("/profile");
   }
 
+  goToMessaging() {
+    this.$router.push("/messaging");
+  }
+
   getDate(d: Date) {
     // FIXME we should remove getDate and only use user.lastUpdate
     if (!d) {
@@ -916,6 +940,25 @@ export default class Account extends Vue {
       this.user.apartmentSharing?.tokenPublic !== ""
     );
   }
+
+  cotenantNotValidated() {
+    if (this.user.status !== "VALIDATED") {
+      return false;
+    }
+    return (
+      this.user.apartmentSharing?.tenants.find(t => {
+        return t.status !== "VALIDATED";
+      }) !== undefined
+    );
+  }
+
+  isDenied() {
+    return (
+      this.user.documents?.find(d => {
+        return d.documentStatus === "DECLINED";
+      }) !== undefined
+    );
+  }
 }
 </script>
 
@@ -935,6 +978,9 @@ export default class Account extends Vue {
 
 .fr-callout {
   background-color: var(--w);
+  &.warning {
+    box-shadow: inset 0.25rem 0 0 0 var(--error) !important;
+  }
 }
 
 h1 {
@@ -1090,6 +1136,20 @@ hr {
     content: none;
   }
 }
+
+.alert-container {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.red-alert {
+  background-color: #e10600;
+  color: white;
+  border-radius: 2px;
+  margin-right: 0;
+  margin-left: auto;
+  padding: 0.5rem;
+}
 </style>
 
 <i18n>
@@ -1152,7 +1212,12 @@ hr {
     "organism-identification": "Organism",
     "someone": " someone",
     "group-with-one": "in flatsharing with 1 person",
-    "group-with": "in flatsharing with {0} persons"
+    "group-with": "in flatsharing with {0} persons",
+    "cotenant-cannot-copy-link": "Your link is inactive because your roommate's file has not yet been validated",
+    "spouse-cannot-copy-link": "Your link is inactive because your spouse's file has not yet been validated",
+    "amendment-required-title": "Amendment required",
+    "amendment-required-text": "After examining your file, modifications are requested. <br> Check your mailbox for details.",
+    "messaging": "Messaging"
   },
   "fr": {
     "title": "Bonjour {0}, votre dossier {1} !",
@@ -1212,7 +1277,12 @@ hr {
     "group-with-one": "en colocation avec 1 personne",
     "group-with": "en colocation avec {0} personnes",
     "organism-identification": "Certificat de l'organisme",
-    "someone": " quelqu'un"
+    "someone": " quelqu'un",
+    "spouse-cannot-copy-link": "Votre lien est inactif car le dossier de votre conjoint·e n'est pas encore validé",
+    "cotenant-cannot-copy-link": "Votre lien est inactif car le dossier de votre(vos) colocataire(s) n'est pas encore validé",
+    "amendment-required-title": "Modifications demandées",
+    "amendment-required-text": "Après examen de votre dossier, des modifications vous sont demandées. <br>Consultez votre messagerie pour en connaître le détail.",
+    "messaging": "Consulter ma messagerie"
   }
 }
 </i18n>

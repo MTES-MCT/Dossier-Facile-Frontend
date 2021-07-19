@@ -1,76 +1,74 @@
 <template>
-  <div class="fr-container">
-    <div class="signup">
-      <div class="fr-grid-row">
-        <div class="fr-col-lg-6 fr-col-12">
-          <div class="bg-pic">
-            <div class="bg-white max-450 left-row fr-pt-3w fr-mt-7w fr-mb-7w">
-              <h2 class="fr-h5 blue-text text-center fr-mt-3w">
-                En route pour rejoindre DossierFacile !
-              </h2>
-              <div class="fr-pl-2w fr-pr-2w">
-                Afin de faciliter la constitution de votre dossier, préparez les
-                pièces suivantes :
-              </div>
-              <div
-                class="bg-purple blue-text fr-pr-2w fr-pl-2w fr-pt-3w fr-pb-3w"
-              >
-                <ul>
-                  <li>
-                    Votre pièce d’identité
-                  </li>
-                  <li>
-                    Un justificatif de domicile
-                  </li>
-                  <li>
-                    Un justificatif de situation professionnelle
-                  </li>
-                  <li>
-                    Vos justificatifs de ressource
-                  </li>
-                  <li>
-                    Votre dernier avis d’imposition
-                  </li>
-                </ul>
-                Pour vos garants ces mêmes pièces vous seront demandées.
-              </div>
-              <div class="fr-pl-2w fr-pr-2w">
-                <p class="fr-mt-3w">
-                  Vous avez tout ?! Super !<br />
-                  Commençons par sécuriser votre compte !
-                </p>
-              </div>
+  <div class="fr-container fr-container--fluid fluid-full-width">
+    <div class="fr-grid-row">
+      <div class="fr-col-lg-6 fr-col-12">
+        <div class="bg-pic">
+          <div class="bg-white max-450 left-row fr-pt-3w fr-mt-7w fr-mb-7w">
+            <h2 class="fr-h5 blue-text text-center fr-mt-3w">
+              En route pour rejoindre DossierFacile !
+            </h2>
+            <div class="fr-pl-2w fr-pr-2w">
+              Afin de faciliter la constitution de votre dossier, préparez les
+              pièces suivantes :
             </div>
-          </div>
-        </div>
-        <div class="fr-col-lg-6 fr-col-12 bg-white">
-          <div class="fr-mt-2w align-end">
-            <router-link to="/account" class="fr-tag">
-              {{ $t("connect") }}
-            </router-link>
-          </div>
-          <div class="margin-auto max-400">
-            <Register @on-register="onRegister" :franceConnect="false" />
+            <div
+              class="bg-purple blue-text fr-pr-2w fr-pl-2w fr-pt-3w fr-pb-3w"
+            >
+              <ul>
+                <li>
+                  Votre pièce d’identité
+                </li>
+                <li>
+                  Un justificatif de domicile
+                </li>
+                <li>
+                  Un justificatif de situation professionnelle
+                </li>
+                <li>
+                  Vos justificatifs de ressource
+                </li>
+                <li>
+                  Votre dernier avis d’imposition
+                </li>
+              </ul>
+              Pour vos garants ces mêmes pièces vous seront demandées.
+            </div>
+            <div class="fr-pl-2w fr-pr-2w">
+              <p class="fr-mt-3w">
+                Vous avez tout ?! Super !<br />
+                Commençons par sécuriser votre compte !
+              </p>
+            </div>
           </div>
         </div>
       </div>
-      <Modal v-show="isValidModalVisible" @close="closeModal">
-        <template v-slot:body>
-          <div class="fr-container">
-            <div class="fr-grid-row justify-content-center">
-              <div class="fr-col-12">
-                <p>
-                  {{ $t("mail-sent") }}
-                </p>
-                <p>
-                  {{ $t("clic-to-confirm") }}
-                </p>
-              </div>
+      <div class="fr-col-lg-6 fr-col-12 bg-white">
+        <div class="fr-mt-2w align-end">
+          <router-link to="/account" class="fr-tag">
+            {{ $t("connect") }}
+          </router-link>
+        </div>
+        <div class="margin-auto max-400">
+          <Register @on-register="onRegister" :franceConnect="false" />
+        </div>
+      </div>
+    </div>
+    <Modal v-show="isValidModalVisible" @close="closeModal">
+      <template v-slot:body>
+        <div class="fr-container">
+          <div class="fr-grid-row justify-content-center">
+            <div class="fr-col-12">
+              <p>
+                {{ $t("mail-sent") }}
+              </p>
+              <p>
+                {{ $t("clic-to-confirm") }}
+              </p>
             </div>
           </div>
-        </template>
-      </Modal>
-    </div>
+        </div>
+      </template>
+    </Modal>
   </div>
 </template>
 
@@ -185,7 +183,16 @@ body {
 }
 
 .bg-pic {
-  background: url("../assets/Immeuble.png") no-repeat;
+  &:before {
+    content: " ";
+    background-color: black;
+    height: 100%;
+    width: 100%;
+  }
+}
+.bg-pic {
+  background: linear-gradient(rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.5)),
+    url("../assets/Immeuble.png") no-repeat;
   background-size: cover;
   height: 100%;
   overflow: hidden;
