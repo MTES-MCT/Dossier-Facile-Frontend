@@ -75,11 +75,13 @@
                 $t("see")
               }}</DfButton>
             </div>
-            <div class="fr-grid-row file-item">
-              <span>{{ $t("financial") }}</span
-              ><DfButton @on-click="open(tenant, 'FINANCIAL')">{{
-                $t("see")
-              }}</DfButton>
+            <div
+              class="fr-grid-row file-item"
+              v-for="(doc, k) in getDocs(tenant, 'FINANCIAL')"
+              v-bind:key="doc.id"
+            >
+              <span>{{ $t("financial") }} {{ k >= 1 ? k + 1 : "" }}</span
+              ><DfButton @on-click="openDoc(doc)">{{ $t("see") }}</DfButton>
             </div>
             <div class="fr-grid-row file-item">
               <span>{{ $t("tax") }}</span
@@ -207,8 +209,12 @@ export default class File extends Vue {
       return d.documentCategory === s;
     });
     if (doc?.name) {
-      window.open(doc.name, "_blank");
+      this.openDoc(doc);
     }
+  }
+
+  openDoc(doc: DfDocument) {
+    window.open(doc.name, "_blank");
   }
 
   download() {
@@ -251,6 +257,12 @@ export default class File extends Vue {
       return this.$i18n.t("income", [sum]);
     }
     return;
+  }
+
+  getDocs(tenant: User, docType: string) {
+    return tenant.documents?.filter((d: DfDocument) => {
+      return d.documentCategory === docType;
+    });
   }
 }
 </script>
