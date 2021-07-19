@@ -109,9 +109,14 @@ export default class ListItem extends Vue {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  &.sm {
-    flex: 1;
+  @media (max-width: 768px) {
+    max-width: 215px;
   }
+}
+
+.text > div {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .text-bold {
