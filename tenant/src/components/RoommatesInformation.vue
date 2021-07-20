@@ -57,7 +57,11 @@
         </div>
       </div>
     </div>
-    <form name="roommateForm" @submit.prevent="addMail" class="fr-col-12 fr-grid-row">
+    <form
+      name="roommateForm"
+      @submit.prevent="addMail"
+      class="fr-col-12 fr-grid-row"
+    >
       <div class="fr-col-12 fr-col-xl-7 fr-mt-2w">
         <label class="fr-label fr-mb-1w">{{ $t("roommateEmail") }}</label>
         <validation-provider rules="email" v-slot="{ errors }">
