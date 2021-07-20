@@ -126,8 +126,7 @@
               </div>
             </fieldset>
           </div>
-
-          <SubmitButton></SubmitButton>
+          <ProfileFooter @on-back="goBack"></ProfileFooter>
         </form>
       </ValidationObserver>
     </div>
@@ -161,6 +160,7 @@ import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
 import { AnalyticsService } from "@/services/AnalyticsService";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
+import ProfileFooter from "@/components/ProfileFooter.vue";
 
 @Component({
   computed: {
@@ -182,7 +182,8 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
     SubmitButton,
     WarningMessage,
     DfButton,
-    ConfirmModal
+    ConfirmModal,
+    ProfileFooter
   }
 })
 export default class TenantInformationForm extends Vue {
@@ -347,6 +348,10 @@ export default class TenantInformationForm extends Vue {
       return;
     }
     this.$store.commit("setStep", 2);
+  }
+
+  goBack() {
+    this.$store.commit("setStep", 0);
   }
 }
 </script>
