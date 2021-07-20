@@ -258,17 +258,23 @@ router.beforeEach((to, from, next) => {
       });
     } else {
       // The user was authenticated, and has the app role
-      (Vue as any).$keycloak
-        .updateToken(70)
-        .then(() => {
-          localStorage.setItem("token", (Vue as any).$keycloak.token);
-          store.dispatch("loadUser").then(() => {
-            keepGoing(to, next);
+      localStorage.setItem("token", (Vue as any).$keycloak.token);
+      store.dispatch("loadUser").then(() => {
+        keepGoing(to, next);
+      });
+      setInterval(() => {
+        (Vue as any).$keycloak
+          .updateToken(60)
+          .then((refreshed: boolean) => {
+            if (refreshed) {
+              localStorage.setItem("token", (Vue as any).$keycloak.token);
+            }
+          })
+          .catch((err: any) => {
+            debugger;
+            console.error(err);
           });
-        })
-        .catch((err: any) => {
-          console.error(err);
-        });
+      }, 45000);
     }
   } else if (to.matched.some(record => record.meta.hideForAuth)) {
     if (store.getters.isLoggedIn) {
