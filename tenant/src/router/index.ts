@@ -278,7 +278,6 @@ router.beforeEach((to, from, next) => {
             }
           })
           .catch((err: any) => {
-            debugger;
             console.error(err);
           });
       }, 45000);
