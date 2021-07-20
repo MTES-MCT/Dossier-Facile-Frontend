@@ -40,7 +40,6 @@
         <EditSummary></EditSummary>
       </div>
     </div>
-    <ProfileFooter></ProfileFooter>
   </div>
 </template>
 
@@ -54,7 +53,6 @@ import TenantInformationForm from "@/components/TenantInformationForm.vue";
 import UploadDocuments from "@/components/UploadDocuments.vue";
 import GuarantorDocuments from "@/components/GuarantorDocuments.vue";
 import ValidateFile from "@/components/ValidateFile.vue";
-import ProfileFooter from "@/components/ProfileFooter.vue";
 
 @Component({
   components: {
@@ -64,8 +62,7 @@ import ProfileFooter from "@/components/ProfileFooter.vue";
     NameInformationForm,
     UploadDocuments,
     GuarantorDocuments,
-    ValidateFile,
-    ProfileFooter
+    ValidateFile
   },
   computed: {
     ...mapState({
@@ -110,7 +107,7 @@ export default class Profile extends Vue {
 .step-number {
   background-color: var(--primary);
   color: white;
-  margin: 0 5px;
+  margin: 0.25rem 1rem 0 0;
   border-radius: 50%;
   display: inline-block;
   height: 25px;
@@ -125,6 +122,10 @@ export default class Profile extends Vue {
 }
 .bg-grey {
   background-color: #f2f2f9;
+}
+
+h4 {
+  margin: 0;
 }
 </style>
 

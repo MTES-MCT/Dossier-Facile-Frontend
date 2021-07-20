@@ -15,7 +15,7 @@
         </template>
       </v-gouv-fr-modal>
       <form
-        name="form"
+        name="nameInformationForm"
         @submit.prevent="validate().then(handleNameInformation)"
       >
         <div class="fr-grid-row fr-grid-row--center">
@@ -93,9 +93,8 @@
               </div>
             </validation-provider>
           </div>
-
-          <SubmitButton></SubmitButton>
         </div>
+        <ProfileFooter :showBack="false"></ProfileFooter>
       </form>
     </ValidationObserver>
   </div>
@@ -111,6 +110,7 @@ import SubmitButton from "df-shared/src/Button/SubmitButton.vue";
 import NameInformationHelp from "./helps/NameInformationHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import { AnalyticsService } from "@/services/AnalyticsService";
+import ProfileFooter from "@/components/ProfileFooter.vue";
 
 extend("zipcode", {
   ...regex,
@@ -128,7 +128,8 @@ extend("required", {
     ValidationObserver,
     SubmitButton,
     NameInformationHelp,
-    VGouvFrModal
+    VGouvFrModal,
+    ProfileFooter
   }
 })
 export default class NameInformationForm extends Vue {
