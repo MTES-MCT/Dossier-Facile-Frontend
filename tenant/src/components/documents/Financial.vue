@@ -224,19 +224,6 @@
               @remove="remove(f, file)"
             />
           </div>
-          <div class="fr-col-12 fr-mb-5w" v-if="f.documentType">
-            <button
-              class="fr-btn"
-              type="submit"
-              :disabled="
-                f.files.length <= 0 &&
-                  !f.noDocument &&
-                  f.documentType.key !== 'no-income'
-              "
-            >
-              {{ $t("register") }}
-            </button>
-          </div>
         </form>
       </ValidationObserver>
       <hr />
@@ -251,10 +238,11 @@
         {{ $t("i-have-no-income") }}
       </DfButton>
     </div>
-
-<!--       <button class="fr-btn" type="submit" @click="addFinancial()">
-        Ajouter un revenu
-      </button> -->
+    <FinancialFooter
+      @on-back="goBack"
+      @on-next="goNext"
+      @add-financial="addFinancial()"
+    ></FinancialFooter>
   </div>
 </template>
 
@@ -282,6 +270,7 @@ import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import DocumentHelp from "../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import { AnalyticsService } from "../../services/AnalyticsService";
+import FinancialFooter from "@/components/footer/FinancialFooter.vue";
 
 extend("regex", {
   ...regex,
@@ -316,7 +305,8 @@ class F {
     Modal,
     BigRadio,
     DocumentHelp,
-    VGouvFrModal
+    VGouvFrModal,
+    FinancialFooter
   },
   computed: {
     ...mapGetters({
@@ -462,7 +452,7 @@ export default class Financial extends Vue {
             f.documentType.maxFileCount
           ])
         });
-        return;
+        return false;
       }
 
       Array.from(Array(newFiles.length).keys()).map(x => {
@@ -472,7 +462,7 @@ export default class Financial extends Vue {
     } else {
       if (this.financialFiles(f).length > 0) {
         this.isNoIncomeAndFiles = true;
-        return;
+        return false;
       }
     }
 
@@ -515,6 +505,7 @@ export default class Financial extends Vue {
       .finally(() => {
         loader.hide();
       });
+    return true;
   }
 
   financialFiles(f: F) {
@@ -645,6 +636,22 @@ export default class Financial extends Vue {
         return f.documentType && f.documentType.key !== "no-income";
       }) === undefined
     );
+  }
+  goBack() {
+    this.$emit("on-back");
+  }
+
+  goNext() {
+    let res = true;
+    for (const f of this.financialDocuments) {
+      const s = this.save(f);
+      if (!s) {
+        res = false;
+      }
+    }
+    if (res) {
+      this.$emit("on-next");
+    }
   }
 }
 </script>

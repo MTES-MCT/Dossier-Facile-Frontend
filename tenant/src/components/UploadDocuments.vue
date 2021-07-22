@@ -96,8 +96,7 @@
         >
       </div>
       <div v-if="tenantSubStep === 4">
-        <Financial></Financial>
-        <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
+        <Financial @on-back="goBack" @on-next="goNext"></Financial>
       </div>
     </div>
     <div>
@@ -222,7 +221,11 @@ export default class UploadDocuments extends Vue {
   }
 
   goBack() {
-    this.$store.commit("setStep", 1);
+    if (this.tenantSubStep > 1) {
+      this.updateSubstep(this.tenantSubStep - 1);
+    } else {
+      this.$store.commit("setStep", 1);
+    }
   }
 
   goNext() {
