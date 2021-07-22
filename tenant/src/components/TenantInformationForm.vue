@@ -160,7 +160,7 @@ import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
 import { AnalyticsService } from "@/services/AnalyticsService";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
-import ProfileFooter from "@/components/ProfileFooter.vue";
+import ProfileFooter from "@/components/footer/ProfileFooter.vue";
 
 @Component({
   computed: {

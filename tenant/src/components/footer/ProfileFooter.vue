@@ -1,7 +1,6 @@
 <template>
   <div>
-    <div class="horizontal-spacer"></div>
-    <div class="profile-footer">
+    <FooterContainer>
       <div class="fr-grid-row space-around">
         <v-gouv-fr-button
           v-if="showBack"
@@ -17,16 +16,17 @@
           @click="nextAction"
         ></v-gouv-fr-button>
       </div>
-    </div>
+    </FooterContainer>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.vue";
+import FooterContainer from "./FooterContainer.vue";
 
 @Component({
-  components: { VGouvFrButton }
+  components: { VGouvFrButton, FooterContainer }
 })
 export default class ProfileFooter extends Vue {
   @Prop({ default: true }) showBack!: boolean;
@@ -41,21 +41,7 @@ export default class ProfileFooter extends Vue {
 }
 </script>
 
-<style lang="scss">
-.profile-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: #e5e5f4;
-  padding: 20px;
-  z-index: 2;
-}
-
-.horizontal-spacer {
-  margin-top: 50px;
-}
-</style>
+<style lang="scss"></style>
 
 <i18n>
 {

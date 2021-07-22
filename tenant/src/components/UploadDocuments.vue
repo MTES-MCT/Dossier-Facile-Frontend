@@ -21,7 +21,10 @@
           >check_circle_outline</span
         >
       </div>
-      <Identification v-if="tenantSubStep === 1"></Identification>
+      <div v-if="tenantSubStep === 1">
+        <Identification></Identification>
+        <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
+      </div>
     </div>
     <div>
       <div
@@ -42,7 +45,10 @@
           >check_circle_outline</span
         >
       </div>
-      <Residency v-if="tenantSubStep === 2"></Residency>
+      <div v-if="tenantSubStep === 2">
+        <Residency></Residency>
+        <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
+      </div>
     </div>
     <div>
       <div
@@ -65,7 +71,10 @@
           >check_circle_outline</span
         >
       </div>
-      <Professional v-if="tenantSubStep === 3"></Professional>
+      <div v-if="tenantSubStep === 3">
+        <Professional></Professional>
+        <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
+      </div>
     </div>
     <div>
       <div
@@ -86,7 +95,10 @@
           >check_circle_outline</span
         >
       </div>
-      <Financial v-if="tenantSubStep === 4"></Financial>
+      <div v-if="tenantSubStep === 4">
+        <Financial></Financial>
+        <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
+      </div>
     </div>
     <div>
       <div
@@ -107,18 +119,10 @@
           >check_circle_outline</span
         >
       </div>
-      <Tax v-if="tenantSubStep === 5"></Tax>
-    </div>
-    <div class="fr-col-12 fr-mb-5w">
-      <button
-        class="fr-btn"
-        type="submit"
-        aria-disabled="!documentsFilled()"
-        :disabled="!documentsFilled()"
-        @click="goToGuarantor()"
-      >
-        Suivant
-      </button>
+      <div v-if="tenantSubStep === 5">
+        <Tax></Tax>
+        <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
+      </div>
     </div>
   </div>
 </template>
@@ -133,8 +137,17 @@ import Tax from "@/components/documents/Tax.vue";
 import { mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
 import { AnalyticsService } from "@/services/AnalyticsService";
+import ProfileFooter from "@/components/footer/ProfileFooter.vue";
+
 @Component({
-  components: { Tax, Financial, Professional, Residency, Identification },
+  components: {
+    Tax,
+    Financial,
+    Professional,
+    Residency,
+    Identification,
+    ProfileFooter
+  },
   computed: {
     ...mapState({
       tenantSubStep: "tenantSubStep",
@@ -206,6 +219,16 @@ export default class UploadDocuments extends Vue {
     }
 
     return false;
+  }
+
+  goBack() {
+    this.$store.commit("setStep", 1);
+  }
+
+  goNext() {
+    if (this.tenantSubStep < 5) {
+      this.updateSubstep(this.tenantSubStep + 1);
+    }
   }
 }
 </script>

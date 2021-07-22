@@ -75,16 +75,6 @@
         @remove="remove(file)"
       />
     </div>
-    <div class="fr-col-12 fr-mb-3w fr-mt-2w" v-if="identificationDocument">
-      <button
-        class="fr-btn"
-        type="submit"
-        @click="save"
-        :disabled="files.length <= 0"
-      >
-        {{ $t("register") }}
-      </button>
-    </div>
   </div>
 </template>
 
@@ -207,6 +197,7 @@ export default class Identification extends Vue {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
+    this.save();
   }
 
   resetFiles() {
@@ -247,6 +238,7 @@ export default class Identification extends Vue {
     );
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
+    // TODO : remove loader when upload status is well handled (be carefull with multiple save at the same time)
     const loader = this.$loading.show();
     RegisterService.saveIdentification(formData)
       .then(() => {
@@ -316,7 +308,6 @@ td {
   "other": "Autre",
   "files": "Documents",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-  "register": "Register",
   "select-label": "I add a valid identity document.",
   "validate": "Validate",
   "cancel": "Cancel"
@@ -328,7 +319,6 @@ td {
   "other": "Autre",
   "files": "Documents",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "register": "Enregistrer la pièce",
   "select-label": "J’ajoute une pièce d’identité en cours de validité.",
   "validate": "Valider",
   "cancel": "Annuler"

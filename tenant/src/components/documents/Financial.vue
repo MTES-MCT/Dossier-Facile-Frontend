@@ -41,9 +41,6 @@
                 type="text"
               />
             </div>
-            <DfButton class="fr-btn" size="small">
-              {{ $t("save") }}
-            </DfButton>
           </form>
         </ValidationObserver>
       </div>
@@ -245,13 +242,19 @@
       <hr />
     </div>
     <div class="fr-col-12 fr-mb-5w fr-grid-row space-between">
-      <button class="fr-btn" type="submit" @click="addFinancial()">
-        Ajouter un revenu
-      </button>
-      <DfButton class="fr-btn" size="small" @on-click="setNoIncome()">
+      <DfButton
+        class="fr-btn"
+        size="small"
+        @on-click="setNoIncome()"
+        v-if="!hasNoIncome() && getFinancialDocuments().length <= 0"
+      >
         {{ $t("i-have-no-income") }}
       </DfButton>
     </div>
+
+<!--       <button class="fr-btn" type="submit" @click="addFinancial()">
+        Ajouter un revenu
+      </button> -->
   </div>
 </template>
 
