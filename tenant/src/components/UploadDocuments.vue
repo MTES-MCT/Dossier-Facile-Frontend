@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fr-mb-7w">
     <div>
       <div
         class="document-title title-bar"
@@ -231,6 +231,8 @@ export default class UploadDocuments extends Vue {
   goNext() {
     if (this.tenantSubStep < 5) {
       this.updateSubstep(this.tenantSubStep + 1);
+    } else {
+      this.goToGuarantor();
     }
   }
 }
