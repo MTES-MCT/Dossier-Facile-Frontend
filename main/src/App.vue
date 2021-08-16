@@ -111,10 +111,6 @@ export default class App extends Vue {
 <style lang="scss">
 @import "df-shared/src/scss/_main.scss";
 
-a {
-  box-shadow: none !important;
-}
-
 // style hack to handle both themeforest and gouvfr design system
 .bullets {
   li {
