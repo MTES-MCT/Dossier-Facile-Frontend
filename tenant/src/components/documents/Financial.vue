@@ -440,7 +440,15 @@ export default class Financial extends Vue {
       const newFiles = f.files.filter(f => {
         return !f.id;
       });
-      if (!newFiles.length && f.documentType.key !== "no-income") return;
+      if (
+        !this.financialFiles(f).length &&
+        f.documentType.key !== "no-income"
+      ) {
+        Vue.toasted.global.max_file({
+          message: this.$i18n.t("missing-file")
+        });
+        return false;
+      }
 
       if (
         f.documentType.maxFileCount &&
@@ -692,7 +700,8 @@ export default class Financial extends Vue {
   "i-have-no-income": "I have no income",
   "has-no-income": "You have no income",
   "warning-no-income-and-file": "You can't have files and no income. You must uncheck the box or delete your files.",
-  "save": "Save"
+  "save": "Save",
+  "missing-file": "You must add files to save this income."
 },
 "fr": {
   "salary": "Salaire",
@@ -726,7 +735,8 @@ export default class Financial extends Vue {
   "i-have-no-income": "Je n'ai pas de revenu",
   "has-no-income": "Vous avez indiqué ne pas avoir de revenu",
   "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers.",
-  "save": "Sauvegarder"
+  "save": "Sauvegarder",
+  "missing-file": "Vous devez ajouter des fichiers pour sauvegarder ce revenu."
 }
 }
 </i18n>
