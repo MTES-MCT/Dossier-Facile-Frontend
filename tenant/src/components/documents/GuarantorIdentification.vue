@@ -185,9 +185,8 @@ export default class Identification extends Vue {
   isDocDeleteVisible = false;
 
   @Watch("selectedGuarantor")
-  onGuarantorChange(val: Guarantor) {
-    this.firstName = val.firstName || "";
-    this.lastName = val.lastName || "";
+  onGuarantorChange() {
+    this.updateGuarantorData();
   }
 
   onSelectChange() {
@@ -237,7 +236,7 @@ export default class Identification extends Vue {
     this.isDocDeleteVisible = false;
   }
 
-  mounted() {
+  updateGuarantorData() {
     if (this.selectedGuarantor.documents !== null) {
       const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION";
@@ -258,6 +257,10 @@ export default class Identification extends Vue {
     if (this.selectedGuarantor.lastName) {
       this.lastName = this.selectedGuarantor.lastName;
     }
+  }
+
+  mounted() {
+    this.updateGuarantorData();
   }
 
   addFiles(fileList: File[]) {

@@ -183,7 +183,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { DocumentType } from "df-shared/src/models/Document";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
@@ -253,6 +253,11 @@ export default class GuarantorFinancial extends Vue {
   isDocDeleteVisible = false;
   selectedDoc?: F;
   isNoIncomeAndFiles = false;
+
+  @Watch("selectedGuarantor")
+  onGuarantorChange() {
+    this.initialize();
+  }
 
   isNewDocument(f: F) {
     if (f.id !== null) {

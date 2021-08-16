@@ -85,7 +85,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapState } from "vuex";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
@@ -132,7 +132,16 @@ export default class Residency extends Vue {
   documents = DocumentTypeConstants.GUARANTOR_RESIDENCY_DOCS;
   isDocDeleteVisible = false;
 
+  @Watch("selectedGuarantor")
+  onGuarantorChange() {
+    this.updateGuarantorData();
+  }
+
   mounted() {
+    this.updateGuarantorData();
+  }
+
+  updateGuarantorData() {
     if (this.selectedGuarantor.documents !== null) {
       const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "RESIDENCY";

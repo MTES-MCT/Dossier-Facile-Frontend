@@ -133,7 +133,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { DocumentType } from "df-shared/src/models/Document";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
@@ -262,7 +262,7 @@ export default class Tax extends Vue {
     this.isDocDeleteVisible = false;
   }
 
-  mounted() {
+  updateGuarantorData() {
     const doc = this.getRegisteredDoc();
     if (doc !== undefined) {
       this.customText = doc.customText || "";
@@ -271,6 +271,15 @@ export default class Tax extends Vue {
     if (localDoc !== undefined) {
       this.taxDocument = localDoc;
     }
+  }
+
+  mounted() {
+    this.updateGuarantorData();
+  }
+
+  @Watch("selectedGuarantor")
+  onGuarantorChange() {
+    this.updateGuarantorData();
   }
 
   addFiles(fileList: File[]) {
