@@ -9,7 +9,7 @@
             <div class="text-center">
               <router-link to="/blog/comment-justifier-son-domicile">
                 <h2 class="fr-h2">
-                  Tout comprendre à la vie en colocation
+                  Comment justifier son domicile
                 </h2>
               </router-link>
               <span>02 Juin 2021 dans </span>
