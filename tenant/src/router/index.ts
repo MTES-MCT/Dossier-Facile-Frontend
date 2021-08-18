@@ -277,7 +277,7 @@ router.beforeEach((to, from, next) => {
       }, 45000);
     }
   } else if (to.matched.some(record => record.meta.hideForAuth)) {
-    if (!(Vue as any).$keycloak.authenticated) {
+    if ((Vue as any).$keycloak.authenticated) {
       next({ name: "Profile" });
     }
   }
