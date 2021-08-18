@@ -113,20 +113,6 @@
             </div>
           </validation-provider>
         </div>
-        <div class="fr-col-12 fr-mb-5w" v-if="taxDocument">
-          <button class="fr-btn" type="submit" :disabled="isButtonDisabled()">
-            {{ $t("register") }}
-          </button>
-        </div>
-        <div
-          class="fr-mb-5w"
-          v-if="taxDocument.key && taxDocument.key === 'my-name'"
-        >
-          <DocumentInsert
-            :allow-list="taxDocument.acceptedProofs"
-            :block-list="taxDocument.refusedProofs"
-          ></DocumentInsert>
-        </div>
       </form>
     </ValidationObserver>
   </div>
@@ -287,6 +273,7 @@ export default class Tax extends Vue {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
+    this.save();
   }
 
   resetFiles() {

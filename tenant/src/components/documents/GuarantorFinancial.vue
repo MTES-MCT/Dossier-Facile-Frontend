@@ -361,10 +361,13 @@ export default class GuarantorFinancial extends Vue {
       return { name: f.name, file: f, size: f.size };
     });
     f.files = [...f.files, ...nf];
+    this.save(f);
   }
+
   resetFiles(f: F) {
     f.fileUploadStatus = UploadStatus.STATUS_INITIAL;
   }
+
   save(f: F) {
     const fieldName = "documents";
     const formData = new FormData();

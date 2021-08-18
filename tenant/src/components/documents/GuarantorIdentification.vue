@@ -120,16 +120,6 @@
         @remove="remove(file)"
       />
     </div>
-    <div class="fr-col-12 fr-mb-2w" v-if="identificationDocument">
-      <button
-        class="fr-btn"
-        type="submit"
-        @click="save"
-        :disabled="files.length <= 0"
-      >
-        {{ $t("register") }}
-      </button>
-    </div>
   </div>
 </template>
 
@@ -268,6 +258,7 @@ export default class Identification extends Vue {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
+    this.save();
   }
 
   resetFiles() {
