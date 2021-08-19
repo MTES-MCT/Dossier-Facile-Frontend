@@ -26,16 +26,6 @@
         "
       />
     </div>
-    <div class="fr-col-12 fr-mb-2w" v-if="identificationDocument">
-      <button
-        class="fr-btn"
-        type="submit"
-        @click="save"
-        :disabled="files.length <= 0"
-      >
-        Enregistrer la pièce
-      </button>
-    </div>
     <div class="fr-mb-5w">
       <DocumentInsert
         :allow-list="acceptedProofs"
@@ -84,6 +74,7 @@ export default class OrganismCert extends Vue {
 
   addFiles(fileList: File[]) {
     this.files = [...this.files, ...fileList];
+    this.save();
   }
 
   save() {

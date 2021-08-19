@@ -237,13 +237,17 @@
               <GuarantorTax></GuarantorTax>
               <GuarantorFooter
                 @on-back="goBack"
-                @on-next="goNext"
+                @on-next="nextStep"
               ></GuarantorFooter>
             </div>
           </div>
         </div>
         <div v-if="guarantorType === 'ORGANISM'">
           <OrganismCert></OrganismCert>
+          <GuarantorFooter
+            @on-back="goBack"
+            @on-next="nextStep"
+          ></GuarantorFooter>
         </div>
         <div v-if="guarantorType === 'LEGAL_PERSON'">
           <div>
@@ -265,9 +269,13 @@
               <span class="color--primary material-icons">person</span>
               <h2>{{ $t("representative-identification") }}</h2>
             </div>
-            <CorporationIdentification
-              v-if="guarantorSubStep === 1"
-            ></CorporationIdentification>
+            <div v-if="guarantorSubStep === 1">
+              <CorporationIdentification></CorporationIdentification>
+              <GuarantorFooter
+                @on-back="goBack"
+                @on-next="goNext"
+              ></GuarantorFooter>
+            </div>
           </div>
           <div>
             <div
@@ -288,9 +296,13 @@
               <span class="color--primary material-icons">home</span>
               <h2>{{ $t("corporation-identification") }}</h2>
             </div>
-            <RepresentativeIdentification
-              v-if="guarantorSubStep === 2"
-            ></RepresentativeIdentification>
+            <div v-if="guarantorSubStep === 2">
+              <RepresentativeIdentification></RepresentativeIdentification>
+              <GuarantorFooter
+                @on-back="goBack"
+                @on-next="nextStep"
+              ></GuarantorFooter>
+            </div>
           </div>
         </div>
       </div>
