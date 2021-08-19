@@ -1,10 +1,21 @@
 <template>
   <div>
-    <div v-if="guarantorStep === 0">
-      <AskGuarantor @on-next-step="setGuarantorStep(1)"></AskGuarantor>
-    </div>
     <div>
-      <div v-if="guarantorStep === 1">
+      <div v-if="guarantorStep <= 1">
+        <v-gouv-fr-modal>
+          <template v-slot:button>
+            {{ $t("more-information") }}
+          </template>
+          <template v-slot:title>
+            {{ $t("more-information") }}
+          </template>
+          <template v-slot:content>
+            <p>
+              <GuarantorChoiceHelp></GuarantorChoiceHelp>
+            </p>
+          </template>
+        </v-gouv-fr-modal>
+
         <label class="fr-label" for="select"> Sélectionnez un choix </label>
         <select
           v-model="tmpGuarantorType"
@@ -18,16 +29,12 @@
             Un organisme se porte garant pour moi (VISALE par exemple)
           </option>
           <option value="LEGAL_PERSON">Un garant moral</option>
+          <option value="NO_GUARANTOR">Je veux poursuivre sans garant</option>
         </select>
-        <div>
-          <DfButton
-            class="fr-btn"
-            primary="true"
-            @on-click="setGuarantorType()"
-          >
-            {{ $t("validate") }}
-          </DfButton>
-        </div>
+        <ProfileFooter
+          @on-back="goBack"
+          @on-next="setGuarantorType"
+        ></ProfileFooter>
       </div>
       <div v-if="guarantorStep === 2">
         <div v-if="guarantorType === 'NATURAL_PERSON'">
@@ -296,7 +303,6 @@ import GuarantorResidency from "@/components/documents/GuarantorResidency.vue";
 import GuarantorProfessional from "@/components/documents/GuarantorProfessional.vue";
 import GuarantorFinancial from "@/components/documents/GuarantorFinancial.vue";
 import GuarantorTax from "@/components/documents/GuarantorTax.vue";
-import AskGuarantor from "@/components/AskGuarantor.vue";
 import { mapGetters, mapState } from "vuex";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { User } from "df-shared/src/models/User";
@@ -305,10 +311,10 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.vue";
 import { AnalyticsService } from "../services/AnalyticsService";
 import ProfileFooter from "@/components/footer/ProfileFooter.vue";
+import GuarantorChoiceHelp from "./helps/GuarantorChoiceHelp.vue";
 
 @Component({
   components: {
-    AskGuarantor,
     DfButton,
     GuarantorTax,
     GuarantorFinancial,
@@ -320,7 +326,8 @@ import ProfileFooter from "@/components/footer/ProfileFooter.vue";
     OrganismCert,
     ConfirmModal,
     VGouvFrButton,
-    ProfileFooter
+    ProfileFooter,
+    GuarantorChoiceHelp
   },
   computed: {
     ...mapState({
@@ -447,6 +454,9 @@ export default class GuarantorDocuments extends Vue {
 
   setGuarantorType() {
     AnalyticsService.addGuarantor(this.guarantorType);
+    if (this.tmpGuarantorType === "NO_GUARANTOR") {
+      this.$store.commit("setStep", 4);
+    }
     if (this.tmpGuarantorType != this.guarantorType) {
       this.$store.dispatch("setGuarantorType", this.tmpGuarantorType);
     } else {
