@@ -395,7 +395,7 @@ const store = new Vuex.Store({
       return state.selectedGuarantor;
     },
     isLoggedIn(state): boolean {
-      return state.status.loggedIn;
+      return (Vue as any).$keycloak.authenticated;
     },
     userToEdit(state): User | Guarantor | null {
       if (state.tenantStep === 3) {
