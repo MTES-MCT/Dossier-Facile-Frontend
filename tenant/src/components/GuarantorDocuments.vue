@@ -16,21 +16,45 @@
           </template>
         </v-gouv-fr-modal>
 
-        <label class="fr-label" for="select"> Sélectionnez un choix </label>
-        <select
-          v-model="tmpGuarantorType"
-          class="fr-select fr-mb-3w"
-          id="select"
-          name="select"
-          @change="onSelectChange()"
-        >
-          <option value="NATURAL_PERSON">Un garant physique classique</option>
-          <option value="ORGANISM">
-            Un organisme se porte garant pour moi (VISALE par exemple)
-          </option>
-          <option value="LEGAL_PERSON">Un garant moral</option>
-          <option value="NO_GUARANTOR">Je veux poursuivre sans garant</option>
-        </select>
+        <div class="fr-grid-row space-around">
+          <BigRadio
+            val="NATURAL_PERSON"
+            :value="tmpGuarantorType"
+            @input="onSelectChange"
+          >
+            <div class="fr-grid-col spa">
+              <span>{{ $t("natural-person") }}</span>
+            </div>
+          </BigRadio>
+          <BigRadio
+            val="ORGANISM"
+            :value="tmpGuarantorType"
+            @input="onSelectChange"
+          >
+            <div class="fr-grid-col spa">
+              <span>{{ $t("organism") }}</span>
+            </div>
+          </BigRadio>
+          <BigRadio
+            val="LEGAL_PERSON"
+            :value="tmpGuarantorType"
+            @input="onSelectChange"
+          >
+            <div class="fr-grid-col spa">
+              <span>{{ $t("legal-person") }}</span>
+            </div>
+          </BigRadio>
+          <BigRadio
+            val="NO_GUARANTOR"
+            :value="tmpGuarantorType"
+            @input="onSelectChange"
+          >
+            <div class="fr-grid-col spa">
+              <span>{{ $t("no-guarantor") }}</span>
+            </div>
+          </BigRadio>
+        </div>
+
         <ProfileFooter
           @on-back="goBack"
           @on-next="setGuarantorType"
@@ -312,6 +336,8 @@ import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.v
 import { AnalyticsService } from "../services/AnalyticsService";
 import ProfileFooter from "@/components/footer/ProfileFooter.vue";
 import GuarantorChoiceHelp from "./helps/GuarantorChoiceHelp.vue";
+import BigRadio from "df-shared/src/Button/BigRadio.vue";
+import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 
 @Component({
   components: {
@@ -327,7 +353,9 @@ import GuarantorChoiceHelp from "./helps/GuarantorChoiceHelp.vue";
     ConfirmModal,
     VGouvFrButton,
     ProfileFooter,
-    GuarantorChoiceHelp
+    GuarantorChoiceHelp,
+    BigRadio,
+    VGouvFrModal
   },
   computed: {
     ...mapState({
@@ -464,10 +492,11 @@ export default class GuarantorDocuments extends Vue {
     }
   }
 
-  onSelectChange() {
+  onSelectChange(value: string) {
+    this.tmpGuarantorType = value;
     if (this.guarantorType !== null) {
       if (
-        this.guarantorType !== this.tmpGuarantorType &&
+        this.guarantorType !== value &&
         (this.user.guarantors?.length || 0) > 0
       ) {
         this.changeGuarantorVisible = true;
@@ -582,7 +611,12 @@ h2 {
 "validate": "Validate",
 "will-delete-guarantor": "Are you sure you want to change the type of guarantor?",
 "validate-file": "Next step - Validate file",
-"add-guarantor": "I add a guarantor"
+"add-guarantor": "I add a guarantor",
+"natural-person": "A classic physical guarantor",
+"organism": "An organization (VISALE for example)",
+"legal-person": "A corporation guarantor",
+"no-guarantor": "I want to continue without a guarantor",
+"more-information": "More information"
 },
 "fr": {
 "identification": "Pièce d’identité",
@@ -596,7 +630,12 @@ h2 {
 "validate": "Valider",
 "will-delete-guarantor": "Êtes-vous sûr de vouloir changer le type de garant ?",
 "validate-file": "Étape suivante - Valider le dossier",
-"add-guarantor": "J'ajoute un nouveau garant"
+"add-guarantor": "J'ajoute un nouveau garant",
+"natural-person": "Un garant physique classique",
+"organism": "Un organisme (VISALE…)",
+"legal-person": "Un garant moral",
+"no-guarantor": "Je veux poursuivre sans garant",
+"more-information": "Plus d'informations"
 }
 }
 </i18n>
