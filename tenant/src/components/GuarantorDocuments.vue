@@ -55,10 +55,10 @@
           </BigRadio>
         </div>
 
-        <ProfileFooter
+        <GuarantorFooter
           @on-back="goBack"
           @on-next="setGuarantorType"
-        ></ProfileFooter>
+        ></GuarantorFooter>
       </div>
       <div v-if="guarantorStep === 2">
         <div v-if="guarantorType === 'NATURAL_PERSON'">
@@ -106,10 +106,10 @@
             </div>
             <div v-if="guarantorSubStep === 1">
               <GuarantorIdentification></GuarantorIdentification>
-              <ProfileFooter
+              <GuarantorFooter
                 @on-back="goBack"
                 @on-next="goNext"
-              ></ProfileFooter>
+              ></GuarantorFooter>
             </div>
           </div>
           <div>
@@ -139,10 +139,10 @@
             </div>
             <div v-if="guarantorSubStep === 2">
               <GuarantorResidency></GuarantorResidency>
-              <ProfileFooter
+              <GuarantorFooter
                 @on-back="goBack"
                 @on-next="goNext"
-              ></ProfileFooter>
+              ></GuarantorFooter>
             </div>
           </div>
           <div>
@@ -172,10 +172,10 @@
             </div>
             <div v-if="guarantorSubStep === 3">
               <GuarantorProfessional></GuarantorProfessional>
-              <ProfileFooter
+              <GuarantorFooter
                 @on-back="goBack"
                 @on-next="goNext"
-              ></ProfileFooter>
+              ></GuarantorFooter>
             </div>
           </div>
           <div>
@@ -235,10 +235,10 @@
             </div>
             <div v-if="guarantorSubStep === 5">
               <GuarantorTax></GuarantorTax>
-              <ProfileFooter
+              <GuarantorFooter
                 @on-back="goBack"
                 @on-next="goNext"
-              ></ProfileFooter>
+              ></GuarantorFooter>
             </div>
           </div>
         </div>
@@ -293,18 +293,6 @@
             ></RepresentativeIdentification>
           </div>
         </div>
-        <div class="fr-col-12 fr-mb-5w">
-          <div class="fr-grid-row fr-mb-3w buttons">
-            <v-gouv-fr-button
-              v-if="guarantorType === 'NATURAL_PERSON'"
-              :secondary="true"
-              class="fr-mb-2w fr-mt-2w"
-              :label="$t('add-guarantor')"
-              :disabled="user.guarantors.length > 1"
-              @click="addNaturalGuarantor"
-            ></v-gouv-fr-button>
-          </div>
-        </div>
       </div>
     </div>
     <ConfirmModal
@@ -334,7 +322,7 @@ import DfButton from "df-shared/src/Button/Button.vue";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.vue";
 import { AnalyticsService } from "../services/AnalyticsService";
-import ProfileFooter from "@/components/footer/ProfileFooter.vue";
+import GuarantorFooter from "@/components/footer/GuarantorFooter.vue";
 import GuarantorChoiceHelp from "./helps/GuarantorChoiceHelp.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
@@ -352,7 +340,7 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
     OrganismCert,
     ConfirmModal,
     VGouvFrButton,
-    ProfileFooter,
+    GuarantorFooter,
     GuarantorChoiceHelp,
     BigRadio,
     VGouvFrModal
@@ -423,10 +411,6 @@ export default class GuarantorDocuments extends Vue {
 
   nextStep() {
     this.$store.commit("setStep", 4);
-  }
-
-  addNaturalGuarantor() {
-    this.$store.dispatch("addNaturalGuarantor");
   }
 
   getName(g: Guarantor, k: number) {
@@ -611,7 +595,6 @@ h2 {
 "validate": "Validate",
 "will-delete-guarantor": "Are you sure you want to change the type of guarantor?",
 "validate-file": "Next step - Validate file",
-"add-guarantor": "I add a guarantor",
 "natural-person": "A classic physical guarantor",
 "organism": "An organization (VISALE for example)",
 "legal-person": "A corporation guarantor",
@@ -630,7 +613,6 @@ h2 {
 "validate": "Valider",
 "will-delete-guarantor": "Êtes-vous sûr de vouloir changer le type de garant ?",
 "validate-file": "Étape suivante - Valider le dossier",
-"add-guarantor": "J'ajoute un nouveau garant",
 "natural-person": "Un garant physique classique",
 "organism": "Un organisme (VISALE…)",
 "legal-person": "Un garant moral",

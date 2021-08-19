@@ -422,6 +422,9 @@ const store = new Vuex.Store({
     },
     coTenantAuthorize(state): boolean {
       return state.coTenantAuthorize;
+    },
+    guarantors(state): Guarantor[] {
+      return state.user.guarantors;
     }
   },
   modules: {}
