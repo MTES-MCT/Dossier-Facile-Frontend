@@ -73,9 +73,13 @@
                 >check_circle_outline</span
               >
             </div>
-            <GuarantorIdentification
-              v-if="guarantorSubStep === 1"
-            ></GuarantorIdentification>
+            <div v-if="guarantorSubStep === 1">
+              <GuarantorIdentification></GuarantorIdentification>
+              <ProfileFooter
+                @on-back="goBack"
+                @on-next="goNext"
+              ></ProfileFooter>
+            </div>
           </div>
           <div>
             <div
@@ -102,9 +106,13 @@
                 >check_circle_outline</span
               >
             </div>
-            <GuarantorResidency
-              v-if="guarantorSubStep === 2"
-            ></GuarantorResidency>
+            <div v-if="guarantorSubStep === 2">
+              <GuarantorResidency></GuarantorResidency>
+              <ProfileFooter
+                @on-back="goBack"
+                @on-next="goNext"
+              ></ProfileFooter>
+            </div>
           </div>
           <div>
             <div
@@ -131,9 +139,13 @@
                 >check_circle_outline</span
               >
             </div>
-            <GuarantorProfessional
-              v-if="guarantorSubStep === 3"
-            ></GuarantorProfessional>
+            <div v-if="guarantorSubStep === 3">
+              <GuarantorProfessional></GuarantorProfessional>
+              <ProfileFooter
+                @on-back="goBack"
+                @on-next="goNext"
+              ></ProfileFooter>
+            </div>
           </div>
           <div>
             <div
@@ -160,9 +172,12 @@
                 >check_circle_outline</span
               >
             </div>
-            <GuarantorFinancial
-              v-if="guarantorSubStep === 4"
-            ></GuarantorFinancial>
+            <div v-if="guarantorSubStep === 4">
+              <GuarantorFinancial
+                @on-back="goBack"
+                @on-next="goNext"
+              ></GuarantorFinancial>
+            </div>
           </div>
           <div>
             <div
@@ -187,7 +202,13 @@
                 >check_circle_outline</span
               >
             </div>
-            <GuarantorTax v-if="guarantorSubStep === 5"></GuarantorTax>
+            <div v-if="guarantorSubStep === 5">
+              <GuarantorTax></GuarantorTax>
+              <ProfileFooter
+                @on-back="goBack"
+                @on-next="goNext"
+              ></ProfileFooter>
+            </div>
           </div>
         </div>
         <div v-if="guarantorType === 'ORGANISM'">
@@ -251,12 +272,6 @@
               :disabled="user.guarantors.length > 1"
               @click="addNaturalGuarantor"
             ></v-gouv-fr-button>
-            <v-gouv-fr-button
-              :label="$t('validate-file')"
-              @click="nextStep"
-              class="fr-mb-2w fr-mt-2w"
-              :disabled="!documentsFilled()"
-            ></v-gouv-fr-button>
           </div>
         </div>
       </div>
@@ -288,7 +303,8 @@ import { User } from "df-shared/src/models/User";
 import DfButton from "df-shared/src/Button/Button.vue";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.vue";
-import { AnalyticsService } from "@/services/AnalyticsService";
+import { AnalyticsService } from "../services/AnalyticsService";
+import ProfileFooter from "@/components/footer/ProfileFooter.vue";
 
 @Component({
   components: {
@@ -303,7 +319,8 @@ import { AnalyticsService } from "@/services/AnalyticsService";
     CorporationIdentification,
     OrganismCert,
     ConfirmModal,
-    VGouvFrButton
+    VGouvFrButton,
+    ProfileFooter
   },
   computed: {
     ...mapState({
@@ -463,6 +480,22 @@ export default class GuarantorDocuments extends Vue {
   undoSelect() {
     this.tmpGuarantorType = this.guarantorType;
     this.changeGuarantorVisible = false;
+  }
+
+  goBack() {
+    if (this.guarantorSubStep > 1) {
+      this.updateSubstep(this.guarantorSubStep - 1);
+    } else {
+      this.$store.commit("setStep", 2);
+    }
+  }
+
+  goNext() {
+    if (this.guarantorSubStep < 5) {
+      this.updateSubstep(this.guarantorSubStep + 1);
+    } else {
+      this.nextStep();
+    }
   }
 }
 </script>
