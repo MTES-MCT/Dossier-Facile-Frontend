@@ -477,6 +477,9 @@ export default class GuarantorDocuments extends Vue {
   }
 
   setGuarantorType() {
+    if (!this.tmpGuarantorType) {
+      return;
+    }
     AnalyticsService.addGuarantor(this.guarantorType);
     if (this.tmpGuarantorType === "NO_GUARANTOR") {
       this.$store.commit("setStep", 4);
@@ -521,7 +524,7 @@ export default class GuarantorDocuments extends Vue {
     if (this.guarantorSubStep > 1) {
       this.updateSubstep(this.guarantorSubStep - 1);
     } else {
-      this.$store.commit("setStep", 2);
+      this.$store.commit("setGuarantorStep", 0);
     }
   }
 
