@@ -152,7 +152,7 @@
           </div>
           <div
             v-if="financialFiles(f).length > 0"
-            class="fr-col-lg-8 fr-col-md-12 fr-mb-3w"
+            class="fr-col-md-12 fr-mb-3w"
           >
             <ListItem
               v-for="(file, k) in financialFiles(f)"

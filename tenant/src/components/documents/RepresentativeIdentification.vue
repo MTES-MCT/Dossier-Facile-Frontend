@@ -18,7 +18,9 @@
             type="text"
             required
           />
-          <span class="fr-error-text" v-if="errors[0]">{{ errors[0] }}</span>
+          <span class="fr-error-text" v-if="errors[0]">{{
+            $t(errors[0])
+          }}</span>
         </div>
       </validation-provider>
       <div>
@@ -41,6 +43,22 @@
         <div class="fr-mb-3w">
           {{ $t("kbis-label") }}
         </div>
+        <v-gouv-fr-modal>
+          <template v-slot:button>
+            En difficulté pour répondre à la question ?
+          </template>
+          <template v-slot:title>
+            En difficulté pour répondre à la question ?
+          </template>
+          <template v-slot:content>
+            <p>
+              <DocumentInsert
+                :allow-list="identificationDocument.acceptedProofs"
+                :block-list="identificationDocument.refusedProofs"
+              ></DocumentInsert>
+            </p>
+          </template>
+        </v-gouv-fr-modal>
         <div class="fr-mb-3w">
           <FileUpload
             :current-status="fileUploadStatus"
@@ -49,10 +67,7 @@
           ></FileUpload>
         </div>
       </div>
-      <div
-        class="fr-col-lg-8 fr-col-md-12 fr-mb-3w"
-        v-if="listFiles().length > 0"
-      >
+      <div class="fr-col-md-12 fr-mb-3w" v-if="listFiles().length > 0">
         <ListItem
           v-for="(file, k) in listFiles()"
           :key="k"
@@ -65,22 +80,6 @@
             uploadProgress[file.id] ? uploadProgress[file.id].percentage : 0
           "
         />
-      </div>
-      <div class="fr-col-12 fr-mb-2w" v-if="identificationDocument.key">
-        <button
-          class="fr-btn"
-          type="submit"
-          @click="save"
-          :disabled="files.length <= 0"
-        >
-          Enregistrer la pièce
-        </button>
-      </div>
-      <div class="fr-mb-5w" v-if="identificationDocument.key">
-        <DocumentInsert
-          :allow-list="identificationDocument.acceptedProofs"
-          :block-list="identificationDocument.refusedProofs"
-        ></DocumentInsert>
       </div>
     </ValidationObserver>
   </div>
@@ -101,10 +100,10 @@ import { DfDocument } from "df-shared/src/models/DfDocument";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { RegisterService } from "../../services/RegisterService";
 import { Guarantor } from "df-shared/src/models/Guarantor";
+import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 
 extend("required", {
-  ...required,
-  message: "Ce champ est requis"
+  ...required
 });
 
 @Component({
@@ -113,7 +112,8 @@ extend("required", {
     FileUpload,
     ListItem,
     ValidationProvider,
-    ValidationObserver
+    ValidationObserver,
+    VGouvFrModal
   },
   computed: {
     ...mapState({
@@ -164,6 +164,7 @@ export default class RepresentativeIdentification extends Vue {
 
   addFiles(fileList: File[]) {
     this.files = [...this.files, ...fileList];
+    this.save();
   }
 
   remove(file: DfFile) {
@@ -201,7 +202,9 @@ export default class RepresentativeIdentification extends Vue {
       this.identificationDocument.value
     );
 
-    formData.append("firstName", this.firstName);
+    if (this.firstName) {
+      formData.append("firstName", this.firstName);
+    }
     if (this.$store.getters.guarantor.id) {
       formData.append("guarantorId", this.$store.getters.guarantor.id);
     }
