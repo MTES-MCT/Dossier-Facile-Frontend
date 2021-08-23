@@ -1,7 +1,10 @@
 <template>
   <div>
     <FooterContainer>
-      <div class="fr-grid-row space-around" v-if="hasOneNaturalGuarantor()">
+      <div
+        class="fr-grid-row space-around fr-mb-1w"
+        v-if="hasOneNaturalGuarantor()"
+      >
         <v-gouv-fr-button
           :secondary="true"
           :label="$t('add-guarantor')"

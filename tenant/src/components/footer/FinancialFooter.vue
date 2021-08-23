@@ -1,7 +1,7 @@
 <template>
   <div>
     <FooterContainer>
-      <div class="fr-grid-row space-around">
+      <div class="fr-grid-row space-around fr-mb-1w">
         <v-gouv-fr-button
           :secondary="true"
           :label="$t('add-financial')"
