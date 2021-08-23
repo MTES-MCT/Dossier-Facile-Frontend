@@ -66,33 +66,7 @@
             />
           </div>
         </div>
-        <div v-if="taxDocument.key && taxDocument.key === 'my-name'">
-          <div class="fr-mb-3w">
-            <p v-html="taxDocument.explanationText"></p>
-          </div>
-          <div class="fr-mb-3w">
-            <FileUpload
-              :current-status="fileUploadStatus"
-              @add-files="addFiles"
-              @reset-files="resetFiles"
-            ></FileUpload>
-          </div>
-        </div>
-        <div
-          v-if="taxFiles().length > 0"
-          class="fr-col-lg-8 fr-col-md-12 fr-mb-3w"
-        >
-          <ListItem
-            v-for="(file, k) in taxFiles()"
-            :key="k"
-            :file="file"
-            @remove="remove(file)"
-          />
-        </div>
-        <div
-          class="fr-col-12 fr-mb-3w"
-          v-if="taxDocument.key && taxDocument.key === 'my-name'"
-        >
+        <div class="fr-col-12 fr-mb-3w" v-if="taxDocument.key === 'my-name'">
           <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
             <div
               class="fr-input-group"
@@ -112,6 +86,26 @@
               }}</span>
             </div>
           </validation-provider>
+        </div>
+        <div v-if="taxDocument.key === 'my-name' && acceptVerification">
+          <div class="fr-mb-3w">
+            <p v-html="taxDocument.explanationText"></p>
+          </div>
+          <div class="fr-mb-3w">
+            <FileUpload
+              :current-status="fileUploadStatus"
+              @add-files="addFiles"
+              @reset-files="resetFiles"
+            ></FileUpload>
+          </div>
+        </div>
+        <div v-if="taxFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
+          <ListItem
+            v-for="(file, k) in taxFiles()"
+            :key="k"
+            :file="file"
+            @remove="remove(file)"
+          />
         </div>
       </form>
     </ValidationObserver>
@@ -256,6 +250,9 @@ export default class Tax extends Vue {
     const localDoc = this.getLocalDoc();
     if (localDoc !== undefined) {
       this.taxDocument = localDoc;
+    }
+    if (this.taxDocument.key === "my-name" && this.taxFiles().length > 0) {
+      this.acceptVerification = true;
     }
   }
 
