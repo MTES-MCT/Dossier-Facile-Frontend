@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mb-200">
     <NakedCard v-if="user.lastName || hasDocument()">
       <template v-slot:content>
         <div v-if="user.lastName">
@@ -396,6 +396,10 @@ export default class EditSummary extends Vue {
 
 .space-between {
   justify-content: space-between;
+}
+
+.mb-200 {
+  margin-bottom: 200px;
 }
 </style>
 
