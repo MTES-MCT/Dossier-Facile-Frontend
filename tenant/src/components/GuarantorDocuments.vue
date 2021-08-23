@@ -241,6 +241,12 @@
               ></GuarantorFooter>
             </div>
           </div>
+          <div v-if="guarantorSubStep === 0">
+            <GuarantorFooter
+              @on-back="goBack"
+              @on-next="goNext"
+            ></GuarantorFooter>
+          </div>
         </div>
         <div v-if="guarantorType === 'ORGANISM'">
           <OrganismCert></OrganismCert>
@@ -303,6 +309,12 @@
                 @on-next="nextStep"
               ></GuarantorFooter>
             </div>
+          </div>
+          <div v-if="guarantorSubStep === 0">
+            <GuarantorFooter
+              @on-back="goBack"
+              @on-next="goNext"
+            ></GuarantorFooter>
           </div>
         </div>
       </div>

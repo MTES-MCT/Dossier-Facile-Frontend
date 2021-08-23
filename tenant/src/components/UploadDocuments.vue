@@ -123,6 +123,9 @@
         <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
       </div>
     </div>
+    <div v-if="tenantSubStep === 0">
+      <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
+    </div>
   </div>
 </template>
 
