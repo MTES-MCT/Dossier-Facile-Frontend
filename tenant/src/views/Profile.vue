@@ -139,7 +139,7 @@ h4 {
 "fr": {
 "title-step1": "Je renseigne mes informations",
 "title-step2": "Je joins mes documents",
-"title-step3": "Je renseigne mon garant"
+"title-step3": "Mon garant"
 }
 }
 </i18n>

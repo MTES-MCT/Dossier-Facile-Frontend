@@ -16,7 +16,13 @@
           </template>
         </v-gouv-fr-modal>
 
-        <div class="fr-grid-row space-around">
+        <div class="remark fr-mt-3w">
+          <h3>{{ $t("remark-title") }}</h3>
+          {{ $t("remark-text") }}
+        </div>
+
+        <div class="fr-pl-3v fr-mt-3w">{{ $t("ask-guarantor") }}</div>
+        <div class="fr-grid-col">
           <BigRadio
             val="NATURAL_PERSON"
             :value="tmpGuarantorType"
@@ -611,6 +617,12 @@ h2 {
 h2 {
   line-height: 1.5rem;
 }
+
+.remark {
+  background-color: #e5e5f4;
+  padding: 1rem;
+  border-radius: 0.25rem;
+}
 </style>
 
 <i18n>
@@ -628,10 +640,13 @@ h2 {
 "will-delete-guarantor": "Are you sure you want to change the type of guarantor?",
 "validate-file": "Next step - Validate file",
 "natural-person": "A classic physical guarantor",
-"organism": "An organization (VISALE for example)",
+"organism": "An organization",
 "legal-person": "A corporation guarantor",
-"no-guarantor": "I want to continue without a guarantor",
-"more-information": "More information"
+"no-guarantor": "I don't have a guarantor",
+"more-information": "More information",
+"ask-guarantor": "Do you want to add :",
+"remark-title": "Remark",
+"remark-text": "Adding a guarantor is by no means mandatory. If you do not wish to add a surety, we can click directly on the button below “Validate my file”. Your file will then be registered for investigation."
 },
 "fr": {
 "identification": "Pièce d’identité",
@@ -646,10 +661,13 @@ h2 {
 "will-delete-guarantor": "Êtes-vous sûr de vouloir changer le type de garant ?",
 "validate-file": "Étape suivante - Valider le dossier",
 "natural-person": "Un garant physique classique",
-"organism": "Un organisme (VISALE…)",
+"organism": "Un organisme garant",
 "legal-person": "Un garant moral",
-"no-guarantor": "Je veux poursuivre sans garant",
-"more-information": "Plus d'informations"
+"no-guarantor": "Je n'ai pas de garant",
+"more-information": "En difficulté pour répondre à la question ?",
+"ask-guarantor": "Souhaitez-vous ajouter :",
+"remark-title": "Remarque",
+"remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, nous pouvez cliquer directement sur le bouton ci-dessous « Valider mon dossier ». Votre dossier sera alors enregistré pour être instruit."
 }
 }
 </i18n>
