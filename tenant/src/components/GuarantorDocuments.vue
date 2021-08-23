@@ -371,6 +371,7 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
 export default class GuarantorDocuments extends Vue {
   user!: User;
   guarantor!: Guarantor;
+  guarantorStep!: number;
   guarantorSubStep!: number;
   guarantorType = "";
   tmpGuarantorType = "";
@@ -524,7 +525,11 @@ export default class GuarantorDocuments extends Vue {
     if (this.guarantorSubStep > 1) {
       this.updateSubstep(this.guarantorSubStep - 1);
     } else {
-      this.$store.commit("setGuarantorStep", 0);
+      if (this.guarantorStep > 1) {
+        this.$store.commit("setGuarantorStep", 0);
+      } else {
+        this.$store.commit("setStep", 2);
+      }
     }
   }
 
