@@ -12,7 +12,7 @@
           @click="addNaturalGuarantor"
         ></v-gouv-fr-button>
       </div>
-      <div class="fr-grid-row btn-spacing">
+      <div class="fr-grid-row btn-spacing footer-btn">
         <v-gouv-fr-button
           class="fr-mr-2w"
           v-if="showBack"
@@ -82,7 +82,7 @@ export default class ProfileFooter extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .btn-spacing {
   @media (min-width: 768px) {
     justify-content: space-around;
@@ -93,8 +93,10 @@ export default class ProfileFooter extends Vue {
   max-width: 400px;
   flex: 1;
 }
+</style>
 
-.fr-btn {
+<style lang="scss">
+.footer-btn .fr-btn {
   width: 100%;
   justify-content: center;
 }
