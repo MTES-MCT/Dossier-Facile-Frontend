@@ -2,63 +2,71 @@
   <div>
     <div>
       <div v-if="guarantorStep <= 1">
-        <v-gouv-fr-modal>
-          <template v-slot:button>
-            {{ $t("more-information") }}
-          </template>
-          <template v-slot:title>
-            {{ $t("more-information") }}
-          </template>
-          <template v-slot:content>
-            <p>
-              <GuarantorChoiceHelp></GuarantorChoiceHelp>
-            </p>
-          </template>
-        </v-gouv-fr-modal>
-
         <div class="remark fr-mt-3w">
           <h3>{{ $t("remark-title") }}</h3>
           {{ $t("remark-text") }}
         </div>
 
-        <div class="fr-pl-3v fr-mt-3w">{{ $t("ask-guarantor") }}</div>
-        <div class="fr-grid-col">
-          <BigRadio
-            val="NATURAL_PERSON"
-            :value="tmpGuarantorType"
-            @input="onSelectChange"
-          >
-            <div class="fr-grid-col spa">
-              <span>{{ $t("natural-person") }}</span>
-            </div>
-          </BigRadio>
-          <BigRadio
-            val="ORGANISM"
-            :value="tmpGuarantorType"
-            @input="onSelectChange"
-          >
-            <div class="fr-grid-col spa">
-              <span>{{ $t("organism") }}</span>
-            </div>
-          </BigRadio>
-          <BigRadio
-            val="LEGAL_PERSON"
-            :value="tmpGuarantorType"
-            @input="onSelectChange"
-          >
-            <div class="fr-grid-col spa">
-              <span>{{ $t("legal-person") }}</span>
-            </div>
-          </BigRadio>
-          <BigRadio
-            val="NO_GUARANTOR"
-            :value="tmpGuarantorType"
-            @input="onSelectChange"
-          >
-            <div class="fr-grid-col spa">
-              <span>{{ $t("no-guarantor") }}</span>
-            </div>
-          </BigRadio>
+        <div class="card-container">
+          <NakedCard class="fr-mt-3w">
+            <template v-slot:content>
+              <div class="fr-pl-3v">{{ $t("ask-guarantor") }}</div>
+              <v-gouv-fr-modal>
+                <template v-slot:button>
+                  <span class="small-font fr-mt-1w">{{
+                    $t("more-information")
+                  }}</span>
+                </template>
+                <template v-slot:title>
+                  {{ $t("more-information") }}
+                </template>
+                <template v-slot:content>
+                  <p>
+                    <GuarantorChoiceHelp></GuarantorChoiceHelp>
+                  </p>
+                </template>
+              </v-gouv-fr-modal>
+
+              <div class="fr-grid-col fr-mt-2w">
+                <BigRadio
+                  val="NATURAL_PERSON"
+                  :value="tmpGuarantorType"
+                  @input="onSelectChange"
+                >
+                  <div class="fr-grid-col spa">
+                    <span>{{ $t("natural-person") }}</span>
+                  </div>
+                </BigRadio>
+                <BigRadio
+                  val="ORGANISM"
+                  :value="tmpGuarantorType"
+                  @input="onSelectChange"
+                >
+                  <div class="fr-grid-col spa">
+                    <span>{{ $t("organism") }}</span>
+                  </div>
+                </BigRadio>
+                <BigRadio
+                  val="LEGAL_PERSON"
+                  :value="tmpGuarantorType"
+                  @input="onSelectChange"
+                >
+                  <div class="fr-grid-col spa">
+                    <span>{{ $t("legal-person") }}</span>
+                  </div>
+                </BigRadio>
+                <BigRadio
+                  val="NO_GUARANTOR"
+                  :value="tmpGuarantorType"
+                  @input="onSelectChange"
+                >
+                  <div class="fr-grid-col spa">
+                    <span>{{ $t("no-guarantor") }}</span>
+                  </div>
+                </BigRadio>
+              </div>
+            </template>
+          </NakedCard>
         </div>
 
         <GuarantorFooter
@@ -356,6 +364,7 @@ import GuarantorFooter from "@/components/footer/GuarantorFooter.vue";
 import GuarantorChoiceHelp from "./helps/GuarantorChoiceHelp.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 @Component({
   components: {
@@ -373,7 +382,8 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
     GuarantorFooter,
     GuarantorChoiceHelp,
     BigRadio,
-    VGouvFrModal
+    VGouvFrModal,
+    NakedCard
   },
   computed: {
     ...mapState({
@@ -623,6 +633,21 @@ h2 {
   padding: 1rem;
   border-radius: 0.25rem;
 }
+
+.card {
+  padding: 1rem;
+  border-radius: 0.25rem;
+}
+
+.card-container {
+  @media all and (min-width: 992px) {
+    width: fit-content;
+  }
+}
+
+.small-font {
+  font-size: 14px;
+}
 </style>
 
 <i18n>
@@ -646,7 +671,7 @@ h2 {
 "more-information": "More information",
 "ask-guarantor": "Do you want to add :",
 "remark-title": "Remark",
-"remark-text": "Adding a guarantor is by no means mandatory. If you do not wish to add a surety, we can click directly on the button below “Validate my file”. Your file will then be registered for investigation."
+"remark-text": "Adding a guarantor is by no means mandatory. If you do not wish to add a surety, you can select “I don't have a guarantor”. Your file will then be registered for investigation."
 },
 "fr": {
 "identification": "Pièce d’identité",
@@ -667,7 +692,7 @@ h2 {
 "more-information": "En difficulté pour répondre à la question ?",
 "ask-guarantor": "Souhaitez-vous ajouter :",
 "remark-title": "Remarque",
-"remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, nous pouvez cliquer directement sur le bouton ci-dessous « Valider mon dossier ». Votre dossier sera alors enregistré pour être instruit."
+"remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, nous pouvez sélectionner « Je n'ai pas de garant ». Votre dossier sera alors enregistré pour être instruit."
 }
 }
 </i18n>
