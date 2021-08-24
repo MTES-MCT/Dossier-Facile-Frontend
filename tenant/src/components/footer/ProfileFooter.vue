@@ -1,21 +1,11 @@
 <template>
   <div>
     <FooterContainer>
-      <div class="fr-grid-row space-around">
-        <v-gouv-fr-button
-          v-if="showBack"
-          :secondary="true"
-          :label="$t('back')"
-          :btn-type="'button'"
-          @click="backAction"
-        ></v-gouv-fr-button>
-        <v-gouv-fr-button
-          :secondary="false"
-          :label="$t('continue')"
-          :btn-type="'submit'"
-          @click="nextAction"
-        ></v-gouv-fr-button>
-      </div>
+      <BackNext
+        :showBack="showBack"
+        @on-next="nextAction()"
+        @on-back="backAction()"
+      ></BackNext>
     </FooterContainer>
   </div>
 </template>
@@ -24,9 +14,10 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
 import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.vue";
 import FooterContainer from "./FooterContainer.vue";
+import BackNext from "./BackNext.vue";
 
 @Component({
-  components: { VGouvFrButton, FooterContainer }
+  components: { VGouvFrButton, FooterContainer, BackNext }
 })
 export default class ProfileFooter extends Vue {
   @Prop({ default: true }) showBack!: boolean;
