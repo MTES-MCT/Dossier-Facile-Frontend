@@ -67,14 +67,18 @@ export default class BackNext extends Vue {
 }
 
 .next-btn {
-  max-width: 400px;
-  flex: 1;
+  @media (max-width: 768px) {
+    max-width: 400px;
+    flex: 1;
+  }
 }
 </style>
 
 <style lang="scss">
 .footer-btn .fr-btn {
-  width: 100%;
-  justify-content: center;
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: center;
+  }
 }
 </style>
