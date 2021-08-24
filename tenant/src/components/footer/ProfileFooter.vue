@@ -3,6 +3,7 @@
     <FooterContainer>
       <BackNext
         :showBack="showBack"
+        :nextLabel="nextLabel"
         @on-next="nextAction()"
         @on-back="backAction()"
       ></BackNext>
@@ -21,6 +22,7 @@ import BackNext from "./BackNext.vue";
 })
 export default class ProfileFooter extends Vue {
   @Prop({ default: true }) showBack!: boolean;
+  @Prop() nextLabel?: string;
 
   nextAction() {
     this.$emit("on-next");

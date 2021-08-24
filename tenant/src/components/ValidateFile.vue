@@ -96,16 +96,11 @@
           </div>
         </validation-provider>
       </div>
-      <div class="fr-mt-3w">
-        <button
-          class="fr-btn"
-          type="submit"
-          @click="validate()"
-          :disabled="canValidate()"
-        >
-          {{ $t("validate") }}
-        </button>
-      </div>
+      <ProfileFooter
+        @on-back="goBack"
+        @on-next="validate()"
+        :nextLabel="$t('validate')"
+      ></ProfileFooter>
     </div>
   </div>
 </template>
@@ -116,9 +111,10 @@ import { ValidationProvider } from "vee-validate";
 import { mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
 import { Guarantor } from "df-shared/src/models/Guarantor";
+import ProfileFooter from "@/components/footer/ProfileFooter.vue";
 
 @Component({
-  components: { ValidationProvider },
+  components: { ValidationProvider, ProfileFooter },
   computed: {
     ...mapState({
       user: "user"
@@ -153,6 +149,10 @@ export default class ValidateFile extends Vue {
           loader.hide();
         });
     }
+  }
+
+  goBack() {
+    this.$store.commit("setStep", 3);
   }
 
   canValidate() {

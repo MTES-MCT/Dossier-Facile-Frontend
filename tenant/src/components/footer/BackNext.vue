@@ -11,7 +11,7 @@
     <v-gouv-fr-button
       class="next-btn"
       :secondary="false"
-      :label="$t('continue')"
+      :label="nextLabel ? nextLabel : $t('continue')"
       :btn-type="'submit'"
       @click="nextAction()"
     ></v-gouv-fr-button>
@@ -27,6 +27,7 @@ import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.v
 })
 export default class BackNext extends Vue {
   @Prop({ default: true }) showBack!: boolean;
+  @Prop() nextLabel?: string;
 
   isMobile() {
     return window.innerWidth < 768;
