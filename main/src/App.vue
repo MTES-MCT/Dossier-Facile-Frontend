@@ -93,10 +93,6 @@ export default class App extends Vue {
     this.cookieHidden = true;
   }
 
-  isMobile() {
-    return window.innerWidth < 768;
-  }
-
   changeLang() {
     const lang = i18n.locale === "fr" ? "en" : "fr";
     this.$store.dispatch("setLang", lang);

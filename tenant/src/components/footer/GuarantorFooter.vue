@@ -12,15 +12,17 @@
           @click="addNaturalGuarantor"
         ></v-gouv-fr-button>
       </div>
-      <div class="fr-grid-row space-around">
+      <div class="fr-grid-row btn-spacing">
         <v-gouv-fr-button
+          class="fr-mr-2w"
           v-if="showBack"
           :secondary="true"
-          :label="$t('back')"
+          :label="getBackText()"
           :btn-type="'button'"
           @click="backAction"
         ></v-gouv-fr-button>
         <v-gouv-fr-button
+          class="next-btn"
           :secondary="false"
           :label="$t('continue')"
           :btn-type="'submit'"
@@ -69,10 +71,34 @@ export default class ProfileFooter extends Vue {
       this.guarantors[0].typeGuarantor === "NATURAL_PERSON"
     );
   }
+
+  isMobile() {
+    return window.innerWidth < 768;
+  }
+
+  getBackText() {
+    return this.isMobile() ? "<" : this.$i18n.t("back");
+  }
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.btn-spacing {
+  @media (min-width: 768px) {
+    justify-content: space-around;
+  }
+}
+
+.next-btn {
+  max-width: 400px;
+  flex: 1;
+}
+
+.fr-btn {
+  width: 100%;
+  justify-content: center;
+}
+</style>
 
 <i18n>
 {

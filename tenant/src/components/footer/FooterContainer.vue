@@ -21,6 +21,9 @@ export default class FooterContainer extends Vue {}
   left: 0;
   width: 100%;
   background-color: #e5e5f4;
+  @media (max-width: 768px) {
+    background-color: #fff;
+  }
   padding: 20px;
   z-index: 2;
 }
