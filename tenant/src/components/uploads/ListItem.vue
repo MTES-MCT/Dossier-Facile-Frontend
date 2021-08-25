@@ -13,6 +13,13 @@
       </div>
       <button
         class="fr-btn fr-btn--secondary icon-btn"
+        @click="openDoc()"
+        :title="$t('show')"
+      >
+        <span class="material-icons-outlined md-28">visibility</span>
+      </button>
+      <button
+        class="fr-btn fr-btn--secondary icon-btn"
         @click="remove()"
         :title="$t('remove')"
       >
