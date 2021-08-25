@@ -365,6 +365,7 @@ import GuarantorChoiceHelp from "./helps/GuarantorChoiceHelp.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import { UtilsService } from "../services/UtilsService";
 
 @Component({
   components: {
@@ -424,26 +425,8 @@ export default class GuarantorDocuments extends Vue {
     );
   }
 
-  documentsFilled() {
-    return (
-      (this.guarantorType === "NATURAL_PERSON" &&
-        this.hasDoc("IDENTIFICATION") &&
-        this.hasDoc("PROFESSIONAL") &&
-        this.hasDoc("RESIDENCY") &&
-        this.isFinancialValid() &&
-        this.isTaxValid()) ||
-      (this.guarantorType === "LEGAL_PERSON" &&
-        this.hasDoc("IDENTIFICATION") &&
-        this.hasDoc("IDENTIFICATION_LEGAL_PERSON")) ||
-      (this.guarantorType === "ORGANISM" && this.hasDoc("IDENTIFICATION"))
-    );
-  }
-
   hasDoc(docType: string) {
-    const f = this.guarantor.documents?.find(d => {
-      return d.documentCategory === docType;
-    })?.files;
-    return f && f.length > 0;
+    return UtilsService.guarantorHasDoc(docType, this.guarantor);
   }
 
   setGuarantorStep(n: number) {
@@ -472,37 +455,11 @@ export default class GuarantorDocuments extends Vue {
   }
 
   isFinancialValid() {
-    const docs = this.guarantor.documents?.filter(d => {
-      return d.documentCategory === "FINANCIAL";
-    });
-    if (!docs || docs.length === 0) {
-      return false;
-    }
-
-    for (const doc of docs) {
-      if (!doc.noDocument && (doc.files?.length || 0) <= 0) {
-        return false;
-      }
-    }
-
-    return true;
+    return UtilsService.isGuarantorFinancialValid(this.guarantor);
   }
 
   isTaxValid() {
-    const doc = this.guarantor.documents?.find(d => {
-      return d.documentCategory === "TAX";
-    });
-    if (!doc) {
-      return false;
-    }
-    if (doc.files) {
-      return true;
-    }
-    if (doc.documentSubCategory !== "my-name") {
-      return true;
-    }
-
-    return false;
+    return UtilsService.isGuarantorTaxValid(this.guarantor);
   }
 
   setGuarantorType() {

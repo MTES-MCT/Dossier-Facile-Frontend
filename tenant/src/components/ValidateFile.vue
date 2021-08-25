@@ -39,17 +39,6 @@
           </div>
         </validation-provider>
       </div>
-
-      <div class="fr-mt-3w">
-        <button
-          class="fr-btn"
-          type="submit"
-          @click="validate()"
-          :disabled="canValidate()"
-        >
-          {{ $t("validate") }}
-        </button>
-      </div>
     </div>
     <div v-if="hasGuarantors()">
       <p>{{ $t("read") }}</p>
@@ -96,12 +85,16 @@
           </div>
         </validation-provider>
       </div>
-      <ProfileFooter
-        @on-back="goBack"
-        @on-next="validate()"
-        :nextLabel="$t('validate')"
-      ></ProfileFooter>
     </div>
+    <p v-if="hasErrors()">
+      <span class="fr-error-text">{{ $t("file-not-valid") }}</span>
+    </p>
+    <ProfileFooter
+      @on-back="goBack"
+      @on-next="validate()"
+      :nextLabel="$t('validate')"
+      :disabled="!isFileValid()"
+    ></ProfileFooter>
   </div>
 </template>
 
@@ -112,6 +105,7 @@ import { mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import ProfileFooter from "@/components/footer/ProfileFooter.vue";
+import { UtilsService } from "../services/UtilsService";
 
 @Component({
   components: { ValidationProvider, ProfileFooter },
@@ -155,8 +149,16 @@ export default class ValidateFile extends Vue {
     this.$store.commit("setStep", 3);
   }
 
+  isFileValid() {
+    return !this.hasErrors() && this.canValidate();
+  }
+
+  hasErrors() {
+    return !UtilsService.allDocumentsFilled();
+  }
+
   canValidate() {
-    return !(this.declaration && (!this.hasGuarantors() || this.declaration2));
+    return this.declaration && (!this.hasGuarantors() || this.declaration2);
   }
 
   hasGuarantors() {
@@ -182,7 +184,8 @@ export default class ValidateFile extends Vue {
         "placeholder": "Renseignez votre commentaire ici",
         "validate": "Valider mon dossier",
         "read": "Je lis et je coche les cases suivantes afin de valider mon dossier",
-        "declaration2": "Je déclare sur l'honneur avoir avoir reçu le consentement de mon garant pour que ses données soient traitées dans le cadre du processus de location"
+        "declaration2": "Je déclare sur l'honneur avoir avoir reçu le consentement de mon garant pour que ses données soient traitées dans le cadre du processus de location",
+        "file-not-valid": "Your file is not valid, please complete the missing documents to submit your file"
     },
     "fr": {
         "title": "Je valide mon dossier",
@@ -192,7 +195,8 @@ export default class ValidateFile extends Vue {
         "placeholder": "Renseignez votre commentaire ici",
         "validate": "Valider mon dossier",
         "read": "Je lis et je coche les cases suivantes afin de valider mon dossier",
-        "declaration2": "Je déclare sur l'honneur avoir avoir reçu le consentement de mon garant pour que ses données soient traitées dans le cadre du processus de location"
+        "declaration2": "Je déclare sur l'honneur avoir avoir reçu le consentement de mon garant pour que ses données soient traitées dans le cadre du processus de location",
+        "file-not-valid": "Votre dossier n'est pas valide, veuillez compléter les documents manquants pour soumettre votre dossier"
     }
 }
 </i18n>

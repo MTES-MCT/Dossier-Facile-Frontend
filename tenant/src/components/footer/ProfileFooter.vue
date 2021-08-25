@@ -4,6 +4,7 @@
       <BackNext
         :showBack="showBack"
         :nextLabel="nextLabel"
+        :disabled="disabled"
         @on-next="nextAction()"
         @on-back="backAction()"
       ></BackNext>
@@ -22,6 +23,7 @@ import BackNext from "./BackNext.vue";
 })
 export default class ProfileFooter extends Vue {
   @Prop({ default: true }) showBack!: boolean;
+  @Prop({ default: false }) disabled!: boolean;
   @Prop() nextLabel?: string;
 
   nextAction() {

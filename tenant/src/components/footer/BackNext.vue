@@ -13,6 +13,7 @@
       :secondary="false"
       :label="nextLabel ? nextLabel : $t('continue')"
       :btn-type="'submit'"
+      :disabled="disabled"
       @click="nextAction()"
     ></v-gouv-fr-button>
   </div>
@@ -27,6 +28,7 @@ import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.v
 })
 export default class BackNext extends Vue {
   @Prop({ default: true }) showBack!: boolean;
+  @Prop({ default: false }) disabled?: boolean;
   @Prop() nextLabel?: string;
 
   isMobile() {

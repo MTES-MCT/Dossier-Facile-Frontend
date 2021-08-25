@@ -138,8 +138,9 @@ import Financial from "@/components/documents/Financial.vue";
 import Tax from "@/components/documents/Tax.vue";
 import { mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
-import { AnalyticsService } from "@/services/AnalyticsService";
+import { AnalyticsService } from "../services/AnalyticsService";
 import ProfileFooter from "@/components/footer/ProfileFooter.vue";
+import { UtilsService } from "../services/UtilsService";
 
 @Component({
   components: {
@@ -165,16 +166,6 @@ export default class UploadDocuments extends Vue {
     this.$store.commit("setTenantSubstep", s === this.tenantSubStep ? 0 : s);
   }
 
-  documentsFilled() {
-    return (
-      this.hasDoc("IDENTIFICATION") &&
-      this.hasDoc("PROFESSIONAL") &&
-      this.hasDoc("RESIDENCY") &&
-      this.isFinancialValid() &&
-      this.isTaxValid()
-    );
-  }
-
   goToGuarantor() {
     AnalyticsService.validateFunnel();
     this.$store.commit("setGuarantorStep", 0);
@@ -182,45 +173,15 @@ export default class UploadDocuments extends Vue {
   }
 
   hasDoc(docType: string) {
-    // FIXME check for status TO_PROCESS or VALIDATED
-    const f = this.user.documents?.find(d => {
-      return d.documentCategory === docType;
-    })?.files;
-    return f && f.length > 0;
+    return UtilsService.hasDoc(docType);
   }
 
   isFinancialValid() {
-    const docs = this.user.documents?.filter(d => {
-      return d.documentCategory === "FINANCIAL";
-    });
-    if (!docs || docs.length === 0) {
-      return false;
-    }
-
-    for (const doc of docs) {
-      if (!doc.noDocument && (doc.files?.length || 0) <= 0) {
-        return false;
-      }
-    }
-
-    return true;
+    return UtilsService.isFinancialValid();
   }
 
   isTaxValid() {
-    const doc = this.user.documents?.find(d => {
-      return d.documentCategory === "TAX";
-    });
-    if (!doc) {
-      return false;
-    }
-    if (doc.files) {
-      return true;
-    }
-    if (doc.documentSubCategory !== "my-name") {
-      return true;
-    }
-
-    return false;
+    return UtilsService.isTaxValid();
   }
 
   goBack() {
