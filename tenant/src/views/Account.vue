@@ -956,7 +956,14 @@ export default class Account extends Vue {
     return (
       this.user.documents?.find(d => {
         return d.documentStatus === "DECLINED";
-      }) !== undefined
+      }) !== undefined ||
+      this.user.guarantors?.find((g: Guarantor) => {
+        return (
+          g.documents?.find(d => {
+            return d.documentStatus === "DECLINED";
+          }) !== undefined
+        );
+      })
     );
   }
 }
