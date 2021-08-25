@@ -4,13 +4,23 @@
     <div v-if="!hasGuarantors()">
       <p>{{ $t("read-no-guarantor") }}</p>
       <div>
-        <input
-          type="checkbox"
-          id="declaration"
-          value="false"
-          v-model="declaration"
-        />
-        <label for="declaration">{{ $t("declaration") }}</label>
+        <validation-provider rules="is" v-slot="{ errors }">
+          <div
+            class="fr-input-group"
+            :class="errors[0] ? 'fr-input-group--error' : ''"
+          >
+            <input
+              type="checkbox"
+              id="declaration"
+              value="false"
+              v-model="declaration"
+            />
+            <label for="declaration" v-html="$t('declaration')"></label>
+            <span class="fr-error-text" v-if="errors[0]">{{
+              $t(errors[0])
+            }}</span>
+          </div>
+        </validation-provider>
       </div>
 
       <div v-if="false">
@@ -86,14 +96,13 @@
         </validation-provider>
       </div>
     </div>
-    <p v-if="hasErrors()">
+    <p v-if="hasErrors()" ref="errorref">
       <span class="fr-error-text">{{ $t("file-not-valid") }}</span>
     </p>
     <ProfileFooter
       @on-back="goBack"
       @on-next="validate()"
       :nextLabel="$t('validate')"
-      :disabled="!isFileValid()"
     ></ProfileFooter>
   </div>
 </template>
@@ -129,7 +138,17 @@ export default class ValidateFile extends Vue {
   }
 
   validate() {
-    if (this.declaration && (!this.hasGuarantors() || this.declaration2)) {
+    if (this.hasErrors()) {
+      if (UtilsService.isMobile()) {
+        const element = this.$refs["errorref"];
+        const top = (element as any).offsetTop;
+        window.scrollTo(0, top - 50);
+      }
+      return;
+    }
+    if (!this.canValidate()) {
+      window.scrollTo(0, 0);
+    } else {
       const loader = Vue.$loading.show();
       this.$store
         .dispatch("validateFile", {
@@ -147,10 +166,6 @@ export default class ValidateFile extends Vue {
 
   goBack() {
     this.$store.commit("setStep", 3);
-  }
-
-  isFileValid() {
-    return !this.hasErrors() && this.canValidate();
   }
 
   hasErrors() {
