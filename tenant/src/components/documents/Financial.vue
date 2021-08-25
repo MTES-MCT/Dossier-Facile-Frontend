@@ -428,6 +428,7 @@ export default class Financial extends Vue {
       return { name: f.name, file: f, size: f.size };
     });
     f.files = [...f.files, ...nf];
+    this.save(f);
   }
   resetFiles(f: F) {
     f.fileUploadStatus = UploadStatus.STATUS_INITIAL;
@@ -490,6 +491,10 @@ export default class Financial extends Vue {
 
     if (f.monthlySum) {
       formData.append("monthlySum", f.monthlySum.toString());
+    } else {
+      if (f.documentType.key !== "no-income") {
+        formData.append("monthlySum", "0");
+      }
     }
     if (f.id) {
       formData.append("id", f.id.toString());
