@@ -75,7 +75,7 @@
         ></GuarantorFooter>
       </div>
       <div v-if="guarantorStep === 2">
-        <div v-if="guarantorType === 'NATURAL_PERSON'">
+        <div v-if="guarantor.typeGuarantor === 'NATURAL_PERSON'">
           <div>
             <div class="fr-grid-row">
               <div
@@ -262,14 +262,14 @@
             ></GuarantorFooter>
           </div>
         </div>
-        <div v-if="guarantorType === 'ORGANISM'">
+        <div v-if="guarantor.typeGuarantor === 'ORGANISM'">
           <OrganismCert></OrganismCert>
           <GuarantorFooter
             @on-back="goBack"
             @on-next="nextStep"
           ></GuarantorFooter>
         </div>
-        <div v-if="guarantorType === 'LEGAL_PERSON'">
+        <div v-if="guarantor.typeGuarantor === 'LEGAL_PERSON'">
           <div>
             <div
               class="document-title title-bar"
@@ -344,7 +344,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import GuarantorIdentification from "@/components/documents/GuarantorIdentification.vue";
 import RepresentativeIdentification from "@/components/documents/RepresentativeIdentification.vue";
 import CorporationIdentification from "@/components/documents/CorporationIdentification.vue";
@@ -402,20 +402,13 @@ export default class GuarantorDocuments extends Vue {
   guarantor!: Guarantor;
   guarantorStep!: number;
   guarantorSubStep!: number;
-  guarantorType = "";
   tmpGuarantorType = "";
   changeGuarantorVisible = false;
 
   mounted() {
     if (this.guarantor.typeGuarantor) {
-      this.guarantorType = this.guarantor.typeGuarantor;
       this.tmpGuarantorType = this.guarantor.typeGuarantor;
     }
-  }
-
-  @Watch("guarantor")
-  onGuarantorChange(val: Guarantor) {
-    this.guarantorType = val.typeGuarantor || "";
   }
 
   updateSubstep(s: number) {
@@ -466,11 +459,11 @@ export default class GuarantorDocuments extends Vue {
     if (!this.tmpGuarantorType) {
       return;
     }
-    AnalyticsService.addGuarantor(this.guarantorType);
+    AnalyticsService.addGuarantor(this.guarantor.typeGuarantor || "");
     if (this.tmpGuarantorType === "NO_GUARANTOR") {
       this.$store.commit("setStep", 4);
     }
-    if (this.tmpGuarantorType != this.guarantorType) {
+    if (this.tmpGuarantorType != this.guarantor.typeGuarantor) {
       this.$store.dispatch("setGuarantorType", this.tmpGuarantorType);
     } else {
       this.$store.commit("setGuarantorStep", 2);
@@ -479,9 +472,9 @@ export default class GuarantorDocuments extends Vue {
 
   onSelectChange(value: string) {
     this.tmpGuarantorType = value;
-    if (this.guarantorType !== null) {
+    if (this.guarantor.typeGuarantor !== null) {
       if (
-        this.guarantorType !== value &&
+        this.guarantor.typeGuarantor !== value &&
         (this.user.guarantors?.length || 0) > 0
       ) {
         this.changeGuarantorVisible = true;
@@ -502,7 +495,7 @@ export default class GuarantorDocuments extends Vue {
   }
 
   undoSelect() {
-    this.tmpGuarantorType = this.guarantorType;
+    this.tmpGuarantorType = this.guarantor.typeGuarantor || "";
     this.changeGuarantorVisible = false;
   }
 
