@@ -314,8 +314,8 @@ router.beforeEach((to, from, next) => {
     store.dispatch("setLang", locale);
   }
 
-  document.title = to.meta.title;
-  if (to.meta.description) {
+  document.title = to.meta?.title;
+  if (to.meta?.description) {
     const tag = document.querySelector('meta[name="description"]');
     tag?.setAttribute("content", to.meta.description);
 

@@ -1,4 +1,4 @@
-/*! DSFR v1.0.0rc1 | restricted use */
+/*! DSFR v1.1.0 | SPDX-License-Identifier: MIT | License-Filename: LICENCE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -278,7 +278,7 @@
 
     switch (true) {
       case this.current !== null:
-      case !member.disclosed && !member.primal:
+      case !member.disclosed && !(member.primary && member.primary.disclosed):
         member.disclosed = false;
         break;
 
@@ -380,7 +380,7 @@
 
       if (buttons.length > 0) { for (var i = 0; i < buttons.length; i++) { this.addButton(buttons[i]); } }
 
-      this.disclosed = this.primal === true;
+      this.disclosed = this.primary && this.primary.disclosed;
 
       this.gather();
     }
@@ -418,9 +418,9 @@
     Disclosure.prototype.addButton = function addButton (element) {
       var button = this.buttonFactory(element);
       if (button.hasAttribute) {
-        if (this.primal === undefined) {
-          this.primal = button.disclosed;
-        } else { button.apply(this.primal); }
+        if (this.primary === undefined) {
+          this.primary = button;
+        } else { button.apply(this.primary.disclosed); }
       }
       this.buttons.push(button);
     };
@@ -980,7 +980,7 @@
     var focusables = this.focusables;
     if (focusables.length) { focusables[0].focus(); }
     this.element.setAttribute('aria-modal', true);
-    this.element.addEventListener('keydown', this.handling);
+    window.addEventListener('keydown', this.handling);
 
     this.stunneds = [];
     // this.stun(document.body);
@@ -1071,7 +1071,7 @@
     this.isTrapping = false;
 
     this.element.removeAttribute('aria-modal');
-    this.element.removeEventListener('keydown', this.handling);
+    window.removeEventListener('keydown', this.handling);
     this.element = null;
 
     // for (const stunned of this.stunneds) stunned.unstun();
@@ -1222,14 +1222,18 @@
         api.core.removeClass(this.body, SCROLL_SHADOW_CLASS);
       }
 
-      if (isResizing) {
-        this.body.style.maxHeight = (window.innerHeight - OFFSET_MOBILE) + 'px';
+      this.isMedium = window.matchMedia('(min-width: 48em)').matches;
 
-        // Une deuxième fois après positionnement des barres du navigateur (ios)
-        // TODO: à tester si fonctionnel sans setTimeout
-        api.core.engine.renderer.next(function () {
-          this$1.body.style.maxHeight = (window.innerHeight - OFFSET_MOBILE) + 'px';
-        });
+      if (isResizing) {
+        if (this.isMedium) {
+          this.body.style.removeProperty('max-height');
+        } else {
+          this.body.style.maxHeight = (window.innerHeight - OFFSET_MOBILE) + 'px';
+          // Une deuxième fois après positionnement des barres du navigateur (ios)
+          api.core.engine.renderer.next(function () {
+            this$1.body.style.maxHeight = (window.innerHeight - OFFSET_MOBILE) + 'px';
+          });
+        }
       }
     };
 
@@ -1511,15 +1515,12 @@
   api.Collapse.register(SIDEMENU_CLASS, SIDEMENU_LIST_CLASS);
 
   var TABLE_SELECTOR = api.core.ns.selector('table');
-  // export const TABLE_CLASS = api.core.ns('table');
-  var TABLE_SCROLLING_SELECTOR = (api.core.ns.selector('table')) + ":not(" + (api.core.ns.selector('table--no-scroll')) + ")";
+  var TABLE_NOSCROLL_SELECTOR = api.core.ns('table--no-scroll');
   var LEFT = 'left';
   var RIGHT = 'right';
   var SHADOW_CLASS = api.core.ns('table--shadow');
   var SHADOW_LEFT_CLASS = api.core.ns('table--shadow-left');
   var SHADOW_RIGHT_CLASS = api.core.ns('table--shadow-right');
-  var WRAPPER_CLASS = api.core.ns('table__wrapper');
-  var CAPTION_BOTTOM_CLASS = api.core.ns('table--caption-bottom');
   var SCROLL_OFFSET = 1; // valeur en px du scroll avant laquelle le shadow s'active ou se desactive
 
   var Table = function Table (table) {
@@ -1528,29 +1529,28 @@
 
   Table.prototype.init = function init (table) {
     this.table = table;
+    this.table.setAttribute(api.core.ns.attr('js-table'), 'true'); // TODO: code provisoire en attendant la refacto du JS dynamique
     this.tableElem = this.table.querySelector('table');
     this.tableContent = this.tableElem.querySelector('tbody');
     this.isScrollable = this.tableContent.offsetWidth > this.tableElem.offsetWidth;
     this.caption = this.tableElem.querySelector('caption');
     this.captionHeight = 0;
-    this.wrap();
-
     var scrolling = this.change.bind(this);
     this.tableElem.addEventListener('scroll', scrolling);
-    this.change();
   };
 
   Table.prototype.change = function change () {
     var newScroll = this.tableContent.offsetWidth > this.tableElem.offsetWidth;
     var firstTimeScrollable = this.tableElem.offsetWidth > this.table.offsetWidth;
     if (newScroll || firstTimeScrollable) {
-      this.scroll();
-      this.handleCaption();
+      if (!this.table.classList.contains(TABLE_NOSCROLL_SELECTOR)) { this.scroll(); }
     } else {
       if (newScroll !== this.isScrollable) { this.delete(); }
     }
     this.isScrollable = newScroll;
     firstTimeScrollable = false;
+    var captionSize = this.caption.getBoundingClientRect();
+    this.table.style.setProperty('--table-offset', captionSize.height + 'px');
   };
 
   Table.prototype.delete = function delete$1 () {
@@ -1568,15 +1568,6 @@
   Table.prototype.scroll = function scroll () {
     api.core.addClass(this.table, SHADOW_CLASS);
     this.setShadowPosition();
-  };
-
-  /* ajoute un wrapper autour du tableau */
-  Table.prototype.wrap = function wrap () {
-    var wrapperHtml = document.createElement('div');
-    wrapperHtml.className = WRAPPER_CLASS;
-    this.table.insertBefore(wrapperHtml, this.tableElem);
-    wrapperHtml.appendChild(this.tableElem);
-    this.tableInnerWrapper = wrapperHtml;
   };
 
   /* affiche les blocs shadow en fonction de la position du scroll, en ajoutant la classe visible */
@@ -1611,22 +1602,6 @@
     }
   };
 
-  /* positionne la caption en top négatif et ajoute un margin-top au wrapper */
-  Table.prototype.handleCaption = function handleCaption () {
-    if (this.caption) {
-      var style = getComputedStyle(this.caption);
-      var newHeight = this.caption.offsetHeight + parseInt(style.marginTop) + parseInt(style.marginBottom);
-      this.captionHeight = newHeight;
-      if (this.table.classList.contains(CAPTION_BOTTOM_CLASS)) {
-        this.tableElem.style.marginBottom = this.captionHeight + 'px';
-        this.caption.style.bottom = -this.captionHeight + 'px';
-      } else {
-        this.tableElem.style.marginTop = this.captionHeight + 'px';
-        this.caption.style.top = -this.captionHeight + 'px';
-      }
-    }
-  };
-
   /* ajoute la classe fr-table--shadow-right ou fr-table--shadow-right sur fr-table
    en fonction d'une valeur de scroll et du sens (right, left) */
   Table.prototype.setShadowVisibility = function setShadowVisibility (side, scrollPosition) {
@@ -1649,7 +1624,7 @@
   };
 
   var build$2 = function () {
-    var tableNodes = document.querySelectorAll(TABLE_SCROLLING_SELECTOR);
+    var tableNodes = document.querySelectorAll(TABLE_SELECTOR);
     for (var i = 0; i < tableNodes.length; i++) { tables.push(new Table(tableNodes[i])); }
 
     window.addEventListener('resize', change);
@@ -1780,6 +1755,7 @@
 
     TabsGroup.prototype.apply = function apply () {
       for (var i = 0; i < this._index; i++) { this.members[i].translate(-1); }
+      this.current.element.style.transition = '';
       this.current.element.style.transform = '';
       for (var i$1 = this._index + 1; i$1 < this.length; i$1++) { this.members[i$1].translate(1); }
       this.element.style.transition = '';
@@ -1834,9 +1810,8 @@
     };
 
     Tab.prototype.translate = function translate (direction, initial) {
-      if (initial) { this.element.style.transition = 'none'; }
+      this.element.style.transition = initial ? 'none' : '';
       this.element.style.transform = "translate(" + (direction * 100) + "%)";
-      if (initial) { this.element.style.transition = ''; }
     };
 
     Tab.prototype.reset = function reset () {
@@ -1883,7 +1858,7 @@
     if (!element) { return; }
     var modals = api.core.Instance.getInstances(element, api.Modal);
     if (!modals || !modals.length) { return; }
-    this.modals.push(modals[0]);
+    this.modals.push(new HeaderModal(modals[0]));
   };
 
   Header.prototype.init = function init () {
@@ -1904,21 +1879,28 @@
   Header.prototype.change = function change () {
     this.isLarge = window.matchMedia('(min-width: 62em)').matches;
 
-    if (this.isLarge) {
-      for (var i = 0; i < this.modals.length; i++) {
-        this.modals[i].conceal();
-        this.modals[i].element.removeAttribute('role');
-      }
-    } else {
-      for (var i$1 = 0; i$1 < this.modals.length; i$1++) {
-        this.modals[i$1].element.setAttribute('role', 'dialog');
-      }
-    }
+    if (this.isLarge) { this.modals.forEach(function (modal) { return modal.disable(); }); }
+    else { this.modals.forEach(function (modal) { return modal.enable(); }); }
 
     if (this.linksGroup !== null) {
       if (this.isLarge) { this.toolsLinks.appendChild(this.linksGroup); }
       else { this.menuLinks.appendChild(this.linksGroup); }
     }
+  };
+
+  var HeaderModal = function HeaderModal (modal) {
+    this.modal = modal;
+  };
+
+  HeaderModal.prototype.enable = function enable () {
+    this.modal.element.setAttribute('role', 'dialog');
+    this.modal.element.setAttribute('aria-labelledby', this.modal.primary.element.id);
+  };
+
+  HeaderModal.prototype.disable = function disable () {
+    this.modal.conceal();
+    this.modal.element.removeAttribute('role');
+    this.modal.element.removeAttribute('aria-labelledby');
   };
 
   api.Header = Header;

@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.14.3",
-    "@gouvfr/dsfr": "1.0.0",
+    "@gouvfr/dsfr": "1.1.0",
     "@storybook/addon-actions": "^6.2.9",
     "@storybook/addon-essentials": "^6.2.9",
     "@storybook/addon-links": "^6.2.9",
