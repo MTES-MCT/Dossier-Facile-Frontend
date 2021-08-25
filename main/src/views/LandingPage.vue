@@ -288,6 +288,19 @@
               />
             </a>
           </div>
+          <div
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+          >
+            <a target="_blank" href="https://www.qlower.com/" class="logo-link"
+              rel="noreferrer"
+            >
+              <img
+                alt="logo qlower"
+                class="partner-logo qlower"
+                src="../assets/logos/qlower.png"
+              />
+            </a>
+          </div>
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
@@ -508,6 +521,10 @@ a[target="_blank"].logo-link::after {
 .rent {
   width: 120px;
   height: 16px;
+}
+.qlower {
+  height: 30px;
+  width: 148px;
 }
 </style>
 
