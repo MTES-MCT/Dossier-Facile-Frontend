@@ -117,14 +117,15 @@ export default class Source extends Vue {
   isValidModalVisible = false;
   showConfirmModal = false;
 
-  mounted() {
+  created() {
     this.source = this.$route.params.source;
-
     this.internalPartnerId = this.$route.query.internalPartnerId.toString();
     this.firstName = this.$route.query.firstName.toString();
     this.lastName = this.$route.query.lastName.toString();
     this.email = this.$route.query.email.toString();
+  }
 
+  mounted() {
     if (this.isLoggedIn) {
       this.showConfirmModal = true;
     }

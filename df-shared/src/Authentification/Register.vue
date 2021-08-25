@@ -211,11 +211,6 @@ export default class Register extends Vue {
     this.generatePlaceholder();
   }
 
-  @Watch("email")
-  updateEmail() {
-    this.user.email = this.email;
-  }
-
   handleRegister() {
     if (this.score < MIN_SCORE || !this.acceptCgu) {
       return;

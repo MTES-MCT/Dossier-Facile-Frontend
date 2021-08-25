@@ -241,12 +241,8 @@ export default class Identification extends Vue {
       }
     }
 
-    if (this.selectedGuarantor.firstName) {
-      this.firstName = this.selectedGuarantor.firstName;
-    }
-    if (this.selectedGuarantor.lastName) {
-      this.lastName = this.selectedGuarantor.lastName;
-    }
+    this.firstName = this.selectedGuarantor.firstName || "";
+    this.lastName = this.selectedGuarantor.lastName || "";
   }
 
   mounted() {
