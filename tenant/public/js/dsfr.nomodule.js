@@ -1,4 +1,4 @@
-/*! DSFR v1.0.0 | SPDX-License-Identifier: MIT | License-Filename: LICENCE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.1.0 | SPDX-License-Identifier: MIT | License-Filename: LICENCE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -1515,15 +1515,12 @@
   api.Collapse.register(SIDEMENU_CLASS, SIDEMENU_LIST_CLASS);
 
   var TABLE_SELECTOR = api.core.ns.selector('table');
-  // export const TABLE_CLASS = api.core.ns('table');
-  var TABLE_SCROLLING_SELECTOR = (api.core.ns.selector('table')) + ":not(" + (api.core.ns.selector('table--no-scroll')) + ")";
+  var TABLE_NOSCROLL_SELECTOR = api.core.ns('table--no-scroll');
   var LEFT = 'left';
   var RIGHT = 'right';
   var SHADOW_CLASS = api.core.ns('table--shadow');
   var SHADOW_LEFT_CLASS = api.core.ns('table--shadow-left');
   var SHADOW_RIGHT_CLASS = api.core.ns('table--shadow-right');
-  var WRAPPER_CLASS = api.core.ns('table__wrapper');
-  var CAPTION_BOTTOM_CLASS = api.core.ns('table--caption-bottom');
   var SCROLL_OFFSET = 1; // valeur en px du scroll avant laquelle le shadow s'active ou se desactive
 
   var Table = function Table (table) {
@@ -1532,29 +1529,28 @@
 
   Table.prototype.init = function init (table) {
     this.table = table;
+    this.table.setAttribute(api.core.ns.attr('js-table'), 'true'); // TODO: code provisoire en attendant la refacto du JS dynamique
     this.tableElem = this.table.querySelector('table');
     this.tableContent = this.tableElem.querySelector('tbody');
     this.isScrollable = this.tableContent.offsetWidth > this.tableElem.offsetWidth;
     this.caption = this.tableElem.querySelector('caption');
     this.captionHeight = 0;
-    this.wrap();
-
     var scrolling = this.change.bind(this);
     this.tableElem.addEventListener('scroll', scrolling);
-    this.change();
   };
 
   Table.prototype.change = function change () {
     var newScroll = this.tableContent.offsetWidth > this.tableElem.offsetWidth;
     var firstTimeScrollable = this.tableElem.offsetWidth > this.table.offsetWidth;
     if (newScroll || firstTimeScrollable) {
-      this.scroll();
-      this.handleCaption();
+      if (!this.table.classList.contains(TABLE_NOSCROLL_SELECTOR)) { this.scroll(); }
     } else {
       if (newScroll !== this.isScrollable) { this.delete(); }
     }
     this.isScrollable = newScroll;
     firstTimeScrollable = false;
+    var captionSize = this.caption.getBoundingClientRect();
+    this.table.style.setProperty('--table-offset', captionSize.height + 'px');
   };
 
   Table.prototype.delete = function delete$1 () {
@@ -1572,15 +1568,6 @@
   Table.prototype.scroll = function scroll () {
     api.core.addClass(this.table, SHADOW_CLASS);
     this.setShadowPosition();
-  };
-
-  /* ajoute un wrapper autour du tableau */
-  Table.prototype.wrap = function wrap () {
-    var wrapperHtml = document.createElement('div');
-    wrapperHtml.className = WRAPPER_CLASS;
-    this.table.insertBefore(wrapperHtml, this.tableElem);
-    wrapperHtml.appendChild(this.tableElem);
-    this.tableInnerWrapper = wrapperHtml;
   };
 
   /* affiche les blocs shadow en fonction de la position du scroll, en ajoutant la classe visible */
@@ -1615,22 +1602,6 @@
     }
   };
 
-  /* positionne la caption en top négatif et ajoute un margin-top au wrapper */
-  Table.prototype.handleCaption = function handleCaption () {
-    if (this.caption) {
-      var style = getComputedStyle(this.caption);
-      var newHeight = this.caption.offsetHeight + parseInt(style.marginTop) + parseInt(style.marginBottom);
-      this.captionHeight = newHeight;
-      if (this.table.classList.contains(CAPTION_BOTTOM_CLASS)) {
-        this.tableElem.style.marginBottom = this.captionHeight + 'px';
-        this.caption.style.bottom = -this.captionHeight + 'px';
-      } else {
-        this.tableElem.style.marginTop = this.captionHeight + 'px';
-        this.caption.style.top = -this.captionHeight + 'px';
-      }
-    }
-  };
-
   /* ajoute la classe fr-table--shadow-right ou fr-table--shadow-right sur fr-table
    en fonction d'une valeur de scroll et du sens (right, left) */
   Table.prototype.setShadowVisibility = function setShadowVisibility (side, scrollPosition) {
@@ -1653,7 +1624,7 @@
   };
 
   var build$2 = function () {
-    var tableNodes = document.querySelectorAll(TABLE_SCROLLING_SELECTOR);
+    var tableNodes = document.querySelectorAll(TABLE_SELECTOR);
     for (var i = 0; i < tableNodes.length; i++) { tables.push(new Table(tableNodes[i])); }
 
     window.addEventListener('resize', change);
