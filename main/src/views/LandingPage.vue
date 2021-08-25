@@ -147,7 +147,7 @@
           {{ $t("s4.title3") }}
         </h2>
         <div class="text-center">
-          <router-link to="/stats">
+          <router-link to="/stats" class="fr-link">
             <img src="../assets/icons/stats.png" class="stats-icon" alt="" />
             {{ $t("s4.link") }}
           </router-link>
@@ -426,6 +426,10 @@ img {
 
 a[target="_blank"].logo-link::after {
   content: none;
+}
+
+.logo-link {
+  box-shadow: none;
 }
 
 .stats-icon {

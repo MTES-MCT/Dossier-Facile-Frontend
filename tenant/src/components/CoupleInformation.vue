@@ -52,43 +52,48 @@
       </NakedCard>
     </div>
 
-    <div class="fr-col-12" v-if="getPartner() === undefined">
-      <label class="fr-label fr-mb-1w">{{ $t("spouseEmail") }}</label>
-      <validation-provider
-        v-slot="{ errors }"
-        :rules="{ email: true, custom: user.email }"
-      >
-        <div
-          class="fr-input-group"
-          :class="errors[0] ? 'fr-input-group--error' : ''"
+    <form
+      name="coupleForm"
+      class="fr-col-12 fr-grid-row"
+      @submit.prevent="addMail"
+    >
+      <div class="fr-col-12" v-if="getPartner() === undefined">
+        <label class="fr-label fr-mb-1w">{{ $t("spouseEmail") }}</label>
+        <validation-provider
+          v-slot="{ errors }"
+          :rules="{ email: true, custom: user.email }"
         >
-          <input
-            v-model="coupleMail"
-            class="validate-required form-control fr-input"
-            :class="errors[0] ? 'fr-input--error' : ''"
-            name="email"
-            placeholder="Ex : exemple@exemple.fr"
-            type="email"
-          />
-          <span
-            class="fr-error-text"
-            v-if="errors[0] && errors[0] !== 'none'"
-            >{{ $t(errors[0]) }}</span
+          <div
+            class="fr-input-group"
+            :class="errors[0] ? 'fr-input-group--error' : ''"
           >
-        </div>
-      </validation-provider>
-    </div>
-    <div class="fr-col-12" v-if="getPartner() === undefined">
-      <div class="fr-grid-row fr-grid-row--right fr-mt-2w fr-mb-3w">
-        <v-gouv-fr-button
-          :secondary="true"
-          :label="$t('add-a-spouse')"
-          :btn-type="'button'"
-          @click="addMail"
-          :disabled="coupleMail === ''"
-        ></v-gouv-fr-button>
+            <input
+              v-model="coupleMail"
+              class="validate-required form-control fr-input"
+              :class="errors[0] ? 'fr-input--error' : ''"
+              name="email"
+              placeholder="Ex : exemple@exemple.fr"
+              type="email"
+            />
+            <span
+              class="fr-error-text"
+              v-if="errors[0] && errors[0] !== 'none'"
+              >{{ $t(errors[0]) }}</span
+            >
+          </div>
+        </validation-provider>
       </div>
-    </div>
+      <div class="fr-col-12" v-if="getPartner() === undefined">
+        <div class="fr-grid-row fr-grid-row--right fr-mt-2w fr-mb-3w">
+          <v-gouv-fr-button
+            :secondary="true"
+            :label="$t('add-a-spouse')"
+            :btn-type="'submit'"
+            :disabled="coupleMail === ''"
+          ></v-gouv-fr-button>
+        </div>
+      </div>
+    </form>
     <div class="fr-col-12 fr-mb-3w fr-mt-3w">
       <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
         <div

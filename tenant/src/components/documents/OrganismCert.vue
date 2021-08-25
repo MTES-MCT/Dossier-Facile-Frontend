@@ -4,6 +4,22 @@
       <div class="fr-mb-3w">
         {{ $t("organism-label") }}
       </div>
+      <v-gouv-fr-modal>
+        <template v-slot:button>
+          En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:title>
+          En difficulté pour répondre à la question ?
+        </template>
+        <template v-slot:content>
+          <p>
+            <DocumentInsert
+              :allow-list="acceptedProofs"
+              :block-list="refusedProofs"
+            ></DocumentInsert>
+          </p>
+        </template>
+      </v-gouv-fr-modal>
       <div class="fr-mb-3w">
         <FileUpload
           :current-status="fileUploadStatus"
@@ -12,7 +28,7 @@
         ></FileUpload>
       </div>
     </div>
-    <div class="fr-col-lg-8 fr-col-md-12 fr-mb-3w">
+    <div class="fr-col-md-12 fr-mb-3w">
       <ListItem
         v-for="(file, k) in listFiles()"
         :key="k"
@@ -25,22 +41,6 @@
           uploadProgress[file.id] ? uploadProgress[file.id].percentage : 0
         "
       />
-    </div>
-    <div class="fr-col-12 fr-mb-2w" v-if="identificationDocument">
-      <button
-        class="fr-btn"
-        type="submit"
-        @click="save"
-        :disabled="files.length <= 0"
-      >
-        Enregistrer la pièce
-      </button>
-    </div>
-    <div class="fr-mb-5w">
-      <DocumentInsert
-        :allow-list="acceptedProofs"
-        :block-list="refusedProofs"
-      ></DocumentInsert>
     </div>
   </div>
 </template>
@@ -56,12 +56,14 @@ import ListItem from "@/components/uploads/ListItem.vue";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { RegisterService } from "../../services/RegisterService";
+import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 
 @Component({
   components: {
     DocumentInsert,
     FileUpload,
-    ListItem
+    ListItem,
+    VGouvFrModal
   },
   computed: {
     ...mapState({
@@ -84,6 +86,7 @@ export default class OrganismCert extends Vue {
 
   addFiles(fileList: File[]) {
     this.files = [...this.files, ...fileList];
+    this.save();
   }
 
   save() {

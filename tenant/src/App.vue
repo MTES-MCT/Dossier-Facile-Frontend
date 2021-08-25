@@ -13,7 +13,7 @@
     <article class="page">
       <router-view />
     </article>
-    <MyFooter />
+    <TheFooter v-if="showFooter" />
     <Cookies
       :hidden="cookieHidden"
       @accept="acceptCookies"
@@ -25,7 +25,7 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import MyHeader from "df-shared/src/Header/Header.vue";
-import MyFooter from "df-shared/src/Footer/Footer.vue";
+import TheFooter from "df-shared/src/Footer/Footer.vue";
 import Menu from "@/components/Menu.vue";
 import { mapGetters, mapState } from "vuex";
 import i18n from "./i18n";
@@ -36,14 +36,15 @@ import router from "./router";
 @Component({
   components: {
     MyHeader,
-    MyFooter,
+    TheFooter,
     Menu,
     Cookies
   },
   computed: {
     ...mapState({
       user: "user",
-      status: "status"
+      status: "status",
+      showFooter: "showFooter"
     }),
     ...mapGetters({
       isLoggedIn: "isLoggedIn"
@@ -51,6 +52,7 @@ import router from "./router";
   }
 })
 export default class App extends Vue {
+  showFooter!: boolean;
   cookieHidden = this.$cookies.isKey("accept-cookie");
   isLoggedIn!: boolean;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;

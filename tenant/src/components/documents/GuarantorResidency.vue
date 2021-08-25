@@ -71,21 +71,11 @@
         @remove="remove(file)"
       />
     </div>
-    <div class="fr-col-12 fr-mb-2w" v-if="residencyDocument">
-      <button
-        class="fr-btn"
-        type="submit"
-        @click="save"
-        :disabled="files.length <= 0"
-      >
-        {{ $t("register") }}
-      </button>
-    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapState } from "vuex";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
@@ -132,7 +122,16 @@ export default class Residency extends Vue {
   documents = DocumentTypeConstants.GUARANTOR_RESIDENCY_DOCS;
   isDocDeleteVisible = false;
 
+  @Watch("selectedGuarantor")
+  onGuarantorChange() {
+    this.updateGuarantorData();
+  }
+
   mounted() {
+    this.updateGuarantorData();
+  }
+
+  updateGuarantorData() {
     if (this.selectedGuarantor.documents !== null) {
       const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "RESIDENCY";
@@ -220,6 +219,7 @@ export default class Residency extends Vue {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
+    this.save();
   }
   resetFiles() {
     this.fileUploadStatus = UploadStatus.STATUS_INITIAL;

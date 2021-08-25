@@ -66,27 +66,11 @@
         @remove="remove(file)"
       />
     </div>
-    <div class="fr-col-12 fr-mb-2w" v-if="professionalDocument">
-      <button
-        class="fr-btn"
-        type="submit"
-        @click="save"
-        :disabled="files.length <= 0"
-      >
-        {{ $t("register") }}
-      </button>
-    </div>
-    <div class="fr-mb-5w" v-if="professionalDocument.key">
-      <DocumentInsert
-        :allow-list="professionalDocument.acceptedProofs"
-        :block-list="professionalDocument.refusedProofs"
-      ></DocumentInsert>
-    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { mapState } from "vuex";
@@ -130,7 +114,16 @@ export default class Professional extends Vue {
   documents = DocumentTypeConstants.GUARANTOR_PROFESSIONAL_DOCS;
   isDocDeleteVisible = false;
 
+  @Watch("selectedGuarantor")
+  onGuarantorChange() {
+    this.updateGuarantorData();
+  }
+
   mounted() {
+    this.updateGuarantorData();
+  }
+
+  updateGuarantorData() {
     if (this.selectedGuarantor.documents !== null) {
       const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "PROFESSIONAL";
@@ -198,6 +191,7 @@ export default class Professional extends Vue {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
+    this.save();
   }
   resetFiles() {
     this.fileUploadStatus = UploadStatus.STATUS_INITIAL;

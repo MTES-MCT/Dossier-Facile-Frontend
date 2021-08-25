@@ -1,33 +1,78 @@
 <template>
   <div>
-    <div v-if="guarantorStep === 0">
-      <AskGuarantor @on-next-step="setGuarantorStep(1)"></AskGuarantor>
-    </div>
     <div>
-      <div v-if="guarantorStep === 1">
-        <label class="fr-label" for="select"> Sélectionnez un choix </label>
-        <select
-          v-model="tmpGuarantorType"
-          class="fr-select fr-mb-3w"
-          id="select"
-          name="select"
-          @change="onSelectChange()"
-        >
-          <option value="NATURAL_PERSON">Un garant physique classique</option>
-          <option value="ORGANISM">
-            Un organisme se porte garant pour moi (VISALE par exemple)
-          </option>
-          <option value="LEGAL_PERSON">Un garant moral</option>
-        </select>
-        <div>
-          <DfButton
-            class="fr-btn"
-            primary="true"
-            @on-click="setGuarantorType()"
-          >
-            {{ $t("validate") }}
-          </DfButton>
+      <div v-if="guarantorStep <= 1">
+        <div class="remark fr-mt-3w">
+          <h3>{{ $t("remark-title") }}</h3>
+          {{ $t("remark-text") }}
         </div>
+
+        <div class="card-container">
+          <NakedCard class="fr-mt-3w">
+            <template v-slot:content>
+              <div class="fr-pl-3v">{{ $t("ask-guarantor") }}</div>
+              <v-gouv-fr-modal>
+                <template v-slot:button>
+                  <span class="small-font fr-mt-1w">{{
+                    $t("more-information")
+                  }}</span>
+                </template>
+                <template v-slot:title>
+                  {{ $t("more-information") }}
+                </template>
+                <template v-slot:content>
+                  <p>
+                    <GuarantorChoiceHelp></GuarantorChoiceHelp>
+                  </p>
+                </template>
+              </v-gouv-fr-modal>
+
+              <div class="fr-grid-col fr-mt-2w">
+                <BigRadio
+                  val="NATURAL_PERSON"
+                  :value="tmpGuarantorType"
+                  @input="onSelectChange"
+                >
+                  <div class="fr-grid-col spa">
+                    <span>{{ $t("natural-person") }}</span>
+                  </div>
+                </BigRadio>
+                <BigRadio
+                  val="ORGANISM"
+                  :value="tmpGuarantorType"
+                  @input="onSelectChange"
+                >
+                  <div class="fr-grid-col spa">
+                    <span>{{ $t("organism") }}</span>
+                  </div>
+                </BigRadio>
+                <BigRadio
+                  val="LEGAL_PERSON"
+                  :value="tmpGuarantorType"
+                  @input="onSelectChange"
+                >
+                  <div class="fr-grid-col spa">
+                    <span>{{ $t("legal-person") }}</span>
+                  </div>
+                </BigRadio>
+                <BigRadio
+                  val="NO_GUARANTOR"
+                  :value="tmpGuarantorType"
+                  @input="onSelectChange"
+                >
+                  <div class="fr-grid-col spa">
+                    <span>{{ $t("no-guarantor") }}</span>
+                  </div>
+                </BigRadio>
+              </div>
+            </template>
+          </NakedCard>
+        </div>
+
+        <GuarantorFooter
+          @on-back="goBack"
+          @on-next="setGuarantorType"
+        ></GuarantorFooter>
       </div>
       <div v-if="guarantorStep === 2">
         <div v-if="guarantorType === 'NATURAL_PERSON'">
@@ -73,9 +118,13 @@
                 >check_circle_outline</span
               >
             </div>
-            <GuarantorIdentification
-              v-if="guarantorSubStep === 1"
-            ></GuarantorIdentification>
+            <div v-if="guarantorSubStep === 1">
+              <GuarantorIdentification></GuarantorIdentification>
+              <GuarantorFooter
+                @on-back="goBack"
+                @on-next="goNext"
+              ></GuarantorFooter>
+            </div>
           </div>
           <div>
             <div
@@ -102,9 +151,13 @@
                 >check_circle_outline</span
               >
             </div>
-            <GuarantorResidency
-              v-if="guarantorSubStep === 2"
-            ></GuarantorResidency>
+            <div v-if="guarantorSubStep === 2">
+              <GuarantorResidency></GuarantorResidency>
+              <GuarantorFooter
+                @on-back="goBack"
+                @on-next="goNext"
+              ></GuarantorFooter>
+            </div>
           </div>
           <div>
             <div
@@ -131,9 +184,13 @@
                 >check_circle_outline</span
               >
             </div>
-            <GuarantorProfessional
-              v-if="guarantorSubStep === 3"
-            ></GuarantorProfessional>
+            <div v-if="guarantorSubStep === 3">
+              <GuarantorProfessional></GuarantorProfessional>
+              <GuarantorFooter
+                @on-back="goBack"
+                @on-next="goNext"
+              ></GuarantorFooter>
+            </div>
           </div>
           <div>
             <div
@@ -160,9 +217,12 @@
                 >check_circle_outline</span
               >
             </div>
-            <GuarantorFinancial
-              v-if="guarantorSubStep === 4"
-            ></GuarantorFinancial>
+            <div v-if="guarantorSubStep === 4">
+              <GuarantorFinancial
+                @on-back="goBack"
+                @on-next="goNext"
+              ></GuarantorFinancial>
+            </div>
           </div>
           <div>
             <div
@@ -187,11 +247,27 @@
                 >check_circle_outline</span
               >
             </div>
-            <GuarantorTax v-if="guarantorSubStep === 5"></GuarantorTax>
+            <div v-if="guarantorSubStep === 5">
+              <GuarantorTax></GuarantorTax>
+              <GuarantorFooter
+                @on-back="goBack"
+                @on-next="nextStep"
+              ></GuarantorFooter>
+            </div>
+          </div>
+          <div v-if="guarantorSubStep === 0">
+            <GuarantorFooter
+              @on-back="goBack"
+              @on-next="goNext"
+            ></GuarantorFooter>
           </div>
         </div>
         <div v-if="guarantorType === 'ORGANISM'">
           <OrganismCert></OrganismCert>
+          <GuarantorFooter
+            @on-back="goBack"
+            @on-next="nextStep"
+          ></GuarantorFooter>
         </div>
         <div v-if="guarantorType === 'LEGAL_PERSON'">
           <div>
@@ -213,9 +289,13 @@
               <span class="color--primary material-icons">person</span>
               <h2>{{ $t("representative-identification") }}</h2>
             </div>
-            <CorporationIdentification
-              v-if="guarantorSubStep === 1"
-            ></CorporationIdentification>
+            <div v-if="guarantorSubStep === 1">
+              <CorporationIdentification></CorporationIdentification>
+              <GuarantorFooter
+                @on-back="goBack"
+                @on-next="goNext"
+              ></GuarantorFooter>
+            </div>
           </div>
           <div>
             <div
@@ -236,27 +316,19 @@
               <span class="color--primary material-icons">home</span>
               <h2>{{ $t("corporation-identification") }}</h2>
             </div>
-            <RepresentativeIdentification
-              v-if="guarantorSubStep === 2"
-            ></RepresentativeIdentification>
+            <div v-if="guarantorSubStep === 2">
+              <RepresentativeIdentification></RepresentativeIdentification>
+              <GuarantorFooter
+                @on-back="goBack"
+                @on-next="nextStep"
+              ></GuarantorFooter>
+            </div>
           </div>
-        </div>
-        <div class="fr-col-12 fr-mb-5w">
-          <div class="fr-grid-row fr-mb-3w buttons">
-            <v-gouv-fr-button
-              v-if="guarantorType === 'NATURAL_PERSON'"
-              :secondary="true"
-              class="fr-mb-2w fr-mt-2w"
-              :label="$t('add-guarantor')"
-              :disabled="user.guarantors.length > 1"
-              @click="addNaturalGuarantor"
-            ></v-gouv-fr-button>
-            <v-gouv-fr-button
-              :label="$t('validate-file')"
-              @click="nextStep"
-              class="fr-mb-2w fr-mt-2w"
-              :disabled="!documentsFilled()"
-            ></v-gouv-fr-button>
+          <div v-if="guarantorSubStep === 0">
+            <GuarantorFooter
+              @on-back="goBack"
+              @on-next="goNext"
+            ></GuarantorFooter>
           </div>
         </div>
       </div>
@@ -281,18 +353,22 @@ import GuarantorResidency from "@/components/documents/GuarantorResidency.vue";
 import GuarantorProfessional from "@/components/documents/GuarantorProfessional.vue";
 import GuarantorFinancial from "@/components/documents/GuarantorFinancial.vue";
 import GuarantorTax from "@/components/documents/GuarantorTax.vue";
-import AskGuarantor from "@/components/AskGuarantor.vue";
 import { mapGetters, mapState } from "vuex";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { User } from "df-shared/src/models/User";
 import DfButton from "df-shared/src/Button/Button.vue";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.vue";
-import { AnalyticsService } from "@/services/AnalyticsService";
+import { AnalyticsService } from "../services/AnalyticsService";
+import GuarantorFooter from "@/components/footer/GuarantorFooter.vue";
+import GuarantorChoiceHelp from "./helps/GuarantorChoiceHelp.vue";
+import BigRadio from "df-shared/src/Button/BigRadio.vue";
+import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
+import { UtilsService } from "../services/UtilsService";
 
 @Component({
   components: {
-    AskGuarantor,
     DfButton,
     GuarantorTax,
     GuarantorFinancial,
@@ -303,7 +379,12 @@ import { AnalyticsService } from "@/services/AnalyticsService";
     CorporationIdentification,
     OrganismCert,
     ConfirmModal,
-    VGouvFrButton
+    VGouvFrButton,
+    GuarantorFooter,
+    GuarantorChoiceHelp,
+    BigRadio,
+    VGouvFrModal,
+    NakedCard
   },
   computed: {
     ...mapState({
@@ -319,6 +400,7 @@ import { AnalyticsService } from "@/services/AnalyticsService";
 export default class GuarantorDocuments extends Vue {
   user!: User;
   guarantor!: Guarantor;
+  guarantorStep!: number;
   guarantorSubStep!: number;
   guarantorType = "";
   tmpGuarantorType = "";
@@ -343,26 +425,8 @@ export default class GuarantorDocuments extends Vue {
     );
   }
 
-  documentsFilled() {
-    return (
-      (this.guarantorType === "NATURAL_PERSON" &&
-        this.hasDoc("IDENTIFICATION") &&
-        this.hasDoc("PROFESSIONAL") &&
-        this.hasDoc("RESIDENCY") &&
-        this.isFinancialValid() &&
-        this.isTaxValid()) ||
-      (this.guarantorType === "LEGAL_PERSON" &&
-        this.hasDoc("IDENTIFICATION") &&
-        this.hasDoc("IDENTIFICATION_LEGAL_PERSON")) ||
-      (this.guarantorType === "ORGANISM" && this.hasDoc("IDENTIFICATION"))
-    );
-  }
-
   hasDoc(docType: string) {
-    const f = this.guarantor.documents?.find(d => {
-      return d.documentCategory === docType;
-    })?.files;
-    return f && f.length > 0;
+    return UtilsService.guarantorHasDoc(docType, this.guarantor);
   }
 
   setGuarantorStep(n: number) {
@@ -371,10 +435,6 @@ export default class GuarantorDocuments extends Vue {
 
   nextStep() {
     this.$store.commit("setStep", 4);
-  }
-
-  addNaturalGuarantor() {
-    this.$store.dispatch("addNaturalGuarantor");
   }
 
   getName(g: Guarantor, k: number) {
@@ -395,41 +455,21 @@ export default class GuarantorDocuments extends Vue {
   }
 
   isFinancialValid() {
-    const docs = this.guarantor.documents?.filter(d => {
-      return d.documentCategory === "FINANCIAL";
-    });
-    if (!docs || docs.length === 0) {
-      return false;
-    }
-
-    for (const doc of docs) {
-      if (!doc.noDocument && (doc.files?.length || 0) <= 0) {
-        return false;
-      }
-    }
-
-    return true;
+    return UtilsService.isGuarantorFinancialValid(this.guarantor);
   }
 
   isTaxValid() {
-    const doc = this.guarantor.documents?.find(d => {
-      return d.documentCategory === "TAX";
-    });
-    if (!doc) {
-      return false;
-    }
-    if (doc.files) {
-      return true;
-    }
-    if (doc.documentSubCategory !== "my-name") {
-      return true;
-    }
-
-    return false;
+    return UtilsService.isGuarantorTaxValid(this.guarantor);
   }
 
   setGuarantorType() {
+    if (!this.tmpGuarantorType) {
+      return;
+    }
     AnalyticsService.addGuarantor(this.guarantorType);
+    if (this.tmpGuarantorType === "NO_GUARANTOR") {
+      this.$store.commit("setStep", 4);
+    }
     if (this.tmpGuarantorType != this.guarantorType) {
       this.$store.dispatch("setGuarantorType", this.tmpGuarantorType);
     } else {
@@ -437,10 +477,11 @@ export default class GuarantorDocuments extends Vue {
     }
   }
 
-  onSelectChange() {
+  onSelectChange(value: string) {
+    this.tmpGuarantorType = value;
     if (this.guarantorType !== null) {
       if (
-        this.guarantorType !== this.tmpGuarantorType &&
+        this.guarantorType !== value &&
         (this.user.guarantors?.length || 0) > 0
       ) {
         this.changeGuarantorVisible = true;
@@ -463,6 +504,26 @@ export default class GuarantorDocuments extends Vue {
   undoSelect() {
     this.tmpGuarantorType = this.guarantorType;
     this.changeGuarantorVisible = false;
+  }
+
+  goBack() {
+    if (this.guarantorSubStep > 1) {
+      this.updateSubstep(this.guarantorSubStep - 1);
+    } else {
+      if (this.guarantorStep > 1) {
+        this.$store.commit("setGuarantorStep", 0);
+      } else {
+        this.$store.commit("setStep", 2);
+      }
+    }
+  }
+
+  goNext() {
+    if (this.guarantorSubStep < 5) {
+      this.updateSubstep(this.guarantorSubStep + 1);
+    } else {
+      this.nextStep();
+    }
   }
 }
 </script>
@@ -523,6 +584,27 @@ h2 {
 h2 {
   line-height: 1.5rem;
 }
+
+.remark {
+  background-color: #e5e5f4;
+  padding: 1rem;
+  border-radius: 0.25rem;
+}
+
+.card {
+  padding: 1rem;
+  border-radius: 0.25rem;
+}
+
+.card-container {
+  @media all and (min-width: 992px) {
+    width: fit-content;
+  }
+}
+
+.small-font {
+  font-size: 14px;
+}
 </style>
 
 <i18n>
@@ -539,7 +621,14 @@ h2 {
 "validate": "Validate",
 "will-delete-guarantor": "Are you sure you want to change the type of guarantor?",
 "validate-file": "Next step - Validate file",
-"add-guarantor": "I add a guarantor"
+"natural-person": "A classic physical guarantor",
+"organism": "An organization",
+"legal-person": "A corporation guarantor",
+"no-guarantor": "I don't have a guarantor",
+"more-information": "More information",
+"ask-guarantor": "Do you want to add :",
+"remark-title": "Remark",
+"remark-text": "Adding a guarantor is by no means mandatory. If you do not wish to add a surety, you can select “I don't have a guarantor”. Your file will then be registered for investigation."
 },
 "fr": {
 "identification": "Pièce d’identité",
@@ -553,7 +642,14 @@ h2 {
 "validate": "Valider",
 "will-delete-guarantor": "Êtes-vous sûr de vouloir changer le type de garant ?",
 "validate-file": "Étape suivante - Valider le dossier",
-"add-guarantor": "J'ajoute un nouveau garant"
+"natural-person": "Un garant physique classique",
+"organism": "Un organisme garant",
+"legal-person": "Un garant moral",
+"no-guarantor": "Je n'ai pas de garant",
+"more-information": "En difficulté pour répondre à la question ?",
+"ask-guarantor": "Souhaitez-vous ajouter :",
+"remark-title": "Remarque",
+"remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, nous pouvez sélectionner « Je n'ai pas de garant ». Votre dossier sera alors enregistré pour être instruit."
 }
 }
 </i18n>

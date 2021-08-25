@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mb-200">
     <NakedCard v-if="user.lastName || hasDocument()">
       <template v-slot:content>
         <div v-if="user.lastName">
@@ -274,7 +274,7 @@ import PdfViewer from "../components/PdfViewer.vue";
 import ShowDoc from "./documents/ShowDoc.vue";
 import { DocumentService } from "../services/DocumentService";
 import ViewEditBtn from "./ViewEditBtn.vue";
-import { AnalyticsService } from "@/services/AnalyticsService";
+import { AnalyticsService } from "../services/AnalyticsService";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 
 @Component({
@@ -310,7 +310,7 @@ export default class EditSummary extends Vue {
 
   setGuarantorSubStep(n: number, g: Guarantor) {
     AnalyticsService.editFromMenu(n);
-    this.$store.dispatch("setSelectedGuarantor", g);
+    this.$store.commit("setSelectedGuarantor", g);
     this.$store.commit("setGuarantorStep", 2);
     this.$store.commit("setGuarantorSubstep", n);
     this.setStep(3);
@@ -396,6 +396,10 @@ export default class EditSummary extends Vue {
 
 .space-between {
   justify-content: space-between;
+}
+
+.mb-200 {
+  margin-bottom: 200px;
 }
 </style>
 

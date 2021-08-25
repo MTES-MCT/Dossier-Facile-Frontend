@@ -66,33 +66,7 @@
             />
           </div>
         </div>
-        <div v-if="taxDocument.key && taxDocument.key === 'my-name'">
-          <div class="fr-mb-3w">
-            <p v-html="taxDocument.explanationText"></p>
-          </div>
-          <div class="fr-mb-3w">
-            <FileUpload
-              :current-status="fileUploadStatus"
-              @add-files="addFiles"
-              @reset-files="resetFiles"
-            ></FileUpload>
-          </div>
-        </div>
-        <div
-          v-if="taxFiles().length > 0"
-          class="fr-col-lg-8 fr-col-md-12 fr-mb-3w"
-        >
-          <ListItem
-            v-for="(file, k) in taxFiles()"
-            :key="k"
-            :file="file"
-            @remove="remove(file)"
-          />
-        </div>
-        <div
-          class="fr-col-12 fr-mb-3w"
-          v-if="taxDocument.key && taxDocument.key === 'my-name'"
-        >
+        <div class="fr-col-12 fr-mb-3w" v-if="taxDocument.key === 'my-name'">
           <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
             <div
               class="fr-input-group"
@@ -113,19 +87,25 @@
             </div>
           </validation-provider>
         </div>
-        <div class="fr-col-12 fr-mb-5w" v-if="taxDocument">
-          <button class="fr-btn" type="submit" :disabled="isButtonDisabled()">
-            {{ $t("register") }}
-          </button>
+        <div v-if="taxDocument.key === 'my-name' && acceptVerification">
+          <div class="fr-mb-3w">
+            <p v-html="taxDocument.explanationText"></p>
+          </div>
+          <div class="fr-mb-3w">
+            <FileUpload
+              :current-status="fileUploadStatus"
+              @add-files="addFiles"
+              @reset-files="resetFiles"
+            ></FileUpload>
+          </div>
         </div>
-        <div
-          class="fr-mb-5w"
-          v-if="taxDocument.key && taxDocument.key === 'my-name'"
-        >
-          <DocumentInsert
-            :allow-list="taxDocument.acceptedProofs"
-            :block-list="taxDocument.refusedProofs"
-          ></DocumentInsert>
+        <div v-if="taxFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
+          <ListItem
+            v-for="(file, k) in taxFiles()"
+            :key="k"
+            :file="file"
+            @remove="remove(file)"
+          />
         </div>
       </form>
     </ValidationObserver>
@@ -133,7 +113,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { DocumentType } from "df-shared/src/models/Document";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
@@ -262,7 +242,7 @@ export default class Tax extends Vue {
     this.isDocDeleteVisible = false;
   }
 
-  mounted() {
+  updateGuarantorData() {
     const doc = this.getRegisteredDoc();
     if (doc !== undefined) {
       this.customText = doc.customText || "";
@@ -271,6 +251,18 @@ export default class Tax extends Vue {
     if (localDoc !== undefined) {
       this.taxDocument = localDoc;
     }
+    if (this.taxDocument.key === "my-name" && this.taxFiles().length > 0) {
+      this.acceptVerification = true;
+    }
+  }
+
+  mounted() {
+    this.updateGuarantorData();
+  }
+
+  @Watch("selectedGuarantor")
+  onGuarantorChange() {
+    this.updateGuarantorData();
   }
 
   addFiles(fileList: File[]) {
@@ -278,6 +270,7 @@ export default class Tax extends Vue {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
+    this.save();
   }
 
   resetFiles() {

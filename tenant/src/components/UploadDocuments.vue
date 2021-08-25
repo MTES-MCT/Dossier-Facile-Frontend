@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fr-mb-7w">
     <div>
       <div
         class="document-title title-bar"
@@ -21,7 +21,10 @@
           >check_circle_outline</span
         >
       </div>
-      <Identification v-if="tenantSubStep === 1"></Identification>
+      <div v-if="tenantSubStep === 1">
+        <Identification></Identification>
+        <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
+      </div>
     </div>
     <div>
       <div
@@ -42,7 +45,10 @@
           >check_circle_outline</span
         >
       </div>
-      <Residency v-if="tenantSubStep === 2"></Residency>
+      <div v-if="tenantSubStep === 2">
+        <Residency></Residency>
+        <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
+      </div>
     </div>
     <div>
       <div
@@ -65,7 +71,10 @@
           >check_circle_outline</span
         >
       </div>
-      <Professional v-if="tenantSubStep === 3"></Professional>
+      <div v-if="tenantSubStep === 3">
+        <Professional></Professional>
+        <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
+      </div>
     </div>
     <div>
       <div
@@ -86,7 +95,9 @@
           >check_circle_outline</span
         >
       </div>
-      <Financial v-if="tenantSubStep === 4"></Financial>
+      <div v-if="tenantSubStep === 4">
+        <Financial @on-back="goBack" @on-next="goNext"></Financial>
+      </div>
     </div>
     <div>
       <div
@@ -107,18 +118,13 @@
           >check_circle_outline</span
         >
       </div>
-      <Tax v-if="tenantSubStep === 5"></Tax>
+      <div v-if="tenantSubStep === 5">
+        <Tax></Tax>
+        <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
+      </div>
     </div>
-    <div class="fr-col-12 fr-mb-5w">
-      <button
-        class="fr-btn"
-        type="submit"
-        aria-disabled="!documentsFilled()"
-        :disabled="!documentsFilled()"
-        @click="goToGuarantor()"
-      >
-        Suivant
-      </button>
+    <div v-if="tenantSubStep === 0">
+      <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
     </div>
   </div>
 </template>
@@ -132,9 +138,19 @@ import Financial from "@/components/documents/Financial.vue";
 import Tax from "@/components/documents/Tax.vue";
 import { mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
-import { AnalyticsService } from "@/services/AnalyticsService";
+import { AnalyticsService } from "../services/AnalyticsService";
+import ProfileFooter from "@/components/footer/ProfileFooter.vue";
+import { UtilsService } from "../services/UtilsService";
+
 @Component({
-  components: { Tax, Financial, Professional, Residency, Identification },
+  components: {
+    Tax,
+    Financial,
+    Professional,
+    Residency,
+    Identification,
+    ProfileFooter
+  },
   computed: {
     ...mapState({
       tenantSubStep: "tenantSubStep",
@@ -150,16 +166,6 @@ export default class UploadDocuments extends Vue {
     this.$store.commit("setTenantSubstep", s === this.tenantSubStep ? 0 : s);
   }
 
-  documentsFilled() {
-    return (
-      this.hasDoc("IDENTIFICATION") &&
-      this.hasDoc("PROFESSIONAL") &&
-      this.hasDoc("RESIDENCY") &&
-      this.isFinancialValid() &&
-      this.isTaxValid()
-    );
-  }
-
   goToGuarantor() {
     AnalyticsService.validateFunnel();
     this.$store.commit("setGuarantorStep", 0);
@@ -167,45 +173,31 @@ export default class UploadDocuments extends Vue {
   }
 
   hasDoc(docType: string) {
-    // FIXME check for status TO_PROCESS or VALIDATED
-    const f = this.user.documents?.find(d => {
-      return d.documentCategory === docType;
-    })?.files;
-    return f && f.length > 0;
+    return UtilsService.hasDoc(docType);
   }
 
   isFinancialValid() {
-    const docs = this.user.documents?.filter(d => {
-      return d.documentCategory === "FINANCIAL";
-    });
-    if (!docs || docs.length === 0) {
-      return false;
-    }
-
-    for (const doc of docs) {
-      if (!doc.noDocument && (doc.files?.length || 0) <= 0) {
-        return false;
-      }
-    }
-
-    return true;
+    return UtilsService.isFinancialValid();
   }
 
   isTaxValid() {
-    const doc = this.user.documents?.find(d => {
-      return d.documentCategory === "TAX";
-    });
-    if (!doc) {
-      return false;
-    }
-    if (doc.files) {
-      return true;
-    }
-    if (doc.documentSubCategory !== "my-name") {
-      return true;
-    }
+    return UtilsService.isTaxValid();
+  }
 
-    return false;
+  goBack() {
+    if (this.tenantSubStep > 1) {
+      this.updateSubstep(this.tenantSubStep - 1);
+    } else {
+      this.$store.commit("setStep", 1);
+    }
+  }
+
+  goNext() {
+    if (this.tenantSubStep < 5) {
+      this.updateSubstep(this.tenantSubStep + 1);
+    } else {
+      this.goToGuarantor();
+    }
   }
 }
 </script>

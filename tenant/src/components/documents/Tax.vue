@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fr-mb-5w">
     <ConfirmModal
       v-if="isDocDeleteVisible"
       @valid="validSelect()"
@@ -66,29 +66,6 @@
             />
           </div>
         </div>
-        <div v-if="taxDocument.key && taxDocument.key === 'my-name'">
-          <div class="fr-mb-3w">
-            <p v-html="taxDocument.explanationText"></p>
-          </div>
-          <div class="fr-mb-3w">
-            <FileUpload
-              :current-status="fileUploadStatus"
-              @add-files="addFiles"
-              @reset-files="resetFiles"
-            ></FileUpload>
-          </div>
-        </div>
-        <div
-          v-if="taxFiles().length > 0"
-          class="fr-col-lg-8 fr-col-md-12 fr-mb-3w"
-        >
-          <ListItem
-            v-for="(file, k) in taxFiles()"
-            :key="k"
-            :file="file"
-            @remove="remove(file)"
-          />
-        </div>
         <div
           class="fr-col-12 fr-mb-3w"
           v-if="taxDocument.key && taxDocument.key === 'my-name'"
@@ -113,10 +90,25 @@
             </div>
           </validation-provider>
         </div>
-        <div class="fr-col-12 fr-mb-5w" v-if="taxDocument">
-          <button class="fr-btn" type="submit" :disabled="isButtonDisabled()">
-            {{ $t("register") }}
-          </button>
+        <div v-if="taxDocument.key === 'my-name' && acceptVerification">
+          <div class="fr-mb-3w">
+            <p v-html="taxDocument.explanationText"></p>
+          </div>
+          <div class="fr-mb-3w">
+            <FileUpload
+              :current-status="fileUploadStatus"
+              @add-files="addFiles"
+              @reset-files="resetFiles"
+            ></FileUpload>
+          </div>
+        </div>
+        <div v-if="taxFiles().length > 0" class="fr-col-12 fr-mb-3w">
+          <ListItem
+            v-for="(file, k) in taxFiles()"
+            :key="k"
+            :file="file"
+            @remove="remove(file)"
+          />
         </div>
       </form>
     </ValidationObserver>
@@ -144,7 +136,7 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import TaxHelp from "../helps/TaxHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
-import { AnalyticsService } from "@/services/AnalyticsService";
+import { AnalyticsService } from "../../services/AnalyticsService";
 
 extend("is", {
   ...is,
@@ -263,6 +255,10 @@ export default class Tax extends Vue {
     if (localDoc !== undefined) {
       this.taxDocument = localDoc;
     }
+
+    if (this.taxDocument.key === "my-name" && this.taxFiles().length > 0) {
+      this.acceptVerification = true;
+    }
   }
 
   addFiles(fileList: File[]) {
@@ -271,6 +267,7 @@ export default class Tax extends Vue {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
+    this.save();
   }
 
   resetFiles() {
@@ -279,12 +276,6 @@ export default class Tax extends Vue {
 
   save() {
     AnalyticsService.registerFile("tax");
-    if (
-      !this.taxDocument.key ||
-      (this.taxDocument.key === "my-name" && !this.acceptVerification)
-    ) {
-      return;
-    }
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
@@ -359,28 +350,6 @@ export default class Tax extends Vue {
         return d.documentCategory === "TAX";
       })?.files || [];
     return [...newFiles, ...existingFiles];
-  }
-
-  isButtonDisabled() {
-    if (!this.taxDocument.key) {
-      return true;
-    }
-    if (this.taxDocument.key === "my-name") {
-      return this.files.length <= 0;
-    }
-
-    if (this.taxDocument.key === "other-tax") {
-      const doc = this.getRegisteredDoc();
-      if (doc !== undefined && this.customText !== doc.customText) {
-        return false;
-      }
-    }
-
-    const localDoc = this.getLocalDoc();
-    if (localDoc && localDoc.key === this.taxDocument.key) {
-      return true;
-    }
-    return false;
   }
 
   remove(file: DfFile, silent = false) {

@@ -107,7 +107,7 @@ export default class Profile extends Vue {
 .step-number {
   background-color: var(--primary);
   color: white;
-  margin: 0 5px;
+  margin: 0.25rem 1rem 0 0;
   border-radius: 50%;
   display: inline-block;
   height: 25px;
@@ -123,6 +123,10 @@ export default class Profile extends Vue {
 .bg-grey {
   background-color: #f2f2f9;
 }
+
+h4 {
+  margin: 0;
+}
 </style>
 
 <i18n>
@@ -135,7 +139,7 @@ export default class Profile extends Vue {
 "fr": {
 "title-step1": "Je renseigne mes informations",
 "title-step2": "Je joins mes documents",
-"title-step3": "Je renseigne mon garant"
+"title-step3": "Mon garant"
 }
 }
 </i18n>

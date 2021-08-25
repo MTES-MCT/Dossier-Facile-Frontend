@@ -41,9 +41,6 @@
                 type="text"
               />
             </div>
-            <DfButton class="fr-btn" size="small">
-              {{ $t("save") }}
-            </DfButton>
           </form>
         </ValidationObserver>
       </div>
@@ -227,31 +224,25 @@
               @remove="remove(f, file)"
             />
           </div>
-          <div class="fr-col-12 fr-mb-5w" v-if="f.documentType">
-            <button
-              class="fr-btn"
-              type="submit"
-              :disabled="
-                f.files.length <= 0 &&
-                  !f.noDocument &&
-                  f.documentType.key !== 'no-income'
-              "
-            >
-              {{ $t("register") }}
-            </button>
-          </div>
         </form>
       </ValidationObserver>
       <hr />
     </div>
     <div class="fr-col-12 fr-mb-5w fr-grid-row space-between">
-      <button class="fr-btn" type="submit" @click="addFinancial()">
-        Ajouter un revenu
-      </button>
-      <DfButton class="fr-btn" size="small" @on-click="setNoIncome()">
+      <DfButton
+        class="fr-btn"
+        size="small"
+        @on-click="setNoIncome()"
+        v-if="!hasNoIncome() && getFinancialDocuments().length <= 0"
+      >
         {{ $t("i-have-no-income") }}
       </DfButton>
     </div>
+    <FinancialFooter
+      @on-back="goBack"
+      @on-next="goNext"
+      @add-financial="addFinancial()"
+    ></FinancialFooter>
   </div>
 </template>
 
@@ -279,6 +270,7 @@ import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import DocumentHelp from "../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import { AnalyticsService } from "../../services/AnalyticsService";
+import FinancialFooter from "@/components/footer/FinancialFooter.vue";
 
 extend("regex", {
   ...regex,
@@ -313,7 +305,8 @@ class F {
     Modal,
     BigRadio,
     DocumentHelp,
-    VGouvFrModal
+    VGouvFrModal,
+    FinancialFooter
   },
   computed: {
     ...mapGetters({
@@ -447,7 +440,15 @@ export default class Financial extends Vue {
       const newFiles = f.files.filter(f => {
         return !f.id;
       });
-      if (!newFiles.length && f.documentType.key !== "no-income") return;
+      if (
+        !this.financialFiles(f).length &&
+        f.documentType.key !== "no-income"
+      ) {
+        Vue.toasted.global.max_file({
+          message: this.$i18n.t("missing-file")
+        });
+        return false;
+      }
 
       if (
         f.documentType.maxFileCount &&
@@ -459,7 +460,7 @@ export default class Financial extends Vue {
             f.documentType.maxFileCount
           ])
         });
-        return;
+        return false;
       }
 
       Array.from(Array(newFiles.length).keys()).map(x => {
@@ -469,7 +470,7 @@ export default class Financial extends Vue {
     } else {
       if (this.financialFiles(f).length > 0) {
         this.isNoIncomeAndFiles = true;
-        return;
+        return false;
       }
     }
 
@@ -512,6 +513,7 @@ export default class Financial extends Vue {
       .finally(() => {
         loader.hide();
       });
+    return true;
   }
 
   financialFiles(f: F) {
@@ -643,6 +645,22 @@ export default class Financial extends Vue {
       }) === undefined
     );
   }
+  goBack() {
+    this.$emit("on-back");
+  }
+
+  goNext() {
+    let res = true;
+    for (const f of this.financialDocuments) {
+      const s = this.save(f);
+      if (!s) {
+        res = false;
+      }
+    }
+    if (res) {
+      this.$emit("on-next");
+    }
+  }
 }
 </script>
 
@@ -682,7 +700,8 @@ export default class Financial extends Vue {
   "i-have-no-income": "I have no income",
   "has-no-income": "You have no income",
   "warning-no-income-and-file": "You can't have files and no income. You must uncheck the box or delete your files.",
-  "save": "Save"
+  "save": "Save",
+  "missing-file": "You must add files to save this income."
 },
 "fr": {
   "salary": "Salaire",
@@ -716,7 +735,8 @@ export default class Financial extends Vue {
   "i-have-no-income": "Je n'ai pas de revenu",
   "has-no-income": "Vous avez indiqué ne pas avoir de revenu",
   "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers.",
-  "save": "Sauvegarder"
+  "save": "Sauvegarder",
+  "missing-file": "Vous devez ajouter des fichiers pour sauvegarder ce revenu."
 }
 }
 </i18n>

@@ -120,16 +120,6 @@
         @remove="remove(file)"
       />
     </div>
-    <div class="fr-col-12 fr-mb-2w" v-if="identificationDocument">
-      <button
-        class="fr-btn"
-        type="submit"
-        @click="save"
-        :disabled="files.length <= 0"
-      >
-        {{ $t("register") }}
-      </button>
-    </div>
   </div>
 </template>
 
@@ -185,9 +175,8 @@ export default class Identification extends Vue {
   isDocDeleteVisible = false;
 
   @Watch("selectedGuarantor")
-  onGuarantorChange(val: Guarantor) {
-    this.firstName = val.firstName || "";
-    this.lastName = val.lastName || "";
+  onGuarantorChange() {
+    this.updateGuarantorData();
   }
 
   onSelectChange() {
@@ -237,7 +226,7 @@ export default class Identification extends Vue {
     this.isDocDeleteVisible = false;
   }
 
-  mounted() {
+  updateGuarantorData() {
     if (this.selectedGuarantor.documents !== null) {
       const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION";
@@ -260,11 +249,16 @@ export default class Identification extends Vue {
     }
   }
 
+  mounted() {
+    this.updateGuarantorData();
+  }
+
   addFiles(fileList: File[]) {
     const nf = Array.from(fileList).map(f => {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
+    this.save();
   }
 
   resetFiles() {

@@ -152,7 +152,7 @@
           </div>
           <div
             v-if="financialFiles(f).length > 0"
-            class="fr-col-lg-8 fr-col-md-12 fr-mb-3w"
+            class="fr-col-md-12 fr-mb-3w"
           >
             <ListItem
               v-for="(file, k) in financialFiles(f)"
@@ -161,29 +161,20 @@
               @remove="remove(f, file)"
             />
           </div>
-          <div class="fr-col-12 fr-mb-5w" v-if="f.documentType">
-            <button
-              class="fr-btn"
-              type="submit"
-              :disabled="f.files.length <= 0 && !f.noDocument"
-            >
-              {{ $t("register") }}
-            </button>
-          </div>
         </form>
       </ValidationObserver>
       <hr />
     </div>
-    <div class="fr-col-12 fr-mb-5w">
-      <button class="fr-btn" type="submit" @click="addFinancial()">
-        Ajouter un revenu
-      </button>
-    </div>
+    <FinancialFooter
+      @on-back="goBack"
+      @on-next="goNext"
+      @add-financial="addFinancial()"
+    ></FinancialFooter>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { DocumentType } from "df-shared/src/models/Document";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
@@ -204,6 +195,7 @@ import { mapState } from "vuex";
 import Modal from "df-shared/src/components/Modal.vue";
 import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
+import FinancialFooter from "@/components/footer/FinancialFooter.vue";
 
 extend("regex", {
   ...regex,
@@ -237,7 +229,8 @@ class F {
     ConfirmModal,
     Modal,
     GuarantorChoiceHelp,
-    VGouvFrModal
+    VGouvFrModal,
+    FinancialFooter
   },
   computed: {
     ...mapState({
@@ -253,6 +246,11 @@ export default class GuarantorFinancial extends Vue {
   isDocDeleteVisible = false;
   selectedDoc?: F;
   isNoIncomeAndFiles = false;
+
+  @Watch("selectedGuarantor")
+  onGuarantorChange() {
+    this.initialize();
+  }
 
   isNewDocument(f: F) {
     if (f.id !== null) {
@@ -356,18 +354,23 @@ export default class GuarantorFinancial extends Vue {
       return { name: f.name, file: f, size: f.size };
     });
     f.files = [...f.files, ...nf];
+    this.save(f);
   }
+
   resetFiles(f: F) {
     f.fileUploadStatus = UploadStatus.STATUS_INITIAL;
   }
-  save(f: F) {
+
+  save(f: F): boolean {
     const fieldName = "documents";
     const formData = new FormData();
     if (!f.noDocument) {
       const newFiles = f.files.filter(f => {
         return !f.id;
       });
-      if (!newFiles.length) return;
+      if (!this.financialFiles(f).length) {
+        return false;
+      }
 
       if (
         f.documentType.maxFileCount &&
@@ -379,7 +382,7 @@ export default class GuarantorFinancial extends Vue {
             f.documentType.maxFileCount
           ])
         });
-        return;
+        return false;
       }
 
       Array.from(Array(newFiles.length).keys()).map(x => {
@@ -389,7 +392,7 @@ export default class GuarantorFinancial extends Vue {
     } else {
       if (this.financialFiles(f).length > 0) {
         this.isNoIncomeAndFiles = true;
-        return;
+        return false;
       }
     }
 
@@ -430,6 +433,7 @@ export default class GuarantorFinancial extends Vue {
       .finally(() => {
         loader.hide();
       });
+    return true;
   }
 
   financialFiles(f: F) {
@@ -488,6 +492,23 @@ export default class GuarantorFinancial extends Vue {
     return this.$store.getters.isGuarantor;
   }
 
+  goBack() {
+    this.$emit("on-back");
+  }
+
+  goNext() {
+    let res = true;
+    for (const f of this.financialDocuments) {
+      const s = this.save(f);
+      if (!s) {
+        res = false;
+      }
+    }
+    if (res) {
+      this.$emit("on-next");
+    }
+  }
+
   getCheckboxLabel(key: string) {
     if (key === "guarantor_salary") {
       return "noDocument-salary";
@@ -504,6 +525,7 @@ export default class GuarantorFinancial extends Vue {
     if (key === "social-service") {
       return "noDocument-social";
     }
+    return "";
   }
 
   getCustomTextLabel(key: string) {
@@ -522,6 +544,7 @@ export default class GuarantorFinancial extends Vue {
     if (key === "social-service") {
       return "customText-social";
     }
+    return "";
   }
 }
 </script>
