@@ -22,6 +22,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.vue";
+import { UtilsService } from "../../services/UtilsService";
 
 @Component({
   components: { VGouvFrButton }
@@ -31,12 +32,8 @@ export default class BackNext extends Vue {
   @Prop({ default: false }) disabled?: boolean;
   @Prop() nextLabel?: string;
 
-  isMobile() {
-    return window.innerWidth < 768;
-  }
-
   getBackText() {
-    return this.isMobile() ? "<" : this.$i18n.t("back");
+    return UtilsService.isMobile() ? "<" : this.$i18n.t("back");
   }
 
   backAction() {

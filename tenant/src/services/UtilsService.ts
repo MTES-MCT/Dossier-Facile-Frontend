@@ -114,5 +114,8 @@ export const UtilsService = {
     }
 
     return false;
+  },
+  isMobile() {
+    return window.innerWidth < 768;
   }
 };
