@@ -158,7 +158,7 @@ import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import SubmitButton from "df-shared/src/Button/SubmitButton.vue";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
-import { AnalyticsService } from "@/services/AnalyticsService";
+import { AnalyticsService } from "../services/AnalyticsService";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import ProfileFooter from "@/components/footer/ProfileFooter.vue";
 
@@ -252,6 +252,10 @@ export default class TenantInformationForm extends Vue {
       .then(
         () => {
           AnalyticsService.confirmType();
+          this.$router.push({
+            name: "TenantDocuments",
+            params: { substep: "1" }
+          });
           if (this.applicationType === "COUPLE") {
             this.$toasted.show(this.$i18n.t("couple-saved").toString(), {
               type: "show",
@@ -347,11 +351,11 @@ export default class TenantInformationForm extends Vue {
     if (this.applicationType === "GROUP" && !this.coTenantAuthorize) {
       return;
     }
-    this.$store.commit("setStep", 2);
+    this.$router.push({ name: "TenantDocuments", params: { substep: "1" } });
   }
 
   goBack() {
-    this.$store.commit("setStep", 0);
+    this.$router.push({ name: "TenantName" });
   }
 }
 </script>

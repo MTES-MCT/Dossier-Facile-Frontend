@@ -1,5 +1,5 @@
 import Vue from "vue";
-import VueRouter, { RouteConfig } from "vue-router";
+import VueRouter, { NavigationGuardNext, RawLocation, Route, RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
 import store from "@/store";
 
@@ -61,11 +61,81 @@ const routes: Array<RouteConfig> = [
       hideFooter: true
     },
     component: () =>
-      import(/* webpackChunkName: "profile" */ "@/views/Profile.vue")
+      import(/* webpackChunkName: "profile" */ "@/views/NameInformation.vue")
+  },
+  {
+    path: "/nom-locataire",
+    name: "TenantName",
+    meta: {
+      title: "Édition du profil - DossierFacile",
+      requiresAuth: true,
+      hideFooter: true
+    },
+    component: () =>
+      import(/* webpackChunkName: "profile" */ "@/views/NameInformation.vue")
+  },
+  {
+    path: "/type-locataire",
+    name: "TenantType",
+    meta: {
+      title: "Édition du profil - DossierFacile",
+      requiresAuth: true,
+      hideFooter: true
+    },
+    component: () =>
+      import(/* webpackChunkName: "profile" */ "@/views/TypeInformation.vue")
+  },
+  {
+    path: "/documents-locataire/:substep",
+    name: "TenantDocuments",
+    meta: {
+      title: "Édition du profil - DossierFacile",
+      requiresAuth: true,
+      hideFooter: true
+    },
+    component: () =>
+      import(/* webpackChunkName: "profile" */ "@/views/TenantDocument.vue")
+  },
+  {
+    path: "/choix-garant",
+    name: "GuarantorChoice",
+    meta: {
+      title: "Édition du garant - DossierFacile",
+      requiresAuth: true,
+      hideFooter: true
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "profile" */ "@/views/GuarantorChoicePage.vue"
+      )
+  },
+  {
+    path: "/validation-dossier",
+    name: "ValidateFile",
+    meta: {
+      title: "Édition du garant - DossierFacile",
+      requiresAuth: true,
+      hideFooter: true
+    },
+    component: () =>
+      import(/* webpackChunkName: "profile" */ "@/views/ValidateFilePage.vue")
+  },
+  {
+    path: "/info-garant/:substep",
+    name: "GuarantorDocuments",
+    meta: {
+      title: "Édition du garant - DossierFacile",
+      requiresAuth: true,
+      hideFooter: true
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "profile" */ "@/views/GuarantorDocumentsPage.vue"
+      )
   },
   {
     path: "/public-file/:token",
-    name: "Dossier",
+    name: "File",
     meta: {
       title: "Dossier - DossierFacile"
     },
@@ -74,7 +144,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/file/:token",
-    name: "Dossier",
+    name: "PublicFile",
     meta: {
       title: "Dossier - DossierFacile"
     },
@@ -108,13 +178,13 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/account",
-    name: "Compte",
+    name: "Account",
     meta: {
       title: "Mon compte - DossierFacile",
       requiresAuth: true
     },
     component: () =>
-      import(/* webpackChunkName: "profile" */ "@/views/Account.vue")
+      import(/* webpackChunkName: "account" */ "@/views/Account.vue")
   },
   {
     path: "/messaging",
@@ -222,17 +292,18 @@ const router = new VueRouter({
   }
 });
 
-function keepGoing(to: any, next: any) {
+function keepGoing(to: Route, next: NavigationGuardNext<Vue>) {
   if (
     to.matched.some((record: { path: string }) => {
       return record.path === "/account";
     }) &&
     store.state.user?.status === "INCOMPLETE"
   ) {
-    router.push("/profile");
+    store.dispatch("firstProfilePage");
+    return;
   }
-  document.title = to.meta.title;
-  if (to.meta.description) {
+  document.title = to.meta?.title;
+  if (to.meta?.description) {
     const tag = document.querySelector('meta[name="description"]');
     tag?.setAttribute("content", to.meta.description);
 

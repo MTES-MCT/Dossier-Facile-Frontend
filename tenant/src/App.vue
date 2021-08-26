@@ -11,7 +11,7 @@
       <Menu :user="user" />
     </MyHeader>
     <article class="page">
-      <router-view />
+      <router-view :key="$route.path" />
     </article>
     <TheFooter v-if="showFooter" />
     <Cookies

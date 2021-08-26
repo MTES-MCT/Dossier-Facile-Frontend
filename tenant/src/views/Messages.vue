@@ -390,22 +390,15 @@ export default class Messages extends Vue {
 
   setTenantStep(n: number) {
     AnalyticsService.editFromMessage(n);
-    this.$store.commit("setTenantSubstep", n);
-    this.setStep(2);
-    this.$router.push("/profile");
+    this.$store.dispatch("setTenantPage", { substep: n });
   }
 
   setGuarantorSubStep(n: number, g: Guarantor) {
     AnalyticsService.editFromMessage(n);
-    this.$store.commit("setGuarantorStep", 2);
-    this.$store.commit("setSelectedGuarantor", g);
-    this.$store.commit("setGuarantorSubstep", n);
-    this.setStep(3);
-    this.$router.push("/profile");
-  }
-
-  setStep(n: number) {
-    this.$store.commit("setStep", n);
+    this.$store.dispatch("setGuarantorPage", {
+      guarantor: g,
+      substep: n.toString()
+    });
   }
 
   guarantors() {

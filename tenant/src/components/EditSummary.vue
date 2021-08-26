@@ -14,14 +14,20 @@
                   <div class="subtitle">Prénom et Nom</div>
                   {{ user.firstName }} {{ user.lastName }}
                 </div>
-                <ViewEditBtn :canView="false" @edit="setStep(0)"></ViewEditBtn>
+                <ViewEditBtn
+                  :canView="false"
+                  @edit="setNamePage()"
+                ></ViewEditBtn>
               </div>
               <div class="row" v-if="user.applicationType">
                 <div>
                   <div class="subtitle">Type de location</div>
                   {{ $t(user.applicationType) }}
                 </div>
-                <ViewEditBtn :canView="false" @edit="setStep(1)"></ViewEditBtn>
+                <ViewEditBtn
+                  :canView="false"
+                  @edit="setTypePage()"
+                ></ViewEditBtn>
               </div>
             </section>
           </div>
@@ -289,7 +295,6 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
   computed: {
     ...mapState({
       user: "user",
-      tenantStep: "tenantStep",
       selectedGuarantor: "selectedGuarantor"
     })
   }
@@ -304,20 +309,22 @@ export default class EditSummary extends Vue {
 
   setTenantStep(n: number) {
     AnalyticsService.editFromMenu(n);
-    this.$store.commit("setTenantSubstep", n);
-    this.setStep(2);
+    this.$store.dispatch("setTenantPage", { substep: n });
   }
 
-  setGuarantorSubStep(n: number, g: Guarantor) {
+  async setGuarantorSubStep(n: number, g: Guarantor) {
     AnalyticsService.editFromMenu(n);
-    this.$store.commit("setSelectedGuarantor", g);
-    this.$store.commit("setGuarantorStep", 2);
-    this.$store.commit("setGuarantorSubstep", n);
-    this.setStep(3);
+    this.$store.dispatch("setGuarantorPage", {
+      guarantor: g,
+      substep: n.toString()
+    });
   }
 
-  setStep(n: number) {
-    this.$store.commit("setStep", n);
+  setNamePage() {
+    this.$router.push("/nom-locataire");
+  }
+  setTypePage() {
+    this.$router.push("/type-locataire");
   }
 
   hasDocument() {

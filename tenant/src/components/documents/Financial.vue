@@ -502,7 +502,8 @@ export default class Financial extends Vue {
 
     f.fileUploadStatus = UploadStatus.STATUS_SAVING;
     const loader = this.$loading.show();
-    RegisterService.saveFinancial(formData)
+    this.$store
+      .dispatch("saveTenantFinancial", formData)
       .then(() => {
         f.files = [];
         f.fileUploadStatus = UploadStatus.STATUS_INITIAL;
@@ -531,7 +532,7 @@ export default class Financial extends Vue {
       };
     });
     const existingFiles =
-      this.$store.getters.getDocuments?.find((d: DfDocument) => {
+      this.$store.getters.getTenantDocuments?.find((d: DfDocument) => {
         return d.id === f.id;
       })?.files || [];
     return [...newFiles, ...existingFiles];

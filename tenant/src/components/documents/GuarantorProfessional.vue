@@ -232,7 +232,8 @@ export default class Professional extends Vue {
       formData.append("guarantorId", this.$store.getters.guarantor.id);
     }
     const loader = this.$loading.show();
-    RegisterService.saveProfessional(formData)
+    this.$store
+      .dispatch("saveGuarantorProfessional", formData)
       .then(() => {
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
@@ -258,7 +259,7 @@ export default class Professional extends Vue {
       };
     });
     const existingFiles =
-      this.$store.getters.getDocuments?.find((d: DfDocument) => {
+      this.$store.getters.getGuarantorDocuments?.find((d: DfDocument) => {
         return d.documentCategory === "PROFESSIONAL";
       })?.files || [];
     return [...newFiles, ...existingFiles];

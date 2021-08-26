@@ -3,16 +3,6 @@ import store from "../store";
 import Vue from "vue";
 
 export const RegisterService = {
-  saveCorporationIdentification(formData: FormData) {
-    const url = `https://${process.env.VUE_APP_API_URL}/api/register/guarantorLegalPerson/documentIdentification`;
-    return axios.post(url, formData);
-  },
-
-  saveOrganismIdentification(formData: FormData) {
-    const url = `https://${process.env.VUE_APP_API_URL}/api/register/guarantorOrganism/documentIdentification`;
-    return axios.post(url, formData);
-  },
-
   deleteFile(id: number | string, silent = false) {
     const loader = Vue.$loading.show();
     const url = `https://${process.env.VUE_APP_API_URL}/api/file/${id}`;
@@ -32,34 +22,73 @@ export const RegisterService = {
       });
   },
 
-  saveFinancial(formData: FormData) {
-    let url: string;
-    if (store.getters.isGuarantor) {
-      url = `https://${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentFinancial`;
-    } else {
-      url = `https://${process.env.VUE_APP_API_URL}/api/register/documentFinancial`;
-    }
-    return axios.post(url, formData);
+  saveTenantIdentification(formData: FormData) {
+    return axios.post(
+      `https://${process.env.VUE_APP_API_URL}/api/register/documentIdentification`,
+      formData
+    );
   },
 
-  saveIdentification(formData: FormData) {
-    let url: string;
-    if (store.getters.isGuarantor) {
-      url = `https://${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentIdentification`;
-    } else {
-      url = `https://${process.env.VUE_APP_API_URL}/api/register/documentIdentification`;
-    }
-    return axios.post(url, formData);
+  saveGuarantorIdentification(formData: FormData) {
+    return axios.post(
+      `https://${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentIdentification`,
+      formData
+    );
   },
 
-  saveProfessional(formData: FormData) {
-    let url: string;
-    if (store.getters.isGuarantor) {
-      url = `https://${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentProfessional`;
-    } else {
-      url = `https://${process.env.VUE_APP_API_URL}/api/register/documentProfessional`;
-    }
-    return axios.post(url, formData);
+  saveTenantResidency(formData: FormData) {
+    return axios.post(
+      `https://${process.env.VUE_APP_API_URL}/api/register/documentResidency`,
+      formData
+    );
+  },
+
+  saveGuarantorResidency(formData: FormData) {
+    return axios.post(
+      `https://${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentResidency`,
+      formData
+    );
+  },
+
+  saveTenantProfessional(formData: FormData) {
+    return axios.post(
+      `https://${process.env.VUE_APP_API_URL}/api/register/documentProfessional`,
+      formData
+    );
+  },
+
+  saveGuarantorProfessional(formData: FormData) {
+    return axios.post(
+      `https://${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentProfessional`,
+      formData
+    );
+  },
+
+  saveTenantFinancial(formData: FormData) {
+    return axios.post(
+      `https://${process.env.VUE_APP_API_URL}/api/register/documentFinancial`,
+      formData
+    );
+  },
+
+  saveGuarantorFinancial(formData: FormData) {
+    return axios.post(
+      `https://${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentFinancial`,
+      formData
+    );
+  },
+
+  saveTenantTax(formData: FormData) {
+    return axios.post(
+      `https://${process.env.VUE_APP_API_URL}/api/register/documentTax`,
+      formData
+    );
+  },
+  saveGuarantorTax(formData: FormData) {
+    return axios.post(
+      `https://${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentTax`,
+      formData
+    );
   },
 
   saveRepresentativeIdentification(formData: FormData) {
@@ -67,23 +96,13 @@ export const RegisterService = {
     return axios.post(url, formData);
   },
 
-  saveResidency(formData: FormData) {
-    let url: string;
-    if (store.getters.isGuarantor) {
-      url = `https://${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentResidency`;
-    } else {
-      url = `https://${process.env.VUE_APP_API_URL}/api/register/documentResidency`;
-    }
+  saveCorporationIdentification(formData: FormData) {
+    const url = `https://${process.env.VUE_APP_API_URL}/api/register/guarantorLegalPerson/documentIdentification`;
     return axios.post(url, formData);
   },
 
-  saveTax(formData: FormData) {
-    let url: string;
-    if (store.getters.isGuarantor) {
-      url = `https://${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentTax`;
-    } else {
-      url = `https://${process.env.VUE_APP_API_URL}/api/register/documentTax`;
-    }
+  saveOrganismIdentification(formData: FormData) {
+    const url = `https://${process.env.VUE_APP_API_URL}/api/register/guarantorOrganism/documentIdentification`;
     return axios.post(url, formData);
   },
 

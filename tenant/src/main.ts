@@ -1,3 +1,4 @@
+import "./router/componentHooks"; // <-- Needs to be first
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";

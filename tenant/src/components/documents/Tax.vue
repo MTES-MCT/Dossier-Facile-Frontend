@@ -319,7 +319,8 @@ export default class Tax extends Vue {
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     const loader = this.$loading.show();
-    RegisterService.saveTax(formData)
+    this.$store
+      .dispatch("saveTenantTax", formData)
       .then(() => {
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
@@ -346,7 +347,7 @@ export default class Tax extends Vue {
       };
     });
     const existingFiles =
-      this.$store.getters.getDocuments?.find((d: DfDocument) => {
+      this.$store.getters.getTenantDocuments?.find((d: DfDocument) => {
         return d.documentCategory === "TAX";
       })?.files || [];
     return [...newFiles, ...existingFiles];

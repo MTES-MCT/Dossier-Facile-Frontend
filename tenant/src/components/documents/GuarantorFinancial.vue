@@ -413,11 +413,10 @@ export default class GuarantorFinancial extends Vue {
     }
 
     f.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    if (this.$store.getters.isGuarantor && this.$store.getters.guarantor.id) {
-      formData.append("guarantorId", this.$store.getters.guarantor.id);
-    }
+    formData.append("guarantorId", this.$store.getters.guarantor.id);
     const loader = this.$loading.show();
-    RegisterService.saveFinancial(formData)
+    this.$store
+      .dispatch("saveGuarantorFinancial", formData)
       .then(() => {
         f.files = [];
         f.fileUploadStatus = UploadStatus.STATUS_INITIAL;
@@ -446,7 +445,7 @@ export default class GuarantorFinancial extends Vue {
       };
     });
     const existingFiles =
-      this.$store.getters.getDocuments?.find((d: DfDocument) => {
+      this.$store.getters.getGuarantorDocuments?.find((d: DfDocument) => {
         return d.id === f.id;
       })?.files || [];
     return [...newFiles, ...existingFiles];
@@ -486,10 +485,6 @@ export default class GuarantorFinancial extends Vue {
         }
       );
     }
-  }
-
-  isGuarantor() {
-    return this.$store.getters.isGuarantor;
   }
 
   goBack() {

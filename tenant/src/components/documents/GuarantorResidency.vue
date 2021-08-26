@@ -258,7 +258,8 @@ export default class Residency extends Vue {
       formData.append("guarantorId", this.$store.getters.guarantor.id);
     }
     const loader = this.$loading.show();
-    RegisterService.saveResidency(formData)
+    this.$store
+      .dispatch("saveGuarantorResidency", formData)
       .then(() => {
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
@@ -284,7 +285,7 @@ export default class Residency extends Vue {
       };
     });
     const existingFiles =
-      this.$store.getters.getDocuments?.find((d: DfDocument) => {
+      this.$store.getters.getGuarantorDocuments?.find((d: DfDocument) => {
         return d.documentCategory === "RESIDENCY";
       })?.files || [];
     return [...newFiles, ...existingFiles];
