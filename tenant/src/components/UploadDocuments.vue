@@ -119,8 +119,7 @@
         >
       </div>
       <div v-if="substep === 5">
-        <Tax></Tax>
-        <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
+        <Tax @on-back="goBack" @on-next="goNext"></Tax>
       </div>
     </div>
     <div v-if="substep === 0">

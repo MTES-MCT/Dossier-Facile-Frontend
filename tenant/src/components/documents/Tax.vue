@@ -112,6 +112,7 @@
         </div>
       </form>
     </ValidationObserver>
+    <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
   </div>
 </template>
 
@@ -137,6 +138,7 @@ import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import TaxHelp from "../helps/TaxHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import { AnalyticsService } from "../../services/AnalyticsService";
+import ProfileFooter from "@/components/footer/ProfileFooter.vue";
 
 extend("is", {
   ...is,
@@ -155,7 +157,8 @@ extend("is", {
     ConfirmModal,
     BigRadio,
     TaxHelp,
-    VGouvFrModal
+    VGouvFrModal,
+    ProfileFooter
   },
   computed: {
     ...mapGetters({
@@ -274,6 +277,15 @@ export default class Tax extends Vue {
     this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
   }
 
+  async goNext() {
+    await this.save();
+    this.$emit("on-next");
+  }
+
+  goBack() {
+    this.$emit("on-back");
+  }
+
   save() {
     AnalyticsService.registerFile("tax");
     this.uploadProgress = {};
@@ -319,7 +331,7 @@ export default class Tax extends Vue {
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     const loader = this.$loading.show();
-    this.$store
+    return this.$store
       .dispatch("saveTenantTax", formData)
       .then(() => {
         this.files = [];

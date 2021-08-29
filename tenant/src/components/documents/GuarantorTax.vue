@@ -109,6 +109,7 @@
         </div>
       </form>
     </ValidationObserver>
+    <GuarantorFooter @on-back="goBack" @on-next="goNext"></GuarantorFooter>
   </div>
 </template>
 
@@ -133,6 +134,7 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import TaxHelp from "../helps/TaxHelp.vue";
+import GuarantorFooter from "@/components/footer/GuarantorFooter.vue";
 
 extend("is", {
   ...is,
@@ -151,7 +153,8 @@ extend("is", {
     ConfirmModal,
     BigRadio,
     VGouvFrModal,
-    TaxHelp
+    TaxHelp,
+    GuarantorFooter
   },
   computed: {
     ...mapState({
@@ -328,7 +331,7 @@ export default class Tax extends Vue {
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     formData.append("guarantorId", this.$store.getters.guarantor.id);
     const loader = this.$loading.show();
-    this.$store
+    return this.$store
       .dispatch("saveGuarantorTax", formData)
       .then(() => {
         this.files = [];
@@ -385,6 +388,15 @@ export default class Tax extends Vue {
       });
       this.files.splice(firstIndex, 1);
     }
+  }
+
+  async goNext() {
+    await this.save();
+    this.$emit("on-next");
+  }
+
+  goBack() {
+    this.$emit("on-back");
   }
 }
 </script>
