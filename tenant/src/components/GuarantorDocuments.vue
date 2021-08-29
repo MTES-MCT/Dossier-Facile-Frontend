@@ -154,11 +154,7 @@
             >
           </div>
           <div v-if="substep === 5">
-            <GuarantorTax></GuarantorTax>
-            <GuarantorFooter
-              @on-back="goBack"
-              @on-next="nextStep"
-            ></GuarantorFooter>
+            <GuarantorTax @on-back="goBack" @on-next="nextStep"></GuarantorTax>
           </div>
         </div>
         <div v-if="substep === 0">
