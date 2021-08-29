@@ -47,7 +47,6 @@ export default class ProfileFooter extends Vue {
   }
 
   backAction() {
-	  console.log("back")
     this.$emit("on-back");
   }
 

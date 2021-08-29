@@ -1,5 +1,8 @@
 User-agent: *
 Disallow: /profile
+Disallow: /info-locataire/*
+Disallow: /documents-locataire/*
+Disallow: /info-garant/*
 Disallow: /reset-password
 Disallow: /public-file/*
 Disallow: /file/*

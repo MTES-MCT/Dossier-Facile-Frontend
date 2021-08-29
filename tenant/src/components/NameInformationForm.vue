@@ -142,6 +142,7 @@ export default class NameInformationForm extends Vue {
       .then(
         () => {
           AnalyticsService.confirmName();
+          this.$router.push({ name: "TenantType" });
         },
         error => {
           console.dir(error);

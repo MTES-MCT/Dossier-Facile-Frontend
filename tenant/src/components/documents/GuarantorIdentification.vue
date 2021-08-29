@@ -296,11 +296,10 @@ export default class Identification extends Vue {
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     formData.append("firstName", this.firstName);
     formData.append("lastName", this.lastName);
-    if (this.$store.getters.guarantor.id) {
-      formData.append("guarantorId", this.$store.getters.guarantor.id);
-    }
+    formData.append("guarantorId", this.$store.getters.guarantor.id);
     const loader = this.$loading.show();
-    RegisterService.saveIdentification(formData)
+    this.$store
+      .dispatch("saveGuarantorIdentification", formData)
       .then(() => {
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         this.files = [];
@@ -327,7 +326,7 @@ export default class Identification extends Vue {
       };
     });
     const existingFiles =
-      this.$store.getters.getDocuments?.find((d: DfDocument) => {
+      this.$store.getters.getGuarantorDocuments?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION";
       })?.files || [];
     return [...newFiles, ...existingFiles];

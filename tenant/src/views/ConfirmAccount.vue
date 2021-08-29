@@ -22,7 +22,7 @@ export default class ConfirmAccount extends Vue {
     const token = this.$route.params.token;
     AuthService.confirmAccount(token)
       .then(() => {
-        this.$router.push("/profile");
+        this.$router.push({ name: "TenantName" });
       })
       .catch(err => {
         this.error = err;

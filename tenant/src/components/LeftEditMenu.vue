@@ -26,27 +26,21 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { mapState } from "vuex";
+import { Component, Prop, Vue } from "vue-property-decorator";
 
-@Component({
-  computed: {
-    ...mapState({
-      tenantStep: "tenantStep"
-    })
-  }
-})
+@Component
 export default class LeftEditMenu extends Vue {
-  public tenantStep!: number;
+  @Prop({ default: 0 }) step!: number;
 
   getClass(s: number) {
     if (this.getStep(s)) {
       return "active";
     }
+    return "";
   }
 
   getStep(s: number) {
-    switch (this.tenantStep) {
+    switch (this.step) {
       case 0:
       case 1:
         return s <= 0;

@@ -39,7 +39,7 @@ export default class JoinCouple extends Vue {
           type: "success",
           duration: 7000
         });
-        this.$router.push("/profile");
+        this.$router.push({ name: "TenantName" });
       },
       (error: any) => {
         if (
@@ -66,7 +66,7 @@ export default class JoinCouple extends Vue {
   }
 
   redirect() {
-    this.$router.push("/profile");
+    this.$router.push({ name: "Account" });
   }
 }
 </script>

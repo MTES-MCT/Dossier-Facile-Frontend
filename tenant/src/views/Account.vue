@@ -138,7 +138,7 @@
                 <h4>{{ $t("my-personnal-information") }}</h4>
                 <div
                   class="fr-grid-row fr-grid-row--gutters"
-                  @click="setStep(0)"
+                  @click="gotoTenantName()"
                 >
                   <div class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w">
                     <div class="fr-tile fr-tile--horizontal">
@@ -743,13 +743,6 @@ export default class Account extends Vue {
     return lastUpdate < lastMonth;
   }
 
-  isStudent() {
-    const doc = this.user.documents?.find((d: DfDocument) => {
-      return d.documentCategory === "PROFESSIONAL";
-    });
-    return doc?.documentSubCategory === "STUDENT";
-  }
-
   getStatus(docType: string) {
     if (docType === "FINANCIAL") {
       const docs = this.user.documents?.filter(d => {
@@ -803,7 +796,7 @@ export default class Account extends Vue {
   }
 
   goToProfile() {
-    this.$router.push("/profile");
+    this.$store.dispatch("firstProfilePage");
   }
 
   goToMessaging() {
@@ -864,26 +857,6 @@ export default class Account extends Vue {
   undoSelect() {
     this.isDeleteModalVisible = false;
     return false;
-  }
-
-  setStep(n: number) {
-    this.$store.commit("setStep", n);
-    this.$router.push("/profile");
-    return false;
-  }
-
-  setTenantStep(n: number) {
-    AnalyticsService.editFromAccount(n);
-    this.$store.commit("setTenantSubstep", n);
-    this.setStep(2);
-  }
-
-  setGuarantorSubStep(n: number, g: Guarantor) {
-    AnalyticsService.editFromAccount(n);
-    this.$store.commit("setGuarantorStep", 2);
-    this.$store.commit("setSelectedGuarantor", g);
-    this.$store.commit("setGuarantorSubstep", n);
-    this.setStep(3);
   }
 
   getPersonnalStatus() {
@@ -965,6 +938,23 @@ export default class Account extends Vue {
         );
       })
     );
+  }
+
+  gotoTenantName() {
+    this.$router.push({ name: "TenantName" });
+  }
+
+  setTenantStep(n: number) {
+    AnalyticsService.editFromAccount(n);
+    this.$router.push({
+      name: "TenantDocuments",
+      params: { substep: n.toString() }
+    });
+  }
+
+  setGuarantorSubStep(n: number, g: Guarantor) {
+    AnalyticsService.editFromAccount(n);
+    this.$store.dispatch("setGuarantorPage", { guarantor: g, substep: n });
   }
 }
 </script>

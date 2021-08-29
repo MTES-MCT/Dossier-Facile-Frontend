@@ -11,14 +11,12 @@ import i18n from "@/i18n";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { DfMessage } from "df-shared/src/models/DfMessage";
 import { AnalyticsService } from "@/services/AnalyticsService";
+import { RegisterService } from "@/services/RegisterService";
+import { UtilsService } from "@/services/UtilsService";
 
 Vue.use(Vuex);
 
 export class DfState {
-  tenantStep = 0;
-  tenantSubStep = 1;
-  guarantorStep = 0;
-  guarantorSubStep = 1;
   user: User | null = null;
   selectedGuarantor = new Guarantor();
   status = { loggedIn: false };
@@ -72,16 +70,6 @@ const store = new Vuex.Store({
     },
     setNamesSuccess(state, user) {
       state.user = user;
-      state.tenantStep++;
-    },
-    setRoommatesSuccess(state) {
-      state.tenantStep++;
-    },
-    setStep(state, n: number) {
-      state.tenantStep = n;
-    },
-    setGuarantorStep(state, n: number) {
-      state.guarantorStep = n;
     },
     loadUser(state, user) {
       state.user = user;
@@ -90,7 +78,7 @@ const store = new Vuex.Store({
 
       if (state.user?.guarantors && state.user.guarantors.length > 0) {
         if (state.selectedGuarantor?.id) {
-          const guarantor = user.guarantors.find((g: any) => {
+          const guarantor = user.guarantors.find((g: Guarantor) => {
             return g.id === state.selectedGuarantor.id;
           });
           if (guarantor !== undefined) {
@@ -103,10 +91,6 @@ const store = new Vuex.Store({
           state.selectedGuarantor = user.guarantors[user.guarantors.length - 1];
         }
       } else {
-        if (state.guarantorStep > 1) {
-          state.guarantorStep = 0;
-        }
-        state.guarantorSubStep = 1;
         state.selectedGuarantor = new Guarantor();
       }
       if (state.user?.apartmentSharing?.applicationType === "COUPLE") {
@@ -128,12 +112,6 @@ const store = new Vuex.Store({
       const u = new User();
       u.email = email;
       state.user.apartmentSharing.tenants.push(u);
-    },
-    setTenantSubstep(state, subStep: number) {
-      state.tenantSubStep = subStep;
-    },
-    setGuarantorSubstep(state, subStep: number) {
-      state.guarantorSubStep = subStep;
     },
     selectGuarantor(state, position) {
       if (
@@ -166,9 +144,6 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    login({ commit }, { source, internalPartnerId }) {
-      window.location.replace(`/account`);
-    },
     logout({ commit }, redirect = true) {
       AuthService.logout()
         .then(() => {
@@ -232,7 +207,7 @@ const store = new Vuex.Store({
     setNames({ commit }, user) {
       return ProfileService.saveNames(user).then(
         () => {
-          commit("setNamesSuccess", user);
+          return commit("setNamesSuccess", user);
         },
         error => {
           return Promise.reject(error);
@@ -241,9 +216,8 @@ const store = new Vuex.Store({
     },
     setRoommates({ commit }, data) {
       return ProfileService.saveRoommates(data).then(
-        () => {
-          commit("setRoommatesSuccess");
-          this.dispatch("loadUser");
+        response => {
+          return commit("loadUser", response.data);
         },
         error => {
           return Promise.reject(error);
@@ -255,7 +229,7 @@ const store = new Vuex.Store({
       commit("setLang", lang);
     },
     validateFile(
-      { commit },
+      _,
       data: { honorDeclaration: boolean; clarification: string }
     ) {
       return ProfileService.validateFile(
@@ -287,7 +261,7 @@ const store = new Vuex.Store({
         }
       );
     },
-    async deleteAllGuarantors({ commit }) {
+    async deleteAllGuarantors(_) {
       const promises = this.state.user.guarantors.map(async (g: Guarantor) => {
         await ProfileService.deleteGuarantor(g);
       });
@@ -313,9 +287,8 @@ const store = new Vuex.Store({
     },
     setGuarantorType(_, guarantorType: string) {
       return ProfileService.setGuarantorType(guarantorType).then(
-        response => {
-          this.dispatch("loadUser");
-          this.commit("setGuarantorStep", 2);
+        async response => {
+          await this.dispatch("loadUser", response.data);
           return Promise.resolve(response.data);
         },
         error => {
@@ -356,7 +329,7 @@ const store = new Vuex.Store({
         }
       );
     },
-    deleteDocument({ commit }, docId: number) {
+    deleteDocument(_, docId: number) {
       return ProfileService.deleteDocument(docId).then(
         () => {
           return this.dispatch("loadUser");
@@ -373,38 +346,216 @@ const store = new Vuex.Store({
         });
       }
     },
-    sendMessage({ commit }, message: string) {
+    sendMessage(_, message: string) {
       return MessageService.postMessage({ messageBody: message }).then(() => {
         this.dispatch("updateMessages");
       });
     },
-    deleteCoTenant(_, tenant: any) {
+    deleteCoTenant(_, tenant: User) {
       if (tenant.id && tenant.id > 0) {
         ProfileService.deleteCoTenant(tenant.id);
       }
       this.commit("deleteRoommates", tenant.email);
+    },
+    async setTenantPage(_, { substep }) {
+      router.push({
+        name: "TenantDocuments",
+        params: { substep }
+      });
+    },
+    async setGuarantorPage({ commit }, { guarantor, substep }) {
+      await commit("setSelectedGuarantor", guarantor);
+      router.push({
+        name: "GuarantorDocuments",
+        params: { substep }
+      });
+    },
+    saveTenantIdentification({ commit }, formData) {
+      return RegisterService.saveTenantIdentification(formData).then(
+        response => {
+          commit("loadUser", response.data);
+          return Promise.resolve(response.data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
+    saveGuarantorIdentification({ commit }, formData) {
+      return RegisterService.saveGuarantorIdentification(formData).then(
+        response => {
+          commit("loadUser", response.data);
+          return Promise.resolve(response.data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
+    saveTenantResidency({ commit }, formData) {
+      return RegisterService.saveTenantResidency(formData).then(
+        response => {
+          commit("loadUser", response.data);
+          return Promise.resolve(response.data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
+    saveGuarantorResidency({ commit }, formData) {
+      return RegisterService.saveGuarantorResidency(formData).then(
+        response => {
+          commit("loadUser", response.data);
+          return Promise.resolve(response.data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
+    saveTenantProfessional({ commit }, formData) {
+      return RegisterService.saveTenantProfessional(formData).then(
+        response => {
+          commit("loadUser", response.data);
+          return Promise.resolve(response.data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
+    saveGuarantorProfessional({ commit }, formData) {
+      return RegisterService.saveGuarantorProfessional(formData).then(
+        response => {
+          commit("loadUser", response.data);
+          return Promise.resolve(response.data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
+    saveTenantFinancial({ commit }, formData) {
+      return RegisterService.saveTenantFinancial(formData).then(
+        response => {
+          commit("loadUser", response.data);
+          return Promise.resolve(response.data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
+    saveGuarantorFinancial({ commit }, formData) {
+      return RegisterService.saveGuarantorFinancial(formData).then(
+        response => {
+          commit("loadUser", response.data);
+          return Promise.resolve(response.data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
+    saveTenantTax({ commit }, formData) {
+      return RegisterService.saveTenantTax(formData).then(
+        response => {
+          commit("loadUser", response.data);
+          return Promise.resolve(response.data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
+    saveGuarantorTax({ commit }, formData) {
+      return RegisterService.saveGuarantorTax(formData).then(
+        response => {
+          commit("loadUser", response.data);
+          return Promise.resolve(response.data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
+    firstProfilePage() {
+      if (!this.state.user.firstName || !this.state.user.lastName) {
+        router.push({ name: "TenantName" });
+        return;
+      }
+      if (!this.state.user.applicationType) {
+        router.push({ name: "TenantType" });
+        return;
+      }
+      if (!UtilsService.hasDoc("IDENTIFICATION")) {
+        router.push({ name: "TenantDocuments", params: { substep: "1" } });
+        return;
+      }
+      if (!UtilsService.hasDoc("RESIDENCY")) {
+        router.push({ name: "TenantDocuments", params: { substep: "2" } });
+        return;
+      }
+      if (!UtilsService.hasDoc("PROFESSIONAL")) {
+        router.push({ name: "TenantDocuments", params: { substep: "3" } });
+        return;
+      }
+      if (!UtilsService.isFinancialValid()) {
+        router.push({ name: "TenantDocuments", params: { substep: "4" } });
+        return;
+      }
+      if (!UtilsService.isTaxValid()) {
+        router.push({ name: "TenantDocuments", params: { substep: "5" } });
+        return;
+      }
+      if (this.state.user.guarantors) {
+        for (const g of this.state.user.guarantors) {
+          if (!UtilsService.guarantorHasDoc("IDENTIFICATION", g)) {
+            this.dispatch("setGuarantorPage", { guarantor: g, substep: 1 });
+            return;
+          }
+          if (!UtilsService.guarantorHasDoc("RESIDENCY", g)) {
+            this.dispatch("setGuarantorPage", { guarantor: g, substep: 2 });
+            return;
+          }
+          if (!UtilsService.guarantorHasDoc("PROFESSIONAL", g)) {
+            this.dispatch("setGuarantorPage", { guarantor: g, substep: 3 });
+            return;
+          }
+          if (!UtilsService.isGuarantorFinancialValid(g)) {
+            this.dispatch("setGuarantorPage", { guarantor: g, substep: 4 });
+            return;
+          }
+          if (!UtilsService.isGuarantorTaxValid(g)) {
+            this.dispatch("setGuarantorPage", { guarantor: g, substep: 5 });
+            return;
+          }
+        }
+      }
+
+      if (!this.state.user.honorDeclaration) {
+        router.push({ name: "ValidateFile" });
+        return;
+      }
+
+      router.push({ name: "TenantName" });
     }
   },
   getters: {
-    getDocuments(state): DfDocument[] {
-      if (state.tenantStep === 3) {
-        return state.selectedGuarantor.documents || [];
-      }
+    getTenantDocuments(state): DfDocument[] {
       return state.user?.documents || [];
     },
-    isGuarantor(state): boolean {
-      return state.tenantStep === 3;
+    getGuarantorDocuments(state): DfDocument[] {
+      return state.selectedGuarantor.documents || [];
     },
     guarantor(state): Guarantor {
       return state.selectedGuarantor;
     },
-    isLoggedIn(state): boolean {
+    isLoggedIn(_): boolean {
       return (Vue as any).$keycloak.authenticated;
     },
     userToEdit(state): User | Guarantor | null {
-      if (state.tenantStep === 3) {
-        return state.selectedGuarantor;
-      }
       return state.user;
     },
     getRoommates(state): User[] {

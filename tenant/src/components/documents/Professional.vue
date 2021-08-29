@@ -83,7 +83,7 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { User } from "df-shared/src/models/User";
 import DocumentHelp from "../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
-import { AnalyticsService } from "@/services/AnalyticsService";
+import { AnalyticsService } from "../../services/AnalyticsService";
 
 @Component({
   components: {
@@ -220,7 +220,8 @@ export default class Professional extends Vue {
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     const loader = this.$loading.show();
-    RegisterService.saveProfessional(formData)
+    this.$store
+      .dispatch("saveTenantProfessional", formData)
       .then(() => {
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
@@ -246,7 +247,7 @@ export default class Professional extends Vue {
       };
     });
     const existingFiles =
-      this.$store.getters.getDocuments?.find((d: DfDocument) => {
+      this.$store.getters.getTenantDocuments?.find((d: DfDocument) => {
         return d.documentCategory === "PROFESSIONAL";
       })?.files || [];
     return [...newFiles, ...existingFiles];

@@ -189,7 +189,7 @@ export default class CorporationIdentification extends Vue {
       };
     });
     const existingFiles =
-      this.$store.getters.getDocuments?.find((d: DfDocument) => {
+      this.$store.getters.getGuarantorDocuments?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION_LEGAL_PERSON";
       })?.files || [];
     return [...newFiles, ...existingFiles];

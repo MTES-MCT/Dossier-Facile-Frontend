@@ -139,7 +139,7 @@ import { User } from "df-shared/src/models/User";
 import { FileUser } from "df-shared/src/models/FileUser";
 import { Vue, Component } from "vue-property-decorator";
 import DfButton from "df-shared/src/Button/Button.vue";
-import { ProfileService } from "@/services/ProfileService";
+import { ProfileService } from "../services/ProfileService";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 
 @Component({

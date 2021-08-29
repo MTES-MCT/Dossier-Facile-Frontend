@@ -98,7 +98,7 @@ import DfButton from "df-shared/src/Button/Button.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import DocumentHelp from "../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
-import { AnalyticsService } from "@/services/AnalyticsService";
+import { AnalyticsService } from "../../services/AnalyticsService";
 
 @Component({
   components: {
@@ -240,11 +240,13 @@ export default class Identification extends Vue {
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     // TODO : remove loader when upload status is well handled (be carefull with multiple save at the same time)
     const loader = this.$loading.show();
-    RegisterService.saveIdentification(formData)
+    this.$store
+      .dispatch("saveTenantIdentification", formData)
       .then(() => {
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         this.files = [];
         Vue.toasted.global.save_success();
+        // TODO : remove when backend give right data after save
         this.$store.dispatch("loadUser");
       })
       .catch(() => {
@@ -267,7 +269,7 @@ export default class Identification extends Vue {
       };
     });
     const existingFiles =
-      this.$store.getters.getDocuments?.find((d: DfDocument) => {
+      this.$store.getters.getTenantDocuments?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION";
       })?.files || [];
     return [...newFiles, ...existingFiles];

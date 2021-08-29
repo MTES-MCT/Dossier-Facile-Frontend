@@ -100,7 +100,7 @@
       <span class="fr-error-text">{{ $t("file-not-valid") }}</span>
     </p>
     <ProfileFooter
-      @on-back="goBack"
+      @on-back="goBack()"
       @on-next="validate()"
       :nextLabel="$t('validate')"
     ></ProfileFooter>
@@ -165,7 +165,7 @@ export default class ValidateFile extends Vue {
   }
 
   goBack() {
-    this.$store.commit("setStep", 3);
+    // TODO ! go to right last page
   }
 
   hasErrors() {

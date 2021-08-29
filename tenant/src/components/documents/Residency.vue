@@ -53,7 +53,7 @@
     </ConfirmModal>
     <div v-if="residencyDocument.key">
       <div class="fr-mb-3w">
-        <p v-html="$t(residencyDocument.explanationText)"></p>
+        <p v-html="residencyDocument.explanationText"></p>
       </div>
       <div class="fr-mb-3w">
         <FileUpload
@@ -92,7 +92,7 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import DocumentHelp from "../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
-import { AnalyticsService } from "@/services/AnalyticsService";
+import { AnalyticsService } from "../../services/AnalyticsService";
 
 @Component({
   components: {
@@ -249,7 +249,8 @@ export default class Residency extends Vue {
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     const loader = this.$loading.show();
-    RegisterService.saveResidency(formData)
+    this.$store
+      .dispatch("saveTenantResidency", formData)
       .then(() => {
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
@@ -275,7 +276,7 @@ export default class Residency extends Vue {
       };
     });
     const existingFiles =
-      this.$store.getters.getDocuments?.find((d: DfDocument) => {
+      this.$store.getters.getTenantDocuments?.find((d: DfDocument) => {
         return d.documentCategory === "RESIDENCY";
       })?.files || [];
     return [...newFiles, ...existingFiles];
