@@ -53,7 +53,7 @@
           <p class="p-btn">
               <a
                 class="fr-btn"
-                :href="`${TENANT_URL}/signup?lang=${$i18n.locale}`"
+                :href="`${TENANT_URL}/signup`"
               >
                 {{ $t("button") }}
               </a>

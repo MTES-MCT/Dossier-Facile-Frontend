@@ -32,9 +32,6 @@ const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
 const localStore = localStorage.getItem("store");
 const initialStore =
   localStore !== null ? JSON.parse(localStore) : new DfState();
-if (initialStore.lang) {
-  i18n.locale = initialStore.lang;
-}
 
 const store = new Vuex.Store({
   state: initialStore,
@@ -52,9 +49,6 @@ const store = new Vuex.Store({
       state.status.loggedIn = false;
       localStorage.setItem("token", "");
       state.user = null;
-    },
-    setLang(state, lang) {
-      state.lang = lang;
     },
     registerSuccess(state) {
       state.status.loggedIn = false;
@@ -224,9 +218,17 @@ const store = new Vuex.Store({
         }
       );
     },
-    setLang({ commit }, lang) {
+    setLang(_, lang) {
       i18n.locale = lang;
-      commit("setLang", lang);
+      const html = document.documentElement;
+      html.setAttribute("lang", i18n.locale);
+      Vue.$cookies.set(
+        "lang",
+        lang,
+        new Date(2050, 12, 31).toUTCString(),
+        "",
+        MAIN_URL.endsWith("dossierfacile.fr") ? "dossierfacile.fr" : "localhost"
+      );
     },
     validateFile(
       _,

@@ -56,7 +56,7 @@ const dateTimeFormats = {
 
 export default new VueI18n({
   dateTimeFormats,
-  locale: /^en\b/.test(navigator.language) ? "en" : "fr",
-  fallbackLocale: /^en\b/.test(navigator.language) ? "en" : "fr",
+  locale: "fr",
+  fallbackLocale: "en",
   messages: loadLocaleMessages()
 });

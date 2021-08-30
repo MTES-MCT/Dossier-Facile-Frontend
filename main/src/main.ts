@@ -41,6 +41,10 @@ Vue.config.productionTip = false;
 Vue.use(VueCookies);
 
 new Vue({
+  created() {
+    const html = document.documentElement;
+    html.setAttribute("lang", i18n.locale);
+  },
   router,
   store,
   i18n,
