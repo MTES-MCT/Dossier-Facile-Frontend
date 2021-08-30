@@ -24,10 +24,7 @@
               </div>
             </div>
             <div class="fr-header__service">
-              <a
-                :href="`${MAIN_URL}/?lang=${$i18n.locale}`"
-                title="Retour à l’accueil"
-              >
+              <a :href="`${MAIN_URL}/`" title="Retour à l’accueil">
                 <p class="fr-header__service-title">
                   <img class="logo" src="./logo_dossierfacile.png" alt="logo" />
                 </p>

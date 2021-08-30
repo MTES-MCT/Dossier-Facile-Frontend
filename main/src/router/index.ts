@@ -309,10 +309,8 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.query.lang) {
-    const locale = to.query.lang === "en" ? "en" : "fr";
-    store.dispatch("setLang", locale);
-  }
+  const lang = Vue.$cookies.get("lang") === "en" ? "en" : "fr";
+  store.dispatch("setLang", lang);
 
   document.title = to.meta?.title;
   if (to.meta?.description) {
