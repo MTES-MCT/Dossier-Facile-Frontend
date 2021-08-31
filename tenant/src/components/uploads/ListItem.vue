@@ -149,6 +149,7 @@ export default class ListItem extends Vue {
   background-color: white;
   border-radius: 0.5rem;
   padding: 0.5rem;
+  box-shadow: 0 0.5px 4px 0 #cecece;
 }
 
 .big-blue {
