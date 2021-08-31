@@ -172,7 +172,7 @@
                   @reset-files="resetFiles(f, ...arguments)"
                 ></FileUpload>
               </div>
-              <div class="fr-col-12 fr-mb-3w">
+              <div class="fr-col-12 fr-mb-3w bg-purple">
                 <input
                   type="checkbox"
                   :id="`noDocument${k}`"

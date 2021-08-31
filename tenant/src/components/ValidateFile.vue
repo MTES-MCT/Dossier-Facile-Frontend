@@ -6,7 +6,7 @@
       <div>
         <validation-provider rules="is" v-slot="{ errors }">
           <div
-            class="fr-input-group"
+            class="fr-input-group bg-purple"
             :class="errors[0] ? 'fr-input-group--error' : ''"
           >
             <input
@@ -52,23 +52,25 @@
     </div>
     <div v-if="hasGuarantors()">
       <p>{{ $t("read") }}</p>
-      <div>
-        <input
-          type="checkbox"
-          id="declaration"
-          value="false"
-          v-model="declaration"
-        />
-        <label for="declaration">{{ $t("declaration") }}</label>
-      </div>
-      <div>
-        <input
-          type="checkbox"
-          id="declaration2"
-          value="false"
-          v-model="declaration2"
-        />
-        <label for="declaration2">{{ $t("declaration2") }}</label>
+      <div class="bg-purple">
+        <div>
+          <input
+            type="checkbox"
+            id="declaration"
+            value="false"
+            v-model="declaration"
+          />
+          <label for="declaration">{{ $t("declaration") }}</label>
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            id="declaration2"
+            value="false"
+            v-model="declaration2"
+          />
+          <label for="declaration2">{{ $t("declaration2") }}</label>
+        </div>
       </div>
       <div v-if="false">
         <validation-provider v-slot="{ errors }">
@@ -165,7 +167,32 @@ export default class ValidateFile extends Vue {
   }
 
   goBack() {
-    // TODO ! go to right last page
+    if (
+      this.user.guarantors === undefined ||
+      this.user.guarantors.length === 0
+    ) {
+      this.$router.push({ name: "GuarantorChoice" });
+      return;
+    }
+    if (this.user.guarantors[0].typeGuarantor === "NATURAL_PERSON") {
+      this.$router.push({
+        name: "GuarantorDocuments",
+        params: { substep: "5" }
+      });
+      return;
+    }
+    if (this.user.guarantors[0].typeGuarantor === "LEGAL_PERSON") {
+      this.$router.push({
+        name: "GuarantorDocuments",
+        params: { substep: "2" }
+      });
+      return;
+    }
+    this.$router.push({
+      name: "GuarantorDocuments",
+      params: { substep: "1" }
+    });
+    return;
   }
 
   hasErrors() {

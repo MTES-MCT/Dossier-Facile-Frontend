@@ -1,5 +1,5 @@
 <template>
-  <div class="fr-mb-7w">
+  <div class="fr-mb-15w">
     <div>
       <div
         class="document-title title-bar"

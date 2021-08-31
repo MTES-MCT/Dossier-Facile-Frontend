@@ -96,7 +96,7 @@
     <div class="fr-col-12 fr-mb-3w fr-mt-3w bg-bf200">
       <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
         <div
-          class="fr-input-group"
+          class="fr-input-group bg-purple"
           :class="errors[0] ? 'fr-input-group--error' : ''"
         >
           <input

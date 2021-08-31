@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fr-mb-15w">
     <div>
       <div v-if="guarantor.typeGuarantor === 'NATURAL_PERSON'">
         <div>
@@ -325,9 +325,16 @@ export default class GuarantorDocuments extends Vue {
   }
 
   remove(g: Guarantor) {
-    this.$store.dispatch("deleteGuarantor", g).then(null, () => {
-      Vue.toasted.global.error();
-    });
+    this.$store.dispatch("deleteGuarantor", g).then(
+      () => {
+        if (!this.user.guarantors?.length || 0 >= 1) {
+          this.$router.push({ name: "GuarantorChoice" });
+        }
+      },
+      () => {
+        Vue.toasted.global.error();
+      }
+    );
   }
 
   isFinancialValid() {
@@ -342,6 +349,9 @@ export default class GuarantorDocuments extends Vue {
     this.$store.dispatch("deleteAllGuarantors").then(
       () => {
         this.changeGuarantorVisible = false;
+        if (!this.user.guarantors?.length || 0 >= 1) {
+          this.$router.push({ name: "GuarantorChoice" });
+        }
       },
       () => {
         Vue.toasted.global.error();

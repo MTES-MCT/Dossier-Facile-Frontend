@@ -253,9 +253,12 @@ const store = new Vuex.Store({
       return ProfileService.setGuarantorType("NATURAL_PERSON").then(
         response => {
           commit("loadUser", response.data);
-          commit("selectGuarantor", this.state.user.guarantors.length - 1);
-          commit("setGuarantorStep", 2);
-          commit("setGuarantorSubstep", 1);
+          this.dispatch("setGuarantorPage", {
+            guarantor: this.state.user.guarantors[
+              this.state.user.guarantors.length - 1
+            ],
+            substep: "1"
+          });
           return Promise.resolve(response.data);
         },
         error => {
@@ -278,8 +281,8 @@ const store = new Vuex.Store({
     },
     deleteGuarantor(_, g: Guarantor) {
       return ProfileService.deleteGuarantor(g).then(
-        response => {
-          this.dispatch("loadUser");
+        async response => {
+          await this.dispatch("loadUser");
           return Promise.resolve(response.data);
         },
         error => {

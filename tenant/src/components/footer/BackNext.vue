@@ -1,13 +1,17 @@
 <template>
   <div class="fr-grid-row btn-spacing footer-btn">
     <v-gouv-fr-button
-      class="fr-mr-2w"
+      class="fr-mr-2w px40"
       v-if="showBack"
       :secondary="true"
-      :label="getBackText()"
       :btn-type="'button'"
       @click="backAction()"
-    ></v-gouv-fr-button>
+    >
+      <template v-if="isMobile()">
+        <span class="color--primary material-icons">keyboard_arrow_left</span>
+      </template>
+      <span v-if="!isMobile()">{{ $t("back") }}</span>
+    </v-gouv-fr-button>
     <v-gouv-fr-button
       class="next-btn"
       :secondary="false"
@@ -32,8 +36,8 @@ export default class BackNext extends Vue {
   @Prop({ default: false }) disabled?: boolean;
   @Prop() nextLabel?: string;
 
-  getBackText() {
-    return UtilsService.isMobile() ? "<" : this.$i18n.t("back");
+  isMobile() {
+    return UtilsService.isMobile();
   }
 
   backAction() {
@@ -70,6 +74,12 @@ export default class BackNext extends Vue {
   @media (max-width: 768px) {
     max-width: 400px;
     flex: 1;
+  }
+}
+
+.px40 {
+  @media (max-width: 768px) {
+    width: 40px;
   }
 }
 </style>

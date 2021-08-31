@@ -381,6 +381,9 @@ export default class EditSummary extends Vue {
           type: "success",
           duration: 7000
         });
+        if (!this.user.guarantors?.length || 0 >= 1) {
+          this.$router.push({ name: "GuarantorChoice" });
+        }
       })
       .catch(() => {
         Vue.toasted.global.error();

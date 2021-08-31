@@ -7,10 +7,13 @@
       @click="pushClick"
       :type="btnType"
     >
-      <span class="sr-only" v-if="iconOnly">{{ label }}</span>
-      <template v-else>
-        {{ label }}
+      <template v-if="!$slots.default">
+        <span class="sr-only" v-if="iconOnly">{{ label }}</span>
+        <template v-else>
+          {{ label }}
+        </template>
       </template>
+      <slot v-if="$slots.default"></slot>
     </button>
   </div>
 </template>
