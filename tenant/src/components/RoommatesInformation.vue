@@ -235,6 +235,7 @@ export default class RoommatesInformation extends Vue {
 }
 
 .card {
+  box-shadow: 0 1px 8px 0 #cecece;
   @media all and (min-width: 992px) {
     padding: 1.5rem;
   }

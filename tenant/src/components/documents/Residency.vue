@@ -1,49 +1,51 @@
 <template>
   <div>
-    <div>
-      <div class="fr-pl-3v">
-        {{ $t("select-label") }}
-      </div>
+    <NakedCard>
+      <div>
+        <div class="fr-pl-3v">
+          {{ $t("select-label") }}
+        </div>
 
-      <v-gouv-fr-modal>
-        <template v-slot:button>
-          En difficulté pour répondre à la question ?
-        </template>
-        <template v-slot:title>
-          En difficulté pour répondre à la question ?
-        </template>
-        <template v-slot:content>
-          <p>
-            <DocumentHelp></DocumentHelp>
-            <DocumentInsert
-              :allow-list="residencyDocument.acceptedProofs"
-              :block-list="residencyDocument.refusedProofs"
-              v-if="residencyDocument.key"
-            ></DocumentInsert>
-          </p>
-        </template>
-      </v-gouv-fr-modal>
+        <v-gouv-fr-modal>
+          <template v-slot:button>
+            En difficulté pour répondre à la question ?
+          </template>
+          <template v-slot:title>
+            En difficulté pour répondre à la question ?
+          </template>
+          <template v-slot:content>
+            <p>
+              <DocumentHelp></DocumentHelp>
+              <DocumentInsert
+                :allow-list="residencyDocument.acceptedProofs"
+                :block-list="residencyDocument.refusedProofs"
+                v-if="residencyDocument.key"
+              ></DocumentInsert>
+            </p>
+          </template>
+        </v-gouv-fr-modal>
 
-      <div class="fr-mt-1w">
-        <fieldset class="fr-fieldset">
-          <div class="fr-fieldset__content">
-            <div class="fr-grid-row">
-              <div v-for="d in documents" :key="d.key">
-                <BigRadio
-                  :val="d"
-                  v-model="residencyDocument"
-                  @input="onSelectChange()"
-                >
-                  <div class="fr-grid-col spa">
-                    <span>{{ $t(d.key) }}</span>
-                  </div>
-                </BigRadio>
+        <div class="fr-mt-1w">
+          <fieldset class="fr-fieldset">
+            <div class="fr-fieldset__content">
+              <div class="fr-grid-row">
+                <div v-for="d in documents" :key="d.key">
+                  <BigRadio
+                    :val="d"
+                    v-model="residencyDocument"
+                    @input="onSelectChange()"
+                  >
+                    <div class="fr-grid-col spa">
+                      <span>{{ $t(d.key) }}</span>
+                    </div>
+                  </BigRadio>
+                </div>
               </div>
             </div>
-          </div>
-        </fieldset>
+          </fieldset>
+        </div>
       </div>
-    </div>
+    </NakedCard>
     <ConfirmModal
       v-if="isDocDeleteVisible"
       @valid="validSelect()"
@@ -51,26 +53,31 @@
     >
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
-    <div v-if="residencyDocument.key">
-      <div class="fr-mb-3w">
-        <p v-html="residencyDocument.explanationText"></p>
+    <NakedCard
+      class="fr-mt-3w"
+      v-if="residencyDocument.key || residencyFiles().length > 0"
+    >
+      <div v-if="residencyDocument.key">
+        <div class="fr-mb-3w">
+          <p v-html="residencyDocument.explanationText"></p>
+        </div>
+        <div class="fr-mb-3w">
+          <FileUpload
+            :current-status="fileUploadStatus"
+            @add-files="addFiles"
+            @reset-files="resetFiles"
+          ></FileUpload>
+        </div>
       </div>
-      <div class="fr-mb-3w">
-        <FileUpload
-          :current-status="fileUploadStatus"
-          @add-files="addFiles"
-          @reset-files="resetFiles"
-        ></FileUpload>
+      <div v-if="residencyFiles().length > 0" class="fr-col-12 fr-mb-3w">
+        <ListItem
+          v-for="(file, k) in residencyFiles()"
+          :key="k"
+          :file="file"
+          @remove="remove(file)"
+        />
       </div>
-    </div>
-    <div v-if="residencyFiles().length > 0" class="fr-col-12 fr-mb-3w">
-      <ListItem
-        v-for="(file, k) in residencyFiles()"
-        :key="k"
-        :file="file"
-        @remove="remove(file)"
-      />
-    </div>
+    </NakedCard>
   </div>
 </template>
 
@@ -93,6 +100,7 @@ import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import DocumentHelp from "../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import { AnalyticsService } from "../../services/AnalyticsService";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 @Component({
   components: {
@@ -103,7 +111,8 @@ import { AnalyticsService } from "../../services/AnalyticsService";
     ConfirmModal,
     BigRadio,
     VGouvFrModal,
-    DocumentHelp
+    DocumentHelp,
+    NakedCard
   },
   computed: {
     ...mapGetters({
