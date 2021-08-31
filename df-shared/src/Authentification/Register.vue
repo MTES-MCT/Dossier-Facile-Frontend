@@ -115,7 +115,7 @@
               v-slot="{ errors }"
             >
               <div
-                class="fr-input-group"
+                class="fr-input-group bg-purple"
                 :class="errors[0] ? 'fr-input-group--error' : ''"
               >
                 <input

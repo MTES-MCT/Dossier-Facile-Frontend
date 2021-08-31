@@ -69,7 +69,7 @@
         <div class="fr-col-12 fr-mb-3w" v-if="taxDocument.key === 'my-name'">
           <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
             <div
-              class="fr-input-group"
+              class="fr-input-group bg-purple"
               :class="errors[0] ? 'fr-input-group--error' : ''"
             >
               <input

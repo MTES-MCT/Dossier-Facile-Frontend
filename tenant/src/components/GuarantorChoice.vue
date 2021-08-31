@@ -6,15 +6,15 @@
         {{ $t("remark-text") }}
       </div>
 
-      <div class="card-container">
-        <NakedCard class="fr-mt-3w">
+      <div class="fr-mt-3w card-container">
+        <NakedCard class="fr-pt-3w fr-pb-3w">
           <template v-slot:content>
-            <div class="fr-pl-3v">{{ $t("ask-guarantor") }}</div>
+            <div class="fr-pl-3v text-bold fr-mb-1w">
+              {{ $t("ask-guarantor") }}
+            </div>
             <v-gouv-fr-modal>
               <template v-slot:button>
-                <span class="small-font fr-mt-1w">{{
-                  $t("more-information")
-                }}</span>
+                <span class="small-font">{{ $t("more-information") }}</span>
               </template>
               <template v-slot:title>
                 {{ $t("more-information") }}
@@ -105,7 +105,6 @@ import GuarantorChoiceHelp from "./helps/GuarantorChoiceHelp.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
-import { UtilsService } from "../services/UtilsService";
 import ProfileContainer from "@/components/ProfileContainer.vue";
 
 @Component({
@@ -187,6 +186,10 @@ export default class GuarantorDocuments extends Vue {
 
   setGuarantorType() {
     if (!this.tmpGuarantorType) {
+      this.$toasted.show(this.$i18n.t("type-required").toString(), {
+        type: "error",
+        duration: 7000
+      });
       return;
     }
     AnalyticsService.addGuarantor(this.guarantor.typeGuarantor || "");
@@ -279,12 +282,11 @@ h2 {
 
 .card {
   padding: 1rem;
-  border-radius: 0.25rem;
 }
 
 .card-container {
   @media all and (min-width: 992px) {
-    width: fit-content;
+    width: 100%;
   }
 }
 
@@ -314,7 +316,8 @@ h2 {
 "more-information": "More information",
 "ask-guarantor": "Do you want to add :",
 "remark-title": "Remark",
-"remark-text": "Adding a guarantor is by no means mandatory. If you do not wish to add a surety, you can select “I don't have a guarantor”. Your file will then be registered for investigation."
+"remark-text": "Adding a guarantor is by no means mandatory. If you do not wish to add a surety, you can select “I don't have a guarantor”. Your file will then be registered for investigation.",
+"type-required": "Please select a choice"
 },
 "fr": {
 "identification": "Pièce d’identité",
@@ -335,7 +338,8 @@ h2 {
 "more-information": "En difficulté pour répondre à la question ?",
 "ask-guarantor": "Souhaitez-vous ajouter :",
 "remark-title": "Remarque",
-"remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, nous pouvez sélectionner « Je n'ai pas de garant ». Votre dossier sera alors enregistré pour être instruit."
+"remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, nous pouvez sélectionner « Je n'ai pas de garant ». Votre dossier sera alors enregistré pour être instruit.",
+"type-required": "Veuillez sélectionner un choix"
 }
 }
 </i18n>

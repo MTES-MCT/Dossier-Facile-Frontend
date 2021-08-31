@@ -29,8 +29,8 @@ export default class BigRadio extends Vue {
   margin: 0.25rem;
   font-size: 0.9rem;
   cursor: pointer;
-  border: 1px solid var(--g300);
-  border-radius: 0.4rem;
+  border: solid 0.5px var(--primary);
+  border-radius: 0.25rem;
   text-align: center;
   background-color: var(--w);
   @media all and (min-width: 992px) {
@@ -38,7 +38,6 @@ export default class BigRadio extends Vue {
   }
 
   &:hover {
-    border: 1px solid var(--primary);
     background-color: var(--primary);
     color: white;
     box-shadow: 0 0 0.666em rgba(0, 0, 0, 0.25);
