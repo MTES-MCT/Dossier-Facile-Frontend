@@ -1,26 +1,24 @@
 <template>
   <NakedCard class="fr-mt-3w fr-mb-2w">
-    <template v-slot:content>
-      <div>
-        <a
-          href="#"
-          class="fr-link"
-          :aria-expanded="localExpanded"
-          aria-controls="card-content"
-          @click="localExpanded = expandable ? !localExpanded : expanded"
-        >
-          <slot name="header"></slot>
-        </a>
-        <hr />
-        <div
-          id="card-content"
-          :class="{ hidden: !localExpanded }"
-          class="fr-card__desc"
-        >
-          <slot name="body"></slot>
-        </div>
+    <div>
+      <a
+        href="#"
+        class="fr-link"
+        :aria-expanded="localExpanded"
+        aria-controls="card-content"
+        @click="localExpanded = expandable ? !localExpanded : expanded"
+      >
+        <slot name="header"></slot>
+      </a>
+      <hr />
+      <div
+        id="card-content"
+        :class="{ hidden: !localExpanded }"
+        class="fr-card__desc"
+      >
+        <slot name="body"></slot>
       </div>
-    </template>
+    </div>
   </NakedCard>
 </template>
 

@@ -6,7 +6,9 @@
         <h4>{{ $t("title-step") }}</h4>
       </div>
     </div>
-    <TenantInformationForm></TenantInformationForm>
+    <NakedCard class="fr-pt-3w fr-pb-3w">
+      <TenantInformationForm></TenantInformationForm>
+    </NakedCard>
   </ProfileContainer>
 </template>
 
@@ -14,11 +16,13 @@
 import { Component, Vue } from "vue-property-decorator";
 import TenantInformationForm from "@/components/TenantInformationForm.vue";
 import ProfileContainer from "@/components/ProfileContainer.vue";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 @Component({
   components: {
     TenantInformationForm,
-    ProfileContainer
+    ProfileContainer,
+    NakedCard
   }
 })
 export default class TypeInformation extends Vue {

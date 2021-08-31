@@ -8,63 +8,61 @@
 
       <div class="fr-mt-3w card-container">
         <NakedCard class="fr-pt-3w fr-pb-3w">
-          <template v-slot:content>
-            <div class="fr-pl-3v text-bold fr-mb-1w">
-              {{ $t("ask-guarantor") }}
-            </div>
-            <v-gouv-fr-modal>
-              <template v-slot:button>
-                <span class="small-font">{{ $t("more-information") }}</span>
-              </template>
-              <template v-slot:title>
-                {{ $t("more-information") }}
-              </template>
-              <template v-slot:content>
-                <p>
-                  <GuarantorChoiceHelp></GuarantorChoiceHelp>
-                </p>
-              </template>
-            </v-gouv-fr-modal>
+          <div class="fr-pl-3v text-bold fr-mb-1w">
+            {{ $t("ask-guarantor") }}
+          </div>
+          <v-gouv-fr-modal>
+            <template v-slot:button>
+              <span class="small-font">{{ $t("more-information") }}</span>
+            </template>
+            <template v-slot:title>
+              {{ $t("more-information") }}
+            </template>
+            <template v-slot:content>
+              <p>
+                <GuarantorChoiceHelp></GuarantorChoiceHelp>
+              </p>
+            </template>
+          </v-gouv-fr-modal>
 
-            <div class="fr-grid-col fr-mt-2w">
-              <BigRadio
-                val="NATURAL_PERSON"
-                :value="tmpGuarantorType"
-                @input="onSelectChange"
-              >
-                <div class="fr-grid-col spa">
-                  <span>{{ $t("natural-person") }}</span>
-                </div>
-              </BigRadio>
-              <BigRadio
-                val="ORGANISM"
-                :value="tmpGuarantorType"
-                @input="onSelectChange"
-              >
-                <div class="fr-grid-col spa">
-                  <span>{{ $t("organism") }}</span>
-                </div>
-              </BigRadio>
-              <BigRadio
-                val="LEGAL_PERSON"
-                :value="tmpGuarantorType"
-                @input="onSelectChange"
-              >
-                <div class="fr-grid-col spa">
-                  <span>{{ $t("legal-person") }}</span>
-                </div>
-              </BigRadio>
-              <BigRadio
-                val="NO_GUARANTOR"
-                :value="tmpGuarantorType"
-                @input="onSelectChange"
-              >
-                <div class="fr-grid-col spa">
-                  <span>{{ $t("no-guarantor") }}</span>
-                </div>
-              </BigRadio>
-            </div>
-          </template>
+          <div class="fr-grid-col fr-mt-2w">
+            <BigRadio
+              val="NATURAL_PERSON"
+              :value="tmpGuarantorType"
+              @input="onSelectChange"
+            >
+              <div class="fr-grid-col spa">
+                <span>{{ $t("natural-person") }}</span>
+              </div>
+            </BigRadio>
+            <BigRadio
+              val="ORGANISM"
+              :value="tmpGuarantorType"
+              @input="onSelectChange"
+            >
+              <div class="fr-grid-col spa">
+                <span>{{ $t("organism") }}</span>
+              </div>
+            </BigRadio>
+            <BigRadio
+              val="LEGAL_PERSON"
+              :value="tmpGuarantorType"
+              @input="onSelectChange"
+            >
+              <div class="fr-grid-col spa">
+                <span>{{ $t("legal-person") }}</span>
+              </div>
+            </BigRadio>
+            <BigRadio
+              val="NO_GUARANTOR"
+              :value="tmpGuarantorType"
+              @input="onSelectChange"
+            >
+              <div class="fr-grid-col spa">
+                <span>{{ $t("no-guarantor") }}</span>
+              </div>
+            </BigRadio>
+          </div>
         </NakedCard>
       </div>
 
