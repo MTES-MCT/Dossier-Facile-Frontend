@@ -1,19 +1,20 @@
 <template>
   <div>
     <FooterContainer>
-      <div class="fr-grid-row space-around fr-mb-1w">
-        <v-gouv-fr-button
-          :secondary="true"
-          :label="$t('add-financial')"
-          :btn-type="'button'"
-          @click="addFinancial"
-        ></v-gouv-fr-button>
-      </div>
       <BackNext
         :showBack="showBack"
         @on-next="nextAction()"
         @on-back="backAction()"
-      ></BackNext>
+      >
+        <template v-slot:additionalButton>
+          <v-gouv-fr-button
+            :secondary="true"
+            :label="$t('add-financial')"
+            :btn-type="'button'"
+            @click="addFinancial"
+          ></v-gouv-fr-button>
+        </template>
+      </BackNext>
     </FooterContainer>
   </div>
 </template>
@@ -44,7 +45,7 @@ export default class ProfileFooter extends Vue {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped></style>
 
 <i18n>
 {

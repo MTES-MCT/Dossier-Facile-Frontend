@@ -1,22 +1,20 @@
 <template>
   <div>
     <FooterContainer>
-      <div
-        class="fr-grid-row space-around fr-mb-1w"
-        v-if="hasOneNaturalGuarantor()"
-      >
-        <v-gouv-fr-button
-          :secondary="true"
-          :label="$t('add-guarantor')"
-          :btn-type="'button'"
-          @click="addNaturalGuarantor"
-        ></v-gouv-fr-button>
-      </div>
       <BackNext
         :showBack="showBack"
         @on-next="nextAction()"
         @on-back="backAction()"
-      ></BackNext>
+      >
+        <template v-slot:additionalButton>
+          <v-gouv-fr-button
+            :secondary="true"
+            :label="$t('add-guarantor')"
+            :btn-type="'button'"
+            @click="addNaturalGuarantor"
+          ></v-gouv-fr-button>
+        </template>
+      </BackNext>
     </FooterContainer>
   </div>
 </template>
