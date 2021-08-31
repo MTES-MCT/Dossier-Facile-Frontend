@@ -50,6 +50,8 @@
         <div
           class="fr-grid-row fr-mb-3w"
           style="justify-content: space-between"
+          :id="`income${k}`"
+          :ref="`income${k}`"
         >
           <span> Revenu {{ k + 1 }} </span>
           <DfButton class="fr-btn" size="small" @on-click="removeFinancial(f)">
@@ -572,6 +574,12 @@ export default class Financial extends Vue {
     } else {
       this.financialDocuments.push(new F());
     }
+    this.$nextTick(() => {
+      const container: Element[] = this.$refs[
+        `income${this.financialDocuments.length - 1}`
+      ] as Element[];
+      container[0].scrollIntoView();
+    });
   }
 
   removeFinancial(f: DfDocument) {
