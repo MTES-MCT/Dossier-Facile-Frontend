@@ -50,7 +50,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import Progress from "./Progress.vue";
 import ShowDoc from "../documents/ShowDoc.vue";
 import Modal from "df-shared/src/components/Modal.vue";
-import { AnalyticsService } from "@/services/AnalyticsService";
+import { AnalyticsService } from "../../services/AnalyticsService";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 
 @Component({

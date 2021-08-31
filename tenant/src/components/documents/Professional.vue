@@ -1,41 +1,43 @@
 <template>
   <div>
-    <div>
-      <div class="fr-pl-3v">
-        {{ $t("select-label") }}
+    <NakedCard>
+      <div>
+        <div class="fr-pl-3v">
+          {{ $t("select-label") }}
+        </div>
+
+        <v-gouv-fr-modal>
+          <template v-slot:button>
+            En difficulté pour répondre à la question ?
+          </template>
+          <template v-slot:title>
+            En difficulté pour répondre à la question ?
+          </template>
+          <template v-slot:content>
+            <p>
+              <DocumentHelp></DocumentHelp>
+              <DocumentInsert
+                :allow-list="professionalDocument.acceptedProofs"
+                :block-list="professionalDocument.refusedProofs"
+                v-if="professionalDocument.key"
+              ></DocumentInsert>
+            </p>
+          </template>
+        </v-gouv-fr-modal>
+
+        <select
+          v-model="professionalDocument"
+          class="fr-select fr-mb-3w fr-mt-2w"
+          id="select"
+          name="select"
+          @change="onSelectChange()"
+        >
+          <option v-for="d in documents" :value="d" :key="d.key">
+            {{ $t(d.key) }}
+          </option>
+        </select>
       </div>
-
-      <v-gouv-fr-modal>
-        <template v-slot:button>
-          En difficulté pour répondre à la question ?
-        </template>
-        <template v-slot:title>
-          En difficulté pour répondre à la question ?
-        </template>
-        <template v-slot:content>
-          <p>
-            <DocumentHelp></DocumentHelp>
-            <DocumentInsert
-              :allow-list="professionalDocument.acceptedProofs"
-              :block-list="professionalDocument.refusedProofs"
-              v-if="professionalDocument.key"
-            ></DocumentInsert>
-          </p>
-        </template>
-      </v-gouv-fr-modal>
-
-      <select
-        v-model="professionalDocument"
-        class="fr-select fr-mb-3w fr-mt-2w"
-        id="select"
-        name="select"
-        @change="onSelectChange()"
-      >
-        <option v-for="d in documents" :value="d" :key="d.key">
-          {{ $t(d.key) }}
-        </option>
-      </select>
-    </div>
+    </NakedCard>
     <ConfirmModal
       v-if="isDocDeleteVisible"
       @valid="validSelect()"
@@ -43,26 +45,31 @@
     >
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
-    <div v-if="professionalDocument.key">
-      <div class="fr-mb-3w">
-        {{ professionalDocument.explanationText }}
+    <NakedCard
+      class="fr-mt-3w"
+      v-if="professionalDocument.key || professionalFiles().length > 0"
+    >
+      <div v-if="professionalDocument.key">
+        <div class="fr-mb-3w">
+          {{ professionalDocument.explanationText }}
+        </div>
+        <div class="fr-mb-3w">
+          <FileUpload
+            :current-status="fileUploadStatus"
+            @add-files="addFiles"
+            @reset-files="resetFiles"
+          ></FileUpload>
+        </div>
       </div>
-      <div class="fr-mb-3w">
-        <FileUpload
-          :current-status="fileUploadStatus"
-          @add-files="addFiles"
-          @reset-files="resetFiles"
-        ></FileUpload>
+      <div v-if="professionalFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
+        <ListItem
+          v-for="(file, k) in professionalFiles()"
+          :key="k"
+          :file="file"
+          @remove="remove(file)"
+        />
       </div>
-    </div>
-    <div v-if="professionalFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
-      <ListItem
-        v-for="(file, k) in professionalFiles()"
-        :key="k"
-        :file="file"
-        @remove="remove(file)"
-      />
-    </div>
+    </NakedCard>
   </div>
 </template>
 
@@ -84,6 +91,7 @@ import { User } from "df-shared/src/models/User";
 import DocumentHelp from "../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import { AnalyticsService } from "../../services/AnalyticsService";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 @Component({
   components: {
@@ -93,7 +101,8 @@ import { AnalyticsService } from "../../services/AnalyticsService";
     WarningMessage,
     ConfirmModal,
     DocumentHelp,
-    VGouvFrModal
+    VGouvFrModal,
+    NakedCard
   },
   computed: {
     ...mapGetters({
