@@ -6,7 +6,7 @@
         @on-next="nextAction()"
         @on-back="backAction()"
       >
-        <template v-slot:additionalButton>
+        <template v-slot:additionalButton v-if="hasOneNaturalGuarantor()">
           <v-gouv-fr-button
             :secondary="true"
             :label="$t('add-guarantor')"
