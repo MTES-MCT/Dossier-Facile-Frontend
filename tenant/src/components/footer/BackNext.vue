@@ -89,7 +89,7 @@ export default class BackNext extends Vue {
 
 .px40 {
   @media (max-width: 768px) {
-    width: 40px;
+    width: 40px !important;
   }
 }
 </style>
