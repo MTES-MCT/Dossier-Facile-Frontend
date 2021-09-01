@@ -50,7 +50,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import Progress from "./Progress.vue";
 import ShowDoc from "../documents/ShowDoc.vue";
 import Modal from "df-shared/src/components/Modal.vue";
-import { AnalyticsService } from "@/services/AnalyticsService";
+import { AnalyticsService } from "../../services/AnalyticsService";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 
 @Component({
@@ -149,6 +149,7 @@ export default class ListItem extends Vue {
   background-color: white;
   border-radius: 0.5rem;
   padding: 0.5rem;
+  box-shadow: 0 0.5px 4px 0 #cecece;
 }
 
 .big-blue {

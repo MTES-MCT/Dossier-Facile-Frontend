@@ -1,41 +1,43 @@
 <template>
   <div>
-    <div>
-      <div class="fr-pl-3v">
-        {{ $t("select-label") }}
+    <NakedCard>
+      <div>
+        <div class="fr-pl-3v">
+          {{ $t("select-label") }}
+        </div>
+
+        <v-gouv-fr-modal>
+          <template v-slot:button>
+            En difficulté pour répondre à la question ?
+          </template>
+          <template v-slot:title>
+            En difficulté pour répondre à la question ?
+          </template>
+          <template v-slot:content>
+            <p>
+              <GuarantorChoiceHelp></GuarantorChoiceHelp>
+              <DocumentInsert
+                :allow-list="professionalDocument.acceptedProofs"
+                :block-list="professionalDocument.refusedProofs"
+                v-if="professionalDocument.key"
+              ></DocumentInsert>
+            </p>
+          </template>
+        </v-gouv-fr-modal>
+
+        <select
+          v-model="professionalDocument"
+          class="fr-select fr-mb-3w"
+          id="select"
+          name="select"
+          @change="onSelectChange()"
+        >
+          <option v-for="d in documents" :value="d" :key="d.key">
+            {{ $t(d.key) }}
+          </option>
+        </select>
       </div>
-
-      <v-gouv-fr-modal>
-        <template v-slot:button>
-          En difficulté pour répondre à la question ?
-        </template>
-        <template v-slot:title>
-          En difficulté pour répondre à la question ?
-        </template>
-        <template v-slot:content>
-          <p>
-            <GuarantorChoiceHelp></GuarantorChoiceHelp>
-            <DocumentInsert
-              :allow-list="professionalDocument.acceptedProofs"
-              :block-list="professionalDocument.refusedProofs"
-              v-if="professionalDocument.key"
-            ></DocumentInsert>
-          </p>
-        </template>
-      </v-gouv-fr-modal>
-
-      <select
-        v-model="professionalDocument"
-        class="fr-select fr-mb-3w"
-        id="select"
-        name="select"
-        @change="onSelectChange()"
-      >
-        <option v-for="d in documents" :value="d" :key="d.key">
-          {{ $t(d.key) }}
-        </option>
-      </select>
-    </div>
+    </NakedCard>
     <ConfirmModal
       v-if="isDocDeleteVisible"
       @valid="validSelect()"
@@ -43,29 +45,34 @@
     >
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
-    <div v-if="professionalDocument.key">
-      <div class="fr-mb-3w">
-        {{ professionalDocument.explanationText }}
-      </div>
-      <div class="fr-mb-3w">
-        <FileUpload
-          :current-status="fileUploadStatus"
-          @add-files="addFiles"
-          @reset-files="resetFiles"
-        ></FileUpload>
-      </div>
-    </div>
-    <div
-      v-if="professionalFiles().length > 0"
-      class="fr-col-lg-8 fr-col-md-12 fr-mb-3w"
+    <NakedCard
+      class="fr-mt-3w"
+      v-if="professionalDocument.key || professionalFiles().length > 0"
     >
-      <ListItem
-        v-for="(file, k) in professionalFiles()"
-        :key="k"
-        :file="file"
-        @remove="remove(file)"
-      />
-    </div>
+      <div v-if="professionalDocument.key">
+        <div class="fr-mb-3w">
+          {{ professionalDocument.explanationText }}
+        </div>
+        <div class="fr-mb-3w">
+          <FileUpload
+            :current-status="fileUploadStatus"
+            @add-files="addFiles"
+            @reset-files="resetFiles"
+          ></FileUpload>
+        </div>
+      </div>
+      <div
+        v-if="professionalFiles().length > 0"
+        class="fr-col-lg-8 fr-col-md-12 fr-mb-3w"
+      >
+        <ListItem
+          v-for="(file, k) in professionalFiles()"
+          :key="k"
+          :file="file"
+          @remove="remove(file)"
+        />
+      </div>
+    </NakedCard>
   </div>
 </template>
 
@@ -86,6 +93,7 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 @Component({
   components: {
@@ -95,7 +103,8 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
     WarningMessage,
     ConfirmModal,
     GuarantorChoiceHelp,
-    VGouvFrModal
+    VGouvFrModal,
+    NakedCard
   },
   computed: {
     ...mapState({

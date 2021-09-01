@@ -1,242 +1,229 @@
 <template>
   <div class="mb-200">
     <NakedCard v-if="user.lastName || hasDocument()">
-      <template v-slot:content>
-        <div v-if="user.lastName">
-          <a href="#" class="fr-link">
-            {{ $t("title") }}
-          </a>
-          <hr />
-          <div class="fr-card__desc">
-            <section>
-              <div class="row" v-if="user.lastName">
-                <div>
-                  <div class="subtitle">Prénom et Nom</div>
-                  {{ user.firstName }} {{ user.lastName }}
-                </div>
-                <ViewEditBtn
-                  :canView="false"
-                  @edit="setNamePage()"
-                ></ViewEditBtn>
+      <div v-if="user.lastName">
+        <a href="#" class="fr-link">
+          {{ $t("title") }}
+        </a>
+        <hr />
+        <div class="fr-card__desc">
+          <section>
+            <div class="row" v-if="user.lastName">
+              <div>
+                <div class="subtitle">Prénom et Nom</div>
+                {{ user.firstName }} {{ user.lastName }}
               </div>
-              <div class="row" v-if="user.applicationType">
-                <div>
-                  <div class="subtitle">Type de location</div>
-                  {{ $t(user.applicationType) }}
-                </div>
-                <ViewEditBtn
-                  :canView="false"
-                  @edit="setTypePage()"
-                ></ViewEditBtn>
+              <ViewEditBtn :canView="false" @edit="setNamePage()"></ViewEditBtn>
+            </div>
+            <div class="row" v-if="user.applicationType">
+              <div>
+                <div class="subtitle">Type de location</div>
+                {{ $t(user.applicationType) }}
               </div>
-            </section>
-          </div>
+              <ViewEditBtn :canView="false" @edit="setTypePage()"></ViewEditBtn>
+            </div>
+          </section>
         </div>
-        <div v-if="hasDocument()">
-          <a href="#" class="fr-link">
-            {{ $t("second-title") }}
-          </a>
-          <hr />
-          <div class="fr-card__desc">
-            <section>
-              <div class="row" v-if="hasDoc('IDENTIFICATION')">
-                <div class="subtitle">Pièce d’identité</div>
-                <ViewEditBtn
-                  :canView="hasFile('IDENTIFICATION')"
-                  @view="openDoc('IDENTIFICATION')"
-                  @edit="setTenantStep(1)"
-                ></ViewEditBtn>
+      </div>
+      <div v-if="hasDocument()">
+        <a href="#" class="fr-link">
+          {{ $t("second-title") }}
+        </a>
+        <hr />
+        <div class="fr-card__desc">
+          <section>
+            <div class="row" v-if="hasDoc('IDENTIFICATION')">
+              <div class="subtitle">Pièce d’identité</div>
+              <ViewEditBtn
+                :canView="hasFile('IDENTIFICATION')"
+                @view="openDoc('IDENTIFICATION')"
+                @edit="setTenantStep(1)"
+              ></ViewEditBtn>
+            </div>
+            <div class="row" v-if="hasDoc('RESIDENCY')">
+              <div class="subtitle">Justificatif de domicile</div>
+              <ViewEditBtn
+                :canView="hasFile('RESIDENCY')"
+                @view="openDoc('RESIDENCY')"
+                @edit="setTenantStep(2)"
+              ></ViewEditBtn>
+            </div>
+            <div class="row" v-if="hasDoc('PROFESSIONAL')">
+              <div class="subtitle">
+                Justificatif de situation professionnelle
               </div>
-              <div class="row" v-if="hasDoc('RESIDENCY')">
-                <div class="subtitle">Justificatif de domicile</div>
-                <ViewEditBtn
-                  :canView="hasFile('RESIDENCY')"
-                  @view="openDoc('RESIDENCY')"
-                  @edit="setTenantStep(2)"
-                ></ViewEditBtn>
-              </div>
-              <div class="row" v-if="hasDoc('PROFESSIONAL')">
-                <div class="subtitle">
-                  Justificatif de situation professionnelle
-                </div>
-                <ViewEditBtn
-                  :canView="hasFile('PROFESSIONAL')"
-                  @view="openDoc('PROFESSIONAL')"
-                  @edit="setTenantStep(3)"
-                ></ViewEditBtn>
-              </div>
-              <div class="row" v-if="hasDoc('FINANCIAL')">
-                <div class="subtitle">Justificatif de ressources</div>
-                <ViewEditBtn
-                  :canView="hasFile('FINANCIAL')"
-                  @view="openDoc('FINANCIAL')"
-                  @edit="setTenantStep(4)"
-                ></ViewEditBtn>
-              </div>
-              <div class="row" v-if="hasDoc('TAX')">
-                <div class="subtitle">Avis d’imposition</div>
-                <ViewEditBtn
-                  :canView="hasFile('TAX')"
-                  @view="openDoc('TAX')"
-                  @edit="setTenantStep(5)"
-                ></ViewEditBtn>
-              </div>
-            </section>
-          </div>
+              <ViewEditBtn
+                :canView="hasFile('PROFESSIONAL')"
+                @view="openDoc('PROFESSIONAL')"
+                @edit="setTenantStep(3)"
+              ></ViewEditBtn>
+            </div>
+            <div class="row" v-if="hasDoc('FINANCIAL')">
+              <div class="subtitle">Justificatif de ressources</div>
+              <ViewEditBtn
+                :canView="hasFile('FINANCIAL')"
+                @view="openDoc('FINANCIAL')"
+                @edit="setTenantStep(4)"
+              ></ViewEditBtn>
+            </div>
+            <div class="row" v-if="hasDoc('TAX')">
+              <div class="subtitle">Avis d’imposition</div>
+              <ViewEditBtn
+                :canView="hasFile('TAX')"
+                @view="openDoc('TAX')"
+                @edit="setTenantStep(5)"
+              ></ViewEditBtn>
+            </div>
+          </section>
         </div>
-        <div v-if="hasGuarantor('LEGAL_PERSON')">
-          <div class="fr-grid-row space-between">
-            <a href="#" class="fr-link">
-              {{ $t("legal-person") }}
-            </a>
-            <button
-              @click="deleteGuarantor(selectedGuarantor)"
-              class="fr-tag"
-              :title="$t('delete-guarantor')"
-            >
-              X<span class="fr-ml-1w hide-small">{{
-                $t("delete-guarantor")
-              }}</span>
-            </button>
-          </div>
-          <hr />
-          <div class="fr-card__desc">
-            <div
-              class="row"
-              v-if="
-                guarantorHasDoc(
+      </div>
+      <div v-if="hasGuarantor('LEGAL_PERSON')">
+        <div class="fr-grid-row space-between">
+          <a href="#" class="fr-link">
+            {{ $t("legal-person") }}
+          </a>
+          <button
+            @click="deleteGuarantor(selectedGuarantor)"
+            class="fr-tag"
+            :title="$t('delete-guarantor')"
+          >
+            X<span class="fr-ml-1w hide-small">{{
+              $t("delete-guarantor")
+            }}</span>
+          </button>
+        </div>
+        <hr />
+        <div class="fr-card__desc">
+          <div
+            class="row"
+            v-if="
+              guarantorHasDoc('IDENTIFICATION_LEGAL_PERSON', selectedGuarantor)
+            "
+          >
+            <div class="subtitle">
+              {{ $t("identification-legal-person") }}
+            </div>
+            <ViewEditBtn
+              :canView="
+                guarantorHasFile(
                   'IDENTIFICATION_LEGAL_PERSON',
                   selectedGuarantor
                 )
               "
-            >
-              <div class="subtitle">
-                {{ $t("identification-legal-person") }}
-              </div>
-              <ViewEditBtn
-                :canView="
-                  guarantorHasFile(
-                    'IDENTIFICATION_LEGAL_PERSON',
-                    selectedGuarantor
-                  )
-                "
-                @view="
-                  openGuarantorDoc(
-                    'IDENTIFICATION_LEGAL_PERSON',
-                    selectedGuarantor
-                  )
-                "
-                @edit="setGuarantorSubStep(1, selectedGuarantor)"
-              ></ViewEditBtn>
-            </div>
-            <div
-              class="row"
-              v-if="guarantorHasDoc('IDENTIFICATION', selectedGuarantor)"
-            >
-              <div class="subtitle">{{ $t("identity-represent") }}</div>
+              @view="
+                openGuarantorDoc(
+                  'IDENTIFICATION_LEGAL_PERSON',
+                  selectedGuarantor
+                )
+              "
+              @edit="setGuarantorSubStep(1, selectedGuarantor)"
+            ></ViewEditBtn>
+          </div>
+          <div
+            class="row"
+            v-if="guarantorHasDoc('IDENTIFICATION', selectedGuarantor)"
+          >
+            <div class="subtitle">{{ $t("identity-represent") }}</div>
+            <ViewEditBtn
+              :canView="guarantorHasFile('IDENTIFICATION', selectedGuarantor)"
+              @view="openGuarantorDoc('IDENTIFICATION', selectedGuarantor)"
+              @edit="setGuarantorSubStep(2, selectedGuarantor)"
+            ></ViewEditBtn>
+          </div>
+        </div>
+      </div>
+      <div v-if="hasGuarantor('ORGANISM')">
+        <div class="fr-grid-row space-between">
+          <a href="#" class="fr-link">
+            {{ $t("third-title") }}
+          </a>
+          <button
+            @click="deleteGuarantor(selectedGuarantor)"
+            class="fr-tag"
+            :title="$t('delete-guarantor')"
+          >
+            X<span class="fr-ml-1w hide-small">{{
+              $t("delete-guarantor")
+            }}</span>
+          </button>
+        </div>
+        <hr />
+        <div class="fr-card__desc">
+          <section>
+            <div class="row">
+              <div class="subtitle">{{ $t("organism") }}</div>
               <ViewEditBtn
                 :canView="guarantorHasFile('IDENTIFICATION', selectedGuarantor)"
                 @view="openGuarantorDoc('IDENTIFICATION', selectedGuarantor)"
-                @edit="setGuarantorSubStep(2, selectedGuarantor)"
+                @edit="setGuarantorSubStep(1, selectedGuarantor)"
               ></ViewEditBtn>
             </div>
-          </div>
+          </section>
         </div>
-        <div v-if="hasGuarantor('ORGANISM')">
-          <div class="fr-grid-row space-between">
-            <a href="#" class="fr-link">
-              {{ $t("third-title") }}
-            </a>
-            <button
-              @click="deleteGuarantor(selectedGuarantor)"
-              class="fr-tag"
-              :title="$t('delete-guarantor')"
-            >
-              X<span class="fr-ml-1w hide-small">{{
-                $t("delete-guarantor")
-              }}</span>
-            </button>
-          </div>
-          <hr />
-          <div class="fr-card__desc">
-            <section>
-              <div class="row">
-                <div class="subtitle">{{ $t("organism") }}</div>
-                <ViewEditBtn
-                  :canView="
-                    guarantorHasFile('IDENTIFICATION', selectedGuarantor)
-                  "
-                  @view="openGuarantorDoc('IDENTIFICATION', selectedGuarantor)"
-                  @edit="setGuarantorSubStep(1, selectedGuarantor)"
-                ></ViewEditBtn>
-              </div>
-            </section>
-          </div>
+      </div>
+      <div v-for="g in getNaturalGuarantors()" v-bind:key="g.id">
+        <div class="fr-grid-row space-between">
+          <a href="#" class="fr-link">
+            {{ $t("third-title") }}
+          </a>
+          <button
+            @click="deleteGuarantor(g)"
+            class="fr-tag"
+            :title="$t('delete-guarantor')"
+          >
+            X<span class="fr-ml-1w hide-small">{{
+              $t("delete-guarantor")
+            }}</span>
+          </button>
         </div>
-        <div v-for="g in getNaturalGuarantors()" v-bind:key="g.id">
-          <div class="fr-grid-row space-between">
-            <a href="#" class="fr-link">
-              {{ $t("third-title") }}
-            </a>
-            <button
-              @click="deleteGuarantor(g)"
-              class="fr-tag"
-              :title="$t('delete-guarantor')"
-            >
-              X<span class="fr-ml-1w hide-small">{{
-                $t("delete-guarantor")
-              }}</span>
-            </button>
-          </div>
-          <hr />
-          <div class="fr-card__desc">
-            <section>
-              <div class="row">
-                <div class="subtitle">Pièce d’identité</div>
-                <ViewEditBtn
-                  :canView="guarantorHasFile('IDENTIFICATION', g)"
-                  @view="openGuarantorDoc('IDENTIFICATION', g)"
-                  @edit="setGuarantorSubStep(1, g)"
-                ></ViewEditBtn>
+        <hr />
+        <div class="fr-card__desc">
+          <section>
+            <div class="row">
+              <div class="subtitle">Pièce d’identité</div>
+              <ViewEditBtn
+                :canView="guarantorHasFile('IDENTIFICATION', g)"
+                @view="openGuarantorDoc('IDENTIFICATION', g)"
+                @edit="setGuarantorSubStep(1, g)"
+              ></ViewEditBtn>
+            </div>
+            <div class="row" v-if="guarantorHasDoc('RESIDENCY', g)">
+              <div class="subtitle">Justificatif de domicile</div>
+              <ViewEditBtn
+                :canView="guarantorHasFile('RESIDENCY', g)"
+                @view="openGuarantorDoc('RESIDENCY', g)"
+                @edit="setGuarantorSubStep(2, g)"
+              ></ViewEditBtn>
+            </div>
+            <div class="row" v-if="guarantorHasDoc('PROFESSIONAL', g)">
+              <div class="subtitle">
+                Justificatif de situation professionnelle
               </div>
-              <div class="row" v-if="guarantorHasDoc('RESIDENCY', g)">
-                <div class="subtitle">Justificatif de domicile</div>
-                <ViewEditBtn
-                  :canView="guarantorHasFile('RESIDENCY', g)"
-                  @view="openGuarantorDoc('RESIDENCY', g)"
-                  @edit="setGuarantorSubStep(2, g)"
-                ></ViewEditBtn>
-              </div>
-              <div class="row" v-if="guarantorHasDoc('PROFESSIONAL', g)">
-                <div class="subtitle">
-                  Justificatif de situation professionnelle
-                </div>
-                <ViewEditBtn
-                  :canView="guarantorHasFile('PROFESSIONAL', g)"
-                  @view="openGuarantorDoc('PROFESSIONAL', g)"
-                  @edit="setGuarantorSubStep(3, g)"
-                ></ViewEditBtn>
-              </div>
-              <div class="row" v-if="guarantorHasDoc('FINANCIAL', g)">
-                <div class="subtitle">Justificatif de ressources</div>
-                <ViewEditBtn
-                  :canView="guarantorHasFile('FINANCIAL', g)"
-                  @view="openGuarantorDoc('FINANCIAL', g)"
-                  @edit="setGuarantorSubStep(4, g)"
-                ></ViewEditBtn>
-              </div>
-              <div class="row" v-if="guarantorHasDoc('TAX', g)">
-                <div class="subtitle">Avis d’imposition</div>
-                <ViewEditBtn
-                  :canView="guarantorHasFile('TAX', g)"
-                  @view="openGuarantorDoc('TAX', g)"
-                  @edit="setGuarantorSubStep(5, g)"
-                ></ViewEditBtn>
-              </div>
-            </section>
-          </div>
+              <ViewEditBtn
+                :canView="guarantorHasFile('PROFESSIONAL', g)"
+                @view="openGuarantorDoc('PROFESSIONAL', g)"
+                @edit="setGuarantorSubStep(3, g)"
+              ></ViewEditBtn>
+            </div>
+            <div class="row" v-if="guarantorHasDoc('FINANCIAL', g)">
+              <div class="subtitle">Justificatif de ressources</div>
+              <ViewEditBtn
+                :canView="guarantorHasFile('FINANCIAL', g)"
+                @view="openGuarantorDoc('FINANCIAL', g)"
+                @edit="setGuarantorSubStep(4, g)"
+              ></ViewEditBtn>
+            </div>
+            <div class="row" v-if="guarantorHasDoc('TAX', g)">
+              <div class="subtitle">Avis d’imposition</div>
+              <ViewEditBtn
+                :canView="guarantorHasFile('TAX', g)"
+                @view="openGuarantorDoc('TAX', g)"
+                @edit="setGuarantorSubStep(5, g)"
+              ></ViewEditBtn>
+            </div>
+          </section>
         </div>
-      </template>
+      </div>
     </NakedCard>
     <Modal v-if="isDocModalVisible" @close="isDocModalVisible = false">
       <template v-slot:body>

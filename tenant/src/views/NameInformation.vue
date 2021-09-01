@@ -6,7 +6,9 @@
         <h4>{{ $t("title-step") }}</h4>
       </div>
     </div>
-    <NameInformationForm :user="user"></NameInformationForm>
+    <NakedCard class="fr-pt-3w fr-pb-3w">
+      <NameInformationForm :user="user"></NameInformationForm>
+    </NakedCard>
   </ProfileContainer>
 </template>
 
@@ -16,11 +18,13 @@ import NameInformationForm from "@/components/NameInformationForm.vue";
 import { mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
 import ProfileContainer from "@/components/ProfileContainer.vue";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 @Component({
   components: {
     NameInformationForm,
-    ProfileContainer
+    ProfileContainer,
+    NakedCard
   },
   computed: {
     ...mapState({

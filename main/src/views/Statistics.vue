@@ -5,44 +5,32 @@
       <div class="fr-grid-row fr-grid-row--gutters">
         <div class="fr-col-12 fr-col-xl-8">
           <NakedCard>
-            <template v-slot:content>
-              <chart1></chart1>
-            </template>
+            <chart1></chart1>
           </NakedCard>
         </div>
         <div class="fr-col-12 fr-col-xl-4">
           <NakedCard>
-            <template v-slot:content>
-              <chart2></chart2>
-            </template>
+            <chart2></chart2>
           </NakedCard>
         </div>
         <div class="fr-col-12 fr-col-xl-8">
           <NakedCard>
-            <template v-slot:content>
-              <chart3></chart3>
-            </template>
+            <chart3></chart3>
           </NakedCard>
         </div>
         <div class="fr-col-12 fr-col-xl-4">
           <NakedCard>
-            <template v-slot:content>
-              <chart4></chart4>
-            </template>
+            <chart4></chart4>
           </NakedCard>
         </div>
         <div class="fr-col-12 fr-col-xl-8">
           <NakedCard>
-            <template v-slot:content>
-              <chart5></chart5>
-            </template>
+            <chart5></chart5>
           </NakedCard>
         </div>
         <div class="fr-col-12 fr-col-xl-4">
           <NakedCard>
-            <template v-slot:content>
-              <chart6></chart6>
-            </template>
+            <chart6></chart6>
           </NakedCard>
         </div>
       </div>

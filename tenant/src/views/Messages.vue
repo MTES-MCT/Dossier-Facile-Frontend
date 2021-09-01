@@ -3,77 +3,75 @@
     <div class="fr-grid-row">
       <div class="fr-col-lg-4">
         <NakedCard class="fr-mt-3w fr-mb-2w">
-          <template v-slot:content>
-            <div class="fr-card__desc">
-              <section>
-                <div class="row" v-if="hasDoc('IDENTIFICATION')">
-                  <div class="subtitle">Pièce d’identité</div>
-                  <div class="row align--center">
-                    <ViewEditBtn
-                      :canView="hasFile('IDENTIFICATION')"
-                      @view="openDoc('IDENTIFICATION')"
-                      @edit="setTenantStep(1)"
-                    ></ViewEditBtn>
-                    <FileStatusIcon
-                      :status="getStatus('IDENTIFICATION')"
-                    ></FileStatusIcon>
-                  </div>
+          <div class="fr-card__desc">
+            <section>
+              <div class="row" v-if="hasDoc('IDENTIFICATION')">
+                <div class="subtitle">Pièce d’identité</div>
+                <div class="row align--center">
+                  <ViewEditBtn
+                    :canView="hasFile('IDENTIFICATION')"
+                    @view="openDoc('IDENTIFICATION')"
+                    @edit="setTenantStep(1)"
+                  ></ViewEditBtn>
+                  <FileStatusIcon
+                    :status="getStatus('IDENTIFICATION')"
+                  ></FileStatusIcon>
                 </div>
-                <div class="row" v-if="hasDoc('RESIDENCY')">
-                  <div class="subtitle">Justificatif de domicile</div>
-                  <div class="row align--center">
-                    <ViewEditBtn
-                      :canView="hasFile('RESIDENCY')"
-                      @view="openDoc('RESIDENCY')"
-                      @edit="setTenantStep(2)"
-                    ></ViewEditBtn>
-                    <FileStatusIcon
-                      :status="getStatus('RESIDENCY')"
-                    ></FileStatusIcon>
-                  </div>
+              </div>
+              <div class="row" v-if="hasDoc('RESIDENCY')">
+                <div class="subtitle">Justificatif de domicile</div>
+                <div class="row align--center">
+                  <ViewEditBtn
+                    :canView="hasFile('RESIDENCY')"
+                    @view="openDoc('RESIDENCY')"
+                    @edit="setTenantStep(2)"
+                  ></ViewEditBtn>
+                  <FileStatusIcon
+                    :status="getStatus('RESIDENCY')"
+                  ></FileStatusIcon>
                 </div>
-                <div class="row" v-if="hasDoc('PROFESSIONAL')">
-                  <div class="subtitle">
-                    Justificatif de situation professionnelle
-                  </div>
-                  <div class="row align--center">
-                    <ViewEditBtn
-                      :canView="hasFile('PROFESSIONAL')"
-                      @view="openDoc('PROFESSIONAL')"
-                      @edit="setTenantStep(3)"
-                    ></ViewEditBtn>
-                    <FileStatusIcon
-                      :status="getStatus('PROFESSIONAL')"
-                    ></FileStatusIcon>
-                  </div>
+              </div>
+              <div class="row" v-if="hasDoc('PROFESSIONAL')">
+                <div class="subtitle">
+                  Justificatif de situation professionnelle
                 </div>
-                <div class="row" v-if="hasDoc('FINANCIAL')">
-                  <div class="subtitle">Justificatif de ressources</div>
-                  <div class="row align--center">
-                    <ViewEditBtn
-                      :canView="hasFile('FINANCIAL')"
-                      @view="openDoc('FINANCIAL')"
-                      @edit="setTenantStep(4)"
-                    ></ViewEditBtn>
-                    <FileStatusIcon
-                      :status="getStatus('FINANCIAL')"
-                    ></FileStatusIcon>
-                  </div>
+                <div class="row align--center">
+                  <ViewEditBtn
+                    :canView="hasFile('PROFESSIONAL')"
+                    @view="openDoc('PROFESSIONAL')"
+                    @edit="setTenantStep(3)"
+                  ></ViewEditBtn>
+                  <FileStatusIcon
+                    :status="getStatus('PROFESSIONAL')"
+                  ></FileStatusIcon>
                 </div>
-                <div class="row" v-if="hasDoc('TAX')">
-                  <div class="subtitle">Avis d’imposition</div>
-                  <div class="row align--center">
-                    <ViewEditBtn
-                      :canView="hasFile('TAX')"
-                      @view="openDoc('TAX')"
-                      @edit="setTenantStep(5)"
-                    ></ViewEditBtn>
-                    <FileStatusIcon :status="getStatus('TAX')"></FileStatusIcon>
-                  </div>
+              </div>
+              <div class="row" v-if="hasDoc('FINANCIAL')">
+                <div class="subtitle">Justificatif de ressources</div>
+                <div class="row align--center">
+                  <ViewEditBtn
+                    :canView="hasFile('FINANCIAL')"
+                    @view="openDoc('FINANCIAL')"
+                    @edit="setTenantStep(4)"
+                  ></ViewEditBtn>
+                  <FileStatusIcon
+                    :status="getStatus('FINANCIAL')"
+                  ></FileStatusIcon>
                 </div>
-              </section>
-            </div>
-          </template>
+              </div>
+              <div class="row" v-if="hasDoc('TAX')">
+                <div class="subtitle">Avis d’imposition</div>
+                <div class="row align--center">
+                  <ViewEditBtn
+                    :canView="hasFile('TAX')"
+                    @view="openDoc('TAX')"
+                    @edit="setTenantStep(5)"
+                  ></ViewEditBtn>
+                  <FileStatusIcon :status="getStatus('TAX')"></FileStatusIcon>
+                </div>
+              </div>
+            </section>
+          </div>
         </NakedCard>
 
         <div v-for="g in guarantors()" v-bind:key="g.id">
@@ -81,187 +79,175 @@
             v-if="g.typeGuarantor === 'NATURAL_PERSON'"
             class="fr-mt-3w fr-mb-2w"
           >
-            <template v-slot:content>
-              <div class="boxed boxed--lg boxed--border">
-                <h5>Les documents de mon garant</h5>
+            <div class="boxed boxed--lg boxed--border">
+              <h5>Les documents de mon garant</h5>
 
-                <div class="row" v-if="guarantorHasDoc(g, 'IDENTIFICATION')">
-                  <div class="subtitle">Pièce d’identité</div>
-                  <div class="row align--center">
-                    <ViewEditBtn
-                      :canView="guarantorHasFile(g, 'IDENTIFICATION')"
-                      @view="openGuarantorDoc(g, 'IDENTIFICATION')"
-                      @edit="setGuarantorSubStep(1, g)"
-                    ></ViewEditBtn>
-                    <FileStatusIcon
-                      :status="getGuarantorStatus(g, 'IDENTIFICATION')"
-                    ></FileStatusIcon>
-                  </div>
-                </div>
-                <div class="row" v-if="guarantorHasDoc(g, 'RESIDENCY')">
-                  <div class="subtitle">Justificatif de domicile</div>
-                  <div class="row align--center">
-                    <ViewEditBtn
-                      :canView="guarantorHasFile(g, 'RESIDENCY')"
-                      @view="guarantorHasFile(g, 'RESIDENCY')"
-                      @edit="setGuarantorSubStep(2, g)"
-                    ></ViewEditBtn>
-                    <FileStatusIcon
-                      :status="getGuarantorStatus(g, 'RESIDENCY')"
-                    ></FileStatusIcon>
-                  </div>
-                </div>
-                <div class="row" v-if="guarantorHasDoc(g, 'PROFESSIONAL')">
-                  <div class="subtitle">
-                    Justificatif de situation professionnelle
-                  </div>
-                  <div class="row align--center">
-                    <ViewEditBtn
-                      :canView="guarantorHasFile(g, 'PROFESSIONAL')"
-                      @view="guarantorHasFile(g, 'PROFESSIONAL')"
-                      @edit="setGuarantorSubStep(3, g)"
-                    ></ViewEditBtn>
-                    <FileStatusIcon
-                      :status="getGuarantorStatus(g, 'PROFESSIONAL')"
-                    ></FileStatusIcon>
-                  </div>
-                </div>
-                <div class="row" v-if="guarantorHasDoc(g, 'FINANCIAL')">
-                  <div class="subtitle">Justificatif de ressources</div>
-                  <div class="row align--center">
-                    <ViewEditBtn
-                      :canView="guarantorHasFile(g, 'FINANCIAL')"
-                      @view="guarantorHasFile(g, 'FINANCIAL')"
-                      @edit="setGuarantorSubStep(4, g)"
-                    ></ViewEditBtn>
-                    <FileStatusIcon
-                      :status="getGuarantorStatus(g, 'FINANCIAL')"
-                    ></FileStatusIcon>
-                  </div>
-                </div>
-                <div class="row" v-if="guarantorHasDoc(g, 'TAX')">
-                  <div class="subtitle">Avis d’imposition</div>
-                  <div class="row align--center">
-                    <ViewEditBtn
-                      :canView="guarantorHasFile(g, 'TAX')"
-                      @view="openGuarantorDoc(g, 'TAX')"
-                      @edit="setGuarantorSubStep(5, g)"
-                    ></ViewEditBtn>
-                    <FileStatusIcon
-                      :status="getGuarantorStatus(g, 'TAX')"
-                    ></FileStatusIcon>
-                  </div>
+              <div class="row" v-if="guarantorHasDoc(g, 'IDENTIFICATION')">
+                <div class="subtitle">Pièce d’identité</div>
+                <div class="row align--center">
+                  <ViewEditBtn
+                    :canView="guarantorHasFile(g, 'IDENTIFICATION')"
+                    @view="openGuarantorDoc(g, 'IDENTIFICATION')"
+                    @edit="setGuarantorSubStep(1, g)"
+                  ></ViewEditBtn>
+                  <FileStatusIcon
+                    :status="getGuarantorStatus(g, 'IDENTIFICATION')"
+                  ></FileStatusIcon>
                 </div>
               </div>
-            </template>
+              <div class="row" v-if="guarantorHasDoc(g, 'RESIDENCY')">
+                <div class="subtitle">Justificatif de domicile</div>
+                <div class="row align--center">
+                  <ViewEditBtn
+                    :canView="guarantorHasFile(g, 'RESIDENCY')"
+                    @view="guarantorHasFile(g, 'RESIDENCY')"
+                    @edit="setGuarantorSubStep(2, g)"
+                  ></ViewEditBtn>
+                  <FileStatusIcon
+                    :status="getGuarantorStatus(g, 'RESIDENCY')"
+                  ></FileStatusIcon>
+                </div>
+              </div>
+              <div class="row" v-if="guarantorHasDoc(g, 'PROFESSIONAL')">
+                <div class="subtitle">
+                  Justificatif de situation professionnelle
+                </div>
+                <div class="row align--center">
+                  <ViewEditBtn
+                    :canView="guarantorHasFile(g, 'PROFESSIONAL')"
+                    @view="guarantorHasFile(g, 'PROFESSIONAL')"
+                    @edit="setGuarantorSubStep(3, g)"
+                  ></ViewEditBtn>
+                  <FileStatusIcon
+                    :status="getGuarantorStatus(g, 'PROFESSIONAL')"
+                  ></FileStatusIcon>
+                </div>
+              </div>
+              <div class="row" v-if="guarantorHasDoc(g, 'FINANCIAL')">
+                <div class="subtitle">Justificatif de ressources</div>
+                <div class="row align--center">
+                  <ViewEditBtn
+                    :canView="guarantorHasFile(g, 'FINANCIAL')"
+                    @view="guarantorHasFile(g, 'FINANCIAL')"
+                    @edit="setGuarantorSubStep(4, g)"
+                  ></ViewEditBtn>
+                  <FileStatusIcon
+                    :status="getGuarantorStatus(g, 'FINANCIAL')"
+                  ></FileStatusIcon>
+                </div>
+              </div>
+              <div class="row" v-if="guarantorHasDoc(g, 'TAX')">
+                <div class="subtitle">Avis d’imposition</div>
+                <div class="row align--center">
+                  <ViewEditBtn
+                    :canView="guarantorHasFile(g, 'TAX')"
+                    @view="openGuarantorDoc(g, 'TAX')"
+                    @edit="setGuarantorSubStep(5, g)"
+                  ></ViewEditBtn>
+                  <FileStatusIcon
+                    :status="getGuarantorStatus(g, 'TAX')"
+                  ></FileStatusIcon>
+                </div>
+              </div>
+            </div>
           </NakedCard>
           <NakedCard
             v-if="g.typeGuarantor === 'ORGANISM'"
             class="fr-mt-3w fr-mb-2w"
           >
-            <template v-slot:content>
-              <div class="boxed boxed--lg boxed--border">
-                <h5>Les documents de mon garant</h5>
+            <div class="boxed boxed--lg boxed--border">
+              <h5>Les documents de mon garant</h5>
 
-                <div class="row">
-                  <div class="subtitle">{{ $t("organism") }}</div>
-                  <div class="row align--center">
-                    <ViewEditBtn
-                      :canView="guarantorHasFile(g, 'IDENTIFICATION')"
-                      @view="openGuarantorDoc(g, 'IDENTIFICATION')"
-                      @edit="setGuarantorSubStep(1, g)"
-                    ></ViewEditBtn>
-                    <FileStatusIcon
-                      :status="getGuarantorStatus(g, 'IDENTIFICATION')"
-                    ></FileStatusIcon>
-                  </div>
+              <div class="row">
+                <div class="subtitle">{{ $t("organism") }}</div>
+                <div class="row align--center">
+                  <ViewEditBtn
+                    :canView="guarantorHasFile(g, 'IDENTIFICATION')"
+                    @view="openGuarantorDoc(g, 'IDENTIFICATION')"
+                    @edit="setGuarantorSubStep(1, g)"
+                  ></ViewEditBtn>
+                  <FileStatusIcon
+                    :status="getGuarantorStatus(g, 'IDENTIFICATION')"
+                  ></FileStatusIcon>
                 </div>
               </div>
-            </template>
+            </div>
           </NakedCard>
           <NakedCard
             v-if="g.typeGuarantor === 'LEGAL_PERSON'"
             class="fr-mt-3w fr-mb-2w"
           >
-            <template v-slot:content>
-              <div class="boxed boxed--lg boxed--border">
-                <h5>Les documents de mon garant</h5>
-                <div class="row">
-                  <div class="subtitle">
-                    {{ $t("identification-legal-person") }}
-                  </div>
-                  <div class="row align--center">
-                    <ViewEditBtn
-                      :canView="
-                        guarantorHasFile(g, 'IDENTIFICATION_LEGAL_PERSON')
-                      "
-                      @view="openGuarantorDoc(g, 'IDENTIFICATION_LEGAL_PERSON')"
-                      @edit="setGuarantorSubStep(1, g)"
-                    ></ViewEditBtn>
-                    <FileStatusIcon
-                      :status="
-                        getGuarantorStatus(g, 'IDENTIFICATION_LEGAL_PERSON')
-                      "
-                    ></FileStatusIcon>
-                  </div>
+            <div class="boxed boxed--lg boxed--border">
+              <h5>Les documents de mon garant</h5>
+              <div class="row">
+                <div class="subtitle">
+                  {{ $t("identification-legal-person") }}
                 </div>
-                <div class="row">
-                  <div class="subtitle">{{ $t("identity-represent") }}</div>
-                  <div class="row align--center">
-                    <ViewEditBtn
-                      :canView="guarantorHasFile(g, 'IDENTIFICATION')"
-                      @view="openGuarantorDoc(g, 'IDENTIFICATION')"
-                      @edit="setGuarantorSubStep(2, g)"
-                    ></ViewEditBtn>
-                    <FileStatusIcon
-                      :status="getGuarantorStatus(g, 'IDENTIFICATION')"
-                    ></FileStatusIcon>
-                  </div>
+                <div class="row align--center">
+                  <ViewEditBtn
+                    :canView="
+                      guarantorHasFile(g, 'IDENTIFICATION_LEGAL_PERSON')
+                    "
+                    @view="openGuarantorDoc(g, 'IDENTIFICATION_LEGAL_PERSON')"
+                    @edit="setGuarantorSubStep(1, g)"
+                  ></ViewEditBtn>
+                  <FileStatusIcon
+                    :status="
+                      getGuarantorStatus(g, 'IDENTIFICATION_LEGAL_PERSON')
+                    "
+                  ></FileStatusIcon>
                 </div>
               </div>
-            </template>
+              <div class="row">
+                <div class="subtitle">{{ $t("identity-represent") }}</div>
+                <div class="row align--center">
+                  <ViewEditBtn
+                    :canView="guarantorHasFile(g, 'IDENTIFICATION')"
+                    @view="openGuarantorDoc(g, 'IDENTIFICATION')"
+                    @edit="setGuarantorSubStep(2, g)"
+                  ></ViewEditBtn>
+                  <FileStatusIcon
+                    :status="getGuarantorStatus(g, 'IDENTIFICATION')"
+                  ></FileStatusIcon>
+                </div>
+              </div>
+            </div>
           </NakedCard>
         </div>
         <NakedCard class="fr-mt-3w fr-mb-2w">
-          <template v-slot:content>
-            <div class="fr-grid-row">
-              <div class="fr-col-3 fr-p-2w">
-                <span class="text-success material-icons big-icon"
-                  >check_circle_outline</span
-                >
-              </div>
-              <div class="fr-col-9 fr-p-2w">
-                Votre pièce est validée ! Plus besoin d’y toucher
-              </div>
+          <div class="fr-grid-row">
+            <div class="fr-col-3 fr-p-2w">
+              <span class="text-success material-icons big-icon"
+                >check_circle_outline</span
+              >
             </div>
-          </template>
+            <div class="fr-col-9 fr-p-2w">
+              Votre pièce est validée ! Plus besoin d’y toucher
+            </div>
+          </div>
         </NakedCard>
         <NakedCard class="fr-mt-3w fr-mb-2w">
-          <template v-slot:content>
-            <div class="fr-grid-row">
-              <div class="fr-col-3 fr-p-2w">
-                <span class="text-warning material-icons big-icon"
-                  >more_time</span
-                >
-              </div>
-              <div class="fr-col-9 fr-p-2w">
-                Nous sommes en cours de traitement de cette pièce
-              </div>
+          <div class="fr-grid-row">
+            <div class="fr-col-3 fr-p-2w">
+              <span class="text-warning material-icons big-icon"
+                >more_time</span
+              >
             </div>
-          </template>
+            <div class="fr-col-9 fr-p-2w">
+              Nous sommes en cours de traitement de cette pièce
+            </div>
+          </div>
         </NakedCard>
         <NakedCard class="fr-mt-3w fr-mb-2w">
-          <template v-slot:content>
-            <div class="fr-grid-row">
-              <div class="fr-col-3 fr-p-2w">
-                <span class="text-danger material-icons big-icon">cancel</span>
-              </div>
-              <div class="fr-col-9 fr-p-2w">
-                Vous devez modifier votre pièce afin que nous validions votre
-                dossier
-              </div>
+          <div class="fr-grid-row">
+            <div class="fr-col-3 fr-p-2w">
+              <span class="text-danger material-icons big-icon">cancel</span>
             </div>
-          </template>
+            <div class="fr-col-9 fr-p-2w">
+              Vous devez modifier votre pièce afin que nous validions votre
+              dossier
+            </div>
+          </div>
         </NakedCard>
       </div>
 
@@ -351,7 +337,7 @@ import { User } from "df-shared/src/models/User";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import ViewEditBtn from "../components/ViewEditBtn.vue";
-import { AnalyticsService } from "@/services/AnalyticsService";
+import { AnalyticsService } from "../services/AnalyticsService";
 
 @Component({
   components: {

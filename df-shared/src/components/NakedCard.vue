@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <slot name="content"></slot>
+    <slot></slot>
   </div>
 </template>
 
@@ -17,7 +17,7 @@ export default class NakedCard extends Vue {}
   display: none;
 }
 .card {
-  padding: 0.5rem;
+  padding: 1rem;
 
   box-shadow: 0 0.5px 1.5px 0 rgba(0, 0, 0, 0.1),
     0 0.5px 1px 0 rgba(0, 0, 0, 0.06);

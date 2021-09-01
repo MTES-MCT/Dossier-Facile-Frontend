@@ -10,45 +10,41 @@
     </div>
     <div class="fr-col-12 fr-mt-2w" v-if="getPartner()">
       <NakedCard>
-        <template v-slot:content>
-          <div class="fr-grid-row bg--white">
-            <div class="fr-col-10">
-              <div class="fr-grid-row nowrap">
-                <div class="center-icon fr-mr-1w">
-                  <span class="color--white material-icons md-24 round-icon"
-                    >person</span
-                  >
-                </div>
-                <div>
-                  <div class="fr-grid-col overflow--hidden">
-                    <div :title="coupleMail">
-                      <b>
-                        {{ getPartner().email }}
-                      </b>
-                    </div>
-                    <div class="small-text">
-                      {{
-                        $t(getPartner().id ? "invite-sent" : "invite-waiting")
-                      }}
-                    </div>
+        <div class="fr-grid-row bg--white">
+          <div class="fr-col-10">
+            <div class="fr-grid-row nowrap">
+              <div class="center-icon fr-mr-1w">
+                <span class="color--white material-icons md-24 round-icon"
+                  >person</span
+                >
+              </div>
+              <div>
+                <div class="fr-grid-col overflow--hidden">
+                  <div :title="coupleMail">
+                    <b>
+                      {{ getPartner().email }}
+                    </b>
+                  </div>
+                  <div class="small-text">
+                    {{ $t(getPartner().id ? "invite-sent" : "invite-waiting") }}
                   </div>
                 </div>
               </div>
             </div>
-            <div class="fr-col-2 center-icon">
-              <button
-                class="fr-btn fr-btn--secondary icon-btn"
-                :title="$t('delete')"
-                @click="remove(getPartner().email)"
-                type="button"
-              >
-                <span class="color--primary material-icons md-24"
-                  >delete_forever</span
-                >
-              </button>
-            </div>
           </div>
-        </template>
+          <div class="fr-col-2 center-icon">
+            <button
+              class="fr-btn fr-btn--secondary icon-btn"
+              :title="$t('delete')"
+              @click="remove(getPartner().email)"
+              type="button"
+            >
+              <span class="color--primary material-icons md-24"
+                >delete_forever</span
+              >
+            </button>
+          </div>
+        </div>
       </NakedCard>
     </div>
 
@@ -257,6 +253,7 @@ export default class CoupleInformation extends Vue {
 }
 
 .card {
+  box-shadow: 0 1px 8px 0 #cecece;
   @media all and (min-width: 992px) {
     padding: 1.5rem;
   }
