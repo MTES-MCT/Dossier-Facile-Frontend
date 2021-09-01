@@ -1,97 +1,99 @@
 <template>
   <div>
-    <div class="fr-grid-row fr-grid-row--center">
-      <div class="fr-col-12 fr-mb-3w">
-        <validation-provider rules="required" v-slot="{ errors }">
-          <div
-            class="fr-input-group"
-            :class="errors[0] ? 'fr-input-group--error' : ''"
-          >
-            <label class="fr-label" for="lastname"
-              >{{ $t("lastname") }} :</label
+    <NakedCard>
+      <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-12 fr-mb-3w">
+          <validation-provider rules="required" v-slot="{ errors }">
+            <div
+              class="fr-input-group"
+              :class="errors[0] ? 'fr-input-group--error' : ''"
             >
-            <input
-              v-model="lastName"
-              class="form-control fr-input validate-required"
-              id="lastname"
-              name="lastname"
-              :placeholder="$t('lastname')"
-              type="text"
-            />
-            <span class="fr-error-text" v-if="errors[0]">{{
-              $t(errors[0])
-            }}</span>
-          </div>
-        </validation-provider>
-      </div>
-      <div class="fr-col-12 fr-mb-3w">
-        <validation-provider rules="required" v-slot="{ errors }">
-          <div
-            class="fr-input-group"
-            :class="errors[0] ? 'fr-input-group--error' : ''"
-          >
-            <label for="firstname" class="fr-label"
-              >{{ $t("firstname") }} :</label
+              <label class="fr-label" for="lastname"
+                >{{ $t("lastname") }} :</label
+              >
+              <input
+                v-model="lastName"
+                class="form-control fr-input validate-required"
+                id="lastname"
+                name="lastname"
+                :placeholder="$t('lastname')"
+                type="text"
+              />
+              <span class="fr-error-text" v-if="errors[0]">{{
+                $t(errors[0])
+              }}</span>
+            </div>
+          </validation-provider>
+        </div>
+        <div class="fr-col-12 fr-mb-3w">
+          <validation-provider rules="required" v-slot="{ errors }">
+            <div
+              class="fr-input-group"
+              :class="errors[0] ? 'fr-input-group--error' : ''"
             >
-            <input
-              id="firstname"
-              :placeholder="$t('firstname')"
-              type="text"
-              v-model="firstName"
-              name="firstname"
-              class="validate-required form-control fr-input"
-            />
-            <span class="fr-error-text" v-if="errors[0]">{{
-              $t(errors[0])
-            }}</span>
-          </div>
-        </validation-provider>
+              <label for="firstname" class="fr-label"
+                >{{ $t("firstname") }} :</label
+              >
+              <input
+                id="firstname"
+                :placeholder="$t('firstname')"
+                type="text"
+                v-model="firstName"
+                name="firstname"
+                class="validate-required form-control fr-input"
+              />
+              <span class="fr-error-text" v-if="errors[0]">{{
+                $t(errors[0])
+              }}</span>
+            </div>
+          </validation-provider>
+        </div>
       </div>
-    </div>
-    <div>
-      <div class="fr-pl-3v">
-        {{ $t("select-label") }}
-      </div>
+      <div>
+        <div class="fr-pl-3v">
+          {{ $t("select-label") }}
+        </div>
 
-      <v-gouv-fr-modal>
-        <template v-slot:button>
-          En difficulté pour répondre à la question ?
-        </template>
-        <template v-slot:title>
-          En difficulté pour répondre à la question ?
-        </template>
-        <template v-slot:content>
-          <p>
-            <GuarantorChoiceHelp></GuarantorChoiceHelp>
-            <DocumentInsert
-              :allow-list="identificationDocument.acceptedProofs"
-              :block-list="identificationDocument.refusedProofs"
-              v-if="identificationDocument.key"
-            ></DocumentInsert>
-          </p>
-        </template>
-      </v-gouv-fr-modal>
+        <v-gouv-fr-modal>
+          <template v-slot:button>
+            En difficulté pour répondre à la question ?
+          </template>
+          <template v-slot:title>
+            En difficulté pour répondre à la question ?
+          </template>
+          <template v-slot:content>
+            <p>
+              <GuarantorChoiceHelp></GuarantorChoiceHelp>
+              <DocumentInsert
+                :allow-list="identificationDocument.acceptedProofs"
+                :block-list="identificationDocument.refusedProofs"
+                v-if="identificationDocument.key"
+              ></DocumentInsert>
+            </p>
+          </template>
+        </v-gouv-fr-modal>
 
-      <div class="fr-mt-1w">
-        <fieldset class="fr-fieldset">
-          <div class="fr-fieldset__content">
-            <div class="fr-grid-row">
-              <div v-for="d in documents" :key="d.key">
-                <BigRadio
-                  :val="d"
-                  v-model="identificationDocument"
-                  @input="onSelectChange()"
-                >
-                  <div class="fr-grid-col spa">
-                    <span>{{ $t(d.key) }}</span>
-                  </div>
-                </BigRadio>
+        <div class="fr-mt-1w">
+          <fieldset class="fr-fieldset">
+            <div class="fr-fieldset__content">
+              <div class="fr-grid-row">
+                <div v-for="d in documents" :key="d.key">
+                  <BigRadio
+                    :val="d"
+                    v-model="identificationDocument"
+                    @input="onSelectChange()"
+                  >
+                    <div class="fr-grid-col spa">
+                      <span>{{ $t(d.key) }}</span>
+                    </div>
+                  </BigRadio>
+                </div>
               </div>
             </div>
-          </div>
-        </fieldset>
+          </fieldset>
+        </div>
       </div>
-    </div>
+    </NakedCard>
     <ConfirmModal
       v-if="isDocDeleteVisible"
       @valid="validSelect()"
@@ -99,27 +101,35 @@
     >
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
-    <div v-if="identificationDocument.key">
-      <div v-if="identificationDocument.explanationText" class="fr-mb-3w">
-        <p v-html="identificationDocument.explanationText"></p>
+    <NakedCard
+      class="fr-mt-3w"
+      v-if="identificationDocument.key || identificationFiles().length > 0"
+    >
+      <div v-if="identificationDocument.key">
+        <div v-if="identificationDocument.explanationText" class="fr-mb-3w">
+          <p v-html="identificationDocument.explanationText"></p>
+        </div>
+        <div class="fr-mb-3w">
+          <FileUpload
+            :current-status="fileUploadStatus"
+            :page="4"
+            @add-files="addFiles"
+            @reset-files="resetFiles"
+          ></FileUpload>
+        </div>
       </div>
-      <div class="fr-mb-3w">
-        <FileUpload
-          :current-status="fileUploadStatus"
-          :page="4"
-          @add-files="addFiles"
-          @reset-files="resetFiles"
-        ></FileUpload>
+      <div
+        v-if="identificationFiles().length > 0"
+        class="fr-col-md-12 fr-mb-3w"
+      >
+        <ListItem
+          v-for="(file, k) in identificationFiles()"
+          :key="k"
+          :file="file"
+          @remove="remove(file)"
+        />
       </div>
-    </div>
-    <div v-if="identificationFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
-      <ListItem
-        v-for="(file, k) in identificationFiles()"
-        :key="k"
-        :file="file"
-        @remove="remove(file)"
-      />
-    </div>
+    </NakedCard>
   </div>
 </template>
 
@@ -143,6 +153,7 @@ import DfButton from "df-shared/src/Button/Button.vue";
 import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 @Component({
   components: {
@@ -155,7 +166,8 @@ import BigRadio from "df-shared/src/Button/BigRadio.vue";
     DfButton,
     GuarantorChoiceHelp,
     VGouvFrModal,
-    BigRadio
+    BigRadio,
+    NakedCard
   },
   computed: {
     ...mapState({
@@ -294,8 +306,12 @@ export default class Identification extends Vue {
     );
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    formData.append("firstName", this.firstName);
-    formData.append("lastName", this.lastName);
+    if (this.firstName) {
+      formData.append("firstName", this.firstName);
+    }
+    if (this.lastName) {
+      formData.append("lastName", this.lastName);
+    }
     formData.append("guarantorId", this.$store.getters.guarantor.id);
     const loader = this.$loading.show();
     this.$store
