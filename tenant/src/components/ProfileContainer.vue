@@ -3,14 +3,11 @@
     <div class="bg-grey fr-grid-row full-height">
       <LeftEditMenu :step="step" class="fr-col-md-3 fr-col-xl-2"></LeftEditMenu>
       <div
-        class="fr-col-xl-7 fr-col-md-6 fr-col-xs-12 fr-p-md-4w fr-p-2w fr-grid-row fr-grid-row--center"
+        class="fr-col-xl-10 fr-col-md-9 fr-col-xs-12 fr-p-md-4w fr-p-2w fr-grid-row fr-grid-row--center"
       >
         <div class="fr-col-12 fr-mt-3w max-600">
           <slot></slot>
         </div>
-      </div>
-      <div class="fr-col-md-3 fr-col-xs-12 fr-p-2w">
-        <EditSummary></EditSummary>
       </div>
     </div>
   </div>
@@ -19,7 +16,6 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import LeftEditMenu from "@/components/LeftEditMenu.vue";
-import EditSummary from "@/components/EditSummary.vue";
 import NameInformationForm from "@/components/NameInformationForm.vue";
 import TenantInformationForm from "@/components/TenantInformationForm.vue";
 import UploadDocuments from "@/components/UploadDocuments.vue";
@@ -29,7 +25,6 @@ import ValidateFile from "@/components/ValidateFile.vue";
 @Component({
   components: {
     TenantInformationForm,
-    EditSummary,
     LeftEditMenu,
     NameInformationForm,
     UploadDocuments,
