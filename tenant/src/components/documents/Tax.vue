@@ -68,7 +68,7 @@
             </div>
           </div>
           <div
-            class="fr-col-12 fr-mb-3w"
+            class="fr-col-12 fr-mt-3w"
             v-if="taxDocument.key && taxDocument.key === 'my-name'"
           >
             <validation-provider
@@ -97,12 +97,6 @@
           </div>
         </form>
       </NakedCard>
-      <div
-        class="fr-mb-3w fr-mt-3w bg-purple"
-        v-if="taxDocument.key === 'my-name' && acceptVerification"
-      >
-        <div v-html="taxDocument.explanationText"></div>
-      </div>
       <NakedCard
         class="fr-mt-3w"
         v-if="
@@ -110,6 +104,12 @@
             taxFiles().length > 0
         "
       >
+        <div
+          class="fr-mb-3w fr-mt-3w"
+          v-if="taxDocument.key === 'my-name' && acceptVerification"
+        >
+          <div v-html="taxDocument.explanationText"></div>
+        </div>
         <div v-if="taxDocument.key === 'my-name' && acceptVerification">
           <div class="fr-mb-3w">
             <FileUpload
