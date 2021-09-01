@@ -1,47 +1,49 @@
 <template>
   <div>
-    <div>
-      <div class="fr-mb-3w">
-        {{ $t("organism-label") }}
+    <NakedCard>
+      <div>
+        <div class="fr-mb-3w">
+          {{ $t("organism-label") }}
+        </div>
+        <v-gouv-fr-modal>
+          <template v-slot:button>
+            En difficulté pour répondre à la question ?
+          </template>
+          <template v-slot:title>
+            En difficulté pour répondre à la question ?
+          </template>
+          <template v-slot:content>
+            <p>
+              <DocumentInsert
+                :allow-list="acceptedProofs"
+                :block-list="refusedProofs"
+              ></DocumentInsert>
+            </p>
+          </template>
+        </v-gouv-fr-modal>
+        <div class="fr-mb-3w">
+          <FileUpload
+            :current-status="fileUploadStatus"
+            @add-files="addFiles"
+            @reset-files="resetFiles"
+          ></FileUpload>
+        </div>
       </div>
-      <v-gouv-fr-modal>
-        <template v-slot:button>
-          En difficulté pour répondre à la question ?
-        </template>
-        <template v-slot:title>
-          En difficulté pour répondre à la question ?
-        </template>
-        <template v-slot:content>
-          <p>
-            <DocumentInsert
-              :allow-list="acceptedProofs"
-              :block-list="refusedProofs"
-            ></DocumentInsert>
-          </p>
-        </template>
-      </v-gouv-fr-modal>
-      <div class="fr-mb-3w">
-        <FileUpload
-          :current-status="fileUploadStatus"
-          @add-files="addFiles"
-          @reset-files="resetFiles"
-        ></FileUpload>
+      <div class="fr-col-md-12 fr-mb-3w">
+        <ListItem
+          v-for="(file, k) in listFiles()"
+          :key="k"
+          :file="file"
+          @remove="remove(file)"
+          :uploadState="
+            uploadProgress[file.id] ? uploadProgress[file.id].state : 'idle'
+          "
+          :percentage="
+            uploadProgress[file.id] ? uploadProgress[file.id].percentage : 0
+          "
+        />
       </div>
-    </div>
-    <div class="fr-col-md-12 fr-mb-3w">
-      <ListItem
-        v-for="(file, k) in listFiles()"
-        :key="k"
-        :file="file"
-        @remove="remove(file)"
-        :uploadState="
-          uploadProgress[file.id] ? uploadProgress[file.id].state : 'idle'
-        "
-        :percentage="
-          uploadProgress[file.id] ? uploadProgress[file.id].percentage : 0
-        "
-      />
-    </div>
+    </NakedCard>
   </div>
 </template>
 
@@ -57,13 +59,15 @@ import { DfDocument } from "df-shared/src/models/DfDocument";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { RegisterService } from "../../services/RegisterService";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 @Component({
   components: {
     DocumentInsert,
     FileUpload,
     ListItem,
-    VGouvFrModal
+    VGouvFrModal,
+    NakedCard
   },
   computed: {
     ...mapState({
