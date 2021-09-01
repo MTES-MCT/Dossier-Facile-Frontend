@@ -8,85 +8,99 @@
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
     <ValidationObserver v-slot="{ validate }">
-      <v-gouv-fr-modal>
-        <template v-slot:button>
-          En difficulté pour répondre à la question ?
-        </template>
-        <template v-slot:title>
-          En difficulté pour répondre à la question ?
-        </template>
-        <template v-slot:content>
-          <p>
-            <TaxHelp></TaxHelp>
-            <DocumentInsert
-              :allow-list="taxDocument.acceptedProofs"
-              :block-list="taxDocument.refusedProofs"
-              v-if="taxDocument.key && taxDocument.acceptedProofs.length > 0"
-            ></DocumentInsert>
-          </p>
-        </template>
-      </v-gouv-fr-modal>
+      <NakedCard>
+        <v-gouv-fr-modal>
+          <template v-slot:button>
+            En difficulté pour répondre à la question ?
+          </template>
+          <template v-slot:title>
+            En difficulté pour répondre à la question ?
+          </template>
+          <template v-slot:content>
+            <p>
+              <TaxHelp></TaxHelp>
+              <DocumentInsert
+                :allow-list="taxDocument.acceptedProofs"
+                :block-list="taxDocument.refusedProofs"
+                v-if="taxDocument.key && taxDocument.acceptedProofs.length > 0"
+              ></DocumentInsert>
+            </p>
+          </template>
+        </v-gouv-fr-modal>
 
-      <form name="form" @submit.prevent="validate().then(save)">
-        <div class="fr-mt-3w">
-          <fieldset class="fr-fieldset">
-            <div class="fr-fieldset__content">
-              <div class="fr-grid-row">
-                <div v-for="d in documents" :key="d.key">
-                  <BigRadio
-                    :val="d"
-                    v-model="taxDocument"
-                    @input="onSelectChange()"
-                  >
-                    <div class="fr-grid-col spa">
-                      <span>{{ $t(d.key) }}</span>
-                    </div>
-                  </BigRadio>
+        <form name="form" @submit.prevent="validate().then(save)">
+          <div class="fr-mt-3w">
+            <fieldset class="fr-fieldset">
+              <div class="fr-fieldset__content">
+                <div class="fr-grid-row">
+                  <div v-for="d in documents" :key="d.key">
+                    <BigRadio
+                      :val="d"
+                      v-model="taxDocument"
+                      @input="onSelectChange()"
+                    >
+                      <div class="fr-grid-col spa">
+                        <span>{{ $t(d.key) }}</span>
+                      </div>
+                    </BigRadio>
+                  </div>
                 </div>
               </div>
-            </div>
-          </fieldset>
-        </div>
-        <div
-          class="fr-mb-3w"
-          v-if="taxDocument.key && taxDocument.key === 'other-tax'"
-        >
-          <div class="fr-input-group">
-            <label class="fr-label" for="customText">{{
-              $t("custom-text")
-            }}</label>
-            <input
-              v-model="customText"
-              class="form-control fr-input validate-required"
-              id="customText"
-              name="customText"
-              placeholder=""
-              type="text"
-              required
-            />
+            </fieldset>
           </div>
-        </div>
-        <div class="fr-col-12 fr-mb-3w" v-if="taxDocument.key === 'my-name'">
-          <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
-            <div
-              class="fr-input-group bg-purple"
-              :class="errors[0] ? 'fr-input-group--error' : ''"
-            >
-              <input
-                type="checkbox"
-                id="acceptVerification"
-                value="false"
-                v-model="acceptVerification"
-              />
-              <label for="acceptVerification">{{
-                $t("accept-verification")
+          <div
+            class="fr-mb-3w"
+            v-if="taxDocument.key && taxDocument.key === 'other-tax'"
+          >
+            <div class="fr-input-group">
+              <label class="fr-label" for="customText">{{
+                $t("custom-text")
               }}</label>
-              <span class="fr-error-text" v-if="errors[0]">{{
-                $t(errors[0])
-              }}</span>
+              <input
+                v-model="customText"
+                class="form-control fr-input validate-required"
+                id="customText"
+                name="customText"
+                placeholder=""
+                type="text"
+                required
+              />
             </div>
-          </validation-provider>
-        </div>
+          </div>
+          <div class="fr-col-12 fr-mb-3w" v-if="taxDocument.key === 'my-name'">
+            <validation-provider
+              rules="is"
+              v-slot="{ errors }"
+              class="fr-col-10"
+            >
+              <div
+                class="fr-input-group bg-purple"
+                :class="errors[0] ? 'fr-input-group--error' : ''"
+              >
+                <input
+                  type="checkbox"
+                  id="acceptVerification"
+                  value="false"
+                  v-model="acceptVerification"
+                />
+                <label for="acceptVerification">{{
+                  $t("accept-verification")
+                }}</label>
+                <span class="fr-error-text" v-if="errors[0]">{{
+                  $t(errors[0])
+                }}</span>
+              </div>
+            </validation-provider>
+          </div>
+        </form>
+      </NakedCard>
+      <NakedCard
+        class="fr-mt-3w"
+        v-if="
+          (acceptVerification && taxDocument.key === 'my-name') ||
+            taxFiles().length > 0
+        "
+      >
         <div v-if="taxDocument.key === 'my-name' && acceptVerification">
           <div class="fr-mb-3w">
             <p v-html="taxDocument.explanationText"></p>
@@ -107,7 +121,7 @@
             @remove="remove(file)"
           />
         </div>
-      </form>
+      </NakedCard>
     </ValidationObserver>
     <GuarantorFooter @on-back="goBack" @on-next="goNext"></GuarantorFooter>
   </div>
@@ -135,6 +149,7 @@ import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import TaxHelp from "../helps/TaxHelp.vue";
 import GuarantorFooter from "@/components/footer/GuarantorFooter.vue";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 extend("is", {
   ...is,
@@ -154,7 +169,8 @@ extend("is", {
     BigRadio,
     VGouvFrModal,
     TaxHelp,
-    GuarantorFooter
+    GuarantorFooter,
+    NakedCard
   },
   computed: {
     ...mapState({
