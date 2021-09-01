@@ -1,86 +1,90 @@
 <template>
   <div>
     <ValidationObserver>
-      <validation-provider rules="required" v-slot="{ errors }">
-        <div
-          class="fr-input-group"
-          :class="errors[0] ? 'fr-input-group--error' : ''"
-        >
-          <label class="fr-label" for="firstName"
-            >{{ $t("organism-name") }} :</label
+      <NakedCard>
+        <validation-provider rules="required" v-slot="{ errors }">
+          <div
+            class="fr-input-group"
+            :class="errors[0] ? 'fr-input-group--error' : ''"
           >
-          <input
-            v-model="firstName"
-            class="form-control fr-input validate-required"
-            id="firstName"
-            name="firstName"
-            :placeholder="$t('organism-name-placeholder')"
-            type="text"
-            required
+            <label class="fr-label" for="firstName"
+              >{{ $t("organism-name") }} :</label
+            >
+            <input
+              v-model="firstName"
+              class="form-control fr-input validate-required"
+              id="firstName"
+              name="firstName"
+              :placeholder="$t('organism-name-placeholder')"
+              type="text"
+              required
+            />
+            <span class="fr-error-text" v-if="errors[0]">{{
+              $t(errors[0])
+            }}</span>
+          </div>
+        </validation-provider>
+      </NakedCard>
+      <NakedCard class="fr-mt-3w">
+        <div>
+          <label class="fr-label" for="select">
+            J’ajoute une pièce d’identité en cours de validité. Attention,
+            veillez à ajouter votre pièce recto-verso !
+          </label>
+          <select
+            v-model="identificationDocument"
+            class="fr-select fr-mb-3w"
+            id="select"
+            name="select"
+          >
+            <option v-for="d in documents" :value="d" :key="d.key">
+              {{ $t(d.key) }}
+            </option>
+          </select>
+        </div>
+        <div v-if="identificationDocument.key">
+          <div class="fr-mb-3w">
+            {{ $t("kbis-label") }}
+          </div>
+          <v-gouv-fr-modal>
+            <template v-slot:button>
+              En difficulté pour répondre à la question ?
+            </template>
+            <template v-slot:title>
+              En difficulté pour répondre à la question ?
+            </template>
+            <template v-slot:content>
+              <p>
+                <DocumentInsert
+                  :allow-list="identificationDocument.acceptedProofs"
+                  :block-list="identificationDocument.refusedProofs"
+                ></DocumentInsert>
+              </p>
+            </template>
+          </v-gouv-fr-modal>
+          <div class="fr-mb-3w">
+            <FileUpload
+              :current-status="fileUploadStatus"
+              @add-files="addFiles"
+              @reset-files="resetFiles"
+            ></FileUpload>
+          </div>
+        </div>
+        <div class="fr-col-md-12 fr-mb-3w" v-if="listFiles().length > 0">
+          <ListItem
+            v-for="(file, k) in listFiles()"
+            :key="k"
+            :file="file"
+            @remove="remove(file)"
+            :uploadState="
+              uploadProgress[file.id] ? uploadProgress[file.id].state : 'idle'
+            "
+            :percentage="
+              uploadProgress[file.id] ? uploadProgress[file.id].percentage : 0
+            "
           />
-          <span class="fr-error-text" v-if="errors[0]">{{
-            $t(errors[0])
-          }}</span>
         </div>
-      </validation-provider>
-      <div>
-        <label class="fr-label" for="select">
-          J’ajoute une pièce d’identité en cours de validité. Attention, veillez
-          à ajouter votre pièce recto-verso !
-        </label>
-        <select
-          v-model="identificationDocument"
-          class="fr-select fr-mb-3w"
-          id="select"
-          name="select"
-        >
-          <option v-for="d in documents" :value="d" :key="d.key">
-            {{ $t(d.key) }}
-          </option>
-        </select>
-      </div>
-      <div v-if="identificationDocument.key">
-        <div class="fr-mb-3w">
-          {{ $t("kbis-label") }}
-        </div>
-        <v-gouv-fr-modal>
-          <template v-slot:button>
-            En difficulté pour répondre à la question ?
-          </template>
-          <template v-slot:title>
-            En difficulté pour répondre à la question ?
-          </template>
-          <template v-slot:content>
-            <p>
-              <DocumentInsert
-                :allow-list="identificationDocument.acceptedProofs"
-                :block-list="identificationDocument.refusedProofs"
-              ></DocumentInsert>
-            </p>
-          </template>
-        </v-gouv-fr-modal>
-        <div class="fr-mb-3w">
-          <FileUpload
-            :current-status="fileUploadStatus"
-            @add-files="addFiles"
-            @reset-files="resetFiles"
-          ></FileUpload>
-        </div>
-      </div>
-      <div class="fr-col-md-12 fr-mb-3w" v-if="listFiles().length > 0">
-        <ListItem
-          v-for="(file, k) in listFiles()"
-          :key="k"
-          :file="file"
-          @remove="remove(file)"
-          :uploadState="
-            uploadProgress[file.id] ? uploadProgress[file.id].state : 'idle'
-          "
-          :percentage="
-            uploadProgress[file.id] ? uploadProgress[file.id].percentage : 0
-          "
-        />
-      </div>
+      </NakedCard>
     </ValidationObserver>
   </div>
 </template>
@@ -100,6 +104,7 @@ import { DfDocument } from "df-shared/src/models/DfDocument";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { RegisterService } from "../../services/RegisterService";
 import { Guarantor } from "df-shared/src/models/Guarantor";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 
 extend("required", {
@@ -113,7 +118,8 @@ extend("required", {
     ListItem,
     ValidationProvider,
     ValidationObserver,
-    VGouvFrModal
+    VGouvFrModal,
+    NakedCard
   },
   computed: {
     ...mapState({
