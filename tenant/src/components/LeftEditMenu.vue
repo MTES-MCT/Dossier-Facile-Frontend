@@ -10,7 +10,43 @@
         <div class="step-number">2</div>
         <div class="step-title">je joins mes documents</div>
       </div>
-      <div class="vline" :class="getClass(1)"></div>
+      <div class="vline" :class="getClass(1)">
+        <div class="ml-5">
+          <router-link
+            class="fr-link menu-link check"
+            :to="{ name: 'TenantDocuments', params: { substep: '1' } }"
+            >{{ $t("identity") }}</router-link
+          >
+        </div>
+        <div class="ml-5">
+          <router-link
+            class="fr-link menu-link check"
+            :to="{ name: 'TenantDocuments', params: { substep: '2' } }"
+            >{{ $t("residency") }}</router-link
+          >
+        </div>
+        <div class="ml-5">
+          <router-link
+            class="fr-link menu-link check"
+            :to="{ name: 'TenantDocuments', params: { substep: '3' } }"
+            >{{ $t("professional") }}</router-link
+          >
+        </div>
+        <div class="ml-5">
+          <router-link
+            class="fr-link menu-link check"
+            :to="{ name: 'TenantDocuments', params: { substep: '4' } }"
+            >{{ $t("financial") }}</router-link
+          >
+        </div>
+        <div class="ml-5">
+          <router-link
+            class="fr-link menu-link check"
+            :to="{ name: 'TenantDocuments', params: { substep: '5' } }"
+            >{{ $t("tax") }}</router-link
+          >
+        </div>
+      </div>
       <div class="step" :class="getClass(2)">
         <div class="step-number">3</div>
         <div class="step-title">je renseigne mon garant</div>
@@ -82,7 +118,7 @@ export default class LeftEditMenu extends Vue {
   margin-left: 17px;
   border-left: 1px solid var(--g400-t);
   z-index: 0;
-  height: 25px;
+  min-height: 25px;
   &.active {
     border-left: 1px solid var(--primary);
   }
@@ -118,6 +154,24 @@ export default class LeftEditMenu extends Vue {
 
 .hidden {
   visibility: hidden;
+}
+
+.ml-5 {
+  margin-left: -1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.menu-link {
+  background-color: #e3ebd3;
+  color: #91ae4f;
+}
+
+.check:before {
+  content: "\2713";
+  display: inline-block;
+  color: #91ae4f;
+  padding: 0 6px 0 0;
 }
 </style>
 
