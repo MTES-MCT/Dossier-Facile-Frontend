@@ -70,7 +70,18 @@ export default class App extends Vue {
     Vue.use(
       VueGtag,
       {
-        config: { id: "UA-50823626-2" }
+        config: {
+          id: "UA-50823626-2",
+          linker: {
+            domains: [
+              "dossierfacile.fr",
+              "www.dossierfacile.fr",
+              "locataire.dossierfacile.fr",
+              "proprietaire.dossierfacile.fr",
+              "sso.dossierfacile.fr"
+            ]
+          }
+        }
       },
       router
     );
