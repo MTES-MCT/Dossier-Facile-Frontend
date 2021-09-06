@@ -98,7 +98,8 @@ export default class App extends Vue {
               "dossierfacile.fr",
               "www.dossierfacile.fr",
               "locataire.dossierfacile.fr",
-              "proprietaire.dossierfacile.fr"
+              "proprietaire.dossierfacile.fr",
+              "sso.dossierfacile.fr"
             ]
           }
         }
