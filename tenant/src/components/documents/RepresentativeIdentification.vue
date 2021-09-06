@@ -314,18 +314,18 @@ td {
   "organism-name": "Nom du représentant de la personne morale",
   "organism-name-placeholder": "Nom",
   "kbis-label": "J’ajoute un extrait K bis de la société, ou toute autre pièce justifiant de l'existence légale de la personne.",
-  "identity-card": "Carte nationale d’identité",
-  "passport": "Passeport",
-  "permit": "Permis de conduire",
+  "identity-card": "French identity card",
+  "passport": "French passeport",
+  "permit": "French residence permit",
   "other": "Autre"
 },
 "fr": {
   "organism-name": "Nom du représentant de la personne morale",
   "organism-name-placeholder": "Nom",
   "kbis-label": "J’ajoute un extrait K bis de la société, ou toute autre pièce justifiant de l'existence légale de la personne.",
-  "identity-card": "Carte nationale d’identité",
-  "passport": "Passeport",
-  "permit": "Permis de conduire",
+  "identity-card": "Carte d’identité française",
+  "passport": "Passeport français",
+  "permit": "Titre de séjour français",
   "other": "Autre"
 }
 }

@@ -376,9 +376,9 @@ td {
 <i18n>
 {
 "en": {
-  "identity-card": "Carte nationale d’identité",
-  "passport": "Passeport",
-  "permit": "Permis de conduire",
+  "identity-card": "French identity card",
+  "passport": "French passeport",
+  "permit": "French residence permit",
   "other": "Autre",
   "files": "Documents",
   "lastname": "Lastname",
@@ -391,9 +391,9 @@ td {
   "field-required": "This field is required"
 },
 "fr": {
-  "identity-card": "Carte nationale d’identité",
-  "passport": "Passeport",
-  "permit": "Permis de conduire",
+  "identity-card": "Carte d’identité française",
+  "passport": "Passeport français",
+  "permit": "Titre de séjour français",
   "other": "Autre",
   "files": "Documents",
   "lastname": "Nom",
