@@ -190,7 +190,7 @@ export default class ListItem extends Vue {
   "en": {
     "FRENCH_IDENTITY_CARD": "Identity card",
     "FRENCH_PASSPORT": "Passport",
-    "FRENCH_RESIDENCE_PERMIT": "Residence permit",
+    "FRENCH_RESIDENCE_PERMIT": "French residence permit",
     "OTHER_IDENTIFICATION": "Other",
     "CERTIFICATE_VISA": "Visa",
     "remove": "Delete the file",
@@ -200,9 +200,9 @@ export default class ListItem extends Vue {
     "will-delete-file": "Are you sure you want to delete this file ?"
   },
   "fr": {
-    "FRENCH_IDENTITY_CARD": "Carte d'identité",
-    "FRENCH_PASSPORT": "Passport",
-    "FRENCH_RESIDENCE_PERMIT": "Titre de séjour",
+    "FRENCH_IDENTITY_CARD": "Carte d'identité française",
+    "FRENCH_PASSPORT": "Passport français",
+    "FRENCH_RESIDENCE_PERMIT": "Titre de séjour français",
     "OTHER_IDENTIFICATION": "Autre",
     "CERTIFICATE_VISA": "Visa",
     "remove": "Supprimer la pièce",
