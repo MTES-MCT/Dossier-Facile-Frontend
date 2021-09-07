@@ -381,7 +381,7 @@ export default class GuarantorFinancial extends Vue {
   save(f: F): boolean {
     const fieldName = "documents";
     const formData = new FormData();
-    if (f.documentType.key === undefined){
+    if (f.documentType.key === undefined) {
       return true;
     }
     if (!f.noDocument) {

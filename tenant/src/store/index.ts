@@ -266,7 +266,7 @@ const store = new Vuex.Store({
         }
       );
     },
-    async deleteAllGuarantors(_) {
+    async deleteAllGuarantors() {
       const promises = this.state.user.guarantors.map(async (g: Guarantor) => {
         await ProfileService.deleteGuarantor(g);
       });

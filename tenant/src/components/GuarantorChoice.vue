@@ -143,11 +143,18 @@ export default class GuarantorDocuments extends Vue {
   mounted() {
     if (this.guarantor.typeGuarantor) {
       this.tmpGuarantorType = this.guarantor.typeGuarantor;
+      localStorage.setItem("guarantorType", this.guarantor.typeGuarantor);
+    } else {
+      const localType = localStorage.getItem("guarantorType");
+      if (localType) {
+        this.tmpGuarantorType = localType;
+      }
     }
   }
 
   onSelectChange(value: string) {
     this.tmpGuarantorType = value;
+    localStorage.setItem("guarantorType", value);
     if (this.guarantor.typeGuarantor !== null) {
       if (
         this.guarantor.typeGuarantor !== value &&
@@ -192,6 +199,7 @@ export default class GuarantorDocuments extends Vue {
     }
     AnalyticsService.addGuarantor(this.guarantor.typeGuarantor || "");
     if (this.tmpGuarantorType === "NO_GUARANTOR") {
+
       this.$router.push({
         name: "ValidateFile"
       });
