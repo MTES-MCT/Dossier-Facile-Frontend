@@ -43,12 +43,6 @@ export default class App extends Vue {
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
   REGISTER_URL = process.env.VUE_APP_REGISTER_URL || "";
 
-  mounted() {
-    const localScript = document.createElement("script");
-    localScript.setAttribute("src", "/js/dsfr.module.min.js");
-    document.head.appendChild(localScript);
-  }
-
   onCreateOwner() {
     window.location.href = this.OWNER_URL;
   }
