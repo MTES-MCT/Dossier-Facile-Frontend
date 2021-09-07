@@ -24,7 +24,7 @@
                 type="checkbox"
                 id="authorize"
                 value="false"
-                v-model="spouseAuthorize"
+                v-model="localSpouseAuthorize"
               />
               <label for="authorize">{{ $t("acceptAuthorSpouse") }}</label>
               <span class="fr-error-text" v-if="errors[0]">{{
@@ -48,7 +48,7 @@
                 type="checkbox"
                 id="authorize"
                 value="false"
-                v-model="coTenantAuthorize"
+                v-model="localCoTenantAuthorize"
               />
               <label for="authorize">{{ $t("acceptAuthorCoTenant") }}</label>
               <span class="fr-error-text" v-if="errors[0]">{{
@@ -58,9 +58,7 @@
           </validation-provider>
         </div>
       </div>
-      <DfButton primary="true" @on-click="authorize()">{{
-        $t("validate")
-      }}</DfButton>
+      <ProfileFooter @on-back="goBack" @on-next="authorize()"></ProfileFooter>
     </div>
 
     <div v-if="isOwner()">
@@ -196,16 +194,21 @@ export default class TenantInformationForm extends Vue {
   isDeleteGroupVisible = false;
   newApplicationType = "";
 
+  localCoTenantAuthorize!: boolean;
+  localSpouseAuthorize!: boolean;
+
   mounted() {
     if (this.user.applicationType) {
       this.applicationType = this.user.applicationType;
     }
+    this.localCoTenantAuthorize = this.coTenantAuthorize;
+    this.localSpouseAuthorize = this.spouseAuthorize;
   }
 
   handleOthersInformation() {
     if (
-      (this.applicationType === "COUPLE" && !this.spouseAuthorize) ||
-      (this.applicationType === "GROUP" && !this.coTenantAuthorize) ||
+      (this.applicationType === "COUPLE" && !this.localSpouseAuthorize) ||
+      (this.applicationType === "GROUP" && !this.localCoTenantAuthorize) ||
       !this.isOwner()
     ) {
       return;
@@ -213,9 +216,9 @@ export default class TenantInformationForm extends Vue {
     let coTenantEmails: string[] = [];
     let acceptAccess = false;
     if (this.applicationType === "COUPLE") {
-      acceptAccess = this.spouseAuthorize;
+      acceptAccess = this.localSpouseAuthorize;
     } else if (this.applicationType === "GROUP") {
-      acceptAccess = this.coTenantAuthorize;
+      acceptAccess = this.localCoTenantAuthorize;
     }
     coTenantEmails = this.roommates
       .filter((r: User) => {
@@ -345,10 +348,10 @@ export default class TenantInformationForm extends Vue {
   }
 
   authorize() {
-    if (this.applicationType === "COUPLE" && !this.spouseAuthorize) {
+    if (this.applicationType === "COUPLE" && !this.localSpouseAuthorize) {
       return;
     }
-    if (this.applicationType === "GROUP" && !this.coTenantAuthorize) {
+    if (this.applicationType === "GROUP" && !this.localCoTenantAuthorize) {
       return;
     }
     this.$router.push({ name: "TenantDocuments", params: { substep: "1" } });
