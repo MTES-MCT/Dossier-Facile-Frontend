@@ -306,6 +306,9 @@ export default class Tax extends Vue {
   }
 
   save() {
+    if (this.taxDocument.key === undefined) {
+      return;
+    }
     AnalyticsService.registerFile("tax");
     this.uploadProgress = {};
     const fieldName = "documents";
