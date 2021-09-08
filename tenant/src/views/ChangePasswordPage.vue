@@ -23,7 +23,7 @@ export default class ChangePasswordPage extends Vue {
           type: "success",
           duration: 7000
         });
-        this.$router.push({ name: "TenantName" });
+        this.$router.push({ name: "Account" });
       },
       (error: any) => {
         if (
