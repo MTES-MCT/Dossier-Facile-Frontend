@@ -19,7 +19,16 @@
                 <span class="material-icons text-danger">delete_forever</span>
               </DfButton>
             </div>
+            <div v-if="hasOneNaturalGuarantor()">
+              <v-gouv-fr-button
+                :secondary="true"
+                :label="$t('add-guarantor')"
+                :btn-type="'button'"
+                @click="addNaturalGuarantor"
+              ></v-gouv-fr-button>
+            </div>
           </div>
+
           <div
             class="document-title title-bar"
             :class="{ selected: substep === 1 }"
@@ -285,7 +294,8 @@ import ProfileContainer from "@/components/ProfileContainer.vue";
       user: "user"
     }),
     ...mapGetters({
-      guarantor: "guarantor"
+      guarantor: "guarantor",
+      guarantors: "guarantors"
     })
   }
 })
@@ -293,6 +303,7 @@ export default class GuarantorDocuments extends Vue {
   @Prop({ default: 0 }) substep!: number;
   user!: User;
   guarantor!: Guarantor;
+  guarantors!: Guarantor[];
   tmpGuarantorType = "";
   changeGuarantorVisible = false;
 
@@ -385,6 +396,17 @@ export default class GuarantorDocuments extends Vue {
     this.$router.push({
       name: "ValidateFile"
     });
+  }
+
+  addNaturalGuarantor() {
+    this.$store.dispatch("addNaturalGuarantor");
+  }
+
+  hasOneNaturalGuarantor() {
+    return (
+      this.guarantors.length === 1 &&
+      this.guarantors[0].typeGuarantor === "NATURAL_PERSON"
+    );
   }
 }
 </script>
@@ -489,7 +511,8 @@ h2 {
 "more-information": "More information",
 "ask-guarantor": "Do you want to add :",
 "remark-title": "Remark",
-"remark-text": "Adding a guarantor is by no means mandatory. If you do not wish to add a surety, you can select “I don't have a guarantor”. Your file will then be registered for investigation."
+"remark-text": "Adding a guarantor is by no means mandatory. If you do not wish to add a surety, you can select “I don't have a guarantor”. Your file will then be registered for investigation.",
+"add-guarantor": "Add new natural guarantor"
 },
 "fr": {
 "identification": "Pièce d’identité",
@@ -510,7 +533,8 @@ h2 {
 "more-information": "En difficulté pour répondre à la question ?",
 "ask-guarantor": "Souhaitez-vous ajouter :",
 "remark-title": "Remarque",
-"remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, nous pouvez sélectionner « Je n'ai pas de garant ». Votre dossier sera alors enregistré pour être instruit."
+"remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, nous pouvez sélectionner « Je n'ai pas de garant ». Votre dossier sera alors enregistré pour être instruit.",
+"add-guarantor": "Ajouter un nouveau garant"
 }
 }
 </i18n>
