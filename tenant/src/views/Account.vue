@@ -683,7 +683,7 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 import StatusTag from "df-shared/src/components/StatusTag.vue";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { Guarantor } from "df-shared/src/models/Guarantor";
-import { AnalyticsService } from "@/services/AnalyticsService";
+import { AnalyticsService } from "../services/AnalyticsService";
 import { extend } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
 
@@ -756,7 +756,7 @@ export default class Account extends Vue {
     return doc?.documentStatus;
   }
 
-  isFinancialValid(docs: any[]) {
+  isFinancialValid(docs: DfDocument[]) {
     if (!docs || docs.length === 0) {
       return "INCOMPLETE";
     }
