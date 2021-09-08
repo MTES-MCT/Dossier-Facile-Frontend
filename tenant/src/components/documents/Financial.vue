@@ -20,33 +20,6 @@
         </div>
       </template>
     </Modal>
-    <NakedCard v-if="hasNoIncome()">
-      <div class="fr-mt-3w fr-mb-3w">
-        {{ $t("has-no-income") }}
-        <div class="fr-mb-5w">
-          <ValidationObserver v-slot="{ validate }">
-            <form
-              name="customTextForm"
-              @submit.prevent="validate().then(save(financialDocuments[0]))"
-            >
-              <div class="fr-input-group">
-                <label class="fr-label" for="customTextNoDocument">
-                  {{ $t("custom-text") }}
-                </label>
-                <input
-                  v-model="financialDocuments[0].customText"
-                  class="form-control fr-input validate-required"
-                  id="customTextNoDocument"
-                  name="customText"
-                  placeholder=""
-                  type="text"
-                />
-              </div>
-            </form>
-          </ValidationObserver>
-        </div>
-      </div>
-    </NakedCard>
     <div v-for="(f, k) in getFinancialDocuments()" :key="k">
       <ValidationObserver v-slot="{ validate }">
         <NakedCard class="fr-mb-3w">
@@ -97,7 +70,7 @@
                 <fieldset class="fr-fieldset">
                   <div class="fr-fieldset__content">
                     <div class="fr-grid-row">
-                      <div v-for="d in getDocuments()" :key="d.key">
+                      <div v-for="d in documents" :key="d.key">
                         <BigRadio
                           :val="d"
                           v-model="f.documentType"
@@ -111,26 +84,6 @@
                     </div>
                   </div>
                 </fieldset>
-              </div>
-            </div>
-            <div>
-              <div
-                class="fr-mb-3w"
-                v-if="f.documentType.key && f.documentType.key === 'no-income'"
-              >
-                <div class="fr-input-group">
-                  <label class="fr-label" for="customText">{{
-                    $t("custom-text")
-                  }}</label>
-                  <input
-                    v-model="f.customText"
-                    class="form-control fr-input"
-                    id="customText"
-                    name="customText"
-                    placeholder=""
-                    type="text"
-                  />
-                </div>
               </div>
             </div>
             <div
@@ -253,18 +206,37 @@
               </div>
             </div>
           </form>
+          <div v-if="hasNoIncome()">
+            <div class="fr-mt-3w fr-mb-3w">
+              {{ $t("has-no-income") }}
+              <div class="fr-mb-5w">
+                <ValidationObserver v-slot="{ validate }">
+                  <form
+                    name="customTextForm"
+                    @submit.prevent="
+                      validate().then(save(financialDocuments[0]))
+                    "
+                  >
+                    <div class="fr-input-group">
+                      <label class="fr-label" for="customTextNoDocument">
+                        {{ $t("custom-text") }}
+                      </label>
+                      <input
+                        v-model="financialDocuments[0].customText"
+                        class="form-control fr-input validate-required"
+                        id="customTextNoDocument"
+                        name="customText"
+                        placeholder=""
+                        type="text"
+                      />
+                    </div>
+                  </form>
+                </ValidationObserver>
+              </div>
+            </div>
+          </div>
         </NakedCard>
       </ValidationObserver>
-    </div>
-    <div class="fr-col-12 fr-mb-5w fr-grid-row space-between">
-      <DfButton
-        class="fr-btn"
-        size="small"
-        @on-click="setNoIncome()"
-        v-if="!hasNoIncome() && getFinancialDocuments().length <= 0"
-      >
-        {{ $t("i-have-no-income") }}
-      </DfButton>
     </div>
     <FinancialFooter
       @on-back="goBack"
@@ -447,7 +419,8 @@ export default class Financial extends Vue {
             this.financialDocuments.push(f);
           });
       }
-    } else {
+    }
+    if (this.financialDocuments.length <= 0) {
       this.addFinancial();
     }
   }
@@ -606,7 +579,9 @@ export default class Financial extends Vue {
       const container: Element[] = this.$refs[
         `income${this.financialDocuments.length - 1}`
       ] as Element[];
-      container[0].scrollIntoView();
+      if (container[0] !== undefined) {
+        container[0].scrollIntoView();
+      }
     });
   }
 
@@ -650,33 +625,8 @@ export default class Financial extends Vue {
     return "";
   }
 
-  getDocuments() {
-    return this.documents.filter(d => {
-      return d.key !== "no-income";
-    });
-  }
-
-  setNoIncome() {
-    const doc = this.documents?.find(d => {
-      return d.key === "no-income";
-    });
-    if (doc !== undefined) {
-      const f = new F();
-      f.documentType = doc;
-      this.financialDocuments.forEach(f => {
-        this.removeFinancial(f);
-      });
-      this.financialDocuments = [f];
-
-      this.selectedDoc = f;
-      this.save(f);
-    }
-  }
-
   getFinancialDocuments() {
-    return this.financialDocuments.filter(f => {
-      return !f.documentType || f.documentType.key !== "no-income";
-    });
+    return this.financialDocuments;
   }
 
   hasNoIncome() {
