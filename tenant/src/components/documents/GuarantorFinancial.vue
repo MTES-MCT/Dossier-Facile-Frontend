@@ -66,17 +66,26 @@
                   </template>
                 </v-gouv-fr-modal>
 
-                <select
-                  v-model="f.documentType"
-                  class="fr-select fr-mb-3w"
-                  id="select"
-                  name="select"
-                  @change="onSelectChange(f)"
-                >
-                  <option v-for="d in documents" :value="d" :key="d.key">
-                    {{ $t(d.key) }}
-                  </option>
-                </select>
+              <div class="fr-mt-3w">
+                <fieldset class="fr-fieldset">
+                  <div class="fr-fieldset__content">
+                    <div class="fr-grid-row">
+                      <div v-for="d in documents" :key="d.key">
+                        <BigRadio
+                          :val="d"
+                          v-model="f.documentType"
+                          @input="onSelectChange(f)"
+                        >
+                          <div class="fr-grid-col spa">
+                            <span>{{ $t(d.key) }}</span>
+                          </div>
+                        </BigRadio>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+
               </div>
             </div>
             <div
@@ -220,6 +229,7 @@ import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import FinancialFooter from "@/components/footer/FinancialFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import BigRadio from "df-shared/src/Button/BigRadio.vue";
 
 extend("regex", {
   ...regex,
@@ -255,7 +265,8 @@ class F {
     GuarantorChoiceHelp,
     VGouvFrModal,
     FinancialFooter,
-    NakedCard
+    NakedCard,
+    BigRadio
   },
   computed: {
     ...mapState({
@@ -614,8 +625,8 @@ export default class GuarantorFinancial extends Vue {
 },
 "fr": {
   "salary": "Salaire",
-  "guarantor_salary": "Salaires ou autres revenus d’activité professionnelle",
-  "social-service": "Versement de prestations sociales",
+  "guarantor_salary": "Salaires",
+  "social-service": "Prestations sociales",
   "rent": "Rentes",
   "pension": "Pensions",
   "scholarship": "Bourses",
