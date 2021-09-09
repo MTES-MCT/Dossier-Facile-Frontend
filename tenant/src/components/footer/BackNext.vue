@@ -6,7 +6,7 @@
     <div class="fr-grid-row btn-spacing footer-btn">
       <v-gouv-fr-button
         v-if="showBack"
-        class="px40"
+        class="fr-mr-2w px40"
         :secondary="true"
         :btn-type="'button'"
         @click="backAction()"
@@ -16,10 +16,10 @@
         </template>
         <span v-if="!isMobile()">{{ $t("back") }}</span>
       </v-gouv-fr-button>
-      <div class="fr-grid-row">
+      <div class="fr-grid-row flex-1">
         <slot name="additionalButton" v-if="!isMobile()"></slot>
         <v-gouv-fr-button
-          class="next-btn fr-ml-2w"
+          class="next-btn"
           :secondary="false"
           :label="nextLabel ? nextLabel : $t('continue')"
           :btn-type="'submit'"
@@ -79,6 +79,12 @@ export default class BackNext extends Vue {
 }
 
 .next-btn {
+  @media (min-width: 769px) {
+    margin-left: 16px !important;
+  }
+}
+
+.flex-1 {
   @media (max-width: 768px) {
     max-width: 400px;
     flex: 1;
