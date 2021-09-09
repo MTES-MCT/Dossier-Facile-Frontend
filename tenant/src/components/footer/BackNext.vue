@@ -4,31 +4,29 @@
       <slot name="additionalButton" v-if="isMobile()"></slot>
     </div>
     <div class="fr-grid-row btn-spacing footer-btn">
-      <div class="fr-grid-row">
-        <v-gouv-fr-button
-          class="fr-mr-2w px40"
-          v-if="showBack"
-          :secondary="true"
-          :btn-type="'button'"
-          @click="backAction()"
-        >
-          <template v-if="isMobile()">
-            <span class="color--primary material-icons"
-              >keyboard_arrow_left</span
-            >
-          </template>
-          <span v-if="!isMobile()">{{ $t("back") }}</span>
-        </v-gouv-fr-button>
-        <slot name="additionalButton" v-if="!isMobile()"></slot>
-      </div>
       <v-gouv-fr-button
-        class="next-btn"
-        :secondary="false"
-        :label="nextLabel ? nextLabel : $t('continue')"
-        :btn-type="'submit'"
-        :disabled="disabled"
-        @click="nextAction()"
-      ></v-gouv-fr-button>
+        v-if="showBack"
+        class="fr-mr-2w px40"
+        :secondary="true"
+        :btn-type="'button'"
+        @click="backAction()"
+      >
+        <template v-if="isMobile()">
+          <span class="color--primary material-icons">keyboard_arrow_left</span>
+        </template>
+        <span v-if="!isMobile()">{{ $t("back") }}</span>
+      </v-gouv-fr-button>
+      <div class="fr-grid-row flex-1">
+        <slot name="additionalButton" v-if="!isMobile()"></slot>
+        <v-gouv-fr-button
+          class="next-btn"
+          :secondary="false"
+          :label="nextLabel ? nextLabel : $t('continue')"
+          :btn-type="'submit'"
+          :disabled="disabled"
+          @click="nextAction()"
+        ></v-gouv-fr-button>
+      </div>
     </div>
   </div>
 </template>
@@ -81,6 +79,12 @@ export default class BackNext extends Vue {
 }
 
 .next-btn {
+  @media (min-width: 769px) {
+    margin-left: 16px !important;
+  }
+}
+
+.flex-1 {
   @media (max-width: 768px) {
     max-width: 400px;
     flex: 1;
