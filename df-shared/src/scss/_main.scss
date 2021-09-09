@@ -228,7 +228,9 @@ img {
 .BeaconContainer-enter-done {
   @media all and (min-width: 768px) {
     bottom: 160px !important;
-    max-height: calc(100% - 160px) !important;
+    @media all and (max-height: 830px) {
+      max-height: calc(100% - 160px) !important;
+    }
   }
 }
 
