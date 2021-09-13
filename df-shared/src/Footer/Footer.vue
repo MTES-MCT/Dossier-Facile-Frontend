@@ -71,7 +71,7 @@
           <li class="fr-footer__bottom-item">
             <a
               class="fr-footer__bottom-link"
-              :href="`${VUE_APP_MAIN_URL}/blog?lang=${$i18n.locale}`"
+              :href="`${VUE_APP_MAIN_URL}/blog`"
             >
               {{ $t("blog") }}
             </a>
@@ -99,9 +99,7 @@
           <li class="fr-footer__bottom-item">
             <a
               class="fr-footer__bottom-link"
-              :href="
-                `${VUE_APP_MAIN_URL}/securite-des-donnees?lang=${$i18n.locale}`
-              "
+              :href="`${VUE_APP_MAIN_URL}/securite-des-donnees`"
             >
               {{ $t("legals") }}
             </a>
@@ -109,7 +107,7 @@
           <li class="fr-footer__bottom-item">
             <a
               class="fr-footer__bottom-link"
-              :href="`${VUE_APP_MAIN_URL}/information?lang=${$i18n.locale}`"
+              :href="`${VUE_APP_MAIN_URL}/information`"
             >
               {{ $t("information") }}
             </a>
@@ -202,7 +200,7 @@
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
-export default class MyFooter extends Vue {
+export default class TheFooter extends Vue {
   VUE_APP_MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
   VUE_APP_DOCS_URL = `//${process.env.VUE_APP_DOCS_URL}`;
 }

@@ -217,3 +217,25 @@ img {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
+
+.BeaconFabButtonFrame {
+  top: calc(100vh - 200px) !important;
+  @media all and (min-width: 768px) {
+    top: calc(100vh - 150px) !important;
+  }
+}
+
+.BeaconContainer-enter-done {
+  @media all and (min-width: 768px) {
+    bottom: 160px !important;
+    @media all and (max-height: 830px) {
+      max-height: calc(100% - 160px) !important;
+    }
+  }
+}
+
+.bg-purple {
+  padding: 1rem;
+  border-radius: 0.25rem;
+  background-color: #e5e5f4;
+}

@@ -147,7 +147,7 @@
           {{ $t("s4.title3") }}
         </h2>
         <div class="text-center">
-          <router-link to="/stats">
+          <router-link to="/stats" class="fr-link">
             <img src="../assets/icons/stats.png" class="stats-icon" alt="" />
             {{ $t("s4.link") }}
           </router-link>
@@ -192,7 +192,7 @@
         </h2>
         <div class="fr-grid-row">
           <div
-            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a
               target="_blank"
@@ -208,7 +208,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a target="_blank" href="https://www.visale.fr/" class="logo-link"
               rel="noreferrer"
@@ -221,7 +221,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a
               target="_blank"
@@ -237,7 +237,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a target="_blank" href="https://colivme.com/" class="logo-link"
               rel="noreferrer"
@@ -250,7 +250,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a target="_blank" href="https://whoomies.com/" class="logo-link"
               rel="noreferrer"
@@ -263,7 +263,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a target="_blank" href="https://www.anil.org/" class="logo-link"
               rel="noreferrer"
@@ -276,7 +276,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a target="_blank" href="https://www.clickandrent.fr/" class="logo-link"
               rel="noreferrer"
@@ -285,6 +285,32 @@
                 alt="logo click and rent"
                 class="partner-logo rent"
                 src="../assets/logos/clickandrent.png"
+              />
+            </a>
+          </div>
+          <div
+            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+          >
+            <a target="_blank" href="https://www.qlower.com/" class="logo-link"
+              rel="noreferrer"
+            >
+              <img
+                alt="logo qlower"
+                class="partner-logo qlower"
+                src="../assets/logos/qlower.png"
+              />
+            </a>
+          </div>
+          <div
+            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+          >
+            <a target="_blank" href="https://www.jelouebien.com/" class="logo-link"
+              rel="noreferrer"
+            >
+              <img
+                alt="logo jelouebien"
+                class="partner-logo jelouebien"
+                src="../assets/logos/jelouebien.png"
               />
             </a>
           </div>
@@ -428,6 +454,10 @@ a[target="_blank"].logo-link::after {
   content: none;
 }
 
+.logo-link {
+  box-shadow: none;
+}
+
 .stats-icon {
   display: inline;
   height: 3rem;
@@ -439,6 +469,9 @@ a[target="_blank"].logo-link::after {
   display: flex;
   align-items: center;
   justify-content: center;
+  @media (min-width: 768px) {
+    min-height: 100px;
+  }
 }
 
 .bg-blue-grey {
@@ -502,8 +535,16 @@ a[target="_blank"].logo-link::after {
   height: 60px;
 }
 .rent {
-  width: 120px;
-  height: 16px;
+  width: 209px;
+  height: 30px;
+}
+.qlower {
+  height: 30px;
+  width: 148px;
+}
+.jelouebien {
+  height: 30px;
+  width: 227px;
 }
 </style>
 

@@ -138,7 +138,7 @@
                 <h4>{{ $t("my-personnal-information") }}</h4>
                 <div
                   class="fr-grid-row fr-grid-row--gutters"
-                  @click="setStep(0)"
+                  @click="gotoTenantName()"
                 >
                   <div class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w">
                     <div class="fr-tile fr-tile--horizontal">
@@ -683,7 +683,7 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 import StatusTag from "df-shared/src/components/StatusTag.vue";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { Guarantor } from "df-shared/src/models/Guarantor";
-import { AnalyticsService } from "@/services/AnalyticsService";
+import { AnalyticsService } from "../services/AnalyticsService";
 import { extend } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
 
@@ -743,13 +743,6 @@ export default class Account extends Vue {
     return lastUpdate < lastMonth;
   }
 
-  isStudent() {
-    const doc = this.user.documents?.find((d: DfDocument) => {
-      return d.documentCategory === "PROFESSIONAL";
-    });
-    return doc?.documentSubCategory === "STUDENT";
-  }
-
   getStatus(docType: string) {
     if (docType === "FINANCIAL") {
       const docs = this.user.documents?.filter(d => {
@@ -763,7 +756,7 @@ export default class Account extends Vue {
     return doc?.documentStatus;
   }
 
-  isFinancialValid(docs: any[]) {
+  isFinancialValid(docs: DfDocument[]) {
     if (!docs || docs.length === 0) {
       return "INCOMPLETE";
     }
@@ -803,7 +796,7 @@ export default class Account extends Vue {
   }
 
   goToProfile() {
-    this.$router.push("/profile");
+    this.$store.dispatch("firstProfilePage");
   }
 
   goToMessaging() {
@@ -864,26 +857,6 @@ export default class Account extends Vue {
   undoSelect() {
     this.isDeleteModalVisible = false;
     return false;
-  }
-
-  setStep(n: number) {
-    this.$store.commit("setStep", n);
-    this.$router.push("/profile");
-    return false;
-  }
-
-  setTenantStep(n: number) {
-    AnalyticsService.editFromAccount(n);
-    this.$store.commit("setTenantSubstep", n);
-    this.setStep(2);
-  }
-
-  setGuarantorSubStep(n: number, g: Guarantor) {
-    AnalyticsService.editFromAccount(n);
-    this.$store.commit("setGuarantorStep", 2);
-    this.$store.commit("setSelectedGuarantor", g);
-    this.$store.commit("setGuarantorSubstep", n);
-    this.setStep(3);
   }
 
   getPersonnalStatus() {
@@ -956,8 +929,32 @@ export default class Account extends Vue {
     return (
       this.user.documents?.find(d => {
         return d.documentStatus === "DECLINED";
-      }) !== undefined
+      }) !== undefined ||
+      this.user.guarantors?.find((g: Guarantor) => {
+        return (
+          g.documents?.find(d => {
+            return d.documentStatus === "DECLINED";
+          }) !== undefined
+        );
+      })
     );
+  }
+
+  gotoTenantName() {
+    this.$router.push({ name: "TenantName" });
+  }
+
+  setTenantStep(n: number) {
+    AnalyticsService.editFromAccount(n);
+    this.$router.push({
+      name: "TenantDocuments",
+      params: { substep: n.toString() }
+    });
+  }
+
+  setGuarantorSubStep(n: number, g: Guarantor) {
+    AnalyticsService.editFromAccount(n);
+    this.$store.dispatch("setGuarantorPage", { guarantor: g, substep: n });
   }
 }
 </script>

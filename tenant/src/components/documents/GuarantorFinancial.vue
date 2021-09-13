@@ -22,168 +22,191 @@
     </Modal>
     <div v-for="(f, k) in financialDocuments" :key="k">
       <ValidationObserver v-slot="{ validate }">
-        <div
-          class="fr-grid-row fr-mb-3w"
-          style="justify-content: space-between"
-        >
-          <span> Revenu {{ k + 1 }} </span>
-          <DfButton class="fr-btn" size="small" @on-click="removeFinancial(f)">
-            {{ $t("delete-financial") }}
-          </DfButton>
-        </div>
-        <form name="form" @submit.prevent="validate().then(save(f))">
-          <div>
-            <div class="fr-pl-3v">
-              {{ $t("select-label") }}
-            </div>
-
-            <v-gouv-fr-modal>
-              <template v-slot:button>
-                En difficulté pour répondre à la question ?
-              </template>
-              <template v-slot:title>
-                En difficulté pour répondre à la question ?
-              </template>
-              <template v-slot:content>
-                <p>
-                  <GuarantorChoiceHelp></GuarantorChoiceHelp>
-                  <DocumentInsert
-                    :allow-list="f.documentType.acceptedProofs"
-                    :block-list="f.documentType.refusedProofs"
-                    v-if="f.documentType.key"
-                  ></DocumentInsert>
-                </p>
-              </template>
-            </v-gouv-fr-modal>
-
-            <select
-              v-model="f.documentType"
-              class="fr-select fr-mb-3w"
-              id="select"
-              name="select"
-              @change="onSelectChange(f)"
-            >
-              <option v-for="d in documents" :value="d" :key="d.key">
-                {{ $t(d.key) }}
-              </option>
-            </select>
-          </div>
-          <div v-if="f.documentType && f.documentType.key">
-            <div>
-              <validation-provider
-                :rules="{ required: true, regex: /^[0-9., ]+$/ }"
-                v-slot="{ errors }"
-              >
-                <div
-                  class="fr-input-group"
-                  :class="errors[0] ? 'fr-input-group--error' : ''"
-                >
-                  <label for="monthlySum" class="fr-label"
-                    >{{ $t("monthlySum-label") }} :</label
-                  >
-                  <input
-                    id="monthlySum"
-                    :placeholder="$t('monthlySum')"
-                    type="number"
-                    min="0"
-                    step="1"
-                    v-model="f.monthlySum"
-                    name="monthlySum"
-                    class="validate-required form-control fr-input"
-                    required
-                  />
-                  <span class="fr-error-text" v-if="errors[0]">{{
-                    $t(errors[0])
-                  }}</span>
-                  <span class="fr-error-text" v-if="f.monthlySum > 10000">
-                    {{ $t("high-salary") }}
-                  </span>
-                  <span class="fr-error-text" v-if="f.monthlySum <= 0">
-                    {{ $t("low-salary") }}
-                  </span>
-                </div>
-              </validation-provider>
-            </div>
-            <div class="fr-mb-3w">
-              {{ f.documentType.explanationText }}
-            </div>
-            <div class="fr-mb-3w">
-              <FileUpload
-                :current-status="f.fileUploadStatus"
-                @add-files="addFiles(f, ...arguments)"
-                @reset-files="resetFiles(f, ...arguments)"
-              ></FileUpload>
-            </div>
-            <div class="fr-col-12 fr-mb-3w">
-              <input
-                type="checkbox"
-                :id="`noDocument${k}`"
-                value="false"
-                v-model="f.noDocument"
-              />
-              <label :for="`noDocument${k}`">
-                {{ $t(getCheckboxLabel(f.documentType.key)) }}
-              </label>
-            </div>
-            <div class="fr-mb-5w" v-if="f.noDocument">
-              <validation-provider
-                :rules="{ required: true }"
-                v-slot="{ errors }"
-              >
-                <div class="fr-input-group">
-                  <label class="fr-label" :for="`customText${k}`">
-                    {{ $t(getCustomTextLabel(f.documentType.key)) }}
-                  </label>
-                  <input
-                    v-model="f.customText"
-                    class="form-control fr-input validate-required"
-                    :id="`customText${k}`"
-                    name="customText"
-                    placeholder=""
-                    type="text"
-                    required
-                  />
-                  <span class="fr-error-text" v-if="errors[0]">{{
-                    $t(errors[0])
-                  }}</span>
-                </div>
-              </validation-provider>
-            </div>
-          </div>
+        <NakedCard class="fr-mb-3w">
           <div
-            v-if="financialFiles(f).length > 0"
-            class="fr-col-lg-8 fr-col-md-12 fr-mb-3w"
+            class="fr-grid-row fr-mb-3w"
+            style="justify-content: space-between"
+            :ref="`income${k}`"
           >
-            <ListItem
-              v-for="(file, k) in financialFiles(f)"
-              :key="k"
-              :file="file"
-              @remove="remove(f, file)"
-            />
-          </div>
-          <div class="fr-col-12 fr-mb-5w" v-if="f.documentType">
-            <button
-              class="fr-btn"
-              type="submit"
-              :disabled="f.files.length <= 0 && !f.noDocument"
+            <span
+              ><b>Revenu {{ k + 1 }}</b></span
             >
-              {{ $t("register") }}
-            </button>
+            <DfButton
+              class="fr-btn"
+              size="small"
+              @on-click="removeFinancial(f)"
+              v-if="k > 0"
+            >
+              {{ $t("delete-financial") }}
+            </DfButton>
           </div>
-        </form>
+          <form name="form" @submit.prevent="validate().then(save(f))">
+            <div>
+              <div>
+                <div class="fr-pl-3v">
+                  {{ $t("select-label") }}
+                </div>
+
+                <v-gouv-fr-modal>
+                  <template v-slot:button>
+                    En difficulté pour répondre à la question ?
+                  </template>
+                  <template v-slot:title>
+                    En difficulté pour répondre à la question ?
+                  </template>
+                  <template v-slot:content>
+                    <p>
+                      <GuarantorChoiceHelp></GuarantorChoiceHelp>
+                      <DocumentInsert
+                        :allow-list="f.documentType.acceptedProofs"
+                        :block-list="f.documentType.refusedProofs"
+                        v-if="f.documentType.key"
+                      ></DocumentInsert>
+                    </p>
+                  </template>
+                </v-gouv-fr-modal>
+
+              <div class="fr-mt-3w">
+                <fieldset class="fr-fieldset">
+                  <div class="fr-fieldset__content">
+                    <div class="fr-grid-row">
+                      <div v-for="d in documents" :key="d.key">
+                        <BigRadio
+                          :val="d"
+                          v-model="f.documentType"
+                          @input="onSelectChange(f)"
+                        >
+                          <div class="fr-grid-col spa">
+                            <span>{{ $t(d.key) }}</span>
+                          </div>
+                        </BigRadio>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+
+              </div>
+            </div>
+            <div
+              class="fr-mt-3w"
+              v-if="f.documentType.key && f.documentType.key"
+            >
+              <div v-if="f.documentType && f.documentType.key">
+                <div>
+                  <validation-provider
+                    :rules="{ required: true, regex: /^[0-9., ]+$/ }"
+                    v-slot="{ errors }"
+                  >
+                    <div
+                      class="fr-input-group"
+                      :class="errors[0] ? 'fr-input-group--error' : ''"
+                    >
+                      <label for="monthlySum" class="fr-label"
+                        >{{ $t("monthlySum-label") }} :</label
+                      >
+                      <input
+                        id="monthlySum"
+                        :placeholder="$t('monthlySum')"
+                        type="number"
+                        min="0"
+                        step="1"
+                        v-model="f.monthlySum"
+                        name="monthlySum"
+                        class="validate-required form-control fr-input"
+                        required
+                      />
+                      <span class="fr-error-text" v-if="errors[0]">{{
+                        $t(errors[0])
+                      }}</span>
+                      <span class="fr-error-text" v-if="f.monthlySum > 10000">
+                        {{ $t("high-salary") }}
+                      </span>
+                      <span class="fr-error-text" v-if="f.monthlySum <= 0">
+                        {{ $t("low-salary") }}
+                      </span>
+                    </div>
+                  </validation-provider>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div
+            class="fr-mt-3w"
+            v-if="f.documentType.key && f.documentType.key !== 'no-income'"
+          >
+            <div>
+              <div class="fr-mb-3w">
+                {{ f.documentType.explanationText }}
+              </div>
+              <div class="fr-mb-3w">
+                <FileUpload
+                  :current-status="f.fileUploadStatus"
+                  @add-files="addFiles(f, ...arguments)"
+                  @reset-files="resetFiles(f, ...arguments)"
+                ></FileUpload>
+              </div>
+              <div class="fr-col-12 fr-mb-3w bg-purple">
+                <input
+                  type="checkbox"
+                  :id="`noDocument${k}`"
+                  value="false"
+                  v-model="f.noDocument"
+                />
+                <label :for="`noDocument${k}`">
+                  {{ $t(getCheckboxLabel(f.documentType.key)) }}
+                </label>
+              </div>
+              <div class="fr-mb-5w" v-if="f.noDocument">
+                <validation-provider
+                  :rules="{ required: true }"
+                  v-slot="{ errors }"
+                >
+                  <div class="fr-input-group">
+                    <label class="fr-label" :for="`customText${k}`">
+                      {{ $t(getCustomTextLabel(f.documentType.key)) }}
+                    </label>
+                    <input
+                      v-model="f.customText"
+                      class="form-control fr-input validate-required"
+                      :id="`customText${k}`"
+                      name="customText"
+                      placeholder=""
+                      type="text"
+                      required
+                    />
+                    <span class="fr-error-text" v-if="errors[0]">{{
+                      $t(errors[0])
+                    }}</span>
+                  </div>
+                </validation-provider>
+              </div>
+            </div>
+            <div
+              v-if="financialFiles(f).length > 0"
+              class="fr-col-md-12 fr-mb-3w"
+            >
+              <ListItem
+                v-for="(file, k) in financialFiles(f)"
+                :key="k"
+                :file="file"
+                @remove="remove(f, file)"
+              />
+            </div>
+          </div>
+        </NakedCard>
       </ValidationObserver>
-      <hr />
     </div>
-    <div class="fr-col-12 fr-mb-5w">
-      <button class="fr-btn" type="submit" @click="addFinancial()">
-        Ajouter un revenu
-      </button>
-    </div>
+    <FinancialFooter
+      @on-back="goBack"
+      @on-next="goNext"
+      @add-financial="addFinancial()"
+    ></FinancialFooter>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { DocumentType } from "df-shared/src/models/Document";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
@@ -204,6 +227,9 @@ import { mapState } from "vuex";
 import Modal from "df-shared/src/components/Modal.vue";
 import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
+import FinancialFooter from "@/components/footer/FinancialFooter.vue";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
+import BigRadio from "df-shared/src/Button/BigRadio.vue";
 
 extend("regex", {
   ...regex,
@@ -237,7 +263,10 @@ class F {
     ConfirmModal,
     Modal,
     GuarantorChoiceHelp,
-    VGouvFrModal
+    VGouvFrModal,
+    FinancialFooter,
+    NakedCard,
+    BigRadio
   },
   computed: {
     ...mapState({
@@ -253,6 +282,11 @@ export default class GuarantorFinancial extends Vue {
   isDocDeleteVisible = false;
   selectedDoc?: F;
   isNoIncomeAndFiles = false;
+
+  @Watch("selectedGuarantor")
+  onGuarantorChange() {
+    this.initialize();
+  }
 
   isNewDocument(f: F) {
     if (f.id !== null) {
@@ -356,18 +390,26 @@ export default class GuarantorFinancial extends Vue {
       return { name: f.name, file: f, size: f.size };
     });
     f.files = [...f.files, ...nf];
+    this.save(f);
   }
+
   resetFiles(f: F) {
     f.fileUploadStatus = UploadStatus.STATUS_INITIAL;
   }
-  save(f: F) {
+
+  save(f: F): boolean {
     const fieldName = "documents";
     const formData = new FormData();
+    if (f.documentType.key === undefined) {
+      return true;
+    }
     if (!f.noDocument) {
       const newFiles = f.files.filter(f => {
         return !f.id;
       });
-      if (!newFiles.length) return;
+      if (!this.financialFiles(f).length) {
+        return false;
+      }
 
       if (
         f.documentType.maxFileCount &&
@@ -379,7 +421,7 @@ export default class GuarantorFinancial extends Vue {
             f.documentType.maxFileCount
           ])
         });
-        return;
+        return false;
       }
 
       Array.from(Array(newFiles.length).keys()).map(x => {
@@ -389,7 +431,7 @@ export default class GuarantorFinancial extends Vue {
     } else {
       if (this.financialFiles(f).length > 0) {
         this.isNoIncomeAndFiles = true;
-        return;
+        return false;
       }
     }
 
@@ -410,11 +452,10 @@ export default class GuarantorFinancial extends Vue {
     }
 
     f.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    if (this.$store.getters.isGuarantor && this.$store.getters.guarantor.id) {
-      formData.append("guarantorId", this.$store.getters.guarantor.id);
-    }
+    formData.append("guarantorId", this.$store.getters.guarantor.id);
     const loader = this.$loading.show();
-    RegisterService.saveFinancial(formData)
+    this.$store
+      .dispatch("saveGuarantorFinancial", formData)
       .then(() => {
         f.files = [];
         f.fileUploadStatus = UploadStatus.STATUS_INITIAL;
@@ -430,6 +471,7 @@ export default class GuarantorFinancial extends Vue {
       .finally(() => {
         loader.hide();
       });
+    return true;
   }
 
   financialFiles(f: F) {
@@ -442,7 +484,7 @@ export default class GuarantorFinancial extends Vue {
       };
     });
     const existingFiles =
-      this.$store.getters.getDocuments?.find((d: DfDocument) => {
+      this.$store.getters.getGuarantorDocuments?.find((d: DfDocument) => {
         return d.id === f.id;
       })?.files || [];
     return [...newFiles, ...existingFiles];
@@ -461,6 +503,13 @@ export default class GuarantorFinancial extends Vue {
 
   addFinancial() {
     this.financialDocuments.push(new F());
+
+    this.$nextTick(() => {
+      const container: Element[] = this.$refs[
+        `income${this.financialDocuments.length - 1}`
+      ] as Element[];
+      container[0].scrollIntoView();
+    });
   }
 
   removeFinancial(f: DfDocument) {
@@ -484,8 +533,21 @@ export default class GuarantorFinancial extends Vue {
     }
   }
 
-  isGuarantor() {
-    return this.$store.getters.isGuarantor;
+  goBack() {
+    this.$emit("on-back");
+  }
+
+  goNext() {
+    let res = true;
+    for (const f of this.financialDocuments) {
+      const s = this.save(f);
+      if (!s) {
+        res = false;
+      }
+    }
+    if (res) {
+      this.$emit("on-next");
+    }
   }
 
   getCheckboxLabel(key: string) {
@@ -504,6 +566,7 @@ export default class GuarantorFinancial extends Vue {
     if (key === "social-service") {
       return "noDocument-social";
     }
+    return "";
   }
 
   getCustomTextLabel(key: string) {
@@ -522,6 +585,7 @@ export default class GuarantorFinancial extends Vue {
     if (key === "social-service") {
       return "customText-social";
     }
+    return "";
   }
 }
 </script>
@@ -561,13 +625,13 @@ export default class GuarantorFinancial extends Vue {
 },
 "fr": {
   "salary": "Salaire",
-  "guarantor_salary": "Salaires ou autres revenus d’activité professionnelle",
-  "social-service": "Versement de prestations sociales",
+  "guarantor_salary": "Salaires",
+  "social-service": "Prestations sociales",
   "rent": "Rentes",
   "pension": "Pensions",
   "scholarship": "Bourses",
   "monthlySum": "Montant en euros",
-  "monthlySum-label": "Montant du revenu mensuel (après impôts)",
+  "monthlySum-label": "J'indique le montant de mon revenu mensuel net à payer (avant prélèvement à la source)",
   "noDocument-social": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
   "noDocument-salary": "Je ne peux pas fournir les trois derniers bulletins de salaire ou un bilan comptable de mon garant",
   "noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",

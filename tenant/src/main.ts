@@ -1,3 +1,4 @@
+import "./router/componentHooks"; // <-- Needs to be first
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
@@ -75,6 +76,10 @@ Vue.use(VueAuthImage);
     );
 
     const app = new Vue({
+      created() {
+        const html = document.documentElement;
+        html.setAttribute("lang", i18n.locale);
+      },
       router,
       store,
       i18n,

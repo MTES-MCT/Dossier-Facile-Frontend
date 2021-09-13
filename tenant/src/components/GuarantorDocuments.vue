@@ -1,263 +1,237 @@
 <template>
-  <div>
-    <div v-if="guarantorStep === 0">
-      <AskGuarantor @on-next-step="setGuarantorStep(1)"></AskGuarantor>
-    </div>
+  <div class="fr-mb-15w">
     <div>
-      <div v-if="guarantorStep === 1">
-        <label class="fr-label" for="select"> Sélectionnez un choix </label>
-        <select
-          v-model="tmpGuarantorType"
-          class="fr-select fr-mb-3w"
-          id="select"
-          name="select"
-          @change="onSelectChange()"
-        >
-          <option value="NATURAL_PERSON">Un garant physique classique</option>
-          <option value="ORGANISM">
-            Un organisme se porte garant pour moi (VISALE par exemple)
-          </option>
-          <option value="LEGAL_PERSON">Un garant moral</option>
-        </select>
+      <div v-if="guarantor.typeGuarantor === 'NATURAL_PERSON'">
         <div>
-          <DfButton
-            class="fr-btn"
-            primary="true"
-            @on-click="setGuarantorType()"
+          <div class="fr-grid-row">
+            <div
+              class="fr-grid-row fr-mr-3w fr-mb-3w btn-group"
+              :class="{ guarantorselected: guarantor === g }"
+              v-for="(g, k) in user.guarantors"
+              :key="k"
+            >
+              <DfButton @on-click="selectGuarantor(k)">
+                <span>
+                  {{ getName(g, k) }}
+                </span>
+              </DfButton>
+              <DfButton size="icon" @on-click="remove(g)">
+                <span class="material-icons text-danger">delete_forever</span>
+              </DfButton>
+            </div>
+            <div v-if="hasOneNaturalGuarantor()">
+              <v-gouv-fr-button
+                :secondary="true"
+                :label="$t('add-guarantor')"
+                :btn-type="'button'"
+                @click="addNaturalGuarantor"
+              ></v-gouv-fr-button>
+            </div>
+          </div>
+
+          <div
+            class="document-title title-bar"
+            :class="{ selected: substep === 1 }"
+            @click="updateSubstep(1)"
           >
-            {{ $t("validate") }}
-          </DfButton>
+            <span v-if="substep === 1" class="color--primary material-icons"
+              >keyboard_arrow_up</span
+            >
+            <span v-if="substep !== 1" class="color--primary material-icons"
+              >keyboard_arrow_down</span
+            >
+            <span class="color--primary material-icons">person</span>
+            <h2>{{ $t("identification") }}</h2>
+            <span class="spacer"></span>
+            <span
+              v-if="hasDoc('IDENTIFICATION')"
+              class="color--primary material-icons"
+              >check_circle_outline</span
+            >
+          </div>
+          <div v-if="substep === 1">
+            <GuarantorIdentification></GuarantorIdentification>
+            <GuarantorFooter
+              @on-back="goBack"
+              @on-next="goNext"
+            ></GuarantorFooter>
+          </div>
         </div>
-      </div>
-      <div v-if="guarantorStep === 2">
-        <div v-if="guarantorType === 'NATURAL_PERSON'">
-          <div>
-            <div class="fr-grid-row">
-              <div
-                class="fr-grid-row fr-mr-3w fr-mb-3w btn-group"
-                :class="{ guarantorselected: guarantor === g }"
-                v-for="(g, k) in user.guarantors"
-                :key="k"
-              >
-                <DfButton @on-click="selectGuarantor(k)">
-                  <span>
-                    {{ getName(g, k) }}
-                  </span>
-                </DfButton>
-                <DfButton size="icon" @on-click="remove(g)">
-                  <span class="material-icons text-danger">delete_forever</span>
-                </DfButton>
-              </div>
-            </div>
-            <div
-              class="document-title title-bar"
-              :class="{ selected: guarantorSubStep === 1 }"
-              @click="updateSubstep(1)"
+        <div>
+          <div
+            class="document-title title-bar"
+            :class="{ selected: substep === 2 }"
+            @click="updateSubstep(2)"
+          >
+            <span v-if="substep === 2" class="color--primary material-icons"
+              >keyboard_arrow_up</span
             >
-              <span
-                v-if="guarantorSubStep === 1"
-                class="color--primary material-icons"
-                >keyboard_arrow_up</span
-              >
-              <span
-                v-if="guarantorSubStep !== 1"
-                class="color--primary material-icons"
-                >keyboard_arrow_down</span
-              >
-              <span class="color--primary material-icons">person</span>
-              <h2>{{ $t("identification") }}</h2>
-              <span class="spacer"></span>
-              <span
-                v-if="hasDoc('IDENTIFICATION')"
-                class="color--primary material-icons"
-                >check_circle_outline</span
-              >
-            </div>
-            <GuarantorIdentification
-              v-if="guarantorSubStep === 1"
-            ></GuarantorIdentification>
+            <span v-if="substep !== 2" class="color--primary material-icons"
+              >keyboard_arrow_down</span
+            >
+            <span class="color--primary material-icons">home</span>
+            <h2>{{ $t("residency") }}</h2>
+            <span class="spacer"></span>
+            <span
+              v-if="hasDoc('RESIDENCY')"
+              class="color--primary material-icons"
+              >check_circle_outline</span
+            >
           </div>
-          <div>
-            <div
-              class="document-title title-bar"
-              :class="{ selected: guarantorSubStep === 2 }"
-              @click="updateSubstep(2)"
-            >
-              <span
-                v-if="guarantorSubStep === 2"
-                class="color--primary material-icons"
-                >keyboard_arrow_up</span
-              >
-              <span
-                v-if="guarantorSubStep !== 2"
-                class="color--primary material-icons"
-                >keyboard_arrow_down</span
-              >
-              <span class="color--primary material-icons">home</span>
-              <h2>{{ $t("residency") }}</h2>
-              <span class="spacer"></span>
-              <span
-                v-if="hasDoc('RESIDENCY')"
-                class="color--primary material-icons"
-                >check_circle_outline</span
-              >
-            </div>
-            <GuarantorResidency
-              v-if="guarantorSubStep === 2"
-            ></GuarantorResidency>
+          <div v-if="substep === 2">
+            <GuarantorResidency></GuarantorResidency>
+            <GuarantorFooter
+              @on-back="goBack"
+              @on-next="goNext"
+            ></GuarantorFooter>
           </div>
-          <div>
-            <div
-              class="document-title title-bar"
-              :class="{ selected: guarantorSubStep === 3 }"
-              @click="updateSubstep(3)"
+        </div>
+        <div>
+          <div
+            class="document-title title-bar"
+            :class="{ selected: substep === 3 }"
+            @click="updateSubstep(3)"
+          >
+            <span v-if="substep === 3" class="color--primary material-icons"
+              >keyboard_arrow_up</span
             >
-              <span
-                v-if="guarantorSubStep === 3"
-                class="color--primary material-icons"
-                >keyboard_arrow_up</span
-              >
-              <span
-                v-if="guarantorSubStep !== 3"
-                class="color--primary material-icons"
-                >keyboard_arrow_down</span
-              >
-              <span class="color--primary material-icons">work</span>
-              <h2>{{ $t("professional") }}</h2>
-              <span class="spacer"></span>
-              <span
-                v-if="hasDoc('PROFESSIONAL')"
-                class="color--primary material-icons"
-                >check_circle_outline</span
-              >
-            </div>
-            <GuarantorProfessional
-              v-if="guarantorSubStep === 3"
-            ></GuarantorProfessional>
+            <span v-if="substep !== 3" class="color--primary material-icons"
+              >keyboard_arrow_down</span
+            >
+            <span class="color--primary material-icons">work</span>
+            <h2>{{ $t("professional") }}</h2>
+            <span class="spacer"></span>
+            <span
+              v-if="hasDoc('PROFESSIONAL')"
+              class="color--primary material-icons"
+              >check_circle_outline</span
+            >
           </div>
-          <div>
-            <div
-              class="document-title title-bar"
-              :class="{ selected: guarantorSubStep === 4 }"
-              @click="updateSubstep(4)"
+          <div v-if="substep === 3">
+            <GuarantorProfessional></GuarantorProfessional>
+            <GuarantorFooter
+              @on-back="goBack"
+              @on-next="goNext"
+            ></GuarantorFooter>
+          </div>
+        </div>
+        <div>
+          <div
+            class="document-title title-bar"
+            :class="{ selected: substep === 4 }"
+            @click="updateSubstep(4)"
+          >
+            <span v-if="substep === 4" class="color--primary material-icons"
+              >keyboard_arrow_up</span
             >
-              <span
-                v-if="guarantorSubStep === 4"
-                class="color--primary material-icons"
-                >keyboard_arrow_up</span
-              >
-              <span
-                v-if="guarantorSubStep !== 4"
-                class="color--primary material-icons"
-                >keyboard_arrow_down</span
-              >
-              <span class="color--primary material-icons">euro</span>
-              <h2>{{ $t("financial") }}</h2>
-              <span class="spacer"></span>
-              <span
-                v-if="isFinancialValid()"
-                class="color--primary material-icons"
-                >check_circle_outline</span
-              >
-            </div>
+            <span v-if="substep !== 4" class="color--primary material-icons"
+              >keyboard_arrow_down</span
+            >
+            <span class="color--primary material-icons">euro</span>
+            <h2>{{ $t("financial") }}</h2>
+            <span class="spacer"></span>
+            <span
+              v-if="isFinancialValid()"
+              class="color--primary material-icons"
+              >check_circle_outline</span
+            >
+          </div>
+          <div v-if="substep === 4">
             <GuarantorFinancial
-              v-if="guarantorSubStep === 4"
+              @on-back="goBack"
+              @on-next="goNext"
             ></GuarantorFinancial>
           </div>
-          <div>
-            <div
-              class="document-title title-bar"
-              :class="{ selected: guarantorSubStep === 5 }"
-              @click="updateSubstep(5)"
+        </div>
+        <div>
+          <div
+            class="document-title title-bar"
+            :class="{ selected: substep === 5 }"
+            @click="updateSubstep(5)"
+          >
+            <span v-if="substep === 5" class="color--primary material-icons"
+              >keyboard_arrow_up</span
             >
-              <span
-                v-if="guarantorSubStep === 5"
-                class="color--primary material-icons"
-                >keyboard_arrow_up</span
-              >
-              <span
-                v-if="guarantorSubStep !== 5"
-                class="color--primary material-icons"
-                >keyboard_arrow_down</span
-              >
-              <span class="color--primary material-icons">content_copy</span>
-              <h2>{{ $t("tax") }}</h2>
-              <span class="spacer"></span>
-              <span v-if="isTaxValid()" class="color--primary material-icons"
-                >check_circle_outline</span
-              >
-            </div>
-            <GuarantorTax v-if="guarantorSubStep === 5"></GuarantorTax>
+            <span v-if="substep !== 5" class="color--primary material-icons"
+              >keyboard_arrow_down</span
+            >
+            <span class="color--primary material-icons">content_copy</span>
+            <h2>{{ $t("tax") }}</h2>
+            <span class="spacer"></span>
+            <span v-if="isTaxValid()" class="color--primary material-icons"
+              >check_circle_outline</span
+            >
+          </div>
+          <div v-if="substep === 5">
+            <GuarantorTax @on-back="goBack" @on-next="nextStep"></GuarantorTax>
           </div>
         </div>
-        <div v-if="guarantorType === 'ORGANISM'">
-          <OrganismCert></OrganismCert>
+        <div v-if="substep === 0">
+          <GuarantorFooter
+            @on-back="goBack"
+            @on-next="goNext"
+          ></GuarantorFooter>
         </div>
-        <div v-if="guarantorType === 'LEGAL_PERSON'">
-          <div>
-            <div
-              class="document-title title-bar"
-              :class="{ selected: guarantorSubStep === 1 }"
-              @click="updateSubstep(1)"
+      </div>
+      <div v-if="guarantor.typeGuarantor === 'ORGANISM'">
+        <OrganismCert></OrganismCert>
+        <GuarantorFooter
+          @on-back="goBack"
+          @on-next="nextStep"
+        ></GuarantorFooter>
+      </div>
+      <div v-if="guarantor.typeGuarantor === 'LEGAL_PERSON'">
+        <div>
+          <div
+            class="document-title title-bar"
+            :class="{ selected: substep === 1 }"
+            @click="updateSubstep(1)"
+          >
+            <span v-if="substep === 1" class="color--primary material-icons"
+              >keyboard_arrow_up</span
             >
-              <span
-                v-if="guarantorSubStep === 1"
-                class="color--primary material-icons"
-                >keyboard_arrow_up</span
-              >
-              <span
-                v-if="guarantorSubStep !== 1"
-                class="color--primary material-icons"
-                >keyboard_arrow_down</span
-              >
-              <span class="color--primary material-icons">person</span>
-              <h2>{{ $t("representative-identification") }}</h2>
-            </div>
-            <CorporationIdentification
-              v-if="guarantorSubStep === 1"
-            ></CorporationIdentification>
+            <span v-if="substep !== 1" class="color--primary material-icons"
+              >keyboard_arrow_down</span
+            >
+            <span class="color--primary material-icons">person</span>
+            <h2>{{ $t("representative-identification") }}</h2>
           </div>
-          <div>
-            <div
-              class="document-title title-bar"
-              :class="{ selected: guarantorSubStep === 2 }"
-              @click="updateSubstep(2)"
-            >
-              <span
-                v-if="guarantorSubStep === 2"
-                class="color--primary material-icons"
-                >keyboard_arrow_up</span
-              >
-              <span
-                v-if="guarantorSubStep !== 2"
-                class="color--primary material-icons"
-                >keyboard_arrow_down</span
-              >
-              <span class="color--primary material-icons">home</span>
-              <h2>{{ $t("corporation-identification") }}</h2>
-            </div>
-            <RepresentativeIdentification
-              v-if="guarantorSubStep === 2"
-            ></RepresentativeIdentification>
+          <div v-if="substep === 1">
+            <CorporationIdentification></CorporationIdentification>
+            <GuarantorFooter
+              @on-back="goBack"
+              @on-next="goNext"
+            ></GuarantorFooter>
           </div>
         </div>
-        <div class="fr-col-12 fr-mb-5w">
-          <div class="fr-grid-row fr-mb-3w buttons">
-            <v-gouv-fr-button
-              v-if="guarantorType === 'NATURAL_PERSON'"
-              :secondary="true"
-              class="fr-mb-2w fr-mt-2w"
-              :label="$t('add-guarantor')"
-              :disabled="user.guarantors.length > 1"
-              @click="addNaturalGuarantor"
-            ></v-gouv-fr-button>
-            <v-gouv-fr-button
-              :label="$t('validate-file')"
-              @click="nextStep"
-              class="fr-mb-2w fr-mt-2w"
-              :disabled="!documentsFilled()"
-            ></v-gouv-fr-button>
+        <div>
+          <div
+            class="document-title title-bar"
+            :class="{ selected: substep === 2 }"
+            @click="updateSubstep(2)"
+          >
+            <span v-if="substep === 2" class="color--primary material-icons"
+              >keyboard_arrow_up</span
+            >
+            <span v-if="substep !== 2" class="color--primary material-icons"
+              >keyboard_arrow_down</span
+            >
+            <span class="color--primary material-icons">home</span>
+            <h2>{{ $t("corporation-identification") }}</h2>
           </div>
+          <div v-if="substep === 2">
+            <RepresentativeIdentification></RepresentativeIdentification>
+            <GuarantorFooter
+              @on-back="goBack"
+              @on-next="nextStep"
+            ></GuarantorFooter>
+          </div>
+        </div>
+        <div v-if="substep === 0">
+          <GuarantorFooter
+            @on-back="goBack"
+            @on-next="goNext"
+          ></GuarantorFooter>
         </div>
       </div>
     </div>
@@ -272,7 +246,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import GuarantorIdentification from "@/components/documents/GuarantorIdentification.vue";
 import RepresentativeIdentification from "@/components/documents/RepresentativeIdentification.vue";
 import CorporationIdentification from "@/components/documents/CorporationIdentification.vue";
@@ -281,18 +255,22 @@ import GuarantorResidency from "@/components/documents/GuarantorResidency.vue";
 import GuarantorProfessional from "@/components/documents/GuarantorProfessional.vue";
 import GuarantorFinancial from "@/components/documents/GuarantorFinancial.vue";
 import GuarantorTax from "@/components/documents/GuarantorTax.vue";
-import AskGuarantor from "@/components/AskGuarantor.vue";
 import { mapGetters, mapState } from "vuex";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { User } from "df-shared/src/models/User";
 import DfButton from "df-shared/src/Button/Button.vue";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.vue";
-import { AnalyticsService } from "@/services/AnalyticsService";
+import GuarantorFooter from "@/components/footer/GuarantorFooter.vue";
+import GuarantorChoiceHelp from "./helps/GuarantorChoiceHelp.vue";
+import BigRadio from "df-shared/src/Button/BigRadio.vue";
+import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
+import { UtilsService } from "../services/UtilsService";
+import ProfileContainer from "@/components/ProfileContainer.vue";
 
 @Component({
   components: {
-    AskGuarantor,
     DfButton,
     GuarantorTax,
     GuarantorFinancial,
@@ -303,78 +281,47 @@ import { AnalyticsService } from "@/services/AnalyticsService";
     CorporationIdentification,
     OrganismCert,
     ConfirmModal,
-    VGouvFrButton
+    VGouvFrButton,
+    GuarantorFooter,
+    GuarantorChoiceHelp,
+    BigRadio,
+    VGouvFrModal,
+    NakedCard,
+    ProfileContainer
   },
   computed: {
     ...mapState({
-      guarantorStep: "guarantorStep",
-      guarantorSubStep: "guarantorSubStep",
       user: "user"
     }),
     ...mapGetters({
-      guarantor: "guarantor"
+      guarantor: "guarantor",
+      guarantors: "guarantors"
     })
   }
 })
 export default class GuarantorDocuments extends Vue {
+  @Prop({ default: 0 }) substep!: number;
   user!: User;
   guarantor!: Guarantor;
-  guarantorSubStep!: number;
-  guarantorType = "";
+  guarantors!: Guarantor[];
   tmpGuarantorType = "";
   changeGuarantorVisible = false;
 
   mounted() {
     if (this.guarantor.typeGuarantor) {
-      this.guarantorType = this.guarantor.typeGuarantor;
       this.tmpGuarantorType = this.guarantor.typeGuarantor;
     }
   }
 
-  @Watch("guarantor")
-  onGuarantorChange(val: Guarantor) {
-    this.guarantorType = val.typeGuarantor || "";
-  }
-
   updateSubstep(s: number) {
-    this.$store.commit(
-      "setGuarantorSubstep",
-      s === this.guarantorSubStep ? 0 : s
-    );
-  }
-
-  documentsFilled() {
-    return (
-      (this.guarantorType === "NATURAL_PERSON" &&
-        this.hasDoc("IDENTIFICATION") &&
-        this.hasDoc("PROFESSIONAL") &&
-        this.hasDoc("RESIDENCY") &&
-        this.isFinancialValid() &&
-        this.isTaxValid()) ||
-      (this.guarantorType === "LEGAL_PERSON" &&
-        this.hasDoc("IDENTIFICATION") &&
-        this.hasDoc("IDENTIFICATION_LEGAL_PERSON")) ||
-      (this.guarantorType === "ORGANISM" && this.hasDoc("IDENTIFICATION"))
-    );
+    this.$router.push({
+      name: "GuarantorDocuments",
+      params: { substep: this.substep === s ? "0" : s.toString() }
+    });
   }
 
   hasDoc(docType: string) {
-    const f = this.guarantor.documents?.find(d => {
-      return d.documentCategory === docType;
-    })?.files;
-    return f && f.length > 0;
-  }
-
-  setGuarantorStep(n: number) {
-    this.$store.commit("setGuarantorStep", n);
-  }
-
-  nextStep() {
-    this.$store.commit("setStep", 4);
-  }
-
-  addNaturalGuarantor() {
-    this.$store.dispatch("addNaturalGuarantor");
+    return UtilsService.guarantorHasDoc(docType, this.guarantor);
   }
 
   getName(g: Guarantor, k: number) {
@@ -389,70 +336,33 @@ export default class GuarantorDocuments extends Vue {
   }
 
   remove(g: Guarantor) {
-    this.$store.dispatch("deleteGuarantor", g).then(null, () => {
-      Vue.toasted.global.error();
-    });
+    this.$store.dispatch("deleteGuarantor", g).then(
+      () => {
+        if (!this.user.guarantors?.length || 0 >= 1) {
+          this.$router.push({ name: "GuarantorChoice" });
+        }
+      },
+      () => {
+        Vue.toasted.global.error();
+      }
+    );
   }
 
   isFinancialValid() {
-    const docs = this.guarantor.documents?.filter(d => {
-      return d.documentCategory === "FINANCIAL";
-    });
-    if (!docs || docs.length === 0) {
-      return false;
-    }
-
-    for (const doc of docs) {
-      if (!doc.noDocument && (doc.files?.length || 0) <= 0) {
-        return false;
-      }
-    }
-
-    return true;
+    return UtilsService.isGuarantorFinancialValid(this.guarantor);
   }
 
   isTaxValid() {
-    const doc = this.guarantor.documents?.find(d => {
-      return d.documentCategory === "TAX";
-    });
-    if (!doc) {
-      return false;
-    }
-    if (doc.files) {
-      return true;
-    }
-    if (doc.documentSubCategory !== "my-name") {
-      return true;
-    }
-
-    return false;
-  }
-
-  setGuarantorType() {
-    AnalyticsService.addGuarantor(this.guarantorType);
-    if (this.tmpGuarantorType != this.guarantorType) {
-      this.$store.dispatch("setGuarantorType", this.tmpGuarantorType);
-    } else {
-      this.$store.commit("setGuarantorStep", 2);
-    }
-  }
-
-  onSelectChange() {
-    if (this.guarantorType !== null) {
-      if (
-        this.guarantorType !== this.tmpGuarantorType &&
-        (this.user.guarantors?.length || 0) > 0
-      ) {
-        this.changeGuarantorVisible = true;
-      }
-    }
-    return false;
+    return UtilsService.isGuarantorTaxValid(this.guarantor);
   }
 
   validSelect() {
     this.$store.dispatch("deleteAllGuarantors").then(
       () => {
         this.changeGuarantorVisible = false;
+        if (!this.user.guarantors?.length || 0 >= 1) {
+          this.$router.push({ name: "GuarantorChoice" });
+        }
       },
       () => {
         Vue.toasted.global.error();
@@ -461,8 +371,42 @@ export default class GuarantorDocuments extends Vue {
   }
 
   undoSelect() {
-    this.tmpGuarantorType = this.guarantorType;
+    this.tmpGuarantorType = this.guarantor.typeGuarantor || "";
     this.changeGuarantorVisible = false;
+  }
+
+  goBack() {
+    if (this.substep > 1) {
+      this.$router.push({
+        name: "GuarantorDocuments",
+        params: { substep: (this.substep - 1).toString() }
+      });
+    } else {
+      this.$router.push({
+        name: "GuarantorChoice"
+      });
+    }
+  }
+
+  goNext() {
+    this.updateSubstep(this.substep + 1);
+  }
+
+  nextStep() {
+    this.$router.push({
+      name: "ValidateFile"
+    });
+  }
+
+  addNaturalGuarantor() {
+    this.$store.dispatch("addNaturalGuarantor");
+  }
+
+  hasOneNaturalGuarantor() {
+    return (
+      this.guarantors.length === 1 &&
+      this.guarantors[0].typeGuarantor === "NATURAL_PERSON"
+    );
   }
 }
 </script>
@@ -523,6 +467,27 @@ h2 {
 h2 {
   line-height: 1.5rem;
 }
+
+.remark {
+  background-color: #e5e5f4;
+  padding: 1rem;
+  border-radius: 0.25rem;
+}
+
+.card {
+  padding: 1rem;
+  border-radius: 0.25rem;
+}
+
+.card-container {
+  @media all and (min-width: 992px) {
+    width: fit-content;
+  }
+}
+
+.small-font {
+  font-size: 14px;
+}
 </style>
 
 <i18n>
@@ -539,7 +504,15 @@ h2 {
 "validate": "Validate",
 "will-delete-guarantor": "Are you sure you want to change the type of guarantor?",
 "validate-file": "Next step - Validate file",
-"add-guarantor": "I add a guarantor"
+"natural-person": "A classic physical guarantor",
+"organism": "An organization",
+"legal-person": "A corporation guarantor",
+"no-guarantor": "I don't have a guarantor",
+"more-information": "More information",
+"ask-guarantor": "Do you want to add :",
+"remark-title": "Remark",
+"remark-text": "Adding a guarantor is by no means mandatory. If you do not wish to add a surety, you can select “I don't have a guarantor”. Your file will then be registered for investigation.",
+"add-guarantor": "Add new natural guarantor"
 },
 "fr": {
 "identification": "Pièce d’identité",
@@ -553,7 +526,15 @@ h2 {
 "validate": "Valider",
 "will-delete-guarantor": "Êtes-vous sûr de vouloir changer le type de garant ?",
 "validate-file": "Étape suivante - Valider le dossier",
-"add-guarantor": "J'ajoute un nouveau garant"
+"natural-person": "Un garant physique classique",
+"organism": "Un organisme garant",
+"legal-person": "Un garant moral",
+"no-guarantor": "Je n'ai pas de garant",
+"more-information": "En difficulté pour répondre à la question ?",
+"ask-guarantor": "Souhaitez-vous ajouter :",
+"remark-title": "Remarque",
+"remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, nous pouvez sélectionner « Je n'ai pas de garant ». Votre dossier sera alors enregistré pour être instruit.",
+"add-guarantor": "Ajouter un nouveau garant"
 }
 }
 </i18n>

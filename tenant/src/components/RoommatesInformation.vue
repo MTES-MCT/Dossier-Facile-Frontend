@@ -14,84 +14,85 @@
           class="fr-mb-1w"
         >
           <NakedCard>
-            <template v-slot:content>
-              <div class="fr-grid-row bg--white">
-                <div class="fr-col-10">
-                  <div class="fr-grid-row nowrap">
-                    <div class="center-icon fr-mr-1w">
-                      <span class="color--white material-icons md-24 round-icon"
-                        >person</span
-                      >
-                    </div>
-                    <div>
-                      <div class="fr-grid-col overflow--hidden">
-                        <div :title="roommate.email">
-                          <b>
-                            {{ roommate.email }}
-                          </b>
-                        </div>
-                        <div class="small-text">
-                          {{
-                            $t(roommate.id ? "invite-sent" : "invite-waiting")
-                          }}
-                        </div>
+            <div class="fr-grid-row bg--white">
+              <div class="fr-col-10">
+                <div class="fr-grid-row nowrap">
+                  <div class="center-icon fr-mr-1w">
+                    <span class="color--white material-icons md-24 round-icon"
+                      >person</span
+                    >
+                  </div>
+                  <div>
+                    <div class="fr-grid-col overflow--hidden">
+                      <div :title="roommate.email">
+                        <b>
+                          {{ roommate.email }}
+                        </b>
+                      </div>
+                      <div class="small-text">
+                        {{ $t(roommate.id ? "invite-sent" : "invite-waiting") }}
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="fr-col-2 center-icon">
-                  <button
-                    class="fr-btn fr-btn--secondary icon-btn"
-                    :title="$t('delete')"
-                    @click="remove(roommate)"
-                    type="button"
-                  >
-                    <span class="color--primary material-icons md-24"
-                      >delete_forever</span
-                    >
-                  </button>
-                </div>
               </div>
-            </template>
+              <div class="fr-col-2 center-icon">
+                <button
+                  class="fr-btn fr-btn--secondary icon-btn"
+                  :title="$t('delete')"
+                  @click="remove(roommate)"
+                  type="button"
+                >
+                  <span class="color--primary material-icons md-24"
+                    >delete_forever</span
+                  >
+                </button>
+              </div>
+            </div>
           </NakedCard>
         </div>
       </div>
     </div>
-    <div class="fr-col-12 fr-col-xl-7 fr-mt-2w">
-      <label class="fr-label fr-mb-1w">{{ $t("roommateEmail") }}</label>
-      <validation-provider rules="email" v-slot="{ errors }">
-        <div
-          class="fr-input-group"
-          :class="errors[0] ? 'fr-input-group--error' : ''"
-        >
-          <input
-            v-model="newRoommate"
-            class="form-control fr-input"
-            name="email"
-            placeholder="Ex : exemple@exemple.fr"
-            type="email"
-          />
-          <span class="fr-error-text" v-if="errors[0]">{{
-            $t(errors[0])
-          }}</span>
-        </div>
-      </validation-provider>
-    </div>
-    <div class="fr-col-12 fr-col-xl-5 align-bottom">
-      <div class="fr-grid-row fr-grid-row--right">
-        <v-gouv-fr-button
-          :secondary="true"
-          :label="$t('add-a-roommate')"
-          :btn-type="'button'"
-          @click="addMail"
-          :disabled="newRoommate === ''"
-        ></v-gouv-fr-button>
+    <form
+      name="roommateForm"
+      @submit.prevent="addMail"
+      class="fr-col-12 fr-grid-row"
+    >
+      <div class="fr-col-12 fr-col-xl-7 fr-mt-2w">
+        <label class="fr-label fr-mb-1w">{{ $t("roommateEmail") }}</label>
+        <validation-provider rules="email" v-slot="{ errors }">
+          <div
+            class="fr-input-group"
+            :class="errors[0] ? 'fr-input-group--error' : ''"
+          >
+            <input
+              v-model="newRoommate"
+              class="form-control fr-input"
+              name="email"
+              placeholder="Ex : exemple@exemple.fr"
+              type="email"
+            />
+            <span class="fr-error-text" v-if="errors[0]">{{
+              $t(errors[0])
+            }}</span>
+          </div>
+        </validation-provider>
       </div>
-    </div>
+      <div class="fr-col-12 fr-col-xl-5 align-bottom">
+        <div class="fr-grid-row fr-grid-row--right">
+          <v-gouv-fr-button
+            :secondary="true"
+            :label="$t('add-a-roommate')"
+            :btn-type="'submit'"
+            :disabled="newRoommate === ''"
+          ></v-gouv-fr-button>
+        </div>
+      </div>
+    </form>
     <div class="fr-col-12 fr-mb-3w fr-mt-3w bg-bf200">
       <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
         <div
-          class="fr-input-group"
+          class="fr-input-group bg-purple"
           :class="errors[0] ? 'fr-input-group--error' : ''"
         >
           <input
@@ -234,6 +235,7 @@ export default class RoommatesInformation extends Vue {
 }
 
 .card {
+  box-shadow: 0 1px 8px 0 #cecece;
   @media all and (min-width: 992px) {
     padding: 1.5rem;
   }

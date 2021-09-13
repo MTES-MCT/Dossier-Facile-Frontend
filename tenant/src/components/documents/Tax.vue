@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fr-mb-5w">
     <ConfirmModal
       v-if="isDocDeleteVisible"
       @valid="validSelect()"
@@ -8,68 +8,109 @@
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
     <ValidationObserver v-slot="{ validate }">
-      <v-gouv-fr-modal>
-        <template v-slot:button>
-          En difficulté pour répondre à la question ?
-        </template>
-        <template v-slot:title>
-          En difficulté pour répondre à la question ?
-        </template>
-        <template v-slot:content>
-          <p>
-            <TaxHelp></TaxHelp>
-            <DocumentInsert
-              :allow-list="taxDocument.acceptedProofs"
-              :block-list="taxDocument.refusedProofs"
-              v-if="taxDocument.key && taxDocument.acceptedProofs.length > 0"
-            ></DocumentInsert>
-          </p>
-        </template>
-      </v-gouv-fr-modal>
+      <NakedCard>
+        <v-gouv-fr-modal>
+          <template v-slot:button>
+            En difficulté pour répondre à la question ?
+          </template>
+          <template v-slot:title>
+            En difficulté pour répondre à la question ?
+          </template>
+          <template v-slot:content>
+            <p>
+              <TaxHelp></TaxHelp>
+              <DocumentInsert
+                :allow-list="taxDocument.acceptedProofs"
+                :block-list="taxDocument.refusedProofs"
+                v-if="taxDocument.key && taxDocument.acceptedProofs.length > 0"
+              ></DocumentInsert>
+            </p>
+          </template>
+        </v-gouv-fr-modal>
 
-      <form name="form" @submit.prevent="validate().then(save)">
-        <div class="fr-mt-3w">
-          <fieldset class="fr-fieldset">
-            <div class="fr-fieldset__content">
-              <div class="fr-grid-row">
-                <div v-for="d in documents" :key="d.key">
-                  <BigRadio
-                    :val="d"
-                    v-model="taxDocument"
-                    @input="onSelectChange()"
-                  >
-                    <div class="fr-grid-col spa">
-                      <span>{{ $t(d.key) }}</span>
-                    </div>
-                  </BigRadio>
+        <form name="form" @submit.prevent="validate().then(save)">
+          <div class="fr-mt-3w">
+            <fieldset class="fr-fieldset">
+              <div class="fr-fieldset__content">
+                <div class="fr-grid-row">
+                  <div v-for="d in documents" :key="d.key">
+                    <BigRadio
+                      :val="d"
+                      v-model="taxDocument"
+                      @input="onSelectChange()"
+                    >
+                      <div class="fr-grid-col spa">
+                        <span>{{ $t(d.key) }}</span>
+                      </div>
+                    </BigRadio>
+                  </div>
                 </div>
               </div>
+            </fieldset>
+          </div>
+          <div
+            class="fr-mb-3w"
+            v-if="taxDocument.key && taxDocument.key === 'other-tax'"
+          >
+            <div class="fr-input-group">
+              <label class="fr-label" for="customText">{{
+                $t("custom-text")
+              }}</label>
+              <input
+                v-model="customText"
+                class="form-control fr-input validate-required"
+                id="customText"
+                name="customText"
+                placeholder=""
+                type="text"
+                required
+              />
             </div>
-          </fieldset>
-        </div>
+          </div>
+          <div
+            class="fr-col-12 fr-mt-3w"
+            v-if="taxDocument.key && taxDocument.key === 'my-name'"
+          >
+            <validation-provider
+              rules="is"
+              v-slot="{ errors }"
+              class="fr-col-10"
+            >
+              <div
+                class="fr-input-group bg-purple"
+                :class="errors[0] ? 'fr-input-group--error' : ''"
+              >
+                <input
+                  type="checkbox"
+                  id="acceptVerification"
+                  value="false"
+                  v-model="acceptVerification"
+                />
+                <label for="acceptVerification">{{
+                  $t("accept-verification")
+                }}</label>
+                <span class="fr-error-text" v-if="errors[0]">{{
+                  $t(errors[0])
+                }}</span>
+              </div>
+            </validation-provider>
+          </div>
+        </form>
+      </NakedCard>
+      <NakedCard
+        class="fr-mt-3w"
+        v-if="
+          (acceptVerification && taxDocument.key === 'my-name') ||
+            taxFiles().length > 0
+        "
+      >
         <div
-          class="fr-mb-3w"
-          v-if="taxDocument.key && taxDocument.key === 'other-tax'"
+          class="fr-mb-3w fr-mt-3w"
+          v-if="taxDocument.key === 'my-name' && acceptVerification"
         >
-          <div class="fr-input-group">
-            <label class="fr-label" for="customText">{{
-              $t("custom-text")
-            }}</label>
-            <input
-              v-model="customText"
-              class="form-control fr-input validate-required"
-              id="customText"
-              name="customText"
-              placeholder=""
-              type="text"
-              required
-            />
-          </div>
+          <div v-html="taxDocument.explanationText"></div>
         </div>
-        <div v-if="taxDocument.key && taxDocument.key === 'my-name'">
-          <div class="fr-mb-3w">
-            <p v-html="taxDocument.explanationText"></p>
-          </div>
+        <div v-if="taxDocument.key === 'my-name' && acceptVerification">
           <div class="fr-mb-3w">
             <FileUpload
               :current-status="fileUploadStatus"
@@ -78,10 +119,7 @@
             ></FileUpload>
           </div>
         </div>
-        <div
-          v-if="taxFiles().length > 0"
-          class="fr-col-lg-8 fr-col-md-12 fr-mb-3w"
-        >
+        <div v-if="taxFiles().length > 0" class="fr-col-12 fr-mb-3w">
           <ListItem
             v-for="(file, k) in taxFiles()"
             :key="k"
@@ -89,37 +127,9 @@
             @remove="remove(file)"
           />
         </div>
-        <div
-          class="fr-col-12 fr-mb-3w"
-          v-if="taxDocument.key && taxDocument.key === 'my-name'"
-        >
-          <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
-            <div
-              class="fr-input-group"
-              :class="errors[0] ? 'fr-input-group--error' : ''"
-            >
-              <input
-                type="checkbox"
-                id="acceptVerification"
-                value="false"
-                v-model="acceptVerification"
-              />
-              <label for="acceptVerification">{{
-                $t("accept-verification")
-              }}</label>
-              <span class="fr-error-text" v-if="errors[0]">{{
-                $t(errors[0])
-              }}</span>
-            </div>
-          </validation-provider>
-        </div>
-        <div class="fr-col-12 fr-mb-5w" v-if="taxDocument">
-          <button class="fr-btn" type="submit" :disabled="isButtonDisabled()">
-            {{ $t("register") }}
-          </button>
-        </div>
-      </form>
+      </NakedCard>
     </ValidationObserver>
+    <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
   </div>
 </template>
 
@@ -144,7 +154,9 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import TaxHelp from "../helps/TaxHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
-import { AnalyticsService } from "@/services/AnalyticsService";
+import { AnalyticsService } from "../../services/AnalyticsService";
+import ProfileFooter from "@/components/footer/ProfileFooter.vue";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 extend("is", {
   ...is,
@@ -163,7 +175,9 @@ extend("is", {
     ConfirmModal,
     BigRadio,
     TaxHelp,
-    VGouvFrModal
+    VGouvFrModal,
+    ProfileFooter,
+    NakedCard
   },
   computed: {
     ...mapGetters({
@@ -263,6 +277,10 @@ export default class Tax extends Vue {
     if (localDoc !== undefined) {
       this.taxDocument = localDoc;
     }
+
+    if (this.taxDocument.key === "my-name" && this.taxFiles().length > 0) {
+      this.acceptVerification = true;
+    }
   }
 
   addFiles(fileList: File[]) {
@@ -271,20 +289,27 @@ export default class Tax extends Vue {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
+    this.save();
   }
 
   resetFiles() {
     this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
   }
 
+  async goNext() {
+    await this.save();
+    this.$emit("on-next");
+  }
+
+  goBack() {
+    this.$emit("on-back");
+  }
+
   save() {
-    AnalyticsService.registerFile("tax");
-    if (
-      !this.taxDocument.key ||
-      (this.taxDocument.key === "my-name" && !this.acceptVerification)
-    ) {
+    if (this.taxDocument.key === undefined) {
       return;
     }
+    AnalyticsService.registerFile("tax");
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
@@ -328,7 +353,8 @@ export default class Tax extends Vue {
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     const loader = this.$loading.show();
-    RegisterService.saveTax(formData)
+    return this.$store
+      .dispatch("saveTenantTax", formData)
       .then(() => {
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
@@ -355,32 +381,10 @@ export default class Tax extends Vue {
       };
     });
     const existingFiles =
-      this.$store.getters.getDocuments?.find((d: DfDocument) => {
+      this.$store.getters.getTenantDocuments?.find((d: DfDocument) => {
         return d.documentCategory === "TAX";
       })?.files || [];
     return [...newFiles, ...existingFiles];
-  }
-
-  isButtonDisabled() {
-    if (!this.taxDocument.key) {
-      return true;
-    }
-    if (this.taxDocument.key === "my-name") {
-      return this.files.length <= 0;
-    }
-
-    if (this.taxDocument.key === "other-tax") {
-      const doc = this.getRegisteredDoc();
-      if (doc !== undefined && this.customText !== doc.customText) {
-        return false;
-      }
-    }
-
-    const localDoc = this.getLocalDoc();
-    if (localDoc && localDoc.key === this.taxDocument.key) {
-      return true;
-    }
-    return false;
   }
 
   remove(file: DfFile, silent = false) {
@@ -412,7 +416,7 @@ export default class Tax extends Vue {
   "less-than-year": "Vous êtes en France depuis moins d’un an",
   "other-tax": "Autre",
   "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
-  "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'impositon. Votre explication sera ajoutée à votre dossier :",
+  "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'imposition. Votre explication sera ajoutée à votre dossier :",
   "files": "Documents",
   "register": "Register",
   "field-required": "This field is required",
@@ -424,7 +428,7 @@ export default class Tax extends Vue {
   "less-than-year": "Vous êtes en France depuis moins d’un an",
   "other-tax": "Autre",
   "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
-  "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'impositon. Votre explication sera ajoutée à votre dossier :",
+  "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'imposition. Votre explication sera ajoutée à votre dossier :",
   "files": "Documents",
   "register": "Enregistrer",
   "field-required": "Ce champ est requis",

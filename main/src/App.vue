@@ -8,7 +8,7 @@
     >
     </MyHeader>
     <router-view />
-    <MyFooter />
+    <TheFooter />
     <Cookies
       :hidden="cookieHidden"
       @accept="acceptCookies"
@@ -20,7 +20,7 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import MyHeader from "df-shared/src/Header/Header.vue";
-import MyFooter from "df-shared/src/Footer/Footer.vue";
+import TheFooter from "df-shared/src/Footer/Footer.vue";
 import Modal from "df-shared/src/components/Modal.vue";
 import Cookies from "df-shared/src/Footer/Cookies.vue";
 import i18n from "./i18n";
@@ -30,7 +30,7 @@ import router from "./router";
 @Component({
   components: {
     MyHeader,
-    MyFooter,
+    TheFooter,
     Modal,
     Cookies
   }
@@ -42,12 +42,6 @@ export default class App extends Vue {
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
   REGISTER_URL = process.env.VUE_APP_REGISTER_URL || "";
-
-  mounted() {
-    const localScript = document.createElement("script");
-    localScript.setAttribute("src", "/js/dsfr.module.min.js");
-    document.head.appendChild(localScript);
-  }
 
   onCreateOwner() {
     window.location.href = this.OWNER_URL;
@@ -108,10 +102,6 @@ export default class App extends Vue {
     this.cookieHidden = true;
   }
 
-  isMobile() {
-    return window.innerWidth < 768;
-  }
-
   changeLang() {
     const lang = i18n.locale === "fr" ? "en" : "fr";
     this.$store.dispatch("setLang", lang);
@@ -125,10 +115,6 @@ export default class App extends Vue {
 
 <style lang="scss">
 @import "df-shared/src/scss/_main.scss";
-
-a {
-  box-shadow: none !important;
-}
 
 // style hack to handle both themeforest and gouvfr design system
 .bullets {

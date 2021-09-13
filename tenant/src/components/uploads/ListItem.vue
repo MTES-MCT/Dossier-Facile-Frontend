@@ -13,6 +13,13 @@
       </div>
       <button
         class="fr-btn fr-btn--secondary icon-btn"
+        @click="openDoc()"
+        :title="$t('show')"
+      >
+        <span class="material-icons-outlined md-28">visibility</span>
+      </button>
+      <button
+        class="fr-btn fr-btn--secondary icon-btn"
         @click="remove()"
         :title="$t('remove')"
       >
@@ -43,7 +50,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import Progress from "./Progress.vue";
 import ShowDoc from "../documents/ShowDoc.vue";
 import Modal from "df-shared/src/components/Modal.vue";
-import { AnalyticsService } from "@/services/AnalyticsService";
+import { AnalyticsService } from "../../services/AnalyticsService";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 
 @Component({
@@ -142,6 +149,7 @@ export default class ListItem extends Vue {
   background-color: white;
   border-radius: 0.5rem;
   padding: 0.5rem;
+  box-shadow: 0 0.5px 4px 0 #cecece;
 }
 
 .big-blue {
@@ -182,7 +190,7 @@ export default class ListItem extends Vue {
   "en": {
     "FRENCH_IDENTITY_CARD": "Identity card",
     "FRENCH_PASSPORT": "Passport",
-    "FRENCH_RESIDENCE_PERMIT": "Driver's license",
+    "FRENCH_RESIDENCE_PERMIT": "French residence permit",
     "OTHER_IDENTIFICATION": "Other",
     "CERTIFICATE_VISA": "Visa",
     "remove": "Delete the file",
@@ -192,9 +200,9 @@ export default class ListItem extends Vue {
     "will-delete-file": "Are you sure you want to delete this file ?"
   },
   "fr": {
-    "FRENCH_IDENTITY_CARD": "Carte d'identité",
-    "FRENCH_PASSPORT": "Passport",
-    "FRENCH_RESIDENCE_PERMIT": "Permis de conduire",
+    "FRENCH_IDENTITY_CARD": "Carte d'identité française",
+    "FRENCH_PASSPORT": "Passport français",
+    "FRENCH_RESIDENCE_PERMIT": "Titre de séjour français",
     "OTHER_IDENTIFICATION": "Autre",
     "CERTIFICATE_VISA": "Visa",
     "remove": "Supprimer la pièce",

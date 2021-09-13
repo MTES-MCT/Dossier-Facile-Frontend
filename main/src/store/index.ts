@@ -4,23 +4,26 @@ import i18n from "@/i18n";
 
 Vue.use(Vuex);
 
+const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+
 const localStore = localStorage.getItem("store");
 const initialStore = localStore !== null ? JSON.parse(localStore) : {};
-if (initialStore.lang) {
-  i18n.locale = initialStore.lang;
-}
 
 const store = new Vuex.Store({
   state: initialStore,
-  mutations: {
-    setLang(state, lang) {
-      state.lang = lang;
-    }
-  },
+  mutations: {},
   actions: {
-    setLang({ commit }, lang) {
-      commit("setLang", lang);
+    setLang(_, lang) {
       i18n.locale = lang;
+      const html = document.documentElement;
+      html.setAttribute("lang", i18n.locale);
+      Vue.$cookies.set(
+        "lang",
+        lang,
+        new Date(2050, 12, 31).toUTCString(),
+        "",
+        MAIN_URL.endsWith("dossierfacile.fr") ? "dossierfacile.fr" : "localhost"
+      );
     }
   },
   modules: {}

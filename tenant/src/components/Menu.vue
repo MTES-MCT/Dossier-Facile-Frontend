@@ -22,15 +22,12 @@
       </a>
     </li>
     <li class="fr-nav__item">
-      <a
-        :href="`${MAIN_URL}/information?lang=${$i18n.locale}`"
-        class="fr-nav__link"
-      >
+      <a :href="`${MAIN_URL}/information`" class="fr-nav__link">
         {{ $t("information") }}
       </a>
     </li>
     <li class="fr-nav__item">
-      <a :href="`${MAIN_URL}/blog?lang=${$i18n.locale}`" class="fr-nav__link">
+      <a :href="`${MAIN_URL}/blog`" class="fr-nav__link">
         {{ $t("blog") }}
       </a>
     </li>
@@ -84,11 +81,11 @@ export default class Menu extends Vue {
 <i18n>
 {
 "en": {
-"profile": "Mon compte",
-"messaging": "Messagerie",
+"profile": "Account",
+"messaging": "Messaging",
 "faq": "Help",
 "blog": "Blog",
-"information": "En savoir plus"
+"information": "Information"
 },
 "fr": {
 "profile": "Mon compte",

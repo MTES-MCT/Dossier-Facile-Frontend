@@ -17,14 +17,14 @@
         <div class="fr-col-12">
           <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
             <div
-              class="fr-input-group"
+              class="fr-input-group bg-purple"
               :class="errors[0] ? 'fr-input-group--error' : ''"
             >
               <input
                 type="checkbox"
                 id="authorize"
                 value="false"
-                v-model="spouseAuthorize"
+                v-model="localSpouseAuthorize"
               />
               <label for="authorize">{{ $t("acceptAuthorSpouse") }}</label>
               <span class="fr-error-text" v-if="errors[0]">{{
@@ -41,14 +41,14 @@
         <div class="fr-col-12">
           <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
             <div
-              class="fr-input-group"
+              class="fr-input-group bg-purple"
               :class="errors[0] ? 'fr-input-group--error' : ''"
             >
               <input
                 type="checkbox"
                 id="authorize"
                 value="false"
-                v-model="coTenantAuthorize"
+                v-model="localCoTenantAuthorize"
               />
               <label for="authorize">{{ $t("acceptAuthorCoTenant") }}</label>
               <span class="fr-error-text" v-if="errors[0]">{{
@@ -58,9 +58,7 @@
           </validation-provider>
         </div>
       </div>
-      <DfButton primary="true" @on-click="authorize()">{{
-        $t("validate")
-      }}</DfButton>
+      <ProfileFooter @on-back="goBack" @on-next="authorize()"></ProfileFooter>
     </div>
 
     <div v-if="isOwner()">
@@ -126,8 +124,7 @@
               </div>
             </fieldset>
           </div>
-
-          <SubmitButton></SubmitButton>
+          <ProfileFooter @on-back="goBack"></ProfileFooter>
         </form>
       </ValidationObserver>
     </div>
@@ -159,8 +156,9 @@ import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import SubmitButton from "df-shared/src/Button/SubmitButton.vue";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
-import { AnalyticsService } from "@/services/AnalyticsService";
+import { AnalyticsService } from "../services/AnalyticsService";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
+import ProfileFooter from "@/components/footer/ProfileFooter.vue";
 
 @Component({
   computed: {
@@ -182,7 +180,8 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
     SubmitButton,
     WarningMessage,
     DfButton,
-    ConfirmModal
+    ConfirmModal,
+    ProfileFooter
   }
 })
 export default class TenantInformationForm extends Vue {
@@ -195,16 +194,21 @@ export default class TenantInformationForm extends Vue {
   isDeleteGroupVisible = false;
   newApplicationType = "";
 
+  localCoTenantAuthorize!: boolean;
+  localSpouseAuthorize!: boolean;
+
   mounted() {
     if (this.user.applicationType) {
       this.applicationType = this.user.applicationType;
     }
+    this.localCoTenantAuthorize = this.coTenantAuthorize;
+    this.localSpouseAuthorize = this.spouseAuthorize;
   }
 
   handleOthersInformation() {
     if (
-      (this.applicationType === "COUPLE" && !this.spouseAuthorize) ||
-      (this.applicationType === "GROUP" && !this.coTenantAuthorize) ||
+      (this.applicationType === "COUPLE" && !this.localSpouseAuthorize) ||
+      (this.applicationType === "GROUP" && !this.localCoTenantAuthorize) ||
       !this.isOwner()
     ) {
       return;
@@ -212,9 +216,9 @@ export default class TenantInformationForm extends Vue {
     let coTenantEmails: string[] = [];
     let acceptAccess = false;
     if (this.applicationType === "COUPLE") {
-      acceptAccess = this.spouseAuthorize;
+      acceptAccess = this.localSpouseAuthorize;
     } else if (this.applicationType === "GROUP") {
-      acceptAccess = this.coTenantAuthorize;
+      acceptAccess = this.localCoTenantAuthorize;
     }
     coTenantEmails = this.roommates
       .filter((r: User) => {
@@ -251,6 +255,10 @@ export default class TenantInformationForm extends Vue {
       .then(
         () => {
           AnalyticsService.confirmType();
+          this.$router.push({
+            name: "TenantDocuments",
+            params: { substep: "1" }
+          });
           if (this.applicationType === "COUPLE") {
             this.$toasted.show(this.$i18n.t("couple-saved").toString(), {
               type: "show",
@@ -340,13 +348,17 @@ export default class TenantInformationForm extends Vue {
   }
 
   authorize() {
-    if (this.applicationType === "COUPLE" && !this.spouseAuthorize) {
+    if (this.applicationType === "COUPLE" && !this.localSpouseAuthorize) {
       return;
     }
-    if (this.applicationType === "GROUP" && !this.coTenantAuthorize) {
+    if (this.applicationType === "GROUP" && !this.localCoTenantAuthorize) {
       return;
     }
-    this.$store.commit("setStep", 2);
+    this.$router.push({ name: "TenantDocuments", params: { substep: "1" } });
+  }
+
+  goBack() {
+    this.$router.push({ name: "TenantName" });
   }
 }
 </script>

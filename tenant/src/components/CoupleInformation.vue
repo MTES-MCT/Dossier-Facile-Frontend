@@ -10,89 +10,90 @@
     </div>
     <div class="fr-col-12 fr-mt-2w" v-if="getPartner()">
       <NakedCard>
-        <template v-slot:content>
-          <div class="fr-grid-row bg--white">
-            <div class="fr-col-10">
-              <div class="fr-grid-row nowrap">
-                <div class="center-icon fr-mr-1w">
-                  <span class="color--white material-icons md-24 round-icon"
-                    >person</span
-                  >
-                </div>
-                <div>
-                  <div class="fr-grid-col overflow--hidden">
-                    <div :title="coupleMail">
-                      <b>
-                        {{ getPartner().email }}
-                      </b>
-                    </div>
-                    <div class="small-text">
-                      {{
-                        $t(getPartner().id ? "invite-sent" : "invite-waiting")
-                      }}
-                    </div>
+        <div class="fr-grid-row bg--white">
+          <div class="fr-col-10">
+            <div class="fr-grid-row nowrap">
+              <div class="center-icon fr-mr-1w">
+                <span class="color--white material-icons md-24 round-icon"
+                  >person</span
+                >
+              </div>
+              <div>
+                <div class="fr-grid-col overflow--hidden">
+                  <div :title="coupleMail">
+                    <b>
+                      {{ getPartner().email }}
+                    </b>
+                  </div>
+                  <div class="small-text">
+                    {{ $t(getPartner().id ? "invite-sent" : "invite-waiting") }}
                   </div>
                 </div>
               </div>
             </div>
-            <div class="fr-col-2 center-icon">
-              <button
-                class="fr-btn fr-btn--secondary icon-btn"
-                :title="$t('delete')"
-                @click="remove(getPartner().email)"
-                type="button"
-              >
-                <span class="color--primary material-icons md-24"
-                  >delete_forever</span
-                >
-              </button>
-            </div>
           </div>
-        </template>
+          <div class="fr-col-2 center-icon">
+            <button
+              class="fr-btn fr-btn--secondary icon-btn"
+              :title="$t('delete')"
+              @click="remove(getPartner().email)"
+              type="button"
+            >
+              <span class="color--primary material-icons md-24"
+                >delete_forever</span
+              >
+            </button>
+          </div>
+        </div>
       </NakedCard>
     </div>
 
-    <div class="fr-col-12" v-if="getPartner() === undefined">
-      <label class="fr-label fr-mb-1w">{{ $t("spouseEmail") }}</label>
-      <validation-provider
-        v-slot="{ errors }"
-        :rules="{ email: true, custom: user.email }"
-      >
-        <div
-          class="fr-input-group"
-          :class="errors[0] ? 'fr-input-group--error' : ''"
+    <form
+      name="coupleForm"
+      class="fr-col-12 fr-grid-row"
+      @submit.prevent="addMail"
+    >
+      <div class="fr-col-12" v-if="getPartner() === undefined">
+        <label class="fr-label fr-mb-1w">{{ $t("spouseEmail") }}</label>
+        <validation-provider
+          v-slot="{ errors }"
+          :rules="{ email: true, custom: user.email }"
         >
-          <input
-            v-model="coupleMail"
-            class="validate-required form-control fr-input"
-            :class="errors[0] ? 'fr-input--error' : ''"
-            name="email"
-            placeholder="Ex : exemple@exemple.fr"
-            type="email"
-          />
-          <span
-            class="fr-error-text"
-            v-if="errors[0] && errors[0] !== 'none'"
-            >{{ $t(errors[0]) }}</span
+          <div
+            class="fr-input-group"
+            :class="errors[0] ? 'fr-input-group--error' : ''"
           >
-        </div>
-      </validation-provider>
-    </div>
-    <div class="fr-col-12" v-if="getPartner() === undefined">
-      <div class="fr-grid-row fr-grid-row--right fr-mt-2w fr-mb-3w">
-        <v-gouv-fr-button
-          :secondary="true"
-          :label="$t('add-a-spouse')"
-          :btn-type="'button'"
-          @click="addMail"
-          :disabled="coupleMail === ''"
-        ></v-gouv-fr-button>
+            <input
+              v-model="coupleMail"
+              class="validate-required form-control fr-input"
+              :class="errors[0] ? 'fr-input--error' : ''"
+              name="email"
+              placeholder="Ex : exemple@exemple.fr"
+              type="email"
+            />
+            <span
+              class="fr-error-text"
+              v-if="errors[0] && errors[0] !== 'none'"
+              >{{ $t(errors[0]) }}</span
+            >
+          </div>
+        </validation-provider>
       </div>
-    </div>
+      <div class="fr-col-12" v-if="getPartner() === undefined">
+        <div class="fr-grid-row fr-grid-row--right fr-mt-2w fr-mb-3w">
+          <v-gouv-fr-button
+            :secondary="true"
+            :label="$t('add-a-spouse')"
+            :btn-type="'submit'"
+            :disabled="coupleMail === ''"
+          ></v-gouv-fr-button>
+        </div>
+      </div>
+    </form>
     <div class="fr-col-12 fr-mb-3w fr-mt-3w">
       <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
         <div
-          class="fr-input-group"
+          class="fr-input-group bg-purple"
           :class="errors[0] ? 'fr-input-group--error' : ''"
         >
           <input
@@ -252,6 +253,7 @@ export default class CoupleInformation extends Vue {
 }
 
 .card {
+  box-shadow: 0 1px 8px 0 #cecece;
   @media all and (min-width: 992px) {
     padding: 1.5rem;
   }

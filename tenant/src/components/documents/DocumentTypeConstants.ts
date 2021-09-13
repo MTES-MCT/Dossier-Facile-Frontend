@@ -723,9 +723,7 @@ export const DocumentTypeConstants = {
     {
       key: "my-name",
       value: "MY_NAME",
-      explanationText:
-        "En joignant mon avis d’imposition, j’accepte que DossierFacile procède à une vérification automatisée de ma fiche d’imposition auprès des services des impôts.\n" +
-        "J’ajoute un <b>avis d’imposition à mon nom.</b>",
+      explanationText: "J’ajoute un avis d’imposition à mon nom.",
       acceptedProofs: ["Avis d’imposition de moins de 2 ans"],
       refusedProofs: [
         "Avis d’imposition incomplet (sans la première page)",
@@ -767,8 +765,7 @@ export const DocumentTypeConstants = {
       key: "my-name",
       value: "MY_NAME",
       explanationText:
-        "J’ajoute un <b>avis d’imposition de moins de deux ans</b> au nom de mon garant. Le numéro fiscal et le revenu fiscal de référence doivent être lisibles." +
-        "En joignant l’avis d’imposition, j’accepte que DossierFacile procède à une vérification automatisée de la fiche d’imposition auprès des services des impôts.",
+        "J’ajoute un <b>avis d’imposition de moins de deux ans</b> au nom de mon garant. Le numéro fiscal et le revenu fiscal de référence doivent être lisibles.",
       acceptedProofs: [
         "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
       ],

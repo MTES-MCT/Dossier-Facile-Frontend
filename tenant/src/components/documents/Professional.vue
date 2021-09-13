@@ -1,41 +1,43 @@
 <template>
   <div>
-    <div>
-      <div class="fr-pl-3v">
-        {{ $t("select-label") }}
+    <NakedCard>
+      <div>
+        <div class="fr-pl-3v">
+          {{ $t("select-label") }}
+        </div>
+
+        <v-gouv-fr-modal>
+          <template v-slot:button>
+            En difficulté pour répondre à la question ?
+          </template>
+          <template v-slot:title>
+            En difficulté pour répondre à la question ?
+          </template>
+          <template v-slot:content>
+            <p>
+              <DocumentHelp></DocumentHelp>
+              <DocumentInsert
+                :allow-list="professionalDocument.acceptedProofs"
+                :block-list="professionalDocument.refusedProofs"
+                v-if="professionalDocument.key"
+              ></DocumentInsert>
+            </p>
+          </template>
+        </v-gouv-fr-modal>
+
+        <select
+          v-model="professionalDocument"
+          class="fr-select fr-mb-3w fr-mt-2w"
+          id="select"
+          name="select"
+          @change="onSelectChange()"
+        >
+          <option v-for="d in documents" :value="d" :key="d.key">
+            {{ $t(d.key) }}
+          </option>
+        </select>
       </div>
-
-      <v-gouv-fr-modal>
-        <template v-slot:button>
-          En difficulté pour répondre à la question ?
-        </template>
-        <template v-slot:title>
-          En difficulté pour répondre à la question ?
-        </template>
-        <template v-slot:content>
-          <p>
-            <DocumentHelp></DocumentHelp>
-            <DocumentInsert
-              :allow-list="professionalDocument.acceptedProofs"
-              :block-list="professionalDocument.refusedProofs"
-              v-if="professionalDocument.key"
-            ></DocumentInsert>
-          </p>
-        </template>
-      </v-gouv-fr-modal>
-
-      <select
-        v-model="professionalDocument"
-        class="fr-select fr-mb-3w fr-mt-2w"
-        id="select"
-        name="select"
-        @change="onSelectChange()"
-      >
-        <option v-for="d in documents" :value="d" :key="d.key">
-          {{ $t(d.key) }}
-        </option>
-      </select>
-    </div>
+    </NakedCard>
     <ConfirmModal
       v-if="isDocDeleteVisible"
       @valid="validSelect()"
@@ -43,36 +45,31 @@
     >
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
-    <div v-if="professionalDocument.key">
-      <div class="fr-mb-3w">
-        {{ professionalDocument.explanationText }}
+    <NakedCard
+      class="fr-mt-3w"
+      v-if="professionalDocument.key || professionalFiles().length > 0"
+    >
+      <div v-if="professionalDocument.key">
+        <div class="fr-mb-3w">
+          {{ professionalDocument.explanationText }}
+        </div>
+        <div class="fr-mb-3w">
+          <FileUpload
+            :current-status="fileUploadStatus"
+            @add-files="addFiles"
+            @reset-files="resetFiles"
+          ></FileUpload>
+        </div>
       </div>
-      <div class="fr-mb-3w">
-        <FileUpload
-          :current-status="fileUploadStatus"
-          @add-files="addFiles"
-          @reset-files="resetFiles"
-        ></FileUpload>
+      <div v-if="professionalFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
+        <ListItem
+          v-for="(file, k) in professionalFiles()"
+          :key="k"
+          :file="file"
+          @remove="remove(file)"
+        />
       </div>
-    </div>
-    <div v-if="professionalFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
-      <ListItem
-        v-for="(file, k) in professionalFiles()"
-        :key="k"
-        :file="file"
-        @remove="remove(file)"
-      />
-    </div>
-    <div class="fr-col-12 fr-mb-2w" v-if="professionalDocument">
-      <button
-        class="fr-btn"
-        type="submit"
-        @click="save"
-        :disabled="files.length <= 0"
-      >
-        {{ $t("register") }}
-      </button>
-    </div>
+    </NakedCard>
   </div>
 </template>
 
@@ -93,7 +90,8 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { User } from "df-shared/src/models/User";
 import DocumentHelp from "../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
-import { AnalyticsService } from "@/services/AnalyticsService";
+import { AnalyticsService } from "../../services/AnalyticsService";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 @Component({
   components: {
@@ -103,7 +101,8 @@ import { AnalyticsService } from "@/services/AnalyticsService";
     WarningMessage,
     ConfirmModal,
     DocumentHelp,
-    VGouvFrModal
+    VGouvFrModal,
+    NakedCard
   },
   computed: {
     ...mapGetters({
@@ -191,6 +190,7 @@ export default class Professional extends Vue {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
+    this.save();
   }
   resetFiles() {
     this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
@@ -229,7 +229,8 @@ export default class Professional extends Vue {
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     const loader = this.$loading.show();
-    RegisterService.saveProfessional(formData)
+    this.$store
+      .dispatch("saveTenantProfessional", formData)
       .then(() => {
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
@@ -255,7 +256,7 @@ export default class Professional extends Vue {
       };
     });
     const existingFiles =
-      this.$store.getters.getDocuments?.find((d: DfDocument) => {
+      this.$store.getters.getTenantDocuments?.find((d: DfDocument) => {
         return d.documentCategory === "PROFESSIONAL";
       })?.files || [];
     return [...newFiles, ...existingFiles];
@@ -293,7 +294,6 @@ export default class Professional extends Vue {
   "independent": "Indépendant",
   "other": "Autre",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-  "register": "Register",
   "select-label": "Your current professional situation:"
 },
 "fr": {
@@ -310,7 +310,6 @@ export default class Professional extends Vue {
   "independent": "Indépendant",
   "other": "Autre",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "register": "Enregistrer",
   "select-label": "Votre situation professionnelle actuelle :"
 }
 }

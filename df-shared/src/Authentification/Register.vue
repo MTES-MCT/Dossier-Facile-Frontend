@@ -115,7 +115,7 @@
               v-slot="{ errors }"
             >
               <div
-                class="fr-input-group"
+                class="fr-input-group bg-purple"
                 :class="errors[0] ? 'fr-input-group--error' : ''"
               >
                 <input
@@ -145,7 +145,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import { User } from "df-shared/src/models/User";
 import { ValidationProvider, ValidationObserver } from "vee-validate";
 import { extend } from "vee-validate";
@@ -209,11 +209,6 @@ export default class Register extends Vue {
   mounted() {
     this.user.email = this.email;
     this.generatePlaceholder();
-  }
-
-  @Watch("email")
-  updateEmail() {
-    this.user.email = this.email;
   }
 
   handleRegister() {
