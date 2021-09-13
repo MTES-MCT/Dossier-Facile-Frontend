@@ -483,6 +483,7 @@ export default class Financial extends Vue {
 
     if (f.documentType.key === "no-income") {
       f.noDocument = true;
+      f.monthlySum = 0;
     }
 
     formData.append("noDocument", f.noDocument ? "true" : "false");
@@ -492,12 +493,10 @@ export default class Financial extends Vue {
       formData.append("customText", f.customText);
     }
 
-    if (f.monthlySum) {
+    if (f.monthlySum && f.monthlySum > 0) {
       formData.append("monthlySum", f.monthlySum.toString());
     } else {
-      if (f.documentType.key !== "no-income") {
-        formData.append("monthlySum", "0");
-      }
+      formData.append("monthlySum", "0");
     }
     if (f.id) {
       formData.append("id", f.id.toString());
