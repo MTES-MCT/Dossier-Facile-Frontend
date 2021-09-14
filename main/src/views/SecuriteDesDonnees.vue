@@ -479,12 +479,13 @@
                 options de réglage.
               </p>
               <h3>8. Données techniques</h3>
+              <h6>Collecte des données techniques</h6>
               <p>
-                Collecte des données techniques Afin d’assurer la sécurité
-                informatique du Site et à des fins statistiques et
-                d’amélioration du Site, nous pouvons collecter et conserver les
-                données techniques relatives à votre appareil (adresse IP,
-                fournisseur d'accès à Internet, type d’appareil utilisé).
+                Afin d’assurer la sécurité informatique du Site et à des fins
+                statistiques et d’amélioration du Site, nous pouvons collecter
+                et conserver les données techniques relatives à votre appareil
+                (adresse IP, fournisseur d'accès à Internet, type d’appareil
+                utilisé).
               </p>
               <h6>Durée de conservation des données techniques</h6>
               <p>
