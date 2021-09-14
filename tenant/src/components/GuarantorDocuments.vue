@@ -2,62 +2,6 @@
   <div class="fr-mb-15w">
     <div>
       <div v-if="guarantor.typeGuarantor === 'NATURAL_PERSON'">
-        <div>
-          <div class="fr-grid-row">
-            <div
-              class="fr-grid-row fr-mr-3w fr-mb-3w btn-group"
-              :class="{ guarantorselected: guarantor === g }"
-              v-for="(g, k) in user.guarantors"
-              :key="k"
-            >
-              <DfButton @on-click="selectGuarantor(k)">
-                <span>
-                  {{ getName(g, k) }}
-                </span>
-              </DfButton>
-              <DfButton size="icon" @on-click="remove(g)">
-                <span class="material-icons text-danger">delete_forever</span>
-              </DfButton>
-            </div>
-            <div v-if="hasOneNaturalGuarantor()">
-              <v-gouv-fr-button
-                :secondary="true"
-                :label="$t('add-guarantor')"
-                :btn-type="'button'"
-                @click="addNaturalGuarantor"
-              ></v-gouv-fr-button>
-            </div>
-          </div>
-
-          <div
-            class="document-title title-bar"
-            :class="{ selected: substep === 1 }"
-            @click="updateSubstep(1)"
-          >
-            <span v-if="substep === 1" class="color--primary material-icons"
-              >keyboard_arrow_up</span
-            >
-            <span v-if="substep !== 1" class="color--primary material-icons"
-              >keyboard_arrow_down</span
-            >
-            <span class="color--primary material-icons">person</span>
-            <h2>{{ $t("identification") }}</h2>
-            <span class="spacer"></span>
-            <span
-              v-if="hasDoc('IDENTIFICATION')"
-              class="color--primary material-icons"
-              >check_circle_outline</span
-            >
-          </div>
-          <div v-if="substep === 1">
-            <GuarantorIdentification></GuarantorIdentification>
-            <GuarantorFooter
-              @on-back="goBack"
-              @on-next="goNext"
-            ></GuarantorFooter>
-          </div>
-        </div>
-        <div>
         <div class="fr-grid-row">
           <div
             class="fr-grid-row fr-mr-3w fr-mb-3w btn-group"
@@ -73,6 +17,14 @@
             <DfButton size="icon" @on-click="remove(g)">
               <span class="material-icons text-danger">delete_forever</span>
             </DfButton>
+          </div>
+          <div v-if="hasOneNaturalGuarantor()">
+            <v-gouv-fr-button
+              :secondary="true"
+              :label="$t('add-guarantor')"
+              :btn-type="'button'"
+              @click="addNaturalGuarantor"
+            ></v-gouv-fr-button>
           </div>
         </div>
         <div v-if="substep <= 1">
