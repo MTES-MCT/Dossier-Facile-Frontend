@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="fr-m-3w" v-html="$t('cgu-update')"></div>
     <section class="s0-background fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
       <div class="fr-container">
         <div class="fr-col-md-8">
@@ -78,15 +79,14 @@
               <div class="step-number">1</div>
               <h2 class="fr-h4 fr-mb-0">{{ $t("s2.h1") }}</h2>
             </div>
-            <p>{{ $t("s2.p1") }}
-              <ul class="fr-pt-2w">
-                <li>{{ $t("s2.u1a") }}</li>
-                <li>{{ $t("s2.u1b") }}</li>
-                <li>{{ $t("s2.u1c") }}</li>
-                <li>{{ $t("s2.u1d") }}</li>
-                <li>{{ $t("s2.u1e") }}</li>
-              </ul>
-            </p>
+            <div>{{ $t("s2.p1") }}</div>
+            <ul class="fr-pt-2w fr-mb-5w">
+              <li>{{ $t("s2.u1a") }}</li>
+              <li>{{ $t("s2.u1b") }}</li>
+              <li>{{ $t("s2.u1c") }}</li>
+              <li>{{ $t("s2.u1d") }}</li>
+              <li>{{ $t("s2.u1e") }}</li>
+            </ul>
 
             <div class="fr-grid-row align-items--center">
               <div class="step-number">2</div>
@@ -636,7 +636,8 @@ a[target="_blank"].logo-link::after {
     "s5": {
       "title1": "They",
       "title2": "trust us"
-    }
+    },
+    "cgu-update": "Nous avons mis à jour nos Conditions générales d'utilisation et notre Politique de confidentialité. <a target=\"_blank\" href='/securite-des-donnees'>Cliquez ici</a> pour les consulter"
   },
   "fr": {
     "button": "Monter mon dossier de location",
@@ -690,7 +691,8 @@ a[target="_blank"].logo-link::after {
     "s5": {
       "title1": "Ils nous font",
       "title2": "confiance"
-    }
+    },
+    "cgu-update": "Nous avons mis à jour nos Conditions générales d'utilisation et notre Politique de confidentialité. <a target=\"_blank\" href='/securite-des-donnees'>Cliquez ici</a> pour les consulter"
   }
 }
 </i18n>

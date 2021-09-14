@@ -52,10 +52,12 @@ export default class App extends Vue {
   }
 
   acceptCookies() {
+    const aYearFromNow = new Date();
+    aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1);
     this.$cookies.set(
       "accept-cookie",
       true,
-      new Date(2050, 12, 31).toUTCString(),
+      aYearFromNow,
       "",
       this.MAIN_URL.endsWith("dossierfacile.fr")
         ? "dossierfacile.fr"

@@ -222,10 +222,12 @@ const store = new Vuex.Store({
       i18n.locale = lang;
       const html = document.documentElement;
       html.setAttribute("lang", i18n.locale);
+      const aYearFromNow = new Date();
+      aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1);
       Vue.$cookies.set(
         "lang",
         lang,
-        new Date(2050, 12, 31).toUTCString(),
+        aYearFromNow,
         "",
         MAIN_URL.endsWith("dossierfacile.fr") ? "dossierfacile.fr" : "localhost"
       );
