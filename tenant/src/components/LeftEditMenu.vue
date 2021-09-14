@@ -3,12 +3,21 @@
     <div class="inner-left-edit fr-mt-7w">
       <div class="active step">
         <div class="step-number">1</div>
-        <div class="step-title">je renseigne mes informations</div>
+        <div class="step-title">
+          <router-link :to="{ name: 'TenantName' }">
+            Je renseigne mes informations</router-link
+          >
+        </div>
       </div>
       <div class="vline" :class="getClass(0)"></div>
       <div class="step" :class="getClass(1)">
         <div class="step-number">2</div>
-        <div class="step-title">je joins mes documents</div>
+        <div class="step-title">
+          <router-link
+            :to="{ name: 'TenantDocuments', params: { substep: '1' } }"
+            >Je joins mes documents</router-link
+          >
+        </div>
       </div>
       <div class="vline" :class="getClass(1)">
         <div class="ml-5">
@@ -49,7 +58,9 @@
       </div>
       <div class="step" :class="getClass(2)">
         <div class="step-number">3</div>
-        <div class="step-title">je renseigne mon garant</div>
+        <div class="step-title">
+          <router-link :to="{ name: 'GuarantorChoice' }"
+            >je renseigne mon garant</router-link></div>
       </div>
       <div class="vline" :class="getClass(2)"></div>
       <div class="step" :class="getClass(3)">
