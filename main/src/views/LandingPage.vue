@@ -192,7 +192,7 @@
         </h2>
         <div class="fr-grid-row">
           <div
-            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a
               target="_blank"
@@ -208,7 +208,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a target="_blank" href="https://www.visale.fr/" class="logo-link"
               rel="noreferrer"
@@ -221,7 +221,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a
               target="_blank"
@@ -237,7 +237,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a target="_blank" href="https://colivme.com/" class="logo-link"
               rel="noreferrer"
@@ -250,7 +250,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a target="_blank" href="https://whoomies.com/" class="logo-link"
               rel="noreferrer"
@@ -263,7 +263,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a target="_blank" href="https://www.anil.org/" class="logo-link"
               rel="noreferrer"
@@ -276,7 +276,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a target="_blank" href="https://www.clickandrent.fr/" class="logo-link"
               rel="noreferrer"
@@ -289,7 +289,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a target="_blank" href="https://www.qlower.com/" class="logo-link"
               rel="noreferrer"
@@ -302,7 +302,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a target="_blank" href="https://www.jelouebien.com/" class="logo-link"
               rel="noreferrer"
@@ -311,6 +311,32 @@
                 alt="logo jelouebien"
                 class="partner-logo jelouebien"
                 src="../assets/logos/jelouebien.png"
+              />
+            </a>
+          </div>
+          <div
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+          >
+            <a target="_blank" href="https://www.gererseul.com/" class="logo-link"
+              rel="noreferrer"
+            >
+              <img
+                alt="logo gererseul"
+                class="partner-logo gererseul"
+                src="../assets/logos/gererseul.png"
+              />
+            </a>
+          </div>
+          <div
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+          >
+            <a target="_blank" href="https://pandaloc.com/" class="logo-link"
+              rel="noreferrer"
+            >
+              <img
+                alt="logo pandaloc"
+                class="partner-logo pandaloc"
+                src="../assets/logos/pandaloc.png"
               />
             </a>
           </div>
@@ -545,6 +571,14 @@ a[target="_blank"].logo-link::after {
 .jelouebien {
   height: 30px;
   width: 227px;
+}
+.gererseul {
+  width: 200;
+  height: 44px;
+}
+.pandaloc {
+  width: 172;
+  height: 60px;
 }
 </style>
 
