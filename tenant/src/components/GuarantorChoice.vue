@@ -140,12 +140,19 @@ export default class GuarantorDocuments extends Vue {
   tmpGuarantorType = "";
   changeGuarantorVisible = false;
 
+  getLocalStorageKey() {
+    return "guarantorType_" + this.user.email;
+  }
+
   mounted() {
     if (this.guarantor.typeGuarantor) {
       this.tmpGuarantorType = this.guarantor.typeGuarantor;
-      localStorage.setItem("guarantorType", this.guarantor.typeGuarantor);
+      localStorage.setItem(
+        this.getLocalStorageKey(),
+        this.guarantor.typeGuarantor
+      );
     } else {
-      const localType = localStorage.getItem("guarantorType");
+      const localType = localStorage.getItem(this.getLocalStorageKey());
       if (localType) {
         this.tmpGuarantorType = localType;
       }
@@ -154,7 +161,7 @@ export default class GuarantorDocuments extends Vue {
 
   onSelectChange(value: string) {
     this.tmpGuarantorType = value;
-    localStorage.setItem("guarantorType", value);
+    localStorage.setItem(this.getLocalStorageKey(), value);
     if (this.guarantor.typeGuarantor !== null) {
       if (
         this.guarantor.typeGuarantor !== value &&
@@ -199,7 +206,6 @@ export default class GuarantorDocuments extends Vue {
     }
     AnalyticsService.addGuarantor(this.guarantor.typeGuarantor || "");
     if (this.tmpGuarantorType === "NO_GUARANTOR") {
-
       this.$router.push({
         name: "ValidateFile"
       });
