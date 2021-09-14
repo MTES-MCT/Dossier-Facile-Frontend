@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="fr-m-3w" v-html="$t('cgu-update')"></div>
+    <div class="fr-container">
+      <div class="fr-mt-3w fr-mb-3w" v-html="$t('cgu-update')"></div>
+    </div>
     <section class="s0-background fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
       <div class="fr-container">
         <div class="fr-col-md-8">
