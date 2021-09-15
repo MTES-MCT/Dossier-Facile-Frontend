@@ -22,35 +22,40 @@
       <div class="vline" :class="getClass(1)">
         <div class="ml-5">
           <router-link
-            class="fr-link menu-link check"
+            class="fr-link"
+            :class="getTenantIdentityClass()"
             :to="{ name: 'TenantDocuments', params: { substep: '1' } }"
             >{{ $t("identity") }}</router-link
           >
         </div>
         <div class="ml-5">
           <router-link
-            class="fr-link menu-link check"
+            class="fr-link"
+            :class="getTenantResidencyClass()"
             :to="{ name: 'TenantDocuments', params: { substep: '2' } }"
             >{{ $t("residency") }}</router-link
           >
         </div>
         <div class="ml-5">
           <router-link
-            class="fr-link menu-link check"
+            class="fr-link"
+            :class="getTenantProfessionalClass()"
             :to="{ name: 'TenantDocuments', params: { substep: '3' } }"
             >{{ $t("professional") }}</router-link
           >
         </div>
         <div class="ml-5">
           <router-link
-            class="fr-link menu-link check"
+            class="fr-link"
+            :class="getTenantFinancialClass()"
             :to="{ name: 'TenantDocuments', params: { substep: '4' } }"
             >{{ $t("financial") }}</router-link
           >
         </div>
         <div class="ml-5">
           <router-link
-            class="fr-link menu-link check"
+            class="fr-link"
+            :class="getTenantTaxClass()"
             :to="{ name: 'TenantDocuments', params: { substep: '5' } }"
             >{{ $t("tax") }}</router-link
           >
@@ -60,7 +65,9 @@
         <div class="step-number">3</div>
         <div class="step-title">
           <router-link :to="{ name: 'GuarantorChoice' }"
-            >je renseigne mon garant</router-link></div>
+            >je renseigne mon garant</router-link
+          >
+        </div>
       </div>
       <div class="vline" :class="getClass(2)"></div>
       <div class="step" :class="getClass(3)">
@@ -74,6 +81,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { DocumentService } from "../services/DocumentService";
 
 @Component
 export default class LeftEditMenu extends Vue {
@@ -84,6 +92,47 @@ export default class LeftEditMenu extends Vue {
       return "active";
     }
     return "";
+  }
+
+  getLinkClass() {
+    return "valid-menu-link";
+  }
+
+  getTenantIdentityClass() {
+    const status = DocumentService.getTenantIdentityStatus();
+    return this.getClassByStatus(status);
+  }
+
+  getTenantResidencyClass() {
+    const status = DocumentService.getTenantResidencyStatus();
+    return this.getClassByStatus(status);
+  }
+
+  getTenantProfessionalClass() {
+    const status = DocumentService.getTenantProfessionalStatus();
+    return this.getClassByStatus(status);
+  }
+
+  getTenantFinancialClass() {
+    const status = DocumentService.getTenantFinancialStatus();
+    return this.getClassByStatus(status);
+  }
+
+  getTenantTaxClass() {
+    const status = DocumentService.getTenantTaxStatus();
+    return this.getClassByStatus(status);
+  }
+
+  getClassByStatus(status: string) {
+    switch (status) {
+      case "VALIDATED":
+        return "valid-menu-link";
+      case "TO_PROCESS":
+        return "to-process-menu-link";
+      case "DECLINED":
+        return "declined-menu-link";
+    }
+    return "empty-menu-link";
   }
 
   getStep(s: number) {
@@ -173,16 +222,44 @@ export default class LeftEditMenu extends Vue {
   margin-bottom: 1rem;
 }
 
-.menu-link {
+.valid-menu-link {
   background-color: #e3ebd3;
-  color: #91ae4f;
+  color: var(--success);
+  &:before {
+    content: "\2713";
+    display: inline-block;
+    padding: 0 6px 0 0;
+  }
 }
 
-.check:before {
-  content: "\2713";
-  display: inline-block;
-  color: #91ae4f;
-  padding: 0 6px 0 0;
+.to-process-menu-link {
+  background-color: var(--bf200-bf300);
+  color: var(--focus);
+  &:before {
+    content: "\2192";
+    display: inline-block;
+    padding: 0 6px 0 0;
+  }
+}
+
+.declined-menu-link {
+  background-color: var(--rm300);
+  color: var(--error);
+  &:before {
+    content: "\00d7";
+    display: inline-block;
+    padding: 0 6px 0 0;
+  }
+}
+
+.empty-menu-link {
+  background-color: var(--bf200-bf300);
+  color: var(--focus);
+  &:before {
+    content: "\2192";
+    display: inline-block;
+    padding: 0 6px 0 0;
+  }
 }
 </style>
 

@@ -62,5 +62,25 @@ export const DocumentService = {
       files = files.concat(docs[i].files || []);
     }
     return files;
+  },
+  getTenantIdentityStatus(): string {
+    const doc = this.hasDoc("IDENTIFICATION");
+    return doc?.documentStatus || "";
+  },
+  getTenantResidencyStatus(): string {
+    const doc = this.hasDoc("RESIDENCY");
+    return doc?.documentStatus || "";
+  },
+  getTenantProfessionalStatus(): string {
+    const doc = this.hasDoc("PROFESSIONAL");
+    return doc?.documentStatus || "";
+  },
+  getTenantFinancialStatus(): string {
+    const doc = this.hasDoc("FINANCIAL");
+    return doc?.documentStatus || "";
+  },
+  getTenantTaxStatus(): string {
+    const doc = this.hasDoc("TAX");
+    return doc?.documentStatus || "";
   }
 };
