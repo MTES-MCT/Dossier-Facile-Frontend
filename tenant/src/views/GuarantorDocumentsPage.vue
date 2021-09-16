@@ -1,11 +1,5 @@
 <template>
   <ProfileContainer :step="3">
-    <div class="step fr-mb-3w">
-      <div class="step-number">3</div>
-      <div>
-        <h4>{{ $t("title-step") }}</h4>
-      </div>
-    </div>
     <GuarantorDocuments :substep="getStep()"></GuarantorDocuments>
   </ProfileContainer>
 </template>
@@ -43,31 +37,13 @@ export default class GuarantorDocumentsPage extends Vue {
 h4 {
   margin: 0;
 }
-.step-number {
-  background-color: var(--primary);
-  color: white;
-  margin: 0.25rem 1rem 0 0;
-  border-radius: 50%;
-  display: inline-block;
-  height: 25px;
-  width: 25px;
-  min-width: 25px;
-  text-align: center;
-  z-index: 1;
-}
-.step {
-  display: flex;
-  align-items: center;
-}
 </style>
 
 <i18n>
 {
 "en": {
-"title-step": "I fulfill my guarantor"
 },
 "fr": {
-"title-step": "Mon garant"
 }
 }
 </i18n>

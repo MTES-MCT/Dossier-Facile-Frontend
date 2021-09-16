@@ -1,11 +1,5 @@
 <template>
   <ProfileContainer :step="3">
-    <div class="step fr-mb-3w">
-      <div class="step-number">3</div>
-      <div>
-        <h4>{{ $t("title-step") }}</h4>
-      </div>
-    </div>
     <GuarantorChoice></GuarantorChoice>
   </ProfileContainer>
 </template>
