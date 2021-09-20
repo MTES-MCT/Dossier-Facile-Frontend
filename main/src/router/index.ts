@@ -155,17 +155,22 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "information" */ "../views/Information.vue")
   },
   {
-    path: "/securite-des-donnees",
-    name: "SecuriteDesDonnees",
+    path: "/mentions-legales",
+    name: "MentionsLegales",
     meta: {
       title: "Sécurité et protection des données personnelles - DossierFacile",
       description:
         "DossierFacile s’engage à protéger vos données personnelles : créez votre dossier de location en toute sécurité"
     },
     component: () =>
-      import(
-        /* webpackChunkName: "security" */ "../views/SecuriteDesDonnees.vue"
-      )
+      import(/* webpackChunkName: "security" */ "../views/MentionsLegales.vue")
+  },
+  {
+    path: "/securite-des-donnees",
+    redirect: () => {
+      window.location.replace("/mentions-legales");
+      return "/mentions-legales";
+    }
   },
   {
     path: "/faq",
