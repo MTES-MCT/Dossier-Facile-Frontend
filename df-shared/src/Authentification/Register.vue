@@ -115,7 +115,7 @@
               v-slot="{ errors }"
             >
               <div
-                class="fr-input-group bg-purple"
+                class="bg-purple fr-checkbox-group"
                 :class="errors[0] ? 'fr-input-group--error' : ''"
               >
                 <input
@@ -124,7 +124,7 @@
                   value="false"
                   v-model="acceptCgu"
                 />
-                <label for="acceptCgu" v-html="$t('accept-cgu')"></label>
+                <label for="acceptCgu"><div v-html="$t('accept-cgu')"></div></label>
                 <span class="fr-error-text" v-if="errors[0]">{{
                   $t(errors[0])
                 }}</span>
