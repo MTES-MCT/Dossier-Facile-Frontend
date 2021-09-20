@@ -297,7 +297,9 @@
                 tribunaux français.
               </p>
 
-              <h2 id="politique-de-confidentialite">Vie privée et politique de confidentialité</h2>
+              <h2 id="politique-de-confidentialite">
+                Vie privée et politique de confidentialité
+              </h2>
               <h3>1. Données à caractère personnel</h3>
               <p>
                 Nous nous engageons à ce que la collecte et le traitement de vos
