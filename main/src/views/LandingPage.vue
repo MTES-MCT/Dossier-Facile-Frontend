@@ -639,7 +639,7 @@ a[target="_blank"].logo-link::after {
       "title1": "They",
       "title2": "trust us"
     },
-    "cgu-update": "Nous avons mis à jour nos Conditions générales d'utilisation et notre Politique de confidentialité. <a target=\"_blank\" href='/securite-des-donnees'>Cliquez ici</a> pour les consulter"
+    "cgu-update": "Nous avons mis à jour nos Conditions générales d'utilisation et notre Politique de confidentialité. <a target=\"_blank\" href='/mentions-legales'>Cliquez ici</a> pour les consulter"
   },
   "fr": {
     "button": "Monter mon dossier de location",
@@ -694,7 +694,7 @@ a[target="_blank"].logo-link::after {
       "title1": "Ils nous font",
       "title2": "confiance"
     },
-    "cgu-update": "Nous avons mis à jour nos Conditions générales d'utilisation et notre Politique de confidentialité. <a target=\"_blank\" href='/securite-des-donnees'>Cliquez ici</a> pour les consulter"
+    "cgu-update": "Nous avons mis à jour nos Conditions générales d'utilisation et notre Politique de confidentialité. <a target=\"_blank\" href='/mentions-legales'>Cliquez ici</a> pour les consulter"
   }
 }
 </i18n>

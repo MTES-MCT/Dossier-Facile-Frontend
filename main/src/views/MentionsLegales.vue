@@ -41,7 +41,7 @@
                 OVH,<br />
                 2 rue Kellermann, 59100 Roubaix, France
               </p>
-              <h2>Conditions générales d’utilisation</h2>
+              <h2 id="cgu">Conditions générales d’utilisation</h2>
               <p>
                 DossierFacile est un service numérique du Ministère de la
                 Transition écologique.
@@ -297,7 +297,7 @@
                 tribunaux français.
               </p>
 
-              <h2>Vie privée et politique de confidentialité</h2>
+              <h2 id="politique-de-confidentialite">Vie privée et politique de confidentialité</h2>
               <h3>1. Données à caractère personnel</h3>
               <p>
                 Nous nous engageons à ce que la collecte et le traitement de vos
