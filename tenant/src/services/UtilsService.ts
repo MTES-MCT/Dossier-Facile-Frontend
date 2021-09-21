@@ -117,5 +117,9 @@ export const UtilsService = {
   },
   isMobile() {
     return window.innerWidth < 768;
+  },
+  capitalize(word: string) {
+    word = word.toLowerCase();
+    return word.replace(/\b(\w)/g, s => s.toUpperCase());
   }
 };

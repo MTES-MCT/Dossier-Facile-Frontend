@@ -154,6 +154,7 @@ import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import { UtilsService } from "../../services/UtilsService";
 
 @Component({
   components: {
@@ -307,10 +308,10 @@ export default class Identification extends Vue {
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     if (this.firstName) {
-      formData.append("firstName", this.firstName);
+      formData.append("firstName", UtilsService.capitalize(this.firstName));
     }
     if (this.lastName) {
-      formData.append("lastName", this.lastName);
+      formData.append("lastName", UtilsService.capitalize(this.lastName));
     }
     formData.append("guarantorId", this.$store.getters.guarantor.id);
     const loader = this.$loading.show();
