@@ -198,7 +198,13 @@ const store = new Vuex.Store({
         }
       );
     },
-    setNames({ commit }, user) {
+    setNames({ commit }, user: User) {
+      if (user.firstName) {
+        user.firstName = UtilsService.capitalize(user.firstName);
+      }
+      if (user.lastName) {
+        user.lastName = UtilsService.capitalize(user.lastName);
+      }
       return ProfileService.saveNames(user).then(
         () => {
           return commit("setNamesSuccess", user);
