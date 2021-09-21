@@ -40,6 +40,14 @@ body {
   background-color: $light-blue-transparent;
 }
 
+.bg--dark-blue {
+  background-color: var(--primary);
+}
+
+.bg--grey {
+  background-color: #f2f2f9;
+}
+
 .material-icons.md-18 { font-size: 18px; }
 .material-icons.md-24 { font-size: 24px; }
 .material-icons.md-36 { font-size: 36px; }
@@ -238,4 +246,14 @@ img {
   padding: 1rem;
   border-radius: 0.25rem;
   background-color: #e5e5f4;
+}
+
+.fr-container-full-size {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  max-width: 100% !important;
+}
+
+.full-height {
+  min-height: 100%;
 }
