@@ -48,11 +48,7 @@
       </NakedCard>
     </div>
 
-    <form
-      name="coupleForm"
-      class="fr-col-12 fr-grid-row"
-      @submit.prevent="addMail"
-    >
+    <form name="coupleForm" class="fr-col-12 fr-grid-row">
       <div class="fr-col-12" v-if="getPartner() === undefined">
         <label class="fr-label fr-mb-1w">{{ $t("spouseEmail") }}</label>
         <validation-provider
@@ -84,8 +80,9 @@
           <v-gouv-fr-button
             :secondary="true"
             :label="$t('add-a-spouse')"
-            :btn-type="'submit'"
+            :btn-type="'button'"
             :disabled="coupleMail === ''"
+            @click="addMail"
           ></v-gouv-fr-button>
         </div>
       </div>
