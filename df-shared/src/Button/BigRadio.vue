@@ -1,7 +1,7 @@
 <template>
   <div
     class="br"
-    :class="{ selected: value === val, big: big }"
+    :class="{ selected: isEqual(value, val), big: big }"
     @click="setValue()"
   >
     <slot></slot>
@@ -19,6 +19,13 @@ export default class BigRadio extends Vue {
 
   setValue() {
     this.$emit("input", this.val);
+  }
+
+  isEqual(value: any, val: any) {
+    if (value.key && val.key) {
+      return value.key === val.key;
+    }
+    return value === val;
   }
 }
 </script>

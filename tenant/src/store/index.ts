@@ -13,6 +13,9 @@ import { DfMessage } from "df-shared/src/models/DfMessage";
 import { AnalyticsService } from "@/services/AnalyticsService";
 import { RegisterService } from "@/services/RegisterService";
 import { UtilsService } from "@/services/UtilsService";
+import { FinancialDocument } from "df-shared/src/models/FinancialDocument";
+import { DocumentType } from "df-shared/src/models/Document";
+import { DocumentTypeConstants } from "@/components/documents/DocumentTypeConstants";
 
 Vue.use(Vuex);
 
@@ -589,6 +592,75 @@ const store = new Vuex.Store({
     },
     guarantors(state): Guarantor[] {
       return state.user.guarantors;
+    },
+    tenantFinancialDocuments(state): FinancialDocument[] {
+      const financialDocuments: FinancialDocument[] = [];
+      if (state.user.documents !== null) {
+        const docs = state.user.documents?.filter((d: DfDocument) => {
+          return d.documentCategory === "FINANCIAL";
+        });
+        if (docs !== undefined && docs.length > 0) {
+          docs
+            .sort((a: DfDocument, b: DfDocument) => {
+              return (a?.id || 0) - (b?.id || 0);
+            })
+            .forEach((d: DfDocument) => {
+              const f = new FinancialDocument();
+              f.noDocument = d.noDocument || false;
+              f.customText = d.customText || "";
+              if (f.customText === "-") {
+                f.customText = "";
+              }
+              f.monthlySum = d.monthlySum || 0;
+              f.id = d.id;
+
+              const localDoc = DocumentTypeConstants.FINANCIAL_DOCS.find(
+                (d2: DocumentType) => {
+                  return d2.value === d.documentSubCategory;
+                }
+              );
+              if (localDoc !== undefined) {
+                f.documentType = localDoc;
+              }
+              financialDocuments.push(f);
+            });
+        }
+      }
+      return financialDocuments;
+    },
+    guarantorFinancialDocuments(state): FinancialDocument[] {
+      const financialdocuments: FinancialDocument[] = [];
+      const g: Guarantor = state.selectedGuarantor;
+      const dfDocs: DfDocument[] = g.documents || [];
+      if (dfDocs !== null) {
+        const docs = dfDocs?.filter((d: DfDocument) => {
+          return d.documentCategory === "FINANCIAL";
+        });
+        if (docs !== undefined && docs.length > 0) {
+          docs
+            .sort((a: DfDocument, b: DfDocument) => {
+              return (a?.id || 0) - (b?.id || 0);
+            })
+            .forEach((d: DfDocument) => {
+              const f = new FinancialDocument();
+              f.noDocument = d.noDocument || false;
+              f.customText = d.customText || "";
+              f.monthlySum = d.monthlySum || 0;
+              f.id = d.id;
+
+              const localDoc = DocumentTypeConstants.GUARANTOR_FINANCIAL_DOCS.find(
+                (d2: DocumentType) => {
+                  return d2.value === d.documentSubCategory;
+                }
+              );
+              if (localDoc !== undefined) {
+                f.documentType = localDoc;
+              }
+              financialdocuments.push(f);
+            });
+        }
+      }
+      return financialdocuments;
     }
   },
   modules: {}

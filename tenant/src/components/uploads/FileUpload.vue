@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { UploadStatus } from "./UploadStatus";
+import { UploadStatus } from "df-shared/src/models/UploadStatus";
 
 const {
   STATUS_INITIAL,
