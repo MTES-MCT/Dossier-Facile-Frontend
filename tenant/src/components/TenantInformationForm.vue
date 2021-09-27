@@ -207,8 +207,8 @@ export default class TenantInformationForm extends Vue {
 
   handleOthersInformation() {
     if (
-      (this.applicationType === "COUPLE" && !this.localSpouseAuthorize) ||
-      (this.applicationType === "GROUP" && !this.localCoTenantAuthorize) ||
+      (this.applicationType === "COUPLE" && !this.spouseAuthorize) ||
+      (this.applicationType === "GROUP" && !this.coTenantAuthorize) ||
       !this.isOwner()
     ) {
       return;
