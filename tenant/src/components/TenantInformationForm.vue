@@ -214,12 +214,6 @@ export default class TenantInformationForm extends Vue {
       return;
     }
     let coTenantEmails: string[] = [];
-    let acceptAccess = false;
-    if (this.applicationType === "COUPLE") {
-      acceptAccess = this.localSpouseAuthorize;
-    } else if (this.applicationType === "GROUP") {
-      acceptAccess = this.localCoTenantAuthorize;
-    }
     coTenantEmails = this.roommates
       .filter((r: User) => {
         return r.id != this.user.id;
@@ -246,7 +240,7 @@ export default class TenantInformationForm extends Vue {
     const data = {
       applicationType: this.applicationType,
       coTenantEmail: coTenantEmails,
-      acceptAccess: acceptAccess
+      acceptAccess: true
     };
 
     const loader = this.$loading.show();
