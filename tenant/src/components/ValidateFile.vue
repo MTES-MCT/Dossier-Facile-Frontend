@@ -168,6 +168,7 @@ export default class ValidateFile extends Vue {
       this.declaration = true;
       this.declaration2 = true;
     }
+    this.precision = this.user?.clarification || "";
   }
 
   sendFile() {
