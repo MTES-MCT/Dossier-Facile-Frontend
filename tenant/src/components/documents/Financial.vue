@@ -187,8 +187,10 @@
                           name="customText"
                           placeholder=""
                           type="text"
+                          maxlength="250"
                           required
                         />
+                        <span>{{ f.customText.length }} / 250</span>
                         <span class="fr-error-text" v-if="errors[0]">{{
                           $t(errors[0])
                         }}</span>
@@ -231,12 +233,17 @@
                       </label>
                       <input
                         v-model="financialDocuments[0].customText"
+                        maxlength="250"
                         class="form-control fr-input validate-required"
                         id="customTextNoDocument"
                         name="customText"
                         placeholder=""
                         type="text"
                       />
+                      <span
+                        >{{ financialDocuments[0].customText.length }} /
+                        250</span
+                      >
                     </div>
                   </form>
                 </ValidationObserver>
