@@ -22,16 +22,14 @@
                       >person</span
                     >
                   </div>
-                  <div>
-                    <div class="fr-grid-col overflow--hidden">
-                      <div :title="roommate.email">
-                        <b>
-                          {{ roommate.email }}
-                        </b>
-                      </div>
-                      <div class="small-text">
-                        {{ $t(roommate.id ? "invite-sent" : "invite-waiting") }}
-                      </div>
+                  <div class="fr-grid-col overflow--hidden max-content">
+                    <div :title="roommate.email" class="overflow--hidden">
+                      <b>
+                        {{ roommate.email }}
+                      </b>
+                    </div>
+                    <div class="small-text">
+                      {{ $t(roommate.id ? "invite-sent" : "invite-waiting") }}
                     </div>
                   </div>
                 </div>
@@ -53,39 +51,37 @@
         </div>
       </div>
     </div>
-    <form name="roommateForm" class="fr-col-12 fr-grid-row">
-      <div class="fr-col-12 fr-col-xl-7 fr-mt-2w">
-        <label class="fr-label fr-mb-1w">{{ $t("roommateEmail") }}</label>
-        <validation-provider rules="email" v-slot="{ errors }">
-          <div
-            class="fr-input-group"
-            :class="errors[0] ? 'fr-input-group--error' : ''"
-          >
-            <input
-              v-model="newRoommate"
-              class="form-control fr-input"
-              name="email"
-              placeholder="Ex : exemple@exemple.fr"
-              type="email"
-            />
-            <span class="fr-error-text" v-if="errors[0]">{{
-              $t(errors[0])
-            }}</span>
-          </div>
-        </validation-provider>
-      </div>
-      <div class="fr-col-12 fr-col-xl-5 align-bottom">
-        <div class="fr-grid-row fr-grid-row--right">
-          <v-gouv-fr-button
-            :secondary="true"
-            :label="$t('add-a-roommate')"
-            :btn-type="'button'"
-            @click="addMail"
-            :disabled="newRoommate === ''"
-          ></v-gouv-fr-button>
+    <div class="fr-col-12 fr-col-xl-7 fr-mt-2w">
+      <label class="fr-label fr-mb-1w">{{ $t("roommateEmail") }}</label>
+      <validation-provider rules="email" v-slot="{ errors }">
+        <div
+          class="fr-input-group"
+          :class="errors[0] ? 'fr-input-group--error' : ''"
+        >
+          <input
+            v-model="newRoommate"
+            class="form-control fr-input"
+            name="email"
+            placeholder="Ex : exemple@exemple.fr"
+            type="email"
+          />
+          <span class="fr-error-text" v-if="errors[0]">{{
+            $t(errors[0])
+          }}</span>
         </div>
+      </validation-provider>
+    </div>
+    <div class="fr-col-12 fr-col-xl-5 align-bottom">
+      <div class="fr-grid-row fr-grid-row--right">
+        <v-gouv-fr-button
+          :secondary="true"
+          :label="$t('add-a-roommate')"
+          :btn-type="'button'"
+          @click="addMail"
+          :disabled="newRoommate === ''"
+        ></v-gouv-fr-button>
       </div>
-    </form>
+    </div>
     <div class="fr-col-12 fr-mb-3w fr-mt-3w bg-bf200">
       <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
         <div
@@ -254,6 +250,13 @@ export default class RoommatesInformation extends Vue {
   @media all and (max-width: 1247px) {
     margin-top: 1rem;
     margin-bottom: 1.5rem;
+  }
+}
+
+.max-content {
+  max-width: max-content;
+  @media all and (max-width: 420px) {
+    max-width: 200px;
   }
 }
 </style>

@@ -1,7 +1,11 @@
 <template>
   <div class="fr-container fr-container-full-size">
     <div class="bg-grey fr-grid-row full-height">
-      <LeftEditMenu :step="step" class="fr-col-md-3 fr-col-xl-2"></LeftEditMenu>
+      <LeftEditMenu
+        v-if="!isMobile"
+        :step="step"
+        class="fr-col-md-3 fr-col-xl-2"
+      ></LeftEditMenu>
       <div
         class="fr-col-xl-7 fr-col-md-6 fr-col-xs-12 fr-p-md-4w fr-p-2w fr-grid-row fr-grid-row--center"
       >
@@ -25,6 +29,7 @@ import TenantInformationForm from "@/components/TenantInformationForm.vue";
 import UploadDocuments from "@/components/UploadDocuments.vue";
 import GuarantorDocuments from "@/components/GuarantorDocuments.vue";
 import ValidateFile from "@/components/ValidateFile.vue";
+import { UtilsService } from "../services/UtilsService";
 
 @Component({
   components: {
@@ -39,6 +44,10 @@ import ValidateFile from "@/components/ValidateFile.vue";
 })
 export default class ProfileContainer extends Vue {
   @Prop() step!: number;
+
+  isMobile() {
+    return UtilsService.isMobile();
+  }
 }
 </script>
 
