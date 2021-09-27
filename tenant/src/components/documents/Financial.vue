@@ -426,7 +426,8 @@ export default class Financial extends Vue {
       if (
         f.noDocument === original.noDocument &&
         f.monthlySum === original.monthlySum &&
-        f.files.length === original.files.length
+        f.files.length === original.files.length &&
+        f.customText === original.customText
       ) {
         return true;
       }
@@ -487,7 +488,7 @@ export default class Financial extends Vue {
       formData.append("customText", f.customText);
     }
 
-    if (f.monthlySum && f.monthlySum >= 0) {
+    if (f.monthlySum !== undefined && f.monthlySum >= 0) {
       formData.append("monthlySum", f.monthlySum.toString());
     } else {
       return;
