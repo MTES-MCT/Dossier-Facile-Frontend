@@ -158,7 +158,7 @@ const routes: Array<RouteConfig> = [
     path: "/mentions-legales",
     name: "MentionsLegales",
     meta: {
-      title: "Sécurité et protection des données personnelles - DossierFacile",
+      title: "Mentions légales - DossierFacile",
       description:
         "DossierFacile s’engage à protéger vos données personnelles : créez votre dossier de location en toute sécurité"
     },
