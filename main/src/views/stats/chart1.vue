@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Évolution des dossiers créés</h2>
+    <h2>Évolution des dossiers complétés</h2>
     /semaine
     <hr />
     <div class="container-chart text-align-left">
