@@ -119,7 +119,7 @@ export const UtilsService = {
     return window.innerWidth < 768;
   },
   capitalize(word: string) {
-    word = word.toLowerCase();
-    return word.replace(/\b(\w)/g, s => s.toUpperCase());
+    word = word[0].toUpperCase() + word.slice(1).toLowerCase();
+    return word.replace(/([ -][A-Za-zÀ-ÖØ-öø-ÿ])/g, s => s.toUpperCase());
   }
 };
