@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="fr-container">
+      <div class="fr-mt-3w fr-mb-3w" v-html="$t('cgu-update')"></div>
+    </div>
     <section class="s0-background fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
       <div class="fr-container">
         <div class="fr-col-md-8">
@@ -78,15 +81,14 @@
               <div class="step-number">1</div>
               <h2 class="fr-h4 fr-mb-0">{{ $t("s2.h1") }}</h2>
             </div>
-            <p>{{ $t("s2.p1") }}
-              <ul class="fr-pt-2w">
-                <li>{{ $t("s2.u1a") }}</li>
-                <li>{{ $t("s2.u1b") }}</li>
-                <li>{{ $t("s2.u1c") }}</li>
-                <li>{{ $t("s2.u1d") }}</li>
-                <li>{{ $t("s2.u1e") }}</li>
-              </ul>
-            </p>
+            <div>{{ $t("s2.p1") }}</div>
+            <ul class="fr-pt-2w fr-mb-5w">
+              <li>{{ $t("s2.u1a") }}</li>
+              <li>{{ $t("s2.u1b") }}</li>
+              <li>{{ $t("s2.u1c") }}</li>
+              <li>{{ $t("s2.u1d") }}</li>
+              <li>{{ $t("s2.u1e") }}</li>
+            </ul>
 
             <div class="fr-grid-row align-items--center">
               <div class="step-number">2</div>
@@ -192,7 +194,7 @@
         </h2>
         <div class="fr-grid-row">
           <div
-            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a
               target="_blank"
@@ -208,7 +210,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a target="_blank" href="https://www.visale.fr/" class="logo-link"
               rel="noreferrer"
@@ -221,7 +223,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a
               target="_blank"
@@ -237,7 +239,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a target="_blank" href="https://colivme.com/" class="logo-link"
               rel="noreferrer"
@@ -250,7 +252,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a target="_blank" href="https://whoomies.com/" class="logo-link"
               rel="noreferrer"
@@ -263,7 +265,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a target="_blank" href="https://www.anil.org/" class="logo-link"
               rel="noreferrer"
@@ -276,7 +278,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a target="_blank" href="https://www.clickandrent.fr/" class="logo-link"
               rel="noreferrer"
@@ -289,7 +291,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a target="_blank" href="https://www.qlower.com/" class="logo-link"
               rel="noreferrer"
@@ -302,7 +304,7 @@
             </a>
           </div>
           <div
-            class="fr-col-lg-4 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
             <a target="_blank" href="https://www.jelouebien.com/" class="logo-link"
               rel="noreferrer"
@@ -311,6 +313,32 @@
                 alt="logo jelouebien"
                 class="partner-logo jelouebien"
                 src="../assets/logos/jelouebien.png"
+              />
+            </a>
+          </div>
+          <div
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+          >
+            <a target="_blank" href="https://www.gererseul.com/" class="logo-link"
+              rel="noreferrer"
+            >
+              <img
+                alt="logo gererseul"
+                class="partner-logo gererseul"
+                src="../assets/logos/gererseul.png"
+              />
+            </a>
+          </div>
+          <div
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+          >
+            <a target="_blank" href="https://pandaloc.com/" class="logo-link"
+              rel="noreferrer"
+            >
+              <img
+                alt="logo pandaloc"
+                class="partner-logo pandaloc"
+                src="../assets/logos/pandaloc.png"
               />
             </a>
           </div>
@@ -546,6 +574,14 @@ a[target="_blank"].logo-link::after {
   height: 30px;
   width: 227px;
 }
+.gererseul {
+  width: 200;
+  height: 44px;
+}
+.pandaloc {
+  width: 172;
+  height: 60px;
+}
 </style>
 
 <i18n>
@@ -602,7 +638,8 @@ a[target="_blank"].logo-link::after {
     "s5": {
       "title1": "They",
       "title2": "trust us"
-    }
+    },
+    "cgu-update": "Nous avons mis à jour nos Conditions générales d'utilisation et notre Politique de confidentialité. <a target=\"_blank\" href='/mentions-legales'>Cliquez ici</a> pour les consulter"
   },
   "fr": {
     "button": "Monter mon dossier de location",
@@ -656,7 +693,8 @@ a[target="_blank"].logo-link::after {
     "s5": {
       "title1": "Ils nous font",
       "title2": "confiance"
-    }
+    },
+    "cgu-update": "Nous avons mis à jour nos Conditions générales d'utilisation et notre Politique de confidentialité. <a target=\"_blank\" href='/mentions-legales'>Cliquez ici</a> pour les consulter"
   }
 }
 </i18n>

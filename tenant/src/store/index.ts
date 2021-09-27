@@ -198,7 +198,13 @@ const store = new Vuex.Store({
         }
       );
     },
-    setNames({ commit }, user) {
+    setNames({ commit }, user: User) {
+      if (user.firstName) {
+        user.firstName = UtilsService.capitalize(user.firstName);
+      }
+      if (user.lastName) {
+        user.lastName = UtilsService.capitalize(user.lastName);
+      }
       return ProfileService.saveNames(user).then(
         () => {
           return commit("setNamesSuccess", user);
@@ -222,10 +228,12 @@ const store = new Vuex.Store({
       i18n.locale = lang;
       const html = document.documentElement;
       html.setAttribute("lang", i18n.locale);
+      const aYearFromNow = new Date();
+      aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1);
       Vue.$cookies.set(
         "lang",
         lang,
-        new Date(2050, 12, 31).toUTCString(),
+        aYearFromNow,
         "",
         MAIN_URL.endsWith("dossierfacile.fr") ? "dossierfacile.fr" : "localhost"
       );

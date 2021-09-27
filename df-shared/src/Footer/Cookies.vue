@@ -3,7 +3,7 @@
     <div class="cookie" v-if="!hidden">
       <p>
         {{ $t("cookies-text") }}
-        <router-link to="/securite-des-donnees" >{{$t("more")}}</router-link>
+        <router-link to="/mentions-legales">{{ $t("more") }}</router-link>
       </p>
       <DfButton primary="true" size="small" @on-click="accept">
         {{ $t("accept") }}

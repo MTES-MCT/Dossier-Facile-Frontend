@@ -99,7 +99,7 @@
           <li class="fr-footer__bottom-item">
             <a
               class="fr-footer__bottom-link"
-              :href="`${VUE_APP_MAIN_URL}/securite-des-donnees`"
+              :href="`${VUE_APP_MAIN_URL}/mentions-legales`"
             >
               {{ $t("legals") }}
             </a>

@@ -16,6 +16,7 @@ export class User {
   status?: string;
   lastUpdate?: string;
   honorDeclaration?: boolean;
+  clarification?: string;
 
   identification?: string;
   residency?: string;

@@ -26,7 +26,7 @@ module.exports = {
         "https://dossierfacile.fr/blog/tout-comprendre-a-la-vie-en-colocation",
         "https://dossierfacile.fr/blog/comment-justifier-son-domicile",
         "https://dossierfacile.fr/information",
-        "https://dossierfacile.fr/securite-des-donnees"
+        "https://dossierfacile.fr/mentions-legales"
       ]
     }
   },
@@ -55,7 +55,7 @@ module.exports = {
             "/blog/tout-comprendre-a-la-vie-en-colocation",
             "/blog/comment-justifier-son-domicile",
             "/information",
-            "/securite-des-donnees"
+            "/mentions-legales"
           ]
         )
       ]

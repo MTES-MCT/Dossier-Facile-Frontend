@@ -25,7 +25,7 @@
             </validation-provider>
           </div>
 
-          <div v-if="false">
+          <div>
             <validation-provider rules="is" v-slot="{ errors }">
               <div
                 class="fr-input-group"
@@ -35,7 +35,7 @@
                   <label for="precision" class="fr-label">
                     {{ $t("precision") }}
                   </label>
-                  <input
+                  <textarea
                     id="precision"
                     :placeholder="$t('placeholder')"
                     type="text"
@@ -44,6 +44,7 @@
                     name="precision"
                     class="validate-required form-control fr-input"
                   />
+                  <span>{{ precision.length }} / 500</span>
                   <span class="fr-error-text" v-if="errors[0]">{{
                     $t(errors[0])
                   }}</span>
@@ -167,6 +168,7 @@ export default class ValidateFile extends Vue {
       this.declaration = true;
       this.declaration2 = true;
     }
+    this.precision = this.user?.clarification || "";
   }
 
   sendFile() {

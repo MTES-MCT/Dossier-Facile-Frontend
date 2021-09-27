@@ -18,16 +18,14 @@
                   >person</span
                 >
               </div>
-              <div>
-                <div class="fr-grid-col overflow--hidden">
-                  <div :title="coupleMail">
-                    <b>
-                      {{ getPartner().email }}
-                    </b>
-                  </div>
-                  <div class="small-text">
-                    {{ $t(getPartner().id ? "invite-sent" : "invite-waiting") }}
-                  </div>
+              <div class="fr-grid-col overflow--hidden max-content">
+                <div :title="coupleMail" class="overflow--hidden">
+                  <b>
+                    {{ getPartner().email }}
+                  </b>
+                </div>
+                <div class="small-text">
+                  {{ $t(getPartner().id ? "invite-sent" : "invite-waiting") }}
                 </div>
               </div>
             </div>
@@ -48,45 +46,43 @@
       </NakedCard>
     </div>
 
-    <form name="coupleForm" class="fr-col-12 fr-grid-row">
-      <div class="fr-col-12" v-if="getPartner() === undefined">
-        <label class="fr-label fr-mb-1w">{{ $t("spouseEmail") }}</label>
-        <validation-provider
-          v-slot="{ errors }"
-          :rules="{ email: true, custom: user.email }"
+    <div class="fr-col-12" v-if="getPartner() === undefined">
+      <label class="fr-label fr-mb-1w">{{ $t("spouseEmail") }}</label>
+      <validation-provider
+        v-slot="{ errors }"
+        :rules="{ email: true, custom: user.email }"
+      >
+        <div
+          class="fr-input-group"
+          :class="errors[0] ? 'fr-input-group--error' : ''"
         >
-          <div
-            class="fr-input-group"
-            :class="errors[0] ? 'fr-input-group--error' : ''"
+          <input
+            v-model="coupleMail"
+            class="validate-required form-control fr-input"
+            :class="errors[0] ? 'fr-input--error' : ''"
+            name="email"
+            placeholder="Ex : exemple@exemple.fr"
+            type="email"
+          />
+          <span
+            class="fr-error-text"
+            v-if="errors[0] && errors[0] !== 'none'"
+            >{{ $t(errors[0]) }}</span
           >
-            <input
-              v-model="coupleMail"
-              class="validate-required form-control fr-input"
-              :class="errors[0] ? 'fr-input--error' : ''"
-              name="email"
-              placeholder="Ex : exemple@exemple.fr"
-              type="email"
-            />
-            <span
-              class="fr-error-text"
-              v-if="errors[0] && errors[0] !== 'none'"
-              >{{ $t(errors[0]) }}</span
-            >
-          </div>
-        </validation-provider>
-      </div>
-      <div class="fr-col-12" v-if="getPartner() === undefined">
-        <div class="fr-grid-row fr-grid-row--right fr-mt-2w fr-mb-3w">
-          <v-gouv-fr-button
-            :secondary="true"
-            :label="$t('add-a-spouse')"
-            :btn-type="'button'"
-            :disabled="coupleMail === ''"
-            @click="addMail"
-          ></v-gouv-fr-button>
         </div>
+      </validation-provider>
+    </div>
+    <div class="fr-col-12" v-if="getPartner() === undefined">
+      <div class="fr-grid-row fr-grid-row--right fr-mt-2w fr-mb-3w">
+        <v-gouv-fr-button
+          :secondary="true"
+          :label="$t('add-a-spouse')"
+          :btn-type="'button'"
+          :disabled="coupleMail === ''"
+          @click="addMail"
+        ></v-gouv-fr-button>
       </div>
-    </form>
+    </div>
     <div class="fr-col-12 fr-mb-3w fr-mt-3w">
       <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
         <div
@@ -259,6 +255,13 @@ export default class CoupleInformation extends Vue {
 .nowrap {
   flex-wrap: nowrap;
   overflow: auto;
+}
+
+.max-content {
+  max-width: max-content;
+  @media all and (max-width: 420px) {
+    max-width: 200px;
+  }
 }
 </style>
 
