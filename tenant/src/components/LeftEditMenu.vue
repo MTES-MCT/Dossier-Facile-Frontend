@@ -63,6 +63,9 @@ export default class LeftEditMenu extends Vue {
 
 .left-edit-menu {
   background-color: var(--w);
+  @media all and (max-width: 768px) {
+    display: none;
+  }
 }
 
 .inner-left-edit {
