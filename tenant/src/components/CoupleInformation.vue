@@ -18,16 +18,14 @@
                   >person</span
                 >
               </div>
-              <div>
-                <div class="fr-grid-col overflow--hidden">
-                  <div :title="coupleMail">
-                    <b>
-                      {{ getPartner().email }}
-                    </b>
-                  </div>
-                  <div class="small-text">
-                    {{ $t(getPartner().id ? "invite-sent" : "invite-waiting") }}
-                  </div>
+              <div class="fr-grid-col overflow--hidden max-content">
+                <div :title="coupleMail" class="overflow--hidden">
+                  <b>
+                    {{ getPartner().email }}
+                  </b>
+                </div>
+                <div class="small-text">
+                  {{ $t(getPartner().id ? "invite-sent" : "invite-waiting") }}
                 </div>
               </div>
             </div>
@@ -259,6 +257,14 @@ export default class CoupleInformation extends Vue {
 .nowrap {
   flex-wrap: nowrap;
   overflow: auto;
+}
+
+.max-content {
+  max-width: max-content;
+  @media all and (max-width: 420px) {
+    max-width: 200px;
+  }
+
 }
 </style>
 
