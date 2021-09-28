@@ -110,7 +110,7 @@ export default class Menu extends Vue {
 .warn {
   background-color: #fdf2f3;
   a {
-    color: #e10600;
+    color: var(--error);
   }
 }
 </style>

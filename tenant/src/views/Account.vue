@@ -1140,7 +1140,7 @@ hr {
 }
 
 .red-alert {
-  background-color: #e10600;
+  background-color: var(--error);
   color: white;
   border-radius: 2px;
   margin-right: 0;
