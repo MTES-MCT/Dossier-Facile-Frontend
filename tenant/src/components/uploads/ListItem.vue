@@ -21,6 +21,7 @@
       <button
         class="fr-btn fr-btn--secondary icon-btn"
         @click="remove()"
+        type="button"
         :title="$t('remove')"
       >
         <span class="material-icons-outlined md-28">delete_forever</span>
