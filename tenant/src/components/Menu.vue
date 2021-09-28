@@ -41,7 +41,7 @@
               $t("file")
             }}</a>
           </li>
-          <li>
+          <li class="warn">
             <a
               class="fr-nav__link"
               href="#"
@@ -104,6 +104,13 @@ export default class Menu extends Vue {
 .fr-nav__list > li:last-child {
   @media all and (min-width: 992px) {
     margin-left: auto;
+  }
+}
+
+.warn {
+  background-color: #fdf2f3;
+  a {
+    color: #e10600;
   }
 }
 </style>
