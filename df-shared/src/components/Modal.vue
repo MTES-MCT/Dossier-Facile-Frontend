@@ -2,17 +2,20 @@
   <transition name="modal-fade">
     <div class="modal-backdrop">
       <div
-        class="modal"
+        class="modal fr-pt-2w"
         role="dialog"
         aria-labelledby="modalTitle"
         aria-describedby="modalDescription"
       >
         <button
-          type="button"
-          class="btn-close"
-          @click="close"
+          class="fr-link--close fr-link fr-mr-1w"
+          title="Fermer la fenêtre modale"
           aria-label="Close modal"
-        ></button>
+          @click="close()"
+          type="button"
+        >
+          Fermer
+        </button>
         <header class="modal-header" id="modalTitle">
           <slot name="header"
             ><span style="visibility: hidden">title</span></slot
@@ -43,7 +46,7 @@ export default class Modal extends Vue {
 <style lang="scss">
 .modal-backdrop {
   position: fixed;
-  z-index: 1000;
+  z-index: 10000;
   top: 0;
   bottom: 0;
   left: 0;
@@ -57,9 +60,7 @@ export default class Modal extends Vue {
 }
 
 .modal {
-  background: rgba(255, 255, 255, 0.88);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: #fff;
   position: absolute;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
@@ -69,6 +70,8 @@ export default class Modal extends Vue {
   max-width: 90%;
   max-height: 98%;
   overflow: auto;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1),
+    0 16px 16px -16px rgba(0, 0, 0, 0.32);
 }
 
 .modal-header,
@@ -87,23 +90,7 @@ export default class Modal extends Vue {
 
 .modal-body {
   position: relative;
-  padding: 20px 15px;
+  padding: 5px 15px 20px 15px;
   overflow: auto;
-}
-
-.btn-close {
-  position: absolute;
-  top: 0.25em;
-  right: 0.6em;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  background: transparent;
-  opacity: 0.8;
-  z-index: 99;
-  &:before {
-    content: "\00D7";
-  }
-  font-size: 1.7em;
 }
 </style>
