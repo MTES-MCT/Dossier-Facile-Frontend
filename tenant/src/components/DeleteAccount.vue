@@ -41,22 +41,21 @@
                     </div>
                   </validation-provider>
                 </div>
+                <div class="align--right">
+                  <DfButton class="fr-mr-3w" @on-click="undoSelect()">{{
+                    $t("cancel")
+                  }}</DfButton>
+                  <DfButton
+                    type="submit"
+                    @on-click="validSelect()"
+                    primary="true"
+                    >{{
+                      isMobile() ? $t("validate-mobile") : $t("validate")
+                    }}</DfButton
+                  >
+                </div>
               </div>
             </div>
-          </div>
-          <div class="align--right">
-            <DfButton class="fr-mr-3w" @on-click="undoSelect()">{{
-              $t("cancel")
-            }}</DfButton>
-            <DfButton
-              type="submit"
-              class="fr-mr-3w"
-              @on-click="validSelect()"
-              primary="true"
-              >{{
-                isMobile() ? $t("validate-mobile") : $t("validate")
-              }}</DfButton
-            >
           </div>
         </template>
       </Modal>
