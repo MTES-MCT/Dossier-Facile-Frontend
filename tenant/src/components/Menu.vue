@@ -50,7 +50,10 @@
             >
               {{ $t("deleteAccount") }}
             </a>
-            <DeleteAccount v-model="isDeleteModalVisible"></DeleteAccount>
+            <DeleteAccount
+              v-model="isDeleteModalVisible"
+              v-show="isDeleteModalVisible"
+            ></DeleteAccount>
           </li>
         </ul>
       </div>

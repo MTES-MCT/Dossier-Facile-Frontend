@@ -34,8 +34,8 @@ import DfButton from "df-shared/src/Button/Button.vue";
 @Component({
   components: {
     Modal,
-    DfButton,
-  },
+    DfButton
+  }
 })
 export default class ConfirmModal extends Vue {
   validSelect() {
