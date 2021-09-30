@@ -64,7 +64,8 @@ Vue.use(VueAuthImage);
           ) &&
           !error.response.request.responseURL.endsWith(
             "/api/user/forgotPassword"
-          )
+          ) &&
+          !error.response.request.responseURL.endsWith("/api/user/logout")
         ) {
           store.dispatch("logout", MAIN_URL).then(null, error => {
             console.dir(error);
