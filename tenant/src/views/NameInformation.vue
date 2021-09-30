@@ -1,20 +1,18 @@
 <template>
   <div
-    class="name-container fr-container fr-container-full-size bg--grey "
-  > <!-- fr-grid-row -->
-    <div class="fr-col-xs-12 fr-col-md-4 fr-col-xl-3 bg--dark-blue">
+    class="name-container fr-container fr-container-full-size bg--grey fr-grid-row"
+  >
+    <div class="fr-col-xs-12 fr-col-md-4 bg--dark-blue">
       <div class="title-container">
         <h1>{{ $t("title") }}</h1>
         <h5>{{ $t("subtitle") }}</h5>
       </div>
     </div>
     <div
-      class="fr-col-xl-9 fr-col-md-8 fr-col-xs-12 fr-p-md-4w fr-p-2w fr-grid-row fr-grid-row--center"
+      class="fr-col-md-8 fr-col-xs-12 fr-grid-row fr-grid-row--center d-p-200"
     >
-      <div class="fr-col-xs-12 fr-col-md-8 fr-col-xl-6 max-600">
-        <NakedCard class="fr-pt-3w fr-pb-3w">
-          <NameInformationForm :user="user"></NameInformationForm>
-        </NakedCard>
+      <div class="fr-col-xs-12 fr-col-md-10 max-600">
+        <NameInformationForm :user="user"></NameInformationForm>
       </div>
     </div>
   </div>
@@ -24,13 +22,17 @@
 import { Component, Vue } from "vue-property-decorator";
 import NameInformationForm from "@/components/NameInformationForm.vue";
 import ProfileContainer from "@/components/ProfileContainer.vue";
-import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 @Component({
   components: {
     NameInformationForm,
     ProfileContainer,
     NakedCard
+  },
+  computed: {
+    ...mapState({
+      user: "user"
+    })
   }
 })
 export default class NameInformation extends Vue {
@@ -59,17 +61,34 @@ h1 {
   color: var(--w);
 }
 
+h5 {
+  font-size: 20px;
+}
+
 .title-container {
+  padding: 1.5rem;
   @media all and (min-width: 768px) {
-    margin-top: 200px;
-    margin-left: 1.5rem;
-    margin-right: 1rem;
+    padding-top: 200px;
+    padding-left: 1.5rem;
+    padding-right: 1rem;
   }
 }
 
 .name-container {
   @media all and (min-width: 768px) {
     min-height: 100%;
+  }
+}
+
+.d-p-200 {
+  padding-top: 4rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  margin-bottom: 8rem;
+  @media all and (min-width: 768px) {
+    padding-top: 8rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
   }
 }
 </style>

@@ -46,8 +46,4 @@ export default class ProfileContainer extends Vue {
 
 <style lang="scss" scoped>
 @import "df-shared/src/scss/_variables.scss";
-
-.max-600 {
-  max-width: 600px;
-}
 </style>
