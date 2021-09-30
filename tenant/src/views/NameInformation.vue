@@ -81,10 +81,6 @@ h5 {
 }
 
 .d-p-200 {
-  padding-top: 4rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  margin-bottom: 8rem;
   @media all and (min-width: 768px) {
     padding-top: 8rem;
     padding-left: 4rem;

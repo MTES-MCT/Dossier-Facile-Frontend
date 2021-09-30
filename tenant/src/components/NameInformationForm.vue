@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ValidationObserver v-slot="{ invalid, validate }">
+    <ValidationObserver v-slot="{ validate }">
       <form
         name="nameInformationForm"
         @submit.prevent="validate().then(handleNameInformation)"
