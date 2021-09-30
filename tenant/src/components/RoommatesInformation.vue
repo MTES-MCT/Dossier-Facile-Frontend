@@ -81,8 +81,8 @@
           :disabled="newRoommate === ''"
         ></v-gouv-fr-button>
       </div>
-    </form>
-    <div class="fr-col-12 fr-mb-3w fr-mt-3w">
+    </div>
+    <div class="fr-col-12 fr-mb-3w fr-mt-3w bg-bf200">
       <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
         <div
           class="fr-checkbox-group bg-purple"
