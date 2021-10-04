@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NakedCard class="fr-p-5w">
+    <NakedCard class="fr-p-5w" v-if="!documentsFilled()">
       <h6 class="color--red">{{ $t("error-title") }}</h6>
       <p>
         {{ $t("file-not-valid") }}
@@ -90,32 +90,36 @@
         </NakedCard>
       </div>
       <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
-        <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION')">
-          <div class="fr-grid-row file-item">
-            <span>{{ $t("identification") }}</span
-            ><DfButton @on-click="openGuarantor(g, 1)">{{
-              $t("update")
-            }}</DfButton>
+        <NakedCard v-if="!documentsGuarantorFilled(g)" class="fr-p-5w">
+          <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION')">
+            <div class="fr-grid-row file-item">
+              <span>{{ $t("identification") }}</span
+              ><DfButton @on-click="openGuarantor(g, 1)">{{
+                $t("update")
+              }}</DfButton>
+            </div>
           </div>
-        </div>
-        <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION_LEGAL_PERSON')">
-          <div class="fr-grid-row file-item">
-            <span>{{ $t("identification-legal-person") }}</span
-            ><DfButton @on-click="openGuarantor(g, 1)">{{
-              $t("update")
-            }}</DfButton>
+          <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION_LEGAL_PERSON')">
+            <div class="fr-grid-row file-item">
+              <span>{{ $t("identification-legal-person") }}</span
+              ><DfButton @on-click="openGuarantor(g, 1)">{{
+                $t("update")
+              }}</DfButton>
+            </div>
           </div>
-        </div>
+        </NakedCard>
       </div>
       <div v-if="g.typeGuarantor === 'ORGANISM'">
-        <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION')">
-          <div class="fr-grid-row file-item">
-            <span>{{ $t("identification") }}</span
-            ><DfButton @on-click="openGuarantor(g, 1)">{{
-              $t("update")
-            }}</DfButton>
+        <NakedCard v-if="!documentsGuarantorFilled(g)" class="fr-p-5w">
+          <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION')">
+            <div class="fr-grid-row file-item">
+              <span>{{ $t("identification") }}</span
+              ><DfButton @on-click="openGuarantor(g, 1)">{{
+                $t("update")
+              }}</DfButton>
+            </div>
           </div>
-        </div>
+        </NakedCard>
       </div>
     </div>
   </div>
@@ -162,6 +166,10 @@ export default class FileErrors extends Vue {
 
   isGuarantorTaxValid(g: Guarantor) {
     return UtilsService.isGuarantorTaxValid(g);
+  }
+
+  documentsFilled() {
+    return UtilsService.documentsFilled();
   }
 
   documentsGuarantorFilled(g: Guarantor) {
