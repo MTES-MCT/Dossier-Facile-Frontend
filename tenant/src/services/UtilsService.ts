@@ -79,7 +79,10 @@ export const UtilsService = {
   },
   guarantorHasDoc(docType: string, g: Guarantor) {
     const f = g.documents?.find((d: DfDocument) => {
-      return d.documentCategory === docType;
+      return (
+        d.documentCategory === docType &&
+        (d.documentStatus === "TO_PROCESS" || d.documentStatus === "VALIDATED")
+      );
     })?.files;
     return f && f.length > 0;
   },

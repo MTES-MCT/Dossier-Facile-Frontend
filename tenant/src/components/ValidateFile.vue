@@ -1,78 +1,11 @@
 <template>
   <div>
-    <h1 class="fr-h1">{{ $t("title") }}</h1>
     <ValidationObserver v-slot="{ validate }">
       <form name="form" @submit.prevent="validate().then(sendFile)">
-        <div v-if="!hasGuarantors()">
-          <p>{{ $t("read-no-guarantor") }}</p>
-          <div>
-            <validation-provider rules="is" v-slot="{ errors }">
-              <div
-                class="fr-input-group bg-purple"
-                :class="errors[0] ? 'fr-input-group--error' : ''"
-              >
-                <input
-                  type="checkbox"
-                  id="declaration"
-                  value="false"
-                  v-model="declaration"
-                />
-                <label for="declaration" v-html="$t('declaration')"></label>
-                <span class="fr-error-text" v-if="errors[0]">{{
-                  $t(errors[0])
-                }}</span>
-              </div>
-            </validation-provider>
-          </div>
-
-          <div>
-            <validation-provider rules="is" v-slot="{ errors }">
-              <div
-                class="fr-input-group"
-                :class="errors[0] ? 'fr-input-group--error' : ''"
-              >
-                <p>
-                  <label for="precision" class="fr-label">
-                    {{ $t("precision") }}
-                  </label>
-                  <textarea
-                    id="precision"
-                    :placeholder="$t('placeholder')"
-                    type="text"
-                    maxlength="500"
-                    v-model="precision"
-                    name="precision"
-                    class="validate-required form-control fr-input"
-                  />
-                  <span>{{ precision.length }} / 500</span>
-                  <span class="fr-error-text" v-if="errors[0]">{{
-                    $t(errors[0])
-                  }}</span>
-                </p>
-              </div>
-            </validation-provider>
-          </div>
-        </div>
-        <div v-if="hasGuarantors()">
-          <p>{{ $t("read") }}</p>
-          <div class="bg-purple">
-            <validation-provider rules="is" v-slot="{ errors }">
-              <div
-                class="fr-input-group bg-purple"
-                :class="errors[0] ? 'fr-input-group--error' : ''"
-              >
-                <input
-                  type="checkbox"
-                  id="declaration"
-                  value="false"
-                  v-model="declaration"
-                />
-                <label for="declaration">{{ $t("declaration") }}</label>
-                <span class="fr-error-text" v-if="errors[0]">{{
-                  $t(errors[0])
-                }}</span>
-              </div>
-            </validation-provider>
+        <div v-if="!hasErrors()">
+          <h1 class="fr-h1">{{ $t("title") }}</h1>
+          <div v-if="!hasGuarantors()">
+            <p>{{ $t("read-no-guarantor") }}</p>
             <div>
               <validation-provider rules="is" v-slot="{ errors }">
                 <div
@@ -81,50 +14,120 @@
                 >
                   <input
                     type="checkbox"
-                    id="declaration2"
+                    id="declaration"
                     value="false"
-                    v-model="declaration2"
+                    v-model="declaration"
                   />
-                  <label for="declaration2">{{ $t("declaration2") }}</label>
+                  <label for="declaration" v-html="$t('declaration')"></label>
                   <span class="fr-error-text" v-if="errors[0]">{{
                     $t(errors[0])
                   }}</span>
                 </div>
               </validation-provider>
             </div>
+
+            <div>
+              <validation-provider rules="is" v-slot="{ errors }">
+                <div
+                  class="fr-input-group"
+                  :class="errors[0] ? 'fr-input-group--error' : ''"
+                >
+                  <p>
+                    <label for="precision" class="fr-label">
+                      {{ $t("precision") }}
+                    </label>
+                    <textarea
+                      id="precision"
+                      :placeholder="$t('placeholder')"
+                      type="text"
+                      maxlength="500"
+                      v-model="precision"
+                      name="precision"
+                      class="validate-required form-control fr-input"
+                    />
+                    <span>{{ precision.length }} / 500</span>
+                    <span class="fr-error-text" v-if="errors[0]">{{
+                      $t(errors[0])
+                    }}</span>
+                  </p>
+                </div>
+              </validation-provider>
+            </div>
           </div>
-          <div v-if="false">
-            <validation-provider rules="is" v-slot="{ errors }">
-              <div
-                class="fr-input-group"
-                :class="errors[0] ? 'fr-input-group--error' : ''"
-              >
-                <p>
-                  <label for="precision" class="fr-label">
-                    {{ $t("precision") }}</label
-                  >
+          <div v-if="hasGuarantors()">
+            <p>{{ $t("read") }}</p>
+            <div class="bg-purple">
+              <validation-provider rules="is" v-slot="{ errors }">
+                <div
+                  class="fr-input-group bg-purple"
+                  :class="errors[0] ? 'fr-input-group--error' : ''"
+                >
                   <input
-                    id="precision"
-                    :placeholder="$t('placeholder')"
-                    type="text"
-                    v-model="precision"
-                    name="precision"
-                    class="validate-required form-control fr-input"
+                    type="checkbox"
+                    id="declaration"
+                    value="false"
+                    v-model="declaration"
                   />
+                  <label for="declaration">{{ $t("declaration") }}</label>
                   <span class="fr-error-text" v-if="errors[0]">{{
                     $t(errors[0])
                   }}</span>
-                </p>
+                </div>
+              </validation-provider>
+              <div>
+                <validation-provider rules="is" v-slot="{ errors }">
+                  <div
+                    class="fr-input-group bg-purple"
+                    :class="errors[0] ? 'fr-input-group--error' : ''"
+                  >
+                    <input
+                      type="checkbox"
+                      id="declaration2"
+                      value="false"
+                      v-model="declaration2"
+                    />
+                    <label for="declaration2">{{ $t("declaration2") }}</label>
+                    <span class="fr-error-text" v-if="errors[0]">{{
+                      $t(errors[0])
+                    }}</span>
+                  </div>
+                </validation-provider>
               </div>
-            </validation-provider>
+            </div>
+            <div v-if="false">
+              <validation-provider rules="is" v-slot="{ errors }">
+                <div
+                  class="fr-input-group"
+                  :class="errors[0] ? 'fr-input-group--error' : ''"
+                >
+                  <p>
+                    <label for="precision" class="fr-label">
+                      {{ $t("precision") }}</label
+                    >
+                    <input
+                      id="precision"
+                      :placeholder="$t('placeholder')"
+                      type="text"
+                      v-model="precision"
+                      name="precision"
+                      class="validate-required form-control fr-input"
+                    />
+                    <span class="fr-error-text" v-if="errors[0]">{{
+                      $t(errors[0])
+                    }}</span>
+                  </p>
+                </div>
+              </validation-provider>
+            </div>
           </div>
         </div>
-        <p v-if="hasErrors()" ref="errorref">
-          <span class="fr-error-text">{{ $t("file-not-valid") }}</span>
-        </p>
+        <div v-if="hasErrors()">
+          <FileErrors></FileErrors>
+        </div>
         <ProfileFooter
           @on-back="goBack()"
           @on-next="sendFile()"
+          :disabled="hasErrors()"
           :nextLabel="$t('validate')"
         ></ProfileFooter>
       </form>
@@ -142,6 +145,7 @@ import ProfileFooter from "@/components/footer/ProfileFooter.vue";
 import { UtilsService } from "../services/UtilsService";
 import { extend } from "vee-validate";
 import { is } from "vee-validate/dist/rules";
+import FileErrors from "./FileErrors.vue";
 
 extend("is", {
   ...is,
@@ -150,7 +154,12 @@ extend("is", {
 });
 
 @Component({
-  components: { ValidationProvider, ValidationObserver, ProfileFooter },
+  components: {
+    ValidationProvider,
+    ValidationObserver,
+    ProfileFooter,
+    FileErrors
+  },
   computed: {
     ...mapState({
       user: "user"
@@ -172,14 +181,6 @@ export default class ValidateFile extends Vue {
   }
 
   sendFile() {
-    if (this.hasErrors()) {
-      if (UtilsService.isMobile()) {
-        const element = this.$refs["errorref"];
-        const top = (element as any).offsetTop;
-        window.scrollTo(0, top - 50);
-      }
-      return;
-    }
     if (!this.canValidate()) {
       window.scrollTo(0, 0);
     } else {
@@ -259,7 +260,6 @@ export default class ValidateFile extends Vue {
         "validate": "Valider mon dossier",
         "read": "Je lis et je coche les cases suivantes afin de valider mon dossier",
         "declaration2": "Je déclare sur l'honneur avoir avoir reçu le consentement de mon garant pour que ses données soient traitées dans le cadre du processus de location",
-        "file-not-valid": "Your file is not valid, please complete the missing documents to submit your file",
         "require-accept": "You must accept the declaration"
     },
     "fr": {
@@ -271,7 +271,6 @@ export default class ValidateFile extends Vue {
         "validate": "Valider mon dossier",
         "read": "Je lis et je coche les cases suivantes afin de valider mon dossier",
         "declaration2": "Je déclare sur l'honneur avoir avoir reçu le consentement de mon garant pour que ses données soient traitées dans le cadre du processus de location",
-        "file-not-valid": "Votre dossier n'est pas valide, veuillez compléter les documents manquants pour soumettre votre dossier",
         "require-accept": "Vous devez accepter la déclaration"
     }
 }
