@@ -50,7 +50,7 @@
           <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION')">
             <div class="fr-grid-row file-item">
               <span>{{ $t("identification") }}</span
-              ><DfButton @on-click="openGuarantorTenant(g, 1)">{{
+              ><DfButton @on-click="openGuarantor(g, 1)">{{
                 $t("update")
               }}</DfButton>
             </div>
@@ -58,7 +58,7 @@
           <div v-if="!guarantorHasDoc(g, 'RESIDENCY')">
             <div class="fr-grid-row file-item">
               <span>{{ $t("residency") }}</span
-              ><DfButton @on-click="openGuarantorTenant(g, 2)">{{
+              ><DfButton @on-click="openGuarantor(g, 2)">{{
                 $t("update")
               }}</DfButton>
             </div>
@@ -66,7 +66,7 @@
           <div v-if="!guarantorHasDoc(g, 'PROFESSIONAL')">
             <div class="fr-grid-row file-item">
               <span>{{ $t("professional") }}</span
-              ><DfButton @on-click="openGuarantorTenant(g, 3)">{{
+              ><DfButton @on-click="openGuarantor(g, 3)">{{
                 $t("update")
               }}</DfButton>
             </div>
@@ -74,7 +74,7 @@
           <div v-if="!isGuarantorFinancialValid(g)">
             <div class="fr-grid-row file-item">
               <span>{{ $t("financial") }}</span
-              ><DfButton @on-click="openGuarantorTenant(g, 4)">{{
+              ><DfButton @on-click="openGuarantor(g, 4)">{{
                 $t("update")
               }}</DfButton>
             </div>
@@ -82,7 +82,7 @@
           <div v-if="!isGuarantorTaxValid(g)">
             <div class="fr-grid-row file-item">
               <span>{{ $t("tax") }}</span
-              ><DfButton @on-click="openGuarantorTenant(g, 5)">{{
+              ><DfButton @on-click="openGuarantor(g, 5)">{{
                 $t("update")
               }}</DfButton>
             </div>
@@ -93,7 +93,7 @@
         <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION')">
           <div class="fr-grid-row file-item">
             <span>{{ $t("identification") }}</span
-            ><DfButton @on-click="openGuarantorTenant(g, 1)">{{
+            ><DfButton @on-click="openGuarantor(g, 1)">{{
               $t("update")
             }}</DfButton>
           </div>
@@ -101,7 +101,7 @@
         <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION_LEGAL_PERSON')">
           <div class="fr-grid-row file-item">
             <span>{{ $t("identification-legal-person") }}</span
-            ><DfButton @on-click="openGuarantorTenant(g, 1)">{{
+            ><DfButton @on-click="openGuarantor(g, 1)">{{
               $t("update")
             }}</DfButton>
           </div>
@@ -111,7 +111,7 @@
         <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION')">
           <div class="fr-grid-row file-item">
             <span>{{ $t("identification") }}</span
-            ><DfButton @on-click="openGuarantorTenant(g, 1)">{{
+            ><DfButton @on-click="openGuarantor(g, 1)">{{
               $t("update")
             }}</DfButton>
           </div>
