@@ -6,7 +6,7 @@
           <h1 class="fr-h1">{{ $t("title") }}</h1>
           <div v-if="!hasGuarantors()">
             <p>{{ $t("read-no-guarantor") }}</p>
-            <div>
+            <div class="fr-mb-3w">
               <validation-provider rules="is" v-slot="{ errors }">
                 <div
                   class="fr-input-group bg-purple"
@@ -56,11 +56,11 @@
           </div>
           <div v-if="hasGuarantors()">
             <p>{{ $t("read") }}</p>
-            <div class="bg-purple">
+            <div class="bg-purple fr-mb-3w">
               <validation-provider rules="is" v-slot="{ errors }">
                 <div
-                  class="fr-input-group bg-purple"
-                  :class="errors[0] ? 'fr-input-group--error' : ''"
+                  class="fr-checkbox-group bg-purple"
+                  :class="errors[0] ? 'fr-checkbox-group--error' : ''"
                 >
                   <input
                     type="checkbox"
@@ -77,8 +77,8 @@
               <div>
                 <validation-provider rules="is" v-slot="{ errors }">
                   <div
-                    class="fr-input-group bg-purple"
-                    :class="errors[0] ? 'fr-input-group--error' : ''"
+                    class="fr-checkbox-group bg-purple"
+                    :class="errors[0] ? 'fr-checkbox-group--error' : ''"
                   >
                     <input
                       type="checkbox"

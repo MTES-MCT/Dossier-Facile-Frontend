@@ -255,12 +255,6 @@ body {
   padding: 16px;
 }
 
-.bg-purple {
-  margin: 8px;
-  border-radius: 4px;
-  background-color: #e5e5f4;
-}
-
 .inline-block {
   display: inline-block;
 }
