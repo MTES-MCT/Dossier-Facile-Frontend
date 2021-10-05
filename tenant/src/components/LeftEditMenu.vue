@@ -20,45 +20,47 @@
         </div>
       </div>
       <div class="vline" :class="getClass(1)">
-        <div class="ml-5">
-          <router-link
-            class="fr-link"
-            :class="getTenantIdentityClass()"
-            :to="{ name: 'TenantDocuments', params: { substep: '1' } }"
-            >{{ $t("identity") }}</router-link
-          >
-        </div>
-        <div class="ml-5">
-          <router-link
-            class="fr-link"
-            :class="getTenantResidencyClass()"
-            :to="{ name: 'TenantDocuments', params: { substep: '2' } }"
-            >{{ $t("residency") }}</router-link
-          >
-        </div>
-        <div class="ml-5">
-          <router-link
-            class="fr-link"
-            :class="getTenantProfessionalClass()"
-            :to="{ name: 'TenantDocuments', params: { substep: '3' } }"
-            >{{ $t("professional") }}</router-link
-          >
-        </div>
-        <div class="ml-5">
-          <router-link
-            class="fr-link"
-            :class="getTenantFinancialClass()"
-            :to="{ name: 'TenantDocuments', params: { substep: '4' } }"
-            >{{ $t("financial") }}</router-link
-          >
-        </div>
-        <div class="ml-5">
-          <router-link
-            class="fr-link"
-            :class="getTenantTaxClass()"
-            :to="{ name: 'TenantDocuments', params: { substep: '5' } }"
-            >{{ $t("tax") }}</router-link
-          >
+        <div v-if="step === 2">
+          <div class="ml-5">
+            <router-link
+              class="fr-link"
+              :class="getTenantIdentityClass()"
+              :to="{ name: 'TenantDocuments', params: { substep: '1' } }"
+              >{{ $t("identity") }}</router-link
+            >
+          </div>
+          <div class="ml-5">
+            <router-link
+              class="fr-link"
+              :class="getTenantResidencyClass()"
+              :to="{ name: 'TenantDocuments', params: { substep: '2' } }"
+              >{{ $t("residency") }}</router-link
+            >
+          </div>
+          <div class="ml-5">
+            <router-link
+              class="fr-link"
+              :class="getTenantProfessionalClass()"
+              :to="{ name: 'TenantDocuments', params: { substep: '3' } }"
+              >{{ $t("professional") }}</router-link
+            >
+          </div>
+          <div class="ml-5">
+            <router-link
+              class="fr-link"
+              :class="getTenantFinancialClass()"
+              :to="{ name: 'TenantDocuments', params: { substep: '4' } }"
+              >{{ $t("financial") }}</router-link
+            >
+          </div>
+          <div class="ml-5">
+            <router-link
+              class="fr-link"
+              :class="getTenantTaxClass()"
+              :to="{ name: 'TenantDocuments', params: { substep: '5' } }"
+              >{{ $t("tax") }}</router-link
+            >
+          </div>
         </div>
       </div>
       <div class="step" :class="getClass(2)">
