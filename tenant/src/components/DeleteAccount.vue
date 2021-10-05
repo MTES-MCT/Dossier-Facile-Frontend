@@ -21,9 +21,12 @@
                 <p>{{ $t("confirm-delete") }}</p>
               </div>
               <div class="align--right">
-                <DfButton class="fr-mr-3w" @on-click="undoSelect()">{{
-                  $t("cancel")
-                }}</DfButton>
+                <DfButton
+                  class="fr-mr-3w"
+                  type="button"
+                  @on-click="undoSelect()"
+                  >{{ $t("cancel") }}</DfButton
+                >
                 <DfButton
                   type="submit"
                   @on-click="validSelect()"
