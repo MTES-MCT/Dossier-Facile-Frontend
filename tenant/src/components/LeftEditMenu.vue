@@ -4,7 +4,7 @@
       <div class="active step">
         <div class="step-number">1</div>
         <div class="step-title">
-          <router-link :to="{ name: 'TenantName' }">
+          <router-link :to="{ name: 'TenantName' }" class="fr-link">
             Je renseigne mes informations</router-link
           >
         </div>
@@ -14,6 +14,7 @@
         <div class="step-number">2</div>
         <div class="step-title">
           <router-link
+            class="fr-link"
             :to="{ name: 'TenantDocuments', params: { substep: '1' } }"
             >Je joins mes documents</router-link
           >
@@ -26,7 +27,7 @@
               class="fr-link"
               :class="getTenantIdentityClass()"
               :to="{ name: 'TenantDocuments', params: { substep: '1' } }"
-              >{{ $t("identity") }}</router-link
+              >{{ $t("identification") }}</router-link
             >
           </div>
           <div class="ml-5">
@@ -66,7 +67,7 @@
       <div class="step" :class="getClass(2)">
         <div class="step-number">3</div>
         <div class="step-title">
-          <router-link :to="{ name: 'GuarantorChoice' }"
+          <router-link class="fr-link" :to="{ name: 'GuarantorChoice' }"
             >je renseigne mon garant</router-link
           >
         </div>
@@ -224,7 +225,7 @@ export default class LeftEditMenu extends Vue {
   margin-bottom: 1rem;
 }
 
-.valid-menu-link {
+.fr-link.valid-menu-link {
   background-color: #e3ebd3;
   color: var(--success);
   &:before {
@@ -234,7 +235,7 @@ export default class LeftEditMenu extends Vue {
   }
 }
 
-.to-process-menu-link {
+.fr-link.to-process-menu-link {
   background-color: var(--bf200-bf300);
   color: var(--focus);
   &:before {
@@ -244,7 +245,7 @@ export default class LeftEditMenu extends Vue {
   }
 }
 
-.declined-menu-link {
+.fr-link.declined-menu-link {
   background-color: var(--rm300);
   color: var(--error);
   &:before {
@@ -254,7 +255,7 @@ export default class LeftEditMenu extends Vue {
   }
 }
 
-.empty-menu-link {
+.fr-link.empty-menu-link {
   background-color: var(--bf200-bf300);
   color: var(--focus);
   &:before {
@@ -263,13 +264,28 @@ export default class LeftEditMenu extends Vue {
     padding: 0 6px 0 0;
   }
 }
+
+.fr-link {
+  width: fit-content;
+  color: var(--g800-plain);
+}
 </style>
 
 <i18n>
 {
 "en": {
+		"identification": "Identification",
+		"professional": "Professional",
+		"residency": "Residency",
+		"financial": "Financial",
+		"tax": "Tax"
 },
 "fr": {
+		"identification": "Pièce d'identité",
+		"residency": "Justificatif de domicile",
+		"professional": "Justificatif de situation professionnelle",
+		"financial": "Justificatif de ressources",
+		"tax": "Avis d'imposition"
 }
 }
 </i18n>
