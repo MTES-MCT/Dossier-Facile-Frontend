@@ -26,7 +26,7 @@
               </validation-provider>
             </div>
 
-            <div>
+            <div v-if="user.tenantType === 'CREATE'">
               <validation-provider rules="is" v-slot="{ errors }">
                 <div
                   class="fr-input-group"
@@ -126,7 +126,6 @@
         </div>
         <ProfileFooter
           @on-back="goBack()"
-          @on-next="sendFile()"
           :disabled="hasErrors()"
           :nextLabel="$t('validate')"
         ></ProfileFooter>
@@ -185,11 +184,14 @@ export default class ValidateFile extends Vue {
       window.scrollTo(0, 0);
     } else {
       const loader = Vue.$loading.show();
+      const params: any = {
+        honorDeclaration: true
+      };
+      if (this.user.tenantType === "CREATE") {
+        params.clarification = this.precision;
+      }
       this.$store
-        .dispatch("validateFile", {
-          honorDeclaration: true,
-          clarification: this.precision
-        })
+        .dispatch("validateFile", params)
         .catch(() => {
           Vue.toasted.global.error();
         })
