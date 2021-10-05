@@ -115,6 +115,24 @@
           <li class="fr-footer__bottom-item">
             <a
               class="fr-footer__bottom-link"
+              :href="`${VUE_APP_MAIN_URL}/stats`"
+            >
+              {{ $t("statistics") }}
+            </a>
+          </li>
+          <li class="fr-footer__bottom-item">
+            <a
+              class="fr-footer__bottom-link"
+              href="https://partenaire.dossierfacile.fr"
+              target="_blank"
+              rel="noreferrer"
+            >
+              {{ $t("partner") }}
+            </a>
+          </li>
+          <li class="fr-footer__bottom-item">
+            <a
+              class="fr-footer__bottom-link"
               target="_blank"
               href="https://twitter.com/dossierfacile"
               aria-label="twitter"
@@ -267,7 +285,9 @@ export default class TheFooter extends Vue {
     "blog": "Blog",
     "information": "Find out more",
     "sources": "Source code",
-    "accessibility": "Accessibility: partial"
+    "accessibility": "Accessibility: partial",
+    "statistics": "Statistics",
+    "partner": "Partners"
   },
   "fr": {
     "contact": "Nous écrire",
@@ -276,7 +296,9 @@ export default class TheFooter extends Vue {
     "blog": "Blog",
     "information": "En savoir plus",
     "sources": "Code source",
-    "accessibility": "Accessibilité: partiellement"
+    "accessibility": "Accessibilité: partiellement",
+    "statistics": "Statistiques",
+    "partner": "Partenaires"
   }
 }
 </i18n>
