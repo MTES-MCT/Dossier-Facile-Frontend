@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import Modal from "df-shared/src/components/Modal.vue";
 import { AnalyticsService } from "../services/AnalyticsService";
 import { extend } from "vee-validate";
@@ -60,13 +60,10 @@ extend("required", {
 })
 export default class DeleteAccount extends Vue {
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
-  @Prop({ default: false }) value!: boolean;
-  password = "";
 
   validDelete() {
     this.$emit("input", false);
-    this.value = false;
-    this.$store.dispatch("deleteAccount", this.password).then(
+    this.$store.dispatch("deleteAccount").then(
       () => {
         AnalyticsService.deleteAccount();
         window.location.replace(this.MAIN_URL);

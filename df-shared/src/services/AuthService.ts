@@ -21,12 +21,8 @@ export const AuthService = {
     });
   },
 
-  deleteAccount(password: string) {
-    return axios.delete(API_URL + "user/deleteAccount", {
-      params: {
-        password: password
-      }
-    });
+  deleteAccount() {
+    return axios.delete(API_URL + "user/deleteAccount");
   },
 
   resetPassword(user: User) {
