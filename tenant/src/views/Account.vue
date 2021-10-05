@@ -598,10 +598,14 @@
                   <DfButton
                     class="delete-btn"
                     primary="true"
-                    @on-click="openDeleteModal()"
+                    @on-click="isDeleteModalVisible = true"
                     >{{ $t("delete-account") }}</DfButton
                   >
                 </div>
+                <DeleteAccount
+                  v-model="isDeleteModalVisible"
+                  v-show="isDeleteModalVisible"
+                ></DeleteAccount>
               </div>
             </div>
             <div class="opinion fr-mb-5w">
@@ -633,41 +637,6 @@
           </div>
         </div>
       </section>
-      <ValidationObserver v-slot="{ validate }">
-        <form name="form" @submit.prevent="validate().then(validDelete)">
-          <ConfirmModal v-show="isDeleteModalVisible" @cancel="undoSelect()">
-            <div class="fr-container">
-              <div class="fr-grid-row justify-content-center">
-                <div class="fr-col-12">
-                  <div class="fr-col-12 fr-mb-3w">
-                    <validation-provider rules="required" v-slot="{ errors }">
-                      <div
-                        class="fr-input-group"
-                        :class="errors[0] ? 'fr-input-group--error' : ''"
-                      >
-                        <label for="password" class="fr-label">{{
-                          $t("password")
-                        }}</label>
-                        <input
-                          id="password"
-                          type="password"
-                          v-model="password"
-                          name="password"
-                          class="validate-required form-control fr-input"
-                          required
-                        />
-                        <span class="fr-error-text" v-if="errors[0]">{{
-                          $t(errors[0])
-                        }}</span>
-                      </div>
-                    </validation-provider>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </ConfirmModal>
-        </form>
-      </ValidationObserver>
     </div>
   </div>
 </template>
@@ -686,6 +655,7 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 import { AnalyticsService } from "../services/AnalyticsService";
 import { extend } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
+import DeleteAccount from "../components/DeleteAccount.vue";
 
 extend("required", {
   ...required,
@@ -699,7 +669,8 @@ extend("required", {
     DfButton,
     NakedCard,
     StatusTag,
-    ConfirmModal
+    ConfirmModal,
+    DeleteAccount
   },
   computed: {
     ...mapState({
@@ -715,7 +686,6 @@ export default class Account extends Vue {
   radioVisible = false;
   pub = "false";
   isDeleteModalVisible = false;
-  password = "";
 
   mounted() {
     const localScript = document.createElement("script");
@@ -836,22 +806,6 @@ export default class Account extends Vue {
 
   openDeleteModal() {
     this.isDeleteModalVisible = true;
-  }
-
-  validDelete() {
-    this.isDeleteModalVisible = false;
-    this.$store.dispatch("deleteAccount", this.password).then(
-      () => {
-        AnalyticsService.deleteAccount();
-        window.location.replace(this.MAIN_URL);
-      },
-      () => {
-        this.$toasted.show(this.$i18n.t("try-again").toString(), {
-          type: "error",
-          duration: 7000
-        });
-      }
-    );
   }
 
   undoSelect() {
@@ -1185,7 +1139,6 @@ hr {
     "file-resume": "Share resumed file <br>(without supporting document)",
     "file-full": "Share full file <br>(with supporting document)",
     "copy": "Copy",
-    "password": "Please enter your password to confirm the complete deletion of the account",
     "try-again": "An error occured, please try again later.",
     "field-required": "This field is required",
     "CDI": "CDI",
@@ -1250,7 +1203,6 @@ hr {
     "file-resume": "Partager mon dossier de synthèse <br>(sans pièce justificative)",
     "file-full": "Partager mon dossier complet<br>(avec pièces justificatives)",
     "copy": "Copier",
-    "password": "Veuillez saisir votre mot de passe pour confirmer la suppression complète du compte",
     "try-again": "Une erreur est survenue, veuillez réessayer plus tard.",
     "field-required": "Ce champ est requis",
     "CDI": "en CDI",
