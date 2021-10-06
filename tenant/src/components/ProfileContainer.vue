@@ -2,9 +2,9 @@
   <div class="fr-container fr-container-full-size">
     <TopEditMenu :step="step"></TopEditMenu>
     <div class="bg--grey full-height fr-grid-row">
-      <LeftEditMenu :step="step" class="fr-col-md-3 fr-col-xl-2"></LeftEditMenu>
+      <LeftEditMenu :step="step" class="fr-col-md-4 fr-col-xl-3"></LeftEditMenu>
       <div
-        class="fr-col-xl-10 fr-col-md-9 fr-col-xs-12 fr-p-md-4w fr-p-2w fr-grid-row fr-grid-row--center"
+        class="fr-col-xl-9 fr-col-md-8 fr-col-xs-12 fr-p-md-4w fr-p-2w fr-grid-row fr-grid-row--center"
       >
         <div class="fr-col-12 max-600">
           <slot></slot>

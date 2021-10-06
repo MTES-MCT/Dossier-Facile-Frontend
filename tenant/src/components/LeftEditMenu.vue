@@ -190,7 +190,7 @@ export default class LeftEditMenu extends Vue {
 .step {
   display: flex;
   align-items: center;
-  height: 4rem;
+  height: 3rem;
 }
 
 .step-number {
@@ -268,6 +268,7 @@ export default class LeftEditMenu extends Vue {
 .fr-link {
   width: fit-content;
   color: var(--g800-plain);
+  font-size: 14px;
 }
 </style>
 
