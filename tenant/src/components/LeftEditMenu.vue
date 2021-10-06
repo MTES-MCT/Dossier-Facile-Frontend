@@ -103,27 +103,32 @@ export default class LeftEditMenu extends Vue {
 
   getTenantIdentityClass() {
     const status = DocumentService.getTenantIdentityStatus();
-    return this.getClassByStatus(status);
+    return this.getClassByStatus(status) + this.getTenantCurrentStep(1);
   }
 
   getTenantResidencyClass() {
     const status = DocumentService.getTenantResidencyStatus();
-    return this.getClassByStatus(status);
+    return this.getClassByStatus(status) + this.getTenantCurrentStep(2);
   }
 
   getTenantProfessionalClass() {
     const status = DocumentService.getTenantProfessionalStatus();
-    return this.getClassByStatus(status);
+    return this.getClassByStatus(status) + this.getTenantCurrentStep(3);
   }
 
   getTenantFinancialClass() {
     const status = DocumentService.getTenantFinancialStatus();
-    return this.getClassByStatus(status);
+    return this.getClassByStatus(status) + this.getTenantCurrentStep(4);
   }
 
   getTenantTaxClass() {
     const status = DocumentService.getTenantTaxStatus();
-    return this.getClassByStatus(status);
+    return this.getClassByStatus(status) + this.getTenantCurrentStep(5);
+  }
+
+  getTenantCurrentStep(substep: number) {
+    const s = Number(this.$route.params.substep) || 0;
+    return this.step === 2 && s === substep ? " current-step" : "";
   }
 
   getClassByStatus(status: string) {
@@ -226,32 +231,41 @@ export default class LeftEditMenu extends Vue {
 }
 
 .fr-link.valid-menu-link {
-  background-color: #e3ebd3;
-  color: var(--success);
+  background-color: #e7f5ef;
+  color: #169b62;
   &:before {
     content: "\2713";
     display: inline-block;
     padding: 0 6px 0 0;
   }
+  &.current-step {
+    border: 1px solid #169b62;
+  }
 }
 
 .fr-link.to-process-menu-link {
-  background-color: var(--bf200-bf300);
-  color: var(--focus);
+  background-color: #fcf3ef;
+  color: #ff9940;
   &:before {
     content: "\2192";
     display: inline-block;
     padding: 0 6px 0 0;
   }
+  &.current-step {
+    border: 1px solid #ff9940;
+  }
 }
 
 .fr-link.declined-menu-link {
-  background-color: var(--rm300);
-  color: var(--error);
+  background-color: #fce5e7;
+  color: #e10600;
   &:before {
     content: "\00d7";
     display: inline-block;
     padding: 0 6px 0 0;
+  }
+  &.current-step {
+    border: 1px solid #e10600;
   }
 }
 
@@ -262,6 +276,11 @@ export default class LeftEditMenu extends Vue {
     content: "\2192";
     display: inline-block;
     padding: 0 6px 0 0;
+  }
+  &.current-step {
+    background-color: var(--w);
+    color: var(--primary);
+    border: 1px solid #e5e5f4;
   }
 }
 
