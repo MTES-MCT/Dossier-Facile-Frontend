@@ -40,12 +40,13 @@
                       id="precision"
                       :placeholder="$t('placeholder')"
                       type="text"
-                      maxlength="500"
+                      maxlength="2000"
+                      rows="3"
                       v-model="precision"
                       name="precision"
                       class="validate-required form-control fr-input"
                     />
-                    <span>{{ precision.length }} / 500</span>
+                    <span>{{ precision.length }} / 2000</span>
                     <span class="fr-error-text" v-if="errors[0]">{{
                       $t(errors[0])
                     }}</span>
@@ -94,7 +95,7 @@
                 </validation-provider>
               </div>
             </div>
-            <div v-if="false">
+            <div v-if="user.tenantType === 'CREATE'">
               <validation-provider rules="is" v-slot="{ errors }">
                 <div
                   class="fr-input-group"
@@ -104,14 +105,17 @@
                     <label for="precision" class="fr-label">
                       {{ $t("precision") }}</label
                     >
-                    <input
+                    <textarea
                       id="precision"
                       :placeholder="$t('placeholder')"
                       type="text"
+                      maxlength="2000"
+                      rows="3"
                       v-model="precision"
                       name="precision"
                       class="validate-required form-control fr-input"
                     />
+                    <span>{{ precision.length }} / 2000</span>
                     <span class="fr-error-text" v-if="errors[0]">{{
                       $t(errors[0])
                     }}</span>
