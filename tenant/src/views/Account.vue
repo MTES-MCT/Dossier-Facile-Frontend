@@ -845,6 +845,9 @@ export default class Account extends Vue {
     const doc = this.user.documents?.find((d: DfDocument) => {
       return d.documentCategory === "PROFESSIONAL";
     });
+    if (doc?.documentSubCategory === "OTHER") {
+      return "";
+    }
     return this.$i18n.t(doc?.documentSubCategory || "none");
   }
 
