@@ -64,6 +64,25 @@
             </BigRadio>
           </div>
         </NakedCard>
+        <div
+          v-if="tmpGuarantorType === 'NO_GUARANTOR'"
+          class="bg-purple fr-mt-3w fr-p-5w"
+        >
+          <div class="fr-grid-row space-between">
+            <h5>{{ $t("visale-title") }}</h5>
+            <img
+              alt="logo visale"
+              class="logo-visale"
+              src="../assets/visale.png"
+            />
+          </div>
+          <p>{{ $t("visale-text") }}</p>
+          <div style="text-align: right">
+            <DfButton primary="true" @on-click="gotoVisale()">
+              {{ $t("visale-btn") }}
+            </DfButton>
+          </div>
+        </div>
       </div>
 
       <GuarantorFooter
@@ -226,6 +245,10 @@ export default class GuarantorDocuments extends Vue {
       });
     }
   }
+
+  gotoVisale() {
+    window.location.replace(`https://www.visale.fr`);
+  }
 }
 </script>
 
@@ -305,6 +328,12 @@ h2 {
 .small-font {
   font-size: 14px;
 }
+
+.logo-visale {
+  width: 134px;
+  height: 44px;
+  margin-bottom: 1rem;
+}
 </style>
 
 <i18n>
@@ -329,7 +358,10 @@ h2 {
 "ask-guarantor": "Do you want to add :",
 "remark-title": "Remark",
 "remark-text": "Adding a guarantor is by no means mandatory. If you do not wish to add a surety, you can select “I don't have a guarantor”. Your file will then be registered for investigation.",
-"type-required": "Please select a choice"
+"type-required": "Please select a choice",
+"visale-title": "Do you know Visale ?",
+"visale-text": "Visale is the guarantor of your future accommodation if you are between 18 and 30 years old OR if you are employees over 30 years old (subject to conditions).",
+"visale-btn": "Discover Visale"
 },
 "fr": {
 "identification": "Pièce d’identité",
@@ -351,7 +383,10 @@ h2 {
 "ask-guarantor": "Souhaitez-vous ajouter :",
 "remark-title": "Remarque",
 "remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, nous pouvez sélectionner « Je n'ai pas de garant ». Votre dossier sera alors enregistré pour être instruit.",
-"type-required": "Veuillez sélectionner un choix"
+"type-required": "Veuillez sélectionner un choix",
+"visale-title": "Connaissez-vous Visale ?",
+"visale-text": "Visale est le garant de votre futur logement si vous avez entre 18 et 30 ans OU si vous êtes salariés de + de 30 ans (soumis à conditions).",
+"visale-btn": "Découvrir Visale"
 }
 }
 </i18n>
