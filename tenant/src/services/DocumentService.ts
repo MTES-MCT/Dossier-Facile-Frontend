@@ -20,6 +20,9 @@ export const DocumentService = {
     return (document?.files?.length || 0) > 0;
   },
   guarantorHasDoc(g: Guarantor, docType: string) {
+    if (!g) {
+      return;
+    }
     return g.documents?.find((d: DfDocument) => {
       return d.documentCategory === docType;
     });
@@ -81,6 +84,38 @@ export const DocumentService = {
   },
   getTenantTaxStatus(): string {
     const doc = this.hasDoc("TAX");
+    return doc?.documentStatus || "";
+  },
+  getGuarantorIdentityStatus(): string {
+    const doc = this.guarantorHasDoc(
+      store.state.selectedGuarantor,
+      "IDENTIFICATION"
+    );
+    return doc?.documentStatus || "";
+  },
+  getGuarantorResidencyStatus(): string {
+    const doc = this.guarantorHasDoc(
+      store.state.selectedGuarantor,
+      "RESIDENCY"
+    );
+    return doc?.documentStatus || "";
+  },
+  getGuarantorProfessionalStatus(): string {
+    const doc = this.guarantorHasDoc(
+      store.state.selectedGuarantor,
+      "PROFESSIONAL"
+    );
+    return doc?.documentStatus || "";
+  },
+  getGuarantorFinancialStatus(): string {
+    const doc = this.guarantorHasDoc(
+      store.state.selectedGuarantor,
+      "FINANCIAL"
+    );
+    return doc?.documentStatus || "";
+  },
+  getGuarantorTaxStatus(): string {
+    const doc = this.guarantorHasDoc(store.state.selectedGuarantor, "TAX");
     return doc?.documentStatus || "";
   }
 };

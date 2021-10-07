@@ -72,7 +72,52 @@
           >
         </div>
       </div>
-      <div class="vline" :class="getClass(2)"></div>
+      <div class="vline" :class="getClass(2)">
+        <div v-if="step === 3 && selectedGuarantor">
+          <div v-if="selectedGuarantor.typeGuarantor === 'NATURAL_PERSON'">
+            <div class="ml-5">
+              <router-link
+                class="fr-link"
+                :class="getGuarantorIdentityClass()"
+                :to="{ name: 'GuarantorDocuments', params: { substep: '1' } }"
+                >{{ $t("identification") }}</router-link
+              >
+            </div>
+            <div class="ml-5">
+              <router-link
+                class="fr-link"
+                :class="getGuarantorResidencyClass()"
+                :to="{ name: 'GuarantorDocuments', params: { substep: '2' } }"
+                >{{ $t("residency") }}</router-link
+              >
+            </div>
+            <div class="ml-5">
+              <router-link
+                class="fr-link"
+                :class="getGuarantorProfessionalClass()"
+                :to="{ name: 'GuarantorDocuments', params: { substep: '3' } }"
+                >{{ $t("professional") }}</router-link
+              >
+            </div>
+            <div class="ml-5">
+              <router-link
+                class="fr-link"
+                :class="getGuarantorFinancialClass()"
+                :to="{ name: 'GuarantorDocuments', params: { substep: '4' } }"
+                >{{ $t("financial") }}</router-link
+              >
+            </div>
+            <div class="ml-5">
+              <router-link
+                class="fr-link"
+                :class="getGuarantorTaxClass()"
+                :to="{ name: 'GuarantorDocuments', params: { substep: '5' } }"
+                >{{ $t("tax") }}</router-link
+              >
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="step" :class="getClass(3)">
         <div class="step-number">4</div>
         <div class="step-title">je valide mon dossier</div>
@@ -83,12 +128,21 @@
 </template>
 
 <script lang="ts">
+import { Guarantor } from "df-shared/src/models/Guarantor";
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { mapState } from "vuex";
 import { DocumentService } from "../services/DocumentService";
 
-@Component
+@Component({
+  computed: {
+    ...mapState({
+      selectedGuarantor: "selectedGuarantor"
+    })
+  }
+})
 export default class LeftEditMenu extends Vue {
   @Prop({ default: 0 }) step!: number;
+  selectedGuarantor!: Guarantor;
 
   getClass(s: number) {
     if (this.getStep(s)) {
@@ -131,6 +185,11 @@ export default class LeftEditMenu extends Vue {
     return this.step === 2 && s === substep ? " current-step" : "";
   }
 
+  getGuarantorCurrentStep(substep: number) {
+    const s = Number(this.$route.params.substep) || 0;
+    return this.step === 3 && s === substep ? " current-step" : "";
+  }
+
   getClassByStatus(status: string) {
     switch (status) {
       case "VALIDATED":
@@ -139,6 +198,8 @@ export default class LeftEditMenu extends Vue {
         return "to-process-menu-link";
       case "DECLINED":
         return "declined-menu-link";
+      case "FILLED":
+        return "filled-menu-link";
     }
     return "empty-menu-link";
   }
@@ -157,6 +218,31 @@ export default class LeftEditMenu extends Vue {
       default:
         return s <= 0;
     }
+  }
+
+  getGuarantorIdentityClass() {
+    const status = DocumentService.getGuarantorIdentityStatus();
+    return this.getClassByStatus(status) + this.getGuarantorCurrentStep(1);
+  }
+
+  getGuarantorResidencyClass() {
+    const status = DocumentService.getGuarantorResidencyStatus();
+    return this.getClassByStatus(status) + this.getGuarantorCurrentStep(2);
+  }
+
+  getGuarantorProfessionalClass() {
+    const status = DocumentService.getGuarantorProfessionalStatus();
+    return this.getClassByStatus(status) + this.getGuarantorCurrentStep(3);
+  }
+
+  getGuarantorFinancialClass() {
+    const status = DocumentService.getGuarantorFinancialStatus();
+    return this.getClassByStatus(status) + this.getGuarantorCurrentStep(4);
+  }
+
+  getGuarantorTaxClass() {
+    const status = DocumentService.getGuarantorTaxStatus();
+    return this.getClassByStatus(status) + this.getGuarantorCurrentStep(5);
   }
 }
 </script>
@@ -280,6 +366,19 @@ export default class LeftEditMenu extends Vue {
   &.current-step {
     background-color: var(--w);
     color: var(--primary);
+    border: 1px solid #e5e5f4;
+  }
+}
+
+.fr-link.filled-menu-link {
+  background-color: var(--bf200-bf300);
+  color: var(--focus);
+  &:before {
+    content: "\2192";
+    display: inline-block;
+    padding: 0 6px 0 0;
+  }
+  &.current-step {
     border: 1px solid #e5e5f4;
   }
 }
