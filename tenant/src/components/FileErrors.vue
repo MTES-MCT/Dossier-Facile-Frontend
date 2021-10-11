@@ -131,9 +131,10 @@
       </div>
       <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
         <NakedCard v-if="!documentsGuarantorFilled(g)" class="fr-p-5w">
+          <h6 class="color--red">{{ $t("error-title-guarantor") }}</h6>
           <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION')">
             <div class="fr-grid-row file-item">
-              <div>{{ $t("identification") }}</div>
+              <div>{{ $t("corporation-identification") }}</div>
               <DfButton @on-click="openGuarantor(g, 1)"
                 ><div v-if="!isMobile()">{{ $t("update") }}</div>
                 <div v-if="isMobile()">
@@ -144,8 +145,9 @@
           </div>
           <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION_LEGAL_PERSON')">
             <div class="fr-grid-row file-item">
-              <div>{{ $t("identification-legal-person") }}</div>
-              <DfButton @on-click="openGuarantor(g, 1)"
+              <div>{{ $t("representative-identification") }}</div>
+
+              <DfButton @on-click="openGuarantor(g, 2)"
                 ><div v-if="!isMobile()">{{ $t("update") }}</div>
                 <div v-if="isMobile()">
                   <span class="color--primary material-icons md-24">edit</span>
@@ -157,9 +159,10 @@
       </div>
       <div v-if="g.typeGuarantor === 'ORGANISM'">
         <NakedCard v-if="!documentsGuarantorFilled(g)" class="fr-p-5w">
+          <h6 class="color--red">{{ $t("error-title-guarantor") }}</h6>
           <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION')">
             <div class="fr-grid-row file-item">
-              <div>{{ $t("identification") }}</div>
+              <div>{{ $t("organism-cert") }}</div>
               <DfButton @on-click="openGuarantor(g, 1)"
                 ><div v-if="!isMobile()">{{ $t("update") }}</div>
                 <div v-if="isMobile()">
@@ -279,7 +282,9 @@ export default class FileErrors extends Vue {
     "my-missing-documents": "My missing documents:",
     "his-missing-documents": "Guarantor missing documents:",
     "update": "Update",
-    "identification-legal-person": "Legal person identification"
+    "organism-cert": "Organism certificate",
+    "corporation-identification": "Identité de la personne morale",
+    "representative-identification": "Identité du représentant de la personne morale"
 	},
 	"fr": {
 		"identification": "Pièce d'identité",
@@ -293,7 +298,9 @@ export default class FileErrors extends Vue {
     "my-missing-documents": "Vos documents manquants :",
     "his-missing-documents": "Ses documents manquants :",
     "update": "Mettre à jour",
-    "identification-legal-person": "Identification de la personne morale"
+    "organism-cert": "Attestation de garantie",
+    "representative-identification": "Identité du représentant de la personne morale",
+    "corporation-identification": "Identité de la personne morale"
 	}
 }
 </i18n>
