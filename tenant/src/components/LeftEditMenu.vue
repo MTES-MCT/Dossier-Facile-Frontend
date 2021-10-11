@@ -125,7 +125,11 @@
       </div>
       <div class="step" :class="getClass(3)">
         <div class="step-number">4</div>
-        <div class="step-title">je valide mon dossier</div>
+        <div class="step-title">
+          <router-link class="fr-link" :to="{ name: 'ValidateFile' }"
+            >Je valide mon dossier</router-link
+          >
+        </div>
       </div>
       <div class="spacer"></div>
     </div>
