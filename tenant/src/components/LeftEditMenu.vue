@@ -27,6 +27,7 @@
               class="fr-link"
               :class="getTenantIdentityClass()"
               :to="{ name: 'TenantDocuments', params: { substep: '1' } }"
+              ><StatusIcon :status="tenantStatus('IDENTITY')"></StatusIcon
               >{{ $t("identification") }}</router-link
             >
           </div>
@@ -35,6 +36,7 @@
               class="fr-link"
               :class="getTenantResidencyClass()"
               :to="{ name: 'TenantDocuments', params: { substep: '2' } }"
+              ><StatusIcon :status="tenantStatus('RESIDENCY')"></StatusIcon
               >{{ $t("residency") }}</router-link
             >
           </div>
@@ -43,6 +45,7 @@
               class="fr-link"
               :class="getTenantProfessionalClass()"
               :to="{ name: 'TenantDocuments', params: { substep: '3' } }"
+              ><StatusIcon :status="tenantStatus('PROFESSIONAL')"></StatusIcon
               >{{ $t("professional") }}</router-link
             >
           </div>
@@ -51,6 +54,7 @@
               class="fr-link"
               :class="getTenantFinancialClass()"
               :to="{ name: 'TenantDocuments', params: { substep: '4' } }"
+              ><StatusIcon :status="tenantStatus('FINANCIAL')"></StatusIcon
               >{{ $t("financial") }}</router-link
             >
           </div>
@@ -59,6 +63,7 @@
               class="fr-link"
               :class="getTenantTaxClass()"
               :to="{ name: 'TenantDocuments', params: { substep: '5' } }"
+              ><StatusIcon :status="tenantStatus('TAX')"></StatusIcon
               >{{ $t("tax") }}</router-link
             >
           </div>
@@ -132,8 +137,10 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { mapState } from "vuex";
 import { DocumentService } from "../services/DocumentService";
+import StatusIcon from "./StatusIcon.vue";
 
 @Component({
+  components: { StatusIcon },
   computed: {
     ...mapState({
       selectedGuarantor: "selectedGuarantor"
@@ -154,7 +161,25 @@ export default class LeftEditMenu extends Vue {
   getLinkClass() {
     return "valid-menu-link";
   }
-
+  tenantStatus(documentType: string) {
+    let status;
+    if (documentType === "IDENTITY") {
+      status = DocumentService.getTenantIdentityStatus();
+    }
+    if (documentType === "RESIDENCY") {
+      status = DocumentService.getTenantResidencyStatus();
+    }
+    if (documentType === "PROFESSIONAL") {
+      status = DocumentService.getTenantProfessionalStatus();
+    }
+    if (documentType === "FINANCIAL") {
+      status = DocumentService.getTenantFinancialStatus();
+    }
+    if (documentType === "TAX") {
+      status = DocumentService.getTenantTaxStatus();
+    }
+    return status || "TODO";
+  }
   getTenantIdentityClass() {
     const status = DocumentService.getTenantIdentityStatus();
     return this.getClassByStatus(status) + this.getTenantCurrentStep(1);
@@ -319,11 +344,6 @@ export default class LeftEditMenu extends Vue {
 .fr-link.valid-menu-link {
   background-color: #e7f5ef;
   color: #169b62;
-  &:before {
-    content: "\2713";
-    display: inline-block;
-    padding: 0 6px 0 0;
-  }
   &.current-step {
     border: 1px solid #169b62;
   }
@@ -332,11 +352,6 @@ export default class LeftEditMenu extends Vue {
 .fr-link.to-process-menu-link {
   background-color: #fcf3ef;
   color: #ff9940;
-  &:before {
-    content: "\2192";
-    display: inline-block;
-    padding: 0 6px 0 0;
-  }
   &.current-step {
     border: 1px solid #ff9940;
   }
@@ -345,11 +360,6 @@ export default class LeftEditMenu extends Vue {
 .fr-link.declined-menu-link {
   background-color: #fce5e7;
   color: #e10600;
-  &:before {
-    content: "\00d7";
-    display: inline-block;
-    padding: 0 6px 0 0;
-  }
   &.current-step {
     border: 1px solid #e10600;
   }
@@ -358,11 +368,6 @@ export default class LeftEditMenu extends Vue {
 .fr-link.empty-menu-link {
   background-color: var(--bf200-bf300);
   color: var(--focus);
-  &:before {
-    content: "\2192";
-    display: inline-block;
-    padding: 0 6px 0 0;
-  }
   &.current-step {
     background-color: var(--w);
     color: var(--primary);
@@ -373,11 +378,6 @@ export default class LeftEditMenu extends Vue {
 .fr-link.filled-menu-link {
   background-color: var(--bf200-bf300);
   color: var(--focus);
-  &:before {
-    content: "\2192";
-    display: inline-block;
-    padding: 0 6px 0 0;
-  }
   &.current-step {
     border: 1px solid #e5e5f4;
   }
