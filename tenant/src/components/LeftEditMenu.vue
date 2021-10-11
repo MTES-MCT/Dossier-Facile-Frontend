@@ -85,6 +85,7 @@
                 class="fr-link"
                 :class="getGuarantorIdentityClass()"
                 :to="{ name: 'GuarantorDocuments', params: { substep: '1' } }"
+                ><StatusIcon :status="guarantorStatus('IDENTITY')"></StatusIcon
                 >{{ $t("identification") }}</router-link
               >
             </div>
@@ -93,6 +94,7 @@
                 class="fr-link"
                 :class="getGuarantorResidencyClass()"
                 :to="{ name: 'GuarantorDocuments', params: { substep: '2' } }"
+                ><StatusIcon :status="guarantorStatus('RESIDENCY')"></StatusIcon
                 >{{ $t("residency") }}</router-link
               >
             </div>
@@ -101,6 +103,9 @@
                 class="fr-link"
                 :class="getGuarantorProfessionalClass()"
                 :to="{ name: 'GuarantorDocuments', params: { substep: '3' } }"
+                ><StatusIcon
+                  :status="guarantorStatus('PROFESSIONAL')"
+                ></StatusIcon
                 >{{ $t("professional") }}</router-link
               >
             </div>
@@ -109,6 +114,7 @@
                 class="fr-link"
                 :class="getGuarantorFinancialClass()"
                 :to="{ name: 'GuarantorDocuments', params: { substep: '4' } }"
+                ><StatusIcon :status="guarantorStatus('FINANCIAL')"></StatusIcon
                 >{{ $t("financial") }}</router-link
               >
             </div>
@@ -117,6 +123,7 @@
                 class="fr-link"
                 :class="getGuarantorTaxClass()"
                 :to="{ name: 'GuarantorDocuments', params: { substep: '5' } }"
+                ><StatusIcon :status="guarantorStatus('TAX')"></StatusIcon
                 >{{ $t("tax") }}</router-link
               >
             </div>
@@ -164,6 +171,25 @@ export default class LeftEditMenu extends Vue {
 
   getLinkClass() {
     return "valid-menu-link";
+  }
+  guarantorStatus(documentType: string) {
+    let status;
+    if (documentType === "IDENTITY") {
+      status = DocumentService.getGuarantorIdentityStatus();
+    }
+    if (documentType === "RESIDENCY") {
+      status = DocumentService.getGuarantorResidencyStatus();
+    }
+    if (documentType === "PROFESSIONAL") {
+      status = DocumentService.getGuarantorProfessionalStatus();
+    }
+    if (documentType === "FINANCIAL") {
+      status = DocumentService.getGuarantorFinancialStatus();
+    }
+    if (documentType === "TAX") {
+      status = DocumentService.getGuarantorTaxStatus();
+    }
+    return status || "TODO";
   }
   tenantStatus(documentType: string) {
     let status;
