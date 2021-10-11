@@ -247,7 +247,7 @@ export default class GuarantorDocuments extends Vue {
   }
 
   gotoVisale() {
-    window.location.replace(`https://www.visale.fr`);
+    window.open("https://www.visale.fr", "_blank");
   }
 }
 </script>
