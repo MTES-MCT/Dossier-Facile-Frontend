@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ValidationObserver v-slot="{ invalid, validate }">
+    <ValidationObserver v-slot="{ validate }">
       <v-gouv-fr-modal class="fr-mb-3w">
         <template v-slot:button>
           En difficulté pour répondre à la question ?
@@ -29,7 +29,7 @@
                   >{{ $t("lastname") }} :</label
                 >
                 <input
-                  v-model="user.lastName"
+                  v-model="lastname"
                   class="form-control fr-input validate-required"
                   id="lastname"
                   name="lastname"
@@ -56,7 +56,7 @@
                   id="firstname"
                   :placeholder="$t('firstname')"
                   type="text"
-                  v-model="user.firstName"
+                  v-model="firstname"
                   name="firstname"
                   class="validate-required form-control fr-input"
                   required
@@ -83,7 +83,7 @@
                   id="zipcode"
                   :placeholder="$t('zipcode')"
                   type="text"
-                  v-model="user.zipCode"
+                  v-model="zipcode"
                   name="zipcode"
                   class="validate-required form-control fr-input"
                 />
@@ -101,7 +101,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import { User } from "df-shared/src/models/User";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
@@ -111,6 +111,7 @@ import NameInformationHelp from "./helps/NameInformationHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import { AnalyticsService } from "../services/AnalyticsService";
 import ProfileFooter from "@/components/footer/ProfileFooter.vue";
+import { mapGetters } from "vuex";
 
 extend("zipcode", {
   ...regex,
@@ -130,13 +131,39 @@ extend("required", {
     NameInformationHelp,
     VGouvFrModal,
     ProfileFooter
+  },
+  computed: {
+    ...mapGetters({
+      user: "userToEdit"
+    })
   }
 })
 export default class NameInformationForm extends Vue {
-  @Prop() private user!: User;
+  public user!: User;
+  firstname = "";
+  lastname = "";
+  zipcode = "";
+
+  beforeMount() {
+    this.firstname = this.user.firstName || "";
+    this.lastname = this.user.lastName || "";
+    this.zipcode = this.user.zipCode || "";
+  }
 
   handleNameInformation() {
+    if (
+      this.user.firstName === this.firstname &&
+      this.user.lastName === this.lastname &&
+      this.user.zipCode === this.zipcode
+    ) {
+      this.$router.push({ name: "TenantType" });
+      return;
+    }
     const loader = this.$loading.show();
+    this.$store.commit("updateUserFirstname", this.firstname);
+    this.$store.commit("updateUserLastname", this.lastname);
+    this.$store.commit("updateUserZipcode", this.zipcode);
+
     this.$store
       .dispatch("setNames", this.user)
       .then(

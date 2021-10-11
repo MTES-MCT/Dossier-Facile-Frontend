@@ -7,7 +7,7 @@
       </div>
     </div>
     <NakedCard class="fr-pt-3w fr-pb-3w">
-      <NameInformationForm :user="user"></NameInformationForm>
+      <NameInformationForm></NameInformationForm>
     </NakedCard>
   </ProfileContainer>
 </template>
@@ -15,8 +15,6 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import NameInformationForm from "@/components/NameInformationForm.vue";
-import { mapState } from "vuex";
-import { User } from "df-shared/src/models/User";
 import ProfileContainer from "@/components/ProfileContainer.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 
@@ -25,16 +23,9 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
     NameInformationForm,
     ProfileContainer,
     NakedCard
-  },
-  computed: {
-    ...mapState({
-      user: "user"
-    })
   }
 })
 export default class NameInformation extends Vue {
-  public user!: User;
-
   mounted() {
     window.Beacon("init", "e9f4da7d-11be-4b40-9514-ac7ce3e68f67");
     const localScript = document.createElement("script");
