@@ -110,6 +110,17 @@ const routes: Array<RouteConfig> = [
       )
   },
   {
+    path: "/liste-garants",
+    name: "GuarantorList",
+    meta: {
+      title: "Édition du garant - DossierFacile",
+      requiresAuth: true,
+      hideFooter: true
+    },
+    component: () =>
+      import(/* webpackChunkName: "profile" */ "@/views/GuarantorListPage.vue")
+  },
+  {
     path: "/validation-dossier",
     name: "ValidateFile",
     meta: {

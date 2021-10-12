@@ -186,23 +186,28 @@ export default class ValidateFile extends Vue {
   sendFile() {
     if (!this.canValidate()) {
       window.scrollTo(0, 0);
-    } else {
-      const loader = Vue.$loading.show();
-      const params: any = {
-        honorDeclaration: true
-      };
-      if (this.user.tenantType === "CREATE") {
-        params.clarification = this.precision;
-      }
-      this.$store
-        .dispatch("validateFile", params)
-        .catch(() => {
-          Vue.toasted.global.error();
-        })
-        .finally(() => {
-          loader.hide();
-        });
+      return;
     }
+
+    if (this.user.status === "VALIDATED") {
+      this.$router.push("/account");
+      return;
+    }
+    const loader = Vue.$loading.show();
+    const params: any = {
+      honorDeclaration: true
+    };
+    if (this.user.tenantType === "CREATE") {
+      params.clarification = this.precision;
+    }
+    this.$store
+      .dispatch("validateFile", params)
+      .catch(() => {
+        Vue.toasted.global.error();
+      })
+      .finally(() => {
+        loader.hide();
+      });
   }
 
   goBack() {
@@ -213,23 +218,8 @@ export default class ValidateFile extends Vue {
       this.$router.push({ name: "GuarantorChoice" });
       return;
     }
-    if (this.user.guarantors[0].typeGuarantor === "NATURAL_PERSON") {
-      this.$router.push({
-        name: "GuarantorDocuments",
-        params: { substep: "5" }
-      });
-      return;
-    }
-    if (this.user.guarantors[0].typeGuarantor === "LEGAL_PERSON") {
-      this.$router.push({
-        name: "GuarantorDocuments",
-        params: { substep: "2" }
-      });
-      return;
-    }
     this.$router.push({
-      name: "GuarantorDocuments",
-      params: { substep: "1" }
+      name: "GuarantorList"
     });
     return;
   }

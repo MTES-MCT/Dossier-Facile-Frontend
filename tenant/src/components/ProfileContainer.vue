@@ -4,9 +4,9 @@
     <div class="bg--grey full-height fr-grid-row">
       <LeftEditMenu :step="step" class="fr-col-md-4 fr-col-xl-3"></LeftEditMenu>
       <div
-        class="fr-col-xl-9 fr-col-md-8 fr-col-xs-12 fr-p-md-4w fr-p-2w fr-grid-row fr-grid-row--center"
+        class="fr-col-xl-9 fr-col-md-8 fr-col-xs-12 fr-p-md-4w fr-p-2w fr-grid-row"
       >
-        <div class="fr-col-12 max-600">
+        <div class="fr-col-12 max-600 ml">
           <slot></slot>
         </div>
       </div>
@@ -46,4 +46,10 @@ export default class ProfileContainer extends Vue {
 
 <style lang="scss" scoped>
 @import "df-shared/src/scss/_variables.scss";
+
+.ml {
+  @media all and (min-width: 768px) {
+    margin-left: 10%;
+  }
+}
 </style>

@@ -397,10 +397,9 @@ export default class LeftEditMenu extends Vue {
 
 .fr-link.empty-menu-link {
   background-color: var(--bf200-bf300);
-  color: var(--focus);
+  color: var(--primary);
   &.current-step {
     background-color: var(--w);
-    color: var(--primary);
     border: 1px solid #e5e5f4;
   }
 }

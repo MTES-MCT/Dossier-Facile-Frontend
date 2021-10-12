@@ -207,11 +207,11 @@
         </NakedCard>
       </ValidationObserver>
     </div>
-    <FinancialFooter
+    <ProfileFooter
       @on-back="goBack"
       @on-next="goNext"
       @add-financial="addFinancial()"
-    ></FinancialFooter>
+    ></ProfileFooter>
   </div>
 </template>
 
@@ -238,7 +238,7 @@ import { mapState } from "vuex";
 import Modal from "df-shared/src/components/Modal.vue";
 import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
-import FinancialFooter from "@/components/footer/FinancialFooter.vue";
+import ProfileFooter from "@/components/footer/ProfileFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import cloneDeep from "lodash/cloneDeep";
@@ -266,7 +266,7 @@ extend("required", {
     Modal,
     GuarantorChoiceHelp,
     VGouvFrModal,
-    FinancialFooter,
+    ProfileFooter,
     NakedCard,
     BigRadio
   },

@@ -141,7 +141,7 @@ h2 {
 "identification": "Pièce d’identité",
 "residency": "Justificatif de domicile",
 "professional": "Justificatif de situation professionnelle",
-"financial": "Justificatif de ressources",
+"financial": "Proof of resources",
 "tax": "Avis d’imposition"
 },
 "fr": {

@@ -28,6 +28,9 @@ export class DfState {
   spouseAuthorize = false;
   coTenantAuthorize = false;
   showFooter = true;
+  expandGuarantorMenu = false;
+  financialDocumentSelected?: FinancialDocument = undefined;
+  editFinancialDocument = false;
 }
 
 const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
@@ -459,8 +462,24 @@ const store = new Vuex.Store({
     },
     saveTenantFinancial({ commit }, formData) {
       return RegisterService.saveTenantFinancial(formData).then(
-        response => {
-          commit("loadUser", response.data);
+        async response => {
+          await commit("loadUser", response.data);
+          const fd = this.getters.tenantFinancialDocuments;
+          if (fd === undefined) {
+            return Promise.resolve(response.data);
+          }
+          if (formData.has("id")) {
+            const s = fd.find((f: any) => {
+              return f.id.toString() === formData.get("id");
+            });
+            console.log("select with id")
+            console.dir(s)
+            await commit("selectDocumentFinancial", s);
+          } else {
+            console.log("select new doc")
+            console.dir(fd[fd.length - 1])
+            await commit("selectDocumentFinancial", fd[fd.length - 1]);
+          }
           return Promise.resolve(response.data);
         },
         error => {
@@ -666,6 +685,12 @@ const store = new Vuex.Store({
         }
       }
       return financialdocuments;
+    },
+    financialDocumentSelected(state): FinancialDocument {
+      return state.financialDocumentSelected;
+    },
+    editFinancialDocument(state): FinancialDocument {
+      return state.editFinancialDocument;
     }
   },
   modules: {}

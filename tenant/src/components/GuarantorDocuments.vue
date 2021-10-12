@@ -55,13 +55,7 @@
           ></GuarantorFinancial>
         </div>
         <div v-if="substep === 5">
-          <GuarantorTax @on-back="goBack" @on-next="goNext"></GuarantorTax>
-        </div>
-        <div v-if="substep === 6">
-          <GuarantorSummary
-            @on-back="goBack"
-            @on-next="nextStep"
-          ></GuarantorSummary>
+          <GuarantorTax @on-back="goBack" @on-next="nextStep"></GuarantorTax>
         </div>
       </div>
       <div v-if="guarantor.typeGuarantor === 'ORGANISM'">
@@ -108,7 +102,6 @@ import GuarantorResidency from "@/components/documents/GuarantorResidency.vue";
 import GuarantorProfessional from "@/components/documents/GuarantorProfessional.vue";
 import GuarantorFinancial from "@/components/documents/GuarantorFinancial.vue";
 import GuarantorTax from "@/components/documents/GuarantorTax.vue";
-import GuarantorSummary from "@/components/documents/GuarantorSummary.vue";
 import { mapGetters, mapState } from "vuex";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { User } from "df-shared/src/models/User";
@@ -131,7 +124,6 @@ import ProfileContainer from "@/components/ProfileContainer.vue";
     GuarantorProfessional,
     GuarantorResidency,
     GuarantorIdentification,
-    GuarantorSummary,
     RepresentativeIdentification,
     CorporationIdentification,
     OrganismCert,
@@ -249,7 +241,7 @@ export default class GuarantorDocuments extends Vue {
 
   nextStep() {
     this.$router.push({
-      name: "ValidateFile"
+      name: "GuarantorList"
     });
   }
 

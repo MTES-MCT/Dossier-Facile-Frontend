@@ -237,6 +237,18 @@ export default class TenantInformationForm extends Vue {
       return;
     }
 
+    // TODO : check for roommates too
+    if (
+      this.applicationType === this.user.applicationType &&
+      this.applicationType === "ALONE"
+    ) {
+      this.$router.push({
+        name: "TenantDocuments",
+        params: { substep: "1" }
+      });
+      return;
+    }
+
     const data = {
       applicationType: this.applicationType,
       coTenantEmail: coTenantEmails,
