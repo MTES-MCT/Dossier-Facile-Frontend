@@ -22,6 +22,8 @@
 import { Component, Vue } from "vue-property-decorator";
 import NameInformationForm from "@/components/NameInformationForm.vue";
 import ProfileContainer from "@/components/ProfileContainer.vue";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
+import { mapState } from "vuex";
 
 @Component({
   components: {
