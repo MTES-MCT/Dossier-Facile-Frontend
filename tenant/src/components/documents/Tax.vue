@@ -297,17 +297,19 @@ export default class Tax extends Vue {
   }
 
   async goNext() {
-    await this.save();
-    this.$emit("on-next");
+    const res = await this.save();
+    if (res) {
+      this.$emit("on-next");
+    }
   }
 
   goBack() {
     this.$emit("on-back");
   }
 
-  save() {
+  async save(): Promise<boolean> {
     if (this.taxDocument.key === undefined) {
-      return;
+      return false;
     }
     AnalyticsService.registerFile("tax");
     this.uploadProgress = {};
@@ -327,7 +329,7 @@ export default class Tax extends Vue {
             this.taxDocument.maxFileCount
           ])
         });
-        return;
+        return false;
       }
 
       Array.from(Array(newFiles.length).keys()).map(x => {
@@ -335,6 +337,15 @@ export default class Tax extends Vue {
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
       });
     }
+
+    const d = this.getRegisteredDoc();
+    if (
+      this.taxDocument.value === d?.documentSubCategory &&
+      this.customText === (d?.customText || "")
+    ) {
+      return true;
+    }
+
     if (this.taxDocument.key === "my-name") {
       formData.append(
         "acceptVerification",
@@ -348,22 +359,27 @@ export default class Tax extends Vue {
     formData.append("typeDocumentTax", this.taxDocument.value);
 
     if (this.taxDocument.key === "other-tax") {
+      if (!this.customText || this.customText === "") {
+        return false;
+      }
       formData.append("customText", this.customText);
     }
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     const loader = this.$loading.show();
-    return this.$store
+    return await this.$store
       .dispatch("saveTenantTax", formData)
       .then(() => {
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         Vue.toasted.global.save_success();
         this.$store.dispatch("loadUser");
+        return true;
       })
       .catch(() => {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
         Vue.toasted.global.save_failed();
+        return false;
       })
       .finally(() => {
         loader.hide();
