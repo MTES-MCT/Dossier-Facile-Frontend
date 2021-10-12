@@ -1,11 +1,6 @@
 <template>
   <ul class="fr-nav__list">
     <li class="fr-nav__item" v-if="user">
-      <a href="/account" class="fr-nav__link">
-        {{ $t("profile") }}
-      </a>
-    </li>
-    <li class="fr-nav__item" v-if="user">
       <a href="/messaging" class="fr-nav__link">
         {{ $t("messaging") }}
         <span v-if="newMessage > 0" class="badge">{{ newMessage }}</span>
@@ -22,14 +17,46 @@
       </a>
     </li>
     <li class="fr-nav__item">
+      <a :href="`${MAIN_URL}/blog`" class="fr-nav__link">
+        {{ $t("blog") }}
+      </a>
+    </li>
+    <li class="fr-nav__item">
       <a :href="`${MAIN_URL}/information`" class="fr-nav__link">
         {{ $t("information") }}
       </a>
     </li>
-    <li class="fr-nav__item">
-      <a :href="`${MAIN_URL}/blog`" class="fr-nav__link">
-        {{ $t("blog") }}
-      </a>
+    <li class="fr-nav__item" v-if="user">
+      <button
+        class="fr-nav__btn"
+        aria-expanded="false"
+        aria-controls="menu-774"
+      >
+        {{ $t("account") }}
+      </button>
+      <div class="fr-collapse fr-menu" id="menu-774">
+        <ul class="fr-menu__list">
+          <li>
+            <a class="fr-nav__link" href="/account" target="_self">{{
+              $t("file")
+            }}</a>
+          </li>
+          <li class="warn">
+            <a
+              class="fr-nav__link"
+              href="#"
+              @click="isDeleteModalVisible = true"
+              target="_self"
+            >
+              {{ $t("deleteAccount") }}
+            </a>
+            <DeleteAccount
+              v-model="isDeleteModalVisible"
+              v-show="isDeleteModalVisible"
+            ></DeleteAccount>
+          </li>
+        </ul>
+      </div>
     </li>
   </ul>
 </template>
@@ -38,8 +65,12 @@
 import { Component, Vue } from "vue-property-decorator";
 import { User } from "df-shared/src/models/User";
 import { mapGetters } from "vuex";
+import DeleteAccount from "./DeleteAccount.vue";
 
 @Component({
+  components: {
+    DeleteAccount
+  },
   computed: {
     ...mapGetters({
       user: "userToEdit",
@@ -50,6 +81,7 @@ import { mapGetters } from "vuex";
 export default class Menu extends Vue {
   user?: User;
   newMessage!: number;
+  isDeleteModalVisible = false;
 
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
   DOCS_URL = `//${process.env.VUE_APP_DOCS_URL}`;
@@ -57,11 +89,6 @@ export default class Menu extends Vue {
 </script>
 
 <style scoped lang="scss">
-@media all and (min-width: 992px) {
-  .fr-nav__list {
-    flex-direction: row-reverse;
-  }
-}
 .badge {
   position: absolute;
   top: -2px;
@@ -76,23 +103,40 @@ export default class Menu extends Vue {
 .fr-nav__item {
   position: relative;
 }
+
+.fr-nav__list > li:last-child {
+  @media all and (min-width: 992px) {
+    margin-left: auto;
+  }
+}
+
+.warn {
+  background-color: #fdf2f3;
+  a {
+    color: var(--error);
+  }
+}
 </style>
 
 <i18n>
 {
 "en": {
-"profile": "Account",
+"account": "Account",
+"file": "File",
 "messaging": "Messaging",
 "faq": "Help",
 "blog": "Blog",
-"information": "Information"
+"information": "Information",
+"deleteAccount": "Delete my account"
 },
 "fr": {
-"profile": "Mon compte",
+"file": "Mon dossier",
+"account": "Mon compte",
 "messaging": "Messagerie",
 "faq": "Aide",
 "blog": "Blog",
-"information": "En savoir plus"
+"information": "En savoir plus",
+"deleteAccount": "Supprimer mon compte"
 }
 }
 </i18n>

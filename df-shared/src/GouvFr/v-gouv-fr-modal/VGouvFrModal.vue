@@ -19,6 +19,7 @@
                   title="Fermer la fenêtre modale"
                   @click="isOpened = false"
                   target="_self"
+                  type="button"
                 >
                   Fermer
                 </button>

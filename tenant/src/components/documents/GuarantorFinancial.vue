@@ -66,26 +66,25 @@
                   </template>
                 </v-gouv-fr-modal>
 
-              <div class="fr-mt-3w">
-                <fieldset class="fr-fieldset">
-                  <div class="fr-fieldset__content">
-                    <div class="fr-grid-row">
-                      <div v-for="d in documents" :key="d.key">
-                        <BigRadio
-                          :val="d"
-                          v-model="f.documentType"
-                          @input="onSelectChange(f)"
-                        >
-                          <div class="fr-grid-col spa">
-                            <span>{{ $t(d.key) }}</span>
-                          </div>
-                        </BigRadio>
+                <div class="fr-mt-3w">
+                  <fieldset class="fr-fieldset">
+                    <div class="fr-fieldset__content">
+                      <div class="fr-grid-row">
+                        <div v-for="d in documents" :key="d.key">
+                          <BigRadio
+                            :val="d"
+                            v-model="f.documentType"
+                            @input="onSelectChange(f)"
+                          >
+                            <div class="fr-grid-col spa">
+                              <span>{{ $t(d.key) }}</span>
+                            </div>
+                          </BigRadio>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </fieldset>
-              </div>
-
+                  </fieldset>
+                </div>
               </div>
             </div>
             <div
@@ -122,7 +121,10 @@
                       <span class="fr-error-text" v-if="f.monthlySum > 10000">
                         {{ $t("high-salary") }}
                       </span>
-                      <span class="fr-error-text" v-if="f.monthlySum <= 0">
+                      <span
+                        class="fr-error-text"
+                        v-if="f.monthlySum !== '' && f.monthlySum <= 0"
+                      >
                         {{ $t("low-salary") }}
                       </span>
                     </div>
@@ -133,7 +135,12 @@
           </form>
           <div
             class="fr-mt-3w"
-            v-if="f.documentType.key && f.documentType.key !== 'no-income'"
+            v-if="
+              f.documentType.key &&
+                f.documentType.key !== 'no-income' &&
+                f.monthlySum >= 0 &&
+                f.monthlySum !== ''
+            "
           >
             <div>
               <div class="fr-mb-3w">
@@ -210,7 +217,7 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import { DocumentType } from "df-shared/src/models/Document";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
-import { UploadStatus } from "../uploads/UploadStatus";
+import { UploadStatus } from "df-shared/src/models/UploadStatus";
 import ListItem from "@/components/uploads/ListItem.vue";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
@@ -223,6 +230,7 @@ import { required, regex } from "vee-validate/dist/rules";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "./DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
+import { FinancialDocument } from "df-shared/src/models/FinancialDocument";
 import { mapState } from "vuex";
 import Modal from "df-shared/src/components/Modal.vue";
 import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
@@ -230,6 +238,7 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
 import FinancialFooter from "@/components/footer/FinancialFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
+import cloneDeep from "lodash/cloneDeep";
 
 extend("regex", {
   ...regex,
@@ -240,16 +249,6 @@ extend("required", {
   ...required,
   message: "field-required"
 });
-
-class F {
-  id?: number;
-  documentType = new DocumentType();
-  noDocument = false;
-  files: DfFile[] = [];
-  fileUploadStatus = UploadStatus.STATUS_INITIAL;
-  customText = "";
-  monthlySum?: number;
-}
 
 @Component({
   components: {
@@ -276,11 +275,11 @@ class F {
 })
 export default class GuarantorFinancial extends Vue {
   selectedGuarantor!: Guarantor;
-  financialDocuments: F[] = [];
+  financialDocuments: FinancialDocument[] = [];
 
   documents = DocumentTypeConstants.GUARANTOR_FINANCIAL_DOCS;
   isDocDeleteVisible = false;
-  selectedDoc?: F;
+  selectedDoc?: FinancialDocument;
   isNoIncomeAndFiles = false;
 
   @Watch("selectedGuarantor")
@@ -288,7 +287,7 @@ export default class GuarantorFinancial extends Vue {
     this.initialize();
   }
 
-  isNewDocument(f: F) {
+  isNewDocument(f: FinancialDocument) {
     if (f.id !== null) {
       const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.id === f.id;
@@ -300,33 +299,41 @@ export default class GuarantorFinancial extends Vue {
     return false;
   }
 
-  onSelectChange(f: F) {
-    if (f.id !== null) {
-      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
-        return d.id === f.id;
-      });
-      if (doc !== undefined) {
-        this.selectedDoc = f;
-        this.isDocDeleteVisible =
-          (doc.files?.length || 0) > 0 &&
-          doc.documentSubCategory !== f.documentType.value;
-      }
+  onSelectChange(f: FinancialDocument) {
+    if (f.id === null) {
+      return false;
+    }
+
+    const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
+      return d.id === f.id;
+    });
+    if (doc === undefined) {
+      return false;
+    }
+
+    this.isDocDeleteVisible =
+      (doc.files?.length || 0) > 0 &&
+      doc.documentSubCategory !== f.documentType.value;
+
+    if (this.isDocDeleteVisible) {
+      this.selectedDoc = f;
     }
     return false;
   }
 
   undoSelect() {
-    if (this.selectedGuarantor.documents !== null) {
-      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
-        return d.id === this.selectedDoc?.id;
+    if (this.selectedGuarantor.documents === null) {
+      return;
+    }
+    const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
+      return d.id === this.selectedDoc?.id;
+    });
+    if (doc !== undefined) {
+      const localDoc = this.documents.find((d: DocumentType) => {
+        return d.value === doc.documentSubCategory;
       });
-      if (doc !== undefined) {
-        const localDoc = this.documents.find((d: DocumentType) => {
-          return d.value === doc.documentSubCategory;
-        });
-        if (localDoc !== undefined && this.selectedDoc) {
-          this.selectedDoc.documentType = localDoc;
-        }
+      if (localDoc !== undefined && this.selectedDoc) {
+        this.selectedDoc.documentType = localDoc;
       }
     }
     this.isDocDeleteVisible = false;
@@ -348,44 +355,20 @@ export default class GuarantorFinancial extends Vue {
     this.isDocDeleteVisible = false;
   }
 
-  mounted() {
+  beforeMount() {
     this.initialize();
   }
 
   initialize() {
-    this.financialDocuments = [];
-    if (this.selectedGuarantor.documents !== null) {
-      const docs = this.selectedGuarantor.documents?.filter((d: DfDocument) => {
-        return d.documentCategory === "FINANCIAL";
-      });
-      if (docs !== undefined && docs.length > 0) {
-        docs
-          .sort((a, b) => {
-            return (a?.id || 0) - (b?.id || 0);
-          })
-          .forEach((d: DfDocument) => {
-            const f = new F();
-            f.noDocument = d.noDocument || false;
-            f.customText = d.customText || "";
-            f.monthlySum = d.monthlySum || 0;
-            f.id = d.id;
-
-            const localDoc = this.documents.find((d2: DocumentType) => {
-              return d2.value === d.documentSubCategory;
-            });
-            if (localDoc !== undefined) {
-              f.documentType = localDoc;
-            }
-            this.financialDocuments.push(f);
-          });
-      }
-    }
+    this.financialDocuments = cloneDeep(
+      this.$store.getters.guarantorFinancialDocuments
+    );
     if (this.financialDocuments.length <= 0) {
       this.addFinancial();
     }
   }
 
-  addFiles(f: F, fileList: File[]) {
+  addFiles(f: FinancialDocument, fileList: File[]) {
     const nf = Array.from(fileList).map(f => {
       return { name: f.name, file: f, size: f.size };
     });
@@ -393,11 +376,11 @@ export default class GuarantorFinancial extends Vue {
     this.save(f);
   }
 
-  resetFiles(f: F) {
+  resetFiles(f: FinancialDocument) {
     f.fileUploadStatus = UploadStatus.STATUS_INITIAL;
   }
 
-  save(f: F): boolean {
+  save(f: FinancialDocument): boolean {
     const fieldName = "documents";
     const formData = new FormData();
     if (f.documentType.key === undefined) {
@@ -434,6 +417,20 @@ export default class GuarantorFinancial extends Vue {
         return false;
       }
     }
+    if (f.id) {
+      const original = this.$store.getters.guarantorFinancialDocuments?.find(
+        (d: DfDocument) => {
+          return d.id === f.id;
+        }
+      );
+      if (
+        f.noDocument === original.noDocument &&
+        f.monthlySum === original.monthlySum &&
+        f.files.length === original.files.length
+      ) {
+        return true;
+      }
+    }
 
     const typeDocumentFinancial = f.documentType?.value || "";
     formData.append("typeDocumentFinancial", typeDocumentFinancial);
@@ -443,6 +440,8 @@ export default class GuarantorFinancial extends Vue {
 
     if (f.monthlySum) {
       formData.append("monthlySum", f.monthlySum.toString());
+    } else {
+      return false;
     }
     if (f.id) {
       formData.append("documentId", f.id.toString());
@@ -474,7 +473,7 @@ export default class GuarantorFinancial extends Vue {
     return true;
   }
 
-  financialFiles(f: F) {
+  financialFiles(f: FinancialDocument) {
     const newFiles = f.files.map((file: DfFile) => {
       return {
         documentSubCategory: f.documentType?.value,
@@ -490,7 +489,7 @@ export default class GuarantorFinancial extends Vue {
     return [...newFiles, ...existingFiles];
   }
 
-  remove(f: F, file: DfFile, silent = false) {
+  remove(f: FinancialDocument, file: DfFile, silent = false) {
     if (file.path && file.id) {
       RegisterService.deleteFile(file.id, silent);
     } else {
@@ -502,7 +501,7 @@ export default class GuarantorFinancial extends Vue {
   }
 
   addFinancial() {
-    this.financialDocuments.push(new F());
+    this.financialDocuments.push(new FinancialDocument());
 
     this.$nextTick(() => {
       const container: Element[] = this.$refs[

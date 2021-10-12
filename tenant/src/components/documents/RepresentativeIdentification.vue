@@ -43,9 +43,6 @@
           </select>
         </div>
         <div v-if="identificationDocument.key">
-          <div class="fr-mb-3w">
-            {{ $t("kbis-label") }}
-          </div>
           <v-gouv-fr-modal>
             <template v-slot:button>
               En difficulté pour répondre à la question ?
@@ -95,7 +92,7 @@ import { mapState } from "vuex";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
-import { UploadStatus } from "../uploads/UploadStatus";
+import { UploadStatus } from "df-shared/src/models/UploadStatus";
 import ListItem from "@/components/uploads/ListItem.vue";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
@@ -313,7 +310,6 @@ td {
 "en": {
   "organism-name": "Nom du représentant de la personne morale",
   "organism-name-placeholder": "Nom",
-  "kbis-label": "J’ajoute un extrait K bis de la société, ou toute autre pièce justifiant de l'existence légale de la personne.",
   "identity-card": "French identity card",
   "passport": "French passeport",
   "permit": "French residence permit",
@@ -322,7 +318,6 @@ td {
 "fr": {
   "organism-name": "Nom du représentant de la personne morale",
   "organism-name-placeholder": "Nom",
-  "kbis-label": "J’ajoute un extrait K bis de la société, ou toute autre pièce justifiant de l'existence légale de la personne.",
   "identity-card": "Carte d’identité française",
   "passport": "Passeport français",
   "permit": "Titre de séjour français",

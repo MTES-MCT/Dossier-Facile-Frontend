@@ -36,7 +36,7 @@
               class="fr-btn"
               size="small"
               @on-click="removeFinancial(f)"
-              v-if="k > 0"
+              v-if="getFinancialDocuments().length > 0"
             >
               {{ $t("delete-financial") }}
             </DfButton>
@@ -127,7 +127,10 @@
                         <span class="fr-error-text" v-if="f.monthlySum > 10000">
                           {{ $t("high-salary") }}
                         </span>
-                        <span class="fr-error-text" v-if="f.monthlySum <= 0">
+                        <span
+                          class="fr-error-text"
+                          v-if="f.monthlySum !== '' && f.monthlySum <= 0"
+                        >
                           {{ $t("low-salary") }}
                         </span>
                       </div>
@@ -138,7 +141,12 @@
             </div>
             <div
               class="fr-mt-3w"
-              v-if="f.documentType.key && f.documentType.key !== 'no-income'"
+              v-if="
+                f.documentType.key &&
+                  f.documentType.key !== 'no-income' &&
+                  f.monthlySum >= 0 &&
+                  f.monthlySum !== ''
+              "
             >
               <div>
                 <div>
@@ -259,7 +267,8 @@ import { DocumentType } from "df-shared/src/models/Document";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { mapGetters } from "vuex";
-import { UploadStatus } from "../uploads/UploadStatus";
+import { UploadStatus } from "df-shared/src/models/UploadStatus";
+import { FinancialDocument } from "df-shared/src/models/FinancialDocument";
 import ListItem from "@/components/uploads/ListItem.vue";
 import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
@@ -279,6 +288,7 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
 import { AnalyticsService } from "../../services/AnalyticsService";
 import FinancialFooter from "@/components/footer/FinancialFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import cloneDeep from "lodash/cloneDeep";
 
 extend("regex", {
   ...regex,
@@ -289,16 +299,6 @@ extend("required", {
   ...required,
   message: "field-required"
 });
-
-class F {
-  id?: number;
-  documentType = new DocumentType();
-  noDocument = false;
-  files: DfFile[] = [];
-  fileUploadStatus = UploadStatus.STATUS_INITIAL;
-  customText = "";
-  monthlySum?: number;
-}
 
 @Component({
   components: {
@@ -325,14 +325,14 @@ class F {
 })
 export default class Financial extends Vue {
   user!: User;
-  financialDocuments: F[] = [];
+  financialDocuments: FinancialDocument[] = [];
 
   documents = DocumentTypeConstants.FINANCIAL_DOCS;
   isDocDeleteVisible = false;
-  selectedDoc?: F;
+  selectedDoc?: FinancialDocument;
   isNoIncomeAndFiles = false;
 
-  isNewDocument(f: F) {
+  isNewDocument(f: FinancialDocument) {
     if (f.id !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
         return d.id === f.id;
@@ -344,18 +344,22 @@ export default class Financial extends Vue {
     return false;
   }
 
-  onSelectChange(f: F) {
-    if (f.id !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.id === f.id;
-      });
-      if (doc !== undefined) {
-        this.selectedDoc = f;
-        this.isDocDeleteVisible =
-          (doc.files?.length || 0) > 0 &&
-          doc.documentSubCategory !== f.documentType.value;
-      }
+  onSelectChange(f: FinancialDocument) {
+    if (f.id === null) {
+      return false;
     }
+
+    const doc = this.user.documents?.find((d: DfDocument) => {
+      return d.id === f.id;
+    });
+    if (doc === undefined) {
+      return false;
+    }
+
+    this.selectedDoc = f;
+    this.isDocDeleteVisible =
+      (doc.files?.length || 0) > 0 &&
+      doc.documentSubCategory !== f.documentType.value;
     return false;
   }
 
@@ -377,62 +381,36 @@ export default class Financial extends Vue {
   }
 
   validSelect() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.id === this.selectedDoc?.id;
-      });
-      if (doc !== undefined) {
-        doc.files?.forEach(f => {
-          if (f.id && this.selectedDoc) {
-            this.remove(this.selectedDoc, f, true);
-          }
-        });
-      }
-    }
     this.isDocDeleteVisible = false;
+    if (this.user.documents === null) {
+      return;
+    }
+    const doc = this.user.documents?.find((d: DfDocument) => {
+      return d.id === this.selectedDoc?.id;
+    });
+    if (doc !== undefined) {
+      doc.files?.forEach(f => {
+        if (f.id && this.selectedDoc) {
+          this.remove(this.selectedDoc, f, true);
+        }
+      });
+    }
   }
 
-  mounted() {
+  beforeMount() {
     this.initialize();
   }
 
   initialize() {
-    this.financialDocuments = [];
-    if (this.user.documents !== null) {
-      const docs = this.user.documents?.filter((d: DfDocument) => {
-        return d.documentCategory === "FINANCIAL";
-      });
-      if (docs !== undefined && docs.length > 0) {
-        docs
-          .sort((a, b) => {
-            return (a?.id || 0) - (b?.id || 0);
-          })
-          .forEach((d: DfDocument) => {
-            const f = new F();
-            f.noDocument = d.noDocument || false;
-            f.customText = d.customText || "";
-            if (f.customText === "-") {
-              f.customText = "";
-            }
-            f.monthlySum = d.monthlySum || 0;
-            f.id = d.id;
-
-            const localDoc = this.documents.find((d2: DocumentType) => {
-              return d2.value === d.documentSubCategory;
-            });
-            if (localDoc !== undefined) {
-              f.documentType = localDoc;
-            }
-            this.financialDocuments.push(f);
-          });
-      }
-    }
+    this.financialDocuments = cloneDeep(
+      this.$store.getters.tenantFinancialDocuments
+    );
     if (this.financialDocuments.length <= 0) {
       this.addFinancial();
     }
   }
 
-  addFiles(f: F, fileList: File[]) {
+  addFiles(f: FinancialDocument, fileList: File[]) {
     AnalyticsService.uploadFile("financial");
     const nf = Array.from(fileList).map(f => {
       return { name: f.name, file: f, size: f.size };
@@ -440,10 +418,27 @@ export default class Financial extends Vue {
     f.files = [...f.files, ...nf];
     this.save(f);
   }
-  resetFiles(f: F) {
+
+  resetFiles(f: FinancialDocument) {
     f.fileUploadStatus = UploadStatus.STATUS_INITIAL;
   }
-  save(f: F) {
+
+  save(f: FinancialDocument) {
+    if (f.id) {
+      const original = this.$store.getters.tenantFinancialDocuments?.find(
+        (d: DfDocument) => {
+          return d.id === f.id;
+        }
+      );
+      if (
+        f.noDocument === original.noDocument &&
+        f.monthlySum === original.monthlySum &&
+        f.files.length === original.files.length &&
+        f.customText === original.customText
+      ) {
+        return true;
+      }
+    }
     AnalyticsService.registerFile("financial");
     const fieldName = "documents";
     const formData = new FormData();
@@ -500,10 +495,10 @@ export default class Financial extends Vue {
       formData.append("customText", f.customText);
     }
 
-    if (f.monthlySum && f.monthlySum > 0) {
+    if (f.monthlySum !== undefined && f.monthlySum >= 0) {
       formData.append("monthlySum", f.monthlySum.toString());
     } else {
-      formData.append("monthlySum", "0");
+      return;
     }
     if (f.id) {
       formData.append("id", f.id.toString());
@@ -531,7 +526,7 @@ export default class Financial extends Vue {
     return true;
   }
 
-  financialFiles(f: F) {
+  financialFiles(f: FinancialDocument) {
     const newFiles = f.files.map((file: DfFile) => {
       return {
         documentSubCategory: f.documentType?.value,
@@ -547,7 +542,7 @@ export default class Financial extends Vue {
     return [...newFiles, ...existingFiles];
   }
 
-  remove(f: F, file: DfFile, silent = false) {
+  remove(f: FinancialDocument, file: DfFile, silent = false) {
     AnalyticsService.deleteFile("financial");
     if (file.path && file.id) {
       RegisterService.deleteFile(file.id, silent);
@@ -569,17 +564,17 @@ export default class Financial extends Vue {
           .dispatch("deleteDocument", this.financialDocuments[0].id)
           .then(
             () => {
-              this.financialDocuments = [new F()];
+              this.financialDocuments = [new FinancialDocument()];
             },
             () => {
               Vue.toasted.global.error();
             }
           );
       } else {
-        this.financialDocuments = [new F()];
+        this.financialDocuments = [new FinancialDocument()];
       }
     } else {
-      this.financialDocuments.push(new F());
+      this.financialDocuments.push(new FinancialDocument());
     }
     this.$nextTick(() => {
       const container: Element[] = this.$refs[

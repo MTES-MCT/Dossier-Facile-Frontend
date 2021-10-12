@@ -133,7 +133,7 @@ import { DocumentType } from "df-shared/src/models/Document";
 import DocumentInsert from "@/components/documents/DocumentInsert.vue";
 import FileUpload from "@/components/uploads/FileUpload.vue";
 import { mapState } from "vuex";
-import { UploadStatus } from "../uploads/UploadStatus";
+import { UploadStatus } from "df-shared/src/models/UploadStatus";
 import ListItem from "@/components/uploads/ListItem.vue";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
