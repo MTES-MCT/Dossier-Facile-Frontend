@@ -25,6 +25,7 @@
       <div v-for="g in user.guarantors" :key="g.id">
         {{ g.firstName }} {{ g.lastName }}
         {{ getStatus(g) }}
+        <button @click="editGuarantor(g)">Edit</button>
       </div>
       <div>
         {{ $t("add-new-guarantor") }}
@@ -65,6 +66,7 @@ export default class GuarantorListPage extends Vue {
   user!: User;
 
   beforeMount() {
+    this.$store.commit("expandGuarantorMenu", false);
     if (!this.user.guarantors || this.user.guarantors?.length === 0) {
       this.$router.push({
         name: "GuarantorDocuments",
@@ -108,6 +110,11 @@ export default class GuarantorListPage extends Vue {
     }
 
     return "VALIDATED";
+  }
+
+  editGuarantor(g: Guarantor) {
+    this.$store.commit("setSelectedGuarantor", g);
+    this.$router.push({ name: "GuarantorDocuments", params: { substep: "1" } });
   }
 }
 </script>

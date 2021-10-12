@@ -78,7 +78,7 @@
         </div>
       </div>
       <div class="vline" :class="getClass(2)">
-        <div v-if="step === 3 && selectedGuarantor">
+        <div v-if="step === 3 && selectedGuarantor && expandGuarantorMenu">
           <div v-if="selectedGuarantor.typeGuarantor === 'NATURAL_PERSON'">
             <div class="ml-5">
               <router-link
@@ -154,13 +154,15 @@ import StatusIcon from "./StatusIcon.vue";
   components: { StatusIcon },
   computed: {
     ...mapState({
-      selectedGuarantor: "selectedGuarantor"
+      selectedGuarantor: "selectedGuarantor",
+      expandGuarantorMenu: "expandGuarantorMenu"
     })
   }
 })
 export default class LeftEditMenu extends Vue {
   @Prop({ default: 0 }) step!: number;
   selectedGuarantor!: Guarantor;
+  expandGuarantorMenu!: boolean;
 
   getClass(s: number) {
     if (this.getStep(s)) {
