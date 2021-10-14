@@ -135,7 +135,7 @@ export default class MyHeader extends Vue {
   height: 50px;
   width: 312px;
   max-height: 50px;
-  max-width: calc(100% - 40px);
+  max-width: calc(100% - 20px);
 }
 
 .lang {
