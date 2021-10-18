@@ -24,19 +24,35 @@
         </div>
       </NakedCard>
       <div v-for="(f, k) in getFinancialDocuments()" :key="k">
-        <NakedCard class="fr-mb-3w">
+        <NakedCard class="fr-mb-3w fr-p-3w">
           <div class="fr-grid-row space-between">
-            <div class="fr-tag">{{ $t(f.documentType.key) }}</div>
+            <div class="v-center">
+              <div class="fr-tag">{{ $t(f.documentType.key) }}</div>
+            </div>
             <div
               :title="$t('net-monthly')"
               v-show="f.documentType.key !== 'no-income'"
-              class="text-bold"
+              class="text-bold v-center"
             >
               {{ f.monthlySum }} {{ $t("monthly") }}
             </div>
             <div>
-              <button @click="selectFinancialDocument(f)">edit</button>
-              <button @click="removeFinancial(f)">delete</button>
+              <button
+                @click="selectFinancialDocument(f)"
+                class="fr-p-0 fr-mr-3w icon-btn"
+              >
+                <div class="color--primary material-icons md-24 fr-m-1w">
+                  edit
+                </div>
+              </button>
+              <button
+                @click="removeFinancial(f)"
+                class="fr-p-0 fr-mr-3w icon-btn"
+              >
+                <div class="color--primary material-icons md-24 fr-m-1w">
+                  delete
+                </div>
+              </button>
             </div>
           </div>
         </NakedCard>
@@ -224,6 +240,16 @@ export default class Financial extends Vue {
 .fr-tag {
   background-color: #2a7ffe;
   color: var(--w);
+}
+
+.icon-btn {
+  border: 1px solid var(--primary);
+  background-color: var(--w);
+}
+
+.v-center {
+  display: inline-flex;
+  align-items: center;
 }
 </style>
 
