@@ -57,8 +57,10 @@
           </div>
         </NakedCard>
       </div>
-      <div @click="addAndSelectFinancial()">
+      <div>
+        <button @click="addAndSelectFinancial()" class="add-income-btn">
         Ajouter un nouveau revenu ?
+        </button>
       </div>
       <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
     </div>
@@ -250,6 +252,15 @@ export default class Financial extends Vue {
 .v-center {
   display: inline-flex;
   align-items: center;
+}
+
+.add-income-btn {
+  border-radius: 0.25rem;
+  background: var(--blue-france-200);
+  padding: 1.5rem;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  width: 100%;
 }
 </style>
 
