@@ -23,7 +23,7 @@
           <div>{{ $t("subtitle") }}</div>
         </div>
       </NakedCard>
-      <div v-for="(f, k) in getFinancialDocuments()" :key="k">
+      <div v-for="(f, k) in financialDocuments" :key="k">
         <NakedCard class="fr-mb-3w fr-p-3w">
           <div class="fr-grid-row space-between">
             <div class="v-center">
@@ -59,7 +59,7 @@
       </div>
       <div>
         <button @click="addAndSelectFinancial()" class="add-income-btn">
-        Ajouter un nouveau revenu ?
+          {{ $t("add-income") }}
         </button>
       </div>
       <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
@@ -124,13 +124,14 @@ extend("required", {
   computed: {
     ...mapGetters({
       user: "userToEdit",
-      editFinancialDocument: "editFinancialDocument"
+      editFinancialDocument: "editFinancialDocument",
+      financialDocuments: "tenantFinancialDocuments"
     })
   }
 })
 export default class Financial extends Vue {
   user!: User;
-  financialDocuments: FinancialDocument[] = [];
+  financialDocuments!: FinancialDocument[];
 
   documents = DocumentTypeConstants.FINANCIAL_DOCS;
   isNoIncomeAndFiles = false;
@@ -141,9 +142,6 @@ export default class Financial extends Vue {
 
   initialize() {
     this.$store.commit("selectDocumentFinancial", undefined);
-    this.financialDocuments = cloneDeep(
-      this.$store.getters.tenantFinancialDocuments
-    );
     if (this.financialDocuments.length === 0) {
       this.addAndSelectFinancial();
     }
@@ -170,24 +168,16 @@ export default class Financial extends Vue {
   }
 
   removeFinancial(f: DfDocument) {
-    if (f.id) {
-      const loader = Vue.$loading.show();
-      this.$store
-        .dispatch("deleteDocument", f.id)
-        .then(null, () => {
-          Vue.toasted.global.error();
-        })
-        .finally(() => {
-          loader.hide();
-          this.initialize();
-        });
-    } else {
-      this.financialDocuments = this.financialDocuments.filter(
-        (d: DfDocument) => {
-          return d !== f;
-        }
-      );
-    }
+    const loader = Vue.$loading.show();
+    this.$store
+      .dispatch("deleteDocument", f.id)
+      .then(null, () => {
+        Vue.toasted.global.error();
+      })
+      .finally(() => {
+        loader.hide();
+        this.initialize();
+      });
     this.$store.commit("selectDocumentFinancial", undefined);
   }
 
@@ -210,12 +200,6 @@ export default class Financial extends Vue {
     return "";
   }
 
-  getFinancialDocuments() {
-    return this.financialDocuments.filter(f => {
-      return f.documentType !== undefined;
-    });
-  }
-
   hasNoIncome() {
     return (
       this.financialDocuments.length > 0 &&
@@ -224,6 +208,7 @@ export default class Financial extends Vue {
       }) === undefined
     );
   }
+
   goBack() {
     this.$emit("on-back");
   }
@@ -281,11 +266,11 @@ export default class Financial extends Vue {
   "no-income": "No income",
   "i-have-no-income": "I have no income",
   "warning-no-income-and-file": "You can't have files and no income. You must uncheck the box or delete your files.",
-  "missing-file": "You must add files to save this income.",
   "title": "Summary of your income",
   "subtitle": "Here is the list of income you declared. You can add new income at any time, if necessary.",
   "monthly": " € net monthly ",
-  "net-monthly": "Net salary monthly"
+  "net-monthly": "Net salary monthly",
+  "add-income": "Add a new income ?"
 },
 "fr": {
   "salary": "Salaire",
@@ -303,11 +288,11 @@ export default class Financial extends Vue {
   "no-income": "Pas de revenu",
   "i-have-no-income": "Je n'ai pas de revenu",
   "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers.",
-  "missing-file": "Vous devez ajouter des fichiers pour sauvegarder ce revenu.",
   "title": "Récapitulatif de vos revenus",
   "subtitle": "Voici la liste des revenus que vous avez déclarés. Vous pouvez, à tout moment ajouter de nouveau revenu, si cela était nécessaire.",
   "monthly": " € net mensuel ",
-  "net-monthly": "Net à payer mensuel"
+  "net-monthly": "Net à payer mensuel",
+  "add-income": "Ajouter un nouveau revenu ?"
 }
 }
 </i18n>

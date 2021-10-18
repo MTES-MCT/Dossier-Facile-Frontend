@@ -68,7 +68,7 @@ const store = new Vuex.Store({
       state.user = user;
     },
     loadUser(state, user) {
-      state.user = user;
+      state.user = Object.assign({}, user);
       state.status.loggedIn = true;
       state.user.applicationType = state.user?.apartmentSharing.applicationType;
 
@@ -146,6 +146,17 @@ const store = new Vuex.Store({
     },
     updateUserZipcode(state, zipcode) {
       state.user.zipCode = zipcode;
+    },
+    expandGuarantorMenu(state, b) {
+      state.expandGuarantorMenu = b;
+    },
+    selectDocumentFinancial(state, d: FinancialDocument) {
+      state.financialDocumentSelected = Object.assign({}, d);
+      state.editFinancialDocument = d !== undefined;
+    },
+    createDocumentFinancial(state) {
+      state.financialDocumentSelected = new FinancialDocument();
+      state.editFinancialDocument = true;
     }
   },
   actions: {
@@ -472,12 +483,8 @@ const store = new Vuex.Store({
             const s = fd.find((f: any) => {
               return f.id.toString() === formData.get("id");
             });
-            console.log("select with id")
-            console.dir(s)
             await commit("selectDocumentFinancial", s);
           } else {
-            console.log("select new doc")
-            console.dir(fd[fd.length - 1])
             await commit("selectDocumentFinancial", fd[fd.length - 1]);
           }
           return Promise.resolve(response.data);

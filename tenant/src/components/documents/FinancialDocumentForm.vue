@@ -325,8 +325,6 @@ export default class FinancialDocumentForm extends Vue {
   }
 
   onSelectChange() {
-    //    this.$forceUpdate();
-    console.dir(this.financialDocument);
     if (this.financialDocument.id === null) {
       return false;
     }
@@ -499,7 +497,6 @@ export default class FinancialDocumentForm extends Vue {
         this.financialDocument.files = [];
         this.financialDocument.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         Vue.toasted.global.save_success();
-        // récupérer le dernier ?
       })
       .catch(() => {
         this.financialDocument.fileUploadStatus = UploadStatus.STATUS_FAILED;
@@ -508,7 +505,6 @@ export default class FinancialDocumentForm extends Vue {
       .finally(() => {
         loader.hide();
         this.$forceUpdate();
-        console.dir(this.financialDocumentSelected);
       });
     return true;
   }
@@ -565,11 +561,9 @@ export default class FinancialDocumentForm extends Vue {
   }
 
   goNext() {
-    if (this.save()) {
+    this.save().then(() => {
       this.$store.commit("selectDocumentFinancial", undefined);
-      this.$forceUpdate();
-    }
-    return;
+    });
   }
 }
 </script>
@@ -599,6 +593,7 @@ export default class FinancialDocumentForm extends Vue {
     "noDocument-rent": "I cannot provide proof of rent",
     "noDocument-pension": "I cannot provide proof of pension",
     "noDocument-scholarship": "I cannot provide proof of scholarship",
+    "missing-file": "You must add files to save this income.",
     "high-salary": "You have entered a salary greater than € 10,000 are you sure you have entered your monthly salary?",
     "low-salary": "You have entered a salary equal to 0 € are you sure you have entered your monthly salary?",
     "has-no-income": "You have no income",
@@ -627,6 +622,7 @@ export default class FinancialDocumentForm extends Vue {
     "noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",
     "noDocument-rent": "Je ne peux pas fournir de justificatifs de versement de rente",
     "noDocument-scholarship": "Je ne peux pas fournir de justificatifs d'attribution de bourse",
+    "missing-file": "Vous devez ajouter des fichiers pour sauvegarder ce revenu.",
     "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
     "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
     "has-no-income": "Vous avez indiqué ne pas avoir de revenu",
