@@ -1,10 +1,8 @@
 <template>
   <div>
-    <NakedCard>
+    <NakedCard class="fr-p-md-5w">
       <div>
-        <div class="fr-pl-3v">
-          {{ $t("select-label") }}
-        </div>
+        <h6>{{ $t("title") }}</h6>
 
         <v-gouv-fr-modal>
           <template v-slot:button>
@@ -24,6 +22,9 @@
             </p>
           </template>
         </v-gouv-fr-modal>
+        <div class="fr-mt-5w">
+          {{ $t("select-label") }}
+        </div>
 
         <select
           v-model="professionalDocument"
@@ -61,10 +62,7 @@
           ></FileUpload>
         </div>
       </div>
-      <div
-        v-if="professionalFiles().length > 0"
-        class="fr-col-lg-8 fr-col-md-12 fr-mb-3w"
-      >
+      <div v-if="professionalFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
         <ListItem
           v-for="(file, k) in professionalFiles()"
           :key="k"
@@ -292,6 +290,7 @@ export default class Professional extends Vue {
 <i18n>
 {
 "en": {
+  "title": "Proof of professional and financial situation",
   "cdi": "CDI",
   "cdi-trial": "CDI (période d’essai)",
   "cdd": "CDD",
@@ -309,6 +308,7 @@ export default class Professional extends Vue {
   "select-label": "Your current professional situation:"
 },
 "fr": {
+  "title": "Justificatif de situation professionelle et financière",
   "cdi": "CDI",
   "cdi-trial": "CDI (période d’essai)",
   "cdd": "CDD",
@@ -323,7 +323,7 @@ export default class Professional extends Vue {
   "other": "Autre",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
   "register": "Enregistrer",
-  "select-label": "La situation professionnelle actuelle de mon garant :"
+  "select-label": "La situation professionnelle, actuelle, de mon garant :"
 }
 }
 </i18n>

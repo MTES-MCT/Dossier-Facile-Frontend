@@ -2,32 +2,10 @@
   <div class="fr-mb-15w">
     <div>
       <div v-if="guarantor.typeGuarantor === 'NATURAL_PERSON'">
-        <div class="fr-grid-row">
-          <div
-            class="fr-grid-row fr-mr-3w fr-mb-3w btn-group"
-            :class="{ guarantorselected: guarantor === g }"
-            v-for="(g, k) in user.guarantors"
-            :key="k"
-          >
-            <DfButton @on-click="selectGuarantor(k)">
-              <span>
-                {{ getName(g, k) }}
-              </span>
-            </DfButton>
-            <DfButton size="icon" @on-click="remove(g)">
-              <span class="material-icons text-danger">delete_forever</span>
-            </DfButton>
-          </div>
-          <div v-if="hasOneNaturalGuarantor()">
-            <v-gouv-fr-button
-              :secondary="true"
-              :label="$t('add-guarantor')"
-              :btn-type="'button'"
-              @click="addNaturalGuarantor"
-            ></v-gouv-fr-button>
-          </div>
+        <div v-if="substep === 0">
+          <GuarantorName @on-back="goBack" @on-next="goNext"></GuarantorName>
         </div>
-        <div v-if="substep <= 1">
+        <div v-if="substep === 1">
           <GuarantorIdentification></GuarantorIdentification>
           <GuarantorFooter
             @on-back="goBack"
@@ -66,14 +44,14 @@
         ></GuarantorFooter>
       </div>
       <div v-if="guarantor.typeGuarantor === 'LEGAL_PERSON'">
-        <div v-if="substep <= 1">
+        <div v-if="substep === 0">
           <CorporationIdentification></CorporationIdentification>
           <GuarantorFooter
             @on-back="goBack"
             @on-next="goNext"
           ></GuarantorFooter>
         </div>
-        <div v-if="substep === 2">
+        <div v-if="substep === 1">
           <RepresentativeIdentification></RepresentativeIdentification>
           <GuarantorFooter
             @on-back="goBack"
@@ -95,6 +73,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import GuarantorIdentification from "@/components/documents/GuarantorIdentification.vue";
+import GuarantorName from "@/components/documents/GuarantorName.vue";
 import RepresentativeIdentification from "@/components/documents/RepresentativeIdentification.vue";
 import CorporationIdentification from "@/components/documents/CorporationIdentification.vue";
 import OrganismCert from "@/components/documents/OrganismCert.vue";
@@ -113,12 +92,12 @@ import GuarantorChoiceHelp from "./helps/GuarantorChoiceHelp.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
-import { UtilsService } from "../services/UtilsService";
 import ProfileContainer from "@/components/ProfileContainer.vue";
 
 @Component({
   components: {
     DfButton,
+    GuarantorName,
     GuarantorTax,
     GuarantorFinancial,
     GuarantorProfessional,
@@ -156,9 +135,6 @@ export default class GuarantorDocuments extends Vue {
 
   beforeMount() {
     this.$store.commit("expandGuarantorMenu", true);
-  }
-
-  mounted() {
     if (this.guarantor.typeGuarantor) {
       this.tmpGuarantorType = this.guarantor.typeGuarantor;
     }
@@ -169,42 +145,6 @@ export default class GuarantorDocuments extends Vue {
       name: "GuarantorDocuments",
       params: { substep: this.substep === s ? "0" : s.toString() }
     });
-  }
-
-  hasDoc(docType: string) {
-    return UtilsService.guarantorHasDoc(docType, this.guarantor);
-  }
-
-  getName(g: Guarantor, k: number) {
-    if (g.lastName) {
-      return `${g.lastName} ${g.firstName}`;
-    }
-    return this.$i18n.t("guarantor") + " " + (k + 1);
-  }
-
-  selectGuarantor(k: number) {
-    this.$store.commit("selectGuarantor", k);
-  }
-
-  remove(g: Guarantor) {
-    this.$store.dispatch("deleteGuarantor", g).then(
-      () => {
-        if (!this.user.guarantors?.length || 0 >= 1) {
-          this.$router.push({ name: "GuarantorChoice" });
-        }
-      },
-      () => {
-        Vue.toasted.global.error();
-      }
-    );
-  }
-
-  isFinancialValid() {
-    return UtilsService.isGuarantorFinancialValid(this.guarantor);
-  }
-
-  isTaxValid() {
-    return UtilsService.isGuarantorTaxValid(this.guarantor);
   }
 
   validSelect() {
@@ -227,14 +167,20 @@ export default class GuarantorDocuments extends Vue {
   }
 
   goBack() {
-    if (this.substep > 1) {
+    if (this.substep > 0) {
       this.$router.push({
         name: "GuarantorDocuments",
         params: { substep: (this.substep - 1).toString() }
       });
     } else {
+      if (this.guarantors.length === 1 && !this.guarantors[0].lastName) {
+        this.$router.push({
+          name: "GuarantorChoice"
+        });
+        return;
+      }
       this.$router.push({
-        name: "GuarantorChoice"
+        name: "GuarantorList"
       });
     }
   }

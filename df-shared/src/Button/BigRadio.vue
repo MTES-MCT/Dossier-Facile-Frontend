@@ -33,11 +33,11 @@ export default class BigRadio extends Vue {
 <style scoped lang="scss">
 .br {
   padding: 0.5rem;
-  margin: 0.25rem;
+  margin: 0.5rem;
   font-size: 0.9rem;
   cursor: pointer;
-  border: solid 0.5px var(--primary);
-  border-radius: 0.25rem;
+  border: solid 1px var(--primary);
+  border-radius: 0.5rem;
   text-align: center;
   background-color: var(--w);
   @media all and (min-width: 992px) {
@@ -46,21 +46,24 @@ export default class BigRadio extends Vue {
 
   &:hover {
     background-color: var(--primary);
+    border: 1px solid #2b8bf7;
     color: white;
     box-shadow: 0 0 0.666em rgba(0, 0, 0, 0.25);
     &.big {
       color: var(--g800);
       background-color: var(--bf200-bf300);
+      border: solid 1px var(--primary);
     }
   }
 
   &.selected {
-    border: 1px solid var(--primary);
+    border: 1px solid #2b8bf7;
     background-color: var(--primary);
     color: white;
     &.big {
       color: var(--g800);
       background-color: var(--bf200-bf300);
+      border: solid 1px var(--primary);
     }
   }
 }

@@ -296,12 +296,12 @@ export default class Tax extends Vue {
     this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
   }
 
-  save() {
-    if (
-      !this.taxDocument.key ||
-      (this.taxDocument.key === "my-name" && !this.acceptVerification)
-    ) {
-      return;
+  async save() {
+    if (!this.taxDocument.key) {
+      return true;
+    }
+    if (this.taxDocument.key === "my-name" && !this.acceptVerification) {
+      return false;
     }
     this.uploadProgress = {};
     const fieldName = "documents";
@@ -320,7 +320,7 @@ export default class Tax extends Vue {
             this.taxDocument.maxFileCount
           ])
         });
-        return;
+        return false;
       }
 
       Array.from(Array(newFiles.length).keys()).map(x => {
@@ -341,13 +341,17 @@ export default class Tax extends Vue {
     formData.append("typeDocumentTax", this.taxDocument.value);
 
     if (this.taxDocument.key === "other-tax") {
+      if (!this.customText) {
+        // TODO : would be better to validate form
+        return false;
+      }
       formData.append("customText", this.customText);
     }
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     formData.append("guarantorId", this.$store.getters.guarantor.id);
     const loader = this.$loading.show();
-    return this.$store
+    await this.$store
       .dispatch("saveGuarantorTax", formData)
       .then(() => {
         this.files = [];
@@ -362,6 +366,7 @@ export default class Tax extends Vue {
       .finally(() => {
         loader.hide();
       });
+    return true;
   }
 
   taxFiles() {
@@ -407,8 +412,10 @@ export default class Tax extends Vue {
   }
 
   async goNext() {
-    await this.save();
-    this.$emit("on-next");
+    const res = await this.save();
+    if (res) {
+      this.$emit("on-next");
+    }
   }
 
   goBack() {

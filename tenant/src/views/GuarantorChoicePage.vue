@@ -33,22 +33,6 @@ export default class GuarantorChoicePage extends Vue {
 h4 {
   margin: 0;
 }
-.step-number {
-  background-color: var(--primary);
-  color: white;
-  margin: 0.25rem 1rem 0 0;
-  border-radius: 50%;
-  display: inline-block;
-  height: 25px;
-  width: 25px;
-  min-width: 25px;
-  text-align: center;
-  z-index: 1;
-}
-.step {
-  display: flex;
-  align-items: center;
-}
 </style>
 
 <i18n>

@@ -2,7 +2,9 @@
   <ProfileContainer :step="3">
     <NakedCard class="fr-pt-3w fr-pb-3w">
       <div class="fr-pl-3v text-bold fr-mb-1w">
-        {{ $t("my-guarantor") }}
+        <h6>
+          {{ $t("my-guarantor") }}
+        </h6>
       </div>
       <v-gouv-fr-modal>
         <template v-slot:button>
@@ -23,12 +25,39 @@
         {{ $t("remark-text-2") }}
       </div>
       <div v-for="g in user.guarantors" :key="g.id">
-        {{ g.firstName }} {{ g.lastName }}
-        {{ getStatus(g) }}
-        <button @click="editGuarantor(g)">Edit</button>
+        <NakedCard class="fr-mb-3w fr-p-3w">
+          <div class="fr-grid-row space-between">
+            <div class="v-center">
+              <div>{{ getGuarantorName(g) }}</div>
+            </div>
+            <div class="fr-grid-row">
+              <div class="fr-p-0 fr-mr-3w">
+                <div class="fr-tag">{{ $t(getStatus(g)) }}</div>
+              </div>
+              <button
+                @click="editGuarantor(g)"
+                class="fr-p-0 fr-mr-3w icon-btn"
+              >
+                <div class="color--primary material-icons md-24 fr-m-1w">
+                  edit
+                </div>
+              </button>
+              <button
+                @click="removeGuarantor(g)"
+                class="fr-p-0 fr-mr-3w icon-btn"
+              >
+                <div class="color--primary material-icons md-24 fr-m-1w">
+                  delete
+                </div>
+              </button>
+            </div>
+          </div>
+        </NakedCard>
       </div>
-      <div>
-        {{ $t("add-new-guarantor") }}
+      <div v-if="hasOneNaturalGuarantor()">
+        <button @click="addNaturalGuarantor()" class="add-guarantor-btn">
+          {{ $t("add-new-guarantor") }}
+        </button>
       </div>
     </NakedCard>
 
@@ -38,7 +67,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
 import GuarantorFooter from "@/components/footer/GuarantorFooter.vue";
 import GuarantorChoiceHelp from "../components/helps/GuarantorChoiceHelp.vue";
@@ -59,27 +88,45 @@ import { DfDocument } from "df-shared/src/models/DfDocument";
   computed: {
     ...mapState({
       user: "user"
+    }),
+    ...mapGetters({
+      guarantors: "guarantors"
     })
   }
 })
 export default class GuarantorListPage extends Vue {
   user!: User;
+  guarantors!: Guarantor[];
 
   beforeMount() {
     this.$store.commit("expandGuarantorMenu", false);
-    if (!this.user.guarantors || this.user.guarantors?.length === 0) {
+    if (
+      !this.user.guarantors ||
+      this.user.guarantors.length === 0 ||
+      (this.user.guarantors.length === 1 &&
+        this.user.guarantors[0].typeGuarantor === "NATURAL_GUARANTOR" &&
+        !this.user.guarantors[0].lastName) ||
+      (this.user.guarantors[0].typeGuarantor === "ORGANISM" &&
+        (this.user.guarantors[0].documents?.length || 0) <= 0)
+    ) {
       this.$router.push({
         name: "GuarantorDocuments",
-        params: { substep: "1" }
+        params: { substep: "0" }
       });
       return;
     }
   }
 
+  getGuarantorName(g: Guarantor) {
+    if (g.firstName || g.lastName) {
+      return `${g.firstName || ""} ${g.lastName || ""}`;
+    }
+    return this.$i18n.t("guarantor");
+  }
+
   goBack() {
     this.$router.push({
-      name: "TenantDocuments",
-      params: { substep: "5" }
+      name: "GuarantorChoice"
     });
   }
 
@@ -95,8 +142,8 @@ export default class GuarantorListPage extends Vue {
     }
     if (
       (g.typeGuarantor === "NATURAL_PERSON" && g.documents.length < 5) ||
-      (g.typeGuarantor === "LEGAL_PERSON" && g.documents.length < 5) ||
-      (g.typeGuarantor === "ORGANISM" && g.documents.length < 5)
+      (g.typeGuarantor === "LEGAL_PERSON" && g.documents.length < 2) ||
+      (g.typeGuarantor === "ORGANISM" && g.documents.length < 1)
     ) {
       return "INCOMPLETE";
     }
@@ -109,12 +156,44 @@ export default class GuarantorListPage extends Vue {
       return "DECLINED";
     }
 
+    const hasToProcess =
+      g.documents?.find((d: DfDocument) => {
+        return d.documentStatus === "TO_PROCESS";
+      }) !== undefined;
+    if (hasToProcess) {
+      return "TO_PROCESS";
+    }
+
     return "VALIDATED";
   }
 
   editGuarantor(g: Guarantor) {
     this.$store.commit("setSelectedGuarantor", g);
-    this.$router.push({ name: "GuarantorDocuments", params: { substep: "1" } });
+    this.$router.push({ name: "GuarantorDocuments", params: { substep: "0" } });
+  }
+
+  removeGuarantor(g: Guarantor) {
+    this.$store.dispatch("deleteGuarantor", g).then(
+      () => {
+        if (!this.user.guarantors?.length || 0 >= 1) {
+          this.$router.push({ name: "GuarantorChoice" });
+        }
+      },
+      () => {
+        Vue.toasted.global.error();
+      }
+    );
+  }
+
+  hasOneNaturalGuarantor() {
+    return (
+      this.guarantors.length === 1 &&
+      this.guarantors[0].typeGuarantor === "NATURAL_PERSON"
+    );
+  }
+
+  addNaturalGuarantor() {
+    this.$store.dispatch("addNaturalGuarantor");
   }
 }
 </script>
@@ -201,25 +280,46 @@ h2 {
   height: 44px;
   margin-bottom: 1rem;
 }
+
+.add-guarantor-btn {
+  border-radius: 0.25rem;
+  background: var(--blue-france-200);
+  padding: 1.5rem;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  width: 100%;
+}
 </style>
 
 <i18n>
 {
 "en": {
-"more-information": "More information",
-"my-guarantor": "My guarantor",
-"remark-title": "Remark",
-"remark-text": "Adding a guarantor is by no means mandatory. If you do not wish to add a surety, you can select “I don't have a guarantor”.",
-"remark-text-2": "Your file will then be registered for investigation.",
-"add-new-guarantor": "Add a new guarantor ?"
+  "more-information": "More information",
+  "my-guarantor": "My guarantor",
+  "remark-title": "Remark",
+  "remark-text": "Adding a guarantor is by no means mandatory. If you do not wish to add a surety, you can select “I don't have a guarantor”.",
+  "remark-text-2": "Your file will then be registered for investigation.",
+  "add-new-guarantor": "Add a new guarantor ?",
+  "guarantor": "My guarantor",
+  "EMPTY": "Empty",
+  "TO_PROCESS":"To process",
+  "VALIDATED":"Validated",
+  "DECLINED":"Declined",
+  "INCOMPLETE":"Incomplete"
 },
 "fr": {
-"more-information": "En difficulté pour répondre à la question ?",
-"my-guarantor": "Mon garant",
-"remark-title": "Remarque",
-"remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, nous pouvez cliquer directement sur le bouton ci-dessous, « Je n'ai pas de garant ».",
-"remark-text-2":"Votre dossier sera alors enregistré pour être instruit.",
-"add-new-guarantor": "Ajouter un nouveau garant ?"
-}
+  "more-information": "En difficulté pour répondre à la question ?",
+  "my-guarantor": "Mon garant",
+  "remark-title": "Remarque",
+  "remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, nous pouvez cliquer directement sur le bouton ci-dessous, « Je n'ai pas de garant ».",
+  "remark-text-2":"Votre dossier sera alors enregistré pour être instruit.",
+  "add-new-guarantor": "Ajouter un nouveau garant ?",
+  "guarantor": "Mon garant",
+  "EMPTY": "Absent",
+  "TO_PROCESS":"En cours de traitement",
+  "VALIDATED":"Vérifié",
+  "DECLINED":"Modification demandée",
+  "INCOMPLETE":"Non terminé"
+  }
 }
 </i18n>

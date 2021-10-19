@@ -1,5 +1,18 @@
 <template>
-  <NakedCard class="fr-mb-3w">
+  <div>
+    <Modal v-show="isNoIncomeAndFiles" @close="isNoIncomeAndFiles = false">
+      <template v-slot:body>
+        <div class="fr-container">
+          <div class="fr-grid-row justify-content-center">
+            <div class="fr-col-12">
+              <p>
+                {{ $t("warning-no-income-and-file") }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </template>
+    </Modal>
     <ConfirmModal
       v-if="isDocDeleteVisible"
       @valid="validSelect()"
@@ -7,232 +20,239 @@
     >
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
-    <ValidationObserver v-slot="{ validate }">
-      <form name="form" @submit.prevent="validate().then(save())">
-        <div>
-          <div class="fr-pl-3v">
-            <h5>
-              {{ $t("title") }}
-            </h5>
-          </div>
+    <NakedCard class="fr-mb-3w">
+      <ValidationObserver v-slot="{ validate }">
+        <form name="form" @submit.prevent="validate().then(save())">
+          <div>
+            <div class="fr-pl-3v">
+              <h5>
+                {{ $t("title") }}
+              </h5>
+            </div>
 
-          <v-gouv-fr-modal>
-            <template v-slot:button>
-              En difficulté pour répondre à la question ?
-            </template>
-            <template v-slot:title>
-              En difficulté pour répondre à la question ?
-            </template>
-            <template v-slot:content>
-              <p>
-                <DocumentHelp></DocumentHelp>
-                <DocumentInsert
-                  :allow-list="financialDocument.documentType.acceptedProofs"
-                  :block-list="financialDocument.documentType.refusedProofs"
-                  v-if="financialDocument.documentType.key"
-                ></DocumentInsert>
-              </p>
-            </template>
-          </v-gouv-fr-modal>
+            <v-gouv-fr-modal>
+              <template v-slot:button>
+                En difficulté pour répondre à la question ?
+              </template>
+              <template v-slot:title>
+                En difficulté pour répondre à la question ?
+              </template>
+              <template v-slot:content>
+                <p>
+                  <DocumentHelp></DocumentHelp>
+                  <DocumentInsert
+                    :allow-list="financialDocument.documentType.acceptedProofs"
+                    :block-list="financialDocument.documentType.refusedProofs"
+                    v-if="financialDocument.documentType.key"
+                  ></DocumentInsert>
+                </p>
+              </template>
+            </v-gouv-fr-modal>
 
-          <div class="fr-mt-3w">
-            <fieldset class="fr-fieldset">
-              <div class="fr-fieldset__content">
-                <div class="fr-grid-row">
-                  <div v-for="d in documents" :key="d.key">
-                    <BigRadio
-                      :val="d"
-                      v-model="financialDocument.documentType"
-                      @input="onSelectChange()"
-                    >
-                      <div class="fr-grid-col spa">
-                        <span>{{ $t(d.key) }}</span>
-                      </div>
-                    </BigRadio>
+            <div class="fr-mt-3w">
+              <fieldset class="fr-fieldset">
+                <div class="fr-fieldset__content">
+                  <div class="fr-grid-row">
+                    <div v-for="d in documents" :key="d.key">
+                      <BigRadio
+                        v-if="d.key !== 'no-income' || hasNoFinancial()"
+                        :val="d"
+                        v-model="financialDocument.documentType"
+                        @input="onSelectChange()"
+                      >
+                        <div class="fr-grid-col spa">
+                          <span>{{ $t(d.key) }}</span>
+                        </div>
+                      </BigRadio>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </fieldset>
-          </div>
-        </div>
-        <div
-          class="fr-mt-3w"
-          v-if="
-            financialDocument.documentType.key &&
-              financialDocument.documentType.key !== 'no-income'
-          "
-        >
-          <div>
-            <div
-              v-if="
-                financialDocument.documentType &&
-                  financialDocument.documentType.key &&
-                  financialDocument.documentType.key !== 'no-income'
-              "
-            >
-              <div>
-                <validation-provider
-                  :rules="{ required: true, regex: /^[0-9., ]+$/ }"
-                  v-slot="{ errors }"
-                >
-                  <div
-                    class="fr-input-group"
-                    :class="errors[0] ? 'fr-input-group--error' : ''"
-                  >
-                    <label for="monthlySum" class="fr-label"
-                      >{{ $t("monthlySum-label") }} :</label
-                    >
-                    <input
-                      id="monthlySum"
-                      :placeholder="$t('monthlySum')"
-                      type="number"
-                      min="0"
-                      step="1"
-                      v-model="financialDocument.monthlySum"
-                      name="monthlySum"
-                      class="validate-required form-control fr-input"
-                      required
-                    />
-                    <span class="fr-error-text" v-if="errors[0]">{{
-                      $t(errors[0])
-                    }}</span>
-                    <span
-                      class="fr-error-text"
-                      v-if="financialDocument.monthlySum > 10000"
-                    >
-                      {{ $t("high-salary") }}
-                    </span>
-                    <span
-                      class="fr-error-text"
-                      v-if="
-                        financialDocument.monthlySum !== '' &&
-                          financialDocument.monthlySum <= 0
-                      "
-                    >
-                      {{ $t("low-salary") }}
-                    </span>
-                  </div>
-                </validation-provider>
-              </div>
+              </fieldset>
             </div>
           </div>
-        </div>
-        <div
-          class="fr-mt-3w"
-          v-if="
-            financialDocument.documentType.key &&
-              financialDocument.documentType.key !== 'no-income' &&
-              financialDocument.monthlySum >= 0 &&
-              financialDocument.monthlySum !== ''
-          "
-        >
-          <div>
+          <div
+            class="fr-mt-3w"
+            v-if="
+              financialDocument.documentType.key &&
+                financialDocument.documentType.key !== 'no-income'
+            "
+          >
             <div>
-              <div class="fr-mb-3w">
-                {{ financialDocument.documentType.explanationText }}
-              </div>
-              <div class="fr-mb-3w">
-                <FileUpload
-                  :current-status="financialDocument.fileUploadStatus"
-                  @add-files="addFiles(...arguments)"
-                  @reset-files="resetFiles(financialDocument, ...arguments)"
-                ></FileUpload>
-              </div>
-              <div class="fr-col-12 fr-mb-3w bg-purple">
-                <input
-                  type="checkbox"
-                  id="noDocument"
-                  value="false"
-                  v-model="financialDocument.noDocument"
-                />
-                <label for="noDocument">
-                  {{ $t(getCheckboxLabel(financialDocument.documentType.key)) }}
-                </label>
-              </div>
-              <div class="fr-mb-5w" v-if="financialDocument.noDocument">
-                <validation-provider
-                  :rules="{ required: true }"
-                  v-slot="{ errors }"
-                >
-                  <div class="fr-input-group">
-                    <label class="fr-label" for="customText">
-                      {{
-                        $t(`customText-${financialDocument.documentType.key}`)
-                      }}
-                    </label>
-                    <input
-                      v-model="financialDocument.customText"
-                      class="form-control fr-input validate-required"
-                      id="customText"
-                      name="customText"
-                      placeholder=""
-                      type="text"
-                      maxlength="250"
-                      required
-                    />
-                    <span>{{ financialDocument.customText.length }} / 250</span>
-                    <span class="fr-error-text" v-if="errors[0]">{{
-                      $t(errors[0])
-                    }}</span>
-                  </div>
-                </validation-provider>
+              <div
+                v-if="
+                  financialDocument.documentType &&
+                    financialDocument.documentType.key &&
+                    financialDocument.documentType.key !== 'no-income'
+                "
+              >
+                <div>
+                  <validation-provider
+                    :rules="{ required: true, regex: /^[0-9., ]+$/ }"
+                    v-slot="{ errors }"
+                  >
+                    <div
+                      class="fr-input-group"
+                      :class="errors[0] ? 'fr-input-group--error' : ''"
+                    >
+                      <label for="monthlySum" class="fr-label"
+                        >{{ $t("monthlySum-label") }} :</label
+                      >
+                      <input
+                        id="monthlySum"
+                        :placeholder="$t('monthlySum')"
+                        type="number"
+                        min="0"
+                        step="1"
+                        v-model="financialDocument.monthlySum"
+                        name="monthlySum"
+                        class="validate-required form-control fr-input"
+                        required
+                      />
+                      <span class="fr-error-text" v-if="errors[0]">{{
+                        $t(errors[0])
+                      }}</span>
+                      <span
+                        class="fr-error-text"
+                        v-if="financialDocument.monthlySum > 10000"
+                      >
+                        {{ $t("high-salary") }}
+                      </span>
+                      <span
+                        class="fr-error-text"
+                        v-if="
+                          financialDocument.monthlySum !== '' &&
+                            financialDocument.monthlySum <= 0
+                        "
+                      >
+                        {{ $t("low-salary") }}
+                      </span>
+                    </div>
+                  </validation-provider>
+                </div>
               </div>
             </div>
           </div>
           <div
+            class="fr-mt-3w"
             v-if="
               financialDocument.documentType.key &&
                 financialDocument.documentType.key !== 'no-income' &&
-                financialFiles().length > 0
+                financialDocument.monthlySum >= 0 &&
+                financialDocument.monthlySum !== ''
             "
-            class="fr-col-md-12 fr-mb-3w"
           >
-            <ListItem
-              v-for="(file, k) in financialFiles()"
-              :key="k"
-              :file="file"
-              @remove="remove(financialDocument, file)"
-            />
+            <div>
+              <div>
+                <div class="fr-mb-3w">
+                  {{ financialDocument.documentType.explanationText }}
+                </div>
+                <div class="fr-mb-3w">
+                  <FileUpload
+                    :current-status="financialDocument.fileUploadStatus"
+                    @add-files="addFiles(...arguments)"
+                    @reset-files="resetFiles(financialDocument, ...arguments)"
+                  ></FileUpload>
+                </div>
+                <div class="fr-col-12 fr-mb-3w bg-purple">
+                  <input
+                    type="checkbox"
+                    id="noDocument"
+                    value="false"
+                    v-model="financialDocument.noDocument"
+                  />
+                  <label for="noDocument">
+                    {{
+                      $t(getCheckboxLabel(financialDocument.documentType.key))
+                    }}
+                  </label>
+                </div>
+                <div class="fr-mb-5w" v-if="financialDocument.noDocument">
+                  <validation-provider
+                    :rules="{ required: true }"
+                    v-slot="{ errors }"
+                  >
+                    <div class="fr-input-group">
+                      <label class="fr-label" for="customText">
+                        {{
+                          $t(`customText-${financialDocument.documentType.key}`)
+                        }}
+                      </label>
+                      <input
+                        v-model="financialDocument.customText"
+                        class="form-control fr-input validate-required"
+                        id="customText"
+                        name="customText"
+                        placeholder=""
+                        type="text"
+                        maxlength="250"
+                        required
+                      />
+                      <span
+                        >{{ financialDocument.customText.length }} / 250</span
+                      >
+                      <span class="fr-error-text" v-if="errors[0]">{{
+                        $t(errors[0])
+                      }}</span>
+                    </div>
+                  </validation-provider>
+                </div>
+              </div>
+            </div>
+            <div
+              v-if="
+                financialDocument.documentType.key &&
+                  financialDocument.documentType.key !== 'no-income' &&
+                  financialFiles().length > 0
+              "
+              class="fr-col-md-12 fr-mb-3w"
+            >
+              <ListItem
+                v-for="(file, k) in financialFiles()"
+                :key="k"
+                :file="file"
+                @remove="remove(financialDocument, file)"
+              />
+            </div>
+          </div>
+        </form>
+      </ValidationObserver>
+      <div
+        v-if="
+          financialDocument.documentType.key &&
+            financialDocument.documentType.key === 'no-income'
+        "
+      >
+        <div class="fr-mt-3w fr-mb-3w">
+          {{ $t("has-no-income") }}
+          <div class="fr-mb-5w">
+            <ValidationObserver v-slot="{ validate }">
+              <form
+                name="customTextForm"
+                @submit.prevent="validate().then(save())"
+              >
+                <div class="fr-input-group">
+                  <label class="fr-label" for="customTextNoDocument">
+                    {{ $t("custom-text") }}
+                  </label>
+                  <input
+                    v-model="financialDocument.customText"
+                    maxlength="250"
+                    class="form-control fr-input validate-required"
+                    id="customTextNoDocument"
+                    name="customText"
+                    placeholder=""
+                    type="text"
+                  />
+                  <span>{{ financialDocument.customText.length }} / 250</span>
+                </div>
+              </form>
+            </ValidationObserver>
           </div>
         </div>
-      </form>
-    </ValidationObserver>
-    <div
-      v-if="
-        financialDocument.documentType.key &&
-          financialDocument.documentType.key === 'no-income'
-      "
-    >
-      <div class="fr-mt-3w fr-mb-3w">
-        {{ $t("has-no-income") }}
-        <div class="fr-mb-5w">
-          <ValidationObserver v-slot="{ validate }">
-            <form
-              name="customTextForm"
-              @submit.prevent="validate().then(save())"
-            >
-              <div class="fr-input-group">
-                <label class="fr-label" for="customTextNoDocument">
-                  {{ $t("custom-text") }}
-                </label>
-                <input
-                  v-model="financialDocument.customText"
-                  maxlength="250"
-                  class="form-control fr-input validate-required"
-                  id="customTextNoDocument"
-                  name="customText"
-                  placeholder=""
-                  type="text"
-                />
-                <span>{{ financialDocument.customText.length }} / 250</span>
-              </div>
-            </form>
-          </ValidationObserver>
-        </div>
       </div>
-    </div>
-    <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
-  </NakedCard>
+      <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
+    </NakedCard>
+  </div>
 </template>
 
 <script lang="ts">
@@ -294,12 +314,14 @@ extend("required", {
   computed: {
     ...mapGetters({
       user: "userToEdit",
-      financialDocumentSelected: "financialDocumentSelected"
+      financialDocumentSelected: "financialDocumentSelected",
+      tenantFinancialDocuments: "tenantFinancialDocuments"
     })
   }
 })
 export default class FinancialDocumentForm extends Vue {
   user!: User;
+  tenantFinancialDocuments!: FinancialDocument[];
 
   documents = DocumentTypeConstants.FINANCIAL_DOCS;
   isDocDeleteVisible = false;
@@ -395,11 +417,9 @@ export default class FinancialDocumentForm extends Vue {
       return true;
     }
     if (this.financialDocument.id) {
-      const original = this.$store.getters.tenantFinancialDocuments?.find(
-        (d: DfDocument) => {
-          return d.id === this.financialDocument.id;
-        }
-      );
+      const original = this.tenantFinancialDocuments?.find((d: DfDocument) => {
+        return d.id === this.financialDocument.id;
+      });
       if (
         original &&
         this.financialDocument.noDocument === original.noDocument &&
@@ -504,7 +524,6 @@ export default class FinancialDocumentForm extends Vue {
       })
       .finally(() => {
         loader.hide();
-        this.$forceUpdate();
       });
     return true;
   }
@@ -564,6 +583,14 @@ export default class FinancialDocumentForm extends Vue {
     this.save().then(() => {
       this.$store.commit("selectDocumentFinancial", undefined);
     });
+  }
+
+  hasNoFinancial() {
+    return (
+      this.tenantFinancialDocuments.length === 0 ||
+      (this.tenantFinancialDocuments.length === 1 &&
+        this.tenantFinancialDocuments[0].documentType.key === "no-income")
+    );
   }
 }
 </script>

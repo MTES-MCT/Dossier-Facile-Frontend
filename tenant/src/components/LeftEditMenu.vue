@@ -128,6 +128,30 @@
               >
             </div>
           </div>
+          <div v-if="selectedGuarantor.typeGuarantor === 'LEGAL_PERSON'">
+            <div class="ml-5">
+              <router-link
+                class="fr-link"
+                :class="getGuarantorLegalPersonIdentityClass()"
+                :to="{ name: 'GuarantorDocuments', params: { substep: '0' } }"
+                ><StatusIcon
+                  :status="guarantorStatus('IDENTIFICATION_LEGAL_PERSON')"
+                ></StatusIcon
+                >{{ $t("identification-legal-person") }}</router-link
+              >
+            </div>
+            <div class="ml-5">
+              <router-link
+                class="fr-link"
+                :class="getGuarantorLegalPersonRepresentantClass()"
+                :to="{ name: 'GuarantorDocuments', params: { substep: '1' } }"
+                ><StatusIcon
+                  :status="guarantorStatus('IDENTIFICATION')"
+                ></StatusIcon
+                >{{ $t("identity-represent") }}</router-link
+              >
+            </div>
+          </div>
         </div>
       </div>
       <div class="step" :class="getClass(3)">
@@ -301,6 +325,16 @@ export default class LeftEditMenu extends Vue {
     const status = DocumentService.getGuarantorTaxStatus();
     return this.getClassByStatus(status) + this.getGuarantorCurrentStep(5);
   }
+
+  getGuarantorLegalPersonIdentityClass() {
+    const status = DocumentService.getGuarantorLegalPersonIdentityStatus();
+    return this.getClassByStatus(status) + this.getGuarantorCurrentStep(0);
+  }
+
+  getGuarantorLegalPersonRepresentantClass() {
+    const status = DocumentService.getGuarantorLegalPersonRepresentantStatus();
+    return this.getClassByStatus(status) + this.getGuarantorCurrentStep(1);
+  }
 }
 </script>
 
@@ -326,7 +360,7 @@ export default class LeftEditMenu extends Vue {
 }
 
 .vline {
-  margin-left: 17px;
+  margin-left: 23px;
   border-left: 1px solid var(--g400-t);
   z-index: 0;
   min-height: 25px;
@@ -346,12 +380,13 @@ export default class LeftEditMenu extends Vue {
   border: 1px solid var(--g400-t);
   margin: 0 5px;
   border-radius: 50%;
-  display: inline-block;
-  height: 25px;
-  width: 25px;
-  min-width: 25px;
-  text-align: center;
+  height: 2.25rem;
+  width: 2.25rem;
+  min-width: 2.25rem;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .active .step-number {
@@ -424,6 +459,8 @@ export default class LeftEditMenu extends Vue {
 <i18n>
 {
 "en": {
+    "identification-legal-person": "Legal person identity",
+    "identity-represent": "Identity",
 		"identification": "Identification",
 		"professional": "Professional",
 		"residency": "Residency",
@@ -431,6 +468,8 @@ export default class LeftEditMenu extends Vue {
 		"tax": "Tax"
 },
 "fr": {
+    "identification-legal-person": "Identité personne morale",
+    "identity-represent": "Identité représentant",
 		"identification": "Pièce d'identité",
 		"residency": "Justificatif de domicile",
 		"professional": "Justificatif de situation professionnelle",

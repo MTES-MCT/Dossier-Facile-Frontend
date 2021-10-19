@@ -1,17 +1,41 @@
 <template>
   <div>
     <div>
-      <div class="remark fr-mt-3w">
-        <h3>{{ $t("remark-title") }}</h3>
-        {{ $t("remark-text") }}
+      <div v-if="isMobile()" class="remark fr-mt-3w">
+        <h6>{{ $t("remark-title") }}</h6>
+        <div v-html="$t('remark-text')"></div>
       </div>
 
       <div class="fr-mt-3w card-container">
-        <NakedCard class="fr-pt-3w fr-pb-3w">
-          <div class="fr-pl-3v text-bold fr-mb-1w">
+        <NakedCard class="fr-p-md-5w">
+          <div v-if="!isMobile()">
+            <div class="text-bold fr-mb-1w">
+              <h6>
+                {{ $t("my-guarantor") }}
+              </h6>
+            </div>
+            <v-gouv-fr-modal>
+              <template v-slot:button>
+                <span class="small-font">{{ $t("more-information") }}</span>
+              </template>
+              <template v-slot:title>
+                {{ $t("more-information") }}
+              </template>
+              <template v-slot:content>
+                <p>
+                  <GuarantorChoiceHelp></GuarantorChoiceHelp>
+                </p>
+              </template>
+            </v-gouv-fr-modal>
+            <div class="remark fr-mt-3w">
+              <h6>{{ $t("remark-title") }}</h6>
+              <div class="small-font" v-html="$t('remark-text')"></div>
+            </div>
+          </div>
+          <div class="fr-pl-3v fr-mt-3w">
             {{ $t("ask-guarantor") }}
           </div>
-          <v-gouv-fr-modal>
+          <v-gouv-fr-modal v-if="isMobile()">
             <template v-slot:button>
               <span class="small-font">{{ $t("more-information") }}</span>
             </template>
@@ -25,43 +49,52 @@
             </template>
           </v-gouv-fr-modal>
 
-          <div class="fr-grid-col fr-mt-2w">
-            <BigRadio
-              val="NATURAL_PERSON"
-              :value="tmpGuarantorType"
-              @input="onSelectChange"
-            >
-              <div class="fr-grid-col spa">
-                <span>{{ $t("natural-person") }}</span>
-              </div>
-            </BigRadio>
-            <BigRadio
-              val="ORGANISM"
-              :value="tmpGuarantorType"
-              @input="onSelectChange"
-            >
-              <div class="fr-grid-col spa">
-                <span>{{ $t("organism") }}</span>
-              </div>
-            </BigRadio>
-            <BigRadio
-              val="LEGAL_PERSON"
-              :value="tmpGuarantorType"
-              @input="onSelectChange"
-            >
-              <div class="fr-grid-col spa">
-                <span>{{ $t("legal-person") }}</span>
-              </div>
-            </BigRadio>
-            <BigRadio
-              val="NO_GUARANTOR"
-              :value="tmpGuarantorType"
-              @input="onSelectChange"
-            >
-              <div class="fr-grid-col spa">
-                <span>{{ $t("no-guarantor") }}</span>
-              </div>
-            </BigRadio>
+          <div class="fr-grid-col">
+            <div class="width--fit-content">
+              <BigRadio
+                val="NATURAL_PERSON"
+                :value="tmpGuarantorType"
+                @input="onSelectChange"
+              >
+                <div class="fr-grid-col spa">
+                  <span>{{ $t("natural-person") }}</span>
+                </div>
+              </BigRadio>
+            </div>
+            <div class="width--fit-content">
+              <BigRadio
+                val="ORGANISM"
+                :value="tmpGuarantorType"
+                @input="onSelectChange"
+              >
+                <div class="fr-grid-col spa">
+                  <span>{{ $t("organism") }}</span>
+                </div>
+              </BigRadio>
+            </div>
+            <div class="width--fit-content">
+              <BigRadio
+                val="LEGAL_PERSON"
+                :value="tmpGuarantorType"
+                @input="onSelectChange"
+              >
+                <div class="fr-grid-col spa">
+                  <span>{{ $t("legal-person") }}</span>
+                </div>
+              </BigRadio>
+            </div>
+            <div class="width--fit-content">
+              <BigRadio
+                class="fr-mt-md-3w"
+                val="NO_GUARANTOR"
+                :value="tmpGuarantorType"
+                @input="onSelectChange"
+              >
+                <div class="fr-grid-col spa">
+                  <span>{{ $t("no-guarantor") }}</span>
+                </div>
+              </BigRadio>
+            </div>
           </div>
         </NakedCard>
         <div
@@ -123,6 +156,7 @@ import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import ProfileContainer from "@/components/ProfileContainer.vue";
+import { UtilsService } from "../services/UtilsService";
 
 @Component({
   components: {
@@ -251,6 +285,10 @@ export default class GuarantorDocuments extends Vue {
   gotoVisale() {
     window.open("https://www.visale.fr", "_blank");
   }
+
+  isMobile() {
+    return UtilsService.isMobile();
+  }
 }
 </script>
 
@@ -327,68 +365,72 @@ h2 {
   }
 }
 
-.small-font {
-  font-size: 14px;
-}
-
 .logo-visale {
   width: 134px;
   height: 44px;
   margin-bottom: 1rem;
+}
+
+.width--fit-content {
+  @media all and (min-width: 768px) {
+    width: fit-content;
+  }
 }
 </style>
 
 <i18n>
 {
 "en": {
-"identification": "Pièce d’identité",
-"residency": "Justificatif de domicile",
-"professional": "Justificatif de situation professionnelle",
-"financial": "Justificatif de ressources",
-"tax": "Avis d’imposition",
-"representative-identification": "Identité de la personne morale",
-"corporation-identification": "Identité du représentant de la personne morale",
-"guarantor": "Guarantor",
-"validate": "Validate",
-"will-delete-guarantor": "Are you sure you want to change the type of guarantor?",
-"validate-file": "Next step - Validate file",
-"natural-person": "A classic physical guarantor",
-"organism": "An organization",
-"legal-person": "A corporation guarantor",
-"no-guarantor": "I don't have a guarantor",
-"more-information": "More information",
-"ask-guarantor": "Do you want to add :",
-"remark-title": "Remark",
-"remark-text": "Adding a guarantor is by no means mandatory. If you do not wish to add a surety, you can select “I don't have a guarantor”. Your file will then be registered for investigation.",
-"type-required": "Please select a choice",
-"visale-title": "Do you know Visale ?",
-"visale-text": "Visale is the guarantor of your future accommodation if you are between 18 and 30 years old OR if you are employees over 30 years old (subject to conditions).",
-"visale-btn": "Discover Visale"
+  "my-guarantor": "My guarantor",
+  "identification": "Pièce d’identité",
+  "residency": "Justificatif de domicile",
+  "professional": "Justificatif de situation professionnelle",
+  "financial": "Justificatif de ressources",
+  "tax": "Avis d’imposition",
+  "representative-identification": "Identité de la personne morale",
+  "corporation-identification": "Identité du représentant de la personne morale",
+  "guarantor": "Guarantor",
+  "validate": "Validate",
+  "will-delete-guarantor": "Are you sure you want to change the type of guarantor?",
+  "validate-file": "Next step - Validate file",
+  "natural-person": "A classic physical guarantor",
+  "organism": "An organization",
+  "legal-person": "A corporation guarantor",
+  "no-guarantor": "I don't have a guarantor",
+  "more-information": "More information",
+  "ask-guarantor": "Do you want to add :",
+  "remark-title": "Remark",
+  "remark-text": "Adding a guarantor is by no means mandatory. If you do not wish to add a surety, you can select “I don't have a guarantor”.<br> Your file will then be registered for investigation.",
+  "type-required": "Please select a choice",
+  "visale-title": "Do you know Visale ?",
+  "visale-text": "Visale is the guarantor of your future accommodation if you are between 18 and 30 years old OR if you are employees over 30 years old (subject to conditions).",
+  "visale-btn": "Discover Visale"
 },
 "fr": {
-"identification": "Pièce d’identité",
-"residency": "Justificatif de domicile",
-"professional": "Justificatif de situation professionnelle",
-"financial": "Justificatif de ressources",
-"tax": "Avis d’imposition",
-"representative-identification": "Identité de la personne morale",
-"corporation-identification": "Identité du représentant de la personne morale",
-"guarantor": "Garant",
-"validate": "Valider",
-"will-delete-guarantor": "Êtes-vous sûr de vouloir changer le type de garant ?",
-"validate-file": "Étape suivante - Valider le dossier",
-"natural-person": "Un garant physique classique",
-"organism": "Un organisme garant",
-"legal-person": "Un garant moral",
-"no-guarantor": "Je n'ai pas de garant",
-"more-information": "En difficulté pour répondre à la question ?",
-"ask-guarantor": "Souhaitez-vous ajouter :",
-"remark-title": "Remarque",
-"remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, nous pouvez sélectionner « Je n'ai pas de garant ». Votre dossier sera alors enregistré pour être instruit.",
-"type-required": "Veuillez sélectionner un choix",
-"visale-title": "Connaissez-vous Visale ?",
-"visale-text": "Visale est le garant de votre futur logement si vous avez entre 18 et 30 ans OU si vous êtes salariés de + de 30 ans (soumis à conditions).",
-"visale-btn": "Découvrir Visale"
+  "my-guarantor": "Mon garant",
+  "identification": "Pièce d’identité",
+  "residency": "Justificatif de domicile",
+  "professional": "Justificatif de situation professionnelle",
+  "financial": "Justificatif de ressources",
+  "tax": "Avis d’imposition",
+  "representative-identification": "Identité de la personne morale",
+  "corporation-identification": "Identité du représentant de la personne morale",
+  "guarantor": "Garant",
+  "validate": "Valider",
+  "will-delete-guarantor": "Êtes-vous sûr de vouloir changer le type de garant ?",
+  "validate-file": "Étape suivante - Valider le dossier",
+  "natural-person": "Un garant physique classique",
+  "organism": "Un organisme garant",
+  "legal-person": "Un garant moral",
+  "no-guarantor": "Je n'ai pas de garant",
+  "more-information": "En difficulté pour répondre à la question ?",
+  "ask-guarantor": "Souhaitez-vous ajouter :",
+  "remark-title": "Remarque",
+  "remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, nous pouvez sélectionner « Je n'ai pas de garant ».<br> Votre dossier sera alors enregistré pour être instruit.",
+  "type-required": "Veuillez sélectionner un choix",
+  "visale-title": "Connaissez-vous Visale ?",
+  "visale-text": "Visale est le garant de votre futur logement si vous avez entre 18 et 30 ans OU si vous êtes salariés de + de 30 ans (soumis à conditions).",
+  "visale-btn": "Découvrir Visale"
 }
 }
 </i18n>

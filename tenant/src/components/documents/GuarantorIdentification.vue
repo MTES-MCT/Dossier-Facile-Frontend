@@ -1,54 +1,6 @@
 <template>
   <div>
     <NakedCard>
-      <div class="fr-grid-row fr-grid-row--center">
-        <div class="fr-col-12 fr-mb-3w">
-          <validation-provider rules="required" v-slot="{ errors }">
-            <div
-              class="fr-input-group"
-              :class="errors[0] ? 'fr-input-group--error' : ''"
-            >
-              <label class="fr-label" for="lastname"
-                >{{ $t("lastname") }} :</label
-              >
-              <input
-                v-model="lastName"
-                class="form-control fr-input validate-required"
-                id="lastname"
-                name="lastname"
-                :placeholder="$t('lastname')"
-                type="text"
-              />
-              <span class="fr-error-text" v-if="errors[0]">{{
-                $t(errors[0])
-              }}</span>
-            </div>
-          </validation-provider>
-        </div>
-        <div class="fr-col-12 fr-mb-3w">
-          <validation-provider rules="required" v-slot="{ errors }">
-            <div
-              class="fr-input-group"
-              :class="errors[0] ? 'fr-input-group--error' : ''"
-            >
-              <label for="firstname" class="fr-label"
-                >{{ $t("firstname") }} :</label
-              >
-              <input
-                id="firstname"
-                :placeholder="$t('firstname')"
-                type="text"
-                v-model="firstName"
-                name="firstname"
-                class="validate-required form-control fr-input"
-              />
-              <span class="fr-error-text" v-if="errors[0]">{{
-                $t(errors[0])
-              }}</span>
-            </div>
-          </validation-provider>
-        </div>
-      </div>
       <div>
         <div class="fr-pl-3v">
           {{ $t("select-label") }}
@@ -154,7 +106,6 @@ import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
-import { UtilsService } from "../../services/UtilsService";
 
 @Component({
   components: {
@@ -176,15 +127,13 @@ import { UtilsService } from "../../services/UtilsService";
     })
   }
 })
-export default class Identification extends Vue {
+export default class GuarantorIdentification extends Vue {
   documents = DocumentTypeConstants.GUARANTOR_IDENTIFICATION_DOCS;
 
   selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
   identificationDocument = new DocumentType();
-  firstName = "";
-  lastName = "";
   isDocDeleteVisible = false;
 
   @Watch("selectedGuarantor")
@@ -253,9 +202,6 @@ export default class Identification extends Vue {
         }
       }
     }
-
-    this.firstName = this.selectedGuarantor.firstName || "";
-    this.lastName = this.selectedGuarantor.lastName || "";
   }
 
   mounted() {
@@ -305,14 +251,10 @@ export default class Identification extends Vue {
       "typeDocumentIdentification",
       this.identificationDocument.value
     );
+    formData.append("firstName", this.selectedGuarantor.firstName || "");
+    formData.append("lastName", this.selectedGuarantor.lastName || "");
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    if (this.firstName) {
-      formData.append("firstName", UtilsService.capitalize(this.firstName));
-    }
-    if (this.lastName) {
-      formData.append("lastName", UtilsService.capitalize(this.lastName));
-    }
     formData.append("guarantorId", this.$store.getters.guarantor.id);
     const loader = this.$loading.show();
     this.$store
@@ -382,8 +324,6 @@ td {
   "permit": "French residence permit",
   "other": "Autre",
   "files": "Documents",
-  "lastname": "Lastname",
-  "firstname": "Firstname",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
   "register": "Register",
   "select-label": "I add a valid identity document. Attention, be sure to add your double-sided part!",
@@ -397,8 +337,6 @@ td {
   "permit": "Titre de séjour français",
   "other": "Autre",
   "files": "Documents",
-  "lastname": "Nom",
-  "firstname": "Prénom",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs.",
   "register": "Enregistrer la pièce",
   "select-label": "J’ajoute une pièce d’identité en cours de validité. Attention, veillez à ajouter une pièce recto-verso !",

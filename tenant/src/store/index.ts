@@ -157,6 +157,14 @@ const store = new Vuex.Store({
     createDocumentFinancial(state) {
       state.financialDocumentSelected = new FinancialDocument();
       state.editFinancialDocument = true;
+    },
+    selectGuarantorDocumentFinancial(state, d: FinancialDocument) {
+      state.guarantorFinancialDocumentSelected = Object.assign({}, d);
+      state.editGuarantorFinancialDocument = d !== undefined;
+    },
+    createGuarantorDocumentFinancial(state) {
+      state.guarantorFinancialDocumentSelected = new FinancialDocument();
+      state.editGuarantorFinancialDocument = true;
     }
   },
   actions: {
@@ -416,6 +424,17 @@ const store = new Vuex.Store({
         }
       );
     },
+    saveGuarantorName({ commit }, formData) {
+      return RegisterService.saveGuarantorName(formData).then(
+        response => {
+          commit("loadUser", response.data);
+          return Promise.resolve(response.data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
     saveGuarantorIdentification({ commit }, formData) {
       return RegisterService.saveGuarantorIdentification(formData).then(
         response => {
@@ -495,15 +514,14 @@ const store = new Vuex.Store({
       );
     },
     saveGuarantorFinancial({ commit }, formData) {
-      return RegisterService.saveGuarantorFinancial(formData).then(
-        response => {
-          commit("loadUser", response.data);
-          return Promise.resolve(response.data);
-        },
-        error => {
+      return RegisterService.saveGuarantorFinancial(formData)
+        .then(async response => {
+          await commit("loadUser", response.data);
+          return Promise.resolve(response);
+        })
+        .catch(error => {
           return Promise.reject(error);
-        }
-      );
+        });
     },
     saveTenantTax({ commit }, formData) {
       return RegisterService.saveTenantTax(formData).then(
@@ -698,6 +716,12 @@ const store = new Vuex.Store({
     },
     editFinancialDocument(state): FinancialDocument {
       return state.editFinancialDocument;
+    },
+    guarantorFinancialDocumentSelected(state): FinancialDocument {
+      return state.guarantorFinancialDocumentSelected;
+    },
+    editGuarantorFinancialDocument(state): FinancialDocument {
+      return state.editGuarantorFinancialDocument;
     }
   },
   modules: {}

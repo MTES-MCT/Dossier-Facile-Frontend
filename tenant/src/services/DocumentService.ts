@@ -117,5 +117,19 @@ export const DocumentService = {
   getGuarantorTaxStatus(): string {
     const doc = this.guarantorHasDoc(store.state.selectedGuarantor, "TAX");
     return doc?.documentStatus || "";
+  },
+  getGuarantorLegalPersonIdentityStatus(): string {
+    const doc = this.guarantorHasDoc(
+      store.state.selectedGuarantor,
+      "IDENTIFICATION_LEGAL_PERSON"
+    );
+    return doc?.documentStatus || "";
+  },
+  getGuarantorLegalPersonRepresentantStatus(): string {
+    const doc = this.guarantorHasDoc(
+      store.state.selectedGuarantor,
+      "IDENTIFICATION"
+    );
+    return doc?.documentStatus || "";
   }
 };

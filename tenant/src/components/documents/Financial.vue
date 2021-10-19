@@ -1,18 +1,5 @@
 <template>
   <div>
-    <Modal v-show="isNoIncomeAndFiles" @close="isNoIncomeAndFiles = false">
-      <template v-slot:body>
-        <div class="fr-container">
-          <div class="fr-grid-row justify-content-center">
-            <div class="fr-col-12">
-              <p>
-                {{ $t("warning-no-income-and-file") }}
-              </p>
-            </div>
-          </div>
-        </div>
-      </template>
-    </Modal>
     <div v-if="editFinancialDocument">
       <FinancialDocumentForm></FinancialDocumentForm>
     </div>
@@ -58,7 +45,11 @@
         </NakedCard>
       </div>
       <div>
-        <button @click="addAndSelectFinancial()" class="add-income-btn">
+        <button
+          @click="addAndSelectFinancial()"
+          v-if="!hasNoIncome()"
+          class="add-income-btn"
+        >
           {{ $t("add-income") }}
         </button>
       </div>
@@ -90,7 +81,6 @@ import DocumentHelp from "../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import ProfileFooter from "@/components/footer/ProfileFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
-import cloneDeep from "lodash/cloneDeep";
 import FinancialDocumentForm from "./FinancialDocumentForm.vue";
 
 extend("regex", {
@@ -134,7 +124,6 @@ export default class Financial extends Vue {
   financialDocuments!: FinancialDocument[];
 
   documents = DocumentTypeConstants.FINANCIAL_DOCS;
-  isNoIncomeAndFiles = false;
 
   beforeMount() {
     this.initialize();
