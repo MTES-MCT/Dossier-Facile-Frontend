@@ -45,24 +45,20 @@ const store = new Vuex.Store({
     loginFailure(state) {
       state.status.loggedIn = false;
       state.user = null;
-      localStorage.setItem("token", "");
       AnalyticsService.loginFail();
     },
     logout(state) {
       state.status.loggedIn = false;
-      localStorage.setItem("token", "");
       state.user = null;
     },
     registerSuccess(state) {
       state.status.loggedIn = false;
       state.user = null;
-      localStorage.setItem("token", "");
       AnalyticsService.registerSuccess();
     },
     registerFailure(state) {
       state.status.loggedIn = false;
       state.user = null;
-      localStorage.setItem("token", "");
       AnalyticsService.registerFail();
     },
     setNamesSuccess(state, user) {
