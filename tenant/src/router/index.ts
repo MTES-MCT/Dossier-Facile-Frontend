@@ -161,7 +161,6 @@ const routes: Array<RouteConfig> = [
         (Vue as any).$keycloak
           .updateToken(70)
           .then(() => {
-            localStorage.setItem("token", (Vue as any).$keycloak.token);
             store.dispatch("loadUser").then(() => {
               next();
             });
@@ -249,7 +248,6 @@ const routes: Array<RouteConfig> = [
         (Vue as any).$keycloak
           .updateToken(70)
           .then(() => {
-            localStorage.setItem("token", (Vue as any).$keycloak.token);
             store.dispatch("loadUser").then(() => {
               next();
             });
@@ -334,19 +332,11 @@ router.beforeEach((to, from, next) => {
       });
     } else {
       // The user was authenticated, and has the app role
-      localStorage.setItem("token", (Vue as any).$keycloak.token);
       store.dispatch("loadUser").then(() => {
         keepGoing(to, next);
       });
       setInterval(() => {
-        (Vue as any).$keycloak
-          .updateToken(60)
-          .then((refreshed: boolean) => {
-            if (refreshed) {
-              localStorage.setItem("token", (Vue as any).$keycloak.token);
-            }
-          })
-          .catch((err: any) => {
+        (Vue as any).$keycloak.updateToken(60).catch((err: any) => {
             console.error(err);
           });
       }, 45000);

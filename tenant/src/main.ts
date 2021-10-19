@@ -39,8 +39,8 @@ Vue.use(VueAuthImage);
   .then(() => {
     axios.interceptors.request.use(
       config => {
-        const localToken = localStorage.getItem("token");
-        if (localToken) {
+        if ((Vue as any).$keycloak.authenticated) {
+          const localToken = (Vue as any).$keycloak.token;
           config.headers["Authorization"] = `Bearer ${localToken}`;
         }
         return config;
