@@ -45,24 +45,20 @@ const store = new Vuex.Store({
     loginFailure(state) {
       state.status.loggedIn = false;
       state.user = null;
-      localStorage.setItem("token", "");
       AnalyticsService.loginFail();
     },
     logout(state) {
       state.status.loggedIn = false;
-      localStorage.setItem("token", "");
       state.user = null;
     },
     registerSuccess(state) {
       state.status.loggedIn = false;
       state.user = null;
-      localStorage.setItem("token", "");
       AnalyticsService.registerSuccess();
     },
     registerFailure(state) {
       state.status.loggedIn = false;
       state.user = null;
-      localStorage.setItem("token", "");
       AnalyticsService.registerFail();
     },
     setNamesSuccess(state, user) {
@@ -138,6 +134,15 @@ const store = new Vuex.Store({
     },
     showFooter(state, showFooter) {
       state.showFooter = showFooter;
+    },
+    updateUserFirstname(state, firstname) {
+      state.user.firstName = firstname;
+    },
+    updateUserLastname(state, lastname) {
+      state.user.lastName = lastname;
+    },
+    updateUserZipcode(state, zipcode) {
+      state.user.zipCode = zipcode;
     }
   },
   actions: {
@@ -571,7 +576,7 @@ const store = new Vuex.Store({
     isLoggedIn(_): boolean {
       return (Vue as any).$keycloak.authenticated;
     },
-    userToEdit(state): User | Guarantor | null {
+    userToEdit(state): User | null {
       return state.user;
     },
     getRoommates(state): User[] {
