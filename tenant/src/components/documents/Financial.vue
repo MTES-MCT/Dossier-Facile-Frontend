@@ -180,17 +180,18 @@
                         <label class="fr-label" :for="`customText${k}`">
                           {{ $t(`customText-${f.documentType.key}`) }}
                         </label>
-                        <input
+                        <textarea
                           v-model="f.customText"
                           class="form-control fr-input validate-required"
                           :id="`customText${k}`"
                           name="customText"
                           placeholder=""
                           type="text"
-                          maxlength="250"
+                          maxlength="2000"
+                          rows="3"
                           required
                         />
-                        <span>{{ f.customText.length }} / 250</span>
+                        <span>{{ f.customText.length }} / 2000</span>
                         <span class="fr-error-text" v-if="errors[0]">{{
                           $t(errors[0])
                         }}</span>
@@ -231,9 +232,10 @@
                       <label class="fr-label" for="customTextNoDocument">
                         {{ $t("custom-text") }}
                       </label>
-                      <input
+                      <textarea
                         v-model="financialDocuments[0].customText"
-                        maxlength="250"
+                        maxlength="2000"
+                        rows="3"
                         class="form-control fr-input validate-required"
                         id="customTextNoDocument"
                         name="customText"
@@ -242,7 +244,7 @@
                       />
                       <span
                         >{{ financialDocuments[0].customText.length }} /
-                        250</span
+                        2000</span
                       >
                     </div>
                   </form>
