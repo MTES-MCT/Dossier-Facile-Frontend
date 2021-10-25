@@ -433,6 +433,7 @@ export default class Financial extends Vue {
         }
       );
       if (
+        original &&
         f.noDocument === original.noDocument &&
         f.monthlySum === original.monthlySum &&
         f.files.length === original.files.length &&
