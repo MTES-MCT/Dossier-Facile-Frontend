@@ -1,11 +1,9 @@
 <template>
   <ProfileContainer :step="3">
-    <NakedCard class="fr-pt-3w fr-pb-3w">
-      <div class="fr-pl-3v text-bold fr-mb-1w">
-        <h6>
-          {{ $t("my-guarantor") }}
-        </h6>
-      </div>
+    <NakedCard class="fr-p-md-5w">
+      <h5>
+        {{ $t("my-guarantor") }}
+      </h5>
       <v-gouv-fr-modal>
         <template v-slot:button>
           <span class="small-font">{{ $t("more-information") }}</span>
@@ -19,8 +17,8 @@
           </p>
         </template>
       </v-gouv-fr-modal>
-      <div class="remark fr-mt-3w">
-        <h3>{{ $t("remark-title") }}</h3>
+      <div class="remark fr-mt-3w fr-mb-3w">
+        <h5>{{ $t("remark-title") }}</h5>
         {{ $t("remark-text") }}<br />
         {{ $t("remark-text-2") }}
       </div>
@@ -282,12 +280,13 @@ h2 {
 }
 
 .add-guarantor-btn {
-  border-radius: 0.25rem;
+  border-radius: 0.5rem;
   background: var(--blue-france-200);
-  padding: 1.5rem;
+  padding: 1.75rem;
   color: var(--primary);
   border: 1px solid var(--primary);
   width: 100%;
+  font-size: 16px;
 }
 </style>
 

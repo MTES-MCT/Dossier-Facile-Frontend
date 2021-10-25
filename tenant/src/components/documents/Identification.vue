@@ -1,10 +1,10 @@
 <template>
   <div>
     <div>
-      <NakedCard>
-        <div class="fr-pl-3v">
+      <NakedCard class="fr-p-md-5w">
+        <h5>
           {{ $t("select-label") }}
-        </div>
+        </h5>
 
         <v-gouv-fr-modal>
           <template v-slot:button>
@@ -61,7 +61,7 @@
       <div>
         <div v-if="identificationDocument.explanationText">
           <div
-            class="fr-mt-1w fr-mb-1w fr-ml-2w"
+            class="fr-mb-1w"
             v-html="identificationDocument.explanationText"
           ></div>
         </div>
@@ -334,7 +334,7 @@ td {
   "other": "Autre",
   "files": "Documents",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "select-label": "J’ajoute une pièce d’identité en cours de validité.",
+  "select-label": "Déposez une pièce d'identité en cours de validité.",
   "validate": "Valider",
   "cancel": "Annuler"
 }

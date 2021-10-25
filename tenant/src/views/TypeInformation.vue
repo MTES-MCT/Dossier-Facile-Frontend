@@ -1,8 +1,6 @@
 <template>
   <ProfileContainer :step="1">
-    <NakedCard class="fr-pt-3w fr-pb-3w">
-      <TenantInformationForm></TenantInformationForm>
-    </NakedCard>
+    <TenantInformationForm></TenantInformationForm>
   </ProfileContainer>
 </template>
 
@@ -10,13 +8,11 @@
 import { Component, Vue } from "vue-property-decorator";
 import TenantInformationForm from "@/components/TenantInformationForm.vue";
 import ProfileContainer from "@/components/ProfileContainer.vue";
-import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 @Component({
   components: {
     TenantInformationForm,
-    ProfileContainer,
-    NakedCard
+    ProfileContainer
   }
 })
 export default class TypeInformation extends Vue {

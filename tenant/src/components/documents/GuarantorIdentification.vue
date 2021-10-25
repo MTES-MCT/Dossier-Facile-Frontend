@@ -1,10 +1,11 @@
 <template>
   <div>
-    <NakedCard>
+    <NakedCard class="fr-p-md-5w">
       <div>
-        <div class="fr-pl-3v">
-          {{ $t("select-label") }}
-        </div>
+        <h5>
+          {{ $t("title") }}
+        </h5>
+        {{ $t("select-label") }}
 
         <v-gouv-fr-modal>
           <template v-slot:button>
@@ -25,7 +26,7 @@
           </template>
         </v-gouv-fr-modal>
 
-        <div class="fr-mt-1w">
+        <div class="fr-mt-4w">
           <fieldset class="fr-fieldset">
             <div class="fr-fieldset__content">
               <div class="fr-grid-row">
@@ -326,7 +327,8 @@ td {
   "files": "Documents",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
   "register": "Register",
-  "select-label": "I add a valid identity document. Attention, be sure to add your double-sided part!",
+  "title": "I add a valid identity document of my guarantor",
+  "select-label": "Attention, be sure to add your double-sided part!",
   "validate": "Validate",
   "cancel": "Cancel",
   "field-required": "This field is required"
@@ -339,7 +341,8 @@ td {
   "files": "Documents",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs.",
   "register": "Enregistrer la pièce",
-  "select-label": "J’ajoute une pièce d’identité en cours de validité. Attention, veillez à ajouter une pièce recto-verso !",
+  "title": "J’ajoute la pièce d’identité, en cours de validité, de mon garant",
+  "select-label": "Veillez à ajouter le recto et le verso !",
   "validate": "Valider",
   "cancel": "Annuler",
   "field-required": "Ce champ est requis"

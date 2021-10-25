@@ -8,7 +8,8 @@
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
     <ValidationObserver v-slot="{ validate }">
-      <NakedCard>
+      <NakedCard class="fr-p-md-5w">
+        <h5>{{ $t("title") }}</h5>
         <v-gouv-fr-modal>
           <template v-slot:button>
             En difficulté pour répondre à la question ?
@@ -27,6 +28,8 @@
             </p>
           </template>
         </v-gouv-fr-modal>
+
+        <div class="fr-mt-4w">{{ $t("situation") }}</div>
 
         <form name="form" @submit.prevent="validate().then(save)">
           <div class="fr-mt-3w">
@@ -433,27 +436,31 @@ export default class Tax extends Vue {
 
 <i18n>
 {
-"en": {
-  "my-name": "J’ai un avis d’imposition au nom de mon garant",
-  "less-than-year": "Vous êtes en France depuis moins d’un an",
-  "other-tax": "Autre",
-  "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
-  "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'imposition. Votre explication sera ajoutée à votre dossier :",
-  "files": "Documents",
-  "register": "Register",
-  "field-required": "This field is required",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again."
-},
-"fr": {
-  "my-name": "J’ai un avis d’imposition au nom de mon garant",
-  "less-than-year": "Mon garant est en France depuis moins d'un an",
-  "other-tax": "Autre",
-  "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
-  "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'imposition. Votre explication sera ajoutée à votre dossier :",
-  "files": "Documents",
-  "register": "Enregistrer",
-  "field-required": "Ce champ est requis",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation."
-}
+  "en": {
+    "my-name": "J’ai un avis d’imposition au nom de mon garant",
+    "less-than-year": "Vous êtes en France depuis moins d’un an",
+    "other-tax": "Autre",
+    "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
+    "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'imposition. Votre explication sera ajoutée à votre dossier :",
+    "files": "Documents",
+    "register": "Register",
+    "field-required": "This field is required",
+    "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
+    "title": "My guarantor tax file",
+    "situation": "What is her/his tax situation?"
+  },
+  "fr": {
+    "my-name": "J’ai un avis d’imposition au nom de mon garant",
+    "less-than-year": "Mon garant est en France depuis moins d'un an",
+    "other-tax": "Autre",
+    "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
+    "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'imposition. Votre explication sera ajoutée à votre dossier :",
+    "files": "Documents",
+    "register": "Enregistrer",
+    "field-required": "Ce champ est requis",
+    "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
+    "title": "L'avis d'imposition de mon garant",
+    "situation": "Quelle est sa situation fiscale ?"
+  }
 }
 </i18n>

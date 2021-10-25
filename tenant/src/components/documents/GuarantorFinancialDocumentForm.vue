@@ -21,11 +21,11 @@
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
     <ValidationObserver v-slot="{ validate }">
-      <NakedCard class="fr-mb-3w">
+      <NakedCard class="fr-p-md-5w fr-mb-3w">
         <form name="form" @submit.prevent="validate().then(save())">
           <div>
             <div>
-              <div class="fr-pl-3v">
+              <div>
                 {{ $t("select-label") }}
               </div>
 

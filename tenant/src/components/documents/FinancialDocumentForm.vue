@@ -20,9 +20,9 @@
     >
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
-    <NakedCard class="fr-mb-3w">
-      <ValidationObserver v-slot="{ validate }">
-        <form name="form" @submit.prevent="validate().then(save())">
+    <ValidationObserver v-slot="{ validate }">
+      <form name="form" @submit.prevent="validate().then(save())">
+        <NakedCard class="fr-p-md-5w fr-mb-3w">
           <div>
             <div class="fr-pl-3v">
               <h5>
@@ -70,13 +70,15 @@
               </fieldset>
             </div>
           </div>
-          <div
-            class="fr-mt-3w"
-            v-if="
-              financialDocument.documentType.key &&
-                financialDocument.documentType.key !== 'no-income'
-            "
-          >
+        </NakedCard>
+        <NakedCard
+          class="fr-p-md-5w fr-mb-3w"
+          v-if="
+            financialDocument.documentType.key &&
+              financialDocument.documentType.key !== 'no-income'
+          "
+        >
+          <div>
             <div>
               <div
                 v-if="
@@ -214,44 +216,39 @@
               />
             </div>
           </div>
-        </form>
-      </ValidationObserver>
-      <div
-        v-if="
-          financialDocument.documentType.key &&
-            financialDocument.documentType.key === 'no-income'
-        "
-      >
-        <div class="fr-mt-3w fr-mb-3w">
-          {{ $t("has-no-income") }}
-          <div class="fr-mb-5w">
-            <ValidationObserver v-slot="{ validate }">
-              <form
-                name="customTextForm"
-                @submit.prevent="validate().then(save())"
-              >
-                <div class="fr-input-group">
-                  <label class="fr-label" for="customTextNoDocument">
-                    {{ $t("custom-text") }}
-                  </label>
-                  <input
-                    v-model="financialDocument.customText"
-                    maxlength="250"
-                    class="form-control fr-input validate-required"
-                    id="customTextNoDocument"
-                    name="customText"
-                    placeholder=""
-                    type="text"
-                  />
-                  <span>{{ financialDocument.customText.length }} / 250</span>
-                </div>
-              </form>
-            </ValidationObserver>
-          </div>
-        </div>
-      </div>
-      <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
-    </NakedCard>
+        </NakedCard>
+      </form>
+    </ValidationObserver>
+    <div
+      v-if="
+        financialDocument.documentType.key &&
+          financialDocument.documentType.key === 'no-income'
+      "
+    >
+      <NakedCard class="fr-p-md-5w fr-mb-3w">
+        {{ $t("has-no-income") }}
+        <ValidationObserver v-slot="{ validate }">
+          <form name="customTextForm" @submit.prevent="validate().then(save())">
+            <div class="fr-input-group">
+              <label class="fr-label" for="customTextNoDocument">
+                {{ $t("custom-text") }}
+              </label>
+              <input
+                v-model="financialDocument.customText"
+                maxlength="250"
+                class="form-control fr-input validate-required"
+                id="customTextNoDocument"
+                name="customText"
+                placeholder=""
+                type="text"
+              />
+              <span>{{ financialDocument.customText.length }} / 250</span>
+            </div>
+          </form>
+        </ValidationObserver>
+      </NakedCard>
+    </div>
+    <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
   </div>
 </template>
 

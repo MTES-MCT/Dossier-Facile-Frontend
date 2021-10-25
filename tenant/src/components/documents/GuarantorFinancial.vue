@@ -4,14 +4,14 @@
       <GuarantorFinancialDocumentForm></GuarantorFinancialDocumentForm>
     </div>
     <div v-if="!editFinancialDocument">
-      <NakedCard class="fr-mb-3w">
+      <NakedCard class="fr-p-md-5w fr-mb-3w">
         <div>
-          <h3>{{ $t("title") }}</h3>
+          <h5>{{ $t("title") }}</h5>
           <div>{{ $t("subtitle") }}</div>
         </div>
       </NakedCard>
       <div v-for="(f, k) in financialDocuments" :key="k">
-        <NakedCard class="fr-mb-3w fr-p-3w">
+        <NakedCard class="fr-mb-3w">
           <div class="fr-grid-row space-between">
             <div class="v-center">
               <div class="fr-tag">{{ $t(f.documentType.key) }}</div>
@@ -230,12 +230,13 @@ export default class GuarantorFinancial extends Vue {
 }
 
 .add-income-btn {
-  border-radius: 0.25rem;
+  border-radius: 0.5rem;
   background: var(--blue-france-200);
-  padding: 1.5rem;
+  padding: 1.75rem;
   color: var(--primary);
   border: 1px solid var(--primary);
   width: 100%;
+  font-size: 16px;
 }
 </style>
 

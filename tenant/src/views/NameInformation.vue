@@ -64,7 +64,7 @@ h1 {
 }
 
 h5 {
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 .title-container {

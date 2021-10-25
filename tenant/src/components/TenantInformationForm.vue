@@ -1,63 +1,64 @@
 <template>
   <div>
-    <p>
-      {{
-        $t("tenantPresentation", {
-          firstname: user.firstName,
-          lastname: user.lastName
-        })
-      }}
-    </p>
-
     <div v-if="!isOwner()">
-      <div
-        class="fr-grid-row fr-grid-row--center"
-        v-if="applicationType === 'COUPLE'"
-      >
-        <div class="fr-col-12">
-          <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
-            <div
-              class="fr-checkbox-group bg-purple"
-              :class="errors[0] ? 'fr-input-group--error' : ''"
+      <NakedCard class="fr-pt-3w fr-pb-3w">
+        <div
+          class="fr-grid-row fr-grid-row--center"
+          v-if="applicationType === 'COUPLE'"
+        >
+          <div class="fr-col-12">
+            <validation-provider
+              rules="is"
+              v-slot="{ errors }"
+              class="fr-col-10"
             >
-              <input
-                type="checkbox"
-                id="authorize"
-                value="false"
-                v-model="localSpouseAuthorize"
-              />
-              <label for="authorize">{{ $t("acceptAuthorSpouse") }}</label>
-              <span class="fr-error-text" v-if="errors[0]">{{
-                $t(errors[0])
-              }}</span>
-            </div>
-          </validation-provider>
+              <div
+                class="fr-checkbox-group bg-purple"
+                :class="errors[0] ? 'fr-input-group--error' : ''"
+              >
+                <input
+                  type="checkbox"
+                  id="authorize"
+                  value="false"
+                  v-model="localSpouseAuthorize"
+                />
+                <label for="authorize">{{ $t("acceptAuthorSpouse") }}</label>
+                <span class="fr-error-text" v-if="errors[0]">{{
+                  $t(errors[0])
+                }}</span>
+              </div>
+            </validation-provider>
+          </div>
         </div>
-      </div>
-      <div
-        class="fr-grid-row fr-grid-row--center"
-        v-if="applicationType === 'GROUP'"
-      >
-        <div class="fr-col-12">
-          <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
-            <div
-              class="fr-checkbox-group bg-purple"
-              :class="errors[0] ? 'fr-input-group--error' : ''"
+        <div
+          class="fr-grid-row fr-grid-row--center"
+          v-if="applicationType === 'GROUP'"
+        >
+          <div class="fr-col-12">
+            <validation-provider
+              rules="is"
+              v-slot="{ errors }"
+              class="fr-col-10"
             >
-              <input
-                type="checkbox"
-                id="authorize"
-                value="false"
-                v-model="localCoTenantAuthorize"
-              />
-              <label for="authorize">{{ $t("acceptAuthorCoTenant") }}</label>
-              <span class="fr-error-text" v-if="errors[0]">{{
-                $t(errors[0])
-              }}</span>
-            </div>
-          </validation-provider>
+              <div
+                class="fr-checkbox-group bg-purple"
+                :class="errors[0] ? 'fr-input-group--error' : ''"
+              >
+                <input
+                  type="checkbox"
+                  id="authorize"
+                  value="false"
+                  v-model="localCoTenantAuthorize"
+                />
+                <label for="authorize">{{ $t("acceptAuthorCoTenant") }}</label>
+                <span class="fr-error-text" v-if="errors[0]">{{
+                  $t(errors[0])
+                }}</span>
+              </div>
+            </validation-provider>
+          </div>
         </div>
-      </div>
+      </NakedCard>
       <ProfileFooter @on-back="goBack" @on-next="authorize()"></ProfileFooter>
     </div>
 
@@ -67,67 +68,64 @@
           name="form"
           @submit.prevent="validate().then(handleOthersInformation)"
         >
-          <div class="fr-form-group fr-mt-3w">
-            <fieldset class="fr-fieldset">
-              <div class="fr-fieldset__content">
-                <div class="fr-grid-row space-around">
-                  <BigRadio
-                    :big="true"
-                    val="ALONE"
-                    :value="applicationType"
-                    @input="updateApplicationType"
-                  >
-                    <div class="fr-grid-col spa">
-                      <div class="icon-container">
-                        <span class="material-icons md-36">person</span>
+          <NakedCard class="fr-p-md-5w">
+            <h5>{{ $t("title") }}</h5>
+            <div class="fr-form-group fr-mt-3w fr-mb-0">
+              <fieldset class="fr-fieldset">
+                <div class="fr-fieldset__content">
+                  <div class="fr-grid-row space-between">
+                    <BigRadio
+                      :big="true"
+                      val="ALONE"
+                      :value="applicationType"
+                      @input="updateApplicationType"
+                    >
+                      <div class="fr-grid-col spa">
+                        <div class="icon-container">
+                          <span class="material-icons md-36">person</span>
+                        </div>
+                        <span>{{ $t("alone") }}</span>
                       </div>
-                      <span>{{ $t("alone") }}</span>
-                    </div>
-                  </BigRadio>
-                  <BigRadio
-                    :big="true"
-                    val="COUPLE"
-                    :value="applicationType"
-                    @input="updateApplicationType"
-                  >
-                    <div class="fr-grid-col spa">
-                      <div class="icon-container">
-                        <span class="material-icons md-36">group</span>
+                    </BigRadio>
+                    <BigRadio
+                      :big="true"
+                      val="COUPLE"
+                      :value="applicationType"
+                      @input="updateApplicationType"
+                    >
+                      <div class="fr-grid-col spa">
+                        <div class="icon-container">
+                          <span class="material-icons md-36">group</span>
+                        </div>
+                        <span>{{ $t("couple") }}</span>
                       </div>
-                      <span>{{ $t("couple") }}</span>
-                    </div>
-                  </BigRadio>
-                  <BigRadio
-                    :big="true"
-                    val="GROUP"
-                    :value="applicationType"
-                    @input="updateApplicationType"
-                  >
-                    <div class="fr-grid-col spa">
-                      <div class="icon-container">
-                        <span class="material-icons md-36">groups</span>
+                    </BigRadio>
+                    <BigRadio
+                      :big="true"
+                      val="GROUP"
+                      :value="applicationType"
+                      @input="updateApplicationType"
+                    >
+                      <div class="fr-grid-col spa">
+                        <div class="icon-container">
+                          <span class="material-icons md-36">groups</span>
+                        </div>
+                        <span>{{ $t("roommate") }}</span>
                       </div>
-                      <span>{{ $t("roommate") }}</span>
-                    </div>
-                  </BigRadio>
+                    </BigRadio>
+                  </div>
                 </div>
-                <CoupleInformation
-                  class="fr-mt-4w"
-                  v-if="applicationType === 'COUPLE'"
-                >
-                </CoupleInformation>
-                <RoommatesInformation
-                  class="fr-mt-4w"
-                  v-if="applicationType === 'GROUP'"
-                >
-                </RoommatesInformation>
-              </div>
-            </fieldset>
-          </div>
+              </fieldset>
+            </div>
+          </NakedCard>
           <ProfileFooter @on-back="goBack"></ProfileFooter>
         </form>
       </ValidationObserver>
     </div>
+    <CoupleInformation class="fr-mt-2w" v-if="applicationType === 'COUPLE'">
+    </CoupleInformation>
+    <RoommatesInformation class="fr-mt-2w" v-if="applicationType === 'GROUP'">
+    </RoommatesInformation>
     <ConfirmModal
       v-if="isDeleteGroupVisible"
       @valid="validSelect()"
@@ -159,6 +157,7 @@ import DfButton from "df-shared/src/Button/Button.vue";
 import { AnalyticsService } from "../services/AnalyticsService";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import ProfileFooter from "@/components/footer/ProfileFooter.vue";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 @Component({
   computed: {
@@ -181,7 +180,8 @@ import ProfileFooter from "@/components/footer/ProfileFooter.vue";
     WarningMessage,
     DfButton,
     ConfirmModal,
-    ProfileFooter
+    ProfileFooter,
+    NakedCard
   }
 })
 export default class TenantInformationForm extends Vue {
@@ -409,6 +409,7 @@ export default class TenantInformationForm extends Vue {
 <i18n>
 {
   "en": {
+  "title": "You want to rent for accommodation :",
   "confirm": "Confirmer",
   "firstname": "Prénom du locataire",
   "lastname": "Nom du locataire",
@@ -431,6 +432,7 @@ export default class TenantInformationForm extends Vue {
   "will-delete-roommates": "This action will delete the link with your roommates"
   },
   "fr": {
+  "title": "Vous désirez louer pour un logement :",
   "confirm": "Confirmer",
   "firstname": "Prénom du locataire",
   "lastname": "Nom du locataire",

@@ -8,7 +8,8 @@
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
     <ValidationObserver v-slot="{ validate }">
-      <NakedCard>
+      <NakedCard class="fr-p-md-5w">
+        <h5>{{ $t("title") }}</h5>
         <v-gouv-fr-modal>
           <template v-slot:button>
             En difficulté pour répondre à la question ?
@@ -309,7 +310,7 @@ export default class Tax extends Vue {
 
   async save(): Promise<boolean> {
     if (this.taxDocument.key === undefined) {
-      return false;
+      return true;
     }
     AnalyticsService.registerFile("tax");
     this.uploadProgress = {};
@@ -436,7 +437,8 @@ export default class Tax extends Vue {
   "files": "Documents",
   "register": "Register",
   "field-required": "This field is required",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again."
+  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
+  "title": "My tax notice"
 },
 "fr": {
   "my-name": "Vous avez un avis d’imposition à votre nom",
@@ -448,7 +450,8 @@ export default class Tax extends Vue {
   "files": "Documents",
   "register": "Enregistrer",
   "field-required": "Ce champ est requis",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation."
+  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
+  "title": "Mon avis d'imposition"
 }
 }
 </i18n>

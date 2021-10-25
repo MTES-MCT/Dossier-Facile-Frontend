@@ -2,7 +2,7 @@
   <div>
     <NakedCard class="fr-p-md-5w">
       <div>
-        <h6>{{ $t("title") }}</h6>
+        <h5>{{ $t("title") }}</h5>
 
         <v-gouv-fr-modal>
           <template v-slot:button>

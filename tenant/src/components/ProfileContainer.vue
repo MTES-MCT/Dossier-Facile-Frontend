@@ -4,7 +4,7 @@
     <div class="bg--grey full-height fr-grid-row">
       <LeftEditMenu :step="step" class="fr-col-md-4 fr-col-xl-3"></LeftEditMenu>
       <div
-        class="fr-col-xl-9 fr-col-md-8 fr-col-xs-12 fr-p-md-4w fr-p-2w fr-grid-row"
+        class="fr-col-xl-9 fr-col-md-8 fr-col-xs-12 fr-pt-md-4w fr-pt-2w fr-grid-row fr-pb-10w"
       >
         <div class="fr-col-12 max-600 ml">
           <slot></slot>

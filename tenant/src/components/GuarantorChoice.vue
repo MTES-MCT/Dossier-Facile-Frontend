@@ -1,18 +1,18 @@
 <template>
   <div>
     <div>
-      <div v-if="isMobile()" class="remark fr-mt-3w">
-        <h6>{{ $t("remark-title") }}</h6>
+      <div v-if="isMobile()" class="remark fr-mt-3w fr-mb-3w">
+        <h5>{{ $t("remark-title") }}</h5>
         <div v-html="$t('remark-text')"></div>
       </div>
 
-      <div class="fr-mt-3w card-container">
+      <div class="card-container">
         <NakedCard class="fr-p-md-5w">
           <div v-if="!isMobile()">
             <div class="text-bold fr-mb-1w">
-              <h6>
+              <h5>
                 {{ $t("my-guarantor") }}
-              </h6>
+              </h5>
             </div>
             <v-gouv-fr-modal>
               <template v-slot:button>
@@ -32,7 +32,7 @@
               <div class="small-font" v-html="$t('remark-text')"></div>
             </div>
           </div>
-          <div class="fr-pl-3v fr-mt-3w">
+          <div class="fr-mt-3w fr-mb-2w">
             {{ $t("ask-guarantor") }}
           </div>
           <v-gouv-fr-modal v-if="isMobile()">

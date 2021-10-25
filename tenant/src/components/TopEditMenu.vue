@@ -196,7 +196,10 @@ export default class LeftEditMenu extends Vue {
 }
 
 .step-title {
-  padding: 1.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-bottom: 1.5rem;
+  padding-top: 0.5rem;
   text-align: center;
   font-size: 20px;
   font-weight: bold;

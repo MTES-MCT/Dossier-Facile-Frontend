@@ -1,10 +1,10 @@
 <template>
   <div>
-    <NakedCard>
+    <NakedCard class="fr-p-md-5w">
       <div>
-        <div class="fr-pl-3v">
+        <h5>
           {{ $t("select-label") }}
-        </div>
+        </h5>
 
         <v-gouv-fr-modal>
           <template v-slot:button>
@@ -25,7 +25,7 @@
           </template>
         </v-gouv-fr-modal>
 
-        <div class="fr-mt-1w">
+        <div class="fr-mt-4w">
           <fieldset class="fr-fieldset">
             <div class="fr-fieldset__content">
               <div class="fr-grid-row">
@@ -335,7 +335,7 @@ export default class Residency extends Vue {
   "files": "Documents",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
   "register": "Enregistrer",
-  "select-label": "La situation d’hébergement actuelle de mon garant :"
+  "select-label": "Quelle est la situation d’hébergement actuelle de votre garant ?"
 }
 }
 </i18n>

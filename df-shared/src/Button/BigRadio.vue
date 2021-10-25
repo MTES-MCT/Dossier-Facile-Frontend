@@ -33,8 +33,9 @@ export default class BigRadio extends Vue {
 <style scoped lang="scss">
 .br {
   padding: 0.5rem;
-  margin: 0.5rem;
-  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  margin-right: 0.5rem;
+  font-size: 14px;
   cursor: pointer;
   border: solid 1px var(--primary);
   border-radius: 0.5rem;
@@ -76,6 +77,7 @@ export default class BigRadio extends Vue {
   width: 100%;
   padding: 1rem;
   font-size: 1rem;
+  margin: 0;
 }
 
 .small {
