@@ -61,8 +61,8 @@ export default class JoinCouple extends Vue {
     );
   }
 
-  logout() {
-    this.$store.dispatch("logout", false);
+  async logout() {
+    await this.$store.dispatch("logout", false);
   }
 
   redirect() {
