@@ -121,11 +121,11 @@
           <ProfileFooter @on-back="goBack"></ProfileFooter>
         </form>
       </ValidationObserver>
+      <CoupleInformation class="fr-mt-2w" v-if="applicationType === 'COUPLE'">
+      </CoupleInformation>
+      <RoommatesInformation class="fr-mt-2w" v-if="applicationType === 'GROUP'">
+      </RoommatesInformation>
     </div>
-    <CoupleInformation class="fr-mt-2w" v-if="applicationType === 'COUPLE'">
-    </CoupleInformation>
-    <RoommatesInformation class="fr-mt-2w" v-if="applicationType === 'GROUP'">
-    </RoommatesInformation>
     <ConfirmModal
       v-if="isDeleteGroupVisible"
       @valid="validSelect()"

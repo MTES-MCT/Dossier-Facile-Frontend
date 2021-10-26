@@ -28,39 +28,44 @@
               v-bind:key="key"
               class="fr-mb-1w"
             >
-              <div class="fr-grid-row bg--white">
-                <div class="fr-col-10">
-                  <div class="fr-grid-row nowrap">
-                    <div class="center-icon fr-mr-1w">
-                      <span class="color--white material-icons md-24 round-icon"
-                        >person</span
-                      >
-                    </div>
-                    <div class="fr-grid-col overflow--hidden max-content">
-                      <div :title="roommate.email" class="overflow--hidden">
-                        <b>
-                          {{ roommate.email }}
-                        </b>
+              <NakedCard>
+                <div class="fr-grid-row bg--white">
+                  <div class="fr-col-10">
+                    <div class="fr-grid-row nowrap">
+                      <div class="center-icon fr-mr-1w">
+                        <span
+                          class="color--white material-icons md-24 round-icon"
+                          >person</span
+                        >
                       </div>
-                      <div class="small-text">
-                        {{ $t(roommate.id ? "invite-sent" : "invite-waiting") }}
+                      <div class="fr-grid-col overflow--hidden max-content">
+                        <div :title="roommate.email" class="overflow--hidden">
+                          <b>
+                            {{ roommate.email }}
+                          </b>
+                        </div>
+                        <div class="small-text">
+                          {{
+                            $t(roommate.id ? "invite-sent" : "invite-waiting")
+                          }}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="fr-col-2 center-icon">
-                  <button
-                    class="fr-btn fr-btn--secondary icon-btn"
-                    :title="$t('delete')"
-                    @click="remove(roommate)"
-                    type="button"
-                  >
-                    <span class="color--primary material-icons md-24"
-                      >delete_forever</span
+                  <div class="fr-col-2 center-icon">
+                    <button
+                      class="fr-btn fr-btn--secondary icon-btn"
+                      :title="$t('delete')"
+                      @click="remove(roommate)"
+                      type="button"
                     >
-                  </button>
+                      <span class="color--primary material-icons md-24"
+                        >delete_forever</span
+                      >
+                    </button>
+                  </div>
                 </div>
-              </div>
+              </NakedCard>
             </div>
           </div>
         </div>

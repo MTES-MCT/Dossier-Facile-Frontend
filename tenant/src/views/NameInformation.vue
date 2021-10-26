@@ -84,7 +84,9 @@ h5 {
 
 .d-p-200 {
   @media all and (min-width: 768px) {
-    padding-top: 8rem;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
     padding-left: 4rem;
     padding-right: 4rem;
   }
@@ -98,7 +100,7 @@ h5 {
   "subtitle": "Let's start with your personal identity information."
 },
 "fr": {
-  "title": "Vous n'êtes qu'à quelques étapes de votre dossier de location !",
+  "title": "Vous n'êtes qu'à quelques étapes de votre dossier de location !",
   "subtitle": "Commençons par vos informations personnelles d'identité."
 }
 }

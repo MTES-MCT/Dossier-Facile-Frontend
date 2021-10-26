@@ -1,7 +1,7 @@
 <template>
   <div>
     <ValidationObserver>
-      <NakedCard>
+      <NakedCard class="fr-p-md-5w">
         <validation-provider rules="required" v-slot="{ errors }">
           <div
             class="fr-input-group"
@@ -23,7 +23,7 @@
           </div>
         </validation-provider>
       </NakedCard>
-      <NakedCard class="fr-mt-3w">
+      <NakedCard class="fr-mt-3w fr-p-md-5w">
         <div>
           <div class="fr-mb-3w">
             {{ $t("kbis-label") }}

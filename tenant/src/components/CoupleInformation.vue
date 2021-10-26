@@ -26,39 +26,43 @@
       </div>
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12 fr-mt-2w" v-if="getPartner()">
-          <div class="fr-grid-row bg--white">
-            <div class="fr-col-10">
-              <div class="fr-grid-row nowrap">
-                <div class="center-icon fr-mr-1w">
-                  <span class="color--white material-icons md-24 round-icon"
-                    >person</span
-                  >
-                </div>
-                <div class="fr-grid-col overflow--hidden max-content">
-                  <div :title="coupleMail" class="overflow--hidden">
-                    <b>
-                      {{ getPartner().email }}
-                    </b>
+          <NakedCard>
+            <div class="fr-grid-row bg--white">
+              <div class="fr-col-10">
+                <div class="fr-grid-row nowrap">
+                  <div class="center-icon fr-mr-1w">
+                    <span class="color--white material-icons md-24 round-icon"
+                      >person</span
+                    >
                   </div>
-                  <div class="small-text">
-                    {{ $t(getPartner().id ? "invite-sent" : "invite-waiting") }}
+                  <div class="fr-grid-col overflow--hidden max-content">
+                    <div :title="coupleMail" class="overflow--hidden">
+                      <b>
+                        {{ getPartner().email }}
+                      </b>
+                    </div>
+                    <div class="small-text">
+                      {{
+                        $t(getPartner().id ? "invite-sent" : "invite-waiting")
+                      }}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="fr-col-2 center-icon">
-              <button
-                class="fr-btn fr-btn--secondary icon-btn"
-                :title="$t('delete')"
-                @click="remove(getPartner().email)"
-                type="button"
-              >
-                <span class="color--primary material-icons md-24"
-                  >delete_forever</span
+              <div class="fr-col-2 center-icon">
+                <button
+                  class="fr-btn fr-btn--secondary icon-btn"
+                  :title="$t('delete')"
+                  @click="remove(getPartner().email)"
+                  type="button"
                 >
-              </button>
+                  <span class="color--primary material-icons md-24"
+                    >delete_forever</span
+                  >
+                </button>
+              </div>
             </div>
-          </div>
+          </NakedCard>
         </div>
 
         <div class="fr-col-12 fr-mt-2w" v-if="getPartner() === undefined">
