@@ -173,8 +173,10 @@
                     <label class="fr-label" :for="`customText${k}`">
                       {{ $t(getCustomTextLabel(f.documentType.key)) }}
                     </label>
-                    <input
+                    <textarea
                       v-model="f.customText"
+                      maxlength="2000"
+                      rows="3"
                       class="form-control fr-input validate-required"
                       :id="`customText${k}`"
                       name="customText"
@@ -182,6 +184,7 @@
                       type="text"
                       required
                     />
+                    <span>{{ f.customText.length }} / 2000</span>
                     <span class="fr-error-text" v-if="errors[0]">{{
                       $t(errors[0])
                     }}</span>

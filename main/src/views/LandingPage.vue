@@ -1,8 +1,5 @@
 <template>
   <div>
-    <div class="fr-container">
-      <div class="fr-mt-3w fr-mb-3w" v-html="$t('cgu-update')"></div>
-    </div>
     <section class="s0-background fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
       <div class="fr-container">
         <div class="fr-col-md-8">
@@ -15,12 +12,9 @@
               {{ $t("s0.text2") }}
             </p>
             <p>
-            <DfButton
-              primary="true"
-              @on-click="gotoTenant"
-            >
-              {{ $t("button") }}
-            </DfButton>
+              <DfButton primary="true" @on-click="gotoTenant">
+                {{ $t("button") }}
+              </DfButton>
             </p>
           </div>
         </div>
@@ -38,7 +32,11 @@
                 <p class="fr-tile__desc">{{ $t("s1.p1") }}</p>
               </div>
               <div class="fr-tile__img">
-                <img src="../assets/icons/approval.svg" class="fr-responsive-img" alt="">
+                <img
+                  src="../assets/icons/approval.svg"
+                  class="fr-responsive-img"
+                  alt=""
+                />
               </div>
             </div>
           </div>
@@ -51,7 +49,11 @@
                 <p class="fr-tile__desc">{{ $t("s1.p2") }}</p>
               </div>
               <div class="fr-tile__img">
-                <img src="../assets/icons/sports.svg" class="fr-responsive-img" alt="">
+                <img
+                  src="../assets/icons/sports.svg"
+                  class="fr-responsive-img"
+                  alt=""
+                />
               </div>
             </div>
           </div>
@@ -64,10 +66,13 @@
                 <p class="fr-tile__desc">{{ $t("s1.p3") }}</p>
               </div>
               <div class="fr-tile__img">
-                <img src="../assets/icons/reading.svg" class="fr-responsive-img" alt="">
+                <img
+                  src="../assets/icons/reading.svg"
+                  class="fr-responsive-img"
+                  alt=""
+                />
               </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -101,17 +106,12 @@
               <h2 class="fr-h4 fr-mb-0">{{ $t("s2.h3") }}</h2>
             </div>
             <p>{{ $t("s2.p3") }}</p>
-            <DfButton class="fr-mt-2w"
-              @on-click="gotoDocs"
-            >
+            <DfButton class="fr-mt-2w" @on-click="gotoDocs">
               <span class="text-center full-width">
                 {{ $t("docs") }}
               </span>
             </DfButton>
-            <DfButton class="fr-mt-2w"
-              primary="true"
-              @on-click="gotoTenant"
-            >
+            <DfButton class="fr-mt-2w" primary="true" @on-click="gotoTenant">
               <span class="text-center full-width">
                 {{ $t("button") }}
               </span>
@@ -176,10 +176,7 @@
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
-            <DfButton
-              primary="true"
-              @on-click="gotoTenant"
-            >
+            <DfButton primary="true" @on-click="gotoTenant">
               {{ $t("button") }}
             </DfButton>
           </p>
@@ -212,7 +209,10 @@
           <div
             class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
-            <a target="_blank" href="https://www.visale.fr/" class="logo-link"
+            <a
+              target="_blank"
+              href="https://www.visale.fr/"
+              class="logo-link"
               rel="noreferrer"
             >
               <img
@@ -241,7 +241,10 @@
           <div
             class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
-            <a target="_blank" href="https://colivme.com/" class="logo-link"
+            <a
+              target="_blank"
+              href="https://colivme.com/"
+              class="logo-link"
               rel="noreferrer"
             >
               <img
@@ -254,7 +257,10 @@
           <div
             class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
-            <a target="_blank" href="https://whoomies.com/" class="logo-link"
+            <a
+              target="_blank"
+              href="https://whoomies.com/"
+              class="logo-link"
               rel="noreferrer"
             >
               <img
@@ -267,7 +273,10 @@
           <div
             class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
-            <a target="_blank" href="https://www.anil.org/" class="logo-link"
+            <a
+              target="_blank"
+              href="https://www.anil.org/"
+              class="logo-link"
               rel="noreferrer"
             >
               <img
@@ -280,7 +289,10 @@
           <div
             class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
-            <a target="_blank" href="https://www.clickandrent.fr/" class="logo-link"
+            <a
+              target="_blank"
+              href="https://www.clickandrent.fr/"
+              class="logo-link"
               rel="noreferrer"
             >
               <img
@@ -293,7 +305,10 @@
           <div
             class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
-            <a target="_blank" href="https://www.qlower.com/" class="logo-link"
+            <a
+              target="_blank"
+              href="https://www.qlower.com/"
+              class="logo-link"
               rel="noreferrer"
             >
               <img
@@ -306,7 +321,10 @@
           <div
             class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
-            <a target="_blank" href="https://www.jelouebien.com/" class="logo-link"
+            <a
+              target="_blank"
+              href="https://www.jelouebien.com/"
+              class="logo-link"
               rel="noreferrer"
             >
               <img
@@ -319,7 +337,10 @@
           <div
             class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
-            <a target="_blank" href="https://www.gererseul.com/" class="logo-link"
+            <a
+              target="_blank"
+              href="https://www.gererseul.com/"
+              class="logo-link"
               rel="noreferrer"
             >
               <img
@@ -332,7 +353,10 @@
           <div
             class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
           >
-            <a target="_blank" href="https://pandaloc.com/" class="logo-link"
+            <a
+              target="_blank"
+              href="https://pandaloc.com/"
+              class="logo-link"
               rel="noreferrer"
             >
               <img
@@ -345,10 +369,7 @@
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
-            <DfButton
-              primary="true"
-              @on-click="gotoTenant"
-            >
+            <DfButton primary="true" @on-click="gotoTenant">
               {{ $t("button") }}
             </DfButton>
           </p>
@@ -362,13 +383,11 @@
 import { Component, Vue } from "vue-property-decorator";
 import DfButton from "df-shared/src/Button/Button.vue";
 
-@Component(
-  {
-    components: {
-      DfButton
-    }
+@Component({
+  components: {
+    DfButton
   }
-)
+})
 export default class LandingPage extends Vue {
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
   DOCS_URL = `//${process.env.VUE_APP_DOCS_URL}`;
@@ -518,16 +537,16 @@ a[target="_blank"].logo-link::after {
 
 .justif-img {
   @media (min-width: 1200px) {
-  width: 600px;
-  height: 572px;
+    width: 600px;
+    height: 572px;
   }
   @media (min-width: 500px) and (max-width: 1200px) {
-  width: 450px;
-  height: 429px;
+    width: 450px;
+    height: 429px;
   }
   @media (max-width: 500px) {
-  width: 300px;
-  height: 286px;
+    width: 300px;
+    height: 286px;
   }
 }
 
@@ -638,8 +657,7 @@ a[target="_blank"].logo-link::after {
     "s5": {
       "title1": "They",
       "title2": "trust us"
-    },
-    "cgu-update": "Nous avons mis à jour nos Conditions générales d'utilisation et notre Politique de confidentialité. <a target=\"_blank\" href='/mentions-legales'>Cliquez ici</a> pour les consulter"
+    }
   },
   "fr": {
     "button": "Monter mon dossier de location",
@@ -693,8 +711,7 @@ a[target="_blank"].logo-link::after {
     "s5": {
       "title1": "Ils nous font",
       "title2": "confiance"
-    },
-    "cgu-update": "Nous avons mis à jour nos Conditions générales d'utilisation et notre Politique de confidentialité. <a target=\"_blank\" href='/mentions-legales'>Cliquez ici</a> pour les consulter"
+    }
   }
 }
 </i18n>

@@ -71,6 +71,15 @@ export default class App extends Vue {
           params: {
             // eslint-disable-next-line @typescript-eslint/camelcase
             send_page_view: true
+          },
+          linker: {
+            domains: [
+              "dossierfacile.fr",
+              "www.dossierfacile.fr",
+              "locataire.dossierfacile.fr",
+              "proprietaire.dossierfacile.fr",
+              "sso.dossierfacile.fr"
+            ]
           }
         }
       },
