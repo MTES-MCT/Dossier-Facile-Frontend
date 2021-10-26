@@ -147,18 +147,18 @@ const store = new Vuex.Store({
   },
   actions: {
     logout({ commit }, redirect = true) {
-      AuthService.logout()
-        .then(() => {
-          commit("logout");
-          commit("initState");
+      return AuthService.logout()
+        .then(async () => {
+          await commit("logout");
+          await commit("initState");
           if (redirect) {
             window.location.replace(MAIN_URL);
             return;
           }
-          location.reload;
+          location.reload();
         })
         .catch(() => {
-          location.reload;
+          location.reload();
         });
     },
     deleteAccount({ commit }) {
@@ -573,7 +573,7 @@ const store = new Vuex.Store({
     guarantor(state): Guarantor {
       return state.selectedGuarantor;
     },
-    isLoggedIn(_): boolean {
+    isLoggedIn(): boolean {
       return (Vue as any).$keycloak.authenticated;
     },
     userToEdit(state): User | null {
