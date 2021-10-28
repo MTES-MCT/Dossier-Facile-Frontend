@@ -493,7 +493,7 @@ const store = new Vuex.Store({
     saveTenantFinancial({ commit }, formData) {
       return RegisterService.saveTenantFinancial(formData).then(
         async response => {
-          await commit("loadUser", response.data);
+          await this.dispatch("loadUser");
           const fd = this.getters.tenantFinancialDocuments;
           if (fd === undefined) {
             return Promise.resolve(response.data);

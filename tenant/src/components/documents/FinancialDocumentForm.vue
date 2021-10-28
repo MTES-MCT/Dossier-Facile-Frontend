@@ -513,8 +513,9 @@ export default class FinancialDocumentForm extends Vue {
     await this.$store
       .dispatch("saveTenantFinancial", formData)
       .then(() => {
-        this.financialDocument.files = [];
-        this.financialDocument.fileUploadStatus = UploadStatus.STATUS_INITIAL;
+        this.financialDocument = {
+          ...cloneDeep(this.financialDocumentSelected)
+        };
         Vue.toasted.global.save_success();
       })
       .catch(() => {
