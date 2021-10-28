@@ -446,7 +446,8 @@ export default class TenantInformationForm extends Vue {
   "roommate-email-required": "You must fill at least one roommate adress.",
   "couple-email-required": "You must fill your spouse adress.",
   "will-delete-couple": "This action will delete the link with your spouse",
-  "will-delete-roommates": "This action will delete the link with your roommates"
+  "will-delete-roommates": "This action will delete the link with your roommates",
+  "require-accept": "You must accept the declaration"
   },
   "fr": {
   "title": "Vous désirez louer pour un logement :",
@@ -470,7 +471,8 @@ export default class TenantInformationForm extends Vue {
   "roommate-email-required": "Vous devez saisir l'adresse email d'au moins un colocataire.",
   "couple-email-required": "Vous devez saisir l'adresse email de votre conjoint·e",
   "will-delete-couple": "Cette action va supprimer la liaison avec le dossier de votre conjoint·e",
-  "will-delete-roommates": "Cette action va supprimer la liaison avec le dossier de vos colocataires"
+  "will-delete-roommates": "Cette action va supprimer la liaison avec le dossier de vos colocataires",
+  "require-accept": "Vous devez accepter la déclaration"
   }
 }
 </i18n>
