@@ -53,7 +53,7 @@
           class="fr-link"
           :class="getTenantIdentityClass()"
           :to="{ name: 'TenantDocuments', params: { substep: '1' } }"
-          >{{ $t("identity") }}</router-link
+          >{{ $t("identification") }}</router-link
         >
       </div>
       <div class="ml-5">

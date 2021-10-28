@@ -459,22 +459,8 @@ export default class LeftEditMenu extends Vue {
 <i18n>
 {
 "en": {
-    "identification-legal-person": "Legal person identity",
-    "identity-represent": "Identity",
-		"identification": "Identification",
-		"professional": "Professional",
-		"residency": "Residency",
-		"financial": "Financial",
-		"tax": "Tax"
 },
 "fr": {
-    "identification-legal-person": "Identité personne morale",
-    "identity-represent": "Identité représentant",
-		"identification": "Pièce d'identité",
-		"residency": "Justificatif de domicile",
-		"professional": "Justificatif de situation professionnelle",
-		"financial": "Justificatif de ressources",
-		"tax": "Avis d'imposition"
 }
 }
 </i18n>
