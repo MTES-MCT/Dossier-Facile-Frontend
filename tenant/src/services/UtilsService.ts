@@ -4,11 +4,9 @@ import store from "../store";
 
 export const UtilsService = {
   getMainUser() {
-    return store.state.user.apartmentSharing.tenants.find(
-      (t: any) => {
-        return t.tenantType === "CREATE";
-      }
-    );
+    return store.state.user.apartmentSharing.tenants.find((t: any) => {
+      return t.tenantType === "CREATE";
+    });
   },
 
   allDocumentsFilled() {
