@@ -102,9 +102,11 @@ export default class GuarantorListPage extends Vue {
       !this.user.guarantors ||
       this.user.guarantors.length === 0 ||
       (this.user.guarantors.length === 1 &&
-        this.user.guarantors[0].typeGuarantor === "NATURAL_GUARANTOR" &&
+        this.user.guarantors[0].typeGuarantor === "NATURAL_PERSON" &&
         !this.user.guarantors[0].lastName) ||
       (this.user.guarantors[0].typeGuarantor === "ORGANISM" &&
+        (this.user.guarantors[0].documents?.length || 0) <= 0) ||
+      (this.user.guarantors[0].typeGuarantor === "LEGAL_PERSON" &&
         (this.user.guarantors[0].documents?.length || 0) <= 0)
     ) {
       this.$router.push({
