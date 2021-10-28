@@ -17,6 +17,7 @@ export class User {
   lastUpdate?: string;
   honorDeclaration?: boolean;
   clarification?: string;
+  franceConnect?: boolean;
 
   identification?: string;
   residency?: string;

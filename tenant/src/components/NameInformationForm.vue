@@ -24,6 +24,7 @@
                     id="lastname"
                     name="lastname"
                     :placeholder="$t('lastname')"
+                    :disabled="user.franceConnect"
                     type="text"
                     required
                   />
@@ -49,6 +50,7 @@
                     v-model="firstname"
                     name="firstname"
                     class="validate-required form-control fr-input"
+                    :disabled="user.franceConnect"
                     required
                   />
                   <span class="fr-error-text" v-if="errors[0]">{{
