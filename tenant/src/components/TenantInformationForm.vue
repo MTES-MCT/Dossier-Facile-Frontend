@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="!isOwner()">
-      <NakedCard class="fr-pt-3w fr-pb-3w">
+      <NakedCard class="fr-p-md-5w">
         <div
           class="fr-grid-row fr-grid-row--center"
           v-if="applicationType === 'COUPLE'"
@@ -197,7 +197,7 @@ export default class TenantInformationForm extends Vue {
   localCoTenantAuthorize!: boolean;
   localSpouseAuthorize!: boolean;
 
-  mounted() {
+  beforeMount() {
     if (this.user.applicationType) {
       this.applicationType = this.user.applicationType;
     }
@@ -237,11 +237,7 @@ export default class TenantInformationForm extends Vue {
       return;
     }
 
-    // TODO : check for roommates too
-    if (
-      this.applicationType === this.user.applicationType &&
-      this.applicationType === "ALONE"
-    ) {
+    if (this.hasNothingToSave()) {
       this.$router.push({
         name: "TenantDocuments",
         params: { substep: "1" }
@@ -321,6 +317,27 @@ export default class TenantInformationForm extends Vue {
       }
     }
     this.applicationType = this.newApplicationType;
+    return false;
+  }
+
+  hasNothingToSave() {
+    if (
+      this.applicationType === this.user.applicationType &&
+      this.applicationType === "ALONE"
+    ) {
+      return true;
+    }
+    if (
+      this.applicationType === this.user.applicationType &&
+      (this.applicationType === "GROUP" || this.applicationType === "COUPLE")
+    ) {
+      const unregisteredRoommate = this.roommates.find((r: any) => {
+        return r.id === undefined;
+      });
+      if (unregisteredRoommate === undefined) {
+        return true;
+      }
+    }
     return false;
   }
 

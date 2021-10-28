@@ -4,7 +4,7 @@
   >
     <div class="fr-col-xs-12 fr-col-md-4 bg--dark-blue">
       <div class="title-container">
-        <h1>{{ $t("title") }}</h1>
+        <h1>{{ getTitle() }}</h1>
         <h5>{{ $t("subtitle") }}</h5>
       </div>
     </div>
@@ -24,6 +24,8 @@ import NameInformationForm from "@/components/NameInformationForm.vue";
 import ProfileContainer from "@/components/ProfileContainer.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import { mapState } from "vuex";
+import { User } from "df-shared/src/models/User";
+import { UtilsService } from "../services/UtilsService";
 
 @Component({
   components: {
@@ -38,6 +40,8 @@ import { mapState } from "vuex";
   }
 })
 export default class NameInformation extends Vue {
+  user!: User;
+
   mounted() {
     window.Beacon("init", "e9f4da7d-11be-4b40-9514-ac7ce3e68f67");
     const localScript = document.createElement("script");
@@ -47,6 +51,24 @@ export default class NameInformation extends Vue {
 
   beforeDestroy() {
     window.Beacon("destroy");
+  }
+
+  getTitle() {
+    if (this.isOwner()) {
+      return this.$i18n.t("title");
+    }
+    const firstName =
+      UtilsService.getMainUser().firstName ||
+      this.user.applicationType === "COUPLE"
+        ? this.$i18n.t("spouse")
+        : this.$i18n.t("roommate");
+    return this.$i18n.t("join-title", [firstName]);
+  }
+
+  isOwner() {
+    return (
+      this.user.tenantType === undefined || this.user.tenantType === "CREATE"
+    );
   }
 }
 </script>
@@ -97,11 +119,17 @@ h5 {
 {
 "en": {
   "title": "You are only a few steps away from your rental file!",
-  "subtitle": "Let's start with your personal identity information."
+  "subtitle": "Let's start with your personal identity information.",
+  "join-title": "You are only a few steps away from joining {0} rental file!",
+  "roommate": "votre colocataire",
+  "spouse": "your spouse"
 },
 "fr": {
   "title": "Vous n'êtes qu'à quelques étapes de votre dossier de location !",
-  "subtitle": "Commençons par vos informations personnelles d'identité."
+  "subtitle": "Commençons par vos informations personnelles d'identité.",
+  "join-title": "Vous n'êtes qu'à quelques étapes de rejoindre le dossier de location de {0} !",
+  "roommate": "votre colocataire",
+  "spouse": "votre conjoint"
 }
 }
 </i18n>
