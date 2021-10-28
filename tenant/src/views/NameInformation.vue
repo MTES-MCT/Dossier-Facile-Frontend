@@ -57,12 +57,13 @@ export default class NameInformation extends Vue {
     if (this.isOwner()) {
       return this.$i18n.t("title");
     }
-    const firstName =
-      UtilsService.getMainUser().firstName ||
-      this.user.applicationType === "COUPLE"
-        ? this.$i18n.t("spouse")
-        : this.$i18n.t("roommate");
-    return this.$i18n.t("join-title", [firstName]);
+    const firstName = UtilsService.getMainUser().firstName;
+    if (firstName) {
+      return this.$i18n.t("join-title", [firstName]);
+    }
+    return this.user.applicationType === "COUPLE"
+      ? this.$i18n.t("join-title", [this.$i18n.t("spouse")])
+      : this.$i18n.t("join-title", [this.$i18n.t("roommate")]);
   }
 
   isOwner() {
