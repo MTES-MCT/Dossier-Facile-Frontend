@@ -23,7 +23,7 @@
         {{ $t("remark-text-2") }}
       </div>
       <div v-for="g in user.guarantors" :key="g.id">
-        <NakedCard class="fr-mb-3w fr-p-3w">
+        <NakedCard class="fr-mb-3w guarantor-list">
           <div class="fr-grid-row space-between">
             <div class="v-center">
               <div>{{ getGuarantorName(g) }}</div>
@@ -289,6 +289,20 @@ h2 {
   border: 1px solid var(--primary);
   width: 100%;
   font-size: 16px;
+}
+
+.guarantor-list {
+  margin: 16px 0 32px;
+  padding: 24px 16px 24px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  background-color: #fff;
+}
+
+.icon-btn {
+  border: 1px solid var(--primary);
+  background-color: var(--w);
 }
 </style>
 
