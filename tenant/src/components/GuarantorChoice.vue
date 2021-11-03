@@ -199,9 +199,6 @@ export default class GuarantorDocuments extends Vue {
 
   beforeMount() {
     this.$store.commit("expandGuarantorMenu", false);
-  }
-
-  mounted() {
     if (this.guarantor.typeGuarantor) {
       this.tmpGuarantorType = this.guarantor.typeGuarantor;
       localStorage.setItem(
@@ -272,12 +269,14 @@ export default class GuarantorDocuments extends Vue {
         .dispatch("setGuarantorType", this.tmpGuarantorType)
         .then(() => {
           this.$router.push({
-            name: "GuarantorList"
+            name: "GuarantorDocuments",
+            params: { substep: "0" }
           });
         });
     } else {
       this.$router.push({
-        name: "GuarantorList"
+        name: "GuarantorDocuments",
+        params: { substep: "0" }
       });
     }
   }

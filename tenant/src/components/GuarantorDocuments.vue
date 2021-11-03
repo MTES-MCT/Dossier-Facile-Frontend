@@ -173,12 +173,6 @@ export default class GuarantorDocuments extends Vue {
         params: { substep: (this.substep - 1).toString() }
       });
     } else {
-      if (this.guarantors.length === 1 && !this.guarantors[0].lastName) {
-        this.$router.push({
-          name: "GuarantorChoice"
-        });
-        return;
-      }
       this.$router.push({
         name: "GuarantorList"
       });

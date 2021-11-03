@@ -96,27 +96,6 @@ export default class GuarantorListPage extends Vue {
   user!: User;
   guarantors!: Guarantor[];
 
-  beforeMount() {
-    this.$store.commit("expandGuarantorMenu", false);
-    if (
-      !this.user.guarantors ||
-      this.user.guarantors.length === 0 ||
-      (this.user.guarantors.length === 1 &&
-        this.user.guarantors[0].typeGuarantor === "NATURAL_PERSON" &&
-        !this.user.guarantors[0].lastName) ||
-      (this.user.guarantors[0].typeGuarantor === "ORGANISM" &&
-        (this.user.guarantors[0].documents?.length || 0) <= 0) ||
-      (this.user.guarantors[0].typeGuarantor === "LEGAL_PERSON" &&
-        (this.user.guarantors[0].documents?.length || 0) <= 0)
-    ) {
-      this.$router.push({
-        name: "GuarantorDocuments",
-        params: { substep: "0" }
-      });
-      return;
-    }
-  }
-
   getGuarantorName(g: Guarantor) {
     if (g.firstName || g.lastName) {
       return `${g.firstName || ""} ${g.lastName || ""}`;
@@ -125,6 +104,13 @@ export default class GuarantorListPage extends Vue {
   }
 
   goBack() {
+    if (this.guarantors.length > 0) {
+      this.$router.push({
+        name: "TenantDocuments",
+        params: { substep: "5" }
+      });
+      return;
+    }
     this.$router.push({
       name: "GuarantorChoice"
     });
