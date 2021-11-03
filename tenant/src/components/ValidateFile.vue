@@ -255,7 +255,7 @@ export default class ValidateFile extends Vue {
         "placeholder": "Renseignez votre commentaire ici",
         "validate": "Valider mon dossier",
         "read": "Je lis et je coche les cases suivantes afin de valider mon dossier",
-        "declaration2": "Je déclare sur l'honneur avoir avoir reçu le consentement de mon garant pour que ses données soient traitées dans le cadre du processus de location",
+        "declaration2": "Je déclare sur l'honneur avoir reçu le consentement de mon garant pour que ses données soient traitées dans le cadre du processus de location",
         "require-accept": "You must accept the declaration"
     },
     "fr": {
@@ -266,7 +266,7 @@ export default class ValidateFile extends Vue {
         "placeholder": "Renseignez votre commentaire ici",
         "validate": "Valider mon dossier",
         "read": "Je lis et je coche les cases suivantes afin de valider mon dossier",
-        "declaration2": "Je déclare sur l'honneur avoir avoir reçu le consentement de mon garant pour que ses données soient traitées dans le cadre du processus de location",
+        "declaration2": "Je déclare sur l'honneur avoir reçu le consentement de mon garant pour que ses données soient traitées dans le cadre du processus de location",
         "require-accept": "Vous devez accepter la déclaration"
     }
 }
