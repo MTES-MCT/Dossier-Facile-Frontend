@@ -447,6 +447,11 @@ export default class GuarantorFinancialDocumentForm extends Vue {
     const loader = this.$loading.show();
     const res = await this.$store
       .dispatch("saveGuarantorFinancial", formData)
+      .then(() => {
+        this.financialDocument = {
+          ...cloneDeep(this.guarantorFinancialDocumentSelected)
+        };
+      })
       .catch(() => {
         this.financialDocument.fileUploadStatus = UploadStatus.STATUS_FAILED;
         Vue.toasted.global.save_failed();

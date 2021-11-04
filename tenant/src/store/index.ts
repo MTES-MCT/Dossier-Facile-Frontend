@@ -516,8 +516,20 @@ const store = new Vuex.Store({
     saveGuarantorFinancial({ commit }, formData) {
       return RegisterService.saveGuarantorFinancial(formData)
         .then(async response => {
-          await commit("loadUser", response.data);
-          return Promise.resolve(response);
+          await this.dispatch("loadUser");
+          const fd = this.getters.guarantorFinancialDocuments;
+          if (fd === undefined) {
+            return Promise.resolve(response.data);
+          }
+          if (formData.has("id")) {
+            const s = fd.find((f: any) => {
+              return f.id.toString() === formData.get("id");
+            });
+            await commit("selectGuarantorDocumentFinancial", s);
+          } else {
+            await commit("selectGuarantorDocumentFinancial", fd[fd.length - 1]);
+          }
+          return Promise.resolve(response.data);
         })
         .catch(error => {
           return Promise.reject(error);
