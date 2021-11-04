@@ -381,7 +381,7 @@ export default class FinancialDocumentForm extends Vue {
     this.isDocDeleteVisible = false;
   }
 
-  validSelect() {
+  async validSelect() {
     this.isDocDeleteVisible = false;
     if (this.user.documents === null) {
       return;
@@ -389,12 +389,12 @@ export default class FinancialDocumentForm extends Vue {
     const doc = this.user.documents?.find((d: DfDocument) => {
       return d.id === this.selectedDoc?.id;
     });
-    if (doc !== undefined) {
-      doc.files?.forEach(f => {
+    if (doc?.files !== undefined) {
+      for (const f of doc.files) {
         if (f.id && this.selectedDoc) {
-          this.remove(this.selectedDoc, f, true);
+          await this.remove(this.selectedDoc, f, true);
         }
-      });
+      }
     }
   }
 
@@ -544,10 +544,10 @@ export default class FinancialDocumentForm extends Vue {
     return [...newFiles, ...existingFiles];
   }
 
-  remove(f: FinancialDocument, file: DfFile, silent = false) {
+  async remove(f: FinancialDocument, file: DfFile, silent = false) {
     AnalyticsService.deleteFile("financial");
     if (file.path && file.id) {
-      RegisterService.deleteFile(file.id, silent);
+      await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = f.files.findIndex(f => {
         return f.name === file.name && f.file === file.file && !f.id;

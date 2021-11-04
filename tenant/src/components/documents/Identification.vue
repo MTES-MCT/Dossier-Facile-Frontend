@@ -172,20 +172,20 @@ export default class Identification extends Vue {
     this.isDocDeleteVisible = false;
   }
 
-  validSelect() {
+  async validSelect() {
+    this.isDocDeleteVisible = false;
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION";
       });
-      if (doc !== undefined) {
-        doc.files?.forEach(f => {
+      if (doc?.files !== undefined) {
+        for (const f of doc.files) {
           if (f.id) {
-            this.remove(f, true);
+            await this.remove(f, true);
           }
-        });
+        }
       }
     }
-    this.isDocDeleteVisible = false;
   }
 
   mounted() {
@@ -288,10 +288,10 @@ export default class Identification extends Vue {
     return [...newFiles, ...existingFiles];
   }
 
-  remove(file: DfFile, silent = false) {
+  async remove(file: DfFile, silent = false) {
     AnalyticsService.deleteFile("identification");
     if (file.path && file.id) {
-      RegisterService.deleteFile(file.id, silent);
+      await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = this.files.findIndex(f => {
         return f.name === file.name && f.file === file.file && !f.id;
