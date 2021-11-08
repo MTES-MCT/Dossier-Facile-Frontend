@@ -5,9 +5,6 @@
       <p>
         {{ $t("file-not-valid") }}
       </p>
-      <div>
-        {{ $t("my-missing-documents") }}
-      </div>
       <div v-if="!hasDoc('IDENTIFICATION')">
         <div class="fr-grid-row file-item">
           <div>{{ $t("identification") }}</div>
@@ -285,7 +282,6 @@ export default class FileErrors extends Vue {
     "file-not-valid": "Your file is not valid, please complete the missing documents to submit your file",
     "error-title": "File not complete",
     "error-title-guarantor": "Guarantor file not complete",
-    "my-missing-documents": "My missing documents:",
     "his-missing-documents": "Guarantor missing documents:",
     "update": "Update",
     "organism-cert": "Organism certificate",
@@ -301,7 +297,6 @@ export default class FileErrors extends Vue {
     "file-not-valid": "Votre dossier n'est pas valide, veuillez compléter les documents manquants ou modifier les documents refusés pour soumettre votre dossier",
     "error-title": "Dossier invalide",
     "error-title-guarantor": "Dossier garant invalide",
-    "my-missing-documents": "Vos documents invalides :",
     "his-missing-documents": "Ses documents invalides :",
     "update": "Mettre à jour",
     "organism-cert": "Attestation de garantie",
