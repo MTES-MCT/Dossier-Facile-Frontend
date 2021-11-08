@@ -11,19 +11,21 @@
         </div>
       </NakedCard>
       <div v-for="(f, k) in financialDocuments" :key="k">
-        <NakedCard class="fr-mb-3w">
-          <div class="fr-grid-row space-between">
-            <div class="v-center">
-              <div class="fr-tag">{{ $t(f.documentType.key) }}</div>
+        <NakedCard class="salary-card">
+          <div class="fr-grid-row">
+            <div class="salary-tags-container">
+              <div class="v-center">
+                <div class="fr-tag">{{ $t(f.documentType.key) }}</div>
+              </div>
+              <div
+                :title="$t('net-monthly')"
+                v-show="f.documentType.key !== 'no-income'"
+                class="text-bold v-center monthly-sum"
+              >
+                {{ f.monthlySum }} {{ $t("monthly") }}
+              </div>
             </div>
-            <div
-              :title="$t('net-monthly')"
-              v-show="f.documentType.key !== 'no-income'"
-              class="text-bold v-center"
-            >
-              {{ f.monthlySum }} {{ $t("monthly") }}
-            </div>
-            <div>
+            <div class="salary-btn-container">
               <button
                 @click="selectFinancialDocument(f)"
                 class="fr-p-0 fr-mr-3w icon-btn"
@@ -34,7 +36,7 @@
               </button>
               <button
                 @click="removeFinancial(f)"
-                class="fr-p-0 fr-mr-3w icon-btn"
+                class="fr-p-0 fr-mr-md-3w icon-btn"
               >
                 <div class="color--primary material-icons md-24 fr-m-1w">
                   delete
@@ -230,13 +232,48 @@ export default class GuarantorFinancial extends Vue {
 }
 
 .add-income-btn {
+  margin: 0.5rem 1rem;
+  width: calc(100% - 2rem);
+  @media (min-width: 768px) {
+    margin: 0.5rem 0;
+    width: calc(100%);
+  }
   border-radius: 0.5rem;
   background: var(--blue-france-200);
   padding: 1.75rem;
   color: var(--primary);
   border: 1px solid var(--primary);
-  width: 100%;
   font-size: 16px;
+}
+
+.salary-card {
+  margin: 0.5rem 1rem;
+  @media (min-width: 768px) {
+    margin: 0.5rem 0;
+    padding: 1.75rem 2rem;
+  }
+}
+
+.salary-btn-container {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+}
+
+.salary-tags-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+}
+
+.monthly-sum {
+  @media (min-width: 768px) {
+    flex-grow: 1;
+    justify-content: center;
+  }
 }
 </style>
 
@@ -244,7 +281,7 @@ export default class GuarantorFinancial extends Vue {
 {
 "en": {
   "salary": "Salary",
-  "guarantor_salary": "Salary or other professional income",
+  "guarantor_salary": "Salary",
   "social-service": "Social benefit payments",
   "rent": "Annuities",
   "pension": "Pensions",
@@ -265,7 +302,7 @@ export default class GuarantorFinancial extends Vue {
 },
 "fr": {
   "salary": "Salaire",
-  "guarantor_salary": "Salaires ou autres revenus d’activité professionnelle",
+  "guarantor_salary": "Salaires",
   "social-service": "Prestations sociales",
   "rent": "Rentes",
   "pension": "Pensions",

@@ -11,7 +11,7 @@
         </div>
       </NakedCard>
       <div v-for="(f, k) in financialDocuments" :key="k">
-        <NakedCard class="fr-mb-3w fr-p-3w">
+        <NakedCard class="fr-mb-3w fr-p-md-3w">
           <div class="fr-grid-row space-between">
             <div class="v-center">
               <div class="fr-tag">{{ $t(f.documentType.key) }}</div>
