@@ -1,11 +1,11 @@
 <template>
-  <div
+  <button
     class="br"
     :class="{ selected: isEqual(value, val), big: big }"
     @click="setValue()"
   >
     <slot></slot>
-  </div>
+  </button>
 </template>
 
 <script lang="ts">
@@ -36,6 +36,7 @@ export default class BigRadio extends Vue {
   margin-bottom: 0.5rem;
   margin-right: 0.5rem;
   font-size: 14px;
+  line-height: 24px;
   cursor: pointer;
   border: solid 1px var(--primary);
   border-radius: 0.5rem;
