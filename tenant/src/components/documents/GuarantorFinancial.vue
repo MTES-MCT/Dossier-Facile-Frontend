@@ -11,40 +11,22 @@
         </div>
       </NakedCard>
       <div v-for="(f, k) in financialDocuments" :key="k">
-        <NakedCard class="salary-card">
-          <div class="fr-grid-row">
-            <div class="salary-tags-container">
-              <div class="v-center">
-                <div class="fr-tag">{{ $t(f.documentType.key) }}</div>
-              </div>
-              <div
-                :title="$t('net-monthly')"
-                v-show="f.documentType.key !== 'no-income'"
-                class="text-bold v-center monthly-sum"
-              >
-                {{ f.monthlySum }} {{ $t("monthly") }}
-              </div>
+        <CardRow
+          @edit="selectFinancialDocument(f)"
+          @remove="removeFinancial(f)"
+        >
+          <template v-slot:tag>
+            <div class="fr-tag">{{ $t(f.documentType.key) }}</div>
+          </template>
+          <template v-slot:text>
+            <div
+              :title="$t('net-monthly')"
+              v-show="f.documentType.key !== 'no-income'"
+            >
+              {{ f.monthlySum }} {{ $t("monthly") }}
             </div>
-            <div class="salary-btn-container">
-              <button
-                @click="selectFinancialDocument(f)"
-                class="fr-p-0 fr-mr-3w icon-btn"
-              >
-                <div class="color--primary material-icons md-24 fr-m-1w">
-                  edit
-                </div>
-              </button>
-              <button
-                @click="removeFinancial(f)"
-                class="fr-p-0 fr-mr-md-3w icon-btn"
-              >
-                <div class="color--primary material-icons md-24 fr-m-1w">
-                  delete
-                </div>
-              </button>
-            </div>
-          </div>
-        </NakedCard>
+          </template>
+        </CardRow>
       </div>
       <div>
         <button
@@ -83,6 +65,7 @@ import DocumentHelp from "../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import ProfileFooter from "@/components/footer/ProfileFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import CardRow from "df-shared/src/components/CardRow.vue";
 import GuarantorFinancialDocumentForm from "./GuarantorFinancialDocumentForm.vue";
 
 extend("regex", {
@@ -111,6 +94,7 @@ extend("required", {
     VGouvFrModal,
     ProfileFooter,
     NakedCard,
+    CardRow,
     GuarantorFinancialDocumentForm
   },
   computed: {
@@ -221,16 +205,6 @@ export default class GuarantorFinancial extends Vue {
   max-width: 210px;
 }
 
-.icon-btn {
-  border: 1px solid var(--primary);
-  background-color: var(--w);
-}
-
-.v-center {
-  display: inline-flex;
-  align-items: center;
-}
-
 .add-income-btn {
   margin: 0.5rem 1rem;
   width: calc(100% - 2rem);
@@ -244,36 +218,6 @@ export default class GuarantorFinancial extends Vue {
   color: var(--primary);
   border: 1px solid var(--primary);
   font-size: 16px;
-}
-
-.salary-card {
-  margin: 0.5rem 1rem;
-  @media (min-width: 768px) {
-    margin: 0.5rem 0;
-    padding: 1.75rem 2rem;
-  }
-}
-
-.salary-btn-container {
-  margin-left: auto;
-  display: inline-flex;
-  align-items: center;
-}
-
-.salary-tags-container {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  @media (min-width: 768px) {
-    flex-direction: row;
-  }
-}
-
-.monthly-sum {
-  @media (min-width: 768px) {
-    flex-grow: 1;
-    justify-content: center;
-  }
 }
 </style>
 
