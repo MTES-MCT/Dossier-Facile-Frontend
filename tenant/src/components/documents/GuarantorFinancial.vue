@@ -20,6 +20,7 @@
           </template>
           <template v-slot:text>
             <div
+              class="text-bold"
               :title="$t('net-monthly')"
               v-show="f.documentType.key !== 'no-income'"
             >

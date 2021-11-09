@@ -11,38 +11,23 @@
         </div>
       </NakedCard>
       <div v-for="(f, k) in financialDocuments" :key="k">
-        <NakedCard class="fr-mb-3w fr-p-md-3w">
-          <div class="fr-grid-row space-between">
-            <div class="v-center">
-              <div class="fr-tag">{{ $t(f.documentType.key) }}</div>
-            </div>
+        <CardRow
+          @edit="selectFinancialDocument(f)"
+          @remove="removeFinancial(f)"
+        >
+          <template v-slot:tag>
+            <div class="fr-tag">{{ $t(f.documentType.key) }}</div>
+          </template>
+          <template v-slot:text>
             <div
+              class="text-bold"
               :title="$t('net-monthly')"
               v-show="f.documentType.key !== 'no-income'"
-              class="text-bold v-center"
             >
               {{ f.monthlySum }} {{ $t("monthly") }}
             </div>
-            <div>
-              <button
-                @click="selectFinancialDocument(f)"
-                class="fr-p-0 fr-mr-3w icon-btn"
-              >
-                <div class="color--primary material-icons md-24 fr-m-1w">
-                  edit
-                </div>
-              </button>
-              <button
-                @click="removeFinancial(f)"
-                class="fr-p-0 fr-mr-3w icon-btn"
-              >
-                <div class="color--primary material-icons md-24 fr-m-1w">
-                  delete
-                </div>
-              </button>
-            </div>
-          </div>
-        </NakedCard>
+          </template>
+        </CardRow>
       </div>
       <div>
         <button
@@ -81,6 +66,7 @@ import DocumentHelp from "../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import ProfileFooter from "@/components/footer/ProfileFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import CardRow from "df-shared/src/components/CardRow.vue";
 import FinancialDocumentForm from "./FinancialDocumentForm.vue";
 
 extend("regex", {
@@ -109,6 +95,7 @@ extend("required", {
     VGouvFrModal,
     ProfileFooter,
     NakedCard,
+    CardRow,
     FinancialDocumentForm
   },
   computed: {
@@ -216,16 +203,6 @@ export default class Financial extends Vue {
 .fr-tag {
   background-color: #2a7ffe;
   color: var(--w);
-}
-
-.icon-btn {
-  border: 1px solid var(--primary);
-  background-color: var(--w);
-}
-
-.v-center {
-  display: inline-flex;
-  align-items: center;
 }
 
 .add-income-btn {

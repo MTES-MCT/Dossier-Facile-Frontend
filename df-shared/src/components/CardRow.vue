@@ -5,7 +5,7 @@
         <div class="v-center">
           <slot name="tag"></slot>
         </div>
-        <div v-if="$slots.text" class="text-bold text-container">
+        <div v-if="$slots.text" class="text-container">
           <slot name="text"></slot>
         </div>
       </div>

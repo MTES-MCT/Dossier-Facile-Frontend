@@ -23,34 +23,14 @@
         {{ $t("remark-text-2") }}
       </div>
       <div v-for="g in user.guarantors" :key="g.id">
-        <NakedCard class="fr-mb-3w guarantor-list">
-          <div class="fr-grid-row space-between">
-            <div class="v-center">
-              <div>{{ getGuarantorName(g) }}</div>
-            </div>
-            <div class="fr-grid-row">
-              <div class="fr-p-0 fr-mr-3w">
-                <div class="fr-tag">{{ $t(getStatus(g)) }}</div>
-              </div>
-              <button
-                @click="editGuarantor(g)"
-                class="fr-p-0 fr-mr-3w icon-btn"
-              >
-                <div class="color--primary material-icons md-24 fr-m-1w">
-                  edit
-                </div>
-              </button>
-              <button
-                @click="removeGuarantor(g)"
-                class="fr-p-0 fr-mr-3w icon-btn"
-              >
-                <div class="color--primary material-icons md-24 fr-m-1w">
-                  delete
-                </div>
-              </button>
-            </div>
-          </div>
-        </NakedCard>
+        <CardRow @edit="editGuarantor(g)" @remove="removeGuarantor(g)">
+          <template v-slot:tag>
+            <div class="text-bold">{{ getGuarantorName(g) }}</div>
+          </template>
+          <template v-slot:text>
+            <div class="fr-tag">{{ $t(getStatus(g)) }}</div>
+          </template>
+        </CardRow>
       </div>
       <div v-if="hasOneNaturalGuarantor()">
         <button @click="addNaturalGuarantor()" class="add-guarantor-btn">
@@ -70,6 +50,7 @@ import { User } from "df-shared/src/models/User";
 import GuarantorFooter from "@/components/footer/GuarantorFooter.vue";
 import GuarantorChoiceHelp from "../components/helps/GuarantorChoiceHelp.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import CardRow from "df-shared/src/components/CardRow.vue";
 import ProfileContainer from "@/components/ProfileContainer.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import { Guarantor } from "df-shared/src/models/Guarantor";
@@ -81,6 +62,7 @@ import { DfDocument } from "df-shared/src/models/DfDocument";
     GuarantorChoiceHelp,
     NakedCard,
     ProfileContainer,
+    CardRow,
     VGouvFrModal
   },
   computed: {
@@ -261,12 +243,6 @@ h2 {
   font-size: 14px;
 }
 
-.logo-visale {
-  width: 134px;
-  height: 44px;
-  margin-bottom: 1rem;
-}
-
 .add-guarantor-btn {
   border-radius: 0.5rem;
   background: var(--blue-france-200);
@@ -275,20 +251,6 @@ h2 {
   border: 1px solid var(--primary);
   width: 100%;
   font-size: 16px;
-}
-
-.guarantor-list {
-  margin: 16px 0 32px;
-  padding: 24px 16px 24px 24px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  background-color: #fff;
-}
-
-.icon-btn {
-  border: 1px solid var(--primary);
-  background-color: var(--w);
 }
 </style>
 

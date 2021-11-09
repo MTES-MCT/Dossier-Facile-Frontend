@@ -6,7 +6,7 @@
         <div v-html="$t('remark-text')"></div>
       </div>
 
-      <div class="card-container">
+      <div>
         <NakedCard class="fr-p-md-5w">
           <div v-if="!isMobile()">
             <div class="text-bold fr-mb-1w">
@@ -294,74 +294,10 @@ export default class GuarantorDocuments extends Vue {
 <style scoped lang="scss">
 @import "df-shared/src/scss/_variables.scss";
 
-h2 {
-  font-size: 1rem;
-  margin: 0.5rem;
-  display: inline-block;
-  align-self: center;
-}
-
-.icon {
-  align-self: center;
-}
-
-.document-title {
-  border: 1px solid #ececec;
-  border-radius: 5px;
-  margin-bottom: 5px;
-  cursor: pointer;
-  display: flex;
-}
-
-.selected {
-  background-color: $secondary;
-}
-
-.check {
-  padding: 0.5rem;
-  margin-left: auto;
-  color: green;
-}
-
-.buttons {
-  justify-content: space-between;
-}
-
-.guarantorselected {
-  background-color: $light-blue-transparent;
-}
-
-.title-bar {
-  display: flex;
-  align-items: center;
-  span {
-    padding: 0.5rem;
-    line-height: 1rem;
-  }
-}
-
-.btn-group {
-  width: fit-content;
-}
-
-h2 {
-  line-height: 1.5rem;
-}
-
 .remark {
   background-color: #e5e5f4;
   padding: 1rem;
   border-radius: 0.25rem;
-}
-
-.card {
-  padding: 1rem;
-}
-
-.card-container {
-  @media all and (min-width: 992px) {
-    width: 100%;
-  }
 }
 
 .logo-visale {
