@@ -24,7 +24,7 @@
         <div v-if="step === 2">
           <div class="ml-5">
             <router-link
-              class="fr-link"
+              class="fr-tag"
               :class="getTenantIdentityClass()"
               :to="{ name: 'TenantDocuments', params: { substep: '1' } }"
               ><StatusIcon :status="tenantStatus('IDENTITY')"></StatusIcon
@@ -33,7 +33,7 @@
           </div>
           <div class="ml-5">
             <router-link
-              class="fr-link"
+              class="fr-tag"
               :class="getTenantResidencyClass()"
               :to="{ name: 'TenantDocuments', params: { substep: '2' } }"
               ><StatusIcon :status="tenantStatus('RESIDENCY')"></StatusIcon
@@ -42,7 +42,7 @@
           </div>
           <div class="ml-5">
             <router-link
-              class="fr-link"
+              class="fr-tag"
               :class="getTenantProfessionalClass()"
               :to="{ name: 'TenantDocuments', params: { substep: '3' } }"
               ><StatusIcon :status="tenantStatus('PROFESSIONAL')"></StatusIcon
@@ -51,7 +51,7 @@
           </div>
           <div class="ml-5">
             <router-link
-              class="fr-link"
+              class="fr-tag"
               :class="getTenantFinancialClass()"
               :to="{ name: 'TenantDocuments', params: { substep: '4' } }"
               ><StatusIcon :status="tenantStatus('FINANCIAL')"></StatusIcon
@@ -60,7 +60,7 @@
           </div>
           <div class="ml-5">
             <router-link
-              class="fr-link"
+              class="fr-tag"
               :class="getTenantTaxClass()"
               :to="{ name: 'TenantDocuments', params: { substep: '5' } }"
               ><StatusIcon :status="tenantStatus('TAX')"></StatusIcon
@@ -82,7 +82,7 @@
           <div v-if="selectedGuarantor.typeGuarantor === 'NATURAL_PERSON'">
             <div class="ml-5">
               <router-link
-                class="fr-link"
+                class="fr-tag"
                 :class="getGuarantorIdentityClass()"
                 :to="{ name: 'GuarantorDocuments', params: { substep: '1' } }"
                 ><StatusIcon :status="guarantorStatus('IDENTITY')"></StatusIcon
@@ -91,7 +91,7 @@
             </div>
             <div class="ml-5">
               <router-link
-                class="fr-link"
+                class="fr-tag"
                 :class="getGuarantorResidencyClass()"
                 :to="{ name: 'GuarantorDocuments', params: { substep: '2' } }"
                 ><StatusIcon :status="guarantorStatus('RESIDENCY')"></StatusIcon
@@ -100,7 +100,7 @@
             </div>
             <div class="ml-5">
               <router-link
-                class="fr-link"
+                class="fr-tag"
                 :class="getGuarantorProfessionalClass()"
                 :to="{ name: 'GuarantorDocuments', params: { substep: '3' } }"
                 ><StatusIcon
@@ -111,7 +111,7 @@
             </div>
             <div class="ml-5">
               <router-link
-                class="fr-link"
+                class="fr-tag"
                 :class="getGuarantorFinancialClass()"
                 :to="{ name: 'GuarantorDocuments', params: { substep: '4' } }"
                 ><StatusIcon :status="guarantorStatus('FINANCIAL')"></StatusIcon
@@ -120,7 +120,7 @@
             </div>
             <div class="ml-5">
               <router-link
-                class="fr-link"
+                class="fr-tag"
                 :class="getGuarantorTaxClass()"
                 :to="{ name: 'GuarantorDocuments', params: { substep: '5' } }"
                 ><StatusIcon :status="guarantorStatus('TAX')"></StatusIcon
@@ -131,7 +131,7 @@
           <div v-if="selectedGuarantor.typeGuarantor === 'LEGAL_PERSON'">
             <div class="ml-5">
               <router-link
-                class="fr-link"
+                class="fr-tag"
                 :class="getGuarantorLegalPersonIdentityClass()"
                 :to="{ name: 'GuarantorDocuments', params: { substep: '0' } }"
                 ><StatusIcon
@@ -142,7 +142,7 @@
             </div>
             <div class="ml-5">
               <router-link
-                class="fr-link"
+                class="fr-tag"
                 :class="getGuarantorLegalPersonRepresentantClass()"
                 :to="{ name: 'GuarantorDocuments', params: { substep: '1' } }"
                 ><StatusIcon
@@ -408,7 +408,7 @@ export default class LeftEditMenu extends Vue {
   margin-bottom: 1rem;
 }
 
-.fr-link.valid-menu-link {
+.fr-tag.valid-menu-link {
   background-color: #e7f5ef;
   color: #169b62;
   &.current-step {
@@ -416,7 +416,7 @@ export default class LeftEditMenu extends Vue {
   }
 }
 
-.fr-link.to-process-menu-link {
+.fr-tag.to-process-menu-link {
   background-color: #fcf3ef;
   color: #ff9940;
   &.current-step {
@@ -424,7 +424,7 @@ export default class LeftEditMenu extends Vue {
   }
 }
 
-.fr-link.declined-menu-link {
+.fr-tag.declined-menu-link {
   background-color: #fce5e7;
   color: #e10600;
   &.current-step {
@@ -432,7 +432,7 @@ export default class LeftEditMenu extends Vue {
   }
 }
 
-.fr-link.empty-menu-link {
+.fr-tag.empty-menu-link {
   background-color: var(--bf200-bf300);
   color: var(--primary);
   &.current-step {
@@ -441,7 +441,7 @@ export default class LeftEditMenu extends Vue {
   }
 }
 
-.fr-link.filled-menu-link {
+.fr-tag.filled-menu-link {
   background-color: var(--bf200-bf300);
   color: var(--focus);
   &.current-step {
@@ -449,6 +449,7 @@ export default class LeftEditMenu extends Vue {
   }
 }
 
+.fr-tag,
 .fr-link {
   width: fit-content;
   color: var(--g800-plain);
