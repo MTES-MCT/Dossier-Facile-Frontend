@@ -24,48 +24,53 @@
         <div v-if="step === 2">
           <div class="ml-5">
             <router-link
-              class="fr-tag"
-              :class="getTenantIdentityClass()"
               :to="{ name: 'TenantDocuments', params: { substep: '1' } }"
-              ><StatusIcon :status="tenantStatus('IDENTITY')"></StatusIcon
-              >{{ $t("identification") }}</router-link
-            >
+              ><ColoredTag
+                :text="$t('identification')"
+                :status="tenantStatus('IDENTITY')"
+                :active="getTenantCurrentStep(1)"
+              ></ColoredTag
+            ></router-link>
           </div>
           <div class="ml-5">
             <router-link
-              class="fr-tag"
-              :class="getTenantResidencyClass()"
               :to="{ name: 'TenantDocuments', params: { substep: '2' } }"
-              ><StatusIcon :status="tenantStatus('RESIDENCY')"></StatusIcon
-              >{{ $t("residency") }}</router-link
-            >
+              ><ColoredTag
+                :text="$t('residency')"
+                :status="tenantStatus('RESIDENCY')"
+                :active="getTenantCurrentStep(2)"
+              ></ColoredTag
+            ></router-link>
           </div>
           <div class="ml-5">
             <router-link
-              class="fr-tag"
-              :class="getTenantProfessionalClass()"
               :to="{ name: 'TenantDocuments', params: { substep: '3' } }"
-              ><StatusIcon :status="tenantStatus('PROFESSIONAL')"></StatusIcon
-              >{{ $t("professional") }}</router-link
-            >
+              ><ColoredTag
+                :text="$t('professional')"
+                :status="tenantStatus('PROFESSIONAL')"
+                :active="getTenantCurrentStep(3)"
+              ></ColoredTag
+            ></router-link>
           </div>
           <div class="ml-5">
             <router-link
-              class="fr-tag"
-              :class="getTenantFinancialClass()"
               :to="{ name: 'TenantDocuments', params: { substep: '4' } }"
-              ><StatusIcon :status="tenantStatus('FINANCIAL')"></StatusIcon
-              >{{ $t("financial") }}</router-link
-            >
+              ><ColoredTag
+                :text="$t('financial')"
+                :status="tenantStatus('FINANCIAL')"
+                :active="getTenantCurrentStep(4)"
+              ></ColoredTag
+            ></router-link>
           </div>
           <div class="ml-5">
             <router-link
-              class="fr-tag"
-              :class="getTenantTaxClass()"
               :to="{ name: 'TenantDocuments', params: { substep: '5' } }"
-              ><StatusIcon :status="tenantStatus('TAX')"></StatusIcon
-              >{{ $t("tax") }}</router-link
-            >
+              ><ColoredTag
+                :text="$t('tax')"
+                :status="tenantStatus('TAX')"
+                :active="getTenantCurrentStep(5)"
+              ></ColoredTag
+            ></router-link>
           </div>
         </div>
       </div>
@@ -82,74 +87,75 @@
           <div v-if="selectedGuarantor.typeGuarantor === 'NATURAL_PERSON'">
             <div class="ml-5">
               <router-link
-                class="fr-tag"
-                :class="getGuarantorIdentityClass()"
                 :to="{ name: 'GuarantorDocuments', params: { substep: '1' } }"
-                ><StatusIcon :status="guarantorStatus('IDENTITY')"></StatusIcon
-                >{{ $t("identification") }}</router-link
-              >
+                ><ColoredTag
+                  :text="$t('identification')"
+                  :status="guarantorStatus('IDENTITY')"
+                  :active="getGuarantorCurrentStep(1)"
+                ></ColoredTag
+              ></router-link>
             </div>
             <div class="ml-5">
               <router-link
-                class="fr-tag"
-                :class="getGuarantorResidencyClass()"
                 :to="{ name: 'GuarantorDocuments', params: { substep: '2' } }"
-                ><StatusIcon :status="guarantorStatus('RESIDENCY')"></StatusIcon
-                >{{ $t("residency") }}</router-link
-              >
+                ><ColoredTag
+                  :text="$t('residency')"
+                  :status="guarantorStatus('RESIDENCY')"
+                  :active="getGuarantorCurrentStep(2)"
+                ></ColoredTag
+              ></router-link>
             </div>
             <div class="ml-5">
               <router-link
-                class="fr-tag"
-                :class="getGuarantorProfessionalClass()"
                 :to="{ name: 'GuarantorDocuments', params: { substep: '3' } }"
-                ><StatusIcon
+                ><ColoredTag
+                  :text="$t('professional')"
                   :status="guarantorStatus('PROFESSIONAL')"
-                ></StatusIcon
-                >{{ $t("professional") }}</router-link
-              >
+                  :active="getGuarantorCurrentStep(3)"
+                ></ColoredTag
+              ></router-link>
             </div>
             <div class="ml-5">
               <router-link
-                class="fr-tag"
-                :class="getGuarantorFinancialClass()"
                 :to="{ name: 'GuarantorDocuments', params: { substep: '4' } }"
-                ><StatusIcon :status="guarantorStatus('FINANCIAL')"></StatusIcon
-                >{{ $t("financial") }}</router-link
-              >
+                ><ColoredTag
+                  :text="$t('financial')"
+                  :status="guarantorStatus('FINANCIAL')"
+                  :active="getGuarantorCurrentStep(4)"
+                ></ColoredTag
+              ></router-link>
             </div>
             <div class="ml-5">
               <router-link
-                class="fr-tag"
-                :class="getGuarantorTaxClass()"
                 :to="{ name: 'GuarantorDocuments', params: { substep: '5' } }"
-                ><StatusIcon :status="guarantorStatus('TAX')"></StatusIcon
-                >{{ $t("tax") }}</router-link
-              >
+                ><ColoredTag
+                  :text="$t('tax')"
+                  :status="guarantorStatus('TAX')"
+                  :active="getGuarantorCurrentStep(5)"
+                ></ColoredTag
+              ></router-link>
             </div>
           </div>
           <div v-if="selectedGuarantor.typeGuarantor === 'LEGAL_PERSON'">
             <div class="ml-5">
               <router-link
-                class="fr-tag"
-                :class="getGuarantorLegalPersonIdentityClass()"
                 :to="{ name: 'GuarantorDocuments', params: { substep: '0' } }"
-                ><StatusIcon
+                ><ColoredTag
+                  :text="$t('identification-legal-person')"
                   :status="guarantorStatus('IDENTIFICATION_LEGAL_PERSON')"
-                ></StatusIcon
-                >{{ $t("identification-legal-person") }}</router-link
-              >
+                  :active="getGuarantorCurrentStep(0)"
+                ></ColoredTag
+              ></router-link>
             </div>
             <div class="ml-5">
               <router-link
-                class="fr-tag"
-                :class="getGuarantorLegalPersonRepresentantClass()"
                 :to="{ name: 'GuarantorDocuments', params: { substep: '1' } }"
-                ><StatusIcon
+                ><ColoredTag
+                  :text="$t('identity-represent')"
                   :status="guarantorStatus('IDENTIFICATION')"
-                ></StatusIcon
-                >{{ $t("identity-represent") }}</router-link
-              >
+                  :active="getGuarantorCurrentStep(1)"
+                ></ColoredTag
+              ></router-link>
             </div>
           </div>
         </div>
@@ -172,10 +178,11 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { mapState } from "vuex";
 import { DocumentService } from "../services/DocumentService";
-import StatusIcon from "./StatusIcon.vue";
+import StatusIcon from "df-shared/src/components/StatusIcon.vue";
+import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 
 @Component({
-  components: { StatusIcon },
+  components: { StatusIcon, ColoredTag },
   computed: {
     ...mapState({
       selectedGuarantor: "selectedGuarantor",
@@ -195,94 +202,54 @@ export default class LeftEditMenu extends Vue {
     return "";
   }
 
-  getLinkClass() {
-    return "valid-menu-link";
-  }
   guarantorStatus(documentType: string) {
-    let status;
-    if (documentType === "IDENTITY") {
-      status = DocumentService.getGuarantorIdentityStatus();
+    switch (documentType) {
+      case "IDENTITY":
+        return DocumentService.getGuarantorIdentityStatus() || "EMPTY";
+      case "RESIDENCY":
+        return DocumentService.getGuarantorResidencyStatus() || "EMPTY";
+      case "PROFESSIONAL":
+        return DocumentService.getGuarantorProfessionalStatus() || "EMPTY";
+      case "FINANCIAL":
+        return DocumentService.getGuarantorFinancialStatus() || "EMPTY";
+      case "TAX":
+        return DocumentService.getGuarantorTaxStatus() || "EMPTY";
+      case "IDENTIFICATION_LEGAL_PERSON":
+        return (
+          DocumentService.getGuarantorLegalPersonIdentityStatus() || "EMPTY"
+        );
+      case "IDENTIFICATION":
+        return (
+          DocumentService.getGuarantorLegalPersonRepresentantStatus() || "EMPTY"
+        );
     }
-    if (documentType === "RESIDENCY") {
-      status = DocumentService.getGuarantorResidencyStatus();
-    }
-    if (documentType === "PROFESSIONAL") {
-      status = DocumentService.getGuarantorProfessionalStatus();
-    }
-    if (documentType === "FINANCIAL") {
-      status = DocumentService.getGuarantorFinancialStatus();
-    }
-    if (documentType === "TAX") {
-      status = DocumentService.getGuarantorTaxStatus();
-    }
-    return status || "TODO";
+    return "EMPTY";
   }
+
   tenantStatus(documentType: string) {
-    let status;
-    if (documentType === "IDENTITY") {
-      status = DocumentService.getTenantIdentityStatus();
+    switch (documentType) {
+      case "IDENTITY":
+        return DocumentService.getTenantIdentityStatus() || "EMPTY";
+      case "RESIDENCY":
+        return DocumentService.getTenantResidencyStatus() || "EMPTY";
+      case "PROFESSIONAL":
+        return DocumentService.getTenantProfessionalStatus() || "EMPTY";
+      case "FINANCIAL":
+        return DocumentService.getTenantFinancialStatus() || "EMPTY";
+      case "TAX":
+        return DocumentService.getTenantTaxStatus() || "EMPTY";
     }
-    if (documentType === "RESIDENCY") {
-      status = DocumentService.getTenantResidencyStatus();
-    }
-    if (documentType === "PROFESSIONAL") {
-      status = DocumentService.getTenantProfessionalStatus();
-    }
-    if (documentType === "FINANCIAL") {
-      status = DocumentService.getTenantFinancialStatus();
-    }
-    if (documentType === "TAX") {
-      status = DocumentService.getTenantTaxStatus();
-    }
-    return status || "TODO";
-  }
-  getTenantIdentityClass() {
-    const status = DocumentService.getTenantIdentityStatus();
-    return this.getClassByStatus(status) + this.getTenantCurrentStep(1);
+    return "EMPTY";
   }
 
-  getTenantResidencyClass() {
-    const status = DocumentService.getTenantResidencyStatus();
-    return this.getClassByStatus(status) + this.getTenantCurrentStep(2);
-  }
-
-  getTenantProfessionalClass() {
-    const status = DocumentService.getTenantProfessionalStatus();
-    return this.getClassByStatus(status) + this.getTenantCurrentStep(3);
-  }
-
-  getTenantFinancialClass() {
-    const status = DocumentService.getTenantFinancialStatus();
-    return this.getClassByStatus(status) + this.getTenantCurrentStep(4);
-  }
-
-  getTenantTaxClass() {
-    const status = DocumentService.getTenantTaxStatus();
-    return this.getClassByStatus(status) + this.getTenantCurrentStep(5);
-  }
-
-  getTenantCurrentStep(substep: number) {
+  getTenantCurrentStep(substep: number): boolean {
     const s = Number(this.$route.params.substep) || 0;
-    return this.step === 2 && s === substep ? " current-step" : "";
+    return this.step === 2 && s === substep;
   }
 
-  getGuarantorCurrentStep(substep: number) {
+  getGuarantorCurrentStep(substep: number): boolean {
     const s = Number(this.$route.params.substep) || 0;
-    return this.step === 3 && s === substep ? " current-step" : "";
-  }
-
-  getClassByStatus(status: string) {
-    switch (status) {
-      case "VALIDATED":
-        return "valid-menu-link";
-      case "TO_PROCESS":
-        return "to-process-menu-link";
-      case "DECLINED":
-        return "declined-menu-link";
-      case "FILLED":
-        return "filled-menu-link";
-    }
-    return "empty-menu-link";
+    return this.step === 3 && s === substep;
   }
 
   getStep(s: number) {
@@ -299,41 +266,6 @@ export default class LeftEditMenu extends Vue {
       default:
         return s <= 0;
     }
-  }
-
-  getGuarantorIdentityClass() {
-    const status = DocumentService.getGuarantorIdentityStatus();
-    return this.getClassByStatus(status) + this.getGuarantorCurrentStep(1);
-  }
-
-  getGuarantorResidencyClass() {
-    const status = DocumentService.getGuarantorResidencyStatus();
-    return this.getClassByStatus(status) + this.getGuarantorCurrentStep(2);
-  }
-
-  getGuarantorProfessionalClass() {
-    const status = DocumentService.getGuarantorProfessionalStatus();
-    return this.getClassByStatus(status) + this.getGuarantorCurrentStep(3);
-  }
-
-  getGuarantorFinancialClass() {
-    const status = DocumentService.getGuarantorFinancialStatus();
-    return this.getClassByStatus(status) + this.getGuarantorCurrentStep(4);
-  }
-
-  getGuarantorTaxClass() {
-    const status = DocumentService.getGuarantorTaxStatus();
-    return this.getClassByStatus(status) + this.getGuarantorCurrentStep(5);
-  }
-
-  getGuarantorLegalPersonIdentityClass() {
-    const status = DocumentService.getGuarantorLegalPersonIdentityStatus();
-    return this.getClassByStatus(status) + this.getGuarantorCurrentStep(0);
-  }
-
-  getGuarantorLegalPersonRepresentantClass() {
-    const status = DocumentService.getGuarantorLegalPersonRepresentantStatus();
-    return this.getClassByStatus(status) + this.getGuarantorCurrentStep(1);
   }
 }
 </script>
@@ -408,52 +340,14 @@ export default class LeftEditMenu extends Vue {
   margin-bottom: 1rem;
 }
 
-.fr-tag.valid-menu-link {
-  background-color: #e7f5ef;
-  color: #169b62;
-  &.current-step {
-    border: 1px solid #169b62;
-  }
-}
-
-.fr-tag.to-process-menu-link {
-  background-color: #fcf3ef;
-  color: #ff9940;
-  &.current-step {
-    border: 1px solid #ff9940;
-  }
-}
-
-.fr-tag.declined-menu-link {
-  background-color: #fce5e7;
-  color: #e10600;
-  &.current-step {
-    border: 1px solid #e10600;
-  }
-}
-
-.fr-tag.empty-menu-link {
-  background-color: var(--bf200-bf300);
-  color: var(--primary);
-  &.current-step {
-    background-color: var(--w);
-    border: 1px solid #e5e5f4;
-  }
-}
-
-.fr-tag.filled-menu-link {
-  background-color: var(--bf200-bf300);
-  color: var(--focus);
-  &.current-step {
-    border: 1px solid #e5e5f4;
-  }
-}
-
-.fr-tag,
 .fr-link {
   width: fit-content;
   color: var(--g800-plain);
   font-size: 14px;
+}
+
+[href] {
+  box-shadow: none;
 }
 </style>
 

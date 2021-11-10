@@ -1,0 +1,87 @@
+<template>
+  <div class="fr-tag" :class="getClasses()">
+    <StatusIcon :status="status"></StatusIcon>
+    {{ text }}
+  </div>
+</template>
+
+<script lang="ts">
+import { Component, Prop, Vue } from "vue-property-decorator";
+import StatusIcon from "./StatusIcon.vue";
+
+@Component({
+  components: {
+    StatusIcon
+  }
+})
+export default class CardRow extends Vue {
+  @Prop({ default: "" }) status?: string;
+  @Prop() text!: string;
+  @Prop({ default: false }) active!: boolean;
+
+  getClasses() {
+    const c = this.active ? "active " : "";
+    switch (this.status) {
+      case "VALIDATED":
+        return c + "valid-menu-link";
+      case "TO_PROCESS":
+        return c + "to-process-menu-link";
+      case "DECLINED":
+        return c + "declined-menu-link";
+      case "FILLED":
+        return c + "filled-menu-link";
+    }
+    return c + "empty-menu-link";
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+.fr-tag.valid-menu-link {
+  background-color: #e7f5ef;
+  color: #169b62;
+  &.active {
+    border: 1px solid #169b62;
+  }
+}
+
+.fr-tag.to-process-menu-link {
+  background-color: #fcf3ef;
+  color: #ff9940;
+  &.active {
+    border: 1px solid #ff9940;
+  }
+}
+
+.fr-tag.declined-menu-link {
+  background-color: #fce5e7;
+  color: #e10600;
+  &.active {
+    border: 1px solid #e10600;
+  }
+}
+
+.fr-tag.empty-menu-link {
+  background-color: var(--bf200-bf300);
+  color: var(--primary);
+  &.active {
+    background-color: var(--w);
+    border: 1px solid #e5e5f4;
+  }
+}
+
+.fr-tag.filled-menu-link {
+  background-color: var(--bf200-bf300);
+  color: var(--focus);
+  &.active {
+    border: 1px solid #e5e5f4;
+  }
+}
+
+.fr-tag {
+  width: fit-content;
+  color: var(--g800-plain);
+  font-size: 14px;
+}
+</style>

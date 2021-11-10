@@ -264,7 +264,10 @@ export default class GuarantorDocuments extends Vue {
         name: "ValidateFile"
       });
     }
-    if (this.tmpGuarantorType != this.guarantor.typeGuarantor) {
+    if (
+      this.tmpGuarantorType != this.guarantor.typeGuarantor ||
+      (this.user.guarantors?.length || 0) <= 0
+    ) {
       this.$store
         .dispatch("setGuarantorType", this.tmpGuarantorType)
         .then(() => {
@@ -275,8 +278,7 @@ export default class GuarantorDocuments extends Vue {
         });
     } else {
       this.$router.push({
-        name: "GuarantorDocuments",
-        params: { substep: "0" }
+        name: "GuarantorList"
       });
     }
   }
