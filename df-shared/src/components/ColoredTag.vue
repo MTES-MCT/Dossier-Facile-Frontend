@@ -1,6 +1,6 @@
 <template>
   <div class="fr-tag" :class="getClasses()">
-    <StatusIcon :status="status"></StatusIcon>
+    <StatusIcon v-if="status" :status="status"></StatusIcon>
     {{ text }}
   </div>
 </template>

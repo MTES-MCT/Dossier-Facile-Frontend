@@ -1,5 +1,5 @@
 <template>
-  <div class="icons">
+  <div class="icons" v-if="getStatus()">
     <span class="material-icons-outlined">{{ getStatus() }}</span>
   </div>
 </template>
