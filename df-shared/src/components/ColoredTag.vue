@@ -73,7 +73,7 @@ export default class CardRow extends Vue {
 
 .fr-tag.filled-menu-link {
   background-color: var(--bf200-bf300);
-  color: var(--focus);
+  color: var(--primary);
   &.active {
     border: 1px solid #e5e5f4;
   }

@@ -180,13 +180,15 @@ import { mapState } from "vuex";
 import { DocumentService } from "../services/DocumentService";
 import StatusIcon from "df-shared/src/components/StatusIcon.vue";
 import ColoredTag from "df-shared/src/components/ColoredTag.vue";
+import { User } from "df-shared/src/models/User";
 
 @Component({
   components: { StatusIcon, ColoredTag },
   computed: {
     ...mapState({
       selectedGuarantor: "selectedGuarantor",
-      expandGuarantorMenu: "expandGuarantorMenu"
+      expandGuarantorMenu: "expandGuarantorMenu",
+      user: "user"
     })
   }
 })
@@ -194,6 +196,7 @@ export default class LeftEditMenu extends Vue {
   @Prop({ default: 0 }) step!: number;
   selectedGuarantor!: Guarantor;
   expandGuarantorMenu!: boolean;
+  user!: User;
 
   getClass(s: number) {
     if (this.getStep(s)) {
@@ -227,19 +230,28 @@ export default class LeftEditMenu extends Vue {
   }
 
   tenantStatus(documentType: string) {
+    let status;
     switch (documentType) {
       case "IDENTITY":
-        return DocumentService.getTenantIdentityStatus() || "EMPTY";
+        status = DocumentService.getTenantIdentityStatus() || "EMPTY";
+        break;
       case "RESIDENCY":
-        return DocumentService.getTenantResidencyStatus() || "EMPTY";
+        status = DocumentService.getTenantResidencyStatus() || "EMPTY";
+        break;
       case "PROFESSIONAL":
-        return DocumentService.getTenantProfessionalStatus() || "EMPTY";
+        status = DocumentService.getTenantProfessionalStatus() || "EMPTY";
+        break;
       case "FINANCIAL":
-        return DocumentService.getTenantFinancialStatus() || "EMPTY";
+        status = DocumentService.getTenantFinancialStatus() || "EMPTY";
+        break;
       case "TAX":
-        return DocumentService.getTenantTaxStatus() || "EMPTY";
+        status = DocumentService.getTenantTaxStatus() || "EMPTY";
+        break;
     }
-    return "EMPTY";
+    if (status === "TO_PROCESS" && this.user.status !== "TO_PROCESS") {
+      return "FILLED";
+    }
+    return status;
   }
 
   getTenantCurrentStep(substep: number): boolean {

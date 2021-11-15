@@ -15,7 +15,7 @@ export default class StatusIcon extends Vue {
     switch (this.status) {
       case "EMPTY":
         return "arrow_forward";
-      case "PENDING":
+      case "FILLED":
         return "attachment";
       case "TO_PROCESS":
         return "schedule";
