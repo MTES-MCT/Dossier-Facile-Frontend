@@ -121,6 +121,7 @@ import DocumentHelp from "../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import { AnalyticsService } from "../../services/AnalyticsService";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import { DocumentService } from "../../services/DocumentService";
 
 @Component({
   components: {
@@ -324,11 +325,26 @@ export default class Identification extends Vue {
   }
 
   hasWrongClassification() {
+    const doc = this.user.documents?.find((d: DfDocument) => {
+      return d.documentCategory === "IDENTIFICATION";
+    });
+    if (doc?.discardShareidWarning) {
+      return false;
+    }
     return (
       this.identificationFiles().findIndex(f => {
         return this.wrongClassification(f);
       }) >= 0
     );
+  }
+
+  closeWarning() {
+    const doc = this.user.documents?.find((d: DfDocument) => {
+      return d.documentCategory === "IDENTIFICATION";
+    });
+    DocumentService.discardWarning(doc?.id).then(() => {
+      this.$store.commit("discardShareidWarning", doc);
+    });
   }
 }
 </script>
