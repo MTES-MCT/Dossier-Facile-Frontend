@@ -39,23 +39,23 @@ export default class CardRow extends Vue {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .fr-tag.valid-menu-link {
-  background-color: #e7f5ef;
-  color: #169b62;
+  background-color: #f3faf7;
+  color: #466964;
   &.active {
-    border: 1px solid #169b62;
+    border: 1px solid #466964;
   }
 }
 
 .fr-tag.to-process-menu-link {
-  background-color: #fcf3ef;
-  color: #ff9940;
+  background-color: #fffaf5;
+  color: #7d4e5b;
   &.active {
-    border: 1px solid #ff9940;
+    border: 1px solid #7d4e5b;
   }
 }
 
 .fr-tag.declined-menu-link {
-  background-color: #fce5e7;
+  background-color: #fdf9f7;
   color: #e10600;
   &.active {
     border: 1px solid #e10600;

@@ -529,10 +529,11 @@
                             <ColoredTag
                               :text="
                                 $t(
-                                  getGuarantorStatus(
-                                    g,
-                                    'IDENTIFICATION_LEGAL_PERSON'
-                                  )
+                                  's_' +
+                                    getGuarantorStatus(
+                                      g,
+                                      'IDENTIFICATION_LEGAL_PERSON'
+                                    )
                                 )
                               "
                               :status="
@@ -572,7 +573,9 @@
                             </h4>
                             <ColoredTag
                               :text="
-                                $t(getGuarantorStatus(g, 'IDENTIFICATION'))
+                                $t(
+                                  's_' + getGuarantorStatus(g, 'IDENTIFICATION')
+                                )
                               "
                               :status="getGuarantorStatus(g, 'IDENTIFICATION')"
                             ></ColoredTag>
@@ -797,7 +800,7 @@ export default class Account extends Vue {
     const doc = g.documents?.find((d: DfDocument) => {
       return d.documentCategory === docType;
     });
-    return doc?.documentStatus;
+    return doc?.documentStatus || "EMPTY";
   }
 
   goToProfile() {
@@ -1165,6 +1168,7 @@ hr {
     "s_VALIDATED":"Validated",
     "s_DECLINED":"Declined",
     "s_INCOMPLETE":"Incomplete",
+    "s_EMPTY": "Empty",
     "TO_PROCESS":"to process",
     "VALIDATED":"is validated",
     "DECLINED":"is declined",
@@ -1233,6 +1237,7 @@ hr {
     "s_VALIDATED":"Vérifié",
     "s_DECLINED":"Modification demandée",
     "s_INCOMPLETE":"Non terminé",
+    "s_EMPTY": "Document manquant",
     "TO_PROCESS":"est en cours de traitement",
     "VALIDATED":"est vérifié",
     "DECLINED":"nécessite une modification",
