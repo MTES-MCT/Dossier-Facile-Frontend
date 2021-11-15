@@ -131,5 +131,12 @@ export const DocumentService = {
       "IDENTIFICATION"
     );
     return doc?.documentStatus || "";
+  },
+  getOrganismStatus(): string {
+    const doc = this.guarantorHasDoc(
+      store.state.selectedGuarantor,
+      "IDENTIFICATION"
+    );
+    return doc?.documentStatus || "";
   }
 };

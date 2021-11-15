@@ -158,6 +158,18 @@
               ></router-link>
             </div>
           </div>
+          <div v-if="selectedGuarantor.typeGuarantor === 'ORGANISM'">
+            <div class="ml-5">
+              <router-link
+                :to="{ name: 'GuarantorDocuments', params: { substep: '0' } }"
+                ><ColoredTag
+                  :text="$t('identification-organism')"
+                  :status="guarantorStatus('IDENTIFICATION')"
+                  :active="getGuarantorCurrentStep(0)"
+                ></ColoredTag
+              ></router-link>
+            </div>
+          </div>
         </div>
       </div>
       <div class="step" :class="getClass(3)">
