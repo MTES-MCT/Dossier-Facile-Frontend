@@ -318,10 +318,28 @@ export default class Identification extends Vue {
     if (f.shareidIdentification?.status !== "success") {
       return false;
     }
-    return (
-      f.shareidIdentification?.payload?.result !== "id_card" ||
-      (f.shareidIdentification?.payload?.confidence || 0) < 0.99
-    );
+    const doc = this.user.documents?.find((d: DfDocument) => {
+      return d.documentCategory === "IDENTIFICATION";
+    });
+    if (
+      f.shareidIdentification?.payload?.result === "id_card" &&
+      doc?.documentSubCategory !== "FRENCH_IDENTITY_CARD"
+    ) {
+      return true;
+    }
+    if (
+      f.shareidIdentification?.payload?.result === "passport" &&
+      doc?.documentSubCategory !== "FRENCH_PASSPORT"
+    ) {
+      return true;
+    }
+    if (
+      f.shareidIdentification?.payload?.result === "residency_permit" &&
+      doc?.documentSubCategory !== "FRENCH_RESIDENCE_PERMIT"
+    ) {
+      return true;
+    }
+    return (f.shareidIdentification?.payload?.confidence || 0) < 0.99;
   }
 
   hasWrongClassification() {
