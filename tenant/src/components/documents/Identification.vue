@@ -55,9 +55,30 @@
     </ConfirmModal>
 
     <NakedCard
-      class="fr-mt-3w"
+      class="fr-mt-3w fr-p-md-5w"
       v-if="identificationDocument.key || identificationFiles().length > 0"
     >
+      <div v-if="hasWrongClassification()" class="classification-container">
+        <div class="fr-tag auto-tag">{{ $t("automatic-check") }}</div>
+        <div class="warning-text">{{ $t("warning-text") }}</div>
+        <div class="ignore-btn-container">
+          <button class="ignore-btn" @click="closeWarning()">
+            {{ $t("ignore") }}
+          </button>
+        </div>
+      </div>
+      <div
+        v-if="identificationFiles().length > 0"
+        class="fr-col-md-12 fr-mb-3w"
+      >
+        <ListItem
+          v-for="(file, k) in identificationFiles()"
+          :key="k"
+          :file="file"
+          :warning="wrongClassification(file)"
+          @remove="remove(file)"
+        />
+      </div>
       <div>
         <div v-if="identificationDocument.explanationText">
           <div
@@ -73,17 +94,6 @@
             @reset-files="resetFiles"
           ></FileUpload>
         </div>
-      </div>
-      <div
-        v-if="identificationFiles().length > 0"
-        class="fr-col-md-12 fr-mb-3w"
-      >
-        <ListItem
-          v-for="(file, k) in identificationFiles()"
-          :key="k"
-          :file="file"
-          @remove="remove(file)"
-        />
       </div>
     </NakedCard>
   </div>
@@ -111,6 +121,7 @@ import DocumentHelp from "../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import { AnalyticsService } from "../../services/AnalyticsService";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import { DocumentService } from "../../services/DocumentService";
 
 @Component({
   components: {
@@ -299,6 +310,42 @@ export default class Identification extends Vue {
       this.files.splice(firstIndex, 1);
     }
   }
+
+  wrongClassification(f: DfFile) {
+    if (this.user.id % 2 == 0) {
+      return false;
+    }
+    if (f.shareidIdentification?.status !== "success") {
+      return false;
+    }
+    return (
+      f.shareidIdentification?.payload?.result !== "id_card" ||
+      (f.shareidIdentification?.payload?.confidence || 0) < 0.99
+    );
+  }
+
+  hasWrongClassification() {
+    const doc = this.user.documents?.find((d: DfDocument) => {
+      return d.documentCategory === "IDENTIFICATION";
+    });
+    if (doc?.discardShareidWarning) {
+      return false;
+    }
+    return (
+      this.identificationFiles().findIndex(f => {
+        return this.wrongClassification(f);
+      }) >= 0
+    );
+  }
+
+  closeWarning() {
+    const doc = this.user.documents?.find((d: DfDocument) => {
+      return d.documentCategory === "IDENTIFICATION";
+    });
+    DocumentService.discardWarning(doc?.id).then(() => {
+      this.$store.commit("discardShareidWarning", doc);
+    });
+  }
 }
 </script>
 
@@ -311,6 +358,37 @@ table,
 th,
 td {
   border: 1px solid #ececec;
+}
+
+.classification-container {
+  margin: 0 0 1rem;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  background-color: var(--orange-1);
+}
+
+.auto-tag {
+  font-size: 12px;
+  text-align: center;
+  color: #fff;
+  background-color: var(--orange-2);
+}
+
+.warning-text {
+  margin-top: 1rem;
+  color: var(--orange-2);
+}
+
+.ignore-btn-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ignore-btn {
+  padding: 0.25rem 1rem;
+  background-color: #ff6f4c;
+  color: var(--w);
+  font-size: 14px;
 }
 </style>
 
@@ -325,7 +403,10 @@ td {
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
   "select-label": "I add a valid identity document.",
   "validate": "Validate",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "automatic-check": "Automatic check",
+  "warning-text": "🤖 The document provided does not seem to correspond to the type of document expected.",
+  "ignore": "Ignore"
 },
 "fr": {
   "identity-card": "Carte d’identité française",
@@ -336,7 +417,10 @@ td {
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
   "select-label": "J’ajoute une pièce d’identité en cours de validité.",
   "validate": "Valider",
-  "cancel": "Annuler"
+  "cancel": "Annuler",
+  "automatic-check": "Vérification automatique",
+  "warning-text": "🤖 Le document fourni ne semble pas correspondre au type de document attendu.",
+  "ignore": "Ignorer"
 }
 }
 </i18n>

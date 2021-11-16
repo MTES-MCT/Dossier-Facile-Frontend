@@ -1,3 +1,5 @@
+import { ShareIdData } from "./ShareIdData";
+
 export class DfFile {
   id?: number | string;
   path?: string;
@@ -5,4 +7,5 @@ export class DfFile {
   originalName?: string;
   file?: File;
   size?: number;
+  shareidIdentification?: ShareIdData;
 }
