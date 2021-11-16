@@ -14,5 +14,9 @@
   "residency": "Justificatif de domicile",
   "professional": "Justificatif de situation professionnelle",
   "financial": "Justificatif de ressources",
-  "tax": "Avis d'imposition"
+  "tax": "Avis d'imposition",
+  "personal-information": "Je renseigne mes informations",
+  "my-document": "Je joins mes documents",
+  "my-guarantor": "Je renseigne mon garant",
+  "validate-file": "Je valide mon dossier"
 }

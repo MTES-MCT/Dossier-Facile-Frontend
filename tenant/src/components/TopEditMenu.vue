@@ -1,92 +1,60 @@
 <template>
   <div class="top-edit-menu">
-    <div class="inner-top-edit fr-mt-2w">
-      <div class="hline hidden"></div>
-      <div class="active step">
-        <router-link :to="{ name: 'TenantName' }">
-          <step-number number="1"></step-number>
-        </router-link>
-      </div>
+    <h1 class="blue-text text-center fr-mt-1w fr-mb-1v">
+      {{ getStepTitle() }}
+    </h1>
+    <div class="inner-top-edit fr-mb-1w">
       <div class="hline" :class="getClass(0)"></div>
-      <div class="step" :class="getClass(1)">
-        <router-link
-          :to="{ name: 'TenantDocuments', params: { substep: '1' } }"
-        >
-          <step-number number="2" active="getStep(1)"></step-number>
-        </router-link>
-      </div>
       <div class="hline" :class="getClass(1)"></div>
-      <div class="step" :class="getClass(2)">
-        <router-link :to="{ name: 'GuarantorChoice' }">
-          <step-number number="3" active="getStep(2)"></step-number>
-        </router-link>
-      </div>
       <div class="hline" :class="getClass(2)"></div>
-      <div class="step" :class="getClass(3)">
-        <router-link :to="{ name: 'ValidateFile' }">
-          <step-number number="4" active="getStep(3)"></step-number>
-        </router-link>
-      </div>
-      <div class="hline hidden"></div>
+      <div class="hline" :class="getClass(3)"></div>
     </div>
-    <div>
-      <div class="step-title">
-        <router-link :to="{ name: 'TenantName' }" v-if="step <= 1">
-          Mes informations personnelles</router-link
-        >
-        <router-link
-          :to="{ name: 'TenantDocuments', params: { substep: '1' } }"
-          v-if="step === 2"
-          >Je joins mes documents</router-link
-        >
-        <router-link :to="{ name: 'GuarantorChoice' }" v-if="step === 3"
-          >Je renseigne mon garant</router-link
-        >
-        <router-link :to="{ name: 'GuarantorChoice' }" v-if="step === 4"
-          >Je valide mon dossier</router-link
-        >
+    <hr v-if="step === 2" />
+    <div class="menu-grid-row" v-if="step === 2" ref="tcontainer">
+      <div class="ml-5" ref="td1">
+        <router-link :to="{ name: 'TenantDocuments', params: { substep: '1' } }"
+          ><ColoredTag
+            :text="$t('identification')"
+            :status="tenantStatus('IDENTITY')"
+            :active="getTenantCurrentStep(1)"
+          ></ColoredTag
+        ></router-link>
       </div>
-    </div>
-    <div class="menu-grid-row" v-if="step === 2">
-      <div class="ml-5">
-        <router-link
-          class="fr-link"
-          :class="getTenantIdentityClass()"
-          :to="{ name: 'TenantDocuments', params: { substep: '1' } }"
-          >{{ $t("identification") }}</router-link
-        >
+      <div class="ml-5" ref="td2">
+        <router-link :to="{ name: 'TenantDocuments', params: { substep: '2' } }"
+          ><ColoredTag
+            :text="$t('residency')"
+            :status="tenantStatus('RESIDENCY')"
+            :active="getTenantCurrentStep(2)"
+          ></ColoredTag
+        ></router-link>
       </div>
-      <div class="ml-5">
-        <router-link
-          class="fr-link"
-          :class="getTenantResidencyClass()"
-          :to="{ name: 'TenantDocuments', params: { substep: '2' } }"
-          >{{ $t("residency") }}</router-link
-        >
+      <div class="ml-5" ref="td3">
+        <router-link :to="{ name: 'TenantDocuments', params: { substep: '3' } }"
+          ><ColoredTag
+            :text="$t('professional')"
+            :status="tenantStatus('PROFESSIONAL')"
+            :active="getTenantCurrentStep(3)"
+          ></ColoredTag
+        ></router-link>
       </div>
-      <div class="ml-5">
-        <router-link
-          class="fr-link"
-          :class="getTenantProfessionalClass()"
-          :to="{ name: 'TenantDocuments', params: { substep: '3' } }"
-          >{{ $t("professional") }}</router-link
-        >
+      <div class="ml-5" ref="td4">
+        <router-link :to="{ name: 'TenantDocuments', params: { substep: '4' } }"
+          ><ColoredTag
+            :text="$t('financial')"
+            :status="tenantStatus('FINANCIAL')"
+            :active="getTenantCurrentStep(4)"
+          ></ColoredTag
+        ></router-link>
       </div>
-      <div class="ml-5">
-        <router-link
-          class="fr-link"
-          :class="getTenantFinancialClass()"
-          :to="{ name: 'TenantDocuments', params: { substep: '4' } }"
-          >{{ $t("financial") }}</router-link
-        >
-      </div>
-      <div class="ml-5">
-        <router-link
-          class="fr-link"
-          :class="getTenantTaxClass()"
-          :to="{ name: 'TenantDocuments', params: { substep: '5' } }"
-          >{{ $t("tax") }}</router-link
-        >
+      <div class="ml-5" ref="td5">
+        <router-link :to="{ name: 'TenantDocuments', params: { substep: '5' } }"
+          ><ColoredTag
+            :text="$t('tax')"
+            :status="tenantStatus('TAX')"
+            :active="getTenantCurrentStep(5)"
+          ></ColoredTag
+        ></router-link>
       </div>
     </div>
   </div>
@@ -96,18 +64,40 @@
 import StepNumber from "df-shared/src/components/StepNumber.vue";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { DocumentService } from "../services/DocumentService";
+import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 
 @Component({
-  components: { StepNumber }
+  components: { StepNumber, ColoredTag }
 })
 export default class LeftEditMenu extends Vue {
   @Prop({ default: 0 }) step!: number;
 
-  getClass(s: number) {
-    if (this.getStep(s)) {
-      return "active";
+  mounted() {
+    const element = this.$refs["td" + this.$route.params.substep] as any;
+    if (element === undefined) {
+      return;
     }
-    return "";
+    const tcontainer = this.$refs["tcontainer"] as any;
+    if (tcontainer === undefined) {
+      return;
+    }
+    const left =
+      element.offsetLeft - (tcontainer.offsetWidth - element.offsetWidth) / 2;
+    tcontainer.scrollTo(left, 0);
+  }
+
+  getClass(s: number) {
+    let res = "";
+    if (this.step !== s + 1) {
+      res += " small ";
+    }
+    if (this.step === 2 && s === 1) {
+      res += ` rad${this.$route.params.substep} `;
+    }
+    if (this.getStep(s)) {
+      return res + "active";
+    }
+    return res;
   }
 
   getLinkClass() {
@@ -166,12 +156,44 @@ export default class LeftEditMenu extends Vue {
         return s <= 0;
     }
   }
+
+  getStepTitle() {
+    if (this.step <= 1) {
+      return this.$i18n.t("personal-information");
+    }
+    if (this.step === 2) {
+      return this.$i18n.t("my-document");
+    }
+    if (this.step === 3) {
+      return this.$i18n.t("my-guarantor");
+    }
+    if (this.step === 4) {
+      return this.$i18n.t("validate-file");
+    }
+    return "";
+  }
+
+  tenantStatus(documentType: string) {
+    return DocumentService.tenantStatus(documentType);
+  }
+
+  getTenantCurrentStep(substep: number): boolean {
+    const s = Number(this.$route.params.substep) || 0;
+    return this.step === 2 && s === substep;
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 @import "df-shared/src/scss/_variables.scss";
+
+h1 {
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1rem;
+  padding-top: 0.5rem;
+}
 
 .top-edit-menu {
   white-space: nowrap;
@@ -192,7 +214,7 @@ export default class LeftEditMenu extends Vue {
 .step {
   display: flex;
   align-items: center;
-  height: 4rem;
+  height: 5px;
 }
 
 .step-title {
@@ -203,6 +225,7 @@ export default class LeftEditMenu extends Vue {
   text-align: center;
   font-size: 20px;
   font-weight: bold;
+  line-height: 6px;
 }
 
 .hidden {
@@ -210,49 +233,9 @@ export default class LeftEditMenu extends Vue {
 }
 
 .ml-5 {
-  margin-left: -1rem;
+  margin-left: 1rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
-}
-
-.valid-menu-link {
-  background-color: #e3ebd3;
-  color: var(--success);
-  &:before {
-    content: "\2713";
-    display: inline-block;
-    padding: 0 6px 0 0;
-  }
-}
-
-.to-process-menu-link {
-  background-color: var(--bf200-bf300);
-  color: var(--focus);
-  &:before {
-    content: "\2192";
-    display: inline-block;
-    padding: 0 6px 0 0;
-  }
-}
-
-.declined-menu-link {
-  background-color: var(--rm300);
-  color: var(--error);
-  &:before {
-    content: "\00d7";
-    display: inline-block;
-    padding: 0 6px 0 0;
-  }
-}
-
-.empty-menu-link {
-  background-color: var(--bf200-bf300);
-  color: var(--focus);
-  &:before {
-    content: "\2192";
-    display: inline-block;
-    padding: 0 6px 0 0;
-  }
 }
 
 .menu-grid-row {
@@ -262,19 +245,42 @@ export default class LeftEditMenu extends Vue {
   overflow: scroll;
 }
 
+hr {
+  height: 1px;
+  opacity: 0.25;
+}
+
 [href] {
   box-shadow: none;
 }
 
 .hline {
-  flex: 1;
-  border-bottom: 1px solid var(--g400-t);
+  height: 0.3rem;
+  border-radius: 0.15rem;
+  background-color: var(--g200);
   z-index: 0;
-  min-width: 25px;
-  height: 2rem;
+  margin: 2%;
+  width: 60%;
   &.active {
-    border-bottom: 1px solid var(--primary);
+    background-color: var(--primary);
   }
+}
+
+.small {
+  width: 8% !important;
+}
+
+.rad1 {
+  background: linear-gradient(90deg, var(--primary) 20%, var(--g200) 20%);
+}
+.rad2 {
+  background: linear-gradient(90deg, var(--primary) 40%, var(--g200) 40%);
+}
+.rad3 {
+  background: linear-gradient(90deg, var(--primary) 60%, var(--g200) 60%);
+}
+.rad4 {
+  background: linear-gradient(90deg, var(--primary) 80%, var(--g200) 80%);
 }
 </style>
 

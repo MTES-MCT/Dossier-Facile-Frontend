@@ -5,7 +5,7 @@
         <div class="step-number">1</div>
         <div class="step-title">
           <router-link :to="{ name: 'TenantName' }" class="fr-link">
-            Je renseigne mes informations</router-link
+            {{ $t("personal-information") }}</router-link
           >
         </div>
       </div>
@@ -16,7 +16,7 @@
           <router-link
             class="fr-link"
             :to="{ name: 'TenantDocuments', params: { substep: '1' } }"
-            >Je joins mes documents</router-link
+            >{{ $t("my-document") }}</router-link
           >
         </div>
       </div>
@@ -77,9 +77,9 @@
       <div class="step" :class="getClass(2)">
         <div class="step-number">3</div>
         <div class="step-title">
-          <router-link class="fr-link" :to="{ name: 'GuarantorChoice' }"
-            >je renseigne mon garant</router-link
-          >
+          <router-link class="fr-link" :to="{ name: 'GuarantorChoice' }">{{
+            $t("my-guarantor")
+          }}</router-link>
         </div>
       </div>
       <div class="vline" :class="getClass(2)">
@@ -175,9 +175,9 @@
       <div class="step" :class="getClass(3)">
         <div class="step-number">4</div>
         <div class="step-title">
-          <router-link class="fr-link" :to="{ name: 'ValidateFile' }"
-            >Je valide mon dossier</router-link
-          >
+          <router-link class="fr-link" :to="{ name: 'ValidateFile' }">{{
+            $t("validate-file")
+          }}</router-link>
         </div>
       </div>
       <div class="spacer"></div>
@@ -242,28 +242,7 @@ export default class LeftEditMenu extends Vue {
   }
 
   tenantStatus(documentType: string) {
-    let status;
-    switch (documentType) {
-      case "IDENTITY":
-        status = DocumentService.getTenantIdentityStatus() || "EMPTY";
-        break;
-      case "RESIDENCY":
-        status = DocumentService.getTenantResidencyStatus() || "EMPTY";
-        break;
-      case "PROFESSIONAL":
-        status = DocumentService.getTenantProfessionalStatus() || "EMPTY";
-        break;
-      case "FINANCIAL":
-        status = DocumentService.getTenantFinancialStatus() || "EMPTY";
-        break;
-      case "TAX":
-        status = DocumentService.getTenantTaxStatus() || "EMPTY";
-        break;
-    }
-    if (status === "TO_PROCESS" && this.user.status !== "TO_PROCESS") {
-      return "FILLED";
-    }
-    return status;
+    return DocumentService.tenantStatus(documentType);
   }
 
   getTenantCurrentStep(substep: number): boolean {

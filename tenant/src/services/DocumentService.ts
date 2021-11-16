@@ -138,5 +138,29 @@ export const DocumentService = {
       "IDENTIFICATION"
     );
     return doc?.documentStatus || "";
+  },
+  tenantStatus(documentType: string) {
+    let status;
+    switch (documentType) {
+      case "IDENTITY":
+        status = DocumentService.getTenantIdentityStatus() || "EMPTY";
+        break;
+      case "RESIDENCY":
+        status = DocumentService.getTenantResidencyStatus() || "EMPTY";
+        break;
+      case "PROFESSIONAL":
+        status = DocumentService.getTenantProfessionalStatus() || "EMPTY";
+        break;
+      case "FINANCIAL":
+        status = DocumentService.getTenantFinancialStatus() || "EMPTY";
+        break;
+      case "TAX":
+        status = DocumentService.getTenantTaxStatus() || "EMPTY";
+        break;
+    }
+    if (status === "TO_PROCESS" && store.state.user.status !== "TO_PROCESS") {
+      return "FILLED";
+    }
+    return status;
   }
 };
