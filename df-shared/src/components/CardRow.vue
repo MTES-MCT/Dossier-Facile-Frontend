@@ -48,7 +48,7 @@ export default class CardRow extends Vue {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .card-container {
-  margin: 0.5rem 1rem;
+  margin: 0.5rem 0rem;
   @media (min-width: 768px) {
     margin: 0.5rem 0;
     padding: 1.75rem 2rem;

@@ -2,9 +2,9 @@
   <div>
     <div>
       <NakedCard class="fr-p-md-5w">
-        <h5>
+        <h1 class="fr-h6">
           {{ $t("select-label") }}
-        </h5>
+        </h1>
 
         <v-gouv-fr-modal>
           <template v-slot:button>
