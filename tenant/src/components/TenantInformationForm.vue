@@ -89,6 +89,7 @@
                     </BigRadio>
                     <BigRadio
                       :big="true"
+                      class="fr-mt-2w fr-mt-md-0"
                       val="COUPLE"
                       :value="applicationType"
                       @input="updateApplicationType"
@@ -102,6 +103,7 @@
                     </BigRadio>
                     <BigRadio
                       :big="true"
+                      class="fr-mt-2w fr-mt-md-0"
                       val="GROUP"
                       :value="applicationType"
                       @input="updateApplicationType"
