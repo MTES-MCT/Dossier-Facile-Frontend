@@ -27,7 +27,7 @@
 
         <select
           v-model="professionalDocument"
-          class="fr-select fr-mb-3w fr-mt-2w"
+          class="fr-select fr-mb-3w fr-mt-3w"
           id="select"
           name="select"
           @change="onSelectChange()"

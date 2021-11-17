@@ -29,7 +29,7 @@
           </template>
         </v-gouv-fr-modal>
 
-        <div class="fr-mt-4w">{{ $t("situation") }}</div>
+        <div class="fr-mt-3w">{{ $t("situation") }}</div>
 
         <form name="form" @submit.prevent="validate().then(save)">
           <div class="fr-mt-3w">

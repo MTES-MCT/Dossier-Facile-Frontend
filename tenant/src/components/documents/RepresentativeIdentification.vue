@@ -27,10 +27,10 @@
       </NakedCard>
       <NakedCard class="fr-mt-3w fr-p-md-5w">
         <div>
-          <label class="fr-label" for="select">
+          <h1 class="fr-label" for="select">
             J’ajoute une pièce d’identité en cours de validité. Attention,
             veillez à ajouter votre pièce recto-verso !
-          </label>
+          </h1>
           <select
             v-model="identificationDocument"
             class="fr-select fr-mb-3w"

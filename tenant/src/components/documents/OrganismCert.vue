@@ -21,7 +21,7 @@
             </p>
           </template>
         </v-gouv-fr-modal>
-        <div class="fr-mb-3w">
+        <div class="fr-mt-3w fr-mb-3w">
           <FileUpload
             :current-status="fileUploadStatus"
             @add-files="addFiles"

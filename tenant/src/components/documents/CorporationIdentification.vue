@@ -25,9 +25,9 @@
       </NakedCard>
       <NakedCard class="fr-mt-3w fr-p-md-5w">
         <div>
-          <div class="fr-mb-3w">
+          <h1 class="fr-label">
             {{ $t("kbis-label") }}
-          </div>
+          </h1>
           <v-gouv-fr-modal>
             <template v-slot:button>
               En difficulté pour répondre à la question ?
@@ -44,7 +44,7 @@
               </p>
             </template>
           </v-gouv-fr-modal>
-          <div class="fr-mb-3w">
+          <div class="fr-mt-3w fr-mb-3w">
             <FileUpload
               :current-status="fileUploadStatus"
               @add-files="addFiles"

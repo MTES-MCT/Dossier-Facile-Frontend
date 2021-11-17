@@ -22,7 +22,7 @@
             </p>
           </template>
         </v-gouv-fr-modal>
-        <div class="fr-mt-5w">
+        <div class="fr-mt-3w">
           {{ $t("select-label") }}
         </div>
 

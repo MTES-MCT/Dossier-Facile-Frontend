@@ -24,11 +24,9 @@
       <form name="form" @submit.prevent="validate().then(save())">
         <NakedCard class="fr-p-md-5w fr-mb-3w">
           <div>
-            <div class="fr-pl-3v">
-              <h5>
-                {{ $t("title") }}
-              </h5>
-            </div>
+            <h1 class="fr-h6">
+              {{ $t("title") }}
+            </h1>
 
             <v-gouv-fr-modal>
               <template v-slot:button>

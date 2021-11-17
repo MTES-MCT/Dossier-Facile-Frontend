@@ -26,7 +26,7 @@
           </template>
         </v-gouv-fr-modal>
 
-        <div class="fr-mt-4w">
+        <div class="fr-mt-3w">
           <fieldset class="fr-fieldset">
             <div class="fr-fieldset__content">
               <div class="fr-grid-row">
