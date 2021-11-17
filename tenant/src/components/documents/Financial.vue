@@ -6,7 +6,7 @@
     <div v-if="!editFinancialDocument">
       <NakedCard class="fr-p-md-5w fr-mb-3w">
         <div>
-          <h5>{{ $t("title") }}</h5>
+          <h1 class="fr-h6">{{ $t("title") }}</h1>
           <div>{{ $t("subtitle") }}</div>
         </div>
       </NakedCard>

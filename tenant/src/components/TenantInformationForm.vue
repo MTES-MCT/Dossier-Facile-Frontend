@@ -69,7 +69,7 @@
           @submit.prevent="validate().then(handleOthersInformation)"
         >
           <NakedCard class="fr-p-md-5w">
-            <h5>{{ $t("title") }}</h5>
+            <h1 class="fr-h6">{{ $t("title") }}</h1>
             <div class="fr-form-group fr-mt-3w fr-mb-0">
               <fieldset class="fr-fieldset">
                 <div class="fr-fieldset__content">

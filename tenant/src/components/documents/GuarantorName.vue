@@ -3,7 +3,7 @@
     <ValidationObserver v-slot="{ validate }">
       <form name="guarantorNameForm" @submit.prevent="validate().then(save)">
         <NakedCard class="fr-p-md-5w">
-          <h5>{{ $t("title") }}</h5>
+          <h1 class="fr-h6">{{ $t("title") }}</h1>
           <div>{{ $t("subtitle") }}</div>
           <div class="fr-grid-row fr-grid-row--center fr-mt-4w">
             <div class="fr-col-12 fr-mb-3w">

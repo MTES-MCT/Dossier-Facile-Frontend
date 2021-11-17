@@ -9,7 +9,7 @@
     </ConfirmModal>
     <ValidationObserver v-slot="{ validate }">
       <NakedCard class="fr-p-md-5w">
-        <h5>{{ $t("title") }}</h5>
+        <h1 class="fr-h6">{{ $t("title") }}</h1>
         <v-gouv-fr-modal>
           <template v-slot:button>
             En difficulté pour répondre à la question ?

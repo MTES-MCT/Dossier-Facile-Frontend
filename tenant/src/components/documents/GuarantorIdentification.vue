@@ -2,9 +2,9 @@
   <div>
     <NakedCard class="fr-p-md-5w">
       <div>
-        <h5>
+        <h1 class="fr-h6">
           {{ $t("title") }}
-        </h5>
+        </h1>
         {{ $t("select-label") }}
 
         <v-gouv-fr-modal>
