@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fr-mb-15w">
     <ValidationObserver v-slot="{ validate }">
       <form
         name="nameInformationForm"
