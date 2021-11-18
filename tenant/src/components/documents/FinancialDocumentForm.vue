@@ -142,77 +142,73 @@
             "
           >
             <div>
-              <div>
-                <div class="fr-mb-3w">
-                  {{ financialDocument.documentType.explanationText }}
-                </div>
-                <div class="fr-mb-3w">
-                  <FileUpload
-                    :current-status="financialDocument.fileUploadStatus"
-                    @add-files="addFiles(...arguments)"
-                    @reset-files="resetFiles(financialDocument, ...arguments)"
-                  ></FileUpload>
-                </div>
-                <div class="fr-col-12 fr-mb-3w bg-purple">
-                  <input
-                    type="checkbox"
-                    id="noDocument"
-                    value="false"
-                    v-model="financialDocument.noDocument"
-                  />
-                  <label for="noDocument">
-                    {{
-                      $t(getCheckboxLabel(financialDocument.documentType.key))
-                    }}
-                  </label>
-                </div>
-                <div class="fr-mb-5w" v-if="financialDocument.noDocument">
-                  <validation-provider
-                    :rules="{ required: true }"
-                    v-slot="{ errors }"
-                  >
-                    <div class="fr-input-group">
-                      <label class="fr-label" for="customText">
-                        {{
-                          $t(`customText-${financialDocument.documentType.key}`)
-                        }}
-                      </label>
-                      <textarea
-                        v-model="financialDocument.customText"
-                        class="form-control fr-input validate-required"
-                        id="customText"
-                        name="customText"
-                        placeholder=""
-                        type="text"
-                        maxlength="2000"
-                        rows="3"
-                        required
-                      />
-                      <span
-                        >{{ financialDocument.customText.length }} / 2000</span
-                      >
-                      <span class="fr-error-text" v-if="errors[0]">{{
-                        $t(errors[0])
-                      }}</span>
-                    </div>
-                  </validation-provider>
-                </div>
+              <div class="fr-mb-3w">
+                {{ financialDocument.documentType.explanationText }}
               </div>
-            </div>
-            <div
-              v-if="
-                financialDocument.documentType.key &&
-                  financialDocument.documentType.key !== 'no-income' &&
-                  financialFiles().length > 0
-              "
-              class="fr-col-md-12 fr-mb-3w"
-            >
-              <ListItem
-                v-for="(file, k) in financialFiles()"
-                :key="k"
-                :file="file"
-                @remove="remove(financialDocument, file)"
-              />
+              <div
+                v-if="
+                  financialDocument.documentType.key &&
+                    financialDocument.documentType.key !== 'no-income' &&
+                    financialFiles().length > 0
+                "
+                class="fr-col-md-12 fr-mb-3w"
+              >
+                <ListItem
+                  v-for="(file, k) in financialFiles()"
+                  :key="k"
+                  :file="file"
+                  @remove="remove(financialDocument, file)"
+                />
+              </div>
+              <div class="fr-mb-3w">
+                <FileUpload
+                  :current-status="financialDocument.fileUploadStatus"
+                  @add-files="addFiles(...arguments)"
+                  @reset-files="resetFiles(financialDocument, ...arguments)"
+                ></FileUpload>
+              </div>
+              <div class="fr-col-12 fr-mb-3w bg-purple">
+                <input
+                  type="checkbox"
+                  id="noDocument"
+                  value="false"
+                  v-model="financialDocument.noDocument"
+                />
+                <label for="noDocument">
+                  {{ $t(getCheckboxLabel(financialDocument.documentType.key)) }}
+                </label>
+              </div>
+              <div class="fr-mb-5w" v-if="financialDocument.noDocument">
+                <validation-provider
+                  :rules="{ required: true }"
+                  v-slot="{ errors }"
+                >
+                  <div class="fr-input-group">
+                    <label class="fr-label" for="customText">
+                      {{
+                        $t(`customText-${financialDocument.documentType.key}`)
+                      }}
+                    </label>
+                    <textarea
+                      v-model="financialDocument.customText"
+                      class="form-control fr-input validate-required"
+                      id="customText"
+                      name="customText"
+                      placeholder=""
+                      type="text"
+                      maxlength="2000"
+                      rows="3"
+                      required
+                    />
+                    <span
+                      >{{ financialDocument.customText.length }} / 2000</span
+                    >
+                    <span class="fr-error-text" v-if="errors[0]">{{
+                      $t(errors[0])
+                    }}</span>
+                  </div>
+                </validation-provider>
+              </div>
             </div>
           </div>
         </NakedCard>

@@ -111,6 +111,14 @@
         >
           <div v-html="taxDocument.explanationText"></div>
         </div>
+        <div v-if="taxFiles().length > 0" class="fr-col-12 fr-mb-3w">
+          <ListItem
+            v-for="(file, k) in taxFiles()"
+            :key="k"
+            :file="file"
+            @remove="remove(file)"
+          />
+        </div>
         <div v-if="taxDocument.key === 'my-name' && acceptVerification">
           <div class="fr-mb-3w">
             <FileUpload
@@ -119,14 +127,6 @@
               @reset-files="resetFiles"
             ></FileUpload>
           </div>
-        </div>
-        <div v-if="taxFiles().length > 0" class="fr-col-12 fr-mb-3w">
-          <ListItem
-            v-for="(file, k) in taxFiles()"
-            :key="k"
-            :file="file"
-            @remove="remove(file)"
-          />
         </div>
       </NakedCard>
     </ValidationObserver>

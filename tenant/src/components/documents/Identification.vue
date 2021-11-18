@@ -58,21 +58,11 @@
       class="fr-mt-3w"
       v-if="identificationDocument.key || identificationFiles().length > 0"
     >
-      <div>
-        <div v-if="identificationDocument.explanationText">
-          <div
-            class="fr-mb-1w"
-            v-html="identificationDocument.explanationText"
-          ></div>
-        </div>
-        <div class="fr-mb-3w">
-          <FileUpload
-            :current-status="fileUploadStatus"
-            :page="4"
-            @add-files="addFiles"
-            @reset-files="resetFiles"
-          ></FileUpload>
-        </div>
+      <div v-if="identificationDocument.explanationText">
+        <div
+          class="fr-mb-1w"
+          v-html="identificationDocument.explanationText"
+        ></div>
       </div>
       <div
         v-if="identificationFiles().length > 0"
@@ -84,6 +74,14 @@
           :file="file"
           @remove="remove(file)"
         />
+      </div>
+      <div class="fr-mb-3w">
+        <FileUpload
+          :current-status="fileUploadStatus"
+          :page="4"
+          @add-files="addFiles"
+          @reset-files="resetFiles"
+        ></FileUpload>
       </div>
     </NakedCard>
   </div>

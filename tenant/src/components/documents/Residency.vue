@@ -57,17 +57,8 @@
       class="fr-mt-3w"
       v-if="residencyDocument.key || residencyFiles().length > 0"
     >
-      <div v-if="residencyDocument.key">
-        <div class="fr-mb-3w">
-          <p v-html="residencyDocument.explanationText"></p>
-        </div>
-        <div class="fr-mb-3w">
-          <FileUpload
-            :current-status="fileUploadStatus"
-            @add-files="addFiles"
-            @reset-files="resetFiles"
-          ></FileUpload>
-        </div>
+      <div class="fr-mb-3w">
+        <p v-html="residencyDocument.explanationText"></p>
       </div>
       <div v-if="residencyFiles().length > 0" class="fr-col-12 fr-mb-3w">
         <ListItem
@@ -76,6 +67,13 @@
           :file="file"
           @remove="remove(file)"
         />
+      </div>
+      <div class="fr-mb-3w">
+        <FileUpload
+          :current-status="fileUploadStatus"
+          @add-files="addFiles"
+          @reset-files="resetFiles"
+        ></FileUpload>
       </div>
     </NakedCard>
   </div>
