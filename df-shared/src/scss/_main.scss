@@ -266,3 +266,9 @@ img {
 .small-font {
   font-size: 14px;
 }
+
+.full-width-xs {
+  @media all and (max-width: 767px) {
+    width: 100%;
+  }
+}

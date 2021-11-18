@@ -30,7 +30,7 @@
           <fieldset class="fr-fieldset">
             <div class="fr-fieldset__content">
               <div class="fr-grid-row">
-                <div v-for="d in documents" :key="d.key">
+                <div v-for="d in documents" :key="d.key" class="full-width-xs">
                   <BigRadio
                     :val="d"
                     v-model="identificationDocument"

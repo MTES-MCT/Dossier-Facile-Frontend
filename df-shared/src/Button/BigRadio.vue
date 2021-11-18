@@ -45,6 +45,10 @@ export default class BigRadio extends Vue {
   @media all and (min-width: 992px) {
     max-width: 15rem;
   }
+  @media all and (max-width: 767px) {
+    margin-right: 0;
+    width: 100%;
+  }
 
   &:hover {
     background-color: var(--primary);
