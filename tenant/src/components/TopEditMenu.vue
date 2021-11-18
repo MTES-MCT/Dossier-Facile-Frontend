@@ -47,7 +47,7 @@
           ></ColoredTag
         ></router-link>
       </div>
-      <div class="ml-5" ref="td5">
+      <div class="ml-5 mr-5" ref="td5">
         <router-link :to="{ name: 'TenantDocuments', params: { substep: '5' } }"
           ><ColoredTag
             :text="$t('tax')"
@@ -236,6 +236,10 @@ h1 {
   margin-left: 1rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+.mr-5 {
+  margin-right: 1rem;
 }
 
 .menu-grid-row {
