@@ -140,54 +140,8 @@
               financialDocument.monthlySum !== ''
           "
         >
-          <div>
-            <div class="fr-mb-3w">
-              {{ financialDocument.documentType.explanationText }}
-            </div>
-            <div class="fr-mb-3w">
-              <FileUpload
-                :current-status="financialDocument.fileUploadStatus"
-                @add-files="addFiles(financialDocument, ...arguments)"
-                @reset-files="resetFiles(financialDocument, ...arguments)"
-              ></FileUpload>
-            </div>
-            <div class="fr-col-12 fr-mb-3w bg-purple fr-checkbox-group">
-              <input
-                type="checkbox"
-                id="noDocument"
-                value="false"
-                v-model="financialDocument.noDocument"
-              />
-              <label for="noDocument">
-                {{ $t(getCheckboxLabel(financialDocument.documentType.key)) }}
-              </label>
-            </div>
-            <div class="fr-mb-5w" v-if="financialDocument.noDocument">
-              <validation-provider
-                :rules="{ required: true }"
-                v-slot="{ errors }"
-              >
-                <div class="fr-input-group">
-                  <label class="fr-label" for="customText">
-                    {{
-                      $t(getCustomTextLabel(financialDocument.documentType.key))
-                    }}
-                  </label>
-                  <input
-                    v-model="financialDocument.customText"
-                    class="form-control fr-input validate-required"
-                    id="customText"
-                    name="customText"
-                    placeholder=""
-                    type="text"
-                    required
-                  />
-                  <span class="fr-error-text" v-if="errors[0]">{{
-                    $t(errors[0])
-                  }}</span>
-                </div>
-              </validation-provider>
-            </div>
+          <div class="fr-mb-3w">
+            {{ financialDocument.documentType.explanationText }}
           </div>
           <div v-if="financialFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
             <ListItem
@@ -196,6 +150,50 @@
               :file="file"
               @remove="remove(financialDocument, file)"
             />
+          </div>
+          <div class="fr-mb-3w">
+            <FileUpload
+              :current-status="financialDocument.fileUploadStatus"
+              @add-files="addFiles(financialDocument, ...arguments)"
+              @reset-files="resetFiles(financialDocument, ...arguments)"
+            ></FileUpload>
+          </div>
+          <div class="fr-col-12 fr-mb-3w bg-purple fr-checkbox-group">
+            <input
+              type="checkbox"
+              id="noDocument"
+              value="false"
+              v-model="financialDocument.noDocument"
+            />
+            <label for="noDocument">
+              {{ $t(getCheckboxLabel(financialDocument.documentType.key)) }}
+            </label>
+          </div>
+          <div class="fr-mb-5w" v-if="financialDocument.noDocument">
+            <validation-provider
+              :rules="{ required: true }"
+              v-slot="{ errors }"
+            >
+              <div class="fr-input-group">
+                <label class="fr-label" for="customText">
+                  {{
+                    $t(getCustomTextLabel(financialDocument.documentType.key))
+                  }}
+                </label>
+                <input
+                  v-model="financialDocument.customText"
+                  class="form-control fr-input validate-required"
+                  id="customText"
+                  name="customText"
+                  placeholder=""
+                  type="text"
+                  required
+                />
+                <span class="fr-error-text" v-if="errors[0]">{{
+                  $t(errors[0])
+                }}</span>
+              </div>
+            </validation-provider>
           </div>
         </div>
       </NakedCard>

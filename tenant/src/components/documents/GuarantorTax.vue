@@ -104,17 +104,8 @@
             taxFiles().length > 0
         "
       >
-        <div v-if="taxDocument.key === 'my-name' && acceptVerification">
-          <div class="fr-mb-3w">
-            <p v-html="taxDocument.explanationText"></p>
-          </div>
-          <div class="fr-mb-3w">
-            <FileUpload
-              :current-status="fileUploadStatus"
-              @add-files="addFiles"
-              @reset-files="resetFiles"
-            ></FileUpload>
-          </div>
+        <div class="fr-mb-3w">
+          <p v-html="taxDocument.explanationText"></p>
         </div>
         <div v-if="taxFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
           <ListItem
@@ -123,6 +114,13 @@
             :file="file"
             @remove="remove(file)"
           />
+        </div>
+        <div class="fr-mb-3w" v-if="acceptVerification">
+          <FileUpload
+            :current-status="fileUploadStatus"
+            @add-files="addFiles"
+            @reset-files="resetFiles"
+          ></FileUpload>
         </div>
       </NakedCard>
     </ValidationObserver>

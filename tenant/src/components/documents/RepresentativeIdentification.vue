@@ -59,6 +59,20 @@
               </p>
             </template>
           </v-gouv-fr-modal>
+          <div class="fr-col-md-12 fr-mb-3w" v-if="listFiles().length > 0">
+            <ListItem
+              v-for="(file, k) in listFiles()"
+              :key="k"
+              :file="file"
+              @remove="remove(file)"
+              :uploadState="
+                uploadProgress[file.id] ? uploadProgress[file.id].state : 'idle'
+              "
+              :percentage="
+                uploadProgress[file.id] ? uploadProgress[file.id].percentage : 0
+              "
+            />
+          </div>
           <div class="fr-mb-3w">
             <FileUpload
               :current-status="fileUploadStatus"
@@ -66,20 +80,6 @@
               @reset-files="resetFiles"
             ></FileUpload>
           </div>
-        </div>
-        <div class="fr-col-md-12 fr-mb-3w" v-if="listFiles().length > 0">
-          <ListItem
-            v-for="(file, k) in listFiles()"
-            :key="k"
-            :file="file"
-            @remove="remove(file)"
-            :uploadState="
-              uploadProgress[file.id] ? uploadProgress[file.id].state : 'idle'
-            "
-            :percentage="
-              uploadProgress[file.id] ? uploadProgress[file.id].percentage : 0
-            "
-          />
         </div>
       </NakedCard>
     </ValidationObserver>

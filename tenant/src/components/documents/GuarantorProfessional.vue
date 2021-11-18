@@ -50,17 +50,8 @@
       class="fr-mt-3w"
       v-if="professionalDocument.key || professionalFiles().length > 0"
     >
-      <div v-if="professionalDocument.key">
-        <div class="fr-mb-3w">
-          {{ professionalDocument.explanationText }}
-        </div>
-        <div class="fr-mb-3w">
-          <FileUpload
-            :current-status="fileUploadStatus"
-            @add-files="addFiles"
-            @reset-files="resetFiles"
-          ></FileUpload>
-        </div>
+      <div class="fr-mb-3w">
+        {{ professionalDocument.explanationText }}
       </div>
       <div v-if="professionalFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
         <ListItem
@@ -69,6 +60,13 @@
           :file="file"
           @remove="remove(file)"
         />
+      </div>
+      <div class="fr-mb-3w">
+        <FileUpload
+          :current-status="fileUploadStatus"
+          @add-files="addFiles"
+          @reset-files="resetFiles"
+        ></FileUpload>
       </div>
     </NakedCard>
   </div>
