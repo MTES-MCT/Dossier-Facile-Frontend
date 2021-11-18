@@ -2,23 +2,16 @@
   <div class="list-item fr-mb-1w doc-container">
     <div class="fr-grid-row" style="align-items: center">
       <div class="fr-pl-2w fr-pr-2w cursor--pointer" @click="openDoc()">
-        <span
-          :class="{ 'text-orange': warning, 'text-blue': !warning }"
-          class="material-icons big-font"
-          >file_present</span
-        >
+        <span class="material-icons big-blue">file_present</span>
       </div>
       <div class="text fr-pr-2w cursor--pointer" @click="openDoc()">
-        <div :class="{ 'text-orange': warning }" class="text-bold">
-          {{ getName() }}
-        </div>
+        <div class="text-bold">{{ getName() }}</div>
         <div class="size">{{ getSize() }}</div>
       </div>
       <div class="progress">
         <Progress :percentage="percentage" :state="uploadState" />
       </div>
       <button
-        :class="{ 'text-orange': warning }"
         class="fr-btn fr-btn--secondary icon-btn"
         @click="openDoc()"
         :title="$t('show')"
@@ -26,7 +19,6 @@
         <span class="material-icons-outlined md-28">visibility</span>
       </button>
       <button
-        :class="{ 'text-orange': warning }"
         class="fr-btn fr-btn--secondary icon-btn"
         @click="remove()"
         type="button"
@@ -74,7 +66,6 @@ export default class ListItem extends Vue {
   @Prop({ default: "" }) file!: DfFile;
   @Prop({ default: "idle" }) uploadState!: string;
   @Prop({ default: 0 }) percentage!: number;
-  @Prop({ default: false }) warning!: boolean;
 
   isDocModalVisible = false;
   confirmDeleteFile = false;
@@ -162,7 +153,8 @@ export default class ListItem extends Vue {
   box-shadow: 0 0.5px 4px 0 #cecece;
 }
 
-.big-font {
+.big-blue {
+  color: var(--focus);
   font-size: 32px;
 }
 
@@ -191,12 +183,6 @@ export default class ListItem extends Vue {
   width: 2.5rem;
   border-radius: 50%;
   overflow: hidden;
-}
-.text-blue {
-  color: var(--focus);
-}
-.text-orange {
-  color: var(--orange-2);
 }
 </style>
 
