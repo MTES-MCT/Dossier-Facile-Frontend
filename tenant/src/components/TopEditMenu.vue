@@ -9,7 +9,7 @@
       <div class="hline" :class="getClass(2)"></div>
       <div class="hline" :class="getClass(3)"></div>
     </div>
-    <hr v-if="step === 2" />
+    <hr v-if="step === 2 || step === 3" />
     <div class="menu-grid-row" v-if="step === 2" ref="tcontainer">
       <div class="ml-5" ref="td1">
         <router-link :to="{ name: 'TenantDocuments', params: { substep: '1' } }"
@@ -57,6 +57,62 @@
         ></router-link>
       </div>
     </div>
+    <div
+      class="menu-grid-row"
+      v-if="step === 3 && selectedGuarantor && expandGuarantorMenu"
+      ref="gcontainer"
+    >
+      <div class="ml-5" ref="gd1">
+        <router-link
+          :to="{ name: 'GuarantorDocuments', params: { substep: '1' } }"
+          ><ColoredTag
+            :text="$t('identification')"
+            :status="guarantorStatus('IDENTITY')"
+            :active="getGuarantorCurrentStep(1)"
+          ></ColoredTag
+        ></router-link>
+      </div>
+      <div class="ml-5" ref="gd2">
+        <router-link
+          :to="{ name: 'GuarantorDocuments', params: { substep: '2' } }"
+          ><ColoredTag
+            :text="$t('residency')"
+            :status="guarantorStatus('RESIDENCY')"
+            :active="getGuarantorCurrentStep(2)"
+          ></ColoredTag
+        ></router-link>
+      </div>
+      <div class="ml-5" ref="gd3">
+        <router-link
+          :to="{ name: 'GuarantorDocuments', params: { substep: '3' } }"
+          ><ColoredTag
+            :text="$t('professional')"
+            :status="guarantorStatus('PROFESSIONAL')"
+            :active="getGuarantorCurrentStep(3)"
+          ></ColoredTag
+        ></router-link>
+      </div>
+      <div class="ml-5" ref="gd4">
+        <router-link
+          :to="{ name: 'GuarantorDocuments', params: { substep: '4' } }"
+          ><ColoredTag
+            :text="$t('financial')"
+            :status="guarantorStatus('FINANCIAL')"
+            :active="getGuarantorCurrentStep(4)"
+          ></ColoredTag
+        ></router-link>
+      </div>
+      <div class="ml-5 mr-5" ref="gd5">
+        <router-link
+          :to="{ name: 'GuarantorDocuments', params: { substep: '5' } }"
+          ><ColoredTag
+            :text="$t('tax')"
+            :status="guarantorStatus('TAX')"
+            :active="getGuarantorCurrentStep(5)"
+          ></ColoredTag
+        ></router-link>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -65,25 +121,40 @@ import StepNumber from "df-shared/src/components/StepNumber.vue";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { DocumentService } from "../services/DocumentService";
 import ColoredTag from "df-shared/src/components/ColoredTag.vue";
+import { mapState } from "vuex";
+import { Guarantor } from "df-shared/src/models/Guarantor";
 
 @Component({
-  components: { StepNumber, ColoredTag }
+  components: { StepNumber, ColoredTag },
+  computed: {
+    ...mapState({
+      selectedGuarantor: "selectedGuarantor",
+      expandGuarantorMenu: "expandGuarantorMenu"
+    })
+  }
 })
 export default class LeftEditMenu extends Vue {
   @Prop({ default: 0 }) step!: number;
+  selectedGuarantor!: Guarantor;
+  expandGuarantorMenu!: boolean;
 
   mounted() {
-    const element = this.$refs["td" + this.$route.params.substep] as any;
+    this.autoScroll("td", "tcontainer");
+    this.autoScroll("gd", "gcontainer");
+  }
+
+  autoScroll(refd: string, refContainer: string) {
+    const element = this.$refs[refd + this.$route.params.substep] as any;
     if (element === undefined) {
       return;
     }
-    const tcontainer = this.$refs["tcontainer"] as any;
-    if (tcontainer === undefined) {
+    const container = this.$refs[refContainer] as any;
+    if (container === undefined) {
       return;
     }
     const left =
-      element.offsetLeft - (tcontainer.offsetWidth - element.offsetWidth) / 2;
-    tcontainer.scrollTo(left, 0);
+      element.offsetLeft - (container.offsetWidth - element.offsetWidth) / 2;
+    container.scrollTo(left, 0);
   }
 
   getClass(s: number) {
@@ -171,6 +242,15 @@ export default class LeftEditMenu extends Vue {
       return this.$i18n.t("validate-file");
     }
     return "";
+  }
+
+  guarantorStatus(documentType: string) {
+    return DocumentService.guarantorStatus(documentType);
+  }
+
+  getGuarantorCurrentStep(substep: number): boolean {
+    const s = Number(this.$route.params.substep) || 0;
+    return this.step === 3 && s === substep;
   }
 
   tenantStatus(documentType: string) {

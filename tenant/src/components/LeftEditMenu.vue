@@ -218,27 +218,7 @@ export default class LeftEditMenu extends Vue {
   }
 
   guarantorStatus(documentType: string) {
-    switch (documentType) {
-      case "IDENTITY":
-        return DocumentService.getGuarantorIdentityStatus() || "EMPTY";
-      case "RESIDENCY":
-        return DocumentService.getGuarantorResidencyStatus() || "EMPTY";
-      case "PROFESSIONAL":
-        return DocumentService.getGuarantorProfessionalStatus() || "EMPTY";
-      case "FINANCIAL":
-        return DocumentService.getGuarantorFinancialStatus() || "EMPTY";
-      case "TAX":
-        return DocumentService.getGuarantorTaxStatus() || "EMPTY";
-      case "IDENTIFICATION_LEGAL_PERSON":
-        return (
-          DocumentService.getGuarantorLegalPersonIdentityStatus() || "EMPTY"
-        );
-      case "IDENTIFICATION":
-        return (
-          DocumentService.getGuarantorLegalPersonRepresentantStatus() || "EMPTY"
-        );
-    }
-    return "EMPTY";
+    return DocumentService.guarantorStatus(documentType);
   }
 
   tenantStatus(documentType: string) {

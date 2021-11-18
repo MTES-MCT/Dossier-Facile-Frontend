@@ -162,5 +162,40 @@ export const DocumentService = {
       return "FILLED";
     }
     return status;
+  },
+  guarantorStatus(documentType: string) {
+    let status;
+    switch (documentType) {
+      case "IDENTITY":
+        status = DocumentService.getGuarantorIdentityStatus() || "EMPTY";
+        break;
+      case "RESIDENCY":
+        status = DocumentService.getGuarantorResidencyStatus() || "EMPTY";
+        break;
+      case "PROFESSIONAL":
+        status = DocumentService.getGuarantorProfessionalStatus() || "EMPTY";
+        break;
+      case "FINANCIAL":
+        status = DocumentService.getGuarantorFinancialStatus() || "EMPTY";
+        break;
+      case "TAX":
+        status = DocumentService.getGuarantorTaxStatus() || "EMPTY";
+        break;
+      case "IDENTIFICATION_LEGAL_PERSON":
+        status =
+          DocumentService.getGuarantorLegalPersonIdentityStatus() || "EMPTY";
+        break;
+      case "IDENTIFICATION":
+        status =
+          DocumentService.getGuarantorLegalPersonRepresentantStatus() ||
+          "EMPTY";
+    }
+    if (
+      status === "TO_PROCESS" &&
+      store.state.selectedGuarantor.status !== "TO_PROCESS"
+    ) {
+      return "FILLED";
+    }
+    return status;
   }
 };
