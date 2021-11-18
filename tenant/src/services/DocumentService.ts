@@ -1,6 +1,6 @@
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { Guarantor } from "df-shared/src/models/Guarantor";
-import axios from "axios";
+import { User } from "df-shared/src/models/User";
 import store from "../store";
 
 export const DocumentService = {
@@ -62,10 +62,5 @@ export const DocumentService = {
       files = files.concat(docs[i].files || []);
     }
     return files;
-  },
-  discardWarning(id: number | undefined) {
-    return axios.get(
-      `https://${process.env.VUE_APP_API_URL}/api/document/discardIdWarning/${id}`
-    );
   }
 };

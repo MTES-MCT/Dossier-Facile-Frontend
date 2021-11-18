@@ -11,5 +11,4 @@ export class DfDocument {
   files?: DfFile[];
   noDocument?: boolean;
   name?: string;
-  discardShareidWarning?: boolean;
 }

@@ -143,14 +143,6 @@ const store = new Vuex.Store({
     },
     updateUserZipcode(state, zipcode) {
       state.user.zipCode = zipcode;
-    },
-    discardShareidWarning(state, document) {
-      const p = state.user.documents?.findIndex((d: DfDocument) => {
-        return d.id === document.id;
-      });
-      if (p >= 0) {
-        Vue.set(state.user.documents[p], "discardShareidWarning", true);
-      }
     }
   },
   actions: {
