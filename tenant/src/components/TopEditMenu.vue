@@ -57,6 +57,22 @@
         ></router-link>
       </div>
     </div>
+    <h2
+      class="small-title"
+      v-if="
+        step === 3 &&
+          selectedGuarantor &&
+          expandGuarantorMenu &&
+          selectedGuarantor.lastName &&
+          selectedGuarantor.firstName
+      "
+    >
+      {{
+        $t("i-add", [
+          `${selectedGuarantor.firstName} ${selectedGuarantor.lastName}`
+        ])
+      }}
+    </h2>
     <div
       class="menu-grid-row"
       v-if="step === 3 && selectedGuarantor && expandGuarantorMenu"
@@ -314,7 +330,7 @@ h1 {
 
 .ml-5 {
   margin-left: 1rem;
-  margin-top: 1rem;
+  margin-top: 0.25rem;
   margin-bottom: 1rem;
 }
 
@@ -357,22 +373,35 @@ hr {
 .rad1 {
   background: linear-gradient(90deg, var(--primary) 20%, var(--g200) 20%);
 }
+
 .rad2 {
   background: linear-gradient(90deg, var(--primary) 40%, var(--g200) 40%);
 }
+
 .rad3 {
   background: linear-gradient(90deg, var(--primary) 60%, var(--g200) 60%);
 }
+
 .rad4 {
   background: linear-gradient(90deg, var(--primary) 80%, var(--g200) 80%);
+}
+
+.small-title {
+  font-size: 1rem;
+  margin-bottom: 0;
+  font-style: normal;
+  font-weight: 400;
+  margin-left: 1rem;
 }
 </style>
 
 <i18n>
 {
 "en": {
+  "i-add": "I add {0}"
 },
 "fr": {
+  "i-add": "J'ajoute {0}"
 }
 }
 </i18n>
