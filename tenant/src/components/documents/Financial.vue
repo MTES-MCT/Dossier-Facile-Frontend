@@ -201,7 +201,7 @@ export default class Financial extends Vue {
 
 <style scoped lang="scss">
 .fr-tag {
-  background-color: #2a7ffe;
+  background-color: #5398ff;
   color: var(--w);
 }
 

@@ -56,8 +56,10 @@ export default class BigRadio extends Vue {
     color: white;
     box-shadow: 0 0 0.666em rgba(0, 0, 0, 0.25);
     &.big {
-      color: var(--g800);
-      background-color: var(--bf200-bf300);
+      @media all and (min-width: 767px) {
+        background-color: var(--bf200-bf300);
+        color: var(--g800);
+      }
       border: solid 1px var(--primary);
     }
   }
@@ -67,8 +69,10 @@ export default class BigRadio extends Vue {
     background-color: var(--primary);
     color: white;
     &.big {
-      color: var(--g800);
-      background-color: var(--bf200-bf300);
+      @media all and (min-width: 767px) {
+        background-color: var(--bf200-bf300);
+        color: var(--g800);
+      }
       border: solid 1px var(--primary);
     }
   }
