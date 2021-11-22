@@ -92,6 +92,8 @@
         <div class="fr-col-12 fr-col-xl-5 align-bottom">
           <div class="fr-grid-row fr-grid-row--right">
             <v-gouv-fr-button
+              class="full-width-xs"
+              :fullWidth="isMobile()"
               :secondary="true"
               :label="$t('add-a-roommate')"
               :btn-type="'button'"
@@ -138,6 +140,7 @@ import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.v
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import RoommatesInformationHelp from "./helps/RoommatesInformationHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
+import { UtilsService } from "../services/UtilsService";
 
 extend("email", {
   ...email,
@@ -200,6 +203,10 @@ export default class RoommatesInformation extends Vue {
 
   updateAuthorize() {
     this.$store.commit("updateCoTenantAuthorize", this.authorize);
+  }
+
+  isMobile() {
+    return UtilsService.isMobile();
   }
 }
 </script>
