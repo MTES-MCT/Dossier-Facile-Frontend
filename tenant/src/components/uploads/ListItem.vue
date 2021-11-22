@@ -12,11 +12,11 @@
         <Progress :percentage="percentage" :state="uploadState" />
       </div>
       <button
-        class="fr-btn fr-btn--secondary icon-btn"
+        class="fr-btn fr-btn--secondary icon-btn fr-mr-1w"
         @click="openDoc()"
         :title="$t('show')"
       >
-        <span class="material-icons-outlined md-28">visibility</span>
+        <span class="material-icons-outlined md-18 fr-m-1w">visibility</span>
       </button>
       <button
         class="fr-btn fr-btn--secondary icon-btn"
@@ -24,7 +24,9 @@
         type="button"
         :title="$t('remove')"
       >
-        <span class="material-icons-outlined md-28">delete_forever</span>
+        <div class="material-icons-outlined md-18 fr-m-1w">
+          delete
+        </div>
       </button>
     </div>
     <Modal
@@ -160,10 +162,8 @@ export default class ListItem extends Vue {
 
 .material-icons,
 .material-icons-outlined {
-  border-radius: 50%;
   --color-hover: var(--block-color-hover);
   --color-active: var(--block-color-active);
-  padding: 0.25rem;
 }
 
 .fr-btn {
@@ -172,17 +172,15 @@ export default class ListItem extends Vue {
   --color-hover: none;
   --color-active: none;
   padding: 0;
+  min-height: 2rem;
 }
 
 .icon-btn {
   &:hover {
     color: #dc3545 !important;
   }
-  display: block;
-  height: 2.5rem;
-  width: 2.5rem;
-  border-radius: 50%;
-  overflow: hidden;
+  border: 1px solid var(--primary);
+  background-color: var(--w);
 }
 </style>
 
