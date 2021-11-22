@@ -10,12 +10,12 @@
         </div>
       </div>
       <div class="btn-container">
-        <button @click="edit()" class="fr-p-0 fr-mr-3w icon-btn">
+        <button @click="edit()" class="fr-p-0 fr-mr-2w icon-btn">
           <div class="color--primary material-icons md-24 fr-m-1w">
             edit
           </div>
         </button>
-        <button @click="remove()" class="fr-p-0 fr-mr-md-3w icon-btn">
+        <button @click="remove()" class="fr-p-0 icon-btn">
           <div class="color--primary material-icons md-24 fr-m-1w">
             delete
           </div>

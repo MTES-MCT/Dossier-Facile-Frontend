@@ -1,7 +1,7 @@
 <template>
   <div class="list-item fr-mb-1w doc-container">
     <div class="fr-grid-row" style="align-items: center">
-      <div class="fr-pl-2w fr-pr-2w cursor--pointer" @click="openDoc()">
+      <div class="fr-mr-md-2w fr-mr-1w cursor--pointer" @click="openDoc()">
         <span class="material-icons big-blue">file_present</span>
       </div>
       <div class="text fr-pr-2w cursor--pointer" @click="openDoc()">
@@ -12,7 +12,7 @@
         <Progress :percentage="percentage" :state="uploadState" />
       </div>
       <button
-        class="fr-btn fr-btn--secondary icon-btn fr-mr-1w"
+        class="fr-btn fr-btn--secondary icon-btn fr-mr-md-2w fr-mr-1w"
         @click="openDoc()"
         :title="$t('show')"
       >
@@ -151,7 +151,10 @@ export default class ListItem extends Vue {
 .doc-container {
   background-color: white;
   border-radius: 0.5rem;
-  padding: 0.5rem;
+  padding: 1rem;
+  @media (min-width: 768px) {
+    padding: 1.5rem;
+  }
   box-shadow: 0 0.5px 4px 0 #cecece;
 }
 
