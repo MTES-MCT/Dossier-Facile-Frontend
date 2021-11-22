@@ -102,7 +102,7 @@
         </form>
       </NakedCard>
       <NakedCard
-        class="fr-mt-3w"
+        class="fr-p-md-5w fr-mt-3w"
         v-if="
           (acceptVerification && taxDocument.key === 'my-name') ||
             taxFiles().length > 0

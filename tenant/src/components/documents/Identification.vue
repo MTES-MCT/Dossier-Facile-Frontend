@@ -55,7 +55,7 @@
     </ConfirmModal>
 
     <NakedCard
-      class="fr-mt-3w"
+      class="fr-p-md-5w fr-mt-3w"
       v-if="identificationDocument.key || identificationFiles().length > 0"
     >
       <div v-if="identificationDocument.explanationText">

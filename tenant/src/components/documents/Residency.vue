@@ -54,7 +54,7 @@
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
     <NakedCard
-      class="fr-mt-3w"
+      class="fr-p-md-5w fr-mt-3w"
       v-if="residencyDocument.key || residencyFiles().length > 0"
     >
       <div class="fr-mb-3w">
