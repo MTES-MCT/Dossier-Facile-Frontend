@@ -3,6 +3,7 @@
     class="br"
     :class="{ selected: isEqual(value, val), big: big }"
     @click="setValue()"
+    type="button"
   >
     <slot></slot>
   </button>
