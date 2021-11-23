@@ -87,7 +87,11 @@
                       value="false"
                       v-model="declaration2"
                     />
-                    <label for="declaration2">{{ $t("declaration2") }}</label>
+                    <label for="declaration2">{{
+                      user.guarantors.length > 1
+                        ? $t("declaration2-plural")
+                        : $t("declaration2")
+                    }}</label>
                     <span class="fr-error-text" v-if="errors[0]">{{
                       $t(errors[0])
                     }}</span>
@@ -256,6 +260,7 @@ export default class ValidateFile extends Vue {
         "validate": "Valider mon dossier",
         "read": "Je lis et je coche les cases suivantes afin de valider mon dossier",
         "declaration2": "Je déclare sur l'honneur avoir reçu le consentement de mon garant pour que ses données soient traitées dans le cadre du processus de location",
+        "declaration2-plural": "Je déclare sur l'honneur avoir reçu le consentement de mes garants pour que leurs données soient traitées dans le cadre du processus de location",
         "require-accept": "You must accept the declaration"
     },
     "fr": {
@@ -267,6 +272,7 @@ export default class ValidateFile extends Vue {
         "validate": "Valider mon dossier",
         "read": "Je lis et je coche les cases suivantes afin de valider mon dossier",
         "declaration2": "Je déclare sur l'honneur avoir reçu le consentement de mon garant pour que ses données soient traitées dans le cadre du processus de location",
+        "declaration2-plural": "Je déclare sur l'honneur avoir reçu le consentement de mes garants pour que leurs données soient traitées dans le cadre du processus de location",
         "require-accept": "Vous devez accepter la déclaration"
     }
 }
