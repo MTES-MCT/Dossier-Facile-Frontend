@@ -186,7 +186,7 @@
                           }}</a>
                         </h4>
                         <ColoredTag
-                          :text="$t(getStatus('IDENTIFICATION'))"
+                          :text="$t('s_' + getStatus('IDENTIFICATION'))"
                           :status="getStatus('IDENTIFICATION')"
                         ></ColoredTag>
                         <button
@@ -215,7 +215,7 @@
                           }}</a>
                         </h4>
                         <ColoredTag
-                          :text="$t(getStatus('RESIDENCY'))"
+                          :text="$t('s_' + getStatus('RESIDENCY'))"
                           :status="getStatus('RESIDENCY')"
                         ></ColoredTag>
                         <button
@@ -244,7 +244,7 @@
                           }}</a>
                         </h4>
                         <ColoredTag
-                          :text="$t(getStatus('PROFESSIONAL'))"
+                          :text="$t('s_' + getStatus('PROFESSIONAL'))"
                           :status="getStatus('PROFESSIONAL')"
                         ></ColoredTag>
                         <button
@@ -274,7 +274,7 @@
                           }}</a>
                         </h4>
                         <ColoredTag
-                          :text="$t(getStatus('FINANCIAL'))"
+                          :text="$t('s_' + getStatus('FINANCIAL'))"
                           :status="getStatus('FINANCIAL')"
                         ></ColoredTag>
                         <button
@@ -301,7 +301,7 @@
                           <a class="fr-tile__link" href>{{ $t("tax") }}</a>
                         </h4>
                         <ColoredTag
-                          :text="$t(getStatus('TAX'))"
+                          :text="$t('s_' + getStatus('TAX'))"
                           :status="getStatus('TAX')"
                         ></ColoredTag>
                         <button
@@ -343,7 +343,9 @@
                             </h4>
                             <ColoredTag
                               :text="
-                                $t(getGuarantorStatus(g, 'IDENTIFICATION'))
+                                $t(
+                                  's_' + getGuarantorStatus(g, 'IDENTIFICATION')
+                                )
                               "
                               :status="getGuarantorStatus(g, 'IDENTIFICATION')"
                             ></ColoredTag>
@@ -373,7 +375,9 @@
                               }}</a>
                             </h4>
                             <ColoredTag
-                              :text="$t(getGuarantorStatus(g, 'RESIDENCY'))"
+                              :text="
+                                $t('s_' + getGuarantorStatus(g, 'RESIDENCY'))
+                              "
                               :status="getGuarantorStatus(g, 'RESIDENCY')"
                             ></ColoredTag>
                             <button
@@ -402,7 +406,9 @@
                               }}</a>
                             </h4>
                             <ColoredTag
-                              :text="$t(getGuarantorStatus(g, 'PROFESSIONAL'))"
+                              :text="
+                                $t('s_' + getGuarantorStatus(g, 'PROFESSIONAL'))
+                              "
                               :status="getGuarantorStatus(g, 'PROFESSIONAL')"
                             ></ColoredTag>
                             <button
@@ -432,7 +438,9 @@
                               }}</a>
                             </h4>
                             <ColoredTag
-                              :text="$t(getGuarantorStatus(g, 'FINANCIAL'))"
+                              :text="
+                                $t('s_' + getGuarantorStatus(g, 'FINANCIAL'))
+                              "
                               :status="getGuarantorStatus(g, 'FINANCIAL')"
                             ></ColoredTag>
                             <button
@@ -459,7 +467,7 @@
                               <a class="fr-tile__link" href>{{ $t("tax") }}</a>
                             </h4>
                             <ColoredTag
-                              :text="$t(getGuarantorStatus(g, 'TAX'))"
+                              :text="$t('s_' + getGuarantorStatus(g, 'TAX'))"
                               :status="getGuarantorStatus(g, 'TAX')"
                             ></ColoredTag>
                             <button
@@ -493,7 +501,9 @@
                             </h4>
                             <ColoredTag
                               :text="
-                                $t(getGuarantorStatus(g, 'IDENTIFICATION'))
+                                $t(
+                                  's_' + getGuarantorStatus(g, 'IDENTIFICATION')
+                                )
                               "
                               :status="getGuarantorStatus(g, 'IDENTIFICATION')"
                             ></ColoredTag>
