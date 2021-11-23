@@ -295,7 +295,7 @@ const store = new Vuex.Store({
             guarantor: this.state.user.guarantors[
               this.state.user.guarantors.length - 1
             ],
-            substep: "1"
+            substep: "0"
           });
           return Promise.resolve(response.data);
         },
