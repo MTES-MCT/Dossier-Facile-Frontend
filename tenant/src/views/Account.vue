@@ -864,29 +864,35 @@ export default class Account extends Vue {
   getPersonnalStatus() {
     if (
       this.user?.apartmentSharing?.tenants !== undefined &&
-      this.user.applicationType !== "ALONE"
+      this.user.applicationType === "ALONE"
     ) {
-      if (this.user.applicationType === "COUPLE") {
-        const spouse = this.user?.apartmentSharing?.tenants?.find((t: User) => {
-          return t.id !== this.user?.id;
-        });
-        if (spouse?.lastName !== undefined && spouse?.lastName !== "") {
-          return this.$i18n
-            .t("couple-with", [`${spouse?.firstName} ${spouse?.lastName}`])
-            .toString();
-        }
+      return this.$i18n.t("ALONE");
+    }
+    if (this.user.applicationType === "COUPLE") {
+      const spouse = this.user?.apartmentSharing?.tenants?.find((t: User) => {
+        return t.id !== this.user?.id;
+      });
+      if (spouse?.lastName !== undefined && spouse?.lastName !== "") {
         return this.$i18n
-          .t("couple-with", [this.$i18n.t("someone")])
+          .t("couple-with", [`${spouse?.firstName} ${spouse?.lastName}`])
           .toString();
       }
-      if (this.user?.apartmentSharing?.tenants.length === 2) {
-        return this.$i18n.t("group-with-one").toString();
-      }
-      return this.$i18n
-        .t("group-with", [this.user?.apartmentSharing?.tenants.length - 1])
-        .toString();
+      return this.$i18n.t("couple-with", [this.$i18n.t("someone")]).toString();
     }
-    return this.$i18n.t("ALONE");
+
+    const roommates = this.user?.apartmentSharing?.tenants
+      .filter((t: User) => {
+        return t.id !== this.user?.id;
+      })
+      .map((u: User) => {
+        return `${u.firstName} ${u.lastName}`;
+      });
+
+    const listNames = roommates?.join(", ");
+    if (!listNames || listNames.includes("undefined")) {
+      return this.$i18n.t("group-with-someone").toString();
+    }
+    return this.$i18n.t("group-with", [listNames]).toString();
   }
 
   getProfession() {
@@ -1213,8 +1219,8 @@ hr {
     "couple-with": "in relationship with {0}",
     "organism-identification": "Organism",
     "someone": " someone",
-    "group-with-one": "in flatsharing with 1 person",
-    "group-with": "in flatsharing with {0} persons",
+    "group-with": "in flatsharing with {0}",
+    "group-with-someone": "in flatsharing",
     "cotenant-cannot-copy-link": "Your link is inactive because your roommate's file has not yet been validated",
     "spouse-cannot-copy-link": "Your link is inactive because your spouse's file has not yet been validated",
     "amendment-required-title": "Amendment required",
@@ -1280,8 +1286,8 @@ hr {
     "copied": "Copié !",
     "ALONE": "seul·e",
     "couple-with": "en couple avec {0}",
-    "group-with-one": "en colocation avec 1 personne",
-    "group-with": "en colocation avec {0} personnes",
+    "group-with": "en colocation avec {0}",
+    "group-with-someone": "en colocation",
     "organism-identification": "Certificat de l'organisme",
     "someone": " quelqu'un",
     "spouse-cannot-copy-link": "Votre lien est inactif car le dossier de votre conjoint·e n'est pas encore validé",
