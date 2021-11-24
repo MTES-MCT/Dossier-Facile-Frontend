@@ -771,7 +771,7 @@ export default class Account extends Vue {
     const doc = this.user.documents?.find((d: DfDocument) => {
       return d.documentCategory === docType;
     });
-    return doc?.documentStatus;
+    return doc?.documentStatus || "EMPTY";
   }
 
   isFinancialValid(docs: DfDocument[]) {
