@@ -214,11 +214,17 @@ export default class GuarantorFinancial extends Vue {
     width: calc(100%);
   }
   border-radius: 0.5rem;
-  background: var(--blue-france-200);
   padding: 1.75rem;
   color: var(--primary);
   border: 1px solid var(--primary);
   font-size: 16px;
+  background: var(--blue-france-925);
+  &:hover {
+    background: var(--blue-france-hover);
+  }
+  &:active {
+    background: var(--blue-france-active);
+  }
 }
 </style>
 
