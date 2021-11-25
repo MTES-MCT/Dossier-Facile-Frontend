@@ -139,7 +139,45 @@ export default class Identification extends Vue {
   identificationDocument = new DocumentType();
   isDocDeleteVisible = false;
 
+  getLocalStorageKey() {
+    return "identification_" + this.user.email;
+  }
+
+  beforeMount() {
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "IDENTIFICATION";
+      });
+      if (doc !== undefined) {
+        const localDoc = this.documents.find((d: DocumentType) => {
+          return d.value === doc.documentSubCategory;
+        });
+        if (localDoc !== undefined) {
+          this.identificationDocument = localDoc;
+          localStorage.setItem(
+            this.getLocalStorageKey(),
+            this.identificationDocument.key || ""
+          );
+        }
+      } else {
+        const key = localStorage.getItem(this.getLocalStorageKey());
+        if (key) {
+          const localDoc = this.documents.find((d: DocumentType) => {
+            return d.key === key;
+          });
+          if (localDoc !== undefined) {
+            this.identificationDocument = localDoc;
+          }
+        }
+      }
+    }
+  }
+
   onSelectChange() {
+    localStorage.setItem(
+      this.getLocalStorageKey(),
+      this.identificationDocument.key
+    );
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION";
@@ -181,22 +219,6 @@ export default class Identification extends Vue {
           if (f.id) {
             await this.remove(f, true);
           }
-        }
-      }
-    }
-  }
-
-  mounted() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "IDENTIFICATION";
-      });
-      if (doc !== undefined) {
-        const localDoc = this.documents.find((d: DocumentType) => {
-          return d.value === doc.documentSubCategory;
-        });
-        if (localDoc !== undefined) {
-          this.identificationDocument = localDoc;
         }
       }
     }

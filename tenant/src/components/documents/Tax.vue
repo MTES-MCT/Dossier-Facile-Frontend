@@ -205,6 +205,54 @@ export default class Tax extends Vue {
   documents = DocumentTypeConstants.TAX_DOCS;
   isDocDeleteVisible = false;
 
+  getLocalStorageKey() {
+    return "tax_" + this.user.email;
+  }
+
+  mounted() {
+    const doc = this.getRegisteredDoc();
+    if (doc !== undefined) {
+      this.customText = doc.customText || "";
+    }
+    const localDoc = this.getLocalDoc();
+    if (localDoc !== undefined) {
+      this.taxDocument = localDoc;
+      localStorage.setItem(
+        this.getLocalStorageKey(),
+        this.taxDocument.key || ""
+      );
+    } else {
+      const key = localStorage.getItem(this.getLocalStorageKey());
+      if (key) {
+        const localDoc = this.documents.find((d: DocumentType) => {
+          return d.key === key;
+        });
+        if (localDoc !== undefined) {
+          this.taxDocument = localDoc;
+        }
+      }
+    }
+
+    if (this.taxDocument.key === "my-name" && this.taxFiles().length > 0) {
+      this.acceptVerification = true;
+    }
+  }
+
+  onSelectChange() {
+    localStorage.setItem(this.getLocalStorageKey(), this.taxDocument.key);
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "TAX";
+      });
+      if (doc !== undefined) {
+        this.isDocDeleteVisible =
+          (doc.files?.length || 0) > 0 &&
+          doc.documentSubCategory !== this.taxDocument.value;
+      }
+    }
+    return false;
+  }
+
   getRegisteredDoc() {
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
@@ -224,20 +272,6 @@ export default class Tax extends Vue {
       return localDoc;
     }
     return undefined;
-  }
-
-  onSelectChange() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "TAX";
-      });
-      if (doc !== undefined) {
-        this.isDocDeleteVisible =
-          (doc.files?.length || 0) > 0 &&
-          doc.documentSubCategory !== this.taxDocument.value;
-      }
-    }
-    return false;
   }
 
   undoSelect() {
@@ -270,21 +304,6 @@ export default class Tax extends Vue {
           }
         }
       }
-    }
-  }
-
-  mounted() {
-    const doc = this.getRegisteredDoc();
-    if (doc !== undefined) {
-      this.customText = doc.customText || "";
-    }
-    const localDoc = this.getLocalDoc();
-    if (localDoc !== undefined) {
-      this.taxDocument = localDoc;
-    }
-
-    if (this.taxDocument.key === "my-name" && this.taxFiles().length > 0) {
-      this.acceptVerification = true;
     }
   }
 

@@ -130,7 +130,11 @@ export default class Residency extends Vue {
   documents = DocumentTypeConstants.RESIDENCY_DOCS;
   isDocDeleteVisible = false;
 
-  mounted() {
+  getLocalStorageKey() {
+    return "residency_" + this.user.email;
+  }
+
+  beforeMount() {
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "RESIDENCY";
@@ -141,12 +145,27 @@ export default class Residency extends Vue {
         });
         if (localDoc !== undefined) {
           this.residencyDocument = localDoc;
+          localStorage.setItem(
+            this.getLocalStorageKey(),
+            this.residencyDocument.key || ""
+          );
+        }
+      } else {
+        const key = localStorage.getItem(this.getLocalStorageKey());
+        if (key) {
+          const localDoc = this.documents.find((d: DocumentType) => {
+            return d.key === key;
+          });
+          if (localDoc !== undefined) {
+            this.residencyDocument = localDoc;
+          }
         }
       }
     }
   }
 
   onSelectChange() {
+    localStorage.setItem(this.getLocalStorageKey(), this.residencyDocument.key);
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "RESIDENCY";

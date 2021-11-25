@@ -119,7 +119,11 @@ export default class Professional extends Vue {
   documents = DocumentTypeConstants.PROFESSIONAL_DOCS;
   isDocDeleteVisible = false;
 
-  mounted() {
+  getLocalStorageKey() {
+    return "professional_" + this.user.email;
+  }
+
+  beforeMount() {
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "PROFESSIONAL";
@@ -130,12 +134,30 @@ export default class Professional extends Vue {
         });
         if (localDoc !== undefined) {
           this.professionalDocument = localDoc;
+          localStorage.setItem(
+            this.getLocalStorageKey(),
+            this.professionalDocument.key || ""
+          );
+        }
+      } else {
+        const key = localStorage.getItem(this.getLocalStorageKey());
+        if (key) {
+          const localDoc = this.documents.find((d: DocumentType) => {
+            return d.key === key;
+          });
+          if (localDoc !== undefined) {
+            this.professionalDocument = localDoc;
+          }
         }
       }
     }
   }
 
   onSelectChange() {
+    localStorage.setItem(
+      this.getLocalStorageKey(),
+      this.professionalDocument.key
+    );
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "PROFESSIONAL";
