@@ -84,7 +84,13 @@
       </div>
       <div class="vline" :class="getClass(2)">
         <div v-if="step === 3 && selectedGuarantor && expandGuarantorMenu">
-          <div v-if="selectedGuarantor.typeGuarantor === 'NATURAL_PERSON'">
+          <div
+            v-if="
+              selectedGuarantor.typeGuarantor === 'NATURAL_PERSON' &&
+                selectedGuarantor.firstName !== undefined &&
+                selectedGuarantor.lastName !== undefined
+            "
+          >
             <div class="ml-5">
               <router-link
                 :to="{ name: 'GuarantorDocuments', params: { substep: '1' } }"
