@@ -134,14 +134,25 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Article8.vue")
   },
   {
-    path: "/blog/un-garant-qui-comment-pourquoi",
+    path: "/blog/loyer-locataire-ou-bailleur",
     name: "Article9",
+    meta: {
+      title: "Le loyer : locataire ou bailleur - DossierFacile",
+      description:
+        "Le loyer : tout ce qu’il faut savoir quand on est locataire ou bailleur"
+    },
+    component: () =>
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article9.vue")
+  },
+  {
+    path: "/blog/un-garant-qui-comment-pourquoi",
+    name: "Article10",
     meta: {
       title: "Un garant ? Qui ? Comment ? Pourquoi ? - DossierFacile",
       description: "Un garant ? Qui ? Comment ? Pourquoi ? - DossierFacile"
     },
     component: () =>
-      import(/* webpackChunkName: "blog" */ "../views/blog/Article9.vue")
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article10.vue")
   },
   {
     path: "/information",

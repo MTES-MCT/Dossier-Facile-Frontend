@@ -29,7 +29,7 @@
               <img
                 alt=""
                 class="img-center"
-                src="../../assets/images/blog-article6.png"
+                src="../../assets/images/blog-article6.webp"
               />
               <h2>1. Le parcours utilisateur</h2>
               <p>
