@@ -262,7 +262,7 @@ export default class Financial extends Vue {
   "i-have-no-income": "Je n'ai pas de revenu",
   "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers.",
   "title": "Récapitulatif de vos revenus",
-  "subtitle": "Voici la liste des revenus que vous avez déclarés. Vous pouvez, à tout moment ajouter de nouveau revenu, si cela était nécessaire.",
+  "subtitle": "Voici la liste des revenus que vous avez déclarés. Vous pouvez, à tout moment ajouter de nouveaux revenus, si cela était nécessaire.",
   "monthly": " € net mensuel ",
   "net-monthly": "Net à payer mensuel",
   "add-income": "Ajouter un nouveau revenu ?"
