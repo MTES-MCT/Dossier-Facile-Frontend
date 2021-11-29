@@ -35,7 +35,10 @@
                   <h4 class="fr-mr-2w fr-mb-0 fr-mt-0">{{ $t("my-file") }}</h4>
                 </div>
 
-                <StatusTag :status="user.status"></StatusTag>
+                <ColoredTag
+                  :text="$t('s_' + user.status)"
+                  :status="user.status"
+                ></ColoredTag>
 
                 <span class="spacer"></span>
                 <DfButton
@@ -182,9 +185,10 @@
                             $t("identification")
                           }}</a>
                         </h4>
-                        <StatusTag
+                        <ColoredTag
+                          :text="$t('s_' + getStatus('IDENTIFICATION'))"
                           :status="getStatus('IDENTIFICATION')"
-                        ></StatusTag>
+                        ></ColoredTag>
                         <button
                           class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
                           title="Edit"
@@ -210,7 +214,10 @@
                             $t("residency")
                           }}</a>
                         </h4>
-                        <StatusTag :status="getStatus('RESIDENCY')"></StatusTag>
+                        <ColoredTag
+                          :text="$t('s_' + getStatus('RESIDENCY'))"
+                          :status="getStatus('RESIDENCY')"
+                        ></ColoredTag>
                         <button
                           class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
                           title="Edit"
@@ -236,9 +243,10 @@
                             $t("professional")
                           }}</a>
                         </h4>
-                        <StatusTag
+                        <ColoredTag
+                          :text="$t('s_' + getStatus('PROFESSIONAL'))"
                           :status="getStatus('PROFESSIONAL')"
-                        ></StatusTag>
+                        ></ColoredTag>
                         <button
                           class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
                           title="Edit"
@@ -265,7 +273,10 @@
                             $t("financial")
                           }}</a>
                         </h4>
-                        <StatusTag :status="getStatus('FINANCIAL')"></StatusTag>
+                        <ColoredTag
+                          :text="$t('s_' + getStatus('FINANCIAL'))"
+                          :status="getStatus('FINANCIAL')"
+                        ></ColoredTag>
                         <button
                           class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
                           title="Edit"
@@ -289,7 +300,10 @@
                         <h4 class="fr-tile__title">
                           <a class="fr-tile__link" href>{{ $t("tax") }}</a>
                         </h4>
-                        <StatusTag :status="getStatus('TAX')"></StatusTag>
+                        <ColoredTag
+                          :text="$t('s_' + getStatus('TAX'))"
+                          :status="getStatus('TAX')"
+                        ></ColoredTag>
                         <button
                           class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
                           title="Edit"
@@ -327,9 +341,14 @@
                                 $t("identification")
                               }}</a>
                             </h4>
-                            <StatusTag
+                            <ColoredTag
+                              :text="
+                                $t(
+                                  's_' + getGuarantorStatus(g, 'IDENTIFICATION')
+                                )
+                              "
                               :status="getGuarantorStatus(g, 'IDENTIFICATION')"
-                            ></StatusTag>
+                            ></ColoredTag>
                             <button
                               class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
                               title="Edit"
@@ -355,9 +374,12 @@
                                 $t("residency")
                               }}</a>
                             </h4>
-                            <StatusTag
+                            <ColoredTag
+                              :text="
+                                $t('s_' + getGuarantorStatus(g, 'RESIDENCY'))
+                              "
                               :status="getGuarantorStatus(g, 'RESIDENCY')"
-                            ></StatusTag>
+                            ></ColoredTag>
                             <button
                               class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
                               title="Edit"
@@ -383,9 +405,12 @@
                                 $t("professional")
                               }}</a>
                             </h4>
-                            <StatusTag
+                            <ColoredTag
+                              :text="
+                                $t('s_' + getGuarantorStatus(g, 'PROFESSIONAL'))
+                              "
                               :status="getGuarantorStatus(g, 'PROFESSIONAL')"
-                            ></StatusTag>
+                            ></ColoredTag>
                             <button
                               class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
                               title="Edit"
@@ -412,9 +437,12 @@
                                 $t("financial")
                               }}</a>
                             </h4>
-                            <StatusTag
+                            <ColoredTag
+                              :text="
+                                $t('s_' + getGuarantorStatus(g, 'FINANCIAL'))
+                              "
                               :status="getGuarantorStatus(g, 'FINANCIAL')"
-                            ></StatusTag>
+                            ></ColoredTag>
                             <button
                               class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
                               title="Edit"
@@ -438,9 +466,10 @@
                             <h4 class="fr-tile__title">
                               <a class="fr-tile__link" href>{{ $t("tax") }}</a>
                             </h4>
-                            <StatusTag
+                            <ColoredTag
+                              :text="$t('s_' + getGuarantorStatus(g, 'TAX'))"
                               :status="getGuarantorStatus(g, 'TAX')"
-                            ></StatusTag>
+                            ></ColoredTag>
                             <button
                               class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
                               title="Edit"
@@ -470,9 +499,14 @@
                                 $t("organism-identification")
                               }}</a>
                             </h4>
-                            <StatusTag
+                            <ColoredTag
+                              :text="
+                                $t(
+                                  's_' + getGuarantorStatus(g, 'IDENTIFICATION')
+                                )
+                              "
                               :status="getGuarantorStatus(g, 'IDENTIFICATION')"
-                            ></StatusTag>
+                            ></ColoredTag>
                             <button
                               class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
                               title="Edit"
@@ -502,14 +536,23 @@
                                 $t("identification-legal-person")
                               }}</a>
                             </h4>
-                            <StatusTag
+                            <ColoredTag
+                              :text="
+                                $t(
+                                  's_' +
+                                    getGuarantorStatus(
+                                      g,
+                                      'IDENTIFICATION_LEGAL_PERSON'
+                                    )
+                                )
+                              "
                               :status="
                                 getGuarantorStatus(
                                   g,
                                   'IDENTIFICATION_LEGAL_PERSON'
                                 )
                               "
-                            ></StatusTag>
+                            ></ColoredTag>
                             <button
                               class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
                               title="Edit"
@@ -538,9 +581,14 @@
                                 $t("identification")
                               }}</a>
                             </h4>
-                            <StatusTag
+                            <ColoredTag
+                              :text="
+                                $t(
+                                  's_' + getGuarantorStatus(g, 'IDENTIFICATION')
+                                )
+                              "
                               :status="getGuarantorStatus(g, 'IDENTIFICATION')"
-                            ></StatusTag>
+                            ></ColoredTag>
                             <button
                               class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
                               title="Edit"
@@ -649,7 +697,7 @@ import { User } from "df-shared/src/models/User";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import DfButton from "df-shared/src/Button/Button.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
-import StatusTag from "df-shared/src/components/StatusTag.vue";
+import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { AnalyticsService } from "../services/AnalyticsService";
@@ -668,7 +716,7 @@ extend("required", {
     ValidationObserver,
     DfButton,
     NakedCard,
-    StatusTag,
+    ColoredTag,
     ConfirmModal,
     DeleteAccount
   },
@@ -723,7 +771,7 @@ export default class Account extends Vue {
     const doc = this.user.documents?.find((d: DfDocument) => {
       return d.documentCategory === docType;
     });
-    return doc?.documentStatus;
+    return doc?.documentStatus || "EMPTY";
   }
 
   isFinancialValid(docs: DfDocument[]) {
@@ -762,7 +810,7 @@ export default class Account extends Vue {
     const doc = g.documents?.find((d: DfDocument) => {
       return d.documentCategory === docType;
     });
-    return doc?.documentStatus;
+    return doc?.documentStatus || "EMPTY";
   }
 
   goToProfile() {
@@ -816,29 +864,35 @@ export default class Account extends Vue {
   getPersonnalStatus() {
     if (
       this.user?.apartmentSharing?.tenants !== undefined &&
-      this.user.applicationType !== "ALONE"
+      this.user.applicationType === "ALONE"
     ) {
-      if (this.user.applicationType === "COUPLE") {
-        const spouse = this.user?.apartmentSharing?.tenants?.find((t: User) => {
-          return t.id !== this.user?.id;
-        });
-        if (spouse?.lastName !== undefined && spouse?.lastName !== "") {
-          return this.$i18n
-            .t("couple-with", [`${spouse?.firstName} ${spouse?.lastName}`])
-            .toString();
-        }
+      return this.$i18n.t("ALONE");
+    }
+    if (this.user.applicationType === "COUPLE") {
+      const spouse = this.user?.apartmentSharing?.tenants?.find((t: User) => {
+        return t.id !== this.user?.id;
+      });
+      if (spouse?.lastName !== undefined && spouse?.lastName !== "") {
         return this.$i18n
-          .t("couple-with", [this.$i18n.t("someone")])
+          .t("couple-with", [`${spouse?.firstName} ${spouse?.lastName}`])
           .toString();
       }
-      if (this.user?.apartmentSharing?.tenants.length === 2) {
-        return this.$i18n.t("group-with-one").toString();
-      }
-      return this.$i18n
-        .t("group-with", [this.user?.apartmentSharing?.tenants.length - 1])
-        .toString();
+      return this.$i18n.t("couple-with", [this.$i18n.t("someone")]).toString();
     }
-    return this.$i18n.t("ALONE");
+
+    const roommates = this.user?.apartmentSharing?.tenants
+      .filter((t: User) => {
+        return t.id !== this.user?.id;
+      })
+      .map((u: User) => {
+        return `${u.firstName} ${u.lastName}`;
+      });
+
+    const listNames = roommates?.join(", ");
+    if (!listNames || listNames.includes("undefined")) {
+      return this.$i18n.t("group-with-someone").toString();
+    }
+    return this.$i18n.t("group-with", [listNames]).toString();
   }
 
   getProfession() {
@@ -1057,10 +1111,6 @@ p {
   font-size: 48px;
 }
 
-.fr-tag {
-  padding: 0.375rem 1rem;
-}
-
 .header-title {
   display: flex;
   justify-content: center;
@@ -1130,7 +1180,12 @@ hr {
     "corporation-identification": "Corporation identification",
     "guarantor": "Guarantor",
     "guarantors-information": "My guarantors information",
-    "TO_PROCESS":"s to process",
+    "s_TO_PROCESS":"To process",
+    "s_VALIDATED":"Validated",
+    "s_DECLINED":"Declined",
+    "s_INCOMPLETE":"Incomplete",
+    "s_EMPTY": "Empty",
+    "TO_PROCESS":"to process",
     "VALIDATED":"is validated",
     "DECLINED":"is declined",
     "INCOMPLETE":"is incomplete",
@@ -1164,8 +1219,8 @@ hr {
     "couple-with": "in relationship with {0}",
     "organism-identification": "Organism",
     "someone": " someone",
-    "group-with-one": "in flatsharing with 1 person",
-    "group-with": "in flatsharing with {0} persons",
+    "group-with": "in flatsharing with {0}",
+    "group-with-someone": "in flatsharing",
     "cotenant-cannot-copy-link": "Your link is inactive because your roommate's file has not yet been validated",
     "spouse-cannot-copy-link": "Your link is inactive because your spouse's file has not yet been validated",
     "amendment-required-title": "Amendment required",
@@ -1194,6 +1249,11 @@ hr {
     "corporation-identification": "Identité du représentant de la personne morale",
     "guarantor": "Garant",
     "guarantors-information": "Les informations de mes garants",
+    "s_TO_PROCESS":"En cours de traitement",
+    "s_VALIDATED":"Vérifié",
+    "s_DECLINED":"Modification demandée",
+    "s_INCOMPLETE":"Non terminé",
+    "s_EMPTY": "Document manquant",
     "TO_PROCESS":"est en cours de traitement",
     "VALIDATED":"est vérifié",
     "DECLINED":"nécessite une modification",
@@ -1226,8 +1286,8 @@ hr {
     "copied": "Copié !",
     "ALONE": "seul·e",
     "couple-with": "en couple avec {0}",
-    "group-with-one": "en colocation avec 1 personne",
-    "group-with": "en colocation avec {0} personnes",
+    "group-with": "en colocation avec {0}",
+    "group-with-someone": "en colocation",
     "organism-identification": "Certificat de l'organisme",
     "someone": " quelqu'un",
     "spouse-cannot-copy-link": "Votre lien est inactif car le dossier de votre conjoint·e n'est pas encore validé",

@@ -57,6 +57,10 @@ export default {
       type: Boolean,
       default: false
     },
+    fullWidth: {
+      type: Boolean,
+      default: false
+    },
     btnType: {
       type: String,
       default: "submit"
@@ -74,6 +78,7 @@ export default {
     sizeClass: function() {
       if (this.small) return "fr-btn--sm ";
       else if (this.large) return "fr-btn--lg ";
+      else if (this.fullWidth) return "full-width ";
       return "";
     },
     //gets icon class

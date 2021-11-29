@@ -1,58 +1,11 @@
 <template>
   <div>
-    <NakedCard>
-      <div class="fr-grid-row fr-grid-row--center">
-        <div class="fr-col-12 fr-mb-3w">
-          <validation-provider rules="required" v-slot="{ errors }">
-            <div
-              class="fr-input-group"
-              :class="errors[0] ? 'fr-input-group--error' : ''"
-            >
-              <label class="fr-label" for="lastname"
-                >{{ $t("lastname") }} :</label
-              >
-              <input
-                v-model="lastName"
-                class="form-control fr-input validate-required"
-                id="lastname"
-                name="lastname"
-                :placeholder="$t('lastname')"
-                type="text"
-              />
-              <span class="fr-error-text" v-if="errors[0]">{{
-                $t(errors[0])
-              }}</span>
-            </div>
-          </validation-provider>
-        </div>
-        <div class="fr-col-12 fr-mb-3w">
-          <validation-provider rules="required" v-slot="{ errors }">
-            <div
-              class="fr-input-group"
-              :class="errors[0] ? 'fr-input-group--error' : ''"
-            >
-              <label for="firstname" class="fr-label"
-                >{{ $t("firstname") }} :</label
-              >
-              <input
-                id="firstname"
-                :placeholder="$t('firstname')"
-                type="text"
-                v-model="firstName"
-                name="firstname"
-                class="validate-required form-control fr-input"
-              />
-              <span class="fr-error-text" v-if="errors[0]">{{
-                $t(errors[0])
-              }}</span>
-            </div>
-          </validation-provider>
-        </div>
-      </div>
+    <NakedCard class="fr-p-md-5w">
       <div>
-        <div class="fr-pl-3v">
-          {{ $t("select-label") }}
-        </div>
+        <h1 class="fr-h6">
+          {{ $t("title") }}
+        </h1>
+        {{ $t("select-label") }}
 
         <v-gouv-fr-modal>
           <template v-slot:button>
@@ -73,11 +26,11 @@
           </template>
         </v-gouv-fr-modal>
 
-        <div class="fr-mt-1w">
+        <div class="fr-mt-3w">
           <fieldset class="fr-fieldset">
             <div class="fr-fieldset__content">
               <div class="fr-grid-row">
-                <div v-for="d in documents" :key="d.key">
+                <div v-for="d in documents" :key="d.key" class="full-width-xs">
                   <BigRadio
                     :val="d"
                     v-model="identificationDocument"
@@ -102,21 +55,11 @@
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
     <NakedCard
-      class="fr-mt-3w"
+      class="fr-p-md-5w fr-mt-3w"
       v-if="identificationDocument.key || identificationFiles().length > 0"
     >
-      <div v-if="identificationDocument.key">
-        <div v-if="identificationDocument.explanationText" class="fr-mb-3w">
-          <p v-html="identificationDocument.explanationText"></p>
-        </div>
-        <div class="fr-mb-3w">
-          <FileUpload
-            :current-status="fileUploadStatus"
-            :page="4"
-            @add-files="addFiles"
-            @reset-files="resetFiles"
-          ></FileUpload>
-        </div>
+      <div v-if="identificationDocument.explanationText" class="fr-mb-3w">
+        <p v-html="identificationDocument.explanationText"></p>
       </div>
       <div
         v-if="identificationFiles().length > 0"
@@ -128,6 +71,14 @@
           :file="file"
           @remove="remove(file)"
         />
+      </div>
+      <div class="fr-mb-3w">
+        <FileUpload
+          :current-status="fileUploadStatus"
+          :page="4"
+          @add-files="addFiles"
+          @reset-files="resetFiles"
+        ></FileUpload>
       </div>
     </NakedCard>
   </div>
@@ -154,7 +105,6 @@ import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
-import { UtilsService } from "../../services/UtilsService";
 
 @Component({
   components: {
@@ -176,15 +126,13 @@ import { UtilsService } from "../../services/UtilsService";
     })
   }
 })
-export default class Identification extends Vue {
+export default class GuarantorIdentification extends Vue {
   documents = DocumentTypeConstants.GUARANTOR_IDENTIFICATION_DOCS;
 
   selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
   identificationDocument = new DocumentType();
-  firstName = "";
-  lastName = "";
   isDocDeleteVisible = false;
 
   @Watch("selectedGuarantor")
@@ -223,20 +171,20 @@ export default class Identification extends Vue {
     this.isDocDeleteVisible = false;
   }
 
-  validSelect() {
+  async validSelect() {
+    this.isDocDeleteVisible = false;
     if (this.selectedGuarantor.documents !== null) {
       const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION";
       });
-      if (doc !== undefined) {
-        doc.files?.forEach(f => {
+      if (doc?.files !== undefined) {
+        for (const f of doc.files) {
           if (f.id) {
-            this.remove(f, true);
+            await this.remove(f, true);
           }
-        });
+        }
       }
     }
-    this.isDocDeleteVisible = false;
   }
 
   updateGuarantorData() {
@@ -253,9 +201,6 @@ export default class Identification extends Vue {
         }
       }
     }
-
-    this.firstName = this.selectedGuarantor.firstName || "";
-    this.lastName = this.selectedGuarantor.lastName || "";
   }
 
   mounted() {
@@ -305,14 +250,10 @@ export default class Identification extends Vue {
       "typeDocumentIdentification",
       this.identificationDocument.value
     );
+    formData.append("firstName", this.selectedGuarantor.firstName || "");
+    formData.append("lastName", this.selectedGuarantor.lastName || "");
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    if (this.firstName) {
-      formData.append("firstName", UtilsService.capitalize(this.firstName));
-    }
-    if (this.lastName) {
-      formData.append("lastName", UtilsService.capitalize(this.lastName));
-    }
     formData.append("guarantorId", this.$store.getters.guarantor.id);
     const loader = this.$loading.show();
     this.$store
@@ -349,9 +290,9 @@ export default class Identification extends Vue {
     return [...newFiles, ...existingFiles];
   }
 
-  remove(file: DfFile, silent = false) {
+  async remove(file: DfFile, silent = false) {
     if (file.path && file.id) {
-      RegisterService.deleteFile(file.id, silent);
+      await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = this.files.findIndex(f => {
         return f.name === file.name && f.file === file.file && !f.id;
@@ -382,11 +323,10 @@ td {
   "permit": "French residence permit",
   "other": "Autre",
   "files": "Documents",
-  "lastname": "Lastname",
-  "firstname": "Firstname",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
   "register": "Register",
-  "select-label": "I add a valid identity document. Attention, be sure to add your double-sided part!",
+  "title": "I add a valid identity document of my guarantor",
+  "select-label": "Attention, be sure to add your double-sided part!",
   "validate": "Validate",
   "cancel": "Cancel",
   "field-required": "This field is required"
@@ -397,11 +337,10 @@ td {
   "permit": "Titre de séjour français",
   "other": "Autre",
   "files": "Documents",
-  "lastname": "Nom",
-  "firstname": "Prénom",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs.",
   "register": "Enregistrer la pièce",
-  "select-label": "J’ajoute une pièce d’identité en cours de validité. Attention, veillez à ajouter une pièce recto-verso !",
+  "title": "J’ajoute la pièce d’identité, en cours de validité, de mon garant",
+  "select-label": "Veillez à ajouter le recto et le verso !",
   "validate": "Valider",
   "cancel": "Annuler",
   "field-required": "Ce champ est requis"

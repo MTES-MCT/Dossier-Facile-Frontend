@@ -1,16 +1,14 @@
 <template>
   <div class="fr-container fr-container-full-size">
-    <div class="bg-grey fr-grid-row full-height">
-      <LeftEditMenu :step="step" class="fr-col-md-3 fr-col-xl-2"></LeftEditMenu>
+    <TopEditMenu :step="step"></TopEditMenu>
+    <div class="bg--grey full-height fr-grid-row">
+      <LeftEditMenu :step="step" class="fr-col-md-4 fr-col-xl-3"></LeftEditMenu>
       <div
-        class="fr-col-xl-7 fr-col-md-6 fr-col-xs-12 fr-p-md-4w fr-p-2w fr-grid-row fr-grid-row--center"
+        class="fr-col-xl-9 fr-col-md-8 fr-col-xs-12 fr-pt-md-4w fr-pt-2w fr-grid-row fr-pb-10w fr-m-2w fr-m-md-0"
       >
-        <div class="fr-col-12 fr-mt-3w max-600">
+        <div class="fr-col-12 max-600 ml">
           <slot></slot>
         </div>
-      </div>
-      <div class="fr-col-md-3 fr-col-xs-12 fr-p-2w">
-        <EditSummary></EditSummary>
       </div>
     </div>
   </div>
@@ -19,18 +17,19 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import LeftEditMenu from "@/components/LeftEditMenu.vue";
-import EditSummary from "@/components/EditSummary.vue";
+import TopEditMenu from "@/components/TopEditMenu.vue";
 import NameInformationForm from "@/components/NameInformationForm.vue";
 import TenantInformationForm from "@/components/TenantInformationForm.vue";
 import UploadDocuments from "@/components/UploadDocuments.vue";
 import GuarantorDocuments from "@/components/GuarantorDocuments.vue";
 import ValidateFile from "@/components/ValidateFile.vue";
+import { UtilsService } from "../services/UtilsService";
 
 @Component({
   components: {
     TenantInformationForm,
-    EditSummary,
     LeftEditMenu,
+    TopEditMenu,
     NameInformationForm,
     UploadDocuments,
     GuarantorDocuments,
@@ -39,27 +38,18 @@ import ValidateFile from "@/components/ValidateFile.vue";
 })
 export default class ProfileContainer extends Vue {
   @Prop() step!: number;
+  isMobile() {
+    return UtilsService.isMobile();
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 @import "df-shared/src/scss/_variables.scss";
 
-.fr-container-full-size {
-  padding-left: 0;
-  padding-right: 0;
-  max-width: 100%;
-}
-
-.full-height {
-  min-height: 100%;
-}
-
-.max-600 {
-  max-width: 600px;
-}
-
-.bg-grey {
-  background-color: #f2f2f9;
+.ml {
+  @media all and (min-width: 768px) {
+    margin-left: 10%;
+  }
 }
 </style>

@@ -1,5 +1,5 @@
 import Vue from "vue";
-import VueRouter, { NavigationGuardNext, RawLocation, Route, RouteConfig } from "vue-router";
+import VueRouter, { NavigationGuardNext, Route, RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
 import store from "@/store";
 
@@ -110,6 +110,17 @@ const routes: Array<RouteConfig> = [
       )
   },
   {
+    path: "/liste-garants",
+    name: "GuarantorList",
+    meta: {
+      title: "Édition du garant - DossierFacile",
+      requiresAuth: true,
+      hideFooter: true
+    },
+    component: () =>
+      import(/* webpackChunkName: "profile" */ "@/views/GuarantorListPage.vue")
+  },
+  {
     path: "/validation-dossier",
     name: "ValidateFile",
     meta: {
@@ -127,6 +138,16 @@ const routes: Array<RouteConfig> = [
       title: "Édition du garant - DossierFacile",
       requiresAuth: true,
       hideFooter: true
+    },
+    beforeEnter: async (to, from, next) => {
+      if (
+        (!store.state.selectedGuarantor.firstName ||
+          !store.state.selectedGuarantor.lastName) &&
+        to.params.substep !== "0"
+      ) {
+        next({ name: "GuarantorDocuments", params: { substep: "0" } });
+      }
+      next();
     },
     component: () =>
       import(
@@ -337,8 +358,8 @@ router.beforeEach((to, from, next) => {
       });
       setInterval(() => {
         (Vue as any).$keycloak.updateToken(60).catch((err: any) => {
-            console.error(err);
-          });
+          console.error(err);
+        });
       }, 45000);
     }
   } else if (to.matched.some(record => record.meta.hideForAuth)) {

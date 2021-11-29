@@ -135,7 +135,7 @@ export default class MyHeader extends Vue {
   height: 50px;
   width: 312px;
   max-height: 50px;
-  max-width: calc(100% - 40px);
+  max-width: calc(100% - 20px);
 }
 
 .lang {
@@ -144,6 +144,12 @@ export default class MyHeader extends Vue {
 
 li {
   margin: 0.5rem;
+}
+
+.fr-header__service-tagline {
+  @media all and (max-width: 768px) {
+    display: none;
+  }
 }
 </style>
 

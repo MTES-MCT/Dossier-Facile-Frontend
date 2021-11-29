@@ -19,9 +19,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
-      - run: yarn main install
+      - run: yarn main install --frozen-lockfile
       - run: yarn main build
       - run: yarn main test:unit
-      - run: yarn tenant install
+      - run: yarn tenant install --frozen-lockfile
       - run: yarn tenant build
       - run: yarn tenant test:unit

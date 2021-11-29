@@ -537,7 +537,7 @@
                 CNIL (3 place de Fontenoy – TSA 80715 – 75334 PARIS CEDEX 07).
                 Les modalités de réclamation sont précisées sur le site de la
                 CNIL :
-                <a href="www.cnil.fr" target="_blank">www.cnil.fr</a>.
+                <a href="https://www.cnil.fr" target="_blank">www.cnil.fr</a>.
               </p>
               <h6>Portabilité des données</h6>
               <p>

@@ -1,10 +1,10 @@
 <template>
   <div>
-    <NakedCard>
+    <NakedCard class="fr-p-md-5w">
       <div>
-        <div class="fr-pl-3v">
+        <h1 class="fr-h6">
           {{ $t("select-label") }}
-        </div>
+        </h1>
 
         <v-gouv-fr-modal>
           <template v-slot:button>
@@ -27,7 +27,7 @@
 
         <select
           v-model="professionalDocument"
-          class="fr-select fr-mb-3w fr-mt-2w"
+          class="fr-select fr-mb-3w fr-mt-3w"
           id="select"
           name="select"
           @change="onSelectChange()"
@@ -46,20 +46,11 @@
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
     <NakedCard
-      class="fr-mt-3w"
+      class="fr-p-md-5w fr-mt-3w"
       v-if="professionalDocument.key || professionalFiles().length > 0"
     >
-      <div v-if="professionalDocument.key">
-        <div class="fr-mb-3w">
-          {{ professionalDocument.explanationText }}
-        </div>
-        <div class="fr-mb-3w">
-          <FileUpload
-            :current-status="fileUploadStatus"
-            @add-files="addFiles"
-            @reset-files="resetFiles"
-          ></FileUpload>
-        </div>
+      <div class="fr-mb-3w">
+        {{ professionalDocument.explanationText }}
       </div>
       <div v-if="professionalFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
         <ListItem
@@ -68,6 +59,13 @@
           :file="file"
           @remove="remove(file)"
         />
+      </div>
+      <div class="fr-mb-3w">
+        <FileUpload
+          :current-status="fileUploadStatus"
+          @add-files="addFiles"
+          @reset-files="resetFiles"
+        ></FileUpload>
       </div>
     </NakedCard>
   </div>
@@ -121,7 +119,11 @@ export default class Professional extends Vue {
   documents = DocumentTypeConstants.PROFESSIONAL_DOCS;
   isDocDeleteVisible = false;
 
-  mounted() {
+  getLocalStorageKey() {
+    return "professional_" + this.user.email;
+  }
+
+  beforeMount() {
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "PROFESSIONAL";
@@ -132,12 +134,30 @@ export default class Professional extends Vue {
         });
         if (localDoc !== undefined) {
           this.professionalDocument = localDoc;
+          localStorage.setItem(
+            this.getLocalStorageKey(),
+            this.professionalDocument.key || ""
+          );
+        }
+      } else {
+        const key = localStorage.getItem(this.getLocalStorageKey());
+        if (key) {
+          const localDoc = this.documents.find((d: DocumentType) => {
+            return d.key === key;
+          });
+          if (localDoc !== undefined) {
+            this.professionalDocument = localDoc;
+          }
         }
       }
     }
   }
 
   onSelectChange() {
+    localStorage.setItem(
+      this.getLocalStorageKey(),
+      this.professionalDocument.key
+    );
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "PROFESSIONAL";
@@ -168,20 +188,20 @@ export default class Professional extends Vue {
     this.isDocDeleteVisible = false;
   }
 
-  validSelect() {
+  async validSelect() {
+    this.isDocDeleteVisible = false;
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "PROFESSIONAL";
       });
-      if (doc !== undefined) {
-        doc.files?.forEach(f => {
+      if (doc?.files !== undefined) {
+        for (const f of doc.files) {
           if (f.id) {
-            this.remove(f, true);
+            await this.remove(f, true);
           }
-        });
+        }
       }
     }
-    this.isDocDeleteVisible = false;
   }
 
   addFiles(fileList: File[]) {
@@ -262,10 +282,10 @@ export default class Professional extends Vue {
     return [...newFiles, ...existingFiles];
   }
 
-  remove(file: DfFile, silent = false) {
+  async remove(file: DfFile, silent = false) {
     AnalyticsService.deleteFile("professional");
     if (file.path && file.id) {
-      RegisterService.deleteFile(file.id, silent);
+      await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = this.files.findIndex(f => {
         return f.name === file.name && f.file === file.file && !f.id;

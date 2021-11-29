@@ -1,6 +1,6 @@
 <template>
   <div class="v-gouv-fr-modal">
-    <a href="#" @click="isOpened = true" class="fr-link">
+    <a href="#" @click="isOpened = true" class="fr-link fr-tag--sm">
       <slot name="button"> </slot>
     </a>
     <dialog

@@ -3,6 +3,12 @@ import { Guarantor } from "../../../df-shared/src/models/Guarantor";
 import store from "../store";
 
 export const UtilsService = {
+  getMainUser() {
+    return store.state.user.apartmentSharing.tenants.find((t: any) => {
+      return t.tenantType === "CREATE";
+    });
+  },
+
   allDocumentsFilled() {
     return (
       this.documentsFilled() &&

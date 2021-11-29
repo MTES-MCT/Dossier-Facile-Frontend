@@ -29,6 +29,13 @@ export const RegisterService = {
     );
   },
 
+  saveGuarantorName(formData: FormData) {
+    return axios.post(
+      `https://${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/name`,
+      formData
+    );
+  },
+
   saveGuarantorIdentification(formData: FormData) {
     return axios.post(
       `https://${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentIdentification`,

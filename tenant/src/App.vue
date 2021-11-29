@@ -136,7 +136,7 @@ export default class App extends Vue {
 </script>
 
 <style lang="scss">
-@import "../node_modules/df-shared/src/scss/_main.scss";
+@import "df-shared/src/scss/_main.scss";
 
 #app {
   min-height: 100vh;

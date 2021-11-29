@@ -22,7 +22,7 @@ module.exports = {
     "issues",
     "lerna"
   ],
-  "scopes": ["", "profile", "guarantor", "account", "messaging", "www", "information", "document", "upload", "help", "identity", "residency", "professional", "financial", "tax", "footer", "header"],
+  "scopes": ["", "profile", "guarantor", "account", "messaging", "www", "information", "document", "upload", "help", "identity", "residency", "professional", "financial", "tax", "footer", "header", "menu"],
   "types": {
     "chore": {
       "description": "Build process or auxiliary tool changes",

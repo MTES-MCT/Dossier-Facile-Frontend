@@ -1,14 +1,6 @@
 <template>
   <ProfileContainer :step="1">
-    <div class="step fr-mb-3w">
-      <div class="step-number">1</div>
-      <div>
-        <h4>{{ $t("title-step") }}</h4>
-      </div>
-    </div>
-    <NakedCard class="fr-pt-3w fr-pb-3w">
-      <TenantInformationForm></TenantInformationForm>
-    </NakedCard>
+    <TenantInformationForm></TenantInformationForm>
   </ProfileContainer>
 </template>
 
@@ -16,13 +8,11 @@
 import { Component, Vue } from "vue-property-decorator";
 import TenantInformationForm from "@/components/TenantInformationForm.vue";
 import ProfileContainer from "@/components/ProfileContainer.vue";
-import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 @Component({
   components: {
     TenantInformationForm,
-    ProfileContainer,
-    NakedCard
+    ProfileContainer
   }
 })
 export default class TypeInformation extends Vue {
@@ -38,36 +28,3 @@ export default class TypeInformation extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-h4 {
-  margin: 0;
-}
-.step-number {
-  background-color: var(--primary);
-  color: white;
-  margin: 0.25rem 1rem 0 0;
-  border-radius: 50%;
-  display: inline-block;
-  height: 25px;
-  width: 25px;
-  min-width: 25px;
-  text-align: center;
-  z-index: 1;
-}
-.step {
-  display: flex;
-  align-items: center;
-}
-</style>
-
-<i18n>
-{
-"en": {
-"title-step": "I fulfill my information"
-},
-"fr": {
-"title-step": "Je renseigne mes informations"
-}
-}
-</i18n>

@@ -1,20 +1,17 @@
 <template>
   <div>
-    <NakedCard class="fr-p-5w" v-if="!documentsFilled()">
+    <NakedCard class="fr-p-md-5w" v-if="!documentsFilled()">
       <h6 class="color--red">{{ $t("error-title") }}</h6>
       <p>
         {{ $t("file-not-valid") }}
       </p>
-      <div>
-        {{ $t("my-missing-documents") }}
-      </div>
       <div v-if="!hasDoc('IDENTIFICATION')">
         <div class="fr-grid-row file-item">
           <div>{{ $t("identification") }}</div>
           <DfButton class="update-btn" @on-click="openTenant(1)">
             <div v-if="!isMobile()">{{ $t("update") }}</div>
             <div v-if="isMobile()">
-              <span class="color--primary material-icons md-24">edit</span>
+              <span class="color--primary material-icons md-16">edit</span>
             </div>
           </DfButton>
         </div>
@@ -25,7 +22,7 @@
           <DfButton class="update-btn" @on-click="openTenant(2)"
             ><div v-if="!isMobile()">{{ $t("update") }}</div>
             <div v-if="isMobile()">
-              <span class="color--primary material-icons md-24">edit</span>
+              <span class="color--primary material-icons md-16">edit</span>
             </div></DfButton
           >
         </div>
@@ -36,7 +33,7 @@
           <DfButton class="update-btn" @on-click="openTenant(3)"
             ><div v-if="!isMobile()">{{ $t("update") }}</div>
             <div v-if="isMobile()">
-              <span class="color--primary material-icons md-24">edit</span>
+              <span class="color--primary material-icons md-16">edit</span>
             </div></DfButton
           >
         </div>
@@ -47,7 +44,7 @@
           <DfButton class="update-btn" @on-click="openTenant(4)"
             ><div v-if="!isMobile()">{{ $t("update") }}</div>
             <div v-if="isMobile()">
-              <span class="color--primary material-icons md-24">edit</span>
+              <span class="color--primary material-icons md-16">edit</span>
             </div></DfButton
           >
         </div>
@@ -58,7 +55,7 @@
           <DfButton class="update-btn" @on-click="openTenant(5)"
             ><div v-if="!isMobile()">{{ $t("update") }}</div>
             <div v-if="isMobile()">
-              <span class="color--primary material-icons md-24">edit</span>
+              <span class="color--primary material-icons md-16">edit</span>
             </div></DfButton
           >
         </div>
@@ -67,7 +64,7 @@
 
     <div class="fr-mt-3w" v-for="g in user.guarantors" v-bind:key="g.id">
       <div v-if="g.typeGuarantor === 'NATURAL_PERSON'">
-        <NakedCard v-if="!documentsGuarantorFilled(g)" class="fr-p-5w">
+        <NakedCard v-if="!documentsGuarantorFilled(g)" class="fr-p-md-5w">
           <h6 class="color--red">{{ $t("error-title-guarantor") }}</h6>
           <div>
             {{ $t("his-missing-documents") }}
@@ -78,7 +75,7 @@
               <DfButton class="update-btn" @on-click="openGuarantor(g, 1)"
                 ><div v-if="!isMobile()">{{ $t("update") }}</div>
                 <div v-if="isMobile()">
-                  <span class="color--primary material-icons md-24">edit</span>
+                  <span class="color--primary material-icons md-16">edit</span>
                 </div></DfButton
               >
             </div>
@@ -89,7 +86,7 @@
               <DfButton class="update-btn" @on-click="openGuarantor(g, 2)"
                 ><div v-if="!isMobile()">{{ $t("update") }}</div>
                 <div v-if="isMobile()">
-                  <span class="color--primary material-icons md-24">edit</span>
+                  <span class="color--primary material-icons md-16">edit</span>
                 </div></DfButton
               >
             </div>
@@ -100,7 +97,7 @@
               <DfButton class="update-btn" @on-click="openGuarantor(g, 3)"
                 ><div v-if="!isMobile()">{{ $t("update") }}</div>
                 <div v-if="isMobile()">
-                  <span class="color--primary material-icons md-24">edit</span>
+                  <span class="color--primary material-icons md-16">edit</span>
                 </div></DfButton
               >
             </div>
@@ -111,7 +108,7 @@
               <DfButton class="update-btn" @on-click="openGuarantor(g, 4)"
                 ><div v-if="!isMobile()">{{ $t("update") }}</div>
                 <div v-if="isMobile()">
-                  <span class="color--primary material-icons md-24">edit</span>
+                  <span class="color--primary material-icons md-16">edit</span>
                 </div></DfButton
               >
             </div>
@@ -122,7 +119,7 @@
               <DfButton class="update-btn" @on-click="openGuarantor(g, 5)"
                 ><div v-if="!isMobile()">{{ $t("update") }}</div>
                 <div v-if="isMobile()">
-                  <span class="color--primary material-icons md-24">edit</span>
+                  <span class="color--primary material-icons md-16">edit</span>
                 </div></DfButton
               >
             </div>
@@ -138,7 +135,7 @@
               <DfButton class="update-btn" @on-click="openGuarantor(g, 1)"
                 ><div v-if="!isMobile()">{{ $t("update") }}</div>
                 <div v-if="isMobile()">
-                  <span class="color--primary material-icons md-24">edit</span>
+                  <span class="color--primary material-icons md-16">edit</span>
                 </div></DfButton
               >
             </div>
@@ -150,7 +147,7 @@
               <DfButton class="update-btn" @on-click="openGuarantor(g, 2)"
                 ><div v-if="!isMobile()">{{ $t("update") }}</div>
                 <div v-if="isMobile()">
-                  <span class="color--primary material-icons md-24">edit</span>
+                  <span class="color--primary material-icons md-16">edit</span>
                 </div></DfButton
               >
             </div>
@@ -166,7 +163,7 @@
               <DfButton class="update-btn" @on-click="openGuarantor(g, 1)"
                 ><div v-if="!isMobile()">{{ $t("update") }}</div>
                 <div v-if="isMobile()">
-                  <span class="color--primary material-icons md-24">edit</span>
+                  <span class="color--primary material-icons md-16">edit</span>
                 </div></DfButton
               >
             </div>
@@ -271,6 +268,11 @@ export default class FileErrors extends Vue {
   @media all and (min-width: 768px) {
     min-width: 150px;
   }
+  @media all and (max-width: 767px) {
+    padding: 0.5rem;
+    min-height: 1rem;
+    line-height: 1rem;
+  }
 }
 </style>
 
@@ -285,7 +287,6 @@ export default class FileErrors extends Vue {
     "file-not-valid": "Your file is not valid, please complete the missing documents to submit your file",
     "error-title": "File not complete",
     "error-title-guarantor": "Guarantor file not complete",
-    "my-missing-documents": "My missing documents:",
     "his-missing-documents": "Guarantor missing documents:",
     "update": "Update",
     "organism-cert": "Organism certificate",
@@ -298,11 +299,10 @@ export default class FileErrors extends Vue {
 		"professional": "Justificatif de situation professionnelle",
 		"financial": "Justificatif de ressources",
 		"tax": "Avis d'imposition",
-    "file-not-valid": "Votre dossier n'est pas valide, veuillez compléter les documents manquants pour soumettre votre dossier",
-    "error-title": "Dossier incomplet",
-    "error-title-guarantor": "Dossier garant incomplet",
-    "my-missing-documents": "Vos documents manquants :",
-    "his-missing-documents": "Ses documents manquants :",
+    "file-not-valid": "Votre dossier n'est pas valide, veuillez compléter les documents manquants ou modifier les documents refusés pour soumettre votre dossier",
+    "error-title": "Dossier invalide",
+    "error-title-guarantor": "Dossier garant invalide",
+    "his-missing-documents": "Ses documents invalides :",
     "update": "Mettre à jour",
     "organism-cert": "Attestation de garantie",
     "representative-identification": "Identité du représentant de la personne morale",
