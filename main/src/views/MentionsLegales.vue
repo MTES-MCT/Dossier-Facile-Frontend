@@ -416,7 +416,7 @@
                 strictement nécessaire à la réalisation des finalités décrites
                 dans les présentes CGU, c’est-à-dire tant que l’Utilisateur
                 poursuit son utilisation du service (c’est-à-dire qu’il partage
-                son lien dossier). En cas d’inactivité supérieure à 6 mois, les
+                son lien dossier). En cas d’inactivité supérieure à 3 mois, les
                 fichiers associés à un compte sont supprimés. En cas
                 d’inactivité supérieure à 1 an, les données personnelles sont
                 supprimées et les données associées à un Utilisateur sont
