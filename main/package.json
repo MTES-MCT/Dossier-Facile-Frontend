@@ -22,7 +22,7 @@
     "@types/jquery": "^3.5.4",
     "@vue/cli": "^4.5.13",
     "@vue/cli-plugin-babel": "~4.5.13",
-    "axios": "^0.21.0",
+    "axios": "^0.21.2",
     "core-js": "^3.6.5",
     "d3": "^6.6.2",
     "df-shared": "0.1.0",
