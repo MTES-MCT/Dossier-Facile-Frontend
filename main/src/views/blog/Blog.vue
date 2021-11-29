@@ -7,6 +7,48 @@
           <hr />
           <article class="fr-mb-12w">
             <div class="text-center">
+              <router-link to="/blog/loyer-locataire-ou-bailleur">
+                <h2 class="fr-h2">
+                  Le loyer : tout ce qu’il faut savoir quand on est locataire ou
+                  bailleur
+                </h2>
+              </router-link>
+              <span>29 Novembre 2021 dans </span>
+              <span>
+                <a href="#" class="underline">DossierFacile</a>
+              </span>
+            </div>
+            <!--end article title-->
+            <div class="article__body">
+              <router-link to="/blog/loyer-locataire-ou-bailleur">
+                <img
+                  class="img-center"
+                  alt=""
+                  src="../../assets/images/blog-article9.webp"
+                />
+              </router-link>
+              <p>
+                Le montant du loyer d'un logement, qu’il soit loué vide ou
+                meublé, est en principe fixé librement par le propriétaire.
+              </p>
+              <p>
+                Toutefois, les communes situées en zone tendue sont soumises à
+                <a
+                  href="https://www.service-public.fr/particuliers/vosdroits/F1314"
+                  >l'encadrement des loyers</a
+                >. Dans ces villes, le loyer est plafonné lors de la mise en
+                location du logement (cas d'un nouveau locataire) et lors du
+                renouvellement du bail (cas du même locataire).
+              </p>
+              <router-link to="/blog/loyer-locataire-ou-bailleur"
+                >Continuer la lecture »</router-link
+              >
+            </div>
+            <!--end article title-->
+          </article>
+          <hr />
+          <article class="fr-mb-12w">
+            <div class="text-center">
               <router-link to="/blog/comment-justifier-son-domicile">
                 <h2 class="fr-h2">
                   Comment justifier son domicile
@@ -23,7 +65,7 @@
                 <img
                   class="img-center"
                   alt=""
-                  src="../../assets/images/blog-article8.png"
+                  src="../../assets/images/blog-article8.webp"
                 />
               </router-link>
               <p>
@@ -61,7 +103,7 @@
                 <img
                   class="img-center"
                   alt=""
-                  src="../../assets/images/blog-article7.png"
+                  src="../../assets/images/blog-article7.webp"
                 />
               </router-link>
               <p>
@@ -100,7 +142,7 @@
                 <img
                   class="img-center"
                   alt=""
-                  src="../../assets/images/blog-article6.png"
+                  src="../../assets/images/blog-article6.webp"
                 />
               </router-link>
               <p>
@@ -143,7 +185,7 @@
                 <img
                   class="img-center"
                   alt=""
-                  src="../../assets/images/blog-article5.png"
+                  src="../../assets/images/blog-article5.webp"
                 />
               </router-link>
               <p>
@@ -185,7 +227,7 @@
                 <img
                   class="img-center"
                   alt=""
-                  src="../../assets/images/blog-article4.png"
+                  src="../../assets/images/blog-article4.webp"
                 />
               </router-link>
               <p>
@@ -218,7 +260,7 @@
             <!--end article title-->
             <div class="article__body">
               <router-link to="/blog/pourquoi-dossierfacile-est-il-gratuit">
-                <img alt="" src="../../assets/images/blog-article3.png" />
+                <img alt="" src="../../assets/images/blog-article3.webp" />
               </router-link>
               <p>
                 Dossier facile est une start-up qui propose une solution simple
@@ -247,7 +289,7 @@
             <!--end article title-->
             <div class="article__body">
               <router-link to="/blog/constituer-votre-dossierFacile">
-                <img alt="" src="../../assets/images/blog-article2.png" />
+                <img alt="" src="../../assets/images/blog-article2.webp" />
               </router-link>
               <p>
                 Dans un contexte de pénurie de logements,
@@ -286,7 +328,7 @@
               <router-link
                 to="/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location"
               >
-                <img alt="" src="../../assets/images/blog-article.png" />
+                <img alt="" src="../../assets/images/blog-article.webp" />
               </router-link>
               <p>
                 A cause de l’augmentation de la demande immobilière, il devient

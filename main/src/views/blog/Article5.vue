@@ -29,7 +29,7 @@
               <img
                 alt=""
                 class="img-center"
-                src="../../assets/images/blog-article5.png"
+                src="../../assets/images/blog-article5.webp"
               />
 
               <h2>1. Bien connaître le marché locatif parisien</h2>

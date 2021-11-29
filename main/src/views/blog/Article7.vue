@@ -30,7 +30,7 @@
                 <img
                   alt=""
                   class="img-center"
-                  src="../../assets/images/blog-article7.png"
+                  src="../../assets/images/blog-article7.webp"
                 />
               </p>
               <h2>1. Comment définir la colocation</h2>
