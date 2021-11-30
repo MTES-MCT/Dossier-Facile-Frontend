@@ -416,7 +416,7 @@
                 strictement nécessaire à la réalisation des finalités décrites
                 dans les présentes CGU, c’est-à-dire tant que l’Utilisateur
                 poursuit son utilisation du service (c’est-à-dire qu’il partage
-                son lien dossier). En cas d’inactivité supérieure à 6 mois, les
+                son lien dossier). En cas d’inactivité supérieure à 3 mois, les
                 fichiers associés à un compte sont supprimés. En cas
                 d’inactivité supérieure à 1 an, les données personnelles sont
                 supprimées et les données associées à un Utilisateur sont
@@ -537,7 +537,7 @@
                 CNIL (3 place de Fontenoy – TSA 80715 – 75334 PARIS CEDEX 07).
                 Les modalités de réclamation sont précisées sur le site de la
                 CNIL :
-                <a href="www.cnil.fr" target="_blank">www.cnil.fr</a>.
+                <a href="https://www.cnil.fr" target="_blank">www.cnil.fr</a>.
               </p>
               <h6>Portabilité des données</h6>
               <p>

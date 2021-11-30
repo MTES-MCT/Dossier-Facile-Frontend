@@ -1,10 +1,10 @@
 <template>
   <div>
     <div>
-      <NakedCard>
-        <div class="fr-pl-3v">
+      <NakedCard class="fr-p-md-5w">
+        <h1 class="fr-h6">
           {{ $t("select-label") }}
-        </div>
+        </h1>
 
         <v-gouv-fr-modal>
           <template v-slot:button>
@@ -25,11 +25,11 @@
           </template>
         </v-gouv-fr-modal>
 
-        <div class="fr-mt-1w">
+        <div class="fr-mt-3w">
           <fieldset class="fr-fieldset">
             <div class="fr-fieldset__content">
               <div class="fr-grid-row">
-                <div v-for="d in documents" :key="d.key">
+                <div v-for="d in documents" :key="d.key" class="full-width-xs">
                   <BigRadio
                     :val="d"
                     v-model="identificationDocument"
@@ -55,24 +55,14 @@
     </ConfirmModal>
 
     <NakedCard
-      class="fr-mt-3w"
+      class="fr-p-md-5w fr-mt-3w"
       v-if="identificationDocument.key || identificationFiles().length > 0"
     >
-      <div>
-        <div v-if="identificationDocument.explanationText">
-          <div
-            class="fr-mt-1w fr-mb-1w fr-ml-2w"
-            v-html="identificationDocument.explanationText"
-          ></div>
-        </div>
-        <div class="fr-mb-3w">
-          <FileUpload
-            :current-status="fileUploadStatus"
-            :page="4"
-            @add-files="addFiles"
-            @reset-files="resetFiles"
-          ></FileUpload>
-        </div>
+      <div v-if="identificationDocument.explanationText">
+        <div
+          class="fr-mb-1w"
+          v-html="identificationDocument.explanationText"
+        ></div>
       </div>
       <div
         v-if="identificationFiles().length > 0"
@@ -84,6 +74,14 @@
           :file="file"
           @remove="remove(file)"
         />
+      </div>
+      <div class="fr-mb-3w">
+        <FileUpload
+          :current-status="fileUploadStatus"
+          :page="4"
+          @add-files="addFiles"
+          @reset-files="resetFiles"
+        ></FileUpload>
       </div>
     </NakedCard>
   </div>
@@ -141,7 +139,45 @@ export default class Identification extends Vue {
   identificationDocument = new DocumentType();
   isDocDeleteVisible = false;
 
+  getLocalStorageKey() {
+    return "identification_" + this.user.email;
+  }
+
+  beforeMount() {
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "IDENTIFICATION";
+      });
+      if (doc !== undefined) {
+        const localDoc = this.documents.find((d: DocumentType) => {
+          return d.value === doc.documentSubCategory;
+        });
+        if (localDoc !== undefined) {
+          this.identificationDocument = localDoc;
+          localStorage.setItem(
+            this.getLocalStorageKey(),
+            this.identificationDocument.key || ""
+          );
+        }
+      } else {
+        const key = localStorage.getItem(this.getLocalStorageKey());
+        if (key) {
+          const localDoc = this.documents.find((d: DocumentType) => {
+            return d.key === key;
+          });
+          if (localDoc !== undefined) {
+            this.identificationDocument = localDoc;
+          }
+        }
+      }
+    }
+  }
+
   onSelectChange() {
+    localStorage.setItem(
+      this.getLocalStorageKey(),
+      this.identificationDocument.key
+    );
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION";
@@ -172,33 +208,17 @@ export default class Identification extends Vue {
     this.isDocDeleteVisible = false;
   }
 
-  validSelect() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "IDENTIFICATION";
-      });
-      if (doc !== undefined) {
-        doc.files?.forEach(f => {
-          if (f.id) {
-            this.remove(f, true);
-          }
-        });
-      }
-    }
+  async validSelect() {
     this.isDocDeleteVisible = false;
-  }
-
-  mounted() {
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION";
       });
-      if (doc !== undefined) {
-        const localDoc = this.documents.find((d: DocumentType) => {
-          return d.value === doc.documentSubCategory;
-        });
-        if (localDoc !== undefined) {
-          this.identificationDocument = localDoc;
+      if (doc?.files !== undefined) {
+        for (const f of doc.files) {
+          if (f.id) {
+            await this.remove(f, true);
+          }
         }
       }
     }
@@ -288,10 +308,10 @@ export default class Identification extends Vue {
     return [...newFiles, ...existingFiles];
   }
 
-  remove(file: DfFile, silent = false) {
+  async remove(file: DfFile, silent = false) {
     AnalyticsService.deleteFile("identification");
     if (file.path && file.id) {
-      RegisterService.deleteFile(file.id, silent);
+      await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = this.files.findIndex(f => {
         return f.name === file.name && f.file === file.file && !f.id;
@@ -334,7 +354,7 @@ td {
   "other": "Autre",
   "files": "Documents",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "select-label": "J’ajoute une pièce d’identité en cours de validité.",
+  "select-label": "Déposez une pièce d'identité en cours de validité.",
   "validate": "Valider",
   "cancel": "Annuler"
 }

@@ -3,22 +3,188 @@
     <div class="inner-left-edit fr-mt-7w">
       <div class="active step">
         <div class="step-number">1</div>
-        <div class="step-title">je renseigne mes informations</div>
+        <div class="step-title">
+          <router-link :to="{ name: 'TenantName' }" class="fr-link">
+            {{ $t("personal-information") }}</router-link
+          >
+        </div>
       </div>
       <div class="vline" :class="getClass(0)"></div>
       <div class="step" :class="getClass(1)">
         <div class="step-number">2</div>
-        <div class="step-title">je joins mes documents</div>
+        <div class="step-title">
+          <router-link
+            class="fr-link"
+            :to="{ name: 'TenantDocuments', params: { substep: '1' } }"
+            >{{ $t("my-document") }}</router-link
+          >
+        </div>
       </div>
-      <div class="vline" :class="getClass(1)"></div>
+      <div class="vline" :class="getClass(1)">
+        <div v-if="step === 2">
+          <div class="ml-5">
+            <router-link
+              :to="{ name: 'TenantDocuments', params: { substep: '1' } }"
+              ><ColoredTag
+                :text="$t('identification')"
+                :status="tenantStatus('IDENTITY')"
+                :active="getTenantCurrentStep(1)"
+              ></ColoredTag
+            ></router-link>
+          </div>
+          <div class="ml-5">
+            <router-link
+              :to="{ name: 'TenantDocuments', params: { substep: '2' } }"
+              ><ColoredTag
+                :text="$t('residency')"
+                :status="tenantStatus('RESIDENCY')"
+                :active="getTenantCurrentStep(2)"
+              ></ColoredTag
+            ></router-link>
+          </div>
+          <div class="ml-5">
+            <router-link
+              :to="{ name: 'TenantDocuments', params: { substep: '3' } }"
+              ><ColoredTag
+                :text="$t('professional')"
+                :status="tenantStatus('PROFESSIONAL')"
+                :active="getTenantCurrentStep(3)"
+              ></ColoredTag
+            ></router-link>
+          </div>
+          <div class="ml-5">
+            <router-link
+              :to="{ name: 'TenantDocuments', params: { substep: '4' } }"
+              ><ColoredTag
+                :text="$t('financial')"
+                :status="tenantStatus('FINANCIAL')"
+                :active="getTenantCurrentStep(4)"
+              ></ColoredTag
+            ></router-link>
+          </div>
+          <div class="ml-5">
+            <router-link
+              :to="{ name: 'TenantDocuments', params: { substep: '5' } }"
+              ><ColoredTag
+                :text="$t('tax')"
+                :status="tenantStatus('TAX')"
+                :active="getTenantCurrentStep(5)"
+              ></ColoredTag
+            ></router-link>
+          </div>
+        </div>
+      </div>
       <div class="step" :class="getClass(2)">
         <div class="step-number">3</div>
-        <div class="step-title">je renseigne mon garant</div>
+        <div class="step-title">
+          <router-link class="fr-link" :to="{ name: 'GuarantorChoice' }">{{
+            $t("my-guarantor")
+          }}</router-link>
+        </div>
       </div>
-      <div class="vline" :class="getClass(2)"></div>
+      <div class="vline" :class="getClass(2)">
+        <div v-if="step === 3 && selectedGuarantor && expandGuarantorMenu">
+          <div
+            v-if="
+              selectedGuarantor.typeGuarantor === 'NATURAL_PERSON' &&
+                selectedGuarantor.firstName !== undefined &&
+                selectedGuarantor.lastName !== undefined
+            "
+          >
+            <div class="ml-5">
+              <router-link
+                :to="{ name: 'GuarantorDocuments', params: { substep: '1' } }"
+                ><ColoredTag
+                  :text="$t('identification')"
+                  :status="guarantorStatus('IDENTITY')"
+                  :active="getGuarantorCurrentStep(1)"
+                ></ColoredTag
+              ></router-link>
+            </div>
+            <div class="ml-5">
+              <router-link
+                :to="{ name: 'GuarantorDocuments', params: { substep: '2' } }"
+                ><ColoredTag
+                  :text="$t('residency')"
+                  :status="guarantorStatus('RESIDENCY')"
+                  :active="getGuarantorCurrentStep(2)"
+                ></ColoredTag
+              ></router-link>
+            </div>
+            <div class="ml-5">
+              <router-link
+                :to="{ name: 'GuarantorDocuments', params: { substep: '3' } }"
+                ><ColoredTag
+                  :text="$t('professional')"
+                  :status="guarantorStatus('PROFESSIONAL')"
+                  :active="getGuarantorCurrentStep(3)"
+                ></ColoredTag
+              ></router-link>
+            </div>
+            <div class="ml-5">
+              <router-link
+                :to="{ name: 'GuarantorDocuments', params: { substep: '4' } }"
+                ><ColoredTag
+                  :text="$t('financial')"
+                  :status="guarantorStatus('FINANCIAL')"
+                  :active="getGuarantorCurrentStep(4)"
+                ></ColoredTag
+              ></router-link>
+            </div>
+            <div class="ml-5">
+              <router-link
+                :to="{ name: 'GuarantorDocuments', params: { substep: '5' } }"
+                ><ColoredTag
+                  :text="$t('tax')"
+                  :status="guarantorStatus('TAX')"
+                  :active="getGuarantorCurrentStep(5)"
+                ></ColoredTag
+              ></router-link>
+            </div>
+          </div>
+          <div v-if="selectedGuarantor.typeGuarantor === 'LEGAL_PERSON'">
+            <div class="ml-5">
+              <router-link
+                :to="{ name: 'GuarantorDocuments', params: { substep: '0' } }"
+                ><ColoredTag
+                  :text="$t('identification-legal-person')"
+                  :status="guarantorStatus('IDENTIFICATION_LEGAL_PERSON')"
+                  :active="getGuarantorCurrentStep(0)"
+                ></ColoredTag
+              ></router-link>
+            </div>
+            <div class="ml-5">
+              <router-link
+                :to="{ name: 'GuarantorDocuments', params: { substep: '1' } }"
+                ><ColoredTag
+                  :text="$t('identity-represent')"
+                  :status="guarantorStatus('IDENTIFICATION')"
+                  :active="getGuarantorCurrentStep(1)"
+                ></ColoredTag
+              ></router-link>
+            </div>
+          </div>
+          <div v-if="selectedGuarantor.typeGuarantor === 'ORGANISM'">
+            <div class="ml-5">
+              <router-link
+                :to="{ name: 'GuarantorDocuments', params: { substep: '0' } }"
+                ><ColoredTag
+                  :text="$t('identification-organism')"
+                  :status="guarantorStatus('IDENTIFICATION')"
+                  :active="getGuarantorCurrentStep(0)"
+                ></ColoredTag
+              ></router-link>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="step" :class="getClass(3)">
         <div class="step-number">4</div>
-        <div class="step-title">je valide mon dossier</div>
+        <div class="step-title">
+          <router-link class="fr-link" :to="{ name: 'ValidateFile' }">{{
+            $t("validate-file")
+          }}</router-link>
+        </div>
       </div>
       <div class="spacer"></div>
     </div>
@@ -26,17 +192,53 @@
 </template>
 
 <script lang="ts">
+import { Guarantor } from "df-shared/src/models/Guarantor";
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { mapState } from "vuex";
+import { DocumentService } from "../services/DocumentService";
+import StatusIcon from "df-shared/src/components/StatusIcon.vue";
+import ColoredTag from "df-shared/src/components/ColoredTag.vue";
+import { User } from "df-shared/src/models/User";
 
-@Component
+@Component({
+  components: { StatusIcon, ColoredTag },
+  computed: {
+    ...mapState({
+      selectedGuarantor: "selectedGuarantor",
+      expandGuarantorMenu: "expandGuarantorMenu",
+      user: "user"
+    })
+  }
+})
 export default class LeftEditMenu extends Vue {
   @Prop({ default: 0 }) step!: number;
+  selectedGuarantor!: Guarantor;
+  expandGuarantorMenu!: boolean;
+  user!: User;
 
   getClass(s: number) {
     if (this.getStep(s)) {
       return "active";
     }
     return "";
+  }
+
+  guarantorStatus(documentType: string) {
+    return DocumentService.guarantorStatus(documentType);
+  }
+
+  tenantStatus(documentType: string) {
+    return DocumentService.tenantStatus(documentType);
+  }
+
+  getTenantCurrentStep(substep: number): boolean {
+    const s = Number(this.$route.params.substep) || 0;
+    return this.step === 2 && s === substep;
+  }
+
+  getGuarantorCurrentStep(substep: number): boolean {
+    const s = Number(this.$route.params.substep) || 0;
+    return this.step === 3 && s === substep;
   }
 
   getStep(s: number) {
@@ -79,10 +281,10 @@ export default class LeftEditMenu extends Vue {
 }
 
 .vline {
-  margin-left: 17px;
+  margin-left: 23px;
   border-left: 1px solid var(--g400-t);
   z-index: 0;
-  height: 25px;
+  min-height: 25px;
   &.active {
     border-left: 1px solid var(--primary);
   }
@@ -91,7 +293,7 @@ export default class LeftEditMenu extends Vue {
 .step {
   display: flex;
   align-items: center;
-  height: 4rem;
+  height: 3rem;
 }
 
 .step-number {
@@ -99,12 +301,13 @@ export default class LeftEditMenu extends Vue {
   border: 1px solid var(--g400-t);
   margin: 0 5px;
   border-radius: 50%;
-  display: inline-block;
-  height: 25px;
-  width: 25px;
-  min-width: 25px;
-  text-align: center;
+  height: 2.25rem;
+  width: 2.25rem;
+  min-width: 2.25rem;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .active .step-number {
@@ -118,6 +321,22 @@ export default class LeftEditMenu extends Vue {
 
 .hidden {
   visibility: hidden;
+}
+
+.ml-5 {
+  margin-left: -1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.fr-link {
+  width: fit-content;
+  color: var(--g800-plain);
+  font-size: 14px;
+}
+
+[href] {
+  box-shadow: none;
 }
 </style>
 

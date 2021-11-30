@@ -1,10 +1,10 @@
 <template>
   <div>
-    <NakedCard>
+    <NakedCard class="fr-p-md-5w">
       <div>
-        <div class="fr-pl-3v">
+        <h1 class="fr-h6">
           {{ $t("select-label") }}
-        </div>
+        </h1>
 
         <v-gouv-fr-modal>
           <template v-slot:button>
@@ -25,11 +25,11 @@
           </template>
         </v-gouv-fr-modal>
 
-        <div class="fr-mt-1w">
+        <div class="fr-mt-3w">
           <fieldset class="fr-fieldset">
             <div class="fr-fieldset__content">
               <div class="fr-grid-row">
-                <div v-for="d in documents" :key="d.key">
+                <div v-for="d in documents" :key="d.key" class="full-width-xs">
                   <BigRadio
                     :val="d"
                     v-model="residencyDocument"
@@ -54,20 +54,11 @@
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
     <NakedCard
-      class="fr-mt-3w"
+      class="fr-p-md-5w fr-mt-3w"
       v-if="residencyDocument.key || residencyFiles().length > 0"
     >
-      <div v-if="residencyDocument.key">
-        <div class="fr-mb-3w">
-          <p v-html="$t(residencyDocument.explanationText)"></p>
-        </div>
-        <div class="fr-mb-3w">
-          <FileUpload
-            :current-status="fileUploadStatus"
-            @add-files="addFiles"
-            @reset-files="resetFiles"
-          ></FileUpload>
-        </div>
+      <div class="fr-mb-3w">
+        <p v-html="$t(residencyDocument.explanationText)"></p>
       </div>
       <div v-if="residencyFiles().length > 0" class="fr-col-12 fr-mb-3w">
         <ListItem
@@ -76,6 +67,13 @@
           :file="file"
           @remove="remove(file)"
         />
+      </div>
+      <div class="fr-mb-3w">
+        <FileUpload
+          :current-status="fileUploadStatus"
+          @add-files="addFiles"
+          @reset-files="resetFiles"
+        ></FileUpload>
       </div>
     </NakedCard>
   </div>
@@ -187,20 +185,20 @@ export default class Residency extends Vue {
     this.isDocDeleteVisible = false;
   }
 
-  validSelect() {
+  async validSelect() {
+    this.isDocDeleteVisible = false;
     if (this.selectedGuarantor.documents !== null) {
       const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "RESIDENCY";
       });
-      if (doc !== undefined) {
-        doc.files?.forEach(f => {
+      if (doc?.files !== undefined) {
+        for (const f of doc.files) {
           if (f.id) {
-            this.remove(f, true);
+            await this.remove(f, true);
           }
-        });
+        }
       }
     }
-    this.isDocDeleteVisible = false;
   }
 
   isNewDocument() {
@@ -300,9 +298,9 @@ export default class Residency extends Vue {
     return [...newFiles, ...existingFiles];
   }
 
-  remove(file: DfFile, silent = false) {
+  async remove(file: DfFile, silent = false) {
     if (file.path && file.id) {
-      RegisterService.deleteFile(file.id, silent);
+      await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = this.files.findIndex(f => {
         return f.name === file.name && f.file === file.file && !f.id;
@@ -335,7 +333,7 @@ export default class Residency extends Vue {
   "files": "Documents",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
   "register": "Enregistrer",
-  "select-label": "La situation d’hébergement actuelle de mon garant :"
+  "select-label": "Quelle est la situation d’hébergement actuelle de votre garant ?"
 }
 }
 </i18n>

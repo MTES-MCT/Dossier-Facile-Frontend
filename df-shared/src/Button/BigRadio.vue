@@ -1,11 +1,12 @@
 <template>
-  <div
+  <button
     class="br"
     :class="{ selected: isEqual(value, val), big: big }"
     @click="setValue()"
+    type="button"
   >
     <slot></slot>
-  </div>
+  </button>
 </template>
 
 <script lang="ts">
@@ -33,34 +34,47 @@ export default class BigRadio extends Vue {
 <style scoped lang="scss">
 .br {
   padding: 0.5rem;
-  margin: 0.25rem;
-  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  margin-right: 0.5rem;
+  font-size: 14px;
+  line-height: 24px;
   cursor: pointer;
-  border: solid 0.5px var(--primary);
-  border-radius: 0.25rem;
+  border: solid 1px var(--primary);
+  border-radius: 0.5rem;
   text-align: center;
   background-color: var(--w);
   @media all and (min-width: 992px) {
     max-width: 15rem;
   }
+  @media all and (max-width: 767px) {
+    margin-right: 0;
+    width: 100%;
+  }
 
   &:hover {
     background-color: var(--primary);
+    border: 1px solid #2b8bf7;
     color: white;
     box-shadow: 0 0 0.666em rgba(0, 0, 0, 0.25);
     &.big {
-      color: var(--g800);
-      background-color: var(--bf200-bf300);
+      @media all and (min-width: 767px) {
+        background-color: var(--bf200-bf300);
+        color: var(--g800);
+      }
+      border: solid 1px var(--primary);
     }
   }
 
   &.selected {
-    border: 1px solid var(--primary);
+    border: 1px solid #2b8bf7;
     background-color: var(--primary);
     color: white;
     &.big {
-      color: var(--g800);
-      background-color: var(--bf200-bf300);
+      @media all and (min-width: 767px) {
+        background-color: var(--bf200-bf300);
+        color: var(--g800);
+      }
+      border: solid 1px var(--primary);
     }
   }
 }
@@ -73,6 +87,7 @@ export default class BigRadio extends Vue {
   width: 100%;
   padding: 1rem;
   font-size: 1rem;
+  margin: 0;
 }
 
 .small {

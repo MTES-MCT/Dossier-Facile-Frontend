@@ -1,99 +1,92 @@
 <template>
-  <div>
+  <div class="fr-mb-15w">
     <ValidationObserver v-slot="{ validate }">
-      <v-gouv-fr-modal class="fr-mb-3w">
-        <template v-slot:button>
-          En difficulté pour répondre à la question ?
-        </template>
-        <template v-slot:title>
-          En difficulté pour répondre à la question ?
-        </template>
-        <template v-slot:content>
-          <p>
-            <NameInformationHelp></NameInformationHelp>
-          </p>
-        </template>
-      </v-gouv-fr-modal>
       <form
         name="nameInformationForm"
         @submit.prevent="validate().then(handleNameInformation)"
       >
-        <div class="fr-grid-row fr-grid-row--center">
-          <div class="fr-col-12 fr-mb-3w">
-            <validation-provider rules="required" v-slot="{ errors }">
-              <div
-                class="fr-input-group"
-                :class="errors[0] ? 'fr-input-group--error' : ''"
-              >
-                <label class="fr-label" for="lastname"
-                  >{{ $t("lastname") }} :</label
+        <NakedCard class="fr-p-5w">
+          <h4>{{ $t("title") }}</h4>
+          <p>{{ $t("subtitle") }}</p>
+          <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-mb-3w">
+              <validation-provider rules="required" v-slot="{ errors }">
+                <div
+                  class="fr-input-group"
+                  :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
-                <input
-                  v-model="lastname"
-                  class="form-control fr-input validate-required"
-                  id="lastname"
-                  name="lastname"
-                  :placeholder="$t('lastname')"
-                  type="text"
-                  required
-                />
-                <span class="fr-error-text" v-if="errors[0]">{{
-                  $t(errors[0])
-                }}</span>
-              </div>
-            </validation-provider>
-          </div>
-          <div class="fr-col-12 fr-mb-3w">
-            <validation-provider rules="required" v-slot="{ errors }">
-              <div
-                class="fr-input-group"
-                :class="errors[0] ? 'fr-input-group--error' : ''"
-              >
-                <label for="firstname" class="fr-label"
-                  >{{ $t("firstname") }} :</label
+                  <label class="fr-label" for="lastname"
+                    >{{ $t("lastname") }} :</label
+                  >
+                  <input
+                    v-model="lastname"
+                    class="form-control fr-input validate-required"
+                    id="lastname"
+                    name="lastname"
+                    :placeholder="$t('lastname')"
+                    :disabled="user.franceConnect"
+                    type="text"
+                    required
+                  />
+                  <span class="fr-error-text" v-if="errors[0]">{{
+                    $t(errors[0])
+                  }}</span>
+                </div>
+              </validation-provider>
+            </div>
+            <div class="fr-col-12 fr-mb-3w">
+              <validation-provider rules="required" v-slot="{ errors }">
+                <div
+                  class="fr-input-group"
+                  :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
-                <input
-                  id="firstname"
-                  :placeholder="$t('firstname')"
-                  type="text"
-                  v-model="firstname"
-                  name="firstname"
-                  class="validate-required form-control fr-input"
-                  required
-                />
-                <span class="fr-error-text" v-if="errors[0]">{{
-                  $t(errors[0])
-                }}</span>
-              </div>
-            </validation-provider>
-          </div>
-          <div class="fr-col-12 fr-mb-3w">
-            <validation-provider
-              :rules="{ zipcode: /^[0-9]{5}$/ }"
-              v-slot="{ errors }"
-            >
-              <div
-                class="fr-input-group"
-                :class="errors[0] ? 'fr-input-group--error' : ''"
+                  <label for="firstname" class="fr-label"
+                    >{{ $t("firstname") }} :</label
+                  >
+                  <input
+                    id="firstname"
+                    :placeholder="$t('firstname')"
+                    type="text"
+                    v-model="firstname"
+                    name="firstname"
+                    class="validate-required form-control fr-input"
+                    :disabled="user.franceConnect"
+                    required
+                  />
+                  <span class="fr-error-text" v-if="errors[0]">{{
+                    $t(errors[0])
+                  }}</span>
+                </div>
+              </validation-provider>
+            </div>
+            <div class="fr-col-12 fr-mb-3w">
+              <validation-provider
+                :rules="{ zipcode: /^[0-9]{5}$/ }"
+                v-slot="{ errors }"
               >
-                <label for="zipcode" class="fr-label"
-                  >{{ $t("zipcode") }} :</label
+                <div
+                  class="fr-input-group"
+                  :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
-                <input
-                  id="zipcode"
-                  :placeholder="$t('zipcode')"
-                  type="text"
-                  v-model="zipcode"
-                  name="zipcode"
-                  class="validate-required form-control fr-input"
-                />
-                <span class="fr-error-text" v-if="errors[0]">{{
-                  $t(errors[0])
-                }}</span>
-              </div>
-            </validation-provider>
+                  <label for="zipcode" class="fr-label"
+                    >{{ $t("zipcode") }} :</label
+                  >
+                  <input
+                    id="zipcode"
+                    :placeholder="$t('zipcode')"
+                    type="text"
+                    v-model="zipcode"
+                    name="zipcode"
+                    class="validate-required form-control fr-input"
+                  />
+                  <span class="fr-error-text" v-if="errors[0]">{{
+                    $t(errors[0])
+                  }}</span>
+                </div>
+              </validation-provider>
+            </div>
           </div>
-        </div>
+        </NakedCard>
         <ProfileFooter :showBack="false"></ProfileFooter>
       </form>
     </ValidationObserver>
@@ -112,6 +105,7 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
 import { AnalyticsService } from "../services/AnalyticsService";
 import ProfileFooter from "@/components/footer/ProfileFooter.vue";
 import { mapGetters } from "vuex";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 extend("zipcode", {
   ...regex,
@@ -130,7 +124,8 @@ extend("required", {
     SubmitButton,
     NameInformationHelp,
     VGouvFrModal,
-    ProfileFooter
+    ProfileFooter,
+    NakedCard
   },
   computed: {
     ...mapGetters({
@@ -192,7 +187,9 @@ export default class NameInformationForm extends Vue {
 "lastname": "Nom du locataire",
 "zipcode": "Code postal",
 "zipcode-not-valid": "Zipcode not valid.",
-"field-required": "This field is required"
+"field-required": "This field is required",
+"title": "I fill in my personal information",
+"subtitle": "Please fill in the details of the person whose name will appear on the rental agreement"
 },
 "fr": {
 "confirm": "Confirmer",
@@ -200,7 +197,9 @@ export default class NameInformationForm extends Vue {
 "lastname": "Nom du locataire",
 "zipcode": "Code postal",
 "zipcode-not-valid": "Code postal non valide.",
-"field-required": "Ce champ est requis"
+"field-required": "Ce champ est requis",
+"title": "Je renseigne mes informations personnelles",
+"subtitle": "Veuillez renseigner les informations de la personne dont le nom figurera sur le bail de location."
 }
 }
 </i18n>

@@ -8,7 +8,8 @@
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
     <ValidationObserver v-slot="{ validate }">
-      <NakedCard>
+      <NakedCard class="fr-p-md-5w">
+        <h1 class="fr-h6">{{ $t("title") }}</h1>
         <v-gouv-fr-modal>
           <template v-slot:button>
             En difficulté pour répondre à la question ?
@@ -33,7 +34,11 @@
             <fieldset class="fr-fieldset">
               <div class="fr-fieldset__content">
                 <div class="fr-grid-row">
-                  <div v-for="d in documents" :key="d.key">
+                  <div
+                    v-for="d in documents"
+                    :key="d.key"
+                    class="full-width-xs"
+                  >
                     <BigRadio
                       :val="d"
                       v-model="taxDocument"
@@ -77,7 +82,7 @@
               class="fr-col-10"
             >
               <div
-                class="fr-input-group bg-purple"
+                class="fr-checkbox-group bg-purple"
                 :class="errors[0] ? 'fr-input-group--error' : ''"
               >
                 <input
@@ -98,7 +103,7 @@
         </form>
       </NakedCard>
       <NakedCard
-        class="fr-mt-3w"
+        class="fr-p-md-5w fr-mt-3w"
         v-if="
           (acceptVerification && taxDocument.key === 'my-name') ||
             taxFiles().length > 0
@@ -110,6 +115,14 @@
         >
           <div v-html="taxDocument.explanationText"></div>
         </div>
+        <div v-if="taxFiles().length > 0" class="fr-col-12 fr-mb-3w">
+          <ListItem
+            v-for="(file, k) in taxFiles()"
+            :key="k"
+            :file="file"
+            @remove="remove(file)"
+          />
+        </div>
         <div v-if="taxDocument.key === 'my-name' && acceptVerification">
           <div class="fr-mb-3w">
             <FileUpload
@@ -118,14 +131,6 @@
               @reset-files="resetFiles"
             ></FileUpload>
           </div>
-        </div>
-        <div v-if="taxFiles().length > 0" class="fr-col-12 fr-mb-3w">
-          <ListItem
-            v-for="(file, k) in taxFiles()"
-            :key="k"
-            :file="file"
-            @remove="remove(file)"
-          />
         </div>
       </NakedCard>
     </ValidationObserver>
@@ -200,6 +205,54 @@ export default class Tax extends Vue {
   documents = DocumentTypeConstants.TAX_DOCS;
   isDocDeleteVisible = false;
 
+  getLocalStorageKey() {
+    return "tax_" + this.user.email;
+  }
+
+  mounted() {
+    const doc = this.getRegisteredDoc();
+    if (doc !== undefined) {
+      this.customText = doc.customText || "";
+    }
+    const localDoc = this.getLocalDoc();
+    if (localDoc !== undefined) {
+      this.taxDocument = localDoc;
+      localStorage.setItem(
+        this.getLocalStorageKey(),
+        this.taxDocument.key || ""
+      );
+    } else {
+      const key = localStorage.getItem(this.getLocalStorageKey());
+      if (key) {
+        const localDoc = this.documents.find((d: DocumentType) => {
+          return d.key === key;
+        });
+        if (localDoc !== undefined) {
+          this.taxDocument = localDoc;
+        }
+      }
+    }
+
+    if (this.taxDocument.key === "my-name" && this.taxFiles().length > 0) {
+      this.acceptVerification = true;
+    }
+  }
+
+  onSelectChange() {
+    localStorage.setItem(this.getLocalStorageKey(), this.taxDocument.key);
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "TAX";
+      });
+      if (doc !== undefined) {
+        this.isDocDeleteVisible =
+          (doc.files?.length || 0) > 0 &&
+          doc.documentSubCategory !== this.taxDocument.value;
+      }
+    }
+    return false;
+  }
+
   getRegisteredDoc() {
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
@@ -221,20 +274,6 @@ export default class Tax extends Vue {
     return undefined;
   }
 
-  onSelectChange() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "TAX";
-      });
-      if (doc !== undefined) {
-        this.isDocDeleteVisible =
-          (doc.files?.length || 0) > 0 &&
-          doc.documentSubCategory !== this.taxDocument.value;
-      }
-    }
-    return false;
-  }
-
   undoSelect() {
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
@@ -252,34 +291,19 @@ export default class Tax extends Vue {
     this.isDocDeleteVisible = false;
   }
 
-  validSelect() {
+  async validSelect() {
+    this.isDocDeleteVisible = false;
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "TAX";
       });
-      if (doc !== undefined) {
-        doc.files?.forEach(f => {
+      if (doc?.files !== undefined) {
+        for (const f of doc.files) {
           if (f.id) {
-            this.remove(f, true);
+            await this.remove(f, true);
           }
-        });
+        }
       }
-    }
-    this.isDocDeleteVisible = false;
-  }
-
-  mounted() {
-    const doc = this.getRegisteredDoc();
-    if (doc !== undefined) {
-      this.customText = doc.customText || "";
-    }
-    const localDoc = this.getLocalDoc();
-    if (localDoc !== undefined) {
-      this.taxDocument = localDoc;
-    }
-
-    if (this.taxDocument.key === "my-name" && this.taxFiles().length > 0) {
-      this.acceptVerification = true;
     }
   }
 
@@ -309,7 +333,7 @@ export default class Tax extends Vue {
 
   async save(): Promise<boolean> {
     if (this.taxDocument.key === undefined) {
-      return false;
+      return true;
     }
     AnalyticsService.registerFile("tax");
     this.uploadProgress = {};
@@ -403,10 +427,10 @@ export default class Tax extends Vue {
     return [...newFiles, ...existingFiles];
   }
 
-  remove(file: DfFile, silent = false) {
+  async remove(file: DfFile, silent = false) {
     AnalyticsService.deleteFile("tax");
     if (file.path && file.id) {
-      RegisterService.deleteFile(file.id, silent);
+      await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = this.files.findIndex(f => {
         return f.name === file.name && f.file === file.file && !f.id;
@@ -420,7 +444,9 @@ export default class Tax extends Vue {
 <style scoped lang="scss">
 .spa {
   height: 3rem;
-  width: 14rem;
+  @media all and (min-width: 768px) {
+    width: 14rem;
+  }
 }
 </style>
 
@@ -436,7 +462,8 @@ export default class Tax extends Vue {
   "files": "Documents",
   "register": "Register",
   "field-required": "This field is required",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again."
+  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
+  "title": "My tax notice"
 },
 "fr": {
   "my-name": "Vous avez un avis d’imposition à votre nom",
@@ -448,7 +475,8 @@ export default class Tax extends Vue {
   "files": "Documents",
   "register": "Enregistrer",
   "field-required": "Ce champ est requis",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation."
+  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
+  "title": "Mon avis d'imposition"
 }
 }
 </i18n>

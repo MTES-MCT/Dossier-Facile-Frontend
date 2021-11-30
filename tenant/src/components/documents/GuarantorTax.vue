@@ -8,7 +8,8 @@
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
     <ValidationObserver v-slot="{ validate }">
-      <NakedCard>
+      <NakedCard class="fr-p-md-5w">
+        <h1 class="fr-h6">{{ $t("title") }}</h1>
         <v-gouv-fr-modal>
           <template v-slot:button>
             En difficulté pour répondre à la question ?
@@ -28,12 +29,18 @@
           </template>
         </v-gouv-fr-modal>
 
+        <div class="fr-mt-3w">{{ $t("situation") }}</div>
+
         <form name="form" @submit.prevent="validate().then(save)">
           <div class="fr-mt-3w">
             <fieldset class="fr-fieldset">
               <div class="fr-fieldset__content">
                 <div class="fr-grid-row">
-                  <div v-for="d in documents" :key="d.key">
+                  <div
+                    v-for="d in documents"
+                    :key="d.key"
+                    class="full-width-xs"
+                  >
                     <BigRadio
                       :val="d"
                       v-model="taxDocument"
@@ -74,7 +81,7 @@
               class="fr-col-10"
             >
               <div
-                class="fr-input-group bg-purple"
+                class="fr-checkbox-group bg-purple"
                 :class="errors[0] ? 'fr-input-group--error' : ''"
               >
                 <input
@@ -95,23 +102,14 @@
         </form>
       </NakedCard>
       <NakedCard
-        class="fr-mt-3w"
+        class="fr-p-md-5w fr-mt-3w"
         v-if="
           (acceptVerification && taxDocument.key === 'my-name') ||
             taxFiles().length > 0
         "
       >
-        <div v-if="taxDocument.key === 'my-name' && acceptVerification">
-          <div class="fr-mb-3w">
-            <p v-html="taxDocument.explanationText"></p>
-          </div>
-          <div class="fr-mb-3w">
-            <FileUpload
-              :current-status="fileUploadStatus"
-              @add-files="addFiles"
-              @reset-files="resetFiles"
-            ></FileUpload>
-          </div>
+        <div class="fr-mb-3w">
+          <p v-html="taxDocument.explanationText"></p>
         </div>
         <div v-if="taxFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
           <ListItem
@@ -120,6 +118,13 @@
             :file="file"
             @remove="remove(file)"
           />
+        </div>
+        <div class="fr-mb-3w" v-if="acceptVerification">
+          <FileUpload
+            :current-status="fileUploadStatus"
+            @add-files="addFiles"
+            @reset-files="resetFiles"
+          ></FileUpload>
         </div>
       </NakedCard>
     </ValidationObserver>
@@ -245,20 +250,20 @@ export default class Tax extends Vue {
     this.isDocDeleteVisible = false;
   }
 
-  validSelect() {
+  async validSelect() {
+    this.isDocDeleteVisible = false;
     if (this.selectedGuarantor.documents !== null) {
       const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "TAX";
       });
-      if (doc !== undefined) {
-        doc.files?.forEach(f => {
+      if (doc?.files !== undefined) {
+        for (const f of doc.files) {
           if (f.id) {
-            this.remove(f, true);
+            await this.remove(f, true);
           }
-        });
+        }
       }
     }
-    this.isDocDeleteVisible = false;
   }
 
   updateGuarantorData() {
@@ -296,12 +301,12 @@ export default class Tax extends Vue {
     this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
   }
 
-  save() {
-    if (
-      !this.taxDocument.key ||
-      (this.taxDocument.key === "my-name" && !this.acceptVerification)
-    ) {
-      return;
+  async save() {
+    if (!this.taxDocument.key) {
+      return true;
+    }
+    if (this.taxDocument.key === "my-name" && !this.acceptVerification) {
+      return false;
     }
     this.uploadProgress = {};
     const fieldName = "documents";
@@ -320,7 +325,7 @@ export default class Tax extends Vue {
             this.taxDocument.maxFileCount
           ])
         });
-        return;
+        return false;
       }
 
       Array.from(Array(newFiles.length).keys()).map(x => {
@@ -341,13 +346,17 @@ export default class Tax extends Vue {
     formData.append("typeDocumentTax", this.taxDocument.value);
 
     if (this.taxDocument.key === "other-tax") {
+      if (!this.customText) {
+        // TODO : would be better to validate form
+        return false;
+      }
       formData.append("customText", this.customText);
     }
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     formData.append("guarantorId", this.$store.getters.guarantor.id);
     const loader = this.$loading.show();
-    return this.$store
+    await this.$store
       .dispatch("saveGuarantorTax", formData)
       .then(() => {
         this.files = [];
@@ -362,6 +371,7 @@ export default class Tax extends Vue {
       .finally(() => {
         loader.hide();
       });
+    return true;
   }
 
   taxFiles() {
@@ -395,9 +405,9 @@ export default class Tax extends Vue {
     return false;
   }
 
-  remove(file: DfFile, silent = false) {
+  async remove(file: DfFile, silent = false) {
     if (file.path && file.id) {
-      RegisterService.deleteFile(file.id, silent);
+      await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = this.files.findIndex(f => {
         return f.name === file.name && f.file === file.file && !f.id;
@@ -407,8 +417,10 @@ export default class Tax extends Vue {
   }
 
   async goNext() {
-    await this.save();
-    this.$emit("on-next");
+    const res = await this.save();
+    if (res) {
+      this.$emit("on-next");
+    }
   }
 
   goBack() {
@@ -426,27 +438,31 @@ export default class Tax extends Vue {
 
 <i18n>
 {
-"en": {
-  "my-name": "J’ai un avis d’imposition au nom de mon garant",
-  "less-than-year": "Vous êtes en France depuis moins d’un an",
-  "other-tax": "Autre",
-  "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
-  "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'imposition. Votre explication sera ajoutée à votre dossier :",
-  "files": "Documents",
-  "register": "Register",
-  "field-required": "This field is required",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again."
-},
-"fr": {
-  "my-name": "J’ai un avis d’imposition au nom de mon garant",
-  "less-than-year": "Mon garant est en France depuis moins d'un an",
-  "other-tax": "Autre",
-  "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
-  "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'imposition. Votre explication sera ajoutée à votre dossier :",
-  "files": "Documents",
-  "register": "Enregistrer",
-  "field-required": "Ce champ est requis",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation."
-}
+  "en": {
+    "my-name": "J’ai un avis d’imposition au nom de mon garant",
+    "less-than-year": "Vous êtes en France depuis moins d’un an",
+    "other-tax": "Autre",
+    "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
+    "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'imposition. Votre explication sera ajoutée à votre dossier :",
+    "files": "Documents",
+    "register": "Register",
+    "field-required": "This field is required",
+    "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
+    "title": "My guarantor tax file",
+    "situation": "What is her/his tax situation?"
+  },
+  "fr": {
+    "my-name": "J’ai un avis d’imposition au nom de mon garant",
+    "less-than-year": "Mon garant est en France depuis moins d'un an",
+    "other-tax": "Autre",
+    "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
+    "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'imposition. Votre explication sera ajoutée à votre dossier :",
+    "files": "Documents",
+    "register": "Enregistrer",
+    "field-required": "Ce champ est requis",
+    "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
+    "title": "L'avis d'imposition de mon garant",
+    "situation": "Quelle est sa situation fiscale ?"
+  }
 }
 </i18n>

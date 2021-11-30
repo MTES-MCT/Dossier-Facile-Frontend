@@ -16,6 +16,7 @@
         </template>
         <span v-if="!isMobile()">{{ $t("back") }}</span>
       </v-gouv-fr-button>
+      <div v-if="!showBack"></div>
       <div class="fr-grid-row flex-1">
         <slot name="additionalButton" v-if="!isMobile()"></slot>
         <v-gouv-fr-button

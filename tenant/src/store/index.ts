@@ -28,6 +28,9 @@ export class DfState {
   spouseAuthorize = false;
   coTenantAuthorize = false;
   showFooter = true;
+  expandGuarantorMenu = false;
+  financialDocumentSelected?: FinancialDocument = undefined;
+  editFinancialDocument = false;
 }
 
 const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
@@ -65,7 +68,7 @@ const store = new Vuex.Store({
       state.user = user;
     },
     loadUser(state, user) {
-      state.user = user;
+      state.user = Object.assign({}, user);
       state.status.loggedIn = true;
       state.user.applicationType = state.user?.apartmentSharing.applicationType;
 
@@ -143,6 +146,25 @@ const store = new Vuex.Store({
     },
     updateUserZipcode(state, zipcode) {
       state.user.zipCode = zipcode;
+    },
+    expandGuarantorMenu(state, b) {
+      state.expandGuarantorMenu = b;
+    },
+    selectDocumentFinancial(state, d: FinancialDocument) {
+      state.financialDocumentSelected = Object.assign({}, d);
+      state.editFinancialDocument = d !== undefined;
+    },
+    createDocumentFinancial(state) {
+      state.financialDocumentSelected = new FinancialDocument();
+      state.editFinancialDocument = true;
+    },
+    selectGuarantorDocumentFinancial(state, d: FinancialDocument) {
+      state.guarantorFinancialDocumentSelected = Object.assign({}, d);
+      state.editGuarantorFinancialDocument = d !== undefined;
+    },
+    createGuarantorDocumentFinancial(state) {
+      state.guarantorFinancialDocumentSelected = new FinancialDocument();
+      state.editGuarantorFinancialDocument = true;
     }
   },
   actions: {
@@ -273,7 +295,7 @@ const store = new Vuex.Store({
             guarantor: this.state.user.guarantors[
               this.state.user.guarantors.length - 1
             ],
-            substep: "1"
+            substep: "0"
           });
           return Promise.resolve(response.data);
         },
@@ -402,6 +424,17 @@ const store = new Vuex.Store({
         }
       );
     },
+    saveGuarantorName({ commit }, formData) {
+      return RegisterService.saveGuarantorName(formData).then(
+        response => {
+          commit("loadUser", response.data);
+          return Promise.resolve(response.data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
     saveGuarantorIdentification({ commit }, formData) {
       return RegisterService.saveGuarantorIdentification(formData).then(
         response => {
@@ -459,8 +492,20 @@ const store = new Vuex.Store({
     },
     saveTenantFinancial({ commit }, formData) {
       return RegisterService.saveTenantFinancial(formData).then(
-        response => {
-          commit("loadUser", response.data);
+        async response => {
+          await this.dispatch("loadUser");
+          const fd = this.getters.tenantFinancialDocuments;
+          if (fd === undefined) {
+            return Promise.resolve(response.data);
+          }
+          if (formData.has("id")) {
+            const s = fd.find((f: any) => {
+              return f.id.toString() === formData.get("id");
+            });
+            await commit("selectDocumentFinancial", s);
+          } else {
+            await commit("selectDocumentFinancial", fd[fd.length - 1]);
+          }
           return Promise.resolve(response.data);
         },
         error => {
@@ -469,15 +514,26 @@ const store = new Vuex.Store({
       );
     },
     saveGuarantorFinancial({ commit }, formData) {
-      return RegisterService.saveGuarantorFinancial(formData).then(
-        response => {
-          commit("loadUser", response.data);
+      return RegisterService.saveGuarantorFinancial(formData)
+        .then(async response => {
+          await this.dispatch("loadUser");
+          const fd = this.getters.guarantorFinancialDocuments;
+          if (fd === undefined) {
+            return Promise.resolve(response.data);
+          }
+          if (formData.has("id")) {
+            const s = fd.find((f: any) => {
+              return f.id.toString() === formData.get("id");
+            });
+            await commit("selectGuarantorDocumentFinancial", s);
+          } else {
+            await commit("selectGuarantorDocumentFinancial", fd[fd.length - 1]);
+          }
           return Promise.resolve(response.data);
-        },
-        error => {
+        })
+        .catch(error => {
           return Promise.reject(error);
-        }
-      );
+        });
     },
     saveTenantTax({ commit }, formData) {
       return RegisterService.saveTenantTax(formData).then(
@@ -666,6 +722,18 @@ const store = new Vuex.Store({
         }
       }
       return financialdocuments;
+    },
+    financialDocumentSelected(state): FinancialDocument {
+      return state.financialDocumentSelected;
+    },
+    editFinancialDocument(state): FinancialDocument {
+      return state.editFinancialDocument;
+    },
+    guarantorFinancialDocumentSelected(state): FinancialDocument {
+      return state.guarantorFinancialDocumentSelected;
+    },
+    editGuarantorFinancialDocument(state): FinancialDocument {
+      return state.editGuarantorFinancialDocument;
     }
   },
   modules: {}

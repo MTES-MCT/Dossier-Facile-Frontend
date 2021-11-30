@@ -27,7 +27,7 @@
             <div class="fr-tile fr-enlarge-link">
               <div class="fr-tile__body">
                 <h2 class="fr-tile__title">
-                  <div class="fr-tile__link" href="#">{{ $t("s1.h1") }}</div>
+                  <a class="fr-tile__link" href="#">{{ $t("s1.h1") }}</a>
                 </h2>
                 <p class="fr-tile__desc">{{ $t("s1.p1") }}</p>
               </div>
@@ -44,7 +44,7 @@
             <div class="fr-tile fr-enlarge-link">
               <div class="fr-tile__body">
                 <h2 class="fr-tile__title">
-                  <div class="fr-tile__link" href="#">{{ $t("s1.h2") }}</div>
+                  <a class="fr-tile__link" href="#">{{ $t("s1.h2") }}</a>
                 </h2>
                 <p class="fr-tile__desc">{{ $t("s1.p2") }}</p>
               </div>
@@ -61,7 +61,7 @@
             <div class="fr-tile fr-enlarge-link">
               <div class="fr-tile__body">
                 <h2 class="fr-tile__title">
-                  <div class="fr-tile__link" href="#">{{ $t("s1.h3") }}</div>
+                  <a class="fr-tile__link" href="#">{{ $t("s1.h3") }}</a>
                 </h2>
                 <p class="fr-tile__desc">{{ $t("s1.p3") }}</p>
               </div>
@@ -644,7 +644,7 @@ a[target="_blank"].logo-link::after {
     },
     "s4": {
       "title1": "Already",
-      "title2": "65 000",
+      "title2": "116 000",
       "title3": "certified dossiers thanks to DossierFacile",
       "t1": "Karim's file immediately stood out: it was the only file received that was complete!",
       "author1": "Joseph, owner in Nantes",
@@ -698,7 +698,7 @@ a[target="_blank"].logo-link::after {
     },
     "s4": {
       "title1": "Déjà",
-      "title2": "65 000",
+      "title2": "116 000",
       "title3": "Dossiers labellisés grâce à DossierFacile",
       "t1": "Le dossier de Karim s'est tout de suite démarqué : c'était le seul dossier reçu complet !",
       "author1": "Joseph, propriétaire à Nantes",

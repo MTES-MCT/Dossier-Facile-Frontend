@@ -1,7 +1,7 @@
 <template>
   <div>
     <ValidationObserver>
-      <NakedCard>
+      <NakedCard class="fr-p-md-5w">
         <validation-provider rules="required" v-slot="{ errors }">
           <div
             class="fr-input-group"
@@ -25,12 +25,12 @@
           </div>
         </validation-provider>
       </NakedCard>
-      <NakedCard class="fr-mt-3w">
+      <NakedCard class="fr-mt-3w fr-p-md-5w">
         <div>
-          <label class="fr-label" for="select">
+          <h1 class="fr-label" for="select">
             J’ajoute une pièce d’identité en cours de validité. Attention,
             veillez à ajouter votre pièce recto-verso !
-          </label>
+          </h1>
           <select
             v-model="identificationDocument"
             class="fr-select fr-mb-3w"
@@ -59,6 +59,20 @@
               </p>
             </template>
           </v-gouv-fr-modal>
+          <div class="fr-col-md-12 fr-mb-3w" v-if="listFiles().length > 0">
+            <ListItem
+              v-for="(file, k) in listFiles()"
+              :key="k"
+              :file="file"
+              @remove="remove(file)"
+              :uploadState="
+                uploadProgress[file.id] ? uploadProgress[file.id].state : 'idle'
+              "
+              :percentage="
+                uploadProgress[file.id] ? uploadProgress[file.id].percentage : 0
+              "
+            />
+          </div>
           <div class="fr-mb-3w">
             <FileUpload
               :current-status="fileUploadStatus"
@@ -66,20 +80,6 @@
               @reset-files="resetFiles"
             ></FileUpload>
           </div>
-        </div>
-        <div class="fr-col-md-12 fr-mb-3w" v-if="listFiles().length > 0">
-          <ListItem
-            v-for="(file, k) in listFiles()"
-            :key="k"
-            :file="file"
-            @remove="remove(file)"
-            :uploadState="
-              uploadProgress[file.id] ? uploadProgress[file.id].state : 'idle'
-            "
-            :percentage="
-              uploadProgress[file.id] ? uploadProgress[file.id].percentage : 0
-            "
-          />
         </div>
       </NakedCard>
     </ValidationObserver>

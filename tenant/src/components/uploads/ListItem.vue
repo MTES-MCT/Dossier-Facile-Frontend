@@ -1,7 +1,7 @@
 <template>
   <div class="list-item fr-mb-1w doc-container">
     <div class="fr-grid-row" style="align-items: center">
-      <div class="fr-pl-2w fr-pr-2w cursor--pointer" @click="openDoc()">
+      <div class="fr-mr-md-2w fr-mr-1w cursor--pointer" @click="openDoc()">
         <span class="material-icons big-blue">file_present</span>
       </div>
       <div class="text fr-pr-2w cursor--pointer" @click="openDoc()">
@@ -12,11 +12,11 @@
         <Progress :percentage="percentage" :state="uploadState" />
       </div>
       <button
-        class="fr-btn fr-btn--secondary icon-btn"
+        class="fr-btn fr-btn--secondary icon-btn fr-mr-md-2w fr-mr-1w"
         @click="openDoc()"
         :title="$t('show')"
       >
-        <span class="material-icons-outlined md-28">visibility</span>
+        <span class="material-icons-outlined md-18 fr-m-1w">visibility</span>
       </button>
       <button
         class="fr-btn fr-btn--secondary icon-btn"
@@ -24,7 +24,9 @@
         type="button"
         :title="$t('remove')"
       >
-        <span class="material-icons-outlined md-28">delete_forever</span>
+        <div class="material-icons-outlined md-18 fr-m-1w">
+          delete
+        </div>
       </button>
     </div>
     <Modal
@@ -149,7 +151,10 @@ export default class ListItem extends Vue {
 .doc-container {
   background-color: white;
   border-radius: 0.5rem;
-  padding: 0.5rem;
+  padding: 1rem;
+  @media (min-width: 768px) {
+    padding: 1.5rem;
+  }
   box-shadow: 0 0.5px 4px 0 #cecece;
 }
 
@@ -160,10 +165,8 @@ export default class ListItem extends Vue {
 
 .material-icons,
 .material-icons-outlined {
-  border-radius: 50%;
   --color-hover: var(--block-color-hover);
   --color-active: var(--block-color-active);
-  padding: 0.25rem;
 }
 
 .fr-btn {
@@ -172,17 +175,15 @@ export default class ListItem extends Vue {
   --color-hover: none;
   --color-active: none;
   padding: 0;
+  min-height: 2rem;
 }
 
 .icon-btn {
   &:hover {
     color: #dc3545 !important;
   }
-  display: block;
-  height: 2.5rem;
-  width: 2.5rem;
-  border-radius: 50%;
-  overflow: hidden;
+  border: 1px solid var(--primary);
+  background-color: var(--w);
 }
 </style>
 

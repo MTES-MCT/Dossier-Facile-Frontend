@@ -20,6 +20,9 @@ export const DocumentService = {
     return (document?.files?.length || 0) > 0;
   },
   guarantorHasDoc(g: Guarantor, docType: string) {
+    if (!g) {
+      return;
+    }
     return g.documents?.find((d: DfDocument) => {
       return d.documentCategory === docType;
     });
@@ -62,5 +65,137 @@ export const DocumentService = {
       files = files.concat(docs[i].files || []);
     }
     return files;
+  },
+  getTenantIdentityStatus(): string {
+    const doc = this.hasDoc("IDENTIFICATION");
+    return doc?.documentStatus || "";
+  },
+  getTenantResidencyStatus(): string {
+    const doc = this.hasDoc("RESIDENCY");
+    return doc?.documentStatus || "";
+  },
+  getTenantProfessionalStatus(): string {
+    const doc = this.hasDoc("PROFESSIONAL");
+    return doc?.documentStatus || "";
+  },
+  getTenantFinancialStatus(): string {
+    const doc = this.hasDoc("FINANCIAL");
+    return doc?.documentStatus || "";
+  },
+  getTenantTaxStatus(): string {
+    const doc = this.hasDoc("TAX");
+    return doc?.documentStatus || "";
+  },
+  getGuarantorIdentityStatus(): string {
+    const doc = this.guarantorHasDoc(
+      store.state.selectedGuarantor,
+      "IDENTIFICATION"
+    );
+    return doc?.documentStatus || "";
+  },
+  getGuarantorResidencyStatus(): string {
+    const doc = this.guarantorHasDoc(
+      store.state.selectedGuarantor,
+      "RESIDENCY"
+    );
+    return doc?.documentStatus || "";
+  },
+  getGuarantorProfessionalStatus(): string {
+    const doc = this.guarantorHasDoc(
+      store.state.selectedGuarantor,
+      "PROFESSIONAL"
+    );
+    return doc?.documentStatus || "";
+  },
+  getGuarantorFinancialStatus(): string {
+    const doc = this.guarantorHasDoc(
+      store.state.selectedGuarantor,
+      "FINANCIAL"
+    );
+    return doc?.documentStatus || "";
+  },
+  getGuarantorTaxStatus(): string {
+    const doc = this.guarantorHasDoc(store.state.selectedGuarantor, "TAX");
+    return doc?.documentStatus || "";
+  },
+  getGuarantorLegalPersonIdentityStatus(): string {
+    const doc = this.guarantorHasDoc(
+      store.state.selectedGuarantor,
+      "IDENTIFICATION_LEGAL_PERSON"
+    );
+    return doc?.documentStatus || "";
+  },
+  getGuarantorLegalPersonRepresentantStatus(): string {
+    const doc = this.guarantorHasDoc(
+      store.state.selectedGuarantor,
+      "IDENTIFICATION"
+    );
+    return doc?.documentStatus || "";
+  },
+  getOrganismStatus(): string {
+    const doc = this.guarantorHasDoc(
+      store.state.selectedGuarantor,
+      "IDENTIFICATION"
+    );
+    return doc?.documentStatus || "";
+  },
+  tenantStatus(documentType: string) {
+    let status;
+    switch (documentType) {
+      case "IDENTITY":
+        status = DocumentService.getTenantIdentityStatus() || "EMPTY";
+        break;
+      case "RESIDENCY":
+        status = DocumentService.getTenantResidencyStatus() || "EMPTY";
+        break;
+      case "PROFESSIONAL":
+        status = DocumentService.getTenantProfessionalStatus() || "EMPTY";
+        break;
+      case "FINANCIAL":
+        status = DocumentService.getTenantFinancialStatus() || "EMPTY";
+        break;
+      case "TAX":
+        status = DocumentService.getTenantTaxStatus() || "EMPTY";
+        break;
+    }
+    if (status === "TO_PROCESS" && store.state.user.status !== "TO_PROCESS") {
+      return "FILLED";
+    }
+    return status;
+  },
+  guarantorStatus(documentType: string) {
+    let status;
+    switch (documentType) {
+      case "IDENTITY":
+        status = DocumentService.getGuarantorIdentityStatus() || "EMPTY";
+        break;
+      case "RESIDENCY":
+        status = DocumentService.getGuarantorResidencyStatus() || "EMPTY";
+        break;
+      case "PROFESSIONAL":
+        status = DocumentService.getGuarantorProfessionalStatus() || "EMPTY";
+        break;
+      case "FINANCIAL":
+        status = DocumentService.getGuarantorFinancialStatus() || "EMPTY";
+        break;
+      case "TAX":
+        status = DocumentService.getGuarantorTaxStatus() || "EMPTY";
+        break;
+      case "IDENTIFICATION_LEGAL_PERSON":
+        status =
+          DocumentService.getGuarantorLegalPersonIdentityStatus() || "EMPTY";
+        break;
+      case "IDENTIFICATION":
+        status =
+          DocumentService.getGuarantorLegalPersonRepresentantStatus() ||
+          "EMPTY";
+    }
+    if (
+      status === "TO_PROCESS" &&
+      store.state.selectedGuarantor.status !== "TO_PROCESS"
+    ) {
+      return "FILLED";
+    }
+    return status;
   }
 };

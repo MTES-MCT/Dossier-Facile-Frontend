@@ -1,10 +1,8 @@
 <template>
   <div>
-    <NakedCard>
+    <NakedCard class="fr-p-md-5w">
       <div>
-        <div class="fr-pl-3v">
-          {{ $t("select-label") }}
-        </div>
+        <h1 class="fr-h6">{{ $t("title") }}</h1>
 
         <v-gouv-fr-modal>
           <template v-slot:button>
@@ -24,6 +22,9 @@
             </p>
           </template>
         </v-gouv-fr-modal>
+        <div class="fr-mt-3w">
+          {{ $t("select-label") }}
+        </div>
 
         <select
           v-model="professionalDocument"
@@ -46,31 +47,26 @@
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
     <NakedCard
-      class="fr-mt-3w"
+      class="fr-p-md-5w fr-mt-3w"
       v-if="professionalDocument.key || professionalFiles().length > 0"
     >
-      <div v-if="professionalDocument.key">
-        <div class="fr-mb-3w">
-          {{ professionalDocument.explanationText }}
-        </div>
-        <div class="fr-mb-3w">
-          <FileUpload
-            :current-status="fileUploadStatus"
-            @add-files="addFiles"
-            @reset-files="resetFiles"
-          ></FileUpload>
-        </div>
+      <div class="fr-mb-3w">
+        {{ professionalDocument.explanationText }}
       </div>
-      <div
-        v-if="professionalFiles().length > 0"
-        class="fr-col-lg-8 fr-col-md-12 fr-mb-3w"
-      >
+      <div v-if="professionalFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
         <ListItem
           v-for="(file, k) in professionalFiles()"
           :key="k"
           :file="file"
           @remove="remove(file)"
         />
+      </div>
+      <div class="fr-mb-3w">
+        <FileUpload
+          :current-status="fileUploadStatus"
+          @add-files="addFiles"
+          @reset-files="resetFiles"
+        ></FileUpload>
       </div>
     </NakedCard>
   </div>
@@ -179,20 +175,20 @@ export default class Professional extends Vue {
     this.isDocDeleteVisible = false;
   }
 
-  validSelect() {
+  async validSelect() {
+    this.isDocDeleteVisible = false;
     if (this.selectedGuarantor.documents !== null) {
       const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "PROFESSIONAL";
       });
-      if (doc !== undefined) {
-        doc.files?.forEach(f => {
+      if (doc?.files !== undefined) {
+        for (const f of doc.files) {
           if (f.id) {
-            this.remove(f, true);
+            await this.remove(f, true);
           }
-        });
+        }
       }
     }
-    this.isDocDeleteVisible = false;
   }
 
   addFiles(fileList: File[]) {
@@ -274,9 +270,9 @@ export default class Professional extends Vue {
     return [...newFiles, ...existingFiles];
   }
 
-  remove(file: DfFile, silent = false) {
+  async remove(file: DfFile, silent = false) {
     if (file.path && file.id) {
-      RegisterService.deleteFile(file.id, silent);
+      await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = this.files.findIndex(f => {
         return f.name === file.name && f.file === file.file && !f.id;
@@ -292,6 +288,7 @@ export default class Professional extends Vue {
 <i18n>
 {
 "en": {
+  "title": "Proof of professional and financial situation",
   "cdi": "CDI",
   "cdi-trial": "CDI (période d’essai)",
   "cdd": "CDD",
@@ -309,6 +306,7 @@ export default class Professional extends Vue {
   "select-label": "Your current professional situation:"
 },
 "fr": {
+  "title": "Justificatif de situation professionelle et financière",
   "cdi": "CDI",
   "cdi-trial": "CDI (période d’essai)",
   "cdd": "CDD",
@@ -323,7 +321,7 @@ export default class Professional extends Vue {
   "other": "Autre",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
   "register": "Enregistrer",
-  "select-label": "La situation professionnelle actuelle de mon garant :"
+  "select-label": "La situation professionnelle, actuelle, de mon garant :"
 }
 }
 </i18n>

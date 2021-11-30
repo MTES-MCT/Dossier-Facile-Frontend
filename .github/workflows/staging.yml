@@ -26,7 +26,7 @@ jobs:
           aws-region: eu-west-3
 
       - uses: actions/setup-node@v2
-      - run: yarn main install # will run `yarn install` command
+      - run: yarn main install --frozen-lockfile # will run `yarn install` command
       - run: yarn main build # will run `yarn build` command
         env:
           VUE_APP_CAPTCHA_SITE_KEY: ${{ secrets.STAGING_VUE_APP_CAPTCHA_SITE_KEY }}
@@ -47,7 +47,7 @@ jobs:
           aws cloudfront create-invalidation --distribution-id ${{ secrets.STAGING_AWS_MAIN_CLOUDFRONT_ID }} --paths '/*'
       
       - uses: actions/setup-node@v2
-      - run: yarn tenant install
+      - run: yarn tenant install --frozen-lockfile
       - run: yarn tenant build
         env:
           VUE_APP_CAPTCHA_SITE_KEY: ${{ secrets.STAGING_VUE_APP_CAPTCHA_SITE_KEY }}

@@ -6,5 +6,17 @@
   "max-file-default": "Nombre de fichier maximum atteint, veuillez en supprimer",
   "max-file": "Nombre de fichiers maximum atteint (actuellement : {0} / maximum : {1} ), veuillez en supprimer",
   "error": "Une erreur est survenue",
-  "field-required": "Ce champ est requis"
+  "field-required": "Ce champ est requis",
+  "identification-legal-person": "Identité personne morale",
+  "identity-represent": "Identité représentant",
+  "identification-organism": "Certificat de garantie",
+  "identification": "Pièce d'identité",
+  "residency": "Justificatif de domicile",
+  "professional": "Situation professionnelle",
+  "financial": "Justificatif de ressources",
+  "tax": "Avis d'imposition",
+  "personal-information": "Je renseigne mes informations",
+  "my-document": "Je joins mes documents",
+  "my-guarantor": "Je renseigne mon garant",
+  "validate-file": "Je valide mon dossier"
 }

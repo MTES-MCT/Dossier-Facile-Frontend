@@ -1,129 +1,22 @@
 <template>
   <div class="fr-mb-15w">
-    <div>
-      <div
-        class="document-title title-bar"
-        :class="{ selected: substep === 1 }"
-        @click="updateSubstep(1)"
-      >
-        <span v-if="substep === 1" class="color--primary material-icons"
-          >keyboard_arrow_up</span
-        >
-        <span v-if="substep !== 1" class="color--primary material-icons"
-          >keyboard_arrow_down</span
-        >
-        <span class="color--primary material-icons">person</span>
-        <h2>{{ $t("identification") }}</h2>
-        <span class="spacer"></span>
-        <span
-          v-if="hasDoc('IDENTIFICATION')"
-          class="color--primary material-icons"
-          >check_circle_outline</span
-        >
-      </div>
-      <div v-if="substep === 1">
-        <Identification></Identification>
-        <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
-      </div>
-    </div>
-    <div>
-      <div
-        class="document-title title-bar"
-        :class="{ selected: substep === 2 }"
-        @click="updateSubstep(2)"
-      >
-        <span v-if="substep === 2" class="color--primary material-icons"
-          >keyboard_arrow_up</span
-        >
-        <span v-if="substep !== 2" class="color--primary material-icons"
-          >keyboard_arrow_down</span
-        >
-        <span class="color--primary material-icons">home</span>
-        <h2>{{ $t("residency") }}</h2>
-        <span class="spacer"></span>
-        <span v-if="hasDoc('RESIDENCY')" class="color--primary material-icons"
-          >check_circle_outline</span
-        >
-      </div>
-      <div v-if="substep === 2">
-        <Residency></Residency>
-        <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
-      </div>
-    </div>
-    <div>
-      <div
-        class="document-title title-bar"
-        :class="{ selected: substep === 3 }"
-        @click="updateSubstep(3)"
-      >
-        <span v-if="substep === 3" class="color--primary material-icons"
-          >keyboard_arrow_up</span
-        >
-        <span v-if="substep !== 3" class="color--primary material-icons"
-          >keyboard_arrow_down</span
-        >
-        <span class="color--primary material-icons">work</span>
-        <h2>{{ $t("professional") }}</h2>
-        <span class="spacer"></span>
-        <span
-          v-if="hasDoc('PROFESSIONAL')"
-          class="color--primary material-icons"
-          >check_circle_outline</span
-        >
-      </div>
-      <div v-if="substep === 3">
-        <Professional></Professional>
-        <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
-      </div>
-    </div>
-    <div>
-      <div
-        class="document-title title-bar"
-        :class="{ selected: substep === 4 }"
-        @click="updateSubstep(4)"
-      >
-        <span v-if="substep === 4" class="color--primary material-icons"
-          >keyboard_arrow_up</span
-        >
-        <span v-if="substep !== 4" class="color--primary material-icons"
-          >keyboard_arrow_down</span
-        >
-        <span class="color--primary material-icons">euro</span>
-        <h2>{{ $t("financial") }}</h2>
-        <span class="spacer"></span>
-        <span v-if="isFinancialValid()" class="color--primary material-icons"
-          >check_circle_outline</span
-        >
-      </div>
-      <div v-if="substep === 4">
-        <Financial @on-back="goBack" @on-next="goNext"></Financial>
-      </div>
-    </div>
-    <div>
-      <div
-        class="document-title title-bar"
-        :class="{ selected: substep === 5 }"
-        @click="updateSubstep(5)"
-      >
-        <span v-if="substep === 5" class="color--primary material-icons"
-          >keyboard_arrow_up</span
-        >
-        <span v-if="substep !== 5" class="color--primary material-icons"
-          >keyboard_arrow_down</span
-        >
-        <span class="color--primary material-icons">content_copy</span>
-        <h2>{{ $t("tax") }}</h2>
-        <span class="spacer"></span>
-        <span v-if="isTaxValid()" class="color--primary material-icons"
-          >check_circle_outline</span
-        >
-      </div>
-      <div v-if="substep === 5">
-        <Tax @on-back="goBack" @on-next="goNext"></Tax>
-      </div>
-    </div>
-    <div v-if="substep === 0">
+    <div v-if="substep <= 1">
+      <Identification></Identification>
       <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
+    </div>
+    <div v-if="substep === 2">
+      <Residency></Residency>
+      <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
+    </div>
+    <div v-if="substep === 3">
+      <Professional></Professional>
+      <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
+    </div>
+    <div v-if="substep === 4">
+      <Financial @on-back="goBack" @on-next="goNext"></Financial>
+    </div>
+    <div v-if="substep === 5">
+      <Tax @on-back="goBack" @on-next="goNext"></Tax>
     </div>
   </div>
 </template>
@@ -139,7 +32,6 @@ import { mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
 import { AnalyticsService } from "../services/AnalyticsService";
 import ProfileFooter from "@/components/footer/ProfileFooter.vue";
-import { UtilsService } from "../services/UtilsService";
 
 @Component({
   components: {
@@ -169,21 +61,15 @@ export default class UploadDocuments extends Vue {
 
   goToGuarantor() {
     AnalyticsService.validateFunnel();
+    if (this.user.guarantors && this.user.guarantors.length > 0) {
+      this.$router.push({
+        name: "GuarantorList"
+      });
+      return;
+    }
     this.$router.push({
       name: "GuarantorChoice"
     });
-  }
-
-  hasDoc(docType: string) {
-    return UtilsService.hasDoc(docType);
-  }
-
-  isFinancialValid() {
-    return UtilsService.isFinancialValid();
-  }
-
-  isTaxValid() {
-    return UtilsService.isTaxValid();
   }
 
   goBack() {
@@ -261,7 +147,7 @@ h2 {
 "identification": "Pièce d’identité",
 "residency": "Justificatif de domicile",
 "professional": "Justificatif de situation professionnelle",
-"financial": "Justificatif de ressources",
+"financial": "Proof of resources",
 "tax": "Avis d’imposition"
 },
 "fr": {

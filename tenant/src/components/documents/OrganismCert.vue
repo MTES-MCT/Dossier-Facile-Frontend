@@ -1,10 +1,10 @@
 <template>
   <div>
-    <NakedCard>
+    <NakedCard class="fr-p-md-5w">
       <div>
-        <div class="fr-mb-3w">
+        <h1 class="fr-h6">
           {{ $t("organism-label") }}
-        </div>
+        </h1>
         <v-gouv-fr-modal>
           <template v-slot:button>
             En difficulté pour répondre à la question ?
@@ -21,27 +21,27 @@
             </p>
           </template>
         </v-gouv-fr-modal>
-        <div class="fr-mb-3w">
+        <div class="fr-col-md-12 fr-mb-3w">
+          <ListItem
+            v-for="(file, k) in listFiles()"
+            :key="k"
+            :file="file"
+            @remove="remove(file)"
+            :uploadState="
+              uploadProgress[file.id] ? uploadProgress[file.id].state : 'idle'
+            "
+            :percentage="
+              uploadProgress[file.id] ? uploadProgress[file.id].percentage : 0
+            "
+          />
+        </div>
+        <div class="fr-mt-3w fr-mb-3w">
           <FileUpload
             :current-status="fileUploadStatus"
             @add-files="addFiles"
             @reset-files="resetFiles"
           ></FileUpload>
         </div>
-      </div>
-      <div class="fr-col-md-12 fr-mb-3w">
-        <ListItem
-          v-for="(file, k) in listFiles()"
-          :key="k"
-          :file="file"
-          @remove="remove(file)"
-          :uploadState="
-            uploadProgress[file.id] ? uploadProgress[file.id].state : 'idle'
-          "
-          :percentage="
-            uploadProgress[file.id] ? uploadProgress[file.id].percentage : 0
-          "
-        />
       </div>
     </NakedCard>
   </div>

@@ -9,7 +9,7 @@
             <div class="fr-mb-3w">
               <validation-provider rules="is" v-slot="{ errors }">
                 <div
-                  class="fr-input-group bg-purple"
+                  class="fr-checkbox-group bg-purple"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
                   <input
@@ -87,7 +87,11 @@
                       value="false"
                       v-model="declaration2"
                     />
-                    <label for="declaration2">{{ $t("declaration2") }}</label>
+                    <label for="declaration2">{{
+                      user.guarantors.length > 1
+                        ? $t("declaration2-plural")
+                        : $t("declaration2")
+                    }}</label>
                     <span class="fr-error-text" v-if="errors[0]">{{
                       $t(errors[0])
                     }}</span>
@@ -186,23 +190,28 @@ export default class ValidateFile extends Vue {
   sendFile() {
     if (!this.canValidate()) {
       window.scrollTo(0, 0);
-    } else {
-      const loader = Vue.$loading.show();
-      const params: any = {
-        honorDeclaration: true
-      };
-      if (this.user.tenantType === "CREATE") {
-        params.clarification = this.precision;
-      }
-      this.$store
-        .dispatch("validateFile", params)
-        .catch(() => {
-          Vue.toasted.global.error();
-        })
-        .finally(() => {
-          loader.hide();
-        });
+      return;
     }
+
+    if (this.user.status === "VALIDATED") {
+      this.$router.push("/account");
+      return;
+    }
+    const loader = Vue.$loading.show();
+    const params: any = {
+      honorDeclaration: true
+    };
+    if (this.user.tenantType === "CREATE") {
+      params.clarification = this.precision;
+    }
+    this.$store
+      .dispatch("validateFile", params)
+      .catch(() => {
+        Vue.toasted.global.error();
+      })
+      .finally(() => {
+        loader.hide();
+      });
   }
 
   goBack() {
@@ -213,23 +222,8 @@ export default class ValidateFile extends Vue {
       this.$router.push({ name: "GuarantorChoice" });
       return;
     }
-    if (this.user.guarantors[0].typeGuarantor === "NATURAL_PERSON") {
-      this.$router.push({
-        name: "GuarantorDocuments",
-        params: { substep: "5" }
-      });
-      return;
-    }
-    if (this.user.guarantors[0].typeGuarantor === "LEGAL_PERSON") {
-      this.$router.push({
-        name: "GuarantorDocuments",
-        params: { substep: "2" }
-      });
-      return;
-    }
     this.$router.push({
-      name: "GuarantorDocuments",
-      params: { substep: "1" }
+      name: "GuarantorList"
     });
     return;
   }
@@ -265,7 +259,8 @@ export default class ValidateFile extends Vue {
         "placeholder": "Renseignez votre commentaire ici",
         "validate": "Valider mon dossier",
         "read": "Je lis et je coche les cases suivantes afin de valider mon dossier",
-        "declaration2": "Je déclare sur l'honneur avoir avoir reçu le consentement de mon garant pour que ses données soient traitées dans le cadre du processus de location",
+        "declaration2": "Je déclare sur l'honneur avoir reçu le consentement de mon garant pour que ses données soient traitées dans le cadre du processus de location",
+        "declaration2-plural": "Je déclare sur l'honneur avoir reçu le consentement de mes garants pour que leurs données soient traitées dans le cadre du processus de location",
         "require-accept": "You must accept the declaration"
     },
     "fr": {
@@ -276,7 +271,8 @@ export default class ValidateFile extends Vue {
         "placeholder": "Renseignez votre commentaire ici",
         "validate": "Valider mon dossier",
         "read": "Je lis et je coche les cases suivantes afin de valider mon dossier",
-        "declaration2": "Je déclare sur l'honneur avoir avoir reçu le consentement de mon garant pour que ses données soient traitées dans le cadre du processus de location",
+        "declaration2": "Je déclare sur l'honneur avoir reçu le consentement de mon garant pour que ses données soient traitées dans le cadre du processus de location",
+        "declaration2-plural": "Je déclare sur l'honneur avoir reçu le consentement de mes garants pour que leurs données soient traitées dans le cadre du processus de location",
         "require-accept": "Vous devez accepter la déclaration"
     }
 }

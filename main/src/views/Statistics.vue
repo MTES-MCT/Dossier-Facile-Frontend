@@ -98,11 +98,11 @@ h2 {
 {
   "en":
   {
-    "title": "Satistics"
+    "title": "Statistics"
   },
   "fr":
   {
-    "title": "Satistiques"
+    "title": "Statistiques"
   }
 }
 </i18n>
