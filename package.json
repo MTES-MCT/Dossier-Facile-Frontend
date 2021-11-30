@@ -41,6 +41,7 @@
     "@storybook/addon-actions": "6.4.0",
     "@storybook/addon-essentials": "6.4.0",
     "@storybook/addon-links": "6.4.0",
+    "@storybook/addon-postcss": "^2.0.0",
     "@storybook/vue": "6.4.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "babel-loader": "^8.1.0",

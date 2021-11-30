@@ -2529,6 +2529,17 @@
     npmlog "^5.0.1"
     pretty-hrtime "^1.0.3"
 
+"@storybook/node-logger@^6.1.14":
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/@storybook/node-logger/-/node-logger-6.4.1.tgz#614dcbf4a18ea66bfff729a1e7e7135acd4df9c4"
+  integrity sha512-n/1IwBsx/O44xoTE1ixGt5sHB8iegI6d/AIh5l0aWabVw0Y8ardA17mzUnf+jFVe9xLgwbQoDOfkCtUdT0Q6Dw==
+  dependencies:
+    "@types/npmlog" "^4.1.2"
+    chalk "^4.1.0"
+    core-js "^3.8.2"
+    npmlog "^5.0.1"
+    pretty-hrtime "^1.0.3"
+
 "@storybook/postinstall@6.3.7":
   version "6.3.7"
   resolved "https://registry.yarnpkg.com/@storybook/postinstall/-/postinstall-6.3.7.tgz#7d90c06131382a3cf1550a1f2c70df13b220d9d3"
@@ -12654,6 +12665,11 @@ performance-now@^2.1.0:
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
 
+picocolors@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-0.2.1.tgz#570670f793646851d1ba135996962abad587859f"
+  integrity sha512-cMlDqaLEqfSaW8Z7N5Jw+lyIW869EzT73/F5lhtY9cLGoVxSXznfgfXMO0Z5K0o0Q2TkTXq+0KFsdnSe3jDViA==
+
 picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.2.3, picomatch@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.0.tgz#f1f061de8f6a4bf022892e2d128234fb98302972"
@@ -13167,6 +13183,14 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.26, postcss@^7.0.2
     chalk "^2.4.2"
     source-map "^0.6.1"
     supports-color "^6.1.0"
+
+postcss@^7.0.35:
+  version "7.0.39"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.39.tgz#9624375d965630e2e1f2c02a935c82a59cb48309"
+  integrity sha512-yioayjNbHn6z1/Bywyb2Y4s3yvDAeXGOyxqD+LnVOinq6Mdmd++SW2wUNVzavyyHxd6+DxzWGIuosg6P1Rj8uA==
+  dependencies:
+    picocolors "^0.2.1"
+    source-map "^0.6.1"
 
 postcss@^8.1.10:
   version "8.3.6"
