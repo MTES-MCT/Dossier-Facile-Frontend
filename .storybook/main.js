@@ -38,7 +38,8 @@ module.exports = {
       test: /\.(ts|tsx)?$/,
       use: [
           {
-              loader: 'ts-loader'
+              loader: 'ts-loader',
+              options: { appendTsSuffixTo: [/\.vue$/] },
           }
       ],
       include: path.resolve(__dirname, '../'),

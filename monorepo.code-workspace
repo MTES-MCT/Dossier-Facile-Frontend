@@ -13,10 +13,6 @@
       "path": "tenant"
     },
     {
-      "name": "😈 bo",
-      "path": "bo"
-    }
-    {
       "name": "🏠 owner",
       "path": "owner"
     }
@@ -40,7 +36,6 @@
     "editor.tabSize": 2,
     "jest.disabledWorkspaceFolders": [
       "📂 DossierFacile",
-      "😈 bo",
       "🏠 owner"
     ]
   }
