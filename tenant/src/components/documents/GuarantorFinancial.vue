@@ -258,7 +258,7 @@ export default class GuarantorFinancial extends Vue {
   "rent": "Rentes",
   "pension": "Pensions",
   "scholarship": "Bourses",
-  "monthlySum-label": "J'indique le montant de mon revenu mensuel net à payer (avant prélèvement à la source)",
+  "monthlySum-label": "J'indique le montant de son revenu mensuel net à payer (avant prélèvement à la source)",
   "number-not-valid": "Nombre incorrect",
   "delete-financial":  "Supprimer ce revenu",
   "field-required": "Ce champ est requis",
