@@ -289,7 +289,7 @@ h2 {
   "more-information": "En difficulté pour répondre à la question ?",
   "my-guarantor": "Mon garant",
   "remark-title": "Remarque",
-  "remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, nous pouvez cliquer directement sur le bouton ci-dessous, « Je n'ai pas de garant ».",
+  "remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez cliquer directement sur le bouton ci-dessous, « Je n'ai pas de garant ».",
   "remark-text-2":"Votre dossier sera alors enregistré pour être instruit.",
   "add-new-guarantor": "Ajouter un nouveau garant ?",
   "guarantor": "Mon garant",
