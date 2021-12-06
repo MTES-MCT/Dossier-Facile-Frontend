@@ -256,7 +256,7 @@ export default class Financial extends Vue {
   "delete-financial":  "Supprimer ce revenu",
   "field-required": "Ce champ est requis",
   "register": "Enregistrer",
-  "select-label": "Attention, Veuillez renseigner uniquement vos propres revenus.",
+  "select-label": "Attention, veuillez renseigner uniquement vos propres revenus.",
   "no-income": "Pas de revenu",
   "i-have-no-income": "Je n'ai pas de revenu",
   "title": "Récapitulatif de vos revenus",
