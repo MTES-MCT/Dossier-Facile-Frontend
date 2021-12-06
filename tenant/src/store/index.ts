@@ -29,7 +29,7 @@ export class DfState {
   coTenantAuthorize = false;
   showFooter = true;
   expandGuarantorMenu = false;
-  financialDocumentSelected?: FinancialDocument = undefined;
+  financialDocumentSelected?: FinancialDocument = new FinancialDocument();
   editFinancialDocument = false;
 }
 
@@ -155,7 +155,7 @@ const store = new Vuex.Store({
       state.editFinancialDocument = d !== undefined;
     },
     createDocumentFinancial(state) {
-      state.financialDocumentSelected = new FinancialDocument();
+      state.financialDocumentSelected = Object.assign({}, new FinancialDocument());
       state.editFinancialDocument = true;
     },
     selectGuarantorDocumentFinancial(state, d: FinancialDocument) {
@@ -493,8 +493,8 @@ const store = new Vuex.Store({
     saveTenantFinancial({ commit }, formData) {
       return RegisterService.saveTenantFinancial(formData).then(
         async response => {
-          await this.dispatch("loadUser");
-          const fd = this.getters.tenantFinancialDocuments;
+          await commit("loadUser", response.data);
+          const fd = await this.getters.tenantFinancialDocuments;
           if (fd === undefined) {
             return Promise.resolve(response.data);
           }
