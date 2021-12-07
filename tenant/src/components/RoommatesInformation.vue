@@ -309,7 +309,8 @@ export default class RoommatesInformation extends Vue {
     "my-roommates": "My roommates",
     "email-exists": "You can not associate two account with only one email address ! <br>Fullfill a different email address.",
     "email-exists-2": "This email address already exists in DossierFacile. Please use an other email address.",
-    "more-information": "En quoi cette information nous est utile ?"
+    "more-information": "En quoi cette information nous est utile ?",
+    "require-accept": "Vous devez accepter la déclaration"
   },
   "fr": {
     "roommateEmail": "Ajouter l’adresse email d'un colocataire",
@@ -324,7 +325,8 @@ export default class RoommatesInformation extends Vue {
     "my-roommates": "Mes colocataires",
     "email-exists": "Vous ne pouvez pas associer deux comptes à une même adresse email ! <br>Renseignez une adresse email différente de la votre.",
     "email-exists-2": "Cette adresse email est déjà utilisée sur DossierFacile.<br>Renseignez une adresse email différente.",
-    "more-information": "En quoi cette information nous est utile ?"
+    "more-information": "En quoi cette information nous est utile ?",
+    "require-accept": "Vous devez accepter la déclaration"
   }
 }
 </i18n>
