@@ -99,7 +99,7 @@ export const RegisterService = {
   },
 
   saveRepresentativeIdentification(formData: FormData) {
-    const url = `https://${process.env.VUE_APP_API_URL}/api/register/guarantorLegalPerson/documentRepresentanIdentification`;
+    const url = `https://${process.env.VUE_APP_API_URL}/api/register/guarantorLegalPerson/documentRepresentantIdentification`;
     return axios.post(url, formData);
   },
 

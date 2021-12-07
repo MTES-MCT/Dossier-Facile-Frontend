@@ -1,6 +1,7 @@
 <template>
-  <div class="root fr-container">
-    <section class="background fr-pb-5w fr-mb-3w">
+<div class="root">
+  <div class="fr-container">
+    <section class="background fr-pb-5w fr-mb-5w">
       <div class="fr-container">
         <div class="fr-col-md-8">
           <div class="fr-grid-col">
@@ -15,13 +16,11 @@
       </div>
     </section>
 
-    <section class="fr-mb-3w">
+    <FileReinsurance></FileReinsurance>
+
+    <section class="fr-mt-5w fr-mb-3w">
       <div class="fr-tabs">
-        <ul
-          class="fr-tabs__list"
-          role="tablist"
-          aria-label="[A modifier | nom du système d'onglet]"
-        >
+        <ul class="fr-tabs__list" role="tablist" aria-label="tab-list">
           <li
             v-for="(tenant, k) in getTenants()"
             v-bind:key="`li${k}`"
@@ -131,6 +130,7 @@
       }}</DfButton>
     </section>
   </div>
+</div>
 </template>
 
 <script lang="ts">
@@ -141,10 +141,12 @@ import { Vue, Component } from "vue-property-decorator";
 import DfButton from "df-shared/src/Button/Button.vue";
 import { ProfileService } from "../services/ProfileService";
 import { DfDocument } from "df-shared/src/models/DfDocument";
+import FileReinsurance from "@/components/FileReinsurance.vue";
 
 @Component({
   components: {
-    DfButton
+    DfButton,
+    FileReinsurance
   }
 })
 export default class File extends Vue {
@@ -284,6 +286,7 @@ export default class File extends Vue {
 }
 .root {
   width: 100%;
+  background-color: var(--bf100-g750);
 }
 
 .file-item {
@@ -294,6 +297,10 @@ export default class File extends Vue {
   margin-top: 1rem;
   margin-bottom: 1rem;
   padding: 0.5rem;
+}
+
+.fr-tabs {
+  background-color: var(--w);
 }
 </style>
 

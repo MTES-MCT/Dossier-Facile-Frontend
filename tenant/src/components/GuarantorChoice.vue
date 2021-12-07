@@ -363,7 +363,7 @@ export default class GuarantorDocuments extends Vue {
   "more-information": "En difficulté pour répondre à la question ?",
   "ask-guarantor": "Souhaitez-vous ajouter :",
   "remark-title": "Remarque",
-  "remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, nous pouvez sélectionner « Je n'ai pas de garant ».<br> Votre dossier sera alors enregistré pour être instruit.",
+  "remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez sélectionner « Je n'ai pas de garant ».<br> Votre dossier sera alors enregistré pour être instruit.",
   "type-required": "Veuillez sélectionner un choix",
   "visale-title": "Connaissez-vous Visale ?",
   "visale-text": "Visale est le garant de votre futur logement si vous avez entre 18 et 30 ans OU si vous êtes salariés de + de 30 ans (soumis à conditions).",

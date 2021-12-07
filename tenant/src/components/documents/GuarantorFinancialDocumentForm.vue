@@ -587,7 +587,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
   "pension": "Pensions",
   "scholarship": "Bourses",
   "monthlySum": "Montant en euros",
-  "monthlySum-label": "J'indique le montant de mon revenu mensuel net à payer (avant prélèvement à la source)",
+  "monthlySum-label": "J'indique le montant de son revenu mensuel net à payer (avant prélèvement à la source)",
   "noDocument-social": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
   "noDocument-salary": "Je ne peux pas fournir les trois derniers bulletins de salaire ou un bilan comptable de mon garant",
   "noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",
@@ -605,7 +605,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
   "field-required": "Ce champ est requis",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à la situation de votre garant.",
   "register": "Enregistrer",
-  "select-label": "Attention, Veuillez renseigner uniquement les revenus de votre garant.",
+  "select-label": "Attention, veuillez renseigner uniquement les revenus de votre garant.",
   "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers."
 }
 }
