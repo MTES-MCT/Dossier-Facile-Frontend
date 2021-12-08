@@ -16,7 +16,9 @@
           @remove="removeFinancial(f)"
         >
           <template v-slot:tag>
-            <div class="fr-tag">{{ $t(f.documentType.key) }}</div>
+            <div class="fixed-width">
+              <div class="fr-tag">{{ $t(f.documentType.key) }}</div>
+            </div>
           </template>
           <template v-slot:text>
             <div
@@ -219,6 +221,10 @@ export default class Financial extends Vue {
   &:active {
     background: var(--blue-france-active);
   }
+}
+
+.fixed-width {
+  width: 180px;
 }
 </style>
 
