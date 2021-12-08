@@ -86,36 +86,36 @@ export const DocumentService = {
     const doc = this.hasDoc("TAX");
     return doc?.documentStatus || "";
   },
-  getGuarantorIdentityStatus(): string {
+  getGuarantorIdentityStatus(g: Guarantor): string {
     const doc = this.guarantorHasDoc(
-      store.state.selectedGuarantor,
+      g || store.state.selectedGuarantor,
       "IDENTIFICATION"
     );
     return doc?.documentStatus || "";
   },
-  getGuarantorResidencyStatus(): string {
+  getGuarantorResidencyStatus(g: Guarantor): string {
     const doc = this.guarantorHasDoc(
-      store.state.selectedGuarantor,
+      g || store.state.selectedGuarantor,
       "RESIDENCY"
     );
     return doc?.documentStatus || "";
   },
-  getGuarantorProfessionalStatus(): string {
+  getGuarantorProfessionalStatus(g: Guarantor): string {
     const doc = this.guarantorHasDoc(
-      store.state.selectedGuarantor,
+      g || store.state.selectedGuarantor,
       "PROFESSIONAL"
     );
     return doc?.documentStatus || "";
   },
-  getGuarantorFinancialStatus(): string {
+  getGuarantorFinancialStatus(g: Guarantor): string {
     const doc = this.guarantorHasDoc(
-      store.state.selectedGuarantor,
+      g || store.state.selectedGuarantor,
       "FINANCIAL"
     );
     return doc?.documentStatus || "";
   },
-  getGuarantorTaxStatus(): string {
-    const doc = this.guarantorHasDoc(store.state.selectedGuarantor, "TAX");
+  getGuarantorTaxStatus(g: Guarantor): string {
+    const doc = this.guarantorHasDoc(g || store.state.selectedGuarantor, "TAX");
     return doc?.documentStatus || "";
   },
   getGuarantorLegalPersonIdentityStatus(): string {
@@ -163,23 +163,23 @@ export const DocumentService = {
     }
     return status;
   },
-  guarantorStatus(documentType: string) {
+  guarantorStatus(documentType: string, guarantor: Guarantor) {
     let status;
     switch (documentType) {
       case "IDENTITY":
-        status = DocumentService.getGuarantorIdentityStatus() || "EMPTY";
+        status = DocumentService.getGuarantorIdentityStatus(guarantor) || "EMPTY";
         break;
       case "RESIDENCY":
-        status = DocumentService.getGuarantorResidencyStatus() || "EMPTY";
+        status = DocumentService.getGuarantorResidencyStatus(guarantor) || "EMPTY";
         break;
       case "PROFESSIONAL":
-        status = DocumentService.getGuarantorProfessionalStatus() || "EMPTY";
+        status = DocumentService.getGuarantorProfessionalStatus(guarantor) || "EMPTY";
         break;
       case "FINANCIAL":
-        status = DocumentService.getGuarantorFinancialStatus() || "EMPTY";
+        status = DocumentService.getGuarantorFinancialStatus(guarantor) || "EMPTY";
         break;
       case "TAX":
-        status = DocumentService.getGuarantorTaxStatus() || "EMPTY";
+        status = DocumentService.getGuarantorTaxStatus(guarantor) || "EMPTY";
         break;
       case "IDENTIFICATION_LEGAL_PERSON":
         status =
