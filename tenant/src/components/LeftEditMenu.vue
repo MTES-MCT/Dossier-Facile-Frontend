@@ -109,7 +109,19 @@
                 selectedGuarantor.lastName !== undefined
             "
           >
-            <div class="ml-5">
+            <div class="ml-5 bold">
+              <router-link
+                :to="{ name: 'GuarantorDocuments', params: { substep: '0' } }"
+                ><ColoredTag
+                  :text="
+                    `${selectedGuarantor.firstName} ${selectedGuarantor.lastName}`
+                  "
+                  status="NONE"
+                  :active="getGuarantorCurrentStep(0)"
+                ></ColoredTag
+              ></router-link>
+            </div>
+            <div class="ml-10">
               <router-link
                 :to="{ name: 'GuarantorDocuments', params: { substep: '1' } }"
                 ><ColoredTag
@@ -119,7 +131,7 @@
                 ></ColoredTag
               ></router-link>
             </div>
-            <div class="ml-5">
+            <div class="ml-10">
               <router-link
                 :to="{ name: 'GuarantorDocuments', params: { substep: '2' } }"
                 ><ColoredTag
@@ -129,7 +141,7 @@
                 ></ColoredTag
               ></router-link>
             </div>
-            <div class="ml-5">
+            <div class="ml-10">
               <router-link
                 :to="{ name: 'GuarantorDocuments', params: { substep: '3' } }"
                 ><ColoredTag
@@ -139,7 +151,7 @@
                 ></ColoredTag
               ></router-link>
             </div>
-            <div class="ml-5">
+            <div class="ml-10">
               <router-link
                 :to="{ name: 'GuarantorDocuments', params: { substep: '4' } }"
                 ><ColoredTag
@@ -149,7 +161,7 @@
                 ></ColoredTag
               ></router-link>
             </div>
-            <div class="ml-5">
+            <div class="ml-10">
               <router-link
                 :to="{ name: 'GuarantorDocuments', params: { substep: '5' } }"
                 ><ColoredTag
@@ -347,10 +359,20 @@ export default class LeftEditMenu extends Vue {
   margin-bottom: 1rem;
 }
 
+.ml-10 {
+  margin-left: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
 .fr-link {
   width: fit-content;
   color: var(--g800-plain);
   font-size: 14px;
+}
+
+.bold {
+  font-weight: bold;
 }
 
 [href] {
