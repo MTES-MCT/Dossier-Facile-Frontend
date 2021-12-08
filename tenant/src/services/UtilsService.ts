@@ -129,6 +129,6 @@ export const UtilsService = {
   },
   capitalize(word: string) {
     word = word[0].toUpperCase() + word.slice(1).toLowerCase();
-    return word.replace(/([ -][A-Za-zÀ-ÖØ-öø-ÿ])/g, s => s.toUpperCase());
+    return word.replace(/([ -'][A-Za-zÀ-ÖØ-öø-ÿ])/g, s => s.toUpperCase());
   }
 };
