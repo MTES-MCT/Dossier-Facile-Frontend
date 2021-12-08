@@ -23,6 +23,14 @@ export default class StatusIcon extends Vue {
         return "verified";
       case "DECLINED":
         return "report_gmailerrorred";
+      case "NAME":
+        return "badge";
+      case "ALONE":
+        return "person";
+      case "COUPLE":
+        return "group";
+      case "GROUP":
+        return "groups";
     }
     return undefined;
   }

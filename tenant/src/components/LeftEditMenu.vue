@@ -9,7 +9,25 @@
           >
         </div>
       </div>
-      <div class="vline" :class="getClass(0)"></div>
+      <div class="vline" :class="getClass(0)">
+        <div class="ml-5">
+          <router-link :to="{ name: 'Profile' }"
+            ><ColoredTag
+              :text="`${user.firstName} ${user.lastName}`"
+              status="NAME"
+            ></ColoredTag
+          ></router-link>
+        </div>
+        <div class="ml-5" v-if="user.applicationType">
+          <router-link :to="{ name: 'TenantType' }"
+            ><ColoredTag
+              :text="$t(user.applicationType)"
+              :status="user.applicationType"
+              :active="step < 2"
+            ></ColoredTag
+          ></router-link>
+        </div>
+      </div>
       <div class="step" :class="getClass(1)">
         <div class="step-number">2</div>
         <div class="step-title">
@@ -342,9 +360,15 @@ export default class LeftEditMenu extends Vue {
 
 <i18n>
 {
-"en": {
-},
-"fr": {
-}
+  "en": {
+    "ALONE": "Alone",
+    "COUPLE": "Couple",
+    "ROOMMATE": "Roommate"
+  },
+  "fr": {
+    "ALONE": "Seul·e",
+    "COUPLE": "En couple",
+    "ROOMMATE": "En colocation"
+  }
 }
 </i18n>
