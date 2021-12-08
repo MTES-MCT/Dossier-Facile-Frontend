@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter, { NavigationGuardNext, Route, RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
 import store from "@/store";
+import { Guarantor } from "df-shared/src/models/Guarantor";
 
 Vue.use(VueRouter);
 
@@ -132,7 +133,7 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "profile" */ "@/views/ValidateFilePage.vue")
   },
   {
-    path: "/info-garant/:substep",
+    path: "/info-garant/:substep/:guarantorId?",
     name: "GuarantorDocuments",
     meta: {
       title: "Édition du garant - DossierFacile",
