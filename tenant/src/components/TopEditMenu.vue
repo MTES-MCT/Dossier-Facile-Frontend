@@ -309,7 +309,10 @@ export default class LeftEditMenu extends Vue {
   }
 
   guarantorStatus(documentType: string) {
-    return DocumentService.guarantorStatus(documentType);
+    return DocumentService.guarantorStatus(
+      documentType,
+      this.selectedGuarantor
+    );
   }
 
   getGuarantorCurrentStep(substep: number): boolean {
