@@ -1,6 +1,7 @@
 {
   "save-success": "Enregistrement réussi",
   "save-failed": "Erreur lors de l'enregistrement",
+  "save-failed-num-pages": "Nombre de pages maximum atteint, veuillez en supprimer",
   "delete-success": "Suppression réussie",
   "delete-failed": "Erreur lors de la suppression",
   "max-file-default": "Nombre de fichier maximum atteint, veuillez en supprimer",

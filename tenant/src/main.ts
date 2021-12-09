@@ -108,8 +108,16 @@ Vue.use(VueAuthImage);
     );
     Vue.toasted.register("save_failed", i18n.t("save-failed").toString(), {
       type: "error",
-      duration: 5000
+      duration: 7000
     });
+    Vue.toasted.register(
+      "save_failed_num_pages",
+      i18n.t("save-failed-num-pages").toString(),
+      {
+        type: "error",
+        duration: 7000
+      }
+    );
     Vue.toasted.register("save_success", i18n.t("save-success").toString(), {
       type: "success",
       duration: 5000
