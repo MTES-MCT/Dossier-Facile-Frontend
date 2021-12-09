@@ -255,11 +255,14 @@ export default class Professional extends Vue {
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         Vue.toasted.global.save_success();
-        this.$store.dispatch("loadUser");
       })
-      .catch(() => {
+      .catch(err => {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
-        Vue.toasted.global.save_failed();
+        if (err.response.data.message.includes("NumberOfPages")) {
+          Vue.toasted.global.save_failed_num_pages();
+        } else {
+          Vue.toasted.global.save_failed();
+        }
       })
       .finally(() => {
         loader.hide();

@@ -520,9 +520,13 @@ export default class FinancialDocumentForm extends Vue {
         Vue.toasted.global.save_success();
         return true;
       })
-      .catch(() => {
+      .catch(err => {
         this.financialDocument.fileUploadStatus = UploadStatus.STATUS_FAILED;
-        Vue.toasted.global.save_failed();
+        if (err.response.data.message.includes("NumberOfPages")) {
+          Vue.toasted.global.save_failed_num_pages();
+        } else {
+          Vue.toasted.global.save_failed();
+        }
         return Promise.reject(new Error("err"));
       })
       .finally(() => {
