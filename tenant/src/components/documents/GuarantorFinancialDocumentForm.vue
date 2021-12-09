@@ -454,9 +454,13 @@ export default class GuarantorFinancialDocumentForm extends Vue {
           ...cloneDeep(this.guarantorFinancialDocumentSelected)
         };
       })
-      .catch(() => {
+      .catch(err => {
         this.financialDocument.fileUploadStatus = UploadStatus.STATUS_FAILED;
-        Vue.toasted.global.save_failed();
+        if (err.response.data.message.includes("NumberOfPages")) {
+          Vue.toasted.global.save_failed_num_pages();
+        } else {
+          Vue.toasted.global.save_failed();
+        }
         return false;
       });
     loader.hide();
