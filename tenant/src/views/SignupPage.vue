@@ -16,7 +16,7 @@
             >
               <ul>
                 <li>
-                  Votre pièce d’identité
+                  Une pièce d’identité
                 </li>
                 <li>
                   Un justificatif de domicile
@@ -25,7 +25,7 @@
                   Un justificatif de situation professionnelle
                 </li>
                 <li>
-                  Vos justificatifs de ressource
+                  Des justificatifs de ressources
                 </li>
                 <li>
                   Votre dernier avis d’imposition

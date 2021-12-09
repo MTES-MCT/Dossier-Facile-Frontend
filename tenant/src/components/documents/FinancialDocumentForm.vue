@@ -432,7 +432,10 @@ export default class FinancialDocumentForm extends Vue {
     const formData = new FormData();
     if (!this.financialDocument.noDocument) {
       const newFiles = this.financialDocument.files.filter(f => {
-        return !f.id;
+        if (!f.id) {
+          return true;
+        }
+        return Promise.reject(new Error("fail"));
       });
       if (
         !this.financialFiles().length &&
@@ -441,7 +444,7 @@ export default class FinancialDocumentForm extends Vue {
         Vue.toasted.global.max_file({
           message: this.$i18n.t("missing-file")
         });
-        return false;
+        return Promise.reject(new Error("missing-file"));
       }
 
       if (
@@ -455,7 +458,7 @@ export default class FinancialDocumentForm extends Vue {
             this.financialDocument.documentType.maxFileCount
           ])
         });
-        return false;
+        return Promise.reject(new Error("max-file"));
       }
 
       Array.from(Array(newFiles.length).keys()).map(x => {
@@ -465,7 +468,7 @@ export default class FinancialDocumentForm extends Vue {
     } else {
       if (this.financialFiles().length > 0) {
         this.isNoIncomeAndFiles = true;
-        return false;
+        return Promise.reject(new Error("err"));
       }
     }
 
@@ -500,7 +503,7 @@ export default class FinancialDocumentForm extends Vue {
         this.financialDocument.monthlySum.toString()
       );
     } else {
-      return;
+      return Promise.reject(new Error("err"));
     }
     if (this.financialDocument.id) {
       formData.append("id", this.financialDocument.id.toString());
@@ -508,22 +511,28 @@ export default class FinancialDocumentForm extends Vue {
 
     this.financialDocument.fileUploadStatus = UploadStatus.STATUS_SAVING;
     const loader = this.$loading.show();
-    await this.$store
+    const res = await this.$store
       .dispatch("saveTenantFinancial", formData)
       .then(() => {
         this.financialDocument = {
           ...cloneDeep(this.financialDocumentSelected)
         };
         Vue.toasted.global.save_success();
+        return true;
       })
-      .catch(() => {
+      .catch(err => {
         this.financialDocument.fileUploadStatus = UploadStatus.STATUS_FAILED;
-        Vue.toasted.global.save_failed();
+        if (err.response.data.message.includes("NumberOfPages")) {
+          Vue.toasted.global.save_failed_num_pages();
+        } else {
+          Vue.toasted.global.save_failed();
+        }
+        return Promise.reject(new Error("err"));
       })
       .finally(() => {
         loader.hide();
       });
-    return true;
+    return res;
   }
 
   financialFiles() {
