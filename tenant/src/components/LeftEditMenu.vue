@@ -9,7 +9,25 @@
           >
         </div>
       </div>
-      <div class="vline" :class="getClass(0)"></div>
+      <div class="vline" :class="getClass(0)">
+        <div class="ml-5">
+          <router-link :to="{ name: 'Profile' }"
+            ><ColoredTag
+              :text="`${user.firstName} ${user.lastName}`"
+              status="NAME"
+            ></ColoredTag
+          ></router-link>
+        </div>
+        <div class="ml-5" v-if="user.applicationType">
+          <router-link :to="{ name: 'TenantType' }"
+            ><ColoredTag
+              :text="$t(user.applicationType)"
+              :status="user.applicationType"
+              :active="step < 2"
+            ></ColoredTag
+          ></router-link>
+        </div>
+      </div>
       <div class="step" :class="getClass(1)">
         <div class="step-number">2</div>
         <div class="step-title">
@@ -91,55 +109,85 @@
                 selectedGuarantor.lastName !== undefined
             "
           >
-            <div class="ml-5">
-              <router-link
-                :to="{ name: 'GuarantorDocuments', params: { substep: '1' } }"
-                ><ColoredTag
-                  :text="$t('identification')"
-                  :status="guarantorStatus('IDENTITY')"
-                  :active="getGuarantorCurrentStep(1)"
-                ></ColoredTag
-              ></router-link>
-            </div>
-            <div class="ml-5">
-              <router-link
-                :to="{ name: 'GuarantorDocuments', params: { substep: '2' } }"
-                ><ColoredTag
-                  :text="$t('residency')"
-                  :status="guarantorStatus('RESIDENCY')"
-                  :active="getGuarantorCurrentStep(2)"
-                ></ColoredTag
-              ></router-link>
-            </div>
-            <div class="ml-5">
-              <router-link
-                :to="{ name: 'GuarantorDocuments', params: { substep: '3' } }"
-                ><ColoredTag
-                  :text="$t('professional')"
-                  :status="guarantorStatus('PROFESSIONAL')"
-                  :active="getGuarantorCurrentStep(3)"
-                ></ColoredTag
-              ></router-link>
-            </div>
-            <div class="ml-5">
-              <router-link
-                :to="{ name: 'GuarantorDocuments', params: { substep: '4' } }"
-                ><ColoredTag
-                  :text="$t('financial')"
-                  :status="guarantorStatus('FINANCIAL')"
-                  :active="getGuarantorCurrentStep(4)"
-                ></ColoredTag
-              ></router-link>
-            </div>
-            <div class="ml-5">
-              <router-link
-                :to="{ name: 'GuarantorDocuments', params: { substep: '5' } }"
-                ><ColoredTag
-                  :text="$t('tax')"
-                  :status="guarantorStatus('TAX')"
-                  :active="getGuarantorCurrentStep(5)"
-                ></ColoredTag
-              ></router-link>
+            <div v-for="(g, k) in user.guarantors" :key="k">
+              <div class="ml-5 bold">
+                <router-link
+                  :to="{
+                    name: 'GuarantorDocuments',
+                    params: { substep: '0', guarantorId: g.id }
+                  }"
+                  ><ColoredTag
+                    :text="`${g.firstName} ${g.lastName}`"
+                    status="NONE"
+                    :active="getGuarantorCurrentStep(0, g)"
+                  ></ColoredTag
+                ></router-link>
+              </div>
+              <div class="ml-10">
+                <router-link
+                  :to="{
+                    name: 'GuarantorDocuments',
+                    params: { substep: '1', guarantorId: g.id }
+                  }"
+                  ><ColoredTag
+                    :text="$t('identification')"
+                    :status="guarantorStatus('IDENTITY', g)"
+                    :active="getGuarantorCurrentStep(1, g)"
+                  ></ColoredTag
+                ></router-link>
+              </div>
+              <div class="ml-10">
+                <router-link
+                  :to="{
+                    name: 'GuarantorDocuments',
+                    params: { substep: '2', guarantorId: g.id }
+                  }"
+                  ><ColoredTag
+                    :text="$t('residency')"
+                    :status="guarantorStatus('RESIDENCY', g)"
+                    :active="getGuarantorCurrentStep(2, g)"
+                  ></ColoredTag
+                ></router-link>
+              </div>
+              <div class="ml-10">
+                <router-link
+                  :to="{
+                    name: 'GuarantorDocuments',
+                    params: { substep: '3', guarantorId: g.id }
+                  }"
+                  ><ColoredTag
+                    :text="$t('professional')"
+                    :status="guarantorStatus('PROFESSIONAL', g)"
+                    :active="getGuarantorCurrentStep(3, g)"
+                  ></ColoredTag
+                ></router-link>
+              </div>
+              <div class="ml-10">
+                <router-link
+                  :to="{
+                    name: 'GuarantorDocuments',
+                    params: { substep: '4', guarantorId: g.id }
+                  }"
+                  ><ColoredTag
+                    :text="$t('financial')"
+                    :status="guarantorStatus('FINANCIAL', g)"
+                    :active="getGuarantorCurrentStep(4, g)"
+                  ></ColoredTag
+                ></router-link>
+              </div>
+              <div class="ml-10">
+                <router-link
+                  :to="{
+                    name: 'GuarantorDocuments',
+                    params: { substep: '5', guarantorId: g.id }
+                  }"
+                  ><ColoredTag
+                    :text="$t('tax')"
+                    :status="guarantorStatus('TAX', g)"
+                    :active="getGuarantorCurrentStep(5, g)"
+                  ></ColoredTag
+                ></router-link>
+              </div>
             </div>
           </div>
           <div v-if="selectedGuarantor.typeGuarantor === 'LEGAL_PERSON'">
@@ -148,7 +196,7 @@
                 :to="{ name: 'GuarantorDocuments', params: { substep: '0' } }"
                 ><ColoredTag
                   :text="$t('identification-legal-person')"
-                  :status="guarantorStatus('IDENTIFICATION_LEGAL_PERSON')"
+                  :status="guarantorStatus('IDENTIFICATION_LEGAL_PERSON', g)"
                   :active="getGuarantorCurrentStep(0)"
                 ></ColoredTag
               ></router-link>
@@ -158,7 +206,7 @@
                 :to="{ name: 'GuarantorDocuments', params: { substep: '1' } }"
                 ><ColoredTag
                   :text="$t('identity-represent')"
-                  :status="guarantorStatus('IDENTIFICATION')"
+                  :status="guarantorStatus('IDENTIFICATION', g)"
                   :active="getGuarantorCurrentStep(1)"
                 ></ColoredTag
               ></router-link>
@@ -170,7 +218,7 @@
                 :to="{ name: 'GuarantorDocuments', params: { substep: '0' } }"
                 ><ColoredTag
                   :text="$t('identification-organism')"
-                  :status="guarantorStatus('IDENTIFICATION')"
+                  :status="guarantorStatus('IDENTIFICATION', g)"
                   :active="getGuarantorCurrentStep(0)"
                 ></ColoredTag
               ></router-link>
@@ -223,8 +271,8 @@ export default class LeftEditMenu extends Vue {
     return "";
   }
 
-  guarantorStatus(documentType: string) {
-    return DocumentService.guarantorStatus(documentType);
+  guarantorStatus(documentType: string, guarantor: Guarantor) {
+    return DocumentService.guarantorStatus(documentType, guarantor);
   }
 
   tenantStatus(documentType: string) {
@@ -236,9 +284,13 @@ export default class LeftEditMenu extends Vue {
     return this.step === 2 && s === substep;
   }
 
-  getGuarantorCurrentStep(substep: number): boolean {
+  getGuarantorCurrentStep(substep: number, g: Guarantor): boolean {
     const s = Number(this.$route.params.substep) || 0;
-    return this.step === 3 && s === substep;
+    return (
+      this.step === 3 &&
+      s === substep &&
+      (g === undefined || this.selectedGuarantor.id === g.id)
+    );
   }
 
   getStep(s: number) {
@@ -329,10 +381,20 @@ export default class LeftEditMenu extends Vue {
   margin-bottom: 1rem;
 }
 
+.ml-10 {
+  margin-left: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
 .fr-link {
   width: fit-content;
   color: var(--g800-plain);
   font-size: 14px;
+}
+
+.bold {
+  font-weight: bold;
 }
 
 [href] {
@@ -342,9 +404,15 @@ export default class LeftEditMenu extends Vue {
 
 <i18n>
 {
-"en": {
-},
-"fr": {
-}
+  "en": {
+    "ALONE": "Alone",
+    "COUPLE": "Couple",
+    "ROOMMATE": "Roommate"
+  },
+  "fr": {
+    "ALONE": "Seul·e",
+    "COUPLE": "En couple",
+    "ROOMMATE": "En colocation"
+  }
 }
 </i18n>

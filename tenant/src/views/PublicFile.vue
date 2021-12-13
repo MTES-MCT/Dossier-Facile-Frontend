@@ -1,97 +1,104 @@
 <template>
-<div class="root">
-  <div class="fr-container">
-    <section class="background fr-pb-5w fr-mb-5w">
-      <div class="fr-container">
-        <div class="fr-col-md-8">
-          <div class="fr-grid-col">
-            <h1 class="fr-h1 color--white fr-mt-3w" v-if="user">
-              {{ $t("title", [getName()]) }}
-            </h1>
-            <p class="text-bold color--white">
-              {{ $t("description", [getStatus(), getIncomeSum()]) }}
-            </p>
+  <div class="root">
+    <div class="fr-container">
+      <section class="background fr-pb-5w fr-mb-5w">
+        <div class="fr-container">
+          <div class="fr-col-md-8">
+            <div class="fr-grid-col">
+              <h1 class="fr-h1 color--white fr-mt-3w" v-if="user">
+                {{ $t("title", [getName()]) }}
+              </h1>
+              <p class="text-bold color--white">
+                {{ $t("description", [getStatus(), getIncomeSum()]) }}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <FileReinsurance></FileReinsurance>
+      <FileReinsurance></FileReinsurance>
 
-    <section class="fr-mb-3w fr-mt-5w">
-      <div id="fr-tabs" class="fr-tabs">
-        <ul
-          class="fr-tabs__list"
-          role="tablist"
-          aria-label="[A modifier | nom du système d'onglet]"
-        >
-          <li
-            v-for="(tenant, k) in getTenants()"
-            v-bind:key="`li${k}`"
-            role="presentation"
+      <section class="fr-mb-3w fr-mt-5w">
+        <div id="fr-tabs" class="fr-tabs">
+          <ul
+            class="fr-tabs__list"
+            role="tablist"
+            aria-label="[A modifier | nom du système d'onglet]"
           >
-            <button
-              class="fr-tabs__tab fr-fi-checkbox-line fr-tabs__tab--icon-left"
-              :id="`tabpanel-${k}`"
-              :tabindex="tabIndex === k ? 0 : -1"
-              role="tab"
-              :aria-selected="tabIndex === k"
-              :aria-controls="`tabpanel-${k}-panel`"
-              @click="tabIndex = k"
+            <li
+              v-for="(tenant, k) in getTenants()"
+              v-bind:key="`li${k}`"
+              role="presentation"
             >
-              {{ tenant.firstName }}
-              {{ tenant.lastName }}
-            </button>
-          </li>
-        </ul>
-        <div
-          v-for="(tenant, k) in getTenants()"
-          v-bind:key="`t${k}`"
-          :id="`tabpanel-${k}-panel`"
-          class="fr-tabs__panel"
-          :class="{ 'fr-tabs__panel--selected': tabIndex === k }"
-          role="tabpanel"
-          tabindex="0"
-        >
-          <div class="fr-prose">
-            <h4 class="fr-h4" v-if="tenant.typeGuarantor === 'NATURAL_PERSON'">
-              {{ $t("guarant") }}
-            </h4>
-            <h4 class="fr-h4" v-if="tenant.typeGuarantor !== 'NATURAL_PERSON'">
-              {{ $t("personnal-file") }}
-            </h4>
-            <div class="fr-grid-row file-item">
-              <span>{{ $t("identification") }}</span>
-            </div>
-            <div class="fr-grid-row file-item">
-              <span>{{ $t("residency") }}</span>
-            </div>
-            <div class="fr-grid-row file-item">
-              <span>{{ $t("professional") }}</span>
-            </div>
-            <div class="fr-grid-row file-item">
-              <span>{{ $t("financial") }}</span>
-            </div>
-            <div class="fr-grid-row file-item">
-              <span>{{ $t("tax") }}</span>
-            </div>
-            <div v-if="hasGuarantor(tenant)">
-              <h4 class="fr-h4">
+              <button
+                class="fr-tabs__tab fr-fi-checkbox-line fr-tabs__tab--icon-left"
+                :id="`tabpanel-${k}`"
+                :tabindex="tabIndex === k ? 0 : -1"
+                role="tab"
+                :aria-selected="tabIndex === k"
+                :aria-controls="`tabpanel-${k}-panel`"
+                @click="tabIndex = k"
+              >
+                {{ tenant.firstName }}
+                {{ tenant.lastName }}
+              </button>
+            </li>
+          </ul>
+          <div
+            v-for="(tenant, k) in getTenants()"
+            v-bind:key="`t${k}`"
+            :id="`tabpanel-${k}-panel`"
+            class="fr-tabs__panel"
+            :class="{ 'fr-tabs__panel--selected': tabIndex === k }"
+            role="tabpanel"
+            tabindex="0"
+          >
+            <div class="fr-prose">
+              <h4
+                class="fr-h4"
+                v-if="tenant.typeGuarantor === 'NATURAL_PERSON'"
+              >
                 {{ $t("guarant") }}
               </h4>
-              <div v-if="tenant.guarantors">
-                <div v-for="g in tenant.guarantors" v-bind:key="g.id">
-                  <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
-                    <div class="fr-grid-row file-item">
-                      <span>{{ $t("identification-legal-person") }}</span>
+              <h4
+                class="fr-h4"
+                v-if="tenant.typeGuarantor !== 'NATURAL_PERSON'"
+              >
+                {{ $t("personnal-file") }}
+              </h4>
+              <div class="fr-grid-row file-item">
+                <span>{{ $t("identification") }}</span>
+              </div>
+              <div class="fr-grid-row file-item">
+                <span>{{ $t("residency") }}</span>
+              </div>
+              <div class="fr-grid-row file-item">
+                <span>{{ $t("professional") }}</span>
+              </div>
+              <div class="fr-grid-row file-item">
+                <span>{{ $t("financial") }}</span>
+              </div>
+              <div class="fr-grid-row file-item">
+                <span>{{ $t("tax") }}</span>
+              </div>
+              <div v-if="hasGuarantor(tenant)">
+                <h4 class="fr-h4">
+                  {{ $t("guarant") }}
+                </h4>
+                <div v-if="tenant.guarantors">
+                  <div v-for="g in tenant.guarantors" v-bind:key="g.id">
+                    <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
+                      <div class="fr-grid-row file-item">
+                        <span>{{ $t("identification-legal-person") }}</span>
+                      </div>
+                      <div class="fr-grid-row file-item">
+                        <span>{{ $t("identification") }}</span>
+                      </div>
                     </div>
-                    <div class="fr-grid-row file-item">
-                      <span>{{ $t("identification") }}</span>
-                    </div>
-                  </div>
-                  <div v-if="g.typeGuarantor === 'ORGANISM'">
-                    <div class="fr-grid-row file-item">
-                      <span>{{ $t("organism") }}</span>
+                    <div v-if="g.typeGuarantor === 'ORGANISM'">
+                      <div class="fr-grid-row file-item">
+                        <span>{{ $t("organism") }}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -99,10 +106,9 @@
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </div>
-</div>
 </template>
 
 <script lang="ts">
@@ -143,7 +149,7 @@ export default class File extends Vue {
 
   mounted() {
     const token = this.$route.params.token;
-    ProfileService.getPublicUserByToken(token).then((d: any)=> {
+    ProfileService.getPublicUserByToken(token).then((d: any) => {
       this.user = d.data;
       if (this.user) {
         this.user.tenants = this.user?.tenants?.sort((t1, t2) => {

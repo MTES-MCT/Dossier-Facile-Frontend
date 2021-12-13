@@ -1,120 +1,127 @@
 <template>
-<div class="root">
-  <div class="fr-container">
-    <section class="background fr-pb-5w fr-mb-5w">
-      <div class="fr-container">
-        <div class="fr-col-md-8">
-          <div class="fr-grid-col">
-            <h1 class="fr-h1 color--white fr-mt-3w" v-if="user">
-              {{ $t("title", [getName()]) }}
-            </h1>
-            <p class="text-bold color--white">
-              {{ $t("description", [getStatus(), getIncomeSum()]) }}
-            </p>
+  <div class="root">
+    <div class="fr-container">
+      <section class="background fr-pb-5w fr-mb-5w">
+        <div class="fr-container">
+          <div class="fr-col-md-8">
+            <div class="fr-grid-col">
+              <h1 class="fr-h1 color--white fr-mt-3w" v-if="user">
+                {{ $t("title", [getName()]) }}
+              </h1>
+              <p class="text-bold color--white">
+                {{ $t("description", [getStatus(), getIncomeSum()]) }}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <FileReinsurance></FileReinsurance>
+      <FileReinsurance></FileReinsurance>
 
-    <section class="fr-mt-5w fr-mb-3w">
-      <div class="fr-tabs">
-        <ul class="fr-tabs__list" role="tablist" aria-label="tab-list">
-          <li
+      <section class="fr-mt-5w fr-mb-3w">
+        <div class="fr-tabs">
+          <ul class="fr-tabs__list" role="tablist" aria-label="tab-list">
+            <li
+              v-for="(tenant, k) in getTenants()"
+              v-bind:key="`li${k}`"
+              role="presentation"
+            >
+              <button
+                class="fr-tabs__tab fr-fi-checkbox-line fr-tabs__tab--icon-left"
+                :id="`tabpanel-${k}`"
+                :tabindex="tabIndex === k ? 0 : -1"
+                role="tab"
+                :aria-selected="tabIndex === k"
+                :aria-controls="`tabpanel-${k}-panel`"
+                @click="tabIndex = k"
+              >
+                {{ tenant.firstName }}
+                {{ tenant.lastName }}
+              </button>
+            </li>
+          </ul>
+          <div
             v-for="(tenant, k) in getTenants()"
-            v-bind:key="`li${k}`"
-            role="presentation"
+            v-bind:key="`t${k}`"
+            :id="`tabpanel-${k}-panel`"
+            class="fr-tabs__panel"
+            :class="{ 'fr-tabs__panel--selected': tabIndex === k }"
+            role="tabpanel"
+            tabindex="0"
           >
-            <button
-              class="fr-tabs__tab fr-fi-checkbox-line fr-tabs__tab--icon-left"
-              :id="`tabpanel-${k}`"
-              :tabindex="tabIndex === k ? 0 : -1"
-              role="tab"
-              :aria-selected="tabIndex === k"
-              :aria-controls="`tabpanel-${k}-panel`"
-              @click="tabIndex = k"
-            >
-              {{ tenant.firstName }}
-              {{ tenant.lastName }}
-            </button>
-          </li>
-        </ul>
-        <div
-          v-for="(tenant, k) in getTenants()"
-          v-bind:key="`t${k}`"
-          :id="`tabpanel-${k}-panel`"
-          class="fr-tabs__panel"
-          :class="{ 'fr-tabs__panel--selected': tabIndex === k }"
-          role="tabpanel"
-          tabindex="0"
-        >
-          <div class="fr-prose">
-            <h4 class="fr-h4" v-if="tenant.typeGuarantor === 'NATURAL_PERSON'">
-              {{ $t("guarant") }}
-            </h4>
-            <h4 class="fr-h4" v-if="tenant.typeGuarantor !== 'NATURAL_PERSON'">
-              {{ $t("personnal-file") }}
-            </h4>
-            <div class="fr-grid-row file-item">
-              <span>{{ $t("identification") }}</span
-              ><DfButton @on-click="open(tenant, 'IDENTIFICATION')">{{
-                $t("see")
-              }}</DfButton>
-            </div>
-            <div class="fr-grid-row file-item">
-              <span>{{ $t("residency") }}</span
-              ><DfButton @on-click="open(tenant, 'RESIDENCY')">{{
-                $t("see")
-              }}</DfButton>
-            </div>
-            <div class="fr-grid-row file-item">
-              <span>{{ $t("professional") }}</span
-              ><DfButton @on-click="open(tenant, 'PROFESSIONAL')">{{
-                $t("see")
-              }}</DfButton>
-            </div>
-            <div
-              class="fr-grid-row file-item"
-              v-for="(doc, k) in getDocs(tenant, 'FINANCIAL')"
-              v-bind:key="doc.id"
-            >
-              <span>{{ $t("financial") }} {{ k >= 1 ? k + 1 : "" }}</span
-              ><DfButton @on-click="openDoc(doc)">{{ $t("see") }}</DfButton>
-            </div>
-            <div class="fr-grid-row file-item">
-              <span>{{ $t("tax") }}</span
-              ><DfButton @on-click="open(tenant, 'TAX')">{{
-                $t("see")
-              }}</DfButton>
-            </div>
-            <div v-if="hasGuarantor(tenant)">
-              <h4 class="fr-h4">
+            <div class="fr-prose">
+              <h4
+                class="fr-h4"
+                v-if="tenant.typeGuarantor === 'NATURAL_PERSON'"
+              >
                 {{ $t("guarant") }}
               </h4>
-              <div v-if="tenant.guarantors">
-                <div v-for="g in tenant.guarantors" v-bind:key="g.id">
-                  <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
-                    <div class="fr-grid-row file-item">
-                      <span>{{ $t("identification-legal-person") }}</span
-                      ><DfButton
-                        @on-click="open(g, 'IDENTIFICATION_LEGAL_PERSON')"
-                        >{{ $t("see") }}</DfButton
-                      >
+              <h4
+                class="fr-h4"
+                v-if="tenant.typeGuarantor !== 'NATURAL_PERSON'"
+              >
+                {{ $t("personnal-file") }}
+              </h4>
+              <div class="fr-grid-row file-item">
+                <span>{{ $t("identification") }}</span
+                ><DfButton @on-click="open(tenant, 'IDENTIFICATION')">{{
+                  $t("see")
+                }}</DfButton>
+              </div>
+              <div class="fr-grid-row file-item">
+                <span>{{ $t("residency") }}</span
+                ><DfButton @on-click="open(tenant, 'RESIDENCY')">{{
+                  $t("see")
+                }}</DfButton>
+              </div>
+              <div class="fr-grid-row file-item">
+                <span>{{ $t("professional") }}</span
+                ><DfButton @on-click="open(tenant, 'PROFESSIONAL')">{{
+                  $t("see")
+                }}</DfButton>
+              </div>
+              <div
+                class="fr-grid-row file-item"
+                v-for="(doc, k) in getDocs(tenant, 'FINANCIAL')"
+                v-bind:key="doc.id"
+              >
+                <span>{{ $t("financial") }} {{ k >= 1 ? k + 1 : "" }}</span
+                ><DfButton @on-click="openDoc(doc)">{{ $t("see") }}</DfButton>
+              </div>
+              <div class="fr-grid-row file-item">
+                <span>{{ $t("tax") }}</span
+                ><DfButton @on-click="open(tenant, 'TAX')">{{
+                  $t("see")
+                }}</DfButton>
+              </div>
+              <div v-if="hasGuarantor(tenant)">
+                <h4 class="fr-h4">
+                  {{ $t("guarant") }}
+                </h4>
+                <div v-if="tenant.guarantors">
+                  <div v-for="g in tenant.guarantors" v-bind:key="g.id">
+                    <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
+                      <div class="fr-grid-row file-item">
+                        <span>{{ $t("identification-legal-person") }}</span
+                        ><DfButton
+                          @on-click="open(g, 'IDENTIFICATION_LEGAL_PERSON')"
+                          >{{ $t("see") }}</DfButton
+                        >
+                      </div>
+                      <div class="fr-grid-row file-item">
+                        <span>{{ $t("identification") }}</span
+                        ><DfButton @on-click="open(g, 'IDENTIFICATION')">{{
+                          $t("see")
+                        }}</DfButton>
+                      </div>
                     </div>
-                    <div class="fr-grid-row file-item">
-                      <span>{{ $t("identification") }}</span
-                      ><DfButton @on-click="open(g, 'IDENTIFICATION')">{{
-                        $t("see")
-                      }}</DfButton>
-                    </div>
-                  </div>
-                  <div v-if="g.typeGuarantor === 'ORGANISM'">
-                    <div class="fr-grid-row file-item">
-                      <span>{{ $t("organism") }}</span
-                      ><DfButton @on-click="open(g, 'IDENTIFICATION')">{{
-                        $t("see")
-                      }}</DfButton>
+                    <div v-if="g.typeGuarantor === 'ORGANISM'">
+                      <div class="fr-grid-row file-item">
+                        <span>{{ $t("organism") }}</span
+                        ><DfButton @on-click="open(g, 'IDENTIFICATION')">{{
+                          $t("see")
+                        }}</DfButton>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -122,15 +129,14 @@
             </div>
           </div>
         </div>
-      </div>
-    </section>
-    <section class="fr-mb-7w fix-mt">
-      <DfButton primary="true" @on-click="download">{{
-        $t("download-all")
-      }}</DfButton>
-    </section>
+      </section>
+      <section class="fr-mb-7w fix-mt">
+        <DfButton primary="true" @on-click="download">{{
+          $t("download-all")
+        }}</DfButton>
+      </section>
+    </div>
   </div>
-</div>
 </template>
 
 <script lang="ts">

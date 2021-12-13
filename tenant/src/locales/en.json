@@ -1,6 +1,7 @@
 {
   "save-success": "Saved",
   "save-failed": "Failed",
+  "save-failed-num-pages": "Failed due to page number",
   "delete-success": "Delete ok",
   "delete-failed": "Delete failed",
   "max-file-default": "Too much files uploaded",
