@@ -735,12 +735,6 @@ export default class Account extends Vue {
   pub = "false";
   isDeleteModalVisible = false;
 
-  mounted() {
-    const localScript = document.createElement("script");
-    localScript.setAttribute("src", "/js/dsfr.module.min.js");
-    document.head.appendChild(localScript);
-  }
-
   isOld() {
     // TODO
     return false;
@@ -976,7 +970,7 @@ export default class Account extends Vue {
 }
 
 .main {
-  background-color: var(--w);
+  background-color: var(--background-default-grey);
 }
 
 .bg-blue {
@@ -985,7 +979,7 @@ export default class Account extends Vue {
 }
 
 .fr-callout {
-  background-color: var(--w);
+  background-color: var(--background-default-grey);
   &.warning {
     box-shadow: inset 0.25rem 0 0 0 var(--error) !important;
   }
@@ -1009,7 +1003,7 @@ h2 {
 .bg-white {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 10px;
-  background: var(--w);
+  background: var(--background-default-grey);
 }
 
 .fr-btn.delete-btn {
@@ -1056,7 +1050,7 @@ h2 {
 }
 
 .grp-btn {
-  border-left: 1px solid var(--w);
+  border-left: 1px solid var(--background-default-grey);
   position: relative;
 }
 

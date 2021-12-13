@@ -344,7 +344,7 @@ h1 {
 
 .top-edit-menu {
   white-space: nowrap;
-  background-color: var(--w);
+  background-color: var(--background-default-grey);
   @media all and (min-width: 769px) {
     display: none;
   }

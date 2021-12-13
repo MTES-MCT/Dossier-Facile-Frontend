@@ -316,7 +316,7 @@ export default class LeftEditMenu extends Vue {
 @import "df-shared/src/scss/_variables.scss";
 
 .left-edit-menu {
-  background-color: var(--w);
+  background-color: var(--background-default-grey);
   @media all and (max-width: 768px) {
     display: none;
   }

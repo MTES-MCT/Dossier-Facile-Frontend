@@ -183,7 +183,7 @@ export default class ListItem extends Vue {
     color: #dc3545 !important;
   }
   border: 1px solid var(--primary);
-  background-color: var(--w);
+  background-color: var(--background-default-grey);
 }
 </style>
 

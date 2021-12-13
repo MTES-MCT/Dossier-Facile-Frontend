@@ -66,7 +66,7 @@ export default class CardRow extends Vue {
   background-color: var(--bf200-bf300);
   color: var(--primary);
   &.active {
-    background-color: var(--w);
+    background-color: var(--background-default-grey);
     border: 1px solid #e5e5f4;
   }
 }

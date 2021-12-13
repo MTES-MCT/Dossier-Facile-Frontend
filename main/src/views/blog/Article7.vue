@@ -10,7 +10,7 @@
               </h1>
               <span>03 Mai 2021 dans </span>
               <span>
-                <a href="#" class="underline">DossierFacile</a>
+                <a href="#">DossierFacile</a>
               </span>
             </div>
             <!--end article title-->
