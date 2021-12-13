@@ -518,7 +518,7 @@ export default class FinancialDocumentForm extends Vue {
           ...cloneDeep(this.financialDocumentSelected)
         };
         Vue.toasted.global.save_success();
-        return true;
+        return Promise.resolve(true);
       })
       .catch(err => {
         this.financialDocument.fileUploadStatus = UploadStatus.STATUS_FAILED;
