@@ -453,6 +453,10 @@ export default class GuarantorFinancialDocumentForm extends Vue {
         this.financialDocument = {
           ...cloneDeep(this.guarantorFinancialDocumentSelected)
         };
+        Vue.toasted.global.save_success();
+        this.financialDocument.files = [];
+        this.financialDocument.fileUploadStatus = UploadStatus.STATUS_INITIAL;
+        return Promise.resolve(true);
       })
       .catch(err => {
         this.financialDocument.fileUploadStatus = UploadStatus.STATUS_FAILED;
@@ -461,16 +465,12 @@ export default class GuarantorFinancialDocumentForm extends Vue {
         } else {
           Vue.toasted.global.save_failed();
         }
-        return false;
+        return Promise.reject(new Error("err"));
+      })
+      .finally(() => {
+        loader.hide();
       });
-    loader.hide();
-    if (!res) {
-      return false;
-    }
-    this.financialDocument.files = [];
-    this.financialDocument.fileUploadStatus = UploadStatus.STATUS_INITIAL;
-    Vue.toasted.global.save_success();
-    return true;
+    return res;
   }
 
   financialFiles() {
@@ -505,9 +505,9 @@ export default class GuarantorFinancialDocumentForm extends Vue {
   }
 
   async goNext() {
-    if (await this.save()) {
+    await this.save().then(() => {
       this.$store.commit("selectGuarantorDocumentFinancial", undefined);
-    }
+    });
   }
 
   getCheckboxLabel(key: string) {
