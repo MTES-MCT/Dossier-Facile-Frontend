@@ -409,9 +409,9 @@ export default class FinancialDocumentForm extends Vue {
     f.fileUploadStatus = UploadStatus.STATUS_INITIAL;
   }
 
-  async save() {
+  async save(): Promise<boolean> {
     if (this.financialDocument.documentType.key === undefined) {
-      return true;
+      return Promise.resolve(true);
     }
     if (this.financialDocument.id) {
       const original = this.tenantFinancialDocuments?.find((d: DfDocument) => {
@@ -424,7 +424,7 @@ export default class FinancialDocumentForm extends Vue {
         this.financialDocument.files.length === original.files.length &&
         this.financialDocument.customText === original.customText
       ) {
-        return true;
+        return Promise.resolve(true);
       }
     }
     AnalyticsService.registerFile("financial");
@@ -433,7 +433,7 @@ export default class FinancialDocumentForm extends Vue {
     if (!this.financialDocument.noDocument) {
       const newFiles = this.financialDocument.files.filter(f => {
         if (!f.id) {
-          return true;
+          return Promise.resolve(true);
         }
         return Promise.reject(new Error("fail"));
       });
