@@ -340,15 +340,16 @@ export default class GuarantorFinancialDocumentForm extends Vue {
 
   async validSelect() {
     this.isDocDeleteVisible = false;
-    if (this.selectedGuarantor.documents !== null) {
-      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
-        return d.id === this.selectedDoc?.id;
-      });
-      if (doc?.files !== undefined) {
-        for (const f of doc.files) {
-          if (f.id && this.selectedDoc) {
-            await this.remove(this.selectedDoc, f, true);
-          }
+    if (this.selectedGuarantor.documents === null) {
+      return;
+    }
+    const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
+      return d.id === this.selectedDoc?.id;
+    });
+    if (doc?.files !== undefined) {
+      for (const f of doc.files) {
+        if (f.id && this.selectedDoc) {
+          await this.remove(this.selectedDoc, f, true);
         }
       }
     }
@@ -377,7 +378,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
         return !f.id;
       });
       if (!this.financialFiles().length) {
-        return false;
+        return Promise.reject(new Error("err"));
       }
 
       if (
@@ -391,7 +392,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
             this.financialDocument.documentType.maxFileCount
           ])
         });
-        return false;
+        return Promise.reject(new Error("err"));
       }
 
       Array.from(Array(newFiles.length).keys()).map(x => {
@@ -401,7 +402,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
     } else {
       if (this.financialFiles().length > 0) {
         this.isNoIncomeAndFiles = true;
-        return false;
+        return Promise.reject(new Error("err"));
       }
     }
     if (this.financialDocument.id) {
@@ -411,11 +412,11 @@ export default class GuarantorFinancialDocumentForm extends Vue {
         }
       );
       if (
-        this.financialDocument.noDocument === original.noDocument &&
-        this.financialDocument.monthlySum === original.monthlySum &&
-        this.financialDocument.files.length === original.files.length
+        this.financialDocument.noDocument === original?.noDocument &&
+        this.financialDocument.monthlySum === original?.monthlySum &&
+        this.financialDocument.files.length === original?.files.length
       ) {
-        return true;
+        return Promise.resolve(true);
       }
     }
 
@@ -504,8 +505,8 @@ export default class GuarantorFinancialDocumentForm extends Vue {
     this.$store.commit("selectGuarantorDocumentFinancial", undefined);
   }
 
-  async goNext() {
-    await this.save().then(() => {
+  goNext() {
+    this.save().then(() => {
       this.$store.commit("selectGuarantorDocumentFinancial", undefined);
     });
   }

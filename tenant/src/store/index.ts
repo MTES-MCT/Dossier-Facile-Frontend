@@ -502,7 +502,11 @@ const store = new Vuex.Store({
             const s = fd.find((f: any) => {
               return f.id.toString() === formData.get("id");
             });
-            await commit("selectDocumentFinancial", s);
+            if (s !== undefined) {
+              await commit("selectDocumentFinancial", s);
+            } else {
+              await commit("selectDocumentFinancial", fd[fd.length - 1]);
+            }
           } else {
             await commit("selectDocumentFinancial", fd[fd.length - 1]);
           }
