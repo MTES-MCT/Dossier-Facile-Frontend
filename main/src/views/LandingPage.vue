@@ -2,7 +2,7 @@
   <div>
     <div class="fr-container">
       <div class="fr-mt-3w fr-mb-3w">
-        En raison de la faille de sécurité mondiale #Log4Shell nous suspendons préventivement nos services, le temps d'investiguer les potentiels impacts en termes de sécurité. Toutes nos excuses, nous serons de retour au plus vite !
+        Suite à l'arrêt préventif du site en raison de la faille de sécurité #Log4Shell nous redémarrons progressivement nos services après avoir pris les mesures de sécurité nécessaires. Des bugs peuvent néanmoins encore survenir. Toutes nos excuses pour ces désagréments.
       </div>
     </div>
     <section class="s0-background fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
