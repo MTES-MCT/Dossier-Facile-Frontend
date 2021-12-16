@@ -80,13 +80,15 @@
     "d3": "^6.6.2",
     "df-shared": "0.1.0",
     "express": "^4.17.1",
+    "glob-parent": "^6.0.2",
     "highlight.js": "10.7.2",
-    "immer": "9.0.6",
+    "immer": "9.0.7",
     "jquery": "^3.5.1",
-    "merge": "2.1.1",
+    "merge": "^2.1.1",
     "prerender-spa-plugin": "^3.4.0",
     "react-is": "^17.0.2",
     "sass": "^1.44.0",
+    "trim": "^1.0.1",
     "vee-validate": "^3.4.3",
     "vue": "2.6.14",
     "vue-class-component": "^7.2.3",
@@ -124,5 +126,13 @@
     "typescript": "~3.9.3",
     "vue-cli-plugin-sitemap": "~2.3.0",
     "vue-template-compiler": "^2.6.11"
+  },
+  "resolutions": {
+    "trim": "1.0.1",
+    "merge": "2.1.1",
+    "glob-parent": "5.1.2",
+    "ansi-regex": "5.0.1",
+    "browserslist": "4.16.5",
+    "immer": "9.0.7"
   }
 }
