@@ -360,7 +360,7 @@
             <!--end article title-->
             <div class="article__body">
               <router-link to="/blog/locatio-devient-dossier-facile">
-                <img alt="" src="../../assets/cover-features.png" />
+                <img alt="" src="../../assets/cover-features.webp" />
               </router-link>
               <p>
                 Pas de panique ! Le nom change, mais le service reste le même !
