@@ -128,6 +128,7 @@
     "glob-parent": "5.1.2",
     "ansi-regex": "5.0.1",
     "browserslist": "4.16.5",
+    "lodash": "4.17.21",
     "immer": "9.0.7"
   }
 }
