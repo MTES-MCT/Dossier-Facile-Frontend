@@ -67,7 +67,7 @@ export default class File extends Vue {}
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
-  background: url("../assets/images/banner3.png") no-repeat;
+  background: url("../assets/images/banner3.webp") no-repeat;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
