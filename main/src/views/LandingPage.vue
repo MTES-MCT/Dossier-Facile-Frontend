@@ -1,10 +1,5 @@
 <template>
   <div>
-    <div class="fr-container">
-      <div class="fr-mt-3w fr-mb-3w">
-        En raison de la faille de sécurité mondiale #Log4Shell nous suspendons préventivement nos services, le temps d'investiguer les potentiels impacts en termes de sécurité. Toutes nos excuses, nous serons de retour au plus vite !
-      </div>
-    </div>
     <section class="s0-background fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
       <div class="fr-container">
         <div class="fr-col-md-8">
