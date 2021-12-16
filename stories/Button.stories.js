@@ -10,7 +10,7 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  components: { MyButton: DfButton },
+  components: { DfButton },
   template: '<DfButton @onClick="onClick" v-bind="$props" >button</DfButton>',
 });
 
