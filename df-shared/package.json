@@ -44,5 +44,13 @@
     "sass-loader": "^8.0.2",
     "typescript": "~3.9.3",
     "vue-template-compiler": "^2.6.11"
+  },
+  "resolutions": {
+    "trim": "1.0.1",
+    "merge": "2.1.1",
+    "glob-parent": "5.1.2",
+    "ansi-regex": "5.0.1",
+    "browserslist": "4.16.5",
+    "immer": "9.0.7"
   }
 }
