@@ -11,7 +11,7 @@
               </h1>
               <span>14 Novembre 2019 dans </span>
               <span>
-                <a href="#" class="underline">DossierFacile</a>
+                <a href="#">DossierFacile</a>
               </span>
             </div>
             <!--end article title-->
@@ -124,9 +124,7 @@
                 L’objectif en est également de simplifier les procédures et
                 d’éviter de constituer un dossier de location cumulant les
                 pièces inutiles. DossierFacile cherche à offrir
-                <router-link
-                  to="/blog/constituer-votre-dossierFacile"
-                  class="underline"
+                <router-link to="/blog/constituer-votre-dossierFacile"
                   >la démarche la plus simple et la plus intuitive possible au
                   locataire</router-link
                 >

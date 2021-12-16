@@ -363,9 +363,6 @@ export default class Messages extends Vue {
   isDocModalVisible = false;
 
   mounted() {
-    const localScript = document.createElement("script");
-    localScript.setAttribute("src", "/js/dsfr.module.min.js");
-    document.head.appendChild(localScript);
     this.$store.commit("readMessage");
   }
 

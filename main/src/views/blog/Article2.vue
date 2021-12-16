@@ -8,7 +8,7 @@
               <h1 class="fr-h1">Constituer votre DossierFacile</h1>
               <span>12 Décembre 2019 dans </span>
               <span>
-                <a href="#" class="underline">DossierFacile</a>
+                <a href="#">DossierFacile</a>
               </span>
             </div>
             <!--end article title-->

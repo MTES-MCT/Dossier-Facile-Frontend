@@ -15,7 +15,7 @@
               </router-link>
               <span>29 Novembre 2021 dans </span>
               <span>
-                <a href="#" class="underline">DossierFacile</a>
+                <a href="#">DossierFacile</a>
               </span>
             </div>
             <!--end article title-->
@@ -56,7 +56,7 @@
               </router-link>
               <span>02 Juin 2021 dans </span>
               <span>
-                <a href="#" class="underline">DossierFacile</a>
+                <a href="#">DossierFacile</a>
               </span>
             </div>
             <!--end article title-->
@@ -94,7 +94,7 @@
               </router-link>
               <span>03 Mai 2021 dans </span>
               <span>
-                <a href="#" class="underline">DossierFacile</a>
+                <a href="#">DossierFacile</a>
               </span>
             </div>
             <!--end article title-->
@@ -133,7 +133,7 @@
               </router-link>
               <span>06 Avril 2021 dans </span>
               <span>
-                <a href="#" class="underline">DossierFacile</a>
+                <a href="#">DossierFacile</a>
               </span>
             </div>
             <!--end article title-->
@@ -174,7 +174,7 @@
               </router-link>
               <span>30 Mars 2021 dans </span>
               <span>
-                <a href="#" class="underline">DossierFacile</a>
+                <a href="#">DossierFacile</a>
               </span>
             </div>
             <!--end article title-->
@@ -216,7 +216,7 @@
               </router-link>
               <span>25 Mars 2021 dans </span>
               <span>
-                <a href="#" class="underline">DossierFacile</a>
+                <a href="#">DossierFacile</a>
               </span>
             </div>
             <!--end article title-->
@@ -254,7 +254,7 @@
               </router-link>
               <span>21 Juillet 2020 dans </span>
               <span>
-                <a href="#" class="underline">DossierFacile</a>
+                <a href="#">DossierFacile</a>
               </span>
             </div>
             <!--end article title-->
@@ -283,7 +283,7 @@
               </router-link>
               <span>12 Décembre 2019 dans </span>
               <span>
-                <a href="#" class="underline">DossierFacile</a>
+                <a href="#">DossierFacile</a>
               </span>
             </div>
             <!--end article title-->
@@ -295,7 +295,6 @@
                 Dans un contexte de pénurie de logements,
                 <router-link
                   to="/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location"
-                  class="underline"
                   >le dossier est devenu un facteur démarquant.</router-link
                 >
                 Mais comment constituer un dossier de location qui regroupe tous
@@ -320,7 +319,7 @@
               </router-link>
               <span>14 Novembre 2019 dans </span>
               <span>
-                <a href="#" class="underline">DossierFacile</a>
+                <a href="#">DossierFacile</a>
               </span>
             </div>
             <!--end article title-->
@@ -355,7 +354,7 @@
               </router-link>
               <span>21 mars 2019 dans </span>
               <span>
-                <a href="#" class="underline">DossierFacile</a>
+                <a href="#">DossierFacile</a>
               </span>
             </div>
             <!--end article title-->

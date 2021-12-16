@@ -2,7 +2,6 @@ import Vue from "vue";
 import VueRouter, { NavigationGuardNext, Route, RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
 import store from "@/store";
-import { Guarantor } from "df-shared/src/models/Guarantor";
 
 Vue.use(VueRouter);
 

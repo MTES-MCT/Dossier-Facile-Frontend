@@ -24,7 +24,7 @@ export default class NakedCard extends Vue {}
 
   border-radius: 0.25rem;
 
-  background: var(--w);
+  background: var(--background-default-grey);
 
   a {
     &:before {

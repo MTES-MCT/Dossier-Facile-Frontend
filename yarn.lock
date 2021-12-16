@@ -1279,10 +1279,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.5.tgz#8eed982e2ee6f7f4e44c253e12962980791efd46"
   integrity sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==
 
-"@gouvfr/dsfr@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.1.0.tgz#747969f179152721de9b6fe7f084374bb396fb00"
-  integrity sha512-9sEgX046t3t9iA/CiNegBO3i65iZgXnJz9wgsc9mv1/hiuGYdlfiED4gQ+3zU/bQ5E2BB2CBTCCrnXtmGrMMNg==
+"@gouvfr/dsfr@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.2.1.tgz#68383192c24d521cf247992b11d891fb78d8f2f3"
+  integrity sha512-vnpeX+fZnW2KLl2PrcjHpUhOuO7twT9h3gwZvJLgVl+IosM4/Jesx5QMZAhsLl85Cq57mKhSjTnw8EZglLanUg==
 
 "@hapi/address@2.x.x":
   version "2.1.4"
