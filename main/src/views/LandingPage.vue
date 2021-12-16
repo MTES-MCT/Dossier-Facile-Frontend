@@ -123,7 +123,7 @@
             </DfButton>
           </div>
           <div class="fr-col-md-6 mx-auto">
-            <img src="../assets/icons/justif.png" alt="" class="justif-img" />
+            <img src="../assets/icons/justif.webp" alt="" class="justif-img" />
           </div>
         </div>
       </div>
@@ -155,7 +155,7 @@
         </h2>
         <div class="text-center">
           <router-link to="/stats" class="fr-link">
-            <img src="../assets/icons/stats.png" class="stats-icon" alt="" />
+            <img src="../assets/icons/stats.webp" class="stats-icon" alt="" />
             {{ $t("s4.link") }}
           </router-link>
         </div>
@@ -207,7 +207,7 @@
               <img
                 alt="logo monsieur hugo"
                 class="partner-logo monsieurhugo"
-                src="../assets/logos/monsieur_hugo.png"
+                src="../assets/logos/monsieur_hugo.webp"
               />
             </a>
           </div>
@@ -223,7 +223,7 @@
               <img
                 alt="logo visale"
                 class="partner-logo visale"
-                src="../assets/logos/visale.png"
+                src="../assets/logos/visale.webp"
               />
             </a>
           </div>
@@ -239,7 +239,7 @@
               <img
                 alt="logo locservice"
                 class="partner-logo locservice"
-                src="../assets/logos/loc_service.png"
+                src="../assets/logos/loc_service.webp"
               />
             </a>
           </div>
@@ -255,7 +255,7 @@
               <img
                 alt="logo colivme"
                 class="partner-logo colivme"
-                src="../assets/logos/colivme.png"
+                src="../assets/logos/colivme.webp"
               />
             </a>
           </div>
@@ -271,7 +271,7 @@
               <img
                 alt="logo whoomies"
                 class="partner-logo whoomies"
-                src="../assets/logos/whoomies.png"
+                src="../assets/logos/whoomies.webp"
               />
             </a>
           </div>
@@ -287,7 +287,7 @@
               <img
                 alt="logo anil"
                 class="partner-logo anil"
-                src="../assets/logos/anil.png"
+                src="../assets/logos/anil.webp"
               />
             </a>
           </div>
@@ -303,7 +303,7 @@
               <img
                 alt="logo click and rent"
                 class="partner-logo rent"
-                src="../assets/logos/clickandrent.png"
+                src="../assets/logos/clickandrent.webp"
               />
             </a>
           </div>
@@ -319,7 +319,7 @@
               <img
                 alt="logo qlower"
                 class="partner-logo qlower"
-                src="../assets/logos/qlower.png"
+                src="../assets/logos/qlower.webp"
               />
             </a>
           </div>
@@ -335,7 +335,7 @@
               <img
                 alt="logo jelouebien"
                 class="partner-logo jelouebien"
-                src="../assets/logos/jelouebien.png"
+                src="../assets/logos/jelouebien.webp"
               />
             </a>
           </div>
@@ -351,7 +351,7 @@
               <img
                 alt="logo gererseul"
                 class="partner-logo gererseul"
-                src="../assets/logos/gererseul.png"
+                src="../assets/logos/gererseul.webp"
               />
             </a>
           </div>
@@ -367,7 +367,7 @@
               <img
                 alt="logo pandaloc"
                 class="partner-logo pandaloc"
-                src="../assets/logos/pandaloc.png"
+                src="../assets/logos/pandaloc.webp"
               />
             </a>
           </div>
@@ -419,10 +419,10 @@ export default class LandingPage extends Vue {
   left: 0;
   background-size: cover !important;
   background-position: 50% 50% !important;
-  background-image: url("../assets/cover-features.png");
+  background-image: url("../assets/cover-features.webp");
 
   @media (max-width: 768px) {
-    background-image: url("../assets/cover-features-mobile.png");
+    background-image: url("../assets/cover-features-mobile.webp");
   }
 
   z-index: 0;
