@@ -10,11 +10,6 @@
     >
       <Menu :user="user" />
     </MyHeader>
-    <div class="fr-container">
-      <div class="fr-mt-3w fr-mb-3w">
-        Suite à l'arrêt préventif du site en raison de la faille de sécurité #Log4Shell nous redémarrons progressivement nos services après avoir pris les mesures de sécurité nécessaires. Des bugs peuvent néanmoins encore survenir. Toutes nos excuses pour ces désagréments.
-      </div>
-    </div>
     <article class="page">
       <router-view :key="$route.path" />
     </article>
