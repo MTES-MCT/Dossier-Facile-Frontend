@@ -1,5 +1,10 @@
 <template>
   <div>
+    <div class="fr-container">
+      <div class="fr-mt-3w fr-mb-3w">
+        En raison des congés annuels de l'équipe, l'activité de traitement des dossiers sera fortement réduite entre le 25 décembre et le 2 janvier. Toute l'équipe de DossierFacile vous souhaite de belles fêtes de fin d'année.
+      </div>
+    </div>
     <section class="s0-background fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
       <div class="fr-container">
         <div class="fr-col-md-8">
