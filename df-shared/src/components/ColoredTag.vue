@@ -42,7 +42,8 @@ export default class CardRow extends Vue {
   background-color: #f3faf7;
   color: #466964;
   &.active {
-    border: 1px solid #466964;
+    outline: 1px solid #466964;
+    outline-offset: -2px;
   }
 }
 
@@ -50,7 +51,8 @@ export default class CardRow extends Vue {
   background-color: #fffaf5;
   color: #7d4e5b;
   &.active {
-    border: 1px solid #7d4e5b;
+    outline: 1px solid #7d4e5b;
+    outline-offset: -2px;
   }
 }
 
@@ -58,7 +60,8 @@ export default class CardRow extends Vue {
   background-color: #fdf9f7;
   color: #e10600;
   &.active {
-    border: 1px solid #e10600;
+    outline: 1px solid #e10600;
+    outline-offset: -2px;
   }
 }
 
@@ -67,7 +70,8 @@ export default class CardRow extends Vue {
   color: var(--primary);
   &.active {
     background-color: var(--background-default-grey);
-    border: 1px solid #e5e5f4;
+    outline: 1px solid #e5e5f4;
+    outline-offset: -2px;
   }
 }
 
@@ -75,7 +79,8 @@ export default class CardRow extends Vue {
   background-color: var(--bf200-bf300);
   color: var(--primary);
   &.active {
-    border: 1px solid #e5e5f4;
+    outline: 1px solid #e5e5f4;
+    outline-offset: -2px;
   }
 }
 
