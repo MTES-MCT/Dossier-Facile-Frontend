@@ -10,11 +10,6 @@
     >
       <Menu :user="user" />
     </MyHeader>
-    <div class="fr-container">
-      <div class="fr-mt-3w fr-mb-3w">
-        En raison des congés annuels de l'équipe, l'activité de traitement des dossiers sera fortement réduite entre le 25 décembre et le 2 janvier. Toute l'équipe de DossierFacile vous souhaite de belles fêtes de fin d'année.
-      </div>
-    </div>
     <article class="page">
       <router-view :key="$route.path" />
     </article>
