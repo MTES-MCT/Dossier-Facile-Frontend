@@ -1,6 +1,8 @@
 var express = require("express");
+var history = require('connect-history-api-fallback');
 
 var app = express();
+app.use(history());
 
 app.use(function(req, res, next) {
   res.setHeader(
