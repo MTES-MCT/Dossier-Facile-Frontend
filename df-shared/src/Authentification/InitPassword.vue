@@ -25,6 +25,7 @@
                     v-model="user.password"
                     name="password"
                     class="validate-required form-control fr-input"
+                    autocomplete="username"
                     required
                   />
                   <password
@@ -57,6 +58,7 @@
                     v-model="user.confirm"
                     name="confirm-password"
                     class="validate-required form-control fr-input"
+                    autocomplete="username"
                     required
                   />
                   <span class="fr-error-text" v-if="errors[0]">{{

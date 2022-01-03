@@ -32,6 +32,7 @@
                   name="email"
                   :placeholder="$t('email-placeholder')"
                   type="email"
+                  autocomplete="username"
                   required
                 />
                 <span class="fr-error-text" v-if="errors[0]">{{
@@ -61,6 +62,7 @@
                   v-model="user.password"
                   name="password"
                   class="validate-required form-control fr-input"
+                  autocomplete="new-password"
                   required
                 />
                 <password
@@ -92,6 +94,7 @@
                   v-model="user.confirm"
                   name="confirm-password"
                   class="validate-required form-control fr-input"
+                  autocomplete="new-password"
                   required
                 />
                 <span class="fr-error-text" v-if="errors[0]">{{
