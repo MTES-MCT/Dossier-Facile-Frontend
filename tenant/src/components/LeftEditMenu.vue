@@ -101,7 +101,7 @@
         </div>
       </div>
       <div class="vline" :class="getClass(2)">
-        <div v-if="step === 3 && selectedGuarantor && expandGuarantorMenu">
+        <div v-if="step === 3 && selectedGuarantor">
           <div
             v-if="
               selectedGuarantor.typeGuarantor === 'NATURAL_PERSON' &&
@@ -253,7 +253,6 @@ import { User } from "df-shared/src/models/User";
   computed: {
     ...mapState({
       selectedGuarantor: "selectedGuarantor",
-      expandGuarantorMenu: "expandGuarantorMenu",
       user: "user"
     })
   }
@@ -261,7 +260,6 @@ import { User } from "df-shared/src/models/User";
 export default class LeftEditMenu extends Vue {
   @Prop({ default: 0 }) step!: number;
   selectedGuarantor!: Guarantor;
-  expandGuarantorMenu!: boolean;
   user!: User;
 
   getClass(s: number) {

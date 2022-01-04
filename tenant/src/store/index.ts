@@ -28,7 +28,6 @@ export class DfState {
   spouseAuthorize = false;
   coTenantAuthorize = false;
   showFooter = true;
-  expandGuarantorMenu = false;
   financialDocumentSelected?: FinancialDocument = new FinancialDocument();
   editFinancialDocument = false;
 }
@@ -146,9 +145,6 @@ const store = new Vuex.Store({
     },
     updateUserZipcode(state, zipcode) {
       state.user.zipCode = zipcode;
-    },
-    expandGuarantorMenu(state, b) {
-      state.expandGuarantorMenu = b;
     },
     selectDocumentFinancial(state, d: FinancialDocument) {
       state.financialDocumentSelected = Object.assign({}, d);

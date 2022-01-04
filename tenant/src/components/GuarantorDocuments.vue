@@ -134,7 +134,6 @@ export default class GuarantorDocuments extends Vue {
   changeGuarantorVisible = false;
 
   beforeMount() {
-    this.$store.commit("expandGuarantorMenu", true);
     if (this.guarantor.typeGuarantor) {
       this.tmpGuarantorType = this.guarantor.typeGuarantor;
     }
