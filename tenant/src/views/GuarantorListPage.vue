@@ -83,10 +83,6 @@ export default class GuarantorListPage extends Vue {
   user!: User;
   guarantors!: Guarantor[];
 
-  beforeMount() {
-    this.$store.commit("expandGuarantorMenu", false);
-  }
-
   getGuarantorName(g: Guarantor) {
     if (g.firstName || g.lastName) {
       return `${g.firstName || ""} ${g.lastName || ""}`;
