@@ -95,7 +95,7 @@
       <div class="step" :class="getClass(2)">
         <div class="step-number">3</div>
         <div class="step-title">
-          <router-link class="fr-link" :to="{ name: 'GuarantorChoice' }">{{
+          <router-link class="fr-link" :to="getGuarantorLink()">{{
             $t("my-guarantor")
           }}</router-link>
         </div>
@@ -289,6 +289,13 @@ export default class LeftEditMenu extends Vue {
       s === substep &&
       (g === undefined || this.selectedGuarantor.id === g.id)
     );
+  }
+
+  getGuarantorLink() {
+    if (this.selectedGuarantor.typeGuarantor !== undefined) {
+      return { name: "GuarantorList" };
+    }
+    return { name: "GuarantorChoice" };
   }
 
   getStep(s: number) {
