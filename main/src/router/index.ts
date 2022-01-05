@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter, { Route, RouteConfig } from "vue-router";
-import LandingPage from "@/views/LandingPage.vue";
-import store from "@/store";
+import LandingPage from "../views/LandingPage.vue";
+import store from "../store";
 
 Vue.use(VueRouter);
 
@@ -311,7 +311,7 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "404 - DossierFacile"
     },
-    component: () => import(/* webpackChunkName: "404" */ "@/views/404.vue")
+    component: () => import(/* webpackChunkName: "404" */ "../views/404.vue")
   }
 ];
 

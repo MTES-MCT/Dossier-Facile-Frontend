@@ -6,8 +6,8 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import UploadDocuments from "@/components/UploadDocuments.vue";
-import ProfileContainer from "@/components/ProfileContainer.vue";
+import UploadDocuments from "../components/UploadDocuments.vue";
+import ProfileContainer from "../components/ProfileContainer.vue";
 
 @Component({
   components: {

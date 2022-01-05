@@ -20,8 +20,8 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import NameInformationForm from "@/components/NameInformationForm.vue";
-import ProfileContainer from "@/components/ProfileContainer.vue";
+import NameInformationForm from "../components/NameInformationForm.vue";
+import ProfileContainer from "../components/ProfileContainer.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import { mapState } from "vuex";
 import { User } from "df-shared/src/models/User";

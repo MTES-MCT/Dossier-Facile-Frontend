@@ -135,11 +135,11 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { DocumentType } from "df-shared/src/models/Document";
-import DocumentInsert from "@/components/documents/DocumentInsert.vue";
-import FileUpload from "@/components/uploads/FileUpload.vue";
+import DocumentInsert from "./DocumentInsert.vue";
+import FileUpload from "../uploads/FileUpload.vue";
 import { mapState } from "vuex";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
-import ListItem from "@/components/uploads/ListItem.vue";
+import ListItem from "../uploads/ListItem.vue";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { Guarantor } from "df-shared/src/models/Guarantor";
@@ -153,7 +153,7 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import TaxHelp from "../helps/TaxHelp.vue";
-import GuarantorFooter from "@/components/footer/GuarantorFooter.vue";
+import GuarantorFooter from "../footer/GuarantorFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 extend("is", {

@@ -1,4 +1,4 @@
-import MyHeader from "../df-shared/src/Header/Header.vue";
+import MyHeader from "df-shared/src/Header/Header.vue";
 
 export default {
   title: 'DfShared/Header',

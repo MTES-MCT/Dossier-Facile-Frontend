@@ -255,12 +255,12 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { DocumentType } from "df-shared/src/models/Document";
-import DocumentInsert from "@/components/documents/DocumentInsert.vue";
-import FileUpload from "@/components/uploads/FileUpload.vue";
+import DocumentInsert from "./DocumentInsert.vue";
+import FileUpload from "../uploads/FileUpload.vue";
 import { mapGetters } from "vuex";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
 import { FinancialDocument } from "df-shared/src/models/FinancialDocument";
-import ListItem from "@/components/uploads/ListItem.vue";
+import ListItem from "../uploads/ListItem.vue";
 import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
@@ -278,7 +278,7 @@ import DocumentHelp from "../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import { AnalyticsService } from "../../services/AnalyticsService";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
-import ProfileFooter from "@/components/footer/ProfileFooter.vue";
+import ProfileFooter from "../footer/ProfileFooter.vue";
 import { cloneDeep } from "lodash";
 
 extend("regex", {

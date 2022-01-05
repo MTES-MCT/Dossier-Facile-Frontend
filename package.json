@@ -9,14 +9,12 @@
     "url": "git@github.com:MTES-MCT/Dossier-Facile-Frontend.git"
   },
   "workspaces": [
-    "bo",
     "main",
     "tenant",
     "owner",
     "df-shared"
   ],
   "scripts": {
-    "bo": "yarn workspace bo",
     "main": "yarn workspace main",
     "tenant": "yarn workspace tenant",
     "owner": "yarn workspace owner",
