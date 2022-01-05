@@ -1,7 +1,7 @@
 import DfButton from "../df-shared/src/Button/Button";
 
 export default {
-  title: 'Example/Button',
+  title: 'DfShared/Button',
   component: DfButton,
   argTypes: {
     size: { control: { type: 'select', options: ['small', 'medium', 'large'] } },
