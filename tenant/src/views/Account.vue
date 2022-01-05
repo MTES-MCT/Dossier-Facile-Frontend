@@ -151,7 +151,7 @@
                             $t("my-information")
                           }}</a>
                         </h4>
-                        <div>
+                        <div class="name-email-tile">
                           {{ user.firstName }} {{ user.lastName }}<br />
                           {{ user.email }}
                         </div>
@@ -696,7 +696,6 @@ import { mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import DfButton from "df-shared/src/Button/Button.vue";
-import NakedCard from "df-shared/src/components/NakedCard.vue";
 import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { Guarantor } from "df-shared/src/models/Guarantor";
@@ -715,7 +714,6 @@ extend("required", {
     ValidationProvider,
     ValidationObserver,
     DfButton,
-    NakedCard,
     ColoredTag,
     ConfirmModal,
     DeleteAccount
@@ -1147,6 +1145,12 @@ hr {
   margin-right: 0;
   margin-left: auto;
   padding: 0.5rem;
+}
+
+.name-email-tile {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
 
