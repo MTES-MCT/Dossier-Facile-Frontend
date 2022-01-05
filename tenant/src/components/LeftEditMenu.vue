@@ -412,12 +412,12 @@ export default class LeftEditMenu extends Vue {
   "en": {
     "ALONE": "Alone",
     "COUPLE": "Couple",
-    "ROOMMATE": "Roommate"
+    "GROUP": "Roommate"
   },
   "fr": {
     "ALONE": "Seul·e",
     "COUPLE": "En couple",
-    "ROOMMATE": "En colocation"
+    "GROUP": "En colocation"
   }
 }
 </i18n>
