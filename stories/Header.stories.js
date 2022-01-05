@@ -1,7 +1,7 @@
 import MyHeader from "../df-shared/src/Header/Header.vue";
 
 export default {
-  title: 'Example/Header',
+  title: 'DfShared/Header',
   component: MyHeader,
 };
 
