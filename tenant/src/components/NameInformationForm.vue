@@ -103,7 +103,7 @@ import SubmitButton from "df-shared/src/Button/SubmitButton.vue";
 import NameInformationHelp from "./helps/NameInformationHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import { AnalyticsService } from "../services/AnalyticsService";
-import ProfileFooter from "@/components/footer/ProfileFooter.vue";
+import ProfileFooter from "./footer/ProfileFooter.vue";
 import { mapGetters } from "vuex";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 

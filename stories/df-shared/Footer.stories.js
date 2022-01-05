@@ -1,4 +1,4 @@
-import TheFooter from "../df-shared/src/Footer/Footer.vue";
+import TheFooter from "df-shared/src/Footer/Footer.vue";
 
 import Vue from 'vue';
 import VueI18n from 'vue-i18n'

@@ -89,11 +89,11 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapState } from "vuex";
-import DocumentInsert from "@/components/documents/DocumentInsert.vue";
-import FileUpload from "@/components/uploads/FileUpload.vue";
+import DocumentInsert from "../documents/DocumentInsert.vue";
+import FileUpload from "../uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
-import ListItem from "@/components/uploads/ListItem.vue";
+import ListItem from "../uploads/ListItem.vue";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
 import { required } from "vee-validate/dist/rules";

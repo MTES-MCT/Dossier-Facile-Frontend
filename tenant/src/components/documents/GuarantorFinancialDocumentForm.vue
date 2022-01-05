@@ -209,10 +209,10 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { DocumentType } from "df-shared/src/models/Document";
-import DocumentInsert from "@/components/documents/DocumentInsert.vue";
-import FileUpload from "@/components/uploads/FileUpload.vue";
+import DocumentInsert from "./DocumentInsert.vue";
+import FileUpload from "../uploads/FileUpload.vue";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
-import ListItem from "@/components/uploads/ListItem.vue";
+import ListItem from "../uploads/ListItem.vue";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { Guarantor } from "df-shared/src/models/Guarantor";
@@ -229,7 +229,7 @@ import { mapGetters, mapState } from "vuex";
 import Modal from "df-shared/src/components/Modal.vue";
 import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
-import ProfileFooter from "@/components/footer/ProfileFooter.vue";
+import ProfileFooter from "../footer/ProfileFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import cloneDeep from "lodash/cloneDeep";

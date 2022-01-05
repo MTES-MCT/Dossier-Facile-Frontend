@@ -47,11 +47,11 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import DocumentInsert from "@/components/documents/DocumentInsert.vue";
-import FileUpload from "@/components/uploads/FileUpload.vue";
+import DocumentInsert from "../documents/DocumentInsert.vue";
+import FileUpload from "../uploads/FileUpload.vue";
 import { mapGetters } from "vuex";
 import { FinancialDocument } from "df-shared/src/models/FinancialDocument";
-import ListItem from "@/components/uploads/ListItem.vue";
+import ListItem from "../uploads/ListItem.vue";
 import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
@@ -66,7 +66,7 @@ import Modal from "df-shared/src/components/Modal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import DocumentHelp from "../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
-import ProfileFooter from "@/components/footer/ProfileFooter.vue";
+import ProfileFooter from "../footer/ProfileFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import CardRow from "df-shared/src/components/CardRow.vue";
 import FinancialDocumentForm from "./FinancialDocumentForm.vue";

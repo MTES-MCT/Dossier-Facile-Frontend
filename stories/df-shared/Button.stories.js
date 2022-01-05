@@ -1,4 +1,4 @@
-import DfButton from "../df-shared/src/Button/Button";
+import DfButton from "df-shared/src/Button/Button";
 
 export default {
   title: 'DfShared/Button',

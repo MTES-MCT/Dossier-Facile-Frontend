@@ -2,20 +2,20 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { AuthService } from "df-shared/src/services/AuthService";
-import { MessageService } from "@/services/MessageService";
-import { ProfileService } from "@/services/ProfileService";
+import { MessageService } from "../services/MessageService";
+import { ProfileService } from "../services/ProfileService";
 import router from "../router";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { User } from "df-shared/src/models/User";
-import i18n from "@/i18n";
+import i18n from "../i18n";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { DfMessage } from "df-shared/src/models/DfMessage";
-import { AnalyticsService } from "@/services/AnalyticsService";
-import { RegisterService } from "@/services/RegisterService";
-import { UtilsService } from "@/services/UtilsService";
+import { AnalyticsService } from "../services/AnalyticsService";
+import { RegisterService } from "../services/RegisterService";
+import { UtilsService } from "../services/UtilsService";
 import { FinancialDocument } from "df-shared/src/models/FinancialDocument";
 import { DocumentType } from "df-shared/src/models/Document";
-import { DocumentTypeConstants } from "@/components/documents/DocumentTypeConstants";
+import { DocumentTypeConstants } from "../components/documents/DocumentTypeConstants";
 
 Vue.use(Vuex);
 

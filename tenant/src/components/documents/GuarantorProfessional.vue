@@ -74,12 +74,12 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
-import DocumentInsert from "@/components/documents/DocumentInsert.vue";
-import FileUpload from "@/components/uploads/FileUpload.vue";
+import DocumentInsert from "./DocumentInsert.vue";
+import FileUpload from "../uploads/FileUpload.vue";
 import { mapState } from "vuex";
 import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
-import ListItem from "@/components/uploads/ListItem.vue";
+import ListItem from "../uploads/ListItem.vue";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { RegisterService } from "../../services/RegisterService";
