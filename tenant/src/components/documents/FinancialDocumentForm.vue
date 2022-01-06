@@ -410,6 +410,8 @@ export default class FinancialDocumentForm extends Vue {
   }
 
   async save(): Promise<boolean> {
+    const fieldName = "documents";
+    const formData = new FormData();
     if (this.financialDocument.documentType.key === undefined) {
       return Promise.resolve(true);
     }
@@ -428,15 +430,7 @@ export default class FinancialDocumentForm extends Vue {
       }
     }
     AnalyticsService.registerFile("financial");
-    const fieldName = "documents";
-    const formData = new FormData();
     if (!this.financialDocument.noDocument) {
-      const newFiles = this.financialDocument.files.filter(f => {
-        if (!f.id) {
-          return Promise.resolve(true);
-        }
-        return Promise.reject(new Error("fail"));
-      });
       if (
         !this.financialFiles().length &&
         this.financialDocument.documentType.key !== "no-income"
@@ -461,6 +455,9 @@ export default class FinancialDocumentForm extends Vue {
         return Promise.reject(new Error("max-file"));
       }
 
+      const newFiles = this.financialDocument.files.filter(f => {
+        return !f.id;
+      });
       Array.from(Array(newFiles.length).keys()).map(x => {
         const f: File = newFiles[x].file || new File([], "");
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);

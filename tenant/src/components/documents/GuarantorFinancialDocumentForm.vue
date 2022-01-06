@@ -233,6 +233,7 @@ import ProfileFooter from "@/components/footer/ProfileFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import cloneDeep from "lodash/cloneDeep";
+import { AnalyticsService } from "../../services/AnalyticsService";
 
 extend("regex", {
   ...regex,
@@ -266,7 +267,8 @@ extend("required", {
       selectedGuarantor: "selectedGuarantor"
     }),
     ...mapGetters({
-      guarantorFinancialDocumentSelected: "guarantorFinancialDocumentSelected"
+      guarantorFinancialDocumentSelected: "guarantorFinancialDocumentSelected",
+      guarantorFinancialDocuments: "guarantorFinancialDocuments"
     })
   }
 })
@@ -274,6 +276,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
   selectedGuarantor!: Guarantor;
   guarantorFinancialDocumentSelected!: FinancialDocument;
   financialDocument = new FinancialDocument();
+  guarantorFinancialDocuments!: FinancialDocument[];
 
   documents = DocumentTypeConstants.GUARANTOR_FINANCIAL_DOCS;
   isDocDeleteVisible = false;
@@ -371,13 +374,29 @@ export default class GuarantorFinancialDocumentForm extends Vue {
     const fieldName = "documents";
     const formData = new FormData();
     if (this.financialDocument.documentType.key === undefined) {
-      return true;
+      return Promise.resolve(true);
     }
+
+    if (this.financialDocument.id) {
+      const original = this.$store.getters.guarantorFinancialDocuments?.find(
+        (d: DfDocument) => {
+          return d.id === this.financialDocument.id;
+        }
+      );
+      if (
+        this.financialDocument.noDocument === original?.noDocument &&
+        this.financialDocument.monthlySum === original?.monthlySum &&
+        this.financialDocument.files.length === original?.files.length
+      ) {
+        return Promise.resolve(true);
+      }
+    }
+    AnalyticsService.registerFile("guarantor-financial");
     if (!this.financialDocument.noDocument) {
-      const newFiles = this.financialDocument.files.filter(f => {
-        return !f.id;
-      });
       if (!this.financialFiles().length) {
+        Vue.toasted.global.max_file({
+          message: this.$i18n.t("missing-file")
+        });
         return Promise.reject(new Error("err"));
       }
 
@@ -392,9 +411,12 @@ export default class GuarantorFinancialDocumentForm extends Vue {
             this.financialDocument.documentType.maxFileCount
           ])
         });
-        return Promise.reject(new Error("err"));
+        return Promise.reject(new Error("max-file"));
       }
 
+      const newFiles = this.financialDocument.files.filter(f => {
+        return !f.id;
+      });
       Array.from(Array(newFiles.length).keys()).map(x => {
         const f: File = newFiles[x].file || new File([], "");
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
@@ -403,20 +425,6 @@ export default class GuarantorFinancialDocumentForm extends Vue {
       if (this.financialFiles().length > 0) {
         this.isNoIncomeAndFiles = true;
         return Promise.reject(new Error("err"));
-      }
-    }
-    if (this.financialDocument.id) {
-      const original = this.$store.getters.guarantorFinancialDocuments?.find(
-        (d: DfDocument) => {
-          return d.id === this.financialDocument.id;
-        }
-      );
-      if (
-        this.financialDocument.noDocument === original?.noDocument &&
-        this.financialDocument.monthlySum === original?.monthlySum &&
-        this.financialDocument.files.length === original?.files.length
-      ) {
-        return Promise.resolve(true);
       }
     }
 
@@ -436,7 +444,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
         this.financialDocument.monthlySum.toString()
       );
     } else {
-      return false;
+      return Promise.reject(new Error("err"));
     }
     if (this.financialDocument.id) {
       formData.append("documentId", this.financialDocument.id.toString());
