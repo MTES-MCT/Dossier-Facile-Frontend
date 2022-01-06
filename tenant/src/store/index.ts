@@ -151,7 +151,10 @@ const store = new Vuex.Store({
       state.editFinancialDocument = d !== undefined;
     },
     createDocumentFinancial(state) {
-      state.financialDocumentSelected = Object.assign({}, new FinancialDocument());
+      state.financialDocumentSelected = Object.assign(
+        {},
+        new FinancialDocument()
+      );
       state.editFinancialDocument = true;
     },
     selectGuarantorDocumentFinancial(state, d: FinancialDocument) {
@@ -159,8 +162,12 @@ const store = new Vuex.Store({
       state.editGuarantorFinancialDocument = d !== undefined;
     },
     createGuarantorDocumentFinancial(state) {
-      state.guarantorFinancialDocumentSelected = new FinancialDocument();
-      state.editGuarantorFinancialDocument = true;
+      Vue.set(
+        state,
+        "guarantorFinancialDocumentSelected",
+        new FinancialDocument()
+      );
+      Vue.set(state, "editGuarantorFinancialDocument", true);
     }
   },
   actions: {
