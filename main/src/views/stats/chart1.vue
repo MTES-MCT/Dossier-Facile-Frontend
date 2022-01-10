@@ -22,7 +22,10 @@ export default class Chart1 extends Vue {
         "https://sheets.googleapis.com/v4/spreadsheets/1WI4vLK8eS_3N15t40NZp8SCLZBKV2St9zB68tdqMaMw/values:batchGet?key=AIzaSyAifGFaPrs6tkDizbIW8nLmtl0edfe5Vok&ranges=1.comptescrees_w!A1:M53&majorDimension=COLUMNS"
       )
       .then(response => {
-        this.updateChart(response.data["valueRanges"][0]["values"]);
+        const values = response.data["valueRanges"][0]["values"].filter(
+          (v: string[]) => v.length > 0
+        );
+        this.updateChart(values);
       });
   }
 
@@ -72,12 +75,12 @@ export default class Chart1 extends Vue {
       "#FF8D7E",
       "#169B62",
       "#5770BE",
-      "#A26859",
       "#7D4E5B",
       "#FF6F4C",
       "#FDCF41",
       "#D08A77",
       "#484D7A",
+      "#A26859",
       "#958B62"
     ];
     // Define the div for the tooltip
