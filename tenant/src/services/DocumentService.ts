@@ -1,35 +1,43 @@
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { Guarantor } from "df-shared/src/models/Guarantor";
-import { User } from "df-shared/src/models/User";
 import store from "../store";
 
 export const DocumentService = {
   hasDocument() {
     return (
       store.state.user.documents !== undefined &&
-      store.state.user.documents?.length > 0
+      store.state.user.documents.length > 0
     );
   },
   hasDoc(docType: string) {
-    return store.state.user.documents?.find((d: DfDocument) => {
+    if (store.state.user.documents === undefined) {
+      return false;
+    }
+    return store.state.user.documents.find((d: DfDocument) => {
       return d.documentCategory === docType;
     });
   },
   hasFile(docType: string) {
     const document = this.hasDoc(docType);
-    return (document?.files?.length || 0) > 0;
+    if (document === undefined || document.files === undefined) {
+      return false;
+    }
+    return document.files.length > 0;
   },
   guarantorHasDoc(g: Guarantor, docType: string) {
-    if (!g) {
-      return;
+    if (!g || !g.documents) {
+      return undefined;
     }
-    return g.documents?.find((d: DfDocument) => {
+    return g.documents.find((d: DfDocument) => {
       return d.documentCategory === docType;
     });
   },
   guarantorHasFile(g: Guarantor, docType: string) {
     const document = this.guarantorHasDoc(g, docType);
-    return (document?.files?.length || 0) > 0;
+    if (!document || !document.files) {
+      return false;
+    }
+    return document.files.length > 0;
   },
   hasGuarantor(guarantorType: string) {
     const g = store.state.selectedGuarantor;
@@ -40,7 +48,10 @@ export const DocumentService = {
     );
   },
   getFiles(documentCategory: string) {
-    const docs = store.state.user.documents?.filter((d: DfDocument) => {
+    if (!store.state.user.documents) {
+      return [];
+    }
+    const docs = store.state.user.documents.filter((d: DfDocument) => {
       return d.documentCategory === documentCategory;
     });
     let files: any[] = [];
@@ -54,7 +65,10 @@ export const DocumentService = {
     return files;
   },
   getGuarantorFiles(g: Guarantor, documentCategory: string) {
-    const docs = g.documents?.filter((d: DfDocument) => {
+    if (!g.documents) {
+      return [];
+    }
+    const docs = g.documents.filter((d: DfDocument) => {
       return d.documentCategory === documentCategory;
     });
     let files: any[] = [];
@@ -68,51 +82,78 @@ export const DocumentService = {
   },
   getTenantIdentityStatus(): string {
     const doc = this.hasDoc("IDENTIFICATION");
-    return doc?.documentStatus || "";
+    if (!doc) {
+      return "";
+    }
+    return doc.documentStatus || "";
   },
   getTenantResidencyStatus(): string {
     const doc = this.hasDoc("RESIDENCY");
-    return doc?.documentStatus || "";
+    if (!doc) {
+      return "";
+    }
+    return doc.documentStatus || "";
   },
   getTenantProfessionalStatus(): string {
     const doc = this.hasDoc("PROFESSIONAL");
-    return doc?.documentStatus || "";
+    if (!doc) {
+      return "";
+    }
+    return doc.documentStatus || "";
   },
   getTenantFinancialStatus(): string {
     const doc = this.hasDoc("FINANCIAL");
-    return doc?.documentStatus || "";
+    if (!doc) {
+      return "";
+    }
+    return doc.documentStatus || "";
   },
   getTenantTaxStatus(): string {
     const doc = this.hasDoc("TAX");
-    return doc?.documentStatus || "";
+    if (!doc) {
+      return "";
+    }
+    return doc.documentStatus || "";
   },
   getGuarantorIdentityStatus(g: Guarantor): string {
     const doc = this.guarantorHasDoc(
       g || store.state.selectedGuarantor,
       "IDENTIFICATION"
     );
-    return doc?.documentStatus || "";
+    if (!doc) {
+      return "";
+    }
+    return doc.documentStatus || "";
   },
   getGuarantorResidencyStatus(g: Guarantor): string {
     const doc = this.guarantorHasDoc(
       g || store.state.selectedGuarantor,
       "RESIDENCY"
     );
-    return doc?.documentStatus || "";
+    if (!doc) {
+      return "";
+    }
+    return doc.documentStatus || "";
   },
   getGuarantorProfessionalStatus(g: Guarantor): string {
     const doc = this.guarantorHasDoc(
       g || store.state.selectedGuarantor,
       "PROFESSIONAL"
     );
-    return doc?.documentStatus || "";
+    if (!doc) {
+      return "";
+    }
+    return doc.documentStatus || "";
   },
   getGuarantorFinancialStatus(g: Guarantor): string {
     const doc = this.guarantorHasDoc(
       g || store.state.selectedGuarantor,
       "FINANCIAL"
     );
-    return doc?.documentStatus || "";
+    if (!doc) {
+      return "";
+    }
+    return doc.documentStatus || "";
   },
   getGuarantorTaxStatus(g: Guarantor): string {
     const doc = this.guarantorHasDoc(g || store.state.selectedGuarantor, "TAX");
@@ -123,21 +164,30 @@ export const DocumentService = {
       store.state.selectedGuarantor,
       "IDENTIFICATION_LEGAL_PERSON"
     );
-    return doc?.documentStatus || "";
+    if (!doc) {
+      return "";
+    }
+    return doc.documentStatus || "";
   },
   getGuarantorLegalPersonRepresentantStatus(): string {
     const doc = this.guarantorHasDoc(
       store.state.selectedGuarantor,
       "IDENTIFICATION"
     );
-    return doc?.documentStatus || "";
+    if (!doc) {
+      return "";
+    }
+    return doc.documentStatus || "";
   },
   getOrganismStatus(): string {
     const doc = this.guarantorHasDoc(
       store.state.selectedGuarantor,
       "IDENTIFICATION"
     );
-    return doc?.documentStatus || "";
+    if (!doc) {
+      return "";
+    }
+    return doc.documentStatus || "";
   },
   tenantStatus(documentType: string) {
     let status;

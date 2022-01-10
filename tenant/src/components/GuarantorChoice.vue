@@ -198,7 +198,6 @@ export default class GuarantorDocuments extends Vue {
   }
 
   beforeMount() {
-    this.$store.commit("expandGuarantorMenu", false);
     if (this.guarantor.typeGuarantor) {
       this.tmpGuarantorType = this.guarantor.typeGuarantor;
       localStorage.setItem(

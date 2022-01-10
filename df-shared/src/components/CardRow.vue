@@ -77,7 +77,7 @@ export default class CardRow extends Vue {
 
 .icon-btn {
   border: 1px solid var(--primary);
-  background-color: var(--w);
+  background-color: var(--background-default-grey);
 }
 
 .text-container {

@@ -26,7 +26,11 @@
             <div class="fr-header__service">
               <a :href="`${MAIN_URL}/`" title="Retour à l’accueil">
                 <p class="fr-header__service-title">
-                  <img class="logo" src="./logo_dossierfacile.png" alt="logo" />
+                  <img
+                    class="logo"
+                    src="./logo_dossierfacile.webp"
+                    alt="logo"
+                  />
                 </p>
               </a>
               <p class="fr-header__service-tagline">
@@ -82,7 +86,43 @@
         <button class="fr-link--close fr-link" aria-controls="modal-dc">
           Fermer
         </button>
-        <div class="fr-header__menu-links"></div>
+        <div class="fr-header__menu-links" style="display: none"></div>
+        <div class="fr-header__menu-links-hack">
+          <ul class="fr-links-group">
+            <li v-if="loggedIn">
+              <v-gouv-fr-button
+                :label="$t('logout')"
+                :small="true"
+                :secondary="true"
+                @click="onLogout"
+              ></v-gouv-fr-button>
+            </li>
+            <li v-if="!loggedIn">
+              <DfButton
+                class="fr-ml-3"
+                primary="true"
+                size="small"
+                @on-click="onCreateTenant"
+              >
+                {{ $t("signup") }}
+              </DfButton>
+            </li>
+            <li v-if="!loggedIn">
+              <DfButton size="small" @on-click="onCreateOwner">
+                {{ $t("owner") }}
+              </DfButton>
+            </li>
+            <li>
+              <button
+                class="fr-btn fr-ml-3 fr-btn--secondary fr-btn--sm lang"
+                @click="changeLang"
+              >
+                <span :class="{ underline: lang === 'fr' }">FR</span> |
+                <span :class="{ underline: lang === 'en' }">EN</span>
+              </button>
+            </li>
+          </ul>
+        </div>
         <nav
           class="fr-nav"
           id="navigation-832"
@@ -148,6 +188,12 @@ li {
 
 .fr-header__service-tagline {
   @media all and (max-width: 768px) {
+    display: none;
+  }
+}
+
+.fr-header__menu-links-hack {
+  @media all and (min-width: 992px) {
     display: none;
   }
 }

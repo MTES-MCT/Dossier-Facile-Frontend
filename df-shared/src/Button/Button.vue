@@ -9,7 +9,7 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component
 export default class DfButton extends Vue {
-  @Prop() private title!: string;
+  @Prop() title!: string;
   @Prop({ default: false }) private primary?: boolean;
   @Prop({ default: "normal" }) private size?: string;
 

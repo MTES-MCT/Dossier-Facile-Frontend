@@ -62,7 +62,6 @@
       v-if="
         step === 3 &&
           selectedGuarantor &&
-          expandGuarantorMenu &&
           selectedGuarantor.lastName &&
           selectedGuarantor.firstName
       "
@@ -73,7 +72,7 @@
         ])
       }}
     </h2>
-    <div v-if="step === 3 && selectedGuarantor && expandGuarantorMenu">
+    <div v-if="step === 3 && selectedGuarantor">
       <div
         class="menu-grid-row"
         ref="gcontainer"
@@ -192,15 +191,13 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
   components: { StepNumber, ColoredTag },
   computed: {
     ...mapState({
-      selectedGuarantor: "selectedGuarantor",
-      expandGuarantorMenu: "expandGuarantorMenu"
+      selectedGuarantor: "selectedGuarantor"
     })
   }
 })
 export default class LeftEditMenu extends Vue {
   @Prop({ default: 0 }) step!: number;
   selectedGuarantor!: Guarantor;
-  expandGuarantorMenu!: boolean;
 
   mounted() {
     this.autoScroll("td", "tcontainer");
@@ -344,7 +341,7 @@ h1 {
 
 .top-edit-menu {
   white-space: nowrap;
-  background-color: var(--w);
+  background-color: var(--background-default-grey);
   @media all and (min-width: 769px) {
     display: none;
   }

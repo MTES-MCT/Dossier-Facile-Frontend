@@ -151,7 +151,7 @@
                             $t("my-information")
                           }}</a>
                         </h4>
-                        <div>
+                        <div class="name-email-tile">
                           {{ user.firstName }} {{ user.lastName }}<br />
                           {{ user.email }}
                         </div>
@@ -696,7 +696,6 @@ import { mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import DfButton from "df-shared/src/Button/Button.vue";
-import NakedCard from "df-shared/src/components/NakedCard.vue";
 import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { Guarantor } from "df-shared/src/models/Guarantor";
@@ -715,7 +714,6 @@ extend("required", {
     ValidationProvider,
     ValidationObserver,
     DfButton,
-    NakedCard,
     ColoredTag,
     ConfirmModal,
     DeleteAccount
@@ -734,12 +732,6 @@ export default class Account extends Vue {
   radioVisible = false;
   pub = "false";
   isDeleteModalVisible = false;
-
-  mounted() {
-    const localScript = document.createElement("script");
-    localScript.setAttribute("src", "/js/dsfr.module.min.js");
-    document.head.appendChild(localScript);
-  }
 
   isOld() {
     // TODO
@@ -976,7 +968,7 @@ export default class Account extends Vue {
 }
 
 .main {
-  background-color: var(--w);
+  background-color: var(--background-default-grey);
 }
 
 .bg-blue {
@@ -985,7 +977,7 @@ export default class Account extends Vue {
 }
 
 .fr-callout {
-  background-color: var(--w);
+  background-color: var(--background-default-grey);
   &.warning {
     box-shadow: inset 0.25rem 0 0 0 var(--error) !important;
   }
@@ -1009,7 +1001,7 @@ h2 {
 .bg-white {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 10px;
-  background: var(--w);
+  background: var(--background-default-grey);
 }
 
 .fr-btn.delete-btn {
@@ -1056,7 +1048,7 @@ h2 {
 }
 
 .grp-btn {
-  border-left: 1px solid var(--w);
+  border-left: 1px solid var(--background-default-grey);
   position: relative;
 }
 
@@ -1153,6 +1145,12 @@ hr {
   margin-right: 0;
   margin-left: auto;
   padding: 0.5rem;
+}
+
+.name-email-tile {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
 

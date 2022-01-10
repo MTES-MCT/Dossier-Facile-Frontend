@@ -95,13 +95,13 @@
       <div class="step" :class="getClass(2)">
         <div class="step-number">3</div>
         <div class="step-title">
-          <router-link class="fr-link" :to="{ name: 'GuarantorChoice' }">{{
+          <router-link class="fr-link" :to="getGuarantorLink()">{{
             $t("my-guarantor")
           }}</router-link>
         </div>
       </div>
       <div class="vline" :class="getClass(2)">
-        <div v-if="step === 3 && selectedGuarantor && expandGuarantorMenu">
+        <div v-if="step === 3 && selectedGuarantor">
           <div
             v-if="
               selectedGuarantor.typeGuarantor === 'NATURAL_PERSON' &&
@@ -253,7 +253,6 @@ import { User } from "df-shared/src/models/User";
   computed: {
     ...mapState({
       selectedGuarantor: "selectedGuarantor",
-      expandGuarantorMenu: "expandGuarantorMenu",
       user: "user"
     })
   }
@@ -261,7 +260,6 @@ import { User } from "df-shared/src/models/User";
 export default class LeftEditMenu extends Vue {
   @Prop({ default: 0 }) step!: number;
   selectedGuarantor!: Guarantor;
-  expandGuarantorMenu!: boolean;
   user!: User;
 
   getClass(s: number) {
@@ -293,6 +291,13 @@ export default class LeftEditMenu extends Vue {
     );
   }
 
+  getGuarantorLink() {
+    if (this.selectedGuarantor.typeGuarantor !== undefined) {
+      return { name: "GuarantorList" };
+    }
+    return { name: "GuarantorChoice" };
+  }
+
   getStep(s: number) {
     switch (this.step) {
       case 0:
@@ -316,7 +321,7 @@ export default class LeftEditMenu extends Vue {
 @import "df-shared/src/scss/_variables.scss";
 
 .left-edit-menu {
-  background-color: var(--w);
+  background-color: var(--background-default-grey);
   @media all and (max-width: 768px) {
     display: none;
   }
@@ -407,12 +412,12 @@ export default class LeftEditMenu extends Vue {
   "en": {
     "ALONE": "Alone",
     "COUPLE": "Couple",
-    "ROOMMATE": "Roommate"
+    "GROUP": "Roommate"
   },
   "fr": {
     "ALONE": "Seul·e",
     "COUPLE": "En couple",
-    "ROOMMATE": "En colocation"
+    "GROUP": "En colocation"
   }
 }
 </i18n>

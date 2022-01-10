@@ -24,20 +24,37 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@vue/cli": "^4.5.12",
+    "@vue/cli": "^4.5.15",
     "global": "^4.4.0",
-    "highlight.js": "10.4.1"
+    "highlight.js": "10.4.1",
+    "immer": "9.0.7",
+    "merge": "^2.1.1",
+    "trim": "^1.0.1",
+    "vue-loader": "^15.9.8"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@kazupon/vue-i18n-loader": "^0.5.0",
-    "@storybook/addon-actions": "^6.0.27",
-    "@storybook/addon-essentials": "^6.0.27",
-    "@storybook/addon-links": "^6.0.27",
-    "@storybook/vue": "^6.2.9",
+    "@storybook/addon-actions": "6.4.9",
+    "@storybook/addon-essentials": "6.4.9",
+    "@storybook/addon-links": "6.4.9",
+    "@storybook/addon-postcss": "2.0.0",
+    "@storybook/vue": "6.4.9",
     "@vue/cli-plugin-babel": "~4.5.0",
     "babel-loader": "^8.1.0",
     "react-is": "^17.0.1",
     "vue-cli-plugin-i18n": "~1.0.1"
+  },
+  "resolutions": {
+    "trim": "1.0.1",
+    "merge": "2.1.1",
+    "glob-parent": "5.1.2",
+    "ansi-regex": "5.0.1",
+    "browserslist": "4.16.5",
+    "lodash": "4.17.21",
+    "jsonpointer": "5.0.0",
+    "minimist": "1.2.3",
+    "nth-check": "2.0.1",
+    "immer": "9.0.7"
   }
 }

@@ -28,7 +28,6 @@ export class DfState {
   spouseAuthorize = false;
   coTenantAuthorize = false;
   showFooter = true;
-  expandGuarantorMenu = false;
   financialDocumentSelected?: FinancialDocument = new FinancialDocument();
   editFinancialDocument = false;
 }
@@ -78,26 +77,33 @@ const store = new Vuex.Store({
             return g.id === state.selectedGuarantor.id;
           });
           if (guarantor !== undefined) {
-            state.selectedGuarantor = guarantor;
+            Vue.set(state, "selectedGuarantor", guarantor);
           } else {
-            state.selectedGuarantor =
-              user.guarantors[user.guarantors.length - 1];
+            Vue.set(
+              state,
+              "selectedGuarantor",
+              user.guarantors[user.guarantors.length - 1]
+            );
           }
         } else {
-          state.selectedGuarantor = user.guarantors[user.guarantors.length - 1];
+          Vue.set(
+            state,
+            "selectedGuarantor",
+            user.guarantors[user.guarantors.length - 1]
+          );
         }
       } else {
-        state.selectedGuarantor = new Guarantor();
+        Vue.set(state, "selectedGuarantor", new Guarantor());
       }
       if (state.user?.apartmentSharing?.applicationType === "COUPLE") {
-        state.spouseAuthorize = true;
+        Vue.set(state, "spouseAuthorize", new Guarantor());
       }
       if (state.user?.apartmentSharing?.applicationType === "GROUP") {
-        state.coTenantAuthorize = true;
+        Vue.set(state, "coTenantAuthorize", new Guarantor());
       }
     },
     setSelectedGuarantor(state, guarantor: Guarantor) {
-      state.selectedGuarantor = guarantor;
+      Vue.set(state, "selectedGuarantor", guarantor);
     },
     createCouple(state, email) {
       const u = new User();
@@ -147,24 +153,28 @@ const store = new Vuex.Store({
     updateUserZipcode(state, zipcode) {
       state.user.zipCode = zipcode;
     },
-    expandGuarantorMenu(state, b) {
-      state.expandGuarantorMenu = b;
-    },
     selectDocumentFinancial(state, d: FinancialDocument) {
       state.financialDocumentSelected = Object.assign({}, d);
       state.editFinancialDocument = d !== undefined;
     },
     createDocumentFinancial(state) {
-      state.financialDocumentSelected = Object.assign({}, new FinancialDocument());
+      state.financialDocumentSelected = Object.assign(
+        {},
+        new FinancialDocument()
+      );
       state.editFinancialDocument = true;
     },
     selectGuarantorDocumentFinancial(state, d: FinancialDocument) {
-      state.guarantorFinancialDocumentSelected = Object.assign({}, d);
-      state.editGuarantorFinancialDocument = d !== undefined;
+      Vue.set(state, "guarantorFinancialDocumentSelected", d);
+      Vue.set(state, "editGuarantorFinancialDocument", d !== undefined);
     },
     createGuarantorDocumentFinancial(state) {
-      state.guarantorFinancialDocumentSelected = new FinancialDocument();
-      state.editGuarantorFinancialDocument = true;
+      Vue.set(
+        state,
+        "guarantorFinancialDocumentSelected",
+        new FinancialDocument()
+      );
+      Vue.set(state, "editGuarantorFinancialDocument", true);
     }
   },
   actions: {

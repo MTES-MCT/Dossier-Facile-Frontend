@@ -42,7 +42,7 @@ export default class BigRadio extends Vue {
   border: solid 1px var(--primary);
   border-radius: 0.5rem;
   text-align: center;
-  background-color: var(--w);
+  background-color: var(--background-default-grey);
   @media all and (min-width: 992px) {
     max-width: 15rem;
   }

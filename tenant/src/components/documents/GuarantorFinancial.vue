@@ -204,7 +204,7 @@ export default class GuarantorFinancial extends Vue {
 <style scoped lang="scss">
 .fr-tag {
   background-color: #2a7ffe;
-  color: var(--w);
+  color: var(--text-inverted-grey);
   max-width: 210px;
 }
 

@@ -204,7 +204,7 @@ export default class Financial extends Vue {
 <style scoped lang="scss">
 .fr-tag {
   background-color: #5398ff;
-  color: var(--w);
+  color: var(--text-inverted-grey);
 }
 
 .add-income-btn {

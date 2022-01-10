@@ -264,7 +264,7 @@ export default class File extends Vue {
 }
 
 .fr-tabs {
-  background-color: var(--w);
+  background-color: var(--background-default-grey);
 }
 </style>
 

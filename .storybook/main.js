@@ -1,4 +1,5 @@
 const path = require('path');
+const { VueLoaderPlugin } = require('vue-loader')
 
 module.exports = {
   "stories": [
@@ -8,7 +9,11 @@ module.exports = {
   "addons": [
     "@storybook/addon-actions",
     "@storybook/addon-links",
-    "@storybook/addon-essentials"
+    "@storybook/addon-essentials",
+    '@storybook/addon-postcss'
+  ],
+  plugins: [
+    new VueLoaderPlugin()
   ],
   webpackFinal: async (config, { configType }) => {
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
@@ -27,6 +32,17 @@ module.exports = {
         resourceQuery: /blockType=i18n/,
         type: 'javascript/auto',
         loader: '@kazupon/vue-i18n-loader'
+    });
+
+    config.module.rules.push({
+      test: /\.(ts|tsx)?$/,
+      use: [
+          {
+              loader: 'ts-loader',
+              options: { appendTsSuffixTo: [/\.vue$/] },
+          }
+      ],
+      include: path.resolve(__dirname, '../'),
     });
 
     // Return the altered config
