@@ -196,7 +196,12 @@
                 :to="{ name: 'GuarantorDocuments', params: { substep: '0' } }"
                 ><ColoredTag
                   :text="$t('identification-legal-person')"
-                  :status="guarantorStatus('IDENTIFICATION_LEGAL_PERSON', g)"
+                  :status="
+                    guarantorStatus(
+                      'IDENTIFICATION_LEGAL_PERSON',
+                      selectedGuarantor
+                    )
+                  "
                   :active="getGuarantorCurrentStep(0)"
                 ></ColoredTag
               ></router-link>
@@ -206,7 +211,7 @@
                 :to="{ name: 'GuarantorDocuments', params: { substep: '1' } }"
                 ><ColoredTag
                   :text="$t('identity-represent')"
-                  :status="guarantorStatus('IDENTIFICATION', g)"
+                  :status="guarantorStatus('IDENTIFICATION', selectedGuarantor)"
                   :active="getGuarantorCurrentStep(1)"
                 ></ColoredTag
               ></router-link>
@@ -218,7 +223,7 @@
                 :to="{ name: 'GuarantorDocuments', params: { substep: '0' } }"
                 ><ColoredTag
                   :text="$t('identification-organism')"
-                  :status="guarantorStatus('IDENTIFICATION', g)"
+                  :status="guarantorStatus('IDENTIFICATION', selectedGuarantor)"
                   :active="getGuarantorCurrentStep(0)"
                 ></ColoredTag
               ></router-link>
