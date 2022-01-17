@@ -115,6 +115,9 @@
         >
           <div v-html="taxDocument.explanationText"></div>
         </div>
+        <AllDeclinedMessages
+          :document="tenantTaxDocument()"
+        ></AllDeclinedMessages>
         <div v-if="taxFiles().length > 0" class="fr-col-12 fr-mb-3w">
           <ListItem
             v-for="(file, k) in taxFiles()"
@@ -162,6 +165,7 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
 import { AnalyticsService } from "../../services/AnalyticsService";
 import ProfileFooter from "../footer/ProfileFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import AllDeclinedMessages from "./AllDeclinedMessages.vue";
 
 extend("is", {
   ...is,
@@ -171,6 +175,7 @@ extend("is", {
 
 @Component({
   components: {
+    AllDeclinedMessages,
     DocumentInsert,
     FileUpload,
     ListItem,
@@ -236,6 +241,10 @@ export default class Tax extends Vue {
     if (this.taxDocument.key === "my-name" && this.taxFiles().length > 0) {
       this.acceptVerification = true;
     }
+  }
+
+  tenantTaxDocument() {
+    return this.$store.getters.getTenantTaxDocument;
   }
 
   onSelectChange() {

@@ -149,6 +149,9 @@
               <div class="fr-mb-3w">
                 {{ financialDocument.documentType.explanationText }}
               </div>
+              <AllDeclinedMessages
+                :document="tenantFinancialDocument()"
+              ></AllDeclinedMessages>
               <div
                 v-if="
                   financialDocument.documentType.key &&
@@ -280,6 +283,7 @@ import { AnalyticsService } from "../../services/AnalyticsService";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import ProfileFooter from "../footer/ProfileFooter.vue";
 import { cloneDeep } from "lodash";
+import AllDeclinedMessages from "./AllDeclinedMessages.vue";
 
 extend("regex", {
   ...regex,
@@ -293,6 +297,7 @@ extend("required", {
 
 @Component({
   components: {
+    AllDeclinedMessages,
     ValidationProvider,
     ValidationObserver,
     DocumentInsert,
@@ -341,6 +346,12 @@ export default class FinancialDocumentForm extends Vue {
       }
     }
     return false;
+  }
+
+  tenantFinancialDocument() {
+    return this.$store.getters.getTenantDocuments?.find((d: DfDocument) => {
+      return d.id === this.financialDocument.id;
+    });
   }
 
   onSelectChange() {
