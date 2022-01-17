@@ -53,6 +53,9 @@
       <div class="fr-mb-3w">
         {{ professionalDocument.explanationText }}
       </div>
+      <AllDeclinedMessages
+        :document="guarantorProfessionalDocument()"
+      ></AllDeclinedMessages>
       <div v-if="professionalFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
         <ListItem
           v-for="(file, k) in professionalFiles()"
@@ -90,9 +93,11 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import AllDeclinedMessages from "./AllDeclinedMessages.vue";
 
 @Component({
   components: {
+    AllDeclinedMessages,
     DocumentInsert,
     FileUpload,
     ListItem,
@@ -126,6 +131,10 @@ export default class Professional extends Vue {
 
   mounted() {
     this.updateGuarantorData();
+  }
+
+  guarantorProfessionalDocument() {
+    return this.$store.getters.getGuarantorProfessionalDocument;
   }
 
   updateGuarantorData() {

@@ -147,6 +147,9 @@
           <div class="fr-mb-3w">
             {{ financialDocument.documentType.explanationText }}
           </div>
+          <AllDeclinedMessages
+            :document="guarantorFinancialDocument()"
+          ></AllDeclinedMessages>
           <div v-if="financialFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
             <ListItem
               v-for="(file, k) in financialFiles()"
@@ -234,6 +237,7 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import cloneDeep from "lodash/cloneDeep";
 import { AnalyticsService } from "../../services/AnalyticsService";
+import AllDeclinedMessages from "./AllDeclinedMessages.vue";
 
 extend("regex", {
   ...regex,
@@ -247,6 +251,7 @@ extend("required", {
 
 @Component({
   components: {
+    AllDeclinedMessages,
     ValidationProvider,
     ValidationObserver,
     DocumentInsert,
@@ -299,6 +304,12 @@ export default class GuarantorFinancialDocumentForm extends Vue {
       }
     }
     return false;
+  }
+
+  guarantorFinancialDocument() {
+    return this.$store.getters.getGuarantorDocuments?.find((d: DfDocument) => {
+      return d.id === this.financialDocument.id;
+    });
   }
 
   onSelectChange() {

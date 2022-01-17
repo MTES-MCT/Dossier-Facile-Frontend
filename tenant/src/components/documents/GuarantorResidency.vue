@@ -60,6 +60,9 @@
       <div class="fr-mb-3w">
         <p v-html="$t(residencyDocument.explanationText)"></p>
       </div>
+      <AllDeclinedMessages
+        :document="guarantorResidencyDocument()"
+      ></AllDeclinedMessages>
       <div v-if="residencyFiles().length > 0" class="fr-col-12 fr-mb-3w">
         <ListItem
           v-for="(file, k) in residencyFiles()"
@@ -98,9 +101,11 @@ import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import AllDeclinedMessages from "./AllDeclinedMessages.vue";
 
 @Component({
   components: {
+    AllDeclinedMessages,
     DocumentInsert,
     FileUpload,
     ListItem,
@@ -136,6 +141,10 @@ export default class Residency extends Vue {
 
   mounted() {
     this.updateGuarantorData();
+  }
+
+  guarantorResidencyDocument() {
+    return this.$store.getters.getGuarantorResidencyDocument;
   }
 
   updateGuarantorData() {

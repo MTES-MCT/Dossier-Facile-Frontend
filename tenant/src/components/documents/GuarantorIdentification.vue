@@ -61,6 +61,9 @@
       <div v-if="identificationDocument.explanationText" class="fr-mb-3w">
         <p v-html="identificationDocument.explanationText"></p>
       </div>
+      <AllDeclinedMessages
+        :document="guarantorIdentificationDocument()"
+      ></AllDeclinedMessages>
       <div
         v-if="identificationFiles().length > 0"
         class="fr-col-md-12 fr-mb-3w"
@@ -105,9 +108,11 @@ import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import AllDeclinedMessages from "./AllDeclinedMessages.vue";
 
 @Component({
   components: {
+    AllDeclinedMessages,
     DocumentInsert,
     FileUpload,
     ListItem,
@@ -152,6 +157,10 @@ export default class GuarantorIdentification extends Vue {
       }
     }
     return false;
+  }
+
+  guarantorIdentificationDocument() {
+    return this.$store.getters.getGuarantorIdentificationDocument;
   }
 
   undoSelect() {
