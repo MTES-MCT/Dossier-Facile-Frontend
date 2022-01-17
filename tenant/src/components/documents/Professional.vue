@@ -52,6 +52,9 @@
       <div class="fr-mb-3w">
         {{ professionalDocument.explanationText }}
       </div>
+      <AllDeclinedMessages
+        :document="tenantProfessionalDocument()"
+      ></AllDeclinedMessages>
       <div v-if="professionalFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
         <ListItem
           v-for="(file, k) in professionalFiles()"
@@ -90,9 +93,11 @@ import DocumentHelp from "../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import { AnalyticsService } from "../../services/AnalyticsService";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import AllDeclinedMessages from "./AllDeclinedMessages.vue";
 
 @Component({
   components: {
+    AllDeclinedMessages,
     DocumentInsert,
     FileUpload,
     ListItem,
@@ -151,6 +156,10 @@ export default class Professional extends Vue {
         }
       }
     }
+  }
+
+  tenantProfessionalDocument() {
+    return this.$store.getters.getTenantProfessionalDocument;
   }
 
   onSelectChange() {

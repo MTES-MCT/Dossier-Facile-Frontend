@@ -642,6 +642,41 @@ const store = new Vuex.Store({
         return d.documentCategory === "IDENTIFICATION";
       });
     },
+    getTenantResidencyDocument(state): DfDocument {
+      return state.user?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "RESIDENCY";
+      });
+    },
+    getTenantProfessionalDocument(state): DfDocument {
+      return state.user?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "PROFESSIONAL";
+      });
+    },
+    getTenantTaxDocument(state): DfDocument {
+      return state.user?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "TAX";
+      });
+    },
+    getGuarantorIdentificationDocument(state): DfDocument {
+      return state.selectedGuarantor?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "IDENTIFICATION";
+      });
+    },
+    getGuarantorResidencyDocument(state): DfDocument {
+      return state.selectedGuarantor?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "RESIDENCY";
+      });
+    },
+    getGuarantorProfessionalDocument(state): DfDocument {
+      return state.selectedGuarantor?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "PROFESSIONAL";
+      });
+    },
+    getGuarantorTaxDocument(state): DfDocument {
+      return state.selectedGuarantor?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "TAX";
+      });
+    },
 
     getGuarantorDocuments(state): DfDocument[] {
       return state.selectedGuarantor.documents || [];

@@ -60,6 +60,9 @@
       <div class="fr-mb-3w">
         <p v-html="residencyDocument.explanationText"></p>
       </div>
+      <AllDeclinedMessages
+        :document="tenantResidencyDocument()"
+      ></AllDeclinedMessages>
       <div v-if="residencyFiles().length > 0" class="fr-col-12 fr-mb-3w">
         <ListItem
           v-for="(file, k) in residencyFiles()"
@@ -99,6 +102,7 @@ import DocumentHelp from "../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import { AnalyticsService } from "../../services/AnalyticsService";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import AllDeclinedMessages from "./AllDeclinedMessages.vue";
 
 @Component({
   components: {
@@ -110,6 +114,7 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
     BigRadio,
     VGouvFrModal,
     DocumentHelp,
+    AllDeclinedMessages,
     NakedCard
   },
   computed: {
@@ -162,6 +167,10 @@ export default class Residency extends Vue {
         }
       }
     }
+  }
+
+  tenantResidencyDocument() {
+    return this.$store.getters.getTenantResidencyDocument;
   }
 
   onSelectChange() {
