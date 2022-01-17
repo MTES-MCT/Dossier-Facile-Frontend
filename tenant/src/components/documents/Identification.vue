@@ -64,6 +64,24 @@
           v-html="identificationDocument.explanationText"
         ></div>
       </div>
+      <div v-if="tenantIdentificationDocument()">
+        <div
+          v-for="(m, k) in tenantIdentificationDocument().documentDeniedReasons
+            .checkedOptions"
+          :key="k"
+        >
+          <DeclinedMessage :message="m"></DeclinedMessage>
+        </div>
+        <div
+          v-if="tenantIdentificationDocument().documentDeniedReasons.comment"
+        >
+          <DeclinedMessage
+            :message="
+              tenantIdentificationDocument().documentDeniedReasons.comment
+            "
+          ></DeclinedMessage>
+        </div>
+      </div>
       <div
         v-if="identificationFiles().length > 0"
         class="fr-col-md-12 fr-mb-3w"
@@ -109,12 +127,14 @@ import DocumentHelp from "../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import { AnalyticsService } from "../../services/AnalyticsService";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import DeclinedMessage from "df-shared/src/components/DeclinedMessage.vue";
 
 @Component({
   components: {
     DocumentInsert,
     FileUpload,
     ListItem,
+    DeclinedMessage,
     ValidationProvider,
     WarningMessage,
     ConfirmModal,
@@ -291,6 +311,10 @@ export default class Identification extends Vue {
       .finally(() => {
         loader.hide();
       });
+  }
+
+  tenantIdentificationDocument() {
+    return this.$store.getters.getTenantIdentificationDocument;
   }
 
   identificationFiles() {
