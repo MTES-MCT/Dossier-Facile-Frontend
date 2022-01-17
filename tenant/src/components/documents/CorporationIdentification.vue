@@ -44,6 +44,9 @@
               </p>
             </template>
           </v-gouv-fr-modal>
+          <AllDeclinedMessages
+            :document="guarantorIdentificationLegalPersonDocument()"
+          ></AllDeclinedMessages>
           <div class="fr-col-md-12 fr-mb-3w">
             <ListItem
               v-for="(file, k) in listFiles()"
@@ -87,6 +90,7 @@ import { RegisterService } from "../../services/RegisterService";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import AllDeclinedMessages from "./AllDeclinedMessages.vue";
 
 extend("required", {
   ...required,
@@ -95,6 +99,7 @@ extend("required", {
 
 @Component({
   components: {
+    AllDeclinedMessages,
     DocumentInsert,
     FileUpload,
     ListItem,
@@ -184,6 +189,10 @@ export default class CorporationIdentification extends Vue {
       });
       this.files.splice(firstIndex, 1);
     }
+  }
+
+  guarantorIdentificationLegalPersonDocument() {
+    return this.$store.getters.getGuarantorIdentificationLegalPersonDocument;
   }
 
   listFiles() {
