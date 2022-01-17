@@ -111,6 +111,9 @@
         <div class="fr-mb-3w">
           <p v-html="taxDocument.explanationText"></p>
         </div>
+        <AllDeclinedMessages
+          :document="guarantorTaxDocument()"
+        ></AllDeclinedMessages>
         <div v-if="taxFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
           <ListItem
             v-for="(file, k) in taxFiles()"
@@ -155,6 +158,7 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
 import TaxHelp from "../helps/TaxHelp.vue";
 import GuarantorFooter from "../footer/GuarantorFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import AllDeclinedMessages from "./AllDeclinedMessages.vue";
 
 extend("is", {
   ...is,
@@ -164,6 +168,7 @@ extend("is", {
 
 @Component({
   components: {
+    AllDeclinedMessages,
     DocumentInsert,
     FileUpload,
     ListItem,
@@ -217,6 +222,10 @@ export default class Tax extends Vue {
       return localDoc;
     }
     return undefined;
+  }
+
+  guarantorTaxDocument() {
+    return this.$store.getters.getGuarantorTaxDocument;
   }
 
   onSelectChange() {
