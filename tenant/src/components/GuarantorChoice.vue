@@ -135,14 +135,14 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import GuarantorIdentification from "./documents/GuarantorIdentification.vue";
-import RepresentativeIdentification from "./documents/RepresentativeIdentification.vue";
-import CorporationIdentification from "./documents/CorporationIdentification.vue";
-import OrganismCert from "./documents/OrganismCert.vue";
-import GuarantorResidency from "./documents/GuarantorResidency.vue";
-import GuarantorProfessional from "./documents/GuarantorProfessional.vue";
-import GuarantorFinancial from "./documents/GuarantorFinancial.vue";
-import GuarantorTax from "./documents/GuarantorTax.vue";
+import GuarantorIdentification from "./documents/naturalGuarantor/GuarantorIdentification.vue";
+import RepresentativeIdentification from "./documents/legalPersonGuarantor/RepresentativeIdentification.vue";
+import CorporationIdentification from "./documents/legalPersonGuarantor/CorporationIdentification.vue";
+import OrganismCert from "./documents/organismGuarantor/OrganismCert.vue";
+import GuarantorResidency from "./documents/naturalGuarantor/GuarantorResidency.vue";
+import GuarantorProfessional from "./documents/naturalGuarantor/GuarantorProfessional.vue";
+import GuarantorFinancial from "./documents/naturalGuarantor/GuarantorFinancial.vue";
+import GuarantorTax from "./documents/naturalGuarantor/GuarantorTax.vue";
 import { mapGetters, mapState } from "vuex";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { User } from "df-shared/src/models/User";

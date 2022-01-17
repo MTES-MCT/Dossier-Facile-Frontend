@@ -331,7 +331,7 @@ import { DfFile } from "df-shared/src/models/DfFile";
 import { DfMessage } from "df-shared/src/models/DfMessage";
 import Modal from "df-shared/src/components/Modal.vue";
 import PdfViewer from "../components/PdfViewer.vue";
-import ShowDoc from "../components/documents/ShowDoc.vue";
+import ShowDoc from "../components/documents/share/ShowDoc.vue";
 import { mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
 import { Guarantor } from "df-shared/src/models/Guarantor";

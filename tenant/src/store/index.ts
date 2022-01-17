@@ -15,7 +15,7 @@ import { RegisterService } from "../services/RegisterService";
 import { UtilsService } from "../services/UtilsService";
 import { FinancialDocument } from "df-shared/src/models/FinancialDocument";
 import { DocumentType } from "df-shared/src/models/Document";
-import { DocumentTypeConstants } from "../components/documents/DocumentTypeConstants";
+import { DocumentTypeConstants } from "../components/documents/share/DocumentTypeConstants";
 
 Vue.use(Vuex);
 

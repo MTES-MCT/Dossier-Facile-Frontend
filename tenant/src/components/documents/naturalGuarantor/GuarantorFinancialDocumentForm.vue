@@ -212,32 +212,32 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { DocumentType } from "df-shared/src/models/Document";
-import DocumentInsert from "./DocumentInsert.vue";
-import FileUpload from "../uploads/FileUpload.vue";
+import DocumentInsert from "../share/DocumentInsert.vue";
+import FileUpload from "../../uploads/FileUpload.vue";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
-import ListItem from "../uploads/ListItem.vue";
+import ListItem from "../../uploads/ListItem.vue";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { extend } from "vee-validate";
-import { RegisterService } from "../../services/RegisterService";
+import { RegisterService } from "../../../services/RegisterService";
 import DfButton from "df-shared/src/Button/Button.vue";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { required, regex } from "vee-validate/dist/rules";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
-import { DocumentTypeConstants } from "./DocumentTypeConstants";
+import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { FinancialDocument } from "df-shared/src/models/FinancialDocument";
 import { mapGetters, mapState } from "vuex";
 import Modal from "df-shared/src/components/Modal.vue";
-import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
+import GuarantorChoiceHelp from "../../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
-import ProfileFooter from "../footer/ProfileFooter.vue";
+import ProfileFooter from "../../footer/ProfileFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import cloneDeep from "lodash/cloneDeep";
-import { AnalyticsService } from "../../services/AnalyticsService";
-import AllDeclinedMessages from "./AllDeclinedMessages.vue";
+import { AnalyticsService } from "../../../services/AnalyticsService";
+import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 
 extend("regex", {
   ...regex,

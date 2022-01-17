@@ -2,9 +2,7 @@
   <div>
     <NakedCard class="fr-p-md-5w">
       <div>
-        <h1 class="fr-h6">
-          {{ $t("select-label") }}
-        </h1>
+        <h1 class="fr-h6">{{ $t("title") }}</h1>
 
         <v-gouv-fr-modal>
           <template v-slot:button>
@@ -17,33 +15,28 @@
             <p>
               <GuarantorChoiceHelp></GuarantorChoiceHelp>
               <DocumentInsert
-                :allow-list="residencyDocument.acceptedProofs"
-                :block-list="residencyDocument.refusedProofs"
-                v-if="residencyDocument.key"
+                :allow-list="professionalDocument.acceptedProofs"
+                :block-list="professionalDocument.refusedProofs"
+                v-if="professionalDocument.key"
               ></DocumentInsert>
             </p>
           </template>
         </v-gouv-fr-modal>
-
         <div class="fr-mt-3w">
-          <fieldset class="fr-fieldset">
-            <div class="fr-fieldset__content">
-              <div class="fr-grid-row">
-                <div v-for="d in documents" :key="d.key" class="full-width-xs">
-                  <BigRadio
-                    :val="d"
-                    v-model="residencyDocument"
-                    @input="onSelectChange()"
-                  >
-                    <div class="fr-grid-col spa">
-                      <span>{{ $t(d.key) }}</span>
-                    </div>
-                  </BigRadio>
-                </div>
-              </div>
-            </div>
-          </fieldset>
+          {{ $t("select-label") }}
         </div>
+
+        <select
+          v-model="professionalDocument"
+          class="fr-select fr-mb-3w"
+          id="select"
+          name="select"
+          @change="onSelectChange()"
+        >
+          <option v-for="d in documents" :value="d" :key="d.key">
+            {{ $t(d.key) }}
+          </option>
+        </select>
       </div>
     </NakedCard>
     <ConfirmModal
@@ -55,17 +48,17 @@
     </ConfirmModal>
     <NakedCard
       class="fr-p-md-5w fr-mt-3w"
-      v-if="residencyDocument.key || residencyFiles().length > 0"
+      v-if="professionalDocument.key || professionalFiles().length > 0"
     >
       <div class="fr-mb-3w">
-        <p v-html="$t(residencyDocument.explanationText)"></p>
+        {{ professionalDocument.explanationText }}
       </div>
       <AllDeclinedMessages
-        :document="guarantorResidencyDocument()"
+        :document="guarantorProfessionalDocument()"
       ></AllDeclinedMessages>
-      <div v-if="residencyFiles().length > 0" class="fr-col-12 fr-mb-3w">
+      <div v-if="professionalFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
         <ListItem
-          v-for="(file, k) in residencyFiles()"
+          v-for="(file, k) in professionalFiles()"
           :key="k"
           :file="file"
           @remove="remove(file)"
@@ -84,24 +77,23 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
+import DocumentInsert from "../share/DocumentInsert.vue";
+import FileUpload from "../../uploads/FileUpload.vue";
 import { mapState } from "vuex";
-import DocumentInsert from "./DocumentInsert.vue";
-import FileUpload from "../uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
-import ListItem from "../uploads/ListItem.vue";
+import ListItem from "../../uploads/ListItem.vue";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
-import { RegisterService } from "../../services/RegisterService";
+import { RegisterService } from "../../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
-import { DocumentTypeConstants } from "./DocumentTypeConstants";
+import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { Guarantor } from "df-shared/src/models/Guarantor";
-import BigRadio from "df-shared/src/Button/BigRadio.vue";
-import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
+import GuarantorChoiceHelp from "../../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
-import AllDeclinedMessages from "./AllDeclinedMessages.vue";
+import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 
 @Component({
   components: {
@@ -111,7 +103,6 @@ import AllDeclinedMessages from "./AllDeclinedMessages.vue";
     ListItem,
     WarningMessage,
     ConfirmModal,
-    BigRadio,
     GuarantorChoiceHelp,
     VGouvFrModal,
     NakedCard
@@ -122,16 +113,15 @@ import AllDeclinedMessages from "./AllDeclinedMessages.vue";
     })
   }
 })
-export default class Residency extends Vue {
+export default class Professional extends Vue {
   selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
   uploadProgress: {
     [key: string]: { state: string; percentage: number };
   } = {};
-  residencyDocument = new DocumentType();
-
-  documents = DocumentTypeConstants.GUARANTOR_RESIDENCY_DOCS;
+  professionalDocument = new DocumentType();
+  documents = DocumentTypeConstants.GUARANTOR_PROFESSIONAL_DOCS;
   isDocDeleteVisible = false;
 
   @Watch("selectedGuarantor")
@@ -143,21 +133,21 @@ export default class Residency extends Vue {
     this.updateGuarantorData();
   }
 
-  guarantorResidencyDocument() {
-    return this.$store.getters.getGuarantorResidencyDocument;
+  guarantorProfessionalDocument() {
+    return this.$store.getters.getGuarantorProfessionalDocument;
   }
 
   updateGuarantorData() {
     if (this.selectedGuarantor.documents !== null) {
       const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "RESIDENCY";
+        return d.documentCategory === "PROFESSIONAL";
       });
       if (doc !== undefined) {
         const localDoc = this.documents.find((d: DocumentType) => {
           return d.value === doc.documentSubCategory;
         });
         if (localDoc !== undefined) {
-          this.residencyDocument = localDoc;
+          this.professionalDocument = localDoc;
         }
       }
     }
@@ -166,12 +156,12 @@ export default class Residency extends Vue {
   onSelectChange() {
     if (this.selectedGuarantor.documents !== null) {
       const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "RESIDENCY";
+        return d.documentCategory === "PROFESSIONAL";
       });
       if (doc !== undefined) {
         this.isDocDeleteVisible =
           (doc.files?.length || 0) > 0 &&
-          doc.documentSubCategory !== this.residencyDocument.value;
+          doc.documentSubCategory !== this.professionalDocument.value;
       }
     }
     return false;
@@ -180,14 +170,14 @@ export default class Residency extends Vue {
   undoSelect() {
     if (this.selectedGuarantor.documents !== null) {
       const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "RESIDENCY";
+        return d.documentCategory === "PROFESSIONAL";
       });
       if (doc !== undefined) {
         const localDoc = this.documents.find((d: DocumentType) => {
           return d.value === doc.documentSubCategory;
         });
         if (localDoc !== undefined) {
-          this.residencyDocument = localDoc;
+          this.professionalDocument = localDoc;
         }
       }
     }
@@ -198,7 +188,7 @@ export default class Residency extends Vue {
     this.isDocDeleteVisible = false;
     if (this.selectedGuarantor.documents !== null) {
       const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "RESIDENCY";
+        return d.documentCategory === "PROFESSIONAL";
       });
       if (doc?.files !== undefined) {
         for (const f of doc.files) {
@@ -208,26 +198,6 @@ export default class Residency extends Vue {
         }
       }
     }
-  }
-
-  isNewDocument() {
-    if (this.selectedGuarantor.documents !== null) {
-      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "RESIDENCY";
-      });
-      if (doc !== undefined) {
-        if (
-          (doc.documentSubCategory === "GUEST" &&
-            this.residencyDocument.value === "GUEST_PARENTS") ||
-          (doc.documentSubCategory === "GUEST_PARENTS" &&
-            this.residencyDocument.value === "GUEST")
-        ) {
-          return false;
-        }
-        return doc.documentSubCategory !== this.residencyDocument.value;
-      }
-    }
-    return false;
   }
 
   addFiles(fileList: File[]) {
@@ -250,24 +220,26 @@ export default class Residency extends Vue {
     if (!newFiles.length) return;
 
     if (
-      this.residencyDocument.maxFileCount &&
-      this.residencyFiles().length > this.residencyDocument.maxFileCount
+      this.professionalDocument.maxFileCount &&
+      this.professionalFiles().length > this.professionalDocument.maxFileCount
     ) {
       Vue.toasted.global.max_file({
         message: this.$i18n.t("max-file", [
-          this.residencyFiles().length,
-          this.residencyDocument.maxFileCount
+          this.professionalFiles().length,
+          this.professionalDocument.maxFileCount
         ])
       });
       return;
     }
-
     Array.from(Array(newFiles.length).keys()).map(x => {
       const f: File = newFiles[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
     });
 
-    formData.append("typeDocumentResidency", this.residencyDocument.value);
+    formData.append(
+      "typeDocumentProfessional",
+      this.professionalDocument.value
+    );
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     if (this.$store.getters.guarantor.id) {
@@ -275,7 +247,7 @@ export default class Residency extends Vue {
     }
     const loader = this.$loading.show();
     this.$store
-      .dispatch("saveGuarantorResidency", formData)
+      .dispatch("saveGuarantorProfessional", formData)
       .then(() => {
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
@@ -294,10 +266,10 @@ export default class Residency extends Vue {
       });
   }
 
-  residencyFiles() {
+  professionalFiles() {
     const newFiles = this.files.map(f => {
       return {
-        documentSubCategory: this.residencyDocument.value,
+        documentSubCategory: this.professionalDocument.value,
         id: f.name,
         name: f.name,
         size: f.size
@@ -305,7 +277,7 @@ export default class Residency extends Vue {
     });
     const existingFiles =
       this.$store.getters.getGuarantorDocuments?.find((d: DfDocument) => {
-        return d.documentCategory === "RESIDENCY";
+        return d.documentCategory === "PROFESSIONAL";
       })?.files || [];
     return [...newFiles, ...existingFiles];
   }
@@ -328,24 +300,40 @@ export default class Residency extends Vue {
 <i18n>
 {
 "en": {
-  "tenant": "Vous êtes locataire",
-  "owner": "Vous êtes propriétaire",
-  "guest": "Vous êtes hébergé gratuitement",
-  "guest-parents": "Vous habitez chez vos parents",
-  "files": "Documents",
+  "title": "Proof of professional and financial situation",
+  "cdi": "CDI",
+  "cdi-trial": "CDI (période d’essai)",
+  "cdd": "CDD",
+  "alternation": "Alternance",
+  "internship": "Stage",
+  "student": "Études",
+  "public": "Fonction publique",
+  "ctt": "CTT (intérimaire)",
+  "retired": "Retraité",
+  "unemployed": "Chômage",
+  "independent": "Indépendant",
+  "other": "Autre",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
   "register": "Register",
-  "select-label": "Your guarantor current accommodation situation:"
+  "select-label": "Your current professional situation:"
 },
 "fr": {
-  "tenant": "Locataire",
-  "owner": "Propriétaire",
-  "guest": "Hébergé·e à titre gratuit",
-  "guest-parents": "Vous habitez chez vos parents",
-  "files": "Documents",
+  "title": "Justificatif de situation professionelle et financière",
+  "cdi": "CDI",
+  "cdi-trial": "CDI (période d’essai)",
+  "cdd": "CDD",
+  "alternation": "Alternance",
+  "internship": "Stage",
+  "student": "Études",
+  "public": "Fonction publique",
+  "ctt": "CTT (intérimaire)",
+  "retired": "Retraité",
+  "unemployed": "Chômage",
+  "independent": "Indépendant",
+  "other": "Autre",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
   "register": "Enregistrer",
-  "select-label": "Quelle est la situation d’hébergement actuelle de votre garant ?"
+  "select-label": "La situation professionnelle, actuelle, de mon garant :"
 }
 }
 </i18n>

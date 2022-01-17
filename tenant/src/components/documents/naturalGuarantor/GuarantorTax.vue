@@ -138,27 +138,27 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { DocumentType } from "df-shared/src/models/Document";
-import DocumentInsert from "./DocumentInsert.vue";
-import FileUpload from "../uploads/FileUpload.vue";
+import DocumentInsert from "../share/DocumentInsert.vue";
+import FileUpload from "../../uploads/FileUpload.vue";
 import { mapState } from "vuex";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
-import ListItem from "../uploads/ListItem.vue";
+import ListItem from "../../uploads/ListItem.vue";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { extend } from "vee-validate";
 import { is } from "vee-validate/dist/rules";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
-import { RegisterService } from "../../services/RegisterService";
+import { RegisterService } from "../../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
-import { DocumentTypeConstants } from "./DocumentTypeConstants";
+import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
-import TaxHelp from "../helps/TaxHelp.vue";
-import GuarantorFooter from "../footer/GuarantorFooter.vue";
+import TaxHelp from "../../helps/TaxHelp.vue";
+import GuarantorFooter from "../../footer/GuarantorFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
-import AllDeclinedMessages from "./AllDeclinedMessages.vue";
+import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 
 extend("is", {
   ...is,
