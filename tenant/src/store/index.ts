@@ -657,6 +657,11 @@ const store = new Vuex.Store({
         return d.documentCategory === "TAX";
       });
     },
+    getGuarantorIdentificationLegalPersonDocument(state): DfDocument {
+      return state.selectedGuarantor?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "IDENTIFICATION_LEGAL_PERSON";
+      });
+    },
     getGuarantorIdentificationDocument(state): DfDocument {
       return state.selectedGuarantor?.documents?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION";
