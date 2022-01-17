@@ -1,5 +1,5 @@
 <template>
-  <div v-if="document">
+  <div v-if="document && document.documentDeniedReasons">
     <div
       v-for="(m, k) in document.documentDeniedReasons.checkedOptions"
       :key="k"

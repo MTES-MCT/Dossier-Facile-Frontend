@@ -21,6 +21,9 @@
             </p>
           </template>
         </v-gouv-fr-modal>
+        <AllDeclinedMessages
+          :document="guarantorIdentificationDocument()"
+        ></AllDeclinedMessages>
         <div class="fr-col-md-12 fr-mb-3w">
           <ListItem
             v-for="(file, k) in listFiles()"
@@ -60,9 +63,11 @@ import { DfFile } from "df-shared/src/models/DfFile";
 import { RegisterService } from "../../services/RegisterService";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import AllDeclinedMessages from "./AllDeclinedMessages.vue";
 
 @Component({
   components: {
+    AllDeclinedMessages,
     DocumentInsert,
     FileUpload,
     ListItem,
@@ -149,6 +154,10 @@ export default class OrganismCert extends Vue {
       });
       this.files.splice(firstIndex, 1);
     }
+  }
+
+  guarantorIdentificationDocument() {
+    return this.$store.getters.getGuarantorIdentificationDocument;
   }
 
   listFiles() {
