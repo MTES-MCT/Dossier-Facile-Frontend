@@ -637,6 +637,12 @@ const store = new Vuex.Store({
     getTenantDocuments(state): DfDocument[] {
       return state.user?.documents || [];
     },
+    getTenantIdentificationDocument(state): DfDocument {
+      return state.user?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "IDENTIFICATION";
+      });
+    },
+
     getGuarantorDocuments(state): DfDocument[] {
       return state.selectedGuarantor.documents || [];
     },
