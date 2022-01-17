@@ -149,6 +149,9 @@
               <div class="fr-mb-3w">
                 {{ financialDocument.documentType.explanationText }}
               </div>
+              <AllDeclinedMessages
+                :document="tenantFinancialDocument()"
+              ></AllDeclinedMessages>
               <div
                 v-if="
                   financialDocument.documentType.key &&
@@ -255,31 +258,32 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { DocumentType } from "df-shared/src/models/Document";
-import DocumentInsert from "@/components/documents/DocumentInsert.vue";
-import FileUpload from "@/components/uploads/FileUpload.vue";
+import DocumentInsert from "../share/DocumentInsert.vue";
+import FileUpload from "../../uploads/FileUpload.vue";
 import { mapGetters } from "vuex";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
 import { FinancialDocument } from "df-shared/src/models/FinancialDocument";
-import ListItem from "@/components/uploads/ListItem.vue";
+import ListItem from "../../uploads/ListItem.vue";
 import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { extend } from "vee-validate";
-import { RegisterService } from "../../services/RegisterService";
+import { RegisterService } from "../../../services/RegisterService";
 import DfButton from "df-shared/src/Button/Button.vue";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { required, regex } from "vee-validate/dist/rules";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
-import { DocumentTypeConstants } from "./DocumentTypeConstants";
+import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import Modal from "df-shared/src/components/Modal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
-import DocumentHelp from "../helps/DocumentHelp.vue";
+import DocumentHelp from "../../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
-import { AnalyticsService } from "../../services/AnalyticsService";
+import { AnalyticsService } from "../../../services/AnalyticsService";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
-import ProfileFooter from "@/components/footer/ProfileFooter.vue";
+import ProfileFooter from "../../footer/ProfileFooter.vue";
 import { cloneDeep } from "lodash";
+import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 
 extend("regex", {
   ...regex,
@@ -293,6 +297,7 @@ extend("required", {
 
 @Component({
   components: {
+    AllDeclinedMessages,
     ValidationProvider,
     ValidationObserver,
     DocumentInsert,
@@ -341,6 +346,12 @@ export default class FinancialDocumentForm extends Vue {
       }
     }
     return false;
+  }
+
+  tenantFinancialDocument() {
+    return this.$store.getters.getTenantDocuments?.find((d: DfDocument) => {
+      return d.id === this.financialDocument.id;
+    });
   }
 
   onSelectChange() {

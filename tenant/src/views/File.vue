@@ -147,7 +147,7 @@ import { Vue, Component } from "vue-property-decorator";
 import DfButton from "df-shared/src/Button/Button.vue";
 import { ProfileService } from "../services/ProfileService";
 import { DfDocument } from "df-shared/src/models/DfDocument";
-import FileReinsurance from "@/components/FileReinsurance.vue";
+import FileReinsurance from "../components/FileReinsurance.vue";
 
 @Component({
   components: {

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <NakedCard class="fr-p-md-5w">
-      <div>
+    <div>
+      <NakedCard class="fr-p-md-5w">
         <h1 class="fr-h6">
           {{ $t("select-label") }}
         </h1>
@@ -17,27 +17,35 @@
             <p>
               <DocumentHelp></DocumentHelp>
               <DocumentInsert
-                :allow-list="professionalDocument.acceptedProofs"
-                :block-list="professionalDocument.refusedProofs"
-                v-if="professionalDocument.key"
+                :allow-list="identificationDocument.acceptedProofs"
+                :block-list="identificationDocument.refusedProofs"
+                v-if="identificationDocument.key"
               ></DocumentInsert>
             </p>
           </template>
         </v-gouv-fr-modal>
 
-        <select
-          v-model="professionalDocument"
-          class="fr-select fr-mb-3w fr-mt-3w"
-          id="select"
-          name="select"
-          @change="onSelectChange()"
-        >
-          <option v-for="d in documents" :value="d" :key="d.key">
-            {{ $t(d.key) }}
-          </option>
-        </select>
-      </div>
-    </NakedCard>
+        <div class="fr-mt-3w">
+          <fieldset class="fr-fieldset">
+            <div class="fr-fieldset__content">
+              <div class="fr-grid-row">
+                <div v-for="d in documents" :key="d.key" class="full-width-xs">
+                  <BigRadio
+                    :val="d"
+                    v-model="identificationDocument"
+                    @input="onSelectChange()"
+                  >
+                    <div class="fr-grid-col spa">
+                      <span>{{ $t(d.key) }}</span>
+                    </div>
+                  </BigRadio>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </NakedCard>
+    </div>
     <ConfirmModal
       v-if="isDocDeleteVisible"
       @valid="validSelect()"
@@ -45,16 +53,26 @@
     >
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
+
     <NakedCard
       class="fr-p-md-5w fr-mt-3w"
-      v-if="professionalDocument.key || professionalFiles().length > 0"
+      v-if="identificationDocument.key || identificationFiles().length > 0"
     >
-      <div class="fr-mb-3w">
-        {{ professionalDocument.explanationText }}
+      <div v-if="identificationDocument.explanationText">
+        <div
+          class="fr-mb-1w"
+          v-html="identificationDocument.explanationText"
+        ></div>
       </div>
-      <div v-if="professionalFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
+      <AllDeclinedMessages
+        :document="tenantIdentificationDocument()"
+      ></AllDeclinedMessages>
+      <div
+        v-if="identificationFiles().length > 0"
+        class="fr-col-md-12 fr-mb-3w"
+      >
         <ListItem
-          v-for="(file, k) in professionalFiles()"
+          v-for="(file, k) in identificationFiles()"
           :key="k"
           :file="file"
           @remove="remove(file)"
@@ -63,6 +81,7 @@
       <div class="fr-mb-3w">
         <FileUpload
           :current-status="fileUploadStatus"
+          :page="4"
           @add-files="addFiles"
           @reset-files="resetFiles"
         ></FileUpload>
@@ -73,31 +92,39 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import DocumentInsert from "@/components/documents/DocumentInsert.vue";
-import FileUpload from "@/components/uploads/FileUpload.vue";
 import { mapGetters } from "vuex";
+import DocumentInsert from "../share/DocumentInsert.vue";
+import FileUpload from "../../uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
-import ListItem from "@/components/uploads/ListItem.vue";
+import ListItem from "../../uploads/ListItem.vue";
+import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
-import { RegisterService } from "../../services/RegisterService";
+import { ValidationProvider } from "vee-validate";
+import { RegisterService } from "../../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
-import { DocumentTypeConstants } from "./DocumentTypeConstants";
+import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
-import { User } from "df-shared/src/models/User";
-import DocumentHelp from "../helps/DocumentHelp.vue";
+import DfButton from "df-shared/src/Button/Button.vue";
+import BigRadio from "df-shared/src/Button/BigRadio.vue";
+import DocumentHelp from "../../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
-import { AnalyticsService } from "../../services/AnalyticsService";
+import { AnalyticsService } from "../../../services/AnalyticsService";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 
 @Component({
   components: {
     DocumentInsert,
     FileUpload,
     ListItem,
+    AllDeclinedMessages,
+    ValidationProvider,
     WarningMessage,
     ConfirmModal,
+    DfButton,
+    BigRadio,
     DocumentHelp,
     VGouvFrModal,
     NakedCard
@@ -108,35 +135,33 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
     })
   }
 })
-export default class Professional extends Vue {
+export default class Identification extends Vue {
+  documents = DocumentTypeConstants.IDENTIFICATION_DOCS;
+
   user!: User;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
-  uploadProgress: {
-    [key: string]: { state: string; percentage: number };
-  } = {};
-  professionalDocument = new DocumentType();
-  documents = DocumentTypeConstants.PROFESSIONAL_DOCS;
+  identificationDocument = new DocumentType();
   isDocDeleteVisible = false;
 
   getLocalStorageKey() {
-    return "professional_" + this.user.email;
+    return "identification_" + this.user.email;
   }
 
   beforeMount() {
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "PROFESSIONAL";
+        return d.documentCategory === "IDENTIFICATION";
       });
       if (doc !== undefined) {
         const localDoc = this.documents.find((d: DocumentType) => {
           return d.value === doc.documentSubCategory;
         });
         if (localDoc !== undefined) {
-          this.professionalDocument = localDoc;
+          this.identificationDocument = localDoc;
           localStorage.setItem(
             this.getLocalStorageKey(),
-            this.professionalDocument.key || ""
+            this.identificationDocument.key || ""
           );
         }
       } else {
@@ -146,7 +171,7 @@ export default class Professional extends Vue {
             return d.key === key;
           });
           if (localDoc !== undefined) {
-            this.professionalDocument = localDoc;
+            this.identificationDocument = localDoc;
           }
         }
       }
@@ -156,16 +181,16 @@ export default class Professional extends Vue {
   onSelectChange() {
     localStorage.setItem(
       this.getLocalStorageKey(),
-      this.professionalDocument.key
+      this.identificationDocument.key
     );
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "PROFESSIONAL";
+        return d.documentCategory === "IDENTIFICATION";
       });
       if (doc !== undefined) {
         this.isDocDeleteVisible =
           (doc.files?.length || 0) > 0 &&
-          doc.documentSubCategory !== this.professionalDocument.value;
+          doc.documentSubCategory !== this.identificationDocument.value;
       }
     }
     return false;
@@ -174,14 +199,14 @@ export default class Professional extends Vue {
   undoSelect() {
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "PROFESSIONAL";
+        return d.documentCategory === "IDENTIFICATION";
       });
       if (doc !== undefined) {
         const localDoc = this.documents.find((d: DocumentType) => {
           return d.value === doc.documentSubCategory;
         });
         if (localDoc !== undefined) {
-          this.professionalDocument = localDoc;
+          this.identificationDocument = localDoc;
         }
       }
     }
@@ -192,7 +217,7 @@ export default class Professional extends Vue {
     this.isDocDeleteVisible = false;
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "PROFESSIONAL";
+        return d.documentCategory === "IDENTIFICATION";
       });
       if (doc?.files !== undefined) {
         for (const f of doc.files) {
@@ -205,19 +230,20 @@ export default class Professional extends Vue {
   }
 
   addFiles(fileList: File[]) {
-    AnalyticsService.uploadFile("professional");
+    AnalyticsService.uploadFile("identification");
     const nf = Array.from(fileList).map(f => {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
     this.save();
   }
+
   resetFiles() {
     this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
   }
+
   save() {
-    AnalyticsService.registerFile("professional");
-    this.uploadProgress = {};
+    AnalyticsService.registerFile("identification");
     const fieldName = "documents";
     const formData = new FormData();
     const newFiles = this.files.filter(f => {
@@ -226,34 +252,37 @@ export default class Professional extends Vue {
     if (!newFiles.length) return;
 
     if (
-      this.professionalDocument.maxFileCount &&
-      this.professionalFiles().length > this.professionalDocument.maxFileCount
+      this.identificationDocument.maxFileCount &&
+      this.identificationFiles().length >
+        this.identificationDocument.maxFileCount
     ) {
       Vue.toasted.global.max_file({
         message: this.$i18n.t("max-file", [
-          this.professionalFiles().length,
-          this.professionalDocument.maxFileCount
+          this.identificationFiles().length,
+          this.identificationDocument.maxFileCount
         ])
       });
       return;
     }
+
     Array.from(Array(newFiles.length).keys()).map(x => {
       const f: File = newFiles[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
     });
 
     formData.append(
-      "typeDocumentProfessional",
-      this.professionalDocument.value
+      "typeDocumentIdentification",
+      this.identificationDocument.value
     );
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
+    // TODO : remove loader when upload status is well handled (be carefull with multiple save at the same time)
     const loader = this.$loading.show();
     this.$store
-      .dispatch("saveTenantProfessional", formData)
+      .dispatch("saveTenantIdentification", formData)
       .then(() => {
-        this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
+        this.files = [];
         Vue.toasted.global.save_success();
       })
       .catch(err => {
@@ -269,24 +298,29 @@ export default class Professional extends Vue {
       });
   }
 
-  professionalFiles() {
+  tenantIdentificationDocument() {
+    return this.$store.getters.getTenantIdentificationDocument;
+  }
+
+  identificationFiles() {
     const newFiles = this.files.map(f => {
       return {
-        documentSubCategory: this.professionalDocument.value,
+        documentSubCategory: this.identificationDocument.value,
         id: f.name,
         name: f.name,
-        size: f.size
+        file: f.file,
+        size: f.file?.size
       };
     });
     const existingFiles =
       this.$store.getters.getTenantDocuments?.find((d: DfDocument) => {
-        return d.documentCategory === "PROFESSIONAL";
+        return d.documentCategory === "IDENTIFICATION";
       })?.files || [];
     return [...newFiles, ...existingFiles];
   }
 
   async remove(file: DfFile, silent = false) {
-    AnalyticsService.deleteFile("professional");
+    AnalyticsService.deleteFile("identification");
     if (file.path && file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
@@ -299,41 +333,41 @@ export default class Professional extends Vue {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+table {
+  border-collapse: collapse;
+}
+
+table,
+th,
+td {
+  border: 1px solid #ececec;
+}
+</style>
 
 <i18n>
 {
 "en": {
-  "cdi": "CDI",
-  "cdi-trial": "CDI (période d’essai)",
-  "cdd": "CDD",
-  "alternation": "Alternance",
-  "internship": "Stage",
-  "student": "Études",
-  "public": "Fonction publique",
-  "ctt": "CTT (intérimaire)",
-  "retired": "Retraité",
-  "unemployed": "Chômage",
-  "independent": "Indépendant",
+  "identity-card": "French identity card",
+  "passport": "French passeport",
+  "permit": "French residence permit",
   "other": "Autre",
+  "files": "Documents",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-  "select-label": "Your current professional situation:"
+  "select-label": "I add a valid identity document.",
+  "validate": "Validate",
+  "cancel": "Cancel"
 },
 "fr": {
-  "cdi": "CDI",
-  "cdi-trial": "CDI (période d’essai)",
-  "cdd": "CDD",
-  "alternation": "Alternance",
-  "internship": "Stage",
-  "student": "Études",
-  "public": "Fonction publique",
-  "ctt": "CTT (intérimaire)",
-  "retired": "Retraité",
-  "unemployed": "Chômage",
-  "independent": "Indépendant",
+  "identity-card": "Carte d’identité française",
+  "passport": "Passeport français",
+  "permit": "Titre de séjour français",
   "other": "Autre",
+  "files": "Documents",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "select-label": "Votre situation professionnelle actuelle :"
+  "select-label": "Déposez une pièce d'identité en cours de validité.",
+  "validate": "Valider",
+  "cancel": "Annuler"
 }
 }
 </i18n>

@@ -51,7 +51,7 @@
 import { DfFile } from "df-shared/src/models/DfFile";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import Progress from "./Progress.vue";
-import ShowDoc from "../documents/ShowDoc.vue";
+import ShowDoc from "../documents/share/ShowDoc.vue";
 import Modal from "df-shared/src/components/Modal.vue";
 import { AnalyticsService } from "../../services/AnalyticsService";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";

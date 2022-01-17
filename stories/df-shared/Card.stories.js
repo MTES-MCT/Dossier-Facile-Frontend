@@ -1,7 +1,7 @@
 import Card from "df-shared/src/components/Card";
 
 export default {
-    title: 'Example/Card',
+    title: 'DfShared/Card',
     component: Card,
     argTypes: {
         expandable: true,

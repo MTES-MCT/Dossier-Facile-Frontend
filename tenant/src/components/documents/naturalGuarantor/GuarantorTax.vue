@@ -111,6 +111,9 @@
         <div class="fr-mb-3w">
           <p v-html="taxDocument.explanationText"></p>
         </div>
+        <AllDeclinedMessages
+          :document="guarantorTaxDocument()"
+        ></AllDeclinedMessages>
         <div v-if="taxFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
           <ListItem
             v-for="(file, k) in taxFiles()"
@@ -135,26 +138,27 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { DocumentType } from "df-shared/src/models/Document";
-import DocumentInsert from "@/components/documents/DocumentInsert.vue";
-import FileUpload from "@/components/uploads/FileUpload.vue";
+import DocumentInsert from "../share/DocumentInsert.vue";
+import FileUpload from "../../uploads/FileUpload.vue";
 import { mapState } from "vuex";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
-import ListItem from "@/components/uploads/ListItem.vue";
+import ListItem from "../../uploads/ListItem.vue";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { extend } from "vee-validate";
 import { is } from "vee-validate/dist/rules";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
-import { RegisterService } from "../../services/RegisterService";
+import { RegisterService } from "../../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
-import { DocumentTypeConstants } from "./DocumentTypeConstants";
+import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
-import TaxHelp from "../helps/TaxHelp.vue";
-import GuarantorFooter from "@/components/footer/GuarantorFooter.vue";
+import TaxHelp from "../../helps/TaxHelp.vue";
+import GuarantorFooter from "../../footer/GuarantorFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 
 extend("is", {
   ...is,
@@ -164,6 +168,7 @@ extend("is", {
 
 @Component({
   components: {
+    AllDeclinedMessages,
     DocumentInsert,
     FileUpload,
     ListItem,
@@ -217,6 +222,10 @@ export default class Tax extends Vue {
       return localDoc;
     }
     return undefined;
+  }
+
+  guarantorTaxDocument() {
+    return this.$store.getters.getGuarantorTaxDocument;
   }
 
   onSelectChange() {

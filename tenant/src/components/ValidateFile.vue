@@ -148,7 +148,7 @@ import { ValidationProvider, ValidationObserver } from "vee-validate";
 import { mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
 import { Guarantor } from "df-shared/src/models/Guarantor";
-import ProfileFooter from "@/components/footer/ProfileFooter.vue";
+import ProfileFooter from "./footer/ProfileFooter.vue";
 import { UtilsService } from "../services/UtilsService";
 import { extend } from "vee-validate";
 import { is } from "vee-validate/dist/rules";

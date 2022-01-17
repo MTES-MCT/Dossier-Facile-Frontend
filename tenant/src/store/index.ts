@@ -2,20 +2,20 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { AuthService } from "df-shared/src/services/AuthService";
-import { MessageService } from "@/services/MessageService";
-import { ProfileService } from "@/services/ProfileService";
+import { MessageService } from "../services/MessageService";
+import { ProfileService } from "../services/ProfileService";
 import router from "../router";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { User } from "df-shared/src/models/User";
-import i18n from "@/i18n";
+import i18n from "../i18n";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { DfMessage } from "df-shared/src/models/DfMessage";
-import { AnalyticsService } from "@/services/AnalyticsService";
-import { RegisterService } from "@/services/RegisterService";
-import { UtilsService } from "@/services/UtilsService";
+import { AnalyticsService } from "../services/AnalyticsService";
+import { RegisterService } from "../services/RegisterService";
+import { UtilsService } from "../services/UtilsService";
 import { FinancialDocument } from "df-shared/src/models/FinancialDocument";
 import { DocumentType } from "df-shared/src/models/Document";
-import { DocumentTypeConstants } from "@/components/documents/DocumentTypeConstants";
+import { DocumentTypeConstants } from "../components/documents/share/DocumentTypeConstants";
 
 Vue.use(Vuex);
 
@@ -637,6 +637,52 @@ const store = new Vuex.Store({
     getTenantDocuments(state): DfDocument[] {
       return state.user?.documents || [];
     },
+    getTenantIdentificationDocument(state): DfDocument {
+      return state.user?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "IDENTIFICATION";
+      });
+    },
+    getTenantResidencyDocument(state): DfDocument {
+      return state.user?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "RESIDENCY";
+      });
+    },
+    getTenantProfessionalDocument(state): DfDocument {
+      return state.user?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "PROFESSIONAL";
+      });
+    },
+    getTenantTaxDocument(state): DfDocument {
+      return state.user?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "TAX";
+      });
+    },
+    getGuarantorIdentificationLegalPersonDocument(state): DfDocument {
+      return state.selectedGuarantor?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "IDENTIFICATION_LEGAL_PERSON";
+      });
+    },
+    getGuarantorIdentificationDocument(state): DfDocument {
+      return state.selectedGuarantor?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "IDENTIFICATION";
+      });
+    },
+    getGuarantorResidencyDocument(state): DfDocument {
+      return state.selectedGuarantor?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "RESIDENCY";
+      });
+    },
+    getGuarantorProfessionalDocument(state): DfDocument {
+      return state.selectedGuarantor?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "PROFESSIONAL";
+      });
+    },
+    getGuarantorTaxDocument(state): DfDocument {
+      return state.selectedGuarantor?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "TAX";
+      });
+    },
+
     getGuarantorDocuments(state): DfDocument[] {
       return state.selectedGuarantor.documents || [];
     },

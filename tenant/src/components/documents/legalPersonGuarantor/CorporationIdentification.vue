@@ -44,6 +44,9 @@
               </p>
             </template>
           </v-gouv-fr-modal>
+          <AllDeclinedMessages
+            :document="guarantorIdentificationLegalPersonDocument()"
+          ></AllDeclinedMessages>
           <div class="fr-col-md-12 fr-mb-3w">
             <ListItem
               v-for="(file, k) in listFiles()"
@@ -74,19 +77,20 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapState } from "vuex";
-import DocumentInsert from "@/components/documents/DocumentInsert.vue";
-import FileUpload from "@/components/uploads/FileUpload.vue";
+import DocumentInsert from "../share/DocumentInsert.vue";
+import FileUpload from "../../uploads/FileUpload.vue";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
-import ListItem from "@/components/uploads/ListItem.vue";
+import ListItem from "../../uploads/ListItem.vue";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { DfFile } from "df-shared/src/models/DfFile";
-import { RegisterService } from "../../services/RegisterService";
+import { RegisterService } from "../../../services/RegisterService";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 
 extend("required", {
   ...required,
@@ -95,6 +99,7 @@ extend("required", {
 
 @Component({
   components: {
+    AllDeclinedMessages,
     DocumentInsert,
     FileUpload,
     ListItem,
@@ -184,6 +189,10 @@ export default class CorporationIdentification extends Vue {
       });
       this.files.splice(firstIndex, 1);
     }
+  }
+
+  guarantorIdentificationLegalPersonDocument() {
+    return this.$store.getters.getGuarantorIdentificationLegalPersonDocument;
   }
 
   listFiles() {

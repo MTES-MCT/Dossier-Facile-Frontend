@@ -217,16 +217,20 @@ export const DocumentService = {
     let status;
     switch (documentType) {
       case "IDENTITY":
-        status = DocumentService.getGuarantorIdentityStatus(guarantor) || "EMPTY";
+        status =
+          DocumentService.getGuarantorIdentityStatus(guarantor) || "EMPTY";
         break;
       case "RESIDENCY":
-        status = DocumentService.getGuarantorResidencyStatus(guarantor) || "EMPTY";
+        status =
+          DocumentService.getGuarantorResidencyStatus(guarantor) || "EMPTY";
         break;
       case "PROFESSIONAL":
-        status = DocumentService.getGuarantorProfessionalStatus(guarantor) || "EMPTY";
+        status =
+          DocumentService.getGuarantorProfessionalStatus(guarantor) || "EMPTY";
         break;
       case "FINANCIAL":
-        status = DocumentService.getGuarantorFinancialStatus(guarantor) || "EMPTY";
+        status =
+          DocumentService.getGuarantorFinancialStatus(guarantor) || "EMPTY";
         break;
       case "TAX":
         status = DocumentService.getGuarantorTaxStatus(guarantor) || "EMPTY";

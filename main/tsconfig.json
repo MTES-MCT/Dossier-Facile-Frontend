@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es2020",
     "module": "esnext",
     "strict": true,
     "jsx": "preserve",
@@ -17,8 +17,7 @@
       "webpack-env",
       "mocha",
       "chai",
-      "webpack",
-      "webpack-env"
+      "webpack"
     ],
     "paths": {
       "@/*": [
