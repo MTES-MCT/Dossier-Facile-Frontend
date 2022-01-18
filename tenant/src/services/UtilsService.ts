@@ -59,7 +59,10 @@ export const UtilsService = {
     }
 
     for (const doc of docs) {
-      if (!doc.noDocument && (doc.files?.length || 0) <= 0) {
+      if (
+        (!doc.noDocument && (doc.files?.length || 0) <= 0) ||
+        doc.documentStatus === "DECLINED"
+      ) {
         return false;
       }
     }
@@ -101,7 +104,10 @@ export const UtilsService = {
     }
 
     for (const doc of docs) {
-      if (!doc.noDocument && (doc.files?.length || 0) <= 0) {
+      if (
+        (!doc.noDocument && (doc.files?.length || 0) <= 0) ||
+        doc.documentStatus === "DECLINED"
+      ) {
         return false;
       }
     }
