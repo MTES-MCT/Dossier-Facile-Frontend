@@ -10,7 +10,14 @@ module.exports = {
     "@storybook/addon-actions",
     "@storybook/addon-links",
     "@storybook/addon-essentials",
-    '@storybook/addon-postcss'
+    {
+      name: '@storybook/addon-postcss',
+      options: {
+        postcssLoaderOptions: {
+          implementation: require('postcss'),
+        },
+      },
+    }
   ],
   plugins: [
     new VueLoaderPlugin()
