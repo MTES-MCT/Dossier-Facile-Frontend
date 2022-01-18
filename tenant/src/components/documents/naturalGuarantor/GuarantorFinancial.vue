@@ -18,7 +18,10 @@
         >
           <template v-slot:tag>
             <div class="fixed-width">
-              <div class="fr-tag">{{ $t(f.documentType.key) }}</div>
+              <ColoredTag
+                :text="$t(f.documentType.key)"
+                :status="guarantorFinancialDocument(f).documentStatus"
+              ></ColoredTag>
             </div>
           </template>
           <template v-slot:text>
@@ -78,6 +81,7 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 import CardRow from "df-shared/src/components/CardRow.vue";
 import GuarantorFinancialDocumentForm from "./GuarantorFinancialDocumentForm.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
+import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 
 extend("regex", {
   ...regex,
@@ -92,6 +96,7 @@ extend("required", {
 @Component({
   components: {
     AllDeclinedMessages,
+    ColoredTag,
     ValidationProvider,
     ValidationObserver,
     DocumentInsert,
