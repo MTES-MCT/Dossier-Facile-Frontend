@@ -14,6 +14,7 @@
         <CardRow
           @edit="selectFinancialDocument(f)"
           @remove="removeFinancial(f)"
+          :danger="guarantorFinancialDocument(f).documentStatus === 'DECLINED'"
         >
           <template v-slot:tag>
             <div class="fixed-width">
@@ -28,6 +29,12 @@
             >
               {{ f.monthlySum }} {{ $t("monthly") }}
             </div>
+          </template>
+          <template v-slot:bottom>
+            <AllDeclinedMessages
+              class="fr-mb-0"
+              :document="guarantorFinancialDocument(f)"
+            ></AllDeclinedMessages>
           </template>
         </CardRow>
       </div>
@@ -70,6 +77,7 @@ import ProfileFooter from "../../footer/ProfileFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import CardRow from "df-shared/src/components/CardRow.vue";
 import GuarantorFinancialDocumentForm from "./GuarantorFinancialDocumentForm.vue";
+import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 
 extend("regex", {
   ...regex,
@@ -83,6 +91,7 @@ extend("required", {
 
 @Component({
   components: {
+    AllDeclinedMessages,
     ValidationProvider,
     ValidationObserver,
     DocumentInsert,
@@ -123,6 +132,12 @@ export default class GuarantorFinancial extends Vue {
     if (this.financialDocuments.length === 0) {
       this.addAndSelectFinancial();
     }
+  }
+
+  guarantorFinancialDocument(f: FinancialDocument) {
+    return this.$store.getters.getGuarantorDocuments?.find((d: DfDocument) => {
+      return d.id === f.id;
+    });
   }
 
   financialFiles(f: FinancialDocument) {
