@@ -1,12 +1,13 @@
 <template>
-  <div v-if="document && document.documentDeniedReasons">
+  <div v-if="document && document.documentDeniedReasons" class="fr-mt-3w">
     <div
+      class="m1"
       v-for="(m, k) in document.documentDeniedReasons.checkedOptions"
       :key="k"
     >
       <DeclinedMessage :message="m"></DeclinedMessage>
     </div>
-    <div v-if="document.documentDeniedReasons.comment">
+    <div class="m1" v-if="document.documentDeniedReasons.comment">
       <DeclinedMessage
         :message="document.documentDeniedReasons.comment"
       ></DeclinedMessage>
@@ -26,3 +27,12 @@ export default class Identification extends Vue {
   @Prop() document?: Document;
 }
 </script>
+
+<style scoped lang="scss">
+.m1 {
+  margin: 0 0 1rem;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+</style>

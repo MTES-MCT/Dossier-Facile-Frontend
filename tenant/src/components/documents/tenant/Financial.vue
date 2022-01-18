@@ -14,20 +14,31 @@
         <CardRow
           @edit="selectFinancialDocument(f)"
           @remove="removeFinancial(f)"
+          :danger="tenantFinancialDocument(f).documentStatus === 'DECLINED'"
         >
           <template v-slot:tag>
             <div class="fixed-width">
-              <div class="fr-tag">{{ $t(f.documentType.key) }}</div>
+              <ColoredTag
+                :text="$t(f.documentType.key)"
+                :status="tenantFinancialDocument(f).documentStatus"
+              ></ColoredTag>
             </div>
           </template>
           <template v-slot:text>
             <div
               class="text-bold"
+              :class="{ declined: tenantFinancialDocument(f).documentStatus }"
               :title="$t('net-monthly')"
               v-show="f.documentType.key !== 'no-income'"
             >
               {{ f.monthlySum }} {{ $t("monthly") }}
             </div>
+          </template>
+          <template v-slot:bottom>
+            <AllDeclinedMessages
+              class="fr-mb-0"
+              :document="tenantFinancialDocument(f)"
+            ></AllDeclinedMessages>
           </template>
         </CardRow>
       </div>
@@ -70,6 +81,8 @@ import ProfileFooter from "../../footer/ProfileFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import CardRow from "df-shared/src/components/CardRow.vue";
 import FinancialDocumentForm from "./FinancialDocumentForm.vue";
+import ColoredTag from "df-shared/src/components/ColoredTag.vue";
+import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 
 extend("regex", {
   ...regex,
@@ -83,7 +96,9 @@ extend("required", {
 
 @Component({
   components: {
+    AllDeclinedMessages,
     ValidationProvider,
+    ColoredTag,
     ValidationObserver,
     DocumentInsert,
     FileUpload,
@@ -139,6 +154,12 @@ export default class Financial extends Vue {
         return d.id === f.id;
       })?.files || [];
     return [...newFiles, ...existingFiles];
+  }
+
+  tenantFinancialDocument(f: FinancialDocument) {
+    return this.$store.getters.getTenantDocuments?.find((d: DfDocument) => {
+      return d.id === f.id;
+    });
   }
 
   async addAndSelectFinancial() {
@@ -202,11 +223,6 @@ export default class Financial extends Vue {
 </script>
 
 <style scoped lang="scss">
-.fr-tag {
-  background-color: #5398ff;
-  color: var(--text-inverted-grey);
-}
-
 .add-income-btn {
   border-radius: 0.5rem;
   padding: 1.75rem;

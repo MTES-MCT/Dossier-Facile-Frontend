@@ -116,6 +116,7 @@
           <div v-html="taxDocument.explanationText"></div>
         </div>
         <AllDeclinedMessages
+          class="fr-mb-3w"
           :document="tenantTaxDocument()"
         ></AllDeclinedMessages>
         <div v-if="taxFiles().length > 0" class="fr-col-12 fr-mb-3w">

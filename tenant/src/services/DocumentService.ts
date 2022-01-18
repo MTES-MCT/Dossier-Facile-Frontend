@@ -146,6 +146,7 @@ export const DocumentService = {
     return doc.documentStatus || "";
   },
   getGuarantorFinancialStatus(g: Guarantor): string {
+    // TODO : if status is financial, we should aggregate all the status
     const doc = this.guarantorHasDoc(
       g || store.state.selectedGuarantor,
       "FINANCIAL"

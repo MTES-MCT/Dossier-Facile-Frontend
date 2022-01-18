@@ -62,6 +62,7 @@
         <p v-html="identificationDocument.explanationText"></p>
       </div>
       <AllDeclinedMessages
+        class="fr-mb-3w"
         :document="guarantorIdentificationDocument()"
       ></AllDeclinedMessages>
       <div

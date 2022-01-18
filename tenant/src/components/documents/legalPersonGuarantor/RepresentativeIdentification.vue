@@ -60,6 +60,7 @@
             </template>
           </v-gouv-fr-modal>
           <AllDeclinedMessages
+            class="fr-mb-3w"
             :document="guarantorIdentificationDocument()"
           ></AllDeclinedMessages>
           <div class="fr-col-md-12 fr-mb-3w" v-if="listFiles().length > 0">
