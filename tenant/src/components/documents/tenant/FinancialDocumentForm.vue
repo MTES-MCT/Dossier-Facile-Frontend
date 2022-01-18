@@ -150,6 +150,7 @@
                 {{ financialDocument.documentType.explanationText }}
               </div>
               <AllDeclinedMessages
+                class="fr-mb-3w"
                 :document="tenantFinancialDocument()"
               ></AllDeclinedMessages>
               <div

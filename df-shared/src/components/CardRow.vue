@@ -34,6 +34,9 @@
         </button>
       </div>
     </div>
+    <div v-if="$slots.bottom">
+      <slot name="bottom"></slot>
+    </div>
   </NakedCard>
 </template>
 
