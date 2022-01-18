@@ -148,6 +148,7 @@
             {{ financialDocument.documentType.explanationText }}
           </div>
           <AllDeclinedMessages
+            class="fr-mb-3w"
             :document="guarantorFinancialDocument()"
           ></AllDeclinedMessages>
           <div v-if="financialFiles().length > 0" class="fr-col-md-12 fr-mb-3w">

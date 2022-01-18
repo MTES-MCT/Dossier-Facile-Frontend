@@ -65,6 +65,7 @@
         ></div>
       </div>
       <AllDeclinedMessages
+        class="fr-mb-3w"
         :document="tenantIdentificationDocument()"
       ></AllDeclinedMessages>
       <div

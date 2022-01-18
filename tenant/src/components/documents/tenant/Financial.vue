@@ -34,6 +34,12 @@
               {{ f.monthlySum }} {{ $t("monthly") }}
             </div>
           </template>
+          <template v-slot:bottom>
+            <AllDeclinedMessages
+              class="fr-mb-0"
+              :document="tenantFinancialDocument(f)"
+            ></AllDeclinedMessages>
+          </template>
         </CardRow>
       </div>
       <div>
@@ -76,6 +82,7 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 import CardRow from "df-shared/src/components/CardRow.vue";
 import FinancialDocumentForm from "./FinancialDocumentForm.vue";
 import ColoredTag from "df-shared/src/components/ColoredTag.vue";
+import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 
 extend("regex", {
   ...regex,
@@ -89,6 +96,7 @@ extend("required", {
 
 @Component({
   components: {
+    AllDeclinedMessages,
     ValidationProvider,
     ColoredTag,
     ValidationObserver,
