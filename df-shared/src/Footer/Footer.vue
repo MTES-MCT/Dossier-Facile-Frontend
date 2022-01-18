@@ -285,7 +285,7 @@ export default class TheFooter extends Vue {
     "blog": "Blog",
     "information": "Find out more",
     "sources": "Source code",
-    "accessibility": "Accessibility: partial",
+    "accessibility": "Accessibility: not compliant",
     "statistics": "Statistics",
     "partner": "Partners"
   },
@@ -296,7 +296,7 @@ export default class TheFooter extends Vue {
     "blog": "Blog",
     "information": "En savoir plus",
     "sources": "Code source",
-    "accessibility": "Accessibilité: partiellement",
+    "accessibility": "Accessibilité: non conform",
     "statistics": "Statistiques",
     "partner": "Partenaires"
   }
