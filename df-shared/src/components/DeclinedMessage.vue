@@ -1,5 +1,5 @@
 <template>
-  <div class="declined">🤖 {{ message }}</div>
+  <div class="declined" v-html="'🤖 ' + message"></div>
 </template>
 
 <script lang="ts">
