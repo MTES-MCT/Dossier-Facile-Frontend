@@ -39,7 +39,7 @@ module.exports = {
         new PrerenderSpaPlugin({
           // args for puppeteer
           renderer: new Renderer({
-            args: ['--no-sandbox']
+            args: ["--no-sandbox"]
           }),
           staticDir: path.resolve(__dirname, "dist"),
           routes: [
@@ -60,8 +60,7 @@ module.exports = {
             "/information",
             "/mentions-legales"
           ]
-        }
-        )
+        })
       ]
     };
   }
