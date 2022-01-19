@@ -67,9 +67,13 @@ const store = new Vuex.Store({
       state.user = user;
     },
     loadUser(state, user) {
-      state.user = Object.assign({}, user);
-      state.status.loggedIn = true;
-      state.user.applicationType = state.user?.apartmentSharing.applicationType;
+      Vue.set(state, "user", user);
+      Vue.set(state.status, "loggedIn", true);
+      Vue.set(
+        state.user,
+        "applicationType",
+        state.user?.apartmentSharing.applicationType
+      );
 
       if (state.user?.guarantors && state.user.guarantors.length > 0) {
         if (state.selectedGuarantor?.id) {
