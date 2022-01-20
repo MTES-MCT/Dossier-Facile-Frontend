@@ -42,33 +42,8 @@
           </div>
         </div>
       </div>
-      <div class="fr-col-lg-6 fr-col-12 bg-white">
-        <div class="margin-auto max-400">
-          <Register :source="true" :email="email" @on-register="onRegister" />
-          <div class="text-center fr-mb-5w">
-            <a href="#" @click="connect" class="blue-text">
-              {{ $t("existing-account") }}
-            </a>
-          </div>
-        </div>
-      </div>
+      <div class="fr-col-lg-6 fr-col-12 bg-white"></div>
     </div>
-    <Modal v-show="isValidModalVisible" @close="closeModal">
-      <template v-slot:body>
-        <div class="fr-container">
-          <div class="fr-grid-row justify-content-center">
-            <div class="fr-col-12">
-              <p>
-                {{ $t("mail-sent") }}
-              </p>
-              <p>
-                {{ $t("clic-to-confirm") }}
-              </p>
-            </div>
-          </div>
-        </div>
-      </template>
-    </Modal>
     <ConfirmModal
       v-if="showConfirmModal"
       @valid="validModal()"
@@ -81,7 +56,6 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import { User } from "df-shared/src/models/User";
 import Register from "df-shared/src/Authentification/Register.vue";
 import Modal from "df-shared/src/components/Modal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
@@ -102,7 +76,7 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
     })
   }
 })
-export default class Source extends Vue {
+export default class SourceLink extends Vue {
   isLoggedIn!: boolean;
   source = "";
   internalPartnerId = "";
@@ -110,20 +84,24 @@ export default class Source extends Vue {
   lastName = "";
   email = "";
 
-  isValidModalVisible = false;
   showConfirmModal = false;
 
   created() {
-    this.source = this.$route.params.source;
-    this.internalPartnerId = this.$route.query.internalPartnerId.toString();
-    this.firstName = this.$route.query.firstName.toString();
-    this.lastName = this.$route.query.lastName.toString();
-    this.email = this.$route.query.email.toString();
+    this.source = this.$route.params.source || "";
+    this.internalPartnerId =
+      this.$route.query.internalPartnerId?.toString() || "";
+    this.firstName = this.$route.query.firstName?.toString() || "";
+    this.lastName = this.$route.query.lastName?.toString() || "";
+    this.email = this.$route.query.email?.toString() || "";
   }
 
   mounted() {
     if (this.isLoggedIn) {
       this.showConfirmModal = true;
+    } else {
+      (Vue as any).$keycloak.login({
+        redirectUri: this.$route.query.page
+      });
     }
   }
 
@@ -144,57 +122,11 @@ export default class Source extends Vue {
       });
   }
 
-  onRegister(user: User) {
-    user.firstName = this.firstName;
-    user.lastName = this.lastName;
-    if (user.email && user.password) {
-      this.$store
-        .dispatch("register", {
-          user,
-          source: this.source,
-          internalPartnerId: this.internalPartnerId
-        })
-        .then(
-          () => {
-            this.isValidModalVisible = true;
-          },
-          error => {
-            if (
-              error.response.data.errors.indexOf(
-                "email: the emails are already being used"
-              ) >= 0
-            ) {
-              this.$toasted.show(this.$i18n.t("duplicate-email").toString(), {
-                type: "error",
-                duration: 7000
-              });
-            } else {
-              this.$toasted.show(this.$i18n.t("register-error").toString(), {
-                type: "error",
-                duration: 7000
-              });
-            }
-          }
-        );
-    }
-  }
-
-  connect() {
-    if (this.isLoggedIn) {
-      this.showConfirmModal = true;
-    } else {
-      (Vue as any).$keycloak.login({
-        redirectUri: this.$route.query.page
-      });
-    }
-  }
-
   closeConfirmModal() {
-    this.showConfirmModal = false;
+    this.$router.push("/account");
   }
 
   closeModal() {
-    this.isValidModalVisible = false;
     this.$router.push("/account");
   }
 }

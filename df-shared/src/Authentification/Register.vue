@@ -1,15 +1,20 @@
 <template>
   <div>
     <div>
-      <h2 class="fr-h2 text-center fr-mt-3w fr-mb-5w blue-text">
+      <h2 class="fr-h2 text-center fr-mt-3w fr-mb-5w color--primary">
         {{ $t("title") }}
       </h2>
 
       <template v-if="franceConnect">
         <div class="fr-mt-5w fr-mb-5w text-center ">
-          <a id="social-franceconnect-particulier" class="inline-block" type="button" href="/account">
-            <span class="">France Connect Particulier</span>
-          </a>
+          <div v-if="getParams() !== undefined">
+            <router-link :to="{name: 'SourceLink', params: getParams(), query: getQuery()}" class="color--primary">{{ $t('connect-france-connect') }}</router-link>
+          </div>
+          <div v-else>
+            <a href="/account">
+              {{ $t('connect-france-connect') }}
+            </a>
+          </div>
         </div>
 
         <div class="separator">{{ $t('or') }}</div>
@@ -202,7 +207,7 @@ export default class Register extends Vue {
   SITE_KEY = process.env.VUE_APP_CAPTCHA_SITE_KEY;
 
   @Prop({ default: "" }) email!: string;
-  @Prop({ default: false }) franceConnect!: boolean;
+  franceConnect = window.location.href.includes("www-dev") || window.location.href.includes("localhost");
 
   user: User = new User();
   score = 0;
@@ -230,6 +235,24 @@ export default class Register extends Vue {
     this.score = s;
   }
 
+  getParams() {
+    if (!this.$route.params.source) {
+      return undefined;
+    }
+    return {
+      source: this.$route.params.source,
+    }
+  }
+
+  getQuery() {
+    return {
+      internalPartnerId: this.$route.query.internalPartnerId.toString() || "",
+      firstName: this.$route.query.firstName.toString() || "",
+      lastName: this.$route.query.lastName.toString() || "",
+      email: this.$route.query.email.toString() || ""
+    }
+  }
+
   generatePlaceholder() {
     const chars = ["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz","0123456789", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", "#!?-_."];
     this.generatedPwd = this.$i18n.t('ex') + [4,4,2,2].map(function(len, i) { return Array(len).fill(chars[i]).map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('') }).concat().join('').split('').sort(function(){return 0.5-Math.random()}).join('');
@@ -241,26 +264,6 @@ export default class Register extends Vue {
 .full-width-btn {
   width: 100%;
   display: table-cell;
-}
-
-a#social-franceconnect-particulier {
-  background: url(https://partenaires.franceconnect.gouv.fr/images/fc_bouton_alt2_v2.png) no-repeat left top;
-  height: 56px;
-  width: 224px;
-}
-
-a#social-franceconnect-particulier:hover {
-  background: url(https://partenaires.franceconnect.gouv.fr/images/fc_bouton_alt3_v2.png) no-repeat left top !important;
-  height: 56px;
-  width: 224px;
-}
-
-a#social-franceconnect-particulier span {
-	display:none;
-}
-
-.inline-block {
-  display: inline-block;
 }
 
 .separator {
@@ -303,7 +306,8 @@ a#social-franceconnect-particulier span {
 "accept-cgu": "En cochant cette case et en cliquant sur \"Je crée mon compte\", j’accepte expressément les <a target=\"_blank\" href='https://dossierfacile.fr/mentions-legales#cgu'>Conditions générales d’utilisation</a> de DossierFacile et je comprends que mes données personnelles seront utilisées conformément à la <a target=\"_blank\" href='https://dossierfacile.fr/mentions-legales#politique-de-confidentialite'>Politique de confidentialité</a> de DossierFacile",
 "require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer",
 "ex": "E.g.: ",
-"or": "or"
+"or": "or",
+"connect-france-connect": "Connect with FranceConnect"
 },
 "fr": {
 "title": "Rejoindre DossierFacile",
@@ -319,7 +323,8 @@ a#social-franceconnect-particulier span {
 "accept-cgu": "En cochant cette case et en cliquant sur \"Je crée mon compte\", j’accepte expressément les <a class=\"cgu\" target=\"_blank\" href='https://www.dossierfacile.fr/mentions-legales#cgu'>Conditions générales d’utilisation</a> de DossierFacile et je comprends que mes données personnelles seront utilisées conformément à la <a target=\"_blank\" class=\"cgu\" href='https://www.dossierfacile.fr/mentions-legales#politique-de-confidentialite'>Politique de confidentialité</a> de DossierFacile",
 "require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer",
 "ex": "Ex : ",
-"or": "Ou"
+"or": "Ou",
+"connect-france-connect": "Se connecter avec FranceConnect"
 }
 }
 </i18n>
