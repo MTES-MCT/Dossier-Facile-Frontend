@@ -49,7 +49,7 @@
           </router-link>
         </div>
         <div class="margin-auto max-400">
-          <Register @on-register="onRegister" :franceConnect="false" />
+          <Register @on-register="onRegister" />
         </div>
       </div>
     </div>

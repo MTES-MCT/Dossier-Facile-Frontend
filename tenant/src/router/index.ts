@@ -197,6 +197,16 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "source" */ "../views/Source.vue")
   },
   {
+    path: "/lier-source/:source",
+    name: "SourceLink",
+    meta: {
+      title: "Source - DossierFacile",
+      requiresAuth: true
+    },
+    component: () =>
+      import(/* webpackChunkName: "source" */ "../views/SourceLink.vue")
+  },
+  {
     path: "/account",
     name: "Account",
     meta: {
@@ -349,7 +359,7 @@ router.beforeEach((to, from, next) => {
     if (!(Vue as any).$keycloak.authenticated) {
       // The page is protected and the user is not authenticated. Force a login.
       (Vue as any).$keycloak.login({
-        redirectUri: TENANT_URL + to.path
+        redirectUri: TENANT_URL + to.fullPath
       });
     } else {
       // The user was authenticated, and has the app role
