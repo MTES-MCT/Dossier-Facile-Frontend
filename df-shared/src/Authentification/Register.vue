@@ -207,7 +207,7 @@ export default class Register extends Vue {
   SITE_KEY = process.env.VUE_APP_CAPTCHA_SITE_KEY;
 
   @Prop({ default: "" }) email!: string;
-  franceConnect = window.location.href.includes("www-dev") || window.location.href.includes("localhost");
+  franceConnect = window.location.href.includes("locataire-dev") || window.location.href.includes("localhost");
 
   user: User = new User();
   score = 0;
