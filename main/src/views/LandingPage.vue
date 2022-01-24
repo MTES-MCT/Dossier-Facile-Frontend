@@ -232,10 +232,10 @@
               href="https://www.locservice.fr/"
               class="logo-link"
               rel="noreferrer"
-              title="aller sur le site « locservice.fr - location & colocation entre particuliers » (nouvelle fenêtre)"
+              title="aller sur le site « locservice.fr - location et colocation entre particuliers » (nouvelle fenêtre)"
             >
               <img
-                alt="locservice.fr - location & colocation entre particuliers"
+                alt="locservice.fr - location et colocation entre particuliers"
                 class="partner-logo locservice"
                 src="../assets/logos/loc_service.webp"
               />
