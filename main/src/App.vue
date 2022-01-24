@@ -116,6 +116,7 @@ export default class App extends Vue {
 </script>
 
 <style lang="scss">
+@import "../../node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.min.css";
 @import "df-shared/src/scss/_main.scss";
 
 // style hack to handle both themeforest and gouvfr design system

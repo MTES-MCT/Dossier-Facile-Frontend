@@ -36,7 +36,10 @@
           <template v-slot:bottom>
             <AllDeclinedMessages
               class="fr-mb-0"
-              :document="guarantorFinancialDocument(f)"
+              :documentDeniedReasons="
+                guarantorFinancialDocument(f).documentDeniedReasons
+              "
+              :documentStatus="guarantorFinancialDocument(f).documentStatus"
             ></AllDeclinedMessages>
           </template>
         </CardRow>

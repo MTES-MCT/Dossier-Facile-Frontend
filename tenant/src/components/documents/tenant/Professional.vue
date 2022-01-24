@@ -38,13 +38,6 @@
         </select>
       </div>
     </NakedCard>
-    <ConfirmModal
-      v-if="isDocDeleteVisible"
-      @valid="validSelect()"
-      @cancel="undoSelect()"
-    >
-      <span>{{ $t("will-delete-files") }}</span>
-    </ConfirmModal>
     <NakedCard
       class="fr-p-md-5w fr-mt-3w"
       v-if="professionalDocument.key || professionalFiles().length > 0"
@@ -54,7 +47,8 @@
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
-        :document="tenantProfessionalDocument()"
+        :documentDeniedReasons="documentDeniedReasons"
+        :documentStatus="documentStatus"
       ></AllDeclinedMessages>
       <div v-if="professionalFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
         <ListItem
@@ -72,6 +66,13 @@
         ></FileUpload>
       </div>
     </NakedCard>
+    <ConfirmModal
+      v-if="isDocDeleteVisible"
+      @valid="validSelect()"
+      @cancel="undoSelect()"
+    >
+      <span>{{ $t("will-delete-files") }}</span>
+    </ConfirmModal>
   </div>
 </template>
 
@@ -110,23 +111,35 @@ import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
   },
   computed: {
     ...mapGetters({
-      user: "userToEdit"
+      user: "userToEdit",
+      tenantProfessionalDocument: "getTenantProfessionalDocument"
     })
   }
 })
 export default class Professional extends Vue {
+  documents = DocumentTypeConstants.PROFESSIONAL_DOCS;
+
   user!: User;
+  tenantProfessionalDocument!: DfDocument;
+
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
   uploadProgress: {
     [key: string]: { state: string; percentage: number };
   } = {};
   professionalDocument = new DocumentType();
-  documents = DocumentTypeConstants.PROFESSIONAL_DOCS;
   isDocDeleteVisible = false;
 
   getLocalStorageKey() {
     return "professional_" + this.user.email;
+  }
+
+  get documentStatus() {
+    return this.tenantProfessionalDocument?.documentStatus;
+  }
+
+  get documentDeniedReasons() {
+    return this.tenantProfessionalDocument?.documentDeniedReasons;
   }
 
   beforeMount() {
@@ -157,10 +170,6 @@ export default class Professional extends Vue {
         }
       }
     }
-  }
-
-  tenantProfessionalDocument() {
-    return this.$store.getters.getTenantProfessionalDocument;
   }
 
   onSelectChange() {

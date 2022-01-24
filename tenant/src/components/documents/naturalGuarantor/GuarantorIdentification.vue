@@ -63,7 +63,10 @@
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
-        :document="guarantorIdentificationDocument()"
+        :documentDeniedReasons="
+          guarantorIdentificationDocument().documentDeniedReasons
+        "
+        :documentStatus="guarantorIdentificationDocument().documentStatus"
       ></AllDeclinedMessages>
       <div
         v-if="identificationFiles().length > 0"

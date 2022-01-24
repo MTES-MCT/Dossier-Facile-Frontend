@@ -46,13 +46,6 @@
         </div>
       </div>
     </NakedCard>
-    <ConfirmModal
-      v-if="isDocDeleteVisible"
-      @valid="validSelect()"
-      @cancel="undoSelect()"
-    >
-      <span>{{ $t("will-delete-files") }}</span>
-    </ConfirmModal>
     <NakedCard
       class="fr-p-md-5w fr-mt-3w"
       v-if="residencyDocument.key || residencyFiles().length > 0"
@@ -62,7 +55,8 @@
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
-        :document="tenantResidencyDocument()"
+        :documentDeniedReasons="documentDeniedReasons"
+        :documentStatus="documentStatus"
       ></AllDeclinedMessages>
       <div v-if="residencyFiles().length > 0" class="fr-col-12 fr-mb-3w">
         <ListItem
@@ -80,6 +74,13 @@
         ></FileUpload>
       </div>
     </NakedCard>
+    <ConfirmModal
+      v-if="isDocDeleteVisible"
+      @valid="validSelect()"
+      @cancel="undoSelect()"
+    >
+      <span>{{ $t("will-delete-files") }}</span>
+    </ConfirmModal>
   </div>
 </template>
 
@@ -120,12 +121,17 @@ import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
   },
   computed: {
     ...mapGetters({
-      user: "userToEdit"
+      user: "userToEdit",
+      tenantResidencyDocument: "getTenantResidencyDocument"
     })
   }
 })
 export default class Residency extends Vue {
+  documents = DocumentTypeConstants.RESIDENCY_DOCS;
+
   user!: User;
+  tenantResidencyDocument!: DfDocument;
+
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
   uploadProgress: {
@@ -133,11 +139,18 @@ export default class Residency extends Vue {
   } = {};
   residencyDocument = new DocumentType();
 
-  documents = DocumentTypeConstants.RESIDENCY_DOCS;
   isDocDeleteVisible = false;
 
   getLocalStorageKey() {
     return "residency_" + this.user.email;
+  }
+
+  get documentStatus() {
+    return this.tenantResidencyDocument?.documentStatus;
+  }
+
+  get documentDeniedReasons() {
+    return this.tenantResidencyDocument?.documentDeniedReasons;
   }
 
   beforeMount() {
@@ -168,10 +181,6 @@ export default class Residency extends Vue {
         }
       }
     }
-  }
-
-  tenantResidencyDocument() {
-    return this.$store.getters.getTenantResidencyDocument;
   }
 
   onSelectChange() {

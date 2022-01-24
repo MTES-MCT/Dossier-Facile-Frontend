@@ -34,8 +34,6 @@ const inspectlet = function() {
 
 Vue.prototype.inspectlet = inspectlet;
 
-require("../../node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.min.css");
-
 Vue.config.productionTip = false;
 
 Vue.use(VueCookies);
