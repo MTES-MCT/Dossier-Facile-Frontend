@@ -198,6 +198,7 @@
               href="https://www.monsieurhugo.com/"
               class="logo-link"
               rel="noreferrer"
+              title="aller sur le site « monsieur Hugo » (nouvelle fenêtre)"
             >
               <img
                 alt="monsieur Hugo"
@@ -214,6 +215,7 @@
               href="https://www.visale.fr/"
               class="logo-link"
               rel="noreferrer"
+              title="aller sur le site « visale.fr - connecte emploi et logement » (nouvelle fenêtre)"
             >
               <img
                 alt="visale.fr - connecte emploi et logement"
@@ -230,9 +232,10 @@
               href="https://www.locservice.fr/"
               class="logo-link"
               rel="noreferrer"
+              title="aller sur le site « locservice.fr - location & colocation entre particuliers » (nouvelle fenêtre)"
             >
               <img
-                alt="locservice.fr - location e& colocation entre particuliers"
+                alt="locservice.fr - location & colocation entre particuliers"
                 class="partner-logo locservice"
                 src="../assets/logos/loc_service.webp"
               />
@@ -246,6 +249,7 @@
               href="https://colivme.com/"
               class="logo-link"
               rel="noreferrer"
+              title="aller sur le site « colivme » (nouvelle fenêtre)"
             >
               <img
                 alt="colivme"
@@ -262,9 +266,10 @@
               href="https://whoomies.com/"
               class="logo-link"
               rel="noreferrer"
+              title="aller sur le site « whoomies » (nouvelle fenêtre)"
             >
               <img
-                alt="logo whoomies"
+                alt="whoomies"
                 class="partner-logo whoomies"
                 src="../assets/logos/whoomies.webp"
               />
@@ -278,9 +283,10 @@
               href="https://www.anil.org/"
               class="logo-link"
               rel="noreferrer"
+              title="aller sur le site de l’ANIL, l’agence nationale pour l’information sur le logement (nouvelle fenêtre)"
             >
               <img
-                alt="anil – agence nationale pour l’information sur le logement"
+                alt="ANIL – agence nationale pour l’information sur le logement"
                 class="partner-logo anil"
                 src="../assets/logos/anil.webp"
               />
@@ -294,6 +300,7 @@
               href="https://www.clickandrent.fr/"
               class="logo-link"
               rel="noreferrer"
+              title="aller sur le site « click and rent » (nouvelle fenêtre)"
             >
               <img lang="en"
                 alt="click and rent"
@@ -310,6 +317,7 @@
               href="https://www.qlower.com/"
               class="logo-link"
               rel="noreferrer"
+              title="aller sur le site « qlower » (nouvelle fenêtre)"
             >
               <img lang="en"
                 alt="qlower"
@@ -326,6 +334,7 @@
               href="https://www.jelouebien.com/"
               class="logo-link"
               rel="noreferrer"
+              title="aller sur le site « jelouebien.com » (nouvelle fenêtre)"
             >
               <img
                 alt="jelouebien.com"
@@ -342,9 +351,10 @@
               href="https://www.gererseul.com/"
               class="logo-link"
               rel="noreferrer"
+              title="aller sur le site « gererseul – ma gestion locative » (nouvelle fenêtre)"
             >
               <img
-                alt="gererseul ma gestion locative (nouvelle fenêtre)"
+                alt="gererseul – ma gestion locative"
                 class="partner-logo gererseul"
                 src="../assets/logos/gererseul.webp"
               />
@@ -358,6 +368,7 @@
               href="https://pandaloc.com/"
               class="logo-link"
               rel="noreferrer"
+              title="aller sur le site « pandaloc » (nouvelle fenêtre)"
             >
               <img
                 alt="pandaloc"
