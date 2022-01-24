@@ -200,7 +200,7 @@
               rel="noreferrer"
             >
               <img
-                alt="logo monsieur hugo"
+                alt="monsieur Hugo"
                 class="partner-logo monsieurhugo"
                 src="../assets/logos/monsieur_hugo.webp"
               />
@@ -216,7 +216,7 @@
               rel="noreferrer"
             >
               <img
-                alt="logo visale"
+                alt="visale.fr - connecte emploi et logement"
                 class="partner-logo visale"
                 src="../assets/logos/visale.webp"
               />
@@ -232,7 +232,7 @@
               rel="noreferrer"
             >
               <img
-                alt="logo locservice"
+                alt="locservice.fr - location e& colocation entre particuliers"
                 class="partner-logo locservice"
                 src="../assets/logos/loc_service.webp"
               />
@@ -248,7 +248,7 @@
               rel="noreferrer"
             >
               <img
-                alt="logo colivme"
+                alt="colivme"
                 class="partner-logo colivme"
                 src="../assets/logos/colivme.webp"
               />
@@ -280,7 +280,7 @@
               rel="noreferrer"
             >
               <img
-                alt="logo anil"
+                alt="anil – agence nationale pour l’information sur le logement"
                 class="partner-logo anil"
                 src="../assets/logos/anil.webp"
               />
@@ -295,8 +295,8 @@
               class="logo-link"
               rel="noreferrer"
             >
-              <img
-                alt="logo click and rent"
+              <img lang="en"
+                alt="click and rent"
                 class="partner-logo rent"
                 src="../assets/logos/clickandrent.webp"
               />
@@ -311,8 +311,8 @@
               class="logo-link"
               rel="noreferrer"
             >
-              <img
-                alt="logo qlower"
+              <img lang="en"
+                alt="qlower"
                 class="partner-logo qlower"
                 src="../assets/logos/qlower.webp"
               />
@@ -328,7 +328,7 @@
               rel="noreferrer"
             >
               <img
-                alt="logo jelouebien"
+                alt="jelouebien.com"
                 class="partner-logo jelouebien"
                 src="../assets/logos/jelouebien.webp"
               />
@@ -344,7 +344,7 @@
               rel="noreferrer"
             >
               <img
-                alt="logo gererseul"
+                alt="gererseul ma gestion locative (nouvelle fenêtre)"
                 class="partner-logo gererseul"
                 src="../assets/logos/gererseul.webp"
               />
@@ -360,7 +360,7 @@
               rel="noreferrer"
             >
               <img
-                alt="logo pandaloc"
+                alt="pandaloc"
                 class="partner-logo pandaloc"
                 src="../assets/logos/pandaloc.webp"
               />
