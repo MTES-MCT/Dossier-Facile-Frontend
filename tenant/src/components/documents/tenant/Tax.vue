@@ -1,12 +1,5 @@
 <template>
   <div class="fr-mb-5w">
-    <ConfirmModal
-      v-if="isDocDeleteVisible"
-      @valid="validSelect()"
-      @cancel="undoSelect()"
-    >
-      <span>{{ $t("will-delete-files") }}</span>
-    </ConfirmModal>
     <ValidationObserver v-slot="{ validate }">
       <NakedCard class="fr-p-md-5w">
         <h1 class="fr-h6">{{ $t("title") }}</h1>
@@ -117,7 +110,8 @@
         </div>
         <AllDeclinedMessages
           class="fr-mb-3w"
-          :document="tenantTaxDocument()"
+          :documentDeniedReasons="documentDeniedReasons"
+          :documentStatus="documentStatus"
         ></AllDeclinedMessages>
         <div v-if="taxFiles().length > 0" class="fr-col-12 fr-mb-3w">
           <ListItem
@@ -139,6 +133,13 @@
       </NakedCard>
     </ValidationObserver>
     <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
+    <ConfirmModal
+      v-if="isDocDeleteVisible"
+      @valid="validSelect()"
+      @cancel="undoSelect()"
+    >
+      <span>{{ $t("will-delete-files") }}</span>
+    </ConfirmModal>
   </div>
 </template>
 
@@ -192,12 +193,17 @@ extend("is", {
   },
   computed: {
     ...mapGetters({
-      user: "userToEdit"
+      user: "userToEdit",
+      tenantTaxDocument: "getTenantTaxDocument"
     })
   }
 })
 export default class Tax extends Vue {
+  documents = DocumentTypeConstants.TAX_DOCS;
+
   user!: User;
+  tenantTaxDocument!: DfDocument;
+
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
   uploadProgress: {
@@ -208,11 +214,18 @@ export default class Tax extends Vue {
   acceptVerification = false;
   customText = "";
 
-  documents = DocumentTypeConstants.TAX_DOCS;
   isDocDeleteVisible = false;
 
   getLocalStorageKey() {
     return "tax_" + this.user.email;
+  }
+
+  get documentStatus() {
+    return this.tenantTaxDocument?.documentStatus;
+  }
+
+  get documentDeniedReasons() {
+    return this.tenantTaxDocument?.documentDeniedReasons;
   }
 
   mounted() {
@@ -242,10 +255,6 @@ export default class Tax extends Vue {
     if (this.taxDocument.key === "my-name" && this.taxFiles().length > 0) {
       this.acceptVerification = true;
     }
-  }
-
-  tenantTaxDocument() {
-    return this.$store.getters.getTenantTaxDocument;
   }
 
   onSelectChange() {

@@ -61,7 +61,10 @@
           </v-gouv-fr-modal>
           <AllDeclinedMessages
             class="fr-mb-3w"
-            :document="guarantorIdentificationDocument()"
+            :documentDeniedReasons="
+              guarantorIdentificationDocument().documentDeniedReasons
+            "
+            :documentStatus="guarantorIdentificationDocument().documentStatus"
           ></AllDeclinedMessages>
           <div class="fr-col-md-12 fr-mb-3w" v-if="listFiles().length > 0">
             <ListItem

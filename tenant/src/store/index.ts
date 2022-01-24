@@ -641,47 +641,49 @@ const store = new Vuex.Store({
     getTenantDocuments(state): DfDocument[] {
       return state.user?.documents || [];
     },
-    getTenantIdentificationDocument(state): DfDocument {
+    getTenantIdentificationDocument(state): DfDocument | undefined {
       return state.user?.documents?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION";
       });
     },
-    getTenantResidencyDocument(state): DfDocument {
+    getTenantResidencyDocument(state): DfDocument | undefined {
       return state.user?.documents?.find((d: DfDocument) => {
         return d.documentCategory === "RESIDENCY";
       });
     },
-    getTenantProfessionalDocument(state): DfDocument {
+    getTenantProfessionalDocument(state): DfDocument | undefined {
       return state.user?.documents?.find((d: DfDocument) => {
         return d.documentCategory === "PROFESSIONAL";
       });
     },
-    getTenantTaxDocument(state): DfDocument {
+    getTenantTaxDocument(state): DfDocument | undefined {
       return state.user?.documents?.find((d: DfDocument) => {
         return d.documentCategory === "TAX";
       });
     },
-    getGuarantorIdentificationLegalPersonDocument(state): DfDocument {
+    getGuarantorIdentificationLegalPersonDocument(
+      state
+    ): DfDocument | undefined {
       return state.selectedGuarantor?.documents?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION_LEGAL_PERSON";
       });
     },
-    getGuarantorIdentificationDocument(state): DfDocument {
+    getGuarantorIdentificationDocument(state): DfDocument | undefined {
       return state.selectedGuarantor?.documents?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION";
       });
     },
-    getGuarantorResidencyDocument(state): DfDocument {
+    getGuarantorResidencyDocument(state): DfDocument | undefined {
       return state.selectedGuarantor?.documents?.find((d: DfDocument) => {
         return d.documentCategory === "RESIDENCY";
       });
     },
-    getGuarantorProfessionalDocument(state): DfDocument {
+    getGuarantorProfessionalDocument(state): DfDocument | undefined {
       return state.selectedGuarantor?.documents?.find((d: DfDocument) => {
         return d.documentCategory === "PROFESSIONAL";
       });
     },
-    getGuarantorTaxDocument(state): DfDocument {
+    getGuarantorTaxDocument(state): DfDocument | undefined {
       return state.selectedGuarantor?.documents?.find((d: DfDocument) => {
         return d.documentCategory === "TAX";
       });

@@ -113,7 +113,8 @@
         </div>
         <AllDeclinedMessages
           class="fr-mb-3w"
-          :document="guarantorTaxDocument()"
+          :documentDeniedReasons="guarantorTaxDocument().documentDeniedReasons"
+        :documentStatus="guarantorTaxDocument().documentStatus"
         ></AllDeclinedMessages>
         <div v-if="taxFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
           <ListItem

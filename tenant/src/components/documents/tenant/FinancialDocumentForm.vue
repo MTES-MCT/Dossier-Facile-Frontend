@@ -1,25 +1,5 @@
 <template>
   <div>
-    <Modal v-show="isNoIncomeAndFiles" @close="isNoIncomeAndFiles = false">
-      <template v-slot:body>
-        <div class="fr-container">
-          <div class="fr-grid-row justify-content-center">
-            <div class="fr-col-12">
-              <p>
-                {{ $t("warning-no-income-and-file") }}
-              </p>
-            </div>
-          </div>
-        </div>
-      </template>
-    </Modal>
-    <ConfirmModal
-      v-if="isDocDeleteVisible"
-      @valid="validSelect()"
-      @cancel="undoSelect()"
-    >
-      <span>{{ $t("will-delete-files") }}</span>
-    </ConfirmModal>
     <ValidationObserver v-slot="{ validate }">
       <form name="form" @submit.prevent="validate().then(save())">
         <NakedCard class="fr-p-md-5w fr-mb-3w">
@@ -151,7 +131,8 @@
               </div>
               <AllDeclinedMessages
                 class="fr-mb-3w"
-                :document="tenantFinancialDocument()"
+                :documentDeniedReasons="documentDeniedReasons"
+                :documentStatus="documentStatus"
               ></AllDeclinedMessages>
               <div
                 v-if="
@@ -253,6 +234,26 @@
       </NakedCard>
     </div>
     <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
+    <Modal v-show="isNoIncomeAndFiles" @close="isNoIncomeAndFiles = false">
+      <template v-slot:body>
+        <div class="fr-container">
+          <div class="fr-grid-row justify-content-center">
+            <div class="fr-col-12">
+              <p>
+                {{ $t("warning-no-income-and-file") }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </template>
+    </Modal>
+    <ConfirmModal
+      v-if="isDocDeleteVisible"
+      @valid="validSelect()"
+      @cancel="undoSelect()"
+    >
+      <span>{{ $t("will-delete-files") }}</span>
+    </ConfirmModal>
   </div>
 </template>
 
@@ -323,18 +324,27 @@ extend("required", {
   }
 })
 export default class FinancialDocumentForm extends Vue {
+  documents = DocumentTypeConstants.FINANCIAL_DOCS;
+
   user!: User;
+  financialDocumentSelected!: FinancialDocument;
   tenantFinancialDocuments!: FinancialDocument[];
 
-  documents = DocumentTypeConstants.FINANCIAL_DOCS;
   isDocDeleteVisible = false;
   selectedDoc?: FinancialDocument;
   isNoIncomeAndFiles = false;
-  financialDocumentSelected!: FinancialDocument;
   financialDocument = new FinancialDocument();
 
   beforeMount() {
     this.financialDocument = { ...cloneDeep(this.financialDocumentSelected) };
+  }
+
+  get documentStatus() {
+    return this.tenantFinancialDocument()?.documentStatus;
+  }
+
+  get documentDeniedReasons() {
+    return this.tenantFinancialDocument()?.documentDeniedReasons;
   }
 
   isNewDocument(f: FinancialDocument) {

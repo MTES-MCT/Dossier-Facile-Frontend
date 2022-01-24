@@ -149,7 +149,10 @@
           </div>
           <AllDeclinedMessages
             class="fr-mb-3w"
-            :document="guarantorFinancialDocument()"
+            :documentDeniedReasons="
+              guarantorFinancialDocument().documentDeniedReasons
+            "
+            :documentStatus="guarantorFinancialDocument().documentStatus"
           ></AllDeclinedMessages>
           <div v-if="financialFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
             <ListItem

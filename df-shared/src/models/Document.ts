@@ -6,8 +6,4 @@ export class DocumentType {
   refusedProofs!: string[];
   customText?: string;
   maxFileCount?: number;
-  documentDeniedReasons?: {
-    checkedOptions?: string[];
-    comment?: string;
-  };
 }

@@ -1,28 +1,31 @@
 <template>
   <div
     v-if="
-      document &&
-        document.documentDeniedReasons &&
-        document.documentStatus !== 'VALIDATED'
+      documentDeniedReasons !== null &&
+        ((documentDeniedReasons.checkedOptions &&
+          documentDeniedReasons.checkedOptions.length > 0) ||
+          documentDeniedReasons.comment) &&
+        documentStatus !== 'VALIDATED'
     "
     class="fr-mt-3w"
   >
     <div
       class="m1"
-      v-for="(m, k) in document.documentDeniedReasons.checkedOptions"
+      v-for="(m, k) in documentDeniedReasons.checkedOptions"
       :key="k"
     >
       <DeclinedMessage :message="m"></DeclinedMessage>
     </div>
-    <div class="m1" v-if="document.documentDeniedReasons.comment">
+    <div class="m1" v-if="documentDeniedReasons.comment">
       <DeclinedMessage
-        :message="document.documentDeniedReasons.comment"
+        :message="documentDeniedReasons.comment"
       ></DeclinedMessage>
     </div>
   </div>
 </template>
 <script lang="ts">
 import DeclinedMessage from "df-shared/src/components/DeclinedMessage.vue";
+import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({
@@ -31,7 +34,8 @@ import { Component, Prop, Vue } from "vue-property-decorator";
   }
 })
 export default class Identification extends Vue {
-  @Prop() document?: Document;
+  @Prop({ default: null }) documentDeniedReasons?: DocumentDeniedReasons | null;
+  @Prop({ default: "" }) documentStatus?: string;
 }
 </script>
 

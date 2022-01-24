@@ -62,7 +62,10 @@
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
-        :document="guarantorResidencyDocument()"
+        :documentDeniedReasons="
+          guarantorResidencyDocument().documentDeniedReasons
+        "
+        :documentStatus="guarantorResidencyDocument().documentStatus"
       ></AllDeclinedMessages>
       <div v-if="residencyFiles().length > 0" class="fr-col-12 fr-mb-3w">
         <ListItem
