@@ -1,5 +1,12 @@
 <template>
-  <div v-if="document && document.documentDeniedReasons" class="fr-mt-3w">
+  <div
+    v-if="
+      document &&
+        document.documentDeniedReasons &&
+        document.documentStatus !== 'VALIDATED'
+    "
+    class="fr-mt-3w"
+  >
     <div
       class="m1"
       v-for="(m, k) in document.documentDeniedReasons.checkedOptions"
