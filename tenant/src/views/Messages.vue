@@ -395,6 +395,7 @@ export default class Messages extends Vue {
     return DocumentService.hasDoc(docType);
   }
   hasFile(docType: string) {
+    // TODO change to aggregate financial
     return DocumentService.hasFile(docType);
   }
   guarantorHasFile(g: Guarantor, docType: string) {
