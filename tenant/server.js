@@ -8,7 +8,7 @@ app.use(function(req, res, next) {
   res.setHeader(
     "Content-Security-Policy",
     "default-src 'none'; " +
-      "script-src 'self' *.dossierfacile.fr https://www.google-analytics.com https://www.googletagmanager.com https://www.google.com https://www.gstatic.com https://beacon-v2.helpscout.net *.inspectlet.com 'unsafe-inline' 'unsafe-eval' blob:https://locataire-dev.dossierfacile.fr blob:https://locataire.dossierfacile.fr; " +
+      "script-src 'self' *.dossierfacile.fr https://www.google-analytics.com https://www.googletagmanager.com https://www.google.com https://www.gstatic.com https://beacon-v2.helpscout.net *.inspectlet.com 'unsafe-inline' 'unsafe-eval' blob:; " +
       "style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; " +
       "img-src 'self' https://www.google-analytics.com https://fonts.gstatic.com https://voxusagers.numerique.gouv.fr https://hn.inspectlet.com *.helpscout.net data:; " +
       "font-src 'self' fonts.google.com https://fonts.gstatic.com fonts.googleapis.com data:; " +
