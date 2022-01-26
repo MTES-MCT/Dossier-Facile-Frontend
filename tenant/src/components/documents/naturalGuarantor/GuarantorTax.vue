@@ -226,6 +226,14 @@ export default class Tax extends Vue {
     return undefined;
   }
 
+  get documentStatus() {
+    return this.guarantorTaxDocument()?.documentStatus;
+  }
+
+  get documentDeniedReasons() {
+    return this.guarantorTaxDocument()?.documentDeniedReasons;
+  }
+
   guarantorTaxDocument() {
     return this.$store.getters.getGuarantorTaxDocument;
   }

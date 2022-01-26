@@ -62,10 +62,8 @@
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
-        :documentDeniedReasons="
-          guarantorResidencyDocument().documentDeniedReasons
-        "
-        :documentStatus="guarantorResidencyDocument().documentStatus"
+        :documentDeniedReasons="documentDeniedReasons"
+        :documentStatus="documentStatus"
       ></AllDeclinedMessages>
       <div v-if="residencyFiles().length > 0" class="fr-col-12 fr-mb-3w">
         <ListItem
@@ -145,6 +143,14 @@ export default class Residency extends Vue {
 
   mounted() {
     this.updateGuarantorData();
+  }
+
+  get documentStatus() {
+    return this.guarantorResidencyDocument()?.documentStatus;
+  }
+
+  get documentDeniedReasons() {
+    return this.guarantorResidencyDocument()?.documentDeniedReasons;
   }
 
   guarantorResidencyDocument() {

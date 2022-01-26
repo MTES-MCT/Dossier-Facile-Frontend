@@ -149,10 +149,8 @@
           </div>
           <AllDeclinedMessages
             class="fr-mb-3w"
-            :documentDeniedReasons="
-              guarantorFinancialDocument().documentDeniedReasons
-            "
-            :documentStatus="guarantorFinancialDocument().documentStatus"
+            :documentDeniedReasons="documentDeniedReasons"
+            :documentStatus="documentStatus"
           ></AllDeclinedMessages>
           <div v-if="financialFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
             <ListItem
@@ -308,6 +306,14 @@ export default class GuarantorFinancialDocumentForm extends Vue {
       }
     }
     return false;
+  }
+
+  get documentStatus() {
+    return this.guarantorFinancialDocument()?.documentStatus;
+  }
+
+  get documentDeniedReasons() {
+    return this.guarantorFinancialDocument()?.documentDeniedReasons;
   }
 
   guarantorFinancialDocument() {
