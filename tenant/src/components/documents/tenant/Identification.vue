@@ -46,14 +46,6 @@
         </div>
       </NakedCard>
     </div>
-    <ConfirmModal
-      v-if="isDocDeleteVisible"
-      @valid="validSelect()"
-      @cancel="undoSelect()"
-    >
-      <span>{{ $t("will-delete-files") }}</span>
-    </ConfirmModal>
-
     <NakedCard
       class="fr-p-md-5w fr-mt-3w"
       v-if="identificationDocument.key || identificationFiles().length > 0"
@@ -66,7 +58,8 @@
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
-        :document="tenantIdentificationDocument()"
+        :documentDeniedReasons="documentDeniedReasons"
+        :documentStatus="documentStatus"
       ></AllDeclinedMessages>
       <div
         v-if="identificationFiles().length > 0"
@@ -88,6 +81,13 @@
         ></FileUpload>
       </div>
     </NakedCard>
+    <ConfirmModal
+      v-if="isDocDeleteVisible"
+      @valid="validSelect()"
+      @cancel="undoSelect()"
+    >
+      <span>{{ $t("will-delete-files") }}</span>
+    </ConfirmModal>
   </div>
 </template>
 
@@ -114,6 +114,8 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
 import { AnalyticsService } from "../../../services/AnalyticsService";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
+import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
+import { cloneDeep } from "lodash";
 
 @Component({
   components: {
@@ -132,7 +134,8 @@ import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
   },
   computed: {
     ...mapGetters({
-      user: "userToEdit"
+      user: "userToEdit",
+      tenantIdentificationDocument: "getTenantIdentificationDocument"
     })
   }
 })
@@ -140,6 +143,9 @@ export default class Identification extends Vue {
   documents = DocumentTypeConstants.IDENTIFICATION_DOCS;
 
   user!: User;
+  tenantIdentificationDocument!: DfDocument;
+
+  documentDeniedReasons = new DocumentDeniedReasons();
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
   identificationDocument = new DocumentType();
@@ -149,20 +155,28 @@ export default class Identification extends Vue {
     return "identification_" + this.user.email;
   }
 
+  get documentStatus() {
+    return this.tenantIdentificationDocument?.documentStatus;
+  }
+
   beforeMount() {
     if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "IDENTIFICATION";
-      });
-      if (doc !== undefined) {
+      if (this.tenantIdentificationDocument !== undefined) {
         const localDoc = this.documents.find((d: DocumentType) => {
-          return d.value === doc.documentSubCategory;
+          return (
+            d.value === this.tenantIdentificationDocument?.documentSubCategory
+          );
         });
         if (localDoc !== undefined) {
           this.identificationDocument = localDoc;
           localStorage.setItem(
             this.getLocalStorageKey(),
             this.identificationDocument.key || ""
+          );
+        }
+        if (this.tenantIdentificationDocument?.documentDeniedReasons) {
+          this.documentDeniedReasons = cloneDeep(
+            this.tenantIdentificationDocument.documentDeniedReasons
           );
         }
       } else {
@@ -185,13 +199,11 @@ export default class Identification extends Vue {
       this.identificationDocument.key
     );
     if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "IDENTIFICATION";
-      });
+      const doc = this.tenantIdentificationDocument;
       if (doc !== undefined) {
         this.isDocDeleteVisible =
-          (doc.files?.length || 0) > 0 &&
-          doc.documentSubCategory !== this.identificationDocument.value;
+          (doc?.files?.length || 0) > 0 &&
+          doc?.documentSubCategory !== this.identificationDocument.value;
       }
     }
     return false;
@@ -199,12 +211,10 @@ export default class Identification extends Vue {
 
   undoSelect() {
     if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "IDENTIFICATION";
-      });
+      const doc = this.tenantIdentificationDocument;
       if (doc !== undefined) {
         const localDoc = this.documents.find((d: DocumentType) => {
-          return d.value === doc.documentSubCategory;
+          return d.value === doc?.documentSubCategory;
         });
         if (localDoc !== undefined) {
           this.identificationDocument = localDoc;
@@ -217,9 +227,7 @@ export default class Identification extends Vue {
   async validSelect() {
     this.isDocDeleteVisible = false;
     if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "IDENTIFICATION";
-      });
+      const doc = this.tenantIdentificationDocument;
       if (doc?.files !== undefined) {
         for (const f of doc.files) {
           if (f.id) {
@@ -297,10 +305,6 @@ export default class Identification extends Vue {
       .finally(() => {
         loader.hide();
       });
-  }
-
-  tenantIdentificationDocument() {
-    return this.$store.getters.getTenantIdentificationDocument;
   }
 
   identificationFiles() {

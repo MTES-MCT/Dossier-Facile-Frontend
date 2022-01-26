@@ -63,7 +63,8 @@
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
-        :document="guarantorIdentificationDocument()"
+        :documentDeniedReasons="documentDeniedReasons"
+        :documentStatus="documentStatus"
       ></AllDeclinedMessages>
       <div
         v-if="identificationFiles().length > 0"
@@ -158,6 +159,14 @@ export default class GuarantorIdentification extends Vue {
       }
     }
     return false;
+  }
+
+  get documentStatus() {
+    return this.guarantorIdentificationDocument()?.documentStatus;
+  }
+
+  get documentDeniedReasons() {
+    return this.guarantorIdentificationDocument()?.documentDeniedReasons;
   }
 
   guarantorIdentificationDocument() {

@@ -36,7 +36,8 @@
           <template v-slot:bottom>
             <AllDeclinedMessages
               class="fr-mb-0"
-              :document="guarantorFinancialDocument(f)"
+              :documentDeniedReasons="documentDeniedReasons(f)"
+              :documentStatus="documentStatus(f)"
             ></AllDeclinedMessages>
           </template>
         </CardRow>
@@ -137,6 +138,14 @@ export default class GuarantorFinancial extends Vue {
     if (this.financialDocuments.length === 0) {
       this.addAndSelectFinancial();
     }
+  }
+
+  documentDeniedReasons(f: FinancialDocument) {
+    return this.guarantorFinancialDocument(f).documentDeniedReasons;
+  }
+
+  documentStatus(f: FinancialDocument) {
+    return this.guarantorFinancialDocument(f).documentStatus;
   }
 
   guarantorFinancialDocument(f: FinancialDocument) {

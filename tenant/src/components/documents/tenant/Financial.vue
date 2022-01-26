@@ -36,8 +36,9 @@
           </template>
           <template v-slot:bottom>
             <AllDeclinedMessages
-              class="fr-mb-0"
-              :document="tenantFinancialDocument(f)"
+              class="fr-mb-3w"
+              :documentDeniedReasons="documentDeniedReasons(f)"
+              :documentStatus="documentStatus(f)"
             ></AllDeclinedMessages>
           </template>
         </CardRow>
@@ -131,6 +132,14 @@ export default class Financial extends Vue {
 
   beforeMount() {
     this.initialize();
+  }
+
+  documentDeniedReasons(f: FinancialDocument) {
+    return this.tenantFinancialDocument(f).documentDeniedReasons;
+  }
+
+  documentStatus(f: FinancialDocument) {
+    return this.tenantFinancialDocument(f).documentStatus;
   }
 
   initialize() {
