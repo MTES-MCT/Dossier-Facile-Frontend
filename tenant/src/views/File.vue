@@ -134,6 +134,10 @@
         <DfButton primary="true" @on-click="download">{{
           $t("download-all")
         }}</DfButton>
+        <p class="fr-mt-3w">
+          Si le téléchargement ne fonctionne pas du premier coup, attendez
+          quelques minutes et recommencez !
+        </p>
       </section>
     </div>
   </div>
