@@ -5,21 +5,7 @@
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12">
             <h1>{{ $t("title", [user.firstName, $t(user.status)]) }}</h1>
-            <div class="fr-callout" v-if="isOld()">
-              <h4>{{ $t("file-update-title") }}</h4>
-              <p
-                class="fr-callout__text"
-                v-html="
-                  $t('file-update-text', [
-                    $d(getDate(user.lastUpdate), 'short')
-                  ])
-                "
-              ></p>
-              <DfButton @on-click="goToProfile" primary="true">{{
-                $t("update-file-btn")
-              }}</DfButton>
-            </div>
-            <div class="fr-callout warning" v-if="isDenied()">
+            <div class="fr-callout warning fr-callout-white" v-if="isDenied()">
               <h4>{{ $t("amendment-required-title") }}</h4>
               <p
                 class="fr-callout__text"
@@ -135,6 +121,14 @@
                     ])
                   "
                 ></p>
+              </div>
+              <div
+                class="fr-callout fr-mb-3w"
+                v-if="user.status === 'TO_PROCESS'"
+              >
+                <div class="material-icons-outlined md-36">timer</div>
+                <h4>{{ $t("instructional-time-title") }}</h4>
+                <p v-html="$t('instructional-time-text')"></p>
               </div>
               <hr />
               <div class="main-information">
@@ -733,11 +727,6 @@ export default class Account extends Vue {
   pub = "false";
   isDeleteModalVisible = false;
 
-  isOld() {
-    // TODO
-    return false;
-  }
-
   getToken() {
     if (this.pub === "true") {
       return `${this.TENANT_URL}/public-file/${this.user.apartmentSharing?.tokenPublic}`;
@@ -976,7 +965,7 @@ export default class Account extends Vue {
   background-color: var(--bf100-g750);
 }
 
-.fr-callout {
+.fr-callout-white {
   background-color: var(--background-default-grey);
   &.warning {
     box-shadow: inset 0.25rem 0 0 0 var(--error) !important;
@@ -1223,7 +1212,9 @@ hr {
     "spouse-cannot-copy-link": "Your link is inactive because your spouse's file has not yet been validated",
     "amendment-required-title": "Amendment required",
     "amendment-required-text": "After examining your file, modifications are requested. <br> Check your mailbox for details.",
-    "messaging": "Messaging"
+    "messaging": "Messaging",
+    "instructional-time-title": "Instructional time",
+    "instructional-time-text": "Once the files are completed, they are taken care of on average in less than 24 hours by our team of operators."
   },
   "fr": {
     "title": "Bonjour {0}, votre dossier {1} !",
@@ -1292,7 +1283,9 @@ hr {
     "cotenant-cannot-copy-link": "Votre lien est inactif car le dossier de votre(vos) colocataire(s) n'est pas encore validé",
     "amendment-required-title": "Modifications demandées",
     "amendment-required-text": "Après examen de votre dossier, des modifications vous sont demandées. <br>Consultez votre messagerie pour en connaître le détail.",
-    "messaging": "Consulter ma messagerie"
+    "messaging": "Consulter ma messagerie",
+    "instructional-time-title": "Durée d'instruction",
+    "instructional-time-text": "Une fois les dossiers complétés, ils sont pris en charge en moyenne en moins de 24h par notre équipe d'opérateurs."
   }
 }
 </i18n>
