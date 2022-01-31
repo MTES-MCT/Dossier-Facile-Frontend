@@ -95,6 +95,12 @@
           </div>
         </form>
       </NakedCard>
+      <div
+        v-if="acceptVerification && taxDocument.key === 'my-name'"
+        class="fr-grid-row blue-franceconnect fr-mt-3w"
+      >
+        <MonFranceConnect></MonFranceConnect>
+      </div>
       <NakedCard
         class="fr-p-md-5w fr-mt-3w"
         v-if="
@@ -168,6 +174,7 @@ import { AnalyticsService } from "../../../services/AnalyticsService";
 import ProfileFooter from "../../footer/ProfileFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
+import MonFranceConnect from "../share/MonFranceConnect.vue";
 
 extend("is", {
   ...is,
@@ -181,6 +188,7 @@ extend("is", {
     DocumentInsert,
     FileUpload,
     ListItem,
+    MonFranceConnect,
     ValidationObserver,
     ValidationProvider,
     WarningMessage,
@@ -468,6 +476,31 @@ export default class Tax extends Vue {
   height: 3rem;
   @media all and (min-width: 768px) {
     width: 14rem;
+  }
+}
+
+.mfc-button {
+  width: 185px;
+  height: 48px;
+  background-color: transparent;
+  background-image: url("../../../assets/boutonMFC/bouton_mes_justificatifs.png") !important;
+  background-position: center;
+  background-size: contain !important;
+  background-repeat: no-repeat;
+  border: none;
+}
+
+.mfc-button:hover {
+  background-image: url("../../../assets/boutonMFC/bouton_mes_justificatifs_hover.png");
+}
+
+.blue-franceconnect {
+  padding: 2rem;
+  color: var(--primary);
+  background-color: var(--bf200-bf300);
+  border-radius: 0.25rem;
+  .fr-h4 {
+    color: var(--primary);
   }
 }
 </style>
