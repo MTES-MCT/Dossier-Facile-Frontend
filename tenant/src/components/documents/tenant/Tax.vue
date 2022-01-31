@@ -95,6 +95,27 @@
           </div>
         </form>
       </NakedCard>
+      <div
+        v-if="acceptVerification && taxDocument.key === 'my-name'"
+        class="fr-grid-row blue-franceconnect fr-mt-3w"
+      >
+        <h2 class="fr-h4">
+          <span class="material-icons md-28">attach_file</span
+          >{{ $t("with-franceconnect-title") }}
+        </h2>
+        <div class="fr-ml-3w">
+          <div>{{ $t("with-franceconnect-text") }}</div>
+          <button
+            type="button"
+            aria-label="Mes justificatifs avec Mon FranceConnect"
+            title="Connectez vous avec FranceConnect pour accéder à vos justificatifs"
+            class="fr-btn fr-mt-3w"
+            onclick="window.open('https://mon.franceconnect.gouv.fr/Redirect/?scope=BoutonDGFIP', '_blank');"
+          >
+            Mon FranceConnect
+          </button>
+        </div>
+      </div>
       <NakedCard
         class="fr-p-md-5w fr-mt-3w"
         v-if="
@@ -470,6 +491,31 @@ export default class Tax extends Vue {
     width: 14rem;
   }
 }
+
+.mfc-button {
+  width: 185px;
+  height: 48px;
+  background-color: transparent;
+  background-image: url("../../../assets/boutonMFC/bouton_mes_justificatifs.png") !important;
+  background-position: center;
+  background-size: contain !important;
+  background-repeat: no-repeat;
+  border: none;
+}
+
+.mfc-button:hover {
+  background-image: url("../../../assets/boutonMFC/bouton_mes_justificatifs_hover.png");
+}
+
+.blue-franceconnect {
+  padding: 2rem;
+  color: var(--primary);
+  background-color: var(--bf200-bf300);
+  border-radius: 0.25rem;
+  .fr-h4 {
+    color: var(--primary);
+  }
+}
 </style>
 
 <i18n>
@@ -485,7 +531,9 @@ export default class Tax extends Vue {
   "register": "Register",
   "field-required": "This field is required",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-  "title": "My tax notice"
+  "title": "My tax notice",
+  "with-franceconnect-title": "Your supporting documents with Mon FranceConnect",
+  "with-franceconnect-text": "Mon FranceConnect is a digital state service allowing you to retrieve your supporting documents from different administrations."
 },
 "fr": {
   "my-name": "Vous avez un avis d’imposition à votre nom",
@@ -498,7 +546,9 @@ export default class Tax extends Vue {
   "register": "Enregistrer",
   "field-required": "Ce champ est requis",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "title": "Mon avis d'imposition"
+  "title": "Mon avis d'imposition",
+  "with-franceconnect-title": "Vos justificatifs avec Mon FranceConnect",
+  "with-franceconnect-text": "Mon FranceConnect est un service numérique de l'État vous permettant de récupérer vos justificatifs provenant de différentes administrations."
 }
 }
 </i18n>
