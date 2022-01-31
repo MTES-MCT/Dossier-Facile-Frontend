@@ -35,7 +35,7 @@ Vue.use(VueCookies);
 Vue.use(VueAuthImage);
 
 (Vue as any).$keycloak
-  .init({ onLoad: "check-sso", checkLoginIframe: false })
+  .init({ onLoad: "check-sso", checkLoginIframe: true })
   .then(() => {
     axios.interceptors.request.use(
       config => {
