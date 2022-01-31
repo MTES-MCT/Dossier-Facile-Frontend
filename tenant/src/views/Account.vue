@@ -128,7 +128,7 @@
               >
                 <h4 class="dflex">
                   <span class="material-icons-outlined md-28">timer</span
-                  ><span>{{ $t("instructional-time-title") }}</span>
+                  >&nbsp;<span>{{ $t("instructional-time-title") }}</span>
                 </h4>
                 <p v-html="$t('instructional-time-text')"></p>
               </div>
