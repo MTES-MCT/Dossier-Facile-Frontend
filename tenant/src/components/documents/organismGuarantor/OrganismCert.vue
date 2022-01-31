@@ -23,10 +23,8 @@
         </v-gouv-fr-modal>
         <AllDeclinedMessages
           class="fr-mb-3w"
-          :documentDeniedReasons="
-            guarantorIdentificationDocument().documentDeniedReasons
-          "
-        :documentStatus="guarantorIdentificationDocument().documentStatus"
+          :documentDeniedReasons="documentDeniedReasons"
+          :documentStatus="documentStatus"
         ></AllDeclinedMessages>
         <div class="fr-col-md-12 fr-mb-3w">
           <ListItem
@@ -100,6 +98,14 @@ export default class OrganismCert extends Vue {
   addFiles(fileList: File[]) {
     this.files = [...this.files, ...fileList];
     this.save();
+  }
+
+  get documentDeniedReasons() {
+    return this.guarantorIdentificationDocument()?.documentDeniedReasons;
+  }
+
+  get documentStatus() {
+    return this.guarantorIdentificationDocument()?.documentStatus;
   }
 
   save() {
