@@ -99,22 +99,7 @@
         v-if="acceptVerification && taxDocument.key === 'my-name'"
         class="fr-grid-row blue-franceconnect fr-mt-3w"
       >
-        <h2 class="fr-h4">
-          <span class="material-icons md-28">attach_file</span
-          >{{ $t("with-franceconnect-title") }}
-        </h2>
-        <div class="fr-ml-3w">
-          <div>{{ $t("with-franceconnect-text") }}</div>
-          <button
-            type="button"
-            aria-label="Mes justificatifs avec Mon FranceConnect"
-            title="Connectez vous avec FranceConnect pour accéder à vos justificatifs"
-            class="fr-btn fr-mt-3w"
-            onclick="window.open('https://mon.franceconnect.gouv.fr/Redirect/?scope=BoutonDGFIP', '_blank');"
-          >
-            Mon FranceConnect
-          </button>
-        </div>
+        <MonFranceConnect></MonFranceConnect>
       </div>
       <NakedCard
         class="fr-p-md-5w fr-mt-3w"
@@ -189,6 +174,7 @@ import { AnalyticsService } from "../../../services/AnalyticsService";
 import ProfileFooter from "../../footer/ProfileFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
+import MonFranceConnect from "../share/MonFranceConnect.vue";
 
 extend("is", {
   ...is,
@@ -202,6 +188,7 @@ extend("is", {
     DocumentInsert,
     FileUpload,
     ListItem,
+    MonFranceConnect,
     ValidationObserver,
     ValidationProvider,
     WarningMessage,
@@ -531,9 +518,7 @@ export default class Tax extends Vue {
   "register": "Register",
   "field-required": "This field is required",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-  "title": "My tax notice",
-  "with-franceconnect-title": "Your supporting documents with Mon FranceConnect",
-  "with-franceconnect-text": "Mon FranceConnect is a digital state service allowing you to retrieve your supporting documents from different administrations."
+  "title": "My tax notice"
 },
 "fr": {
   "my-name": "Vous avez un avis d’imposition à votre nom",
@@ -546,9 +531,7 @@ export default class Tax extends Vue {
   "register": "Enregistrer",
   "field-required": "Ce champ est requis",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "title": "Mon avis d'imposition",
-  "with-franceconnect-title": "Vos justificatifs avec Mon FranceConnect",
-  "with-franceconnect-text": "Mon FranceConnect est un service numérique de l'État vous permettant de récupérer vos justificatifs provenant de différentes administrations."
+  "title": "Mon avis d'imposition"
 }
 }
 </i18n>
