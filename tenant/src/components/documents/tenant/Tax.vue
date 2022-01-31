@@ -479,21 +479,6 @@ export default class Tax extends Vue {
   }
 }
 
-.mfc-button {
-  width: 185px;
-  height: 48px;
-  background-color: transparent;
-  background-image: url("../../../assets/boutonMFC/bouton_mes_justificatifs.png") !important;
-  background-position: center;
-  background-size: contain !important;
-  background-repeat: no-repeat;
-  border: none;
-}
-
-.mfc-button:hover {
-  background-image: url("../../../assets/boutonMFC/bouton_mes_justificatifs_hover.png");
-}
-
 .blue-franceconnect {
   padding: 2rem;
   color: var(--primary);
