@@ -126,8 +126,10 @@
                 class="fr-callout fr-mb-3w"
                 v-if="user.status === 'TO_PROCESS'"
               >
-                <div class="material-icons-outlined md-36">timer</div>
-                <h4>{{ $t("instructional-time-title") }}</h4>
+                <h4 class="dflex">
+                  <span class="material-icons-outlined md-28">timer</span
+                  ><span>{{ $t("instructional-time-title") }}</span>
+                </h4>
                 <p v-html="$t('instructional-time-text')"></p>
               </div>
               <hr />
@@ -1141,6 +1143,11 @@ hr {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.dflex {
+  display: flex;
+  align-items: center;
+}
 </style>
 
 <i18n>
@@ -1285,7 +1292,7 @@ hr {
     "amendment-required-text": "Après examen de votre dossier, des modifications vous sont demandées. <br>Consultez votre messagerie pour en connaître le détail.",
     "messaging": "Consulter ma messagerie",
     "instructional-time-title": "Durée d'instruction",
-    "instructional-time-text": "Une fois les dossiers complétés, ils sont pris en charge en moyenne en moins de 24h par notre équipe d'opérateurs."
+    "instructional-time-text": "Une fois votre dossier complété et déposé, il est pris en charge en moyenne en moins de 24h par notre équipe d'opérateurs."
   }
 }
 </i18n>
