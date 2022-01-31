@@ -1269,7 +1269,7 @@ hr {
     "CDD": "en CDD",
     "ALTERNATION": "en alternance",
     "INTERNSHIP": "en stage",
-    "STUDENT": "étudiant",
+    "STUDENT": "étudiant·e",
     "PUBLIC": "dans la fonction publique",
     "CTT": "en CTT (intérimaire)",
     "RETIRED": "retraité",
