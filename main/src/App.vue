@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" role="main">
     <MyHeader
       @on-create-tenant="onCreateTenant"
       @on-create-owner="onCreateOwner"
