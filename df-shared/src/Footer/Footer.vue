@@ -8,7 +8,7 @@
           </a>
           <a class="beta-logo" href="https://beta.gouv.fr/">
             <img
-              alt="footer logo dossierfacile"
+              alt="Accueil - beta.gouv.fr"
               class="footer-logo"
               src="./logo-betagouvfr.svg"
             />
