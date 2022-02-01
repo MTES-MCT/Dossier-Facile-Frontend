@@ -10,6 +10,12 @@
     >
       <Menu :user="user" />
     </MyHeader>
+    <div class="fr-container">
+      <div class="fr-mt-3w fr-mb-3w">
+        Notre serveur d'envois de mail est actuellement indisponible. Nous
+        mettons tout en œuvre pour résoudre ce problème au plus vite.
+      </div>
+    </div>
     <article class="page">
       <router-view :key="$route.path" />
     </article>
