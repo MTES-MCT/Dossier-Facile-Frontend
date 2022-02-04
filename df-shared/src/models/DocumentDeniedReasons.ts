@@ -1,4 +1,4 @@
 export class DocumentDeniedReasons {
-  checkedOptions?: string[];
+  selectedOptions?: { id: number; label: string }[];
   comment?: string;
 }
