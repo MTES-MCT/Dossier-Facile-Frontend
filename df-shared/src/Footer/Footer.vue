@@ -60,7 +60,7 @@
               :href="`${VUE_APP_DOCS_URL}`"
               target="_blank"
               rel="noreferrer"
-              title=`{{ $t("faq") }} - nouvelle fenêtre"
+              :title="$t('faq-link-title')"
             >
               {{ $t("faq") }}
             </a>
@@ -123,7 +123,7 @@
               href="https://partenaire.dossierfacile.fr"
               target="_blank"
               rel="noreferrer"
-              title=`{{ $t("partner") }} - nouvelle fenêtre`
+              :title="$t('partner-link-title')"
             >
               {{ $t("partner") }}
             </a>
@@ -285,7 +285,9 @@ export default class TheFooter extends Vue {
     "sources": "Source code",
     "accessibility": "Accessibility: not compliant",
     "statistics": "Statistics",
-    "partner": "Partners"
+    "partner": "Partners",
+    "faq-link-title": "Help - new window",
+    "partner-link-title": "Partners - new window"
   },
   "fr": {
     "contact": "Nous écrire",
@@ -296,7 +298,9 @@ export default class TheFooter extends Vue {
     "sources": "Code source",
     "accessibility": "Accessibilité: non conforme",
     "statistics": "Statistiques",
-    "partner": "Partenaires"
+    "partner": "Partenaires",
+    "faq-link-title": "Aide - nouvelle fenêtre",
+    "partner-link-title": "Partenaires - nouvelle fenêtre"
   }
 }
 </i18n>
