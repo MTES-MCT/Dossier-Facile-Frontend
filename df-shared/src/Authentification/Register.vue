@@ -37,7 +37,7 @@
                   name="email"
                   :placeholder="$t('email-placeholder')"
                   type="email"
-                  autocomplete="username"
+                  autocomplete="email"
                   required
                 />
                 <span class="fr-error-text" v-if="errors[0]">{{

@@ -426,7 +426,7 @@ export default class LandingPage extends Vue {
   background-size: cover !important;
   background-position: 50% 50% !important;
   background-image: url("../assets/cover-features.webp");
-  background-color: darkgray;
+  background-color: #6277A0;
   @media (max-width: 768px) {
     background-image: url("../assets/cover-features-mobile.webp");
   }

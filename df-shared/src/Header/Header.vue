@@ -24,12 +24,12 @@
               </div>
             </div>
             <div class="fr-header__service">
-              <a :href="`${MAIN_URL}/`" title="Retour à l’accueil">
+              <a :href="`${MAIN_URL}/`" title="Dossier Facile - Accueil">
                 <p class="fr-header__service-title">
                   <img
                     class="logo"
                     src="./logo_dossierfacile.webp"
-                    alt="logo"
+                    alt="Dossier Facile"
                   />
                 </p>
               </a>
