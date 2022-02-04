@@ -2,8 +2,8 @@
   <div
     v-if="
       documentDeniedReasons !== null &&
-        ((documentDeniedReasons.checkedOptions &&
-          documentDeniedReasons.checkedOptions.length > 0) ||
+        ((documentDeniedReasons.selectedOptions &&
+          documentDeniedReasons.selectedOptions.length > 0) ||
           documentDeniedReasons.comment) &&
         documentStatus !== 'VALIDATED'
     "
@@ -11,10 +11,10 @@
   >
     <div
       class="m1"
-      v-for="(m, k) in documentDeniedReasons.checkedOptions"
+      v-for="(o, k) in documentDeniedReasons.selectedOptions"
       :key="k"
     >
-      <DeclinedMessage :message="m"></DeclinedMessage>
+      <DeclinedMessage :message="o.label"></DeclinedMessage>
     </div>
     <div class="m1" v-if="documentDeniedReasons.comment">
       <DeclinedMessage
