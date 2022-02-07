@@ -6,6 +6,7 @@
       @on-create-owner="onCreateOwner"
       @on-logout="onLogout"
       @on-change-lang="changeLang"
+      :showAccessibility="isFunnel"
       :lang="getLang()"
     >
       <Menu :user="user" />
@@ -13,7 +14,7 @@
     <article class="page">
       <router-view :key="$route.path" />
     </article>
-    <TheFooter v-if="showFooter" />
+    <TheFooter v-if="!isFunnel" />
     <Cookies
       :hidden="cookieHidden"
       @accept="acceptCookies"
@@ -44,7 +45,7 @@ import router from "./router";
     ...mapState({
       user: "user",
       status: "status",
-      showFooter: "showFooter"
+      isFunnel: "isFunnel"
     }),
     ...mapGetters({
       isLoggedIn: "isLoggedIn"
@@ -52,7 +53,7 @@ import router from "./router";
   }
 })
 export default class App extends Vue {
-  showFooter!: boolean;
+  isFunnel!: boolean;
   cookieHidden = this.$cookies.isKey("accept-cookie");
   isLoggedIn!: boolean;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;

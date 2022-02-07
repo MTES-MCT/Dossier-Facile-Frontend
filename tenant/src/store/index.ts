@@ -27,7 +27,7 @@ export class DfState {
   newMessage = 0;
   spouseAuthorize = false;
   coTenantAuthorize = false;
-  showFooter = true;
+  isFunnel = false;
   financialDocumentSelected?: FinancialDocument = new FinancialDocument();
   editFinancialDocument = false;
 }
@@ -145,8 +145,8 @@ const store = new Vuex.Store({
     updateCoTenantAuthorize(state, authorize) {
       state.coTenantAuthorize = authorize;
     },
-    showFooter(state, showFooter) {
-      state.showFooter = showFooter;
+    isFunnel(state, isFunnel) {
+      state.isFunnel = isFunnel;
     },
     updateUserFirstname(state, firstname) {
       state.user.firstName = firstname;

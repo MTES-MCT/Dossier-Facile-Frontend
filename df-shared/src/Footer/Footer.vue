@@ -19,28 +19,26 @@
             <li class="fr-col-lg-3 fr-col-6 align-right">
               <a
                 class="fr-footer__content-link"
-                href="https://legifrance.gouv.fr">
+                href="https://legifrance.gouv.fr"
+              >
                 legifrance.gouv.fr
               </a>
             </li>
             <li class="fr-col-lg-3 fr-col-6 align-right">
-              <a
-                class="fr-footer__content-link"
-                href="https://gouvernement.fr">
+              <a class="fr-footer__content-link" href="https://gouvernement.fr">
                 gouvernement.fr
               </a>
             </li>
             <li class="fr-col-lg-3 fr-col-6 align-right">
               <a
                 class="fr-footer__content-link"
-                href="https://service-public.fr">
+                href="https://service-public.fr"
+              >
                 service-public.fr
               </a>
             </li>
             <li class="fr-col-lg-3 fr-col-6 align-right">
-              <a
-                class="fr-footer__content-link"
-                href="https://data.gouv.fr">
+              <a class="fr-footer__content-link" href="https://data.gouv.fr">
                 data.gouv.fr
               </a>
             </li>
@@ -51,7 +49,7 @@
         <ul class="fr-footer__bottom-list">
           <li class="fr-footer__bottom-item">
             <a class="fr-footer__bottom-link" href="https://beta.gouv.fr/">
-            Les startups d'Etat
+              Les startups d'Etat
             </a>
           </li>
           <li class="fr-footer__bottom-item">
@@ -89,9 +87,11 @@
             >
           </li>
           <li class="fr-footer__bottom-item">
-            <a class="fr-footer__bottom-link" href="#">{{
-              $t("accessibility")
-            }}</a>
+            <a
+              class="fr-footer__bottom-link"
+              :href="`${VUE_APP_MAIN_URL}/accessibilite`"
+              >{{ $t("accessibility") }}</a
+            >
           </li>
           <li class="fr-footer__bottom-item">
             <a
