@@ -96,7 +96,11 @@
         </form>
       </NakedCard>
       <div
-        v-if="acceptVerification && taxDocument.key === 'my-name'"
+        v-if="
+          acceptVerification &&
+            taxDocument.key === 'my-name' &&
+            user.id % 10 === 0
+        "
         class="fr-grid-row blue-franceconnect fr-mt-3w"
       >
         <MonFranceConnect></MonFranceConnect>
