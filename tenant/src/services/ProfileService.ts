@@ -4,13 +4,19 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 
 export const ProfileService = {
   saveNames(user: User) {
+    if (user.franceConnect && !user.zipCode) {
+      return Promise.resolve(true);
+    }
+    const postData: any = {
+      zipCode: user.zipCode
+    };
+    if (!user.franceConnect) {
+      postData.firstName = user.firstName;
+      postData.lastName = user.lastName;
+    }
     return axios.post(
       `https://${process.env.VUE_APP_API_URL}/api/register/names`,
-      {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        zipCode: user.zipCode
-      }
+      postData
     );
   },
   saveRoommates(data: {
