@@ -576,7 +576,11 @@ const store = new Vuex.Store({
       );
     },
     firstProfilePage() {
-      if (!this.state.user.firstName || !this.state.user.lastName) {
+      if (
+        !this.state.user.firstName ||
+        !this.state.user.lastName ||
+        !this.state.user.zipCode
+      ) {
         router.push({ name: "TenantName" });
         return;
       }
