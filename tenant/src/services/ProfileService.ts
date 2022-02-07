@@ -3,9 +3,9 @@ import axios from "axios";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 
 export const ProfileService = {
-  saveNames(user: User) {
+  saveNames(user: User): Promise<User> {
     if (user.franceConnect && !user.zipCode) {
-      return Promise.resolve(true);
+      return Promise.resolve(user);
     }
     const postData: any = {
       zipCode: user.zipCode
