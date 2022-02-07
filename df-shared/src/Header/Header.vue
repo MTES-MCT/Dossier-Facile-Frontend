@@ -46,6 +46,8 @@
                   <a
                     class="fr-link fr-fi-eye-line"
                     :href="`${MAIN_URL}/accessibilite`"
+                    target="_blank"
+                    :title="$t('accessibility-link')"
                     >{{ $t("accessibility") }}</a
                   >
                 </li>
@@ -100,6 +102,8 @@
               <a
                 class="fr-link fr-fi-eye-line"
                 :href="`${MAIN_URL}/accessibilite`"
+                target="_blank"
+                :title="$t('accessibility-link')"
                 >{{ $t("accessibility") }}</a
               >
             </li>
@@ -220,13 +224,15 @@ li {
     "logout": "Logout",
     "signup": "Sign up",
     "owner": "Owner area",
-    "accessibility": "Accessibility: not compliant"
+    "accessibility": "Accessibility: not compliant",
+    "accessibility-link": "Accessibility - new window"
   },
   "fr": {
     "logout": "Se déconnecter",
     "signup": "Mon dossier",
     "owner": "Espace propriétaire",
-    "accessibility": "Accessibilité: non conforme"
+    "accessibility": "Accessibilité: non conforme",
+    "accessibility-link": "Déclaration d'accessibilité - nouvelle fenêtre"
   }
 }
 </i18n>

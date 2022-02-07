@@ -90,6 +90,8 @@
             <a
               class="fr-footer__bottom-link"
               :href="`${VUE_APP_MAIN_URL}/accessibilite`"
+              target="_blank"
+              :title="$t('accessibility-link')"
               >{{ $t("accessibility") }}</a
             >
           </li>
@@ -287,7 +289,8 @@ export default class TheFooter extends Vue {
     "statistics": "Statistics",
     "partner": "Partners",
     "faq-link-title": "Help - new window",
-    "partner-link-title": "Partners - new window"
+    "partner-link-title": "Partners - new window",
+    "accessibility-link": "Accessibility - new window"
   },
   "fr": {
     "contact": "Nous écrire",
@@ -300,7 +303,8 @@ export default class TheFooter extends Vue {
     "statistics": "Statistiques",
     "partner": "Partenaires",
     "faq-link-title": "Aide - nouvelle fenêtre",
-    "partner-link-title": "Partenaires - nouvelle fenêtre"
+    "partner-link-title": "Partenaires - nouvelle fenêtre",
+    "accessibility-link": "Déclaration d'accessibilité - nouvelle fenêtre"
   }
 }
 </i18n>
