@@ -347,9 +347,9 @@ function keepGoing(to: Route, next: NavigationGuardNext<Vue>) {
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.hideFooter)) {
-    store.commit("showFooter", false);
+    store.commit("isFunnel", true);
   } else {
-    store.commit("showFooter", true);
+    store.commit("isFunnel", false);
   }
 
   const lang = Vue.$cookies.get("lang") === "en" ? "en" : "fr";
