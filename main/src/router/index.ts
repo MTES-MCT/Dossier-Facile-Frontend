@@ -201,6 +201,18 @@ const routes: Array<RouteConfig> = [
     }
   },
   {
+    path: "/accessibilite",
+    name: "Accessibility",
+    meta: {
+      title: "Déclaration accessibilité - DossierFacile",
+      description: "Déclaration d'accessibilité de DossierFacile"
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "accessibility" */ "../views/Accessibility.vue"
+      )
+  },
+  {
     path: "/blog/article1",
     redirect: () => {
       window.location.replace(
