@@ -109,6 +109,8 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
+import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
+import { cloneDeep } from "lodash";
 
 extend("required", {
   ...required
@@ -146,6 +148,7 @@ export default class RepresentativeIdentification extends Vue {
   MAX_FILE_COUNT = 5;
 
   identificationDocument = new DocumentType();
+  documentDeniedReasons = new DocumentDeniedReasons();
 
   files: File[] = [];
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
@@ -170,10 +173,11 @@ export default class RepresentativeIdentification extends Vue {
         }
       }
     }
-  }
-
-  get documentDeniedReasons() {
-    return this.guarantorIdentificationDocument()?.documentDeniedReasons;
+    if (this.guarantorIdentificationDocument()?.documentDeniedReasons) {
+      this.documentDeniedReasons = cloneDeep(
+        this.guarantorIdentificationDocument().documentDeniedReasons
+      );
+    }
   }
 
   get documentStatus() {
