@@ -4,9 +4,6 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 
 export const ProfileService = {
   saveNames(user: User): Promise<User> {
-    if (user.franceConnect && !user.zipCode) {
-      return Promise.resolve(user);
-    }
     return axios.post(
       `https://${process.env.VUE_APP_API_URL}/api/register/names`,
       {
