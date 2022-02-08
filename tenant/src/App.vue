@@ -9,7 +9,7 @@
       :showAccessibility="isFunnel"
       :lang="getLang()"
     >
-      <Menu :user="user" />
+      <Menu />
     </MyHeader>
     <article class="page">
       <router-view :key="$route.path" />

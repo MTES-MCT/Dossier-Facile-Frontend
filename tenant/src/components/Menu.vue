@@ -1,6 +1,6 @@
 <template>
   <ul class="fr-nav__list">
-    <li class="fr-nav__item" v-if="user">
+    <li class="fr-nav__item" v-if="isLoggedIn">
       <a href="/messaging" class="fr-nav__link">
         {{ $t("messaging") }}
         <span v-if="newMessage > 0" class="badge">{{ newMessage }}</span>
@@ -26,7 +26,7 @@
         {{ $t("information") }}
       </a>
     </li>
-    <li class="fr-nav__item" v-if="user">
+    <li class="fr-nav__item" v-if="isLoggedIn">
       <button
         class="fr-nav__btn"
         aria-expanded="false"
@@ -63,7 +63,6 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { User } from "df-shared/src/models/User";
 import { mapGetters } from "vuex";
 import DeleteAccount from "./DeleteAccount.vue";
 
@@ -73,13 +72,13 @@ import DeleteAccount from "./DeleteAccount.vue";
   },
   computed: {
     ...mapGetters({
-      user: "userToEdit",
-      newMessage: "newMessage"
+      newMessage: "newMessage",
+      isLoggedIn: "isLoggedIn"
     })
   }
 })
 export default class Menu extends Vue {
-  user?: User;
+  isLoggedIn?: boolean;
   newMessage!: number;
   isDeleteModalVisible = false;
 
