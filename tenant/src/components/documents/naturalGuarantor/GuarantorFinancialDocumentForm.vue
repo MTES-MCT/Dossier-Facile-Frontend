@@ -240,6 +240,7 @@ import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import cloneDeep from "lodash/cloneDeep";
 import { AnalyticsService } from "../../../services/AnalyticsService";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
+import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 
 extend("regex", {
   ...regex,
@@ -285,6 +286,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
   financialDocument = new FinancialDocument();
   guarantorFinancialDocuments!: FinancialDocument[];
 
+  documentDeniedReasons = new DocumentDeniedReasons();
   documents = DocumentTypeConstants.GUARANTOR_FINANCIAL_DOCS;
   isDocDeleteVisible = false;
   selectedDoc?: FinancialDocument;
@@ -294,6 +296,11 @@ export default class GuarantorFinancialDocumentForm extends Vue {
     this.financialDocument = {
       ...cloneDeep(this.guarantorFinancialDocumentSelected)
     };
+    if (this.guarantorFinancialDocument()?.documentDeniedReasons) {
+      this.documentDeniedReasons = cloneDeep(
+        this.guarantorFinancialDocument()?.documentDeniedReasons
+      );
+    }
   }
 
   isNewDocument(f: FinancialDocument) {
@@ -310,10 +317,6 @@ export default class GuarantorFinancialDocumentForm extends Vue {
 
   get documentStatus() {
     return this.guarantorFinancialDocument()?.documentStatus;
-  }
-
-  get documentDeniedReasons() {
-    return this.guarantorFinancialDocument()?.documentDeniedReasons;
   }
 
   guarantorFinancialDocument() {

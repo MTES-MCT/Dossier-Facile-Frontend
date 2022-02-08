@@ -286,6 +286,7 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 import ProfileFooter from "../../footer/ProfileFooter.vue";
 import { cloneDeep } from "lodash";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
+import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 
 extend("regex", {
   ...regex,
@@ -330,6 +331,7 @@ export default class FinancialDocumentForm extends Vue {
   financialDocumentSelected!: FinancialDocument;
   tenantFinancialDocuments!: FinancialDocument[];
 
+  documentDeniedReasons = new DocumentDeniedReasons();
   isDocDeleteVisible = false;
   selectedDoc?: FinancialDocument;
   isNoIncomeAndFiles = false;
@@ -337,14 +339,15 @@ export default class FinancialDocumentForm extends Vue {
 
   beforeMount() {
     this.financialDocument = { ...cloneDeep(this.financialDocumentSelected) };
+    if (this.tenantFinancialDocument()?.documentDeniedReasons) {
+      this.documentDeniedReasons = cloneDeep(
+        this.tenantFinancialDocument().documentDeniedReasons
+      );
+    }
   }
 
   get documentStatus() {
     return this.tenantFinancialDocument()?.documentStatus;
-  }
-
-  get documentDeniedReasons() {
-    return this.tenantFinancialDocument()?.documentDeniedReasons;
   }
 
   isNewDocument(f: FinancialDocument) {

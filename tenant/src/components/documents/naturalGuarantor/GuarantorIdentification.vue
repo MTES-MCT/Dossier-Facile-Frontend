@@ -111,6 +111,8 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
+import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
+import { cloneDeep } from "lodash";
 
 @Component({
   components: {
@@ -136,6 +138,7 @@ import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 export default class GuarantorIdentification extends Vue {
   documents = DocumentTypeConstants.GUARANTOR_IDENTIFICATION_DOCS;
 
+  documentDeniedReasons = new DocumentDeniedReasons();
   selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
@@ -163,10 +166,6 @@ export default class GuarantorIdentification extends Vue {
 
   get documentStatus() {
     return this.guarantorIdentificationDocument()?.documentStatus;
-  }
-
-  get documentDeniedReasons() {
-    return this.guarantorIdentificationDocument()?.documentDeniedReasons;
   }
 
   guarantorIdentificationDocument() {
@@ -218,6 +217,11 @@ export default class GuarantorIdentification extends Vue {
         if (localDoc !== undefined) {
           this.identificationDocument = localDoc;
         }
+      }
+      if (this.guarantorIdentificationDocument()?.documentDeniedReasons) {
+        this.documentDeniedReasons = cloneDeep(
+          this.guarantorIdentificationDocument()?.documentDeniedReasons
+        );
       }
     }
   }

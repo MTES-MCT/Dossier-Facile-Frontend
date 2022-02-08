@@ -161,6 +161,8 @@ import TaxHelp from "../../helps/TaxHelp.vue";
 import GuarantorFooter from "../../footer/GuarantorFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
+import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
+import { cloneDeep } from "lodash";
 
 extend("is", {
   ...is,
@@ -198,6 +200,7 @@ export default class Tax extends Vue {
     [key: string]: { state: string; percentage: number };
   } = {};
   taxDocument = new DocumentType();
+  documentDeniedReasons = new DocumentDeniedReasons();
 
   acceptVerification = false;
   customText = "";
@@ -228,10 +231,6 @@ export default class Tax extends Vue {
 
   get documentStatus() {
     return this.guarantorTaxDocument()?.documentStatus;
-  }
-
-  get documentDeniedReasons() {
-    return this.guarantorTaxDocument()?.documentDeniedReasons;
   }
 
   guarantorTaxDocument() {
@@ -296,6 +295,11 @@ export default class Tax extends Vue {
     }
     if (this.taxDocument.key === "my-name" && this.taxFiles().length > 0) {
       this.acceptVerification = true;
+    }
+    if (this.guarantorTaxDocument()?.documentDeniedReasons) {
+      this.documentDeniedReasons = cloneDeep(
+        this.guarantorTaxDocument()?.documentDeniedReasons
+      );
     }
   }
 

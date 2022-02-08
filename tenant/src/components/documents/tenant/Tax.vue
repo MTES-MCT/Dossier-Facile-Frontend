@@ -179,6 +179,8 @@ import ProfileFooter from "../../footer/ProfileFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import MonFranceConnect from "../share/MonFranceConnect.vue";
+import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
+import { cloneDeep } from "lodash";
 
 extend("is", {
   ...is,
@@ -216,6 +218,8 @@ export default class Tax extends Vue {
   user!: User;
   tenantTaxDocument!: DfDocument;
 
+  documentDeniedReasons = new DocumentDeniedReasons();
+
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
   uploadProgress: {
@@ -234,10 +238,6 @@ export default class Tax extends Vue {
 
   get documentStatus() {
     return this.tenantTaxDocument?.documentStatus;
-  }
-
-  get documentDeniedReasons() {
-    return this.tenantTaxDocument?.documentDeniedReasons;
   }
 
   mounted() {
@@ -262,6 +262,11 @@ export default class Tax extends Vue {
           this.taxDocument = localDoc;
         }
       }
+    }
+    if (this.tenantTaxDocument?.documentDeniedReasons) {
+      this.documentDeniedReasons = cloneDeep(
+        this.tenantTaxDocument.documentDeniedReasons
+      );
     }
 
     if (this.taxDocument.key === "my-name" && this.taxFiles().length > 0) {

@@ -105,6 +105,8 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
 import { AnalyticsService } from "../../../services/AnalyticsService";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
+import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
+import { cloneDeep } from "lodash";
 
 @Component({
   components: {
@@ -132,6 +134,7 @@ export default class Residency extends Vue {
   user!: User;
   tenantResidencyDocument!: DfDocument;
 
+  documentDeniedReasons = new DocumentDeniedReasons();
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
   uploadProgress: {
@@ -149,10 +152,6 @@ export default class Residency extends Vue {
     return this.tenantResidencyDocument?.documentStatus;
   }
 
-  get documentDeniedReasons() {
-    return this.tenantResidencyDocument?.documentDeniedReasons;
-  }
-
   beforeMount() {
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
@@ -167,6 +166,11 @@ export default class Residency extends Vue {
           localStorage.setItem(
             this.getLocalStorageKey(),
             this.residencyDocument.key || ""
+          );
+        }
+        if (this.tenantResidencyDocument?.documentDeniedReasons) {
+          this.documentDeniedReasons = cloneDeep(
+            this.tenantResidencyDocument.documentDeniedReasons
           );
         }
       } else {

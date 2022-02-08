@@ -93,6 +93,8 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
+import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
+import { cloneDeep } from "lodash";
 
 extend("required", {
   ...required,
@@ -130,6 +132,7 @@ export default class CorporationIdentification extends Vue {
   ];
 
   selectedGuarantor!: Guarantor;
+  documentDeniedReasons = new DocumentDeniedReasons();
 
   files: File[] = [];
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
@@ -139,16 +142,18 @@ export default class CorporationIdentification extends Vue {
 
   mounted() {
     this.organismName = this.selectedGuarantor.legalPersonName || "";
+    if (
+      this.guarantorIdentificationLegalPersonDocument()?.documentDeniedReasons
+    ) {
+      this.documentDeniedReasons = cloneDeep(
+        this.guarantorIdentificationLegalPersonDocument().documentDeniedReasons
+      );
+    }
   }
 
   addFiles(fileList: File[]) {
     this.files = [...this.files, ...fileList];
     this.save();
-  }
-
-  get documentDeniedReasons() {
-    return this.guarantorIdentificationLegalPersonDocument()
-      ?.documentDeniedReasons;
   }
 
   get documentStatus() {
