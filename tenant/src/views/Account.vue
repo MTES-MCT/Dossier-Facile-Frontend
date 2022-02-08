@@ -27,74 +27,76 @@
                 ></ColoredTag>
 
                 <span class="spacer"></span>
-                <DfButton
-                  @on-click="copyLink()"
-                  primary="true"
-                  size="small"
-                  :disabled="!canCopyLink()"
-                  >{{ $t("copy-link") }}</DfButton
-                >
-                <div class="grp">
-                  <input id="tokenLink" type="hidden" :value="getToken()" />
-                  <button
-                    class="fr-btn grp-btn"
-                    :class="{
-                      'fr-fi-arrow-down-s-line': !radioVisible,
-                      'fr-fi-arrow-up-s-line': radioVisible
-                    }"
-                    title="Copy"
-                    @click="radioVisible = !radioVisible"
+                <div class="fr-grid-row btn-container">
+                  <DfButton
+                    @on-click="copyLink()"
+                    primary="true"
+                    size="small"
                     :disabled="!canCopyLink()"
+                    >{{ $t("copy-link") }}</DfButton
                   >
-                    <span class="sr-only"> Copy </span>
-                  </button>
-                  <div class="grp-modal bg-white" v-show="radioVisible">
-                    <h4 class="p10">{{ $t("share-file") }}</h4>
+                  <div class="grp">
+                    <input id="tokenLink" type="hidden" :value="getToken()" />
+                    <button
+                      class="fr-btn grp-btn"
+                      :class="{
+                        'fr-fi-arrow-down-s-line': !radioVisible,
+                        'fr-fi-arrow-up-s-line': radioVisible
+                      }"
+                      title="Copy"
+                      @click="radioVisible = !radioVisible"
+                      :disabled="!canCopyLink()"
+                    >
+                      <span class="sr-only"> Copy </span>
+                    </button>
+                    <div class="grp-modal bg-white" v-show="radioVisible">
+                      <h4 class="p10">{{ $t("share-file") }}</h4>
 
-                    <div>
-                      <fieldset class="fr-fieldset">
-                        <div class="fr-fieldset__content">
-                          <div class="fr-radio-group p10">
-                            <input
-                              type="radio"
-                              id="radio-1"
-                              name="radio"
-                              v-model="pub"
-                              value="true"
-                            />
-                            <label
-                              class="fr-label"
-                              for="radio-1"
-                              v-html="$t('file-resume')"
-                            ></label>
+                      <div>
+                        <fieldset class="fr-fieldset">
+                          <div class="fr-fieldset__content">
+                            <div class="fr-radio-group p10">
+                              <input
+                                type="radio"
+                                id="radio-1"
+                                name="radio"
+                                v-model="pub"
+                                value="true"
+                              />
+                              <label
+                                class="fr-label"
+                                for="radio-1"
+                                v-html="$t('file-resume')"
+                              ></label>
+                            </div>
+                            <hr />
+                            <div class="fr-radio-group p10">
+                              <input
+                                type="radio"
+                                id="radio-2"
+                                name="radio"
+                                v-model="pub"
+                                value="false"
+                              />
+                              <label
+                                class="fr-label"
+                                for="radio-2"
+                                v-html="$t('file-full')"
+                              >
+                              </label>
+                            </div>
+                            <div class="flex copy-btn">
+                              <input type="text" :value="getToken()" readonly />
+                              <DfButton
+                                class="fr-ml-1w"
+                                primary="true"
+                                @on-click="copyLink()"
+                                >{{ $t("copy") }}</DfButton
+                              >
+                            </div>
                           </div>
-                          <hr />
-                          <div class="fr-radio-group p10">
-                            <input
-                              type="radio"
-                              id="radio-2"
-                              name="radio"
-                              v-model="pub"
-                              value="false"
-                            />
-                            <label
-                              class="fr-label"
-                              for="radio-2"
-                              v-html="$t('file-full')"
-                            >
-                            </label>
-                          </div>
-                          <div class="flex copy-btn">
-                            <input type="text" :value="getToken()" readonly />
-                            <DfButton
-                              class="fr-ml-1w"
-                              primary="true"
-                              @on-click="copyLink()"
-                              >{{ $t("copy") }}</DfButton
-                            >
-                          </div>
-                        </div>
-                      </fieldset>
+                        </fieldset>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1055,6 +1057,7 @@ h2 {
   left: auto;
   width: max-content;
   padding: 0;
+  z-index: 2;
 
   &:before {
     top: -16px;
@@ -1147,6 +1150,10 @@ hr {
 .dflex {
   display: flex;
   align-items: center;
+}
+
+.btn-container {
+  margin-left: auto;
 }
 </style>
 
