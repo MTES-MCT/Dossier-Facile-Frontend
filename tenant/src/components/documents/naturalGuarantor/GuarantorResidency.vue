@@ -104,6 +104,8 @@ import GuarantorChoiceHelp from "../../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
+import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
+import { cloneDeep } from "lodash";
 
 @Component({
   components: {
@@ -132,6 +134,7 @@ export default class Residency extends Vue {
     [key: string]: { state: string; percentage: number };
   } = {};
   residencyDocument = new DocumentType();
+  documentDeniedReasons = new DocumentDeniedReasons();
 
   documents = DocumentTypeConstants.GUARANTOR_RESIDENCY_DOCS;
   isDocDeleteVisible = false;
@@ -147,10 +150,6 @@ export default class Residency extends Vue {
 
   get documentStatus() {
     return this.guarantorResidencyDocument()?.documentStatus;
-  }
-
-  get documentDeniedReasons() {
-    return this.guarantorResidencyDocument()?.documentDeniedReasons;
   }
 
   guarantorResidencyDocument() {
@@ -169,6 +168,11 @@ export default class Residency extends Vue {
         if (localDoc !== undefined) {
           this.residencyDocument = localDoc;
         }
+      }
+      if (this.guarantorResidencyDocument()?.documentDeniedReasons) {
+        this.documentDeniedReasons = cloneDeep(
+          this.guarantorResidencyDocument()?.documentDeniedReasons
+        );
       }
     }
   }

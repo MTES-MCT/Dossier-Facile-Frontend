@@ -96,6 +96,8 @@ import GuarantorChoiceHelp from "../../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
+import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
+import { cloneDeep } from "lodash";
 
 @Component({
   components: {
@@ -125,6 +127,7 @@ export default class Professional extends Vue {
   professionalDocument = new DocumentType();
   documents = DocumentTypeConstants.GUARANTOR_PROFESSIONAL_DOCS;
   isDocDeleteVisible = false;
+  documentDeniedReasons = new DocumentDeniedReasons();
 
   @Watch("selectedGuarantor")
   onGuarantorChange() {
@@ -137,10 +140,6 @@ export default class Professional extends Vue {
 
   get documentStatus() {
     return this.guarantorProfessionalDocument()?.documentStatus;
-  }
-
-  get documentDeniedReasons() {
-    return this.guarantorProfessionalDocument()?.documentDeniedReasons;
   }
 
   guarantorProfessionalDocument() {
@@ -159,6 +158,11 @@ export default class Professional extends Vue {
         if (localDoc !== undefined) {
           this.professionalDocument = localDoc;
         }
+      }
+      if (this.guarantorProfessionalDocument()?.documentDeniedReasons) {
+        this.documentDeniedReasons = cloneDeep(
+          this.guarantorProfessionalDocument()?.documentDeniedReasons
+        );
       }
     }
   }
