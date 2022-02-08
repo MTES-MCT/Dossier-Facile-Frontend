@@ -66,6 +66,8 @@ import { RegisterService } from "../../../services/RegisterService";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
+import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
+import { cloneDeep } from "lodash";
 
 @Component({
   components: {
@@ -87,6 +89,7 @@ export default class OrganismCert extends Vue {
   acceptedProofs = ["Certificat de garantie valide d'un organisme"];
   refusedProofs = ["Tout autre document"];
 
+  documentDeniedReasons = new DocumentDeniedReasons();
   identificationDocument = new DocumentType();
 
   files: File[] = [];
@@ -95,13 +98,17 @@ export default class OrganismCert extends Vue {
     [key: string]: { state: string; percentage: number };
   } = {};
 
+  beforeMount() {
+    if (this.guarantorIdentificationDocument()?.documentDeniedReasons) {
+      this.documentDeniedReasons = cloneDeep(
+        this.guarantorIdentificationDocument().documentDeniedReasons
+      );
+    }
+  }
+
   addFiles(fileList: File[]) {
     this.files = [...this.files, ...fileList];
     this.save();
-  }
-
-  get documentDeniedReasons() {
-    return this.guarantorIdentificationDocument()?.documentDeniedReasons;
   }
 
   get documentStatus() {
