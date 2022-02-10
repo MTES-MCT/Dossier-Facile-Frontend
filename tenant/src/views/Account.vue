@@ -139,7 +139,7 @@
                 <h4>{{ $t("my-personnal-information") }}</h4>
                 <div
                   class="fr-grid-row fr-grid-row--gutters"
-                  @click="gotoTenantName()"
+                  @click.prevent="gotoTenantName()"
                 >
                   <div class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w">
                     <div class="fr-tile fr-tile--horizontal">
@@ -174,7 +174,7 @@
                 <div class="fr-grid-row fr-grid-row--gutters">
                   <div
                     class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                    @click="setTenantStep(1)"
+                    @click.prevent="setTenantStep(1)"
                   >
                     <div class="fr-tile fr-tile--horizontal">
                       <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -203,7 +203,7 @@
                   </div>
                   <div
                     class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                    @click="setTenantStep(2)"
+                    @click.prevent="setTenantStep(2)"
                   >
                     <div class="fr-tile fr-tile--horizontal">
                       <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -232,7 +232,7 @@
                   </div>
                   <div
                     class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                    @click="setTenantStep(3)"
+                    @click.prevent="setTenantStep(3)"
                   >
                     <div class="fr-tile fr-tile--horizontal">
                       <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -262,7 +262,7 @@
 
                   <div
                     class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                    @click="setTenantStep(4)"
+                    @click.prevent="setTenantStep(4)"
                   >
                     <div class="fr-tile fr-tile--horizontal">
                       <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -291,7 +291,7 @@
                   </div>
                   <div
                     class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                    @click="setTenantStep(5)"
+                    @click.prevent="setTenantStep(5)"
                   >
                     <div class="fr-tile fr-tile--horizontal">
                       <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -330,7 +330,7 @@
                     <div class="fr-grid-row fr-grid-row--gutters">
                       <div
                         class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click="setGuarantorSubStep(1, g)"
+                        @click.prevent="setGuarantorSubStep(1, g)"
                       >
                         <div class="fr-tile fr-tile--horizontal">
                           <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -363,7 +363,7 @@
                       </div>
                       <div
                         class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click="setGuarantorSubStep(2, g)"
+                        @click.prevent="setGuarantorSubStep(2, g)"
                       >
                         <div class="fr-tile fr-tile--horizontal">
                           <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -394,7 +394,7 @@
                       </div>
                       <div
                         class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click="setGuarantorSubStep(3, g)"
+                        @click.prevent="setGuarantorSubStep(3, g)"
                       >
                         <div class="fr-tile fr-tile--horizontal">
                           <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -426,7 +426,7 @@
 
                       <div
                         class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click="setGuarantorSubStep(4, g)"
+                        @click.prevent="setGuarantorSubStep(4, g)"
                       >
                         <div class="fr-tile fr-tile--horizontal">
                           <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -457,7 +457,7 @@
                       </div>
                       <div
                         class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click="setGuarantorSubStep(5, g)"
+                        @click.prevent="setGuarantorSubStep(5, g)"
                       >
                         <div class="fr-tile fr-tile--horizontal">
                           <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -488,7 +488,7 @@
                     <div class="fr-grid-row fr-grid-row--gutters">
                       <div
                         class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click="setGuarantorSubStep(1, g)"
+                        @click.prevent="setGuarantorSubStep(1, g)"
                       >
                         <div class="fr-tile fr-tile--horizontal">
                           <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -525,7 +525,7 @@
                     <div class="fr-grid-row fr-grid-row--gutters">
                       <div
                         class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click="setGuarantorSubStep(1, g)"
+                        @click.prevent="setGuarantorSubStep(1, g)"
                       >
                         <div class="fr-tile fr-tile--horizontal">
                           <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -570,7 +570,7 @@
                     <div class="fr-grid-row fr-grid-row--gutters">
                       <div
                         class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click="setGuarantorSubStep(2, g)"
+                        @click.prevent="setGuarantorSubStep(2, g)"
                       >
                         <div class="fr-tile fr-tile--horizontal">
                           <div class="fr-tile__body fr-ml-2w fr-mr-2w">
