@@ -731,7 +731,7 @@ export default class Account extends Vue {
   pub = "false";
   isDeleteModalVisible = false;
 
-  beforeMount() {
+  mounted() {
     window.Beacon("init", "d949ac15-a9eb-4316-b0c5-f92cecc7118f");
   }
 
