@@ -208,8 +208,6 @@ export default class GuarantorDocuments extends Vue {
       const localType = localStorage.getItem(this.getLocalStorageKey());
       if (localType) {
         this.tmpGuarantorType = localType;
-      } else {
-        this.tmpGuarantorType = "NO_GUARANTOR";
       }
     }
   }
