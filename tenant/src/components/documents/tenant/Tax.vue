@@ -401,7 +401,8 @@ export default class Tax extends Vue {
     const d = this.getRegisteredDoc();
     if (
       this.taxDocument.value === d?.documentSubCategory &&
-      this.customText === (d?.customText || "")
+      this.customText === (d?.customText || "") &&
+      newFiles.length <= 0
     ) {
       return true;
     }
