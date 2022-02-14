@@ -137,6 +137,10 @@ export const AnalyticsService = {
     this.sendEvent("validate-file", { event_category: "file" });
   },
 
+  openDGFIP() {
+    this.sendEvent("open-dgfip", { event_category: "funnel" });
+  },
+
   getDoctypeByNumber(docType: number) {
     switch (docType) {
       case 1:
