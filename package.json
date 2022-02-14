@@ -17,7 +17,7 @@
   "scripts": {
     "main": "yarn workspace main",
     "tenant": "yarn workspace tenant",
-    "owner": "yarn workspace owner",
+    "dfowner": "yarn workspace owner",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },

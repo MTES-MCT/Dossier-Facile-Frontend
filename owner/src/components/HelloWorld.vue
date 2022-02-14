@@ -1,13 +1,19 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { useStore } from "vuex";
+import { computed } from "vue";
 
-defineProps<{ msg: string }>()
+defineProps<{}>();
 
-const count = ref(0)
+const store = useStore();
+
+const count = computed(() => store.getters.count);
+
+function increaseCount() {
+  store.commit("increment");
+}
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
 
   <p>
     Recommended IDE setup:
@@ -26,7 +32,7 @@ const count = ref(0)
     <a href="https://v3.vuejs.org/" target="_blank">Vue 3 Docs</a>
   </p>
 
-  <button type="button" @click="count++">count is: {{ count }}</button>
+  <button type="button" @click="increaseCount">count is: {{ count }}</button>
   <p>
     Edit
     <code>components/HelloWorld.vue</code> to test hot module replacement.
