@@ -143,7 +143,7 @@
                   “Nous allons faire en sorte que le dossier soit encore plus
                   simple à utiliser et qu’il donne encore plus confiance aux
                   propriétaires. L’idée est de synchroniser DossierFacile et
-                  France Connect.”
+                  FranceConnect.”
                 </i>
                 rapporte
                 <a
@@ -153,7 +153,7 @@
                 >
                 dans une interview réalisée fin janvier 2022.
                 <i>
-                  “Lorsque vous vous connectez à France Connect, votre dossier
+                  “Lorsque vous vous connectez à FranceConnect, votre dossier
                   est déjà constitué et vous n’avez rien à faire. (...) La
                   vérification est automatique et le bailleur est rassuré.”
                 </i>
