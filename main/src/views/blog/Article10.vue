@@ -125,16 +125,25 @@
                   le propriétaire pour qui le paiement du loyer et l'entretien
                   du bien sont les points les plus importants.”
                 </i>
-                note BFM Immo le 1er décembre 2021.
+                note
+                <a
+                  href="https://www.bfmtv.com/immobilier/location/location-cinq-conseils-pour-votre-recherche-de-logement_AN-202112010367.html"
+                  target="_blank"
+                  >BFM Immo</a
+                >
+                le 1er décembre 2021.
                 <i>
                   “Cette plateforme a l’avantage d’aider à vérifier que le
                   dossier est complet et que les justificatifs sont cohérents.”
                 </i>
                 abonde Le Figaro Immobilier. Ainsi la plateforme se charge
                 d’éviter aux bailleurs les dossiers falsifiés ainsi que le
-                pénible travail de relance sur des dossiers incomplets, pour in
-                fine faciliter le choix du bon candidat ! Objectif final :
-                rétablir la confiance entre les locataires et les propriétaires.
+                pénible travail de relance sur des dossiers incomplets, pour
+                <i>
+                  in fine
+                </i>
+                faciliter le choix du bon candidat ! Objectif final : rétablir
+                la confiance entre les locataires et les propriétaires.
               </p>
               <h2>FranceConnect et automatisation pour 2022</h2>
               <p>
@@ -143,7 +152,7 @@
                   “Nous allons faire en sorte que le dossier soit encore plus
                   simple à utiliser et qu’il donne encore plus confiance aux
                   propriétaires. L’idée est de synchroniser DossierFacile et
-                  France Connect.”
+                  FranceConnect.”
                 </i>
                 rapporte
                 <a
@@ -153,7 +162,7 @@
                 >
                 dans une interview réalisée fin janvier 2022.
                 <i>
-                  “Lorsque vous vous connectez à France Connect, votre dossier
+                  “Lorsque vous vous connectez à FranceConnect, votre dossier
                   est déjà constitué et vous n’avez rien à faire. (...) La
                   vérification est automatique et le bailleur est rassuré.”
                 </i>
