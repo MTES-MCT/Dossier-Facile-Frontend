@@ -145,11 +145,11 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Article9.vue")
   },
   {
-    path: "/blog/un-garant-qui-comment-pourquoi",
+    path: "/blog/quand-les-journalistes-parlent-de-dossierfacile",
     name: "Article10",
     meta: {
-      title: "Un garant ? Qui ? Comment ? Pourquoi ? - DossierFacile",
-      description: "Un garant ? Qui ? Comment ? Pourquoi ? - DossierFacile"
+      title: "Quand les journalistes parlent de DossierFacile - DossierFacile",
+      description: "Quand les journalistes parlent de DossierFacile"
     },
     component: () =>
       import(/* webpackChunkName: "blog" */ "../views/blog/Article10.vue")

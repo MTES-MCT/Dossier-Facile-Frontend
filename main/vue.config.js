@@ -26,6 +26,8 @@ module.exports = {
         "https://dossierfacile.fr/blog/un-garant-qui-comment-pourquoi",
         "https://dossierfacile.fr/blog/tout-comprendre-a-la-vie-en-colocation",
         "https://dossierfacile.fr/blog/comment-justifier-son-domicile",
+        "https://dossierfacile.fr/blog/loyer-locataire-ou-bailleur",
+        "https://dossierfacile.fr/blog/quand-les-journalistes-parlent-de-dossierfacile",
         "https://dossierfacile.fr/information",
         "https://dossierfacile.fr/mentions-legales"
       ]
@@ -57,6 +59,8 @@ module.exports = {
             "/blog/un-garant-qui-comment-pourquoi",
             "/blog/tout-comprendre-a-la-vie-en-colocation",
             "/blog/comment-justifier-son-domicile",
+            "/blog/loyer-locataire-ou-bailleur",
+            "/blog/quand-les-journalistes-parlent-de-dossierfacile",
             "/information",
             "/mentions-legales"
           ]

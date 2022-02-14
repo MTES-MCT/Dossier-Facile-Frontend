@@ -6,9 +6,9 @@
           <article>
             <div class="text-center fr-mt-3w fr-mb-3w">
               <h1 class="fr-h1">
-                Un garant ? Qui ? Comment ? Pourquoi ?
+                Quand les journalistes parlent de DossierFacile
               </h1>
-              <span>14 Avril 2021 dans </span>
+              <span>14 Février 2022 dans </span>
               <span>
                 <a href="#">DossierFacile</a>
               </span>
@@ -16,107 +16,147 @@
             <!--end article title-->
             <div>
               <p>
-                Dans la course effrénée au logement, il faut mettre toutes les
-                chances de votre côté pour échapper à la concurrence. Établir un
-                dossier de location <b>complet, clair et cohérent</b> est une
-                première étape dans laquelle DossierFacile vous accompagne. Un
-                autre élément quasi impératif est le garant. Qu’est-ce qu’une
-                garantie de loyer impayé ? Qui peut se porter garant ? Comment
-                faire pour l’intégrer à son dossier de location ?
-              </p>
-              <img
-                alt=""
-                class="img-center"
-                src="../../assets/images/blog-article10.webp"
-              />
-              <h2>1. Qu’est-ce qu’une garantie de loyer impayé&nbsp;?</h2>
-              <p>
-                Une garantie de loyer impayé est l’acte par lequel une personne
-                (le garant) accepte d’endosser à la place du propriétaire le
-                risque que le locataire ne paie pas ses loyers. Si celui-ci fait
-                défaut de paiement, le garant assumera à sa place la charge du
-                loyer.
+                <img
+                  alt=""
+                  class="img-center"
+                  src="../../assets/images/blog-article10.webp"
+                />
               </p>
               <p>
-                Cet élément du dossier n’est peut-être pas le plus facile à
-                justifier mais il est déterminant aux yeux du propriétaire car
-                très rassurant ! En effet, les principales réticences des
-                propriétaires à mettre leur bien en location et leur plus grande
-                peur dans le choix du locataire est que celui-ci ne paie pas ses
-                loyers. L’assurance que quoi qu’il arrive au locataire
-                (licenciement, accident…) les loyers seront payés a un poids
-                indéniable et conséquent qui peut faire changer votre dossier de
-                pile !
+                Constituer son dossier de location est une étape indispensable
+                pour trouver le logement de ses rêves et pourtant c’est un
+                parcours semé d’embûches ! DossierFacile est le service public
+                numérique gratuit et indispensable pour constituer et partager
+                sereinement son dossier. En pleine croissance, le service a fait
+                l’objet de nombreux articles. Revue de presse.
               </p>
-              <h2>2. Qui peut se porter garant ?</h2>
+              <h2>Aider et protéger les candidats à la location</h2>
               <p>
-                En théorie, <b>n’importe qui</b> ! Cependant, voici quelques
-                critères qui augmenteront le crédit de votre garant aux yeux du
-                propriétaire :
-              </p>
-              <ul>
-                <li>
-                  Il doit <b>gagner plus que vous</b> : dans le cas contraire,
-                  si vous faites défaut, il est probable qu’il ne puisse pas
-                  vraiment vous aider…
-                </li>
-                <li>
-                  Il doit <b>avoir un emploi stable</b> (périodes d’essai ou CDD
-                  à éviter) : en général, un défaut de paiement advient
-                  plusieurs mois après la location ; si le garant n’a plus son
-                  emploi à ce moment-là, c’est problématique !
-                </li>
-                <li>
-                  Si possible, <b>être lui-même propriétaire</b> : un deuxième
-                  loyer à payer pourrait être lourd à supporter.
-                </li>
-              </ul>
-              <p>
-                Le garant idéal est donc quelqu’un de déjà installé
-                professionnellement et qui gagne aisément sa vie. Souvent, ce
-                sont les <b>parents</b> ou les <b>grands-parents</b> qui se
-                portent garants pour leurs enfants quand ils emménagent pour la
-                première fois.
-              </p>
-              <p>
-                Il existe aussi des organismes, privés ou publics, qui proposent
-                d’être garants. Par exemple,
-                <a href="https://www.visale.fr/">Visale est un garant public</a>
-                qui a pour mission d’aider gratuitement les jeunes et les
-                personnes ayant un emploi précaire à accéder à la location.
-                D’autres entreprises, privées, font payer leurs services pour se
-                porter garantes.
-              </p>
-              <h2>3. Comment intégrer son garant à son DossierFacile ?</h2>
-              <p>
-                Rien de plus facile ! A la fin de
-                <a href="https://locataire.dossierfacile.fr/signup"
-                  >votre démarche d’inscription</a
-                >, nous vous proposons quatre possibilités dans une étape
-                consacrée au garant :
-              </p>
-              <ul>
-                <li>Un garant physique classique</li>
-                <li>Un organisme se porte garant pour moi</li>
-                <li>Un garant moral</li>
-                <li>Je n'ai pas de garant</li>
-              </ul>
-              <p>
-                Choisissez celle des trois qui vous correspond ! Pour la
-                première option, vous passez directement à la suite ; pour la
-                deuxième, nous vous demandons simplement votre attestation
-                Visale ; pour la troisième, il faut un peu plus de pièces : la
-                carte d’identité du garant, un justificatif de domicile du
-                garant, des fiches de paie du garant et son avis d’imposition.
-              </p>
-              <p>
-                Vous vous êtes trompés dans cette étape ou votre situation a
-                changé et <b>vous voulez changer de garant</b> ? Aucun souci !
-                Vous pouvez
-                <a href="https://locataire.dossierfacile.fr/account"
-                  >modifier vos informations</a
+                <i>
+                  “DossierFacile : nouveau-né dans les services en ligne de
+                  l'État, permet de vérifier et certifier les dossiers de
+                  location pour rassurer les bailleurs.”
+                </i>
+                présente
+                <a
+                  href="https://start.lesechos.fr/au-quotidien/budget-conso/rentree-universitaire-toutes-les-aides-2021-pour-les-etudiants-1345229"
+                  target="_blank"
+                  >Les Echos Start</a
                 >
-                à tout instant depuis votre espace « Mon Compte » !
+                dans un article de septembre 2021 sur les aides pour les
+                étudiants.
+                <i>
+                  “Dès que votre dossier est complet et conforme, le service
+                  vous envoie un lien unique à communiquer aux propriétaires.”
+                </i>
+                En effet, constituer un dossier complet et conforme est souvent
+                un premier écueil.
+                <i>
+                  “Déposer une candidature incomplète, surtout dans cette
+                  période, c’est prendre le risque que les propriétaires
+                  l’éliminent directement. Ils en reçoivent tellement qu’ils ne
+                  prennent souvent pas la peine de relancer les candidats au
+                  dossier incomplet.”
+                </i>
+                explique le magazine
+                <a
+                  href="https://www.capital.fr/immobilier/6-conseils-pour-denicher-son-logement-etudiant-1412317"
+                  target="_blank"
+                  >Capital.fr</a
+                >
+                le 19 août 2021. Avec DossierFacile, le dossier est toujours
+                complet !
+              </p>
+              <p>
+                Second constat alarmant : de plus en plus de propriétaires
+                demandent aux futurs locataires des pièces qui dépassent le
+                <a
+                  href="https://www.legifrance.gouv.fr/loda/id/JORFTEXT000031444493/"
+                  target="_blank"
+                  >cadre légal</a
+                >.
+                <i>
+                  “Saviez-vous qu’il existe un téléservice appelé «
+                  DossierFacile », où un locataire a la possibilité de déposer
+                  les documents qui peuvent être légalement exigés ?”
+                </i>
+                relève
+                <a
+                  href="https://immobilier.lefigaro.fr/annonces/edito/louer/je-prepare-mon-dossier/cheque-reservation-location-est-ce-legal"
+                  target="_blank"
+                  >Le Figaro Immobilier</a
+                >
+                dans un article de 2020.
+                <a
+                  href="https://www.connexionfrance.com/Practical/Property/French-website-makes-rental-paperwork-easier-for-tenants-and-landlords"
+                  target="_blank"
+                  >The Connexion</a
+                >, un magazine d’actualités françaises en anglais, et qui
+                consacre ce mois-ci un plein article à DossierFacile, ne dit pas
+                autre chose :
+                <i>
+                  “As well as being convenient, the site is useful in providing
+                  only information to estate agents and landlords that is
+                  legally required. This has helped stop abuses, such as them
+                  demanding months of bank statements, something which is
+                  actually illegal.”
+                </i>
+              </p>
+              <p>
+                Autre sujet crucial : le nombre croissant de victimes de fausses
+                annonces et de vols d’identité. La protection des données
+                personnelles est au cœur du service, comme le rappelle
+                <a
+                  href="https://www.lemonde.fr/argent/article/2021/11/29/immobilier-attention-aux-dossiers-de-location-falsifies_6103974_1657007.html"
+                  target="_blank"
+                  >LeMonde.fr</a
+                >
+                le 29 novembre 2021 :
+                <i>
+                  “Autre avantage pour le locataire : les documents personnels
+                  envoyés sont recouverts de filigrane afin de le protéger
+                  contre la fraude” </i
+                >.
+              </p>
+              <h2>Rassurer les propriétaires</h2>
+              <p>
+                <i>
+                  “L'Etat propose le service DossierFacile (...) pour rassurer
+                  le propriétaire pour qui le paiement du loyer et l'entretien
+                  du bien sont les points les plus importants.”
+                </i>
+                note BFM Immo le 1er décembre 2021.
+                <i>
+                  “Cette plateforme a l’avantage d’aider à vérifier que le
+                  dossier est complet et que les justificatifs sont cohérents.”
+                </i>
+                abonde Le Figaro Immobilier. Ainsi la plateforme se charge
+                d’éviter aux bailleurs les dossiers falsifiés ainsi que le
+                pénible travail de relance sur des dossiers incomplets, pour in
+                fine faciliter le choix du bon candidat ! Objectif final :
+                rétablir la confiance entre les locataires et les propriétaires.
+              </p>
+              <h2>FranceConnect et automatisation pour 2022</h2>
+              <p>
+                En 2022,
+                <i>
+                  “Nous allons faire en sorte que le dossier soit encore plus
+                  simple à utiliser et qu’il donne encore plus confiance aux
+                  propriétaires. L’idée est de synchroniser DossierFacile et
+                  France Connect.”
+                </i>
+                rapporte
+                <a
+                  href="https://www.destinationimmo.com/article-dossierfacile-la-start-up-d-etat-qui-securise-le-dossier-de-location"
+                  target="_blank"
+                  >destinationimmo.com</a
+                >
+                dans une interview réalisée fin janvier 2022.
+                <i>
+                  “Lorsque vous vous connectez à France Connect, votre dossier
+                  est déjà constitué et vous n’avez rien à faire. (...) La
+                  vérification est automatique et le bailleur est rassuré.”
+                </i>
               </p>
             </div>
           </article>
