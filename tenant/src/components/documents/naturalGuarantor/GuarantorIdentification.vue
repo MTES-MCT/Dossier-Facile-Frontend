@@ -61,6 +61,11 @@
       <div v-if="identificationDocument.explanationText" class="fr-mb-3w">
         <p v-html="identificationDocument.explanationText"></p>
       </div>
+      <AllDeclinedMessages
+        class="fr-mb-3w"
+        :documentDeniedReasons="documentDeniedReasons"
+        :documentStatus="documentStatus"
+      ></AllDeclinedMessages>
       <div
         v-if="identificationFiles().length > 0"
         class="fr-col-md-12 fr-mb-3w"
@@ -87,27 +92,31 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapState } from "vuex";
-import DocumentInsert from "@/components/documents/DocumentInsert.vue";
-import FileUpload from "@/components/uploads/FileUpload.vue";
+import DocumentInsert from "../share/DocumentInsert.vue";
+import FileUpload from "../../uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
-import ListItem from "@/components/uploads/ListItem.vue";
+import ListItem from "../../uploads/ListItem.vue";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { ValidationProvider } from "vee-validate";
 import { Guarantor } from "df-shared/src/models/Guarantor";
-import { RegisterService } from "../../services/RegisterService";
+import { RegisterService } from "../../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
-import { DocumentTypeConstants } from "./DocumentTypeConstants";
+import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
-import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
+import GuarantorChoiceHelp from "../../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
+import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
+import { cloneDeep } from "lodash";
 
 @Component({
   components: {
+    AllDeclinedMessages,
     DocumentInsert,
     FileUpload,
     ListItem,
@@ -129,6 +138,7 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 export default class GuarantorIdentification extends Vue {
   documents = DocumentTypeConstants.GUARANTOR_IDENTIFICATION_DOCS;
 
+  documentDeniedReasons = new DocumentDeniedReasons();
   selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
@@ -152,6 +162,14 @@ export default class GuarantorIdentification extends Vue {
       }
     }
     return false;
+  }
+
+  get documentStatus() {
+    return this.guarantorIdentificationDocument()?.documentStatus;
+  }
+
+  guarantorIdentificationDocument() {
+    return this.$store.getters.getGuarantorIdentificationDocument;
   }
 
   undoSelect() {
@@ -199,6 +217,11 @@ export default class GuarantorIdentification extends Vue {
         if (localDoc !== undefined) {
           this.identificationDocument = localDoc;
         }
+      }
+      if (this.guarantorIdentificationDocument()?.documentDeniedReasons) {
+        this.documentDeniedReasons = cloneDeep(
+          this.guarantorIdentificationDocument()?.documentDeniedReasons
+        );
       }
     }
   }

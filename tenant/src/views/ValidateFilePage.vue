@@ -6,8 +6,8 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import ValidateFile from "@/components/ValidateFile.vue";
-import ProfileContainer from "@/components/ProfileContainer.vue";
+import ValidateFile from "../components/ValidateFile.vue";
+import ProfileContainer from "../components/ProfileContainer.vue";
 
 @Component({
   components: {

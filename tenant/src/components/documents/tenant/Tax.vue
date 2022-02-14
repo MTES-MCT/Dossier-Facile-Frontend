@@ -1,12 +1,5 @@
 <template>
-  <div>
-    <ConfirmModal
-      v-if="isDocDeleteVisible"
-      @valid="validSelect()"
-      @cancel="undoSelect()"
-    >
-      <span>{{ $t("will-delete-files") }}</span>
-    </ConfirmModal>
+  <div class="fr-mb-5w">
     <ValidationObserver v-slot="{ validate }">
       <NakedCard class="fr-p-md-5w">
         <h1 class="fr-h6">{{ $t("title") }}</h1>
@@ -28,8 +21,6 @@
             </p>
           </template>
         </v-gouv-fr-modal>
-
-        <div class="fr-mt-3w">{{ $t("situation") }}</div>
 
         <form name="form" @submit.prevent="validate().then(save)">
           <div class="fr-mt-3w">
@@ -74,7 +65,10 @@
               />
             </div>
           </div>
-          <div class="fr-col-12 fr-mt-3w" v-if="taxDocument.key === 'my-name'">
+          <div
+            class="fr-col-12 fr-mt-3w"
+            v-if="taxDocument.key && taxDocument.key === 'my-name'"
+          >
             <validation-provider
               rules="is"
               v-slot="{ errors }"
@@ -101,6 +95,16 @@
           </div>
         </form>
       </NakedCard>
+      <div
+        v-if="
+          acceptVerification &&
+            taxDocument.key === 'my-name' &&
+            user.id % 10 === 0
+        "
+        class="fr-grid-row blue-franceconnect fr-mt-3w"
+      >
+        <MonFranceConnect></MonFranceConnect>
+      </div>
       <NakedCard
         class="fr-p-md-5w fr-mt-3w"
         v-if="
@@ -108,10 +112,18 @@
             taxFiles().length > 0
         "
       >
-        <div class="fr-mb-3w">
-          <p v-html="taxDocument.explanationText"></p>
+        <div
+          class="fr-mb-3w fr-mt-3w"
+          v-if="taxDocument.key === 'my-name' && acceptVerification"
+        >
+          <div v-html="taxDocument.explanationText"></div>
         </div>
-        <div v-if="taxFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
+        <AllDeclinedMessages
+          class="fr-mb-3w"
+          :documentDeniedReasons="documentDeniedReasons"
+          :documentStatus="documentStatus"
+        ></AllDeclinedMessages>
+        <div v-if="taxFiles().length > 0" class="fr-col-12 fr-mb-3w">
           <ListItem
             v-for="(file, k) in taxFiles()"
             :key="k"
@@ -119,42 +131,56 @@
             @remove="remove(file)"
           />
         </div>
-        <div class="fr-mb-3w" v-if="acceptVerification">
-          <FileUpload
-            :current-status="fileUploadStatus"
-            @add-files="addFiles"
-            @reset-files="resetFiles"
-          ></FileUpload>
+        <div v-if="taxDocument.key === 'my-name' && acceptVerification">
+          <div class="fr-mb-3w">
+            <FileUpload
+              :current-status="fileUploadStatus"
+              @add-files="addFiles"
+              @reset-files="resetFiles"
+            ></FileUpload>
+          </div>
         </div>
       </NakedCard>
     </ValidationObserver>
-    <GuarantorFooter @on-back="goBack" @on-next="goNext"></GuarantorFooter>
+    <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
+    <ConfirmModal
+      v-if="isDocDeleteVisible"
+      @valid="validSelect()"
+      @cancel="undoSelect()"
+    >
+      <span>{{ $t("will-delete-files") }}</span>
+    </ConfirmModal>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import { DocumentType } from "df-shared/src/models/Document";
-import DocumentInsert from "@/components/documents/DocumentInsert.vue";
-import FileUpload from "@/components/uploads/FileUpload.vue";
-import { mapState } from "vuex";
+import DocumentInsert from "../share/DocumentInsert.vue";
+import FileUpload from "../../uploads/FileUpload.vue";
+import { mapGetters } from "vuex";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
-import ListItem from "@/components/uploads/ListItem.vue";
+import ListItem from "../../uploads/ListItem.vue";
+import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
-import { Guarantor } from "df-shared/src/models/Guarantor";
 import { extend } from "vee-validate";
 import { is } from "vee-validate/dist/rules";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
-import { RegisterService } from "../../services/RegisterService";
+import { RegisterService } from "../../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
-import { DocumentTypeConstants } from "./DocumentTypeConstants";
+import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
+import TaxHelp from "../../helps/TaxHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
-import TaxHelp from "../helps/TaxHelp.vue";
-import GuarantorFooter from "@/components/footer/GuarantorFooter.vue";
+import { AnalyticsService } from "../../../services/AnalyticsService";
+import ProfileFooter from "../../footer/ProfileFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
+import MonFranceConnect from "../share/MonFranceConnect.vue";
+import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
+import { cloneDeep } from "lodash";
 
 extend("is", {
   ...is,
@@ -164,27 +190,36 @@ extend("is", {
 
 @Component({
   components: {
+    AllDeclinedMessages,
     DocumentInsert,
     FileUpload,
     ListItem,
+    MonFranceConnect,
     ValidationObserver,
     ValidationProvider,
     WarningMessage,
     ConfirmModal,
     BigRadio,
-    VGouvFrModal,
     TaxHelp,
-    GuarantorFooter,
+    VGouvFrModal,
+    ProfileFooter,
     NakedCard
   },
   computed: {
-    ...mapState({
-      selectedGuarantor: "selectedGuarantor"
+    ...mapGetters({
+      user: "userToEdit",
+      tenantTaxDocument: "getTenantTaxDocument"
     })
   }
 })
 export default class Tax extends Vue {
-  selectedGuarantor!: Guarantor;
+  documents = DocumentTypeConstants.TAX_DOCS;
+
+  user!: User;
+  tenantTaxDocument!: DfDocument;
+
+  documentDeniedReasons = new DocumentDeniedReasons();
+
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
   uploadProgress: {
@@ -195,12 +230,68 @@ export default class Tax extends Vue {
   acceptVerification = false;
   customText = "";
 
-  documents = DocumentTypeConstants.GUARANTOR_TAX_DOCS;
   isDocDeleteVisible = false;
 
+  getLocalStorageKey() {
+    return "tax_" + this.user.email;
+  }
+
+  get documentStatus() {
+    return this.tenantTaxDocument?.documentStatus;
+  }
+
+  mounted() {
+    const doc = this.getRegisteredDoc();
+    if (doc !== undefined) {
+      this.customText = doc.customText || "";
+    }
+    const localDoc = this.getLocalDoc();
+    if (localDoc !== undefined) {
+      this.taxDocument = localDoc;
+      localStorage.setItem(
+        this.getLocalStorageKey(),
+        this.taxDocument.key || ""
+      );
+    } else {
+      const key = localStorage.getItem(this.getLocalStorageKey());
+      if (key) {
+        const localDoc = this.documents.find((d: DocumentType) => {
+          return d.key === key;
+        });
+        if (localDoc !== undefined) {
+          this.taxDocument = localDoc;
+        }
+      }
+    }
+    if (this.tenantTaxDocument?.documentDeniedReasons) {
+      this.documentDeniedReasons = cloneDeep(
+        this.tenantTaxDocument.documentDeniedReasons
+      );
+    }
+
+    if (this.taxDocument.key === "my-name" && this.taxFiles().length > 0) {
+      this.acceptVerification = true;
+    }
+  }
+
+  onSelectChange() {
+    localStorage.setItem(this.getLocalStorageKey(), this.taxDocument.key);
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "TAX";
+      });
+      if (doc !== undefined) {
+        this.isDocDeleteVisible =
+          (doc.files?.length || 0) > 0 &&
+          doc.documentSubCategory !== this.taxDocument.value;
+      }
+    }
+    return false;
+  }
+
   getRegisteredDoc() {
-    if (this.selectedGuarantor.documents !== null) {
-      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "TAX";
       });
       return doc;
@@ -219,23 +310,9 @@ export default class Tax extends Vue {
     return undefined;
   }
 
-  onSelectChange() {
-    if (this.selectedGuarantor.documents !== null) {
-      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "TAX";
-      });
-      if (doc !== undefined) {
-        this.isDocDeleteVisible =
-          (doc.files?.length || 0) > 0 &&
-          doc.documentSubCategory !== this.taxDocument.value;
-      }
-    }
-    return false;
-  }
-
   undoSelect() {
-    if (this.selectedGuarantor.documents !== null) {
-      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "TAX";
       });
       if (doc !== undefined) {
@@ -252,8 +329,8 @@ export default class Tax extends Vue {
 
   async validSelect() {
     this.isDocDeleteVisible = false;
-    if (this.selectedGuarantor.documents !== null) {
-      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "TAX";
       });
       if (doc?.files !== undefined) {
@@ -266,30 +343,8 @@ export default class Tax extends Vue {
     }
   }
 
-  updateGuarantorData() {
-    const doc = this.getRegisteredDoc();
-    if (doc !== undefined) {
-      this.customText = doc.customText || "";
-    }
-    const localDoc = this.getLocalDoc();
-    if (localDoc !== undefined) {
-      this.taxDocument = localDoc;
-    }
-    if (this.taxDocument.key === "my-name" && this.taxFiles().length > 0) {
-      this.acceptVerification = true;
-    }
-  }
-
-  mounted() {
-    this.updateGuarantorData();
-  }
-
-  @Watch("selectedGuarantor")
-  onGuarantorChange() {
-    this.updateGuarantorData();
-  }
-
   addFiles(fileList: File[]) {
+    AnalyticsService.uploadFile("tax");
     const nf = Array.from(fileList).map(f => {
       return { name: f.name, file: f, size: f.size };
     });
@@ -301,13 +356,22 @@ export default class Tax extends Vue {
     this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
   }
 
-  async save() {
-    if (!this.taxDocument.key) {
+  async goNext() {
+    const res = await this.save();
+    if (res) {
+      this.$emit("on-next");
+    }
+  }
+
+  goBack() {
+    this.$emit("on-back");
+  }
+
+  async save(): Promise<boolean> {
+    if (this.taxDocument.key === undefined) {
       return true;
     }
-    if (this.taxDocument.key === "my-name" && !this.acceptVerification) {
-      return false;
-    }
+    AnalyticsService.registerFile("tax");
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
@@ -333,6 +397,16 @@ export default class Tax extends Vue {
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
       });
     }
+
+    const d = this.getRegisteredDoc();
+    if (
+      this.taxDocument.value === d?.documentSubCategory &&
+      this.customText === (d?.customText || "") &&
+      newFiles.length <= 0
+    ) {
+      return true;
+    }
+
     if (this.taxDocument.key === "my-name") {
       formData.append(
         "acceptVerification",
@@ -346,22 +420,21 @@ export default class Tax extends Vue {
     formData.append("typeDocumentTax", this.taxDocument.value);
 
     if (this.taxDocument.key === "other-tax") {
-      if (!this.customText) {
-        // TODO : would be better to validate form
+      if (!this.customText || this.customText === "") {
         return false;
       }
       formData.append("customText", this.customText);
     }
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    formData.append("guarantorId", this.$store.getters.guarantor.id);
     const loader = this.$loading.show();
-    await this.$store
-      .dispatch("saveGuarantorTax", formData)
+    return await this.$store
+      .dispatch("saveTenantTax", formData)
       .then(() => {
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         Vue.toasted.global.save_success();
+        return true;
       })
       .catch(err => {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
@@ -370,11 +443,11 @@ export default class Tax extends Vue {
         } else {
           Vue.toasted.global.save_failed();
         }
+        return false;
       })
       .finally(() => {
         loader.hide();
       });
-    return true;
   }
 
   taxFiles() {
@@ -388,27 +461,14 @@ export default class Tax extends Vue {
       };
     });
     const existingFiles =
-      this.$store.getters.getGuarantorDocuments?.find((d: DfDocument) => {
+      this.$store.getters.getTenantDocuments?.find((d: DfDocument) => {
         return d.documentCategory === "TAX";
       })?.files || [];
     return [...newFiles, ...existingFiles];
   }
 
-  isButtonDisabled() {
-    if (!this.taxDocument.key) {
-      return true;
-    }
-    if (this.taxDocument.key === "my-name") {
-      return this.files.length <= 0;
-    }
-    const localDoc = this.getLocalDoc();
-    if (localDoc && localDoc.key === this.taxDocument.key) {
-      return true;
-    }
-    return false;
-  }
-
   async remove(file: DfFile, silent = false) {
+    AnalyticsService.deleteFile("tax");
     if (file.path && file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
@@ -418,54 +478,55 @@ export default class Tax extends Vue {
       this.files.splice(firstIndex, 1);
     }
   }
-
-  async goNext() {
-    const res = await this.save();
-    if (res) {
-      this.$emit("on-next");
-    }
-  }
-
-  goBack() {
-    this.$emit("on-back");
-  }
 }
 </script>
 
 <style scoped lang="scss">
 .spa {
-  min-height: 2rem;
-  width: 14rem;
+  height: 3rem;
+  @media all and (min-width: 768px) {
+    width: 14rem;
+  }
+}
+
+.blue-franceconnect {
+  padding: 2rem;
+  color: var(--primary);
+  background-color: var(--bf200-bf300);
+  border-radius: 0.25rem;
+  .fr-h4 {
+    color: var(--primary);
+  }
 }
 </style>
 
 <i18n>
 {
-  "en": {
-    "my-name": "J’ai un avis d’imposition au nom de mon garant",
-    "less-than-year": "Vous êtes en France depuis moins d’un an",
-    "other-tax": "Autre",
-    "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de la fiche d'imposition de mon garant auprès des services des impôts",
-    "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'imposition. Votre explication sera ajoutée à votre dossier :",
-    "files": "Documents",
-    "register": "Register",
-    "field-required": "This field is required",
-    "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-    "title": "My guarantor tax file",
-    "situation": "What is her/his tax situation?"
-  },
-  "fr": {
-    "my-name": "J’ai un avis d’imposition au nom de mon garant",
-    "less-than-year": "Mon garant est en France depuis moins d'un an",
-    "other-tax": "Autre",
-    "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de la fiche d'imposition de mon garant auprès des services des impôts",
-    "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'imposition. Votre explication sera ajoutée à votre dossier :",
-    "files": "Documents",
-    "register": "Enregistrer",
-    "field-required": "Ce champ est requis",
-    "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-    "title": "L'avis d'imposition de mon garant",
-    "situation": "Quelle est sa situation fiscale ?"
-  }
+"en": {
+  "my-name": "Vous avez un avis d’imposition à votre nom",
+  "my-parents": "Vous êtes rattaché fiscalement à vos parents",
+  "less-than-year": "Vous êtes en France depuis moins d’un an",
+  "other-tax": "Autre",
+  "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
+  "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'imposition. Votre explication sera ajoutée à votre dossier :",
+  "files": "Documents",
+  "register": "Register",
+  "field-required": "This field is required",
+  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
+  "title": "My tax notice"
+},
+"fr": {
+  "my-name": "Vous avez un avis d’imposition à votre nom",
+  "my-parents": "Vous êtes rattaché fiscalement à vos parents",
+  "less-than-year": "Vous êtes en France depuis moins d’un an",
+  "other-tax": "Autre",
+  "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
+  "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'imposition. Votre explication sera ajoutée à votre dossier :",
+  "files": "Documents",
+  "register": "Enregistrer",
+  "field-required": "Ce champ est requis",
+  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
+  "title": "Mon avis d'imposition"
+}
 }
 </i18n>

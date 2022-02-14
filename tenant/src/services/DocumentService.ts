@@ -17,6 +17,14 @@ export const DocumentService = {
       return d.documentCategory === docType;
     });
   },
+  getDocs(docType: string): DfDocument[] {
+    if (store.state.user.documents === undefined) {
+      return [];
+    }
+    return store.state.user.documents.filter((d: DfDocument) => {
+      return d.documentCategory === docType;
+    });
+  },
   hasFile(docType: string) {
     const document = this.hasDoc(docType);
     if (document === undefined || document.files === undefined) {
@@ -29,6 +37,14 @@ export const DocumentService = {
       return undefined;
     }
     return g.documents.find((d: DfDocument) => {
+      return d.documentCategory === docType;
+    });
+  },
+  getGuarantorDocs(g: Guarantor, docType: string): DfDocument[] {
+    if (!g || !g.documents) {
+      return [];
+    }
+    return g.documents.filter((d: DfDocument) => {
       return d.documentCategory === docType;
     });
   },
@@ -102,11 +118,20 @@ export const DocumentService = {
     return doc.documentStatus || "";
   },
   getTenantFinancialStatus(): string {
-    const doc = this.hasDoc("FINANCIAL");
-    if (!doc) {
+    const docs = this.getDocs("FINANCIAL");
+    if (docs.length <= 0) {
       return "";
     }
-    return doc.documentStatus || "";
+    if (docs.find((d: DfDocument) => d.documentStatus === "DECLINED")) {
+      return "DECLINED";
+    }
+    if (docs.find((d: DfDocument) => d.documentStatus === "TO_PROCESS")) {
+      return "TO_PROCESS";
+    }
+    if (!docs.find((d: DfDocument) => d.documentStatus !== "VALIDATED")) {
+      return "VALIDATED";
+    }
+    return docs[0].documentStatus || "";
   },
   getTenantTaxStatus(): string {
     const doc = this.hasDoc("TAX");
@@ -146,14 +171,23 @@ export const DocumentService = {
     return doc.documentStatus || "";
   },
   getGuarantorFinancialStatus(g: Guarantor): string {
-    const doc = this.guarantorHasDoc(
+    const docs = this.getGuarantorDocs(
       g || store.state.selectedGuarantor,
       "FINANCIAL"
     );
-    if (!doc) {
+    if (docs.length <= 0) {
       return "";
     }
-    return doc.documentStatus || "";
+    if (docs.find((d: DfDocument) => d.documentStatus === "DECLINED")) {
+      return "DECLINED";
+    }
+    if (docs.find((d: DfDocument) => d.documentStatus === "TO_PROCESS")) {
+      return "TO_PROCESS";
+    }
+    if (!docs.find((d: DfDocument) => d.documentStatus !== "VALIDATED")) {
+      return "VALIDATED";
+    }
+    return docs[0].documentStatus || "";
   },
   getGuarantorTaxStatus(g: Guarantor): string {
     const doc = this.guarantorHasDoc(g || store.state.selectedGuarantor, "TAX");
@@ -217,16 +251,20 @@ export const DocumentService = {
     let status;
     switch (documentType) {
       case "IDENTITY":
-        status = DocumentService.getGuarantorIdentityStatus(guarantor) || "EMPTY";
+        status =
+          DocumentService.getGuarantorIdentityStatus(guarantor) || "EMPTY";
         break;
       case "RESIDENCY":
-        status = DocumentService.getGuarantorResidencyStatus(guarantor) || "EMPTY";
+        status =
+          DocumentService.getGuarantorResidencyStatus(guarantor) || "EMPTY";
         break;
       case "PROFESSIONAL":
-        status = DocumentService.getGuarantorProfessionalStatus(guarantor) || "EMPTY";
+        status =
+          DocumentService.getGuarantorProfessionalStatus(guarantor) || "EMPTY";
         break;
       case "FINANCIAL":
-        status = DocumentService.getGuarantorFinancialStatus(guarantor) || "EMPTY";
+        status =
+          DocumentService.getGuarantorFinancialStatus(guarantor) || "EMPTY";
         break;
       case "TAX":
         status = DocumentService.getGuarantorTaxStatus(guarantor) || "EMPTY";

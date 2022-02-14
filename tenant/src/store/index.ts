@@ -2,20 +2,20 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { AuthService } from "df-shared/src/services/AuthService";
-import { MessageService } from "@/services/MessageService";
-import { ProfileService } from "@/services/ProfileService";
+import { MessageService } from "../services/MessageService";
+import { ProfileService } from "../services/ProfileService";
 import router from "../router";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { User } from "df-shared/src/models/User";
-import i18n from "@/i18n";
+import i18n from "../i18n";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { DfMessage } from "df-shared/src/models/DfMessage";
-import { AnalyticsService } from "@/services/AnalyticsService";
-import { RegisterService } from "@/services/RegisterService";
-import { UtilsService } from "@/services/UtilsService";
+import { AnalyticsService } from "../services/AnalyticsService";
+import { RegisterService } from "../services/RegisterService";
+import { UtilsService } from "../services/UtilsService";
 import { FinancialDocument } from "df-shared/src/models/FinancialDocument";
 import { DocumentType } from "df-shared/src/models/Document";
-import { DocumentTypeConstants } from "@/components/documents/DocumentTypeConstants";
+import { DocumentTypeConstants } from "../components/documents/share/DocumentTypeConstants";
 
 Vue.use(Vuex);
 
@@ -27,7 +27,7 @@ export class DfState {
   newMessage = 0;
   spouseAuthorize = false;
   coTenantAuthorize = false;
-  showFooter = true;
+  isFunnel = false;
   financialDocumentSelected?: FinancialDocument = new FinancialDocument();
   editFinancialDocument = false;
 }
@@ -67,9 +67,13 @@ const store = new Vuex.Store({
       state.user = user;
     },
     loadUser(state, user) {
-      state.user = Object.assign({}, user);
-      state.status.loggedIn = true;
-      state.user.applicationType = state.user?.apartmentSharing.applicationType;
+      Vue.set(state, "user", user);
+      Vue.set(state.status, "loggedIn", true);
+      Vue.set(
+        state.user,
+        "applicationType",
+        state.user?.apartmentSharing.applicationType
+      );
 
       if (state.user?.guarantors && state.user.guarantors.length > 0) {
         if (state.selectedGuarantor?.id) {
@@ -141,8 +145,8 @@ const store = new Vuex.Store({
     updateCoTenantAuthorize(state, authorize) {
       state.coTenantAuthorize = authorize;
     },
-    showFooter(state, showFooter) {
-      state.showFooter = showFooter;
+    isFunnel(state, isFunnel) {
+      state.isFunnel = isFunnel;
     },
     updateUserFirstname(state, firstname) {
       state.user.firstName = firstname;
@@ -239,10 +243,10 @@ const store = new Vuex.Store({
       );
     },
     setNames({ commit }, user: User) {
-      if (user.firstName) {
+      if (user.firstName && !user.franceConnect) {
         user.firstName = UtilsService.capitalize(user.firstName);
       }
-      if (user.lastName) {
+      if (user.lastName && !user.franceConnect) {
         user.lastName = UtilsService.capitalize(user.lastName);
       }
       return ProfileService.saveNames(user).then(
@@ -572,7 +576,11 @@ const store = new Vuex.Store({
       );
     },
     firstProfilePage() {
-      if (!this.state.user.firstName || !this.state.user.lastName) {
+      if (
+        !this.state.user.firstName ||
+        !this.state.user.lastName ||
+        !this.state.user.zipCode
+      ) {
         router.push({ name: "TenantName" });
         return;
       }
@@ -637,6 +645,54 @@ const store = new Vuex.Store({
     getTenantDocuments(state): DfDocument[] {
       return state.user?.documents || [];
     },
+    getTenantIdentificationDocument(state): DfDocument | undefined {
+      return state.user?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "IDENTIFICATION";
+      });
+    },
+    getTenantResidencyDocument(state): DfDocument | undefined {
+      return state.user?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "RESIDENCY";
+      });
+    },
+    getTenantProfessionalDocument(state): DfDocument | undefined {
+      return state.user?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "PROFESSIONAL";
+      });
+    },
+    getTenantTaxDocument(state): DfDocument | undefined {
+      return state.user?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "TAX";
+      });
+    },
+    getGuarantorIdentificationLegalPersonDocument(
+      state
+    ): DfDocument | undefined {
+      return state.selectedGuarantor?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "IDENTIFICATION_LEGAL_PERSON";
+      });
+    },
+    getGuarantorIdentificationDocument(state): DfDocument | undefined {
+      return state.selectedGuarantor?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "IDENTIFICATION";
+      });
+    },
+    getGuarantorResidencyDocument(state): DfDocument | undefined {
+      return state.selectedGuarantor?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "RESIDENCY";
+      });
+    },
+    getGuarantorProfessionalDocument(state): DfDocument | undefined {
+      return state.selectedGuarantor?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "PROFESSIONAL";
+      });
+    },
+    getGuarantorTaxDocument(state): DfDocument | undefined {
+      return state.selectedGuarantor?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "TAX";
+      });
+    },
+
     getGuarantorDocuments(state): DfDocument[] {
       return state.selectedGuarantor.documents || [];
     },

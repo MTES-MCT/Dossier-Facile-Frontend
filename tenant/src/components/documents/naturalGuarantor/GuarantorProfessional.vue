@@ -53,6 +53,11 @@
       <div class="fr-mb-3w">
         {{ professionalDocument.explanationText }}
       </div>
+      <AllDeclinedMessages
+        class="fr-mb-3w"
+        :documentDeniedReasons="documentDeniedReasons"
+        :documentStatus="documentStatus"
+      ></AllDeclinedMessages>
       <div v-if="professionalFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
         <ListItem
           v-for="(file, k) in professionalFiles()"
@@ -74,25 +79,29 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
-import DocumentInsert from "@/components/documents/DocumentInsert.vue";
-import FileUpload from "@/components/uploads/FileUpload.vue";
+import DocumentInsert from "../share/DocumentInsert.vue";
+import FileUpload from "../../uploads/FileUpload.vue";
 import { mapState } from "vuex";
 import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
-import ListItem from "@/components/uploads/ListItem.vue";
+import ListItem from "../../uploads/ListItem.vue";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
-import { RegisterService } from "../../services/RegisterService";
+import { RegisterService } from "../../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
-import { DocumentTypeConstants } from "./DocumentTypeConstants";
+import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { Guarantor } from "df-shared/src/models/Guarantor";
-import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
+import GuarantorChoiceHelp from "../../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
+import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
+import { cloneDeep } from "lodash";
 
 @Component({
   components: {
+    AllDeclinedMessages,
     DocumentInsert,
     FileUpload,
     ListItem,
@@ -118,6 +127,7 @@ export default class Professional extends Vue {
   professionalDocument = new DocumentType();
   documents = DocumentTypeConstants.GUARANTOR_PROFESSIONAL_DOCS;
   isDocDeleteVisible = false;
+  documentDeniedReasons = new DocumentDeniedReasons();
 
   @Watch("selectedGuarantor")
   onGuarantorChange() {
@@ -126,6 +136,14 @@ export default class Professional extends Vue {
 
   mounted() {
     this.updateGuarantorData();
+  }
+
+  get documentStatus() {
+    return this.guarantorProfessionalDocument()?.documentStatus;
+  }
+
+  guarantorProfessionalDocument() {
+    return this.$store.getters.getGuarantorProfessionalDocument;
   }
 
   updateGuarantorData() {
@@ -140,6 +158,11 @@ export default class Professional extends Vue {
         if (localDoc !== undefined) {
           this.professionalDocument = localDoc;
         }
+      }
+      if (this.guarantorProfessionalDocument()?.documentDeniedReasons) {
+        this.documentDeniedReasons = cloneDeep(
+          this.guarantorProfessionalDocument()?.documentDeniedReasons
+        );
       }
     }
   }

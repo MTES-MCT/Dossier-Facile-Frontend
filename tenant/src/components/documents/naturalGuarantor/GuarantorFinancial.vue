@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="editFinancialDocument">
-      <FinancialDocumentForm></FinancialDocumentForm>
+      <GuarantorFinancialDocumentForm></GuarantorFinancialDocumentForm>
     </div>
     <div v-if="!editFinancialDocument">
       <NakedCard class="fr-p-md-5w fr-mb-3w">
@@ -14,10 +14,14 @@
         <CardRow
           @edit="selectFinancialDocument(f)"
           @remove="removeFinancial(f)"
+          :danger="guarantorFinancialDocument(f).documentStatus === 'DECLINED'"
         >
           <template v-slot:tag>
             <div class="fixed-width">
-              <div class="fr-tag">{{ $t(f.documentType.key) }}</div>
+              <ColoredTag
+                :text="$t(f.documentType.key)"
+                :status="guarantorFinancialDocument(f).documentStatus"
+              ></ColoredTag>
             </div>
           </template>
           <template v-slot:text>
@@ -28,6 +32,13 @@
             >
               {{ f.monthlySum }} {{ $t("monthly") }}
             </div>
+          </template>
+          <template v-slot:bottom>
+            <AllDeclinedMessages
+              class="fr-mb-0"
+              :documentDeniedReasons="documentDeniedReasons(f)"
+              :documentStatus="documentStatus(f)"
+            ></AllDeclinedMessages>
           </template>
         </CardRow>
       </div>
@@ -47,11 +58,11 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import DocumentInsert from "@/components/documents/DocumentInsert.vue";
-import FileUpload from "@/components/uploads/FileUpload.vue";
+import DocumentInsert from "../share/DocumentInsert.vue";
+import FileUpload from "../../uploads/FileUpload.vue";
 import { mapGetters } from "vuex";
 import { FinancialDocument } from "df-shared/src/models/FinancialDocument";
-import ListItem from "@/components/uploads/ListItem.vue";
+import ListItem from "../../uploads/ListItem.vue";
 import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
@@ -60,16 +71,18 @@ import DfButton from "df-shared/src/Button/Button.vue";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { required, regex } from "vee-validate/dist/rules";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
-import { DocumentTypeConstants } from "./DocumentTypeConstants";
+import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import Modal from "df-shared/src/components/Modal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
-import DocumentHelp from "../helps/DocumentHelp.vue";
+import DocumentHelp from "../../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
-import ProfileFooter from "@/components/footer/ProfileFooter.vue";
+import ProfileFooter from "../../footer/ProfileFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import CardRow from "df-shared/src/components/CardRow.vue";
-import FinancialDocumentForm from "./FinancialDocumentForm.vue";
+import GuarantorFinancialDocumentForm from "./GuarantorFinancialDocumentForm.vue";
+import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
+import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 
 extend("regex", {
   ...regex,
@@ -83,6 +96,8 @@ extend("required", {
 
 @Component({
   components: {
+    AllDeclinedMessages,
+    ColoredTag,
     ValidationProvider,
     ValidationObserver,
     DocumentInsert,
@@ -98,31 +113,45 @@ extend("required", {
     ProfileFooter,
     NakedCard,
     CardRow,
-    FinancialDocumentForm
+    GuarantorFinancialDocumentForm
   },
   computed: {
     ...mapGetters({
       user: "userToEdit",
-      editFinancialDocument: "editFinancialDocument",
-      financialDocuments: "tenantFinancialDocuments"
+      editFinancialDocument: "editGuarantorFinancialDocument",
+      financialDocuments: "guarantorFinancialDocuments"
     })
   }
 })
-export default class Financial extends Vue {
+export default class GuarantorFinancial extends Vue {
   user!: User;
   financialDocuments!: FinancialDocument[];
 
-  documents = DocumentTypeConstants.FINANCIAL_DOCS;
+  documents = DocumentTypeConstants.GUARANTOR_FINANCIAL_DOCS;
 
   beforeMount() {
     this.initialize();
   }
 
   initialize() {
-    this.$store.commit("selectDocumentFinancial", undefined);
+    this.$store.commit("selectGuarantorDocumentFinancial", undefined);
     if (this.financialDocuments.length === 0) {
       this.addAndSelectFinancial();
     }
+  }
+
+  documentDeniedReasons(f: FinancialDocument) {
+    return this.guarantorFinancialDocument(f).documentDeniedReasons;
+  }
+
+  documentStatus(f: FinancialDocument) {
+    return this.guarantorFinancialDocument(f).documentStatus;
+  }
+
+  guarantorFinancialDocument(f: FinancialDocument) {
+    return this.$store.getters.getGuarantorDocuments?.find((d: DfDocument) => {
+      return d.id === f.id;
+    });
   }
 
   financialFiles(f: FinancialDocument) {
@@ -142,7 +171,7 @@ export default class Financial extends Vue {
   }
 
   async addAndSelectFinancial() {
-    await this.$store.commit("createDocumentFinancial");
+    await this.$store.commit("createGuarantorDocumentFinancial");
   }
 
   removeFinancial(f: DfDocument) {
@@ -156,7 +185,7 @@ export default class Financial extends Vue {
         loader.hide();
         this.initialize();
       });
-    this.$store.commit("selectDocumentFinancial", undefined);
+    this.$store.commit("selectGuarantorDocumentFinancial", undefined);
   }
 
   getCheckboxLabel(key: string) {
@@ -196,23 +225,29 @@ export default class Financial extends Vue {
   }
 
   async selectFinancialDocument(f: FinancialDocument) {
-    await this.$store.commit("selectDocumentFinancial", f);
+    await this.$store.commit("selectGuarantorDocumentFinancial", f);
   }
 }
 </script>
 
 <style scoped lang="scss">
 .fr-tag {
-  background-color: #5398ff;
+  background-color: #2a7ffe;
   color: var(--text-inverted-grey);
+  max-width: 210px;
 }
 
 .add-income-btn {
+  margin: 0.5rem 1rem;
+  width: calc(100% - 2rem);
+  @media (min-width: 768px) {
+    margin: 0.5rem 0;
+    width: calc(100%);
+  }
   border-radius: 0.5rem;
   padding: 1.75rem;
   color: var(--primary);
   border: 1px solid var(--primary);
-  width: 100%;
   font-size: 16px;
   background: var(--blue-france-925);
   &:hover {
@@ -232,7 +267,7 @@ export default class Financial extends Vue {
 {
 "en": {
   "salary": "Salary",
-  "guarantor_salary": "Salary or other professional income",
+  "guarantor_salary": "Salary",
   "social-service": "Social benefit payments",
   "rent": "Annuities",
   "pension": "Pensions",
@@ -244,7 +279,8 @@ export default class Financial extends Vue {
   "select-label": "Attention, Please enter only your own income.",
   "no-income": "No income",
   "i-have-no-income": "I have no income",
-  "title": "Summary of your income",
+  "warning-no-income-and-file": "You can't have files and no income. You must uncheck the box or delete your files.",
+  "title": "Summary of your guarantor income",
   "subtitle": "Here is the list of income you declared. You can add new income at any time, if necessary.",
   "monthly": " € net monthly ",
   "net-monthly": "Net salary monthly",
@@ -252,12 +288,12 @@ export default class Financial extends Vue {
 },
 "fr": {
   "salary": "Salaire",
-  "guarantor_salary": "Salaires ou autres revenus d’activité professionnelle",
+  "guarantor_salary": "Salaires",
   "social-service": "Prestations sociales",
   "rent": "Rentes",
   "pension": "Pensions",
   "scholarship": "Bourses",
-  "monthlySum-label": "J'indique le montant de mon revenu mensuel net à payer (avant prélèvement à la source)",
+  "monthlySum-label": "J'indique le montant de son revenu mensuel net à payer (avant prélèvement à la source)",
   "number-not-valid": "Nombre incorrect",
   "delete-financial":  "Supprimer ce revenu",
   "field-required": "Ce champ est requis",
@@ -265,7 +301,8 @@ export default class Financial extends Vue {
   "select-label": "Attention, veuillez renseigner uniquement vos propres revenus.",
   "no-income": "Pas de revenu",
   "i-have-no-income": "Je n'ai pas de revenu",
-  "title": "Récapitulatif de vos revenus",
+  "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers.",
+  "title": "Récapitulatif des revenus du garant",
   "subtitle": "Voici la liste des revenus que vous avez déclarés. Vous pouvez, à tout moment ajouter de nouveaux revenus, si cela était nécessaire.",
   "monthly": " € net mensuel ",
   "net-monthly": "Net à payer mensuel",

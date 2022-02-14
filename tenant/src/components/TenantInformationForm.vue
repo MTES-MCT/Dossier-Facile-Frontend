@@ -148,8 +148,8 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { User } from "df-shared/src/models/User";
-import RoommatesInformation from "@/components/RoommatesInformation.vue";
-import CoupleInformation from "@/components/CoupleInformation.vue";
+import RoommatesInformation from "./RoommatesInformation.vue";
+import CoupleInformation from "./CoupleInformation.vue";
 import { mapGetters, mapState } from "vuex";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
@@ -158,7 +158,7 @@ import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
 import { AnalyticsService } from "../services/AnalyticsService";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
-import ProfileFooter from "@/components/footer/ProfileFooter.vue";
+import ProfileFooter from "./footer/ProfileFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 @Component({

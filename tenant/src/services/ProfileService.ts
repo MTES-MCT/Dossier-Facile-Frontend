@@ -3,7 +3,7 @@ import axios from "axios";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 
 export const ProfileService = {
-  saveNames(user: User) {
+  saveNames(user: User): Promise<User> {
     return axios.post(
       `https://${process.env.VUE_APP_API_URL}/api/register/names`,
       {

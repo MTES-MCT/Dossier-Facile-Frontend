@@ -59,6 +59,11 @@
               </p>
             </template>
           </v-gouv-fr-modal>
+          <AllDeclinedMessages
+            class="fr-mb-3w"
+            :documentDeniedReasons="documentDeniedReasons"
+            :documentStatus="documentStatus"
+          ></AllDeclinedMessages>
           <div class="fr-col-md-12 fr-mb-3w" v-if="listFiles().length > 0">
             <ListItem
               v-for="(file, k) in listFiles()"
@@ -89,20 +94,23 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapState } from "vuex";
-import DocumentInsert from "@/components/documents/DocumentInsert.vue";
-import FileUpload from "@/components/uploads/FileUpload.vue";
+import DocumentInsert from "../share/DocumentInsert.vue";
+import FileUpload from "../../uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
-import ListItem from "@/components/uploads/ListItem.vue";
+import ListItem from "../../uploads/ListItem.vue";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { DfFile } from "df-shared/src/models/DfFile";
-import { RegisterService } from "../../services/RegisterService";
+import { RegisterService } from "../../../services/RegisterService";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
+import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
+import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
+import { cloneDeep } from "lodash";
 
 extend("required", {
   ...required
@@ -110,6 +118,7 @@ extend("required", {
 
 @Component({
   components: {
+    AllDeclinedMessages,
     DocumentInsert,
     FileUpload,
     ListItem,
@@ -139,6 +148,7 @@ export default class RepresentativeIdentification extends Vue {
   MAX_FILE_COUNT = 5;
 
   identificationDocument = new DocumentType();
+  documentDeniedReasons = new DocumentDeniedReasons();
 
   files: File[] = [];
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
@@ -163,6 +173,19 @@ export default class RepresentativeIdentification extends Vue {
         }
       }
     }
+    if (this.guarantorIdentificationDocument()?.documentDeniedReasons) {
+      this.documentDeniedReasons = cloneDeep(
+        this.guarantorIdentificationDocument().documentDeniedReasons
+      );
+    }
+  }
+
+  get documentStatus() {
+    return this.guarantorIdentificationDocument()?.documentStatus;
+  }
+
+  guarantorIdentificationDocument() {
+    return this.$store.getters.getGuarantorIdentificationDocument;
   }
 
   addFiles(fileList: File[]) {

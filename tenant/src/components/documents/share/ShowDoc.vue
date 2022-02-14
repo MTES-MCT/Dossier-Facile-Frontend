@@ -17,8 +17,8 @@
 <script lang="ts">
 import { DfFile } from "df-shared/src/models/DfFile";
 import { Component, Prop, Vue } from "vue-property-decorator";
-import PdfViewer from "../PdfViewer.vue";
-import { ImageService } from "@/services/ImageService";
+import PdfViewer from "../../PdfViewer.vue";
+import { ImageService } from "../../../services/ImageService";
 import axios from "axios";
 
 @Component({

@@ -17,44 +17,50 @@
             <p>
               <DocumentHelp></DocumentHelp>
               <DocumentInsert
-                :allow-list="professionalDocument.acceptedProofs"
-                :block-list="professionalDocument.refusedProofs"
-                v-if="professionalDocument.key"
+                :allow-list="residencyDocument.acceptedProofs"
+                :block-list="residencyDocument.refusedProofs"
+                v-if="residencyDocument.key"
               ></DocumentInsert>
             </p>
           </template>
         </v-gouv-fr-modal>
 
-        <select
-          v-model="professionalDocument"
-          class="fr-select fr-mb-3w fr-mt-3w"
-          id="select"
-          name="select"
-          @change="onSelectChange()"
-        >
-          <option v-for="d in documents" :value="d" :key="d.key">
-            {{ $t(d.key) }}
-          </option>
-        </select>
+        <div class="fr-mt-3w">
+          <fieldset class="fr-fieldset">
+            <div class="fr-fieldset__content">
+              <div class="fr-grid-row">
+                <div v-for="d in documents" :key="d.key" class="full-width-xs">
+                  <BigRadio
+                    :val="d"
+                    v-model="residencyDocument"
+                    @input="onSelectChange()"
+                  >
+                    <div class="fr-grid-col spa">
+                      <span>{{ $t(d.key) }}</span>
+                    </div>
+                  </BigRadio>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
       </div>
     </NakedCard>
-    <ConfirmModal
-      v-if="isDocDeleteVisible"
-      @valid="validSelect()"
-      @cancel="undoSelect()"
-    >
-      <span>{{ $t("will-delete-files") }}</span>
-    </ConfirmModal>
     <NakedCard
       class="fr-p-md-5w fr-mt-3w"
-      v-if="professionalDocument.key || professionalFiles().length > 0"
+      v-if="residencyDocument.key || residencyFiles().length > 0"
     >
       <div class="fr-mb-3w">
-        {{ professionalDocument.explanationText }}
+        <p v-html="residencyDocument.explanationText"></p>
       </div>
-      <div v-if="professionalFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
+      <AllDeclinedMessages
+        class="fr-mb-3w"
+        :documentDeniedReasons="documentDeniedReasons"
+        :documentStatus="documentStatus"
+      ></AllDeclinedMessages>
+      <div v-if="residencyFiles().length > 0" class="fr-col-12 fr-mb-3w">
         <ListItem
-          v-for="(file, k) in professionalFiles()"
+          v-for="(file, k) in residencyFiles()"
           :key="k"
           :file="file"
           @remove="remove(file)"
@@ -68,28 +74,39 @@
         ></FileUpload>
       </div>
     </NakedCard>
+    <ConfirmModal
+      v-if="isDocDeleteVisible"
+      @valid="validSelect()"
+      @cancel="undoSelect()"
+    >
+      <span>{{ $t("will-delete-files") }}</span>
+    </ConfirmModal>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import DocumentInsert from "@/components/documents/DocumentInsert.vue";
-import FileUpload from "@/components/uploads/FileUpload.vue";
 import { mapGetters } from "vuex";
+import DocumentInsert from "../share/DocumentInsert.vue";
+import FileUpload from "../../uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
-import ListItem from "@/components/uploads/ListItem.vue";
+import ListItem from "../../uploads/ListItem.vue";
+import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
-import { RegisterService } from "../../services/RegisterService";
+import { RegisterService } from "../../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
-import { DocumentTypeConstants } from "./DocumentTypeConstants";
+import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
-import { User } from "df-shared/src/models/User";
-import DocumentHelp from "../helps/DocumentHelp.vue";
+import BigRadio from "df-shared/src/Button/BigRadio.vue";
+import DocumentHelp from "../../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
-import { AnalyticsService } from "../../services/AnalyticsService";
+import { AnalyticsService } from "../../../services/AnalyticsService";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
+import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
+import { cloneDeep } from "lodash";
 
 @Component({
   components: {
@@ -98,45 +115,62 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
     ListItem,
     WarningMessage,
     ConfirmModal,
-    DocumentHelp,
+    BigRadio,
     VGouvFrModal,
+    DocumentHelp,
+    AllDeclinedMessages,
     NakedCard
   },
   computed: {
     ...mapGetters({
-      user: "userToEdit"
+      user: "userToEdit",
+      tenantResidencyDocument: "getTenantResidencyDocument"
     })
   }
 })
-export default class Professional extends Vue {
+export default class Residency extends Vue {
+  documents = DocumentTypeConstants.RESIDENCY_DOCS;
+
   user!: User;
+  tenantResidencyDocument!: DfDocument;
+
+  documentDeniedReasons = new DocumentDeniedReasons();
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
   uploadProgress: {
     [key: string]: { state: string; percentage: number };
   } = {};
-  professionalDocument = new DocumentType();
-  documents = DocumentTypeConstants.PROFESSIONAL_DOCS;
+  residencyDocument = new DocumentType();
+
   isDocDeleteVisible = false;
 
   getLocalStorageKey() {
-    return "professional_" + this.user.email;
+    return "residency_" + this.user.email;
+  }
+
+  get documentStatus() {
+    return this.tenantResidencyDocument?.documentStatus;
   }
 
   beforeMount() {
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "PROFESSIONAL";
+        return d.documentCategory === "RESIDENCY";
       });
       if (doc !== undefined) {
         const localDoc = this.documents.find((d: DocumentType) => {
           return d.value === doc.documentSubCategory;
         });
         if (localDoc !== undefined) {
-          this.professionalDocument = localDoc;
+          this.residencyDocument = localDoc;
           localStorage.setItem(
             this.getLocalStorageKey(),
-            this.professionalDocument.key || ""
+            this.residencyDocument.key || ""
+          );
+        }
+        if (this.tenantResidencyDocument?.documentDeniedReasons) {
+          this.documentDeniedReasons = cloneDeep(
+            this.tenantResidencyDocument.documentDeniedReasons
           );
         }
       } else {
@@ -146,7 +180,7 @@ export default class Professional extends Vue {
             return d.key === key;
           });
           if (localDoc !== undefined) {
-            this.professionalDocument = localDoc;
+            this.residencyDocument = localDoc;
           }
         }
       }
@@ -154,18 +188,15 @@ export default class Professional extends Vue {
   }
 
   onSelectChange() {
-    localStorage.setItem(
-      this.getLocalStorageKey(),
-      this.professionalDocument.key
-    );
+    localStorage.setItem(this.getLocalStorageKey(), this.residencyDocument.key);
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "PROFESSIONAL";
+        return d.documentCategory === "RESIDENCY";
       });
       if (doc !== undefined) {
         this.isDocDeleteVisible =
           (doc.files?.length || 0) > 0 &&
-          doc.documentSubCategory !== this.professionalDocument.value;
+          doc.documentSubCategory !== this.residencyDocument.value;
       }
     }
     return false;
@@ -174,14 +205,14 @@ export default class Professional extends Vue {
   undoSelect() {
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "PROFESSIONAL";
+        return d.documentCategory === "RESIDENCY";
       });
       if (doc !== undefined) {
         const localDoc = this.documents.find((d: DocumentType) => {
           return d.value === doc.documentSubCategory;
         });
         if (localDoc !== undefined) {
-          this.professionalDocument = localDoc;
+          this.residencyDocument = localDoc;
         }
       }
     }
@@ -192,7 +223,7 @@ export default class Professional extends Vue {
     this.isDocDeleteVisible = false;
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "PROFESSIONAL";
+        return d.documentCategory === "RESIDENCY";
       });
       if (doc?.files !== undefined) {
         for (const f of doc.files) {
@@ -204,8 +235,28 @@ export default class Professional extends Vue {
     }
   }
 
+  isNewDocument() {
+    if (this.user.documents !== null) {
+      const doc = this.user.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "RESIDENCY";
+      });
+      if (doc !== undefined) {
+        if (
+          (doc.documentSubCategory === "GUEST" &&
+            this.residencyDocument.value === "GUEST_PARENTS") ||
+          (doc.documentSubCategory === "GUEST_PARENTS" &&
+            this.residencyDocument.value === "GUEST")
+        ) {
+          return false;
+        }
+        return doc.documentSubCategory !== this.residencyDocument.value;
+      }
+    }
+    return false;
+  }
+
   addFiles(fileList: File[]) {
-    AnalyticsService.uploadFile("professional");
+    AnalyticsService.uploadFile("residency");
     const nf = Array.from(fileList).map(f => {
       return { name: f.name, file: f, size: f.size };
     });
@@ -216,7 +267,7 @@ export default class Professional extends Vue {
     this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
   }
   save() {
-    AnalyticsService.registerFile("professional");
+    AnalyticsService.registerFile("residency");
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
@@ -226,31 +277,29 @@ export default class Professional extends Vue {
     if (!newFiles.length) return;
 
     if (
-      this.professionalDocument.maxFileCount &&
-      this.professionalFiles().length > this.professionalDocument.maxFileCount
+      this.residencyDocument.maxFileCount &&
+      this.residencyFiles().length > this.residencyDocument.maxFileCount
     ) {
       Vue.toasted.global.max_file({
         message: this.$i18n.t("max-file", [
-          this.professionalFiles().length,
-          this.professionalDocument.maxFileCount
+          this.residencyFiles().length,
+          this.residencyDocument.maxFileCount
         ])
       });
       return;
     }
+
     Array.from(Array(newFiles.length).keys()).map(x => {
       const f: File = newFiles[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
     });
 
-    formData.append(
-      "typeDocumentProfessional",
-      this.professionalDocument.value
-    );
+    formData.append("typeDocumentResidency", this.residencyDocument.value);
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     const loader = this.$loading.show();
     this.$store
-      .dispatch("saveTenantProfessional", formData)
+      .dispatch("saveTenantResidency", formData)
       .then(() => {
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
@@ -269,10 +318,10 @@ export default class Professional extends Vue {
       });
   }
 
-  professionalFiles() {
+  residencyFiles() {
     const newFiles = this.files.map(f => {
       return {
-        documentSubCategory: this.professionalDocument.value,
+        documentSubCategory: this.residencyDocument.value,
         id: f.name,
         name: f.name,
         size: f.size
@@ -280,13 +329,13 @@ export default class Professional extends Vue {
     });
     const existingFiles =
       this.$store.getters.getTenantDocuments?.find((d: DfDocument) => {
-        return d.documentCategory === "PROFESSIONAL";
+        return d.documentCategory === "RESIDENCY";
       })?.files || [];
     return [...newFiles, ...existingFiles];
   }
 
   async remove(file: DfFile, silent = false) {
-    AnalyticsService.deleteFile("professional");
+    AnalyticsService.deleteFile("residency");
     if (file.path && file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
@@ -304,36 +353,22 @@ export default class Professional extends Vue {
 <i18n>
 {
 "en": {
-  "cdi": "CDI",
-  "cdi-trial": "CDI (période d’essai)",
-  "cdd": "CDD",
-  "alternation": "Alternance",
-  "internship": "Stage",
-  "student": "Études",
-  "public": "Fonction publique",
-  "ctt": "CTT (intérimaire)",
-  "retired": "Retraité",
-  "unemployed": "Chômage",
-  "independent": "Indépendant",
-  "other": "Autre",
+  "tenant": "Locataire",
+  "owner": "Propriétaire",
+  "guest": "Hébergé·e gratuitement",
+  "guest-parents": "Chez mes parents",
+  "files": "Documents",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-  "select-label": "Your current professional situation:"
+  "select-label": "Your current accommodation situation:"
 },
 "fr": {
-  "cdi": "CDI",
-  "cdi-trial": "CDI (période d’essai)",
-  "cdd": "CDD",
-  "alternation": "Alternance",
-  "internship": "Stage",
-  "student": "Études",
-  "public": "Fonction publique",
-  "ctt": "CTT (intérimaire)",
-  "retired": "Retraité",
-  "unemployed": "Chômage",
-  "independent": "Indépendant",
-  "other": "Autre",
+  "tenant": "Locataire",
+  "owner": "Propriétaire",
+  "guest": "Hébergé·e gratuitement",
+  "guest-parents": "Chez mes parents",
+  "files": "Documents",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "select-label": "Votre situation professionnelle actuelle :"
+  "select-label": "Votre situation d’hébergement actuelle :"
 }
 }
 </i18n>

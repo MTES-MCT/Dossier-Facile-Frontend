@@ -23,15 +23,15 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import Identification from "@/components/documents/Identification.vue";
-import Residency from "@/components/documents/Residency.vue";
-import Professional from "@/components/documents/Professional.vue";
-import Financial from "@/components/documents/Financial.vue";
-import Tax from "@/components/documents/Tax.vue";
+import Identification from "./documents/tenant/Identification.vue";
+import Residency from "./documents/tenant/Residency.vue";
+import Professional from "./documents/tenant/Professional.vue";
+import Financial from "./documents/tenant/Financial.vue";
+import Tax from "./documents/tenant/Tax.vue";
 import { mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
 import { AnalyticsService } from "../services/AnalyticsService";
-import ProfileFooter from "@/components/footer/ProfileFooter.vue";
+import ProfileFooter from "./footer/ProfileFooter.vue";
 
 @Component({
   components: {

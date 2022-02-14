@@ -1,4 +1,4 @@
-import TheFooter from "../df-shared/src/Footer/Footer.vue";
+import TheFooter from "df-shared/src/Footer/Footer.vue";
 
 import Vue from 'vue';
 import VueI18n from 'vue-i18n'
@@ -6,7 +6,7 @@ import VueI18n from 'vue-i18n'
 Vue.use(VueI18n)
 
 export default {
-  title: 'Example/Footer',
+  title: 'DfShared/Footer',
   component: TheFooter,
 };
 

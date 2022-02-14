@@ -5,28 +5,43 @@
         <div class="v-center">
           <slot name="tag"></slot>
         </div>
-        <div v-if="$slots.text" class="text-container">
+        <div
+          v-if="$slots.text"
+          class="text-container"
+          :class="{ danger: danger }"
+        >
           <slot name="text"></slot>
         </div>
       </div>
       <div class="btn-container">
-        <button @click="edit()" class="fr-p-0 fr-mr-2w icon-btn">
-          <div class="color--primary material-icons md-24 fr-m-1w">
+        <button
+          @click="edit()"
+          class="fr-p-0 fr-mr-2w icon-btn"
+          :class="{ danger: danger, 'color--primary': !danger }"
+        >
+          <div class="material-icons md-24 fr-m-1w">
             edit
           </div>
         </button>
-        <button @click="remove()" class="fr-p-0 icon-btn">
-          <div class="color--primary material-icons md-24 fr-m-1w">
+        <button
+          @click="remove()"
+          class="fr-p-0 icon-btn"
+          :class="{ danger: danger, 'color--primary': !danger }"
+        >
+          <div class="material-icons md-24 fr-m-1w">
             delete
           </div>
         </button>
       </div>
     </div>
+    <div v-if="$slots.bottom">
+      <slot name="bottom"></slot>
+    </div>
   </NakedCard>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import NakedCard from "./NakedCard.vue";
 
 @Component({
@@ -35,6 +50,8 @@ import NakedCard from "./NakedCard.vue";
   }
 })
 export default class CardRow extends Vue {
+  @Prop({ default: false }) danger!: boolean;
+
   edit() {
     this.$emit("edit");
   }
@@ -78,6 +95,9 @@ export default class CardRow extends Vue {
 .icon-btn {
   border: 1px solid var(--primary);
   background-color: var(--background-default-grey);
+  &.danger {
+    border: 1px solid var(--danger);
+  }
 }
 
 .text-container {
@@ -87,5 +107,9 @@ export default class CardRow extends Vue {
     flex-grow: 1;
     justify-content: center;
   }
+}
+
+.danger {
+  color: var(--danger);
 }
 </style>

@@ -6,8 +6,8 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import GuarantorChoice from "@/components/GuarantorChoice.vue";
-import ProfileContainer from "@/components/ProfileContainer.vue";
+import GuarantorChoice from "../components/GuarantorChoice.vue";
+import ProfileContainer from "../components/ProfileContainer.vue";
 
 @Component({
   components: {

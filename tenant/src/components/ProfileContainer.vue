@@ -16,13 +16,13 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import LeftEditMenu from "@/components/LeftEditMenu.vue";
-import TopEditMenu from "@/components/TopEditMenu.vue";
-import NameInformationForm from "@/components/NameInformationForm.vue";
-import TenantInformationForm from "@/components/TenantInformationForm.vue";
-import UploadDocuments from "@/components/UploadDocuments.vue";
-import GuarantorDocuments from "@/components/GuarantorDocuments.vue";
-import ValidateFile from "@/components/ValidateFile.vue";
+import LeftEditMenu from "./LeftEditMenu.vue";
+import TopEditMenu from "./TopEditMenu.vue";
+import NameInformationForm from "./NameInformationForm.vue";
+import TenantInformationForm from "./TenantInformationForm.vue";
+import UploadDocuments from "./UploadDocuments.vue";
+import GuarantorDocuments from "./GuarantorDocuments.vue";
+import ValidateFile from "./ValidateFile.vue";
 import { UtilsService } from "../services/UtilsService";
 
 @Component({

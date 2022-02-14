@@ -24,12 +24,12 @@
               </div>
             </div>
             <div class="fr-header__service">
-              <a :href="`${MAIN_URL}/`" title="Retour à l’accueil">
+              <a :href="`${MAIN_URL}/`" title="Dossier Facile - Accueil">
                 <p class="fr-header__service-title">
                   <img
                     class="logo"
                     src="./logo_dossierfacile.webp"
-                    alt="logo"
+                    alt="Dossier Facile"
                   />
                 </p>
               </a>
@@ -42,6 +42,15 @@
           <div class="fr-header__tools">
             <div class="fr-header__tools-links">
               <ul class="fr-links-group">
+                <li v-if="showAccessibility">
+                  <a
+                    class="fr-link fr-fi-eye-line"
+                    :href="`${MAIN_URL}/accessibilite`"
+                    target="_blank"
+                    :title="$t('accessibility-link')"
+                    >{{ $t("accessibility") }}</a
+                  >
+                </li>
                 <li v-if="loggedIn">
                   <v-gouv-fr-button
                     :label="$t('logout')"
@@ -89,6 +98,15 @@
         <div class="fr-header__menu-links" style="display: none"></div>
         <div class="fr-header__menu-links-hack">
           <ul class="fr-links-group">
+            <li v-if="showAccessibility">
+              <a
+                class="fr-link fr-fi-eye-line"
+                :href="`${MAIN_URL}/accessibilite`"
+                target="_blank"
+                :title="$t('accessibility-link')"
+                >{{ $t("accessibility") }}</a
+              >
+            </li>
             <li v-if="loggedIn">
               <v-gouv-fr-button
                 :label="$t('logout')"
@@ -151,6 +169,7 @@ export default class MyHeader extends Vue {
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
   @Prop({ default: false }) loggedIn?: boolean;
   @Prop({ default: "fr" }) lang?: string;
+  @Prop({ default: false }) showAccessibility?: string;
 
   onCreateTenant() {
     this.$emit("on-create-tenant");
@@ -201,15 +220,19 @@ li {
 
 <i18n>
 {
-"en": {
-"logout": "Logout",
-"signup": "Sign up",
-"owner": "Owner area"
-},
-"fr": {
-"logout": "Se déconnecter",
-"signup": "Mon dossier",
-"owner": "Espace propriétaire"
-}
+  "en": {
+    "logout": "Logout",
+    "signup": "Sign up",
+    "owner": "Owner area",
+    "accessibility": "Accessibility: not compliant",
+    "accessibility-link": "Accessibility - new window"
+  },
+  "fr": {
+    "logout": "Se déconnecter",
+    "signup": "Mon dossier",
+    "owner": "Espace propriétaire",
+    "accessibility": "Accessibilité: non conforme",
+    "accessibility-link": "Déclaration d'accessibilité - nouvelle fenêtre"
+  }
 }
 </i18n>

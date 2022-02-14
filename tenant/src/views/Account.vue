@@ -27,74 +27,76 @@
                 ></ColoredTag>
 
                 <span class="spacer"></span>
-                <DfButton
-                  @on-click="copyLink()"
-                  primary="true"
-                  size="small"
-                  :disabled="!canCopyLink()"
-                  >{{ $t("copy-link") }}</DfButton
-                >
-                <div class="grp">
-                  <input id="tokenLink" type="hidden" :value="getToken()" />
-                  <button
-                    class="fr-btn grp-btn"
-                    :class="{
-                      'fr-fi-arrow-down-s-line': !radioVisible,
-                      'fr-fi-arrow-up-s-line': radioVisible
-                    }"
-                    title="Copy"
-                    @click="radioVisible = !radioVisible"
+                <div class="fr-grid-row btn-container">
+                  <DfButton
+                    @on-click="copyLink()"
+                    primary="true"
+                    size="small"
                     :disabled="!canCopyLink()"
+                    >{{ $t("copy-link") }}</DfButton
                   >
-                    <span class="sr-only"> Copy </span>
-                  </button>
-                  <div class="grp-modal bg-white" v-show="radioVisible">
-                    <h4 class="p10">{{ $t("share-file") }}</h4>
+                  <div class="grp">
+                    <input id="tokenLink" type="hidden" :value="getToken()" />
+                    <button
+                      class="fr-btn grp-btn"
+                      :class="{
+                        'fr-fi-arrow-down-s-line': !radioVisible,
+                        'fr-fi-arrow-up-s-line': radioVisible
+                      }"
+                      title="Copy"
+                      @click="radioVisible = !radioVisible"
+                      :disabled="!canCopyLink()"
+                    >
+                      <span class="sr-only"> Copy </span>
+                    </button>
+                    <div class="grp-modal bg-white" v-show="radioVisible">
+                      <h4 class="p10">{{ $t("share-file") }}</h4>
 
-                    <div>
-                      <fieldset class="fr-fieldset">
-                        <div class="fr-fieldset__content">
-                          <div class="fr-radio-group p10">
-                            <input
-                              type="radio"
-                              id="radio-1"
-                              name="radio"
-                              v-model="pub"
-                              value="true"
-                            />
-                            <label
-                              class="fr-label"
-                              for="radio-1"
-                              v-html="$t('file-resume')"
-                            ></label>
+                      <div>
+                        <fieldset class="fr-fieldset">
+                          <div class="fr-fieldset__content">
+                            <div class="fr-radio-group p10">
+                              <input
+                                type="radio"
+                                id="radio-1"
+                                name="radio"
+                                v-model="pub"
+                                value="true"
+                              />
+                              <label
+                                class="fr-label"
+                                for="radio-1"
+                                v-html="$t('file-resume')"
+                              ></label>
+                            </div>
+                            <hr />
+                            <div class="fr-radio-group p10">
+                              <input
+                                type="radio"
+                                id="radio-2"
+                                name="radio"
+                                v-model="pub"
+                                value="false"
+                              />
+                              <label
+                                class="fr-label"
+                                for="radio-2"
+                                v-html="$t('file-full')"
+                              >
+                              </label>
+                            </div>
+                            <div class="flex copy-btn">
+                              <input type="text" :value="getToken()" readonly />
+                              <DfButton
+                                class="fr-ml-1w"
+                                primary="true"
+                                @on-click="copyLink()"
+                                >{{ $t("copy") }}</DfButton
+                              >
+                            </div>
                           </div>
-                          <hr />
-                          <div class="fr-radio-group p10">
-                            <input
-                              type="radio"
-                              id="radio-2"
-                              name="radio"
-                              v-model="pub"
-                              value="false"
-                            />
-                            <label
-                              class="fr-label"
-                              for="radio-2"
-                              v-html="$t('file-full')"
-                            >
-                            </label>
-                          </div>
-                          <div class="flex copy-btn">
-                            <input type="text" :value="getToken()" readonly />
-                            <DfButton
-                              class="fr-ml-1w"
-                              primary="true"
-                              @on-click="copyLink()"
-                              >{{ $t("copy") }}</DfButton
-                            >
-                          </div>
-                        </div>
-                      </fieldset>
+                        </fieldset>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -128,7 +130,7 @@
               >
                 <h4 class="dflex">
                   <span class="material-icons-outlined md-28">timer</span
-                  ><span>{{ $t("instructional-time-title") }}</span>
+                  >&nbsp;<span>{{ $t("instructional-time-title") }}</span>
                 </h4>
                 <p v-html="$t('instructional-time-text')"></p>
               </div>
@@ -137,7 +139,7 @@
                 <h4>{{ $t("my-personnal-information") }}</h4>
                 <div
                   class="fr-grid-row fr-grid-row--gutters"
-                  @click="gotoTenantName()"
+                  @click.prevent="gotoTenantName()"
                 >
                   <div class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w">
                     <div class="fr-tile fr-tile--horizontal">
@@ -172,7 +174,7 @@
                 <div class="fr-grid-row fr-grid-row--gutters">
                   <div
                     class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                    @click="setTenantStep(1)"
+                    @click.prevent="setTenantStep(1)"
                   >
                     <div class="fr-tile fr-tile--horizontal">
                       <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -201,7 +203,7 @@
                   </div>
                   <div
                     class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                    @click="setTenantStep(2)"
+                    @click.prevent="setTenantStep(2)"
                   >
                     <div class="fr-tile fr-tile--horizontal">
                       <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -230,7 +232,7 @@
                   </div>
                   <div
                     class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                    @click="setTenantStep(3)"
+                    @click.prevent="setTenantStep(3)"
                   >
                     <div class="fr-tile fr-tile--horizontal">
                       <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -260,7 +262,7 @@
 
                   <div
                     class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                    @click="setTenantStep(4)"
+                    @click.prevent="setTenantStep(4)"
                   >
                     <div class="fr-tile fr-tile--horizontal">
                       <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -289,7 +291,7 @@
                   </div>
                   <div
                     class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                    @click="setTenantStep(5)"
+                    @click.prevent="setTenantStep(5)"
                   >
                     <div class="fr-tile fr-tile--horizontal">
                       <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -328,7 +330,7 @@
                     <div class="fr-grid-row fr-grid-row--gutters">
                       <div
                         class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click="setGuarantorSubStep(1, g)"
+                        @click.prevent="setGuarantorSubStep(1, g)"
                       >
                         <div class="fr-tile fr-tile--horizontal">
                           <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -361,7 +363,7 @@
                       </div>
                       <div
                         class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click="setGuarantorSubStep(2, g)"
+                        @click.prevent="setGuarantorSubStep(2, g)"
                       >
                         <div class="fr-tile fr-tile--horizontal">
                           <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -392,7 +394,7 @@
                       </div>
                       <div
                         class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click="setGuarantorSubStep(3, g)"
+                        @click.prevent="setGuarantorSubStep(3, g)"
                       >
                         <div class="fr-tile fr-tile--horizontal">
                           <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -424,7 +426,7 @@
 
                       <div
                         class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click="setGuarantorSubStep(4, g)"
+                        @click.prevent="setGuarantorSubStep(4, g)"
                       >
                         <div class="fr-tile fr-tile--horizontal">
                           <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -455,7 +457,7 @@
                       </div>
                       <div
                         class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click="setGuarantorSubStep(5, g)"
+                        @click.prevent="setGuarantorSubStep(5, g)"
                       >
                         <div class="fr-tile fr-tile--horizontal">
                           <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -486,7 +488,7 @@
                     <div class="fr-grid-row fr-grid-row--gutters">
                       <div
                         class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click="setGuarantorSubStep(1, g)"
+                        @click.prevent="setGuarantorSubStep(1, g)"
                       >
                         <div class="fr-tile fr-tile--horizontal">
                           <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -523,7 +525,7 @@
                     <div class="fr-grid-row fr-grid-row--gutters">
                       <div
                         class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click="setGuarantorSubStep(1, g)"
+                        @click.prevent="setGuarantorSubStep(1, g)"
                       >
                         <div class="fr-tile fr-tile--horizontal">
                           <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -568,7 +570,7 @@
                     <div class="fr-grid-row fr-grid-row--gutters">
                       <div
                         class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click="setGuarantorSubStep(2, g)"
+                        @click.prevent="setGuarantorSubStep(2, g)"
                       >
                         <div class="fr-tile fr-tile--horizontal">
                           <div class="fr-tile__body fr-ml-2w fr-mr-2w">
@@ -728,6 +730,14 @@ export default class Account extends Vue {
   radioVisible = false;
   pub = "false";
   isDeleteModalVisible = false;
+
+  mounted() {
+    window.Beacon("init", "d949ac15-a9eb-4316-b0c5-f92cecc7118f");
+  }
+
+  beforeDestroy() {
+    window.Beacon("destroy");
+  }
 
   getToken() {
     if (this.pub === "true") {
@@ -1055,6 +1065,7 @@ h2 {
   left: auto;
   width: max-content;
   padding: 0;
+  z-index: 2;
 
   &:before {
     top: -16px;
@@ -1147,6 +1158,10 @@ hr {
 .dflex {
   display: flex;
   align-items: center;
+}
+
+.btn-container {
+  margin-left: auto;
 }
 </style>
 
@@ -1269,7 +1284,7 @@ hr {
     "CDD": "en CDD",
     "ALTERNATION": "en alternance",
     "INTERNSHIP": "en stage",
-    "STUDENT": "étudiant",
+    "STUDENT": "étudiant·e",
     "PUBLIC": "dans la fonction publique",
     "CTT": "en CTT (intérimaire)",
     "RETIRED": "retraité",

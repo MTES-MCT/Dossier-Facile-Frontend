@@ -44,11 +44,7 @@
       </div>
       <div class="fr-col-lg-6 fr-col-12 bg-white">
         <div class="margin-auto max-400">
-          <Register
-            :email="email"
-            :franceConnect="false"
-            @on-register="onRegister"
-          />
+          <Register :source="true" :email="email" @on-register="onRegister" />
           <div class="text-center fr-mb-5w">
             <a href="#" @click="connect" class="blue-text">
               {{ $t("existing-account") }}

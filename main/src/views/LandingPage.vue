@@ -198,9 +198,10 @@
               href="https://www.monsieurhugo.com/"
               class="logo-link"
               rel="noreferrer"
+              title="aller sur le site « monsieur Hugo » (nouvelle fenêtre)"
             >
               <img
-                alt="logo monsieur hugo"
+                alt="monsieur Hugo"
                 class="partner-logo monsieurhugo"
                 src="../assets/logos/monsieur_hugo.webp"
               />
@@ -214,9 +215,10 @@
               href="https://www.visale.fr/"
               class="logo-link"
               rel="noreferrer"
+              title="aller sur le site « visale.fr - connecte emploi et logement » (nouvelle fenêtre)"
             >
               <img
-                alt="logo visale"
+                alt="visale.fr - connecte emploi et logement"
                 class="partner-logo visale"
                 src="../assets/logos/visale.webp"
               />
@@ -230,9 +232,10 @@
               href="https://www.locservice.fr/"
               class="logo-link"
               rel="noreferrer"
+              title="aller sur le site « locservice.fr - location et colocation entre particuliers » (nouvelle fenêtre)"
             >
               <img
-                alt="logo locservice"
+                alt="locservice.fr - location et colocation entre particuliers"
                 class="partner-logo locservice"
                 src="../assets/logos/loc_service.webp"
               />
@@ -246,9 +249,10 @@
               href="https://colivme.com/"
               class="logo-link"
               rel="noreferrer"
+              title="aller sur le site « colivme » (nouvelle fenêtre)"
             >
               <img
-                alt="logo colivme"
+                alt="colivme"
                 class="partner-logo colivme"
                 src="../assets/logos/colivme.webp"
               />
@@ -262,9 +266,10 @@
               href="https://whoomies.com/"
               class="logo-link"
               rel="noreferrer"
+              title="aller sur le site « whoomies » (nouvelle fenêtre)"
             >
               <img
-                alt="logo whoomies"
+                alt="whoomies"
                 class="partner-logo whoomies"
                 src="../assets/logos/whoomies.webp"
               />
@@ -278,9 +283,10 @@
               href="https://www.anil.org/"
               class="logo-link"
               rel="noreferrer"
+              title="aller sur le site de l’ANIL, l’agence nationale pour l’information sur le logement (nouvelle fenêtre)"
             >
               <img
-                alt="logo anil"
+                alt="ANIL – agence nationale pour l’information sur le logement"
                 class="partner-logo anil"
                 src="../assets/logos/anil.webp"
               />
@@ -294,9 +300,10 @@
               href="https://www.clickandrent.fr/"
               class="logo-link"
               rel="noreferrer"
+              title="aller sur le site « click and rent » (nouvelle fenêtre)"
             >
-              <img
-                alt="logo click and rent"
+              <img lang="en"
+                alt="click and rent"
                 class="partner-logo rent"
                 src="../assets/logos/clickandrent.webp"
               />
@@ -310,9 +317,10 @@
               href="https://www.qlower.com/"
               class="logo-link"
               rel="noreferrer"
+              title="aller sur le site « qlower » (nouvelle fenêtre)"
             >
-              <img
-                alt="logo qlower"
+              <img lang="en"
+                alt="qlower"
                 class="partner-logo qlower"
                 src="../assets/logos/qlower.webp"
               />
@@ -326,9 +334,10 @@
               href="https://www.jelouebien.com/"
               class="logo-link"
               rel="noreferrer"
+              title="aller sur le site « jelouebien.com » (nouvelle fenêtre)"
             >
               <img
-                alt="logo jelouebien"
+                alt="jelouebien.com"
                 class="partner-logo jelouebien"
                 src="../assets/logos/jelouebien.webp"
               />
@@ -342,9 +351,10 @@
               href="https://www.gererseul.com/"
               class="logo-link"
               rel="noreferrer"
+              title="aller sur le site « gererseul – ma gestion locative » (nouvelle fenêtre)"
             >
               <img
-                alt="logo gererseul"
+                alt="gererseul – ma gestion locative"
                 class="partner-logo gererseul"
                 src="../assets/logos/gererseul.webp"
               />
@@ -358,9 +368,10 @@
               href="https://pandaloc.com/"
               class="logo-link"
               rel="noreferrer"
+              title="aller sur le site « pandaloc » (nouvelle fenêtre)"
             >
               <img
-                alt="logo pandaloc"
+                alt="pandaloc"
                 class="partner-logo pandaloc"
                 src="../assets/logos/pandaloc.webp"
               />
@@ -415,7 +426,7 @@ export default class LandingPage extends Vue {
   background-size: cover !important;
   background-position: 50% 50% !important;
   background-image: url("../assets/cover-features.webp");
-
+  background-color: #6277A0;
   @media (max-width: 768px) {
     background-image: url("../assets/cover-features-mobile.webp");
   }

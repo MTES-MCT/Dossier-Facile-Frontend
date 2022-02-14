@@ -5,13 +5,6 @@ body {
   min-width: 350px;
 }
 
-:focus {
-  outline: none !important;
-}
-:focus::before {
-  outline: none !important;
-}
-
 .color--primary {
   color: $primary !important;
 }
@@ -276,8 +269,4 @@ img {
 .full-width {
   width: 100%;
   justify-content: center;
-}
-
-button {
-  background-image: none !important;
 }

@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter, { NavigationGuardNext, Route, RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
-import store from "@/store";
+import store from "../store";
 
 Vue.use(VueRouter);
 
@@ -29,7 +29,7 @@ const routes: Array<RouteConfig> = [
       hideForAuth: true
     },
     component: () =>
-      import(/* webpackChunkName: "signup" */ "@/views/SignupPage.vue")
+      import(/* webpackChunkName: "signup" */ "../views/SignupPage.vue")
   },
   {
     path: "/login",
@@ -49,7 +49,7 @@ const routes: Array<RouteConfig> = [
     },
     component: () =>
       import(
-        /* webpackChunkName: "forgottenPassword" */ "@/views/ForgottenPasswordPage.vue"
+        /* webpackChunkName: "forgottenPassword" */ "../views/ForgottenPasswordPage.vue"
       )
   },
   {
@@ -61,7 +61,7 @@ const routes: Array<RouteConfig> = [
       hideFooter: true
     },
     component: () =>
-      import(/* webpackChunkName: "profile" */ "@/views/NameInformation.vue")
+      import(/* webpackChunkName: "profile" */ "../views/NameInformation.vue")
   },
   {
     path: "/nom-locataire",
@@ -72,7 +72,7 @@ const routes: Array<RouteConfig> = [
       hideFooter: true
     },
     component: () =>
-      import(/* webpackChunkName: "profile" */ "@/views/NameInformation.vue")
+      import(/* webpackChunkName: "profile" */ "../views/NameInformation.vue")
   },
   {
     path: "/type-locataire",
@@ -83,7 +83,7 @@ const routes: Array<RouteConfig> = [
       hideFooter: true
     },
     component: () =>
-      import(/* webpackChunkName: "profile" */ "@/views/TypeInformation.vue")
+      import(/* webpackChunkName: "profile" */ "../views/TypeInformation.vue")
   },
   {
     path: "/documents-locataire/:substep",
@@ -94,7 +94,7 @@ const routes: Array<RouteConfig> = [
       hideFooter: true
     },
     component: () =>
-      import(/* webpackChunkName: "profile" */ "@/views/TenantDocument.vue")
+      import(/* webpackChunkName: "profile" */ "../views/TenantDocument.vue")
   },
   {
     path: "/choix-garant",
@@ -106,7 +106,7 @@ const routes: Array<RouteConfig> = [
     },
     component: () =>
       import(
-        /* webpackChunkName: "profile" */ "@/views/GuarantorChoicePage.vue"
+        /* webpackChunkName: "profile" */ "../views/GuarantorChoicePage.vue"
       )
   },
   {
@@ -118,7 +118,7 @@ const routes: Array<RouteConfig> = [
       hideFooter: true
     },
     component: () =>
-      import(/* webpackChunkName: "profile" */ "@/views/GuarantorListPage.vue")
+      import(/* webpackChunkName: "profile" */ "../views/GuarantorListPage.vue")
   },
   {
     path: "/validation-dossier",
@@ -129,7 +129,7 @@ const routes: Array<RouteConfig> = [
       hideFooter: true
     },
     component: () =>
-      import(/* webpackChunkName: "profile" */ "@/views/ValidateFilePage.vue")
+      import(/* webpackChunkName: "profile" */ "../views/ValidateFilePage.vue")
   },
   {
     path: "/info-garant/:substep/:guarantorId?",
@@ -151,7 +151,7 @@ const routes: Array<RouteConfig> = [
     },
     component: () =>
       import(
-        /* webpackChunkName: "profile" */ "@/views/GuarantorDocumentsPage.vue"
+        /* webpackChunkName: "profile" */ "../views/GuarantorDocumentsPage.vue"
       )
   },
   {
@@ -161,7 +161,7 @@ const routes: Array<RouteConfig> = [
       title: "Dossier - DossierFacile"
     },
     component: () =>
-      import(/* webpackChunkName: "file" */ "@/views/PublicFile.vue")
+      import(/* webpackChunkName: "file" */ "../views/PublicFile.vue")
   },
   {
     path: "/file/:token",
@@ -169,7 +169,7 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Dossier - DossierFacile"
     },
-    component: () => import(/* webpackChunkName: "file" */ "@/views/File.vue")
+    component: () => import(/* webpackChunkName: "file" */ "../views/File.vue")
   },
   {
     path: "/source/:source",
@@ -194,7 +194,17 @@ const routes: Array<RouteConfig> = [
       }
     },
     component: () =>
-      import(/* webpackChunkName: "source" */ "@/views/Source.vue")
+      import(/* webpackChunkName: "source" */ "../views/Source.vue")
+  },
+  {
+    path: "/lier-source/:source",
+    name: "SourceLink",
+    meta: {
+      title: "Source - DossierFacile",
+      requiresAuth: true
+    },
+    component: () =>
+      import(/* webpackChunkName: "source" */ "../views/SourceLink.vue")
   },
   {
     path: "/account",
@@ -204,7 +214,7 @@ const routes: Array<RouteConfig> = [
       requiresAuth: true
     },
     component: () =>
-      import(/* webpackChunkName: "account" */ "@/views/Account.vue")
+      import(/* webpackChunkName: "account" */ "../views/Account.vue")
   },
   {
     path: "/messaging",
@@ -214,7 +224,7 @@ const routes: Array<RouteConfig> = [
       requiresAuth: true
     },
     component: () =>
-      import(/* webpackChunkName: "messages" */ "@/views/Messages.vue")
+      import(/* webpackChunkName: "messages" */ "../views/Messages.vue")
   },
   {
     path: "/confirmAccount/:token",
@@ -225,7 +235,7 @@ const routes: Array<RouteConfig> = [
     },
     component: () =>
       import(
-        /* webpackChunkName: "confirmAccount" */ "@/views/ConfirmAccount.vue"
+        /* webpackChunkName: "confirmAccount" */ "../views/ConfirmAccount.vue"
       )
   },
   {
@@ -235,7 +245,7 @@ const routes: Array<RouteConfig> = [
       title: "Confirmation de compte - DossierFacile"
     },
     component: () =>
-      import(/* webpackChunkName: "register" */ "@/views/JoinCouple.vue")
+      import(/* webpackChunkName: "register" */ "../views/JoinCouple.vue")
   },
   {
     path: "/ajout-groupe/:token",
@@ -244,7 +254,7 @@ const routes: Array<RouteConfig> = [
       title: "Confirmation de compte - DossierFacile"
     },
     component: () =>
-      import(/* webpackChunkName: "register" */ "@/views/JoinGroup.vue")
+      import(/* webpackChunkName: "register" */ "../views/JoinGroup.vue")
   },
   {
     path: "/reset-password/:token",
@@ -255,7 +265,7 @@ const routes: Array<RouteConfig> = [
     },
     component: () =>
       import(
-        /* webpackChunkName: "changePassword" */ "@/views/ChangePasswordPage.vue"
+        /* webpackChunkName: "changePassword" */ "../views/ChangePasswordPage.vue"
       )
   },
   {
@@ -282,7 +292,7 @@ const routes: Array<RouteConfig> = [
     },
     component: () =>
       import(
-        /* webpackChunkName: "inscriptionLocataire" */ "@/views/OwnerShare.vue"
+        /* webpackChunkName: "inscriptionLocataire" */ "../views/OwnerShare.vue"
       )
   },
   {
@@ -298,7 +308,7 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "404 - DossierFacile"
     },
-    component: () => import(/* webpackChunkName: "404" */ "@/views/404.vue")
+    component: () => import(/* webpackChunkName: "404" */ "../views/404.vue")
   }
 ];
 
@@ -337,9 +347,9 @@ function keepGoing(to: Route, next: NavigationGuardNext<Vue>) {
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.hideFooter)) {
-    store.commit("showFooter", false);
+    store.commit("isFunnel", true);
   } else {
-    store.commit("showFooter", true);
+    store.commit("isFunnel", false);
   }
 
   const lang = Vue.$cookies.get("lang") === "en" ? "en" : "fr";
@@ -349,7 +359,7 @@ router.beforeEach((to, from, next) => {
     if (!(Vue as any).$keycloak.authenticated) {
       // The page is protected and the user is not authenticated. Force a login.
       (Vue as any).$keycloak.login({
-        redirectUri: TENANT_URL + to.path
+        redirectUri: TENANT_URL + to.fullPath
       });
     } else {
       // The user was authenticated, and has the app role

@@ -6,14 +6,15 @@
       @on-create-owner="onCreateOwner"
       @on-logout="onLogout"
       @on-change-lang="changeLang"
+      :showAccessibility="isFunnel"
       :lang="getLang()"
     >
-      <Menu :user="user" />
+      <Menu />
     </MyHeader>
     <article class="page">
       <router-view :key="$route.path" />
     </article>
-    <TheFooter v-if="showFooter" />
+    <TheFooter v-if="!isFunnel" />
     <Cookies
       :hidden="cookieHidden"
       @accept="acceptCookies"
@@ -26,7 +27,7 @@
 import { Vue, Component } from "vue-property-decorator";
 import MyHeader from "df-shared/src/Header/Header.vue";
 import TheFooter from "df-shared/src/Footer/Footer.vue";
-import Menu from "@/components/Menu.vue";
+import Menu from "./components/Menu.vue";
 import { mapGetters, mapState } from "vuex";
 import i18n from "./i18n";
 import Cookies from "df-shared/src/Footer/Cookies.vue";
@@ -44,7 +45,7 @@ import router from "./router";
     ...mapState({
       user: "user",
       status: "status",
-      showFooter: "showFooter"
+      isFunnel: "isFunnel"
     }),
     ...mapGetters({
       isLoggedIn: "isLoggedIn"
@@ -52,7 +53,7 @@ import router from "./router";
   }
 })
 export default class App extends Vue {
-  showFooter!: boolean;
+  isFunnel!: boolean;
   cookieHidden = this.$cookies.isKey("accept-cookie");
   isLoggedIn!: boolean;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;

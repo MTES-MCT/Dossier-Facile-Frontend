@@ -65,24 +65,24 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapState } from "vuex";
-import DocumentInsert from "@/components/documents/DocumentInsert.vue";
-import FileUpload from "@/components/uploads/FileUpload.vue";
+import DocumentInsert from "../share/DocumentInsert.vue";
+import FileUpload from "../../uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
-import ListItem from "@/components/uploads/ListItem.vue";
+import ListItem from "../../uploads/ListItem.vue";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
-import { DocumentTypeConstants } from "./DocumentTypeConstants";
+import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
-import GuarantorChoiceHelp from "../helps/GuarantorChoiceHelp.vue";
+import GuarantorChoiceHelp from "../../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
-import { UtilsService } from "../../services/UtilsService";
-import GuarantorFooter from "@/components/footer/GuarantorFooter.vue";
+import { UtilsService } from "../../../services/UtilsService";
+import GuarantorFooter from "../../footer/GuarantorFooter.vue";
 import { extend } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
 

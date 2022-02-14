@@ -6,8 +6,8 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import TenantInformationForm from "@/components/TenantInformationForm.vue";
-import ProfileContainer from "@/components/ProfileContainer.vue";
+import TenantInformationForm from "../components/TenantInformationForm.vue";
+import ProfileContainer from "../components/ProfileContainer.vue";
 
 @Component({
   components: {

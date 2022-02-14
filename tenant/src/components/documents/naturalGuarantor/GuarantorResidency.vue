@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div>
-      <NakedCard class="fr-p-md-5w">
+    <NakedCard class="fr-p-md-5w">
+      <div>
         <h1 class="fr-h6">
           {{ $t("select-label") }}
         </h1>
@@ -15,11 +15,11 @@
           </template>
           <template v-slot:content>
             <p>
-              <DocumentHelp></DocumentHelp>
+              <GuarantorChoiceHelp></GuarantorChoiceHelp>
               <DocumentInsert
-                :allow-list="identificationDocument.acceptedProofs"
-                :block-list="identificationDocument.refusedProofs"
-                v-if="identificationDocument.key"
+                :allow-list="residencyDocument.acceptedProofs"
+                :block-list="residencyDocument.refusedProofs"
+                v-if="residencyDocument.key"
               ></DocumentInsert>
             </p>
           </template>
@@ -32,7 +32,7 @@
                 <div v-for="d in documents" :key="d.key" class="full-width-xs">
                   <BigRadio
                     :val="d"
-                    v-model="identificationDocument"
+                    v-model="residencyDocument"
                     @input="onSelectChange()"
                   >
                     <div class="fr-grid-col spa">
@@ -44,8 +44,8 @@
             </div>
           </fieldset>
         </div>
-      </NakedCard>
-    </div>
+      </div>
+    </NakedCard>
     <ConfirmModal
       v-if="isDocDeleteVisible"
       @valid="validSelect()"
@@ -53,23 +53,21 @@
     >
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
-
     <NakedCard
       class="fr-p-md-5w fr-mt-3w"
-      v-if="identificationDocument.key || identificationFiles().length > 0"
+      v-if="residencyDocument.key || residencyFiles().length > 0"
     >
-      <div v-if="identificationDocument.explanationText">
-        <div
-          class="fr-mb-1w"
-          v-html="identificationDocument.explanationText"
-        ></div>
+      <div class="fr-mb-3w">
+        <p v-html="$t(residencyDocument.explanationText)"></p>
       </div>
-      <div
-        v-if="identificationFiles().length > 0"
-        class="fr-col-md-12 fr-mb-3w"
-      >
+      <AllDeclinedMessages
+        class="fr-mb-3w"
+        :documentDeniedReasons="documentDeniedReasons"
+        :documentStatus="documentStatus"
+      ></AllDeclinedMessages>
+      <div v-if="residencyFiles().length > 0" class="fr-col-12 fr-mb-3w">
         <ListItem
-          v-for="(file, k) in identificationFiles()"
+          v-for="(file, k) in residencyFiles()"
           :key="k"
           :file="file"
           @remove="remove(file)"
@@ -78,7 +76,6 @@
       <div class="fr-mb-3w">
         <FileUpload
           :current-status="fileUploadStatus"
-          :page="4"
           @add-files="addFiles"
           @reset-files="resetFiles"
         ></FileUpload>
@@ -88,120 +85,123 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { mapGetters } from "vuex";
-import DocumentInsert from "@/components/documents/DocumentInsert.vue";
-import FileUpload from "@/components/uploads/FileUpload.vue";
+import { Component, Vue, Watch } from "vue-property-decorator";
+import { mapState } from "vuex";
+import DocumentInsert from "../share/DocumentInsert.vue";
+import FileUpload from "../../uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
-import ListItem from "@/components/uploads/ListItem.vue";
-import { User } from "df-shared/src/models/User";
+import ListItem from "../../uploads/ListItem.vue";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
-import { ValidationProvider } from "vee-validate";
-import { RegisterService } from "../../services/RegisterService";
+import { RegisterService } from "../../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
-import { DocumentTypeConstants } from "./DocumentTypeConstants";
+import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
-import DfButton from "df-shared/src/Button/Button.vue";
+import { Guarantor } from "df-shared/src/models/Guarantor";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
-import DocumentHelp from "../helps/DocumentHelp.vue";
+import GuarantorChoiceHelp from "../../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
-import { AnalyticsService } from "../../services/AnalyticsService";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
+import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
+import { cloneDeep } from "lodash";
 
 @Component({
   components: {
+    AllDeclinedMessages,
     DocumentInsert,
     FileUpload,
     ListItem,
-    ValidationProvider,
     WarningMessage,
     ConfirmModal,
-    DfButton,
     BigRadio,
-    DocumentHelp,
+    GuarantorChoiceHelp,
     VGouvFrModal,
     NakedCard
   },
   computed: {
-    ...mapGetters({
-      user: "userToEdit"
+    ...mapState({
+      selectedGuarantor: "selectedGuarantor"
     })
   }
 })
-export default class Identification extends Vue {
-  documents = DocumentTypeConstants.IDENTIFICATION_DOCS;
-
-  user!: User;
+export default class Residency extends Vue {
+  selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
-  identificationDocument = new DocumentType();
+  uploadProgress: {
+    [key: string]: { state: string; percentage: number };
+  } = {};
+  residencyDocument = new DocumentType();
+  documentDeniedReasons = new DocumentDeniedReasons();
+
+  documents = DocumentTypeConstants.GUARANTOR_RESIDENCY_DOCS;
   isDocDeleteVisible = false;
 
-  getLocalStorageKey() {
-    return "identification_" + this.user.email;
+  @Watch("selectedGuarantor")
+  onGuarantorChange() {
+    this.updateGuarantorData();
   }
 
-  beforeMount() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "IDENTIFICATION";
+  mounted() {
+    this.updateGuarantorData();
+  }
+
+  get documentStatus() {
+    return this.guarantorResidencyDocument()?.documentStatus;
+  }
+
+  guarantorResidencyDocument() {
+    return this.$store.getters.getGuarantorResidencyDocument;
+  }
+
+  updateGuarantorData() {
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "RESIDENCY";
       });
       if (doc !== undefined) {
         const localDoc = this.documents.find((d: DocumentType) => {
           return d.value === doc.documentSubCategory;
         });
         if (localDoc !== undefined) {
-          this.identificationDocument = localDoc;
-          localStorage.setItem(
-            this.getLocalStorageKey(),
-            this.identificationDocument.key || ""
-          );
+          this.residencyDocument = localDoc;
         }
-      } else {
-        const key = localStorage.getItem(this.getLocalStorageKey());
-        if (key) {
-          const localDoc = this.documents.find((d: DocumentType) => {
-            return d.key === key;
-          });
-          if (localDoc !== undefined) {
-            this.identificationDocument = localDoc;
-          }
-        }
+      }
+      if (this.guarantorResidencyDocument()?.documentDeniedReasons) {
+        this.documentDeniedReasons = cloneDeep(
+          this.guarantorResidencyDocument()?.documentDeniedReasons
+        );
       }
     }
   }
 
   onSelectChange() {
-    localStorage.setItem(
-      this.getLocalStorageKey(),
-      this.identificationDocument.key
-    );
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "IDENTIFICATION";
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "RESIDENCY";
       });
       if (doc !== undefined) {
         this.isDocDeleteVisible =
           (doc.files?.length || 0) > 0 &&
-          doc.documentSubCategory !== this.identificationDocument.value;
+          doc.documentSubCategory !== this.residencyDocument.value;
       }
     }
     return false;
   }
 
   undoSelect() {
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "IDENTIFICATION";
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "RESIDENCY";
       });
       if (doc !== undefined) {
         const localDoc = this.documents.find((d: DocumentType) => {
           return d.value === doc.documentSubCategory;
         });
         if (localDoc !== undefined) {
-          this.identificationDocument = localDoc;
+          this.residencyDocument = localDoc;
         }
       }
     }
@@ -210,9 +210,9 @@ export default class Identification extends Vue {
 
   async validSelect() {
     this.isDocDeleteVisible = false;
-    if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "IDENTIFICATION";
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "RESIDENCY";
       });
       if (doc?.files !== undefined) {
         for (const f of doc.files) {
@@ -224,21 +224,38 @@ export default class Identification extends Vue {
     }
   }
 
+  isNewDocument() {
+    if (this.selectedGuarantor.documents !== null) {
+      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "RESIDENCY";
+      });
+      if (doc !== undefined) {
+        if (
+          (doc.documentSubCategory === "GUEST" &&
+            this.residencyDocument.value === "GUEST_PARENTS") ||
+          (doc.documentSubCategory === "GUEST_PARENTS" &&
+            this.residencyDocument.value === "GUEST")
+        ) {
+          return false;
+        }
+        return doc.documentSubCategory !== this.residencyDocument.value;
+      }
+    }
+    return false;
+  }
+
   addFiles(fileList: File[]) {
-    AnalyticsService.uploadFile("identification");
     const nf = Array.from(fileList).map(f => {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
     this.save();
   }
-
   resetFiles() {
     this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
   }
-
   save() {
-    AnalyticsService.registerFile("identification");
+    this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
     const newFiles = this.files.filter(f => {
@@ -247,14 +264,13 @@ export default class Identification extends Vue {
     if (!newFiles.length) return;
 
     if (
-      this.identificationDocument.maxFileCount &&
-      this.identificationFiles().length >
-        this.identificationDocument.maxFileCount
+      this.residencyDocument.maxFileCount &&
+      this.residencyFiles().length > this.residencyDocument.maxFileCount
     ) {
       Vue.toasted.global.max_file({
         message: this.$i18n.t("max-file", [
-          this.identificationFiles().length,
-          this.identificationDocument.maxFileCount
+          this.residencyFiles().length,
+          this.residencyDocument.maxFileCount
         ])
       });
       return;
@@ -265,19 +281,18 @@ export default class Identification extends Vue {
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
     });
 
-    formData.append(
-      "typeDocumentIdentification",
-      this.identificationDocument.value
-    );
+    formData.append("typeDocumentResidency", this.residencyDocument.value);
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    // TODO : remove loader when upload status is well handled (be carefull with multiple save at the same time)
+    if (this.$store.getters.guarantor.id) {
+      formData.append("guarantorId", this.$store.getters.guarantor.id);
+    }
     const loader = this.$loading.show();
     this.$store
-      .dispatch("saveTenantIdentification", formData)
+      .dispatch("saveGuarantorResidency", formData)
       .then(() => {
-        this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         this.files = [];
+        this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         Vue.toasted.global.save_success();
       })
       .catch(err => {
@@ -293,25 +308,23 @@ export default class Identification extends Vue {
       });
   }
 
-  identificationFiles() {
+  residencyFiles() {
     const newFiles = this.files.map(f => {
       return {
-        documentSubCategory: this.identificationDocument.value,
+        documentSubCategory: this.residencyDocument.value,
         id: f.name,
         name: f.name,
-        file: f.file,
-        size: f.file?.size
+        size: f.size
       };
     });
     const existingFiles =
-      this.$store.getters.getTenantDocuments?.find((d: DfDocument) => {
-        return d.documentCategory === "IDENTIFICATION";
+      this.$store.getters.getGuarantorDocuments?.find((d: DfDocument) => {
+        return d.documentCategory === "RESIDENCY";
       })?.files || [];
     return [...newFiles, ...existingFiles];
   }
 
   async remove(file: DfFile, silent = false) {
-    AnalyticsService.deleteFile("identification");
     if (file.path && file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
@@ -324,41 +337,29 @@ export default class Identification extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
-table {
-  border-collapse: collapse;
-}
-
-table,
-th,
-td {
-  border: 1px solid #ececec;
-}
-</style>
+<style scoped lang="scss"></style>
 
 <i18n>
 {
 "en": {
-  "identity-card": "French identity card",
-  "passport": "French passeport",
-  "permit": "French residence permit",
-  "other": "Autre",
+  "tenant": "Vous êtes locataire",
+  "owner": "Vous êtes propriétaire",
+  "guest": "Vous êtes hébergé gratuitement",
+  "guest-parents": "Vous habitez chez vos parents",
   "files": "Documents",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-  "select-label": "I add a valid identity document.",
-  "validate": "Validate",
-  "cancel": "Cancel"
+  "register": "Register",
+  "select-label": "Your guarantor current accommodation situation:"
 },
 "fr": {
-  "identity-card": "Carte d’identité française",
-  "passport": "Passeport français",
-  "permit": "Titre de séjour français",
-  "other": "Autre",
+  "tenant": "Locataire",
+  "owner": "Propriétaire",
+  "guest": "Hébergé·e à titre gratuit",
+  "guest-parents": "Vous habitez chez vos parents",
   "files": "Documents",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "select-label": "Déposez une pièce d'identité en cours de validité.",
-  "validate": "Valider",
-  "cancel": "Annuler"
+  "register": "Enregistrer",
+  "select-label": "Quelle est la situation d’hébergement actuelle de votre garant ?"
 }
 }
 </i18n>
