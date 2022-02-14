@@ -10,7 +10,7 @@
         <button
           class="fr-link--close fr-link fr-mr-1w"
           title="Fermer la fenêtre modale"
-          aria-label="Close modal"
+          aria-label="Fermer la fenêtre modale"
           @click="close()"
           type="button"
         >
