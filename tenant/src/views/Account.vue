@@ -40,14 +40,14 @@
                 <span class="spacer"></span>
                 <div class="fr-grid-row btn-container">
                   <DfButton
-                    @on-click="copyLink()"
+                    @on-click="copyFullLink()"
                     primary="true"
                     size="small"
                     :disabled="!canCopyLink()"
                     >{{ $t("copy-link") }}</DfButton
                   >
                   <div class="grp">
-                    <input id="tokenLink" type="hidden" :value="getToken()" />
+                    <input id="tokenLink" type="hidden" />
                     <button
                       class="fr-btn grp-btn"
                       :class="{
@@ -61,55 +61,26 @@
                       <span class="sr-only"> Copy </span>
                     </button>
                     <div class="grp-modal bg-white" v-show="radioVisible">
-                      <h4 class="p10">{{ $t("share-file") }}</h4>
+                      <h4>{{ $t("share-file") }}</h4>
                       <p class="share-file-description">
                         {{ $t("share-file-description") }}
                       </p>
 
                       <div>
-                        <fieldset class="fr-fieldset">
-                          <div class="fr-fieldset__content">
-                            <div class="fr-radio-group p10">
-                              <input
-                                type="radio"
-                                id="radio-1"
-                                name="radio"
-                                v-model="pub"
-                                value="true"
-                              />
-                              <label
-                                class="fr-label"
-                                for="radio-1"
-                                v-html="$t('file-resume')"
-                              ></label>
-                            </div>
-                            <hr />
-                            <div class="fr-radio-group p10">
-                              <input
-                                type="radio"
-                                id="radio-2"
-                                name="radio"
-                                v-model="pub"
-                                value="false"
-                              />
-                              <label
-                                class="fr-label"
-                                for="radio-2"
-                                v-html="$t('file-full')"
-                              >
-                              </label>
-                            </div>
-                            <div class="flex copy-btn">
-                              <input type="text" :value="getToken()" readonly />
-                              <DfButton
-                                class="fr-ml-1w"
-                                primary="true"
-                                @on-click="copyLink()"
-                                >{{ $t("copy") }}</DfButton
-                              >
-                            </div>
-                          </div>
-                        </fieldset>
+                        <div class="flex copy-btn">
+                          <button
+                            primary="true"
+                            @click="copyPublicLink"
+                            v-html="$t('file-resume')"
+                          ></button>
+                        </div>
+                        <div class="flex copy-btn fr-mt-3w">
+                          <button
+                            primary="true"
+                            @click="copyFullLink"
+                            v-html="$t('file-full')"
+                          ></button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -760,14 +731,6 @@ export default class Account extends Vue {
     return `${this.TENANT_URL}/file/${this.user.apartmentSharing?.token}`;
   }
 
-  oldUpdateDocument() {
-    // TODO
-    const now = new Date();
-    const lastMonth = new Date(now.getDate() - 30);
-    const lastUpdate = new Date(this.user.lastUpdate || new Date());
-    return lastUpdate < lastMonth;
-  }
-
   getStatus(docType: string) {
     if (docType === "FINANCIAL") {
       const docs = this.user.documents?.filter(d => {
@@ -828,35 +791,33 @@ export default class Account extends Vue {
     this.$router.push("/messaging");
   }
 
-  getDate(d: Date) {
-    // FIXME we should remove getDate and only use user.lastUpdate
-    if (!d) {
-      d = new Date();
-    }
-    return d;
+  copyPublicLink() {
+    this.copyLink(
+      `${this.TENANT_URL}/public-file/${this.user.apartmentSharing?.tokenPublic}`
+    ).then();
   }
 
-  shareMail() {
-    // TODO
+  copyFullLink() {
+    this.copyLink(
+      `${this.TENANT_URL}/file/${this.user.apartmentSharing?.token}`
+    ).then();
   }
 
-  copyLink() {
+  copyLink(url: string) {
     const tl = document.querySelector("#tokenLink") as HTMLInputElement;
-
     tl?.setAttribute("type", "text");
+    tl?.setAttribute("value", url);
     tl?.select();
 
     try {
       document.execCommand("copy");
-      this.$toasted.show(this.$i18n.t("copied").toString(), {
-        type: "success",
-        duration: 3000
-      });
       AnalyticsService.copyLink(this.pub ? "resume" : "full");
     } catch (err) {
       alert("Oops, unable to copy");
+      return Promise.reject("error");
     }
     tl?.setAttribute("type", "hidden");
+    return Promise.resolve(true);
   }
 
   openDeleteModal() {
@@ -1067,19 +1028,14 @@ h2 {
   position: relative;
 }
 
-.p10 {
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
 .grp-modal {
   position: absolute;
   border-radius: 5px;
   right: 0;
   left: auto;
   width: max-content;
-  padding: 0;
   z-index: 2;
+  padding: 1rem;
 
   &:before {
     top: -16px;
@@ -1094,9 +1050,22 @@ h2 {
 }
 
 .copy-btn {
-  margin: 0;
-  padding: 1rem;
-  background-color: #f2f2f9;
+  max-width: 100%;
+  > button {
+    width: 100%;
+    text-align: justify;
+    border-radius: 0.25rem;
+    padding: 1rem;
+    font-size: 1rem;
+    box-shadow: 0 0.5px 4px 0 #cecece;
+    border: 1px solid transparent;
+    &:hover {
+      box-shadow: none;
+      border: 1px solid var(--primary);
+      box-shadow: 0 0.5px 4px 0 transparent;
+      background-image: none;
+    }
+  }
 }
 
 p {
