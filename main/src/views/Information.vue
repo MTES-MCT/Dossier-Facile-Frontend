@@ -190,6 +190,7 @@ a {
   left: 0;
   background-size: cover !important;
   background-position: 50% 50% !important;
+  background-color:#314465;
   background-image: url("../assets/images/en-savoir-plus/en-savoir-plus-image2.jpg");
   z-index: 0;
 }
