@@ -71,14 +71,24 @@
                           <button
                             primary="true"
                             @click="copyPublicLink"
-                            v-html="$t('file-resume')"
+                            :class="{ copied: publicLinkCopied }"
+                            v-html="
+                              publicLinkCopied
+                                ? $t('public-link-copied')
+                                : $t('file-resume')
+                            "
                           ></button>
                         </div>
                         <div class="flex copy-btn fr-mt-3w">
                           <button
                             primary="true"
                             @click="copyFullLink"
-                            v-html="$t('file-full')"
+                            :class="{ copied: fullLinkCopied }"
+                            v-html="
+                              fullLinkCopied
+                                ? $t('full-link-copied')
+                                : $t('file-full')
+                            "
                           ></button>
                         </div>
                       </div>
@@ -715,6 +725,8 @@ export default class Account extends Vue {
   radioVisible = false;
   pub = "false";
   isDeleteModalVisible = false;
+  publicLinkCopied = false;
+  fullLinkCopied = false;
 
   mounted() {
     window.Beacon("init", "d949ac15-a9eb-4316-b0c5-f92cecc7118f");
@@ -791,16 +803,29 @@ export default class Account extends Vue {
     this.$router.push("/messaging");
   }
 
+  removeAnimation() {
+    this.publicLinkCopied = false;
+    this.fullLinkCopied = false;
+  }
+
   copyPublicLink() {
     this.copyLink(
       `${this.TENANT_URL}/public-file/${this.user.apartmentSharing?.tokenPublic}`
-    ).then();
+    ).then(() => {
+      this.fullLinkCopied = false;
+      this.publicLinkCopied = true;
+      setTimeout(this.removeAnimation, 4000);
+    });
   }
 
   copyFullLink() {
     this.copyLink(
       `${this.TENANT_URL}/file/${this.user.apartmentSharing?.token}`
-    ).then();
+    ).then(() => {
+      this.publicLinkCopied = false;
+      this.fullLinkCopied = true;
+      setTimeout(this.removeAnimation, 4000);
+    });
   }
 
   copyLink(url: string) {
@@ -1036,6 +1061,11 @@ h2 {
   width: max-content;
   z-index: 2;
   padding: 1rem;
+  width: 330px;
+
+  @media all and (max-width: 768px) {
+    max-width: 300px;
+  }
 
   &:before {
     top: -16px;
@@ -1059,11 +1089,28 @@ h2 {
     font-size: 1rem;
     box-shadow: 0 0.5px 4px 0 #cecece;
     border: 1px solid transparent;
+
+    -webkit-transition: all 0.5s linear;
+    -moz-transition: all 0.5s linear;
+    -o-transition: all 0.5s linear;
+    transition: all 0.5s linear;
+
     &:hover {
       box-shadow: none;
       border: 1px solid var(--primary);
       box-shadow: 0 0.5px 4px 0 transparent;
       background-image: none;
+    }
+
+    &.copied {
+      color: var(--primary);
+      background-color: var(--background-action-low-blue-france);
+      border: 1px solid var(--primary);
+      box-shadow: 0 0.5px 4px 0 transparent;
+      -webkit-transition: all 0.5s linear;
+      -moz-transition: all 0.5s linear;
+      -o-transition: all 0.5s linear;
+      transition: all 0.5s linear;
     }
   }
 }
@@ -1227,7 +1274,9 @@ hr {
     "instructional-time-text": "Once the files are completed, they are taken care of on average in less than 24 hours by our team of operators.",
     "congratulations-title": "🎉 Congratulations! Your DossierFacile becomes available!",
     "congratulations-text-1": "In order to apply for the accommodation of your dreams, send your DossierFacile link, by email, sms, etc. to owners, lessors… of your choice. As a reminder, DossierFacile does not offer accommodation.",
-    "congratulations-text-2": "Your data is protected!"
+    "congratulations-text-2": "Your data is protected!",
+    "full-link-copied": "The link of my complete file is copied!",
+    "public-link-copied": "The link of my summary file is copied!"
   },
   "fr": {
     "title": "Bonjour {0}, votre dossier {1} !",
@@ -1302,7 +1351,9 @@ hr {
     "instructional-time-text": "Une fois votre dossier complété et déposé, il est pris en charge en moyenne en moins de 24h par notre équipe d'opérateurs.",
     "congratulations-title": "🎉 Félicitations ! Votre DossierFacile devient disponible !",
     "congratulations-text-1": "Afin de candidater au logement de vos rêves, envoyez votre lien DossierFacile, par email, sms, etc. aux propriétaires, bailleurs… de votre choix. Pour rappel, DossierFacile ne propose pas de logement.",
-    "congratulations-text-2": "Vos informations sont protégées !"
+    "congratulations-text-2": "Vos informations sont protégées !",
+    "full-link-copied": "Le lien de mon dossier complet est copié !",
+    "public-link-copied": "Le lien de mon dossier de synthèse est copié !"
   }
 }
 </i18n>
