@@ -15,6 +15,17 @@
                 $t("messaging")
               }}</DfButton>
             </div>
+            <div class="fr-callout fr-callout-white" v-if="canCopyLink()">
+              <h4>{{ $t("congratulations-title") }}</h4>
+              <p
+                class="fr-callout__text fr-mb-3w"
+                v-html="$t('congratulations-text-1')"
+              ></p>
+              <p
+                class="fr-callout__text"
+                v-html="$t('congratulations-text-2')"
+              ></p>
+            </div>
             <div class="main fr-mt-5w fr-p-4w bg-white">
               <div class="main-bar fr-grid-row">
                 <div class="header-title">
@@ -1236,7 +1247,10 @@ hr {
     "amendment-required-text": "After examining your file, modifications are requested. <br> Check your mailbox for details.",
     "messaging": "Messaging",
     "instructional-time-title": "Instructional time",
-    "instructional-time-text": "Once the files are completed, they are taken care of on average in less than 24 hours by our team of operators."
+    "instructional-time-text": "Once the files are completed, they are taken care of on average in less than 24 hours by our team of operators.",
+    "congratulations-title": "🎉 Congratulations! Your DossierFacile becomes available!",
+    "congratulations-text-1": "In order to apply for the accommodation of your dreams, send your DossierFacile link, by email, sms, etc. to owners, lessors… of your choice. As a reminder, DossierFacile does not offer accommodation.",
+    "congratulations-text-2": "Your data is protected!"
   },
   "fr": {
     "title": "Bonjour {0}, votre dossier {1} !",
@@ -1307,7 +1321,10 @@ hr {
     "amendment-required-text": "Après examen de votre dossier, des modifications vous sont demandées. <br>Consultez votre messagerie pour en connaître le détail.",
     "messaging": "Consulter ma messagerie",
     "instructional-time-title": "Durée d'instruction",
-    "instructional-time-text": "Une fois votre dossier complété et déposé, il est pris en charge en moyenne en moins de 24h par notre équipe d'opérateurs."
+    "instructional-time-text": "Une fois votre dossier complété et déposé, il est pris en charge en moyenne en moins de 24h par notre équipe d'opérateurs.",
+    "congratulations-title": "🎉 Félicitations ! Votre DossierFacile devient disponible !",
+    "congratulations-text-1": "Afin de candidater au logement de vos rêves, envoyez votre lien DossierFacile, par email, sms, etc. aux propriétaires, bailleurs… de votre choix. Pour rappel, DossierFacile ne propose pas de logement.",
+    "congratulations-text-2": "Vos informations sont protégées !"
   }
 }
 </i18n>
