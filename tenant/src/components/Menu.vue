@@ -1,7 +1,11 @@
 <template>
   <ul class="fr-nav__list">
     <li class="fr-nav__item" v-if="isLoggedIn">
-      <a href="/messaging" class="fr-nav__link">
+      <a
+        href="/messaging"
+        class="fr-nav__link"
+        :aria-current="currentPage() === 'Messages' ? 'page' : false"
+      >
         {{ $t("messaging") }}
         <span v-if="newMessage > 0" class="badge">{{ newMessage }}</span>
       </a>
@@ -31,15 +35,20 @@
         class="fr-nav__btn"
         aria-expanded="false"
         aria-controls="menu-774"
+        :aria-current="currentPage() === 'Account' ? true : false"
       >
         {{ $t("account") }}
       </button>
       <div class="fr-collapse fr-menu" id="menu-774">
         <ul class="fr-menu__list">
           <li>
-            <a class="fr-nav__link" href="/account" target="_self">{{
-              $t("file")
-            }}</a>
+            <a
+              class="fr-nav__link"
+              href="/account"
+              target="_self"
+              :aria-current="currentPage() === 'Account' ? 'page' : false"
+              >{{ $t("file") }}</a
+            >
           </li>
           <li class="warn">
             <a
@@ -84,6 +93,10 @@ export default class Menu extends Vue {
 
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
   DOCS_URL = `//${process.env.VUE_APP_DOCS_URL}`;
+
+  currentPage() {
+    return this.$route.name;
+  }
 }
 </script>
 
