@@ -62,6 +62,9 @@
                     </button>
                     <div class="grp-modal bg-white" v-show="radioVisible">
                       <h4 class="p10">{{ $t("share-file") }}</h4>
+                      <p class="share-file-description">
+                        {{ $t("share-file-description") }}
+                      </p>
 
                       <div>
                         <fieldset class="fr-fieldset">
@@ -1174,6 +1177,10 @@ hr {
 .btn-container {
   margin-left: auto;
 }
+
+.share-file-description {
+  max-width: fit-content;
+}
 </style>
 
 <i18n>
@@ -1214,6 +1221,7 @@ hr {
     "opinion": "Tell us about your experience DossierFacile.fr",
     "delete-account": "Delete my account",
     "share-file": "Share my file",
+    "share-file-description": "Copy your link-file to share it! It's up to you to send it to the owners of your choice (by email, sms, etc.)",
     "file-resume": "Share resumed file <br>(without supporting document)",
     "file-full": "Share full file <br>(with supporting document)",
     "copy": "Copy",
@@ -1288,6 +1296,7 @@ hr {
     "opinion": "Racontez-nous votre expérience DossierFacile.fr",
     "delete-account": "Supprimer mon compte",
     "share-file": "Partager mon dossier",
+    "share-file-description": "Copiez votre lien-dossier pour le partager ! À vous de l'envoyer aux propriétaires de votre choix (par mail, sms…)",
     "file-resume": "Partager mon dossier de synthèse <br>(sans pièce justificative)",
     "file-full": "Partager mon dossier complet<br>(avec pièces justificatives)",
     "copy": "Copier",
