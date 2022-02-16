@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { useStore } from "vuex";
 import { computed } from "vue";
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n();
 
 defineProps<{}>();
 
@@ -16,7 +19,7 @@ function increaseCount() {
 <template>
 
   <p>
-    Recommended IDE setup:
+    Recommendeauied IDE setup: {{ t("helloi")}} {{ t("message" )}}
     <a href="https://code.visualstudio.com/" target="_blank">VSCode</a>
     +
     <a href="https://github.com/johnsoncodehk/volar" target="_blank">Volar</a>
@@ -56,3 +59,14 @@ code {
   color: #304455;
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "helloi": "narusite"
+  },
+  "fr": {
+    "helloi": "narusitxarnusix "
+  }
+}
+</i18n>

@@ -3,6 +3,7 @@ import HelloWorld from "../components/HelloWorld.vue";
 import HelloWorldBis from "../components/HelloWorldBis.vue";
 
 const routes = [
+  { path: "/", component: HelloWorld },
   { path: "/register", component: HelloWorld },
   { path: "/owner", component: HelloWorldBis },
   { path: "/property", component: HelloWorldBis },
