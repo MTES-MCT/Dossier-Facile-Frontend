@@ -17,7 +17,8 @@ const store = useStore();
 const router = useRouter();
 
 const isLoggedIn = computed(() => store.getters.isLoggedIn);
-const isFunnel = computed(() => store.getters.isFunnel);
+// const isFunnel = computed(() => store.getters.isFunnel);
+const isFunnel = false;
 
 // TODO add cookie
 // let cookieHidden = this.$cookies.isKey("accept-cookie");
@@ -119,11 +120,13 @@ function getLang() {
   <article class="page">
     <router-view :key="$route.path" />
   </article>
-  <!-- <TheFooter v-if="!isFunnel" /> -->
+  <TheFooter v-if="!isFunnel" />
   <!-- <Cookies :hidden="cookieHidden" @accept="acceptCookies" @deny="denyCookies" /> -->
 </template>
 
 <style lang="scss">
+@import "../../node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.min.css";
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -58,9 +58,9 @@
               :href="`${VUE_APP_DOCS_URL}`"
               target="_blank"
               rel="noreferrer"
-              :title="$t('faq-link-title')"
+              :title="t('faq-link-title')"
             >
-              {{ $t("faq") }}
+              {{ t("faq") }}
             </a>
           </li>
           <li class="fr-footer__bottom-item">
@@ -68,7 +68,7 @@
               class="fr-footer__bottom-link"
               :href="`${VUE_APP_MAIN_URL}/blog`"
             >
-              {{ $t("blog") }}
+              {{ t("blog") }}
             </a>
           </li>
           <li class="fr-footer__bottom-item">
@@ -76,14 +76,14 @@
               class="fr-footer__bottom-link"
               href="https://github.com/MTES-MCT/Dossier-Facile-Frontend"
             >
-              {{ $t("sources") }}
+              {{ t("sources") }}
             </a>
           </li>
           <li class="fr-footer__bottom-item">
             <a
               class="fr-footer__bottom-link blue--link"
               href="mailto:contact@dossierfacile.fr"
-              >{{ $t("contact") }}</a
+              >{{ t("contact") }}</a
             >
           </li>
           <li class="fr-footer__bottom-item">
@@ -91,8 +91,8 @@
               class="fr-footer__bottom-link"
               :href="`${VUE_APP_MAIN_URL}/accessibilite`"
               target="_blank"
-              :title="$t('accessibility-link')"
-              >{{ $t("accessibility") }}</a
+              :title="t('accessibility-link')"
+              >{{ t("accessibility") }}</a
             >
           </li>
           <li class="fr-footer__bottom-item">
@@ -100,7 +100,7 @@
               class="fr-footer__bottom-link"
               :href="`${VUE_APP_MAIN_URL}/mentions-legales`"
             >
-              {{ $t("legals") }}
+              {{ t("legals") }}
             </a>
           </li>
           <li class="fr-footer__bottom-item">
@@ -108,7 +108,7 @@
               class="fr-footer__bottom-link"
               :href="`${VUE_APP_MAIN_URL}/information`"
             >
-              {{ $t("information") }}
+              {{ t("information") }}
             </a>
           </li>
           <li class="fr-footer__bottom-item">
@@ -116,7 +116,7 @@
               class="fr-footer__bottom-link"
               :href="`${VUE_APP_MAIN_URL}/stats`"
             >
-              {{ $t("statistics") }}
+              {{ t("statistics") }}
             </a>
           </li>
           <li class="fr-footer__bottom-item">
@@ -125,9 +125,9 @@
               href="https://partenaire.dossierfacile.fr"
               target="_blank"
               rel="noreferrer"
-              :title="$t('partner-link-title')"
+              :title="t('partner-link-title')"
             >
-              {{ $t("partner") }}
+              {{ t("partner") }}
             </a>
           </li>
           <li class="fr-footer__bottom-item">
@@ -214,14 +214,13 @@
   </footer>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 
-@Component
-export default class TheFooter extends Vue {
-  VUE_APP_MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
-  VUE_APP_DOCS_URL = `//${process.env.VUE_APP_DOCS_URL}`;
-}
+  const VUE_APP_MAIN_URL = `//${import.meta.env.VUE_APP_MAIN_URL}`;
+  const VUE_APP_DOCS_URL = `//${import.meta.env.VUE_APP_DOCS_URL}`;
+
+  const { t } = useI18n()
 </script>
 
 <style lang="scss" scoped>
