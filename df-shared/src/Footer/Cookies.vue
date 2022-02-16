@@ -1,38 +1,37 @@
 <template>
   <transition name="fade">
-    <div class="cookie" v-if="!hidden">
+    <div class="cookie" v-if="!props.hidden">
       <p>
-        {{ $t("cookies-text") }}
-        <router-link to="/mentions-legales">{{ $t("more") }}</router-link>
+        {{ t("cookies-text") }}
+        <router-link to="/mentions-legales">{{ t("more") }}</router-link>
       </p>
       <DfButton primary="true" size="small" @on-click="accept">
-        {{ $t("accept") }}
+        {{ t("accept") }}
       </DfButton>
       <DfButton size="small" @on-click="deny" class="fr-ml-3w">
-        {{ $t("deny") }}
+        {{ t("deny") }}
       </DfButton>
     </div>
   </transition>
 </template>
 
-<script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+<script setup lang="ts">
 import DfButton from "../Button/Button.vue";
+import { useI18n } from "vue-i18n";
 
-@Component({
-  components: {
-    DfButton
-  }
-})
-export default class Cookies extends Vue {
-  @Prop({ default: false }) hidden!: boolean;
+const { t } = useI18n();
 
-  accept() {
-    this.$emit("accept");
-  }
-  deny() {
-    this.$emit("deny");
-  }
+const props = defineProps<{
+  hidden: { type: boolean; required: false; default: false };
+}>();
+
+const emit = defineEmits(["accept", "deny"]);
+
+function accept() {
+  emit("accept");
+}
+function deny() {
+  emit("deny");
 }
 </script>
 

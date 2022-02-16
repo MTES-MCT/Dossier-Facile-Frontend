@@ -1,56 +1,52 @@
 <template>
   <div>
-    <div class="fr-grid-row space-around fr-mb-1w footer-btn">
-      <slot name="additionalButton" v-if="isMobile()"></slot>
-    </div>
     <div class="fr-grid-row btn-spacing footer-btn">
-      <v-gouv-fr-button
+      <VGouvFrButton
         v-if="showBack"
         class="fr-mr-2w px40"
         :secondary="true"
         :btn-type="'button'"
         @click="backAction()"
       >
-        <template v-if="isMobile()">
-          <span class="color--primary material-icons">keyboard_arrow_left</span>
-        </template>
-        <span v-if="!isMobile()">{{ $t("back") }}</span>
-      </v-gouv-fr-button>
+        <span class="color--primary material-icons mobile">keyboard_arrow_left</span>
+        <span class="desktop">{{ t("back") }}</span>
+      </VGouvFrButton>
       <div v-if="!showBack"></div>
       <div class="fr-grid-row flex-1">
-        <slot name="additionalButton" v-if="!isMobile()"></slot>
-        <v-gouv-fr-button
+        <VGouvFrButton
           class="next-btn"
           :secondary="false"
-          :label="nextLabel ? nextLabel : $t('continue')"
+          :label="nextLabel ? nextLabel : t('continue')"
           :btn-type="'submit'"
           :disabled="disabled"
           @click="nextAction()"
-        ></v-gouv-fr-button>
+        ></VGouvFrButton>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.vue";
-import { UtilsService } from "../../services/UtilsService";
+import VGouvFrButton from 'df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.vue';
+import { useI18n } from 'vue-i18n';
 
-  @Prop({ default: true }) showBack!: boolean;
-  @Prop({ default: false }) disabled?: boolean;
-  @Prop() nextLabel?: string;
+defineProps<{
+  showBack: { type: boolean; required: false; default: true };
+  disabled: { type: boolean; required: false; default: false };
+  nextLabel: { type: string; required: false; default: '' };
+}>();
 
-  function isMobile() {
-    return UtilsService.isMobile();
-  }
+const emit = defineEmits(['on-next', 'on-back']);
 
-  function backAction() {
-    this.$emit("on-back");
-  }
+const { t } = useI18n();
 
-  function nextAction() {
-    this.$emit("on-next");
-  }
+function backAction() {
+  emit('on-back');
+}
+
+function nextAction() {
+  emit('on-next');
+}
 </script>
 
 <i18n>

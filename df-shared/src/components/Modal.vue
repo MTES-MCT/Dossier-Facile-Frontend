@@ -24,7 +24,8 @@
         <section class="modal-body" id="modalDescription">
           <slot name="body"> </slot>
         </section>
-        <footer class="modal-footer" v-if="!!this.$slots['footer']">
+        <!-- TODO add  v-if="!!this.$slots['footer']" -->
+        <footer class="modal-footer">
           <slot name="footer"> </slot>
         </footer>
       </div>
@@ -32,14 +33,11 @@
   </transition>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+<script setup lang="ts">
+const emit = defineEmits(["close"]);
 
-@Component
-export default class Modal extends Vue {
-  close() {
-    this.$emit("close");
-  }
+function close() {
+  emit("close");
 }
 </script>
 

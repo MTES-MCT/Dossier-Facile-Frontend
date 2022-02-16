@@ -1,21 +1,118 @@
-import * as VueRouter from "vue-router";
-import HelloWorld from "../components/HelloWorld.vue";
-import HelloWorldBis from "../components/HelloWorldBis.vue";
+import * as VueRouter from 'vue-router';
+import { useCookies } from 'vue3-cookies';
+import Account from '../components/account/Account.vue';
+import Dashboard from '../components/Dashboard.vue';
+import PropertyName from '../components/property/PropertyName.vue';
+import PropertyRent from '../components/property/PropertyRent.vue';
+import Register from '../components/Register.vue';
+import store from '../store';
+import keycloak from '../plugin/keycloak';
+
+const OWNER_URL = import.meta.env.VITE_OWNER_URL;
 
 const routes = [
-  { path: "/", component: HelloWorld },
-  { path: "/register", component: HelloWorld },
-  { path: "/owner", component: HelloWorldBis },
-  { path: "/property", component: HelloWorldBis },
+  {
+    path: '/',
+    name: 'Dashboard',
+    meta: {
+      title: 'Dashboard propriétaire - DossierFacile',
+      requiresAuth: true,
+      hasFooter: true,
+    },
+    component: Dashboard,
+    beforeEnter: async (to, from, next) => {
+      if (
+        (!store.getters.getUser?.firstName
+          || !store.getters.getUser?.lastName)) {
+        console.log("la");
+        console.dir(store.getters.getUser);
+        debugger
+        next({ name: 'AccountName' });
+      }
+      next();
+    },
+  },
+  {
+    path: '/creation',
+    name: 'Register',
+    meta: {
+      title: 'Création de compte propriétaire - DossierFacile',
+      requiresAuth: false,
+      hasFooter: true,
+    },
+    component: Register,
+  },
+  {
+    path: '/proprietaire',
+    name: 'AccountName',
+    meta: {
+      title: 'Édition de compte propriétaire - DossierFacile',
+      requiresAuth: true,
+      hasFooter: false,
+    },
+    component: Account,
+  },
+  {
+    path: '/nom-propriete/:id?',
+    name: 'PropertyName',
+    meta: {
+      title: 'Édition du nom - DossierFacile',
+      requiresAuth: true,
+      hasFooter: false,
+    },
+    component: PropertyName,
+  },
+  {
+    path: '/loyer-propriete/:id?',
+    name: 'PropertyRent',
+    meta: {
+      title: 'Édition du loyer - DossierFacile',
+      requiresAuth: true,
+      hasFooter: false,
+    },
+    component: PropertyRent,
+  },
 ];
 
-// 3. Create the router instance and pass the `routes` option
-// You can pass in additional options here, but let's
-// keep it simple for now.
 const router = VueRouter.createRouter({
-  // 4. Provide the history implementation to use. We are using the hash history for simplicity here.
-  history: VueRouter.createWebHashHistory(),
-  routes, // short for `routes: routes`
+  history: VueRouter.createWebHistory(),
+  routes,
+});
+
+function updateMetaData(to: VueRouter.RouteLocationNormalized) {
+  document.title = to.meta?.title as string || '';
+  if (to.meta?.description) {
+    const tag = document.querySelector('meta[name="description"]');
+    tag?.setAttribute('content', to.meta.description as string);
+
+    const prop = document.querySelector('meta[property="og:description"]');
+    prop?.setAttribute('content', to.meta.description as string);
+
+    const title = document.querySelector('meta[property="og:title"]');
+    title?.setAttribute('content', to.meta.title as string);
+  }
+}
+
+router.beforeEach(async (to, _, next) => {
+  if (to.matched.some((record) => record.meta.hideFooter)) {
+    store.dispatch('setHasFooter', true);
+  } else {
+    store.dispatch('setHasFooter', false);
+  }
+
+  const { cookies } = useCookies();
+  const lang = cookies.get('lang') === 'en' ? 'en' : 'fr';
+  store.dispatch('setLang', lang);
+
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (keycloak.authenticated) {
+      await store.dispatch('loadUser');
+    } else {
+      keycloak.login({ redirectUri: OWNER_URL + to.fullPath });
+    }
+  }
+  updateMetaData(to);
+  next();
 });
 
 export default router;

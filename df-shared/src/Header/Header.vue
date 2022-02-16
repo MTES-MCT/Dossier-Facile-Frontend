@@ -47,13 +47,13 @@
                     class="fr-link fr-fi-eye-line"
                     :href="`${MAIN_URL}/accessibilite`"
                     target="_blank"
-                    :title="$t('accessibility-link')"
-                    >{{ $t("accessibility") }}</a
+                    :title="t('accessibility-link')"
+                    >{{ t("accessibility") }}</a
                   >
                 </li>
                 <li v-if="loggedIn">
                   <v-gouv-fr-button
-                    :label="$t('logout')"
+                    :label="t('logout')"
                     :small="true"
                     :secondary="true"
                     @click="onLogout"
@@ -66,12 +66,12 @@
                     size="small"
                     @on-click="onCreateTenant"
                   >
-                    {{ $t("signup") }}
+                    {{ t("signup") }}
                   </DfButton>
                 </li>
                 <li v-if="!loggedIn">
                   <DfButton size="small" @on-click="onCreateOwner">
-                    {{ $t("owner") }}
+                    {{ t("owner") }}
                   </DfButton>
                 </li>
                 <li>
@@ -103,13 +103,13 @@
                 class="fr-link fr-fi-eye-line"
                 :href="`${MAIN_URL}/accessibilite`"
                 target="_blank"
-                :title="$t('accessibility-link')"
-                >{{ $t("accessibility") }}</a
+                :title="t('accessibility-link')"
+                >{{ t("accessibility") }}</a
               >
             </li>
             <li v-if="loggedIn">
               <v-gouv-fr-button
-                :label="$t('logout')"
+                :label="t('logout')"
                 :small="true"
                 :secondary="true"
                 @click="onLogout"
@@ -122,12 +122,12 @@
                 size="small"
                 @on-click="onCreateTenant"
               >
-                {{ $t("signup") }}
+                {{ t("signup") }}
               </DfButton>
             </li>
             <li v-if="!loggedIn">
               <DfButton size="small" @on-click="onCreateOwner">
-                {{ $t("owner") }}
+                {{ t("owner") }}
               </DfButton>
             </li>
             <li>
@@ -154,38 +154,41 @@
   </header>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import DfButton from "../Button/Button.vue";
-import { Vue, Component, Prop } from "vue-property-decorator";
 import VGouvFrButton from "../Button/v-gouv-fr-button/VGouvFrButton.vue";
+import { useI18n } from "vue-i18n";
 
-@Component({
-  components: {
-    DfButton,
-    VGouvFrButton
-  }
-})
-export default class MyHeader extends Vue {
-  MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
-  @Prop({ default: false }) loggedIn?: boolean;
-  @Prop({ default: "fr" }) lang?: string;
-  @Prop({ default: false }) showAccessibility?: string;
+const { t } = useI18n();
+const MAIN_URL = `//${import.meta.env.VUE_APP_MAIN_URL}`;
 
-  onCreateTenant() {
-    this.$emit("on-create-tenant");
-  }
+defineProps<{
+  loggedIn: { type: boolean; required: false; default: false };
+  lang: { type: string; required: false; default: "fr" };
+  showAccessibility: { type: boolean; required: false; default: false };
+}>();
 
-  onLogout() {
-    this.$emit("on-logout");
-  }
+const emit = defineEmits([
+  "on-create-tenant",
+  "on-logout",
+  "on-create-owner",
+  "on-change-lang"
+]);
 
-  onCreateOwner() {
-    this.$emit("on-create-owner");
-  }
+function onCreateTenant() {
+  emit("on-create-tenant");
+}
 
-  changeLang() {
-    this.$emit("on-change-lang");
-  }
+function onLogout() {
+  emit("on-logout");
+}
+
+function onCreateOwner() {
+  emit("on-create-owner");
+}
+
+function changeLang() {
+  emit("on-change-lang");
 }
 </script>
 

@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { AuthService } from "df-shared/src/services/AuthService";
+import AuthService from "df-shared/src/services/AuthService";
 import { Vue, Component } from "vue-property-decorator";
 
 @Component

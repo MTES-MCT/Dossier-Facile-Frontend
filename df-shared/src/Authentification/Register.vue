@@ -2,13 +2,13 @@
   <div>
     <div>
       <h2 class="fr-h2 text-center fr-mt-3w fr-mb-5w color--primary">
-        {{ $t("title") }}
+        {{ t("title") }}
       </h2>
 
       <template v-if="franceConnect">
         <div class="fr-mt-5w fr-mb-5w text-center ">
           <div v-if="getParams() !== undefined">
-            <router-link :to="{name: 'SourceLink', params: getParams(), query: getQuery()}" class="color--primary">{{ $t('connect-france-connect') }}</router-link>
+            <router-link :to="{name: 'SourceLink', params: getParams(), query: getQuery()}" class="color--primary">{{ t('connect-france-connect') }}</router-link>
           </div>
           <div v-else>
             <div class="text-center">
@@ -20,7 +20,7 @@
               <ul>
                 <a id="social-franceconnect-particulier" class="inline-block"
                   type="button" :href="getLoginLink()">
-                  <span>{{ $t('connect-france-particulier') }}</span>
+                  <span>{{ t('connect-france-particulier') }}</span>
                 </a>
               </ul>
             </div>
@@ -32,48 +32,42 @@
           </div>
         </div>
 
-        <div class="separator">{{ $t('or') }}</div>
+        <div class="separator">{{ t('or') }}</div>
       </template>
 
-    <ValidationObserver v-slot="{ validate }">
-      <form name="form" @submit.prevent="validate().then(handleRegister)">
+      <Form @submit="onSubmit">
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12 fr-mb-3w">
-            <validation-provider rules="required" v-slot="{ errors }">
               <div
                 class="fr-input-group"
-                :class="errors[0] ? 'fr-input-group--error' : ''"
               >
-                <label class="fr-label" for="email">{{ $t("email") }}</label>
-                <input
-                  v-model="user.email"
+                <label class="fr-label" for="email">{{ t("email") }}</label>
+                <Field
+                  v-model="email"
                   class="form-control validate-required fr-input"
                   id="email"
                   name="email"
-                  :placeholder="$t('email-placeholder')"
+                  :placeholder="t('email-placeholder')"
                   type="email"
                   autocomplete="email"
-                  required
+                  :rules="validateEmail"
                 />
-                <span class="fr-error-text" v-if="errors[0]">{{
-                  $t(errors[0])
-                }}</span>
+                <ErrorMessage name="email" class="fr-error-text"></ErrorMessage>
               </div>
-            </validation-provider>
           </div>
           <div class="fr-col-12 fr-mb-1w">
-            <validation-provider
-              :rules="`required|strength:${score}`"
+            <!-- <validation-provider
+              :rules="`required|strength:${score.value}`"
               v-slot="{ errors }"
               name="password"
               vid="password"
-            >
+            > -->
               <div
                 class="fr-input-group"
-                :class="errors[0] ? 'fr-input-group--error' : ''"
               >
+                <!-- :class="errors[0] ? 'fr-input-group--error' : ''" -->
                 <label class="fr-label" for="password">{{
-                  $t("password")
+                  t("password")
                 }}</label>
                 <input
                   id="password"
@@ -85,28 +79,28 @@
                   autocomplete="new-password"
                   required
                 />
-                <password
+                <!-- <password
                   v-model="user.password"
                   :strength-meter-only="true"
                   @score="setScore"
-                />
-                <span class="fr-error-text" v-if="errors[0]">{{
-                  $t(errors[0])
-                }}</span>
+                /> -->
+                <!-- <span class="fr-error-text" v-if="errors[0]">{{
+                  t(errors[0])
+                }}</span> -->
               </div>
-            </validation-provider>
+            <!-- </validation-provider> -->
           </div>
           <div class="fr-col-12 fr-mb-3w">
-            <validation-provider
+            <!-- <validation-provider
               rules="required|confirmed:password"
               v-slot="{ errors }"
-            >
+            > -->
               <div
                 class="fr-input-group"
-                :class="errors[0] ? 'fr-input-group--error' : ''"
               >
+                <!-- :class="errors[0] ? 'fr-input-group--error' : ''" -->
                 <label class="fr-label" for="confirm-password">
-                  {{ $t("confirm-password") }}</label
+                  {{ t("confirm-password") }}</label
                 >
                 <input
                   id="confirm-password"
@@ -117,167 +111,186 @@
                   autocomplete="new-password"
                   required
                 />
-                <span class="fr-error-text" v-if="errors[0]">{{
-                  $t(errors[0])
-                }}</span>
+                <!-- <span class="fr-error-text" v-if="errors[0]">{{
+                  t(errors[0])
+                }}</span> -->
               </div>
-            </validation-provider>
+            <!-- </validation-provider> -->
           </div>
 
           <div class="fr-col-12 fr-mb-3w">
-            <vue-recaptcha
+            <!-- TODO -->
+            <!-- <vue-recaptcha
               ref="captcha"
               :sitekey="SITE_KEY"
               :loadRecaptchaScript="true"
               @verify="onVerify"
-            ></vue-recaptcha>
+            ></vue-recaptcha> -->
           </div>
           <div class="fr-col-12 fr-mb-3w">
-            <validation-provider
-              rules="is"
-              v-slot="{ errors }"
-            >
               <div
                 class="bg-purple fr-checkbox-group"
-                :class="errors[0] ? 'fr-input-group--error' : ''"
               >
-                <input
+                <Field
+                  name="terms"
                   type="checkbox"
-                  id="acceptCgu"
-                  value="false"
-                  v-model="acceptCgu"
+                  :rules="isTrue"
+                  v-model="terms"
                 />
-                <label for="acceptCgu"><div v-html="$t('accept-cgu')"></div></label>
-                <span class="fr-error-text" v-if="errors[0]">{{
-                  $t(errors[0])
-                }}</span>
+                <label for="terms"><div v-html="t('accept-cgu')"></div></label>
+                <ErrorMessage name="terms"/>
               </div>
-            </validation-provider>
           </div>
 
           <div class="fr-col-12 text-center fr-mb-5w">
             <button class="fr-btn full-width-btn" type="submit">
-              {{ $t("submit") }}
+              {{ t("submit") }}
             </button>
           </div>
         </div>
-      </form>
-    </ValidationObserver>
+      </Form>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+<script setup lang="ts">
 import { User } from "df-shared/src/models/User";
-import { ValidationProvider, ValidationObserver } from "vee-validate";
-import { extend } from "vee-validate";
-import { required, email, confirmed, is } from "vee-validate/dist/rules";
-import VueRecaptcha from "vue-recaptcha";
-import Password from "vue-password-strength-meter";
+// import VueRecaptcha from "vue-recaptcha";
+// import Password from "vue-password-strength-meter";
+import { ref } from "vue";
+import { useI18n } from "vue-i18n";
+import { useRoute } from 'vue-router';
+import { Form, Field, ErrorMessage } from 'vee-validate';
 
-// No message specified.
-extend("email", {
-  ...email,
-  message: "email-not-valid"
-});
-
-// Override the default message.
-extend("required", {
-  ...required,
-  message: "field-required"
-});
-
-extend("confirmed", {
-  ...confirmed,
-  message: "password-not-confirmed"
-});
-
-const MIN_SCORE = 2;
-extend("strength", {
-  message: "pwd-not-complex",
-  validate: (_value, args: any) => {
-    if (args !== undefined) {
-      return args[0] >= MIN_SCORE;
-    }
-    return true;
+function validateEmail(value: string) {
+  if (!value) {
+    return "this field is required";
   }
-});
-
-extend("is", {
-  ...is,
-  message: "require-accept",
-  validate: value => !!value
-});
-
-@Component({
-  components: {
-    ValidationProvider,
-    ValidationObserver,
-    VueRecaptcha,
-    Password
+  return true;
+}
+function isTrue(value: boolean) {
+  if (!value) {
+    return "this field is required"; // TODO i18n
   }
-})
-export default class Register extends Vue {
-  SITE_KEY = process.env.VUE_APP_CAPTCHA_SITE_KEY;
-  FRANCE_CONNECT_LOGIN_URL = process.env.VUE_APP_FRANCE_CONNECT_LOGIN_URL;
+  return true;
+}
+const terms = ref(false);
+const email=ref("");
+// function validateCguField(value: boolean) {
+//   if (!value) {
+//     return "this field is required"; // TODO i18n
+//   }
+//   return true;
+// }
 
-  @Prop({ default: "" }) email!: string;
-  franceConnect = window.location.href.includes("locataire-dev") || window.location.href.includes("localhost");
+// const { errorMessage: cguErrorMessage, value: terms } = useField("terms", validateCguField);
 
-  user: User = new User();
-  score = 0;
-  acceptCgu=false;
-  generatedPwd ="";
+// const MIN_SCORE = 2;
+// TODO
+// extend("strength", {
+//   message: "pwd-not-complex",
+//   validate: (_value, args: any) => {
+//     if (args !== undefined) {
+//       return args[0] >= MIN_SCORE;
+//     }
+//     return true;
+//   }
+// });
 
-  mounted() {
-    this.user.email = this.email;
-    this.generatePlaceholder();
+// extend("is", {
+//   ...is,
+//   message: "require-accept",
+//   validate: value => !!value
+// });
+
+// extend("email", {
+//   ...email,
+//   message: "email-not-valid"
+// });
+
+// extend("required", {
+//   ...required,
+//   message: "field-required"
+// });
+
+// extend("confirmed", {
+//   ...confirmed,
+//   message: "password-not-confirmed"
+// });
+
+  const SITE_KEY = import.meta.env.VITE_CAPTCHA_SITE_KEY;
+  const FRANCE_CONNECT_LOGIN_URL = import.meta.env.VUE_APP_FRANCE_CONNECT_LOGIN_URL;
+  const route = useRoute();
+
+const props = defineProps<{
+  email: { type: string; required: false, default: "" };
+}>();
+
+const { t } = useI18n();
+
+const emit = defineEmits(["on-register"]);
+  const franceConnect = window.location.href.includes("locataire-dev") || window.location.href.includes("localhost");
+
+  const user: User = new User();
+  const score = ref(0);
+  const generatedPwd = ref("");
+
+  function generatePlaceholder() {
+    const chars = ["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz","0123456789", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", "#!?-_."];
+    generatedPwd.value = t('ex') + [4,4,2,2].map(function(len, i) { return Array(len).fill(chars[i]).map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('') }).concat().join('').split('').sort(function(){return 0.5-Math.random()}).join('');
   }
 
-  handleRegister() {
-    if (this.score < MIN_SCORE || !this.acceptCgu) {
-      return;
-    }
-    this.$emit("on-register", this.user);
-    (this.$refs.captcha as VueRecaptcha).reset();
+  function getLoginLink() {
+    return this.FRANCE_CONNECT_LOGIN_URL;
   }
 
-  onVerify(captcha: string) {
-    this.user.captcha = captcha;
+function  mounted() {
+    user.email = String(email);
+    generatePlaceholder();
   }
 
-  setScore(s: number) {
-    this.score = s;
+  function handleRegister() {
+    // if (score.value < MIN_SCORE || !terms.value) {
+      // return false;
+    // }
+    // emit("on-register", user);
+    alert('na')
+    return false;
+    // (this.$refs.captcha as VueRecaptcha).reset();
   }
 
-  getParams() {
-    if (!this.$route.params.source) {
+  // const { handleSubmit } = useForm();
+  // const onSubmit = handleSubmit(values => {
+  //     console.dir(JSON.stringify(values, null, 2));
+  //     handleRegister();
+  //   });
+
+
+  function onVerify(captcha: string) {
+    // this.user.captcha = captcha;
+  }
+
+  function setScore(s: number) {
+    score.value = s;
+  }
+
+  function getParams() {
+    if (!route.params.source) {
       return undefined;
     }
     return {
-      source: this.$route.params.source,
+      source: route.params.source,
     }
   }
 
-  getQuery() {
+  function getQuery() {
     return {
-      internalPartnerId: this.$route.query.internalPartnerId.toString() || "",
-      firstName: this.$route.query.firstName.toString() || "",
-      lastName: this.$route.query.lastName.toString() || "",
-      email: this.$route.query.email.toString() || ""
+      internalPartnerId: route.query.internalPartnerId.toString() || "",
+      firstName: route.query.firstName.toString() || "",
+      lastName: route.query.lastName.toString() || "",
+      email: route.query.email.toString() || ""
     }
   }
-
-  generatePlaceholder() {
-    const chars = ["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz","0123456789", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", "#!?-_."];
-    this.generatedPwd = this.$i18n.t('ex') + [4,4,2,2].map(function(len, i) { return Array(len).fill(chars[i]).map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('') }).concat().join('').split('').sort(function(){return 0.5-Math.random()}).join('');
-  }
-
-  getLoginLink() {
-    return this.FRANCE_CONNECT_LOGIN_URL;
-  }
-}
 </script>
 
 <style lang="scss">
@@ -351,39 +364,39 @@ export default class Register extends Vue {
 
 <i18n>
 {
-"en": {
-"title": "Create account",
-"password": "Password :",
-"email-placeholder": "E.g.: example@example.fr",
-"confirm-password": "Confirm password :",
-"email": "Email :",
-"submit": "I create my account",
-"email-not-valid": "Email not valid",
-"field-required": "This field is required",
-"password-not-confirmed": "Password not confirmed",
-"pwd-not-complex": "Password not secure enough",
-"accept-cgu": "En cochant cette case et en cliquant sur \"Je crée mon compte\", j’accepte expressément les <a target=\"_blank\" href='https://dossierfacile.fr/mentions-legales#cgu'>Conditions générales d’utilisation</a> de DossierFacile et je comprends que mes données personnelles seront utilisées conformément à la <a target=\"_blank\" href='https://dossierfacile.fr/mentions-legales#politique-de-confidentialite'>Politique de confidentialité</a> de DossierFacile",
-"require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer",
-"ex": "E.g.: ",
-"or": "or",
-"connect-france-connect": "Connect with FranceConnect"
-},
-"fr": {
-"title": "Rejoindre DossierFacile",
-"password": "Votre mot de passe :",
-"confirm-password": "Confirmation de votre mot de passe :",
-"email-placeholder": "Ex : exemple@exemple.fr",
-"email": "Votre e-mail :",
-"submit": "Je crée mon compte",
-"email-not-valid": "Email non valide",
-"field-required": "Ce champ est requis",
-"password-not-confirmed": "Le mot de passe ne correspond pas",
-"pwd-not-complex": "Mot de passe trop simple",
-"accept-cgu": "En cochant cette case et en cliquant sur \"Je crée mon compte\", j’accepte expressément les <a class=\"cgu\" target=\"_blank\" href='https://www.dossierfacile.fr/mentions-legales#cgu'>Conditions générales d’utilisation</a> de DossierFacile et je comprends que mes données personnelles seront utilisées conformément à la <a target=\"_blank\" class=\"cgu\" href='https://www.dossierfacile.fr/mentions-legales#politique-de-confidentialite'>Politique de confidentialité</a> de DossierFacile",
-"require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer",
-"ex": "Ex : ",
-"or": "Ou",
-"connect-france-connect": "Se connecter avec FranceConnect"
-}
+  "en": {
+    "title": "Create account",
+    "password": "Password :",
+    "email-placeholder": "E.g.: example{'@'}example.fr",
+    "confirm-password": "Confirm password :",
+    "email": "Email :",
+    "submit": "I create my account",
+    "email-not-valid": "Email not valid",
+    "field-required": "This field is required",
+    "password-not-confirmed": "Password not confirmed",
+    "pwd-not-complex": "Password not secure enough",
+    "accept-cgu": "En cochant cette case et en cliquant sur \"Je crée mon compte\", j’accepte expressément les <a target=\"_blank\" href='https://dossierfacile.fr/mentions-legales#cgu'>Conditions générales d’utilisation</a> de DossierFacile et je comprends que mes données personnelles seront utilisées conformément à la <a target=\"_blank\" href='https://dossierfacile.fr/mentions-legales#politique-de-confidentialite'>Politique de confidentialité</a> de DossierFacile",
+    "require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer",
+    "ex": "E.g.: ",
+    "or": "or",
+    "connect-france-connect": "Connect with FranceConnect"
+  },
+  "fr": {
+    "title": "Rejoindre DossierFacile",
+    "password": "Votre mot de passe :",
+    "confirm-password": "Confirmation de votre mot de passe :",
+    "email-placeholder": "Ex : exemple{'@'}exemple.fr",
+    "email": "Votre e-mail :",
+    "submit": "Je crée mon compte",
+    "email-not-valid": "Email non valide",
+    "field-required": "Ce champ est requis",
+    "password-not-confirmed": "Le mot de passe ne correspond pas",
+    "pwd-not-complex": "Mot de passe trop simple",
+    "accept-cgu": "En cochant cette case et en cliquant sur \"Je crée mon compte\", j’accepte expressément les <a class=\"cgu\" target=\"_blank\" href='https://www.dossierfacile.fr/mentions-legales#cgu'>Conditions générales d’utilisation</a> de DossierFacile et je comprends que mes données personnelles seront utilisées conformément à la <a target=\"_blank\" class=\"cgu\" href='https://www.dossierfacile.fr/mentions-legales#politique-de-confidentialite'>Politique de confidentialité</a> de DossierFacile",
+    "require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer",
+    "ex": "Ex : ",
+    "or": "Ou",
+    "connect-france-connect": "Se connecter avec FranceConnect"
+  }
 }
 </i18n>

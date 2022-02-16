@@ -74,7 +74,6 @@
     "@gouvfr/dsfr": "1.2.1",
     "@types/d3": "^6.3.0",
     "@types/jquery": "^3.5.4",
-    "@vue/cli": "4.5.15",
     "@vue/cli-plugin-babel": "4.5.15",
     "axios": "^0.21.2",
     "connect-history-api-fallback": "^1.6.0",
@@ -91,16 +90,14 @@
     "react-is": "^17.0.2",
     "sass": "^1.44.0",
     "trim": "^1.0.1",
-    "vee-validate": "^3.4.3",
-    "vue": "2.6.14",
+    "vue": "^3.0.0",
     "vue-class-component": "^7.2.3",
-    "vue-cli-plugin-i18n": "~2.1.0",
     "vue-cookies": "^1.7.4",
     "vue-gtag": "1.12.0",
-    "vue-i18n": "8.26.7",
+    "vue-i18n": "9.1.9",
     "vue-property-decorator": "8.5.1",
     "vue-router": "3.5.3",
-    "vuex": "3.6.2"
+    "vuex": "4.0.2"
   },
   "devDependencies": {
     "@intlify/vue-i18n-loader": "^1.0.0",

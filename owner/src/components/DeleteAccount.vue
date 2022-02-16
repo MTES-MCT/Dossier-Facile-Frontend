@@ -8,7 +8,7 @@
               <span class="text-danger material-icons-outlined md-38 fr-pr-1w"
                 >cancel</span
               >
-              {{ $t("title") }}
+              {{ t("title") }}
             </div>
           </div>
         </div>
@@ -18,18 +18,24 @@
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-10">
               <div class="fr-mb-3w">
-                <p>{{ $t("confirm-delete") }}</p>
+                <p>{{ t("confirm-delete") }}</p>
               </div>
               <div class="align--right">
                 <DfButton
+                  :title="t('cancel')"
                   class="fr-mr-3w"
                   type="button"
                   @on-click="undoSelect()"
-                  >{{ $t("cancel") }}</DfButton
+                  >{{ t("cancel") }}</DfButton
                 >
-                <DfButton type="submit" primary="true">{{
-                  isMobile() ? $t("validate-mobile") : $t("validate")
-                }}</DfButton>
+                <DfButton
+                  type="submit"
+                  :title="t('delete')"
+                  primary="true"
+                  >{{
+                    isMobile() ? t("validate-mobile") : t("validate")
+                  }}</DfButton
+                >
               </div>
             </div>
           </div>
@@ -39,50 +45,42 @@
   </form>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import Modal from "df-shared/src/components/Modal.vue";
-import { AnalyticsService } from "../services/AnalyticsService";
-import { extend } from "vee-validate";
-import { required } from "vee-validate/dist/rules";
-import DfButton from "df-shared/src/Button/Button.vue";
-import { UtilsService } from "../services/UtilsService";
+<script setup lang="ts">
+import Modal from 'df-shared/src/components/Modal.vue';
+import DfButton from 'df-shared/src/Button/Button.vue';
+import { useI18n } from 'vue-i18n';
+import { useStore } from 'vuex';
+import { useToast } from 'vue-toastification';
+import UtilsService from '../services/UtilsService';
 
-extend("required", {
-  ...required,
-  message: "Ce champ est requis"
-});
+const store = useStore();
+const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
+const { t } = useI18n();
+const toast = useToast();
 
-@Component({
-  components: { Modal, DfButton }
-})
-export default class DeleteAccount extends Vue {
-  MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+const emit = defineEmits(['close']);
 
-  validDelete() {
-    this.$emit("input", false);
-    this.$store.dispatch("deleteAccount").then(
-      () => {
-        AnalyticsService.deleteAccount();
-        window.location.replace(this.MAIN_URL);
-      },
-      () => {
-        this.$toasted.show(this.$i18n.t("try-again").toString(), {
-          type: "error",
-          duration: 7000
-        });
-      }
-    );
-  }
+function validDelete() {
+  emit('close');
+  store.dispatch('deleteAccount').then(
+    () => {
+      window.location.replace(MAIN_URL);
+    },
+    () => {
+      toast.error(t('try-again').toString(), {
+        timeout: 7000,
+      });
+    },
+  );
+}
 
-  undoSelect() {
-    this.$emit("input", false);
-    return false;
-  }
+function undoSelect() {
+  emit('close');
+  return false;
+}
 
-  isMobile() {
-    return UtilsService.isMobile();
-  }
+function isMobile() {
+  return UtilsService.isMobile();
 }
 </script>
 
@@ -113,14 +111,16 @@ export default class DeleteAccount extends Vue {
     "validate-mobile": "Delete",
     "cancel": "Cancel",
     "title": "Account deletion",
-    "title-mobile": "Deletion"
+    "title-mobile": "Deletion",
+    "delete": "Delete"
   },
   "fr": {
     "validate": "Supprimer mon compte",
     "validate-mobile": "Supprimer",
     "cancel": "Annuler",
     "title": "Suppression de compte",
-    "confirm-delete": "Veuillez confirmer la suppression complète du compte"
+    "confirm-delete": "Veuillez confirmer la suppression complète du compte",
+    "delete": "Supprimer"
   }
 }
 </i18n>

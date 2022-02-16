@@ -41,12 +41,30 @@ body {
   background-color: #f2f2f9;
 }
 
-.material-icons.md-16, .material-icons-outlined.md-16 { font-size: 16px; }
-.material-icons.md-18, .material-icons-outlined.md-18 { font-size: 18px; }
-.material-icons.md-24, .material-icons-outlined.md-24 { font-size: 24px; }
-.material-icons.md-36, .material-icons-outlined.md-36 { font-size: 36px; }
-.material-icons.md-48, .material-icons-outlined.md-48 { font-size: 48px; }
-.material-icons.md-80, .material-icons-outlined.md-80 { font-size: 80px; }
+.material-icons.md-16,
+.material-icons-outlined.md-16 {
+  font-size: 16px;
+}
+.material-icons.md-18,
+.material-icons-outlined.md-18 {
+  font-size: 18px;
+}
+.material-icons.md-24,
+.material-icons-outlined.md-24 {
+  font-size: 24px;
+}
+.material-icons.md-36,
+.material-icons-outlined.md-36 {
+  font-size: 36px;
+}
+.material-icons.md-48,
+.material-icons-outlined.md-48 {
+  font-size: 48px;
+}
+.material-icons.md-80,
+.material-icons-outlined.md-80 {
+  font-size: 80px;
+}
 
 .fr-grid-col {
   display: flex;
@@ -103,7 +121,7 @@ body {
   cursor: pointer;
 }
 
-input[type=checkbox]:focus+label::before {
+input[type="checkbox"]:focus + label::before {
   outline: none !important;
   outline-offset: none !important;
   z-index: 0 !important;
@@ -271,10 +289,14 @@ img {
   justify-content: center;
 }
 
-.no-shadow {
-  box-shadow: none !important;
+.mobile {
+  @media all and (min-width=768px) {
+    visibility: hidden !important;
+  }
 }
 
-.small-text {
-  font-size: 0.8rem;
+.desktop {
+  @media all and (max-width=767px) {
+    visibility: hidden !important;
+  }
 }

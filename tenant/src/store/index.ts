@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import Vue from "vue";
 import Vuex from "vuex";
-import { AuthService } from "df-shared/src/services/AuthService";
+import AuthService from "df-shared/src/services/AuthService";
 import { MessageService } from "../services/MessageService";
 import { ProfileService } from "../services/ProfileService";
 import router from "../router";

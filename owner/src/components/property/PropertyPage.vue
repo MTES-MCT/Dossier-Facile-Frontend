@@ -1,0 +1,40 @@
+<script setup lang="ts">
+import NakedCard from 'df-shared/src/components/NakedCard.vue';
+import LeftMenu from '../menu/LeftMenu.vue';
+import BackNext from '../footer/BackNext.vue';
+import FooterContainer from '../footer/FooterContainer.vue';
+
+const emit = defineEmits(['submit']);
+
+function onSubmit() {
+  emit('submit');
+}
+</script>
+
+<template>
+  <div class="full-height fr-grid-row fr-container fr-container-full-size">
+    <LeftMenu tMenu class="fr-col-md-4 fr-col-xl-3"></LeftMenu>
+    <div
+      class="fr-col-xl-9 fr-col-md-8 fr-col-xs-12 fr-pt-md-4w fr-pt-2w fr-grid-row fr-pb-10w fr-m-2w fr-m-md-0"
+    >
+      <div class="fr-col-12 max-600 ml">
+        <Form @submit.prevent="onSubmit">
+          <NakedCard>
+            <slot></slot>
+          </NakedCard>
+          <FooterContainer>
+            <BackNext :show-back="true"></BackNext>
+          </FooterContainer>
+        </Form>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped lang="scss">
+.ml {
+  @media all and (min-width: 768px) {
+    margin-left: 10%;
+  }
+}
+</style>

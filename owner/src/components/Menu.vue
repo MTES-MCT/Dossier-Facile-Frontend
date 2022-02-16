@@ -1,38 +1,28 @@
 <script setup lang="ts">
-import { useStore } from "vuex";
-import { computed } from "vue";
-import { useRoute } from "vue-router";
-
-defineProps<{}>();
+import { useStore } from 'vuex';
+import { computed, ref } from 'vue';
+import { useRoute } from 'vue-router';
+import { useI18n } from 'vue-i18n';
+import DeleteAccount from './DeleteAccount.vue';
 
 const store = useStore();
 const isLoggedIn = computed(() => store.getters.isLoggedIn);
 const route = useRoute();
+const { t } = useI18n();
 
-const MAIN_URL = `//${import.meta.env.VUE_APP_MAIN_URL}`;
-const DOCS_URL = `//${import.meta.env.VUE_APP_DOCS_URL}`;
+const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
+const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`;
+
+const isDeleteModalVisible = ref(false);
 
 function currentPage() {
   return route.name;
 }
 
-// TODO i18n
-function $t(x: string) {
-	return x;
-}
 </script>
 
 <template>
   <ul class="fr-nav__list">
-    <li class="fr-nav__item" v-if="isLoggedIn">
-      <a
-        href="/messaging"
-        class="fr-nav__link"
-        :aria-current="currentPage() === 'Messages' ? 'page' : false"
-      >
-        {{ $t("messaging") }}
-      </a>
-    </li>
     <li class="fr-nav__item">
       <a
         :href="`${DOCS_URL}`"
@@ -40,17 +30,17 @@ function $t(x: string) {
         target="_blank"
         rel="noreferrer"
       >
-        {{ $t("faq") }}
+        {{ t("faq") }}
       </a>
     </li>
     <li class="fr-nav__item">
       <a :href="`${MAIN_URL}/blog`" class="fr-nav__link">
-        {{ $t("blog") }}
+        {{ t("blog") }}
       </a>
     </li>
     <li class="fr-nav__item">
       <a :href="`${MAIN_URL}/information`" class="fr-nav__link">
-        {{ $t("information") }}
+        {{ t("information") }}
       </a>
     </li>
     <li class="fr-nav__item" v-if="isLoggedIn">
@@ -60,7 +50,7 @@ function $t(x: string) {
         aria-controls="menu-774"
         :aria-current="currentPage() === 'Account' ? true : false"
       >
-        {{ $t("account") }}
+        {{ t("account") }}
       </button>
       <div class="fr-collapse fr-menu" id="menu-774">
         <ul class="fr-menu__list">
@@ -70,7 +60,7 @@ function $t(x: string) {
               href="/account"
               target="_self"
               :aria-current="currentPage() === 'Account' ? 'page' : false"
-              >{{ $t("file") }}</a
+              >{{ t("file") }}</a
             >
           </li>
           <li class="warn">
@@ -80,10 +70,10 @@ function $t(x: string) {
               @click="isDeleteModalVisible = true"
               target="_self"
             >
-              {{ $t("deleteAccount") }}
+              {{ t("deleteAccount") }}
             </a>
             <DeleteAccount
-              v-model="isDeleteModalVisible"
+              @close="isDeleteModalVisible = false"
               v-show="isDeleteModalVisible"
             ></DeleteAccount>
           </li>

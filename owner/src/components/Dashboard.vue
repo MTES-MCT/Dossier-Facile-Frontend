@@ -5,6 +5,6 @@ defineProps<{}>();
 
 <template>
   <p>
-    bis
+    dashboard
   </p>
 </template>
