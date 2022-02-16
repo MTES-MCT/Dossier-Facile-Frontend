@@ -6,10 +6,8 @@
       </div>
       <h2>On est désolé, rien à trouver par ici</h2>
       <p>Les solutions à vos problèmes de location sont par là</p>
-      <a href="/">
-        <button class="fr-btn fr-btn-primary" type="submit">
+      <a href="/" class="fr-btn fr-btn-primary">
           Retour au site
-        </button>
       </a>
     </div>
   </div>
