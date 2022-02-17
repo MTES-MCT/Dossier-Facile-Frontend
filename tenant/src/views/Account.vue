@@ -736,14 +736,6 @@ export default class Account extends Vue {
     window.Beacon("destroy");
   }
 
-  mounted() {
-    window.Beacon("init", "d949ac15-a9eb-4316-b0c5-f92cecc7118f");
-  }
-
-  beforeDestroy() {
-    window.Beacon("destroy");
-  }
-
   getToken() {
     if (this.pub === "true") {
       return `${this.TENANT_URL}/public-file/${this.user.apartmentSharing?.tokenPublic}`;
