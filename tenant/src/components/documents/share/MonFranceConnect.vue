@@ -11,7 +11,7 @@
         aria-label="Mes justificatifs avec Mon FranceConnect"
         title="Connectez vous avec FranceConnect pour accéder à vos justificatifs"
         class="fr-btn fr-mt-3w"
-        @on-click="openDGFIP"
+        @click="openDGFIP"
       >
         Mon FranceConnect
       </button>
