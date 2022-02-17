@@ -377,6 +377,23 @@
               />
             </a>
           </div>
+          <div
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+          >
+            <a
+              target="_blank"
+              href="https://superimmo.com/"
+              class="logo-link"
+              rel="noreferrer"
+              title="aller sur le site « superimmo » (nouvelle fenêtre)"
+            >
+              <img
+                alt="superimmo"
+                class="partner-logo superimmo"
+                src="../assets/logos/superimmo.webp"
+              />
+            </a>
+          </div>
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
