@@ -7,6 +7,47 @@
           <hr />
           <article class="fr-mb-12w">
             <div class="text-center">
+              <router-link
+                to="/blog/quand-les-journalistes-parlent-de-dossierfacile"
+              >
+                <h2 class="fr-h2">
+                  Quand les journalistes parlent de DossierFacile
+                </h2>
+              </router-link>
+              <span>14 Février 2022 dans </span>
+              <span>
+                <a href="#">DossierFacile</a>
+              </span>
+            </div>
+            <!--end article title-->
+            <div class="article__body">
+              <router-link
+                to="/blog/quand-les-journalistes-parlent-de-dossierfacile"
+              >
+                <img
+                  class="img-center"
+                  alt=""
+                  src="../../assets/images/blog-article10.webp"
+                />
+              </router-link>
+              <p>
+                Constituer son dossier de location est une étape indispensable
+                pour trouver le logement de ses rêves et pourtant c’est un
+                parcours semé d’embûches ! DossierFacile est le service public
+                numérique gratuit et indispensable pour constituer et partager
+                sereinement son dossier. En pleine croissance, le service a fait
+                l’objet de nombreux articles. Revue de presse.
+              </p>
+              <router-link
+                to="/blog/quand-les-journalistes-parlent-de-dossierfacile"
+                >Continuer la lecture »</router-link
+              >
+            </div>
+            <!--end article title-->
+          </article>
+          <hr />
+          <article class="fr-mb-12w">
+            <div class="text-center">
               <router-link to="/blog/loyer-locataire-ou-bailleur">
                 <h2 class="fr-h2">
                   Le loyer : tout ce qu’il faut savoir quand on est locataire ou
