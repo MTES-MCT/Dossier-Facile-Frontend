@@ -377,6 +377,40 @@
               />
             </a>
           </div>
+          <div
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+          >
+            <a
+              target="_blank"
+              href="https://superimmo.com/"
+              class="logo-link"
+              rel="noreferrer"
+              title="aller sur le site « superimmo » (nouvelle fenêtre)"
+            >
+              <img
+                alt="superimmo"
+                class="partner-logo superimmo"
+                src="../assets/logos/superimmo.webp"
+              />
+            </a>
+          </div>
+          <div
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+          >
+            <a
+              target="_blank"
+              href="https://www.wizi.io/"
+              class="logo-link"
+              rel="noreferrer"
+              title="aller sur le site « wizi » (nouvelle fenêtre)"
+            >
+              <img
+                alt="wizi"
+                class="partner-logo wizi"
+                src="../assets/logos/wizi.webp"
+              />
+            </a>
+          </div>
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
@@ -605,11 +639,21 @@ a[target="_blank"].logo-link::after {
   width: 227px;
 }
 .gererseul {
-  width: 200;
+  width: 200px;
   height: 44px;
 }
 .pandaloc {
-  width: 172;
+  width: 172px;
+  height: 60px;
+}
+
+.wizi {
+  width: 151px;
+  height: 60px;
+}
+
+.superimmo {
+  width: 222px;
   height: 60px;
 }
 </style>
