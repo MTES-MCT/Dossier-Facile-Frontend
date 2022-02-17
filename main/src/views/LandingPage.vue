@@ -411,6 +411,23 @@
               />
             </a>
           </div>
+          <div
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+          >
+            <a
+              target="_blank"
+              href="https://www.rentila.com/"
+              class="logo-link"
+              rel="noreferrer"
+              title="aller sur le site « rentila » (nouvelle fenêtre)"
+            >
+              <img
+                alt="rentila"
+                class="partner-logo rentila"
+                src="../assets/logos/rentila.webp"
+              />
+            </a>
+          </div>
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
@@ -654,6 +671,11 @@ a[target="_blank"].logo-link::after {
 
 .superimmo {
   width: 222px;
+  height: 60px;
+}
+
+.rentila {
+  width: 102px;
   height: 60px;
 }
 </style>
