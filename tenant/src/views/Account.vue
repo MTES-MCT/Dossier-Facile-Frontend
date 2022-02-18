@@ -832,6 +832,10 @@ export default class Account extends Vue {
   copyLink(url: string) {
     try {
       navigator.clipboard.writeText(url);
+      this.$toasted.show(this.$i18n.t("copied").toString(), {
+        type: "success",
+        duration: 3000
+      });
       AnalyticsService.copyLink(this.pub ? "resume" : "full");
     } catch (err) {
       alert("Oops, unable to copy");
