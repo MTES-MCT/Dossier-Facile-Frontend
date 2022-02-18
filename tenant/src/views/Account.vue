@@ -49,7 +49,6 @@
                     >{{ $t("copy-link") }}</DfButton
                   >
                   <div class="grp">
-                    <input id="tokenLink" type="hidden" />
                     <button
                       class="fr-btn grp-btn"
                       :class="{
@@ -831,19 +830,13 @@ export default class Account extends Vue {
   }
 
   copyLink(url: string) {
-    const tl = document.querySelector("#tokenLink") as HTMLInputElement;
-    tl?.setAttribute("type", "text");
-    tl?.setAttribute("value", url);
-    tl?.select();
-
     try {
-      document.execCommand("copy");
+      navigator.clipboard.writeText(url);
       AnalyticsService.copyLink(this.pub ? "resume" : "full");
     } catch (err) {
       alert("Oops, unable to copy");
       return Promise.reject("error");
     }
-    tl?.setAttribute("type", "hidden");
     return Promise.resolve(true);
   }
 
