@@ -445,6 +445,23 @@
               />
             </a>
           </div>
+          <div
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+          >
+            <a
+              target="_blank"
+              href="https://www.plato.immo/"
+              class="logo-link"
+              rel="noreferrer"
+              title="aller sur le site « plato.immo » (nouvelle fenêtre)"
+            >
+              <img
+                alt="flatsy"
+                class="partner-logo platoimmo"
+                src="../assets/logos/platoimmo.webp"
+              />
+            </a>
+          </div>
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
@@ -649,7 +666,7 @@ a[target="_blank"].logo-link::after {
   height: 60px;
 }
 .colivme {
-  width: 60px;
+  width: 174px;
   height: 60px;
 }
 .whoomies {
@@ -698,6 +715,11 @@ a[target="_blank"].logo-link::after {
 
 .flatsy {
   width: 174px;
+  height: 60px;
+}
+
+.platoimmo {
+  width: 133px;
   height: 60px;
 }
 </style>
