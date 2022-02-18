@@ -28,11 +28,12 @@
             </div>
             <div class="main fr-mt-5w fr-p-4w bg-white">
               <div class="main-bar fr-grid-row">
-                <div class="header-title">
+                <div class="header-title mobile-margin">
                   <h4 class="fr-mr-2w fr-mb-0 fr-mt-0">{{ $t("my-file") }}</h4>
                 </div>
 
                 <ColoredTag
+                  class="mobile-margin"
                   :text="$t('s_' + user.status)"
                   :status="user.status"
                 ></ColoredTag>
@@ -40,6 +41,7 @@
                 <span class="spacer"></span>
                 <div class="fr-grid-row btn-container">
                   <DfButton
+                    class="main-copy-btn"
                     @on-click="copyFullLink()"
                     primary="true"
                     size="small"
@@ -1190,8 +1192,25 @@ hr {
   align-items: center;
 }
 
+.mobile-margin {
+  @media all and (max-width: 768px) {
+    margin-bottom: 1rem;
+  }
+}
+
 .btn-container {
   margin-left: auto;
+
+  @media all and (max-width: 600px) {
+    width: 100%;
+  }
+}
+
+.main-copy-btn {
+  height: 2.5rem;
+  @media all and (max-width: 600px) {
+    flex: 1;
+  }
 }
 
 .share-file-description {
