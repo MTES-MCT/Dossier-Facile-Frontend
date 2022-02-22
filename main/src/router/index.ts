@@ -364,7 +364,7 @@ router.beforeEach((to, from, next) => {
     const image = document.querySelector('meta[property="og:image"]');
     image?.setAttribute(
       "content",
-      `https://${process.env.VUE_APP_MAIN_URL}/${to.meta.image}`
+      `https://${process.env.VUE_APP_MAIN_URL}${to.meta.image}`
     );
 
     const twitterTitle = document.querySelector(
@@ -377,7 +377,7 @@ router.beforeEach((to, from, next) => {
     );
     twitterImage?.setAttribute(
       "content",
-      `https://${process.env.VUE_APP_MAIN_URL}/${to.meta.image}`
+      `https://${process.env.VUE_APP_MAIN_URL}${to.meta.image}`
     );
   }
   next();
