@@ -17,11 +17,6 @@
           </p>
         </template>
       </v-gouv-fr-modal>
-      <div class="remark fr-mt-3w fr-mb-3w">
-        <h5>{{ $t("remark-title") }}</h5>
-        {{ $t("remark-text") }}<br />
-        {{ $t("remark-text-2") }}
-      </div>
       <div v-for="g in user.guarantors" :key="g.id">
         <CardRow @edit="editGuarantor(g)" @remove="removeGuarantor(g)">
           <template v-slot:tag>
@@ -228,12 +223,6 @@ h2 {
   line-height: 1.5rem;
 }
 
-.remark {
-  background-color: #e5e5f4;
-  padding: 1rem;
-  border-radius: 0.25rem;
-}
-
 .card {
   padding: 1rem;
 }
@@ -270,9 +259,6 @@ h2 {
 "en": {
   "more-information": "More information",
   "my-guarantor": "My guarantor",
-  "remark-title": "Remark",
-  "remark-text": "Adding a guarantor is by no means mandatory. If you do not wish to add a surety, you can select “I don't have a guarantor”.",
-  "remark-text-2": "Your file will then be registered for investigation.",
   "add-new-guarantor": "Add a new guarantor ?",
   "guarantor": "My guarantor",
   "EMPTY": "Empty",
@@ -284,9 +270,6 @@ h2 {
 "fr": {
   "more-information": "En difficulté pour répondre à la question ?",
   "my-guarantor": "Mon garant",
-  "remark-title": "Remarque",
-  "remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez cliquer directement sur le bouton ci-dessous, « Je n'ai pas de garant ».",
-  "remark-text-2":"Votre dossier sera alors enregistré pour être instruit.",
   "add-new-guarantor": "Ajouter un nouveau garant ?",
   "guarantor": "Mon garant",
   "EMPTY": "Absent",
