@@ -17,14 +17,8 @@
             </div>
             <div class="fr-callout fr-callout-white" v-if="canCopyLink()">
               <h4>{{ $t("congratulations-title") }}</h4>
-              <p
-                class="fr-callout__text fr-mb-3w"
-                v-html="$t('congratulations-text-1')"
-              ></p>
-              <p
-                class="fr-callout__text"
-                v-html="$t('congratulations-text-2')"
-              ></p>
+              <p class="fr-mb-3w" v-html="$t('congratulations-text-1')"></p>
+              <p v-html="$t('congratulations-text-2')"></p>
             </div>
             <div class="main fr-mt-5w fr-p-4w bg-white">
               <div class="main-bar fr-grid-row">
