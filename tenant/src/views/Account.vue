@@ -1289,7 +1289,7 @@ hr {
     "instructional-time-title": "Instructional time",
     "instructional-time-text": "Once the files are completed, they are taken care of on average in less than 24 hours by our team of operators.",
     "congratulations-title": "🎉 Congratulations! Your DossierFacile becomes available!",
-    "congratulations-text-1": "In order to apply for the accommodation of your dreams, send your DossierFacile link, by email, sms, etc. to owners, lessors… of your choice. As a reminder, DossierFacile does not offer accommodation.",
+    "congratulations-text-1": "In order to apply for the accommodation of your dreams, send your DossierFacile link, by email, SMS, etc. to owners, lessors… of your choice. As a reminder, DossierFacile does not offer accommodation.",
     "congratulations-text-2": "Your data is protected!",
     "full-link-copied": "The link of my complete file is copied!",
     "public-link-copied": "The link of my summary file is copied!"
@@ -1365,8 +1365,8 @@ hr {
     "messaging": "Consulter ma messagerie",
     "instructional-time-title": "Durée d'instruction",
     "instructional-time-text": "Une fois votre dossier complété et déposé, il est pris en charge en moyenne en moins de 24h par notre équipe d'opérateurs.",
-    "congratulations-title": "🎉 Félicitations ! Votre DossierFacile devient disponible !",
-    "congratulations-text-1": "Afin de candidater au logement de vos rêves, envoyez votre lien DossierFacile, par email, sms, etc. aux propriétaires, bailleurs… de votre choix. Pour rappel, DossierFacile ne propose pas de logement.",
+    "congratulations-title": "🎉 Félicitations ! Votre DossierFacile est disponible !",
+    "congratulations-text-1": "Afin de candidater au logement de vos rêves, envoyez votre lien DossierFacile, par email, SMS, etc. aux propriétaires, bailleurs de votre choix. Pour rappel, DossierFacile ne propose pas de logement.",
     "congratulations-text-2": "Vos informations sont protégées !",
     "full-link-copied": "Le lien de mon dossier complet est copié !",
     "public-link-copied": "Le lien de mon dossier de synthèse est copié !"
