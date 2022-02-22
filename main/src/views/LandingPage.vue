@@ -456,9 +456,26 @@
               title="aller sur le site « plato.immo » (nouvelle fenêtre)"
             >
               <img
-                alt="flatsy"
+                alt="platoimmo"
                 class="partner-logo platoimmo"
                 src="../assets/logos/platoimmo.webp"
+              />
+            </a>
+          </div>
+          <div
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+          >
+            <a
+              target="_blank"
+              href="https://www.fastt.org/"
+              class="logo-link"
+              rel="noreferrer"
+              title="aller sur le site « fastt » (nouvelle fenêtre)"
+            >
+              <img
+                alt="fastt"
+                class="partner-logo fastt"
+                src="../assets/logos/fastt.webp"
               />
             </a>
           </div>
@@ -694,7 +711,7 @@ a[target="_blank"].logo-link::after {
   height: 44px;
 }
 .pandaloc {
-  width: 172px;
+  width: 197px;
   height: 60px;
 }
 
@@ -720,6 +737,11 @@ a[target="_blank"].logo-link::after {
 
 .platoimmo {
   width: 133px;
+  height: 60px;
+}
+
+.fastt {
+  width: 95px;
   height: 60px;
 }
 </style>
