@@ -49,7 +49,8 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Constituer votre DossierFacile - Blog - DossierFacile",
       description:
-        "Mais comment constituer un dossier de location qui regroupe tous les documents nécessaires sans tomber dans le désordre d’un pdf de cinquante pages ? Existe-t-il un outil facile et gratuit ?"
+        "Mais comment constituer un dossier de location qui regroupe tous les documents nécessaires sans tomber dans le désordre d’un pdf de cinquante pages ? Existe-t-il un outil facile et gratuit ?",
+      image: require("../assets/images/blog-article2.webp")
     },
     component: () =>
       import(/* webpackChunkName: "blog" */ "../views/blog/Article2.vue")
@@ -60,7 +61,8 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Pourquoi Dossier Facile est-il gratuit - Blog - DossierFacile",
       description:
-        "DossierFacile propose une solution numérique simple et gratuite pour remettre la confiance au cœur du processus de location"
+        "DossierFacile propose une solution numérique simple et gratuite pour remettre la confiance au cœur du processus de location",
+      image: require("../assets/images/blog-article3.webp")
     },
     component: () =>
       import(/* webpackChunkName: "blog" */ "../views/blog/Article3.vue")
@@ -82,7 +84,8 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "5 astuces pour booster votre dossier de location - DossierFacile",
       description:
-        "Pour se distinguer des autres, un seul moyen : constituer un dossier de location clair, cohérent et complet"
+        "Pour se distinguer des autres, un seul moyen : constituer un dossier de location clair, cohérent et complet",
+      image: require("../assets/images/blog-article4.webp")
     },
     component: () =>
       import(/* webpackChunkName: "blog" */ "../views/blog/Article4.vue")
@@ -95,7 +98,8 @@ const routes: Array<RouteConfig> = [
       title:
         "5 conseils pour trouver l’appartement de ses rêves en région parisienne - DossierFacile",
       description:
-        "Trouver l’appartement de ses rêves à Paris ou en région parisienne est un vrai défi"
+        "Trouver l’appartement de ses rêves à Paris ou en région parisienne est un vrai défi",
+      image: require("../assets/images/blog-article5.webp")
     },
     component: () =>
       import(/* webpackChunkName: "blog" */ "../views/blog/Article5.vue")
@@ -106,7 +110,8 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "DossierFacile fait peau neuve ! - DossierFacile",
       description:
-        "Afin de mieux répondre aux besoins de nos locataires et propriétaires, le service DossierFacile fait peau neuve avec un nouveau site"
+        "Afin de mieux répondre aux besoins de nos locataires et propriétaires, le service DossierFacile fait peau neuve avec un nouveau site",
+      image: require("../assets/images/blog-article6.webp")
     },
     component: () =>
       import(/* webpackChunkName: "blog" */ "../views/blog/Article6.vue")
@@ -117,7 +122,8 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Tout comprendre à la vie en colocation - DossierFacile",
       description:
-        "Quelles sont les règles à respecter avant de se mettre en colocation ? DossierFacile vous aide à y voir plus clair !"
+        "Quelles sont les règles à respecter avant de se mettre en colocation ? DossierFacile vous aide à y voir plus clair !",
+      image: require("../assets/images/blog-article7.webp")
     },
     component: () =>
       import(/* webpackChunkName: "blog" */ "../views/blog/Article7.vue")
@@ -128,7 +134,8 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Comment justifier son domicile - DossierFacile",
       description:
-        "On peut distinguer quatre cas classiques de justificatif de domicile mais il en existe en fait bien plus"
+        "On peut distinguer quatre cas classiques de justificatif de domicile mais il en existe en fait bien plus",
+      image: require("../assets/images/blog-article8.webp")
     },
     component: () =>
       import(/* webpackChunkName: "blog" */ "../views/blog/Article8.vue")
@@ -139,7 +146,8 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Le loyer : locataire ou bailleur - DossierFacile",
       description:
-        "Le loyer : tout ce qu’il faut savoir quand on est locataire ou bailleur"
+        "Le loyer : tout ce qu’il faut savoir quand on est locataire ou bailleur",
+      image: require("../assets/images/blog-article9.webp")
     },
     component: () =>
       import(/* webpackChunkName: "blog" */ "../views/blog/Article9.vue")
@@ -148,8 +156,9 @@ const routes: Array<RouteConfig> = [
     path: "/blog/quand-les-journalistes-parlent-de-dossierfacile",
     name: "Article10",
     meta: {
-      title: "Quand les journalistes parlent de DossierFacile - DossierFacile",
-      description: "Quand les journalistes parlent de DossierFacile"
+      title: "Quand les journalistes parlent de DossierFacile",
+      description: "Quand les journalistes parlent de DossierFacile",
+      image: require("../assets/images/blog-article10.webp")
     },
     component: () =>
       import(/* webpackChunkName: "blog" */ "../views/blog/Article10.vue")
@@ -350,6 +359,9 @@ router.beforeEach((to, from, next) => {
 
     const title = document.querySelector('meta[property="og:title"]');
     title?.setAttribute("content", to.meta.title);
+
+    const image = document.querySelector('meta[property="og:image"]');
+    image?.setAttribute("content", to.meta.image);
   }
   next();
 });
