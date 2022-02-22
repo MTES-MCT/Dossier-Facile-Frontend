@@ -157,7 +157,8 @@ const routes: Array<RouteConfig> = [
     name: "Article10",
     meta: {
       title: "Quand les journalistes parlent de DossierFacile",
-      description: "Quand les journalistes parlent de DossierFacile",
+      description:
+        "Constituer son dossier de location est une étape indispensable pour trouver le logement de ses rêves et pourtant c’est un parcours semé d’embûches",
       image: require("../assets/images/blog-article10.webp")
     },
     component: () =>
@@ -362,6 +363,16 @@ router.beforeEach((to, from, next) => {
 
     const image = document.querySelector('meta[property="og:image"]');
     image?.setAttribute("content", to.meta.image);
+
+    const twitterTitle = document.querySelector(
+      'meta[property="twitter:title"]'
+    );
+    twitterTitle?.setAttribute("content", to.meta.title);
+
+    const twitterImage = document.querySelector(
+      'meta[property="twitter:image"]'
+    );
+    twitterImage?.setAttribute("content", to.meta.image);
   }
   next();
 });
