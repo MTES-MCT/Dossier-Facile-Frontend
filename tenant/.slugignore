@@ -1,3 +1,5 @@
 ../node_modules/typescript
 ../node_modules/@vue
 ../node_modules/puppeteer
+../node_modules/@babel
+../node_modules/@storybook
