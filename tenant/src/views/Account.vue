@@ -1330,7 +1330,7 @@ hr {
     "opinion": "Racontez-nous votre expérience DossierFacile.fr",
     "delete-account": "Supprimer mon compte",
     "share-file": "Partager mon dossier",
-    "share-file-description": "Copiez votre lien-dossier pour le partager ! À vous de l'envoyer aux propriétaires de votre choix (par mail, sms…)",
+    "share-file-description": "Copiez votre lien-dossier pour le partager ! À vous de l'envoyer aux propriétaires ou bailleurs de votre choix (par mail, SMS, etc.)",
     "file-resume": "Partager mon dossier de synthèse <br>(sans pièce justificative)",
     "file-full": "Partager mon dossier complet<br>(avec pièces justificatives)",
     "copy": "Copier",
