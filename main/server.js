@@ -1,5 +1,4 @@
 const express = require("express");
-const history = require("connect-history-api-fallback");
 
 const app = express();
 
@@ -21,9 +20,6 @@ app.use(function(req, res, next) {
 
 const directory = "/" + (process.env.STATIC_DIR || "dist");
 app.use(express.static(__dirname + directory));
-
-app.use("/robots.txt", express.static(__dirname + "robots.txt"));
-app.use("/google2411e1f95592dd9f.html", express.static(__dirname + "google2411e1f95592dd9f.html"));
 
 const port = process.env.PORT || 3000;
 app.listen(port, function() {
