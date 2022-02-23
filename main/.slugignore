@@ -1,3 +1,9 @@
 ../node_modules/typescript
 ../node_modules/@vue
 ../node_modules/puppeteer
+../node_modules/@babel
+../node_modules/@storybook
+../node_modules/@gouvfr
+../node_modules/pdfjs-dist
+../node_modules/listr
+../node_modules/rxjs
