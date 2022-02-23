@@ -29,6 +29,7 @@ module.exports = {
         "https://dossierfacile.fr/blog/loyer-locataire-ou-bailleur",
         "https://dossierfacile.fr/blog/quand-les-journalistes-parlent-de-dossierfacile",
         "https://dossierfacile.fr/information",
+        "https://dossierfacile.fr/accessibilite",
         "https://dossierfacile.fr/mentions-legales"
       ]
     }
@@ -62,6 +63,7 @@ module.exports = {
             "/blog/loyer-locataire-ou-bailleur",
             "/blog/quand-les-journalistes-parlent-de-dossierfacile",
             "/information",
+            "/accessibilite",
             "/mentions-legales"
           ]
         })
