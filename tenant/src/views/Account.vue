@@ -790,10 +790,6 @@ export default class Account extends Vue {
     return doc?.documentStatus || "EMPTY";
   }
 
-  goToProfile() {
-    this.$store.dispatch("firstProfilePage");
-  }
-
   goToMessaging() {
     this.$router.push("/messaging");
   }
