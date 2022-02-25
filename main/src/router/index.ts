@@ -328,8 +328,17 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "statistics" */ "../views/Statistics.vue"),
   },
   {
-    path: "*",
+    path: "/404",
     name: "404",
+    meta: {
+      title: "404 - DossierFacile",
+    },
+    component: () =>
+      import(/* webpackChunkName: "statistics" */ "../views/404.vue"),
+  },
+  {
+    path: "*",
+    name: "catchall",
     meta: {
       title: "404 - DossierFacile",
     },
@@ -367,14 +376,15 @@ router.beforeEach((to, from, next) => {
       `https://${process.env.VUE_APP_MAIN_URL}${to.meta.image}`
     );
 
-    const twitterTitle = document.querySelector(
-      'meta[property="twitter:title"]'
-    );
+    const twitterTitle = document.querySelector('meta[name="twitter:title"]');
     twitterTitle?.setAttribute("content", to.meta.title);
 
-    const twitterImage = document.querySelector(
-      'meta[property="twitter:image"]'
+    const twitterDescription = document.querySelector(
+      'meta[name="twitter:description"]'
     );
+    twitterDescription?.setAttribute("content", to.meta.description);
+
+    const twitterImage = document.querySelector('meta[name="twitter:image"]');
     twitterImage?.setAttribute(
       "content",
       `https://${process.env.VUE_APP_MAIN_URL}${to.meta.image}`
