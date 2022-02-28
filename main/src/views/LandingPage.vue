@@ -27,7 +27,7 @@
             <div class="fr-tile fr-enlarge-link">
               <div class="fr-tile__body">
                 <h2 class="fr-tile__title">
-                  <a class="fr-tile__link" href="#">{{ $t("s1.h1") }}</a>
+                  <div class="fr-tile__link">{{ $t("s1.h1") }}</div>
                 </h2>
                 <p class="fr-tile__desc">{{ $t("s1.p1") }}</p>
               </div>
@@ -44,7 +44,7 @@
             <div class="fr-tile fr-enlarge-link">
               <div class="fr-tile__body">
                 <h2 class="fr-tile__title">
-                  <a class="fr-tile__link" href="#">{{ $t("s1.h2") }}</a>
+                  <div class="fr-tile__link">{{ $t("s1.h2") }}</div>
                 </h2>
                 <p class="fr-tile__desc">{{ $t("s1.p2") }}</p>
               </div>
@@ -61,7 +61,7 @@
             <div class="fr-tile fr-enlarge-link">
               <div class="fr-tile__body">
                 <h2 class="fr-tile__title">
-                  <a class="fr-tile__link" href="#">{{ $t("s1.h3") }}</a>
+                  <div class="fr-tile__link">{{ $t("s1.h3") }}</div>
                 </h2>
                 <p class="fr-tile__desc">{{ $t("s1.p3") }}</p>
               </div>
@@ -84,7 +84,7 @@
           <div class="fr-col-md-6 fr-grid-col">
             <div class="fr-grid-row align-items--center">
               <div class="step-number">1</div>
-              <h2 class="fr-h4 fr-mb-0">{{ $t("s2.h1") }}</h2>
+              <h3 class="fr-h4 fr-mb-0">{{ $t("s2.h1") }}</h3>
             </div>
             <div>{{ $t("s2.p1") }}</div>
             <ul class="fr-pt-2w fr-mb-5w">
@@ -97,13 +97,13 @@
 
             <div class="fr-grid-row align-items--center">
               <div class="step-number">2</div>
-              <h2 class="fr-h4 fr-mb-0">{{ $t("s2.h2") }}</h2>
+              <h3 class="fr-h4 fr-mb-0">{{ $t("s2.h2") }}</h3>
             </div>
             <p>{{ $t("s2.p2") }}</p>
 
             <div class="fr-grid-row align-items--center">
               <div class="step-number">3</div>
-              <h2 class="fr-h4 fr-mb-0">{{ $t("s2.h3") }}</h2>
+              <h3 class="fr-h4 fr-mb-0">{{ $t("s2.h3") }}</h3>
             </div>
             <p>{{ $t("s2.p3") }}</p>
             <DfButton class="fr-mt-2w" @on-click="gotoDocs">
@@ -456,9 +456,26 @@
               title="aller sur le site « plato.immo » (nouvelle fenêtre)"
             >
               <img
-                alt="flatsy"
+                alt="platoimmo"
                 class="partner-logo platoimmo"
                 src="../assets/logos/platoimmo.webp"
+              />
+            </a>
+          </div>
+          <div
+            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+          >
+            <a
+              target="_blank"
+              href="https://www.fastt.org/"
+              class="logo-link"
+              rel="noreferrer"
+              title="aller sur le site « fastt » (nouvelle fenêtre)"
+            >
+              <img
+                alt="fastt"
+                class="partner-logo fastt"
+                src="../assets/logos/fastt.webp"
               />
             </a>
           </div>
@@ -694,7 +711,7 @@ a[target="_blank"].logo-link::after {
   height: 44px;
 }
 .pandaloc {
-  width: 172px;
+  width: 197px;
   height: 60px;
 }
 
@@ -720,6 +737,11 @@ a[target="_blank"].logo-link::after {
 
 .platoimmo {
   width: 133px;
+  height: 60px;
+}
+
+.fastt {
+  width: 95px;
   height: 60px;
 }
 </style>

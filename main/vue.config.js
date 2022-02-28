@@ -64,7 +64,8 @@ module.exports = {
             "/blog/quand-les-journalistes-parlent-de-dossierfacile",
             "/information",
             "/accessibilite",
-            "/mentions-legales"
+            "/mentions-legales",
+            "/404"
           ]
         })
       ]

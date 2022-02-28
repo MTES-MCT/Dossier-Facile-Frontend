@@ -11,7 +11,7 @@
         aria-label="Mes justificatifs avec Mon FranceConnect"
         title="Connectez vous avec FranceConnect pour accéder à vos justificatifs"
         class="fr-btn fr-mt-3w"
-        onclick="window.open('https://mon.franceconnect.gouv.fr/Redirect/?scope=BoutonDGFIP', '_blank');"
+        @click="openDGFIP"
       >
         Mon FranceConnect
       </button>
@@ -21,9 +21,18 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { AnalyticsService } from "../../../services/AnalyticsService";
 
 @Component
-export default class MonFranceConnect extends Vue {}
+export default class MonFranceConnect extends Vue {
+  openDGFIP() {
+    AnalyticsService.openDGFIP();
+    window.open(
+      "https://mon.franceconnect.gouv.fr/Redirect/?scope=BoutonDGFIP",
+      "_blank"
+    );
+  }
+}
 </script>
 
 <i18n>

@@ -191,6 +191,7 @@ a {
   background-size: cover !important;
   background-position: 50% 50% !important;
   background-image: url("../assets/images/en-savoir-plus/en-savoir-plus-image2.jpg");
+  background-color: #314467;
   z-index: 0;
 }
 </style>

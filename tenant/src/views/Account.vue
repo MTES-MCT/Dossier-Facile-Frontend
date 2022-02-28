@@ -15,13 +15,19 @@
                 $t("messaging")
               }}</DfButton>
             </div>
+            <div class="fr-callout fr-callout-white" v-if="canCopyLink()">
+              <h4>{{ $t("congratulations-title") }}</h4>
+              <p class="fr-mb-3w" v-html="$t('congratulations-text-1')"></p>
+              <p v-html="$t('congratulations-text-2')"></p>
+            </div>
             <div class="main fr-mt-5w fr-p-4w bg-white">
               <div class="main-bar fr-grid-row">
-                <div class="header-title">
+                <div class="header-title mobile-margin">
                   <h4 class="fr-mr-2w fr-mb-0 fr-mt-0">{{ $t("my-file") }}</h4>
                 </div>
 
                 <ColoredTag
+                  class="mobile-margin"
                   :text="$t('s_' + user.status)"
                   :status="user.status"
                 ></ColoredTag>
@@ -29,14 +35,14 @@
                 <span class="spacer"></span>
                 <div class="fr-grid-row btn-container">
                   <DfButton
-                    @on-click="copyLink()"
+                    class="main-copy-btn"
+                    @on-click="copyFullLink()"
                     primary="true"
                     size="small"
                     :disabled="!canCopyLink()"
                     >{{ $t("copy-link") }}</DfButton
                   >
                   <div class="grp">
-                    <input id="tokenLink" type="hidden" :value="getToken()" />
                     <button
                       class="fr-btn grp-btn"
                       :class="{
@@ -50,52 +56,36 @@
                       <span class="sr-only"> Copy </span>
                     </button>
                     <div class="grp-modal bg-white" v-show="radioVisible">
-                      <h4 class="p10">{{ $t("share-file") }}</h4>
+                      <h4>{{ $t("share-file") }}</h4>
+                      <p class="share-file-description">
+                        {{ $t("share-file-description") }}
+                      </p>
 
                       <div>
-                        <fieldset class="fr-fieldset">
-                          <div class="fr-fieldset__content">
-                            <div class="fr-radio-group p10">
-                              <input
-                                type="radio"
-                                id="radio-1"
-                                name="radio"
-                                v-model="pub"
-                                value="true"
-                              />
-                              <label
-                                class="fr-label"
-                                for="radio-1"
-                                v-html="$t('file-resume')"
-                              ></label>
-                            </div>
-                            <hr />
-                            <div class="fr-radio-group p10">
-                              <input
-                                type="radio"
-                                id="radio-2"
-                                name="radio"
-                                v-model="pub"
-                                value="false"
-                              />
-                              <label
-                                class="fr-label"
-                                for="radio-2"
-                                v-html="$t('file-full')"
-                              >
-                              </label>
-                            </div>
-                            <div class="flex copy-btn">
-                              <input type="text" :value="getToken()" readonly />
-                              <DfButton
-                                class="fr-ml-1w"
-                                primary="true"
-                                @on-click="copyLink()"
-                                >{{ $t("copy") }}</DfButton
-                              >
-                            </div>
-                          </div>
-                        </fieldset>
+                        <div class="flex copy-btn">
+                          <button
+                            primary="true"
+                            @click="copyPublicLink"
+                            :class="{ copied: publicLinkCopied }"
+                            v-html="
+                              publicLinkCopied
+                                ? $t('public-link-copied')
+                                : $t('file-resume')
+                            "
+                          ></button>
+                        </div>
+                        <div class="flex copy-btn fr-mt-3w">
+                          <button
+                            primary="true"
+                            @click="copyFullLink"
+                            :class="{ copied: fullLinkCopied }"
+                            v-html="
+                              fullLinkCopied
+                                ? $t('full-link-copied')
+                                : $t('file-full')
+                            "
+                          ></button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -730,6 +720,8 @@ export default class Account extends Vue {
   radioVisible = false;
   pub = "false";
   isDeleteModalVisible = false;
+  publicLinkCopied = false;
+  fullLinkCopied = false;
 
   mounted() {
     window.Beacon("init", "d949ac15-a9eb-4316-b0c5-f92cecc7118f");
@@ -744,14 +736,6 @@ export default class Account extends Vue {
       return `${this.TENANT_URL}/public-file/${this.user.apartmentSharing?.tokenPublic}`;
     }
     return `${this.TENANT_URL}/file/${this.user.apartmentSharing?.token}`;
-  }
-
-  oldUpdateDocument() {
-    // TODO
-    const now = new Date();
-    const lastMonth = new Date(now.getDate() - 30);
-    const lastUpdate = new Date(this.user.lastUpdate || new Date());
-    return lastUpdate < lastMonth;
   }
 
   getStatus(docType: string) {
@@ -806,34 +790,38 @@ export default class Account extends Vue {
     return doc?.documentStatus || "EMPTY";
   }
 
-  goToProfile() {
-    this.$store.dispatch("firstProfilePage");
-  }
-
   goToMessaging() {
     this.$router.push("/messaging");
   }
 
-  getDate(d: Date) {
-    // FIXME we should remove getDate and only use user.lastUpdate
-    if (!d) {
-      d = new Date();
-    }
-    return d;
+  removeAnimation() {
+    this.publicLinkCopied = false;
+    this.fullLinkCopied = false;
   }
 
-  shareMail() {
-    // TODO
+  copyPublicLink() {
+    this.copyLink(
+      `${this.TENANT_URL}/public-file/${this.user.apartmentSharing?.tokenPublic}`
+    ).then(() => {
+      this.fullLinkCopied = false;
+      this.publicLinkCopied = true;
+      setTimeout(this.removeAnimation, 4000);
+    });
   }
 
-  copyLink() {
-    const tl = document.querySelector("#tokenLink") as HTMLInputElement;
+  copyFullLink() {
+    this.copyLink(
+      `${this.TENANT_URL}/file/${this.user.apartmentSharing?.token}`
+    ).then(() => {
+      this.publicLinkCopied = false;
+      this.fullLinkCopied = true;
+      setTimeout(this.removeAnimation, 4000);
+    });
+  }
 
-    tl?.setAttribute("type", "text");
-    tl?.select();
-
+  copyLink(url: string) {
     try {
-      document.execCommand("copy");
+      navigator.clipboard.writeText(url);
       this.$toasted.show(this.$i18n.t("copied").toString(), {
         type: "success",
         duration: 3000
@@ -841,8 +829,9 @@ export default class Account extends Vue {
       AnalyticsService.copyLink(this.pub ? "resume" : "full");
     } catch (err) {
       alert("Oops, unable to copy");
+      return Promise.reject("error");
     }
-    tl?.setAttribute("type", "hidden");
+    return Promise.resolve(true);
   }
 
   openDeleteModal() {
@@ -1053,19 +1042,19 @@ h2 {
   position: relative;
 }
 
-.p10 {
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
 .grp-modal {
   position: absolute;
   border-radius: 5px;
   right: 0;
   left: auto;
   width: max-content;
-  padding: 0;
   z-index: 2;
+  padding: 1rem;
+  width: 330px;
+
+  @media all and (max-width: 768px) {
+    max-width: 300px;
+  }
 
   &:before {
     top: -16px;
@@ -1080,9 +1069,39 @@ h2 {
 }
 
 .copy-btn {
-  margin: 0;
-  padding: 1rem;
-  background-color: #f2f2f9;
+  max-width: 100%;
+  > button {
+    width: 100%;
+    text-align: justify;
+    border-radius: 0.25rem;
+    padding: 1rem;
+    font-size: 1rem;
+    box-shadow: 0 0.5px 4px 0 #cecece;
+    border: 1px solid transparent;
+
+    -webkit-transition: all 0.5s linear;
+    -moz-transition: all 0.5s linear;
+    -o-transition: all 0.5s linear;
+    transition: all 0.5s linear;
+
+    &:hover {
+      box-shadow: none;
+      border: 1px solid var(--primary);
+      box-shadow: 0 0.5px 4px 0 transparent;
+      background-image: none;
+    }
+
+    &.copied {
+      color: var(--primary);
+      background-color: var(--background-action-low-blue-france);
+      border: 1px solid var(--primary);
+      box-shadow: 0 0.5px 4px 0 transparent;
+      -webkit-transition: all 0.5s linear;
+      -moz-transition: all 0.5s linear;
+      -o-transition: all 0.5s linear;
+      transition: all 0.5s linear;
+    }
+  }
 }
 
 p {
@@ -1160,8 +1179,29 @@ hr {
   align-items: center;
 }
 
+.mobile-margin {
+  @media all and (max-width: 768px) {
+    margin-bottom: 1rem;
+  }
+}
+
 .btn-container {
   margin-left: auto;
+
+  @media all and (max-width: 600px) {
+    width: 100%;
+  }
+}
+
+.main-copy-btn {
+  height: 2.5rem;
+  @media all and (max-width: 600px) {
+    flex: 1;
+  }
+}
+
+.share-file-description {
+  max-width: fit-content;
 }
 </style>
 
@@ -1203,6 +1243,7 @@ hr {
     "opinion": "Tell us about your experience DossierFacile.fr",
     "delete-account": "Delete my account",
     "share-file": "Share my file",
+    "share-file-description": "Copy your link-file to share it! It's up to you to send it to the owners of your choice (by email, sms, etc.)",
     "file-resume": "Share resumed file <br>(without supporting document)",
     "file-full": "Share full file <br>(with supporting document)",
     "copy": "Copy",
@@ -1236,7 +1277,12 @@ hr {
     "amendment-required-text": "After examining your file, modifications are requested. <br> Check your mailbox for details.",
     "messaging": "Messaging",
     "instructional-time-title": "Instructional time",
-    "instructional-time-text": "Once the files are completed, they are taken care of on average in less than 24 hours by our team of operators."
+    "instructional-time-text": "Once the files are completed, they are taken care of on average in less than 24 hours by our team of operators.",
+    "congratulations-title": "🎉 Congratulations! Your DossierFacile becomes available!",
+    "congratulations-text-1": "In order to apply for the accommodation of your dreams, send your DossierFacile link, by email, SMS, etc. to owners, lessors… of your choice. As a reminder, DossierFacile does not offer accommodation.",
+    "congratulations-text-2": "Your data is protected!",
+    "full-link-copied": "The link of my complete file is copied!",
+    "public-link-copied": "The link of my summary file is copied!"
   },
   "fr": {
     "title": "Bonjour {0}, votre dossier {1} !",
@@ -1274,6 +1320,7 @@ hr {
     "opinion": "Racontez-nous votre expérience DossierFacile.fr",
     "delete-account": "Supprimer mon compte",
     "share-file": "Partager mon dossier",
+    "share-file-description": "Copiez votre lien-dossier pour le partager ! À vous de l'envoyer aux propriétaires ou bailleurs de votre choix (par mail, SMS, etc.)",
     "file-resume": "Partager mon dossier de synthèse <br>(sans pièce justificative)",
     "file-full": "Partager mon dossier complet<br>(avec pièces justificatives)",
     "copy": "Copier",
@@ -1307,7 +1354,12 @@ hr {
     "amendment-required-text": "Après examen de votre dossier, des modifications vous sont demandées. <br>Consultez votre messagerie pour en connaître le détail.",
     "messaging": "Consulter ma messagerie",
     "instructional-time-title": "Durée d'instruction",
-    "instructional-time-text": "Une fois votre dossier complété et déposé, il est pris en charge en moyenne en moins de 24h par notre équipe d'opérateurs."
+    "instructional-time-text": "Une fois votre dossier complété et déposé, il est pris en charge en moyenne en moins de 24h par notre équipe d'opérateurs.",
+    "congratulations-title": "🎉 Félicitations ! Votre DossierFacile est disponible !",
+    "congratulations-text-1": "Afin de candidater au logement de vos rêves, envoyez votre lien DossierFacile, par email, SMS, etc. aux propriétaires, bailleurs de votre choix. Pour rappel, DossierFacile ne propose pas de logement.",
+    "congratulations-text-2": "Vos informations sont protégées !",
+    "full-link-copied": "Le lien de mon dossier complet est copié !",
+    "public-link-copied": "Le lien de mon dossier de synthèse est copié !"
   }
 }
 </i18n>

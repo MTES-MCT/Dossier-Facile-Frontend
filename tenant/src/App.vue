@@ -1,5 +1,10 @@
 <template>
   <div id="app">
+    <Cookies
+      :hidden="cookieHidden"
+      @accept="acceptCookies"
+      @deny="denyCookies"
+    />
     <MyHeader
       :logged-in="isLoggedIn"
       @on-create-tenant="onCreateTenant"
@@ -15,11 +20,6 @@
       <router-view :key="$route.path" />
     </article>
     <TheFooter v-if="!isFunnel" />
-    <Cookies
-      :hidden="cookieHidden"
-      @accept="acceptCookies"
-      @deny="denyCookies"
-    />
   </div>
 </template>
 

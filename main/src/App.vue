@@ -1,5 +1,10 @@
 <template>
   <div id="app" role="main">
+    <Cookies
+      :hidden="cookieHidden"
+      @accept="acceptCookies"
+      @deny="denyCookies"
+    />
     <MyHeader
       @on-create-tenant="onCreateTenant"
       @on-create-owner="onCreateOwner"
@@ -9,11 +14,6 @@
     </MyHeader>
     <router-view />
     <TheFooter />
-    <Cookies
-      :hidden="cookieHidden"
-      @accept="acceptCookies"
-      @deny="denyCookies"
-    />
   </div>
 </template>
 

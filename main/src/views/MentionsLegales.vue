@@ -33,10 +33,12 @@
                 Service DossierFacile,<br />
                 1 place Carpeaux, 92800 Puteaux, France.<br />
                 +33 1 40 81 21 22<br />
-                <br />
+              </p>
+              <p>  
                 Directeur de publication : Stéphanie Dupuy-Lyon, directrice
-                générale de l’aménagement, du logement et de la nature<br />
-                <br />
+                générale de l’aménagement, du logement et de la nature
+              </p>
+              <p>
                 Prestataire d’hébergement :<br />
                 OVH,<br />
                 2 rue Kellermann, 59100 Roubaix, France
@@ -53,14 +55,22 @@
                 permettant à l’Utilisateur de constituer un dossier de location
                 numérique de qualité afin de faciliter sa recherche de logement
                 Le service permet également à l’Utilisateur de protéger les
-                documents envoyés par l’ajout d’un filigrane.<br />
-                Ce service est destiné aux particuliers.<br />
+                documents envoyés par l’ajout d’un filigrane.
+              </p>
+              <p>
+                Ce service est destiné aux particuliers.
+              </p>
+              <p>
                 Les présentes Conditions générales d’utilisation ont pour objet
                 de régler les relations entre les différents intervenants sur le
                 service. Elles définissent les conditions et modalités
-                d’utilisation des services.<br />
+                d’utilisation des services.
+              </p>
+              <p>
                 Le service est développé et opéré par le Ministère de la
-                Transition écologique.<br />
+                Transition écologique.
+              </p>
+              <p>
                 L’utilisation du service est libre, facultative et gratuite.<br />
                 Toute utilisation du service est subordonnée à l’acceptation
                 préalable et au respect intégral des présentes Conditions
@@ -69,7 +79,9 @@
               <h3>2. Définitions</h3>
               <p>
                 L’Éditeur : La personne, physique ou morale, qui édite les
-                services de communication au public en ligne.<br />
+                services de communication au public en ligne.
+              </p>
+              <p>
                 Le Site : se réfère indistinctement à l’application web et à
                 l’interface de programmation applicative (API) ayant pour
                 adresse www.dossierfacile.fr et les sous-domaines suivants :<br />
@@ -78,9 +90,12 @@
                 ><br />
                 <a href="https://proprietaire.dossierfacile.fr"
                   >https://proprietaire.dossierfacile.fr</a
-                ><br />
+                >
+              </p>
+              <p>
                 L’Utilisateur : La personne utilisant le Site et les
-                services.<br />
+                services.
+              <p>
                 Le Garant : La ou les personnes physiques désignées par
                 l’Utilisateur et se portant caution pour lui dans le cadre de sa
                 recherche de logement.
@@ -98,34 +113,40 @@
               <p>
                 L’utilisation du service nécessite une inscription et une
                 identification préalable. Les données de l’Utilisateur sont
-                utilisées conformément aux dispositions de la partie « 6 ».<br />
-                <br />
+                utilisées conformément aux dispositions de la partie « 6 ».
+              </p>
+              <p>
                 L’Utilisateur s’engage à ne pas fournir de fausses informations
                 nominatives et à ne pas créer de compte pour une autre personne
                 sans son autorisation. Par ailleurs, il s’engage à s’assurer de
                 l’exactitude des informations relatives à ses coordonnées, en
-                les mettant à jour dès que nécessaire.<br />
-                <br />
+                les mettant à jour dès que nécessaire.
+              </p>
+              <p>
                 Pour profiter du service offert, l’Utilisateur accepte de
                 renseigner des données le concernant, et en particulier son nom
                 et prénom, code postal, situation locative (seul, en couple, en
                 colocation), sa situation professionnelle (CDI, étudiant,
-                retraité…) et son revenu mensuel net.<br />
-                <br />
+                retraité…) et son revenu mensuel net.
+              </p>
+              <p>
                 Afin de justifier les informations renseignées, l’Utilisateur
                 accepte de télécharger les pièces justificatives suivantes : une
                 pièce d’identité valide, un justificatif de domicile, un
                 justificatif de situation professionnelle, un avis d’imposition
                 récent et un justificatif de ressources. Il a la possibilité
                 d’ajouter un garant pour sa caution, il doit alors télécharger
-                les mêmes documents pour son garant.<br />
+                les mêmes documents pour son garant.
+              </p>
+              <p>
                 Ces documents correspondent aux standards en vigueur dans la
                 plupart des agences immobilières gestionnaires de biens
                 immobiliers, et sont autorisés à être demandés au titre du
                 décret n° 2015-1437 du 5 novembre 2015 fixant la liste des
                 pièces justificatives pouvant être demandées au candidat à la
-                location et à sa caution.<br />
-                <br />
+                location et à sa caution.
+              </p>
+              <p>
                 Afin de protéger les informations personnelles de l’Utilisateur
                 et pour lutter contre la fraude, les documents téléchargés sont
                 protégés par DossierFacile en étant recouverts du filigrane
@@ -138,12 +159,16 @@
                 Nous publions sur DossierFacile des données publiques à titre
                 informatif. Seules les publications légales font foi, notamment
                 au Journal officiel de la République française ou aux recueils
-                des actes administratifs des préfectures.<br />
+                des actes administratifs des préfectures.
+              </p>
+              <p>
                 Par conséquent, les informations publiées sur DossierFacile ne
                 sauraient engager la responsabilité de leur éditeur ou d’un
                 quelconque service de l’État, l’utilisateur y ayant recours en
                 ayant conscience des potentielles erreurs ou omissions qu’elles
-                peuvent comporter.<br />
+                peuvent comporter.
+              </p>
+              <p>
                 Nous nous efforçons de livrer des données de la meilleure
                 qualité possible. Toutefois, malgré toute notre attention, elles
                 peuvent encore comporter des erreurs ou omissions. Si vous
@@ -160,15 +185,17 @@
                 partielle de ce site par quelque procédé que ce soit, sans
                 l'autorisation expresse de son propriétaire est interdite et
                 constituerait une contrefaçon sanctionnée par les articles L.
-                335-2 du Code de la propriété intellectuelle.<br />
-                <br />
+                335-2 du Code de la propriété intellectuelle.
+              </p>
+              <p>
                 Si vous souhaitez reproduire ou réutiliser des contenus présents
                 sur ce site, veuillez nous contacter à l’adresse
                 <a href="mailto:contact@dossierfacile.fr"
                   >contact@dossierfacile.fr</a
                 >
-                pour connaître les conditions de réutilisation applicables.<br />
-                <br />
+                pour connaître les conditions de réutilisation applicables.
+              </p>
+              <p>
                 Les marques dont est titulaire le ministère de la Transition
                 écologique, ainsi que ses logos figurant sur le site sont des
                 marques régulièrement déposées auprès de l’Institut national de
@@ -209,8 +236,9 @@
                 une garantie apportée par DossierFacile sur les dossiers ayant
                 fait l’objet d’une labellisation. En particulier, DossierFacile
                 ne garantit en rien l’authenticité des pièces déposées par les
-                utilisateurs et vérifiées par le service.<br />
-                <br />
+                utilisateurs et vérifiées par le service.
+              </p>
+              <p>
                 Nous nous efforçons de garantir que les dossiers labellisés
                 soient clairs, complets et cohérents. Toutefois, malgré toute
                 notre attention, elles peuvent encore comporter des erreurs ou
@@ -219,18 +247,21 @@
                 l’adresse
                 <a href="mailto:contact@dossierfacile.fr"
                   >contact@dossierfacile.fr</a
-                ><br />
-                <br />
+                >
+              </p>
+              <p>
                 En aucun cas, DossierFacile ne peut être tenu responsable en cas
                 de litige entre un locataire et un bailleur, ou quelque
-                intermédiaire que ce soit.<br />
-                <br />
+                intermédiaire que ce soit.
+              </p>
+              <p>
                 DossierFacile ne saurait être tenu responsable des éventuelles
                 difficultés de fonctionnement du service, ni être engagé
                 directement ou indirectement vis-à-vis des utilisateurs du
                 partenaire pour tout incident tenant au fonctionnement de
-                service.<br />
-                <br />
+                service.
+              </p>
+              <p>
                 Nous nous engageons à protéger vos données, toutefois cet
                 engagement ne saurait être assimilé à une reconnaissance de
                 faute ou de responsabilité en cas d’incident relatif à une
@@ -254,7 +285,9 @@
                 garantie sur sa disponibilité. Même si l'Éditeur fait en sorte
                 que le service soit toujours opérationnel, cela signifie que
                 d’éventuelles indisponibilités n’ouvriront pas droit à
-                compensation financière. <br />
+                compensation financière. 
+              </p>
+              <p>
                 L'Éditeur se réserve également le droit de bloquer, sans
                 information préalable ni compensation financière, les usages
                 mettant en péril l’utilisation du logiciel par d’autres usagers.
@@ -288,7 +321,9 @@
                 présentes CGU en France ou dans le pays de l'UE dans lequel vous
                 vivez. Si vous êtes un professionnel, toutes les actions à notre
                 encontre doivent être engagées devant une juridiction en
-                France.<br />
+                France.
+              </p>
+              <p>
                 En cas de litige, les parties chercheront une solution amiable
                 avant toute action judiciaire. En cas d’échec de ces tentatives,
                 toutes contestations à la validité, l'interprétation et / ou
@@ -307,7 +342,9 @@
                 règlement général sur la protection des données du 27 avril
                 2016, applicable depuis le 25 mai 2018, et à la loi informatique
                 et libertés dans sa dernière version modifiée du 20 juin
-                2018.<br />
+                2018.
+              </p>
+              <p>
                 Ces dispositions fixent des règles strictes de confidentialité
                 et de sécurité à toute organisation, publique et privée, dans le
                 cadre du traitement des données à caractère personnel de leurs
@@ -437,10 +474,14 @@
                 définie dans les présentes CGU, ou, dans le cas où l’Utilisateur
                 a accédé à DossierFacile via un site partenaire, à ce
                 partenaire, qui informera ses usagers des données personnelles
-                pouvant être recueillies.<br />
+                pouvant être recueillies.
+              </p>
+              <p>
                 Vous êtes libre de donner l’accès à vos données à des tiers dans
                 le cadre de l’utilisation du site en leur envoyant votre lien
-                dossier.<br />
+                dossier.
+              </p>
+              <p>
                 Vous êtes toutefois informé que vos données pourront être
                 divulguées en application d'une loi, d'un règlement ou en vertu
                 d'une décision d'une autorité réglementaire ou judiciaire
@@ -506,32 +547,36 @@
                 suppression de vos données.
               </p>
               <div class="fr-ml-3w">
-                <p>
-                  Par mail :
+                <ul>
+                  <li>Par mail :
                   <a href="mailto:contact@dossierfacile.fr"
                     >contact@dossierfacile.fr</a
                   >
-                  <br />
-                  Par voie postale :<br />
+                  </li>
+                  <li>Par voie postale :<br />
                   Ministère de la Transition écologique et solidaire<br />
                   Direction Générale de l'Aménagement, du Logement et de la
                   Nature<br />
                   Direction de l’habitat, de l’urbanisme et des paysages<br />
                   DossierFacile<br />
                   1 place Carpeaux, 92800 Puteaux
-                </p>
+                  </li>
+                </ul>
               </div>
               <p>
-                <br />
                 Cette demande écrite est accompagnée d’une copie du titre
                 d’identité avec signature du titulaire de la pièce, en précisant
-                l’adresse à laquelle la réponse doit être envoyée.<br />
-                <br />
+                l’adresse à laquelle la réponse doit être envoyée.
+              </p>
+              <p>
                 Le délégué à la protection des données du ministère de la
                 transition écologique et solidaire peut également être contacté
-                à l’adresse suivante :<br />
-                dpd.daj.sg@developpement-durable.gouv.fr <br />
-                <br />
+                à l’adresse suivante : 
+              </p>
+              <p>
+                dpd.daj.sg@developpement-durable.gouv.fr
+              </p>
+              <p>
                 Conformément au règlement général sur la protection des données,
                 vous disposez du droit d’introduire une réclamation auprès de la
                 CNIL (3 place de Fontenoy – TSA 80715 – 75334 PARIS CEDEX 07).
@@ -573,7 +618,9 @@
                 niveau de sécurité adapté au regard des risques d'accès
                 accidentels, non autorisés ou illégaux, de divulgation,
                 d'altération, de perte ou encore de destruction des données
-                personnelles vous concernant.<br />
+                personnelles vous concernant.
+              </p>
+              <p>
                 Dans l'éventualité où nous prendrions connaissance d'un accès
                 illégal aux données personnelles vous concernant stockées sur
                 nos serveurs ou ceux de nos prestataires, ou d'un accès non
@@ -642,6 +689,7 @@ h6 {
   background-size: cover !important;
   background-position: 50% 50% !important;
   background-image: url("../assets/images/en-savoir-plus/en-savoir-plus-image2.jpg");
+  background-color:#314467;
   z-index: 0;
 }
 </style>
