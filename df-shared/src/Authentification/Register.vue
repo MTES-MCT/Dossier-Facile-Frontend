@@ -11,9 +11,23 @@
             <router-link :to="{name: 'SourceLink', params: getParams(), query: getQuery()}" class="color--primary">{{ $t('connect-france-connect') }}</router-link>
           </div>
           <div v-else>
-            <a href="/account">
-              {{ $t('connect-france-connect') }}
-            </a>
+            <div id="kc-social-providers" class="fr-mt-5w fr-mb-1w text-center">
+              <ul>
+                <a id="social-franceconnect-particulier" class="inline-block"
+                  type="button" :href="getLoginLink()">
+                  <span>{{ $t('connect-france-particulier') }}</span>
+                </a>
+              </ul>
+            </div>
+            <div class="text-center">
+              <a href="https://app.franceconnect.gouv.fr/en-savoir-plus" id="cQuoiFCGauche" target="_blank" rel="noopener">
+                  Qu'est-ce que FranceConnect?
+              </a>
+              <br>
+              <div class="fr-mt-2w fr-mb-5w small-text">
+                FranceConnect est la solution proposée par l’État pour sécuriser et simplifier la connexion à vos services en ligne
+              </div>
+            </div>
           </div>
         </div>
 
@@ -205,6 +219,7 @@ extend("is", {
 })
 export default class Register extends Vue {
   SITE_KEY = process.env.VUE_APP_CAPTCHA_SITE_KEY;
+  FRANCE_CONNECT_LOGIN_URL = process.env.VUE_APP_FRANCE_CONNECT_LOGIN_URL;
 
   @Prop({ default: "" }) email!: string;
   franceConnect = window.location.href.includes("locataire-dev") || window.location.href.includes("localhost");
@@ -257,6 +272,10 @@ export default class Register extends Vue {
     const chars = ["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz","0123456789", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", "#!?-_."];
     this.generatedPwd = this.$i18n.t('ex') + [4,4,2,2].map(function(len, i) { return Array(len).fill(chars[i]).map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('') }).concat().join('').split('').sort(function(){return 0.5-Math.random()}).join('');
   }
+
+  getLoginLink() {
+    return this.FRANCE_CONNECT_LOGIN_URL;
+  }
 }
 </script>
 
@@ -288,6 +307,45 @@ export default class Register extends Vue {
 .separator:not(:empty)::after {
   margin-left: 2rem;
 }
+    
+    a.zocial.franceconnect-particulier {
+	background: url(../assets/fc/franceconnect-bouton@2x.png) no-repeat left top;
+	height: 70px;
+	width: auto;
+	padding-top: 60px;
+    }
+    
+    a.zocial.franceconnect-particulier:hover {
+	background: url(../assets/fc/franceconnect-bouton-hover@2x.png) no-repeat left top !important;
+	height: 70px;
+	width: auto;
+    }
+    
+    a.zocial.franceconnect-particulier span {
+	display:none;
+    }
+    
+    a#social-franceconnect-particulier {
+	background: url(../assets/fc/franceconnect-bouton.png) no-repeat left top;
+	height: 60px;
+	width: 230px;
+       
+    }
+    
+    a#social-franceconnect-particulier:hover {
+	background: url(../assets/fc/franceconnect-bouton-hover.png) no-repeat left top !important;
+	height: 60px;
+	width: 230px;
+    }
+    
+    a#social-franceconnect-particulier span {
+	display:none;
+    }
+
+    .inline-block {
+      display: inline-block;
+    }
+
 </style>
 
 <i18n>
