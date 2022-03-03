@@ -315,10 +315,10 @@
           />
           <LogoPartnerComponent
             :image="require('../assets/logos/immoloyer.webp')"
-            height="47px"
+            height="60px"
             href="https://www.immobilierloyer.com/"
             name="immobilier loyer"
-            width="160px"
+            width="208px"
           />
           <LogoPartnerComponent
             height="60px"
@@ -332,13 +332,7 @@
             name="mydomus"
             width="214px"
           />
-          <LogoPartnerComponent
-            :image="require('../assets/logos/mes-droits-sociaux.webp')"
-            height="60px"
-            href="https://www.mesdroitssociaux.gouv.fr/"
-            name="mes droits sociaux"
-            width="223px"
-          />
+
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
