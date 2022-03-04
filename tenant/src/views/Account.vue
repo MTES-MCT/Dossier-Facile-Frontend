@@ -158,7 +158,7 @@
                     </div>
                   </div>
                 </div>
-                <hr />
+                <hr class="fr-mt-4w" />
                 <h4>{{ $t("my-files") }}</h4>
 
                 <div class="fr-grid-row fr-grid-row--gutters">
@@ -308,319 +308,11 @@
                   </div>
                 </div>
               </div>
-              <hr v-if="user.guarantors.length > 0" />
-              <div
-                class="main-guarantor-information"
-                v-if="user.guarantors.length > 0"
-              >
-                <h4>{{ $t("guarantors-information") }}</h4>
 
-                <div v-for="g in user.guarantors" v-bind:key="g.id">
-                  <div v-if="g.typeGuarantor === 'NATURAL_PERSON'">
-                    <div class="fr-grid-row fr-grid-row--gutters">
-                      <div
-                        class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click.prevent="setGuarantorSubStep(1, g)"
-                      >
-                        <div class="fr-tile fr-tile--horizontal">
-                          <div class="fr-tile__body fr-ml-2w fr-mr-2w">
-                            <h4 class="fr-tile__title">
-                              <a class="fr-tile__link" href>{{
-                                $t("identification")
-                              }}</a>
-                            </h4>
-                            <ColoredTag
-                              :text="
-                                $t(
-                                  's_' + getGuarantorStatus(g, 'IDENTIFICATION')
-                                )
-                              "
-                              :status="getGuarantorStatus(g, 'IDENTIFICATION')"
-                            ></ColoredTag>
-                            <button
-                              class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
-                              title="Edit"
-                            >
-                              <span class="sr-only"> Edit </span>
-                            </button>
-                          </div>
-                          <div class="fr-tile__img-wrap fr-ml-2w">
-                            <span class="color--primary material-icons md-adapt"
-                              >person</span
-                            >
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click.prevent="setGuarantorSubStep(2, g)"
-                      >
-                        <div class="fr-tile fr-tile--horizontal">
-                          <div class="fr-tile__body fr-ml-2w fr-mr-2w">
-                            <h4 class="fr-tile__title">
-                              <a class="fr-tile__link" href>{{
-                                $t("residency")
-                              }}</a>
-                            </h4>
-                            <ColoredTag
-                              :text="
-                                $t('s_' + getGuarantorStatus(g, 'RESIDENCY'))
-                              "
-                              :status="getGuarantorStatus(g, 'RESIDENCY')"
-                            ></ColoredTag>
-                            <button
-                              class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
-                              title="Edit"
-                            >
-                              <span class="sr-only"> Edit </span>
-                            </button>
-                          </div>
-                          <div class="fr-tile__img-wrap fr-ml-2w">
-                            <span class="color--primary material-icons md-adapt"
-                              >home</span
-                            >
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click.prevent="setGuarantorSubStep(3, g)"
-                      >
-                        <div class="fr-tile fr-tile--horizontal">
-                          <div class="fr-tile__body fr-ml-2w fr-mr-2w">
-                            <h4 class="fr-tile__title">
-                              <a class="fr-tile__link" href>{{
-                                $t("professional")
-                              }}</a>
-                            </h4>
-                            <ColoredTag
-                              :text="
-                                $t('s_' + getGuarantorStatus(g, 'PROFESSIONAL'))
-                              "
-                              :status="getGuarantorStatus(g, 'PROFESSIONAL')"
-                            ></ColoredTag>
-                            <button
-                              class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
-                              title="Edit"
-                            >
-                              <span class="sr-only"> Edit </span>
-                            </button>
-                          </div>
-                          <div class="fr-tile__img-wrap fr-ml-2w">
-                            <span class="color--primary material-icons md-adapt"
-                              >work</span
-                            >
-                          </div>
-                        </div>
-                      </div>
-
-                      <div
-                        class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click.prevent="setGuarantorSubStep(4, g)"
-                      >
-                        <div class="fr-tile fr-tile--horizontal">
-                          <div class="fr-tile__body fr-ml-2w fr-mr-2w">
-                            <h4 class="fr-tile__title">
-                              <a class="fr-tile__link" href>{{
-                                $t("financial")
-                              }}</a>
-                            </h4>
-                            <ColoredTag
-                              :text="
-                                $t('s_' + getGuarantorStatus(g, 'FINANCIAL'))
-                              "
-                              :status="getGuarantorStatus(g, 'FINANCIAL')"
-                            ></ColoredTag>
-                            <button
-                              class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
-                              title="Edit"
-                            >
-                              <span class="sr-only"> Edit </span>
-                            </button>
-                          </div>
-                          <div class="fr-tile__img-wrap fr-ml-2w">
-                            <span class="color--primary material-icons md-adapt"
-                              >euro</span
-                            >
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click.prevent="setGuarantorSubStep(5, g)"
-                      >
-                        <div class="fr-tile fr-tile--horizontal">
-                          <div class="fr-tile__body fr-ml-2w fr-mr-2w">
-                            <h4 class="fr-tile__title">
-                              <a class="fr-tile__link" href>{{ $t("tax") }}</a>
-                            </h4>
-                            <ColoredTag
-                              :text="$t('s_' + getGuarantorStatus(g, 'TAX'))"
-                              :status="getGuarantorStatus(g, 'TAX')"
-                            ></ColoredTag>
-                            <button
-                              class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
-                              title="Edit"
-                            >
-                              <span class="sr-only"> Edit </span>
-                            </button>
-                          </div>
-                          <div class="fr-tile__img-wrap fr-ml-2w">
-                            <span class="color--primary material-icons md-adapt"
-                              >content_copy</span
-                            >
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div v-if="g.typeGuarantor === 'ORGANISM'">
-                    <div class="fr-grid-row fr-grid-row--gutters">
-                      <div
-                        class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click.prevent="setGuarantorSubStep(1, g)"
-                      >
-                        <div class="fr-tile fr-tile--horizontal">
-                          <div class="fr-tile__body fr-ml-2w fr-mr-2w">
-                            <h4 class="fr-tile__title">
-                              <a class="fr-tile__link" href>{{
-                                $t("organism-identification")
-                              }}</a>
-                            </h4>
-                            <ColoredTag
-                              :text="
-                                $t(
-                                  's_' + getGuarantorStatus(g, 'IDENTIFICATION')
-                                )
-                              "
-                              :status="getGuarantorStatus(g, 'IDENTIFICATION')"
-                            ></ColoredTag>
-                            <button
-                              class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
-                              title="Edit"
-                            >
-                              <span class="sr-only"> Edit </span>
-                            </button>
-                          </div>
-                          <div class="fr-tile__img-wrap fr-ml-2w">
-                            <span class="color--primary material-icons md-adapt"
-                              >person</span
-                            >
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
-                    <div class="fr-grid-row fr-grid-row--gutters">
-                      <div
-                        class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click.prevent="setGuarantorSubStep(1, g)"
-                      >
-                        <div class="fr-tile fr-tile--horizontal">
-                          <div class="fr-tile__body fr-ml-2w fr-mr-2w">
-                            <h4 class="fr-tile__title">
-                              <a class="fr-tile__link" href>{{
-                                $t("identification-legal-person")
-                              }}</a>
-                            </h4>
-                            <ColoredTag
-                              :text="
-                                $t(
-                                  's_' +
-                                    getGuarantorStatus(
-                                      g,
-                                      'IDENTIFICATION_LEGAL_PERSON'
-                                    )
-                                )
-                              "
-                              :status="
-                                getGuarantorStatus(
-                                  g,
-                                  'IDENTIFICATION_LEGAL_PERSON'
-                                )
-                              "
-                            ></ColoredTag>
-                            <button
-                              class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
-                              title="Edit"
-                            >
-                              <span class="sr-only"> Edit </span>
-                            </button>
-                          </div>
-                          <div class="fr-tile__img-wrap fr-ml-2w">
-                            <span class="color--primary material-icons md-adapt"
-                              >person</span
-                            >
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="fr-grid-row fr-grid-row--gutters">
-                      <div
-                        class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                        @click.prevent="setGuarantorSubStep(2, g)"
-                      >
-                        <div class="fr-tile fr-tile--horizontal">
-                          <div class="fr-tile__body fr-ml-2w fr-mr-2w">
-                            <h4 class="fr-tile__title">
-                              <a class="fr-tile__link" href>{{
-                                $t("identification")
-                              }}</a>
-                            </h4>
-                            <ColoredTag
-                              :text="
-                                $t(
-                                  's_' + getGuarantorStatus(g, 'IDENTIFICATION')
-                                )
-                              "
-                              :status="getGuarantorStatus(g, 'IDENTIFICATION')"
-                            ></ColoredTag>
-                            <button
-                              class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
-                              title="Edit"
-                            >
-                              <span class="sr-only"> Edit </span>
-                            </button>
-                          </div>
-                          <div class="fr-tile__img-wrap fr-ml-2w">
-                            <span class="color--primary material-icons md-adapt"
-                              >person</span
-                            >
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <GuarantorsSection />
             </div>
-            <div class="partners">
-              <h2 class="fr-pt-4w fr-pb-2w">{{ $t("partners") }}</h2>
-              <div class="fr-grid-row fr-grid-row--gutters">
-                <div class="fr-col-md-6 fr-col-12">
-                  <a
-                    class="cleana"
-                    href="https://www.visale.fr/#!/"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <div class="bg-white partner-box logo-visale"></div>
-                  </a>
-                </div>
-                <div class="fr-col-md-6 fr-col-12">
-                  <a
-                    class="cleana"
-                    href="https://www.anil.org/"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <div class="bg-white partner-box logo-anil"></div>
-                  </a>
-                </div>
-              </div>
-            </div>
+            <PartnersSection />
+
             <div class="delete">
               <h2 class="fr-pt-4w fr-pb-2w">{{ $t("delete") }}</h2>
               <div class="bg-white fr-p-4w">
@@ -691,6 +383,8 @@ import { AnalyticsService } from "../services/AnalyticsService";
 import { extend } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
 import DeleteAccount from "../components/DeleteAccount.vue";
+import GuarantorsSection from "@/components/account/GuarantorsSection.vue";
+import PartnersSection from "@/components/account/PartnersSection.vue";
 
 extend("required", {
   ...required,
@@ -699,6 +393,8 @@ extend("required", {
 
 @Component({
   components: {
+    PartnersSection,
+    GuarantorsSection,
     ValidationProvider,
     ValidationObserver,
     DfButton,
@@ -775,19 +471,6 @@ export default class Account extends Vue {
     }
 
     return "VALIDATED";
-  }
-
-  getGuarantorStatus(g: Guarantor, docType: string) {
-    if (docType === "FINANCIAL") {
-      const docs = g.documents?.filter(d => {
-        return d.documentCategory === "FINANCIAL";
-      });
-      return this.isFinancialValid(docs || []);
-    }
-    const doc = g.documents?.find((d: DfDocument) => {
-      return d.documentCategory === docType;
-    });
-    return doc?.documentStatus || "EMPTY";
   }
 
   goToMessaging() {
@@ -944,11 +627,6 @@ export default class Account extends Vue {
       params: { substep: n.toString() }
     });
   }
-
-  setGuarantorSubStep(n: number, g: Guarantor) {
-    AnalyticsService.editFromAccount(n);
-    this.$store.dispatch("setGuarantorPage", { guarantor: g, substep: n });
-  }
 }
 </script>
 
@@ -998,38 +676,6 @@ h2 {
   background-color: var(--error);
   --color-hover: rgba(246, 0, 0, 0.5);
   --color-active: rgba(255, 91, 91, 0.5);
-}
-
-.visale-img {
-  max-height: 72px;
-  margin: auto;
-  margin-top: 14px;
-  margin-bottom: 14px;
-}
-
-.logo-anil {
-  background-image: url("../assets/anil_grey.png");
-  &:hover {
-    background-image: url("../assets/anil.png");
-  }
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.logo-visale {
-  background-image: url("../assets/visale_grey.png");
-  &:hover {
-    background-image: url("../assets/visale.png");
-  }
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.partners .bg-white {
-  padding: 2rem;
-  @media (max-width: 768px) {
-    padding: 1rem;
-  }
 }
 
 .grp {
@@ -1137,13 +783,6 @@ hr {
   border-top: 1px solid var(--g400);
 }
 
-.partner-box {
-  height: 196px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .fr-tile__body {
   overflow: auto;
 }
@@ -1225,10 +864,6 @@ hr {
     "professional": "Professional",
     "financial": "Financial",
     "tax": "Tax",
-    "representative-identification": "Representative identification",
-    "corporation-identification": "Corporation identification",
-    "guarantor": "Guarantor",
-    "guarantors-information": "My guarantors information",
     "s_TO_PROCESS":"To process",
     "s_VALIDATED":"Validated",
     "s_DECLINED":"Declined",
@@ -1238,7 +873,6 @@ hr {
     "VALIDATED":"is validated",
     "DECLINED":"is declined",
     "INCOMPLETE":"is incomplete",
-    "partners": "Our partners",
     "delete": "Deletion of my account",
     "opinion": "Tell us about your experience DossierFacile.fr",
     "delete-account": "Delete my account",
@@ -1263,11 +897,9 @@ hr {
     "OTHER": "Autre",
     "no-income": "have no income",
     "income": "have a monthly income of {0}€",
-    "identification-legal-person": "Legal person identification",
     "copied": "Copied !",
     "ALONE": "alone",
     "couple-with": "in relationship with {0}",
-    "organism-identification": "Organism",
     "someone": " someone",
     "group-with": "in flatsharing with {0}",
     "group-with-someone": "in flatsharing",
@@ -1302,10 +934,6 @@ hr {
     "professional": "Justificatif de situation professionnelle",
     "financial": "Justificatif de ressources",
     "tax": "Avis d’imposition",
-    "representative-identification": "Identité de la personne morale",
-    "corporation-identification": "Identité du représentant de la personne morale",
-    "guarantor": "Garant",
-    "guarantors-information": "Les informations de mes garants",
     "s_TO_PROCESS":"En cours de traitement",
     "s_VALIDATED":"Vérifié",
     "s_DECLINED":"Modification demandée",
@@ -1315,7 +943,6 @@ hr {
     "VALIDATED":"est vérifié",
     "DECLINED":"nécessite une modification",
     "INCOMPLETE":"est non terminé",
-    "partners": "Nos partenaires",
     "delete": "Suppression de mon compte",
     "opinion": "Racontez-nous votre expérience DossierFacile.fr",
     "delete-account": "Supprimer mon compte",
@@ -1340,13 +967,11 @@ hr {
     "OTHER": "Autre",
     "no-income": "ne pas avoir de revenu",
     "income": "avoir un revenu net mensuel de {0}€",
-    "identification-legal-person": "Identification de la personne morale",
     "copied": "Copié !",
     "ALONE": "seul·e",
     "couple-with": "en couple avec {0}",
     "group-with": "en colocation avec {0}",
     "group-with-someone": "en colocation",
-    "organism-identification": "Certificat de l'organisme",
     "someone": " quelqu'un",
     "spouse-cannot-copy-link": "Votre lien est inactif car le dossier de votre conjoint·e n'est pas encore validé",
     "cotenant-cannot-copy-link": "Votre lien est inactif car le dossier de votre(vos) colocataire(s) n'est pas encore validé",
