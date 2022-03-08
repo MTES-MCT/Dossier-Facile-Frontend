@@ -7,9 +7,19 @@
           <h4>
             {{ guarantorTitle(g) }}
           </h4>
-          <a href @click.prevent="removeGuarantor(g)">{{
-            $t("delete-guarantor")
-          }}</a>
+          <a
+            href
+            :title="$t('delete-guarantor')"
+            @click.prevent="openConfirmModal()"
+            >{{ $t("delete-guarantor") }}</a
+          >
+          <ConfirmModal
+            v-if="showConfirmModal"
+            @valid="removeGuarantor(g)"
+            @cancel="closeConfirmModal()"
+          >
+            <div>{{ $t("confirm-delete-guarantor") }}</div>
+          </ConfirmModal>
         </div>
         <div v-if="g.typeGuarantor === 'NATURAL_PERSON'">
           <div class="fr-grid-row fr-grid-row--gutters">
@@ -113,8 +123,8 @@
 
     <div
       v-if="
-        guarantors.length == 0 ||
-          (guarantors.length == 1 &&
+        guarantors.length === 0 ||
+          (guarantors.length === 1 &&
             guarantors[0].typeGuarantor === 'NATURAL_PERSON')
       "
     >
@@ -123,15 +133,14 @@
       <div class="fr-grid-row fr-grid-row--gutters">
         <div
           class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-          @click.prevent="setAddGuarantorStep()"
         >
-          <button class="bg-purple add-guarantor-btn">
+          <button class="bg-purple add-guarantor-btn" @click.prevent="setAddGuarantorStep()">
             {{ $t("add-guarantor") }}
           </button>
         </div>
 
         <div
-          v-if="guarantors.length == 0"
+          v-if="guarantors.length === 0"
           class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
         >
           <a
@@ -139,6 +148,7 @@
             href="https://www.visale.fr/#!/"
             rel="noreferrer"
             target="_blank"
+            :title="$t('go-to-visale')"
           >
             <div class="fr-tile bg-purple">
               <div>{{ $t("visale-text") }}</div>
@@ -170,9 +180,10 @@ import { DfDocument } from "df-shared/src/models/DfDocument";
 import InfoCard from "@/components/account/InfoCard.vue";
 import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 import { mapGetters } from "vuex";
+import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 
 @Component({
-  components: { InfoCard, ColoredTag },
+  components: { InfoCard, ColoredTag, ConfirmModal },
   computed: {
     ...mapGetters({
       guarantors: "guarantors"
@@ -181,6 +192,7 @@ import { mapGetters } from "vuex";
 })
 export default class GuarantorsSection extends Vue {
   guarantors!: Guarantor[];
+  showConfirmModal = false;
 
   guarantorTitle(g: Guarantor) {
     if (g.typeGuarantor === "NATURAL_PERSON")
@@ -247,13 +259,21 @@ export default class GuarantorsSection extends Vue {
     }
   }
 
+  openConfirmModal() {
+    this.showConfirmModal = true;
+  }
+  closeConfirmModal() {
+    this.showConfirmModal = false;
+  }
   removeGuarantor(g: Guarantor) {
     this.$store.dispatch("deleteGuarantor", g).then(
       () => {
         Vue.toasted.global.delete_success();
+        this.closeConfirmModal()
       },
       () => {
         Vue.toasted.global.delete_failed();
+        this.closeConfirmModal()
       }
     );
   }
@@ -342,9 +362,11 @@ hr {
     "identification-legal-person": "Legal person identification",
     "organism-identification": "Organism",
     "delete-guarantor": "Delete guarantor",
+    "confirm-delete-guarantor" : "Are you sure to delete this guarantor ?",
     "add-guarantor": "Add a guarantor ?",
     "visale-title": "Do you know Visale ?",
     "visale-text": "Visale is the guarantor of your future accommodation if you are between 18 and 30 years old OR if you are employees over 30 years old (subject to conditions).",
+    "go-to-visale": "Go to « visale »'s website (new window)",
     "identification": "Identification",
     "residency": "Residency",
     "professional": "Professional",
@@ -366,9 +388,11 @@ hr {
     "identification-legal-person": "Identification de la personne morale",
     "organism-identification": "Certificat de l'organisme",
     "delete-guarantor": "Supprimer ce garant",
+    "confirm-delete-guarantor" : "Êtes-vous sur de vouloir supprimer ce garant ?",
     "add-guarantor": "Ajouter un garant ?",
     "visale-title": "Connaissez-vous Visale ?",
     "visale-text": "Visale est le garant de votre futur logement si vous avez entre 18 et 30 ans OU si vous êtes salariés de + de 30 ans (soumis à conditions).",
+    "go-to-visale": "Aller sur le site de « visale » (nouvelle fenêtre)",
     "identification": "Pièce d'identité",
     "residency": "Justificatif de domicile",
     "professional": "Justificatif de situation professionnelle",

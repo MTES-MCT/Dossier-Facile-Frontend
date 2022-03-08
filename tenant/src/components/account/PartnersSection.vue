@@ -6,14 +6,13 @@
         <div class="fr-tile bg-purple fr-p-3w cleana">
           <div class="service-box-btn">
             <a
-              class="cleana"
+              class="fr-btn fr-mt-1w fr-ml-2w cleana"
               href="https://www.anil.org/lanil-et-les-adil/votre-adil/"
               rel="noreferrer"
               target="_blank"
+              :title="$t('go-to-anil')"
             >
-              <button class="fr-btn fr-mt-1w fr-ml-2w">
-                {{ $t("anil-btn") }}
-              </button>
+              {{ $t("anil-btn") }}
             </a>
           </div>
           <div class="service-box-content">
@@ -33,14 +32,13 @@
         <div class="fr-tile bg-purple fr-p-3w cleana">
           <div class="service-box-btn">
             <a
-              class="cleana"
+              class="fr-btn fr-mt-1w fr-ml-2w cleana"
               href="https://www.mesdroitssociaux.gouv.fr/votre-simulateur/accueil"
               rel="noreferrer"
               target="_blank"
+              :title="$t('go-to-mds')"
             >
-              <button class="fr-btn fr-mt-1w fr-ml-2w">
-                {{ $t("mds-btn") }}
-              </button>
+              {{ $t("mds-btn") }}
             </a>
           </div>
           <div class=" service-box-content">
@@ -115,7 +113,9 @@ h2 {
     "mds-btn": "Social rights simulator",
     "anil-title": "A question about accommodation ?",
     "anil-text": "Need information about your rights and duties ? \n Your ADIL give you some advice for free",
-    "anil-btn": "Contact your ADIL"
+    "anil-btn": "Contact your ADIL",
+    "go-to-anil": "Go to ANIL's website (new window)",
+    "go-to-mds": "Go to « mes droits sociaux »'s website (new window)"
   },
   "fr": {
     "partners-services-section": "Connaissez-vous les services suivants ?",
@@ -124,7 +124,9 @@ h2 {
     "mds-btn": "Simuler mes droits sociaux",
     "anil-title": "Une question logement ?",
     "anil-text": "Une information pratique sur vos droits et obligations ? \n Votre ADIL vous conseille gratuitement",
-    "anil-btn": "Contacter mon ADIL"
+    "anil-btn": "Contacter mon ADIL",
+    "go-to-anil": "Aller sur le site de l'ANIL (nouvelle fenêtre)",
+    "go-to-mds": "Aller sur le site de « mes droits sociaux » (nouvelle fenêtre)"
   }
 }
 </i18n>

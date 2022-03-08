@@ -6,7 +6,9 @@
     <div class="fr-tile fr-tile--horizontal">
       <div class="fr-tile__body fr-ml-2w fr-mr-2w">
         <h4 class="fr-tile__title">
-          <a class="fr-tile__link" href>{{ title }}</a>
+          <a class="fr-tile__link" :title="$t('edit-title', [title])" href>{{
+            title
+          }}</a>
         </h4>
         <slot></slot>
         <button
@@ -56,17 +58,18 @@ export default class InfoCard extends Vue {
   position: absolute;
   right: 0;
   top: 0;
-
   box-shadow: none;
 }
 </style>
 <i18n>
 {
   "en": {
-    "edit": "Edit"
+    "edit": "Edit",
+    "edit-title": "Edit « {0} »"
   },
   "fr": {
-    "edit": "Modifier"
+    "edit": "Modifier",
+    "edit-title": "Modifier « {0} »"
   }
 }
 </i18n>
