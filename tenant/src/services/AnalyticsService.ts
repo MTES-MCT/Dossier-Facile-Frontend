@@ -66,6 +66,12 @@ export const AnalyticsService = {
     });
   },
 
+  editAccount(editType: string) {
+    this.sendEvent("account-edit-" + editType, {
+      event_category: "funnel"
+    });
+  },
+
   viewFromAccount(docType: string) {
     this.sendEvent("account-view-doc_" + docType, {
       event_category: "funnel"
@@ -157,4 +163,6 @@ export const AnalyticsService = {
         return "";
     }
   }
+
 };
+
