@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require('path');
+const history = require("connect-history-api-fallback");
 
 const app = express();
 
@@ -22,11 +23,15 @@ app.use(function(req, res, next) {
 const directory = "/" + (process.env.STATIC_DIR || "dist");
 app.use(express.static(__dirname + directory));
 
-app.get("*", function(req, res) {
-  res.status(404);
-  res.sendFile(path.join(__dirname + directory, "404/index.html"));
-  return;
-});
+app.use(history());
+
+app.use(express.static(__dirname + directory));
+
+// app.get("*", function(req, res) {
+//   res.status(404);
+//   res.sendFile(path.join(__dirname + directory, "404/index.html"));
+//   return;
+// });
 
 const port = process.env.PORT || 3000;
 app.listen(port, function() {
