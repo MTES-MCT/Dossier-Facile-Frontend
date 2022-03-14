@@ -1,6 +1,6 @@
 <template>
-  <div class="left-edit-menu">
-    <div class="inner-left-edit fr-mt-7w">
+  <div class="left-edit-menu fr-pt-7w fr-pb-12w">
+    <div class="inner-left-edit">
       <div class="active step">
         <div class="step-number">1</div>
         <div class="step-title">
@@ -334,8 +334,6 @@ export default class LeftEditMenu extends Vue {
 
 .inner-left-edit {
   min-height: 300px;
-  height: 100%;
-  max-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
