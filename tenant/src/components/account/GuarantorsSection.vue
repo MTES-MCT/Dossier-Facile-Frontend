@@ -10,16 +10,9 @@
           <a
             href
             :title="$t('delete-guarantor')"
-            @click.prevent="openConfirmModal()"
+            @click.prevent="openConfirmModal(g)"
             >{{ $t("delete-guarantor") }}</a
           >
-          <ConfirmModal
-            v-if="showConfirmModal"
-            @valid="removeGuarantor(g)"
-            @cancel="closeConfirmModal()"
-          >
-            <div>{{ $t("confirm-delete-guarantor") }}</div>
-          </ConfirmModal>
         </div>
         <div v-if="g.typeGuarantor === 'NATURAL_PERSON'">
           <div class="fr-grid-row fr-grid-row--gutters">
@@ -119,6 +112,13 @@
           </div>
         </div>
       </div>
+      <ConfirmModal
+        v-if="showConfirmModal"
+        @valid="removeSelectedGuarantor()"
+        @cancel="closeConfirmModal()"
+      >
+        <div>{{ $t("confirm-delete-guarantor") }}</div>
+      </ConfirmModal>
     </div>
 
     <div
@@ -131,10 +131,11 @@
       <hr />
       <h4>{{ $t("my-guarantor") }}</h4>
       <div class="fr-grid-row fr-grid-row--gutters">
-        <div
-          class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-        >
-          <button class="bg-purple add-guarantor-btn" @click.prevent="setAddGuarantorStep()">
+        <div class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w">
+          <button
+            class="bg-purple add-guarantor-btn"
+            @click.prevent="setAddGuarantorStep()"
+          >
             {{ $t("add-guarantor") }}
           </button>
         </div>
@@ -193,6 +194,7 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 export default class GuarantorsSection extends Vue {
   guarantors!: Guarantor[];
   showConfirmModal = false;
+  selectedGuarantor: Guarantor | undefined;
 
   guarantorTitle(g: Guarantor) {
     if (g.typeGuarantor === "NATURAL_PERSON")
@@ -259,21 +261,24 @@ export default class GuarantorsSection extends Vue {
     }
   }
 
-  openConfirmModal() {
+  openConfirmModal(g: Guarantor) {
     this.showConfirmModal = true;
+    this.selectedGuarantor = g;
   }
   closeConfirmModal() {
     this.showConfirmModal = false;
+    this.selectedGuarantor = undefined;
   }
-  removeGuarantor(g: Guarantor) {
-    this.$store.dispatch("deleteGuarantor", g).then(
+
+  removeSelectedGuarantor() {
+    this.$store.dispatch("deleteGuarantor", this.selectedGuarantor).then(
       () => {
         Vue.toasted.global.delete_success();
-        this.closeConfirmModal()
+        this.closeConfirmModal();
       },
       () => {
         Vue.toasted.global.delete_failed();
-        this.closeConfirmModal()
+        this.closeConfirmModal();
       }
     );
   }
