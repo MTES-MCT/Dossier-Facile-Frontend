@@ -190,295 +190,149 @@
           <span class="color--secondary">{{ $t("s5.title2") }}</span>
         </h2>
         <div class="fr-grid-row">
-          <div
-            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
-          >
-            <a
-              target="_blank"
-              href="https://www.monsieurhugo.com/"
-              class="logo-link"
-              rel="noreferrer"
-              title="aller sur le site « monsieur Hugo » (nouvelle fenêtre)"
-            >
-              <img
-                alt="monsieur Hugo"
-                class="partner-logo monsieurhugo"
-                src="../assets/logos/monsieur_hugo.webp"
-              />
-            </a>
-          </div>
-          <div
-            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
-          >
-            <a
-              target="_blank"
-              href="https://www.visale.fr/"
-              class="logo-link"
-              rel="noreferrer"
-              title="aller sur le site « visale.fr - connecte emploi et logement » (nouvelle fenêtre)"
-            >
-              <img
-                alt="visale.fr - connecte emploi et logement"
-                class="partner-logo visale"
-                src="../assets/logos/visale.webp"
-              />
-            </a>
-          </div>
-          <div
-            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
-          >
-            <a
-              target="_blank"
-              href="https://www.locservice.fr/"
-              class="logo-link"
-              rel="noreferrer"
-              title="aller sur le site « locservice.fr - location et colocation entre particuliers » (nouvelle fenêtre)"
-            >
-              <img
-                alt="locservice.fr - location et colocation entre particuliers"
-                class="partner-logo locservice"
-                src="../assets/logos/loc_service.webp"
-              />
-            </a>
-          </div>
-          <div
-            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
-          >
-            <a
-              target="_blank"
-              href="https://colivme.com/"
-              class="logo-link"
-              rel="noreferrer"
-              title="aller sur le site « colivme » (nouvelle fenêtre)"
-            >
-              <img
-                alt="colivme"
-                class="partner-logo colivme"
-                src="../assets/logos/colivme.webp"
-              />
-            </a>
-          </div>
-          <div
-            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
-          >
-            <a
-              target="_blank"
-              href="https://whoomies.com/"
-              class="logo-link"
-              rel="noreferrer"
-              title="aller sur le site « whoomies » (nouvelle fenêtre)"
-            >
-              <img
-                alt="whoomies"
-                class="partner-logo whoomies"
-                src="../assets/logos/whoomies.webp"
-              />
-            </a>
-          </div>
-          <div
-            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
-          >
-            <a
-              target="_blank"
-              href="https://www.anil.org/"
-              class="logo-link"
-              rel="noreferrer"
-              title="aller sur le site de l’ANIL, l’agence nationale pour l’information sur le logement (nouvelle fenêtre)"
-            >
-              <img
-                alt="ANIL – agence nationale pour l’information sur le logement"
-                class="partner-logo anil"
-                src="../assets/logos/anil.webp"
-              />
-            </a>
-          </div>
-          <div
-            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
-          >
-            <a
-              target="_blank"
-              href="https://www.clickandrent.fr/"
-              class="logo-link"
-              rel="noreferrer"
-              title="aller sur le site « click and rent » (nouvelle fenêtre)"
-            >
-              <img lang="en"
-                alt="click and rent"
-                class="partner-logo rent"
-                src="../assets/logos/clickandrent.webp"
-              />
-            </a>
-          </div>
-          <div
-            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
-          >
-            <a
-              target="_blank"
-              href="https://www.qlower.com/"
-              class="logo-link"
-              rel="noreferrer"
-              title="aller sur le site « qlower » (nouvelle fenêtre)"
-            >
-              <img lang="en"
-                alt="qlower"
-                class="partner-logo qlower"
-                src="../assets/logos/qlower.webp"
-              />
-            </a>
-          </div>
-          <div
-            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
-          >
-            <a
-              target="_blank"
-              href="https://www.jelouebien.com/"
-              class="logo-link"
-              rel="noreferrer"
-              title="aller sur le site « jelouebien.com » (nouvelle fenêtre)"
-            >
-              <img
-                alt="jelouebien.com"
-                class="partner-logo jelouebien"
-                src="../assets/logos/jelouebien.webp"
-              />
-            </a>
-          </div>
-          <div
-            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
-          >
-            <a
-              target="_blank"
-              href="https://www.gererseul.com/"
-              class="logo-link"
-              rel="noreferrer"
-              title="aller sur le site « gererseul – ma gestion locative » (nouvelle fenêtre)"
-            >
-              <img
-                alt="gererseul – ma gestion locative"
-                class="partner-logo gererseul"
-                src="../assets/logos/gererseul.webp"
-              />
-            </a>
-          </div>
-          <div
-            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
-          >
-            <a
-              target="_blank"
-              href="https://pandaloc.com/"
-              class="logo-link"
-              rel="noreferrer"
-              title="aller sur le site « pandaloc » (nouvelle fenêtre)"
-            >
-              <img
-                alt="pandaloc"
-                class="partner-logo pandaloc"
-                src="../assets/logos/pandaloc.webp"
-              />
-            </a>
-          </div>
-          <div
-            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
-          >
-            <a
-              target="_blank"
-              href="https://superimmo.com/"
-              class="logo-link"
-              rel="noreferrer"
-              title="aller sur le site « superimmo » (nouvelle fenêtre)"
-            >
-              <img
-                alt="superimmo"
-                class="partner-logo superimmo"
-                src="../assets/logos/superimmo.webp"
-              />
-            </a>
-          </div>
-          <div
-            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
-          >
-            <a
-              target="_blank"
-              href="https://www.wizi.io/"
-              class="logo-link"
-              rel="noreferrer"
-              title="aller sur le site « wizi » (nouvelle fenêtre)"
-            >
-              <img
-                alt="wizi"
-                class="partner-logo wizi"
-                src="../assets/logos/wizi.webp"
-              />
-            </a>
-          </div>
-          <div
-            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
-          >
-            <a
-              target="_blank"
-              href="https://www.rentila.com/"
-              class="logo-link"
-              rel="noreferrer"
-              title="aller sur le site « rentila » (nouvelle fenêtre)"
-            >
-              <img
-                alt="rentila"
-                class="partner-logo rentila"
-                src="../assets/logos/rentila.webp"
-              />
-            </a>
-          </div>
-          <div
-            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
-          >
-            <a
-              target="_blank"
-              href="https://www.flatsy.fr/"
-              class="logo-link"
-              rel="noreferrer"
-              title="aller sur le site « flatsy » (nouvelle fenêtre)"
-            >
-              <img
-                alt="flatsy"
-                class="partner-logo flatsy"
-                src="../assets/logos/flatsy.webp"
-              />
-            </a>
-          </div>
-          <div
-            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
-          >
-            <a
-              target="_blank"
-              href="https://www.plato.immo/"
-              class="logo-link"
-              rel="noreferrer"
-              title="aller sur le site « plato.immo » (nouvelle fenêtre)"
-            >
-              <img
-                alt="platoimmo"
-                class="partner-logo platoimmo"
-                src="../assets/logos/platoimmo.webp"
-              />
-            </a>
-          </div>
-          <div
-            class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
-          >
-            <a
-              target="_blank"
-              href="https://www.fastt.org/"
-              class="logo-link"
-              rel="noreferrer"
-              title="aller sur le site « fastt » (nouvelle fenêtre)"
-            >
-              <img
-                alt="fastt"
-                class="partner-logo fastt"
-                src="../assets/logos/fastt.webp"
-              />
-            </a>
-          </div>
+          <LogoPartnerComponent
+            :image="require('../assets/logos/monsieur_hugo.webp')"
+            height="39px"
+            href="https://www.monsieurhugo.com/"
+            name="monsieur Hugo"
+            width="210px"
+          />
+
+          <LogoPartnerComponent
+            :image="require('../assets/logos/visale.webp')"
+            height="60px"
+            href="https://www.visale.fr/"
+            name="visale.fr - connecte emploi et logement"
+            width="187px"
+          />
+
+          <LogoPartnerComponent
+            :image="require('../assets/logos/loc_service.webp')"
+            height="60px"
+            href="https://www.locservice.fr/"
+            name="locservice.fr - location et colocation entre particuliers"
+            width="144px"
+          />
+
+          <LogoPartnerComponent
+            :image="require('../assets/logos/colivme.webp')"
+            height="60px"
+            href="https://www.colivme.com/"
+            name="colivme"
+            width="174px"
+          />
+          <LogoPartnerComponent
+            :image="require('../assets/logos/whoomies.webp')"
+            href="https://whoomies.com/"
+            name="whoomies"
+          />
+          <LogoPartnerComponent
+            :image="require('../assets/logos/anil.webp')"
+            href="https://www.anil.org/"
+            name="ANIL, l’agence nationale pour l’information sur le logement"
+          />
+          <LogoPartnerComponent
+            :image="require('../assets/logos/clickandrent.webp')"
+            height="30px"
+            href="https://www.clickandrent.fr/"
+            name="click and rent"
+            width="209px"
+          />
+
+          <LogoPartnerComponent
+            :image="require('../assets/logos/qlower.webp')"
+            height="30px"
+            href="https://www.qlower.com/"
+            name="qlower"
+            width="148px"
+          />
+
+          <LogoPartnerComponent
+            :image="require('../assets/logos/jelouebien.webp')"
+            height="30px"
+            href="https://www.jelouebien.com/"
+            name="jelouebien.com"
+            width="227px"
+          />
+
+          <LogoPartnerComponent
+            :image="require('../assets/logos/gererseul.webp')"
+            height="44px"
+            href="https://www.gererseul.com/"
+            name="gererseul – ma gestion locative"
+            width="200px"
+          />
+
+          <LogoPartnerComponent
+            :image="require('../assets/logos/pandaloc.webp')"
+            height="60px"
+            href="https://www.pandaloc.com/"
+            name="pandaloc"
+            width="197px"
+          />
+
+          <LogoPartnerComponent
+            :image="require('../assets/logos/superimmo.webp')"
+            height="60px"
+            href="https://www.superimmo.com/"
+            name="superimmo"
+            width="222px"
+          />
+
+          <LogoPartnerComponent
+            :image="require('../assets/logos/wizi.webp')"
+            height="60px"
+            href="https://www.wizi.io/"
+            name="wizi"
+            width="151px"
+          />
+          <LogoPartnerComponent
+            :image="require('../assets/logos/rentila.webp')"
+            height="60px"
+            href="https://www.rentila.com/"
+            name="rentila"
+            width="102px"
+          />
+          <LogoPartnerComponent
+            :image="require('../assets/logos/flatsy.webp')"
+            height="60px"
+            href="https://www.flatsy.fr/"
+            name="flatsy"
+            width="174px"
+          />
+          <LogoPartnerComponent
+            :image="require('../assets/logos/platoimmo.webp')"
+            height="60px"
+            href="https://www.plato.immo/"
+            name="plato.immo"
+            width="133px"
+          />
+          <LogoPartnerComponent
+            height="60px"
+            href="https://www.fastt.org/"
+            name="fastt"
+            width="95px"
+          />
+          <LogoPartnerComponent
+            :image="require('../assets/logos/immoloyer.webp')"
+            height="60px"
+            href="https://www.immobilierloyer.com/"
+            name="immobilier loyer"
+            width="208px"
+          />
+          <LogoPartnerComponent
+            height="60px"
+            href="https://www.immopad.com/"
+            name="immopad"
+            width="188px"
+          />
+          <LogoPartnerComponent
+            height="60px"
+            href="https://www.mydomus.co/"
+            name="mydomus"
+            width="214px"
+          />
+
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
@@ -495,9 +349,11 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import DfButton from "df-shared/src/Button/Button.vue";
+import LogoPartnerComponent from "@/components/LogoPartnerComponent.vue";
 
 @Component({
   components: {
+    LogoPartnerComponent,
     DfButton
   }
 })
@@ -666,83 +522,6 @@ a[target="_blank"].logo-link::after {
 .fr-responsive-img {
   width: 80px;
   height: 80px;
-}
-
-.monsieurhugo {
-  width: 210px;
-  height: 39px;
-}
-
-.visale {
-  width: 187px;
-  height: 60px;
-}
-
-.locservice {
-  width: 144px;
-  height: 60px;
-}
-.colivme {
-  width: 174px;
-  height: 60px;
-}
-.whoomies {
-  width: 60px;
-  height: 60px;
-}
-.anil {
-  width: 60px;
-  height: 60px;
-}
-.rent {
-  width: 209px;
-  height: 30px;
-}
-.qlower {
-  height: 30px;
-  width: 148px;
-}
-.jelouebien {
-  height: 30px;
-  width: 227px;
-}
-.gererseul {
-  width: 200px;
-  height: 44px;
-}
-.pandaloc {
-  width: 197px;
-  height: 60px;
-}
-
-.wizi {
-  width: 151px;
-  height: 60px;
-}
-
-.superimmo {
-  width: 222px;
-  height: 60px;
-}
-
-.rentila {
-  width: 102px;
-  height: 60px;
-}
-
-.flatsy {
-  width: 174px;
-  height: 60px;
-}
-
-.platoimmo {
-  width: 133px;
-  height: 60px;
-}
-
-.fastt {
-  width: 95px;
-  height: 60px;
 }
 </style>
 

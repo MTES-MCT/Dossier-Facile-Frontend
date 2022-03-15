@@ -304,7 +304,8 @@ export default class CoupleInformation extends Vue {
 "invite-sent": "Invitation sent",
 "add-a-spouse": "Invite your spouse",
 "email-exists": "You can not associate two account with only one email address ! <br>Fullfill a different email address.",
-"more-information": "How is this information useful to us?"
+"more-information": "How is this information useful to us?",
+"require-accept": "You must accept the statement"
 },
 "fr": {
 "spouseEmail": "L’adresse email de votre conjoint",
@@ -316,7 +317,8 @@ export default class CoupleInformation extends Vue {
 "invite-waiting": "Invitation en attente d'envoi",
 "invite-sent": "Invitation envoyée",
 "email-exists": "Vous ne pouvez pas associer deux comptes à une même adresse email ! <br>Renseignez une adresse email différente.",
-"more-information": "En quoi cette information nous est utile ?"
+"more-information": "En quoi cette information nous est utile ?",
+"require-accept": "Vous devez accepter la déclaration"
 }
 }
 </i18n>
