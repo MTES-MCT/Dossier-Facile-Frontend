@@ -16,7 +16,7 @@ const store = useStore();
 const id = ref(0);
 if (route.params.id) {
   id.value = route.params.id;
-  store.dispatch('updatePropertyToEdit', { id: id.value });
+  store.dispatch('updatePropertyToEdit', Number(id.value));
 }
 
 const name = computed({
@@ -29,8 +29,8 @@ const name = computed({
 });
 
 function onSubmit() {
-  store.dispatch('saveProperty').then(() => {
-    router.push({ name: 'PropertyRent' });
+  store.dispatch('saveProperty').then((data) => {
+    router.push({ name: 'PropertyRent', params: { id: data.id } });
   });
 }
 </script>

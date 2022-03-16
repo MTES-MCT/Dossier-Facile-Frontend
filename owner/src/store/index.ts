@@ -63,6 +63,9 @@ const store = createStore({
         Object.assign(state.propertyToEdit, { ...prop });
       }
     },
+    setPropertyToEdit(state: OwnerState, property: Property) {
+      Object.assign(state.propertyToEdit, { ...property });
+    },
   },
   actions: {
     setLang(_, lang: string) {
@@ -129,7 +132,13 @@ const store = createStore({
       commit('setRent', cost);
     },
     saveProperty({ commit }) {
-      OwnerService.saveProperty(this.state.propertyToEdit).then((response) => { commit('loadUser', response.data); });
+      return OwnerService.saveProperty(this.state.propertyToEdit).then((response) => {
+        commit('setPropertyToEdit', response.data);
+        return Promise.resolve(response.data);
+      });
+    },
+    updatePropertyToEdit({ commit }, id: number) {
+      commit('updatePropertyToEdit', id);
     },
   },
   getters: {
@@ -142,7 +151,7 @@ const store = createStore({
     hasFooter(state: OwnerState) {
       return state.hasFooter;
     },
-    properties(state: OwnerState) {
+    getProperties(state: OwnerState) {
       return state.properties;
     },
     getPropertyToEdit(state: OwnerState) {

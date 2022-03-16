@@ -78,7 +78,7 @@ import ProfileFooter from '../footer/ProfileFooter.vue';
 const { t } = useI18n();
 const store = useStore();
 
-const properties = store.getters.properties;
+const properties = store.getters.getProperties;
 
 const franceConnect = computed(() => store.getters.getUser?.franceConnect);
 

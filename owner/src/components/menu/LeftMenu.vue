@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import ColoredTag from "df-shared/src/components/ColoredTag.vue";
+import { useStore } from 'vuex';
 
 const { t } = useI18n();
+const store = useStore();
+
+function getName() {
+  return `${store.getters.getUser?.lastName} ${store.getters.getUser?.firstName}`;
+}
 </script>
 
 <template>
@@ -18,7 +24,7 @@ const { t } = useI18n();
       </div>
       <div class="vline">
         <div class="ml-5"><ColoredTag
-              :text="'Hanna truc'"
+              :text="getName()"
               status="NAME"
             ></ColoredTag
           >

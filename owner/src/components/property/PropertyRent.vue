@@ -16,7 +16,7 @@ const store = useStore();
 const id = ref(0);
 if (route.params.id) {
   id.value = route.params.id;
-  store.dispatch('updatePropertyToEdit', { id: id.value });
+  store.dispatch('updatePropertyToEdit', Number(id.value));
 }
 
 const rent = computed({
