@@ -121,7 +121,7 @@ function getName() {
   },
   "fr": {
     "personal-information": "Mes informations personnelles",
-    "add-property": "J'ajoute ma propriété",
+    "add-property": "J'ajoute un bien",
     "validate-property": "Je valide ma propriété"
   }
 }
