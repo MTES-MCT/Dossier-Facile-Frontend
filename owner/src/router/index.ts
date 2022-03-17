@@ -21,12 +21,8 @@ const routes = [
     },
     component: Dashboard,
     beforeEnter: async (to, from, next) => {
-      if (
-        (!store.getters.getUser?.firstName
-          || !store.getters.getUser?.lastName)) {
-        console.log("la");
-        console.dir(store.getters.getUser);
-        debugger
+      if (store.getters.isLoggedIn
+        && (!store.getters.getUser?.firstName || !store.getters.getUser?.lastName)) {
         next({ name: 'AccountName' });
       }
       next();

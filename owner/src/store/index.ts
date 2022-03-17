@@ -24,7 +24,7 @@ export class OwnerState {
 
 const localStore = localStorage.getItem('store');
 const initialStore = localStore !== null ? JSON.parse(localStore) : new OwnerState();
-const MAIN_URL = import.meta.env.VITE_MAIN_URL?.toString() || '';
+const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL?.toString()}`;
 
 const store = createStore({
   state: initialStore,
