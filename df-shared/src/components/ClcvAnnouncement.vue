@@ -1,5 +1,5 @@
 <template>
-  <Announcement v-if="!closeAnnouncement">
+  <Announcement v-if="announcementVisibility">
     <img
       class="img-announcement"
       alt=""
@@ -19,7 +19,7 @@
       target="_blank"
       >S'inscrire</a
     >
-    <a href class="fr-ml-1w no-shadow" @click.prevent="closeAnnouncement = true"
+    <a href class="fr-ml-1w no-shadow" @click.prevent="closeAnnouncement"
       ><span
         class="fr-fi--lg fr-fi-close-line color--white"
         aria-hidden="true"
@@ -38,7 +38,25 @@ import Announcement from "./Announcement.vue";
   }
 })
 export default class ClcvAnnouncement extends Vue {
-  closeAnnouncement = false;
+  MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+  announcementVisibility =
+    !this.$cookies.isKey("announcement-visibility") ||
+    this.$cookies.get("announcement-visibility") !== "false";
+
+  closeAnnouncement() {
+    const d = new Date();
+    d.setDate(d.getDate() + 1);
+    this.$cookies.set(
+      "announcement-visibility",
+      false,
+      d.toUTCString(),
+      "",
+      this.MAIN_URL.endsWith("dossierfacile.fr")
+        ? "dossierfacile.fr"
+        : "localhost"
+    );
+    this.announcementVisibility = false;
+  }
 }
 </script>
 
