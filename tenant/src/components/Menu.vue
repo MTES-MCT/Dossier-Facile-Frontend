@@ -30,7 +30,7 @@
         {{ $t("information") }}
       </a>
     </li>
-    <li class="fr-nav__item" v-if="isLoggedIn">
+    <li class="fr-nav__item" v-show="isLoggedIn">
       <button
         class="fr-nav__btn"
         aria-expanded="false"
