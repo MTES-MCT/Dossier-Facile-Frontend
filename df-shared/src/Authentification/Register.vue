@@ -11,6 +11,11 @@
             <router-link :to="{name: 'SourceLink', params: getParams(), query: getQuery()}" class="color--primary">{{ $t('connect-france-connect') }}</router-link>
           </div>
           <div v-else>
+            <div class="text-center">
+              <div class="fr-mt-2w fr-mb-2w small-text">
+                FranceConnect est la solution proposée par l’État pour sécuriser et simplifier la connexion à vos services en ligne
+              </div>
+            </div>
             <div id="kc-social-providers" class="fr-mt-5w fr-mb-1w text-center">
               <ul>
                 <a id="social-franceconnect-particulier" class="inline-block"
@@ -23,10 +28,6 @@
               <a href="https://app.franceconnect.gouv.fr/en-savoir-plus" id="cQuoiFCGauche" target="_blank" rel="noopener">
                   Qu'est-ce que FranceConnect?
               </a>
-              <br>
-              <div class="fr-mt-2w fr-mb-5w small-text">
-                FranceConnect est la solution proposée par l’État pour sécuriser et simplifier la connexion à vos services en ligne
-              </div>
             </div>
           </div>
         </div>
