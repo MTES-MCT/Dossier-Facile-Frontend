@@ -16,6 +16,7 @@
     >
       <Menu />
     </MyHeader>
+    <ClcvAnnouncement v-if="!isFunnel"></ClcvAnnouncement>
     <article class="page">
       <router-view :key="$route.path" />
     </article>
@@ -33,9 +34,11 @@ import i18n from "./i18n";
 import Cookies from "df-shared/src/Footer/Cookies.vue";
 import VueGtag from "vue-gtag";
 import router from "./router";
+import ClcvAnnouncement from "df-shared/src/components/ClcvAnnouncement.vue";
 
 @Component({
   components: {
+    ClcvAnnouncement,
     MyHeader,
     TheFooter,
     Menu,

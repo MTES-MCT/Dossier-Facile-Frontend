@@ -226,10 +226,6 @@ export default class CoupleInformation extends Vue {
 </script>
 
 <style scoped lang="scss">
-.small-text {
-  font-size: 0.8rem;
-}
-
 .overflow--hidden {
   overflow: hidden;
   white-space: nowrap;

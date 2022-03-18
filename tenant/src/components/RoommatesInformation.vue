@@ -214,10 +214,6 @@ export default class RoommatesInformation extends Vue {
 <style scoped lang="scss">
 @import "df-shared/src/scss/_variables.scss";
 
-.small-text {
-  font-size: 0.8rem;
-}
-
 .overflow--hidden {
   overflow: hidden;
   white-space: nowrap;
