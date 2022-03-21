@@ -42,8 +42,11 @@ const propertyName = computed(() => store.getters.getPropertyToEdit?.name);
         </div>
       </div>
       <div class="vline">
-        <div class="ml-5" v-if="propertyName">
+        <div class="ml-5">
           {{ propertyName }}
+        </div>
+        <div class="ml-5">
+          {{ t('monthly-rent-and-charges')}}
         </div>
       </div>
       <div class="active step">
@@ -120,12 +123,14 @@ const propertyName = computed(() => store.getters.getPropertyToEdit?.name);
   "en": {
     "personal-information": "My personal data",
     "add-property": "I add my property",
-    "validate-property": "I validate my property"
+    "validate-property": "I validate my property",
+    "monthly-rent-and-charges": "Monthly rent and charges"
   },
   "fr": {
     "personal-information": "Mes informations personnelles",
     "add-property": "J'ajoute un bien",
-    "validate-property": "Je valide ma propriété"
+    "validate-property": "Je valide ma propriété",
+    "monthly-rent-and-charges": "Loyer et charges mensuels"
   }
 }
 </i18n>
