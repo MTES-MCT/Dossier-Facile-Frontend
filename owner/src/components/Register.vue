@@ -61,13 +61,13 @@ function onRegister(user: User) {
                 DossierFacile.
               </p>
               <p>Avec DossierFacile Bailleur, il est facile de :</p>
-              <ul>
-                <li>👉 Partager son bien avec les candidats locataire</li>
-                <li>
+              <ul class="no-bullet">
+                <li class="fr-mt-3w">👉 Partager son bien avec les candidats locataire</li>
+                <li class="fr-mt-3w">
                   🤩 Recevoir des candidatures DossierFacile, complétées, organisées et
                   vérifiées.
                 </li>
-                <li>😇 Choississez votre futur locataire en toute séreinité !</li>
+                <li class="fr-mt-3w">😇 Choississez votre futur locataire en toute séreinité !</li>
               </ul>
             </div>
           </div>
@@ -170,6 +170,10 @@ li {
   display: flex;
   flex-direction: row-reverse;
   margin-right: 20px;
+}
+
+.no-bullet {
+  list-style: none;
 }
 </style>
 
