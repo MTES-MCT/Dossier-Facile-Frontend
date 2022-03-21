@@ -2,6 +2,7 @@
 import { useI18n } from 'vue-i18n';
 import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 import { useStore } from 'vuex';
+import { computed } from 'vue';
 
 const { t } = useI18n();
 const store = useStore();
@@ -9,6 +10,8 @@ const store = useStore();
 function getName() {
   return `${store.getters.getUser?.lastName} ${store.getters.getUser?.firstName}`;
 }
+
+const propertyName = computed(() => store.getters.getPropertyToEdit?.name);
 </script>
 
 <template>
@@ -39,8 +42,8 @@ function getName() {
         </div>
       </div>
       <div class="vline">
-        <div class="ml-5">
-          tauirsn anuris ea
+        <div class="ml-5" v-if="propertyName">
+          {{ propertyName }}
         </div>
       </div>
       <div class="active step">
