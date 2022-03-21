@@ -19,6 +19,10 @@ function addProperty() {
   router.push({ name: 'PropertyName' });
 }
 
+function consultProperty(id: number) {
+  router.push({ name: 'ConsultProperty', params: { id } });
+}
+
 function editProperty(id: number) {
   router.push({ name: 'PropertyName', params: { id } });
 }
@@ -44,13 +48,16 @@ function editProperty(id: number) {
     <th>{{ t('rent') }}</th>
     <th></th>
     </tr>
-    <tr v-for="p in properties" :key="p.name" @click.prevent="editProperty(p.id)">
+    <tr v-for="p in properties" :key="p.name">
     <td>{{ p.type }}</td>
     <td>{{ p.name }}</td>
     <td>{{ p.address }}</td>
     <td>{{ p.applicant }}</td>
     <td>{{ p.rentCost }}</td>
-    <td></td>
+    <td>
+      <button @click="consultProperty(p.id)">Consult</button>
+      <button @click="editProperty(p.id)">EDIT</button>
+    </td>
     </tr>
   </table>
 

@@ -6,9 +6,13 @@
       </h2>
 
       <template v-if="franceConnect">
-        <div class="fr-mt-5w fr-mb-5w text-center ">
+        <div class="fr-mt-5w fr-mb-5w text-center">
           <div v-if="getParams() !== undefined">
-            <router-link :to="{name: 'SourceLink', params: getParams(), query: getQuery()}" class="color--primary">{{ t('connect-france-connect') }}</router-link>
+            <router-link
+              :to="{ name: 'SourceLink', params: getParams(), query: getQuery() }"
+              class="color--primary"
+              >{{ t("connect-france-connect") }}</router-link
+            >
           </div>
           <div v-else>
             <div class="text-center">
@@ -18,42 +22,49 @@
             </div>
             <div id="kc-social-providers" class="fr-mt-5w fr-mb-1w text-center">
               <ul>
-                <a id="social-franceconnect-particulier" class="inline-block"
-                  type="button" :href="getLoginLink()">
-                  <span>{{ t('connect-france-particulier') }}</span>
+                <a
+                  id="social-franceconnect-particulier"
+                  class="inline-block"
+                  type="button"
+                  :href="getLoginLink()"
+                >
+                  <span>{{ t("connect-france-particulier") }}</span>
                 </a>
               </ul>
             </div>
             <div class="text-center">
-              <a href="https://app.franceconnect.gouv.fr/en-savoir-plus" id="cQuoiFCGauche" target="_blank" rel="noopener">
-                  Qu'est-ce que FranceConnect?
+              <a
+                href="https://app.franceconnect.gouv.fr/en-savoir-plus"
+                id="cQuoiFCGauche"
+                target="_blank"
+                rel="noopener"
+              >
+                Qu'est-ce que FranceConnect?
               </a>
             </div>
           </div>
         </div>
 
-        <div class="separator">{{ t('or') }}</div>
+        <div class="separator">{{ t("or") }}</div>
       </template>
 
-      <Form @submit="onSubmit">
+      <Form @submit.prevent="onSubmit">
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12 fr-mb-3w">
-              <div
-                class="fr-input-group"
-              >
-                <label class="fr-label" for="email">{{ t("email") }}</label>
-                <Field
-                  v-model="email"
-                  class="form-control validate-required fr-input"
-                  id="email"
-                  name="email"
-                  :placeholder="t('email-placeholder')"
-                  type="email"
-                  autocomplete="email"
-                  :rules="validateEmail"
-                />
-                <ErrorMessage name="email" class="fr-error-text"></ErrorMessage>
-              </div>
+            <div class="fr-input-group">
+              <label class="fr-label" for="email">{{ t("email") }}</label>
+              <Field
+                v-model="email"
+                class="form-control validate-required fr-input"
+                id="email"
+                name="email"
+                :placeholder="t('email-placeholder')"
+                type="email"
+                autocomplete="email"
+                :rules="validateEmail"
+              />
+              <ErrorMessage name="email" class="fr-error-text"></ErrorMessage>
+            </div>
           </div>
           <div class="fr-col-12 fr-mb-1w">
             <!-- <validation-provider
@@ -62,32 +73,28 @@
               name="password"
               vid="password"
             > -->
-              <div
-                class="fr-input-group"
-              >
-                <!-- :class="errors[0] ? 'fr-input-group--error' : ''" -->
-                <label class="fr-label" for="password">{{
-                  t("password")
-                }}</label>
-                <input
-                  id="password"
-                  :placeholder="generatedPwd"
-                  type="password"
-                  v-model="user.password"
-                  name="password"
-                  class="validate-required form-control fr-input"
-                  autocomplete="new-password"
-                  required
-                />
-                <!-- <password
+            <div class="fr-input-group">
+              <!-- :class="errors[0] ? 'fr-input-group--error' : ''" -->
+              <label class="fr-label" for="password">{{ t("password") }}</label>
+              <input
+                id="password"
+                :placeholder="generatedPwd"
+                type="password"
+                v-model="user.password"
+                name="password"
+                class="validate-required form-control fr-input"
+                autocomplete="new-password"
+                required
+              />
+              <!-- <password
                   v-model="user.password"
                   :strength-meter-only="true"
                   @score="setScore"
                 /> -->
-                <!-- <span class="fr-error-text" v-if="errors[0]">{{
+              <!-- <span class="fr-error-text" v-if="errors[0]">{{
                   t(errors[0])
                 }}</span> -->
-              </div>
+            </div>
             <!-- </validation-provider> -->
           </div>
           <div class="fr-col-12 fr-mb-3w">
@@ -95,26 +102,24 @@
               rules="required|confirmed:password"
               v-slot="{ errors }"
             > -->
-              <div
-                class="fr-input-group"
+            <div class="fr-input-group">
+              <!-- :class="errors[0] ? 'fr-input-group--error' : ''" -->
+              <label class="fr-label" for="confirm-password">
+                {{ t("confirm-password") }}</label
               >
-                <!-- :class="errors[0] ? 'fr-input-group--error' : ''" -->
-                <label class="fr-label" for="confirm-password">
-                  {{ t("confirm-password") }}</label
-                >
-                <input
-                  id="confirm-password"
-                  type="password"
-                  v-model="user.confirm"
-                  name="confirm-password"
-                  class="validate-required form-control fr-input"
-                  autocomplete="new-password"
-                  required
-                />
-                <!-- <span class="fr-error-text" v-if="errors[0]">{{
+              <input
+                id="confirm-password"
+                type="password"
+                v-model="user.confirm"
+                name="confirm-password"
+                class="validate-required form-control fr-input"
+                autocomplete="new-password"
+                required
+              />
+              <!-- <span class="fr-error-text" v-if="errors[0]">{{
                   t(errors[0])
                 }}</span> -->
-              </div>
+            </div>
             <!-- </validation-provider> -->
           </div>
 
@@ -128,18 +133,17 @@
             ></vue-recaptcha> -->
           </div>
           <div class="fr-col-12 fr-mb-3w">
-              <div
-                class="bg-purple fr-checkbox-group"
-              >
-                <Field
-                  name="terms"
-                  type="checkbox"
-                  :rules="isTrue"
-                  v-model="terms"
-                />
-                <label for="terms"><div v-html="t('accept-cgu')"></div></label>
-                <ErrorMessage name="terms"/>
-              </div>
+            <div class="bg-purple fr-checkbox-group">
+              <Field
+                name="terms"
+                id="terms"
+                type="checkbox"
+                :rules="isTrue"
+                :value="true"
+              />
+              <label for="terms"><div v-html="t('accept-cgu')"></div></label>
+              <ErrorMessage class="fr-error-text" name="terms" />
+            </div>
           </div>
 
           <div class="fr-col-12 text-center fr-mb-5w">
@@ -159,12 +163,12 @@ import { User } from "df-shared/src/models/User";
 // import Password from "vue-password-strength-meter";
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
-import { useRoute } from 'vue-router';
+import { useRoute } from "vue-router";
 import { Form, Field, ErrorMessage } from 'vee-validate';
 
 function validateEmail(value: string) {
   if (!value) {
-    return "this field is required";
+    return "Email is required";
   }
   return true;
 }
@@ -174,8 +178,8 @@ function isTrue(value: boolean) {
   }
   return true;
 }
-const terms = ref(false);
-const email=ref("");
+const terms = ref([]);
+const email = ref("");
 // function validateCguField(value: boolean) {
 //   if (!value) {
 //     return "this field is required"; // TODO i18n
@@ -218,79 +222,90 @@ const email=ref("");
 //   message: "password-not-confirmed"
 // });
 
-  const SITE_KEY = import.meta.env.VITE_CAPTCHA_SITE_KEY;
-  const FRANCE_CONNECT_LOGIN_URL = import.meta.env.VUE_APP_FRANCE_CONNECT_LOGIN_URL;
-  const route = useRoute();
+const SITE_KEY = import.meta.env.VITE_CAPTCHA_SITE_KEY;
+const FRANCE_CONNECT_LOGIN_URL = import.meta.env.VUE_APP_FRANCE_CONNECT_LOGIN_URL;
+const route = useRoute();
 
 const props = defineProps<{
-  email: { type: string; required: false, default: "" };
+  email: { type: string; required: false; default: "" };
 }>();
 
 const { t } = useI18n();
 
 const emit = defineEmits(["on-register"]);
-  const franceConnect = window.location.href.includes("locataire-dev") || window.location.href.includes("localhost");
+const franceConnect =
+  window.location.href.includes("locataire-dev") ||
+  window.location.href.includes("localhost");
 
-  const user: User = new User();
-  const score = ref(0);
-  const generatedPwd = ref("");
+const user: User = new User();
+const score = ref(0);
+const generatedPwd = ref("");
 
-  function generatePlaceholder() {
-    const chars = ["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz","0123456789", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", "#!?-_."];
-    generatedPwd.value = t('ex') + [4,4,2,2].map(function(len, i) { return Array(len).fill(chars[i]).map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('') }).concat().join('').split('').sort(function(){return 0.5-Math.random()}).join('');
+function generatePlaceholder() {
+  const chars = [
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+    "0123456789",
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+    "#!?-_.",
+  ];
+  generatedPwd.value =
+    t("ex") +
+    [4, 4, 2, 2]
+      .map(function (len, i) {
+        return Array(len)
+          .fill(chars[i])
+          .map(function (x) {
+            return x[Math.floor(Math.random() * x.length)];
+          })
+          .join("");
+      })
+      .concat()
+      .join("")
+      .split("")
+      .sort(function () {
+        return 0.5 - Math.random();
+      })
+      .join("");
+}
+
+function getLoginLink() {
+  return FRANCE_CONNECT_LOGIN_URL;
+}
+
+function mounted() {
+  user.email = String(email);
+  generatePlaceholder();
+}
+
+function onSubmit() {
+  emit("on-register", user)
+}
+
+function onVerify(captcha: string) {
+  // this.user.captcha = captcha;
+}
+
+function setScore(s: number) {
+  score.value = s;
+}
+
+function getParams() {
+  if (!route.params.source) {
+    return undefined;
   }
+  return {
+    source: route.params.source,
+  };
+}
 
-  function getLoginLink() {
-    return this.FRANCE_CONNECT_LOGIN_URL;
-  }
-
-function  mounted() {
-    user.email = String(email);
-    generatePlaceholder();
-  }
-
-  function handleRegister() {
-    // if (score.value < MIN_SCORE || !terms.value) {
-      // return false;
-    // }
-    // emit("on-register", user);
-    alert('na')
-    return false;
-    // (this.$refs.captcha as VueRecaptcha).reset();
-  }
-
-  // const { handleSubmit } = useForm();
-  // const onSubmit = handleSubmit(values => {
-  //     console.dir(JSON.stringify(values, null, 2));
-  //     handleRegister();
-  //   });
-
-
-  function onVerify(captcha: string) {
-    // this.user.captcha = captcha;
-  }
-
-  function setScore(s: number) {
-    score.value = s;
-  }
-
-  function getParams() {
-    if (!route.params.source) {
-      return undefined;
-    }
-    return {
-      source: route.params.source,
-    }
-  }
-
-  function getQuery() {
-    return {
-      internalPartnerId: route.query.internalPartnerId.toString() || "",
-      firstName: route.query.firstName.toString() || "",
-      lastName: route.query.lastName.toString() || "",
-      email: route.query.email.toString() || ""
-    }
-  }
+function getQuery() {
+  return {
+    internalPartnerId: route.query.internalPartnerId.toString() || "",
+    firstName: route.query.firstName.toString() || "",
+    lastName: route.query.lastName.toString() || "",
+    email: route.query.email.toString() || "",
+  };
+}
 </script>
 
 <style lang="scss">
@@ -309,7 +324,7 @@ function  mounted() {
 
 .separator::before,
 .separator::after {
-  content: '';
+  content: "";
   flex: 1;
   border-bottom: 1px solid #cecece;
 }
@@ -321,45 +336,43 @@ function  mounted() {
 .separator:not(:empty)::after {
   margin-left: 2rem;
 }
-    
-    a.zocial.franceconnect-particulier {
-	background: url(../assets/fc/franceconnect-bouton@2x.png) no-repeat left top;
-	height: 70px;
-	width: auto;
-	padding-top: 60px;
-    }
-    
-    a.zocial.franceconnect-particulier:hover {
-	background: url(../assets/fc/franceconnect-bouton-hover@2x.png) no-repeat left top !important;
-	height: 70px;
-	width: auto;
-    }
-    
-    a.zocial.franceconnect-particulier span {
-	display:none;
-    }
-    
-    a#social-franceconnect-particulier {
-	background: url(../assets/fc/franceconnect-bouton.png) no-repeat left top;
-	height: 60px;
-	width: 230px;
-       
-    }
-    
-    a#social-franceconnect-particulier:hover {
-	background: url(../assets/fc/franceconnect-bouton-hover.png) no-repeat left top !important;
-	height: 60px;
-	width: 230px;
-    }
-    
-    a#social-franceconnect-particulier span {
-	display:none;
-    }
 
-    .inline-block {
-      display: inline-block;
-    }
+a.zocial.franceconnect-particulier {
+  background: url(../assets/fc/franceconnect-bouton@2x.png) no-repeat left top;
+  height: 70px;
+  width: auto;
+  padding-top: 60px;
+}
 
+a.zocial.franceconnect-particulier:hover {
+  background: url(../assets/fc/franceconnect-bouton-hover@2x.png) no-repeat left top !important;
+  height: 70px;
+  width: auto;
+}
+
+a.zocial.franceconnect-particulier span {
+  display: none;
+}
+
+a#social-franceconnect-particulier {
+  background: url(../assets/fc/franceconnect-bouton.png) no-repeat left top;
+  height: 60px;
+  width: 230px;
+}
+
+a#social-franceconnect-particulier:hover {
+  background: url(../assets/fc/franceconnect-bouton-hover.png) no-repeat left top !important;
+  height: 60px;
+  width: 230px;
+}
+
+a#social-franceconnect-particulier span {
+  display: none;
+}
+
+.inline-block {
+  display: inline-block;
+}
 </style>
 
 <i18n>

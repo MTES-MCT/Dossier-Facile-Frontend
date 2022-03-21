@@ -15,8 +15,8 @@ const store = useStore();
 
 const id = ref(0);
 if (route.params.id) {
-  id.value = route.params.id;
-  store.dispatch('updatePropertyToEdit', Number(id.value));
+  id.value = Number(route.params.id);
+  store.dispatch('updatePropertyToEdit', id.value);
 }
 
 const name = computed({

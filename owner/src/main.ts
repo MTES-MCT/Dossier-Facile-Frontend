@@ -12,6 +12,26 @@ import keycloak from './plugin/keycloak';
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 
 keycloak.init({ onLoad: 'check-sso', checkLoginIframe: true }).then((auth) => {
+  const aYearFromNow = new Date();
+  aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1);
+  globalCookiesConfig({
+    expireTimes: aYearFromNow.toUTCString(),
+    path: '/',
+    domain: MAIN_URL.endsWith('dossierfacile.fr') ? 'dossierfacile.fr' : 'localhost',
+    secure: true,
+    sameSite: 'None',
+  });
+
+  const app = createApp(App);
+  app.use(store);
+  app.use(router);
+  app.use(i18n);
+  app.use(Toast);
+  app.mount('#app');
+
+  if (!auth) {
+    return;
+  }
   axios.interceptors.request.use(
     (config) => {
       if (keycloak.authenticated && config?.headers) {
@@ -43,23 +63,6 @@ keycloak.init({ onLoad: 'check-sso', checkLoginIframe: true }).then((auth) => {
       console.log('Failed to refresh token');
     });
   }, 6000);
-
-  const aYearFromNow = new Date();
-  aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1);
-  globalCookiesConfig({
-    expireTimes: aYearFromNow.toUTCString(),
-    path: '/',
-    domain: MAIN_URL.endsWith('dossierfacile.fr') ? 'dossierfacile.fr' : 'localhost',
-    secure: true,
-    sameSite: 'None',
-  });
-
-  const app = createApp(App);
-  app.use(store);
-  app.use(router);
-  app.use(i18n);
-  app.use(Toast);
-  app.mount('#app');
 }).catch(() => {
   console.log('Authenticated Failed');
 });

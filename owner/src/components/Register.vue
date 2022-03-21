@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n';
-import Modal from 'df-shared/src/components/Modal.vue';
-import { ref } from 'vue';
-import { User } from 'df-shared/src/models/User';
-import { useStore } from 'vuex';
-import { useToast } from 'vue-toastification';
-import Register from 'df-shared/src/Authentification/Register.vue';
+import { useI18n } from "vue-i18n";
+import Modal from "df-shared/src/components/Modal.vue";
+import { ref } from "vue";
+import { User } from "df-shared/src/models/User";
+import { useStore } from "vuex";
+import { useToast } from "vue-toastification";
+import Register from "df-shared/src/Authentification/Register.vue";
 
 defineProps<{}>();
 const { t } = useI18n();
@@ -23,25 +23,25 @@ function closeModal() {
 
 function onRegister(user: User) {
   if (user.email && user.password) {
-    store.dispatch('register', user).then(
+    store.dispatch("register", user).then(
       () => {
         isValidModalVisible.value = true;
       },
       (error) => {
         if (
           (error.response?.data?.errors?.indexOf(
-            'email: the emails are already being used',
+            "email: the emails are already being used"
           ) || -1) >= 0
         ) {
-          toast.error(t('duplicate-email').toString(), {
+          toast.error(t("duplicate-email").toString(), {
             timeout: 7000,
           });
         } else {
-          toast.error(t('register-error').toString(), {
+          toast.error(t("register-error").toString(), {
             timeout: 7000,
           });
         }
-      },
+      }
     );
   }
 }
@@ -53,47 +53,29 @@ function onRegister(user: User) {
       <div class="fr-col-lg-6 fr-col-12">
         <div class="bg-pic">
           <div class="bg-white max-450 left-row fr-pt-3w fr-mt-7w fr-mb-7w">
-            <h2 class="fr-h5 blue-text text-center fr-mt-3w">
-              En route pour rejoindre DossierFacile !
-            </h2>
+            <h2 class="fr-h5 blue-text text-center fr-mt-3w">DossierFacile Bailleur</h2>
             <div class="fr-pl-2w fr-pr-2w">
-              Afin de faciliter la constitution de votre dossier, préparez les
-              pièces suivantes :
-            </div>
-            <div
-              class="bg-purple blue-text fr-pr-2w fr-pl-2w fr-pt-3w fr-pb-3w"
-            >
-              <ul>
-                <li>
-                  Une pièce d’identité
-                </li>
-                <li>
-                  Un justificatif de domicile
-                </li>
-                <li>
-                  Un justificatif de situation professionnelle
-                </li>
-                <li>
-                  Des justificatifs de ressources
-                </li>
-                <li>
-                  Votre dernier avis d’imposition
-                </li>
-              </ul>
-              Pour vos garants ces mêmes pièces vous seront demandées.
-            </div>
-            <div class="fr-pl-2w fr-pr-2w">
-              <p class="fr-mt-3w">
-                Vous avez tout ?! Super !<br />
-                Commençons par sécuriser votre compte !
+              <p>
+                Ajouter vos biens immobiliers dans votre espace propriétaire et recevez,
+                dans votre espaces, les candidatures déposées par les candidats avec leur
+                DossierFacile.
               </p>
+              <p>Avec DossierFacile Bailleur, il est facile de :</p>
+              <ul>
+                <li>👉 Partager son bien avec les candidats locataire</li>
+                <li>
+                  🤩 Recevoir des candidatures DossierFacile, complétées, organisées et
+                  vérifiées.
+                </li>
+                <li>😇 Choississez votre futur locataire en toute séreinité !</li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
       <div class="fr-col-lg-6 fr-col-12 bg-white">
         <div class="fr-mt-2w align-end">
-          <router-link to="/account" class="fr-tag">
+          <router-link to="/" class="fr-tag">
             {{ t("connect") }}
           </router-link>
         </div>
@@ -174,7 +156,7 @@ body {
 }
 .bg-pic {
   background: linear-gradient(rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.5)),
-    url("../assets/Immeuble.webp") no-repeat;
+    url("../assets/salon.webp") no-repeat;
   background-size: cover;
   height: 100%;
   overflow: hidden;
@@ -190,3 +172,14 @@ li {
   margin-right: 20px;
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "connect": "Already signed up ? Connect"
+  },
+  "fr": {
+    "connect": "Déjà inscrit ? S'identifier"
+  }
+}
+</i18n>

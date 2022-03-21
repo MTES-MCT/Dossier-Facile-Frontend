@@ -4,6 +4,7 @@ import Account from '../components/account/Account.vue';
 import Dashboard from '../components/Dashboard.vue';
 import PropertyName from '../components/property/PropertyName.vue';
 import PropertyRent from '../components/property/PropertyRent.vue';
+import ConsultProperty from '../components/property/ConsultProperty.vue';
 import Register from '../components/Register.vue';
 import store from '../store';
 import keycloak from '../plugin/keycloak';
@@ -47,6 +48,16 @@ const routes = [
       hasFooter: false,
     },
     component: Account,
+  },
+  {
+    path: '/consulte-propriete/:id',
+    name: 'ConsultProperty',
+    meta: {
+      title: 'Propriété - DossierFacile',
+      requiresAuth: true,
+      hasFooter: true,
+    },
+    component: ConsultProperty,
   },
   {
     path: '/nom-propriete/:id?',

@@ -20,6 +20,8 @@ export class OwnerState {
   properties: Property[] = [];
 
   propertyToEdit: Property = new Property();
+
+  propertyToConsult: Property = new Property();
 }
 
 const localStore = localStorage.getItem('store');
@@ -61,6 +63,12 @@ const store = createStore({
       const prop = state.properties.find((p) => p.id === id);
       if (prop) {
         Object.assign(state.propertyToEdit, { ...prop });
+      }
+    },
+    updatePropertyToConsult(state: OwnerState, id: number) {
+      const prop = state.properties.find((p) => p.id === id);
+      if (prop) {
+        Object.assign(state.propertyToConsult, { ...prop });
       }
     },
     setPropertyToEdit(state: OwnerState, property: Property) {
@@ -140,6 +148,9 @@ const store = createStore({
     updatePropertyToEdit({ commit }, id: number) {
       commit('updatePropertyToEdit', id);
     },
+    updatePropertyToConsult({ commit }, id: number) {
+      commit('updatePropertyToConsult', id);
+    },
   },
   getters: {
     getUser(state: OwnerState) {
@@ -156,6 +167,9 @@ const store = createStore({
     },
     getPropertyToEdit(state: OwnerState) {
       return state.propertyToEdit;
+    },
+    getPropertyToConsult(state: OwnerState) {
+      return state.propertyToConsult;
     },
   },
 });

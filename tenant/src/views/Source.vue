@@ -238,7 +238,7 @@ body {
 }
 .bg-pic {
   background: linear-gradient(rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.5)),
-    url("../assets/Immeuble.png") no-repeat;
+    url("../assets/Immeuble.webp") no-repeat;
   background-size: cover;
   height: 100%;
   overflow: hidden;
