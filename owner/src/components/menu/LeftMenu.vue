@@ -12,6 +12,8 @@ function getName() {
 }
 
 const propertyName = computed(() => store.getters.getPropertyToEdit?.name);
+
+const rentStatus = computed(() => store.getters.getPropertyToEdit?.rentCost > 0 ? 'FILLED' : 'TO_PROCESS');
 </script>
 
 <template>
@@ -43,10 +45,17 @@ const propertyName = computed(() => store.getters.getPropertyToEdit?.name);
       </div>
       <div class="vline">
         <div class="ml-5">
-          {{ propertyName }}
+          <ColoredTag
+              :text="propertyName ? propertyName : t('property-name')"
+              :status="propertyName ? 'FILLED' : 'EMPTY'"
+            ></ColoredTag
+          >
         </div>
-        <div class="ml-5">
-          {{ t('monthly-rent-and-charges')}}
+        <div class="ml-5"><ColoredTag
+              :text="t('monthly-rent-and-charges')"
+              :status="rentStatus"
+            ></ColoredTag
+          >
         </div>
       </div>
       <div class="active step">
@@ -116,6 +125,11 @@ const propertyName = computed(() => store.getters.getPropertyToEdit?.name);
   padding: 5px 5px 0;
 }
 
+.ml-5 {
+  margin-left: -1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
 </style>
 
 <i18n>
@@ -124,13 +138,15 @@ const propertyName = computed(() => store.getters.getPropertyToEdit?.name);
     "personal-information": "My personal data",
     "add-property": "I add my property",
     "validate-property": "I validate my property",
-    "monthly-rent-and-charges": "Monthly rent and charges"
+    "monthly-rent-and-charges": "Monthly rent and charges",
+    "property-name": "Property name"
   },
   "fr": {
     "personal-information": "Mes informations personnelles",
     "add-property": "J'ajoute un bien",
     "validate-property": "Je valide ma propriété",
-    "monthly-rent-and-charges": "Loyer et charges mensuels"
+    "monthly-rent-and-charges": "Loyer et charges mensuels",
+    "property-name": "Nom de la propriété"
   }
 }
 </i18n>
