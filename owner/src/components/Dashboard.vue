@@ -30,10 +30,10 @@ function editProperty(id: number) {
 
 <template>
 <div class="fr-container">
-  <h1>{{ t('title', {name: username}) }}</h1>
+  <h2 class="fr-h3 fr-mt-3w blue-text">{{ t('title', {name: username}) }}</h2>
   <NakedCard>
   <div class="fr-grid-row space-between">
-    <h2>{{ t('my-properties') }}</h2>
+    <h1 class="fr-h4">{{ t('my-properties') }}</h1>
     <div>
       <Button @onClick="addProperty" :primary="true">{{ t('add-property') }}</Button>
     </div>
@@ -50,10 +50,10 @@ function editProperty(id: number) {
     </tr>
     <tr v-for="p in properties" :key="p.name">
     <td>{{ p.type }}</td>
-    <td>{{ p.name }}</td>
-    <td>{{ p.address }}</td>
+    <td class="text--light-blue">{{ p.name }}</td>
+    <td class="text--light-blue">{{ p.address }}</td>
     <td>{{ p.applicant }}</td>
-    <td>{{ p.rentCost }}</td>
+    <td class="text--light-blue">{{ p.rentCost }}</td>
     <td>
       <button @click="consultProperty(p.id)">Consult</button>
       <button @click="editProperty(p.id)">EDIT</button>
@@ -66,6 +66,39 @@ function editProperty(id: number) {
 </template>
 
 <style scoped lang="scss">
+table {
+  width: 100%;
+  border-spacing:0 0.25rem;
+  text-align: start;
+}
+th {
+  color: #666666;
+  font-size: 12px;
+}
+
+tr {
+  background-color: #f6f6f6;
+  color: #666666;
+  padding: 0.5rem;
+  &:first-child {
+    background-color: transparent;
+  }
+
+}
+
+td {
+  border: solid 1px #f6f6f6;
+  height: 2.5rem;
+}
+
+td:first-child {
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+td:last-child {
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
 </style>
 
 <i18n>

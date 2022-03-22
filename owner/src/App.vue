@@ -113,6 +113,7 @@ function denyCookies() {
 }
 
 .page {
+  background-color: #f5f5fe;
   flex: auto;
   min-height: 300px;
   display: flex;
