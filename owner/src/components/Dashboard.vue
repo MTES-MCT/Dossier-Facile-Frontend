@@ -72,6 +72,7 @@ table {
   text-align: start;
 }
 th {
+  text-align: start;
   color: #666666;
   font-size: 12px;
 }

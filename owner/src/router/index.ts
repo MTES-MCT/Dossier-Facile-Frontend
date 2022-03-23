@@ -117,6 +117,9 @@ router.beforeEach(async (to, _, next) => {
     } else {
       keycloak.login({ redirectUri: OWNER_URL + to.fullPath });
     }
+  } else if (keycloak.authenticated) {
+    next({ name: 'Dashboard' });
+    return;
   }
   updateMetaData(to);
   next();

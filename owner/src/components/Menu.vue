@@ -43,7 +43,7 @@ function currentPage() {
         {{ t("information") }}
       </a>
     </li>
-    <li class="fr-nav__item" v-if="isLoggedIn">
+    <li class="fr-nav__item" v-show="isLoggedIn">
       <button
         class="fr-nav__btn"
         aria-expanded="false"
@@ -82,3 +82,34 @@ function currentPage() {
     </li>
   </ul>
 </template>
+
+<style scoped lang="scss">
+.fr-nav__list > li:last-child {
+  @media all and (min-width: 992px) {
+    margin-left: auto;
+  }
+}
+</style>
+
+<i18n>
+{
+"en": {
+"account": "Account",
+"file": "File",
+"messaging": "Messaging",
+"faq": "Help",
+"blog": "Blog",
+"information": "Information",
+"deleteAccount": "Delete my account"
+},
+"fr": {
+"file": "Mon dossier",
+"account": "Mon compte",
+"messaging": "Messagerie",
+"faq": "Aide",
+"blog": "Blog",
+"information": "En savoir plus",
+"deleteAccount": "Supprimer mon compte"
+}
+}
+</i18n>
