@@ -48,13 +48,13 @@
         <div class="separator">{{ t("or") }}</div>
       </template>
 
-      <Form @submit.prevent="onSubmit">
+      <Form @submit="onSubmit">
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-input-group">
               <label class="fr-label" for="email">{{ t("email") }}</label>
               <Field
-                v-model="email"
+                v-model="user.email"
                 class="form-control validate-required fr-input"
                 id="email"
                 name="email"
