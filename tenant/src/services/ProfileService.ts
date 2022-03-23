@@ -59,5 +59,14 @@ export const ProfileService = {
     return axios.get(
       `https://${process.env.VUE_APP_API_URL}/api/application/light/${token}`
     );
+  },
+  postCreateFullPdf(token: string): Promise<VoidFunction> {
+    return axios.post(
+      `https://${process.env.VUE_APP_API_URL}/api/application/fullPdf/${token}`,
+      {}
+    );
+  },
+  getFile(fileUrl: string): Promise<any> {
+    return axios.get(fileUrl, { responseType: "blob" });
   }
 };
