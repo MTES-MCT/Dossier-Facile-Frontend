@@ -183,7 +183,7 @@ const store = new Vuex.Store({
   },
   actions: {
     logout({ commit }, redirect = true) {
-      return AuthService.logout()
+      return AuthService.logout(this.state.user.franceConnect)
         .then(async () => {
           await commit("logout");
           await commit("initState");

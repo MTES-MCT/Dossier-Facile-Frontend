@@ -13,7 +13,7 @@ app.use(function(req, res, next) {
       "img-src 'self' https://www.google-analytics.com *.helpscout.net *.cloudfront.net *.gitbook.com data:; " +
       "font-src 'self' fonts.google.com fonts.googleapis.com data:; object-src 'none'; " +
       "prefetch-src 'self'; " +
-      "connect-src https://www.google-analytics.com *.inspectlet.com https://stats.g.doubleclick.net https://sheets.googleapis.com *.helpscout.net wss://ws-helpscout.pusher.com https://sockjs-helpscout.pusher.com *.dossierfacile.fr"
+      "connect-src https://www.google-analytics.com *.inspectlet.com wss://ws.inspectlet.com https://stats.g.doubleclick.net https://sheets.googleapis.com *.helpscout.net wss://ws-helpscout.pusher.com https://sockjs-helpscout.pusher.com *.dossierfacile.fr"
   );
   res.setHeader("X-Frame-Options", "deny");
   res.setHeader("X-Content-Type-Options", "nosniff");
