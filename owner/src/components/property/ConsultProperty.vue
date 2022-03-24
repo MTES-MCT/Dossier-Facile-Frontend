@@ -13,7 +13,10 @@
           <button class="fr-btn btn--white fr-btn--secondary">
             <span class="material-icons md-24"> share_variant </span>
           </button>
-          <button @click="editProperty()" class="fr-btn btn--white fr-btn--secondary fr-ml-1w">
+          <button
+            @click="editProperty()"
+            class="fr-btn btn--white fr-btn--secondary fr-ml-1w"
+          >
             {{ t("modify-property") }}
           </button>
           <button class="fr-btn btn--white fr-btn--secondary fr-ml-1w">
@@ -22,10 +25,30 @@
         </div>
       </div>
       <NakedCard class="h-100">
-        <div>{{ token }}</div>
+        <div>type X et prix Y</div>
       </NakedCard>
       <NakedCard class="fr-mt-3w">
         {{ p }}
+        <table>
+          <tr>
+            <th>{{ t("date") }}</th>
+            <th>{{ t("tenant-name") }}</th>
+            <th>{{ t("tenant-type") }}</th>
+            <th>{{ t("tenant-salary") }}</th>
+            <th>{{ t("guarantor-salary") }}</th>
+            <th>{{ t("rate") }}</th>
+            <th>{{ t("status") }}</th>
+          </tr>
+          <tr v-for="t in getTenants()" :key="t.id">
+            <td>{{ p.type }}</td>
+            <td class="text--light-blue">{{ t.firstName }}{{ t.lastName }}</td>
+            <td>{{ t }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
       </NakedCard>
     </div>
   </div>
@@ -57,6 +80,12 @@ const p = store.getters.getPropertyToConsult;
 
 function editProperty() {
   router.push({ name: 'PropertyName', params: { id: id.value } });
+}
+
+function getTenants() {
+  return p.propertiesApartmentSharing
+    .map((pas: any) => pas.apartmentSharing.tenants)
+    .reduce((r: [], c: []) => r.concat(c));
 }
 </script>
 
@@ -99,6 +128,42 @@ function editProperty() {
 .md-24 {
   width: 2rem;
 }
+
+table {
+  width: 100%;
+  border-spacing:0 0.25rem;
+  text-align: start;
+}
+th {
+  text-align: start;
+  color: #666666;
+  font-size: 12px;
+}
+
+tr {
+  background-color: #f6f6f6;
+  color: #666666;
+  padding: 0.5rem;
+  &:first-child {
+    background-color: transparent;
+  }
+
+}
+
+td {
+  border: solid 1px #f6f6f6;
+  height: 2.5rem;
+}
+
+td:first-child {
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+td:last-child {
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
 </style>
 
 <i18n>
