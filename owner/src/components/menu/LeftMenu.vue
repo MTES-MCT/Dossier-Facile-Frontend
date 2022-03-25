@@ -22,7 +22,7 @@ const rentStatus = computed(() => store.getters.getPropertyToEdit?.rentCost > 0 
       <div class="active step">
         <div class="step-number">1</div>
         <div class="step-title">
-          <router-link :to="{ name: 'AccountName' }" class="fr-link">
+          <router-link :to="{ name: 'AccountName' }" class="fr-btn">
             {{ t("personal-information") }}</router-link
           >
         </div>
@@ -38,7 +38,7 @@ const rentStatus = computed(() => store.getters.getPropertyToEdit?.rentCost > 0 
       <div class="active step">
         <div class="step-number">2</div>
         <div class="step-title">
-          <router-link :to="{ name: 'AccountName' }" class="fr-link">
+          <router-link :to="{ name: 'AccountName' }" class="fr-btn">
             {{ t("add-property") }}</router-link
           >
         </div>
@@ -61,7 +61,7 @@ const rentStatus = computed(() => store.getters.getPropertyToEdit?.rentCost > 0 
       <div class="active step">
         <div class="step-number">3</div>
         <div class="step-title">
-          <router-link :to="{ name: 'AccountName' }" class="fr-link">
+          <router-link :to="{ name: 'AccountName' }" class="fr-btn">
             {{ t("validate-property") }}</router-link
           >
         </div>

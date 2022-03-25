@@ -41,10 +41,10 @@
 
           <div class="fr-header__tools">
             <div class="fr-header__tools-links">
-              <ul class="fr-links-group">
+              <ul class="fr-btns-group">
                 <li v-if="showAccessibility">
                   <a
-                    class="fr-link fr-fi-eye-line"
+                    class="fr-btn fr-fi-eye-line"
                     :href="`${MAIN_URL}/accessibilite`"
                     target="_blank"
                     :title="t('accessibility-link')"
@@ -92,15 +92,19 @@
     <!-- Navigation principale -->
     <div class="fr-header__menu fr-modal" id="modal-dc">
       <div class="fr-container">
-        <button class="fr-link--close fr-link" aria-controls="modal-dc">
+        <button
+          class="fr-btn--close fr-btn"
+          aria-controls="modal-dc"
+          title="fermer"
+        >
           Fermer
         </button>
         <div class="fr-header__menu-links" style="display: none"></div>
         <div class="fr-header__menu-links-hack">
-          <ul class="fr-links-group">
+          <ul class="fr-btns-group">
             <li v-if="showAccessibility">
               <a
-                class="fr-link fr-fi-eye-line"
+                class="fr-btn fr-fi-eye-line"
                 :href="`${MAIN_URL}/accessibilite`"
                 target="_blank"
                 :title="t('accessibility-link')"

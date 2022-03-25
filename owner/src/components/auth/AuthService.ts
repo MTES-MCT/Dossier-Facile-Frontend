@@ -16,7 +16,7 @@ const AuthService = {
   },
 
   deleteAccount() {
-    return axios.delete(`${API_URL}user/deleteAccount`);
+    return axios.delete(`${API_URL}owner/deleteAccount`);
   },
 
   resetPassword(user: User) {

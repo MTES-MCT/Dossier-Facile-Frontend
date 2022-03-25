@@ -8,7 +8,7 @@
         aria-describedby="modalDescription"
       >
         <button
-          class="fr-link--close fr-link fr-mr-1w"
+          class="fr-btn--close fr-btn fr-mr-1w"
           title="Fermer la fenêtre modale"
           aria-label="Fermer la fenêtre modale"
           @click="close()"

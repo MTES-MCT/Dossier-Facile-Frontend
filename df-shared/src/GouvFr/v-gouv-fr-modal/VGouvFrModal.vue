@@ -1,6 +1,6 @@
 <template>
   <div class="v-gouv-fr-modal">
-    <a href="#" @click="isOpened = true" class="fr-link fr-tag--sm">
+    <a href="#" @click="isOpened = true" class="fr-btn fr-tag--sm">
       <slot name="button"> </slot>
     </a>
     <dialog
@@ -15,7 +15,7 @@
             <div class="fr-modal__body">
               <div class="fr-modal__header">
                 <button
-                  class="fr-link--close fr-link"
+                  class="fr-btn--close fr-btn"
                   title="Fermer la fenêtre modale"
                   @click="isOpened = false"
                   target="_self"

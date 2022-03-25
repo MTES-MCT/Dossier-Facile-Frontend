@@ -4,7 +4,7 @@
       <div class="active step">
         <div class="step-number">1</div>
         <div class="step-title">
-          <router-link :to="{ name: 'TenantName' }" class="fr-link">
+          <router-link :to="{ name: 'TenantName' }" class="fr-btn">
             {{ $t("personal-information") }}</router-link
           >
         </div>
@@ -32,7 +32,7 @@
         <div class="step-number">2</div>
         <div class="step-title">
           <router-link
-            class="fr-link"
+            class="fr-btn"
             :to="{ name: 'TenantDocuments', params: { substep: '1' } }"
             >{{ $t("my-document") }}</router-link
           >
@@ -95,7 +95,7 @@
       <div class="step" :class="getClass(2)">
         <div class="step-number">3</div>
         <div class="step-title">
-          <router-link class="fr-link" :to="getGuarantorLink()">{{
+          <router-link class="fr-btn" :to="getGuarantorLink()">{{
             $t("my-guarantor")
           }}</router-link>
         </div>
@@ -234,7 +234,7 @@
       <div class="step" :class="getClass(3)">
         <div class="step-number">4</div>
         <div class="step-title">
-          <router-link class="fr-link" :to="{ name: 'ValidateFile' }">{{
+          <router-link class="fr-btn" :to="{ name: 'ValidateFile' }">{{
             $t("validate-file")
           }}</router-link>
         </div>
@@ -395,7 +395,7 @@ export default class LeftEditMenu extends Vue {
   margin-bottom: 1rem;
 }
 
-.fr-link {
+.fr-btn {
   width: fit-content;
   color: var(--g800-plain);
   font-size: 14px;

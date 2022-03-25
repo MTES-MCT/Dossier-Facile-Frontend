@@ -27,7 +27,7 @@
   }
 }
 
-.fr-link {
+.fr-btn {
   flex-direction: row;
 }
 

@@ -149,7 +149,7 @@
           {{ $t("s4.title3") }}
         </h2>
         <div class="text-center">
-          <router-link to="/stats" class="fr-link">
+          <router-link to="/stats" class="fr-btn">
             <img src="../assets/icons/stats.webp" class="stats-icon" alt="" />
             {{ $t("s4.link") }}
           </router-link>
@@ -332,7 +332,6 @@
             name="mydomus"
             width="214px"
           />
-
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
@@ -384,7 +383,7 @@ export default class LandingPage extends Vue {
   background-size: cover !important;
   background-position: 50% 50% !important;
   background-image: url("../assets/cover-features.webp");
-  background-color: #6277A0;
+  background-color: #6277a0;
   @media (max-width: 768px) {
     background-image: url("../assets/cover-features-mobile.webp");
   }

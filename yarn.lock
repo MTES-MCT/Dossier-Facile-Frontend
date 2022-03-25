@@ -2062,12 +2062,7 @@
   resolved "https://registry.yarnpkg.com/@gar/promisify/-/promisify-1.1.3.tgz#555193ab2e3bb3b6adc3d551c9c030d9e860daf6"
   integrity sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==
 
-"@gouvfr/dsfr@1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.2.1.tgz#68383192c24d521cf247992b11d891fb78d8f2f3"
-  integrity sha512-vnpeX+fZnW2KLl2PrcjHpUhOuO7twT9h3gwZvJLgVl+IosM4/Jesx5QMZAhsLl85Cq57mKhSjTnw8EZglLanUg==
-
-"@gouvfr/dsfr@^1.4.0":
+"@gouvfr/dsfr@1.4.0", "@gouvfr/dsfr@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.4.0.tgz#b2e54487f8d984edc9c658572c10cab5d5bb957e"
   integrity sha512-t17TeKwgUNIYkZpgLBzt8Op1ye+6PevqYPreXRqCFxsnkqoPg9fHvGy9goQhR0mSM/LIAbSYYi6Mkfa60YXYTg==

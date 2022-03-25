@@ -3,7 +3,7 @@
     <div>
       <a
         href="#"
-        class="fr-link"
+        class="fr-btn"
         :aria-expanded="localExpanded"
         aria-controls="card-content"
         @click="localExpanded = expandable ? !localExpanded : expanded"

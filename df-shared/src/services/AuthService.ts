@@ -5,7 +5,7 @@ const API_URL = `https://${process.env.VUE_APP_API_URL}/api/`;
 
 export const AuthService = {
   logout() {
-    return axios.post(API_URL + "owner/logout");
+    return axios.post(API_URL + "user/logout");
   },
 
   register(user: User, source: string, internalPartnerId: string) {
