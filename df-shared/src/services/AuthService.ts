@@ -6,7 +6,7 @@ const API_URL = `https://${process.env.VUE_APP_API_URL}/api/`;
 export const AuthService = {
   logout(franceConnect: boolean) {
     if (franceConnect) {
-      window.location.replace(
+      window.open(
         "https://fcp.integ01.dev-franceconnect.fr/api/v1/logout"
       );
     }
