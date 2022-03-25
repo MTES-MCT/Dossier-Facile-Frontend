@@ -72,7 +72,7 @@ const store = createStore({
       }
     },
     setPropertyToEdit(state: OwnerState, property: Property) {
-      Object.assign(state.propertyToEdit, { ...property });
+      state.propertyToEdit = { ...property };
     },
   },
   actions: {
@@ -144,6 +144,9 @@ const store = createStore({
         commit('setPropertyToEdit', response.data);
         return Promise.resolve(response.data);
       });
+    },
+    newProperty({ commit }) {
+      return commit('setPropertyToEdit', {});
     },
     updatePropertyToEdit({ commit }, id: number) {
       commit('updatePropertyToEdit', id);
