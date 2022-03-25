@@ -39,7 +39,7 @@ const store = createStore({
     },
     loadUser(state: OwnerState, owner: OwnerUser) {
       Object.assign(state.user, owner);
-      Object.assign(state.properties, owner.properties);
+      state.properties = owner.properties;
       Object.assign(state.status.loggedIn, true);
     },
     logout(state: OwnerState) {
@@ -150,6 +150,12 @@ const store = createStore({
     },
     updatePropertyToConsult({ commit }, id: number) {
       commit('updatePropertyToConsult', id);
+    },
+    deleteProperty({ commit }, id: number) {
+      return OwnerService.deleteProperty(id).then(async (response) => {
+        await commit('loadUser', response.data);
+        return Promise.resolve(response.data);
+      });
     },
   },
   getters: {

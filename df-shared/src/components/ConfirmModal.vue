@@ -13,10 +13,10 @@
                 class="fr-mr-3w"
                 @on-click="validSelect()"
                 primary="true"
-                >{{ $t("validate") }}</DfButton
+                >{{ t("validate") }}</DfButton
               >
               <DfButton class="fr-mr-3w" @on-click="undoSelect()">{{
-                $t("cancel")
+                t("cancel")
               }}</DfButton>
             </div>
           </div>
@@ -26,25 +26,20 @@
   </Modal>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+<script setup lang="ts">
 import Modal from "df-shared/src/components/Modal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
+import { useI18n } from "vue-i18n";
 
-@Component({
-  components: {
-    Modal,
-    DfButton
-  }
-})
-export default class ConfirmModal extends Vue {
-  validSelect() {
-    this.$emit("valid");
-  }
+const { t } = useI18n();
+const emit = defineEmits(["valid", "cancel"]);
 
-  undoSelect() {
-    this.$emit("cancel");
-  }
+function validSelect() {
+  emit("valid");
+}
+
+function undoSelect() {
+  emit("cancel");
 }
 </script>
 

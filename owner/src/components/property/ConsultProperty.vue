@@ -19,9 +19,19 @@
           >
             {{ t("modify-property") }}
           </button>
-          <button class="fr-btn btn--white fr-btn--secondary fr-ml-1w">
+          <button
+            class="fr-btn btn--white fr-btn--secondary fr-ml-1w"
+            @click="confirmDelete = true"
+          >
             {{ t("delete-property") }}
           </button>
+          <ConfirmModal
+            v-if="confirmDelete"
+            @valid="validDeleteFile()"
+            @cancel="undoDeleteFile()"
+          >
+            {{ t("will-delete-property") }}
+          </ConfirmModal>
         </div>
       </div>
       <NakedCard class="h-100">
@@ -54,8 +64,10 @@ import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import NakedCard from 'df-shared/src/components/NakedCard.vue';
+import ConfirmModal from 'df-shared/src/components/ConfirmModal.vue';
 
 const { t } = useI18n();
+const confirmDelete = ref(false);
 
 defineProps<{}>();
 
@@ -90,8 +102,14 @@ function editProperty() {
 }
 
 function getTenants() {
-  const tenants = p.propertiesApartmentSharing
-    .map((pas: any) => pas.apartmentSharing.tenants)
+  if (!p.propertiesApartmentSharing) {
+    return [];
+  }
+  const l = p.propertiesApartmentSharing.map((pas: any) => pas.apartmentSharing.tenants);
+  if (l.length === 0) {
+    return [];
+  }
+  const tenants = l
     .reduce((r: [], c: []) => r.concat(c))
     .map((u: any) => ({
       date: new Date(),
@@ -121,6 +139,16 @@ function sortTable(col: string) {
     sortColumn.value = col;
     ascending.value = true;
   }
+}
+
+function validDeleteFile() {
+  store.dispatch('deleteProperty', id.value).then(() => {
+    router.push({ name: 'Dashboard' });
+  });
+  confirmDelete.value = false;
+}
+function undoDeleteFile() {
+  confirmDelete.value = false;
 }
 </script>
 
@@ -220,13 +248,15 @@ td:last-child {
     "title": "consult",
     "back": "Back",
     "modify-property": "Modify my property",
-    "delete-property": "Delete my property"
+    "delete-property": "Delete my property",
+    "will-delete-property": "Are you sure you want to delete this property ?"
   },
   "fr": {
     "title": "Consultation",
     "back": "Retour",
     "modify-property": "Modifier ma propriété",
-    "delete-property": "Supprimer ma propriété"
+    "delete-property": "Supprimer ma propriété",
+    "will-delete-property": "Êtes-vous sûr de vouloir supprimer cette propriété ?"
   }
 }
 </i18n>

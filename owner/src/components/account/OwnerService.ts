@@ -14,6 +14,9 @@ const OwnerService = {
       ...property,
     });
   },
+  deleteProperty(id: number) {
+    return axios.delete(`${API_URL}property/${id}`);
+  },
 };
 
 export default OwnerService;
