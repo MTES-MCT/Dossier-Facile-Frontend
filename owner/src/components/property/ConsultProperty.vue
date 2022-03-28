@@ -13,9 +13,7 @@
           <VGouvFrModal>
             <template v-slot:button>
               <button class="fr-btn btn--white fr-btn--secondary">
-                <!-- <div class="fr-btn btn--white fr-btn--secondary"> -->
                 <span class="material-icons md-24"> share_variant </span>
-                <!-- </div> -->
               </button>
             </template>
             <template v-slot:title>
@@ -65,7 +63,9 @@
         <div>type X et prix Y {{ token }}</div>
       </NakedCard>
       <NakedCard class="fr-mt-3w">
-        {{ p }}
+        <h1 class="fr-h4">
+          {{ t("verified-applicants", { count: verifiedApplicantsCount }) }}
+        </h1>
         <table>
           <tr>
             <th v-for="col in columns" v-on:click="sortTable(col)" :key="col">
@@ -94,6 +94,7 @@ import NakedCard from 'df-shared/src/components/NakedCard.vue';
 import ConfirmModal from 'df-shared/src/components/ConfirmModal.vue';
 import VGouvFrModal from 'df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue';
 import { useToast } from 'vue-toastification';
+import { User } from 'df-shared/src/models/User';
 
 const { t } = useI18n();
 const confirmDelete = ref(false);
@@ -134,7 +135,7 @@ function editProperty() {
   router.push({ name: 'PropertyName', params: { id: id.value } });
 }
 
-function getTenants() {
+function getTenants(): User[] {
   if (!p.propertiesApartmentSharing) {
     return [];
   }
@@ -190,6 +191,10 @@ function copyToken() {
     timeout: 7000,
   });
 }
+
+const verifiedApplicantsCount = computed(
+  () => getTenants().filter((u: User) => u.status !== 'VALIDATED').length,
+);
 </script>
 
 <style scoped lang="scss">
@@ -297,7 +302,8 @@ td:last-child {
     "share-modal-description": "If you want to give access to your property to a candidate through a channel other than our automatic email, you can copy your file link and paste it into the message you send him.",
     "copy-link": "Copy",
     "share-modal-detail": "The copy button will copy this link to your clipboard",
-    "link-copied": "Link copied"
+    "link-copied": "Link copied",
+    "verified-applicants": "My verified applicants ({count})"
   },
   "fr": {
     "title": "Consultation",
@@ -309,7 +315,8 @@ td:last-child {
     "share-modal-description": "Si vous voulez donner accès à votre propriété à un candidat par un autre canal que notre mail automatique, vous pouvez copier votre lien dossier et le coller dans le message que vous lui enverrez.",
     "copy-link": "Copier",
     "share-modal-detail": "Le bouton copier copiera ce lien dans votre presse papier",
-    "link-copied": "Lien copié"
+    "link-copied": "Lien copié",
+    "verified-applicants": "Mes candidatures vérifiées ({count})"
   }
 }
 </i18n>
