@@ -193,7 +193,7 @@ function copyToken() {
 }
 
 const verifiedApplicantsCount = computed(
-  () => getTenants().filter((u: User) => u.status !== 'VALIDATED').length,
+  () => getTenants().filter((u: User) => u.status === 'VALIDATED').length,
 );
 </script>
 
