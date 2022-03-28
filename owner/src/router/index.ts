@@ -79,6 +79,16 @@ const routes = [
     },
     component: PropertyRent,
   },
+  {
+    path: '/valider-propriete/:id?',
+    name: 'ValidateProperty',
+    meta: {
+      title: 'Validation de la propriété - DossierFacile',
+      requiresAuth: true,
+      hasFooter: false,
+    },
+    component: PropertyRent,
+  },
 ];
 
 const router = VueRouter.createRouter({

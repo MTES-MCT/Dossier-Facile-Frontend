@@ -174,7 +174,7 @@ const store = createStore({
     getProperties(state: OwnerState) {
       return state.properties;
     },
-    getPropertyToEdit(state: OwnerState) {
+    getPropertyToEdit(state: OwnerState): Property {
       return state.propertyToEdit;
     },
     getPropertyToConsult(state: OwnerState) {

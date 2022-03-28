@@ -3,9 +3,11 @@ import { useI18n } from 'vue-i18n';
 import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 import { useStore } from 'vuex';
 import { computed } from 'vue';
+import { useRoute } from 'vue-router';
 
 const { t } = useI18n();
 const store = useStore();
+const route = useRoute();
 
 function getName() {
   return `${store.getters.getUser?.lastName} ${store.getters.getUser?.firstName}`;
@@ -14,6 +16,10 @@ function getName() {
 const propertyName = computed(() => store.getters.getPropertyToEdit?.name);
 
 const rentStatus = computed(() => store.getters.getPropertyToEdit?.rentCost > 0 ? 'FILLED' : 'TO_PROCESS');
+
+const id = Number(route.params.id);
+const getParams = id ? { id } : {};
+
 </script>
 
 <template>
@@ -22,46 +28,55 @@ const rentStatus = computed(() => store.getters.getPropertyToEdit?.rentCost > 0 
       <div class="active step">
         <div class="step-number">1</div>
         <div class="step-title">
-          <router-link :to="{ name: 'AccountName' }" class="fr-btn">
+          <router-link :to="{ name: 'AccountName' }" class="fr-link">
             {{ t("personal-information") }}</router-link
           >
         </div>
       </div>
       <div class="vline">
-        <div class="ml-5"><ColoredTag
+        <div class="ml-5">
+          <router-link :to="{ name: 'AccountName' }" class="fr-link">
+                    <ColoredTag
               :text="getName()"
               status="NAME"
             ></ColoredTag
+          ></router-link
           >
+
         </div>
       </div>
       <div class="active step">
         <div class="step-number">2</div>
         <div class="step-title">
-          <router-link :to="{ name: 'AccountName' }" class="fr-btn">
+          <router-link :to="{ name: 'PropertyName', params: getParams }" class="fr-link">
             {{ t("add-property") }}</router-link
           >
         </div>
       </div>
       <div class="vline">
         <div class="ml-5">
+          <router-link :to="{ name: 'PropertyName', params: getParams }" class="fr-link">
           <ColoredTag
               :text="propertyName ? propertyName : t('property-name')"
               :status="propertyName ? 'FILLED' : 'EMPTY'"
             ></ColoredTag
           >
+          </router-link>
         </div>
-        <div class="ml-5"><ColoredTag
+        <div class="ml-5">
+          <router-link :to="{ name: 'PropertyRent', params: getParams }" class="fr-link">
+        <ColoredTag
               :text="t('monthly-rent-and-charges')"
               :status="rentStatus"
             ></ColoredTag
           >
+          </router-link>
         </div>
       </div>
       <div class="active step">
         <div class="step-number">3</div>
         <div class="step-title">
-          <router-link :to="{ name: 'AccountName' }" class="fr-btn">
+          <router-link :to="{ name: 'ValidateProperty', params: getParams }" class="fr-link">
             {{ t("validate-property") }}</router-link
           >
         </div>
@@ -129,6 +144,19 @@ const rentStatus = computed(() => store.getters.getPropertyToEdit?.rentCost > 0 
   margin-left: -1rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+[href] {
+    box-shadow: none;
+    background-image: none;
+}
+
+.fr-link {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    color: var(--g800-plain);
+    font-size: 14px;
 }
 </style>
 

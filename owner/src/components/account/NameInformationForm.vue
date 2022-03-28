@@ -113,6 +113,7 @@ function onSubmit() {
   store.dispatch('saveNames', { lastName: lastName.value, firstName: firstName.value, email: email.value }).then(() => {
     if (properties.length > 0) {
       router.push({ name: 'Dashboard' });
+      return;
     }
     router.push({ name: 'PropertyName' });
   });
