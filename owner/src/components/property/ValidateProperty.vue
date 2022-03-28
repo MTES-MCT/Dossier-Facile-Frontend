@@ -33,10 +33,14 @@ function isTrue(value: boolean) {
   }
   return true;
 }
+
+function onBack() {
+  router.push({ name: 'PropertyRent', params: { id: store.getters.getPropertyToEdit.id } });
+}
 </script>
 
 <template>
-  <PropertyPage @submit="onSubmit">
+  <PropertyPage @on-back="onBack" @submit="onSubmit">
     <h1 class="fr-h4">{{ t("validate-title") }}</h1>
     <p>{{ t("validate-subtitle") }}</p>
     <div class="bg-purple fr-checkbox-group">

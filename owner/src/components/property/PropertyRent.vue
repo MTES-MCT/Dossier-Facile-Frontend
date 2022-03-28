@@ -33,10 +33,14 @@ function onSubmit() {
     router.push({ name: 'ValidateProperty', params: { id: store.getters.getPropertyToEdit.id } });
   });
 }
+
+function onBack() {
+  router.push({ name: 'PropertyName', params: { id: store.getters.getPropertyToEdit.id } });
+}
 </script>
 
 <template>
-  <PropertyPage @submit="onSubmit">
+  <PropertyPage @on-back="onBack" @submit="onSubmit">
     <h1 class="fr-h4">{{ t("rent-title") }}</h1>
     <p>{{ t("rent-subtitle") }}</p>
     <p>

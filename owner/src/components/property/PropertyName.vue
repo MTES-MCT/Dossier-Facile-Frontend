@@ -33,10 +33,14 @@ function onSubmit() {
     router.push({ name: 'PropertyRent', params: { id: data.id } });
   });
 }
+
+function onBack() {
+  router.push({ name: 'AccountName' });
+}
 </script>
 
 <template>
-  <PropertyPage @submit="onSubmit">
+  <PropertyPage @on-back="onBack" @submit="onSubmit">
     <h1 class="fr-h4">{{ t("name-title") }}</h1>
     <p>{{ t("name-subtitle") }}</p>
     <p>

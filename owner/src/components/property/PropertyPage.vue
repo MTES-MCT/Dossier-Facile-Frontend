@@ -5,10 +5,14 @@ import LeftMenu from '../menu/LeftMenu.vue';
 import BackNext from '../footer/BackNext.vue';
 import FooterContainer from '../footer/FooterContainer.vue';
 
-const emit = defineEmits(['submit']);
+const emit = defineEmits(['submit', 'on-back']);
 
 function onSubmit() {
   emit('submit');
+}
+
+function onBack() {
+  emit('on-back');
 }
 </script>
 
@@ -24,7 +28,7 @@ function onSubmit() {
             <slot></slot>
           </NakedCard>
           <FooterContainer>
-            <BackNext :show-back="true"></BackNext>
+            <BackNext @on-back="onBack" :show-back="true"></BackNext>
           </FooterContainer>
         </Form>
       </div>
