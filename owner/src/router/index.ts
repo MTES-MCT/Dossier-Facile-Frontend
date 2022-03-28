@@ -5,6 +5,7 @@ import Dashboard from '../components/Dashboard.vue';
 import PropertyName from '../components/property/PropertyName.vue';
 import PropertyRent from '../components/property/PropertyRent.vue';
 import ConsultProperty from '../components/property/ConsultProperty.vue';
+import ValidateProperty from '../components/property/ValidateProperty.vue';
 import Register from '../components/Register.vue';
 import store from '../store';
 import keycloak from '../plugin/keycloak';
@@ -87,7 +88,7 @@ const routes = [
       requiresAuth: true,
       hasFooter: false,
     },
-    component: PropertyRent,
+    component: ValidateProperty,
   },
 ];
 

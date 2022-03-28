@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Form } from 'vee-validate';
 import NakedCard from 'df-shared/src/components/NakedCard.vue';
 import LeftMenu from '../menu/LeftMenu.vue';
 import BackNext from '../footer/BackNext.vue';
@@ -18,8 +19,8 @@ function onSubmit() {
       class="fr-col-xl-9 fr-col-md-8 fr-col-xs-12 fr-pt-md-4w fr-pt-2w fr-grid-row fr-pb-10w fr-m-2w fr-m-md-0"
     >
       <div class="fr-col-12 max-600 ml">
-        <Form @submit.prevent="onSubmit">
-          <NakedCard>
+        <Form @submit="onSubmit">
+          <NakedCard class="fr-p-md-5w">
             <slot></slot>
           </NakedCard>
           <FooterContainer>

@@ -30,7 +30,7 @@ const rent = computed({
 
 function onSubmit() {
   store.dispatch('saveProperty').then(() => {
-    router.push({ name: 'Dashboard' });
+    router.push({ name: 'ValidateProperty', params: { id: store.getters.getPropertyToEdit.id } });
   });
 }
 </script>
