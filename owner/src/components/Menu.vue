@@ -57,7 +57,7 @@ function currentPage() {
           <li>
             <a
               class="fr-nav__link"
-              href="/account"
+              href="/"
               target="_self"
               :aria-current="currentPage() === 'Account' ? 'page' : false"
               >{{ t("file") }}</a

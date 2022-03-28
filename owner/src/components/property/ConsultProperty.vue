@@ -10,9 +10,36 @@
           <div class="title">{{ name }}</div>
         </div>
         <div class="fr-grid-row">
-          <button class="fr-btn btn--white fr-btn--secondary">
-            <span class="material-icons md-24"> share_variant </span>
-          </button>
+          <VGouvFrModal>
+            <template v-slot:button>
+              <button class="fr-btn btn--white fr-btn--secondary">
+                <!-- <div class="fr-btn btn--white fr-btn--secondary"> -->
+                <span class="material-icons md-24"> share_variant </span>
+                <!-- </div> -->
+              </button>
+            </template>
+            <template v-slot:title>
+              {{ t("share-modal-title") }}
+            </template>
+            <template v-slot:content>
+              <p>
+                {{ t("share-modal-description") }}
+              </p>
+              <div class="fr-grid-row fr-mb-3w">
+                <div class="align-self--center">
+                  {{ token }}
+                </div>
+                <div>
+                  <button class="fr-btn fr-ml-5w" @click="copyToken">
+                    {{ t("copy-link") }}
+                  </button>
+                </div>
+              </div>
+              <p>
+                {{ t("share-modal-detail") }}
+              </p>
+            </template>
+          </VGouvFrModal>
           <button
             @click="editProperty()"
             class="fr-btn btn--white fr-btn--secondary fr-ml-1w"
@@ -65,6 +92,8 @@ import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import NakedCard from 'df-shared/src/components/NakedCard.vue';
 import ConfirmModal from 'df-shared/src/components/ConfirmModal.vue';
+import VGouvFrModal from 'df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue';
+import { useToast } from 'vue-toastification';
 
 const { t } = useI18n();
 const confirmDelete = ref(false);
@@ -74,6 +103,7 @@ defineProps<{}>();
 const route = useRoute();
 const router = useRouter();
 const store = useStore();
+const toast = useToast();
 
 const sortColumn = ref('');
 const ascending = ref(false);
@@ -93,7 +123,10 @@ if (route.params.id) {
   store.dispatch('updatePropertyToConsult', id.value);
 }
 
-const token = computed(() => store.getters.getPropertyToConsult?.token);
+const TENANT_URL = `https://${import.meta.env.VITE_TENANT_URL}`;
+const token = computed(
+  () => `${TENANT_URL}/inscription-locataire/${store.getters.getPropertyToConsult?.token}`,
+);
 const name = computed(() => store.getters.getPropertyToConsult?.name);
 const p = store.getters.getPropertyToConsult;
 
@@ -150,6 +183,13 @@ function validDeleteFile() {
 function undoDeleteFile() {
   confirmDelete.value = false;
 }
+
+function copyToken() {
+  navigator.clipboard.writeText(token.value);
+  toast.success(t('link-copied').toString(), {
+    timeout: 7000,
+  });
+}
 </script>
 
 <style scoped lang="scss">
@@ -173,6 +213,9 @@ function undoDeleteFile() {
 .btn--white {
   color: white;
   box-shadow: inset 0 0 0 1px white;
+  &:hover {
+    color: inherit;
+  }
 }
 
 .h-100 {
@@ -249,14 +292,24 @@ td:last-child {
     "back": "Back",
     "modify-property": "Modify my property",
     "delete-property": "Delete my property",
-    "will-delete-property": "Are you sure you want to delete this property ?"
+    "will-delete-property": "Are you sure you want to delete this property ?",
+    "share-modal-title": "The link of my property",
+    "share-modal-description": "If you want to give access to your property to a candidate through a channel other than our automatic email, you can copy your file link and paste it into the message you send him.",
+    "copy-link": "Copy",
+    "share-modal-detail": "The copy button will copy this link to your clipboard",
+    "link-copied": "Link copied"
   },
   "fr": {
     "title": "Consultation",
     "back": "Retour",
     "modify-property": "Modifier ma propriété",
     "delete-property": "Supprimer ma propriété",
-    "will-delete-property": "Êtes-vous sûr de vouloir supprimer cette propriété ?"
+    "will-delete-property": "Êtes-vous sûr de vouloir supprimer cette propriété ?",
+    "share-modal-title": "Le lien de ma propriété",
+    "share-modal-description": "Si vous voulez donner accès à votre propriété à un candidat par un autre canal que notre mail automatique, vous pouvez copier votre lien dossier et le coller dans le message que vous lui enverrez.",
+    "copy-link": "Copier",
+    "share-modal-detail": "Le bouton copier copiera ce lien dans votre presse papier",
+    "link-copied": "Lien copié"
   }
 }
 </i18n>
