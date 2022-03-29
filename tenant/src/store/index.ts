@@ -204,10 +204,17 @@ const store = new Vuex.Store({
         });
     },
     deleteAccount({ commit }) {
+      const isFC = this.state.user.franceConnect;
       return AuthService.deleteAccount().then(
         response => {
           commit("logout");
           commit("initState");
+          if (isFC) {
+            window.location.replace(
+              "https://fcp.integ01.dev-franceconnect.fr/api/v1/logout"
+            );
+            return;
+          }
           return Promise.resolve(response);
         },
         error => {
