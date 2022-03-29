@@ -214,6 +214,8 @@ const store = new Vuex.Store({
               "https://fcp.integ01.dev-franceconnect.fr/api/v1/logout"
             );
             return;
+          } else {
+            window.location.replace(MAIN_URL);
           }
           return Promise.resolve(response);
         },
