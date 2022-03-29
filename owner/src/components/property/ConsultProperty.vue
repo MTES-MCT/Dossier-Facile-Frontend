@@ -69,7 +69,7 @@
         <table>
           <tr>
             <th v-for="col in columns" v-on:click="sortTable(col)" :key="col">
-              {{ col }}
+              {{ t(col)}}
               <div
                 class="arrow"
                 v-if="col == sortColumn"
@@ -303,7 +303,14 @@ td:last-child {
     "copy-link": "Copy",
     "share-modal-detail": "The copy button will copy this link to your clipboard",
     "link-copied": "Link copied",
-    "verified-applicants": "My verified applicants ({count})"
+    "verified-applicants": "My verified applicants ({count})",
+    "date": "Date",
+    "tenant-name": "Tenant name",
+    "tenant-type": "Tenant type",
+    "tenant-salary": "Monthly income",
+    "guarantor-salary": "Guarantor monthly income",
+    "rate": "Rate effort",
+    "status": "Status"
   },
   "fr": {
     "title": "Consultation",
@@ -316,7 +323,14 @@ td:last-child {
     "copy-link": "Copier",
     "share-modal-detail": "Le bouton copier copiera ce lien dans votre presse papier",
     "link-copied": "Lien copié",
-    "verified-applicants": "Mes candidatures vérifiées ({count})"
+    "verified-applicants": "Mes candidatures vérifiées ({count})",
+    "date": "Date",
+    "tenant-name": "Nom du locataire",
+    "tenant-type": "Type de dossier",
+    "tenant-salary": "Revenus net mensuel",
+    "guarantor-salary": "Revenus Garants net mensuel",
+    "rate": "Taux d'effort",
+    "status": "Statut"
   }
 }
 </i18n>
