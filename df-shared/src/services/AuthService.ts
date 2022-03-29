@@ -4,12 +4,7 @@ import axios from "axios";
 const API_URL = `https://${process.env.VUE_APP_API_URL}/api/`;
 
 export const AuthService = {
-  logout(franceConnect: boolean) {
-    if (franceConnect) {
-      window.open(
-        "https://fcp.integ01.dev-franceconnect.fr/api/v1/logout"
-      );
-    }
+  logout() {
     return axios.post(API_URL + "user/logout");
   },
 

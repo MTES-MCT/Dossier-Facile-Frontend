@@ -183,11 +183,17 @@ const store = new Vuex.Store({
   },
   actions: {
     logout({ commit }, redirect = true) {
-      return AuthService.logout(this.state.user.franceConnect)
+      const isFC = this.state.user.franceConnect;
+      return AuthService.logout()
         .then(async () => {
           await commit("logout");
           await commit("initState");
-          if (redirect) {
+          if (isFC) {
+            window.location.replace(
+              "https://fcp.integ01.dev-franceconnect.fr/api/v1/logout"
+            );
+            return;
+          } else if (redirect) {
             window.location.replace(MAIN_URL);
             return;
           }
