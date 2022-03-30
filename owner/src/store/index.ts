@@ -166,6 +166,9 @@ const store = createStore({
     async setPropertyValidated({ commit }, validated: boolean) {
       await commit('setPropertyValidated', validated);
     },
+    deleteAccount() {
+      return AuthService.deleteAccount();
+    },
   },
   getters: {
     getUser(state: OwnerState) {
