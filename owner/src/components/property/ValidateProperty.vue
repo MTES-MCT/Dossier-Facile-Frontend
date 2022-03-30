@@ -18,24 +18,30 @@ const authorize = ref([]);
 const id = ref(0);
 if (route.params.id) {
   id.value = route.params.id;
-  store.dispatch('updatePropertyToEdit', Number(id.value));
+  store.dispatch('updatePropertyToEdit', Number(id.value)).then(() => {
+    authorize.value.push(store.getters.getPropertyToEdit.validated);
+  });
 }
 
-function onSubmit() {
+async function onSubmit() {
+  await store.dispatch('setPropertyValidated', true);
   store.dispatch('saveProperty').then(() => {
     router.push({ name: 'Dashboard' });
   });
 }
 
-function isTrue(value: boolean) {
-  if (!value) {
+function isTrue(value) {
+  if (value.indexOf(true) < 0) {
     return t('required');
   }
   return true;
 }
 
 function onBack() {
-  router.push({ name: 'PropertyRent', params: { id: store.getters.getPropertyToEdit.id } });
+  router.push({
+    name: 'PropertyRent',
+    params: { id: store.getters.getPropertyToEdit.id },
+  });
 }
 </script>
 
@@ -48,6 +54,7 @@ function onBack() {
         name="authorize"
         id="authorize"
         type="checkbox"
+        v-model="authorize"
         :rules="isTrue"
         :value="true"
       />

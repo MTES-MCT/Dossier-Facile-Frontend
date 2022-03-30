@@ -74,6 +74,9 @@ const store = createStore({
     setPropertyToEdit(state: OwnerState, property: Property) {
       state.propertyToEdit = { ...property };
     },
+    setPropertyValidated(state: OwnerState, validated: boolean) {
+      state.propertyToEdit.validated = validated;
+    },
   },
   actions: {
     setLang(_, lang: string) {
@@ -148,8 +151,8 @@ const store = createStore({
     newProperty({ commit }) {
       return commit('setPropertyToEdit', {});
     },
-    updatePropertyToEdit({ commit }, id: number) {
-      commit('updatePropertyToEdit', id);
+    async updatePropertyToEdit({ commit }, id: number) {
+      await commit('updatePropertyToEdit', id);
     },
     updatePropertyToConsult({ commit }, id: number) {
       commit('updatePropertyToConsult', id);
@@ -159,6 +162,9 @@ const store = createStore({
         await commit('loadUser', response.data);
         return Promise.resolve(response.data);
       });
+    },
+    async setPropertyValidated({ commit }, validated: boolean) {
+      await commit('setPropertyValidated', validated);
     },
   },
   getters: {

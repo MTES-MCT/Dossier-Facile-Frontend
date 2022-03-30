@@ -6,4 +6,5 @@ export class Property {
   count_visit!: number;
   rentCost!: number;
   displayed!: boolean;
+  validated!: boolean;
 }
