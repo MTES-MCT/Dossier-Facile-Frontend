@@ -125,11 +125,17 @@ function onSubmit() {
 {
   "en": {
     "title": "I enter my personal information",
-    "subtitle": "Please fill in the information of the person whose name will appear on the rental lease"
+    "subtitle": "Please fill in the information of the person whose name will appear on the rental lease",
+    "lastname": "Lastname",
+    "firstname": "Firstname",
+    "email": "Your email"
   },
   "fr": {
     "title": "Je renseigne mes informations personnelles",
-    "subtitle": "Veuillez renseigner les informations de la personne dont le nom figurera sur le bail de location"
+    "subtitle": "Veuillez renseigner les informations de la personne dont le nom figurera sur le bail de location",
+    "lastname": "Nom",
+    "firstname": "Prénom",
+    "email": "Votre email"
   }
 }
 </i18n>
