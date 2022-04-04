@@ -150,21 +150,23 @@ function getTenants(): User[] {
   if (!p.propertiesApartmentSharing) {
     return [];
   }
-  const l = p.propertiesApartmentSharing.map((pas: any) => pas.apartmentSharing.tenants);
-  if (l.length === 0) {
-    return [];
-  }
-  const tenants = l
-    .reduce((r: [], c: []) => r.concat(c))
-    .map((u: any) => ({
-      date: new Date(),
-      'tenant-name': `${u.lastName} ${u.firstName}`,
-      'tenant-type': 'ALONE',
-      'tenant-salary': u.firstName?.length || 0,
-      'guarantor-salary': 24,
-      rate: '30%',
-      status: 'validated',
-    }))
+
+  return p.propertiesApartmentSharing
+    .map((pas: any) => {
+      const a = pas.apartmentSharing;
+      if (a !== undefined && a.tenants.length > 0) {
+        return {
+          date: new Date(),
+          'tenant-name': `${a.tenants[0].lastName} ${a.tenants[0].firstName}`,
+          'tenant-type': a.applicationType,
+          'tenant-salary': a.tenants[0].firstName?.length || 0,
+          'guarantor-salary': 24,
+          rate: '30%',
+          status: a.tenants[0].status,
+        };
+      }
+      return {};
+    })
     .sort((a: any, b: any) => {
       if (a[sortColumn.value] < b[sortColumn.value]) {
         return ascending.value ? 1 : -1;
@@ -174,7 +176,6 @@ function getTenants(): User[] {
       }
       return 0;
     });
-  return tenants;
 }
 
 function sortTable(col: string) {
