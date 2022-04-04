@@ -5,6 +5,7 @@ import { computed } from 'vue';
 import NakedCard from 'df-shared/src/components/NakedCard.vue';
 import Button from 'df-shared/src/Button/Button.vue';
 import { useRouter } from 'vue-router';
+import { Property } from 'df-shared/src/models/Property';
 import PropertyIcon from './property/PropertyIcon.vue';
 
 defineProps<{}>();
@@ -29,6 +30,14 @@ function consultProperty(id: number) {
 function editProperty(id: number) {
   router.push({ name: 'PropertyName', params: { id } });
 }
+
+function openProperty(p: Property) {
+  if (p.validated) {
+    router.push({ name: 'ConsultProperty', params: { id: p.id } });
+    return;
+  }
+  router.push({ name: 'PropertyName', params: { id: p.id } });
+}
 </script>
 
 <template>
@@ -51,15 +60,34 @@ function editProperty(id: number) {
           <th>{{ t("rent") }}</th>
           <th></th>
         </tr>
-        <tr v-for="p in properties" :key="p.name">
+        <tr
+          class="clickable"
+          v-for="p in properties"
+          :key="p.name"
+          @click="openProperty(p)"
+        >
           <td><PropertyIcon :type="p.type"></PropertyIcon></td>
           <td class="text--light-blue">{{ p.name }}</td>
           <td class="text--light-blue">{{ p.address }}</td>
           <td>{{ p.applicant }}</td>
           <td class="text--light-blue">{{ p.rentCost }}</td>
-          <td>
-            <button @click="consultProperty(p.id)">Consult</button>
-            <button @click="editProperty(p.id)">EDIT</button>
+          <td class="fr-pr-2w">
+            <button
+              class="consult-icon"
+              :title="t('consult')"
+              v-if="p.validated"
+              @click="consultProperty(p.id)"
+            >
+              >
+            </button>
+            <button
+              class="fr-btn fr-btn--secondary"
+              :title="t('edit-title')"
+              v-if="!p.validated"
+              @click="editProperty(p.id)"
+            >
+              {{ t("edit") }}
+            </button>
           </td>
         </tr>
       </table>
@@ -82,9 +110,17 @@ th {
 tr {
   background-color: #f6f6f6;
   color: #666666;
+  --hover-color: #666666;
   padding: 0.5rem;
   &:first-child {
     background-color: transparent;
+  }
+  &.clickable {
+    &:hover {
+      box-shadow: var(--primary) 0 0 2px;
+      cursor: pointer;
+      --hover-color: var(--primary);
+    }
   }
 }
 
@@ -100,6 +136,11 @@ td:first-child {
 td:last-child {
   border-top-right-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
+  text-align-last: end;
+}
+
+.consult-icon {
+  color: var(--hover-color);
 }
 </style>
 
@@ -119,6 +160,9 @@ td:last-child {
     "address": "Adresse",
     "applicant": "Candidatures",
     "rent": "Loyer en €",
+    "consult": "Consulter la propriété",
+    "edit": "À finaliser",
+    "edit-title": "Finaliser l'édition de la propriété"
   }
 }
 </i18n>
