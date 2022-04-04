@@ -60,7 +60,10 @@
         </div>
       </div>
       <NakedCard class="h-100">
-        <div>{{ propertyType }} type X et prix Y {{ token }}</div>
+        <div class="fr-grid-row align-items--center">
+          <PropertyIcon :type="'APARTMENT'"></PropertyIcon>
+          type X et prix Y {{ token }}
+        </div>
       </NakedCard>
       <NakedCard class="fr-mt-3w">
         <h1 class="fr-h4">
@@ -95,6 +98,7 @@ import ConfirmModal from 'df-shared/src/components/ConfirmModal.vue';
 import VGouvFrModal from 'df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue';
 import { useToast } from 'vue-toastification';
 import { User } from 'df-shared/src/models/User';
+import PropertyIcon from './PropertyIcon.vue';
 
 const { t } = useI18n();
 const confirmDelete = ref(false);
