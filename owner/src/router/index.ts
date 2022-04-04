@@ -3,6 +3,7 @@ import { useCookies } from 'vue3-cookies';
 import Account from '../components/account/Account.vue';
 import Dashboard from '../components/Dashboard.vue';
 import PropertyName from '../components/property/PropertyName.vue';
+import PropertyType from '../components/property/PropertyType.vue';
 import PropertyRent from '../components/property/PropertyRent.vue';
 import ConsultProperty from '../components/property/ConsultProperty.vue';
 import ValidateProperty from '../components/property/ValidateProperty.vue';
@@ -69,6 +70,16 @@ const routes = [
       hasFooter: false,
     },
     component: PropertyName,
+  },
+  {
+    path: '/type-propriete/:id?',
+    name: 'PropertyType',
+    meta: {
+      title: 'Édition du type - DossierFacile',
+      requiresAuth: true,
+      hasFooter: false,
+    },
+    component: PropertyType,
   },
   {
     path: '/loyer-propriete/:id?',

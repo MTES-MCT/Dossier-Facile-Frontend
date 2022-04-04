@@ -15,6 +15,7 @@ function getName() {
 
 const propertyName = computed(() => store.getters.getPropertyToEdit?.name);
 
+const typeStatus = computed(() => store.getters.getPropertyToEdit?.type ? 'FILLED' : 'TO_PROCESS');
 const rentStatus = computed(() => store.getters.getPropertyToEdit?.rentCost > 0 ? 'FILLED' : 'TO_PROCESS');
 
 const id = Number(route.params.id);
@@ -59,6 +60,15 @@ const getParams = id ? { id } : {};
           <ColoredTag
               :text="propertyName ? propertyName : t('property-name')"
               :status="propertyName ? 'FILLED' : 'EMPTY'"
+            ></ColoredTag
+          >
+          </router-link>
+        </div>
+        <div class="ml-5">
+          <router-link :to="{ name: 'PropertyType', params: getParams }" class="fr-link">
+        <ColoredTag
+              :text="t('property-type')"
+              :status="typeStatus"
             ></ColoredTag
           >
           </router-link>
@@ -167,14 +177,16 @@ const getParams = id ? { id } : {};
     "add-property": "I add my property",
     "validate-property": "I validate my property",
     "monthly-rent-and-charges": "Monthly rent and charges",
-    "property-name": "Property name"
+    "property-name": "Property name",
+    "property-type": "Type of rent"
   },
   "fr": {
     "personal-information": "Mes informations personnelles",
     "add-property": "J'ajoute un bien",
     "validate-property": "Je valide ma propriété",
     "monthly-rent-and-charges": "Loyer et charges mensuels",
-    "property-name": "Nom de la propriété"
+    "property-name": "Nom de la propriété",
+    "property-type": "Type de logement"
   }
 }
 </i18n>

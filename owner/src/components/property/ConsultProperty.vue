@@ -60,7 +60,7 @@
         </div>
       </div>
       <NakedCard class="h-100">
-        <div>type X et prix Y {{ token }}</div>
+        <div>{{ propertyType }} type X et prix Y {{ token }}</div>
       </NakedCard>
       <NakedCard class="fr-mt-3w">
         <h1 class="fr-h4">
@@ -130,6 +130,7 @@ const token = computed(
 );
 const name = computed(() => store.getters.getPropertyToConsult?.name);
 const p = store.getters.getPropertyToConsult;
+const propertyType = computed(() => store.getters.getPropertyToConsult?.type);
 
 function editProperty() {
   router.push({ name: 'PropertyName', params: { id: id.value } });
