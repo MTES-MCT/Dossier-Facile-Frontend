@@ -5,6 +5,7 @@ import { computed } from 'vue';
 import NakedCard from 'df-shared/src/components/NakedCard.vue';
 import Button from 'df-shared/src/Button/Button.vue';
 import { useRouter } from 'vue-router';
+import PropertyIcon from './property/PropertyIcon.vue';
 
 defineProps<{}>();
 
@@ -51,7 +52,7 @@ function editProperty(id: number) {
           <th></th>
         </tr>
         <tr v-for="p in properties" :key="p.name">
-          <td>{{ p.type }}</td>
+          <td><PropertyIcon :type="p.type"></PropertyIcon></td>
           <td class="text--light-blue">{{ p.name }}</td>
           <td class="text--light-blue">{{ p.address }}</td>
           <td>{{ p.applicant }}</td>
