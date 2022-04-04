@@ -72,7 +72,7 @@
         <table>
           <tr>
             <th v-for="col in columns" v-on:click="sortTable(col)" :key="col">
-              {{ t(col)}}
+              {{ t(col) }}
               <div
                 class="arrow"
                 v-if="col == sortColumn"
@@ -81,7 +81,10 @@
             </th>
           </tr>
           <tr v-for="t in getTenants()" :key="t.id">
-            <td v-for="col in columns" :key="col">{{ t[col] }}</td>
+            <td v-for="col in columns" :key="col">
+              <span v-if="col === 'date'">{{ formatDate(t[col]) }}</span>
+              <span v-else>{{ t[col] }}</span>
+            </td>
           </tr>
         </table>
       </NakedCard>
@@ -98,7 +101,10 @@ import ConfirmModal from 'df-shared/src/components/ConfirmModal.vue';
 import VGouvFrModal from 'df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue';
 import { useToast } from 'vue-toastification';
 import { User } from 'df-shared/src/models/User';
+import { format } from 'date-fns';
+import { enUS, fr } from 'date-fns/locale';
 import PropertyIcon from './PropertyIcon.vue';
+import i18n from '../../i18n';
 
 const { t } = useI18n();
 const confirmDelete = ref(false);
@@ -200,6 +206,12 @@ function copyToken() {
 const verifiedApplicantsCount = computed(
   () => getTenants().filter((u: User) => u.status === 'VALIDATED').length,
 );
+
+function formatDate(date: Date) {
+  return format(date, 'dd MMMM yyyy', {
+    locale: i18n.global.locale.value === 'fr' ? fr : enUS,
+  });
+}
 </script>
 
 <style scoped lang="scss">
