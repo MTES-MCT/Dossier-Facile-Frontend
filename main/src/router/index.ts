@@ -17,7 +17,7 @@ const routes: Array<RouteConfig> = [
       title: "DossierFacile, le dossier de location numérique de l’État",
       description:
         "Avec DossierFacile, créez un dossier de location en ligne complet et vérifié par l'Etat pour trouver votre appartement ou votre logement",
-      image: require("../assets/icons/justif.webp")
+      image: require("../assets/icons/justif.jpg")
     }
   },
   {
