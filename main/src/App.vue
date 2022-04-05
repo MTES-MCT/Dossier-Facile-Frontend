@@ -12,7 +12,6 @@
       :lang="getLang()"
     >
     </MyHeader>
-    <ScalingoAnnouncement></ScalingoAnnouncement>
     <router-view />
     <TheFooter />
   </div>
@@ -27,11 +26,9 @@ import Cookies from "df-shared/src/Footer/Cookies.vue";
 import i18n from "./i18n";
 import VueGtag from "vue-gtag";
 import router from "./router";
-import ScalingoAnnouncement from "df-shared/src/components/ScalingoAnnouncement.vue";
 
 @Component({
   components: {
-    ScalingoAnnouncement,
     Modal,
     MyHeader,
     TheFooter,
