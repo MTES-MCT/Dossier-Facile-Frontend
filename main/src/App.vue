@@ -12,7 +12,7 @@
       :lang="getLang()"
     >
     </MyHeader>
-    <ClcvAnnouncement></ClcvAnnouncement>
+    <ScalingoAnnouncement></ScalingoAnnouncement>
     <router-view />
     <TheFooter />
   </div>
@@ -27,11 +27,11 @@ import Cookies from "df-shared/src/Footer/Cookies.vue";
 import i18n from "./i18n";
 import VueGtag from "vue-gtag";
 import router from "./router";
-import ClcvAnnouncement from "df-shared/src/components/ClcvAnnouncement.vue";
+import ScalingoAnnouncement from "df-shared/src/components/ScalingoAnnouncement.vue";
 
 @Component({
   components: {
-    ClcvAnnouncement,
+    ScalingoAnnouncement,
     Modal,
     MyHeader,
     TheFooter,
