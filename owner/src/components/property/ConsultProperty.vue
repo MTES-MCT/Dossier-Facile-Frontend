@@ -79,35 +79,35 @@
                 v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
               ></div>
             </th>
-            <th @click="sortTable('tenant-name')">
+            <th @click="sortTable('tenantName')">
               {{ t("tenant-name") }}
               <div
                 class="arrow"
-                v-if="'tenant-name' == sortColumn"
+                v-if="'tenantName' == sortColumn"
                 v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
               ></div>
             </th>
-            <th @click="sortTable('tenant-type')">
+            <th @click="sortTable('tenantType')">
               {{ t("tenant-type") }}
               <div
                 class="arrow"
-                v-if="'tenant-type' == sortColumn"
+                v-if="'tenantType' == sortColumn"
                 v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
               ></div>
             </th>
-            <th @click="sortTable('tenant-salary')">
+            <th @click="sortTable('tenantSalary')">
               {{ t("tenant-salary") }}
               <div
                 class="arrow"
-                v-if="'tenant-salary' == sortColumn"
+                v-if="'tenantSalary' == sortColumn"
                 v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
               ></div>
             </th>
-            <th @click="sortTable('guarantor-salary')">
+            <th @click="sortTable('guarantorSalary')">
               {{ t("guarantor-salary") }}
               <div
                 class="arrow"
-                v-if="'guarantor-salary' == sortColumn"
+                v-if="'guarantorSalary' == sortColumn"
                 v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
               ></div>
             </th>
@@ -130,25 +130,25 @@
           </tr>
           <tr v-for="tenant in getTenants()" :key="tenant.id">
             <td>
-              <span>{{ formatDate(tenant["date"]) }}</span>
+              <span>{{ formatDate(tenant.date) }}</span>
             </td>
             <td>
-              <span>{{ tenant["tenant-name"] }}</span>
+              <span>{{ tenant.tenantName }}</span>
             </td>
             <td>
-              <span>{{ t(tenant["tenant-type"]) }}</span>
+              <span>{{ t(tenant.tenantType) }}</span>
             </td>
             <td>
-              <span>{{ tenant["tenant-salary"] }}</span>
+              <span>{{ tenant.tenantSalary }}</span>
             </td>
             <td>
-              <span>{{ tenant["guarantor-salary"] }}</span>
+              <span>{{ tenant.guarantorSalary }}</span>
             </td>
             <td>
-              <span>{{ tenant["rate"] }}</span>
+              <span>{{ tenant.rate }}</span>
             </td>
             <td>
-              <span>{{ t(tenant["status"]) }}</span>
+              <span>{{ t(tenant.status) }}</span>
             </td>
           </tr>
         </table>
@@ -213,10 +213,10 @@ function getTenants(): User[] {
       if (a !== undefined && a.tenants.length > 0) {
         return {
           date: new Date(),
-          'tenant-name': `${a.tenants[0].lastName} ${a.tenants[0].firstName}`,
-          'tenant-type': a.applicationType,
-          'tenant-salary': a.tenants[0].firstName?.length || 0,
-          'guarantor-salary': 24,
+          tenantName: `${a.tenants[0].lastName} ${a.tenants[0].firstName}`,
+          tenantType: a.applicationType,
+          tenantSalary: a.tenants[0].firstName?.length || 0,
+          guarantorSalary: 24,
           rate: '30%',
           status: a.tenants[0].status,
         };
