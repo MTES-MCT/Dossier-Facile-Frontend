@@ -61,7 +61,7 @@
       </div>
       <NakedCard class="h-100">
         <div class="fr-grid-row align-items--center">
-          <PropertyIcon :type="'APARTMENT'"></PropertyIcon>
+          <PropertyIcon :type="propertyType"></PropertyIcon>
           type X et prix Y {{ token }}
         </div>
       </NakedCard>
@@ -71,19 +71,84 @@
         </h1>
         <table>
           <tr>
-            <th v-for="col in columns" v-on:click="sortTable(col)" :key="col">
-              {{ t(col) }}
+            <th @click="sortTable('date')">
+              {{ t("date") }}
               <div
                 class="arrow"
-                v-if="col == sortColumn"
+                v-if="'date' == sortColumn"
+                v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
+              ></div>
+            </th>
+            <th @click="sortTable('tenant-name')">
+              {{ t("tenant-name") }}
+              <div
+                class="arrow"
+                v-if="'tenant-name' == sortColumn"
+                v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
+              ></div>
+            </th>
+            <th @click="sortTable('tenant-type')">
+              {{ t("tenant-type") }}
+              <div
+                class="arrow"
+                v-if="'tenant-type' == sortColumn"
+                v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
+              ></div>
+            </th>
+            <th @click="sortTable('tenant-salary')">
+              {{ t("tenant-salary") }}
+              <div
+                class="arrow"
+                v-if="'tenant-salary' == sortColumn"
+                v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
+              ></div>
+            </th>
+            <th @click="sortTable('guarantor-salary')">
+              {{ t("guarantor-salary") }}
+              <div
+                class="arrow"
+                v-if="'guarantor-salary' == sortColumn"
+                v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
+              ></div>
+            </th>
+            <th @click="sortTable('rate')">
+              {{ t("rate") }}
+              <div
+                class="arrow"
+                v-if="'rate' == sortColumn"
+                v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
+              ></div>
+            </th>
+            <th @click="sortTable('status')">
+              {{ t("status") }}
+              <div
+                class="arrow"
+                v-if="'status' == sortColumn"
                 v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
               ></div>
             </th>
           </tr>
-          <tr v-for="t in getTenants()" :key="t.id">
-            <td v-for="col in columns" :key="col">
-              <span v-if="col === 'date'">{{ formatDate(t[col]) }}</span>
-              <span v-else>{{ t[col] }}</span>
+          <tr v-for="tenant in getTenants()" :key="tenant.id">
+            <td>
+              <span>{{ formatDate(tenant["date"]) }}</span>
+            </td>
+            <td>
+              <span>{{ tenant["tenant-name"] }}</span>
+            </td>
+            <td>
+              <span>{{ t(tenant["tenant-type"]) }}</span>
+            </td>
+            <td>
+              <span>{{ tenant["tenant-salary"] }}</span>
+            </td>
+            <td>
+              <span>{{ tenant["guarantor-salary"] }}</span>
+            </td>
+            <td>
+              <span>{{ tenant["rate"] }}</span>
+            </td>
+            <td>
+              <span>{{ t(tenant["status"]) }}</span>
             </td>
           </tr>
         </table>
@@ -118,15 +183,6 @@ const toast = useToast();
 
 const sortColumn = ref('');
 const ascending = ref(false);
-const columns = [
-  'date',
-  'tenant-name',
-  'tenant-type',
-  'tenant-salary',
-  'guarantor-salary',
-  'rate',
-  'status',
-];
 
 const id = ref(0);
 if (route.params.id) {
@@ -328,7 +384,14 @@ td:last-child {
     "tenant-salary": "Monthly income",
     "guarantor-salary": "Guarantor monthly income",
     "rate": "Rate effort",
-    "status": "Status"
+    "status": "Status",
+    "ALONE": "Alone",
+    "COUPLE": "Couple",
+    "GROUP": "Roommate",
+    "TO_PROCESS": "to process",
+    "VALIDATED": "validated",
+    "DECLINED": "declined",
+    "INCOMPLETE": "incomplete"
   },
   "fr": {
     "title": "Consultation",
@@ -348,7 +411,14 @@ td:last-child {
     "tenant-salary": "Revenus net mensuel",
     "guarantor-salary": "Revenus Garants net mensuel",
     "rate": "Taux d'effort",
-    "status": "Statut"
+    "status": "Statut",
+    "ALONE": "Seul·e",
+    "COUPLE": "Couple",
+    "GROUP": "Colocation",
+    "TO_PROCESS": "En cours de traitement",
+    "VALIDATED": "Vérifié",
+    "DECLINED": "Modification demandée",
+    "INCOMPLETE": "Non terminé"
   }
 }
 </i18n>
