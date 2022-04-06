@@ -17,6 +17,7 @@ const propertyName = computed(() => store.getters.getPropertyToEdit?.name);
 
 const typeStatus = computed(() => store.getters.getPropertyToEdit?.type ? 'FILLED' : 'TO_PROCESS');
 const rentStatus = computed(() => store.getters.getPropertyToEdit?.rentCost > 0 ? 'FILLED' : 'TO_PROCESS');
+const furnitureStatus = computed(() => store.getters.getPropertyToEdit?.furniture ? 'FILLED' : 'TO_PROCESS');
 
 const id = Number(route.params.id);
 const getParams = id ? { id } : {};
@@ -69,6 +70,15 @@ const getParams = id ? { id } : {};
         <ColoredTag
               :text="t('property-type')"
               :status="typeStatus"
+            ></ColoredTag
+          >
+          </router-link>
+        </div>
+        <div class="ml-5">
+          <router-link :to="{ name: 'PropertyFurniture', params: getParams }" class="fr-link">
+        <ColoredTag
+              :text="t('property-furniture')"
+              :status="furnitureStatus"
             ></ColoredTag
           >
           </router-link>
@@ -178,7 +188,8 @@ const getParams = id ? { id } : {};
     "validate-property": "I validate my property",
     "monthly-rent-and-charges": "Monthly rent and charges",
     "property-name": "Property name",
-    "property-type": "Type of rent"
+    "property-type": "Type of rent",
+    "property-furniture": "Furniture"
   },
   "fr": {
     "personal-information": "Mes informations personnelles",
@@ -186,7 +197,8 @@ const getParams = id ? { id } : {};
     "validate-property": "Je valide ma propriété",
     "monthly-rent-and-charges": "Loyer et charges mensuels",
     "property-name": "Nom de la propriété",
-    "property-type": "Type de logement"
+    "property-type": "Type de logement",
+    "property-furniture": "Ameublement"
   }
 }
 </i18n>

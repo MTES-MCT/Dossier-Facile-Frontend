@@ -4,6 +4,7 @@ import Account from '../components/account/Account.vue';
 import Dashboard from '../components/Dashboard.vue';
 import PropertyName from '../components/property/PropertyName.vue';
 import PropertyType from '../components/property/PropertyType.vue';
+import PropertyFurniture from '../components/property/PropertyFurniture.vue';
 import PropertyRent from '../components/property/PropertyRent.vue';
 import ConsultProperty from '../components/property/ConsultProperty.vue';
 import ValidateProperty from '../components/property/ValidateProperty.vue';
@@ -80,6 +81,16 @@ const routes = [
       hasFooter: false,
     },
     component: PropertyType,
+  },
+  {
+    path: '/amenagement-propriete/:id?',
+    name: 'PropertyFurniture',
+    meta: {
+      title: 'Édition de l\'aménagement - DossierFacile',
+      requiresAuth: true,
+      hasFooter: false,
+    },
+    component: PropertyFurniture,
   },
   {
     path: '/loyer-propriete/:id?',

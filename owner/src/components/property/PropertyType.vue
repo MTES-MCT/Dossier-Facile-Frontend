@@ -38,7 +38,7 @@ const type = computed({
 
 function onSubmit() {
   store.dispatch('saveProperty').then((data) => {
-    router.push({ name: 'PropertyRent', params: { id: data.id } });
+    router.push({ name: 'PropertyFurniture', params: { id: data.id } });
   });
 }
 
