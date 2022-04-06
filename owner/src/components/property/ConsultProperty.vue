@@ -216,7 +216,7 @@ function getTenants(): User[] {
           tenantName: `${a.tenants[0].lastName} ${a.tenants[0].firstName}`,
           tenantType: a.applicationType,
           tenantSalary: `${a.totalSalary} €`,
-          guarantorSalary: 24,
+          guarantorSalary: a.totalGuarantorSalary ? `${a.totalGuarantorSalary} €` : '-',
           rate: a.tenants[0].firstName?.length || 0,
           status: a.tenants[0].status,
         };
