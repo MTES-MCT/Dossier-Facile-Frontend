@@ -62,7 +62,7 @@
       <NakedCard class="h-100">
         <div class="fr-grid-row align-items--center">
           <PropertyIcon :type="propertyType"></PropertyIcon>
-          type X et prix Y {{ token }}
+          dont le loyer mensuel est de {{ p.rentCost }}€
         </div>
       </NakedCard>
       <NakedCard class="fr-mt-3w">
@@ -211,13 +211,14 @@ function getTenants(): User[] {
     .map((pas: any) => {
       const a = pas.apartmentSharing;
       if (a !== undefined && a.tenants.length > 0) {
+        const rate = Math.round(p.rentCost / a.totalSalary);
         return {
           date: new Date(),
           tenantName: `${a.tenants[0].lastName} ${a.tenants[0].firstName}`,
           tenantType: a.applicationType,
           tenantSalary: `${a.totalSalary} €`,
           guarantorSalary: a.totalGuarantorSalary ? `${a.totalGuarantorSalary} €` : '-',
-          rate: a.tenants[0].firstName?.length || 0,
+          rate: `${rate} %`,
           status: a.tenants[0].status,
         };
       }
