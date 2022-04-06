@@ -215,9 +215,9 @@ function getTenants(): User[] {
           date: new Date(),
           tenantName: `${a.tenants[0].lastName} ${a.tenants[0].firstName}`,
           tenantType: a.applicationType,
-          tenantSalary: a.tenants[0].firstName?.length || 0,
+          tenantSalary: `${a.totalSalary} €`,
           guarantorSalary: 24,
-          rate: '30%',
+          rate: a.tenants[0].firstName?.length || 0,
           status: a.tenants[0].status,
         };
       }
