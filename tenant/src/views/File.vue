@@ -261,7 +261,8 @@ export default class File extends Vue {
           link.download = "dossierFacile-"+this.$route.params.token+".pdf";
           link.click();
         }).catch(error => {
-          console.log(error);
+          console.error(error);
+          Vue.toasted.global.error();
         }).finally( () => this.showProgressBar = false );
   }
 
@@ -274,9 +275,10 @@ export default class File extends Vue {
         .then(() => {
           this.retryDownload();
         })
-        .catch(error => {
-          console.log(error);
+        .catch( error => {
           this.showProgressBar = false;
+          console.error(error);
+          Vue.toasted.global.error();
         });
     }
   }
