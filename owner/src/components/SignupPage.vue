@@ -5,7 +5,7 @@ import { ref } from "vue";
 import { User } from "df-shared/src/models/User";
 import { useStore } from "vuex";
 import { useToast } from "vue-toastification";
-import Register from "df-shared/src/Authentification/Register.vue";
+import Register from "./account/Register.vue";
 
 defineProps<{}>();
 const { t } = useI18n();

@@ -11,6 +11,7 @@ import keycloak from './plugin/keycloak';
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 
+
 keycloak.init({ onLoad: 'check-sso', checkLoginIframe: true }).then((auth) => {
   const aYearFromNow = new Date();
   aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1);

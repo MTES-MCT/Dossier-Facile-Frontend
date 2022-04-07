@@ -8,7 +8,7 @@ import PropertyFurniture from '../components/property/PropertyFurniture.vue';
 import PropertyRent from '../components/property/PropertyRent.vue';
 import ConsultProperty from '../components/property/ConsultProperty.vue';
 import ValidateProperty from '../components/property/ValidateProperty.vue';
-import Register from '../components/Register.vue';
+import SignupPage from '../components/SignupPage.vue';
 import store from '../store';
 import keycloak from '../plugin/keycloak';
 
@@ -40,7 +40,7 @@ const routes = [
       requiresAuth: false,
       hasFooter: true,
     },
-    component: Register,
+    component: SignupPage,
   },
   {
     path: '/proprietaire',

@@ -17,30 +17,26 @@
           <div v-else>
             <div class="text-center">
               <div class="fr-mt-2w fr-mb-2w small-text">
-                FranceConnect est la solution proposée par l’État pour sécuriser et simplifier la connexion à vos services en ligne
+                FranceConnect est la solution proposée par l’État pour sécuriser et
+                simplifier la connexion à vos services en ligne
               </div>
             </div>
-            <div id="kc-social-providers" class="fr-mt-5w fr-mb-1w text-center">
-              <ul>
-                <a
-                  id="social-franceconnect-particulier"
-                  class="inline-block"
-                  type="button"
-                  :href="getLoginLink()"
-                >
-                  <span>{{ t("connect-france-particulier") }}</span>
-                </a>
-              </ul>
-            </div>
-            <div class="text-center">
-              <a
-                href="https://app.franceconnect.gouv.fr/en-savoir-plus"
-                id="cQuoiFCGauche"
-                target="_blank"
-                rel="noopener"
-              >
-                Qu'est-ce que FranceConnect?
-              </a>
+            <div id="kc-social-providers" class="fr-mt-5w fr-mb-1w">
+              <div class="fr-connect-group">
+                <button class="fr-connect" @click="loginFranceConnect()">
+                  <span class="fr-connect__login">S’identifier avec</span>
+                  <span class="fr-connect__brand">FranceConnect</span>
+                </button>
+                <p>
+                  <a
+                    href="https://franceconnect.gouv.fr/"
+                    target="_blank"
+                    rel="noopener"
+                    :title="t('whatis-france-connect')"
+                    >{{ t("whatis-france-connect") }}</a
+                  >
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -158,28 +154,28 @@
 </template>
 
 <script setup lang="ts">
-import { User } from "df-shared/src/models/User";
+import { User } from 'df-shared/src/models/User';
 // import VueRecaptcha from "vue-recaptcha";
 // import Password from "vue-password-strength-meter";
-import { ref } from "vue";
-import { useI18n } from "vue-i18n";
-import { useRoute } from "vue-router";
+import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { useRoute } from 'vue-router';
 import { Form, Field, ErrorMessage } from 'vee-validate';
 
 function validateEmail(value: string) {
   if (!value) {
-    return "Email is required";
+    return 'Email is required';
   }
   return true;
 }
 function isTrue(value: boolean) {
   if (!value) {
-    return "this field is required"; // TODO i18n
+    return 'this field is required'; // TODO i18n
   }
   return true;
 }
 const terms = ref([]);
-const email = ref("");
+const email = ref('');
 // function validateCguField(value: boolean) {
 //   if (!value) {
 //     return "this field is required"; // TODO i18n
@@ -227,49 +223,43 @@ const FRANCE_CONNECT_LOGIN_URL = import.meta.env.VUE_APP_FRANCE_CONNECT_LOGIN_UR
 const route = useRoute();
 
 const props = defineProps<{
-  email: { type: string; required: false; default: "" };
+  email: { type: string; required: false; default: '' };
 }>();
 
 const { t } = useI18n();
 
-const emit = defineEmits(["on-register"]);
-const franceConnect =
-  window.location.href.includes("locataire-dev") ||
-  window.location.href.includes("localhost");
+const emit = defineEmits(['on-register']);
+const franceConnect = window.location.href.includes('locataire-dev')
+  || window.location.href.includes('localhost');
 
 const user: User = new User();
 const score = ref(0);
-const generatedPwd = ref("");
+const generatedPwd = ref('');
 
 function generatePlaceholder() {
   const chars = [
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-    "0123456789",
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
-    "#!?-_.",
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
+    '0123456789',
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
+    '#!?-_.',
   ];
-  generatedPwd.value =
-    t("ex") +
-    [4, 4, 2, 2]
-      .map(function (len, i) {
-        return Array(len)
-          .fill(chars[i])
-          .map(function (x) {
-            return x[Math.floor(Math.random() * x.length)];
-          })
-          .join("");
-      })
+  generatedPwd.value = t('ex')
+    + [4, 4, 2, 2]
+      .map((len, i) => Array(len)
+        .fill(chars[i])
+        .map((x) => x[Math.floor(Math.random() * x.length)])
+        .join(''))
       .concat()
-      .join("")
-      .split("")
-      .sort(function () {
-        return 0.5 - Math.random();
-      })
-      .join("");
+      .join('')
+      .split('')
+      .sort(() => 0.5 - Math.random())
+      .join('');
 }
 
-function getLoginLink() {
-  return FRANCE_CONNECT_LOGIN_URL;
+function loginFranceConnect() {
+  if (FRANCE_CONNECT_LOGIN_URL) {
+    window.location.href = FRANCE_CONNECT_LOGIN_URL.toString();
+  }
 }
 
 function mounted() {
@@ -278,7 +268,7 @@ function mounted() {
 }
 
 function onSubmit() {
-  emit("on-register", user)
+  emit('on-register', user);
 }
 
 function onVerify(captcha: string) {
@@ -300,15 +290,18 @@ function getParams() {
 
 function getQuery() {
   return {
-    internalPartnerId: route.query.internalPartnerId.toString() || "",
-    firstName: route.query.firstName.toString() || "",
-    lastName: route.query.lastName.toString() || "",
-    email: route.query.email.toString() || "",
+    internalPartnerId: route.query.internalPartnerId.toString() || '',
+    firstName: route.query.firstName.toString() || '',
+    lastName: route.query.lastName.toString() || '',
+    email: route.query.email.toString() || '',
   };
 }
 </script>
 
 <style lang="scss">
+.fr-connect {
+  display: inline-flex;
+}
 .full-width-btn {
   width: 100%;
   display: table-cell;
@@ -392,7 +385,8 @@ a#social-franceconnect-particulier span {
     "require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer",
     "ex": "E.g.: ",
     "or": "or",
-    "connect-france-connect": "Connect with FranceConnect"
+    "connect-france-connect": "Connect with FranceConnect",
+    "whatis-france-connect": "What is FranceConnect ?"
   },
   "fr": {
     "title": "Rejoindre DossierFacile",
@@ -409,7 +403,8 @@ a#social-franceconnect-particulier span {
     "require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer",
     "ex": "Ex : ",
     "or": "Ou",
-    "connect-france-connect": "Se connecter avec FranceConnect"
+    "connect-france-connect": "Se connecter avec FranceConnect",
+    "whatis-france-connect": "Qu'est-ce que FranceConnect ?"
   }
 }
 </i18n>

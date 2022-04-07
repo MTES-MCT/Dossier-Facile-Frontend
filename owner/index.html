@@ -7,8 +7,12 @@
     <title></title>
   <link rel="preload" href=""
     as="font" crossorigin>
-  <script src="/dsfr/dsfr.module.min.js" type="module"></script>
-  <script src="/dsfr/dsfr.nomodule.min.js" nomodule type="text/javascript"></script>
+  <script type="module">
+    import("../node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.module.min.js");
+  </script>
+  <script nomodule type="text/javascript">
+    import("../node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.nomodule.min.js");
+  </script>
   </head>
   <body>
     <div id="app"></div>
