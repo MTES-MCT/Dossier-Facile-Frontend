@@ -8,18 +8,16 @@ import PropertyPage from './PropertyPage.vue';
 
 const { t } = useI18n();
 
-defineProps<{}>();
-
 const route = useRoute();
 const router = useRouter();
 const store = useStore();
-const authorize = ref([]);
+const authorize = ref(false);
 
 const id = ref(0);
 if (route.params.id) {
-  id.value = route.params.id;
+  id.value = Number(route.params.id);
   store.dispatch('updatePropertyToEdit', Number(id.value)).then(() => {
-    authorize.value.push(store.getters.getPropertyToEdit.validated);
+    authorize.value = store.getters.getPropertyToEdit.validated;
   });
 }
 
@@ -28,13 +26,6 @@ async function onSubmit() {
   store.dispatch('saveProperty').then(() => {
     router.push({ name: 'Dashboard' });
   });
-}
-
-function isTrue(value) {
-  if (value.indexOf(true) < 0) {
-    return t('required');
-  }
-  return true;
 }
 
 function onBack() {
@@ -55,7 +46,7 @@ function onBack() {
         id="authorize"
         type="checkbox"
         v-model="authorize"
-        :rules="isTrue"
+        rules="isTrue"
         :value="true"
       />
       <label for="authorize"><div v-html="'Lorem ipsum'"></div></label>

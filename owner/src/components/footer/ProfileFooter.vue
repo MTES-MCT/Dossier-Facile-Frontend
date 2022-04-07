@@ -13,14 +13,22 @@
 </template>
 
 <script setup lang="ts">
+import { defineProps, withDefaults } from 'vue';
 import FooterContainer from './FooterContainer.vue';
 import BackNext from './BackNext.vue';
 
-defineProps<{
-  showBack: { type: boolean; required: false, default: true };
-  disabled: { type: boolean; required: false, default: false };
-  nextLabel: { type: string; required: false, default: '' };
-}>();
+withDefaults(
+  defineProps<{
+    showBack?: boolean;
+    disabled?: boolean;
+    nextLabel?: string;
+  }>(),
+  {
+    showBack: true,
+    disabled: false,
+    nextLabel: '',
+  },
+);
 
 const emit = defineEmits(['on-next', 'on-back']);
 

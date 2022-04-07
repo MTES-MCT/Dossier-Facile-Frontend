@@ -12,12 +12,16 @@
                 type="submit"
                 class="fr-mr-3w"
                 @on-click="validSelect()"
-                primary="true"
+                :primary="true"
+                :title="t('validate')"
                 >{{ t("validate") }}</DfButton
               >
-              <DfButton class="fr-mr-3w" @on-click="undoSelect()">{{
-                t("cancel")
-              }}</DfButton>
+              <DfButton
+                class="fr-mr-3w"
+                :title="t('cancel')"
+                @on-click="undoSelect()"
+                >{{ t("cancel") }}</DfButton
+              >
             </div>
           </div>
         </div>

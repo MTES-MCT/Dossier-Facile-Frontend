@@ -7,8 +7,6 @@ import PropertyPage from './PropertyPage.vue';
 
 const { t } = useI18n();
 
-defineProps<{}>();
-
 const route = useRoute();
 const router = useRouter();
 const store = useStore();

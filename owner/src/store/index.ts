@@ -39,7 +39,7 @@ const store = createStore({
     },
     loadUser(state: OwnerState, owner: OwnerUser) {
       Object.assign(state.user, owner);
-      state.properties = owner.properties;
+      state.properties = owner.properties || [];
       Object.assign(state.status.loggedIn, true);
     },
     logout(state: OwnerState) {

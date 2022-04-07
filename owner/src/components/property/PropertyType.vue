@@ -8,8 +8,6 @@ import PropertyPage from './PropertyPage.vue';
 
 const { t } = useI18n();
 
-defineProps<{}>();
-
 const route = useRoute();
 const router = useRouter();
 const store = useStore();
@@ -18,13 +16,6 @@ const id = ref(0);
 if (route.params.id) {
   id.value = Number(route.params.id);
   store.dispatch('updatePropertyToEdit', id.value);
-}
-
-function hasValue(type: string) {
-  if (!type) {
-    return 'this field is required'; // TODO i18n
-  }
-  return true;
 }
 
 const type = computed({
@@ -60,7 +51,7 @@ function onBack() {
         id="type-house"
         type="radio"
         v-model="type"
-        :rules="hasValue"
+        rules="hasValue"
         :value="'HOUSE'"
       />
       <label class="fr-label inline-block" for="type-house">{{ t("house") }}</label>
@@ -69,7 +60,7 @@ function onBack() {
         id="type-apartment"
         type="radio"
         v-model="type"
-        :rules="hasValue"
+        rules="hasValue"
         :value="'APARTMENT'"
       />
       <label class="fr-label inline-block" for="type-apartment">{{
@@ -80,7 +71,7 @@ function onBack() {
         id="type-other"
         type="radio"
         v-model="type"
-        :rules="hasValue"
+        rules="hasValue"
         :value="'OTHER'"
       />
       <label class="fr-label inline-block" for="type-other">{{ t("other") }}</label>

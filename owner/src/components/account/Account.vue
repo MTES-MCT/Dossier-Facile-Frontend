@@ -2,8 +2,6 @@
 import { useI18n } from "vue-i18n";
 import NameInformationForm from "./NameInformationForm.vue"
 
-defineProps<{}>();
-
 const { t } = useI18n();
 
 </script>

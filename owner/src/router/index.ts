@@ -24,7 +24,7 @@ const routes = [
       hasFooter: true,
     },
     component: Dashboard,
-    beforeEnter: async (to, from, next) => {
+    beforeEnter: async (_to: any, _from: any, next: any) => {
       if (store.getters.isLoggedIn
         && (!store.getters.getUser?.firstName || !store.getters.getUser?.lastName)) {
         next({ name: 'AccountName' });

@@ -42,8 +42,6 @@
 import { ref } from "vue";
 
 const isOpened = ref(false);
-
-defineProps<{}>();
 </script>
 
 <style scoped>

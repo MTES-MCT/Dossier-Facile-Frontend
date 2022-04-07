@@ -31,7 +31,7 @@
                 <DfButton
                   type="submit"
                   :title="t('delete')"
-                  primary="true"
+                  :primary="true"
                   >{{
                     isMobile() ? t("validate-mobile") : t("validate")
                   }}</DfButton

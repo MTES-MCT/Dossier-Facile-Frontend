@@ -6,13 +6,20 @@
 </template>
 
 <script setup lang="ts">
+import { withDefaults, defineProps } from "vue";
 import StatusIcon from "./StatusIcon.vue";
 
-const props = defineProps<{
-  status: { type: string; required: false; default: "" };
-  text: { type: string; required: true };
-  active: { type: boolean; required: false; default: false };
-}>();
+const props = withDefaults(
+  defineProps<{
+    status?: string;
+    text: string;
+    active?: boolean;
+  }>(),
+  {
+    status: "",
+    active: false
+  }
+);
 
 function getClasses() {
   const c = props.active ? "active " : "";

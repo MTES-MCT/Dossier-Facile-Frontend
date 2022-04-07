@@ -130,13 +130,13 @@
           </tr>
           <tr v-for="tenant in getTenants()" :key="tenant.id">
             <td>
-              <span>{{ formatDate(tenant.date) }}</span>
+              <span>{{ formatDate(tenant.date || new Date()) }}</span>
             </td>
             <td>
               <span>{{ tenant.tenantName }}</span>
             </td>
             <td>
-              <span>{{ t(tenant.tenantType) }}</span>
+              <span>{{ t(tenant.tenantType || "") }}</span>
             </td>
             <td>
               <span>{{ tenant.tenantSalary }}</span>
@@ -148,7 +148,7 @@
               <span>{{ tenant.rate }}</span>
             </td>
             <td>
-              <span>{{ t(tenant.status) }}</span>
+              <span>{{ t(tenant.status || "") }}</span>
             </td>
           </tr>
         </table>
@@ -165,16 +165,14 @@ import NakedCard from 'df-shared/src/components/NakedCard.vue';
 import ConfirmModal from 'df-shared/src/components/ConfirmModal.vue';
 import VGouvFrModal from 'df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue';
 import { useToast } from 'vue-toastification';
-import { User } from 'df-shared/src/models/User';
 import { format } from 'date-fns';
 import { enUS, fr } from 'date-fns/locale';
 import PropertyIcon from './PropertyIcon.vue';
 import i18n from '../../i18n';
+import Applicant from './Applicant';
 
 const { t } = useI18n();
 const confirmDelete = ref(false);
-
-defineProps<{}>();
 
 const route = useRoute();
 const router = useRouter();
@@ -202,7 +200,7 @@ function editProperty() {
   router.push({ name: 'PropertyName', params: { id: id.value } });
 }
 
-function getTenants(): User[] {
+function getTenants(): Applicant[] {
   if (!p.propertiesApartmentSharing) {
     return [];
   }
@@ -262,7 +260,7 @@ function copyToken() {
 }
 
 const verifiedApplicantsCount = computed(
-  () => getTenants().filter((u: User) => u.status === 'VALIDATED').length,
+  () => getTenants().filter((u: Applicant) => u.status === 'VALIDATED').length,
 );
 
 function formatDate(date: Date) {

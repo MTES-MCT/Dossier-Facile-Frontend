@@ -7,7 +7,6 @@ import { useStore } from "vuex";
 import { useToast } from "vue-toastification";
 import Register from "./account/Register.vue";
 
-defineProps<{}>();
 const { t } = useI18n();
 const store = useStore();
 const toast = useToast();
@@ -84,7 +83,7 @@ function onRegister(user: User) {
         </div>
       </div>
     </div>
-    <Modal v-show="isValidModalVisible.value" @close="closeModal">
+    <Modal v-show="isValidModalVisible" @close="closeModal">
       <template v-slot:body>
         <div class="fr-container">
           <div class="fr-grid-row justify-content-center">
@@ -180,10 +179,14 @@ li {
 <i18n>
 {
   "en": {
-    "connect": "Already signed up ? Connect"
+    "connect": "Already signed up ? Connect",
+    "mail-sent": "An email has been sent to the requested address.",
+    "clic-to-confirm": "Please click on the given link to confirm your email and continue you inscription."
   },
   "fr": {
-    "connect": "Déjà inscrit ? S'identifier"
+    "connect": "Déjà inscrit ? S'identifier",
+    "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
+    "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre le changement de mot de passe."
   }
 }
 </i18n>

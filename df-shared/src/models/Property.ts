@@ -7,6 +7,6 @@ export class Property {
   rentCost!: number;
   displayed!: boolean;
   validated!: boolean;
-  propertyType?: string;
-  propertyFurniture?: string;
+  type?: string;
+  furniture?: string;
 }

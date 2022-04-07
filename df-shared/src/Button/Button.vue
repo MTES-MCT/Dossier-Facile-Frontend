@@ -10,20 +10,28 @@
 </template>
 
 <script setup lang="ts">
+import { defineProps, withDefaults } from "vue";
+
 const emit = defineEmits(["on-click"]);
 
-const props = defineProps<{
-  title: { type: string; required: true };
-  primary: { type: boolean; required: false; default: false };
-  size: { type: string; required: false; default: "normal" };
-}>();
+const props = withDefaults(
+  defineProps<{
+    title: string;
+    primary?: boolean;
+    size?: string;
+  }>(),
+  {
+    primary: false,
+    size: "normal"
+  }
+);
 
 function classes() {
   return {
     "fr-btn--secondary": !props.primary,
     "fr-btn--lg": props.size === "large",
     "fr-btn--sm": props.size === "small",
-    "fr-btn--icon": props.size === "icon",
+    "fr-btn--icon": props.size === "icon"
   };
 }
 

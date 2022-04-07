@@ -8,8 +8,6 @@ import { useRouter } from 'vue-router';
 import { Property } from 'df-shared/src/models/Property';
 import PropertyIcon from './property/PropertyIcon.vue';
 
-defineProps<{}>();
-
 const store = useStore();
 const { t } = useI18n();
 const router = useRouter();
@@ -47,7 +45,9 @@ function openProperty(p: Property) {
       <div class="fr-grid-row space-between">
         <h1 class="fr-h4">{{ t("my-properties") }}</h1>
         <div>
-          <Button @onClick="addProperty" :primary="true">{{ t("add-property") }}</Button>
+          <Button @onClick="addProperty" :title="t('add-property')" :primary="true">{{
+            t("add-property")
+          }}</Button>
         </div>
       </div>
 

@@ -7,15 +7,13 @@ import PropertyPage from './PropertyPage.vue';
 
 const { t } = useI18n();
 
-defineProps<{}>();
-
 const route = useRoute();
 const router = useRouter();
 const store = useStore();
 
 const id = ref(0);
 if (route.params.id) {
-  id.value = route.params.id;
+  id.value = Number(route.params.id);
   store.dispatch('updatePropertyToEdit', Number(id.value));
 }
 

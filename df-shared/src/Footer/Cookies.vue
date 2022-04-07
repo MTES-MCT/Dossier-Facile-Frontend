@@ -5,10 +5,20 @@
         {{ t("cookies-text") }}
         <router-link to="/mentions-legales">{{ t("more") }}</router-link>
       </p>
-      <DfButton primary="true" size="small" @on-click="accept">
+      <DfButton
+        :primary="true"
+        :title="t('accept')"
+        size="small"
+        @on-click="accept"
+      >
         {{ t("accept") }}
       </DfButton>
-      <DfButton size="small" @on-click="deny" class="fr-ml-3w">
+      <DfButton
+        size="small"
+        :title="t('deny')"
+        @on-click="deny"
+        class="fr-ml-3w"
+      >
         {{ t("deny") }}
       </DfButton>
     </div>
@@ -16,14 +26,20 @@
 </template>
 
 <script setup lang="ts">
+import { withDefaults, defineProps } from "vue";
 import DfButton from "../Button/Button.vue";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 
-const props = defineProps<{
-  hidden: { type: boolean; required: false; default: false };
-}>();
+const props = withDefaults(
+  defineProps<{
+    hidden?: boolean;
+  }>(),
+  {
+    hidden: false
+  }
+);
 
 const emit = defineEmits(["accept", "deny"]);
 

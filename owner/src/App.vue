@@ -9,8 +9,6 @@ import { useCookies } from 'vue3-cookies';
 import i18n from './i18n';
 import Menu from './components/Menu.vue';
 
-defineProps<{}>();
-
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`;
 

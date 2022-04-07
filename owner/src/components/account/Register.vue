@@ -57,7 +57,7 @@
                 :placeholder="t('email-placeholder')"
                 type="email"
                 autocomplete="email"
-                :rules="validateEmail"
+                rules="validateEmail"
               />
               <ErrorMessage name="email" class="fr-error-text"></ErrorMessage>
             </div>
@@ -134,7 +134,7 @@
                 name="terms"
                 id="terms"
                 type="checkbox"
-                :rules="isTrue"
+                rules="isTrue"
                 :value="true"
               />
               <label for="terms"><div v-html="t('accept-cgu')"></div></label>
@@ -157,23 +157,11 @@
 import { User } from 'df-shared/src/models/User';
 // import VueRecaptcha from "vue-recaptcha";
 // import Password from "vue-password-strength-meter";
-import { ref } from 'vue';
+import { ref, defineProps, withDefaults } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
 import { Form, Field, ErrorMessage } from 'vee-validate';
 
-function validateEmail(value: string) {
-  if (!value) {
-    return 'Email is required';
-  }
-  return true;
-}
-function isTrue(value: boolean) {
-  if (!value) {
-    return 'this field is required'; // TODO i18n
-  }
-  return true;
-}
 const terms = ref([]);
 const email = ref('');
 // function validateCguField(value: boolean) {
@@ -222,9 +210,14 @@ const SITE_KEY = import.meta.env.VITE_CAPTCHA_SITE_KEY;
 const FRANCE_CONNECT_LOGIN_URL = import.meta.env.VUE_APP_FRANCE_CONNECT_LOGIN_URL;
 const route = useRoute();
 
-const props = defineProps<{
-  email: { type: string; required: false; default: '' };
-}>();
+const props = withDefaults(
+  defineProps<{
+    email?: string;
+  }>(),
+  {
+    email: '',
+  },
+);
 
 const { t } = useI18n();
 
@@ -290,10 +283,10 @@ function getParams() {
 
 function getQuery() {
   return {
-    internalPartnerId: route.query.internalPartnerId.toString() || '',
-    firstName: route.query.firstName.toString() || '',
-    lastName: route.query.lastName.toString() || '',
-    email: route.query.email.toString() || '',
+    internalPartnerId: route.query.internalPartnerId?.toString() || '',
+    firstName: route.query.firstName?.toString() || '',
+    lastName: route.query.lastName?.toString() || '',
+    email: route.query.email?.toString() || '',
   };
 }
 </script>

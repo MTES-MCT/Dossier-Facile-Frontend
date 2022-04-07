@@ -35,7 +35,8 @@
     "sass": "^1.49.7",
     "typescript": "^4.5.4",
     "vite": "^2.8.0",
-    "vue-tsc": "^0.29.8"
+    "vue-tsc": "^0.29.8",
+    "yup": "^0.32.11"
   },
   "eslintConfig": {
     "no-param-reassign": [

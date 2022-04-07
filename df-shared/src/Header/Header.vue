@@ -62,7 +62,8 @@
                 <li v-if="!loggedIn">
                   <DfButton
                     class="fr-ml-3"
-                    primary="true"
+                    :primary="true"
+                    :title="t('signup')"
                     size="small"
                     @on-click="onCreateTenant"
                   >
@@ -70,7 +71,11 @@
                   </DfButton>
                 </li>
                 <li v-if="!loggedIn">
-                  <DfButton size="small" @on-click="onCreateOwner">
+                  <DfButton
+                    size="small"
+                    :title="t('owner')"
+                    @on-click="onCreateOwner"
+                  >
                     {{ t("owner") }}
                   </DfButton>
                 </li>
@@ -122,7 +127,8 @@
             <li v-if="!loggedIn">
               <DfButton
                 class="fr-ml-3"
-                primary="true"
+                :title="t('signup')"
+                :primary="true"
                 size="small"
                 @on-click="onCreateTenant"
               >
@@ -130,7 +136,11 @@
               </DfButton>
             </li>
             <li v-if="!loggedIn">
-              <DfButton size="small" @on-click="onCreateOwner">
+              <DfButton
+                size="small"
+                :title="t('owner')"
+                @on-click="onCreateOwner"
+              >
                 {{ t("owner") }}
               </DfButton>
             </li>
@@ -159,6 +169,7 @@
 </template>
 
 <script setup lang="ts">
+import { withDefaults, defineProps } from "vue";
 import DfButton from "../Button/Button.vue";
 import VGouvFrButton from "../Button/v-gouv-fr-button/VGouvFrButton.vue";
 import { useI18n } from "vue-i18n";
@@ -166,11 +177,18 @@ import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const MAIN_URL = `//${import.meta.env.VUE_APP_MAIN_URL}`;
 
-defineProps<{
-  loggedIn: { type: boolean; required: false; default: false };
-  lang: { type: string; required: false; default: "fr" };
-  showAccessibility: { type: boolean; required: false; default: false };
-}>();
+withDefaults(
+  defineProps<{
+    loggedIn?: boolean;
+    lang?: string;
+    showAccessibility?: boolean;
+  }>(),
+  {
+    loggedIn: false,
+    lang: "fr",
+    showAccessibility: false
+  }
+);
 
 const emit = defineEmits([
   "on-create-tenant",

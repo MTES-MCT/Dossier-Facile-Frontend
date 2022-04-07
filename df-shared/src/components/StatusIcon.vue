@@ -5,8 +5,9 @@
 </template>
 
 <script setup lang="ts">
+import { defineProps } from "vue";
 const props = defineProps<{
-  status: { type: string; required: true };
+  status: string;
 }>();
 
 function getStatus() {

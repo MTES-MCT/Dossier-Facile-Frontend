@@ -29,12 +29,20 @@
 <script setup lang="ts">
 import VGouvFrButton from 'df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.vue';
 import { useI18n } from 'vue-i18n';
+import { defineProps, withDefaults } from 'vue';
 
-defineProps<{
-  showBack: { type: boolean; required: false; default: true };
-  disabled: { type: boolean; required: false; default: false };
-  nextLabel: { type: string; required: false; default: '' };
-}>();
+withDefaults(
+  defineProps<{
+    showBack?: boolean;
+    disabled?: boolean;
+    nextLabel?: string;
+  }>(),
+  {
+    showBack: true,
+    disabled: false,
+    nextLabel: '',
+  },
+);
 
 const emit = defineEmits(['on-next', 'on-back']);
 
