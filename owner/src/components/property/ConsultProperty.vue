@@ -62,7 +62,7 @@
       <NakedCard class="h-100">
         <div class="fr-grid-row align-items--center">
           <PropertyIcon :type="propertyType"></PropertyIcon>
-          dont le loyer mensuel est de {{ p.rentCost }}€
+          {{ buildTitle }}
         </div>
       </NakedCard>
       <NakedCard class="fr-mt-3w">
@@ -195,6 +195,26 @@ const token = computed(
 const name = computed(() => store.getters.getPropertyToConsult?.name);
 const p = store.getters.getPropertyToConsult;
 const propertyType = computed(() => store.getters.getPropertyToConsult?.type);
+const propertyFurnished = computed(() => store.getters.getPropertyToConsult?.furnished);
+
+const buildTitle = computed(() => {
+  if (propertyType.value === 'HOUSE') {
+    if (propertyFurnished.value) {
+      return t('house-furnished', { rentCost: p.rentCost });
+    }
+    return t('house-unfurnished', { rentCost: p.rentCost });
+  }
+  if (propertyType.value === 'APARTMENT') {
+    if (propertyFurnished.value) {
+      return t('apartment-furnished', { rentCost: p.rentCost });
+    }
+    return t('apartment-unfurnished', { rentCost: p.rentCost });
+  }
+  if (propertyFurnished.value) {
+    return t('other-furnished', { rentCost: p.rentCost });
+  }
+  return t('other-unfurnished', { rentCost: p.rentCost });
+});
 
 function editProperty() {
   router.push({ name: 'PropertyName', params: { id: id.value } });
@@ -265,7 +285,7 @@ const verifiedApplicantsCount = computed(
 
 function formatDate(date: Date) {
   return format(date, 'dd MMMM yyyy', {
-    locale: (i18n.global as unknown as Composer).locale.value === 'fr' ? fr : enUS,
+    locale: ((i18n.global as unknown) as Composer).locale.value === 'fr' ? fr : enUS,
   });
 }
 </script>
@@ -390,7 +410,13 @@ td:last-child {
     "TO_PROCESS": "to process",
     "VALIDATED": "validated",
     "DECLINED": "declined",
-    "INCOMPLETE": "incomplete"
+    "INCOMPLETE": "incomplete",
+    "house-furnished": "A furnished house with a rent of {rentCost}€",
+    "house-unfurnished": "An unfurnished house with a rent of {rentCost}€",
+    "apartment-furnished": "A furnished apartment with a rent of {rentCost}€",
+    "apartment-unfurnished": "A unfurnished apartment with a rent of {rentCost}€",
+    "other-furnished": "A furnished property with a rent of {rentCost}€",
+    "other-unfurnished": "A unfurnished property with a rent of {rentCost}€",
   },
   "fr": {
     "title": "Consultation",
@@ -417,7 +443,13 @@ td:last-child {
     "TO_PROCESS": "En cours de traitement",
     "VALIDATED": "Vérifié",
     "DECLINED": "Modification demandée",
-    "INCOMPLETE": "Non terminé"
+    "INCOMPLETE": "Non terminé",
+    "house-furnished": "Une maison meublée dont le loyer mensuel est de {rentCost}€",
+    "house-unfurnished": "Une maison non meublée dont le loyer mensuel est de {rentCost}€",
+    "apartment-furnished": "Un appartement meublé dont le loyer mensuel est de {rentCost}€",
+    "apartment-unfurnished": "Un appartement non meublé dont le loyer mensuel est de {rentCost}€",
+    "other-furnished": "Un bien meublé dont le loyer mensuel est de {rentCost}€",
+    "other-unfurnished": "Un bien non meublé dont le loyer mensuel est de {rentCost}€",
   }
 }
 </i18n>
