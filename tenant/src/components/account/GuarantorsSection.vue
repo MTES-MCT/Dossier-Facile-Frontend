@@ -356,6 +356,9 @@ hr {
     content: none;
   }
 }
+a.cleana:focus {
+  outline-style: auto;
+}
 </style>
 
 <i18n>

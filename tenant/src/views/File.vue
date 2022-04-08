@@ -133,7 +133,7 @@
       <section class="fr-mb-7w fix-mt">
         <DfButton v-if="showProgressBar" primary="true"
           >{{ $t("download-all-inprogress")
-          }}<span><ProgressIndicator diameter="22px" border="3px" /></span>
+          }}<span><ProgressIndicator diameter="22px" border="3px"/></span>
         </DfButton>
         <DfButton v-else primary="true" @on-click="download">{{
           $t("download-all")
@@ -252,30 +252,32 @@ export default class File extends Vue {
     }, 7000);
   }
 
-  private downloadFile(url : string){
+  private downloadFile(url: string) {
     ProfileService.getFile(url)
-      .then( response =>{
-          const blob = new Blob([response.data], {type: "application/pdf"});
-          const link = document.createElement("a");
-          link.href = window.URL.createObjectURL(blob);
-          link.download = "dossierFacile-"+this.$route.params.token+".pdf";
-          link.click();
-        }).catch(error => {
-          console.error(error);
-          Vue.toasted.global.error();
-        }).finally( () => this.showProgressBar = false );
+      .then(response => {
+        const blob = new Blob([response.data], { type: "application/pdf" });
+        const link = document.createElement("a");
+        link.href = window.URL.createObjectURL(blob);
+        link.download = "dossierFacile-" + this.$route.params.token + ".pdf";
+        link.click();
+      })
+      .catch(error => {
+        console.error(error);
+        Vue.toasted.global.error();
+      })
+      .finally(() => (this.showProgressBar = false));
   }
 
   download() {
     this.showProgressBar = true;
     if (this.user?.dossierPdfUrl) {
       this.downloadFile(this.user?.dossierPdfUrl);
-    } else {    
+    } else {
       ProfileService.postCreateFullPdf(this.$route.params.token)
         .then(() => {
           this.retryDownload();
         })
-        .catch( error => {
+        .catch(error => {
           this.showProgressBar = false;
           console.error(error);
           Vue.toasted.global.error();

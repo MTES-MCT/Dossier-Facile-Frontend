@@ -109,6 +109,15 @@ input[type=checkbox]:focus+label::before {
   z-index: 0 !important;
 }
 
+.fr-checkbox-group {
+    &:focus-within {
+       outline-style:auto;
+       outline-width: 2px;
+       outline-offset: 4px;
+       outline-color: #0a76f6;
+    }
+}
+
 .fr-fi-menu-fill {
   visibility: hidden;
 }
@@ -224,6 +233,12 @@ img {
   top: calc(100vh - 200px) !important;
   @media all and (min-width: 768px) {
     top: calc(100vh - 150px) !important;
+  }
+  &:focus-within{
+    outline-style: auto;
+    outline-width: 2px;
+    outline-offset: 4px;
+    outline-color: #0a76f6;
   }
 }
 
