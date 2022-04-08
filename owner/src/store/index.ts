@@ -2,6 +2,7 @@ import { Property } from 'df-shared/src/models/Property';
 import { createStore } from 'vuex';
 import { User } from 'df-shared/src/models/User';
 import { useCookies } from 'vue3-cookies';
+import { Composer } from 'vue-i18n';
 import { OwnerUser } from '../../../df-shared/src/models/OwnerUser';
 import i18n from '../i18n';
 import AuthService from '../components/auth/AuthService';
@@ -86,9 +87,9 @@ const store = createStore({
   },
   actions: {
     setLang(_, lang: string) {
-      i18n.global.locale.value = lang;
+      (i18n.global as unknown as Composer).locale.value = lang;
       const html = document.documentElement;
-      html.setAttribute('lang', i18n.global.locale.value);
+      html.setAttribute('lang', (i18n.global as unknown as Composer).locale.value);
       const { cookies } = useCookies();
       const expireTimes = new Date();
       expireTimes.setFullYear(expireTimes.getFullYear() + 1);

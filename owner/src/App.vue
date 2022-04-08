@@ -8,6 +8,7 @@ import { useRouter } from 'vue-router';
 import { useCookies } from 'vue3-cookies';
 import i18n from './i18n';
 import Menu from './components/Menu.vue';
+import { Composer } from 'vue-i18n';
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`;
@@ -35,12 +36,12 @@ function onLogout() {
 }
 
 function changeLang() {
-  const lang = i18n.global.locale.value === 'fr' ? 'en' : 'fr';
+  const lang = (i18n.global as unknown as Composer).locale.value === 'fr' ? 'en' : 'fr';
   store.dispatch('setLang', lang);
 }
 
 function getLang() {
-  return i18n.global.locale.value;
+  return (i18n.global as unknown as Composer).locale.value;
 }
 
 function acceptCookies() {

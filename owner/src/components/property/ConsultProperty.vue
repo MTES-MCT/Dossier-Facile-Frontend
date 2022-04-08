@@ -158,7 +158,7 @@
 </template>
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { Composer, useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import NakedCard from 'df-shared/src/components/NakedCard.vue';
@@ -265,7 +265,7 @@ const verifiedApplicantsCount = computed(
 
 function formatDate(date: Date) {
   return format(date, 'dd MMMM yyyy', {
-    locale: i18n.global.locale.value === 'fr' ? fr : enUS,
+    locale: (i18n.global as unknown as Composer).locale.value === 'fr' ? fr : enUS,
   });
 }
 </script>
