@@ -98,8 +98,7 @@
       <div
         v-if="
           acceptVerification &&
-            taxDocument.key === 'my-name' &&
-            user.id % 10 <= 4
+            taxDocument.key === 'my-name'
         "
         class="fr-grid-row blue-franceconnect fr-mt-3w"
       >
