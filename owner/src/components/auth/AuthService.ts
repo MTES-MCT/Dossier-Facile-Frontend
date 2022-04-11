@@ -20,13 +20,13 @@ const AuthService = {
   },
 
   resetPassword(user: User) {
-    return axios.post(`${API_URL}user/forgotPassword`, {
+    return axios.post(`${API_URL}register/forgotPassword`, {
       email: user.email,
     });
   },
 
   changePassword(user: User) {
-    return axios.post(`${API_URL}user/createPassword/${user.token}`, {
+    return axios.post(`${API_URL}register/createPassword/${user.token}`, {
       password: user.password,
     });
   },

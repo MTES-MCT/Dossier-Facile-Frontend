@@ -134,6 +134,21 @@ const store = createStore({
           window.location.reload();
         });
     },
+    resetPassword(_, user) {
+      return AuthService.resetPassword(user).then(
+        (u) => Promise.resolve(u),
+        (error) => Promise.reject(error),
+      );
+    },
+    changePassword({ commit }, user: User) {
+      AuthService.changePassword(user).then(
+        async (response) => {
+          await commit('loadUser', response.data);
+          return Promise.resolve(user);
+        },
+        (error) => Promise.reject(error),
+      );
+    },
     setFirstName({ commit }, firstName: string) { commit('setFirstName', firstName); },
     setLastName({ commit }, lastName: string) { commit('setLastName', lastName); },
     setEmail({ commit }, email: string) { commit('setEmail', email); },

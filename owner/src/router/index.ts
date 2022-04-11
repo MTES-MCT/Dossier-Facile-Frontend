@@ -9,6 +9,8 @@ import PropertyRent from '../components/property/PropertyRent.vue';
 import ConsultProperty from '../components/property/ConsultProperty.vue';
 import ValidateProperty from '../components/property/ValidateProperty.vue';
 import SignupPage from '../components/SignupPage.vue';
+import ForgottenPasswordPage from '../components/account/ForgottenPasswordPage.vue';
+import ChangePasswordPage from '../components/account/ChangePasswordPage.vue';
 import store from '../store';
 import keycloak from '../plugin/keycloak';
 
@@ -41,6 +43,26 @@ const routes = [
       hasFooter: true,
     },
     component: SignupPage,
+  },
+  {
+    path: '/mot-de-passe-oublie',
+    name: 'ForgottenPassword',
+    meta: {
+      title: 'Mot de passe oublié - DossierFacile',
+      description:
+        'Accédez à la procédure de mot de passe oublié pour votre compte DossierFacile',
+      hideForAuth: true,
+    },
+    component: ForgottenPasswordPage,
+  },
+  {
+    path: '/modifier-mot-de-passe/:token',
+    name: 'ChangePassword',
+    meta: {
+      title: 'Nouveau mot de passe - DossierFacile',
+      hideForAuth: true,
+    },
+    component: ChangePasswordPage,
   },
   {
     path: '/proprietaire',
