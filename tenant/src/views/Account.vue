@@ -348,6 +348,7 @@
                 </p>
                 <div class="align--center">
                   <a
+                    class="cleana"
                     href="https://voxusagers.numerique.gouv.fr/Demarches/2871?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=f2f9b35326f6b085c219faef71d0a3f2"
                     target="_blank"
                     rel="noreferrer"
@@ -790,6 +791,12 @@ hr {
 .cleana {
   &:after {
     content: none;
+  }
+  &:focus {
+    outline-style: auto;
+    outline-width: 2px;
+    outline-offset: 4px;
+    outline-color: #0a76f6;
   }
 }
 

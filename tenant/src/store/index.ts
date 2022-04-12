@@ -183,11 +183,17 @@ const store = new Vuex.Store({
   },
   actions: {
     logout({ commit }, redirect = true) {
+      const isFC = this.state.user.franceConnect;
       return AuthService.logout()
         .then(async () => {
           await commit("logout");
           await commit("initState");
-          if (redirect) {
+          if (isFC) {
+            window.location.replace(
+              "https://fcp.integ01.dev-franceconnect.fr/api/v1/logout"
+            );
+            return;
+          } else if (redirect) {
             window.location.replace(MAIN_URL);
             return;
           }
@@ -198,10 +204,19 @@ const store = new Vuex.Store({
         });
     },
     deleteAccount({ commit }) {
+      const isFC = this.state.user.franceConnect;
       return AuthService.deleteAccount().then(
         response => {
           commit("logout");
           commit("initState");
+          if (isFC) {
+            window.location.replace(
+              "https://fcp.integ01.dev-franceconnect.fr/api/v1/logout"
+            );
+            return;
+          } else {
+            window.location.replace(MAIN_URL);
+          }
           return Promise.resolve(response);
         },
         error => {

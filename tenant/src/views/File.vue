@@ -131,7 +131,11 @@
         </div>
       </section>
       <section class="fr-mb-7w fix-mt">
-        <DfButton primary="true" @on-click="download">{{
+        <DfButton v-if="showProgressBar" primary="true"
+          >{{ $t("download-all-inprogress")
+          }}<span><ProgressIndicator diameter="22px" border="3px"/></span>
+        </DfButton>
+        <DfButton v-else primary="true" @on-click="download">{{
           $t("download-all")
         }}</DfButton>
         <p class="fr-mt-3w">
@@ -152,9 +156,11 @@ import DfButton from "df-shared/src/Button/Button.vue";
 import { ProfileService } from "../services/ProfileService";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import FileReinsurance from "../components/FileReinsurance.vue";
+import ProgressIndicator from "@/components/ProgressIndicator.vue";
 
 @Component({
   components: {
+    ProgressIndicator,
     DfButton,
     FileReinsurance
   }
@@ -162,6 +168,7 @@ import FileReinsurance from "../components/FileReinsurance.vue";
 export default class File extends Vue {
   user: FileUser | null = null;
   tabIndex = 0;
+  showProgressBar = false;
 
   getName() {
     if (this.user?.tenants !== undefined) {
@@ -179,7 +186,7 @@ export default class File extends Vue {
     return "";
   }
 
-  mounted() {
+  private setUser() {
     const token = this.$route.params.token;
     ProfileService.getUserByToken(token).then((d: any) => {
       this.user = d.data;
@@ -191,6 +198,10 @@ export default class File extends Vue {
         });
       }
     });
+  }
+
+  mounted() {
+    this.setUser();
   }
 
   getTenants() {
@@ -229,8 +240,49 @@ export default class File extends Vue {
     window.open(doc.name, "_blank");
   }
 
+  retryDownload() {
+    setTimeout(() => {
+      this.setUser();
+      if (this.user?.dossierPdfUrl) {
+        this.showProgressBar = false;
+        this.downloadFile(this.user?.dossierPdfUrl);
+      } else {
+        this.retryDownload();
+      }
+    }, 7000);
+  }
+
+  private downloadFile(url: string) {
+    ProfileService.getFile(url)
+      .then(response => {
+        const blob = new Blob([response.data], { type: "application/pdf" });
+        const link = document.createElement("a");
+        link.href = window.URL.createObjectURL(blob);
+        link.download = "dossierFacile-" + this.$route.params.token + ".pdf";
+        link.click();
+      })
+      .catch(error => {
+        console.error(error);
+        Vue.toasted.global.error();
+      })
+      .finally(() => (this.showProgressBar = false));
+  }
+
   download() {
-    window.open(this.user?.dossierPdfUrl, "_blank");
+    this.showProgressBar = true;
+    if (this.user?.dossierPdfUrl) {
+      this.downloadFile(this.user?.dossierPdfUrl);
+    } else {
+      ProfileService.postCreateFullPdf(this.$route.params.token)
+        .then(() => {
+          this.retryDownload();
+        })
+        .catch(error => {
+          this.showProgressBar = false;
+          console.error(error);
+          Vue.toasted.global.error();
+        });
+    }
   }
 
   hasGuarantor(tenant: User) {
@@ -328,6 +380,7 @@ export default class File extends Vue {
     "tax": "Tax",
     "see": "See",
     "download-all": "Download the complete file (.pdf)",
+    "download-all-inprogress": "Download in progress...",
     "ALONE": "Seul",
     "COUPLE": "En couple",
     "GROUP": "En colocation",
@@ -349,6 +402,7 @@ export default class File extends Vue {
     "tax": "Avis d’imposition",
     "see": "Voir",
     "download-all": "Télécharger le dossier complet (.pdf)",
+    "download-all-inprogress": "Téléchargement en cours...",
     "ALONE": "Seul",
     "COUPLE": "En couple",
     "GROUP": "En colocation",

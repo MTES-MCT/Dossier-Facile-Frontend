@@ -129,6 +129,13 @@ export default class FileUpload extends Vue {
   cursor: pointer;
 }
 
+.file-upload:focus-within {
+  outline-style: auto;
+  outline-width: 2px;
+  outline-offset: 4px;
+  outline-color: #0a76f6;
+}
+
 .dropbox:hover {
   background-image: linear-gradient(
     0deg,
