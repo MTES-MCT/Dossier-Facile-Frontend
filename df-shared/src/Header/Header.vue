@@ -52,32 +52,19 @@
                   >
                 </li>
                 <li v-if="loggedIn">
-                  <v-gouv-fr-button
-                    :label="t('logout')"
-                    :small="true"
-                    :secondary="true"
-                    @click="onLogout"
-                  ></v-gouv-fr-button>
+                  <a href="" class="fr-btn" @click="onLogout">{{
+                    t("logout")
+                  }}</a>
                 </li>
                 <li v-if="!loggedIn">
-                  <DfButton
-                    class="fr-ml-3"
-                    :primary="true"
-                    :title="t('signup')"
-                    size="small"
-                    @on-click="onCreateTenant"
-                  >
+                  <a class="fr-btn" @click="onCreateTenant" href="">
                     {{ t("signup") }}
-                  </DfButton>
+                  </a>
                 </li>
                 <li v-if="!loggedIn">
-                  <DfButton
-                    size="small"
-                    :title="t('owner')"
-                    @on-click="onCreateOwner"
-                  >
+                  <a class="fr-btn" @click="onCreateOwner" href="">
                     {{ t("owner") }}
-                  </DfButton>
+                  </a>
                 </li>
                 <li>
                   <button
