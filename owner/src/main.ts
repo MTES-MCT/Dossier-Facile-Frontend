@@ -78,13 +78,6 @@ keycloak.init({ onLoad: 'check-sso', checkLoginIframe: true }).then((auth) => {
       return Promise.reject(error);
     },
   );
-
-  // Token Refresh
-  setInterval(() => {
-    keycloak.updateToken(70).then().catch(() => {
-      console.log('Failed to refresh token');
-    });
-  }, 6000);
 }).catch(() => {
   console.log('Authenticated Failed');
 });
