@@ -33,7 +33,41 @@ defineRule('hasValue', (value: any) => {
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 
-keycloak.init({ onLoad: 'check-sso', checkLoginIframe: true }).then((auth) => {
+keycloak.init({ onLoad: 'check-sso', checkLoginIframe: false }).then((auth) => {
+  if (auth) {
+    axios.interceptors.request.use(
+      (config) => {
+        if (keycloak.authenticated && config?.headers) {
+          const localToken = keycloak.token;
+          config.headers.Authorization = `Bearer ${localToken}`;
+        }
+        return config;
+      },
+
+      (error) => Promise.reject(error),
+    );
+
+    axios.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (
+          error.response
+          && (error.response.status === 401 || error.response.status === 403)
+        ) {
+          console.log('err');
+        }
+        return Promise.reject(error);
+      },
+    );
+  }
+
+  const app = createApp(App);
+  app.use(store);
+  app.use(router);
+  app.use(i18n);
+  app.use(Toast);
+  app.mount('#app');
+
   const aYearFromNow = new Date();
   aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1);
   globalCookiesConfig({
@@ -43,41 +77,6 @@ keycloak.init({ onLoad: 'check-sso', checkLoginIframe: true }).then((auth) => {
     secure: true,
     sameSite: 'None',
   });
-
-  const app = createApp(App);
-  app.use(store);
-  app.use(router);
-  app.use(i18n);
-  app.use(Toast);
-  app.mount('#app');
-
-  if (!auth) {
-    return;
-  }
-  axios.interceptors.request.use(
-    (config) => {
-      if (keycloak.authenticated && config?.headers) {
-        const localToken = keycloak.token;
-        config.headers.Authorization = `Bearer ${localToken}`;
-      }
-      return config;
-    },
-
-    (error) => Promise.reject(error),
-  );
-
-  axios.interceptors.response.use(
-    (response) => response,
-    (error) => {
-      if (
-        error.response
-        && (error.response.status === 401 || error.response.status === 403)
-      ) {
-        console.log('err');
-      }
-      return Promise.reject(error);
-    },
-  );
 }).catch(() => {
   console.log('Authenticated Failed');
 });

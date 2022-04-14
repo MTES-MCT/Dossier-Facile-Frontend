@@ -229,7 +229,7 @@ function getTenants(): Applicant[] {
     .map((pas: any) => {
       const a = pas.apartmentSharing;
       if (a !== undefined && a.tenants.length > 0) {
-        const rate = Math.round(p.rentCost / a.totalSalary);
+        const rate = Math.round(p.rentCost / a.totalSalary) * 100;
         return {
           date: new Date(),
           tenantName: `${a.tenants[0].lastName} ${a.tenants[0].firstName}`,
