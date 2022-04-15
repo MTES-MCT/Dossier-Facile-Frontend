@@ -54,7 +54,12 @@ function onBack() {
         rules="hasValue"
         :value="'UNFURNISHED'"
       />
-      <label class="fr-label inline-block" for="furniture-house">{{ t("unfurnished") }}</label>
+      <label
+        :class="{ selected: furniture === 'UNFURNISHED' }"
+        class="fr-label inline-block label"
+        for="furniture-house"
+        >{{ t("unfurnished") }}</label
+      >
       <Field
         name="furniture"
         id="furniture-apartment"
@@ -63,17 +68,61 @@ function onBack() {
         rules="hasValue"
         :value="'FURNISHED'"
       />
-      <label class="fr-label inline-block" for="furniture-apartment">{{
-        t("furnished")
-      }}</label>
+      <label
+        :class="{ selected: furniture === 'FURNISHED' }"
+        class="fr-label inline-block label"
+        for="furniture-apartment"
+        >{{ t("furnished") }}</label
+      >
       <ErrorMessage class="fr-error-text" name="furniture" />
     </p>
   </PropertyPage>
 </template>
 
 <style scoped lang="scss">
-input {
-  appearance: auto;
+.active {
+  border: 1px solid;
+}
+
+.label {
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  margin-right: 0.5rem;
+  font-size: 14px;
+  line-height: 24px;
+  cursor: pointer;
+  border: solid 1px var(--primary);
+  border-radius: 0.5rem;
+  text-align: center;
+  background-color: var(--background-default-grey);
+  @media all and (min-width: 992px) {
+    max-width: 15rem;
+  }
+  @media all and (max-width: 767px) {
+    margin-right: 0;
+    width: 100%;
+  }
+
+  &:hover {
+    background-color: var(--primary);
+    color: white;
+    box-shadow: 0 0 0.666em rgba(0, 0, 0, 0.25);
+    @media all and (min-width: 767px) {
+      background-color: var(--bf200-bf300);
+      color: var(--g800);
+    }
+    border: solid 1px var(--primary);
+  }
+
+  &.selected {
+    background-color: var(--primary);
+    color: white;
+    @media all and (min-width: 767px) {
+      background-color: var(--bf200-bf300);
+      color: var(--g800);
+    }
+    border: solid 1px var(--primary);
+  }
 }
 </style>
 

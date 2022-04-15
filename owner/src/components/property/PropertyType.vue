@@ -54,7 +54,12 @@ function onBack() {
         rules="hasValue"
         :value="'HOUSE'"
       />
-      <label class="fr-label inline-block" for="type-house">{{ t("house") }}</label>
+      <label
+        :class="{ selected: type === 'HOUSE' }"
+        class="fr-label inline-block label"
+        for="type-house"
+        >{{ t("house") }}</label
+      >
       <Field
         name="type"
         id="type-apartment"
@@ -63,9 +68,12 @@ function onBack() {
         rules="hasValue"
         :value="'APARTMENT'"
       />
-      <label class="fr-label inline-block" for="type-apartment">{{
-        t("apartment")
-      }}</label>
+      <label
+        :class="{ selected: type === 'APARTMENT' }"
+        class="fr-label inline-block label"
+        for="type-apartment"
+        >{{ t("apartment") }}</label
+      >
       <Field
         name="type"
         id="type-other"
@@ -74,15 +82,57 @@ function onBack() {
         rules="hasValue"
         :value="'OTHER'"
       />
-      <label class="fr-label inline-block" for="type-other">{{ t("other") }}</label>
+      <label
+        :class="{ selected: type === 'OTHER' }"
+        class="fr-label inline-block label"
+        for="type-other"
+        >{{ t("other") }}</label
+      >
       <ErrorMessage class="fr-error-text" name="type" />
     </p>
   </PropertyPage>
 </template>
 
 <style scoped lang="scss">
-input {
-  appearance: auto;
+.label {
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  margin-right: 0.5rem;
+  font-size: 14px;
+  line-height: 24px;
+  cursor: pointer;
+  border: solid 1px var(--primary);
+  border-radius: 0.5rem;
+  text-align: center;
+  background-color: var(--background-default-grey);
+  @media all and (min-width: 992px) {
+    max-width: 15rem;
+  }
+  @media all and (max-width: 767px) {
+    margin-right: 0;
+    width: 100%;
+  }
+
+  &:hover {
+    background-color: var(--primary);
+    color: white;
+    box-shadow: 0 0 0.666em rgba(0, 0, 0, 0.25);
+    @media all and (min-width: 767px) {
+      background-color: var(--bf200-bf300);
+      color: var(--g800);
+    }
+    border: solid 1px var(--primary);
+  }
+
+  &.selected {
+    background-color: var(--primary);
+    color: white;
+    @media all and (min-width: 767px) {
+      background-color: var(--bf200-bf300);
+      color: var(--g800);
+    }
+    border: solid 1px var(--primary);
+  }
 }
 </style>
 
