@@ -20,6 +20,7 @@ require("../../node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.min.css");
 import "vue-loading-overlay/dist/vue-loading.css";
 import VueGtag from "vue-gtag";
 import VueAuthImage from "vue-auth-image";
+import { User } from "df-shared/src/models/User";
 
 declare global {
   interface Window {
@@ -28,6 +29,12 @@ declare global {
     Beacon: any;
   }
 }
+
+Vue.filter("fullName", function(user: User) {
+  return user.preferredName == null || user.preferredName.length == 0
+    ? user.firstName + " " + user.lastName
+    : user.firstName + " " + user.preferredName;
+});
 
 Vue.config.productionTip = false;
 

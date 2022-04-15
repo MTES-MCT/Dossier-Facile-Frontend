@@ -16,6 +16,7 @@ export const AuthService = {
       reCaptchaResponse: user.captcha,
       firstName: user.firstName,
       lastName: user.lastName,
+      preferredName: user.preferredName,
       source: source,
       internalPartnerId: internalPartnerId
     });

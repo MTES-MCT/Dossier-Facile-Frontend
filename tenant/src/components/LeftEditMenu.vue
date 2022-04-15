@@ -11,12 +11,9 @@
       </div>
       <div class="vline" :class="getClass(0)">
         <div class="ml-5">
-          <router-link :to="{ name: 'Profile' }"
-            ><ColoredTag
-              :text="`${user.firstName} ${user.lastName}`"
-              status="NAME"
-            ></ColoredTag
-          ></router-link>
+          <router-link :to="{ name: 'Profile' }">
+            <ColoredTag :text="user | fullName" status="NAME" />
+          </router-link>
         </div>
         <div class="ml-5" v-if="user.applicationType">
           <router-link :to="{ name: 'TenantType' }"

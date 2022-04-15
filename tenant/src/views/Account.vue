@@ -140,7 +140,7 @@
                           }}</a>
                         </h4>
                         <div class="name-email-tile">
-                          {{ user.firstName }} {{ user.lastName }}<br />
+                          {{ user | fullName }}<br />
                           {{ user.email }}
                         </div>
                         <button
