@@ -332,7 +332,12 @@
             name="mydomus"
             width="214px"
           />
-
+          <LogoPartnerComponent
+            height="60px"
+            href="https://omnirea.fr/"
+            name="omnirea"
+            width="172px"
+          />
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
