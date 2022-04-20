@@ -10,4 +10,6 @@ export default class Applicant extends User {
   guarantorSalary?: number;
 
   rate?: number;
+
+  tokenPublic?: string;
 }

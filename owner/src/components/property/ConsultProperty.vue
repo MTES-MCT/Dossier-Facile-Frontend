@@ -70,87 +70,100 @@
           {{ t("verified-applicants", { count: verifiedApplicantsCount }) }}
         </h1>
         <table>
-          <tr>
-            <th @click="sortTable('date')">
-              {{ t("date") }}
-              <div
-                class="arrow"
-                v-if="'date' == sortColumn"
-                v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
-              ></div>
-            </th>
-            <th @click="sortTable('tenantName')">
-              {{ t("tenant-name") }}
-              <div
-                class="arrow"
-                v-if="'tenantName' == sortColumn"
-                v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
-              ></div>
-            </th>
-            <th @click="sortTable('tenantType')">
-              {{ t("tenant-type") }}
-              <div
-                class="arrow"
-                v-if="'tenantType' == sortColumn"
-                v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
-              ></div>
-            </th>
-            <th @click="sortTable('tenantSalary')">
-              {{ t("tenant-salary") }}
-              <div
-                class="arrow"
-                v-if="'tenantSalary' == sortColumn"
-                v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
-              ></div>
-            </th>
-            <th @click="sortTable('guarantorSalary')">
-              {{ t("guarantor-salary") }}
-              <div
-                class="arrow"
-                v-if="'guarantorSalary' == sortColumn"
-                v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
-              ></div>
-            </th>
-            <th @click="sortTable('rate')">
-              {{ t("rate") }}
-              <div
-                class="arrow"
-                v-if="'rate' == sortColumn"
-                v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
-              ></div>
-            </th>
-            <th @click="sortTable('status')">
-              {{ t("status") }}
-              <div
-                class="arrow"
-                v-if="'status' == sortColumn"
-                v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
-              ></div>
-            </th>
-          </tr>
-          <tr v-for="tenant in getTenants()" :key="tenant.id">
-            <td>
-              <span>{{ formatDate(tenant.date || new Date()) }}</span>
-            </td>
-            <td>
-              <span>{{ tenant.tenantName }}</span>
-            </td>
-            <td>
-              <span>{{ t(tenant.tenantType || "") }}</span>
-            </td>
-            <td>
-              <span>{{ tenant.tenantSalary }}</span>
-            </td>
-            <td>
-              <span>{{ tenant.guarantorSalary }}</span>
-            </td>
-            <td>
-              <span>{{ tenant.rate }}</span>
-            </td>
-            <td>
-              <span>{{ t(tenant.status || "") }}</span>
-            </td>
-          </tr>
+          <thead>
+            <tr>
+              <th @click="sortTable('date')">
+                {{ t("date") }}
+                <div
+                  class="arrow"
+                  v-if="'date' == sortColumn"
+                  v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
+                ></div>
+              </th>
+              <th @click="sortTable('tenantName')">
+                {{ t("tenant-name") }}
+                <div
+                  class="arrow"
+                  v-if="'tenantName' == sortColumn"
+                  v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
+                ></div>
+              </th>
+              <th @click="sortTable('tenantType')">
+                {{ t("tenant-type") }}
+                <div
+                  class="arrow"
+                  v-if="'tenantType' == sortColumn"
+                  v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
+                ></div>
+              </th>
+              <th @click="sortTable('tenantSalary')">
+                {{ t("tenant-salary") }}
+                <div
+                  class="arrow"
+                  v-if="'tenantSalary' == sortColumn"
+                  v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
+                ></div>
+              </th>
+              <th @click="sortTable('guarantorSalary')">
+                {{ t("guarantor-salary") }}
+                <div
+                  class="arrow"
+                  v-if="'guarantorSalary' == sortColumn"
+                  v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
+                ></div>
+              </th>
+              <th @click="sortTable('rate')">
+                {{ t("rate") }}
+                <div
+                  class="arrow"
+                  v-if="'rate' == sortColumn"
+                  v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
+                ></div>
+              </th>
+              <th @click="sortTable('status')">
+                {{ t("status") }}
+                <div
+                  class="arrow"
+                  v-if="'status' == sortColumn"
+                  v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
+                ></div>
+              </th>
+            </tr>
+          </thead>
+          <tbody v-for="(tenant, k) in getTenants()" :key="k">
+            <tr @click="setShowTenant(k)">
+              <td>
+                <span>{{ formatDate(tenant.date || new Date()) }}</span>
+              </td>
+              <td>
+                <span>{{ tenant.tenantName }}</span>
+              </td>
+              <td>
+                <span>{{ t(tenant.tenantType || "") }}</span>
+              </td>
+              <td>
+                <span>{{ tenant.tenantSalary }}</span>
+              </td>
+              <td>
+                <span>{{ tenant.guarantorSalary }}</span>
+              </td>
+              <td>
+                <span>{{ tenant.rate }}</span>
+              </td>
+              <td>
+                <span>{{ t(tenant.status || "") }}</span>
+              </td>
+            </tr>
+            <tr v-if="tenantIdToShow === k">
+              <td colspan="7" class="additional-td">
+                <div class="tenant-token-link fr-mb-3w fr-mt-1w">
+                  <a class="fr-btn" :href="`${TENANT_URL}/public-file/${tenant?.tokenPublic}`">{{
+                    t("download-full-file")
+                  }}</a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </NakedCard>
     </div>
@@ -181,6 +194,7 @@ const toast = useToast();
 
 const sortColumn = ref('');
 const ascending = ref(false);
+const tenantIdToShow = ref(-1);
 
 const id = ref(0);
 if (route.params.id) {
@@ -238,6 +252,7 @@ function getTenants(): Applicant[] {
           guarantorSalary: a.totalGuarantorSalary ? `${a.totalGuarantorSalary} €` : '-',
           rate: `${rate} %`,
           status: a.tenants[0].status,
+          tokenPublic: a.tokenPublic,
         };
       }
       return {};
@@ -287,6 +302,14 @@ function formatDate(date: Date) {
   return format(date, 'dd MMMM yyyy', {
     locale: ((i18n.global as unknown) as Composer).locale.value === 'fr' ? fr : enUS,
   });
+}
+
+function setShowTenant(tenantId: number) {
+  if (tenantIdToShow === tenantId) {
+    tenantIdToShow.value = -1;
+  } else {
+    tenantIdToShow.value = tenantId;
+  }
 }
 </script>
 
@@ -344,7 +367,7 @@ th {
   font-size: 12px;
 }
 
-tr {
+tbody {
   background-color: #f6f6f6;
   color: #666666;
   padding: 0.5rem;
@@ -380,6 +403,16 @@ td:last-child {
   background-repeat: no-repeat;
   background-size: contain;
   background-position-y: bottom;
+}
+
+.tenant-token-link {
+  display: flex;
+  justify-content: right;
+}
+
+.additional-td {
+  border: none;
+  background: var(--background-default-grey);
 }
 </style>
 
@@ -417,6 +450,7 @@ td:last-child {
     "apartment-unfurnished": "A unfurnished apartment with a rent of {rentCost}€",
     "other-furnished": "A furnished property with a rent of {rentCost}€",
     "other-unfurnished": "A unfurnished property with a rent of {rentCost}€",
+    "download-full-file": "Download the full file",
   },
   "fr": {
     "title": "Consultation",
@@ -450,6 +484,7 @@ td:last-child {
     "apartment-unfurnished": "Un appartement non meublé dont le loyer mensuel est de {rentCost}€",
     "other-furnished": "Un bien meublé dont le loyer mensuel est de {rentCost}€",
     "other-unfurnished": "Un bien non meublé dont le loyer mensuel est de {rentCost}€",
+    "download-full-file": "Télécharger le dossier complet"
   }
 }
 </i18n>
