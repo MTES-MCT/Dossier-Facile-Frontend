@@ -86,4 +86,5 @@ keycloak.init({ onLoad: 'check-sso', checkLoginIframe: false }).then((auth) => {
   }, 6000);
 }).catch(() => {
   console.log('Authenticated Failed');
+  window.location.reload();
 });
