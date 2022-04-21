@@ -1,13 +1,6 @@
 import * as VueRouter from 'vue-router';
 import { useCookies } from 'vue3-cookies';
-import Account from '../components/account/Account.vue';
 import Dashboard from '../components/Dashboard.vue';
-import PropertyName from '../components/property/PropertyName.vue';
-import PropertyType from '../components/property/PropertyType.vue';
-import PropertyFurniture from '../components/property/PropertyFurniture.vue';
-import PropertyRent from '../components/property/PropertyRent.vue';
-import ConsultProperty from '../components/property/ConsultProperty.vue';
-import ValidateProperty from '../components/property/ValidateProperty.vue';
 import store from '../store';
 import keycloak from '../plugin/keycloak';
 
@@ -79,7 +72,7 @@ const routes = [
       requiresAuth: true,
       hasFooter: false,
     },
-    component: Account,
+    component: () => import('../components/account/Account.vue'),
   },
   {
     path: '/consulte-propriete/:id',
@@ -89,7 +82,7 @@ const routes = [
       requiresAuth: true,
       hasFooter: true,
     },
-    component: ConsultProperty,
+    component: () => import('../components/property/ConsultProperty.vue'),
   },
   {
     path: '/nom-propriete/:id?',
@@ -99,7 +92,7 @@ const routes = [
       requiresAuth: true,
       hasFooter: false,
     },
-    component: PropertyName,
+    component: () => import('../components/property/PropertyName.vue'),
   },
   {
     path: '/type-propriete/:id?',
@@ -109,7 +102,7 @@ const routes = [
       requiresAuth: true,
       hasFooter: false,
     },
-    component: PropertyType,
+    component: () => import('../components/property/PropertyType.vue'),
   },
   {
     path: '/amenagement-propriete/:id?',
@@ -119,7 +112,7 @@ const routes = [
       requiresAuth: true,
       hasFooter: false,
     },
-    component: PropertyFurniture,
+    component: () => import('../components/property/PropertyFurniture.vue'),
   },
   {
     path: '/loyer-propriete/:id?',
@@ -129,7 +122,7 @@ const routes = [
       requiresAuth: true,
       hasFooter: false,
     },
-    component: PropertyRent,
+    component: () => import('../components/property/PropertyRent.vue'),
   },
   {
     path: '/valider-propriete/:id?',
@@ -139,7 +132,7 @@ const routes = [
       requiresAuth: true,
       hasFooter: false,
     },
-    component: ValidateProperty,
+    component: () => import('../components/property/ValidateProperty.vue'),
   },
 ];
 
