@@ -8,9 +8,6 @@ import PropertyFurniture from '../components/property/PropertyFurniture.vue';
 import PropertyRent from '../components/property/PropertyRent.vue';
 import ConsultProperty from '../components/property/ConsultProperty.vue';
 import ValidateProperty from '../components/property/ValidateProperty.vue';
-import SignupPage from '../components/SignupPage.vue';
-import ForgottenPasswordPage from '../components/account/ForgottenPasswordPage.vue';
-import ChangePasswordPage from '../components/account/ChangePasswordPage.vue';
 import store from '../store';
 import keycloak from '../plugin/keycloak';
 
@@ -42,7 +39,17 @@ const routes = [
       requiresAuth: false,
       hasFooter: true,
     },
-    component: SignupPage,
+    component: () => import('../components/SignupPage.vue'),
+  },
+  {
+    path: '/confirmerCompte/:token',
+    name: 'ConfirmAccount',
+    meta: {
+      title: 'Confirmation de compte propriétaire - DossierFacile',
+      requiresAuth: false,
+      hasFooter: true,
+    },
+    component: () => import('../components/account/ConfirmAccountPage.vue'),
   },
   {
     path: '/mot-de-passe-oublie',
@@ -53,7 +60,7 @@ const routes = [
         'Accédez à la procédure de mot de passe oublié pour votre compte DossierFacile',
       hideForAuth: true,
     },
-    component: ForgottenPasswordPage,
+    component: () => import('../components/account/ForgottenPasswordPage.vue'),
   },
   {
     path: '/modifier-mot-de-passe/:token',
@@ -62,7 +69,7 @@ const routes = [
       title: 'Nouveau mot de passe - DossierFacile',
       hideForAuth: true,
     },
-    component: ChangePasswordPage,
+    component: () => import('../components/account/ChangePasswordPage.vue'),
   },
   {
     path: '/proprietaire',
