@@ -2,7 +2,7 @@
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import { ref } from 'vue';
-import AuthService from '../auth/AuthService.ts';
+import AuthService from '../auth/AuthService';
 
 const route = useRoute();
 const router = useRouter();
