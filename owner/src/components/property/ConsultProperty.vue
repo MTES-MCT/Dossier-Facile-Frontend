@@ -305,7 +305,7 @@ function formatDate(date: Date) {
 }
 
 function setShowTenant(tenantId: number) {
-  if (tenantIdToShow === tenantId) {
+  if (tenantIdToShow.value === tenantId) {
     tenantIdToShow.value = -1;
   } else {
     tenantIdToShow.value = tenantId;
