@@ -9,6 +9,7 @@ export const ProfileService = {
       {
         firstName: user.firstName,
         lastName: user.lastName,
+        preferredName: user.preferredName,
         zipCode: user.zipCode
       }
     );

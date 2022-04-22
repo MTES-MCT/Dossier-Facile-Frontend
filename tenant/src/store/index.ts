@@ -154,6 +154,9 @@ const store = new Vuex.Store({
     updateUserLastname(state, lastname) {
       state.user.lastName = lastname;
     },
+    updateUserPreferredname(state, preferredname) {
+      state.user.preferredName = preferredname;
+    },
     updateUserZipcode(state, zipcode) {
       state.user.zipCode = zipcode;
     },
@@ -263,6 +266,9 @@ const store = new Vuex.Store({
       }
       if (user.lastName && !user.franceConnect) {
         user.lastName = UtilsService.capitalize(user.lastName);
+      }
+      if (user.preferredName && !user.franceConnect) {
+        user.preferredName = UtilsService.capitalize(user.preferredName);
       }
       return ProfileService.saveNames(user).then(
         () => {
