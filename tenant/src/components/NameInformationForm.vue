@@ -10,7 +10,10 @@
           <p>{{ $t("subtitle") }}</p>
           <div class="fr-grid-row fr-grid-row--center">
             <div class="fr-col-12 fr-mb-3w">
-              <validation-provider rules="required" v-slot="{ errors }">
+              <validation-provider
+                rules="required|lastname"
+                v-slot="{ errors }"
+              >
                 <div
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
@@ -35,7 +38,7 @@
               </validation-provider>
             </div>
             <div class="fr-col-12 fr-mb-3w">
-              <validation-provider rules="alpha_spaces" v-slot="{ errors }">
+              <validation-provider rules="lastname" v-slot="{ errors }">
                 <div
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
@@ -121,8 +124,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { User } from "df-shared/src/models/User";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
-// eslint-disable-next-line @typescript-eslint/camelcase
-import { required, regex, alpha_spaces } from "vee-validate/dist/rules";
+import { required, regex } from "vee-validate/dist/rules";
 import SubmitButton from "df-shared/src/Button/SubmitButton.vue";
 import NameInformationHelp from "./helps/NameInformationHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
@@ -141,10 +143,15 @@ extend("required", {
   message: "field-required"
 });
 
-extend("alpha_spaces", {
-  // eslint-disable-next-line @typescript-eslint/camelcase
-  ...alpha_spaces,
-  message: "only-alpha"
+extend("lastname", {
+  message: "only-alpha",
+  validate(value) {
+    return {
+      required: false,
+      valid: value.match("^[a-zA-Z \\-'éèëêïîöôùüàçÉÊÈËÎÏÔÇ]*$")
+    };
+  },
+  computesRequired: true
 });
 
 @Component({
@@ -234,7 +241,7 @@ export default class NameInformationForm extends Vue {
 "preferredname": "Nom d'usage (facultatif)",
 "zipcode": "Code postal",
 "zipcode-not-valid": "Code postal non valide.",
-"only-alpha":"Seuls les caractères alphabétique sont autorisés",
+"only-alpha":"Seuls les caractères alphabétiques ainsi que [ , -, '] sont autorisés",
 "field-required": "Ce champ est requis",
 "title": "Je renseigne mes informations personnelles",
 "subtitle": "Veuillez renseigner les informations de la personne dont le nom figurera sur le bail de location."
