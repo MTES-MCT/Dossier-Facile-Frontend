@@ -173,12 +173,12 @@ export default class File extends Vue {
     if (this.user?.tenants !== undefined) {
       if (this.user?.tenants.length === 2) {
         const userNames = this.user.tenants
-          .map(o => `${o.firstName} ${o.lastName}`)
+          .map(o => this.$options.filters?.fullName(o))
           .join(this.$i18n.t("and").toString());
         return userNames;
       }
       const userNames = this.user.tenants
-        .map(o => `${o.firstName} ${o.lastName}`)
+        .map(o => this.$options.filters?.fullName(o))
         .join(", ");
       return userNames;
     }
