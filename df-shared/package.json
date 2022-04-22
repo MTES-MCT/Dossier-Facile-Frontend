@@ -20,7 +20,7 @@
     "zxcvbn": "^4.4.2"
   },
   "peerDependencies": {
-    "@gouvfr/dsfr": "^1.4.0",
+    "@gouvfr/dsfr": "^1.5.0",
     "vue": "^3.2.25",
     "vee-validate": "4.5.8"
   },

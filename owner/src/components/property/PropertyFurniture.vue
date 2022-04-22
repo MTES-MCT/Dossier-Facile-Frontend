@@ -124,6 +124,10 @@ function onBack() {
     border: solid 1px var(--primary);
   }
 }
+
+input[type="radio"] {
+  visibility: hidden;
+}
 </style>
 
 <i18n>
