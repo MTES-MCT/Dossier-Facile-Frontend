@@ -49,7 +49,6 @@
                     id="preferredname"
                     name="preferredname"
                     :placeholder="$t('preferredname')"
-                    :disabled="user.franceConnect"
                     type="text"
                   />
                   <span class="fr-error-text" v-if="errors[0]">{{

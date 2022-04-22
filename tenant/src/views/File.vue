@@ -35,8 +35,7 @@
                 :aria-controls="`tabpanel-${k}-panel`"
                 @click="tabIndex = k"
               >
-                {{ tenant.firstName }}
-                {{ tenant.lastName }}
+                {{ tenant | fullName }}
               </button>
             </li>
           </ul>
