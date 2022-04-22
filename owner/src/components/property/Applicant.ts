@@ -11,5 +11,5 @@ export default class Applicant extends User {
 
   rate?: number;
 
-  tokenPublic?: string;
+  token?: string;
 }

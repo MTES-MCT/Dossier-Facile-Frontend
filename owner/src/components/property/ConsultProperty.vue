@@ -157,7 +157,7 @@
             <tr v-if="tenantIdToShow === k">
               <td colspan="7" class="additional-td">
                 <div class="tenant-token-link fr-mb-3w fr-mt-1w">
-                  <a class="fr-btn" :href="`${TENANT_URL}/public-file/${tenant?.tokenPublic}`">{{
+                  <a class="fr-btn" :href="`${TENANT_URL}/file/${tenant?.token}`" target="_blank">{{
                     t("download-full-file")
                   }}</a>
                 </div>
@@ -252,7 +252,7 @@ function getTenants(): Applicant[] {
           guarantorSalary: a.totalGuarantorSalary ? `${a.totalGuarantorSalary} €` : '-',
           rate: `${rate} %`,
           status: a.tenants[0].status,
-          tokenPublic: a.tokenPublic,
+          token: a.token,
         };
       }
       return {};
