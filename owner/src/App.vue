@@ -102,7 +102,7 @@ function denyCookies() {
 </template>
 
 <style lang="scss">
-@import "../../node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.min.css";
+@import "../../node_modules/@gouvfr/dsfr/dist/dsfr.min.css";
 @import "df-shared/src/scss/_main.scss";
 
 #app {
