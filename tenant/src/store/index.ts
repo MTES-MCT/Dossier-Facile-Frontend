@@ -600,7 +600,7 @@ const store = new Vuex.Store({
       if (
         !this.state.user.firstName ||
         !this.state.user.lastName ||
-        !this.state.user.zipCode
+        (!this.state.user.zipCode && this.state.user.documents.length == 0)
       ) {
         router.push({ name: "TenantName" });
         return;
