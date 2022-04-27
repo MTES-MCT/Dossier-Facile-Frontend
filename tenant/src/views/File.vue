@@ -242,7 +242,10 @@ export default class File extends Vue {
   retryDownload() {
     setTimeout(() => {
       this.setUser();
-      if (this.user?.dossierPdfUrl) {
+      if (
+        this.user?.dossierPdfDocumentStatus === "COMPLETED" &&
+        this.user?.dossierPdfUrl
+      ) {
         this.showProgressBar = false;
         this.downloadFile(this.user?.dossierPdfUrl);
       } else {
@@ -269,7 +272,10 @@ export default class File extends Vue {
 
   download() {
     this.showProgressBar = true;
-    if (this.user?.dossierPdfUrl) {
+    if (
+      this.user?.dossierPdfDocumentStatus === "COMPLETED" &&
+      this.user?.dossierPdfUrl
+    ) {
       this.downloadFile(this.user?.dossierPdfUrl);
     } else {
       ProfileService.postCreateFullPdf(this.$route.params.token)
