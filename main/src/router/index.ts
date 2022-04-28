@@ -224,6 +224,16 @@ const routes: Array<RouteConfig> = [
       )
   },
   {
+    path: "/contact",
+    name: "Contact",
+    meta: {
+      title: "Contactez-nous",
+      description: "Formulaire de contact"
+    },
+    component: () =>
+      import(/* webpackChunkName: "contact" */ "../views/Contact.vue")
+  },
+  {
     path: "/blog/article1",
     redirect: () => {
       window.location.replace(
