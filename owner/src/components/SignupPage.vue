@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
-import Modal from "df-shared/src/components/Modal.vue";
-import { ref } from "vue";
-import { User } from "df-shared/src/models/User";
-import { useStore } from "vuex";
-import { useToast } from "vue-toastification";
-import Register from "./account/Register.vue";
+import { useI18n } from 'vue-i18n';
+import Modal from 'df-shared/src/components/Modal.vue';
+import { ref } from 'vue';
+import { User } from 'df-shared/src/models/User';
+import { useStore } from 'vuex';
+import { useToast } from 'vue-toastification';
+import Register from './account/Register.vue';
 
 const { t } = useI18n();
 const store = useStore();
@@ -22,25 +22,21 @@ function closeModal() {
 
 function onRegister(user: User) {
   if (user.email && user.password) {
-    store.dispatch("register", user).then(
+    store.dispatch('register', user).then(
       () => {
         isValidModalVisible.value = true;
       },
       (error) => {
-        if (
-          (error.response?.data?.errors?.indexOf(
-            "email: the emails are already being used"
-          ) || -1) >= 0
-        ) {
-          toast.error(t("duplicate-email").toString(), {
+        if (error.response?.data?.errors.filter((e: any) => e.code === 'UniqueEmailActiveAccount') !== undefined) {
+          toast.error(t('duplicate-email').toString(), {
             timeout: 7000,
           });
-        } else {
-          toast.error(t("register-error").toString(), {
-            timeout: 7000,
-          });
+          return;
         }
-      }
+        toast.error(t('register-error').toString(), {
+          timeout: 7000,
+        });
+      },
     );
   }
 }
@@ -181,12 +177,16 @@ li {
   "en": {
     "connect": "Already signed up ? Connect",
     "mail-sent": "An email has been sent to the requested address.",
-    "clic-to-confirm": "Please click on the given link to confirm your email and continue you inscription."
+    "clic-to-confirm": "Please click on the given link to confirm your email and continue you inscription.",
+    "duplicate-email": "This email is already used",
+    "register-error": "An error occured"
   },
   "fr": {
     "connect": "Déjà inscrit ? S'identifier",
     "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
-    "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre le changement de mot de passe."
+    "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre le changement de mot de passe.",
+    "duplicate-email": "Cet email est déjà utilisé",
+    "register-error": "Une erreur est survenue"
   }
 }
 </i18n>
