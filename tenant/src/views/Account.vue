@@ -106,7 +106,7 @@
                   class="description"
                   v-html="
                     $t('status-description', [
-                      user.firstName,
+                      getFirstName(),
                       getPersonnalStatus(),
                       getProfession(),
                       getIncome()
