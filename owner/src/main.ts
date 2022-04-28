@@ -14,19 +14,19 @@ import keycloak from './plugin/keycloak';
 
 defineRule('validateEmail', (value: any) => {
   if (!value) {
-    return 'Email is required';
+    return 'email-not-valid';
   }
   return true;
 });
 defineRule('isTrue', (value: any) => {
   if (!value) {
-    return 'this field is required'; // TODO i18n
+    return 'field-required';
   }
   return true;
 });
 defineRule('hasValue', (value: any) => {
   if (!value) {
-    return 'this field is required'; // TODO i18n
+    return 'field-required';
   }
   return true;
 });

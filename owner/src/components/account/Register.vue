@@ -57,9 +57,11 @@
                 :placeholder="t('email-placeholder')"
                 type="email"
                 autocomplete="email"
-                rules="validateEmail"
+                :rules="'validateEmail'"
               />
-              <ErrorMessage name="email" class="fr-error-text"></ErrorMessage>
+              <ErrorMessage name="email" v-slot="{ message }">
+                <span role="alert" class="fr-error-text">{{ t(message|| "") }}</span>
+              </ErrorMessage>
             </div>
           </div>
           <div class="fr-col-12 fr-mb-1w">
@@ -70,28 +72,26 @@
               vid="password"
             > -->
             <div class="fr-input-group">
-              <!-- :class="errors[0] ? 'fr-input-group--error' : ''" -->
               <label class="fr-label" for="password">{{ t("password") }}</label>
-              <input
+              <Field
+                v-model="user.password"
+                class="form-control validate-required fr-input"
                 id="password"
+                name="password"
                 :placeholder="generatedPwd"
                 type="password"
-                v-model="user.password"
-                name="password"
-                class="validate-required form-control fr-input"
                 autocomplete="new-password"
-                required
+                rules="hasValue"
               />
+              <ErrorMessage name="password" v-slot="{message}">
+                <span role="alert" class="fr-error-text">{{ t(message|| "") }}</span>
+              </ErrorMessage>
               <!-- <password
                   v-model="user.password"
                   :strength-meter-only="true"
                   @score="setScore"
                 /> -->
-              <!-- <span class="fr-error-text" v-if="errors[0]">{{
-                  t(errors[0])
-                }}</span> -->
             </div>
-            <!-- </validation-provider> -->
           </div>
           <div class="fr-col-12 fr-mb-3w">
             <!-- <validation-provider
@@ -138,7 +138,9 @@
                 :value="true"
               />
               <label for="terms"><div v-html="t('accept-cgu')"></div></label>
-              <ErrorMessage class="fr-error-text" name="terms" />
+              <ErrorMessage class="fr-error-text" name="terms" v-slot="{ message }" >
+                <span role="alert" class="fr-error-text">{{ t(message|| "") }}</span>
+              </ErrorMessage>
             </div>
           </div>
 
