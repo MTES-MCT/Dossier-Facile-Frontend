@@ -4,7 +4,7 @@
       <section class="fr-mt-3w">
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12">
-            <h1>{{ $t("title", [user.firstName, $t(user.status)]) }}</h1>
+            <h1>{{ $t("title", [getFirstName(), $t(user.status)]) }}</h1>
             <div class="fr-callout warning fr-callout-white" v-if="isDenied()">
               <h4>{{ $t("amendment-required-title") }}</h4>
               <p
@@ -386,6 +386,7 @@ import { required } from "vee-validate/dist/rules";
 import DeleteAccount from "../components/DeleteAccount.vue";
 import GuarantorsSection from "@/components/account/GuarantorsSection.vue";
 import PartnersSection from "@/components/account/PartnersSection.vue";
+import { UtilsService } from "@/services/UtilsService";
 
 extend("required", {
   ...required,
@@ -581,6 +582,10 @@ export default class Account extends Vue {
       return this.$i18n.t("no-income");
     }
     return this.$i18n.t("income", [sum]);
+  }
+
+  getFirstName() {
+    return UtilsService.capitalize(this.user.firstName || "");
   }
 
   canCopyLink() {
