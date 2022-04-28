@@ -1,3 +1,4 @@
+import { UtilsService } from "./services/UtilsService";
 import "./router/componentHooks"; // <-- Needs to be first
 import Vue from "vue";
 import App from "./App.vue";
@@ -31,9 +32,12 @@ declare global {
 }
 
 Vue.filter("fullName", function(user: User) {
+  const firstName = UtilsService.capitalize(user.firstName || "");
+  const lastName = UtilsService.capitalize(user.lastName || "");
+  const preferredName = UtilsService.capitalize(user.preferredName || "");
   return user.preferredName == null || user.preferredName.length == 0
-    ? user.firstName + " " + user.lastName
-    : user.firstName + " " + user.preferredName;
+    ? firstName + " " + lastName
+    : firstName + " " + preferredName;
 });
 
 Vue.config.productionTip = false;
