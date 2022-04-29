@@ -131,7 +131,7 @@
             </tr>
           </thead>
           <tbody v-for="(tenant, k) in getTenants()" :key="k">
-            <tr @click="setShowTenant(k)">
+            <tr @click="setShowTenant(k)" :class="getTenantClass(tenant)">
               <td>
                 <span>{{ formatDate(tenant.date || new Date()) }}</span>
               </td>
@@ -157,9 +157,12 @@
             <tr v-if="tenantIdToShow === k">
               <td colspan="7" class="additional-td">
                 <div class="tenant-token-link fr-mb-3w fr-mt-1w">
-                  <a class="fr-btn" :href="`${TENANT_URL}/file/${tenant?.token}`" target="_blank">{{
-                    t("download-full-file")
-                  }}</a>
+                  <a
+                    class="fr-btn"
+                    :href="`${TENANT_URL}/file/${tenant?.token}`"
+                    target="_blank"
+                    >{{ t("download-full-file") }}</a
+                  >
                 </div>
               </td>
             </tr>
@@ -311,6 +314,19 @@ function setShowTenant(tenantId: number) {
     tenantIdToShow.value = tenantId;
   }
 }
+
+function getTenantClass(applicant: Applicant) {
+  switch (applicant.status) {
+    case 'VALIDATED':
+      return 'validated';
+    case 'DECLINED':
+      return 'declined';
+    case 'TO_PROCESS':
+      return 'to-process';
+    default:
+      return '';
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -377,7 +393,7 @@ tbody {
 }
 
 td {
-  border: solid 1px #f6f6f6;
+  border: none;
   height: 2.5rem;
 }
 
@@ -413,6 +429,16 @@ td:last-child {
 .additional-td {
   border: none;
   background: var(--background-default-grey);
+}
+
+tr {
+  &.validated {
+    background-color: #dffdf7;
+  }
+
+  &.declined {
+    background-color: #ffe9e9;
+  }
 }
 </style>
 

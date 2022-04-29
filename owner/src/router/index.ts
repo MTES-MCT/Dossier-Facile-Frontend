@@ -105,6 +105,16 @@ const routes = [
     component: () => import('../components/property/PropertyType.vue'),
   },
   {
+    path: '/adresse-propriete/:id?',
+    name: 'PropertyAddress',
+    meta: {
+      title: 'Édition de l\'adresse - DossierFacile',
+      requiresAuth: true,
+      hasFooter: false,
+    },
+    component: () => import('../components/property/PropertyAddress.vue'),
+  },
+  {
     path: '/amenagement-propriete/:id?',
     name: 'PropertyFurniture',
     meta: {

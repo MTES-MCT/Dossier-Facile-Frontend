@@ -35,7 +35,7 @@ function onSubmit() {
 
 function onBack() {
   router.push({
-    name: 'PropertyType',
+    name: 'PropertyAddress',
     params: { id: store.getters.getPropertyToEdit.id },
   });
 }

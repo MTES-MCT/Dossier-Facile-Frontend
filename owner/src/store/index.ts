@@ -60,6 +60,9 @@ const store = createStore({
     setType(state: OwnerState, type: string) {
       state.propertyToEdit.type = type;
     },
+    setAddress(state: OwnerState, address: string) {
+      state.propertyToEdit.address = address;
+    },
     setFurniture(state: OwnerState, furniture: string) {
       state.propertyToEdit.furniture = furniture;
     },
@@ -163,6 +166,9 @@ const store = createStore({
     },
     setType({ commit }, type: string) {
       commit('setType', type);
+    },
+    setAddress({ commit }, address: string) {
+      commit('setAddress', address);
     },
     setFurniture({ commit }, furniture: string) {
       commit('setFurniture', furniture);
