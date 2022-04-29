@@ -71,7 +71,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.14.3",
-    "@gouvfr/dsfr": "1.2.1",
+    "@gouvfr/dsfr": "1.5.1",
     "@types/d3": "^6.3.0",
     "@types/jquery": "^3.5.4",
     "@vue/cli": "4.5.15",

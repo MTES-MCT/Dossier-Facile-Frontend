@@ -17,7 +17,7 @@ Vue.use(authentication);
 
 Vue.config.productionTip = false;
 
-require("../../node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.min.css");
+import "@gouvfr/dsfr/dist/dsfr/dsfr.min.css";
 import "vue-loading-overlay/dist/vue-loading.css";
 import VueGtag from "vue-gtag";
 import VueAuthImage from "vue-auth-image";

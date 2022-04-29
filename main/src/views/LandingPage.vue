@@ -471,14 +471,6 @@ img {
   margin: auto;
 }
 
-a[target="_blank"].logo-link::after {
-  content: none;
-}
-
-.logo-link {
-  box-shadow: none;
-}
-
 .stats-icon {
   display: inline;
   height: 3rem;

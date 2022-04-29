@@ -1,4 +1,4 @@
-/*! DSFR v1.2.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.5.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 class State {
   constructor () {
@@ -59,7 +59,7 @@ const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.2.1'
+  version: '1.5.1'
 };
 
 class LogLevel {
@@ -864,7 +864,8 @@ class ScrollLocker extends Module {
     if (!this._isLocked) {
       this._isLocked = true;
       this._scrollY = window.scrollY;
-      document.body.style.top = this._scrollY * -1 + 'px';
+      if (this.isLegacy) document.body.style.top = this._scrollY * -1 + 'px';
+      else document.body.style.setProperty('--scroll-top', this._scrollY * -1 + 'px');
       document.documentElement.setAttribute(ns.attr('scrolling'), 'false');
     }
   }
@@ -873,7 +874,8 @@ class ScrollLocker extends Module {
     if (this._isLocked) {
       this._isLocked = false;
       document.documentElement.removeAttribute(ns.attr('scrolling'));
-      document.body.style.top = '';
+      if (this.isLegacy) document.body.style.top = '';
+      else document.body.style.removeProperty('--scroll-top');
       window.scroll(0, this._scrollY);
     }
   }
@@ -894,6 +896,67 @@ class Load extends Module {
   }
 }
 
+const FONT_FAMILIES = ['Marianne', 'Spectral'];
+
+class FontSwap extends Module {
+  constructor () {
+    super('font-swap');
+    this.swapping = this.swap.bind(this);
+  }
+
+  activate () {
+    if (document.fonts) {
+      document.fonts.addEventListener('loadingdone', this.swapping);
+    }
+  }
+
+  swap () {
+    const families = FONT_FAMILIES.filter(family => document.fonts.check(`16px ${family}`));
+
+    this.forEach((instance) => instance.swapFont(families));
+  }
+}
+
+class MouseMove extends Module {
+  constructor () {
+    super('mouse-move');
+    this.requireMove = false;
+    this._isMoving = false;
+    this.moving = this.move.bind(this);
+    this.requesting = this.request.bind(this);
+    this.onPopulate = this.listen.bind(this);
+    this.onEmpty = this.unlisten.bind(this);
+  }
+
+  listen () {
+    if (this._isMoving) return;
+    this._isMoving = true;
+    this.requireMove = false;
+    document.documentElement.addEventListener('mousemove', this.requesting);
+  }
+
+  unlisten () {
+    if (!this._isMoving) return;
+    this._isMoving = false;
+    this.requireMove = false;
+    document.documentElement.removeEventListener('mousemove', this.requesting);
+  }
+
+  request (e) {
+    if (!this._isMoving) return;
+    this.point = { x: e.clientX, y: e.clientY };
+    if (this.requireMove) return;
+    this.requireMove = true;
+    window.requestAnimationFrame(this.moving);
+  }
+
+  move () {
+    if (!this.requireMove) return;
+    this.forEach((instance) => instance.mouseMove(this.point));
+    this.requireMove = false;
+  }
+}
+
 class Engine {
   constructor () {
     state.create(Register);
@@ -902,6 +965,8 @@ class Engine {
     state.create(Resizer);
     state.create(ScrollLocker);
     state.create(Load);
+    state.create(FontSwap);
+    state.create(MouseMove);
 
     const registerModule = state.getModule('register');
     this.register = registerModule.register.bind(registerModule);
@@ -944,6 +1009,102 @@ const removeClass = (element, className) => modifyClass(element, className, true
 
 const hasClass = (element, className) => getClassNames(element).indexOf(sanitize(className)) > -1;
 
+const dom = {};
+
+dom.addClass = addClass;
+dom.hasClass = hasClass;
+dom.removeClass = removeClass;
+dom.queryParentSelector = queryParentSelector;
+dom.querySelectorAllArray = querySelectorAllArray;
+
+const supportLocalStorage = () => {
+  try {
+    return 'localStorage' in window && window.localStorage !== null;
+  } catch (e) {
+    return false;
+  }
+};
+
+const support = {};
+
+support.supportLocalStorage = supportLocalStorage;
+
+const TransitionSelector = {
+  NONE: ns.selector('transition-none')
+};
+
+const selector = {};
+
+selector.TransitionSelector = TransitionSelector;
+
+/**
+ * Copy properties from multiple sources including accessors.
+ * source : https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#copier_des_accesseurs
+ *
+ * @param {object} [target] - Target object to copy into
+ * @param {...objects} [sources] - Multiple objects
+ * @return {object} A new object
+ *
+ * @example
+ *
+ *     const obj1 = {
+ *        key: 'value'
+ *     };
+ *     const obj2 = {
+ *        get function01 () {
+ *          return a-value;
+ *        }
+ *        set function01 () {
+ *          return a-value;
+ *        }
+ *     };
+ *     completeAssign(obj1, obj2)
+ */
+const completeAssign = (target, ...sources) => {
+  sources.forEach(source => {
+    const descriptors = Object.keys(source).reduce((descriptors, key) => {
+      descriptors[key] = Object.getOwnPropertyDescriptor(source, key);
+      return descriptors;
+    }, {});
+
+    Object.getOwnPropertySymbols(source).forEach(sym => {
+      const descriptor = Object.getOwnPropertyDescriptor(source, sym);
+      if (descriptor.enumerable) {
+        descriptors[sym] = descriptor;
+      }
+    });
+    Object.defineProperties(target, descriptors);
+  });
+  return target;
+};
+
+const property = {};
+
+property.completeAssign = completeAssign;
+
+const internals = {};
+const legacy = {};
+
+Object.defineProperty(legacy, 'isLegacy', {
+  get: () => state.isLegacy
+});
+
+legacy.setLegacy = () => {
+  state.isLegacy = true;
+};
+
+internals.legacy = legacy;
+internals.dom = dom;
+internals.support = support;
+internals.motion = selector;
+internals.property = property;
+internals.ns = ns;
+internals.register = engine.register;
+
+Object.defineProperty(internals, 'preventManipulation', {
+  get: () => options.preventManipulation
+});
+
 inspector.info(`version ${config.version}`);
 
 const api$1 = (node) => {
@@ -958,28 +1119,10 @@ Object.defineProperty(api$1, 'mode', {
   get: () => options.mode
 });
 
-Object.defineProperty(api$1, 'preventManipulation', {
-  get: () => options.preventManipulation
-});
-
-Object.defineProperty(api$1, 'isLegacy', {
-  get: () => state.isLegacy
-});
-
-api$1.setLegacy = () => {
-  state.isLegacy = true;
-};
-
-api$1.ns = ns;
-api$1.addClass = addClass;
-api$1.hasClass = hasClass;
-api$1.removeClass = removeClass;
-api$1.queryParentSelector = queryParentSelector;
-api$1.querySelectorAllArray = querySelectorAllArray;
+api$1.internals = internals;
 
 api$1.start = engine.start;
 api$1.stop = engine.stop;
-api$1.register = engine.register;
 
 api$1.inspector = inspector;
 
@@ -1045,6 +1188,7 @@ class Instance {
     this._isResizing = false;
     this._isScrollLocked = false;
     this._isLoading = false;
+    this._isSwappingFont = false;
     this._listeners = {};
     this._keyListenerTypes = [];
     this._keys = [];
@@ -1206,6 +1350,33 @@ class Instance {
 
   load () {}
 
+  get isSwappingFont () {
+    return this._isSwappingFont;
+  }
+
+  set isSwappingFont (value) {
+    if (this._isSwappingFont === value) return;
+    if (value) state.add('font-swap', this);
+    else state.remove('font-swap', this);
+    this._isSwappingFont = value;
+  }
+
+  swapFont () {}
+
+  get isMouseMoving () { return this._isMouseMoving; }
+
+  set isMouseMoving (value) {
+    if (this._isMouseMoving === value) return;
+    if (value) {
+      state.add('mouse-move', this);
+    } else {
+      state.remove('mouse-move', this);
+    }
+    this._isMouseMoving = value;
+  }
+
+  mouseMove (point) {}
+
   examine (attributeNames) {
     if (!this.node.matches(this.registration.selector)) {
       this._dispose();
@@ -1228,6 +1399,7 @@ class Instance {
     state.getModule('render').nexts.remove(this);
     this.isScrollLocked = false;
     this.isLoading = false;
+    this.isSwappingFont = false;
     this._emitter.dispose();
     this._emitter = null;
     this._ascent.dispose();
@@ -1398,47 +1570,6 @@ const DisclosureEmission = {
   REMOVED: ns.emission('disclosure', 'removed'),
   GROUP: ns.emission('disclosure', 'group'),
   UNGROUP: ns.emission('disclosure', 'ungroup')
-};
-
-/**
- * Copy properties from multiple sources including accessors.
- * source : https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#copier_des_accesseurs
- *
- * @param {object} [target] - Target object to copy into
- * @param {...objects} [sources] - Multiple objects
- * @return {object} A new object
- *
- * @example
- *
- *     const obj1 = {
- *        key: 'value'
- *     };
- *     const obj2 = {
- *        get function01 () {
- *          return a-value;
- *        }
- *        set function01 () {
- *          return a-value;
- *        }
- *     };
- *     completeAssign(obj1, obj2)
- */
-const completeAssign = (target, ...sources) => {
-  sources.forEach(source => {
-    const descriptors = Object.keys(source).reduce((descriptors, key) => {
-      descriptors[key] = Object.getOwnPropertyDescriptor(source, key);
-      return descriptors;
-    }, {});
-
-    Object.getOwnPropertySymbols(source).forEach(sym => {
-      const descriptor = Object.getOwnPropertyDescriptor(source, sym);
-      if (descriptor.enumerable) {
-        descriptors[sym] = descriptor;
-      }
-    });
-    Object.defineProperties(target, descriptors);
-  });
-  return target;
 };
 
 class Disclosure extends Instance {
@@ -1701,7 +1832,9 @@ class DisclosuresGroup extends Instance {
     return this._members;
   }
 
-  get length () { return this.members.length; }
+  get length () {
+    return this.members ? this.members.length : 0;
+  }
 
   getIndex () {
     this._index = -1;
@@ -1809,24 +1942,36 @@ class Collapse extends Disclosure {
   }
 
   transitionend (e) {
-    if (!this.disclosed) this.style.maxHeight = '';
+    if (!this.disclosed) {
+      if (this.isLegacy) this.style.maxHeight = '';
+      else this.style.removeProperty('--collapse-max-height');
+    }
   }
 
   unbound () {
-    this.style.maxHeight = 'none';
+    if (this.isLegacy) this.style.maxHeight = 'none';
+    else this.style.setProperty('--collapse-max-height', 'none');
   }
 
   disclose (withhold) {
     if (this.disclosed) return;
     this.unbound();
-    this.adjust();
-    this.request(() => { super.disclose(withhold); });
+    this.request(() => {
+      this.adjust();
+      this.request(() => {
+        super.disclose(withhold);
+      });
+    });
   }
 
   conceal (withhold, preventFocus) {
     if (!this.disclosed) return;
-    this.adjust();
-    this.request(() => { super.conceal(withhold, preventFocus); });
+    this.request(() => {
+      this.adjust();
+      this.request(() => {
+        super.conceal(withhold, preventFocus);
+      });
+    });
   }
 
   adjust () {
@@ -1865,12 +2010,12 @@ class Equisized extends Instance {
   }
 
   measure () {
-    this.style.width = 'auto';
+    if (this.isLegacy) this.style.width = 'auto';
     return this.getRect().width;
   }
 
   adjust (width) {
-    this.style.width = `${width}px`;
+    if (this.isLegacy) this.style.width = `${width}px`;
   }
 
   dispose () {
@@ -1895,9 +2040,57 @@ class EquisizedsGroup extends Instance {
 
   resize () {
     const equisizeds = this.element.getDescendantInstances('Equisized');
+    if (!this.isLegacy) this.style.setProperty('--equisized-width', 'auto');
 
     const width = Math.max(...equisizeds.map(equisized => equisized.measure()));
-    equisizeds.forEach(equisized => equisized.adjust(width));
+    if (this.isLegacy) equisizeds.forEach(equisized => equisized.adjust(width));
+    else this.style.setProperty('--equisized-width', `${width}px`);
+  }
+}
+
+const ToggleEvent = {
+  TOGGLE: ns.event('toggle')
+};
+
+class Toggle extends Instance {
+  static get instanceClassName () {
+    return 'Toggle';
+  }
+
+  init () {
+    this.pressed = this.pressed === 'true';
+    this.listen('click', this.toggle.bind(this));
+  }
+
+  toggle () {
+    this.pressed = this.pressed !== 'true';
+  }
+
+  get pressed () {
+    return this.getAttribute('aria-pressed');
+  }
+
+  set pressed (value) {
+    this.setAttribute('aria-pressed', value ? 'true' : 'false');
+    this.dispatch(ToggleEvent.TOGGLE, value);
+  }
+
+  get proxy () {
+    const scope = this;
+    const proxy = Object.assign(super.proxy, {
+      toggle: scope.toggle.bind(scope)
+    });
+
+    const proxyAccessors = {
+      get pressed () {
+        return scope.pressed;
+      },
+      set pressed (value) {
+        scope.pressed = value;
+      }
+    };
+
+    return completeAssign(proxy, proxyAccessors);
   }
 }
 
@@ -2004,38 +2197,14 @@ api$1.core = {
   RootSelector: RootSelector,
   Equisized: Equisized,
   EquisizedEmission: EquisizedEmission,
+  Toggle: Toggle,
   EquisizedsGroup: EquisizedsGroup,
   InjectSvg: InjectSvg,
   InjectSvgSelector: InjectSvgSelector
 };
 
-api$1.register(api$1.core.CollapseSelector.COLLAPSE, api$1.core.Collapse);
-api$1.register(api$1.core.InjectSvgSelector.INJECT_SVG, api$1.core.InjectSvg);
-
-/* Polyfill service v3.108.0
- * Disable minification (remove `.min` from URL path) for more info */
-
-(function(self, undefined$1) {function Call(t,l){var n=arguments.length>2?arguments[2]:[];if(!1===IsCallable(t))throw new TypeError(Object.prototype.toString.call(t)+"is not a function.");return t.apply(l,n)}function CreateMethodProperty(e,r,t){var a={value:t,writable:!0,enumerable:!1,configurable:!0};Object.defineProperty(e,r,a);}function Get(n,t){return n[t]}function IsCallable(n){return "function"==typeof n}function SameValueNonNumber(e,n){return e===n}function ToObject(e){if(null===e||e===undefined$1)throw TypeError();return Object(e)}function GetV(t,e){return ToObject(t)[e]}function GetMethod(e,n){var r=GetV(e,n);if(null===r||r===undefined$1)return undefined$1;if(!1===IsCallable(r))throw new TypeError("Method not callable: "+n);return r}function Type(e){switch(typeof e){case"undefined":return "undefined";case"boolean":return "boolean";case"number":return "number";case"string":return "string";case"symbol":return "symbol";default:return null===e?"null":"Symbol"in self&&(e instanceof self.Symbol||e.constructor===self.Symbol)?"symbol":"object"}}function OrdinaryToPrimitive(r,t){if("string"===t)var e=["toString","valueOf"];else e=["valueOf","toString"];for(var i=0;i<e.length;++i){var n=e[i],a=Get(r,n);if(IsCallable(a)){var o=Call(a,r);if("object"!==Type(o))return o}}throw new TypeError("Cannot convert to primitive.")}function SameValueZero(n,e){return Type(n)===Type(e)&&("number"===Type(n)?!(!isNaN(n)||!isNaN(e))||(1/n===Infinity&&1/e==-Infinity||(1/n==-Infinity&&1/e===Infinity||n===e)):SameValueNonNumber(n,e))}function ToInteger(n){if("symbol"===Type(n))throw new TypeError("Cannot convert a Symbol value to a number");var t=Number(n);return isNaN(t)?0:1/t===Infinity||1/t==-Infinity||t===Infinity||t===-Infinity?t:(t<0?-1:1)*Math.floor(Math.abs(t))}function ToLength(n){var t=ToInteger(n);return t<=0?0:Math.min(t,Math.pow(2,53)-1)}function ToPrimitive(e){var t=arguments.length>1?arguments[1]:undefined$1;if("object"===Type(e)){if(arguments.length<2)var i="default";else t===String?i="string":t===Number&&(i="number");var r="function"==typeof self.Symbol&&"symbol"==typeof self.Symbol.toPrimitive?GetMethod(e,self.Symbol.toPrimitive):undefined$1;if(r!==undefined$1){var n=Call(r,e,[i]);if("object"!==Type(n))return n;throw new TypeError("Cannot convert exotic object to primitive.")}return "default"===i&&(i="number"),OrdinaryToPrimitive(e,i)}return e}function ToString(t){switch(Type(t)){case"symbol":throw new TypeError("Cannot convert a Symbol value to a string");case"object":return ToString(ToPrimitive(t,String));default:return String(t)}}CreateMethodProperty(Array.prototype,"includes",function e(r){var t=ToObject(this),o=ToLength(Get(t,"length"));if(0===o)return !1;var n=ToInteger(arguments[1]);if(n>=0)var a=n;else (a=o+n)<0&&(a=0);for(;a<o;){var i=Get(t,ToString(a));if(SameValueZero(r,i))return !0;a+=1;}return !1});!function(){function e(e,t){if(!e)throw new Error("Not enough arguments");var n;if("createEvent"in document){n=document.createEvent("Event");var o=!(!t||t.bubbles===undefined$1)&&t.bubbles,i=!(!t||t.cancelable===undefined$1)&&t.cancelable;return n.initEvent(e,o,i),n}return n=document.createEventObject(),n.type=e,n.bubbles=!(!t||t.bubbles===undefined$1)&&t.bubbles,n.cancelable=!(!t||t.cancelable===undefined$1)&&t.cancelable,n}var t={click:1,dblclick:1,keyup:1,keypress:1,keydown:1,mousedown:1,mouseup:1,mousemove:1,mouseover:1,mouseenter:1,mouseleave:1,mouseout:1,storage:1,storagecommit:1,textinput:1};if("undefined"!=typeof document&&"undefined"!=typeof window){var n=window.Event&&window.Event.prototype||null;e.NONE=0,e.CAPTURING_PHASE=1,e.AT_TARGET=2,e.BUBBLING_PHASE=3,window.Event=Window.prototype.Event=e,n&&Object.defineProperty(window.Event,"prototype",{configurable:!1,enumerable:!1,writable:!0,value:n}),"createEvent"in document||(window.addEventListener=Window.prototype.addEventListener=Document.prototype.addEventListener=Element.prototype.addEventListener=function o(){var e=this,n=arguments[0],o=arguments[1];if(e===window&&n in t)throw new Error("In IE8 the event: "+n+" is not available on the window object. Please see https://github.com/Financial-Times/polyfill-service/issues/317 for more information.");e._events||(e._events={}),e._events[n]||(e._events[n]=function(t){var n,o=e._events[t.type].list,i=o.slice(),r=-1,c=i.length;for(t.preventDefault=function a(){!1!==t.cancelable&&(t.returnValue=!1);},t.stopPropagation=function l(){t.cancelBubble=!0;},t.stopImmediatePropagation=function s(){t.cancelBubble=!0,t.cancelImmediate=!0;},t.currentTarget=e,t.relatedTarget=t.fromElement||null,t.target=t.target||t.srcElement||e,t.timeStamp=(new Date).getTime(),t.clientX&&(t.pageX=t.clientX+document.documentElement.scrollLeft,t.pageY=t.clientY+document.documentElement.scrollTop);++r<c&&!t.cancelImmediate;)r in i&&(n=i[r],o.includes(n)&&"function"==typeof n&&n.call(e,t));},e._events[n].list=[],e.attachEvent&&e.attachEvent("on"+n,e._events[n])),e._events[n].list.push(o);},window.removeEventListener=Window.prototype.removeEventListener=Document.prototype.removeEventListener=Element.prototype.removeEventListener=function i(){var e,t=this,n=arguments[0],o=arguments[1];t._events&&t._events[n]&&t._events[n].list&&-1!==(e=t._events[n].list.indexOf(o))&&(t._events[n].list.splice(e,1),t._events[n].list.length||(t.detachEvent&&t.detachEvent("on"+n,t._events[n]),delete t._events[n]));},window.dispatchEvent=Window.prototype.dispatchEvent=Document.prototype.dispatchEvent=Element.prototype.dispatchEvent=function r(e){if(!arguments.length)throw new Error("Not enough arguments");if(!e||"string"!=typeof e.type)throw new Error("DOM Events Exception 0");var t=this,n=e.type;try{if(!e.bubbles){e.cancelBubble=!0;var o=function(e){e.cancelBubble=!0,(t||window).detachEvent("on"+n,o);};this.attachEvent("on"+n,o);}this.fireEvent("on"+n,e);}catch(i){e.target=t;do{e.currentTarget=t,"_events"in t&&"function"==typeof t._events[n]&&t._events[n].call(t,e),"function"==typeof t["on"+n]&&t["on"+n].call(t,e),t=9===t.nodeType?t.parentWindow:t.parentNode;}while(t&&!e.cancelBubble)}return !0},document.attachEvent("onreadystatechange",function(){"complete"===document.readyState&&document.dispatchEvent(new e("DOMContentLoaded",{bubbles:!0}));}));}}();self.CustomEvent=function e(t,n){if(!t)throw Error('TypeError: Failed to construct "CustomEvent": An event name must be provided.');var l;if(n=n||{bubbles:!1,cancelable:!1,detail:null},"createEvent"in document)try{l=document.createEvent("CustomEvent"),l.initCustomEvent(t,n.bubbles,n.cancelable,n.detail);}catch(a){l=document.createEvent("Event"),l.initEvent(t,n.bubbles,n.cancelable),l.detail=n.detail;}else l=new Event(t,n),l.detail=n&&n.detail||null;return l},CustomEvent.prototype=Event.prototype;})('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});
-
-/* Polyfill service v3.108.0
- * Disable minification (remove `.min` from URL path) for more info */
-
-(function(self, undefined$1) {!function(e){function n(e,n){if("change"===e&&this.addListener(n),arguments[2]&&arguments[2].once){var t=this,r=function(){t.removeListener(r),t.removeListener(n);};this.addListener(r);}}function t(e,n){"change"===e&&this.removeListener(n);}var r=function(){try{var n={};return e.Object.defineProperty(n,"t",{configurable:!0,enumerable:!1,get:function(){return this._v},set:function(e){this._v=e+e;}}),n.t=1,2===n.t}catch(t){return !1}}(),i={enumerable:!0,configurable:!0,get:function(){return this._onchangeHandler||null},set:function(e){var n=this;n._onchangeListener||(n._onchangeListener=function(){"function"==typeof n._onchangeHandler&&n._onchangeHandler.call(n,arguments[0]);},n.addEventListener("change",n._onchangeListener)),n._onchangeHandler=e;}};if("MediaQueryList"in e){var a=e.MediaQueryList.prototype.addListener,o=e.MediaQueryList.prototype.removeListener;e.MediaQueryList.prototype.addListener=function c(e){var n=e;n.handleEvent&&(n=n.handleEvent),a.call(this,n);},e.MediaQueryList.prototype.removeListener=function d(e){var n=e;n.handleEvent&&(n=n.handleEvent),o.call(this,n);},e.MediaQueryList.prototype.addEventListener=n,e.MediaQueryList.prototype.removeEventListener=t,r&&e.Object.defineProperty(e.MediaQueryList.prototype,"onchange",i);}else {var s=self.matchMedia;self.matchMedia=function h(a){var o=s(a),c=o.addListener,d=o.removeListener;return o.addListener=function h(e){var n=e;n.handleEvent&&(n=n.handleEvent),c.call(this,n);},o.removeListener=function u(e){var n=e;n.handleEvent&&(n=n.handleEvent),d.call(this,n);},o.addEventListener=n,o.removeEventListener=t,r&&e.Object.defineProperty(o,"onchange",i),o};}}(self);})('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});
-
-/* Polyfill service v3.108.0
- * Disable minification (remove `.min` from URL path) for more info */
-
-(function(self, undefined$1) {var _DOMTokenList=function(){var n=!0,t=function(t,e,r,o){Object.defineProperty?Object.defineProperty(t,e,{configurable:!1===n||!!o,get:r}):t.__defineGetter__(e,r);};try{t({},"support");}catch(e){n=!1;}return function(n,e){var r=this,o=[],i={},a=0,c=0,f=function(n){t(r,n,function(){return u(),o[n]},!1);},l=function(){if(a>=c)for(;c<a;++c)f(c);},u=function(){var t,r,c=arguments,f=/\s+/;if(c.length)for(r=0;r<c.length;++r)if(f.test(c[r]))throw t=new SyntaxError('String "'+c[r]+'" contains an invalid character'),t.code=5,t.name="InvalidCharacterError",t;for(o="object"==typeof n[e]?(""+n[e].baseVal).replace(/^\s+|\s+$/g,"").split(f):(""+n[e]).replace(/^\s+|\s+$/g,"").split(f),""===o[0]&&(o=[]),i={},r=0;r<o.length;++r)i[o[r]]=!0;a=o.length,l();};return u(),t(r,"length",function(){return u(),a}),r.toLocaleString=r.toString=function(){return u(),o.join(" ")},r.item=function(n){return u(),o[n]},r.contains=function(n){return u(),!!i[n]},r.add=function(){u.apply(r,t=arguments);for(var t,c,f=0,p=t.length;f<p;++f)c=t[f],i[c]||(o.push(c),i[c]=!0);a!==o.length&&(a=o.length>>>0,"object"==typeof n[e]?n[e].baseVal=o.join(" "):n[e]=o.join(" "),l());},r.remove=function(){u.apply(r,t=arguments);for(var t,c={},f=0,p=[];f<t.length;++f)c[t[f]]=!0,delete i[t[f]];for(f=0;f<o.length;++f)c[o[f]]||p.push(o[f]);o=p,a=p.length>>>0,"object"==typeof n[e]?n[e].baseVal=o.join(" "):n[e]=o.join(" "),l();},r.toggle=function(n,t){return u.apply(r,[n]),undefined$1!==t?t?(r.add(n),!0):(r.remove(n),!1):i[n]?(r.remove(n),!1):(r.add(n),!0)},r.forEach=Array.prototype.forEach,r}}();!function(t){"DOMTokenList"in t&&t.DOMTokenList&&(!document.createElementNS||!document.createElementNS("http://www.w3.org/2000/svg","svg")||document.createElementNS("http://www.w3.org/2000/svg","svg").classList instanceof DOMTokenList)||(t.DOMTokenList=_DOMTokenList),function(){var t=document.createElement("span");"classList"in t&&(t.classList.toggle("x",!1),t.classList.contains("x")&&(t.classList.constructor.prototype.toggle=function s(t){var s=arguments[1];if(s===undefined$1){var e=!this.contains(t);return this[e?"add":"remove"](t),e}return s=!!s,this[s?"add":"remove"](t),s}));}(),function(){var t=document.createElement("span");if("classList"in t&&(t.classList.add("a","b"),!t.classList.contains("b"))){var s=t.classList.constructor.prototype.add;t.classList.constructor.prototype.add=function(){for(var t=arguments,e=arguments.length,n=0;n<e;n++)s.call(this,t[n]);};}}(),function(){var t=document.createElement("span");if("classList"in t&&(t.classList.add("a"),t.classList.add("b"),t.classList.remove("a","b"),t.classList.contains("b"))){var s=t.classList.constructor.prototype.remove;t.classList.constructor.prototype.remove=function(){for(var t=arguments,e=arguments.length,n=0;n<e;n++)s.call(this,t[n]);};}}();}(self);!function(e){var t=!0,r=function(e,r,n,i){Object.defineProperty?Object.defineProperty(e,r,{configurable:!1===t||!!i,get:n}):e.__defineGetter__(r,n);};try{r({},"support");}catch(i){t=!1;}var n=function(e,i,l){r(e.prototype,i,function(){var e,c=this,s="__defineGetter__DEFINE_PROPERTY"+i;if(c[s])return e;if(c[s]=!0,!1===t){for(var o,a=n.mirror||document.createElement("div"),f=a.childNodes,d=f.length,m=0;m<d;++m)if(f[m]._R===c){o=f[m];break}o||(o=a.appendChild(document.createElement("div"))),e=DOMTokenList.call(o,c,l);}else e=new _DOMTokenList(c,l);return r(c,i,function(){return e}),delete c[s],e},!0);};n(e.Element,"classList","className"),n(e.HTMLElement,"classList","className"),n(e.HTMLLinkElement,"relList","rel"),n(e.HTMLAnchorElement,"relList","rel"),n(e.HTMLAreaElement,"relList","rel");}(self);!function(t){t.DOMTokenList.prototype.forEach=t.Array.prototype.forEach;var o=document.createElement("span");o.classList&&o.classList.constructor&&o.classList.constructor.prototype&&!o.classList.constructor.prototype.forEach&&(o.classList.constructor.prototype.forEach=t.Array.prototype.forEach);}(self);NodeList.prototype.forEach=Array.prototype.forEach;})('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});
-
-/* Polyfill service v3.108.0
- * Disable minification (remove `.min` from URL path) for more info */
-
-(function(self, undefined$1) {!function(){function e(e){if(!(0 in arguments))throw new TypeError("1 argument is required");do{if(this===e)return !0}while(e=e&&e.parentNode);return !1}if("HTMLElement"in self&&"contains"in HTMLElement.prototype)try{delete HTMLElement.prototype.contains;}catch(t){}"Node"in self?Node.prototype.contains=e:document.contains=Element.prototype.contains=e;}();})('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});
-
-/* Polyfill service v3.108.0
- * Disable minification (remove `.min` from URL path) for more info */
-
-(function(self, undefined$1) {Element.prototype.matches=Element.prototype.webkitMatchesSelector||Element.prototype.oMatchesSelector||Element.prototype.msMatchesSelector||Element.prototype.mozMatchesSelector||function e(t){for(var o=this,r=(o.document||o.ownerDocument).querySelectorAll(t),c=0;r[c]&&r[c]!==o;)++c;return !!r[c]};})();
+api$1.internals.register(api$1.core.CollapseSelector.COLLAPSE, api$1.core.Collapse);
+api$1.internals.register(api$1.core.InjectSvgSelector.INJECT_SVG, api$1.core.InjectSvg);
 
 const api = window[config.namespace];
 
@@ -2046,9 +2215,9 @@ const SchemeValue = {
 };
 
 const SchemeAttribute = {
-  THEME: api.ns.attr('theme'),
-  SCHEME: api.ns.attr('scheme'),
-  TRANSITION: api.ns.attr('transition')
+  THEME: api.internals.ns.attr('theme'),
+  SCHEME: api.internals.ns.attr('scheme'),
+  TRANSITION: api.internals.ns.attr('transition')
 };
 
 const SchemeTheme = {
@@ -2057,9 +2226,9 @@ const SchemeTheme = {
 };
 
 const SchemeEmission = {
-  SCHEME: api.ns.emission('scheme', 'scheme'),
-  THEME: api.ns.emission('scheme', 'theme'),
-  ASK: api.ns.emission('scheme', 'ask')
+  SCHEME: api.internals.ns.emission('scheme', 'scheme'),
+  THEME: api.internals.ns.emission('scheme', 'theme'),
+  ASK: api.internals.ns.emission('scheme', 'ask')
 };
 
 class Scheme extends api.core.Instance {
@@ -2079,7 +2248,7 @@ class Scheme extends api.core.Instance {
       this.request(this.restoreTransition.bind(this));
     }
 
-    const scheme = localStorage.getItem('scheme');
+    const scheme = api.internals.support.supportLocalStorage() ? localStorage.getItem('scheme') : '';
     const schemeAttr = this.getAttribute(SchemeAttribute.SCHEME);
 
     switch (scheme) {
@@ -2120,7 +2289,7 @@ class Scheme extends api.core.Instance {
       }
     };
 
-    return completeAssign(super.proxy, proxyAccessors);
+    return api.internals.property.completeAssign(super.proxy, proxyAccessors);
   }
 
   restoreTransition () {
@@ -2163,7 +2332,9 @@ class Scheme extends api.core.Instance {
     }
 
     this.descend(SchemeEmission.SCHEME, value);
-    localStorage.setItem('scheme', value);
+    if (api.internals.support.supportLocalStorage()) {
+      localStorage.setItem('scheme', value);
+    }
     this.setAttribute(SchemeAttribute.SCHEME, value);
   }
 
@@ -2214,9 +2385,9 @@ class Scheme extends api.core.Instance {
 }
 
 const SchemeSelector = {
-  SCHEME: `:root${api.ns.attr.selector('theme')}, :root${api.ns.attr.selector('scheme')}`,
-  SWITCH_THEME: api.ns.selector('switch-theme'),
-  RADIO_BUTTONS: `input[name="${api.ns('radios-theme')}"]`
+  SCHEME: `:root${api.internals.ns.attr.selector('theme')}, :root${api.internals.ns.attr.selector('scheme')}`,
+  SWITCH_THEME: api.internals.ns.selector('switch-theme'),
+  RADIO_BUTTONS: `input[name="${api.internals.ns('radios-theme')}"]`
 };
 
 api.scheme = {
@@ -2227,11 +2398,11 @@ api.scheme = {
   SchemeTheme: SchemeTheme
 };
 
-api.register(api.scheme.SchemeSelector.SCHEME, api.scheme.Scheme);
+api.internals.register(api.scheme.SchemeSelector.SCHEME, api.scheme.Scheme);
 
 const AccordionSelector = {
-  GROUP: api.ns.selector('accordions-group'),
-  COLLAPSE: `${api.ns.selector('accordion')} > ${api.ns.selector('collapse')}`
+  GROUP: api.internals.ns.selector('accordions-group'),
+  COLLAPSE: `${api.internals.ns.selector('accordion')} > ${api.internals.ns.selector('collapse')}`
 };
 
 class AccordionsGroup extends api.core.CollapsesGroup {
@@ -2249,19 +2420,19 @@ api.accordion = {
   AccordionsGroup: AccordionsGroup
 };
 
-api.register(api.accordion.AccordionSelector.GROUP, api.accordion.AccordionsGroup);
+api.internals.register(api.accordion.AccordionSelector.GROUP, api.accordion.AccordionsGroup);
 
 const ButtonSelector = {
-  EQUISIZED_BUTTON: `${api.ns.selector('btns-group--equisized')} ${api.ns.selector('btn')}`,
-  EQUISIZED_GROUP: api.ns.selector('btns-group--equisized')
+  EQUISIZED_BUTTON: `${api.internals.ns.selector('btns-group--equisized')} ${api.internals.ns.selector('btn')}`,
+  EQUISIZED_GROUP: api.internals.ns.selector('btns-group--equisized')
 };
 
 api.button = {
   ButtonSelector: ButtonSelector
 };
 
-api.register(api.button.ButtonSelector.EQUISIZED_BUTTON, api.core.Equisized);
-api.register(api.button.ButtonSelector.EQUISIZED_GROUP, api.core.EquisizedsGroup);
+api.internals.register(api.button.ButtonSelector.EQUISIZED_BUTTON, api.core.Equisized);
+api.internals.register(api.button.ButtonSelector.EQUISIZED_GROUP, api.core.EquisizedsGroup);
 
 class Breadcrumb extends api.core.Instance {
   constructor () {
@@ -2338,7 +2509,7 @@ class Breadcrumb extends api.core.Instance {
 }
 
 const BreadcrumbSelector = {
-  BREADCRUMB: api.ns.selector('breadcrumb')
+  BREADCRUMB: api.internals.ns.selector('breadcrumb')
 };
 
 api.breadcrumb = {
@@ -2346,11 +2517,77 @@ api.breadcrumb = {
   Breadcrumb: Breadcrumb
 };
 
-api.register(api.breadcrumb.BreadcrumbSelector.BREADCRUMB, api.breadcrumb.Breadcrumb);
+api.internals.register(api.breadcrumb.BreadcrumbSelector.BREADCRUMB, api.breadcrumb.Breadcrumb);
+
+class ToggleInput extends api.core.Instance {
+  static get instanceClassName () {
+    return 'ToggleInput';
+  }
+
+  get isChecked () {
+    return this.hasAttribute('checked');
+  }
+}
+
+class ToggleStatusLabel extends api.core.Instance {
+  static get instanceClassName () {
+    return 'ToggleStatusLabel';
+  }
+
+  init () {
+    this.register(`input[id="${this.getAttribute('for')}"]`, ToggleInput);
+    this.update();
+    this.isSwappingFont = true;
+  }
+
+  get proxy () {
+    const scope = this;
+    return Object.assign(super.proxy, {
+      update: scope.update.bind(scope)
+    });
+  }
+
+  get input () {
+    return this.getRegisteredInstances('ToggleInput')[0];
+  }
+
+  update () {
+    this.node.style.removeProperty('--toggle-status-width');
+    const checked = this.input.isChecked;
+
+    const style = getComputedStyle(this.node, ':before');
+    let maxWidth = parseFloat(style.width);
+    this.input.node.checked = !checked;
+
+    const style2 = getComputedStyle(this.node, ':before');
+    const width = parseFloat(style2.width);
+    if (width > maxWidth) maxWidth = width;
+    this.input.node.checked = checked;
+
+    this.node.style.setProperty('--toggle-status-width', (maxWidth / 16) + 'rem');
+  }
+
+  swapFont (families) {
+    this.update();
+  }
+}
+
+const ToggleSelector = {
+  STATUS_LABEL: `${api.internals.ns.selector('toggle__label')}${api.internals.ns.attr.selector('checked-label')}${api.internals.ns.attr.selector('unchecked-label')}`
+};
+
+// import { ToggleInput } from './script/toggle/toggle-input.js';
+
+api.toggle = {
+  ToggleStatusLabel: ToggleStatusLabel,
+  ToggleSelector: ToggleSelector
+};
+
+api.internals.register(api.toggle.ToggleSelector.STATUS_LABEL, api.toggle.ToggleStatusLabel);
 
 const SidemenuSelector = {
-  LIST: api.ns.selector('sidemenu__list'),
-  COLLAPSE: `${api.ns.selector('sidemenu__item')} > ${api.ns.selector('collapse')}`
+  LIST: api.internals.ns.selector('sidemenu__list'),
+  COLLAPSE: `${api.internals.ns.selector('sidemenu__item')} > ${api.internals.ns.selector('collapse')}`
 };
 
 class SidemenuList extends api.core.CollapsesGroup {
@@ -2368,12 +2605,12 @@ api.sidemenu = {
   SidemenuSelector: SidemenuSelector
 };
 
-api.register(api.sidemenu.SidemenuSelector.LIST, api.sidemenu.SidemenuList);
+api.internals.register(api.sidemenu.SidemenuSelector.LIST, api.sidemenu.SidemenuList);
 
 const ModalSelector = {
-  MODAL: api.ns.selector('modal'),
-  SCROLL_SHADOW: api.ns.selector('scroll-shadow'),
-  BODY: api.ns.selector('modal__body')
+  MODAL: api.internals.ns.selector('modal'),
+  SCROLL_SHADOW: api.internals.ns.selector('scroll-shadow'),
+  BODY: api.internals.ns.selector('modal__body')
 };
 
 class ModalButton extends api.core.DisclosureButton {
@@ -2386,13 +2623,8 @@ class ModalButton extends api.core.DisclosureButton {
   }
 }
 
-const ModalEmission = {
-  ACTIVATE: api.ns.emission('modal', 'activate'),
-  DEACTIVATE: api.ns.emission('modal', 'deactivate')
-};
-
 const ModalAttribute = {
-  CONCEALING_BACKDROP: api.ns.attr('concealing-backdrop')
+  CONCEALING_BACKDROP: api.internals.ns.attr('concealing-backdrop')
 };
 
 class Modal extends api.core.Disclosure {
@@ -2412,15 +2644,20 @@ class Modal extends api.core.Disclosure {
     this.listenKey(api.core.KeyCodes.ESCAPE, this.conceal.bind(this, false, false), true, true);
   }
 
+  get body () {
+    return this.element.getDescendantInstances('ModalBody', 'Modal')[0];
+  }
+
   click (e) {
     if (e.target === this.node && this.getAttribute(ModalAttribute.CONCEALING_BACKDROP) !== 'false') this.conceal();
   }
 
   disclose (withhold) {
     if (!super.disclose(withhold)) return false;
-    this.descend(ModalEmission.ACTIVATE);
+    if (this.body) this.body.activate();
     this.isScrollLocked = true;
     this.setAttribute('aria-modal', 'true');
+    this.setAttribute('open', 'true');
     return true;
   }
 
@@ -2428,7 +2665,8 @@ class Modal extends api.core.Disclosure {
     if (!super.conceal(withhold, preventFocus)) return false;
     this.isScrollLocked = false;
     this.removeAttribute('aria-modal');
-    this.descend(ModalEmission.DEACTIVATE);
+    this.removeAttribute('open');
+    if (this.body) this.body.deactivate();
     return true;
   }
 }
@@ -2566,12 +2804,12 @@ class FocusTrap {
   }
 
   get focusables () {
-    let unordereds = api.querySelectorAllArray(this.element, UNORDEREDS);
+    let unordereds = api.internals.dom.querySelectorAllArray(this.element, UNORDEREDS);
 
     /**
      *  filtrage des radiobutttons de même name (la navigations d'un groupe de radio se fait à la flèche et non pas au tab
      **/
-    const radios = api.querySelectorAllArray(document.documentElement, 'input[type="radio"]');
+    const radios = api.internals.dom.querySelectorAllArray(document.documentElement, 'input[type="radio"]');
 
     if (radios.length) {
       const groups = {};
@@ -2589,7 +2827,7 @@ class FocusTrap {
       });
     }
 
-    const ordereds = api.querySelectorAllArray(this.element, ORDEREDS);
+    const ordereds = api.internals.dom.querySelectorAllArray(this.element, ORDEREDS);
 
     ordereds.sort((a, b) => a.tabIndex - b.tabIndex);
 
@@ -2679,8 +2917,6 @@ class ModalBody extends api.core.Instance {
 
   init () {
     this.listen('scroll', this.shade.bind(this));
-    this.addDescent(ModalEmission.ACTIVATE, this.activate.bind(this));
-    this.addDescent(ModalEmission.DEACTIVATE, this.deactivate.bind(this));
   }
 
   activate () {
@@ -2711,7 +2947,8 @@ class ModalBody extends api.core.Instance {
 
   adjust () {
     const offset = OFFSET * (this.isBreakpoint(api.core.Breakpoints.MD) ? 2 : 1);
-    this.style.maxHeight = `${window.innerHeight - offset}px`;
+    if (this.isLegacy) this.style.maxHeight = `${window.innerHeight - offset}px`;
+    else this.style.setProperty('--modal-max-height', `${window.innerHeight - offset}px`);
     this.shade();
   }
 }
@@ -2724,16 +2961,16 @@ api.modal = {
   ModalSelector: ModalSelector
 };
 
-api.register(api.modal.ModalSelector.MODAL, api.modal.Modal);
-api.register(api.modal.ModalSelector.BODY, api.modal.ModalBody);
-api.register(api.core.RootSelector.ROOT, api.modal.ModalsGroup);
+api.internals.register(api.modal.ModalSelector.MODAL, api.modal.Modal);
+api.internals.register(api.modal.ModalSelector.BODY, api.modal.ModalBody);
+api.internals.register(api.core.RootSelector.ROOT, api.modal.ModalsGroup);
 
 const NavigationSelector = {
-  NAVIGATION: api.ns.selector('nav'),
-  COLLAPSE: `${api.ns.selector('nav__item')} > ${api.ns.selector('collapse')}`,
-  ITEM: api.ns.selector('nav__item'),
-  ITEM_RIGHT: api.ns('nav__item--align-right'),
-  MENU: api.ns.selector('menu')
+  NAVIGATION: api.internals.ns.selector('nav'),
+  COLLAPSE: `${api.internals.ns.selector('nav__item')} > ${api.internals.ns.selector('collapse')}`,
+  ITEM: api.internals.ns.selector('nav__item'),
+  ITEM_RIGHT: api.internals.ns('nav__item--align-right'),
+  MENU: api.internals.ns.selector('menu')
 };
 
 class NavigationItem extends api.core.Instance {
@@ -2774,8 +3011,8 @@ class NavigationItem extends api.core.Instance {
   set isRightAligned (value) {
     if (this._isRightAligned === value) return;
     this._isRightAligned = value;
-    if (value) api.addClass(this.element.node, NavigationSelector.ITEM_RIGHT);
-    else api.removeClass(this.element.node, NavigationSelector.ITEM_RIGHT);
+    if (value) api.internals.dom.addClass(this.element.node, NavigationSelector.ITEM_RIGHT);
+    else api.internals.dom.removeClass(this.element.node, NavigationSelector.ITEM_RIGHT);
   }
 }
 
@@ -2848,8 +3085,8 @@ api.navigation = {
   NavigationSelector: NavigationSelector
 };
 
-api.register(api.navigation.NavigationSelector.NAVIGATION, api.navigation.Navigation);
-api.register(api.navigation.NavigationSelector.ITEM, api.navigation.NavigationItem);
+api.internals.register(api.navigation.NavigationSelector.NAVIGATION, api.navigation.Navigation);
+api.internals.register(api.navigation.NavigationSelector.ITEM, api.navigation.NavigationItem);
 
 /**
   * TabButton correspond au bouton cliquable qui change le panel
@@ -2869,15 +3106,33 @@ class TabButton extends api.core.DisclosureButton {
     super.apply(value);
     if (this.isPrimary) {
       this.setAttribute('tabindex', value ? '0' : '-1');
+      if (value) {
+        if (this.list) this.list.focalize(this);
+      }
     }
+  }
+
+  get list () {
+    return this.element.getAscendantInstance('TabsList', 'TabsGroup');
   }
 }
 
 const TabSelector = {
-  TAB: api.ns.selector('tabs__tab'),
-  GROUP: api.ns.selector('tabs'),
-  PANEL: api.ns.selector('tabs__panel'),
-  LIST: api.ns.selector('tabs__list')
+  TAB: api.internals.ns.selector('tabs__tab'),
+  GROUP: api.internals.ns.selector('tabs'),
+  PANEL: api.internals.ns.selector('tabs__panel'),
+  LIST: api.internals.ns.selector('tabs__list'),
+  SHADOW: api.internals.ns.selector('tabs__shadow'),
+  SHADOW_LEFT: api.internals.ns.selector('tabs__shadow--left'),
+  SHADOW_RIGHT: api.internals.ns.selector('tabs__shadow--right'),
+  PANEL_START: api.internals.ns.selector('tabs__panel--direction-start'),
+  PANEL_END: api.internals.ns.selector('tabs__panel--direction-end')
+};
+
+const TabPanelDirection = {
+  START: 'direction-start',
+  END: 'direction-end',
+  NONE: 'none'
 };
 
 /**
@@ -2888,15 +3143,63 @@ const TabSelector = {
 class TabPanel extends api.core.Disclosure {
   constructor () {
     super(api.core.DisclosureType.SELECT, TabSelector.PANEL, TabButton, 'TabsGroup');
+    this._direction = TabPanelDirection.NONE;
+    this._isPreventingTransition = false;
   }
 
   static get instanceClassName () {
     return 'TabPanel';
   }
 
+  get direction () {
+    return this._direction;
+  }
+
+  set direction (value) {
+    if (value === this._direction) return;
+    switch (this._direction) {
+      case TabPanelDirection.START:
+        this.removeClass(TabSelector.PANEL_START);
+        break;
+
+      case TabPanelDirection.END:
+        this.removeClass(TabSelector.PANEL_END);
+        break;
+
+      case TabPanelDirection.NONE:
+        break;
+
+      default:
+        return;
+    }
+
+    this._direction = value;
+
+    switch (this._direction) {
+      case TabPanelDirection.START:
+        this.addClass(TabSelector.PANEL_START);
+        break;
+
+      case TabPanelDirection.END:
+        this.addClass(TabSelector.PANEL_END);
+        break;
+    }
+  }
+
+  get isPreventingTransition () {
+    return this._isPreventingTransition;
+  }
+
+  set isPreventingTransition (value) {
+    if (this._isPreventingTransition === value) return;
+    if (value) this.addClass(api.internals.motion.TransitionSelector.NONE);
+    else this.removeClass(api.internals.motion.TransitionSelector.NONE);
+    this._isPreventingTransition = value === true;
+  }
+
   translate (direction, initial) {
-    this.style.transition = initial ? 'none' : '';
-    this.style.transform = `translate(${direction * 100}%)`;
+    this.isPreventingTransition = initial;
+    this.direction = direction;
   }
 
   reset () {
@@ -2919,18 +3222,22 @@ class TabsGroup extends api.core.DisclosuresGroup {
 
   init () {
     super.init();
-    this.list = this.querySelector(TabSelector.LIST);
     this.listen('transitionend', this.transitionend.bind(this));
     this.listenKey(api.core.KeyCodes.RIGHT, this.pressRight.bind(this), true, true);
     this.listenKey(api.core.KeyCodes.LEFT, this.pressLeft.bind(this), true, true);
     this.listenKey(api.core.KeyCodes.HOME, this.pressHome.bind(this), true, true);
     this.listenKey(api.core.KeyCodes.END, this.pressEnd.bind(this), true, true);
-
     this.isRendering = true;
+
+    if (this.list) this.list.apply();
+  }
+
+  get list () {
+    return this.element.getDescendantInstances('TabsList', 'TabsGroup', true)[0];
   }
 
   transitionend (e) {
-    this.style.transition = 'none';
+    this.isPreventingTransition = true;
   }
 
   get buttonHasFocus () {
@@ -2990,15 +3297,27 @@ class TabsGroup extends api.core.DisclosuresGroup {
   };
 
   focus () {
-    if (this.current) this.current.focus();
+    if (this.current) {
+      this.current.focus();
+    }
   }
 
   apply () {
-    for (let i = 0; i < this._index; i++) this.members[i].translate(-1);
-    this.current.style.transition = '';
-    this.current.style.transform = '';
-    for (let i = this._index + 1; i < this.length; i++) this.members[i].translate(1);
-    this.style.transition = '';
+    for (let i = 0; i < this._index; i++) this.members[i].translate(TabPanelDirection.START);
+    this.current.translate(TabPanelDirection.NONE);
+    for (let i = this._index + 1; i < this.length; i++) this.members[i].translate(TabPanelDirection.END);
+    this.isPreventingTransition = false;
+  }
+
+  get isPreventingTransition () {
+    return this._isPreventingTransition;
+  }
+
+  set isPreventingTransition (value) {
+    if (this._isPreventingTransition === value) return;
+    if (value) this.addClass(api.internals.motion.TransitionSelector.NONE);
+    else this.removeClass(api.internals.motion.TransitionSelector.NONE);
+    this._isPreventingTransition = value === true;
   }
 
   render () {
@@ -3006,7 +3325,90 @@ class TabsGroup extends api.core.DisclosuresGroup {
     const paneHeight = Math.round(this.current.node.offsetHeight);
     if (this.panelHeight === paneHeight) return;
     this.panelHeight = paneHeight;
-    this.style.height = (this.panelHeight + this.list.offsetHeight) + 'px';
+    let listHeight = 0;
+    if (this.list) listHeight = this.list.node.offsetHeight;
+    this.style.setProperty('--tabs-height', (this.panelHeight + listHeight) + 'px');
+  }
+}
+
+const FOCALIZE_OFFSET = 16;
+const SCROLL_OFFSET$1 = 16; // valeur en px du scroll avant laquelle le shadow s'active ou se desactive
+
+class TabsList extends api.core.Instance {
+  static get instanceClassName () {
+    return 'TabsList';
+  }
+
+  init () {
+    this.listen('scroll', this.scroll.bind(this));
+    this.isResizing = true;
+  }
+
+  get group () {
+    return this.element.getAscendantInstance('TabsGroup', 'TabsList');
+  }
+
+  focalize (btn) {
+    const btnRect = btn.getRect();
+    const listRect = this.getRect();
+    const actualScroll = this.node.scrollLeft;
+    if (btnRect.left < listRect.left) this.node.scrollTo(actualScroll - listRect.left + btnRect.left - FOCALIZE_OFFSET, 0);
+    else if (btnRect.right > listRect.right) this.node.scrollTo(actualScroll - listRect.right + btnRect.right + FOCALIZE_OFFSET, 0);
+  }
+
+  get isScrolling () {
+    return this._isScrolling;
+  }
+
+  set isScrolling (value) {
+    if (this._isScrolling === value) return;
+    this._isScrolling = value;
+    this.apply();
+  }
+
+  apply () {
+    if (!this.group) return;
+    if (this._isScrolling) {
+      this.group.addClass(TabSelector.SHADOW);
+      this.scroll();
+    } else {
+      this.group.removeClass(TabSelector.SHADOW_RIGHT);
+      this.group.removeClass(TabSelector.SHADOW_LEFT);
+      this.group.removeClass(TabSelector.SHADOW);
+    }
+  }
+
+  /* ajoute la classe fr-table__shadow-left ou fr-table__shadow-right sur fr-table en fonction d'une valeur de scroll et du sens (right, left) */
+  scroll () {
+    if (!this.group) return;
+    const scrollLeft = this.node.scrollLeft;
+    const isMin = scrollLeft <= SCROLL_OFFSET$1;
+    const max = this.node.scrollWidth - this.node.clientWidth - SCROLL_OFFSET$1;
+
+    const isMax = Math.abs(scrollLeft) >= max;
+    const isRtl = document.documentElement.getAttribute('dir') === 'rtl';
+    const minSelector = isRtl ? TabSelector.SHADOW_RIGHT : TabSelector.SHADOW_LEFT;
+    const maxSelector = isRtl ? TabSelector.SHADOW_LEFT : TabSelector.SHADOW_RIGHT;
+
+    if (isMin) {
+      this.group.removeClass(minSelector);
+    } else {
+      this.group.addClass(minSelector);
+    }
+
+    if (isMax) {
+      this.group.removeClass(maxSelector);
+    } else {
+      this.group.addClass(maxSelector);
+    }
+  }
+
+  resize () {
+    this.isScrolling = this.node.scrollWidth > this.node.clientWidth + SCROLL_OFFSET$1;
+  }
+
+  dispose () {
+    this.isScrolling = false;
   }
 }
 
@@ -3014,16 +3416,18 @@ api.tab = {
   TabPanel: TabPanel,
   TabButton: TabButton,
   TabsGroup: TabsGroup,
+  TabsList: TabsList,
   TabSelector: TabSelector
 };
 
-api.register(api.tab.TabSelector.PANEL, api.tab.TabPanel);
-api.register(api.tab.TabSelector.GROUP, api.tab.TabsGroup);
+api.internals.register(api.tab.TabSelector.PANEL, api.tab.TabPanel);
+api.internals.register(api.tab.TabSelector.GROUP, api.tab.TabsGroup);
+api.internals.register(api.tab.TabSelector.LIST, api.tab.TabsList);
 
 const TableEmission = {
-  SCROLLABLE: api.ns.emission('table', 'scrollable'),
-  CHANGE: api.ns.emission('table', 'change'),
-  CAPTION_HEIGHT: api.ns.emission('table', 'captionheight')
+  SCROLLABLE: api.internals.ns.emission('table', 'scrollable'),
+  CHANGE: api.internals.ns.emission('table', 'change'),
+  CAPTION_HEIGHT: api.internals.ns.emission('table', 'captionheight')
 };
 
 const PADDING = '1rem'; // padding de 4v sur le caption
@@ -3043,12 +3447,12 @@ class Table extends api.core.Instance {
 }
 
 const TableSelector = {
-  TABLE: api.ns.selector('table'),
-  SHADOW: api.ns.selector('table__shadow'),
-  SHADOW_LEFT: api.ns.selector('table__shadow--left'),
-  SHADOW_RIGHT: api.ns.selector('table__shadow--right'),
-  ELEMENT: `${api.ns.selector('table')}:not(${api.ns.selector('table--no-scroll')}) table`,
-  CAPTION: `${api.ns.selector('table')} table caption`
+  TABLE: api.internals.ns.selector('table'),
+  SHADOW: api.internals.ns.selector('table__shadow'),
+  SHADOW_LEFT: api.internals.ns.selector('table__shadow--left'),
+  SHADOW_RIGHT: api.internals.ns.selector('table__shadow--right'),
+  ELEMENT: `${api.internals.ns.selector('table')}:not(${api.internals.ns.selector('table--no-scroll')}) table`,
+  CAPTION: `${api.internals.ns.selector('table')} table caption`
 };
 
 const SCROLL_OFFSET = 8; // valeur en px du scroll avant laquelle le shadow s'active ou se desactive
@@ -3138,16 +3542,134 @@ api.table = {
   TableSelector: TableSelector
 };
 
-api.register(api.table.TableSelector.TABLE, api.table.Table);
-api.register(api.table.TableSelector.ELEMENT, api.table.TableElement);
-api.register(api.table.TableSelector.CAPTION, api.table.TableCaption);
+api.internals.register(api.table.TableSelector.TABLE, api.table.Table);
+api.internals.register(api.table.TableSelector.ELEMENT, api.table.TableElement);
+api.internals.register(api.table.TableSelector.CAPTION, api.table.TableCaption);
+
+const TagSelector = {
+  TAG_PRESSABLE: `${api.internals.ns.selector('tag')}[aria-pressed]`
+};
+
+api.tag = {
+  TagSelector: TagSelector
+};
+
+api.internals.register(api.tag.TagSelector.TAG_PRESSABLE, api.core.Toggle);
+
+const DownloadSelector = {
+  DOWNLOAD_ASSESS_FILE: `${api.internals.ns.attr.selector('assess-file')}`,
+  DOWNLOAD_DETAIL: `${api.internals.ns.selector('download__detail')}`
+};
+
+class AssessFile extends api.core.Instance {
+  static get instanceClassName () {
+    return 'AssessFile';
+  }
+
+  init () {
+    this.lang = this.getLang(this.node);
+    this.href = this.getAttribute('href');
+
+    this.hreflang = this.getAttribute('hreflang');
+    this.file = {};
+    this.detail = this.querySelector(DownloadSelector.DOWNLOAD_DETAIL);
+    this.update();
+  }
+
+  getFileLength () {
+    if (this.href === undefined) {
+      this.length = -1;
+      return;
+    }
+
+    fetch(this.href, { method: 'HEAD', mode: 'cors' }).then(response => {
+      this.length = response.headers.get('content-length') || -1;
+      if (this.length === -1) {
+        console.warn('Impossible de détecter le poids du fichier ' + this.href + '\nErreur de récupération de l\'en-tête HTTP : "content-length"');
+      }
+      this.update();
+    });
+  }
+
+  update () {
+    // TODO V2: implémenter async
+    if (this.isLegacy) this.length = -1;
+
+    if (!this.length) {
+      this.getFileLength();
+      return;
+    }
+
+    const details = [];
+    if (this.detail) {
+      if (this.href) {
+        const extension = this.parseExtension(this.href);
+        if (extension) details.push(extension.toUpperCase());
+      }
+
+      if (this.length !== -1) {
+        details.push(this.bytesToSize(this.length));
+      }
+
+      if (this.hreflang) {
+        details.push(this.getLangDisplayName(this.hreflang));
+      }
+
+      this.detail.innerHTML = details.join(' - ');
+    }
+  }
+
+  getLang (elem) {
+    if (elem.lang) return elem.lang;
+    if (document.documentElement === elem) return window.navigator.language;
+    return this.getLang(elem.parentElement);
+  }
+
+  parseExtension (url) {
+    const regexExtension = /\.(\w{1,9})(?:$|[?#])/;
+    return url.match(regexExtension)[0].replace('.', '');
+  }
+
+  getLangDisplayName (locale) {
+    if (this.isLegacy) return locale;
+    const displayNames = new Intl.DisplayNames([this.lang], { type: 'language' });
+    const name = displayNames.of(locale);
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  }
+
+  bytesToSize (bytes) {
+    if (bytes === -1) return null;
+
+    let sizeUnits = ['octets', 'ko', 'Mo', 'Go', 'To'];
+    if (this.getAttribute(api.internals.ns.attr('assess-file')) === 'bytes') {
+      sizeUnits = ['bytes', 'KB', 'MB', 'GB', 'TB'];
+    }
+
+    const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1000)), 10);
+    if (i === 0) return `${bytes} ${sizeUnits[i]}`;
+
+    const size = bytes / (1000 ** i);
+    const roundedSize = Math.round((size + Number.EPSILON) * 100) / 100; // arrondi a 2 décimal
+    const stringSize = String(roundedSize).replace('.', ',');
+
+    return `${stringSize} ${sizeUnits[i]}`;
+  }
+}
+
+api.download = {
+  DownloadSelector: DownloadSelector,
+  AssessFile: AssessFile
+
+};
+
+api.internals.register(api.download.DownloadSelector.DOWNLOAD_ASSESS_FILE, api.download.AssessFile);
 
 const HeaderSelector = {
-  HEADER: api.ns.selector('header'),
-  TOOLS_LINKS: api.ns.selector('header__tools-links'),
-  MENU_LINKS: api.ns.selector('header__menu-links'),
-  LINKS: `${api.ns.selector('header__tools-links')} ${api.ns.selector('links-group')}`,
-  MODALS: `${api.ns.selector('header__search')}${api.ns.selector('modal')}, ${api.ns.selector('header__menu')}${api.ns.selector('modal')}`
+  HEADER: api.internals.ns.selector('header'),
+  TOOLS_LINKS: api.internals.ns.selector('header__tools-links'),
+  MENU_LINKS: api.internals.ns.selector('header__menu-links'),
+  BUTTONS: `${api.internals.ns.selector('header__tools-links')} ${api.internals.ns.selector('btns-group')}, ${api.internals.ns.selector('header__tools-links')} ${api.internals.ns.selector('links-group')}`,
+  MODALS: `${api.internals.ns.selector('header__search')}${api.internals.ns.selector('modal')}, ${api.internals.ns.selector('header__menu')}${api.internals.ns.selector('modal')}`
 };
 
 class HeaderLinks extends api.core.Instance {
@@ -3222,13 +3744,13 @@ api.header = {
   doc: 'https://gouvfr.atlassian.net/wiki/spaces/DB/pages/222789846/En-t+te+-+Header'
 };
 
-api.register(api.header.HeaderSelector.LINKS, api.header.HeaderLinks);
-api.register(api.header.HeaderSelector.MODALS, api.header.HeaderModal);
+api.internals.register(api.header.HeaderSelector.BUTTONS, api.header.HeaderLinks);
+api.internals.register(api.header.HeaderSelector.MODALS, api.header.HeaderModal);
 
 const DisplaySelector = {
-  DISPLAY: api.ns.selector('display'),
-  RADIO_BUTTONS: `input[name="${api.ns('radios-theme')}"]`,
-  FIELDSET: api.ns.selector('fieldset')
+  DISPLAY: api.internals.ns.selector('display'),
+  RADIO_BUTTONS: `input[name="${api.internals.ns('radios-theme')}"]`,
+  FIELDSET: api.internals.ns.selector('fieldset')
 };
 
 class Display extends api.core.Instance {
@@ -3291,5 +3813,5 @@ api.display = {
   DisplaySelector: DisplaySelector
 };
 
-api.register(api.display.DisplaySelector.DISPLAY, api.display.Display);
+api.internals.register(api.display.DisplaySelector.DISPLAY, api.display.Display);
 //# sourceMappingURL=dsfr.module.js.map
