@@ -33,6 +33,7 @@ export class DfState {
 }
 
 const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+const FC_LOGOUT_URL = process.env.VUE_APP_FC_LOGOUT_URL || "";
 
 const localStore = localStorage.getItem("store");
 const initialStore =
@@ -192,9 +193,7 @@ const store = new Vuex.Store({
           await commit("logout");
           await commit("initState");
           if (isFC) {
-            window.location.replace(
-              "https://fcp.integ01.dev-franceconnect.fr/api/v1/logout"
-            );
+            window.location.replace(FC_LOGOUT_URL);
             return;
           } else if (redirect) {
             window.location.replace(MAIN_URL);
