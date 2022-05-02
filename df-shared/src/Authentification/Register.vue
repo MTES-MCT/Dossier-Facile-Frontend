@@ -5,7 +5,7 @@
         {{ $t("title") }}
       </h2>
 
-      <template v-if="franceConnect">
+      <template>
         <div class="fr-mt-5w fr-mb-5w text-center ">
           <div v-if="getParams() !== undefined">
             <router-link :to="{name: 'SourceLink', params: getParams(), query: getQuery()}" class="color--primary">{{ $t('connect-france-connect') }}</router-link>
@@ -223,7 +223,6 @@ export default class Register extends Vue {
   FRANCE_CONNECT_LOGIN_URL = process.env.VUE_APP_FRANCE_CONNECT_LOGIN_URL;
 
   @Prop({ default: "" }) email!: string;
-  franceConnect = window.location.href.includes("locataire-dev") || window.location.href.includes("localhost");
 
   user: User = new User();
   score = 0;
