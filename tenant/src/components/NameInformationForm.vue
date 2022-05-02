@@ -132,6 +132,7 @@ import { AnalyticsService } from "../services/AnalyticsService";
 import ProfileFooter from "./footer/ProfileFooter.vue";
 import { mapGetters } from "vuex";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import { UtilsService } from "@/services/UtilsService";
 
 extend("zipcode", {
   ...regex,
@@ -180,7 +181,7 @@ export default class NameInformationForm extends Vue {
   beforeMount() {
     this.firstname = this.user.firstName || "";
     this.lastname = this.user.lastName || "";
-    this.preferredname = this.user.preferredName || "";
+    this.preferredname = UtilsService.capitalize(this.user.preferredName || "");
     this.zipcode = this.user.zipCode || "";
   }
 
