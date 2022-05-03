@@ -69,6 +69,9 @@ const store = createStore({
     setRent(state: OwnerState, rent: number) {
       state.propertyToEdit.rentCost = rent;
     },
+    setCharges(state: OwnerState, charges: number) {
+      state.propertyToEdit.chargesCost = charges;
+    },
     updatePropertyToEdit(state: OwnerState, id: number) {
       const prop = state.properties.find((p) => p.id === id);
       if (prop) {
@@ -175,6 +178,9 @@ const store = createStore({
     },
     setRent({ commit }, cost: number) {
       commit('setRent', cost);
+    },
+    setCharges({ commit }, cost: number) {
+      commit('setCharges', cost);
     },
     saveProperty({ commit }) {
       return OwnerService.saveProperty(this.state.propertyToEdit).then((response) => {

@@ -26,6 +26,15 @@ const rent = computed({
   },
 });
 
+const charges = computed({
+  get() {
+    return store.getters.getPropertyToEdit?.chargesCost;
+  },
+  set(val: number) {
+    store.dispatch('setCharges', val);
+  },
+});
+
 function onSubmit() {
   store.dispatch('saveProperty').then(() => {
     router.push({ name: 'ValidateProperty', params: { id: store.getters.getPropertyToEdit.id } });
@@ -53,6 +62,18 @@ function onBack() {
         required
       />
     </p>
+    <p>
+      <label class="fr-label" for="rent">{{ t("monthly-charges") }} :</label>
+      <input
+        v-model="charges"
+        class="form-control fr-input validate-required"
+        id="charges"
+        name="charges"
+        :placeholder="t('charges-amount')"
+        type="number"
+        required
+      />
+    </p>
   </PropertyPage>
 </template>
 
@@ -62,13 +83,15 @@ function onBack() {
     "rent-title": "Rent and charges",
     "rent-subtitle": "Indicate the amount of rent requested as well as the associated charges.",
     "monthly-rent": "Monthly rent",
-    "rent-amount": "Rent amount"
+    "rent-amount": "Rent amount",
+    "monthly-charges": "Monthly charges",
+    "charges-amount": "Charges amount"
   },
   "fr": {
     "rent-title": "Loyer et charges mensuels",
     "rent-subtitle": "Indiquez le montant du loyer demandé ainsi que les charges associées.",
-    "monthly-rent": "Montant du loyer mensuel",
-    "rent-amount": "Montant du loyer"
+    "monthly-charges": "Montant des charges mensuel",
+    "charges-amount": "Montant des charges"
   }
 }
 </i18n>
