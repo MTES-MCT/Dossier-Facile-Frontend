@@ -62,7 +62,15 @@
       <NakedCard class="h-100">
         <div class="fr-grid-row align-items--center">
           <PropertyIcon :type="propertyType"></PropertyIcon>
-          {{ buildTitle }}
+          <span
+            v-html="
+              `${t(titleKey)} ${t('rent', {
+                rentCost: p.rentCost,
+                chargesCost: p.chargesCost,
+              })}`
+            "
+          >
+          </span>
         </div>
       </NakedCard>
       <NakedCard class="fr-mt-3w">
@@ -148,7 +156,9 @@
                 <span>{{ tenant.guarantorSalary }}</span>
               </td>
               <td>
-                <span class="rate" :class="getRateClass(tenant)">{{ tenant.rate }} %</span>
+                <span class="rate" :class="getRateClass(tenant)"
+                  >{{ tenant.rate }} %</span
+                >
                 {{ t("income") }}
               </td>
               <td>
@@ -216,23 +226,23 @@ const p = store.getters.getPropertyToConsult;
 const propertyType = computed(() => store.getters.getPropertyToConsult?.type);
 const propertyFurnished = computed(() => store.getters.getPropertyToConsult?.furnished);
 
-const buildTitle = computed(() => {
+const titleKey = computed(() => {
   if (propertyType.value === 'HOUSE') {
     if (propertyFurnished.value) {
-      return t('house-furnished', { rentCost: p.rentCost });
+      return 'house-furnished';
     }
-    return t('house-unfurnished', { rentCost: p.rentCost });
+    return 'house-unfurnished';
   }
   if (propertyType.value === 'APARTMENT') {
     if (propertyFurnished.value) {
-      return t('apartment-furnished', { rentCost: p.rentCost });
+      return 'apartment-furnished';
     }
-    return t('apartment-unfurnished', { rentCost: p.rentCost });
+    return 'apartment-unfurnished';
   }
   if (propertyFurnished.value) {
-    return t('other-furnished', { rentCost: p.rentCost });
+    return 'other-furnished';
   }
-  return t('other-unfurnished', { rentCost: p.rentCost });
+  return 'other-unfurnished';
 });
 
 function editProperty() {
@@ -464,12 +474,13 @@ tr {
     "VALIDATED": "validated",
     "DECLINED": "declined",
     "INCOMPLETE": "incomplete",
-    "house-furnished": "A furnished house with a rent of {rentCost}€",
-    "house-unfurnished": "An unfurnished house with a rent of {rentCost}€",
-    "apartment-furnished": "A furnished apartment with a rent of {rentCost}€",
-    "apartment-unfurnished": "A unfurnished apartment with a rent of {rentCost}€",
-    "other-furnished": "A furnished property with a rent of {rentCost}€",
-    "other-unfurnished": "A unfurnished property with a rent of {rentCost}€",
+    "house-furnished": "A furnished house",
+    "house-unfurnished": "An unfurnished house",
+    "apartment-furnished": "A furnished apartment",
+    "apartment-unfurnished": "A unfurnished apartment",
+    "other-furnished": "A furnished property",
+    "other-unfurnished": "A unfurnished property",
+    "rent": "with a rent of <span class='blue-text'>{rentCost}€</span> and charges of <span class='blue-text'>{chargesCost}€</span>",
     "download-full-file": "Download the full file",
     "income": "of income"
   },
@@ -499,12 +510,13 @@ tr {
     "VALIDATED": "Vérifié",
     "DECLINED": "Modification demandée",
     "INCOMPLETE": "Non terminé",
-    "house-furnished": "Une maison meublée dont le loyer mensuel est de {rentCost}€",
-    "house-unfurnished": "Une maison non meublée dont le loyer mensuel est de {rentCost}€",
-    "apartment-furnished": "Un appartement meublé dont le loyer mensuel est de {rentCost}€",
-    "apartment-unfurnished": "Un appartement non meublé dont le loyer mensuel est de {rentCost}€",
-    "other-furnished": "Un bien meublé dont le loyer mensuel est de {rentCost}€",
-    "other-unfurnished": "Un bien non meublé dont le loyer mensuel est de {rentCost}€",
+    "house-furnished": "Une maison meublée",
+    "house-unfurnished": "Une maison non meublée",
+    "apartment-furnished": "Un appartement meublé",
+    "apartment-unfurnished": "Un appartement non meublé",
+    "other-furnished": "Un bien meublé",
+    "other-unfurnished": "Un bien non meublé",
+    "rent": "dont le loyer mensuel est de <span class='blue-text'>{rentCost}€</span> et les charges de <span class='blue-text'>{chargesCost}€</span>",
     "download-full-file": "Télécharger le dossier complet",
     "income": "des revenus"
   }
