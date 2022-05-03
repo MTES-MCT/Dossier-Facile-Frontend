@@ -90,6 +90,8 @@ function onBack() {
   "fr": {
     "rent-title": "Loyer et charges mensuels",
     "rent-subtitle": "Indiquez le montant du loyer demandé ainsi que les charges associées.",
+    "monthly-rent": "Loyer mensuel",
+    "rent-amount": "Montant du loyer",
     "monthly-charges": "Montant des charges mensuel",
     "charges-amount": "Montant des charges"
   }
