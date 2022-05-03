@@ -148,7 +148,8 @@
                 <span>{{ tenant.guarantorSalary }}</span>
               </td>
               <td>
-                <span>{{ tenant.rate }}</span>
+                <span class="rate" :class="getRateClass(tenant)">{{ tenant.rate }} %</span>
+                {{ t("income") }}
               </td>
               <td>
                 <span>{{ t(tenant.status || "") }}</span>
@@ -306,6 +307,13 @@ function getTenantClass(applicant: Applicant) {
       return '';
   }
 }
+
+function getRateClass(applicant: Applicant) {
+  if ((applicant?.rate || 100) < 30) {
+    return 'good';
+  }
+  return '';
+}
 </script>
 
 <style scoped lang="scss">
@@ -419,6 +427,13 @@ tr {
     background-color: #ffe9e9;
   }
 }
+
+.good {
+  background-color: #447049;
+  color: #161616;
+  padding: 0.125rem 0.5rem;
+  border-radius: 2.5rem;
+}
 </style>
 
 <i18n>
@@ -456,6 +471,7 @@ tr {
     "other-furnished": "A furnished property with a rent of {rentCost}€",
     "other-unfurnished": "A unfurnished property with a rent of {rentCost}€",
     "download-full-file": "Download the full file",
+    "income": "of income"
   },
   "fr": {
     "title": "Consultation",
@@ -489,7 +505,8 @@ tr {
     "apartment-unfurnished": "Un appartement non meublé dont le loyer mensuel est de {rentCost}€",
     "other-furnished": "Un bien meublé dont le loyer mensuel est de {rentCost}€",
     "other-unfurnished": "Un bien non meublé dont le loyer mensuel est de {rentCost}€",
-    "download-full-file": "Télécharger le dossier complet"
+    "download-full-file": "Télécharger le dossier complet",
+    "income": "des revenus"
   }
 }
 </i18n>
