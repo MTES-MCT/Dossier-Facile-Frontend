@@ -392,7 +392,7 @@ tbody {
 }
 
 td {
-  border: none;
+  border: 1px solid transparent;
   height: 2.5rem;
   .validated:hover & {
     border-top: 1px solid #447049;
