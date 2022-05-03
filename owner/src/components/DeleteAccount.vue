@@ -49,11 +49,11 @@
 import Modal from 'df-shared/src/components/Modal.vue';
 import DfButton from 'df-shared/src/Button/Button.vue';
 import { useI18n } from 'vue-i18n';
-import { useStore } from 'vuex';
 import { useToast } from 'vue-toastification';
 import UtilsService from '../services/UtilsService';
+import useOwnerStore from '../store/owner-store';
 
-const store = useStore();
+const store = useOwnerStore();
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 const { t } = useI18n();
 const toast = useToast();
@@ -62,7 +62,7 @@ const emit = defineEmits(['close']);
 
 function validDelete() {
   emit('close');
-  store.dispatch('deleteAccount').then(
+  store.deleteAccount().then(
     () => {
       window.location.replace(MAIN_URL);
     },

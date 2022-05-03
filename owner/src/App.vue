@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useStore } from 'vuex';
 import { computed, ref } from 'vue';
 import MyHeader from 'df-shared/src/Header/Header.vue';
 import TheFooter from 'df-shared/src/Footer/Footer.vue';
@@ -9,19 +8,20 @@ import { useCookies } from 'vue3-cookies';
 import i18n from './i18n';
 import Menu from './components/Menu.vue';
 import { Composer } from 'vue-i18n';
+import useOwnerStore from './store/owner-store';
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`;
 
-const store = useStore();
+const store = useOwnerStore();
 const router = useRouter();
 const { cookies } = useCookies();
 
-const isLoggedIn = computed(() => store.getters.isLoggedIn);
+const isLoggedIn = computed(() => store.isLoggedIn);
 
 const cookieHidden = ref(cookies.isKey('accept-cookie') && cookies.get('accept-cookie') === 'true');
 
-const hasFooter = computed(() => store.getters.hasFooter);
+const hasFooter = computed(() => store.hasFooter);
 
 function onCreateTenant() {
   window.location.href = TENANT_URL;
@@ -32,12 +32,12 @@ function onCreateOwner() {
 }
 
 function onLogout() {
-  store.dispatch('logout', MAIN_URL);
+  store.logout(true);
 }
 
 function changeLang() {
   const lang = (i18n.global as unknown as Composer).locale.value === 'fr' ? 'en' : 'fr';
-  store.dispatch('setLang', lang);
+  store.setLang(lang);
 }
 
 function getLang() {

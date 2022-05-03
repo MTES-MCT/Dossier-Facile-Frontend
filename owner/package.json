@@ -72,13 +72,13 @@
     "df-shared": "0.1.0",
     "express": "^4.17.3",
     "keycloak-js": "17.0.1",
+    "pinia": "^2.0.13",
     "vee-validate": "^4.5.9",
     "vue": "^3.2.25",
     "vue-i18n": "9",
     "vue-router": "4",
     "vue-toastification": "^2.0.0-rc.5",
-    "vue3-cookies": "^1.0.6",
-    "vuex": "^4.0.2"
+    "vue3-cookies": "^1.0.6"
   },
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^3.3.0",

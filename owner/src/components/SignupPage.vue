@@ -3,12 +3,12 @@ import { useI18n } from 'vue-i18n';
 import Modal from 'df-shared/src/components/Modal.vue';
 import { ref } from 'vue';
 import { User } from 'df-shared/src/models/User';
-import { useStore } from 'vuex';
 import { useToast } from 'vue-toastification';
 import Register from './account/Register.vue';
+import useOwnerStore from '../store/owner-store';
 
 const { t } = useI18n();
-const store = useStore();
+const store = useOwnerStore();
 const toast = useToast();
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
@@ -22,7 +22,7 @@ function closeModal() {
 
 function onRegister(user: User) {
   if (user.email && user.password) {
-    store.dispatch('register', user).then(
+    store.register(user).then(
       () => {
         isValidModalVisible.value = true;
       },

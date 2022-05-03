@@ -9,19 +9,19 @@ import { User } from 'df-shared/src/models/User';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
-import { useStore } from 'vuex';
 import ChangePassword from 'df-shared/src/Authentification/ChangePassword.vue';
+import useOwnerStore from '../../store/owner-store';
 
 const route = useRoute();
 const router = useRouter();
-const store = useStore();
+const store = useOwnerStore();
 const toast = useToast();
 const { t } = useI18n();
 
 function onChangePassword(user: User) {
   const u = { ...user };
   u.token = route.params.token.toString();
-  store.dispatch('changePassword', u).then(
+  store.changePassword(u).then(
     () => {
       toast.success(t('password-update').toString(), {
         timeout: 7000,

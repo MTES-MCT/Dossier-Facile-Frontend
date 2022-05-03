@@ -3,19 +3,19 @@ import { User } from 'df-shared/src/models/User';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'vue-toastification';
-import { useStore } from 'vuex';
 import ForgottenPassword from 'df-shared/src/Authentification/ForgottenPassword.vue';
+import useOwnerStore from '../../store/owner-store';
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 const { t } = useI18n();
-const store = useStore();
+const store = useOwnerStore();
 const toast = useToast();
 
 const isValidModalVisible = ref(false);
 
 function onForgottenPassword(user: User) {
   if (user.email) {
-    store.dispatch('resetPassword', user).then(
+    store.resetPassword(user).then(
       () => {
         isValidModalVisible.value = true;
       },

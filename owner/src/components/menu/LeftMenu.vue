@@ -1,23 +1,23 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import ColoredTag from "df-shared/src/components/ColoredTag.vue";
-import { useStore } from 'vuex';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
+import useOwnerStore from '../../store/owner-store';
 
 const { t } = useI18n();
-const store = useStore();
+const store = useOwnerStore();
 const route = useRoute();
 
 function getName() {
-  return `${store.getters.getUser?.lastName} ${store.getters.getUser?.firstName}`;
+  return `${store.getUser?.lastName} ${store.getUser?.firstName}`;
 }
 
-const propertyName = computed(() => store.getters.getPropertyToEdit?.name);
+const propertyName = computed(() => store.getPropertyToEdit?.name);
 
-const typeStatus = computed(() => store.getters.getPropertyToEdit?.type ? 'FILLED' : 'TO_PROCESS');
-const rentStatus = computed(() => store.getters.getPropertyToEdit?.rentCost > 0 ? 'FILLED' : 'TO_PROCESS');
-const furnitureStatus = computed(() => store.getters.getPropertyToEdit?.furniture ? 'FILLED' : 'TO_PROCESS');
+const typeStatus = computed(() => (store.getPropertyToEdit?.type ? 'FILLED' : 'TO_PROCESS'));
+const rentStatus = computed(() => (store.getPropertyToEdit?.rentCost > 0 ? 'FILLED' : 'TO_PROCESS'));
+const furnitureStatus = computed(() => (store.getPropertyToEdit?.furniture ? 'FILLED' : 'TO_PROCESS'));
 
 const id = Number(route.params.id);
 const getParams = id ? { id } : {};

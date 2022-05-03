@@ -2,32 +2,32 @@
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import useOwnerStore from '../../store/owner-store';
 import PropertyPage from './PropertyPage.vue';
 
 const { t } = useI18n();
 
 const route = useRoute();
 const router = useRouter();
-const store = useStore();
+const store = useOwnerStore();
 
 const id = ref(0);
 if (route.params.id) {
   id.value = Number(route.params.id);
-  store.dispatch('updatePropertyToEdit', id.value);
+  store.updatePropertyToEdit(id.value);
 }
 
 const name = computed({
   get() {
-    return store.getters.getPropertyToEdit?.name;
+    return store.getPropertyToEdit?.name;
   },
   set(val: string) {
-    store.dispatch('setName', val);
+    store.setName(val);
   },
 });
 
 function onSubmit() {
-  store.dispatch('saveProperty').then((data) => {
+  store.saveProperty().then((data) => {
     router.push({ name: 'PropertyType', params: { id: data.id } });
   });
 }

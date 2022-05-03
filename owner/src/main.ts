@@ -5,8 +5,8 @@ import Toast from 'vue-toastification';
 import {
   defineRule,
 } from 'vee-validate';
+import { createPinia } from 'pinia';
 import App from './App.vue';
-import store from './store';
 import router from './router';
 import i18n from './i18n';
 import 'vue-toastification/dist/index.css';
@@ -62,7 +62,7 @@ keycloak.init({ onLoad: 'check-sso', checkLoginIframe: false }).then((auth) => {
   }
 
   const app = createApp(App);
-  app.use(store);
+  app.use(createPinia());
   app.use(router);
   app.use(i18n);
   app.use(Toast);

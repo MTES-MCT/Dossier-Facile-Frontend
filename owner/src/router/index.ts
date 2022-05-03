@@ -1,7 +1,7 @@
 import * as VueRouter from 'vue-router';
 import { useCookies } from 'vue3-cookies';
 import Dashboard from '../components/Dashboard.vue';
-import store from '../store';
+import useOwnerStore from '../store/owner-store';
 import keycloak from '../plugin/keycloak';
 
 const OWNER_URL = import.meta.env.VITE_OWNER_URL;
@@ -17,8 +17,9 @@ const routes = [
     },
     component: Dashboard,
     beforeEnter: async (_to: any, _from: any, next: any) => {
-      if (store.getters.isLoggedIn
-        && (!store.getters.getUser?.firstName || !store.getters.getUser?.lastName)) {
+      const store = useOwnerStore();
+      if (store.isLoggedIn
+        && (!store.getUser?.firstName || !store.getUser?.lastName)) {
         next({ name: 'AccountName' });
       }
       next();
@@ -166,19 +167,20 @@ function updateMetaData(to: VueRouter.RouteLocationNormalized) {
 }
 
 router.beforeEach(async (to, _, next) => {
-  if (to.matched.some((record) => record.meta.hideFooter)) {
-    store.dispatch('setHasFooter', true);
+  const store = useOwnerStore();
+  if (to.matched.some((record) => record.meta.hasFooter)) {
+    store.setHasFooter(true);
   } else {
-    store.dispatch('setHasFooter', false);
+    store.setHasFooter(false);
   }
 
   const { cookies } = useCookies();
   const lang = cookies.get('lang') === 'en' ? 'en' : 'fr';
-  store.dispatch('setLang', lang);
+  store.setLang(lang);
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (keycloak.authenticated) {
-      await store.dispatch('loadUser');
+      await store.loadUser();
     } else {
       keycloak.login({ redirectUri: OWNER_URL + to.fullPath });
     }

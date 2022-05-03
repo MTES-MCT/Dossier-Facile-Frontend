@@ -189,7 +189,6 @@
 import { computed, ref } from 'vue';
 import { Composer, useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
-import { useStore } from 'vuex';
 import NakedCard from 'df-shared/src/components/NakedCard.vue';
 import ConfirmModal from 'df-shared/src/components/ConfirmModal.vue';
 import VGouvFrModal from 'df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue';
@@ -200,13 +199,14 @@ import PropertyIcon from './PropertyIcon.vue';
 import i18n from '../../i18n';
 import Applicant from './Applicant';
 import UtilsService from '../../services/UtilsService';
+import useOwnerStore from '../../store/owner-store';
 
 const { t } = useI18n();
 const confirmDelete = ref(false);
 
 const route = useRoute();
 const router = useRouter();
-const store = useStore();
+const store = useOwnerStore();
 const toast = useToast();
 
 const sortColumn = ref('');
@@ -216,17 +216,17 @@ const tenantIdToShow = ref(-1);
 const id = ref(0);
 if (route.params.id) {
   id.value = Number(route.params.id);
-  store.dispatch('updatePropertyToConsult', id.value);
+  store.updatePropertyToConsult(id.value);
 }
 
 const TENANT_URL = `https://${import.meta.env.VITE_TENANT_URL}`;
 const token = computed(
-  () => `${TENANT_URL}/inscription-locataire/${store.getters.getPropertyToConsult?.token}`,
+  () => `${TENANT_URL}/inscription-locataire/${store.getPropertyToConsult?.token}`,
 );
-const name = computed(() => store.getters.getPropertyToConsult?.name);
-const p = store.getters.getPropertyToConsult;
-const propertyType = computed(() => store.getters.getPropertyToConsult?.type);
-const propertyFurnished = computed(() => store.getters.getPropertyToConsult?.furnished);
+const name = computed(() => store.getPropertyToConsult?.name);
+const p = store.getPropertyToConsult;
+const propertyType = computed(() => store.getPropertyToConsult?.type);
+const propertyFurnished = computed(() => store.getPropertyToConsult?.furniture);
 
 const titleKey = computed(() => {
   if (propertyType.value === 'HOUSE') {
@@ -273,7 +273,7 @@ function sortTable(col: string) {
 }
 
 function validDeleteFile() {
-  store.dispatch('deleteProperty', id.value).then(() => {
+  store.deleteProperty(id.value).then(() => {
     router.push({ name: 'Dashboard' });
   });
   confirmDelete.value = false;

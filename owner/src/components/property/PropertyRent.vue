@@ -2,47 +2,47 @@
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import useOwnerStore from '../../store/owner-store';
 import PropertyPage from './PropertyPage.vue';
 
 const { t } = useI18n();
 
 const route = useRoute();
 const router = useRouter();
-const store = useStore();
+const store = useOwnerStore();
 
 const id = ref(0);
 if (route.params.id) {
   id.value = Number(route.params.id);
-  store.dispatch('updatePropertyToEdit', Number(id.value));
+  store.updatePropertyToEdit(Number(id.value));
 }
 
 const rent = computed({
   get() {
-    return store.getters.getPropertyToEdit?.rentCost;
+    return store.getPropertyToEdit?.rentCost;
   },
   set(val: number) {
-    store.dispatch('setRent', val);
+    store.setRent(val);
   },
 });
 
 const charges = computed({
   get() {
-    return store.getters.getPropertyToEdit?.chargesCost;
+    return store.getPropertyToEdit?.chargesCost;
   },
   set(val: number) {
-    store.dispatch('setCharges', val);
+    store.setCharges(val);
   },
 });
 
 function onSubmit() {
-  store.dispatch('saveProperty').then(() => {
-    router.push({ name: 'ValidateProperty', params: { id: store.getters.getPropertyToEdit.id } });
+  store.saveProperty().then(() => {
+    router.push({ name: 'ValidateProperty', params: { id: store.getPropertyToEdit.id } });
   });
 }
 
 function onBack() {
-  router.push({ name: 'PropertyFurniture', params: { id: store.getters.getPropertyToEdit.id } });
+  router.push({ name: 'PropertyFurniture', params: { id: store.getPropertyToEdit.id } });
 }
 </script>
 

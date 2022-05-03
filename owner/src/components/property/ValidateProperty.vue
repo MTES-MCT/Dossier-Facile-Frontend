@@ -2,28 +2,27 @@
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
-import { useStore } from 'vuex';
 import { Field, ErrorMessage } from 'vee-validate';
 import PropertyPage from './PropertyPage.vue';
+import useOwnerStore from '../../store/owner-store';
 
 const { t } = useI18n();
 
 const route = useRoute();
 const router = useRouter();
-const store = useStore();
+const store = useOwnerStore();
 const authorize = ref(false);
 
 const id = ref(0);
 if (route.params.id) {
   id.value = Number(route.params.id);
-  store.dispatch('updatePropertyToEdit', Number(id.value)).then(() => {
-    authorize.value = store.getters.getPropertyToEdit.validated;
-  });
+  store.updatePropertyToEdit(Number(id.value));
+  authorize.value = store.getPropertyToEdit.validated;
 }
 
 async function onSubmit() {
-  await store.dispatch('setPropertyValidated', true);
-  store.dispatch('saveProperty').then(() => {
+  await store.setPropertyValidated(true);
+  store.saveProperty().then(() => {
     router.push({ name: 'Dashboard' });
   });
 }
@@ -31,7 +30,7 @@ async function onSubmit() {
 function onBack() {
   router.push({
     name: 'PropertyRent',
-    params: { id: store.getters.getPropertyToEdit.id },
+    params: { id: store.getPropertyToEdit.id },
   });
 }
 </script>

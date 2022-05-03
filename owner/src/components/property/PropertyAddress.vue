@@ -2,16 +2,16 @@
 import { computed, ref, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
-import { useStore } from 'vuex';
 import { Address } from 'df-shared/src/models/Address';
 import UtilsService from '../../services/UtilsService';
 import PropertyPage from './PropertyPage.vue';
+import useOwnerStore from '../../store/owner-store';
 
 const { t } = useI18n();
 
 const route = useRoute();
 const router = useRouter();
-const store = useStore();
+const store = useOwnerStore();
 const debounce = 300;
 
 const id = ref(0);
@@ -24,7 +24,7 @@ const addresses = ref<Array<Address>>([]);
 
 if (route.params.id) {
   id.value = Number(route.params.id);
-  store.dispatch('updatePropertyToEdit', Number(id.value));
+  store.updatePropertyToEdit(Number(id.value));
 }
 
 onMounted(() => {
@@ -33,18 +33,18 @@ onMounted(() => {
 
 const address = computed({
   get() {
-    return store.getters.getPropertyToEdit?.address;
+    return store.getPropertyToEdit?.address || '';
   },
-  set(val: number) {
-    store.dispatch('setAddress', val);
+  set(val: string) {
+    store.setAddress(val);
   },
 });
 
 function onSubmit() {
-  store.dispatch('saveProperty').then(() => {
+  store.saveProperty().then(() => {
     router.push({
       name: 'PropertyFurniture',
-      params: { id: store.getters.getPropertyToEdit.id },
+      params: { id: store.getPropertyToEdit.id },
     });
   });
 }
@@ -52,7 +52,7 @@ function onSubmit() {
 function onBack() {
   router.push({
     name: 'PropertyType',
-    params: { id: store.getters.getPropertyToEdit.id },
+    params: { id: store.getPropertyToEdit.id },
   });
 }
 
@@ -80,7 +80,7 @@ function handleInput(e: any) {
 }
 
 function clickItem(data: Address) {
-  store.dispatch('setAddress', data.properties.label);
+  store.setAddress(data.properties.label);
   showResults.value = false;
 }
 </script>

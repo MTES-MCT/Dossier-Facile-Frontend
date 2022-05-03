@@ -215,12 +215,12 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
+import { useI18n } from "vue-i18n";
 
-  const VUE_APP_MAIN_URL = `//${import.meta.env.VUE_APP_MAIN_URL}`;
-  const VUE_APP_DOCS_URL = `//${import.meta.env.VUE_APP_DOCS_URL}`;
+const VUE_APP_MAIN_URL = `//${import.meta.env.VUE_APP_MAIN_URL}`;
+const VUE_APP_DOCS_URL = `//${import.meta.env.VUE_APP_DOCS_URL}`;
 
-  const { t } = useI18n()
+const { t } = useI18n();
 </script>
 
 <style lang="scss" scoped>
@@ -271,6 +271,7 @@ import { useI18n } from 'vue-i18n'
 }
 
 .beta-logo {
+  background-image: none;
   padding: 1em;
 }
 </style>

@@ -1,41 +1,40 @@
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
-import { useStore } from "vuex";
-import { computed } from "vue";
-import NakedCard from "df-shared/src/components/NakedCard.vue";
-import Button from "df-shared/src/Button/Button.vue";
-import { useRouter } from "vue-router";
-import { Property } from "df-shared/src/models/Property";
-import PropertyIcon from "./property/PropertyIcon.vue";
-import UtilsService from "../services/UtilsService";
+import { useI18n } from 'vue-i18n';
+import { computed } from 'vue';
+import NakedCard from 'df-shared/src/components/NakedCard.vue';
+import Button from 'df-shared/src/Button/Button.vue';
+import { useRouter } from 'vue-router';
+import { Property } from 'df-shared/src/models/Property';
+import PropertyIcon from './property/PropertyIcon.vue';
+import UtilsService from '../services/UtilsService';
+import useOwnerStore from '../store/owner-store';
 
-const store = useStore();
+const store = useOwnerStore();
 const { t } = useI18n();
 const router = useRouter();
 
-const username = computed(() => store.getters.getUser?.firstName);
-const properties = computed(() => store.getters.getProperties);
+const username = computed(() => store.getUser?.firstName);
+const properties = computed(() => store.getProperties);
 
 function addProperty() {
-  store.dispatch("newProperty").then(() => {
-    router.push({ name: "PropertyName" });
-  });
+  store.newProperty();
+  router.push({ name: 'PropertyName' });
 }
 
 function consultProperty(id: number) {
-  router.push({ name: "ConsultProperty", params: { id } });
+  router.push({ name: 'ConsultProperty', params: { id } });
 }
 
 function editProperty(id: number) {
-  router.push({ name: "PropertyName", params: { id } });
+  router.push({ name: 'PropertyName', params: { id } });
 }
 
 function openProperty(p: Property) {
   if (p.validated) {
-    router.push({ name: "ConsultProperty", params: { id: p.id } });
+    router.push({ name: 'ConsultProperty', params: { id: p.id } });
     return;
   }
-  router.push({ name: "PropertyName", params: { id: p.id } });
+  router.push({ name: 'PropertyName', params: { id: p.id } });
 }
 
 function getApplicantsCount(p: Property) {

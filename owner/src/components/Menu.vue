@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useStore } from 'vuex';
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import DeleteAccount from './DeleteAccount.vue';
+import useOwnerStore from '../store/owner-store';
 
-const store = useStore();
-const isLoggedIn = computed(() => store.getters.isLoggedIn);
+const store = useOwnerStore();
+const isLoggedIn = computed(() => store.isLoggedIn);
 const route = useRoute();
 const { t } = useI18n();
 
