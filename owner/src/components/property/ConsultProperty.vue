@@ -147,7 +147,9 @@
                 <span>{{ tenant.tenantName }}</span>
               </td>
               <td>
-                <span>{{ t(tenant.tenantType || "") }}</span>
+                <span class="tenant-type" :class="getTenantClass(tenant)">{{
+                  t(tenant.tenantType || "")
+                }}</span>
               </td>
               <td>
                 <span>{{ tenant.tenantSalary }}</span>
@@ -392,15 +394,36 @@ tbody {
 td {
   border: none;
   height: 2.5rem;
-}
+  .validated:hover & {
+    border-top: 1px solid #447049;
+    border-bottom: 1px solid #447049;
+  }
+  .declined:hover & {
+    border-top: 1px solid #9c0400;
+    border-bottom: 1px solid #9c0400;
+  }
 
-td:first-child {
-  border-top-left-radius: 0.25rem;
-  border-bottom-left-radius: 0.25rem;
-}
-td:last-child {
-  border-top-right-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
+  &:first-child {
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+    .validated:hover & {
+      border-left: 1px solid #447049;
+    }
+    .declined:hover & {
+      border-left: 1px solid #9c0400;
+    }
+  }
+
+  &:last-child {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+    .validated:hover & {
+      border-right: 1px solid #447049;
+    }
+    .declined:hover & {
+      border-right: 1px solid #9c0400;
+    }
+  }
 }
 
 .arrow_down {
@@ -424,11 +447,12 @@ td:last-child {
 }
 
 .additional-td {
-  border: none;
+  border: none !important;
   background: var(--background-default-grey);
 }
 
 tr {
+  cursor: pointer;
   &.validated {
     background-color: #dffdf7;
   }
@@ -443,6 +467,19 @@ tr {
   color: #161616;
   padding: 0.125rem 0.5rem;
   border-radius: 2.5rem;
+}
+
+.tenant-type {
+  border: solid 0.5px #6a6af4;
+  border-radius: 1.125rem;
+  &.validated {
+    border: solid 0.5px #18753c;
+  }
+  &.declined {
+    border: solid 0.5px #cecece;
+  }
+  margin: 0.5rem 0.5px 0.4rem 0;
+  padding: 0.4rem 0.5rem;
 }
 </style>
 
