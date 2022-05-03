@@ -7,6 +7,7 @@ import Button from 'df-shared/src/Button/Button.vue';
 import { useRouter } from 'vue-router';
 import { Property } from 'df-shared/src/models/Property';
 import PropertyIcon from './property/PropertyIcon.vue';
+import UtilsService from '../services/UtilsService';
 
 const store = useStore();
 const { t } = useI18n();
@@ -35,6 +36,10 @@ function openProperty(p: Property) {
     return;
   }
   router.push({ name: 'PropertyName', params: { id: p.id } });
+}
+
+function getApplicantsCount(p: Property) {
+  return UtilsService.getTenants(p).length;
 }
 </script>
 
@@ -69,7 +74,7 @@ function openProperty(p: Property) {
           <td><PropertyIcon :type="p.type"></PropertyIcon></td>
           <td class="text--light-blue">{{ p.name }}</td>
           <td class="text--light-blue">{{ p.address }}</td>
-          <td>{{ p.applicant }}</td>
+          <td>{{ t('applicants', {count: getApplicantsCount(p)}) }}</td>
           <td class="text--light-blue">{{ p.rentCost }}</td>
           <td class="fr-pr-2w">
             <button
@@ -149,7 +154,16 @@ td:last-child {
   "en": {
     "title": "Welcome back, {name}",
     "my-properties": "My properties",
-    "add-property": "Add a property"
+    "add-property": "Add a property",
+    "type": "Type",
+    "name": "Name",
+    "address": "Address",
+    "applicant": "Applicant",
+    "rent": "Rent in €",
+    "consult": "Consult the property",
+    "edit": "To finish",
+    "edit-title": "Finish property edition",
+    "applicants": "{count} applicant(s)"
   },
   "fr": {
     "title": "Bon retour parmi nous, {name}",
@@ -162,7 +176,8 @@ td:last-child {
     "rent": "Loyer en €",
     "consult": "Consulter la propriété",
     "edit": "À finaliser",
-    "edit-title": "Finaliser l'édition de la propriété"
+    "edit-title": "Finaliser l'édition de la propriété",
+    "applicants": "{count} condidature(s)"
   }
 }
 </i18n>

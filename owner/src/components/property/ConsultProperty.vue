@@ -186,6 +186,7 @@ import { enUS, fr } from 'date-fns/locale';
 import PropertyIcon from './PropertyIcon.vue';
 import i18n from '../../i18n';
 import Applicant from './Applicant';
+import UtilsService from '../../services/UtilsService';
 
 const { t } = useI18n();
 const confirmDelete = ref(false);
@@ -238,37 +239,15 @@ function editProperty() {
 }
 
 function getTenants(): Applicant[] {
-  if (!p.propertiesApartmentSharing) {
-    return [];
-  }
-
-  return p.propertiesApartmentSharing
-    .map((pas: any) => {
-      const a = pas.apartmentSharing;
-      if (a !== undefined && a.tenants.length > 0) {
-        const rate = a.totalSalary >= 0 ? Math.round((p.rentCost / a.totalSalary) * 100) : '-';
-        return {
-          date: new Date(),
-          tenantName: `${a.tenants[0].lastName} ${a.tenants[0].firstName}`,
-          tenantType: a.applicationType,
-          tenantSalary: `${a.totalSalary} €`,
-          guarantorSalary: a.totalGuarantorSalary ? `${a.totalGuarantorSalary} €` : '-',
-          rate: `${rate} %`,
-          status: a.tenants[0].status,
-          token: a.token,
-        };
-      }
-      return {};
-    })
-    .sort((a: any, b: any) => {
-      if (a[sortColumn.value] < b[sortColumn.value]) {
-        return ascending.value ? 1 : -1;
-      }
-      if (a[sortColumn.value] > b[sortColumn.value]) {
-        return ascending.value ? -1 : 1;
-      }
-      return 0;
-    });
+  return UtilsService.getTenants(p).sort((a: any, b: any) => {
+    if (a[sortColumn.value] < b[sortColumn.value]) {
+      return ascending.value ? 1 : -1;
+    }
+    if (a[sortColumn.value] > b[sortColumn.value]) {
+      return ascending.value ? -1 : 1;
+    }
+    return 0;
+  });
 }
 
 function sortTable(col: string) {

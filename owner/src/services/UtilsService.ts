@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { Property } from 'df-shared/src/models/Property';
+import Applicant from '../components/property/Applicant';
 
 const API_URL = `${import.meta.env.VITE_OWNER_API_URL}/api/`;
 
@@ -13,6 +15,35 @@ const UtilsService = {
   getAddresses(label: string) {
     return axios.get(`${API_URL}property/listAddresses/${label}`);
   },
+  getTenants(p: Property): Applicant[] {
+    if (!p.propertiesApartmentSharing) {
+      return [];
+    }
+
+    return p.propertiesApartmentSharing
+      .map((pas: any) => {
+        const a = pas.apartmentSharing;
+        if (a !== undefined && a.tenants.length > 0) {
+          const rate = a.totalSalary >= 0
+            ? Math.round((p.rentCost / a.totalSalary) * 100)
+            : '-';
+          return {
+            date: new Date(),
+            tenantName: `${a.tenants[0].lastName} ${a.tenants[0].firstName}`,
+            tenantType: a.applicationType,
+            tenantSalary: `${a.totalSalary} €`,
+            guarantorSalary: a.totalGuarantorSalary
+              ? `${a.totalGuarantorSalary} €`
+              : '-',
+            rate: `${rate} %`,
+            status: a.tenants[0].status,
+            token: a.token,
+          };
+        }
+        return {};
+      });
+  },
+
 };
 
 export default UtilsService;

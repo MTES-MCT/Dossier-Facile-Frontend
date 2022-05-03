@@ -11,4 +11,5 @@ export class Property {
   type?: string;
   furniture?: string;
   address?: string;
+  propertiesApartmentSharing: any;
 }
