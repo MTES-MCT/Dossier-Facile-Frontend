@@ -44,22 +44,8 @@ function onBack() {
 <template>
   <PropertyPage @on-back="onBack" @submit="onSubmit">
     <h1 class="fr-h4">{{ t("type-title") }}</h1>
-    <p>{{ t("type-subtitle") }}</p>
-    <p>
-      <Field
-        name="type"
-        id="type-house"
-        type="radio"
-        v-model="type"
-        rules="hasValue"
-        :value="'HOUSE'"
-      />
-      <label
-        :class="{ selected: type === 'HOUSE' }"
-        class="fr-label inline-block label"
-        for="type-house"
-        >{{ t("house") }}</label
-      >
+    <p class="fr-mb-7w">{{ t("type-subtitle") }}</p>
+    <div>
       <Field
         name="type"
         id="type-apartment"
@@ -72,8 +58,34 @@ function onBack() {
         :class="{ selected: type === 'APARTMENT' }"
         class="fr-label inline-block label"
         for="type-apartment"
-        >{{ t("apartment") }}</label
       >
+        <div class="fr-grid-col">
+          <div class="icon-container">
+            <div class="material-icons md-36 icon-color">apartment</div>
+          </div>
+          <div class="fr-mb-5w">{{ t("apartment") }}</div>
+        </div>
+      </label>
+      <Field
+        name="type"
+        id="type-house"
+        type="radio"
+        v-model="type"
+        rules="hasValue"
+        :value="'HOUSE'"
+      />
+      <label
+        :class="{ selected: type === 'HOUSE' }"
+        class="fr-label inline-block label"
+        for="type-house"
+      >
+        <div class="fr-grid-col">
+          <div class="icon-container">
+            <div class="material-icons md-36 icon-color">home</div>
+          </div>
+          <div class="fr-mb-5w">{{ t("house") }}</div>
+        </div>
+      </label>
       <Field
         name="type"
         id="type-other"
@@ -86,22 +98,25 @@ function onBack() {
         :class="{ selected: type === 'OTHER' }"
         class="fr-label inline-block label"
         for="type-other"
-        >{{ t("other") }}</label
       >
+        <div class="fr-grid-col">
+          <div class="icon-container">
+            <div class="material-icons md-36 icon-color">domain</div>
+          </div>
+          <div class="fr-mb-5w">{{ t("other") }}</div>
+        </div>
+      </label>
       <ErrorMessage class="fr-error-text" name="type" />
-    </p>
+    </div>
   </PropertyPage>
 </template>
 
 <style scoped lang="scss">
 .label {
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-  margin-right: 0.5rem;
   font-size: 14px;
   line-height: 24px;
   cursor: pointer;
-  border: solid 1px var(--primary);
+  border: solid 1px #e5e5e5;
   border-radius: 0.5rem;
   text-align: center;
   background-color: var(--background-default-grey);
@@ -115,11 +130,11 @@ function onBack() {
 
   &:hover {
     background-color: var(--primary);
-    color: white;
+    color: #4c4ce2;
     box-shadow: 0 0 0.666em rgba(0, 0, 0, 0.25);
     @media all and (min-width: 767px) {
       background-color: var(--bf200-bf300);
-      color: var(--g800);
+      color: #4c4ce2;
     }
     border: solid 1px var(--primary);
   }
@@ -129,14 +144,44 @@ function onBack() {
     color: white;
     @media all and (min-width: 767px) {
       background-color: var(--bf200-bf300);
-      color: var(--g800);
+      color: #4c4ce2;
     }
-    border: solid 1px var(--primary);
+    border: solid 1px #0063cb;
+    --background-color: #4c4ce2;
+    --icon-color: white;
+  }
+
+  --icon-color: #4c4ce2;
+  --background-color: white;
+  color: #4c4ce2;
+  background-color: white;
+  &:hover {
+    --icon-color: white;
+    --background-color: #4c4ce2;
   }
 }
 
 input[type="radio"] {
   visibility: hidden;
+}
+
+.icon-container {
+  margin-top: 2rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-bottom: 1.5rem;
+  width: 6rem;
+  height: 5rem;
+  border-radius: 0.5rem;
+  border: solid 1px #6a6af4;
+  background-color: var(--background-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-color {
+  color: var(--icon-color);
 }
 </style>
 
@@ -152,8 +197,8 @@ input[type="radio"] {
   "fr": {
     "type-title": "Type de logement",
     "type-subtitle": "Quel logement proposez-vous à la location ?",
-    "house": "Maison",
-    "apartment": "Appartement",
+    "house": "Une maison",
+    "apartment": "Un appartement",
     "other": "Autres"
   }
 }
