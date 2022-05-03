@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n';
-import { useStore } from 'vuex';
-import { computed } from 'vue';
-import NakedCard from 'df-shared/src/components/NakedCard.vue';
-import Button from 'df-shared/src/Button/Button.vue';
-import { useRouter } from 'vue-router';
-import { Property } from 'df-shared/src/models/Property';
-import PropertyIcon from './property/PropertyIcon.vue';
-import UtilsService from '../services/UtilsService';
+import { useI18n } from "vue-i18n";
+import { useStore } from "vuex";
+import { computed } from "vue";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
+import Button from "df-shared/src/Button/Button.vue";
+import { useRouter } from "vue-router";
+import { Property } from "df-shared/src/models/Property";
+import PropertyIcon from "./property/PropertyIcon.vue";
+import UtilsService from "../services/UtilsService";
 
 const store = useStore();
 const { t } = useI18n();
@@ -17,25 +17,25 @@ const username = computed(() => store.getters.getUser?.firstName);
 const properties = computed(() => store.getters.getProperties);
 
 function addProperty() {
-  store.dispatch('newProperty').then(() => {
-    router.push({ name: 'PropertyName' });
+  store.dispatch("newProperty").then(() => {
+    router.push({ name: "PropertyName" });
   });
 }
 
 function consultProperty(id: number) {
-  router.push({ name: 'ConsultProperty', params: { id } });
+  router.push({ name: "ConsultProperty", params: { id } });
 }
 
 function editProperty(id: number) {
-  router.push({ name: 'PropertyName', params: { id } });
+  router.push({ name: "PropertyName", params: { id } });
 }
 
 function openProperty(p: Property) {
   if (p.validated) {
-    router.push({ name: 'ConsultProperty', params: { id: p.id } });
+    router.push({ name: "ConsultProperty", params: { id: p.id } });
     return;
   }
-  router.push({ name: 'PropertyName', params: { id: p.id } });
+  router.push({ name: "PropertyName", params: { id: p.id } });
 }
 
 function getApplicantsCount(p: Property) {
@@ -74,8 +74,10 @@ function getApplicantsCount(p: Property) {
           <td><PropertyIcon :type="p.type"></PropertyIcon></td>
           <td class="text--light-blue">{{ p.name }}</td>
           <td class="text--light-blue">{{ p.address }}</td>
-          <td>{{ t('applicants', {count: getApplicantsCount(p)}) }}</td>
-          <td class="text--light-blue">{{ p.rentCost }}</td>
+          <td>{{ t("applicants", { count: getApplicantsCount(p) }) }}</td>
+          <td class="text--light-blue">
+            {{ t("rent-cost", { rent: p.rentCost, charges: p.chargesCost }) }}
+          </td>
           <td class="fr-pr-2w">
             <button
               class="consult-icon"
@@ -163,7 +165,8 @@ td:last-child {
     "consult": "Consult the property",
     "edit": "To finish",
     "edit-title": "Finish property edition",
-    "applicants": "{count} applicant(s)"
+    "applicants": "{count} applicant(s)",
+    "rent-cost": "{rent}€ + {charges}€"
   },
   "fr": {
     "title": "Bon retour parmi nous, {name}",
@@ -177,7 +180,8 @@ td:last-child {
     "consult": "Consulter la propriété",
     "edit": "À finaliser",
     "edit-title": "Finaliser l'édition de la propriété",
-    "applicants": "{count} condidature(s)"
+    "applicants": "{count} condidature(s)",
+    "rent-cost": "{rent}€ + {charges}€"
   }
 }
 </i18n>
