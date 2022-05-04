@@ -1,13 +1,21 @@
 <template>
   <ul class="fr-nav__list">
     <li class="fr-nav__item">
-      <a :href="`${MAIN_URL}/information`" class="fr-nav__link">
+      <a
+        :href="`${MAIN_URL}/information`"
+        class="fr-nav__link"
+        :aria-current="currentPage() === 'Information' ? 'page' : false"
+      >
         {{ $t("information") }}
       </a>
     </li>
 
     <li class="fr-nav__item">
-      <a :href="`${MAIN_URL}/blog`" class="fr-nav__link">
+      <a
+        :href="`${MAIN_URL}/blog`"
+        class="fr-nav__link"
+        :aria-current="currentPage() === 'Blog' ? 'page' : false"
+      >
         {{ $t("blog") }}
       </a>
     </li>
@@ -24,11 +32,12 @@
     <li class="fr-nav__item">
       <a
         :href="`${MAIN_URL}/contact`"
+        :aria-current="currentPage() === 'Contact' ? 'page' : false"
         class="fr-nav__link tag-container"
         target="_blank"
         rel="noreferrer"
       >
-        <div class="fr-tag blue">
+        <div class="fr-tag">
           <span class="material-icons" aria-hidden="true">mail_outline</span>
           {{ $t("contact-us") }}
         </div>
@@ -102,8 +111,20 @@ export default class Menu extends Vue {
   position: relative;
 
   .tag-container {
-    padding-top: 0.75rem;
-    padding-bottom: 0.4rem;
+    @media all and (min-width: 768px) {
+      padding-top: 0.75rem;
+      padding-bottom: 0.4rem;
+    }
+    .fr-tag {
+      color: var(--text-action-high-blue-france);
+      @media all and (max-width: 768px) {
+        min-height: inherit;
+        padding: 0;
+        background-color: transparent;
+        color: inherit;
+        font-size: inherit;
+      }
+    }
   }
   .fr-external-link {
     color: var(--text-action-high-blue-france);
@@ -127,6 +148,9 @@ export default class Menu extends Vue {
 }
 span.material-icons,
 span.material-icons-outlined {
+  @media all and (max-width: 768px) {
+    display: none;
+  }
   padding-right: 0.25rem;
 }
 fr-breadcrumb {
@@ -146,7 +170,7 @@ fr-breadcrumb {
 "help": "Aide",
 "blog": "Blog",
 "information": "Qui sommes-nous?",
-"contact-us": "Contactez-nous"
+"contact-us": "Nous contacter"
 }
 }
 </i18n>

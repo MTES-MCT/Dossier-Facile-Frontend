@@ -41,15 +41,16 @@
               <ul class="fr-links-group">
                 <li v-if="loggedIn">
                   <v-gouv-fr-button
-                    :label="$t('logout')"
                     :small="true"
-                    :secondary="true"
+                    :secondary="false"
                     @click="onLogout"
-                  ></v-gouv-fr-button>
+                    ><span class="material-icons-outlined" aria-hidden="true">
+                      account_circle </span
+                    >{{ $t("logout") }}
+                  </v-gouv-fr-button>
                 </li>
                 <li v-if="!loggedIn">
                   <DfButton
-                    class="fr-ml-3"
                     primary="true"
                     size="small"
                     @on-click="onCreateTenant"
@@ -61,11 +62,7 @@
                   </DfButton>
                 </li>
                 <li v-if="!loggedIn">
-                  <DfButton
-                    class="fr-ml-3"
-                    size="small"
-                    @on-click="onCreateOwner"
-                  >
+                  <DfButton size="small" @on-click="onCreateOwner">
                     <span class="material-icons" aria-hidden="true"
                       >apartment</span
                     >
@@ -73,9 +70,9 @@
                   </DfButton>
                 </li>
                 <li v-if="!loggedIn">
-                  <DfButton class="fr-ml-3" size="small">
+                  <DfButton size="small">
                     <a
-                      class="fr-ml-3 fr-external-link"
+                      class="fr-external-link"
                       href="https://partenaire.dossierfacile.fr"
                       target="_blank"
                       rel="noreferrer"
@@ -102,11 +99,13 @@
           <ul class="fr-links-group">
             <li v-if="loggedIn">
               <v-gouv-fr-button
-                :label="$t('logout')"
                 :small="true"
-                :secondary="true"
+                :secondary="false"
                 @click="onLogout"
-              ></v-gouv-fr-button>
+                ><span class="material-icons-outlined" aria-hidden="true">
+                  account_circle </span
+                >{{ $t("logout") }}
+              </v-gouv-fr-button>
             </li>
             <li v-if="!loggedIn">
               <DfButton
@@ -126,6 +125,20 @@
               <DfButton size="small" class="fr-ml-3" @on-click="onCreateOwner">
                 <span class="material-icons" aria-hidden="true">apartment</span>
                 {{ $t("owner") }}
+              </DfButton>
+            </li>
+            <li v-if="!loggedIn">
+              <DfButton size="small">
+                <a
+                  class="fr-external-link"
+                  href="https://partenaire.dossierfacile.fr"
+                  target="_blank"
+                  rel="noreferrer"
+                  :title="$t('partner-link-title')"
+                >
+                  <span class="material-icons" aria-hidden="true"> </span>
+                  {{ $t("partner") }}
+                </a>
               </DfButton>
             </li>
           </ul>
@@ -175,10 +188,8 @@ export default class MyHeader extends Vue {
 
 <style lang="scss" scoped>
 .logo {
-  height: 50px;
-  width: 312px;
-  max-height: 50px;
-  max-width: calc(100% - 20px);
+  width: 290px;
+  max-width: 290px;
 }
 
 .fr-btn--secondary {
@@ -203,14 +214,29 @@ li {
 span.material-icons,
 span.material-icons-outlined {
   padding-right: 0.25rem;
+  min-width: 24px;
 }
-.fr-links-group > li:nth-last-child(2) {
-  border-left: 1px;
-  border-left-style: solid;
-}
-.fr-links-group > li:last-child {
-  border-left: 1px;
-  border-left-style: solid;
+
+.fr-header {
+  .fr-links-group {
+    li {
+      margin-right: 0;
+      margin-left: 0;
+      .fr-btn {
+        margin-right: 0;
+      }
+    }
+    & > li:last-child,
+    li:nth-last-child(2) {
+      @media all and (min-width: 768px) {
+        border-left: 1px;
+        border-left-style: solid;
+      }
+    }
+    & > li:first-child {
+      border-left-style: none !important;
+    }
+  }
 }
 </style>
 

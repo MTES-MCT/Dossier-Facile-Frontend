@@ -158,6 +158,15 @@
                   >instagram</a
                 >
               </li>
+              <li>
+                <a
+                  class="fr-btn--tiktok fr-btn"
+                  title="tiktok - ouvre une nouvelle fenêtre"
+                  href="https://www.tiktok.com/@dossierfacile/"
+                  target="_blank"
+                  >tiktok</a
+                >
+              </li>
             </ul>
           </li>
         </ul>
@@ -198,10 +207,14 @@ ul.fr-follow {
   height: auto;
   width: auto;
   .fr-btn {
-    background-color: grey;
-    color: white;
+    background-color: white;
+    color: grey;
     max-width: 1.5rem;
     vertical-align: middle;
+    visibility: hidden;
+    &:before {
+      visibility: visible;
+    }
   }
   li {
     padding: 0 0.25rem 0 0.25rem;
@@ -213,6 +226,18 @@ ul.fr-follow {
 }
 .fr-footer__brand-link {
   background-image: none;
+}
+.fr-follow a.fr-btn--tiktok:before {
+  content: "";
+  mask-image: url(../../../node_modules/@gouvfr/dsfr/dist/icons/logo/fr--tiktok-fill.svg);
+  --icon-size: 1.5rem;
+  background-color: currentColor;
+  display: inline-block;
+  flex: 0 0 auto;
+  height: var(--icon-size);
+  mask-size: 100% 100%;
+  vertical-align: middle;
+  width: var(--icon-size);
 }
 </style>
 
