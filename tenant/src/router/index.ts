@@ -303,6 +303,16 @@ const routes: Array<RouteConfig> = [
     }
   },
   {
+    path: "/contact",
+    name: "Contact",
+    meta: {
+      title: "Contact - DossierFacile",
+      requiresAuth: false
+    },
+    component: () =>
+      import(/* webpackChunkName: "contact" */ "../views/Contact.vue")
+  },
+  {
     path: "*",
     name: "404",
     meta: {
