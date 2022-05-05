@@ -70,7 +70,7 @@ function getApplicantsCount(p: Property) {
           :key="p.name"
           @click="openProperty(p)"
         >
-          <td><PropertyIcon :type="p.type"></PropertyIcon></td>
+          <td><PropertyIcon :type="p.type || ''"></PropertyIcon></td>
           <td class="text--light-blue">{{ p.name }}</td>
           <td class="text--light-blue">{{ p.address }}</td>
           <td>{{ t("applicants", { count: getApplicantsCount(p) }) }}</td>
