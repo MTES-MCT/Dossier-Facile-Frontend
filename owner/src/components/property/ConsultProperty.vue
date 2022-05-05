@@ -61,7 +61,7 @@
       </div>
       <NakedCard class="h-100">
         <div class="fr-grid-row align-items--center">
-          <PropertyIcon :type="propertyType"></PropertyIcon>
+          <PropertyIcon :type="propertyType || ''"></PropertyIcon>
           <span
             v-html="
               `${t(titleKey)} ${t('rent', {

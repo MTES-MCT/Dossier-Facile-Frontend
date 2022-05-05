@@ -20,7 +20,7 @@ if (route.params.id) {
 
 const furniture = computed({
   get() {
-    return store.getPropertyToEdit?.furniture;
+    return store.getPropertyToEdit?.furniture || '';
   },
   set(val: string) {
     store.setFurniture(val);
