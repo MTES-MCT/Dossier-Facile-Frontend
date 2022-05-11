@@ -28,60 +28,59 @@
                 <p class="fr-header__service-title">
                   <img
                     class="logo"
-                    src="./logo_dossierfacile.webp"
+                    src="./logo_dossierfacile.svg"
                     alt="Dossier Facile"
                   />
                 </p>
               </a>
-              <p class="fr-header__service-tagline">
-                DossierFacile, le dossier de location numérique de l’État
-              </p>
             </div>
           </div>
 
           <div class="fr-header__tools">
             <div class="fr-header__tools-links">
               <ul class="fr-links-group">
-                <li v-if="showAccessibility">
-                  <a
-                    class="fr-link fr-fi-eye-line"
-                    :href="`${MAIN_URL}/accessibilite`"
-                    target="_blank"
-                    :title="$t('accessibility-link')"
-                    >{{ $t("accessibility") }}</a
-                  >
-                </li>
                 <li v-if="loggedIn">
                   <v-gouv-fr-button
-                    :label="$t('logout')"
                     :small="true"
-                    :secondary="true"
+                    :secondary="false"
                     @click="onLogout"
-                  ></v-gouv-fr-button>
+                    ><span class="material-icons-outlined" aria-hidden="true">
+                      account_circle </span
+                    >{{ $t("logout") }}
+                  </v-gouv-fr-button>
                 </li>
                 <li v-if="!loggedIn">
                   <DfButton
-                    class="fr-ml-3"
                     primary="true"
                     size="small"
                     @on-click="onCreateTenant"
                   >
+                    <span class="material-icons-outlined" aria-hidden="true">
+                      account_circle
+                    </span>
                     {{ $t("signup") }}
                   </DfButton>
                 </li>
                 <li v-if="!loggedIn">
                   <DfButton size="small" @on-click="onCreateOwner">
+                    <span class="material-icons" aria-hidden="true"
+                      >apartment</span
+                    >
                     {{ $t("owner") }}
                   </DfButton>
                 </li>
-                <li>
-                  <button
-                    class="fr-btn fr-ml-3 fr-btn--secondary fr-btn--sm lang"
-                    @click="changeLang"
-                  >
-                    <span :class="{ underline: lang === 'fr' }">FR</span> |
-                    <span :class="{ underline: lang === 'en' }">EN</span>
-                  </button>
+                <li v-if="!loggedIn">
+                  <DfButton size="small">
+                    <a
+                      class="fr-external-link"
+                      href="https://partenaire.dossierfacile.fr"
+                      target="_blank"
+                      rel="noreferrer"
+                      :title="$t('partner-link-title')"
+                    >
+                      {{ $t("partner") }}
+                    </a>
+                  </DfButton>
                 </li>
               </ul>
             </div>
@@ -98,22 +97,15 @@
         <div class="fr-header__menu-links" style="display: none"></div>
         <div class="fr-header__menu-links-hack">
           <ul class="fr-links-group">
-            <li v-if="showAccessibility">
-              <a
-                class="fr-link fr-fi-eye-line"
-                :href="`${MAIN_URL}/accessibilite`"
-                target="_blank"
-                :title="$t('accessibility-link')"
-                >{{ $t("accessibility") }}</a
-              >
-            </li>
             <li v-if="loggedIn">
               <v-gouv-fr-button
-                :label="$t('logout')"
                 :small="true"
-                :secondary="true"
+                :secondary="false"
                 @click="onLogout"
-              ></v-gouv-fr-button>
+                ><span class="material-icons-outlined" aria-hidden="true">
+                  account_circle </span
+                >{{ $t("logout") }}
+              </v-gouv-fr-button>
             </li>
             <li v-if="!loggedIn">
               <DfButton
@@ -122,22 +114,32 @@
                 size="small"
                 @on-click="onCreateTenant"
               >
+                <span class="material-icons-outlined" aria-hidden="true">
+                  account_circle
+                </span>
                 {{ $t("signup") }}
               </DfButton>
             </li>
+
             <li v-if="!loggedIn">
-              <DfButton size="small" @on-click="onCreateOwner">
+              <DfButton size="small" class="fr-ml-3" @on-click="onCreateOwner">
+                <span class="material-icons" aria-hidden="true">apartment</span>
                 {{ $t("owner") }}
               </DfButton>
             </li>
-            <li>
-              <button
-                class="fr-btn fr-ml-3 fr-btn--secondary fr-btn--sm lang"
-                @click="changeLang"
-              >
-                <span :class="{ underline: lang === 'fr' }">FR</span> |
-                <span :class="{ underline: lang === 'en' }">EN</span>
-              </button>
+            <li v-if="!loggedIn">
+              <DfButton size="small">
+                <a
+                  class="fr-external-link"
+                  href="https://partenaire.dossierfacile.fr"
+                  target="_blank"
+                  rel="noreferrer"
+                  :title="$t('partner-link-title')"
+                >
+                  <span class="material-icons" aria-hidden="true"> </span>
+                  {{ $t("partner") }}
+                </a>
+              </DfButton>
             </li>
           </ul>
         </div>
@@ -169,7 +171,6 @@ export default class MyHeader extends Vue {
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
   @Prop({ default: false }) loggedIn?: boolean;
   @Prop({ default: "fr" }) lang?: string;
-  @Prop({ default: false }) showAccessibility?: string;
 
   onCreateTenant() {
     this.$emit("on-create-tenant");
@@ -182,22 +183,16 @@ export default class MyHeader extends Vue {
   onCreateOwner() {
     this.$emit("on-create-owner");
   }
-
-  changeLang() {
-    this.$emit("on-change-lang");
-  }
 }
 </script>
 
 <style lang="scss" scoped>
 .logo {
-  height: 50px;
-  width: 312px;
-  max-height: 50px;
-  max-width: calc(100% - 20px);
+  width: 290px;
+  max-width: 290px;
 }
 
-.lang {
+.fr-btn--secondary {
   box-shadow: none;
 }
 
@@ -216,23 +211,50 @@ li {
     display: none;
   }
 }
+span.material-icons,
+span.material-icons-outlined {
+  padding-right: 0.25rem;
+  min-width: 24px;
+}
+
+.fr-header {
+  .fr-links-group {
+    li {
+      margin-right: 0;
+      margin-left: 0;
+      .fr-btn {
+        margin-right: 0;
+      }
+    }
+    & > li:last-child,
+    li:nth-last-child(2) {
+      @media all and (min-width: 768px) {
+        border-left: 1px;
+        border-left-style: solid;
+      }
+    }
+    & > li:first-child {
+      border-left-style: none !important;
+    }
+  }
+}
 </style>
 
 <i18n>
 {
   "en": {
     "logout": "Logout",
-    "signup": "Sign up",
+    "signup": "Sign-in",
     "owner": "Owner area",
-    "accessibility": "Accessibility: not compliant",
-    "accessibility-link": "Accessibility - new window"
+    "partner": "Become partner",
+    "partner-link-title": "Become partner (New Window)"
   },
   "fr": {
     "logout": "Se déconnecter",
-    "signup": "Mon dossier",
+    "signup": "Se connecter",
     "owner": "Espace propriétaire",
-    "accessibility": "Accessibilité: non conforme",
-    "accessibility-link": "Déclaration d'accessibilité - nouvelle fenêtre"
+    "partner": "Devenir partenaire",
+    "partner-link-title": "Devenir partenaire (Nouvelle fenêtre)"
   }
 }
 </i18n>

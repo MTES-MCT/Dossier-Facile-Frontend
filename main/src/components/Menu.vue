@@ -1,17 +1,21 @@
 <template>
   <ul class="fr-nav__list">
-    <li class="fr-nav__item" v-if="isLoggedIn">
+    <li class="fr-nav__item">
       <a
-        href="/messaging"
+        :href="`${MAIN_URL}/information`"
         class="fr-nav__link"
-        :aria-current="currentPage() === 'Messages' ? 'page' : false"
+        :aria-current="currentPage() === 'Information' ? 'page' : false"
       >
-        {{ $t("messaging") }}
-        <span v-if="newMessage > 0" class="badge">{{ newMessage }}</span>
+        {{ $t("information") }}
       </a>
     </li>
+
     <li class="fr-nav__item">
-      <a :href="`${MAIN_URL}/blog`" class="fr-nav__link">
+      <a
+        :href="`${MAIN_URL}/blog`"
+        class="fr-nav__link"
+        :aria-current="currentPage() === 'Blog' ? 'page' : false"
+      >
         {{ $t("blog") }}
       </a>
     </li>
@@ -25,51 +29,15 @@
         {{ $t("help") }}
       </a>
     </li>
-    <li class="fr-nav__item break" v-show="isLoggedIn">
-      <button
-        class="fr-nav__btn"
-        aria-expanded="false"
-        aria-controls="menu-774"
-        :aria-current="currentPage() === 'Account' ? true : false"
-      >
-        {{ $t("account") }}
-      </button>
-      <div class="fr-collapse fr-menu" id="menu-774">
-        <ul class="fr-menu__list">
-          <li>
-            <a
-              class="fr-nav__link"
-              href="/account"
-              target="_self"
-              :aria-current="currentPage() === 'Account' ? 'page' : false"
-              >{{ $t("file") }}</a
-            >
-          </li>
-          <li class="warn">
-            <a
-              class="fr-nav__link"
-              href="#"
-              @click="isDeleteModalVisible = true"
-              target="_self"
-            >
-              {{ $t("deleteAccount") }}
-            </a>
-            <DeleteAccount
-              v-model="isDeleteModalVisible"
-              v-show="isDeleteModalVisible"
-            ></DeleteAccount>
-          </li>
-        </ul>
-      </div>
-    </li>
-    <li class="fr-nav__item" :class="{ break: !isLoggedIn }">
+    <li class="fr-nav__item">
       <a
-        :href="`/contact`"
+        :href="`${MAIN_URL}/contact`"
+        :aria-current="currentPage() === 'Contact' ? 'page' : false"
         class="fr-nav__link tag-container"
         target="_blank"
         rel="noreferrer"
       >
-        <div class="fr-tag blue">
+        <div class="fr-tag">
           <span class="material-icons" aria-hidden="true">mail_outline</span>
           {{ $t("contact-us") }}
         </div>
@@ -90,23 +58,17 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import DeleteAccount from "./DeleteAccount.vue";
 import i18n from "../i18n";
 
 @Component({
-  components: {
-    DeleteAccount
-  },
   computed: {
     ...mapGetters({
-      newMessage: "newMessage",
       isLoggedIn: "isLoggedIn"
     })
   }
 })
 export default class Menu extends Vue {
   isLoggedIn?: boolean;
-  newMessage!: number;
   isDeleteModalVisible = false;
 
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
@@ -172,7 +134,7 @@ export default class Menu extends Vue {
   }
 }
 
-.fr-nav__list > li.break {
+.fr-nav__list > li:nth-last-child(2) {
   @media all and (min-width: 992px) {
     margin-left: auto;
   }
@@ -200,24 +162,15 @@ fr-breadcrumb {
 {
 "en": {
 "help": "Help",
-"account": "Account",
-"file": "File",
-"messaging": "Messaging",
-"faq": "Help",
 "blog": "Blog",
 "information": "Information",
-"contact-us": "contact us",
-"deleteAccount": "Delete my account"
+"contact-us": "contact us"
 },
 "fr": {
 "help": "Aide",
-"file": "Mon dossier",
-"account": "Mon compte",
-"messaging": "Messagerie",
 "blog": "Blog",
 "information": "Qui sommes-nous?",
-"contact-us": "Nous contacter",
-"deleteAccount": "Supprimer mon compte"
+"contact-us": "Nous contacter"
 }
 }
 </i18n>
