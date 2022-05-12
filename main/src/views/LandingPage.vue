@@ -338,6 +338,13 @@
             name="omnirea"
             width="172px"
           />
+          <LogoPartnerComponent
+            :image="require('../assets/logos/emjysoft_gestion_locative.webp')"
+            height="60px"
+            href="https://www.emjysoft.com/logiciel-gestion-locative/"
+            name="emjysoft - gestion locative"
+            width="162px"
+          />
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
