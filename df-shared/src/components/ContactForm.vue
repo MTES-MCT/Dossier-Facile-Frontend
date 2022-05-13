@@ -418,7 +418,7 @@ fieldset.fr-radio-group-container {
   padding-top: 0 !important;
 }
 .mail-success-container:before {
-  content: url("../assets/enveloppe.webp");;
+  content: url("../assets/enveloppe.webp");
   text-align: center;
   position: relative;
   margin: 0;

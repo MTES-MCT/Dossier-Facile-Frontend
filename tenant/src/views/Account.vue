@@ -251,7 +251,7 @@
                     rel="noreferrer"
                   >
                     <img
-                      src="https://voxusagers.numerique.gouv.fr/static/bouton-bleu.svg"
+                      :src="require('../assets/button-je-donne-mon-avis.svg')"
                       alt="Je donne mon avis"
                       title="Je donne mon avis sur cette démarche"
                       class="align--center"
