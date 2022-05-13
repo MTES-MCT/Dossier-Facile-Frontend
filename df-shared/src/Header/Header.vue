@@ -42,7 +42,7 @@
                 <li v-if="loggedIn">
                   <v-gouv-fr-button
                     :small="true"
-                    :secondary="false"
+                    :primary="false"
                     @click="onLogout"
                     ><span class="material-icons-outlined" aria-hidden="true">
                       account_circle </span
@@ -98,19 +98,20 @@
         <div class="fr-header__menu-links-hack">
           <ul class="fr-links-group">
             <li v-if="loggedIn">
-              <v-gouv-fr-button
-                :small="true"
-                :secondary="false"
+              <DfButton
+                class="fr-ml-3"
+                :primary="false"
+                size="small"
                 @click="onLogout"
                 ><span class="material-icons-outlined" aria-hidden="true">
                   account_circle </span
                 >{{ $t("logout") }}
-              </v-gouv-fr-button>
+              </DfButton>
             </li>
             <li v-if="!loggedIn">
               <DfButton
                 class="fr-ml-3"
-                primary="true"
+                :primary="false"
                 size="small"
                 @on-click="onCreateTenant"
               >
@@ -224,6 +225,11 @@ span.material-icons-outlined {
       margin-left: 0;
       .fr-btn {
         margin-right: 0;
+      }
+      @media all and (max-width: 768px) {
+        border-bottom: 1px;
+        border-bottom-style: solid;
+        border-bottom-color: var(--border-default-grey);
       }
     }
     & > li:last-child,

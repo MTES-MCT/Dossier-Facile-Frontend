@@ -10,6 +10,15 @@
         <span v-if="newMessage > 0" class="badge">{{ newMessage }}</span>
       </a>
     </li>
+    <li class="fr-nav__item" v-else>
+      <a
+        :href="`${MAIN_URL}/information`"
+        class="fr-nav__link"
+        :aria-current="currentPage() === 'Information' ? 'page' : false"
+      >
+        {{ $t("information") }}
+      </a>
+    </li>
     <li class="fr-nav__item">
       <a :href="`${MAIN_URL}/blog`" class="fr-nav__link">
         {{ $t("blog") }}
@@ -64,12 +73,11 @@
     </li>
     <li class="fr-nav__item" :class="{ break: !isLoggedIn }">
       <a
-        :href="`/contact`"
+        href="/contact"
+        :aria-current="currentPage() === 'Contact' ? 'page' : false"
         class="fr-nav__link tag-container"
-        target="_blank"
-        rel="noreferrer"
       >
-        <div class="fr-tag blue">
+        <div class="fr-tag">
           <span class="material-icons" aria-hidden="true">mail_outline</span>
           {{ $t("contact-us") }}
         </div>
@@ -77,7 +85,7 @@
     </li>
     <li class="fr-nav__item">
       <button
-        class="fr-nav__link fr-btn fr-ml-3 fr-btn--secondary fr-btn--sm lang blue"
+        class="fr-nav__link fr-btn fr-ml-3 fr-btn--secondary fr-btn--sm lang"
         @click="changeLang"
       >
         <span :class="{ underline: getLang() === 'fr' }">FR</span> |
@@ -141,20 +149,19 @@ export default class Menu extends Vue {
   box-shadow: none;
 }
 
-.blue {
-  color: var(--text-action-high-blue-france);
-}
-
 .fr-nav__item {
   position: relative;
-
+  .fr-nav__link[aria-current] {
+    .fr-tag {
+      color: var(--text-action-high-blue-france) !important;
+    }
+  }
   .tag-container {
     @media all and (min-width: 768px) {
       padding-top: 0.75rem;
       padding-bottom: 0.4rem;
     }
     .fr-tag {
-      color: var(--text-action-high-blue-france);
       @media all and (max-width: 768px) {
         min-height: inherit;
         padding: 0;
@@ -164,9 +171,7 @@ export default class Menu extends Vue {
       }
     }
   }
-  .fr-external-link {
-    color: var(--text-action-high-blue-france);
-  }
+
   a.fr-external-link::after {
     content: "";
   }
