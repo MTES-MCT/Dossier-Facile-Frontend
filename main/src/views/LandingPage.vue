@@ -149,7 +149,7 @@
           {{ $t("s4.title3") }}
         </h2>
         <div class="text-center">
-          <router-link to="/stats" class="fr-link">
+          <router-link to="/stats" class="fr-link fr-tag">
             <img src="../assets/icons/stats.webp" class="stats-icon" alt="" />
             {{ $t("s4.link") }}
           </router-link>

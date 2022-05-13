@@ -102,7 +102,7 @@
                 class="fr-ml-3"
                 :primary="false"
                 size="small"
-                @click="onLogout"
+                @on-click="onLogout"
                 ><span class="material-icons-outlined" aria-hidden="true">
                   account_circle </span
                 >{{ $t("logout") }}
