@@ -60,9 +60,11 @@
                 <div class="fr-pb-4w text-center">
                   <DfButton class="" primary="true">
                     <a
+                      class="fr-external-link"
                       href="https://docs.dossierfacile.fr"
                       title="Documentation DossierFacile"
                       target="_blank"
+                      rel="noreferrer noopener "
                       >{{ $t("consult-our-documentation") }}</a
                     >
                   </DfButton>
@@ -383,7 +385,6 @@ fieldset.fr-radio-group-container {
     outline-style: auto;
     outline-width: 1px;
     text-shadow: 0 0 1px rgba(0, 0, 0, 0.7);
-    //margin-left: 4rem;
   }
   input[type="radio"]:focus + label {
     outline-color: #0a76f6;
@@ -425,6 +426,9 @@ fieldset.fr-radio-group-container {
   top: -20px;
   left: calc(50% - 29px);
   font-size: 4rem;
+}
+.fr-external-link::after {
+  content: "";
 }
 </style>
 
