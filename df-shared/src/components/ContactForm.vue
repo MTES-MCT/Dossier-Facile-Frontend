@@ -224,7 +224,7 @@
                             :class="errors[0] ? 'fr-input-group--error' : ''"
                           >
                             <label class="fr-label" for="message"
-                              >{{ $t("message") }} :</label
+                              >{{ $t("message") }} * :</label
                             >
                             <textarea
                               v-model="contactFormData.message"
@@ -414,15 +414,16 @@ fieldset.fr-radio-group-container {
   color: green;
   font-weight: bold;
   font-size: 1rem;
+  padding-top: 0 !important;
 }
 .mail-success-container:before {
-  content: "✉️";
+  content: url("../assets/enveloppe.webp");;
   text-align: center;
   position: relative;
   margin: 0;
   padding: 0;
-  top: 0px;
-  left: calc(50% - 2rem);
+  top: -20px;
+  left: calc(50% - 29px);
   font-size: 4rem;
 }
 </style>
@@ -466,7 +467,7 @@ fieldset.fr-radio-group-container {
 "submit" : "Envoyer mon message",
 "owner": "Propriétaire",
 "tenant": "Locataire",
-"accept-cgu" : "J'accepte les conditions d'utilisation de DossierFacile afin que mon message puisse être traité dans les meilleurs délais.",
+"accept-cgu" : "Le support DossierFacile est assuré par des humains travaillant directement pour DossierFacile et qui utilisent le logiciel Helpscout. En contactant le support DossierFacile, je consens à l'utilisation de toutes les données transmises par ce biais à DossierFacile et Helpscout dans le but de répondre à ma demande de support.",
 "field-required" : "Ce champ est requis",
 "require-accept" : "L'acception est requise",
 "email-not-valid" : "Email non-valide",

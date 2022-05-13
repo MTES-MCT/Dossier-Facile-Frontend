@@ -59,7 +59,12 @@
       <div class="fr-footer__bottom">
         <ul class="fr-footer__bottom-list">
           <li class="fr-footer__bottom-item">
-            <a class="fr-footer__bottom-link" href="https://beta.gouv.fr/">
+            <a
+              class="fr-footer__bottom-link"
+              target="_blank"
+              rel="noreferrer"
+              href="https://beta.gouv.fr/"
+            >
               Les startups d'Etat
             </a>
           </li>
@@ -67,7 +72,6 @@
             <a
               class="fr-footer__bottom-link"
               :href="`${VUE_APP_MAIN_URL}/accessibilite`"
-              target="_blank"
               :title="$t('accessibility-link')"
               >{{ $t("accessibility") }}</a
             >
@@ -113,6 +117,8 @@
           <li class="fr-footer__bottom-item">
             <a
               class="fr-footer__bottom-link"
+              target="_blank"
+              rel="noreferrer"
               href="https://github.com/MTES-MCT/Dossier-Facile-Frontend"
             >
               {{ $t("sources") }}
