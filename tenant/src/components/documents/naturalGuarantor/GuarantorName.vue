@@ -7,7 +7,7 @@
           <div>{{ $t("subtitle") }}</div>
           <div class="fr-grid-row fr-grid-row--center fr-mt-4w">
             <div class="fr-col-12 fr-mb-3w">
-              <validation-provider rules="required" v-slot="{ errors }">
+              <validation-provider rules="required" v-slot="{ errors, valid }">
                 <div
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
@@ -18,6 +18,10 @@
                   <input
                     v-model="lastName"
                     class="form-control fr-input validate-required"
+                    :class="{
+                      'fr-input--valid': valid,
+                      'fr-input--error': errors[0]
+                    }"
                     id="lastname"
                     name="lastname"
                     :placeholder="$t('lastname-placeholder')"
@@ -31,7 +35,7 @@
               </validation-provider>
             </div>
             <div class="fr-col-12 fr-mb-3w">
-              <validation-provider rules="required" v-slot="{ errors }">
+              <validation-provider rules="required" v-slot="{ errors, valid }">
                 <div
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
@@ -46,6 +50,10 @@
                     v-model="firstName"
                     name="firstname"
                     class="validate-required form-control fr-input"
+                    :class="{
+                      'fr-input--valid': valid,
+                      'fr-input--error': errors[0]
+                    }"
                     required
                   />
                   <span class="fr-error-text" v-if="errors[0]">{{
