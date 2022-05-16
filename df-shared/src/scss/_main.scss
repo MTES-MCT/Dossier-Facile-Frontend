@@ -298,14 +298,16 @@ img {
 }
 
 .mobile {
-  @media all and (min-width=768px) {
-    visibility: hidden !important;
+  display: inherit;
+  @media all and (min-width: 768px) {
+    display: none;
   }
 }
 
 .desktop {
-  @media all and (max-width=767px) {
-    visibility: hidden !important;
+  display: none;
+  @media all and (min-width: 768px) {
+    display: inherit;
   }
 }
 
