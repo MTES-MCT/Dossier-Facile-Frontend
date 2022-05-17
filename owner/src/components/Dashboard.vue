@@ -57,11 +57,11 @@ function getApplicantsCount(p: Property) {
 
       <table>
         <tr>
-          <th>{{ t("type") }}</th>
+          <th class="desktop">{{ t("type") }}</th>
           <th>{{ t("name") }}</th>
-          <th>{{ t("address") }}</th>
+          <th class="desktop">{{ t("address") }}</th>
           <th>{{ t("applicant") }}</th>
-          <th>{{ t("rent") }}</th>
+          <th class="desktop">{{ t("rent") }}</th>
           <th></th>
         </tr>
         <tr
@@ -70,11 +70,11 @@ function getApplicantsCount(p: Property) {
           :key="p.name"
           @click="openProperty(p)"
         >
-          <td><PropertyIcon :type="p.type || ''"></PropertyIcon></td>
+          <td class="desktop"><PropertyIcon :type="p.type || ''"></PropertyIcon></td>
           <td class="text--light-blue">{{ p.name }}</td>
-          <td class="text--light-blue">{{ p.address }}</td>
+          <td class="desktop text--light-blue">{{ p.address }}</td>
           <td>{{ t("applicants", { count: getApplicantsCount(p) }) }}</td>
-          <td class="text--light-blue">
+          <td class="desktop text--light-blue">
             {{ t("rent-cost", { rent: p.rentCost, charges: p.chargesCost }) }}
           </td>
           <td class="fr-pr-2w">
