@@ -84,7 +84,7 @@
         <table>
           <thead>
             <tr>
-              <th @click="sortTable('date')">
+              <th @click="sortTable('date')" class="desktop">
                 {{ t("date") }}
                 <div
                   class="arrow"
@@ -100,7 +100,7 @@
                   v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
                 ></div>
               </th>
-              <th @click="sortTable('tenantType')">
+              <th @click="sortTable('tenantType')" class="desktop">
                 {{ t("tenant-type") }}
                 <div
                   class="arrow"
@@ -116,7 +116,7 @@
                   v-bind:class="ascending ? 'arrow_up' : 'arrow_down'"
                 ></div>
               </th>
-              <th @click="sortTable('guarantorSalary')">
+              <th @click="sortTable('guarantorSalary')" class="desktop">
                 {{ t("guarantor-salary") }}
                 <div
                   class="arrow"
@@ -144,13 +144,13 @@
           </thead>
           <tbody v-for="(tenant, k) in getTenants()" :key="k">
             <tr @click="setShowTenant(k)" :class="getTenantClass(tenant)">
-              <td>
+              <td class="desktop">
                 <span>{{ formatDate(tenant.date || new Date()) }}</span>
               </td>
               <td>
                 <span>{{ tenant.tenantName }}</span>
               </td>
-              <td>
+              <td class="desktop">
                 <span class="tenant-type" :class="getTenantClass(tenant)">{{
                   t(tenant.tenantType || "")
                 }}</span>
@@ -158,7 +158,7 @@
               <td>
                 <span>{{ tenant.tenantSalary }}</span>
               </td>
-              <td>
+              <td class="desktop">
                 <span>{{ tenant.guarantorSalary }}</span>
               </td>
               <td>
