@@ -355,27 +355,6 @@ h1 {
   justify-content: space-around;
 }
 
-.step {
-  display: flex;
-  align-items: center;
-  height: 5px;
-}
-
-.step-title {
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  padding-bottom: 1.5rem;
-  padding-top: 0.5rem;
-  text-align: center;
-  font-size: 20px;
-  font-weight: bold;
-  line-height: 6px;
-}
-
-.hidden {
-  visibility: hidden;
-}
-
 .ml-5 {
   margin-left: 1rem;
   margin-top: 0.25rem;

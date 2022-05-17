@@ -2,6 +2,7 @@
 import { Form } from 'vee-validate';
 import NakedCard from 'df-shared/src/components/NakedCard.vue';
 import LeftMenu from '../menu/LeftMenu.vue';
+import TopMenu from '../menu/TopMenu.vue';
 import BackNext from '../footer/BackNext.vue';
 import FooterContainer from '../footer/FooterContainer.vue';
 
@@ -17,7 +18,8 @@ function onBack() {
 </script>
 
 <template>
-  <div class="full-height fr-grid-row fr-container fr-container-full-size">
+  <div class="full-height fr-grid-row-desktop fr-container fr-container-full-size">
+    <TopMenu tMenu></TopMenu>
     <LeftMenu tMenu class="fr-col-md-4 fr-col-xl-3"></LeftMenu>
     <div
       class="fr-col-xl-9 fr-col-md-8 fr-col-xs-12 fr-pt-md-4w fr-pt-2w fr-grid-row fr-pb-10w fr-m-2w fr-m-md-0"
@@ -40,6 +42,12 @@ function onBack() {
 .ml {
   @media all and (min-width: 768px) {
     margin-left: 10%;
+  }
+}
+
+.fr-grid-row-desktop {
+  @media all and (min-width: 768px) {
+    display: flex;
   }
 }
 </style>

@@ -16,6 +16,7 @@ function getName() {
 const propertyName = computed(() => store.getPropertyToEdit?.name);
 
 const typeStatus = computed(() => (store.getPropertyToEdit?.type ? 'FILLED' : 'TO_PROCESS'));
+const addressStatus = computed(() => (store.getPropertyToEdit?.address ? 'FILLED' : 'TO_PROCESS'));
 const rentStatus = computed(() => (store.getPropertyToEdit?.rentCost > 0 ? 'FILLED' : 'TO_PROCESS'));
 const furnitureStatus = computed(() => (store.getPropertyToEdit?.furniture ? 'FILLED' : 'TO_PROCESS'));
 
@@ -38,7 +39,7 @@ const getParams = id ? { id } : {};
       <div class="vline">
         <div class="ml-5">
           <router-link :to="{ name: 'AccountName' }" class="fr-link">
-                    <ColoredTag
+          <ColoredTag
               :text="getName()"
               status="NAME"
             ></ColoredTag
@@ -70,6 +71,15 @@ const getParams = id ? { id } : {};
         <ColoredTag
               :text="t('property-type')"
               :status="typeStatus"
+            ></ColoredTag
+          >
+          </router-link>
+        </div>
+        <div class="ml-5">
+          <router-link :to="{ name: 'PropertyAddress', params: getParams }" class="fr-link">
+        <ColoredTag
+              :text="t('property-address')"
+              :status="addressStatus"
             ></ColoredTag
           >
           </router-link>

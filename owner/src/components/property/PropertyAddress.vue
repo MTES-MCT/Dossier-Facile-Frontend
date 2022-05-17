@@ -102,6 +102,7 @@ function clickItem(data: Address) {
         @input="handleInput"
         @focus="displayResults"
         @blur="hideResults"
+        autocomplete="off"
         required
       />
       <div
