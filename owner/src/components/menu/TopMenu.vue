@@ -14,31 +14,12 @@ const td1 = ref(null);
 const td2 = ref(null);
 const td3 = ref(null);
 const td4 = ref(null);
+const tds = [td0, td1, td2, td3, td4];
 const tcontainer = ref(null);
 
 function autoScroll() {
   let left = 0;
-  let tdx;
-  switch (route.meta.position) {
-    case 0:
-      tdx = td0;
-      break;
-    case 1:
-      tdx = td1;
-      break;
-    case 2:
-      tdx = td2;
-      break;
-    case 3:
-      tdx = td3;
-      break;
-    case 4:
-      tdx = td4;
-      break;
-    default:
-      left = 0;
-      tdx = td4;
-  }
+  const tdx = tds[route.meta.position];
   left = tdx.value.offsetLeft - (tcontainer.value.offsetWidth - tdx.value.offsetWidth) / 2;
   tcontainer.value.scrollTo(left, 0);
 }
