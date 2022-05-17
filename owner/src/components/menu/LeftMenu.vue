@@ -199,7 +199,8 @@ const getParams = id ? { id } : {};
     "monthly-rent-and-charges": "Monthly rent and charges",
     "property-name": "Property name",
     "property-type": "Type of rent",
-    "property-furniture": "Furniture"
+    "property-furniture": "Furniture",
+    "property-address": "Property address",
   },
   "fr": {
     "personal-information": "Mes informations personnelles",
@@ -208,7 +209,8 @@ const getParams = id ? { id } : {};
     "monthly-rent-and-charges": "Loyer et charges mensuels",
     "property-name": "Nom de la propriété",
     "property-type": "Type de logement",
-    "property-furniture": "Ameublement"
+    "property-furniture": "Ameublement",
+    "property-address": "Adresse du logement",
   }
 }
 </i18n>

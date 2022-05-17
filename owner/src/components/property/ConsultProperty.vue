@@ -60,9 +60,12 @@
         </div>
       </div>
       <NakedCard class="h-100">
-        <div class="fr-grid-row align-items--center">
+        <div class="fr-grid-row align-items--center w100">
+        <div class="fr-col-md-1 fr-col-2 text-center">
           <PropertyIcon :type="propertyType || ''"></PropertyIcon>
-          <span
+        </div>
+        <div class="fr-col">
+          <div
             v-html="
               `${t(titleKey)} ${t('rent', {
                 rentCost: p.rentCost,
@@ -70,7 +73,8 @@
               })}`
             "
           >
-          </span>
+          </div>
+        </div>
         </div>
       </NakedCard>
       <NakedCard class="fr-mt-3w">

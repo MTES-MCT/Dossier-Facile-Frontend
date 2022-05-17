@@ -297,6 +297,10 @@ img {
   justify-content: center;
 }
 
+.w100 {
+  width: 100%;
+}
+
 .mobile {
   display: inherit !important;
   @media all and (min-width: 768px) {
