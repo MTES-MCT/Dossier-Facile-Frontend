@@ -129,7 +129,7 @@
                       <div class="fr-col-12 fr-mb-3w">
                         <validation-provider
                           rules="required|email"
-                          v-slot="{ errors }"
+                          v-slot="{ errors, valid }"
                         >
                           <div
                             class="fr-input-group"
@@ -141,6 +141,10 @@
                             <input
                               v-model="contactFormData.email"
                               class="form-control fr-input validate-required"
+                              :class="{
+                                'fr-input--valid': valid,
+                                'fr-input--error': errors[0]
+                              }"
                               id="email"
                               name="email"
                               :placeholder="$t('email')"
@@ -155,10 +159,20 @@
                       <div class="fr-col-12 fr-mb-3w">
                         <validation-provider
                           rules="required"
-                          v-slot="{ errors }"
+                          v-slot="{ errors, valid }"
                         >
-                          <fieldset class="fr-radio-group-container">
-                            <legend>{{ $t("profile") }} * :</legend>
+                          <fieldset
+                            class="fr-radio-group-container"
+                            :class="{
+                              'fr-fieldset--valid': valid,
+                              'fr-fieldset--error': errors[0]
+                            }"
+                            aria-labelledby="radio-profile-legend"
+                            role="group"
+                          >
+                            <legend id="radio-profile-legend">
+                              {{ $t("profile") }} * :
+                            </legend>
                             <input
                               v-model="contactFormData.profile"
                               id="profile-tenant"
@@ -193,7 +207,7 @@
                       <div class="fr-col-12 fr-mb-3w">
                         <validation-provider
                           rules="required"
-                          v-slot="{ errors }"
+                          v-slot="{ errors, valid }"
                         >
                           <div
                             class="fr-input-group"
@@ -205,6 +219,10 @@
                             <input
                               v-model="contactFormData.subject"
                               class="form-control fr-input validate-required"
+                              :class="{
+                                'fr-input--valid': valid,
+                                'fr-input--error': errors[0]
+                              }"
                               id="subject"
                               name="subject"
                               :placeholder="$t('subject')"
@@ -219,7 +237,7 @@
                       <div class="fr-col-12 fr-mb-3w">
                         <validation-provider
                           rules="required"
-                          v-slot="{ errors }"
+                          v-slot="{ errors, valid }"
                         >
                           <div
                             class="fr-input-group"
@@ -231,6 +249,10 @@
                             <textarea
                               v-model="contactFormData.message"
                               class="form-control fr-input validate-required"
+                              :class="{
+                                'fr-input--valid': valid,
+                                'fr-input--error': errors[0]
+                              }"
                               id="message"
                               name="message"
                               :placeholder="$t('message')"
@@ -243,10 +265,16 @@
                         </validation-provider>
                       </div>
                       <div class="fr-col-12 fr-mb-3w">
-                        <validation-provider rules="is" v-slot="{ errors }">
+                        <validation-provider
+                          rules="is"
+                          v-slot="{ errors, valid }"
+                        >
                           <div
                             class="bg-purple fr-checkbox-group"
-                            :class="errors[0] ? 'fr-input-group--error' : ''"
+                            :class="{
+                              'fr-input-group--valid': valid,
+                              'fr-input-group--error': errors[0]
+                            }"
                           >
                             <input
                               type="checkbox"
@@ -409,6 +437,11 @@ fieldset.fr-radio-group-container {
       display: contents;
     }
     margin-bottom: 1rem;
+  }
+}
+.fr-fieldset--error {
+  legend {
+    color: var(--text-default-error);
   }
 }
 .green-title {

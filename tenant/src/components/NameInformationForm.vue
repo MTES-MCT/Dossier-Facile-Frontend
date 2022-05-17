@@ -12,7 +12,7 @@
             <div class="fr-col-12 fr-mb-3w">
               <validation-provider
                 rules="required|lastname"
-                v-slot="{ errors }"
+                v-slot="{ errors, valid }"
               >
                 <div
                   class="fr-input-group"
@@ -24,6 +24,10 @@
                   <input
                     v-model="lastname"
                     class="form-control fr-input validate-required"
+                    :class="{
+                      'fr-input--valid': valid,
+                      'fr-input--error': errors[0]
+                    }"
                     id="lastname"
                     name="lastname"
                     :placeholder="$t('lastname')"
@@ -38,7 +42,7 @@
               </validation-provider>
             </div>
             <div class="fr-col-12 fr-mb-3w">
-              <validation-provider rules="lastname" v-slot="{ errors }">
+              <validation-provider rules="lastname" v-slot="{ errors, valid }">
                 <div
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
@@ -49,6 +53,10 @@
                   <input
                     v-model="preferredname"
                     class="form-control fr-input validate-required"
+                    :class="{
+                      'fr-input--valid': valid,
+                      'fr-input--error': errors[0]
+                    }"
                     id="preferredname"
                     name="preferredname"
                     :placeholder="$t('preferredname')"
@@ -61,7 +69,7 @@
               </validation-provider>
             </div>
             <div class="fr-col-12 fr-mb-3w">
-              <validation-provider rules="required" v-slot="{ errors }">
+              <validation-provider rules="required" v-slot="{ errors, valid }">
                 <div
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
@@ -76,6 +84,10 @@
                     v-model="firstname"
                     name="firstname"
                     class="validate-required form-control fr-input"
+                    :class="{
+                      'fr-input--valid': valid,
+                      'fr-input--error': errors[0]
+                    }"
                     :disabled="user.franceConnect"
                     required
                   />
@@ -88,7 +100,7 @@
             <div class="fr-col-12 fr-mb-3w">
               <validation-provider
                 :rules="{ zipcode: /^[0-9]{5}$/ }"
-                v-slot="{ errors }"
+                v-slot="{ errors, valid }"
               >
                 <div
                   class="fr-input-group"
@@ -100,6 +112,10 @@
                   <input
                     id="zipcode"
                     :placeholder="$t('zipcode')"
+                    :class="{
+                      'fr-input--valid': valid,
+                      'fr-input--error': errors[0]
+                    }"
                     type="text"
                     v-model="zipcode"
                     name="zipcode"

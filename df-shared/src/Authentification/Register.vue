@@ -39,7 +39,7 @@
       <form name="form" @submit.prevent="validate().then(handleRegister)">
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12 fr-mb-3w">
-            <validation-provider rules="required" v-slot="{ errors }">
+            <validation-provider rules="required" v-slot="{ errors, valid }">
               <div
                 class="fr-input-group"
                 :class="errors[0] ? 'fr-input-group--error' : ''"
@@ -48,6 +48,10 @@
                 <input
                   v-model="user.email"
                   class="form-control validate-required fr-input"
+                  :class="{
+                    'fr-input--valid': valid,
+                    'fr-input--error': errors[0]
+                  }"
                   id="email"
                   name="email"
                   :placeholder="$t('email-placeholder')"
@@ -64,7 +68,7 @@
           <div class="fr-col-12 fr-mb-1w">
             <validation-provider
               :rules="`required|strength:${score}`"
-              v-slot="{ errors }"
+              v-slot="{ errors, valid }"
               name="password"
               vid="password"
             >
@@ -82,6 +86,10 @@
                   v-model="user.password"
                   name="password"
                   class="validate-required form-control fr-input"
+                  :class="{
+                    'fr-input--valid': valid,
+                    'fr-input--error': errors[0]
+                  }"
                   autocomplete="new-password"
                   required
                 />
@@ -99,7 +107,7 @@
           <div class="fr-col-12 fr-mb-3w">
             <validation-provider
               rules="required|confirmed:password"
-              v-slot="{ errors }"
+              v-slot="{ errors, valid }"
             >
               <div
                 class="fr-input-group"
@@ -114,6 +122,10 @@
                   v-model="user.confirm"
                   name="confirm-password"
                   class="validate-required form-control fr-input"
+                  :class="{
+                    'fr-input--valid': valid,
+                    'fr-input--error': errors[0]
+                  }"
                   autocomplete="new-password"
                   required
                 />

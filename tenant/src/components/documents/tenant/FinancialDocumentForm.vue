@@ -72,11 +72,13 @@
                 <div>
                   <validation-provider
                     :rules="{ required: true, regex: /^[0-9., ]+$/ }"
-                    v-slot="{ errors }"
+                    v-slot="{ errors, valid }"
                   >
                     <div
                       class="fr-input-group"
-                      :class="errors[0] ? 'fr-input-group--error' : ''"
+                      :class="{
+                        'fr-input-group--error': errors[0]
+                      }"
                     >
                       <label for="monthlySum" class="fr-label"
                         >{{ $t("monthlySum-label") }} :</label
@@ -90,6 +92,10 @@
                         v-model="financialDocument.monthlySum"
                         name="monthlySum"
                         class="validate-required form-control fr-input"
+                        :class="{
+                          'fr-input--valid': valid,
+                          'fr-input--error': errors[0]
+                        }"
                         required
                       />
                       <span class="fr-error-text" v-if="errors[0]">{{
@@ -170,7 +176,7 @@
               <div class="fr-mb-5w" v-if="financialDocument.noDocument">
                 <validation-provider
                   :rules="{ required: true }"
-                  v-slot="{ errors }"
+                  v-slot="{ errors, valid }"
                 >
                   <div class="fr-input-group">
                     <label class="fr-label" for="customText">
@@ -181,6 +187,10 @@
                     <textarea
                       v-model="financialDocument.customText"
                       class="form-control fr-input validate-required"
+                      :class="{
+                        'fr-input--valid': valid,
+                        'fr-input--error': errors[0]
+                      }"
                       id="customText"
                       name="customText"
                       placeholder=""
@@ -211,7 +221,7 @@
     >
       <NakedCard class="fr-p-md-5w fr-mb-3w">
         {{ $t("has-no-income") }}
-        <ValidationObserver v-slot="{ validate }">
+        <ValidationObserver v-slot="{ validate, valid }">
           <form name="customTextForm" @submit.prevent="validate().then(save())">
             <div class="fr-input-group">
               <label class="fr-label" for="customTextNoDocument">
@@ -222,6 +232,9 @@
                 maxlength="2000"
                 rows="3"
                 class="form-control fr-input validate-required"
+                :class="{
+                  'fr-input--valid': valid
+                }"
                 id="customTextNoDocument"
                 name="customText"
                 placeholder=""

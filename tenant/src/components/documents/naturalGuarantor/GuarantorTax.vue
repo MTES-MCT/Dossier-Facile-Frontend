@@ -116,6 +116,27 @@
           :documentDeniedReasons="documentDeniedReasons"
           :documentStatus="documentStatus"
         ></AllDeclinedMessages>
+        <div class="fr-background-contrast--info fr-p-2w fr-my-2w warning-box">
+          <div class="fr-text-default--info fr-h6 title">
+            <span class="material-icons-outlined">
+              warning_amber
+            </span>
+            <span class="fr-ml-1w">
+              {{ $t("warning-no-accepted-doc") }}
+            </span>
+          </div>
+          <div class="link">
+            <a
+              class="fr-link"
+              href="https://docs.dossierfacile.fr/guide-dutilisation-de-dossierfacile/avis-dimposition"
+              :title="$t('goto-documentation')"
+              target="_blank"
+              rel="noreferrer"
+              >{{ $t("goto-documentation") }}</a
+            >
+          </div>
+        </div>
+
         <div v-if="taxFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
           <ListItem
             v-for="(file, k) in taxFiles()"
@@ -460,6 +481,14 @@ export default class Tax extends Vue {
   min-height: 2rem;
   width: 14rem;
 }
+.warning-box {
+  .title {
+    display: flex;
+  }
+  .link {
+    text-align: right;
+  }
+}
 </style>
 
 <i18n>
@@ -475,7 +504,9 @@ export default class Tax extends Vue {
     "field-required": "This field is required",
     "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
     "title": "My guarantor tax file",
-    "situation": "What is her/his tax situation?"
+    "situation": "What is her/his tax situation?",
+    "warning-no-accepted-doc": "Warning, the declarative situation document is not accepted.",
+    "goto-documentation" : "Go to documentation"
   },
   "fr": {
     "my-name": "J’ai un avis d’imposition au nom de mon garant",
@@ -488,7 +519,9 @@ export default class Tax extends Vue {
     "field-required": "Ce champ est requis",
     "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
     "title": "L'avis d'imposition de mon garant",
-    "situation": "Quelle est sa situation fiscale ?"
+    "situation": "Quelle est sa situation fiscale ?",
+    "warning-no-accepted-doc": "Attention, l'avis de situation déclarative n'est pas accepté.",
+    "goto-documentation" : "Consulter la documentation"
   }
 }
 </i18n>
