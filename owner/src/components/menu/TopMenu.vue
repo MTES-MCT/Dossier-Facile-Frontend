@@ -16,23 +16,35 @@ const td3 = ref(null);
 const td4 = ref(null);
 const tcontainer = ref(null);
 
-function autoScroll(refd: string) {
+function autoScroll() {
   let left = 0;
-  let tcontainer;
+  let tdx;
   switch (route.meta.position) {
     case 0:
-      left = td0.value.offsetLeft - (tcontainer.value.offsetWidth - td0.value.offsetWidth) / 2;
-      tcontainer = td0;
+      tdx = td0;
+      break;
+    case 1:
+      tdx = td1;
+      break;
+    case 2:
+      tdx = td2;
+      break;
+    case 3:
+      tdx = td3;
+      break;
+    case 4:
+      tdx = td4;
       break;
     default:
       left = 0;
-      tcontainer = td4;
+      tdx = td4;
   }
+  left = tdx.value.offsetLeft - (tcontainer.value.offsetWidth - tdx.value.offsetWidth) / 2;
   tcontainer.value.scrollTo(left, 0);
 }
 
 onMounted(() => {
-  // autoScroll('td');
+  autoScroll();
 });
 
 const propertyName = computed(() => store.getPropertyToEdit?.name);
