@@ -17,15 +17,14 @@ const td4 = ref(null);
 const tds = [td0, td1, td2, td3, td4];
 const tcontainer = ref(null);
 
-function autoScroll() {
+onMounted(() => {
   let left = 0;
-  const tdx = tds[route.meta.position];
+  const tdx = tds[route.meta.position as number];
+  if (tdx === undefined) {
+    return;
+  }
   left = tdx.value.offsetLeft - (tcontainer.value.offsetWidth - tdx.value.offsetWidth) / 2;
   tcontainer.value.scrollTo(left, 0);
-}
-
-onMounted(() => {
-  autoScroll();
 });
 
 const propertyName = computed(() => store.getPropertyToEdit?.name);
@@ -57,7 +56,7 @@ function getStepTitle() {
   if (step.value === 2) {
     return t('validate-property');
   }
-  return 'property-TODO';
+  return t('edit-property');
 }
 
 function getClass(s: number) {
@@ -242,7 +241,9 @@ hr {
     "monthly-rent-and-charges": "Monthly rent and charges",
     "property-name": "Property name",
     "property-type": "Type of rent",
-    "property-furniture": "Furniture"
+    "property-address": "Property address",
+    "property-furniture": "Furniture",
+    "edit-property": "Property edit"
   },
   "fr": {
     "personal-information": "Mes informations personnelles",
@@ -251,7 +252,9 @@ hr {
     "monthly-rent-and-charges": "Loyer et charges mensuels",
     "property-name": "Nom de la propriété",
     "property-type": "Type de logement",
-    "property-furniture": "Ameublement"
+    "property-address": "Adresse du logement",
+    "property-furniture": "Ameublement",
+    "edit-property": "Édition de la propriété"
   }
 }
 </i18n>
