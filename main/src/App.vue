@@ -8,9 +8,9 @@
     <MyHeader
       @on-create-tenant="onCreateTenant"
       @on-create-owner="onCreateOwner"
-      @on-change-lang="changeLang"
       :lang="getLang()"
     >
+      <Menu />
     </MyHeader>
     <router-view />
     <TheFooter />
@@ -23,6 +23,7 @@ import MyHeader from "df-shared/src/Header/Header.vue";
 import TheFooter from "df-shared/src/Footer/Footer.vue";
 import Modal from "df-shared/src/components/Modal.vue";
 import Cookies from "df-shared/src/Footer/Cookies.vue";
+import Menu from "./components/Menu.vue";
 import i18n from "./i18n";
 import VueGtag from "vue-gtag";
 import router from "./router";
@@ -31,6 +32,7 @@ import router from "./router";
   components: {
     Modal,
     MyHeader,
+    Menu,
     TheFooter,
     Cookies
   }
@@ -102,11 +104,6 @@ export default class App extends Vue {
         : "localhost"
     );
     this.cookieHidden = true;
-  }
-
-  changeLang() {
-    const lang = i18n.locale === "fr" ? "en" : "fr";
-    this.$store.dispatch("setLang", lang);
   }
 
   getLang() {

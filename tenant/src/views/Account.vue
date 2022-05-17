@@ -45,15 +45,19 @@
                   <div class="grp">
                     <button
                       class="fr-btn grp-btn"
-                      :class="{
-                        'fr-fi-arrow-down-s-line': !radioVisible,
-                        'fr-fi-arrow-up-s-line': radioVisible
-                      }"
                       title="Copy"
                       @click="radioVisible = !radioVisible"
                       :disabled="!canCopyLink()"
                     >
-                      <span class="sr-only"> Copy </span>
+                      <span
+                        v-if="radioVisible"
+                        class="material-icons"
+                        aria-hidden="true"
+                        >expand_more</span
+                      >
+                      <span v-else class="material-icons" aria-hidden="true"
+                        >expand_less</span
+                      >
                     </button>
                     <div class="grp-modal bg-white" v-show="radioVisible">
                       <h4>{{ $t("share-file") }}</h4>
@@ -127,185 +131,78 @@
               <hr />
               <div class="main-information">
                 <h4>{{ $t("my-personnal-information") }}</h4>
-                <div
-                  class="fr-grid-row fr-grid-row--gutters"
-                  @click.prevent="gotoTenantName()"
-                >
-                  <div class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w">
-                    <div class="fr-tile fr-tile--horizontal">
-                      <div class="fr-tile__body fr-ml-2w fr-mr-2w">
-                        <h4 class="fr-tile__title">
-                          <a class="fr-tile__link" href>{{
-                            $t("my-information")
-                          }}</a>
-                        </h4>
-                        <div class="name-email-tile">
-                          {{ user | fullName }}<br />
-                          {{ user.email }}
-                        </div>
-                        <button
-                          class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
-                          title="Edit"
-                        >
-                          <span class="sr-only"> Edit </span>
-                        </button>
-                      </div>
-                      <div class="fr-tile__img-wrap fr-ml-2w">
-                        <span class="color--primary material-icons md-adapt"
-                          >person</span
-                        >
-                      </div>
+                <div class="fr-grid-row fr-grid-row--gutters">
+                  <InfoCard
+                    :title="$t('my-information')"
+                    editable="true"
+                    matIcon="person"
+                    @click="gotoTenantName()"
+                  >
+                    <div class="name-email-tile">
+                      {{ user | fullName }}<br />
+                      {{ user.email }}
                     </div>
-                  </div>
+                  </InfoCard>
                 </div>
                 <hr class="fr-mt-4w" />
                 <h4>{{ $t("my-files") }}</h4>
 
                 <div class="fr-grid-row fr-grid-row--gutters">
-                  <div
-                    class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                    @click.prevent="setTenantStep(1)"
+                  <InfoCard
+                    :title="$t('identification')"
+                    editable="true"
+                    matIcon="person"
+                    @click="setTenantStep(1)"
                   >
-                    <div class="fr-tile fr-tile--horizontal">
-                      <div class="fr-tile__body fr-ml-2w fr-mr-2w">
-                        <h4 class="fr-tile__title">
-                          <a class="fr-tile__link" href>{{
-                            $t("identification")
-                          }}</a>
-                        </h4>
-                        <ColoredTag
-                          :text="$t('s_' + getStatus('IDENTIFICATION'))"
-                          :status="getStatus('IDENTIFICATION')"
-                        ></ColoredTag>
-                        <button
-                          class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
-                          title="Edit"
-                        >
-                          <span class="sr-only"> Edit </span>
-                        </button>
-                      </div>
-                      <div class="fr-tile__img-wrap fr-ml-2w">
-                        <span class="color--primary material-icons md-adapt"
-                          >person</span
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                    @click.prevent="setTenantStep(2)"
+                    <ColoredTag
+                      :status="getStatus('IDENTIFICATION')"
+                      :text="$t('s_' + getStatus('IDENTIFICATION'))"
+                    ></ColoredTag>
+                  </InfoCard>
+                  <InfoCard
+                    :title="$t('residency')"
+                    editable="true"
+                    matIcon="home"
+                    @click="setTenantStep(2)"
                   >
-                    <div class="fr-tile fr-tile--horizontal">
-                      <div class="fr-tile__body fr-ml-2w fr-mr-2w">
-                        <h4 class="fr-tile__title">
-                          <a class="fr-tile__link" href>{{
-                            $t("residency")
-                          }}</a>
-                        </h4>
-                        <ColoredTag
-                          :text="$t('s_' + getStatus('RESIDENCY'))"
-                          :status="getStatus('RESIDENCY')"
-                        ></ColoredTag>
-                        <button
-                          class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
-                          title="Edit"
-                        >
-                          <span class="sr-only"> Edit </span>
-                        </button>
-                      </div>
-                      <div class="fr-tile__img-wrap fr-ml-2w">
-                        <span class="color--primary material-icons md-adapt"
-                          >home</span
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                    @click.prevent="setTenantStep(3)"
+                    <ColoredTag
+                      :status="getStatus('RESIDENCY')"
+                      :text="$t('s_' + getStatus('RESIDENCY'))"
+                    ></ColoredTag>
+                  </InfoCard>
+                  <InfoCard
+                    :title="$t('professional')"
+                    editable="true"
+                    matIcon="work"
+                    @click="setTenantStep(3)"
                   >
-                    <div class="fr-tile fr-tile--horizontal">
-                      <div class="fr-tile__body fr-ml-2w fr-mr-2w">
-                        <h4 class="fr-tile__title">
-                          <a class="fr-tile__link" href>{{
-                            $t("professional")
-                          }}</a>
-                        </h4>
-                        <ColoredTag
-                          :text="$t('s_' + getStatus('PROFESSIONAL'))"
-                          :status="getStatus('PROFESSIONAL')"
-                        ></ColoredTag>
-                        <button
-                          class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
-                          title="Edit"
-                        >
-                          <span class="sr-only"> Edit </span>
-                        </button>
-                      </div>
-                      <div class="fr-tile__img-wrap fr-ml-2w">
-                        <span class="color--primary material-icons md-adapt"
-                          >work</span
-                        >
-                      </div>
-                    </div>
-                  </div>
-
-                  <div
-                    class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                    @click.prevent="setTenantStep(4)"
+                    <ColoredTag
+                      :status="getStatus('PROFESSIONAL')"
+                      :text="$t('s_' + getStatus('PROFESSIONAL'))"
+                    ></ColoredTag>
+                  </InfoCard>
+                  <InfoCard
+                    :title="$t('financial')"
+                    editable="true"
+                    matIcon="euro"
+                    @click="setTenantStep(4)"
                   >
-                    <div class="fr-tile fr-tile--horizontal">
-                      <div class="fr-tile__body fr-ml-2w fr-mr-2w">
-                        <h4 class="fr-tile__title">
-                          <a class="fr-tile__link" href>{{
-                            $t("financial")
-                          }}</a>
-                        </h4>
-                        <ColoredTag
-                          :text="$t('s_' + getStatus('FINANCIAL'))"
-                          :status="getStatus('FINANCIAL')"
-                        ></ColoredTag>
-                        <button
-                          class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
-                          title="Edit"
-                        >
-                          <span class="sr-only"> Edit </span>
-                        </button>
-                      </div>
-                      <div class="fr-tile__img-wrap fr-ml-2w">
-                        <span class="color--primary material-icons md-adapt"
-                          >euro</span
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w"
-                    @click.prevent="setTenantStep(5)"
+                    <ColoredTag
+                      :status="getStatus('FINANCIAL')"
+                      :text="$t('s_' + getStatus('FINANCIAL'))"
+                    ></ColoredTag>
+                  </InfoCard>
+                  <InfoCard
+                    :title="$t('tax')"
+                    editable="true"
+                    matIcon="content_copy"
+                    @click="setTenantStep(5)"
                   >
-                    <div class="fr-tile fr-tile--horizontal">
-                      <div class="fr-tile__body fr-ml-2w fr-mr-2w">
-                        <h4 class="fr-tile__title">
-                          <a class="fr-tile__link" href>{{ $t("tax") }}</a>
-                        </h4>
-                        <ColoredTag
-                          :text="$t('s_' + getStatus('TAX'))"
-                          :status="getStatus('TAX')"
-                        ></ColoredTag>
-                        <button
-                          class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
-                          title="Edit"
-                        >
-                          <span class="sr-only"> Edit </span>
-                        </button>
-                      </div>
-                      <div class="fr-tile__img-wrap fr-ml-2w">
-                        <span class="color--primary material-icons md-adapt"
-                          >content_copy</span
-                        >
-                      </div>
-                    </div>
-                  </div>
+                    <ColoredTag
+                      :status="getStatus('TAX')"
+                      :text="$t('s_' + getStatus('TAX'))"
+                    ></ColoredTag>
+                  </InfoCard>
                 </div>
               </div>
 
@@ -354,7 +251,7 @@
                     rel="noreferrer"
                   >
                     <img
-                      src="https://voxusagers.numerique.gouv.fr/static/bouton-bleu.svg"
+                      :src="require('../assets/button-je-donne-mon-avis.svg')"
                       alt="Je donne mon avis"
                       title="Je donne mon avis sur cette démarche"
                       class="align--center"
@@ -387,6 +284,7 @@ import DeleteAccount from "../components/DeleteAccount.vue";
 import GuarantorsSection from "@/components/account/GuarantorsSection.vue";
 import PartnersSection from "@/components/account/PartnersSection.vue";
 import { UtilsService } from "@/services/UtilsService";
+import InfoCard from "@/components/account/InfoCard.vue";
 
 extend("required", {
   ...required,
@@ -395,6 +293,7 @@ extend("required", {
 
 @Component({
   components: {
+    InfoCard,
     PartnersSection,
     GuarantorsSection,
     ValidationProvider,

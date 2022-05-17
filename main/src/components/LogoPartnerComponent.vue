@@ -51,6 +51,7 @@ a[target="_blank"].logo-link::after {
 
 .logo-link {
   box-shadow: none;
+  background-image: none;
 }
 
 .logo-container {

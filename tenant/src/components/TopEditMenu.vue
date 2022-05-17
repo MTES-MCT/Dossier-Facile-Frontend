@@ -400,6 +400,7 @@ hr {
 
 [href] {
   box-shadow: none;
+  background-image: none;
 }
 
 .hline {

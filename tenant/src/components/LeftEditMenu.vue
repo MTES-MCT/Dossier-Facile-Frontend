@@ -404,6 +404,7 @@ export default class LeftEditMenu extends Vue {
 
 [href] {
   box-shadow: none;
+  background-image: none;
 }
 </style>
 

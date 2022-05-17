@@ -149,7 +149,7 @@
           {{ $t("s4.title3") }}
         </h2>
         <div class="text-center">
-          <router-link to="/stats" class="fr-link">
+          <router-link to="/stats" class="fr-link fr-tag">
             <img src="../assets/icons/stats.webp" class="stats-icon" alt="" />
             {{ $t("s4.link") }}
           </router-link>
@@ -338,6 +338,13 @@
             name="omnirea"
             width="172px"
           />
+          <LogoPartnerComponent
+            :image="require('../assets/logos/emjysoft_gestion_locative.webp')"
+            height="60px"
+            href="https://www.emjysoft.com/logiciel-gestion-locative/"
+            name="emjysoft - gestion locative"
+            width="162px"
+          />
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
@@ -389,7 +396,7 @@ export default class LandingPage extends Vue {
   background-size: cover !important;
   background-position: 50% 50% !important;
   background-image: url("../assets/cover-features.webp");
-  background-color: #6277A0;
+  background-color: #6277a0;
   @media (max-width: 768px) {
     background-image: url("../assets/cover-features-mobile.webp");
   }
@@ -469,14 +476,6 @@ img {
   max-width: 100%;
   max-height: 60px;
   margin: auto;
-}
-
-a[target="_blank"].logo-link::after {
-  content: none;
-}
-
-.logo-link {
-  box-shadow: none;
 }
 
 .stats-icon {
