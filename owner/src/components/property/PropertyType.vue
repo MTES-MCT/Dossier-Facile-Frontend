@@ -44,7 +44,7 @@ function onBack() {
 <template>
   <PropertyPage @on-back="onBack" @submit="onSubmit">
     <h1 class="fr-h4">{{ t("type-title") }}</h1>
-    <p class="fr-mb-7w">{{ t("type-subtitle") }}</p>
+    <p class="fr-mb-md-7w">{{ t("type-subtitle") }}</p>
     <div>
       <Field
         name="type"
@@ -60,10 +60,10 @@ function onBack() {
         for="type-apartment"
       >
         <div class="fr-grid-col">
-          <div class="icon-container">
+          <div class="icon-container desktop">
             <div class="material-icons md-36 icon-color">apartment</div>
           </div>
-          <div class="fr-mb-5w">{{ t("apartment") }}</div>
+          <div class="fr-mb-md-5w fr-m-2w">{{ t("apartment") }}</div>
         </div>
       </label>
       <Field
@@ -80,10 +80,10 @@ function onBack() {
         for="type-house"
       >
         <div class="fr-grid-col">
-          <div class="icon-container">
+          <div class="icon-container desktop">
             <div class="material-icons md-36 icon-color">home</div>
           </div>
-          <div class="fr-mb-5w">{{ t("house") }}</div>
+          <div class="fr-mb-md-5w fr-m-2w">{{ t("house") }}</div>
         </div>
       </label>
       <Field
@@ -100,10 +100,10 @@ function onBack() {
         for="type-other"
       >
         <div class="fr-grid-col">
-          <div class="icon-container">
+          <div class="icon-container desktop">
             <div class="material-icons md-36 icon-color">domain</div>
           </div>
-          <div class="fr-mb-5w">{{ t("other") }}</div>
+          <div class="fr-mb-md-5w fr-m-2w">{{ t("other") }}</div>
         </div>
       </label>
       <ErrorMessage class="fr-error-text" name="type" />
@@ -169,7 +169,6 @@ input[type="radio"] {
   margin-top: 2rem;
   margin-left: 2rem;
   margin-right: 2rem;
-  margin-bottom: 1.5rem;
   width: 6rem;
   height: 5rem;
   border-radius: 0.5rem;

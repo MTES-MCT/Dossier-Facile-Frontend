@@ -298,16 +298,16 @@ img {
 }
 
 .mobile {
-  display: inherit;
+  display: inherit !important;
   @media all and (min-width: 768px) {
-    display: none;
+    display: none !important;
   }
 }
 
 .desktop {
-  display: none;
+  display: none !important;
   @media all and (min-width: 768px) {
-    display: inherit;
+    display: inherit !important;
   }
 }
 
