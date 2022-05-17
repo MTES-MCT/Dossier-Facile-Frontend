@@ -6,6 +6,7 @@ import {
   defineRule,
 } from 'vee-validate';
 import { createPinia } from 'pinia';
+import { email, required } from '@vee-validate/rules';
 import App from './App.vue';
 import router from './router';
 import i18n from './i18n';
@@ -27,6 +28,33 @@ defineRule('isTrue', (value: any) => {
 defineRule('hasValue', (value: any) => {
   if (!value) {
     return 'field-required';
+  }
+  return true;
+});
+defineRule('required', (value: any) => {
+  if (!value || !value.length) {
+    return 'field-required';
+  }
+  return true;
+});
+defineRule('email', (value: any) => {
+  if (!value || !value.length) {
+    return true;
+  }
+  if (!/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/.test(value)) {
+    return 'email-not-valid';
+  }
+  return true;
+});
+defineRule('strength', (_value: any, [score]: number[]) => {
+  if (score < 2) {
+    return 'strength-not-valid';
+  }
+  return true;
+});
+defineRule('confirm', (_value: any, [password, confirm]: string[]) => {
+  if (password !== confirm) {
+    return 'confirm-not-valid';
   }
   return true;
 });

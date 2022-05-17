@@ -7,14 +7,7 @@
 
       <template v-if="franceConnect">
         <div class="fr-mt-5w fr-mb-5w text-center">
-          <div v-if="getParams() !== undefined">
-            <router-link
-              :to="{ name: 'SourceLink', params: getParams(), query: getQuery() }"
-              class="color--primary"
-              >{{ t("connect-france-connect") }}</router-link
-            >
-          </div>
-          <div v-else>
+          <div>
             <div class="text-center">
               <div class="fr-mt-2w fr-mb-2w small-text">
                 FranceConnect est la solution proposée par l’État pour sécuriser et
@@ -50,84 +43,89 @@
             <div class="fr-input-group">
               <label class="fr-label" for="email">{{ t("email") }}</label>
               <Field
-                v-model="user.email"
-                class="form-control validate-required fr-input"
                 id="email"
                 name="email"
-                :placeholder="t('email-placeholder')"
-                type="email"
-                autocomplete="email"
-                :rules="'validateEmail'"
-              />
+                v-slot="{ field, meta }"
+                :rules="{ email: true, required: true }"
+              >
+                <input
+                  v-bind="field"
+                  v-model="user.email"
+                  class="form-control validate-required fr-input"
+                  :class="{
+                    'fr-input--valid': meta.valid,
+                    'fr-input--error': !meta.valid,
+                  }"
+                  :placeholder="t('email-placeholder')"
+                  type="email"
+                  autocomplete="email"
+                />
+              </Field>
               <ErrorMessage name="email" v-slot="{ message }">
-                <span role="alert" class="fr-error-text">{{ t(message|| "") }}</span>
+                <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
               </ErrorMessage>
             </div>
           </div>
           <div class="fr-col-12 fr-mb-1w">
-            <!-- <validation-provider
-              :rules="`required|strength:${score.value}`"
-              v-slot="{ errors }"
-              name="password"
-              vid="password"
-            > -->
             <div class="fr-input-group">
               <label class="fr-label" for="password">{{ t("password") }}</label>
               <Field
-                v-model="user.password"
-                class="form-control validate-required fr-input"
                 id="password"
                 name="password"
-                :placeholder="generatedPwd"
-                type="password"
-                autocomplete="new-password"
-                rules="hasValue"
-              />
-              <ErrorMessage name="password" v-slot="{message}">
-                <span role="alert" class="fr-error-text">{{ t(message|| "") }}</span>
-              </ErrorMessage>
-              <!-- <password
+                v-slot="{ field, meta }"
+                :rules="{ required: true, strength: score }"
+              >
+                <input
+                  v-bind="field"
                   v-model="user.password"
-                  :strength-meter-only="true"
-                  @score="setScore"
-                /> -->
+                  class="form-control validate-required fr-input"
+                  :class="{
+                    'fr-input--valid': meta.valid,
+                    'fr-input--error': !meta.valid,
+                  }"
+                  :placeholder="generatedPwd"
+                  type="password"
+                  autocomplete="new-password"
+                />
+              </Field>
+              <PasswordMeter @score="setScore" :password="user.password" />
+              <ErrorMessage name="password" v-slot="{ message }">
+                <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+              </ErrorMessage>
             </div>
           </div>
           <div class="fr-col-12 fr-mb-3w">
-            <!-- <validation-provider
-              rules="required|confirmed:password"
-              v-slot="{ errors }"
-            > -->
             <div class="fr-input-group">
-              <!-- :class="errors[0] ? 'fr-input-group--error' : ''" -->
               <label class="fr-label" for="confirm-password">
                 {{ t("confirm-password") }}</label
               >
-              <input
+              <Field
                 id="confirm-password"
-                type="password"
-                v-model="user.confirm"
                 name="confirm-password"
-                class="validate-required form-control fr-input"
-                autocomplete="new-password"
-                required
-              />
-              <!-- <span class="fr-error-text" v-if="errors[0]">{{
-                  t(errors[0])
-                }}</span> -->
+                v-slot="{ field, meta }"
+                :rules="{
+                  required: true,
+                  confirm: [user.password, user.confirm] ,
+                }"
+              >
+                <input
+                  v-bind="field"
+                  v-model="user.confirm"
+                  class="validate-required form-control fr-input"
+                  :class="{
+                    'fr-input--valid': meta.valid,
+                    'fr-input--error': !meta.valid,
+                  }"
+                  type="password"
+                  autocomplete="new-password"
+                />
+              </Field>
+              <ErrorMessage name="confirm-password" v-slot="{ message }">
+                <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+              </ErrorMessage>
             </div>
-            <!-- </validation-provider> -->
           </div>
 
-          <div class="fr-col-12 fr-mb-3w">
-            <!-- TODO -->
-            <!-- <vue-recaptcha
-              ref="captcha"
-              :sitekey="SITE_KEY"
-              :loadRecaptchaScript="true"
-              @verify="onVerify"
-            ></vue-recaptcha> -->
-          </div>
           <div class="fr-col-12 fr-mb-3w">
             <div class="bg-purple fr-checkbox-group">
               <Field
@@ -138,8 +136,8 @@
                 :value="true"
               />
               <label for="terms"><div v-html="t('accept-cgu')"></div></label>
-              <ErrorMessage class="fr-error-text" name="terms" v-slot="{ message }" >
-                <span role="alert" class="fr-error-text">{{ t(message|| "") }}</span>
+              <ErrorMessage class="fr-error-text" name="terms" v-slot="{ message }">
+                <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
               </ErrorMessage>
             </div>
           </div>
@@ -157,69 +155,14 @@
 
 <script setup lang="ts">
 import { User } from 'df-shared/src/models/User';
-// import VueRecaptcha from "vue-recaptcha";
-// import Password from "vue-password-strength-meter";
-import { ref, defineProps, withDefaults } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRoute } from 'vue-router';
 import { Form, Field, ErrorMessage } from 'vee-validate';
+import PasswordMeter from 'vue-simple-password-meter';
 
-const terms = ref([]);
 const email = ref('');
-// function validateCguField(value: boolean) {
-//   if (!value) {
-//     return "this field is required"; // TODO i18n
-//   }
-//   return true;
-// }
 
-// const { errorMessage: cguErrorMessage, value: terms } = useField("terms", validateCguField);
-
-// const MIN_SCORE = 2;
-// TODO
-// extend("strength", {
-//   message: "pwd-not-complex",
-//   validate: (_value, args: any) => {
-//     if (args !== undefined) {
-//       return args[0] >= MIN_SCORE;
-//     }
-//     return true;
-//   }
-// });
-
-// extend("is", {
-//   ...is,
-//   message: "require-accept",
-//   validate: value => !!value
-// });
-
-// extend("email", {
-//   ...email,
-//   message: "email-not-valid"
-// });
-
-// extend("required", {
-//   ...required,
-//   message: "field-required"
-// });
-
-// extend("confirmed", {
-//   ...confirmed,
-//   message: "password-not-confirmed"
-// });
-
-const SITE_KEY = import.meta.env.VITE_CAPTCHA_SITE_KEY;
 const FRANCE_CONNECT_LOGIN_URL = import.meta.env.VUE_APP_FRANCE_CONNECT_LOGIN_URL;
-const route = useRoute();
-
-const props = withDefaults(
-  defineProps<{
-    email?: string;
-  }>(),
-  {
-    email: '',
-  },
-);
 
 const { t } = useI18n();
 
@@ -257,39 +200,17 @@ function loginFranceConnect() {
   }
 }
 
-function mounted() {
+onMounted(() => {
   user.email = String(email);
   generatePlaceholder();
-}
+});
 
 function onSubmit() {
   emit('on-register', user);
 }
 
-function onVerify(captcha: string) {
-  // this.user.captcha = captcha;
-}
-
-function setScore(s: number) {
-  score.value = s;
-}
-
-function getParams() {
-  if (!route.params.source) {
-    return undefined;
-  }
-  return {
-    source: route.params.source,
-  };
-}
-
-function getQuery() {
-  return {
-    internalPartnerId: route.query.internalPartnerId?.toString() || '',
-    firstName: route.query.firstName?.toString() || '',
-    lastName: route.query.lastName?.toString() || '',
-    email: route.query.email?.toString() || '',
-  };
+function setScore(payload: any) {
+  score.value = payload.score;
 }
 </script>
 
@@ -381,7 +302,9 @@ a#social-franceconnect-particulier span {
     "ex": "E.g.: ",
     "or": "or",
     "connect-france-connect": "Connect with FranceConnect",
-    "whatis-france-connect": "What is FranceConnect ?"
+    "whatis-france-connect": "What is FranceConnect ?",
+    "strength-not-valid": "Password is too easy",
+    "confirm-not-valid": "Password not valid"
   },
   "fr": {
     "title": "Rejoindre DossierFacile",
@@ -399,7 +322,9 @@ a#social-franceconnect-particulier span {
     "ex": "Ex : ",
     "or": "Ou",
     "connect-france-connect": "Se connecter avec FranceConnect",
-    "whatis-france-connect": "Qu'est-ce que FranceConnect ?"
+    "whatis-france-connect": "Qu'est-ce que FranceConnect ?",
+    "strength-not-valid": "Le mot de passe est trop simple",
+    "confirm-not-valid": "Le mot de passe ne correspond pas"
   }
 }
 </i18n>
