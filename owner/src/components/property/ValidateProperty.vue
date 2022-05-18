@@ -49,7 +49,9 @@ function onBack() {
         :value="true"
       />
       <label for="authorize"><div v-html="'Lorem ipsum'"></div></label>
-      <ErrorMessage class="fr-error-text" name="authorize" />
+      <ErrorMessage class="fr-error-text" name="authorize" v-slot="{ message }">
+        <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+      </ErrorMessage>
     </div>
   </PropertyPage>
 </template>
