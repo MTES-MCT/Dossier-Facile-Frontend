@@ -6,13 +6,13 @@
           <div class="fr-grid-row height-40">
             <div class="fr-col-md-12">
               <div>
-                <h1 class="fr-h1 color--white">
+                <div class="fr-h1 color--white">
                   Mentions légales
-                </h1>
-                <h3 class="fr-h3 color--white">
+                </div>
+                <div class="fr-h3 color--white">
                   Conditions générales d'utilisation et politique de
                   confidentialité
-                </h3>
+                </div>
               </div>
             </div>
           </div>
@@ -23,7 +23,7 @@
         <div class="fr-container">
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-md-10">
-              <h2 class="fr-mt-3w">Mentions légales</h2>
+              <h1 class="fr-h2 fr-mt-3w">Mentions légales</h1>
               <p>
                 <b>Éditeur du site :</b><br />
                 Ministère de la Transition écologique,<br />
@@ -488,7 +488,7 @@
                 compétente.
               </p>
               <h3>7. Cookies</h3>
-              <h6>Finalité des cookies</h6>
+              <h4>Finalité des cookies</h4>
               <p>
                 Vous êtes informé que l'Éditeur dépose des cookies sur votre
                 terminal. Vous pouvez refuser l’utilisation des cookies non
@@ -503,7 +503,7 @@
                 consultées, la date et l'heure de la consultation...) qui
                 pourront être lues lors de vos visites ultérieures.
               </p>
-              <h6>Durée de conservation des cookies</h6>
+              <h4>Durée de conservation des cookies</h4>
               <p>
                 Conformément aux recommandations de la CNIL, la durée maximale
                 de conservation des cookies est de 13 mois au maximum après leur
@@ -513,7 +513,7 @@
                 pas prolongée à chaque visite. Le consentement de l’Utilisateur
                 devra donc être renouvelé à l'issue de ce délai.
               </p>
-              <h6>Droit de l'Utilisateur de refuser les cookies</h6>
+              <h4>Droit de l'Utilisateur de refuser les cookies</h4>
               <p>
                 Vous reconnaissez avoir été informé que l'Éditeur peut avoir
                 recours à des cookies. Si vous ne souhaitez pas que des cookies
@@ -522,7 +522,7 @@
                 options de réglage.
               </p>
               <h3>8. Données techniques</h3>
-              <h6>Collecte des données techniques</h6>
+              <h4>Collecte des données techniques</h4>
               <p>
                 Afin d’assurer la sécurité informatique du Site et à des fins
                 statistiques et d’amélioration du Site, nous pouvons collecter
@@ -530,7 +530,7 @@
                 (adresse IP, fournisseur d'accès à Internet, type d’appareil
                 utilisé).
               </p>
-              <h6>Durée de conservation des données techniques</h6>
+              <h4>Durée de conservation des données techniques</h4>
               <p>
                 Les données techniques anonymisées sont conservées sans
                 limitation de durée.
@@ -584,7 +584,7 @@
                 CNIL :
                 <a href="https://www.cnil.fr" target="_blank">www.cnil.fr</a>.
               </p>
-              <h6>Portabilité des données</h6>
+              <h4>Portabilité des données</h4>
               <p>
                 L'Éditeur s'engage à vous offrir la possibilité de vous faire
                 restituer l'ensemble des données vous concernant sur simple
@@ -593,7 +593,7 @@
                 réutiliser. Ces données devront être fournies dans un format
                 ouvert et aisément réutilisable.
               </p>
-              <h6>Suppression des données après suppression du compte</h6>
+              <h4>Suppression des données après suppression du compte</h4>
               <p>
                 Des moyens de purge de données sont mis en place afin d'en
                 prévoir la suppression effective dès lors que la durée de
@@ -670,7 +670,7 @@ a {
   color: $light-blue;
 }
 
-h6 {
+h4 {
   color: #434343;
 }
 
