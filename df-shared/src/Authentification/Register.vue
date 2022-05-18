@@ -1,9 +1,9 @@
 <template>
   <div>
     <div>
-      <h2 class="fr-h2 text-center fr-mt-3w fr-mb-5w color--primary">
+      <h1 class="fr-h2 text-center fr-mt-3w fr-mb-5w color--primary">
         {{ $t("title") }}
-      </h2>
+      </h1>
 
       <template>
         <div class="fr-mt-5w fr-mb-5w text-center ">
