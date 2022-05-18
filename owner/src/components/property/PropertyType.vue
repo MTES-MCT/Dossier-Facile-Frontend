@@ -106,7 +106,9 @@ function onBack() {
           <div class="fr-mb-md-5w fr-m-2w">{{ t("other") }}</div>
         </div>
       </label>
-      <ErrorMessage class="fr-error-text" name="type" />
+      <ErrorMessage name="type" v-slot="{ message }">
+        <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+      </ErrorMessage>
     </div>
   </PropertyPage>
 </template>
