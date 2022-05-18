@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Field, ErrorMessage } from 'vee-validate';
 import { computed, ref, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
@@ -91,20 +92,31 @@ function clickItem(data: Address) {
     <p>{{ t("address-subtitle") }}</p>
     <div>
       <label class="fr-label" for="address">{{ t("address-label") }} :</label>
-      <input
-        ref="autocompleteRef"
-        v-model="address"
-        class="form-control fr-input validate-required"
+      <Field
         id="address"
         name="address"
-        :placeholder="'42 rue de la paix'"
-        type="text"
-        @input="handleInput"
-        @focus="displayResults"
-        @blur="hideResults"
-        autocomplete="off"
-        required
-      />
+        v-model="address"
+        v-slot="{ field, meta }"
+        :rules="{
+          required: true,
+        }"
+      >
+        <input
+          v-bind="field"
+          ref="autocompleteRef"
+          class="validate-required form-control fr-input"
+          :class="{
+            'fr-input--valid': meta.valid,
+            'fr-input--error': !meta.valid,
+          }"
+          :placeholder="'42 rue de la paix'"
+          @input="handleInput"
+          @focus="displayResults"
+          @blur="hideResults"
+          autocomplete="off"
+          type="text"
+        />
+      </Field>
       <div
         :style="{ width: inputWidth + 'px' }"
         class="results-container"
@@ -120,6 +132,9 @@ function clickItem(data: Address) {
           {{ item.properties.label }}
         </div>
       </div>
+      <ErrorMessage name="address" v-slot="{ message }">
+        <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+      </ErrorMessage>
     </div>
   </PropertyPage>
 </template>
