@@ -74,7 +74,9 @@ function onBack() {
         for="furniture-apartment"
         >{{ t("furnished") }}</label
       >
-      <ErrorMessage class="fr-error-text" name="furniture" />
+      <ErrorMessage name="furniture" v-slot="{ message }">
+        <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+      </ErrorMessage>
     </p>
   </PropertyPage>
 </template>
