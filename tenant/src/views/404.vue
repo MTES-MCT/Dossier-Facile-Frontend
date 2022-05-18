@@ -17,7 +17,15 @@
 import { Vue, Component } from "vue-property-decorator";
 
 @Component
-export default class File extends Vue {}
+export default class File extends Vue {
+  mounted() {
+    window.Beacon("init", "e9f4da7d-11be-4b40-9514-ac7ce3e68f67");
+  }
+
+  beforeDestroy() {
+    window.Beacon("destroy");
+  }
+}
 </script>
 
 <style scoped lang="scss">

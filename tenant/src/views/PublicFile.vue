@@ -159,6 +159,10 @@ export default class File extends Vue {
         });
       }
     });
+    window.Beacon("init", "e9f4da7d-11be-4b40-9514-ac7ce3e68f67");
+  }
+  beforeDestroy() {
+    window.Beacon("destroy");
   }
 
   getTenants() {

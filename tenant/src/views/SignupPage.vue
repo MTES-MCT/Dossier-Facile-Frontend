@@ -87,6 +87,15 @@ import Modal from "df-shared/src/components/Modal.vue";
 export default class SignupPage extends Vue {
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
   isValidModalVisible = false;
+
+  mounted() {
+    window.Beacon("init", "e9f4da7d-11be-4b40-9514-ac7ce3e68f67");
+  }
+
+  beforeDestroy() {
+    window.Beacon("destroy");
+  }
+
   onRegister(user: User) {
     if (user.email && user.password) {
       this.$store.dispatch("register", { user: user }).then(

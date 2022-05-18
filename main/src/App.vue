@@ -45,6 +45,14 @@ export default class App extends Vue {
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
   REGISTER_URL = process.env.VUE_APP_REGISTER_URL || "";
 
+  mounted() {
+    window.Beacon("init", "e9f4da7d-11be-4b40-9514-ac7ce3e68f67");
+  }
+
+  beforeDestroy() {
+    window.Beacon("destroy");
+  }
+
   onCreateOwner() {
     window.location.href = this.OWNER_URL;
   }
