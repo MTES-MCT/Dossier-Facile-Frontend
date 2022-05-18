@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Field, ErrorMessage } from 'vee-validate';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
@@ -52,27 +53,55 @@ function onBack() {
     <p>{{ t("rent-subtitle") }}</p>
     <p>
       <label class="fr-label" for="rent">{{ t("monthly-rent") }} :</label>
-      <input
-        v-model="rent"
-        class="form-control fr-input validate-required"
+      <Field
         id="rent"
         name="rent"
-        :placeholder="t('rent-amount')"
-        type="number"
-        required
-      />
+        v-model="rent"
+        v-slot="{ field, meta }"
+        :rules="{
+          required: true,
+        }"
+      >
+        <input
+          v-bind="field"
+          class="validate-required form-control fr-input"
+          :class="{
+            'fr-input--valid': meta.valid,
+            'fr-input--error': !meta.valid,
+          }"
+          :placeholder="t('rent-amount')"
+          type="number"
+        />
+      </Field>
+      <ErrorMessage name="rent" v-slot="{ message }">
+        <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+      </ErrorMessage>
     </p>
     <p>
-      <label class="fr-label" for="rent">{{ t("monthly-charges") }} :</label>
-      <input
-        v-model="charges"
-        class="form-control fr-input validate-required"
+      <label class="fr-label" for="charges">{{ t("monthly-charges") }} :</label>
+      <Field
         id="charges"
         name="charges"
-        :placeholder="t('charges-amount')"
-        type="number"
-        required
-      />
+        v-model="charges"
+        v-slot="{ field, meta }"
+        :rules="{
+          required: true,
+        }"
+      >
+        <input
+          v-bind="field"
+          class="validate-required form-control fr-input"
+          :class="{
+            'fr-input--valid': meta.valid,
+            'fr-input--error': !meta.valid,
+          }"
+          :placeholder="t('charges-amount')"
+          type="number"
+        />
+      </Field>
+      <ErrorMessage name="charges" v-slot="{ message }">
+        <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+      </ErrorMessage>
     </p>
   </PropertyPage>
 </template>

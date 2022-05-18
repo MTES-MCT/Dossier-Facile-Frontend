@@ -12,6 +12,7 @@ import router from './router';
 import i18n from './i18n';
 import 'vue-toastification/dist/index.css';
 import keycloak from './plugin/keycloak';
+import { number } from 'yup';
 
 defineRule('validateEmail', (value: any) => {
   if (!value) {
@@ -32,6 +33,12 @@ defineRule('hasValue', (value: any) => {
   return true;
 });
 defineRule('required', (value: any) => {
+  if (typeof value === 'number') {
+    if (!value) {
+      return 'field-required';
+    }
+    return true;
+  }
   if (!value || !value.length) {
     return 'field-required';
   }
