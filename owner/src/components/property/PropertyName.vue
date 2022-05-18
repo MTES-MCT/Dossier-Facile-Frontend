@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Field, ErrorMessage } from 'vee-validate';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
@@ -43,15 +44,29 @@ function onBack() {
     <p>{{ t("name-subtitle") }}</p>
     <p>
       <label class="fr-label" for="name">{{ t("name-label") }} :</label>
-      <input
-        v-model="name"
-        class="form-control fr-input validate-required"
+      <Field
         id="name"
         name="name"
-        :placeholder="t('name-placeholder')"
-        type="text"
-        required
-      />
+        v-model="name"
+        v-slot="{ field, meta }"
+        :rules="{
+          required: true,
+        }"
+      >
+        <input
+          v-bind="field"
+          class="validate-required form-control fr-input"
+          :class="{
+            'fr-input--valid': meta.valid,
+            'fr-input--error': !meta.valid,
+          }"
+          :placeholder="t('name-placeholder')"
+          type="text"
+        />
+      </Field>
+      <ErrorMessage name="name" v-slot="{ message }">
+        <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+      </ErrorMessage>
     </p>
   </PropertyPage>
 </template>

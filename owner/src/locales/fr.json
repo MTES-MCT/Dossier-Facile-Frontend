@@ -1,3 +1,4 @@
 {
-  "email-required": "L'email est obligatoire"
+  "email-required": "L'email est obligatoire",
+  "field-required": "Ce champ est requis"
 }

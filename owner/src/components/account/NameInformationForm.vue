@@ -102,7 +102,7 @@
 
 <script lang="ts" setup>
 import {
-  Form, Field, ErrorMessage, useField,
+  Form, Field, ErrorMessage,
 } from 'vee-validate';
 import NakedCard from 'df-shared/src/components/NakedCard.vue';
 import { computed, onMounted, ref } from 'vue';
