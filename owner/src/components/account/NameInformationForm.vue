@@ -1,6 +1,6 @@
 <template>
   <div class="fr-mb-15w">
-    <Form @submit.prevent="onSubmit">
+    <Form @submit="onSubmit">
       <NakedCard class="fr-p-5w">
         <h1>{{ t("title") }}</h1>
         <p>{{ t("subtitle") }}</p>
@@ -8,44 +8,89 @@
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-input-group">
               <label class="fr-label" for="lastname">{{ t("lastname") }} :</label>
-              <input
-                v-model="lastName"
-                class="form-control fr-input validate-required"
+              <Field
                 id="lastname"
                 name="lastname"
-                :placeholder="t('lastname')"
-                :disabled="franceConnect"
-                type="text"
-                required
-              />
+                v-model="lastname"
+                v-slot="{ field, meta }"
+                :rules="{
+                  required: true,
+                }"
+              >
+                <input
+                  v-bind="field"
+                  class="validate-required form-control fr-input"
+                  :class="{
+                    'fr-input--valid': meta.valid,
+                    'fr-input--error': !meta.valid,
+                  }"
+                  :placeholder="t('lastname')"
+                  :disabled="franceConnect"
+                  type="text"
+                />
+              </Field>
+              <ErrorMessage name="lastname" v-slot="{ message }">
+                <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+              </ErrorMessage>
             </div>
           </div>
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-input-group">
               <label for="firstname" class="fr-label">{{ t("firstname") }} :</label>
-              <input
+              <Field
                 id="firstname"
-                :placeholder="t('firstname')"
-                type="text"
-                v-model="firstName"
                 name="firstname"
-                class="validate-required form-control fr-input"
-                :disabled="franceConnect"
-                required
-              />
+                v-model="firstname"
+                v-slot="{ field, meta }"
+                :rules="{
+                  required: true,
+                }"
+              >
+                <input
+                  v-bind="field"
+                  class="validate-required form-control fr-input"
+                  :class="{
+                    'fr-input--valid': meta.valid,
+                    'fr-input--error': !meta.valid,
+                  }"
+                  :placeholder="t('firstname')"
+                  :disabled="franceConnect"
+                  type="text"
+                />
+              </Field>
+              <ErrorMessage name="firstname" v-slot="{ message }">
+                <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+              </ErrorMessage>
             </div>
           </div>
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-input-group">
               <label for="email" class="fr-label">{{ t("email") }} :</label>
-              <input
+              <Field
                 id="email"
-                :placeholder="t('email')"
-                type="email"
-                v-model="email"
                 name="email"
-                class="validate-required form-control fr-input"
-              />
+                v-model="email"
+                v-slot="{ field, meta }"
+                :rules="{
+                  email: true,
+                  required: true,
+                }"
+              >
+                <input
+                  v-bind="field"
+                  class="validate-required form-control fr-input"
+                  :class="{
+                    'fr-input--valid': meta.valid,
+                    'fr-input--error': !meta.valid,
+                  }"
+                  :placeholder="t('email')"
+                  :disabled="franceConnect"
+                  type="email"
+                />
+              </Field>
+              <ErrorMessage name="email" v-slot="{ message }">
+                <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+              </ErrorMessage>
             </div>
           </div>
         </div>
@@ -56,8 +101,11 @@
 </template>
 
 <script lang="ts" setup>
+import {
+  Form, Field, ErrorMessage, useField,
+} from 'vee-validate';
 import NakedCard from 'df-shared/src/components/NakedCard.vue';
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import router from '../../router';
 import ProfileFooter from '../footer/ProfileFooter.vue';
@@ -70,35 +118,12 @@ const properties = store.getProperties;
 
 const franceConnect = computed(() => store.getUser?.franceConnect);
 
-const firstName = computed({
-  get() {
-    return store.getUser?.firstName || '';
-  },
-  set(val: string) {
-    store.setFirstName(val);
-  },
-});
-
-const lastName = computed({
-  get() {
-    return store.getUser?.lastName || '';
-  },
-  set(val: string) {
-    store.setLastName(val);
-  },
-});
-
-const email = computed({
-  get() {
-    return store.getUser?.email;
-  },
-  set(val: string) {
-    store.setEmail(val);
-  },
-});
+const firstname = ref(store.getUser?.firstName || '');
+const lastname = ref(store.getUser?.lastName || '');
+const email = ref(store.getUser?.email || '');
 
 function onSubmit() {
-  store.saveNames(lastName.value, firstName.value, email.value).then(() => {
+  store.saveNames(lastname.value, firstname.value, email.value).then(() => {
     if (properties.length > 0) {
       router.push({ name: 'Dashboard' });
       return;
@@ -115,14 +140,16 @@ function onSubmit() {
     "subtitle": "Please fill in the information of the person whose name will appear on the rental lease",
     "lastname": "Lastname",
     "firstname": "Firstname",
-    "email": "Your email"
+    "email": "Your email",
+    "field-required": "This field is required",
   },
   "fr": {
     "title": "Je renseigne mes informations personnelles",
     "subtitle": "Veuillez renseigner les informations de la personne dont le nom figurera sur le bail de location",
     "lastname": "Nom",
     "firstname": "Prénom",
-    "email": "Votre email"
+    "email": "Votre email",
+    "field-required": "Ce champ est requis",
   }
 }
 </i18n>

@@ -45,12 +45,12 @@
               <Field
                 id="email"
                 name="email"
+                v-model="user.email"
                 v-slot="{ field, meta }"
                 :rules="{ email: true, required: true }"
               >
                 <input
                   v-bind="field"
-                  v-model="user.email"
                   class="form-control validate-required fr-input"
                   :class="{
                     'fr-input--valid': meta.valid,
@@ -72,12 +72,12 @@
               <Field
                 id="password"
                 name="password"
+                v-model="user.password"
                 v-slot="{ field, meta }"
                 :rules="{ required: true, strength: score }"
               >
                 <input
                   v-bind="field"
-                  v-model="user.password"
                   class="form-control validate-required fr-input"
                   :class="{
                     'fr-input--valid': meta.valid,
@@ -102,6 +102,7 @@
               <Field
                 id="confirm-password"
                 name="confirm-password"
+                v-model="user.confirm"
                 v-slot="{ field, meta }"
                 :rules="{
                   required: true,
@@ -110,7 +111,6 @@
               >
                 <input
                   v-bind="field"
-                  v-model="user.confirm"
                   class="validate-required form-control fr-input"
                   :class="{
                     'fr-input--valid': meta.valid,
