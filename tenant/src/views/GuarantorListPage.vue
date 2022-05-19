@@ -1,9 +1,9 @@
 <template>
   <ProfileContainer :step="3">
     <NakedCard class="fr-p-md-5w">
-      <h5>
+      <h1 class="fr-h5">
         {{ $t("my-guarantor") }}
-      </h5>
+      </h1>
       <v-gouv-fr-modal>
         <template v-slot:button>
           <span class="small-font">{{ $t("more-information") }}</span>

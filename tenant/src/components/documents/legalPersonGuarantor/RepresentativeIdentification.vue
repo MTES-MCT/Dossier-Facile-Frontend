@@ -7,9 +7,9 @@
             class="fr-input-group"
             :class="errors[0] ? 'fr-input-group--error' : ''"
           >
-            <label class="fr-label" for="firstName"
-              >{{ $t("organism-name") }} :</label
-            >
+            <h1 class="fr-label fr-text--regular" for="firstName">
+              {{ $t("organism-name") }} :
+            </h1>
             <input
               v-model="firstName"
               class="form-control fr-input validate-required"

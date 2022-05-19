@@ -4,9 +4,9 @@
       <div class="fr-col-lg-6 fr-col-12">
         <div class="bg-pic">
           <div class="bg-white max-450 left-row fr-pt-3w fr-mt-7w fr-mb-7w">
-            <h2 class="fr-h5 blue-text text-center fr-mt-3w">
+            <div class="fr-h5 blue-text text-center fr-mt-3w">
               En route pour rejoindre DossierFacile !
-            </h2>
+            </div>
             <div class="fr-pl-2w fr-pr-2w">
               Afin de faciliter la constitution de votre dossier, préparez les
               pièces suivantes :
@@ -45,11 +45,11 @@
       <div class="fr-col-lg-6 fr-col-12 bg-white">
         <div class="margin-auto max-400">
           <Register :source="true" :email="email" @on-register="onRegister" />
-          <div class="text-center fr-mb-5w">
+          <h1 class="fr-text--sm text-center fr-mb-5w">
             <a href="#" @click="connect" class="blue-text">
               {{ $t("existing-account") }}
             </a>
-          </div>
+          </h1>
         </div>
       </div>
     </div>

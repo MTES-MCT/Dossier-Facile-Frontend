@@ -4,9 +4,9 @@
       <div class="fr-col-lg-6 fr-col-12">
         <div class="bg-pic">
           <div class="bg-white max-450 left-row fr-pt-3w fr-mt-7w fr-mb-7w">
-            <h2 class="fr-h5 blue-text text-center fr-mt-3w">
+            <div class="fr-h5 blue-text text-center fr-mt-3w">
               En route pour rejoindre DossierFacile !
-            </h2>
+            </div>
             <div class="fr-pl-2w fr-pr-2w">
               Afin de faciliter la constitution de votre dossier, préparez les
               pièces suivantes :
