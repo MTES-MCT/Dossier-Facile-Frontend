@@ -148,13 +148,10 @@ export default class SignupPage extends Vue {
 }
 </i18n>
 
-<style>
+<style scoped lang="scss">
 body {
   background-color: var(--g100);
 }
-</style>
-
-<style scoped lang="scss">
 .bg-white {
   background-color: white;
   padding: 16px;
@@ -201,7 +198,7 @@ body {
 }
 .bg-pic {
   background: linear-gradient(rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.5)),
-    url("../assets/Immeuble.png") no-repeat;
+    url("../assets/immeuble.jpg") no-repeat;
   background-size: cover;
   height: 100%;
   overflow: hidden;
