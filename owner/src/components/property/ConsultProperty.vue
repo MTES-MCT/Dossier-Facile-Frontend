@@ -61,20 +61,19 @@
       </div>
       <NakedCard class="h-100">
         <div class="fr-grid-row align-items--center w100">
-        <div class="fr-col-md-1 fr-col-2 text-center">
-          <PropertyIcon :type="propertyType || ''"></PropertyIcon>
-        </div>
-        <div class="fr-col">
-          <div
-            v-html="
-              `${t(titleKey)} ${t('rent', {
-                rentCost: p.rentCost,
-                chargesCost: p.chargesCost,
-              })}`
-            "
-          >
+          <div class="fr-col-md-1 fr-col-2 text-center">
+            <PropertyIcon :type="propertyType || ''"></PropertyIcon>
           </div>
-        </div>
+          <div class="fr-col">
+            <div
+              v-html="
+                `${t(titleKey)} ${t('rent', {
+                  rentCost: p.rentCost,
+                  chargesCost: p.chargesCost,
+                })}`
+              "
+            ></div>
+          </div>
         </div>
       </NakedCard>
       <NakedCard class="fr-mt-3w">
@@ -221,6 +220,11 @@ const id = ref(0);
 if (route.params.id) {
   id.value = Number(route.params.id);
   store.updatePropertyToConsult(id.value);
+  if (Object.keys(store.getPropertyToConsult).length <= 0) {
+    router.push({ name: 'Dashboard' });
+  }
+} else {
+  router.push({ name: 'Dashboard' });
 }
 
 const TENANT_URL = `https://${import.meta.env.VITE_TENANT_URL}`;
