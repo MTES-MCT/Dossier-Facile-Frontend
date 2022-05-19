@@ -92,27 +92,27 @@ const pclass = computed(() => {
 
   &.red {
     background-color: #f95e68;
-    width: 10%;
+    width: 20%;
   }
 
   &.orange {
     background-color: #fb964d;
-    width: 30%;
+    width: 40%;
   }
 
   &.yellow {
     background-color: #fdd244;
-    width: 50%;
+    width: 60%;
   }
 
   &.light-green {
     background-color: #b0dc53;
-    width: 70%;
+    width: 80%;
   }
 
   &.dark-green {
     background-color: #35cc62;
-    width: 90%;
+    width: 100%;
   }
 }
 </style>

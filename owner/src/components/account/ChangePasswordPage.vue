@@ -30,7 +30,7 @@ function onChangePassword(user: User) {
     },
     (error: any) => {
       if (error.response.data.message.includes('password recovery token or is expired')) {
-        toast.success(t('token-expired').toString(), {
+        toast.error(t('token-expired').toString(), {
           timeout: 7000,
         });
       } else {

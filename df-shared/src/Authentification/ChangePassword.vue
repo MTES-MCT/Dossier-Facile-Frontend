@@ -11,15 +11,32 @@
               <label class="fr-label" for="password">{{ t("password") }}</label>
               <Field
                 id="password"
-                :placeholder="t('password-placeholder')"
-                type="password"
-                v-model="user.password"
                 name="password"
-                class="validate-required form-control fr-input"
-                required
+                v-model="user.password"
+                v-slot="{ field, meta }"
+                :rules="{ required: true, strength: score }"
+              >
+                <input
+                  v-bind="field"
+                  class="form-control validate-required fr-input"
+                  :class="{
+                    'fr-input--valid': meta.valid,
+                    'fr-input--error': !meta.valid
+                  }"
+                  placeholder="DF-DC520!x"
+                  type="password"
+                  autocomplete="new-password"
+                />
+              </Field>
+              <PasswordMeter
+                @score="setScore"
+                :password="user.password || ''"
               />
-              <password v-model="user.password" />
-              <ErrorMessage name="password"></ErrorMessage>
+              <ErrorMessage name="password" v-slot="{ message }">
+                <span role="alert" class="fr-error-text">{{
+                  t(message || "")
+                }}</span>
+              </ErrorMessage>
             </div>
           </div>
           <div class="fr-col-12 fr-mb-3w">
@@ -29,14 +46,30 @@
               >
               <Field
                 id="confirm-password"
-                :placeholder="t('password-placeholder')"
-                type="password"
-                v-model="user.confirm"
                 name="confirm-password"
-                class="validate-required form-control fr-input"
-                required
-              />
-              <ErrorMessage name="password"></ErrorMessage>
+                v-model="user.confirm"
+                v-slot="{ field, meta }"
+                :rules="{
+                  required: true,
+                  confirm: [user.password, user.confirm]
+                }"
+              >
+                <input
+                  v-bind="field"
+                  class="validate-required form-control fr-input"
+                  :class="{
+                    'fr-input--valid': meta.valid,
+                    'fr-input--error': !meta.valid
+                  }"
+                  type="password"
+                  autocomplete="new-password"
+                />
+              </Field>
+              <ErrorMessage name="confirm-password" v-slot="{ message }">
+                <span role="alert" class="fr-error-text">{{
+                  t(message || "")
+                }}</span>
+              </ErrorMessage>
             </div>
           </div>
 
@@ -55,14 +88,21 @@
 import { useI18n } from "vue-i18n";
 import { User } from "../models/User";
 import { Form, Field, ErrorMessage } from "vee-validate";
+import PasswordMeter from "df-shared/src/components/PasswordMeter/PasswordMeter.vue";
+import { ref } from "vue";
 
 const emit = defineEmits(["on-change-password"]);
 const { t } = useI18n();
 
 const user = new User();
+const score = ref(0);
 
 function handleRegister() {
   emit("on-change-password", user);
+}
+
+function setScore(s: number) {
+  score.value = s;
 }
 </script>
 
@@ -72,23 +112,23 @@ function handleRegister() {
     "title": "Password update",
     "password": "Password",
     "confirm-password": "Confirm password :",
-    "password-placeholder": "Ex : 12345679",
     "confirm": "Confirm password",
     "password-not-confirmed": "Password not confirmed",
-    "pwd-not-complex": "Password not secure enough",
     "field-required": "This field is required",
-    "submit": "Submit"
+    "submit": "Submit",
+    "strength-not-valid": "Password is too easy",
+    "confirm-not-valid": "Password not valid"
   },
   "fr": {
     "title": "Modification du mot de passe",
     "password": "Nouveau mot de passe",
     "confirm-password": "Confirmation du mot de passe :",
-    "password-placeholder": "Ex : 12345679",
     "confirm": "Confirmation du mot de passe",
     "password-not-confirmed": "Le mot de passe ne correspond pas",
-    "pwd-not-complex": "Mot de passe trop simple",
     "field-required": "Ce champ est requis",
-    "submit": "Valider"
+    "submit": "Valider",
+    "strength-not-valid": "Le mot de passe est trop simple",
+    "confirm-not-valid": "Le mot de passe ne correspond pas"
   }
 }
 </i18n>
