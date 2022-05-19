@@ -88,7 +88,7 @@
                   autocomplete="new-password"
                 />
               </Field>
-              <PasswordMeter @score="setScore" :password="user.password" />
+              <PasswordMeter @score="setScore" :password="user.password || ''" />
               <ErrorMessage name="password" v-slot="{ message }">
                 <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
               </ErrorMessage>
@@ -158,9 +158,7 @@ import { User } from 'df-shared/src/models/User';
 import { ref, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Form, Field, ErrorMessage } from 'vee-validate';
-import PasswordMeter from 'vue-simple-password-meter';
-
-const email = ref('');
+import PasswordMeter from 'df-shared/src/components/PasswordMeter/PasswordMeter.vue';
 
 const FRANCE_CONNECT_LOGIN_URL = import.meta.env.VUE_APP_FRANCE_CONNECT_LOGIN_URL;
 
@@ -201,7 +199,6 @@ function loginFranceConnect() {
 }
 
 onMounted(() => {
-  user.email = String(email);
   generatePlaceholder();
 });
 
@@ -209,8 +206,8 @@ function onSubmit() {
   emit('on-register', user);
 }
 
-function setScore(payload: any) {
-  score.value = payload.score;
+function setScore(s: number) {
+  score.value = s;
 }
 </script>
 

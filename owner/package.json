@@ -78,7 +78,6 @@
     "vue": "^3.2.25",
     "vue-i18n": "9",
     "vue-router": "4",
-    "vue-simple-password-meter": "^1.1.0",
     "vue-toastification": "^2.0.0-rc.5",
     "vue3-cookies": "^1.0.6"
   },

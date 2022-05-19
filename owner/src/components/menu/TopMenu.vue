@@ -20,11 +20,14 @@ const tcontainer = ref(null);
 onMounted(() => {
   let left = 0;
   const tdx = tds[route.meta.position as number];
-  if (tdx === undefined) {
+  const tcontainerval = tcontainer.value as any;
+  const tdxval = tdx.value as any;
+  if (tdx === undefined || tdx.value === null || tdxval.offsetLeft === null
+   || tcontainer.value === null || tcontainerval.offsetWidth === null) {
     return;
   }
-  left = tdx.value.offsetLeft - (tcontainer.value.offsetWidth - tdx.value.offsetWidth) / 2;
-  tcontainer.value.scrollTo(left, 0);
+  left = tdxval.offsetLeft - (tcontainerval.offsetWidth - tdxval.offsetWidth) / 2;
+  tcontainerval.scrollTo(left, 0);
 });
 
 const propertyName = computed(() => store.getPropertyToEdit?.name);
