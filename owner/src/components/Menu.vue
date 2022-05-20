@@ -4,11 +4,13 @@ import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import DeleteAccount from './DeleteAccount.vue';
 import useOwnerStore from '../store/owner-store';
+import i18n from '../i18n';
 
 const store = useOwnerStore();
 const isLoggedIn = computed(() => store.isLoggedIn);
 const route = useRoute();
 const { t } = useI18n();
+const emit = defineEmits(['on-change-lang']);
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`;
@@ -19,18 +21,20 @@ function currentPage() {
   return route.name;
 }
 
+function changeLang() {
+  emit('on-change-lang');
+}
+
+function getLang() {
+  return ((i18n.global as unknown) as Composer).locale.value;
+}
 </script>
 
 <template>
   <ul class="fr-nav__list">
     <li class="fr-nav__item">
-      <a
-        :href="`${DOCS_URL}`"
-        class="fr-nav__link"
-        target="_blank"
-        rel="noreferrer"
-      >
-        {{ t("faq") }}
+      <a :href="`${MAIN_URL}/information`" class="fr-nav__link">
+        {{ t("information") }}
       </a>
     </li>
     <li class="fr-nav__item">
@@ -39,11 +43,16 @@ function currentPage() {
       </a>
     </li>
     <li class="fr-nav__item">
-      <a :href="`${MAIN_URL}/information`" class="fr-nav__link">
-        {{ t("information") }}
+      <a
+        :href="`${DOCS_URL}`"
+        class="fr-nav__link fr-external-link"
+        target="_blank"
+        rel="noreferrer"
+      >
+        {{ t("help") }}
       </a>
     </li>
-    <li class="fr-nav__item" v-show="isLoggedIn">
+    <li class="fr-nav__item break" v-show="isLoggedIn">
       <button
         class="fr-nav__btn"
         aria-expanded="false"
@@ -80,11 +89,32 @@ function currentPage() {
         </ul>
       </div>
     </li>
+    <li class="fr-nav__item">
+      <button
+        class="fr-nav__link fr-btn fr-ml-3 fr-btn--secondary fr-btn--sm lang"
+        @click="changeLang"
+      >
+        <span :class="{ underline: getLang() === 'fr' }">FR</span> |
+        <span :class="{ underline: getLang() === 'en' }">EN</span>
+      </button>
+    </li>
   </ul>
 </template>
 
 <style scoped lang="scss">
-.fr-nav__list > li:last-child {
+.fr-nav__item {
+  position: relative;
+
+  a.fr-external-link::after {
+    content: "";
+  }
+}
+
+.lang {
+  box-shadow: none;
+}
+
+.fr-nav__list > li.break {
   @media all and (min-width: 992px) {
     margin-left: auto;
   }
@@ -97,19 +127,21 @@ function currentPage() {
 "account": "Account",
 "file": "File",
 "messaging": "Messaging",
-"faq": "Help",
+"help": "Help",
 "blog": "Blog",
 "information": "Information",
-"deleteAccount": "Delete my account"
+"deleteAccount": "Delete my account",
+"contact-us": "contact us"
 },
 "fr": {
 "file": "Mon dossier",
 "account": "Mon compte",
 "messaging": "Messagerie",
-"faq": "Aide",
+"help": "Aide",
 "blog": "Blog",
-"information": "En savoir plus",
-"deleteAccount": "Supprimer mon compte"
+"deleteAccount": "Supprimer mon compte",
+"information": "Qui sommes-nous?",
+"contact-us": "Nous contacter"
 }
 }
 </i18n>

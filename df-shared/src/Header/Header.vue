@@ -192,12 +192,7 @@ withDefaults(
   }
 );
 
-const emit = defineEmits([
-  "on-create-tenant",
-  "on-logout",
-  "on-create-owner",
-  "on-change-lang"
-]);
+const emit = defineEmits(["on-create-tenant", "on-logout", "on-create-owner"]);
 
 function onCreateTenant() {
   emit("on-create-tenant");

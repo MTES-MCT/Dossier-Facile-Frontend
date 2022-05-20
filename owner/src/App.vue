@@ -89,11 +89,9 @@ function denyCookies() {
     @on-create-tenant="onCreateTenant"
     @on-create-owner="onCreateOwner"
     @on-logout="onLogout"
-    @on-change-lang="changeLang"
     :showAccessibility="false"
-    :lang="getLang()"
   >
-    <Menu />
+    <Menu @on-change-lang="changeLang" :lang="getLang()"></Menu>
   </MyHeader>
   <article class="page">
     <router-view />

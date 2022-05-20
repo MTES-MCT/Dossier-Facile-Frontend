@@ -8,11 +8,9 @@
     <MyHeader
       @on-create-tenant="onCreateTenant"
       @on-create-owner="onCreateOwner"
-      @on-change-lang="changeLang"
       :lang="getLang()"
     >
     </MyHeader>
-    <ClcvAnnouncement></ClcvAnnouncement>
     <router-view />
     <TheFooter />
   </div>
@@ -27,11 +25,9 @@ import Cookies from "df-shared/src/Footer/Cookies.vue";
 import i18n from "./i18n";
 import VueGtag from "vue-gtag";
 import router from "./router";
-import ClcvAnnouncement from "df-shared/src/components/ClcvAnnouncement.vue";
 
 @Component({
   components: {
-    ClcvAnnouncement,
     Modal,
     MyHeader,
     TheFooter,
