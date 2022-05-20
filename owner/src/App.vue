@@ -5,9 +5,9 @@ import TheFooter from 'df-shared/src/Footer/Footer.vue';
 import Cookies from 'df-shared/src/Footer/Cookies.vue';
 import { useRouter } from 'vue-router';
 import { useCookies } from 'vue3-cookies';
+import { Composer } from 'vue-i18n';
 import i18n from './i18n';
 import Menu from './components/Menu.vue';
-import { Composer } from 'vue-i18n';
 import useOwnerStore from './store/owner-store';
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
@@ -19,7 +19,9 @@ const { cookies } = useCookies();
 
 const isLoggedIn = computed(() => store.isLoggedIn);
 
-const cookieHidden = ref(cookies.isKey('accept-cookie') && cookies.get('accept-cookie') === 'true');
+const cookieHidden = ref(
+  cookies.isKey('accept-cookie') && cookies.get('accept-cookie') === 'true',
+);
 
 const hasFooter = computed(() => store.hasFooter);
 
@@ -28,7 +30,7 @@ function onCreateTenant() {
 }
 
 function onCreateOwner() {
-  router.push('/signup');
+  router.push({ name: 'Dashboard' });
 }
 
 function onLogout() {
@@ -36,40 +38,40 @@ function onLogout() {
 }
 
 function changeLang() {
-  const lang = (i18n.global as unknown as Composer).locale.value === 'fr' ? 'en' : 'fr';
+  const lang = ((i18n.global as unknown) as Composer).locale.value === 'fr' ? 'en' : 'fr';
   store.setLang(lang);
 }
 
 function getLang() {
-  return (i18n.global as unknown as Composer).locale.value;
+  return ((i18n.global as unknown) as Composer).locale.value;
 }
 
 function acceptCookies() {
   cookies.set('accept-cookie', 'true');
 
-    // Vue.use(
-    //   VueGtag,
-    //   {
-    //     config: {
-    //       id: "UA-50823626-2",
-    //       params: {
-    //         // eslint-disable-next-line @typescript-eslint/camelcase
-    //         send_page_view: true
-    //       },
-    //       linker: {
-    //         domains: [
-    //           "dossierfacile.fr",
-    //           "www.dossierfacile.fr",
-    //           "locataire.dossierfacile.fr",
-    //           "proprietaire.dossierfacile.fr",
-    //           "sso.dossierfacile.fr"
-    //         ]
-    //       }
-    //     }
-    //   },
-    //   router
-    // );
-    // Vue.prototype.inspectlet();
+  // Vue.use(
+  //   VueGtag,
+  //   {
+  //     config: {
+  //       id: "UA-50823626-2",
+  //       params: {
+  //         // eslint-disable-next-line @typescript-eslint/camelcase
+  //         send_page_view: true
+  //       },
+  //       linker: {
+  //         domains: [
+  //           "dossierfacile.fr",
+  //           "www.dossierfacile.fr",
+  //           "locataire.dossierfacile.fr",
+  //           "proprietaire.dossierfacile.fr",
+  //           "sso.dossierfacile.fr"
+  //         ]
+  //       }
+  //     }
+  //   },
+  //   router
+  // );
+  // Vue.prototype.inspectlet();
 
   cookieHidden.value = true;
 }

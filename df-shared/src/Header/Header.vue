@@ -28,52 +28,64 @@
                 <p class="fr-header__service-title">
                   <img
                     class="logo"
-                    src="./logo_dossierfacile.webp"
+                    src="./logo_dossierfacile.svg"
                     alt="Dossier Facile"
                   />
                 </p>
               </a>
-              <p class="fr-header__service-tagline">
-                DossierFacile, le dossier de location numérique de l’État
-              </p>
             </div>
           </div>
 
           <div class="fr-header__tools">
             <div class="fr-header__tools-links">
               <ul class="fr-btns-group">
-                <li v-if="showAccessibility">
-                  <a
-                    class="fr-btn fr-fi-eye-line"
-                    :href="`${MAIN_URL}/accessibilite`"
-                    target="_blank"
-                    :title="t('accessibility-link')"
-                    >{{ t("accessibility") }}</a
-                  >
-                </li>
                 <li v-if="loggedIn">
-                  <a href="" class="fr-btn" @click="onLogout">{{
-                    t("logout")
-                  }}</a>
+                  <v-gouv-fr-button
+                    :small="true"
+                    :primary="false"
+                    @click="onLogout"
+                    ><span class="material-icons-outlined" aria-hidden="true">
+                      account_circle </span
+                    >{{ t("logout") }}
+                  </v-gouv-fr-button>
                 </li>
                 <li v-if="!loggedIn">
-                  <a class="fr-btn" @click="onCreateTenant" href="">
-                    {{ t("signup") }}
-                  </a>
-                </li>
-                <li v-if="!loggedIn">
-                  <a class="fr-btn" @click="onCreateOwner" href="">
-                    {{ t("owner") }}
-                  </a>
-                </li>
-                <li>
-                  <button
-                    class="fr-btn fr-ml-3 fr-btn--secondary fr-btn--sm lang"
-                    @click="changeLang"
+                  <DfButton
+                    :primary="true"
+                    :title="t('signup')"
+                    size="small"
+                    @on-click="onCreateTenant"
                   >
-                    <span :class="{ underline: lang === 'fr' }">FR</span> |
-                    <span :class="{ underline: lang === 'en' }">EN</span>
-                  </button>
+                    <span class="material-icons-outlined" aria-hidden="true">
+                      account_circle
+                    </span>
+                    {{ t("signup") }}
+                  </DfButton>
+                </li>
+                <li v-if="!loggedIn">
+                  <DfButton
+                    size="small"
+                    :title="t('owner')"
+                    @on-click="onCreateOwner"
+                  >
+                    <span class="material-icons" aria-hidden="true"
+                      >apartment</span
+                    >
+                    {{ t("owner") }}
+                  </DfButton>
+                </li>
+                <li v-if="!loggedIn">
+                  <DfButton :title="t('partner')" size="small">
+                    <a
+                      class="fr-external-link"
+                      href="https://partenaire.dossierfacile.fr"
+                      target="_blank"
+                      rel="noreferrer"
+                      :title="t('partner-link-title')"
+                    >
+                      {{ t("partner") }}
+                    </a>
+                  </DfButton>
                 </li>
               </ul>
             </div>
@@ -94,51 +106,54 @@
         <div class="fr-header__menu-links" style="display: none"></div>
         <div class="fr-header__menu-links-hack">
           <ul class="fr-btns-group">
-            <li v-if="showAccessibility">
-              <a
-                class="fr-btn fr-fi-eye-line"
-                :href="`${MAIN_URL}/accessibilite`"
-                target="_blank"
-                :title="t('accessibility-link')"
-                >{{ t("accessibility") }}</a
-              >
-            </li>
             <li v-if="loggedIn">
-              <v-gouv-fr-button
-                :label="t('logout')"
-                :small="true"
-                :secondary="true"
-                @click="onLogout"
-              ></v-gouv-fr-button>
+              <DfButton
+                :title="t('logout')"
+                class="fr-ml-3"
+                :primary="false"
+                size="small"
+                @on-click="onLogout"
+                ><span class="material-icons-outlined" aria-hidden="true">
+                  account_circle </span
+                >{{ t("logout") }}
+              </DfButton>
             </li>
             <li v-if="!loggedIn">
               <DfButton
                 class="fr-ml-3"
                 :title="t('signup')"
-                :primary="true"
+                :primary="false"
                 size="small"
                 @on-click="onCreateTenant"
               >
+                <span class="material-icons-outlined" aria-hidden="true">
+                  account_circle
+                </span>
                 {{ t("signup") }}
+              </DfButton>
+            </li>
+
+            <li v-if="!loggedIn">
+              <DfButton
+                size="small"
+                class="fr-ml-3"
+                :title="t('owner')"
+                @on-click="onCreateOwner"
+              >
+                <span class="material-icons" aria-hidden="true">apartment</span>
+                {{ t("owner") }}
               </DfButton>
             </li>
             <li v-if="!loggedIn">
               <DfButton
                 size="small"
-                :title="t('owner')"
-                @on-click="onCreateOwner"
+                class="fr-external-link"
+                :title="t('partner-link-title')"
+                @on-click="gotToPartner"
               >
-                {{ t("owner") }}
+                <span class="material-icons" aria-hidden="true"> </span>
+                {{ t("partner") }}
               </DfButton>
-            </li>
-            <li>
-              <button
-                class="fr-btn fr-ml-3 fr-btn--secondary fr-btn--sm lang"
-                @click="changeLang"
-              >
-                <span :class="{ underline: lang === 'fr' }">FR</span> |
-                <span :class="{ underline: lang === 'en' }">EN</span>
-              </button>
             </li>
           </ul>
         </div>
@@ -196,20 +211,18 @@ function onCreateOwner() {
   emit("on-create-owner");
 }
 
-function changeLang() {
-  emit("on-change-lang");
+function gotToPartner() {
+  window.open("https://partenaire.dossierfacile.fr", "_blank");
 }
 </script>
 
 <style lang="scss" scoped>
 .logo {
-  height: 50px;
-  width: 312px;
-  max-height: 50px;
-  max-width: calc(100% - 20px);
+  width: 290px;
+  max-width: 290px;
 }
 
-.lang {
+.fr-btn--secondary {
   box-shadow: none;
 }
 
@@ -228,23 +241,55 @@ li {
     display: none;
   }
 }
+span.material-icons,
+span.material-icons-outlined {
+  padding-right: 0.25rem;
+  min-width: 24px;
+}
+
+.fr-header {
+  .fr-links-group {
+    li {
+      margin-right: 0;
+      margin-left: 0;
+      .fr-btn {
+        margin-right: 0;
+      }
+      @media all and (max-width: 768px) {
+        border-bottom: 1px;
+        border-bottom-style: solid;
+        border-bottom-color: var(--border-default-grey);
+      }
+    }
+    & > li:last-child,
+    li:nth-last-child(2) {
+      @media all and (min-width: 768px) {
+        border-left: 1px;
+        border-left-style: solid;
+      }
+    }
+    & > li:first-child {
+      border-left-style: none !important;
+    }
+  }
+}
 </style>
 
 <i18n>
 {
   "en": {
     "logout": "Logout",
-    "signup": "Sign up",
+    "signup": "Sign-in",
     "owner": "Owner area",
-    "accessibility": "Accessibility: not compliant",
-    "accessibility-link": "Accessibility - new window"
+    "partner": "Become partner",
+    "partner-link-title": "Become partner (New Window)"
   },
   "fr": {
     "logout": "Se déconnecter",
-    "signup": "Mon dossier",
+    "signup": "Se connecter",
     "owner": "Espace propriétaire",
-    "accessibility": "Accessibilité: non conforme",
-    "accessibility-link": "Déclaration d'accessibilité - nouvelle fenêtre"
+    "partner": "Devenir partenaire",
+    "partner-link-title": "Devenir partenaire (Nouvelle fenêtre)"
   }
 }
 </i18n>

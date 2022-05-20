@@ -16468,11 +16468,6 @@ vue-loading-overlay@^3.4.2:
   resolved "https://registry.yarnpkg.com/vue-loading-overlay/-/vue-loading-overlay-3.4.2.tgz#34792a83218df1d35dff50121ce9fac2114f1c38"
   integrity sha512-xcB+NPjl76eA0uggm707x3ZFgrNosZXpynHipyS3K+rrK1NztOV49R1LY+/4ij5W1KYANp7eRI2EIHrxCpmWAw==
 
-vue-password-strength-meter@^1.7.2:
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/vue-password-strength-meter/-/vue-password-strength-meter-1.7.2.tgz#ddaae2246fb8a53fd8cdc5b1084b1d16cc401505"
-  integrity sha512-S17DsEbXciTcI0fKq1PXia7i3COM/AJOT7os8AVyGxglc5ho1EBssE+ogDa5cFh6Rn8pPgqfVCt/KBcNpgPBiA==
-
 vue-pdf@^4.2.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/vue-pdf/-/vue-pdf-4.3.0.tgz#d5f790ee7967e7b7aa9089b97b11ab168e19dbd0"
@@ -16513,11 +16508,6 @@ vue-router@4:
   integrity sha512-CPXvfqe+mZLB1kBWssssTiWg4EQERyqJZes7USiqfW9B5N2x+nHlnsM1D3b5CaJ6qgCvMmYJnz+G0iWjNCvXrg==
   dependencies:
     "@vue/devtools-api" "^6.0.0-beta.18"
-
-vue-simple-password-meter@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/vue-simple-password-meter/-/vue-simple-password-meter-1.1.0.tgz#30f41e1c6a4257bdb8d73c131d47c94e1cdeeeb3"
-  integrity sha512-gLtbE7oXvGiDrPMWp/sENCzFkyTFVENN8RN1+kANC0erJDaoMJt0q343ELR9aZOqLnoGxG1BL3ESInR/CeCYJA==
 
 vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
   version "4.1.3"
