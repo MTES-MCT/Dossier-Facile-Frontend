@@ -1,46 +1,57 @@
 <template>
-  <footer class="fr-footer" role="contentinfo" id="footer">
+  <footer class="fr-footer" role="contentinfo" id="footer" tabindex="-1">
     <div class="fr-container">
       <div class="fr-footer__body">
         <div class="fr-footer__brand">
-          <a class="fr-logo" href="#" title="république française">
-            <span class="fr-logo__title">république <br />française</span>
-          </a>
-          <a class="beta-logo" href="https://beta.gouv.fr/">
+          <p class="fr-logo">
+            république
+            <br />française
+          </p>
+          <a class="fr-footer__brand-link" href="https://beta.gouv.fr/">
             <img
-              alt="Accueil - beta.gouv.fr"
-              class="footer-logo"
+              svg-inline
               src="./logo-betagouvfr.svg"
+              class="fr-responsive-img"
+              aria-label="Accueil - beta.gouv.fr"
             />
           </a>
         </div>
-        <div class="fr-footer__content">
-          <ul class="fr-footer__content-list links-center fr-grid-row">
-            <li class="fr-col-lg-3 fr-col-6 align-right">
+        <div class="fr-footer__content ">
+          <p class="fr-footer__content-desc">
+            DossierFacile est propulsé par la
+            <a
+              href="https://www.ecologie.gouv.fr/direction-generale-lamenagement-du-logement-et-nature-dgaln"
+              title="direction générale de l'aménagement, du logement et de la nature - Nouvelle fenêtre"
+              target="_blank"
+              rel="noreferrer noopener"
+              >direction générale de l'aménagement, du logement et de la
+              nature</a
+            >. <br />Le code source est disponible en licence libre
+          </p>
+          <ul class="fr-footer__content-list">
+            <li class="fr-footer__content-item">
               <a
                 class="fr-footer__content-link"
                 href="https://legifrance.gouv.fr"
+                >legifrance.gouv.fr</a
               >
-                legifrance.gouv.fr
-              </a>
             </li>
-            <li class="fr-col-lg-3 fr-col-6 align-right">
-              <a class="fr-footer__content-link" href="https://gouvernement.fr">
-                gouvernement.fr
-              </a>
+            <li class="fr-footer__content-item">
+              <a class="fr-footer__content-link" href="https://gouvernement.fr"
+                >gouvernement.fr</a
+              >
             </li>
-            <li class="fr-col-lg-3 fr-col-6 align-right">
+            <li class="fr-footer__content-item">
               <a
                 class="fr-footer__content-link"
                 href="https://service-public.fr"
+                >service-public.fr</a
               >
-                service-public.fr
-              </a>
             </li>
-            <li class="fr-col-lg-3 fr-col-6 align-right">
-              <a class="fr-footer__content-link" href="https://data.gouv.fr">
-                data.gouv.fr
-              </a>
+            <li class="fr-footer__content-item">
+              <a class="fr-footer__content-link" href="https://data.gouv.fr"
+                >data.gouv.fr</a
+              >
             </li>
           </ul>
         </div>
@@ -48,49 +59,19 @@
       <div class="fr-footer__bottom">
         <ul class="fr-footer__bottom-list">
           <li class="fr-footer__bottom-item">
-            <a class="fr-footer__bottom-link" href="https://beta.gouv.fr/">
+            <a
+              class="fr-footer__bottom-link"
+              target="_blank"
+              rel="noreferrer"
+              href="https://beta.gouv.fr/"
+            >
               Les startups d'Etat
             </a>
           </li>
           <li class="fr-footer__bottom-item">
             <a
               class="fr-footer__bottom-link"
-              :href="`${VUE_APP_DOCS_URL}`"
-              target="_blank"
-              rel="noreferrer"
-              :title="t('faq-link-title')"
-            >
-              {{ t("faq") }}
-            </a>
-          </li>
-          <li class="fr-footer__bottom-item">
-            <a
-              class="fr-footer__bottom-link"
-              :href="`${VUE_APP_MAIN_URL}/blog`"
-            >
-              {{ t("blog") }}
-            </a>
-          </li>
-          <li class="fr-footer__bottom-item">
-            <a
-              class="fr-footer__bottom-link"
-              href="https://github.com/MTES-MCT/Dossier-Facile-Frontend"
-            >
-              {{ t("sources") }}
-            </a>
-          </li>
-          <li class="fr-footer__bottom-item">
-            <a
-              class="fr-footer__bottom-link blue--link"
-              href="mailto:contact@dossierfacile.fr"
-              >{{ t("contact") }}</a
-            >
-          </li>
-          <li class="fr-footer__bottom-item">
-            <a
-              class="fr-footer__bottom-link"
-              :href="`${VUE_APP_MAIN_URL}/accessibilite`"
-              target="_blank"
+              :href="`${VITE_MAIN_URL}/accessibilite`"
               :title="t('accessibility-link')"
               >{{ t("accessibility") }}</a
             >
@@ -98,25 +79,25 @@
           <li class="fr-footer__bottom-item">
             <a
               class="fr-footer__bottom-link"
-              :href="`${VUE_APP_MAIN_URL}/mentions-legales`"
+              :href="`${VITE_MAIN_URL}/mentions-legales`"
             >
               {{ t("legals") }}
             </a>
           </li>
           <li class="fr-footer__bottom-item">
-            <a
-              class="fr-footer__bottom-link"
-              :href="`${VUE_APP_MAIN_URL}/information`"
-            >
-              {{ t("information") }}
+            <a class="fr-footer__bottom-link" :href="`${VITE_MAIN_URL}/stats`">
+              {{ t("statistics") }}
             </a>
           </li>
           <li class="fr-footer__bottom-item">
             <a
               class="fr-footer__bottom-link"
-              :href="`${VUE_APP_MAIN_URL}/stats`"
+              :href="`${VITE_DOCS_URL}`"
+              target="_blank"
+              rel="noreferrer"
+              :title="t('faq-link-title')"
             >
-              {{ t("statistics") }}
+              {{ t("faq") }}
             </a>
           </li>
           <li class="fr-footer__bottom-item">
@@ -134,174 +115,156 @@
             <a
               class="fr-footer__bottom-link"
               target="_blank"
-              href="https://twitter.com/dossierfacile"
-              title="Dossier Facile sur Twitter - nouvelle fenêtre"
               rel="noreferrer"
+              href="https://github.com/MTES-MCT/Dossier-Facile-Frontend"
             >
-              <svg
-                title="twitter"
-                aria-hidden="true"
-                focusable="false"
-                data-prefix="fab"
-                data-icon="twitter-square"
-                role="img"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 900 512"
-                class="fa-icon"
-              >
-                <path
-                  fill="currentColor"
-                  d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-48.9 158.8c.2 2.8.2 5.7.2 8.5 0 86.7-66 186.6-186.6 186.6-37.2 0-71.7-10.8-100.7-29.4 5.3.6 10.4.8 15.8.8 30.7 0 58.9-10.4 81.4-28-28.8-.6-53-19.5-61.3-45.5 10.1 1.5 19.2 1.5 29.6-1.2-30-6.1-52.5-32.5-52.5-64.4v-.8c8.7 4.9 18.9 7.9 29.6 8.3a65.447 65.447 0 0 1-29.2-54.6c0-12.2 3.2-23.4 8.9-33.1 32.3 39.8 80.8 65.8 135.2 68.6-9.3-44.5 24-80.6 64-80.6 18.9 0 35.9 7.9 47.9 20.7 14.8-2.8 29-8.3 41.6-15.8-4.9 15.2-15.2 28-28.8 36.1 13.2-1.4 26-5.1 37.8-10.2-8.9 13.1-20.1 24.7-32.9 34z"
-                  class=""
-                ></path>
-              </svg>
-            </a>
-            <a
-              class="fr-footer__bottom-link"
-              target="_blank"
-              href="https://www.facebook.com/DossierFacile.fr"
-              rel="noreferrer"
-              title="Dossier Facile sur Facebook - nouvelle fenêtre"
-            >
-              <svg
-                title="facebook"
-                aria-hidden="true"
-                focusable="false"
-                data-prefix="fab"
-                data-icon="facebook-square"
-                role="img"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 900 512"
-                class="fa-icon"
-              >
-                <path
-                  fill="currentColor"
-                  d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z"
-                  class=""
-                ></path>
-              </svg>
-            </a>
-            <a
-              class="fr-footer__bottom-link"
-              target="_blank"
-              href="https://www.linkedin.com/company/startup-d-etat-locatio/"
-              rel="noreferrer"
-              title="Dossier Facile sur Linkedin - nouvelle fenêtre"
-            >
-              <svg
-                title="linkedin"
-                aria-hidden="true"
-                focusable="false"
-                data-prefix="fab"
-                data-icon="linkedin"
-                role="img"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 900 512"
-                class="fa-icon"
-              >
-                <path
-                  fill="currentColor"
-                  d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"
-                  class=""
-                ></path>
-              </svg>
+              {{ t("sources") }}
             </a>
           </li>
+
+          <li class="fr-footer__bottom-item">
+            <ul class="fr-follow">
+              <li>
+                <a
+                  class="fr-btn--twitter fr-btn"
+                  title="twitter - ouvre une nouvelle fenêtre"
+                  href="https://twitter.com/dossierfacile/"
+                  target="_blank"
+                  >twitter</a
+                >
+              </li>
+              <li>
+                <a
+                  class="fr-btn--facebook fr-btn"
+                  title="facebook - ouvre une nouvelle fenêtre"
+                  href="https://www.facebook.com/DossierFacile.fr/"
+                  target="_blank"
+                  >instagram</a
+                >
+              </li>
+              <li>
+                <a
+                  class="fr-btn--linkedin fr-btn"
+                  lang="en"
+                  title="linkedin - ouvre une nouvelle fenêtre"
+                  href="https://www.linkedin.com/company/startup-d-etat-locatio/"
+                  target="_blank"
+                  >linkedin</a
+                >
+              </li>
+              <li>
+                <a
+                  class="fr-btn--instagram fr-btn"
+                  title="instagram - ouvre une nouvelle fenêtre"
+                  href="https://www.instagram.com/dossierfacile/"
+                  target="_blank"
+                  >instagram</a
+                >
+              </li>
+              <li>
+                <a
+                  class="fr-btn--tiktok fr-btn"
+                  title="tiktok - ouvre une nouvelle fenêtre"
+                  href="https://www.tiktok.com/@dossierfacile/"
+                  target="_blank"
+                  >tiktok</a
+                >
+              </li>
+            </ul>
+          </li>
         </ul>
-        <div class="fr-footer__bottom-copy">© République Française 2021</div>
+        <div class="fr-footer__bottom-copy">
+          <p>
+            Sauf mention contraire, tous les contenus de ce site sont sous
+            <a
+              href="https://github.com/etalab/licence-ouverte/blob/master/LO.md"
+              target="_blank"
+              >licence etalab-2.0</a
+            >
+          </p>
+        </div>
       </div>
     </div>
   </footer>
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import { useI18n } from "vue-i18n";
 
-const VUE_APP_MAIN_URL = `//${import.meta.env.VUE_APP_MAIN_URL}`;
-const VUE_APP_DOCS_URL = `//${import.meta.env.VUE_APP_DOCS_URL}`;
+const VITE_MAIN_URL = ref(`//${import.meta.env.VITE_MAIN_URL}`);
+const VITE_DOCS_URL = ref(`//${import.meta.env.VITE_DOCS_URL}`);
 
 const { t } = useI18n();
 </script>
 
 <style lang="scss" scoped>
-@import "../scss/_variables.scss";
-.blue--link {
-  color: $primary !important;
-}
-
-#footer {
-  background-color: white;
-}
-
-.footer-logo {
-  min-width: 100px;
-  max-width: 100%;
-  width: 200px;
-  height: 68px;
-  display: block;
-}
-
-.links-center {
-  align-self: center;
-}
-
-.fr-grid-row {
-  width: 100%;
-}
-
-.fr-footer__content-list {
-  margin-bottom: 0;
-}
-
-.align-right {
-  margin-top: 0;
-  @media (min-width: 768px) {
-    text-align: right;
-    margin-right: 0;
+ul.fr-follow {
+  background-color: transparent;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: auto;
+  width: auto;
+  .fr-btn {
+    background-color: white;
+    color: grey;
+    max-width: 1.5rem;
+    vertical-align: middle;
+    visibility: hidden;
+    &:before {
+      visibility: visible;
+    }
+  }
+  li {
+    padding: 0 0.25rem 0 0.25rem;
+  }
+  .fr-btn {
+    --icon-size: 1rem;
+    padding-left: 0.15rem;
   }
 }
-
-.fa-icon {
-  height: 1.5rem;
-  vertical-align: -0.75em;
-}
-
-.fr-footer__brand .fr-logo {
-  margin-right: 0;
-}
-
-.beta-logo {
+.fr-footer__brand-link {
   background-image: none;
-  padding: 1em;
+}
+.fr-follow a.fr-btn--tiktok:before {
+  content: "";
+  mask-image: url(../../../node_modules/@gouvfr/dsfr/dist/icons/logo/fr--tiktok-fill.svg);
+  --icon-size: 1.5rem;
+  background-color: currentColor;
+  display: inline-block;
+  flex: 0 0 auto;
+  height: var(--icon-size);
+  mask-size: 100% 100%;
+  vertical-align: middle;
+  width: var(--icon-size);
 }
 </style>
 
 <i18n>
 {
   "en": {
-    "contact": "Contact us",
     "legals": "Legal notice",
     "faq": "Help",
-    "blog": "Blog",
-    "information": "Find out more",
     "sources": "Source code",
     "accessibility": "Accessibility: not compliant",
     "statistics": "Statistics",
-    "partner": "Partners",
+    "partner": "Become partners",
     "faq-link-title": "Help - new window",
     "partner-link-title": "Partners - new window",
     "accessibility-link": "Accessibility - new window"
   },
   "fr": {
-    "contact": "Nous écrire",
     "legals": "Mentions légales",
     "faq": "Aide",
-    "blog": "Blog",
     "information": "En savoir plus",
     "sources": "Code source",
     "accessibility": "Accessibilité: non conforme",
     "statistics": "Statistiques",
-    "partner": "Partenaires",
+    "partner": "Devenir partenaire",
     "faq-link-title": "Aide - nouvelle fenêtre",
     "partner-link-title": "Partenaires - nouvelle fenêtre",
     "accessibility-link": "Déclaration d'accessibilité - nouvelle fenêtre"
