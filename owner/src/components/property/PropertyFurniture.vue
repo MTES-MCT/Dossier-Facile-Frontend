@@ -29,7 +29,7 @@ const furniture = computed({
 
 function onSubmit() {
   store.saveProperty().then((data) => {
-    router.push({ name: 'PropertyRent', params: { id: data.id } });
+    router.push({ name: 'PropertyLivingSpace', params: { id: data.id } });
   });
 }
 

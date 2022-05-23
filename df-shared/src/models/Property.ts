@@ -10,6 +10,7 @@ export class Property {
   validated!: boolean;
   type?: string;
   furniture?: string;
+  livingSpace?: number;
   address?: string;
   propertiesApartmentSharing: any;
 }

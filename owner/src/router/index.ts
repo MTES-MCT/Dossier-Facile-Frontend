@@ -130,13 +130,24 @@ const routes = [
     component: () => import('../components/property/PropertyFurniture.vue'),
   },
   {
+    path: '/surface/:id?',
+    name: 'PropertyLivingSpace',
+    meta: {
+      title: 'Édition de la surface - DossierFacile',
+      requiresAuth: true,
+      hasFooter: false,
+      position: 4,
+    },
+    component: () => import('../components/property/PropertyLivingSpace.vue'),
+  },
+  {
     path: '/loyer-propriete/:id?',
     name: 'PropertyRent',
     meta: {
       title: 'Édition du loyer - DossierFacile',
       requiresAuth: true,
       hasFooter: false,
-      position: 4,
+      position: 5,
     },
     component: () => import('../components/property/PropertyRent.vue'),
   },

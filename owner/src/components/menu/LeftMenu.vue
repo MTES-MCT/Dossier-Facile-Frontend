@@ -19,6 +19,7 @@ const typeStatus = computed(() => (store.getPropertyToEdit?.type ? 'FILLED' : 'T
 const addressStatus = computed(() => (store.getPropertyToEdit?.address ? 'FILLED' : 'TO_PROCESS'));
 const rentStatus = computed(() => (store.getPropertyToEdit?.rentCost > 0 ? 'FILLED' : 'TO_PROCESS'));
 const furnitureStatus = computed(() => (store.getPropertyToEdit?.furniture ? 'FILLED' : 'TO_PROCESS'));
+const livingSpaceStatus = computed(() => (store.getPropertyToEdit?.livingSpace ? 'FILLED' : 'TO_PROCESS'));
 
 const id = Number(route.params.id);
 const getParams = id ? { id } : {};
@@ -89,6 +90,15 @@ const getParams = id ? { id } : {};
         <ColoredTag
               :text="t('property-furniture')"
               :status="furnitureStatus"
+            ></ColoredTag
+          >
+          </router-link>
+        </div>
+        <div class="ml-5">
+          <router-link :to="{ name: 'PropertyLivingSpace', params: getParams }" class="fr-link">
+        <ColoredTag
+              :text="t('property-living-space')"
+              :status="livingSpaceStatus"
             ></ColoredTag
           >
           </router-link>
@@ -201,6 +211,7 @@ const getParams = id ? { id } : {};
     "property-type": "Type of rent",
     "property-furniture": "Furniture",
     "property-address": "Property address",
+    "property-living-space": "Living space"
   },
   "fr": {
     "personal-information": "Mes informations personnelles",
@@ -211,6 +222,7 @@ const getParams = id ? { id } : {};
     "property-type": "Type de logement",
     "property-furniture": "Ameublement",
     "property-address": "Adresse du logement",
+    "property-living-space": "Surface"
   }
 }
 </i18n>

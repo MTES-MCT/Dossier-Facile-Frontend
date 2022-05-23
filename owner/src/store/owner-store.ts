@@ -85,6 +85,9 @@ const useOwnerStore = defineStore('owner', {
     setRent(rent: number) {
       this.propertyToEdit.rentCost = rent;
     },
+    setLivingSpace(livingSpace: number) {
+      this.propertyToEdit.livingSpace = livingSpace;
+    },
     setCharges(charges: number) {
       this.propertyToEdit.chargesCost = charges;
     },

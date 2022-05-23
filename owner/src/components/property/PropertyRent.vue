@@ -43,7 +43,7 @@ function onSubmit() {
 }
 
 function onBack() {
-  router.push({ name: 'PropertyFurniture', params: { id: store.getPropertyToEdit.id } });
+  router.push({ name: 'PropertyLivingSpace', params: { id: store.getPropertyToEdit.id } });
 }
 </script>
 
