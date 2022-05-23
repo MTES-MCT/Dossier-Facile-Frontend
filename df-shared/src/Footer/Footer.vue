@@ -232,12 +232,14 @@ ul.fr-follow {
 }
 .fr-follow a.fr-btn--tiktok:before {
   content: "";
+  -webkit-mask-image: url(../../../node_modules/@gouvfr/dsfr/dist/icons/logo/fr--tiktok-fill.svg);
   mask-image: url(../../../node_modules/@gouvfr/dsfr/dist/icons/logo/fr--tiktok-fill.svg);
   --icon-size: 1.5rem;
   background-color: currentColor;
   display: inline-block;
   flex: 0 0 auto;
   height: var(--icon-size);
+  -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
   vertical-align: middle;
   width: var(--icon-size);
