@@ -4,6 +4,7 @@ import { useCookies } from 'vue3-cookies';
 import { Composer } from 'vue-i18n';
 import { defineStore } from 'pinia';
 import { OwnerUser } from 'df-shared/src/models/OwnerUser';
+import UtilsService from '../services/UtilsService';
 import i18n from '../i18n';
 import AuthService from '../components/auth/AuthService';
 import keycloak from '../plugin/keycloak';
@@ -178,7 +179,11 @@ const useOwnerStore = defineStore('owner', {
       );
     },
     saveNames(lastName: string, firstName: string, email: string) {
-      return OwnerService.saveNames(lastName, firstName, email).then((response) => {
+      return OwnerService.saveNames(
+        UtilsService.capitalize(lastName),
+        UtilsService.capitalize(firstName),
+        email,
+      ).then((response) => {
         this.loadUserCommit(response.data);
         return Promise.resolve(response.data);
       });
