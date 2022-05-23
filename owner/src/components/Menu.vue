@@ -89,7 +89,7 @@ function getLang() {
         </ul>
       </div>
     </li>
-    <li class="fr-nav__item">
+    <li class="fr-nav__item" :class="{ 'break': !isLoggedIn }">
       <button
         class="fr-nav__link fr-btn fr-ml-3 fr-btn--secondary fr-btn--sm lang"
         @click="changeLang"
