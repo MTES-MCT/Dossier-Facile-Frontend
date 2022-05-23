@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { useI18n } from 'vue-i18n';
+import { Composer, useI18n } from 'vue-i18n';
 import DeleteAccount from './DeleteAccount.vue';
 import useOwnerStore from '../store/owner-store';
 import i18n from '../i18n';
