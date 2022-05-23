@@ -19,6 +19,9 @@ const tcontainer = ref(null);
 
 onMounted(() => {
   let left = 0;
+  if (route.meta.position === undefined) {
+    return;
+  }
   const tdx = tds[route.meta.position as number];
   const tcontainerval = tcontainer.value as any;
   const tdxval = tdx.value as any;
