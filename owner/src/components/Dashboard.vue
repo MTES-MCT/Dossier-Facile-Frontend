@@ -70,7 +70,15 @@ function getApplicantsCount(p: Property) {
           :key="p.name"
           @click="openProperty(p)"
         >
-          <td class="desktop"><PropertyIcon :type="p.type || ''"></PropertyIcon></td>
+          <td class="desktop blue-text inline-block">
+            <div class="fr-m-1v icon-container">
+              <span v-if="p.type === 'HOUSE'" class="material-icons md-28">home</span>
+              <span v-else-if="p.type === 'APARTMENT'" class="material-icons md-28"
+                >apartment</span
+              >
+              <span v-else class="material-icons md-28">domain</span>
+            </div>
+          </td>
           <td class="text--light-blue">{{ p.name }}</td>
           <td class="desktop text--light-blue">{{ p.address }}</td>
           <td>{{ t("applicants", { count: getApplicantsCount(p) }) }}</td>
@@ -132,7 +140,8 @@ tr {
 
 td {
   border: solid 1px #f6f6f6;
-  height: 2.5rem;
+  height: auto;
+  vertical-align: middle;
 }
 
 td:first-child {
@@ -147,6 +156,22 @@ td:last-child {
 
 .consult-icon {
   color: var(--hover-color);
+}
+
+.desktop {
+  display: none !important;
+  @media all and (min-width: 768px) {
+    display: table-cell !important;
+  }
+}
+
+.icon-container {
+  background-color: white;
+  width: fit-content;
+  padding: 0.5rem;
+  border-radius: 6px;
+  width: 40px;
+  height: 40px;
 }
 </style>
 
