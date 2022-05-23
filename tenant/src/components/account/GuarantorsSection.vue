@@ -155,7 +155,7 @@
               <div>{{ $t("visale-text") }}</div>
               <div class="inline-block-flex space-between">
                 <div>
-                  <h5>{{ $t("visale-title") }}</h5>
+                  <div class="fr-h5">{{ $t("visale-title") }}</div>
                 </div>
                 <div>
                   <img
@@ -298,7 +298,7 @@ hr {
   display: flex;
   flex-direction: row;
 
-  h5 {
+  .fr-h5 {
     font-size: 1rem;
   }
 }

@@ -4,9 +4,9 @@
       <div class="fr-col-lg-6 fr-col-12">
         <div class="bg-pic">
           <div class="bg-white max-450 left-row fr-pt-3w fr-mt-7w fr-mb-7w">
-            <h2 class="fr-h5 blue-text text-center fr-mt-3w">
+            <div class="fr-h5 blue-text text-center fr-mt-3w">
               En route pour rejoindre DossierFacile !
-            </h2>
+            </div>
             <div class="fr-pl-2w fr-pr-2w">
               Afin de faciliter la constitution de votre dossier, préparez les
               pièces suivantes :
@@ -87,6 +87,15 @@ import Modal from "df-shared/src/components/Modal.vue";
 export default class SignupPage extends Vue {
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
   isValidModalVisible = false;
+
+  mounted() {
+    window.Beacon("init", "e9f4da7d-11be-4b40-9514-ac7ce3e68f67");
+  }
+
+  beforeDestroy() {
+    window.Beacon("destroy");
+  }
+
   onRegister(user: User) {
     if (user.email && user.password) {
       this.$store.dispatch("register", { user: user }).then(
@@ -139,13 +148,10 @@ export default class SignupPage extends Vue {
 }
 </i18n>
 
-<style>
+<style scoped lang="scss">
 body {
   background-color: var(--g100);
 }
-</style>
-
-<style scoped lang="scss">
 .bg-white {
   background-color: white;
   padding: 16px;
@@ -192,7 +198,7 @@ body {
 }
 .bg-pic {
   background: linear-gradient(rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.5)),
-    url("../assets/Immeuble.png") no-repeat;
+    url("../assets/immeuble.jpg") no-repeat;
   background-size: cover;
   height: 100%;
   overflow: hidden;

@@ -6,7 +6,7 @@
           <div class="fr-col-12">
             <h1>{{ $t("title", [getFirstName(), $t(user.status)]) }}</h1>
             <div class="fr-callout warning fr-callout-white" v-if="isDenied()">
-              <h4>{{ $t("amendment-required-title") }}</h4>
+              <h2 class="fr-text-title--grey fr-h4">{{ $t("amendment-required-title") }}</h2>
               <p
                 class="fr-callout__text"
                 v-html="$t('amendment-required-text')"
@@ -16,14 +16,16 @@
               }}</DfButton>
             </div>
             <div class="fr-callout fr-callout-white" v-if="canCopyLink()">
-              <h4>{{ $t("congratulations-title") }}</h4>
+              <h2 class="fr-text-title--grey fr-h4">{{ $t("congratulations-title") }}</h2>
               <p class="fr-mb-3w" v-html="$t('congratulations-text-1')"></p>
               <p v-html="$t('congratulations-text-2')"></p>
             </div>
             <div class="main fr-mt-5w fr-p-4w bg-white">
               <div class="main-bar fr-grid-row">
                 <div class="header-title mobile-margin">
-                  <h4 class="fr-mr-2w fr-mb-0 fr-mt-0">{{ $t("my-file") }}</h4>
+                  <h2 class="fr-text-title--grey fr-h4 fr-mr-2w fr-mb-0 fr-mt-0">
+                    {{ $t("my-file") }}
+                  </h2>
                 </div>
 
                 <ColoredTag
@@ -60,7 +62,7 @@
                       >
                     </button>
                     <div class="grp-modal bg-white" v-show="radioVisible">
-                      <h4>{{ $t("share-file") }}</h4>
+                      <h3 class="fr-h4">{{ $t("share-file") }}</h3>
                       <p class="share-file-description">
                         {{ $t("share-file-description") }}
                       </p>
@@ -122,15 +124,15 @@
                 class="fr-callout fr-mb-3w"
                 v-if="user.status === 'TO_PROCESS'"
               >
-                <h4 class="dflex">
+                <h3 class="fr-h4 dflex">
                   <span class="material-icons-outlined md-28">timer</span
                   >&nbsp;<span>{{ $t("instructional-time-title") }}</span>
-                </h4>
+                </h3>
                 <p v-html="$t('instructional-time-text')"></p>
               </div>
               <hr />
               <div class="main-information">
-                <h4>{{ $t("my-personnal-information") }}</h4>
+                <h3 class="fr-h4">{{ $t("my-personnal-information") }}</h3>
                 <div class="fr-grid-row fr-grid-row--gutters">
                   <InfoCard
                     :title="$t('my-information')"
@@ -145,7 +147,7 @@
                   </InfoCard>
                 </div>
                 <hr class="fr-mt-4w" />
-                <h4>{{ $t("my-files") }}</h4>
+                <h3 class="fr-h4">{{ $t("my-files") }}</h3>
 
                 <div class="fr-grid-row fr-grid-row--gutters">
                   <InfoCard

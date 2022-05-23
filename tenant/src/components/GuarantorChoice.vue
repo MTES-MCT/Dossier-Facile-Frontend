@@ -2,7 +2,7 @@
   <div>
     <div>
       <div v-if="isMobile()" class="remark fr-mt-3w fr-mb-3w">
-        <h5>{{ $t("remark-title") }}</h5>
+        <div class="fr-h5">{{ $t("remark-title") }}</div>
         <div v-html="$t('remark-text')"></div>
       </div>
 
@@ -10,9 +10,9 @@
         <NakedCard class="fr-p-md-5w">
           <div v-if="!isMobile()">
             <div class="text-bold fr-mb-1w">
-              <h5>
+              <h1 class="fr-h5">
                 {{ $t("my-guarantor") }}
-              </h5>
+              </h1>
             </div>
             <v-gouv-fr-modal>
               <template v-slot:button>
@@ -28,7 +28,7 @@
               </template>
             </v-gouv-fr-modal>
             <div class="remark fr-mt-3w">
-              <h6>{{ $t("remark-title") }}</h6>
+              <div class="fr-h6">{{ $t("remark-title") }}</div>
               <div class="small-font" v-html="$t('remark-text')"></div>
             </div>
           </div>
@@ -102,7 +102,7 @@
           class="bg-purple fr-mt-3w fr-p-5w"
         >
           <div class="fr-grid-row space-between">
-            <h5>{{ $t("visale-title") }}</h5>
+            <div class="fr-h5">{{ $t("visale-title") }}</div>
             <img
               alt="logo visale"
               class="logo-visale"

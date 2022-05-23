@@ -254,7 +254,7 @@
       <div class="fr-col-lg-8 fr-pl-5w fr-pr-3w">
         <div class="right-container">
           <div class="bg-orange fr-p-5w">
-            <h4>Conversation</h4>
+            <h1 class="fr-h4">Conversation</h1>
           </div>
           <div
             class="conversation__reply boxed boxed--border fr-p-3w"

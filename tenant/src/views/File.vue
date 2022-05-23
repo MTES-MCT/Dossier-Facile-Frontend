@@ -49,18 +49,18 @@
             tabindex="0"
           >
             <div class="fr-prose">
-              <h4
+              <h2
                 class="fr-h4"
                 v-if="tenant.typeGuarantor === 'NATURAL_PERSON'"
               >
                 {{ $t("guarant") }}
-              </h4>
-              <h4
+              </h2>
+              <h2
                 class="fr-h4"
                 v-if="tenant.typeGuarantor !== 'NATURAL_PERSON'"
               >
                 {{ $t("personnal-file") }}
-              </h4>
+              </h2>
               <div class="fr-grid-row file-item">
                 <span>{{ $t("identification") }}</span
                 ><DfButton @on-click="open(tenant, 'IDENTIFICATION')">{{
@@ -94,9 +94,9 @@
                 }}</DfButton>
               </div>
               <div v-if="hasGuarantor(tenant)">
-                <h4 class="fr-h4">
+                <h2 class="fr-h4">
                   {{ $t("guarant") }}
-                </h4>
+                </h2>
                 <div v-if="tenant.guarantors">
                   <div v-for="g in tenant.guarantors" v-bind:key="g.id">
                     <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
@@ -201,6 +201,11 @@ export default class File extends Vue {
 
   mounted() {
     this.setUser();
+    window.Beacon("init", "e9f4da7d-11be-4b40-9514-ac7ce3e68f67");
+  }
+
+  beforeDestroy() {
+    window.Beacon("destroy");
   }
 
   getTenants() {

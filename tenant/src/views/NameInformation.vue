@@ -4,8 +4,8 @@
   >
     <div class="fr-col-xs-12 fr-col-md-4 bg--dark-blue">
       <div class="title-container">
-        <h1>{{ getTitle() }}</h1>
-        <h5>{{ $t("subtitle") }}</h5>
+        <div class="fr-h1">{{ getTitle() }}</div>
+        <div class="fr-h5">{{ $t("subtitle") }}</div>
       </div>
     </div>
     <div
@@ -72,19 +72,15 @@ export default class NameInformation extends Vue {
 </script>
 
 <style lang="scss" scoped>
-h4 {
-  margin: 0;
-}
-h1 {
-  font-size: 2rem;
-}
-h5,
-h1 {
+.fr-h5,
+.fr-h1 {
   color: var(--text-inverted-grey);
 }
-
-h5 {
-  font-size: 1.25rem;
+.fr-h1 {
+  font-size: 2rem !important;
+}
+.fr-h5 {
+  font-size: 1.25rem !important;
 }
 
 .title-container {

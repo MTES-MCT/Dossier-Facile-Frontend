@@ -22,7 +22,7 @@
               src="../../assets/anil.png"
             />
             <div>
-              <h5>{{ $t("anil-title") }}</h5>
+              <h3 class="fr-h5">{{ $t("anil-title") }}</h3>
             </div>
             <div class="fr-m-0 fr-py-2w">{{ $t("anil-text") }}</div>
           </div>
@@ -49,7 +49,7 @@
             />
 
             <div>
-              <h5>{{ $t("mds-title") }}</h5>
+              <h3 class="fr-h5">{{ $t("mds-title") }}</h3>
             </div>
             <div class="fr-m-0 fr-py-2w">{{ $t("mds-text") }}</div>
           </div>

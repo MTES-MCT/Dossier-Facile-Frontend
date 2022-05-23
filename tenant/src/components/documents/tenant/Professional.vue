@@ -7,9 +7,9 @@
           name="professionalDocument"
           v-slot="{ errors, valid }"
         >
-          <label class="fr-h6">
+          <h1 class="fr-h6">
             {{ $t("select-label") }}
-          </label>
+          </h1>
           <v-gouv-fr-modal>
             <template v-slot:button>
               En difficulté pour répondre à la question ?

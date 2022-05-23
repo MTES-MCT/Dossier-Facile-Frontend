@@ -6,7 +6,7 @@
         @submit.prevent="validate().then(handleNameInformation)"
       >
         <NakedCard class="fr-p-5w">
-          <h4>{{ $t("title") }}</h4>
+          <h1 class="fr-h4">{{ $t("title") }}</h1>
           <p>{{ $t("subtitle") }}</p>
           <div class="fr-grid-row fr-grid-row--center">
             <div class="fr-col-12 fr-mb-3w">

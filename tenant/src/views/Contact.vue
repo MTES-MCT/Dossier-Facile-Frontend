@@ -20,6 +20,14 @@ import ContactForm from "df-shared/src/components/ContactForm.vue";
 })
 export default class Contact extends Vue {
   user!: User;
+
+  mounted() {
+    window.Beacon("init", "e9f4da7d-11be-4b40-9514-ac7ce3e68f67");
+  }
+
+  beforeDestroy() {
+    window.Beacon("destroy");
+  }
 }
 </script>
 

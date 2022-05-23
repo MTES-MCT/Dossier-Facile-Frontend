@@ -10,6 +10,7 @@ declare global {
   interface Window {
     __insp: any;
     __inspld: any;
+    Beacon: any;
   }
 }
 
