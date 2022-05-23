@@ -78,7 +78,7 @@ function getClass(s: number) {
 </script>
 
 <template>
-  <div class="top-edit-menu">
+  <nav class="top-edit-menu">
     <h1 class="blue-text text-center fr-mt-1w fr-mb-1v">
       {{ getStepTitle() }}
     </h1>
@@ -127,7 +127,7 @@ function getClass(s: number) {
         </router-link>
       </div>
     </div>
-  </div>
+  </nav>
 </template>
 
 <style scoped lang="scss">

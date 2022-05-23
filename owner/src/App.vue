@@ -93,9 +93,9 @@ function denyCookies() {
   >
     <Menu @on-change-lang="changeLang" :lang="getLang()"></Menu>
   </MyHeader>
-  <article class="page">
+  <main class="page">
     <router-view />
-  </article>
+  </main>
   <div v-if="hasFooter">
     <TheFooter />
   </div>

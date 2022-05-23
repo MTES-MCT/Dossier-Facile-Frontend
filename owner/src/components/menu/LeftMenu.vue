@@ -26,7 +26,7 @@ const getParams = id ? { id } : {};
 </script>
 
 <template>
-  <div class="left-edit-menu">
+  <nav class="left-edit-menu">
     <div class="inner-left-edit fr-pt-7w fr-pt-7w">
       <div class="active step">
         <div class="step-number">1</div>
@@ -112,7 +112,7 @@ const getParams = id ? { id } : {};
         </div>
       </div>
     </div>
-  </div>
+  </nav>
 </template>
 
 <style scoped lang="scss">

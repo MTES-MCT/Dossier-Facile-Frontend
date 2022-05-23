@@ -144,15 +144,15 @@
           <tbody v-for="(tenant, k) in getTenants()" :key="k">
             <tr @click="setShowTenant(k)" :class="getTenantClass(tenant)">
               <td class="desktop">
-                <span>{{ formatDate(tenant.date || new Date()) }}</span>
+                <time>{{ formatDate(tenant.date || new Date()) }}</time>
               </td>
               <td>
                 <span>{{ tenant.tenantName }}</span>
               </td>
               <td class="desktop">
-                <span class="tenant-type" :class="getTenantClass(tenant)">{{
+                <div class="tenant-type" :class="getTenantClass(tenant)">{{
                   t(tenant.tenantType || "")
-                }}</span>
+                }}</div>
               </td>
               <td>
                 <span>{{ tenant.tenantSalary }}</span>
@@ -478,6 +478,7 @@ tr {
 }
 
 .tenant-type {
+  display: inline-block;
   border: solid 0.5px #6a6af4;
   border-radius: 1.125rem;
   &.validated {
@@ -488,6 +489,13 @@ tr {
   }
   margin: 0.5rem 0.5px 0.4rem 0;
   padding: 0.4rem 0.5rem;
+}
+
+.desktop {
+  display: none !important;
+  @media all and (min-width: 768px) {
+    display: table-cell !important;
+  }
 }
 </style>
 
