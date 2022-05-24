@@ -81,7 +81,9 @@ function getApplicantsCount(p: Property) {
           <td class="blue-grey">{{ p.name }}</td>
           <td class="desktop blue-grey">{{ p.address }}</td>
           <td class="blue-grey">
-            {{ t("applicants", { count: getApplicantsCount(p) }) }}
+            <span class="tag">
+              {{ t("applicants", { count: getApplicantsCount(p) }) }}
+            </span>
           </td>
           <td class="desktop text--light-blue">
             {{ t("rent-cost", { rent: p.rentCost, charges: p.chargesCost }) }}
@@ -133,14 +135,28 @@ tr {
   &:first-child {
     background-color: transparent;
   }
+
+  .tag {
+    background-color: #e5e5e5;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    border-radius: 1rem;
+  }
+
   &.clickable {
     &:hover {
       box-shadow: var(--primary) 0 0 2px;
       cursor: pointer;
       --hover-color: var(--primary);
       background-color: #f5f5fe;
-      >.blue-grey {
+      .blue-grey {
         color: #0063cb;
+      }
+      .tag {
+        background-color: #c7c7fa;
+        color: var(--primary);
       }
     }
   }
