@@ -147,12 +147,12 @@
                 <time>{{ formatDate(tenant.date || new Date()) }}</time>
               </td>
               <td>
-                <span>{{ tenant.tenantName }}</span>
+                <span class="tenant-name">{{ tenant.tenantName }}</span>
               </td>
               <td class="desktop">
-                <div class="tenant-type" :class="getTenantClass(tenant)">{{
-                  t(tenant.tenantType || "")
-                }}</div>
+                <div class="tenant-type" :class="getTenantClass(tenant)">
+                  {{ t(tenant.tenantType || "") }}
+                </div>
               </td>
               <td>
                 <span>{{ tenant.tenantSalary }}</span>
@@ -405,6 +405,9 @@ td {
   .validated:hover & {
     border-top: 1px solid #447049;
     border-bottom: 1px solid #447049;
+    > .tenant-name {
+      color: #447049;
+    }
   }
   .declined:hover & {
     border-top: 1px solid #9c0400;
@@ -472,7 +475,7 @@ tr {
 
 .good {
   background-color: #447049;
-  color: #161616;
+  color: white;
   padding: 0.125rem 0.5rem;
   border-radius: 2.5rem;
 }
