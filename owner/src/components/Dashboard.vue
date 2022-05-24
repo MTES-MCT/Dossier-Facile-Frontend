@@ -71,11 +71,11 @@ function getApplicantsCount(p: Property) {
         >
           <td class="desktop blue-text inline-block">
             <div class="fr-m-1v icon-container">
-              <span v-if="p.type === 'HOUSE'" class="material-icons md-28">home</span>
-              <span v-else-if="p.type === 'APARTMENT'" class="material-icons md-28"
+              <span v-if="p.type === 'HOUSE'" class="material-icons md-24">home</span>
+              <span v-else-if="p.type === 'APARTMENT'" class="material-icons md-24"
                 >apartment</span
               >
-              <span v-else class="material-icons md-28">domain</span>
+              <span v-else class="material-icons md-24">domain</span>
             </div>
           </td>
           <td class="blue-grey">{{ p.name }}</td>

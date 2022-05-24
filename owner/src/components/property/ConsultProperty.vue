@@ -167,7 +167,20 @@
                 {{ t("income") }}
               </td>
               <td>
-                <span>{{ t(tenant.status || "") }}</span>
+                <div class="tag" :class="getTenantClass(tenant)">
+                  <span v-if="tenant.status === 'DECLINED'" class="material-icons md-18"
+                    >report_gmailerrorred</span
+                  >
+                  <span
+                    v-else-if="tenant.status === 'VALIDATED'"
+                    class="material-icons md-18"
+                    >verified</span
+                  >
+                  <span v-else class="material-icons md-18">schedule</span>
+                  <span class="fr-ml-1v">
+                    {{ t(tenant.status || "") }}
+                  </span>
+                </div>
               </td>
             </tr>
             <tr v-if="tenantIdToShow === k">
@@ -391,7 +404,7 @@ th {
 }
 
 tbody {
-  background-color: #f6f6f6;
+  background-color: #f5f5fe;
   color: #666666;
   padding: 0.5rem;
   &:first-child {
@@ -400,7 +413,8 @@ tbody {
 }
 
 td {
-  border: 1px solid transparent;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
   height: 2.5rem;
   .validated:hover & {
     border-top: 1px solid #447049;
@@ -415,6 +429,7 @@ td {
   }
 
   &:first-child {
+    border-left: 1px solid transparent;
     border-top-left-radius: 0.25rem;
     border-bottom-left-radius: 0.25rem;
     .validated:hover & {
@@ -426,6 +441,7 @@ td {
   }
 
   &:last-child {
+    border-right: 1px solid transparent;
     border-top-right-radius: 0.25rem;
     border-bottom-right-radius: 0.25rem;
     .validated:hover & {
@@ -434,6 +450,28 @@ td {
     .declined:hover & {
       border-right: 1px solid #9c0400;
     }
+  }
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  border-radius: 1rem;
+  &.to-process {
+    color: #82467e;
+    background-color: #fef3fd;
+  }
+
+  &.validated {
+    color: #37635f;
+  }
+
+  &.declined {
+    color: #9c0400;
   }
 }
 
