@@ -5,7 +5,6 @@ import NakedCard from 'df-shared/src/components/NakedCard.vue';
 import Button from 'df-shared/src/Button/Button.vue';
 import { useRouter } from 'vue-router';
 import { Property } from 'df-shared/src/models/Property';
-import PropertyIcon from './property/PropertyIcon.vue';
 import UtilsService from '../services/UtilsService';
 import useOwnerStore from '../store/owner-store';
 
@@ -79,9 +78,11 @@ function getApplicantsCount(p: Property) {
               <span v-else class="material-icons md-28">domain</span>
             </div>
           </td>
-          <td class="text--light-blue">{{ p.name }}</td>
-          <td class="desktop text--light-blue">{{ p.address }}</td>
-          <td>{{ t("applicants", { count: getApplicantsCount(p) }) }}</td>
+          <td class="blue-grey">{{ p.name }}</td>
+          <td class="desktop blue-grey">{{ p.address }}</td>
+          <td class="blue-grey">
+            {{ t("applicants", { count: getApplicantsCount(p) }) }}
+          </td>
           <td class="desktop text--light-blue">
             {{ t("rent-cost", { rent: p.rentCost, charges: p.chargesCost }) }}
           </td>
@@ -126,6 +127,9 @@ tr {
   color: #666666;
   --hover-color: #666666;
   padding: 0.5rem;
+  .blue-grey {
+    color: #666666;
+  }
   &:first-child {
     background-color: transparent;
   }
@@ -134,6 +138,10 @@ tr {
       box-shadow: var(--primary) 0 0 2px;
       cursor: pointer;
       --hover-color: var(--primary);
+      background-color: #f5f5fe;
+      >.blue-grey {
+        color: #0063cb;
+      }
     }
   }
 }
@@ -172,6 +180,7 @@ td:last-child {
   border-radius: 6px;
   width: 40px;
   height: 40px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 </style>
 
