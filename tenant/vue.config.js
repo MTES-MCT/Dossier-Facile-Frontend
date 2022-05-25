@@ -2,6 +2,9 @@ const PrerenderSpaPlugin = require("prerender-spa-plugin");
 const path = require("path");
 
 module.exports = {
+  devServer: {
+    disableHostCheck: true
+  },
   pluginOptions: {
     i18n: {
       locale: "fr",

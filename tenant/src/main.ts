@@ -10,6 +10,7 @@ import Loading from "vue-loading-overlay";
 import Toasted from "vue-toasted";
 import VueCookies from "vue-cookies";
 import authentication from "./plugins/authentication";
+import MatomoPlugin from "./plugins/matomo";
 
 const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
 
@@ -28,6 +29,7 @@ declare global {
     __insp: any;
     __inspld: any;
     Beacon: any;
+    _paq: any;
   }
 }
 
@@ -43,6 +45,7 @@ Vue.filter("fullName", function(user: User) {
 Vue.config.productionTip = false;
 
 Vue.use(VueCookies);
+Vue.use(MatomoPlugin);
 Vue.use(VueAuthImage);
 
 (Vue as any).$keycloak
