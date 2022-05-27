@@ -6,8 +6,9 @@ import router from "./router";
 import store from "./store";
 import i18n from "./i18n";
 import axios from "axios";
-import Loading from "vue-loading-overlay";
-import Toasted from "vue-toasted";
+const Loading = () => import("vue-loading-overlay");
+const Toasted = () => import("vue-toasted");
+
 import VueCookies from "vue-cookies";
 import authentication from "./plugins/authentication";
 
@@ -30,15 +31,6 @@ declare global {
     Beacon: any;
   }
 }
-
-Vue.filter("fullName", function(user: User) {
-  const firstName = UtilsService.capitalize(user.firstName || "");
-  const lastName = UtilsService.capitalize(user.lastName || "");
-  const preferredName = UtilsService.capitalize(user.preferredName || "");
-  return user.preferredName == null || user.preferredName.length == 0
-    ? firstName + " " + lastName
-    : firstName + " " + preferredName;
-});
 
 Vue.config.productionTip = false;
 
@@ -99,8 +91,18 @@ Vue.use(VueAuthImage);
     });
     app.$mount("#app");
 
+    Vue.filter("fullName", function(user: User) {
+      const firstName = UtilsService.capitalize(user.firstName || "");
+      const lastName = UtilsService.capitalize(user.lastName || "");
+      const preferredName = UtilsService.capitalize(user.preferredName || "");
+      return user.preferredName == null || user.preferredName.length == 0
+        ? firstName + " " + lastName
+        : firstName + " " + preferredName;
+    });
+
     Vue.use(Loading);
     Vue.use(Toasted);
+
     Vue.toasted.register("error", i18n.t("error").toString(), {
       type: "error",
       duration: 5000
