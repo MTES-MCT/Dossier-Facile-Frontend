@@ -5,12 +5,14 @@ import store from "./store";
 import i18n from "./i18n";
 import VueCookies from "vue-cookies";
 import VueGtag from "vue-gtag";
+import MatomoPlugin from "./plugins/matomo";
 
 declare global {
   interface Window {
     __insp: any;
     __inspld: any;
     Beacon: any;
+    _paq: any;
   }
 }
 
@@ -38,6 +40,7 @@ Vue.prototype.inspectlet = inspectlet;
 Vue.config.productionTip = false;
 
 Vue.use(VueCookies);
+Vue.use(MatomoPlugin);
 
 new Vue({
   created() {
