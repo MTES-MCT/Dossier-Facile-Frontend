@@ -141,8 +141,8 @@ const useOwnerStore = defineStore('owner', {
     },
     loadUser() {
       return AuthService.loadUser().then(
-        (response: any) => {
-          this.loadUserCommit(response.data);
+        async (response: any) => {
+          await this.loadUserCommit(response.data);
           return Promise.resolve(response.data);
         },
         (error: any) => Promise.reject(error),
@@ -202,6 +202,10 @@ const useOwnerStore = defineStore('owner', {
         await this.loadUserCommit(response.data);
         return Promise.resolve(response.data);
       });
+    },
+    async deleteApplicants(ids: number[]) {
+      await OwnerService.deleteApplicants(ids);
+      return this.loadUser();
     },
     deleteAccount() {
       return AuthService.deleteAccount();

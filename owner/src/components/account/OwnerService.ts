@@ -17,6 +17,13 @@ const OwnerService = {
   deleteProperty(id: number) {
     return axios.delete(`${API_URL}property/${id}`);
   },
+  deleteApplicants(ids: number[]) {
+    const promises = [];
+    for (let i = 0; i < ids.length; i += 1) {
+      promises.push(axios.delete(`${API_URL}property/tenant/${ids[i]}`));
+    }
+    return Promise.all(promises);
+  },
 };
 
 export default OwnerService;

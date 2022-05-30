@@ -28,6 +28,7 @@ const UtilsService = {
             ? Math.round((p.rentCost / a.totalSalary) * 100)
             : '-';
           return {
+            id: pas.id,
             date: new Date(),
             tenantName: `${a.tenants[0].lastName} ${a.tenants[0].firstName}`,
             tenantType: a.applicationType,
@@ -43,7 +44,6 @@ const UtilsService = {
         return {};
       });
   },
-
 };
 
 export default UtilsService;

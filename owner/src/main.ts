@@ -6,13 +6,11 @@ import {
   defineRule,
 } from 'vee-validate';
 import { createPinia } from 'pinia';
-import { email, required } from '@vee-validate/rules';
 import App from './App.vue';
 import router from './router';
 import i18n from './i18n';
 import 'vue-toastification/dist/index.css';
 import keycloak from './plugin/keycloak';
-import { number } from 'yup';
 
 defineRule('validateEmail', (value: any) => {
   if (!value) {

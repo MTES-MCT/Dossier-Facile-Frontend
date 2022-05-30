@@ -46,12 +46,12 @@
           </button>
           <button
             class="fr-btn btn--white fr-btn--secondary fr-ml-1w"
-            @click="confirmDelete = true"
+            @click="confirmDeleteProperty = true"
           >
             {{ t("delete-property") }}
           </button>
           <ConfirmModal
-            v-if="confirmDelete"
+            v-if="confirmDeleteProperty"
             @valid="validDeleteFile()"
             @cancel="undoDeleteFile()"
           >
@@ -80,9 +80,26 @@
         <h1 class="fr-h4">
           {{ t("verified-applicants", { count: verifiedApplicantsCount }) }}
         </h1>
+        <div class="delete-btn-container">
+          <button
+            class="fr-btn fr-btn--secondary"
+            @click="confirmDeleteApplicants = true"
+            :disabled="selectedApplicants.length <= 0"
+          >
+            {{ t("delete-applicants") }}
+          </button>
+          <ConfirmModal
+            v-if="confirmDeleteApplicants"
+            @valid="validDeleteApplicants()"
+            @cancel="undoDeleteApplicants()"
+          >
+            {{ t("will-delete-applicants") }}
+          </ConfirmModal>
+        </div>
         <table>
           <thead>
             <tr>
+              <th></th>
               <th @click="sortTable('date')" class="desktop">
                 {{ t("date") }}
                 <div
@@ -141,32 +158,40 @@
               </th>
             </tr>
           </thead>
-          <tbody v-for="(tenant, k) in getTenants()" :key="k">
-            <tr @click="setShowTenant(k)" :class="getTenantClass(tenant)">
-              <td class="desktop">
+          <tbody v-for="(tenant, k) in tenants" :key="k">
+            <tr :class="getTenantClass(tenant)">
+              <td class="w30">
+                <input
+                  :value="tenant.id.toString()"
+                  :id="tenant.id.toString()"
+                  type="checkbox"
+                  v-model="selectedApplicants"
+                />
+              </td>
+              <td @click="setShowTenant(k)" class="desktop">
                 <time>{{ formatDate(tenant.date || new Date()) }}</time>
               </td>
-              <td>
+              <td @click="setShowTenant(k)">
                 <span class="tenant-name">{{ tenant.tenantName }}</span>
               </td>
-              <td class="desktop">
+              <td class="desktop" @click="setShowTenant(k)">
                 <div class="tenant-type" :class="getTenantClass(tenant)">
                   {{ t(tenant.tenantType || "") }}
                 </div>
               </td>
-              <td>
+              <td @click="setShowTenant(k)">
                 <span>{{ tenant.tenantSalary }}</span>
               </td>
-              <td class="desktop">
+              <td class="desktop" @click="setShowTenant(k)">
                 <span>{{ tenant.guarantorSalary }}</span>
               </td>
-              <td>
+              <td @click="setShowTenant(k)">
                 <span class="rate" :class="getRateClass(tenant)"
                   >{{ tenant.rate }} %</span
                 >
                 {{ t("income") }}
               </td>
-              <td>
+              <td @click="setShowTenant(k)">
                 <div class="tag" :class="getTenantClass(tenant)">
                   <span v-if="tenant.status === 'DECLINED'" class="material-icons md-18"
                     >report_gmailerrorred</span
@@ -184,7 +209,7 @@
               </td>
             </tr>
             <tr v-if="tenantIdToShow === k">
-              <td colspan="7" class="additional-td">
+              <td colspan="8" class="additional-td">
                 <div class="tenant-token-link fr-mb-3w fr-mt-1w">
                   <a
                     class="fr-btn"
@@ -202,7 +227,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 import { Composer, useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import NakedCard from 'df-shared/src/components/NakedCard.vue';
@@ -218,7 +243,8 @@ import UtilsService from '../../services/UtilsService';
 import useOwnerStore from '../../store/owner-store';
 
 const { t } = useI18n();
-const confirmDelete = ref(false);
+const confirmDeleteProperty = ref(false);
+const confirmDeleteApplicants = ref(false);
 
 const route = useRoute();
 const router = useRouter();
@@ -228,6 +254,7 @@ const toast = useToast();
 const sortColumn = ref('');
 const ascending = ref(false);
 const tenantIdToShow = ref(-1);
+const selectedApplicants = ref([]);
 
 const id = ref(0);
 if (route.params.id) {
@@ -245,9 +272,27 @@ const token = computed(
   () => `${TENANT_URL}/inscription-locataire/${store.getPropertyToConsult?.token}`,
 );
 const name = computed(() => store.getPropertyToConsult?.name);
-const p = store.getPropertyToConsult;
+const p = computed(() => store.getPropertyToConsult);
 const propertyType = computed(() => store.getPropertyToConsult?.type);
 const propertyFurnished = computed(() => store.getPropertyToConsult?.furniture);
+
+const tenants = ref<Array<Applicant>>([]);
+
+function getTenants(): Applicant[] {
+  return UtilsService.getTenants(p.value).sort((a: any, b: any) => {
+    if (a[sortColumn.value] < b[sortColumn.value]) {
+      return ascending.value ? 1 : -1;
+    }
+    if (a[sortColumn.value] > b[sortColumn.value]) {
+      return ascending.value ? -1 : 1;
+    }
+    return 0;
+  });
+}
+
+onMounted(() => {
+  tenants.value = getTenants();
+});
 
 const titleKey = computed(() => {
   if (propertyType.value === 'HOUSE') {
@@ -272,18 +317,6 @@ function editProperty() {
   router.push({ name: 'PropertyName', params: { id: id.value } });
 }
 
-function getTenants(): Applicant[] {
-  return UtilsService.getTenants(p).sort((a: any, b: any) => {
-    if (a[sortColumn.value] < b[sortColumn.value]) {
-      return ascending.value ? 1 : -1;
-    }
-    if (a[sortColumn.value] > b[sortColumn.value]) {
-      return ascending.value ? -1 : 1;
-    }
-    return 0;
-  });
-}
-
 function sortTable(col: string) {
   if (sortColumn.value === col) {
     ascending.value = !ascending.value;
@@ -297,10 +330,21 @@ function validDeleteFile() {
   store.deleteProperty(id.value).then(() => {
     router.push({ name: 'Dashboard' });
   });
-  confirmDelete.value = false;
+  confirmDeleteProperty.value = false;
 }
 function undoDeleteFile() {
-  confirmDelete.value = false;
+  confirmDeleteProperty.value = false;
+}
+function validDeleteApplicants() {
+  store.deleteApplicants(selectedApplicants.value).then(() => {
+    selectedApplicants.value = [];
+    store.updatePropertyToConsult(id.value);
+    tenants.value = getTenants();
+  });
+  confirmDeleteApplicants.value = false;
+}
+function undoDeleteApplicants() {
+  confirmDeleteApplicants.value = false;
 }
 
 function copyToken() {
@@ -311,7 +355,7 @@ function copyToken() {
 }
 
 const verifiedApplicantsCount = computed(
-  () => getTenants().filter((u: Applicant) => u.status === 'VALIDATED').length,
+  () => tenants.value.filter((u: Applicant) => u.status === 'VALIDATED').length,
 );
 
 function formatDate(date: Date) {
@@ -538,6 +582,16 @@ tr {
     display: table-cell !important;
   }
 }
+.w30 {
+  min-width: 30px;
+  text-align: center;
+}
+
+.delete-btn-container {
+  margin-left: auto;
+  margin-right: 0;
+  text-align: right;
+}
 </style>
 
 <i18n>
@@ -548,6 +602,7 @@ tr {
     "modify-property": "Modify my property",
     "delete-property": "Delete my property",
     "will-delete-property": "Are you sure you want to delete this property ?",
+    "will-delete-applicants": "Are you sure you want to delete these applicants?",
     "share-modal-title": "The link of my property",
     "share-modal-description": "If you want to give access to your property to a candidate through a channel other than our automatic email, you can copy your file link and paste it into the message you send him.",
     "copy-link": "Copy",
@@ -576,7 +631,8 @@ tr {
     "other-unfurnished": "A unfurnished property",
     "rent": "with a rent of <span class='blue-text'>{rentCost}€</span> and charges of <span class='blue-text'>{chargesCost}€</span>",
     "download-full-file": "Download the full file",
-    "income": "of income"
+    "income": "of income",
+    "delete-applicants": "Delete applicants"
   },
   "fr": {
     "title": "Consultation",
@@ -584,6 +640,7 @@ tr {
     "modify-property": "Modifier ma propriété",
     "delete-property": "Supprimer ma propriété",
     "will-delete-property": "Êtes-vous sûr de vouloir supprimer cette propriété ?",
+    "will-delete-applicants": "Êtes-vous sûr de vouloir supprimer ce(s) locataire(s) ?",
     "share-modal-title": "Le lien de ma propriété",
     "share-modal-description": "Si vous voulez donner accès à votre propriété à un candidat par un autre canal que notre mail automatique, vous pouvez copier votre lien dossier et le coller dans le message que vous lui enverrez.",
     "copy-link": "Copier",
@@ -612,7 +669,8 @@ tr {
     "other-unfurnished": "Un bien non meublé",
     "rent": "dont le loyer mensuel est de <span class='blue-text'>{rentCost}€</span> et les charges de <span class='blue-text'>{chargesCost}€</span>",
     "download-full-file": "Télécharger le dossier complet",
-    "income": "des revenus"
+    "income": "des revenus",
+    "delete-applicants": "Supprimer des candidatures"
   }
 }
 </i18n>
