@@ -71,7 +71,7 @@
               >
                 <div>
                   <validation-provider
-                    :rules="{ required: true, regex: /^[0-9., ]+$/ }"
+                    :rules="{ required: true, regex: /^[0-9 ]+$/ }"
                     v-slot="{ errors, valid }"
                   >
                     <div
@@ -667,7 +667,8 @@ export default class FinancialDocumentForm extends Vue {
     "high-salary": "You have entered a salary greater than € 10,000 are you sure you have entered your monthly salary?",
     "low-salary": "You have entered a salary equal to 0 € are you sure you have entered your monthly salary?",
     "has-no-income": "You have no income",
-    "no-income": "No income"
+    "no-income": "No income",
+    "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule"
   },
   "fr": {
     "title": "Justificatif de ressources",
@@ -697,7 +698,8 @@ export default class FinancialDocumentForm extends Vue {
     "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
     "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
     "has-no-income": "Vous avez indiqué ne pas avoir de revenu",
-    "no-income": "Pas de revenu"
+    "no-income": "Pas de revenu",
+    "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule"
   }
 }
 </i18n>

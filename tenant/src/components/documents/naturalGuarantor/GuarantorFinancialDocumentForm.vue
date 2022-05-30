@@ -646,7 +646,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
   "customText-scholarship": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
   "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
   "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
-  "number-not-valid": "Nombre incorrect - uniquement chiffre sans décimal",
+  "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule",
   "delete-financial":  "Supprimer ce revenu",
   "field-required": "Ce champ est requis",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à la situation de votre garant.",
