@@ -6,8 +6,8 @@ import router from "./router";
 import store from "./store";
 import i18n from "./i18n";
 import axios from "axios";
-const Loading = () => import("vue-loading-overlay");
-const Toasted = () => import("vue-toasted");
+import Loading from "vue-loading-overlay";
+import Toasted from "vue-toasted";
 
 import VueCookies from "vue-cookies";
 import authentication from "./plugins/authentication";
