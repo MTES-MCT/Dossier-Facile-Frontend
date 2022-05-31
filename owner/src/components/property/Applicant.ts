@@ -1,4 +1,4 @@
-import { User } from 'df-shared/src/models/User';
+import { User } from 'df-shared-next/src/models/User';
 
 export default class Applicant extends User {
   date?: Date;

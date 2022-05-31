@@ -1,8 +1,7 @@
 <template>
   <div>
-    <h2 class="fr-h4">
-      <span class="material-icons md-28">attach_file</span
-      >{{ $t("with-franceconnect-title") }}
+    <h2 class="fr-icon-attachment-line fr-h4 blue-text">
+      {{ $t("with-franceconnect-title") }}
     </h2>
     <div class="fr-ml-3w">
       <div>{{ $t("with-franceconnect-text") }}</div>
@@ -10,10 +9,10 @@
         type="button"
         aria-label="Mes justificatifs avec Mon FranceConnect"
         title="Connectez vous avec FranceConnect pour accéder à vos justificatifs"
-        class="fr-btn fr-mt-3w"
+        class="fr-btn fr-mt-3w btn-my-fc"
         @click="openDGFIP"
       >
-        Mon FranceConnect
+        <span> Mon FranceConnect</span>
       </button>
     </div>
   </div>
@@ -34,7 +33,22 @@ export default class MonFranceConnect extends Vue {
   }
 }
 </script>
+<style lang="scss" scoped>
+.fr-icon-attachment-line:before {
+  font-size: 2rem;
+}
+.btn-my-fc {
+  border-radius: 0.5rem;
+  background-image: url("../../../assets/mon_franceconnect.svg");
+  background-size: cover;
+  width: 184px;
+  height: 48px;
 
+  span {
+    display: none;
+  }
+}
+</style>
 <i18n>
 {
 "en": {

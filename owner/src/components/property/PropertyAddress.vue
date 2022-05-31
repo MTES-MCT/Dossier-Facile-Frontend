@@ -3,7 +3,7 @@ import { Field, ErrorMessage } from 'vee-validate';
 import { computed, ref, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
-import { Address } from 'df-shared/src/models/Address';
+import { Address } from 'df-shared-next/src/models/Address';
 import UtilsService from '../../services/UtilsService';
 import PropertyPage from './PropertyPage.vue';
 import useOwnerStore from '../../store/owner-store';

@@ -10,14 +10,15 @@
   },
   "workspaces": [
     "main",
-    "tenant",
     "owner",
-    "df-shared"
+    "tenant",
+    "df-shared",
+    "df-shared-next"
   ],
   "scripts": {
     "main": "yarn workspace main",
-    "tenant": "yarn workspace tenant",
     "dfowner": "yarn workspace owner",
+    "tenant": "yarn workspace tenant",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
@@ -30,27 +31,35 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
-    "@storybook/addon-actions": "6.4.15",
-    "@storybook/addon-essentials": "6.4.15",
-    "@storybook/addon-links": "6.4.15",
-    "@storybook/addon-docs": "6.4.15",
+    "@kazupon/vue-i18n-loader": "^0.5.0",
+    "@storybook/addon-actions": "6.5.4",
+    "@storybook/addon-essentials": "6.5.4",
+    "@storybook/addon-links": "6.5.4",
     "@storybook/addon-postcss": "2.0.0",
+    "@storybook/vue": "6.5.4",
+    "@vue/cli": "^4.5.17",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/compiler-sfc": "^3.2.36",
     "babel-loader": "^8.1.0",
-    "react-is": "^17.0.1"
+    "react-is": "^17.0.1",
+    "vue-cli-plugin-i18n": "^2.3.1"
   },
   "resolutions": {
-    "trim": "1.0.1",
-    "merge": "2.1.1",
-    "glob-parent": "5.1.2",
+    "trim": "^1.0.1",
+    "trim-newlines": "^3.0.1",
+    "merge": "^2.1.1",
+    "glob-parent": "^5.1.2",
     "ansi-regex": "5.0.1",
     "browserslist": "4.16.5",
     "lodash": "4.17.21",
-    "jsonpointer": "5.0.0",
-    "minimist": "1.2.3",
-    "nth-check": "2.0.1",
-    "immer": "9.0.7",
-    "node-fetch": "2.6.7",
-    "nanoid": "3.2.0",
-    "node-forge": "1.0.0"
+    "jsonpointer": "^5.0.0",
+    "minimist": "^1.2.6",
+    "nth-check": "^2.0.1",
+    "dot-object": "^2.1.3",
+    "node-forge": "^1.3.0",
+    "ejs": "^3.1.7",
+    "async": "^2.6.4",
+    "moment": "^2.29.2",
+    "eventsource": "2.0.2"
   }
 }

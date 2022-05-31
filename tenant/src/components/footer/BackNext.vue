@@ -32,25 +32,31 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
+import { Vue, Component, Prop } from "vue-property-decorator";
 import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.vue";
 import { UtilsService } from "../../services/UtilsService";
 
+@Component({
+  components: { VGouvFrButton }
+})
+export default class BackNext extends Vue {
   @Prop({ default: true }) showBack!: boolean;
   @Prop({ default: false }) disabled?: boolean;
   @Prop() nextLabel?: string;
 
-  function isMobile() {
+  isMobile() {
     return UtilsService.isMobile();
   }
 
-  function backAction() {
+  backAction() {
     this.$emit("on-back");
   }
 
-  function nextAction() {
+  nextAction() {
     this.$emit("on-next");
   }
+}
 </script>
 
 <i18n>

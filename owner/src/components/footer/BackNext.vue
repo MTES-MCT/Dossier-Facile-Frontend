@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import VGouvFrButton from 'df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.vue';
+import VGouvFrButton from 'df-shared-next/src/Button/v-gouv-fr-button/VGouvFrButton.vue';
 import { useI18n } from 'vue-i18n';
 import { defineProps, withDefaults } from 'vue';
 

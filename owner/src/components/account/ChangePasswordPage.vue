@@ -5,11 +5,11 @@
 </template>
 
 <script setup lang="ts">
-import { User } from 'df-shared/src/models/User';
+import { User } from 'df-shared-next/src/models/User';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
-import ChangePassword from 'df-shared/src/Authentification/ChangePassword.vue';
+import ChangePassword from 'df-shared-next/src/Authentification/ChangePassword.vue';
 import useOwnerStore from '../../store/owner-store';
 
 const route = useRoute();

@@ -4,34 +4,36 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { defineProps } from "vue";
-const props = defineProps<{
-  status: string;
-}>();
+<script lang="ts">
+import { Component, Prop, Vue } from "vue-property-decorator";
 
-function getStatus() {
-  switch (props.status) {
-    case "EMPTY":
-      return "arrow_forward";
-    case "FILLED":
-      return "attachment";
-    case "TO_PROCESS":
-      return "schedule";
-    case "VALIDATED":
-      return "verified";
-    case "DECLINED":
-      return "report_gmailerrorred";
-    case "NAME":
-      return "badge";
-    case "ALONE":
-      return "person";
-    case "COUPLE":
-      return "group";
-    case "GROUP":
-      return "groups";
+@Component
+export default class StatusIcon extends Vue {
+  @Prop() status!: string;
+
+  getStatus() {
+    switch (this.status) {
+      case "EMPTY":
+        return "arrow_forward";
+      case "FILLED":
+        return "attachment";
+      case "TO_PROCESS":
+        return "schedule";
+      case "VALIDATED":
+        return "verified";
+      case "DECLINED":
+        return "report_gmailerrorred";
+      case "NAME":
+        return "badge";
+      case "ALONE":
+        return "person";
+      case "COUPLE":
+        return "group";
+      case "GROUP":
+        return "groups";
+    }
+    return undefined;
   }
-  return undefined;
 }
 </script>
 

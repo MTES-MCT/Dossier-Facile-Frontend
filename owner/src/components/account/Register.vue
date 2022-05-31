@@ -154,11 +154,11 @@
 </template>
 
 <script setup lang="ts">
-import { User } from 'df-shared/src/models/User';
+import { User } from 'df-shared-next/src/models/User';
 import { ref, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Form, Field, ErrorMessage } from 'vee-validate';
-import PasswordMeter from 'df-shared/src/components/PasswordMeter/PasswordMeter.vue';
+import PasswordMeter from 'df-shared-next/src/components/PasswordMeter/PasswordMeter.vue';
 
 const FRANCE_CONNECT_LOGIN_URL = import.meta.env.VUE_APP_FRANCE_CONNECT_LOGIN_URL;
 

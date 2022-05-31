@@ -230,9 +230,9 @@
 import { computed, ref, onMounted } from 'vue';
 import { Composer, useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
-import NakedCard from 'df-shared/src/components/NakedCard.vue';
-import ConfirmModal from 'df-shared/src/components/ConfirmModal.vue';
-import VGouvFrModal from 'df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue';
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
+import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue';
+import VGouvFrModal from 'df-shared-next/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue';
 import { useToast } from 'vue-toastification';
 import { format } from 'date-fns';
 import { enUS, fr } from 'date-fns/locale';

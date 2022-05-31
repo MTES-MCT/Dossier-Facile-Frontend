@@ -1,4 +1,4 @@
-import { User } from 'df-shared/src/models/User';
+import { User } from 'df-shared-next/src/models/User';
 import axios from 'axios';
 
 const API_URL = `${import.meta.env.VITE_OWNER_API_URL}/api/`;

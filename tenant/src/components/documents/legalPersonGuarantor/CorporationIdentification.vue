@@ -2,7 +2,7 @@
   <div>
     <ValidationObserver>
       <NakedCard class="fr-p-md-5w">
-        <validation-provider rules="required" v-slot="{ errors }">
+        <validation-provider rules="required" v-slot="{ errors, valid }">
           <div
             class="fr-input-group"
             :class="errors[0] ? 'fr-input-group--error' : ''"
@@ -13,13 +13,19 @@
             <input
               v-model="organismName"
               class="form-control fr-input validate-required"
+              :class="{
+                'fr-input--valid': valid,
+                'fr-input--error': errors[0]
+              }"
               id="organismName"
               name="organismName"
               :placeholder="$t('organism-name-placeholder')"
               type="text"
               required
             />
-            <span class="fr-error-text" v-if="errors[0]">{{ errors[0] }}</span>
+            <span class="fr-error-text" v-if="errors[0]">{{
+              $t(errors[0])
+            }}</span>
           </div>
         </validation-provider>
       </NakedCard>
@@ -98,7 +104,7 @@ import { cloneDeep } from "lodash";
 
 extend("required", {
   ...required,
-  message: "Ce champ est requis"
+  message: "field-required"
 });
 
 @Component({
@@ -252,7 +258,8 @@ td {
   "balance-sheet": "Balance sheet",
   "urssaf": "Urssaf certificate",
   "all-other": "Any other document",
-  "register": "Register documents"
+  "register": "Register documents",
+  "field-required": "This field is required"
 },
 "fr": {
   "organism-name": "Nom de la personne morale",
@@ -264,7 +271,8 @@ td {
   "balance-sheet": "Bilan comptable",
   "urssaf": "Attestation cotisation Urssaf",
   "all-other": "Toute autre pièce",
-  "register": "Enregistrer la pièce"
+  "register": "Enregistrer la pièce",
+  "field-required": "Ce champ est requis"
 }
 }
 </i18n>

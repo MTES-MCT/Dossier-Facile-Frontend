@@ -5,35 +5,34 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { withDefaults, defineProps } from "vue";
+<script lang="ts">
+import { Component, Prop, Vue } from "vue-property-decorator";
 import StatusIcon from "./StatusIcon.vue";
 
-const props = withDefaults(
-  defineProps<{
-    status?: string;
-    text: string;
-    active?: boolean;
-  }>(),
-  {
-    status: "",
-    active: false
+@Component({
+  components: {
+    StatusIcon
   }
-);
+})
+export default class CardRow extends Vue {
+  @Prop({ default: "" }) status?: string;
+  @Prop() text!: string;
+  @Prop({ default: false }) active!: boolean;
 
-function getClasses() {
-  const c = props.active ? "active " : "";
-  switch (props.status) {
-    case "VALIDATED":
-      return c + "valid-menu-link";
-    case "TO_PROCESS":
-      return c + "to-process-menu-link";
-    case "DECLINED":
-      return c + "declined-menu-link";
-    case "FILLED":
-      return c + "filled-menu-link";
+  getClasses() {
+    const c = this.active ? "active " : "";
+    switch (this.status) {
+      case "VALIDATED":
+        return c + "valid-menu-link";
+      case "TO_PROCESS":
+        return c + "to-process-menu-link";
+      case "DECLINED":
+        return c + "declined-menu-link";
+      case "FILLED":
+        return c + "filled-menu-link";
+    }
+    return c + "empty-menu-link";
   }
-  return c + "empty-menu-link";
 }
 </script>
 

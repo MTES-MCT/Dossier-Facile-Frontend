@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <h2 class="number">{{ total }}</h2>
-    <p class="description">Liens partagés avec DossierFacile</p>
+  <div class="flex-reverse">
+    <h2 class="description">Liens partagés avec DossierFacile</h2>
+    <div class="fr-h2 number">{{ total }}</div>
   </div>
 </template>
 
@@ -29,5 +29,11 @@ export default class Chart4 extends Vue {
 .description {
   width: 100%;
   text-align: center;
+  font-weight: 400;
+  font-size: 1rem;
+}
+.flex-reverse {
+  flex-direction: column-reverse;
+  display: flex;
 }
 </style>

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Property } from 'df-shared/src/models/Property';
+import { Property } from 'df-shared-next/src/models/Property';
 import Applicant from '../components/property/Applicant';
 
 const API_URL = `${import.meta.env.VITE_OWNER_API_URL}/api/`;

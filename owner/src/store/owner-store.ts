@@ -1,9 +1,9 @@
-import { Property } from 'df-shared/src/models/Property';
-import { User } from 'df-shared/src/models/User';
+import { Property } from 'df-shared-next/src/models/Property';
+import { User } from 'df-shared-next/src/models/User';
 import { useCookies } from 'vue3-cookies';
 import { Composer } from 'vue-i18n';
 import { defineStore } from 'pinia';
-import { OwnerUser } from 'df-shared/src/models/OwnerUser';
+import { OwnerUser } from 'df-shared-next/src/models/OwnerUser';
 import UtilsService from '../services/UtilsService';
 import i18n from '../i18n';
 import AuthService from '../components/auth/AuthService';

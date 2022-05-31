@@ -9,6 +9,7 @@ export class User {
   confirm?: string;
   captcha?: string;
   lastName?: string;
+  preferredName?: string;
   firstName?: string;
   zipCode?: string;
   applicationType?: string;

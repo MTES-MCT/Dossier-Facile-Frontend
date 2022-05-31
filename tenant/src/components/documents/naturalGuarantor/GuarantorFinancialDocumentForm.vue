@@ -90,12 +90,14 @@
             >
               <div>
                 <validation-provider
-                  :rules="{ required: true, regex: /^[0-9., ]+$/ }"
-                  v-slot="{ errors }"
+                  :rules="{ required: true, regex: /^[0-9 ]+$/ }"
+                  v-slot="{ errors, valid }"
                 >
                   <div
                     class="fr-input-group"
-                    :class="errors[0] ? 'fr-input-group--error' : ''"
+                    :class="{
+                      'fr-input-group--error': errors[0]
+                    }"
                   >
                     <label for="monthlySum" class="fr-label"
                       >{{ $t("monthlySum-label") }} :</label
@@ -109,6 +111,10 @@
                       v-model="financialDocument.monthlySum"
                       name="monthlySum"
                       class="validate-required form-control fr-input"
+                      :class="{
+                        'fr-input--valid': valid,
+                        'fr-input--error': errors[0]
+                      }"
                       required
                     />
                     <span class="fr-error-text" v-if="errors[0]">{{
@@ -181,7 +187,7 @@
           <div class="fr-mb-5w" v-if="financialDocument.noDocument">
             <validation-provider
               :rules="{ required: true }"
-              v-slot="{ errors }"
+              v-slot="{ errors, valid }"
             >
               <div class="fr-input-group">
                 <label class="fr-label" for="customText">
@@ -192,6 +198,10 @@
                 <input
                   v-model="financialDocument.customText"
                   class="form-control fr-input validate-required"
+                  :class="{
+                    'fr-input--valid': valid,
+                    'fr-input--error': errors[0]
+                  }"
                   id="customText"
                   name="customText"
                   placeholder=""
@@ -606,7 +616,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
   "customText-scholarship": "In order to improve my file, I explain why I cannot provide the justificatives:",
   "high-salary": "You have entered a salary greater than € 10,000 are you sure you have entered your guarantor monthly salary?",
   "low-salary": "You have entered a salary equal to 0 € are you sure you have entered your guarantor monthly salary?",
-  "number-not-valid": "Number not valid",
+  "number-not-valid": "Number not valid - without decimal",
   "delete-financial":  "Delete this salary",
   "field-required": "This field is required",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
@@ -636,7 +646,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
   "customText-scholarship": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
   "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
   "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
-  "number-not-valid": "Nombre incorrect",
+  "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule",
   "delete-financial":  "Supprimer ce revenu",
   "field-required": "Ce champ est requis",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à la situation de votre garant.",

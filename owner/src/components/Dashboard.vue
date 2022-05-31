@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import { computed } from 'vue';
-import NakedCard from 'df-shared/src/components/NakedCard.vue';
-import Button from 'df-shared/src/Button/Button.vue';
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
+import Button from 'df-shared-next/src/Button/Button.vue';
 import { useRouter } from 'vue-router';
-import { Property } from 'df-shared/src/models/Property';
+import { Property } from 'df-shared-next/src/models/Property';
 import UtilsService from '../services/UtilsService';
 import useOwnerStore from '../store/owner-store';
 

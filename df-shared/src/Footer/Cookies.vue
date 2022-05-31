@@ -1,53 +1,38 @@
 <template>
   <transition name="fade">
-    <div class="cookie" v-if="!props.hidden">
+    <div class="cookie" v-if="!hidden">
       <p>
-        {{ t("cookies-text") }}
-        <router-link to="/mentions-legales">{{ t("more") }}</router-link>
+        {{ $t("cookies-text") }}
+        <router-link to="/mentions-legales">{{ $t("more") }}</router-link>
       </p>
-      <DfButton
-        :primary="true"
-        :title="t('accept')"
-        size="small"
-        @on-click="accept"
-      >
-        {{ t("accept") }}
+      <DfButton primary="true" size="small" @on-click="accept">
+        {{ $t("accept") }}
       </DfButton>
-      <DfButton
-        size="small"
-        :title="t('deny')"
-        @on-click="deny"
-        class="fr-ml-3w"
-      >
-        {{ t("deny") }}
+      <DfButton size="small" @on-click="deny" class="fr-ml-3w">
+        {{ $t("deny") }}
       </DfButton>
     </div>
   </transition>
 </template>
 
-<script setup lang="ts">
-import { withDefaults, defineProps } from "vue";
+<script lang="ts">
+import { Component, Prop, Vue } from "vue-property-decorator";
 import DfButton from "../Button/Button.vue";
-import { useI18n } from "vue-i18n";
 
-const { t } = useI18n();
-
-const props = withDefaults(
-  defineProps<{
-    hidden?: boolean;
-  }>(),
-  {
-    hidden: false
+@Component({
+  components: {
+    DfButton
   }
-);
+})
+export default class Cookies extends Vue {
+  @Prop({ default: false }) hidden!: boolean;
 
-const emit = defineEmits(["accept", "deny"]);
-
-function accept() {
-  emit("accept");
-}
-function deny() {
-  emit("deny");
+  accept() {
+    this.$emit("accept");
+  }
+  deny() {
+    this.$emit("deny");
+  }
 }
 </script>
 

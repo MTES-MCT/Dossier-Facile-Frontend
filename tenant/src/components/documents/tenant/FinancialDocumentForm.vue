@@ -71,12 +71,14 @@
               >
                 <div>
                   <validation-provider
-                    :rules="{ required: true, regex: /^[0-9., ]+$/ }"
-                    v-slot="{ errors }"
+                    :rules="{ required: true, regex: /^[0-9 ]+$/ }"
+                    v-slot="{ errors, valid }"
                   >
                     <div
                       class="fr-input-group"
-                      :class="errors[0] ? 'fr-input-group--error' : ''"
+                      :class="{
+                        'fr-input-group--error': errors[0]
+                      }"
                     >
                       <label for="monthlySum" class="fr-label"
                         >{{ $t("monthlySum-label") }} :</label
@@ -90,6 +92,10 @@
                         v-model="financialDocument.monthlySum"
                         name="monthlySum"
                         class="validate-required form-control fr-input"
+                        :class="{
+                          'fr-input--valid': valid,
+                          'fr-input--error': errors[0]
+                        }"
                         required
                       />
                       <span class="fr-error-text" v-if="errors[0]">{{
@@ -170,7 +176,7 @@
               <div class="fr-mb-5w" v-if="financialDocument.noDocument">
                 <validation-provider
                   :rules="{ required: true }"
-                  v-slot="{ errors }"
+                  v-slot="{ errors, valid }"
                 >
                   <div class="fr-input-group">
                     <label class="fr-label" for="customText">
@@ -181,6 +187,10 @@
                     <textarea
                       v-model="financialDocument.customText"
                       class="form-control fr-input validate-required"
+                      :class="{
+                        'fr-input--valid': valid,
+                        'fr-input--error': errors[0]
+                      }"
                       id="customText"
                       name="customText"
                       placeholder=""
@@ -211,7 +221,7 @@
     >
       <NakedCard class="fr-p-md-5w fr-mb-3w">
         {{ $t("has-no-income") }}
-        <ValidationObserver v-slot="{ validate }">
+        <ValidationObserver v-slot="{ validate, valid }">
           <form name="customTextForm" @submit.prevent="validate().then(save())">
             <div class="fr-input-group">
               <label class="fr-label" for="customTextNoDocument">
@@ -222,6 +232,9 @@
                 maxlength="2000"
                 rows="3"
                 class="form-control fr-input validate-required"
+                :class="{
+                  'fr-input--valid': valid
+                }"
                 id="customTextNoDocument"
                 name="customText"
                 placeholder=""
@@ -654,7 +667,8 @@ export default class FinancialDocumentForm extends Vue {
     "high-salary": "You have entered a salary greater than € 10,000 are you sure you have entered your monthly salary?",
     "low-salary": "You have entered a salary equal to 0 € are you sure you have entered your monthly salary?",
     "has-no-income": "You have no income",
-    "no-income": "No income"
+    "no-income": "No income",
+    "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule"
   },
   "fr": {
     "title": "Justificatif de ressources",
@@ -684,7 +698,8 @@ export default class FinancialDocumentForm extends Vue {
     "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
     "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
     "has-no-income": "Vous avez indiqué ne pas avoir de revenu",
-    "no-income": "Pas de revenu"
+    "no-income": "Pas de revenu",
+    "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule"
   }
 }
 </i18n>

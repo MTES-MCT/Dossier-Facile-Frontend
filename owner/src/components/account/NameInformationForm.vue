@@ -104,7 +104,7 @@
 import {
   Form, Field, ErrorMessage,
 } from 'vee-validate';
-import NakedCard from 'df-shared/src/components/NakedCard.vue';
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import router from '../../router';

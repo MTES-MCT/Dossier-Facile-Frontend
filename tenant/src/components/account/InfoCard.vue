@@ -13,13 +13,13 @@
         <slot></slot>
         <button
           v-if="editable"
-          class="fr-btn fr-btn--secondary fr-fi-edit-line edit-btn"
+          class="fr-btn fr-btn--secondary edit-btn"
           :title="$t('edit')"
         >
-          <span class="sr-only"> {{ $t("edit") }}</span>
+          <span class="material-icons-outlined" aria-hidden="true">edit</span>
         </button>
       </div>
-      <div class="fr-tile__img-wrap fr-ml-2w">
+      <div class="fr-tile__img-wrap fr-ml-2w" aria-hidden="true">
         <span class="color--primary material-icons md-adapt">{{
           matIcon
         }}</span>

@@ -1,3 +1,4 @@
+import { UtilsService } from "./services/UtilsService";
 import "./router/componentHooks"; // <-- Needs to be first
 import Vue from "vue";
 import App from "./App.vue";
@@ -7,8 +8,10 @@ import i18n from "./i18n";
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import Toasted from "vue-toasted";
+
 import VueCookies from "vue-cookies";
 import authentication from "./plugins/authentication";
+import MatomoPlugin from "./plugins/matomo";
 
 const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
 
@@ -16,22 +19,25 @@ Vue.use(authentication);
 
 Vue.config.productionTip = false;
 
-require("../../node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.min.css");
+import "@gouvfr/dsfr/dist/dsfr/dsfr.min.css";
 import "vue-loading-overlay/dist/vue-loading.css";
 import VueGtag from "vue-gtag";
 import VueAuthImage from "vue-auth-image";
+import { User } from "df-shared/src/models/User";
 
 declare global {
   interface Window {
     __insp: any;
     __inspld: any;
     Beacon: any;
+    _paq: any;
   }
 }
 
 Vue.config.productionTip = false;
 
 Vue.use(VueCookies);
+Vue.use(MatomoPlugin);
 Vue.use(VueAuthImage);
 
 (Vue as any).$keycloak
@@ -88,8 +94,18 @@ Vue.use(VueAuthImage);
     });
     app.$mount("#app");
 
+    Vue.filter("fullName", function(user: User) {
+      const firstName = UtilsService.capitalize(user.firstName || "");
+      const lastName = UtilsService.capitalize(user.lastName || "");
+      const preferredName = UtilsService.capitalize(user.preferredName || "");
+      return user.preferredName == null || user.preferredName.length == 0
+        ? firstName + " " + lastName
+        : firstName + " " + preferredName;
+    });
+
     Vue.use(Loading);
     Vue.use(Toasted);
+
     Vue.toasted.register("error", i18n.t("error").toString(), {
       type: "error",
       duration: 5000

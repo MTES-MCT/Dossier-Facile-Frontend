@@ -4,19 +4,16 @@
       <div class="active step">
         <div class="step-number">1</div>
         <div class="step-title">
-          <router-link :to="{ name: 'TenantName' }" class="fr-btn">
+          <router-link :to="{ name: 'TenantName' }" class="fr-link">
             {{ $t("personal-information") }}</router-link
           >
         </div>
       </div>
       <div class="vline" :class="getClass(0)">
         <div class="ml-5">
-          <router-link :to="{ name: 'Profile' }"
-            ><ColoredTag
-              :text="`${user.firstName} ${user.lastName}`"
-              status="NAME"
-            ></ColoredTag
-          ></router-link>
+          <router-link :to="{ name: 'Profile' }">
+            <ColoredTag :text="user | fullName" status="NAME" />
+          </router-link>
         </div>
         <div class="ml-5" v-if="user.applicationType">
           <router-link :to="{ name: 'TenantType' }"
@@ -32,7 +29,7 @@
         <div class="step-number">2</div>
         <div class="step-title">
           <router-link
-            class="fr-btn"
+            class="fr-link"
             :to="{ name: 'TenantDocuments', params: { substep: '1' } }"
             >{{ $t("my-document") }}</router-link
           >
@@ -95,7 +92,7 @@
       <div class="step" :class="getClass(2)">
         <div class="step-number">3</div>
         <div class="step-title">
-          <router-link class="fr-btn" :to="getGuarantorLink()">{{
+          <router-link class="fr-link" :to="getGuarantorLink()">{{
             $t("my-guarantor")
           }}</router-link>
         </div>
@@ -234,7 +231,7 @@
       <div class="step" :class="getClass(3)">
         <div class="step-number">4</div>
         <div class="step-title">
-          <router-link class="fr-btn" :to="{ name: 'ValidateFile' }">{{
+          <router-link class="fr-link" :to="{ name: 'ValidateFile' }">{{
             $t("validate-file")
           }}</router-link>
         </div>
@@ -395,7 +392,7 @@ export default class LeftEditMenu extends Vue {
   margin-bottom: 1rem;
 }
 
-.fr-btn {
+.fr-link {
   width: fit-content;
   color: var(--g800-plain);
   font-size: 14px;
@@ -407,6 +404,7 @@ export default class LeftEditMenu extends Vue {
 
 [href] {
   box-shadow: none;
+  background-image: none;
 }
 </style>
 

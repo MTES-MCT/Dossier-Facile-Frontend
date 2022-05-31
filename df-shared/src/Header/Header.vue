@@ -38,7 +38,7 @@
 
           <div class="fr-header__tools">
             <div class="fr-header__tools-links">
-              <ul class="fr-btns-group">
+              <ul class="fr-links-group">
                 <li v-if="loggedIn">
                   <v-gouv-fr-button
                     :small="true"
@@ -46,44 +46,39 @@
                     @click="onLogout"
                     ><span class="material-icons-outlined" aria-hidden="true">
                       account_circle </span
-                    >{{ t("logout") }}
+                    >{{ $t("logout") }}
                   </v-gouv-fr-button>
                 </li>
                 <li v-if="!loggedIn">
                   <DfButton
-                    :primary="true"
-                    :title="t('signup')"
+                    primary="true"
                     size="small"
                     @on-click="onCreateTenant"
                   >
                     <span class="material-icons-outlined" aria-hidden="true">
                       account_circle
                     </span>
-                    {{ t("signup") }}
+                    {{ $t("signup") }}
                   </DfButton>
                 </li>
                 <li v-if="!loggedIn">
-                  <DfButton
-                    size="small"
-                    :title="t('owner')"
-                    @on-click="onCreateOwner"
-                  >
+                  <DfButton size="small" @on-click="onCreateOwner">
                     <span class="material-icons" aria-hidden="true"
                       >apartment</span
                     >
-                    {{ t("owner") }}
+                    {{ $t("owner") }}
                   </DfButton>
                 </li>
                 <li v-if="!loggedIn">
-                  <DfButton :title="t('partner')" size="small">
+                  <DfButton size="small">
                     <a
                       class="fr-external-link"
                       href="https://partenaire.dossierfacile.fr"
                       target="_blank"
                       rel="noreferrer"
-                      :title="t('partner-link-title')"
+                      :title="$t('partner-link-title')"
                     >
-                      {{ t("partner") }}
+                      {{ $t("partner") }}
                     </a>
                   </DfButton>
                 </li>
@@ -96,32 +91,26 @@
     <!-- Navigation principale -->
     <div class="fr-header__menu fr-modal" id="modal-dc">
       <div class="fr-container">
-        <button
-          class="fr-btn--close fr-btn"
-          aria-controls="modal-dc"
-          title="fermer"
-        >
+        <button class="fr-link--close fr-link" aria-controls="modal-dc">
           Fermer
         </button>
         <div class="fr-header__menu-links" style="display: none"></div>
         <div class="fr-header__menu-links-hack">
-          <ul class="fr-btns-group">
+          <ul class="fr-links-group">
             <li v-if="loggedIn">
               <DfButton
-                :title="t('logout')"
                 class="fr-ml-3"
                 :primary="false"
                 size="small"
                 @on-click="onLogout"
                 ><span class="material-icons-outlined" aria-hidden="true">
                   account_circle </span
-                >{{ t("logout") }}
+                >{{ $t("logout") }}
               </DfButton>
             </li>
             <li v-if="!loggedIn">
               <DfButton
                 class="fr-ml-3"
-                :title="t('signup')"
                 :primary="false"
                 size="small"
                 @on-click="onCreateTenant"
@@ -129,30 +118,28 @@
                 <span class="material-icons-outlined" aria-hidden="true">
                   account_circle
                 </span>
-                {{ t("signup") }}
+                {{ $t("signup") }}
               </DfButton>
             </li>
 
             <li v-if="!loggedIn">
-              <DfButton
-                size="small"
-                class="fr-ml-3"
-                :title="t('owner')"
-                @on-click="onCreateOwner"
-              >
+              <DfButton size="small" class="fr-ml-3" @on-click="onCreateOwner">
                 <span class="material-icons" aria-hidden="true">apartment</span>
-                {{ t("owner") }}
+                {{ $t("owner") }}
               </DfButton>
             </li>
             <li v-if="!loggedIn">
-              <DfButton
-                size="small"
-                class="fr-external-link"
-                :title="t('partner-link-title')"
-                @on-click="gotToPartner"
-              >
-                <span class="material-icons" aria-hidden="true"> </span>
-                {{ t("partner") }}
+              <DfButton size="small">
+                <a
+                  class="fr-external-link"
+                  href="https://partenaire.dossierfacile.fr"
+                  target="_blank"
+                  rel="noreferrer"
+                  :title="$t('partner-link-title')"
+                >
+                  <span class="material-icons" aria-hidden="true"> </span>
+                  {{ $t("partner") }}
+                </a>
               </DfButton>
             </li>
           </ul>
@@ -170,44 +157,33 @@
   </header>
 </template>
 
-<script setup lang="ts">
-import { withDefaults, defineProps } from "vue";
+<script lang="ts">
 import DfButton from "../Button/Button.vue";
+import { Vue, Component, Prop } from "vue-property-decorator";
 import VGouvFrButton from "../Button/v-gouv-fr-button/VGouvFrButton.vue";
-import { useI18n } from "vue-i18n";
 
-const { t } = useI18n();
-const MAIN_URL = `//${import.meta.env.VUE_APP_MAIN_URL}`;
-
-withDefaults(
-  defineProps<{
-    loggedIn?: boolean;
-    lang?: string;
-    showAccessibility?: boolean;
-  }>(),
-  {
-    loggedIn: false,
-    lang: "fr",
-    showAccessibility: false
+@Component({
+  components: {
+    DfButton,
+    VGouvFrButton
   }
-);
+})
+export default class MyHeader extends Vue {
+  MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+  @Prop({ default: false }) loggedIn?: boolean;
+  @Prop({ default: "fr" }) lang?: string;
 
-const emit = defineEmits(["on-create-tenant", "on-logout", "on-create-owner"]);
+  onCreateTenant() {
+    this.$emit("on-create-tenant");
+  }
 
-function onCreateTenant() {
-  emit("on-create-tenant");
-}
+  onLogout() {
+    this.$emit("on-logout");
+  }
 
-function onLogout() {
-  emit("on-logout");
-}
-
-function onCreateOwner() {
-  emit("on-create-owner");
-}
-
-function gotToPartner() {
-  window.open("https://partenaire.dossierfacile.fr", "_blank");
+  onCreateOwner() {
+    this.$emit("on-create-owner");
+  }
 }
 </script>
 

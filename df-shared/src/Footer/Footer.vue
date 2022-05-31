@@ -71,33 +71,36 @@
           <li class="fr-footer__bottom-item">
             <a
               class="fr-footer__bottom-link"
-              :href="`${VITE_MAIN_URL}/accessibilite`"
-              :title="t('accessibility-link')"
-              >{{ t("accessibility") }}</a
+              :href="`${VUE_APP_MAIN_URL}/accessibilite`"
+              :title="$t('accessibility-link')"
+              >{{ $t("accessibility") }}</a
             >
           </li>
           <li class="fr-footer__bottom-item">
             <a
               class="fr-footer__bottom-link"
-              :href="`${VITE_MAIN_URL}/mentions-legales`"
+              :href="`${VUE_APP_MAIN_URL}/mentions-legales`"
             >
-              {{ t("legals") }}
-            </a>
-          </li>
-          <li class="fr-footer__bottom-item">
-            <a class="fr-footer__bottom-link" :href="`${VITE_MAIN_URL}/stats`">
-              {{ t("statistics") }}
+              {{ $t("legals") }}
             </a>
           </li>
           <li class="fr-footer__bottom-item">
             <a
               class="fr-footer__bottom-link"
-              :href="`${VITE_DOCS_URL}`"
+              :href="`${VUE_APP_MAIN_URL}/stats`"
+            >
+              {{ $t("statistics") }}
+            </a>
+          </li>
+          <li class="fr-footer__bottom-item">
+            <a
+              class="fr-footer__bottom-link"
+              :href="`${VUE_APP_DOCS_URL}`"
               target="_blank"
               rel="noreferrer"
-              :title="t('faq-link-title')"
+              :title="$t('faq-link-title')"
             >
-              {{ t("faq") }}
+              {{ $t("faq") }}
             </a>
           </li>
           <li class="fr-footer__bottom-item">
@@ -106,9 +109,9 @@
               href="https://partenaire.dossierfacile.fr"
               target="_blank"
               rel="noreferrer"
-              :title="t('partner-link-title')"
+              :title="$t('partner-link-title')"
             >
-              {{ t("partner") }}
+              {{ $t("partner") }}
             </a>
           </li>
           <li class="fr-footer__bottom-item">
@@ -118,7 +121,7 @@
               rel="noreferrer"
               href="https://github.com/MTES-MCT/Dossier-Facile-Frontend"
             >
-              {{ t("sources") }}
+              {{ $t("sources") }}
             </a>
           </li>
 
@@ -188,14 +191,14 @@
   </footer>
 </template>
 
-<script setup lang="ts">
-import { ref } from "vue";
-import { useI18n } from "vue-i18n";
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
 
-const VITE_MAIN_URL = ref(`//${import.meta.env.VITE_MAIN_URL}`);
-const VITE_DOCS_URL = ref(`//${import.meta.env.VITE_DOCS_URL}`);
-
-const { t } = useI18n();
+@Component
+export default class TheFooter extends Vue {
+  VUE_APP_MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+  VUE_APP_DOCS_URL = `//${process.env.VUE_APP_DOCS_URL}`;
+}
 </script>
 
 <style lang="scss" scoped>
@@ -232,14 +235,12 @@ ul.fr-follow {
 }
 .fr-follow a.fr-btn--tiktok:before {
   content: "";
-  -webkit-mask-image: url(../../../node_modules/@gouvfr/dsfr/dist/icons/logo/fr--tiktok-fill.svg);
   mask-image: url(../../../node_modules/@gouvfr/dsfr/dist/icons/logo/fr--tiktok-fill.svg);
   --icon-size: 1.5rem;
   background-color: currentColor;
   display: inline-block;
   flex: 0 0 auto;
   height: var(--icon-size);
-  -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
   vertical-align: middle;
   width: var(--icon-size);

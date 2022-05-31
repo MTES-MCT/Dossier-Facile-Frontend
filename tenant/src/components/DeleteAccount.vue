@@ -27,9 +27,14 @@
                   @on-click="undoSelect()"
                   >{{ $t("cancel") }}</DfButton
                 >
-                <DfButton type="submit" primary="true">{{
-                  isMobile() ? $t("validate-mobile") : $t("validate")
-                }}</DfButton>
+                <DfButton
+                  type="submit"
+                  @on-click="validSelect()"
+                  primary="true"
+                  >{{
+                    isMobile() ? $t("validate-mobile") : $t("validate")
+                  }}</DfButton
+                >
               </div>
             </div>
           </div>
@@ -57,14 +62,11 @@ extend("required", {
   components: { Modal, DfButton }
 })
 export default class DeleteAccount extends Vue {
-  MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
-
   validDelete() {
     this.$emit("input", false);
     this.$store.dispatch("deleteAccount").then(
       () => {
         AnalyticsService.deleteAccount();
-        window.location.replace(this.MAIN_URL);
       },
       () => {
         this.$toasted.show(this.$i18n.t("try-again").toString(), {

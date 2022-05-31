@@ -35,8 +35,7 @@
                 :aria-controls="`tabpanel-${k}-panel`"
                 @click="tabIndex = k"
               >
-                {{ tenant.firstName }}
-                {{ tenant.lastName }}
+                {{ tenant | fullName }}
               </button>
             </li>
           </ul>
@@ -50,18 +49,18 @@
             tabindex="0"
           >
             <div class="fr-prose">
-              <h4
+              <h2
                 class="fr-h4"
                 v-if="tenant.typeGuarantor === 'NATURAL_PERSON'"
               >
                 {{ $t("guarant") }}
-              </h4>
-              <h4
+              </h2>
+              <h2
                 class="fr-h4"
                 v-if="tenant.typeGuarantor !== 'NATURAL_PERSON'"
               >
                 {{ $t("personnal-file") }}
-              </h4>
+              </h2>
               <div class="fr-grid-row file-item">
                 <span>{{ $t("identification") }}</span
                 ><DfButton @on-click="open(tenant, 'IDENTIFICATION')">{{
@@ -95,9 +94,9 @@
                 }}</DfButton>
               </div>
               <div v-if="hasGuarantor(tenant)">
-                <h4 class="fr-h4">
+                <h2 class="fr-h4">
                   {{ $t("guarant") }}
-                </h4>
+                </h2>
                 <div v-if="tenant.guarantors">
                   <div v-for="g in tenant.guarantors" v-bind:key="g.id">
                     <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
@@ -131,7 +130,11 @@
         </div>
       </section>
       <section class="fr-mb-7w fix-mt">
-        <DfButton primary="true" @on-click="download">{{
+        <DfButton v-if="showProgressBar" primary="true"
+          >{{ $t("download-all-inprogress")
+          }}<span><ProgressIndicator diameter="22px" border="3px"/></span>
+        </DfButton>
+        <DfButton v-else primary="true" @on-click="download">{{
           $t("download-all")
         }}</DfButton>
         <p class="fr-mt-3w">
@@ -152,9 +155,11 @@ import DfButton from "df-shared/src/Button/Button.vue";
 import { ProfileService } from "../services/ProfileService";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import FileReinsurance from "../components/FileReinsurance.vue";
+import ProgressIndicator from "@/components/ProgressIndicator.vue";
 
 @Component({
   components: {
+    ProgressIndicator,
     DfButton,
     FileReinsurance
   }
@@ -162,24 +167,25 @@ import FileReinsurance from "../components/FileReinsurance.vue";
 export default class File extends Vue {
   user: FileUser | null = null;
   tabIndex = 0;
+  showProgressBar = false;
 
   getName() {
     if (this.user?.tenants !== undefined) {
       if (this.user?.tenants.length === 2) {
         const userNames = this.user.tenants
-          .map(o => `${o.firstName} ${o.lastName}`)
+          .map(o => this.$options.filters?.fullName(o))
           .join(this.$i18n.t("and").toString());
         return userNames;
       }
       const userNames = this.user.tenants
-        .map(o => `${o.firstName} ${o.lastName}`)
+        .map(o => this.$options.filters?.fullName(o))
         .join(", ");
       return userNames;
     }
     return "";
   }
 
-  mounted() {
+  private setUser() {
     const token = this.$route.params.token;
     ProfileService.getUserByToken(token).then((d: any) => {
       this.user = d.data;
@@ -191,6 +197,15 @@ export default class File extends Vue {
         });
       }
     });
+  }
+
+  mounted() {
+    this.setUser();
+    window.Beacon("init", "e9f4da7d-11be-4b40-9514-ac7ce3e68f67");
+  }
+
+  beforeDestroy() {
+    window.Beacon("destroy");
   }
 
   getTenants() {
@@ -229,8 +244,55 @@ export default class File extends Vue {
     window.open(doc.name, "_blank");
   }
 
+  retryDownload() {
+    setTimeout(() => {
+      this.setUser();
+      if (
+        this.user?.dossierPdfDocumentStatus === "COMPLETED" &&
+        this.user?.dossierPdfUrl
+      ) {
+        this.showProgressBar = false;
+        this.downloadFile(this.user?.dossierPdfUrl);
+      } else {
+        this.retryDownload();
+      }
+    }, 7000);
+  }
+
+  private downloadFile(url: string) {
+    ProfileService.getFile(url)
+      .then(response => {
+        const blob = new Blob([response.data], { type: "application/pdf" });
+        const link = document.createElement("a");
+        link.href = window.URL.createObjectURL(blob);
+        link.download = "dossierFacile-" + this.$route.params.token + ".pdf";
+        link.click();
+      })
+      .catch(error => {
+        console.error(error);
+        Vue.toasted.global.error();
+      })
+      .finally(() => (this.showProgressBar = false));
+  }
+
   download() {
-    window.open(this.user?.dossierPdfUrl, "_blank");
+    this.showProgressBar = true;
+    if (
+      this.user?.dossierPdfDocumentStatus === "COMPLETED" &&
+      this.user?.dossierPdfUrl
+    ) {
+      this.downloadFile(this.user?.dossierPdfUrl);
+    } else {
+      ProfileService.postCreateFullPdf(this.$route.params.token)
+        .then(() => {
+          this.retryDownload();
+        })
+        .catch(error => {
+          this.showProgressBar = false;
+          console.error(error);
+          Vue.toasted.global.error();
+        });
+    }
   }
 
   hasGuarantor(tenant: User) {
@@ -328,6 +390,7 @@ export default class File extends Vue {
     "tax": "Tax",
     "see": "See",
     "download-all": "Download the complete file (.pdf)",
+    "download-all-inprogress": "Download in progress...",
     "ALONE": "Seul",
     "COUPLE": "En couple",
     "GROUP": "En colocation",
@@ -349,6 +412,7 @@ export default class File extends Vue {
     "tax": "Avis d’imposition",
     "see": "Voir",
     "download-all": "Télécharger le dossier complet (.pdf)",
+    "download-all-inprogress": "Téléchargement en cours...",
     "ALONE": "Seul",
     "COUPLE": "En couple",
     "GROUP": "En colocation",

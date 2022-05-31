@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import Modal from 'df-shared/src/components/Modal.vue';
+import Modal from 'df-shared-next/src/components/Modal.vue';
 import { ref } from 'vue';
-import { User } from 'df-shared/src/models/User';
+import { User } from 'df-shared-next/src/models/User';
 import { useToast } from 'vue-toastification';
 import Register from './account/Register.vue';
 import useOwnerStore from '../store/owner-store';

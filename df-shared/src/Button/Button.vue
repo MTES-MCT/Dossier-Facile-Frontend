@@ -1,42 +1,30 @@
 <template>
-  <button
-    :class="classes()"
-    class="fr-btn"
-    :title="props.title"
-    @click="onClick"
-  >
+  <button :class="classes()" class="fr-btn" :title="title" @click="onClick">
     <slot></slot>
   </button>
 </template>
 
-<script setup lang="ts">
-import { defineProps, withDefaults } from "vue";
+<script lang="ts">
+import { Vue, Component, Prop } from "vue-property-decorator";
 
-const emit = defineEmits(["on-click"]);
+@Component
+export default class DfButton extends Vue {
+  @Prop() title!: string;
+  @Prop({ default: false }) private primary?: boolean;
+  @Prop({ default: "normal" }) private size?: string;
 
-const props = withDefaults(
-  defineProps<{
-    title: string;
-    primary?: boolean;
-    size?: string;
-  }>(),
-  {
-    primary: false,
-    size: "normal"
+  classes() {
+    return {
+      "fr-btn--secondary": !this.primary,
+      "fr-btn--lg": this.size === "large",
+      "fr-btn--sm": this.size === "small",
+      "fr-btn--icon": this.size === "icon"
+    };
   }
-);
 
-function classes() {
-  return {
-    "fr-btn--secondary": !props.primary,
-    "fr-btn--lg": props.size === "large",
-    "fr-btn--sm": props.size === "small",
-    "fr-btn--icon": props.size === "icon"
-  };
-}
-
-function onClick() {
-  emit("on-click");
+  onClick() {
+    this.$emit("on-click");
+  }
 }
 </script>
 

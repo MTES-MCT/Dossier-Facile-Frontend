@@ -29,7 +29,11 @@ const routes: Array<RouteConfig> = [
       hideForAuth: true
     },
     component: () =>
-      import(/* webpackChunkName: "signup" */ "../views/SignupPage.vue")
+      import(
+        /* webpackChunkName: "signup" */
+        /* webpackPrefetch: true */
+        "../views/SignupPage.vue"
+      )
   },
   {
     path: "/login",
@@ -301,6 +305,16 @@ const routes: Array<RouteConfig> = [
       window.location.replace(`${MAIN_URL}`);
       return "/info-proprietaire";
     }
+  },
+  {
+    path: "/contact",
+    name: "Contact",
+    meta: {
+      title: "Contact - DossierFacile",
+      requiresAuth: false
+    },
+    component: () =>
+      import(/* webpackChunkName: "contact" */ "../views/Contact.vue")
   },
   {
     path: "*",

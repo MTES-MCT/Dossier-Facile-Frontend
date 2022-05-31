@@ -149,7 +149,7 @@
           {{ $t("s4.title3") }}
         </h2>
         <div class="text-center">
-          <router-link to="/stats" class="fr-btn">
+          <router-link to="/stats" class="fr-link fr-tag">
             <img src="../assets/icons/stats.webp" class="stats-icon" alt="" />
             {{ $t("s4.link") }}
           </router-link>
@@ -332,6 +332,19 @@
             name="mydomus"
             width="214px"
           />
+          <LogoPartnerComponent
+            height="60px"
+            href="https://omnirea.fr/"
+            name="omnirea"
+            width="172px"
+          />
+          <LogoPartnerComponent
+            :image="require('../assets/logos/emjysoft_gestion_locative.webp')"
+            height="60px"
+            href="https://www.emjysoft.com/logiciel-gestion-locative/"
+            name="emjysoft - gestion locative"
+            width="162px"
+          />
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
@@ -463,14 +476,6 @@ img {
   max-width: 100%;
   max-height: 60px;
   margin: auto;
-}
-
-a[target="_blank"].logo-link::after {
-  content: none;
-}
-
-.logo-link {
-  box-shadow: none;
 }
 
 .stats-icon {

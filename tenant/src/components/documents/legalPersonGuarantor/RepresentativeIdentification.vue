@@ -2,17 +2,21 @@
   <div>
     <ValidationObserver>
       <NakedCard class="fr-p-md-5w">
-        <validation-provider rules="required" v-slot="{ errors }">
+        <validation-provider rules="required" v-slot="{ errors, valid }">
           <div
             class="fr-input-group"
             :class="errors[0] ? 'fr-input-group--error' : ''"
           >
-            <label class="fr-label" for="firstName"
-              >{{ $t("organism-name") }} :</label
-            >
+            <h1 class="fr-label fr-text--regular" for="firstName">
+              {{ $t("organism-name") }} :
+            </h1>
             <input
               v-model="firstName"
               class="form-control fr-input validate-required"
+              :class="{
+                'fr-input--valid': valid,
+                'fr-input--error': errors[0]
+              }"
               id="firstName"
               name="firstName"
               :placeholder="$t('organism-name-placeholder')"
@@ -26,23 +30,39 @@
         </validation-provider>
       </NakedCard>
       <NakedCard class="fr-mt-3w fr-p-md-5w">
-        <div>
-          <h1 class="fr-label" for="select">
-            J’ajoute une pièce d’identité en cours de validité. Attention,
-            veillez à ajouter votre pièce recto-verso !
-          </h1>
-          <select
-            v-model="identificationDocument"
-            class="fr-select fr-mb-3w"
-            id="select"
-            name="select"
-          >
-            <option v-for="d in documents" :value="d" :key="d.key">
-              {{ $t(d.key) }}
-            </option>
-          </select>
-        </div>
-        <div v-if="identificationDocument.key">
+        <validation-provider
+          rules="select"
+          name="identificationDocument"
+          v-slot="{ errors, valid }"
+        >
+          <div class="fr-select-group">
+            <label class="fr-label" for="select">
+              <b>
+                J’ajoute une pièce d’identité en cours de validité. Attention,
+                veillez à ajouter votre pièce recto-verso !
+              </b>
+            </label>
+            <select
+              v-model="identificationDocument"
+              class="fr-select fr-mb-3w"
+              :class="{
+                'fr-select--valid': valid,
+                'fr-select--error': errors[0]
+              }"
+              id="selectID"
+              as="select"
+            >
+              <option v-for="d in documents" :value="d" :key="d.key">
+                {{ $t(d.key) }}
+              </option>
+            </select>
+
+            <span class="fr-error-text" v-if="errors[0]">
+              {{ $t(errors[0]) }}
+            </span>
+          </div>
+        </validation-provider>
+        <div v-if="identificationDocument && identificationDocument.key">
           <v-gouv-fr-modal>
             <template v-slot:button>
               En difficulté pour répondre à la question ?
@@ -114,6 +134,17 @@ import { cloneDeep } from "lodash";
 
 extend("required", {
   ...required
+});
+
+extend("select", {
+  message: "select-is-empty",
+  validate(value) {
+    return {
+      required: true,
+      valid: value.key
+    };
+  },
+  computesRequired: true
 });
 
 @Component({
@@ -227,7 +258,6 @@ export default class RepresentativeIdentification extends Vue {
       "typeDocumentIdentification",
       this.identificationDocument.value
     );
-
     if (this.firstName) {
       formData.append("firstName", this.firstName);
     }
@@ -336,7 +366,8 @@ td {
   "identity-card": "French identity card",
   "passport": "French passeport",
   "permit": "French residence permit",
-  "other": "Autre"
+  "other": "Autre",
+  "select-is-empty": "Item selection required"
 },
 "fr": {
   "organism-name": "Nom du représentant de la personne morale",
@@ -344,7 +375,8 @@ td {
   "identity-card": "Carte d’identité française",
   "passport": "Passeport français",
   "permit": "Titre de séjour français",
-  "other": "Autre"
+  "other": "Autre",
+  "select-is-empty": "Sélection requise"
 }
 }
 </i18n>

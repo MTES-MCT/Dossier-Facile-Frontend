@@ -1,8 +1,8 @@
 <template>
   <div class="v-gouv-fr-modal">
-    <div @click="isOpened = true">
+    <a href="#" @click="isOpened = true" class="fr-link fr-tag--sm">
       <slot name="button"> </slot>
-    </div>
+    </a>
     <dialog
       aria-labelledby="fr-modal-title-modal-1"
       role="dialog"
@@ -15,7 +15,7 @@
             <div class="fr-modal__body">
               <div class="fr-modal__header">
                 <button
-                  class="fr-btn--close fr-btn"
+                  class="fr-link--close fr-link"
                   title="Fermer la fenêtre modale"
                   @click="isOpened = false"
                   target="_self"
@@ -38,10 +38,23 @@
     </dialog>
   </div>
 </template>
-<script setup lang="ts">
-import { ref } from "vue";
-
-const isOpened = ref(false);
+<script>
+export default {
+  name: "v-gouv-fr-modal",
+  props: {
+    modalId: {
+      type: String,
+      default: "fr-modal-1"
+    }
+  },
+  data: function() {
+    return {
+      isOpened: false
+    };
+  },
+  computed: {},
+  methods: {}
+};
 </script>
 
 <style scoped>

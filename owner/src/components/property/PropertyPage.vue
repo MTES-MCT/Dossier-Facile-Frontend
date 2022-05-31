@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Form } from 'vee-validate';
-import NakedCard from 'df-shared/src/components/NakedCard.vue';
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
 import LeftMenu from '../menu/LeftMenu.vue';
 import TopMenu from '../menu/TopMenu.vue';
 import BackNext from '../footer/BackNext.vue';

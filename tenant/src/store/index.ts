@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import Vue from "vue";
 import Vuex from "vuex";
-import AuthService from "df-shared/src/services/AuthService";
+import { AuthService } from "df-shared/src/services/AuthService";
 import { MessageService } from "../services/MessageService";
 import { ProfileService } from "../services/ProfileService";
 import router from "../router";
@@ -33,6 +33,7 @@ export class DfState {
 }
 
 const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+const FC_LOGOUT_URL = process.env.VUE_APP_FC_LOGOUT_URL || "";
 
 const localStore = localStorage.getItem("store");
 const initialStore =
@@ -154,6 +155,9 @@ const store = new Vuex.Store({
     updateUserLastname(state, lastname) {
       state.user.lastName = lastname;
     },
+    updateUserPreferredname(state, preferredname) {
+      state.user.preferredName = preferredname;
+    },
     updateUserZipcode(state, zipcode) {
       state.user.zipCode = zipcode;
     },
@@ -183,11 +187,15 @@ const store = new Vuex.Store({
   },
   actions: {
     logout({ commit }, redirect = true) {
+      const isFC = this.state.user.franceConnect;
       return AuthService.logout()
         .then(async () => {
           await commit("logout");
           await commit("initState");
-          if (redirect) {
+          if (isFC) {
+            window.location.replace(FC_LOGOUT_URL);
+            return;
+          } else if (redirect) {
             window.location.replace(MAIN_URL);
             return;
           }
@@ -198,10 +206,19 @@ const store = new Vuex.Store({
         });
     },
     deleteAccount({ commit }) {
+      const isFC = this.state.user.franceConnect;
       return AuthService.deleteAccount().then(
         response => {
           commit("logout");
           commit("initState");
+          if (isFC) {
+            window.location.replace(
+              "https://fcp.integ01.dev-franceconnect.fr/api/v1/logout"
+            );
+            return;
+          } else {
+            window.location.replace(MAIN_URL);
+          }
           return Promise.resolve(response);
         },
         error => {
@@ -248,6 +265,9 @@ const store = new Vuex.Store({
       }
       if (user.lastName && !user.franceConnect) {
         user.lastName = UtilsService.capitalize(user.lastName);
+      }
+      if (user.preferredName && !user.franceConnect) {
+        user.preferredName = UtilsService.capitalize(user.preferredName);
       }
       return ProfileService.saveNames(user).then(
         () => {
@@ -579,7 +599,7 @@ const store = new Vuex.Store({
       if (
         !this.state.user.firstName ||
         !this.state.user.lastName ||
-        !this.state.user.zipCode
+        (!this.state.user.zipCode && this.state.user.documents.length == 0)
       ) {
         router.push({ name: "TenantName" });
         return;

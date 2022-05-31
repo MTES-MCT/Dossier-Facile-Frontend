@@ -8,7 +8,7 @@
         aria-describedby="modalDescription"
       >
         <button
-          class="fr-btn--close fr-btn fr-mr-1w"
+          class="fr-link--close fr-link fr-mr-1w"
           title="Fermer la fenêtre modale"
           aria-label="Fermer la fenêtre modale"
           @click="close()"
@@ -24,8 +24,7 @@
         <section class="modal-body" id="modalDescription">
           <slot name="body"> </slot>
         </section>
-        <!-- TODO add  v-if="!!this.$slots['footer']" -->
-        <footer class="modal-footer">
+        <footer class="modal-footer" v-if="!!this.$slots['footer']">
           <slot name="footer"> </slot>
         </footer>
       </div>
@@ -33,11 +32,14 @@
   </transition>
 </template>
 
-<script setup lang="ts">
-const emit = defineEmits(["close"]);
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
 
-function close() {
-  emit("close");
+@Component
+export default class Modal extends Vue {
+  close() {
+    this.$emit("close");
+  }
 }
 </script>
 

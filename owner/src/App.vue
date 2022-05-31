@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import MyHeader from 'df-shared/src/Header/Header.vue';
-import TheFooter from 'df-shared/src/Footer/Footer.vue';
-import Cookies from 'df-shared/src/Footer/Cookies.vue';
+import MyHeader from 'df-shared-next/src/Header/Header.vue';
+import TheFooter from 'df-shared-next/src/Footer/Footer.vue';
+import Cookies from 'df-shared-next/src/Footer/Cookies.vue';
 import { useRouter } from 'vue-router';
 import { useCookies } from 'vue3-cookies';
 import { Composer } from 'vue-i18n';
@@ -102,8 +102,8 @@ function denyCookies() {
 </template>
 
 <style lang="scss">
-@import "../../node_modules/@gouvfr/dsfr/dist/dsfr.min.css";
-@import "df-shared/src/scss/_main.scss";
+@import "../../node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.min.css";
+@import "df-shared-next/src/scss/_main.scss";
 
 #app {
   min-height: 100vh;

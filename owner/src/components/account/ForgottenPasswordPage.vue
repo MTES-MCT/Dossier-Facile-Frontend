@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { User } from 'df-shared/src/models/User';
+import { User } from 'df-shared-next/src/models/User';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'vue-toastification';
-import ForgottenPassword from 'df-shared/src/Authentification/ForgottenPassword.vue';
+import ForgottenPassword from 'df-shared-next/src/Authentification/ForgottenPassword.vue';
 import useOwnerStore from '../../store/owner-store';
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;

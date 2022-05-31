@@ -96,11 +96,7 @@
         </form>
       </NakedCard>
       <div
-        v-if="
-          acceptVerification &&
-            taxDocument.key === 'my-name' &&
-            user.id % 10 < 4
-        "
+        v-if="acceptVerification && taxDocument.key === 'my-name'"
         class="fr-grid-row blue-franceconnect fr-mt-3w"
       >
         <MonFranceConnect></MonFranceConnect>
@@ -117,6 +113,28 @@
           v-if="taxDocument.key === 'my-name' && acceptVerification"
         >
           <div v-html="taxDocument.explanationText"></div>
+          <div
+            class="fr-background-contrast--info fr-p-2w fr-mt-2w warning-box"
+          >
+            <div class="fr-text-default--info fr-h6 title">
+              <span class="material-icons-outlined">
+                warning_amber
+              </span>
+              <span class="fr-ml-1w">
+                {{ $t("warning-no-accepted-doc") }}
+              </span>
+            </div>
+            <div class="link">
+              <a
+                class="fr-link"
+                href="https://docs.dossierfacile.fr/guide-dutilisation-de-dossierfacile/avis-dimposition"
+                :title="$t('goto-documentation')"
+                target="_blank"
+                rel="noreferrer"
+                >{{ $t("goto-documentation") }}</a
+              >
+            </div>
+          </div>
         </div>
         <AllDeclinedMessages
           class="fr-mb-3w"
@@ -498,6 +516,15 @@ export default class Tax extends Vue {
     color: var(--primary);
   }
 }
+
+.warning-box {
+  .title {
+    display: flex;
+  }
+  .link {
+    text-align: right;
+  }
+}
 </style>
 
 <i18n>
@@ -513,7 +540,9 @@ export default class Tax extends Vue {
   "register": "Register",
   "field-required": "This field is required",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-  "title": "My tax notice"
+  "title": "My tax notice",
+  "warning-no-accepted-doc": "Attention, l'avis de situation déclarative n'est pas accepté.",
+  "goto-documentation" : "Go To documentation"
 },
 "fr": {
   "my-name": "Vous avez un avis d’imposition à votre nom",
@@ -526,7 +555,9 @@ export default class Tax extends Vue {
   "register": "Enregistrer",
   "field-required": "Ce champ est requis",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "title": "Mon avis d'imposition"
+  "title": "Mon avis d'imposition",
+  "warning-no-accepted-doc": "Attention, l'avis de situation déclarative n'est pas accepté.",
+  "goto-documentation" : "Consulter la documentation"
 }
 }
 </i18n>

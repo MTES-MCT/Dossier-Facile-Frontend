@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import ColoredTag from "df-shared/src/components/ColoredTag.vue";
+import ColoredTag from "df-shared-next/src/components/ColoredTag.vue";
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import useOwnerStore from '../../store/owner-store';
