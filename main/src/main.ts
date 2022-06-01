@@ -5,7 +5,6 @@ import store from "./store";
 import i18n from "./i18n";
 import VueCookies from "vue-cookies";
 import VueGtag from "vue-gtag";
-import MatomoPlugin from "./plugins/matomo";
 
 declare global {
   interface Window {
@@ -15,6 +14,7 @@ declare global {
     _paq: any;
   }
 }
+import MatomoPlugin from "./plugins/matomo";
 
 const inspectlet = function() {
   window.__insp = window.__insp || [];

@@ -11,7 +11,7 @@ import Toasted from "vue-toasted";
 
 import VueCookies from "vue-cookies";
 import authentication from "./plugins/authentication";
-import MatomoPlugin from "./plugins/matomo";
+
 
 const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
 
@@ -33,6 +33,8 @@ declare global {
     _paq: any;
   }
 }
+import MatomoPlugin from "./plugins/matomo";
+
 
 Vue.config.productionTip = false;
 

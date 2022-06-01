@@ -73,10 +73,6 @@ export default class App extends Vue {
         ? "dossierfacile.fr"
         : "localhost"
     );
-    // Set matomo consent
-    window._paq.push(["setConsentGiven"]);
-    window._paq.push(["setCookieConsentGiven"]);
-    window._paq.push(["trackPageView"]);
 
     Vue.use(
       VueGtag,
