@@ -84,7 +84,6 @@
                     'fr-input--error': !meta.valid,
                   }"
                   :placeholder="t('email')"
-                  :disabled="franceConnect"
                   type="email"
                 />
               </Field>
