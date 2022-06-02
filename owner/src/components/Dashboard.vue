@@ -229,7 +229,7 @@ td:last-child {
     "consult": "Consulter la propriété",
     "edit": "À finaliser",
     "edit-title": "Finaliser l'édition de la propriété",
-    "applicants": "{count} condidature(s)",
+    "applicants": "{count} candidature(s)",
     "rent-cost": "{rent}€ + {charges}€"
   }
 }
