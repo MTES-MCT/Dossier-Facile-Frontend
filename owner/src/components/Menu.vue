@@ -69,7 +69,7 @@ function getLang() {
               href="/"
               target="_self"
               :aria-current="currentPage() === 'Account' ? 'page' : false"
-              >{{ t("file") }}</a
+              >{{ t("dashboard") }}</a
             >
           </li>
           <li class="warn">
@@ -125,7 +125,7 @@ function getLang() {
 {
 "en": {
 "account": "Account",
-"file": "File",
+"dashboard": "File",
 "messaging": "Messaging",
 "help": "Help",
 "blog": "Blog",
@@ -134,7 +134,7 @@ function getLang() {
 "contact-us": "contact us"
 },
 "fr": {
-"file": "Mon dossier",
+"dashboard": "Mes propriétés",
 "account": "Mon compte",
 "messaging": "Messagerie",
 "help": "Aide",
