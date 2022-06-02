@@ -4,6 +4,45 @@
       <div class="fr-grid-row justify-content-center">
         <div class="fr-col-md-10 fr-col-lg-8">
           <h1>{{ $t("blog") }}</h1>
+
+          <hr />
+          <article class="fr-mb-12w">
+            <div class="text-center">
+              <router-link
+                      to="/blog/au-secours-mon-ascenceur-est-en-panne"
+              >
+                <h2 class="fr-h2">
+                  Au secours, mon ascenseur est en panne !
+                  Les droits du locataire en copropriété
+                </h2>
+              </router-link>
+              <span>14 Avril 2022 dans </span>
+              <span>
+                <a href="#">DossierFacile</a>
+              </span>
+            </div>
+            <!--end article title-->
+            <div class="article__body">
+              <router-link
+                      to="/blog/au-secours-mon-ascenceur-est-en-panne"
+              >
+                <img
+                        class="img-center"
+                        alt=""
+                        src="../../assets/images/blog-article12.webp"
+                />
+              </router-link>
+              <p>
+                Tu vis au 6e étage de l’immeuble et l’ascenseur est en panne depuis plusieurs mois ?
+                Petit rappel : la vie en copropriété réunit plusieurs types d'intervenants : les occupants, propriétaires ou locataires, le conseil syndical, composé de copropriétaires et le syndic, chargé d'assurer la bonne gestion de l'ensemble.
+              </p>
+              <router-link
+                      to="/blog/au-secours-mon-ascenceur-est-en-panne"
+              >Continuer la lecture »</router-link
+              >
+            </div>
+            <!--end article title-->
+          </article>
           <hr />
           <article class="fr-mb-12w">
             <div class="text-center">

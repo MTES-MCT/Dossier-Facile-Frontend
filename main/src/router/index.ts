@@ -178,6 +178,18 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Article11.vue")
   },
   {
+    path: "/blog/au-secours-mon-ascenceur-est-en-panne",
+    name: "Article12",
+    meta: {
+      title: "Au secours mon ascenceur est en panne !",
+      description:
+        "Tu vis au 6e étage de l’immeuble et l’ascenseur est en panne depuis plusieurs mois ?",
+      image: require("../assets/images/blog-article12.jpg")
+    },
+    component: () =>
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article12.vue")
+  },
+  {
     path: "/information",
     name: "Information",
     meta: {
