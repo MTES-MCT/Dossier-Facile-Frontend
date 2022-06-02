@@ -142,7 +142,7 @@ input[type="radio"] {
   },
   "fr": {
     "furniture-title": "Aménagement",
-    "furniture-subtitle": "Quel logement proposez-vous à la location ?",
+    "furniture-subtitle": "Quel type de logement proposez-vous à la location ?",
     "furnished": "Meublé",
     "unfurnished": "Vide",
   }
