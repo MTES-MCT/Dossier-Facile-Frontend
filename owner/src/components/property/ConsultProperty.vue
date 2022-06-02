@@ -296,7 +296,7 @@ onMounted(() => {
 
 const titleKey = computed(() => {
   if (propertyType.value === 'HOUSE') {
-    if (propertyFurnished.value) {
+    if (propertyFurnished.value === 'FURNISHED') {
       return 'house-furnished';
     }
     return 'house-unfurnished';
