@@ -8,6 +8,45 @@
           <article class="fr-mb-12w">
             <div class="text-center">
               <router-link
+                to="/blog/la-caution-locative-changement-en-vue-pour-2022"
+              >
+                <h2 class="fr-h2">
+                  La caution locative : changements en vue pour 2022
+                </h2>
+              </router-link>
+              <span>14 Mars 2022 dans </span>
+              <span>
+                <a href="#">DossierFacile</a>
+              </span>
+            </div>
+            <!--end article title-->
+            <div class="article__body">
+              <router-link
+                to="/blog/la-caution-locative-changement-en-vue-pour-2022"
+              >
+                <img
+                  class="img-center"
+                  alt=""
+                  src="../../assets/images/blog-article11.webp"
+                />
+              </router-link>
+              <p>
+                La caution est une personne ou un organisme qui s'engage par
+                écrit, à travers un acte de cautionnement, à payer ton loyer si
+                tu ne le fais pas. Il s’agit le plus souvent d’un parent ou d’un
+                proche. Si la caution ne rembourse pas les dettes locatives...
+              </p>
+              <router-link
+                to="/blog/la-caution-locative-changement-en-vue-pour-2022"
+                >Continuer la lecture »</router-link
+              >
+            </div>
+            <!--end article title-->
+          </article>
+          <hr />
+          <article class="fr-mb-12w">
+            <div class="text-center">
+              <router-link
                 to="/blog/quand-les-journalistes-parlent-de-dossierfacile"
               >
                 <h2 class="fr-h2">

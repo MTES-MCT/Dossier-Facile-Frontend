@@ -28,6 +28,7 @@ module.exports = {
         "https://dossierfacile.fr/blog/comment-justifier-son-domicile",
         "https://dossierfacile.fr/blog/loyer-locataire-ou-bailleur",
         "https://dossierfacile.fr/blog/quand-les-journalistes-parlent-de-dossierfacile",
+        "https://dossierfacile.fr/blog/la-caution-locative-changement-en-vue-pour-2022",
         "https://dossierfacile.fr/information",
         "https://dossierfacile.fr/accessibilite",
         "https://dossierfacile.fr/mentions-legales"
@@ -62,6 +63,7 @@ module.exports = {
             "/blog/comment-justifier-son-domicile",
             "/blog/loyer-locataire-ou-bailleur",
             "/blog/quand-les-journalistes-parlent-de-dossierfacile",
+            "/blog/la-caution-locative-changement-en-vue-pour-2022",
             "/information",
             "/accessibilite",
             "/mentions-legales",
