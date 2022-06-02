@@ -97,7 +97,7 @@
       </NakedCard>
       <div
         v-if="acceptVerification && taxDocument.key === 'my-name'"
-        class="fr-grid-row blue-franceconnect fr-mt-3w"
+        class="fr-grid-row blue-franceconnect fr-mt-3w fr-p-0"
       >
         <MonFranceConnect></MonFranceConnect>
       </div>
