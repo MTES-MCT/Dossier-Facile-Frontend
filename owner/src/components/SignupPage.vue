@@ -184,7 +184,7 @@ li {
   "fr": {
     "connect": "Déjà inscrit ? S'identifier",
     "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
-    "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre le changement de mot de passe.",
+    "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre votre inscription.",
     "duplicate-email": "Cet email est déjà utilisé",
     "register-error": "Une erreur est survenue"
   }
