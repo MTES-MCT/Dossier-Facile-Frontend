@@ -3,6 +3,7 @@ import axios from 'axios';
 import { globalCookiesConfig } from 'vue3-cookies';
 import Toast from 'vue-toastification';
 import {
+  configure,
   defineRule,
 } from 'vee-validate';
 import { createPinia } from 'pinia';
@@ -63,6 +64,10 @@ defineRule('confirm', (_value: any, [password, confirm]: string[]) => {
   }
   return true;
 });
+
+configure({
+  validateOnInput: true
+})
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 

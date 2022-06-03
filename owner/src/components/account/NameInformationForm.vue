@@ -9,7 +9,6 @@
             <div class="fr-input-group">
               <label class="fr-label" for="lastname">{{ t("lastname") }} :</label>
               <Field
-                id="lastname"
                 name="lastname"
                 v-model="lastname"
                 v-slot="{ field, meta }"
@@ -38,7 +37,6 @@
             <div class="fr-input-group">
               <label for="firstname" class="fr-label">{{ t("firstname") }} :</label>
               <Field
-                id="firstname"
                 name="firstname"
                 v-model="firstname"
                 v-slot="{ field, meta }"
@@ -141,6 +139,7 @@ function onSubmit() {
     "firstname": "Firstname",
     "email": "Your email",
     "field-required": "This field is required",
+    "email-not-valid": "Email not valid"
   },
   "fr": {
     "title": "Je renseigne mes informations personnelles",
@@ -149,6 +148,7 @@ function onSubmit() {
     "firstname": "Prénom",
     "email": "Votre email",
     "field-required": "Ce champ est requis",
+    "email-not-valid": "Email non valide"
   }
 }
 </i18n>
