@@ -190,6 +190,19 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Article12.vue")
   },
   {
+    path: "/blog/usurpation-d-identite-en-france-comment-prevenir-agir",
+    name: "Article13",
+    meta: {
+      title:
+        "L’usurpation d’identité en France : comment la prévenir et comment agir ?",
+      description:
+        "L’usurpation d’identité consiste à utiliser, sans votre accord, des informations permettant de vous identifier.",
+      image: require("../assets/images/blog-article13.jpg")
+    },
+    component: () =>
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article13.vue")
+  },
+  {
     path: "/information",
     name: "Information",
     meta: {
