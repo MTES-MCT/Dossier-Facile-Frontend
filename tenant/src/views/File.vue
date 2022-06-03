@@ -16,7 +16,9 @@
         </div>
       </section>
 
-      <FileReinsurance></FileReinsurance>
+      <FileReinsurance
+        :displayFranceConnectBloc="hasFranceConnectCandidate()"
+      ></FileReinsurance>
 
       <section class="fr-mt-5w fr-mb-3w">
         <div class="fr-tabs">
@@ -36,6 +38,7 @@
                 @click="tabIndex = k"
               >
                 {{ tenant | fullName }}
+                <span v-if="tenant.franceConnect" class="fc-icon"></span>
               </button>
             </li>
           </ul>
@@ -168,6 +171,10 @@ export default class File extends Vue {
   user: FileUser | null = null;
   tabIndex = 0;
   showProgressBar = false;
+
+  hasFranceConnectCandidate() {
+    return this.user?.tenants?.some(t => t.franceConnect == true);
+  }
 
   getName() {
     if (this.user?.tenants !== undefined) {
@@ -373,6 +380,24 @@ export default class File extends Vue {
 
 .fr-tabs {
   background-color: var(--background-default-grey);
+  button {
+    &:before {
+      width: 0;
+    }
+  }
+}
+.fc-icon {
+  background-image: url("../assets/images/icons/franceconnect-icon.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 21px;
+  width: 24px;
+  margin-left: 0.5rem;
+  &:before {
+    content: "";
+  }
 }
 </style>
 
