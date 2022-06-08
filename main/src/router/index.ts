@@ -166,6 +166,43 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Article10.vue")
   },
   {
+    path: "/blog/la-caution-locative-changement-en-vue-pour-2022",
+    name: "Article11",
+    meta: {
+      title: "La caution locative : changements en vue pour 2022",
+      description:
+        "La caution est une personne ou un organisme qui s'engage par écrit, à travers un acte de cautionnement, à payer ton loyer si tu ne le fais pas. Il s’agit le plus souvent d’un parent ou d’un proche. Si la caution ne rembourse pas les dettes locatives",
+      image: require("../assets/images/blog-article11.jpg")
+    },
+    component: () =>
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article11.vue")
+  },
+  {
+    path: "/blog/au-secours-mon-ascenceur-est-en-panne",
+    name: "Article12",
+    meta: {
+      title: "Au secours mon ascenceur est en panne !",
+      description:
+        "Tu vis au 6e étage de l’immeuble et l’ascenseur est en panne depuis plusieurs mois ?",
+      image: require("../assets/images/blog-article12.jpg")
+    },
+    component: () =>
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article12.vue")
+  },
+  {
+    path: "/blog/usurpation-d-identite-en-france-comment-prevenir-agir",
+    name: "Article13",
+    meta: {
+      title:
+        "L’usurpation d’identité en France : comment la prévenir et comment agir ?",
+      description:
+        "L’usurpation d’identité consiste à utiliser, sans votre accord, des informations permettant de vous identifier.",
+      image: require("../assets/images/blog-article13.jpg")
+    },
+    component: () =>
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article13.vue")
+  },
+  {
     path: "/information",
     name: "Information",
     meta: {
