@@ -62,6 +62,7 @@ const user = new User();
 
 function handleSubmit() {
   emit("on-forgotten-password", user);
+  user.email = "";
 }
 </script>
 
