@@ -10,16 +10,31 @@
             <div class="fr-input-group">
               <label class="fr-label" for="email">{{ t("email") }}</label>
               <Field
-                v-model="user.email"
-                class="form-control fr-input validate-required"
                 id="email"
                 name="email"
-                :placeholder="t('placeholder')"
-                type="email"
-                rules="validateEmail"
-                required
-              />
-              <ErrorMessage name="email" class="fr-error-text"></ErrorMessage>
+                v-model="user.email"
+                v-slot="{ field, meta }"
+                :rules="{
+                  email: true,
+                  required: true
+                }"
+              >
+                <input
+                  v-bind="field"
+                  class="validate-required form-control fr-input"
+                  :class="{
+                    'fr-input--valid': meta.valid,
+                    'fr-input--error': !meta.valid
+                  }"
+                  :placeholder="t('placeholder')"
+                  type="email"
+                />
+              </Field>
+              <ErrorMessage name="email" v-slot="{ message }">
+                <span role="alert" class="fr-error-text">{{
+                  t(message || "")
+                }}</span>
+              </ErrorMessage>
             </div>
           </div>
 
