@@ -57,7 +57,9 @@ function getLang() {
         class="fr-nav__btn"
         aria-expanded="false"
         aria-controls="menu-774"
-        :aria-current="currentPage() === 'Account' ? true : false"
+        v-bind:aria-current="
+          currentPage() === 'AccountName' || currentPage() === 'Dashboard' ? true : null
+        "
       >
         {{ t("account") }}
       </button>
@@ -66,9 +68,18 @@ function getLang() {
           <li>
             <a
               class="fr-nav__link"
+              href="/proprietaire"
+              target="_self"
+              v-bind:aria-current="currentPage() === 'AccountName' ? 'page' : null"
+              >{{ t("personal-data") }}</a
+            >
+          </li>
+          <li>
+            <a
+              class="fr-nav__link"
               href="/"
               target="_self"
-              :aria-current="currentPage() === 'Account' ? 'page' : false"
+              v-bind:aria-current="currentPage() === 'Dashboard' ? 'page' : null"
               >{{ t("dashboard") }}</a
             >
           </li>
@@ -89,7 +100,7 @@ function getLang() {
         </ul>
       </div>
     </li>
-    <li class="fr-nav__item" :class="{ 'break': !isLoggedIn }">
+    <li class="fr-nav__item" :class="{ break: !isLoggedIn }">
       <button
         class="fr-nav__link fr-btn fr-ml-3 fr-btn--secondary fr-btn--sm lang"
         @click="changeLang"
@@ -131,7 +142,8 @@ function getLang() {
 "blog": "Blog",
 "information": "Information",
 "deleteAccount": "Delete my account",
-"contact-us": "contact us"
+"contact-us": "contact us",
+"personal-data": "My personal data"
 },
 "fr": {
 "dashboard": "Mes propriétés",
@@ -141,7 +153,8 @@ function getLang() {
 "blog": "Blog",
 "deleteAccount": "Supprimer mon compte",
 "information": "Qui sommes-nous?",
-"contact-us": "Nous contacter"
+"contact-us": "Nous contacter",
+"personal-data": "Mes informations personnelles"
 }
 }
 </i18n>
