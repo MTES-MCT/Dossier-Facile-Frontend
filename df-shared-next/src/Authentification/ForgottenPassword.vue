@@ -52,7 +52,30 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 import { User } from "df-shared-next/src/models/User";
-import { Form, Field, ErrorMessage } from "vee-validate";
+import { Form, Field, ErrorMessage, defineRule } from "vee-validate";
+
+defineRule("email", (value: any) => {
+  if (!value || !value.length) {
+    return true;
+  }
+  if (!/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/.test(value)) {
+    return "email-not-valid";
+  }
+  return true;
+});
+
+defineRule("required", (value: any) => {
+  if (typeof value === "number") {
+    if (!value) {
+      return "field-required";
+    }
+    return true;
+  }
+  if (!value || !value.length) {
+    return "field-required";
+  }
+  return true;
+});
 
 const emit = defineEmits(["on-forgotten-password"]);
 
