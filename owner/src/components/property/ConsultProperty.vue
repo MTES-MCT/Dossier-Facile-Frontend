@@ -1,7 +1,7 @@
 <template>
   <div class="fr-container fr-container--fluid fluid-full-width position--relative">
     <div class="bg-pic position--absolute"></div>
-    <div class="fr-container position--relative mt-100">
+    <div class="fr-container position--relative mt-100 fr-mb-5w">
       <div class="fr-grid-row space-between fr-mb-3w">
         <div class="fr-grid-row">
           <router-link class="fr-btn btn--white fr-btn--secondary" to="/">{{
