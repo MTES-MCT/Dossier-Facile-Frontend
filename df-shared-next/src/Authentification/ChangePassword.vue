@@ -87,9 +87,29 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 import { User } from "../models/User";
-import { Form, Field, ErrorMessage } from "vee-validate";
+import { Form, Field, ErrorMessage, defineRule } from "vee-validate";
 import PasswordMeter from "df-shared-next/src/components/PasswordMeter/PasswordMeter.vue";
 import { ref } from "vue";
+
+defineRule("required", (value: any) => {
+  if (typeof value === "number") {
+    if (!value) {
+      return "field-required";
+    }
+    return true;
+  }
+  if (!value || !value.length) {
+    return "field-required";
+  }
+  return true;
+});
+
+defineRule("strength", (_value: any, [score]: number[]) => {
+  if (score < 2) {
+    return "strength-not-valid";
+  }
+  return true;
+});
 
 const emit = defineEmits(["on-change-password"]);
 const { t } = useI18n();
