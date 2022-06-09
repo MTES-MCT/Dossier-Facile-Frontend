@@ -111,6 +111,13 @@ defineRule("strength", (_value: any, [score]: number[]) => {
   return true;
 });
 
+defineRule("confirm", (_value: any, [password, confirm]: string[]) => {
+  if (password !== confirm) {
+    return "confirm-not-valid";
+  }
+  return true;
+});
+
 const emit = defineEmits(["on-change-password"]);
 const { t } = useI18n();
 
