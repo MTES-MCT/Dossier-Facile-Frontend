@@ -24,9 +24,9 @@ const UtilsService = {
       .map((pas: any) => {
         const a = pas.apartmentSharing;
         if (a !== undefined && a.tenants.length > 0) {
-          const rate = a.totalSalary >= 0
+          const rate = a.totalSalary > 0
             ? Math.round((p.rentCost / a.totalSalary) * 100)
-            : '-';
+            : '100';
           return {
             id: pas.id,
             date: new Date(),
