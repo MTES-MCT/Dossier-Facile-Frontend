@@ -186,10 +186,12 @@
                 <span>{{ tenant.guarantorSalary }}</span>
               </td>
               <td @click="setShowTenant(k)">
-                <span class="rate" :class="getRateClass(tenant)"
-                  >{{ tenant.rate }} %</span
-                >
-                {{ t("income") }}
+                <div v-if="(tenant?.tenantSalary || 0) > 0">
+                  <span class="rate" :class="getRateClass(tenant)"
+                    >{{ tenant.rate }} %</span
+                  >
+                  {{ t("income") }}
+                </div>
               </td>
               <td @click="setShowTenant(k)">
                 <div class="tag" :class="getTenantClass(tenant)">
