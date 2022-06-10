@@ -10,14 +10,15 @@
   },
   "workspaces": [
     "main",
-    "tenant",
     "owner",
-    "df-shared"
+    "tenant",
+    "df-shared",
+    "df-shared-next"
   ],
   "scripts": {
     "main": "yarn workspace main",
+    "dfowner": "yarn workspace owner",
     "tenant": "yarn workspace tenant",
-    "owner": "yarn workspace owner",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
@@ -36,12 +37,8 @@
     "@storybook/addon-links": "6.5.4",
     "@storybook/addon-postcss": "2.0.0",
     "@storybook/vue": "6.5.4",
-    "@vue/cli": "^4.5.17",
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/compiler-sfc": "^3.2.36",
     "babel-loader": "^8.1.0",
-    "react-is": "^17.0.1",
-    "vue-cli-plugin-i18n": "^2.3.1"
+    "react-is": "^17.0.1"
   },
   "resolutions": {
     "trim": "^1.0.1",
