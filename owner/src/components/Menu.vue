@@ -58,7 +58,7 @@ function getLang() {
         aria-expanded="false"
         aria-controls="menu-774"
         v-bind:aria-current="
-          currentPage() === 'AccountName' || currentPage() === 'Dashboard' ? true : null
+          currentPage() === 'AccountName' || currentPage() === 'Dashboard' ? true : undefined
         "
       >
         {{ t("account") }}
@@ -70,7 +70,7 @@ function getLang() {
               class="fr-nav__link"
               href="/proprietaire"
               target="_self"
-              v-bind:aria-current="currentPage() === 'AccountName' ? 'page' : null"
+              v-bind:aria-current="currentPage() === 'AccountName' ? 'page' : undefined"
               >{{ t("personal-data") }}</a
             >
           </li>
@@ -79,7 +79,7 @@ function getLang() {
               class="fr-nav__link"
               href="/"
               target="_self"
-              v-bind:aria-current="currentPage() === 'Dashboard' ? 'page' : null"
+              v-bind:aria-current="currentPage() === 'Dashboard' ? 'page' : undefined"
               >{{ t("dashboard") }}</a
             >
           </li>
