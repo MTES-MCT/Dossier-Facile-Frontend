@@ -29,7 +29,7 @@ const UtilsService = {
             : '100';
           return {
             id: pas.id,
-            date: new Date(),
+            lastUpdateDate: new Date(a.tenants[0].lastUpdateDate),
             tenantName: `${a.tenants[0].lastName} ${a.tenants[0].firstName}`,
             tenantType: a.applicationType,
             tenantSalary: `${a.totalSalary} €`,
