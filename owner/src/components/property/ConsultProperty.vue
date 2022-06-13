@@ -169,7 +169,7 @@
                 />
               </td>
               <td @click="setShowTenant(k)" class="desktop">
-                <time>{{ formatDate(tenant.date || new Date()) }}</time>
+                <time>{{ formatDate(tenant.lastUpdateDate || new Date()) }}</time>
               </td>
               <td @click="setShowTenant(k)">
                 <span class="tenant-name">{{ tenant.tenantName }}</span>

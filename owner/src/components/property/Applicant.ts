@@ -1,7 +1,7 @@
 import { User } from 'df-shared-next/src/models/User';
 
 export default class Applicant extends User {
-  date?: Date;
+  lastUpdateDate?: Date;
 
   tenantName?: string;
 
