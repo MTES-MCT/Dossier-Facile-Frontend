@@ -16,15 +16,13 @@
         </div>
       </section>
 
-      <FileReinsurance></FileReinsurance>
+      <FileReinsurance
+        :displayFranceConnectBloc="hasFranceConnectCandidate()"
+      ></FileReinsurance>
 
-      <section class="fr-mb-3w fr-mt-5w">
-        <div id="fr-tabs" class="fr-tabs">
-          <ul
-            class="fr-tabs__list"
-            role="tablist"
-            aria-label="[A modifier | nom du système d'onglet]"
-          >
+      <section class="fr-mt-5w fr-mb-3w">
+        <div class="fr-tabs">
+          <ul class="fr-tabs__list" role="tablist" aria-label="tab-list">
             <li
               v-for="(tenant, k) in getTenants()"
               v-bind:key="`li${k}`"
@@ -39,8 +37,8 @@
                 :aria-controls="`tabpanel-${k}-panel`"
                 @click="tabIndex = k"
               >
-                {{ tenant.firstName }}
-                {{ tenant.lastName }}
+                {{ tenant | fullName }}
+                <span v-if="tenant.franceConnect" class="fc-icon"></span>
               </button>
             </li>
           </ul>
@@ -130,6 +128,10 @@ import FileReinsurance from "../components/FileReinsurance.vue";
 export default class File extends Vue {
   user: FileUser | null = null;
   tabIndex = 0;
+
+  hasFranceConnectCandidate() {
+    return this.user?.tenants?.some(t => t.franceConnect == true);
+  }
 
   getName() {
     if (this.user?.tenants !== undefined) {
@@ -269,6 +271,24 @@ export default class File extends Vue {
 
 .fr-tabs {
   background-color: var(--background-default-grey);
+  button {
+    &:before {
+      width: 0;
+    }
+  }
+}
+.fc-icon {
+  background-image: url("../assets/images/icons/franceconnect-icon.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 21px;
+  width: 24px;
+  margin-left: 0.5rem;
+  &:before {
+    content: "";
+  }
 }
 </style>
 
