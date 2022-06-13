@@ -171,7 +171,7 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "La caution locative : changements en vue pour 2022",
       description:
-        "La caution est une personne ou un organisme qui s'engage par écrit, à travers un acte de cautionnement, à payer ton loyer si tu ne le fais pas. Il s’agit le plus souvent d’un parent ou d’un proche. Si la caution ne rembourse pas les dettes locatives",
+        "La caution est une personne ou un organisme qui s'engage par écrit, à travers un acte de cautionnement, à payer votre loyer si vous ne le faites pas. Il s’agit le plus souvent d’un parent ou d’un proche. Si la caution ne rembourse pas les dettes locatives",
       image: require("../assets/images/blog-article11.jpg")
     },
     component: () =>
@@ -183,7 +183,7 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Au secours mon ascenceur est en panne !",
       description:
-        "Tu vis au 6e étage de l’immeuble et l’ascenseur est en panne depuis plusieurs mois ?",
+        "Vous vivez au 6e étage de l’immeuble et l’ascenseur est en panne depuis plusieurs mois ?",
       image: require("../assets/images/blog-article12.jpg")
     },
     component: () =>

@@ -56,12 +56,12 @@
                 Deux nouvelles fonctionnalités ont été ajoutées pour vous
                 garantir un meilleur service. <br />
                 Premièrement, il est vous est désormais possible d’ajouter
-                plusieurs garants à votre dossier location. Tu es étudiant et tu
-                souhaites que tes deux parents se portent garants pour toi ? Ce
-                n’est plus un problème : en choisissant l’option “garant
-                physique”, tu pourras cumuler plusieurs garants physiques
-                différents. À l’inverse, tu pourras tout aussi facilement
-                supprimer un garant de ton dossier. <br />
+                plusieurs garants à votre dossier location. Vous êtes étudiant
+                et vous souhaitez que vos deux parents se portent garants pour
+                vous ? Ce n’est plus un problème : en choisissant l’option
+                “garant physique”, vous pourrez cumuler plusieurs garants
+                physiques différents. À l’inverse, vous pourrez tout aussi
+                facilement supprimer un garant de votre dossier. <br />
                 Deuxièmement, il est maintenant possible d’ajouter plusieurs
                 types de revenus pour un même dossier : salaires, prestations
                 sociales, rentes, pensions… Vous cumulez plusieurs types de

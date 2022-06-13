@@ -30,7 +30,7 @@
                 que faire ?
               </h2>
               <p>
-                Tu vis au 6e étage de l’immeuble et l’ascenseur est en panne
+                Vous vivez au 6e étage de l’immeuble et l’ascenseur est en panne
                 depuis plusieurs mois ?
               </p>
               <p>
@@ -49,19 +49,20 @@
               <p>
                 En théorie, le syndic n'est pas censé traiter avec les
                 locataires, et c'est souvent la réponse qu'il donne lorsqu'il
-                est sollicité. Et pourtant tu es le premier concerné lorsque
-                survient un problème dans la copropriété… Pour autant, ton
-                unique référent demeure ton propriétaire (ou son représentant)
-                avec lequel tu as signé un contrat de location (le bail), et
+                est sollicité. Et pourtant vous êtes le premier concerné lorsque
+                survient un problème dans la copropriété… Pour autant, votre
+                unique référent demeure votre propriétaire (ou son représentant)
+                avec lequel vous avez signé un contrat de location (le bail), et
                 c’est donc à lui qu’il revient, dans la plupart des cas,
                 d’intervenir.
               </p>
               <p>
-                Ainsi, dès que tu as une requête : la sonnette, l'ascenseur, le
-                portail en panne, le changement de nom sur les plaques platine
-                et boîte aux lettres, une déclaration de sinistre à formuler,
-                etc. il faut t’adresser à ton propriétaire (ou à l'agence qui le
-                représente) qui saisira le syndic.
+                Ainsi, dès que vous avez une requête : la sonnette, l'ascenseur,
+                le portail en panne, le changement de nom sur les plaques
+                platine et boîte aux lettres, une déclaration de sinistre à
+                formuler, formuler, etc. il faut vous adresser à votre
+                propriétaire (ou à l'agence qui le représente) qui saisira le
+                syndic.
               </p>
               <p>
                 Cette demande peut d’abord se faire de manière informelle puis,
@@ -71,7 +72,7 @@
                 l’ascenseur (ou toute autre intervention).
               </p>
               <p>
-                Tu peux t’appuyer la
+                Vous pouvez vous appuyer sur la
                 <a
                   href="https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000509310/"
                   target="_blank"
@@ -97,14 +98,14 @@
               </ul>
 
               <p>
-                En pratique, tu peux aussi t’adresser au syndic directement et
-                il est probable que celui-ci agisse immédiatement sans te
-                demander de passer par le propriétaire.
+                En pratique, vous pouvez aussi vous adresser au syndic
+                directement et il est probable que celui-ci agisse immédiatement
+                sans vous demander de passer par le propriétaire.
               </p>
               <p>
-                A défaut de réponse, et en cas de négligence du syndic ou de ton
-                propriétaire, tu peux saisir le tribunal d’instance ou la
-                commission départementale de conciliation afin d’obtenir des
+                A défaut de réponse, et en cas de négligence du syndic ou de
+                votre propriétaire, vous pouvez saisir le tribunal d’instance ou
+                la commission départementale de conciliation afin d’obtenir des
                 dommages et intérêts en réparation du préjudice subi.
               </p>
 

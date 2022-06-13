@@ -70,7 +70,7 @@
                 />
               </router-link>
               <p>
-                Tu vis au 6e étage de l’immeuble et l’ascenseur est en panne
+                Vous vivez au 6e étage de l’immeuble et l’ascenseur est en panne
                 depuis plusieurs mois ? Petit rappel : la vie en copropriété
                 réunit plusieurs types d'intervenants : les occupants,
                 propriétaires ou locataires, le conseil syndical, composé de
@@ -111,8 +111,8 @@
               </router-link>
               <p>
                 La caution est une personne ou un organisme qui s'engage par
-                écrit, à travers un acte de cautionnement, à payer ton loyer si
-                tu ne le fais pas. Il s’agit le plus souvent d’un parent ou d’un
+                écrit, à travers un acte de cautionnement, à payer votre loyer si
+                vous ne le faites pas. Il s’agit le plus souvent d’un parent ou d’un
                 proche. Si la caution ne rembourse pas les dettes locatives...
               </p>
               <router-link
@@ -355,7 +355,7 @@
                 rendant difficile la recherche d’un appartement à louer (ou même
                 à acheter). Dans cet article, les équipes de DossierFacile te
                 livrent leurs cinq conseils pour trouver l’appartement parisien
-                de tes rêves.
+                de vos rêves.
               </p>
               <router-link
                 to="/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne"

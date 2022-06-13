@@ -9,7 +9,7 @@
                 L’usurpation d’identité en France : comment la prévenir et
                 comment agir ?
               </h1>
-              <span>1 Juin 2022 dans</span>
+              <span>1 Juin 2022 dans </span>
               <span>
                 <a href="#">DossierFacile</a>
               </span>
@@ -47,7 +47,7 @@
               <p>
                 C’est un délit, qui est donc <u>puni par la loi</u> et la
                 personne qui usurpe une identité
-                <b>risque jusqu’à 1 an de prison et 15.000 euros d’amendes</b>.
+                <b>risque jusqu’à 1 an de prison et 15.000 euros d’amende</b>.
               </p>
 
               <h2>
@@ -101,7 +101,7 @@
               </p>
 
               <h2>
-                Dossierfacile : une solution efficace de lutte contre
+                DossierFacile : une solution efficace de lutte contre
                 l’usurpation d’identité
               </h2>
               <p>
@@ -110,10 +110,12 @@
                 d’être victime d’usurpation d’identité.
               </p>
               <p>
-                En effet,<b
-                  >tous les documents déposés sur la plateforme sont au
-                  préalable recouverts de filigranes</b
-                >portant la mention "Documents exclusivement destinés à la
+                En effet,
+                <b>
+                  tous les documents déposés sur la plateforme sont au préalable
+                  recouverts de filigranes
+                </b>
+                portant la mention "Documents exclusivement destinés à la
                 location immobilière"
                 <b> pour empêcher toute utilisation frauduleuse</b>. De plus, le
                 dossier est partagé sous forme de lien. Si vous vous rendez
@@ -155,7 +157,7 @@
                   >
                 </li>
                 <li>
-                  <b>Vérifiez si des comptes ont été ouverts à ton nom</b>
+                  <b>Vérifiez si des comptes ont été ouverts à votre nom</b>
                   par les fraudeurs.
                 </li>
                 <li>
