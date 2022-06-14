@@ -14,7 +14,7 @@ app.use(function(req, res, next) {
       "font-src 'self' fonts.google.com https://fonts.gstatic.com fonts.googleapis.com data:; " +
       "object-src 'none'; " +
       "prefetch-src 'self'; " +
-      "connect-src https://www.google-analytics.com *.inspectlet.com wss://ws.inspectlet.com https://stats.g.doubleclick.net https://sso-preprod.dossierfacile.fr *.cloudfront.net *.dossierfacile.fr 'unsafe-eval' *.helpscout.net wss://ws-helpscout.pusher.com https://sockjs-helpscout.pusher.com https://dossierfacile-api-owner-prod.osc-secnum-fr1.scalingo.io blob:; " +
+      "connect-src https://www.google-analytics.com *.inspectlet.com wss://ws.inspectlet.com https://stats.g.doubleclick.net https://sso-preprod.dossierfacile.fr *.cloudfront.net *.dossierfacile.fr 'unsafe-eval' *.helpscout.net wss://ws-helpscout.pusher.com https://sockjs-helpscout.pusher.com https://dossierfacile-api-owner-preprod.osc-fr1.scalingo.io https://dossierfacile-api-owner-prod.osc-secnum-fr1.scalingo.io blob:; " +
       "frame-src https://www.google.com *.dossierfacile.fr http://localhost:8085; " +
       "child-src *.dossierfacile.fr"
   );
