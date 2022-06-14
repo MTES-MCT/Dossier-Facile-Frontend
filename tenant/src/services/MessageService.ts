@@ -5,6 +5,9 @@ export const MessageService = {
     return axios.get(`https://${process.env.VUE_APP_API_URL}/api/message`);
   },
   postMessage(data: { messageBody: string }) {
-    return axios.post(`https://${process.env.VUE_APP_API_URL}/api/message`, data);
+    return axios.post(
+      `https://${process.env.VUE_APP_API_URL}/api/message`,
+      data
+    );
   }
 };
