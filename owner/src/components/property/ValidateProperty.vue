@@ -48,7 +48,7 @@ function onBack() {
         rules="isTrue"
         :value="true"
       />
-      <label for="authorize"><div v-html="'Lorem ipsum'"></div></label>
+      <label for="authorize"><div v-html="t('authorize')"></div></label>
       <ErrorMessage class="fr-error-text" name="authorize" v-slot="{ message }">
         <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
       </ErrorMessage>
@@ -61,12 +61,14 @@ function onBack() {
   "en": {
     "validate-title": "I confirm the accuracy of the information",
     "validate-subtitle": "I read and tick the following box to validate my file.",
-    "required": "This field is required"
+    "required": "This field is required",
+    "authorize": "Je certifie sur l'honneur l'exactitude des informations de mon bien"
   },
   "fr": {
     "validate-title": "Je confirme l'exactitude des informations",
     "validate-subtitle": "Je lis et je coche la case suivante afin de valider mon dossier.",
-    "required": "La case doit être cochée"
+    "required": "La case doit être cochée",
+    "authorize": "Je certifie sur l'honneur l'exactitude des informations de mon bien"
   }
 }
 </i18n>
