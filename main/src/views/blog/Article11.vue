@@ -8,7 +8,7 @@
               <h1 class="fr-h1">
                 La caution locative : changements en vue pour 2022
               </h1>
-              <span>14 Mars 2022 dans</span>
+              <span>14 Mars 2022 dans </span>
               <span>
                 <a href="#">DossierFacile</a>
               </span>
@@ -26,9 +26,9 @@
               <h2>La caution locative c’est quoi ?</h2>
               <p>
                 La caution est une personne ou un organisme qui s'engage par
-                écrit, à travers un acte de cautionnement, à payer ton loyer si
-                tu ne le fais pas. Il s’agit le plus souvent d’un parent ou d’un
-                proche.
+                écrit, à travers un acte de cautionnement, à payer votre loyer
+                si vous ne le faites pas. Il s’agit le plus souvent d’un parent
+                ou d’un proche.
               </p>
               <p>
                 Si la caution ne rembourse pas les dettes locatives,
@@ -100,7 +100,7 @@
                   title="Eligibilité visale"
                   target="_blank"
                   rel="noopener"
-                  >Pour y avoir droit, tu dois être âgé de moins de 30 ans, ou
+                  >Pour y avoir droit, vous devez être âgé de moins de 30 ans, ou
                   être salarié du secteur privé (hors agricole) ou être
                   étudiant.
                 </a>
@@ -142,7 +142,7 @@
                   <b>Plus besoin de recopier une formulation donnée</b>
                   : À partir du 1er janvier 2022, il sera seulement exigé que la
                   formulation désigne avec suffisamment de précision
-                  l’engagement de ton ou tes garants. La caution a juste à
+                  l’engagement de votre ou vos garants. La caution a juste à
                   préciser qu’elle s’engage à payer s' il y a un souci. Aussi,
                   si la caution est à durée indéterminée, elle peut être
                   résiliée à tout moment par lettre recommandée.
