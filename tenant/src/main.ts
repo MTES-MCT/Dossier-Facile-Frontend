@@ -12,7 +12,6 @@ import Toasted from "vue-toasted";
 import VueCookies from "vue-cookies";
 import authentication from "./plugins/authentication";
 
-
 const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
 
 Vue.use(authentication);
@@ -34,7 +33,6 @@ declare global {
   }
 }
 import MatomoPlugin from "./plugins/matomo";
-
 
 Vue.config.productionTip = false;
 
@@ -153,8 +151,6 @@ Vue.use(VueAuthImage);
         duration: 7000
       }
     );
-
-    app.$store.dispatch("updateMessages");
 
     setInterval(() => {
       app.$store.dispatch("updateMessages");

@@ -378,6 +378,7 @@ router.beforeEach((to, from, next) => {
     } else {
       // The user was authenticated, and has the app role
       store.dispatch("loadUser").then(() => {
+        store.dispatch("updateMessages");
         keepGoing(to, next);
       });
       setInterval(() => {
