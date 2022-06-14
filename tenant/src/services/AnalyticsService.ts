@@ -10,6 +10,13 @@ export const AnalyticsService = {
       }
       Vue.prototype.$gtag.event(name, data);
     }
+    // Matomo already manage consent
+    window._paq.push([
+      "trackEvent",
+      data.event_category,
+      name,
+      data.event_label
+    ]);
   },
 
   loginSuccess() {

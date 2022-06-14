@@ -29,7 +29,11 @@ const routes: Array<RouteConfig> = [
       hideForAuth: true
     },
     component: () =>
-      import(/* webpackChunkName: "signup" */ "../views/SignupPage.vue")
+      import(
+        /* webpackChunkName: "signup" */
+        /* webpackPrefetch: true */
+        "../views/SignupPage.vue"
+      )
   },
   {
     path: "/login",

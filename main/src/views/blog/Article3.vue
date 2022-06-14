@@ -6,7 +6,7 @@
           <article>
             <div class="text-center fr-mt-3w fr-mb-3w">
               <h1 class="fr-h1">Pourquoi Dossier Facile est-il gratuit ?</h1>
-              <span>21 Juillet 2020 dans</span>
+              <span>21 Juillet 2020 dans </span>
               <span>
                 <a href="#">DossierFacile</a>
               </span>

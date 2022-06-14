@@ -73,6 +73,7 @@ export default class App extends Vue {
         ? "dossierfacile.fr"
         : "localhost"
     );
+
     Vue.use(
       VueGtag,
       {

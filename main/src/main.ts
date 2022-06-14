@@ -11,8 +11,10 @@ declare global {
     __insp: any;
     __inspld: any;
     Beacon: any;
+    _paq: any;
   }
 }
+import MatomoPlugin from "./plugins/matomo";
 
 const inspectlet = function() {
   window.__insp = window.__insp || [];
@@ -38,6 +40,7 @@ Vue.prototype.inspectlet = inspectlet;
 Vue.config.productionTip = false;
 
 Vue.use(VueCookies);
+Vue.use(MatomoPlugin);
 
 new Vue({
   created() {

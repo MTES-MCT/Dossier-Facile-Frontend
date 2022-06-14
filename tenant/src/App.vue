@@ -93,6 +93,7 @@ export default class App extends Vue {
         ? "dossierfacile.fr"
         : "localhost"
     );
+
     Vue.use(
       VueGtag,
       {
@@ -138,6 +139,7 @@ export default class App extends Vue {
 
 <style lang="scss">
 @import "df-shared/src/scss/_main.scss";
+@import "../../node_modules/@gouvfr/dsfr/dist/utility/icons/icons-business/icons-business.min.css";
 
 #app {
   min-height: 100vh;

@@ -8,6 +8,124 @@
           <article class="fr-mb-12w">
             <div class="text-center">
               <router-link
+                to="/blog/usurpation-d-identite-en-france-comment-prevenir-agir"
+              >
+                <h2 class="fr-h2">
+                  L’usurpation d’identité en France : comment la prévenir et
+                  comment agir ?
+                </h2>
+              </router-link>
+              <span>1 Juin 2022 dans </span>
+              <span>
+                <a href="#">DossierFacile</a>
+              </span>
+            </div>
+            <!--end article title-->
+            <div class="article__body">
+              <router-link
+                to="/blog/usurpation-d-identite-en-france-comment-prevenir-agir"
+              >
+                <img
+                  class="img-center"
+                  alt=""
+                  src="../../assets/images/blog-article13.webp"
+                />
+              </router-link>
+              <p>
+                L’usurpation d’identité consiste à utiliser, sans votre accord,
+                des informations permettant de vous identifier. Il peut s'agir,
+                par exemple, de vos nom et prénom, de votre adresse
+                électronique, ou encore de photographies. C’est un problème qui
+                touche plusieurs centaines de milliers de Français chaque année
+                pour un total de 474 millions d’euros extorqués...
+              </p>
+              <router-link
+                to="/blog/usurpation-d-identite-en-france-comment-prevenir-agir"
+                >Continuer la lecture »</router-link
+              >
+            </div>
+            <!--end article title-->
+          </article>
+          <hr />
+          <article class="fr-mb-12w">
+            <div class="text-center">
+              <router-link to="/blog/au-secours-mon-ascenceur-est-en-panne">
+                <h2 class="fr-h2">
+                  Au secours, mon ascenseur est en panne ! Les droits du
+                  locataire en copropriété
+                </h2>
+              </router-link>
+              <span>14 Avril 2022 dans </span>
+              <span>
+                <a href="#">DossierFacile</a>
+              </span>
+            </div>
+            <!--end article title-->
+            <div class="article__body">
+              <router-link to="/blog/au-secours-mon-ascenceur-est-en-panne">
+                <img
+                  class="img-center"
+                  alt=""
+                  src="../../assets/images/blog-article12.webp"
+                />
+              </router-link>
+              <p>
+                Vous vivez au 6e étage de l’immeuble et l’ascenseur est en panne
+                depuis plusieurs mois ? Petit rappel : la vie en copropriété
+                réunit plusieurs types d'intervenants : les occupants,
+                propriétaires ou locataires, le conseil syndical, composé de
+                copropriétaires et le syndic, chargé d'assurer la bonne gestion
+                de l'ensemble.
+              </p>
+              <router-link to="/blog/au-secours-mon-ascenceur-est-en-panne"
+                >Continuer la lecture »</router-link
+              >
+            </div>
+            <!--end article title-->
+          </article>
+          <hr />
+          <article class="fr-mb-12w">
+            <div class="text-center">
+              <router-link
+                to="/blog/la-caution-locative-changement-en-vue-pour-2022"
+              >
+                <h2 class="fr-h2">
+                  La caution locative : changements en vue pour 2022
+                </h2>
+              </router-link>
+              <span>14 Mars 2022 dans </span>
+              <span>
+                <a href="#">DossierFacile</a>
+              </span>
+            </div>
+            <!--end article title-->
+            <div class="article__body">
+              <router-link
+                to="/blog/la-caution-locative-changement-en-vue-pour-2022"
+              >
+                <img
+                  class="img-center"
+                  alt=""
+                  src="../../assets/images/blog-article11.webp"
+                />
+              </router-link>
+              <p>
+                La caution est une personne ou un organisme qui s'engage par
+                écrit, à travers un acte de cautionnement, à payer votre loyer si
+                vous ne le faites pas. Il s’agit le plus souvent d’un parent ou d’un
+                proche. Si la caution ne rembourse pas les dettes locatives...
+              </p>
+              <router-link
+                to="/blog/la-caution-locative-changement-en-vue-pour-2022"
+                >Continuer la lecture »</router-link
+              >
+            </div>
+            <!--end article title-->
+          </article>
+          <hr />
+          <article class="fr-mb-12w">
+            <div class="text-center">
+              <router-link
                 to="/blog/quand-les-journalistes-parlent-de-dossierfacile"
               >
                 <h2 class="fr-h2">
@@ -237,7 +355,7 @@
                 rendant difficile la recherche d’un appartement à louer (ou même
                 à acheter). Dans cet article, les équipes de DossierFacile te
                 livrent leurs cinq conseils pour trouver l’appartement parisien
-                de tes rêves.
+                de vos rêves.
               </p>
               <router-link
                 to="/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne"

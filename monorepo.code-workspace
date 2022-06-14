@@ -15,10 +15,14 @@
     {
       "name": "🏠 owner",
       "path": "owner"
-    }
+    },
     {
       "name": "📘 df-shared",
       "path": "df-shared"
+    },
+    {
+      "name": "📘 df-shared-next",
+      "path": "df-shared-next"
     }
   ],
   "settings": {
