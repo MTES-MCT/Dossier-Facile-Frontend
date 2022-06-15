@@ -168,24 +168,24 @@
                   v-model="selectedApplicants"
                 />
               </td>
-              <td @click="setShowTenant(k)" class="desktop">
+              <td @click="setShowTenant(tenant, k)" class="desktop">
                 <time>{{ formatDate(tenant.lastUpdateDate || new Date()) }}</time>
               </td>
-              <td @click="setShowTenant(k)">
+              <td @click="setShowTenant(tenant, k)">
                 <span class="tenant-name">{{ tenant.tenantName }}</span>
               </td>
-              <td class="desktop" @click="setShowTenant(k)">
+              <td class="desktop" @click="setShowTenant(tenant, k)">
                 <div class="tenant-type" :class="getTenantClass(tenant)">
                   {{ t(tenant.tenantType || "") }}
                 </div>
               </td>
-              <td @click="setShowTenant(k)">
+              <td @click="setShowTenant(tenant, k)">
                 <span>{{ tenant.tenantSalary }}</span>
               </td>
-              <td class="desktop" @click="setShowTenant(k)">
+              <td class="desktop" @click="setShowTenant(tenant, k)">
                 <span>{{ tenant.guarantorSalary }}</span>
               </td>
-              <td @click="setShowTenant(k)">
+              <td @click="setShowTenant(tenant, k)">
                 <div v-if="(tenant?.tenantSalary || 0) > 0">
                   <span class="rate" :class="getRateClass(tenant)"
                     >{{ tenant.rate }} %</span
@@ -193,7 +193,7 @@
                   {{ t("income") }}
                 </div>
               </td>
-              <td @click="setShowTenant(k)">
+              <td @click="setShowTenant(tenant, k)">
                 <div class="tag" :class="getTenantClass(tenant)">
                   <span v-if="tenant.status === 'DECLINED'" class="material-icons md-18"
                     >report_gmailerrorred</span
@@ -366,7 +366,10 @@ function formatDate(date: Date) {
   });
 }
 
-function setShowTenant(tenantId: number) {
+function setShowTenant(applicant: Applicant, tenantId: number) {
+  if (applicant.status !== 'VALIDATED') {
+    return;
+  }
   if (tenantIdToShow.value === tenantId) {
     tenantIdToShow.value = -1;
   } else {
