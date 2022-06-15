@@ -51,18 +51,18 @@ function onRegister(user: User) {
             <h2 class="fr-h5 blue-text text-center fr-mt-3w">DossierFacile Bailleur</h2>
             <div class="fr-pl-2w fr-pr-2w">
               <p>
-                Ajouter vos biens immobiliers dans votre espace propriétaire et recevez,
-                dans votre espaces, les candidatures déposées par les candidats avec leur
+                Ajoutez vos biens immobiliers dans votre espace propriétaire et recevez,
+                dans votre espace, les candidatures déposées par les candidats avec leur
                 DossierFacile.
               </p>
               <p>Avec DossierFacile Bailleur, il est facile de :</p>
               <ul class="no-bullet">
-                <li class="fr-mt-3w">👉 Partager son bien avec les candidats locataire</li>
+                <li class="fr-mt-3w">👉 Partager son bien avec les candidats locataires</li>
                 <li class="fr-mt-3w">
                   🤩 Recevoir des candidatures DossierFacile, complétées, organisées et
                   vérifiées.
                 </li>
-                <li class="fr-mt-3w">😇 Choississez votre futur locataire en toute séreinité !</li>
+                <li class="fr-mt-3w">😇 Choissir votre futur locataire en toute sérénité !</li>
               </ul>
             </div>
           </div>
