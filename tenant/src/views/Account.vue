@@ -6,7 +6,9 @@
           <div class="fr-col-12">
             <h1>{{ $t("title", [getFirstName(), $t(user.status)]) }}</h1>
             <div class="fr-callout warning fr-callout-white" v-if="isDenied()">
-              <h2 class="fr-text-title--grey fr-h4">{{ $t("amendment-required-title") }}</h2>
+              <h2 class="fr-text-title--grey fr-h4">
+                {{ $t("amendment-required-title") }}
+              </h2>
               <p
                 class="fr-callout__text"
                 v-html="$t('amendment-required-text')"
@@ -16,14 +18,18 @@
               }}</DfButton>
             </div>
             <div class="fr-callout fr-callout-white" v-if="canCopyLink()">
-              <h2 class="fr-text-title--grey fr-h4">{{ $t("congratulations-title") }}</h2>
+              <h2 class="fr-text-title--grey fr-h4">
+                {{ $t("congratulations-title") }}
+              </h2>
               <p class="fr-mb-3w" v-html="$t('congratulations-text-1')"></p>
               <p v-html="$t('congratulations-text-2')"></p>
             </div>
             <div class="main fr-mt-5w fr-p-4w bg-white">
               <div class="main-bar fr-grid-row">
                 <div class="header-title mobile-margin">
-                  <h2 class="fr-text-title--grey fr-h4 fr-mr-2w fr-mb-0 fr-mt-0">
+                  <h2
+                    class="fr-text-title--grey fr-h4 fr-mr-2w fr-mb-0 fr-mt-0"
+                  >
                     {{ $t("my-file") }}
                   </h2>
                 </div>
@@ -794,7 +800,6 @@ hr {
     "file-resume": "Share resumed file <br>(without supporting document)",
     "file-full": "Share full file <br>(with supporting document)",
     "copy": "Copy",
-    "try-again": "An error occured, please try again later.",
     "field-required": "This field is required",
     "CDI": "CDI",
     "CDI_TRIAL": "CDI (période d’essai)",
@@ -864,7 +869,6 @@ hr {
     "file-resume": "Partager mon dossier de synthèse <br>(sans pièce justificative)",
     "file-full": "Partager mon dossier complet<br>(avec pièces justificatives)",
     "copy": "Copier",
-    "try-again": "Une erreur est survenue, veuillez réessayer plus tard.",
     "field-required": "Ce champ est requis",
     "CDI": "en CDI",
     "CDI_TRIAL": "en CDI (période d’essai)",

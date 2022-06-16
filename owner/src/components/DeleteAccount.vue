@@ -112,7 +112,8 @@ function isMobile() {
     "cancel": "Cancel",
     "title": "Account deletion",
     "title-mobile": "Deletion",
-    "delete": "Delete"
+    "delete": "Delete",
+    "try-again": "An error occured, please try again later."
   },
   "fr": {
     "validate": "Supprimer mon compte",
@@ -120,7 +121,8 @@ function isMobile() {
     "cancel": "Annuler",
     "title": "Suppression de compte",
     "confirm-delete": "Veuillez confirmer la suppression complète du compte",
-    "delete": "Supprimer"
+    "delete": "Supprimer",
+    "try-again": "Une erreur est survenue, veuillez réessayer plus tard."
   }
 }
 </i18n>
