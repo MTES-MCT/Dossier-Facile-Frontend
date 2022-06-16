@@ -24,7 +24,7 @@
                 <label for="acceptOwner">{{
                   $t("accept-owner", [
                     `${owner.owner.firstName} ${owner.owner.lastName}`,
-                    owner.name
+                    getOwnerAddress()
                   ])
                 }}</label>
                 <span class="fr-error-text" v-if="errors[0]">{{
@@ -151,6 +151,10 @@ export default class OwnerShare extends Vue {
 
   isCreate() {
     return !this.user || this.user.tenantType === "CREATE"
+  }
+
+  getOwnerAddress() {
+    return this.owner.address || this.owner.name;
   }
 }
 </script>
