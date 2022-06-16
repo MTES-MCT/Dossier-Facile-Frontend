@@ -15,9 +15,9 @@
           </div>
         </div>
       </section>
-
       <FileReinsurance
-        :displayFranceConnectBloc="hasFranceConnectCandidate()"
+        :franceConnectTenantCount="franceConnectTenantCount()"
+        :tenantCount="user.tenants.length"
       ></FileReinsurance>
 
       <section class="fr-mt-5w fr-mb-3w">
@@ -172,8 +172,8 @@ export default class File extends Vue {
   tabIndex = 0;
   showProgressBar = false;
 
-  hasFranceConnectCandidate() {
-    return this.user?.tenants?.some(t => t.franceConnect == true);
+  franceConnectTenantCount() {
+    return this.user?.tenants?.filter(t => t.franceConnect == true).length;
   }
 
   getName() {
