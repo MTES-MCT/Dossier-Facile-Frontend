@@ -60,6 +60,7 @@ function onBack() {
         v-slot="{ field, meta }"
         :rules="{
           required: true,
+          positive: true
         }"
       >
         <input
@@ -86,6 +87,7 @@ function onBack() {
         v-slot="{ field, meta }"
         :rules="{
           required: true,
+          positive: true
         }"
       >
         <input
@@ -114,7 +116,8 @@ function onBack() {
     "monthly-rent": "Monthly rent",
     "rent-amount": "Rent amount",
     "monthly-charges": "Monthly charges",
-    "charges-amount": "Charges amount"
+    "charges-amount": "Charges amount",
+    "number-not-positive": "The price must be more than zero"
   },
   "fr": {
     "rent-title": "Loyer et charges mensuels",
@@ -122,7 +125,8 @@ function onBack() {
     "monthly-rent": "Loyer mensuel",
     "rent-amount": "Montant du loyer",
     "monthly-charges": "Montant des charges mensuel",
-    "charges-amount": "Montant des charges"
+    "charges-amount": "Montant des charges",
+    "number-not-positive": "Le prix doit être supérieur à zéro"
   }
 }
 </i18n>
