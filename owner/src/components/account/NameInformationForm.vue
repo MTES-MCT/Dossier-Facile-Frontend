@@ -107,9 +107,11 @@ import { useI18n } from 'vue-i18n';
 import router from '../../router';
 import ProfileFooter from '../footer/ProfileFooter.vue';
 import useOwnerStore from '../../store/owner-store';
+import { useToast } from 'vue-toastification';
 
 const { t } = useI18n();
 const store = useOwnerStore();
+const toast = useToast();
 
 const properties = store.getProperties;
 
@@ -126,6 +128,12 @@ function onSubmit() {
       return;
     }
     router.push({ name: 'PropertyName' });
+  }).catch((err) => {
+    if (err.response.data.message.includes('email_exists')) {
+      toast.error(t('email-exists').toString(), {
+        timeout: 7000,
+      });
+    }
   });
 }
 </script>
@@ -139,7 +147,8 @@ function onSubmit() {
     "firstname": "Firstname",
     "email": "Your email",
     "field-required": "This field is required",
-    "email-not-valid": "Email not valid"
+    "email-not-valid": "Email not valid",
+    "email-exists": "Email already exists"
   },
   "fr": {
     "title": "Je renseigne mes informations personnelles",
@@ -148,7 +157,8 @@ function onSubmit() {
     "firstname": "Prénom",
     "email": "Votre email",
     "field-required": "Ce champ est requis",
-    "email-not-valid": "Email non valide"
+    "email-not-valid": "Email non valide",
+    "email-exists": "L'email existe déjà"
   }
 }
 </i18n>

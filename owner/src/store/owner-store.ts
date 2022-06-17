@@ -186,7 +186,7 @@ const useOwnerStore = defineStore('owner', {
       ).then((response) => {
         this.loadUserCommit(response.data);
         return Promise.resolve(response.data);
-      });
+      }).catch((error) => Promise.reject(error));
     },
     saveProperty() {
       return OwnerService.saveProperty(this.propertyToEdit).then((response) => {
