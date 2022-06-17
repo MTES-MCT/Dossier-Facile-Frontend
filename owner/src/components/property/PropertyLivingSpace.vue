@@ -49,6 +49,9 @@ function onBack() {
         name="living-space"
         v-model="livingSpace"
         v-slot="{ field, meta }"
+        :rules="{
+          required: true,
+        }"
       >
         <input
           v-bind="field"
