@@ -27,14 +27,19 @@ const getParams = id.value > 0 ? { id: id.value } : {};
 
 const property = store.getPropertyToEdit;
 
-const hasErrors = computed(() => !(
-  property.name
-    && property.address
-    && property.furniture
-    && property.livingSpace
-    && property.rentCost
-    && property.chargesCost
-));
+const hasErrors = computed(
+  () => !(
+    property.name
+      && property.address
+      && property.furniture
+      && property.livingSpace
+      && property.livingSpace > 0
+      && property.rentCost
+      && property.rentCost > 0
+      && property.chargesCost
+      && property.chargesCost > 0
+  ),
+);
 
 async function onSubmit() {
   if (hasErrors.value) {
@@ -106,10 +111,23 @@ function onBack() {
           :to="{ name: 'PropertyAddress', params: getParams }"
         ></UpdateRowBtn>
       </div>
-      <div v-if="!property.livingSpace">
+      <div v-if="!property.livingSpace || property.livingSpace <= 0">
         <UpdateRowBtn
           :title="t('property-living-space')"
           :to="{ name: 'PropertyLivingSpace', params: getParams }"
+        ></UpdateRowBtn>
+      </div>
+      <div
+        v-if="
+          !property.rentCost ||
+          property.rentCost <= 0 ||
+          !property.chargesCost ||
+          property.chargesCost <= 0
+        "
+      >
+        <UpdateRowBtn
+          :title="t('property-rent')"
+          :to="{ name: 'PropertyRent', params: getParams }"
         ></UpdateRowBtn>
       </div>
     </div>
@@ -130,6 +148,7 @@ function onBack() {
     "property-furniture": "Furniture",
     "property-address": "Property address",
     "property-living-space": "Living space",
+    "property-rent": "Property rent",
     "try-again": "Please fix errors to submit the property"
   },
   "fr": {
@@ -144,6 +163,7 @@ function onBack() {
     "property-furniture": "Ameublement",
     "property-address": "Adresse du logement",
     "property-living-space": "Surface",
+    "property-rent": "Loyer et charges mensuels",
     "try-again": "Veuillez fixer les erreurs pour soumettre la propriété"
   }
 }

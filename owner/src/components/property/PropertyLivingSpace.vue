@@ -51,6 +51,7 @@ function onBack() {
         v-slot="{ field, meta }"
         :rules="{
           required: true,
+          positive: true
         }"
       >
         <input
@@ -77,13 +78,15 @@ function onBack() {
     "living-space-title": "Living space",
     "living-space-subtitle": "Indicate the living space, «loi Carrez»",
     "living-space-label": "Living space of my property, loi Carrez",
-    "living-space-placeholder": "size m²"
+    "living-space-placeholder": "size m²",
+    "number-not-positive": "Living space must be more than zero"
   },
   "fr": {
     "living-space-title": "Surface",
     "living-space-subtitle": "Quelle est la surface, loi Carrez",
     "living-space-label": "Surface de ma propriété, loi Carrez",
-    "living-space-placeholder": "taille en m²"
+    "living-space-placeholder": "taille en m²",
+    "number-not-positive": "La surface doit supérieur à zéro"
   }
 }
 </i18n>
