@@ -1,5 +1,11 @@
 <template>
-  <button :class="classes()" class="fr-btn" :title="title" @click="onClick">
+  <button
+    :disabled="disabled"
+    :class="classes()"
+    class="fr-btn"
+    :title="title"
+    @click="onClick"
+  >
     <slot></slot>
   </button>
 </template>
@@ -12,6 +18,7 @@ export default class DfButton extends Vue {
   @Prop() title!: string;
   @Prop({ default: false }) private primary?: boolean;
   @Prop({ default: "normal" }) private size?: string;
+  @Prop({ default: false }) disabled?: boolean;
 
   classes() {
     return {

@@ -11,11 +11,28 @@
               <p class="text-bold color--white">
                 {{ $t("description", [getStatus(), getIncomeSum()]) }}
               </p>
+              <div>
+                <DfButton v-if="showProgressBar" primary="true"
+                  >{{ $t("download-all-inprogress")
+                  }}<span
+                    ><ProgressIndicator diameter="22px" border="3px"
+                  /></span>
+                </DfButton>
+                <DfButton
+                  :disabled="user.status != 'VALIDATED'"
+                  v-else
+                  primary="true"
+                  @on-click="download"
+                  >{{ $t("download-all") }}</DfButton
+                >
+              </div>
             </div>
           </div>
         </div>
       </section>
       <FileReinsurance
+        :dossierStatus="user.status"
+        :taxDocumentStatus="taxDocumentStatus()"
         :franceConnectTenantCount="franceConnectTenantCount()"
         :tenantCount="user.tenants.length"
       ></FileReinsurance>
@@ -29,7 +46,8 @@
               role="presentation"
             >
               <button
-                class="fr-tabs__tab fr-fi-checkbox-line fr-tabs__tab--icon-left"
+                class="fr-tabs__tab fr-tabs__tab--icon-right"
+                :class="{ 'fr-fi-icon-fc-right': tenant.franceConnect }"
                 :id="`tabpanel-${k}`"
                 :tabindex="tabIndex === k ? 0 : -1"
                 role="tab"
@@ -38,7 +56,6 @@
                 @click="tabIndex = k"
               >
                 {{ tenant | fullName }}
-                <span v-if="tenant.franceConnect" class="fc-icon"></span>
               </button>
             </li>
           </ul>
@@ -51,7 +68,7 @@
             role="tabpanel"
             tabindex="0"
           >
-            <div class="fr-prose">
+            <div>
               <h2
                 class="fr-h4"
                 v-if="tenant.typeGuarantor === 'NATURAL_PERSON'"
@@ -64,67 +81,58 @@
               >
                 {{ $t("personnal-file") }}
               </h2>
-              <div class="fr-grid-row file-item">
-                <span>{{ $t("identification") }}</span
-                ><DfButton @on-click="open(tenant, 'IDENTIFICATION')">{{
-                  $t("see")
-                }}</DfButton>
-              </div>
-              <div class="fr-grid-row file-item">
-                <span>{{ $t("residency") }}</span
-                ><DfButton @on-click="open(tenant, 'RESIDENCY')">{{
-                  $t("see")
-                }}</DfButton>
-              </div>
-              <div class="fr-grid-row file-item">
-                <span>{{ $t("professional") }}</span
-                ><DfButton @on-click="open(tenant, 'PROFESSIONAL')">{{
-                  $t("see")
-                }}</DfButton>
-              </div>
-              <div
-                class="fr-grid-row file-item"
-                v-for="(doc, k) in getDocs(tenant, 'FINANCIAL')"
-                v-bind:key="doc.id"
-              >
-                <span>{{ $t("financial") }} {{ k >= 1 ? k + 1 : "" }}</span
-                ><DfButton @on-click="openDoc(doc)">{{ $t("see") }}</DfButton>
-              </div>
-              <div class="fr-grid-row file-item">
-                <span>{{ $t("tax") }}</span
-                ><DfButton @on-click="open(tenant, 'TAX')">{{
-                  $t("see")
-                }}</DfButton>
-              </div>
+              <ul class="without-padding">
+                <FileRowListItem
+                  :label="$t('identification')"
+                  :document="document(tenant, 'IDENTIFICATION')"
+                />
+                <FileRowListItem
+                  :label="$t('residency')"
+                  :document="document(tenant, 'RESIDENCY')"
+                />
+                <FileRowListItem
+                  :label="$t('professional')"
+                  :document="document(tenant, 'PROFESSIONAL')"
+                />
+                <FileRowListItem
+                  v-for="(doc, k) in getDocs(tenant, 'FINANCIAL')"
+                  v-bind:key="doc.id"
+                  :label="$t('financial') + (k >= 1 ? ' ' + (k + 1) : '')"
+                  :document="doc"
+                />
+                <FileRowListItem
+                  :label="$t('tax')"
+                  :document="document(tenant, 'TAX')"
+                />
+              </ul>
               <div v-if="hasGuarantor(tenant)">
                 <h2 class="fr-h4">
                   {{ $t("guarant") }}
                 </h2>
                 <div v-if="tenant.guarantors">
                   <div v-for="g in tenant.guarantors" v-bind:key="g.id">
-                    <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
-                      <div class="fr-grid-row file-item">
-                        <span>{{ $t("identification-legal-person") }}</span
-                        ><DfButton
-                          @on-click="open(g, 'IDENTIFICATION_LEGAL_PERSON')"
-                          >{{ $t("see") }}</DfButton
-                        >
-                      </div>
-                      <div class="fr-grid-row file-item">
-                        <span>{{ $t("identification") }}</span
-                        ><DfButton @on-click="open(g, 'IDENTIFICATION')">{{
-                          $t("see")
-                        }}</DfButton>
-                      </div>
-                    </div>
-                    <div v-if="g.typeGuarantor === 'ORGANISM'">
-                      <div class="fr-grid-row file-item">
-                        <span>{{ $t("organism") }}</span
-                        ><DfButton @on-click="open(g, 'IDENTIFICATION')">{{
-                          $t("see")
-                        }}</DfButton>
-                      </div>
-                    </div>
+                    <ul
+                      v-if="g.typeGuarantor === 'LEGAL_PERSON'"
+                      class="without-padding"
+                    >
+                      <FileRowListItem
+                        :label="$t('identification-legal-person')"
+                        :document="document(g, 'IDENTIFICATION_LEGAL_PERSON')"
+                      />
+                      <FileRowListItem
+                        :label="$t('identificationn')"
+                        :document="document(g, 'IDENTIFICATION')"
+                      />
+                    </ul>
+                    <ul
+                      v-if="g.typeGuarantor === 'ORGANISM'"
+                      class="without-padding"
+                    >
+                      <FileRowListItem
+                        :label="$t('organism')"
+                        :document="document(g, 'IDENTIFICATION')"
+                      />
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -132,18 +140,28 @@
           </div>
         </div>
       </section>
-      <section class="fr-mb-7w fix-mt">
-        <DfButton v-if="showProgressBar" primary="true"
-          >{{ $t("download-all-inprogress")
-          }}<span><ProgressIndicator diameter="22px" border="3px"/></span>
-        </DfButton>
-        <DfButton v-else primary="true" @on-click="download">{{
-          $t("download-all")
-        }}</DfButton>
-        <p class="fr-mt-3w">
-          Si le téléchargement ne fonctionne pas du premier coup, attendez
-          quelques minutes et recommencez !
-        </p>
+      <section class="fr-mb-7w">
+        <div class="text-center">
+          <DfButton v-if="showProgressBar" primary="true"
+            >{{ $t("download-all-inprogress")
+            }}<span><ProgressIndicator diameter="22px" border="3px"/></span>
+          </DfButton>
+          <DfButton
+            :disabled="user.status != 'VALIDATED'"
+            v-else
+            primary="true"
+            @on-click="download"
+            >{{ $t("download-all") }}</DfButton
+          >
+        </div>
+        <div class="fr-mt-3w fr-text-mention--grey">
+          Le service fourni par DossierFacile ne saurait être assimilé à une
+          garantie apportée par DossierFacile sur les dossiers ayant fait
+          l’objet d’une labellisation. DossierFacile ne saurait être tenu
+          responsable ni être engagé directement ou indirectement dans le cadre
+          d'un litige entre un locataire et son bailleur ou tout autre
+          intermédiaire.
+        </div>
       </section>
     </div>
   </div>
@@ -159,12 +177,14 @@ import { ProfileService } from "../services/ProfileService";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import FileReinsurance from "../components/FileReinsurance.vue";
 import ProgressIndicator from "@/components/ProgressIndicator.vue";
+import FileRowListItem from "../components/documents/FileRowListItem.vue";
 
 @Component({
   components: {
     ProgressIndicator,
     DfButton,
-    FileReinsurance
+    FileReinsurance,
+    FileRowListItem
   }
 })
 export default class File extends Vue {
@@ -210,7 +230,6 @@ export default class File extends Vue {
     this.setUser();
     window.Beacon("init", "e9f4da7d-11be-4b40-9514-ac7ce3e68f67");
   }
-
   beforeDestroy() {
     window.Beacon("destroy");
   }
@@ -238,32 +257,47 @@ export default class File extends Vue {
     return users;
   }
 
-  open(u: User | Guarantor, s: string) {
-    const doc = u.documents?.find(d => {
+  taxDocumentStatus() {
+    const taxStatuses = this.user?.tenants?.map(
+      tenant => this.document(tenant, "TAX")?.documentStatus
+    );
+
+    if (taxStatuses?.every(docStatus => docStatus === "VALIDATED")) {
+      return "ok";
+    } else if (
+      taxStatuses?.every(
+        docStatus => docStatus === "VALIDATED" || docStatus === "TO_PROCESS"
+      )
+    ) {
+      return "to_process";
+    }
+    return "nok";
+  }
+
+  document(u: User | Guarantor, s: string) {
+    return u.documents?.find(d => {
       return d.documentCategory === s;
     });
-    if (doc?.name) {
-      this.openDoc(doc);
-    }
   }
 
-  openDoc(doc: DfDocument) {
-    window.open(doc.name, "_blank");
-  }
-
-  retryDownload() {
+  retryDownload(remainingCount: number) {
     setTimeout(() => {
       this.setUser();
       if (
         this.user?.dossierPdfDocumentStatus === "COMPLETED" &&
         this.user?.dossierPdfUrl
       ) {
-        this.showProgressBar = false;
         this.downloadFile(this.user?.dossierPdfUrl);
+      } else if (remainingCount > 0) {
+        this.retryDownload(remainingCount - 1);
       } else {
-        this.retryDownload();
+        this.showProgressBar = false;
+        this.$toasted.show(this.$i18n.t("download-failed").toString(), {
+          type: "error",
+          duration: 10000
+        });
       }
-    }, 7000);
+    }, 15000);
   }
 
   private downloadFile(url: string) {
@@ -292,7 +326,7 @@ export default class File extends Vue {
     } else {
       ProfileService.postCreateFullPdf(this.$route.params.token)
         .then(() => {
-          this.retryDownload();
+          this.retryDownload(6);
         })
         .catch(error => {
           this.showProgressBar = false;
@@ -318,7 +352,7 @@ export default class File extends Vue {
     if (this.user?.applicationType) {
       return this.$i18n.t(this.user.applicationType);
     }
-    return;
+    return "";
   }
 
   getIncomeSum() {
@@ -349,6 +383,8 @@ export default class File extends Vue {
 </script>
 
 <style scoped lang="scss">
+@import "../../../node_modules/@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css";
+
 .background {
   width: 100%;
   top: 0;
@@ -367,36 +403,27 @@ export default class File extends Vue {
   width: 100%;
   background-color: var(--bf100-g750);
 }
-
-.file-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--g200);
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  padding: 0.5rem;
+.without-padding {
+  padding: 0;
 }
 
 .fr-tabs {
   background-color: var(--background-default-grey);
-  button {
-    &:before {
-      width: 0;
-    }
-  }
 }
-.fc-icon {
-  background-image: url("../assets/images/icons/franceconnect-icon.png");
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  display: inline-block;
-  height: 21px;
-  width: 24px;
-  margin-left: 0.5rem;
+
+.fr-fi-icon-fc-right {
+  flex-direction: row-reverse;
+
   &:before {
     content: "";
+    background-color: transparent;
+    background-image: url("../assets/images/icons/franceconnect-icon.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 21px;
+    width: 24px;
+    margin-left: 0.5rem;
   }
 }
 </style>
@@ -413,7 +440,6 @@ export default class File extends Vue {
     "professional": "Professional",
     "financial": "Financial",
     "tax": "Tax",
-    "see": "See",
     "download-all": "Download the complete file (.pdf)",
     "download-all-inprogress": "Download in progress...",
     "ALONE": "Seul",
@@ -423,7 +449,8 @@ export default class File extends Vue {
     "income": "avec un revenu net mensuel de {0}€",
     "organism": "Organism",
     "identification-legal-person": "Legal person identification",
-    "and": " and "
+    "and": " and ",
+    "download-failed": "Download failed. Try again in few minutes."
   },
   "fr": {
     "title": "Dossier locataire de {0}",
@@ -435,7 +462,6 @@ export default class File extends Vue {
     "professional": "Justificatif de situation professionnelle",
     "financial": "Justificatif de ressources",
     "tax": "Avis d’imposition",
-    "see": "Voir",
     "download-all": "Télécharger le dossier complet (.pdf)",
     "download-all-inprogress": "Téléchargement en cours...",
     "ALONE": "Seul",
@@ -445,7 +471,8 @@ export default class File extends Vue {
     "income": "avec un revenu net mensuel de {0}€",
     "organism": "Certificat de l'organisme",
     "identification-legal-person": "Identification de la personne morale",
-    "and": " et "
+    "and": " et ",
+    "download-failed": "Echec du téléchargement. Ressayez dans quelques minutes."
   }
 }
 </i18n>
