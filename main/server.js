@@ -7,7 +7,7 @@ app.use(function(req, res, next) {
   res.setHeader(
     "Content-Security-Policy",
     "default-src 'none'; " +
-      "script-src 'self' *.dossierfacile.fr https://www.google-analytics.com https://stats.data.gouv.fr https://www.googletagmanager.com *.inspectlet.com https://beacon-v2.helpscout.net ; " +
+      "script-src 'self' *.dossierfacile.fr https://www.google-analytics.com https://stats.data.gouv.fr https://www.googletagmanager.com *.inspectlet.com https://beacon-v2.helpscout.net 'unsafe-eval' 'unsafe-inline' ; " +
       "style-src 'self' 'unsafe-inline' fonts.googleapis.com ; " +
       "img-src 'self' https://www.google-analytics.com *.helpscout.net *.cloudfront.net *.gitbook.com data:; " +
       "font-src 'self' fonts.gstatic.com fonts.google.com fonts.googleapis.com data:; object-src 'none'; " +
