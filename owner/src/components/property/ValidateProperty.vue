@@ -164,7 +164,7 @@ function onBack() {
     "property-address": "Adresse du logement",
     "property-living-space": "Surface",
     "property-rent": "Loyer et charges mensuels",
-    "try-again": "Veuillez fixer les erreurs pour soumettre la propriété"
+    "try-again": "Veuillez corriger les erreurs pour soumettre la propriété"
   }
 }
 </i18n>

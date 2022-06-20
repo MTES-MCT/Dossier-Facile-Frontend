@@ -86,7 +86,7 @@ function onBack() {
     "living-space-subtitle": "Quelle est la surface, loi Carrez",
     "living-space-label": "Surface de ma propriété, loi Carrez",
     "living-space-placeholder": "taille en m²",
-    "number-not-positive": "La surface doit supérieur à zéro"
+    "number-not-positive": "La surface doit être supérieur à zéro"
   }
 }
 </i18n>
