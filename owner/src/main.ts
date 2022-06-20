@@ -64,6 +64,15 @@ defineRule('confirm', (_value: any, [password, confirm]: string[]) => {
   }
   return true;
 });
+defineRule('positive', (value: any) => {
+  if (!value || !value.length) {
+    return true;
+  }
+  if (value <= 0) {
+    return 'number-not-positive';
+  }
+  return true;
+});
 
 configure({
   validateOnInput: true

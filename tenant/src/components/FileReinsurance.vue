@@ -7,7 +7,7 @@
     <div class="fr-grid-row fr-grid-row--gutters space-between fr-mt-3w">
       <div
         class="fr-col-12"
-        :class="[displayFranceConnectBloc ? 'fr-col-md-3' : 'fr-col-md-4']"
+        :class="[franceConnectTenantCount > 0 ? 'fr-col-md-3' : 'fr-col-md-4']"
       >
         <NakedCard class="h-100">
           <span class="material-icons text-green md-48">check_circle</span>
@@ -16,7 +16,7 @@
       </div>
       <div
         class="fr-col-12"
-        :class="[displayFranceConnectBloc ? 'fr-col-md-3' : 'fr-col-md-4']"
+        :class="[franceConnectTenantCount > 0 ? 'fr-col-md-3' : 'fr-col-md-4']"
       >
         <NakedCard class="h-100">
           <span class="material-icons text-green md-48">check_circle</span>
@@ -25,19 +25,27 @@
       </div>
       <div
         class="fr-col-12 "
-        :class="[displayFranceConnectBloc ? 'fr-col-md-3' : 'fr-col-md-4']"
+        :class="[franceConnectTenantCount > 0 ? 'fr-col-md-3' : 'fr-col-md-4']"
       >
         <NakedCard class="h-100">
           <span class="material-icons text-green md-48">check_circle</span>
           <p>{{ $t("file-verified") }}</p>
         </NakedCard>
       </div>
-      <div v-if="displayFranceConnectBloc" class="fr-col-12 fr-col-md-3">
+      <div v-if="franceConnectTenantCount > 0" class="fr-col-12 fr-col-md-3">
         <NakedCard class="h-100 fc">
           <div class="icon-fc text-fc blue-text ">
             FranceConnect
           </div>
-          <p>{{ $t("france-connect-user") }}</p>
+          <p v-if="tenantCount === 1">
+            {{ $t("france-connect-user") }}
+          </p>
+          <p v-else-if="franceConnectTenantCount === tenantCount">
+            {{ $t("france-connect-user-all") }}
+          </p>
+          <p v-else>
+            {{ $t("france-connect-user-partial", [franceConnectTenantCount]) }}
+          </p>
         </NakedCard>
       </div>
     </div>
@@ -54,7 +62,8 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
   }
 })
 export default class FileReinsurance extends Vue {
-  @Prop({ default: false }) displayFranceConnectBloc?: boolean;
+  @Prop({ default: 0 }) franceConnectTenantCount?: number;
+  @Prop({ default: 0 }) tenantCount?: number;
 }
 </script>
 
@@ -86,7 +95,9 @@ export default class FileReinsurance extends Vue {
 		"file-verified": "The parts are consistent and have been reviewed manually by our agents",
 		"verified-title": "This file has been verified by DossierFacile !",
 		"know-more": "Know more about DossierFacile",
-		"france-connect-user": "At least one candidate has been authenticated from FranceConnect identity provider"
+		"france-connect-user": "Candidate identity has been certified by a FranceConnect authentication.",
+    "france-connect-user-all": "Candidates identities have been certified by FranceConnect authentications.",
+    "france-connect-user-partial": "Identity of {0} candidate(s) has been certified by a FranceConnect authentication."
 	},
 	"fr": {
 		"all-documents": "Le dossier contient les pièces requises",
@@ -94,7 +105,11 @@ export default class FileReinsurance extends Vue {
 		"file-verified": "Les pièces sont cohérentes et ont été revues manuellement par nos agents",
 		"verified-title": "Ce dossier a été vérifié par DossierFacile !",
 		"know-more": "En savoir plus sur DossierFacile",
-		"france-connect-user": "Au moins un candidat a été authentifié via une identification FranceConnect"
+    "france-connect-user": "L'identité du candidat a été certifiée via une authentification FranceConnect.",
+    "france-connect-user-all": "L'identité des candidats a été certifiée via une authentification FranceConnect.",
+    "france-connect-user-partial": "L'identité de {0} candidat(s) a été certifiée via une authentification FranceConnect."
 	}
+
+
 }
 </i18n>

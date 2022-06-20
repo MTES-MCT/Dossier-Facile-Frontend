@@ -267,6 +267,7 @@ export default class FileErrors extends Vue {
 .update-btn {
   @media all and (min-width: 768px) {
     min-width: 150px;
+    justify-content: center;
   }
   @media all and (max-width: 767px) {
     padding: 0.5rem;

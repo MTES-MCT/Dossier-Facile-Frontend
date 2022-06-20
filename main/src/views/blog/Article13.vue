@@ -147,8 +147,17 @@
               </p>
               <ol type="1">
                 <li>
-                  <b>Déposez plainte</b>
-                  auprès d’un commissariat de police ou de gendarmerie.
+                  <b>Déposez plainte</b> auprès d’un commissariat de police ou
+                  de gendarmerie ou rendez-vous directement sur le site du
+                  Ministère de l'Intérieur
+                  <a
+                    href="https://moncommissariat.interieur.gouv.fr/fr"
+                    title="Site de MonCommissariat.fr"
+                    target="_blank"
+                    rel="noopener"
+                    >MonCommissariat.fr
+                  </a>
+                  .
                 </li>
                 <li>
                   <b

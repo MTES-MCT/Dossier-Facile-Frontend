@@ -5,6 +5,7 @@ import store from "./store";
 import i18n from "./i18n";
 import VueCookies from "vue-cookies";
 import VueGtag from "vue-gtag";
+import JQuery from "jquery";
 
 declare global {
   interface Window {
@@ -12,6 +13,7 @@ declare global {
     __inspld: any;
     Beacon: any;
     _paq: any;
+    $: any;
   }
 }
 import MatomoPlugin from "./plugins/matomo";
@@ -35,7 +37,22 @@ const inspectlet = function() {
   setTimeout(ldinsp, 0);
 };
 
+const iphub = function() {
+  window.$ = JQuery;
+  $(document).ready(function() {
+    $(document.head).prepend(
+      '<script async src="https://www.googletagmanager.com/gtag/js?id=DC-3689183"></script>' +
+        "<script src='/iphubh.js'></script>"
+    );
+    $(document.body).prepend(
+      "<script src='/iphubb.js'></script>" +
+        '<noscript><img src="https://ad.doubleclick.net/ddm/activity/src=3689183;type=dossi0;cat=landingp;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;npa=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ord=1;num=1?" width="1" height="1" alt=""/> </noscript>'
+    );
+  });
+};
+
 Vue.prototype.inspectlet = inspectlet;
+Vue.prototype.iphub = iphub;
 
 Vue.config.productionTip = false;
 
@@ -55,6 +72,7 @@ new Vue({
 
 if (Vue.$cookies.get("accept-cookie") === "true") {
   inspectlet();
+  iphub();
   Vue.use(
     VueGtag,
     {

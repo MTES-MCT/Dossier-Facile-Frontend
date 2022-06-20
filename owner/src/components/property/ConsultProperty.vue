@@ -168,24 +168,24 @@
                   v-model="selectedApplicants"
                 />
               </td>
-              <td @click="setShowTenant(k)" class="desktop">
+              <td @click="setShowTenant(tenant, k)" class="desktop">
                 <time>{{ formatDate(tenant.lastUpdateDate || new Date()) }}</time>
               </td>
-              <td @click="setShowTenant(k)">
+              <td @click="setShowTenant(tenant, k)">
                 <span class="tenant-name">{{ tenant.tenantName }}</span>
               </td>
-              <td class="desktop" @click="setShowTenant(k)">
+              <td class="desktop" @click="setShowTenant(tenant, k)">
                 <div class="tenant-type" :class="getTenantClass(tenant)">
                   {{ t(tenant.tenantType || "") }}
                 </div>
               </td>
-              <td @click="setShowTenant(k)">
+              <td @click="setShowTenant(tenant, k)">
                 <span>{{ tenant.tenantSalary }}</span>
               </td>
-              <td class="desktop" @click="setShowTenant(k)">
+              <td class="desktop" @click="setShowTenant(tenant, k)">
                 <span>{{ tenant.guarantorSalary }}</span>
               </td>
-              <td @click="setShowTenant(k)">
+              <td @click="setShowTenant(tenant, k)">
                 <div v-if="(tenant?.tenantSalary || 0) > 0">
                   <span class="rate" :class="getRateClass(tenant)"
                     >{{ tenant.rate }} %</span
@@ -193,7 +193,7 @@
                   {{ t("income") }}
                 </div>
               </td>
-              <td @click="setShowTenant(k)">
+              <td @click="setShowTenant(tenant, k)">
                 <div class="tag" :class="getTenantClass(tenant)">
                   <span v-if="tenant.status === 'DECLINED'" class="material-icons md-18"
                     >report_gmailerrorred</span
@@ -366,7 +366,10 @@ function formatDate(date: Date) {
   });
 }
 
-function setShowTenant(tenantId: number) {
+function setShowTenant(applicant: Applicant, tenantId: number) {
+  if (applicant.status !== 'VALIDATED') {
+    return;
+  }
   if (tenantIdToShow.value === tenantId) {
     tenantIdToShow.value = -1;
   } else {
@@ -606,7 +609,7 @@ tr {
     "will-delete-property": "Are you sure you want to delete this property ?",
     "will-delete-applicants": "Are you sure you want to delete these applicants?",
     "share-modal-title": "The link of my property",
-    "share-modal-description": "If you want to give access to your property to a candidate through a channel other than our automatic email, you can copy your file link and paste it into the message you send him.",
+    "share-modal-description": "If you want to give access to your property to a candidate, you can copy your file link and paste it into the message you send him.",
     "copy-link": "Copy",
     "share-modal-detail": "The copy button will copy this link to your clipboard",
     "link-copied": "Link copied",
@@ -644,7 +647,7 @@ tr {
     "will-delete-property": "Êtes-vous sûr de vouloir supprimer cette propriété ?",
     "will-delete-applicants": "Êtes-vous sûr de vouloir supprimer ce(s) locataire(s) ?",
     "share-modal-title": "Le lien de ma propriété",
-    "share-modal-description": "Si vous voulez donner accès à votre propriété à un candidat par un autre canal que notre mail automatique, vous pouvez copier votre lien dossier et le coller dans le message que vous lui enverrez.",
+    "share-modal-description": "Si vous voulez donner accès à votre propriété à un candidat, vous pouvez copier votre lien dossier et le coller dans le message que vous lui enverrez.",
     "copy-link": "Copier",
     "share-modal-detail": "Le bouton copier copiera ce lien dans votre presse papier",
     "link-copied": "Lien copié",
