@@ -42,14 +42,10 @@ const iphub = function() {
   $(document).ready(function() {
     $(document.head).prepend(
       '<script async src="https://www.googletagmanager.com/gtag/js?id=DC-3689183"></script>' +
-        "<script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}" +
-        " gtag('js', new Date()); gtag('config', 'DC - 3689183');</script>"
+        "<script src='/iphubh.js'></script>"
     );
     $(document.body).prepend(
-      "<script> gtag('event', 'conversion', { " +
-        "'allow_custom_scripts': true," +
-        "'send_to': 'DC-3689183/dossi0/landingp+unique'" +
-        " }); </script>" +
+      "<script src='/iphubb.js'></script>" +
         '<noscript><img src="https://ad.doubleclick.net/ddm/activity/src=3689183;type=dossi0;cat=landingp;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;npa=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ord=1;num=1?" width="1" height="1" alt=""/> </noscript>'
     );
   });
