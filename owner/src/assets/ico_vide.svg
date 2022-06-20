@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="87px" height="60px" viewBox="0 0 87 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 5</title>
+    <defs>
+        <linearGradient x1="0%" y1="74.6831168%" x2="100%" y2="25.3168832%" id="linearGradient-1">
+            <stop stop-color="#E5E5FD" offset="0%"></stop>
+            <stop stop-color="#C1C1FB" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="🖥-[RWD]-Propriétaires" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="[Propriétaire][RWD]Create/01_4_Amménagement" transform="translate(-681.000000, -430.000000)">
+            <g id="Réponse" transform="translate(643.000000, 388.000000)">
+                <g id="Group-4" transform="translate(32.063116, 32.000000)">
+                    <g id="Group-5" transform="translate(6.000000, 10.000000)">
+                        <polygon id="Rectangle" fill="#C1C1FB" points="0 0 10.75 4.28571429 10.75 51.4285714 0 60"></polygon>
+                        <polygon id="Rectangle" fill="url(#linearGradient-1)" points="11.1833284 4.28571429 77.6584005 4.28571429 77.6584005 50.9916007 11.1833284 50.9916007"></polygon>
+                        <polygon id="Rectangle" fill="#E3E3FD" points="11.1833284 51.4285714 77.6325252 51.4285714 86 60 0.433328417 60"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

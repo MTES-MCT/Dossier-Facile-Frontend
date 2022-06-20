@@ -58,8 +58,18 @@ function onBack() {
         :class="{ selected: furniture === 'UNFURNISHED' }"
         class="fr-label inline-block label"
         for="furniture-house"
-        >{{ t("unfurnished") }}</label
       >
+        <div class="fr-grid-col">
+          <div class="icon-container desktop">
+            <img
+              svg-inline
+              src="../../assets/ico_vide.svg"
+              aria-label="icone meublé"
+            />
+          </div>
+          <div class="fr-mb-md-5w fr-m-2w">{{ t("unfurnished") }}</div>
+        </div>
+      </label>
       <Field
         name="furniture"
         id="furniture-apartment"
@@ -72,7 +82,18 @@ function onBack() {
         :class="{ selected: furniture === 'FURNISHED' }"
         class="fr-label inline-block label"
         for="furniture-apartment"
-        >{{ t("furnished") }}</label
+        >
+        <div class="fr-grid-col">
+          <div class="icon-container desktop">
+            <img
+              svg-inline
+              src="../../assets/ico_meuble.svg"
+              aria-label="icone non meublé"
+            />
+          </div>
+          <div class="fr-mb-md-5w fr-m-2w">{{ t("furnished") }}</div>
+        </div>
+        </label
       >
       <ErrorMessage name="furniture" v-slot="{ message }">
         <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
@@ -87,13 +108,10 @@ function onBack() {
 }
 
 .label {
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-  margin-right: 0.5rem;
   font-size: 14px;
   line-height: 24px;
   cursor: pointer;
-  border: solid 1px var(--primary);
+  border: solid 1px #e5e5e5;
   border-radius: 0.5rem;
   text-align: center;
   background-color: var(--background-default-grey);
@@ -107,11 +125,11 @@ function onBack() {
 
   &:hover {
     background-color: var(--primary);
-    color: white;
+    color: #4c4ce2;
     box-shadow: 0 0 0.666em rgba(0, 0, 0, 0.25);
     @media all and (min-width: 767px) {
       background-color: var(--bf200-bf300);
-      color: var(--g800);
+      color: #4c4ce2;
     }
     border: solid 1px var(--primary);
   }
@@ -121,14 +139,43 @@ function onBack() {
     color: white;
     @media all and (min-width: 767px) {
       background-color: var(--bf200-bf300);
-      color: var(--g800);
+      color: #4c4ce2;
     }
-    border: solid 1px var(--primary);
+    border: solid 1px #0063cb;
+    --background-color: #4c4ce2;
+    --icon-color: white;
+  }
+
+  --icon-color: #4c4ce2;
+  --background-color: white;
+  color: #4c4ce2;
+  background-color: white;
+  &:hover {
+    --icon-color: white;
+    --background-color: #4c4ce2;
   }
 }
 
 input[type="radio"] {
   visibility: hidden;
+}
+
+.icon-container {
+  margin-top: 2rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  width: 6rem;
+  height: 5rem;
+  border-radius: 0.5rem;
+  border: solid 1px #6a6af4;
+  background-color: var(--background-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-color {
+  color: var(--icon-color);
 }
 </style>
 
