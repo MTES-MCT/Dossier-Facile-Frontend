@@ -186,7 +186,7 @@
                 <span>{{ tenant.guarantorSalary }}</span>
               </td>
               <td @click="setShowTenant(tenant, k)">
-                <div v-if="(tenant?.tenantSalary || 0) > 0">
+                <div>
                   <span class="rate" :class="getRateClass(tenant)"
                     >{{ tenant.rate }} %</span
                   >
@@ -652,11 +652,11 @@ tr {
     "share-modal-detail": "Le bouton copier copiera ce lien dans votre presse papier",
     "link-copied": "Lien copié",
     "verified-applicants": "Mes candidatures vérifiées ({count})",
-    "date": "Date",
+    "date": "Date de dernière modification",
     "tenant-name": "Nom du locataire",
     "tenant-type": "Type de dossier",
-    "tenant-salary": "Revenus net mensuel",
-    "guarantor-salary": "Revenus Garants net mensuel",
+    "tenant-salary": "Revenus nets mensuels",
+    "guarantor-salary": "Revenus Garants nets mensuels",
     "rate": "Taux d'effort",
     "status": "Statut",
     "ALONE": "Seul·e",
