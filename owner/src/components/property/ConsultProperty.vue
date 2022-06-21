@@ -4,15 +4,18 @@
     <div class="fr-container position--relative mt-100 fr-mb-5w">
       <div class="fr-grid-row space-between fr-mb-3w">
         <div class="fr-grid-row">
-          <router-link class="fr-btn btn--white fr-btn--secondary" to="/">{{
-            t("back")
-          }}</router-link>
+          <router-link
+            :title="t('back-label')"
+            class="fr-btn btn--white fr-btn--secondary"
+            to="/"
+            >{{ t("back") }}</router-link
+          >
           <div class="title">{{ name }}</div>
         </div>
         <div class="fr-grid-row">
           <VGouvFrModal>
             <template v-slot:button>
-              <button class="fr-btn btn--white fr-btn--secondary">
+              <button :title="t('share-btn')" class="fr-btn btn--white fr-btn--secondary">
                 <span class="material-icons md-24"> share_variant </span>
               </button>
             </template>
@@ -39,12 +42,14 @@
             </template>
           </VGouvFrModal>
           <button
+            :title="t('update-btn')"
             @click="editProperty()"
             class="fr-btn btn--white fr-btn--secondary fr-ml-1w"
           >
             {{ t("modify-property") }}
           </button>
           <button
+            :title="t('delete-btn')"
             class="fr-btn btn--white fr-btn--secondary fr-ml-1w"
             @click="confirmDeleteProperty = true"
           >
@@ -229,20 +234,20 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed, ref, onMounted } from 'vue';
-import { Composer, useI18n } from 'vue-i18n';
-import { useRoute, useRouter } from 'vue-router';
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
-import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue';
-import VGouvFrModal from 'df-shared-next/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue';
-import { useToast } from 'vue-toastification';
-import { format } from 'date-fns';
-import { enUS, fr } from 'date-fns/locale';
-import PropertyIcon from './PropertyIcon.vue';
-import i18n from '../../i18n';
-import Applicant from './Applicant';
-import UtilsService from '../../services/UtilsService';
-import useOwnerStore from '../../store/owner-store';
+import { computed, ref, onMounted } from "vue";
+import { Composer, useI18n } from "vue-i18n";
+import { useRoute, useRouter } from "vue-router";
+import NakedCard from "df-shared-next/src/components/NakedCard.vue";
+import ConfirmModal from "df-shared-next/src/components/ConfirmModal.vue";
+import VGouvFrModal from "df-shared-next/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
+import { useToast } from "vue-toastification";
+import { format } from "date-fns";
+import { enUS, fr } from "date-fns/locale";
+import PropertyIcon from "./PropertyIcon.vue";
+import i18n from "../../i18n";
+import Applicant from "./Applicant";
+import UtilsService from "../../services/UtilsService";
+import useOwnerStore from "../../store/owner-store";
 
 const { t } = useI18n();
 const confirmDeleteProperty = ref(false);
@@ -253,7 +258,7 @@ const router = useRouter();
 const store = useOwnerStore();
 const toast = useToast();
 
-const sortColumn = ref('');
+const sortColumn = ref("");
 const ascending = ref(false);
 const tenantIdToShow = ref(-1);
 const selectedApplicants = ref([]);
@@ -263,15 +268,15 @@ if (route.params.id) {
   id.value = Number(route.params.id);
   store.updatePropertyToConsult(id.value);
   if (Object.keys(store.getPropertyToConsult).length <= 0) {
-    router.push({ name: 'Dashboard' });
+    router.push({ name: "Dashboard" });
   }
 } else {
-  router.push({ name: 'Dashboard' });
+  router.push({ name: "Dashboard" });
 }
 
 const TENANT_URL = `https://${import.meta.env.VITE_TENANT_URL}`;
 const token = computed(
-  () => `${TENANT_URL}/inscription-locataire/${store.getPropertyToConsult?.token}`,
+  () => `${TENANT_URL}/inscription-locataire/${store.getPropertyToConsult?.token}`
 );
 const name = computed(() => store.getPropertyToConsult?.name);
 const p = computed(() => store.getPropertyToConsult);
@@ -297,26 +302,26 @@ onMounted(() => {
 });
 
 const titleKey = computed(() => {
-  if (propertyType.value === 'HOUSE') {
-    if (propertyFurnished.value === 'FURNISHED') {
-      return 'house-furnished';
+  if (propertyType.value === "HOUSE") {
+    if (propertyFurnished.value === "FURNISHED") {
+      return "house-furnished";
     }
-    return 'house-unfurnished';
+    return "house-unfurnished";
   }
-  if (propertyType.value === 'APARTMENT') {
+  if (propertyType.value === "APARTMENT") {
     if (propertyFurnished.value) {
-      return 'apartment-furnished';
+      return "apartment-furnished";
     }
-    return 'apartment-unfurnished';
+    return "apartment-unfurnished";
   }
   if (propertyFurnished.value) {
-    return 'other-furnished';
+    return "other-furnished";
   }
-  return 'other-unfurnished';
+  return "other-unfurnished";
 });
 
 function editProperty() {
-  router.push({ name: 'PropertyName', params: { id: id.value } });
+  router.push({ name: "PropertyName", params: { id: id.value } });
 }
 
 function sortTable(col: string) {
@@ -330,7 +335,7 @@ function sortTable(col: string) {
 
 function validDeleteFile() {
   store.deleteProperty(id.value).then(() => {
-    router.push({ name: 'Dashboard' });
+    router.push({ name: "Dashboard" });
   });
   confirmDeleteProperty.value = false;
 }
@@ -351,23 +356,23 @@ function undoDeleteApplicants() {
 
 function copyToken() {
   navigator.clipboard.writeText(token.value);
-  toast.success(t('link-copied').toString(), {
+  toast.success(t("link-copied").toString(), {
     timeout: 7000,
   });
 }
 
 const verifiedApplicantsCount = computed(
-  () => tenants.value.filter((u: Applicant) => u.status === 'VALIDATED').length,
+  () => tenants.value.filter((u: Applicant) => u.status === "VALIDATED").length
 );
 
 function formatDate(date: Date) {
-  return format(date, 'dd MMMM yyyy', {
-    locale: ((i18n.global as unknown) as Composer).locale.value === 'fr' ? fr : enUS,
+  return format(date, "dd MMMM yyyy", {
+    locale: ((i18n.global as unknown) as Composer).locale.value === "fr" ? fr : enUS,
   });
 }
 
 function setShowTenant(applicant: Applicant, tenantId: number) {
-  if (applicant.status !== 'VALIDATED') {
+  if (applicant.status !== "VALIDATED") {
     return;
   }
   if (tenantIdToShow.value === tenantId) {
@@ -379,22 +384,22 @@ function setShowTenant(applicant: Applicant, tenantId: number) {
 
 function getTenantClass(applicant: Applicant) {
   switch (applicant.status) {
-    case 'VALIDATED':
-      return 'validated';
-    case 'DECLINED':
-      return 'declined';
-    case 'TO_PROCESS':
-      return 'to-process';
+    case "VALIDATED":
+      return "validated";
+    case "DECLINED":
+      return "declined";
+    case "TO_PROCESS":
+      return "to-process";
     default:
-      return '';
+      return "";
   }
 }
 
 function getRateClass(applicant: Applicant) {
   if ((applicant?.rate || 100) < 30) {
-    return 'good';
+    return "good";
   }
-  return '';
+  return "";
 }
 </script>
 
@@ -637,7 +642,11 @@ tr {
     "rent": "with a rent of <span class='blue-text'>{rentCost}€</span> and charges of <span class='blue-text'>{chargesCost}€</span>",
     "download-full-file": "Download the full file",
     "income": "of income",
-    "delete-applicants": "Delete applicants"
+    "delete-applicants": "Delete applicants",
+    "share-btn": "Share my property",
+    "update-btn": "Update my property",
+    "delete-btn": "Delete my property",
+    "back-label": "Back"
   },
   "fr": {
     "title": "Consultation",
@@ -675,7 +684,11 @@ tr {
     "rent": "dont le loyer mensuel est de <span class='blue-text'>{rentCost}€</span> et les charges de <span class='blue-text'>{chargesCost}€</span>",
     "download-full-file": "Télécharger le dossier complet",
     "income": "des revenus",
-    "delete-applicants": "Supprimer des candidatures"
+    "delete-applicants": "Supprimer des candidatures",
+    "share-btn": "Partager ma propriété",
+    "update-btn": "Modifier ma propriété",
+    "delete-btn": "Supprimer ma propriété",
+    "back-label": "Retour"
   }
 }
 </i18n>
