@@ -12,6 +12,7 @@ app.use(function(req, res, next) {
       "img-src 'self' https://www.google-analytics.com *.helpscout.net *.cloudfront.net *.gitbook.com data:; " +
       "font-src 'self' fonts.gstatic.com fonts.google.com fonts.googleapis.com data:; object-src 'none'; " +
       "prefetch-src 'self'; " +
+      "frame-src *.fls.doubleclick.net/" +
       "connect-src https://www.google-analytics.com  https://stats.data.gouv.fr *.inspectlet.com wss://ws.inspectlet.com https://stats.g.doubleclick.net https://sheets.googleapis.com *.helpscout.net wss://ws-helpscout.pusher.com https://sockjs-helpscout.pusher.com *.cloudfront.net *.dossierfacile.fr"
   );
   res.setHeader("X-Frame-Options", "deny");
