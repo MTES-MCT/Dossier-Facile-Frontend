@@ -40,13 +40,9 @@ const inspectlet = function() {
 const iphub = function() {
   window.$ = JQuery;
   $(document).ready(function() {
-    $(document.head).prepend(
-      '<script async src="https://www.googletagmanager.com/gtag/js?id=DC-3689183"></script>' +
-        "<script src='/iphubh.js'></script>"
-    );
     $(document.body).prepend(
       "<script src='/iphubb.js'></script>" +
-        '<noscript><img src="https://ad.doubleclick.net/ddm/activity/src=3689183;type=dossi0;cat=landingp;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;npa=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ord=1;num=1?" width="1" height="1" alt=""/> </noscript>'
+        '<noscript> <iframe src="https://3689183.fls.doubleclick.net/activityi;src=3689183;type=dossi0;cat=landingp;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;npa=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ord=1;num=1?" width="1" height="1" frameborder="0" style="display:none"></iframe> </noscript>'
     );
   });
 };
