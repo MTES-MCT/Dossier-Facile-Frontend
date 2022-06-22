@@ -682,7 +682,7 @@ tr {
     "other-furnished": "Un bien meublé",
     "other-unfurnished": "Un bien non meublé",
     "rent": "dont le loyer mensuel est de <span class='blue-text'>{rentCost}€</span> et les charges de <span class='blue-text'>{chargesCost}€</span>",
-    "download-full-file": "Télécharger le dossier complet",
+    "download-full-file": "Voir le dossier complet",
     "income": "des revenus",
     "delete-applicants": "Supprimer des candidatures",
     "share-btn": "Partager ma propriété",
