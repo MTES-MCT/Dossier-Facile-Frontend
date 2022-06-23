@@ -2,7 +2,7 @@
   <div class="fr-container">
     <div class="fr-grid-row fr-grid-row--center" v-if="owner.owner">
       <div class="fr-col-md-8 fr-col-lg-6">
-        <h1 class="fr-h1 fr-mt-3w">{{ $t("title", [owner.name]) }}</h1>
+        <h1 class="fr-h1 fr-mt-3w">{{ $t("title", [getOwnerAddress()]) }}</h1>
         <p>{{ $t("subtitle") }}</p>
         <ValidationObserver v-slot="{ validate }" v-if="isCreate()">
           <form name="form" @submit.prevent="validate().then(connectOwner)">
