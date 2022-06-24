@@ -123,7 +123,7 @@ export default class FileRowListItem extends Vue {
     "VALIDATED": "Validated",
     "DECLINED": "Declined",
     "INCOMPLETE": "Incomplete",
-    "EMPTY": "Unrecongnized status "
+    "EMPTY": "Missing Document"
   },
   "fr": {
     "see": "Voir",
@@ -131,7 +131,7 @@ export default class FileRowListItem extends Vue {
     "VALIDATED": "Vérifié",
     "DECLINED": "Modification demandée",
     "INCOMPLETE": "Non terminé",
-    "EMPTY": "Etat non reconnu"
+    "EMPTY": "Document manquant"
   }
 }
 </i18n>
