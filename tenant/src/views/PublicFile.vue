@@ -17,6 +17,8 @@
       </section>
 
       <FileReinsurance
+        :dossierStatus="user.status"
+        :taxDocumentStatus="taxDocumentStatus()"
         :franceConnectTenantCount="franceConnectTenantCount()"
         :tenantCount="user.tenants.length"
       ></FileReinsurance>
@@ -30,7 +32,8 @@
               role="presentation"
             >
               <button
-                class="fr-tabs__tab fr-fi-checkbox-line fr-tabs__tab--icon-left"
+                class="fr-tabs__tab fr-tabs__tab--icon-right"
+                :class="{ 'fr-fi-icon-fc-right': tenant.franceConnect }"
                 :id="`tabpanel-${k}`"
                 :tabindex="tabIndex === k ? 0 : -1"
                 role="tab"
@@ -39,7 +42,6 @@
                 @click="tabIndex = k"
               >
                 {{ tenant | fullName }}
-                <span v-if="tenant.franceConnect" class="fc-icon"></span>
               </button>
             </li>
           </ul>
@@ -52,7 +54,7 @@
             role="tabpanel"
             tabindex="0"
           >
-            <div class="fr-prose">
+            <div>
               <h2
                 class="fr-h4"
                 v-if="tenant.typeGuarantor === 'NATURAL_PERSON'"
@@ -65,45 +67,81 @@
               >
                 {{ $t("personnal-file") }}
               </h2>
-              <div class="fr-grid-row file-item">
-                <span>{{ $t("identification") }}</span>
-              </div>
-              <div class="fr-grid-row file-item">
-                <span>{{ $t("residency") }}</span>
-              </div>
-              <div class="fr-grid-row file-item">
-                <span>{{ $t("professional") }}</span>
-              </div>
-              <div class="fr-grid-row file-item">
-                <span>{{ $t("financial") }}</span>
-              </div>
-              <div class="fr-grid-row file-item">
-                <span>{{ $t("tax") }}</span>
-              </div>
+              <ul class="without-padding">
+                <FileRowListItem
+                  :label="$t('identification')"
+                  :document="document(tenant, 'IDENTIFICATION')"
+                  :enableDownload="false"
+                />
+                <FileRowListItem
+                  :label="$t('residency')"
+                  :document="document(tenant, 'RESIDENCY')"
+                  :enableDownload="false"
+                />
+                <FileRowListItem
+                  :label="$t('professional')"
+                  :document="document(tenant, 'PROFESSIONAL')"
+                  :enableDownload="false"
+                />
+                <FileRowListItem
+                  v-for="(doc, k) in getDocs(tenant, 'FINANCIAL')"
+                  v-bind:key="doc.id"
+                  :label="$t('financial') + (k >= 1 ? ' ' + (k + 1) : '')"
+                  :document="doc"
+                  :enableDownload="false"
+                />
+                <FileRowListItem
+                  :label="$t('tax')"
+                  :document="document(tenant, 'TAX')"
+                  :enableDownload="false"
+                />
+              </ul>
               <div v-if="hasGuarantor(tenant)">
                 <h2 class="fr-h4">
                   {{ $t("guarant") }}
                 </h2>
                 <div v-if="tenant.guarantors">
                   <div v-for="g in tenant.guarantors" v-bind:key="g.id">
-                    <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
-                      <div class="fr-grid-row file-item">
-                        <span>{{ $t("identification-legal-person") }}</span>
-                      </div>
-                      <div class="fr-grid-row file-item">
-                        <span>{{ $t("identification") }}</span>
-                      </div>
-                    </div>
-                    <div v-if="g.typeGuarantor === 'ORGANISM'">
-                      <div class="fr-grid-row file-item">
-                        <span>{{ $t("organism") }}</span>
-                      </div>
-                    </div>
+                    <ul
+                      v-if="g.typeGuarantor === 'LEGAL_PERSON'"
+                      class="without-padding"
+                    >
+                      <FileRowListItem
+                        :label="$t('identification-legal-person')"
+                        :document="document(g, 'IDENTIFICATION_LEGAL_PERSON')"
+                        :enableDownload="false"
+                      />
+                      <FileRowListItem
+                        :label="$t('identificationn')"
+                        :document="document(g, 'IDENTIFICATION')"
+                        :enableDownload="false"
+                      />
+                    </ul>
+                    <ul
+                      v-if="g.typeGuarantor === 'ORGANISM'"
+                      class="without-padding"
+                    >
+                      <FileRowListItem
+                        :label="$t('organism')"
+                        :document="document(g, 'IDENTIFICATION')"
+                        :enableDownload="false"
+                      />
+                    </ul>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </section>
+      <section class="fr-mb-7w">
+        <div class="fr-mt-3w fr-text-mention--grey">
+          Le service fourni par DossierFacile ne saurait être assimilé à une
+          garantie apportée par DossierFacile sur les dossiers ayant fait
+          l’objet d’une labellisation. DossierFacile ne saurait être tenu
+          responsable ni être engagé directement ou indirectement dans le cadre
+          d'un litige entre un locataire et son bailleur ou tout autre
+          intermédiaire.
         </div>
       </section>
     </div>
@@ -115,15 +153,15 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 import { User } from "df-shared/src/models/User";
 import { FileUser } from "df-shared/src/models/FileUser";
 import { Vue, Component } from "vue-property-decorator";
-import DfButton from "df-shared/src/Button/Button.vue";
 import { ProfileService } from "../services/ProfileService";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import FileReinsurance from "../components/FileReinsurance.vue";
+import FileRowListItem from "../components/documents/FileRowListItem.vue";
 
 @Component({
   components: {
-    DfButton,
-    FileReinsurance
+    FileReinsurance,
+    FileRowListItem
   }
 })
 export default class File extends Vue {
@@ -190,15 +228,29 @@ export default class File extends Vue {
 
     return users;
   }
+  taxDocumentStatus() {
+    const taxStatuses = this.user?.tenants?.map(
+      tenant => this.document(tenant, "TAX")?.documentStatus
+    );
 
-  open(tenant: User, s: string) {
-    const doc = tenant.documents?.find(d => {
+    if (taxStatuses?.every(docStatus => docStatus === "VALIDATED")) {
+      return "ok";
+    } else if (
+      taxStatuses?.every(
+        docStatus => docStatus === "VALIDATED" || docStatus === "TO_PROCESS"
+      )
+    ) {
+      return "to_process";
+    }
+    return "nok";
+  }
+
+  document(u: User | Guarantor, s: string) {
+    return u.documents?.find(d => {
       return d.documentCategory === s;
     });
-    if (doc?.name) {
-      window.open(doc.name, "_blank");
-    }
   }
+
 
   hasGuarantor(tenant: User) {
     if (!tenant.guarantors || tenant.guarantors.length <= 0) {
@@ -237,10 +289,16 @@ export default class File extends Vue {
     }
     return;
   }
+  getDocs(tenant: User, docType: string) {
+    return tenant.documents?.filter((d: DfDocument) => {
+      return d.documentCategory === docType;
+    });
+  }
 }
 </script>
 
 <style scoped lang="scss">
+@import "../../../node_modules/@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css";
 .background {
   width: 100%;
   top: 0;
@@ -259,36 +317,27 @@ export default class File extends Vue {
   width: 100%;
   background-color: var(--bf100-g750);
 }
-
-.file-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--g200);
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  padding: 0.5rem;
+.without-padding {
+  padding: 0;
 }
 
 .fr-tabs {
   background-color: var(--background-default-grey);
-  button {
-    &:before {
-      width: 0;
-    }
-  }
 }
-.fc-icon {
-  background-image: url("../assets/images/icons/franceconnect-icon.png");
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  display: inline-block;
-  height: 21px;
-  width: 24px;
-  margin-left: 0.5rem;
+
+.fr-fi-icon-fc-right {
+  flex-direction: row-reverse;
+
   &:before {
     content: "";
+    background-color: transparent;
+    background-image: url("../assets/images/icons/franceconnect-icon.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 21px;
+    width: 24px;
+    margin-left: 0.5rem;
   }
 }
 </style>
@@ -305,7 +354,6 @@ export default class File extends Vue {
     "professional": "Professional",
     "financial": "Financial",
     "tax": "Tax",
-    "see": "See",
     "ALONE": "Seul",
     "COUPLE": "En couple",
     "GROUP": "En colocation",
@@ -325,7 +373,6 @@ export default class File extends Vue {
     "professional": "Justificatif de situation professionnelle",
     "financial": "Justificatif de ressources",
     "tax": "Avis d’imposition",
-    "see": "Voir",
     "ALONE": "Seul",
     "COUPLE": "En couple",
     "GROUP": "En colocation",

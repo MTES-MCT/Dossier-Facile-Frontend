@@ -46,21 +46,20 @@ export default class CardRow extends Vue {
     outline-offset: -2px;
   }
 }
-
 .fr-tag.to-process-menu-link {
-  background-color: #fffaf5;
-  color: #7d4e5b;
+  background-color: var(--purple-background);
+  color: var(--purple-text);
   &.active {
-    outline: 1px solid #7d4e5b;
+    outline: 1px solid var(--purple-text);
     outline-offset: -2px;
   }
 }
 
 .fr-tag.declined-menu-link {
-  background-color: #fdf9f7;
-  color: #e10600;
+  background-color: var(--warning-950-100);
+  color: var(--danger);
   &.active {
-    outline: 1px solid #e10600;
+    outline: 1px solid var(--danger);
     outline-offset: -2px;
   }
 }
