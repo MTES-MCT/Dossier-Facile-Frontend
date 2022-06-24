@@ -8,7 +8,7 @@
             :title="t('back-label')"
             class="fr-btn btn--white fr-btn--secondary"
             to="/"
-            >{{ t("back") }}</router-link
+            >{{ t('back') }}</router-link
           >
           <div class="title">{{ name }}</div>
         </div>
@@ -20,11 +20,11 @@
               </button>
             </template>
             <template v-slot:title>
-              {{ t("share-modal-title") }}
+              {{ t('share-modal-title') }}
             </template>
             <template v-slot:content>
               <p>
-                {{ t("share-modal-description") }}
+                {{ t('share-modal-description') }}
               </p>
               <div class="fr-grid-row fr-mb-3w">
                 <div class="align-self--center">
@@ -32,12 +32,12 @@
                 </div>
                 <div>
                   <button class="fr-btn fr-ml-5w" @click="copyToken">
-                    {{ t("copy-link") }}
+                    {{ t('copy-link') }}
                   </button>
                 </div>
               </div>
               <p>
-                {{ t("share-modal-detail") }}
+                {{ t('share-modal-detail') }}
               </p>
             </template>
           </VGouvFrModal>
@@ -46,21 +46,21 @@
             @click="editProperty()"
             class="fr-btn btn--white fr-btn--secondary fr-ml-1w"
           >
-            {{ t("modify-property") }}
+            {{ t('modify-property') }}
           </button>
           <button
             :title="t('delete-btn')"
             class="fr-btn btn--white fr-btn--secondary fr-ml-1w"
             @click="confirmDeleteProperty = true"
           >
-            {{ t("delete-property") }}
+            {{ t('delete-property') }}
           </button>
           <ConfirmModal
             v-if="confirmDeleteProperty"
             @valid="validDeleteFile()"
             @cancel="undoDeleteFile()"
           >
-            {{ t("will-delete-property") }}
+            {{ t('will-delete-property') }}
           </ConfirmModal>
         </div>
       </div>
@@ -83,7 +83,7 @@
       </NakedCard>
       <NakedCard class="fr-mt-3w">
         <h1 class="fr-h4">
-          {{ t("verified-applicants", { count: verifiedApplicantsCount }) }}
+          {{ t('verified-applicants', { count: verifiedApplicantsCount }) }}
         </h1>
         <div class="delete-btn-container">
           <button
@@ -91,14 +91,14 @@
             @click="confirmDeleteApplicants = true"
             :disabled="selectedApplicants.length <= 0"
           >
-            {{ t("delete-applicants") }}
+            {{ t('delete-applicants') }}
           </button>
           <ConfirmModal
             v-if="confirmDeleteApplicants"
             @valid="validDeleteApplicants()"
             @cancel="undoDeleteApplicants()"
           >
-            {{ t("will-delete-applicants") }}
+            {{ t('will-delete-applicants') }}
           </ConfirmModal>
         </div>
         <table>
@@ -106,7 +106,7 @@
             <tr>
               <th></th>
               <th @click="sortTable('date')" class="desktop">
-                {{ t("date") }}
+                {{ t('date') }}
                 <div
                   class="arrow"
                   v-if="'date' == sortColumn"
@@ -114,7 +114,7 @@
                 ></div>
               </th>
               <th @click="sortTable('tenantName')">
-                {{ t("tenant-name") }}
+                {{ t('tenant-name') }}
                 <div
                   class="arrow"
                   v-if="'tenantName' == sortColumn"
@@ -122,7 +122,7 @@
                 ></div>
               </th>
               <th @click="sortTable('tenantType')" class="desktop">
-                {{ t("tenant-type") }}
+                {{ t('tenant-type') }}
                 <div
                   class="arrow"
                   v-if="'tenantType' == sortColumn"
@@ -130,7 +130,7 @@
                 ></div>
               </th>
               <th @click="sortTable('tenantSalary')">
-                {{ t("tenant-salary") }}
+                {{ t('tenant-salary') }}
                 <div
                   class="arrow"
                   v-if="'tenantSalary' == sortColumn"
@@ -138,7 +138,7 @@
                 ></div>
               </th>
               <th @click="sortTable('guarantorSalary')" class="desktop">
-                {{ t("guarantor-salary") }}
+                {{ t('guarantor-salary') }}
                 <div
                   class="arrow"
                   v-if="'guarantorSalary' == sortColumn"
@@ -146,7 +146,7 @@
                 ></div>
               </th>
               <th @click="sortTable('rate')">
-                {{ t("rate") }}
+                {{ t('rate') }}
                 <div
                   class="arrow"
                   v-if="'rate' == sortColumn"
@@ -154,7 +154,7 @@
                 ></div>
               </th>
               <th @click="sortTable('status')">
-                {{ t("status") }}
+                {{ t('status') }}
                 <div
                   class="arrow"
                   v-if="'status' == sortColumn"
@@ -181,7 +181,7 @@
               </td>
               <td class="desktop" @click="setShowTenant(tenant, k)">
                 <div class="tenant-type" :class="getTenantClass(tenant)">
-                  {{ t(tenant.tenantType || "") }}
+                  {{ t(tenant.tenantType || '') }}
                 </div>
               </td>
               <td @click="setShowTenant(tenant, k)">
@@ -192,10 +192,8 @@
               </td>
               <td @click="setShowTenant(tenant, k)">
                 <div>
-                  <span class="rate" :class="getRateClass(tenant)"
-                    >{{ tenant.rate }} %</span
-                  >
-                  {{ t("income") }}
+                  <span class="rate" :class="getRateClass(tenant)">{{ tenant.rate }} %</span>
+                  {{ t('income') }}
                 </div>
               </td>
               <td @click="setShowTenant(tenant, k)">
@@ -203,14 +201,12 @@
                   <span v-if="tenant.status === 'DECLINED'" class="material-icons md-18"
                     >report_gmailerrorred</span
                   >
-                  <span
-                    v-else-if="tenant.status === 'VALIDATED'"
-                    class="material-icons md-18"
+                  <span v-else-if="tenant.status === 'VALIDATED'" class="material-icons md-18"
                     >verified</span
                   >
                   <span v-else class="material-icons md-18">schedule</span>
                   <span class="fr-ml-1v">
-                    {{ t(tenant.status || "") }}
+                    {{ t(tenant.status || '') }}
                   </span>
                 </div>
               </td>
@@ -218,12 +214,9 @@
             <tr v-if="tenantIdToShow === k">
               <td colspan="8" class="additional-td">
                 <div class="tenant-token-link fr-mb-3w fr-mt-1w">
-                  <a
-                    class="fr-btn"
-                    :href="`${TENANT_URL}/file/${tenant?.token}`"
-                    target="_blank"
-                    >{{ t("download-full-file") }}</a
-                  >
+                  <a class="fr-btn" :href="`${TENANT_URL}/file/${tenant?.token}`" target="_blank">{{
+                    t('download-full-file')
+                  }}</a>
                 </div>
               </td>
             </tr>
@@ -234,20 +227,20 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed, ref, onMounted } from "vue";
-import { Composer, useI18n } from "vue-i18n";
-import { useRoute, useRouter } from "vue-router";
-import NakedCard from "df-shared-next/src/components/NakedCard.vue";
-import ConfirmModal from "df-shared-next/src/components/ConfirmModal.vue";
-import VGouvFrModal from "df-shared-next/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
-import { useToast } from "vue-toastification";
-import { format } from "date-fns";
-import { enUS, fr } from "date-fns/locale";
-import PropertyIcon from "./PropertyIcon.vue";
-import i18n from "../../i18n";
-import Applicant from "./Applicant";
-import UtilsService from "../../services/UtilsService";
-import useOwnerStore from "../../store/owner-store";
+import { computed, ref, onMounted } from 'vue';
+import { Composer, useI18n } from 'vue-i18n';
+import { useRoute, useRouter } from 'vue-router';
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
+import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue';
+import VGouvFrModal from 'df-shared-next/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue';
+import { useToast } from 'vue-toastification';
+import { format } from 'date-fns';
+import { enUS, fr } from 'date-fns/locale';
+import PropertyIcon from './PropertyIcon.vue';
+import i18n from '../../i18n';
+import Applicant from './Applicant';
+import UtilsService from '../../services/UtilsService';
+import useOwnerStore from '../../store/owner-store';
 
 const { t } = useI18n();
 const confirmDeleteProperty = ref(false);
@@ -258,7 +251,7 @@ const router = useRouter();
 const store = useOwnerStore();
 const toast = useToast();
 
-const sortColumn = ref("");
+const sortColumn = ref('');
 const ascending = ref(false);
 const tenantIdToShow = ref(-1);
 const selectedApplicants = ref([]);
@@ -268,15 +261,15 @@ if (route.params.id) {
   id.value = Number(route.params.id);
   store.updatePropertyToConsult(id.value);
   if (Object.keys(store.getPropertyToConsult).length <= 0) {
-    router.push({ name: "Dashboard" });
+    router.push({ name: 'Dashboard' });
   }
 } else {
-  router.push({ name: "Dashboard" });
+  router.push({ name: 'Dashboard' });
 }
 
 const TENANT_URL = `https://${import.meta.env.VITE_TENANT_URL}`;
 const token = computed(
-  () => `${TENANT_URL}/inscription-locataire/${store.getPropertyToConsult?.token}`
+  () => `${TENANT_URL}/inscription-locataire/${store.getPropertyToConsult?.token}`,
 );
 const name = computed(() => store.getPropertyToConsult?.name);
 const p = computed(() => store.getPropertyToConsult);
@@ -302,26 +295,26 @@ onMounted(() => {
 });
 
 const titleKey = computed(() => {
-  if (propertyType.value === "HOUSE") {
-    if (propertyFurnished.value === "FURNISHED") {
-      return "house-furnished";
+  if (propertyType.value === 'HOUSE') {
+    if (propertyFurnished.value === 'FURNISHED') {
+      return 'house-furnished';
     }
-    return "house-unfurnished";
+    return 'house-unfurnished';
   }
-  if (propertyType.value === "APARTMENT") {
-    if (propertyFurnished.value) {
-      return "apartment-furnished";
+  if (propertyType.value === 'APARTMENT') {
+    if (propertyFurnished.value === 'FURNISHED') {
+      return 'apartment-furnished';
     }
-    return "apartment-unfurnished";
+    return 'apartment-unfurnished';
   }
   if (propertyFurnished.value) {
-    return "other-furnished";
+    return 'other-furnished';
   }
-  return "other-unfurnished";
+  return 'other-unfurnished';
 });
 
 function editProperty() {
-  router.push({ name: "PropertyName", params: { id: id.value } });
+  router.push({ name: 'PropertyName', params: { id: id.value } });
 }
 
 function sortTable(col: string) {
@@ -335,7 +328,7 @@ function sortTable(col: string) {
 
 function validDeleteFile() {
   store.deleteProperty(id.value).then(() => {
-    router.push({ name: "Dashboard" });
+    router.push({ name: 'Dashboard' });
   });
   confirmDeleteProperty.value = false;
 }
@@ -356,23 +349,23 @@ function undoDeleteApplicants() {
 
 function copyToken() {
   navigator.clipboard.writeText(token.value);
-  toast.success(t("link-copied").toString(), {
+  toast.success(t('link-copied').toString(), {
     timeout: 7000,
   });
 }
 
 const verifiedApplicantsCount = computed(
-  () => tenants.value.filter((u: Applicant) => u.status === "VALIDATED").length
+  () => tenants.value.filter((u: Applicant) => u.status === 'VALIDATED').length,
 );
 
 function formatDate(date: Date) {
-  return format(date, "dd MMMM yyyy", {
-    locale: ((i18n.global as unknown) as Composer).locale.value === "fr" ? fr : enUS,
+  return format(date, 'dd MMMM yyyy', {
+    locale: ((i18n.global as unknown) as Composer).locale.value === 'fr' ? fr : enUS,
   });
 }
 
 function setShowTenant(applicant: Applicant, tenantId: number) {
-  if (applicant.status !== "VALIDATED") {
+  if (applicant.status !== 'VALIDATED') {
     return;
   }
   if (tenantIdToShow.value === tenantId) {
@@ -384,22 +377,22 @@ function setShowTenant(applicant: Applicant, tenantId: number) {
 
 function getTenantClass(applicant: Applicant) {
   switch (applicant.status) {
-    case "VALIDATED":
-      return "validated";
-    case "DECLINED":
-      return "declined";
-    case "TO_PROCESS":
-      return "to-process";
+    case 'VALIDATED':
+      return 'validated';
+    case 'DECLINED':
+      return 'declined';
+    case 'TO_PROCESS':
+      return 'to-process';
     default:
-      return "";
+      return '';
   }
 }
 
 function getRateClass(applicant: Applicant) {
   if ((applicant?.rate || 100) < 30) {
-    return "good";
+    return 'good';
   }
-  return "";
+  return '';
 }
 </script>
 
@@ -412,7 +405,7 @@ function getRateClass(applicant: Applicant) {
   background-size: cover !important;
   background-position: 50% 40% !important;
   background-image: linear-gradient(0deg, rgba(22, 22, 22, 0.7), rgba(22, 22, 22, 0.7)),
-    url("../../assets/salon.webp");
+    url('../../assets/salon.webp');
   background-color: #314467;
   z-index: 0;
 }
@@ -530,10 +523,10 @@ td {
 }
 
 .arrow_down {
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAAaCAYAAABPY4eKAAAAAXNSR0IArs4c6QAAAvlJREFUSA29Vk1PGlEUHQaiiewslpUJiyYs2yb9AyRuJGm7c0VJoFXSX9A0sSZN04ULF12YEBQDhMCuSZOm1FhTiLY2Rky0QPlQBLRUsICoIN/0PCsGyox26NC3eTNn3r3n3TvnvvsE1PkwGo3yUqkkEQqFgw2Mz7lWqwng7ztN06mxsTEv8U0Aam5u7r5EInkplUol/f391wAJCc7nEAgE9Uwmkzo4OPiJMa1Wq6cFs7Ozt0H6RqlUDmJXfPIx+qrX69Ti4mIyHA5r6Wq1egND+j+IyW6QAUoul18XiUTDNHaSyGazKcZtdgk8wqhUKh9o/OMvsVgsfHJy0iWqVrcQNRUMBnd6enqc9MjISAmRP3e73T9al3XnbWNjIw2+KY1Gc3imsNHR0YV4PP5+d3e32h3K316TySQFoX2WyWR2glzIO5fLTSD6IElLNwbqnFpbWyO/96lCoai0cZjN5kfYQAYi5H34fL6cxWIZbya9iJyAhULBHAqFVlMpfsV/fHxMeb3er+Vy+VUzeduzwWC45XA4dlD/vEXvdDrj8DvURsYEWK3WF4FA4JQP9mg0WrHZbEYmnpa0NxYgPVObm5teiLABdTQT8a6vrwdRWhOcHMzMzCiXlpb2/yV6qDttMpkeshEzRk4Wo/bfoe4X9vb2amzGl+HoXNT29vZqsVi0sK1jJScG+Xx+HGkL4Tew2TPi5zUdQQt9otPpuBk3e0TaHmMDh1zS7/f780S0zX6Yni+NnBj09fUZUfvudDrNZN+GkQbl8Xi8RLRtHzsB9Hr9nfn5+SjSeWUCXC7XPq5kw53wsNogjZNohYXL2EljstvtrAL70/mVaW8Y4OidRO1/gwgbUMvcqGmcDc9aPvD1gnTeQ+0nmaInokRj0nHh+uvIiVOtVvt2a2vLv7Ky0tL3cRTXIcpPAwMDpq6R4/JXE4vFQ5FI5CN+QTaRSFCYc8vLy1l0rge4ARe5kJ/d27kYkLXoy2Jo4C7K8CZOsEBvb+9rlUp1xNXPL7v3IDwxvPD6AAAAAElFTkSuQmCC");
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAAaCAYAAABPY4eKAAAAAXNSR0IArs4c6QAAAvlJREFUSA29Vk1PGlEUHQaiiewslpUJiyYs2yb9AyRuJGm7c0VJoFXSX9A0sSZN04ULF12YEBQDhMCuSZOm1FhTiLY2Rky0QPlQBLRUsICoIN/0PCsGyox26NC3eTNn3r3n3TvnvvsE1PkwGo3yUqkkEQqFgw2Mz7lWqwng7ztN06mxsTEv8U0Aam5u7r5EInkplUol/f391wAJCc7nEAgE9Uwmkzo4OPiJMa1Wq6cFs7Ozt0H6RqlUDmJXfPIx+qrX69Ti4mIyHA5r6Wq1egND+j+IyW6QAUoul18XiUTDNHaSyGazKcZtdgk8wqhUKh9o/OMvsVgsfHJy0iWqVrcQNRUMBnd6enqc9MjISAmRP3e73T9al3XnbWNjIw2+KY1Gc3imsNHR0YV4PP5+d3e32h3K316TySQFoX2WyWR2glzIO5fLTSD6IElLNwbqnFpbWyO/96lCoai0cZjN5kfYQAYi5H34fL6cxWIZbya9iJyAhULBHAqFVlMpfsV/fHxMeb3er+Vy+VUzeduzwWC45XA4dlD/vEXvdDrj8DvURsYEWK3WF4FA4JQP9mg0WrHZbEYmnpa0NxYgPVObm5teiLABdTQT8a6vrwdRWhOcHMzMzCiXlpb2/yV6qDttMpkeshEzRk4Wo/bfoe4X9vb2amzGl+HoXNT29vZqsVi0sK1jJScG+Xx+HGkL4Tew2TPi5zUdQQt9otPpuBk3e0TaHmMDh1zS7/f780S0zX6Yni+NnBj09fUZUfvudDrNZN+GkQbl8Xi8RLRtHzsB9Hr9nfn5+SjSeWUCXC7XPq5kw53wsNogjZNohYXL2EljstvtrAL70/mVaW8Y4OidRO1/gwgbUMvcqGmcDc9aPvD1gnTeQ+0nmaInokRj0nHh+uvIiVOtVvt2a2vLv7Ky0tL3cRTXIcpPAwMDpq6R4/JXE4vFQ5FI5CN+QTaRSFCYc8vLy1l0rge4ARe5kJ/d27kYkLXoy2Jo4C7K8CZOsEBvb+9rlUp1xNXPL7v3IDwxvPD6AAAAAElFTkSuQmCC');
 }
 .arrow_up {
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAaCAYAAACgoey0AAAAAXNSR0IArs4c6QAAAwpJREFUSA21Vt1PUmEYP4dvkQ8JFMwtBRocWAkDbiqXrUWXzU1rrTt0bdVqXbb1tbW16C9IBUSmm27cODdneoXjputa6069qwuW6IIBIdLvdaF4OAcOiGeDc87zPs/vd57P96WpFq7p6enbGo1mjKZpeTabjU1MTCRagGnOZHFxcXxtbe1XKpUq7+zslJeXl//Mz8+Hy+Uy3RxSE9qTk5M3otFooVQqgef4Wl9f343FYoEmoISrxuNxFX5f9vb2jhn/PxUKhfLS0tIPfFifUESRUMV8Pv/M6XReRm5rTGQyGeXxeGxYe1ezeBpBOBx2rKysbO7v79d4Wy3Y2Nj4GQqFbgnhaugxwiuGJx99Pp9FLBbXxYTXvTqd7v3MzIy6riIWGxJnMpl7AwMD14xGYyMsSq1WUyQdUqn0eSPlusQIsbGrq+vl4OCgvhFQZd1utyv1en0gEolcqsi47nWJlUrlG5fLZVcoFFy2nDKSDpIWlUoVTCQSEk4lCHmJMZ2GTCbTiMVikfIZ88l7enoos9l8dXt7+z6fDicxSJUokqDX6xXcl2wCROoc0vQCWL3sNfLOSdzR0fHY4XC4tVotl40gmVwup9xuN4OQv+UyqCFGH9rg7SOGYVRcBs3IEG4J0nVnamrqOtvuBDGGgQg9+wHFcVEi4a0LNkbdd6TrPKo8ODc311mteIIYjT/a398/jK+s1jnVM0kXoufCFvq0GuiIGEVgQIhfoygM1QrteEa9dAL7ITiYCt4RMabOK5AyKKzKWtvupLcRciu8D5J0EuDDPyT/Snd39yh6VtY2NhYQSR9G79Ds7OxdskRjEyAufvb7/cPoO5Z6e1+xtVKrq6vfcFzyi/A3ZrPZ3GdNSlwgo5ekE4X2RIQGf2C1WlufFE0GBeGWYQ8YERWLxQtnUVB830MKLZfL9RHir8lkssCn2G751tZWEWe03zTKm15YWPiEiXXTYDB0Ig/t7yd8PRws4EicwWHxO4jHD8/C5HiTTqd1BwcHFozKU89origB+y/kmzgYpgOBQP4fGmUiZmJ+WNgAAAAASUVORK5CYII=");
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAaCAYAAACgoey0AAAAAXNSR0IArs4c6QAAAwpJREFUSA21Vt1PUmEYP4dvkQ8JFMwtBRocWAkDbiqXrUWXzU1rrTt0bdVqXbb1tbW16C9IBUSmm27cODdneoXjputa6069qwuW6IIBIdLvdaF4OAcOiGeDc87zPs/vd57P96WpFq7p6enbGo1mjKZpeTabjU1MTCRagGnOZHFxcXxtbe1XKpUq7+zslJeXl//Mz8+Hy+Uy3RxSE9qTk5M3otFooVQqgef4Wl9f343FYoEmoISrxuNxFX5f9vb2jhn/PxUKhfLS0tIPfFifUESRUMV8Pv/M6XReRm5rTGQyGeXxeGxYe1ezeBpBOBx2rKysbO7v79d4Wy3Y2Nj4GQqFbgnhaugxwiuGJx99Pp9FLBbXxYTXvTqd7v3MzIy6riIWGxJnMpl7AwMD14xGYyMsSq1WUyQdUqn0eSPlusQIsbGrq+vl4OCgvhFQZd1utyv1en0gEolcqsi47nWJlUrlG5fLZVcoFFy2nDKSDpIWlUoVTCQSEk4lCHmJMZ2GTCbTiMVikfIZ88l7enoos9l8dXt7+z6fDicxSJUokqDX6xXcl2wCROoc0vQCWL3sNfLOSdzR0fHY4XC4tVotl40gmVwup9xuN4OQv+UyqCFGH9rg7SOGYVRcBs3IEG4J0nVnamrqOtvuBDGGgQg9+wHFcVEi4a0LNkbdd6TrPKo8ODc311mteIIYjT/a398/jK+s1jnVM0kXoufCFvq0GuiIGEVgQIhfoygM1QrteEa9dAL7ITiYCt4RMabOK5AyKKzKWtvupLcRciu8D5J0EuDDPyT/Snd39yh6VtY2NhYQSR9G79Ds7OxdskRjEyAufvb7/cPoO5Z6e1+xtVKrq6vfcFzyi/A3ZrPZ3GdNSlwgo5ekE4X2RIQGf2C1WlufFE0GBeGWYQ8YERWLxQtnUVB830MKLZfL9RHir8lkssCn2G751tZWEWe03zTKm15YWPiEiXXTYDB0Ig/t7yd8PRws4EicwWHxO4jHD8/C5HiTTqd1BwcHFozKU89origB+y/kmzgYpgOBQP4fGmUiZmJ+WNgAAAAASUVORK5CYII=');
 }
 .arrow {
   float: right;
