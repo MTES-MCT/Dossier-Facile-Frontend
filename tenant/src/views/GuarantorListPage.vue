@@ -18,7 +18,7 @@
         </template>
       </v-gouv-fr-modal>
       <div v-for="g in user.guarantors" :key="g.id">
-        <CardRow @edit="editGuarantor(g)" @remove="removeGuarantor(g)">
+        <CardRow @edit="editGuarantor(g)" @remove="isRemoveGuarantor = true">
           <template v-slot:tag>
             <div class="text-bold">{{ getGuarantorName(g) }}</div>
           </template>
@@ -29,6 +29,13 @@
             ></ColoredTag>
           </template>
         </CardRow>
+        <ConfirmModal
+          v-if="isRemoveGuarantor"
+          @valid="removeGuarantor(g)"
+          @cancel="isRemoveGuarantor = false"
+        >
+          <span>{{ $t("remove-guarantor") }}</span>
+        </ConfirmModal>
       </div>
       <div v-if="hasOneNaturalGuarantor()">
         <button @click="addNaturalGuarantor()" class="add-guarantor-btn">
@@ -54,6 +61,7 @@ import ProfileContainer from "../components/ProfileContainer.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { DfDocument } from "df-shared/src/models/DfDocument";
+import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 
 @Component({
   components: {
@@ -63,7 +71,8 @@ import { DfDocument } from "df-shared/src/models/DfDocument";
     ProfileContainer,
     CardRow,
     ColoredTag,
-    VGouvFrModal
+    VGouvFrModal,
+    ConfirmModal
   },
   computed: {
     ...mapState({
@@ -77,6 +86,7 @@ import { DfDocument } from "df-shared/src/models/DfDocument";
 export default class GuarantorListPage extends Vue {
   user!: User;
   guarantors!: Guarantor[];
+  isRemoveGuarantor = false;
 
   getGuarantorName(g: Guarantor) {
     if (g.firstName || g.lastName) {
@@ -265,7 +275,8 @@ h2 {
   "TO_PROCESS":"To process",
   "VALIDATED":"Validated",
   "DECLINED":"Declined",
-  "INCOMPLETE":"Incomplete"
+  "INCOMPLETE":"Incomplete",
+  "remove-guarantor": "Are you sure you want to delete this guarantor?"
 },
 "fr": {
   "more-information": "En difficulté pour répondre à la question ?",
@@ -276,7 +287,8 @@ h2 {
   "TO_PROCESS":"En cours de traitement",
   "VALIDATED":"Vérifié",
   "DECLINED":"Modification demandée",
-  "INCOMPLETE":"Non terminé"
+  "INCOMPLETE":"Non terminé",
+  "remove-guarantor": "Êtes-vous sûr·e de vouloir supprimer ce garant ?"
   }
 }
 </i18n>

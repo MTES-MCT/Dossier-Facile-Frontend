@@ -283,7 +283,6 @@ import { User } from "df-shared/src/models/User";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import DfButton from "df-shared/src/Button/Button.vue";
 import ColoredTag from "df-shared/src/components/ColoredTag.vue";
-import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { AnalyticsService } from "../services/AnalyticsService";
 import { extend } from "vee-validate";
@@ -308,7 +307,6 @@ extend("required", {
     ValidationObserver,
     DfButton,
     ColoredTag,
-    ConfirmModal,
     DeleteAccount
   },
   computed: {
