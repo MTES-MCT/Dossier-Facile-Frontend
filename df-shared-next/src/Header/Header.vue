@@ -177,7 +177,7 @@ import VGouvFrButton from "../Button/v-gouv-fr-button/VGouvFrButton.vue";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
-const MAIN_URL = `//${import.meta.env.VUE_APP_MAIN_URL}`;
+const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 
 withDefaults(
   defineProps<{
