@@ -21,6 +21,7 @@
                 <DfButton
                   :disabled="user.status != 'VALIDATED'"
                   v-else
+                  :title="$t('download-disabled-title')"
                   primary="true"
                   @on-click="download"
                   >{{ $t("download-all") }}</DfButton
@@ -149,6 +150,7 @@
           <DfButton
             :disabled="user.status != 'VALIDATED'"
             v-else
+            :title="$t('download-disabled-title')"
             primary="true"
             @on-click="download"
             >{{ $t("download-all") }}</DfButton
@@ -426,6 +428,9 @@ export default class File extends Vue {
     margin-left: 0.5rem;
   }
 }
+
+
+
 </style>
 
 <i18n>
@@ -450,7 +455,8 @@ export default class File extends Vue {
     "organism": "Organism",
     "identification-legal-person": "Legal person identification",
     "and": " and ",
-    "download-failed": "Download failed. Try again in few minutes."
+    "download-failed": "Download failed. Try again in few minutes.",
+    "download-disabled-title": "The pdf file could be downloaded after files verification by operators."
   },
   "fr": {
     "title": "Dossier locataire de {0}",
@@ -472,7 +478,8 @@ export default class File extends Vue {
     "organism": "Certificat de l'organisme",
     "identification-legal-person": "Identification de la personne morale",
     "and": " et ",
-    "download-failed": "Echec du téléchargement. Ressayez dans quelques minutes."
+    "download-failed": "Echec du téléchargement. Ressayez dans quelques minutes.",
+    "download-disabled-title": "Le dossier pourra être téléchargé lorsque celui-ci aura été entièrement vérifié par DossierFacile."
   }
 }
 </i18n>
