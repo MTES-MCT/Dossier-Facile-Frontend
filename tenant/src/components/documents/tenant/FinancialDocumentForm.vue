@@ -135,6 +135,14 @@
               <div class="fr-mb-3w">
                 {{ financialDocument.documentType.explanationText }}
               </div>
+              <MonFranceConnect
+                v-if="
+                  ['social-service', 'pension', 'rent'].includes(
+                    financialDocument.documentType.key
+                  )
+                "
+                class="fr-my-4w"
+              ></MonFranceConnect>
               <AllDeclinedMessages
                 class="fr-mb-3w"
                 :documentDeniedReasons="documentDeniedReasons"
@@ -300,6 +308,7 @@ import ProfileFooter from "../../footer/ProfileFooter.vue";
 import { cloneDeep } from "lodash";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
+import MonFranceConnect from "../share/MonFranceConnect.vue";
 
 extend("regex", {
   ...regex,
@@ -327,7 +336,8 @@ extend("required", {
     DocumentHelp,
     VGouvFrModal,
     ProfileFooter,
-    NakedCard
+    NakedCard,
+    MonFranceConnect
   },
   computed: {
     ...mapGetters({
