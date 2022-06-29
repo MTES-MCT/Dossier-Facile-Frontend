@@ -345,6 +345,13 @@
             name="emjysoft - gestion locative"
             width="162px"
           />
+          <LogoPartnerComponent
+            :image="require('../assets/logos/timci.webp')"
+            height="60px"
+            href="https://www.timci.com"
+            name="Timci - gestion de biens"
+            width="189px"
+          />
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
