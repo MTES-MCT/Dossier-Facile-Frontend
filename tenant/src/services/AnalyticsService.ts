@@ -153,6 +153,9 @@ export const AnalyticsService = {
   openDGFIP() {
     this.sendEvent("open-dgfip", { event_category: "funnel" });
   },
+  openSimulationCAF() {
+    this.sendEvent("open-simulation_caf", { event_category: "funnel" });
+  },
 
   getDoctypeByNumber(docType: number) {
     switch (docType) {
@@ -170,6 +173,4 @@ export const AnalyticsService = {
         return "";
     }
   }
-
 };
-
