@@ -106,7 +106,7 @@
             <img
               alt="logo visale"
               class="logo-visale"
-              src="../assets/visale.png"
+              src="../assets/visale.svg"
             />
           </div>
           <p>{{ $t("visale-text") }}</p>
@@ -302,8 +302,8 @@ export default class GuarantorDocuments extends Vue {
 }
 
 .logo-visale {
-  width: 134px;
-  height: 44px;
+  width: 138px;
+  height: 45px;
   margin-bottom: 1rem;
 }
 
