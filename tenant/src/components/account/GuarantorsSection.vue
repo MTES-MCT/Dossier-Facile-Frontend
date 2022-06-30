@@ -161,7 +161,7 @@
                   <img
                     alt="logo visale"
                     class="logo-visale"
-                    src="../../assets/visale.png"
+                    src="../../assets/visale.svg"
                   />
                 </div>
               </div>
@@ -346,8 +346,8 @@ hr {
 }
 
 .logo-visale {
-  width: 134px;
-  height: 44px;
+  width: 138px;
+  height: 45px;
   margin-bottom: 1rem;
 }
 
