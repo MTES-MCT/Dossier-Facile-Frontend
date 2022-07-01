@@ -18,8 +18,7 @@ const routes = [
     component: Dashboard,
     beforeEnter: async (_to: any, _from: any, next: any) => {
       const store = useOwnerStore();
-      if (store.isLoggedIn
-        && (!store.getUser?.firstName || !store.getUser?.lastName)) {
+      if (store.isLoggedIn && (!store.getUser?.firstName || !store.getUser?.lastName)) {
         next({ name: 'AccountName' });
       }
       next();
@@ -50,8 +49,7 @@ const routes = [
     name: 'ForgottenPassword',
     meta: {
       title: 'Mot de passe oublié - DossierFacile',
-      description:
-        'Accédez à la procédure de mot de passe oublié pour votre compte DossierFacile',
+      description: 'Accédez à la procédure de mot de passe oublié pour votre compte DossierFacile',
       hideForAuth: true,
     },
     component: () => import('../components/account/ForgottenPasswordPage.vue'),
@@ -86,6 +84,17 @@ const routes = [
     component: () => import('../components/property/ConsultProperty.vue'),
   },
   {
+    path: '/candidater/:id',
+    name: 'ConnectProperty',
+    meta: {
+      title: 'Candidater - DossierFacile',
+      requiresAuth: false,
+      anonymous: true,
+      hasFooter: true,
+    },
+    component: () => import('../components/property/ConnectProperty.vue'),
+  },
+  {
     path: '/nom-propriete/:id?',
     name: 'PropertyName',
     meta: {
@@ -111,7 +120,7 @@ const routes = [
     path: '/adresse-propriete/:id?',
     name: 'PropertyAddress',
     meta: {
-      title: 'Édition de l\'adresse - DossierFacile',
+      title: "Édition de l'adresse - DossierFacile",
       requiresAuth: true,
       hasFooter: false,
       position: 2,
@@ -122,7 +131,7 @@ const routes = [
     path: '/amenagement-propriete/:id?',
     name: 'PropertyFurniture',
     meta: {
-      title: 'Édition de l\'aménagement - DossierFacile',
+      title: "Édition de l'aménagement - DossierFacile",
       requiresAuth: true,
       hasFooter: false,
       position: 3,
@@ -169,7 +178,7 @@ const router = VueRouter.createRouter({
 });
 
 function updateMetaData(to: VueRouter.RouteLocationNormalized) {
-  document.title = to.meta?.title as string || '';
+  document.title = (to.meta?.title as string) || '';
   if (to.meta?.description) {
     const tag = document.querySelector('meta[name="description"]');
     tag?.setAttribute('content', to.meta.description as string);
@@ -193,6 +202,12 @@ router.beforeEach(async (to, _, next) => {
   const { cookies } = useCookies();
   const lang = cookies.get('lang') === 'en' ? 'en' : 'fr';
   store.setLang(lang);
+
+  if (to.matched.some((record) => record.meta.anonymous)) {
+    updateMetaData(to);
+    next();
+    return;
+  }
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (keycloak.authenticated) {
