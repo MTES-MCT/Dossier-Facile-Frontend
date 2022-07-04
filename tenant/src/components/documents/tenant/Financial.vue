@@ -52,6 +52,7 @@
           {{ $t("add-income") }}
         </button>
       </div>
+      <SimulationCaf class="fr-mt-4w" />
       <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
     </div>
   </div>
@@ -80,6 +81,7 @@ import CardRow from "df-shared/src/components/CardRow.vue";
 import FinancialDocumentForm from "./FinancialDocumentForm.vue";
 import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
+import SimulationCaf from "../share/SimulationCaf.vue";
 
 @Component({
   components: {
@@ -97,7 +99,8 @@ import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
     ProfileFooter,
     NakedCard,
     CardRow,
-    FinancialDocumentForm
+    FinancialDocumentForm,
+    SimulationCaf
   },
   computed: {
     ...mapGetters({

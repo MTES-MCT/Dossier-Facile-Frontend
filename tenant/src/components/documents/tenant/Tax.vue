@@ -95,12 +95,6 @@
           </div>
         </form>
       </NakedCard>
-      <div
-        v-if="acceptVerification && taxDocument.key === 'my-name'"
-        class="fr-grid-row blue-franceconnect fr-mt-3w fr-p-0"
-      >
-        <MonFranceConnect></MonFranceConnect>
-      </div>
       <NakedCard
         class="fr-p-md-5w fr-mt-3w"
         v-if="
@@ -135,6 +129,7 @@
               >
             </div>
           </div>
+          <MonFranceConnect class="fr-mt-2w"></MonFranceConnect>
         </div>
         <AllDeclinedMessages
           class="fr-mb-3w"

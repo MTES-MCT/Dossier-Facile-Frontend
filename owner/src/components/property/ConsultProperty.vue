@@ -307,7 +307,7 @@ const titleKey = computed(() => {
     }
     return 'apartment-unfurnished';
   }
-  if (propertyFurnished.value) {
+  if (propertyFurnished.value === 'FURNISHED') {
     return 'other-furnished';
   }
   return 'other-unfurnished';
