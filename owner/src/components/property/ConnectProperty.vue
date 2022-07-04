@@ -49,7 +49,7 @@
               </div>
               <div class="mt-auto align-end">
                 <DfButton type="submit" :title="t('create-account')" :primary="true">
-                  {{ t('create-account') }}
+                  {{ t('connect') }}
                 </DfButton>
               </div>
             </Form>
@@ -329,7 +329,8 @@ tr {
     "apply-existing-account": "Apply using my DossierFacile account.",
     "apply-new-account": "Apply by creating a new DossierFacile account.",
     "create-account": "Create a DossierFacile",
-    "authorize": "J'accepte que {0}, propriétaire situé au {1} ait accès aux informations de mon dossier et de ceux de mon(ma) conjoint·e ou de mon(mes) colocataire(s) le cas échéant. Conformément au RGPD, je peux révoquer cette autorisation à tout moment."
+    "authorize": "J'accepte que {0}, propriétaire situé au {1} ait accès aux informations de mon dossier et de ceux de mon(ma) conjoint·e ou de mon(mes) colocataire(s) le cas échéant. Conformément au RGPD, je peux révoquer cette autorisation à tout moment.",
+    "connect": "Connect"
   },
   "fr": {
     "title": "Consultation",
@@ -372,7 +373,8 @@ tr {
     "apply-new-text-1": "Si vous n'avez pas de compte, vous pouvez en créer un et revenir ultérieurement sur cette page.",
     "apply-new-text-2": "Notre dossier est facile à remplir (en moins de 3 minutes c'est promis) et en plus il est conforme à la loi et réutilisable pour toutes vos autres visites !",
     "create-account": "Créer un DossierFacile",
-    "authorize": "J'accepte que {0}, propriétaire situé au {1} ait accès aux informations de mon dossier et de ceux de mon(ma) conjoint·e ou de mon(mes) colocataire(s) le cas échéant. Conformément au RGPD, je peux révoquer cette autorisation à tout moment."
+    "authorize": "J'accepte que {0}, propriétaire situé au {1} ait accès aux informations de mon dossier et de ceux de mon(ma) conjoint·e ou de mon(mes) colocataire(s) le cas échéant. Conformément au RGPD, je peux révoquer cette autorisation à tout moment.",
+    "connect": "Se connecter"
   }
 }
 </i18n>
