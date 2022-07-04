@@ -40,7 +40,9 @@
                   rules="isTrue"
                   :value="true"
                 />
-                <label for="authorize"><div v-html="t('authorize')"></div></label>
+                <label for="authorize"
+                  ><div v-html="t('authorize', [p.ownerName, p.address])"></div
+                ></label>
                 <ErrorMessage class="fr-error-text" name="authorize" v-slot="{ message }">
                   <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
                 </ErrorMessage>
