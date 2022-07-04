@@ -79,7 +79,7 @@ import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
 import { useToast } from 'vue-toastification';
-import { Field, ErrorMessage } from 'vee-validate';
+import { Form, Field, ErrorMessage } from 'vee-validate';
 import DfButton from 'df-shared-next/src/Button/Button.vue';
 import PropertyIcon from './PropertyIcon.vue';
 import useOwnerStore from '../../store/owner-store';
@@ -127,6 +127,10 @@ const titleKey = computed(() => {
   }
   return 'other-unfurnished';
 });
+
+function onSubmit() {
+  // TODO
+}
 </script>
 
 <style scoped lang="scss">
