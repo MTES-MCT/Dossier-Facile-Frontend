@@ -56,7 +56,7 @@
           </NakedCard>
         </div>
         <div class="fr-col-12 fr-col-md-5">
-          <NakedCard class="fr-p-5w h-100">
+          <NakedCard class="fr-p-5w h-100 fr-grid-col">
             <h2 class="fr-h4">{{ t('apply-new-account') }}</h2>
             <p>
               {{ t('apply-new-text-1') }}
@@ -64,7 +64,7 @@
             <p>
               {{ t('apply-new-text-2') }}
             </p>
-            <div class="align-end">
+            <div class="align-end mt-auto">
               <a :href="TENANT_URL" class="fr-btn fr-mt-3w">{{ t('create-account') }}</a>
             </div>
           </NakedCard>
