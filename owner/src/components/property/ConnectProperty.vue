@@ -83,6 +83,7 @@ import { Form, Field, ErrorMessage } from 'vee-validate';
 import DfButton from 'df-shared-next/src/Button/Button.vue';
 import PropertyIcon from './PropertyIcon.vue';
 import useOwnerStore from '../../store/owner-store';
+import keycloakTenant from '../../plugin/KeycloakTenant';
 
 const { t } = useI18n();
 const route = useRoute();
@@ -104,7 +105,8 @@ if (route.params.id) {
   router.push({ name: 'Dashboard' });
 }
 
-const TENANT_URL = `https://${import.meta.env.VITE_TENANT_URL}`;
+const TENANT_URL = `${import.meta.env.VITE_FULL_TENANT_URL}`;
+const OWNER_URL = `${import.meta.env.VITE_OWNER_URL}`;
 const p = computed(() => store.getPropertyToConsult);
 const propertyType = computed(() => store.getPropertyToConsult?.type);
 const propertyFurnished = computed(() => store.getPropertyToConsult?.furniture);
@@ -128,8 +130,21 @@ const titleKey = computed(() => {
   return 'other-unfurnished';
 });
 
+keycloakTenant
+  .init({ onLoad: 'check-sso', checkLoginIframe: false })
+  .then((auth) => {
+    if (auth) {
+      toast.success('auth');
+    } else {
+      toast.success('No auth');
+    }
+  })
+  .catch(() => {
+    toast.error('Authenticated Failed');
+  });
+
 function onSubmit() {
-  // TODO
+  keycloakTenant.login({ redirectUri: OWNER_URL + route.fullPath });
 }
 </script>
 
