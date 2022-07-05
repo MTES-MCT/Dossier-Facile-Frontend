@@ -32,11 +32,7 @@ function defaultState(): State {
   return ownerState;
 }
 
-const localStore = localStorage.getItem('store');
 const initialStore = defaultState();
-if (localStore !== null) {
-  Object.assign(initialStore, JSON.parse(localStore));
-}
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL?.toString()}`;
 
 const useOwnerStore = defineStore('owner', {

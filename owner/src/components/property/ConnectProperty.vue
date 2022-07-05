@@ -130,18 +130,18 @@ const titleKey = computed(() => {
   return 'other-unfurnished';
 });
 
-keycloakTenant
-  .init({ onLoad: 'check-sso', checkLoginIframe: false })
-  .then((auth) => {
-    if (auth) {
-      toast.success('auth');
-    } else {
-      toast.success('No auth');
-    }
-  })
-  .catch(() => {
-    toast.error('Authenticated Failed');
-  });
+// keycloakTenant
+//   .init({ onLoad: 'check-sso', checkLoginIframe: false })
+//   .then((auth) => {
+//     if (auth) {
+//       toast.success('auth');
+//     } else {
+//       toast.success('No auth');
+//     }
+//   })
+//   .catch(() => {
+//     toast.error('Authenticated Failed');
+//   });
 
 function onSubmit() {
   keycloakTenant.login({ redirectUri: OWNER_URL + route.fullPath });

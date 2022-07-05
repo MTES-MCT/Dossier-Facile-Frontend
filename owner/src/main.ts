@@ -4,6 +4,7 @@ import { globalCookiesConfig } from 'vue3-cookies';
 import Toast from 'vue-toastification';
 import { configure, defineRule } from 'vee-validate';
 import { createPinia } from 'pinia';
+import { useRoute } from 'vue-router';
 import App from './App.vue';
 import router from './router';
 import i18n from './i18n';
@@ -84,41 +85,11 @@ configure({
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 
-keycloak
+console.dir(router.currentRoute);
+
+const auth = await keycloak
   .init({ onLoad: 'check-sso', checkLoginIframe: false })
-  .then((auth) => {
-    if (auth) {
-      axios.interceptors.request.use(
-        (config) => {
-          if (keycloak.authenticated && config?.headers) {
-            const localToken = keycloak.token;
-            config.headers.Authorization = `Bearer ${localToken}`;
-          }
-          return config;
-        },
-
-        (error) => Promise.reject(error),
-      );
-
-      axios.interceptors.response.use(
-        (response) => response,
-        (error) => {
-          if (error.response && (error.response.status === 401 || error.response.status === 403)) {
-            console.log('err');
-          }
-          return Promise.reject(error);
-        },
-      );
-    }
-
-    const app = createApp(App);
-    app.use(createPinia());
-    app.use(router);
-    app.use(i18n);
-    app.use(Toast);
-    app.use(MatomoPlugin);
-    app.mount('#app');
-
+  .then(() => {
     const aYearFromNow = new Date();
     aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1);
     globalCookiesConfig({
@@ -138,8 +109,41 @@ keycloak
           console.log('Failed to refresh token');
         });
     }, 6000);
+    return Promise.resolve(res);
   })
   .catch(() => {
     console.log('Authenticated Failed');
     window.location.reload();
   });
+
+if (auth) {
+  axios.interceptors.request.use(
+    (config) => {
+      if (keycloak.authenticated && config?.headers) {
+        const localToken = keycloak.token;
+        config.headers.Authorization = `Bearer ${localToken}`;
+      }
+      return config;
+    },
+
+    (error) => Promise.reject(error),
+  );
+
+  axios.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+        console.log('err');
+      }
+      return Promise.reject(error);
+    },
+  );
+}
+
+const app = createApp(App);
+app.use(createPinia());
+app.use(router);
+app.use(i18n);
+app.use(Toast);
+app.use(MatomoPlugin);
+app.mount('#app');
