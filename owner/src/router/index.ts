@@ -84,7 +84,7 @@ const routes = [
     component: () => import('../components/property/ConsultProperty.vue'),
   },
   {
-    path: '/candidater/:id',
+    path: '/candidater/:token',
     name: 'ConnectProperty',
     meta: {
       title: 'Candidater - DossierFacile',
@@ -93,6 +93,17 @@ const routes = [
       hasFooter: true,
     },
     component: () => import('../components/property/ConnectProperty.vue'),
+  },
+  {
+    path: '/validConnexion/:token',
+    name: 'ValidConnectProperty',
+    meta: {
+      title: 'Candidater - DossierFacile',
+      requiresAuth: false,
+      anonymous: true,
+      hasFooter: true,
+    },
+    component: () => import('../components/property/ConnectPropertyValidate.vue'),
   },
   {
     path: '/nom-propriete/:id?',

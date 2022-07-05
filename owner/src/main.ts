@@ -4,7 +4,6 @@ import { globalCookiesConfig } from 'vue3-cookies';
 import Toast from 'vue-toastification';
 import { configure, defineRule } from 'vee-validate';
 import { createPinia } from 'pinia';
-import { useRoute } from 'vue-router';
 import App from './App.vue';
 import router from './router';
 import i18n from './i18n';
@@ -85,59 +84,59 @@ configure({
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 
-console.dir(router.currentRoute);
+if (!window.location.href.includes('/validConnexion/')) {
+  const auth = await keycloak
+    .init({ onLoad: 'check-sso', checkLoginIframe: false })
+    .then((res) => {
+      const aYearFromNow = new Date();
+      aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1);
+      globalCookiesConfig({
+        expireTimes: aYearFromNow.toUTCString(),
+        path: '/',
+        domain: MAIN_URL.endsWith('dossierfacile.fr') ? 'dossierfacile.fr' : 'localhost',
+        secure: true,
+        sameSite: 'None',
+      });
 
-const auth = await keycloak
-  .init({ onLoad: 'check-sso', checkLoginIframe: false })
-  .then(() => {
-    const aYearFromNow = new Date();
-    aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1);
-    globalCookiesConfig({
-      expireTimes: aYearFromNow.toUTCString(),
-      path: '/',
-      domain: MAIN_URL.endsWith('dossierfacile.fr') ? 'dossierfacile.fr' : 'localhost',
-      secure: true,
-      sameSite: 'None',
+      // Token Refresh
+      setInterval(() => {
+        keycloak
+          .updateToken(70)
+          .then()
+          .catch(() => {
+            console.log('Failed to refresh token');
+          });
+      }, 6000);
+      return Promise.resolve(res);
+    })
+    .catch(() => {
+      console.log('Authenticated Failed');
+      window.location.reload();
     });
 
-    // Token Refresh
-    setInterval(() => {
-      keycloak
-        .updateToken(70)
-        .then()
-        .catch(() => {
-          console.log('Failed to refresh token');
-        });
-    }, 6000);
-    return Promise.resolve(res);
-  })
-  .catch(() => {
-    console.log('Authenticated Failed');
-    window.location.reload();
-  });
+  if (auth) {
+    axios.interceptors.request.use(
+      (config) => {
+        if (keycloak.authenticated && config?.headers) {
+          const localToken = keycloak.token;
+          config.headers.Authorization = `Bearer ${localToken}`;
+        }
+        return config;
+      },
 
-if (auth) {
-  axios.interceptors.request.use(
-    (config) => {
-      if (keycloak.authenticated && config?.headers) {
-        const localToken = keycloak.token;
-        config.headers.Authorization = `Bearer ${localToken}`;
-      }
-      return config;
-    },
+      (error) => Promise.reject(error),
+    );
 
-    (error) => Promise.reject(error),
-  );
-
-  axios.interceptors.response.use(
-    (response) => response,
-    (error) => {
-      if (error.response && (error.response.status === 401 || error.response.status === 403)) {
-        console.log('err');
-      }
-      return Promise.reject(error);
-    },
-  );
+    axios.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+          console.log('err');
+        }
+        return Promise.reject(error);
+      },
+    );
+  }
 }
 
 const app = createApp(App);

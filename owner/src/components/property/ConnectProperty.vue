@@ -91,12 +91,12 @@ const router = useRouter();
 const store = useOwnerStore();
 const toast = useToast();
 
-const id = ref(0);
+const token = ref(0);
 const authorize = ref(false);
 
-if (route.params.id) {
-  id.value = Number(route.params.id);
-  store.setPropertyToConsult(id.value).then(() => {
+if (route.params.token) {
+  token.value = route.params.token;
+  store.setPropertyToConsult(token.value).then(() => {
     if (Object.keys(store.getPropertyToConsult).length <= 0) {
       router.push({ name: 'Dashboard' });
     }
@@ -130,21 +130,8 @@ const titleKey = computed(() => {
   return 'other-unfurnished';
 });
 
-// keycloakTenant
-//   .init({ onLoad: 'check-sso', checkLoginIframe: false })
-//   .then((auth) => {
-//     if (auth) {
-//       toast.success('auth');
-//     } else {
-//       toast.success('No auth');
-//     }
-//   })
-//   .catch(() => {
-//     toast.error('Authenticated Failed');
-//   });
-
 function onSubmit() {
-  keycloakTenant.login({ redirectUri: OWNER_URL + route.fullPath });
+  window.open(`/validConnexion/${token.value}`);
 }
 </script>
 

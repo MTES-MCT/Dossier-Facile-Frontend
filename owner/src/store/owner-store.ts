@@ -103,8 +103,8 @@ const useOwnerStore = defineStore('owner', {
         Object.assign(this.propertyToConsult, { ...prop });
       }
     },
-    async setPropertyToConsult(id: number) {
-      const res = await PropertyService.loadProperty(id);
+    async setPropertyToConsult(token: string) {
+      const res = await PropertyService.loadProperty(token);
       if (res.data.name) {
         Object.assign(this.propertyToConsult, { ...res.data });
       }
