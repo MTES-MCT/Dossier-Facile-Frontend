@@ -352,6 +352,20 @@
             name="Timci - gestion de biens"
             width="189px"
           />
+          <LogoPartnerComponent
+            :image="require('../assets/logos/isp_group.webp')"
+            height="60px"
+            href="https://www.isp-group.immo/louer/"
+            name="ISP Group - Immobilier et consulting"
+            width="99px"
+          />
+          <LogoPartnerComponent
+            :image="require('../assets/logos/jsoft.webp')"
+            height="60px"
+            href="https://www.jsoft.fr/logiciel-gestion-immobiliere/"
+            name="JSoft - Logiciel de gestion locative immobilière"
+            width="240px"
+          />
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
