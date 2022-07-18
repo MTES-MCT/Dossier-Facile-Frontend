@@ -83,7 +83,6 @@ import { Form, Field, ErrorMessage } from 'vee-validate';
 import DfButton from 'df-shared-next/src/Button/Button.vue';
 import PropertyIcon from './PropertyIcon.vue';
 import useOwnerStore from '../../store/owner-store';
-import keycloakTenant from '../../plugin/KeycloakTenant';
 
 const { t } = useI18n();
 const route = useRoute();
@@ -106,7 +105,7 @@ if (route.params.token) {
 }
 
 const TENANT_URL = `${import.meta.env.VITE_FULL_TENANT_URL}`;
-const OWNER_URL = `${import.meta.env.VITE_OWNER_URL}`;
+const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 const p = computed(() => store.getPropertyToConsult);
 const propertyType = computed(() => store.getPropertyToConsult?.type);
 const propertyFurnished = computed(() => store.getPropertyToConsult?.furniture);
@@ -131,7 +130,10 @@ const titleKey = computed(() => {
 });
 
 function onSubmit() {
-  window.open(`/validConnexion/${token.value}`);
+  const w = window.open(`/validConnexion/${token.value}`);
+  w.onbeforeunload = function () {
+    window.location.replace(MAIN_URL);
+  };
 }
 </script>
 
