@@ -1,9 +1,8 @@
 import VueMatomo from 'vue-matomo';
-import { VueConstructor } from 'vue';
 import router from '../router';
 
 export default {
-  install(Vue: VueConstructor) {
+  install(app: any) {
     const options = {
       host: import.meta.env.VITE_MATOMO_URL,
       siteId: import.meta.env.VITE_MATOMO_SITE_ID,
@@ -14,7 +13,7 @@ export default {
       userId: undefined,
     };
 
-    Vue.use(VueMatomo, options);
+    app.use(VueMatomo, options);
     window._paq.push(['trackPageView']);
   },
 };

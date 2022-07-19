@@ -11,6 +11,12 @@ import 'vue-toastification/dist/index.css';
 import keycloak from './plugin/keycloak';
 import MatomoPlugin from './plugin/matomo';
 
+declare global {
+  interface Window {
+    _paq: any;
+  }
+}
+
 defineRule('validateEmail', (value: any) => {
   if (!value) {
     return 'email-not-valid';
