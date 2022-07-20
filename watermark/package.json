@@ -9,6 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@gouvfr/dsfr": "^1.6.0",
+    "axios": "^0.27.2",
+    "vee-validate": "^4.6.2",
     "vue": "^3.2.37",
     "vue-i18n": "9"
   },
