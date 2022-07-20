@@ -20,6 +20,7 @@
     "main": "yarn workspace main",
     "dfowner": "yarn workspace owner",
     "tenant": "yarn workspace tenant",
+    "watermark": "yarn workspace watermark",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
