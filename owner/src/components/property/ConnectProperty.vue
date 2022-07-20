@@ -13,14 +13,10 @@
             <PropertyIcon :type="propertyType || ''"></PropertyIcon>
           </div>
           <div class="fr-col">
-            <div
-              v-html="
-                `${t(titleKey)} ${t('rent', {
-                  rentCost: p.rentCost,
-                  chargesCost: p.chargesCost,
-                })}`
-              "
-            ></div>
+            <div>
+              {{ t(titleKey) }} {{ t('rent1') }} <span class="blue-text">{{ p.rentCost }}€</span>
+              {{ t('rent2') }} <span class="blue-text">{{ p.chargesCost }}€</span>
+            </div>
           </div>
         </div>
       </NakedCard>
@@ -41,8 +37,8 @@
                   :value="true"
                 />
                 <label for="authorize"
-                  ><div v-html="t('authorize', [p.ownerName, p.address])"></div
-                ></label>
+                  ><div>{{ t('authorize', [p.ownerName, p.address]) }}</div></label
+                >
                 <ErrorMessage class="fr-error-text" name="authorize" v-slot="{ message }">
                   <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
                 </ErrorMessage>
@@ -332,7 +328,8 @@ tr {
     "apartment-unfurnished": "A unfurnished apartment",
     "other-furnished": "A furnished property",
     "other-unfurnished": "A unfurnished property",
-    "rent": "with a rent of <span class='blue-text'>{rentCost}€</span> and charges of <span class='blue-text'>{chargesCost}€</span>",
+    "rent1": "with a rent of ",
+    "rent2": " and charges of ",
     "apply-to": "Apply to {0}",
     "apply-existing-account": "Apply using my DossierFacile account.",
     "apply-new-account": "Apply by creating a new DossierFacile account.",
@@ -373,7 +370,8 @@ tr {
     "apartment-unfurnished": "Un appartement non meublé",
     "other-furnished": "Un bien meublé",
     "other-unfurnished": "Un bien non meublé",
-    "rent": "dont le loyer mensuel est de <span class='blue-text'>{rentCost}€</span> et les charges de <span class='blue-text'>{chargesCost}€</span>",
+    "rent1": "dont le loyer mensuel est de ",
+    "rent2": " et les charges de ",
     "apply-to": "Candidater au {0}",
     "apply-existing-account": "Candidater en utilisant mon compte DossierFacile.",
     "apply-new-account": "Candidater en créant un compte DossierFacile.",
