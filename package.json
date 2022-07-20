@@ -12,6 +12,7 @@
     "main",
     "owner",
     "tenant",
+    "watermark",
     "df-shared",
     "df-shared-next"
   ],
