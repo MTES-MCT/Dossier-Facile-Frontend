@@ -27,7 +27,9 @@ const UtilsService = {
         const mainTenant = a.tenants.find((t: Applicant) => t.tenantType === 'CREATE');
         return {
           id: pas.id,
-          lastUpdateDate: new Date(mainTenant.lastUpdateDate),
+          lastUpdateDate: mainTenant.lastUpdateDate
+            ? new Date(mainTenant.lastUpdateDate)
+            : new Date(),
           tenantName: `${mainTenant.lastName} ${mainTenant.firstName}`,
           tenantType: a.applicationType,
           tenantSalary: `${a.totalSalary} €`,
