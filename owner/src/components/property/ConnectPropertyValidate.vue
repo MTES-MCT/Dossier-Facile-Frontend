@@ -16,11 +16,11 @@ const route = useRoute();
 const router = useRouter();
 const { t } = useI18n();
 
-const token = ref(0);
+const token = ref('');
 const showError = ref(false);
 
 if (route.params.token) {
-  token.value = route.params.token;
+  token.value = route.params.token.toString();
 } else {
   router.push({ name: 'Dashboard' });
 }

@@ -84,10 +84,20 @@ configure({
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 
+function mountApp() {
+  const app = createApp(App);
+  app.use(createPinia());
+  app.use(router);
+  app.use(i18n);
+  app.use(Toast);
+  app.use(MatomoPlugin);
+  app.mount('#app');
+}
+
 if (!window.location.href.includes('/validConnexion/')) {
-  const auth = await keycloak
+  keycloak
     .init({ onLoad: 'check-sso', checkLoginIframe: false })
-    .then((res) => {
+    .then((auth) => {
       const aYearFromNow = new Date();
       aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1);
       globalCookiesConfig({
@@ -107,42 +117,39 @@ if (!window.location.href.includes('/validConnexion/')) {
             console.log('Failed to refresh token');
           });
       }, 6000);
-      return Promise.resolve(res);
+      if (auth) {
+        axios.interceptors.request.use(
+          (config) => {
+            if (keycloak.authenticated && config?.headers) {
+              const localToken = keycloak.token;
+              config.headers.Authorization = `Bearer ${localToken}`;
+            }
+            return config;
+          },
+
+          (error) => Promise.reject(error),
+        );
+
+        axios.interceptors.response.use(
+          (response) => response,
+          (error) => {
+            if (
+              error.response
+              && (error.response.status === 401 || error.response.status === 403)
+            ) {
+              console.log('err');
+            }
+            return Promise.reject(error);
+          },
+        );
+      }
+
+      mountApp();
     })
     .catch(() => {
       console.log('Authenticated Failed');
       window.location.reload();
     });
-
-  if (auth) {
-    axios.interceptors.request.use(
-      (config) => {
-        if (keycloak.authenticated && config?.headers) {
-          const localToken = keycloak.token;
-          config.headers.Authorization = `Bearer ${localToken}`;
-        }
-        return config;
-      },
-
-      (error) => Promise.reject(error),
-    );
-
-    axios.interceptors.response.use(
-      (response) => response,
-      (error) => {
-        if (error.response && (error.response.status === 401 || error.response.status === 403)) {
-          console.log('err');
-        }
-        return Promise.reject(error);
-      },
-    );
-  }
+} else {
+  mountApp();
 }
-
-const app = createApp(App);
-app.use(createPinia());
-app.use(router);
-app.use(i18n);
-app.use(Toast);
-app.use(MatomoPlugin);
-app.mount('#app');

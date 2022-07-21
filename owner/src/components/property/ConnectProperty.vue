@@ -86,11 +86,11 @@ const router = useRouter();
 const store = useOwnerStore();
 const toast = useToast();
 
-const token = ref(0);
+const token = ref('');
 const authorize = ref(false);
 
 if (route.params.token) {
-  token.value = route.params.token;
+  token.value = route.params.token.toString();
   store.setPropertyToConsult(token.value).then(() => {
     if (Object.keys(store.getPropertyToConsult).length <= 0) {
       router.push({ name: 'Dashboard' });
@@ -127,6 +127,9 @@ const titleKey = computed(() => {
 
 function onSubmit() {
   const w = window.open(`/validConnexion/${token.value}`);
+  if (w === null) {
+    return;
+  }
   w.onbeforeunload = function () {
     window.location.replace(MAIN_URL);
   };
