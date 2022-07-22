@@ -117,6 +117,7 @@ export default class App extends Vue {
       router
     );
     Vue.prototype.inspectlet();
+    Vue.prototype.iphub();
     this.cookieHidden = true;
   }
 
