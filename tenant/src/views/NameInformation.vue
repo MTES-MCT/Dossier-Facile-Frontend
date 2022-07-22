@@ -1,11 +1,30 @@
 <template>
-  <div
+  <aside
     class="name-container fr-container fr-container-full-size bg--grey fr-grid-row"
   >
     <div class="fr-col-xs-12 fr-col-md-4 bg--dark-blue">
       <div class="title-container">
-        <div class="fr-h1">{{ getTitle() }}</div>
-        <div class="fr-h5">{{ $t("subtitle") }}</div>
+        <h2 class="fr-h1">{{ $t("title") }}</h2>
+        <h3 class="fr-h5 fr-mb-1w text-bold">
+          {{ $t("prepare-documents") }}
+        </h3>
+        <ul>
+          <li>Pièce d'identité</li>
+          <li>Justificatif de domicile</li>
+          <li>Justificatif de situation professionnelle</li>
+          <li>Justificatif de ressources</li>
+          <li>Avis d'imposition</li>
+        </ul>
+        <p>
+          <span class="text-bold">Et la même liste pour vos garants !</span><br />
+          😱
+          <a
+            href="https://docs.dossierfacile.fr/"
+            target="_blank"
+            rel="noopener"
+            >Consultez notre documentation.</a
+          >
+        </p>
       </div>
     </div>
     <div
@@ -15,7 +34,7 @@
         <NameInformationForm :user="user"></NameInformationForm>
       </div>
     </div>
-  </div>
+  </aside>
 </template>
 
 <script lang="ts">
@@ -25,7 +44,6 @@ import ProfileContainer from "../components/ProfileContainer.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import { mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
-import { UtilsService } from "../services/UtilsService";
 
 @Component({
   components: {
@@ -49,25 +67,6 @@ export default class NameInformation extends Vue {
   beforeDestroy() {
     window.Beacon("destroy");
   }
-
-  getTitle() {
-    if (this.isOwner()) {
-      return this.$i18n.t("title");
-    }
-    const firstName = UtilsService.getMainUser().firstName;
-    if (firstName) {
-      return this.$i18n.t("join-title", [firstName]);
-    }
-    return this.user.applicationType === "COUPLE"
-      ? this.$i18n.t("join-title", [this.$i18n.t("spouse")])
-      : this.$i18n.t("join-title", [this.$i18n.t("roommate")]);
-  }
-
-  isOwner() {
-    return (
-      this.user.tenantType === undefined || this.user.tenantType === "CREATE"
-    );
-  }
 }
 </script>
 
@@ -84,6 +83,7 @@ export default class NameInformation extends Vue {
 }
 
 .title-container {
+  color: var(--text-inverted-grey);
   padding: 1.5rem;
   @media all and (min-width: 768px) {
     padding-top: 200px;
@@ -107,23 +107,29 @@ export default class NameInformation extends Vue {
     padding-right: 4rem;
   }
 }
+
+li {
+  list-style-type: "👉 ";
+}
 </style>
 
 <i18n>
 {
 "en": {
-  "title": "You are only a few steps away from your rental file!",
+  "title": "Your rental file in 5 supporting document",
   "subtitle": "Let's start with your personal identity information.",
   "join-title": "You are only a few steps away from joining {0} rental file!",
   "roommate": "votre colocataire",
-  "spouse": "your spouse"
+  "spouse": "your spouse",
+  "prepare-documents": "Prepare your supporting documents:"
 },
 "fr": {
-  "title": "Vous n'êtes qu'à quelques étapes de votre dossier de location !",
+  "title": "Votre dossier de location en 5 justificatifs !",
   "subtitle": "Commençons par vos informations personnelles d'identité.",
   "join-title": "Vous n'êtes qu'à quelques étapes de rejoindre le dossier de location de {0} !",
   "roommate": "votre colocataire",
-  "spouse": "votre conjoint"
+  "spouse": "votre conjoint",
+  "prepare-documents": "Préparez vos pièces justificatives :"
 }
 }
 </i18n>
