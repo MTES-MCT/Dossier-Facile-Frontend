@@ -5,25 +5,28 @@
         <div class="bg-pic">
           <div class="max-550 left-row fr-pt-3w fr-mt-7w fr-mb-7w">
             <h2 class="fr-h4 my-file">
-              {{ $t("my-file") }} <i>Dossier</i>Facile
+              {{ $t("my-file") }} <em>Dossier</em>Facile
             </h2>
             <p class="my-file-subtitle">
-              {{ $t("my-file-subtitle") }} <b>{{ $t("my-file-subtitle2") }}</b>
+              {{ $t("my-file-subtitle") }}
+              <strong>{{ $t("my-file-subtitle2") }}</strong>
             </p>
           </div>
           <div class="bg-white max-550 left-row fr-p-md-5w fr-mt-7w fr-mb-7w">
-            <p><i>Dossier</i><b>Facile</b> {{ $t("help-you") }}</p>
+            <p><em>Dossier</em><strong>Facile</strong> {{ $t("help-you") }}</p>
             <p>
-              🔐 à constituer un <b>dossier numérique conforme, sécurisé</b> et
-              <b>facile à transmettre</b> au bailleur.
+              🔐 à constituer un
+              <strong>dossier numérique conforme, sécurisé</strong> et
+              <strong>facile à transmettre</strong> au bailleur.
             </p>
             <p>
-              🤔 à connaître <b><u>la liste des documents à fournir</u></b> dans
-              un dossier de location pour éviter les pièges !
+              🤔 à connaître
+              <strong><u>la liste des documents à fournir</u></strong> dans un
+              dossier de location pour éviter les pièges !
             </p>
             <p>
-              🤩 à <b>rassurer votre futur propriétaire</b> pour
-              <b>décrocher le logement de vos rêves !</b>
+              🤩 à <strong>rassurer votre futur propriétaire</strong> pour
+              <strong>décrocher le logement de vos rêves !</strong>
             </p>
           </div>
         </div>
