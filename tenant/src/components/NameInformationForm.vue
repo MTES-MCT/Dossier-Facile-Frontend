@@ -260,7 +260,7 @@ export default class NameInformationForm extends Vue {
 "zipcode-not-valid": "Code postal non valide.",
 "only-alpha":"Seuls les caractères alphabétiques ainsi que [ , -, '] sont autorisés",
 "field-required": "Ce champ est requis",
-"title": "Je renseigne mes informations personnelles",
+"title": "Commençons par vos informations personnelles d’identité.",
 "subtitle": "Veuillez renseigner les informations de la personne dont le nom figurera sur le bail de location."
 }
 }
