@@ -18,7 +18,10 @@
         <p>
           <span class="text-bold">Et la même liste pour vos garants !</span><br />
           😱
-          <a href="https://docs.dossierfacile.fr/" target="_blank"
+          <a
+            href="https://docs.dossierfacile.fr/"
+            target="_blank"
+            rel="noopener"
             >Consultez notre documentation.</a
           >
         </p>
