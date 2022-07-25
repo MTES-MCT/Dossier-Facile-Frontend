@@ -26,6 +26,9 @@ function getFile() {
 }
 
 async function handleSubmit() {
+  if (file.value === null) {
+    return;
+  }
   wait.value = true;
   const formData = new FormData();
   formData.append(`files`, file.value);
