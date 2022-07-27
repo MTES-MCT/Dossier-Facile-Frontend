@@ -265,7 +265,7 @@ const routes: Array<RouteConfig> = [
     name: "Password",
     meta: {
       title: "Nouveau mot de passe - DossierFacile",
-      hideForAuth: true
+      hideForAuth: false
     },
     component: () =>
       import(

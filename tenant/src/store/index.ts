@@ -67,6 +67,10 @@ const store = new Vuex.Store({
     setNamesSuccess(state, user) {
       state.user = user;
     },
+    unlinkFCSuccess(state) {
+      state.user.franceConnect = false;
+      AnalyticsService.unlinkFCSuccess();
+    },
     loadUser(state, user) {
       Vue.set(state, "user", user);
       Vue.set(state.status, "loggedIn", true);
@@ -242,6 +246,23 @@ const store = new Vuex.Store({
       return AuthService.resetPassword(user).then(
         user => {
           return Promise.resolve(user);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
+    unlinkFranceConnect({ commit }, user: User) {
+      if (!user.franceConnect) {
+        return Promise.reject("Account is not a FranceConnect Account");
+      }
+      return ProfileService.unlinkFranceConnect().then(
+        () => {
+          // Force reload because some backend's GET endpoints retrieve and save user data by using JWT's information.
+          (Vue as any).$keycloak.updateToken(-1).catch((err: any) => {
+            console.error("Unlink FC Error" + err);
+          });
+          return commit("unlinkFCSuccess");
         },
         error => {
           return Promise.reject(error);

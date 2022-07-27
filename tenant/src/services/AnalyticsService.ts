@@ -43,6 +43,12 @@ export const AnalyticsService = {
     });
   },
 
+  unlinkFCSuccess() {
+    this.sendEvent("unlink-fc", {
+      event_category: "account"
+    });
+  },
+
   openHelp(docType: string) {
     this.sendEvent("open_" + docType, {
       event_category: "help"

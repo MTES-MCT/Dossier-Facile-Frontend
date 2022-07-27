@@ -1,5 +1,12 @@
 <template>
   <Modal @close="undoSelect()">
+    <template v-slot:header>
+      <div class="fr-container">
+        <h1 id="fr-modal-title-modal-1" class="fr-modal__title">
+          <slot name="title"></slot>
+        </h1>
+      </div>
+    </template>
     <template v-slot:body>
       <div class="fr-container">
         <div class="fr-grid-row justify-content-center">
@@ -13,7 +20,9 @@
                 class="fr-mr-3w"
                 @on-click="validSelect()"
                 primary="true"
-                >{{ $t("validate") }}</DfButton
+                >{{
+                  validateBtnText ? validateBtnText : $t("validate")
+                }}</DfButton
               >
               <DfButton class="fr-mr-3w" @on-click="undoSelect()">{{
                 $t("cancel")
@@ -27,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import Modal from "df-shared/src/components/Modal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
 
@@ -38,6 +47,8 @@ import DfButton from "df-shared/src/Button/Button.vue";
   }
 })
 export default class ConfirmModal extends Vue {
+  @Prop() validateBtnText?: string;
+
   validSelect() {
     this.$emit("valid");
   }

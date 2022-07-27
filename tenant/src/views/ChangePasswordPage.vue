@@ -16,7 +16,8 @@ import ChangePassword from "df-shared/src/Authentification/ChangePassword.vue";
 })
 export default class ChangePasswordPage extends Vue {
   onChangePassword(user: User) {
-    user.token = this.$route.params.token;
+    user.token =
+      this.$route.params.token != "null" ? this.$route.params.token : "";
     this.$store.dispatch("changePassword", user).then(
       () => {
         this.$toasted.show(this.$i18n.t("password-update").toString(), {
