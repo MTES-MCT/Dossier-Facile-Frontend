@@ -1,16 +1,20 @@
 <template>
   <div>
     <div>
-      <h1 class="fr-h2 text-center fr-mt-3w fr-mb-5w color--primary">
+      <h1 class="fr-h2 text-center fr-mt-3w fr-mb-3w color--primary">
         {{ $t("title") }}
       </h1>
 
       <template>
-        <div class="fr-mt-5w fr-mb-5w text-center ">
+        <div class="fr-mt-5w fr-mb-5w">
           <div v-if="getParams() !== undefined">
             <router-link :to="{name: 'SourceLink', params: getParams(), query: getQuery()}" class="color--primary">{{ $t('connect-france-connect') }}</router-link>
           </div>
           <div v-else>
+            <div class="fr-alert fr-alert--info">
+              <p class="fr-alert__title">{{ $t("alert-info-title") }}</p>
+              <p>{{ $t("alert-info-content") }}</p>
+            </div>
             <div class="text-center">
               <div class="fr-mt-2w fr-mb-2w small-text">
                 FranceConnect est la solution proposée par l’État pour sécuriser et simplifier la connexion à vos services en ligne
@@ -377,7 +381,9 @@ export default class Register extends Vue {
 "require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer",
 "ex": "E.g.: ",
 "or": "or",
-"connect-france-connect": "Connect with FranceConnect"
+"connect-france-connect": "Connect with FranceConnect",
+"alert-info-title": "Connection with FranceConnect",
+"alert-info-content": "If you create a DossierFacile for your child, you have to use their FranceConnect account or to create their own account !"
 },
 "fr": {
 "title": "Rejoindre DossierFacile",
@@ -394,7 +400,9 @@ export default class Register extends Vue {
 "require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer",
 "ex": "Ex : ",
 "or": "Ou",
-"connect-france-connect": "Se connecter avec FranceConnect"
+"connect-france-connect": "Se connecter avec FranceConnect",
+"alert-info-title": "Connexion FranceConnect",
+"alert-info-content": "Si vous faites un DossierFacile pour le compte de votre enfant, utilisez son compte FranceConnect ou créez un compte à son nom !"
 }
 }
 </i18n>
