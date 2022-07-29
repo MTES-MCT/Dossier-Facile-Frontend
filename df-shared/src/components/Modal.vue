@@ -61,7 +61,7 @@ export default class Modal extends Vue {
 
 .modal {
   background-color: #fff;
-  position: absolute;
+  position: relative;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   display: flex;

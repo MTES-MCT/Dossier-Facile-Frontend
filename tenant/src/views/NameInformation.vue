@@ -16,7 +16,8 @@
           <li>Avis d'imposition</li>
         </ul>
         <p>
-          <span class="text-bold">Et la même liste pour vos garants !</span><br />
+          <span class="text-bold">Et la même liste pour vos garants !</span>
+          <br />
           😱
           <a
             href="https://docs.dossierfacile.fr/"
