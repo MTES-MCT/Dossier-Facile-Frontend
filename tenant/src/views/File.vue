@@ -385,7 +385,6 @@ export default class File extends Vue {
 </script>
 
 <style scoped lang="scss">
-@import "../../../node_modules/@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css";
 
 .background {
   width: 100%;

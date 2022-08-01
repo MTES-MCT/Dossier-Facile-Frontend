@@ -251,7 +251,6 @@ export default class File extends Vue {
     });
   }
 
-
   hasGuarantor(tenant: User) {
     if (!tenant.guarantors || tenant.guarantors.length <= 0) {
       return false;
@@ -298,7 +297,6 @@ export default class File extends Vue {
 </script>
 
 <style scoped lang="scss">
-@import "../../../node_modules/@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css";
 .background {
   width: 100%;
   top: 0;

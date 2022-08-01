@@ -16,6 +16,8 @@ declare global {
     $: any;
   }
 }
+
+import "@gouvfr/dsfr/dist/dsfr/dsfr.min.css";
 import MatomoPlugin from "./plugins/matomo";
 
 const inspectlet = function() {
