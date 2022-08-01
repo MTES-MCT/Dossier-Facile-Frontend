@@ -385,8 +385,7 @@ export const DocumentTypeConstants = {
       acceptedProofs: [
         "Bulletin de salaire de moins de 3 mois",
         "Contrat de travail complet daté et signé",
-        "Attestation employeur de moins de 3 mois",
-        "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
+        "Attestation employeur de moins de 3 mois"
       ],
       refusedProofs: [
         "Courrier/mail de confirmation d’embauche",
@@ -403,8 +402,7 @@ export const DocumentTypeConstants = {
       acceptedProofs: [
         "Bulletin de salaire de moins de 3 mois",
         "Contrat de travail complet daté et signé",
-        "Attestation employeur de moins de 3 mois",
-        "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
+        "Attestation employeur de moins de 3 mois"
       ],
       refusedProofs: [
         "Courrier/mail de confirmation d’embauche",
@@ -421,8 +419,7 @@ export const DocumentTypeConstants = {
       acceptedProofs: [
         "Bulletin de salaire de moins de 3 mois",
         "Contrat de travail complet daté et signé",
-        "Attestation employeur de moins de 3 mois",
-        "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
+        "Attestation employeur de moins de 3 mois"
       ],
       refusedProofs: [
         "Courrier/mail de confirmation d’embauche",
@@ -481,8 +478,7 @@ export const DocumentTypeConstants = {
       acceptedProofs: [
         "Bulletin de salaire de moins de 3 mois",
         "Arrêté de nomination",
-        "Attestation employeur de moins de 3 mois",
-        "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
+        "Attestation employeur de moins de 3 mois"
       ],
       refusedProofs: ["Relevés de comptes bancaires"],
       maxFileCount: 20
@@ -496,8 +492,7 @@ export const DocumentTypeConstants = {
       acceptedProofs: [
         "Bulletin de salaire de moins de 3 mois",
         "Contrat de travail complet daté et signé",
-        "Attestation employeur de moins de 3 mois",
-        "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
+        "Attestation employeur de moins de 3 mois"
       ],
       refusedProofs: ["Relevés de comptes bancaires"],
       maxFileCount: 20
