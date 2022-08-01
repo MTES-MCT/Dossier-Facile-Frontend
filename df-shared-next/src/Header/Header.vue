@@ -54,7 +54,7 @@
                     :primary="true"
                     :title="t('signup')"
                     size="small"
-                    @on-click="onCreateTenant"
+                    @on-click="onLoginTenant"
                   >
                     <span class="material-icons-outlined" aria-hidden="true">
                       account_circle
@@ -124,7 +124,7 @@
                 :title="t('signup')"
                 :primary="false"
                 size="small"
-                @on-click="onCreateTenant"
+                @on-click="onLoginTenant"
               >
                 <span class="material-icons-outlined" aria-hidden="true">
                   account_circle
@@ -192,10 +192,10 @@ withDefaults(
   }
 );
 
-const emit = defineEmits(["on-create-tenant", "on-logout", "on-create-owner"]);
+const emit = defineEmits(["on-login-tenant", "on-logout", "on-create-owner"]);
 
-function onCreateTenant() {
-  emit("on-create-tenant");
+function onLoginTenant() {
+  emit("on-login-tenant");
 }
 
 function onLogout() {

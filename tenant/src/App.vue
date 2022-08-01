@@ -7,7 +7,7 @@
     />
     <MyHeader
       :logged-in="isLoggedIn"
-      @on-create-tenant="onCreateTenant"
+      @on-login-tenant="onLoginTenant"
       @on-create-owner="onCreateOwner"
       @on-logout="onLogout"
       @on-change-lang="changeLang"
@@ -64,8 +64,8 @@ export default class App extends Vue {
     this.$store.dispatch("logout", this.MAIN_URL);
   }
 
-  onCreateTenant() {
-    this.$router.push("/signup");
+  onLoginTenant() {
+    this.$router.push("/login");
   }
 
   onCreateOwner() {
