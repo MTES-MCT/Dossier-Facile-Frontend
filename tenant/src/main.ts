@@ -20,6 +20,9 @@ Vue.use(authentication);
 Vue.config.productionTip = false;
 
 import "@gouvfr/dsfr/dist/dsfr/dsfr.min.css";
+import "@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css";
+import "@gouvfr/dsfr/dist/utility/icons/icons-business/icons-business.min.css";
+
 import "vue-loading-overlay/dist/vue-loading.css";
 import VueGtag from "vue-gtag";
 import VueAuthImage from "vue-auth-image";
