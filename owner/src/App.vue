@@ -22,7 +22,7 @@ const cookieHidden = ref(cookies.isKey('accept-cookie') && cookies.get('accept-c
 
 const hasFooter = computed(() => store.hasFooter);
 
-function onCreateTenant() {
+function onLoginTenant() {
   window.location.href = TENANT_URL;
 }
 
@@ -60,7 +60,7 @@ function denyCookies() {
   <Cookies :hidden="cookieHidden" @accept="acceptCookies" @deny="denyCookies" />
   <MyHeader
     :logged-in="isLoggedIn"
-    @on-create-tenant="onCreateTenant"
+    @on-login-tenant="onLoginTenant"
     @on-create-owner="onCreateOwner"
     @on-logout="onLogout"
     :showAccessibility="false"
