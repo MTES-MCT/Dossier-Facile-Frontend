@@ -6,7 +6,7 @@
         <div v-html="$t('remark-text')"></div>
       </div>
 
-      <div>
+      <div ref="guarantor-body-content">
         <NakedCard class="fr-p-md-5w">
           <div v-if="!isMobile()">
             <div class="text-bold fr-mb-1w">
@@ -192,6 +192,15 @@ export default class GuarantorDocuments extends Vue {
   guarantor!: Guarantor;
   tmpGuarantorType = "";
   changeGuarantorVisible = false;
+
+  updated() {
+    // each dom update involved a scrollToEnd
+    this.$nextTick(() => this.scrollToEnd());
+  }
+  scrollToEnd() {
+    const element: any = this.$refs["guarantor-body-content"];
+    window.scrollTo(0, element.lastElementChild.offsetTop);
+  }
 
   getLocalStorageKey() {
     return "guarantorType_" + this.user.email;
