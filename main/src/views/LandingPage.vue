@@ -366,6 +366,13 @@
             name="JSoft - Logiciel de gestion locative immobilière"
             width="240px"
           />
+          <LogoPartnerComponent
+            :image="require('../assets/logos/mon_carnet_logement.png')"
+            height="60px"
+            href="https://moncarnetlogement.fr/"
+            name="Mon carnet logement"
+            width="194px"
+          />
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
