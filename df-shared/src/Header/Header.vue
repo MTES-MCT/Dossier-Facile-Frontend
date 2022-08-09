@@ -53,12 +53,12 @@
                   <DfButton
                     primary="true"
                     size="small"
-                    @on-click="onCreateTenant"
+                    @on-click="onLoginTenant"
                   >
                     <span class="material-icons-outlined" aria-hidden="true">
                       account_circle
                     </span>
-                    {{ $t("signup") }}
+                    {{ $t("signin") }}
                   </DfButton>
                 </li>
                 <li v-if="!loggedIn">
@@ -113,12 +113,12 @@
                 class="fr-ml-3"
                 :primary="false"
                 size="small"
-                @on-click="onCreateTenant"
+                @on-click="onLoginTenant"
               >
                 <span class="material-icons-outlined" aria-hidden="true">
                   account_circle
                 </span>
-                {{ $t("signup") }}
+                {{ $t("signin") }}
               </DfButton>
             </li>
 
@@ -173,8 +173,8 @@ export default class MyHeader extends Vue {
   @Prop({ default: false }) loggedIn?: boolean;
   @Prop({ default: "fr" }) lang?: string;
 
-  onCreateTenant() {
-    this.$emit("on-create-tenant");
+  onLoginTenant() {
+    this.$emit("on-login-tenant");
   }
 
   onLogout() {
@@ -250,14 +250,14 @@ span.material-icons-outlined {
 {
   "en": {
     "logout": "Logout",
-    "signup": "Sign-in",
+    "signin": "Sign-in",
     "owner": "Owner area",
     "partner": "Become partner",
     "partner-link-title": "Become partner (New Window)"
   },
   "fr": {
     "logout": "Se déconnecter",
-    "signup": "Se connecter",
+    "signin": "Se connecter",
     "owner": "Espace propriétaire",
     "partner": "Devenir partenaire",
     "partner-link-title": "Devenir partenaire (Nouvelle fenêtre)"

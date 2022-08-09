@@ -3,6 +3,11 @@ import axios from "axios";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 
 export const ProfileService = {
+  unlinkFranceConnect(): Promise<boolean> {
+    return axios.delete(
+      `https://${process.env.VUE_APP_API_URL}/api/user/franceConnect`
+    );
+  },
   saveNames(user: User): Promise<User> {
     return axios.post(
       `https://${process.env.VUE_APP_API_URL}/api/register/names`,

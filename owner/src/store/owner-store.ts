@@ -9,6 +9,7 @@ import i18n from '../i18n';
 import AuthService from '../components/auth/AuthService';
 import keycloak from '../plugin/keycloak';
 import OwnerService from '../components/account/OwnerService';
+import PropertyService from '../components/property/PropertyService';
 
 interface State {
   user: User;
@@ -31,11 +32,7 @@ function defaultState(): State {
   return ownerState;
 }
 
-const localStore = localStorage.getItem('store');
 const initialStore = defaultState();
-if (localStore !== null) {
-  Object.assign(initialStore, JSON.parse(localStore));
-}
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL?.toString()}`;
 
 const useOwnerStore = defineStore('owner', {
@@ -70,7 +67,9 @@ const useOwnerStore = defineStore('owner', {
     setFirstName(firstName: string) {
       this.user.firstName = firstName;
     },
-    setEmail(email: string) { Object.assign(this.user.email, email); },
+    setEmail(email: string) {
+      Object.assign(this.user.email, email);
+    },
     setName(name: string) {
       this.propertyToEdit.name = name;
     },
@@ -104,6 +103,12 @@ const useOwnerStore = defineStore('owner', {
         Object.assign(this.propertyToConsult, { ...prop });
       }
     },
+    async setPropertyToConsult(token: string) {
+      const res = await PropertyService.loadProperty(token);
+      if (res.data.name) {
+        Object.assign(this.propertyToConsult, { ...res.data });
+      }
+    },
     setPropertyToEdit(property: Property) {
       this.propertyToEdit = { ...property };
     },
@@ -111,13 +116,19 @@ const useOwnerStore = defineStore('owner', {
       this.propertyToEdit.validated = validated;
     },
     setLang(lang: string) {
-      (i18n.global as unknown as Composer).locale.value = lang;
+      ((i18n.global as unknown) as Composer).locale.value = lang;
       const html = document.documentElement;
-      html.setAttribute('lang', (i18n.global as unknown as Composer).locale.value);
+      html.setAttribute('lang', ((i18n.global as unknown) as Composer).locale.value);
       const { cookies } = useCookies();
       const expireTimes = new Date();
       expireTimes.setFullYear(expireTimes.getFullYear() + 1);
-      cookies.set('lang', lang, expireTimes, '/', MAIN_URL.endsWith('dossierfacile.fr') ? 'dossierfacile.fr' : 'localhost');
+      cookies.set(
+        'lang',
+        lang,
+        expireTimes,
+        '/',
+        MAIN_URL.endsWith('dossierfacile.fr') ? 'dossierfacile.fr' : 'localhost',
+      );
     },
     registerSuccess() {
       this.status.loggedIn = false;
@@ -183,10 +194,12 @@ const useOwnerStore = defineStore('owner', {
         UtilsService.capitalize(lastName),
         UtilsService.capitalize(firstName),
         email,
-      ).then((response) => {
-        this.loadUserCommit(response.data);
-        return Promise.resolve(response.data);
-      }).catch((error) => Promise.reject(error));
+      )
+        .then((response) => {
+          this.loadUserCommit(response.data);
+          return Promise.resolve(response.data);
+        })
+        .catch((error) => Promise.reject(error));
     },
     saveProperty() {
       return OwnerService.saveProperty(this.propertyToEdit).then((response) => {

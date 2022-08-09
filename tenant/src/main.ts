@@ -8,6 +8,7 @@ import i18n from "./i18n";
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import Toasted from "vue-toasted";
+import JQuery from "jquery";
 
 import VueCookies from "vue-cookies";
 import authentication from "./plugins/authentication";
@@ -19,6 +20,9 @@ Vue.use(authentication);
 Vue.config.productionTip = false;
 
 import "@gouvfr/dsfr/dist/dsfr/dsfr.min.css";
+import "@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css";
+import "@gouvfr/dsfr/dist/utility/icons/icons-business/icons-business.min.css";
+
 import "vue-loading-overlay/dist/vue-loading.css";
 import VueGtag from "vue-gtag";
 import VueAuthImage from "vue-auth-image";
@@ -177,8 +181,19 @@ Vue.use(VueAuthImage);
 
     Vue.prototype.inspectlet = inspectlet;
 
+    const iphub = function() {
+      JQuery(document).ready(function() {
+        JQuery(document.body).prepend(
+          "<script src='/iphubb.js'></script>" +
+            '<noscript> <iframe src="https://3689183.fls.doubleclick.net/activityi;src=3689183;type=dossi0;cat=landingp;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;npa=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ord=1;num=1?" width="1" height="1" frameborder="0" style="display:none"></iframe> </noscript>'
+        );
+      });
+    };
+    Vue.prototype.iphub = iphub;
+
     if (Vue.$cookies.get("accept-cookie") === "true") {
       inspectlet();
+      iphub();
       Vue.use(
         VueGtag,
         {

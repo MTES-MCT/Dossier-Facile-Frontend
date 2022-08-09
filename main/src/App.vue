@@ -6,7 +6,7 @@
       @deny="denyCookies"
     />
     <MyHeader
-      @on-create-tenant="onCreateTenant"
+      @on-login-tenant="onLoginTenant"
       @on-create-owner="onCreateOwner"
       :lang="getLang()"
     >
@@ -57,8 +57,8 @@ export default class App extends Vue {
     window.location.href = this.OWNER_URL;
   }
 
-  onCreateTenant() {
-    window.location.replace(`${this.TENANT_URL}/signup`);
+  onLoginTenant() {
+    window.location.replace(`${this.TENANT_URL}/login`);
   }
 
   acceptCookies() {
@@ -123,7 +123,6 @@ export default class App extends Vue {
 </script>
 
 <style lang="scss">
-@import "../../node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.min.css";
 @import "df-shared/src/scss/_main.scss";
 
 // style hack to handle both themeforest and gouvfr design system

@@ -19,6 +19,7 @@ export class User {
   honorDeclaration?: boolean;
   clarification?: string;
   franceConnect?: boolean;
+  passwordEnabled?: boolean;
 
   identification?: string;
   residency?: string;

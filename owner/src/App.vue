@@ -10,7 +10,6 @@ import i18n from './i18n';
 import Menu from './components/Menu.vue';
 import useOwnerStore from './store/owner-store';
 
-const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`;
 
 const store = useOwnerStore();
@@ -19,13 +18,11 @@ const { cookies } = useCookies();
 
 const isLoggedIn = computed(() => store.isLoggedIn);
 
-const cookieHidden = ref(
-  cookies.isKey('accept-cookie') && cookies.get('accept-cookie') === 'true',
-);
+const cookieHidden = ref(cookies.isKey('accept-cookie') && cookies.get('accept-cookie') === 'true');
 
 const hasFooter = computed(() => store.hasFooter);
 
-function onCreateTenant() {
+function onLoginTenant() {
   window.location.href = TENANT_URL;
 }
 
@@ -48,29 +45,6 @@ function getLang() {
 
 function acceptCookies() {
   cookies.set('accept-cookie', 'true');
-
-  // Vue.use(
-  //   VueGtag,
-  //   {
-  //     config: {
-  //       id: "UA-50823626-2",
-  //       params: {
-  //         // eslint-disable-next-line @typescript-eslint/camelcase
-  //         send_page_view: true
-  //       },
-  //       linker: {
-  //         domains: [
-  //           "dossierfacile.fr",
-  //           "www.dossierfacile.fr",
-  //           "locataire.dossierfacile.fr",
-  //           "proprietaire.dossierfacile.fr",
-  //           "sso.dossierfacile.fr"
-  //         ]
-  //       }
-  //     }
-  //   },
-  //   router
-  // );
   // Vue.prototype.inspectlet();
 
   cookieHidden.value = true;
@@ -86,7 +60,7 @@ function denyCookies() {
   <Cookies :hidden="cookieHidden" @accept="acceptCookies" @deny="denyCookies" />
   <MyHeader
     :logged-in="isLoggedIn"
-    @on-create-tenant="onCreateTenant"
+    @on-login-tenant="onLoginTenant"
     @on-create-owner="onCreateOwner"
     @on-logout="onLogout"
     :showAccessibility="false"
@@ -102,8 +76,8 @@ function denyCookies() {
 </template>
 
 <style lang="scss">
-@import "../../node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.min.css";
-@import "df-shared-next/src/scss/_main.scss";
+@import '../../node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.min.css';
+@import 'df-shared-next/src/scss/_main.scss';
 
 #app {
   min-height: 100vh;

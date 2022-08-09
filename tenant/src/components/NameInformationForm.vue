@@ -1,13 +1,50 @@
 <template>
   <div class="fr-mb-15w">
-    <ValidationObserver v-slot="{ validate }">
-      <form
-        name="nameInformationForm"
-        @submit.prevent="validate().then(handleNameInformation)"
-      >
-        <NakedCard class="fr-p-5w">
-          <h1 class="fr-h4">{{ $t("title") }}</h1>
-          <p>{{ $t("subtitle") }}</p>
+    <NakedCard class="fr-p-5w">
+      <h1 class="fr-h4">{{ $t("title") }}</h1>
+      <p class="fr-mb-0">{{ $t("subtitle") }}</p>
+      <div>
+        <small>
+          <i18n path="description-required-field">
+            <template v-slot:asterix>
+              <span style="color:red">*</span>
+            </template>
+          </i18n>
+        </small>
+        <a
+          v-if="user.franceConnect"
+          href="#"
+          @click="openUnlinkModal = true"
+          class="fr-link fr-tag--sm small-font"
+          >{{ $t("unlink-fc-link") }}</a
+        >
+        <ConfirmModal
+          class="fr-px-md-16w"
+          v-if="openUnlinkModal"
+          :validateBtnText="$t('unlink-account-btn')"
+          @valid="unlinkFranceConnect()"
+          @cancel="openUnlinkModal = false"
+        >
+          <template v-slot:title>
+            <span class="fr-fi-refresh-line"></span>
+            <span> {{ $t("unlink-fc-link") }}</span>
+          </template>
+          <p>
+            {{ $t("unlink-fc-content") }}
+            <span v-if="user.passwordEnabled">
+              {{ $t("unlink-fc-content-password-exists") }}</span
+            >
+            <span v-else>{{ $t("unlink-fc-content-password-undefined") }}</span>
+          </p>
+        </ConfirmModal>
+      </div>
+
+      <ValidationObserver v-slot="{ validate }">
+        <form
+          class="fr-mt-3w"
+          name="nameInformationForm"
+          @submit.prevent="validate().then(handleNameInformation)"
+        >
           <div class="fr-grid-row fr-grid-row--center">
             <div class="fr-col-12 fr-mb-3w">
               <validation-provider
@@ -19,7 +56,7 @@
                   :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
                   <label class="fr-label" for="lastname"
-                    >{{ $t("lastname") }} :</label
+                    >{{ $t("lastname") }} * :</label
                   >
                   <input
                     v-model="lastname"
@@ -30,7 +67,7 @@
                     }"
                     id="lastname"
                     name="lastname"
-                    :placeholder="$t('lastname')"
+                    :placeholder="$t('lastname').toString()"
                     :disabled="user.franceConnect"
                     type="text"
                     required
@@ -59,7 +96,7 @@
                     }"
                     id="preferredname"
                     name="preferredname"
-                    :placeholder="$t('preferredname')"
+                    :placeholder="$t('preferredname').toString()"
                     type="text"
                   />
                   <span class="fr-error-text" v-if="errors[0]">{{
@@ -75,11 +112,11 @@
                   :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
                   <label for="firstname" class="fr-label"
-                    >{{ $t("firstname") }} :</label
+                    >{{ $t("firstname") }} * :</label
                   >
                   <input
                     id="firstname"
-                    :placeholder="$t('firstname')"
+                    :placeholder="$t('firstname').toString()"
                     type="text"
                     v-model="firstname"
                     name="firstname"
@@ -111,7 +148,7 @@
                   >
                   <input
                     id="zipcode"
-                    :placeholder="$t('zipcode')"
+                    :placeholder="$t('zipcode').toString()"
                     :class="{
                       'fr-input--valid': valid,
                       'fr-input--error': errors[0]
@@ -128,10 +165,10 @@
               </validation-provider>
             </div>
           </div>
-        </NakedCard>
-        <ProfileFooter :showBack="false"></ProfileFooter>
-      </form>
-    </ValidationObserver>
+          <ProfileFooter :showBack="false"></ProfileFooter>
+        </form>
+      </ValidationObserver>
+    </NakedCard>
   </div>
 </template>
 
@@ -143,7 +180,7 @@ import { extend } from "vee-validate";
 import { required, regex } from "vee-validate/dist/rules";
 import SubmitButton from "df-shared/src/Button/SubmitButton.vue";
 import NameInformationHelp from "./helps/NameInformationHelp.vue";
-import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
+import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { AnalyticsService } from "../services/AnalyticsService";
 import ProfileFooter from "./footer/ProfileFooter.vue";
 import { mapGetters } from "vuex";
@@ -177,7 +214,7 @@ extend("lastname", {
     ValidationObserver,
     SubmitButton,
     NameInformationHelp,
-    VGouvFrModal,
+    ConfirmModal,
     ProfileFooter,
     NakedCard
   },
@@ -189,6 +226,7 @@ extend("lastname", {
 })
 export default class NameInformationForm extends Vue {
   public user!: User;
+  public openUnlinkModal = false;
   firstname = "";
   lastname = "";
   preferredname = "";
@@ -201,6 +239,26 @@ export default class NameInformationForm extends Vue {
     this.zipcode = this.user.zipCode || "";
   }
 
+  unlinkFranceConnect() {
+    this.openUnlinkModal = false;
+    const loader = this.$loading.show();
+    this.$store
+      .dispatch("unlinkFranceConnect", this.user)
+      .then(
+        () => {
+          // if user has not password redirect to resetpassword
+          if (!this.user.passwordEnabled) {
+            this.$router.push("/reset-password/null");
+          }
+        },
+        error => {
+          console.dir(error);
+        }
+      )
+      .finally(() => {
+        loader.hide();
+      });
+  }
   handleNameInformation() {
     if (
       this.user.firstName === this.firstname &&
@@ -249,7 +307,13 @@ export default class NameInformationForm extends Vue {
 "only-alpha":"Alphabetic characters only",
 "field-required": "This field is required",
 "title": "I fill in my personal information",
-"subtitle": "Please fill in the details of the person whose name will appear on the rental agreement"
+"subtitle": "Please fill in the details of the person whose name will appear on the rental agreement",
+"unlink-fc-link": "Need to update Firstname and Lastname ?",
+"unlink-fc-content": "You have to unlink your FranceConnect account for updating directly your Firstname and Lastname.",
+"unlink-fc-content-password-exists": "You will be able to connect with your previously defined password.",
+"unlink-fc-content-password-undefined": "You will be redirected to create your password.",
+"unlink-account-btn": "Unlink",
+"description-required-field" : "Fields with {asterix} are required."
 },
 "fr": {
 "confirm": "Confirmer",
@@ -260,8 +324,14 @@ export default class NameInformationForm extends Vue {
 "zipcode-not-valid": "Code postal non valide.",
 "only-alpha":"Seuls les caractères alphabétiques ainsi que [ , -, '] sont autorisés",
 "field-required": "Ce champ est requis",
-"title": "Je renseigne mes informations personnelles",
-"subtitle": "Veuillez renseigner les informations de la personne dont le nom figurera sur le bail de location."
+"title": "Commençons par vos informations personnelles d’identité.",
+"subtitle": "Veuillez renseigner les informations de la personne dont le nom figurera sur le bail de location.",
+"unlink-fc-link": "Modifier vos informations ?",
+"unlink-fc-content": "Afin d’apporter des modifications sur vos nom et prénoms, il vous faut dissocier vos comptes FranceConnect et DossierFacile.",
+"unlink-fc-content-password-exists": "Vous pourrez alors utiliser le mot de passe que vous avez précédemment défini.",
+"unlink-fc-content-password-undefined": "Vous serez ensuite rediriger sur la page de mise à jour du mot de passe.",
+"unlink-account-btn": "Dissocier mes comptes",
+"description-required-field" : "Les champs marqués d'un {asterix} sont obligatoires."
 }
 }
 </i18n>

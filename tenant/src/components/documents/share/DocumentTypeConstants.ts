@@ -381,12 +381,11 @@ export const DocumentTypeConstants = {
       value: "CDI",
       explanationText:
         "J’ajoute un bulletin de salaire de moins de 3 mois de mon garant, son contrat de travail complet et signé, " +
-        "une attestation employeur de moins de 3 mois ou encore son avis d’imposition complet de moins de 2 ans.",
+        "une attestation employeur de moins de 3 mois.",
       acceptedProofs: [
         "Bulletin de salaire de moins de 3 mois",
         "Contrat de travail complet daté et signé",
-        "Attestation employeur de moins de 3 mois",
-        "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
+        "Attestation employeur de moins de 3 mois"
       ],
       refusedProofs: [
         "Courrier/mail de confirmation d’embauche",
@@ -399,12 +398,11 @@ export const DocumentTypeConstants = {
       value: "CDI_TRIAL",
       explanationText:
         "J’ajoute un bulletin de salaire de moins de 3 mois de mon garant, son contrat de travail complet et signé, " +
-        "une attestation employeur de moins de 3 mois ou encore son avis d’imposition complet de moins de 2 ans.",
+        "une attestation employeur de moins de 3 mois.",
       acceptedProofs: [
         "Bulletin de salaire de moins de 3 mois",
         "Contrat de travail complet daté et signé",
-        "Attestation employeur de moins de 3 mois",
-        "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
+        "Attestation employeur de moins de 3 mois"
       ],
       refusedProofs: [
         "Courrier/mail de confirmation d’embauche",
@@ -417,12 +415,11 @@ export const DocumentTypeConstants = {
       value: "CDD",
       explanationText:
         "J’ajoute un bulletin de salaire de moins de 3 mois de mon garant, son contrat de travail complet et signé, " +
-        "une attestation employeur de moins de 3 mois ou encore son avis d’imposition complet de moins de 2 ans.",
+        "une attestation employeur de moins de 3 mois.",
       acceptedProofs: [
         "Bulletin de salaire de moins de 3 mois",
         "Contrat de travail complet daté et signé",
-        "Attestation employeur de moins de 3 mois",
-        "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
+        "Attestation employeur de moins de 3 mois"
       ],
       refusedProofs: [
         "Courrier/mail de confirmation d’embauche",
@@ -477,12 +474,11 @@ export const DocumentTypeConstants = {
       value: "PUBLIC",
       explanationText:
         "J’ajoute un bulletin de salaire de moins de 3 mois de mon garant, une attestation employeur de " +
-        "moins de 3 mois, son arrêté de nomination ou encore son avis d’imposition complet de moins de 2 ans.",
+        "moins de 3 mois, son arrêté de nomination.",
       acceptedProofs: [
         "Bulletin de salaire de moins de 3 mois",
         "Arrêté de nomination",
-        "Attestation employeur de moins de 3 mois",
-        "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
+        "Attestation employeur de moins de 3 mois"
       ],
       refusedProofs: ["Relevés de comptes bancaires"],
       maxFileCount: 20
@@ -492,12 +488,11 @@ export const DocumentTypeConstants = {
       value: "CTT",
       explanationText:
         "J’ajoute un bulletin de salaire de moins de 3 mois de mon garant, son contrat de travail complet et signé, " +
-        "une attestation employeur de moins de 3 mois ou encore son avis d’imposition complet de moins de 2 ans.",
+        "une attestation employeur de moins de 3 mois.",
       acceptedProofs: [
         "Bulletin de salaire de moins de 3 mois",
         "Contrat de travail complet daté et signé",
-        "Attestation employeur de moins de 3 mois",
-        "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
+        "Attestation employeur de moins de 3 mois"
       ],
       refusedProofs: ["Relevés de comptes bancaires"],
       maxFileCount: 20
