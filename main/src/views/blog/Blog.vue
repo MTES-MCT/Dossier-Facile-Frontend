@@ -5,32 +5,13 @@
         <div class="fr-col-md-10 fr-col-lg-8">
           <h1>{{ $t("blog") }}</h1>
           <hr />
-          <article class="fr-mb-12w">
-            <div class="text-center">
-              <router-link
-                to="/blog/usurpation-d-identite-en-france-comment-prevenir-agir"
-              >
-                <h2 class="fr-h2">
-                  L’usurpation d’identité en France : comment la prévenir et
-                  comment agir ?
-                </h2>
-              </router-link>
-              <span>1 Juin 2022 dans </span>
-              <span>
-                <a href="#">DossierFacile</a>
-              </span>
-            </div>
-            <!--end article title-->
-            <div class="article__body">
-              <router-link
-                to="/blog/usurpation-d-identite-en-france-comment-prevenir-agir"
-              >
-                <img
-                  class="img-center"
-                  alt=""
-                  src="../../assets/images/blog-article13.webp"
-                />
-              </router-link>
+          <BlogExtractTile
+            title="L’usurpation d’identité en France : comment la prévenir et comment agir ?"
+            :image="require('../../assets/images/blog-article13.webp')"
+            publicationDate="1 Juin 2022"
+            path="/blog/usurpation-d-identite-en-france-comment-prevenir-agir"
+          >
+            <template v-slot:extract>
               <p>
                 L’usurpation d’identité consiste à utiliser, sans votre accord,
                 des informations permettant de vous identifier. Il peut s'agir,
@@ -39,36 +20,16 @@
                 touche plusieurs centaines de milliers de Français chaque année
                 pour un total de 474 millions d’euros extorqués...
               </p>
-              <router-link
-                to="/blog/usurpation-d-identite-en-france-comment-prevenir-agir"
-                >Continuer la lecture »</router-link
-              >
-            </div>
-            <!--end article title-->
-          </article>
+            </template>
+          </BlogExtractTile>
           <hr />
-          <article class="fr-mb-12w">
-            <div class="text-center">
-              <router-link to="/blog/au-secours-mon-ascenceur-est-en-panne">
-                <h2 class="fr-h2">
-                  Au secours, mon ascenseur est en panne ! Les droits du
-                  locataire en copropriété
-                </h2>
-              </router-link>
-              <span>14 Avril 2022 dans </span>
-              <span>
-                <a href="#">DossierFacile</a>
-              </span>
-            </div>
-            <!--end article title-->
-            <div class="article__body">
-              <router-link to="/blog/au-secours-mon-ascenceur-est-en-panne">
-                <img
-                  class="img-center"
-                  alt=""
-                  src="../../assets/images/blog-article12.webp"
-                />
-              </router-link>
+          <BlogExtractTile
+            title="Au secours, mon ascenseur est en panne ! Les droits du locataire en copropriété"
+            :image="require('../../assets/images/blog-article12.webp')"
+            publicationDate="14 Avril 2022"
+            path="/blog/au-secours-mon-ascenceur-est-en-panne"
+          >
+            <template v-slot:extract>
               <p>
                 Vous vivez au 6e étage de l’immeuble et l’ascenseur est en panne
                 depuis plusieurs mois ? Petit rappel : la vie en copropriété
@@ -77,77 +38,33 @@
                 copropriétaires et le syndic, chargé d'assurer la bonne gestion
                 de l'ensemble.
               </p>
-              <router-link to="/blog/au-secours-mon-ascenceur-est-en-panne"
-                >Continuer la lecture »</router-link
-              >
-            </div>
-            <!--end article title-->
-          </article>
+            </template>
+          </BlogExtractTile>
           <hr />
-          <article class="fr-mb-12w">
-            <div class="text-center">
-              <router-link
-                to="/blog/la-caution-locative-changement-en-vue-pour-2022"
-              >
-                <h2 class="fr-h2">
-                  La caution locative : changements en vue pour 2022
-                </h2>
-              </router-link>
-              <span>14 Mars 2022 dans </span>
-              <span>
-                <a href="#">DossierFacile</a>
-              </span>
-            </div>
-            <!--end article title-->
-            <div class="article__body">
-              <router-link
-                to="/blog/la-caution-locative-changement-en-vue-pour-2022"
-              >
-                <img
-                  class="img-center"
-                  alt=""
-                  src="../../assets/images/blog-article11.webp"
-                />
-              </router-link>
+          <BlogExtractTile
+            title="La caution locative : changements en vue pour 2022"
+            :image="require('../../assets/images/blog-article11.webp')"
+            publicationDate="14 Mars 2022"
+            path="/blog/la-caution-locative-changement-en-vue-pour-2022"
+          >
+            <template v-slot:extract>
               <p>
                 La caution est une personne ou un organisme qui s'engage par
-                écrit, à travers un acte de cautionnement, à payer votre loyer si
-                vous ne le faites pas. Il s’agit le plus souvent d’un parent ou d’un
-                proche. Si la caution ne rembourse pas les dettes locatives...
+                écrit, à travers un acte de cautionnement, à payer votre loyer
+                si vous ne le faites pas. Il s’agit le plus souvent d’un parent
+                ou d’un proche. Si la caution ne rembourse pas les dettes
+                locatives...
               </p>
-              <router-link
-                to="/blog/la-caution-locative-changement-en-vue-pour-2022"
-                >Continuer la lecture »</router-link
-              >
-            </div>
-            <!--end article title-->
-          </article>
+            </template>
+          </BlogExtractTile>
           <hr />
-          <article class="fr-mb-12w">
-            <div class="text-center">
-              <router-link
-                to="/blog/quand-les-journalistes-parlent-de-dossierfacile"
-              >
-                <h2 class="fr-h2">
-                  Quand les journalistes parlent de DossierFacile
-                </h2>
-              </router-link>
-              <span>14 Février 2022 dans </span>
-              <span>
-                <a href="#">DossierFacile</a>
-              </span>
-            </div>
-            <!--end article title-->
-            <div class="article__body">
-              <router-link
-                to="/blog/quand-les-journalistes-parlent-de-dossierfacile"
-              >
-                <img
-                  class="img-center"
-                  alt=""
-                  src="../../assets/images/blog-article10.webp"
-                />
-              </router-link>
+          <BlogExtractTile
+            title="Quand les journalistes parlent de DossierFacile"
+            :image="require('../../assets/images/blog-article10.webp')"
+            publicationDate="14 Février 2022"
+            path="/blog/quand-les-journalistes-parlent-de-dossierfacile"
+          >
+            <template v-slot:extract>
               <p>
                 Constituer son dossier de location est une étape indispensable
                 pour trouver le logement de ses rêves et pourtant c’est un
@@ -156,36 +73,16 @@
                 sereinement son dossier. En pleine croissance, le service a fait
                 l’objet de nombreux articles. Revue de presse.
               </p>
-              <router-link
-                to="/blog/quand-les-journalistes-parlent-de-dossierfacile"
-                >Continuer la lecture »</router-link
-              >
-            </div>
-            <!--end article title-->
-          </article>
+            </template>
+          </BlogExtractTile>
           <hr />
-          <article class="fr-mb-12w">
-            <div class="text-center">
-              <router-link to="/blog/loyer-locataire-ou-bailleur">
-                <h2 class="fr-h2">
-                  Le loyer : tout ce qu’il faut savoir quand on est locataire ou
-                  bailleur
-                </h2>
-              </router-link>
-              <span>29 Novembre 2021 dans </span>
-              <span>
-                <a href="#">DossierFacile</a>
-              </span>
-            </div>
-            <!--end article title-->
-            <div class="article__body">
-              <router-link to="/blog/loyer-locataire-ou-bailleur">
-                <img
-                  class="img-center"
-                  alt=""
-                  src="../../assets/images/blog-article9.webp"
-                />
-              </router-link>
+          <BlogExtractTile
+            title="Le loyer : tout ce qu’il faut savoir quand on est locataire ou bailleur"
+            :image="require('../../assets/images/blog-article9.webp')"
+            publicationDate="29 Novembre 2021"
+            path="/blog/loyer-locataire-ou-bailleur"
+          >
+            <template v-slot:extract>
               <p>
                 Le montant du loyer d'un logement, qu’il soit loué vide ou
                 meublé, est en principe fixé librement par le propriétaire.
@@ -199,34 +96,16 @@
                 location du logement (cas d'un nouveau locataire) et lors du
                 renouvellement du bail (cas du même locataire).
               </p>
-              <router-link to="/blog/loyer-locataire-ou-bailleur"
-                >Continuer la lecture »</router-link
-              >
-            </div>
-            <!--end article title-->
-          </article>
+            </template>
+          </BlogExtractTile>
           <hr />
-          <article class="fr-mb-12w">
-            <div class="text-center">
-              <router-link to="/blog/comment-justifier-son-domicile">
-                <h2 class="fr-h2">
-                  Comment justifier son domicile
-                </h2>
-              </router-link>
-              <span>02 Juin 2021 dans </span>
-              <span>
-                <a href="#">DossierFacile</a>
-              </span>
-            </div>
-            <!--end article title-->
-            <div class="article__body">
-              <router-link to="/blog/comment-justifier-son-domicile">
-                <img
-                  class="img-center"
-                  alt=""
-                  src="../../assets/images/blog-article8.webp"
-                />
-              </router-link>
+          <BlogExtractTile
+            title="Comment justifier son domicile"
+            :image="require('../../assets/images/blog-article8.webp')"
+            publicationDate="02 Juin 2021"
+            path="/blog/comment-justifier-son-domicile"
+          >
+            <template v-slot:extract>
               <p>
                 Dans un article précédent, nous avons vu les pièces nécessaires
                 à la constitution d’un dossier de location, mais l’une d’entre
@@ -237,34 +116,16 @@
                 quelle que soit votre situation, nous vous aiderons à aller au
                 bout !
               </p>
-              <router-link to="/blog/comment-justifier-son-domicile"
-                >Continuer la lecture »</router-link
-              >
-            </div>
-            <!--end article title-->
-          </article>
+            </template>
+          </BlogExtractTile>
           <hr />
-          <article class="fr-mb-12w">
-            <div class="text-center">
-              <router-link to="/blog/tout-comprendre-a-la-vie-en-colocation">
-                <h2 class="fr-h2">
-                  Tout comprendre à la vie en colocation
-                </h2>
-              </router-link>
-              <span>03 Mai 2021 dans </span>
-              <span>
-                <a href="#">DossierFacile</a>
-              </span>
-            </div>
-            <!--end article title-->
-            <div class="article__body">
-              <router-link to="/blog/tout-comprendre-a-la-vie-en-colocation">
-                <img
-                  class="img-center"
-                  alt=""
-                  src="../../assets/images/blog-article7.webp"
-                />
-              </router-link>
+          <BlogExtractTile
+            title="Tout comprendre à la vie en colocation"
+            :image="require('../../assets/images/blog-article7.webp')"
+            publicationDate="03 Mai 2021"
+            path="/blog/tout-comprendre-a-la-vie-en-colocation"
+          >
+            <template v-slot:extract>
               <p>
                 Devant la hausse des loyers, de nombreux locataires choisissent
                 aujourd'hui de partager un logement afin de diviser le coût de
@@ -276,34 +137,16 @@
                 colocation obéit toutefois à de nombreuses règles que nous
                 allons vous présenter.
               </p>
-              <router-link to="/blog/tout-comprendre-a-la-vie-en-colocation"
-                >Continuer la lecture »</router-link
-              >
-            </div>
-            <!--end article title-->
-          </article>
+            </template>
+          </BlogExtractTile>
           <hr />
-          <article class="fr-mb-12w">
-            <div class="text-center">
-              <router-link to="/blog/dossierfacile-fait-peau-neuve">
-                <h2 class="fr-h2">
-                  DossierFacile fait peau neuve
-                </h2>
-              </router-link>
-              <span>06 Avril 2021 dans </span>
-              <span>
-                <a href="#">DossierFacile</a>
-              </span>
-            </div>
-            <!--end article title-->
-            <div class="article__body">
-              <router-link to="/blog/dossierfacile-fait-peau-neuve">
-                <img
-                  class="img-center"
-                  alt=""
-                  src="../../assets/images/blog-article6.webp"
-                />
-              </router-link>
+          <BlogExtractTile
+            title="DossierFacile fait peau neuve"
+            :image="require('../../assets/images/blog-article6.webp')"
+            publicationDate="06 Avril 2021"
+            path="/blog/dossierfacile-fait-peau-neuve"
+          >
+            <template v-slot:extract>
               <p>
                 Afin de mieux répondre aux besoins de nos locataires et
                 propriétaires, le service <a href="/">DossierFacile</a> fait
@@ -315,38 +158,16 @@
                 justificatives : un gain de temps pour vous, pour nous, et pour
                 votre futur propriétaire !
               </p>
-              <router-link to="/blog/dossierfacile-fait-peau-neuve"
-                >Continuer la lecture »</router-link
-              >
-            </div>
-          </article>
+            </template>
+          </BlogExtractTile>
           <hr />
-          <article class="fr-mb-12w">
-            <div class="text-center">
-              <router-link
-                to="/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne"
-              >
-                <h2 class="fr-h2">
-                  5 conseils pour trouver l’appartement de ses rêves en région
-                  parisienne (ou ailleurs…)
-                </h2>
-              </router-link>
-              <span>30 Mars 2021 dans </span>
-              <span>
-                <a href="#">DossierFacile</a>
-              </span>
-            </div>
-            <!--end article title-->
-            <div class="article__body">
-              <router-link
-                to="/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne"
-              >
-                <img
-                  class="img-center"
-                  alt=""
-                  src="../../assets/images/blog-article5.webp"
-                />
-              </router-link>
+          <BlogExtractTile
+            title="5 conseils pour trouver l’appartement de ses rêves en région parisienne (ou ailleurs…)"
+            :image="require('../../assets/images/blog-article5.webp')"
+            publicationDate="30 Mars 2021"
+            path="/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne"
+          >
+            <template v-slot:extract>
               <p>
                 Trouver l’appartement de ses rêves à Paris ou en région
                 parisienne est un vrai défi : la capitale est pleine de charme,
@@ -357,38 +178,16 @@
                 livrent leurs cinq conseils pour trouver l’appartement parisien
                 de vos rêves.
               </p>
-              <router-link
-                to="/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne"
-                >Continuer la lecture »</router-link
-              >
-            </div>
-          </article>
+            </template>
+          </BlogExtractTile>
           <hr />
-          <article class="fr-mb-12w">
-            <div class="text-center">
-              <router-link
-                to="/blog/5-astuces-pour-booster-votre-dossier-de-location"
-              >
-                <h2 class="fr-h2">
-                  5 astuces pour booster votre dossier de location
-                </h2>
-              </router-link>
-              <span>25 Mars 2021 dans </span>
-              <span>
-                <a href="#">DossierFacile</a>
-              </span>
-            </div>
-            <!--end article title-->
-            <div class="article__body">
-              <router-link
-                to="/blog/5-astuces-pour-booster-votre-dossier-de-location"
-              >
-                <img
-                  class="img-center"
-                  alt=""
-                  src="../../assets/images/blog-article4.webp"
-                />
-              </router-link>
+          <BlogExtractTile
+            title="5 astuces pour booster votre dossier de location"
+            :image="require('../../assets/images/blog-article4.webp')"
+            publicationDate="25 Mars 2021"
+            path="/blog/5-astuces-pour-booster-votre-dossier-de-location"
+          >
+            <template v-slot:extract>
               <p>
                 En pleine crise sanitaire, il est encore plus difficile que
                 d’habitude de trouver un logement de location. Pour se
@@ -399,28 +198,16 @@
                 lui de comparer les différents candidats. Alors voici 5 astuces
                 pour booster votre dossier de location.
               </p>
-              <router-link
-                to="/blog/5-astuces-pour-booster-votre-dossier-de-location"
-                >Continuer la lecture »</router-link
-              >
-            </div>
-          </article>
+            </template>
+          </BlogExtractTile>
           <hr />
-          <article class="fr-mb-12w">
-            <div class="text-center">
-              <router-link to="/blog/pourquoi-dossierfacile-est-il-gratuit">
-                <h2 class="fr-h2">Pourquoi Dossier Facile est-il gratuit ?</h2>
-              </router-link>
-              <span>21 Juillet 2020 dans </span>
-              <span>
-                <a href="#">DossierFacile</a>
-              </span>
-            </div>
-            <!--end article title-->
-            <div class="article__body">
-              <router-link to="/blog/pourquoi-dossierfacile-est-il-gratuit">
-                <img alt="" src="../../assets/images/blog-article3.webp" />
-              </router-link>
+          <BlogExtractTile
+            title="Pourquoi Dossier Facile est-il gratuit ?"
+            :image="require('../../assets/images/blog-article3.webp')"
+            publicationDate="21 Juillet 2020"
+            path="/blog/pourquoi-dossierfacile-est-il-gratuit"
+          >
+            <template v-slot:extract>
               <p>
                 Dossier facile est une start-up qui propose une solution simple
                 et gratuite pour remettre la confiance au cœur du processus de
@@ -429,65 +216,37 @@
                 gratuité vont rarement de pair. Alors pourquoi votre dossier de
                 location est-il gratuit ?
               </p>
-              <router-link to="/blog/pourquoi-dossierfacile-est-il-gratuit"
-                >Continuer la lecture »</router-link
-              >
-            </div>
-          </article>
+            </template>
+          </BlogExtractTile>
           <hr />
-          <article class="fr-mb-12w">
-            <div class="text-center">
-              <router-link to="/blog/constituer-votre-dossierFacile">
-                <h2 class="fr-h2">Constituer votre Dossier Facile</h2>
-              </router-link>
-              <span>12 Décembre 2019 dans </span>
-              <span>
-                <a href="#">DossierFacile</a>
-              </span>
-            </div>
-            <!--end article title-->
-            <div class="article__body">
-              <router-link to="/blog/constituer-votre-dossierFacile">
-                <img alt="" src="../../assets/images/blog-article2.webp" />
-              </router-link>
+          <BlogExtractTile
+            title="Constituer votre Dossier Facile"
+            :image="require('../../assets/images/blog-article2.webp')"
+            publicationDate="12 Décembre 2019"
+            path="/blog/constituer-votre-dossierFacile"
+          >
+            <template v-slot:extract>
               <p>
                 Dans un contexte de pénurie de logements,
                 <router-link
                   to="/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location"
+                  title="quelles pieces justificatives fournir pour mon dossier de location"
                   >le dossier est devenu un facteur démarquant.</router-link
                 >
                 Mais comment constituer un dossier de location qui regroupe tous
                 les documents nécessaires sans tomber dans le désordre d’un pdf
                 de cinquante pages ? Existe-t-il un outil facile et gratuit ?
               </p>
-              <router-link to="/blog/constituer-votre-dossierFacile"
-                >Continuer la lecture »</router-link
-              >
-            </div>
-          </article>
+            </template>
+          </BlogExtractTile>
           <hr />
-          <article class="fr-mb-12w">
-            <div class="text-center">
-              <router-link
-                to="/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location"
-              >
-                <h2 class="fr-h2">
-                  Quelles pièces justificatives fournir pour mon dossier de
-                  location ?
-                </h2>
-              </router-link>
-              <span>14 Novembre 2019 dans </span>
-              <span>
-                <a href="#">DossierFacile</a>
-              </span>
-            </div>
-            <!--end article title-->
-            <div class="article__body">
-              <router-link
-                to="/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location"
-              >
-                <img alt="" src="../../assets/images/blog-article.webp" />
-              </router-link>
+          <BlogExtractTile
+            title="Quelles pièces justificatives fournir pour mon dossier de location ?"
+            :image="require('../../assets/images/blog-article.webp')"
+            publicationDate="14 Novembre 2019"
+            path="/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location"
+          >
+            <template v-slot:extract>
               <p>
                 A cause de l’augmentation de la demande immobilière, il devient
                 de plus en plus difficile de trouver un bon appartement à louer.
@@ -498,29 +257,16 @@
                 fournir pour avoir un dossier de location complet, clair et
                 cohérent.
               </p>
-              <router-link
-                to="/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location"
-                >Continuer la lecture »</router-link
-              >
-            </div>
-          </article>
+            </template>
+          </BlogExtractTile>
           <hr />
-          <!--end item-->
-          <article class="fr-mb-12w">
-            <div class="text-center">
-              <router-link to="/blog/locatio-devient-dossier-facile">
-                <h2 class="fr-h2">Locatio devient DossierFacile</h2>
-              </router-link>
-              <span>21 mars 2019 dans </span>
-              <span>
-                <a href="#">DossierFacile</a>
-              </span>
-            </div>
-            <!--end article title-->
-            <div class="article__body">
-              <router-link to="/blog/locatio-devient-dossier-facile">
-                <img alt="" src="../../assets/cover-features.webp" />
-              </router-link>
+          <BlogExtractTile
+            title="Locatio devient DossierFacile"
+            :image="require('../../assets/cover-features.webp')"
+            publicationDate="21 mars 2019"
+            path="/blog/locatio-devient-dossier-facile"
+          >
+            <template v-slot:extract>
               <p>
                 Pas de panique ! Le nom change, mais le service reste le même !
               </p>
@@ -528,11 +274,8 @@
                 Grâce à DossierFacile, ex-Locatio, vous pouvez monter facilement
                 et gratuitement votre dossier de location en ligne.
               </p>
-              <router-link to="/blog/locatio-devient-dossier-facile"
-                >Continuer la lecture »</router-link
-              >
-            </div>
-          </article>
+            </template>
+          </BlogExtractTile>
         </div>
       </div>
       <!--end of row-->
@@ -542,22 +285,15 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import BlogExtractTile from "./BlogExtractTile.vue";
 
-@Component
+@Component({
+  components: {
+    BlogExtractTile
+  }
+})
 export default class Blog extends Vue {}
 </script>
-
-<style scoped lang="scss">
-@import "df-shared/src/scss/_variables.scss";
-
-a {
-  color: $light-blue;
-}
-
-.article__body {
-  margin-top: 1rem;
-}
-</style>
 
 <i18n>
 {
