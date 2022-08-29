@@ -102,7 +102,7 @@ function handleChange(e: any) {
 
         <div v-if="wait && !url">Veuillez patienter</div>
         <div v-if="url">
-          <a :href="url">Télécharger</a>
+          <a :href="url" target="_blank">Télécharger</a>
         </div>
       </div>
     </form>
@@ -117,10 +117,12 @@ function handleChange(e: any) {
 <i18n>
 {
   "en": {
-    "title": "Add a watermark to any file"
+    "title": "Add a watermark to any file",
+    "submit": "Submit"
   },
   "fr": {
-    "title": "Ajoutez un filigrane à n'importe quel document"
+    "title": "Ajoutez un filigrane à n'importe quel document",
+    "submit": "Envoyer"
   }
 }
 </i18n>
