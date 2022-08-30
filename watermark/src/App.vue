@@ -2,6 +2,7 @@
 import { useI18n } from "vue-i18n";
 import { ref } from "vue";
 import axios from "axios";
+import ProgressIndicator from "./ProgressIndicator.vue";
 
 const file = ref(null);
 const token = ref("");
@@ -21,7 +22,9 @@ function getFile() {
       }
     })
     .catch(() => {
-      setTimeout(function () { getFile()  }, 2000);
+      setTimeout(function () {
+        getFile();
+      }, 2000);
     });
 }
 
@@ -95,12 +98,17 @@ function handleChange(e: any) {
         </div>
 
         <div class="fr-col-12 text-center fr-mb-5w">
-          <button class="fr-btn" type="submit">
-            {{ t("submit") }}
+          <button class="fr-btn" type="submit" :disabled="wait && !url">
+            <span v-if="!wait || url">
+              {{ t("submit") }}
+            </span>
+            <span v-if="wait && !url">
+              {{ t("wait")}}
+              <ProgressIndicator diameter="22px" border="3px" color="#000091" />
+            </span>
           </button>
         </div>
 
-        <div v-if="wait && !url">Veuillez patienter</div>
         <div v-if="url">
           <a :href="url" target="_blank">Télécharger</a>
         </div>
@@ -118,11 +126,13 @@ function handleChange(e: any) {
 {
   "en": {
     "title": "Add a watermark to any file",
-    "submit": "Submit"
+    "submit": "Submit",
+    "wait": "Please wait"
   },
   "fr": {
     "title": "Ajoutez un filigrane à n'importe quel document",
-    "submit": "Envoyer"
+    "submit": "Envoyer",
+    "wait": "Veuillez patienter"
   }
 }
 </i18n>
