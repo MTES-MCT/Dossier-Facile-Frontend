@@ -61,7 +61,9 @@
               {{ t('apply-new-text-2') }}
             </p>
             <div class="align-end mt-auto">
-              <a :href="TENANT_URL" class="fr-btn fr-mt-3w">{{ t('create-account') }}</a>
+              <a :href="`${TENANT_URL}/signup`" class="fr-btn fr-mt-3w">{{
+                t('create-account')
+              }}</a>
             </div>
           </NakedCard>
         </div>
