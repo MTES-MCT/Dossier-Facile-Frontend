@@ -19,6 +19,7 @@ function getFile() {
     .then((res: any) => {
       if (res.data.url) {
         url.value = `${API_URL}/api/document/${token.value}`;
+        wait.value = false;
       }
     })
     .catch(() => {
@@ -33,6 +34,7 @@ async function handleSubmit() {
     return;
   }
   wait.value = true;
+  url.value = "";
   const formData = new FormData();
   formData.append(`files`, file.value);
   axios
@@ -48,6 +50,7 @@ async function handleSubmit() {
 }
 
 function handleChange(e: any) {
+  url.value = ""
   file.value = e.target.files[0];
 }
 </script>
