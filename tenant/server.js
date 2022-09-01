@@ -16,7 +16,7 @@ app.use(function(req, res, next) {
       "object-src 'none'; " +
       "prefetch-src 'self'; " +
       "connect-src https://www.google-analytics.com https://stats.data.gouv.fr *.inspectlet.com wss://ws.inspectlet.com https://stats.g.doubleclick.net https://sso-preprod.dossierfacile.fr *.cloudfront.net *.dossierfacile.fr 'unsafe-eval' *.helpscout.net wss://ws-helpscout.pusher.com https://sockjs-helpscout.pusher.com blob:; " +
-      "frame-src https://www.google.com *.dossierfacile.fr; " +
+      "frame-src https://www.google.com *.dossierfacile.fr https://3689183.fls.doubleclick.net; " +
       "child-src *.dossierfacile.fr "
   );
   res.setHeader("X-Frame-Options", "deny");

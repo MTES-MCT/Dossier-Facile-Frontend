@@ -15,7 +15,7 @@ app.use(function(req, res, next) {
       "object-src 'none'; " +
       "prefetch-src 'self'; " +
       "connect-src https://www.google-analytics.com *.inspectlet.com wss://ws.inspectlet.com https://stats.g.doubleclick.net https://sso-preprod.dossierfacile.fr *.cloudfront.net *.dossierfacile.fr 'unsafe-eval' *.helpscout.net wss://ws-helpscout.pusher.com https://sockjs-helpscout.pusher.com https://dossierfacile-api-owner-preprod.osc-fr1.scalingo.io https://dossierfacile-api-owner-prod.osc-secnum-fr1.scalingo.io https://stats.data.gouv.fr blob:; " +
-      "frame-src https://www.google.com *.dossierfacile.fr https://3689183.fls.doubleclick.net ; " +
+      "frame-src https://www.google.com *.dossierfacile.fr ; " +
       "child-src *.dossierfacile.fr"
   );
   res.setHeader("X-Frame-Options", "deny");
