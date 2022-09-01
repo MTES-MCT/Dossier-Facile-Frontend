@@ -106,7 +106,7 @@
                 v-slot="{ field, meta }"
                 :rules="{
                   required: true,
-                  confirm: [user.password, user.confirm] ,
+                  confirm: [user.password, user.confirm],
                 }"
               >
                 <input
@@ -143,7 +143,10 @@
           </div>
 
           <div class="fr-col-12 text-center fr-mb-5w">
-            <button class="fr-btn full-width-btn" type="submit">
+            <button
+              class="fr-btn full-width-btn"
+              type="submit"
+            >
               {{ t("submit") }}
             </button>
           </div>
@@ -154,42 +157,46 @@
 </template>
 
 <script setup lang="ts">
-import { User } from 'df-shared-next/src/models/User';
-import { ref, onMounted } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { Form, Field, ErrorMessage } from 'vee-validate';
-import PasswordMeter from 'df-shared-next/src/components/PasswordMeter/PasswordMeter.vue';
+import { User } from "df-shared-next/src/models/User";
+import { ref, onMounted } from "vue";
+import { useI18n } from "vue-i18n";
+import { Form, Field, ErrorMessage } from "vee-validate";
+import PasswordMeter from "df-shared-next/src/components/PasswordMeter/PasswordMeter.vue";
 
 const FRANCE_CONNECT_LOGIN_URL = import.meta.env.VUE_APP_FRANCE_CONNECT_LOGIN_URL;
 
 const { t } = useI18n();
 
-const emit = defineEmits(['on-register']);
-const franceConnect = window.location.href.includes('locataire-dev')
-  || window.location.href.includes('localhost');
+const emit = defineEmits(["on-register"]);
+const franceConnect =
+  window.location.href.includes("locataire-dev") ||
+  window.location.href.includes("localhost");
 
 const user: User = new User();
 const score = ref(0);
-const generatedPwd = ref('');
+const generatedPwd = ref("");
 
 function generatePlaceholder() {
   const chars = [
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
-    '0123456789',
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
-    '#!?-_.',
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+    "0123456789",
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+    "#!?-_.",
   ];
-  generatedPwd.value = t('ex')
-    + [4, 4, 2, 2]
-      .map((len, i) => Array(len)
-        .fill(chars[i])
-        .map((x) => x[Math.floor(Math.random() * x.length)])
-        .join(''))
+  generatedPwd.value =
+    t("ex") +
+    [4, 4, 2, 2]
+      .map((len, i) =>
+        Array(len)
+          .fill(chars[i])
+          .map((x) => x[Math.floor(Math.random() * x.length)])
+          .join("")
+      )
       .concat()
-      .join('')
-      .split('')
+      .join("")
+      .split("")
       .sort(() => 0.5 - Math.random())
-      .join('');
+      .join("");
 }
 
 function loginFranceConnect() {
@@ -203,7 +210,7 @@ onMounted(() => {
 });
 
 function onSubmit() {
-  emit('on-register', user);
+  emit("on-register", user);
 }
 
 function setScore(s: number) {
