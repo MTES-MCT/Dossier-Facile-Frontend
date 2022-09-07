@@ -1,7 +1,7 @@
 import { User } from "../models/User";
 import axios from "axios";
 
-const API_URL = `//${process.env.VUE_APP_API_URL}/api/`;
+const API_URL = `https://${process.env.VUE_APP_API_URL}/api/`;
 
 export const AuthService = {
   logout() {
