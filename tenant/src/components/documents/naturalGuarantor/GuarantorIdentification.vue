@@ -273,8 +273,6 @@ export default class GuarantorIdentification extends Vue {
       "typeDocumentIdentification",
       this.identificationDocument.value
     );
-    formData.append("firstName", this.selectedGuarantor.firstName || "");
-    formData.append("lastName", this.selectedGuarantor.lastName || "");
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     formData.append("guarantorId", this.$store.getters.guarantor.id);
