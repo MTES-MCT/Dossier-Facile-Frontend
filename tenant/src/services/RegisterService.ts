@@ -5,7 +5,7 @@ import Vue from "vue";
 export const RegisterService = {
   deleteFile(id: number | string, silent = false) {
     const loader = Vue.$loading.show();
-    const url = `https://${process.env.VUE_APP_API_URL}/api/file/${id}`;
+    const url = `//${process.env.VUE_APP_API_URL}/api/file/${id}`;
     return axios
       .delete(url)
       .then(() => {
@@ -38,7 +38,7 @@ export const RegisterService = {
 
   saveGuarantorIdentification(formData: FormData) {
     return axios.post(
-      `https://${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentIdentification`,
+      `//${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentIdentification/v2`,
       formData
     );
   },
