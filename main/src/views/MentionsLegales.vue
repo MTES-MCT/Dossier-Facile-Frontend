@@ -338,7 +338,7 @@
                 de confidentialité de vos données de manière substantielle sans
                 vous en informer et obtenir votre consentement.
               </p>
-              <h3>10. Droit applicable et modalités de recours</h3>
+              <h3>11. Droit applicable et modalités de recours</h3>
               <h4>
                 Application du droit français (législation CNIL) et compétence
                 des tribunaux
