@@ -38,7 +38,7 @@ export const RegisterService = {
 
   saveGuarantorIdentification(formData: FormData) {
     return axios.post(
-      `https://${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentIdentification`,
+      `https://${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/documentIdentification/v2`,
       formData
     );
   },

@@ -34,7 +34,7 @@
                 1 place Carpeaux, 92800 Puteaux, France.<br />
                 +33 1 40 81 21 22<br />
               </p>
-              <p>  
+              <p>
                 Directeur de publication : Stéphanie Dupuy-Lyon, directrice
                 générale de l’aménagement, du logement et de la nature
               </p>
@@ -93,8 +93,9 @@
                 >
               </p>
               <p>
-                L’Utilisateur : La personne utilisant le Site et les
-                services.
+                L’Utilisateur : La personne utilisant le Site et les services.
+              </p>
+
               <p>
                 Le Garant : La ou les personnes physiques désignées par
                 l’Utilisateur et se portant caution pour lui dans le cadre de sa
@@ -154,7 +155,41 @@
                 d’appartement”. Les documents sont stockés dans un serveur
                 hébergé par OVH en France.
               </p>
-              <h3>4. Qualité des données publiées</h3>
+              <h3>4. Obligations de l'Utilisateur</h3>
+              <p>
+                De manière générale, et sans que cette liste puisse être
+                considérée comme exhaustive, l’Utilisateur s’interdit de :
+              </p>
+              <ul class="fr-mb-4w fr-ml-3w">
+                <li>
+                  fournir volontairement des informations incomplètes, erronées
+                  ou inexactes, ou dont il n’est pas titulaire ou détenteur
+                  légitime ;
+                </li>
+                <li>
+                  utiliser le Site ou le Service à des fins commerciales ou non
+                  privées, ou dans des conditions ou selon des modalités qui
+                  entraîneraient la violation par lui d’autres dispositions ou
+                  engagements contractuels ou constitutives d’une fraude ;
+                </li>
+                <li>entraver ou perturber le fonctionnement du Site ;</li>
+                <li>
+                  déposer, diffuser ou utiliser sur ou depuis le Site des
+                  contenus portant atteinte aux droits de tiers, et en
+                  particulier à des droits de propriété intellectuelle (marque,
+                  droit d’auteur, modèles en particulier), aux droits de
+                  personne (notamment usurpation d’identité, diffamation,
+                  insultes, injures, dénigrement, harcèlement, etc.), au respect
+                  de la vie privée (en ce compris le droit à l’image), à l’ordre
+                  public et aux bonnes mœurs (notamment apologie des crimes
+                  contre l’humanité, incitation à la haine raciale, atteinte à
+                  la dignité humaine, etc.) et, plus généralement, à la
+                  réglementation applicable en vigueur et aux règles habituelles
+                  en matière de pratiques commerciales, de politesse et de
+                  courtoisie, en particulier dans ses échanges avec le support.
+                </li>
+              </ul>
+              <h3>5. Qualité des données publiées</h3>
               <p>
                 Nous publions sur DossierFacile des données publiques à titre
                 informatif. Seules les publications légales font foi, notamment
@@ -178,7 +213,7 @@
                   >contact@dossierfacile.fr</a
                 >
               </p>
-              <h3>5. Propriété intellectuelle</h3>
+              <h3>6. Propriété intellectuelle</h3>
               <p>
                 Ce site est la propriété exclusive du Ministère de la Transition
                 écologique. Toute reproduction ou représentation totale ou
@@ -230,7 +265,7 @@
                 </li>
               </ul>
 
-              <h3>6. Limitation de la responsabilité</h3>
+              <h3>7. Limitation de la responsabilité</h3>
               <p>
                 Le service fourni par DossierFacile ne saurait être assimilé à
                 une garantie apportée par DossierFacile sur les dossiers ayant
@@ -267,7 +302,7 @@
                 faute ou de responsabilité en cas d’incident relatif à une
                 faille de sécurité.
               </p>
-              <h3>7. Suppression du compte en cas de violation des CGU</h3>
+              <h3>8. Suppression du compte en cas de violation des CGU</h3>
               <p>
                 En cas de violation d'une ou de plusieurs dispositions des CGU
                 ou de tout autre document incorporé aux présentes par référence,
@@ -275,7 +310,7 @@
                 aucun avertissement préalable et à sa seule discrétion, votre
                 usage et accès aux services, à votre compte et à tous les Sites.
               </p>
-              <h3>8. Disponibilité du service</h3>
+              <h3>9. Disponibilité du service</h3>
               <p>
                 L'Éditeur peut suspendre l’accès à DossierFacile sans
                 information préalable ni préavis, notamment pour des raisons de
@@ -285,7 +320,7 @@
                 garantie sur sa disponibilité. Même si l'Éditeur fait en sorte
                 que le service soit toujours opérationnel, cela signifie que
                 d’éventuelles indisponibilités n’ouvriront pas droit à
-                compensation financière. 
+                compensation financière.
               </p>
               <p>
                 L'Éditeur se réserve également le droit de bloquer, sans
@@ -295,7 +330,7 @@
                 service.
               </p>
               <h3>
-                9. Modification des CGU et de la politique de confidentialité
+                10. Modification des CGU et de la politique de confidentialité
               </h3>
               <p>
                 Nous nous engageons à vous informer en cas de modification
@@ -303,7 +338,7 @@
                 de confidentialité de vos données de manière substantielle sans
                 vous en informer et obtenir votre consentement.
               </p>
-              <h3>10. Droit applicable et modalités de recours</h3>
+              <h3>11. Droit applicable et modalités de recours</h3>
               <h4>
                 Application du droit français (législation CNIL) et compétence
                 des tribunaux
@@ -320,8 +355,7 @@
                 signifie que vous pouvez engager une action relative aux
                 présentes CGU en France ou dans le pays de l'UE dans lequel vous
                 vivez. Si vous êtes un professionnel, toutes les actions à notre
-                encontre doivent être engagées devant une juridiction en
-                France.
+                encontre doivent être engagées devant une juridiction en France.
               </p>
               <p>
                 En cas de litige, les parties chercheront une solution amiable
@@ -341,8 +375,7 @@
                 données, effectués à partir du site soient conformes au
                 règlement général sur la protection des données du 27 avril
                 2016, applicable depuis le 25 mai 2018, et à la loi informatique
-                et libertés dans sa dernière version modifiée du 20 juin
-                2018.
+                et libertés dans sa dernière version modifiée du 20 juin 2018.
               </p>
               <p>
                 Ces dispositions fixent des règles strictes de confidentialité
@@ -548,18 +581,20 @@
               </p>
               <div class="fr-ml-3w">
                 <ul>
-                  <li>Par mail :
-                  <a href="mailto:contact@dossierfacile.fr"
-                    >contact@dossierfacile.fr</a
-                  >
+                  <li>
+                    Par mail :
+                    <a href="mailto:contact@dossierfacile.fr"
+                      >contact@dossierfacile.fr</a
+                    >
                   </li>
-                  <li>Par voie postale :<br />
-                  Ministère de la Transition écologique et solidaire<br />
-                  Direction Générale de l'Aménagement, du Logement et de la
-                  Nature<br />
-                  Direction de l’habitat, de l’urbanisme et des paysages<br />
-                  DossierFacile<br />
-                  1 place Carpeaux, 92800 Puteaux
+                  <li>
+                    Par voie postale :<br />
+                    Ministère de la Transition écologique et solidaire<br />
+                    Direction Générale de l'Aménagement, du Logement et de la
+                    Nature<br />
+                    Direction de l’habitat, de l’urbanisme et des paysages<br />
+                    DossierFacile<br />
+                    1 place Carpeaux, 92800 Puteaux
                   </li>
                 </ul>
               </div>
@@ -571,7 +606,7 @@
               <p>
                 Le délégué à la protection des données du ministère de la
                 transition écologique et solidaire peut également être contacté
-                à l’adresse suivante : 
+                à l’adresse suivante :
               </p>
               <p>
                 dpd.daj.sg@developpement-durable.gouv.fr
@@ -689,7 +724,7 @@ h4 {
   background-size: cover !important;
   background-position: 50% 50% !important;
   background-image: url("../assets/images/en-savoir-plus/en-savoir-plus-image2.jpg");
-  background-color:#314467;
+  background-color: #314467;
   z-index: 0;
 }
 </style>
