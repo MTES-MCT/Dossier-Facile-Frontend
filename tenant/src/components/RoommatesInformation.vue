@@ -188,7 +188,8 @@ export default class RoommatesInformation extends Vue {
     this.showEmailExists = false;
     if (this.newRoommate !== "") {
       if (this.user.email !== this.newRoommate) {
-        this.$store.commit("createRoommates", this.newRoommate);
+        console.log("TODO TDB implementation missing");
+        this.$store.commit("createCoTenant", this.newRoommate);
         this.newRoommate = "";
       } else {
         this.showEmailExists = true;

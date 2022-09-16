@@ -130,7 +130,11 @@
           <ProfileFooter @on-back="goBack"></ProfileFooter>
         </form>
       </ValidationObserver>
-      <CoupleInformation class="fr-mt-2w" v-if="applicationType === 'COUPLE'">
+      <CoupleInformation
+        v-model="coTenants"
+        class="fr-mt-2w"
+        v-if="applicationType === 'COUPLE'"
+      >
       </CoupleInformation>
       <RoommatesInformation class="fr-mt-2w" v-if="applicationType === 'GROUP'">
       </RoommatesInformation>
@@ -196,6 +200,7 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 export default class TenantInformationForm extends Vue {
   user!: User;
   roommates!: User[];
+  coTenants: User[] = [];
   coTenantAuthorize!: boolean;
   spouseAuthorize!: boolean;
   applicationType = "";
@@ -222,27 +227,38 @@ export default class TenantInformationForm extends Vue {
     ) {
       return;
     }
-    let coTenantEmails: string[] = [];
-    coTenantEmails = this.roommates
+    // check Tenant validity
+    let hasError = false;
+    this.coTenants
       .filter((r: User) => {
-        return r.id != this.user.id;
+        return (
+          ((r.firstName?.length || 0) === 0 ||
+            (r.lastName?.length || 0) == 0) &&
+          r.email.length === 0
+        );
       })
-      .map(function(r) {
-        return r.email;
+      .forEach((r: User) => {
+        if (this.applicationType === "COUPLE") {
+          this.$toasted.show(this.$i18n.t("couple-email-required").toString(), {
+            type: "error",
+            duration: 7000
+          });
+          hasError = hasError || true;
+          return;
+        }
+        if (this.applicationType === "GROUP") {
+          this.$toasted.show(
+            this.$i18n.t("roommate-email-required").toString(),
+            {
+              type: "error",
+              duration: 7000
+            }
+          );
+          hasError = hasError || true;
+          return;
+        }
       });
-
-    if (this.applicationType === "COUPLE" && coTenantEmails.length < 1) {
-      this.$toasted.show(this.$i18n.t("couple-email-required").toString(), {
-        type: "error",
-        duration: 7000
-      });
-      return;
-    }
-    if (this.applicationType === "GROUP" && coTenantEmails.length < 1) {
-      this.$toasted.show(this.$i18n.t("roommate-email-required").toString(), {
-        type: "error",
-        duration: 7000
-      });
+    if (hasError) {
       return;
     }
 
@@ -253,16 +269,15 @@ export default class TenantInformationForm extends Vue {
       });
       return;
     }
-
     const data = {
       applicationType: this.applicationType,
-      coTenantEmail: coTenantEmails,
+      coTenants: this.coTenants,
       acceptAccess: true
     };
 
     const loader = this.$loading.show();
     this.$store
-      .dispatch("setRoommates", data)
+      .dispatch("setCoTenants", data)
       .then(
         () => {
           AnalyticsService.confirmType();
@@ -340,7 +355,7 @@ export default class TenantInformationForm extends Vue {
       this.applicationType === this.user.applicationType &&
       (this.applicationType === "GROUP" || this.applicationType === "COUPLE")
     ) {
-      const unregisteredRoommate = this.roommates.find((r: any) => {
+      const unregisteredRoommate = this.coTenants.find((r: any) => {
         return r.id === undefined;
       });
       if (unregisteredRoommate === undefined) {

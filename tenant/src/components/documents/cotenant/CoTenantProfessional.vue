@@ -1,0 +1,105 @@
+<template>
+  <div>
+    <DocumentDownloader
+      :coTenantId="coTenantId"
+      :documentsDefinitions="documentsDefinitions"
+      documentCategory="PROFESSIONAL"
+      dispacthMethodName="saveTenantProfessional"
+      typeDocument="typeDocumentProfessional"
+      :isDropdownList="true"
+      @on-change-document="changeDocumentType"
+    >
+      <!-- @enrich-form-data="enrichFormData" -->
+      <!-- @check-before-add-file="checkValid"-->
+      <!--    
+        //:documents="documents"
+      //@on-remove-file=""
+      //@on-add-file=""
+      //@on-change-document=""
+      //@on-valid-change-document=""
+      documentExplainationText=""
+      //documentDeniedReasons="documentDeniedReasons"
+      //documentStatus="documentStatus"
+    -->
+
+      <template v-slot:help-modal-content>
+        <p>
+          <DocumentHelp></DocumentHelp>
+          <DocumentInsert
+            v-if="documentType ? (documentType.key ? true : false) : false"
+            :allow-list="documentType ? documentType.acceptedProofs : null"
+            :block-list="documentType ? documentType.refusedProofs : null"
+          ></DocumentInsert>
+        </p>
+      </template>
+    </DocumentDownloader>
+  </div>
+</template>
+
+<script lang="ts">
+import { DocumentType } from "df-shared/src/models/Document";
+import { Component, Prop, Vue } from "vue-property-decorator";
+import DocumentHelp from "../../helps/DocumentHelp.vue";
+import DocumentInsert from "../share/DocumentInsert.vue";
+import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
+import DocumentDownloader from "./DocumentDownloader.vue";
+
+@Component({
+  components: {
+    DocumentHelp,
+    DocumentInsert,
+    DocumentDownloader
+  },
+  computed: {}
+})
+export default class CoTenantProfessional extends Vue {
+  documentsDefinitions = DocumentTypeConstants.PROFESSIONAL_DOCS;
+  @Prop() coTenantId!: number;
+  documentType?: DocumentType;
+
+  changeDocumentType(docType?: DocumentType) {
+    this.documentType = docType;
+  }
+}
+</script>
+
+<style scoped lang="scss"></style>
+
+<i18n>
+{
+"en": {
+  "title": "Your Spouse current accommodation situation",
+  "description": "",
+  "cdi": "CDI",
+  "cdi-trial": "CDI (période d’essai)",
+  "cdd": "CDD",
+  "alternation": "Alternance",
+  "internship": "Stage",
+  "student": "Études",
+  "public": "Fonction publique",
+  "ctt": "CTT (intérimaire)",
+  "retired": "Retraité",
+  "unemployed": "Chômage",
+  "independent": "Indépendant",
+  "other": "Autre",
+  "select-is-empty": "Item selection required"
+},
+"fr": {
+  "title": "La situation d’hébergement actuelle de votre conjoint",
+  "description": "",
+  "cdi": "CDI",
+  "cdi-trial": "CDI (période d’essai)",
+  "cdd": "CDD",
+  "alternation": "Alternance",
+  "internship": "Stage",
+  "student": "Études",
+  "public": "Fonction publique",
+  "ctt": "CTT (intérimaire)",
+  "retired": "Retraité",
+  "unemployed": "Chômage",
+  "independent": "Indépendant",
+  "other": "Autre", 
+  "select-is-empty": "Sélection requise"
+}
+}
+</i18n>

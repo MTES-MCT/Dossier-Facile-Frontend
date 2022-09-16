@@ -21,7 +21,10 @@ export const RegisterService = {
         store.dispatch("loadUser");
       });
   },
-
+  deleteFileById(id: number) {
+    const url = `https://${process.env.VUE_APP_API_URL}/api/file/${id}`;
+    return axios.delete(url);
+  },
   saveTenantIdentification(formData: FormData) {
     return axios.post(
       `https://${process.env.VUE_APP_API_URL}/api/register/documentIdentification`,
@@ -33,6 +36,13 @@ export const RegisterService = {
     return axios.post(
       `https://${process.env.VUE_APP_API_URL}/api/tenant/allowTax/${allowTax}`,
       { fcToken }
+    );
+  }
+
+  saveCoTenantIdentification(formData: FormData) {
+    return axios.post(
+      `https://${process.env.VUE_APP_API_URL}/api/tenant/coTenant/${formData.get('coTenantId')}/documentIdentification`,
+      formData
     );
   },
 

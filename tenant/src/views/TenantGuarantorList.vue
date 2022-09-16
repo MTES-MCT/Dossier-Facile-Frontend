@@ -1,5 +1,5 @@
 <template>
-  <ProfileContainer :step="3">
+  <div>
     <NakedCard class="fr-p-md-5w">
       <h1 class="fr-h5">
         {{ $t("my-guarantor") }}
@@ -17,7 +17,7 @@
           </p>
         </template>
       </v-gouv-fr-modal>
-      <div v-for="g in user.guarantors" :key="g.id">
+      <div v-for="g in guarantors" :key="g.id">
         <CardRow @edit="editGuarantor(g)" @remove="isRemoveGuarantor = true">
           <template v-slot:tag>
             <div class="text-bold">{{ getGuarantorName(g) }}</div>
@@ -43,15 +43,12 @@
         </button>
       </div>
     </NakedCard>
-
     <GuarantorFooter @on-back="goBack" @on-next="goNext"></GuarantorFooter>
-  </ProfileContainer>
+  </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { mapGetters, mapState } from "vuex";
-import { User } from "df-shared/src/models/User";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import GuarantorFooter from "../components/footer/GuarantorFooter.vue";
 import GuarantorChoiceHelp from "../components/helps/GuarantorChoiceHelp.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
@@ -75,19 +72,12 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
     ConfirmModal
   },
   computed: {
-    ...mapState({
-      user: "user"
-    }),
-    ...mapGetters({
-      guarantors: "guarantors",
-      coTenants: "coTenants"
-    })
   }
 })
-export default class GuarantorListPage extends Vue {
-  user!: User;
-  coTenants!: User[];
-  guarantors!: Guarantor[];
+export default class TenantGuarantorList extends Vue {
+  @Prop() step!: number;
+  @Prop() guarantors!: Guarantor[];
+
   isRemoveGuarantor = false;
 
   getGuarantorName(g: Guarantor) {
@@ -98,29 +88,11 @@ export default class GuarantorListPage extends Vue {
   }
 
   goBack() {
-    if (this.guarantors.length > 0) {
-      this.$router.push({ name: "TenantDocuments", params: { substep: "5" } });
-      return;
-    }
-    this.$router.push({
-      name: "GuarantorChoice"
-    });
+    this.$emit("on-back");
   }
 
   goNext() {
-    if (this.user.applicationType == "COUPLE") {
-      this.$router.push({
-        name: "CoTenantDocuments",
-        params: {
-          step: "4",
-          substep: "0",
-          tenantId: this.coTenants[0].id.toString()
-        }
-      });
-    }
-    this.$router.push({
-      name: "ValidateFile"
-    });
+    this.$emit("on-next");
   }
 
   getStatus(g: Guarantor) {
@@ -155,16 +127,13 @@ export default class GuarantorListPage extends Vue {
   }
 
   editGuarantor(g: Guarantor) {
-    this.$store.commit("setSelectedGuarantor", g);
-    this.$router.push({ name: "GuarantorDocuments", params: { substep: "0" } });
+    this.$emit("on-edit", g);
   }
 
   removeGuarantor(g: Guarantor) {
     this.$store.dispatch("deleteGuarantor", g).then(
       () => {
-        if (!this.user.guarantors?.length || 0 >= 1) {
-          this.$router.push({ name: "GuarantorChoice" });
-        }
+        this.$emit("on-delete", g);
       },
       () => {
         Vue.toasted.global.error();
@@ -174,7 +143,7 @@ export default class GuarantorListPage extends Vue {
 
   hasOneNaturalGuarantor() {
     return (
-      this.guarantors.length === 1 &&
+      this.guarantors?.length === 1 &&
       this.guarantors[0].typeGuarantor === "NATURAL_PERSON"
     );
   }
@@ -289,7 +258,7 @@ h2 {
 },
 "fr": {
   "more-information": "En difficulté pour répondre à la question ?",
-  "my-guarantor": "Mon garant",
+  "my-guarantor": "Le garant de mon conjoint",
   "add-new-guarantor": "Ajouter un nouveau garant ?",
   "guarantor": "Mon garant",
   "EMPTY": "Absent",

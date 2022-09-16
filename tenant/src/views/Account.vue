@@ -137,84 +137,46 @@
                 <p v-html="$t('instructional-time-text')"></p>
               </div>
               <hr />
-              <div class="main-information">
-                <h3 class="fr-h4">{{ $t("my-personnal-information") }}</h3>
-                <div class="fr-grid-row fr-grid-row--gutters">
-                  <InfoCard
-                    :title="$t('my-information')"
-                    editable="true"
-                    matIcon="person"
-                    @click="gotoTenantName()"
+              <section v-if="user.applicationType === 'COUPLE'" class="fr-mt-5w fr-mb-3w">
+                <div class="fr-tabs">
+                  <ul
+                    class="fr-tabs__list"
+                    role="tablist"
+                    aria-label="tab-list"
                   >
-                    <div class="name-email-tile">
-                      {{ user | fullName }}<br />
-                      {{ user.email }}
-                    </div>
-                  </InfoCard>
+                    <li
+                      v-for="(tenant, k) in getTenants()"
+                      v-bind:key="`li${k}`"
+                      role="presentation"
+                    >
+                      <button
+                        class="fr-tabs__tab fr-tabs__tab--icon-right"
+                        :class="{ 'fr-fi-icon-fc-right': tenant.franceConnect }"
+                        :id="`tabpanel-${k}`"
+                        :tabindex="tabIndex === k ? 0 : -1"
+                        role="tab"
+                        :aria-selected="tabIndex === k"
+                        :aria-controls="`tabpanel-${k}-panel`"
+                        @click="tabIndex = k"
+                      >
+                        {{ tenant | fullName }}
+                      </button>
+                    </li>
+                  </ul>
+                  <div
+                    v-for="(tenant, k) in getTenants()"
+                    v-bind:key="`t${k}`"
+                    :id="`tabpanel-${k}-panel`"
+                    class="fr-tabs__panel"
+                    :class="{ 'fr-tabs__panel--selected': tabIndex === k }"
+                    role="tabpanel"
+                    tabindex="0"
+                  >
+                    <TenantPanel :tenant="tenant" :isCotenant="tenant.id != user.id"/>
+                  </div>
                 </div>
-                <hr class="fr-mt-4w" />
-                <h3 class="fr-h4">{{ $t("my-files") }}</h3>
-
-                <div class="fr-grid-row fr-grid-row--gutters">
-                  <InfoCard
-                    :title="$t('identification')"
-                    editable="true"
-                    matIcon="person"
-                    @click="setTenantStep(1)"
-                  >
-                    <ColoredTag
-                      :status="getStatus('IDENTIFICATION')"
-                      :text="$t('s_' + getStatus('IDENTIFICATION'))"
-                    ></ColoredTag>
-                  </InfoCard>
-                  <InfoCard
-                    :title="$t('residency')"
-                    editable="true"
-                    matIcon="home"
-                    @click="setTenantStep(2)"
-                  >
-                    <ColoredTag
-                      :status="getStatus('RESIDENCY')"
-                      :text="$t('s_' + getStatus('RESIDENCY'))"
-                    ></ColoredTag>
-                  </InfoCard>
-                  <InfoCard
-                    :title="$t('professional')"
-                    editable="true"
-                    matIcon="work"
-                    @click="setTenantStep(3)"
-                  >
-                    <ColoredTag
-                      :status="getStatus('PROFESSIONAL')"
-                      :text="$t('s_' + getStatus('PROFESSIONAL'))"
-                    ></ColoredTag>
-                  </InfoCard>
-                  <InfoCard
-                    :title="$t('financial')"
-                    editable="true"
-                    matIcon="euro"
-                    @click="setTenantStep(4)"
-                  >
-                    <ColoredTag
-                      :status="getStatus('FINANCIAL')"
-                      :text="$t('s_' + getStatus('FINANCIAL'))"
-                    ></ColoredTag>
-                  </InfoCard>
-                  <InfoCard
-                    :title="$t('tax')"
-                    editable="true"
-                    matIcon="content_copy"
-                    @click="setTenantStep(5)"
-                  >
-                    <ColoredTag
-                      :status="getStatus('TAX')"
-                      :text="$t('s_' + getStatus('TAX'))"
-                    ></ColoredTag>
-                  </InfoCard>
-                </div>
-              </div>
-
-              <GuarantorsSection />
+              </section>
+              <TenantPanel v-else :tenant="user"/>
             </div>
             <PartnersSection />
 
@@ -292,6 +254,7 @@ import GuarantorsSection from "@/components/account/GuarantorsSection.vue";
 import PartnersSection from "@/components/account/PartnersSection.vue";
 import { UtilsService } from "@/services/UtilsService";
 import InfoCard from "@/components/account/InfoCard.vue";
+import TenantPanel from "@/components/account/TenantPanel.vue";
 
 extend("required", {
   ...required,
@@ -307,7 +270,8 @@ extend("required", {
     ValidationObserver,
     DfButton,
     ColoredTag,
-    DeleteAccount
+    DeleteAccount,
+    TenantPanel
   },
   computed: {
     ...mapState({
@@ -326,12 +290,40 @@ export default class Account extends Vue {
   publicLinkCopied = false;
   fullLinkCopied = false;
 
+  tabIndex = 0;
+
   mounted() {
     window.Beacon("init", "d949ac15-a9eb-4316-b0c5-f92cecc7118f");
   }
 
   beforeDestroy() {
     window.Beacon("destroy");
+  }
+
+  getTenants() {
+    const users: (User | Guarantor)[] = [];
+    users.push(this.user);
+
+    this.user?.apartmentSharing?.tenants?.forEach(t => {
+      if (
+        t.id != this.user.id &&
+        t.firstName &&
+        t.lastName &&
+        t.firstName !== "" &&
+        t.lastName !== ""
+      ) {
+        users.push(t);
+        if (t.guarantors && t.guarantors.length > 0) {
+          t.guarantors.forEach(g => {
+            if (g.typeGuarantor === "NATURAL_PERSON") {
+              users.push(g);
+            }
+          });
+        }
+      }
+    });
+
+    return users;
   }
 
   getToken() {

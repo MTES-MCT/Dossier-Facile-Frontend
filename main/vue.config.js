@@ -63,7 +63,9 @@ module.exports = {
         new PrerenderSpaPlugin({
           // args for puppeteer
           renderer: new Renderer({
+            headless: false,
             args: ["--no-sandbox"]
+            //executablePath: process.env.CHROMIUM_PATH // set by docker container
           }),
           staticDir: path.resolve(__dirname, "dist"),
           routes: routes

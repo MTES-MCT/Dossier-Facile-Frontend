@@ -18,14 +18,9 @@
             </template>
           </v-gouv-fr-modal>
         </div>
-        <div v-if="showEmailExists" class="fr-col-12 fr-mt-2w">
-          <div class="fr-callout">
-            <p class="fr-mb-1w" v-html="$t('email-exists')"></p>
-          </div>
-        </div>
       </div>
       <div class="fr-grid-row fr-grid-row--center">
-        <div class="fr-col-12 fr-mt-2w" v-if="getPartner()">
+        <div v-if="!showEdition" class="fr-col-12 fr-mt-2w">
           <NakedCard>
             <div class="fr-grid-row bg--white">
               <div class="fr-col-10">
@@ -36,15 +31,16 @@
                     >
                   </div>
                   <div class="fr-grid-col overflow--hidden max-content">
-                    <div :title="coupleMail" class="overflow--hidden">
+                    <div
+                      :title="'' + coTenant.firstName + coTenant.lastName"
+                      class="overflow--hidden"
+                    >
                       <b>
-                        {{ getPartner().email }}
+                        {{ coTenant.firstName + " " + coTenant.lastName }}
                       </b>
                     </div>
                     <div class="small-text">
-                      {{
-                        $t(getPartner().id ? "invite-sent" : "invite-waiting")
-                      }}
+                      {{ coTenant.email }}
                     </div>
                   </div>
                 </div>
@@ -53,7 +49,7 @@
                 <button
                   class="fr-btn fr-btn--secondary icon-btn"
                   :title="$t('delete')"
-                  @click="remove(getPartner().email)"
+                  @click="edit()"
                   type="button"
                 >
                   <span class="color--primary material-icons md-24" aria-hidden="true"
@@ -65,41 +61,79 @@
           </NakedCard>
         </div>
 
-        <div class="fr-col-12 fr-mt-2w" v-if="getPartner() === undefined">
-          <label class="fr-label fr-mb-1w">{{ $t("spouseEmail") }}</label>
-          <validation-provider
-            v-slot="{ errors }"
-            :rules="{ email: true, custom: user.email }"
-          >
-            <div
-              class="fr-input-group"
-              :class="errors[0] ? 'fr-input-group--error' : ''"
-            >
-              <input
-                v-model="coupleMail"
-                class="validate-required form-control fr-input"
-                :class="errors[0] ? 'fr-input--error' : ''"
-                name="email"
-                placeholder="Ex : exemple@exemple.fr"
-                type="email"
-              />
-              <span
-                class="fr-error-text"
-                v-if="errors[0] && errors[0] !== 'none'"
-                >{{ $t(errors[0]) }}</span
+        <div class="fr-col-12 fr-mt-2w" v-else>
+          <div class="fr-col-12 fr-mb-3w">
+            <label class="fr-label fr-mb-1w">{{ $t("spouseLastName") }}</label>
+            <validation-provider v-slot="{ errors }">
+              <div
+                class="fr-input-group"
+                :class="errors[0] ? 'fr-input-group--error' : ''"
               >
-            </div>
-          </validation-provider>
-        </div>
-        <div class="fr-col-12" v-if="getPartner() === undefined">
-          <div class="fr-grid-row fr-grid-row--right fr-mt-2w fr-mb-3w">
-            <v-gouv-fr-button
-              :secondary="true"
-              :label="$t('add-a-spouse')"
-              :btn-type="'button'"
-              :disabled="coupleMail === ''"
-              @click="addMail"
-            ></v-gouv-fr-button>
+                <input
+                  v-model="coTenant.lastName"
+                  class="validate-required form-control fr-input"
+                  :class="errors[0] ? 'fr-input--error' : ''"
+                  name="coTenantLastName"
+                  type="text"
+                  @input="handleInput"
+                />
+                <span
+                  class="fr-error-text"
+                  v-if="errors[0] && errors[0] !== 'none'"
+                  >{{ $t(errors[0]) }}</span
+                >
+              </div>
+            </validation-provider>
+          </div>
+          <div class="fr-col-12 fr-mb-3w">
+            <label class="fr-label fr-mb-1w">{{ $t("spouseFirstName") }}</label>
+            <validation-provider v-slot="{ errors }">
+              <div
+                class="fr-input-group"
+                :class="errors[0] ? 'fr-input-group--error' : ''"
+              >
+                <input
+                  v-model="coTenant.firstName"
+                  class="validate-required form-control fr-input"
+                  :class="errors[0] ? 'fr-input--error' : ''"
+                  name="firstName"
+                  type="text"
+                  @input="handleInput"
+                />
+                <span
+                  class="fr-error-text"
+                  v-if="errors[0] && errors[0] !== 'none'"
+                  >{{ $t(errors[0]) }}</span
+                >
+              </div>
+            </validation-provider>
+          </div>
+          <div class="fr-col-12 fr-mb-3w">
+            <label class="fr-label fr-mb-1w">{{ $t("spouseEmail") }}</label>
+            <validation-provider
+              v-slot="{ errors }"
+              :rules="{ email: true, custom: user.email }"
+            >
+              <div
+                class="fr-input-group"
+                :class="errors[0] ? 'fr-input-group--error' : ''"
+              >
+                <input
+                  v-model="coTenant.email"
+                  class="validate-required form-control fr-input"
+                  :class="errors[0] ? 'fr-input--error' : ''"
+                  name="email"
+                  placeholder="Ex : exemple@exemple.fr"
+                  type="email"
+                  @input="handleInput"
+                />
+                <span
+                  class="fr-error-text"
+                  v-if="errors[0] && errors[0] !== 'none'"
+                  >{{ $t(errors[0]) }}</span
+                >
+              </div>
+            </validation-provider>
           </div>
         </div>
       </div>
@@ -179,10 +213,10 @@ extend("custom", {
   }
 })
 export default class CoupleInformation extends Vue {
-  coupleMail = "";
+  coTenant = new User();
   authorize = false;
   spouseAuthorize!: boolean;
-  showEmailExists = false;
+  showEdition = true;
 
   user!: User;
 
@@ -191,36 +225,31 @@ export default class CoupleInformation extends Vue {
       const partner = this.user.apartmentSharing?.tenants.find(t => {
         return t.email != this.user.email;
       });
-      this.coupleMail = partner?.email || "";
+      this.coTenant = partner || this.coTenant;
+      this.showEdition = false;
     }
     this.authorize = this.spouseAuthorize;
+  }
+
+  handleInput() {
+    this.$emit("input", [this.coTenant]);
   }
 
   updateAuthorize() {
     this.$store.commit("updateCoupleAuthorize", this.authorize);
   }
 
-  addMail() {
-    this.showEmailExists = false;
-    if (this.coupleMail !== "") {
-      if (this.coupleMail !== this.user.email) {
-        this.$store.commit("createCouple", this.coupleMail);
-      } else {
-        this.showEmailExists = true;
-      }
-    }
+  coTenantIsValid() {
+    return (
+      ((this.coTenant.firstName?.length || 0) > 0 &&
+        (this.coTenant.lastName?.length || 0) > 0) ||
+      this.coTenant.email.length > 3
+    );
   }
 
-  getPartner() {
-    const partner = this.user.apartmentSharing?.tenants.find(t => {
-      return t.email != this.user.email;
-    });
-    return partner;
-  }
-
-  remove(email: string) {
-    this.$store.commit("deleteRoommates", email);
-    return false;
+  edit() {
+    this.showEdition = true;
+    this.coTenant = new User();
   }
 }
 </script>
@@ -291,6 +320,8 @@ export default class CoupleInformation extends Vue {
 <i18n>
 {
 "en": {
+"spouseFirstName": "Your spouse firstname",
+"spouseLastName": "Your spouse lastname",
 "spouseEmail": "Your spouse email",
 "acceptAuthor": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
 "email-not-valid": "Email not valid",
@@ -298,19 +329,21 @@ export default class CoupleInformation extends Vue {
 "title": "Who will be you spouse ?",
 "invite-waiting": "Waiting for confirmation",
 "invite-sent": "Invitation sent",
-"add-a-spouse": "Invite your spouse",
+"add-a-spouse": "Add your spouse",
 "email-exists": "You can not associate two account with only one email address ! <br>Fullfill a different email address.",
 "more-information": "How is this information useful to us?",
 "require-accept": "You must accept the statement",
 "delete": "Delete the invitation"
 },
 "fr": {
+"spouseFirstName": "Prénom de votre conjoint",
+"spouseLastName": "Nom de votre conjoint",
 "spouseEmail": "L’adresse email de votre conjoint",
 "acceptAuthor": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
 "email-not-valid": "Email non valide",
 "field-required": "Ce champ est requis",
 "title": "Qui sera votre conjoint·e ?",
-"add-a-spouse": "Inviter votre conjoint·e",
+"add-a-spouse": "Ajouter votre conjoint·e",
 "invite-waiting": "Invitation en attente d'envoi",
 "invite-sent": "Invitation envoyée",
 "email-exists": "Vous ne pouvez pas associer deux comptes à une même adresse email ! <br>Renseignez une adresse email différente.",

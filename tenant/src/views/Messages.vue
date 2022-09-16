@@ -338,6 +338,7 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import ViewEditBtn from "../components/ViewEditBtn.vue";
 import { AnalyticsService } from "../services/AnalyticsService";
+import store from "@/store";
 
 @Component({
   components: {
@@ -392,7 +393,7 @@ export default class Messages extends Vue {
     return DocumentService.hasDocument();
   }
   hasDoc(docType: string) {
-    return DocumentService.hasDoc(docType);
+    return DocumentService.hasDoc(docType, store.state.user);
   }
   hasFile(docType: string) {
     // TODO change to aggregate financial

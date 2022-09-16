@@ -30,6 +30,7 @@ export class DfState {
   isFunnel = false;
   financialDocumentSelected?: FinancialDocument = new FinancialDocument();
   editFinancialDocument = false;
+  coTenants: User[] | null = [];
 }
 
 const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
@@ -110,18 +111,25 @@ const store = new Vuex.Store({
       if (state.user?.apartmentSharing?.applicationType === "GROUP") {
         Vue.set(state, "coTenantAuthorize", new Guarantor());
       }
+      // load CoTenants - basic information inside tenant
+      if (state.user?.apartmentSharing?.applicationType === "COUPLE") {
+        Vue.set(
+          state,
+          "coTenants",
+          state.user?.apartmentSharing?.tenants.filter(
+            (t: User) => t.id != state.user?.id
+          )
+        );
+      }
     },
     setSelectedGuarantor(state, guarantor: Guarantor) {
       Vue.set(state, "selectedGuarantor", guarantor);
     },
-    createCouple(state, email) {
+    createCoTenant(state, coTenant: User) {
       const u = new User();
-      u.email = email;
-      state.user.apartmentSharing.tenants.push(u);
-    },
-    createRoommates(state, email) {
-      const u = new User();
-      u.email = email;
+      u.firstName = coTenant.email;
+      u.firstName = coTenant.firstName;
+      u.firstName = coTenant.lastName;
       state.user.apartmentSharing.tenants.push(u);
     },
     selectGuarantor(state, position) {
@@ -178,6 +186,11 @@ const store = new Vuex.Store({
         new FinancialDocument()
       );
       state.editFinancialDocument = true;
+    },
+    updateCoTenantIdentification(state, tenantUser: User) {
+      //  search coTenant update field
+      console.log("updateCoTenantIdentification");
+      //state.cotenant filter Id ....
     },
     selectGuarantorDocumentFinancial(state, d: FinancialDocument) {
       Vue.set(state, "guarantorFinancialDocumentSelected", d);
@@ -283,6 +296,17 @@ const store = new Vuex.Store({
         }
       );
     },
+    loadCoTenant({ commit }, coTenant: User) {
+      return ProfileService.getCoTenant(coTenant.id).then(
+        response => {
+          commit("loadCoTenant", response.data);
+          return Promise.resolve(response.data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
     setNames({ commit }, user: User) {
       if (user.firstName && !user.franceConnect) {
         user.firstName = UtilsService.capitalize(user.firstName);
@@ -302,8 +326,8 @@ const store = new Vuex.Store({
         }
       );
     },
-    setRoommates({ commit }, data) {
-      return ProfileService.saveRoommates(data).then(
+    setCoTenants({ commit }, data) {
+      return ProfileService.saveCoTenants(data).then(
         response => {
           return commit("loadUser", response.data);
         },
@@ -346,7 +370,9 @@ const store = new Vuex.Store({
       );
     },
     addNaturalGuarantor({ commit }) {
-      return ProfileService.setGuarantorType("NATURAL_PERSON").then(
+      return ProfileService.setGuarantorType({
+        typeGuarantor: "NATURAL_PERSON"
+      }).then(
         response => {
           commit("loadUser", response.data);
           this.dispatch("setGuarantorPage", {
@@ -386,7 +412,7 @@ const store = new Vuex.Store({
         }
       );
     },
-    setGuarantorType(_, guarantorType: string) {
+    setGuarantorType(_, guarantorType: Guarantor) {
       return ProfileService.setGuarantorType(guarantorType).then(
         async response => {
           await this.dispatch("loadUser", response.data);
@@ -484,6 +510,17 @@ const store = new Vuex.Store({
     },
     saveTaxAuth({ commit }, { allowTax, fcToken }) {
       return RegisterService.saveTaxAuth(allowTax, fcToken).then(
+        response => {
+          commit("loadUser", response.data);
+          return Promise.resolve(response.data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
+    saveCoTenantIdentification({ commit }, formData) {
+      return RegisterService.saveCoTenantIdentification(formData).then(
         response => {
           commit("loadUser", response.data);
           return Promise.resolve(response.data);
@@ -859,6 +896,9 @@ const store = new Vuex.Store({
     },
     editGuarantorFinancialDocument(state): FinancialDocument {
       return state.editGuarantorFinancialDocument;
+    },
+    coTenants(state): User[] {
+      return state.coTenants;
     }
   },
   modules: {}

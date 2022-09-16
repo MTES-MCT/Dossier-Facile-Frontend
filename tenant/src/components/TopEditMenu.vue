@@ -186,6 +186,7 @@ import { DocumentService } from "../services/DocumentService";
 import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 import { mapState } from "vuex";
 import { Guarantor } from "df-shared/src/models/Guarantor";
+import store from "@/store";
 
 @Component({
   components: { StepNumber, ColoredTag },
@@ -237,27 +238,29 @@ export default class LeftEditMenu extends Vue {
   }
 
   getTenantIdentityClass() {
-    const status = DocumentService.getTenantIdentityStatus();
+    const status = DocumentService.getTenantIdentityStatus(store.state.user);
     return this.getClassByStatus(status);
   }
 
   getTenantResidencyClass() {
-    const status = DocumentService.getTenantResidencyStatus();
+    const status = DocumentService.getTenantResidencyStatus(store.state.user);
     return this.getClassByStatus(status);
   }
 
   getTenantProfessionalClass() {
-    const status = DocumentService.getTenantProfessionalStatus();
+    const status = DocumentService.getTenantProfessionalStatus(
+      store.state.user
+    );
     return this.getClassByStatus(status);
   }
 
   getTenantFinancialClass() {
-    const status = DocumentService.getTenantFinancialStatus();
+    const status = DocumentService.getTenantFinancialStatus(store.state.user);
     return this.getClassByStatus(status);
   }
 
   getTenantTaxClass() {
-    const status = DocumentService.getTenantTaxStatus();
+    const status = DocumentService.getTenantTaxStatus(store.state.user);
     return this.getClassByStatus(status);
   }
 

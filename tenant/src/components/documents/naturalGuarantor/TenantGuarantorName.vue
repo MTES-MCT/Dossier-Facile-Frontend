@@ -1,7 +1,10 @@
 <template>
   <div>
     <ValidationObserver v-slot="{ validate }">
-      <form name="guarantorNameForm" @submit.prevent="validate().then(save)">
+      <form
+        name="tenantGuarantorNameForm"
+        @submit.prevent="validate().then(save)"
+      >
         <NakedCard class="fr-p-md-5w">
           <h1 class="fr-h6">{{ $t("title") }}</h1>
           <div>{{ $t("subtitle") }}</div>
@@ -71,8 +74,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { mapState } from "vuex";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import DocumentInsert from "../share/DocumentInsert.vue";
 import FileUpload from "../../uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
@@ -93,6 +95,7 @@ import { UtilsService } from "../../../services/UtilsService";
 import GuarantorFooter from "../../footer/GuarantorFooter.vue";
 import { extend } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
+import { User } from "df-shared/src/models/User";
 
 extend("required", {
   ...required,
@@ -115,16 +118,13 @@ extend("required", {
     NakedCard,
     GuarantorFooter
   },
-  computed: {
-    ...mapState({
-      selectedGuarantor: "selectedGuarantor"
-    })
-  }
+  computed: {}
 })
-export default class GuarantorName extends Vue {
+export default class TenantGuarantorName extends Vue {
   documents = DocumentTypeConstants.GUARANTOR_IDENTIFICATION_DOCS;
+  @Prop() tenantId!: number;
+  @Prop() guarantor!: Guarantor;
 
-  selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
   identificationDocument = new DocumentType();
@@ -133,14 +133,14 @@ export default class GuarantorName extends Vue {
   isDocDeleteVisible = false;
 
   beforeMount() {
-    this.firstName = this.selectedGuarantor.firstName || "";
-    this.lastName = this.selectedGuarantor.lastName || "";
+    this.firstName = this.guarantor.firstName as string;
+    this.lastName = this.guarantor.lastName as string;
   }
 
   save() {
     if (
-      this.firstName === this.selectedGuarantor.firstName &&
-      this.lastName === this.selectedGuarantor.lastName
+      this.firstName === this.guarantor.firstName &&
+      this.lastName === this.guarantor.lastName
     ) {
       this.$emit("on-next");
       return;
@@ -152,7 +152,11 @@ export default class GuarantorName extends Vue {
     if (this.lastName) {
       formData.append("lastName", UtilsService.capitalize(this.lastName));
     }
-    formData.append("guarantorId", this.$store.getters.guarantor.id);
+    if (this.guarantor.id) {
+      formData.append("guarantorId", this.guarantor.id?.toString());
+    }
+    formData.append("tenantId", this.tenantId.toString());
+
     const loader = this.$loading.show();
     this.$store
       .dispatch("saveGuarantorName", formData)
@@ -185,8 +189,8 @@ export default class GuarantorName extends Vue {
   "lastname-placeholder": "e.g. Dupont",
   "firstname-placeholder": "e.g. Jean",
   "field-required": "This field is required",
-  "title": "My coTenant name",
-  "subtitle": "I fill the last name and first name of my guarantor"
+  "title": "Guarantor name",
+  "subtitle": "I fill the last name and first name of my spouse's guarantor"
 },
 "fr": {
   "lastname": "Nom",
@@ -194,8 +198,8 @@ export default class GuarantorName extends Vue {
   "lastname-placeholder": "ex: Dupont",
   "firstname-placeholder": "ex: Jean",
   "field-required": "Ce champ est requis",
-  "title": "Identité de mon·a conjoint·e",
-  "subtitle": "Je renseigne le nom et prénom de mon garant"
+  "title": "Identité du garant de mon conjoint",
+  "subtitle": "Je renseigne le nom et prénom du garant"
 }
 }
 </i18n>

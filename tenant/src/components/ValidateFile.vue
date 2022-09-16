@@ -215,17 +215,7 @@ export default class ValidateFile extends Vue {
   }
 
   goBack() {
-    if (
-      this.user.guarantors === undefined ||
-      this.user.guarantors.length === 0
-    ) {
-      this.$router.push({ name: "GuarantorChoice" });
-      return;
-    }
-    this.$router.push({
-      name: "GuarantorList"
-    });
-    return;
+    this.$emit("on-back");
   }
 
   hasErrors() {

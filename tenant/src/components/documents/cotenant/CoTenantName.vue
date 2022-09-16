@@ -1,7 +1,7 @@
 <template>
   <div>
     <ValidationObserver v-slot="{ validate }">
-      <form name="guarantorNameForm" @submit.prevent="validate().then(save)">
+      <form name="coTenantNameForm" @submit.prevent="validate().then(save)">
         <NakedCard class="fr-p-md-5w">
           <h1 class="fr-h6">{{ $t("title") }}</h1>
           <div>{{ $t("subtitle") }}</div>
@@ -62,106 +62,159 @@
                 </div>
               </validation-provider>
             </div>
+            <div class="fr-col-12 fr-mb-3w">
+              <validation-provider v-slot="{ errors, valid }">
+                <div
+                  class="fr-input-group"
+                  :class="errors[0] ? 'fr-input-group--error' : ''"
+                >
+                  <label for="preferredname" class="fr-label"
+                    >{{ $t("preferredname") }} :</label
+                  >
+                  <input
+                    id="preferredname"
+                    :placeholder="$t('lastname-placeholder')"
+                    type="text"
+                    v-model="preferredName"
+                    name="preferredname"
+                    class="validate-required form-control fr-input"
+                    :class="{
+                      'fr-input--valid': valid,
+                      'fr-input--error': errors[0]
+                    }"
+                  />
+                  <span class="fr-error-text" v-if="errors[0]">{{
+                    $t(errors[0])
+                  }}</span>
+                </div>
+              </validation-provider>
+            </div>
+            <div class="fr-col-12 fr-mb-3w">
+              <label class="fr-label fr-mb-1w">{{ $t("email") }}</label>
+              <validation-provider v-slot="{ errors }" :rules="{ email: true }">
+                <div
+                  class="fr-input-group"
+                  :class="errors[0] ? 'fr-input-group--error' : ''"
+                >
+                  <input
+                    v-model="email"
+                    class="validate-required form-control fr-input"
+                    :class="errors[0] ? 'fr-input--error' : ''"
+                    name="email"
+                    type="email"
+                    disabled
+                  />
+                  <span
+                    class="fr-error-text"
+                    v-if="errors[0] && errors[0] !== 'none'"
+                    >{{ $t(errors[0]) }}</span
+                  >
+                </div>
+              </validation-provider>
+            </div>
           </div>
         </NakedCard>
-        <GuarantorFooter @on-back="goBack"></GuarantorFooter>
+        <FooterContainer>
+          <BackNext :showBack="true" @on-next="save()" @on-back="goBack()">
+          </BackNext>
+        </FooterContainer>
       </form>
     </ValidationObserver>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Prop } from "vue-property-decorator";
 import { mapState } from "vuex";
-import DocumentInsert from "../share/DocumentInsert.vue";
-import FileUpload from "../../uploads/FileUpload.vue";
-import { DocumentType } from "df-shared/src/models/Document";
-import { UploadStatus } from "df-shared/src/models/UploadStatus";
-import ListItem from "../../uploads/ListItem.vue";
-import { DfFile } from "df-shared/src/models/DfFile";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
-import { Guarantor } from "df-shared/src/models/Guarantor";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
-import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
-import GuarantorChoiceHelp from "../../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
-import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import { UtilsService } from "../../../services/UtilsService";
-import GuarantorFooter from "../../footer/GuarantorFooter.vue";
 import { extend } from "vee-validate";
-import { required } from "vee-validate/dist/rules";
+import { required, email } from "vee-validate/dist/rules";
+import { User } from "df-shared/src/models/User";
+import FooterContainer from "../../footer/FooterContainer.vue";
+import BackNext from "../../footer/BackNext.vue";
 
 extend("required", {
   ...required,
   message: "field-required"
 });
 
+extend("email", {
+  ...email,
+  message: "email-not-valid"
+});
+
 @Component({
   components: {
-    DocumentInsert,
-    FileUpload,
-    ListItem,
+    BackNext,
+    FooterContainer,
     ValidationProvider,
     ValidationObserver,
     WarningMessage,
     ConfirmModal,
     DfButton,
-    GuarantorChoiceHelp,
     VGouvFrModal,
-    BigRadio,
-    NakedCard,
-    GuarantorFooter
+    NakedCard
   },
   computed: {
     ...mapState({
-      selectedGuarantor: "selectedGuarantor"
+      coTenants: "coTenants"
     })
   }
 })
-export default class GuarantorName extends Vue {
-  documents = DocumentTypeConstants.GUARANTOR_IDENTIFICATION_DOCS;
+export default class CoTenantName extends Vue {
+  @Prop() coTenantId!: number;
 
-  selectedGuarantor!: Guarantor;
-  fileUploadStatus = UploadStatus.STATUS_INITIAL;
-  files: DfFile[] = [];
-  identificationDocument = new DocumentType();
+  coTenants!: User[];
+  selectedCoTenant?: User;
+
   firstName = "";
   lastName = "";
+  preferredName = "";
+  email = "";
+
   isDocDeleteVisible = false;
 
-  beforeMount() {
-    this.firstName = this.selectedGuarantor.firstName || "";
-    this.lastName = this.selectedGuarantor.lastName || "";
+  mounted() {
+    this.selectedCoTenant = this.coTenants.find(
+      (t: User) => t.id === Number(this.coTenantId)
+    );
+    this.firstName = this.selectedCoTenant?.firstName || "";
+    this.lastName = this.selectedCoTenant?.lastName || "";
+    this.preferredName = this.selectedCoTenant?.preferredName || "";
+    this.email = this.selectedCoTenant?.email || "";
   }
 
   save() {
     if (
-      this.firstName === this.selectedGuarantor.firstName &&
-      this.lastName === this.selectedGuarantor.lastName
+      this.firstName === this.selectedCoTenant?.firstName &&
+      this.lastName === this.selectedCoTenant?.lastName &&
+      this.preferredName === this.selectedCoTenant?.preferredName &&
+      this.email === this.selectedCoTenant?.email
     ) {
       this.$emit("on-next");
       return;
     }
-    const formData = new FormData();
-    if (this.firstName) {
-      formData.append("firstName", UtilsService.capitalize(this.firstName));
+
+    this.selectedCoTenant!.firstName = this.firstName;
+    this.selectedCoTenant!.lastName = this.lastName;
+    if (this.preferredName) {
+      this.selectedCoTenant!.preferredName = this.preferredName;
     }
-    if (this.lastName) {
-      formData.append("lastName", UtilsService.capitalize(this.lastName));
-    }
-    formData.append("guarantorId", this.$store.getters.guarantor.id);
+
     const loader = this.$loading.show();
     this.$store
-      .dispatch("saveGuarantorName", formData)
+      .dispatch("setNames", this.selectedCoTenant)
       .then(() => {
         Vue.toasted.global.save_success();
         this.$emit("on-next");
       })
       .catch(() => {
-        this.fileUploadStatus = UploadStatus.STATUS_FAILED;
         Vue.toasted.global.save_failed();
       })
       .finally(() => {
@@ -182,20 +235,26 @@ export default class GuarantorName extends Vue {
 "en": {
   "lastname": "Lastname",
   "firstname": "Firstname",
+  "preferredname": "Usage name",
+  "email": "E-mail (If you filled this field an invitation will be send)",
+  "email-not-valid": "Email not valid",
   "lastname-placeholder": "e.g. Dupont",
   "firstname-placeholder": "e.g. Jean",
   "field-required": "This field is required",
-  "title": "My coTenant name",
-  "subtitle": "I fill the last name and first name of my guarantor"
+  "title": "My spouse name",
+  "subtitle": "I fill the last name and first name of my spouse"
 },
 "fr": {
   "lastname": "Nom",
   "firstname": "Prénom",
+  "preferredname": "Nom d'usage",
+  "email": "E-mail",
+  "email-not-valid": "Email non valide",
   "lastname-placeholder": "ex: Dupont",
   "firstname-placeholder": "ex: Jean",
   "field-required": "Ce champ est requis",
-  "title": "Identité de mon·a conjoint·e",
-  "subtitle": "Je renseigne le nom et prénom de mon garant"
+  "title": "Identité de mon cojoint",
+  "subtitle": "Je renseigne le nom et prénom de mon conjoint"
 }
 }
 </i18n>

@@ -1,5 +1,6 @@
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { Guarantor } from "df-shared/src/models/Guarantor";
+import { User } from "df-shared/src/models/User";
 import store from "../store";
 
 export const DocumentService = {
@@ -9,24 +10,27 @@ export const DocumentService = {
       store.state.user.documents.length > 0
     );
   },
-  hasDoc(docType: string) {
-    if (store.state.user.documents === undefined) {
-      return false;
+  hasDoc(docType: string, tenant: User): DfDocument | undefined {
+    if (tenant.documents === undefined) {
+      return undefined;
     }
-    return store.state.user.documents.find((d: DfDocument) => {
+    return tenant.documents.find((d: DfDocument) => {
       return d.documentCategory === docType;
     });
   },
-  getDocs(docType: string): DfDocument[] {
-    if (store.state.user.documents === undefined) {
+  getDocs(docType: string, tenant: User): DfDocument[] {
+    if (tenant.documents === undefined) {
       return [];
     }
-    return store.state.user.documents.filter((d: DfDocument) => {
+    return tenant.documents.filter((d: DfDocument) => {
       return d.documentCategory === docType;
     });
   },
   hasFile(docType: string) {
-    const document = this.hasDoc(docType);
+    const document: DfDocument | undefined = this.hasDoc(
+      docType,
+      store.state.user
+    );
     if (document === undefined || document.files === undefined) {
       return false;
     }
@@ -96,29 +100,29 @@ export const DocumentService = {
     }
     return files;
   },
-  getTenantIdentityStatus(): string {
-    const doc = this.hasDoc("IDENTIFICATION");
+  getTenantIdentityStatus(user: User): string {
+    const doc = this.hasDoc("IDENTIFICATION", user);
     if (!doc) {
       return "";
     }
     return doc.documentStatus || "";
   },
-  getTenantResidencyStatus(): string {
-    const doc = this.hasDoc("RESIDENCY");
+  getTenantResidencyStatus(user: User): string {
+    const doc = this.hasDoc("RESIDENCY", user);
     if (!doc) {
       return "";
     }
     return doc.documentStatus || "";
   },
-  getTenantProfessionalStatus(): string {
-    const doc = this.hasDoc("PROFESSIONAL");
+  getTenantProfessionalStatus(user: User): string {
+    const doc = this.hasDoc("PROFESSIONAL", user);
     if (!doc) {
       return "";
     }
     return doc.documentStatus || "";
   },
-  getTenantFinancialStatus(): string {
-    const docs = this.getDocs("FINANCIAL");
+  getTenantFinancialStatus(user: User): string {
+    const docs = this.getDocs("FINANCIAL", user);
     if (docs.length <= 0) {
       return "";
     }
@@ -133,8 +137,8 @@ export const DocumentService = {
     }
     return docs[0].documentStatus || "";
   },
-  getTenantTaxStatus(): string {
-    const doc = this.hasDoc("TAX");
+  getTenantTaxStatus(user: User): string {
+    const doc = this.hasDoc("TAX", user);
     if (!doc) {
       return "";
     }
@@ -223,23 +227,24 @@ export const DocumentService = {
     }
     return doc.documentStatus || "";
   },
-  tenantStatus(documentType: string) {
+  tenantStatus(documentType: string, user?: User) {
+    const tenant = user == undefined ? store.state.user : user;
     let status;
     switch (documentType) {
       case "IDENTITY":
-        status = DocumentService.getTenantIdentityStatus() || "EMPTY";
+        status = DocumentService.getTenantIdentityStatus(tenant) || "EMPTY";
         break;
       case "RESIDENCY":
-        status = DocumentService.getTenantResidencyStatus() || "EMPTY";
+        status = DocumentService.getTenantResidencyStatus(tenant) || "EMPTY";
         break;
       case "PROFESSIONAL":
-        status = DocumentService.getTenantProfessionalStatus() || "EMPTY";
+        status = DocumentService.getTenantProfessionalStatus(tenant) || "EMPTY";
         break;
       case "FINANCIAL":
-        status = DocumentService.getTenantFinancialStatus() || "EMPTY";
+        status = DocumentService.getTenantFinancialStatus(tenant) || "EMPTY";
         break;
       case "TAX":
-        status = DocumentService.getTenantTaxStatus() || "EMPTY";
+        status = DocumentService.getTenantTaxStatus(tenant) || "EMPTY";
         break;
     }
     if (status === "TO_PROCESS" && store.state.user.status !== "TO_PROCESS") {

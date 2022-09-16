@@ -123,77 +123,33 @@
         @on-next="setGuarantorType"
       ></GuarantorFooter>
     </div>
-    <ConfirmModal
-      v-if="changeGuarantorVisible"
-      @valid="validSelect()"
-      @cancel="undoSelect()"
-    >
-      <span>{{ $t("will-delete-guarantor") }}</span>
-    </ConfirmModal>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import GuarantorIdentification from "./documents/naturalGuarantor/GuarantorIdentification.vue";
-import RepresentativeIdentification from "./documents/legalPersonGuarantor/RepresentativeIdentification.vue";
-import CorporationIdentification from "./documents/legalPersonGuarantor/CorporationIdentification.vue";
-import OrganismCert from "./documents/organismGuarantor/OrganismCert.vue";
-import GuarantorResidency from "./documents/naturalGuarantor/GuarantorResidency.vue";
-import GuarantorProfessional from "./documents/naturalGuarantor/GuarantorProfessional.vue";
-import GuarantorFinancial from "./documents/naturalGuarantor/GuarantorFinancial.vue";
-import GuarantorTax from "./documents/naturalGuarantor/GuarantorTax.vue";
-import { mapGetters, mapState } from "vuex";
-import { Guarantor } from "df-shared/src/models/Guarantor";
-import { User } from "df-shared/src/models/User";
+import { Component, Vue, Prop } from "vue-property-decorator";
+import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
-import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
-import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.vue";
+import BigRadio from "df-shared/src/Button/BigRadio.vue";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
+import { UtilsService } from "../services/UtilsService";
 import { AnalyticsService } from "../services/AnalyticsService";
 import GuarantorFooter from "./footer/GuarantorFooter.vue";
 import GuarantorChoiceHelp from "./helps/GuarantorChoiceHelp.vue";
-import BigRadio from "df-shared/src/Button/BigRadio.vue";
-import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
-import NakedCard from "df-shared/src/components/NakedCard.vue";
-import ProfileContainer from "./ProfileContainer.vue";
-import { UtilsService } from "../services/UtilsService";
 
 @Component({
   components: {
-    DfButton,
-    GuarantorTax,
-    GuarantorFinancial,
-    GuarantorProfessional,
-    GuarantorResidency,
-    GuarantorIdentification,
-    RepresentativeIdentification,
-    CorporationIdentification,
-    OrganismCert,
-    ConfirmModal,
-    VGouvFrButton,
-    GuarantorFooter,
-    GuarantorChoiceHelp,
-    BigRadio,
     VGouvFrModal,
+    DfButton,
+    BigRadio,
     NakedCard,
-    ProfileContainer
-  },
-  computed: {
-    ...mapState({
-      user: "user"
-    }),
-    ...mapGetters({
-      guarantor: "guarantor",
-      coTenants: "coTenants"
-    })
+    GuarantorFooter,
+    GuarantorChoiceHelp
   }
 })
-export default class GuarantorDocuments extends Vue {
-  user!: User;
-  coTenants!: User[];
-  guarantor!: Guarantor;
+export default class TenantGuarantorChoice extends Vue {
+  @Prop() tenantId!: number;
   tmpGuarantorType = "";
-  changeGuarantorVisible = false;
 
   updated() {
     // each dom update involved a scrollToEnd
@@ -204,60 +160,8 @@ export default class GuarantorDocuments extends Vue {
     window.scrollTo(0, element.lastElementChild.offsetTop);
   }
 
-  getLocalStorageKey() {
-    return "guarantorType_" + this.user.email;
-  }
-
-  beforeMount() {
-    if (this.guarantor.typeGuarantor) {
-      this.tmpGuarantorType = this.guarantor.typeGuarantor;
-      localStorage.setItem(
-        this.getLocalStorageKey(),
-        this.guarantor.typeGuarantor
-      );
-    } else {
-      const localType = localStorage.getItem(this.getLocalStorageKey());
-      if (localType) {
-        this.tmpGuarantorType = localType;
-      }
-    }
-  }
-
   onSelectChange(value: string) {
     this.tmpGuarantorType = value;
-    localStorage.setItem(this.getLocalStorageKey(), value);
-    if (this.guarantor.typeGuarantor !== null) {
-      if (
-        this.guarantor.typeGuarantor !== value &&
-        (this.user.guarantors?.length || 0) > 0
-      ) {
-        this.changeGuarantorVisible = true;
-      }
-    }
-    return false;
-  }
-
-  validSelect() {
-    this.$store.dispatch("deleteAllGuarantors").then(
-      () => {
-        this.changeGuarantorVisible = false;
-      },
-      () => {
-        Vue.toasted.global.error();
-      }
-    );
-  }
-
-  undoSelect() {
-    this.tmpGuarantorType = this.guarantor.typeGuarantor || "";
-    this.changeGuarantorVisible = false;
-  }
-
-  goBack() {
-    this.$router.push({
-      name: "TenantDocuments",
-      params: { substep: "5" }
-    });
   }
 
   setGuarantorType() {
@@ -268,41 +172,29 @@ export default class GuarantorDocuments extends Vue {
       });
       return;
     }
-    AnalyticsService.addGuarantor(this.guarantor.typeGuarantor || "");
-    if (this.tmpGuarantorType === "NO_GUARANTOR") {
-      if (this.user.applicationType === "COUPLE") {
-        console.log("guarantor" + this.user.applicationType);
-        this.$router.push({
-          name: "CoTenantDocuments",
-          params: {
-            step: "4",
-            substep: "0",
-            tenantId: this.coTenants[0].id.toString()
-          }
-        });
-      } else {
-        this.$router.push({
-          name: "ValidateFile"
-        });
-      }
-    }
-    if (
-      this.tmpGuarantorType != this.guarantor.typeGuarantor ||
-      (this.user.guarantors?.length || 0) <= 0
-    ) {
+    AnalyticsService.addGuarantor(this.tmpGuarantorType);
+    if (this.tmpGuarantorType != "NO_GUARANTOR") {
       this.$store
-        .dispatch("setGuarantorType", { typeGuarantor: this.tmpGuarantorType })
-        .then(() => {
-          this.$router.push({
-            name: "GuarantorDocuments",
-            params: { substep: "0" }
-          });
-        });
-    } else {
-      this.$router.push({
-        name: "GuarantorList"
-      });
+        .dispatch("setGuarantorType", {
+          tenantId: this.tenantId.toString(),
+          typeGuarantor: this.tmpGuarantorType
+        })
+        .then(
+          () => {
+            this.$emit("on-select", this.tmpGuarantorType);
+          },
+          () => {
+            this.$toasted.show(this.$i18n.t("try-again").toString(), {
+              type: "error",
+              duration: 7000
+            });
+          }
+        );
     }
+  }
+
+  goBack() {
+    this.$emit("on-back");
   }
 
   gotoVisale() {
@@ -333,6 +225,90 @@ export default class GuarantorDocuments extends Vue {
 .width--fit-content {
   @media all and (min-width: 768px) {
     width: fit-content;
+  }
+}
+
+h2 {
+  font-size: 1rem;
+  margin: 0.5rem;
+  display: inline-block;
+  align-self: center;
+}
+
+.icon {
+  align-self: center;
+}
+
+.document-title {
+  border: 1px solid #ececec;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  display: flex;
+}
+
+.selected {
+  background-color: $secondary;
+}
+
+.check {
+  padding: 0.5rem;
+  margin-left: auto;
+  color: green;
+}
+
+.buttons {
+  justify-content: space-between;
+}
+
+.guarantorselected {
+  background-color: $light-blue-transparent;
+}
+
+.title-bar {
+  display: flex;
+  align-items: center;
+  span {
+    padding: 0.5rem;
+    line-height: 1rem;
+  }
+}
+
+.btn-group {
+  width: fit-content;
+}
+
+h2 {
+  line-height: 1.5rem;
+}
+
+.card {
+  padding: 1rem;
+}
+
+.card-container {
+  @media all and (min-width: 992px) {
+    width: 100%;
+  }
+}
+
+.small-font {
+  font-size: 14px;
+}
+
+.add-guarantor-btn {
+  border-radius: 0.5rem;
+  padding: 1.75rem;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  width: 100%;
+  font-size: 16px;
+  background: var(--blue-france-925);
+  &:hover {
+    background: var(--blue-france-hover);
+  }
+  &:active {
+    background: var(--blue-france-active);
   }
 }
 </style>
