@@ -173,7 +173,7 @@
 
           <div class="fr-col-12 text-center fr-mb-5w">
             <button class="fr-btn full-width-btn" type="submit"
-              onclick="FLOOD3('dossi0', 'bouton');">
+              onclick="FLOOD3('dossi0', 'bouton') && pixelLead();">
               {{ $t("submit") }}
             </button>
           </div>
