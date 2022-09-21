@@ -25,3 +25,6 @@ jobs:
       - run: yarn tenant install --frozen-lockfile
       - run: yarn tenant build
       - run: yarn tenant test:unit
+      - run: yarn dfowner install --frozen-lockfile
+      - run: yarn dfowner build
+      - run: yarn dfowner test
