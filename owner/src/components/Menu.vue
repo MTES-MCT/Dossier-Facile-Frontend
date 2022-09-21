@@ -85,14 +85,12 @@ function getLanguageSwitchLabel() {
             >
           </li>
           <li class="warn">
-            <a
+            <span
               class="fr-nav__link"
-              href="#"
               @click="isDeleteModalVisible = true"
-              target="_self"
             >
               {{ t("deleteAccount") }}
-            </a>
+            </span>
             <DeleteAccount
               @close="isDeleteModalVisible = false"
               v-show="isDeleteModalVisible"
@@ -115,9 +113,17 @@ function getLanguageSwitchLabel() {
 <style scoped lang="scss">
 .fr-nav__item {
   position: relative;
+  cursor: pointer;
 
   a.fr-external-link::after {
     content: "";
+  }
+}
+
+.warn {
+  background-color: #fdf2f3;
+  span {
+    color: var(--error);
   }
 }
 

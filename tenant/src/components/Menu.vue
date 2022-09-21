@@ -55,14 +55,9 @@
             >
           </li>
           <li class="warn">
-            <a
-              class="fr-nav__link"
-              href="#"
-              @click="isDeleteModalVisible = true"
-              target="_self"
-            >
+            <span class="fr-nav__link" @click="isDeleteModalVisible = true">
               {{ $t("deleteAccount") }}
-            </a>
+            </span>
             <DeleteAccount
               v-model="isDeleteModalVisible"
               v-show="isDeleteModalVisible"
@@ -150,6 +145,7 @@ export default class Menu extends Vue {
 
 .fr-nav__item {
   position: relative;
+  cursor: pointer;
   .fr-nav__link[aria-current] {
     .fr-tag {
       color: var(--text-action-high-blue-france) !important;
@@ -184,7 +180,7 @@ export default class Menu extends Vue {
 
 .warn {
   background-color: #fdf2f3;
-  a {
+  span {
     color: var(--error);
   }
 }
