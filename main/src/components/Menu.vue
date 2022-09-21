@@ -45,8 +45,7 @@
         class="fr-nav__link fr-btn fr-ml-3 fr-btn--secondary fr-btn--sm lang"
         @click="changeLang"
       >
-        <span :class="{ underline: getLang() === 'fr' }">FR</span> |
-        <span :class="{ underline: getLang() === 'en' }">EN</span>
+        {{ getLanguageSwitchLabel() }}
       </button>
     </li>
   </ul>
@@ -66,7 +65,6 @@ import i18n from "../i18n";
 })
 export default class Menu extends Vue {
   isLoggedIn?: boolean;
-  isDeleteModalVisible = false;
 
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
   DOCS_URL = `//${process.env.VUE_APP_DOCS_URL}`;
@@ -78,8 +76,8 @@ export default class Menu extends Vue {
     const lang = i18n.locale === "fr" ? "en" : "fr";
     this.$store.dispatch("setLang", lang);
   }
-  getLang() {
-    return i18n.locale;
+  getLanguageSwitchLabel() {
+    return i18n.locale === "fr" ? "English version" : "Version française";
   }
 }
 </script>

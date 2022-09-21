@@ -25,8 +25,9 @@ function changeLang() {
   emit('on-change-lang');
 }
 
-function getLang() {
-  return ((i18n.global as unknown) as Composer).locale.value;
+function getLanguageSwitchLabel() {
+  const lang = ((i18n.global as unknown) as Composer).locale.value;
+  return lang === 'fr' ? 'English version' : 'Version française';
 }
 </script>
 
@@ -105,8 +106,7 @@ function getLang() {
         class="fr-nav__link fr-btn fr-ml-3 fr-btn--secondary fr-btn--sm lang"
         @click="changeLang"
       >
-        <span :class="{ underline: getLang() === 'fr' }">FR</span> |
-        <span :class="{ underline: getLang() === 'en' }">EN</span>
+        {{ getLanguageSwitchLabel() }}
       </button>
     </li>
   </ul>
