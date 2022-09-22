@@ -55,14 +55,12 @@
             >
           </li>
           <li class="warn">
-            <a
+            <DfButton
               class="fr-nav__link"
-              href="#"
-              @click="isDeleteModalVisible = true"
-              target="_self"
+              @on-click="isDeleteModalVisible = true"
             >
               {{ $t("deleteAccount") }}
-            </a>
+            </DfButton>
             <DeleteAccount
               v-model="isDeleteModalVisible"
               v-show="isDeleteModalVisible"
@@ -99,10 +97,12 @@ import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import DeleteAccount from "./DeleteAccount.vue";
 import i18n from "../i18n";
+import DfButton from "df-shared/src/Button/Button.vue";
 
 @Component({
   components: {
-    DeleteAccount
+    DeleteAccount,
+    DfButton
   },
   computed: {
     ...mapGetters({
@@ -184,7 +184,7 @@ export default class Menu extends Vue {
 
 .warn {
   background-color: #fdf2f3;
-  a {
+  button {
     color: var(--error);
   }
 }

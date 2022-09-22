@@ -75,17 +75,15 @@
                   </DfButton>
                 </li>
                 <li v-if="!loggedIn">
-                  <DfButton :title="t('partner')" size="small">
-                    <a
-                      class="fr-external-link"
-                      href="https://partenaire.dossierfacile.fr"
-                      target="_blank"
-                      rel="noreferrer"
-                      :title="t('partner-link-title')"
-                    >
-                      {{ t("partner") }}
-                    </a>
-                  </DfButton>
+                  <a
+                    class="fr-external-link fr-btn fr-btn--sm"
+                    href="https://partenaire.dossierfacile.fr"
+                    target="_blank"
+                    rel="noreferrer"
+                    :title="t('partner-link-title')"
+                  >
+                    {{ t("partner") }}
+                  </a>
                 </li>
               </ul>
             </div>
