@@ -16,7 +16,7 @@ const emit = defineEmits(["on-click"]);
 
 const props = withDefaults(
   defineProps<{
-    title: string;
+    title?: string;
     primary?: boolean;
     size?: string;
   }>(),

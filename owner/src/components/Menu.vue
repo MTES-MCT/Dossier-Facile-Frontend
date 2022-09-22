@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { Composer, useI18n } from 'vue-i18n';
+import DfButton from 'df-shared-next/src/Button/Button.vue';
 import DeleteAccount from './DeleteAccount.vue';
 import useOwnerStore from '../store/owner-store';
 import i18n from '../i18n';
@@ -85,12 +86,12 @@ function getLanguageSwitchLabel() {
             >
           </li>
           <li class="warn">
-            <span
+            <DfButton
               class="fr-nav__link"
-              @click="isDeleteModalVisible = true"
+              @on-click="isDeleteModalVisible = true"
             >
               {{ t("deleteAccount") }}
-            </span>
+            </DfButton>
             <DeleteAccount
               @close="isDeleteModalVisible = false"
               v-show="isDeleteModalVisible"
@@ -113,7 +114,6 @@ function getLanguageSwitchLabel() {
 <style scoped lang="scss">
 .fr-nav__item {
   position: relative;
-  cursor: pointer;
 
   a.fr-external-link::after {
     content: "";
@@ -122,7 +122,7 @@ function getLanguageSwitchLabel() {
 
 .warn {
   background-color: #fdf2f3;
-  span {
+  button {
     color: var(--error);
   }
 }
