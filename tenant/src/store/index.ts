@@ -479,6 +479,17 @@ const store = new Vuex.Store({
         }
       );
     },
+    saveTaxAuth({ commit }, { allowTax, redirectUri }) {
+      return RegisterService.saveTaxAuth(allowTax, redirectUri).then(
+        response => {
+          commit("loadUser", response.data);
+          return Promise.resolve(response.data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
     saveGuarantorName({ commit }, formData) {
       return RegisterService.saveGuarantorName(formData).then(
         response => {
