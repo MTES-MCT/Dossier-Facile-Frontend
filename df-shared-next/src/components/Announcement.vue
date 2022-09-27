@@ -1,17 +1,18 @@
+<script setup lang="ts">
+const MESSAGE = `${import.meta.env.VITE_ANNOUNCEMENT_MESSAGE}`;
+
+function isVisible() {
+  return MESSAGE.trim().length > 0;
+}
+</script>
+
 <template>
-  <div class="announcement fr-pt-2w fr-pb-2w">
+  <div class="announcement fr-pt-2w fr-pb-2w" v-if="isVisible()">
     <div class="fr-container">
-      <slot></slot>
+      {{ MESSAGE }}
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
-
-@Component
-export default class Announcement extends Vue {}
-</script>
 
 <style scoped lang="scss">
 .announcement {
