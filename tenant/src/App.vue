@@ -16,6 +16,7 @@
     >
       <Menu />
     </MyHeader>
+    <Announcement></Announcement>
     <article class="page">
       <router-view :key="$route.path" />
     </article>
@@ -33,13 +34,15 @@ import i18n from "./i18n";
 import Cookies from "df-shared/src/Footer/Cookies.vue";
 import VueGtag from "vue-gtag";
 import router from "./router";
+import Announcement from "df-shared/src/components/Announcement.vue";
 
 @Component({
   components: {
     MyHeader,
     TheFooter,
     Menu,
-    Cookies
+    Cookies,
+    Announcement
   },
   computed: {
     ...mapState({

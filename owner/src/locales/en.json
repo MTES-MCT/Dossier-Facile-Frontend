@@ -1,4 +1,10 @@
 {
   "email-required": "Email is required",
-  "field-required": "This field is required"
+  "field-required": "This field is required",
+  "house-furnished": "A furnished house",
+  "house-unfurnished": "An unfurnished house",
+  "apartment-furnished": "A furnished apartment",
+  "apartment-unfurnished": "A unfurnished apartment",
+  "other-furnished": "A furnished property",
+  "other-unfurnished": "A unfurnished property",
 }

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import MyHeader from 'df-shared-next/src/Header/Header.vue';
+import Announcement from 'df-shared-next/src/components/Announcement.vue';
 import TheFooter from 'df-shared-next/src/Footer/Footer.vue';
 import Cookies from 'df-shared-next/src/Footer/Cookies.vue';
 import { useRouter } from 'vue-router';
@@ -67,6 +68,7 @@ function denyCookies() {
   >
     <Menu @on-change-lang="changeLang" :lang="getLang()"></Menu>
   </MyHeader>
+  <Announcement></Announcement>
   <main class="page">
     <router-view />
   </main>

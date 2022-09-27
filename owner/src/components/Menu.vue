@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { Composer, useI18n } from 'vue-i18n';
+import DfButton from 'df-shared-next/src/Button/Button.vue';
 import DeleteAccount from './DeleteAccount.vue';
 import useOwnerStore from '../store/owner-store';
 import i18n from '../i18n';
@@ -25,8 +26,9 @@ function changeLang() {
   emit('on-change-lang');
 }
 
-function getLang() {
-  return ((i18n.global as unknown) as Composer).locale.value;
+function getLanguageSwitchLabel() {
+  const lang = ((i18n.global as unknown) as Composer).locale.value;
+  return lang === 'fr' ? 'English version' : 'Version française';
 }
 </script>
 
@@ -84,14 +86,12 @@ function getLang() {
             >
           </li>
           <li class="warn">
-            <a
+            <DfButton
               class="fr-nav__link"
-              href="#"
-              @click="isDeleteModalVisible = true"
-              target="_self"
+              @on-click="isDeleteModalVisible = true"
             >
               {{ t("deleteAccount") }}
-            </a>
+            </DfButton>
             <DeleteAccount
               @close="isDeleteModalVisible = false"
               v-show="isDeleteModalVisible"
@@ -105,8 +105,7 @@ function getLang() {
         class="fr-nav__link fr-btn fr-ml-3 fr-btn--secondary fr-btn--sm lang"
         @click="changeLang"
       >
-        <span :class="{ underline: getLang() === 'fr' }">FR</span> |
-        <span :class="{ underline: getLang() === 'en' }">EN</span>
+        {{ getLanguageSwitchLabel() }}
       </button>
     </li>
   </ul>
@@ -118,6 +117,13 @@ function getLang() {
 
   a.fr-external-link::after {
     content: "";
+  }
+}
+
+.warn {
+  background-color: #fdf2f3;
+  button {
+    color: var(--error);
   }
 }
 

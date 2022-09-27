@@ -55,14 +55,12 @@
             >
           </li>
           <li class="warn">
-            <a
+            <DfButton
               class="fr-nav__link"
-              href="#"
-              @click="isDeleteModalVisible = true"
-              target="_self"
+              @on-click="isDeleteModalVisible = true"
             >
               {{ $t("deleteAccount") }}
-            </a>
+            </DfButton>
             <DeleteAccount
               v-model="isDeleteModalVisible"
               v-show="isDeleteModalVisible"
@@ -88,8 +86,7 @@
         class="fr-nav__link fr-btn fr-ml-3 fr-btn--secondary fr-btn--sm lang"
         @click="changeLang"
       >
-        <span :class="{ underline: getLang() === 'fr' }">FR</span> |
-        <span :class="{ underline: getLang() === 'en' }">EN</span>
+        {{ getLanguageSwitchLabel() }}
       </button>
     </li>
   </ul>
@@ -100,10 +97,12 @@ import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import DeleteAccount from "./DeleteAccount.vue";
 import i18n from "../i18n";
+import DfButton from "df-shared/src/Button/Button.vue";
 
 @Component({
   components: {
-    DeleteAccount
+    DeleteAccount,
+    DfButton
   },
   computed: {
     ...mapGetters({
@@ -127,8 +126,8 @@ export default class Menu extends Vue {
     const lang = i18n.locale === "fr" ? "en" : "fr";
     this.$store.dispatch("setLang", lang);
   }
-  getLang() {
-    return i18n.locale;
+  getLanguageSwitchLabel() {
+    return i18n.locale === "fr" ? "English version" : "Version française";
   }
 }
 </script>
@@ -185,7 +184,7 @@ export default class Menu extends Vue {
 
 .warn {
   background-color: #fdf2f3;
-  a {
+  button {
     color: var(--error);
   }
 }
