@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import ColoredTag from "df-shared-next/src/components/ColoredTag.vue";
+import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import useOwnerStore from '../../store/owner-store';
@@ -23,93 +23,66 @@ const livingSpaceStatus = computed(() => (store.getPropertyToEdit?.livingSpace ?
 
 const id = Number(route.params.id);
 const getParams = id ? { id } : {};
-
 </script>
 
 <template>
   <nav class="left-edit-menu">
-    <div class="inner-left-edit fr-pt-7w fr-pt-7w">
+    <div class="inner-left-edit fr-pt-7w fr-pt-7w fr-pb-12w">
       <div class="active step">
         <div class="step-number">1</div>
         <div class="step-title">
           <router-link :to="{ name: 'AccountName' }" class="fr-link">
-            {{ t("personal-information") }}</router-link
+            {{ t('personal-information') }}</router-link
           >
         </div>
       </div>
       <div class="vline">
         <div class="ml-5">
           <router-link :to="{ name: 'AccountName' }" class="fr-link">
-          <ColoredTag
-              :text="getName()"
-              status="NAME"
-            ></ColoredTag
-          ></router-link
-          >
-
+            <ColoredTag :text="getName()" status="NAME"></ColoredTag
+          ></router-link>
         </div>
       </div>
       <div class="active step">
         <div class="step-number">2</div>
         <div class="step-title">
           <router-link :to="{ name: 'PropertyName', params: getParams }" class="fr-link">
-            {{ t("add-property") }}</router-link
+            {{ t('add-property') }}</router-link
           >
         </div>
       </div>
       <div class="vline">
         <div class="ml-5">
           <router-link :to="{ name: 'PropertyName', params: getParams }" class="fr-link">
-          <ColoredTag
+            <ColoredTag
               :text="propertyName ? propertyName : t('property-name')"
               :status="propertyName ? 'FILLED' : 'EMPTY'"
-            ></ColoredTag
-          >
+            ></ColoredTag>
           </router-link>
         </div>
         <div class="ml-5">
           <router-link :to="{ name: 'PropertyType', params: getParams }" class="fr-link">
-        <ColoredTag
-              :text="t('property-type')"
-              :status="typeStatus"
-            ></ColoredTag
-          >
+            <ColoredTag :text="t('property-type')" :status="typeStatus"></ColoredTag>
           </router-link>
         </div>
         <div class="ml-5">
           <router-link :to="{ name: 'PropertyAddress', params: getParams }" class="fr-link">
-        <ColoredTag
-              :text="t('property-address')"
-              :status="addressStatus"
-            ></ColoredTag
-          >
+            <ColoredTag :text="t('property-address')" :status="addressStatus"></ColoredTag>
           </router-link>
         </div>
         <div class="ml-5">
           <router-link :to="{ name: 'PropertyFurniture', params: getParams }" class="fr-link">
-        <ColoredTag
-              :text="t('property-furniture')"
-              :status="furnitureStatus"
-            ></ColoredTag
-          >
+            <ColoredTag :text="t('property-furniture')" :status="furnitureStatus"></ColoredTag>
           </router-link>
         </div>
         <div class="ml-5">
           <router-link :to="{ name: 'PropertyLivingSpace', params: getParams }" class="fr-link">
-        <ColoredTag
-              :text="t('property-living-space')"
-              :status="livingSpaceStatus"
-            ></ColoredTag
-          >
+            <ColoredTag :text="t('property-living-space')" :status="livingSpaceStatus"></ColoredTag>
           </router-link>
         </div>
         <div class="ml-5">
           <router-link :to="{ name: 'PropertyRent', params: getParams }" class="fr-link">
-        <ColoredTag
-              :text="t('monthly-rent-and-charges')"
-              :status="rentStatus"
-            ></ColoredTag
-          >
+            <ColoredTag :text="t('monthly-rent-and-charges')" :status="rentStatus"></ColoredTag>
           </router-link>
         </div>
       </div>
@@ -117,7 +90,7 @@ const getParams = id ? { id } : {};
         <div class="step-number">3</div>
         <div class="step-title">
           <router-link :to="{ name: 'ValidateProperty', params: getParams }" class="fr-link">
-            {{ t("validate-property") }}</router-link
+            {{ t('validate-property') }}</router-link
           >
         </div>
       </div>
@@ -187,16 +160,16 @@ const getParams = id ? { id } : {};
 }
 
 [href] {
-    box-shadow: none;
-    background-image: none;
+  box-shadow: none;
+  background-image: none;
 }
 
 .fr-link {
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    width: fit-content;
-    color: var(--g800-plain);
-    font-size: 14px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  color: var(--g800-plain);
+  font-size: 14px;
 }
 </style>
 
