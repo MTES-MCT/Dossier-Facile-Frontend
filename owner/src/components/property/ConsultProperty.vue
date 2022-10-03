@@ -270,7 +270,7 @@ if (route.params.id) {
 const TENANT_URL = `https://${import.meta.env.VITE_TENANT_URL}`;
 const OWNER_URL = `${import.meta.env.VITE_OWNER_URL}`;
 const token = computed(() => {
-  if (import.meta.env.VITE_NEW_SHARE_LINK) {
+  if (import.meta.env.VITE_NEW_SHARE_LINK === 'true') {
     return `${OWNER_URL}/candidater/${store.getPropertyToConsult?.token}`;
   }
   return `${TENANT_URL}/inscription-locataire/${store.getPropertyToConsult?.token}`;
