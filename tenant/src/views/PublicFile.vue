@@ -21,6 +21,7 @@
         :taxDocumentStatus="taxDocumentStatus()"
         :franceConnectTenantCount="franceConnectTenantCount()"
         :tenantCount="user.tenants.length"
+        :taxChecked="isTaxChecked()"
       ></FileReinsurance>
 
       <section class="fr-mt-5w fr-mb-3w">
@@ -170,6 +171,10 @@ export default class File extends Vue {
 
   franceConnectTenantCount() {
     return this.user?.tenants?.filter(t => t.franceConnect == true).length;
+  }
+
+  isTaxChecked() {
+    return this.user?.tenants?.filter(t => t.allowCheckTax == true).length;
   }
 
   getName() {
