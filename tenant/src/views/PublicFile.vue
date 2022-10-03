@@ -94,8 +94,21 @@
                 <FileRowListItem
                   :label="$t('tax')"
                   :document="document(tenant, 'TAX')"
+                  :tagLabel="
+                    isTenantTaxChecked(tenant) ? $t('tax-verified') : $t('tax')
+                  "
                   :enableDownload="false"
-                />
+                >
+                  <template v-slot:postTag>
+                    <div>
+                      <img
+                        src="../assets/images/icons/dgfip-icon.png"
+                        alt="Logo DGFIP"
+                        class="icon-dgfip"
+                      />
+                    </div>
+                  </template>
+                </FileRowListItem>
               </ul>
               <div v-if="hasGuarantor(tenant)">
                 <h2 class="fr-h4">
@@ -298,6 +311,9 @@ export default class File extends Vue {
       return d.documentCategory === docType;
     });
   }
+  isTenantTaxChecked(tenant: User) {
+    return tenant.allowCheckTax;
+  }
 }
 </script>
 
@@ -342,6 +358,11 @@ export default class File extends Vue {
     width: 24px;
     margin-left: 0.5rem;
   }
+}
+
+.icon-dgfip {
+  height: 50px;
+  margin-left: 2rem;
 }
 </style>
 
