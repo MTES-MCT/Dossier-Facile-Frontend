@@ -20,7 +20,7 @@
             <p>
               <strong>DossierFacile</strong> est
               <strong
-                ><span data-printfilter="lowercase">non conforme</span></strong
+                ><span data-printfilter="lowercase">partiellement conforme</span></strong
               >
               avec le
               <abbr
