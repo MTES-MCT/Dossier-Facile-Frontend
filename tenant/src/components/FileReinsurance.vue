@@ -6,7 +6,7 @@
     ><a href="https://www.dossierfacile.fr" target="_blank" rel="noreferrer">{{
       $t("know-more")
     }}</a>
-    <div class="fr-grid-row fr-grid-row--gutters space-between fr-mt-3w">
+    <div class="fr-grid-row fr-grid-row--gutters fr-mt-3w">
       <div
         class="fr-col-12"
         :class="[franceConnectTenantCount > 0 ? 'fr-col-md-3' : 'fr-col-md-4']"
@@ -31,32 +31,6 @@
           </span>
 
           <p>{{ $t("documents-" + dossierStatus) }}</p>
-        </NakedCard>
-      </div>
-      <div
-        v-if="!taxChecked"
-        class="fr-col-12"
-        :class="[franceConnectTenantCount > 0 ? 'fr-col-md-3' : 'fr-col-md-4']"
-      >
-        <NakedCard class="h-100">
-          <span
-            v-if="dossierStatus == 'VALIDATED'"
-            class="material-icons text-green md-48"
-            >check_circle</span
-          >
-          <span
-            v-else-if="dossierStatus == 'TO_PROCESS'"
-            class="fr-mb-2w material-icons-outlined bloc-warning-icon status-toprocess"
-          >
-            schedule
-          </span>
-          <span
-            v-else
-            class="fr-mb-2w material-icons-outlined bloc-warning-icon status-incomplete"
-          >
-            report_gmailerrorred
-          </span>
-          <p>{{ $t("tax-" + taxDocumentStatus) }}</p>
         </NakedCard>
       </div>
       <div
@@ -193,7 +167,6 @@ export default class FileReinsurance extends Vue {
     "documents-TO_PROCESS": "Documents are currently under review",
     "documents-DECLINED": "Still waiting required documents",
     "documents-INCOMPLETE": "Still waiting required documents",
-		"tax-ok": "The tax notice is authenticated (if there is one)",
     "tax-to_process": "Tax notice currently under review",
     "tax-nok": "Tax notice cannot be reviewed",
     "file-VALIDATED": "The parts are consistent and have been reviewed manually by our agents",
@@ -214,7 +187,6 @@ export default class FileReinsurance extends Vue {
     "documents-TO_PROCESS": "Les pièces du dossier sont en cours de vérification",
     "documents-DECLINED": "Le dossier ne contient pas encore les pièces requises",
     "documents-INCOMPLETE": "Le dossier ne contient pas encore les pièces requises",
-		"tax-ok": "L'avis d'imposition est authentifié (s'il y en a un)",
     "tax-to_process": "L'avis d'imposition est en cours de vérification",
     "tax-nok": "L'avis d'imposition n'a pas pu être vérifié",
 		"file-VALIDATED": "Les pièces sont cohérentes et ont été revues manuellement par nos agents",
