@@ -57,7 +57,7 @@ export default class ChangePasswordPage extends Vue {
   },
   "fr": {
     "error": "Erreur",
-    "password-update": "Le mot de passe a été mis-à-jour",
+    "password-update": "Le mot de passe a été mis à jour",
     "token-expired": "Le lien a expiré, veuillez lancer la procédure de mot de passe oublié"
   }
 }

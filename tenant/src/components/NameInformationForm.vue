@@ -329,7 +329,7 @@ export default class NameInformationForm extends Vue {
 "unlink-fc-link": "Modifier vos informations ?",
 "unlink-fc-content": "Afin d’apporter des modifications sur vos nom et prénoms, il vous faut dissocier vos comptes FranceConnect et DossierFacile.",
 "unlink-fc-content-password-exists": "Vous pourrez alors utiliser le mot de passe que vous avez précédemment défini.",
-"unlink-fc-content-password-undefined": "Vous serez ensuite rediriger sur la page de mise à jour du mot de passe.",
+"unlink-fc-content-password-undefined": "Vous serez ensuite redirigé sur la page de mise à jour du mot de passe.",
 "unlink-account-btn": "Dissocier mes comptes",
 "description-required-field" : "Les champs marqués d'un {asterix} sont obligatoires."
 }
