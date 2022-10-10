@@ -17,6 +17,10 @@
       "path": "owner"
     },
     {
+      "name": "📝 watermark",
+      "path": "waterkmark"
+    },
+    {
       "name": "📘 df-shared",
       "path": "df-shared"
     },
