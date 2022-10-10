@@ -7,10 +7,7 @@
       $t("know-more")
     }}</a>
     <div class="fr-grid-row fr-grid-row--gutters fr-mt-3w">
-      <div
-        class="fr-col-12"
-        :class="[franceConnectTenantCount > 0 ? 'fr-col-md-3' : 'fr-col-md-4']"
-      >
+      <div class="fr-col-12 fr-col-md-3">
         <NakedCard class="h-100">
           <span
             v-if="dossierStatus == 'VALIDATED'"
@@ -33,10 +30,7 @@
           <p>{{ $t("documents-" + dossierStatus) }}</p>
         </NakedCard>
       </div>
-      <div
-        class="fr-col-12"
-        :class="[franceConnectTenantCount > 0 ? 'fr-col-md-3' : 'fr-col-md-4']"
-      >
+      <div class="fr-col-12 fr-col-md-3">
         <NakedCard class="h-100">
           <span
             v-if="dossierStatus == 'VALIDATED'"
