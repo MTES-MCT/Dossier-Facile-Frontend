@@ -28,6 +28,6 @@ jobs:
       - run: yarn dfowner install --frozen-lockfile
       - run: yarn dfowner build
       - run: yarn dfowner test
-      - run: yarn waterwark install --frozen-lockfile
-      - run: yarn waterwark build
-      - run: yarn waterwark test
+      - run: yarn watermark install --frozen-lockfile
+      - run: yarn watermark build
+      - run: yarn watermark test
