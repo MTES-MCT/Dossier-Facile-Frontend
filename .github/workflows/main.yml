@@ -30,4 +30,3 @@ jobs:
       - run: yarn dfowner test
       - run: yarn watermark install --frozen-lockfile
       - run: yarn watermark build
-      - run: yarn watermark test
