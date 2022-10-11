@@ -9,8 +9,12 @@
       </span>
     </div>
     <div class="fr-col-8 fr-col-md-6 tag-container">
-      <ColoredTag :text="getTagLabel()" :status="documentStatus()"></ColoredTag>
-      <slot name="postTag"></slot>
+      <div style="align-self: center">
+        <ColoredTag :text="getTagLabel()" :status="documentStatus()"></ColoredTag>
+      </div>
+      <div>
+        <slot name="postTag"></slot>
+      </div>
     </div>
     <div class="fr-col-4 fr-col-md-2 fr-btns-group--right">
       <DfButton
