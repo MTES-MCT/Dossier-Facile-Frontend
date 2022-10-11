@@ -6,11 +6,8 @@
     ><a href="https://www.dossierfacile.fr" target="_blank" rel="noreferrer">{{
       $t("know-more")
     }}</a>
-    <div class="fr-grid-row fr-grid-row--gutters space-between fr-mt-3w">
-      <div
-        class="fr-col-12"
-        :class="[franceConnectTenantCount > 0 ? 'fr-col-md-3' : 'fr-col-md-4']"
-      >
+    <div class="fr-grid-row fr-grid-row--gutters fr-mt-3w">
+      <div class="fr-col-12 fr-col-md-3">
         <NakedCard class="h-100">
           <span
             v-if="dossierStatus == 'VALIDATED'"
@@ -33,35 +30,7 @@
           <p>{{ $t("documents-" + dossierStatus) }}</p>
         </NakedCard>
       </div>
-      <div
-        class="fr-col-12"
-        :class="[franceConnectTenantCount > 0 ? 'fr-col-md-3' : 'fr-col-md-4']"
-      >
-        <NakedCard class="h-100">
-          <span
-            v-if="dossierStatus == 'VALIDATED'"
-            class="material-icons text-green md-48"
-            >check_circle</span
-          >
-          <span
-            v-else-if="dossierStatus == 'TO_PROCESS'"
-            class="fr-mb-2w material-icons-outlined bloc-warning-icon status-toprocess"
-          >
-            schedule
-          </span>
-          <span
-            v-else
-            class="fr-mb-2w material-icons-outlined bloc-warning-icon status-incomplete"
-          >
-            report_gmailerrorred
-          </span>
-          <p>{{ $t("tax-" + taxDocumentStatus) }}</p>
-        </NakedCard>
-      </div>
-      <div
-        class="fr-col-12 "
-        :class="[franceConnectTenantCount > 0 ? 'fr-col-md-3' : 'fr-col-md-4']"
-      >
+      <div class="fr-col-12 fr-col-md-3">
         <NakedCard class="h-100">
           <span
             v-if="dossierStatus == 'VALIDATED'"
@@ -83,11 +52,23 @@
           <p>{{ $t("file-" + dossierStatus) }}</p>
         </NakedCard>
       </div>
+      <div v-if="taxChecked" class="fr-col-12 fr-col-md-3">
+        <NakedCard class="h-100 fc">
+          <div class="card-logo-container">
+            <img
+              src="../assets/images/icons/dgfip-icon.png"
+              alt="Logo DGFIP"
+              class="icon-dgfip"
+            />
+          </div>
+          <p>
+            {{ $t("tax-checked") }}
+          </p>
+        </NakedCard>
+      </div>
       <div v-if="franceConnectTenantCount > 0" class="fr-col-12 fr-col-md-3">
         <NakedCard class="h-100 fc">
-          <div class="fr-mb-0-5w icon-fc text-fc blue-text ">
-            FranceConnect
-          </div>
+          <div class="fr-mb-0-5w icon-fc text-fc blue-text">FranceConnect</div>
           <p v-if="tenantCount === 1">
             {{ $t("france-connect-user") }}
           </p>
@@ -117,10 +98,11 @@ export default class FileReinsurance extends Vue {
   @Prop() taxDocumentStatus!: string;
   @Prop({ default: 0 }) franceConnectTenantCount?: number;
   @Prop({ default: 0 }) tenantCount?: number;
+  @Prop({ default: false }) taxChecked?: boolean;
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 @import "df-shared/src/scss/_variables.scss";
 
 .text-green {
@@ -161,6 +143,15 @@ export default class FileReinsurance extends Vue {
     vertical-align: calc(50% - 30px);
   }
 }
+
+.icon-dgfip {
+  margin: auto;
+  height: 50px;
+}
+
+.card-logo-container {
+  height: 55px;
+}
 </style>
 
 <i18n>
@@ -170,7 +161,6 @@ export default class FileReinsurance extends Vue {
     "documents-TO_PROCESS": "Documents are currently under review",
     "documents-DECLINED": "Still waiting required documents",
     "documents-INCOMPLETE": "Still waiting required documents",
-		"tax-ok": "The tax notice is authenticated (if there is one)",
     "tax-to_process": "Tax notice currently under review",
     "tax-nok": "Tax notice cannot be reviewed",
     "file-VALIDATED": "The parts are consistent and have been reviewed manually by our agents",
@@ -183,14 +173,14 @@ export default class FileReinsurance extends Vue {
 		"know-more": "Know more about DossierFacile",
 		"france-connect-user": "Candidate identity has been certified by a FranceConnect authentication.",
     "france-connect-user-all": "Candidates identities have been certified by FranceConnect authentications.",
-    "france-connect-user-partial": "Identity of {0} candidate(s) has been certified by a FranceConnect authentication."
+    "france-connect-user-partial": "Identity of {0} candidate(s) has been certified by a FranceConnect authentication.",
+    "tax-checked": "Tax income certified with the tax services"
 	},
 	"fr": {
     "documents-VALIDATED": "Le dossier contient les pièces requises",
     "documents-TO_PROCESS": "Les pièces du dossier sont en cours de vérification",
     "documents-DECLINED": "Le dossier ne contient pas encore les pièces requises",
     "documents-INCOMPLETE": "Le dossier ne contient pas encore les pièces requises",
-		"tax-ok": "L'avis d'imposition est authentifié (s'il y en a un)",
     "tax-to_process": "L'avis d'imposition est en cours de vérification",
     "tax-nok": "L'avis d'imposition n'a pas pu être vérifié",
 		"file-VALIDATED": "Les pièces sont cohérentes et ont été revues manuellement par nos agents",
@@ -203,7 +193,8 @@ export default class FileReinsurance extends Vue {
 		"know-more": "En savoir plus sur DossierFacile",
     "france-connect-user": "L'identité du candidat a été certifiée via une authentification FranceConnect.",
     "france-connect-user-all": "L'identité des candidats a été certifiée via une authentification FranceConnect.",
-    "france-connect-user-partial": "L'identité de {0} candidat(s) a été certifiée via une authentification FranceConnect."
+    "france-connect-user-partial": "L'identité de {0} candidat(s) a été certifiée via une authentification FranceConnect.",
+    "tax-checked": "Revenu fiscal certifié auprès des services des impôts"
 	}
 }
 </i18n>

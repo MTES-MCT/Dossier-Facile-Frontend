@@ -3,18 +3,20 @@
     class="fr-grid-row file-item"
     :class="{ 'not-validated': documentStatus() != 'VALIDATED' }"
   >
-    <div class="fr-col-12 fr-col-md-6 fr-col-xl-4">
+    <div class="fr-col-12 fr-col-md-4">
       <span :class="listItemIconClass()">
         {{ label }}
       </span>
     </div>
-    <div class="fr-col-6 fr-col-md-4 fr-col-xl-4">
-      <ColoredTag
-        :text="$t(documentStatus())"
-        :status="documentStatus()"
-      ></ColoredTag>
+    <div class="fr-col-8 fr-col-md-6 tag-container">
+      <div style="align-self: center">
+        <ColoredTag :text="getTagLabel()" :status="documentStatus()"></ColoredTag>
+      </div>
+      <div>
+        <slot name="postTag"></slot>
+      </div>
     </div>
-    <div class="fr-col-6 fr-col-md-2 fr-col-xl-4 fr-btns-group--right">
+    <div class="fr-col-4 fr-col-md-2 fr-btns-group--right">
       <DfButton
         v-if="enableDownload && documentStatus() == 'VALIDATED'"
         class="fr-btn--icon-left fr-fi-eye-line"
@@ -42,6 +44,14 @@ export default class FileRowListItem extends Vue {
   @Prop() label!: string;
   @Prop() document!: DfDocument;
   @Prop({ default: true }) enableDownload?: boolean;
+  @Prop() tagLabel?: boolean;
+
+  getTagLabel() {
+    if (this.tagLabel) {
+      return this.tagLabel;
+    }
+    return this.$i18n.t(this.documentStatus());
+  }
 
   documentStatus() {
     if (this.document) {
@@ -110,6 +120,13 @@ export default class FileRowListItem extends Vue {
   &.not-validated {
     background-color: var(--background-alt-grey);
     border-style: none;
+  }
+}
+
+.tag-container {
+  display: flex;
+  @media all and (max-width: 767px) {
+    flex-direction: column;
   }
 }
 </style>

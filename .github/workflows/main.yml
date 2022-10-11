@@ -28,3 +28,5 @@ jobs:
       - run: yarn dfowner install --frozen-lockfile
       - run: yarn dfowner build
       - run: yarn dfowner test
+      - run: yarn watermark install --frozen-lockfile
+      - run: yarn watermark build

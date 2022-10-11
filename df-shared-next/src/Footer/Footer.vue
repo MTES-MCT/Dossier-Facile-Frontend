@@ -71,6 +71,14 @@
           <li class="fr-footer__bottom-item">
             <a
               class="fr-footer__bottom-link"
+              :href="`${VITE_MAIN_URL}/plan-du-site`"
+            >
+              {{ t("sitemap") }}
+            </a>
+          </li>
+          <li class="fr-footer__bottom-item">
+            <a
+              class="fr-footer__bottom-link"
               :href="`${VITE_MAIN_URL}/accessibilite`"
               :title="t('accessibility-link')"
               >{{ t("accessibility") }}</a
@@ -251,8 +259,9 @@ ul.fr-follow {
   "en": {
     "legals": "Legal notice",
     "faq": "Help",
+    "sitemap": "Sitemap",
     "sources": "Source code",
-    "accessibility": "Accessibility: not compliant",
+    "accessibility": "Accessibility: partially compliant",
     "statistics": "Statistics",
     "partner": "Become partners",
     "faq-link-title": "Help - new window",
@@ -262,9 +271,10 @@ ul.fr-follow {
   "fr": {
     "legals": "Mentions légales",
     "faq": "Aide",
+    "sitemap": "Plan du site",
     "information": "En savoir plus",
     "sources": "Code source",
-    "accessibility": "Accessibilité: non conforme",
+    "accessibility": "Accessibilité : partiellement conforme",
     "statistics": "Statistiques",
     "partner": "Devenir partenaire",
     "faq-link-title": "Aide - nouvelle fenêtre",

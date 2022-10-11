@@ -29,6 +29,12 @@ export const RegisterService = {
     );
   },
 
+  saveTaxAuth(allowTax: boolean, redirectUri: string) {
+    return axios.get(
+      `https://${process.env.VUE_APP_API_URL}/api/tenant/allowTax/${allowTax}?redirectUri=${redirectUri}`
+    );
+  },
+
   saveGuarantorName(formData: FormData) {
     return axios.post(
       `https://${process.env.VUE_APP_API_URL}/api/register/guarantorNaturalPerson/name`,

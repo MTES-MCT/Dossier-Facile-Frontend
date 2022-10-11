@@ -36,4 +36,6 @@ export class User {
   };
   guarantors?: Guarantor[];
   documents?: DfDocument[];
+  allowCheckTax?: boolean;
+  linkUrl?: string;
 }

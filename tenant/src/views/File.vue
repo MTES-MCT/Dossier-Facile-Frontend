@@ -36,6 +36,7 @@
         :taxDocumentStatus="taxDocumentStatus()"
         :franceConnectTenantCount="franceConnectTenantCount()"
         :tenantCount="user.tenants.length"
+        :taxChecked="isTaxChecked()"
       ></FileReinsurance>
 
       <section class="fr-mt-5w fr-mb-3w">
@@ -103,8 +104,21 @@
                 />
                 <FileRowListItem
                   :label="$t('tax')"
+                  :tagLabel="
+                    isTenantTaxChecked(tenant) ? $t('tax-verified') : $t('tax')
+                  "
                   :document="document(tenant, 'TAX')"
-                />
+                >
+                  <template v-slot:postTag>
+                    <div v-if="isTaxChecked()">
+                      <img
+                        src="../assets/images/icons/dgfip-icon.png"
+                        alt="Logo DGFIP"
+                        class="icon-dgfip"
+                      />
+                    </div>
+                  </template>
+                </FileRowListItem>
               </ul>
               <div v-if="hasGuarantor(tenant)">
                 <h2 class="fr-h4">
@@ -196,6 +210,10 @@ export default class File extends Vue {
 
   franceConnectTenantCount() {
     return this.user?.tenants?.filter(t => t.franceConnect == true).length;
+  }
+
+  isTaxChecked() {
+    return this.user?.tenants?.filter(t => t.allowCheckTax == true).length;
   }
 
   getName() {
@@ -381,11 +399,14 @@ export default class File extends Vue {
       return d.documentCategory === docType;
     });
   }
+
+  isTenantTaxChecked(tenant: User) {
+    return tenant.allowCheckTax;
+  }
 }
 </script>
 
 <style scoped lang="scss">
-
 .background {
   width: 100%;
   top: 0;
@@ -428,8 +449,10 @@ export default class File extends Vue {
   }
 }
 
-
-
+.icon-dgfip {
+  height: 46px;
+  margin-left: 2rem;
+}
 </style>
 
 <i18n>
@@ -444,6 +467,7 @@ export default class File extends Vue {
     "professional": "Professional",
     "financial": "Financial",
     "tax": "Tax",
+    "tax-verified": "Tax income certified with the tax services",
     "download-all": "Download the complete file (.pdf)",
     "download-all-inprogress": "Download in progress...",
     "ALONE": "Seul",
@@ -467,6 +491,7 @@ export default class File extends Vue {
     "professional": "Justificatif de situation professionnelle",
     "financial": "Justificatif de ressources",
     "tax": "Avis d’imposition",
+    "tax-verified": "Revenu fiscal certifié auprès des services des impôts",
     "download-all": "Télécharger le dossier complet (.pdf)",
     "download-all-inprogress": "Téléchargement en cours...",
     "ALONE": "Seul",

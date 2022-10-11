@@ -21,6 +21,7 @@
         :taxDocumentStatus="taxDocumentStatus()"
         :franceConnectTenantCount="franceConnectTenantCount()"
         :tenantCount="user.tenants.length"
+        :taxChecked="isTaxChecked()"
       ></FileReinsurance>
 
       <section class="fr-mt-5w fr-mb-3w">
@@ -93,8 +94,21 @@
                 <FileRowListItem
                   :label="$t('tax')"
                   :document="document(tenant, 'TAX')"
+                  :tagLabel="
+                    isTenantTaxChecked(tenant) ? $t('tax-verified') : $t('tax')
+                  "
                   :enableDownload="false"
-                />
+                >
+                  <template v-slot:postTag>
+                    <div v-if="isTaxChecked()">
+                      <img
+                        src="../assets/images/icons/dgfip-icon.png"
+                        alt="Logo DGFIP"
+                        class="icon-dgfip"
+                      />
+                    </div>
+                  </template>
+                </FileRowListItem>
               </ul>
               <div v-if="hasGuarantor(tenant)">
                 <h2 class="fr-h4">
@@ -170,6 +184,10 @@ export default class File extends Vue {
 
   franceConnectTenantCount() {
     return this.user?.tenants?.filter(t => t.franceConnect == true).length;
+  }
+
+  isTaxChecked() {
+    return this.user?.tenants?.filter(t => t.allowCheckTax == true).length;
   }
 
   getName() {
@@ -293,6 +311,9 @@ export default class File extends Vue {
       return d.documentCategory === docType;
     });
   }
+  isTenantTaxChecked(tenant: User) {
+    return tenant.allowCheckTax;
+  }
 }
 </script>
 
@@ -337,6 +358,11 @@ export default class File extends Vue {
     width: 24px;
     margin-left: 0.5rem;
   }
+}
+
+.icon-dgfip {
+  height: 46px;
+  margin-left: 2rem;
 }
 </style>
 

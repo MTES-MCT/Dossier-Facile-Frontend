@@ -376,6 +376,14 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "statistics" */ "../views/Statistics.vue")
   },
   {
+    path: "/plan-du-site",
+    name: "Plan du site",
+    meta: {
+      title: "DossierFacile, le dossier de location numérique de l’État",
+    },
+    component: () => import("../views/Sitemap.vue")
+  },
+  {
     path: "/404",
     name: "404",
     meta: {

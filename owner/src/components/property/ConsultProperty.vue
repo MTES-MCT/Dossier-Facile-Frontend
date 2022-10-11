@@ -268,9 +268,13 @@ if (route.params.id) {
 }
 
 const TENANT_URL = `https://${import.meta.env.VITE_TENANT_URL}`;
-const token = computed(
-  () => `${TENANT_URL}/inscription-locataire/${store.getPropertyToConsult?.token}`,
-);
+const OWNER_URL = `${import.meta.env.VITE_OWNER_URL}`;
+const token = computed(() => {
+  if (import.meta.env.VITE_NEW_SHARE_LINK === 'true') {
+    return `${OWNER_URL}/candidater/${store.getPropertyToConsult?.token}`;
+  }
+  return `${TENANT_URL}/inscription-locataire/${store.getPropertyToConsult?.token}`;
+});
 const name = computed(() => store.getPropertyToConsult?.name);
 const p = computed(() => store.getPropertyToConsult);
 const propertyType = computed(() => store.getPropertyToConsult?.type);
