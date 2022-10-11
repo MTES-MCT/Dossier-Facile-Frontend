@@ -361,7 +361,7 @@ export default class File extends Vue {
 }
 
 .icon-dgfip {
-  height: 50px;
+  height: 46px;
   margin-left: 2rem;
 }
 </style>
