@@ -100,7 +100,7 @@
                   :enableDownload="false"
                 >
                   <template v-slot:postTag>
-                    <div>
+                    <div v-if="isTaxChecked()">
                       <img
                         src="../assets/images/icons/dgfip-icon.png"
                         alt="Logo DGFIP"
