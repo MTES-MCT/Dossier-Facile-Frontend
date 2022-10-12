@@ -153,6 +153,9 @@ const store = new Vuex.Store({
     isFunnel(state, isFunnel) {
       state.isFunnel = isFunnel;
     },
+    updateSkipLinks(state, skipLinks) {
+      state.skipLinks = skipLinks;
+    },
     updateUserFirstname(state, firstname) {
       state.user.firstName = firstname;
     },
