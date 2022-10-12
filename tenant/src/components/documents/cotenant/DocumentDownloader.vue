@@ -104,11 +104,11 @@
         :documentDeniedReasons="documentDeniedReasons"
         :documentStatus="documentStatus"
       ></AllDeclinedMessages>
-      
+
       <div v-if="!(noDocument == true)">
-        <div v-if="documentFiles.length > 0" class="fr-col-md-12 fr-mb-3w">
+        <div v-if="documentFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
           <ListItem
-            v-for="(file, k) in documentFiles"
+            v-for="(file, k) in documentFiles()"
             :key="k"
             :file="file"
             @remove="remove(file)"
@@ -124,8 +124,10 @@
           ></FileUpload>
         </div>
       </div>
-      <div v-if="allowNoDocument" class="fr-col-12 fr-mb-3w bg-purple fr-checkbox-group">
-        
+      <div
+        v-if="allowNoDocument"
+        class="fr-col-12 fr-mb-3w bg-purple fr-checkbox-group"
+      >
         <input
           type="checkbox"
           id="noDocument"
@@ -133,7 +135,11 @@
           @click="changeNoDocument($event)"
         />
         <label for="noDocument">
-          {{ document ? $parent.$t("noDocument-" + document.key) : $t("noDocument-default") }}
+          {{
+            document
+              ? $parent.$t("noDocument-" + document.key)
+              : $t("noDocument-default")
+          }}
         </label>
       </div>
 
@@ -251,6 +257,7 @@ export default class DocumentDownloader extends Vue {
   @Prop() coTenantId!: number;
   @Prop() documentsDefinitions!: any;
   @Prop() documentCategory!: string;
+  @Prop() editedDocumentId?: number;
   @Prop() dispacthMethodName!: string;
   @Prop() typeDocument!: string;
   @Prop({ default: false }) isDropdownList!: boolean;
@@ -269,10 +276,9 @@ export default class DocumentDownloader extends Vue {
   showIsNoDocumentAndFiles = false;
 
   beforeMount() {
-    this.updateData();
-    this.dfDocument = this.getDocument();
+    this.loadDocument();
     this.noDocument = this.dfDocument?.noDocument == true;
-    this.$emit("on-change-document", this.document);
+    this.$emit("on-change-document", this.document, this.dfDocument);
   }
 
   changeNoDocument(event: Event) {
@@ -302,7 +308,7 @@ export default class DocumentDownloader extends Vue {
       }
       this.$emit("on-change-document", this.document, doc);
     }
-    this.$emit("on-change-document", this.document, null);
+    this.$emit("on-change-document", this.document, this.dfDocument);
     this.noDocument = this.dfDocument?.noDocument == true;
     return false;
   }
@@ -310,23 +316,56 @@ export default class DocumentDownloader extends Vue {
   get documentStatus() {
     return this.getDocument()?.documentStatus;
   }
-  get documentFiles(): DfFile[] {
+  documentFiles(): DfFile[] {
+    console.log("docFile");
+    console.log(this.getDocument().files);
     return this.getDocument().files
       ? (this.getDocument().files as DfFile[])
       : [];
   }
 
-  getDocument(): DfDocument {
+  loadDocument() {
     this.selectedCoTenant = this.coTenants.find((t: User) => {
-      console.log("coTenant id = " + t.id);
       return t.id === Number(this.coTenantId);
     }) as User;
-    const doc = this.selectedCoTenant.documents
-      ? (this.selectedCoTenant.documents.find((d: DfDocument) => {
-          return d.documentCategory === this.documentCategory;
-        }) as DfDocument)
-      : undefined;
-    return doc ? doc : new DfDocument();
+
+    if (this.editedDocumentId) {
+      
+      const doc = this.selectedCoTenant.documents
+        ? (this.selectedCoTenant.documents.find((d: DfDocument) => {
+            return d.documentCategory === this.documentCategory
+            && d.id === this.editedDocumentId;
+          }) as DfDocument)
+        : undefined;
+
+      this.dfDocument = doc ? doc : new DfDocument();
+    } else {
+      const doc = this.selectedCoTenant.documents
+        ? (this.selectedCoTenant.documents.find((d: DfDocument) => {
+            return d.documentCategory === this.documentCategory;
+          }) as DfDocument)
+        : undefined;
+      
+      this.dfDocument = doc ? doc : new DfDocument();
+    }
+
+    // loadDocType
+    const localDoc = this.documentsDefinitions.find((d: DocumentType) => {
+      return d.value === this.dfDocument.documentSubCategory;
+    });
+    if (localDoc !== undefined) {
+      this.document = localDoc;
+    }
+
+    if (this.dfDocument?.documentDeniedReasons) {
+      this.documentDeniedReasons = cloneDeep(
+        this.dfDocument?.documentDeniedReasons
+      ) as DocumentDeniedReasons;
+    }
+  }
+
+  getDocument(): DfDocument {
+    return this.dfDocument;
   }
 
   undoSelect() {
@@ -354,30 +393,6 @@ export default class DocumentDownloader extends Vue {
             await this.remove(f);
           }
         }
-      }
-    }
-  }
-
-  updateData() {
-    this.selectedCoTenant = this.coTenants.find((t: User) => {
-      console.log("coTenant id = " + t.id);
-      return t.id === Number(this.coTenantId);
-    }) as User;
-
-    if (this.selectedCoTenant.documents) {
-      const doc = this.getDocument();
-      if (doc !== undefined) {
-        const localDoc = this.documentsDefinitions.find((d: DocumentType) => {
-          return d.value === doc.documentSubCategory;
-        });
-        if (localDoc !== undefined) {
-          this.document = localDoc;
-        }
-      }
-      if (this.getDocument()?.documentDeniedReasons) {
-        this.documentDeniedReasons = cloneDeep(
-          this.getDocument()?.documentDeniedReasons
-        ) as DocumentDeniedReasons;
       }
     }
   }
@@ -415,8 +430,7 @@ export default class DocumentDownloader extends Vue {
       .dispatch(this.dispacthMethodName, formData)
       .then(() => {
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
-        this.updateData();
-        this.dfDocument = this.getDocument();
+        this.loadDocument();
         Vue.toasted.global.save_success();
       })
       .catch(err => {
@@ -460,7 +474,7 @@ export default class DocumentDownloader extends Vue {
           this.dfDocument.files = this.dfDocument.files?.filter(
             f => file.id != f.id
           );
-          
+
           Vue.toasted.global.save_success();
         })
         .catch(err => {

@@ -3,6 +3,7 @@
     <DocumentDownloader
       :coTenantId="coTenantId"
       :documentsDefinitions="documentsDefinitions"
+      :editedDocumentId="financialDocument? financialDocument.id : null"
       documentCategory="FINANCIAL"
       dispacthMethodName="saveTenantFinancial"
       typeDocument="typeDocumentFinancial"
@@ -23,10 +24,6 @@
       //documentStatus="documentStatus"
     -->
       <template v-slot:after-select-block>
-        {{
-          "TODO" + financialDocument.documentType.key &&
-            financialDocument.documentType.key !== "no-income"
-        }}
         <NakedCard
           class="fr-p-md-5w fr-mb-3w"
           v-if="documentType ? documentType.key !== 'no-income' : false"
@@ -223,15 +220,14 @@
 <script lang="ts">
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { DocumentType } from "df-shared/src/models/Document";
-import { FinancialDocument } from "df-shared/src/models/FinancialDocument";
 import { Component, Prop, Vue } from "vue-property-decorator";
-import DocumentHelp from "../../helps/DocumentHelp.vue";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import DocumentDownloader from "./DocumentDownloader.vue";
 import { ValidationProvider } from "vee-validate";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import FooterContainer from '../../footer/FooterContainer.vue';
 import BackNext from "../../footer/BackNext.vue";
+import Financial from "../tenant/Financial.vue";
 
 @Component({
   components: {
@@ -245,54 +241,60 @@ import BackNext from "../../footer/BackNext.vue";
 })
 export default class CoTenantFinancialForm extends Vue {
   @Prop() coTenantId!: number;
-  @Prop() financialDocument!: FinancialDocument;
+  @Prop() financialDocument!: DfDocument;
 
   documentsDefinitions = DocumentTypeConstants.FINANCIAL_DOCS;
   documentType?: DocumentType;
   document!: DfDocument;
-  selectedDoc?: FinancialDocument;
   isNoIncomeAndFiles = false;
 
   mounted() {
     console.log("mount fina=" + this.financialDocument.id);
+    
   }
 
   changeDocument(docType?: DocumentType, doc?: DfDocument) {
+    console.log("change doc");
+    console.log(doc);
     this.documentType = docType;
     this.document = doc as DfDocument;
   }
 
   enrichFormData(formData: FormData) {
+    console.log("docType");
+    console.log(this.documentType);
     if (this.documentType?.key === "no-income") {
+      console.log("NO INCOME");
       this.document.noDocument = true;
       this.document.monthlySum = 0;
     }
+    console.log(this.document);
 
     formData.append(
       "noDocument",
-      this.document.noDocument ? "true" : "false"
+      (this.document?.noDocument === true )? "true" : "false"
     );
     if (
-      this.documentType?.key === "no-income" &&
-      !this.document.customText
+      this.documentType?.key === "no-income" && ( !this.document.customText || this.document.customText.length < 0)
     ) {
       formData.append("customText", "-");
     } else {
       formData.append("customText", this.document.customText as string);
     }
-
+    console.log("this.financialDocument.monthlySum");
+    console.log(this.financialDocument.monthlySum);
     if (
-      this.document.monthlySum !== undefined &&
-      this.document.monthlySum >= 0
+      this.financialDocument.monthlySum !== undefined &&
+      this.financialDocument.monthlySum >= 0
     ) {
       formData.append(
         "monthlySum",
-        this.document.monthlySum.toString()
+        this.financialDocument.monthlySum.toString()
       );
     }
 
-    if (this.document.id) {
-      formData.append("id", this.document.id.toString());
+    if (this.financialDocument.id) {
+      formData.append("id", this.financialDocument.id.toString());
     }
   }
 
@@ -303,7 +305,7 @@ export default class CoTenantFinancialForm extends Vue {
   goNext() {
     console.log("goNext");
     // push data if there is not files in documents - noDocument
-    if (this.document.noDocument == true) {
+    if (this.document?.noDocument === true) {
       console.log("goNext");
       const formData = new FormData();
       this.enrichFormData(formData);
@@ -314,7 +316,7 @@ export default class CoTenantFinancialForm extends Vue {
       );
       formData.append("tenantId", this.coTenantId.toString());
       const loader = this.$loading.show();
-console.log(formData);
+
       this.$store
         .dispatch("saveTenantFinancial", formData)
         .then(() => {

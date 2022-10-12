@@ -1,7 +1,9 @@
 <template>
   <div>
     <div v-if="editFinancialDocument">
-      <GuarantorFinancialDocumentForm></GuarantorFinancialDocumentForm>
+      <GuarantorFinancialDocumentForm
+        :tenantId="tenantId"
+      ></GuarantorFinancialDocumentForm>
     </div>
     <div v-if="!editFinancialDocument">
       <NakedCard class="fr-p-md-5w fr-mb-3w">
@@ -57,7 +59,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import DocumentInsert from "../share/DocumentInsert.vue";
 import FileUpload from "../../uploads/FileUpload.vue";
 import { mapGetters } from "vuex";
@@ -111,6 +113,8 @@ import ColoredTag from "df-shared/src/components/ColoredTag.vue";
   }
 })
 export default class GuarantorFinancial extends Vue {
+  @Prop() tenantId?: string;
+
   user!: User;
   financialDocuments!: FinancialDocument[];
 

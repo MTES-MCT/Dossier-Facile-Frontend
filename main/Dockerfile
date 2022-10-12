@@ -5,7 +5,8 @@ RUN apt install -y gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2
 
 WORKDIR /front-main
 
-COPY .. ./
+# to execute in .. context
+COPY . .
 
 ARG NODE_ENV
 ARG VUE_APP_API_URL

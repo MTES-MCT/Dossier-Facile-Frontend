@@ -81,30 +81,6 @@ const store = new Vuex.Store({
         state.user?.apartmentSharing.applicationType
       );
 
-      if (state.user?.guarantors && state.user.guarantors.length > 0) {
-        if (state.selectedGuarantor?.id) {
-          const guarantor = user.guarantors.find((g: Guarantor) => {
-            return g.id === state.selectedGuarantor.id;
-          });
-          if (guarantor !== undefined) {
-            Vue.set(state, "selectedGuarantor", guarantor);
-          } else {
-            Vue.set(
-              state,
-              "selectedGuarantor",
-              user.guarantors[user.guarantors.length - 1]
-            );
-          }
-        } else {
-          Vue.set(
-            state,
-            "selectedGuarantor",
-            user.guarantors[user.guarantors.length - 1]
-          );
-        }
-      } else {
-        Vue.set(state, "selectedGuarantor", new Guarantor());
-      }
       if (state.user?.apartmentSharing?.applicationType === "COUPLE") {
         Vue.set(state, "spouseAuthorize", new Guarantor());
       }
@@ -121,6 +97,28 @@ const store = new Vuex.Store({
           )
         );
       }
+      if (state.selectedGuarantor?.id) {
+        let guarantor = user.guarantors.find((g: Guarantor) => {
+          return g.id === state.selectedGuarantor.id;
+        });
+
+        if (!guarantor) {
+          state.coTenants.forEach((t: User) => {
+            const tmpGuarantor = t.guarantors?.find((g: Guarantor) => {
+              return g.id === state.selectedGuarantor.id;
+            });
+            if (tmpGuarantor !== undefined) {
+              guarantor = tmpGuarantor;
+              return;
+            }
+          });
+        }
+        if (guarantor !== undefined) {
+          Vue.set(state, "selectedGuarantor", guarantor);
+        }
+      } else {
+        Vue.set(state, "selectedGuarantor", new Guarantor());
+      }
     },
     setSelectedGuarantor(state, guarantor: Guarantor) {
       Vue.set(state, "selectedGuarantor", guarantor);
@@ -131,14 +129,6 @@ const store = new Vuex.Store({
       u.firstName = coTenant.firstName;
       u.firstName = coTenant.lastName;
       state.user.apartmentSharing.tenants.push(u);
-    },
-    selectGuarantor(state, position) {
-      if (
-        state.user?.guarantors !== undefined &&
-        state.user?.guarantors.length > position
-      ) {
-        state.selectedGuarantor = state.user?.guarantors[position];
-      }
     },
     updateMessages(state, messageList: DfMessage[]) {
       state.messageList = messageList;
@@ -320,6 +310,16 @@ const store = new Vuex.Store({
       return ProfileService.saveNames(user).then(
         () => {
           return commit("setNamesSuccess", user);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
+    setRoommates({ commit }, data) {
+      return ProfileService.saveRoommates(data).then(
+        response => {
+          return commit("loadUser", response.data);
         },
         error => {
           return Promise.reject(error);

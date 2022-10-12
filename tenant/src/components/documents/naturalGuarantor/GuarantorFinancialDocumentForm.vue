@@ -222,7 +222,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import { DocumentType } from "df-shared/src/models/Document";
 import DocumentInsert from "../share/DocumentInsert.vue";
 import FileUpload from "../../uploads/FileUpload.vue";
@@ -291,6 +291,8 @@ extend("required", {
   }
 })
 export default class GuarantorFinancialDocumentForm extends Vue {
+  @Prop() tenantId?: string;
+
   selectedGuarantor!: Guarantor;
   guarantorFinancialDocumentSelected!: FinancialDocument;
   financialDocument = new FinancialDocument();
@@ -489,6 +491,9 @@ export default class GuarantorFinancialDocumentForm extends Vue {
 
     this.financialDocument.fileUploadStatus = UploadStatus.STATUS_SAVING;
     formData.append("guarantorId", this.$store.getters.guarantor.id);
+    if (this.tenantId) {
+      formData.append("tenantId", this.tenantId);
+    }
     const loader = this.$loading.show();
     const res = await this.$store
       .dispatch("saveGuarantorFinancial", formData)

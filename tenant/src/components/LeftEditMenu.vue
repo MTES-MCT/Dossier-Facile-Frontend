@@ -369,6 +369,7 @@
         <div v-if="step === getStepNumber('coTenantGuarantor')">
           <div
             v-if="
+              selectedGuarantor && 
               selectedGuarantor.typeGuarantor === 'NATURAL_PERSON' &&
                 selectedGuarantor.firstName !== undefined &&
                 selectedGuarantor.lastName !== undefined
@@ -418,7 +419,7 @@
                     params: {
                       step: getStepNumber('coTenantGuarantor'),
                       substep: '2',
-                      tenantId: getCoTenant(0),
+                      tenantId: getCoTenant(0).id,
                       guarantorId: g.id
                     }
                   }"
@@ -436,7 +437,7 @@
                     params: {
                       step: getStepNumber('coTenantGuarantor'),
                       substep: '3',
-                      tenantId: getCoTenant(0),
+                      tenantId: getCoTenant(0).id,
                       guarantorId: g.id
                     }
                   }"
@@ -454,7 +455,7 @@
                     params: {
                       step: getStepNumber('coTenantGuarantor'),
                       substep: '4',
-                      tenantId: getCoTenant(0),
+                      tenantId: getCoTenant(0).id,
                       guarantorId: g.id
                     }
                   }"
@@ -472,7 +473,7 @@
                     params: {
                       step: getStepNumber('coTenantGuarantor'),
                       substep: '5',
-                      tenantId: getCoTenant(0),
+                      tenantId: getCoTenant(0).id,
                       guarantorId: g.id
                     }
                   }"
@@ -497,7 +498,7 @@
                       selectedGuarantor
                     )
                   "
-                  :active="getGuarantorCurrentStep(0)"
+                  :active="getGuarantorCurrentStep(0, selectedGuarantor)"
                 ></ColoredTag
               ></router-link>
             </div>
@@ -507,7 +508,7 @@
                 ><ColoredTag
                   :text="$t('identity-represent')"
                   :status="guarantorStatus('IDENTIFICATION', selectedGuarantor)"
-                  :active="getGuarantorCurrentStep(1)"
+                  :active="getGuarantorCurrentStep(1, selectedGuarantor)"
                 ></ColoredTag
               ></router-link>
             </div>
@@ -519,7 +520,7 @@
                 ><ColoredTag
                   :text="$t('identification-organism')"
                   :status="guarantorStatus('IDENTIFICATION', selectedGuarantor)"
-                  :active="getGuarantorCurrentStep(0)"
+                  :active="getGuarantorCurrentStep(0, selectedGuarantor)"
                 ></ColoredTag
               ></router-link>
             </div>
@@ -616,7 +617,7 @@ export default class LeftEditMenu extends Vue {
   getTenantGuarantorLink(tenant: User, stepNum: number) {
     return {
       name: "TenantGuarantors",
-      params: { tenantId: tenant.id, step: stepNum }
+      params: { tenantId: Number(tenant.id), step: stepNum }
     };
   }
 

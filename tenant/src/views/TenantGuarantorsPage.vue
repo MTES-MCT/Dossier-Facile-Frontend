@@ -51,7 +51,7 @@ import TenantGuarantorName from "../components/documents/naturalGuarantor/Tenant
     })
   }
 })
-export default class TenantGuarantorDocumentsPage extends Vue {
+export default class TenantGuarantorsPage extends Vue {
   coTenants!: User[];
   guarantors?: Guarantor[] = [];
   selectedGuarantor?: Guarantor;
@@ -65,6 +65,9 @@ export default class TenantGuarantorDocumentsPage extends Vue {
   }
 
   beforeMount() {
+    this.refresh();
+  }
+  refresh() {
     const guarantors = this.coTenants.find(t => {
       return t.id === this.getTenantId();
     })?.guarantors;
@@ -73,6 +76,7 @@ export default class TenantGuarantorDocumentsPage extends Vue {
     }
     this.selectedGuarantor = this.getSelectedGuarantor();
   }
+
   onEdit(g: Guarantor) {
     this.editName = true;
     console.log(g);
@@ -133,11 +137,12 @@ export default class TenantGuarantorDocumentsPage extends Vue {
 
   goNext() {
     if (this.editName == true) {
+      console.log( this.selectedGuarantor?.id)
       this.$router.push({
         name: "TenantGuarantorDocuments",
         params: {
           step: this.getStep().toString(),
-          substep: "0",
+          substep: "1",
           tenantId: this.getTenantId().toString(),
           guarantorId: this.selectedGuarantor!.id!.toString()
         }

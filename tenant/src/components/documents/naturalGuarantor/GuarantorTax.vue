@@ -159,7 +159,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { DocumentType } from "df-shared/src/models/Document";
 import DocumentInsert from "../share/DocumentInsert.vue";
 import FileUpload from "../../uploads/FileUpload.vue";
@@ -214,6 +214,7 @@ extend("is", {
   }
 })
 export default class Tax extends Vue {
+  @Prop() tenantId?: string;
   selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
@@ -399,6 +400,10 @@ export default class Tax extends Vue {
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     formData.append("guarantorId", this.$store.getters.guarantor.id);
+
+    if (this.tenantId) {
+      formData.append("tenantId", this.tenantId);
+    }
     const loader = this.$loading.show();
     await this.$store
       .dispatch("saveGuarantorTax", formData)

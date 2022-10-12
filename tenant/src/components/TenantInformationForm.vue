@@ -136,7 +136,7 @@
         v-if="applicationType === 'COUPLE'"
       >
       </CoupleInformation>
-      <RoommatesInformation class="fr-mt-2w" v-if="applicationType === 'GROUP'">
+      <RoommatesInformation v-model="coTenants" class="fr-mt-2w" v-if="applicationType === 'GROUP'">
       </RoommatesInformation>
     </div>
     <ConfirmModal
@@ -217,6 +217,11 @@ export default class TenantInformationForm extends Vue {
     }
     this.localCoTenantAuthorize = this.coTenantAuthorize;
     this.localSpouseAuthorize = this.spouseAuthorize;
+
+    if (this.applicationType === 'GROUP'){
+     this.coTenants = this.roommates
+    }
+
   }
 
   handleOthersInformation() {
@@ -269,15 +274,31 @@ export default class TenantInformationForm extends Vue {
       });
       return;
     }
-    const data = {
-      applicationType: this.applicationType,
-      coTenants: this.coTenants,
-      acceptAccess: true
-    };
 
+    const dispatchMethod =
+      this.applicationType === "GROUP"
+        ? () => {
+        console.log(this.coTenants[0]);
+        console.log(this.coTenants.flatMap(t => t.email));
+        console.log(this.coTenants.map(t => t.email));
+            const data = {
+              applicationType: this.applicationType,
+              coTenantEmail: this.coTenants.flatMap(t => t.email),
+              acceptAccess: true
+            };
+            return this.$store.dispatch("setRoommates", data);
+          }
+        : () => {
+            const data = {
+              applicationType: this.applicationType,
+              coTenants: this.coTenants,
+              acceptAccess: true
+            };
+            return this.$store.dispatch("setCoTenants", data);
+          };
     const loader = this.$loading.show();
-    this.$store
-      .dispatch("setCoTenants", data)
+
+    dispatchMethod()
       .then(
         () => {
           AnalyticsService.confirmType();
@@ -490,7 +511,7 @@ export default class TenantInformationForm extends Vue {
   "acceptAuthorCoTenant": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",
   "validate": "Valider",
   "roommates-saved": "Invitation envoyée à vos colocataires. Vos colocataires ont bien été<br>ajoutés et une invitation de création de compte leur a été envoyée.",
-  "couple-saved": "Invitation envoyée à votre conjoint·e. Votre conjoint·e a bien été<br>ajouté·e et une invitation de création de compte lui a été envoyée.",
+  "couple-saved": "Votre conjoint·e a bien été ajouté·e.<br/>Si un e-mail a été fourni, une invitation de création de compte lui a été envoyée.",
   "email-exists": "Cette adresse email est déjà utilisée sur DossierFacile.<br>Renseignez une adresse email différente.",
   "roommate-email-required": "Vous devez saisir l'adresse email d'au moins un colocataire.",
   "couple-email-required": "Vous devez saisir l'adresse email de votre conjoint·e",

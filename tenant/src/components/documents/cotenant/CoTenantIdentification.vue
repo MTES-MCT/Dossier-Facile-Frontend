@@ -7,21 +7,7 @@
       dispacthMethodName="saveTenantIdentification"
       typeDocument="typeDocumentIdentification"
     >
-    <!-- @enrich-form-data="enrichFormData" -->
-    <!-- @check-before-add-file="checkValid"-->
-    <!--    
-        //:documents="documents"
-      //@on-remove-file=""
-      //@on-add-file=""
-      //@on-change-document=""
-      //@on-valid-change-document=""
-      documentExplainationText=""
-      //documentDeniedReasons="documentDeniedReasons"
-      //documentStatus="documentStatus"
-    -->
-      <template v-slot:after-select-block>
-        This is a block
-      </template>
+      <template v-slot:after-select-block></template>
     </DocumentDownloader>
   </div>
 </template>
@@ -38,11 +24,8 @@ import DocumentDownloader from "./DocumentDownloader.vue";
   computed: {}
 })
 export default class CoTenantIdentification extends Vue {
-  documentsDefinitions = DocumentTypeConstants.IDENTIFICATION_DOCS;  
+  documentsDefinitions = DocumentTypeConstants.IDENTIFICATION_DOCS;
   @Prop() coTenantId!: number;
-
-  //enrichFormData(dataForm : FormData) {}
-
 }
 </script>
 

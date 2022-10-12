@@ -90,7 +90,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { mapState } from "vuex";
 import DocumentInsert from "../share/DocumentInsert.vue";
 import FileUpload from "../../uploads/FileUpload.vue";
@@ -137,6 +137,7 @@ import { cloneDeep } from "lodash";
 })
 export default class GuarantorIdentification extends Vue {
   documents = DocumentTypeConstants.GUARANTOR_IDENTIFICATION_DOCS;
+  @Prop() tenantId?: string;
 
   documentDeniedReasons = new DocumentDeniedReasons();
   selectedGuarantor!: Guarantor;
@@ -168,8 +169,10 @@ export default class GuarantorIdentification extends Vue {
     return this.guarantorIdentificationDocument()?.documentStatus;
   }
 
-  guarantorIdentificationDocument() {
-    return this.$store.getters.getGuarantorIdentificationDocument;
+  guarantorIdentificationDocument(): DfDocument {
+    return this.selectedGuarantor?.documents?.find((d: DfDocument) => {
+      return d.documentCategory === "IDENTIFICATION";
+    }) as DfDocument;
   }
 
   undoSelect() {
@@ -221,7 +224,7 @@ export default class GuarantorIdentification extends Vue {
       if (this.guarantorIdentificationDocument()?.documentDeniedReasons) {
         this.documentDeniedReasons = cloneDeep(
           this.guarantorIdentificationDocument()?.documentDeniedReasons
-        );
+        ) as DocumentDeniedReasons;
       }
     }
   }
@@ -273,9 +276,14 @@ export default class GuarantorIdentification extends Vue {
       "typeDocumentIdentification",
       this.identificationDocument.value
     );
-
+    if (this.tenantId) {
+      formData.append("tenantId", this.tenantId);
+    }
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    formData.append("guarantorId", this.$store.getters.guarantor.id);
+    if (!this.selectedGuarantor?.id) {
+      throw new Error("selectedGuarantor id cannot be empty !");
+    }
+    formData.append("guarantorId", this.selectedGuarantor.id?.toString());
     const loader = this.$loading.show();
     this.$store
       .dispatch("saveGuarantorIdentification", formData)
@@ -307,10 +315,7 @@ export default class GuarantorIdentification extends Vue {
         size: f.file?.size
       };
     });
-    const existingFiles =
-      this.$store.getters.getGuarantorDocuments?.find((d: DfDocument) => {
-        return d.documentCategory === "IDENTIFICATION";
-      })?.files || [];
+    const existingFiles = this.guarantorIdentificationDocument()?.files || [];
     return [...newFiles, ...existingFiles];
   }
 

@@ -85,7 +85,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { mapState } from "vuex";
 import DocumentInsert from "../share/DocumentInsert.vue";
 import FileUpload from "../../uploads/FileUpload.vue";
@@ -127,6 +127,8 @@ import { cloneDeep } from "lodash";
   }
 })
 export default class Residency extends Vue {
+  @Prop() tenantId?: string;
+
   selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
@@ -286,6 +288,9 @@ export default class Residency extends Vue {
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     if (this.$store.getters.guarantor.id) {
       formData.append("guarantorId", this.$store.getters.guarantor.id);
+    }
+    if (this.tenantId) {
+      formData.append("tenantId", this.tenantId);
     }
     const loader = this.$loading.show();
     this.$store

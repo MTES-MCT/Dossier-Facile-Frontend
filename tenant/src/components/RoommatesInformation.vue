@@ -22,9 +22,9 @@
           <div v-if="showEmailExists" class="fr-callout">
             <p class="fr-mb-1w" v-html="$t('email-exists')"></p>
           </div>
-          <div v-if="roommates.length > 0">
+          <div v-if="value.length > 0">
             <div
-              v-for="(roommate, key) in roommates"
+              v-for="(roommate, key) in value"
               v-bind:key="key"
               class="fr-mb-1w"
             >
@@ -130,7 +130,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
 import { email, is } from "vee-validate/dist/rules";
@@ -167,16 +167,21 @@ extend("is", {
       user: "user"
     }),
     ...mapGetters({
-      roommates: "getRoommates",
       coTenantAuthorize: "coTenantAuthorize"
     })
   }
 })
 export default class RoommatesInformation extends Vue {
+  @Prop({
+    default() {
+      return [];
+    }
+  })
+  value!: User[];
+
   user!: User;
   authorize = false;
   coTenantAuthorize!: boolean;
-  roommates!: User[];
   newRoommate = "";
   showEmailExists = false;
 
@@ -188,8 +193,11 @@ export default class RoommatesInformation extends Vue {
     this.showEmailExists = false;
     if (this.newRoommate !== "") {
       if (this.user.email !== this.newRoommate) {
-        console.log("TODO TDB implementation missing");
+        const coTenant = new User();
+        coTenant.email = this.newRoommate;
         this.$store.commit("createCoTenant", this.newRoommate);
+        this.value.push(coTenant);
+        this.$emit("input",  this.value);
         this.newRoommate = "";
       } else {
         this.showEmailExists = true;

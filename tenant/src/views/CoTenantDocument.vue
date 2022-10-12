@@ -80,8 +80,6 @@ export default class CoTenantDocument extends Vue {
   mounted() {
     window.Beacon("init", "e9f4da7d-11be-4b40-9514-ac7ce3e68f67");
 
-    // get CoTenant and put in store !!!!!!!!
-    // get cotenant
     // TODO currently user but should did a call to tenant/id service
     console.log("coTenants");
     //const coTenants = [ store.state.user ];

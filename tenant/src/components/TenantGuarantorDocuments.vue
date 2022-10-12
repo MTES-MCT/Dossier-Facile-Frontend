@@ -1,26 +1,28 @@
 <template>
   <div class="fr-mb-15w">
     <div>
-      <div v-if="guarantor.typeGuarantor === 'NATURAL_PERSON'">
+      <div v-if="selectedGuarantor.typeGuarantor === 'NATURAL_PERSON'">
         <div v-if="substep === 0">
           <GuarantorName @on-back="goBack" @on-next="goNext"></GuarantorName>
         </div>
         <div v-if="substep === 1">
-          <GuarantorIdentification></GuarantorIdentification>
+          <GuarantorIdentification
+            :tenantId="tenantId"
+          ></GuarantorIdentification>
           <GuarantorFooter
             @on-back="goBack"
             @on-next="goNext"
           ></GuarantorFooter>
         </div>
         <div v-if="substep === 2">
-          <GuarantorResidency></GuarantorResidency>
+          <GuarantorResidency :tenantId="tenantId"></GuarantorResidency>
           <GuarantorFooter
             @on-back="goBack"
             @on-next="goNext"
           ></GuarantorFooter>
         </div>
         <div v-if="substep === 3">
-          <GuarantorProfessional></GuarantorProfessional>
+          <GuarantorProfessional :tenantId="tenantId"></GuarantorProfessional>
           <GuarantorFooter
             @on-back="goBack"
             @on-next="goNext"
@@ -28,22 +30,27 @@
         </div>
         <div v-if="substep === 4">
           <GuarantorFinancial
+            :tenantId="tenantId"
             @on-back="goBack"
             @on-next="goNext"
           ></GuarantorFinancial>
         </div>
         <div v-if="substep === 5">
-          <GuarantorTax @on-back="goBack" @on-next="nextStep"></GuarantorTax>
+          <GuarantorTax
+            :tenantId="tenantId"
+            @on-back="goBack"
+            @on-next="nextStep"
+          ></GuarantorTax>
         </div>
       </div>
-      <div v-if="guarantor.typeGuarantor === 'ORGANISM'">
+      <div v-if="selectedGuarantor.typeGuarantor === 'ORGANISM'">
         <OrganismCert></OrganismCert>
         <GuarantorFooter
           @on-back="goBack"
           @on-next="nextStep"
         ></GuarantorFooter>
       </div>
-      <div v-if="guarantor.typeGuarantor === 'LEGAL_PERSON'">
+      <div v-if="selectedGuarantor.typeGuarantor === 'LEGAL_PERSON'">
         <div v-if="substep === 0">
           <CorporationIdentification></CorporationIdentification>
           <GuarantorFooter
@@ -72,16 +79,16 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import GuarantorIdentification from "./documents/naturalGuarantor/GuarantorIdentification.vue";
 import GuarantorName from "./documents/naturalGuarantor/GuarantorName.vue";
 import RepresentativeIdentification from "./documents/legalPersonGuarantor/RepresentativeIdentification.vue";
 import CorporationIdentification from "./documents/legalPersonGuarantor/CorporationIdentification.vue";
 import OrganismCert from "./documents/organismGuarantor/OrganismCert.vue";
+import GuarantorIdentification from "./documents/naturalGuarantor/GuarantorIdentification.vue";
 import GuarantorResidency from "./documents/naturalGuarantor/GuarantorResidency.vue";
 import GuarantorProfessional from "./documents/naturalGuarantor/GuarantorProfessional.vue";
 import GuarantorFinancial from "./documents/naturalGuarantor/GuarantorFinancial.vue";
 import GuarantorTax from "./documents/naturalGuarantor/GuarantorTax.vue";
-import { mapGetters, mapState } from "vuex";
+import { mapState } from "vuex";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { User } from "df-shared/src/models/User";
 import DfButton from "df-shared/src/Button/Button.vue";
@@ -93,7 +100,6 @@ import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import ProfileContainer from "./ProfileContainer.vue";
-import { propertyOf } from "lodash";
 
 @Component({
   components: {
@@ -118,42 +124,22 @@ import { propertyOf } from "lodash";
   },
   computed: {
     ...mapState({
-      coTenants: "coTenants"
+      coTenants: "coTenants",
+      selectedGuarantor: "selectedGuarantor"
     })
   }
 })
-export default class GuarantorDocuments extends Vue {
+export default class TenantGuarantorDocuments extends Vue {
   @Prop({ default: 0 }) substep!: number;
   @Prop() guarantorId!: number;
-  @Prop() tenantId!: number
-  
+  @Prop() tenantId!: number;
+
   user!: User;
   coTenants!: User[];
-  guarantor: Guarantor = new Guarantor();
+  selectedGuarantor!: Guarantor;
   tmpGuarantorType = "";
   changeGuarantorVisible = false;
 
-  mounted() {
-    const coTenant = this.coTenants.find((r: User) => {
-        return r.id ===  Number(this.tenantId);
-    });
-    const guarantor = coTenant?.guarantors?.find( (g:Guarantor) => { return g.id == this.guarantorId} )
-    if(guarantor){
-      this.guarantor =  guarantor;
-    }
-    
-    if (this.guarantor.typeGuarantor) {
-      this.tmpGuarantorType = this.guarantor.typeGuarantor;
-    }
-  }
-  
-
-  updateSubstep(s: number) {
-    this.$router.push({
-      name: "GuarantorDocuments",
-      params: { substep: this.substep === s ? "0" : s.toString() }
-    });
-  }
 
   validSelect() {
     this.$store.dispatch("deleteAllGuarantors").then(
@@ -170,31 +156,40 @@ export default class GuarantorDocuments extends Vue {
   }
 
   undoSelect() {
-    this.tmpGuarantorType = this.guarantor.typeGuarantor || "";
+    this.tmpGuarantorType = this.selectedGuarantor.typeGuarantor || "";
     this.changeGuarantorVisible = false;
   }
 
   goBack() {
     if (this.substep > 0) {
       this.$router.push({
-        name: "GuarantorDocuments",
-        params: { substep: (this.substep - 1).toString() }
+        name: "TenantGuarantorDocuments",
+        params: {
+          step: this.$route.params.step,
+          substep: (this.substep - 1).toString(),
+          tenantId: this.$route.params.tenantId,
+          guarantorId: this.$route.params.guarantorId
+        }
       });
     } else {
-      this.$router.push({
-        name: "GuarantorList"
-      });
+      this.$emit("on-next");
     }
   }
 
   goNext() {
-    this.updateSubstep(this.substep + 1);
+    this.$router.push({
+      name: "TenantGuarantorDocuments",
+      params: {
+        step: this.$route.params.step,
+        substep: (this.substep + 1).toString(),
+        tenantId: this.$route.params.tenantId,
+        guarantorId: this.$route.params.guarantorId
+      }
+    });
   }
 
   nextStep() {
-    this.$router.push({
-      name: "GuarantorList"
-    });
+    this.$emit("on-next");
   }
 
   addNaturalGuarantor() {
