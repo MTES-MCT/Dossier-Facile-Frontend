@@ -20,7 +20,7 @@ const { cookies } = useCookies();
 
 const isLoggedIn = computed(() => store.isLoggedIn);
 
-const cookieHidden = ref(cookies.isKey('accept-cookie') && cookies.get('accept-cookie') === 'true');
+const cookieHidden = ref(cookies.isKey('accept-cookie'));
 
 const hasFooter = computed(() => store.hasFooter);
 
