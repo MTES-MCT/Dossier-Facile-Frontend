@@ -1,5 +1,5 @@
 <template>
-  <div class="left-edit-menu fr-pt-7w fr-pb-12w">
+  <div class="left-edit-menu fr-pt-7w fr-pb-12w" id="funnel-menu">
     <div class="inner-left-edit">
       <div class="active step">
         <div class="step-number">1</div>

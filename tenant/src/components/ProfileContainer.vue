@@ -5,6 +5,7 @@
       <LeftEditMenu :step="step" class="fr-col-md-4 fr-col-xl-3"></LeftEditMenu>
       <div
         class="fr-col-xl-9 fr-col-md-8 fr-col-xs-12 fr-pt-md-4w fr-pt-2w fr-grid-row fr-pb-10w fr-m-2w fr-m-md-0"
+        id="step-content"
       >
         <div class="fr-col-12 max-600 ml">
           <slot></slot>
@@ -18,26 +19,17 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import LeftEditMenu from "./LeftEditMenu.vue";
 import TopEditMenu from "./TopEditMenu.vue";
-import NameInformationForm from "./NameInformationForm.vue";
-import TenantInformationForm from "./TenantInformationForm.vue";
-import UploadDocuments from "./UploadDocuments.vue";
-import GuarantorDocuments from "./GuarantorDocuments.vue";
-import ValidateFile from "./ValidateFile.vue";
 import { UtilsService } from "../services/UtilsService";
 
 @Component({
   components: {
-    TenantInformationForm,
     LeftEditMenu,
-    TopEditMenu,
-    NameInformationForm,
-    UploadDocuments,
-    GuarantorDocuments,
-    ValidateFile
+    TopEditMenu
   }
 })
 export default class ProfileContainer extends Vue {
   @Prop() step!: number;
+
   isMobile() {
     return UtilsService.isMobile();
   }
