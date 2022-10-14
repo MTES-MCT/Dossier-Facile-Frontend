@@ -9,12 +9,12 @@ app.use(function(req, res, next) {
     "Content-Security-Policy",
     "default-src 'none'; " +
       "script-src 'self' *.dossierfacile.fr blob:; " +
-      "style-src 'self' 'unsafe-inline'; " +
-      "img-src 'self' https://www.google-analytics.com https://fonts.gstatic.com https://voxusagers.numerique.gouv.fr https://hn.inspectlet.com *.helpscout.net *.cloudfront.net *.gitbook.com data:; " +
+      "style-src 'self'; " +
+      "img-src 'self' data:; " +
       "font-src 'self' data:; " +
       "object-src 'none'; " +
       "prefetch-src 'self'; " +
-      "connect-src *.dossierfacile.fr https://dossierfacile-filigrane-preprod.osc-fr1.scalingo.io blob:; " +
+      "connect-src *.dossierfacile.fr dossierfacile-filigrane-prod.osc-secnum-fr1.scalingo.io https://dossierfacile-filigrane-preprod.osc-fr1.scalingo.io blob:; " +
       "frame-src *.dossierfacile.fr; " +
       "child-src *.dossierfacile.fr"
   );
