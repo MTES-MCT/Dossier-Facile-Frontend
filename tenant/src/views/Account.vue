@@ -137,7 +137,10 @@
                 <p v-html="$t('instructional-time-text')"></p>
               </div>
               <hr />
-              <section v-if="user.applicationType === 'COUPLE'" class="fr-mt-5w fr-mb-3w">
+              <section
+                v-if="user.applicationType === 'COUPLE'"
+                class="fr-mt-5w fr-mb-3w"
+              >
                 <div class="fr-tabs">
                   <ul
                     class="fr-tabs__list"
@@ -172,11 +175,14 @@
                     role="tabpanel"
                     tabindex="0"
                   >
-                    <TenantPanel :tenant="tenant" :isCotenant="tenant.id != user.id"/>
+                    <TenantPanel
+                      :tenant="tenant"
+                      :isCotenant="tenant.id != user.id"
+                    />
                   </div>
                 </div>
               </section>
-              <TenantPanel v-else :tenant="user"/>
+              <TenantPanel v-else :tenant="user" />
             </div>
             <PartnersSection />
 
@@ -255,6 +261,7 @@ import PartnersSection from "@/components/account/PartnersSection.vue";
 import { UtilsService } from "@/services/UtilsService";
 import InfoCard from "@/components/account/InfoCard.vue";
 import TenantPanel from "@/components/account/TenantPanel.vue";
+import TenantGuarantorsPage from "./TenantGuarantorsPage.vue";
 
 extend("required", {
   ...required,
@@ -301,30 +308,18 @@ export default class Account extends Vue {
   }
 
   getTenants() {
-    const users: (User | Guarantor)[] = [];
-    users.push(this.user);
+    const tenants: User[] = [];
+    tenants.push(this.user);
 
     this.user?.apartmentSharing?.tenants?.forEach(t => {
-      if (
-        t.id != this.user.id &&
-        t.firstName &&
-        t.lastName &&
-        t.firstName !== "" &&
-        t.lastName !== ""
-      ) {
-        users.push(t);
-        if (t.guarantors && t.guarantors.length > 0) {
-          t.guarantors.forEach(g => {
-            if (g.typeGuarantor === "NATURAL_PERSON") {
-              users.push(g);
-            }
-          });
-        }
+      if (t.id != this.user.id) {
+        tenants.push(t);
       }
     });
 
-    return users;
+    return tenants;
   }
+
 
   getToken() {
     if (this.pub === "true") {

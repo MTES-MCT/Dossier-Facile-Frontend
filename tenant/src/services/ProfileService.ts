@@ -90,6 +90,5 @@ export const ProfileService = {
   },
   getFile(fileUrl: string): Promise<any> {
     return axios.get(fileUrl, { responseType: "blob" });
-  },
-
+  }
 };

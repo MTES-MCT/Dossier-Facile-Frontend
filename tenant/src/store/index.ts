@@ -177,11 +177,6 @@ const store = new Vuex.Store({
       );
       state.editFinancialDocument = true;
     },
-    updateCoTenantIdentification(state, tenantUser: User) {
-      //  search coTenant update field
-      console.log("updateCoTenantIdentification");
-      //state.cotenant filter Id ....
-    },
     selectGuarantorDocumentFinancial(state, d: FinancialDocument) {
       Vue.set(state, "guarantorFinancialDocumentSelected", d);
       Vue.set(state, "editGuarantorFinancialDocument", d !== undefined);

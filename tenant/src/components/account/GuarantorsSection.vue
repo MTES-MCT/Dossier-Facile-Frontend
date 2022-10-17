@@ -174,7 +174,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { AnalyticsService } from "@/services/AnalyticsService";
 import { DfDocument } from "df-shared/src/models/DfDocument";
@@ -182,19 +182,21 @@ import InfoCard from "@/components/account/InfoCard.vue";
 import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 import { mapGetters } from "vuex";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
+import { User } from "df-shared/src/models/User";
 
 @Component({
   components: { InfoCard, ColoredTag, ConfirmModal },
-  computed: {
-    ...mapGetters({
-      guarantors: "guarantors"
-    })
-  }
+  computed: {}
 })
 export default class GuarantorsSection extends Vue {
+  @Prop() tenant!: User;
   guarantors!: Guarantor[];
   showConfirmModal = false;
   selectedGuarantor: Guarantor | undefined;
+
+  beforeMount() {
+    this.guarantors = this.tenant.guarantors as Guarantor[];
+  }
 
   guarantorTitle(g: Guarantor) {
     if (g.typeGuarantor === "NATURAL_PERSON")
@@ -274,6 +276,9 @@ export default class GuarantorsSection extends Vue {
     this.$store.dispatch("deleteGuarantor", this.selectedGuarantor).then(
       () => {
         Vue.toasted.global.delete_success();
+        this.guarantors = this.guarantors.filter(
+          g => g.id != this.selectedGuarantor?.id
+        );
         this.closeConfirmModal();
       },
       () => {

@@ -77,7 +77,7 @@
       </div>
     </div>
 
-    <GuarantorsSection />
+    <GuarantorsSection :tenant="tenant"/>
   </div>
 </template>
 

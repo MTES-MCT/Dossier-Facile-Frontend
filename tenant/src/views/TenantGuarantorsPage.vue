@@ -82,7 +82,7 @@ export default class TenantGuarantorsPage extends Vue {
     console.log(g);
     this.selectedGuarantor = g;
   }
-  onDelete(g: Guarantor) {
+  onDelete() {
     this.editName = false;
     this.guarantors = this.coTenants.find(t => {
       return t.id === this.getTenantId();
@@ -137,14 +137,13 @@ export default class TenantGuarantorsPage extends Vue {
 
   goNext() {
     if (this.editName == true) {
-      console.log( this.selectedGuarantor?.id)
       this.$router.push({
         name: "TenantGuarantorDocuments",
         params: {
           step: this.getStep().toString(),
           substep: "1",
           tenantId: this.getTenantId().toString(),
-          guarantorId: this.selectedGuarantor!.id!.toString()
+          guarantorId: this.selectedGuarantor?.id?.toString() as string
         }
       });
     } else {

@@ -136,7 +136,11 @@
         v-if="applicationType === 'COUPLE'"
       >
       </CoupleInformation>
-      <RoommatesInformation v-model="coTenants" class="fr-mt-2w" v-if="applicationType === 'GROUP'">
+      <RoommatesInformation
+        v-model="coTenants"
+        class="fr-mt-2w"
+        v-if="applicationType === 'GROUP'"
+      >
       </RoommatesInformation>
     </div>
     <ConfirmModal
@@ -218,10 +222,9 @@ export default class TenantInformationForm extends Vue {
     this.localCoTenantAuthorize = this.coTenantAuthorize;
     this.localSpouseAuthorize = this.spouseAuthorize;
 
-    if (this.applicationType === 'GROUP'){
-     this.coTenants = this.roommates
+    if (this.applicationType === "GROUP") {
+      this.coTenants = this.roommates;
     }
-
   }
 
   handleOthersInformation() {
@@ -278,9 +281,6 @@ export default class TenantInformationForm extends Vue {
     const dispatchMethod =
       this.applicationType === "GROUP"
         ? () => {
-        console.log(this.coTenants[0]);
-        console.log(this.coTenants.flatMap(t => t.email));
-        console.log(this.coTenants.map(t => t.email));
             const data = {
               applicationType: this.applicationType,
               coTenantEmail: this.coTenants.flatMap(t => t.email),
