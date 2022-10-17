@@ -191,19 +191,16 @@ export default class File extends Vue {
   }
 
   getName() {
-    if (this.user?.tenants !== undefined) {
-      if (this.user?.tenants.length === 2) {
-        const userNames = this.user.tenants
-          .map(o => `${o.firstName} ${o.lastName}`)
-          .join(this.$i18n.t("and").toString());
-        return userNames;
-      }
-      const userNames = this.user.tenants
-        .map(o => `${o.firstName} ${o.lastName}`)
-        .join(", ");
-      return userNames;
+    if (this.user?.tenants === undefined) {
+      return "";
     }
-    return "";
+    const tenantNames = this.user.tenants.map(
+      tenant => `${tenant.firstName}\xa0${tenant.lastName}`
+    );
+    if (tenantNames.length === 2) {
+      return tenantNames.join(this.$i18n.t("and").toString());
+    }
+    return tenantNames.join(", ");
   }
 
   mounted() {
@@ -324,10 +321,10 @@ export default class File extends Vue {
   left: 0;
   background-size: cover !important;
   background-position: 50% 50% !important;
-  background-image: url("../assets/cover-features.png");
+  background-image: url("../assets/cover-features.webp");
 
   @media (max-width: 768px) {
-    background-image: url("../assets/cover-features-mobile.png");
+    background-image: url("../assets/cover-features-mobile.webp");
   }
 
   z-index: 0;
