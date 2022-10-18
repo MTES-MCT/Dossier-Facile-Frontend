@@ -204,7 +204,7 @@ function dislike() {
     "like": "I liked this app",
     "dislike": "You can do better",
     "feedback-registered": "Thank you for your feedback",
-    "tweet-content": "Usurpation d'identité, escroqueries, interdit bancaire... Connaissez-vous Filigrane ? Le site de l'Etat qui protège mes documents de toute réutilisation frauduleuse. Protégez vos documents ici : filigrane.beta.gouv.fr"
+    "tweet-content": "Usurpation d’identité, escroqueries, interdit bancaire... Découvrez Filigrane, le site de l’État qui protège vos documents de toute réutilisation frauduleuse : "
   },
   "fr": {
     "title": "Ajoutez un filigrane à n'importe quel document",
@@ -213,7 +213,7 @@ function dislike() {
     "like": "J'ai aimé ce service",
     "dislike": "Vous pouvez mieux faire",
     "feedback-registered": "Merci pour votre retour",
-    "tweet-content": "Usurpation d'identité, escroqueries, interdit bancaire... Connaissez-vous Filigrane ? Le site de l'Etat qui protège mes documents de toute réutilisation frauduleuse. Protégez vos documents ici : "
+    "tweet-content": "Usurpation d’identité, escroqueries, interdit bancaire... Découvrez Filigrane, le site de l’État qui protège vos documents de toute réutilisation frauduleuse : "
   }
 }
 </i18n>
