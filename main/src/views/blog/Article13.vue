@@ -9,10 +9,7 @@
                 L’usurpation d’identité en France : comment la prévenir et
                 comment agir ?
               </h1>
-              <span>1 Juin 2022 dans </span>
-              <span>
-                <a href="#">DossierFacile</a>
-              </span>
+              <p>1 Juin 2022 dans <a href="#">DossierFacile</a></p>
             </div>
             <!--end article title-->
             <div>

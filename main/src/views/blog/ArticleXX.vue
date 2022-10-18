@@ -8,10 +8,7 @@
               <h1 class="fr-h1">
                 Un garant ? Qui ? Comment ? Pourquoi ?
               </h1>
-              <span>14 Avril 2021 dans </span>
-              <span>
-                <a href="#">DossierFacile</a>
-              </span>
+              <p>14 Avril 2021 dans <a href="#">DossierFacile</a></p>
             </div>
             <!--end article title-->
             <div>

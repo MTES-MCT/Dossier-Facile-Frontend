@@ -9,10 +9,7 @@
                 Le loyer : tout ce qu’il faut savoir quand on est locataire ou
                 bailleur
               </h1>
-              <span>29 Novembre 2021 dans </span>
-              <span>
-                <a href="#">DossierFacile</a>
-              </span>
+              <p>29 Novembre 2021 dans <a href="#">DossierFacile</a></p>
             </div>
             <!--end article title-->
             <div>
