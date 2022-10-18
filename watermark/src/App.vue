@@ -3,7 +3,7 @@ import { useI18n } from "vue-i18n";
 import { ref } from "vue";
 import axios from "axios";
 import ProgressIndicator from "./ProgressIndicator.vue";
-import { useToast } from 'vue-toastification';
+import { useToast } from "vue-toastification";
 
 const file = ref(null);
 const token = ref("");
@@ -60,8 +60,8 @@ function like() {
   axios
     .get(`${import.meta.env.VITE_API_URL}/api/feedback/true`)
     .then((res: any) => {
-      toast.info(t('feedback-registered').toString(), {
-        timeout: 7000,
+      toast.info(t("feedback-registered").toString(), {
+        timeout: 5000,
       });
     })
     .catch((err: any) => {
@@ -73,15 +73,14 @@ function dislike() {
   axios
     .get(`${import.meta.env.VITE_API_URL}/api/feedback/true`)
     .then((res: any) => {
-      toast.info(t('feedback-registered').toString(), {
-        timeout: 7000,
+      toast.info(t("feedback-registered").toString(), {
+        timeout: 5000,
       });
     })
     .catch((err: any) => {
       console.dir(err);
     });
 }
-
 </script>
 
 <template>
@@ -146,9 +145,15 @@ function dislike() {
         </div>
       </div>
     </form>
-    <div class="fr-mt-5w">
-        <button type="button" class="like" @click="like">{{ t("like") }}</button>
-        <button type="button" class="dislike" @click="dislike">{{ t("dislike") }}</button>
+    <div class="fr-mt-12w">
+      <button type="button" class="like" @click="like">{{ t("like") }}</button>
+      <button type="button" class="dislike" @click="dislike">{{ t("dislike") }}</button>
+      <div class="fr-mt-3w">
+        <a class="twitter-share-button" :href="`https://twitter.com/intent/tweet?text=${encodeURIComponent(t('tweet-content' ))}`"
+         data-size="large" rel="canonical">
+          Tweet</a
+        >
+      </div>
     </div>
   </main>
 </template>
@@ -187,7 +192,6 @@ function dislike() {
     margin: 0 6px 0 0;
     background: url("./assets/dislike.svg");
   }
-
 }
 </style>
 
@@ -198,16 +202,18 @@ function dislike() {
     "submit": "Submit",
     "wait": "Please wait",
     "like": "I liked this app",
-    "dislike": "I didn't liked this app",
-    "feedback-registered": "Thank you for your feedback"
+    "dislike": "You can do better",
+    "feedback-registered": "Thank you for your feedback",
+    "tweet-content": "Usurpation d'identité, escroqueries, interdit bancaire... Connaissez-vous Filigrane ? Le site de l'Etat qui protège mes documents de toute réutilisation frauduleuse. Protégez vos documents ici : filigrane.beta.gouv.fr"
   },
   "fr": {
     "title": "Ajoutez un filigrane à n'importe quel document",
     "submit": "Envoyer",
     "wait": "Veuillez patienter",
     "like": "J'ai aimé ce service",
-    "dislike": "Je n'ai pas aimé ce service",
-    "feedback-registered": "Merci pour votre retour"
+    "dislike": "Vous pouvez mieux faire",
+    "feedback-registered": "Merci pour votre retour",
+    "tweet-content": "Usurpation d'identité, escroqueries, interdit bancaire... Connaissez-vous Filigrane ? Le site de l'Etat qui protège mes documents de toute réutilisation frauduleuse. Protégez vos documents ici : "
   }
 }
 </i18n>
