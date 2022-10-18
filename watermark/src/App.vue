@@ -198,7 +198,7 @@ function dislike() {
     "submit": "Submit",
     "wait": "Please wait",
     "like": "I liked this app",
-    "dislike": "I didn't liked this app",
+    "dislike": "You can do better",
     "feedback-registered": "Thank you for your feedback"
   },
   "fr": {
@@ -206,7 +206,7 @@ function dislike() {
     "submit": "Envoyer",
     "wait": "Veuillez patienter",
     "like": "J'ai aimé ce service",
-    "dislike": "Je n'ai pas aimé ce service",
+    "dislike": "Vous pouvez mieux faire",
     "feedback-registered": "Merci pour votre retour"
   }
 }
