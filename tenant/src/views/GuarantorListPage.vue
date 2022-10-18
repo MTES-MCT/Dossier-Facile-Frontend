@@ -79,7 +79,6 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
       user: "user"
     }),
     ...mapGetters({
-      //guarantors: "guarantors",
       coTenants: "coTenants"
     })
   }
@@ -87,16 +86,13 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 export default class GuarantorListPage extends Vue {
   user!: User;
   coTenants!: User[];
-  //guarantors!: Guarantor[];
+
   isRemoveGuarantor = false;
 
   beforeMount(){
-    console.log (" this.user.firstName");
-    console.log ( this.user.firstName);
-    console.log ( this.user.guarantors);
-    
     this.user.guarantors = [];
   }
+
   getGuarantorName(g: Guarantor) {
     if (g.firstName || g.lastName) {
       return `${g.firstName || ""} ${g.lastName || ""}`;

@@ -487,24 +487,22 @@ const store = new Vuex.Store({
     },
     async setGuarantorPage({ commit }, { guarantor, substep, tenantId }) {
       await commit("setSelectedGuarantor", guarantor);
-      if (tenantId){
-
+      if (tenantId) {
         router.push({
           name: "TenantGuarantorDocuments",
           params: {
-            step: '5',
+            step: "5",
             substep: substep,
             tenantId: tenantId,
             guarantorId: guarantor.id
           }
         });
-        
       } else {
-      router.push({
-        name: "GuarantorDocuments",
-        params: { substep }
-      });
-    }
+        router.push({
+          name: "GuarantorDocuments",
+          params: { substep }
+        });
+      }
     },
     saveTenantIdentification({ commit }, formData) {
       return RegisterService.saveTenantIdentification(formData).then(

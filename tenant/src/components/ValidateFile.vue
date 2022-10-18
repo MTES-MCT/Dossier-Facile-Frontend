@@ -130,6 +130,16 @@
           </div>
         </div>
         <div v-if="hasErrors()">
+          <NakedCard class="fr-px-5w fr-py-3w ">
+            <div>
+              <h6 class="fr-h6 color--secondary">
+                {{ $t("validation-error-title") }}
+              </h6>
+              <p>
+                {{ $t("validation-error-description") }}
+              </p>
+            </div>
+          </NakedCard>
           <FileErrors></FileErrors>
         </div>
         <ProfileFooter
@@ -153,6 +163,7 @@ import { UtilsService } from "../services/UtilsService";
 import { extend } from "vee-validate";
 import { is } from "vee-validate/dist/rules";
 import FileErrors from "./FileErrors.vue";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 extend("is", {
   ...is,
@@ -165,7 +176,8 @@ extend("is", {
     ValidationProvider,
     ValidationObserver,
     ProfileFooter,
-    FileErrors
+    FileErrors,
+    NakedCard
   },
   computed: {
     ...mapState({
@@ -251,7 +263,9 @@ export default class ValidateFile extends Vue {
         "read": "Je lis et je coche les cases suivantes afin de valider mon dossier",
         "declaration2": "Je déclare sur l'honneur avoir reçu le consentement de mon garant pour que ses données soient traitées dans le cadre du processus de location",
         "declaration2-plural": "Je déclare sur l'honneur avoir reçu le consentement de mes garants pour que leurs données soient traitées dans le cadre du processus de location",
-        "require-accept": "You must accept the declaration"
+        "require-accept": "You must accept the declaration",
+        "validation-error-title": "You're so close !",
+        "validation-error-description": "Limit update, check your files today"
     },
     "fr": {
         "title": "Je valide mon dossier",
@@ -263,7 +277,9 @@ export default class ValidateFile extends Vue {
         "read": "Je lis et je coche les cases suivantes afin de valider mon dossier",
         "declaration2": "Je déclare sur l'honneur avoir reçu le consentement de mon garant pour que ses données soient traitées dans le cadre du processus de location",
         "declaration2-plural": "Je déclare sur l'honneur avoir reçu le consentement de mes garants pour que leurs données soient traitées dans le cadre du processus de location",
-        "require-accept": "Vous devez accepter la déclaration"
+        "require-accept": "Vous devez accepter la déclaration",
+        "validation-error-title": "Vous y êtes presque !",
+        "validation-error-description": "Limiter les modifications, pensez à vérifier votre dossier dès aujourd'hui"
     }
 }
 </i18n>
