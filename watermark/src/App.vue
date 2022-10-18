@@ -3,6 +3,7 @@ import { useI18n } from "vue-i18n";
 import { ref } from "vue";
 import axios from "axios";
 import ProgressIndicator from "./ProgressIndicator.vue";
+import { useToast } from 'vue-toastification';
 
 const file = ref(null);
 const token = ref("");
@@ -10,6 +11,7 @@ const wait = ref(false);
 const url = ref("");
 
 const { t } = useI18n();
+const toast = useToast();
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -50,9 +52,36 @@ async function handleSubmit() {
 }
 
 function handleChange(e: any) {
-  url.value = ""
+  url.value = "";
   file.value = e.target.files[0];
 }
+
+function like() {
+  axios
+    .get(`${import.meta.env.VITE_API_URL}/api/feedback/true`)
+    .then((res: any) => {
+      toast.info(t('feedback-registered').toString(), {
+        timeout: 7000,
+      });
+    })
+    .catch((err: any) => {
+      console.dir(err);
+    });
+}
+
+function dislike() {
+  axios
+    .get(`${import.meta.env.VITE_API_URL}/api/feedback/true`)
+    .then((res: any) => {
+      toast.info(t('feedback-registered').toString(), {
+        timeout: 7000,
+      });
+    })
+    .catch((err: any) => {
+      console.dir(err);
+    });
+}
+
 </script>
 
 <template>
@@ -106,7 +135,7 @@ function handleChange(e: any) {
               {{ t("submit") }}
             </span>
             <span v-if="wait && !url">
-              {{ t("wait")}}
+              {{ t("wait") }}
               <ProgressIndicator diameter="22px" border="3px" color="#000091" />
             </span>
           </button>
@@ -117,12 +146,49 @@ function handleChange(e: any) {
         </div>
       </div>
     </form>
+    <div class="fr-mt-5w">
+        <button type="button" class="like" @click="like">{{ t("like") }}</button>
+        <button type="button" class="dislike" @click="dislike">{{ t("dislike") }}</button>
+    </div>
   </main>
 </template>
 
 <style lang="scss">
 @import "../../node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.min.css";
 @import "df-shared-next/src/scss/_main.scss";
+
+.like {
+  background-color: rgb(184, 254, 201);
+  color: rgb(24, 117, 60);
+  padding: 0.5rem;
+  margin-right: 1rem;
+  &:before {
+    content: "";
+    display: block;
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin: 0 6px 0 0;
+    background: url("./assets/like.svg");
+  }
+}
+
+.dislike {
+  background-color: #ffe9e6;
+  color: #9c0400;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  &:before {
+    content: "";
+    display: block;
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin: 0 6px 0 0;
+    background: url("./assets/dislike.svg");
+  }
+
+}
 </style>
 
 <i18n>
@@ -130,12 +196,18 @@ function handleChange(e: any) {
   "en": {
     "title": "Add a watermark to any file",
     "submit": "Submit",
-    "wait": "Please wait"
+    "wait": "Please wait",
+    "like": "I liked this app",
+    "dislike": "I didn't liked this app",
+    "feedback-registered": "Thank you for your feedback"
   },
   "fr": {
     "title": "Ajoutez un filigrane à n'importe quel document",
     "submit": "Envoyer",
-    "wait": "Veuillez patienter"
+    "wait": "Veuillez patienter",
+    "like": "J'ai aimé ce service",
+    "dislike": "Je n'ai pas aimé ce service",
+    "feedback-registered": "Merci pour votre retour"
   }
 }
 </i18n>
