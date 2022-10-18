@@ -72,7 +72,7 @@ function denyCookies() {
   </MyHeader>
   <div id="content">
     <Announcement></Announcement>
-    <main class="page">
+    <main class="page" role="main">
       <router-view />
     </main>
   </div>
