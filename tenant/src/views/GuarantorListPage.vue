@@ -79,7 +79,7 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
       user: "user"
     }),
     ...mapGetters({
-      guarantors: "guarantors",
+      //guarantors: "guarantors",
       coTenants: "coTenants"
     })
   }
@@ -87,9 +87,16 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 export default class GuarantorListPage extends Vue {
   user!: User;
   coTenants!: User[];
-  guarantors!: Guarantor[];
+  //guarantors!: Guarantor[];
   isRemoveGuarantor = false;
 
+  beforeMount(){
+    console.log (" this.user.firstName");
+    console.log ( this.user.firstName);
+    console.log ( this.user.guarantors);
+    
+    this.user.guarantors = [];
+  }
   getGuarantorName(g: Guarantor) {
     if (g.firstName || g.lastName) {
       return `${g.firstName || ""} ${g.lastName || ""}`;
@@ -98,7 +105,7 @@ export default class GuarantorListPage extends Vue {
   }
 
   goBack() {
-    if (this.guarantors.length > 0) {
+    if (this.user?.guarantors && this.user?.guarantors.length > 0) {
       this.$router.push({ name: "TenantDocuments", params: { substep: "5" } });
       return;
     }
@@ -174,8 +181,9 @@ export default class GuarantorListPage extends Vue {
 
   hasOneNaturalGuarantor() {
     return (
-      this.guarantors.length === 1 &&
-      this.guarantors[0].typeGuarantor === "NATURAL_PERSON"
+      this.user.guarantors &&
+      this.user.guarantors.length === 1 &&
+      this.user.guarantors[0].typeGuarantor === "NATURAL_PERSON"
     );
   }
 

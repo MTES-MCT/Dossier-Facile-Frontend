@@ -251,7 +251,11 @@ export default class GuarantorsSection extends Vue {
 
   setGuarantorSubStep(n: number, g: Guarantor) {
     AnalyticsService.editFromAccount(n);
-    this.$store.dispatch("setGuarantorPage", { guarantor: g, substep: n });
+    this.$store.dispatch("setGuarantorPage", {
+      guarantor: g,
+      substep: n,
+      tenantId: this.tenant.id
+    });
   }
 
   setAddGuarantorStep() {
