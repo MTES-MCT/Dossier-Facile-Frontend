@@ -8,7 +8,7 @@ app.use(function(req, res, next) {
   res.setHeader(
     "Content-Security-Policy",
     "default-src 'none'; " +
-      "script-src 'self' *.dossierfacile.fr blob:; " +
+      "script-src 'self' *.dossierfacile.fr 'sha256-J3KMTBf8nUz6PQZBSDQ6mpt/Lo50sShZZLA3TqPY9NI=' blob:; " +
       "style-src 'self'; " +
       "img-src 'self' data:; " +
       "font-src 'self' data:; " +
