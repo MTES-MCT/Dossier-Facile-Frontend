@@ -203,6 +203,19 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Article13.vue")
   },
   {
+    path: "/blog/engage-dans-la-protection-de-vos-donnees-personnelles",
+    name: "Article14",
+    meta: {
+      title:
+        "DossierFacile engagé dans la protection de vos données personnelles",
+      description:
+        "Une « donnée personnelle » désigne « toute information se rapportant à une personne physique identifiée ou identifiable ».",
+      image: require("../assets/images/blog-article14.jpg")
+    },
+    component: () =>
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article14.vue")
+  },
+  {
     path: "/information",
     name: "Information",
     meta: {
