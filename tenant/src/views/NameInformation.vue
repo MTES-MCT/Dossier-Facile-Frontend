@@ -118,7 +118,6 @@ li {
 {
 "en": {
   "title": "Your rental file in 5 supporting document",
-  "subtitle": "Let's start with your personal identity information.",
   "join-title": "You are only a few steps away from joining {0} rental file!",
   "roommate": "votre colocataire",
   "spouse": "your spouse",
@@ -126,7 +125,6 @@ li {
 },
 "fr": {
   "title": "Votre dossier de location en 5 justificatifs !",
-  "subtitle": "Commençons par vos informations personnelles d'identité.",
   "join-title": "Vous n'êtes qu'à quelques étapes de rejoindre le dossier de location de {0} !",
   "roommate": "votre colocataire",
   "spouse": "votre conjoint",

@@ -8,10 +8,7 @@
               <h1 class="fr-h1">
                 La caution locative : changements en vue pour 2022
               </h1>
-              <span>14 Mars 2022 dans </span>
-              <span>
-                <a href="#">DossierFacile</a>
-              </span>
+              <p>14 Mars 2022 dans <a href="#">DossierFacile</a></p>
             </div>
             <!--end article title-->
             <div>

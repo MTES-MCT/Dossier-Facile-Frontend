@@ -9,10 +9,7 @@
                 Quelles pièces justificatives fournir pour mon dossier de
                 location ?
               </h1>
-              <span>14 Novembre 2019 dans </span>
-              <span>
-                <a href="#">DossierFacile</a>
-              </span>
+              <p>14 Novembre 2019 dans <a href="#">DossierFacile</a></p>
             </div>
             <!--end article title-->
             <div>

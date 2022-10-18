@@ -6,10 +6,7 @@
           {{ title }}
         </h2>
       </router-link>
-      <span>{{ publicationDate }} dans </span>
-      <span>
-        <a href="#">DossierFacile</a>
-      </span>
+      <p>{{ publicationDate }} dans <a href="#">DossierFacile</a></p>
     </div>
     <!--end article title-->
     <div class="article__body">

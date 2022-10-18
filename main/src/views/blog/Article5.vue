@@ -9,10 +9,7 @@
                 5 conseils pour trouver l’appartement de ses rêves en région
                 parisienne (ou ailleurs…)
               </h1>
-              <span>30 Mars 2021 dans </span>
-              <span>
-                <a href="#">DossierFacile</a>
-              </span>
+              <p>30 Mars 2021 dans <a href="#">DossierFacile</a></p>
             </div>
             <!--end article title-->
             <div>

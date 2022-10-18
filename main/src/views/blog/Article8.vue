@@ -8,10 +8,7 @@
               <h1 class="fr-h1">
                 Comment justifier son domicile
               </h1>
-              <span>2 Juin 2021 dans </span>
-              <span>
-                <a href="#">DossierFacile</a>
-              </span>
+              <p>2 Juin 2021 dans <a href="#">DossierFacile</a></p>
             </div>
             <!--end article title-->
             <div>
