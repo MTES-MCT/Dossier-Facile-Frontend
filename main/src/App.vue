@@ -1,5 +1,5 @@
 <template>
-  <div id="app" role="main">
+  <div id="app">
     <Cookies
       :hidden="cookieHidden"
       @accept="acceptCookies"
@@ -15,7 +15,9 @@
     </MyHeader>
     <div id="content">
       <Announcement></Announcement>
-      <router-view />
+      <main class="page" role="main">
+        <router-view />
+      </main>
     </div>
     <TheFooter />
   </div>

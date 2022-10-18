@@ -19,9 +19,9 @@
     </MyHeader>
     <div id="content">
       <Announcement></Announcement>
-      <article class="page">
+      <main class="page" role="main">
         <router-view :key="$route.path" />
-      </article>
+      </main>
     </div>
     <TheFooter v-if="!isFunnel" />
   </div>
