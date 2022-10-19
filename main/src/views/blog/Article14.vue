@@ -40,13 +40,13 @@
               <p>
                 Un traitement de données personnelles est une opération, ou
                 ensemble d'opérations, portant sur des données personnelles,
-                quel que soit le procédé (collecte, enregistrement organisation,
-                conservation, adaptation, modification, extraction consultation,
-                utilisation, communication par transmission ou diffusion ou
-                toute autre forme de mise à disposition, rapprochement). Il
-                n'est pas nécessairement informatisé : les fichiers papier sont
-                également concernés et doivent être protégés dans les mêmes
-                conditions.
+                quel que soit le procédé (collecte, enregistrement,
+                organisation, conservation, adaptation, modification,
+                extraction, consultation, utilisation, communication par
+                transmission ou diffusion ou toute autre forme de mise à
+                disposition, rapprochement). Il n'est pas nécessairement
+                informatisé : les fichiers papier sont également concernés et
+                doivent être protégés dans les mêmes conditions.
               </p>
               <p>
                 Un traitement de données personnelles doit avoir une finalité,
