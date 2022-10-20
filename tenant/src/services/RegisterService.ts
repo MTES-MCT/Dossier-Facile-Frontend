@@ -109,6 +109,11 @@ export const RegisterService = {
     return axios.post(url, formData);
   },
 
+  saveCorporationName(formData: FormData) {
+    const url = `https://${process.env.VUE_APP_API_URL}/api/register/guarantorLegalPerson/name`;
+    return axios.post(url, formData);
+  },
+
   saveCorporationIdentification(formData: FormData) {
     const url = `https://${process.env.VUE_APP_API_URL}/api/register/guarantorLegalPerson/documentIdentification`;
     return axios.post(url, formData);

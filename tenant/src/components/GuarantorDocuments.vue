@@ -45,11 +45,10 @@
       </div>
       <div v-if="guarantor.typeGuarantor === 'LEGAL_PERSON'">
         <div v-if="substep === 0">
-          <CorporationIdentification></CorporationIdentification>
-          <GuarantorFooter
+          <CorporationIdentification
             @on-back="goBack"
             @on-next="goNext"
-          ></GuarantorFooter>
+          ></CorporationIdentification>
         </div>
         <div v-if="substep === 1">
           <RepresentativeIdentification></RepresentativeIdentification>
