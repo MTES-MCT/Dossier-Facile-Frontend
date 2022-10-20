@@ -63,7 +63,7 @@
 
         <div class="fr-col-12 fr-mt-2w" v-else>
           <div class="fr-col-12 fr-mb-3w">
-            <label class="fr-label fr-mb-1w">{{ $t("spouseLastName") }}</label>
+            <label class="fr-label fr-mb-1w">{{ $t("spouseLastName") }}<span style="color:red">*</span></label>
             <validation-provider v-slot="{ errors }">
               <div
                 class="fr-input-group"
@@ -86,7 +86,7 @@
             </validation-provider>
           </div>
           <div class="fr-col-12 fr-mb-3w">
-            <label class="fr-label fr-mb-1w">{{ $t("spouseFirstName") }}</label>
+            <label class="fr-label fr-mb-1w">{{ $t("spouseFirstName") }}<span style="color:red">*</span></label>
             <validation-provider v-slot="{ errors }">
               <div
                 class="fr-input-group"
@@ -322,7 +322,7 @@ export default class CoupleInformation extends Vue {
 "en": {
 "spouseFirstName": "Your spouse firstname",
 "spouseLastName": "Your spouse lastname",
-"spouseEmail": "Your spouse email",
+"spouseEmail": "Your spouse email(optional)",
 "acceptAuthor": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
 "email-not-valid": "Email not valid",
 "field-required": "This field is required",
@@ -338,7 +338,7 @@ export default class CoupleInformation extends Vue {
 "fr": {
 "spouseFirstName": "Prénom de votre conjoint",
 "spouseLastName": "Nom de votre conjoint",
-"spouseEmail": "L’adresse email de votre conjoint",
+"spouseEmail": "L’adresse email de votre conjoint(facultatif)",
 "acceptAuthor": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
 "email-not-valid": "Email non valide",
 "field-required": "Ce champ est requis",
