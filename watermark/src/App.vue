@@ -149,8 +149,8 @@ function dislike() {
       <button type="button" class="like" @click="like">{{ t("like") }}</button>
       <button type="button" class="dislike" @click="dislike">{{ t("dislike") }}</button>
       <div class="fr-mt-3w">
-        <a class="twitter-share-button" :href="`https://twitter.com/intent/tweet?text=${encodeURIComponent(t('tweet-content' ))}`"
-         data-size="large" rel="canonical">
+        <a target="_blank" rel="noreferrer" class="twitter-share-button"
+         :href="`https://twitter.com/intent/tweet?text=${encodeURIComponent(t('tweet-content' ))}`">
          <img style="twitter-img" src="./assets/logo_twitter.png" alt="{{ t('share-on-twitter') }}"/>
           </a
         >
@@ -199,6 +199,12 @@ function dislike() {
   width: 90px;
   height: 30px;
 }
+
+.twitter-share-button {
+  &:after {
+    content: none;
+  }
+}
 </style>
 
 <i18n>
@@ -210,7 +216,7 @@ function dislike() {
     "like": "I liked this app",
     "dislike": "You can do better",
     "feedback-registered": "Thank you for your feedback",
-    "tweet-content": "Usurpation d’identité, escroqueries, interdit bancaire... Découvrez Filigrane, le site de l’État qui protège vos documents de toute réutilisation frauduleuse : https://filigrane.beta.gouv.fr",
+    "tweet-content": "Usurpation d’identité, escroqueries, interdit bancaire... Découvrez Filigrane Facile, le site de l’État qui protège vos documents de toute réutilisation frauduleuse : https://filigrane.beta.gouv.fr",
     "share-on-twitter": "Share on twitter"
   },
   "fr": {
@@ -220,7 +226,7 @@ function dislike() {
     "like": "J'ai aimé ce service",
     "dislike": "Vous pouvez mieux faire",
     "feedback-registered": "Merci pour votre retour",
-    "tweet-content": "Usurpation d’identité, escroqueries, interdit bancaire... Découvrez Filigrane, le site de l’État qui protège vos documents de toute réutilisation frauduleuse : https://filigrane.beta.gouv.fr",
+    "tweet-content": "Usurpation d’identité, escroqueries, interdit bancaire... Découvrez Filigrane Facile, le site de l’État qui protège vos documents de toute réutilisation frauduleuse : https://filigrane.beta.gouv.fr",
     "share-on-twitter": "Partager sur twitter"
   }
 }
