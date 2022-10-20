@@ -487,7 +487,7 @@ const store = new Vuex.Store({
     },
     async setGuarantorPage({ commit }, { guarantor, substep, tenantId }) {
       await commit("setSelectedGuarantor", guarantor);
-      if (tenantId) {
+      if (tenantId && tenantId != this.state.user.id) {
         router.push({
           name: "TenantGuarantorDocuments",
           params: {

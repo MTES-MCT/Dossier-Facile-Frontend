@@ -77,15 +77,11 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
   computed: {
     ...mapState({
       user: "user"
-    }),
-    ...mapGetters({
-      coTenants: "coTenants"
     })
   }
 })
 export default class GuarantorListPage extends Vue {
   user!: User;
-  coTenants!: User[];
 
   isRemoveGuarantor = false;
 
@@ -112,14 +108,16 @@ export default class GuarantorListPage extends Vue {
 
   goNext() {
     if (this.user.applicationType == "COUPLE") {
+      const cotenant = this.user.apartmentSharing?.tenants.find( t => t.id != this.user.id) as User;
       this.$router.push({
         name: "CoTenantDocuments",
         params: {
           step: "4",
           substep: "0",
-          tenantId: this.coTenants[0].id.toString()
+          tenantId: cotenant.id.toString()
         }
       });
+      return;
     }
     this.$router.push({
       name: "ValidateFile"

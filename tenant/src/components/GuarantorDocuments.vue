@@ -37,7 +37,7 @@
         </div>
       </div>
       <div v-if="guarantor.typeGuarantor === 'ORGANISM'">
-        <OrganismCert></OrganismCert>
+        <OrganismCert :guarantor="guarantor"></OrganismCert>
         <GuarantorFooter
           @on-back="goBack"
           @on-next="nextStep"

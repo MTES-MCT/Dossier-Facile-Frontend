@@ -7,13 +7,33 @@
         @on-select="updateGuarantorType"
       ></TenantGuarantorChoice>
     </div>
-    <TenantGuarantorName
-      v-else-if="editName"
-      :tenantId="getTenantId()"
-      :guarantor="selectedGuarantor"
-      @on-back="() => (editName = false)"
-      @on-next="goNext"
-    ></TenantGuarantorName>
+    <div v-else-if="editName">
+      <TenantGuarantorName
+        v-if="
+          selectedGuarantor &&
+            selectedGuarantor.typeGuarantor === 'NATURAL_PERSON'
+        "
+        :tenantId="getTenantId()"
+        :guarantor="selectedGuarantor"
+        @on-back="() => (editName = false)"
+        @on-next="goNext"
+      ></TenantGuarantorName>
+      <div
+        v-else-if="
+          selectedGuarantor && selectedGuarantor.typeGuarantor === 'ORGANISM'
+        "
+      >
+        <OrganismCert
+          :tenantId="getTenantId()"
+          :guarantor="selectedGuarantor"
+        ></OrganismCert>
+        <GuarantorFooter
+          @on-back="() => (editName = false)"
+          @on-next="goNext"
+        ></GuarantorFooter>
+      </div>
+    </div>
+
     <TenantGuarantorList
       v-else
       :guarantors="guarantors"
@@ -36,6 +56,8 @@ import TenantGuarantorDocuments from "../components/TenantGuarantorDocuments.vue
 import TenantGuarantorList from "./TenantGuarantorList.vue";
 import { User } from "df-shared/src/models/User";
 import TenantGuarantorName from "../components/documents/naturalGuarantor/TenantGuarantorName.vue";
+import OrganismCert from "../components/documents/organismGuarantor/OrganismCert.vue";
+import GuarantorFooter from "../components/footer/GuarantorFooter.vue";
 
 @Component({
   components: {
@@ -43,7 +65,9 @@ import TenantGuarantorName from "../components/documents/naturalGuarantor/Tenant
     TenantGuarantorChoice,
     TenantGuarantorList,
     TenantGuarantorDocuments,
-    ProfileContainer
+    ProfileContainer,
+    OrganismCert,
+    GuarantorFooter
   },
   computed: {
     ...mapGetters({

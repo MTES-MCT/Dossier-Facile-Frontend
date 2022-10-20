@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import { mapState } from "vuex";
 import DocumentInsert from "../share/DocumentInsert.vue";
 import FileUpload from "../../uploads/FileUpload.vue";
@@ -68,6 +68,7 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import { cloneDeep } from "lodash";
+import { Guarantor } from "df-shared/src/models/Guarantor";
 
 @Component({
   components: {
@@ -85,6 +86,9 @@ import { cloneDeep } from "lodash";
   }
 })
 export default class OrganismCert extends Vue {
+  @Prop() tenantId?: number;
+  @Prop() guarantor?: Guarantor;
+
   MAX_FILE_COUNT = 5;
   acceptedProofs = ["Certificat de garantie valide d'un organisme"];
   refusedProofs = ["Tout autre document"];
@@ -101,9 +105,16 @@ export default class OrganismCert extends Vue {
   beforeMount() {
     if (this.guarantorIdentificationDocument()?.documentDeniedReasons) {
       this.documentDeniedReasons = cloneDeep(
-        this.guarantorIdentificationDocument().documentDeniedReasons
+        this.guarantorIdentificationDocument()!.documentDeniedReasons!
       );
     }
+  }
+
+  guarantorId() {
+    if (this.guarantor) {
+      return this.guarantor.id;
+    }
+    return this.$store.getters.guarantor.id;
   }
 
   addFiles(fileList: File[]) {
@@ -134,17 +145,21 @@ export default class OrganismCert extends Vue {
     Array.from(Array(this.files.length).keys()).map(x => {
       formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
     });
-    if (this.$store.getters.guarantor.id) {
-      formData.append("guarantorId", this.$store.getters.guarantor.id);
+    if (this.guarantorId()) {
+      formData.append("guarantorId", this.guarantorId());
     }
 
     formData.append("noDocument", "false");
+
+    if (this.tenantId) {
+      formData.append("tenantId", this.tenantId.toString());
+    }
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     const loader = this.$loading.show();
     RegisterService.saveOrganismIdentification(formData)
       .then(() => {
-        this.files = [];
+        // this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         Vue.toasted.global.save_success();
         this.$store.dispatch("loadUser");
@@ -165,6 +180,9 @@ export default class OrganismCert extends Vue {
   remove(file: DfFile) {
     if (file.path && file.id) {
       RegisterService.deleteFile(file.id);
+      this.guarantorIdentificationDocument().files = this.guarantorIdentificationDocument()?.files?.filter(
+        f => file.id != f.id
+      );
     } else {
       const firstIndex = this.files.findIndex(f => {
         return f.name === file.name && f.size === file.size;
@@ -173,7 +191,12 @@ export default class OrganismCert extends Vue {
     }
   }
 
-  guarantorIdentificationDocument() {
+  guarantorIdentificationDocument(): DfDocument {
+    if (this.guarantor) {
+      return this.guarantor.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "IDENTIFICATION";
+      }) as DfDocument;
+    }
     return this.$store.getters.getGuarantorIdentificationDocument;
   }
 
@@ -186,10 +209,7 @@ export default class OrganismCert extends Vue {
         size: f.size
       };
     });
-    const existingFiles =
-      this.$store.getters.getGuarantorDocuments?.find((d: DfDocument) => {
-        return d.documentCategory === "IDENTIFICATION";
-      })?.files || [];
+    const existingFiles = this.guarantorIdentificationDocument()?.files || [];
     return [...newFiles, ...existingFiles];
   }
 }

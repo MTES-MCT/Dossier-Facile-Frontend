@@ -1,6 +1,5 @@
 const PrerenderSpaPlugin = require("prerender-spa-plugin");
 const path = require("path");
-const Renderer = PrerenderSpaPlugin.PuppeteerRenderer;
 
 const routes = [
   "/",
@@ -59,17 +58,7 @@ module.exports = {
     if (process.env.NODE_ENV !== "production") return;
 
     return {
-      plugins: [
-        new PrerenderSpaPlugin({
-          // args for puppeteer
-          renderer: new Renderer({
-            args: ["--no-sandbox"],
-            headless: false
-          }),
-          staticDir: path.resolve(__dirname, "dist"),
-          routes: routes
-        })
-      ]
+      plugins: [new PrerenderSpaPlugin(path.resolve(__dirname, "dist"), routes)]
     };
   }
 };

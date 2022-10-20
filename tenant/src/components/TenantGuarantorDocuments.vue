@@ -3,7 +3,12 @@
     <div>
       <div v-if="selectedGuarantor.typeGuarantor === 'NATURAL_PERSON'">
         <div v-if="substep === 0">
-          <GuarantorName @on-back="goBack" @on-next="goNext"></GuarantorName>
+          <TenantGuarantorName
+            :tenantId="tenantId"
+            :guarantor="selectedGuarantor"
+            @on-back="goBack"
+            @on-next="goNext"
+          ></TenantGuarantorName>
         </div>
         <div v-if="substep === 1">
           <GuarantorIdentification
@@ -44,7 +49,7 @@
         </div>
       </div>
       <div v-if="selectedGuarantor.typeGuarantor === 'ORGANISM'">
-        <OrganismCert></OrganismCert>
+        <OrganismCert :guarantor="selectedGuarantor"></OrganismCert>
         <GuarantorFooter
           @on-back="goBack"
           @on-next="nextStep"
@@ -79,7 +84,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import GuarantorName from "./documents/naturalGuarantor/GuarantorName.vue";
+import TenantGuarantorName from "./documents/naturalGuarantor/TenantGuarantorName.vue";
 import RepresentativeIdentification from "./documents/legalPersonGuarantor/RepresentativeIdentification.vue";
 import CorporationIdentification from "./documents/legalPersonGuarantor/CorporationIdentification.vue";
 import OrganismCert from "./documents/organismGuarantor/OrganismCert.vue";
@@ -104,7 +109,7 @@ import ProfileContainer from "./ProfileContainer.vue";
 @Component({
   components: {
     DfButton,
-    GuarantorName,
+    TenantGuarantorName,
     GuarantorTax,
     GuarantorFinancial,
     GuarantorProfessional,
@@ -139,7 +144,6 @@ export default class TenantGuarantorDocuments extends Vue {
   selectedGuarantor!: Guarantor;
   tmpGuarantorType = "";
   changeGuarantorVisible = false;
-
 
   validSelect() {
     this.$store.dispatch("deleteAllGuarantors").then(
