@@ -79,6 +79,7 @@
         </div>
       </NakedCard>
     </ValidationObserver>
+    <GuarantorFooter @on-back="goBack" @on-next="goNext"></GuarantorFooter>
   </div>
 </template>
 
@@ -101,6 +102,7 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import { cloneDeep } from "lodash";
+import GuarantorFooter from "../../footer/GuarantorFooter.vue";
 
 extend("required", {
   ...required,
@@ -116,7 +118,8 @@ extend("required", {
     ValidationProvider,
     ValidationObserver,
     VGouvFrModal,
-    NakedCard
+    NakedCard,
+    GuarantorFooter
   },
   computed: {
     ...mapState({
@@ -167,31 +170,54 @@ export default class CorporationIdentification extends Vue {
   }
 
   save() {
+    if (!this.organismName) {
+      return Promise.resolve(true);
+    }
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    if (!this.files.length) return;
-    Array.from(Array(this.files.length).keys()).map(x => {
-      formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
-    });
-
     formData.append("legalPersonName", this.organismName);
     if (this.$store.getters.guarantor.id) {
       formData.append("guarantorId", this.$store.getters.guarantor.id);
     }
 
-    this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     const loader = this.$loading.show();
-    RegisterService.saveCorporationIdentification(formData)
+    if (!this.files.length) {
+      return RegisterService.saveCorporationName(formData)
+        .then(() => {
+          this.files = [];
+          this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
+          this.$store.dispatch("loadUser");
+          Vue.toasted.global.save_success();
+          return Promise.resolve(true);
+        })
+        .catch((err: unknown) => {
+          this.fileUploadStatus = UploadStatus.STATUS_FAILED;
+          Vue.toasted.global.save_failed();
+          return Promise.reject(err);
+        })
+        .finally(() => {
+          loader.hide();
+        });
+    }
+
+    Array.from(Array(this.files.length).keys()).map(x => {
+      formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
+    });
+
+    this.fileUploadStatus = UploadStatus.STATUS_SAVING;
+    return RegisterService.saveCorporationIdentification(formData)
       .then(() => {
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         this.$store.dispatch("loadUser");
         Vue.toasted.global.save_success();
+        return Promise.resolve(true);
       })
-      .catch(() => {
+      .catch((err: unknown) => {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
         Vue.toasted.global.save_failed();
+        return Promise.reject(err);
       })
       .finally(() => {
         loader.hide();
@@ -230,6 +256,16 @@ export default class CorporationIdentification extends Vue {
         return d.documentCategory === "IDENTIFICATION_LEGAL_PERSON";
       })?.files || [];
     return [...newFiles, ...existingFiles];
+  }
+
+  goBack() {
+    this.$emit("on-back");
+  }
+
+  goNext() {
+    this.save().then(() => {
+      this.$emit("on-next");
+    });
   }
 }
 </script>
