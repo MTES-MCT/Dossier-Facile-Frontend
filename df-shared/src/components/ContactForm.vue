@@ -107,6 +107,7 @@
                             type="text"
                             v-model="contactFormData.firstname"
                             name="firstname"
+                            autocomplete="given-name"
                             class="validate-required form-control fr-input"
                           />
                         </div>
@@ -121,6 +122,7 @@
                             class="form-control fr-input validate-required"
                             id="lastname"
                             name="lastname"
+                            autocomplete="family-name"
                             :placeholder="$t('lastname')"
                             type="text"
                           />
@@ -147,6 +149,7 @@
                               }"
                               id="email"
                               name="email"
+                              autocomplete="email"
                               :placeholder="$t('email')"
                               type="text"
                             />
@@ -225,6 +228,7 @@
                               }"
                               id="subject"
                               name="subject"
+                              autocomplete="off"
                               :placeholder="$t('subject')"
                               type="text"
                             />
@@ -255,6 +259,7 @@
                               }"
                               id="message"
                               name="message"
+                              autocomplete="off"
                               :placeholder="$t('message')"
                               type="textarea"
                             />

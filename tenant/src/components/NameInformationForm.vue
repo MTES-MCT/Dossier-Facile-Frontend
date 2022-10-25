@@ -67,6 +67,7 @@
                     }"
                     id="lastname"
                     name="lastname"
+                    autocomplete="family-name"
                     :placeholder="$t('lastname').toString()"
                     :disabled="user.franceConnect"
                     type="text"
@@ -96,6 +97,7 @@
                     }"
                     id="preferredname"
                     name="preferredname"
+                    autocomplete="off"
                     :placeholder="$t('preferredname').toString()"
                     type="text"
                   />
@@ -120,6 +122,7 @@
                     type="text"
                     v-model="firstname"
                     name="firstname"
+                    autocomplete="given-name"
                     class="validate-required form-control fr-input"
                     :class="{
                       'fr-input--valid': valid,
@@ -156,6 +159,7 @@
                     type="text"
                     v-model="zipcode"
                     name="zipcode"
+                    autocomplete="postal-code"
                     class="validate-required form-control fr-input"
                   />
                   <span class="fr-error-text" v-if="errors[0]">{{
