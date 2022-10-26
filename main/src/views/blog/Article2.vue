@@ -6,10 +6,7 @@
           <article>
             <div class="text-center fr-mt-3w fr-mb-3w">
               <h1 class="fr-h1">Constituer votre DossierFacile</h1>
-              <span>12 Décembre 2019 dans </span>
-              <span>
-                <a href="#">DossierFacile</a>
-              </span>
+              <p>12 Décembre 2019 dans <a href="#">DossierFacile</a></p>
             </div>
             <!--end article title-->
             <div>

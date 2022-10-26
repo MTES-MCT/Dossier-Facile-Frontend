@@ -1,10 +1,11 @@
 <template>
-  <div id="app" role="main">
+  <div id="app">
     <Cookies
       :hidden="cookieHidden"
       @accept="acceptCookies"
       @deny="denyCookies"
     />
+    <SkipLinks></SkipLinks>
     <MyHeader
       @on-login-tenant="onLoginTenant"
       @on-create-owner="onCreateOwner"
@@ -12,8 +13,12 @@
     >
       <Menu />
     </MyHeader>
-    <Announcement></Announcement>
-    <router-view />
+    <div id="content">
+      <Announcement></Announcement>
+      <main class="page" role="main">
+        <router-view />
+      </main>
+    </div>
     <TheFooter />
   </div>
 </template>
@@ -24,6 +29,7 @@ import MyHeader from "df-shared/src/Header/Header.vue";
 import TheFooter from "df-shared/src/Footer/Footer.vue";
 import Modal from "df-shared/src/components/Modal.vue";
 import Announcement from "df-shared/src/components/Announcement.vue";
+import SkipLinks from "df-shared/src/components/SkipLinks.vue";
 import Cookies from "df-shared/src/Footer/Cookies.vue";
 import Menu from "./components/Menu.vue";
 import i18n from "./i18n";
@@ -37,7 +43,8 @@ import router from "./router";
     MyHeader,
     Menu,
     TheFooter,
-    Cookies
+    Cookies,
+    SkipLinks
   }
 })
 export default class App extends Vue {
@@ -46,7 +53,6 @@ export default class App extends Vue {
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
-  REGISTER_URL = process.env.VUE_APP_REGISTER_URL || "";
 
   mounted() {
     window.Beacon("init", "e9f4da7d-11be-4b40-9514-ac7ce3e68f67");

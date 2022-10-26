@@ -2,6 +2,11 @@ import Vue from "vue";
 import VueRouter, { NavigationGuardNext, Route, RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
 import store from "../store";
+import { CONTENT } from "df-shared/src/models/SkipLink";
+import {
+  FUNNEL_SKIP_LINKS,
+  FOOTER_NAVIGATION
+} from "../components/TenantSkipLinks.vue";
 
 Vue.use(VueRouter);
 
@@ -62,7 +67,8 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Édition du profil - DossierFacile",
       requiresAuth: true,
-      hideFooter: true
+      hideFooter: true,
+      skipLinks: [CONTENT, FOOTER_NAVIGATION]
     },
     component: () =>
       import(/* webpackChunkName: "profile" */ "../views/NameInformation.vue")
@@ -73,7 +79,8 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Édition du profil - DossierFacile",
       requiresAuth: true,
-      hideFooter: true
+      hideFooter: true,
+      skipLinks: [CONTENT, FOOTER_NAVIGATION]
     },
     component: () =>
       import(/* webpackChunkName: "profile" */ "../views/NameInformation.vue")
@@ -84,7 +91,8 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Édition du profil - DossierFacile",
       requiresAuth: true,
-      hideFooter: true
+      hideFooter: true,
+      skipLinks: FUNNEL_SKIP_LINKS
     },
     component: () =>
       import(/* webpackChunkName: "profile" */ "../views/TypeInformation.vue")
@@ -95,7 +103,8 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Édition du profil - DossierFacile",
       requiresAuth: true,
-      hideFooter: true
+      hideFooter: true,
+      skipLinks: FUNNEL_SKIP_LINKS
     },
     component: () =>
       import(/* webpackChunkName: "profile" */ "../views/TenantDocument.vue")
@@ -106,7 +115,8 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Édition du garant - DossierFacile",
       requiresAuth: true,
-      hideFooter: true
+      hideFooter: true,
+      skipLinks: FUNNEL_SKIP_LINKS
     },
     component: () =>
       import(
@@ -119,7 +129,8 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Édition du garant - DossierFacile",
       requiresAuth: true,
-      hideFooter: true
+      hideFooter: true,
+      skipLinks: FUNNEL_SKIP_LINKS
     },
     component: () =>
       import(/* webpackChunkName: "profile" */ "../views/GuarantorListPage.vue")
@@ -130,7 +141,8 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Édition du garant - DossierFacile",
       requiresAuth: true,
-      hideFooter: true
+      hideFooter: true,
+      skipLinks: FUNNEL_SKIP_LINKS
     },
     component: () =>
       import(/* webpackChunkName: "profile" */ "../views/ValidateFilePage.vue")
@@ -141,7 +153,8 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Édition du garant - DossierFacile",
       requiresAuth: true,
-      hideFooter: true
+      hideFooter: true,
+      skipLinks: FUNNEL_SKIP_LINKS
     },
     beforeEnter: async (to, from, next) => {
       if (
@@ -365,6 +378,10 @@ router.beforeEach((to, from, next) => {
   } else {
     store.commit("isFunnel", false);
   }
+
+  to.matched.some(record => {
+    store.commit("updateSkipLinks", record.meta.skipLinks);
+  });
 
   const lang = Vue.$cookies.get("lang") === "en" ? "en" : "fr";
   store.dispatch("setLang", lang);

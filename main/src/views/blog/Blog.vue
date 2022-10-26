@@ -6,6 +6,28 @@
           <h1>{{ $t("blog") }}</h1>
           <hr />
           <BlogExtractTile
+            title="DossierFacile engagé dans la protection de vos données personnelles"
+            :image="require('../../assets/images/blog-article14.jpg')"
+            publicationDate="24 octobre 2022"
+            path="/blog/engage-dans-la-protection-de-vos-donnees-personnelles"
+          >
+            <template v-slot:extract>
+              <p>
+                Une « donnée personnelle » désigne « toute information se
+                rapportant à une personne physique identifiée ou identifiable ».
+                Par exemple :
+              </p>
+              <ul>
+                <li>un nom et prénom</li>
+                <li>un identifiant (numéro client, numéro de téléphone...)</li>
+                <li>
+                  une caractéristique (sexe, âge, revenu, état de santé...)
+                </li>
+              </ul>
+            </template>
+          </BlogExtractTile>
+          <hr />
+          <BlogExtractTile
             title="L’usurpation d’identité en France : comment la prévenir et comment agir ?"
             :image="require('../../assets/images/blog-article13.webp')"
             publicationDate="1 Juin 2022"

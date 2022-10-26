@@ -8,10 +8,7 @@
               <h1 class="fr-h1">
                 5 astuces pour booster votre dossier de location
               </h1>
-              <span>25 Mars 2021 dans </span>
-              <span>
-                <a href="#">DossierFacile</a>
-              </span>
+              <p>25 Mars 2021 dans <a href="#">DossierFacile</a></p>
             </div>
             <!--end article title-->
             <div>

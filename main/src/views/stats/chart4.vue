@@ -1,14 +1,13 @@
 <template>
   <div class="flex-reverse">
     <h2 class="description">Liens partagés avec DossierFacile</h2>
-    <div class="fr-h2 number">{{ total }}</div>
+    <p class="fr-h2 number">{{ total }}</p>
   </div>
 </template>
 
 <script lang="ts">
 import axios from "axios";
 import { Component, Vue } from "vue-property-decorator";
-import * as d3 from "d3";
 
 @Component
 export default class Chart4 extends Vue {

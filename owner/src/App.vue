@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue';
 import MyHeader from 'df-shared-next/src/Header/Header.vue';
 import Announcement from 'df-shared-next/src/components/Announcement.vue';
+import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue';
 import TheFooter from 'df-shared-next/src/Footer/Footer.vue';
 import Cookies from 'df-shared-next/src/Footer/Cookies.vue';
 import { useRouter } from 'vue-router';
@@ -19,7 +20,7 @@ const { cookies } = useCookies();
 
 const isLoggedIn = computed(() => store.isLoggedIn);
 
-const cookieHidden = ref(cookies.isKey('accept-cookie') && cookies.get('accept-cookie') === 'true');
+const cookieHidden = ref(cookies.isKey('accept-cookie'));
 
 const hasFooter = computed(() => store.hasFooter);
 
@@ -59,6 +60,7 @@ function denyCookies() {
 
 <template>
   <Cookies :hidden="cookieHidden" @accept="acceptCookies" @deny="denyCookies" />
+  <SkipLinks></SkipLinks>
   <MyHeader
     :logged-in="isLoggedIn"
     @on-login-tenant="onLoginTenant"
@@ -68,10 +70,12 @@ function denyCookies() {
   >
     <Menu @on-change-lang="changeLang" :lang="getLang()"></Menu>
   </MyHeader>
-  <Announcement></Announcement>
-  <main class="page">
-    <router-view />
-  </main>
+  <div id="content">
+    <Announcement></Announcement>
+    <main class="page" role="main">
+      <router-view />
+    </main>
+  </div>
   <div v-if="hasFooter">
     <TheFooter />
   </div>

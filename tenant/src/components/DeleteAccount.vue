@@ -4,12 +4,12 @@
       <template v-slot:header>
         <div class="fr-container">
           <div class="fr-grid-row justify-content-center">
-            <div class="fr-col-10 title">
+            <h4 class="fr-col-10 title">
               <span class="text-danger material-icons-outlined md-38 fr-pr-1w"
                 >cancel</span
               >
               {{ $t("title") }}
-            </div>
+            </h4>
           </div>
         </div>
       </template>

@@ -5,6 +5,7 @@
       @accept="acceptCookies"
       @deny="denyCookies"
     />
+    <TenantSkipLinks></TenantSkipLinks>
     <MyHeader
       :logged-in="isLoggedIn"
       @on-login-tenant="onLoginTenant"
@@ -16,10 +17,12 @@
     >
       <Menu />
     </MyHeader>
-    <Announcement></Announcement>
-    <article class="page">
-      <router-view :key="$route.path" />
-    </article>
+    <div id="content">
+      <Announcement></Announcement>
+      <main class="page" role="main">
+        <router-view :key="$route.path" />
+      </main>
+    </div>
     <TheFooter v-if="!isFunnel" />
   </div>
 </template>
@@ -35,9 +38,11 @@ import Cookies from "df-shared/src/Footer/Cookies.vue";
 import VueGtag from "vue-gtag";
 import router from "./router";
 import Announcement from "df-shared/src/components/Announcement.vue";
+import TenantSkipLinks from "./components/TenantSkipLinks.vue";
 
 @Component({
   components: {
+    TenantSkipLinks,
     MyHeader,
     TheFooter,
     Menu,
@@ -146,6 +151,12 @@ export default class App extends Vue {
 
 #app {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#content {
+  flex: auto;
   display: flex;
   flex-direction: column;
 }
