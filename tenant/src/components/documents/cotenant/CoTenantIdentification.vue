@@ -20,8 +20,7 @@ import DocumentDownloader from "./DocumentDownloader.vue";
 @Component({
   components: {
     DocumentDownloader
-  },
-  computed: {}
+  }
 })
 export default class CoTenantIdentification extends Vue {
   documentsDefinitions = DocumentTypeConstants.IDENTIFICATION_DOCS;

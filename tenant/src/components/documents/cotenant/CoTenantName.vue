@@ -125,19 +125,18 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
-import { mapState } from "vuex";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
-import { UtilsService } from "../../../services/UtilsService";
 import { extend } from "vee-validate";
 import { required, email } from "vee-validate/dist/rules";
 import { User } from "df-shared/src/models/User";
 import FooterContainer from "../../footer/FooterContainer.vue";
 import BackNext from "../../footer/BackNext.vue";
+import { UtilsService } from "@/services/UtilsService";
 
 extend("required", {
   ...required,
@@ -160,18 +159,12 @@ extend("email", {
     DfButton,
     VGouvFrModal,
     NakedCard
-  },
-  computed: {
-    ...mapState({
-      coTenants: "coTenants"
-    })
   }
 })
 export default class CoTenantName extends Vue {
   @Prop() coTenantId!: number;
 
-  coTenants!: User[];
-  selectedCoTenant?: User;
+  selectedCoTenant!: User;
 
   firstName = "";
   lastName = "";
@@ -181,9 +174,7 @@ export default class CoTenantName extends Vue {
   isDocDeleteVisible = false;
 
   mounted() {
-    this.selectedCoTenant = this.coTenants.find(
-      (t: User) => t.id === Number(this.coTenantId)
-    );
+    this.selectedCoTenant = UtilsService.getTenant(Number(this.coTenantId));
     this.firstName = this.selectedCoTenant?.firstName || "";
     this.lastName = this.selectedCoTenant?.lastName || "";
     this.preferredName = this.selectedCoTenant?.preferredName || "";

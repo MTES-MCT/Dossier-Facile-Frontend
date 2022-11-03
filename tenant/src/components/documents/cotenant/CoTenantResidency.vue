@@ -19,8 +19,7 @@ import DocumentDownloader from "./DocumentDownloader.vue";
 @Component({
   components: {
     DocumentDownloader
-  },
-  computed: {}
+  }
 })
 export default class CoTenantProfessional extends Vue {
   documentsDefinitions = DocumentTypeConstants.RESIDENCY_DOCS;

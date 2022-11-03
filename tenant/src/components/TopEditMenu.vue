@@ -196,7 +196,7 @@ import store from "@/store";
     })
   }
 })
-export default class LeftEditMenu extends Vue {
+export default class TopEditMenu extends Vue {
   @Prop({ default: 0 }) step!: number;
   selectedGuarantor!: Guarantor;
 

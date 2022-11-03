@@ -185,8 +185,7 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { User } from "df-shared/src/models/User";
 
 @Component({
-  components: { InfoCard, ColoredTag, ConfirmModal },
-  computed: {}
+  components: { InfoCard, ColoredTag, ConfirmModal }
 })
 export default class GuarantorsSection extends Vue {
   @Prop() tenant!: User;

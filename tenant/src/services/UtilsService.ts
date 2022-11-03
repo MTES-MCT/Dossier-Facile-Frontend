@@ -9,7 +9,20 @@ export const UtilsService = {
       return t.tenantType === "CREATE";
     });
   },
-
+  getTenant(id: number) {
+    if (id === store.state.user.id) {
+      return store.state.user;
+    }
+    return store.state.user.apartmentSharing.tenants.find((r: User) => {
+      return r.id === id;
+    }) as User;
+  },
+  getLastAddedGuarantor(user: User) {
+    if (user.guarantors?.length && user.guarantors?.length > 0) {
+      return user.guarantors[user.guarantors.length - 1] as Guarantor;
+    }
+    throw Error("guarantor is not found");
+  },
   allDocumentsFilled() {
     return (
       this.documentsFilled() &&

@@ -85,6 +85,7 @@ import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import SimulationCaf from "../share/SimulationCaf.vue";
 import { Ref, ref } from "@vue/reactivity";
+import { UtilsService } from "@/services/UtilsService";
 
 @Component({
   components: {
@@ -104,30 +105,22 @@ import { Ref, ref } from "@vue/reactivity";
     NakedCard,
     CardRow,
     SimulationCaf
-  },
-  computed: {
-    ...mapGetters({
-      coTenants: "coTenants"
-    })
   }
 })
 export default class CoTenantFinancialList extends Vue {
   @Prop() readonly coTenantId!: number;
-  coTenants!: User[];
 
   tenantFinancialDocuments: Ref<FinancialDocument[]> = ref([]);
   tenantOriginalDocuments?: DfDocument[];
   financialDocument: FinancialDocument = new FinancialDocument();
   editFinancialDocument = false;
 
-  tenantFinancialDocumentsGet(){
+  tenantFinancialDocumentsGet() {
     return this.tenantFinancialDocuments;
   }
 
   private getOriginalDocuments(): DfDocument[] {
-    const tenant = this.coTenants.find((r: User) => {
-      return r.id === Number(this.coTenantId);
-    }) as User;
+    const tenant = UtilsService.getTenant(Number(this.coTenantId));
 
     if (tenant.documents) {
       const docs = tenant.documents?.filter((d: DfDocument) => {
@@ -167,8 +160,6 @@ export default class CoTenantFinancialList extends Vue {
         financialDocuments.push(f);
       });
     }
-
-    console.log(financialDocuments);
 
     return financialDocuments;
   }
@@ -246,8 +237,7 @@ export default class CoTenantFinancialList extends Vue {
     this.editFinancialDocument = true;
   }
   selectFinancialDocument(f?: FinancialDocument) {
-    console.log("is called");
-    console.log("with " + f?.id);
+    console.log("set financial with " + f?.id);
     this.financialDocument = f ? f : new FinancialDocument();
     this.editFinancialDocument = true;
   }

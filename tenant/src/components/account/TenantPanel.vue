@@ -111,8 +111,7 @@ extend("required", {
     DfButton,
     ColoredTag,
     DeleteAccount
-  },
-  computed: {}
+  }
 })
 export default class TenantPanel extends Vue {
   @Prop() tenant!: User;

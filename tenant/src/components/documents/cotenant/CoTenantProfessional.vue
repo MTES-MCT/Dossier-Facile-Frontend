@@ -9,19 +9,6 @@
       :isDropdownList="true"
       @on-change-document="changeDocumentType"
     >
-      <!-- @enrich-form-data="enrichFormData" -->
-      <!-- @check-before-add-file="checkValid"-->
-      <!--    
-        //:documents="documents"
-      //@on-remove-file=""
-      //@on-add-file=""
-      //@on-change-document=""
-      //@on-valid-change-document=""
-      documentExplainationText=""
-      //documentDeniedReasons="documentDeniedReasons"
-      //documentStatus="documentStatus"
-    -->
-
       <template v-slot:help-modal-content>
         <p>
           <DocumentHelp></DocumentHelp>
@@ -49,8 +36,7 @@ import DocumentDownloader from "./DocumentDownloader.vue";
     DocumentHelp,
     DocumentInsert,
     DocumentDownloader
-  },
-  computed: {}
+  }
 })
 export default class CoTenantProfessional extends Vue {
   documentsDefinitions = DocumentTypeConstants.PROFESSIONAL_DOCS;

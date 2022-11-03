@@ -84,7 +84,10 @@ export default class TenantGuarantorList extends Vue {
     if (g.firstName || g.lastName) {
       return `${g.firstName || ""} ${g.lastName || ""}`;
     }
-    return this.$i18n.t("guarantor");
+    if(g.typeGuarantor === 'LEGAL_PERSON' && g.legalPersonName){
+      return g.legalPersonName;
+    }
+    return this.$i18n.t("guarantor." + g.typeGuarantor);
   }
 
   goBack() {
@@ -249,6 +252,9 @@ h2 {
   "my-guarantor": "My guarantor",
   "add-new-guarantor": "Add a new guarantor ?",
   "guarantor": "My guarantor",
+  "guarantor.NATURAL_PERSON": "My guarantor",
+  "guarantor.LEGAL_PERSON": "My guarantor company",
+  "guarantor.ORGANISM": "My guarantor organism",
   "EMPTY": "Empty",
   "TO_PROCESS":"To process",
   "VALIDATED":"Validated",
@@ -261,6 +267,9 @@ h2 {
   "my-guarantor": "Le garant de mon conjoint",
   "add-new-guarantor": "Ajouter un nouveau garant ?",
   "guarantor": "Mon garant",
+  "guarantor.NATURAL_PERSON": "Mon garant",
+  "guarantor.LEGAL_PERSON": "Mon entreprise garante",
+  "guarantor.ORGANISM": "Mon organisme garant",
   "EMPTY": "Absent",
   "TO_PROCESS":"En cours de traitement",
   "VALIDATED":"Vérifié",

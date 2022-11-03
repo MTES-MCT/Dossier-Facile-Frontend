@@ -3,7 +3,7 @@
     <DocumentDownloader
       :coTenantId="coTenantId"
       :documentsDefinitions="documentsDefinitions"
-      :editedDocumentId="financialDocument? financialDocument.id : null"
+      :editedDocumentId="financialDocument.id ? financialDocument.id : -1"
       documentCategory="FINANCIAL"
       dispacthMethodName="saveTenantFinancial"
       typeDocument="typeDocumentFinancial"
@@ -11,18 +11,6 @@
       @enrich-form-data="enrichFormData"
       @on-change-document="changeDocument"
     >
-      <!-- @enrich-form-data="enrichFormData" -->
-      <!-- @check-before-add-file="checkValid"-->
-      <!--    
-        //:documents="documents"
-      //@on-remove-file=""
-      //@on-add-file=""
-      //@on-change-document=""
-      //@on-valid-change-document=""
-      documentExplainationText=""
-      //documentDeniedReasons="documentDeniedReasons"
-      //documentStatus="documentStatus"
-    -->
       <template v-slot:after-select-block>
         <NakedCard
           class="fr-p-md-5w fr-mb-3w"
@@ -76,137 +64,6 @@
             </validation-provider>
           </div>
         </NakedCard>
-        <!--       <div>
-          <validation-provider
-            :rules="{ required: true, regex: /^[0-9 ]+$/ }"
-            v-slot="{ errors, valid }"
-          >
-            <div
-              class="fr-input-group"
-              :class="{
-                'fr-input-group--error': errors[0]
-              }"
-            >
-              <label for="monthlySum" class="fr-label"
-                >{{ $t("monthlySum-label") }} :</label
-              >
-              <input
-                id="monthlySum"
-                :placeholder="$t('monthlySum')"
-                type="number"
-                min="0"
-                step="1"
-                v-model="financialDocument.monthlySum"
-                name="monthlySum"
-                class="validate-required form-control fr-input"
-                :class="{
-                  'fr-input--valid': valid,
-                  'fr-input--error': errors[0]
-                }"
-                required
-              />
-              <span class="fr-error-text" v-if="errors[0]">{{
-                $t(errors[0])
-              }}</span>
-              <span
-                class="fr-error-text"
-                v-if="financialDocument.monthlySum > 10000"
-              >
-                {{ $t("high-salary") }}
-              </span>
-              <span
-                class="fr-error-text"
-                v-if="
-                  financialDocument.monthlySum !== '' &&
-                    financialDocument.monthlySum <= 0
-                "
-              >
-                {{ $t("low-salary") }}
-              </span>
-            </div>
-          </validation-provider>
-        </div>
-        <MonFranceConnect
-          v-if="
-            ['social-service', 'pension', 'rent'].includes(
-              financialDocument.documentType.key
-            )
-          "
-          class="fr-my-4w"
-        ></MonFranceConnect>
-        <div class="fr-col-12 fr-mb-3w bg-purple fr-checkbox-group">
-          <input
-            type="checkbox"
-            id="noDocument"
-            value="false"
-            v-model="financialDocument.noDocument"
-          />
-          <label for="noDocument">
-            {{ $t(getCheckboxLabel(financialDocument.documentType.key)) }}
-          </label>
-        </div>
-
-        <div class="fr-mb-5w" v-if="financialDocument.noDocument">
-          <validation-provider
-            :rules="{ required: true }"
-            v-slot="{ errors, valid }"
-          >
-            <div class="fr-input-group">
-              <label class="fr-label" for="customText">
-                {{ $t(`customText-${financialDocument.documentType.key}`) }}
-              </label>
-              <textarea
-                v-model="financialDocument.customText"
-                class="form-control fr-input validate-required"
-                :class="{
-                  'fr-input--valid': valid,
-                  'fr-input--error': errors[0]
-                }"
-                id="customText"
-                name="customText"
-                placeholder=""
-                type="text"
-                maxlength="2000"
-                rows="3"
-                required
-              />
-              <span>{{ financialDocument.customText.length }} / 2000</span>
-              <span class="fr-error-text" v-if="errors[0]">{{
-                $t(errors[0])
-              }}</span>
-            </div>
-          </validation-provider>
-        </div>
-
-        <NakedCard class="fr-p-md-5w fr-mb-3w">
-          {{ $t("has-no-income") }}
-          <ValidationObserver v-slot="{ validate, valid }">
-            <form
-              name="customTextForm"
-              @submit.prevent="validate().then(save())"
-            >
-              <div class="fr-input-group">
-                <label class="fr-label" for="customTextNoDocument">
-                  {{ $t("custom-text") }}
-                </label>
-                <textarea
-                  v-model="financialDocument.customText"
-                  maxlength="2000"
-                  rows="3"
-                  class="form-control fr-input validate-required"
-                  :class="{
-                    'fr-input--valid': valid
-                  }"
-                  id="customTextNoDocument"
-                  name="customText"
-                  placeholder=""
-                  type="text"
-                />
-                <span>{{ financialDocument.customText.length }} / 2000</span>
-              </div>
-            </form>
-          </ValidationObserver>
-        </NakedCard>-->
       </template>
       <template v-slot:after-downloader> </template>
     </DocumentDownloader>
@@ -225,9 +82,8 @@ import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import DocumentDownloader from "./DocumentDownloader.vue";
 import { ValidationProvider } from "vee-validate";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
-import FooterContainer from '../../footer/FooterContainer.vue';
+import FooterContainer from "../../footer/FooterContainer.vue";
 import BackNext from "../../footer/BackNext.vue";
-import Financial from "../tenant/Financial.vue";
 
 @Component({
   components: {
@@ -236,8 +92,7 @@ import Financial from "../tenant/Financial.vue";
     DocumentDownloader,
     FooterContainer,
     BackNext
-  },
-  computed: {}
+  }
 })
 export default class CoTenantFinancialForm extends Vue {
   @Prop() coTenantId!: number;
@@ -248,41 +103,28 @@ export default class CoTenantFinancialForm extends Vue {
   document!: DfDocument;
   isNoIncomeAndFiles = false;
 
-  mounted() {
-    console.log("mount fina=" + this.financialDocument.id);
-    
-  }
-
   changeDocument(docType?: DocumentType, doc?: DfDocument) {
-    console.log("change doc");
-    console.log(doc);
     this.documentType = docType;
     this.document = doc as DfDocument;
   }
 
   enrichFormData(formData: FormData) {
-    console.log("docType");
-    console.log(this.documentType);
     if (this.documentType?.key === "no-income") {
-      console.log("NO INCOME");
       this.document.noDocument = true;
       this.document.monthlySum = 0;
     }
-    console.log(this.document);
-
     formData.append(
       "noDocument",
-      (this.document?.noDocument === true )? "true" : "false"
+      this.document?.noDocument === true ? "true" : "false"
     );
     if (
-      this.documentType?.key === "no-income" && ( !this.document.customText || this.document.customText.length < 0)
+      this.documentType?.key === "no-income" &&
+      (!this.document.customText || this.document.customText.length < 0)
     ) {
       formData.append("customText", "-");
     } else {
       formData.append("customText", this.document.customText as string);
     }
-    console.log("this.financialDocument.monthlySum");
-    console.log(this.financialDocument.monthlySum);
     if (
       this.financialDocument.monthlySum !== undefined &&
       this.financialDocument.monthlySum >= 0
@@ -293,9 +135,6 @@ export default class CoTenantFinancialForm extends Vue {
       );
     }
 
-    if (this.financialDocument.id) {
-      formData.append("id", this.financialDocument.id.toString());
-    }
   }
 
   goBack() {
@@ -303,7 +142,6 @@ export default class CoTenantFinancialForm extends Vue {
   }
 
   goNext() {
-    console.log("goNext");
     // push data if there is not files in documents - noDocument
     if (this.document?.noDocument === true) {
       console.log("goNext");

@@ -9,20 +9,8 @@
       :isDropdownList="false"
       :showDownloader="showDownloader"
       @on-change-document="changeDocumentType"
-      @enrich-form-data="enrichFormData" 
+      @enrich-form-data="enrichFormData"
     >
-      <!-- -->
-      <!-- @check-before-add-file="checkValid"-->
-      <!--    
-        //:documents="documents"
-      //@on-remove-file=""
-      //@on-add-file=""
-      //@on-change-document=""
-      //@on-valid-change-document=""
-      documentExplainationText=""
-      //documentDeniedReasons="documentDeniedReasons"
-      //documentStatus="documentStatus"-->
-
       <template v-slot:after-select-block>
         <div
           class="fr-mb-3w"
@@ -90,32 +78,28 @@ extend("is", {
   components: {
     ValidationProvider,
     DocumentDownloader
-  },
-  computed: {}
+  }
 })
 export default class CoTenantTax extends Vue {
   documentsDefinitions = DocumentTypeConstants.TAX_DOCS;
   @Prop() coTenantId!: number;
   documentType?: DocumentType;
   customText?: string;
-  acceptVerification =false;
+  acceptVerification = false;
   showDownloader = false;
 
-  
   changeAcceptVerification(event: any) {
-    console.log(event.target.value);
     this.acceptVerification = !this.acceptVerification;
-    console.log( this.acceptVerification);
-    this.showDownloader = this.acceptVerification == true && this.documentType?.key === 'my-name';
+    this.showDownloader =
+      this.acceptVerification == true && this.documentType?.key === "my-name";
   }
   changeDocumentType(docType?: DocumentType) {
-    console.log(docType);
-    console.log(docType?.key);
-    this.showDownloader = this.acceptVerification == true && this.documentType?.key === 'my-name';
+    this.showDownloader =
+      this.acceptVerification == true && this.documentType?.key === "my-name";
     this.documentType = docType;
   }
 
-  enrichFormData(formData : FormData){
+  enrichFormData(formData: FormData) {
     if (this.documentType?.key === "my-name") {
       formData.append(
         "acceptVerification",
@@ -126,7 +110,6 @@ export default class CoTenantTax extends Vue {
       formData.append("noDocument", "true");
     }
   }
-
 }
 </script>
 

@@ -268,10 +268,9 @@ export default class GuarantorDocuments extends Vue {
       });
       return;
     }
-    AnalyticsService.addGuarantor(this.guarantor.typeGuarantor || "");
+    AnalyticsService.addGuarantor(this.tmpGuarantorType || "");
     if (this.tmpGuarantorType === "NO_GUARANTOR") {
       if (this.user.applicationType === "COUPLE") {
-        console.log("guarantor" + this.user.applicationType);
         this.$router.push({
           name: "CoTenantDocuments",
           params: {

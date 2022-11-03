@@ -92,6 +92,7 @@ import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import ProfileContainer from "./ProfileContainer.vue";
+import { UtilsService } from "@/services/UtilsService";
 
 @Component({
   components: {
@@ -129,13 +130,15 @@ export default class GuarantorDocuments extends Vue {
   user!: User;
   guarantor!: Guarantor;
   guarantors!: Guarantor[];
-  tmpGuarantorType = "";
+  tmpGuarantorType!: string;
   changeGuarantorVisible = false;
 
   beforeMount() {
-    if (this.guarantor.typeGuarantor) {
-      this.tmpGuarantorType = this.guarantor.typeGuarantor;
-    }
+    const currentGuarantor = this.guarantor.typeGuarantor
+      ? this.guarantor
+      : UtilsService.getLastAddedGuarantor(this.user);
+    this.$store.commit("setSelectedGuarantor", currentGuarantor);
+    this.tmpGuarantorType = currentGuarantor?.typeGuarantor as string;
   }
 
   updateSubstep(s: number) {

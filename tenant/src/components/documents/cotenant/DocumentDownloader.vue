@@ -215,13 +215,11 @@ import { UploadStatus } from "df-shared/src/models/UploadStatus";
 import { User } from "df-shared/src/models/User";
 import { cloneDeep } from "lodash";
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { mapState } from "vuex";
 import DocumentInsert from "../share/DocumentInsert.vue";
 import FileUpload from "../../uploads/FileUpload.vue";
 import ListItem from "../../uploads/ListItem.vue";
 import { ValidationProvider } from "vee-validate";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
-import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
@@ -230,6 +228,7 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import Modal from "df-shared/src/components/Modal.vue";
 import DocumentHelp from "../../helps/DocumentHelp.vue";
+import { UtilsService } from "@/services/UtilsService";
 
 @Component({
   components: {
@@ -246,11 +245,6 @@ import DocumentHelp from "../../helps/DocumentHelp.vue";
     BigRadio,
     NakedCard,
     DocumentHelp
-  },
-  computed: {
-    ...mapState({
-      coTenants: "coTenants"
-    })
   }
 })
 export default class DocumentDownloader extends Vue {
@@ -264,11 +258,11 @@ export default class DocumentDownloader extends Vue {
   @Prop({ default: true }) showDownloader!: boolean;
   @Prop({ default: false }) allowNoDocument!: boolean;
 
+  localEditedDocumentId = this.editedDocumentId;
   documentDeniedReasons = new DocumentDeniedReasons();
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   document = new DocumentType();
   isDocDeleteVisible = false;
-  coTenants!: User[];
   selectedCoTenant!: User;
 
   dfDocument!: DfDocument;
@@ -317,35 +311,41 @@ export default class DocumentDownloader extends Vue {
     return this.getDocument()?.documentStatus;
   }
   documentFiles(): DfFile[] {
-    console.log("docFile");
-    console.log(this.getDocument().files);
     return this.getDocument().files
       ? (this.getDocument().files as DfFile[])
       : [];
   }
 
-  loadDocument() {
-    this.selectedCoTenant = this.coTenants.find((t: User) => {
-      return t.id === Number(this.coTenantId);
-    }) as User;
-
-    if (this.editedDocumentId) {
-      
+  loadDocument(forceLoadLast?: boolean) {
+    this.selectedCoTenant = UtilsService.getTenant(Number(this.coTenantId));
+    if (this.localEditedDocumentId) {
       const doc = this.selectedCoTenant.documents
         ? (this.selectedCoTenant.documents.find((d: DfDocument) => {
-            return d.documentCategory === this.documentCategory
-            && d.id === this.editedDocumentId;
+            return (
+              d.documentCategory === this.documentCategory &&
+              d.id === this.localEditedDocumentId
+            );
           }) as DfDocument)
         : undefined;
 
       this.dfDocument = doc ? doc : new DfDocument();
+      if (this.localEditedDocumentId == -1 && forceLoadLast) {
+        const docs = this.selectedCoTenant.documents?.filter(
+          (d: DfDocument) => {
+            return d.documentCategory === this.documentCategory;
+          }
+        ) as DfDocument[];
+
+        this.dfDocument = docs[docs.length - 1];
+        this.localEditedDocumentId = this.dfDocument.id;
+      }
     } else {
       const doc = this.selectedCoTenant.documents
         ? (this.selectedCoTenant.documents.find((d: DfDocument) => {
             return d.documentCategory === this.documentCategory;
           }) as DfDocument)
         : undefined;
-      
+
       this.dfDocument = doc ? doc : new DfDocument();
     }
 
@@ -383,17 +383,18 @@ export default class DocumentDownloader extends Vue {
     this.isDocDeleteVisible = false;
   }
 
-  async validSelect() {
+  validSelect() {
     this.isDocDeleteVisible = false;
     if (this.selectedCoTenant.documents !== null) {
       const doc = this.getDocument();
       if (doc?.files !== undefined) {
         for (const f of doc.files) {
           if (f.id) {
-            await this.remove(f);
+            this.remove(f);
           }
         }
       }
+      this.localEditedDocumentId = -1;
     }
   }
 
@@ -402,12 +403,10 @@ export default class DocumentDownloader extends Vue {
     const filesToAdd = Array.from(fileList).map(f => {
       return { name: f.name, file: f, size: f.size };
     });
-
     if (!filesToAdd || filesToAdd.length <= 0) {
       return;
     }
-
-    const futurLength = filesToAdd.length + this.documentFiles.length;
+    const futurLength = filesToAdd.length + this.documentFiles().length;
     if (
       this.document.maxFileCount &&
       futurLength > this.document.maxFileCount
@@ -420,7 +419,6 @@ export default class DocumentDownloader extends Vue {
       });
       return;
     }
-
     const formData = this._buildFormData(filesToAdd);
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
@@ -430,7 +428,7 @@ export default class DocumentDownloader extends Vue {
       .dispatch(this.dispacthMethodName, formData)
       .then(() => {
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
-        this.loadDocument();
+        this.loadDocument(true);
         Vue.toasted.global.save_success();
       })
       .catch(err => {
@@ -456,7 +454,9 @@ export default class DocumentDownloader extends Vue {
 
     formData.append(this.typeDocument, this.document.value);
     formData.append("tenantId", this.coTenantId.toString());
-
+    if (this.localEditedDocumentId && this.localEditedDocumentId > 0) {
+      formData.append("id", this.localEditedDocumentId.toString());
+    }
     this.$emit("enrich-form-data", formData);
     return formData;
   }

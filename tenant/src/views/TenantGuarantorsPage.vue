@@ -90,6 +90,9 @@ export default class TenantGuarantorsPage extends Vue {
 
   beforeMount() {
     this.refresh();
+    if (this.selectedGuarantor?.id) {
+      this.$store.commit("setSelectedGuarantor", this.selectedGuarantor);
+    }
   }
   refresh() {
     const guarantors = this.coTenants.find(t => {
