@@ -82,9 +82,11 @@
                     >
                       <div class="fr-grid-col spa">
                         <div class="icon-container">
-                          <span class="material-icons md-36">person</span>
+                          <span class="material-icons md-36" aria-hidden="true"
+                            >person</span
+                          >
                         </div>
-                        <span>{{ $t("alone") }}</span>
+                        {{ $t("alone") }}
                       </div>
                     </BigRadio>
                     <BigRadio
@@ -96,9 +98,11 @@
                     >
                       <div class="fr-grid-col spa">
                         <div class="icon-container">
-                          <span class="material-icons md-36">group</span>
+                          <span class="material-icons md-36" aria-hidden="true"
+                            >group</span
+                          >
                         </div>
-                        <span>{{ $t("couple") }}</span>
+                        {{ $t("couple") }}
                       </div>
                     </BigRadio>
                     <BigRadio
@@ -110,9 +114,12 @@
                     >
                       <div class="fr-grid-col spa">
                         <div class="icon-container">
-                          <span class="material-icons md-36">groups</span>
+                          <span class="material-icons md-36"
+                                aria-hidden="true"
+                            >groups</span
+                          >
                         </div>
-                        <span>{{ $t("roommate") }}</span>
+                        {{ $t("roommate") }}
                       </div>
                     </BigRadio>
                   </div>

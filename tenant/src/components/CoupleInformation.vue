@@ -56,7 +56,7 @@
                   @click="remove(getPartner().email)"
                   type="button"
                 >
-                  <span class="color--primary material-icons md-24"
+                  <span class="color--primary material-icons md-24" aria-hidden="true"
                     >delete_forever</span
                   >
                 </button>
@@ -301,7 +301,8 @@ export default class CoupleInformation extends Vue {
 "add-a-spouse": "Invite your spouse",
 "email-exists": "You can not associate two account with only one email address ! <br>Fullfill a different email address.",
 "more-information": "How is this information useful to us?",
-"require-accept": "You must accept the statement"
+"require-accept": "You must accept the statement",
+"delete": "Delete the invitation"
 },
 "fr": {
 "spouseEmail": "L’adresse email de votre conjoint",
@@ -314,7 +315,8 @@ export default class CoupleInformation extends Vue {
 "invite-sent": "Invitation envoyée",
 "email-exists": "Vous ne pouvez pas associer deux comptes à une même adresse email ! <br>Renseignez une adresse email différente.",
 "more-information": "En quoi cette information nous est utile ?",
-"require-accept": "Vous devez accepter la déclaration"
+"require-accept": "Vous devez accepter la déclaration",
+"delete": "Supprimer l'invitation"
 }
 }
 </i18n>

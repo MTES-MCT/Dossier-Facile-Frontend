@@ -613,7 +613,7 @@ export default class Tax extends Vue {
   "automatic-tax-l2": "Mon adresse déclarée au 1er janvier",
   "automatic-tax-l3": "La situation de mon foyer fiscal",
   "automatic-tax-l4": "Le détail de mes revenus",
-  "automatic-tax-p2-1": "Si vous acceptez, la mension",
+  "automatic-tax-p2-1": "Si vous acceptez, la mention",
   "automatic-tax-p2-2": " \"Revenu fiscal certifié auprès des impôts\" ",
   "automatic-tax-p2-3": "figurera sur votre dossier et contribuera à renforcer l'image de votre dossier auprès des bailleurs."
 },
@@ -639,7 +639,7 @@ export default class Tax extends Vue {
   "automatic-tax-l2": "Mon adresse déclarée au 1er janvier",
   "automatic-tax-l3": "La situation de mon foyer fiscal",
   "automatic-tax-l4": "Le détail de mes revenus",
-  "automatic-tax-p2-1": "Si vous acceptez, la mension",
+  "automatic-tax-p2-1": "Si vous acceptez, la mention",
   "automatic-tax-p2-2": " \"Revenu fiscal certifié auprès des impôts\" ",
   "automatic-tax-p2-3": "figurera sur votre dossier et contribuera à renforcer l'image de votre dossier auprès des bailleurs."
 }
