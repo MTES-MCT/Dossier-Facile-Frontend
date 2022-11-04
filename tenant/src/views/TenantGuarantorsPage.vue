@@ -4,6 +4,7 @@
       <TenantGuarantorChoice
         :tenantId="getTenantId()"
         @on-back="goBack"
+        @on-next="goNext"
         @on-select="updateGuarantorType"
       ></TenantGuarantorChoice>
     </div>
@@ -27,6 +28,21 @@
           :tenantId="getTenantId()"
           :guarantor="selectedGuarantor"
         ></OrganismCert>
+        <GuarantorFooter
+          @on-back="() => (editName = false)"
+          @on-next="goNext"
+        ></GuarantorFooter>
+      </div>
+      <div
+        v-else-if="
+          selectedGuarantor &&
+            selectedGuarantor.typeGuarantor === 'LEGAL_PERSON'
+        "
+      >
+        <CorporationIdentification
+          :tenantId="getTenantId()"
+          :guarantor="selectedGuarantor"
+        ></CorporationIdentification>
         <GuarantorFooter
           @on-back="() => (editName = false)"
           @on-next="goNext"
@@ -58,6 +74,7 @@ import { User } from "df-shared/src/models/User";
 import TenantGuarantorName from "../components/documents/naturalGuarantor/TenantGuarantorName.vue";
 import OrganismCert from "../components/documents/organismGuarantor/OrganismCert.vue";
 import GuarantorFooter from "../components/footer/GuarantorFooter.vue";
+import CorporationIdentification from "../components/documents/legalPersonGuarantor/CorporationIdentification.vue";
 
 @Component({
   components: {
@@ -67,6 +84,7 @@ import GuarantorFooter from "../components/footer/GuarantorFooter.vue";
     TenantGuarantorDocuments,
     ProfileContainer,
     OrganismCert,
+    CorporationIdentification,
     GuarantorFooter
   },
   computed: {

@@ -342,7 +342,7 @@ export default class CoTenantFinancialList extends Vue {
   "register": "Enregistrer",
   "no-income": "Pas de revenu",
   "i-have-no-income": "Je n'ai pas de revenu",
-  "title": "Récapitulatif de vos revenus",
+  "title": "Récapitulatif des revenus conjoint·e",
   "subtitle": "Voici la liste des revenus que vous avez déclarés. Vous pouvez, à tout moment ajouter de nouveaux revenus, si cela était nécessaire.",
   "monthly": " € net mensuel ",
   "net-monthly": "Net à payer mensuel",

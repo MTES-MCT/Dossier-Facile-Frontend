@@ -57,14 +57,20 @@
       </div>
       <div v-if="selectedGuarantor.typeGuarantor === 'LEGAL_PERSON'">
         <div v-if="substep === 0">
-          <CorporationIdentification></CorporationIdentification>
+          <CorporationIdentification
+            :tenantId="tenantId"
+            :guarantor="selectedGuarantor"
+          ></CorporationIdentification>
           <GuarantorFooter
             @on-back="goBack"
             @on-next="goNext"
           ></GuarantorFooter>
         </div>
         <div v-if="substep === 1">
-          <RepresentativeIdentification></RepresentativeIdentification>
+          <RepresentativeIdentification
+            :tenantId="tenantId"
+            :guarantor="selectedGuarantor"
+          ></RepresentativeIdentification>
           <GuarantorFooter
             @on-back="goBack"
             @on-next="nextStep"

@@ -499,6 +499,12 @@ th,
 td {
   border: 1px solid #ececec;
 }
+.spa {
+  height: 3rem;
+  @media all and (min-width: 768px) {
+    width: 14rem;
+  }
+}
 </style>
 
 <i18n>

@@ -84,8 +84,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { mapState } from "vuex";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import DocumentInsert from "../share/DocumentInsert.vue";
 import FileUpload from "../../uploads/FileUpload.vue";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
@@ -120,14 +119,12 @@ extend("required", {
     VGouvFrModal,
     NakedCard,
     GuarantorFooter
-  },
-  computed: {
-    ...mapState({
-      selectedGuarantor: "selectedGuarantor"
-    })
   }
 })
 export default class CorporationIdentification extends Vue {
+  @Prop() tenantId?: number;
+  @Prop() guarantor?: Guarantor;
+
   organismName = "";
   acceptedProofs = [
     this.$i18n.t("kbis"),
@@ -140,7 +137,6 @@ export default class CorporationIdentification extends Vue {
     this.$i18n.t("all-other")
   ];
 
-  selectedGuarantor!: Guarantor;
   documentDeniedReasons = new DocumentDeniedReasons();
 
   files: File[] = [];
@@ -149,24 +145,39 @@ export default class CorporationIdentification extends Vue {
     [key: string]: { state: string; percentage: number };
   } = {};
 
-  mounted() {
-    this.organismName = this.selectedGuarantor.legalPersonName || "";
+  beforeMount() {
+    this.organismName = this.getGuarantor().legalPersonName || "";
     if (
       this.guarantorIdentificationLegalPersonDocument()?.documentDeniedReasons
     ) {
       this.documentDeniedReasons = cloneDeep(
-        this.guarantorIdentificationLegalPersonDocument().documentDeniedReasons
+        this.guarantorIdentificationLegalPersonDocument()!.documentDeniedReasons!
       );
     }
   }
 
-  addFiles(fileList: File[]) {
-    this.files = [...this.files, ...fileList];
-    this.save();
+  getGuarantor() {
+    if (this.guarantor) {
+      return this.guarantor;
+    }
+    return this.$store.getters.guarantor;
   }
 
   get documentStatus() {
     return this.guarantorIdentificationLegalPersonDocument()?.documentStatus;
+  }
+
+  guarantorIdentificationLegalPersonDocument(): DfDocument {
+    if (this.guarantor) {
+      return this.guarantor.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "IDENTIFICATION_LEGAL_PERSON";
+      }) as DfDocument;
+    }
+    return this.$store.getters.getGuarantorIdentificationLegalPersonDocument;
+  }
+  addFiles(fileList: File[]) {
+    this.files = [...this.files, ...fileList];
+    this.save();
   }
 
   save() {
@@ -177,8 +188,12 @@ export default class CorporationIdentification extends Vue {
     const fieldName = "documents";
     const formData = new FormData();
     formData.append("legalPersonName", this.organismName);
-    if (this.$store.getters.guarantor.id) {
-      formData.append("guarantorId", this.$store.getters.guarantor.id);
+
+    if (this.getGuarantor().id) {
+      formData.append("guarantorId", this.getGuarantor().id);
+    }
+    if (this.tenantId) {
+      formData.append("tenantId", this.tenantId.toString());
     }
 
     const loader = this.$loading.show();
@@ -208,7 +223,7 @@ export default class CorporationIdentification extends Vue {
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     return RegisterService.saveCorporationIdentification(formData)
       .then(() => {
-        this.files = [];
+        // this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         this.$store.dispatch("loadUser");
         Vue.toasted.global.save_success();
@@ -231,16 +246,15 @@ export default class CorporationIdentification extends Vue {
   remove(file: DfFile) {
     if (file.path && file.id) {
       RegisterService.deleteFile(file.id);
+      this.guarantorIdentificationLegalPersonDocument().files = this.guarantorIdentificationLegalPersonDocument()?.files?.filter(
+        f => file.id != f.id
+      );
     } else {
       const firstIndex = this.files.findIndex(f => {
         return f.name === file.name && f.size === file.size;
       });
       this.files.splice(firstIndex, 1);
     }
-  }
-
-  guarantorIdentificationLegalPersonDocument() {
-    return this.$store.getters.getGuarantorIdentificationLegalPersonDocument;
   }
 
   listFiles() {
@@ -252,9 +266,7 @@ export default class CorporationIdentification extends Vue {
       };
     });
     const existingFiles =
-      this.$store.getters.getGuarantorDocuments?.find((d: DfDocument) => {
-        return d.documentCategory === "IDENTIFICATION_LEGAL_PERSON";
-      })?.files || [];
+      this.guarantorIdentificationLegalPersonDocument()?.files || [];
     return [...newFiles, ...existingFiles];
   }
 

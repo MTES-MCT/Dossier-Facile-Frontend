@@ -151,6 +151,9 @@ export default class TenantGuarantorChoice extends Vue {
   @Prop() tenantId!: number;
   tmpGuarantorType = "";
 
+  beforeMount() {
+    this.tmpGuarantorType;
+  }
   updated() {
     // each dom update involved a scrollToEnd
     this.$nextTick(() => this.scrollToEnd());
@@ -173,7 +176,10 @@ export default class TenantGuarantorChoice extends Vue {
       return;
     }
     AnalyticsService.addGuarantor(this.tmpGuarantorType);
-    if (this.tmpGuarantorType != "NO_GUARANTOR") {
+    // const tenant = UtilsService.getTenant(this.tenantId).guarantor;
+    if (this.tmpGuarantorType == "NO_GUARANTOR") {
+      this.$emit("on-select", this.tmpGuarantorType);
+    } else {
       this.$store
         .dispatch("setGuarantorType", {
           tenantId: this.tenantId.toString(),

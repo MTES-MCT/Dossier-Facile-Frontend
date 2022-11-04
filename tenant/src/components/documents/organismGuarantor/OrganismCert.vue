@@ -78,11 +78,6 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
     ListItem,
     VGouvFrModal,
     NakedCard
-  },
-  computed: {
-    ...mapState({
-      user: "user"
-    })
   }
 })
 export default class OrganismCert extends Vue {
@@ -116,14 +111,22 @@ export default class OrganismCert extends Vue {
     }
     return this.$store.getters.guarantor.id;
   }
+  get documentStatus() {
+    return this.guarantorIdentificationDocument()?.documentStatus;
+  }
+
+  guarantorIdentificationDocument(): DfDocument {
+    if (this.guarantor) {
+      return this.guarantor.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "IDENTIFICATION";
+      }) as DfDocument;
+    }
+    return this.$store.getters.getGuarantorIdentificationDocument;
+  }
 
   addFiles(fileList: File[]) {
     this.files = [...this.files, ...fileList];
     this.save();
-  }
-
-  get documentStatus() {
-    return this.guarantorIdentificationDocument()?.documentStatus;
   }
 
   save() {
@@ -145,12 +148,12 @@ export default class OrganismCert extends Vue {
     Array.from(Array(this.files.length).keys()).map(x => {
       formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
     });
-    if (this.guarantorId()) {
-      formData.append("guarantorId", this.guarantorId());
-    }
 
     formData.append("noDocument", "false");
 
+    if (this.guarantorId()) {
+      formData.append("guarantorId", this.guarantorId());
+    }
     if (this.tenantId) {
       formData.append("tenantId", this.tenantId.toString());
     }
@@ -159,7 +162,6 @@ export default class OrganismCert extends Vue {
     const loader = this.$loading.show();
     RegisterService.saveOrganismIdentification(formData)
       .then(() => {
-        // this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         Vue.toasted.global.save_success();
         this.$store.dispatch("loadUser");
@@ -189,15 +191,6 @@ export default class OrganismCert extends Vue {
       });
       this.files.splice(firstIndex, 1);
     }
-  }
-
-  guarantorIdentificationDocument(): DfDocument {
-    if (this.guarantor) {
-      return this.guarantor.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "IDENTIFICATION";
-      }) as DfDocument;
-    }
-    return this.$store.getters.getGuarantorIdentificationDocument;
   }
 
   listFiles() {
