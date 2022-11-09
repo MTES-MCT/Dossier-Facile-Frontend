@@ -482,8 +482,8 @@ const store = new Vuex.Store({
         }
       );
     },
-    saveTaxAuth({ commit }, { allowTax, redirectUri }) {
-      return RegisterService.saveTaxAuth(allowTax, redirectUri).then(
+    saveTaxAuth({ commit }, { allowTax, fcToken }) {
+      return RegisterService.saveTaxAuth(allowTax, fcToken).then(
         response => {
           commit("loadUser", response.data);
           return Promise.resolve(response.data);
