@@ -54,7 +54,6 @@ import UploadDocuments from "../components/UploadDocuments.vue";
 import ProfileContainer from "../components/ProfileContainer.vue";
 import FooterContainer from "../components/footer/FooterContainer.vue";
 import BackNext from "../components/footer/BackNext.vue";
-import store from "@/store";
 import CoTenantIdentification from "../components/documents/cotenant/CoTenantIdentification.vue";
 import CoTenantResidency from "../components/documents/cotenant/CoTenantResidency.vue";
 import CoTenantName from "../components/documents/cotenant/CoTenantName.vue";
@@ -79,14 +78,6 @@ import CoTenantTax from "../components/documents/cotenant/CoTenantTax.vue";
 export default class CoTenantDocument extends Vue {
   mounted() {
     window.Beacon("init", "e9f4da7d-11be-4b40-9514-ac7ce3e68f67");
-
-    // TODO currently user but should did a call to tenant/id service
-    console.log("coTenants");
-    //const coTenants = [ store.state.user ];
-    const coTenants = store.state.coTenants;
-    //Vue.set(store.state, "coTenants", coTenants);
-
-    console.log(coTenants);
   }
 
   beforeDestroy() {

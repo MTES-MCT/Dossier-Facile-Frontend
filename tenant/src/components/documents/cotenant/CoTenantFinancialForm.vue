@@ -7,14 +7,19 @@
       documentCategory="FINANCIAL"
       dispacthMethodName="saveTenantFinancial"
       typeDocument="typeDocumentFinancial"
+      :showDownloader="showDownloader.value"
       :allowNoDocument="true"
       @enrich-form-data="enrichFormData"
       @on-change-document="changeDocument"
     >
       <template v-slot:after-select-block>
         <NakedCard
-          class="fr-p-md-5w fr-mb-3w"
-          v-if="documentType ? documentType.key !== 'no-income' : false"
+          class="fr-p-md-5w fr-mb-3w fr-mt-3w"
+          v-if="
+            documentType && documentType.key
+              ? documentType.key !== 'no-income'
+              : false
+          "
         >
           <div>
             <validation-provider
@@ -64,6 +69,46 @@
             </validation-provider>
           </div>
         </NakedCard>
+
+        <NakedCard
+          v-else-if="documentType ? documentType.key === 'no-income' : false"
+          class="fr-p-md-5w fr-mb-3w"
+        >
+          {{ $t("has-no-income") }}
+          <ValidationObserver v-slot="{ validate, valid }">
+            <form
+              name="customTextForm"
+              @submit.prevent="validate().then(goNext())"
+            >
+              <div class="fr-input-group">
+                <label class="fr-label" for="customTextNoDocument">
+                  {{ $t("custom-text") }}
+                </label>
+                <textarea
+                  v-model="document.customText"
+                  maxlength="2000"
+                  rows="3"
+                  class="form-control fr-input validate-required"
+                  :class="{
+                    'fr-input--valid': valid
+                  }"
+                  id="customTextNoDocument"
+                  name="customText"
+                  placeholder=""
+                  type="text"
+                />
+                <span
+                  >{{
+                    document && document.customText
+                      ? document.customText.length
+                      : 0
+                  }}
+                  / 2000</span
+                >
+              </div>
+            </form>
+          </ValidationObserver>
+        </NakedCard>
       </template>
       <template v-slot:after-downloader> </template>
     </DocumentDownloader>
@@ -80,14 +125,16 @@ import { DocumentType } from "df-shared/src/models/Document";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import DocumentDownloader from "./DocumentDownloader.vue";
-import { ValidationProvider } from "vee-validate";
+import { ValidationObserver, ValidationProvider } from "vee-validate";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import FooterContainer from "../../footer/FooterContainer.vue";
 import BackNext from "../../footer/BackNext.vue";
+import { ref } from "@vue/reactivity";
 
 @Component({
   components: {
     NakedCard,
+    ValidationObserver,
     ValidationProvider,
     DocumentDownloader,
     FooterContainer,
@@ -102,10 +149,13 @@ export default class CoTenantFinancialForm extends Vue {
   documentType?: DocumentType;
   document!: DfDocument;
   isNoIncomeAndFiles = false;
-
+  showDownloader = ref(false);
   changeDocument(docType?: DocumentType, doc?: DfDocument) {
     this.documentType = docType;
     this.document = doc as DfDocument;
+    console.log (this.documentType?.key && this.documentType?.key != 'no-income');
+    this.showDownloader.value = Boolean(this.documentType?.key && this.documentType?.key != 'no-income');
+
   }
 
   enrichFormData(formData: FormData) {
@@ -134,7 +184,6 @@ export default class CoTenantFinancialForm extends Vue {
         this.financialDocument.monthlySum.toString()
       );
     }
-
   }
 
   goBack() {
@@ -143,7 +192,10 @@ export default class CoTenantFinancialForm extends Vue {
 
   goNext() {
     // push data if there is not files in documents - noDocument
-    if (this.document?.noDocument === true) {
+    if (
+      this.document?.noDocument === true ||
+      this.documentType?.key === "no-income"
+    ) {
       console.log("goNext");
       const formData = new FormData();
       this.enrichFormData(formData);
@@ -208,6 +260,7 @@ td {
   "rent": "Annuities",
   "pension": "Pensions",
   "scholarship": "Scholarship",
+  "no-income": "No Income",
   "monthlySum": "Value in euros",
   "monthlySum-label": "Monthly salary (after tax)",
   "noDocument-social": "I cannot provide proof of payment of social benefits",
@@ -223,6 +276,7 @@ td {
   "customText-undefined": "In order to improve my file, I explain why I cannot provide the justificatives:",
   "high-salary": "You have entered a salary greater than € 10,000 are you sure you have entered your guarantor monthly salary?",
   "low-salary": "You have entered a salary equal to 0 € are you sure you have entered your guarantor monthly salary?",
+  "has-no-income": "has not income",
   "number-not-valid": "Number not valid - without decimal",
   "delete-financial":  "Delete this salary",
   "field-required": "This field is required",
@@ -248,6 +302,7 @@ td {
   "rent": "Rentes",
   "pension": "Pensions",
   "scholarship": "Bourses",
+  "no-income": "Pas de revenus",
   "monthlySum": "Montant en euros",
   "monthlySum-label": "J'indique le montant de son revenu mensuel net à payer (avant prélèvement à la source)",
   "noDocument-social": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
@@ -263,6 +318,7 @@ td {
   "customText-undefined": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs",
   "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
   "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
+  "has-no-income": "Vous avez indiqué l'absence de revenu",
   "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule",
   "delete-financial":  "Supprimer ce revenu",
   "field-required": "Ce champ est requis",

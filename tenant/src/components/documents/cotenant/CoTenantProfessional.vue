@@ -6,7 +6,7 @@
       documentCategory="PROFESSIONAL"
       dispacthMethodName="saveTenantProfessional"
       typeDocument="typeDocumentProfessional"
-      :isDropdownList="true"
+      listType="dropDownList"
       @on-change-document="changeDocumentType"
     >
       <template v-slot:help-modal-content>

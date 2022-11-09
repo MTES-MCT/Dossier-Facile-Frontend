@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="editFinancialDocument">
+    <div v-if="editFinancialDocument || !hasFinancial()">
       <CoTenantFinancialForm
         :coTenantId="coTenantId"
         :financialDocument="financialDocument"
@@ -9,7 +9,7 @@
         @on-back="goBack"
       ></CoTenantFinancialForm>
     </div>
-    <div v-if="!editFinancialDocument">
+    <div v-else>
       <NakedCard class="fr-p-md-5w fr-mb-3w">
         <div>
           <h1 class="fr-h6">{{ $t("title") }}</h1>
@@ -64,10 +64,8 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import DocumentInsert from "../share/DocumentInsert.vue";
 import FileUpload from "../../uploads/FileUpload.vue";
-import { mapGetters } from "vuex";
 import { FinancialDocument } from "df-shared/src/models/FinancialDocument";
 import ListItem from "../../uploads/ListItem.vue";
-import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
@@ -112,7 +110,7 @@ export default class CoTenantFinancialList extends Vue {
 
   tenantFinancialDocuments: Ref<FinancialDocument[]> = ref([]);
   tenantOriginalDocuments?: DfDocument[];
-  financialDocument: FinancialDocument = new FinancialDocument();
+  financialDocument!: FinancialDocument;
   editFinancialDocument = false;
 
   tenantFinancialDocumentsGet() {
@@ -186,12 +184,15 @@ export default class CoTenantFinancialList extends Vue {
     this.tenantFinancialDocuments.value = this.getTenantFinancialDocuments(
       this.tenantOriginalDocuments
     );
-
+    
     if (this.hasNoIncome(this.tenantFinancialDocuments.value)) {
       this.financialDocument = this.tenantFinancialDocuments.value.find(f => {
-        return f.documentType && f.documentType.key !== "no-income";
+        return f.documentType && f.documentType.key === "no-income";
       }) as FinancialDocument;
       this.editFinancialDocument = true;
+      
+    } else {
+      this.financialDocument = new FinancialDocument();
     }
   }
 
@@ -231,7 +232,18 @@ export default class CoTenantFinancialList extends Vue {
       return d.id === f.id;
     });
   }
-
+  hasFinancial() {
+    const tenant = UtilsService.getTenant(Number(this.coTenantId));
+    console.log("tenantId=" + this.coTenantId);
+    console.log(tenant.id);
+    const docs = tenant.documents?.filter((d: DfDocument) => {
+      return d.documentCategory === "FINANCIAL";
+    });
+    if (!docs || docs.length === 0) {
+      return false;
+    }
+    return true;
+  }
   addFinancialDocument() {
     this.financialDocument = new FinancialDocument();
     this.editFinancialDocument = true;

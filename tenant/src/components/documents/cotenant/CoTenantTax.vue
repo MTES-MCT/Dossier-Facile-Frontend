@@ -6,7 +6,7 @@
       documentCategory="TAX"
       dispacthMethodName="saveTenantTax"
       typeDocument="typeDocumentTax"
-      :isDropdownList="false"
+      listType="grid"
       :showDownloader="showDownloader"
       @on-change-document="changeDocumentType"
       @enrich-form-data="enrichFormData"

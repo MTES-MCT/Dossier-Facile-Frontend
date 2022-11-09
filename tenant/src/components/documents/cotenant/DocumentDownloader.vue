@@ -29,7 +29,7 @@
         </v-gouv-fr-modal>
 
         <div class="fr-mt-3w">
-          <div v-if="isDropdownList">
+          <div v-if="listType == 'dropDownList'">
             <validation-provider
               rules="select"
               name="professionalDocument"
@@ -72,7 +72,10 @@
                     v-model="document"
                     @input="onSelectChange()"
                   >
-                    <div class="fr-grid-col spa">
+                    <div
+                      class="fr-grid-col"
+                      :class="{ spa: listType === 'grid' }"
+                    >
                       <span>{{ $parent.$t(d.key) }}</span>
                     </div>
                   </BigRadio>
@@ -96,6 +99,7 @@
       class="fr-p-md-5w fr-mt-3w"
       v-if="showDownloader && (document.key || documentFiles.length > 0)"
     >
+    {{showDownloader}}
       <div v-if="document.explanationText" class="fr-mb-3w">
         <p v-html="document.explanationText"></p>
       </div>
@@ -254,7 +258,7 @@ export default class DocumentDownloader extends Vue {
   @Prop() editedDocumentId?: number;
   @Prop() dispacthMethodName!: string;
   @Prop() typeDocument!: string;
-  @Prop({ default: false }) isDropdownList!: boolean;
+  @Prop({ default: "default" }) listType!: string;
   @Prop({ default: true }) showDownloader!: boolean;
   @Prop({ default: false }) allowNoDocument!: boolean;
 
@@ -293,6 +297,7 @@ export default class DocumentDownloader extends Vue {
   }
 
   onSelectChange() {
+    console.log("showDownloader" + this.showDownloader);
     if (this.selectedCoTenant?.documents !== null) {
       const doc = this.getDocument();
       if (doc !== undefined) {
