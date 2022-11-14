@@ -99,7 +99,6 @@
       class="fr-p-md-5w fr-mt-3w"
       v-if="showDownloader && (document.key || documentFiles.length > 0)"
     >
-    {{showDownloader}}
       <div v-if="document.explanationText" class="fr-mb-3w">
         <p v-html="document.explanationText"></p>
       </div>

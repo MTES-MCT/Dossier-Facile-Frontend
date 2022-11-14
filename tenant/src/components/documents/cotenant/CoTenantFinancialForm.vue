@@ -72,7 +72,7 @@
 
         <NakedCard
           v-else-if="documentType ? documentType.key === 'no-income' : false"
-          class="fr-p-md-5w fr-mb-3w"
+          class="fr-p-md-5w fr-mb-3w fr-mt-3w"
         >
           {{ $t("has-no-income") }}
           <ValidationObserver v-slot="{ validate, valid }">
@@ -153,9 +153,12 @@ export default class CoTenantFinancialForm extends Vue {
   changeDocument(docType?: DocumentType, doc?: DfDocument) {
     this.documentType = docType;
     this.document = doc as DfDocument;
-    console.log (this.documentType?.key && this.documentType?.key != 'no-income');
-    this.showDownloader.value = Boolean(this.documentType?.key && this.documentType?.key != 'no-income');
-
+    console.log(
+      this.documentType?.key && this.documentType?.key != "no-income"
+    );
+    this.showDownloader.value = Boolean(
+      this.documentType?.key && this.documentType?.key != "no-income"
+    );
   }
 
   enrichFormData(formData: FormData) {
@@ -204,6 +207,9 @@ export default class CoTenantFinancialForm extends Vue {
         "typeDocumentFinancial",
         this.documentType?.value as string
       );
+      if (this.document.id && this.document.id > 0) {
+        formData.append("id", this.document.id.toString());
+      }
       formData.append("tenantId", this.coTenantId.toString());
       const loader = this.$loading.show();
 
@@ -274,6 +280,7 @@ td {
   "customText-pension": "In order to improve my file, I explain why I cannot provide the justificatives:",
   "customText-scholarship": "In order to improve my file, I explain why I cannot provide the justificatives:",
   "customText-undefined": "In order to improve my file, I explain why I cannot provide the justificatives:",
+  "custom-text": "To improve your file, you can explain why :",
   "high-salary": "You have entered a salary greater than € 10,000 are you sure you have entered your guarantor monthly salary?",
   "low-salary": "You have entered a salary equal to 0 € are you sure you have entered your guarantor monthly salary?",
   "has-no-income": "has not income",
@@ -316,6 +323,7 @@ td {
   "customText-rent": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
   "customText-scholarship": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
   "customText-undefined": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs",
+  "custom-text": "Afin d'améliorer votre dossier, vous pouvez ajouter une explication :",
   "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
   "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
   "has-no-income": "Vous avez indiqué l'absence de revenu",
