@@ -31,7 +31,6 @@ export default class CoTenantProfessional extends Vue {
 {
 "en": {
   "title": "Your Spouse current accommodation situation",
-  "description": "",
   "tenant": "Locataire",
   "owner": "Propriétaire",
   "guest": "Hébergé·e gratuitement",
@@ -42,7 +41,6 @@ export default class CoTenantProfessional extends Vue {
 },
 "fr": {
   "title": "La situation d’hébergement actuelle de votre conjoint",
-  "description": "",
   "tenant": "Locataire",
   "owner": "Propriétaire",
   "guest": "Hébergé·e gratuitement",

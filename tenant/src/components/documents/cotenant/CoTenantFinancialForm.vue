@@ -252,7 +252,6 @@ td {
 {
 "en": {
   "title": "Financial's resources",
-  "description": "",
   "tenant": "Locataire",
   "owner": "Propriétaire",
   "guest": "Hébergé·e gratuitement",
@@ -295,7 +294,6 @@ td {
 },
 "fr": {
   "title": "Justificatif de ressources",
-  "description": "",
   "tenant": "Locataire",
   "owner": "Propriétaire",
   "guest": "Hébergé·e gratuitement",

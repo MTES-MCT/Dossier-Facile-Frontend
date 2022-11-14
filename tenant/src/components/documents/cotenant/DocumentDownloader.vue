@@ -5,7 +5,7 @@
         <h1 class="fr-h6">
           {{ $parent.$t("title") }}
         </h1>
-        {{ $parent.$t("description") }}
+        <p v-if="$parent.$te('description')">{{ $parent.$t("description") }}</p>
 
         <v-gouv-fr-modal>
           <template v-slot:button>

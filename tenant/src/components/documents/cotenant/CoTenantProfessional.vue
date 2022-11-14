@@ -55,7 +55,6 @@ export default class CoTenantProfessional extends Vue {
 {
 "en": {
   "title": "Your Spouse current accommodation situation",
-  "description": "",
   "cdi": "CDI",
   "cdi-trial": "CDI (période d’essai)",
   "cdd": "CDD",
@@ -72,7 +71,6 @@ export default class CoTenantProfessional extends Vue {
 },
 "fr": {
   "title": "La situation d’hébergement actuelle de votre conjoint",
-  "description": "",
   "cdi": "CDI",
   "cdi-trial": "CDI (période d’essai)",
   "cdd": "CDD",
