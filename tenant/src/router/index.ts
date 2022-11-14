@@ -89,7 +89,7 @@ const routes: Array<RouteConfig> = [
     path: "/type-locataire",
     name: "TenantType",
     meta: {
-      title: "Édition du profil - DossierFacile",
+      title: "Mes informations - DossierFacile",
       requiresAuth: true,
       hideFooter: true,
       skipLinks: FUNNEL_SKIP_LINKS
@@ -101,7 +101,7 @@ const routes: Array<RouteConfig> = [
     path: "/documents-locataire/:substep",
     name: "TenantDocuments",
     meta: {
-      title: "Édition du profil - DossierFacile",
+      title: "Mes documents - DossierFacile",
       requiresAuth: true,
       hideFooter: true,
       skipLinks: FUNNEL_SKIP_LINKS
@@ -113,7 +113,7 @@ const routes: Array<RouteConfig> = [
     path: "/choix-garant",
     name: "GuarantorChoice",
     meta: {
-      title: "Édition du garant - DossierFacile",
+      title: "Mon garant - DossierFacile",
       requiresAuth: true,
       hideFooter: true,
       skipLinks: FUNNEL_SKIP_LINKS
@@ -127,7 +127,7 @@ const routes: Array<RouteConfig> = [
     path: "/liste-garants",
     name: "GuarantorList",
     meta: {
-      title: "Édition du garant - DossierFacile",
+      title: "Mon garant - DossierFacile",
       requiresAuth: true,
       hideFooter: true,
       skipLinks: FUNNEL_SKIP_LINKS
@@ -139,7 +139,7 @@ const routes: Array<RouteConfig> = [
     path: "/validation-dossier",
     name: "ValidateFile",
     meta: {
-      title: "Édition du garant - DossierFacile",
+      title: "Validation du dossier - DossierFacile",
       requiresAuth: true,
       hideFooter: true,
       skipLinks: FUNNEL_SKIP_LINKS
@@ -151,7 +151,7 @@ const routes: Array<RouteConfig> = [
     path: "/info-garant/:substep/:guarantorId?",
     name: "GuarantorDocuments",
     meta: {
-      title: "Édition du garant - DossierFacile",
+      title: "Mon garant - DossierFacile",
       requiresAuth: true,
       hideFooter: true,
       skipLinks: FUNNEL_SKIP_LINKS
