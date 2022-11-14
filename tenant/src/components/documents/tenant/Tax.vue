@@ -321,7 +321,11 @@ export default class Tax extends Vue {
   }
 
   async onSelectTaxAuth() {
-    if (this.allowTax && this.user.franceConnect) {
+    if (
+      this.allowTax &&
+      this.user.franceConnect &&
+      process.env.VUE_APP_FEATURE_FLIPPING_DGFIP_API === "true"
+    ) {
       if (!this.$route.query.refresh) {
         const currentUrl =
           process.env.VUE_APP_FULL_TENANT_URL + this.$route.fullPath;
