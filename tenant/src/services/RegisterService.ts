@@ -29,9 +29,10 @@ export const RegisterService = {
     );
   },
 
-  saveTaxAuth(allowTax: boolean, redirectUri: string) {
-    return axios.get(
-      `https://${process.env.VUE_APP_API_URL}/api/tenant/allowTax/${allowTax}?redirectUri=${redirectUri}`
+  saveTaxAuth(allowTax: boolean, fcToken: string) {
+    return axios.post(
+      `https://${process.env.VUE_APP_API_URL}/api/tenant/allowTax/${allowTax}`,
+      { fcToken }
     );
   },
 
@@ -130,5 +131,18 @@ export const RegisterService = {
       internalPartnerId: internalPartnerId,
       source: source
     });
+  },
+
+  async getFranceConnectToken() {
+    return axios
+      .get(
+        `${process.env.VUE_APP_SSO_ENDPOINT}/realms/dossier-facile/broker/oidc/token`
+      )
+      .then((response: any) => {
+        return Promise.resolve(response.data.access_token);
+      })
+      .catch(err => {
+        console.dir(err);
+      });
   }
 };
