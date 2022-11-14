@@ -227,7 +227,7 @@ const routes: Array<RouteConfig> = [
     path: "/account",
     name: "Account",
     meta: {
-      title: "Mon compte - DossierFacile",
+      title: "Mon dossier - DossierFacile",
       requiresAuth: true
     },
     component: () =>
