@@ -85,6 +85,7 @@
           </fieldset>
         </div>
       </div>
+      <slot name="after-select-block"></slot>
     </NakedCard>
     <ConfirmModal
       v-if="isDocDeleteVisible"
@@ -94,7 +95,7 @@
       <span>{{ $t("will-delete-files") }}</span>
     </ConfirmModal>
 
-    <slot name="after-select-block"></slot>
+    <slot name="post-select-block"></slot>
     <NakedCard
       class="fr-p-md-5w fr-mt-3w"
       v-if="showDownloader && (document.key || documentFiles.length > 0)"

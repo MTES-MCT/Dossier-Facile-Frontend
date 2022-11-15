@@ -1,13 +1,12 @@
 <template>
   <div>
     <DocumentDownloader
-      :coTenantId="coTenantId" 
+      :coTenantId="coTenantId"
       :documentsDefinitions="documentsDefinitions"
       documentCategory="IDENTIFICATION"
       dispatchMethodName="saveTenantIdentification"
       typeDocument="typeDocumentIdentification"
     >
-      <template v-slot:after-select-block></template>
     </DocumentDownloader>
   </div>
 </template>
