@@ -5,7 +5,7 @@
       :documentsDefinitions="documentsDefinitions"
       :editedDocumentId="financialDocument.id ? financialDocument.id : -1"
       documentCategory="FINANCIAL"
-      dispacthMethodName="saveTenantFinancial"
+      dispatchMethodName="saveTenantFinancial"
       typeDocument="typeDocumentFinancial"
       :showDownloader="showDownloader.value"
       :allowNoDocument="true"

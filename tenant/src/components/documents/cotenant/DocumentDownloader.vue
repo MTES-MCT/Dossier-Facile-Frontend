@@ -255,7 +255,7 @@ export default class DocumentDownloader extends Vue {
   @Prop() documentsDefinitions!: any;
   @Prop() documentCategory!: string;
   @Prop() editedDocumentId?: number;
-  @Prop() dispacthMethodName!: string;
+  @Prop() dispatchMethodName!: string;
   @Prop() typeDocument!: string;
   @Prop({ default: "default" }) listType!: string;
   @Prop({ default: true }) showDownloader!: boolean;
@@ -429,7 +429,7 @@ export default class DocumentDownloader extends Vue {
 
     const loader = this.$loading.show();
     this.$store
-      .dispatch(this.dispacthMethodName, formData)
+      .dispatch(this.dispatchMethodName, formData)
       .then(() => {
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         this.loadDocument(true);

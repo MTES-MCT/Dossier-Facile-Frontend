@@ -4,7 +4,7 @@
       :coTenantId="coTenantId"
       :documentsDefinitions="documentsDefinitions"
       documentCategory="RESIDENCY"
-      dispacthMethodName="saveTenantResidency"
+      dispatchMethodName="saveTenantResidency"
       typeDocument="typeDocumentResidency"
     >
     </DocumentDownloader>

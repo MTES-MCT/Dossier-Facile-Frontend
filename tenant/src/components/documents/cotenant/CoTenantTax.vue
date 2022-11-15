@@ -4,7 +4,7 @@
       :coTenantId="coTenantId"
       :documentsDefinitions="documentsDefinitions"
       documentCategory="TAX"
-      dispacthMethodName="saveTenantTax"
+      dispatchMethodName="saveTenantTax"
       typeDocument="typeDocumentTax"
       listType="grid"
       :showDownloader="showDownloader"
@@ -65,7 +65,7 @@ import { DocumentType } from "df-shared/src/models/Document";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import DocumentDownloader from "./DocumentDownloader.vue";
-import { extend, ValidationObserver, ValidationProvider } from "vee-validate";
+import { extend, ValidationProvider } from "vee-validate";
 import { is } from "vee-validate/dist/rules";
 
 extend("is", {

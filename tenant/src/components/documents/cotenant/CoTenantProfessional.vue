@@ -4,7 +4,7 @@
       :coTenantId="coTenantId"
       :documentsDefinitions="documentsDefinitions"
       documentCategory="PROFESSIONAL"
-      dispacthMethodName="saveTenantProfessional"
+      dispatchMethodName="saveTenantProfessional"
       typeDocument="typeDocumentProfessional"
       listType="dropDownList"
       @on-change-document="changeDocumentType"

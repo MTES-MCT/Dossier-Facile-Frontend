@@ -4,7 +4,7 @@
       :coTenantId="coTenantId" 
       :documentsDefinitions="documentsDefinitions"
       documentCategory="IDENTIFICATION"
-      dispacthMethodName="saveTenantIdentification"
+      dispatchMethodName="saveTenantIdentification"
       typeDocument="typeDocumentIdentification"
     >
       <template v-slot:after-select-block></template>
