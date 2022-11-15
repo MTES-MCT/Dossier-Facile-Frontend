@@ -213,6 +213,7 @@ import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import MonFranceConnect from "../share/MonFranceConnect.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import { cloneDeep } from "lodash";
+import axios from "axios";
 
 extend("is", {
   ...is,
@@ -246,7 +247,6 @@ extend("is", {
 })
 export default class Tax extends Vue {
   documents = DocumentTypeConstants.TAX_DOCS;
-  TENANT_URL = process.env.VUE_APP_FULL_TENANT_URL;
 
   user!: User;
   tenantTaxDocument!: DfDocument;
@@ -308,12 +308,37 @@ export default class Tax extends Vue {
     if (this.user.allowCheckTax === false) {
       this.allowTax = "disallow";
     }
+    if (this.user.franceConnect) {
+      if (this.$route.query.refresh) {
+        RegisterService.getFranceConnectToken().then((fcToken: string) => {
+          this.$store.dispatch("saveTaxAuth", {
+            allowTax: this.allowTax,
+            fcToken: fcToken
+          });
+        });
+      }
+    }
   }
 
-  onSelectTaxAuth() {
+  async onSelectTaxAuth() {
+    if (
+      this.allowTax &&
+      this.user.franceConnect &&
+      process.env.VUE_APP_FEATURE_FLIPPING_DGFIP_API === "true"
+    ) {
+      if (!this.$route.query.refresh) {
+        const currentUrl =
+          process.env.VUE_APP_FULL_TENANT_URL + this.$route.fullPath;
+        const link = await axios.post(
+          `https://${process.env.VUE_APP_API_URL}/api/tenant/linkFranceConnect`,
+          { url: currentUrl + "?refresh=true" }
+        );
+        window.location.href = link.data;
+        return;
+      }
+    }
     this.$store.dispatch("saveTaxAuth", {
-      allowTax: this.allowTax,
-      redirectUri: this.TENANT_URL + this.$route.fullPath
+      allowTax: this.allowTax
     });
   }
 
@@ -613,7 +638,7 @@ export default class Tax extends Vue {
   "automatic-tax-l2": "Mon adresse déclarée au 1er janvier",
   "automatic-tax-l3": "La situation de mon foyer fiscal",
   "automatic-tax-l4": "Le détail de mes revenus",
-  "automatic-tax-p2-1": "Si vous acceptez, la mension",
+  "automatic-tax-p2-1": "Si vous acceptez, la mention",
   "automatic-tax-p2-2": " \"Revenu fiscal certifié auprès des impôts\" ",
   "automatic-tax-p2-3": "figurera sur votre dossier et contribuera à renforcer l'image de votre dossier auprès des bailleurs."
 },
@@ -639,7 +664,7 @@ export default class Tax extends Vue {
   "automatic-tax-l2": "Mon adresse déclarée au 1er janvier",
   "automatic-tax-l3": "La situation de mon foyer fiscal",
   "automatic-tax-l4": "Le détail de mes revenus",
-  "automatic-tax-p2-1": "Si vous acceptez, la mension",
+  "automatic-tax-p2-1": "Si vous acceptez, la mention",
   "automatic-tax-p2-2": " \"Revenu fiscal certifié auprès des impôts\" ",
   "automatic-tax-p2-3": "figurera sur votre dossier et contribuera à renforcer l'image de votre dossier auprès des bailleurs."
 }

@@ -277,7 +277,7 @@ const routes: Array<RouteConfig> = [
     path: "/contact",
     name: "Contact",
     meta: {
-      title: "Contactez-nous",
+      title: "Contactez-nous - DossierFacile",
       description: "Formulaire de contact"
     },
     component: () =>
