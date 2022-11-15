@@ -236,7 +236,7 @@
         <div v-if="g.typeGuarantor === 'NATURAL_PERSON'">
           <NakedCard v-if="!documentsGuarantorFilled(g)" class="fr-p-md-5w">
             <div class="fr-text--bold">
-              {{ $t("my-invalid-document-guarantor") }}
+              {{ $t("tenant-invalid-document-guarantor") }}
             </div>
             <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION')">
               <div class="fr-grid-row file-item">
@@ -323,7 +323,7 @@
         <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
           <NakedCard v-if="!documentsGuarantorFilled(g)" class="fr-p-5w">
             <div class="fr-text--bold">
-              {{ $t("my-invalid-document-guarantor") }}
+              {{ $t("tenant-invalid-document-guarantor") }}
             </div>
             <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION')">
               <div class="fr-grid-row file-item">
@@ -363,7 +363,7 @@
         <div v-if="g.typeGuarantor === 'ORGANISM'">
           <NakedCard v-if="!documentsGuarantorFilled(g)" class="fr-p-5w">
             <div class="fr-text--bold">
-              {{ $t("my-invalid-document-guarantor") }}
+              {{ $t("tenant-invalid-document-guarantor") }}
             </div>
             <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION')">
               <div class="fr-grid-row file-item">
@@ -541,10 +541,10 @@ export default class FileErrors extends Vue {
     "organism-cert": "Attestation de garantie",
     "representative-identification": "Identité du représentant de la personne morale",
     "corporation-identification": "Identité de la personne morale",
-    "my-invalid-document" : "Mes documents invalides:",
-    "my-invalid-document-guarantor" : "Les documents invalides de mon garant:",
-    "tenant-invalid-document" : "Les documents invalides de mon conjoint:",
-    "tenant-invalid-document-guarantor" : "Les documents invalides du garant de mon conjoint:"
+    "my-invalid-document" : "Mes documents invalides :",
+    "my-invalid-document-guarantor" : "Les documents invalides de mon garant :",
+    "tenant-invalid-document" : "Les documents invalides de mon conjoint :",
+    "tenant-invalid-document-guarantor" : "Les documents invalides du garant de mon conjoint :"
 	}
 }
 </i18n>

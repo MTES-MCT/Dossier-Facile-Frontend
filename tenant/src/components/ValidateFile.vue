@@ -279,7 +279,7 @@ export default class ValidateFile extends Vue {
         "declaration2-plural": "Je déclare sur l'honneur avoir reçu le consentement de mes garants pour que leurs données soient traitées dans le cadre du processus de location",
         "require-accept": "Vous devez accepter la déclaration",
         "validation-error-title": "Vous y êtes presque !",
-        "validation-error-description": "Limiter les modifications, pensez à vérifier votre dossier dès aujourd'hui"
+        "validation-error-description": "Limitez les modifications, pensez à vérifier votre dossier dès aujourd'hui."
     }
 }
 </i18n>
