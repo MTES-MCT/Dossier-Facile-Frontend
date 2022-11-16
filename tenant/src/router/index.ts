@@ -163,7 +163,6 @@ const routes: Array<RouteConfig> = [
     path: "/validation-dossier",
     name: "ValidateFile",
     meta: {
-      title: "Validation du dossier - DossierFacile",
       title: "Validation du dossier locataire - DossierFacile",
       requiresAuth: true,
       hideFooter: true
