@@ -39,11 +39,11 @@
       ></CoTenantFinancialList>
     </div>
     <div v-if="getSubStep() === 5">
-      <CoTenantTax :coTenantId="getTenantId()"></CoTenantTax>
-      <FooterContainer>
-        <BackNext :showBack="true" @on-next="goNext()" @on-back="goBack()">
-        </BackNext>
-      </FooterContainer>
+      <CoTenantTax
+        :coTenantId="getTenantId()"
+        @on-next="goNext"
+        @on-back="goBack"
+      ></CoTenantTax>
     </div>
   </ProfileContainer>
 </template>
