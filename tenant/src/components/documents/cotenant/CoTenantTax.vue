@@ -12,8 +12,8 @@
       @enrich-form-data="enrichFormData"
     >
       <template v-slot:after-select-block>
-        <div
-          class="fr-mb-3w"
+        <NakedCard
+          class="fr-p-md-5w fr-mb-3w fr-mt-3w"
           v-if="documentType ? documentType.key === 'other-tax' : false"
         >
           <div class="fr-input-group">
@@ -30,8 +30,8 @@
               required
             />
           </div>
-        </div>
-        <div
+        </NakedCard>
+        <NakedCard
           class="fr-col-12 fr-mt-3w"
           v-if="documentType ? documentType.key === 'my-name' : false"
         >
@@ -54,7 +54,7 @@
               }}</span>
             </div>
           </validation-provider>
-        </div>
+        </NakedCard>
       </template>
     </DocumentDownloader>
   </div>
@@ -67,6 +67,7 @@ import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import DocumentDownloader from "./DocumentDownloader.vue";
 import { extend, ValidationProvider } from "vee-validate";
 import { is } from "vee-validate/dist/rules";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 extend("is", {
   ...is,
@@ -77,7 +78,8 @@ extend("is", {
 @Component({
   components: {
     ValidationProvider,
-    DocumentDownloader
+    DocumentDownloader,
+    NakedCard
   }
 })
 export default class CoTenantTax extends Vue {
