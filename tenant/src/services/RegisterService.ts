@@ -37,7 +37,7 @@ export const RegisterService = {
       `https://${process.env.VUE_APP_API_URL}/api/tenant/allowTax/${allowTax}`,
       { fcToken }
     );
-  }
+  },
 
   saveCoTenantIdentification(formData: FormData) {
     return axios.post(
