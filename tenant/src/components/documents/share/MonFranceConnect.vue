@@ -1,5 +1,5 @@
 <template>
-  <div class="mfc-box">
+  <div class="mfc-box" v-if="isDisplayed()">
     <div class="optional fr-px-2w fr-pt-2w fr-pb-1w">
       <span class="fr-tag">{{ $t("optional") }}</span>
     </div>
@@ -29,6 +29,12 @@ import { AnalyticsService } from "../../../services/AnalyticsService";
 
 @Component
 export default class MonFranceConnect extends Vue {
+  isDisplayed() {
+    const isHidden =
+      `${process.env.VUE_APP_HIDE_MON_FRANCE_CONNECT_BUTTONS}` === "true";
+    return !isHidden;
+  }
+
   openDGFIP() {
     AnalyticsService.openDGFIP();
     window.open(
