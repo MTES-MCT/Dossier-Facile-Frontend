@@ -3,30 +3,54 @@
     <ValidationObserver v-slot="{ validate }">
       <form name="form" @submit.prevent="validate().then(sendFile)">
         <div v-if="!hasErrors()">
-          <h1 class="fr-h1">{{ $t("title") }}</h1>
-          <div v-if="!hasGuarantors()">
-            <p>{{ $t("read-no-guarantor") }}</p>
-            <div class="fr-mb-3w">
+          <NakedCard class="fr-p-md-5w fr-mb-3w">
+            <h1 class="fr-h6">{{ $t("title") }}</h1>
+            <p>{{ getCheckboxInstructions() }}</p>
+
+            <validation-provider rules="is" v-slot="{ errors }">
+              <div
+                class="fr-checkbox-group bg-purple fr-mb-3w"
+                :class="errors[0] ? 'fr-checkbox-group--error' : ''"
+              >
+                <input
+                  type="checkbox"
+                  id="declaration"
+                  value="false"
+                  v-model="declaration"
+                />
+                <label for="declaration">{{ $t("declaration") }}</label>
+                <span class="fr-error-text" v-if="errors[0]">{{
+                  $t(errors[0])
+                }}</span>
+              </div>
+            </validation-provider>
+            <div v-if="hasGuarantors()">
               <validation-provider rules="is" v-slot="{ errors }">
                 <div
-                  class="fr-checkbox-group bg-purple"
-                  :class="errors[0] ? 'fr-input-group--error' : ''"
+                  class="fr-checkbox-group bg-purple fr-mb-3w"
+                  :class="errors[0] ? 'fr-checkbox-group--error' : ''"
                 >
                   <input
                     type="checkbox"
-                    id="declaration"
+                    id="declaration2"
                     value="false"
-                    v-model="declaration"
+                    v-model="declaration2"
                   />
-                  <label for="declaration" v-html="$t('declaration')"></label>
+                  <label for="declaration2">{{
+                    user.guarantors.length > 1
+                      ? $t("declaration2-plural")
+                      : $t("declaration2")
+                  }}</label>
                   <span class="fr-error-text" v-if="errors[0]">{{
                     $t(errors[0])
                   }}</span>
                 </div>
               </validation-provider>
             </div>
+          </NakedCard>
 
-            <div v-if="user.tenantType === 'CREATE'">
+          <div v-if="user.tenantType === 'CREATE'">
+            <NakedCard class="fr-px-5w fr-py-3w fr-mb-2w">
               <validation-provider rules="is" v-slot="{ errors }">
                 <div
                   class="fr-input-group"
@@ -53,80 +77,7 @@
                   </p>
                 </div>
               </validation-provider>
-            </div>
-          </div>
-          <div v-if="hasGuarantors()">
-            <p>{{ $t("read") }}</p>
-            <div class="bg-purple fr-mb-3w">
-              <validation-provider rules="is" v-slot="{ errors }">
-                <div
-                  class="fr-checkbox-group bg-purple"
-                  :class="errors[0] ? 'fr-checkbox-group--error' : ''"
-                >
-                  <input
-                    type="checkbox"
-                    id="declaration"
-                    value="false"
-                    v-model="declaration"
-                  />
-                  <label for="declaration">{{ $t("declaration") }}</label>
-                  <span class="fr-error-text" v-if="errors[0]">{{
-                    $t(errors[0])
-                  }}</span>
-                </div>
-              </validation-provider>
-              <div>
-                <validation-provider rules="is" v-slot="{ errors }">
-                  <div
-                    class="fr-checkbox-group bg-purple"
-                    :class="errors[0] ? 'fr-checkbox-group--error' : ''"
-                  >
-                    <input
-                      type="checkbox"
-                      id="declaration2"
-                      value="false"
-                      v-model="declaration2"
-                    />
-                    <label for="declaration2">{{
-                      user.guarantors.length > 1
-                        ? $t("declaration2-plural")
-                        : $t("declaration2")
-                    }}</label>
-                    <span class="fr-error-text" v-if="errors[0]">{{
-                      $t(errors[0])
-                    }}</span>
-                  </div>
-                </validation-provider>
-              </div>
-            </div>
-            <div v-if="user.tenantType === 'CREATE'">
-              <validation-provider rules="is" v-slot="{ errors }">
-                <div
-                  class="fr-input-group"
-                  :class="errors[0] ? 'fr-input-group--error' : ''"
-                >
-                  <p>
-                    <label for="precision" class="fr-label">
-                      {{ $t("precision") }}</label
-                    >
-                    <textarea
-                      id="precision"
-                      :placeholder="$t('placeholder')"
-                      type="text"
-                      maxlength="2000"
-                      rows="3"
-                      v-model="precision"
-                      name="precision"
-                      class="validate-required form-control fr-input"
-                    />
-                    <span>{{ precision.length }} / 2000</span>
-                    <span class="fr-error-text" v-if="errors[0]">{{
-                      $t(errors[0])
-                    }}</span>
-                  </p>
-                </div>
-              </validation-provider>
-            </div>
+            </NakedCard>
           </div>
         </div>
         <div v-if="hasErrors()">
@@ -238,15 +189,20 @@ export default class ValidateFile extends Vue {
     return this.declaration && (!this.hasGuarantors() || this.declaration2);
   }
 
+  getCheckboxInstructions() {
+    return this.hasGuarantors()
+      ? this.$t("read")
+      : this.$t("read-no-guarantor");
+  }
+
   hasGuarantors() {
-    const res =
+    return (
       this.user.guarantors &&
       this.user.guarantors.length > 0 &&
       this.user.guarantors.findIndex((g: Guarantor) => {
         return g.typeGuarantor !== "ORGANISM";
-      }) >= 0;
-
-    return res;
+      }) >= 0
+    );
   }
 }
 </script>
@@ -261,7 +217,7 @@ export default class ValidateFile extends Vue {
         "placeholder": "Renseignez votre commentaire ici",
         "validate": "Valider mon dossier",
         "read": "Je lis et je coche les cases suivantes afin de valider mon dossier",
-        "declaration2": "Je déclare sur l'honneur avoir reçu le consentement de mon garant pour que ses données soient traitées dans le cadre du processus de location",
+        "declaration2": "Je déclare avoir obtenu le consentement des personnes physiques (conjoint, colocataires ou garants) à utiliser leurs justificatifs nominatifs pour les lier à mon dossier.",
         "declaration2-plural": "Je déclare sur l'honneur avoir reçu le consentement de mes garants pour que leurs données soient traitées dans le cadre du processus de location",
         "require-accept": "You must accept the declaration",
         "validation-error-title": "You're so close !",
@@ -275,7 +231,7 @@ export default class ValidateFile extends Vue {
         "placeholder": "Renseignez votre commentaire ici",
         "validate": "Valider mon dossier",
         "read": "Je lis et je coche les cases suivantes afin de valider mon dossier",
-        "declaration2": "Je déclare sur l'honneur avoir reçu le consentement de mon garant pour que ses données soient traitées dans le cadre du processus de location",
+        "declaration2": "Je déclare avoir obtenu le consentement des personnes physiques (conjoint, colocataires ou garants) à utiliser leurs justificatifs nominatifs pour les lier à mon dossier.",
         "declaration2-plural": "Je déclare sur l'honneur avoir reçu le consentement de mes garants pour que leurs données soient traitées dans le cadre du processus de location",
         "require-accept": "Vous devez accepter la déclaration",
         "validation-error-title": "Vous y êtes presque !",
