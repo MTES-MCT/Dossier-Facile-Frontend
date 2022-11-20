@@ -108,7 +108,7 @@
         :documentStatus="documentStatus"
       ></AllDeclinedMessages>
 
-      <div v-if="!(noDocument == true)">
+      <div v-if="!(noDocument == true) || forceShowDownloader">
         <div v-if="documentFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
           <ListItem
             v-for="(file, k) in documentFiles()"
@@ -146,7 +146,12 @@
         </label>
       </div>
 
-      <div class="fr-mb-5w" v-if="dfDocument ? dfDocument.noDocument : null">
+      <div
+        class="fr-mb-5w"
+        v-if="
+          !forceShowDownloader && (dfDocument ? dfDocument.noDocument : null)
+        "
+      >
         <validation-provider
           :rules="{ required: true }"
           v-slot="{ errors, valid }"
@@ -260,6 +265,7 @@ export default class DocumentDownloader extends Vue {
   @Prop({ default: "default" }) listType!: string;
   @Prop({ default: true }) showDownloader!: boolean;
   @Prop({ default: false }) allowNoDocument!: boolean;
+  @Prop({ default: false }) forceShowDownloader!: boolean;
 
   localEditedDocumentId = this.editedDocumentId;
   documentDeniedReasons = new DocumentDeniedReasons();
@@ -304,9 +310,9 @@ export default class DocumentDownloader extends Vue {
           (doc.files?.length || 0) > 0 &&
           doc.documentSubCategory !== this.document.value;
       }
-      this.$emit("on-change-document", this.document, doc);
     }
     this.$emit("on-change-document", this.document, this.dfDocument);
+    // why ? no
     this.noDocument = this.dfDocument?.noDocument == true;
     return false;
   }

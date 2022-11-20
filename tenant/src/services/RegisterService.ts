@@ -32,10 +32,10 @@ export const RegisterService = {
     );
   },
 
-  saveTaxAuth(allowTax: boolean, fcToken: string) {
+  saveTaxAuth(allowTax: boolean, fcToken: string, tenantId: number) {
     return axios.post(
       `https://${process.env.VUE_APP_API_URL}/api/tenant/allowTax/${allowTax}`,
-      { fcToken }
+      { fcToken, tenantId }
     );
   },
 

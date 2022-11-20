@@ -515,8 +515,8 @@ const store = new Vuex.Store({
         }
       );
     },
-    saveTaxAuth({ commit }, { allowTax, fcToken }) {
-      return RegisterService.saveTaxAuth(allowTax, fcToken).then(
+    saveTaxAuth({ commit }, { allowTax, fcToken, tenantId }) {
+      return RegisterService.saveTaxAuth(allowTax, fcToken, tenantId).then(
         response => {
           commit("loadUser", response.data);
           return Promise.resolve(response.data);
