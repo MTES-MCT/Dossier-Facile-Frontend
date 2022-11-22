@@ -1,9 +1,9 @@
 <template>
   <div class="allowtax-container">
     <NakedCard class="fr-p-md-5w bg-transparent">
-      <div class="header fr-icon-attachment-line fr-pb-1w">
+      <h6 class="header fr-icon-attachment-line fr-pb-1w fr-h6">
         {{ $t("automatic-tax-title") }}
-      </div>
+      </h6>
       <div class="auth-tax-container">
         <div>
           {{ $t("automatic-tax-p1") }}
@@ -16,7 +16,7 @@
         </ul>
         <div>
           {{ $t("automatic-tax-p2-1") }}
-          <b>{{ $t("automatic-tax-p2-2") }}</b>
+          <span class="bold-italic">{{ $t("automatic-tax-p2-2") }}</span>
           {{ $t("automatic-tax-p2-3") }}
         </div>
         <div class="tax-btn-container">
@@ -93,14 +93,9 @@ export default class AllowCheckTax extends Vue {
 .allowtax-container {
   border-radius: 0.5rem;
   background-color: var(--blue-france-925);
-  color: var(--info-425-625);
-}
-.blue-franceconnect {
-  padding: 2rem;
   color: var(--primary);
-  background-color: var(--bf200-bf300);
-  border-radius: 0.25rem;
-  .fr-h4 {
+
+  .fr-h6 {
     color: var(--primary);
   }
 }
@@ -114,9 +109,8 @@ export default class AllowCheckTax extends Vue {
 }
 
 .selected {
-  // TODO replace buttons by radio and clean styles
-  color: var(--primary) !important;
-  background-color: var(--blue-france-hover) !important;
+  color: #ffffff !important;
+  background-color: var(--primary) !important;
 }
 
 .no-max-width {
@@ -139,35 +133,40 @@ export default class AllowCheckTax extends Vue {
     flex-direction: column;
   }
 }
+
+.bold-italic {
+  font-weight: bold;
+  font-style: italic;
+}
 </style>
 
 <i18n>
 {
-"en": {
-  "forbid-tax": "I forbid",
-  "allow-tax": "I accept automatic verification",
-  "automatic-tax-title": "Your tax automatically checked?",
-  "automatic-tax-p1": "Vous pouvez accepter ou refuser la vérification automatique des données personnelles suivantes :",
-  "automatic-tax-l1": "Mon état civil",
-  "automatic-tax-l2": "Mon adresse déclarée au 1er janvier",
-  "automatic-tax-l3": "La situation de mon foyer fiscal",
-  "automatic-tax-l4": "Le détail de mes revenus",
-  "automatic-tax-p2-1": "Si vous acceptez, la mention",
-  "automatic-tax-p2-2": " \"Revenu fiscal certifié auprès des impôts\" ",
-  "automatic-tax-p2-3": "figurera sur votre dossier et contribuera à renforcer l'image de votre dossier auprès des bailleurs."
-},
-"fr": {
-  "forbid-tax": "Je refuse",
-  "allow-tax": "J'accepte la vérification automatique",
-  "automatic-tax-title": "Votre revenu fiscal vérifié automatiquement ?",
-  "automatic-tax-p1": "Vous pouvez accepter ou refuser la vérification automatique des données personnelles suivantes :",
-  "automatic-tax-l1": "Mon état civil",
-  "automatic-tax-l2": "Mon adresse déclarée au 1er janvier",
-  "automatic-tax-l3": "La situation de mon foyer fiscal",
-  "automatic-tax-l4": "Le détail de mes revenus",
-  "automatic-tax-p2-1": "Si vous acceptez, la mention",
-  "automatic-tax-p2-2": " \"Revenu fiscal certifié auprès des impôts\" ",
-  "automatic-tax-p2-3": "figurera sur votre dossier et contribuera à renforcer l'image de votre dossier auprès des bailleurs."
-}
+  "en": {
+    "forbid-tax": "I decline",
+    "allow-tax": "I accept automatic verification",
+    "automatic-tax-title": "Automatic verification of your tax declaration",
+    "automatic-tax-p1": "Vous pouvez accepter ou refuser la vérification des données suivantes vous concernant ainsi que vos colocataire(s), partenaire et garant(s) le cas échéant :",
+    "automatic-tax-l1": "état civil",
+    "automatic-tax-l2": "adresse déclarée au 1er janvier",
+    "automatic-tax-l3": "situation du foyer fiscal",
+    "automatic-tax-l4": "détail des revenus",
+    "automatic-tax-p2-1": "Si vous acceptez la vérification automatique la mention",
+    "automatic-tax-p2-2": " \"Revenu fiscal certifié auprès des services des impôts\" ",
+    "automatic-tax-p2-3": "figurera sur votre dossier devant chaque avis d’imposition et contribuera à renforcer l'image de votre dossier auprès des bailleurs."
+  },
+  "fr": {
+    "forbid-tax": "Je refuse",
+    "allow-tax": "J'accepte la vérification automatique",
+    "automatic-tax-title": "Vérification automatique des revenus fiscaux",
+    "automatic-tax-p1": "Vous pouvez accepter ou refuser la vérification des données suivantes vous concernant ainsi que vos colocataire(s), partenaire et garant(s) le cas échéant :",
+    "automatic-tax-l1": "état civil",
+    "automatic-tax-l2": "adresse déclarée au 1er janvier",
+    "automatic-tax-l3": "situation du foyer fiscal",
+    "automatic-tax-l4": "détail des revenus",
+    "automatic-tax-p2-1": "Si vous acceptez la vérification automatique la mention",
+    "automatic-tax-p2-2": " \"Revenu fiscal certifié auprès des services des impôts\" ",
+    "automatic-tax-p2-3": "figurera sur votre dossier devant chaque avis d’imposition et contribuera à renforcer l'image de votre dossier auprès des bailleurs."
+  }
 }
 </i18n>
