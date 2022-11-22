@@ -23,7 +23,7 @@
           <BigRadio
             :val="'disallow'"
             :value="allowTax"
-            @input="onSelectTaxAuth"
+            @input="onChoice"
             class="fr-col-md-3 fr-col-12 disallow-btn no-max-width"
             :class="{ selected: allowTax === 'disallow' }"
           >
@@ -32,7 +32,7 @@
           <BigRadio
             :val="'allow'"
             :value="allowTax"
-            @input="onSelectTaxAuth"
+            @input="onChoice"
             class="fr-col-md-9 fr-col-12 blue-text no-max-width"
             :class="{ selected: allowTax === 'allow' }"
           >
@@ -41,6 +41,18 @@
         </div>
       </div>
     </NakedCard>
+    <ConfirmModal
+      v-if="showConfirmDeclineModal"
+      :validateBtnText="$t('modal-disable-button').toString()"
+      @valid="confirmDecline()"
+      @cancel="showConfirmDeclineModal = false"
+    >
+      <span>
+        {{ $t("modal-warning-text-1") }}
+        <span class="bold-italic">{{ $t("automatic-tax-p2-2") }}</span>
+        {{ $t("modal-warning-text-2") }}
+      </span>
+    </ConfirmModal>
   </div>
 </template>
 
@@ -49,11 +61,13 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import axios from "axios";
+import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 
 @Component({
   components: {
     BigRadio,
-    NakedCard
+    NakedCard,
+    ConfirmModal
   }
 })
 export default class AllowCheckTax extends Vue {
@@ -61,30 +75,59 @@ export default class AllowCheckTax extends Vue {
   @Prop({ default: false }) franceConnect!: boolean;
   @Prop() tenantId?: number;
 
-  async onSelectTaxAuth(allowTax: string) {
+  showConfirmDeclineModal = false;
+
+  onChoice(choice: string) {
+    if (choice === this.allowTax) {
+      return;
+    }
+    if (choice === "disallow") {
+      this.showConfirmDeclineModal = true;
+    }
+    if (choice === "allow") {
+      this.allowAutomaticCheck();
+    }
+  }
+
+  private allowAutomaticCheck() {
     if (
-      allowTax === "allow" &&
       this.franceConnect &&
       process.env.VUE_APP_FEATURE_FLIPPING_DGFIP_API === "true"
     ) {
-      if (!this.$route.query.refresh) {
-        const currentUrl =
-          process.env.VUE_APP_FULL_TENANT_URL + this.$route.fullPath;
-        const link = await axios.post(
-          `https://${process.env.VUE_APP_API_URL}/api/tenant/linkFranceConnect`,
-          { url: currentUrl + "?refresh=true" }
-        );
-        window.location.href = link.data;
-        return;
-      }
+      this.refreshFranceConnectToken();
     }
-    const params: { allowTax: string; tenantId?: number } = { allowTax };
+    this.saveChoice("allow");
+  }
+
+  private confirmDecline() {
+    this.saveChoice("disallow");
+    this.showConfirmDeclineModal = false;
+  }
+
+  private saveChoice(allowTax: string) {
+    const params: { allowTax: string; tenantId?: number } = {
+      allowTax: allowTax
+    };
     if (this.tenantId !== null) {
       params.tenantId = this.tenantId;
     }
     this.$store.dispatch("saveTaxAuth", params).then(() => {
       this.$emit("allow-tax-callback", allowTax);
     });
+    this.allowTax = allowTax;
+  }
+
+  private async refreshFranceConnectToken() {
+    if (!this.$route.query.refresh) {
+      const currentUrl =
+        process.env.VUE_APP_FULL_TENANT_URL + this.$route.fullPath;
+      const link = await axios.post(
+        `https://${process.env.VUE_APP_API_URL}/api/tenant/linkFranceConnect`,
+        { url: currentUrl + "?refresh=true" }
+      );
+      window.location.href = link.data;
+      return;
+    }
   }
 }
 </script>
@@ -153,7 +196,8 @@ export default class AllowCheckTax extends Vue {
     "automatic-tax-l4": "détail des revenus",
     "automatic-tax-p2-1": "Si vous acceptez la vérification automatique la mention",
     "automatic-tax-p2-2": " \"Revenu fiscal certifié auprès des services des impôts\" ",
-    "automatic-tax-p2-3": "figurera sur votre dossier devant chaque avis d’imposition et contribuera à renforcer l'image de votre dossier auprès des bailleurs."
+    "automatic-tax-p2-3": "figurera sur votre dossier devant chaque avis d’imposition et contribuera à renforcer l'image de votre dossier auprès des bailleurs.",
+    "disable-automatic-check": "Disable automatic verification"
   },
   "fr": {
     "forbid-tax": "Je refuse",
@@ -166,7 +210,10 @@ export default class AllowCheckTax extends Vue {
     "automatic-tax-l4": "détail des revenus",
     "automatic-tax-p2-1": "Si vous acceptez la vérification automatique la mention",
     "automatic-tax-p2-2": " \"Revenu fiscal certifié auprès des services des impôts\" ",
-    "automatic-tax-p2-3": "figurera sur votre dossier devant chaque avis d’imposition et contribuera à renforcer l'image de votre dossier auprès des bailleurs."
+    "automatic-tax-p2-3": "figurera sur votre dossier devant chaque avis d’imposition et contribuera à renforcer l'image de votre dossier auprès des bailleurs.",
+    "modal-warning-text-1": "Si vous désactivez la vérification automatique, la mention",
+    "modal-warning-text-2": "ne figurera plus sur votre dossier, tant pour vous que pour vos garants, et l’ensemble des données récupérées auprès des services des impôts ne seront pas conservées.",
+    "modal-disable-button": "Désactiver la vérification automatique"
   }
 }
 </i18n>
