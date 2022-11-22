@@ -58,7 +58,9 @@
       v-if="residencyDocument.key || residencyFiles().length > 0"
     >
       <div class="fr-mb-3w">
-        <p v-html="$t(residencyDocument.explanationText)"></p>
+        <p
+          v-html="$t(`explanation-text.${guarantorKey()}.${residencyDocument.key}`)"
+        ></p>
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
@@ -126,7 +128,7 @@ import { cloneDeep } from "lodash";
     })
   }
 })
-export default class Residency extends Vue {
+export default class GuarantorResidency extends Vue {
   @Prop() tenantId?: string;
 
   selectedGuarantor!: Guarantor;
@@ -338,6 +340,13 @@ export default class Residency extends Vue {
       });
       this.files.splice(firstIndex, 1);
     }
+  }
+
+  guarantorKey() {
+    if (this.tenantId != null) {
+      return "cotenant-guarantor";
+    }
+    return "guarantor";
   }
 }
 </script>

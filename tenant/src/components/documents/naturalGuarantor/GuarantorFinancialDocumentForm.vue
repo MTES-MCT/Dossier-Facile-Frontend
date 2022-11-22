@@ -151,7 +151,15 @@
           "
         >
           <div class="fr-mb-3w">
-            {{ financialDocument.documentType.explanationText }}
+            <p
+              v-html="
+                $t(
+                  `explanation-text.${guarantorKey()}.${
+                    financialDocument.documentType.key
+                  }`
+                )
+              "
+            ></p>
           </div>
           <AllDeclinedMessages
             class="fr-mb-3w"
@@ -592,6 +600,13 @@ export default class GuarantorFinancialDocumentForm extends Vue {
       return "customText-social";
     }
     return "";
+  }
+
+  guarantorKey() {
+    if (this.tenantId != null) {
+      return "cotenant-guarantor";
+    }
+    return "guarantor";
   }
 }
 </script>

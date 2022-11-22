@@ -130,6 +130,7 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import { cloneDeep } from "lodash";
+import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 
 extend("required", {
   ...required
@@ -290,46 +291,7 @@ export default class RepresentativeIdentification extends Vue {
     return existingFiles;
   }
 
-  // TODO : extract duplicate code
-  documents: DocumentType[] = [
-    {
-      key: "identity-card",
-      value: "FRENCH_IDENTITY_CARD",
-      explanationText: "Attention veillez à ajouter votre pièce recto-verso !",
-      acceptedProofs: ["Carte d’identité française recto-verso"],
-      refusedProofs: [
-        "Carte d’identité sans le verso ou périmée",
-        "Tout autre document"
-      ]
-    },
-    {
-      key: "passport",
-      value: "FRENCH_PASSPORT",
-      acceptedProofs: ["Passport français (pages 2 et 3)"],
-      refusedProofs: ["Tout autre document"]
-    },
-    {
-      key: "permit",
-      value: "FRENCH_RESIDENCE_PERMIT",
-      acceptedProofs: [
-        "Carte de séjour en France temporaire recto-verso en cours de validité, ou périmée si elle est accompagnée du récépissé de la demande de renouvellement de carte de séjour",
-        "Visa de travail ou d’études temporaire en France"
-      ],
-      refusedProofs: ["Tout autre document"]
-    },
-    {
-      key: "other",
-      value: "OTHER_IDENTIFICATION",
-      acceptedProofs: [
-        "Carte d’identité étrangère recto-verso",
-        "Passeport étranger (pages 2 et 3)",
-        "Permis de conduire français ou étranger recto-verso",
-        "Carte de résident",
-        "Carte de ressortissant d’un État membre de l’UE ou de l’EEE"
-      ],
-      refusedProofs: ["Tout autre document"]
-    }
-  ];
+  documents = DocumentTypeConstants.REPRESENTATIVE_IDENTIFICATION;
 }
 </script>
 

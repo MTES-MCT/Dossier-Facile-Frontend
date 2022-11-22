@@ -50,11 +50,12 @@
       class="fr-p-md-5w fr-mt-3w"
       v-if="identificationDocument.key || identificationFiles().length > 0"
     >
-      <div v-if="identificationDocument.explanationText">
-        <div
-          class="fr-mb-1w"
-          v-html="identificationDocument.explanationText"
-        ></div>
+      <div class="fr-mb-3w">
+        <p
+          v-html="
+            $t(`explanation-text.guarantor.${identificationDocument.key}`)
+          "
+        ></p>
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"

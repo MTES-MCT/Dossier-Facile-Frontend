@@ -54,7 +54,9 @@
       v-if="professionalDocument.key || professionalFiles().length > 0"
     >
       <div class="fr-mb-3w">
-        {{ professionalDocument.explanationText }}
+        <p
+          v-html="$t(`explanation-text.tenant.${professionalDocument.key}`)"
+        ></p>
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"

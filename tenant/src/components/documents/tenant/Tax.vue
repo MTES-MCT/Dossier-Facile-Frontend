@@ -86,7 +86,9 @@
         "
       >
         <div class="fr-mb-3w fr-mt-3w" v-if="taxDocument.key === 'my-name'">
-          <div v-html="taxDocument.explanationText"></div>
+          <div class="fr-mb-3w">
+            <p v-html="$t(`explanation-text.tenant.${taxDocument.key}`)"></p>
+          </div>
           <div
             class="fr-background-contrast--info fr-p-2w fr-mt-2w warning-box"
           >

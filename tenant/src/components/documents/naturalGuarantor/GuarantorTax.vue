@@ -109,7 +109,9 @@
         "
       >
         <div class="fr-mb-3w">
-          <p v-html="taxDocument.explanationText"></p>
+          <p
+            v-html="$t(`explanation-text.${guarantorKey()}.${taxDocument.key}`)"
+          ></p>
         </div>
         <AllDeclinedMessages
           class="fr-mb-3w"
@@ -213,7 +215,7 @@ extend("is", {
     })
   }
 })
-export default class Tax extends Vue {
+export default class GuarantorTax extends Vue {
   @Prop() tenantId?: string;
   selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
@@ -477,6 +479,13 @@ export default class Tax extends Vue {
 
   goBack() {
     this.$emit("on-back");
+  }
+
+  guarantorKey() {
+    if (this.tenantId != null) {
+      return "cotenant-guarantor";
+    }
+    return "guarantor";
   }
 }
 </script>

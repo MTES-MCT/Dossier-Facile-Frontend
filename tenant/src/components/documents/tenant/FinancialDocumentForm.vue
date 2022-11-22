@@ -133,7 +133,13 @@
           >
             <div>
               <div class="fr-mb-3w">
-                {{ financialDocument.documentType.explanationText }}
+                <p
+                  v-html="
+                    $t(
+                      `explanation-text.guarantor.${financialDocument.documentType.key}`
+                    )
+                  "
+                ></p>
               </div>
               <AllDeclinedMessages
                 class="fr-mb-3w"

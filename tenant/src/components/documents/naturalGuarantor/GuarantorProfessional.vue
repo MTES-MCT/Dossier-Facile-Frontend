@@ -62,7 +62,11 @@
       v-if="professionalDocument.key || professionalFiles().length > 0"
     >
       <div class="fr-mb-3w">
-        {{ professionalDocument.explanationText }}
+        <p
+          v-html="
+            $t(`explanation-text.${guarantorKey()}.${professionalDocument.key}`)
+          "
+        ></p>
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
@@ -142,7 +146,7 @@ extend("select", {
     })
   }
 })
-export default class Professional extends Vue {
+export default class GuarantorProfessional extends Vue {
   @Prop() tenantId?: string;
 
   selectedGuarantor!: Guarantor;
@@ -335,6 +339,13 @@ export default class Professional extends Vue {
       });
       this.files.splice(firstIndex, 1);
     }
+  }
+
+  guarantorKey() {
+    if (this.tenantId != null) {
+      return "cotenant-guarantor";
+    }
+    return "guarantor";
   }
 }
 </script>
