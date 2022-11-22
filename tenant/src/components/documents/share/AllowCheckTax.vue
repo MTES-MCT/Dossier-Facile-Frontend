@@ -14,11 +14,11 @@
           <li>{{ $t("automatic-tax-l3") }}</li>
           <li>{{ $t("automatic-tax-l4") }}</li>
         </ul>
-        <div>
-          {{ $t("automatic-tax-p2-1") }}
-          <span class="bold-italic">{{ $t("automatic-tax-p2-2") }}</span>
-          {{ $t("automatic-tax-p2-3") }}
-        </div>
+        <i18n path="automatic-tax-p2" tag="div">
+          <template v-slot:label>
+            <span class="bold-italic">{{ $t("dgfip-approved-label") }}</span>
+          </template>
+        </i18n>
         <div class="tax-btn-container">
           <BigRadio
             :val="'disallow'"
@@ -43,15 +43,18 @@
     </NakedCard>
     <ConfirmModal
       v-if="showConfirmDeclineModal"
-      :validateBtnText="$t('modal-disable-button').toString()"
+      :validateBtnText="$t('modal.disable-button').toString()"
       @valid="confirmDecline()"
       @cancel="showConfirmDeclineModal = false"
     >
-      <span>
-        {{ $t("modal-warning-text-1") }}
-        <span class="bold-italic">{{ $t("automatic-tax-p2-2") }}</span>
-        {{ $t("modal-warning-text-2") }}
-      </span>
+      <i18n path="modal.warning-text" tag="p">
+        <template v-slot:check>
+          <span class="fr-text--bold">{{ $t("modal.automatic-check") }}</span>
+        </template>
+        <template v-slot:label>
+          <span class="bold-italic">{{ $t("dgfip-approved-label") }}</span>
+        </template>
+      </i18n>
     </ConfirmModal>
   </div>
 </template>
@@ -194,10 +197,13 @@ export default class AllowCheckTax extends Vue {
     "automatic-tax-l2": "adresse déclarée au 1er janvier",
     "automatic-tax-l3": "situation du foyer fiscal",
     "automatic-tax-l4": "détail des revenus",
-    "automatic-tax-p2-1": "Si vous acceptez la vérification automatique la mention",
-    "automatic-tax-p2-2": " \"Revenu fiscal certifié auprès des services des impôts\" ",
-    "automatic-tax-p2-3": "figurera sur votre dossier devant chaque avis d’imposition et contribuera à renforcer l'image de votre dossier auprès des bailleurs.",
-    "disable-automatic-check": "Disable automatic verification"
+    "automatic-tax-p2": "Si vous acceptez la vérification automatique la mention {label} figurera sur votre dossier devant chaque avis d’imposition et contribuera à renforcer l'image de votre dossier auprès des bailleurs.",
+    "dgfip-approved-label": "\"Revenu fiscal certifié auprès des services des impôts\"",
+    "modal" : {
+      "warning-text": "Si vous désactivez {check}, la mention {label} ne figurera plus sur votre dossier, tant pour vous que pour vos garants, et l’ensemble des données récupérées auprès des services des impôts ne seront pas conservées.",
+      "automatic-check": "la vérification automatique",
+      "disable-button": "Disable automatic verification"
+    }
   },
   "fr": {
     "forbid-tax": "Je refuse",
@@ -208,12 +214,13 @@ export default class AllowCheckTax extends Vue {
     "automatic-tax-l2": "adresse déclarée au 1er janvier",
     "automatic-tax-l3": "situation du foyer fiscal",
     "automatic-tax-l4": "détail des revenus",
-    "automatic-tax-p2-1": "Si vous acceptez la vérification automatique la mention",
-    "automatic-tax-p2-2": " \"Revenu fiscal certifié auprès des services des impôts\" ",
-    "automatic-tax-p2-3": "figurera sur votre dossier devant chaque avis d’imposition et contribuera à renforcer l'image de votre dossier auprès des bailleurs.",
-    "modal-warning-text-1": "Si vous désactivez la vérification automatique, la mention",
-    "modal-warning-text-2": "ne figurera plus sur votre dossier, tant pour vous que pour vos garants, et l’ensemble des données récupérées auprès des services des impôts ne seront pas conservées.",
-    "modal-disable-button": "Désactiver la vérification automatique"
+    "automatic-tax-p2": "Si vous acceptez la vérification automatique la mention {label} figurera sur votre dossier devant chaque avis d’imposition et contribuera à renforcer l'image de votre dossier auprès des bailleurs.",
+    "dgfip-approved-label": "\"Revenu fiscal certifié auprès des services des impôts\"",
+    "modal" : {
+      "warning-text": "Si vous désactivez {check}, la mention {label} ne figurera plus sur votre dossier, tant pour vous que pour vos garants, et l’ensemble des données récupérées auprès des services des impôts ne seront pas conservées.",
+      "automatic-check": "la vérification automatique",
+      "disable-button": "Désactiver la vérification automatique"
+    }
   }
 }
 </i18n>
