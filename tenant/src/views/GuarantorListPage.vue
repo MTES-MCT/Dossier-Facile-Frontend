@@ -175,6 +175,7 @@ export default class GuarantorListPage extends Vue {
         if (!this.user.guarantors?.length || 0 >= 1) {
           this.$router.push({ name: "GuarantorChoice" });
         }
+        this.isRemoveGuarantor = false;
       },
       () => {
         Vue.toasted.global.error();
