@@ -86,7 +86,6 @@ export default class GuarantorListPage extends Vue {
   isRemoveGuarantor = false;
 
   beforeMount() {
-    this.user.guarantors = [];
     this.$store.commit("setSelectedGuarantor", undefined);
   }
 
