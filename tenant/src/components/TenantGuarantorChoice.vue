@@ -10,7 +10,10 @@
         <NakedCard class="fr-p-md-5w">
           <div v-if="!isMobile()">
             <div class="text-bold fr-mb-1w">
-              <h1 class="fr-h5">
+              <h1 class="fr-h5" v-if="isCotenant">
+                {{ $t("cotenant-guarantor") }}
+              </h1>
+              <h1 class="fr-h5" v-else>
                 {{ $t("my-guarantor") }}
               </h1>
             </div>
@@ -149,6 +152,7 @@ import GuarantorChoiceHelp from "./helps/GuarantorChoiceHelp.vue";
 })
 export default class TenantGuarantorChoice extends Vue {
   @Prop() tenantId!: number;
+  @Prop({ default: false }) isCotenant!: boolean;
   tmpGuarantorType = "";
 
   beforeMount() {
@@ -210,6 +214,7 @@ export default class TenantGuarantorChoice extends Vue {
   isMobile() {
     return UtilsService.isMobile();
   }
+
 }
 </script>
 
@@ -323,6 +328,7 @@ h2 {
 {
 "en": {
   "my-guarantor": "My guarantor",
+  "cotenant-guarantor": "His/her guarantor",
   "identification": "Pièce d’identité",
   "residency": "Justificatif de domicile",
   "professional": "Justificatif de situation professionnelle",
@@ -349,6 +355,7 @@ h2 {
 },
 "fr": {
   "my-guarantor": "Mon garant",
+  "cotenant-guarantor": "Son garant",
   "identification": "Pièce d’identité",
   "residency": "Justificatif de domicile",
   "professional": "Justificatif de situation professionnelle",

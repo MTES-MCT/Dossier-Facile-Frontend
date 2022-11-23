@@ -3,6 +3,7 @@
     <div v-if="!guarantors || guarantors.length == 0">
       <TenantGuarantorChoice
         :tenantId="getTenantId()"
+        :isCotenant="true"
         @on-back="goBack"
         @on-next="goNext"
         @on-select="updateGuarantorType"

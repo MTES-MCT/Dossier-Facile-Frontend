@@ -70,7 +70,7 @@ export default class CoTenantProfessional extends Vue {
   "select-is-empty": "Item selection required"
 },
 "fr": {
-  "title": "La situation d’hébergement actuelle de votre conjoint",
+  "title": "La situation professionnelle actuelle de votre conjoint",
   "cdi": "CDI",
   "cdi-trial": "CDI (période d’essai)",
   "cdd": "CDD",

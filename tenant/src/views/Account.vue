@@ -261,7 +261,6 @@ import PartnersSection from "@/components/account/PartnersSection.vue";
 import { UtilsService } from "@/services/UtilsService";
 import InfoCard from "@/components/account/InfoCard.vue";
 import TenantPanel from "@/components/account/TenantPanel.vue";
-import TenantGuarantorsPage from "./TenantGuarantorsPage.vue";
 
 extend("required", {
   ...required,
