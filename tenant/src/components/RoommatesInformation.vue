@@ -71,7 +71,10 @@
         </div>
         <div class="fr-col-12 fr-col-xl-7 fr-mt-2w">
           <label class="fr-label fr-mb-1w">{{ $t("roommateEmail") }}</label>
-          <validation-provider rules="email" v-slot="{ errors }">
+          <validation-provider
+            :rules="{ email: true, required: value.length == 0 }"
+            v-slot="{ errors }"
+          >
             <div
               class="fr-input-group"
               :class="errors[0] ? 'fr-input-group--error' : ''"
@@ -133,7 +136,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
-import { email, is } from "vee-validate/dist/rules";
+import { required, email, is } from "vee-validate/dist/rules";
 import { User } from "df-shared/src/models/User";
 import { mapGetters, mapState } from "vuex";
 import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.vue";
@@ -151,6 +154,11 @@ extend("is", {
   ...is,
   message: "field-required",
   validate: value => !!value
+});
+
+extend("required", {
+  ...required,
+  message: "field-required"
 });
 
 @Component({
@@ -197,7 +205,7 @@ export default class RoommatesInformation extends Vue {
         coTenant.email = this.newRoommate;
         this.$store.commit("createCoTenant", this.newRoommate);
         this.value.push(coTenant);
-        this.$emit("input",  this.value);
+        this.$emit("input", this.value);
         this.newRoommate = "";
       } else {
         this.showEmailExists = true;

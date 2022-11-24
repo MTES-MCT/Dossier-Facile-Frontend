@@ -52,7 +52,9 @@
                   @click="edit()"
                   type="button"
                 >
-                  <span class="color--primary material-icons md-24" aria-hidden="true"
+                  <span
+                    class="color--primary material-icons md-24"
+                    aria-hidden="true"
                     >delete_forever</span
                   >
                 </button>
@@ -63,16 +65,22 @@
 
         <div class="fr-col-12 fr-mt-2w" v-else>
           <div class="fr-col-12 fr-mb-3w">
-            <label class="fr-label fr-mb-1w">{{ $t("spouseLastName") }}<span style="color:red">*</span></label>
-            <validation-provider v-slot="{ errors }">
+            <label class="fr-label fr-mb-1w"
+              >{{ $t("spouseLastName") }}
+              <span style="color:red">*</span></label
+            >
+            <validation-provider rules="required" v-slot="{ errors, valid }">
               <div
                 class="fr-input-group"
                 :class="errors[0] ? 'fr-input-group--error' : ''"
               >
                 <input
                   v-model="coTenant.lastName"
-                  class="validate-required form-control fr-input"
-                  :class="errors[0] ? 'fr-input--error' : ''"
+                  class="form-control validate-required fr-input"
+                  :class="{
+                    'fr-input--valid': valid,
+                    'fr-input--error': errors[0]
+                  }"
                   name="coTenantLastName"
                   type="text"
                   @input="handleInput"
@@ -86,8 +94,11 @@
             </validation-provider>
           </div>
           <div class="fr-col-12 fr-mb-3w">
-            <label class="fr-label fr-mb-1w">{{ $t("spouseFirstName") }}<span style="color:red">*</span></label>
-            <validation-provider v-slot="{ errors }">
+            <label class="fr-label fr-mb-1w"
+              >{{ $t("spouseFirstName")
+              }}<span style="color:red">*</span></label
+            >
+            <validation-provider rules="required" v-slot="{ errors }">
               <div
                 class="fr-input-group"
                 :class="errors[0] ? 'fr-input-group--error' : ''"
@@ -167,7 +178,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
-import { email, is } from "vee-validate/dist/rules";
+import { required, email, is } from "vee-validate/dist/rules";
 import { mapGetters, mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
@@ -178,6 +189,11 @@ import CoupleInformationHelp from "./helps/CoupleInformationHelp.vue";
 extend("email", {
   ...email,
   message: "email-not-valid"
+});
+
+extend("required", {
+  ...required,
+  message: "field-required"
 });
 
 extend("is", {

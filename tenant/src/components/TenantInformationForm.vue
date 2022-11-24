@@ -63,7 +63,7 @@
     </div>
 
     <div v-if="isOwner()">
-      <ValidationObserver v-slot="{ validate }">
+      <ValidationObserver ref="observer" v-slot="{ validate }">
         <form
           name="form"
           @submit.prevent="validate().then(handleOthersInformation)"
@@ -114,8 +114,7 @@
                     >
                       <div class="fr-grid-col spa">
                         <div class="icon-container">
-                          <span class="material-icons md-36"
-                                aria-hidden="true"
+                          <span class="material-icons md-36" aria-hidden="true"
                             >groups</span
                           >
                         </div>
@@ -127,21 +126,22 @@
               </fieldset>
             </div>
           </NakedCard>
+
+          <CoupleInformation
+            v-model="coTenants"
+            class="fr-mt-2w"
+            v-if="applicationType === 'COUPLE'"
+          >
+          </CoupleInformation>
+          <RoommatesInformation
+            v-model="coTenants"
+            class="fr-mt-2w"
+            v-if="applicationType === 'GROUP'"
+          >
+          </RoommatesInformation>
           <ProfileFooter @on-back="goBack"></ProfileFooter>
         </form>
       </ValidationObserver>
-      <CoupleInformation
-        v-model="coTenants"
-        class="fr-mt-2w"
-        v-if="applicationType === 'COUPLE'"
-      >
-      </CoupleInformation>
-      <RoommatesInformation
-        v-model="coTenants"
-        class="fr-mt-2w"
-        v-if="applicationType === 'GROUP'"
-      >
-      </RoommatesInformation>
     </div>
     <ConfirmModal
       v-if="isDeleteGroupVisible"
@@ -227,48 +227,12 @@ export default class TenantInformationForm extends Vue {
     }
   }
 
-  handleOthersInformation() {
-    if (
-      (this.applicationType === "COUPLE" && !this.spouseAuthorize) ||
-      (this.applicationType === "GROUP" && !this.coTenantAuthorize) ||
-      !this.isOwner()
-    ) {
-      return;
-    }
-    // check Tenant validity
-    let hasError = false;
-    this.coTenants
-      .filter((r: User) => {
-        return (
-          ((r.firstName?.length || 0) === 0 ||
-            (r.lastName?.length || 0) == 0) &&
-          r.email.length === 0
-        );
-      })
-      .forEach((r: User) => {
-        if (this.applicationType === "COUPLE") {
-          this.$toasted.show(this.$i18n.t("couple-email-required").toString(), {
-            type: "error",
-            duration: 7000
-          });
-          hasError = hasError || true;
-          return;
-        }
-        if (this.applicationType === "GROUP") {
-          this.$toasted.show(
-            this.$i18n.t("roommate-email-required").toString(),
-            {
-              type: "error",
-              duration: 7000
-            }
-          );
-          hasError = hasError || true;
-          return;
-        }
-      });
-    if (hasError) {
-      return;
-    }
+  async handleOthersInformation() {
+    const isValid = await (this.$refs.observer as Vue & {
+      validate: () => boolean;
+    }).validate();
+
+    if (!isValid) return;
 
     if (this.hasNothingToSave()) {
       this.$router.push({
