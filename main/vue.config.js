@@ -47,6 +47,14 @@ module.exports = {
       urls: getSitemapUrls()
     }
   },
+  chainWebpack: config => {
+        config
+            .plugin('html')
+            .tap(args => {
+                args[0].title = "DossierFacile";
+                return args;
+            })
+  },
   configureWebpack: config => {
     if (process.env.NODE_ENV !== "production") return;
 
