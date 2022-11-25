@@ -60,25 +60,36 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import axios from "axios";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
+import { mapState } from "vuex";
+import { User } from "df-shared/src/models/User";
 
 @Component({
   components: {
     BigRadio,
     NakedCard,
     ConfirmModal
+  },
+  computed: {
+    ...mapState({
+      user: "user"
+    })
   }
 })
 export default class AllowCheckTax extends Vue {
-  @Prop({ default: "" }) allowTax?: string;
-  @Prop({ default: false }) franceConnect!: boolean;
-  @Prop() tenantId?: number;
-
+  user!: User;
+  allowTax = "";
   showConfirmDeclineModal = false;
+
+  mounted() {
+    if (this.user.allowCheckTax !== undefined) {
+      this.allowTax = this.user.allowCheckTax ? "allow" : "disallow";
+    }
+  }
 
   onChoice(choice: string) {
     if (choice === this.allowTax) {
@@ -94,7 +105,7 @@ export default class AllowCheckTax extends Vue {
 
   private allowAutomaticCheck() {
     if (
-      this.franceConnect &&
+      this.user.franceConnect &&
       process.env.VUE_APP_FEATURE_FLIPPING_DGFIP_API === "true"
     ) {
       this.refreshFranceConnectToken();
@@ -108,15 +119,7 @@ export default class AllowCheckTax extends Vue {
   }
 
   private saveChoice(allowTax: string) {
-    const params: { allowTax: string; tenantId?: number } = {
-      allowTax: allowTax
-    };
-    if (this.tenantId !== null) {
-      params.tenantId = this.tenantId;
-    }
-    this.$store.dispatch("saveTaxAuth", params).then(() => {
-      this.$emit("allow-tax-callback", allowTax);
-    });
+    this.$store.dispatch("saveTaxAuth", { allowTax });
     this.allowTax = allowTax;
   }
 

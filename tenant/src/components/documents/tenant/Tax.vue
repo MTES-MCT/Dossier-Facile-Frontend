@@ -67,23 +67,9 @@
           </div>
         </form>
       </NakedCard>
-      <div
-        class="fr-col-12 fr-mt-3w"
-        v-if="taxDocument.key && taxDocument.key === 'my-name'"
-      >
-        <AllowCheckTax
-          :allow-tax="allowTax"
-          :france-connect="user.franceConnect"
-          @allow-tax-callback="updateAllowTax"
-        ></AllowCheckTax>
-      </div>
       <NakedCard
         class="fr-p-md-5w fr-mt-3w"
-        v-if="
-          ((allowTax === 'allow' || allowTax === 'disallow') &&
-            taxDocument.key === 'my-name') ||
-            taxFiles().length > 0
-        "
+        v-if="taxDocument.key === 'my-name' || taxFiles().length > 0"
       >
         <div class="fr-mb-3w fr-mt-3w" v-if="taxDocument.key === 'my-name'">
           <div class="fr-mb-3w">
@@ -124,12 +110,7 @@
             @remove="remove(file)"
           />
         </div>
-        <div
-          v-if="
-            taxDocument.key === 'my-name' &&
-              (allowTax === 'allow' || allowTax === 'disallow')
-          "
-        >
+        <div v-if="taxDocument.key === 'my-name'">
           <div class="fr-mb-3w">
             <FileUpload
               :current-status="fileUploadStatus"
@@ -230,7 +211,6 @@ export default class Tax extends Vue {
   customText = "";
 
   isDocDeleteVisible = false;
-  allowTax = "";
 
   getTaxLocalStorageKey() {
     return "tax_" + this.user.email;
@@ -267,24 +247,6 @@ export default class Tax extends Vue {
       this.documentDeniedReasons = cloneDeep(
         this.tenantTaxDocument.documentDeniedReasons
       );
-    }
-
-    if (this.user.allowCheckTax === true) {
-      this.allowTax = "allow";
-    }
-    if (this.user.allowCheckTax === false) {
-      this.allowTax = "disallow";
-    }
-    if (this.user.franceConnect) {
-      if (this.$route.query.refresh) {
-        RegisterService.getFranceConnectToken().then((fcToken: string) => {
-          this.$store.dispatch("saveTaxAuth", {
-            allowTax: this.allowTax,
-            fcToken: fcToken,
-            tenantId: this.user.id
-          });
-        });
-      }
     }
   }
 
@@ -487,10 +449,6 @@ export default class Tax extends Vue {
       });
       this.files.splice(firstIndex, 1);
     }
-  }
-
-  updateAllowTax(allowTax: string) {
-    this.allowTax = allowTax;
   }
 }
 </script>

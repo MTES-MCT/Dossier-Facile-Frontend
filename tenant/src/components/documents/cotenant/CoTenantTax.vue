@@ -32,17 +32,6 @@
             />
           </div>
         </NakedCard>
-        <div
-          class="fr-col-12 fr-mt-3w"
-          v-if="documentType ? documentType.key === 'my-name' : false"
-        >
-          <AllowCheckTax
-            :allow-tax="allowTax"
-            :france-connect="false"
-            :tenantId="coTenantId"
-            @allow-tax-callback="updateAllowTax"
-          ></AllowCheckTax>
-        </div>
       </template>
     </DocumentDownloader>
     <FooterContainer>
@@ -65,8 +54,6 @@ import { ref } from "@vue/reactivity";
 import FooterContainer from "../../footer/FooterContainer.vue";
 import BackNext from "../../footer/BackNext.vue";
 import AllowCheckTax from "../share/AllowCheckTax.vue";
-import { UtilsService } from "@/services/UtilsService";
-import { User } from "df-shared/src/models/User";
 
 extend("is", {
   ...is,
@@ -91,32 +78,16 @@ export default class CoTenantTax extends Vue {
   showDownloader = ref(false);
   forceShowDownloader = ref(false);
   document!: DfDocument;
-  allowTax = "";
-  selectedCoTenant!: User;
-
-  beforeMount() {
-    this.selectedCoTenant = UtilsService.getTenant(Number(this.coTenantId));
-    if (this.selectedCoTenant.allowCheckTax === true) {
-      this.allowTax = "allow";
-    }
-    if (this.selectedCoTenant.allowCheckTax === false) {
-      this.allowTax = "disallow";
-    }
-  }
 
   changeDocument(docType?: DocumentType, doc?: DfDocument) {
     this.documentType = docType;
     this.document = doc as DfDocument;
-    this.showDownloader.value =
-      this.allowTax !== "" && this.documentType?.key === "my-name";
-
-    this.forceShowDownloader.value =
-      this.allowTax !== "" && this.documentType?.key === "my-name";
+    this.showDownloader.value = this.documentType?.key === "my-name";
+    this.forceShowDownloader.value = this.documentType?.key === "my-name";
   }
 
   enrichFormData(formData: FormData) {
     if (this.documentType?.key === "my-name") {
-      formData.append("allowTax", this.allowTax);
       formData.append("noDocument", "false");
     } else {
       formData.append("noDocument", "true");
@@ -168,12 +139,6 @@ export default class CoTenantTax extends Vue {
       .finally(() => {
         loader.hide();
       });
-  }
-
-  updateAllowTax(allowTax: string) {
-    this.allowTax = allowTax;
-    this.showDownloader.value =
-      this.allowTax !== "" && this.documentType?.key === "my-name";
   }
 }
 </script>
