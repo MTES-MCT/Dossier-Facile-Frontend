@@ -26,11 +26,9 @@ export const DocumentService = {
       return d.documentCategory === docType;
     });
   },
-  hasFile(docType: string) {
-    const document: DfDocument | undefined = this.hasDoc(
-      docType,
-      store.state.user
-    );
+  hasFile(docType: string, tenant?: User) {
+    const user = tenant ? store.state.user : tenant;
+    const document: DfDocument | undefined = this.hasDoc(docType, user);
     if (document === undefined || document.files === undefined) {
       return false;
     }

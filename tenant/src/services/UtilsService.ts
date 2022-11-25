@@ -9,6 +9,14 @@ export const UtilsService = {
       return t.tenantType === "CREATE";
     });
   },
+  getSpouse() {
+    if (store.state.user.apartmentSharing.applicationType === "COUPLE") {
+      return store.state.user.apartmentSharing.tenants.find((t: any) => {
+        return t.id != store.state.user.id;
+      });
+    }
+    return null;
+  },
   getTenant(id: number) {
     if (id === store.state.user.id) {
       return store.state.user;

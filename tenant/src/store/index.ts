@@ -23,7 +23,7 @@ export class DfState {
   user: User | null = null;
   selectedGuarantor = new Guarantor();
   status = { loggedIn: false };
-  messages: DfMessage[] = [];
+  messageList: DfMessage[][] = [];
   newMessage = 0;
   spouseAuthorize = false;
   coTenantAuthorize = false;
@@ -130,8 +130,11 @@ const store = new Vuex.Store({
       u.firstName = coTenant.lastName;
       state.user.apartmentSharing.tenants.push(u);
     },
-    updateMessages(state, messageList: DfMessage[]) {
-      state.messageList = messageList;
+    updateMessages(state, { tenantId, messageList }) {
+      if (state.messageList.length < messageList.length) {
+        state.newMessage = messageList.length - state.messageList.length;
+      }
+      state.messageList[tenantId] = messageList;
     },
     deleteRoommates(state, email) {
       const tenants = state.user.apartmentSharing.tenants.filter((t: User) => {
@@ -464,12 +467,27 @@ const store = new Vuex.Store({
     updateMessages({ commit }) {
       if (this.getters.isLoggedIn) {
         MessageService.updateMessages().then(data => {
-          commit("updateMessages", data.data);
+          commit("updateMessages", {
+            tenantId: this.state.user.id,
+            messageList: data.data
+          });
         });
+        const spouse = UtilsService.getSpouse();
+        if (spouse) {
+          MessageService.updateMessages(spouse.id).then(data => {
+            commit("updateMessages", {
+              tenantId: spouse.id,
+              messageList: data.data
+            });
+          });
+        }
       }
     },
-    sendMessage(_, message: string) {
-      return MessageService.postMessage({ messageBody: message }).then(() => {
+    sendMessage(_, { message, tenantId }) {
+      return MessageService.postMessage({
+        tenantId: tenantId,
+        messageBody: message
+      }).then(() => {
         this.dispatch("updateMessages");
       });
     },
