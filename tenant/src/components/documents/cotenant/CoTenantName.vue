@@ -244,7 +244,7 @@ export default class CoTenantName extends Vue {
   "lastname-placeholder": "ex: Dupont",
   "firstname-placeholder": "ex: Jean",
   "field-required": "Ce champ est requis",
-  "title": "Identité de mon cojoint",
+  "title": "Identité de mon conjoint",
   "subtitle": "Je renseigne le nom et prénom de mon conjoint"
 }
 }
