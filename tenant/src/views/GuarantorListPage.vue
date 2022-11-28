@@ -50,7 +50,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { mapGetters, mapState } from "vuex";
+import { mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
 import GuarantorFooter from "../components/footer/GuarantorFooter.vue";
 import GuarantorChoiceHelp from "../components/helps/GuarantorChoiceHelp.vue";

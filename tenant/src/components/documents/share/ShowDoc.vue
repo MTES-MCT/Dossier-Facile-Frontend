@@ -9,6 +9,9 @@
             v-if="!isImage() && isLoaded"
           ></PdfViewer>
         </div>
+        <div v-else>
+          <img slot="image" v-auth-image="file.preview" />
+        </div>
       </div>
     </div>
   </div>
