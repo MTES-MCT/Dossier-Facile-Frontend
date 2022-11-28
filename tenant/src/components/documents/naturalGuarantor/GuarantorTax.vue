@@ -74,39 +74,11 @@
               />
             </div>
           </div>
-          <div class="fr-col-12 fr-mt-3w" v-if="taxDocument.key === 'my-name'">
-            <validation-provider
-              rules="is"
-              v-slot="{ errors }"
-              class="fr-col-10"
-            >
-              <div
-                class="fr-checkbox-group bg-purple"
-                :class="errors[0] ? 'fr-input-group--error' : ''"
-              >
-                <input
-                  type="checkbox"
-                  id="acceptVerification"
-                  value="false"
-                  v-model="acceptVerification"
-                />
-                <label for="acceptVerification">{{
-                  $t("accept-verification")
-                }}</label>
-                <span class="fr-error-text" v-if="errors[0]">{{
-                  $t(errors[0])
-                }}</span>
-              </div>
-            </validation-provider>
-          </div>
         </form>
       </NakedCard>
       <NakedCard
         class="fr-p-md-5w fr-mt-3w"
-        v-if="
-          (acceptVerification && taxDocument.key === 'my-name') ||
-            taxFiles().length > 0
-        "
+        v-if="taxDocument.key === 'my-name' || taxFiles().length > 0"
       >
         <div class="fr-mb-3w">
           <p
@@ -147,7 +119,7 @@
             @remove="remove(file)"
           />
         </div>
-        <div class="fr-mb-3w" v-if="acceptVerification">
+        <div class="fr-mb-3w">
           <FileUpload
             :current-status="fileUploadStatus"
             @add-files="addFiles"
@@ -226,7 +198,6 @@ export default class GuarantorTax extends Vue {
   taxDocument = new DocumentType();
   documentDeniedReasons = new DocumentDeniedReasons();
 
-  acceptVerification = false;
   customText = "";
 
   documents = DocumentTypeConstants.GUARANTOR_TAX_DOCS;
@@ -317,9 +288,6 @@ export default class GuarantorTax extends Vue {
     if (localDoc !== undefined) {
       this.taxDocument = localDoc;
     }
-    if (this.taxDocument.key === "my-name" && this.taxFiles().length > 0) {
-      this.acceptVerification = true;
-    }
     if (this.guarantorTaxDocument()?.documentDeniedReasons) {
       this.documentDeniedReasons = cloneDeep(
         this.guarantorTaxDocument()?.documentDeniedReasons
@@ -352,9 +320,6 @@ export default class GuarantorTax extends Vue {
     if (!this.taxDocument.key) {
       return true;
     }
-    if (this.taxDocument.key === "my-name" && !this.acceptVerification) {
-      return false;
-    }
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
@@ -381,10 +346,6 @@ export default class GuarantorTax extends Vue {
       });
     }
     if (this.taxDocument.key === "my-name") {
-      formData.append(
-        "acceptVerification",
-        this.acceptVerification ? "true" : "false"
-      );
       formData.append("noDocument", "false");
     } else {
       formData.append("noDocument", "true");
@@ -445,20 +406,6 @@ export default class GuarantorTax extends Vue {
     return [...newFiles, ...existingFiles];
   }
 
-  isButtonDisabled() {
-    if (!this.taxDocument.key) {
-      return true;
-    }
-    if (this.taxDocument.key === "my-name") {
-      return this.files.length <= 0;
-    }
-    const localDoc = this.getLocalDoc();
-    if (localDoc && localDoc.key === this.taxDocument.key) {
-      return true;
-    }
-    return false;
-  }
-
   async remove(file: DfFile, silent = false) {
     if (file.path && file.id) {
       await RegisterService.deleteFile(file.id, silent);
@@ -511,7 +458,6 @@ export default class GuarantorTax extends Vue {
     "my-name": "J’ai un avis d’imposition au nom de mon garant",
     "less-than-year": "Vous êtes en France depuis moins d’un an",
     "other-tax": "Autre",
-    "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de la fiche d'imposition de mon garant auprès des services des impôts",
     "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'imposition. Votre explication sera ajoutée à votre dossier :",
     "files": "Documents",
     "register": "Register",
@@ -526,7 +472,6 @@ export default class GuarantorTax extends Vue {
     "my-name": "J’ai un avis d’imposition au nom de mon garant",
     "less-than-year": "Mon garant est en France depuis moins d'un an",
     "other-tax": "Autre",
-    "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de la fiche d'imposition de mon garant auprès des services des impôts",
     "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'imposition. Votre explication sera ajoutée à votre dossier :",
     "files": "Documents",
     "register": "Enregistrer",
