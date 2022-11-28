@@ -22,6 +22,9 @@
     </ConfirmModal>
     <ValidationObserver v-slot="{ validate }">
       <NakedCard class="fr-p-md-5w fr-mb-3w">
+        <h1 class="fr-h6">
+          {{ $t("financial") }}
+        </h1>
         <form name="form" @submit.prevent="validate().then(save())">
           <div>
             <div>

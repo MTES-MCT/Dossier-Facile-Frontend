@@ -5,7 +5,7 @@
         <NakedCard class="fr-p-md-5w fr-mb-3w">
           <div>
             <h1 class="fr-h6">
-              {{ $t("title") }}
+              {{ $t("financial") }}
             </h1>
 
             <v-gouv-fr-modal>
@@ -648,7 +648,6 @@ export default class FinancialDocumentForm extends Vue {
 <i18n>
 {
   "en": {
-    "title": "Proof of resources",
     "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
     "monthlySum-label": "Salary (after tax)",
     "monthlySum": "Value in euros",
@@ -679,7 +678,6 @@ export default class FinancialDocumentForm extends Vue {
     "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule"
   },
   "fr": {
-    "title": "Justificatif de ressources",
     "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
     "monthlySum-label": "J'indique le montant de mon revenu mensuel net à payer (avant prélèvement à la source)",
     "monthlySum": "Montant en euros",
