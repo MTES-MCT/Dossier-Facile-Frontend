@@ -129,7 +129,9 @@
       "
     >
       <hr />
-      <h4>{{ $t("my-guarantor") }}</h4>
+      <h4 v-if="guarantors.length === 0">
+        {{ $t("guarantors-information") }}
+      </h4>
       <div class="fr-grid-row fr-grid-row--gutters">
         <div class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w">
           <button
@@ -201,10 +203,10 @@ export default class GuarantorsSection extends Vue {
     if (g.typeGuarantor === "NATURAL_PERSON")
       return (
         this.$t("my-guarantor") +
-        (g.firstName || g.lastName ? ", " + g.firstName + " " + g.lastName : "")
+        (g.firstName || g.lastName ? " " + g.firstName + " " + g.lastName : "")
       );
     else if (g.typeGuarantor === "LEGAL_PERSON" && g.legalPersonName) {
-      return this.$t("my-guarantor") + ", " + g.legalPersonName;
+      return this.$t("my-guarantor") + " " + g.legalPersonName;
     }
     return this.$t("guarantors-information");
   }
@@ -399,8 +401,8 @@ a.cleana:focus {
     "INCOMPLETE": "is incomplete"
   },
   "fr": {
-    "guarantors-information": "Les informations de mes garants",
-    "my-guarantor": "Mon garant",
+    "guarantors-information": "Informations des garants",
+    "my-guarantor": "Pièces justificatives de",
     "identification-legal-person": "Identification de la personne morale",
     "organism-identification": "Certificat de l'organisme",
     "delete-guarantor": "Supprimer ce garant",
