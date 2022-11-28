@@ -258,7 +258,6 @@ td {
   "guest-parents": "Chez mes parents",
   "files": "Documents",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to his/her situation again.",
-  "select-label": "Your Spouse current accommodation situation:",
   "salary": "Salary",
   "guarantor_salary": "Salary or other professional income",
   "social-service": "Social benefit payments",
@@ -286,11 +285,9 @@ td {
   "number-not-valid": "Number not valid - without decimal",
   "delete-financial":  "Delete this salary",
   "field-required": "This field is required",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
   "register": "Register",
   "warning-no-income-and-file": "You can't have files and no income. You must uncheck the box or delete your files.",
-  "missing-file": "You must add files to save this income.",
-  "select-label": "Attention, Please enter only your guarantor own income."
+  "missing-file": "You must add files to save this income."
 },
 "fr": {
   "title": "Justificatif de ressources",
@@ -300,7 +297,6 @@ td {
   "guest-parents": "Chez ses parents",
   "files": "Documents",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à sa situation.",
-  "select-label": "La situation d’hébergement actuelle de votre conjoint:",
   "salary": "Salaire",
   "guarantor_salary": "Salaires",
   "social-service": "Prestations sociales",
@@ -328,12 +324,9 @@ td {
   "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule",
   "delete-financial":  "Supprimer ce revenu",
   "field-required": "Ce champ est requis",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à la situation de votre garant.",
   "register": "Enregistrer",
-  "select-label": "Attention, veuillez renseigner uniquement les revenus de votre garant.",
   "missing-file": "Vous devez ajouter des fichiers pour sauvegarder ce revenu.",
   "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers."
-
 }
 }
 </i18n>

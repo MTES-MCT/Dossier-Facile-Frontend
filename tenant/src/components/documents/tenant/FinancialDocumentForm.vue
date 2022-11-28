@@ -136,7 +136,7 @@
                 <p
                   v-html="
                     $t(
-                      `explanation-text.guarantor.${financialDocument.documentType.key}`
+                      `explanation-text.tenant.${financialDocument.documentType.key}`
                     )
                   "
                 ></p>
@@ -369,18 +369,6 @@ export default class FinancialDocumentForm extends Vue {
 
   get documentStatus() {
     return this.tenantFinancialDocument()?.documentStatus;
-  }
-
-  isNewDocument(f: FinancialDocument) {
-    if (f.id !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.id === f.id;
-      });
-      if (doc !== undefined) {
-        return doc.documentSubCategory !== f.documentType.value;
-      }
-    }
-    return false;
   }
 
   tenantFinancialDocument() {
