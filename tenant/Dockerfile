@@ -1,4 +1,4 @@
-FROM node:lts-slim
+FROM node:16-bullseye-slim
 
 RUN npm install -g http-server
 
@@ -26,7 +26,6 @@ ARG VUE_APP_SSO_CLIENT_ID
 ARG VUE_APP_SSO_ENDPOINT
 ARG VUE_APP_TENANT_URL
 
-RUN env
 
 WORKDIR /front-tenant/tenant
 
