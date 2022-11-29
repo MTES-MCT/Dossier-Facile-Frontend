@@ -3,7 +3,7 @@
     <NakedCard class="fr-p-md-5w">
       <div>
         <h1 class="fr-h6">
-          {{ $t("organism-label") }}
+          {{ getTitle() }}
         </h1>
         <v-gouv-fr-modal>
           <template v-slot:button>
@@ -54,7 +54,6 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { mapState } from "vuex";
 import DocumentInsert from "../share/DocumentInsert.vue";
 import FileUpload from "../../uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
@@ -82,6 +81,7 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 })
 export default class OrganismCert extends Vue {
   @Prop() tenantId?: number;
+  @Prop() isCotenant?: boolean;
   @Prop() guarantor?: Guarantor;
 
   MAX_FILE_COUNT = 5;
@@ -103,6 +103,11 @@ export default class OrganismCert extends Vue {
         this.guarantorIdentificationDocument()!.documentDeniedReasons!
       );
     }
+  }
+
+  getTitle() {
+    const userType = this.isCotenant ? "cotenant" : "tenant";
+    return this.$t(`explanation-text.${userType}.organism-guarantor`);
   }
 
   guarantorId() {
@@ -219,14 +224,3 @@ td {
   border: 1px solid #ececec;
 }
 </style>
-
-<i18n>
-{
-"en": {
-  "organism-label": "J'ajoute un certificat ou un visa délivré par l'organisme qui se porte garant pour moi."
-},
-"fr": {
-  "organism-label": "J'ajoute un certificat ou un visa délivré par l'organisme qui se porte garant pour moi."
-}
-}
-</i18n>

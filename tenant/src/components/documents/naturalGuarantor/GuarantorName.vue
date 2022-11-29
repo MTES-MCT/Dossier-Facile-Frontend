@@ -194,7 +194,7 @@ export default class GuarantorName extends Vue {
   "lastname-placeholder": "ex: Dupont",
   "firstname-placeholder": "ex: Jean",
   "field-required": "Ce champ est requis",
-  "title": "Identité de mon·garant",
+  "title": "Identité de mon garant",
   "subtitle": "Je renseigne le nom et prénom de mon garant"
 }
 }

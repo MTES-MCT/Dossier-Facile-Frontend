@@ -26,6 +26,7 @@
         "
       >
         <OrganismCert
+          :is-cotenant="true"
           :tenantId="getTenantId()"
           :guarantor="selectedGuarantor"
         ></OrganismCert>

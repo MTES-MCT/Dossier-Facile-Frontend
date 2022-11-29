@@ -49,7 +49,10 @@
         </div>
       </div>
       <div v-if="selectedGuarantor.typeGuarantor === 'ORGANISM'">
-        <OrganismCert :guarantor="selectedGuarantor"></OrganismCert>
+        <OrganismCert
+          :is-cotenant="true"
+          :guarantor="selectedGuarantor"
+        ></OrganismCert>
         <GuarantorFooter
           @on-back="goBack"
           @on-next="nextStep"
