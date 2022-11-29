@@ -476,7 +476,7 @@ export default class DocumentDownloader extends Vue {
   }
 
   remove(file: DfFile) {
-    if (file.path && file.id) {
+    if (file.preview && file.id) {
       const loader = this.$loading.show();
       RegisterService.deleteFileById(Number(file.id))
         .then(() => {
