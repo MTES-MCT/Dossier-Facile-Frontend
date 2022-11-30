@@ -28,7 +28,10 @@
           ></GuarantorFooter>
         </div>
         <div v-if="substep === 3">
-          <GuarantorProfessional :tenantId="tenantId"></GuarantorProfessional>
+          <GuarantorProfessional
+            :tenantId="tenantId"
+            :isCotenant="true"
+          ></GuarantorProfessional>
           <GuarantorFooter
             @on-back="goBack"
             @on-next="goNext"
