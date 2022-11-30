@@ -9,7 +9,8 @@
     </ConfirmModal>
     <ValidationObserver v-slot="{ validate }">
       <NakedCard class="fr-p-md-5w">
-        <h1 class="fr-h6">{{ $t("title") }}</h1>
+        <h1 class="fr-h6" v-if="isCotenant">{{ $t("title-cotenant") }}</h1>
+        <h1 class="fr-h6" v-else>{{ $t("title") }}</h1>
         <v-gouv-fr-modal>
           <template v-slot:button>
             En difficulté pour répondre à la question ?
@@ -47,7 +48,10 @@
                       @input="onSelectChange()"
                     >
                       <div class="fr-grid-col spa">
-                        <span>{{ $t(d.key) }}</span>
+                        <span v-if="isCotenant">{{
+                          $t(`${d.key}-cotenant`)
+                        }}</span>
+                        <span v-else>{{ $t(d.key) }}</span>
                       </div>
                     </BigRadio>
                   </div>
@@ -189,6 +193,8 @@ extend("is", {
 })
 export default class GuarantorTax extends Vue {
   @Prop() tenantId?: string;
+  @Prop({ default: false }) isCotenant?: boolean;
+
   selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
@@ -429,7 +435,7 @@ export default class GuarantorTax extends Vue {
   }
 
   guarantorKey() {
-    if (this.tenantId != null) {
+    if (this.isCotenant) {
       return "cotenant-guarantor";
     }
     return "guarantor";
@@ -455,29 +461,37 @@ export default class GuarantorTax extends Vue {
 <i18n>
 {
   "en": {
-    "my-name": "J’ai un avis d’imposition au nom de mon garant",
-    "less-than-year": "Vous êtes en France depuis moins d’un an",
-    "other-tax": "Autre",
-    "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'imposition. Votre explication sera ajoutée à votre dossier :",
+    "my-name": "I have a Tax notice from my guarantor",
+    "my-name-cotenant": "I have a Tax notice from the guarantor",
+    "less-than-year": "You are in France for less than a year",
+    "less-than-year-cotenant": "The guarantor is in France for less than a year",
+    "other-tax": "Other",
+    "other-tax-cotenant": "Other",
+    "custom-text": "To improve your file, please explain your situation:",
     "files": "Documents",
     "register": "Register",
     "field-required": "This field is required",
     "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
     "title": "My guarantor tax file",
+    "title-cotenant": "His/her guarantor tax file",
     "situation": "What is her/his tax situation?",
     "warning-no-accepted-doc": "Warning, the declarative situation document is not accepted.",
     "goto-documentation" : "Go to documentation"
   },
   "fr": {
     "my-name": "J’ai un avis d’imposition au nom de mon garant",
+    "my-name-cotenant": "J’ai un avis d’imposition au nom de son garant",
     "less-than-year": "Mon garant est en France depuis moins d'un an",
+    "less-than-year-cotenant": "Son garant est en France depuis moins d'un an",
     "other-tax": "Autre",
+    "other-tax-cotenant": "Autre",
     "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'imposition. Votre explication sera ajoutée à votre dossier :",
     "files": "Documents",
     "register": "Enregistrer",
     "field-required": "Ce champ est requis",
     "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
     "title": "L'avis d'imposition de mon garant",
+    "title-cotenant": "L'avis d'imposition de son garant",
     "situation": "Quelle est sa situation fiscale ?",
     "warning-no-accepted-doc": "Attention, l'avis de situation déclarative n'est pas accepté.",
     "goto-documentation" : "Consulter la documentation"

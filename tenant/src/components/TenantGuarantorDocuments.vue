@@ -47,6 +47,7 @@
         <div v-if="substep === 5">
           <GuarantorTax
             :tenantId="tenantId"
+            :isCotenant="true"
             @on-back="goBack"
             @on-next="nextStep"
           ></GuarantorTax>
