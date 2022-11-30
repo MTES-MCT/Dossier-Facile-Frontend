@@ -12,6 +12,7 @@
         </div>
         <div v-if="substep === 1">
           <GuarantorIdentification
+            :isCotenant="true"
             :tenantId="tenantId"
           ></GuarantorIdentification>
           <GuarantorFooter

@@ -2,9 +2,8 @@
   <div>
     <NakedCard class="fr-p-md-5w">
       <div>
-        <h1 class="fr-h6">
-          {{ $t("title") }}
-        </h1>
+        <h1 class="fr-h6" v-if="isCotenant">{{ $t("title-cotenant") }}</h1>
+        <h1 class="fr-h6" v-else>{{ $t("title") }}</h1>
         {{ $t("select-label") }}
 
         <v-gouv-fr-modal>
@@ -144,6 +143,7 @@ import { cloneDeep } from "lodash";
 export default class GuarantorIdentification extends Vue {
   documents = DocumentTypeConstants.GUARANTOR_IDENTIFICATION_DOCS;
   @Prop() tenantId?: string;
+  @Prop({ default: false }) isCotenant?: boolean;
 
   documentDeniedReasons = new DocumentDeniedReasons();
   selectedGuarantor!: Guarantor;
@@ -368,6 +368,7 @@ td {
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
   "register": "Register",
   "title": "I add a valid identity document of my guarantor",
+  "title-cotenant": "I add a valid identity document of my cotenant guarantor",
   "select-label": "Attention, be sure to add your double-sided part!",
   "validate": "Validate",
   "cancel": "Cancel",
@@ -382,6 +383,7 @@ td {
   "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs.",
   "register": "Enregistrer la pièce",
   "title": "J’ajoute la pièce d’identité, en cours de validité, de mon garant",
+  "title-cotenant": "J’ajoute la pièce d’identité, en cours de validité, de son garant",
   "select-label": "Veillez à ajouter le recto et le verso !",
   "validate": "Valider",
   "cancel": "Annuler",
