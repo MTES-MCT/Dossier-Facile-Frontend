@@ -1,14 +1,9 @@
-FROM node:16-bullseye-slim
-
-RUN apt-get update
-RUN apt install -y gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
+FROM node:16-bullseye-slim as build-stage
 
 WORKDIR /front-main
 
-# to execute in .. context
 COPY . .
 
-ARG NODE_ENV
 ARG VUE_APP_API_URL
 ARG VUE_APP_CAPTCHA_SITE_KEY
 ARG VUE_APP_DOCS_URL
@@ -24,11 +19,21 @@ ARG VUE_APP_SSO_CLIENT_ID
 ARG VUE_APP_SSO_ENDPOINT
 ARG VUE_APP_TENANT_URL
 
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
+
 WORKDIR /front-main/main
-
 RUN yarn install
+RUN yarn build --mode non-prod
 
-RUN yarn build
+# -----------------------------------------------
+
+FROM node:16-bullseye-slim as deploy-stage
+
+WORKDIR /front-main
+
+COPY --from=build-stage /front-main/main/dist ./dist
+COPY --from=build-stage /front-main/main/node_modules ./node_modules
+COPY --from=build-stage /front-main/main/server.js ./
 
 EXPOSE 8080
 ENV PORT 8080
