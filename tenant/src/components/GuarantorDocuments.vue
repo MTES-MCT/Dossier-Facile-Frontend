@@ -51,11 +51,10 @@
           ></CorporationIdentification>
         </div>
         <div v-if="substep === 1">
-          <RepresentativeIdentification></RepresentativeIdentification>
-          <GuarantorFooter
+          <RepresentativeIdentification
             @on-back="goBack"
             @on-next="nextStep"
-          ></GuarantorFooter>
+          ></RepresentativeIdentification>
         </div>
       </div>
     </div>

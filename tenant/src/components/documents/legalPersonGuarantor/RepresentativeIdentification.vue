@@ -108,6 +108,7 @@
         </div>
       </NakedCard>
     </ValidationObserver>
+    <GuarantorFooter @on-back="goBack" @on-next="goNext"></GuarantorFooter>
   </div>
 </template>
 
@@ -130,6 +131,7 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import { cloneDeep } from "lodash";
+import GuarantorFooter from "../../footer/GuarantorFooter.vue";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 
 extend("required", {
@@ -156,7 +158,8 @@ extend("select", {
     ValidationProvider,
     ValidationObserver,
     VGouvFrModal,
-    NakedCard
+    NakedCard,
+    GuarantorFooter
   }
 })
 export default class RepresentativeIdentification extends Vue {
@@ -221,10 +224,41 @@ export default class RepresentativeIdentification extends Vue {
   }
 
   save() {
+    if (!this.firstName) {
+      return Promise.reject();
+    }
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    if (!this.files.length) return;
+    if (this.getGuarantor().id) {
+      formData.append("guarantorId", this.getGuarantor().id);
+    }
+    if (this.tenantId) {
+      formData.append("tenantId", this.tenantId.toString());
+    }
+    if (this.firstName) {
+      formData.append("firstName", this.firstName);
+    }
+
+    if (!this.files.length) {
+      const loader = this.$loading.show();
+      return RegisterService.saveLegalPersonRepresentantName(formData)
+        .then(() => {
+          this.files = [];
+          this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
+          this.$store.dispatch("loadUser");
+          Vue.toasted.global.save_success();
+          return Promise.resolve(true);
+        })
+        .catch((err: unknown) => {
+          this.fileUploadStatus = UploadStatus.STATUS_FAILED;
+          Vue.toasted.global.save_failed();
+          return Promise.reject(err);
+        })
+        .finally(() => {
+          loader.hide();
+        });
+    }
 
     if (this.listFiles().length > this.MAX_FILE_COUNT) {
       Vue.toasted.global.max_file({
@@ -233,43 +267,44 @@ export default class RepresentativeIdentification extends Vue {
           this.MAX_FILE_COUNT
         ])
       });
-      return;
+      return Promise.reject();
     }
     Array.from(Array(this.files.length).keys()).map(x => {
       formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
     });
 
-    if (this.getGuarantor().id) {
-      formData.append("guarantorId", this.getGuarantor().id);
-    }
-    if (this.tenantId) {
-      formData.append("tenantId", this.tenantId.toString());
-    }
-
     formData.append(
       "typeDocumentIdentification",
       this.identificationDocument.value
     );
-    if (this.firstName) {
-      formData.append("firstName", this.firstName);
-    }
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     const loader = this.$loading.show();
-    RegisterService.saveRepresentativeIdentification(formData)
+    return RegisterService.saveRepresentativeIdentification(formData)
       .then(() => {
-        // this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         this.$store.dispatch("loadUser");
         Vue.toasted.global.save_success();
+        return Promise.resolve(true);
       })
       .catch(() => {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
         Vue.toasted.global.save_failed();
+        return Promise.reject();
       })
       .finally(() => {
         loader.hide();
       });
+  }
+
+  goBack() {
+    this.$emit("on-back");
+  }
+
+  goNext() {
+    this.save().then(() => {
+      this.$emit("on-next");
+    });
   }
 
   resetFiles() {
