@@ -10,6 +10,9 @@
           ></PdfViewer>
         </div>
         <div v-else>
+          <div v-if="file.numberOfPages && file.numberOfPages > 0">
+            {{ $t("number-of-pages", [file.numberOfPages]) }}
+          </div>
           <img slot="image" v-auth-image="file.preview" />
         </div>
       </div>
@@ -49,3 +52,16 @@ export default class ShowDoc extends Vue {
   }
 }
 </script>
+
+<i18n>
+  {
+    "en":
+    {
+      "number-of-pages": "Preview page 1 / {0}"
+    },
+    "fr":
+    {
+      "number-of-pages": "Prévisualisation page 1 / {0}"
+    }
+  }
+</i18n>
