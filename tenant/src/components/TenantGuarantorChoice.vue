@@ -94,7 +94,10 @@
                 @input="onSelectChange"
               >
                 <div class="fr-grid-col spa">
-                  <span>{{ $t("no-guarantor") }}</span>
+                  <span v-if="isCotenant">{{
+                    $t("no-guarantor-cotenant")
+                  }}</span>
+                  <span v-else>{{ $t("no-guarantor") }}</span>
                 </div>
               </BigRadio>
             </div>
@@ -344,6 +347,7 @@ h2 {
   "organism": "An organization",
   "legal-person": "A corporation guarantor",
   "no-guarantor": "I don't have a guarantor",
+  "no-guarantor-cotenant": "Your spouse doesn't have a guarantor",
   "more-information": "More information",
   "ask-guarantor": "Do you want to add :",
   "remark-title": "Remark",
@@ -371,6 +375,7 @@ h2 {
   "organism": "Un organisme garant",
   "legal-person": "Un garant moral",
   "no-guarantor": "Je n'ai pas de garant",
+  "no-guarantor-cotenant": "Mon conjoint n'a pas de garant",
   "more-information": "En difficulté pour répondre à la question ?",
   "ask-guarantor": "Souhaitez-vous ajouter :",
   "remark-title": "Remarque",
