@@ -66,7 +66,6 @@ import { mapGetters } from "vuex";
 import { FinancialDocument } from "df-shared/src/models/FinancialDocument";
 import ListItem from "../../uploads/ListItem.vue";
 import { User } from "df-shared/src/models/User";
-import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 
 import DfButton from "df-shared/src/Button/Button.vue";
@@ -145,22 +144,6 @@ export default class GuarantorFinancial extends Vue {
     });
   }
 
-  financialFiles(f: FinancialDocument) {
-    const newFiles = f.files.map((file: DfFile) => {
-      return {
-        documentSubCategory: f.documentType?.value,
-        id: file.name,
-        name: file.name,
-        size: file.size
-      };
-    });
-    const existingFiles =
-      this.$store.getters.getTenantDocuments?.find((d: DfDocument) => {
-        return d.id === f.id;
-      })?.files || [];
-    return [...newFiles, ...existingFiles];
-  }
-
   async addAndSelectFinancial() {
     await this.$store.commit("createGuarantorDocumentFinancial");
   }
@@ -177,25 +160,6 @@ export default class GuarantorFinancial extends Vue {
         this.initialize();
       });
     this.$store.commit("selectGuarantorDocumentFinancial", undefined);
-  }
-
-  getCheckboxLabel(key: string) {
-    if (key === "salary") {
-      return "noDocument-salary";
-    }
-    if (key === "pension") {
-      return "noDocument-pension";
-    }
-    if (key === "rent") {
-      return "noDocument-rent";
-    }
-    if (key === "scholarship") {
-      return "noDocument-scholarship";
-    }
-    if (key === "social-service") {
-      return "noDocument-social";
-    }
-    return "";
   }
 
   hasNoIncome() {
