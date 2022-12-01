@@ -222,7 +222,7 @@
         <div v-if="!isTaxValid(tenant)">
           <div class="fr-grid-row file-item">
             <div>{{ $t("tax") }}</div>
-            <DfButton class="update-btn" @on-click="openTenant(5, tenant)"
+            <DfButton class="update-btn" @on-click="openTenant('5', tenant)"
               ><div v-if="!isMobile()">{{ $t("update") }}</div>
               <div v-if="isMobile()">
                 <span class="color--primary material-icons md-16">edit</span>
@@ -457,7 +457,7 @@ export default class FileErrors extends Vue {
     if (user) {
       this.$router.push({
         name: "CoTenantDocuments",
-        params: { substep: substep, tenantId: user.id.toString() }
+        params: { substep: substep, tenantId: user.id.toString(), step: "4" }
       });
       return;
     }
