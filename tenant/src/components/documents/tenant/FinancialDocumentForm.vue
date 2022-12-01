@@ -135,14 +135,6 @@
               <div class="fr-mb-3w">
                 {{ financialDocument.documentType.explanationText }}
               </div>
-              <MonFranceConnect
-                v-if="
-                  ['social-service', 'pension', 'rent'].includes(
-                    financialDocument.documentType.key
-                  )
-                "
-                class="fr-my-4w"
-              ></MonFranceConnect>
               <AllDeclinedMessages
                 class="fr-mb-3w"
                 :documentDeniedReasons="documentDeniedReasons"
