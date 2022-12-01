@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="editFinancialDocument || !hasFinancial()">
+    <div v-if="editFinancialDocument">
       <CoTenantFinancialForm
         :coTenantId="coTenantId"
         :financialDocument="financialDocument"
@@ -66,7 +66,6 @@ import DocumentInsert from "../share/DocumentInsert.vue";
 import FileUpload from "../../uploads/FileUpload.vue";
 import { FinancialDocument } from "df-shared/src/models/FinancialDocument";
 import ListItem from "../../uploads/ListItem.vue";
-import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
@@ -111,11 +110,7 @@ export default class CoTenantFinancialList extends Vue {
   tenantFinancialDocuments: Ref<FinancialDocument[]> = ref([]);
   tenantOriginalDocuments?: DfDocument[];
   financialDocument!: FinancialDocument;
-  editFinancialDocument = false;
-
-  tenantFinancialDocumentsGet() {
-    return this.tenantFinancialDocuments;
-  }
+  editFinancialDocument = !this.hasFinancial();
 
   private getOriginalDocuments(): DfDocument[] {
     const tenant = UtilsService.getTenant(Number(this.coTenantId));
@@ -184,13 +179,11 @@ export default class CoTenantFinancialList extends Vue {
     this.tenantFinancialDocuments.value = this.getTenantFinancialDocuments(
       this.tenantOriginalDocuments
     );
-    
     if (this.hasNoIncome(this.tenantFinancialDocuments.value)) {
       this.financialDocument = this.tenantFinancialDocuments.value.find(f => {
         return f.documentType && f.documentType.key === "no-income";
       }) as FinancialDocument;
       this.editFinancialDocument = true;
-      
     } else {
       this.financialDocument = new FinancialDocument();
     }
@@ -211,51 +204,25 @@ export default class CoTenantFinancialList extends Vue {
     return d ? d.documentStatus : "EMPTY";
   }
 
-  financialFiles(f: FinancialDocument) {
-    const newFiles = f.files.map((file: DfFile) => {
-      return {
-        documentSubCategory: f.documentType?.value,
-        id: file.name,
-        name: file.name,
-        size: file.size
-      };
-    });
-    const existingFiles =
-      this.tenantOriginalDocuments?.find((d: DfDocument) => {
-        return d.id === f.id;
-      })?.files || [];
-    return [...newFiles, ...existingFiles];
-  }
-
-  tenantFinancialDocument(f: FinancialDocument) {
-    this.tenantFinancialDocuments.value?.find((d: DfDocument) => {
-      return d.id === f.id;
-    });
-  }
   hasFinancial() {
     const tenant = UtilsService.getTenant(Number(this.coTenantId));
-    console.log("tenantId=" + this.coTenantId);
-    console.log(tenant.id);
     const docs = tenant.documents?.filter((d: DfDocument) => {
       return d.documentCategory === "FINANCIAL";
     });
-    if (!docs || docs.length === 0) {
-      return false;
-    }
-    return true;
+    return docs?.length !== 0;
   }
+
   addFinancialDocument() {
     this.financialDocument = new FinancialDocument();
     this.editFinancialDocument = true;
   }
+
   selectFinancialDocument(f?: FinancialDocument) {
-    console.log("set financial with " + f?.id);
     this.financialDocument = f ? f : new FinancialDocument();
     this.editFinancialDocument = true;
   }
 
   removeFinancial(f?: FinancialDocument) {
-    console.log("delete " + f?.id);
     const loader = Vue.$loading.show();
     this.$store
       .dispatch("deleteDocument", f?.id)
@@ -275,31 +242,17 @@ export default class CoTenantFinancialList extends Vue {
       });
   }
 
-  getCheckboxLabel(key: string) {
-    if (key === "salary") {
-      return "noDocument-salary";
-    }
-    if (key === "pension") {
-      return "noDocument-pension";
-    }
-    if (key === "rent") {
-      return "noDocument-rent";
-    }
-    if (key === "scholarship") {
-      return "noDocument-scholarship";
-    }
-    if (key === "social-service") {
-      return "noDocument-social";
-    }
-    return "";
-  }
-
   goBack() {
     this.$emit("on-back");
   }
 
   goNext() {
-    this.$emit("on-next");
+    if (this.editFinancialDocument) {
+      this.editFinancialDocument = false;
+      this.initialize();
+    } else {
+      this.$emit("on-next");
+    }
   }
 }
 </script>

@@ -302,7 +302,6 @@ export default class DocumentDownloader extends Vue {
   }
 
   onSelectChange() {
-    console.log("showDownloader" + this.showDownloader);
     if (this.selectedCoTenant?.documents !== null) {
       const doc = this.getDocument();
       if (doc !== undefined) {
@@ -409,7 +408,6 @@ export default class DocumentDownloader extends Vue {
   }
 
   addFiles(fileList: File[]) {
-    this.$emit("check-before-add-file");
     const filesToAdd = Array.from(fileList).map(f => {
       return { name: f.name, file: f, size: f.size };
     });

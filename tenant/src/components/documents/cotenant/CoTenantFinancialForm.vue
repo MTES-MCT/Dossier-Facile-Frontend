@@ -148,14 +148,11 @@ export default class CoTenantFinancialForm extends Vue {
   documentsDefinitions = DocumentTypeConstants.FINANCIAL_DOCS;
   documentType?: DocumentType;
   document!: DfDocument;
-  isNoIncomeAndFiles = false;
   showDownloader = ref(false);
+
   changeDocument(docType?: DocumentType, doc?: DfDocument) {
     this.documentType = docType;
     this.document = doc as DfDocument;
-    console.log(
-      this.documentType?.key && this.documentType?.key != "no-income"
-    );
     this.showDownloader.value = Boolean(
       this.documentType?.key && this.documentType?.key != "no-income"
     );
@@ -199,7 +196,6 @@ export default class CoTenantFinancialForm extends Vue {
       this.document?.noDocument === true ||
       this.documentType?.key === "no-income"
     ) {
-      console.log("goNext");
       const formData = new FormData();
       this.enrichFormData(formData);
 
