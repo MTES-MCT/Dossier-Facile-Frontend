@@ -244,7 +244,7 @@ export default class CorporationIdentification extends Vue {
   }
 
   remove(file: DfFile) {
-    if (file.path && file.id) {
+    if (file.id) {
       RegisterService.deleteFile(file.id);
       this.guarantorIdentificationLegalPersonDocument().files = this.guarantorIdentificationLegalPersonDocument()?.files?.filter(
         f => file.id != f.id

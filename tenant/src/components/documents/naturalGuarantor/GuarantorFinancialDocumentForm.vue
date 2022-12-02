@@ -547,7 +547,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
   }
 
   async remove(f: FinancialDocument, file: DfFile, silent = false) {
-    if (file.path && file.id) {
+    if (file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = f.files.findIndex(f => {

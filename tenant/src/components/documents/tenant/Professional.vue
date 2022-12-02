@@ -337,7 +337,7 @@ export default class Professional extends Vue {
 
   async remove(file: DfFile, silent = false) {
     AnalyticsService.deleteFile("professional");
-    if (file.path && file.id) {
+    if (file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = this.files.findIndex(f => {
