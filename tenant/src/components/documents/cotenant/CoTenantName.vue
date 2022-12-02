@@ -5,16 +5,17 @@
         <NakedCard class="fr-p-md-5w">
           <h1 class="fr-h6">{{ $t("title") }}</h1>
           <div>{{ $t("subtitle") }}</div>
-          <div class="fr-grid-row fr-grid-row--center fr-mt-4w">
+          <RequiredFieldsInstruction></RequiredFieldsInstruction>
+          <div class="fr-grid-row fr-grid-row--center fr-mt-3w">
             <div class="fr-col-12 fr-mb-3w">
               <validation-provider rules="required" v-slot="{ errors, valid }">
                 <div
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
-                  <label class="fr-label" for="lastname"
-                    >{{ $t("lastname") }} :</label
-                  >
+                  <FieldLabel :required="true" for-input="lastname">
+                    {{ $t("lastname") }}
+                  </FieldLabel>
                   <input
                     v-model="lastName"
                     class="form-control fr-input validate-required"
@@ -40,9 +41,9 @@
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
-                  <label for="firstname" class="fr-label"
-                    >{{ $t("firstname") }} :</label
-                  >
+                  <FieldLabel :required="true" for-input="firstname">
+                    {{ $t("firstname") }}
+                  </FieldLabel>
                   <input
                     id="firstname"
                     :placeholder="$t('firstname-placeholder')"
@@ -68,9 +69,9 @@
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
-                  <label for="preferredname" class="fr-label"
-                    >{{ $t("preferredname") }} :</label
-                  >
+                  <FieldLabel for-input="preferredname">
+                    {{ $t("preferredname") }}
+                  </FieldLabel>
                   <input
                     id="preferredname"
                     :placeholder="$t('lastname-placeholder')"
@@ -90,12 +91,14 @@
               </validation-provider>
             </div>
             <div class="fr-col-12 fr-mb-3w">
-              <label class="fr-label fr-mb-1w">{{ $t("email") }}</label>
               <validation-provider v-slot="{ errors }" :rules="{ email: true }">
                 <div
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
+                  <FieldLabel for-input="email">
+                    {{ $t("email") }}
+                  </FieldLabel>
                   <input
                     v-model="email"
                     class="validate-required form-control fr-input"
@@ -137,6 +140,8 @@ import { User } from "df-shared/src/models/User";
 import FooterContainer from "../../footer/FooterContainer.vue";
 import BackNext from "../../footer/BackNext.vue";
 import { UtilsService } from "@/services/UtilsService";
+import RequiredFieldsInstruction from "df-shared/src/components/form/RequiredFieldsInstruction.vue";
+import FieldLabel from "df-shared/src/components/form/FieldLabel.vue";
 
 extend("required", {
   ...required,
@@ -158,7 +163,9 @@ extend("email", {
     ConfirmModal,
     DfButton,
     VGouvFrModal,
-    NakedCard
+    NakedCard,
+    RequiredFieldsInstruction,
+    FieldLabel
   }
 })
 export default class CoTenantName extends Vue {
@@ -245,7 +252,7 @@ export default class CoTenantName extends Vue {
   "firstname-placeholder": "ex: Jean",
   "field-required": "Ce champ est requis",
   "title": "Identité de mon conjoint",
-  "subtitle": "Je renseigne le nom et prénom de mon conjoint"
+  "subtitle": "Je renseigne le nom et prénom de mon conjoint."
 }
 }
 </i18n>
