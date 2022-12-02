@@ -149,7 +149,11 @@
         </div>
       </div>
     </NakedCard>
-    <div class="fr-grid-row fr-grid-row--center">
+    <div
+      ref="checkbox-authorize"
+      v-show="showCheckBox"
+      class="fr-grid-row fr-grid-row--center"
+    >
       <div class="fr-col-12 fr-mb-3w fr-mt-3w">
         <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
           <div
@@ -233,7 +237,7 @@ export default class CoupleInformation extends Vue {
   authorize = false;
   spouseAuthorize!: boolean;
   showEdition = true;
-
+  showCheckBox = false;
   user!: User;
 
   mounted() {
@@ -243,12 +247,26 @@ export default class CoupleInformation extends Vue {
       });
       this.coTenant = partner || this.coTenant;
       this.showEdition = false;
+      if (this.coTenant.email?.length > 0) {
+        this.showCheckBox = true;
+      }
     }
     this.authorize = this.spouseAuthorize;
   }
-
+  scrollToEnd() {
+    const element: any = this.$refs["checkbox-authorize"];
+    window.scrollTo(0, element.lastElementChild.offsetTop);
+  }
   handleInput() {
     this.$emit("input", [this.coTenant]);
+    if (this.coTenant.email?.length > 0) {
+      this.showCheckBox = true;
+      this.$nextTick(function() {
+        this.scrollToEnd();
+      });
+    } else {
+      this.showCheckBox = false;
+    }
   }
 
   updateAuthorize() {
