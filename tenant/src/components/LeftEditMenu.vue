@@ -369,8 +369,8 @@
         <div v-if="step === getStepNumber('coTenantGuarantor')">
           <div
             v-if="
-              selectedGuarantor && 
-              selectedGuarantor.typeGuarantor === 'NATURAL_PERSON' &&
+              selectedGuarantor &&
+                selectedGuarantor.typeGuarantor === 'NATURAL_PERSON' &&
                 selectedGuarantor.firstName !== undefined &&
                 selectedGuarantor.lastName !== undefined
             "
@@ -489,7 +489,15 @@
           <div v-if="selectedGuarantor.typeGuarantor === 'LEGAL_PERSON'">
             <div class="ml-5">
               <router-link
-                :to="{ name: 'GuarantorDocuments', params: { substep: '0' } }"
+                :to="{
+                  name: 'TenantGuarantorDocuments',
+                  params: {
+                    step: getStepNumber('coTenantGuarantor'),
+                    substep: '0',
+                    tenantId: getCoTenant(0).id,
+                    guarantorId: selectedGuarantor.id
+                  }
+                }"
                 ><ColoredTag
                   :text="$t('identification-legal-person')"
                   :status="
@@ -504,7 +512,15 @@
             </div>
             <div class="ml-5">
               <router-link
-                :to="{ name: 'GuarantorDocuments', params: { substep: '1' } }"
+                :to="{
+                  name: 'TenantGuarantorDocuments',
+                  params: {
+                    step: getStepNumber('coTenantGuarantor'),
+                    substep: '1',
+                    tenantId: getCoTenant(0).id,
+                    guarantorId: selectedGuarantor.id
+                  }
+                }"
                 ><ColoredTag
                   :text="$t('identity-represent')"
                   :status="guarantorStatus('IDENTIFICATION', selectedGuarantor)"
@@ -516,7 +532,15 @@
           <div v-if="selectedGuarantor.typeGuarantor === 'ORGANISM'">
             <div class="ml-5">
               <router-link
-                :to="{ name: 'GuarantorDocuments', params: { substep: '0' } }"
+                :to="{
+                  name: 'TenantGuarantorDocuments',
+                  params: {
+                    step: getStepNumber('coTenantGuarantor'),
+                    substep: '0',
+                    tenantId: getCoTenant(0).id,
+                    guarantorId: selectedGuarantor.id
+                  }
+                }"
                 ><ColoredTag
                   :text="$t('identification-organism')"
                   :status="guarantorStatus('IDENTIFICATION', selectedGuarantor)"

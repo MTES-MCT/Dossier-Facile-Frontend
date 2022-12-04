@@ -65,7 +65,6 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
-import { cloneDeep } from "lodash";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 
 @Component({
