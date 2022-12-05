@@ -195,21 +195,15 @@ export const DocumentService = {
     const doc = this.guarantorHasDoc(g || store.state.selectedGuarantor, "TAX");
     return doc?.documentStatus || "";
   },
-  getGuarantorLegalPersonIdentityStatus(): string {
-    const doc = this.guarantorHasDoc(
-      store.state.selectedGuarantor,
-      "IDENTIFICATION_LEGAL_PERSON"
-    );
+  getGuarantorLegalPersonIdentityStatus(guarantor: Guarantor): string {
+    const doc = this.guarantorHasDoc(guarantor, "IDENTIFICATION_LEGAL_PERSON");
     if (!doc) {
       return "";
     }
     return doc.documentStatus || "";
   },
-  getGuarantorLegalPersonRepresentantStatus(): string {
-    const doc = this.guarantorHasDoc(
-      store.state.selectedGuarantor,
-      "IDENTIFICATION"
-    );
+  getGuarantorLegalPersonRepresentantStatus(guarantor: Guarantor): string {
+    const doc = this.guarantorHasDoc(guarantor, "IDENTIFICATION");
     if (!doc) {
       return "";
     }
@@ -274,12 +268,14 @@ export const DocumentService = {
         break;
       case "IDENTIFICATION_LEGAL_PERSON":
         status =
-          DocumentService.getGuarantorLegalPersonIdentityStatus() || "EMPTY";
+          DocumentService.getGuarantorLegalPersonIdentityStatus(guarantor) ||
+          "EMPTY";
         break;
       case "IDENTIFICATION":
         status =
-          DocumentService.getGuarantorLegalPersonRepresentantStatus() ||
-          "EMPTY";
+          DocumentService.getGuarantorLegalPersonRepresentantStatus(
+            guarantor
+          ) || "EMPTY";
     }
     if (
       status === "TO_PROCESS" &&
