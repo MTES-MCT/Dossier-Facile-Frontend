@@ -3,7 +3,7 @@
     <NakedCard class="fr-p-md-5w">
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12">
-          <h6>{{ $t("title") }}</h6>
+          <h1 class="fr-h6">{{ $t("title") }}</h1>
           <v-gouv-fr-modal>
             <template v-slot:button>
               <span class="small-font">{{ $t("more-information") }}</span>
@@ -273,14 +273,6 @@ export default class CoupleInformation extends Vue {
     this.$store.commit("updateCoupleAuthorize", this.authorize);
   }
 
-  coTenantIsValid() {
-    return (
-      ((this.coTenant.firstName?.length || 0) > 0 &&
-        (this.coTenant.lastName?.length || 0) > 0) ||
-      this.coTenant.email.length > 3
-    );
-  }
-
   edit() {
     this.showEdition = true;
     this.coTenant = new User();
@@ -372,7 +364,7 @@ export default class CoupleInformation extends Vue {
 "fr": {
 "spouseFirstName": "Prénom de votre conjoint",
 "spouseLastName": "Nom de votre conjoint",
-"spouseEmail": "L’adresse email de votre conjoint(facultatif)",
+"spouseEmail": "L’adresse email de votre conjoint (facultatif)",
 "acceptAuthor": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
 "email-not-valid": "Email non valide",
 "field-required": "Ce champ est requis",
