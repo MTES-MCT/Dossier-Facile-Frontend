@@ -116,9 +116,9 @@ const store = new Vuex.Store({
         if (guarantor !== undefined) {
           Vue.set(state, "selectedGuarantor", guarantor);
         }
-      } else {
-        Vue.set(state, "selectedGuarantor", new Guarantor());
+        return;
       }
+      Vue.set(state, "selectedGuarantor", new Guarantor());
     },
     setSelectedGuarantor(state, guarantor: Guarantor) {
       Vue.set(state, "selectedGuarantor", guarantor);
