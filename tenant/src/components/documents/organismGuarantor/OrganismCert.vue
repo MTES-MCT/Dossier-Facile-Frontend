@@ -137,7 +137,7 @@ export default class OrganismCert extends Vue {
     const formData = new FormData();
     if (!files.length) return;
 
-    Array.from(Array(files.length).keys()).map(x => {
+    Array.from(Array(files.length).keys()).forEach(x => {
       formData.append(`${fieldName}[${x}]`, files[x], files[x].name);
     });
 

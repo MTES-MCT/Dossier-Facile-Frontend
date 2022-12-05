@@ -83,13 +83,12 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { ValidationObserver, ValidationProvider } from "vee-validate";
+import { ValidationObserver, ValidationProvider, extend } from "vee-validate";
 import { User } from "df-shared/src/models/User";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import DfButton from "df-shared/src/Button/Button.vue";
 import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 import { AnalyticsService } from "@/services/AnalyticsService";
-import { extend } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
 import DeleteAccount from "@/components/DeleteAccount.vue";
 import GuarantorsSection from "@/components/account/GuarantorsSection.vue";

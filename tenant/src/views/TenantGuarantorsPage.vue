@@ -183,7 +183,7 @@ export default class TenantGuarantorsPage extends Vue {
   }
 
   goNext() {
-    if (this.editName == true) {
+    if (this.editName) {
       this.$router.push({
         name: "TenantGuarantorDocuments",
         params: {

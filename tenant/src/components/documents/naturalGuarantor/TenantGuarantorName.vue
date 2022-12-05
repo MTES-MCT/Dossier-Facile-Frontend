@@ -81,7 +81,7 @@ import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
 import ListItem from "../../uploads/ListItem.vue";
 import { DfFile } from "df-shared/src/models/DfFile";
-import { ValidationObserver, ValidationProvider } from "vee-validate";
+import { ValidationObserver, ValidationProvider, extend } from "vee-validate";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
@@ -93,9 +93,7 @@ import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import { UtilsService } from "../../../services/UtilsService";
 import GuarantorFooter from "../../footer/GuarantorFooter.vue";
-import { extend } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
-import { User } from "df-shared/src/models/User";
 
 extend("required", {
   ...required,

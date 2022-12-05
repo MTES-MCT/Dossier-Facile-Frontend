@@ -223,7 +223,6 @@ export default class CorporationIdentification extends Vue {
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     return RegisterService.saveCorporationIdentification(formData)
       .then(() => {
-        // this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         this.$store.dispatch("loadUser");
         Vue.toasted.global.save_success();

@@ -182,7 +182,6 @@ import { AnalyticsService } from "@/services/AnalyticsService";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import InfoCard from "@/components/account/InfoCard.vue";
 import ColoredTag from "df-shared/src/components/ColoredTag.vue";
-import { mapGetters } from "vuex";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { User } from "df-shared/src/models/User";
 

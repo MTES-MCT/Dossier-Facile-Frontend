@@ -649,7 +649,7 @@ export default class LeftEditMenu extends Vue {
     return this.user.applicationType === "COUPLE";
   }
   getCoTenant(index: number): User {
-    return this.coTenants[index] as User;
+    return this.coTenants[index];
   }
 
   getStepNumber(stepName: string): number {

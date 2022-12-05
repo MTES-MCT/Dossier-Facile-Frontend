@@ -158,13 +158,11 @@ export default class TenantGuarantorChoice extends Vue {
   @Prop({ default: false }) isCotenant!: boolean;
   tmpGuarantorType = "";
 
-  beforeMount() {
-    this.tmpGuarantorType;
-  }
   updated() {
     // each dom update involved a scrollToEnd
     this.$nextTick(() => this.scrollToEnd());
   }
+
   scrollToEnd() {
     const element: any = this.$refs["guarantor-body-content"];
     window.scrollTo(0, element.lastElementChild.offsetTop);
@@ -183,7 +181,6 @@ export default class TenantGuarantorChoice extends Vue {
       return;
     }
     AnalyticsService.addGuarantor(this.tmpGuarantorType);
-    // const tenant = UtilsService.getTenant(this.tenantId).guarantor;
     if (this.tmpGuarantorType == "NO_GUARANTOR") {
       this.$emit("on-select", this.tmpGuarantorType);
     } else {
@@ -247,6 +244,7 @@ h2 {
   margin: 0.5rem;
   display: inline-block;
   align-self: center;
+  line-height: 1.5rem;
 }
 
 .icon {
@@ -290,10 +288,6 @@ h2 {
 
 .btn-group {
   width: fit-content;
-}
-
-h2 {
-  line-height: 1.5rem;
 }
 
 .card {

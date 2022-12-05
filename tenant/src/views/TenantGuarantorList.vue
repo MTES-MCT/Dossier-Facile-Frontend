@@ -165,6 +165,7 @@ h2 {
   margin: 0.5rem;
   display: inline-block;
   align-self: center;
+  line-height: 1.5rem;
 }
 
 .icon {
@@ -208,10 +209,6 @@ h2 {
 
 .btn-group {
   width: fit-content;
-}
-
-h2 {
-  line-height: 1.5rem;
 }
 
 .card {

@@ -27,7 +27,7 @@ export const UtilsService = {
   },
   getLastAddedGuarantor(user: User) {
     if (user.guarantors?.length && user.guarantors?.length > 0) {
-      return user.guarantors[user.guarantors.length - 1] as Guarantor;
+      return user.guarantors[user.guarantors.length - 1];
     }
     throw Error("guarantor is not found");
   },

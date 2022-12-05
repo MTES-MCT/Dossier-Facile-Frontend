@@ -288,7 +288,7 @@ export default class DocumentDownloader extends Vue {
     event.preventDefault();
     event.stopPropagation();
     if (
-      this.noDocument == false &&
+      !this.noDocument &&
       Number(this.dfDocument?.files?.length) > 0
     ) {
       this.showIsNoDocumentAndFiles = true;
@@ -455,7 +455,7 @@ export default class DocumentDownloader extends Vue {
   _buildFormData(filesToAdd: any): FormData {
     const formData = new FormData();
     const fieldName = "documents";
-    Array.from(Array(filesToAdd.length).keys()).map(x => {
+    Array.from(Array(filesToAdd.length).keys()).forEach(x => {
       const f: File = filesToAdd[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, filesToAdd[x].name);
     });

@@ -128,13 +128,12 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
-import { ValidationObserver, ValidationProvider } from "vee-validate";
+import { ValidationObserver, ValidationProvider, extend } from "vee-validate";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
-import { extend } from "vee-validate";
 import { required, email } from "vee-validate/dist/rules";
 import { User } from "df-shared/src/models/User";
 import FooterContainer from "../../footer/FooterContainer.vue";
