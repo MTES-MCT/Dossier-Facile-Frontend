@@ -90,31 +90,6 @@
                 </div>
               </validation-provider>
             </div>
-            <div class="fr-col-12 fr-mb-3w">
-              <validation-provider v-slot="{ errors }" :rules="{ email: true }">
-                <div
-                  class="fr-input-group"
-                  :class="errors[0] ? 'fr-input-group--error' : ''"
-                >
-                  <FieldLabel for-input="email">
-                    {{ $t("email") }}
-                  </FieldLabel>
-                  <input
-                    v-model="email"
-                    class="validate-required form-control fr-input"
-                    :class="errors[0] ? 'fr-input--error' : ''"
-                    name="email"
-                    type="email"
-                    disabled
-                  />
-                  <span
-                    class="fr-error-text"
-                    v-if="errors[0] && errors[0] !== 'none'"
-                    >{{ $t(errors[0]) }}</span
-                  >
-                </div>
-              </validation-provider>
-            </div>
           </div>
         </NakedCard>
         <FooterContainer>
@@ -175,7 +150,6 @@ export default class CoTenantName extends Vue {
   firstName = "";
   lastName = "";
   preferredName = "";
-  email = "";
 
   isDocDeleteVisible = false;
 
@@ -184,15 +158,13 @@ export default class CoTenantName extends Vue {
     this.firstName = this.selectedCoTenant?.firstName || "";
     this.lastName = this.selectedCoTenant?.lastName || "";
     this.preferredName = this.selectedCoTenant?.preferredName || "";
-    this.email = this.selectedCoTenant?.email || "";
   }
 
   save() {
     if (
       this.firstName === this.selectedCoTenant?.firstName &&
       this.lastName === this.selectedCoTenant?.lastName &&
-      this.preferredName === this.selectedCoTenant?.preferredName &&
-      this.email === this.selectedCoTenant?.email
+      this.preferredName === this.selectedCoTenant?.preferredName
     ) {
       this.$emit("on-next");
       return;
@@ -242,16 +214,16 @@ export default class CoTenantName extends Vue {
   "subtitle": "I fill the last name and first name of my spouse"
 },
 "fr": {
-  "lastname": "Nom",
+  "lastname": "Nom de naissance",
   "firstname": "Prénom",
-  "preferredname": "Nom d'usage",
+  "preferredname": "Nom d'usage (facultatif)",
   "email": "E-mail",
   "email-not-valid": "Email non valide",
   "lastname-placeholder": "ex: Dupont",
   "firstname-placeholder": "ex: Jean",
   "field-required": "Ce champ est requis",
-  "title": "Identité de mon conjoint",
-  "subtitle": "Je renseigne le nom et prénom de mon conjoint."
+  "title": "Je renseigne les informations personnelles de mon conjoint",
+  "subtitle": "Veuillez renseigner les informations de la personne dont le nom figurera sur le bail de location."
 }
 }
 </i18n>
