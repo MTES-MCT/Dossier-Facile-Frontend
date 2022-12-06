@@ -91,14 +91,15 @@ import CorporationIdentification from "../components/documents/legalPersonGuaran
   },
   computed: {
     ...mapGetters({
-      coTenants: "coTenants"
+      coTenants: "coTenants",
+      selectedGuarantor: "guarantor"
     })
   }
 })
 export default class TenantGuarantorsPage extends Vue {
   coTenants!: User[];
   guarantors?: Guarantor[] = [];
-  selectedGuarantor?: Guarantor;
+  selectedGuarantor!: Guarantor;
   editName = false;
 
   getStep() {
@@ -110,9 +111,6 @@ export default class TenantGuarantorsPage extends Vue {
 
   beforeMount() {
     this.refresh();
-    if (this.selectedGuarantor?.id) {
-      this.$store.commit("setSelectedGuarantor", this.selectedGuarantor);
-    }
   }
   refresh() {
     const guarantors = this.coTenants.find(t => {
@@ -121,13 +119,12 @@ export default class TenantGuarantorsPage extends Vue {
     if (guarantors && guarantors.length > 0) {
       this.guarantors = guarantors;
     }
-    this.selectedGuarantor = this.getSelectedGuarantor();
+    this.$store.commit("setSelectedGuarantor", this.getSelectedGuarantor());
   }
 
   onEdit(g: Guarantor) {
     this.editName = true;
-    console.log(g);
-    this.selectedGuarantor = g;
+    this.$store.commit("setSelectedGuarantor", g);
   }
   onDelete() {
     this.editName = false;
@@ -146,9 +143,7 @@ export default class TenantGuarantorsPage extends Vue {
 
   getSelectedGuarantor() {
     if (this.guarantors && this.guarantors.length > 0) {
-      return (this.selectedGuarantor = this.guarantors[
-        this.guarantors?.length - 1
-      ]);
+      return this.guarantors[this.guarantors?.length - 1];
     }
     return new Guarantor();
   }
@@ -165,7 +160,10 @@ export default class TenantGuarantorsPage extends Vue {
       })?.guarantors;
 
       if (this.guarantors && this.guarantors.length > 0) {
-        this.selectedGuarantor = this.guarantors[this.guarantors?.length - 1];
+        this.$store.commit(
+          "setSelectedGuarantor",
+          this.guarantors[this.guarantors?.length - 1]
+        );
       }
       this.editName = true;
     }

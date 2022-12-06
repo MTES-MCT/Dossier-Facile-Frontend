@@ -153,10 +153,11 @@ export default class OrganismCert extends Vue {
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     const loader = this.$loading.show();
     RegisterService.saveOrganismIdentification(formData)
-      .then(() => {
+      .then(async (response: any) => {
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         Vue.toasted.global.save_success();
-        this.$store.dispatch("loadUser").then(() => this.loadDocument());
+        await this.$store.commit("loadUser", response.data);
+        this.loadDocument();
       })
       .catch(() => {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
