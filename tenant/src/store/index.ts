@@ -140,6 +140,7 @@ const store = new Vuex.Store({
       const tenants = state.user.apartmentSharing.tenants.filter((t: User) => {
         return t.email !== email;
       });
+      state.user.applicationType = "ALONE";
       state.user.apartmentSharing.tenants = tenants;
     },
     readMessage(state) {
