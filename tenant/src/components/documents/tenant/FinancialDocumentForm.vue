@@ -43,7 +43,7 @@
                         @input="onSelectChange()"
                       >
                         <div class="fr-grid-col spa">
-                          <span>{{ $t(d.key) }}</span>
+                          <span>{{ $t(`documents.${d.key}`) }}</span>
                         </div>
                       </BigRadio>
                     </div>
@@ -640,12 +640,6 @@ export default class FinancialDocumentForm extends Vue {
     "monthlySum-label": "Salary (after tax)",
     "monthlySum": "Value in euros",
     "delete-financial":  "Delete this salary",
-    "salary": "Salary",
-    "guarantor_salary": "Salary or other professional income",
-    "social-service": "Social benefit payments",
-    "rent": "Annuities",
-    "pension": "Pensions",
-    "scholarship": "Scholarship",
     "custom-text": "In order to improve your file, you can add an eplanation :",
     "customText-social-service": "In order to improve my file, I explain why I cannot provide my justificatives:",
     "customText-salary": "In order to improve my file, I explain why I cannot provide my last three payslips:",
@@ -662,7 +656,6 @@ export default class FinancialDocumentForm extends Vue {
     "high-salary": "You have entered a salary greater than € 10,000 are you sure you have entered your monthly salary?",
     "low-salary": "You have entered a salary equal to 0 € are you sure you have entered your monthly salary?",
     "has-no-income": "You have no income",
-    "no-income": "No income",
     "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule"
   },
   "fr": {
@@ -670,12 +663,6 @@ export default class FinancialDocumentForm extends Vue {
     "monthlySum-label": "J'indique le montant de mon revenu mensuel net à payer (avant prélèvement à la source)",
     "monthlySum": "Montant en euros",
     "delete-financial":  "Supprimer ce revenu",
-    "salary": "Salaire",
-    "guarantor_salary": "Salaires ou autres revenus d’activité professionnelle",
-    "social-service": "Prestations sociales",
-    "rent": "Rentes",
-    "pension": "Pensions",
-    "scholarship": "Bourses",
     "custom-text": "Afin d'améliorer votre dossier, vous pouvez ajouter une explication :",
     "customText-social-service": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
     "customText-salary": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes trois derniers bulletins de salaire :",
@@ -692,7 +679,6 @@ export default class FinancialDocumentForm extends Vue {
     "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
     "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
     "has-no-income": "Vous avez indiqué ne pas avoir de revenu",
-    "no-income": "Pas de revenu",
     "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule"
   }
 }

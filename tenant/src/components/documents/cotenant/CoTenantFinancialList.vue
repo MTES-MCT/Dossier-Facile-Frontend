@@ -25,7 +25,7 @@
           <template v-slot:tag>
             <div class="fixed-width">
               <ColoredTag
-                :text="$t(f.documentType.key)"
+                :text="getDocumentName(f)"
                 :status="documentStatus(f)"
               ></ColoredTag>
             </div>
@@ -254,6 +254,10 @@ export default class CoTenantFinancialList extends Vue {
       this.$emit("on-next");
     }
   }
+
+  private getDocumentName(document: FinancialDocument): string {
+    return this.$t(`documents.${document.documentType.key}`).toString();
+  }
 }
 </script>
 
@@ -282,14 +286,8 @@ export default class CoTenantFinancialList extends Vue {
 <i18n>
 {
 "en": {
-  "salary": "Salary",
-  "social-service": "Social benefit payments",
-  "rent": "Annuities",
-  "pension": "Pensions",
-  "scholarship": "Scholarship",
   "delete-financial":  "Delete this salary",
   "register": "Register",
-  "no-income": "No income",
   "i-have-no-income": "I have no income",
   "title": "Summary of your income",
   "subtitle": "Here is the list of income you declared. You can add new income at any time, if necessary.",
@@ -298,14 +296,8 @@ export default class CoTenantFinancialList extends Vue {
   "add-income": "Add a new income ?"
 },
 "fr": {
-  "salary": "Salaire",
-  "social-service": "Prestations sociales",
-  "rent": "Rentes",
-  "pension": "Pensions",
-  "scholarship": "Bourses",
   "delete-financial":  "Supprimer ce revenu",
   "register": "Enregistrer",
-  "no-income": "Pas de revenu",
   "i-have-no-income": "Je n'ai pas de revenu",
   "title": "Récapitulatif des revenus conjoint·e",
   "subtitle": "Voici la liste des revenus que vous avez déclarés. Vous pouvez, à tout moment ajouter de nouveaux revenus, si cela était nécessaire.",

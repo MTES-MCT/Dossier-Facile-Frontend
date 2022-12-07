@@ -15,5 +15,14 @@
   "professional": "Professional",
   "residency": "Residency",
   "financial": "Financial",
-  "tax": "Tax"
+  "tax": "Tax",
+  "documents": {
+    "salary": "Salary",
+    "guarantor_salary": "Salary",
+    "social-service": "Social benefit payments",
+    "rent": "Annuities",
+    "pension": "Pensions",
+    "scholarship": "Scholarship",
+    "no-income": "No income"
+  }
 }

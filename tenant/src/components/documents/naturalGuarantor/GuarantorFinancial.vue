@@ -21,7 +21,7 @@
           <template v-slot:tag>
             <div class="fixed-width">
               <ColoredTag
-                :text="$t(f.documentType.key)"
+                :text="getDocumentName(f)"
                 :status="guarantorFinancialDocument(f).documentStatus"
               ></ColoredTag>
             </div>
@@ -182,6 +182,10 @@ export default class GuarantorFinancial extends Vue {
   async selectFinancialDocument(f: FinancialDocument) {
     await this.$store.commit("selectGuarantorDocumentFinancial", f);
   }
+
+  private getDocumentName(document: FinancialDocument): string {
+    return this.$t(`documents.${document.documentType.key}`).toString();
+  }
 }
 </script>
 
@@ -221,16 +225,9 @@ export default class GuarantorFinancial extends Vue {
 <i18n>
 {
 "en": {
-  "salary": "Salary",
-  "guarantor_salary": "Salary",
-  "social-service": "Social benefit payments",
-  "rent": "Annuities",
-  "pension": "Pensions",
-  "scholarship": "Scholarship",
   "delete-financial":  "Delete this salary",
   "register": "Register",
   "select-label": "Attention, Please enter only your own income.",
-  "no-income": "No income",
   "i-have-no-income": "I have no income",
   "warning-no-income-and-file": "You can't have files and no income. You must uncheck the box or delete your files.",
   "title": "Summary of your guarantor income",
@@ -240,16 +237,9 @@ export default class GuarantorFinancial extends Vue {
   "add-income": "Add a new income ?"
 },
 "fr": {
-  "salary": "Salaire",
-  "guarantor_salary": "Salaires",
-  "social-service": "Prestations sociales",
-  "rent": "Rentes",
-  "pension": "Pensions",
-  "scholarship": "Bourses",
   "delete-financial":  "Supprimer ce revenu",
   "register": "Enregistrer",
   "select-label": "Attention, veuillez renseigner uniquement vos propres revenus.",
-  "no-income": "Pas de revenu",
   "i-have-no-income": "Je n'ai pas de revenu",
   "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers.",
   "title": "Récapitulatif des revenus du garant",

@@ -20,6 +20,15 @@
   "my-document": "Je joins mes documents",
   "my-guarantor": "Je renseigne mon garant",
   "validate-file": "Je valide mon dossier",
+  "documents": {
+    "salary": "Salaire",
+    "guarantor_salary": "Salaires",
+    "social-service": "Prestations sociales",
+    "rent": "Rentes",
+    "pension": "Pensions",
+    "scholarship": "Bourses",
+    "no-income": "Pas de revenus"
+  },
   "explanation-text": {
     "tenant": {
       "alternation": "J’ajoute mon contrat d’alternance en cours, complet et signé.",

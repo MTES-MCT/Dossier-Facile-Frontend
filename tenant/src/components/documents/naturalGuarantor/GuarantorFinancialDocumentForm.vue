@@ -68,7 +68,7 @@
                           @input="onSelectChange()"
                         >
                           <div class="fr-grid-col spa">
-                            <span>{{ $t(d.key) }}</span>
+                            <span>{{ $t(`documents.${d.key}`) }}</span>
                           </div>
                         </BigRadio>
                       </div>
@@ -307,7 +307,6 @@ export default class GuarantorFinancialDocumentForm extends Vue {
   selectedGuarantor!: Guarantor;
   guarantorFinancialDocumentSelected!: FinancialDocument;
   financialDocument = new FinancialDocument();
-  guarantorFinancialDocuments!: FinancialDocument[];
 
   documentDeniedReasons = new DocumentDeniedReasons();
   documents = DocumentTypeConstants.GUARANTOR_FINANCIAL_DOCS;
@@ -324,18 +323,6 @@ export default class GuarantorFinancialDocumentForm extends Vue {
         this.guarantorFinancialDocument()?.documentDeniedReasons
       );
     }
-  }
-
-  isNewDocument(f: FinancialDocument) {
-    if (f.id !== null) {
-      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
-        return d.id === f.id;
-      });
-      if (doc !== undefined) {
-        return doc.documentSubCategory !== f.documentType.value;
-      }
-    }
-    return false;
   }
 
   get documentStatus() {
@@ -619,12 +606,6 @@ export default class GuarantorFinancialDocumentForm extends Vue {
 <i18n>
 {
 "en": {
-  "salary": "Salary",
-  "guarantor_salary": "Salary or other professional income",
-  "social-service": "Social benefit payments",
-  "rent": "Annuities",
-  "pension": "Pensions",
-  "scholarship": "Scholarship",
   "monthlySum": "Value in euros",
   "monthlySum-label": "Monthly salary (after tax)",
   "noDocument-social": "I cannot provide proof of payment of social benefits",
@@ -649,12 +630,6 @@ export default class GuarantorFinancialDocumentForm extends Vue {
   "select-label": "Attention, please enter only the guarantor's own income."
 },
 "fr": {
-  "salary": "Salaire",
-  "guarantor_salary": "Salaires",
-  "social-service": "Prestations sociales",
-  "rent": "Rentes",
-  "pension": "Pensions",
-  "scholarship": "Bourses",
   "monthlySum": "Montant en euros",
   "monthlySum-label": "J'indique le montant de son revenu mensuel net à payer (avant prélèvement à la source)",
   "noDocument-social": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
