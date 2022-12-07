@@ -479,7 +479,7 @@ export default class TenantInformationForm extends Vue {
   "email-exists": "Cette adresse email est déjà utilisée sur DossierFacile.<br>Renseignez une adresse email différente.",
   "roommate-email-required": "Vous devez saisir l'adresse email d'au moins un colocataire.",
   "couple-email-required": "Vous devez saisir l'adresse email de votre conjoint·e",
-  "will-delete-couple": "Cette action va supprimer la liaison avec le dossier de votre conjoint·e",
+  "will-delete-couple": "Cette action va supprimer le dossier de votre conjoint·e",
   "will-delete-roommates": "Cette action va supprimer la liaison avec le dossier de vos colocataires",
   "require-accept": "Vous devez accepter la déclaration"
   }
