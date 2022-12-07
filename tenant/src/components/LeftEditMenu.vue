@@ -768,16 +768,12 @@ export default class LeftEditMenu extends Vue {
   "en": {
     "ALONE": "Alone",
     "COUPLE": "Couple",
-    "GROUP": "Roommate",
-    "my-cotenant": "Roommate's documents",
-    "my-cotenant-guarantor": "CoTenant's guarantor"
+    "GROUP": "Roommate"
   },
   "fr": {
     "ALONE": "Seul·e",
     "COUPLE": "En couple",
-    "GROUP": "En colocation",
-    "my-cotenant": "Les documents de mon conjoint",
-    "my-cotenant-guarantor": "Le garant de mon conjoint"
+    "GROUP": "En colocation"
   }
 }
 </i18n>

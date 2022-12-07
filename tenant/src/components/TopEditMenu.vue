@@ -8,6 +8,8 @@
       <div class="hline" :class="getClass(1)"></div>
       <div class="hline" :class="getClass(2)"></div>
       <div class="hline" :class="getClass(3)"></div>
+      <div class="hline" :class="getClass(4)"></div>
+      <div class="hline" :class="getClass(5)"></div>
     </div>
     <hr v-if="step === 2 || step === 3" />
     <div class="menu-grid-row" v-if="step === 2" ref="tcontainer">
@@ -186,7 +188,6 @@ import { DocumentService } from "../services/DocumentService";
 import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 import { mapState } from "vuex";
 import { Guarantor } from "df-shared/src/models/Guarantor";
-import store from "@/store";
 
 @Component({
   components: { StepNumber, ColoredTag },
@@ -237,45 +238,6 @@ export default class TopEditMenu extends Vue {
     return "valid-menu-link";
   }
 
-  getTenantIdentityClass() {
-    const status = DocumentService.getTenantIdentityStatus(store.state.user);
-    return this.getClassByStatus(status);
-  }
-
-  getTenantResidencyClass() {
-    const status = DocumentService.getTenantResidencyStatus(store.state.user);
-    return this.getClassByStatus(status);
-  }
-
-  getTenantProfessionalClass() {
-    const status = DocumentService.getTenantProfessionalStatus(
-      store.state.user
-    );
-    return this.getClassByStatus(status);
-  }
-
-  getTenantFinancialClass() {
-    const status = DocumentService.getTenantFinancialStatus(store.state.user);
-    return this.getClassByStatus(status);
-  }
-
-  getTenantTaxClass() {
-    const status = DocumentService.getTenantTaxStatus(store.state.user);
-    return this.getClassByStatus(status);
-  }
-
-  getClassByStatus(status: string) {
-    switch (status) {
-      case "VALIDATED":
-        return "valid-menu-link";
-      case "TO_PROCESS":
-        return "to-process-menu-link";
-      case "DECLINED":
-        return "declined-menu-link";
-    }
-    return "empty-menu-link";
-  }
-
   getStep(s: number) {
     switch (this.step) {
       case 0:
@@ -287,6 +249,10 @@ export default class TopEditMenu extends Vue {
         return s <= 2;
       case 4:
         return s <= 3;
+      case 5:
+        return s <= 4;
+      case 6:
+        return s <= 5;
       default:
         return s <= 0;
     }
@@ -303,6 +269,12 @@ export default class TopEditMenu extends Vue {
       return this.$i18n.t("my-guarantor");
     }
     if (this.step === 4) {
+      return this.$i18n.t("my-cotenant");
+    }
+    if (this.step === 5) {
+      return this.$i18n.t("my-cotenant-guarantor");
+    }
+    if (this.step === 6) {
       return this.$i18n.t("validate-file");
     }
     return "";

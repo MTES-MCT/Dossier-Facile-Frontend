@@ -19,6 +19,8 @@
   "personal-information": "Je renseigne mes informations",
   "my-document": "Je joins mes documents",
   "my-guarantor": "Je renseigne mon garant",
+  "my-cotenant": "Les documents de mon conjoint",
+  "my-cotenant-guarantor": "Le garant de mon conjoint",
   "validate-file": "Je valide mon dossier",
   "documents": {
     "salary": "Revenus professionnels",

@@ -24,5 +24,7 @@
     "pension": "Pensions",
     "scholarship": "Scholarship",
     "no-income": "No income"
-  }
+  },
+  "my-cotenant": "Roommate's documents",
+  "my-cotenant-guarantor": "CoTenant's guarantor"
 }
