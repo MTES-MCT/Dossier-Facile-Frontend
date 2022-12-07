@@ -17,8 +17,8 @@
   "financial": "Financial",
   "tax": "Tax",
   "documents": {
-    "salary": "Salary",
-    "guarantor_salary": "Salary",
+    "salary": "Professional incomes",
+    "guarantor_salary": "Professional incomes",
     "social-service": "Social benefit payments",
     "rent": "Annuities",
     "pension": "Pensions",

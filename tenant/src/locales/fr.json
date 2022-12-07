@@ -21,8 +21,8 @@
   "my-guarantor": "Je renseigne mon garant",
   "validate-file": "Je valide mon dossier",
   "documents": {
-    "salary": "Salaire",
-    "guarantor_salary": "Salaires",
+    "salary": "Revenus professionnels",
+    "guarantor_salary": "Revenus professionnels",
     "social-service": "Prestations sociales",
     "rent": "Rentes",
     "pension": "Pensions",
