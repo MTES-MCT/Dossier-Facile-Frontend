@@ -338,7 +338,7 @@ export default class TenantInformationForm extends Vue {
     }
     if (
       this.applicationType === this.user.applicationType &&
-      (this.applicationType === "GROUP" || this.applicationType === "COUPLE")
+      (this.applicationType === "GROUP")
     ) {
       const unregisteredRoommate = this.coTenants.find((r: any) => {
         return r.id === undefined;

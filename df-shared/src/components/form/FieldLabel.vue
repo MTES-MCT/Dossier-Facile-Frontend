@@ -11,7 +11,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
 export default class FieldLabel extends Vue {
-  @Prop() required = false;
+  @Prop({ default: false }) required!: boolean;
   @Prop() label!: string;
   @Prop() forInput?: string;
 }
