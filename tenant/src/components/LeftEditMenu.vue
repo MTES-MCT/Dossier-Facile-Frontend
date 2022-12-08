@@ -264,7 +264,7 @@
                     params: { substep: '0', tenantId: coTenant.id }
                   }"
                   ><ColoredTag
-                    :text="`${coTenant.firstName} ${coTenant.lastName}`"
+                    :text="getName(coTenant)"
                     status="NONE"
                     :active="getCurrentSubStep() == 0"
                   ></ColoredTag
@@ -669,6 +669,13 @@ export default class LeftEditMenu extends Vue {
     }
 
     return -1;
+  }
+
+  getName(user: User): string {
+    if (user.preferredName) {
+      return `${user.firstName} ${user.preferredName}`;
+    }
+    return `${user.firstName} ${user.lastName}`;
   }
 }
 </script>
