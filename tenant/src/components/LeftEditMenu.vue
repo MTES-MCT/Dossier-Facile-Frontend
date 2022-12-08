@@ -621,7 +621,7 @@ export default class LeftEditMenu extends Vue {
   getGuarantorCurrentStep(substep: number, g: Guarantor): boolean {
     const s = Number(this.$route.params.substep) || 0;
     return (
-      this.step === 3 &&
+      (this.step === 3 || this.step === 5) &&
       s === substep &&
       (g === undefined || this.selectedGuarantor.id === g.id)
     );
