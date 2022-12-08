@@ -411,10 +411,10 @@ const store = new Vuex.Store({
         }
       );
     },
-    setGuarantorType(_, guarantorType: Guarantor) {
+    setGuarantorType({ commit }, guarantorType: Guarantor) {
       return ProfileService.setGuarantorType(guarantorType).then(
         async response => {
-          await this.dispatch("loadUser", response.data);
+          commit("loadUser", response.data);
           return Promise.resolve(response.data);
         },
         error => {

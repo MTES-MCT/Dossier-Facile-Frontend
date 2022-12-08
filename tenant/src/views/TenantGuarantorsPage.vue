@@ -5,51 +5,8 @@
         :tenantId="getTenantId()"
         :isCotenant="true"
         @on-back="goBack"
-        @on-next="goNext"
         @on-select="updateGuarantorType"
       ></TenantGuarantorChoice>
-    </div>
-    <div v-else-if="editName">
-      <TenantGuarantorName
-        v-if="
-          selectedGuarantor &&
-            selectedGuarantor.typeGuarantor === 'NATURAL_PERSON'
-        "
-        :tenantId="getTenantId()"
-        :guarantor="selectedGuarantor"
-        @on-back="() => (editName = false)"
-        @on-next="goNext"
-      ></TenantGuarantorName>
-      <div
-        v-else-if="
-          selectedGuarantor && selectedGuarantor.typeGuarantor === 'ORGANISM'
-        "
-      >
-        <OrganismCert
-          :is-cotenant="true"
-          :tenantId="getTenantId()"
-          :guarantor="selectedGuarantor"
-        ></OrganismCert>
-        <GuarantorFooter
-          @on-back="() => (editName = false)"
-          @on-next="goNext"
-        ></GuarantorFooter>
-      </div>
-      <div
-        v-else-if="
-          selectedGuarantor &&
-            selectedGuarantor.typeGuarantor === 'LEGAL_PERSON'
-        "
-      >
-        <CorporationIdentification
-          :tenantId="getTenantId()"
-          :guarantor="selectedGuarantor"
-        ></CorporationIdentification>
-        <GuarantorFooter
-          @on-back="() => (editName = false)"
-          @on-next="goNext"
-        ></GuarantorFooter>
-      </div>
     </div>
 
     <TenantGuarantorList
@@ -57,7 +14,6 @@
       :guarantors="guarantors"
       :substep="getStep()"
       @on-edit="onEdit"
-      @on-delete="onDelete"
       @on-back="goBack"
       @on-next="goNext"
     ></TenantGuarantorList>
@@ -65,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import TenantGuarantorChoice from "../components/TenantGuarantorChoice.vue";
 import ProfileContainer from "../components/ProfileContainer.vue";
 import { mapGetters } from "vuex";
@@ -91,46 +47,40 @@ import CorporationIdentification from "../components/documents/legalPersonGuaran
   },
   computed: {
     ...mapGetters({
-      coTenants: "coTenants",
-      selectedGuarantor: "guarantor"
+      coTenants: "coTenants"
     })
   }
 })
 export default class TenantGuarantorsPage extends Vue {
   coTenants!: User[];
   guarantors?: Guarantor[] = [];
-  selectedGuarantor!: Guarantor;
-  editName = false;
+
+  @Watch("coTenants")
+  protected onCotenantsChange(): any {
+    this.guarantors =
+      this.coTenants.find(t => {
+        return t.id === Number(this.$route.params.tenantId);
+      })?.guarantors || [];
+  }
 
   getStep() {
     return Number(this.$route.params.step) || 0;
   }
+
   getTenantId(): number {
     return Number(this.$route.params.tenantId);
   }
 
-  beforeMount() {
-    this.refresh();
-  }
-  refresh() {
-    const guarantors = this.coTenants.find(t => {
-      return t.id === this.getTenantId();
-    })?.guarantors;
-    if (guarantors && guarantors.length > 0) {
-      this.guarantors = guarantors;
-    }
-    this.$store.commit("setSelectedGuarantor", this.getSelectedGuarantor());
-  }
-
   onEdit(g: Guarantor) {
-    this.editName = true;
-    this.$store.commit("setSelectedGuarantor", g);
-  }
-  onDelete() {
-    this.editName = false;
-    this.guarantors = this.coTenants.find(t => {
-      return t.id === this.getTenantId();
-    })?.guarantors;
+    this.$router.push({
+      name: "TenantGuarantorDocuments",
+      params: {
+        step: this.getStep().toString(),
+        substep: "0",
+        tenantId: this.getTenantId().toString(),
+        guarantorId: g.id?.toString() as string
+      }
+    });
   }
 
   mounted() {
@@ -141,31 +91,24 @@ export default class TenantGuarantorsPage extends Vue {
     window.Beacon("destroy");
   }
 
-  getSelectedGuarantor() {
-    if (this.guarantors && this.guarantors.length > 0) {
-      return this.guarantors[this.guarantors?.length - 1];
-    }
-    return new Guarantor();
-  }
-
-  updateGuarantorType(value: string) {
-    console.log("value=" + value);
-
+  async updateGuarantorType(value: string) {
     if (value == "NO_GUARANTOR") {
       this.goNext();
     } else {
-      // try to get the new created guarantor // PofS
-      this.guarantors = this.coTenants.find(t => {
-        return t.id === this.getTenantId();
-      })?.guarantors;
+      const guarantors =
+        this.coTenants.find(t => {
+          return t.id === this.getTenantId();
+        })?.guarantors || [];
 
-      if (this.guarantors && this.guarantors.length > 0) {
-        this.$store.commit(
-          "setSelectedGuarantor",
-          this.guarantors[this.guarantors?.length - 1]
-        );
-      }
-      this.editName = true;
+      this.$router.push({
+        name: "TenantGuarantorDocuments",
+        params: {
+          step: this.getStep().toString(),
+          substep: "1",
+          tenantId: this.getTenantId().toString(),
+          guarantorId: guarantors[0].id?.toString() || "0"
+        }
+      });
     }
   }
 
@@ -181,24 +124,10 @@ export default class TenantGuarantorsPage extends Vue {
   }
 
   goNext() {
-    if (this.editName) {
-      this.$router.push({
-        name: "TenantGuarantorDocuments",
-        params: {
-          step: this.getStep().toString(),
-          substep: "1",
-          tenantId: this.getTenantId().toString(),
-          guarantorId: this.selectedGuarantor?.id?.toString() as string
-        }
-      });
-    } else {
-      console.log(Number(this.getStep() + 1));
-      // If "NO_GUARANTOR" next step
-      this.$router.push({
-        name: "ValidateFileStep",
-        params: { step: Number(this.getStep() + 1).toString() }
-      });
-    }
+    this.$router.push({
+      name: "ValidateFileStep",
+      params: { step: Number(this.getStep() + 1).toString() }
+    });
   }
 }
 </script>

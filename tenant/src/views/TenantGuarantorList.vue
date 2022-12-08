@@ -71,8 +71,7 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
     VGouvFrModal,
     ConfirmModal
   },
-  computed: {
-  }
+  computed: {}
 })
 export default class TenantGuarantorList extends Vue {
   @Prop() step!: number;
@@ -84,7 +83,7 @@ export default class TenantGuarantorList extends Vue {
     if (g.firstName || g.lastName) {
       return `${g.firstName || ""} ${g.lastName || ""}`;
     }
-    if(g.typeGuarantor === 'LEGAL_PERSON' && g.legalPersonName){
+    if (g.typeGuarantor === "LEGAL_PERSON" && g.legalPersonName) {
       return g.legalPersonName;
     }
     return this.$i18n.t("guarantor." + g.typeGuarantor);
@@ -134,14 +133,17 @@ export default class TenantGuarantorList extends Vue {
   }
 
   removeGuarantor(g: Guarantor) {
-    this.$store.dispatch("deleteGuarantor", g).then(
-      () => {
+    this.$store
+      .dispatch("deleteGuarantor", g)
+      .then(() => {
         this.$emit("on-delete", g);
-      },
-      () => {
+      })
+      .catch(() => {
         Vue.toasted.global.error();
-      }
-    );
+      })
+      .finally(() => {
+        this.isRemoveGuarantor = false;
+      });
   }
 
   hasOneNaturalGuarantor() {
@@ -152,7 +154,14 @@ export default class TenantGuarantorList extends Vue {
   }
 
   addNaturalGuarantor() {
-    this.$store.dispatch("addNaturalGuarantor");
+    this.$store
+      .dispatch("setGuarantorType", {
+        tenantId: Number(this.$route.params.tenantId),
+        typeGuarantor: "NATURAL_PERSON"
+      })
+      .then(() => {
+        this.$emit("on-edit", this.guarantors[this.guarantors.length - 1]);
+      });
   }
 }
 </script>

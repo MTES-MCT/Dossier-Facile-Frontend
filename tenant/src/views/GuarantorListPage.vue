@@ -161,8 +161,8 @@ export default class GuarantorListPage extends Vue {
   }
 
   async editGuarantor(g: Guarantor) {
-    await this.$store.commit("setSelectedGuarantor", g);
-    await this.$router.push({
+    this.$store.commit("setSelectedGuarantor", g);
+    this.$router.push({
       name: "GuarantorDocuments",
       params: { substep: "0" }
     });
