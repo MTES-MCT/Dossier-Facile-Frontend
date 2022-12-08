@@ -1,6 +1,6 @@
 <template>
   <ProfileContainer :step="getStep()">
-    <div v-if="!guarantors || guarantors.length == 0">
+    <div v-show="!guarantors || guarantors.length == 0">
       <TenantGuarantorChoice
         :tenantId="getTenantId()"
         :isCotenant="true"
@@ -9,14 +9,15 @@
       ></TenantGuarantorChoice>
     </div>
 
-    <TenantGuarantorList
-      v-else
-      :guarantors="guarantors"
-      :substep="getStep()"
-      @on-edit="onEdit"
-      @on-back="goBack"
-      @on-next="goNext"
-    ></TenantGuarantorList>
+    <div v-show="guarantors && guarantors.length > 0">
+      <TenantGuarantorList
+        :guarantors="guarantors"
+        :substep="getStep()"
+        @on-edit="onEdit"
+        @on-back="goBack"
+        @on-next="goNext"
+      ></TenantGuarantorList>
+    </div>
   </ProfileContainer>
 </template>
 
@@ -91,22 +92,21 @@ export default class TenantGuarantorsPage extends Vue {
     window.Beacon("destroy");
   }
 
-  async updateGuarantorType(value: string) {
+  updateGuarantorType(value: string) {
     if (value == "NO_GUARANTOR") {
       this.goNext();
     } else {
-      const guarantors =
-        this.coTenants.find(t => {
-          return t.id === this.getTenantId();
-        })?.guarantors || [];
+      if (this.guarantors === undefined) {
+        return;
+      }
 
       this.$router.push({
         name: "TenantGuarantorDocuments",
         params: {
           step: this.getStep().toString(),
-          substep: "1",
+          substep: "0",
           tenantId: this.getTenantId().toString(),
-          guarantorId: guarantors[0].id?.toString() || "0"
+          guarantorId: this.guarantors[0].id?.toString() || "0"
         }
       });
     }

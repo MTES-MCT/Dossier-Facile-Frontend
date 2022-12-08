@@ -57,6 +57,7 @@
         <OrganismCert
           :is-cotenant="true"
           :guarantor="selectedGuarantor"
+          :tenantId="tenantId"
         ></OrganismCert>
         <GuarantorFooter
           @on-back="goBack"
