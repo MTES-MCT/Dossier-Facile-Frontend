@@ -172,9 +172,7 @@ export default class CoTenantName extends Vue {
 
     this.selectedCoTenant!.firstName = this.firstName;
     this.selectedCoTenant!.lastName = this.lastName;
-    if (this.preferredName) {
-      this.selectedCoTenant!.preferredName = this.preferredName;
-    }
+    this.selectedCoTenant!.preferredName = this.preferredName;
 
     const loader = this.$loading.show();
     this.$store
