@@ -29,6 +29,8 @@ import { AnalyticsService } from "../../../services/AnalyticsService";
 
 @Component
 export default class MonFranceConnect extends Vue {
+  MON_FRANCE_CONNECT_URL = "https://mon.franceconnect.gouv.fr/Redirect/";
+
   isDisplayed() {
     const isHidden =
       `${process.env.VUE_APP_HIDE_MON_FRANCE_CONNECT_BUTTONS}` === "true";
@@ -37,10 +39,19 @@ export default class MonFranceConnect extends Vue {
 
   openDGFIP() {
     AnalyticsService.openDGFIP();
-    window.open(
-      "https://mon.franceconnect.gouv.fr/Redirect/?scope=BoutonDGFIP",
-      "_blank"
+    const url = this.monFranceConnectRedirection(
+      "avis-imposition",
+      "BoutonDGFIP"
     );
+    window.open(url.href, "_blank");
+  }
+
+  private monFranceConnectRedirection(step: string, scope: string): URL {
+    const url = new URL(this.MON_FRANCE_CONNECT_URL);
+    url.searchParams.append("partenaire", "dossierfacile");
+    url.searchParams.append("démarche", step);
+    url.searchParams.append("scope", scope);
+    return url;
   }
 }
 </script>

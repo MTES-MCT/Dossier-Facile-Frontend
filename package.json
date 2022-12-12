@@ -60,6 +60,7 @@
     "moment": "^2.29.2",
     "eventsource": "2.0.2",
     "got": "11.8.5",
-    "jsdom": "^16.5.0"
+    "jsdom": "^16.5.0",
+    "loader-utils": "^2.0.4"
   }
 }
