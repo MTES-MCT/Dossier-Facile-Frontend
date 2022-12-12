@@ -69,21 +69,17 @@
           <CorporationIdentification
             :tenantId="tenantId"
             :guarantor="selectedGuarantor"
-          ></CorporationIdentification>
-          <GuarantorFooter
             @on-back="goBack"
             @on-next="goNext"
-          ></GuarantorFooter>
+          ></CorporationIdentification>
         </div>
         <div v-if="substep === 1">
           <RepresentativeIdentification
             :tenantId="tenantId"
             :guarantor="selectedGuarantor"
-          ></RepresentativeIdentification>
-          <GuarantorFooter
             @on-back="goBack"
             @on-next="nextStep"
-          ></GuarantorFooter>
+          ></RepresentativeIdentification>
         </div>
       </div>
     </div>
