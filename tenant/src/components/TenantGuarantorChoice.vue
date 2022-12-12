@@ -158,6 +158,10 @@ export default class TenantGuarantorChoice extends Vue {
   @Prop({ default: false }) isCotenant!: boolean;
   tmpGuarantorType = "";
 
+  beforeMount() {
+    this.$store.dispatch("updateSelectedGuarantor", this.tenantId);
+  }
+
   updated() {
     // each dom update involved a scrollToEnd
     this.$nextTick(() => this.scrollToEnd());

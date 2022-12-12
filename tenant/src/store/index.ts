@@ -757,6 +757,23 @@ const store = new Vuex.Store({
       }
 
       router.push({ name: "TenantName" });
+    },
+    updateSelectedGuarantor({ commit }, tenantId: number) {
+      let guarantors;
+      if (this.state.user.id === tenantId) {
+        guarantors = this.state.user.guarantors;
+      } else {
+        const coTenant = this.state.coTenants.find((r: User) => {
+          return r.id === tenantId;
+        });
+        guarantors = coTenant?.guarantors;
+      }
+
+      if (guarantors && guarantors.length > 0) {
+        commit("setSelectedGuarantor", guarantors[guarantors.length - 1]);
+        return;
+      }
+      commit("setSelectedGuarantor", new Guarantor());
     }
   },
   getters: {
