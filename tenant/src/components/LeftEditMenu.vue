@@ -5,8 +5,8 @@
         <div class="step-number">{{ getStepNumber("information") }}</div>
         <div class="step-title">
           <router-link :to="{ name: 'TenantName' }" class="fr-link">
-            {{ $t("personal-information") }}</router-link
-          >
+            {{ $t("personal-information") }}
+          </router-link>
         </div>
       </div>
       <div class="vline" :class="getClass(getStepNumber('information'))">
@@ -16,13 +16,13 @@
           </router-link>
         </div>
         <div class="ml-5" v-if="user.applicationType">
-          <router-link :to="{ name: 'TenantType' }"
-            ><ColoredTag
+          <router-link :to="{ name: 'TenantType' }">
+            <ColoredTag
               :text="$t(user.applicationType)"
               :status="user.applicationType"
               :active="step < 2"
-            ></ColoredTag
-          ></router-link>
+            ></ColoredTag>
+          </router-link>
         </div>
       </div>
       <div class="step" :class="getClass(getStepNumber('documents'))">
@@ -31,70 +31,50 @@
           <router-link
             class="fr-link"
             :to="{ name: 'TenantDocuments', params: { substep: '1' } }"
-            >{{ $t("my-document") }}</router-link
-          >
+            >{{ $t("my-document") }}
+          </router-link>
         </div>
       </div>
       <div class="vline" :class="getClass(getStepNumber('documents'))">
         <div v-if="step === 2">
-          <div class="ml-5">
-            <router-link
-              :to="{ name: 'TenantDocuments', params: { substep: '1' } }"
-              ><ColoredTag
-                :text="$t('identification')"
-                :status="tenantStatus('IDENTITY')"
-                :active="getTenantCurrentStep(1)"
-              ></ColoredTag
-            ></router-link>
-          </div>
-          <div class="ml-5">
-            <router-link
-              :to="{ name: 'TenantDocuments', params: { substep: '2' } }"
-              ><ColoredTag
-                :text="$t('residency')"
-                :status="tenantStatus('RESIDENCY')"
-                :active="getTenantCurrentStep(2)"
-              ></ColoredTag
-            ></router-link>
-          </div>
-          <div class="ml-5">
-            <router-link
-              :to="{ name: 'TenantDocuments', params: { substep: '3' } }"
-              ><ColoredTag
-                :text="$t('professional')"
-                :status="tenantStatus('PROFESSIONAL')"
-                :active="getTenantCurrentStep(3)"
-              ></ColoredTag
-            ></router-link>
-          </div>
-          <div class="ml-5">
-            <router-link
-              :to="{ name: 'TenantDocuments', params: { substep: '4' } }"
-              ><ColoredTag
-                :text="$t('financial')"
-                :status="tenantStatus('FINANCIAL')"
-                :active="getTenantCurrentStep(4)"
-              ></ColoredTag
-            ></router-link>
-          </div>
-          <div class="ml-5">
-            <router-link
-              :to="{ name: 'TenantDocuments', params: { substep: '5' } }"
-              ><ColoredTag
-                :text="$t('tax')"
-                :status="tenantStatus('TAX')"
-                :active="getTenantCurrentStep(5)"
-              ></ColoredTag
-            ></router-link>
-          </div>
+          <TenantDocumentLink
+            class="ml-5"
+            document-type="IDENTITY"
+            substep="1"
+            :active="getTenantCurrentStep(1)"
+          />
+          <TenantDocumentLink
+            class="ml-5"
+            document-type="RESIDENCY"
+            substep="2"
+            :active="getTenantCurrentStep(2)"
+          />
+          <TenantDocumentLink
+            class="ml-5"
+            document-type="PROFESSIONAL"
+            substep="3"
+            :active="getTenantCurrentStep(3)"
+          />
+          <TenantDocumentLink
+            class="ml-5"
+            document-type="FINANCIAL"
+            substep="4"
+            :active="getTenantCurrentStep(4)"
+          />
+          <TenantDocumentLink
+            class="ml-5"
+            document-type="TAX"
+            substep="5"
+            :active="getTenantCurrentStep(5)"
+          />
         </div>
       </div>
       <div class="step" :class="getClass(getStepNumber('guarantor'))">
         <div class="step-number">{{ getStepNumber("guarantor") }}</div>
         <div class="step-title">
-          <router-link class="fr-link" :to="getGuarantorLink()">{{
-            $t("my-guarantor")
-          }}</router-link>
+          <router-link class="fr-link" :to="getGuarantorLink()"
+            >{{ $t("my-guarantor") }}
+          </router-link>
         </div>
       </div>
       <div class="vline" :class="getClass(getStepNumber('guarantor'))">
@@ -113,118 +93,75 @@
                     name: 'GuarantorDocuments',
                     params: { substep: '0', guarantorId: g.id }
                   }"
-                  ><ColoredTag
+                >
+                  <ColoredTag
                     :text="`${g.firstName} ${g.lastName}`"
                     status="NONE"
                     :active="getGuarantorCurrentStep(0, g)"
-                  ></ColoredTag
-                ></router-link>
+                  ></ColoredTag>
+                </router-link>
               </div>
-              <div class="ml-10">
-                <router-link
-                  :to="{
-                    name: 'GuarantorDocuments',
-                    params: { substep: '1', guarantorId: g.id }
-                  }"
-                  ><ColoredTag
-                    :text="$t('identification')"
-                    :status="guarantorStatus('IDENTITY', g)"
-                    :active="getGuarantorCurrentStep(1, g)"
-                  ></ColoredTag
-                ></router-link>
-              </div>
-              <div class="ml-10">
-                <router-link
-                  :to="{
-                    name: 'GuarantorDocuments',
-                    params: { substep: '2', guarantorId: g.id }
-                  }"
-                  ><ColoredTag
-                    :text="$t('residency')"
-                    :status="guarantorStatus('RESIDENCY', g)"
-                    :active="getGuarantorCurrentStep(2, g)"
-                  ></ColoredTag
-                ></router-link>
-              </div>
-              <div class="ml-10">
-                <router-link
-                  :to="{
-                    name: 'GuarantorDocuments',
-                    params: { substep: '3', guarantorId: g.id }
-                  }"
-                  ><ColoredTag
-                    :text="$t('professional')"
-                    :status="guarantorStatus('PROFESSIONAL', g)"
-                    :active="getGuarantorCurrentStep(3, g)"
-                  ></ColoredTag
-                ></router-link>
-              </div>
-              <div class="ml-10">
-                <router-link
-                  :to="{
-                    name: 'GuarantorDocuments',
-                    params: { substep: '4', guarantorId: g.id }
-                  }"
-                  ><ColoredTag
-                    :text="$t('financial')"
-                    :status="guarantorStatus('FINANCIAL', g)"
-                    :active="getGuarantorCurrentStep(4, g)"
-                  ></ColoredTag
-                ></router-link>
-              </div>
-              <div class="ml-10">
-                <router-link
-                  :to="{
-                    name: 'GuarantorDocuments',
-                    params: { substep: '5', guarantorId: g.id }
-                  }"
-                  ><ColoredTag
-                    :text="$t('tax')"
-                    :status="guarantorStatus('TAX', g)"
-                    :active="getGuarantorCurrentStep(5, g)"
-                  ></ColoredTag
-                ></router-link>
-              </div>
+              <GuarantorDocumentLink
+                class="ml-10"
+                :guarantor="g"
+                document-type="IDENTITY"
+                substep="1"
+                :active="getGuarantorCurrentStep(1, g)"
+              />
+              <GuarantorDocumentLink
+                class="ml-10"
+                :guarantor="g"
+                document-type="RESIDENCY"
+                substep="2"
+                :active="getGuarantorCurrentStep(2, g)"
+              />
+              <GuarantorDocumentLink
+                class="ml-10"
+                :guarantor="g"
+                document-type="PROFESSIONAL"
+                substep="3"
+                :active="getGuarantorCurrentStep(3, g)"
+              />
+              <GuarantorDocumentLink
+                class="ml-10"
+                :guarantor="g"
+                document-type="FINANCIAL"
+                substep="4"
+                :active="getGuarantorCurrentStep(4, g)"
+              />
+              <GuarantorDocumentLink
+                class="ml-10"
+                :guarantor="g"
+                document-type="TAX"
+                substep="5"
+                :active="getGuarantorCurrentStep(5, g)"
+              />
             </div>
           </div>
           <div v-if="selectedGuarantor.typeGuarantor === 'LEGAL_PERSON'">
-            <div class="ml-5">
-              <router-link
-                :to="{ name: 'GuarantorDocuments', params: { substep: '0' } }"
-                ><ColoredTag
-                  :text="$t('identification-legal-person')"
-                  :status="
-                    guarantorStatus(
-                      'IDENTIFICATION_LEGAL_PERSON',
-                      selectedGuarantor
-                    )
-                  "
-                  :active="getGuarantorCurrentStep(0)"
-                ></ColoredTag
-              ></router-link>
-            </div>
-            <div class="ml-5">
-              <router-link
-                :to="{ name: 'GuarantorDocuments', params: { substep: '1' } }"
-                ><ColoredTag
-                  :text="$t('identity-represent')"
-                  :status="guarantorStatus('IDENTIFICATION', selectedGuarantor)"
-                  :active="getGuarantorCurrentStep(1)"
-                ></ColoredTag
-              ></router-link>
-            </div>
+            <GuarantorDocumentLink
+              class="ml-5"
+              :guarantor="selectedGuarantor"
+              document-type="IDENTIFICATION_LEGAL_PERSON"
+              substep="0"
+              :active="getGuarantorCurrentStep(0)"
+            />
+            <GuarantorDocumentLink
+              class="ml-5"
+              :guarantor="selectedGuarantor"
+              document-type="IDENTIFICATION"
+              substep="1"
+              :active="getGuarantorCurrentStep(1)"
+            />
           </div>
           <div v-if="selectedGuarantor.typeGuarantor === 'ORGANISM'">
-            <div class="ml-5">
-              <router-link
-                :to="{ name: 'GuarantorDocuments', params: { substep: '0' } }"
-                ><ColoredTag
-                  :text="$t('identification-organism')"
-                  :status="guarantorStatus('IDENTIFICATION', selectedGuarantor)"
-                  :active="getGuarantorCurrentStep(0)"
-                ></ColoredTag
-              ></router-link>
-            </div>
+            <GuarantorDocumentLink
+              class="ml-5"
+              :guarantor="selectedGuarantor"
+              document-type="IDENTIFICATION_ORGANISM"
+              substep="0"
+              :active="getGuarantorCurrentStep(0)"
+            />
           </div>
         </div>
       </div>
@@ -245,8 +182,8 @@
                 tenantId: getCoTenant(0).id
               }
             }"
-            >{{ $t("my-cotenant") }}</router-link
-          >
+            >{{ $t("my-cotenant") }}
+          </router-link>
         </div>
       </div>
       <div
@@ -263,78 +200,49 @@
                     name: 'CoTenantDocuments',
                     params: { substep: '0', tenantId: coTenant.id }
                   }"
-                  ><ColoredTag
+                >
+                  <ColoredTag
                     :text="getName(coTenant)"
                     status="NONE"
                     :active="getCurrentSubStep() == 0"
-                  ></ColoredTag
-                ></router-link>
+                  ></ColoredTag>
+                </router-link>
               </div>
-              <div class="ml-10">
-                <router-link
-                  :to="{
-                    name: 'CoTenantDocuments',
-                    params: { substep: '1', tenantId: coTenant.id }
-                  }"
-                  ><ColoredTag
-                    :text="$t('identification')"
-                    :status="getTenantStatus('IDENTITY', coTenant)"
-                    :active="getCurrentSubStep() == 1"
-                  ></ColoredTag
-                ></router-link>
-              </div>
-              <div class="ml-10">
-                <router-link
-                  :to="{
-                    name: 'CoTenantDocuments',
-                    params: { substep: '2', tenantId: coTenant.id }
-                  }"
-                  ><ColoredTag
-                    :text="$t('residency')"
-                    :status="getTenantStatus('RESIDENCY', coTenant)"
-                    :active="getCurrentSubStep() == 2"
-                  ></ColoredTag
-                ></router-link>
-              </div>
-              <div class="ml-10">
-                <router-link
-                  :to="{
-                    name: 'CoTenantDocuments',
-                    params: { substep: '3', guarantorId: coTenant.id }
-                  }"
-                  ><ColoredTag
-                    :text="$t('professional')"
-                    :status="getTenantStatus('PROFESSIONAL', coTenant)"
-                    :active="getCurrentSubStep() == 3"
-                  ></ColoredTag
-                ></router-link>
-              </div>
-              <div class="ml-10">
-                <router-link
-                  :to="{
-                    name: 'CoTenantDocuments',
-                    params: { substep: '4', guarantorId: coTenant.id }
-                  }"
-                  ><ColoredTag
-                    :text="$t('financial')"
-                    :status="getTenantStatus('FINANCIAL', coTenant)"
-                    :active="getCurrentSubStep() == 4"
-                  ></ColoredTag
-                ></router-link>
-              </div>
-              <div class="ml-10">
-                <router-link
-                  :to="{
-                    name: 'CoTenantDocuments',
-                    params: { substep: '5', guarantorId: coTenant.id }
-                  }"
-                  ><ColoredTag
-                    :text="$t('tax')"
-                    :status="getTenantStatus('TAX', coTenant)"
-                    :active="getCurrentSubStep() == 5"
-                  ></ColoredTag
-                ></router-link>
-              </div>
+              <CoTenantDocumentLink
+                class="ml-10"
+                :co-tenant="coTenant"
+                document-type="IDENTITY"
+                substep="1"
+                :active="getCurrentSubStep() === 1"
+              />
+              <CoTenantDocumentLink
+                class="ml-10"
+                :co-tenant="coTenant"
+                document-type="RESIDENCY"
+                substep="2"
+                :active="getCurrentSubStep() === 2"
+              />
+              <CoTenantDocumentLink
+                class="ml-10"
+                :co-tenant="coTenant"
+                document-type="PROFESSIONAL"
+                substep="3"
+                :active="getCurrentSubStep() === 3"
+              />
+              <CoTenantDocumentLink
+                class="ml-10"
+                :co-tenant="coTenant"
+                document-type="FINANCIAL"
+                substep="4"
+                :active="getCurrentSubStep() === 4"
+              />
+              <CoTenantDocumentLink
+                class="ml-10"
+                :co-tenant="coTenant"
+                document-type="TAX"
+                substep="5"
+                :active="getCurrentSubStep() === 5"
+              />
             </div>
           </div>
         </div>
@@ -387,167 +295,83 @@
                       guarantorId: g.id
                     }
                   }"
-                  ><ColoredTag
+                >
+                  <ColoredTag
                     :text="`${g.firstName} ${g.lastName}`"
                     status="NONE"
                     :active="getGuarantorCurrentStep(0, g)"
-                  ></ColoredTag
-                ></router-link>
+                  ></ColoredTag>
+                </router-link>
               </div>
-              <div class="ml-10">
-                <router-link
-                  :to="{
-                    name: 'TenantGuarantorDocuments',
-                    params: {
-                      step: getStepNumber('coTenantGuarantor'),
-                      substep: '1',
-                      tenantId: getCoTenant(0).id,
-                      guarantorId: g.id
-                    }
-                  }"
-                  ><ColoredTag
-                    :text="$t('identification')"
-                    :status="guarantorStatus('IDENTITY', g)"
-                    :active="getGuarantorCurrentStep(1, g)"
-                  ></ColoredTag
-                ></router-link>
-              </div>
-              <div class="ml-10">
-                <router-link
-                  :to="{
-                    name: 'TenantGuarantorDocuments',
-                    params: {
-                      step: getStepNumber('coTenantGuarantor'),
-                      substep: '2',
-                      tenantId: getCoTenant(0).id,
-                      guarantorId: g.id
-                    }
-                  }"
-                  ><ColoredTag
-                    :text="$t('residency')"
-                    :status="guarantorStatus('RESIDENCY', g)"
-                    :active="getGuarantorCurrentStep(2, g)"
-                  ></ColoredTag
-                ></router-link>
-              </div>
-              <div class="ml-10">
-                <router-link
-                  :to="{
-                    name: 'TenantGuarantorDocuments',
-                    params: {
-                      step: getStepNumber('coTenantGuarantor'),
-                      substep: '3',
-                      tenantId: getCoTenant(0).id,
-                      guarantorId: g.id
-                    }
-                  }"
-                  ><ColoredTag
-                    :text="$t('professional')"
-                    :status="guarantorStatus('PROFESSIONAL', g)"
-                    :active="getGuarantorCurrentStep(3, g)"
-                  ></ColoredTag
-                ></router-link>
-              </div>
-              <div class="ml-10">
-                <router-link
-                  :to="{
-                    name: 'TenantGuarantorDocuments',
-                    params: {
-                      step: getStepNumber('coTenantGuarantor'),
-                      substep: '4',
-                      tenantId: getCoTenant(0).id,
-                      guarantorId: g.id
-                    }
-                  }"
-                  ><ColoredTag
-                    :text="$t('financial')"
-                    :status="guarantorStatus('FINANCIAL', g)"
-                    :active="getGuarantorCurrentStep(4, g)"
-                  ></ColoredTag
-                ></router-link>
-              </div>
-              <div class="ml-10">
-                <router-link
-                  :to="{
-                    name: 'TenantGuarantorDocuments',
-                    params: {
-                      step: getStepNumber('coTenantGuarantor'),
-                      substep: '5',
-                      tenantId: getCoTenant(0).id,
-                      guarantorId: g.id
-                    }
-                  }"
-                  ><ColoredTag
-                    :text="$t('tax')"
-                    :status="guarantorStatus('TAX', g)"
-                    :active="getGuarantorCurrentStep(5, g)"
-                  ></ColoredTag
-                ></router-link>
-              </div>
+              <CoTenantGuarantorDocumentLink
+                class="ml-10"
+                :guarantor="g"
+                :co-tenant="getCoTenant(0)"
+                document-type="IDENTITY"
+                substep="1"
+                :active="getGuarantorCurrentStep(1, g)"
+              />
+              <CoTenantGuarantorDocumentLink
+                class="ml-10"
+                :guarantor="g"
+                :co-tenant="getCoTenant(0)"
+                document-type="RESIDENCY"
+                substep="2"
+                :active="getGuarantorCurrentStep(2, g)"
+              />
+              <CoTenantGuarantorDocumentLink
+                class="ml-10"
+                :guarantor="g"
+                :co-tenant="getCoTenant(0)"
+                document-type="PROFESSIONAL"
+                substep="3"
+                :active="getGuarantorCurrentStep(3, g)"
+              />
+              <CoTenantGuarantorDocumentLink
+                class="ml-10"
+                :guarantor="g"
+                :co-tenant="getCoTenant(0)"
+                document-type="FINANCIAL"
+                substep="4"
+                :active="getGuarantorCurrentStep(4, g)"
+              />
+              <CoTenantGuarantorDocumentLink
+                class="ml-10"
+                :guarantor="g"
+                :co-tenant="getCoTenant(0)"
+                document-type="TAX"
+                substep="5"
+                :active="getGuarantorCurrentStep(5, g)"
+              />
             </div>
           </div>
           <div v-if="selectedGuarantor.typeGuarantor === 'LEGAL_PERSON'">
-            <div class="ml-5">
-              <router-link
-                :to="{
-                  name: 'TenantGuarantorDocuments',
-                  params: {
-                    step: getStepNumber('coTenantGuarantor'),
-                    substep: '0',
-                    tenantId: getCoTenant(0).id,
-                    guarantorId: selectedGuarantor.id
-                  }
-                }"
-                ><ColoredTag
-                  :text="$t('identification-legal-person')"
-                  :status="
-                    guarantorStatus(
-                      'IDENTIFICATION_LEGAL_PERSON',
-                      selectedGuarantor
-                    )
-                  "
-                  :active="getGuarantorCurrentStep(0, selectedGuarantor)"
-                ></ColoredTag
-              ></router-link>
-            </div>
-            <div class="ml-5">
-              <router-link
-                :to="{
-                  name: 'TenantGuarantorDocuments',
-                  params: {
-                    step: getStepNumber('coTenantGuarantor'),
-                    substep: '1',
-                    tenantId: getCoTenant(0).id,
-                    guarantorId: selectedGuarantor.id
-                  }
-                }"
-                ><ColoredTag
-                  :text="$t('identity-represent')"
-                  :status="guarantorStatus('IDENTIFICATION', selectedGuarantor)"
-                  :active="getGuarantorCurrentStep(1, selectedGuarantor)"
-                ></ColoredTag
-              ></router-link>
-            </div>
+            <CoTenantGuarantorDocumentLink
+              class="ml-5"
+              :guarantor="selectedGuarantor"
+              :co-tenant="getCoTenant(0)"
+              document-type="IDENTIFICATION_LEGAL_PERSON"
+              substep="0"
+              :active="getGuarantorCurrentStep(0, selectedGuarantor)"
+            />
+            <CoTenantGuarantorDocumentLink
+              class="ml-5"
+              :guarantor="selectedGuarantor"
+              :co-tenant="getCoTenant(0)"
+              document-type="IDENTIFICATION"
+              substep="1"
+              :active="getGuarantorCurrentStep(1, selectedGuarantor)"
+            />
           </div>
           <div v-if="selectedGuarantor.typeGuarantor === 'ORGANISM'">
-            <div class="ml-5">
-              <router-link
-                :to="{
-                  name: 'TenantGuarantorDocuments',
-                  params: {
-                    step: getStepNumber('coTenantGuarantor'),
-                    substep: '0',
-                    tenantId: getCoTenant(0).id,
-                    guarantorId: selectedGuarantor.id
-                  }
-                }"
-                ><ColoredTag
-                  :text="$t('identification-organism')"
-                  :status="guarantorStatus('IDENTIFICATION', selectedGuarantor)"
-                  :active="getGuarantorCurrentStep(0, selectedGuarantor)"
-                ></ColoredTag
-              ></router-link>
-            </div>
+            <CoTenantGuarantorDocumentLink
+              class="ml-5"
+              :guarantor="selectedGuarantor"
+              :co-tenant="getCoTenant(0)"
+              document-type="IDENTIFICATION_ORGANISM"
+              substep="0"
+              :active="getGuarantorCurrentStep(0, selectedGuarantor)"
+            />
           </div>
         </div>
       </div>
@@ -560,8 +384,8 @@
               name: 'ValidateFileStep',
               params: { step: getStepNumber('validate') }
             }"
-            >{{ $t("validate-file") }}</router-link
-          >
+            >{{ $t("validate-file") }}
+          </router-link>
         </div>
       </div>
 
@@ -574,13 +398,25 @@
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { mapState } from "vuex";
-import { DocumentService } from "../services/DocumentService";
 import StatusIcon from "df-shared/src/components/StatusIcon.vue";
 import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 import { User } from "df-shared/src/models/User";
+import DocumentLink from "@/components/editmenu/DocumentLink.vue";
+import GuarantorDocumentLink from "@/components/editmenu/GuarantorDocumentLink.vue";
+import TenantDocumentLink from "@/components/editmenu/TenantDocumentLink.vue";
+import CoTenantDocumentLink from "@/components/editmenu/CoTenantDocumentLink.vue";
+import CoTenantGuarantorDocumentLink from "@/components/editmenu/CoTenantGuarantorDocumentLink.vue";
 
 @Component({
-  components: { StatusIcon, ColoredTag },
+  components: {
+    StatusIcon,
+    ColoredTag,
+    DocumentLink,
+    TenantDocumentLink,
+    GuarantorDocumentLink,
+    CoTenantDocumentLink,
+    CoTenantGuarantorDocumentLink
+  },
   computed: {
     ...mapState({
       selectedGuarantor: "selectedGuarantor",
@@ -600,17 +436,6 @@ export default class LeftEditMenu extends Vue {
       return "active";
     }
     return "";
-  }
-
-  guarantorStatus(documentType: string, guarantor: Guarantor) {
-    return DocumentService.guarantorStatus(documentType, guarantor);
-  }
-
-  tenantStatus(documentType: string) {
-    return DocumentService.tenantStatus(documentType);
-  }
-  getTenantStatus(documentType: string, coTenant: User) {
-    return DocumentService.tenantStatus(documentType, coTenant);
   }
 
   getTenantCurrentStep(substep: number): boolean {
@@ -648,6 +473,7 @@ export default class LeftEditMenu extends Vue {
   isCouple() {
     return this.user.applicationType === "COUPLE";
   }
+
   getCoTenant(index: number): User {
     return this.coTenants[index];
   }
@@ -704,6 +530,7 @@ export default class LeftEditMenu extends Vue {
   border-left: 1px solid var(--g400-t);
   z-index: 0;
   min-height: 25px;
+
   &.active {
     border-left: 1px solid var(--primary);
   }

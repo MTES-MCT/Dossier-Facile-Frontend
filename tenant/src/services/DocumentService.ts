@@ -272,6 +272,7 @@ export const DocumentService = {
           "EMPTY";
         break;
       case "IDENTIFICATION":
+      case "IDENTIFICATION_ORGANISM":
         status =
           DocumentService.getGuarantorLegalPersonRepresentantStatus(
             guarantor
