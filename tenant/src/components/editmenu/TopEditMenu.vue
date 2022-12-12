@@ -292,10 +292,10 @@ import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 import { mapState } from "vuex";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { User } from "df-shared/src/models/User";
-import TenantDocumentLink from "@/components/editmenu/TenantDocumentLink.vue";
-import GuarantorDocumentLink from "@/components/editmenu/GuarantorDocumentLink.vue";
-import CoTenantDocumentLink from "@/components/editmenu/CoTenantDocumentLink.vue";
-import CoTenantGuarantorDocumentLink from "@/components/editmenu/CoTenantGuarantorDocumentLink.vue";
+import TenantDocumentLink from "./documents/TenantDocumentLink.vue";
+import GuarantorDocumentLink from "./documents/GuarantorDocumentLink.vue";
+import CoTenantDocumentLink from "./documents/CoTenantDocumentLink.vue";
+import CoTenantGuarantorDocumentLink from "./documents/CoTenantGuarantorDocumentLink.vue";
 
 @Component({
   components: {

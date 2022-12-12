@@ -401,11 +401,11 @@ import { mapState } from "vuex";
 import StatusIcon from "df-shared/src/components/StatusIcon.vue";
 import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 import { User } from "df-shared/src/models/User";
-import DocumentLink from "@/components/editmenu/DocumentLink.vue";
-import GuarantorDocumentLink from "@/components/editmenu/GuarantorDocumentLink.vue";
-import TenantDocumentLink from "@/components/editmenu/TenantDocumentLink.vue";
-import CoTenantDocumentLink from "@/components/editmenu/CoTenantDocumentLink.vue";
-import CoTenantGuarantorDocumentLink from "@/components/editmenu/CoTenantGuarantorDocumentLink.vue";
+import DocumentLink from "./documents/DocumentLink.vue";
+import GuarantorDocumentLink from "./documents/GuarantorDocumentLink.vue";
+import TenantDocumentLink from "./documents/TenantDocumentLink.vue";
+import CoTenantDocumentLink from "./documents/CoTenantDocumentLink.vue";
+import CoTenantGuarantorDocumentLink from "./documents/CoTenantGuarantorDocumentLink.vue";
 
 @Component({
   components: {
