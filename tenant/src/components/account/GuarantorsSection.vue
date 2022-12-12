@@ -184,12 +184,20 @@ import InfoCard from "@/components/account/InfoCard.vue";
 import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { User } from "df-shared/src/models/User";
+import { mapState } from "vuex";
+import { UtilsService } from "@/services/UtilsService";
 
 @Component({
-  components: { InfoCard, ColoredTag, ConfirmModal }
+  components: { InfoCard, ColoredTag, ConfirmModal },
+  computed: {
+    ...mapState({
+      user: "user"
+    })
+  }
 })
 export default class GuarantorsSection extends Vue {
   @Prop() tenant!: User;
+  user!: User;
   guarantors!: Guarantor[];
   showConfirmModal = false;
   selectedGuarantor: Guarantor | undefined;
@@ -260,10 +268,42 @@ export default class GuarantorsSection extends Vue {
 
   setAddGuarantorStep() {
     AnalyticsService.editAccount("guarantor");
-    if (this.guarantors.length > 0) {
-      this.$store.dispatch("addNaturalGuarantor");
+
+    if (this.user.id === this.tenant.id) {
+      if (this.guarantors.length > 0) {
+        this.$store.dispatch("addNaturalGuarantor");
+      } else {
+        this.$router.push({ name: "GuarantorChoice" });
+      }
     } else {
-      this.$router.push({ name: "GuarantorChoice" });
+      if (this.guarantors.length > 0) {
+        this.$store
+          .dispatch("setGuarantorType", {
+            tenantId: this.tenant.id,
+            typeGuarantor: "NATURAL_PERSON"
+          })
+          .then(() => {
+            this.guarantors = UtilsService.getTenant(this.tenant.id).guarantors;
+            const g = this.guarantors[this.guarantors.length - 1];
+            this.$router.push({
+              name: "TenantGuarantorDocuments",
+              params: {
+                step: "5",
+                substep: "0",
+                tenantId: this.tenant.id.toString(),
+                guarantorId: g.id?.toString() as string
+              }
+            });
+          });
+      } else {
+        this.$router.push({
+          name: "TenantGuarantors",
+          params: {
+            tenantId: this.tenant.id.toString(),
+            step: "5"
+          }
+        });
+      }
     }
   }
 

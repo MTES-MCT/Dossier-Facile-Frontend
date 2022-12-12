@@ -319,7 +319,6 @@ export default class Account extends Vue {
     return tenants;
   }
 
-
   getToken() {
     if (this.pub === "true") {
       return `${this.TENANT_URL}/public-file/${this.user.apartmentSharing?.tokenPublic}`;
