@@ -27,7 +27,8 @@
             name="professionalDocument"
             v-slot="{ errors, valid }"
           >
-            <label>{{ $t("select-label") }}</label>
+            <label v-if="isCotenant">{{ $t("select-label-cotenant") }}</label>
+            <label v-else>{{ $t("select-label") }}</label>
             <select
               v-model="professionalDocument"
               class="fr-select fr-mb-3w"
@@ -62,7 +63,11 @@
       v-if="professionalDocument.key || professionalFiles().length > 0"
     >
       <div class="fr-mb-3w">
-        {{ professionalDocument.explanationText }}
+        <p
+          v-html="
+            $t(`explanation-text.${guarantorKey()}.${professionalDocument.key}`)
+          "
+        ></p>
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
@@ -89,7 +94,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import DocumentInsert from "../share/DocumentInsert.vue";
 import FileUpload from "../../uploads/FileUpload.vue";
 import { mapState } from "vuex";
@@ -142,7 +147,10 @@ extend("select", {
     })
   }
 })
-export default class Professional extends Vue {
+export default class GuarantorProfessional extends Vue {
+  @Prop() tenantId?: string;
+  @Prop({ default: false }) isCotenant?: boolean;
+
   selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
@@ -284,6 +292,9 @@ export default class Professional extends Vue {
     if (this.$store.getters.guarantor.id) {
       formData.append("guarantorId", this.$store.getters.guarantor.id);
     }
+    if (this.tenantId) {
+      formData.append("tenantId", this.tenantId);
+    }
     const loader = this.$loading.show();
     this.$store
       .dispatch("saveGuarantorProfessional", formData)
@@ -322,7 +333,7 @@ export default class Professional extends Vue {
   }
 
   async remove(file: DfFile, silent = false) {
-    if (file.path && file.id) {
+    if (file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = this.files.findIndex(f => {
@@ -330,6 +341,13 @@ export default class Professional extends Vue {
       });
       this.files.splice(firstIndex, 1);
     }
+  }
+
+  guarantorKey() {
+    if (this.tenantId != null) {
+      return "cotenant-guarantor";
+    }
+    return "guarantor";
   }
 }
 </script>
@@ -339,7 +357,7 @@ export default class Professional extends Vue {
 <i18n>
 {
 "en": {
-  "title": "Proof of professional and financial situation",
+  "title": "Proof of professional",
   "cdi": "CDI",
   "cdi-trial": "CDI (période d’essai)",
   "cdd": "CDD",
@@ -354,11 +372,12 @@ export default class Professional extends Vue {
   "other": "Autre",
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
   "register": "Register",
-  "select-label": "Your current professional situation:",
+  "select-label": "Your guarantor professional situation:",
+  "select-label-cotenant": "Your cotenant guarantor current professional situation:",
   "select-is-empty": "Item selection is required"
 },
 "fr": {
-  "title": "Justificatif de situation professionelle et financière",
+  "title": "Justificatif de situation professionelle",
   "cdi": "CDI",
   "cdi-trial": "CDI (période d’essai)",
   "cdd": "CDD",
@@ -374,6 +393,7 @@ export default class Professional extends Vue {
   "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
   "register": "Enregistrer",
   "select-label": "La situation professionnelle, actuelle, de mon garant :",
+  "select-label-cotenant": "La situation professionnelle, actuelle, de son garant :",
   "select-is-empty": "Sélection requise"
 }
 }

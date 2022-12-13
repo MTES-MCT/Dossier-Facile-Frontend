@@ -32,3 +32,9 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### With Docker
+For start the main front : ```docker build -f main/Dockerfile .```
+For start the tenant front : ```docker build -f tenant/Dockerfile .```
+For start the tenant front : ```docker build -f owner/Dockerfile .```
+

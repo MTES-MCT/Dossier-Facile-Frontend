@@ -5,7 +5,7 @@
         <NakedCard class="fr-p-md-5w fr-mb-3w">
           <div>
             <h1 class="fr-h6">
-              {{ $t("title") }}
+              {{ $t("financial") }}
             </h1>
 
             <v-gouv-fr-modal>
@@ -43,7 +43,7 @@
                         @input="onSelectChange()"
                       >
                         <div class="fr-grid-col spa">
-                          <span>{{ $t(d.key) }}</span>
+                          <span>{{ $t(`documents.${d.key}`) }}</span>
                         </div>
                       </BigRadio>
                     </div>
@@ -133,7 +133,13 @@
           >
             <div>
               <div class="fr-mb-3w">
-                {{ financialDocument.documentType.explanationText }}
+                <p
+                  v-html="
+                    $t(
+                      `explanation-text.tenant.${financialDocument.documentType.key}`
+                    )
+                  "
+                ></p>
               </div>
               <AllDeclinedMessages
                 class="fr-mb-3w"
@@ -365,18 +371,6 @@ export default class FinancialDocumentForm extends Vue {
     return this.tenantFinancialDocument()?.documentStatus;
   }
 
-  isNewDocument(f: FinancialDocument) {
-    if (f.id !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.id === f.id;
-      });
-      if (doc !== undefined) {
-        return doc.documentSubCategory !== f.documentType.value;
-      }
-    }
-    return false;
-  }
-
   tenantFinancialDocument() {
     return this.$store.getters.getTenantDocuments?.find((d: DfDocument) => {
       return d.id === this.financialDocument.id;
@@ -590,7 +584,7 @@ export default class FinancialDocumentForm extends Vue {
 
   async remove(f: FinancialDocument, file: DfFile, silent = false) {
     AnalyticsService.deleteFile("financial");
-    if (file.path && file.id) {
+    if (file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = f.files.findIndex(f => {
@@ -642,17 +636,10 @@ export default class FinancialDocumentForm extends Vue {
 <i18n>
 {
   "en": {
-    "title": "Proof of resources",
     "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
     "monthlySum-label": "Salary (after tax)",
     "monthlySum": "Value in euros",
     "delete-financial":  "Delete this salary",
-    "salary": "Salary",
-    "guarantor_salary": "Salary or other professional income",
-    "social-service": "Social benefit payments",
-    "rent": "Annuities",
-    "pension": "Pensions",
-    "scholarship": "Scholarship",
     "custom-text": "In order to improve your file, you can add an eplanation :",
     "customText-social-service": "In order to improve my file, I explain why I cannot provide my justificatives:",
     "customText-salary": "In order to improve my file, I explain why I cannot provide my last three payslips:",
@@ -669,21 +656,13 @@ export default class FinancialDocumentForm extends Vue {
     "high-salary": "You have entered a salary greater than € 10,000 are you sure you have entered your monthly salary?",
     "low-salary": "You have entered a salary equal to 0 € are you sure you have entered your monthly salary?",
     "has-no-income": "You have no income",
-    "no-income": "No income",
     "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule"
   },
   "fr": {
-    "title": "Justificatif de ressources",
     "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
     "monthlySum-label": "J'indique le montant de mon revenu mensuel net à payer (avant prélèvement à la source)",
     "monthlySum": "Montant en euros",
     "delete-financial":  "Supprimer ce revenu",
-    "salary": "Salaire",
-    "guarantor_salary": "Salaires ou autres revenus d’activité professionnelle",
-    "social-service": "Prestations sociales",
-    "rent": "Rentes",
-    "pension": "Pensions",
-    "scholarship": "Bourses",
     "custom-text": "Afin d'améliorer votre dossier, vous pouvez ajouter une explication :",
     "customText-social-service": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
     "customText-salary": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes trois derniers bulletins de salaire :",
@@ -700,7 +679,6 @@ export default class FinancialDocumentForm extends Vue {
     "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
     "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
     "has-no-income": "Vous avez indiqué ne pas avoir de revenu",
-    "no-income": "Pas de revenu",
     "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule"
   }
 }

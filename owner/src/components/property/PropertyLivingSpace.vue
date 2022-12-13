@@ -40,10 +40,10 @@ function onBack() {
 
 <template>
   <PropertyPage @on-back="onBack" @submit="onSubmit">
-    <h1 class="fr-h4">{{ t("living-space-title") }}</h1>
-    <p>{{ t("living-space-subtitle") }}</p>
+    <h1 class="fr-h4">{{ t('living-space-title') }}</h1>
+    <p>{{ t('living-space-subtitle') }}</p>
     <p>
-      <label class="fr-label" for="living-space">{{ t("living-space-label") }} :</label>
+      <label class="fr-label" for="living-space">{{ t('living-space-label') }} :</label>
       <Field
         id="living-space"
         name="living-space"
@@ -51,7 +51,7 @@ function onBack() {
         v-slot="{ field, meta }"
         :rules="{
           required: true,
-          positive: true
+          positive: true,
         }"
       >
         <input
@@ -66,7 +66,7 @@ function onBack() {
         />
       </Field>
       <ErrorMessage name="living-space" v-slot="{ message }">
-        <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+        <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
       </ErrorMessage>
     </p>
   </PropertyPage>
@@ -83,7 +83,7 @@ function onBack() {
   },
   "fr": {
     "living-space-title": "Surface",
-    "living-space-subtitle": "Quelle est la surface",
+    "living-space-subtitle": "Quelle est la surface habitable de votre bien ?",
     "living-space-label": "Surface de ma propriété",
     "living-space-placeholder": "taille en m²",
     "number-not-positive": "La surface doit être supérieur à zéro"

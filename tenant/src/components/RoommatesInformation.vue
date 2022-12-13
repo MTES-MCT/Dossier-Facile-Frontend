@@ -22,9 +22,9 @@
           <div v-if="showEmailExists" class="fr-callout">
             <p class="fr-mb-1w" v-html="$t('email-exists')"></p>
           </div>
-          <div v-if="roommates.length > 0">
+          <div v-if="value.length > 0">
             <div
-              v-for="(roommate, key) in roommates"
+              v-for="(roommate, key) in value"
               v-bind:key="key"
               class="fr-mb-1w"
             >
@@ -71,7 +71,10 @@
         </div>
         <div class="fr-col-12 fr-col-xl-7 fr-mt-2w">
           <label class="fr-label fr-mb-1w">{{ $t("roommateEmail") }}</label>
-          <validation-provider rules="email" v-slot="{ errors }">
+          <validation-provider
+            :rules="{ email: true, required: value.length == 0 }"
+            v-slot="{ errors }"
+          >
             <div
               class="fr-input-group"
               :class="errors[0] ? 'fr-input-group--error' : ''"
@@ -130,10 +133,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
-import { email, is } from "vee-validate/dist/rules";
+import { required, email, is } from "vee-validate/dist/rules";
 import { User } from "df-shared/src/models/User";
 import { mapGetters, mapState } from "vuex";
 import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.vue";
@@ -153,6 +156,11 @@ extend("is", {
   validate: value => !!value
 });
 
+extend("required", {
+  ...required,
+  message: "field-required"
+});
+
 @Component({
   components: {
     ValidationProvider,
@@ -167,16 +175,21 @@ extend("is", {
       user: "user"
     }),
     ...mapGetters({
-      roommates: "getRoommates",
       coTenantAuthorize: "coTenantAuthorize"
     })
   }
 })
 export default class RoommatesInformation extends Vue {
+  @Prop({
+    default() {
+      return [];
+    }
+  })
+  value!: User[];
+
   user!: User;
   authorize = false;
   coTenantAuthorize!: boolean;
-  roommates!: User[];
   newRoommate = "";
   showEmailExists = false;
 
@@ -188,7 +201,11 @@ export default class RoommatesInformation extends Vue {
     this.showEmailExists = false;
     if (this.newRoommate !== "") {
       if (this.user.email !== this.newRoommate) {
-        this.$store.commit("createRoommates", this.newRoommate);
+        const coTenant = new User();
+        coTenant.email = this.newRoommate;
+        this.$store.commit("createCoTenant", this.newRoommate);
+        this.value.push(coTenant);
+        this.$emit("input", this.value);
         this.newRoommate = "";
       } else {
         this.showEmailExists = true;

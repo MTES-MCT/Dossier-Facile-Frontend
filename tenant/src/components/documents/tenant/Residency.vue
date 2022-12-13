@@ -51,7 +51,7 @@
       v-if="residencyDocument.key || residencyFiles().length > 0"
     >
       <div class="fr-mb-3w">
-        <p v-html="residencyDocument.explanationText"></p>
+        <p v-html="$t(`explanation-text.tenant.${residencyDocument.key}`)"></p>
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
@@ -336,7 +336,7 @@ export default class Residency extends Vue {
 
   async remove(file: DfFile, silent = false) {
     AnalyticsService.deleteFile("residency");
-    if (file.path && file.id) {
+    if (file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = this.files.findIndex(f => {

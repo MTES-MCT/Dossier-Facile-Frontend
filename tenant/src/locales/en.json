@@ -15,5 +15,16 @@
   "professional": "Professional",
   "residency": "Residency",
   "financial": "Financial",
-  "tax": "Tax"
+  "tax": "Tax",
+  "documents": {
+    "salary": "Professional incomes",
+    "guarantor_salary": "Professional incomes",
+    "social-service": "Social benefit payments",
+    "rent": "Annuities",
+    "pension": "Pensions",
+    "scholarship": "Scholarship",
+    "no-income": "No income"
+  },
+  "my-cotenant": "Roommate's documents",
+  "my-cotenant-guarantor": "CoTenant's guarantor"
 }

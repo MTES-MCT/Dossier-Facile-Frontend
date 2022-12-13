@@ -3,18 +3,14 @@ import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 
-const props = defineProps<{ title: string, to: any }>();
-
+const props = defineProps<{ title: string; to: any }>();
 </script>
 
 <template>
   <div class="fr-grid-row item">
     <div>{{ props.title }}</div>
-    <router-link
-      class="fr-btn update-btn fr-btn--secondary"
-      :to='props.to'
-    >
-      <div class="desktop">{{ t("update") }}</div>
+    <router-link class="fr-btn update-btn fr-btn--secondary" :to="props.to">
+      <div class="desktop">{{ t('update') }}</div>
       <div class="mobile">
         <span class="color--primary material-icons md-16">edit</span>
       </div>
@@ -49,11 +45,11 @@ const props = defineProps<{ title: string, to: any }>();
 
 <i18n>
 {
-	"en": {
-		"update": "Update"
-	},
-	"fr": {
-		"update": "Mettre à jour"
-	}
+  "en": {
+    "update": "Update"
+  },
+  "fr": {
+    "update": "Mettre à jour"
+  }
 }
 </i18n>

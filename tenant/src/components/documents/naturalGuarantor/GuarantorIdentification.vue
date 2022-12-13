@@ -2,9 +2,8 @@
   <div>
     <NakedCard class="fr-p-md-5w">
       <div>
-        <h1 class="fr-h6">
-          {{ $t("title") }}
-        </h1>
+        <h1 class="fr-h6" v-if="isCotenant">{{ $t("title-cotenant") }}</h1>
+        <h1 class="fr-h6" v-else>{{ $t("title") }}</h1>
         {{ $t("select-label") }}
 
         <v-gouv-fr-modal>
@@ -58,8 +57,14 @@
       class="fr-p-md-5w fr-mt-3w"
       v-if="identificationDocument.key || identificationFiles().length > 0"
     >
-      <div v-if="identificationDocument.explanationText" class="fr-mb-3w">
-        <p v-html="identificationDocument.explanationText"></p>
+      <div class="fr-mb-3w">
+        <p
+          v-html="
+            $t(
+              `explanation-text.${guarantorKey()}.${identificationDocument.key}`
+            )
+          "
+        ></p>
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
@@ -90,7 +95,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { mapState } from "vuex";
 import DocumentInsert from "../share/DocumentInsert.vue";
 import FileUpload from "../../uploads/FileUpload.vue";
@@ -137,6 +142,8 @@ import { cloneDeep } from "lodash";
 })
 export default class GuarantorIdentification extends Vue {
   documents = DocumentTypeConstants.GUARANTOR_IDENTIFICATION_DOCS;
+  @Prop() tenantId?: string;
+  @Prop({ default: false }) isCotenant?: boolean;
 
   documentDeniedReasons = new DocumentDeniedReasons();
   selectedGuarantor!: Guarantor;
@@ -168,8 +175,10 @@ export default class GuarantorIdentification extends Vue {
     return this.guarantorIdentificationDocument()?.documentStatus;
   }
 
-  guarantorIdentificationDocument() {
-    return this.$store.getters.getGuarantorIdentificationDocument;
+  guarantorIdentificationDocument(): DfDocument {
+    return this.selectedGuarantor?.documents?.find((d: DfDocument) => {
+      return d.documentCategory === "IDENTIFICATION";
+    }) as DfDocument;
   }
 
   undoSelect() {
@@ -221,7 +230,7 @@ export default class GuarantorIdentification extends Vue {
       if (this.guarantorIdentificationDocument()?.documentDeniedReasons) {
         this.documentDeniedReasons = cloneDeep(
           this.guarantorIdentificationDocument()?.documentDeniedReasons
-        );
+        ) as DocumentDeniedReasons;
       }
     }
   }
@@ -273,9 +282,14 @@ export default class GuarantorIdentification extends Vue {
       "typeDocumentIdentification",
       this.identificationDocument.value
     );
-
+    if (this.tenantId) {
+      formData.append("tenantId", this.tenantId);
+    }
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    formData.append("guarantorId", this.$store.getters.guarantor.id);
+    if (!this.selectedGuarantor?.id) {
+      throw new Error("selectedGuarantor id cannot be empty !");
+    }
+    formData.append("guarantorId", this.selectedGuarantor.id?.toString());
     const loader = this.$loading.show();
     this.$store
       .dispatch("saveGuarantorIdentification", formData)
@@ -307,15 +321,12 @@ export default class GuarantorIdentification extends Vue {
         size: f.file?.size
       };
     });
-    const existingFiles =
-      this.$store.getters.getGuarantorDocuments?.find((d: DfDocument) => {
-        return d.documentCategory === "IDENTIFICATION";
-      })?.files || [];
+    const existingFiles = this.guarantorIdentificationDocument()?.files || [];
     return [...newFiles, ...existingFiles];
   }
 
   async remove(file: DfFile, silent = false) {
-    if (file.path && file.id) {
+    if (file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = this.files.findIndex(f => {
@@ -323,6 +334,13 @@ export default class GuarantorIdentification extends Vue {
       });
       this.files.splice(firstIndex, 1);
     }
+  }
+
+  guarantorKey() {
+    if (this.tenantId != null) {
+      return "cotenant-guarantor";
+    }
+    return "guarantor";
   }
 }
 </script>
@@ -350,6 +368,7 @@ td {
   "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
   "register": "Register",
   "title": "I add a valid identity document of my guarantor",
+  "title-cotenant": "I add a valid identity document of my cotenant guarantor",
   "select-label": "Attention, be sure to add your double-sided part!",
   "validate": "Validate",
   "cancel": "Cancel",
@@ -364,6 +383,7 @@ td {
   "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs.",
   "register": "Enregistrer la pièce",
   "title": "J’ajoute la pièce d’identité, en cours de validité, de mon garant",
+  "title-cotenant": "J’ajoute la pièce d’identité, en cours de validité, de son garant",
   "select-label": "Veillez à ajouter le recto et le verso !",
   "validate": "Valider",
   "cancel": "Annuler",

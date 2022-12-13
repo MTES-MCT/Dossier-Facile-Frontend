@@ -183,12 +183,14 @@ import { UtilsService } from "../services/UtilsService";
       user: "user"
     }),
     ...mapGetters({
-      guarantor: "guarantor"
+      guarantor: "guarantor",
+      coTenants: "coTenants"
     })
   }
 })
 export default class GuarantorDocuments extends Vue {
   user!: User;
+  coTenants!: User[];
   guarantor!: Guarantor;
   tmpGuarantorType = "";
   changeGuarantorVisible = false;
@@ -207,6 +209,7 @@ export default class GuarantorDocuments extends Vue {
   }
 
   beforeMount() {
+    this.$store.dispatch("updateSelectedGuarantor", this.user.id);
     if (this.guarantor.typeGuarantor) {
       this.tmpGuarantorType = this.guarantor.typeGuarantor;
       localStorage.setItem(
@@ -266,18 +269,29 @@ export default class GuarantorDocuments extends Vue {
       });
       return;
     }
-    AnalyticsService.addGuarantor(this.guarantor.typeGuarantor || "");
+    AnalyticsService.addGuarantor(this.tmpGuarantorType || "");
     if (this.tmpGuarantorType === "NO_GUARANTOR") {
-      this.$router.push({
-        name: "ValidateFile"
-      });
+      if (this.user.applicationType === "COUPLE") {
+        this.$router.push({
+          name: "CoTenantDocuments",
+          params: {
+            step: "4",
+            substep: "0",
+            tenantId: this.coTenants[0].id.toString()
+          }
+        });
+      } else {
+        this.$router.push({
+          name: "ValidateFile"
+        });
+      }
     }
     if (
       this.tmpGuarantorType != this.guarantor.typeGuarantor ||
       (this.user.guarantors?.length || 0) <= 0
     ) {
       this.$store
-        .dispatch("setGuarantorType", this.tmpGuarantorType)
+        .dispatch("setGuarantorType", { typeGuarantor: this.tmpGuarantorType })
         .then(() => {
           this.$router.push({
             name: "GuarantorDocuments",

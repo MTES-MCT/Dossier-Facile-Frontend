@@ -129,7 +129,9 @@
       "
     >
       <hr />
-      <h4>{{ $t("my-guarantor") }}</h4>
+      <h4 v-if="guarantors.length === 0">
+        {{ $t("guarantors-information") }}
+      </h4>
       <div class="fr-grid-row fr-grid-row--gutters">
         <div class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w">
           <button
@@ -174,36 +176,44 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { AnalyticsService } from "@/services/AnalyticsService";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import InfoCard from "@/components/account/InfoCard.vue";
 import ColoredTag from "df-shared/src/components/ColoredTag.vue";
-import { mapGetters } from "vuex";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
+import { User } from "df-shared/src/models/User";
+import { mapState } from "vuex";
+import { UtilsService } from "@/services/UtilsService";
 
 @Component({
   components: { InfoCard, ColoredTag, ConfirmModal },
   computed: {
-    ...mapGetters({
-      guarantors: "guarantors"
+    ...mapState({
+      user: "user"
     })
   }
 })
 export default class GuarantorsSection extends Vue {
+  @Prop() tenant!: User;
+  user!: User;
   guarantors!: Guarantor[];
   showConfirmModal = false;
   selectedGuarantor: Guarantor | undefined;
+
+  beforeMount() {
+    this.guarantors = this.tenant.guarantors as Guarantor[];
+  }
 
   guarantorTitle(g: Guarantor) {
     if (g.typeGuarantor === "NATURAL_PERSON")
       return (
         this.$t("my-guarantor") +
-        (g.firstName || g.lastName ? ", " + g.firstName + " " + g.lastName : "")
+        (g.firstName || g.lastName ? " " + g.firstName + " " + g.lastName : "")
       );
     else if (g.typeGuarantor === "LEGAL_PERSON" && g.legalPersonName) {
-      return this.$t("my-guarantor") + ", " + g.legalPersonName;
+      return this.$t("my-guarantor") + " " + g.legalPersonName;
     }
     return this.$t("guarantors-information");
   }
@@ -249,15 +259,51 @@ export default class GuarantorsSection extends Vue {
 
   setGuarantorSubStep(n: number, g: Guarantor) {
     AnalyticsService.editFromAccount(n);
-    this.$store.dispatch("setGuarantorPage", { guarantor: g, substep: n });
+    this.$store.dispatch("setGuarantorPage", {
+      guarantor: g,
+      substep: n,
+      tenantId: this.tenant.id
+    });
   }
 
   setAddGuarantorStep() {
     AnalyticsService.editAccount("guarantor");
-    if (this.guarantors.length > 0) {
-      this.$store.dispatch("addNaturalGuarantor");
+
+    if (this.user.id === this.tenant.id) {
+      if (this.guarantors.length > 0) {
+        this.$store.dispatch("addNaturalGuarantor");
+      } else {
+        this.$router.push({ name: "GuarantorChoice" });
+      }
     } else {
-      this.$router.push({ name: "GuarantorChoice" });
+      if (this.guarantors.length > 0) {
+        this.$store
+          .dispatch("setGuarantorType", {
+            tenantId: this.tenant.id,
+            typeGuarantor: "NATURAL_PERSON"
+          })
+          .then(() => {
+            this.guarantors = UtilsService.getTenant(this.tenant.id).guarantors;
+            const g = this.guarantors[this.guarantors.length - 1];
+            this.$router.push({
+              name: "TenantGuarantorDocuments",
+              params: {
+                step: "5",
+                substep: "0",
+                tenantId: this.tenant.id.toString(),
+                guarantorId: g.id?.toString() as string
+              }
+            });
+          });
+      } else {
+        this.$router.push({
+          name: "TenantGuarantors",
+          params: {
+            tenantId: this.tenant.id.toString(),
+            step: "5"
+          }
+        });
+      }
     }
   }
 
@@ -274,6 +320,9 @@ export default class GuarantorsSection extends Vue {
     this.$store.dispatch("deleteGuarantor", this.selectedGuarantor).then(
       () => {
         Vue.toasted.global.delete_success();
+        this.guarantors = this.guarantors.filter(
+          g => g.id != this.selectedGuarantor?.id
+        );
         this.closeConfirmModal();
       },
       () => {
@@ -391,8 +440,8 @@ a.cleana:focus {
     "INCOMPLETE": "is incomplete"
   },
   "fr": {
-    "guarantors-information": "Les informations de mes garants",
-    "my-guarantor": "Mon garant",
+    "guarantors-information": "Informations des garants",
+    "my-guarantor": "Pièces justificatives de",
     "identification-legal-person": "Identification de la personne morale",
     "organism-identification": "Certificat de l'organisme",
     "delete-guarantor": "Supprimer ce garant",

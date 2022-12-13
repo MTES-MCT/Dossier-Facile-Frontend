@@ -54,7 +54,9 @@
       v-if="professionalDocument.key || professionalFiles().length > 0"
     >
       <div class="fr-mb-3w">
-        {{ professionalDocument.explanationText }}
+        <p
+          v-html="$t(`explanation-text.tenant.${professionalDocument.key}`)"
+        ></p>
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
@@ -335,7 +337,7 @@ export default class Professional extends Vue {
 
   async remove(file: DfFile, silent = false) {
     AnalyticsService.deleteFile("professional");
-    if (file.path && file.id) {
+    if (file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = this.files.findIndex(f => {

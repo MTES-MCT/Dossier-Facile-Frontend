@@ -22,6 +22,9 @@
     </ConfirmModal>
     <ValidationObserver v-slot="{ validate }">
       <NakedCard class="fr-p-md-5w fr-mb-3w">
+        <h1 class="fr-h6">
+          {{ $t("financial") }}
+        </h1>
         <form name="form" @submit.prevent="validate().then(save())">
           <div>
             <div>
@@ -65,7 +68,7 @@
                           @input="onSelectChange()"
                         >
                           <div class="fr-grid-col spa">
-                            <span>{{ $t(d.key) }}</span>
+                            <span>{{ $t(`documents.${d.key}`) }}</span>
                           </div>
                         </BigRadio>
                       </div>
@@ -151,7 +154,15 @@
           "
         >
           <div class="fr-mb-3w">
-            {{ financialDocument.documentType.explanationText }}
+            <p
+              v-html="
+                $t(
+                  `explanation-text.${guarantorKey()}.${
+                    financialDocument.documentType.key
+                  }`
+                )
+              "
+            ></p>
           </div>
           <AllDeclinedMessages
             class="fr-mb-3w"
@@ -222,7 +233,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import { DocumentType } from "df-shared/src/models/Document";
 import DocumentInsert from "../share/DocumentInsert.vue";
 import FileUpload from "../../uploads/FileUpload.vue";
@@ -291,10 +302,11 @@ extend("required", {
   }
 })
 export default class GuarantorFinancialDocumentForm extends Vue {
+  @Prop() tenantId?: string;
+
   selectedGuarantor!: Guarantor;
   guarantorFinancialDocumentSelected!: FinancialDocument;
   financialDocument = new FinancialDocument();
-  guarantorFinancialDocuments!: FinancialDocument[];
 
   documentDeniedReasons = new DocumentDeniedReasons();
   documents = DocumentTypeConstants.GUARANTOR_FINANCIAL_DOCS;
@@ -311,18 +323,6 @@ export default class GuarantorFinancialDocumentForm extends Vue {
         this.guarantorFinancialDocument()?.documentDeniedReasons
       );
     }
-  }
-
-  isNewDocument(f: FinancialDocument) {
-    if (f.id !== null) {
-      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
-        return d.id === f.id;
-      });
-      if (doc !== undefined) {
-        return doc.documentSubCategory !== f.documentType.value;
-      }
-    }
-    return false;
   }
 
   get documentStatus() {
@@ -489,6 +489,9 @@ export default class GuarantorFinancialDocumentForm extends Vue {
 
     this.financialDocument.fileUploadStatus = UploadStatus.STATUS_SAVING;
     formData.append("guarantorId", this.$store.getters.guarantor.id);
+    if (this.tenantId) {
+      formData.append("tenantId", this.tenantId);
+    }
     const loader = this.$loading.show();
     const res = await this.$store
       .dispatch("saveGuarantorFinancial", formData)
@@ -531,7 +534,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
   }
 
   async remove(f: FinancialDocument, file: DfFile, silent = false) {
-    if (file.path && file.id) {
+    if (file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = f.files.findIndex(f => {
@@ -588,6 +591,13 @@ export default class GuarantorFinancialDocumentForm extends Vue {
     }
     return "";
   }
+
+  guarantorKey() {
+    if (this.tenantId != null) {
+      return "cotenant-guarantor";
+    }
+    return "guarantor";
+  }
 }
 </script>
 
@@ -596,12 +606,6 @@ export default class GuarantorFinancialDocumentForm extends Vue {
 <i18n>
 {
 "en": {
-  "salary": "Salary",
-  "guarantor_salary": "Salary or other professional income",
-  "social-service": "Social benefit payments",
-  "rent": "Annuities",
-  "pension": "Pensions",
-  "scholarship": "Scholarship",
   "monthlySum": "Value in euros",
   "monthlySum-label": "Monthly salary (after tax)",
   "noDocument-social": "I cannot provide proof of payment of social benefits",
@@ -623,15 +627,9 @@ export default class GuarantorFinancialDocumentForm extends Vue {
   "register": "Register",
   "warning-no-income-and-file": "You can't have files and no income. You must uncheck the box or delete your files.",
   "missing-file": "You must add files to save this income.",
-  "select-label": "Attention, Please enter only your guarantor own income."
+  "select-label": "Attention, please enter only the guarantor's own income."
 },
 "fr": {
-  "salary": "Salaire",
-  "guarantor_salary": "Salaires",
-  "social-service": "Prestations sociales",
-  "rent": "Rentes",
-  "pension": "Pensions",
-  "scholarship": "Bourses",
   "monthlySum": "Montant en euros",
   "monthlySum-label": "J'indique le montant de son revenu mensuel net à payer (avant prélèvement à la source)",
   "noDocument-social": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
@@ -651,7 +649,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
   "field-required": "Ce champ est requis",
   "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à la situation de votre garant.",
   "register": "Enregistrer",
-  "select-label": "Attention, veuillez renseigner uniquement les revenus de votre garant.",
+  "select-label": "Attention, veuillez renseigner uniquement les revenus du garant.",
   "missing-file": "Vous devez ajouter des fichiers pour sauvegarder ce revenu.",
   "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers."
 }
