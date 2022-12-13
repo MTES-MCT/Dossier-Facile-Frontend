@@ -24,7 +24,7 @@
     "axios": "^0.27.2",
     "connect-history-api-fallback": "^2.0.0",
     "df-shared-next": "0.1.0",
-    "express": "^4.18.1",
+    "express": "^4.17.3",
     "vee-validate": "^4.6.2",
     "vue": "^3.2.37",
     "vue-i18n": "9",
