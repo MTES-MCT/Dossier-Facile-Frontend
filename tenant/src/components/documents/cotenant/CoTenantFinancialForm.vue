@@ -2,7 +2,7 @@
   <div>
     <DocumentDownloader
       :coTenantId="coTenantId"
-      :documentsDefinitions="documentsDefinitions"
+      :documentsDefinitions="documentsDefinitions()"
       :editedDocumentId="financialDocument.id ? financialDocument.id : -1"
       documentCategory="FINANCIAL"
       dispatchMethodName="saveTenantFinancial"
@@ -144,11 +144,17 @@ import { ref } from "@vue/reactivity";
 export default class CoTenantFinancialForm extends Vue {
   @Prop() coTenantId!: number;
   @Prop() financialDocument!: DfDocument;
+  @Prop() allowNoIncome!: boolean;
 
-  documentsDefinitions = DocumentTypeConstants.FINANCIAL_DOCS;
   documentType?: DocumentType;
   document!: DfDocument;
   showDownloader = ref(false);
+
+  documentsDefinitions() {
+    return DocumentTypeConstants.FINANCIAL_DOCS.filter((d: DocumentType) => {
+      return d.key !== "no-income" || this.allowNoIncome;
+    });
+  }
 
   changeDocument(docType?: DocumentType, doc?: DfDocument) {
     this.documentType = docType;
