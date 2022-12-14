@@ -4,6 +4,7 @@
       <CoTenantFinancialForm
         :coTenantId="coTenantId"
         :financialDocument="financialDocument"
+        :allowNoIncome="allowNoIncome()"
         @on-edit="setEditFinancialDocument"
         @on-next="goNext"
         @on-back="goBack"
@@ -174,16 +175,17 @@ export default class CoTenantFinancialList extends Vue {
         return f.documentType && f.documentType.key !== "no-income";
       }) === undefined) as boolean;
   }
+
   initialize() {
     this.tenantOriginalDocuments = this.getOriginalDocuments();
     this.tenantFinancialDocuments.value = this.getTenantFinancialDocuments(
       this.tenantOriginalDocuments
     );
+    this.editFinancialDocument = false;
     if (this.hasNoIncome(this.tenantFinancialDocuments.value)) {
       this.financialDocument = this.tenantFinancialDocuments.value.find(f => {
         return f.documentType && f.documentType.key === "no-income";
       }) as FinancialDocument;
-      this.editFinancialDocument = true;
     } else {
       this.financialDocument = new FinancialDocument();
     }
@@ -206,6 +208,9 @@ export default class CoTenantFinancialList extends Vue {
 
   hasFinancial() {
     const tenant = UtilsService.getTenant(Number(this.coTenantId));
+    if (tenant === undefined) {
+      return false;
+    }
     const docs = tenant.documents?.filter((d: DfDocument) => {
       return d.documentCategory === "FINANCIAL";
     });
@@ -257,6 +262,13 @@ export default class CoTenantFinancialList extends Vue {
 
   private getDocumentName(document: FinancialDocument): string {
     return this.$t(`documents.${document.documentType.key}`).toString();
+  }
+
+  allowNoIncome(): boolean {
+    return (
+      !this.hasFinancial() ||
+      this.financialDocument.documentType.key === "no-income"
+    );
   }
 }
 </script>

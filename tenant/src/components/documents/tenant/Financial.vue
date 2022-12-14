@@ -66,7 +66,6 @@ import { mapGetters } from "vuex";
 import { FinancialDocument } from "df-shared/src/models/FinancialDocument";
 import ListItem from "../../uploads/ListItem.vue";
 import { User } from "df-shared/src/models/User";
-import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
