@@ -117,6 +117,7 @@ import { is } from "vee-validate/dist/rules";
 import FileErrors from "./FileErrors.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllowCheckTax from "../components/documents/share/AllowCheckTax.vue";
+import { RegisterService } from "@/services/RegisterService";
 
 extend("is", {
   ...is,
@@ -151,6 +152,18 @@ export default class ValidateFile extends Vue {
       this.declaration2 = true;
     }
     this.precision = this.user?.clarification || "";
+
+    if (this.user.allowCheckTax && this.user.franceConnect) {
+      if (this.$route.query.refresh) {
+        RegisterService.getFranceConnectToken().then((fcToken: string) => {
+          this.$store.dispatch("saveTaxAuth", {
+            allowTax: "allow",
+            fcToken: fcToken,
+            tenantId: this.user.id
+          });
+        });
+      }
+    }
   }
 
   sendFile() {
