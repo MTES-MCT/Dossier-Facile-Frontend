@@ -222,7 +222,7 @@ export default class TenantInformationForm extends Vue {
     this.localCoTenantAuthorize = this.coTenantAuthorize;
     this.localSpouseAuthorize = this.spouseAuthorize;
 
-    if (this.applicationType === "GROUP") {
+    if (this.applicationType === "GROUP" || this.applicationType === "COUPLE") {
       this.coTenants = this.roommates;
     }
   }
