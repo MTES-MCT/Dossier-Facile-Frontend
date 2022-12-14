@@ -103,14 +103,14 @@ export default class AllowCheckTax extends Vue {
     }
   }
 
-  private allowAutomaticCheck() {
+  async allowAutomaticCheck() {
+    await this.saveChoice("allow");
     if (
       this.user.franceConnect &&
       process.env.VUE_APP_FEATURE_FLIPPING_DGFIP_API === "true"
     ) {
       this.refreshFranceConnectToken();
     }
-    this.saveChoice("allow");
   }
 
   private confirmDecline() {
@@ -118,8 +118,8 @@ export default class AllowCheckTax extends Vue {
     this.showConfirmDeclineModal = false;
   }
 
-  private saveChoice(allowTax: string) {
-    this.$store.dispatch("saveTaxAuth", { allowTax });
+  async saveChoice(allowTax: string) {
+    await this.$store.dispatch("saveTaxAuth", { allowTax });
     this.allowTax = allowTax;
   }
 
