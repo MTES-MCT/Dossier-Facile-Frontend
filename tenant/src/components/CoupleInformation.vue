@@ -113,7 +113,7 @@
     </NakedCard>
     <div
       ref="checkbox-authorize"
-      v-show="showCheckBox"
+      v-if="showCheckBox"
       class="fr-grid-row fr-grid-row--center"
     >
       <div class="fr-col-12 fr-mb-3w fr-mt-3w">
@@ -217,9 +217,9 @@ export default class CoupleInformation extends Vue {
       if (this.coTenant.email?.length > 0) {
         this.disableEmailField = true;
         this.showCheckBox = true;
+        this.authorize = this.spouseAuthorize;
       }
     }
-    this.authorize = this.spouseAuthorize;
   }
 
   scrollToEnd() {
