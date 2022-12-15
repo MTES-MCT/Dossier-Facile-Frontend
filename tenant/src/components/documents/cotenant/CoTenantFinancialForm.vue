@@ -198,9 +198,15 @@ export default class CoTenantFinancialForm extends Vue {
 
   goNext() {
     // push data if there is not files in documents - noDocument
+    // TODO : we should have local value for monthlySum and customText and check for update
+    // to know if we have to save or not
     if (
       this.document?.noDocument === true ||
-      this.documentType?.key === "no-income"
+      this.documentType?.key === "no-income" ||
+      (this.financialDocument.monthlySum !== undefined &&
+        this.financialDocument.monthlySum > 0) ||
+      (this.document.customText !== undefined &&
+        this.document.customText.length > 0)
     ) {
       const formData = new FormData();
       this.enrichFormData(formData);
