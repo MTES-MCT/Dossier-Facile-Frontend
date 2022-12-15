@@ -32,22 +32,15 @@ export const UtilsService = {
     throw Error("guarantor is not found");
   },
   allDocumentsFilled() {
-    return (
-      this.documentsFilled() &&
-      store.state.user.guarantors?.find((g: Guarantor) => {
-        return !this.guarantorDocumentsFilled(g);
-      }) === undefined &&
-      store.state.user.apartmentSharing?.tenants
-        .filter((t: User) => t.id != store.state.user?.id)
-        .every((t: User) => this.documentsFilled(t)) &&
-      store.state.user.apartmentSharing?.tenants
-        .filter((t: User) => t.id != store.state.user?.id)
-        .every((t: User) =>
-          t.guarantors?.every((g: Guarantor) =>
-            this.guarantorDocumentsFilled(g)
-          )
-        )
-    );
+    const user = store.state.user;
+    const tenantDocumentsFilled = (tenant: User) =>
+      this.documentsFilled(tenant) &&
+      tenant.guarantors?.every(this.guarantorDocumentsFilled);
+
+    if (user.applicationType === "COUPLE") {
+      return user.apartmentSharing?.tenants.every(tenantDocumentsFilled);
+    }
+    return tenantDocumentsFilled(user);
   },
   documentsFilled(user?: User) {
     return (
