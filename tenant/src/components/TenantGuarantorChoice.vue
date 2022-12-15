@@ -158,8 +158,18 @@ export default class TenantGuarantorChoice extends Vue {
   @Prop({ default: false }) isCotenant!: boolean;
   tmpGuarantorType = "";
 
+  getLocalStorageKey() {
+    return "cotenantGuarantorType_" + this.tenantId;
+  }
+
   beforeMount() {
     this.$store.dispatch("updateSelectedGuarantor", this.tenantId);
+
+    // TODO : will be better to have the data on the backend (also valid for main tenant)
+    const localType = localStorage.getItem(this.getLocalStorageKey());
+    if (localType) {
+      this.tmpGuarantorType = localType;
+    }
   }
 
   updated() {
@@ -174,6 +184,7 @@ export default class TenantGuarantorChoice extends Vue {
 
   onSelectChange(value: string) {
     this.tmpGuarantorType = value;
+    localStorage.setItem(this.getLocalStorageKey(), this.tmpGuarantorType);
   }
 
   setGuarantorType() {
@@ -185,7 +196,7 @@ export default class TenantGuarantorChoice extends Vue {
       return;
     }
     AnalyticsService.addGuarantor(this.tmpGuarantorType);
-    if (this.tmpGuarantorType == "NO_GUARANTOR") {
+    if (this.tmpGuarantorType === "NO_GUARANTOR") {
       this.$emit("on-select", this.tmpGuarantorType);
     } else {
       this.$store
@@ -218,7 +229,6 @@ export default class TenantGuarantorChoice extends Vue {
   isMobile() {
     return UtilsService.isMobile();
   }
-
 }
 </script>
 
