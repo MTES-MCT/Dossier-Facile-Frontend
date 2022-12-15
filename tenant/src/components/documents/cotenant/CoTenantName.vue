@@ -4,7 +4,12 @@
       <form name="coTenantNameForm" @submit.prevent="validate().then(save)">
         <NakedCard class="fr-p-md-5w">
           <h1 class="fr-h6">{{ $t("title") }}</h1>
-          <div>{{ $t("subtitle") }}</div>
+          <div>
+            {{ $t("subtitle") }}
+            <span v-if="selectedCoTenant.franceConnect">
+              {{ $t("franceconnect-account") }}
+            </span>
+          </div>
           <RequiredFieldsInstruction></RequiredFieldsInstruction>
           <div class="fr-grid-row fr-grid-row--center fr-mt-3w">
             <div class="fr-col-12 fr-mb-3w">
@@ -27,6 +32,7 @@
                     name="lastname"
                     :placeholder="$t('lastname-placeholder')"
                     type="text"
+                    :disabled="selectedCoTenant.franceConnect"
                     required
                   />
                   <span class="fr-error-text" v-if="errors[0]">{{
@@ -55,6 +61,7 @@
                       'fr-input--valid': valid,
                       'fr-input--error': errors[0]
                     }"
+                    :disabled="selectedCoTenant.franceConnect"
                     required
                   />
                   <span class="fr-error-text" v-if="errors[0]">{{
@@ -145,7 +152,7 @@ extend("email", {
 export default class CoTenantName extends Vue {
   @Prop() coTenantId!: number;
 
-  selectedCoTenant!: User;
+  selectedCoTenant: User = new User();
 
   firstName = "";
   lastName = "";
@@ -170,9 +177,9 @@ export default class CoTenantName extends Vue {
       return;
     }
 
-    this.selectedCoTenant!.firstName = this.firstName;
-    this.selectedCoTenant!.lastName = this.lastName;
-    this.selectedCoTenant!.preferredName = this.preferredName;
+    this.selectedCoTenant.firstName = this.firstName;
+    this.selectedCoTenant.lastName = this.lastName;
+    this.selectedCoTenant.preferredName = this.preferredName;
 
     const loader = this.$loading.show();
     this.$store
@@ -209,7 +216,8 @@ export default class CoTenantName extends Vue {
   "firstname-placeholder": "e.g. Jean",
   "field-required": "This field is required",
   "title": "My spouse name",
-  "subtitle": "I fill the last name and first name of my spouse"
+  "subtitle": "I fill the last name and first name of my spouse",
+  "franceconnect-account": "This account is authenticated with FranceConnect, firstname and lastname cannot be edited."
 },
 "fr": {
   "lastname": "Nom de naissance",
@@ -221,7 +229,8 @@ export default class CoTenantName extends Vue {
   "firstname-placeholder": "ex: Jean",
   "field-required": "Ce champ est requis",
   "title": "Je renseigne les informations personnelles de mon conjoint",
-  "subtitle": "Veuillez renseigner les informations de la personne dont le nom figurera sur le bail de location."
+  "subtitle": "Veuillez renseigner les informations de la personne dont le nom figurera sur le bail de location.",
+  "franceconnect-account": "Ce compte est identifié avec FranceConnect, les noms et prénoms ne sont pas éditables."
 }
 }
 </i18n>
