@@ -744,6 +744,23 @@ hr {
 .share-file-description {
   max-width: fit-content;
 }
+
+.fr-fi-icon-fc-right {
+  flex-direction: row-reverse;
+
+  &:before {
+    content: "";
+    background-color: transparent;
+    background-image: url("../assets/images/icons/franceconnect-icon.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 21px;
+    width: 24px;
+    margin-left: 0.5rem;
+  }
+}
+
 </style>
 
 <i18n>
