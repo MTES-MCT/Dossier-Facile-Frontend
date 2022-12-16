@@ -30,7 +30,7 @@ p {
   "fr": {
     "paragraph1": "En renseignant l’adresse email de votre conjoint, celui-ci sera invité à contribuer à la constitution de votre dossier commun. Avec ses propres identifiants email et mot de passe, il aura la possibilité de se connecter à votre dossier commun et d'ajouter, modifier ou supprimer toute pièce du dossier, ses pièces personnelles comme les vôtres.",
     "paragraph2": "Attention ! Vos pièces personnelles et ses pièces personnelles seront traitées séparément par DossierFacile. Vous pouvez ainsi les déposer et les faire valider indépendamment. Néanmoins, votre dossier commun ne sera validé dans son ensemble que lorsque vos pièces et ses pièces auront été validées par DossierFacile. Vous disposerez alors d'un unique lien de partage pour l'ensemble de votre dossier commun.",
-    "paragraph3": "Concrètement, votre conjoint recevra une invitation par mail qu’il ou elle devra valider dans les 48 heures. Il n'aura qu'a cliquer sur le lien, définir son mot de passe, et il sera alors connecté à votre dossier commun."
+    "paragraph3": "Concrètement, votre conjoint recevra une invitation par mail qu’il ou elle devra valider dans les 48 heures. Il n'aura qu'à cliquer sur le lien, définir son mot de passe, et il sera alors connecté à votre dossier commun."
   }
 }
 </i18n>

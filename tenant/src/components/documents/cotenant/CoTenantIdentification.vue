@@ -42,7 +42,7 @@ export default class CoTenantIdentification extends Vue {
 },
 "fr": {
   "title": "La pièce d'identité de mon conjoint",
-  "description": "Veuillez à ajouter le recto et le verso !",
+  "description": "Veillez à ajouter le recto et le verso.",
   "identity-card": "Carte d’identité française",
   "passport": "Passeport français",
   "permit": "Titre de séjour français",
