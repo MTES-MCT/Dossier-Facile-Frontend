@@ -173,7 +173,10 @@
     </div>
 
     <div v-for="(tenant, k) in coTenants" :key="k">
-      <NakedCard class="fr-mt-3w fr-p-md-5w" v-if="!documentsFilled(tenant)">
+      <NakedCard
+        class="fr-mt-3w fr-p-md-5w"
+        v-if="user.applicationType === 'COUPLE'"
+      >
         <div class="fr-text--bold">{{ $t("tenant-invalid-document") }}</div>
         <div v-if="!hasDoc('IDENTIFICATION', tenant)">
           <div class="fr-grid-row file-item">
@@ -444,13 +447,6 @@ export default class FileErrors extends Vue {
 
   documentsGuarantorFilled(g: Guarantor) {
     return UtilsService.guarantorDocumentsFilled(g);
-  }
-
-  getGuarantorName(g: Guarantor) {
-    if (g.lastName || g.firstName) {
-      return g.lastName + " " + g.firstName;
-    }
-    return "";
   }
 
   openTenant(substep: string, user?: User) {
