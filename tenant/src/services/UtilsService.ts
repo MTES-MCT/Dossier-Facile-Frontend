@@ -38,7 +38,10 @@ export const UtilsService = {
       tenant.guarantors?.every(this.guarantorDocumentsFilled);
 
     if (user.applicationType === "COUPLE") {
-      return user.apartmentSharing?.tenants.every(tenantDocumentsFilled);
+      const cotenants = user.apartmentSharing?.tenants.filter(
+        (cotenant: User) => user.id !== cotenant.id
+      );
+      return tenantDocumentsFilled(user) && cotenants.every(tenantDocumentsFilled);
     }
     return tenantDocumentsFilled(user);
   },
