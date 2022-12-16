@@ -396,7 +396,7 @@
 
 <script lang="ts">
 import { Guarantor } from "df-shared/src/models/Guarantor";
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { mapState } from "vuex";
 import StatusIcon from "df-shared/src/components/StatusIcon.vue";
 import ColoredTag from "df-shared/src/components/ColoredTag.vue";
@@ -420,16 +420,29 @@ import CoTenantGuarantorDocumentLink from "./documents/CoTenantGuarantorDocument
   computed: {
     ...mapState({
       selectedGuarantor: "selectedGuarantor",
-      user: "user",
-      coTenants: "coTenants"
+      user: "user"
     })
   }
 })
 export default class LeftEditMenu extends Vue {
   @Prop({ default: 0 }) step!: number;
   selectedGuarantor!: Guarantor;
-  coTenants!: User[];
+  coTenants: User[] = [];
   user!: User;
+
+  @Watch("user")
+  loadCotenants() {
+    this.coTenants = this.user.apartmentSharing?.tenants?.filter((r: User) => {
+      return r.id != this.user.id;
+    }) as User[];
+    if (!this.coTenants) {
+      return [];
+    }
+  }
+
+  beforeMount() {
+    this.loadCotenants();
+  }
 
   getClass(s: number) {
     if (s <= this.step) {

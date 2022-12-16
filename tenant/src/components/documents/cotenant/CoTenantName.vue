@@ -160,7 +160,7 @@ export default class CoTenantName extends Vue {
 
   isDocDeleteVisible = false;
 
-  mounted() {
+  beforeMount() {
     this.selectedCoTenant = UtilsService.getTenant(Number(this.coTenantId));
     this.firstName = this.selectedCoTenant?.firstName || "";
     this.lastName = this.selectedCoTenant?.lastName || "";
