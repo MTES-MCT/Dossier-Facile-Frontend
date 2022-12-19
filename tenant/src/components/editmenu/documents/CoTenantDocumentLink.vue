@@ -26,7 +26,7 @@ export default class CoTenantDocumentLink extends Vue {
   @Prop() active!: boolean;
 
   private getStatus() {
-    return DocumentService.guarantorStatus(
+    return DocumentService.tenantStatus(
       this.documentType.toString(),
       this.coTenant
     );

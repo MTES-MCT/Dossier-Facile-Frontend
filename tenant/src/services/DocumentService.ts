@@ -209,16 +209,6 @@ export const DocumentService = {
     }
     return doc.documentStatus || "";
   },
-  getOrganismStatus(): string {
-    const doc = this.guarantorHasDoc(
-      store.state.selectedGuarantor,
-      "IDENTIFICATION"
-    );
-    if (!doc) {
-      return "";
-    }
-    return doc.documentStatus || "";
-  },
   tenantStatus(documentType: string, user?: User) {
     const tenant = user == undefined ? store.state.user : user;
     let status;
@@ -239,7 +229,7 @@ export const DocumentService = {
         status = DocumentService.getTenantTaxStatus(tenant) || "EMPTY";
         break;
     }
-    if (status === "TO_PROCESS" && store.state.user.status !== "TO_PROCESS") {
+    if (status === "TO_PROCESS" && tenant.status !== "TO_PROCESS") {
       return "FILLED";
     }
     return status;
@@ -277,12 +267,6 @@ export const DocumentService = {
           DocumentService.getGuarantorLegalPersonRepresentantStatus(
             guarantor
           ) || "EMPTY";
-    }
-    if (
-      status === "TO_PROCESS" &&
-      store.state.selectedGuarantor.status !== "TO_PROCESS"
-    ) {
-      return "FILLED";
     }
     return status;
   }
