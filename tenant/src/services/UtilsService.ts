@@ -35,7 +35,7 @@ export const UtilsService = {
     const user = store.state.user;
     const tenantDocumentsFilled = (tenant: User) =>
       this.documentsFilled(tenant) &&
-      tenant.guarantors?.every(this.guarantorDocumentsFilled);
+      tenant.guarantors?.every(g => !!this.guarantorDocumentsFilled(g));
 
     if (user.applicationType === "COUPLE") {
       const cotenants = user.apartmentSharing?.tenants.filter(
