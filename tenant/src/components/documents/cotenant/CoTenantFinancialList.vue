@@ -50,7 +50,7 @@
           </template>
         </CardRow>
       </div>
-      <div>
+      <div v-if="financialDocument.documentType.key !== 'no-income'">
         <button @click="addFinancialDocument()" class="add-income-btn">
           {{ $t("add-income") }}
         </button>
@@ -111,7 +111,7 @@ export default class CoTenantFinancialList extends Vue {
   tenantFinancialDocuments: Ref<FinancialDocument[]> = ref([]);
   tenantOriginalDocuments?: DfDocument[];
   financialDocument!: FinancialDocument;
-  editFinancialDocument = !this.hasFinancial();
+  editFinancialDocument = false;
 
   private getOriginalDocuments(): DfDocument[] {
     const tenant = UtilsService.getTenant(Number(this.coTenantId));
@@ -181,13 +181,13 @@ export default class CoTenantFinancialList extends Vue {
     this.tenantFinancialDocuments.value = this.getTenantFinancialDocuments(
       this.tenantOriginalDocuments
     );
-    this.editFinancialDocument = false;
     if (this.hasNoIncome(this.tenantFinancialDocuments.value)) {
       this.financialDocument = this.tenantFinancialDocuments.value.find(f => {
         return f.documentType && f.documentType.key === "no-income";
       }) as FinancialDocument;
     } else {
       this.financialDocument = new FinancialDocument();
+      this.editFinancialDocument = !this.hasFinancial();
     }
   }
 
