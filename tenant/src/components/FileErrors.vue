@@ -175,7 +175,7 @@
     <div v-for="(tenant, k) in coTenants" :key="k">
       <NakedCard
         class="fr-mt-3w fr-p-md-5w"
-        v-if="user.applicationType === 'COUPLE'"
+        v-if="user.applicationType === 'COUPLE' && !documentsFilled(tenant)"
       >
         <div class="fr-text--bold">{{ $t("tenant-invalid-document") }}</div>
         <div v-if="!hasDoc('IDENTIFICATION', tenant)">
