@@ -8,7 +8,7 @@ export const ProfileService = {
       `https://${process.env.VUE_APP_API_URL}/api/user/franceConnect`
     );
   },
-  saveNames(user: User): Promise<User> {
+  saveNames(user: User) {
     return axios.post(
       `https://${process.env.VUE_APP_API_URL}/api/register/names`,
       {

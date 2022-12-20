@@ -9,7 +9,6 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 import { User } from "df-shared/src/models/User";
 import i18n from "../i18n";
 import { DfDocument } from "df-shared/src/models/DfDocument";
-import { DfMessage } from "df-shared/src/models/DfMessage";
 import { AnalyticsService } from "../services/AnalyticsService";
 import { RegisterService } from "../services/RegisterService";
 import { UtilsService } from "../services/UtilsService";
@@ -23,13 +22,8 @@ export class DfState {
   user: User | null = null;
   selectedGuarantor = new Guarantor();
   status = { loggedIn: false };
-  messageList: DfMessage[][] = [];
-  newMessage = 0;
   spouseAuthorize = false;
   coTenantAuthorize = false;
-  isFunnel = false;
-  financialDocumentSelected?: FinancialDocument = new FinancialDocument();
-  editFinancialDocument = false;
   coTenants: User[] | null = [];
 }
 
@@ -64,9 +58,6 @@ const store = new Vuex.Store({
       state.status.loggedIn = false;
       state.user = null;
       AnalyticsService.registerFail();
-    },
-    setNamesSuccess(state, user) {
-      state.user = user;
     },
     unlinkFCSuccess(state) {
       state.user.franceConnect = false;
@@ -307,8 +298,8 @@ const store = new Vuex.Store({
         user.preferredName = UtilsService.capitalize(user.preferredName);
       }
       return ProfileService.saveNames(user).then(
-        () => {
-          return commit("setNamesSuccess", user);
+        response => {
+          return commit("loadUser", response.data);
         },
         error => {
           return Promise.reject(error);
