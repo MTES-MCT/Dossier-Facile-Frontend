@@ -369,6 +369,7 @@ export default class TenantInformationForm extends Vue {
           });
       }
     });
+    this.roommates = this.coTenants = [];
     this.isDeleteCoupleVisible = false;
     this.isDeleteGroupVisible = false;
   }
