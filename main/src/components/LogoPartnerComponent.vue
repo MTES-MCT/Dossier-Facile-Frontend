@@ -6,7 +6,7 @@
       :href="href"
       :title="getTitle()"
       class="logo-link"
-      rel="noreferrer"
+      rel="nofollow"
       target="_blank"
     >
       <img

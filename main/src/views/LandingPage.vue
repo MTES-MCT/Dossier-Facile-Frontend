@@ -222,11 +222,6 @@
             width="174px"
           />
           <LogoPartnerComponent
-            :image="require('../assets/logos/whoomies.webp')"
-            href="https://whoomies.com/"
-            name="whoomies"
-          />
-          <LogoPartnerComponent
             :image="require('../assets/logos/anil.webp')"
             href="https://www.anil.org/"
             name="ANIL, l’agence nationale pour l’information sur le logement"
