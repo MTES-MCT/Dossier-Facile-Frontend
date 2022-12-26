@@ -368,6 +368,33 @@
             name="Mon carnet logement"
             width="194px"
           />
+          <LogoPartnerComponent
+            :image="require('../assets/logos/izzyhom.png')"
+            href="https://www.izzyhom.io/locataire"
+            name="IzzyHom"
+            height="60px"
+            width="60px"
+          />
+          <LogoPartnerComponent
+            :image="require('../assets/logos/partir_de_paris.png')"
+            href="https://www.partirdeparis.fr/"
+            name="Partir de Paris"
+            width="196px"
+          />
+          <LogoPartnerComponent
+            :image="require('../assets/logos/goodliz.png')"
+            href="https://goodliz.com"
+            name="GoodLiz"
+            height="60px"
+            width="77px"
+          />
+          <LogoPartnerComponent
+            :image="require('../assets/logos/pautions.png')"
+            href="https://pautions.fr"
+            name="Pautions"
+            height="58px"
+            width="243px"
+          />
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
