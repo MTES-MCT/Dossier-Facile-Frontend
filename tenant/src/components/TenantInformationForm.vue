@@ -311,21 +311,22 @@ export default class TenantInformationForm extends Vue {
   }
 
   updateApplicationType(value: string) {
-    this.newApplicationType = value;
-    if (
-      value !== this.applicationType &&
-      (this.user.apartmentSharing?.tenants.length || 0) > 1
-    ) {
-      if (this.applicationType === "COUPLE") {
-        this.isDeleteCoupleVisible = true;
-        return false;
-      }
-      if (this.applicationType === "GROUP") {
-        this.isDeleteGroupVisible = true;
-        return false;
+    if (this.applicationType != value) {
+      this.newApplicationType = value;
+      if (
+        value !== this.applicationType &&
+        (this.user.apartmentSharing?.tenants.length || 0) > 1
+      ) {
+        if (this.applicationType === "COUPLE") {
+          this.isDeleteCoupleVisible = true;
+        } else if (this.applicationType === "GROUP") {
+          this.isDeleteGroupVisible = true;
+        }
+      } else {
+        this.coTenants = [];
+        this.applicationType = this.newApplicationType;
       }
     }
-    this.applicationType = this.newApplicationType;
     return false;
   }
 
@@ -369,7 +370,7 @@ export default class TenantInformationForm extends Vue {
           });
       }
     });
-    this.roommates = this.coTenants = [];
+    this.coTenants = [];
     this.isDeleteCoupleVisible = false;
     this.isDeleteGroupVisible = false;
   }
