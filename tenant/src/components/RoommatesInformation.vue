@@ -214,7 +214,19 @@ export default class RoommatesInformation extends Vue {
   }
 
   remove(tenant: User) {
-    this.$store.dispatch("deleteCoTenant", tenant);
+    if (tenant.id) {
+      this.$store.dispatch("deleteCoTenant", tenant).then(() =>
+        this.$emit(
+          "input",
+          this.value.filter(t => t.email != tenant.email)
+        )
+      );
+    } else {
+      this.$emit(
+        "input",
+        this.value.filter(t => t.email != tenant.email)
+      );
+    }
     return false;
   }
 
