@@ -18,7 +18,9 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-files") }}</span>
+      <span>{{
+        $t(`explanation-text.${guarantorKey()}.will-delete-files`)
+      }}</span>
     </ConfirmModal>
     <ValidationObserver v-slot="{ validate }">
       <NakedCard class="fr-p-md-5w fr-mb-3w">
@@ -192,7 +194,13 @@
               v-model="financialDocument.noDocument"
             />
             <label for="noDocument">
-              {{ $t(getCheckboxLabel(financialDocument.documentType.key)) }}
+              {{
+                $t(
+                  `explanation-text.${guarantorKey()}.${getCheckboxLabel(
+                    financialDocument.documentType.key
+                  )}`
+                )
+              }}
             </label>
           </div>
           <div class="fr-mb-5w" v-if="financialDocument.noDocument">
@@ -203,7 +211,11 @@
               <div class="fr-input-group">
                 <label class="fr-label" for="customText">
                   {{
-                    $t(getCustomTextLabel(financialDocument.documentType.key))
+                    $t(
+                      `explanation-text.${guarantorKey()}.${getCustomTextLabel(
+                        financialDocument.documentType.key
+                      )}`
+                    )
                   }}
                 </label>
                 <input
@@ -608,22 +620,12 @@ export default class GuarantorFinancialDocumentForm extends Vue {
 "en": {
   "monthlySum": "Value in euros",
   "monthlySum-label": "Monthly salary (after tax)",
-  "noDocument-social": "I cannot provide proof of payment of social benefits",
-  "noDocument-salary": "I cannot provide the last three payslips or a balance sheet of my guarantor",
-  "noDocument-rent": "I cannot provide proof of rent",
-  "noDocument-pension": "I cannot provide proof of pension",
-  "noDocument-scholarship": "I cannot provide proof of scholarship",
-  "customText-social": "In order to improve my file, I explain why I cannot provide the justificatives:",
-  "customText-salary": "In order to improve my file, I explain why I cannot provide the last three payslips or a balance sheet of my guarantor:",
-  "customText-rent": "In order to improve my file, I explain why I cannot provide the justificatives:",
-  "customText-pension": "In order to improve my file, I explain why I cannot provide the justificatives:",
-  "customText-scholarship": "In order to improve my file, I explain why I cannot provide the justificatives:",
   "high-salary": "You have entered a salary greater than € 10,000 are you sure you have entered your guarantor monthly salary?",
   "low-salary": "You have entered a salary equal to 0 € are you sure you have entered your guarantor monthly salary?",
   "number-not-valid": "Number not valid - without decimal",
   "delete-financial":  "Delete this salary",
   "field-required": "This field is required",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
+  
   "register": "Register",
   "warning-no-income-and-file": "You can't have files and no income. You must uncheck the box or delete your files.",
   "missing-file": "You must add files to save this income.",
@@ -632,22 +634,11 @@ export default class GuarantorFinancialDocumentForm extends Vue {
 "fr": {
   "monthlySum": "Montant en euros",
   "monthlySum-label": "J'indique le montant de son revenu mensuel net à payer (avant prélèvement à la source)",
-  "noDocument-social": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
-  "noDocument-salary": "Je ne peux pas fournir les trois derniers bulletins de salaire ou un bilan comptable de mon garant",
-  "noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",
-  "noDocument-rent": "Je ne peux pas fournir de justificatifs de versement de rente",
-  "noDocument-scholarship": "Je ne peux pas fournir de justificatifs d'attribution de bourse",
-  "customText-social": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
-  "customText-salary": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les trois derniers bulletins de salaire ou un bilan comptable de mon garant :",
-  "customText-pension": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
-  "customText-rent": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
-  "customText-scholarship": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
   "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
   "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
   "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule",
   "delete-financial":  "Supprimer ce revenu",
   "field-required": "Ce champ est requis",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à la situation de votre garant.",
   "register": "Enregistrer",
   "select-label": "Attention, veuillez renseigner uniquement les revenus du garant.",
   "missing-file": "Vous devez ajouter des fichiers pour sauvegarder ce revenu.",
