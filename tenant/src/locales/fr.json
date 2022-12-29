@@ -120,7 +120,18 @@
       "social-service": "J’ajoute un justificatif de versement de prestations sociales (ARE, CAF, Crous…) de mon garant de moins de 3 mois, un justificatif d’ouverture de ses droits ou une attestation de simulation pour les aides au logement.",
       "student": "J’ajoute une copie de la carte d’étudiant de mon garant ou son certificat de scolarité pour l’année en cours.",
       "tenant": "J’ajoute un <b>justificatif de domicile de mon garant</b> datant de <b>moins de trois mois.</b>",
-      "unemployed": "J’ajoute une attestation d’ouverture de droits à l’ARE de mon garant ou son avis de situation Pôle Emploi de moins de 3 mois."
+      "unemployed": "J’ajoute une attestation d’ouverture de droits à l’ARE de mon garant ou son avis de situation Pôle Emploi de moins de 3 mois.",
+      "noDocument-social": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
+      "noDocument-salary": "Je ne peux pas fournir les trois derniers bulletins de salaire ou un bilan comptable de mon garant",
+      "noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",
+      "noDocument-rent": "Je ne peux pas fournir de justificatifs de versement de rente",
+      "noDocument-scholarship": "Je ne peux pas fournir de justificatifs d'attribution de bourse",
+      "customText-social": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
+      "customText-salary": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les trois derniers bulletins de salaire ou un bilan comptable de mon garant :",
+      "customText-pension": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
+      "customText-rent": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
+      "customText-scholarship": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
+      "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à la situation de votre garant."
     },
     "cotenant-guarantor": {
       "alternation": "J’ajoute un bulletin de salaire de moins de 3 mois de son garant ou son contrat d’alternance complet et signé.",
@@ -146,7 +157,18 @@
       "social-service": "J’ajoute un justificatif de versement de prestations sociales (ARE, CAF, Crous…) de son garant de moins de 3 mois, un justificatif d’ouverture de ses droits ou une attestation de simulation pour les aides au logement.",
       "student": "J’ajoute une copie de la carte d’étudiant de son garant ou son certificat de scolarité pour l’année en cours.",
       "tenant": "J’ajoute un <b>justificatif de domicile de son garant</b> datant de <b>moins de trois mois.</b>",
-      "unemployed": "J’ajoute une attestation d’ouverture de droits à l’ARE de son garant ou son avis de situation Pôle Emploi de moins de 3 mois."
+      "unemployed": "J’ajoute une attestation d’ouverture de droits à l’ARE de son garant ou son avis de situation Pôle Emploi de moins de 3 mois.",
+      "noDocument-social": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
+      "noDocument-salary": "Je ne peux pas fournir les trois derniers bulletins de salaire ou un bilan comptable de son garant",
+      "noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",
+      "noDocument-rent": "Je ne peux pas fournir de justificatifs de versement de rente",
+      "noDocument-scholarship": "Je ne peux pas fournir de justificatifs d'attribution de bourse",
+      "customText-social": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de son garant :",
+      "customText-salary": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les trois derniers bulletins de salaire ou un bilan comptable de son garant :",
+      "customText-pension": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de son garant :",
+      "customText-rent": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de son garant :",
+      "customText-scholarship": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de son garant :",
+      "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à la situation de son garant."
     }
   }
 }

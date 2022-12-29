@@ -26,5 +26,39 @@
     "no-income": "No income"
   },
   "my-cotenant": "Roommate's documents",
-  "my-cotenant-guarantor": "CoTenant's guarantor"
+  "my-cotenant-guarantor": "CoTenant's guarantor",
+  "explanation-text": {
+    "tenant": {
+      
+    },
+    "cotenant": {
+      
+    },
+    "guarantor": {
+      "noDocument-social": "I cannot provide proof of payment of social benefits",
+      "noDocument-salary": "I cannot provide the last three payslips or a balance sheet of my guarantor",
+      "noDocument-rent": "I cannot provide proof of rent",
+      "noDocument-pension": "I cannot provide proof of pension",
+      "noDocument-scholarship": "I cannot provide proof of scholarship",
+      "customText-social": "In order to improve my file, I explain why I cannot provide the justificatives:",
+      "customText-salary": "In order to improve my file, I explain why I cannot provide the last three payslips or a balance sheet of my guarantor:",
+      "customText-rent": "In order to improve my file, I explain why I cannot provide the justificatives:",
+      "customText-pension": "In order to improve my file, I explain why I cannot provide the justificatives:",
+      "customText-scholarship": "In order to improve my file, I explain why I cannot provide the justificatives:",
+      "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again."
+    },
+    "cotenant-guarantor": {
+      "noDocument-social": "I cannot provide proof of payment of social benefits",
+      "noDocument-salary": "I cannot provide the last three payslips or a balance sheet of this guarantor",
+      "noDocument-rent": "I cannot provide proof of rent",
+      "noDocument-pension": "I cannot provide proof of pension",
+      "noDocument-scholarship": "I cannot provide proof of scholarship",
+      "customText-social": "In order to improve my file, I explain why I cannot provide the justificatives:",
+      "customText-salary": "In order to improve my file, I explain why I cannot provide the last three payslips or a balance sheet of this guarantor:",
+      "customText-rent": "In order to improve my file, I explain why I cannot provide the justificatives:",
+      "customText-pension": "In order to improve my file, I explain why I cannot provide the justificatives:",
+      "customText-scholarship": "In order to improve my file, I explain why I cannot provide the justificatives:",
+      "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again."
+    }
+  }
 }
