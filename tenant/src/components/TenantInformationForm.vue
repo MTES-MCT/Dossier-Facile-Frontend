@@ -286,11 +286,7 @@ export default class TenantInformationForm extends Vue {
           }
         },
         error => {
-          if (
-            error.response.data.message.includes(
-              "emails are already being used"
-            )
-          ) {
+          if (error.response.data.message.includes("are already being used")) {
             this.$toasted.show(this.$i18n.t("email-exists").toString(), {
               type: "error",
               duration: 7000

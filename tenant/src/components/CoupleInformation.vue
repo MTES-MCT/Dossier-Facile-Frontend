@@ -171,7 +171,7 @@ extend("is", {
 
 extend("custom", {
   ...is,
-  message: "none",
+  message: "email-not-valid",
   validate: (v1, v2: any) => {
     return v1 !== v2.other;
   }
