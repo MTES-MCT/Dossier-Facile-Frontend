@@ -115,7 +115,8 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Édition du profil - DossierFacile",
       requiresAuth: true,
-      hideFooter: true
+      hideFooter: true,
+      skipLinks: FUNNEL_SKIP_LINKS
     },
     component: () =>
       import(/* webpackChunkName: "profile" */ "../views/CoTenantDocument.vue")
@@ -152,7 +153,8 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Édition du garant du locataire - DossierFacile",
       requiresAuth: true,
-      hideFooter: true
+      hideFooter: true,
+      skipLinks: FUNNEL_SKIP_LINKS
     },
     component: () =>
       import(
@@ -165,7 +167,8 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Validation du dossier locataire - DossierFacile",
       requiresAuth: true,
-      hideFooter: true
+      hideFooter: true,
+      skipLinks: FUNNEL_SKIP_LINKS
     },
     component: () =>
       import(/* webpackChunkName: "profile" */ "../views/ValidateFilePage.vue")
@@ -212,7 +215,8 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Édition du garant du locataire - DossierFacile",
       requiresAuth: true,
-      hideFooter: true
+      hideFooter: true,
+      skipLinks: FUNNEL_SKIP_LINKS
     },
     component: () =>
       import(
