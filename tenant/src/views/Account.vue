@@ -4,7 +4,14 @@
       <section class="fr-mt-3w">
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12">
-            <h1>{{ $t("title", [getFirstName(), $t(user.status)]) }}</h1>
+            <h1>
+              {{
+                $t(getApplicationType() + ".title", [
+                  getFirstName(),
+                  $t(getGlobalStatus())
+                ])
+              }}
+            </h1>
             <div class="fr-callout warning fr-callout-white" v-if="isDenied()">
               <h2 class="fr-text-title--grey fr-h4">
                 {{ $t("amendment-required-title") }}
@@ -72,7 +79,6 @@
                       <p class="share-file-description">
                         {{ $t("share-file-description") }}
                       </p>
-
                       <div>
                         <div class="flex copy-btn">
                           <button
@@ -105,12 +111,7 @@
               </div>
               <div class="fr-mt-1v alert-container">
                 <div class="red-alert" v-if="cotenantNotValidated()">
-                  <div v-if="user.applicationType === 'GROUP'">
-                    {{ $t("cotenant-cannot-copy-link") }}
-                  </div>
-                  <div v-if="user.applicationType === 'COUPLE'">
-                    {{ $t("spouse-cannot-copy-link") }}
-                  </div>
+                  {{ $t(getApplicationType() + ".cannot-copy-link") }}
                 </div>
               </div>
               <div class="main-description fr-mt-2w">
@@ -136,14 +137,15 @@
                 </h3>
                 <p v-html="$t('instructional-time-text')"></p>
               </div>
-              <hr />
+            </div>
+            <div class="main fr-mt-2w fr-p-0w">
               <section
                 v-if="user.applicationType === 'COUPLE'"
-                class="fr-mt-5w fr-mb-3w"
+                class="fr-m-0 fr-p-0 bg-white"
               >
-                <div class="fr-tabs">
+                <div class="fr-tabs account-tabs">
                   <ul
-                    class="fr-tabs__list"
+                    class="fr-tabs__list fr-p-0"
                     role="tablist"
                     aria-label="tab-list"
                   >
@@ -153,7 +155,7 @@
                       role="presentation"
                     >
                       <button
-                        class="fr-tabs__tab fr-tabs__tab--icon-right"
+                        class="fr-tabs__tab fr-tabs__tab--icon-right fr-container--fluid"
                         :class="{ 'fr-fi-icon-fc-right': tenant.franceConnect }"
                         :id="`tabpanel-${k}`"
                         :tabindex="tabIndex === k ? 0 : -1"
@@ -162,7 +164,16 @@
                         :aria-controls="`tabpanel-${k}-panel`"
                         @click="tabIndex = k"
                       >
-                        {{ tenant | fullName }}
+                        <div class="fr-grid-row">
+                          <div class="name fr-col-xs-12 fr-col fr-mr-1w">
+                            {{ tenant | fullName }}
+                          </div>
+                          <ColoredTag
+                            class="fr-col-xs-12 fr-col"
+                            :status="tenant.status"
+                            :text="$t('dossier.status.' + tenant.status)"
+                          ></ColoredTag>
+                        </div>
                       </button>
                     </li>
                   </ul>
@@ -176,6 +187,7 @@
                     tabindex="0"
                   >
                     <TenantPanel
+                      class="panel"
                       :tenant="tenant"
                       :isCotenant="tenant.id != user.id"
                     />
@@ -523,6 +535,42 @@ export default class Account extends Vue {
       params: { substep: n.toString() }
     });
   }
+
+  getGlobalStatus(): string {
+    if (this.user.applicationType == "COUPLE") {
+      const coTenant = UtilsService.getSpouse();
+      if (this.user.status == "DENIED" || coTenant.status == "DENIED") {
+        return "DENIED";
+      } else if (
+        this.user.status == "INCOMPLETE" ||
+        coTenant.status == "INCOMPLETE"
+      ) {
+        return "INCOMPLETE";
+      } else if (
+        this.user.status == "TO_PROCESS" ||
+        coTenant.status == "TO_PROCESS"
+      ) {
+        return "TO_PROCESS";
+      } else if (
+        this.user.status == "VALIDATED" &&
+        coTenant.status == "VALIDATED"
+      ) {
+        return "VALIDATED";
+      }
+      return "INCOMPLETE";
+    }
+    return this.user.status as string | "INCOMPLETE";
+  }
+
+  getApplicationType() {
+    switch (this.user.applicationType) {
+      case "COUPLE":
+        return "couple";
+      case "GROUP":
+        return "group";
+    }
+    return "alone";
+  }
 }
 </script>
 
@@ -566,6 +614,25 @@ h2 {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 10px;
   background: var(--background-default-grey);
+}
+.account-tabs {
+  > ul {
+    background-color: var(--blue-france-200);
+    > li > button.fr-tabs__tab {
+      &:not([aria-selected="true"]) {
+        background-color: #f2f2f9;
+      }
+      .name {
+        text-align: left;
+        padding-left: 0.5rem;
+      }
+    }
+  }
+}
+.panel {
+  @media (max-width: 706px) {
+    margin-top: 1rem;
+  }
 }
 
 .fr-btn.delete-btn {
@@ -760,13 +827,14 @@ hr {
     margin-left: 0.5rem;
   }
 }
-
 </style>
 
 <i18n>
 {
   "en": {
-    "title": "Hello {0}, your file {1}",
+    "alone.title": "Hello {0}, your file {1}",
+    "group.title": "Hello {0}, your file {1}",
+    "couple.title": "Bonjour {0}, votre dossier de couple {1} !",
     "status-description":"{0}, you are {1}, {2} and {3}.<br>if your situation has changed, please update your documents !",
     "last-update": "Dernière mise à jour du dossier le {0}",
     "file-update-title": "File update",
@@ -829,10 +897,16 @@ hr {
     "congratulations-text-1": "In order to apply for the accommodation of your dreams, send your DossierFacile link, by email, SMS, etc. to owners, lessors… of your choice. As a reminder, DossierFacile does not offer accommodation.",
     "congratulations-text-2": "Your data is protected!",
     "full-link-copied": "The link of my complete file is copied!",
-    "public-link-copied": "The link of my summary file is copied!"
+    "public-link-copied": "The link of my summary file is copied!",
+    "dossier.status.TO_PROCESS": "To process",
+    "dossier.status.VALIDATED": "Validated",
+    "dossier.status.DECLINED": "Declined",
+    "dossier.status.INCOMPLETE": "Incomplete"
   },
   "fr": {
-    "title": "Bonjour {0}, votre dossier {1} !",
+    "alone.title": "Bonjour {0}, votre dossier {1} !",
+    "group.title": "Bonjour {0}, votre dossier {1} !",
+    "couple.title": "Bonjour {0}, votre dossier de couple {1} !",
     "status-description":"{0}, vous avez indiqué être {1}, {2} et {3}.<br>Si votre situation a changé, mettez à jour vos documents !",
     "last-update": "Dernière mise à jour du dossier le {0}",
     "file-update-title": "Mise à jour de votre dossier",
@@ -852,9 +926,9 @@ hr {
     "s_INCOMPLETE":"Non terminé",
     "s_EMPTY": "Document manquant",
     "TO_PROCESS":"est en cours de traitement",
-    "VALIDATED":"est vérifié",
+    "VALIDATED":"est validé",
     "DECLINED":"nécessite une modification",
-    "INCOMPLETE":"est non terminé",
+    "INCOMPLETE":"est incomplet",
     "delete": "Suppression de mon compte",
     "opinion": "Racontez-nous votre expérience DossierFacile.fr",
     "delete-account": "Supprimer mon compte",
@@ -884,8 +958,8 @@ hr {
     "group-with": "en colocation avec {0}",
     "group-with-someone": "en colocation",
     "someone": " quelqu'un",
-    "spouse-cannot-copy-link": "Votre lien est inactif car le dossier de votre conjoint·e n'est pas encore validé",
-    "cotenant-cannot-copy-link": "Votre lien est inactif car le dossier de votre(vos) colocataire(s) n'est pas encore validé",
+    "couple.cannot-copy-link": "Votre lien est inactif car le dossier de votre conjoint·e n'est pas encore validé",
+    "group.cannot-copy-link": "Votre lien est inactif car le dossier de votre(vos) colocataire(s) n'est pas encore validé",
     "amendment-required-title": "Modifications demandées",
     "amendment-required-text": "Après examen de votre dossier, des modifications vous sont demandées. <br>Consultez votre messagerie pour en connaître le détail.",
     "messaging": "Consulter ma messagerie",
@@ -895,7 +969,11 @@ hr {
     "congratulations-text-1": "Afin de candidater au logement de vos rêves, envoyez votre lien DossierFacile, par email, SMS, etc. aux propriétaires, bailleurs de votre choix. Pour rappel, DossierFacile ne propose pas de logement.",
     "congratulations-text-2": "Vos informations sont protégées !",
     "full-link-copied": "Le lien de mon dossier complet est copié !",
-    "public-link-copied": "Le lien de mon dossier de synthèse est copié !"
+    "public-link-copied": "Le lien de mon dossier de synthèse est copié !",
+    "dossier.status.TO_PROCESS": "En cours de traitement",
+    "dossier.status.VALIDATED": "dossier vérifé",
+    "dossier.status.DECLINED": "Modification demandée",
+    "dossier.status.INCOMPLETE": "Incomplet"
   }
 }
 </i18n>
