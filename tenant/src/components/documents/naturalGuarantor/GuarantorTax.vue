@@ -351,6 +351,16 @@ export default class GuarantorTax extends Vue {
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
       });
     }
+
+    const d = this.getRegisteredDoc();
+    if (
+      this.taxDocument.value === d?.documentSubCategory &&
+      this.customText === (d?.customText || "") &&
+      newFiles.length <= 0
+    ) {
+      return true;
+    }
+
     if (this.taxDocument.key === "my-name") {
       formData.append("noDocument", "false");
     } else {
