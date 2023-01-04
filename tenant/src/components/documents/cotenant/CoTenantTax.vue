@@ -54,6 +54,7 @@ import { ref } from "@vue/reactivity";
 import FooterContainer from "../../footer/FooterContainer.vue";
 import BackNext from "../../footer/BackNext.vue";
 import AllowCheckTax from "../share/AllowCheckTax.vue";
+import { UtilsService } from "@/services/UtilsService";
 
 extend("is", {
   ...is,
@@ -98,6 +99,17 @@ export default class CoTenantTax extends Vue {
     this.$emit("on-back");
   }
 
+  getRegisteredDoc() {
+    const coTenant = UtilsService.getTenant(Number(this.coTenantId));
+    if (coTenant.documents !== null) {
+      const doc = coTenant.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "TAX";
+      });
+      return doc;
+    }
+    return undefined;
+  }
+
   goNext() {
     const formData = new FormData();
 
@@ -115,6 +127,15 @@ export default class CoTenantTax extends Vue {
     }
 
     this.enrichFormData(formData);
+
+    const d = this.getRegisteredDoc();
+    if (
+      this.documentType?.value === d?.documentSubCategory &&
+      this.document.customText === d?.customText
+    ) {
+      this.$emit("on-next");
+      return true;
+    }
 
     formData.append("typeDocumentTax", this.documentType?.value as string);
     if (this.document.id && this.document.id > 0) {
