@@ -36,8 +36,8 @@ const hasErrors = computed(
       && property.livingSpace > 0
       && property.rentCost
       && property.rentCost > 0
-      && property.chargesCost
-      && property.chargesCost > 0
+      && property.chargesCost !== undefined
+      && property.chargesCost >= 0
   ),
 );
 
@@ -64,9 +64,9 @@ function onBack() {
 
 <template>
   <PropertyPage @on-back="onBack" @submit="onSubmit">
-    <h1 class="fr-h4">{{ t("validate-title") }}</h1>
+    <h1 class="fr-h4">{{ t('validate-title') }}</h1>
     <div v-if="!hasErrors">
-      <p>{{ t("validate-subtitle") }}</p>
+      <p>{{ t('validate-subtitle') }}</p>
       <div class="bg-purple fr-checkbox-group">
         <Field
           name="authorize"
@@ -78,14 +78,14 @@ function onBack() {
         />
         <label for="authorize"><div v-html="t('authorize')"></div></label>
         <ErrorMessage class="fr-error-text" name="authorize" v-slot="{ message }">
-          <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+          <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
         </ErrorMessage>
       </div>
     </div>
     <div v-else>
-      <h6 class="color--red">{{ t("error-title") }}</h6>
+      <h6 class="color--red">{{ t('error-title') }}</h6>
       <p>
-        {{ t("property-not-valid") }}
+        {{ t('property-not-valid') }}
       </p>
       <div v-if="!property.name">
         <UpdateRowBtn
@@ -120,9 +120,9 @@ function onBack() {
       <div
         v-if="
           !property.rentCost ||
-          property.rentCost <= 0 ||
-          !property.chargesCost ||
-          property.chargesCost <= 0
+            property.rentCost <= 0 ||
+            property.chargesCost === undefined ||
+            property.chargesCost < 0
         "
       >
         <UpdateRowBtn
