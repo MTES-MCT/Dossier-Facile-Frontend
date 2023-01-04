@@ -532,29 +532,7 @@ export default class Account extends Vue {
   }
 
   getGlobalStatus(): string {
-    if (this.user.applicationType == "COUPLE") {
-      const coTenant = UtilsService.getSpouse();
-      if (this.user.status == "DENIED" || coTenant.status == "DENIED") {
-        return "DENIED";
-      } else if (
-        this.user.status == "INCOMPLETE" ||
-        coTenant.status == "INCOMPLETE"
-      ) {
-        return "INCOMPLETE";
-      } else if (
-        this.user.status == "TO_PROCESS" ||
-        coTenant.status == "TO_PROCESS"
-      ) {
-        return "TO_PROCESS";
-      } else if (
-        this.user.status == "VALIDATED" &&
-        coTenant.status == "VALIDATED"
-      ) {
-        return "VALIDATED";
-      }
-      return "INCOMPLETE";
-    }
-    return this.user.status as string | "INCOMPLETE";
+    return this.user.apartmentSharing?.status as string | "INCOMPLETE";
   }
 
   getApplicationType() {
