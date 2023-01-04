@@ -40,13 +40,6 @@
                     {{ $t("my-file") }}
                   </h2>
                 </div>
-
-                <ColoredTag
-                  class="mobile-margin"
-                  :text="$t('s_' + user.status)"
-                  :status="user.status"
-                ></ColoredTag>
-
                 <span class="spacer"></span>
                 <div class="fr-grid-row btn-container">
                   <DfButton
@@ -110,7 +103,7 @@
                 </div>
               </div>
               <div class="fr-mt-1v alert-container">
-                <div class="red-alert" v-if="cotenantNotValidated()">
+                <div class="red-alert" v-if="notVisibleCotenantNotValidated()">
                   {{ $t(getApplicationType() + ".cannot-copy-link") }}
                 </div>
               </div>
@@ -138,12 +131,12 @@
                 <p v-html="$t('instructional-time-text')"></p>
               </div>
             </div>
-            <div class="main fr-mt-2w fr-p-0w">
+            <div class="fr-mt-2w fr-p-0w">
               <section
                 v-if="user.applicationType === 'COUPLE'"
                 class="fr-m-0 fr-p-0 bg-white"
               >
-                <div class="fr-tabs account-tabs">
+                <div class="fr-tabs account-tabs ">
                   <ul
                     class="fr-tabs__list fr-p-0"
                     role="tablist"
@@ -155,8 +148,7 @@
                       role="presentation"
                     >
                       <button
-                        class="fr-tabs__tab fr-tabs__tab--icon-right fr-container--fluid"
-                        :class="{ 'fr-fi-icon-fc-right': tenant.franceConnect }"
+                        class="fr-tabs__tab fr-container--fluid"
                         :id="`tabpanel-${k}`"
                         :tabindex="tabIndex === k ? 0 : -1"
                         role="tab"
@@ -167,6 +159,11 @@
                         <div class="fr-grid-row">
                           <div class="name fr-col-xs-12 fr-col fr-mr-1w">
                             {{ tenant | fullName }}
+                            <span
+                              :class="{
+                                'fr-fi-icon-fc': tenant.franceConnect
+                              }"
+                            ></span>
                           </div>
                           <ColoredTag
                             class="fr-col-xs-12 fr-col"
@@ -194,7 +191,7 @@
                   </div>
                 </div>
               </section>
-              <TenantPanel v-else :tenant="user" />
+              <TenantPanel v-else :tenant="user" class="fr-p-4w bg-white" />
             </div>
             <PartnersSection />
 
@@ -498,11 +495,9 @@ export default class Account extends Vue {
     );
   }
 
-  cotenantNotValidated() {
-    if (this.user.status !== "VALIDATED") {
-      return false;
-    }
+  notVisibleCotenantNotValidated() {
     return (
+      this.user.applicationType === "GROUP" &&
       this.user.apartmentSharing?.tenants.find(t => {
         return t.status !== "VALIDATED";
       }) !== undefined
@@ -618,6 +613,7 @@ h2 {
 .account-tabs {
   > ul {
     background-color: var(--blue-france-200);
+    overflow-y: hidden;
     > li > button.fr-tabs__tab {
       &:not([aria-selected="true"]) {
         background-color: #f2f2f9;
@@ -626,12 +622,15 @@ h2 {
         text-align: left;
         padding-left: 0.5rem;
       }
+      .fr-tag {
+        font-weight: normal;
+      }
     }
   }
 }
 .panel {
   @media (max-width: 706px) {
-    margin-top: 1rem;
+    padding-top: 1rem;
   }
 }
 
@@ -812,9 +811,7 @@ hr {
   max-width: fit-content;
 }
 
-.fr-fi-icon-fc-right {
-  flex-direction: row-reverse;
-
+.fr-fi-icon-fc {
   &:before {
     content: "";
     background-color: transparent;
@@ -886,8 +883,7 @@ hr {
     "someone": " someone",
     "group-with": "in flatsharing with {0}",
     "group-with-someone": "in flatsharing",
-    "cotenant-cannot-copy-link": "Your link is inactive because your roommate's file has not yet been validated",
-    "spouse-cannot-copy-link": "Your link is inactive because your spouse's file has not yet been validated",
+    "group.cannot-copy-link": "Your link is inactive because your spouse's file has not yet been validated",
     "amendment-required-title": "Amendment required",
     "amendment-required-text": "After examining your file, modifications are requested. <br> Check your mailbox for details.",
     "messaging": "Messaging",
@@ -958,7 +954,6 @@ hr {
     "group-with": "en colocation avec {0}",
     "group-with-someone": "en colocation",
     "someone": " quelqu'un",
-    "couple.cannot-copy-link": "Votre lien est inactif car le dossier de votre conjoint·e n'est pas encore validé",
     "group.cannot-copy-link": "Votre lien est inactif car le dossier de votre(vos) colocataire(s) n'est pas encore validé",
     "amendment-required-title": "Modifications demandées",
     "amendment-required-text": "Après examen de votre dossier, des modifications vous sont demandées. <br>Consultez votre messagerie pour en connaître le détail.",
@@ -971,7 +966,7 @@ hr {
     "full-link-copied": "Le lien de mon dossier complet est copié !",
     "public-link-copied": "Le lien de mon dossier de synthèse est copié !",
     "dossier.status.TO_PROCESS": "En cours de traitement",
-    "dossier.status.VALIDATED": "dossier vérifé",
+    "dossier.status.VALIDATED": "Vérifé",
     "dossier.status.DECLINED": "Modification demandée",
     "dossier.status.INCOMPLETE": "Incomplet"
   }
