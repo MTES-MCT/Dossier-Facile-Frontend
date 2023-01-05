@@ -33,7 +33,7 @@
                 <img
                   alt=""
                   class="img-center"
-                  src="../../assets/images/blog-article15.jpg"
+                  src="../../assets/images/blog-article15.webp"
                 />
               </p>
 

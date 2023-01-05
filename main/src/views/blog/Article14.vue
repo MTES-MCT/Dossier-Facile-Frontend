@@ -17,7 +17,7 @@
                 <img
                   alt=""
                   class="img-center"
-                  src="../../assets/images/blog-article14.jpg"
+                  src="../../assets/images/blog-article14.webp"
                 />
               </p>
 
