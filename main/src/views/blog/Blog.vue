@@ -9,7 +9,7 @@
             title="Passoires thermiques : top départ du gel des loyers"
             :image="require('../../assets/images/blog-article15.jpg')"
             publicationDate="5 janvier 2023"
-            path="/blog/passoires-thermiques-top-départ-du-gel-des-loyers"
+            path="/blog/passoires-thermiques-top-depart-du-gel-des-loyers"
           >
             <template v-slot:extract>
               <p>
