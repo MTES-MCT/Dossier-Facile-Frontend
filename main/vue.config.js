@@ -21,6 +21,7 @@ const routes = [
   "/blog/la-caution-locative-changement-en-vue-pour-2022",
   "/blog/au-secours-mon-ascenceur-est-en-panne",
   "/blog/usurpation-d-identite-en-france-comment-prevenir-agir",
+  "/blog/passoires-thermiques-top-départ-du-gel-des-loyers",
   "/information",
   "/accessibilite",
   "/mentions-legales",
