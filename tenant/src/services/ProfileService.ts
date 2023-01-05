@@ -8,10 +8,11 @@ export const ProfileService = {
       `https://${process.env.VUE_APP_API_URL}/api/user/franceConnect`
     );
   },
-  saveNames(user: User): Promise<User> {
+  saveNames(user: User) {
     return axios.post(
       `https://${process.env.VUE_APP_API_URL}/api/register/names`,
       {
+        tenantId: user.id,
         firstName: user.firstName,
         lastName: user.lastName,
         preferredName: user.preferredName,
@@ -29,6 +30,21 @@ export const ProfileService = {
       data
     );
   },
+  saveCoTenants(data: {
+    applicationType: string;
+    coTenants: User[];
+    acceptAccess: boolean;
+  }) {
+    return axios.post(
+      `https://${process.env.VUE_APP_API_URL}/api/register/application/v2`,
+      data
+    );
+  },
+  getCoTenant(id: number) {
+    return axios.delete(
+      `https://${process.env.VUE_APP_API_URL}/api/tenant/coTenant/${id}/profile`
+    );
+  },
   async deleteCoTenant(id: number) {
     await axios.delete(
       `https://${process.env.VUE_APP_API_URL}/api/tenant/deleteCoTenant/${id}`
@@ -40,10 +56,10 @@ export const ProfileService = {
       { honorDeclaration, clarification }
     );
   },
-  setGuarantorType(typeGuarantor: string) {
+  setGuarantorType(typeGuarantorData: Guarantor) {
     return axios.post(
       `https://${process.env.VUE_APP_API_URL}/api/register/guarantorType`,
-      { typeGuarantor }
+      typeGuarantorData
     );
   },
   deleteGuarantor(g: Guarantor) {

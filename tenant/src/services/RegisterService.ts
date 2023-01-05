@@ -21,7 +21,10 @@ export const RegisterService = {
         store.dispatch("loadUser");
       });
   },
-
+  deleteFileById(id: number) {
+    const url = `https://${process.env.VUE_APP_API_URL}/api/file/${id}`;
+    return axios.delete(url);
+  },
   saveTenantIdentification(formData: FormData) {
     return axios.post(
       `https://${process.env.VUE_APP_API_URL}/api/register/documentIdentification`,
@@ -29,10 +32,17 @@ export const RegisterService = {
     );
   },
 
-  saveTaxAuth(allowTax: boolean, fcToken: string) {
+  saveTaxAuth(allowTax: boolean, fcToken: string, tenantId: number) {
     return axios.post(
       `https://${process.env.VUE_APP_API_URL}/api/tenant/allowTax/${allowTax}`,
-      { fcToken }
+      { fcToken, tenantId }
+    );
+  },
+
+  saveCoTenantIdentification(formData: FormData) {
+    return axios.post(
+      `https://${process.env.VUE_APP_API_URL}/api/tenant/coTenant/${formData.get('coTenantId')}/documentIdentification`,
+      formData
     );
   },
 
@@ -112,6 +122,11 @@ export const RegisterService = {
 
   saveCorporationName(formData: FormData) {
     const url = `https://${process.env.VUE_APP_API_URL}/api/register/guarantorLegalPerson/name`;
+    return axios.post(url, formData);
+  },
+
+  saveLegalPersonRepresentantName(formData: FormData) {
+    const url = `https://${process.env.VUE_APP_API_URL}/api/register/guarantorLegalPerson/representing-name`;
     return axios.post(url, formData);
   },
 

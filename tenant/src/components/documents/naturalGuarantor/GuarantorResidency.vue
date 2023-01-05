@@ -58,7 +58,9 @@
       v-if="residencyDocument.key || residencyFiles().length > 0"
     >
       <div class="fr-mb-3w">
-        <p v-html="$t(residencyDocument.explanationText)"></p>
+        <p
+          v-html="$t(`explanation-text.${guarantorKey()}.${residencyDocument.key}`)"
+        ></p>
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
@@ -85,7 +87,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { mapState } from "vuex";
 import DocumentInsert from "../share/DocumentInsert.vue";
 import FileUpload from "../../uploads/FileUpload.vue";
@@ -126,7 +128,9 @@ import { cloneDeep } from "lodash";
     })
   }
 })
-export default class Residency extends Vue {
+export default class GuarantorResidency extends Vue {
+  @Prop() tenantId?: string;
+
   selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
@@ -287,6 +291,9 @@ export default class Residency extends Vue {
     if (this.$store.getters.guarantor.id) {
       formData.append("guarantorId", this.$store.getters.guarantor.id);
     }
+    if (this.tenantId) {
+      formData.append("tenantId", this.tenantId);
+    }
     const loader = this.$loading.show();
     this.$store
       .dispatch("saveGuarantorResidency", formData)
@@ -325,7 +332,7 @@ export default class Residency extends Vue {
   }
 
   async remove(file: DfFile, silent = false) {
-    if (file.path && file.id) {
+    if (file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = this.files.findIndex(f => {
@@ -333,6 +340,13 @@ export default class Residency extends Vue {
       });
       this.files.splice(firstIndex, 1);
     }
+  }
+
+  guarantorKey() {
+    if (this.tenantId != null) {
+      return "cotenant-guarantor";
+    }
+    return "guarantor";
   }
 }
 </script>

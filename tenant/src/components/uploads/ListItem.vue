@@ -31,7 +31,7 @@
     </div>
     <Modal
       @close="isDocModalVisible = false"
-      v-if="isDocModalVisible && file.path"
+      v-if="isDocModalVisible && (file.path || file.preview)"
     >
       <template v-slot:body>
         <ShowDoc :file="file"></ShowDoc>

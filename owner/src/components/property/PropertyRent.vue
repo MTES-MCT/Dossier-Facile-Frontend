@@ -49,10 +49,10 @@ function onBack() {
 
 <template>
   <PropertyPage @on-back="onBack" @submit="onSubmit">
-    <h1 class="fr-h4">{{ t("rent-title") }}</h1>
-    <p>{{ t("rent-subtitle") }}</p>
+    <h1 class="fr-h4">{{ t('rent-title') }}</h1>
+    <p>{{ t('rent-subtitle') }}</p>
     <p>
-      <label class="fr-label" for="rent">{{ t("monthly-rent") }} :</label>
+      <label class="fr-label" for="rent">{{ t('monthly-rent') }} :</label>
       <Field
         id="rent"
         name="rent"
@@ -60,7 +60,7 @@ function onBack() {
         v-slot="{ field, meta }"
         :rules="{
           required: true,
-          positive: true
+          positive: true,
         }"
       >
         <input
@@ -75,11 +75,11 @@ function onBack() {
         />
       </Field>
       <ErrorMessage name="rent" v-slot="{ message }">
-        <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+        <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
       </ErrorMessage>
     </p>
     <p>
-      <label class="fr-label" for="charges">{{ t("monthly-charges") }} :</label>
+      <label class="fr-label" for="charges">{{ t('monthly-charges') }} :</label>
       <Field
         id="charges"
         name="charges"
@@ -87,7 +87,7 @@ function onBack() {
         v-slot="{ field, meta }"
         :rules="{
           required: true,
-          positive: true
+          positiveOrNull: true,
         }"
       >
         <input
@@ -102,7 +102,7 @@ function onBack() {
         />
       </Field>
       <ErrorMessage name="charges" v-slot="{ message }">
-        <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+        <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
       </ErrorMessage>
     </p>
   </PropertyPage>
@@ -116,8 +116,7 @@ function onBack() {
     "monthly-rent": "Monthly rent",
     "rent-amount": "Rent amount",
     "monthly-charges": "Monthly charges",
-    "charges-amount": "Charges amount",
-    "number-not-positive": "The price must be more than zero"
+    "charges-amount": "Charges amount"
   },
   "fr": {
     "rent-title": "Loyer et charges mensuels",
@@ -125,8 +124,7 @@ function onBack() {
     "monthly-rent": "Loyer mensuel",
     "rent-amount": "Montant du loyer",
     "monthly-charges": "Montant des charges mensuel",
-    "charges-amount": "Montant des charges",
-    "number-not-positive": "Le prix doit être supérieur à zéro"
+    "charges-amount": "Montant des charges"
   }
 }
 </i18n>

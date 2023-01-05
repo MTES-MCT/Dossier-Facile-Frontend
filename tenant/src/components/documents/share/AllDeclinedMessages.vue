@@ -33,7 +33,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
     DeclinedMessage
   }
 })
-export default class Identification extends Vue {
+export default class AllDeclinedMessages extends Vue {
   @Prop({ default: null }) documentDeniedReasons?: DocumentDeniedReasons | null;
   @Prop({ default: "" }) documentStatus?: string;
 }

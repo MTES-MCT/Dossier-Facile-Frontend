@@ -3,7 +3,7 @@
     <NakedCard class="fr-p-md-5w">
       <div>
         <h1 class="fr-h6">
-          {{ $t("organism-label") }}
+          {{ getTitle() }}
         </h1>
         <v-gouv-fr-modal>
           <template v-slot:button>
@@ -26,9 +26,9 @@
           :documentDeniedReasons="documentDeniedReasons"
           :documentStatus="documentStatus"
         ></AllDeclinedMessages>
-        <div class="fr-col-md-12 fr-mb-3w">
+        <div class="fr-col-md-12 fr-mb-3w fr-mt-3w">
           <ListItem
-            v-for="(file, k) in listFiles()"
+            v-for="(file, k) in files"
             :key="k"
             :file="file"
             @remove="remove(file)"
@@ -53,11 +53,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { mapState } from "vuex";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import DocumentInsert from "../share/DocumentInsert.vue";
 import FileUpload from "../../uploads/FileUpload.vue";
-import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
 import ListItem from "../../uploads/ListItem.vue";
 import { DfDocument } from "df-shared/src/models/DfDocument";
@@ -67,7 +65,7 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
-import { cloneDeep } from "lodash";
+import { Guarantor } from "df-shared/src/models/Guarantor";
 
 @Component({
   components: {
@@ -77,77 +75,89 @@ import { cloneDeep } from "lodash";
     ListItem,
     VGouvFrModal,
     NakedCard
-  },
-  computed: {
-    ...mapState({
-      user: "user"
-    })
   }
 })
 export default class OrganismCert extends Vue {
+  @Prop() tenantId?: number;
+  @Prop() isCotenant?: boolean;
+  @Prop() guarantor?: Guarantor;
+
   MAX_FILE_COUNT = 5;
   acceptedProofs = ["Certificat de garantie valide d'un organisme"];
   refusedProofs = ["Tout autre document"];
 
-  documentDeniedReasons = new DocumentDeniedReasons();
-  identificationDocument = new DocumentType();
+  documentDeniedReasons?: DocumentDeniedReasons;
 
-  files: File[] = [];
+  files: DfFile[] = [];
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   uploadProgress: {
     [key: string]: { state: string; percentage: number };
   } = {};
 
-  beforeMount() {
-    if (this.guarantorIdentificationDocument()?.documentDeniedReasons) {
-      this.documentDeniedReasons = cloneDeep(
-        this.guarantorIdentificationDocument().documentDeniedReasons
-      );
-    }
+  mounted() {
+    this.loadDocument();
   }
 
-  addFiles(fileList: File[]) {
-    this.files = [...this.files, ...fileList];
-    this.save();
+  getTitle() {
+    const userType = this.isCotenant ? "cotenant" : "tenant";
+    return this.$t(`explanation-text.${userType}.organism-guarantor`);
+  }
+
+  guarantorId() {
+    if (this.guarantor) {
+      return this.guarantor.id;
+    }
+    return this.$store.getters.guarantor.id;
   }
 
   get documentStatus() {
     return this.guarantorIdentificationDocument()?.documentStatus;
   }
 
-  save() {
+  guarantorIdentificationDocument(): DfDocument {
+    if (this.guarantor) {
+      return this.guarantor.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "IDENTIFICATION";
+      }) as DfDocument;
+    }
+    return this.$store.getters.getGuarantorIdentificationDocument;
+  }
+
+  addFiles(newFiles: File[]) {
+    if (this.files.length >= this.MAX_FILE_COUNT) {
+      this.displayTooManyFilesToast();
+      return;
+    }
+    this.save(newFiles);
+  }
+
+  save(files: File[]) {
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    if (!this.files.length) return;
+    if (!files.length) return;
 
-    if (this.listFiles().length > this.MAX_FILE_COUNT) {
-      Vue.toasted.global.max_file({
-        message: this.$i18n.t("max-file", [
-          this.listFiles().length,
-          this.MAX_FILE_COUNT
-        ])
-      });
-      return;
-    }
-
-    Array.from(Array(this.files.length).keys()).map(x => {
-      formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
+    Array.from(Array(files.length).keys()).forEach(x => {
+      formData.append(`${fieldName}[${x}]`, files[x], files[x].name);
     });
-    if (this.$store.getters.guarantor.id) {
-      formData.append("guarantorId", this.$store.getters.guarantor.id);
-    }
 
     formData.append("noDocument", "false");
+
+    if (this.guarantorId()) {
+      formData.append("guarantorId", this.guarantorId());
+    }
+    if (this.tenantId) {
+      formData.append("tenantId", this.tenantId.toString());
+    }
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     const loader = this.$loading.show();
     RegisterService.saveOrganismIdentification(formData)
-      .then(() => {
-        this.files = [];
+      .then(async (response: any) => {
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         Vue.toasted.global.save_success();
-        this.$store.dispatch("loadUser");
+        await this.$store.commit("loadUser", response.data);
+        this.loadDocument();
       })
       .catch(() => {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
@@ -163,34 +173,29 @@ export default class OrganismCert extends Vue {
   }
 
   remove(file: DfFile) {
-    if (file.path && file.id) {
+    if (file.id) {
       RegisterService.deleteFile(file.id);
-    } else {
-      const firstIndex = this.files.findIndex(f => {
-        return f.name === file.name && f.size === file.size;
-      });
-      this.files.splice(firstIndex, 1);
     }
+    const firstIndex = this.files.findIndex(f => f.id === file.id);
+    this.files.splice(firstIndex, 1);
+    this.documentDeniedReasons = undefined;
   }
 
-  guarantorIdentificationDocument() {
-    return this.$store.getters.getGuarantorIdentificationDocument;
+  private loadDocument() {
+    // This is a needed workaround for now, since we can't identify the currently
+    // edited guarantor (and thus the corresponding document) from state
+    const document = this.guarantorIdentificationDocument();
+    this.documentDeniedReasons = document?.documentDeniedReasons;
+    this.files = document?.files || [];
   }
 
-  listFiles() {
-    const newFiles = this.files.map(f => {
-      return {
-        documentSubCategory: this.identificationDocument.value,
-        id: f.name,
-        name: f.name,
-        size: f.size
-      };
+  private displayTooManyFilesToast() {
+    Vue.toasted.global.max_file({
+      message: this.$i18n.t("max-file", [
+        this.files.length,
+        this.MAX_FILE_COUNT
+      ])
     });
-    const existingFiles =
-      this.$store.getters.getGuarantorDocuments?.find((d: DfDocument) => {
-        return d.documentCategory === "IDENTIFICATION";
-      })?.files || [];
-    return [...newFiles, ...existingFiles];
   }
 }
 </script>
@@ -206,14 +211,3 @@ td {
   border: 1px solid #ececec;
 }
 </style>
-
-<i18n>
-{
-"en": {
-  "organism-label": "J'ajoute un certificat ou un visa délivré par l'organisme qui se porte garant pour moi."
-},
-"fr": {
-  "organism-label": "J'ajoute un certificat ou un visa délivré par l'organisme qui se porte garant pour moi."
-}
-}
-</i18n>

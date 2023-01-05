@@ -1,3 +1,4 @@
+import { User } from "df-shared/src/models/User";
 import { DfDocument } from "../../../df-shared/src/models/DfDocument";
 import { Guarantor } from "../../../df-shared/src/models/Guarantor";
 import store from "../store";
@@ -8,22 +9,49 @@ export const UtilsService = {
       return t.tenantType === "CREATE";
     });
   },
-
-  allDocumentsFilled() {
-    return (
-      this.documentsFilled() &&
-      store.state.user.guarantors?.find((g: Guarantor) => {
-        return !this.guarantorDocumentsFilled(g);
-      }) === undefined
-    );
+  getSpouse() {
+    if (store.state.user.apartmentSharing.applicationType === "COUPLE") {
+      return store.state.user.apartmentSharing.tenants.find((t: any) => {
+        return t.id != store.state.user.id;
+      });
+    }
+    return null;
   },
-  documentsFilled() {
+  getTenant(id: number) {
+    if (id === store.state.user.id) {
+      return store.state.user;
+    }
+    return store.state.user.apartmentSharing.tenants.find((r: User) => {
+      return r.id === id;
+    }) as User;
+  },
+  getLastAddedGuarantor(user: User) {
+    if (user.guarantors?.length && user.guarantors?.length > 0) {
+      return user.guarantors[user.guarantors.length - 1];
+    }
+    throw Error("guarantor is not found");
+  },
+  allDocumentsFilled() {
+    const user = store.state.user;
+    const tenantDocumentsFilled = (tenant: User) =>
+      this.documentsFilled(tenant) &&
+      tenant.guarantors?.every(g => !!this.guarantorDocumentsFilled(g));
+
+    if (user.applicationType === "COUPLE") {
+      const cotenants = user.apartmentSharing?.tenants.filter(
+        (cotenant: User) => user.id !== cotenant.id
+      );
+      return tenantDocumentsFilled(user) && cotenants.every(tenantDocumentsFilled);
+    }
+    return tenantDocumentsFilled(user);
+  },
+  documentsFilled(user?: User) {
     return (
-      this.hasDoc("IDENTIFICATION") &&
-      this.hasDoc("PROFESSIONAL") &&
-      this.hasDoc("RESIDENCY") &&
-      this.isFinancialValid() &&
-      this.isTaxValid()
+      this.hasDoc("IDENTIFICATION", user) &&
+      this.hasDoc("PROFESSIONAL", user) &&
+      this.hasDoc("RESIDENCY", user) &&
+      this.isFinancialValid(user) &&
+      this.isTaxValid(user)
     );
   },
   guarantorDocumentsFilled(g: Guarantor) {
@@ -41,8 +69,9 @@ export const UtilsService = {
         this.guarantorHasDoc("IDENTIFICATION", g))
     );
   },
-  hasDoc(docType: string) {
-    const f = store.state.user.documents?.find((d: DfDocument) => {
+  hasDoc(docType: string, user?: User) {
+    const u = user ? user : store.state.user;
+    const f = u.documents?.find((d: DfDocument) => {
       return (
         d.documentCategory === docType &&
         (d.documentStatus === "TO_PROCESS" || d.documentStatus === "VALIDATED")
@@ -50,8 +79,9 @@ export const UtilsService = {
     })?.files;
     return f && f.length > 0;
   },
-  isFinancialValid() {
-    const docs = store.state.user.documents?.filter((d: DfDocument) => {
+  isFinancialValid(user?: User) {
+    const u = user ? user : store.state.user;
+    const docs = u.documents?.filter((d: DfDocument) => {
       return d.documentCategory === "FINANCIAL";
     });
     if (!docs || docs.length === 0) {
@@ -70,8 +100,9 @@ export const UtilsService = {
     return true;
   },
 
-  isTaxValid() {
-    const doc = store.state.user.documents?.find((d: DfDocument) => {
+  isTaxValid(user?: User) {
+    const u = user ? user : store.state.user;
+    const doc = u.documents?.find((d: DfDocument) => {
       return d.documentCategory === "TAX";
     });
     if (!doc) {
@@ -86,7 +117,7 @@ export const UtilsService = {
 
     return false;
   },
-  guarantorHasDoc(docType: string, g: Guarantor) {
+  guarantorHasDoc(docType: string, g: Guarantor | User) {
     const f = g.documents?.find((d: DfDocument) => {
       return (
         d.documentCategory === docType &&

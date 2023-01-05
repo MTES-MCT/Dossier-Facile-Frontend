@@ -6,6 +6,27 @@
           <h1>{{ $t("blog") }}</h1>
           <hr />
           <BlogExtractTile
+            title="Passoires thermiques : top départ du gel des loyers"
+            :image="require('../../assets/images/blog-article15.jpg')"
+            publicationDate="5 janvier 2023"
+            path="/blog/passoires-thermiques-top-départ-du-gel-des-loyers"
+          >
+            <template v-slot:extract>
+              <p>
+                Depuis le 24 août 2022, les propriétaires bailleurs de logements
+                classés F et G (consommation énergétique comprise entre 331 et
+                420 kWh/m²/an pour les F, et au-dessus pour les G) communément
+                appelés
+                <span class="fr-text--bold">« passoires énergétiques »</span>,
+                sont désormais obligés de réaliser des travaux s’ils veulent
+                augmenter les loyers à la signature d’un nouveau bail, lors du
+                renouvellement du bail ou dans le cadre d’une révision annuelle
+                même prévue au contrat...
+              </p>
+            </template>
+          </BlogExtractTile>
+          <hr />
+          <BlogExtractTile
             title="DossierFacile engagé dans la protection de vos données personnelles"
             :image="require('../../assets/images/blog-article14.jpg')"
             publicationDate="24 octobre 2022"

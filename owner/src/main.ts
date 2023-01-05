@@ -37,7 +37,7 @@ defineRule('hasValue', (value: any) => {
 });
 defineRule('required', (value: any) => {
   if (typeof value === 'number') {
-    if (!value) {
+    if (!value && value !== 0) {
       return 'field-required';
     }
     return true;
@@ -74,6 +74,15 @@ defineRule('positive', (value: any) => {
   }
   if (value <= 0) {
     return 'number-not-positive';
+  }
+  return true;
+});
+defineRule('positiveOrNull', (value: any) => {
+  if (!value || !value.length) {
+    return true;
+  }
+  if (value < 0) {
+    return 'number-not-positive-or-null';
   }
   return true;
 });

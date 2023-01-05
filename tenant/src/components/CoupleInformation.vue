@@ -1,9 +1,70 @@
 <template>
   <div>
-    <NakedCard class="fr-p-md-5w">
+    <NakedCard class="fr-p-md-5w fr-mb-2w">
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12">
-          <h6>{{ $t("title") }}</h6>
+          <h1 class="fr-h6">{{ $t("partner-name-title") }}</h1>
+        </div>
+        <div class="fr-col-12 fr-mb-3w">
+          <validation-provider rules="required" v-slot="{ errors }">
+            <div
+              class="fr-input-group"
+              :class="errors[0] ? 'fr-input-group--error' : ''"
+            >
+              <FieldLabel :required="true">
+                {{ $t("spouseLastName") }}
+              </FieldLabel>
+              <input
+                v-model="coTenant.lastName"
+                class="form-control validate-required fr-input"
+                :class="{
+                  'fr-input--error': errors[0]
+                }"
+                name="coTenantLastName"
+                type="text"
+                @input="handleInput"
+                :disabled="disableNameFields"
+              />
+              <span
+                class="fr-error-text"
+                v-if="errors[0] && errors[0] !== 'none'"
+                >{{ $t(errors[0]) }}</span
+              >
+            </div>
+          </validation-provider>
+        </div>
+        <div class="fr-col-12 fr-mb-3w">
+          <validation-provider rules="required" v-slot="{ errors }">
+            <div
+              class="fr-input-group"
+              :class="errors[0] ? 'fr-input-group--error' : ''"
+            >
+              <FieldLabel :required="true">
+                {{ $t("spouseFirstName") }}
+              </FieldLabel>
+              <input
+                v-model="coTenant.firstName"
+                class="validate-required form-control fr-input"
+                :class="errors[0] ? 'fr-input--error' : ''"
+                name="firstName"
+                type="text"
+                @input="handleInput"
+                :disabled="disableNameFields"
+              />
+              <span
+                class="fr-error-text"
+                v-if="errors[0] && errors[0] !== 'none'"
+                >{{ $t(errors[0]) }}</span
+              >
+            </div>
+          </validation-provider>
+        </div>
+      </div>
+    </NakedCard>
+    <NakedCard class="fr-p-md-5w fr-mb-2w">
+      <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-12">
+          <h1 class="fr-h6">{{ $t("partner-email-title") }}</h1>
           <v-gouv-fr-modal>
             <template v-slot:button>
               <span class="small-font">{{ $t("more-information") }}</span>
@@ -18,55 +79,7 @@
             </template>
           </v-gouv-fr-modal>
         </div>
-        <div v-if="showEmailExists" class="fr-col-12 fr-mt-2w">
-          <div class="fr-callout">
-            <p class="fr-mb-1w" v-html="$t('email-exists')"></p>
-          </div>
-        </div>
-      </div>
-      <div class="fr-grid-row fr-grid-row--center">
-        <div class="fr-col-12 fr-mt-2w" v-if="getPartner()">
-          <NakedCard>
-            <div class="fr-grid-row bg--white">
-              <div class="fr-col-10">
-                <div class="fr-grid-row nowrap">
-                  <div class="center-icon fr-mr-1w">
-                    <span class="color--white material-icons md-24 round-icon"
-                      >person</span
-                    >
-                  </div>
-                  <div class="fr-grid-col overflow--hidden max-content">
-                    <div :title="coupleMail" class="overflow--hidden">
-                      <b>
-                        {{ getPartner().email }}
-                      </b>
-                    </div>
-                    <div class="small-text">
-                      {{
-                        $t(getPartner().id ? "invite-sent" : "invite-waiting")
-                      }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="fr-col-2 center-icon">
-                <button
-                  class="fr-btn fr-btn--secondary icon-btn"
-                  :title="$t('delete')"
-                  @click="remove(getPartner().email)"
-                  type="button"
-                >
-                  <span class="color--primary material-icons md-24" aria-hidden="true"
-                    >delete_forever</span
-                  >
-                </button>
-              </div>
-            </div>
-          </NakedCard>
-        </div>
-
-        <div class="fr-col-12 fr-mt-2w" v-if="getPartner() === undefined">
-          <label class="fr-label fr-mb-1w">{{ $t("spouseEmail") }}</label>
+        <div class="fr-col-12 fr-mt-3w fr-mb-3w">
           <validation-provider
             v-slot="{ errors }"
             :rules="{ email: true, custom: user.email }"
@@ -75,13 +88,18 @@
               class="fr-input-group"
               :class="errors[0] ? 'fr-input-group--error' : ''"
             >
+              <FieldLabel>
+                {{ $t("spouseEmail") }}
+              </FieldLabel>
               <input
-                v-model="coupleMail"
+                v-model="coTenant.email"
                 class="validate-required form-control fr-input"
                 :class="errors[0] ? 'fr-input--error' : ''"
                 name="email"
                 placeholder="Ex : exemple@exemple.fr"
                 type="email"
+                @input="handleInput"
+                :disabled="disableEmailField"
               />
               <span
                 class="fr-error-text"
@@ -91,20 +109,13 @@
             </div>
           </validation-provider>
         </div>
-        <div class="fr-col-12" v-if="getPartner() === undefined">
-          <div class="fr-grid-row fr-grid-row--right fr-mt-2w fr-mb-3w">
-            <v-gouv-fr-button
-              :secondary="true"
-              :label="$t('add-a-spouse')"
-              :btn-type="'button'"
-              :disabled="coupleMail === ''"
-              @click="addMail"
-            ></v-gouv-fr-button>
-          </div>
-        </div>
       </div>
     </NakedCard>
-    <div class="fr-grid-row fr-grid-row--center">
+    <div
+      ref="checkbox-authorize"
+      v-if="showCheckBox"
+      class="fr-grid-row fr-grid-row--center"
+    >
       <div class="fr-col-12 fr-mb-3w fr-mt-3w">
         <validation-provider rules="is" v-slot="{ errors }" class="fr-col-10">
           <div
@@ -133,17 +144,23 @@
 import { Component, Vue } from "vue-property-decorator";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
-import { email, is } from "vee-validate/dist/rules";
+import { required, email, is } from "vee-validate/dist/rules";
 import { mapGetters, mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import CoupleInformationHelp from "./helps/CoupleInformationHelp.vue";
+import FieldLabel from "df-shared/src/components/form/FieldLabel.vue";
 
 extend("email", {
   ...email,
   message: "email-not-valid"
+});
+
+extend("required", {
+  ...required,
+  message: "field-required"
 });
 
 extend("is", {
@@ -154,7 +171,7 @@ extend("is", {
 
 extend("custom", {
   ...is,
-  message: "none",
+  message: "email-not-valid",
   validate: (v1, v2: any) => {
     return v1 !== v2.other;
   }
@@ -167,7 +184,8 @@ extend("custom", {
     VGouvFrButton,
     VGouvFrModal,
     CoupleInformationHelp,
-    NakedCard
+    NakedCard,
+    FieldLabel
   },
   computed: {
     ...mapState({
@@ -179,11 +197,12 @@ extend("custom", {
   }
 })
 export default class CoupleInformation extends Vue {
-  coupleMail = "";
+  coTenant = new User();
   authorize = false;
   spouseAuthorize!: boolean;
-  showEmailExists = false;
-
+  showCheckBox = false;
+  disableNameFields = false;
+  disableEmailField = false;
   user!: User;
 
   mounted() {
@@ -191,36 +210,37 @@ export default class CoupleInformation extends Vue {
       const partner = this.user.apartmentSharing?.tenants.find(t => {
         return t.email != this.user.email;
       });
-      this.coupleMail = partner?.email || "";
-    }
-    this.authorize = this.spouseAuthorize;
-  }
-
-  updateAuthorize() {
-    this.$store.commit("updateCoupleAuthorize", this.authorize);
-  }
-
-  addMail() {
-    this.showEmailExists = false;
-    if (this.coupleMail !== "") {
-      if (this.coupleMail !== this.user.email) {
-        this.$store.commit("createCouple", this.coupleMail);
-      } else {
-        this.showEmailExists = true;
+      this.coTenant = partner || this.coTenant;
+      if (this.coTenant.firstName || this.coTenant.lastName) {
+        this.disableNameFields = true;
+      }
+      if (this.coTenant.email?.length > 0) {
+        this.disableEmailField = true;
+        this.showCheckBox = true;
+        this.authorize = this.spouseAuthorize;
       }
     }
   }
 
-  getPartner() {
-    const partner = this.user.apartmentSharing?.tenants.find(t => {
-      return t.email != this.user.email;
-    });
-    return partner;
+  scrollToEnd() {
+    const element: any = this.$refs["checkbox-authorize"];
+    window.scrollTo(0, element.lastElementChild.offsetTop);
   }
 
-  remove(email: string) {
-    this.$store.commit("deleteRoommates", email);
-    return false;
+  handleInput() {
+    this.$emit("input", [this.coTenant]);
+    if (this.coTenant.email?.length > 0) {
+      this.showCheckBox = true;
+      this.$nextTick(function() {
+        this.scrollToEnd();
+      });
+    } else {
+      this.showCheckBox = false;
+    }
+  }
+
+  updateAuthorize() {
+    this.$store.commit("updateCoupleAuthorize", this.authorize);
   }
 }
 </script>
@@ -268,13 +288,6 @@ export default class CoupleInformation extends Vue {
   padding: 0.25rem;
 }
 
-.card {
-  box-shadow: 0 1px 8px 0 #cecece;
-  @media all and (min-width: 992px) {
-    padding: 1.5rem;
-  }
-}
-
 .nowrap {
   flex-wrap: nowrap;
   overflow: auto;
@@ -291,32 +304,30 @@ export default class CoupleInformation extends Vue {
 <i18n>
 {
 "en": {
-"spouseEmail": "Your spouse email",
+"spouseFirstName": "Firstname",
+"spouseLastName": "Lastname",
+"spouseEmail": "Your spouse email (optional)",
 "acceptAuthor": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
 "email-not-valid": "Email not valid",
 "field-required": "This field is required",
-"title": "Who will be you spouse ?",
-"invite-waiting": "Waiting for confirmation",
-"invite-sent": "Invitation sent",
-"add-a-spouse": "Invite your spouse",
+"partner-name-title": "Who is your partner?",
+"partner-email-title": "Send them an invite?",
+"add-a-spouse": "Add your spouse",
 "email-exists": "You can not associate two account with only one email address ! <br>Fullfill a different email address.",
-"more-information": "How is this information useful to us?",
-"require-accept": "You must accept the statement",
-"delete": "Delete the invitation"
+"more-information": "How does it work?"
 },
 "fr": {
-"spouseEmail": "L’adresse email de votre conjoint",
+"spouseFirstName": "Prénom",
+"spouseLastName": "Nom",
+"spouseEmail": "L’adresse email de votre conjoint·e (facultatif)",
 "acceptAuthor": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
 "email-not-valid": "Email non valide",
 "field-required": "Ce champ est requis",
-"title": "Qui sera votre conjoint·e ?",
-"add-a-spouse": "Inviter votre conjoint·e",
-"invite-waiting": "Invitation en attente d'envoi",
-"invite-sent": "Invitation envoyée",
+"partner-name-title": "Qui sera votre conjoint·e ?",
+"partner-email-title": "L'inviter à remplir son dossier ?",
+"add-a-spouse": "Ajouter votre conjoint·e",
 "email-exists": "Vous ne pouvez pas associer deux comptes à une même adresse email ! <br>Renseignez une adresse email différente.",
-"more-information": "En quoi cette information nous est utile ?",
-"require-accept": "Vous devez accepter la déclaration",
-"delete": "Supprimer l'invitation"
+"more-information": "Comment ça marche ?"
 }
 }
 </i18n>

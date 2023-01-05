@@ -90,17 +90,13 @@
                   <form v-on:submit.prevent="handleSubmit(submitForm)">
                     <div class="fr-grid-row fr-grid-row--center">
                       <div class="fr-col-12 fr-mb-3w">
-                        <i18n path="description-required-field">
-                          <template v-slot:asterix>
-                            <span style="color:red">*</span>
-                          </template>
-                        </i18n>
+                        <RequiredFieldsInstruction></RequiredFieldsInstruction>
                       </div>
                       <div class="fr-col-12 fr-col-md-6 fr-pr-md-3w fr-mb-3w">
                         <div class="fr-input-group">
-                          <label for="firstname" class="fr-label"
-                            >{{ $t("firstname") }} :</label
-                          >
+                          <FieldLabel for-input="firstname">
+                            {{ $t("firstname") }}
+                          </FieldLabel>
                           <input
                             id="firstname"
                             :placeholder="$t('firstname')"
@@ -114,9 +110,9 @@
                       </div>
                       <div class="fr-col-12 fr-col-md-6 fr-mb-3w">
                         <div class="fr-input-group">
-                          <label class="fr-label" for="lastname"
-                            >{{ $t("lastname") }} :</label
-                          >
+                          <FieldLabel for-input="lastname">
+                            {{ $t("lastname") }}
+                          </FieldLabel>
                           <input
                             v-model="contactFormData.lastname"
                             class="form-control fr-input validate-required"
@@ -137,9 +133,9 @@
                             class="fr-input-group"
                             :class="errors[0] ? 'fr-input-group--error' : ''"
                           >
-                            <label class="fr-label" for="email"
-                              >{{ $t("email") }} * :</label
-                            >
+                            <FieldLabel :required="true" for-input="email">
+                              {{ $t("email") }}
+                            </FieldLabel>
                             <input
                               v-model="contactFormData.email"
                               class="form-control fr-input validate-required"
@@ -174,7 +170,7 @@
                             role="group"
                           >
                             <legend id="radio-profile-legend">
-                              {{ $t("profile") }} * :
+                              {{ $t("profile") }} <span style="color:red"> *</span> :
                             </legend>
                             <input
                               v-model="contactFormData.profile"
@@ -216,9 +212,9 @@
                             class="fr-input-group"
                             :class="errors[0] ? 'fr-input-group--error' : ''"
                           >
-                            <label class="fr-label" for="subject"
-                              >{{ $t("subject") }} * :</label
-                            >
+                            <FieldLabel :required="true" for-input="subject">
+                              {{ $t("subject") }}
+                            </FieldLabel>
                             <input
                               v-model="contactFormData.subject"
                               class="form-control fr-input validate-required"
@@ -247,9 +243,9 @@
                             class="fr-input-group"
                             :class="errors[0] ? 'fr-input-group--error' : ''"
                           >
-                            <label class="fr-label" for="message"
-                              >{{ $t("message") }} * :</label
-                            >
+                            <FieldLabel :required="true" for-input="message">
+                              {{ $t("message") }}
+                            </FieldLabel>
                             <textarea
                               v-model="contactFormData.message"
                               class="form-control fr-input validate-required"
@@ -320,6 +316,8 @@ import Modal from "./Modal.vue";
 import { extend } from "vee-validate";
 import { is, required, email } from "vee-validate/dist/rules";
 import DfButton from "df-shared/src/Button/Button.vue";
+import RequiredFieldsInstruction from "df-shared/src/components/form/RequiredFieldsInstruction.vue";
+import FieldLabel from "df-shared/src/components/form/FieldLabel.vue";
 import { ContactFormData } from "df-shared/src/models/ContactFormData";
 import { SupportService } from "df-shared/src/services/SupportService";
 import { User } from "../models/User";
@@ -346,7 +344,9 @@ extend("is", {
     ValidationProvider,
     ValidationObserver,
     DfButton,
-    Modal
+    Modal,
+    RequiredFieldsInstruction,
+    FieldLabel
   }
 })
 export default class ContactForm extends Vue {
@@ -490,7 +490,6 @@ fieldset.fr-radio-group-container {
 "email-not-valid" : "Email not valid",
 "our-documentation": "our documentation",
 "contact-description" : "If you have any trouble to create your DossierFacile or if your have question which have not response in {doc_link}, you can fill the following form.",
-"description-required-field" : "Fields with {asterix} are required.",
 "contact-submit-error" : "Oops... Something wrong happened. May I ask you to contact us by mail at: contact@dossierFacile.fr",
 "consult-our-documentation" : "Consult our documentation",
 "message-sent-title" : "Thank you !",
@@ -515,7 +514,6 @@ fieldset.fr-radio-group-container {
 "email-not-valid" : "Email non-valide",
 "our-documentation": "notre documentation",
 "contact-description" : "Que vous éprouviez des difficultés à créer votre DossierFacile, que vous souhaitiez obtenir des renseignements plus précis que ce qui est disponible au sein de {doc_link}, ou que ce soit pour glisser un mot sympathique à notre équipe de choc qui traite vos dossiers avec attention, vous pouvez renseigner le formulaire ci-dessous. Nous faisons de notre mieux afin de répondre à tous, dans des délais acceptables.",
-"description-required-field" : "Les champs marqués d'un {asterix} sont obligatoires.",
 "contact-submit-error" : "Oops... L'envoi du formulaire a échoué. Pourriez-vous nous contacter par mail ici: contact@dossierFacile.fr ?",
 "consult-our-documentation" : "Consulter notre documentation",
 "message-sent-title" : "C'est tout bon ! Votre message est bien arrivé !",

@@ -1,7 +1,9 @@
 <template>
   <div>
     <div v-if="editFinancialDocument">
-      <GuarantorFinancialDocumentForm></GuarantorFinancialDocumentForm>
+      <GuarantorFinancialDocumentForm
+        :tenantId="tenantId"
+      ></GuarantorFinancialDocumentForm>
     </div>
     <div v-if="!editFinancialDocument">
       <NakedCard class="fr-p-md-5w fr-mb-3w">
@@ -19,7 +21,7 @@
           <template v-slot:tag>
             <div class="fixed-width">
               <ColoredTag
-                :text="$t(f.documentType.key)"
+                :text="getDocumentName(f)"
                 :status="guarantorFinancialDocument(f).documentStatus"
               ></ColoredTag>
             </div>
@@ -57,14 +59,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import DocumentInsert from "../share/DocumentInsert.vue";
 import FileUpload from "../../uploads/FileUpload.vue";
 import { mapGetters } from "vuex";
 import { FinancialDocument } from "df-shared/src/models/FinancialDocument";
 import ListItem from "../../uploads/ListItem.vue";
 import { User } from "df-shared/src/models/User";
-import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 
 import DfButton from "df-shared/src/Button/Button.vue";
@@ -111,6 +112,8 @@ import ColoredTag from "df-shared/src/components/ColoredTag.vue";
   }
 })
 export default class GuarantorFinancial extends Vue {
+  @Prop() tenantId?: string;
+
   user!: User;
   financialDocuments!: FinancialDocument[];
 
@@ -141,22 +144,6 @@ export default class GuarantorFinancial extends Vue {
     });
   }
 
-  financialFiles(f: FinancialDocument) {
-    const newFiles = f.files.map((file: DfFile) => {
-      return {
-        documentSubCategory: f.documentType?.value,
-        id: file.name,
-        name: file.name,
-        size: file.size
-      };
-    });
-    const existingFiles =
-      this.$store.getters.getTenantDocuments?.find((d: DfDocument) => {
-        return d.id === f.id;
-      })?.files || [];
-    return [...newFiles, ...existingFiles];
-  }
-
   async addAndSelectFinancial() {
     await this.$store.commit("createGuarantorDocumentFinancial");
   }
@@ -173,25 +160,6 @@ export default class GuarantorFinancial extends Vue {
         this.initialize();
       });
     this.$store.commit("selectGuarantorDocumentFinancial", undefined);
-  }
-
-  getCheckboxLabel(key: string) {
-    if (key === "salary") {
-      return "noDocument-salary";
-    }
-    if (key === "pension") {
-      return "noDocument-pension";
-    }
-    if (key === "rent") {
-      return "noDocument-rent";
-    }
-    if (key === "scholarship") {
-      return "noDocument-scholarship";
-    }
-    if (key === "social-service") {
-      return "noDocument-social";
-    }
-    return "";
   }
 
   hasNoIncome() {
@@ -213,6 +181,10 @@ export default class GuarantorFinancial extends Vue {
 
   async selectFinancialDocument(f: FinancialDocument) {
     await this.$store.commit("selectGuarantorDocumentFinancial", f);
+  }
+
+  private getDocumentName(document: FinancialDocument): string {
+    return this.$t(`documents.${document.documentType.key}`).toString();
   }
 }
 </script>
@@ -253,16 +225,9 @@ export default class GuarantorFinancial extends Vue {
 <i18n>
 {
 "en": {
-  "salary": "Salary",
-  "guarantor_salary": "Salary",
-  "social-service": "Social benefit payments",
-  "rent": "Annuities",
-  "pension": "Pensions",
-  "scholarship": "Scholarship",
   "delete-financial":  "Delete this salary",
   "register": "Register",
   "select-label": "Attention, Please enter only your own income.",
-  "no-income": "No income",
   "i-have-no-income": "I have no income",
   "warning-no-income-and-file": "You can't have files and no income. You must uncheck the box or delete your files.",
   "title": "Summary of your guarantor income",
@@ -272,16 +237,9 @@ export default class GuarantorFinancial extends Vue {
   "add-income": "Add a new income ?"
 },
 "fr": {
-  "salary": "Salaire",
-  "guarantor_salary": "Salaires",
-  "social-service": "Prestations sociales",
-  "rent": "Rentes",
-  "pension": "Pensions",
-  "scholarship": "Bourses",
   "delete-financial":  "Supprimer ce revenu",
   "register": "Enregistrer",
   "select-label": "Attention, veuillez renseigner uniquement vos propres revenus.",
-  "no-income": "Pas de revenu",
   "i-have-no-income": "Je n'ai pas de revenu",
   "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers.",
   "title": "Récapitulatif des revenus du garant",

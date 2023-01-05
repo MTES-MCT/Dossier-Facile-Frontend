@@ -59,5 +59,6 @@ export default new VueI18n({
   locale: "fr",
   fallbackLocale: "en",
   silentFallbackWarn: true,
+  missing: () => "",
   messages: loadLocaleMessages()
 });

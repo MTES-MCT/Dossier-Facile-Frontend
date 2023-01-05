@@ -50,7 +50,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { mapGetters, mapState } from "vuex";
+import { mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
 import GuarantorFooter from "../components/footer/GuarantorFooter.vue";
 import GuarantorChoiceHelp from "../components/helps/GuarantorChoiceHelp.vue";
@@ -77,30 +77,31 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
   computed: {
     ...mapState({
       user: "user"
-    }),
-    ...mapGetters({
-      guarantors: "guarantors"
     })
   }
 })
 export default class GuarantorListPage extends Vue {
   user!: User;
-  guarantors!: Guarantor[];
+
   isRemoveGuarantor = false;
+
+  beforeMount() {
+    this.$store.commit("setSelectedGuarantor", undefined);
+  }
 
   getGuarantorName(g: Guarantor) {
     if (g.firstName || g.lastName) {
       return `${g.firstName || ""} ${g.lastName || ""}`;
     }
-    return this.$i18n.t("guarantor");
+    if (g.typeGuarantor === "LEGAL_PERSON" && g.legalPersonName) {
+      return g.legalPersonName;
+    }
+    return this.$i18n.t("guarantor." + g.typeGuarantor);
   }
 
   goBack() {
-    if (this.guarantors.length > 0) {
-      this.$router.push({
-        name: "TenantDocuments",
-        params: { substep: "5" }
-      });
+    if (this.user?.guarantors && this.user?.guarantors.length > 0) {
+      this.$router.push({ name: "TenantDocuments", params: { substep: "5" } });
       return;
     }
     this.$router.push({
@@ -109,6 +110,20 @@ export default class GuarantorListPage extends Vue {
   }
 
   goNext() {
+    if (this.user.applicationType == "COUPLE") {
+      const cotenant = this.user.apartmentSharing?.tenants.find(
+        t => t.id != this.user.id
+      ) as User;
+      this.$router.push({
+        name: "CoTenantDocuments",
+        params: {
+          step: "4",
+          substep: "0",
+          tenantId: cotenant.id.toString()
+        }
+      });
+      return;
+    }
     this.$router.push({
       name: "ValidateFile"
     });
@@ -145,9 +160,12 @@ export default class GuarantorListPage extends Vue {
     return "VALIDATED";
   }
 
-  editGuarantor(g: Guarantor) {
+  async editGuarantor(g: Guarantor) {
     this.$store.commit("setSelectedGuarantor", g);
-    this.$router.push({ name: "GuarantorDocuments", params: { substep: "0" } });
+    this.$router.push({
+      name: "GuarantorDocuments",
+      params: { substep: "0" }
+    });
   }
 
   removeGuarantor(g: Guarantor) {
@@ -156,6 +174,7 @@ export default class GuarantorListPage extends Vue {
         if (!this.user.guarantors?.length || 0 >= 1) {
           this.$router.push({ name: "GuarantorChoice" });
         }
+        this.isRemoveGuarantor = false;
       },
       () => {
         Vue.toasted.global.error();
@@ -165,8 +184,9 @@ export default class GuarantorListPage extends Vue {
 
   hasOneNaturalGuarantor() {
     return (
-      this.guarantors.length === 1 &&
-      this.guarantors[0].typeGuarantor === "NATURAL_PERSON"
+      this.user.guarantors &&
+      this.user.guarantors.length === 1 &&
+      this.user.guarantors[0].typeGuarantor === "NATURAL_PERSON"
     );
   }
 
@@ -271,6 +291,9 @@ h2 {
   "my-guarantor": "My guarantor",
   "add-new-guarantor": "Add a new guarantor ?",
   "guarantor": "My guarantor",
+  "guarantor.NATURAL_PERSON": "My guarantor",
+  "guarantor.LEGAL_PERSON": "My guarantor company",
+  "guarantor.ORGANISM": "My guarantor organism",
   "EMPTY": "Empty",
   "TO_PROCESS":"To process",
   "VALIDATED":"Validated",
@@ -283,6 +306,9 @@ h2 {
   "my-guarantor": "Mon garant",
   "add-new-guarantor": "Ajouter un nouveau garant ?",
   "guarantor": "Mon garant",
+  "guarantor.NATURAL_PERSON": "Mon garant",
+  "guarantor.LEGAL_PERSON": "Mon entreprise garante",
+  "guarantor.ORGANISM": "Mon organisme garant",
   "EMPTY": "Absent",
   "TO_PROCESS":"En cours de traitement",
   "VALIDATED":"Vérifié",

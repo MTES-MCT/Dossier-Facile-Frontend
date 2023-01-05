@@ -110,6 +110,18 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "profile" */ "../views/TenantDocument.vue")
   },
   {
+    path: "/documents-colocataire/:tenantId/:step/:substep/",
+    name: "CoTenantDocuments",
+    meta: {
+      title: "Édition du profil - DossierFacile",
+      requiresAuth: true,
+      hideFooter: true,
+      skipLinks: FUNNEL_SKIP_LINKS
+    },
+    component: () =>
+      import(/* webpackChunkName: "profile" */ "../views/CoTenantDocument.vue")
+  },
+  {
     path: "/choix-garant",
     name: "GuarantorChoice",
     meta: {
@@ -136,10 +148,36 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "profile" */ "../views/GuarantorListPage.vue")
   },
   {
+    path: "/garants-locataire/:tenantId/:step",
+    name: "TenantGuarantors",
+    meta: {
+      title: "Édition du garant du locataire - DossierFacile",
+      requiresAuth: true,
+      hideFooter: true,
+      skipLinks: FUNNEL_SKIP_LINKS
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "profile" */ "../views/TenantGuarantorsPage.vue"
+      )
+  },
+  {
     path: "/validation-dossier",
     name: "ValidateFile",
     meta: {
-      title: "Validation du dossier - DossierFacile",
+      title: "Validation du dossier locataire - DossierFacile",
+      requiresAuth: true,
+      hideFooter: true,
+      skipLinks: FUNNEL_SKIP_LINKS
+    },
+    component: () =>
+      import(/* webpackChunkName: "profile" */ "../views/ValidateFilePage.vue")
+  },
+  {
+    path: "/validation-dossier/:step",
+    name: "ValidateFileStep",
+    meta: {
+      title: "Validation du dossier locataire - DossierFacile",
       requiresAuth: true,
       hideFooter: true,
       skipLinks: FUNNEL_SKIP_LINKS
@@ -169,6 +207,20 @@ const routes: Array<RouteConfig> = [
     component: () =>
       import(
         /* webpackChunkName: "profile" */ "../views/GuarantorDocumentsPage.vue"
+      )
+  },
+  {
+    path: "/info-garant-locataire/:tenantId/:guarantorId/:step/:substep?",
+    name: "TenantGuarantorDocuments",
+    meta: {
+      title: "Édition du garant du locataire - DossierFacile",
+      requiresAuth: true,
+      hideFooter: true,
+      skipLinks: FUNNEL_SKIP_LINKS
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "profile" */ "../views/TenantGuarantorDocumentsPage.vue"
       )
   },
   {

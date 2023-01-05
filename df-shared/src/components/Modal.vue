@@ -16,7 +16,7 @@
         >
           Fermer
         </button>
-        <header class="modal-header" id="modalTitle">
+        <header class="modal-header" id="modalTitle" v-if="!!$slots['header']">
           <slot name="header"
             ><span style="visibility: hidden">title</span></slot
           >
@@ -24,7 +24,7 @@
         <section class="modal-body" id="modalDescription">
           <slot name="body"> </slot>
         </section>
-        <footer class="modal-footer" v-if="!!this.$slots['footer']">
+        <footer class="modal-footer" v-if="!!$slots['footer']">
           <slot name="footer"> </slot>
         </footer>
       </div>
