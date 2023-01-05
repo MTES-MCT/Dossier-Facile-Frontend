@@ -7,7 +7,7 @@
           <hr />
           <BlogExtractTile
             title="Passoires thermiques : top départ du gel des loyers"
-            :image="require('../../assets/images/blog-article15.jpg')"
+            :image="require('../../assets/images/blog-article15.webp')"
             publicationDate="5 janvier 2023"
             path="/blog/passoires-thermiques-top-depart-du-gel-des-loyers"
           >
@@ -28,7 +28,7 @@
           <hr />
           <BlogExtractTile
             title="DossierFacile engagé dans la protection de vos données personnelles"
-            :image="require('../../assets/images/blog-article14.jpg')"
+            :image="require('../../assets/images/blog-article14.webp')"
             publicationDate="24 octobre 2022"
             path="/blog/engage-dans-la-protection-de-vos-donnees-personnelles"
           >
