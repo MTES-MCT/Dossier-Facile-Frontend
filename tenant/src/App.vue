@@ -18,6 +18,21 @@
       <Menu />
     </MyHeader>
     <div id="content">
+      <ModalAnnouncement :cookiekey="'newcouple'" :showmodal="isCouple()">
+        L'espace couple évolue ! Pour faciliter la constitution de votre dossier
+        de couple, vous pouvez désormais ajouter directement vos documents et
+        ceux de votre partenaire. Si vous le souhaitez, invitez votre partenaire
+        à modifier votre dossier partagé !<br />
+        Perdu avec toutes ces nouveautés ? Lisez
+        <a
+          href="https://dossierfacile.helpscoutdocs.com/article/48-dossier-couple-2023?preview=63a02958ddda3445da2df8f7"
+          target="_blank"
+          >notre documentation </a
+        >.
+        <br />
+        Un problème technique ? N'hésitez pas à nous contacter via le formulaire
+        de contact.
+      </ModalAnnouncement>
       <Announcement></Announcement>
       <main class="page" role="main">
         <router-view :key="$route.path" />
@@ -38,7 +53,9 @@ import Cookies from "df-shared/src/Footer/Cookies.vue";
 import VueGtag from "vue-gtag";
 import router from "./router";
 import Announcement from "df-shared/src/components/Announcement.vue";
+import ModalAnnouncement from "df-shared/src/components/ModalAnnouncement.vue";
 import TenantSkipLinks from "./components/TenantSkipLinks.vue";
+import { User } from "df-shared/src/models/User";
 
 @Component({
   components: {
@@ -47,7 +64,8 @@ import TenantSkipLinks from "./components/TenantSkipLinks.vue";
     TheFooter,
     Menu,
     Cookies,
-    Announcement
+    Announcement,
+    ModalAnnouncement
   },
   computed: {
     ...mapState({
@@ -62,11 +80,17 @@ import TenantSkipLinks from "./components/TenantSkipLinks.vue";
 })
 export default class App extends Vue {
   isFunnel!: boolean;
+  user!: User;
   cookieHidden = this.$cookies.isKey("accept-cookie");
   isLoggedIn!: boolean;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
+  isCoupleModalVisible = false;
+
+  isCouple() {
+    return this.isLoggedIn && this.user.applicationType === "COUPLE";
+  }
 
   onLogout() {
     this.$store.dispatch("logout", this.MAIN_URL);
