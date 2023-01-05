@@ -216,7 +216,7 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Article14.vue")
   },
   {
-    path: "/blog/passoires-thermiques-top-départ-du-gel-des-loyers",
+    path: "/blog/passoires-thermiques-top-depart-du-gel-des-loyers",
     name: "Article15",
     meta: {
       title: "Passoires thermiques : top départ du gel des loyers",
