@@ -3,24 +3,14 @@
     <NakedCard class="fr-p-md-5w">
       <div>
         <h1 class="fr-h6">{{ $t("title") }}</h1>
-        <v-gouv-fr-modal>
-          <template v-slot:button>
-            En difficulté pour répondre à la question ?
-          </template>
-          <template v-slot:title>
-            En difficulté pour répondre à la question ?
-          </template>
-          <template v-slot:content>
-            <p>
-              <GuarantorChoiceHelp></GuarantorChoiceHelp>
-              <DocumentInsert
-                :allow-list="professionalDocument.acceptedProofs"
-                :block-list="professionalDocument.refusedProofs"
-                v-if="professionalDocument.key"
-              ></DocumentInsert>
-            </p>
-          </template>
-        </v-gouv-fr-modal>
+        <TroubleshootingModal>
+          <GuarantorChoiceHelp></GuarantorChoiceHelp>
+          <DocumentInsert
+            :allow-list="professionalDocument.acceptedProofs"
+            :block-list="professionalDocument.refusedProofs"
+            v-if="professionalDocument.key"
+          ></DocumentInsert>
+        </TroubleshootingModal>
         <div class="fr-mt-3w">
           <validation-provider
             rules="select"
@@ -116,6 +106,7 @@ import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReason
 import { cloneDeep } from "lodash";
 import { ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
+import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 extend("select", {
   message: "select-is-empty",
@@ -139,7 +130,8 @@ extend("select", {
     GuarantorChoiceHelp,
     VGouvFrModal,
     NakedCard,
-    ValidationProvider
+    ValidationProvider,
+    TroubleshootingModal
   },
   computed: {
     ...mapState({

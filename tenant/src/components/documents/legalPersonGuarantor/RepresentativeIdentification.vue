@@ -63,22 +63,12 @@
           </div>
         </validation-provider>
         <div v-if="identificationDocument && identificationDocument.key">
-          <v-gouv-fr-modal>
-            <template v-slot:button>
-              En difficulté pour répondre à la question ?
-            </template>
-            <template v-slot:title>
-              En difficulté pour répondre à la question ?
-            </template>
-            <template v-slot:content>
-              <p>
-                <DocumentInsert
-                  :allow-list="identificationDocument.acceptedProofs"
-                  :block-list="identificationDocument.refusedProofs"
-                ></DocumentInsert>
-              </p>
-            </template>
-          </v-gouv-fr-modal>
+          <TroubleshootingModal>
+            <DocumentInsert
+              :allow-list="identificationDocument.acceptedProofs"
+              :block-list="identificationDocument.refusedProofs"
+            ></DocumentInsert>
+          </TroubleshootingModal>
           <AllDeclinedMessages
             class="fr-mb-3w"
             :documentDeniedReasons="documentDeniedReasons"
@@ -133,6 +123,7 @@ import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReason
 import { cloneDeep } from "lodash";
 import GuarantorFooter from "../../footer/GuarantorFooter.vue";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
+import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 extend("required", {
   ...required
@@ -159,7 +150,8 @@ extend("select", {
     ValidationObserver,
     VGouvFrModal,
     NakedCard,
-    GuarantorFooter
+    GuarantorFooter,
+    TroubleshootingModal
   }
 })
 export default class RepresentativeIdentification extends Vue {

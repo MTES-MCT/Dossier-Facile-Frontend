@@ -297,7 +297,6 @@ h2 {
 "organism": "An organization",
 "legal-person": "A corporation guarantor",
 "no-guarantor": "I don't have a guarantor",
-"more-information": "More information",
 "ask-guarantor": "Do you want to add :",
 "remark-title": "Remark",
 "remark-text": "Adding a guarantor is by no means mandatory. If you do not wish to add a surety, you can select “I don't have a guarantor”. Your file will then be registered for investigation."
@@ -316,7 +315,6 @@ h2 {
 "organism": "Un organisme garant",
 "legal-person": "Un garant moral",
 "no-guarantor": "Je n'ai pas de garant",
-"more-information": "En difficulté pour répondre à la question ?",
 "ask-guarantor": "Souhaitez-vous ajouter :",
 "remark-title": "Remarque",
 "remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez sélectionner « Je n'ai pas de garant ». Votre dossier sera alors enregistré pour être instruit."

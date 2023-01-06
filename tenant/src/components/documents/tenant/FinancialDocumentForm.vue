@@ -8,24 +8,14 @@
               {{ $t("financial") }}
             </h1>
 
-            <v-gouv-fr-modal>
-              <template v-slot:button>
-                En difficulté pour répondre à la question ?
-              </template>
-              <template v-slot:title>
-                En difficulté pour répondre à la question ?
-              </template>
-              <template v-slot:content>
-                <p>
-                  <DocumentHelp></DocumentHelp>
-                  <DocumentInsert
-                    :allow-list="financialDocument.documentType.acceptedProofs"
-                    :block-list="financialDocument.documentType.refusedProofs"
-                    v-if="financialDocument.documentType.key"
-                  ></DocumentInsert>
-                </p>
-              </template>
-            </v-gouv-fr-modal>
+            <TroubleshootingModal>
+              <DocumentHelp></DocumentHelp>
+              <DocumentInsert
+                :allow-list="financialDocument.documentType.acceptedProofs"
+                :block-list="financialDocument.documentType.refusedProofs"
+                v-if="financialDocument.documentType.key"
+              ></DocumentInsert>
+            </TroubleshootingModal>
 
             <div class="fr-mt-3w">
               <fieldset class="fr-fieldset">
@@ -307,6 +297,7 @@ import { cloneDeep } from "lodash";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import MonFranceConnect from "../share/MonFranceConnect.vue";
+import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 extend("regex", {
   ...regex,
@@ -335,7 +326,8 @@ extend("required", {
     VGouvFrModal,
     ProfileFooter,
     NakedCard,
-    MonFranceConnect
+    MonFranceConnect,
+    TroubleshootingModal
   },
   computed: {
     ...mapGetters({

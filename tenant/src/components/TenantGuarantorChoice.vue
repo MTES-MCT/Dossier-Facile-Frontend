@@ -17,19 +17,9 @@
                 {{ $t("my-guarantor") }}
               </h1>
             </div>
-            <v-gouv-fr-modal>
-              <template v-slot:button>
-                <span class="small-font">{{ $t("more-information") }}</span>
-              </template>
-              <template v-slot:title>
-                {{ $t("more-information") }}
-              </template>
-              <template v-slot:content>
-                <p>
-                  <GuarantorChoiceHelp></GuarantorChoiceHelp>
-                </p>
-              </template>
-            </v-gouv-fr-modal>
+            <TroubleshootingModal>
+              <GuarantorChoiceHelp></GuarantorChoiceHelp>
+            </TroubleshootingModal>
             <div class="remark fr-mt-3w">
               <div class="fr-h6">{{ $t("remark-title") }}</div>
               <div class="small-font" v-html="$t('remark-text')"></div>
@@ -38,19 +28,9 @@
           <div class="fr-mt-3w fr-mb-2w">
             {{ $t("ask-guarantor") }}
           </div>
-          <v-gouv-fr-modal v-if="isMobile()">
-            <template v-slot:button>
-              <span class="small-font">{{ $t("more-information") }}</span>
-            </template>
-            <template v-slot:title>
-              {{ $t("more-information") }}
-            </template>
-            <template v-slot:content>
-              <p>
-                <GuarantorChoiceHelp></GuarantorChoiceHelp>
-              </p>
-            </template>
-          </v-gouv-fr-modal>
+          <TroubleshootingModal v-if="isMobile()">
+            <GuarantorChoiceHelp></GuarantorChoiceHelp>
+          </TroubleshootingModal>
 
           <div class="fr-grid-col">
             <div class="width--fit-content">
@@ -142,9 +122,11 @@ import { UtilsService } from "../services/UtilsService";
 import { AnalyticsService } from "../services/AnalyticsService";
 import GuarantorFooter from "./footer/GuarantorFooter.vue";
 import GuarantorChoiceHelp from "./helps/GuarantorChoiceHelp.vue";
+import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 @Component({
   components: {
+    TroubleshootingModal,
     VGouvFrModal,
     DfButton,
     BigRadio,
@@ -356,7 +338,6 @@ h2 {
   "legal-person": "A corporation guarantor",
   "no-guarantor": "I don't have a guarantor",
   "no-guarantor-cotenant": "Your spouse doesn't have a guarantor",
-  "more-information": "More information",
   "ask-guarantor": "Do you want to add :",
   "remark-title": "Remark",
   "remark-text": "Adding a guarantor is by no means mandatory. If you do not wish to add a surety, you can select “I don't have a guarantor”.<br> Your file will then be registered for investigation.",
@@ -384,7 +365,6 @@ h2 {
   "legal-person": "Un garant moral",
   "no-guarantor": "Je n'ai pas de garant",
   "no-guarantor-cotenant": "Mon conjoint n'a pas de garant",
-  "more-information": "En difficulté pour répondre à la question ?",
   "ask-guarantor": "Souhaitez-vous ajouter :",
   "remark-title": "Remarque",
   "remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez sélectionner « Je n'ai pas de garant ».<br> Votre dossier sera alors enregistré pour être instruit.",

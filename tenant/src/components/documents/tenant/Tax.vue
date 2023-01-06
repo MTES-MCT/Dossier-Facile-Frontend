@@ -3,24 +3,14 @@
     <ValidationObserver v-slot="{ validate }">
       <NakedCard class="fr-p-md-5w">
         <h1 class="fr-h6">{{ $t("title") }}</h1>
-        <v-gouv-fr-modal>
-          <template v-slot:button>
-            En difficulté pour répondre à la question ?
-          </template>
-          <template v-slot:title>
-            En difficulté pour répondre à la question ?
-          </template>
-          <template v-slot:content>
-            <p>
-              <TaxHelp></TaxHelp>
-              <DocumentInsert
-                :allow-list="taxDocument.acceptedProofs"
-                :block-list="taxDocument.refusedProofs"
-                v-if="taxDocument.key && taxDocument.acceptedProofs.length > 0"
-              ></DocumentInsert>
-            </p>
-          </template>
-        </v-gouv-fr-modal>
+        <TroubleshootingModal>
+          <TaxHelp></TaxHelp>
+          <DocumentInsert
+            :allow-list="taxDocument.acceptedProofs"
+            :block-list="taxDocument.refusedProofs"
+            v-if="taxDocument.key && taxDocument.acceptedProofs.length > 0"
+          ></DocumentInsert>
+        </TroubleshootingModal>
 
         <form name="form" @submit.prevent="validate().then(save)">
           <div class="fr-mt-3w">
@@ -161,6 +151,7 @@ import MonFranceConnect from "../share/MonFranceConnect.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import { cloneDeep } from "lodash";
 import AllowCheckTax from "../share/AllowCheckTax.vue";
+import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 extend("is", {
   ...is,
@@ -184,7 +175,8 @@ extend("is", {
     VGouvFrModal,
     ProfileFooter,
     NakedCard,
-    AllowCheckTax
+    AllowCheckTax,
+    TroubleshootingModal
   },
   computed: {
     ...mapGetters({

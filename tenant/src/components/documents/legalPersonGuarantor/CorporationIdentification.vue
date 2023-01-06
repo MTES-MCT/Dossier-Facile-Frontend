@@ -34,22 +34,12 @@
           <h1 class="fr-label">
             {{ $t("kbis-label") }}
           </h1>
-          <v-gouv-fr-modal>
-            <template v-slot:button>
-              En difficulté pour répondre à la question ?
-            </template>
-            <template v-slot:title>
-              En difficulté pour répondre à la question ?
-            </template>
-            <template v-slot:content>
-              <p>
-                <DocumentInsert
-                  :allow-list="acceptedProofs"
-                  :block-list="refusedProofs"
-                ></DocumentInsert>
-              </p>
-            </template>
-          </v-gouv-fr-modal>
+          <TroubleshootingModal>
+            <DocumentInsert
+              :allow-list="acceptedProofs"
+              :block-list="refusedProofs"
+            ></DocumentInsert>
+          </TroubleshootingModal>
           <AllDeclinedMessages
             class="fr-mb-3w"
             :documentDeniedReasons="documentDeniedReasons"
@@ -102,6 +92,7 @@ import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import { cloneDeep } from "lodash";
 import GuarantorFooter from "../../footer/GuarantorFooter.vue";
+import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 extend("required", {
   ...required,
@@ -118,7 +109,8 @@ extend("required", {
     ValidationObserver,
     VGouvFrModal,
     NakedCard,
-    GuarantorFooter
+    GuarantorFooter,
+    TroubleshootingModal
   }
 })
 export default class CorporationIdentification extends Vue {

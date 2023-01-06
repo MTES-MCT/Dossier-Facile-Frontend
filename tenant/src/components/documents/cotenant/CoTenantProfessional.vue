@@ -9,16 +9,6 @@
       listType="dropDownList"
       @on-change-document="changeDocumentType"
     >
-      <template v-slot:help-modal-content>
-        <p>
-          <DocumentHelp></DocumentHelp>
-          <DocumentInsert
-            v-if="documentType ? (documentType.key ? true : false) : false"
-            :allow-list="documentType ? documentType.acceptedProofs : null"
-            :block-list="documentType ? documentType.refusedProofs : null"
-          ></DocumentInsert>
-        </p>
-      </template>
     </DocumentDownloader>
   </div>
 </template>
