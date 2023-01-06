@@ -1,18 +1,18 @@
 <template>
   <div class="fr-mb-5w">
     <ValidationObserver v-slot="{ validate }">
-      <NakedCard class="fr-p-md-5w">
-        <h1 class="fr-h6">{{ $t("title") }}</h1>
-        <TroubleshootingModal>
-          <TaxHelp></TaxHelp>
-          <DocumentInsert
-            :allow-list="taxDocument.acceptedProofs"
-            :block-list="taxDocument.refusedProofs"
-            v-if="taxDocument.key && taxDocument.acceptedProofs.length > 0"
-          ></DocumentInsert>
-        </TroubleshootingModal>
+      <form name="form" @submit.prevent="validate().then(save)">
+        <NakedCard class="fr-p-md-5w">
+          <h1 class="fr-h6">{{ $t("title") }}</h1>
+          <TroubleshootingModal>
+            <TaxHelp></TaxHelp>
+            <DocumentInsert
+              :allow-list="taxDocument.acceptedProofs"
+              :block-list="taxDocument.refusedProofs"
+              v-if="taxDocument.key && taxDocument.acceptedProofs.length > 0"
+            ></DocumentInsert>
+          </TroubleshootingModal>
 
-        <form name="form" @submit.prevent="validate().then(save)">
           <div class="fr-mt-3w">
             <fieldset class="fr-fieldset">
               <div class="fr-fieldset__content">
@@ -36,27 +36,29 @@
               </div>
             </fieldset>
           </div>
-          <div
-            class="fr-mb-3w"
-            v-if="taxDocument.key && taxDocument.key === 'other-tax'"
-          >
-            <div class="fr-input-group">
-              <label class="fr-label" for="customText">{{
-                $t("custom-text")
-              }}</label>
-              <input
-                v-model="customText"
-                class="form-control fr-input validate-required"
-                id="customText"
-                name="customText"
-                placeholder=""
-                type="text"
-                required
-              />
-            </div>
+        </NakedCard>
+
+        <NakedCard
+          class="fr-p-md-5w fr-mt-3w"
+          v-if="taxDocument.key && taxDocument.key === 'other-tax'"
+        >
+          <div class="fr-input-group">
+            <label class="fr-label" for="customText">{{
+              $t("custom-text")
+            }}</label>
+            <input
+              v-model="customText"
+              class="form-control fr-input validate-required"
+              id="customText"
+              name="customText"
+              placeholder=""
+              type="text"
+              required
+            />
           </div>
-        </form>
-      </NakedCard>
+        </NakedCard>
+      </form>
+
       <NakedCard
         class="fr-p-md-5w fr-mt-3w"
         v-if="taxDocument.key === 'my-name' || taxFiles().length > 0"
@@ -457,6 +459,7 @@ export default class Tax extends Vue {
   .title {
     display: flex;
   }
+
   .link {
     text-align: right;
   }
