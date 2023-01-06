@@ -1,7 +1,7 @@
 <template>
   <div class="fr-mb-5w">
     <ValidationObserver v-slot="{ validate }">
-      <form name="form" @submit.prevent="validate().then(save)">
+      <form name="form">
         <NakedCard class="fr-p-md-5w">
           <h1 class="fr-h6">{{ $t("title") }}</h1>
           <TroubleshootingModal>
@@ -42,20 +42,32 @@
           class="fr-p-md-5w fr-mt-3w"
           v-if="taxDocument.key && taxDocument.key === 'other-tax'"
         >
-          <div class="fr-input-group">
-            <label class="fr-label" for="customText">{{
-              $t("custom-text")
-            }}</label>
-            <input
-              v-model="customText"
-              class="form-control fr-input validate-required"
-              id="customText"
-              name="customText"
-              placeholder=""
-              type="text"
-              required
-            />
-          </div>
+          <validation-provider rules="required" v-slot="{ errors, valid }">
+            <div
+              class="fr-input-group"
+              :class="errors[0] ? 'fr-input-group--error' : ''"
+            >
+              <label class="fr-label" for="customText">{{
+                $t("custom-text")
+              }}</label>
+              <input
+                v-model="customText"
+                class="form-control fr-input validate-required"
+                :class="{
+                  'fr-input--valid': valid,
+                  'fr-input--error': errors[0]
+                }"
+                id="customText"
+                name="customText"
+                placeholder=""
+                type="text"
+                required
+              />
+              <span class="fr-error-text" v-if="errors[0]">{{
+                $t(errors[0])
+              }}</span>
+            </div>
+          </validation-provider>
         </NakedCard>
       </form>
 
@@ -112,8 +124,8 @@
           </div>
         </div>
       </NakedCard>
+      <ProfileFooter @on-back="goBack" @on-next="validate().then(goNext)"></ProfileFooter>
     </ValidationObserver>
-    <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
     <ConfirmModal
       v-if="isDocDeleteVisible"
       @valid="validSelect()"
