@@ -5,22 +5,12 @@
         <h1 class="fr-h6">
           {{ getTitle() }}
         </h1>
-        <v-gouv-fr-modal>
-          <template v-slot:button>
-            En difficulté pour répondre à la question ?
-          </template>
-          <template v-slot:title>
-            En difficulté pour répondre à la question ?
-          </template>
-          <template v-slot:content>
-            <p>
-              <DocumentInsert
-                :allow-list="acceptedProofs"
-                :block-list="refusedProofs"
-              ></DocumentInsert>
-            </p>
-          </template>
-        </v-gouv-fr-modal>
+        <TroubleshootingModal>
+          <DocumentInsert
+            :allow-list="acceptedProofs"
+            :block-list="refusedProofs"
+          ></DocumentInsert>
+        </TroubleshootingModal>
         <AllDeclinedMessages
           class="fr-mb-3w"
           :documentDeniedReasons="documentDeniedReasons"
@@ -66,6 +56,7 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import { Guarantor } from "df-shared/src/models/Guarantor";
+import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 @Component({
   components: {
@@ -74,7 +65,8 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
     FileUpload,
     ListItem,
     VGouvFrModal,
-    NakedCard
+    NakedCard,
+    TroubleshootingModal
   }
 })
 export default class OrganismCert extends Vue {

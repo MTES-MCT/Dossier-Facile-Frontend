@@ -10,24 +10,14 @@
           <h1 class="fr-h6">
             {{ $t("select-label") }}
           </h1>
-          <v-gouv-fr-modal>
-            <template v-slot:button>
-              En difficulté pour répondre à la question ?
-            </template>
-            <template v-slot:title>
-              En difficulté pour répondre à la question ?
-            </template>
-            <template v-slot:content>
-              <p>
-                <DocumentHelp></DocumentHelp>
-                <DocumentInsert
-                  :allow-list="professionalDocument.acceptedProofs"
-                  :block-list="professionalDocument.refusedProofs"
-                  v-if="professionalDocument.key"
-                ></DocumentInsert>
-              </p>
-            </template>
-          </v-gouv-fr-modal>
+          <TroubleshootingModal>
+            <DocumentHelp></DocumentHelp>
+            <DocumentInsert
+              :allow-list="professionalDocument.acceptedProofs"
+              :block-list="professionalDocument.refusedProofs"
+              v-if="professionalDocument.key"
+            ></DocumentInsert>
+          </TroubleshootingModal>
           <select
             v-model="professionalDocument"
             class="fr-select fr-mb-3w fr-mt-3w"
@@ -113,6 +103,7 @@ import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReason
 import { cloneDeep } from "lodash";
 import { ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
+import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 extend("select", {
   message: "select-is-empty",
@@ -136,7 +127,8 @@ extend("select", {
     DocumentHelp,
     VGouvFrModal,
     NakedCard,
-    ValidationProvider
+    ValidationProvider,
+    TroubleshootingModal
   },
   computed: {
     ...mapGetters({

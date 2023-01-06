@@ -4,19 +4,9 @@
       <h1 class="fr-h5">
         {{ $t("my-guarantor") }}
       </h1>
-      <v-gouv-fr-modal>
-        <template v-slot:button>
-          <span class="small-font">{{ $t("more-information") }}</span>
-        </template>
-        <template v-slot:title>
-          {{ $t("more-information") }}
-        </template>
-        <template v-slot:content>
-          <p>
-            <GuarantorChoiceHelp></GuarantorChoiceHelp>
-          </p>
-        </template>
-      </v-gouv-fr-modal>
+      <TroubleshootingModal>
+        <GuarantorChoiceHelp></GuarantorChoiceHelp>
+      </TroubleshootingModal>
       <div v-for="g in guarantors" :key="g.id">
         <CardRow @edit="editGuarantor(g)" @remove="isRemoveGuarantor = true">
           <template v-slot:tag>
@@ -59,6 +49,7 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
+import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 @Component({
   components: {
@@ -69,7 +60,8 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
     CardRow,
     ColoredTag,
     VGouvFrModal,
-    ConfirmModal
+    ConfirmModal,
+    TroubleshootingModal
   },
   computed: {}
 })
@@ -254,7 +246,6 @@ h2 {
 <i18n>
 {
 "en": {
-  "more-information": "More information",
   "my-guarantor": "My guarantor",
   "add-new-guarantor": "Add a new guarantor ?",
   "guarantor": "My guarantor",
@@ -269,7 +260,6 @@ h2 {
   "remove-guarantor": "Are you sure you want to delete this guarantor?"
 },
 "fr": {
-  "more-information": "En difficulté pour répondre à la question ?",
   "my-guarantor": "Le garant de mon conjoint",
   "add-new-guarantor": "Ajouter un nouveau garant ?",
   "guarantor": "Son garant",
