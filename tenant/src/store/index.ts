@@ -64,20 +64,18 @@ const store = new Vuex.Store({
     loadUser(state, user) {
       Vue.set(state, "user", user);
       Vue.set(state.status, "loggedIn", true);
-      Vue.set(
-        state.user,
-        "applicationType",
-        state.user?.apartmentSharing.applicationType
-      );
 
-      if (state.user?.apartmentSharing?.applicationType === "COUPLE") {
-        Vue.set(state, "spouseAuthorize", new Guarantor());
+      const applicationType = user?.apartmentSharing.applicationType;
+      Vue.set(state.user, "applicationType", applicationType);
+
+      if (applicationType === "COUPLE") {
+        Vue.set(state, "spouseAuthorize", true);
       }
-      if (state.user?.apartmentSharing?.applicationType === "GROUP") {
-        Vue.set(state, "coTenantAuthorize", new Guarantor());
+      if (applicationType === "GROUP") {
+        Vue.set(state, "coTenantAuthorize", true);
       }
       // load CoTenants - basic information inside tenant
-      if (state.user?.apartmentSharing?.applicationType === "COUPLE") {
+      if (applicationType === "COUPLE") {
         Vue.set(
           state,
           "coTenants",
