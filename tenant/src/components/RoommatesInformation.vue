@@ -1,111 +1,114 @@
 <template>
   <div>
     <NakedCard class="fr-p-md-5w">
-      <div class="fr-grid-row fr-grid-row--center">
-        <div class="fr-col-12">
-          <h6>{{ $t("title") }}</h6>
-          <v-gouv-fr-modal>
-            <template v-slot:button>
-              <span class="small-font">{{ $t("more-information") }}</span>
-            </template>
-            <template v-slot:title>
-              {{ $t("more-information") }}
-            </template>
-            <template v-slot:content>
-              <p>
-                <RoommatesInformationHelp></RoommatesInformationHelp>
-              </p>
-            </template>
-          </v-gouv-fr-modal>
-        </div>
-        <div class="fr-col-12 fr-mt-2w">
-          <div v-if="showEmailExists" class="fr-callout">
-            <p class="fr-mb-1w" v-html="$t('email-exists')"></p>
+      <ValidationObserver v-slot="{ invalid }">
+        <div class="fr-grid-row fr-grid-row--center">
+          <div class="fr-col-12">
+            <h6>{{ $t("title") }}</h6>
+            <v-gouv-fr-modal>
+              <template v-slot:button>
+                <span class="small-font">{{ $t("more-information") }}</span>
+              </template>
+              <template v-slot:title>
+                {{ $t("more-information") }}
+              </template>
+              <template v-slot:content>
+                <p>
+                  <RoommatesInformationHelp></RoommatesInformationHelp>
+                </p>
+              </template>
+            </v-gouv-fr-modal>
           </div>
-          <div v-if="value.length > 0">
-            <div
-              v-for="(roommate, key) in value"
-              v-bind:key="key"
-              class="fr-mb-1w"
-            >
-              <NakedCard>
-                <div class="fr-grid-row bg--white">
-                  <div class="fr-col-10">
-                    <div class="fr-grid-row nowrap">
-                      <div class="center-icon fr-mr-1w">
-                        <span
-                          class="color--white material-icons md-24 round-icon"
-                          >person</span
-                        >
-                      </div>
-                      <div class="fr-grid-col overflow--hidden max-content">
-                        <div :title="roommate.email" class="overflow--hidden">
-                          <b>
-                            {{ roommate.email }}
-                          </b>
+          <div class="fr-col-12 fr-mt-2w">
+            <div v-if="showEmailExists" class="fr-callout">
+              <p class="fr-mb-1w" v-html="$t('email-exists')"></p>
+            </div>
+            <div v-if="value.length > 0">
+              <div
+                v-for="(roommate, key) in value"
+                v-bind:key="key"
+                class="fr-mb-1w"
+              >
+                <NakedCard>
+                  <div class="fr-grid-row bg--white">
+                    <div class="fr-col-10">
+                      <div class="fr-grid-row nowrap">
+                        <div class="center-icon fr-mr-1w">
+                          <span
+                            class="color--white material-icons md-24 round-icon"
+                            >person</span
+                          >
                         </div>
-                        <div class="small-text">
-                          {{
-                            $t(roommate.id ? "invite-sent" : "invite-waiting")
-                          }}
+                        <div class="fr-grid-col overflow--hidden max-content">
+                          <div :title="roommate.email" class="overflow--hidden">
+                            <b>
+                              {{ roommate.email }}
+                            </b>
+                          </div>
+                          <div class="small-text">
+                            {{
+                              $t(roommate.id ? "invite-sent" : "invite-waiting")
+                            }}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="fr-col-2 center-icon">
-                    <button
-                      class="fr-btn fr-btn--secondary icon-btn"
-                      :title="$t('delete')"
-                      @click="remove(roommate)"
-                      type="button"
-                    >
-                      <span class="color--primary material-icons md-24"
-                        >delete_forever</span
+                    <div class="fr-col-2 center-icon">
+                      <button
+                        class="fr-btn fr-btn--secondary icon-btn"
+                        :title="$t('delete')"
+                        @click="remove(roommate)"
+                        type="button"
                       >
-                    </button>
+                        <span class="color--primary material-icons md-24"
+                          >delete_forever</span
+                        >
+                      </button>
+                    </div>
                   </div>
-                </div>
-              </NakedCard>
+                </NakedCard>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="fr-col-12 fr-col-xl-7 fr-mt-2w">
-          <label class="fr-label fr-mb-1w">{{ $t("roommateEmail") }}</label>
-          <validation-provider
-            :rules="{ email: true, required: value.length == 0 }"
-            v-slot="{ errors }"
-          >
-            <div
-              class="fr-input-group"
-              :class="errors[0] ? 'fr-input-group--error' : ''"
+          <div class="fr-col-12 fr-col-xl-7 fr-mt-2w">
+            <label class="fr-label fr-mb-1w">{{ $t("roommateEmail") }}</label>
+            <validation-provider
+              :rules="{ email: true, required: value.length == 0 }"
+              v-slot="{ errors }"
             >
-              <input
-                v-model="newRoommate"
-                class="form-control fr-input"
-                name="email"
-                placeholder="Ex : exemple@exemple.fr"
-                type="email"
-              />
-              <span class="fr-error-text" v-if="errors[0]">{{
-                $t(errors[0])
-              }}</span>
+              <div
+                class="fr-input-group"
+                :class="errors[0] ? 'fr-input-group--error' : ''"
+              >
+                <input
+                  v-model="newRoommate"
+                  class="form-control fr-input"
+                  name="email"
+                  placeholder="Ex : exemple@exemple.fr"
+                  type="email"
+                />
+                <span class="fr-error-text" v-if="errors[0]">{{
+                  $t(errors[0])
+                }}</span>
+              </div>
+            </validation-provider>
+          </div>
+
+          <div class="fr-col-12 fr-col-xl-5 align-bottom">
+            <div class="fr-grid-row fr-grid-row--right">
+              <v-gouv-fr-button
+                class="full-width-xs"
+                :fullWidth="isMobile()"
+                :secondary="true"
+                :label="$t('add-a-roommate')"
+                :btn-type="'button'"
+                @click="addMail"
+                :disabled="invalid"
+              ></v-gouv-fr-button>
             </div>
-          </validation-provider>
-        </div>
-        <div class="fr-col-12 fr-col-xl-5 align-bottom">
-          <div class="fr-grid-row fr-grid-row--right">
-            <v-gouv-fr-button
-              class="full-width-xs"
-              :fullWidth="isMobile()"
-              :secondary="true"
-              :label="$t('add-a-roommate')"
-              :btn-type="'button'"
-              @click="addMail"
-              :disabled="newRoommate === ''"
-            ></v-gouv-fr-button>
           </div>
         </div>
-      </div>
+      </ValidationObserver>
     </NakedCard>
     <div class="fr-grid-row fr-grid-row--center">
       <div class="fr-col-12 fr-mb-3w fr-mt-3w bg-bf200">
@@ -144,6 +147,7 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 import RoommatesInformationHelp from "./helps/RoommatesInformationHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import { UtilsService } from "../services/UtilsService";
+import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 extend("email", {
   ...email,
@@ -168,7 +172,8 @@ extend("required", {
     VGouvFrButton,
     RoommatesInformationHelp,
     VGouvFrModal,
-    NakedCard
+    NakedCard,
+    TroubleshootingModal
   },
   computed: {
     ...mapState({
@@ -180,12 +185,7 @@ extend("required", {
   }
 })
 export default class RoommatesInformation extends Vue {
-  @Prop({
-    default() {
-      return [];
-    }
-  })
-  value!: User[];
+  @Prop({ default: () => [] }) value!: User[];
 
   user!: User;
   authorize = false;
