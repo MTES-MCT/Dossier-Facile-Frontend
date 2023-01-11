@@ -1,7 +1,7 @@
 <template>
   <div>
     <ValidationObserver v-slot="{ validate }">
-      <form name="form" @submit.prevent="validate().then(save())">
+      <form name="form" @submit.prevent="validate().then(save)">
         <NakedCard class="fr-p-md-5w fr-mb-3w">
           <div>
             <h1 class="fr-h6">
@@ -228,7 +228,7 @@
       <NakedCard class="fr-p-md-5w fr-mb-3w">
         {{ $t("has-no-income") }}
         <ValidationObserver v-slot="{ validate, valid }">
-          <form name="customTextForm" @submit.prevent="validate().then(save())">
+          <form name="customTextForm" @submit.prevent="validate().then(save)">
             <div class="fr-input-group">
               <label class="fr-label" for="customTextNoDocument">
                 {{ $t("custom-text") }}
