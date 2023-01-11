@@ -15,6 +15,7 @@ import { UtilsService } from "../services/UtilsService";
 import { FinancialDocument } from "df-shared/src/models/FinancialDocument";
 import { DocumentType } from "df-shared/src/models/Document";
 import { DocumentTypeConstants } from "../components/documents/share/DocumentTypeConstants";
+import {DfMessage} from "df-shared/src/models/DfMessage";
 
 Vue.use(Vuex);
 
@@ -22,9 +23,14 @@ export class DfState {
   user: User | null = null;
   selectedGuarantor = new Guarantor();
   status = { loggedIn: false };
+  isFunnel = false;
   spouseAuthorize = false;
   coTenantAuthorize = false;
   coTenants: User[] | null = [];
+  financialDocumentSelected?: FinancialDocument = new FinancialDocument();
+  editFinancialDocument = false;
+  newMessage = 0;
+  messageList: DfMessage[][] = [];
 }
 
 const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
