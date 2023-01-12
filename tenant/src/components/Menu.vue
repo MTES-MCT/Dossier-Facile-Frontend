@@ -135,13 +135,19 @@ export default class Menu extends Vue {
 <style scoped lang="scss">
 .badge {
   position: absolute;
-  top: -2px;
-  right: 0px;
-  padding: 5px 10px;
+  top: 0.5rem;
+  right: 0.25rem;
   border-radius: 50%;
   background: red;
   color: white;
   z-index: 1;
+  min-width: 1.6em;
+  height: 1.6em;
+  border: 0.05em solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
 }
 
 .lang {
