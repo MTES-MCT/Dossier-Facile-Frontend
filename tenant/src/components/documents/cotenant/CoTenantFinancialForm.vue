@@ -48,6 +48,7 @@
                     'fr-input--valid': valid,
                     'fr-input--error': errors[0]
                   }"
+                  @input="updateMonthlySum"
                   required
                 />
                 <span class="fr-error-text" v-if="errors[0]">{{
@@ -130,6 +131,7 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 import FooterContainer from "../../footer/FooterContainer.vue";
 import BackNext from "../../footer/BackNext.vue";
 import { ref } from "@vue/reactivity";
+import { isNumber } from "lodash";
 
 @Component({
   components: {
@@ -159,8 +161,15 @@ export default class CoTenantFinancialForm extends Vue {
   changeDocument(docType?: DocumentType, doc?: DfDocument) {
     this.documentType = docType;
     this.document = doc as DfDocument;
+    this.updateMonthlySum();
+  }
+
+  updateMonthlySum() {
     this.showDownloader.value = Boolean(
-      this.documentType?.key && this.documentType?.key != "no-income"
+      this.documentType?.key &&
+        this.documentType?.key != "no-income" &&
+        !!this.financialDocument.monthlySum &&
+        this.financialDocument.monthlySum >= 0
     );
   }
 

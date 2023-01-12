@@ -277,10 +277,7 @@ export default class DocumentDownloader extends Vue {
   changeNoDocument(event: Event) {
     event.preventDefault();
     event.stopPropagation();
-    if (
-      !this.noDocument &&
-      Number(this.dfDocument?.files?.length) > 0
-    ) {
+    if (!this.noDocument && Number(this.dfDocument?.files?.length) > 0) {
       this.showIsNoDocumentAndFiles = true;
       this.dfDocument.noDocument = this.noDocument;
       return;
