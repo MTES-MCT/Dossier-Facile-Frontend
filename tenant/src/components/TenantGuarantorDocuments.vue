@@ -160,7 +160,7 @@ export default class TenantGuarantorDocuments extends Vue {
     this.$store.dispatch("deleteAllGuarantors").then(
       () => {
         this.changeGuarantorVisible = false;
-        if (!this.user.guarantors?.length || 0 >= 1) {
+        if (!this.user.guarantors.length || 0 >= 1) {
           this.$router.push({ name: "GuarantorChoice" });
         }
       },
