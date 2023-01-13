@@ -36,7 +36,9 @@ export class DfState {
 const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
 const FC_LOGOUT_URL = process.env.VUE_APP_FC_LOGOUT_URL || "";
 
-const initialStore = new DfState() as any; // TODO fix typing errors and remove cast to any
+const localStore = localStorage.getItem("store");
+const initialStore =
+  localStore !== null ? JSON.parse(localStore) : new DfState();
 
 const store = new Vuex.Store({
   state: initialStore,
@@ -268,10 +270,6 @@ const store = new Vuex.Store({
       );
     },
     loadUser({ commit }) {
-      const userAlreadyLoaded = this.state.user !== null;
-      if (userAlreadyLoaded) {
-        return Promise.resolve();
-      }
       return AuthService.loadUser().then(
         response => {
           commit("loadUser", response.data);
