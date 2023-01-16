@@ -424,7 +424,7 @@ function keepGoing(to: Route, next: NavigationGuardNext<Vue>) {
   next();
 }
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (to.matched.some(record => record.meta.hideFooter)) {
     store.commit("isFunnel", true);
   } else {
@@ -446,15 +446,17 @@ router.beforeEach((to, from, next) => {
       });
     } else {
       // The user was authenticated, and has the app role
-      store.dispatch("loadUser").then(() => {
-        store.dispatch("updateMessages");
-        keepGoing(to, next);
+      await store.dispatch("loadUser").catch(() => {
+        next({ name: "404" });
       });
       setInterval(() => {
         (Vue as any).$keycloak.updateToken(60).catch((err: any) => {
           console.error(err);
         });
       }, 45000);
+      store.dispatch("updateMessages");
+      keepGoing(to, next);
+      return;
     }
   } else if (to.matched.some(record => record.meta.hideForAuth)) {
     if ((Vue as any).$keycloak.authenticated) {
