@@ -103,7 +103,7 @@
                   volonté des start-up d’État qui, sans capital privé et sans
                   volonté lucrative, agissent dans la simplicité et avec un
                   esprit neuf pour développer des solutions à vos problèmes
-                  quotidiens. Pour être sûr de ne pas tomber dans les travers de
+                  quotidiens. Pour s'assurer de ne pas tomber dans les travers de
                   la bureaucratie, les projets se développent loin de toute
                   contrainte. Une Startup d’État c’est donc une équipe allant de
                   2 à 8 personnes totalement autonomes qui travaillent pour

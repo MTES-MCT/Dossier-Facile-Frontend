@@ -164,7 +164,7 @@ export default class OwnerShare extends Vue {
   "en": {
     "title": "Candidatez pour le logement situé au {0}",
     "subtitle": "DossierFacile est une startup d'État qui vous permet de créer votre dossier de location intelligent et de le partager avec des propriétaires",
-    "login-success": "Connecté",
+    "login-success": "Connexion réussi",
     "login-error": "Problème de connexion",
     "accept-owner": "I agree that {0}, owner located in {1} has access to information in my file and those of my spouse or roommates, if applicable. In accordance with the GDPR, I can revoke this authorization at any time.",
     "field-required": "This field is required",
@@ -179,7 +179,7 @@ export default class OwnerShare extends Vue {
   "fr": {
     "title": "Candidatez pour le logement situé au {0}",
     "subtitle": "DossierFacile est une startup d'État qui vous permet de créer votre dossier de location intelligent et de le partager avec des propriétaires",
-    "login-success": "Connecté",
+    "login-success": "Connexion réussie",
     "login-error": "Problème de connexion",
     "accept-owner": "J'accepte que {0}, propriétaire situé au {1} ait accès aux informations de mon dossier et de ceux de mon(ma) conjoint(e) ou de mon(mes) colocataire(s) le cas échéant. Conformément au RGPD, je peux révoquer cette autorisation à tout moment.",
     "field-required": "Ce champ est requis",
