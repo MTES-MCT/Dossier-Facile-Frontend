@@ -313,7 +313,7 @@ h2 {
 "tax": "Avis d’imposition",
 "guarantor": "Garant",
 "validate": "Valider",
-"will-delete-guarantor": "Êtes-vous sûr de vouloir changer le type de garant ?",
+"will-delete-guarantor": "Voulez-vous vraiment changer le type de garant ?",
 "validate-file": "Étape suivante - Valider le dossier",
 "natural-person": "Un garant physique classique",
 "organism": "Un organisme garant",
