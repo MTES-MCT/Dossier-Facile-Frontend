@@ -61,7 +61,7 @@ export default class UploadDocuments extends Vue {
 
   goToGuarantor() {
     AnalyticsService.validateFunnel();
-    if (this.user.guarantors && this.user.guarantors.length > 0) {
+    if (this.user.guarantors.length > 0) {
       this.$router.push({
         name: "GuarantorList"
       });

@@ -405,7 +405,7 @@ function keepGoing(to: Route, next: NavigationGuardNext<Vue>) {
     to.matched.some((record: { path: string }) => {
       return record.path === "/account";
     }) &&
-    store.state.user?.status === "INCOMPLETE"
+    store.state.user.status === "INCOMPLETE"
   ) {
     store.dispatch("firstProfilePage");
     return;

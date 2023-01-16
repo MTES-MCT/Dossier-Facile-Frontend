@@ -217,7 +217,6 @@ export default class ValidateFile extends Vue {
 
   hasGuarantors() {
     return (
-      this.user.guarantors &&
       this.user.guarantors.length > 0 &&
       this.user.guarantors.findIndex((g: Guarantor) => {
         return g.typeGuarantor !== "ORGANISM";

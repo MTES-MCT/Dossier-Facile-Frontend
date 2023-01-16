@@ -27,7 +27,7 @@ export const DocumentService = {
     });
   },
   hasFile(docType: string, tenant?: User) {
-    const user = tenant ? store.state.user : tenant;
+    const user = tenant ? tenant : store.state.user;
     const document: DfDocument | undefined = this.hasDoc(docType, user);
     if (document === undefined || document.files === undefined) {
       return false;

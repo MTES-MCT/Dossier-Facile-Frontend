@@ -1,3 +1,4 @@
+import { SkipLink } from "./../../../df-shared-next/src/models/SkipLink";
 /* eslint-disable @typescript-eslint/camelcase */
 import Vue from "vue";
 import Vuex from "vuex";
@@ -15,28 +16,31 @@ import { UtilsService } from "../services/UtilsService";
 import { FinancialDocument } from "df-shared/src/models/FinancialDocument";
 import { DocumentType } from "df-shared/src/models/Document";
 import { DocumentTypeConstants } from "../components/documents/share/DocumentTypeConstants";
-import {DfMessage} from "df-shared/src/models/DfMessage";
+import { DfMessage } from "df-shared/src/models/DfMessage";
 
 Vue.use(Vuex);
 
 export class DfState {
-  user: User | null = null;
+  user: User = new User();
   selectedGuarantor = new Guarantor();
   status = { loggedIn: false };
   isFunnel = false;
   spouseAuthorize = false;
   coTenantAuthorize = false;
-  coTenants: User[] | null = [];
-  financialDocumentSelected?: FinancialDocument = new FinancialDocument();
+  coTenants: User[] = [];
+  financialDocumentSelected = new FinancialDocument();
   editFinancialDocument = false;
   newMessage = 0;
   messageList: DfMessage[][] = [];
+  skipLinks: SkipLink[] = [];
+  guarantorFinancialDocumentSelected = new FinancialDocument();
+  editGuarantorFinancialDocument = false;
 }
 
 const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
 const FC_LOGOUT_URL = process.env.VUE_APP_FC_LOGOUT_URL || "";
 
-const initialStore = new DfState() as any; // TODO fix typing errors and remove cast to any
+const initialStore = new DfState();
 
 const store = new Vuex.Store({
   state: initialStore,
@@ -46,21 +50,21 @@ const store = new Vuex.Store({
     },
     loginFailure(state) {
       state.status.loggedIn = false;
-      state.user = null;
+      state.user = new User();
       AnalyticsService.loginFail();
     },
     logout(state) {
       state.status.loggedIn = false;
-      state.user = null;
+      state.user = new User();
     },
     registerSuccess(state) {
       state.status.loggedIn = false;
-      state.user = null;
+      state.user = new User();
       AnalyticsService.registerSuccess();
     },
     registerFailure(state) {
       state.status.loggedIn = false;
-      state.user = null;
+      state.user = new User();
       AnalyticsService.registerFail();
     },
     unlinkFCSuccess(state) {
@@ -85,7 +89,7 @@ const store = new Vuex.Store({
         Vue.set(
           state,
           "coTenants",
-          state.user?.apartmentSharing?.tenants.filter(
+          state.user.apartmentSharing?.tenants.filter(
             (t: User) => t.id != state.user?.id
           )
         );
@@ -116,11 +120,11 @@ const store = new Vuex.Store({
     setSelectedGuarantor(state, guarantor: Guarantor) {
       Vue.set(state, "selectedGuarantor", guarantor);
     },
-    createCoTenant(state, coTenant: User) {
+    createCoTenant(state, mail: string) {
       const u = new User();
-      u.firstName = coTenant.email;
-      u.firstName = coTenant.firstName;
-      u.firstName = coTenant.lastName;
+      u.email = mail;
+      u.firstName = "";
+      u.lastName = "";
       state.user.apartmentSharing.tenants.push(u);
     },
     updateMessages(state, { tenantId, messageList }) {
@@ -268,10 +272,6 @@ const store = new Vuex.Store({
       );
     },
     loadUser({ commit }) {
-      const userAlreadyLoaded = this.state.user !== null;
-      if (userAlreadyLoaded) {
-        return Promise.resolve();
-      }
       return AuthService.loadUser().then(
         response => {
           commit("loadUser", response.data);
@@ -371,6 +371,9 @@ const store = new Vuex.Store({
       }).then(
         response => {
           commit("loadUser", response.data);
+          if (this.state.user.guarantors === undefined) {
+            return Promise.reject();
+          }
           this.dispatch("setGuarantorPage", {
             guarantor: this.state.user.guarantors[
               this.state.user.guarantors.length - 1
@@ -385,6 +388,9 @@ const store = new Vuex.Store({
       );
     },
     async deleteAllGuarantors() {
+      if (this.state.user.guarantors === undefined) {
+        return Promise.resolve();
+      }
       const promises = this.state.user.guarantors.map(async (g: Guarantor) => {
         await ProfileService.deleteGuarantor(g);
       });
@@ -691,6 +697,9 @@ const store = new Vuex.Store({
       );
     },
     firstProfilePage() {
+      if (this.state.user.documents === undefined) {
+        return;
+      }
       if (
         !this.state.user.firstName ||
         !this.state.user.lastName ||
@@ -775,25 +784,25 @@ const store = new Vuex.Store({
   },
   getters: {
     getTenantDocuments(state): DfDocument[] {
-      return state.user?.documents || [];
+      return state.user.documents || [];
     },
     getTenantIdentificationDocument(state): DfDocument | undefined {
-      return state.user?.documents?.find((d: DfDocument) => {
+      return state.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "IDENTIFICATION";
       });
     },
     getTenantResidencyDocument(state): DfDocument | undefined {
-      return state.user?.documents?.find((d: DfDocument) => {
+      return state.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "RESIDENCY";
       });
     },
     getTenantProfessionalDocument(state): DfDocument | undefined {
-      return state.user?.documents?.find((d: DfDocument) => {
+      return state.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "PROFESSIONAL";
       });
     },
     getTenantTaxDocument(state): DfDocument | undefined {
-      return state.user?.documents?.find((d: DfDocument) => {
+      return state.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "TAX";
       });
     },
@@ -838,13 +847,16 @@ const store = new Vuex.Store({
       return state.user;
     },
     getRoommates(state): User[] {
+      if (state.user.apartmentSharing === undefined) {
+        return [];
+      }
       return state.user.apartmentSharing.tenants
         .filter((r: User) => {
-          return r.email != state.user.email;
+          return r.email !== state.user.email;
         })
         .map((u: User) => ({ ...u }));
     },
-    newMessage(state): boolean {
+    newMessage(state): number {
       return state.newMessage;
     },
     spouseAuthorize(state): boolean {
@@ -928,13 +940,13 @@ const store = new Vuex.Store({
     financialDocumentSelected(state): FinancialDocument {
       return state.financialDocumentSelected;
     },
-    editFinancialDocument(state): FinancialDocument {
+    editFinancialDocument(state): boolean {
       return state.editFinancialDocument;
     },
     guarantorFinancialDocumentSelected(state): FinancialDocument {
       return state.guarantorFinancialDocumentSelected;
     },
-    editGuarantorFinancialDocument(state): FinancialDocument {
+    editGuarantorFinancialDocument(state): boolean {
       return state.editGuarantorFinancialDocument;
     },
     coTenants(state): User[] {
@@ -945,7 +957,3 @@ const store = new Vuex.Store({
 });
 
 export default store;
-
-store.subscribe((mutation, state) => {
-  localStorage.setItem("store", JSON.stringify(state));
-});

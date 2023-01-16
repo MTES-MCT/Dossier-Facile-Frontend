@@ -212,7 +212,7 @@ export default class GuarantorDocuments extends Vue {
     if (this.guarantor.typeGuarantor !== null) {
       if (
         this.guarantor.typeGuarantor !== value &&
-        (this.user.guarantors?.length || 0) > 0
+        (this.user.guarantors.length || 0) > 0
       ) {
         this.changeGuarantorVisible = true;
       }
@@ -270,7 +270,7 @@ export default class GuarantorDocuments extends Vue {
     }
     if (
       this.tmpGuarantorType != this.guarantor.typeGuarantor ||
-      (this.user.guarantors?.length || 0) <= 0
+      (this.user.guarantors.length || 0) <= 0
     ) {
       this.$store
         .dispatch("setGuarantorType", { typeGuarantor: this.tmpGuarantorType })

@@ -31,7 +31,7 @@ export const UtilsService = {
     }
     throw Error("guarantor is not found");
   },
-  allDocumentsFilled() {
+  allDocumentsFilled(): boolean {
     const user = store.state.user;
     const tenantDocumentsFilled = (tenant: User) =>
       this.documentsFilled(tenant) &&
@@ -41,9 +41,13 @@ export const UtilsService = {
       const cotenants = user.apartmentSharing?.tenants.filter(
         (cotenant: User) => user.id !== cotenant.id
       );
-      return tenantDocumentsFilled(user) && cotenants.every(tenantDocumentsFilled);
+      return (
+        (tenantDocumentsFilled(user) &&
+          cotenants.every(tenantDocumentsFilled)) ||
+        false
+      );
     }
-    return tenantDocumentsFilled(user);
+    return tenantDocumentsFilled(user) || false;
   },
   documentsFilled(user?: User) {
     return (

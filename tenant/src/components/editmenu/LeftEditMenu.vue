@@ -470,7 +470,7 @@ export default class LeftEditMenu extends Vue {
   }
 
   getGuarantorLink() {
-    if (this.user.guarantors && this.user.guarantors.length > 0) {
+    if (this.user.guarantors.length > 0) {
       return { name: "GuarantorList" };
     }
     return { name: "GuarantorChoice" };
