@@ -128,10 +128,10 @@ const store = new Vuex.Store({
       state.user.apartmentSharing.tenants.push(u);
     },
     updateMessages(state, { tenantId, messageList }) {
-      if (state.messageList.length < messageList.length) {
-        state.newMessage = messageList.length - state.messageList.length;
-      }
       state.messageList[tenantId] = messageList;
+      const messagesFromOperators = state.messageList.flat()
+        .filter(message => message.typeMessage === "TO_TENANT");
+      state.newMessage = messagesFromOperators.length;
     },
     deleteRoommates(state, email) {
       const tenants = state.user.apartmentSharing.tenants.filter((t: User) => {
