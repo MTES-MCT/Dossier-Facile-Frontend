@@ -1,28 +1,18 @@
 <template>
   <div class="fr-mb-5w">
     <ValidationObserver v-slot="{ validate }">
-      <NakedCard class="fr-p-md-5w">
-        <h1 class="fr-h6">{{ $t("title") }}</h1>
-        <v-gouv-fr-modal>
-          <template v-slot:button>
-            En difficulté pour répondre à la question ?
-          </template>
-          <template v-slot:title>
-            En difficulté pour répondre à la question ?
-          </template>
-          <template v-slot:content>
-            <p>
-              <TaxHelp></TaxHelp>
-              <DocumentInsert
-                :allow-list="taxDocument.acceptedProofs"
-                :block-list="taxDocument.refusedProofs"
-                v-if="taxDocument.key && taxDocument.acceptedProofs.length > 0"
-              ></DocumentInsert>
-            </p>
-          </template>
-        </v-gouv-fr-modal>
+      <form name="form">
+        <NakedCard class="fr-p-md-5w">
+          <h1 class="fr-h6">{{ $t("title") }}</h1>
+          <TroubleshootingModal>
+            <TaxHelp></TaxHelp>
+            <DocumentInsert
+              :allow-list="taxDocument.acceptedProofs"
+              :block-list="taxDocument.refusedProofs"
+              v-if="taxDocument.key && taxDocument.acceptedProofs.length > 0"
+            ></DocumentInsert>
+          </TroubleshootingModal>
 
-        <form name="form" @submit.prevent="validate().then(save)">
           <div class="fr-mt-3w">
             <fieldset class="fr-fieldset">
               <div class="fr-fieldset__content">
@@ -46,27 +36,41 @@
               </div>
             </fieldset>
           </div>
-          <div
-            class="fr-mb-3w"
-            v-if="taxDocument.key && taxDocument.key === 'other-tax'"
-          >
-            <div class="fr-input-group">
+        </NakedCard>
+
+        <NakedCard
+          class="fr-p-md-5w fr-mt-3w"
+          v-if="taxDocument.key && taxDocument.key === 'other-tax'"
+        >
+          <validation-provider rules="required" v-slot="{ errors, valid }">
+            <div
+              class="fr-input-group"
+              :class="errors[0] ? 'fr-input-group--error' : ''"
+            >
               <label class="fr-label" for="customText">{{
                 $t("custom-text")
               }}</label>
               <input
                 v-model="customText"
                 class="form-control fr-input validate-required"
+                :class="{
+                  'fr-input--valid': valid,
+                  'fr-input--error': errors[0]
+                }"
                 id="customText"
                 name="customText"
                 placeholder=""
                 type="text"
                 required
               />
+              <span class="fr-error-text" v-if="errors[0]">{{
+                $t(errors[0])
+              }}</span>
             </div>
-          </div>
-        </form>
-      </NakedCard>
+          </validation-provider>
+        </NakedCard>
+      </form>
+
       <NakedCard
         class="fr-p-md-5w fr-mt-3w"
         v-if="taxDocument.key === 'my-name' || taxFiles().length > 0"
@@ -120,8 +124,8 @@
           </div>
         </div>
       </NakedCard>
+      <ProfileFooter @on-back="goBack" @on-next="validate().then(goNext)"></ProfileFooter>
     </ValidationObserver>
-    <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
     <ConfirmModal
       v-if="isDocDeleteVisible"
       @valid="validSelect()"
@@ -161,6 +165,7 @@ import MonFranceConnect from "../share/MonFranceConnect.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import { cloneDeep } from "lodash";
 import AllowCheckTax from "../share/AllowCheckTax.vue";
+import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 extend("is", {
   ...is,
@@ -184,7 +189,8 @@ extend("is", {
     VGouvFrModal,
     ProfileFooter,
     NakedCard,
-    AllowCheckTax
+    AllowCheckTax,
+    TroubleshootingModal
   },
   computed: {
     ...mapGetters({
@@ -465,6 +471,7 @@ export default class Tax extends Vue {
   .title {
     display: flex;
   }
+
   .link {
     text-align: right;
   }

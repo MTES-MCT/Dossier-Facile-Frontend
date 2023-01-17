@@ -21,7 +21,7 @@ import Modal from "./Modal.vue";
     Modal
   },
 })
-export default class Announcement extends Vue {
+export default class ModalAnnouncement extends Vue {
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
   @Prop() cookiekey!: string;
   @Prop() showmodal!: boolean;

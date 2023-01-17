@@ -2,7 +2,11 @@
   <div class="announcement fr-pt-2w fr-pb-2w" v-if="isVisible()">
     <div class="fr-container message">
       {{ MESSAGE }}
-      <button class="fr-btn--close close" @click="closeAnnouncement()"></button>
+      <button
+        aria-label="Fermer"
+        class="fr-btn--close close"
+        @click="closeAnnouncement()"
+      ></button>
     </div>
   </div>
 </template>
@@ -49,7 +53,7 @@ export default class Announcement extends Vue {
 
 <style scoped lang="scss">
 .announcement {
-  background-color: #45a07a;
+  background-color: #18753c;
   color: #fff;
 }
 .message {

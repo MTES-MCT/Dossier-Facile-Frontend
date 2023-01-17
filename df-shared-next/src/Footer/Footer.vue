@@ -11,7 +11,7 @@
             <img
               svg-inline
               src="./logo-betagouvfr.svg"
-              class="fr-responsive-img"
+              class="logo-beta"
               aria-label="Accueil - beta.gouv.fr"
             />
           </a>
@@ -251,6 +251,10 @@ ul.fr-follow {
   mask-size: 100% 100%;
   vertical-align: middle;
   width: var(--icon-size);
+}
+.logo-beta {
+  height: 103px;
+  width: 300px;
 }
 </style>
 

@@ -14,19 +14,9 @@
                 {{ $t("my-guarantor") }}
               </h1>
             </div>
-            <v-gouv-fr-modal>
-              <template v-slot:button>
-                <span class="small-font">{{ $t("more-information") }}</span>
-              </template>
-              <template v-slot:title>
-                {{ $t("more-information") }}
-              </template>
-              <template v-slot:content>
-                <p>
-                  <GuarantorChoiceHelp></GuarantorChoiceHelp>
-                </p>
-              </template>
-            </v-gouv-fr-modal>
+            <TroubleshootingModal>
+              <GuarantorChoiceHelp></GuarantorChoiceHelp>
+            </TroubleshootingModal>
             <div class="remark fr-mt-3w">
               <div class="fr-h6">{{ $t("remark-title") }}</div>
               <div class="small-font" v-html="$t('remark-text')"></div>
@@ -35,19 +25,9 @@
           <div class="fr-mt-3w fr-mb-2w">
             {{ $t("ask-guarantor") }}
           </div>
-          <v-gouv-fr-modal v-if="isMobile()">
-            <template v-slot:button>
-              <span class="small-font">{{ $t("more-information") }}</span>
-            </template>
-            <template v-slot:title>
-              {{ $t("more-information") }}
-            </template>
-            <template v-slot:content>
-              <p>
-                <GuarantorChoiceHelp></GuarantorChoiceHelp>
-              </p>
-            </template>
-          </v-gouv-fr-modal>
+          <TroubleshootingModal v-if="isMobile()">
+            <GuarantorChoiceHelp></GuarantorChoiceHelp>
+          </TroubleshootingModal>
 
           <div class="fr-grid-col">
             <div class="width--fit-content">
@@ -157,9 +137,11 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import ProfileContainer from "./ProfileContainer.vue";
 import { UtilsService } from "../services/UtilsService";
+import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 @Component({
   components: {
+    TroubleshootingModal,
     DfButton,
     GuarantorTax,
     GuarantorFinancial,
@@ -230,7 +212,7 @@ export default class GuarantorDocuments extends Vue {
     if (this.guarantor.typeGuarantor !== null) {
       if (
         this.guarantor.typeGuarantor !== value &&
-        (this.user.guarantors?.length || 0) > 0
+        (this.user.guarantors.length || 0) > 0
       ) {
         this.changeGuarantorVisible = true;
       }
@@ -288,7 +270,7 @@ export default class GuarantorDocuments extends Vue {
     }
     if (
       this.tmpGuarantorType != this.guarantor.typeGuarantor ||
-      (this.user.guarantors?.length || 0) <= 0
+      (this.user.guarantors.length || 0) <= 0
     ) {
       this.$store
         .dispatch("setGuarantorType", { typeGuarantor: this.tmpGuarantorType })
@@ -356,7 +338,6 @@ export default class GuarantorDocuments extends Vue {
   "organism": "An organization",
   "legal-person": "A corporation guarantor",
   "no-guarantor": "I don't have a guarantor",
-  "more-information": "More information",
   "ask-guarantor": "Do you want to add :",
   "remark-title": "Remark",
   "remark-text": "Adding a guarantor is by no means mandatory. If you do not wish to add a surety, you can select “I don't have a guarantor”.<br> Your file will then be registered for investigation.",
@@ -376,13 +357,12 @@ export default class GuarantorDocuments extends Vue {
   "corporation-identification": "Identité du représentant de la personne morale",
   "guarantor": "Garant",
   "validate": "Valider",
-  "will-delete-guarantor": "Êtes-vous sûr de vouloir changer le type de garant ?",
+  "will-delete-guarantor": "Voulez-vous vraiment changer le type de garant ?",
   "validate-file": "Étape suivante - Valider le dossier",
   "natural-person": "Un garant physique classique",
   "organism": "Un organisme garant",
   "legal-person": "Un garant moral",
   "no-guarantor": "Je n'ai pas de garant",
-  "more-information": "En difficulté pour répondre à la question ?",
   "ask-guarantor": "Souhaitez-vous ajouter :",
   "remark-title": "Remarque",
   "remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez sélectionner « Je n'ai pas de garant ».<br> Votre dossier sera alors enregistré pour être instruit.",

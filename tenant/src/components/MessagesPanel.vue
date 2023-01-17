@@ -359,8 +359,7 @@ import { AnalyticsService } from "../services/AnalyticsService";
   },
   computed: {
     ...mapState({
-      messageList: "messageList",
-      newMessage: "newMessage"
+      messageList: "messageList"
     })
   }
 })

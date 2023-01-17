@@ -7,26 +7,14 @@
         </h1>
         <p v-if="$parent.$te('description')">{{ $parent.$t("description") }}</p>
 
-        <v-gouv-fr-modal>
-          <template v-slot:button>
-            En difficulté pour répondre à la question ?
-          </template>
-          <template v-slot:title>
-            En difficulté pour répondre à la question ?
-          </template>
-          <template v-slot:content>
-            <slot name="help-modal-content">
-              <p>
-                <DocumentHelp></DocumentHelp>
-                <DocumentInsert
-                  v-if="document ? (document.key ? true : false) : false"
-                  :allow-list="document ? document.acceptedProofs : null"
-                  :block-list="document ? document.refusedProofs : null"
-                ></DocumentInsert>
-              </p>
-            </slot>
-          </template>
-        </v-gouv-fr-modal>
+        <TroubleshootingModal>
+          <DocumentHelp></DocumentHelp>
+          <DocumentInsert
+            v-if="document ? (document.key ? true : false) : false"
+            :allow-list="document ? document.acceptedProofs : null"
+            :block-list="document ? document.refusedProofs : null"
+          ></DocumentInsert>
+        </TroubleshootingModal>
 
         <div class="fr-mt-3w">
           <div v-if="listType == 'dropDownList'">
@@ -237,6 +225,7 @@ import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import Modal from "df-shared/src/components/Modal.vue";
 import DocumentHelp from "../../helps/DocumentHelp.vue";
 import { UtilsService } from "@/services/UtilsService";
+import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 @Component({
   components: {
@@ -252,7 +241,8 @@ import { UtilsService } from "@/services/UtilsService";
     VGouvFrModal,
     BigRadio,
     NakedCard,
-    DocumentHelp
+    DocumentHelp,
+    TroubleshootingModal
   }
 })
 export default class DocumentDownloader extends Vue {
@@ -287,10 +277,7 @@ export default class DocumentDownloader extends Vue {
   changeNoDocument(event: Event) {
     event.preventDefault();
     event.stopPropagation();
-    if (
-      !this.noDocument &&
-      Number(this.dfDocument?.files?.length) > 0
-    ) {
+    if (!this.noDocument && Number(this.dfDocument?.files?.length) > 0) {
       this.showIsNoDocumentAndFiles = true;
       this.dfDocument.noDocument = this.noDocument;
       return;
