@@ -18,21 +18,6 @@
       <Menu />
     </MyHeader>
     <div id="content">
-      <ModalAnnouncement :cookiekey="'newcouple'" :showmodal="isCouple()">
-        L'espace couple évolue ! Pour faciliter la constitution de votre dossier
-        de couple, vous pouvez désormais ajouter directement vos documents et
-        ceux de votre partenaire. Si vous le souhaitez, invitez votre partenaire
-        à modifier votre dossier partagé !<br />
-        Perdu avec toutes ces nouveautés ? Lisez
-        <a
-          href="https://dossierfacile.helpscoutdocs.com/article/48-dossier-couple-2023?preview=63a02958ddda3445da2df8f7"
-          target="_blank"
-          >notre documentation </a
-        >.
-        <br />
-        Un problème technique ? N'hésitez pas à nous contacter via le formulaire
-        de contact.
-      </ModalAnnouncement>
       <Announcement></Announcement>
       <main class="page" role="main">
         <router-view :key="$route.path" />
