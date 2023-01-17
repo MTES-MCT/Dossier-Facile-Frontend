@@ -189,6 +189,7 @@ export default class MyHeader extends Vue {
 .logo {
   width: 290px;
   max-width: 290px;
+  height: 89px;
 }
 
 .fr-btn--secondary {
