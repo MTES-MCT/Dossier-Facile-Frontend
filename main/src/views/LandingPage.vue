@@ -380,6 +380,7 @@
             href="https://www.partirdeparis.fr/"
             name="Partir de Paris"
             width="196px"
+            height="58px"
           />
           <LogoPartnerComponent
             :image="require('../assets/logos/goodliz.png')"
