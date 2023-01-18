@@ -129,9 +129,12 @@ const store = new Vuex.Store({
     },
     updateMessages(state, { tenantId, messageList }) {
       state.messageList[tenantId] = messageList;
-      const messagesFromOperators = state.messageList.flat()
-        .filter(message => message.typeMessage === "TO_TENANT");
-      state.newMessage = messagesFromOperators.length;
+
+      const unreadMessages = state.messageList
+        .flat()
+        .filter(message => message.typeMessage === "TO_TENANT")
+        .filter(message => message.status === "UNREAD");
+      state.newMessage = unreadMessages.length;
     },
     deleteRoommates(state, email) {
       const tenants = state.user.apartmentSharing.tenants.filter((t: User) => {
@@ -139,9 +142,6 @@ const store = new Vuex.Store({
       });
       state.user.applicationType = "ALONE";
       state.user.apartmentSharing.tenants = tenants;
-    },
-    readMessage(state) {
-      state.newMessage = 0;
     },
     updateCoupleAuthorize(state, authorize) {
       state.spouseAuthorize = authorize;
@@ -780,6 +780,17 @@ const store = new Vuex.Store({
         return;
       }
       commit("setSelectedGuarantor", new Guarantor());
+    },
+    readMessages({ commit }, tenantId?: number) {
+      return MessageService.markMessagesAsRead(tenantId).then(
+        response => {
+          commit("updateMessages", { tenantId, messageList: response.data });
+          return Promise.resolve(response.data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
     }
   },
   getters: {

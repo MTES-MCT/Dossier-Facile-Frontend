@@ -374,7 +374,6 @@ export default class MessagesPanel extends Vue {
   @Prop({ default: false }) isCotenant!: boolean;
 
   mounted() {
-    this.$store.commit("readMessage");
     this.tenantMessages = this.messageList[this.tenant.id];
 
     this.$store.subscribe(mutation => {
