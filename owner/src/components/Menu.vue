@@ -36,12 +36,12 @@ function getLanguageSwitchLabel() {
   <ul class="fr-nav__list">
     <li class="fr-nav__item">
       <a :href="`${MAIN_URL}/information`" class="fr-nav__link">
-        {{ t("information") }}
+        {{ t('information') }}
       </a>
     </li>
     <li class="fr-nav__item">
       <a :href="`${MAIN_URL}/blog`" class="fr-nav__link">
-        {{ t("blog") }}
+        {{ t('blog') }}
       </a>
     </li>
     <li class="fr-nav__item">
@@ -51,7 +51,7 @@ function getLanguageSwitchLabel() {
         target="_blank"
         rel="noreferrer"
       >
-        {{ t("help") }}
+        {{ t('help') }}
       </a>
     </li>
     <li class="fr-nav__item break" v-show="isLoggedIn">
@@ -63,7 +63,7 @@ function getLanguageSwitchLabel() {
           currentPage() === 'AccountName' || currentPage() === 'Dashboard' ? true : undefined
         "
       >
-        {{ t("account") }}
+        {{ t('account') }}
       </button>
       <div class="fr-collapse fr-menu" id="menu-774">
         <ul class="fr-menu__list">
@@ -73,7 +73,7 @@ function getLanguageSwitchLabel() {
               href="/proprietaire"
               target="_self"
               v-bind:aria-current="currentPage() === 'AccountName' ? 'page' : undefined"
-              >{{ t("personal-data") }}</a
+              >{{ t('personal-data') }}</a
             >
           </li>
           <li>
@@ -82,15 +82,12 @@ function getLanguageSwitchLabel() {
               href="/"
               target="_self"
               v-bind:aria-current="currentPage() === 'Dashboard' ? 'page' : undefined"
-              >{{ t("dashboard") }}</a
+              >{{ t('dashboard') }}</a
             >
           </li>
           <li class="warn">
-            <DfButton
-              class="fr-nav__link"
-              @on-click="isDeleteModalVisible = true"
-            >
-              {{ t("deleteAccount") }}
+            <DfButton class="fr-nav__link" @on-click="isDeleteModalVisible = true">
+              {{ t('deleteAccount') }}
             </DfButton>
             <DeleteAccount
               @close="isDeleteModalVisible = false"
@@ -99,6 +96,18 @@ function getLanguageSwitchLabel() {
           </li>
         </ul>
       </div>
+    </li>
+    <li class="fr-nav__item" :class="{ break: !isLoggedIn }">
+      <a
+        href="/contact"
+        v-bind:aria-current="currentPage() === 'Contact' ? 'page' : undefined"
+        class="fr-nav__link"
+      >
+        <div class="fr-tag">
+          <span class="material-icons" aria-hidden="true">mail_outline</span>
+          {{ t('contact-us') }}
+        </div>
+      </a>
     </li>
     <li class="fr-nav__item" :class="{ break: !isLoggedIn }">
       <button
@@ -116,7 +125,28 @@ function getLanguageSwitchLabel() {
   position: relative;
 
   a.fr-external-link::after {
-    content: "";
+    content: '';
+  }
+
+  .fr-nav__link[aria-current] {
+    .fr-tag {
+      color: var(--text-action-high-blue-france) !important;
+    }
+  }
+  .tag-container {
+    @media all and (min-width: 768px) {
+      padding-top: 0.75rem;
+      padding-bottom: 0.4rem;
+    }
+    .fr-tag {
+      @media all and (max-width: 768px) {
+        min-height: inherit;
+        padding: 0;
+        background-color: transparent;
+        color: inherit;
+        font-size: inherit;
+      }
+    }
   }
 }
 
@@ -140,27 +170,27 @@ function getLanguageSwitchLabel() {
 
 <i18n>
 {
-"en": {
-"account": "Account",
-"dashboard": "File",
-"messaging": "Messaging",
-"help": "Help",
-"blog": "Blog",
-"information": "Information",
-"deleteAccount": "Delete my account",
-"contact-us": "contact us",
-"personal-data": "My personal data"
-},
-"fr": {
-"dashboard": "Mes propriétés",
-"account": "Mon compte",
-"messaging": "Messagerie",
-"help": "Aide",
-"blog": "Blog",
-"deleteAccount": "Supprimer mon compte",
-"information": "Qui sommes-nous?",
-"contact-us": "Nous contacter",
-"personal-data": "Mes informations personnelles"
-}
+  "en": {
+    "account": "Account",
+    "dashboard": "File",
+    "messaging": "Messaging",
+    "help": "Help",
+    "blog": "Blog",
+    "information": "Information",
+    "deleteAccount": "Delete my account",
+    "contact-us": "contact us",
+    "personal-data": "My personal data"
+  },
+  "fr": {
+    "dashboard": "Mes propriétés",
+    "account": "Mon compte",
+    "messaging": "Messagerie",
+    "help": "Aide",
+    "blog": "Blog",
+    "deleteAccount": "Supprimer mon compte",
+    "information": "Qui sommes-nous?",
+    "contact-us": "Nous contacter",
+    "personal-data": "Mes informations personnelles"
+  }
 }
 </i18n>
