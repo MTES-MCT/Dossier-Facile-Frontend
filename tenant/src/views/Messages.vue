@@ -15,7 +15,10 @@
               role="tab"
               :aria-selected="tabIndex === k"
               :aria-controls="`tabpanel-${k}-panel`"
-              @click="tabIndex = k"
+              @click="
+                tabIndex = k;
+                markMessagesAsRead(tenant.id);
+              "
             >
               {{ tenant | fullName }}
             </button>
@@ -39,8 +42,8 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
-import { mapState } from "vuex";
+import { Component, Vue } from "vue-property-decorator";
+import { mapGetters, mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
 
 import MessagesPanel from "../components/MessagesPanel.vue";
@@ -61,7 +64,11 @@ export default class Messages extends Vue {
   tabIndex = 0;
 
   mounted() {
-    this.$store.commit("readMessage");
+    this.markMessagesAsRead(this.user.id);
+  }
+
+  markMessagesAsRead(tenantId: number) {
+    this.$store.dispatch("readMessages", tenantId);
   }
 
   getTenants() {
