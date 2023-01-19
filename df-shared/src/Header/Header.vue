@@ -109,6 +109,7 @@
             <li v-if="!loggedIn">
               <DfButton
                 class="fr-ml-3"
+                id="signin-button"
                 :primary="false"
                 size="small"
                 @on-click="onLoginTenant"
@@ -249,7 +250,7 @@ span.material-icons-outlined {
 {
   "en": {
     "logout": "Logout",
-    "signin": "Sign-in",
+    "signin": "Sign in",
     "owner": "Owner area",
     "partner": "Become partner",
     "partner-link-title": "Become partner (New Window)"
