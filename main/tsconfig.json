@@ -18,7 +18,8 @@
       "mocha",
       "chai",
       "webpack",
-      "cypress"
+      "cypress",
+      "cypress-axe"
     ],
     "paths": {
       "@/*": [
