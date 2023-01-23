@@ -16,9 +16,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-          cache: 'yarn'
-      - name: Install dependencies
-        run: yarn main install --frozen-lockfile --prefer-offline
+      - uses: bahmutov/npm-install@v1
+        with:
+          useRollingCache: true
       - name: Build
         run: yarn main build
       - name: Run unit tests
@@ -31,9 +31,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-          cache: 'yarn'
-      - name: Install dependencies
-        run: yarn tenant install --frozen-lockfile --prefer-offline
+      - uses: bahmutov/npm-install@v1
+        with:
+          useRollingCache: true
       - name: Build
         run: yarn tenant build
       - name: Run unit tests
@@ -46,10 +46,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-          cache: 'yarn'
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile --prefer-offline
-
+      - uses: bahmutov/npm-install@v1
+        with:
+          useRollingCache: true
       - run: yarn dfowner build
       - run: yarn watermark build
