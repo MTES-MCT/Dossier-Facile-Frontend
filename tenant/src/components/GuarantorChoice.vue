@@ -267,8 +267,7 @@ export default class GuarantorDocuments extends Vue {
           name: "ValidateFile"
         });
       }
-    }
-    if (
+    } else if (
       this.tmpGuarantorType != this.guarantor.typeGuarantor ||
       (this.user.guarantors.length || 0) <= 0
     ) {
