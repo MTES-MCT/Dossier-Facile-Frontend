@@ -207,27 +207,3 @@ export default class Financial extends Vue {
 }
 </style>
 
-<i18n>
-{
-"en": {
-  "delete-financial":  "Delete this salary",
-  "register": "Register",
-  "i-have-no-income": "I have no income",
-  "title": "Summary of your income",
-  "subtitle": "Here is the list of income you declared. You can add new income at any time, if necessary.",
-  "monthly": " € net monthly ",
-  "net-monthly": "Net salary monthly",
-  "add-income": "Add a new income ?"
-},
-"fr": {
-  "delete-financial":  "Supprimer ce revenu",
-  "register": "Enregistrer",
-  "i-have-no-income": "Je n'ai pas de revenu",
-  "title": "Récapitulatif de vos revenus",
-  "subtitle": "Voici la liste des revenus que vous avez déclarés. Vous pouvez, à tout moment ajouter de nouveaux revenus, si cela était nécessaire.",
-  "monthly": " € net mensuel ",
-  "net-monthly": "Net à payer mensuel",
-  "add-income": "Ajouter un nouveau revenu ?"
-}
-}
-</i18n>

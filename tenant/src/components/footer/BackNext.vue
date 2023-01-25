@@ -59,18 +59,6 @@ export default class BackNext extends Vue {
 }
 </script>
 
-<i18n>
-{
-"en": {
-  "back": "Back",
-  "continue": "Continue"
-},
-"fr": {
-  "back": "Retour",
-  "continue": "Continuer"
-}
-}
-</i18n>
 
 <style lang="scss" scoped>
 .btn-spacing {

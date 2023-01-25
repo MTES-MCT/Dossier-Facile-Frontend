@@ -53,17 +53,3 @@ export default class ShowDoc extends Vue {
 }
 </script>
 
-<i18n>
-  {
-    "en":
-    {
-      "preview": "Document preview",
-      "number-of-pages": "Preview page 1 / {0}"
-    },
-    "fr":
-    {
-      "preview": "Prévisualisation du document",
-      "number-of-pages": "Prévisualisation page 1 / {0}"
-    }
-  }
-</i18n>

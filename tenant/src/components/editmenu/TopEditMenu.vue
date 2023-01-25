@@ -555,13 +555,3 @@ hr {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "i-add": "I add {0}"
-  },
-  "fr": {
-    "i-add": "J'ajoute {0}"
-  }
-}
-</i18n>

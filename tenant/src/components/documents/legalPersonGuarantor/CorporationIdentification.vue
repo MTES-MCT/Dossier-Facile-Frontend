@@ -286,33 +286,3 @@ td {
 }
 </style>
 
-<i18n>
-{
-"en": {
-  "organism-name": "Company name",
-  "organism-name-placeholder": "Company name",
-  "kbis-label": "I add a K bis of the company, or any other document justifying the legal existence of the company.",
-  "kbis": "Original Kbis of the company",
-  "status": "Company statuses",
-  "all-accepted": "Any other document justifying the legal existence of the company.",
-  "balance-sheet": "Balance sheet",
-  "urssaf": "Urssaf certificate",
-  "all-other": "Any other document",
-  "register": "Register documents",
-  "field-required": "This field is required"
-},
-"fr": {
-  "organism-name": "Nom de la personne morale",
-  "organism-name-placeholder": "Nom de la personne morale",
-  "kbis-label": "J’ajoute un extrait K bis de la société, ou toute autre pièce justifiant de l'existence légale de la personne.",
-  "kbis": "Extrait K bis original de la société",
-  "status": "Statuts de la personne morale",
-  "all-accepted": "Toute autre pièce justifiant de l'existance légale de la personne, prouvant qu'une déclaration a été effectuée auprès d'une administration, une juridiction ou un organisme professionnel.",
-  "balance-sheet": "Bilan comptable",
-  "urssaf": "Attestation cotisation Urssaf",
-  "all-other": "Toute autre pièce",
-  "register": "Enregistrer la pièce",
-  "field-required": "Ce champ est requis"
-}
-}
-</i18n>

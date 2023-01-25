@@ -34,13 +34,3 @@ export default class ConfirmAccount extends Vue {
 }
 </script>
 
-<i18n>
-{
-  "en": {
-    "token-err": "An error occured, if you already have confirmed your account then you can login, else you can run the forgot password process"
-  },
-  "fr": {
-    "token-err": "Une erreur est survenue, si vous avez déjà confirmé votre compte vous pouvez vous connecter, sinon vous pouvez lancer la procédure de <a href='/forgotten-password'>changement de mot de passe</a>"
-  }
- }
-</i18n>

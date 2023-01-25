@@ -61,15 +61,3 @@ export default class InfoCard extends Vue {
   box-shadow: none;
 }
 </style>
-<i18n>
-{
-  "en": {
-    "edit": "Edit",
-    "edit-title": "Edit « {0} »"
-  },
-  "fr": {
-    "edit": "Modifier",
-    "edit-title": "Modifier « {0} »"
-  }
-}
-</i18n>

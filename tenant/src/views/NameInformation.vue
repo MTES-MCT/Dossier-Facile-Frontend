@@ -114,21 +114,3 @@ li {
 }
 </style>
 
-<i18n>
-{
-"en": {
-  "title": "Your rental file in 5 supporting document",
-  "join-title": "You are only a few steps away from joining {0} rental file!",
-  "roommate": "votre colocataire",
-  "spouse": "your spouse",
-  "prepare-documents": "Prepare your supporting documents:"
-},
-"fr": {
-  "title": "Votre dossier de location en 5 justificatifs !",
-  "join-title": "Vous n'êtes qu'à quelques étapes de rejoindre le dossier de location de {0} !",
-  "roommate": "votre colocataire",
-  "spouse": "votre conjoint",
-  "prepare-documents": "Préparez vos pièces justificatives :"
-}
-}
-</i18n>

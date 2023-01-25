@@ -131,24 +131,3 @@ export default class FileRowListItem extends Vue {
 }
 </style>
 
-<i18n>
-
-{
-  "en": {
-    "see": "See",
-    "TO_PROCESS": "To process",
-    "VALIDATED": "Validated",
-    "DECLINED": "Declined",
-    "INCOMPLETE": "Incomplete",
-    "EMPTY": "Missing Document"
-  },
-  "fr": {
-    "see": "Voir",
-    "TO_PROCESS": "En cours de traitement",
-    "VALIDATED": "Vérifié",
-    "DECLINED": "Modification demandée",
-    "INCOMPLETE": "Non terminé",
-    "EMPTY": "Document manquant"
-  }
-}
-</i18n>

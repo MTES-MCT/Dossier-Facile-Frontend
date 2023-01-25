@@ -204,33 +204,3 @@ export default class CoTenantName extends Vue {
 
 <style scoped lang="scss"></style>
 
-<i18n>
-{
-"en": {
-  "lastname": "Lastname",
-  "firstname": "Firstname",
-  "preferredname": "Usage name",
-  "email": "E-mail (If you filled this field an invitation will be send)",
-  "email-not-valid": "Email not valid",
-  "lastname-placeholder": "e.g. Dupont",
-  "firstname-placeholder": "e.g. Jean",
-  "field-required": "This field is required",
-  "title": "My spouse name",
-  "subtitle": "I fill the last name and first name of my spouse",
-  "franceconnect-account": "This account is authenticated with FranceConnect, firstname and lastname cannot be edited."
-},
-"fr": {
-  "lastname": "Nom de naissance",
-  "firstname": "Prénom",
-  "preferredname": "Nom d'usage (facultatif)",
-  "email": "E-mail",
-  "email-not-valid": "Email non valide",
-  "lastname-placeholder": "ex: Dupont",
-  "firstname-placeholder": "ex: Jean",
-  "field-required": "Ce champ est requis",
-  "title": "Je renseigne les informations personnelles de mon conjoint",
-  "subtitle": "Veuillez renseigner les informations de la personne dont le nom figurera sur le bail de location.",
-  "franceconnect-account": "Ce compte est identifié avec FranceConnect, les noms et prénoms ne sont pas éditables."
-}
-}
-</i18n>

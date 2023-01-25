@@ -301,33 +301,3 @@ export default class CoupleInformation extends Vue {
 }
 </style>
 
-<i18n>
-{
-"en": {
-"spouseFirstName": "Firstname",
-"spouseLastName": "Lastname",
-"spouseEmail": "Your spouse email (optional)",
-"acceptAuthor": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
-"email-not-valid": "Email not valid",
-"field-required": "This field is required",
-"partner-name-title": "Who is your partner?",
-"partner-email-title": "Send them an invite?",
-"add-a-spouse": "Add your spouse",
-"email-exists": "You can not associate two account with only one email address ! <br>Fullfill a different email address.",
-"more-information": "How does it work?"
-},
-"fr": {
-"spouseFirstName": "Prénom",
-"spouseLastName": "Nom",
-"spouseEmail": "L’adresse email de votre conjoint·e (facultatif)",
-"acceptAuthor": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
-"email-not-valid": "Email non valide",
-"field-required": "Ce champ est requis",
-"partner-name-title": "Qui sera votre conjoint·e ?",
-"partner-email-title": "L'inviter à remplir son dossier ?",
-"add-a-spouse": "Ajouter votre conjoint·e",
-"email-exists": "Vous ne pouvez pas associer deux comptes à une même adresse email ! <br>Renseignez une adresse email différente.",
-"more-information": "Comment ça marche ?"
-}
-}
-</i18n>

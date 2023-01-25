@@ -177,25 +177,3 @@ export default class GuarantorName extends Vue {
 
 <style scoped lang="scss"></style>
 
-<i18n>
-{
-"en": {
-  "lastname": "Lastname",
-  "firstname": "Firstname",
-  "lastname-placeholder": "e.g. Dupont",
-  "firstname-placeholder": "e.g. Jean",
-  "field-required": "This field is required",
-  "title": "My guarantor's name",
-  "subtitle": "I fill the last name and first name of my guarantor"
-},
-"fr": {
-  "lastname": "Nom",
-  "firstname": "Prénom",
-  "lastname-placeholder": "ex: Dupont",
-  "firstname-placeholder": "ex: Jean",
-  "field-required": "Ce champ est requis",
-  "title": "Identité de mon garant",
-  "subtitle": "Je renseigne le nom et prénom de mon garant"
-}
-}
-</i18n>

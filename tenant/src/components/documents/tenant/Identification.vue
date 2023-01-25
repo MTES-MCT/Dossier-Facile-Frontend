@@ -343,29 +343,3 @@ td {
 }
 </style>
 
-<i18n>
-{
-"en": {
-  "identity-card": "French identity card",
-  "passport": "French passeport",
-  "permit": "French residence permit",
-  "other": "Autre",
-  "files": "Documents",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-  "select-label": "I add a valid identity document.",
-  "validate": "Validate",
-  "cancel": "Cancel"
-},
-"fr": {
-  "identity-card": "Carte d’identité française",
-  "passport": "Passeport français",
-  "permit": "Titre de séjour français",
-  "other": "Autre",
-  "files": "Documents",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "select-label": "Déposez une pièce d'identité en cours de validité.",
-  "validate": "Valider",
-  "cancel": "Annuler"
-}
-}
-</i18n>

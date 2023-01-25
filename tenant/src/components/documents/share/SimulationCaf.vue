@@ -57,17 +57,3 @@ export default class SimulationCaf extends Vue {
   }
 }
 </style>
-<i18n>
-{
-"en": {
-  "btn-caf": "Do a simulation",
-  "simulation-caft-title": "Are you eligible?",
-  "simulation-caf-text": "Go to caf website to know if you can get a rental subvention."
-},
-"fr": {
-  "btn-caf": "Faire une simulation",
-  "simulation-caf-title": "Êtes-vous éligible ?",
-  "simulation-caf-text": "Découvrez l'estimation de l'aide au logement à laquelle vous pourriez être éligible."
-}
-}
-</i18n>

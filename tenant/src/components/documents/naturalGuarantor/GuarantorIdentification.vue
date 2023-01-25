@@ -349,37 +349,3 @@ td {
 }
 </style>
 
-<i18n>
-{
-"en": {
-  "identity-card": "French identity card",
-  "passport": "French passeport",
-  "permit": "French residence permit",
-  "other": "Autre",
-  "files": "Documents",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-  "register": "Register",
-  "title": "I add a valid identity document of my guarantor",
-  "title-cotenant": "I add a valid identity document of my cotenant guarantor",
-  "select-label": "Attention, be sure to add your double-sided part!",
-  "validate": "Validate",
-  "cancel": "Cancel",
-  "field-required": "This field is required"
-},
-"fr": {
-  "identity-card": "Carte d’identité française",
-  "passport": "Passeport français",
-  "permit": "Titre de séjour français",
-  "other": "Autre",
-  "files": "Documents",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs.",
-  "register": "Enregistrer la pièce",
-  "title": "J’ajoute la pièce d’identité, en cours de validité, de mon garant",
-  "title-cotenant": "J’ajoute la pièce d’identité, en cours de validité, de son garant",
-  "select-label": "Veillez à ajouter le recto et le verso !",
-  "validate": "Valider",
-  "cancel": "Annuler",
-  "field-required": "Ce champ est requis"
-}
-}
-</i18n>

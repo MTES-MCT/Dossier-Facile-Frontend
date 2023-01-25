@@ -26,13 +26,3 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
 export default class TroubleshootingModal extends Vue {}
 </script>
 
-<i18n>
-{
-  "en": {
-    "more-information": "Having trouble finding the right document?"
-  },
-  "fr": {
-    "more-information": "En difficulté pour répondre à la question ?"
-  }
-}
-</i18n>

@@ -573,17 +573,3 @@ export default class MessagesPanel extends Vue {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "identification-legal-person": "Legal person identity",
-    "identity-represent": "Identity",
-    "organism": "Organism"
-  },
-  "fr": {
-    "identification-legal-person": "Identité personne morale",
-    "identity-represent": "Identité représentant",
-    "organism": "Organisme"
-  }
-}
-</i18n>

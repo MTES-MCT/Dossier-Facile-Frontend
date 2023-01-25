@@ -187,31 +187,3 @@ export default class ListItem extends Vue {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "FRENCH_IDENTITY_CARD": "Identity card",
-    "FRENCH_PASSPORT": "Passport",
-    "FRENCH_RESIDENCE_PERMIT": "French residence permit",
-    "OTHER_IDENTIFICATION": "Other",
-    "CERTIFICATE_VISA": "Visa",
-    "remove": "Delete the file",
-    "show": "Show the file",
-    "mb": "MB",
-    "kb": "KB",
-    "will-delete-file": "Are you sure you want to delete this file ?"
-  },
-  "fr": {
-    "FRENCH_IDENTITY_CARD": "Carte d'identité française",
-    "FRENCH_PASSPORT": "Passport français",
-    "FRENCH_RESIDENCE_PERMIT": "Titre de séjour français",
-    "OTHER_IDENTIFICATION": "Autre",
-    "CERTIFICATE_VISA": "Visa",
-    "remove": "Supprimer la pièce",
-    "show": "Afficher la pièce",
-    "mb": "Mo",
-    "kb": "Ko",
-    "will-delete-file": "Êtes-vous sûr·e de vouloir supprimer ce fichier ?"
-  }
-}
-</i18n>

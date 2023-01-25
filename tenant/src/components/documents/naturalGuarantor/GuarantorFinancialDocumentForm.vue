@@ -605,34 +605,3 @@ export default class GuarantorFinancialDocumentForm extends Vue {
 
 <style scoped lang="scss"></style>
 
-<i18n>
-{
-"en": {
-  "monthlySum": "Value in euros",
-  "monthlySum-label": "Monthly salary (after tax)",
-  "high-salary": "You have entered a salary greater than € 10,000 are you sure you have entered your guarantor monthly salary?",
-  "low-salary": "You have entered a salary equal to 0 € are you sure you have entered your guarantor monthly salary?",
-  "number-not-valid": "Number not valid - without decimal",
-  "delete-financial":  "Delete this salary",
-  "field-required": "This field is required",
-  
-  "register": "Register",
-  "warning-no-income-and-file": "You can't have files and no income. You must uncheck the box or delete your files.",
-  "missing-file": "You must add files to save this income.",
-  "select-label": "Attention, please enter only the guarantor's own income."
-},
-"fr": {
-  "monthlySum": "Montant en euros",
-  "monthlySum-label": "J'indique le montant de son revenu mensuel net à payer (avant prélèvement à la source)",
-  "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
-  "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
-  "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule",
-  "delete-financial":  "Supprimer ce revenu",
-  "field-required": "Ce champ est requis",
-  "register": "Enregistrer",
-  "select-label": "Attention, veuillez renseigner uniquement les revenus du garant.",
-  "missing-file": "Vous devez ajouter des fichiers pour sauvegarder ce revenu.",
-  "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers."
-}
-}
-</i18n>

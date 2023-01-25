@@ -71,21 +71,3 @@ export default class JoinCouple extends Vue {
 }
 </script>
 
-<i18n>
-{
-  "en": {
-    "error": "Error",
-    "password-update": "The password has been updated",
-    "title": "Create password",
-    "already-logged": "You are already logged-in, do you want to logout to create this account ?",
-    "token-expired": "The token has expired, please run the forgotten password process"
-  },
-  "fr": {
-    "error": "Erreur",
-    "password-update": "Le mot de passe a été mis à jour",
-    "title": "Création du mot de passe",
-    "already-logged": "Vous êtes déjà en mode connecté, voulez-vous vous déconnecter pour créer ce compte ?",
-    "token-expired": "Le lien a expiré, veuillez lancer la procédure de mot de passe oublié"
-  }
-}
-</i18n>

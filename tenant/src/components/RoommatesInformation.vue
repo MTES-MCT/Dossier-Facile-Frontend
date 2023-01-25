@@ -319,39 +319,3 @@ export default class RoommatesInformation extends Vue {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "roommateEmail": "Add a roommate email",
-    "acceptAuthor": "I agree that the other members of my roommate have access to my documents as well as those of my guarantor, if applicable, once all the files of the roommate have been validated",
-    "delete": "Delete",
-    "email-not-valid": "Email not valid",
-    "field-required": "This field is required",
-    "title": "Who are your roommates ?",
-    "add-a-roommate": "Add this roommate",
-    "invite-waiting": "Waiting for confirmation",
-    "invite-sent": "Invitation sent",
-    "my-roommates": "My roommates",
-    "email-exists": "You can not associate two account with only one email address ! <br>Fullfill a different email address.",
-    "email-exists-2": "This email address already exists in DossierFacile. Please use an other email address.",
-    "more-information": "En quoi cette information nous est utile ?",
-    "require-accept": "You must accept the statement"
-  },
-  "fr": {
-    "roommateEmail": "Ajouter l’adresse email d'un colocataire",
-    "acceptAuthor": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",
-    "delete": "Supprimer",
-    "email-not-valid": "Email non valide",
-    "field-required": "Ce champ est requis",
-    "title": "Qui seront vos colocataires ?",
-    "add-a-roommate": "Inviter ce colocataire",
-    "invite-waiting": "Invitation en attente d'envoi",
-    "invite-sent": "Invitation envoyée",
-    "my-roommates": "Mes colocataires",
-    "email-exists": "Vous ne pouvez pas associer deux comptes à une même adresse email ! <br>Renseignez une adresse email différente de la votre.",
-    "email-exists-2": "Cette adresse email est déjà utilisée sur DossierFacile.<br>Renseignez une adresse email différente.",
-    "more-information": "En quoi cette information nous est utile ?",
-    "require-accept": "Vous devez accepter la déclaration"
-  }
-}
-</i18n>

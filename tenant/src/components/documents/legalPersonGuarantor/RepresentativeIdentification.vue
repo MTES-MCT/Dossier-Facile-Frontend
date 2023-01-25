@@ -334,25 +334,3 @@ td {
 }
 </style>
 
-<i18n>
-{
-"en": {
-  "organism-name": "Nom du représentant de la personne morale",
-  "organism-name-placeholder": "Nom",
-  "identity-card": "French identity card",
-  "passport": "French passeport",
-  "permit": "French residence permit",
-  "other": "Autre",
-  "select-is-empty": "Item selection required"
-},
-"fr": {
-  "organism-name": "Nom du représentant de la personne morale",
-  "organism-name-placeholder": "Nom",
-  "identity-card": "Carte d’identité française",
-  "passport": "Passeport français",
-  "permit": "Titre de séjour français",
-  "other": "Autre",
-  "select-is-empty": "Sélection requise"
-}
-}
-</i18n>

@@ -107,24 +107,3 @@ export default class DeleteAccount extends Vue {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "confirm-delete": "Please confirm the complete deletion of the account :",
-    "validate": "Delete my account",
-    "validate-mobile": "Delete",
-    "cancel": "Cancel",
-    "title": "Account deletion",
-    "title-mobile": "Deletion",
-    "try-again": "An error occured, please try again later."
-  },
-  "fr": {
-    "validate": "Supprimer mon compte",
-    "validate-mobile": "Supprimer",
-    "cancel": "Annuler",
-    "title": "Suppression de compte",
-    "confirm-delete": "Veuillez confirmer la suppression complète du compte",
-    "try-again": "Une erreur est survenue, veuillez réessayer plus tard."
-  }
-}
-</i18n>

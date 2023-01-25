@@ -206,28 +206,3 @@ fr-breadcrumb {
 }
 </style>
 
-<i18n>
-{
-"en": {
-"help": "Help",
-"account": "Account",
-"file": "File",
-"messaging": "Messaging",
-"faq": "Help",
-"blog": "Blog",
-"information": "Information",
-"contact-us": "contact us",
-"deleteAccount": "Delete my account"
-},
-"fr": {
-"help": "Aide",
-"file": "Mon dossier",
-"account": "Mon compte",
-"messaging": "Messagerie",
-"blog": "Blog",
-"information": "Qui sommes-nous?",
-"contact-us": "Nous contacter",
-"deleteAccount": "Supprimer mon compte"
-}
-}
-</i18n>

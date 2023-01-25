@@ -230,35 +230,3 @@ export default class ValidateFile extends Vue {
 }
 </script>
 
-<i18n>
-{
-  "en": {
-    "title": "Je valide mon dossier",
-    "read-no-guarantor": "Je lis et je coche la case suivante afin de valider mon dossier",
-    "declaration": "Je déclare avoir pris connaissance de l'article 441-1 du code pénal qui punit le faux et l'usage de faux de trois ans d'emprisonnement et de 45000 euros d'amende.",
-    "precision": "Si je le souhaite, je peux préciser certains éléments importants de ma situation à mes futurs propriétaires. Mon texte sera ajouté au début de mon dossier:",
-    "placeholder": "Renseignez votre commentaire ici",
-    "validate": "Valider mon dossier",
-    "read": "Je lis et je coche les cases suivantes afin de valider mon dossier",
-    "declaration2": "Je déclare avoir obtenu le consentement des personnes physiques (conjoint, colocataires ou garants) à utiliser leurs justificatifs nominatifs pour les lier à mon dossier.",
-    "declaration2-plural": "Je déclare sur l'honneur avoir reçu le consentement de mes garants pour que leurs données soient traitées dans le cadre du processus de location",
-    "require-accept": "You must accept the declaration",
-    "validation-error-title": "You're so close !",
-    "validation-error-description": "Limit update, check your files today"
-  },
-  "fr": {
-    "title": "Je valide mon dossier",
-    "read-no-guarantor": "Je lis et je coche la case suivante afin de valider mon dossier",
-    "declaration": "Je déclare avoir pris connaissance de l'article 441-1 du code pénal qui punit le faux et l'usage de faux de trois ans d'emprisonnement et de 45000 euros d'amende.",
-    "precision": "Si je le souhaite, je peux préciser certains éléments importants de ma situation à mes futurs propriétaires. Mon texte sera ajouté au début de mon dossier :",
-    "placeholder": "Renseignez votre commentaire ici",
-    "validate": "Valider mon dossier",
-    "read": "Je lis et je coche les cases suivantes afin de valider mon dossier",
-    "declaration2": "Je déclare avoir obtenu le consentement des personnes physiques (conjoint, colocataires ou garants) à utiliser leurs justificatifs nominatifs pour les lier à mon dossier.",
-    "declaration2-plural": "Je déclare sur l'honneur avoir reçu le consentement de mes garants pour que leurs données soient traitées dans le cadre du processus de location",
-    "require-accept": "Vous devez accepter la déclaration",
-    "validation-error-title": "Vous y êtes presque !",
-    "validation-error-description": "Limitez les modifications, pensez à vérifier votre dossier dès aujourd'hui."
-  }
-}
-</i18n>

@@ -90,17 +90,3 @@ export default class MonFranceConnect extends Vue {
   }
 }
 </style>
-<i18n>
-{
-"en": {
-  "optional": "optional",
-  "with-franceconnect-title": "Your supporting documents with Mon FranceConnect",
-  "with-franceconnect-text": "Mon FranceConnect is a digital state service allowing you to retrieve your supporting documents from different administrations."
-},
-"fr": {
-  "optional": "optionnel",
-  "with-franceconnect-title": "Vos justificatifs avec Mon FranceConnect",
-  "with-franceconnect-text": "Mon FranceConnect est un service numérique de l'État vous permettant de récupérer vos justificatifs provenant de différentes administrations."
-}
-}
-</i18n>

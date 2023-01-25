@@ -222,31 +222,3 @@ export default class GuarantorFinancial extends Vue {
 }
 </style>
 
-<i18n>
-{
-"en": {
-  "delete-financial":  "Delete this salary",
-  "register": "Register",
-  "select-label": "Attention, Please enter only your own income.",
-  "i-have-no-income": "I have no income",
-  "warning-no-income-and-file": "You can't have files and no income. You must uncheck the box or delete your files.",
-  "title": "Summary of your guarantor income",
-  "subtitle": "Here is the list of income you declared. You can add new income at any time, if necessary.",
-  "monthly": " € net monthly ",
-  "net-monthly": "Net salary monthly",
-  "add-income": "Add a new income ?"
-},
-"fr": {
-  "delete-financial":  "Supprimer ce revenu",
-  "register": "Enregistrer",
-  "select-label": "Attention, veuillez renseigner uniquement vos propres revenus.",
-  "i-have-no-income": "Je n'ai pas de revenu",
-  "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers.",
-  "title": "Récapitulatif des revenus du garant",
-  "subtitle": "Voici la liste des revenus que vous avez déclarés. Vous pouvez, à tout moment ajouter de nouveaux revenus, si cela était nécessaire.",
-  "monthly": " € net mensuel ",
-  "net-monthly": "Net à payer mensuel",
-  "add-income": "Ajouter un nouveau revenu ?"
-}
-}
-</i18n>

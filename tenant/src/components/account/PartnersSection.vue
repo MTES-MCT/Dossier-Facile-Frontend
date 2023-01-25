@@ -104,29 +104,3 @@ h2 {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "partners-services-section": "Do you know these services ?",
-    "mds-title": "Are you eligible ?",
-    "mds-text": "Find fastly the social benefit that you can ask",
-    "mds-btn": "Social rights simulator",
-    "anil-title": "A question about accommodation ?",
-    "anil-text": "Need information about your rights and duties ? \n Your ADIL give you some advice for free",
-    "anil-btn": "Contact your ADIL",
-    "go-to-anil": "Go to ANIL's website (new window)",
-    "go-to-mds": "Go to « mes droits sociaux »'s website (new window)"
-  },
-  "fr": {
-    "partners-services-section": "Connaissez-vous les services suivants ?",
-    "mds-title": "Êtes-vous éligible ?",
-    "mds-text": "Découvrez en quelques clics les prestations sociales que vous pouvez demander",
-    "mds-btn": "Simuler mes droits sociaux",
-    "anil-title": "Une question logement ?",
-    "anil-text": "Une information pratique sur vos droits et obligations ? \n Votre ADIL vous conseille gratuitement",
-    "anil-btn": "Contacter mon ADIL",
-    "go-to-anil": "Aller sur le site de l'ANIL (nouvelle fenêtre)",
-    "go-to-mds": "Aller sur le site de « mes droits sociaux » (nouvelle fenêtre)"
-  }
-}
-</i18n>
