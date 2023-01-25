@@ -94,15 +94,3 @@ h2 {
 }
 </style>
 
-<i18n>
-{
-  "en":
-  {
-    "title": "Statistics"
-  },
-  "fr":
-  {
-    "title": "Statistiques"
-  }
-}
-</i18n>

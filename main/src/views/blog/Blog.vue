@@ -338,13 +338,3 @@ import BlogExtractTile from "./BlogExtractTile.vue";
 export default class Blog extends Vue {}
 </script>
 
-<i18n>
-{
-  "en": {
-    "blog": "Blog"
-  },
-  "fr": {
-    "blog": "DossierFacile en articles"
-  }
-}
-</i18n>

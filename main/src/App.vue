@@ -153,19 +153,3 @@ export default class App extends Vue {
 }
 </style>
 
-<i18n>
-{
-"en": {
-"tenant": "Tenant",
-"owner": "Owner",
-"register-information": "In order to create your account, we need some information. You are…",
-"faq": "FAQ"
-},
-"fr": {
-"tenant": "Locataire",
-"owner": "Propriétaire",
-"register-information": "Afin de créer votre compte, nous avons besoin de quelques informations. Vous êtes…",
-"faq": "FAQ"
-}
-}
-</i18n>
