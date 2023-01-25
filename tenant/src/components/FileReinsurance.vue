@@ -1,10 +1,10 @@
 <template>
   <div>
     <span class="fr-h5 fr-mr-3w">{{
-      $t("title-dossier-" + dossierStatus)
+      $t("filereinsurance.title-dossier-" + dossierStatus)
     }}</span
     ><a href="https://www.dossierfacile.fr" target="_blank" rel="noreferrer">{{
-      $t("know-more")
+      $t("filereinsurance.know-more")
     }}</a>
     <div class="fr-grid-row fr-grid-row--gutters fr-mt-3w">
       <div class="fr-col-12 fr-col-md-3">
@@ -27,7 +27,7 @@
             report_gmailerrorred
           </span>
 
-          <p>{{ $t("documents-" + dossierStatus) }}</p>
+          <p>{{ $t("filereinsurance.documents-" + dossierStatus) }}</p>
         </NakedCard>
       </div>
       <div class="fr-col-12 fr-col-md-3">
@@ -49,7 +49,7 @@
           >
             report_gmailerrorred
           </span>
-          <p>{{ $t("file-" + dossierStatus) }}</p>
+          <p>{{ $t("filereinsurance.file-" + dossierStatus) }}</p>
         </NakedCard>
       </div>
       <div v-if="taxChecked" class="fr-col-12 fr-col-md-3">
@@ -62,7 +62,7 @@
             />
           </div>
           <p>
-            {{ $t("tax-checked") }}
+            {{ $t("filereinsurance.tax-checked") }}
           </p>
         </NakedCard>
       </div>
@@ -70,13 +70,13 @@
         <NakedCard class="h-100 fc">
           <div class="fr-mb-0-5w icon-fc text-fc blue-text">FranceConnect</div>
           <p v-if="tenantCount === 1">
-            {{ $t("france-connect-user") }}
+            {{ $t("filereinsurance.france-connect-user") }}
           </p>
           <p v-else-if="franceConnectTenantCount === tenantCount">
-            {{ $t("france-connect-user-all") }}
+            {{ $t("filereinsurance.france-connect-user-all") }}
           </p>
           <p v-else>
-            {{ $t("france-connect-user-partial", [franceConnectTenantCount]) }}
+            {{ $t("filereinsurance.france-connect-user-partial", [franceConnectTenantCount]) }}
           </p>
         </NakedCard>
       </div>

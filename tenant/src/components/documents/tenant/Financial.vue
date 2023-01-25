@@ -6,8 +6,8 @@
     <div v-if="!editFinancialDocument">
       <NakedCard class="fr-p-md-5w fr-mb-3w">
         <div>
-          <h1 class="fr-h6">{{ $t("title") }}</h1>
-          <div>{{ $t("subtitle") }}</div>
+          <h1 class="fr-h6">{{ $t("financial.title") }}</h1>
+          <div>{{ $t("financial.subtitle") }}</div>
         </div>
       </NakedCard>
       <div v-for="(f, k) in financialDocuments" :key="k">
@@ -28,10 +28,10 @@
             <div
               class="text-bold"
               :class="{ declined: tenantFinancialDocument(f).documentStatus }"
-              :title="$t('net-monthly')"
+              :title="$t('financial.net-monthly')"
               v-show="f.documentType.key !== 'no-income'"
             >
-              {{ f.monthlySum }} {{ $t("monthly") }}
+              {{ f.monthlySum }} {{ $t("financial.monthly") }}
             </div>
           </template>
           <template v-slot:bottom>
@@ -49,7 +49,7 @@
           v-if="!hasNoIncome()"
           class="add-income-btn"
         >
-          {{ $t("add-income") }}
+          {{ $t("financial.add-income") }}
         </button>
       </div>
       <SimulationCaf class="fr-mt-4w" />
@@ -180,7 +180,7 @@ export default class Financial extends Vue {
   }
 
   private getDocumentName(document: FinancialDocument): string {
-    return this.$t(`documents.${document.documentType.key}`).toString();
+    return this.$t(`financial.documents.${document.documentType.key}`).toString();
   }
 }
 </script>

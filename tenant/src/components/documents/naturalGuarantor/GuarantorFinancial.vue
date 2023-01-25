@@ -8,8 +8,8 @@
     <div v-if="!editFinancialDocument">
       <NakedCard class="fr-p-md-5w fr-mb-3w">
         <div>
-          <h1 class="fr-h6">{{ $t("title") }}</h1>
-          <div>{{ $t("subtitle") }}</div>
+          <h1 class="fr-h6">{{ $t("guarantorfinancial.title") }}</h1>
+          <div>{{ $t("guarantorfinancial.subtitle") }}</div>
         </div>
       </NakedCard>
       <div v-for="(f, k) in financialDocuments" :key="k">
@@ -29,10 +29,10 @@
           <template v-slot:text>
             <div
               class="text-bold"
-              :title="$t('net-monthly')"
+              :title="$t('guarantorfinancial.net-monthly')"
               v-show="f.documentType.key !== 'no-income'"
             >
-              {{ f.monthlySum }} {{ $t("monthly") }}
+              {{ f.monthlySum }} {{ $t("guarantorfinancial.monthly") }}
             </div>
           </template>
           <template v-slot:bottom>
@@ -50,7 +50,7 @@
           v-if="!hasNoIncome()"
           class="add-income-btn"
         >
-          {{ $t("add-income") }}
+          {{ $t("guarantorfinancial.add-income") }}
         </button>
       </div>
       <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
@@ -184,7 +184,7 @@ export default class GuarantorFinancial extends Vue {
   }
 
   private getDocumentName(document: FinancialDocument): string {
-    return this.$t(`documents.${document.documentType.key}`).toString();
+    return this.$t(`guarantorfinancial.documents.${document.documentType.key}`).toString();
   }
 }
 </script>

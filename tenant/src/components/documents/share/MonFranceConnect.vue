@@ -1,14 +1,14 @@
 <template>
   <div class="mfc-box" v-if="isDisplayed()">
     <div class="optional fr-px-2w fr-pt-2w fr-pb-1w">
-      <span class="fr-tag">{{ $t("optional") }}</span>
+      <span class="fr-tag">{{ $t("monfranceconnect.optional") }}</span>
     </div>
     <div class="fr-px-2w fr-pb-3w">
       <div class="header fr-icon-attachment-line fr-pb-1w">
-        {{ $t("with-franceconnect-title") }}
+        {{ $t("monfranceconnect.with-franceconnect-title") }}
       </div>
       <div class="fr-px-4w">
-        <div>{{ $t("with-franceconnect-text") }}</div>
+        <div>{{ $t("monfranceconnect.with-franceconnect-text") }}</div>
         <button
           type="button"
           aria-label="Mes justificatifs avec Mon FranceConnect"

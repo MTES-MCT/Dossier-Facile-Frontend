@@ -1,12 +1,12 @@
 <template>
   <div>
     <NakedCard class="fr-mt-3w fr-p-md-5w" v-if="!documentsFilled()">
-      <div class="fr-text--bold">{{ $t("my-invalid-document") }}</div>
+      <div class="fr-text--bold">{{ $t("fileerrors.my-invalid-document") }}</div>
       <div v-if="!hasDoc('IDENTIFICATION')">
         <div class="fr-grid-row file-item">
-          <div>{{ $t("identification") }}</div>
+          <div>{{ $t("fileerrors.identification") }}</div>
           <DfButton class="update-btn" @on-click="openTenant(1)">
-            <div v-if="!isMobile()">{{ $t("update") }}</div>
+            <div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
             <div v-if="isMobile()">
               <span class="color--primary material-icons md-16">edit</span>
             </div>
@@ -15,9 +15,9 @@
       </div>
       <div v-if="!hasDoc('RESIDENCY')">
         <div class="fr-grid-row file-item">
-          <div>{{ $t("residency") }}</div>
+          <div>{{ $t("fileerrors.residency") }}</div>
           <DfButton class="update-btn" @on-click="openTenant(2)"
-            ><div v-if="!isMobile()">{{ $t("update") }}</div>
+            ><div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
             <div v-if="isMobile()">
               <span class="color--primary material-icons md-16">edit</span>
             </div></DfButton
@@ -26,9 +26,9 @@
       </div>
       <div v-if="!hasDoc('PROFESSIONAL')">
         <div class="fr-grid-row file-item">
-          <div>{{ $t("professional") }}</div>
+          <div>{{ $t("fileerrors.professional") }}</div>
           <DfButton class="update-btn" @on-click="openTenant(3)"
-            ><div v-if="!isMobile()">{{ $t("update") }}</div>
+            ><div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
             <div v-if="isMobile()">
               <span class="color--primary material-icons md-16">edit</span>
             </div></DfButton
@@ -37,9 +37,9 @@
       </div>
       <div v-if="!isFinancialValid()">
         <div class="fr-grid-row file-item">
-          <div>{{ $t("financial") }}</div>
+          <div>{{ $t("fileerrors.financial") }}</div>
           <DfButton class="update-btn" @on-click="openTenant(4)"
-            ><div v-if="!isMobile()">{{ $t("update") }}</div>
+            ><div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
             <div v-if="isMobile()">
               <span class="color--primary material-icons md-16">edit</span>
             </div></DfButton
@@ -48,9 +48,9 @@
       </div>
       <div v-if="!isTaxValid()">
         <div class="fr-grid-row file-item">
-          <div>{{ $t("tax") }}</div>
+          <div>{{ $t("fileerrors.tax") }}</div>
           <DfButton class="update-btn" @on-click="openTenant(5)"
-            ><div v-if="!isMobile()">{{ $t("update") }}</div>
+            ><div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
             <div v-if="isMobile()">
               <span class="color--primary material-icons md-16">edit</span>
             </div></DfButton
@@ -63,13 +63,13 @@
       <div v-if="g.typeGuarantor === 'NATURAL_PERSON'">
         <NakedCard v-if="!documentsGuarantorFilled(g)" class="fr-p-md-5w">
           <div class="fr-text--bold">
-            {{ $t("my-invalid-document-guarantor") }}
+            {{ $t("fileerrors.my-invalid-document-guarantor") }}
           </div>
           <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION')">
             <div class="fr-grid-row file-item">
-              <div>{{ $t("identification") }}</div>
+              <div>{{ $t("fileerrors.identification") }}</div>
               <DfButton class="update-btn" @on-click="openGuarantor(g, '1')"
-                ><div v-if="!isMobile()">{{ $t("update") }}</div>
+                ><div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
                 <div v-if="isMobile()">
                   <span class="color--primary material-icons md-16">edit</span>
                 </div></DfButton
@@ -78,9 +78,9 @@
           </div>
           <div v-if="!guarantorHasDoc(g, 'RESIDENCY')">
             <div class="fr-grid-row file-item">
-              <div>{{ $t("residency") }}</div>
+              <div>{{ $t("fileerrors.residency") }}</div>
               <DfButton class="update-btn" @on-click="openGuarantor(g, '2')"
-                ><div v-if="!isMobile()">{{ $t("update") }}</div>
+                ><div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
                 <div v-if="isMobile()">
                   <span class="color--primary material-icons md-16">edit</span>
                 </div></DfButton
@@ -89,9 +89,9 @@
           </div>
           <div v-if="!guarantorHasDoc(g, 'PROFESSIONAL')">
             <div class="fr-grid-row file-item">
-              <div>{{ $t("professional") }}</div>
+              <div>{{ $t("fileerrors.professional") }}</div>
               <DfButton class="update-btn" @on-click="openGuarantor(g, '3')"
-                ><div v-if="!isMobile()">{{ $t("update") }}</div>
+                ><div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
                 <div v-if="isMobile()">
                   <span class="color--primary material-icons md-16">edit</span>
                 </div></DfButton
@@ -100,9 +100,9 @@
           </div>
           <div v-if="!isGuarantorFinancialValid(g)">
             <div class="fr-grid-row file-item">
-              <div>{{ $t("financial") }}</div>
+              <div>{{ $t("fileerrors.financial") }}</div>
               <DfButton class="update-btn" @on-click="openGuarantor(g, '4')"
-                ><div v-if="!isMobile()">{{ $t("update") }}</div>
+                ><div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
                 <div v-if="isMobile()">
                   <span class="color--primary material-icons md-16">edit</span>
                 </div></DfButton
@@ -111,9 +111,9 @@
           </div>
           <div v-if="!isGuarantorTaxValid(g)">
             <div class="fr-grid-row file-item">
-              <div>{{ $t("tax") }}</div>
+              <div>{{ $t("fileerrors.tax") }}</div>
               <DfButton class="update-btn" @on-click="openGuarantor(g, '5')"
-                ><div v-if="!isMobile()">{{ $t("update") }}</div>
+                ><div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
                 <div v-if="isMobile()">
                   <span class="color--primary material-icons md-16">edit</span>
                 </div></DfButton
@@ -125,13 +125,13 @@
       <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
         <NakedCard v-if="!documentsGuarantorFilled(g)" class="fr-p-5w">
           <div class="fr-text--bold">
-            {{ $t("my-invalid-document-guarantor") }}
+            {{ $t("fileerrors.my-invalid-document-guarantor") }}
           </div>
           <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION')">
             <div class="fr-grid-row file-item">
-              <div>{{ $t("corporation-identification") }}</div>
+              <div>{{ $t("fileerrors.corporation-identification") }}</div>
               <DfButton class="update-btn" @on-click="openGuarantor(g, '1')"
-                ><div v-if="!isMobile()">{{ $t("update") }}</div>
+                ><div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
                 <div v-if="isMobile()">
                   <span class="color--primary material-icons md-16">edit</span>
                 </div></DfButton
@@ -140,10 +140,10 @@
           </div>
           <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION_LEGAL_PERSON')">
             <div class="fr-grid-row file-item">
-              <div>{{ $t("representative-identification") }}</div>
+              <div>{{ $t("fileerrors.representative-identification") }}</div>
 
               <DfButton class="update-btn" @on-click="openGuarantor(g, '2')"
-                ><div v-if="!isMobile()">{{ $t("update") }}</div>
+                ><div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
                 <div v-if="isMobile()">
                   <span class="color--primary material-icons md-16">edit</span>
                 </div></DfButton
@@ -155,13 +155,13 @@
       <div v-if="g.typeGuarantor === 'ORGANISM'">
         <NakedCard v-if="!documentsGuarantorFilled(g)" class="fr-p-5w">
           <div class="fr-text--bold">
-            {{ $t("my-invalid-document-guarantor") }}
+            {{ $t("fileerrors.my-invalid-document-guarantor") }}
           </div>
           <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION')">
             <div class="fr-grid-row file-item">
-              <div>{{ $t("organism-cert") }}</div>
+              <div>{{ $t("fileerrors.organism-cert") }}</div>
               <DfButton class="update-btn" @on-click="openGuarantor(g, '1')"
-                ><div v-if="!isMobile()">{{ $t("update") }}</div>
+                ><div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
                 <div v-if="isMobile()">
                   <span class="color--primary material-icons md-16">edit</span>
                 </div></DfButton
@@ -177,12 +177,12 @@
         class="fr-mt-3w fr-p-md-5w"
         v-if="user.applicationType === 'COUPLE' && !documentsFilled(tenant)"
       >
-        <div class="fr-text--bold">{{ $t("tenant-invalid-document") }}</div>
+        <div class="fr-text--bold">{{ $t("fileerrors.tenant-invalid-document") }}</div>
         <div v-if="!hasDoc('IDENTIFICATION', tenant)">
           <div class="fr-grid-row file-item">
-            <div>{{ $t("identification") }}</div>
+            <div>{{ $t("fileerrors.identification") }}</div>
             <DfButton class="update-btn" @on-click="openTenant('1', tenant)">
-              <div v-if="!isMobile()">{{ $t("update") }}</div>
+              <div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
               <div v-if="isMobile()">
                 <span class="color--primary material-icons md-16">edit</span>
               </div>
@@ -191,9 +191,9 @@
         </div>
         <div v-if="!hasDoc('RESIDENCY', tenant)">
           <div class="fr-grid-row file-item">
-            <div>{{ $t("residency") }}</div>
+            <div>{{ $t("fileerrors.residency") }}</div>
             <DfButton class="update-btn" @on-click="openTenant('2', tenant)"
-              ><div v-if="!isMobile()">{{ $t("update") }}</div>
+              ><div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
               <div v-if="isMobile()">
                 <span class="color--primary material-icons md-16">edit</span>
               </div></DfButton
@@ -202,9 +202,9 @@
         </div>
         <div v-if="!hasDoc('PROFESSIONAL', tenant)">
           <div class="fr-grid-row file-item">
-            <div>{{ $t("professional") }}</div>
+            <div>{{ $t("fileerrors.professional") }}</div>
             <DfButton class="update-btn" @on-click="openTenant('3', tenant)"
-              ><div v-if="!isMobile()">{{ $t("update") }}</div>
+              ><div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
               <div v-if="isMobile()">
                 <span class="color--primary material-icons md-16">edit</span>
               </div></DfButton
@@ -213,9 +213,9 @@
         </div>
         <div v-if="!isFinancialValid(tenant)">
           <div class="fr-grid-row file-item">
-            <div>{{ $t("financial") }}</div>
+            <div>{{ $t("fileerrors.financial") }}</div>
             <DfButton class="update-btn" @on-click="openTenant('4', tenant)"
-              ><div v-if="!isMobile()">{{ $t("update") }}</div>
+              ><div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
               <div v-if="isMobile()">
                 <span class="color--primary material-icons md-16">edit</span>
               </div></DfButton
@@ -224,9 +224,9 @@
         </div>
         <div v-if="!isTaxValid(tenant)">
           <div class="fr-grid-row file-item">
-            <div>{{ $t("tax") }}</div>
+            <div>{{ $t("fileerrors.tax") }}</div>
             <DfButton class="update-btn" @on-click="openTenant('5', tenant)"
-              ><div v-if="!isMobile()">{{ $t("update") }}</div>
+              ><div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
               <div v-if="isMobile()">
                 <span class="color--primary material-icons md-16">edit</span>
               </div></DfButton
@@ -239,16 +239,16 @@
         <div v-if="g.typeGuarantor === 'NATURAL_PERSON'">
           <NakedCard v-if="!documentsGuarantorFilled(g)" class="fr-p-md-5w">
             <div class="fr-text--bold">
-              {{ $t("tenant-invalid-document-guarantor") }}
+              {{ $t("fileerrors.tenant-invalid-document-guarantor") }}
             </div>
             <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION')">
               <div class="fr-grid-row file-item">
-                <div>{{ $t("identification") }}</div>
+                <div>{{ $t("fileerrors.identification") }}</div>
                 <DfButton
                   class="update-btn"
                   @on-click="openGuarantor(g, '1', tenant)"
                 >
-                  <div v-if="!isMobile()">{{ $t("update") }}</div>
+                  <div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
                   <div v-if="isMobile()">
                     <span class="color--primary material-icons md-16"
                       >edit</span
@@ -259,12 +259,12 @@
             </div>
             <div v-if="!guarantorHasDoc(g, 'RESIDENCY')">
               <div class="fr-grid-row file-item">
-                <div>{{ $t("residency") }}</div>
+                <div>{{ $t("fileerrors.residency") }}</div>
                 <DfButton
                   class="update-btn"
                   @on-click="openGuarantor(g, '2', tenant)"
                 >
-                  <div v-if="!isMobile()">{{ $t("update") }}</div>
+                  <div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
                   <div v-if="isMobile()">
                     <span class="color--primary material-icons md-16"
                       >edit</span
@@ -275,12 +275,12 @@
             </div>
             <div v-if="!guarantorHasDoc(g, 'PROFESSIONAL')">
               <div class="fr-grid-row file-item">
-                <div>{{ $t("professional") }}</div>
+                <div>{{ $t("fileerrors.professional") }}</div>
                 <DfButton
                   class="update-btn"
                   @on-click="openGuarantor(g, '3', tenant)"
                 >
-                  <div v-if="!isMobile()">{{ $t("update") }}</div>
+                  <div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
                   <div v-if="isMobile()">
                     <span class="color--primary material-icons md-16"
                       >edit</span
@@ -291,12 +291,12 @@
             </div>
             <div v-if="!isGuarantorFinancialValid(g)">
               <div class="fr-grid-row file-item">
-                <div>{{ $t("financial") }}</div>
+                <div>{{ $t("fileerrors.financial") }}</div>
                 <DfButton
                   class="update-btn"
                   @on-click="openGuarantor(g, '4', tenant)"
                 >
-                  <div v-if="!isMobile()">{{ $t("update") }}</div>
+                  <div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
                   <div v-if="isMobile()">
                     <span class="color--primary material-icons md-16"
                       >edit</span
@@ -307,12 +307,12 @@
             </div>
             <div v-if="!isGuarantorTaxValid(g)">
               <div class="fr-grid-row file-item">
-                <div>{{ $t("tax") }}</div>
+                <div>{{ $t("fileerrors.tax") }}</div>
                 <DfButton
                   class="update-btn"
                   @on-click="openGuarantor(g, '5', tenant)"
                 >
-                  <div v-if="!isMobile()">{{ $t("update") }}</div>
+                  <div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
                   <div v-if="isMobile()">
                     <span class="color--primary material-icons md-16"
                       >edit</span
@@ -326,16 +326,16 @@
         <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
           <NakedCard v-if="!documentsGuarantorFilled(g)" class="fr-p-5w">
             <div class="fr-text--bold">
-              {{ $t("tenant-invalid-document-guarantor") }}
+              {{ $t("fileerrors.tenant-invalid-document-guarantor") }}
             </div>
             <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION')">
               <div class="fr-grid-row file-item">
-                <div>{{ $t("corporation-identification") }}</div>
+                <div>{{ $t("fileerrors.corporation-identification") }}</div>
                 <DfButton
                   class="update-btn"
                   @on-click="openGuarantor(g, '1', tenant)"
                 >
-                  <div v-if="!isMobile()">{{ $t("update") }}</div>
+                  <div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
                   <div v-if="isMobile()">
                     <span class="color--primary material-icons md-16"
                       >edit</span
@@ -346,13 +346,13 @@
             </div>
             <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION_LEGAL_PERSON')">
               <div class="fr-grid-row file-item">
-                <div>{{ $t("representative-identification") }}</div>
+                <div>{{ $t("fileerrors.representative-identification") }}</div>
 
                 <DfButton
                   class="update-btn"
                   @on-click="openGuarantor(g, '2', tenant)"
                 >
-                  <div v-if="!isMobile()">{{ $t("update") }}</div>
+                  <div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
                   <div v-if="isMobile()">
                     <span class="color--primary material-icons md-16"
                       >edit</span
@@ -366,16 +366,16 @@
         <div v-if="g.typeGuarantor === 'ORGANISM'">
           <NakedCard v-if="!documentsGuarantorFilled(g)" class="fr-p-5w">
             <div class="fr-text--bold">
-              {{ $t("tenant-invalid-document-guarantor") }}
+              {{ $t("fileerrors.tenant-invalid-document-guarantor") }}
             </div>
             <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION')">
               <div class="fr-grid-row file-item">
-                <div>{{ $t("organism-cert") }}</div>
+                <div>{{ $t("fileerrors.organism-cert") }}</div>
                 <DfButton
                   class="update-btn"
                   @on-click="openGuarantor(g, '1', tenant)"
                 >
-                  <div v-if="!isMobile()">{{ $t("update") }}</div>
+                  <div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
                   <div v-if="isMobile()">
                     <span class="color--primary material-icons md-16"
                       >edit</span

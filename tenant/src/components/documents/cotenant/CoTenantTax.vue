@@ -19,7 +19,7 @@
         >
           <div class="fr-input-group">
             <label class="fr-label" for="customText">{{
-              $t("custom-text")
+              $t("cotenanttax.custom-text")
             }}</label>
             <input
               v-model="document.customText"
@@ -118,7 +118,7 @@ export default class CoTenantTax extends Vue {
         formData.append("customText", this.document.customText);
       } else {
         // TODO : replace by form and validation
-        this.$toasted.show(this.$i18n.t("custom-text-required").toString(), {
+        this.$toasted.show(this.$i18n.t("cotenanttax.custom-text-required").toString(), {
           type: "error",
           duration: 7000
         });

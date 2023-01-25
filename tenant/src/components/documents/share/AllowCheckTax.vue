@@ -2,21 +2,21 @@
   <div class="allowtax-container">
     <NakedCard class="fr-p-md-5w bg-transparent">
       <h6 class="header fr-icon-attachment-line fr-pb-1w fr-h6">
-        {{ $t("automatic-tax-title") }}
+        {{ $t("allowchecktax.automatic-tax-title") }}
       </h6>
       <div class="auth-tax-container">
         <div>
-          {{ $t("automatic-tax-p1") }}
+          {{ $t("allowchecktax.automatic-tax-p1") }}
         </div>
         <ul>
-          <li>{{ $t("automatic-tax-l1") }}</li>
-          <li>{{ $t("automatic-tax-l2") }}</li>
-          <li>{{ $t("automatic-tax-l3") }}</li>
-          <li>{{ $t("automatic-tax-l4") }}</li>
+          <li>{{ $t("allowchecktax.automatic-tax-l1") }}</li>
+          <li>{{ $t("allowchecktax.automatic-tax-l2") }}</li>
+          <li>{{ $t("allowchecktax.automatic-tax-l3") }}</li>
+          <li>{{ $t("allowchecktax.automatic-tax-l4") }}</li>
         </ul>
         <i18n path="automatic-tax-p2" tag="div">
           <template v-slot:label>
-            <span class="bold-italic">{{ $t("dgfip-approved-label") }}</span>
+            <span class="bold-italic">{{ $t("allowchecktax.dgfip-approved-label") }}</span>
           </template>
         </i18n>
         <div class="tax-btn-container">
@@ -27,7 +27,7 @@
             class="fr-col-md-3 fr-col-12 disallow-btn no-max-width"
             :class="{ selected: allowTax === 'disallow' }"
           >
-            <span>{{ $t("forbid-tax") }}</span>
+            <span>{{ $t("allowchecktax.forbid-tax") }}</span>
           </BigRadio>
           <BigRadio
             :val="'allow'"
@@ -36,23 +36,23 @@
             class="fr-col-md-9 fr-col-12 blue-text no-max-width"
             :class="{ selected: allowTax === 'allow' }"
           >
-            <span>{{ $t("allow-tax") }}</span>
+            <span>{{ $t("allowchecktax.allow-tax") }}</span>
           </BigRadio>
         </div>
       </div>
     </NakedCard>
     <ConfirmModal
       v-if="showConfirmDeclineModal"
-      :validateBtnText="$t('modal.disable-button').toString()"
+      :validateBtnText="$t('allowchecktax.modal.disable-button').toString()"
       @valid="confirmDecline()"
       @cancel="showConfirmDeclineModal = false"
     >
       <i18n path="modal.warning-text" tag="p">
         <template v-slot:check>
-          <span class="fr-text--bold">{{ $t("modal.automatic-check") }}</span>
+          <span class="fr-text--bold">{{ $t("allowchecktax.modal.automatic-check") }}</span>
         </template>
         <template v-slot:label>
-          <span class="bold-italic">{{ $t("dgfip-approved-label") }}</span>
+          <span class="bold-italic">{{ $t("allowchecktax.dgfip-approved-label") }}</span>
         </template>
       </i18n>
     </ConfirmModal>

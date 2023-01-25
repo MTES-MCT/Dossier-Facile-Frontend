@@ -14,22 +14,22 @@
             </h1>
             <div class="fr-callout warning fr-callout-white" v-if="isDenied()">
               <h2 class="fr-text-title--grey fr-h4">
-                {{ $t("amendment-required-title") }}
+                {{ $t("account.amendment-required-title") }}
               </h2>
               <p
                 class="fr-callout__text"
-                v-html="$t('amendment-required-text')"
+                v-html="$t('account.amendment-required-text')"
               ></p>
               <DfButton @on-click="goToMessaging" primary="true">{{
-                $t("messaging")
+                $t("account.messaging")
               }}</DfButton>
             </div>
             <div class="fr-callout fr-callout-white" v-if="canCopyLink()">
               <h2 class="fr-text-title--grey fr-h4">
-                {{ $t("congratulations-title") }}
+                {{ $t("account.congratulations-title") }}
               </h2>
-              <p class="fr-mb-3w" v-html="$t('congratulations-text-1')"></p>
-              <p v-html="$t('congratulations-text-2')"></p>
+              <p class="fr-mb-3w" v-html="$t('account.congratulations-text-1')"></p>
+              <p v-html="$t('account.congratulations-text-2')"></p>
             </div>
             <div class="main fr-mt-5w fr-p-4w bg-white">
               <div class="main-bar fr-grid-row">
@@ -37,7 +37,7 @@
                   <h2
                     class="fr-text-title--grey fr-h4 fr-mr-2w fr-mb-0 fr-mt-0"
                   >
-                    {{ $t("my-file") }}
+                    {{ $t("account.my-file") }}
                   </h2>
                 </div>
                 <span class="spacer"></span>
@@ -48,7 +48,7 @@
                     primary="true"
                     size="small"
                     :disabled="!canCopyLink()"
-                    >{{ $t("copy-link") }}</DfButton
+                    >{{ $t("account.copy-link") }}</DfButton
                   >
                   <div class="grp">
                     <button
@@ -68,9 +68,9 @@
                       >
                     </button>
                     <div class="grp-modal bg-white" v-show="radioVisible">
-                      <h3 class="fr-h4">{{ $t("share-file") }}</h3>
+                      <h3 class="fr-h4">{{ $t("account.share-file") }}</h3>
                       <p class="share-file-description">
-                        {{ $t("share-file-description") }}
+                        {{ $t("account.share-file-description") }}
                       </p>
                       <div>
                         <div class="flex copy-btn">
@@ -80,8 +80,8 @@
                             :class="{ copied: publicLinkCopied }"
                             v-html="
                               publicLinkCopied
-                                ? $t('public-link-copied')
-                                : $t('file-resume')
+                                ? $t('account.public-link-copied')
+                                : $t('account.file-resume')
                             "
                           ></button>
                         </div>
@@ -92,8 +92,8 @@
                             :class="{ copied: fullLinkCopied }"
                             v-html="
                               fullLinkCopied
-                                ? $t('full-link-copied')
-                                : $t('file-full')
+                                ? $t('account.full-link-copied')
+                                : $t('account.file-full')
                             "
                           ></button>
                         </div>
@@ -111,7 +111,7 @@
                 <p
                   class="description"
                   v-html="
-                    $t('status-description', [
+                    $t('account.status-description', [
                       getFirstName(),
                       getPersonnalStatus(),
                       getProfession(),
@@ -126,9 +126,9 @@
               >
                 <h3 class="fr-h4 dflex">
                   <span class="material-icons-outlined md-28">timer</span
-                  >&nbsp;<span>{{ $t("instructional-time-title") }}</span>
+                  >&nbsp;<span>{{ $t("account.instructional-time-title") }}</span>
                 </h3>
-                <p v-html="$t('instructional-time-text')"></p>
+                <p v-html="$t('account.instructional-time-text')"></p>
               </div>
             </div>
             <div class="fr-mt-2w fr-p-0w">
@@ -168,7 +168,7 @@
                           <ColoredTag
                             class="fr-col-xs-12 fr-col"
                             :status="tenant.status"
-                            :text="$t('dossier.status.' + tenant.status)"
+                            :text="$t('account.dossier.status.' + tenant.status)"
                           ></ColoredTag>
                         </div>
                       </button>
@@ -196,7 +196,7 @@
             <PartnersSection />
 
             <div class="delete">
-              <h2 class="fr-pt-4w fr-pb-2w">{{ $t("delete") }}</h2>
+              <h2 class="fr-pt-4w fr-pb-2w">{{ $t("account.delete") }}</h2>
               <div class="bg-white fr-p-4w">
                 <p>
                   Vous pouvez supprimer votre compte DossierFacile à tout
@@ -209,7 +209,7 @@
                     class="delete-btn"
                     primary="true"
                     @on-click="isDeleteModalVisible = true"
-                    >{{ $t("delete-account") }}</DfButton
+                    >{{ $t("account.delete-account") }}</DfButton
                   >
                 </div>
                 <DeleteAccount
@@ -219,7 +219,7 @@
               </div>
             </div>
             <div class="opinion fr-mb-5w">
-              <h2 class="fr-pt-4w fr-pb-2w">{{ $t("opinion") }}</h2>
+              <h2 class="fr-pt-4w fr-pb-2w">{{ $t("account.opinion") }}</h2>
               <div class="bg-white fr-p-4w">
                 <p>
                   Nous cherchons constamment à améliorer la qualité de notre
@@ -406,7 +406,7 @@ export default class Account extends Vue {
   copyLink(url: string) {
     try {
       navigator.clipboard.writeText(url);
-      this.$toasted.show(this.$i18n.t("copied").toString(), {
+      this.$toasted.show(this.$i18n.t("account.copied").toString(), {
         type: "success",
         duration: 3000
       });
@@ -432,7 +432,7 @@ export default class Account extends Vue {
       this.user?.apartmentSharing?.tenants !== undefined &&
       this.user.applicationType === "ALONE"
     ) {
-      return this.$i18n.t("ALONE");
+      return this.$i18n.t("account.ALONE");
     }
     if (this.user.applicationType === "COUPLE") {
       const spouse = this.user?.apartmentSharing?.tenants?.find((t: User) => {
@@ -443,7 +443,7 @@ export default class Account extends Vue {
           .t("couple-with", [`${spouse?.firstName} ${spouse?.lastName}`])
           .toString();
       }
-      return this.$i18n.t("couple-with", [this.$i18n.t("someone")]).toString();
+      return this.$i18n.t("account.couple-with", [this.$i18n.t("someone")]).toString();
     }
 
     const roommates = this.user?.apartmentSharing?.tenants
@@ -456,9 +456,9 @@ export default class Account extends Vue {
 
     const listNames = roommates?.join(", ");
     if (!listNames || listNames.includes("undefined")) {
-      return this.$i18n.t("group-with-someone").toString();
+      return this.$i18n.t("account.group-with-someone").toString();
     }
-    return this.$i18n.t("group-with", [listNames]).toString();
+    return this.$i18n.t("account.group-with", [listNames]).toString();
   }
 
   getProfession() {
@@ -478,9 +478,9 @@ export default class Account extends Vue {
       })
       .reduce((sum, current) => sum + (current.monthlySum || 0), 0);
     if (sum === 0) {
-      return this.$i18n.t("no-income");
+      return this.$i18n.t("account.no-income");
     }
-    return this.$i18n.t("income", [sum]);
+    return this.$i18n.t("account.income", [sum]);
   }
 
   getFirstName() {

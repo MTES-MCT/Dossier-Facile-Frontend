@@ -1,8 +1,8 @@
 <template>
 <div>
-      <p v-html="$t('paragraph1')"></p>
-      <p v-html="$t('paragraph2')"></p>
-      <p v-html="$t('paragraph3')"></p>
+      <p v-html="$t('nameinformationhelp.paragraph1')"></p>
+      <p v-html="$t('nameinformationhelp.paragraph2')"></p>
+      <p v-html="$t('nameinformationhelp.paragraph3')"></p>
 </div>
 </template>
 

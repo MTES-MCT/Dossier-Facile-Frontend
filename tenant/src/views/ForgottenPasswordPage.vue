@@ -7,10 +7,10 @@
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-12">
               <p>
-                {{ $t("mail-sent") }}
+                {{ $t("forgottenpasswordpage.mail-sent") }}
               </p>
               <p>
-                {{ $t("clic-to-confirm") }}
+                {{ $t("forgottenpasswordpage.clic-to-confirm") }}
               </p>
             </div>
           </div>
@@ -43,7 +43,7 @@ export default class ForgottenPasswordPage extends Vue {
           this.isValidModalVisible = true;
         },
         () => {
-          this.$toasted.show(this.$i18n.t("email-not-found").toString(), {
+          this.$toasted.show(this.$i18n.t("forgottenpasswordpage.email-not-found").toString(), {
             type: "error",
             duration: 7000
           });

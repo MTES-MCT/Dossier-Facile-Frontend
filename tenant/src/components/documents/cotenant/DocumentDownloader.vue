@@ -3,9 +3,9 @@
     <NakedCard class="fr-p-md-5w">
       <div>
         <h1 class="fr-h6">
-          {{ $parent.$t("title") }}
+          {{ $parent.$t("documentdownloader.title") }}
         </h1>
-        <p v-if="$parent.$te('description')">{{ $parent.$t("description") }}</p>
+        <p v-if="$parent.$te('description')">{{ $parent.$t("documentdownloader.description") }}</p>
 
         <TroubleshootingModal>
           <DocumentHelp></DocumentHelp>
@@ -79,7 +79,7 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-files") }}</span>
+      <span>{{ $t("documentdownloader.will-delete-files") }}</span>
     </ConfirmModal>
 
     <slot name="after-select-block"></slot>
@@ -88,7 +88,7 @@
       v-if="showDownloader && (document.key || documentFiles.length > 0)"
     >
       <div class="fr-mb-3w">
-        <p v-html="$t(`explanation-text.cotenant.${document.key}`)"></p>
+        <p v-html="$t(`documentdownloader.explanation-text.cotenant.${document.key}`)"></p>
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
@@ -128,8 +128,8 @@
         <label for="noDocument">
           {{
             document
-              ? $parent.$t("noDocument-" + document.key)
-              : $t("noDocument-default")
+              ? $parent.$t("documentdownloader.noDocument-" + document.key)
+              : $t("documentdownloader.noDocument-default")
           }}
         </label>
       </div>
@@ -146,7 +146,7 @@
         >
           <div class="fr-input-group">
             <label class="fr-label" for="customText">
-              {{ $parent.$t(`customText-${document.key}`) }}
+              {{ $parent.$t(`documentdownloader.customText-${document.key}`) }}
             </label>
             <textarea
               v-model="dfDocument.customText"
@@ -191,7 +191,7 @@
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-12">
               <p>
-                {{ $t("warning-no-document-and-files") }}
+                {{ $t("documentdownloader.warning-no-document-and-files") }}
               </p>
             </div>
           </div>
@@ -407,7 +407,7 @@ export default class DocumentDownloader extends Vue {
       futurLength > this.document.maxFileCount
     ) {
       Vue.toasted.global.max_file({
-        message: this.$i18n.t("max-file", [
+        message: this.$i18n.t("documentdownloader.max-file", [
           futurLength,
           this.document.maxFileCount
         ])

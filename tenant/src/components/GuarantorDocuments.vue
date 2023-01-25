@@ -63,7 +63,7 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-guarantor") }}</span>
+      <span>{{ $t("guarantordocuments.will-delete-guarantor") }}</span>
     </ConfirmModal>
   </div>
 </template>

@@ -4,13 +4,13 @@
       <ValidationObserver v-slot="{ invalid }">
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12">
-            <h6>{{ $t("title") }}</h6>
+            <h6>{{ $t("roommatesinformation.title") }}</h6>
             <v-gouv-fr-modal>
               <template v-slot:button>
-                <span class="small-font">{{ $t("more-information") }}</span>
+                <span class="small-font">{{ $t("roommatesinformation.more-information") }}</span>
               </template>
               <template v-slot:title>
-                {{ $t("more-information") }}
+                {{ $t("roommatesinformation.more-information") }}
               </template>
               <template v-slot:content>
                 <p>
@@ -21,7 +21,7 @@
           </div>
           <div class="fr-col-12 fr-mt-2w">
             <div v-if="showEmailExists" class="fr-callout">
-              <p class="fr-mb-1w" v-html="$t('email-exists')"></p>
+              <p class="fr-mb-1w" v-html="$t('roommatesinformation.email-exists')"></p>
             </div>
             <div v-if="value.length > 0">
               <div
@@ -56,7 +56,7 @@
                     <div class="fr-col-2 center-icon">
                       <button
                         class="fr-btn fr-btn--secondary icon-btn"
-                        :title="$t('delete')"
+                        :title="$t('roommatesinformation.delete')"
                         @click="remove(roommate)"
                         type="button"
                       >
@@ -71,7 +71,7 @@
             </div>
           </div>
           <div class="fr-col-12 fr-col-xl-7 fr-mt-2w">
-            <label class="fr-label fr-mb-1w">{{ $t("roommateEmail") }}</label>
+            <label class="fr-label fr-mb-1w">{{ $t("roommatesinformation.roommateEmail") }}</label>
             <validation-provider
               :rules="{ email: true, required: value.length == 0 }"
               v-slot="{ errors }"
@@ -100,7 +100,7 @@
                 class="full-width-xs"
                 :fullWidth="isMobile()"
                 :secondary="true"
-                :label="$t('add-a-roommate')"
+                :label="$t('roommatesinformation.add-a-roommate')"
                 :btn-type="'button'"
                 @click="addMail"
                 :disabled="invalid"
@@ -124,7 +124,7 @@
               v-model="authorize"
               @change="updateAuthorize()"
             />
-            <label for="authorize">{{ $t("acceptAuthor") }}</label>
+            <label for="authorize">{{ $t("roommatesinformation.acceptAuthor") }}</label>
             <span class="fr-error-text" v-if="errors[0]">{{
               $t(errors[0])
             }}</span>

@@ -5,15 +5,15 @@
         <div class="bg-pic">
           <div class="max-550 left-row fr-pt-3w fr-mt-7w fr-mb-7w">
             <h2 class="fr-h4 my-file">
-              {{ $t("my-file") }} <em>Dossier</em>Facile
+              {{ $t("signuppage.my-file") }} <em>Dossier</em>Facile
             </h2>
             <p class="my-file-subtitle">
-              {{ $t("my-file-subtitle") }}
-              <strong>{{ $t("my-file-subtitle2") }}</strong>
+              {{ $t("signuppage.my-file-subtitle") }}
+              <strong>{{ $t("signuppage.my-file-subtitle2") }}</strong>
             </p>
           </div>
           <div class="bg-white max-550 left-row fr-p-md-5w fr-mt-7w fr-mb-7w">
-            <p><em>Dossier</em><strong>Facile</strong> {{ $t("help-you") }}</p>
+            <p><em>Dossier</em><strong>Facile</strong> {{ $t("signuppage.help-you") }}</p>
             <p>
               🔐 à constituer un
               <strong>dossier numérique conforme, sécurisé</strong> et
@@ -34,7 +34,7 @@
       <div class="fr-col-lg-6 fr-col-12 bg-white">
         <div class="fr-mt-2w align-end">
           <router-link to="/account" class="fr-tag">
-            {{ $t("connect") }}
+            {{ $t("signuppage.connect") }}
           </router-link>
         </div>
         <div class="margin-auto max-400">
@@ -48,10 +48,10 @@
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-12">
               <p>
-                {{ $t("mail-sent") }}
+                {{ $t("signuppage.mail-sent") }}
               </p>
               <p>
-                {{ $t("clic-to-confirm") }}
+                {{ $t("signuppage.clic-to-confirm") }}
               </p>
             </div>
           </div>
@@ -97,12 +97,12 @@ export default class SignupPage extends Vue {
               "email: the emails are already being used"
             ) || -1) >= 0
           ) {
-            this.$toasted.show(this.$i18n.t("duplicate-email").toString(), {
+            this.$toasted.show(this.$i18n.t("signuppage.duplicate-email").toString(), {
               type: "error",
               duration: 7000
             });
           } else {
-            this.$toasted.show(this.$i18n.t("register-error").toString(), {
+            this.$toasted.show(this.$i18n.t("signuppage.register-error").toString(), {
               type: "error",
               duration: 7000
             });

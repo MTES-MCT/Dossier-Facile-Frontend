@@ -3,7 +3,7 @@
     <NakedCard class="fr-p-md-5w fr-mb-2w">
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12">
-          <h1 class="fr-h6">{{ $t("partner-name-title") }}</h1>
+          <h1 class="fr-h6">{{ $t("coupleinformation.partner-name-title") }}</h1>
         </div>
         <div class="fr-col-12 fr-mb-3w">
           <validation-provider rules="required" v-slot="{ errors }">
@@ -12,7 +12,7 @@
               :class="errors[0] ? 'fr-input-group--error' : ''"
             >
               <FieldLabel :required="true">
-                {{ $t("spouseLastName") }}
+                {{ $t("coupleinformation.spouseLastName") }}
               </FieldLabel>
               <input
                 v-model="coTenant.lastName"
@@ -40,7 +40,7 @@
               :class="errors[0] ? 'fr-input-group--error' : ''"
             >
               <FieldLabel :required="true">
-                {{ $t("spouseFirstName") }}
+                {{ $t("coupleinformation.spouseFirstName") }}
               </FieldLabel>
               <input
                 v-model="coTenant.firstName"
@@ -64,13 +64,13 @@
     <NakedCard class="fr-p-md-5w fr-mb-2w">
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12">
-          <h1 class="fr-h6">{{ $t("partner-email-title") }}</h1>
+          <h1 class="fr-h6">{{ $t("coupleinformation.partner-email-title") }}</h1>
           <v-gouv-fr-modal>
             <template v-slot:button>
-              <span class="small-font">{{ $t("more-information") }}</span>
+              <span class="small-font">{{ $t("coupleinformation.more-information") }}</span>
             </template>
             <template v-slot:title>
-              {{ $t("more-information") }}
+              {{ $t("coupleinformation.more-information") }}
             </template>
             <template v-slot:content>
               <p>
@@ -89,7 +89,7 @@
               :class="errors[0] ? 'fr-input-group--error' : ''"
             >
               <FieldLabel>
-                {{ $t("spouseEmail") }}
+                {{ $t("coupleinformation.spouseEmail") }}
               </FieldLabel>
               <input
                 v-model="coTenant.email"
@@ -129,7 +129,7 @@
               v-model="authorize"
               @change="updateAuthorize()"
             />
-            <label for="authorize">{{ $t("acceptAuthor") }}</label>
+            <label for="authorize">{{ $t("coupleinformation.acceptAuthor") }}</label>
             <span class="fr-error-text" v-if="errors[0]">{{
               $t(errors[0])
             }}</span>

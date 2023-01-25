@@ -1,6 +1,6 @@
 <template>
   <div class="partners">
-    <h2 class="fr-pt-4w fr-pb-2w">{{ $t("partners-services-section") }}</h2>
+    <h2 class="fr-pt-4w fr-pb-2w">{{ $t("partnerssection.partners-services-section") }}</h2>
     <div class="fr-grid-row fr-grid-row--gutters">
       <div class="fr-col-md-6 fr-col-12">
         <div class="fr-tile bg-purple fr-p-3w cleana">
@@ -10,9 +10,9 @@
               href="https://www.anil.org/lanil-et-les-adil/votre-adil/"
               rel="noreferrer"
               target="_blank"
-              :title="$t('go-to-anil')"
+              :title="$t('partnerssection.go-to-anil')"
             >
-              {{ $t("anil-btn") }}
+              {{ $t("partnerssection.anil-btn") }}
             </a>
           </div>
           <div class="service-box-content">
@@ -22,9 +22,9 @@
               src="../../assets/anil.png"
             />
             <div>
-              <h3 class="fr-h5">{{ $t("anil-title") }}</h3>
+              <h3 class="fr-h5">{{ $t("partnerssection.anil-title") }}</h3>
             </div>
-            <div class="fr-m-0 fr-py-2w">{{ $t("anil-text") }}</div>
+            <div class="fr-m-0 fr-py-2w">{{ $t("partnerssection.anil-text") }}</div>
           </div>
         </div>
       </div>
@@ -36,9 +36,9 @@
               href="https://www.mesdroitssociaux.gouv.fr/votre-simulateur/accueil"
               rel="noreferrer"
               target="_blank"
-              :title="$t('go-to-mds')"
+              :title="$t('partnerssection.go-to-mds')"
             >
-              {{ $t("mds-btn") }}
+              {{ $t("partnerssection.mds-btn") }}
             </a>
           </div>
           <div class=" service-box-content">
@@ -49,9 +49,9 @@
             />
 
             <div>
-              <h3 class="fr-h5">{{ $t("mds-title") }}</h3>
+              <h3 class="fr-h5">{{ $t("partnerssection.mds-title") }}</h3>
             </div>
-            <div class="fr-m-0 fr-py-2w">{{ $t("mds-text") }}</div>
+            <div class="fr-m-0 fr-py-2w">{{ $t("partnerssection.mds-text") }}</div>
           </div>
         </div>
       </div>

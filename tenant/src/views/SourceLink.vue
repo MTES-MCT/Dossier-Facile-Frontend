@@ -43,7 +43,7 @@
         </div>
       </div>
       <div class="fr-col-lg-6 fr-col-12 bg-white">
-        <h1 class="fr-text--sm">{{ $t("will-link-to-partner") }}</h1>
+        <h1 class="fr-text--sm">{{ $t("sourcelink.will-link-to-partner") }}</h1>
       </div>
     </div>
     <ConfirmModal
@@ -51,7 +51,7 @@
       @valid="validModal()"
       @cancel="closeConfirmModal()"
     >
-      <span>{{ $t("will-link-to-partner") }}</span>
+      <span>{{ $t("sourcelink.will-link-to-partner") }}</span>
     </ConfirmModal>
   </div>
 </template>
@@ -110,14 +110,14 @@ export default class SourceLink extends Vue {
   validModal() {
     RegisterService.connectSource(this.internalPartnerId, this.source)
       .then(() => {
-        this.$toasted.show(this.$i18n.t("connected").toString(), {
+        this.$toasted.show(this.$i18n.t("sourcelink.connected").toString(), {
           type: "success",
           duration: 3000
         });
         this.$router.push("/account");
       })
       .catch(() => {
-        this.$toasted.show(this.$i18n.t("register-error").toString(), {
+        this.$toasted.show(this.$i18n.t("sourcelink.register-error").toString(), {
           type: "error",
           duration: 7000
         });

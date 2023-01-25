@@ -5,7 +5,7 @@
         <NakedCard class="fr-p-md-5w fr-mb-3w">
           <div>
             <h1 class="fr-h6">
-              {{ $t("financial") }}
+              {{ $t("financialdocumentform.financial") }}
             </h1>
 
             <TroubleshootingModal>
@@ -33,7 +33,7 @@
                         @input="onSelectChange()"
                       >
                         <div class="fr-grid-col spa">
-                          <span>{{ $t(`documents.${d.key}`) }}</span>
+                          <span>{{ $t(`financialdocumentform.documents.${d.key}`) }}</span>
                         </div>
                       </BigRadio>
                     </div>
@@ -71,11 +71,11 @@
                       }"
                     >
                       <label for="monthlySum" class="fr-label"
-                        >{{ $t("monthlySum-label") }} :</label
+                        >{{ $t("financialdocumentform.monthlySum-label") }} :</label
                       >
                       <input
                         id="monthlySum"
-                        :placeholder="$t('monthlySum')"
+                        :placeholder="$t('financialdocumentform.monthlySum')"
                         type="number"
                         min="0"
                         step="1"
@@ -95,7 +95,7 @@
                         class="fr-error-text"
                         v-if="financialDocument.monthlySum > 10000"
                       >
-                        {{ $t("high-salary") }}
+                        {{ $t("financialdocumentform.high-salary") }}
                       </span>
                       <span
                         class="fr-error-text"
@@ -104,7 +104,7 @@
                             financialDocument.monthlySum <= 0
                         "
                       >
-                        {{ $t("low-salary") }}
+                        {{ $t("financialdocumentform.low-salary") }}
                       </span>
                     </div>
                   </validation-provider>
@@ -126,7 +126,7 @@
                 <p
                   v-html="
                     $t(
-                      `explanation-text.tenant.${financialDocument.documentType.key}`
+                      `financialdocumentform.explanation-text.tenant.${financialDocument.documentType.key}`
                     )
                   "
                 ></p>
@@ -177,7 +177,7 @@
                   <div class="fr-input-group">
                     <label class="fr-label" for="customText">
                       {{
-                        $t(`customText-${financialDocument.documentType.key}`)
+                        $t(`financialdocumentform.customText-${financialDocument.documentType.key}`)
                       }}
                     </label>
                     <textarea
@@ -216,12 +216,12 @@
       "
     >
       <NakedCard class="fr-p-md-5w fr-mb-3w">
-        {{ $t("has-no-income") }}
+        {{ $t("financialdocumentform.has-no-income") }}
         <ValidationObserver v-slot="{ validate, valid }">
           <form name="customTextForm" @submit.prevent="validate().then(save)">
             <div class="fr-input-group">
               <label class="fr-label" for="customTextNoDocument">
-                {{ $t("custom-text") }}
+                {{ $t("financialdocumentform.custom-text") }}
               </label>
               <textarea
                 v-model="financialDocument.customText"
@@ -249,7 +249,7 @@
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-12">
               <p>
-                {{ $t("warning-no-income-and-file") }}
+                {{ $t("financialdocumentform.warning-no-income-and-file") }}
               </p>
             </div>
           </div>
@@ -261,7 +261,7 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-files") }}</span>
+      <span>{{ $t("financialdocumentform.will-delete-files") }}</span>
     </ConfirmModal>
   </div>
 </template>
@@ -462,7 +462,7 @@ export default class FinancialDocumentForm extends Vue {
         this.financialDocument.documentType.key !== "no-income"
       ) {
         Vue.toasted.global.max_file({
-          message: this.$i18n.t("missing-file")
+          message: this.$i18n.t("financialdocumentform.missing-file")
         });
         return Promise.reject(new Error("missing-file"));
       }
@@ -473,7 +473,7 @@ export default class FinancialDocumentForm extends Vue {
           this.financialDocument.documentType.maxFileCount
       ) {
         Vue.toasted.global.max_file({
-          message: this.$i18n.t("max-file", [
+          message: this.$i18n.t("financialdocumentform.max-file", [
             this.financialFiles().length,
             this.financialDocument.documentType.maxFileCount
           ])

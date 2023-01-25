@@ -8,7 +8,7 @@
             :class="errors[0] ? 'fr-input-group--error' : ''"
           >
             <label class="fr-label" for="organismName"
-              >{{ $t("organism-name") }} :</label
+              >{{ $t("corporationidentification.organism-name") }} :</label
             >
             <input
               v-model="organismName"
@@ -19,7 +19,7 @@
               }"
               id="organismName"
               name="organismName"
-              :placeholder="$t('organism-name-placeholder')"
+              :placeholder="$t('corporationidentification.organism-name-placeholder')"
               type="text"
               required
             />
@@ -32,7 +32,7 @@
       <NakedCard class="fr-mt-3w fr-p-md-5w">
         <div>
           <h1 class="fr-label">
-            {{ $t("kbis-label") }}
+            {{ $t("corporationidentification.kbis-label") }}
           </h1>
           <TroubleshootingModal>
             <DocumentInsert
@@ -119,14 +119,14 @@ export default class CorporationIdentification extends Vue {
 
   organismName = "";
   acceptedProofs = [
-    this.$i18n.t("kbis"),
-    this.$i18n.t("status"),
-    this.$i18n.t("all-accepted")
+    this.$i18n.t("corporationidentification.kbis"),
+    this.$i18n.t("corporationidentification.status"),
+    this.$i18n.t("corporationidentification.all-accepted")
   ];
   refusedProofs = [
-    this.$i18n.t("balance-sheet"),
-    this.$i18n.t("urssaf"),
-    this.$i18n.t("all-other")
+    this.$i18n.t("corporationidentification.balance-sheet"),
+    this.$i18n.t("corporationidentification.urssaf"),
+    this.$i18n.t("corporationidentification.all-other")
   ];
 
   documentDeniedReasons = new DocumentDeniedReasons();

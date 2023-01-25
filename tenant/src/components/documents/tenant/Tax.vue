@@ -3,7 +3,7 @@
     <ValidationObserver v-slot="{ validate }">
       <form name="form">
         <NakedCard class="fr-p-md-5w">
-          <h1 class="fr-h6">{{ $t("title") }}</h1>
+          <h1 class="fr-h6">{{ $t("tax.title") }}</h1>
           <TroubleshootingModal>
             <TaxHelp></TaxHelp>
             <DocumentInsert
@@ -48,7 +48,7 @@
               :class="errors[0] ? 'fr-input-group--error' : ''"
             >
               <label class="fr-label" for="customText">{{
-                $t("custom-text")
+                $t("tax.custom-text")
               }}</label>
               <input
                 v-model="customText"
@@ -77,7 +77,7 @@
       >
         <div class="fr-mb-3w fr-mt-3w" v-if="taxDocument.key === 'my-name'">
           <div class="fr-mb-3w">
-            <p v-html="$t(`explanation-text.tenant.${taxDocument.key}`)"></p>
+            <p v-html="$t(`tax.explanation-text.tenant.${taxDocument.key}`)"></p>
           </div>
           <div
             class="fr-background-contrast--info fr-p-2w fr-mt-2w warning-box"
@@ -85,17 +85,17 @@
             <div class="fr-text-default--info fr-h6 title">
               <span class="material-icons-outlined"> warning_amber </span>
               <span class="fr-ml-1w">
-                {{ $t("warning-no-accepted-doc") }}
+                {{ $t("tax.warning-no-accepted-doc") }}
               </span>
             </div>
             <div class="link">
               <a
                 class="fr-link"
                 href="https://docs.dossierfacile.fr/guide-dutilisation-de-dossierfacile/avis-dimposition"
-                :title="$t('goto-documentation')"
+                :title="$t('tax.goto-documentation')"
                 target="_blank"
                 rel="noreferrer"
-                >{{ $t("goto-documentation") }}</a
+                >{{ $t("tax.goto-documentation") }}</a
               >
             </div>
           </div>
@@ -131,7 +131,7 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-files") }}</span>
+      <span>{{ $t("tax.will-delete-files") }}</span>
     </ConfirmModal>
   </div>
 </template>
@@ -366,7 +366,7 @@ export default class Tax extends Vue {
         this.taxFiles().length > this.taxDocument.maxFileCount
       ) {
         Vue.toasted.global.max_file({
-          message: this.$i18n.t("max-file", [
+          message: this.$i18n.t("tax.max-file", [
             this.taxFiles().length,
             this.taxDocument.maxFileCount
           ])

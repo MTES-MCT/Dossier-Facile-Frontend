@@ -6,14 +6,14 @@
           <div class="fr-col-md-8">
             <div class="fr-grid-col">
               <h1 class="fr-h1 color--white fr-mt-3w" v-if="user">
-                {{ $t("title", [getName()]) }}
+                {{ $t("file.title", [getName()]) }}
               </h1>
               <p class="text-bold color--white">
-                {{ $t("description", [getStatus(), getIncomeSum()]) }}
+                {{ $t("file.description", [getStatus(), getIncomeSum()]) }}
               </p>
               <div>
                 <DfButton v-if="showProgressBar" primary="true"
-                  >{{ $t("download-all-inprogress")
+                  >{{ $t("file.download-all-inprogress")
                   }}<span
                     ><ProgressIndicator diameter="22px" border="3px"
                   /></span>
@@ -21,10 +21,10 @@
                 <DfButton
                   :disabled="user.status != 'VALIDATED'"
                   v-else
-                  :title="$t('download-disabled-title')"
+                  :title="$t('file.download-disabled-title')"
                   primary="true"
                   @on-click="download"
-                  >{{ $t("download-all") }}</DfButton
+                  >{{ $t("file.download-all") }}</DfButton
                 >
               </div>
             </div>
@@ -75,37 +75,37 @@
                 class="fr-h4"
                 v-if="tenant.typeGuarantor === 'NATURAL_PERSON'"
               >
-                {{ $t("guarant") }}
+                {{ $t("file.guarant") }}
               </h2>
               <h2
                 class="fr-h4"
                 v-if="tenant.typeGuarantor !== 'NATURAL_PERSON'"
               >
-                {{ $t("personnal-file") }}
+                {{ $t("file.personnal-file") }}
               </h2>
               <ul class="without-padding">
                 <FileRowListItem
-                  :label="$t('identification')"
+                  :label="$t('file.identification')"
                   :document="document(tenant, 'IDENTIFICATION')"
                 />
                 <FileRowListItem
-                  :label="$t('residency')"
+                  :label="$t('file.residency')"
                   :document="document(tenant, 'RESIDENCY')"
                 />
                 <FileRowListItem
-                  :label="$t('professional')"
+                  :label="$t('file.professional')"
                   :document="document(tenant, 'PROFESSIONAL')"
                 />
                 <FileRowListItem
                   v-for="(doc, k) in getDocs(tenant, 'FINANCIAL')"
                   v-bind:key="doc.id"
-                  :label="$t('financial') + (k >= 1 ? ' ' + (k + 1) : '')"
+                  :label="$t('file.financial') + (k >= 1 ? ' ' + (k + 1) : '')"
                   :document="doc"
                 />
                 <FileRowListItem
-                  :label="$t('tax')"
+                  :label="$t('file.tax')"
                   :tagLabel="
-                    isTenantTaxChecked(tenant) ? $t('tax-verified') : $t('tax')
+                    isTenantTaxChecked(tenant) ? $t('file.tax-verified') : $t('tax')
                   "
                   :document="document(tenant, 'TAX')"
                 >
@@ -122,7 +122,7 @@
               </ul>
               <div v-if="hasGuarantor(tenant)">
                 <h2 class="fr-h4">
-                  {{ $t("guarant") }}
+                  {{ $t("file.guarant") }}
                 </h2>
                 <div v-if="tenant.guarantors">
                   <div v-for="g in tenant.guarantors" v-bind:key="g.id">
@@ -131,11 +131,11 @@
                       class="without-padding"
                     >
                       <FileRowListItem
-                        :label="$t('identification-legal-person')"
+                        :label="$t('file.identification-legal-person')"
                         :document="document(g, 'IDENTIFICATION_LEGAL_PERSON')"
                       />
                       <FileRowListItem
-                        :label="$t('identificationn')"
+                        :label="$t('file.identificationn')"
                         :document="document(g, 'IDENTIFICATION')"
                       />
                     </ul>
@@ -144,7 +144,7 @@
                       class="without-padding"
                     >
                       <FileRowListItem
-                        :label="$t('organism')"
+                        :label="$t('file.organism')"
                         :document="document(g, 'IDENTIFICATION')"
                       />
                     </ul>
@@ -158,16 +158,16 @@
       <section class="fr-mb-7w">
         <div class="text-center">
           <DfButton v-if="showProgressBar" primary="true"
-            >{{ $t("download-all-inprogress")
+            >{{ $t("file.download-all-inprogress")
             }}<span><ProgressIndicator diameter="22px" border="3px"/></span>
           </DfButton>
           <DfButton
             :disabled="user.status != 'VALIDATED'"
             v-else
-            :title="$t('download-disabled-title')"
+            :title="$t('file.download-disabled-title')"
             primary="true"
             @on-click="download"
-            >{{ $t("download-all") }}</DfButton
+            >{{ $t("file.download-all") }}</DfButton
           >
         </div>
         <div class="fr-mt-3w fr-text-mention--grey">
@@ -221,7 +221,7 @@ export default class File extends Vue {
       if (this.user?.tenants.length === 2) {
         const userNames = this.user.tenants
           .map(o => this.$options.filters?.fullName(o))
-          .join(this.$i18n.t("and").toString());
+          .join(this.$i18n.t("file.and").toString());
         return userNames;
       }
       const userNames = this.user.tenants
@@ -312,7 +312,7 @@ export default class File extends Vue {
         this.retryDownload(remainingCount - 1);
       } else {
         this.showProgressBar = false;
-        this.$toasted.show(this.$i18n.t("download-failed").toString(), {
+        this.$toasted.show(this.$i18n.t("file.download-failed").toString(), {
           type: "error",
           duration: 10000
         });
@@ -387,9 +387,9 @@ export default class File extends Vue {
         sum += localsum || 0;
       }
       if (sum === 0) {
-        return this.$i18n.t("no-income");
+        return this.$i18n.t("file.no-income");
       }
-      return this.$i18n.t("income", [sum]);
+      return this.$i18n.t("file.income", [sum]);
     }
     return;
   }

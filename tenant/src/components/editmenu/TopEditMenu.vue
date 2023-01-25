@@ -51,7 +51,7 @@
     </div>
     <h2 class="small-title" v-if="displayGuarantorName()">
       {{
-        $t("i-add", [
+        $t("topeditmenu.i-add", [
           `${selectedGuarantor.firstName} ${selectedGuarantor.lastName}`
         ])
       }}
@@ -391,25 +391,25 @@ export default class TopEditMenu extends Vue {
 
   getStepTitle() {
     if (this.step <= 1) {
-      return this.$i18n.t("personal-information");
+      return this.$i18n.t("topeditmenu.personal-information");
     }
     if (this.step === 2) {
-      return this.$i18n.t("my-document");
+      return this.$i18n.t("topeditmenu.my-document");
     }
     if (this.step === 3) {
-      return this.$i18n.t("my-guarantor");
+      return this.$i18n.t("topeditmenu.my-guarantor");
     }
     if (this.step === 4 && this.isCouple()) {
-      return this.$i18n.t("my-cotenant");
+      return this.$i18n.t("topeditmenu.my-cotenant");
     }
     if (this.step === 5 && this.isCouple()) {
-      return this.$i18n.t("my-cotenant-guarantor");
+      return this.$i18n.t("topeditmenu.my-cotenant-guarantor");
     }
     if (this.step === 6 && this.isCouple()) {
-      return this.$i18n.t("validate-file");
+      return this.$i18n.t("topeditmenu.validate-file");
     }
     if (this.step === 4 && !this.isCouple()) {
-      return this.$i18n.t("validate-file");
+      return this.$i18n.t("topeditmenu.validate-file");
     }
     return "";
   }

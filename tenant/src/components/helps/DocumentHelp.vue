@@ -1,5 +1,5 @@
 <template>
-  <p v-html="$t('paragraph1')"></p>
+  <p v-html="$t('documenthelp.paragraph1')"></p>
 </template>
 
 <script lang="ts">

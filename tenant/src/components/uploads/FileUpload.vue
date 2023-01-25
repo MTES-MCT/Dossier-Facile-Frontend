@@ -74,7 +74,7 @@ export default class FileUpload extends Vue {
     [...e.target.files].forEach((f: File) => {
       if (f.size > this.size * 1024 * 1024) {
         this.$toasted.show(
-          this.$i18n.t("file-too-big", [this.size]).toString(),
+          this.$i18n.t("fileupload.file-too-big", [this.size]).toString(),
           {
             type: "error",
             duration: 5000
@@ -96,14 +96,14 @@ export default class FileUpload extends Vue {
 
   getSizeLimit() {
     if (this.size > 0) {
-      return this.$i18n.t("size", [this.size]);
+      return this.$i18n.t("fileupload.size", [this.size]);
     }
     return "";
   }
 
   getPagesLimit() {
     if (this.page > 0) {
-      return this.$i18n.t("pages", [this.page]);
+      return this.$i18n.t("fileupload.pages", [this.page]);
     }
     return "";
   }

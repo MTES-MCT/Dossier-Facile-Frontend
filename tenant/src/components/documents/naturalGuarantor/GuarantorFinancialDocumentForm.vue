@@ -6,7 +6,7 @@
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-12">
               <p>
-                {{ $t("warning-no-income-and-file") }}
+                {{ $t("guarantorfinancialdocumentform.warning-no-income-and-file") }}
               </p>
             </div>
           </div>
@@ -19,19 +19,19 @@
       @cancel="undoSelect()"
     >
       <span>{{
-        $t(`explanation-text.${guarantorKey()}.will-delete-files`)
+        $t(`guarantorfinancialdocumentform.explanation-text.${guarantorKey()}.will-delete-files`)
       }}</span>
     </ConfirmModal>
     <ValidationObserver v-slot="{ validate }">
       <NakedCard class="fr-p-md-5w fr-mb-3w">
         <h1 class="fr-h6">
-          {{ $t("financial") }}
+          {{ $t("guarantorfinancialdocumentform.financial") }}
         </h1>
         <form name="form" @submit.prevent="validate().then(save())">
           <div>
             <div>
               <div>
-                {{ $t("select-label") }}
+                {{ $t("guarantorfinancialdocumentform.select-label") }}
               </div>
 
               <TroubleshootingModal>
@@ -58,7 +58,7 @@
                           @input="onSelectChange()"
                         >
                           <div class="fr-grid-col spa">
-                            <span>{{ $t(`documents.${d.key}`) }}</span>
+                            <span>{{ $t(`guarantorfinancialdocumentform.documents.${d.key}`) }}</span>
                           </div>
                         </BigRadio>
                       </div>
@@ -93,11 +93,11 @@
                     }"
                   >
                     <label for="monthlySum" class="fr-label"
-                      >{{ $t("monthlySum-label") }} :</label
+                      >{{ $t("guarantorfinancialdocumentform.monthlySum-label") }} :</label
                     >
                     <input
                       id="monthlySum"
-                      :placeholder="$t('monthlySum')"
+                      :placeholder="$t('guarantorfinancialdocumentform.monthlySum')"
                       type="number"
                       min="0"
                       step="1"
@@ -117,7 +117,7 @@
                       class="fr-error-text"
                       v-if="financialDocument.monthlySum > 10000"
                     >
-                      {{ $t("high-salary") }}
+                      {{ $t("guarantorfinancialdocumentform.high-salary") }}
                     </span>
                     <span
                       class="fr-error-text"
@@ -126,7 +126,7 @@
                           financialDocument.monthlySum <= 0
                       "
                     >
-                      {{ $t("low-salary") }}
+                      {{ $t("guarantorfinancialdocumentform.low-salary") }}
                     </span>
                   </div>
                 </validation-provider>
@@ -147,7 +147,7 @@
             <p
               v-html="
                 $t(
-                  `explanation-text.${guarantorKey()}.${
+                  `guarantorfinancialdocumentform.explanation-text.${guarantorKey()}.${
                     financialDocument.documentType.key
                   }`
                 )
@@ -184,7 +184,7 @@
             <label for="noDocument">
               {{
                 $t(
-                  `explanation-text.${guarantorKey()}.${getCheckboxLabel(
+                  `guarantorfinancialdocumentform.explanation-text.${guarantorKey()}.${getCheckboxLabel(
                     financialDocument.documentType.key
                   )}`
                 )
@@ -200,7 +200,7 @@
                 <label class="fr-label" for="customText">
                   {{
                     $t(
-                      `explanation-text.${guarantorKey()}.${getCustomTextLabel(
+                      `guarantorfinancialdocumentform.explanation-text.${guarantorKey()}.${getCustomTextLabel(
                         financialDocument.documentType.key
                       )}`
                     )
@@ -431,7 +431,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
     if (!this.financialDocument.noDocument) {
       if (!this.financialFiles().length) {
         Vue.toasted.global.max_file({
-          message: this.$i18n.t("missing-file")
+          message: this.$i18n.t("guarantorfinancialdocumentform.missing-file")
         });
         return Promise.reject(new Error("err"));
       }
@@ -442,7 +442,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
           this.financialDocument.documentType.maxFileCount
       ) {
         Vue.toasted.global.max_file({
-          message: this.$i18n.t("max-file", [
+          message: this.$i18n.t("guarantorfinancialdocumentform.max-file", [
             this.financialFiles().length,
             this.financialDocument.documentType.maxFileCount
           ])

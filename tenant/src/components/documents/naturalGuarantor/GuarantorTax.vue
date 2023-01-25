@@ -5,12 +5,12 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-files") }}</span>
+      <span>{{ $t("guarantortax.will-delete-files") }}</span>
     </ConfirmModal>
     <ValidationObserver v-slot="{ validate }">
       <NakedCard class="fr-p-md-5w">
-        <h1 class="fr-h6" v-if="isCotenant">{{ $t("title-cotenant") }}</h1>
-        <h1 class="fr-h6" v-else>{{ $t("title") }}</h1>
+        <h1 class="fr-h6" v-if="isCotenant">{{ $t("guarantortax.title-cotenant") }}</h1>
+        <h1 class="fr-h6" v-else>{{ $t("guarantortax.title") }}</h1>
         <TroubleshootingModal>
           <TaxHelp></TaxHelp>
           <DocumentInsert
@@ -20,7 +20,7 @@
           ></DocumentInsert>
         </TroubleshootingModal>
 
-        <div class="fr-mt-3w">{{ $t("situation") }}</div>
+        <div class="fr-mt-3w">{{ $t("guarantortax.situation") }}</div>
 
         <form name="form" @submit.prevent="validate().then(save)">
           <div class="fr-mt-3w">
@@ -39,7 +39,7 @@
                     >
                       <div class="fr-grid-col spa">
                         <span v-if="isCotenant">{{
-                          $t(`${d.key}-cotenant`)
+                          $t(`guarantortax.${d.key}-cotenant`)
                         }}</span>
                         <span v-else>{{ $t(d.key) }}</span>
                       </div>
@@ -55,7 +55,7 @@
           >
             <div class="fr-input-group">
               <label class="fr-label" for="customText">{{
-                $t("custom-text")
+                $t("guarantortax.custom-text")
               }}</label>
               <input
                 v-model="customText"
@@ -76,7 +76,7 @@
       >
         <div class="fr-mb-3w">
           <p
-            v-html="$t(`explanation-text.${guarantorKey()}.${taxDocument.key}`)"
+            v-html="$t(`guarantortax.explanation-text.${guarantorKey()}.${taxDocument.key}`)"
           ></p>
         </div>
         <AllDeclinedMessages
@@ -90,17 +90,17 @@
               warning_amber
             </span>
             <span class="fr-ml-1w">
-              {{ $t("warning-no-accepted-doc") }}
+              {{ $t("guarantortax.warning-no-accepted-doc") }}
             </span>
           </div>
           <div class="link">
             <a
               class="fr-link"
               href="https://docs.dossierfacile.fr/guide-dutilisation-de-dossierfacile/avis-dimposition"
-              :title="$t('goto-documentation')"
+              :title="$t('guarantortax.goto-documentation')"
               target="_blank"
               rel="noreferrer"
-              >{{ $t("goto-documentation") }}</a
+              >{{ $t("guarantortax.goto-documentation") }}</a
             >
           </div>
         </div>
@@ -330,7 +330,7 @@ export default class GuarantorTax extends Vue {
         this.taxFiles().length > this.taxDocument.maxFileCount
       ) {
         Vue.toasted.global.max_file({
-          message: this.$i18n.t("max-file", [
+          message: this.$i18n.t("guarantortax.max-file", [
             this.taxFiles().length,
             this.taxDocument.maxFileCount
           ])

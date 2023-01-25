@@ -2,8 +2,8 @@
   <div class="fr-container">
     <div class="fr-grid-row fr-grid-row--center" v-if="owner.owner">
       <div class="fr-col-md-8 fr-col-lg-6">
-        <h1 class="fr-h1 fr-mt-3w">{{ $t("title", [getOwnerAddress()]) }}</h1>
-        <p>{{ $t("subtitle") }}</p>
+        <h1 class="fr-h1 fr-mt-3w">{{ $t("ownershare.title", [getOwnerAddress()]) }}</h1>
+        <p>{{ $t("ownershare.subtitle") }}</p>
         <ValidationObserver v-slot="{ validate }" v-if="isCreate()">
           <form name="form" @submit.prevent="validate().then(connectOwner)">
             <validation-provider
@@ -22,7 +22,7 @@
                   v-model="acceptOwner"
                 />
                 <label for="acceptOwner">{{
-                  $t("accept-owner", [
+                  $t("ownershare.accept-owner", [
                     `${owner.owner.firstName} ${owner.owner.lastName}`,
                     getOwnerAddress()
                   ])
@@ -34,7 +34,7 @@
             </validation-provider>
             <div v-if="isLoggedIn">
               <DfButton type="submit" class="fr-mt-3w" :primary="true">{{
-                $t("connect-owner")
+                $t("ownershare.connect-owner")
               }}</DfButton>
             </div>
           </form>
@@ -42,21 +42,21 @@
         <div v-if="!isCreate()">
           <div class="fr-callout">
             <p class="fr-callout__text">
-              {{ $t('join-account')}}
+              {{ $t('ownershare.join-account')}}
             </p>
           </div>
         </div>
         <div v-show="!isLoggedIn">
           <v-gouv-fr-button class="fr-mt-2w"
-              :label="$t('login')"
+              :label="$t('ownershare.login')"
               :small="false"
               :secondary="false"
               @click="onLogin"
            ></v-gouv-fr-button>
           <div class="fr-mt-3w fr-mb-5w">
-            <div v-html="$t('no-account-1')"></div>
-            <div v-html="$t('no-account-2')"></div>
-            <div v-html="$t('no-account-3')"></div>
+            <div v-html="$t('ownershare.no-account-1')"></div>
+            <div v-html="$t('ownershare.no-account-2')"></div>
+            <div v-html="$t('ownershare.no-account-3')"></div>
           </div>
         </div>
       </div>
@@ -134,14 +134,14 @@ export default class OwnerShare extends Vue {
     }
     OwnerService.registerToOwner(this.token).then(
       () => {
-        this.$toasted.show(this.$i18n.t("connection-success").toString(), {
+        this.$toasted.show(this.$i18n.t("ownershare.connection-success").toString(), {
           type: "success",
           duration: 7000
         });
         this.$router.push("/account");
       },
       () => {
-        this.$toasted.show(this.$i18n.t("login-error").toString(), {
+        this.$toasted.show(this.$i18n.t("ownershare.login-error").toString(), {
           type: "error",
           duration: 7000
         });

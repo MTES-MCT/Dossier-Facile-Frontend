@@ -3,11 +3,11 @@
     <ValidationObserver v-slot="{ validate }">
       <form name="coTenantNameForm" @submit.prevent="validate().then(save)">
         <NakedCard class="fr-p-md-5w">
-          <h1 class="fr-h6">{{ $t("title") }}</h1>
+          <h1 class="fr-h6">{{ $t("cotenantname.title") }}</h1>
           <div>
-            {{ $t("subtitle") }}
+            {{ $t("cotenantname.subtitle") }}
             <span v-if="selectedCoTenant.franceConnect">
-              {{ $t("franceconnect-account") }}
+              {{ $t("cotenantname.franceconnect-account") }}
             </span>
           </div>
           <RequiredFieldsInstruction></RequiredFieldsInstruction>
@@ -19,7 +19,7 @@
                   :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
                   <FieldLabel :required="true" for-input="lastname">
-                    {{ $t("lastname") }}
+                    {{ $t("cotenantname.lastname") }}
                   </FieldLabel>
                   <input
                     v-model="lastName"
@@ -30,7 +30,7 @@
                     }"
                     id="lastname"
                     name="lastname"
-                    :placeholder="$t('lastname-placeholder')"
+                    :placeholder="$t('cotenantname.lastname-placeholder')"
                     type="text"
                     :disabled="selectedCoTenant.franceConnect"
                     required
@@ -48,11 +48,11 @@
                   :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
                   <FieldLabel :required="true" for-input="firstname">
-                    {{ $t("firstname") }}
+                    {{ $t("cotenantname.firstname") }}
                   </FieldLabel>
                   <input
                     id="firstname"
-                    :placeholder="$t('firstname-placeholder')"
+                    :placeholder="$t('cotenantname.firstname-placeholder')"
                     type="text"
                     v-model="firstName"
                     name="firstname"
@@ -77,11 +77,11 @@
                   :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
                   <FieldLabel for-input="preferredname">
-                    {{ $t("preferredname") }}
+                    {{ $t("cotenantname.preferredname") }}
                   </FieldLabel>
                   <input
                     id="preferredname"
-                    :placeholder="$t('lastname-placeholder')"
+                    :placeholder="$t('cotenantname.lastname-placeholder')"
                     type="text"
                     v-model="preferredName"
                     name="preferredname"

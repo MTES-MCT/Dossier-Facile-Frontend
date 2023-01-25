@@ -1,7 +1,7 @@
 <template>
   <div>
-    <p v-html="$t('paragraph1')"></p>
-    <p v-html="$t('paragraph2')"></p>
+    <p v-html="$t('taxhelp.paragraph1')"></p>
+    <p v-html="$t('taxhelp.paragraph2')"></p>
   </div>
 </template>
 

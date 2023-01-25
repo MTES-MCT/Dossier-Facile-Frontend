@@ -33,11 +33,11 @@
                 }"
               >
                 <label for="monthlySum" class="fr-label"
-                  >{{ $t("monthlySum-label") }} :</label
+                  >{{ $t("cotenantfinancialform.monthlySum-label") }} :</label
                 >
                 <input
                   id="monthlySum"
-                  :placeholder="$t('monthlySum')"
+                  :placeholder="$t('cotenantfinancialform.monthlySum')"
                   type="number"
                   min="0"
                   step="1"
@@ -64,7 +64,7 @@
                       : false
                   "
                 >
-                  {{ $t("high-salary") }}
+                  {{ $t("cotenantfinancialform.high-salary") }}
                 </span>
               </div>
             </validation-provider>
@@ -75,7 +75,7 @@
           v-else-if="documentType ? documentType.key === 'no-income' : false"
           class="fr-p-md-5w fr-mb-3w fr-mt-3w"
         >
-          {{ $t("has-no-income") }}
+          {{ $t("cotenantfinancialform.has-no-income") }}
           <ValidationObserver v-slot="{ validate, valid }">
             <form
               name="customTextForm"
@@ -83,7 +83,7 @@
             >
               <div class="fr-input-group">
                 <label class="fr-label" for="customTextNoDocument">
-                  {{ $t("custom-text") }}
+                  {{ $t("cotenantfinancialform.custom-text") }}
                 </label>
                 <textarea
                   v-model="document.customText"

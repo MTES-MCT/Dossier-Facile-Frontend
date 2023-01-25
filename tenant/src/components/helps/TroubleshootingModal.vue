@@ -1,10 +1,10 @@
 <template>
   <v-gouv-fr-modal>
     <template v-slot:button>
-      {{ $t("more-information") }}
+      {{ $t("troubleshootingmodal.more-information") }}
     </template>
     <template v-slot:title>
-      {{ $t("more-information") }}
+      {{ $t("troubleshootingmodal.more-information") }}
     </template>
     <template v-slot:content>
       <p>

@@ -1,8 +1,8 @@
 <template>
   <div class="fr-mb-15w">
     <NakedCard class="fr-p-5w">
-      <h1 class="fr-h4">{{ $t("title") }}</h1>
-      <p class="fr-mb-0">{{ $t("subtitle") }}</p>
+      <h1 class="fr-h4">{{ $t("nameinformationform.title") }}</h1>
+      <p class="fr-mb-0">{{ $t("nameinformationform.subtitle") }}</p>
       <div>
         <RequiredFieldsInstruction></RequiredFieldsInstruction>
         <a
@@ -10,25 +10,25 @@
           href="#"
           @click="openUnlinkModal = true"
           class="fr-link fr-tag--sm small-font"
-          >{{ $t("unlink-fc-link") }}</a
+          >{{ $t("nameinformationform.unlink-fc-link") }}</a
         >
         <ConfirmModal
           class="fr-px-md-16w"
           v-if="openUnlinkModal"
-          :validateBtnText="$t('unlink-account-btn')"
+          :validateBtnText="$t('nameinformationform.unlink-account-btn')"
           @valid="unlinkFranceConnect()"
           @cancel="openUnlinkModal = false"
         >
           <template v-slot:title>
             <span class="fr-fi-refresh-line"></span>
-            <span> {{ $t("unlink-fc-link") }}</span>
+            <span> {{ $t("nameinformationform.unlink-fc-link") }}</span>
           </template>
           <p>
-            {{ $t("unlink-fc-content") }}
+            {{ $t("nameinformationform.unlink-fc-content") }}
             <span v-if="user.passwordEnabled">
-              {{ $t("unlink-fc-content-password-exists") }}</span
+              {{ $t("nameinformationform.unlink-fc-content-password-exists") }}</span
             >
-            <span v-else>{{ $t("unlink-fc-content-password-undefined") }}</span>
+            <span v-else>{{ $t("nameinformationform.unlink-fc-content-password-undefined") }}</span>
           </p>
         </ConfirmModal>
       </div>
@@ -50,7 +50,7 @@
                   :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
                   <FieldLabel :required="true" for-input="lastname">
-                    {{ $t("lastname") }}
+                    {{ $t("nameinformationform.lastname") }}
                   </FieldLabel>
                   <input
                     v-model="lastname"
@@ -62,7 +62,7 @@
                     id="lastname"
                     name="lastname"
                     autocomplete="family-name"
-                    :placeholder="$t('lastname').toString()"
+                    :placeholder="$t('nameinformationform.lastname').toString()"
                     :disabled="user.franceConnect"
                     type="text"
                     required
@@ -80,7 +80,7 @@
                   :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
                   <FieldLabel for-input="preferredname">
-                    {{ $t("preferredname") }}
+                    {{ $t("nameinformationform.preferredname") }}
                   </FieldLabel>
                   <input
                     v-model="preferredname"
@@ -92,7 +92,7 @@
                     id="preferredname"
                     name="preferredname"
                     autocomplete="off"
-                    :placeholder="$t('preferredname').toString()"
+                    :placeholder="$t('nameinformationform.preferredname').toString()"
                     type="text"
                   />
                   <span class="fr-error-text" v-if="errors[0]">{{
@@ -108,11 +108,11 @@
                   :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
                   <FieldLabel :required="true" for-input="firstname">
-                    {{ $t("firstname") }}
+                    {{ $t("nameinformationform.firstname") }}
                   </FieldLabel>
                   <input
                     id="firstname"
-                    :placeholder="$t('firstname').toString()"
+                    :placeholder="$t('nameinformationform.firstname').toString()"
                     type="text"
                     v-model="firstname"
                     name="firstname"
@@ -141,11 +141,11 @@
                   :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
                   <FieldLabel for-input="zipcode">
-                    {{ $t("zipcode") }}
+                    {{ $t("nameinformationform.zipcode") }}
                   </FieldLabel>
                   <input
                     id="zipcode"
-                    :placeholder="$t('zipcode').toString()"
+                    :placeholder="$t('nameinformationform.zipcode').toString()"
                     :class="{
                       'fr-input--valid': valid,
                       'fr-input--error': errors[0]

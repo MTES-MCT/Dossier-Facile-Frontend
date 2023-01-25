@@ -22,7 +22,7 @@
         class="fr-btn--icon-left fr-fi-eye-line"
         @on-click="openDocument()"
       >
-        {{ $t("see") }}</DfButton
+        {{ $t("filerowlistitem.see") }}</DfButton
       >
     </div>
   </li>

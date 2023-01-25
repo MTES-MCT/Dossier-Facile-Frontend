@@ -2,7 +2,7 @@
   <div>
     <NakedCard class="fr-p-md-5w">
       <div>
-        <h1 class="fr-h6">{{ $t("title") }}</h1>
+        <h1 class="fr-h6">{{ $t("guarantorprofessional.title") }}</h1>
         <TroubleshootingModal>
           <GuarantorChoiceHelp></GuarantorChoiceHelp>
           <DocumentInsert
@@ -17,8 +17,8 @@
             name="professionalDocument"
             v-slot="{ errors, valid }"
           >
-            <label v-if="isCotenant">{{ $t("select-label-cotenant") }}</label>
-            <label v-else>{{ $t("select-label") }}</label>
+            <label v-if="isCotenant">{{ $t("guarantorprofessional.select-label-cotenant") }}</label>
+            <label v-else>{{ $t("guarantorprofessional.select-label") }}</label>
             <select
               v-model="professionalDocument"
               class="fr-select fr-mb-3w"
@@ -46,7 +46,7 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-files") }}</span>
+      <span>{{ $t("guarantorprofessional.will-delete-files") }}</span>
     </ConfirmModal>
     <NakedCard
       class="fr-p-md-5w fr-mt-3w"
@@ -55,7 +55,7 @@
       <div class="fr-mb-3w">
         <p
           v-html="
-            $t(`explanation-text.${guarantorKey()}.${professionalDocument.key}`)
+            $t(`guarantorprofessional.explanation-text.${guarantorKey()}.${professionalDocument.key}`)
           "
         ></p>
       </div>
@@ -263,7 +263,7 @@ export default class GuarantorProfessional extends Vue {
       this.professionalFiles().length > this.professionalDocument.maxFileCount
     ) {
       Vue.toasted.global.max_file({
-        message: this.$i18n.t("max-file", [
+        message: this.$i18n.t("guarantorprofessional.max-file", [
           this.professionalFiles().length,
           this.professionalDocument.maxFileCount
         ])

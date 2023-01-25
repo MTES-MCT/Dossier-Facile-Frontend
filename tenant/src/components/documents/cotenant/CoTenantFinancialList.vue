@@ -13,8 +13,8 @@
     <div v-else>
       <NakedCard class="fr-p-md-5w fr-mb-3w">
         <div>
-          <h1 class="fr-h6">{{ $t("title") }}</h1>
-          <div>{{ $t("subtitle") }}</div>
+          <h1 class="fr-h6">{{ $t("cotenantfinanciallist.title") }}</h1>
+          <div>{{ $t("cotenantfinanciallist.subtitle") }}</div>
         </div>
       </NakedCard>
       <div v-for="f in tenantFinancialDocuments.value" :key="f.id">
@@ -35,10 +35,10 @@
             <div
               class="text-bold"
               :class="{ declined: documentStatus(f) }"
-              :title="$t('net-monthly')"
+              :title="$t('cotenantfinanciallist.net-monthly')"
               v-show="f.documentType.key !== 'no-income'"
             >
-              {{ f.monthlySum }} {{ $t("monthly") }}
+              {{ f.monthlySum }} {{ $t("cotenantfinanciallist.monthly") }}
             </div>
           </template>
           <template v-slot:bottom>
@@ -52,7 +52,7 @@
       </div>
       <div v-if="financialDocument.documentType.key !== 'no-income'">
         <button @click="addFinancialDocument()" class="add-income-btn">
-          {{ $t("add-income") }}
+          {{ $t("cotenantfinanciallist.add-income") }}
         </button>
       </div>
       <SimulationCaf class="fr-mt-4w" />
@@ -261,7 +261,7 @@ export default class CoTenantFinancialList extends Vue {
   }
 
   private getDocumentName(document: FinancialDocument): string {
-    return this.$t(`documents.${document.documentType.key}`).toString();
+    return this.$t(`cotenantfinanciallist.documents.${document.documentType.key}`).toString();
   }
 
   allowNoIncome(): boolean {

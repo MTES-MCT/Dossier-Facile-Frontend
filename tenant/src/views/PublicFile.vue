@@ -6,10 +6,10 @@
           <div class="fr-col-md-8">
             <div class="fr-grid-col">
               <h1 class="fr-h1 color--white fr-mt-3w" v-if="user">
-                {{ $t("title", [getName()]) }}
+                {{ $t("publicfile.title", [getName()]) }}
               </h1>
               <p class="text-bold color--white">
-                {{ $t("description", [getStatus(), getIncomeSum()]) }}
+                {{ $t("publicfile.description", [getStatus(), getIncomeSum()]) }}
               </p>
             </div>
           </div>
@@ -60,42 +60,42 @@
                 class="fr-h4"
                 v-if="tenant.typeGuarantor === 'NATURAL_PERSON'"
               >
-                {{ $t("guarant") }}
+                {{ $t("publicfile.guarant") }}
               </h2>
               <h2
                 class="fr-h4"
                 v-if="tenant.typeGuarantor !== 'NATURAL_PERSON'"
               >
-                {{ $t("personnal-file") }}
+                {{ $t("publicfile.personnal-file") }}
               </h2>
               <ul class="without-padding">
                 <FileRowListItem
-                  :label="$t('identification')"
+                  :label="$t('publicfile.identification')"
                   :document="document(tenant, 'IDENTIFICATION')"
                   :enableDownload="false"
                 />
                 <FileRowListItem
-                  :label="$t('residency')"
+                  :label="$t('publicfile.residency')"
                   :document="document(tenant, 'RESIDENCY')"
                   :enableDownload="false"
                 />
                 <FileRowListItem
-                  :label="$t('professional')"
+                  :label="$t('publicfile.professional')"
                   :document="document(tenant, 'PROFESSIONAL')"
                   :enableDownload="false"
                 />
                 <FileRowListItem
                   v-for="(doc, k) in getDocs(tenant, 'FINANCIAL')"
                   v-bind:key="doc.id"
-                  :label="$t('financial') + (k >= 1 ? ' ' + (k + 1) : '')"
+                  :label="$t('publicfile.financial') + (k >= 1 ? ' ' + (k + 1) : '')"
                   :document="doc"
                   :enableDownload="false"
                 />
                 <FileRowListItem
-                  :label="$t('tax')"
+                  :label="$t('publicfile.tax')"
                   :document="document(tenant, 'TAX')"
                   :tagLabel="
-                    isTenantTaxChecked(tenant) ? $t('tax-verified') : $t('tax')
+                    isTenantTaxChecked(tenant) ? $t('publicfile.tax-verified') : $t('tax')
                   "
                   :enableDownload="false"
                 >
@@ -112,7 +112,7 @@
               </ul>
               <div v-if="hasGuarantor(tenant)">
                 <h2 class="fr-h4">
-                  {{ $t("guarant") }}
+                  {{ $t("publicfile.guarant") }}
                 </h2>
                 <div v-if="tenant.guarantors">
                   <div v-for="g in tenant.guarantors" v-bind:key="g.id">
@@ -121,12 +121,12 @@
                       class="without-padding"
                     >
                       <FileRowListItem
-                        :label="$t('identification-legal-person')"
+                        :label="$t('publicfile.identification-legal-person')"
                         :document="document(g, 'IDENTIFICATION_LEGAL_PERSON')"
                         :enableDownload="false"
                       />
                       <FileRowListItem
-                        :label="$t('identificationn')"
+                        :label="$t('publicfile.identificationn')"
                         :document="document(g, 'IDENTIFICATION')"
                         :enableDownload="false"
                       />
@@ -136,7 +136,7 @@
                       class="without-padding"
                     >
                       <FileRowListItem
-                        :label="$t('organism')"
+                        :label="$t('publicfile.organism')"
                         :document="document(g, 'IDENTIFICATION')"
                         :enableDownload="false"
                       />
@@ -198,7 +198,7 @@ export default class File extends Vue {
       tenant => `${tenant.firstName}\xa0${tenant.lastName}`
     );
     if (tenantNames.length === 2) {
-      return tenantNames.join(this.$i18n.t("and").toString());
+      return tenantNames.join(this.$i18n.t("publicfile.and").toString());
     }
     return tenantNames.join(", ");
   }
@@ -297,9 +297,9 @@ export default class File extends Vue {
         sum += localsum || 0;
       }
       if (sum === 0) {
-        return this.$i18n.t("no-income");
+        return this.$i18n.t("publicfile.no-income");
       }
-      return this.$i18n.t("income", [sum]);
+      return this.$i18n.t("publicfile.income", [sum]);
     }
     return;
   }

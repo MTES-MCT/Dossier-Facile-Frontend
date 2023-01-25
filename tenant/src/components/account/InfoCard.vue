@@ -6,7 +6,7 @@
     <div class="fr-tile fr-tile--horizontal">
       <div class="fr-tile__body fr-ml-2w fr-mr-2w">
         <h4 class="fr-tile__title">
-          <a class="fr-tile__link" :title="$t('edit-title', [title])" href>{{
+          <a class="fr-tile__link" :title="$t('infocard.edit-title', [title])" href>{{
             title
           }}</a>
         </h4>
@@ -14,7 +14,7 @@
         <button
           v-if="editable"
           class="fr-btn fr-btn--secondary edit-btn"
-          :title="$t('edit')"
+          :title="$t('infocard.edit')"
         >
           <span class="material-icons-outlined" aria-hidden="true">edit</span>
         </button>

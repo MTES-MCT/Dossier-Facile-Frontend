@@ -14,7 +14,7 @@
       <button
         class="fr-btn fr-btn--secondary icon-btn fr-mr-md-2w fr-mr-1w"
         @click="openDoc()"
-        :title="$t('show')"
+        :title="$t('listitem.show')"
       >
         <span class="material-icons-outlined md-18 fr-m-1w">visibility</span>
       </button>
@@ -22,7 +22,7 @@
         class="fr-btn fr-btn--secondary icon-btn"
         @click="remove()"
         type="button"
-        :title="$t('remove')"
+        :title="$t('listitem.remove')"
       >
         <div class="material-icons-outlined md-18 fr-m-1w">
           delete
@@ -42,7 +42,7 @@
       @valid="validDeleteFile()"
       @cancel="undoDeleteFile()"
     >
-      {{ $t("will-delete-file") }}
+      {{ $t("listitem.will-delete-file") }}
     </ConfirmModal>
   </div>
 </template>
@@ -96,9 +96,9 @@ export default class ListItem extends Vue {
       const kb = this.file.size / 1000;
       if (kb > 1000) {
         const mb = kb / 1000;
-        return `${mb.toFixed(2)} ${this.$i18n.t("mb")}`;
+        return `${mb.toFixed(2)} ${this.$i18n.t("listitem.mb")}`;
       }
-      return `${kb.toFixed(2)} ${this.$i18n.t("kb")}`;
+      return `${kb.toFixed(2)} ${this.$i18n.t("listitem.kb")}`;
     }
     return "-";
   }

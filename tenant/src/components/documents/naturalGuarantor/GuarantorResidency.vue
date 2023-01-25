@@ -3,7 +3,7 @@
     <NakedCard class="fr-p-md-5w">
       <div>
         <h1 class="fr-h6">
-          {{ $t("select-label") }}
+          {{ $t("guarantorresidency.select-label") }}
         </h1>
 
         <TroubleshootingModal>
@@ -41,7 +41,7 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-files") }}</span>
+      <span>{{ $t("guarantorresidency.will-delete-files") }}</span>
     </ConfirmModal>
     <NakedCard
       class="fr-p-md-5w fr-mt-3w"
@@ -49,7 +49,7 @@
     >
       <div class="fr-mb-3w">
         <p
-          v-html="$t(`explanation-text.${guarantorKey()}.${residencyDocument.key}`)"
+          v-html="$t(`guarantorresidency.explanation-text.${guarantorKey()}.${residencyDocument.key}`)"
         ></p>
       </div>
       <AllDeclinedMessages
@@ -264,7 +264,7 @@ export default class GuarantorResidency extends Vue {
       this.residencyFiles().length > this.residencyDocument.maxFileCount
     ) {
       Vue.toasted.global.max_file({
-        message: this.$i18n.t("max-file", [
+        message: this.$i18n.t("guarantorresidency.max-file", [
           this.residencyFiles().length,
           this.residencyDocument.maxFileCount
         ])

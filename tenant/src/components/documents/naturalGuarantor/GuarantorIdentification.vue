@@ -2,9 +2,9 @@
   <div>
     <NakedCard class="fr-p-md-5w">
       <div>
-        <h1 class="fr-h6" v-if="isCotenant">{{ $t("title-cotenant") }}</h1>
-        <h1 class="fr-h6" v-else>{{ $t("title") }}</h1>
-        {{ $t("select-label") }}
+        <h1 class="fr-h6" v-if="isCotenant">{{ $t("guarantoridentification.title-cotenant") }}</h1>
+        <h1 class="fr-h6" v-else>{{ $t("guarantoridentification.title") }}</h1>
+        {{ $t("guarantoridentification.select-label") }}
 
         <TroubleshootingModal>
           <GuarantorChoiceHelp></GuarantorChoiceHelp>
@@ -41,7 +41,7 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-files") }}</span>
+      <span>{{ $t("guarantoridentification.will-delete-files") }}</span>
     </ConfirmModal>
     <NakedCard
       class="fr-p-md-5w fr-mt-3w"
@@ -51,7 +51,7 @@
         <p
           v-html="
             $t(
-              `explanation-text.${guarantorKey()}.${identificationDocument.key}`
+              `guarantoridentification.explanation-text.${guarantorKey()}.${identificationDocument.key}`
             )
           "
         ></p>
@@ -257,7 +257,7 @@ export default class GuarantorIdentification extends Vue {
         this.identificationDocument.maxFileCount
     ) {
       Vue.toasted.global.max_file({
-        message: this.$i18n.t("max-file", [
+        message: this.$i18n.t("guarantoridentification.max-file", [
           this.identificationFiles().length,
           this.identificationDocument.maxFileCount
         ])

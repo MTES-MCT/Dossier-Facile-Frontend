@@ -163,7 +163,7 @@
               <h5>Les documents de mon garant</h5>
 
               <div class="row">
-                <div class="subtitle">{{ $t("organism") }}</div>
+                <div class="subtitle">{{ $t("messagespanel.organism") }}</div>
                 <div class="row align--center">
                   <ViewEditBtn
                     :canView="
@@ -187,7 +187,7 @@
               <h5>Les documents de mon garant</h5>
               <div class="row">
                 <div class="subtitle">
-                  {{ $t("identification-legal-person") }}
+                  {{ $t("messagespanel.identification-legal-person") }}
                 </div>
                 <div class="row align--center">
                   <ViewEditBtn
@@ -206,7 +206,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="subtitle">{{ $t("identity-represent") }}</div>
+                <div class="subtitle">{{ $t("messagespanel.identity-represent") }}</div>
                 <div class="row align--center">
                   <ViewEditBtn
                     :canView="

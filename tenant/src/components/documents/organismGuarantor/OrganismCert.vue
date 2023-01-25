@@ -92,7 +92,7 @@ export default class OrganismCert extends Vue {
 
   getTitle() {
     const userType = this.isCotenant ? "cotenant" : "tenant";
-    return this.$t(`explanation-text.${userType}.organism-guarantor`);
+    return this.$t(`organismcert.explanation-text.${userType}.organism-guarantor`);
   }
 
   guarantorId() {
@@ -183,7 +183,7 @@ export default class OrganismCert extends Vue {
 
   private displayTooManyFilesToast() {
     Vue.toasted.global.max_file({
-      message: this.$i18n.t("max-file", [
+      message: this.$i18n.t("organismcert.max-file", [
         this.files.length,
         this.MAX_FILE_COUNT
       ])

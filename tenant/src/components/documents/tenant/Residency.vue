@@ -3,7 +3,7 @@
     <NakedCard class="fr-p-md-5w">
       <div>
         <h1 class="fr-h6">
-          {{ $t("select-label") }}
+          {{ $t("residency.select-label") }}
         </h1>
 
         <TroubleshootingModal>
@@ -41,7 +41,7 @@
       v-if="residencyDocument.key || residencyFiles().length > 0"
     >
       <div class="fr-mb-3w">
-        <p v-html="$t(`explanation-text.tenant.${residencyDocument.key}`)"></p>
+        <p v-html="$t(`residency.explanation-text.tenant.${residencyDocument.key}`)"></p>
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
@@ -69,7 +69,7 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-files") }}</span>
+      <span>{{ $t("residency.will-delete-files") }}</span>
     </ConfirmModal>
   </div>
 </template>
@@ -273,7 +273,7 @@ export default class Residency extends Vue {
       this.residencyFiles().length > this.residencyDocument.maxFileCount
     ) {
       Vue.toasted.global.max_file({
-        message: this.$i18n.t("max-file", [
+        message: this.$i18n.t("residency.max-file", [
           this.residencyFiles().length,
           this.residencyDocument.maxFileCount
         ])

@@ -8,7 +8,7 @@
           v-slot="{ errors, valid }"
         >
           <h1 class="fr-h6">
-            {{ $t("select-label") }}
+            {{ $t("professional.select-label") }}
           </h1>
           <TroubleshootingModal>
             <DocumentHelp></DocumentHelp>
@@ -45,7 +45,7 @@
     >
       <div class="fr-mb-3w">
         <p
-          v-html="$t(`explanation-text.tenant.${professionalDocument.key}`)"
+          v-html="$t(`professional.explanation-text.tenant.${professionalDocument.key}`)"
         ></p>
       </div>
       <AllDeclinedMessages
@@ -74,7 +74,7 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-files") }}</span>
+      <span>{{ $t("professional.will-delete-files") }}</span>
     </ConfirmModal>
   </div>
 </template>
@@ -272,7 +272,7 @@ export default class Professional extends Vue {
       this.professionalFiles().length > this.professionalDocument.maxFileCount
     ) {
       Vue.toasted.global.max_file({
-        message: this.$i18n.t("max-file", [
+        message: this.$i18n.t("professional.max-file", [
           this.professionalFiles().length,
           this.professionalDocument.maxFileCount
         ])

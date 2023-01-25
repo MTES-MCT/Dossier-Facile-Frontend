@@ -1,11 +1,11 @@
 <template>
   <div class="fr-container">
     <h2 class="fr-h2 text-center fr-mt-7w fr-mb-5w">
-      {{ $t("title") }}
+      {{ $t("joincouple.title") }}
     </h2>
     <InitPassword @on-init-password="onInitPassword" />
     <ConfirmModal v-if="isLoggedIn" @valid="logout()" @cancel="redirect()">
-      <span>{{ $t("already-logged") }}</span>
+      <span>{{ $t("joincouple.already-logged") }}</span>
     </ConfirmModal>
   </div>
 </template>
@@ -35,7 +35,7 @@ export default class JoinCouple extends Vue {
     user.token = this.$route.params.token;
     this.$store.dispatch("createPasswordCouple", user).then(
       () => {
-        this.$toasted.show(this.$i18n.t("password-update").toString(), {
+        this.$toasted.show(this.$i18n.t("joincouple.password-update").toString(), {
           type: "success",
           duration: 7000
         });
@@ -47,12 +47,12 @@ export default class JoinCouple extends Vue {
             "password recovery token or is expired"
           )
         ) {
-          this.$toasted.show(this.$i18n.t("token-expired").toString(), {
+          this.$toasted.show(this.$i18n.t("joincouple.token-expired").toString(), {
             type: "error",
             duration: 7000
           });
         } else {
-          this.$toasted.show(this.$i18n.t("error").toString(), {
+          this.$toasted.show(this.$i18n.t("joincouple.error").toString(), {
             type: "error",
             duration: 7000
           });

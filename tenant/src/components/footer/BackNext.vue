@@ -14,7 +14,7 @@
         <template v-if="isMobile()">
           <span class="color--primary material-icons">keyboard_arrow_left</span>
         </template>
-        <span v-if="!isMobile()">{{ $t("back") }}</span>
+        <span v-if="!isMobile()">{{ $t("backnext.back") }}</span>
       </v-gouv-fr-button>
       <div v-if="!showBack"></div>
       <div class="fr-grid-row flex-1">
@@ -22,7 +22,7 @@
         <v-gouv-fr-button
           class="next-btn"
           :secondary="false"
-          :label="nextLabel ? nextLabel : $t('continue')"
+          :label="nextLabel ? nextLabel : $t('backnext.continue')"
           :btn-type="'submit'"
           :disabled="disabled"
           @click="nextAction()"

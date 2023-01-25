@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="main-information">
-      <h3 class="fr-h4">{{ $t("my-personnal-information") }}</h3>
+      <h3 class="fr-h4">{{ $t("tenantpanel.my-personnal-information") }}</h3>
       <div class="fr-grid-row fr-grid-row--gutters">
         <InfoCard
-          :title="$t('my-information')"
+          :title="$t('tenantpanel.my-information')"
           editable="true"
           matIcon="person"
           @click="gotoTenantName()"
@@ -16,62 +16,62 @@
         </InfoCard>
       </div>
       <hr class="fr-mt-4w" />
-      <h3 class="fr-h4">{{ $t("my-files") }}</h3>
+      <h3 class="fr-h4">{{ $t("tenantpanel.my-files") }}</h3>
 
       <div class="fr-grid-row fr-grid-row--gutters">
         <InfoCard
-          :title="$t('identification')"
+          :title="$t('tenantpanel.identification')"
           editable="true"
           matIcon="person"
           @click="setTenantStep(1)"
         >
           <ColoredTag
             :status="getStatus('IDENTIFICATION')"
-            :text="$t('s_' + getStatus('IDENTIFICATION'))"
+            :text="$t('tenantpanel.s_' + getStatus('IDENTIFICATION'))"
           ></ColoredTag>
         </InfoCard>
         <InfoCard
-          :title="$t('residency')"
+          :title="$t('tenantpanel.residency')"
           editable="true"
           matIcon="home"
           @click="setTenantStep(2)"
         >
           <ColoredTag
             :status="getStatus('RESIDENCY')"
-            :text="$t('s_' + getStatus('RESIDENCY'))"
+            :text="$t('tenantpanel.s_' + getStatus('RESIDENCY'))"
           ></ColoredTag>
         </InfoCard>
         <InfoCard
-          :title="$t('professional')"
+          :title="$t('tenantpanel.professional')"
           editable="true"
           matIcon="work"
           @click="setTenantStep(3)"
         >
           <ColoredTag
             :status="getStatus('PROFESSIONAL')"
-            :text="$t('s_' + getStatus('PROFESSIONAL'))"
+            :text="$t('tenantpanel.s_' + getStatus('PROFESSIONAL'))"
           ></ColoredTag>
         </InfoCard>
         <InfoCard
-          :title="$t('financial')"
+          :title="$t('tenantpanel.financial')"
           editable="true"
           matIcon="euro"
           @click="setTenantStep(4)"
         >
           <ColoredTag
             :status="getStatus('FINANCIAL')"
-            :text="$t('s_' + getStatus('FINANCIAL'))"
+            :text="$t('tenantpanel.s_' + getStatus('FINANCIAL'))"
           ></ColoredTag>
         </InfoCard>
         <InfoCard
-          :title="$t('tax')"
+          :title="$t('tenantpanel.tax')"
           editable="true"
           matIcon="content_copy"
           @click="setTenantStep(5)"
         >
           <ColoredTag
             :status="getStatus('TAX')"
-            :text="$t('s_' + getStatus('TAX'))"
+            :text="$t('tenantpanel.s_' + getStatus('TAX'))"
           ></ColoredTag>
         </InfoCard>
       </div>

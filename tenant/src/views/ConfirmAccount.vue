@@ -1,7 +1,7 @@
 <template>
   <div class="fr-container fr-grid-row fr-mt-9w fr-grid-row--center">
     <div v-if="tokenErr" class="fr-col-6">
-      <p v-html="$t('token-err')"></p>
+      <p v-html="$t('confirmaccount.token-err')"></p>
     </div>
     <div v-if="!tokenErr" class="fr-col-6">
       {{ error }}

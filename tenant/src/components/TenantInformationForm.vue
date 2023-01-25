@@ -22,7 +22,7 @@
                   value="false"
                   v-model="localSpouseAuthorize"
                 />
-                <label for="authorize">{{ $t("acceptAuthorSpouse") }}</label>
+                <label for="authorize">{{ $t("tenantinformationform.acceptAuthorSpouse") }}</label>
                 <span class="fr-error-text" v-if="errors[0]">{{
                   $t(errors[0])
                 }}</span>
@@ -50,7 +50,7 @@
                   value="false"
                   v-model="localCoTenantAuthorize"
                 />
-                <label for="authorize">{{ $t("acceptAuthorCoTenant") }}</label>
+                <label for="authorize">{{ $t("tenantinformationform.acceptAuthorCoTenant") }}</label>
                 <span class="fr-error-text" v-if="errors[0]">{{
                   $t(errors[0])
                 }}</span>
@@ -69,7 +69,7 @@
           @submit.prevent="validate().then(handleOthersInformation)"
         >
           <NakedCard class="fr-p-md-5w">
-            <h1 class="fr-h6">{{ $t("title") }}</h1>
+            <h1 class="fr-h6">{{ $t("tenantinformationform.title") }}</h1>
             <div class="fr-form-group fr-mt-3w fr-mb-0">
               <fieldset class="fr-fieldset">
                 <div class="fr-fieldset__content">
@@ -86,7 +86,7 @@
                             >person</span
                           >
                         </div>
-                        {{ $t("alone") }}
+                        {{ $t("tenantinformationform.alone") }}
                       </div>
                     </BigRadio>
                     <BigRadio
@@ -102,7 +102,7 @@
                             >group</span
                           >
                         </div>
-                        {{ $t("couple") }}
+                        {{ $t("tenantinformationform.couple") }}
                       </div>
                     </BigRadio>
                     <BigRadio
@@ -118,7 +118,7 @@
                             >groups</span
                           >
                         </div>
-                        {{ $t("roommate") }}
+                        {{ $t("tenantinformationform.roommate") }}
                       </div>
                     </BigRadio>
                   </div>
@@ -148,14 +148,14 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-roommates") }}</span>
+      <span>{{ $t("tenantinformationform.will-delete-roommates") }}</span>
     </ConfirmModal>
     <ConfirmModal
       v-if="isDeleteCoupleVisible"
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-couple") }}</span>
+      <span>{{ $t("tenantinformationform.will-delete-couple") }}</span>
     </ConfirmModal>
   </div>
 </template>
@@ -271,14 +271,14 @@ export default class TenantInformationForm extends Vue {
             params: { substep: "1" }
           });
           if (this.applicationType === "COUPLE") {
-            this.$toasted.show(this.$i18n.t("couple-saved").toString(), {
+            this.$toasted.show(this.$i18n.t("tenantinformationform.couple-saved").toString(), {
               type: "show",
               duration: 7000
             });
             return;
           }
           if (this.applicationType === "GROUP") {
-            this.$toasted.show(this.$i18n.t("roommates-saved").toString(), {
+            this.$toasted.show(this.$i18n.t("tenantinformationform.roommates-saved").toString(), {
               type: "show",
               duration: 7000
             });
@@ -287,13 +287,13 @@ export default class TenantInformationForm extends Vue {
         },
         error => {
           if (error.response.data.message.includes("are already being used")) {
-            this.$toasted.show(this.$i18n.t("email-exists").toString(), {
+            this.$toasted.show(this.$i18n.t("tenantinformationform.email-exists").toString(), {
               type: "error",
               duration: 7000
             });
             return;
           } else {
-            this.$toasted.show(this.$i18n.t("error").toString(), {
+            this.$toasted.show(this.$i18n.t("tenantinformationform.error").toString(), {
               type: "error",
               duration: 7000
             });

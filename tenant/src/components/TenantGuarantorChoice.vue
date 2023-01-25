@@ -2,8 +2,8 @@
   <div>
     <div>
       <div v-if="isMobile()" class="remark fr-mt-3w fr-mb-3w">
-        <div class="fr-h5">{{ $t("remark-title") }}</div>
-        <div v-html="$t('remark-text')"></div>
+        <div class="fr-h5">{{ $t("tenantguarantorchoice.remark-title") }}</div>
+        <div v-html="$t('tenantguarantorchoice.remark-text')"></div>
       </div>
 
       <div ref="guarantor-body-content">
@@ -11,22 +11,22 @@
           <div v-if="!isMobile()">
             <div class="text-bold fr-mb-1w">
               <h1 class="fr-h5" v-if="isCotenant">
-                {{ $t("cotenant-guarantor") }}
+                {{ $t("tenantguarantorchoice.cotenant-guarantor") }}
               </h1>
               <h1 class="fr-h5" v-else>
-                {{ $t("my-guarantor") }}
+                {{ $t("tenantguarantorchoice.my-guarantor") }}
               </h1>
             </div>
             <TroubleshootingModal>
               <GuarantorChoiceHelp></GuarantorChoiceHelp>
             </TroubleshootingModal>
             <div class="remark fr-mt-3w">
-              <div class="fr-h6">{{ $t("remark-title") }}</div>
-              <div class="small-font" v-html="$t('remark-text')"></div>
+              <div class="fr-h6">{{ $t("tenantguarantorchoice.remark-title") }}</div>
+              <div class="small-font" v-html="$t('tenantguarantorchoice.remark-text')"></div>
             </div>
           </div>
           <div class="fr-mt-3w fr-mb-2w">
-            {{ $t("ask-guarantor") }}
+            {{ $t("tenantguarantorchoice.ask-guarantor") }}
           </div>
           <TroubleshootingModal v-if="isMobile()">
             <GuarantorChoiceHelp></GuarantorChoiceHelp>
@@ -40,7 +40,7 @@
                 @input="onSelectChange"
               >
                 <div class="fr-grid-col spa">
-                  <span>{{ $t("natural-person") }}</span>
+                  <span>{{ $t("tenantguarantorchoice.natural-person") }}</span>
                 </div>
               </BigRadio>
             </div>
@@ -51,7 +51,7 @@
                 @input="onSelectChange"
               >
                 <div class="fr-grid-col spa">
-                  <span>{{ $t("organism") }}</span>
+                  <span>{{ $t("tenantguarantorchoice.organism") }}</span>
                 </div>
               </BigRadio>
             </div>
@@ -62,7 +62,7 @@
                 @input="onSelectChange"
               >
                 <div class="fr-grid-col spa">
-                  <span>{{ $t("legal-person") }}</span>
+                  <span>{{ $t("tenantguarantorchoice.legal-person") }}</span>
                 </div>
               </BigRadio>
             </div>
@@ -75,9 +75,9 @@
               >
                 <div class="fr-grid-col spa">
                   <span v-if="isCotenant">{{
-                    $t("no-guarantor-cotenant")
+                    $t("tenantguarantorchoice.no-guarantor-cotenant")
                   }}</span>
-                  <span v-else>{{ $t("no-guarantor") }}</span>
+                  <span v-else>{{ $t("tenantguarantorchoice.no-guarantor") }}</span>
                 </div>
               </BigRadio>
             </div>
@@ -88,17 +88,17 @@
           class="bg-purple fr-mt-3w fr-p-5w"
         >
           <div class="fr-grid-row space-between">
-            <div class="fr-h5">{{ $t("visale-title") }}</div>
+            <div class="fr-h5">{{ $t("tenantguarantorchoice.visale-title") }}</div>
             <img
               alt="logo visale"
               class="logo-visale"
               src="../assets/visale.svg"
             />
           </div>
-          <p>{{ $t("visale-text") }}</p>
+          <p>{{ $t("tenantguarantorchoice.visale-text") }}</p>
           <div style="text-align: right">
             <DfButton primary="true" @on-click="gotoVisale()">
-              {{ $t("visale-btn") }}
+              {{ $t("tenantguarantorchoice.visale-btn") }}
             </DfButton>
           </div>
         </div>
@@ -171,7 +171,7 @@ export default class TenantGuarantorChoice extends Vue {
 
   setGuarantorType() {
     if (!this.tmpGuarantorType) {
-      this.$toasted.show(this.$i18n.t("type-required").toString(), {
+      this.$toasted.show(this.$i18n.t("tenantguarantorchoice.type-required").toString(), {
         type: "error",
         duration: 7000
       });
@@ -191,7 +191,7 @@ export default class TenantGuarantorChoice extends Vue {
             this.$emit("on-select", this.tmpGuarantorType);
           },
           () => {
-            this.$toasted.show(this.$i18n.t("try-again").toString(), {
+            this.$toasted.show(this.$i18n.t("tenantguarantorchoice.try-again").toString(), {
               type: "error",
               duration: 7000
             });

@@ -3,7 +3,7 @@
     <div>
       <NakedCard class="fr-p-md-5w">
         <h1 class="fr-h6">
-          {{ $t("select-label") }}
+          {{ $t("identification.select-label") }}
         </h1>
 
         <TroubleshootingModal>
@@ -43,7 +43,7 @@
       <div class="fr-mb-3w">
         <p
           v-html="
-            $t(`explanation-text.guarantor.${identificationDocument.key}`)
+            $t(`identification.explanation-text.guarantor.${identificationDocument.key}`)
           "
         ></p>
       </div>
@@ -77,7 +77,7 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-files") }}</span>
+      <span>{{ $t("identification.will-delete-files") }}</span>
     </ConfirmModal>
   </div>
 </template>
@@ -259,7 +259,7 @@ export default class Identification extends Vue {
         this.identificationDocument.maxFileCount
     ) {
       Vue.toasted.global.max_file({
-        message: this.$i18n.t("max-file", [
+        message: this.$i18n.t("identification.max-file", [
           this.identificationFiles().length,
           this.identificationDocument.maxFileCount
         ])
