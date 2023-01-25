@@ -125,14 +125,22 @@ export default class SignupPage extends Vue {
     "mail-sent": "An email has been sent to the requested address.",
     "clic-to-confirm": "Please click on the given link to confirm your email and continue you inscription.",
     "duplicate-email": "This email is already used",
-    "register-error": "An error occured"
+    "register-error": "An error occured",
+    "my-file": "My rent file with ",
+    "my-file-subtitle": "You are going to complete your file",
+    "my-file-subtitle2": "checked by the state !",
+    "help-you": "helps you :"
 },
 "fr": {
     "connect": "Déjà inscrit ? Se connecter",
     "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
     "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre votre inscription.",
     "duplicate-email": "Cet email est déjà utilisé",
-    "register-error": "Une erreur est survenue"
+    "register-error": "Une erreur est survenue",
+    "my-file": "Mon dossier de location avec ",
+    "my-file-subtitle": "Vous êtes sur le point de compléter votre dossier de location",
+    "my-file-subtitle2": "vérifié par l'État !",
+    "help-you": "vous aide :"
 }
 }
 </i18n>
@@ -212,19 +220,3 @@ li {
   margin-right: 20px;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "my-file": "My rent file with ",
-    "my-file-subtitle": "You are going to complete your file",
-    "my-file-subtitle2": "checked by the state !",
-    "help-you": "helps you :"
-  },
-  "fr": {
-    "my-file": "Mon dossier de location avec ",
-    "my-file-subtitle": "Vous êtes sur le point de compléter votre dossier de location",
-    "my-file-subtitle2": "vérifié par l'État !",
-    "help-you": "vous aide :"
-  }
-}</i18n>
