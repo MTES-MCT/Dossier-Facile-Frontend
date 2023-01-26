@@ -695,10 +695,11 @@
   "guarantorlistpage": {
     "my-guarantor": "Mon garant",
     "add-new-guarantor": "Ajouter un nouveau garant ?",
-    "guarantor": "Mon garant",
-    "guarantor.NATURAL_PERSON": "Mon garant",
-    "guarantor.LEGAL_PERSON": "Mon entreprise garante",
-    "guarantor.ORGANISM": "Mon organisme garant",
+    "guarantor": {
+      "NATURAL_PERSON": "Mon garant",
+      "LEGAL_PERSON": "Mon entreprise garante",
+      "ORGANISM": "Mon organisme garant"
+    },
     "remove-guarantor": "Êtes-vous sûr·e de vouloir supprimer ce garant ?"
   },
   "guarantorname": {
@@ -1200,7 +1201,8 @@
     "public-link-copied": "Le lien de mon dossier de synthèse est copié !"
   },
   "topeditmenu": {
-    "i-add": "J'ajoute {0}"
+    "i-add": "J'ajoute {0}",
+    "my-guarantor": "Mon garant"
   },
   "troubleshootingmodal": {
     "more-information": "En difficulté pour répondre à la question ?"
