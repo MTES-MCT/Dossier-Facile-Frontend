@@ -128,7 +128,7 @@
         <label for="noDocument">
           {{
             document
-              ? $parent.$t("documentdownloader.noDocument-" + document.key)
+              ? $t("noDocument-" + document.key)
               : $t("documentdownloader.noDocument-default")
           }}
         </label>

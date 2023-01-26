@@ -261,7 +261,7 @@ export default class CoTenantFinancialList extends Vue {
   }
 
   private getDocumentName(document: FinancialDocument): string {
-    return this.$t(`cotenantfinanciallist.documents.${document.documentType.key}`).toString();
+    return this.$t(`documents.${document.documentType.key}`).toString();
   }
 
   allowNoIncome(): boolean {

@@ -50,6 +50,7 @@
   "noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",
   "noDocument-rent": "Je ne peux pas fournir de justificatifs de versement de rente",
   "noDocument-scholarship": "Je ne peux pas fournir de justificatifs d'attribution de bourse",
+  "noDocument-social-service": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
   "ALONE": "Seul·e",
   "COUPLE": "En couple",
   "GROUP": "En colocation",
@@ -132,7 +133,7 @@
       "less-than-year": "J’ai déclaré être en France depuis moins d’un an.",
       "my-name": "J’ajoute un avis d’imposition à son nom.",
       "my-parents": "Iel a déclaré être rattaché·e au domicile fiscal de mes parents.",
-      "no-income": "Iel n'ai pas de revenu",
+      "no-income": "Iel n'a pas de revenu",
       "organism-guarantor": "J'ajoute un certificat ou un visa délivré par l'organisme qui se porte garant pour mon conjoint.",
       "other-tax": "Afin d’améliorer son dossier, j’explique ci-dessous pourquoi je ne reçois pas d’avis d’imposition. Son explication sera ajoutée à mon dossier :",
       "owner": "J’ajoute un <b>avis de taxe foncière de moins d’un an.</b>",
@@ -563,6 +564,7 @@
     "size": " {0}Mo maximum par fichier"
   },
   "financialdocumentform": {
+    "financial": "Justificatif de ressources",
     "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
     "monthlySum-label": "J'indique le montant de mon revenu mensuel net à payer (avant prélèvement à la source)",
     "monthlySum": "Montant en euros",

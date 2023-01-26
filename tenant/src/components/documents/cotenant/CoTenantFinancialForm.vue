@@ -7,7 +7,7 @@
       documentCategory="FINANCIAL"
       dispatchMethodName="saveTenantFinancial"
       typeDocument="typeDocumentFinancial"
-      :showDownloader="showDownloader.value"
+      :showDownloader="showDownloader"
       :allowNoDocument="true"
       @enrich-form-data="enrichFormData"
       @on-change-document="changeDocument"
@@ -134,7 +134,6 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 import FooterContainer from "../../footer/FooterContainer.vue";
 import BackNext from "../../footer/BackNext.vue";
 import { ref } from "@vue/reactivity";
-import { isNumber } from "lodash";
 
 @Component({
   components: {
@@ -153,7 +152,7 @@ export default class CoTenantFinancialForm extends Vue {
 
   documentType?: DocumentType;
   document!: DfDocument;
-  showDownloader = ref(false);
+  showDownloader = false;
 
   documentsDefinitions() {
     return DocumentTypeConstants.FINANCIAL_DOCS.filter((d: DocumentType) => {
@@ -168,9 +167,9 @@ export default class CoTenantFinancialForm extends Vue {
   }
 
   updateMonthlySum() {
-    this.showDownloader.value = Boolean(
+    this.showDownloader = Boolean(
       this.documentType?.key &&
-        this.documentType?.key != "no-income" &&
+        this.documentType?.key !== "no-income" &&
         !!this.financialDocument.monthlySum &&
         this.financialDocument.monthlySum >= 0
     );
