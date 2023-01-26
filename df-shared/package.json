@@ -23,6 +23,7 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
+    "vee-validate": "^3.4.3",
     "@types/chai": "^4.2.11",
     "@types/mocha": "^5.2.4",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
