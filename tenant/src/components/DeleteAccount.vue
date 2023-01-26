@@ -32,7 +32,9 @@
                   @on-click="validSelect()"
                   primary="true"
                   >{{
-                    isMobile() ? $t("deleteaccount.validate-mobile") : $t("validate")
+                    isMobile()
+                      ? $t("deleteaccount.validate-mobile")
+                      : $t("deleteaccount.validate")
                   }}</DfButton
                 >
               </div>
