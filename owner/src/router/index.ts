@@ -64,6 +64,16 @@ const routes = [
     component: () => import('../components/account/ChangePasswordPage.vue'),
   },
   {
+    path: '/contact',
+    name: 'Contact',
+    meta: {
+      title: 'Contact - DossierFacile',
+      requiresAuth: true,
+      hasFooter: true,
+    },
+    component: () => import('../components/ContactPage.vue'),
+  },
+  {
     path: '/proprietaire',
     name: 'AccountName',
     meta: {
