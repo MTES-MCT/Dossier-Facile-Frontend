@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="main-information">
-      <h3 class="fr-h4">{{ $t("my-personnal-information") }}</h3>
+      <h3 class="fr-h4">{{ $t("tenantpanel.my-personnal-information") }}</h3>
       <div class="fr-grid-row fr-grid-row--gutters">
         <InfoCard
-          :title="$t('my-information')"
+          :title="$t('tenantpanel.my-information')"
           editable="true"
           matIcon="person"
           @click="gotoTenantName()"
@@ -16,62 +16,62 @@
         </InfoCard>
       </div>
       <hr class="fr-mt-4w" />
-      <h3 class="fr-h4">{{ $t("my-files") }}</h3>
+      <h3 class="fr-h4">{{ $t("tenantpanel.my-files") }}</h3>
 
       <div class="fr-grid-row fr-grid-row--gutters">
         <InfoCard
-          :title="$t('identification')"
+          :title="$t('tenantpanel.identification')"
           editable="true"
           matIcon="person"
           @click="setTenantStep(1)"
         >
           <ColoredTag
             :status="getStatus('IDENTIFICATION')"
-            :text="$t('s_' + getStatus('IDENTIFICATION'))"
+            :text="$t('tenantpanel.s_' + getStatus('IDENTIFICATION'))"
           ></ColoredTag>
         </InfoCard>
         <InfoCard
-          :title="$t('residency')"
+          :title="$t('tenantpanel.residency')"
           editable="true"
           matIcon="home"
           @click="setTenantStep(2)"
         >
           <ColoredTag
             :status="getStatus('RESIDENCY')"
-            :text="$t('s_' + getStatus('RESIDENCY'))"
+            :text="$t('tenantpanel.s_' + getStatus('RESIDENCY'))"
           ></ColoredTag>
         </InfoCard>
         <InfoCard
-          :title="$t('professional')"
+          :title="$t('tenantpanel.professional')"
           editable="true"
           matIcon="work"
           @click="setTenantStep(3)"
         >
           <ColoredTag
             :status="getStatus('PROFESSIONAL')"
-            :text="$t('s_' + getStatus('PROFESSIONAL'))"
+            :text="$t('tenantpanel.s_' + getStatus('PROFESSIONAL'))"
           ></ColoredTag>
         </InfoCard>
         <InfoCard
-          :title="$t('financial')"
+          :title="$t('tenantpanel.financial')"
           editable="true"
           matIcon="euro"
           @click="setTenantStep(4)"
         >
           <ColoredTag
             :status="getStatus('FINANCIAL')"
-            :text="$t('s_' + getStatus('FINANCIAL'))"
+            :text="$t('tenantpanel.s_' + getStatus('FINANCIAL'))"
           ></ColoredTag>
         </InfoCard>
         <InfoCard
-          :title="$t('tax')"
+          :title="$t('tenantpanel.tax')"
           editable="true"
           matIcon="content_copy"
           @click="setTenantStep(5)"
         >
           <ColoredTag
             :status="getStatus('TAX')"
-            :text="$t('s_' + getStatus('TAX'))"
+            :text="$t('tenantpanel.s_' + getStatus('TAX'))"
           ></ColoredTag>
         </InfoCard>
       </div>
@@ -411,145 +411,3 @@ hr {
 }
 </style>
 
-<i18n>
-  {
-    "en": {
-      "title": "Hello {0}, your file {1}",
-      "status-description":"{0}, you are {1}, {2} and {3}.<br>if your situation has changed, please update your documents !",
-      "last-update": "Dernière mise à jour du dossier le {0}",
-      "file-update-title": "File update",
-      "file-update-text": "Vous avez mis à jour votre dossier, pour la dernière fois le {0}.<br> Afin qu'il reste convaincant, il est important de maintenir à jour vos justificatifs.",
-      "update-file-btn": "Update my documents",
-      "copy-link":"Copy my file link",
-      "share-by-mail": "Share by mail",
-      "my-file": "My rent file",
-      "my-personnal-information": "My personnal information",
-      "my-information": "My information",
-      "my-files": "My documents",
-      "identification": "Identification",
-      "residency": "Residency",
-      "professional": "Professional",
-      "financial": "Financial",
-      "tax": "Tax",
-      "s_TO_PROCESS":"To process",
-      "s_VALIDATED":"Validated",
-      "s_DECLINED":"Declined",
-      "s_INCOMPLETE":"Incomplete",
-      "s_EMPTY": "Empty",
-      "TO_PROCESS":"to process",
-      "VALIDATED":"is validated",
-      "DECLINED":"is declined",
-      "INCOMPLETE":"is incomplete",
-      "delete": "Deletion of my account",
-      "opinion": "Tell us about your experience DossierFacile.fr",
-      "delete-account": "Delete my account",
-      "share-file": "Share my file",
-      "share-file-description": "Copy your link-file to share it! It's up to you to send it to the owners of your choice (by email, sms, etc.)",
-      "file-resume": "Share resumed file <br>(without supporting document)",
-      "file-full": "Share full file <br>(with supporting document)",
-      "copy": "Copy",
-      "field-required": "This field is required",
-      "CDI": "CDI",
-      "CDI_TRIAL": "CDI (période d’essai)",
-      "CDD": "CDD",
-      "ALTERNATION": "Alternance",
-      "INTERNSHIP": "Stage",
-      "STUDENT": "Études",
-      "PUBLIC": "Fonction publique",
-      "CTT": "CTT (intérimaire)",
-      "RETIRED": "Retraité",
-      "UNEMPLOYED": "Chômage",
-      "INDEPENDENT": "Indépendant",
-      "OTHER": "Autre",
-      "no-income": "have no income",
-      "income": "have a monthly income of {0}€",
-      "copied": "Copied !",
-      "ALONE": "alone",
-      "couple-with": "in relationship with {0}",
-      "someone": " someone",
-      "group-with": "in flatsharing with {0}",
-      "group-with-someone": "in flatsharing",
-      "cotenant-cannot-copy-link": "Your link is inactive because your roommate's file has not yet been validated",
-      "spouse-cannot-copy-link": "Your link is inactive because your spouse's file has not yet been validated",
-      "amendment-required-title": "Amendment required",
-      "amendment-required-text": "After examining your file, modifications are requested. <br> Check your mailbox for details.",
-      "messaging": "Messaging",
-      "instructional-time-title": "Instructional time",
-      "instructional-time-text": "Once the files are completed, they are taken care of on average in less than 24 hours by our team of operators.",
-      "congratulations-title": "🎉 Congratulations! Your DossierFacile becomes available!",
-      "congratulations-text-1": "In order to apply for the accommodation of your dreams, send your DossierFacile link, by email, SMS, etc. to owners, lessors… of your choice. As a reminder, DossierFacile does not offer accommodation.",
-      "congratulations-text-2": "Your data is protected!",
-      "full-link-copied": "The link of my complete file is copied!",
-      "public-link-copied": "The link of my summary file is copied!"
-    },
-    "fr": {
-      "title": "Bonjour {0}, votre dossier {1} !",
-      "status-description":"{0}, vous avez indiqué être {1}, {2} et {3}.<br>Si votre situation a changé, mettez à jour vos documents !",
-      "last-update": "Dernière mise à jour du dossier le {0}",
-      "file-update-title": "Mise à jour de votre dossier",
-      "file-update-text": "Vous avez mis à jour votre dossier, pour la dernière fois le {0}.<br> Afin qu'il reste convaincant, il est important de maintenir à jour vos justificatifs.",
-      "update-file-btn": "Mettre à jour mes documents",
-      "copy-link":"Copier mon lien dossier",
-      "share-by-mail": "Partager par mail",
-      "my-file": "Mon dossier de location",
-      "my-personnal-information": "Informations personnelles",
-      "my-information": "Informations",
-      "my-files": "Pièces justificatives",
-      "identification": "Pièce d'identité",
-      "residency": "Justificatif de domicile",
-      "professional": "Justificatif de situation professionnelle",
-      "financial": "Justificatif de ressources",
-      "tax": "Avis d’imposition",
-      "s_TO_PROCESS":"En cours de traitement",
-      "s_VALIDATED":"Vérifié",
-      "s_DECLINED":"Modification demandée",
-      "s_INCOMPLETE":"Non terminé",
-      "s_EMPTY": "Document manquant",
-      "TO_PROCESS":"est en cours de traitement",
-      "VALIDATED":"est vérifié",
-      "DECLINED":"nécessite une modification",
-      "INCOMPLETE":"est non terminé",
-      "delete": "Suppression de mon compte",
-      "opinion": "Racontez-nous votre expérience DossierFacile.fr",
-      "delete-account": "Supprimer mon compte",
-      "share-file": "Partager mon dossier",
-      "share-file-description": "Copiez votre lien-dossier pour le partager ! À vous de l'envoyer aux propriétaires ou bailleurs de votre choix (par mail, SMS, etc.)",
-      "file-resume": "Partager mon dossier de synthèse <br>(sans pièce justificative)",
-      "file-full": "Partager mon dossier complet<br>(avec pièces justificatives)",
-      "copy": "Copier",
-      "field-required": "Ce champ est requis",
-      "CDI": "en CDI",
-      "CDI_TRIAL": "en CDI (période d’essai)",
-      "CDD": "en CDD",
-      "ALTERNATION": "en alternance",
-      "INTERNSHIP": "en stage",
-      "STUDENT": "étudiant·e",
-      "PUBLIC": "dans la fonction publique",
-      "CTT": "en CTT (intérimaire)",
-      "RETIRED": "retraité",
-      "UNEMPLOYED": "au chômage",
-      "INDEPENDENT": "indépendant",
-      "OTHER": "Autre",
-      "no-income": "ne pas avoir de revenu",
-      "income": "avoir un revenu net mensuel de {0}€",
-      "copied": "Copié !",
-      "ALONE": "seul·e",
-      "couple-with": "en couple avec {0}",
-      "group-with": "en colocation avec {0}",
-      "group-with-someone": "en colocation",
-      "someone": " quelqu'un",
-      "spouse-cannot-copy-link": "Votre lien est inactif car le dossier de votre conjoint·e n'est pas encore validé",
-      "cotenant-cannot-copy-link": "Votre lien est inactif car le dossier de votre(vos) colocataire(s) n'est pas encore validé",
-      "amendment-required-title": "Modifications demandées",
-      "amendment-required-text": "Après examen de votre dossier, des modifications vous sont demandées. <br>Consultez votre messagerie pour en connaître le détail.",
-      "messaging": "Consulter ma messagerie",
-      "instructional-time-title": "Durée d'instruction",
-      "instructional-time-text": "Une fois votre dossier complété et déposé, il est pris en charge dans un délai de 24 à 48 heures par notre équipe d'opérateurs.",
-      "congratulations-title": "🎉 Félicitations ! Votre DossierFacile est disponible !",
-      "congratulations-text-1": "Afin de candidater au logement de vos rêves, envoyez votre lien DossierFacile, par email, SMS, etc. aux propriétaires, bailleurs de votre choix. Pour rappel, DossierFacile ne propose pas de logement.",
-      "congratulations-text-2": "Vos informations sont protégées !",
-      "full-link-copied": "Le lien de mon dossier complet est copié !",
-      "public-link-copied": "Le lien de mon dossier de synthèse est copié !"
-    }
-  }
-  </i18n>

@@ -8,7 +8,7 @@
           v-slot="{ errors, valid }"
         >
           <h1 class="fr-h6">
-            {{ $t("select-label") }}
+            {{ $t("professional-page.select-label") }}
           </h1>
           <TroubleshootingModal>
             <DocumentHelp></DocumentHelp>
@@ -74,7 +74,7 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-files") }}</span>
+      <span>{{ $t("professional-page.will-delete-files") }}</span>
     </ConfirmModal>
   </div>
 </template>
@@ -272,7 +272,7 @@ export default class Professional extends Vue {
       this.professionalFiles().length > this.professionalDocument.maxFileCount
     ) {
       Vue.toasted.global.max_file({
-        message: this.$i18n.t("max-file", [
+        message: this.$i18n.t("professional.max-file", [
           this.professionalFiles().length,
           this.professionalDocument.maxFileCount
         ])
@@ -343,41 +343,3 @@ export default class Professional extends Vue {
 
 <style scoped lang="scss"></style>
 
-<i18n>
-{
-"en": {
-  "cdi": "CDI",
-  "cdi-trial": "CDI (période d’essai)",
-  "cdd": "CDD",
-  "alternation": "Alternance",
-  "internship": "Stage",
-  "student": "Études",
-  "public": "Fonction publique",
-  "ctt": "CTT (intérimaire)",
-  "retired": "Retraité",
-  "unemployed": "Chômage",
-  "independent": "Indépendant",
-  "other": "Autre",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-  "select-label": "Your current professional situation:",
-  "select-is-empty": "Item selection required"
-},
-"fr": {
-  "cdi": "CDI",
-  "cdi-trial": "CDI (période d’essai)",
-  "cdd": "CDD",
-  "alternation": "Alternance",
-  "internship": "Stage",
-  "student": "Études",
-  "public": "Fonction publique",
-  "ctt": "CTT (intérimaire)",
-  "retired": "Retraité",
-  "unemployed": "Chômage",
-  "independent": "Indépendant",
-  "other": "Autre",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "select-label": "Votre situation professionnelle actuelle :",
-  "select-is-empty": "Sélection requise"
-}
-}
-</i18n>

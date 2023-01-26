@@ -3,7 +3,7 @@
     <ValidationObserver v-slot="{ validate }">
       <form name="form">
         <NakedCard class="fr-p-md-5w">
-          <h1 class="fr-h6">{{ $t("title") }}</h1>
+          <h1 class="fr-h6">{{ $t("tax-page.title") }}</h1>
           <TroubleshootingModal>
             <TaxHelp></TaxHelp>
             <DocumentInsert
@@ -48,7 +48,7 @@
               :class="errors[0] ? 'fr-input-group--error' : ''"
             >
               <label class="fr-label" for="customText">{{
-                $t("custom-text")
+                $t("tax-page.custom-text")
               }}</label>
               <input
                 v-model="customText"
@@ -85,17 +85,17 @@
             <div class="fr-text-default--info fr-h6 title">
               <span class="material-icons-outlined"> warning_amber </span>
               <span class="fr-ml-1w">
-                {{ $t("warning-no-accepted-doc") }}
+                {{ $t("tax-page.warning-no-accepted-doc") }}
               </span>
             </div>
             <div class="link">
               <a
                 class="fr-link"
                 href="https://docs.dossierfacile.fr/guide-dutilisation-de-dossierfacile/avis-dimposition"
-                :title="$t('goto-documentation')"
+                :title="$t('tax-page.goto-documentation')"
                 target="_blank"
                 rel="noreferrer"
-                >{{ $t("goto-documentation") }}</a
+                >{{ $t("tax-page.goto-documentation") }}</a
               >
             </div>
           </div>
@@ -131,7 +131,7 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-files") }}</span>
+      <span>{{ $t("tax-page.will-delete-files") }}</span>
     </ConfirmModal>
   </div>
 </template>
@@ -366,7 +366,7 @@ export default class Tax extends Vue {
         this.taxFiles().length > this.taxDocument.maxFileCount
       ) {
         Vue.toasted.global.max_file({
-          message: this.$i18n.t("max-file", [
+          message: this.$i18n.t("tax.max-file", [
             this.taxFiles().length,
             this.taxDocument.maxFileCount
           ])
@@ -478,37 +478,3 @@ export default class Tax extends Vue {
 }
 </style>
 
-<i18n>
-{
-"en": {
-  "my-name": "Vous avez un avis d’imposition à votre nom",
-  "my-parents": "Vous êtes rattaché fiscalement à vos parents",
-  "less-than-year": "Vous êtes en France depuis moins d’un an",
-  "other-tax": "Autre",
-  "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
-  "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'imposition. Votre explication sera ajoutée à votre dossier :",
-  "files": "Documents",
-  "register": "Register",
-  "field-required": "This field is required",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-  "title": "My tax notice",
-  "warning-no-accepted-doc": "Attention, l'avis de situation déclarative n'est pas accepté.",
-  "goto-documentation" : "Go To documentation"
-},
-"fr": {
-  "my-name": "Vous avez un avis d’imposition à votre nom",
-  "my-parents": "Vous êtes rattaché fiscalement à vos parents",
-  "less-than-year": "Vous êtes en France depuis moins d’un an",
-  "other-tax": "Autre",
-  "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
-  "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'imposition. Votre explication sera ajoutée à votre dossier :",
-  "files": "Documents",
-  "register": "Enregistrer",
-  "field-required": "Ce champ est requis",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "title": "Mon avis d'imposition",
-  "warning-no-accepted-doc": "Attention, l'avis de situation déclarative n'est pas accepté.",
-  "goto-documentation" : "Consulter la documentation"
-}
-}
-</i18n>

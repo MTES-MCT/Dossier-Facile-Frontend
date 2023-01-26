@@ -7,6 +7,9 @@
       dispatchMethodName="saveTenantResidency"
       typeDocument="typeDocumentResidency"
     >
+      <template v-slot:title>
+        {{ $t("cotenantresidency.title") }}
+      </template>
     </DocumentDownloader>
   </div>
 </template>
@@ -27,24 +30,3 @@ export default class CoTenantProfessional extends Vue {
 }
 </script>
 
-<i18n>
-{
-"en": {
-  "title": "Your Spouse current accommodation situation",
-  "tenant": "Locataire",
-  "owner": "Propriétaire",
-  "guest": "Hébergé·e gratuitement",
-  "guest-parents": "Chez mes parents",
-  "files": "Documents",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to his/her situation again.",
-  "select-label": "Your Spouse current accommodation situation:"
-},
-"fr": {
-  "title": "La situation d’hébergement actuelle de votre conjoint",
-  "tenant": "Locataire",
-  "owner": "Propriétaire",
-  "guest": "Hébergé·e gratuitement",
-  "guest-parents": "Chez ses parents"
-}
-}
-</i18n>

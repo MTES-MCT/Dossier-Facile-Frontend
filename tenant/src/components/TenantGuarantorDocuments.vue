@@ -88,7 +88,7 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-guarantor") }}</span>
+      <span>{{ $t("tenantguarantordocuments.will-delete-guarantor") }}</span>
     </ConfirmModal>
   </div>
 </template>
@@ -285,43 +285,3 @@ h2 {
 }
 </style>
 
-<i18n>
-{
-"en": {
-"identification": "Pièce d’identité",
-"residency": "Justificatif de domicile",
-"professional": "Justificatif de situation professionnelle",
-"financial": "Justificatif de ressources",
-"tax": "Avis d’imposition",
-"guarantor": "Guarantor",
-"validate": "Validate",
-"will-delete-guarantor": "Are you sure you want to change the type of guarantor?",
-"validate-file": "Next step - Validate file",
-"natural-person": "A classic physical guarantor",
-"organism": "An organization",
-"legal-person": "A corporation guarantor",
-"no-guarantor": "I don't have a guarantor",
-"ask-guarantor": "Do you want to add :",
-"remark-title": "Remark",
-"remark-text": "Adding a guarantor is by no means mandatory. If you do not wish to add a surety, you can select “I don't have a guarantor”. Your file will then be registered for investigation."
-},
-"fr": {
-"identification": "Pièce d’identité",
-"residency": "Justificatif de domicile",
-"professional": "Justificatif de situation professionnelle",
-"financial": "Justificatif de ressources",
-"tax": "Avis d’imposition",
-"guarantor": "Garant",
-"validate": "Valider",
-"will-delete-guarantor": "Voulez-vous vraiment changer le type de garant ?",
-"validate-file": "Étape suivante - Valider le dossier",
-"natural-person": "Un garant physique classique",
-"organism": "Un organisme garant",
-"legal-person": "Un garant moral",
-"no-guarantor": "Je n'ai pas de garant",
-"ask-guarantor": "Souhaitez-vous ajouter :",
-"remark-title": "Remarque",
-"remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez sélectionner « Je n'ai pas de garant ». Votre dossier sera alors enregistré pour être instruit."
-}
-}
-</i18n>

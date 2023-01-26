@@ -178,13 +178,3 @@ export default class App extends Vue {
 }
 </style>
 
-<i18n>
-{
-"en": {
-"home": "Home"
-},
-"fr": {
-"home": "Home"
-}
-}
-</i18n>

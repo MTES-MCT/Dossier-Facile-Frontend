@@ -4,13 +4,13 @@
       <ValidationObserver v-slot="{ invalid }">
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12">
-            <h6>{{ $t("title") }}</h6>
+            <h6>{{ $t("roommatesinformation.title") }}</h6>
             <v-gouv-fr-modal>
               <template v-slot:button>
-                <span class="small-font">{{ $t("more-information") }}</span>
+                <span class="small-font">{{ $t("roommatesinformation.more-information") }}</span>
               </template>
               <template v-slot:title>
-                {{ $t("more-information") }}
+                {{ $t("roommatesinformation.more-information") }}
               </template>
               <template v-slot:content>
                 <p>
@@ -21,7 +21,7 @@
           </div>
           <div class="fr-col-12 fr-mt-2w">
             <div v-if="showEmailExists" class="fr-callout">
-              <p class="fr-mb-1w" v-html="$t('email-exists')"></p>
+              <p class="fr-mb-1w" v-html="$t('roommatesinformation.email-exists')"></p>
             </div>
             <div v-if="value.length > 0">
               <div
@@ -56,7 +56,7 @@
                     <div class="fr-col-2 center-icon">
                       <button
                         class="fr-btn fr-btn--secondary icon-btn"
-                        :title="$t('delete')"
+                        :title="$t('roommatesinformation.delete')"
                         @click="remove(roommate)"
                         type="button"
                       >
@@ -71,7 +71,7 @@
             </div>
           </div>
           <div class="fr-col-12 fr-col-xl-7 fr-mt-2w">
-            <label class="fr-label fr-mb-1w">{{ $t("roommateEmail") }}</label>
+            <label class="fr-label fr-mb-1w">{{ $t("roommatesinformation.roommateEmail") }}</label>
             <validation-provider
               :rules="{ email: true, required: value.length == 0 }"
               v-slot="{ errors }"
@@ -100,7 +100,7 @@
                 class="full-width-xs"
                 :fullWidth="isMobile()"
                 :secondary="true"
-                :label="$t('add-a-roommate')"
+                :label="$t('roommatesinformation.add-a-roommate')"
                 :btn-type="'button'"
                 @click="addMail"
                 :disabled="invalid"
@@ -124,7 +124,7 @@
               v-model="authorize"
               @change="updateAuthorize()"
             />
-            <label for="authorize">{{ $t("acceptAuthor") }}</label>
+            <label for="authorize">{{ $t("roommatesinformation.acceptAuthor") }}</label>
             <span class="fr-error-text" v-if="errors[0]">{{
               $t(errors[0])
             }}</span>
@@ -319,39 +319,3 @@ export default class RoommatesInformation extends Vue {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "roommateEmail": "Add a roommate email",
-    "acceptAuthor": "I agree that the other members of my roommate have access to my documents as well as those of my guarantor, if applicable, once all the files of the roommate have been validated",
-    "delete": "Delete",
-    "email-not-valid": "Email not valid",
-    "field-required": "This field is required",
-    "title": "Who are your roommates ?",
-    "add-a-roommate": "Add this roommate",
-    "invite-waiting": "Waiting for confirmation",
-    "invite-sent": "Invitation sent",
-    "my-roommates": "My roommates",
-    "email-exists": "You can not associate two account with only one email address ! <br>Fullfill a different email address.",
-    "email-exists-2": "This email address already exists in DossierFacile. Please use an other email address.",
-    "more-information": "En quoi cette information nous est utile ?",
-    "require-accept": "You must accept the statement"
-  },
-  "fr": {
-    "roommateEmail": "Ajouter l’adresse email d'un colocataire",
-    "acceptAuthor": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",
-    "delete": "Supprimer",
-    "email-not-valid": "Email non valide",
-    "field-required": "Ce champ est requis",
-    "title": "Qui seront vos colocataires ?",
-    "add-a-roommate": "Inviter ce colocataire",
-    "invite-waiting": "Invitation en attente d'envoi",
-    "invite-sent": "Invitation envoyée",
-    "my-roommates": "Mes colocataires",
-    "email-exists": "Vous ne pouvez pas associer deux comptes à une même adresse email ! <br>Renseignez une adresse email différente de la votre.",
-    "email-exists-2": "Cette adresse email est déjà utilisée sur DossierFacile.<br>Renseignez une adresse email différente.",
-    "more-information": "En quoi cette information nous est utile ?",
-    "require-accept": "Vous devez accepter la déclaration"
-  }
-}
-</i18n>

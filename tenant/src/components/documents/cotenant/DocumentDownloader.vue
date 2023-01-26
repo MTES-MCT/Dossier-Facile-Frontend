@@ -3,9 +3,9 @@
     <NakedCard class="fr-p-md-5w">
       <div>
         <h1 class="fr-h6">
-          {{ $parent.$t("title") }}
+          <slot name="title"></slot>
         </h1>
-        <p v-if="$parent.$te('description')">{{ $parent.$t("description") }}</p>
+        <slot name="description"></slot>
 
         <TroubleshootingModal>
           <DocumentHelp></DocumentHelp>
@@ -64,7 +64,7 @@
                       class="fr-grid-col"
                       :class="{ spa: listType === 'grid' }"
                     >
-                      <span>{{ $parent.$t(d.key) }}</span>
+                      <span>{{ $t(`documents.${d.key}`) }}</span>
                     </div>
                   </BigRadio>
                 </div>
@@ -79,7 +79,7 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-files") }}</span>
+      <span>{{ $t("documentdownloader.will-delete-files") }}</span>
     </ConfirmModal>
 
     <slot name="after-select-block"></slot>
@@ -128,8 +128,8 @@
         <label for="noDocument">
           {{
             document
-              ? $parent.$t("noDocument-" + document.key)
-              : $t("noDocument-default")
+              ? $parent.$t("documentdownloader.noDocument-" + document.key)
+              : $t("documentdownloader.noDocument-default")
           }}
         </label>
       </div>
@@ -146,7 +146,7 @@
         >
           <div class="fr-input-group">
             <label class="fr-label" for="customText">
-              {{ $parent.$t(`customText-${document.key}`) }}
+              {{ $parent.$t(`documentdownloader.customText-${document.key}`) }}
             </label>
             <textarea
               v-model="dfDocument.customText"
@@ -191,7 +191,7 @@
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-12">
               <p>
-                {{ $t("warning-no-document-and-files") }}
+                {{ $t("documentdownloader.warning-no-document-and-files") }}
               </p>
             </div>
           </div>
@@ -407,7 +407,7 @@ export default class DocumentDownloader extends Vue {
       futurLength > this.document.maxFileCount
     ) {
       Vue.toasted.global.max_file({
-        message: this.$i18n.t("max-file", [
+        message: this.$i18n.t("documentdownloader.max-file", [
           futurLength,
           this.document.maxFileCount
         ])
@@ -502,29 +502,3 @@ td {
 }
 </style>
 
-<i18n>
-{
-"en": {
-  "files": "Documents",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-  "register": "Register",
-  "validate": "Validate",
-  "cancel": "Cancel",
-  "field-required": "This field is required",
-  "warning-no-document-and-files":  "You can't have files and no document selected. You must uncheck the box or delete your files.",
-  "noDocument-default": "I cannot provide such documents"
-},
-"fr": {
-  "files": "Documents",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs.",
-  "register": "Enregistrer la pièce",
-  "validate": "Valider",
-  "cancel": "Annuler",
-  "field-required": "Ce champ est requis",
-  "warning-no-document-and-files": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers.",
-  "noDocument-default": "Je ne peux pas fournir les justificatifs demandés"
-}
-}
-
-
-</i18n>

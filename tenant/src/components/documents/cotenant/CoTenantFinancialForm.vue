@@ -12,6 +12,9 @@
       @enrich-form-data="enrichFormData"
       @on-change-document="changeDocument"
     >
+      <template v-slot:title>
+        {{ $t("cotenantfinancialform.title") }}
+      </template>
       <template v-slot:after-select-block>
         <NakedCard
           class="fr-p-md-5w fr-mb-3w fr-mt-3w"
@@ -33,11 +36,11 @@
                 }"
               >
                 <label for="monthlySum" class="fr-label"
-                  >{{ $t("monthlySum-label") }} :</label
+                  >{{ $t("cotenantfinancialform.monthlySum-label") }} :</label
                 >
                 <input
                   id="monthlySum"
-                  :placeholder="$t('monthlySum')"
+                  :placeholder="$t('cotenantfinancialform.monthlySum')"
                   type="number"
                   min="0"
                   step="1"
@@ -64,7 +67,7 @@
                       : false
                   "
                 >
-                  {{ $t("high-salary") }}
+                  {{ $t("cotenantfinancialform.high-salary") }}
                 </span>
               </div>
             </validation-provider>
@@ -75,7 +78,7 @@
           v-else-if="documentType ? documentType.key === 'no-income' : false"
           class="fr-p-md-5w fr-mb-3w fr-mt-3w"
         >
-          {{ $t("has-no-income") }}
+          {{ $t("cotenantfinancialform.has-no-income") }}
           <ValidationObserver v-slot="{ validate, valid }">
             <form
               name="customTextForm"
@@ -83,7 +86,7 @@
             >
               <div class="fr-input-group">
                 <label class="fr-label" for="customTextNoDocument">
-                  {{ $t("custom-text") }}
+                  {{ $t("cotenantfinancialform.custom-text") }}
                 </label>
                 <textarea
                   v-model="document.customText"
@@ -265,83 +268,3 @@ td {
 }
 </style>
 
-<i18n>
-{
-"en": {
-  "title": "Financial's resources",
-  "tenant": "Locataire",
-  "owner": "Propriétaire",
-  "guest": "Hébergé·e gratuitement",
-  "guest-parents": "Chez mes parents",
-  "files": "Documents",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to his/her situation again.",
-  "salary": "Professional incomes",
-  "social-service": "Social benefit payments",
-  "rent": "Annuities",
-  "pension": "Pensions",
-  "scholarship": "Scholarship",
-  "no-income": "No Income",
-  "monthlySum": "Value in euros",
-  "monthlySum-label": "Monthly salary (after tax)",
-  "noDocument-social-service": "I cannot provide proof of payment of social benefits",
-  "noDocument-salary": "I cannot provide the last three payslips or a balance sheet of my spouse",
-  "noDocument-rent": "I cannot provide proof of rent",
-  "noDocument-pension": "I cannot provide proof of pension",
-  "noDocument-scholarship": "I cannot provide proof of scholarship",
-  "customText-social-service": "In order to improve my file, I explain why I cannot provide the justificatives:",
-  "customText-salary": "In order to improve my file, I explain why I cannot provide the last three payslips or a balance sheet of my spouse:",
-  "customText-rent": "In order to improve my file, I explain why I cannot provide the justificatives:",
-  "customText-pension": "In order to improve my file, I explain why I cannot provide the justificatives:",
-  "customText-scholarship": "In order to improve my file, I explain why I cannot provide the justificatives:",
-  "customText-undefined": "In order to improve my file, I explain why I cannot provide the justificatives:",
-  "custom-text": "To improve your file, you can explain why :",
-  "high-salary": "You have entered a salary greater than € 10,000 are you sure you have entered your spouse monthly salary?",
-  "low-salary": "You have entered a salary equal to 0 € are you sure you have entered your spouse monthly salary?",
-  "has-no-income": "has not income",
-  "number-not-valid": "Number not valid - without decimal",
-  "delete-financial":  "Delete this salary",
-  "field-required": "This field is required",
-  "register": "Register",
-  "warning-no-income-and-file": "You can't have files and no income. You must uncheck the box or delete your files.",
-  "missing-file": "You must add files to save this income."
-},
-"fr": {
-  "title": "Justificatif de ressources",
-  "tenant": "Locataire",
-  "owner": "Propriétaire",
-  "guest": "Hébergé·e gratuitement",
-  "guest-parents": "Chez ses parents",
-  "files": "Documents",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à sa situation.",
-  "salary": "Revenus professionnels",
-  "social-service": "Prestations sociales",
-  "rent": "Rentes",
-  "pension": "Pensions",
-  "scholarship": "Bourses",
-  "no-income": "Pas de revenus",
-  "monthlySum": "Montant en euros",
-  "monthlySum-label": "J'indique le montant de son revenu mensuel net à payer (avant prélèvement à la source)",
-  "noDocument-social-service": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
-  "noDocument-salary": "Je ne peux pas fournir ses trois derniers bulletins de salaire ",
-  "noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",
-  "noDocument-rent": "Je ne peux pas fournir de justificatifs de versement de rente",
-  "noDocument-scholarship": "Je ne peux pas fournir de justificatifs d'attribution de bourse",
-  "customText-social-service": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon conjoint :",
-  "customText-salary": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les trois derniers bulletins de salaire ou un bilan comptable de mon conjoint :",
-  "customText-pension": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon conjoint :",
-  "customText-rent": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon conjoint :",
-  "customText-scholarship": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon conjoint :",
-  "customText-undefined": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs",
-  "custom-text": "Afin d'améliorer votre dossier, vous pouvez ajouter une explication :",
-  "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
-  "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
-  "has-no-income": "Vous avez indiqué l'absence de revenu",
-  "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule",
-  "delete-financial":  "Supprimer ce revenu",
-  "field-required": "Ce champ est requis",
-  "register": "Enregistrer",
-  "missing-file": "Vous devez ajouter des fichiers pour sauvegarder ce revenu.",
-  "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir les fichiers. Veuillez décocher la case ou supprimer vos fichiers."
-}
-}
-</i18n>

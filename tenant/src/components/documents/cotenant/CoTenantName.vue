@@ -3,11 +3,11 @@
     <ValidationObserver v-slot="{ validate }">
       <form name="coTenantNameForm" @submit.prevent="validate().then(save)">
         <NakedCard class="fr-p-md-5w">
-          <h1 class="fr-h6">{{ $t("title") }}</h1>
+          <h1 class="fr-h6">{{ $t("cotenantname.title") }}</h1>
           <div>
-            {{ $t("subtitle") }}
+            {{ $t("cotenantname.subtitle") }}
             <span v-if="selectedCoTenant.franceConnect">
-              {{ $t("franceconnect-account") }}
+              {{ $t("cotenantname.franceconnect-account") }}
             </span>
           </div>
           <RequiredFieldsInstruction></RequiredFieldsInstruction>
@@ -19,7 +19,7 @@
                   :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
                   <FieldLabel :required="true" for-input="lastname">
-                    {{ $t("lastname") }}
+                    {{ $t("cotenantname.lastname") }}
                   </FieldLabel>
                   <input
                     v-model="lastName"
@@ -30,7 +30,7 @@
                     }"
                     id="lastname"
                     name="lastname"
-                    :placeholder="$t('lastname-placeholder')"
+                    :placeholder="$t('cotenantname.lastname-placeholder')"
                     type="text"
                     :disabled="selectedCoTenant.franceConnect"
                     required
@@ -48,11 +48,11 @@
                   :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
                   <FieldLabel :required="true" for-input="firstname">
-                    {{ $t("firstname") }}
+                    {{ $t("cotenantname.firstname") }}
                   </FieldLabel>
                   <input
                     id="firstname"
-                    :placeholder="$t('firstname-placeholder')"
+                    :placeholder="$t('cotenantname.firstname-placeholder')"
                     type="text"
                     v-model="firstName"
                     name="firstname"
@@ -77,11 +77,11 @@
                   :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
                   <FieldLabel for-input="preferredname">
-                    {{ $t("preferredname") }}
+                    {{ $t("cotenantname.preferredname") }}
                   </FieldLabel>
                   <input
                     id="preferredname"
-                    :placeholder="$t('lastname-placeholder')"
+                    :placeholder="$t('cotenantname.lastname-placeholder')"
                     type="text"
                     v-model="preferredName"
                     name="preferredname"
@@ -204,33 +204,3 @@ export default class CoTenantName extends Vue {
 
 <style scoped lang="scss"></style>
 
-<i18n>
-{
-"en": {
-  "lastname": "Lastname",
-  "firstname": "Firstname",
-  "preferredname": "Usage name",
-  "email": "E-mail (If you filled this field an invitation will be send)",
-  "email-not-valid": "Email not valid",
-  "lastname-placeholder": "e.g. Dupont",
-  "firstname-placeholder": "e.g. Jean",
-  "field-required": "This field is required",
-  "title": "My spouse name",
-  "subtitle": "I fill the last name and first name of my spouse",
-  "franceconnect-account": "This account is authenticated with FranceConnect, firstname and lastname cannot be edited."
-},
-"fr": {
-  "lastname": "Nom de naissance",
-  "firstname": "Prénom",
-  "preferredname": "Nom d'usage (facultatif)",
-  "email": "E-mail",
-  "email-not-valid": "Email non valide",
-  "lastname-placeholder": "ex: Dupont",
-  "firstname-placeholder": "ex: Jean",
-  "field-required": "Ce champ est requis",
-  "title": "Je renseigne les informations personnelles de mon conjoint",
-  "subtitle": "Veuillez renseigner les informations de la personne dont le nom figurera sur le bail de location.",
-  "franceconnect-account": "Ce compte est identifié avec FranceConnect, les noms et prénoms ne sont pas éditables."
-}
-}
-</i18n>

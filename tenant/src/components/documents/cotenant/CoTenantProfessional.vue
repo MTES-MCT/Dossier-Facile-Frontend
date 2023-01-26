@@ -9,6 +9,9 @@
       listType="dropDownList"
       @on-change-document="changeDocumentType"
     >
+      <template v-slot:title>
+        {{ $t("cotenantprofessional.title") }}
+      </template>
     </DocumentDownloader>
   </div>
 </template>
@@ -41,39 +44,3 @@ export default class CoTenantProfessional extends Vue {
 
 <style scoped lang="scss"></style>
 
-<i18n>
-{
-"en": {
-  "title": "Your Spouse current accommodation situation",
-  "cdi": "CDI",
-  "cdi-trial": "CDI (période d’essai)",
-  "cdd": "CDD",
-  "alternation": "Alternance",
-  "internship": "Stage",
-  "student": "Études",
-  "public": "Fonction publique",
-  "ctt": "CTT (intérimaire)",
-  "retired": "Retraité",
-  "unemployed": "Chômage",
-  "independent": "Indépendant",
-  "other": "Autre",
-  "select-is-empty": "Item selection required"
-},
-"fr": {
-  "title": "La situation professionnelle actuelle de votre conjoint",
-  "cdi": "CDI",
-  "cdi-trial": "CDI (période d’essai)",
-  "cdd": "CDD",
-  "alternation": "Alternance",
-  "internship": "Stage",
-  "student": "Études",
-  "public": "Fonction publique",
-  "ctt": "CTT (intérimaire)",
-  "retired": "Retraité",
-  "unemployed": "Chômage",
-  "independent": "Indépendant",
-  "other": "Autre", 
-  "select-is-empty": "Sélection requise"
-}
-}
-</i18n>

@@ -20,7 +20,7 @@ export default class ChangePasswordPage extends Vue {
       this.$route.params.token != "null" ? this.$route.params.token : "";
     this.$store.dispatch("changePassword", user).then(
       () => {
-        this.$toasted.show(this.$i18n.t("password-update").toString(), {
+        this.$toasted.show(this.$i18n.t("changepasswordpage.password-update").toString(), {
           type: "success",
           duration: 7000
         });
@@ -32,12 +32,12 @@ export default class ChangePasswordPage extends Vue {
             "password recovery token or is expired"
           )
         ) {
-          this.$toasted.show(this.$i18n.t("token-expired").toString(), {
+          this.$toasted.show(this.$i18n.t("changepasswordpage.token-expired").toString(), {
             type: "error",
             duration: 7000
           });
         } else {
-          this.$toasted.show(this.$i18n.t("error").toString(), {
+          this.$toasted.show(this.$i18n.t("changepasswordpage.error").toString(), {
             type: "error",
             duration: 7000
           });
@@ -48,18 +48,3 @@ export default class ChangePasswordPage extends Vue {
 }
 </script>
 
-<i18n>
-{
-  "en": {
-    "error": "Error",
-    "password-update": "The password has been updated",
-    "token-expired": "The token has expired, please run the forgotten password process"
-  },
-  "fr": {
-    "error": "Erreur",
-    "password-update": "Le mot de passe a été mis à jour",
-    "token-expired": "Le lien a expiré, veuillez lancer la procédure de mot de passe oublié"
-  }
-}
-
-</i18n>

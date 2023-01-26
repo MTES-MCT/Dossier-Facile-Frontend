@@ -8,7 +8,7 @@
             :class="errors[0] ? 'fr-input-group--error' : ''"
           >
             <h1 class="fr-label fr-text--regular" for="firstName">
-              {{ $t("organism-name") }} :
+              {{ $t("representativeidentification.organism-name") }} :
             </h1>
             <input
               v-model="firstName"
@@ -19,7 +19,7 @@
               }"
               id="firstName"
               name="firstName"
-              :placeholder="$t('organism-name-placeholder')"
+              :placeholder="$t('representativeidentification.organism-name-placeholder')"
               type="text"
               required
             />
@@ -254,7 +254,7 @@ export default class RepresentativeIdentification extends Vue {
 
     if (this.listFiles().length > this.MAX_FILE_COUNT) {
       Vue.toasted.global.max_file({
-        message: this.$i18n.t("max-file", [
+        message: this.$i18n.t("representativeidentification.max-file", [
           this.listFiles().length,
           this.MAX_FILE_COUNT
         ])
@@ -334,25 +334,3 @@ td {
 }
 </style>
 
-<i18n>
-{
-"en": {
-  "organism-name": "Nom du représentant de la personne morale",
-  "organism-name-placeholder": "Nom",
-  "identity-card": "French identity card",
-  "passport": "French passeport",
-  "permit": "French residence permit",
-  "other": "Autre",
-  "select-is-empty": "Item selection required"
-},
-"fr": {
-  "organism-name": "Nom du représentant de la personne morale",
-  "organism-name-placeholder": "Nom",
-  "identity-card": "Carte d’identité française",
-  "passport": "Passeport français",
-  "permit": "Titre de séjour français",
-  "other": "Autre",
-  "select-is-empty": "Sélection requise"
-}
-}
-</i18n>

@@ -14,22 +14,25 @@
             </h1>
             <div class="fr-callout warning fr-callout-white" v-if="isDenied()">
               <h2 class="fr-text-title--grey fr-h4">
-                {{ $t("amendment-required-title") }}
+                {{ $t("account.amendment-required-title") }}
               </h2>
               <p
                 class="fr-callout__text"
-                v-html="$t('amendment-required-text')"
+                v-html="$t('account.amendment-required-text')"
               ></p>
               <DfButton @on-click="goToMessaging" primary="true">{{
-                $t("messaging")
+                $t("account.messaging")
               }}</DfButton>
             </div>
             <div class="fr-callout fr-callout-white" v-if="canCopyLink()">
               <h2 class="fr-text-title--grey fr-h4">
-                {{ $t("congratulations-title") }}
+                {{ $t("account.congratulations-title") }}
               </h2>
-              <p class="fr-mb-3w" v-html="$t('congratulations-text-1')"></p>
-              <p v-html="$t('congratulations-text-2')"></p>
+              <p
+                class="fr-mb-3w"
+                v-html="$t('account.congratulations-text-1')"
+              ></p>
+              <p v-html="$t('account.congratulations-text-2')"></p>
             </div>
             <div class="main fr-mt-5w fr-p-4w bg-white">
               <div class="main-bar fr-grid-row">
@@ -37,7 +40,7 @@
                   <h2
                     class="fr-text-title--grey fr-h4 fr-mr-2w fr-mb-0 fr-mt-0"
                   >
-                    {{ $t("my-file") }}
+                    {{ $t("account.my-file") }}
                   </h2>
                 </div>
                 <span class="spacer"></span>
@@ -48,7 +51,7 @@
                     primary="true"
                     size="small"
                     :disabled="!canCopyLink()"
-                    >{{ $t("copy-link") }}</DfButton
+                    >{{ $t("account.copy-link") }}</DfButton
                   >
                   <div class="grp">
                     <button
@@ -68,9 +71,9 @@
                       >
                     </button>
                     <div class="grp-modal bg-white" v-show="radioVisible">
-                      <h3 class="fr-h4">{{ $t("share-file") }}</h3>
+                      <h3 class="fr-h4">{{ $t("account.share-file") }}</h3>
                       <p class="share-file-description">
-                        {{ $t("share-file-description") }}
+                        {{ $t("account.share-file-description") }}
                       </p>
                       <div>
                         <div class="flex copy-btn">
@@ -80,8 +83,8 @@
                             :class="{ copied: publicLinkCopied }"
                             v-html="
                               publicLinkCopied
-                                ? $t('public-link-copied')
-                                : $t('file-resume')
+                                ? $t('account.public-link-copied')
+                                : $t('account.file-resume')
                             "
                           ></button>
                         </div>
@@ -92,8 +95,8 @@
                             :class="{ copied: fullLinkCopied }"
                             v-html="
                               fullLinkCopied
-                                ? $t('full-link-copied')
-                                : $t('file-full')
+                                ? $t('account.full-link-copied')
+                                : $t('account.file-full')
                             "
                           ></button>
                         </div>
@@ -111,7 +114,7 @@
                 <p
                   class="description"
                   v-html="
-                    $t('status-description', [
+                    $t('account.status-description', [
                       getFirstName(),
                       getPersonnalStatus(),
                       getProfession(),
@@ -126,9 +129,9 @@
               >
                 <h3 class="fr-h4 dflex">
                   <span class="material-icons-outlined md-28">timer</span
-                  >&nbsp;<span>{{ $t("instructional-time-title") }}</span>
+                  >&nbsp;<span>{{ $t("account.instructional-time-title") }}</span>
                 </h3>
-                <p v-html="$t('instructional-time-text')"></p>
+                <p v-html="$t('account.instructional-time-text')"></p>
               </div>
             </div>
             <div class="fr-mt-2w fr-p-0w">
@@ -168,7 +171,7 @@
                           <ColoredTag
                             class="fr-col-xs-12 fr-col"
                             :status="tenant.status"
-                            :text="$t('dossier.status.' + tenant.status)"
+                            :text="$t(`dossier.${tenant.status}`)"
                           ></ColoredTag>
                         </div>
                       </button>
@@ -196,7 +199,7 @@
             <PartnersSection />
 
             <div class="delete">
-              <h2 class="fr-pt-4w fr-pb-2w">{{ $t("delete") }}</h2>
+              <h2 class="fr-pt-4w fr-pb-2w">{{ $t("account.delete") }}</h2>
               <div class="bg-white fr-p-4w">
                 <p>
                   Vous pouvez supprimer votre compte DossierFacile à tout
@@ -209,7 +212,7 @@
                     class="delete-btn"
                     primary="true"
                     @on-click="isDeleteModalVisible = true"
-                    >{{ $t("delete-account") }}</DfButton
+                    >{{ $t("account.delete-account") }}</DfButton
                   >
                 </div>
                 <DeleteAccount
@@ -219,7 +222,7 @@
               </div>
             </div>
             <div class="opinion fr-mb-5w">
-              <h2 class="fr-pt-4w fr-pb-2w">{{ $t("opinion") }}</h2>
+              <h2 class="fr-pt-4w fr-pb-2w">{{ $t("account.opinion") }}</h2>
               <div class="bg-white fr-p-4w">
                 <p>
                   Nous cherchons constamment à améliorer la qualité de notre
@@ -406,7 +409,7 @@ export default class Account extends Vue {
   copyLink(url: string) {
     try {
       navigator.clipboard.writeText(url);
-      this.$toasted.show(this.$i18n.t("copied").toString(), {
+      this.$toasted.show(this.$i18n.t("account.copied").toString(), {
         type: "success",
         duration: 3000
       });
@@ -432,7 +435,7 @@ export default class Account extends Vue {
       this.user?.apartmentSharing?.tenants !== undefined &&
       this.user.applicationType === "ALONE"
     ) {
-      return this.$i18n.t("ALONE");
+      return this.$i18n.t("account.ALONE");
     }
     if (this.user.applicationType === "COUPLE") {
       const spouse = this.user?.apartmentSharing?.tenants?.find((t: User) => {
@@ -443,7 +446,7 @@ export default class Account extends Vue {
           .t("couple-with", [`${spouse?.firstName} ${spouse?.lastName}`])
           .toString();
       }
-      return this.$i18n.t("couple-with", [this.$i18n.t("someone")]).toString();
+      return this.$i18n.t("account.couple-with", [this.$i18n.t("someone")]).toString();
     }
 
     const roommates = this.user?.apartmentSharing?.tenants
@@ -456,9 +459,9 @@ export default class Account extends Vue {
 
     const listNames = roommates?.join(", ");
     if (!listNames || listNames.includes("undefined")) {
-      return this.$i18n.t("group-with-someone").toString();
+      return this.$i18n.t("account.group-with-someone").toString();
     }
-    return this.$i18n.t("group-with", [listNames]).toString();
+    return this.$i18n.t("account.group-with", [listNames]).toString();
   }
 
   getProfession() {
@@ -478,9 +481,9 @@ export default class Account extends Vue {
       })
       .reduce((sum, current) => sum + (current.monthlySum || 0), 0);
     if (sum === 0) {
-      return this.$i18n.t("no-income");
+      return this.$i18n.t("account.no-income");
     }
-    return this.$i18n.t("income", [sum]);
+    return this.$i18n.t("account.income", [sum]);
   }
 
   getFirstName() {
@@ -804,149 +807,3 @@ hr {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "alone.title": "Hello {0}, your file {1}",
-    "group.title": "Hello {0}, your file {1}",
-    "couple.title": "Bonjour {0}, votre dossier de couple {1} !",
-    "status-description":"{0}, you are {1}, {2} and {3}.<br>if your situation has changed, please update your documents !",
-    "last-update": "Dernière mise à jour du dossier le {0}",
-    "file-update-title": "File update",
-    "file-update-text": "Vous avez mis à jour votre dossier, pour la dernière fois le {0}.<br> Afin qu'il reste convaincant, il est important de maintenir à jour vos justificatifs.",
-    "update-file-btn": "Update my documents",
-    "copy-link":"Copy my file link",
-    "share-by-mail": "Share by mail",
-    "my-file": "My rent file",
-    "identification": "Identification",
-    "residency": "Residency",
-    "professional": "Professional",
-    "financial": "Financial",
-    "tax": "Tax",
-    "s_TO_PROCESS":"To process",
-    "s_VALIDATED":"Validated",
-    "s_DECLINED":"Declined",
-    "s_INCOMPLETE":"Incomplete",
-    "s_EMPTY": "Empty",
-    "TO_PROCESS":"to process",
-    "VALIDATED":"is validated",
-    "DECLINED":"is declined",
-    "INCOMPLETE":"is incomplete",
-    "delete": "Deletion of my account",
-    "opinion": "Tell us about your experience DossierFacile.fr",
-    "delete-account": "Delete my account",
-    "share-file": "Share my file",
-    "share-file-description": "Copy your link-file to share it! It's up to you to send it to the owners of your choice (by email, sms, etc.)",
-    "file-resume": "Share resumed file <br>(without supporting document)",
-    "file-full": "Share full file <br>(with supporting document)",
-    "copy": "Copy",
-    "field-required": "This field is required",
-    "CDI": "CDI",
-    "CDI_TRIAL": "CDI (période d’essai)",
-    "CDD": "CDD",
-    "ALTERNATION": "Alternance",
-    "INTERNSHIP": "Stage",
-    "STUDENT": "Études",
-    "PUBLIC": "Fonction publique",
-    "CTT": "CTT (intérimaire)",
-    "RETIRED": "Retraité",
-    "UNEMPLOYED": "Chômage",
-    "INDEPENDENT": "Indépendant",
-    "OTHER": "Autre",
-    "no-income": "have no income",
-    "income": "have a monthly income of {0}€",
-    "copied": "Copied !",
-    "ALONE": "alone",
-    "couple-with": "in relationship with {0}",
-    "someone": " someone",
-    "group-with": "in flatsharing with {0}",
-    "group-with-someone": "in flatsharing",
-    "group.cannot-copy-link": "Your link is inactive because your spouse's file has not yet been validated",
-    "amendment-required-title": "Amendment required",
-    "amendment-required-text": "After examining your file, modifications are requested. <br> Check your mailbox for details.",
-    "messaging": "Messaging",
-    "instructional-time-title": "Instructional time",
-    "instructional-time-text": "Once the files are completed, they are taken care of on average in less than 24 hours by our team of operators.",
-    "congratulations-title": "🎉 Congratulations! Your DossierFacile becomes available!",
-    "congratulations-text-1": "In order to apply for the accommodation of your dreams, send your DossierFacile link, by email, SMS, etc. to owners, lessors… of your choice. As a reminder, DossierFacile does not offer accommodation.",
-    "congratulations-text-2": "Your data is protected!",
-    "full-link-copied": "The link of my complete file is copied!",
-    "public-link-copied": "The link of my summary file is copied!",
-    "dossier.status.TO_PROCESS": "To process",
-    "dossier.status.VALIDATED": "Validated",
-    "dossier.status.DECLINED": "Declined",
-    "dossier.status.INCOMPLETE": "Incomplete"
-  },
-  "fr": {
-    "alone.title": "Bonjour {0}, votre dossier {1} !",
-    "group.title": "Bonjour {0}, votre dossier {1} !",
-    "couple.title": "Bonjour {0}, votre dossier de couple {1} !",
-    "status-description":"{0}, vous avez indiqué être {1}, {2} et {3}.<br>Si votre situation a changé, mettez à jour vos documents !",
-    "last-update": "Dernière mise à jour du dossier le {0}",
-    "file-update-title": "Mise à jour de votre dossier",
-    "file-update-text": "Vous avez mis à jour votre dossier, pour la dernière fois le {0}.<br> Afin qu'il reste convaincant, il est important de maintenir à jour vos justificatifs.",
-    "update-file-btn": "Mettre à jour mes documents",
-    "copy-link":"Copier mon lien dossier",
-    "share-by-mail": "Partager par mail",
-    "my-file": "Mon dossier de location",
-    "identification": "Pièce d'identité",
-    "residency": "Justificatif de domicile",
-    "professional": "Justificatif de situation professionnelle",
-    "financial": "Justificatif de ressources",
-    "tax": "Avis d’imposition",
-    "s_TO_PROCESS":"En cours de traitement",
-    "s_VALIDATED":"Vérifié",
-    "s_DECLINED":"Modification demandée",
-    "s_INCOMPLETE":"Non terminé",
-    "s_EMPTY": "Document manquant",
-    "TO_PROCESS":"est en cours de traitement",
-    "VALIDATED":"est validé",
-    "DECLINED":"nécessite une modification",
-    "INCOMPLETE":"est incomplet",
-    "delete": "Suppression de mon compte",
-    "opinion": "Racontez-nous votre expérience DossierFacile.fr",
-    "delete-account": "Supprimer mon compte",
-    "share-file": "Partager mon dossier",
-    "share-file-description": "Copiez votre lien-dossier pour le partager ! À vous de l'envoyer aux propriétaires ou bailleurs de votre choix (par mail, SMS, etc.)",
-    "file-resume": "Partager mon dossier de synthèse <br>(sans pièce justificative)",
-    "file-full": "Partager mon dossier complet<br>(avec pièces justificatives)",
-    "copy": "Copier",
-    "field-required": "Ce champ est requis",
-    "CDI": "en CDI",
-    "CDI_TRIAL": "en CDI (période d’essai)",
-    "CDD": "en CDD",
-    "ALTERNATION": "en alternance",
-    "INTERNSHIP": "en stage",
-    "STUDENT": "étudiant·e",
-    "PUBLIC": "dans la fonction publique",
-    "CTT": "en CTT (intérimaire)",
-    "RETIRED": "retraité",
-    "UNEMPLOYED": "au chômage",
-    "INDEPENDENT": "indépendant",
-    "OTHER": "Autre",
-    "no-income": "ne pas avoir de revenu",
-    "income": "avoir un revenu net mensuel de {0}€",
-    "copied": "Copié !",
-    "ALONE": "seul·e",
-    "couple-with": "en couple avec {0}",
-    "group-with": "en colocation avec {0}",
-    "group-with-someone": "en colocation",
-    "someone": " quelqu'un",
-    "group.cannot-copy-link": "Votre lien est inactif car le dossier de votre(vos) colocataire(s) n'est pas encore validé",
-    "amendment-required-title": "Modifications demandées",
-    "amendment-required-text": "Après examen de votre dossier, des modifications vous sont demandées. <br>Consultez votre messagerie pour en connaître le détail.",
-    "messaging": "Consulter ma messagerie",
-    "instructional-time-title": "Durée d'instruction",
-    "instructional-time-text": "Une fois votre dossier complété et déposé, il est pris en charge en moyenne en moins de 24h par notre équipe d'opérateurs.",
-    "congratulations-title": "🎉 Félicitations ! Votre DossierFacile est disponible !",
-    "congratulations-text-1": "Afin de candidater au logement de vos rêves, envoyez votre lien DossierFacile, par email, SMS, etc. aux propriétaires, bailleurs de votre choix. Pour rappel, DossierFacile ne propose pas de logement.",
-    "congratulations-text-2": "Vos informations sont protégées !",
-    "full-link-copied": "Le lien de mon dossier complet est copié !",
-    "public-link-copied": "Le lien de mon dossier de synthèse est copié !",
-    "dossier.status.TO_PROCESS": "En cours de traitement",
-    "dossier.status.VALIDATED": "Vérifé",
-    "dossier.status.DECLINED": "Modification demandée",
-    "dossier.status.INCOMPLETE": "Incomplet"
-  }
-}
-</i18n>

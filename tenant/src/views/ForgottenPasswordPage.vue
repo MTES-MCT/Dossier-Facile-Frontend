@@ -7,10 +7,10 @@
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-12">
               <p>
-                {{ $t("mail-sent") }}
+                {{ $t("forgottenpasswordpage.mail-sent") }}
               </p>
               <p>
-                {{ $t("clic-to-confirm") }}
+                {{ $t("forgottenpasswordpage.clic-to-confirm") }}
               </p>
             </div>
           </div>
@@ -43,7 +43,7 @@ export default class ForgottenPasswordPage extends Vue {
           this.isValidModalVisible = true;
         },
         () => {
-          this.$toasted.show(this.$i18n.t("email-not-found").toString(), {
+          this.$toasted.show(this.$i18n.t("forgottenpasswordpage.email-not-found").toString(), {
             type: "error",
             duration: 7000
           });
@@ -59,18 +59,3 @@ export default class ForgottenPasswordPage extends Vue {
 }
 </script>
 
-<i18n>
-{
-  "en": {
-    "email-not-found": "Email not found",
-    "mail-sent": "An email has been sent to the requested address.",
-    "clic-to-confirm": "Please click on the given link to confirm your email and continue your password modification."
-  },
-  "fr": {
-    "email-not-found": "Email non trouvé",
-    "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
-    "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre le changement de mot de passe."
-  }
-}
-
-</i18n>

@@ -2,7 +2,7 @@
   <div>
     <NakedCard class="fr-p-md-5w">
       <div>
-        <h1 class="fr-h6">{{ $t("title") }}</h1>
+        <h1 class="fr-h6">{{ $t("guarantorprofessional.title") }}</h1>
         <TroubleshootingModal>
           <GuarantorChoiceHelp></GuarantorChoiceHelp>
           <DocumentInsert
@@ -17,8 +17,8 @@
             name="professionalDocument"
             v-slot="{ errors, valid }"
           >
-            <label v-if="isCotenant">{{ $t("select-label-cotenant") }}</label>
-            <label v-else>{{ $t("select-label") }}</label>
+            <label v-if="isCotenant">{{ $t("guarantorprofessional.select-label-cotenant") }}</label>
+            <label v-else>{{ $t("guarantorprofessional.select-label") }}</label>
             <select
               v-model="professionalDocument"
               class="fr-select fr-mb-3w"
@@ -46,7 +46,7 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-files") }}</span>
+      <span>{{ $t("guarantorprofessional.will-delete-files") }}</span>
     </ConfirmModal>
     <NakedCard
       class="fr-p-md-5w fr-mt-3w"
@@ -263,7 +263,7 @@ export default class GuarantorProfessional extends Vue {
       this.professionalFiles().length > this.professionalDocument.maxFileCount
     ) {
       Vue.toasted.global.max_file({
-        message: this.$i18n.t("max-file", [
+        message: this.$i18n.t("guarantorprofessional.max-file", [
           this.professionalFiles().length,
           this.professionalDocument.maxFileCount
         ])
@@ -346,47 +346,3 @@ export default class GuarantorProfessional extends Vue {
 
 <style scoped lang="scss"></style>
 
-<i18n>
-{
-"en": {
-  "title": "Proof of professional",
-  "cdi": "CDI",
-  "cdi-trial": "CDI (période d’essai)",
-  "cdd": "CDD",
-  "alternation": "Alternance",
-  "internship": "Stage",
-  "student": "Études",
-  "public": "Fonction publique",
-  "ctt": "CTT (intérimaire)",
-  "retired": "Retraité",
-  "unemployed": "Chômage",
-  "independent": "Indépendant",
-  "other": "Autre",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-  "register": "Register",
-  "select-label": "Your guarantor professional situation:",
-  "select-label-cotenant": "Your cotenant guarantor current professional situation:",
-  "select-is-empty": "Item selection is required"
-},
-"fr": {
-  "title": "Justificatif de situation professionelle",
-  "cdi": "CDI",
-  "cdi-trial": "CDI (période d’essai)",
-  "cdd": "CDD",
-  "alternation": "Alternance",
-  "internship": "Stage",
-  "student": "Études",
-  "public": "Fonction publique",
-  "ctt": "CTT (intérimaire)",
-  "retired": "Retraité",
-  "unemployed": "Chômage",
-  "independent": "Indépendant",
-  "other": "Autre",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "register": "Enregistrer",
-  "select-label": "La situation professionnelle, actuelle, de mon garant :",
-  "select-label-cotenant": "La situation professionnelle, actuelle, de son garant :",
-  "select-is-empty": "Sélection requise"
-}
-}
-</i18n>

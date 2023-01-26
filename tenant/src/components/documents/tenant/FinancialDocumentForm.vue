@@ -5,7 +5,7 @@
         <NakedCard class="fr-p-md-5w fr-mb-3w">
           <div>
             <h1 class="fr-h6">
-              {{ $t("financial") }}
+              {{ $t("financialdocumentform.financial") }}
             </h1>
 
             <TroubleshootingModal>
@@ -71,11 +71,11 @@
                       }"
                     >
                       <label for="monthlySum" class="fr-label"
-                        >{{ $t("monthlySum-label") }} :</label
+                        >{{ $t("financialdocumentform.monthlySum-label") }} :</label
                       >
                       <input
                         id="monthlySum"
-                        :placeholder="$t('monthlySum')"
+                        :placeholder="$t('financialdocumentform.monthlySum')"
                         type="number"
                         min="0"
                         step="1"
@@ -95,7 +95,7 @@
                         class="fr-error-text"
                         v-if="financialDocument.monthlySum > 10000"
                       >
-                        {{ $t("high-salary") }}
+                        {{ $t("financialdocumentform.high-salary") }}
                       </span>
                       <span
                         class="fr-error-text"
@@ -104,7 +104,7 @@
                             financialDocument.monthlySum <= 0
                         "
                       >
-                        {{ $t("low-salary") }}
+                        {{ $t("financialdocumentform.low-salary") }}
                       </span>
                     </div>
                   </validation-provider>
@@ -177,7 +177,7 @@
                   <div class="fr-input-group">
                     <label class="fr-label" for="customText">
                       {{
-                        $t(`customText-${financialDocument.documentType.key}`)
+                        $t(`financialdocumentform.customText-${financialDocument.documentType.key}`)
                       }}
                     </label>
                     <textarea
@@ -216,12 +216,12 @@
       "
     >
       <NakedCard class="fr-p-md-5w fr-mb-3w">
-        {{ $t("has-no-income") }}
+        {{ $t("financialdocumentform.has-no-income") }}
         <ValidationObserver v-slot="{ validate, valid }">
           <form name="customTextForm" @submit.prevent="validate().then(save)">
             <div class="fr-input-group">
               <label class="fr-label" for="customTextNoDocument">
-                {{ $t("custom-text") }}
+                {{ $t("financialdocumentform.custom-text") }}
               </label>
               <textarea
                 v-model="financialDocument.customText"
@@ -249,7 +249,7 @@
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-12">
               <p>
-                {{ $t("warning-no-income-and-file") }}
+                {{ $t("financialdocumentform.warning-no-income-and-file") }}
               </p>
             </div>
           </div>
@@ -261,7 +261,7 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-files") }}</span>
+      <span>{{ $t("financialdocumentform.will-delete-files") }}</span>
     </ConfirmModal>
   </div>
 </template>
@@ -462,7 +462,7 @@ export default class FinancialDocumentForm extends Vue {
         this.financialDocument.documentType.key !== "no-income"
       ) {
         Vue.toasted.global.max_file({
-          message: this.$i18n.t("missing-file")
+          message: this.$i18n.t("financialdocumentform.missing-file")
         });
         return Promise.reject(new Error("missing-file"));
       }
@@ -473,7 +473,7 @@ export default class FinancialDocumentForm extends Vue {
           this.financialDocument.documentType.maxFileCount
       ) {
         Vue.toasted.global.max_file({
-          message: this.$i18n.t("max-file", [
+          message: this.$i18n.t("financialdocumentform.max-file", [
             this.financialFiles().length,
             this.financialDocument.documentType.maxFileCount
           ])
@@ -625,53 +625,3 @@ export default class FinancialDocumentForm extends Vue {
 }
 </script>
 
-<i18n>
-{
-  "en": {
-    "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-    "monthlySum-label": "Salary (after tax)",
-    "monthlySum": "Value in euros",
-    "delete-financial":  "Delete this salary",
-    "custom-text": "In order to improve your file, you can add an eplanation :",
-    "customText-social-service": "In order to improve my file, I explain why I cannot provide my justificatives:",
-    "customText-salary": "In order to improve my file, I explain why I cannot provide my last three payslips:",
-    "customText-pension": "In order to improve my file, I explain why I cannot provide my justificatives:",
-    "customText-rent": "In order to improve my file, I explain why I cannot provide my justificatives:",
-    "customText-scholarship": "In order to improve my file, I explain why I cannot provide my justificatives:",
-    "noDocument-social": "I cannot provide proof of payment of social benefits",
-    "noDocument-salary": "I cannot provide my last three payslips",
-    "noDocument-rent": "I cannot provide proof of rent",
-    "noDocument-pension": "I cannot provide proof of pension",
-    "noDocument-scholarship": "I cannot provide proof of scholarship",
-    "missing-file": "You must add files to save this income.",
-  "warning-no-income-and-file": "You can't have files and no income. You must uncheck the box or delete your files.",
-    "high-salary": "You have entered a salary greater than € 10,000 are you sure you have entered your monthly salary?",
-    "low-salary": "You have entered a salary equal to 0 € are you sure you have entered your monthly salary?",
-    "has-no-income": "You have no income",
-    "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule"
-  },
-  "fr": {
-    "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-    "monthlySum-label": "J'indique le montant de mon revenu mensuel net à payer (avant prélèvement à la source)",
-    "monthlySum": "Montant en euros",
-    "delete-financial":  "Supprimer ce revenu",
-    "custom-text": "Afin d'améliorer votre dossier, vous pouvez ajouter une explication :",
-    "customText-social-service": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
-    "customText-salary": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes trois derniers bulletins de salaire :",
-    "customText-pension": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
-    "customText-rent": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
-    "customText-scholarship": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
-    "noDocument-social": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
-    "noDocument-salary": "Je ne peux pas fournir mes trois derniers bulletins de salaire",
-    "noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",
-    "noDocument-rent": "Je ne peux pas fournir de justificatifs de versement de rente",
-    "noDocument-scholarship": "Je ne peux pas fournir de justificatifs d'attribution de bourse",
-    "missing-file": "Vous devez ajouter des fichiers pour sauvegarder ce revenu.",
-    "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers.",
-    "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
-    "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
-    "has-no-income": "Vous avez indiqué ne pas avoir de revenu",
-    "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule"
-  }
-}
-</i18n>

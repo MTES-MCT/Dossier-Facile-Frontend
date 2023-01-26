@@ -102,13 +102,3 @@ ol >li {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "button": "Monter mon dossier de location grâce à DossierFacile"
-  },
-  "fr": {
-    "button": "Monter mon dossier de location grâce à DossierFacile"
-  }
-}
-</i18n>

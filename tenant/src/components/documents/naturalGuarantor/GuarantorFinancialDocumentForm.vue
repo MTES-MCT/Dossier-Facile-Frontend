@@ -6,7 +6,11 @@
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-12">
               <p>
-                {{ $t("warning-no-income-and-file") }}
+                {{
+                  $t(
+                    "guarantorfinancialdocumentform.warning-no-income-and-file"
+                  )
+                }}
               </p>
             </div>
           </div>
@@ -25,13 +29,13 @@
     <ValidationObserver v-slot="{ validate }">
       <NakedCard class="fr-p-md-5w fr-mb-3w">
         <h1 class="fr-h6">
-          {{ $t("financial") }}
+          {{ $t("guarantorfinancialdocumentform.financial") }}
         </h1>
         <form name="form" @submit.prevent="validate().then(save())">
           <div>
             <div>
               <div>
-                {{ $t("select-label") }}
+                {{ $t("guarantorfinancialdocumentform.select-label") }}
               </div>
 
               <TroubleshootingModal>
@@ -93,11 +97,11 @@
                     }"
                   >
                     <label for="monthlySum" class="fr-label"
-                      >{{ $t("monthlySum-label") }} :</label
+                      >{{ $t("guarantorfinancialdocumentform.monthlySum-label") }} :</label
                     >
                     <input
                       id="monthlySum"
-                      :placeholder="$t('monthlySum')"
+                      :placeholder="$t('guarantorfinancialdocumentform.monthlySum')"
                       type="number"
                       min="0"
                       step="1"
@@ -117,7 +121,7 @@
                       class="fr-error-text"
                       v-if="financialDocument.monthlySum > 10000"
                     >
-                      {{ $t("high-salary") }}
+                      {{ $t("guarantorfinancialdocumentform.high-salary") }}
                     </span>
                     <span
                       class="fr-error-text"
@@ -126,7 +130,7 @@
                           financialDocument.monthlySum <= 0
                       "
                     >
-                      {{ $t("low-salary") }}
+                      {{ $t("guarantorfinancialdocumentform.low-salary") }}
                     </span>
                   </div>
                 </validation-provider>
@@ -431,7 +435,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
     if (!this.financialDocument.noDocument) {
       if (!this.financialFiles().length) {
         Vue.toasted.global.max_file({
-          message: this.$i18n.t("missing-file")
+          message: this.$i18n.t("guarantorfinancialdocumentform.missing-file")
         });
         return Promise.reject(new Error("err"));
       }
@@ -442,7 +446,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
           this.financialDocument.documentType.maxFileCount
       ) {
         Vue.toasted.global.max_file({
-          message: this.$i18n.t("max-file", [
+          message: this.$i18n.t("guarantorfinancialdocumentform.max-file", [
             this.financialFiles().length,
             this.financialDocument.documentType.maxFileCount
           ])
@@ -605,34 +609,3 @@ export default class GuarantorFinancialDocumentForm extends Vue {
 
 <style scoped lang="scss"></style>
 
-<i18n>
-{
-"en": {
-  "monthlySum": "Value in euros",
-  "monthlySum-label": "Monthly salary (after tax)",
-  "high-salary": "You have entered a salary greater than € 10,000 are you sure you have entered your guarantor monthly salary?",
-  "low-salary": "You have entered a salary equal to 0 € are you sure you have entered your guarantor monthly salary?",
-  "number-not-valid": "Number not valid - without decimal",
-  "delete-financial":  "Delete this salary",
-  "field-required": "This field is required",
-  
-  "register": "Register",
-  "warning-no-income-and-file": "You can't have files and no income. You must uncheck the box or delete your files.",
-  "missing-file": "You must add files to save this income.",
-  "select-label": "Attention, please enter only the guarantor's own income."
-},
-"fr": {
-  "monthlySum": "Montant en euros",
-  "monthlySum-label": "J'indique le montant de son revenu mensuel net à payer (avant prélèvement à la source)",
-  "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
-  "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
-  "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule",
-  "delete-financial":  "Supprimer ce revenu",
-  "field-required": "Ce champ est requis",
-  "register": "Enregistrer",
-  "select-label": "Attention, veuillez renseigner uniquement les revenus du garant.",
-  "missing-file": "Vous devez ajouter des fichiers pour sauvegarder ce revenu.",
-  "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers."
-}
-}
-</i18n>

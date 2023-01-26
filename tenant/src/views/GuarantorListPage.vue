@@ -2,7 +2,7 @@
   <ProfileContainer :step="3">
     <NakedCard class="fr-p-md-5w">
       <h1 class="fr-h5">
-        {{ $t("my-guarantor") }}
+        {{ $t("guarantorlistpage.my-guarantor") }}
       </h1>
       <TroubleshootingModal>
         <GuarantorChoiceHelp></GuarantorChoiceHelp>
@@ -24,12 +24,12 @@
           @valid="removeGuarantor(g)"
           @cancel="isRemoveGuarantor = false"
         >
-          <span>{{ $t("remove-guarantor") }}</span>
+          <span>{{ $t("guarantorlistpage.remove-guarantor") }}</span>
         </ConfirmModal>
       </div>
       <div v-if="hasOneNaturalGuarantor()">
         <button @click="addNaturalGuarantor()" class="add-guarantor-btn">
-          {{ $t("add-new-guarantor") }}
+          {{ $t("guarantorlistpage.add-new-guarantor") }}
         </button>
       </div>
     </NakedCard>
@@ -88,7 +88,7 @@ export default class GuarantorListPage extends Vue {
     if (g.typeGuarantor === "LEGAL_PERSON" && g.legalPersonName) {
       return g.legalPersonName;
     }
-    return this.$i18n.t("guarantor." + g.typeGuarantor);
+    return this.$i18n.t("guarantorlistpage.guarantor." + g.typeGuarantor);
   }
 
   goBack() {
@@ -123,7 +123,7 @@ export default class GuarantorListPage extends Vue {
 
   getStatus(g: Guarantor) {
     if (!g.documents) {
-      return;
+      return "";
     }
     if (
       (g.typeGuarantor === "NATURAL_PERSON" && g.documents.length < 5) ||
@@ -276,35 +276,3 @@ h2 {
 }
 </style>
 
-<i18n>
-{
-"en": {
-  "my-guarantor": "My guarantor",
-  "add-new-guarantor": "Add a new guarantor ?",
-  "guarantor": "My guarantor",
-  "guarantor.NATURAL_PERSON": "My guarantor",
-  "guarantor.LEGAL_PERSON": "My guarantor company",
-  "guarantor.ORGANISM": "My guarantor organism",
-  "EMPTY": "Empty",
-  "TO_PROCESS":"To process",
-  "VALIDATED":"Validated",
-  "DECLINED":"Declined",
-  "INCOMPLETE":"Incomplete",
-  "remove-guarantor": "Are you sure you want to delete this guarantor?"
-},
-"fr": {
-  "my-guarantor": "Mon garant",
-  "add-new-guarantor": "Ajouter un nouveau garant ?",
-  "guarantor": "Mon garant",
-  "guarantor.NATURAL_PERSON": "Mon garant",
-  "guarantor.LEGAL_PERSON": "Mon entreprise garante",
-  "guarantor.ORGANISM": "Mon organisme garant",
-  "EMPTY": "Absent",
-  "TO_PROCESS":"En cours de traitement",
-  "VALIDATED":"Vérifié",
-  "DECLINED":"Modification demandée",
-  "INCOMPLETE":"Non terminé",
-  "remove-guarantor": "Êtes-vous sûr·e de vouloir supprimer ce garant ?"
-  }
-}
-</i18n>

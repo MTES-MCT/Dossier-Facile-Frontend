@@ -3,7 +3,7 @@
     <NakedCard class="fr-p-md-5w">
       <div>
         <h1 class="fr-h6">
-          {{ $t("select-label") }}
+          {{ $t("guarantorresidency.select-label") }}
         </h1>
 
         <TroubleshootingModal>
@@ -41,7 +41,7 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-files") }}</span>
+      <span>{{ $t("guarantorresidency.will-delete-files") }}</span>
     </ConfirmModal>
     <NakedCard
       class="fr-p-md-5w fr-mt-3w"
@@ -49,7 +49,9 @@
     >
       <div class="fr-mb-3w">
         <p
-          v-html="$t(`explanation-text.${guarantorKey()}.${residencyDocument.key}`)"
+          v-html="
+            $t(`explanation-text.${guarantorKey()}.${residencyDocument.key}`)
+          "
         ></p>
       </div>
       <AllDeclinedMessages
@@ -264,7 +266,7 @@ export default class GuarantorResidency extends Vue {
       this.residencyFiles().length > this.residencyDocument.maxFileCount
     ) {
       Vue.toasted.global.max_file({
-        message: this.$i18n.t("max-file", [
+        message: this.$i18n.t("guarantorresidency.max-file", [
           this.residencyFiles().length,
           this.residencyDocument.maxFileCount
         ])
@@ -345,27 +347,3 @@ export default class GuarantorResidency extends Vue {
 
 <style scoped lang="scss"></style>
 
-<i18n>
-{
-"en": {
-  "tenant": "Vous êtes locataire",
-  "owner": "Vous êtes propriétaire",
-  "guest": "Vous êtes hébergé gratuitement",
-  "guest-parents": "Vous habitez chez vos parents",
-  "files": "Documents",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-  "register": "Register",
-  "select-label": "Your guarantor current accommodation situation:"
-},
-"fr": {
-  "tenant": "Locataire",
-  "owner": "Propriétaire",
-  "guest": "Hébergé·e à titre gratuit",
-  "guest-parents": "Vous habitez chez vos parents",
-  "files": "Documents",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "register": "Enregistrer",
-  "select-label": "Quelle est la situation d’hébergement actuelle de votre garant ?"
-}
-}
-</i18n>

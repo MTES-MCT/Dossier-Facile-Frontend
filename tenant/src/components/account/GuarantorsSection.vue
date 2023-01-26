@@ -9,70 +9,70 @@
           </h4>
           <a
             href
-            :title="$t('delete-guarantor')"
+            :title="$t('guarantorssection.delete-guarantor')"
             @click.prevent="openConfirmModal(g)"
-            >{{ $t("delete-guarantor") }}</a
+            >{{ $t("guarantorssection.delete-guarantor") }}</a
           >
         </div>
         <div v-if="g.typeGuarantor === 'NATURAL_PERSON'">
           <div class="fr-grid-row fr-grid-row--gutters">
             <InfoCard
-              :title="$t('identification')"
+              :title="$t('guarantorssection.identification')"
               editable="true"
               matIcon="person"
               @click="setGuarantorSubStep(1, g)"
             >
               <ColoredTag
                 :status="getGuarantorStatus(g, 'IDENTIFICATION')"
-                :text="$t('s_' + getGuarantorStatus(g, 'IDENTIFICATION'))"
+                :text="$t('guarantorssection.s_' + getGuarantorStatus(g, 'IDENTIFICATION'))"
               ></ColoredTag>
             </InfoCard>
 
             <InfoCard
-              :title="$t('residency')"
+              :title="$t('guarantorssection.residency')"
               editable="true"
               matIcon="home"
               @click="setGuarantorSubStep(2, g)"
             >
               <ColoredTag
                 :status="getGuarantorStatus(g, 'RESIDENCY')"
-                :text="$t('s_' + getGuarantorStatus(g, 'RESIDENCY'))"
+                :text="$t('guarantorssection.s_' + getGuarantorStatus(g, 'RESIDENCY'))"
               ></ColoredTag>
             </InfoCard>
 
             <InfoCard
-              :title="$t('professional')"
+              :title="$t('guarantorssection.professional')"
               editable="true"
               matIcon="work"
               @click="setGuarantorSubStep(3, g)"
             >
               <ColoredTag
                 :status="getGuarantorStatus(g, 'PROFESSIONAL')"
-                :text="$t('s_' + getGuarantorStatus(g, 'PROFESSIONAL'))"
+                :text="$t('guarantorssection.s_' + getGuarantorStatus(g, 'PROFESSIONAL'))"
               ></ColoredTag>
             </InfoCard>
 
             <InfoCard
-              :title="$t('financial')"
+              :title="$t('guarantorssection.financial')"
               editable="true"
               matIcon="euro"
               @click="setGuarantorSubStep(4, g)"
             >
               <ColoredTag
                 :status="getGuarantorStatus(g, 'FINANCIAL')"
-                :text="$t('s_' + getGuarantorStatus(g, 'FINANCIAL'))"
+                :text="$t('guarantorssection.s_' + getGuarantorStatus(g, 'FINANCIAL'))"
               ></ColoredTag>
             </InfoCard>
 
             <InfoCard
-              :title="$t('tax')"
+              :title="$t('guarantorssection.tax')"
               editable="true"
               matIcon="content_copy"
               @click="setGuarantorSubStep(5, g)"
             >
               <ColoredTag
                 :status="getGuarantorStatus(g, 'TAX')"
-                :text="$t('s_' + getGuarantorStatus(g, 'TAX'))"
+                :text="$t('guarantorssection.s_' + getGuarantorStatus(g, 'TAX'))"
               ></ColoredTag>
             </InfoCard>
           </div>
@@ -80,14 +80,14 @@
         <div v-else-if="g.typeGuarantor === 'ORGANISM'">
           <div class="fr-grid-row fr-grid-row--gutters">
             <InfoCard
-              :title="$t('organism-identification')"
+              :title="$t('guarantorssection.organism-identification')"
               editable="true"
               matIcon="person"
               @click="setGuarantorSubStep(1, g)"
             >
               <ColoredTag
                 :status="getGuarantorStatus(g, 'IDENTIFICATION')"
-                :text="$t('s_' + getGuarantorStatus(g, 'IDENTIFICATION'))"
+                :text="$t('guarantorssection.s_' + getGuarantorStatus(g, 'IDENTIFICATION'))"
               ></ColoredTag>
             </InfoCard>
           </div>
@@ -95,7 +95,7 @@
         <div v-else-if="g.typeGuarantor === 'LEGAL_PERSON'">
           <div class="fr-grid-row fr-grid-row--gutters">
             <InfoCard
-              :title="$t('identification-legal-person')"
+              :title="$t('guarantorssection.identification-legal-person')"
               editable="true"
               matIcon="person"
               @click="setGuarantorSubStep(1, g)"
@@ -104,7 +104,7 @@
                 :status="getGuarantorStatus(g, 'IDENTIFICATION_LEGAL_PERSON')"
                 :text="
                   $t(
-                    's_' + getGuarantorStatus(g, 'IDENTIFICATION_LEGAL_PERSON')
+                    'guarantorssection.s_' + getGuarantorStatus(g, 'IDENTIFICATION_LEGAL_PERSON')
                   )
                 "
               ></ColoredTag>
@@ -117,7 +117,7 @@
         @valid="removeSelectedGuarantor()"
         @cancel="closeConfirmModal()"
       >
-        <div>{{ $t("confirm-delete-guarantor") }}</div>
+        <div>{{ $t("guarantorssection.confirm-delete-guarantor") }}</div>
       </ConfirmModal>
     </div>
 
@@ -130,7 +130,7 @@
     >
       <hr />
       <h4 v-if="guarantors.length === 0">
-        {{ $t("guarantors-information") }}
+        {{ $t("guarantorssection.guarantors-information") }}
       </h4>
       <div class="fr-grid-row fr-grid-row--gutters">
         <div class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w">
@@ -138,7 +138,7 @@
             class="bg-purple add-guarantor-btn"
             @click.prevent="setAddGuarantorStep()"
           >
-            {{ $t("add-guarantor") }}
+            {{ $t("guarantorssection.add-guarantor") }}
           </button>
         </div>
 
@@ -151,13 +151,13 @@
             href="https://www.visale.fr/#!/"
             rel="noreferrer"
             target="_blank"
-            :title="$t('go-to-visale')"
+            :title="$t('guarantorssection.go-to-visale')"
           >
             <div class="fr-tile bg-purple">
-              <div>{{ $t("visale-text") }}</div>
+              <div>{{ $t("guarantorssection.visale-text") }}</div>
               <div class="inline-block-flex space-between">
                 <div>
-                  <div class="fr-h5">{{ $t("visale-title") }}</div>
+                  <div class="fr-h5">{{ $t("guarantorssection.visale-title") }}</div>
                 </div>
                 <div>
                   <img
@@ -209,13 +209,13 @@ export default class GuarantorsSection extends Vue {
   guarantorTitle(g: Guarantor) {
     if (g.typeGuarantor === "NATURAL_PERSON")
       return (
-        this.$t("my-guarantor") +
+        this.$t("guarantorssection.my-guarantor") +
         (g.firstName || g.lastName ? " " + g.firstName + " " + g.lastName : "")
       );
     else if (g.typeGuarantor === "LEGAL_PERSON" && g.legalPersonName) {
-      return this.$t("my-guarantor") + " " + g.legalPersonName;
+      return this.$t("guarantorssection.my-guarantor") + " " + g.legalPersonName;
     }
-    return this.$t("guarantors-information");
+    return this.$t("guarantorssection.guarantors-information");
   }
 
   isFinancialValid(docs: DfDocument[]) {
@@ -410,60 +410,3 @@ a.cleana:focus {
 }
 </style>
 
-<i18n>
-
-{
-  "en": {
-    "my-guarantor": "My guarantor",
-    "guarantors-information": "My guarantors information",
-    "identification-legal-person": "Legal person identification",
-    "organism-identification": "Organism",
-    "delete-guarantor": "Delete guarantor",
-    "confirm-delete-guarantor" : "Are you sure to delete this guarantor ?",
-    "add-guarantor": "Add a guarantor ?",
-    "visale-title": "Do you know Visale ?",
-    "visale-text": "Visale is the guarantor of your future accommodation if you are between 18 and 30 years old OR if you are employees over 30 years old (subject to conditions).",
-    "go-to-visale": "Go to « visale »'s website (new window)",
-    "identification": "Identification",
-    "residency": "Residency",
-    "professional": "Professional",
-    "financial": "Financial",
-    "tax": "Tax",
-    "s_TO_PROCESS": "To process",
-    "s_VALIDATED": "Validated",
-    "s_DECLINED": "Declined",
-    "s_INCOMPLETE": "Incomplete",
-    "s_EMPTY": "Empty",
-    "TO_PROCESS": "to process",
-    "VALIDATED": "is validated",
-    "DECLINED": "is declined",
-    "INCOMPLETE": "is incomplete"
-  },
-  "fr": {
-    "guarantors-information": "Informations des garants",
-    "my-guarantor": "Pièces justificatives de",
-    "identification-legal-person": "Identification de la personne morale",
-    "organism-identification": "Certificat de l'organisme",
-    "delete-guarantor": "Supprimer ce garant",
-    "confirm-delete-guarantor" : "Êtes-vous sur de vouloir supprimer ce garant ?",
-    "add-guarantor": "Ajouter un garant ?",
-    "visale-title": "Connaissez-vous Visale ?",
-    "visale-text": "Visale est le garant de votre futur logement si vous avez entre 18 et 30 ans OU si vous êtes salariés de + de 30 ans (soumis à conditions).",
-    "go-to-visale": "Aller sur le site de « visale » (nouvelle fenêtre)",
-    "identification": "Pièce d'identité",
-    "residency": "Justificatif de domicile",
-    "professional": "Justificatif de situation professionnelle",
-    "financial": "Justificatif de ressources",
-    "tax": "Avis d’imposition",
-    "s_TO_PROCESS": "En cours de traitement",
-    "s_VALIDATED": "Vérifié",
-    "s_DECLINED": "Modification demandée",
-    "s_INCOMPLETE": "Non terminé",
-    "s_EMPTY": "Document manquant",
-    "TO_PROCESS": "est en cours de traitement",
-    "VALIDATED": "est vérifié",
-    "DECLINED": "nécessite une modification",
-    "INCOMPLETE": "est non terminé"
-  }
-}
-</i18n>

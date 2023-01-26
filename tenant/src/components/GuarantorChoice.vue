@@ -2,8 +2,8 @@
   <div>
     <div>
       <div v-if="isMobile()" class="remark fr-mt-3w fr-mb-3w">
-        <div class="fr-h5">{{ $t("remark-title") }}</div>
-        <div v-html="$t('remark-text')"></div>
+        <div class="fr-h5">{{ $t("guarantorchoice.remark-title") }}</div>
+        <div v-html="$t('guarantorchoice.remark-text')"></div>
       </div>
 
       <div ref="guarantor-body-content">
@@ -11,19 +11,19 @@
           <div v-if="!isMobile()">
             <div class="text-bold fr-mb-1w">
               <h1 class="fr-h5">
-                {{ $t("my-guarantor") }}
+                {{ $t("guarantorchoice.my-guarantor") }}
               </h1>
             </div>
             <TroubleshootingModal>
               <GuarantorChoiceHelp></GuarantorChoiceHelp>
             </TroubleshootingModal>
             <div class="remark fr-mt-3w">
-              <div class="fr-h6">{{ $t("remark-title") }}</div>
-              <div class="small-font" v-html="$t('remark-text')"></div>
+              <div class="fr-h6">{{ $t("guarantorchoice.remark-title") }}</div>
+              <div class="small-font" v-html="$t('guarantorchoice.remark-text')"></div>
             </div>
           </div>
           <div class="fr-mt-3w fr-mb-2w">
-            {{ $t("ask-guarantor") }}
+            {{ $t("guarantorchoice.ask-guarantor") }}
           </div>
           <TroubleshootingModal v-if="isMobile()">
             <GuarantorChoiceHelp></GuarantorChoiceHelp>
@@ -37,7 +37,7 @@
                 @input="onSelectChange"
               >
                 <div class="fr-grid-col spa">
-                  <span>{{ $t("natural-person") }}</span>
+                  <span>{{ $t("guarantorchoice.natural-person") }}</span>
                 </div>
               </BigRadio>
             </div>
@@ -48,7 +48,7 @@
                 @input="onSelectChange"
               >
                 <div class="fr-grid-col spa">
-                  <span>{{ $t("organism") }}</span>
+                  <span>{{ $t("guarantorchoice.organism") }}</span>
                 </div>
               </BigRadio>
             </div>
@@ -59,7 +59,7 @@
                 @input="onSelectChange"
               >
                 <div class="fr-grid-col spa">
-                  <span>{{ $t("legal-person") }}</span>
+                  <span>{{ $t("guarantorchoice.legal-person") }}</span>
                 </div>
               </BigRadio>
             </div>
@@ -71,7 +71,7 @@
                 @input="onSelectChange"
               >
                 <div class="fr-grid-col spa">
-                  <span>{{ $t("no-guarantor") }}</span>
+                  <span>{{ $t("guarantorchoice.no-guarantor") }}</span>
                 </div>
               </BigRadio>
             </div>
@@ -82,17 +82,17 @@
           class="bg-purple fr-mt-3w fr-p-5w"
         >
           <div class="fr-grid-row space-between">
-            <div class="fr-h5">{{ $t("visale-title") }}</div>
+            <div class="fr-h5">{{ $t("guarantorchoice.visale-title") }}</div>
             <img
               alt="logo visale"
               class="logo-visale"
               src="../assets/visale.svg"
             />
           </div>
-          <p>{{ $t("visale-text") }}</p>
+          <p>{{ $t("guarantorchoice.visale-text") }}</p>
           <div style="text-align: right">
             <DfButton primary="true" @on-click="gotoVisale()">
-              {{ $t("visale-btn") }}
+              {{ $t("guarantorchoice.visale-btn") }}
             </DfButton>
           </div>
         </div>
@@ -108,7 +108,7 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-guarantor") }}</span>
+      <span>{{ $t("guarantorchoice.will-delete-guarantor") }}</span>
     </ConfirmModal>
   </div>
 </template>
@@ -245,7 +245,7 @@ export default class GuarantorDocuments extends Vue {
 
   setGuarantorType() {
     if (!this.tmpGuarantorType) {
-      this.$toasted.show(this.$i18n.t("type-required").toString(), {
+      this.$toasted.show(this.$i18n.t("guarantorchoice.type-required").toString(), {
         type: "error",
         duration: 7000
       });
@@ -318,57 +318,3 @@ export default class GuarantorDocuments extends Vue {
 }
 </style>
 
-<i18n>
-{
-"en": {
-  "my-guarantor": "My guarantor",
-  "identification": "Pièce d’identité",
-  "residency": "Justificatif de domicile",
-  "professional": "Justificatif de situation professionnelle",
-  "financial": "Justificatif de ressources",
-  "tax": "Avis d’imposition",
-  "representative-identification": "Identité de la personne morale",
-  "corporation-identification": "Identité du représentant de la personne morale",
-  "guarantor": "Guarantor",
-  "validate": "Validate",
-  "will-delete-guarantor": "Are you sure you want to change the type of guarantor?",
-  "validate-file": "Next step - Validate file",
-  "natural-person": "A classic physical guarantor",
-  "organism": "An organization",
-  "legal-person": "A corporation guarantor",
-  "no-guarantor": "I don't have a guarantor",
-  "ask-guarantor": "Do you want to add :",
-  "remark-title": "Remark",
-  "remark-text": "Adding a guarantor is by no means mandatory. If you do not wish to add a surety, you can select “I don't have a guarantor”.<br> Your file will then be registered for investigation.",
-  "type-required": "Please select a choice",
-  "visale-title": "Do you know Visale ?",
-  "visale-text": "Visale is the guarantor of your future accommodation if you are between 18 and 30 years old OR if you are employees over 30 years old (subject to conditions).",
-  "visale-btn": "Discover Visale"
-},
-"fr": {
-  "my-guarantor": "Mon garant",
-  "identification": "Pièce d’identité",
-  "residency": "Justificatif de domicile",
-  "professional": "Justificatif de situation professionnelle",
-  "financial": "Justificatif de ressources",
-  "tax": "Avis d’imposition",
-  "representative-identification": "Identité de la personne morale",
-  "corporation-identification": "Identité du représentant de la personne morale",
-  "guarantor": "Garant",
-  "validate": "Valider",
-  "will-delete-guarantor": "Voulez-vous vraiment changer le type de garant ?",
-  "validate-file": "Étape suivante - Valider le dossier",
-  "natural-person": "Un garant physique classique",
-  "organism": "Un organisme garant",
-  "legal-person": "Un garant moral",
-  "no-guarantor": "Je n'ai pas de garant",
-  "ask-guarantor": "Souhaitez-vous ajouter :",
-  "remark-title": "Remarque",
-  "remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez sélectionner « Je n'ai pas de garant ».<br> Votre dossier sera alors enregistré pour être instruit.",
-  "type-required": "Veuillez sélectionner un choix",
-  "visale-title": "Connaissez-vous Visale ?",
-  "visale-text": "Visale est le garant de votre futur logement si vous avez entre 18 et 30 ans OU si vous êtes salariés de + de 30 ans (soumis à conditions).",
-  "visale-btn": "Découvrir Visale"
-}
-}
-</i18n>

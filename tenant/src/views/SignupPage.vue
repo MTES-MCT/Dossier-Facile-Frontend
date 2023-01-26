@@ -5,15 +5,15 @@
         <div class="bg-pic">
           <div class="max-550 left-row fr-pt-3w fr-mt-7w fr-mb-7w">
             <h2 class="fr-h4 my-file">
-              {{ $t("my-file") }} <em>Dossier</em>Facile
+              {{ $t("signuppage.my-file") }} <em>Dossier</em>Facile
             </h2>
             <p class="my-file-subtitle">
-              {{ $t("my-file-subtitle") }}
-              <strong>{{ $t("my-file-subtitle2") }}</strong>
+              {{ $t("signuppage.my-file-subtitle") }}
+              <strong>{{ $t("signuppage.my-file-subtitle2") }}</strong>
             </p>
           </div>
           <div class="bg-white max-550 left-row fr-p-md-5w fr-mt-7w fr-mb-7w">
-            <p><em>Dossier</em><strong>Facile</strong> {{ $t("help-you") }}</p>
+            <p><em>Dossier</em><strong>Facile</strong> {{ $t("signuppage.help-you") }}</p>
             <p>
               🔐 à constituer un
               <strong>dossier numérique conforme, sécurisé</strong> et
@@ -34,7 +34,7 @@
       <div class="fr-col-lg-6 fr-col-12 bg-white">
         <div class="fr-mt-2w align-end">
           <router-link to="/account" class="fr-tag">
-            {{ $t("connect") }}
+            {{ $t("signuppage.connect") }}
           </router-link>
         </div>
         <div class="margin-auto max-400">
@@ -48,10 +48,10 @@
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-12">
               <p>
-                {{ $t("mail-sent") }}
+                {{ $t("signuppage.mail-sent") }}
               </p>
               <p>
-                {{ $t("clic-to-confirm") }}
+                {{ $t("signuppage.clic-to-confirm") }}
               </p>
             </div>
           </div>
@@ -97,12 +97,12 @@ export default class SignupPage extends Vue {
               "email: the emails are already being used"
             ) || -1) >= 0
           ) {
-            this.$toasted.show(this.$i18n.t("duplicate-email").toString(), {
+            this.$toasted.show(this.$i18n.t("signuppage.duplicate-email").toString(), {
               type: "error",
               duration: 7000
             });
           } else {
-            this.$toasted.show(this.$i18n.t("register-error").toString(), {
+            this.$toasted.show(this.$i18n.t("signuppage.register-error").toString(), {
               type: "error",
               duration: 7000
             });
@@ -118,24 +118,6 @@ export default class SignupPage extends Vue {
 }
 </script>
 
-<i18n>
-{
-"en": {
-    "connect": "Already signed up ? Connect",
-    "mail-sent": "An email has been sent to the requested address.",
-    "clic-to-confirm": "Please click on the given link to confirm your email and continue you inscription.",
-    "duplicate-email": "This email is already used",
-    "register-error": "An error occured"
-},
-"fr": {
-    "connect": "Déjà inscrit ? Se connecter",
-    "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
-    "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre votre inscription.",
-    "duplicate-email": "Cet email est déjà utilisé",
-    "register-error": "Une erreur est survenue"
-}
-}
-</i18n>
 
 <style scoped lang="scss">
 body {
@@ -212,19 +194,3 @@ li {
   margin-right: 20px;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "my-file": "My rent file with ",
-    "my-file-subtitle": "You are going to complete your file",
-    "my-file-subtitle2": "checked by the state !",
-    "help-you": "helps you :"
-  },
-  "fr": {
-    "my-file": "Mon dossier de location avec ",
-    "my-file-subtitle": "Vous êtes sur le point de compléter votre dossier de location",
-    "my-file-subtitle2": "vérifié par l'État !",
-    "help-you": "vous aide :"
-  }
-}</i18n>

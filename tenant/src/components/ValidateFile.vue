@@ -5,7 +5,7 @@
       <form name="form" @submit.prevent="validate().then(sendFile)">
         <div v-if="!hasErrors() && hasMadeChoiceForTaxCheck()">
           <NakedCard class="fr-p-md-5w fr-mb-3w">
-            <h1 class="fr-h6">{{ $t("title") }}</h1>
+            <h1 class="fr-h6">{{ $t("validatefile.title") }}</h1>
             <p>{{ getCheckboxInstructions() }}</p>
 
             <validation-provider rules="is" v-slot="{ errors }">
@@ -19,7 +19,7 @@
                   value="false"
                   v-model="declaration"
                 />
-                <label for="declaration">{{ $t("declaration") }}</label>
+                <label for="declaration">{{ $t("validatefile.declaration") }}</label>
                 <span class="fr-error-text" v-if="errors[0]">{{
                   $t(errors[0])
                 }}</span>
@@ -39,8 +39,8 @@
                   />
                   <label for="declaration2">{{
                     user.guarantors.length > 1
-                      ? $t("declaration2-plural")
-                      : $t("declaration2")
+                      ? $t("validatefile.declaration2-plural")
+                      : $t("validatefile.declaration2")
                   }}</label>
                   <span class="fr-error-text" v-if="errors[0]">{{
                     $t(errors[0])
@@ -59,11 +59,11 @@
                 >
                   <p>
                     <label for="precision" class="fr-label">
-                      {{ $t("precision") }}
+                      {{ $t("validatefile.precision") }}
                     </label>
                     <textarea
                       id="precision"
-                      :placeholder="$t('placeholder')"
+                      :placeholder="$t('validatefile.placeholder')"
                       type="text"
                       maxlength="2000"
                       rows="3"
@@ -85,10 +85,10 @@
           <NakedCard class="fr-px-5w fr-py-3w ">
             <div>
               <h6 class="fr-h6 color--secondary">
-                {{ $t("validation-error-title") }}
+                {{ $t("validatefile.validation-error-title") }}
               </h6>
               <p>
-                {{ $t("validation-error-description") }}
+                {{ $t("validatefile.validation-error-description") }}
               </p>
             </div>
           </NakedCard>
@@ -97,7 +97,7 @@
         <ProfileFooter
           @on-back="goBack()"
           :disabled="hasErrors() || !hasMadeChoiceForTaxCheck()"
-          :nextLabel="$t('validate')"
+          :nextLabel="$t('validatefile.validate')"
         ></ProfileFooter>
       </form>
     </ValidationObserver>
@@ -211,8 +211,8 @@ export default class ValidateFile extends Vue {
 
   getCheckboxInstructions() {
     return this.hasGuarantors()
-      ? this.$t("read")
-      : this.$t("read-no-guarantor");
+      ? this.$t("validatefile.read")
+      : this.$t("validatefile.read-no-guarantor");
   }
 
   hasGuarantors() {
@@ -230,35 +230,3 @@ export default class ValidateFile extends Vue {
 }
 </script>
 
-<i18n>
-{
-  "en": {
-    "title": "Je valide mon dossier",
-    "read-no-guarantor": "Je lis et je coche la case suivante afin de valider mon dossier",
-    "declaration": "Je déclare avoir pris connaissance de l'article 441-1 du code pénal qui punit le faux et l'usage de faux de trois ans d'emprisonnement et de 45000 euros d'amende.",
-    "precision": "Si je le souhaite, je peux préciser certains éléments importants de ma situation à mes futurs propriétaires. Mon texte sera ajouté au début de mon dossier:",
-    "placeholder": "Renseignez votre commentaire ici",
-    "validate": "Valider mon dossier",
-    "read": "Je lis et je coche les cases suivantes afin de valider mon dossier",
-    "declaration2": "Je déclare avoir obtenu le consentement des personnes physiques (conjoint, colocataires ou garants) à utiliser leurs justificatifs nominatifs pour les lier à mon dossier.",
-    "declaration2-plural": "Je déclare sur l'honneur avoir reçu le consentement de mes garants pour que leurs données soient traitées dans le cadre du processus de location",
-    "require-accept": "You must accept the declaration",
-    "validation-error-title": "You're so close !",
-    "validation-error-description": "Limit update, check your files today"
-  },
-  "fr": {
-    "title": "Je valide mon dossier",
-    "read-no-guarantor": "Je lis et je coche la case suivante afin de valider mon dossier",
-    "declaration": "Je déclare avoir pris connaissance de l'article 441-1 du code pénal qui punit le faux et l'usage de faux de trois ans d'emprisonnement et de 45000 euros d'amende.",
-    "precision": "Si je le souhaite, je peux préciser certains éléments importants de ma situation à mes futurs propriétaires. Mon texte sera ajouté au début de mon dossier :",
-    "placeholder": "Renseignez votre commentaire ici",
-    "validate": "Valider mon dossier",
-    "read": "Je lis et je coche les cases suivantes afin de valider mon dossier",
-    "declaration2": "Je déclare avoir obtenu le consentement des personnes physiques (conjoint, colocataires ou garants) à utiliser leurs justificatifs nominatifs pour les lier à mon dossier.",
-    "declaration2-plural": "Je déclare sur l'honneur avoir reçu le consentement de mes garants pour que leurs données soient traitées dans le cadre du processus de location",
-    "require-accept": "Vous devez accepter la déclaration",
-    "validation-error-title": "Vous y êtes presque !",
-    "validation-error-description": "Limitez les modifications, pensez à vérifier votre dossier dès aujourd'hui."
-  }
-}
-</i18n>

@@ -2,7 +2,7 @@
   <div>
     <NakedCard class="fr-p-md-5w">
       <h1 class="fr-h5">
-        {{ $t("my-guarantor") }}
+        {{ $t("tenantguarantorlist.my-guarantor") }}
       </h1>
       <TroubleshootingModal>
         <GuarantorChoiceHelp></GuarantorChoiceHelp>
@@ -24,12 +24,12 @@
           @valid="removeGuarantor(g)"
           @cancel="isRemoveGuarantor = false"
         >
-          <span>{{ $t("remove-guarantor") }}</span>
+          <span>{{ $t("tenantguarantorlist.remove-guarantor") }}</span>
         </ConfirmModal>
       </div>
       <div v-if="hasOneNaturalGuarantor()">
         <button @click="addNaturalGuarantor()" class="add-guarantor-btn">
-          {{ $t("add-new-guarantor") }}
+          {{ $t("tenantguarantorlist.add-new-guarantor") }}
         </button>
       </div>
     </NakedCard>
@@ -78,7 +78,7 @@ export default class TenantGuarantorList extends Vue {
     if (g.typeGuarantor === "LEGAL_PERSON" && g.legalPersonName) {
       return g.legalPersonName;
     }
-    return this.$i18n.t("guarantor." + g.typeGuarantor);
+    return this.$i18n.t("tenantguarantorlist.guarantor." + g.typeGuarantor);
   }
 
   goBack() {
@@ -243,35 +243,3 @@ h2 {
 }
 </style>
 
-<i18n>
-{
-"en": {
-  "my-guarantor": "My guarantor",
-  "add-new-guarantor": "Add a new guarantor ?",
-  "guarantor": "My guarantor",
-  "guarantor.NATURAL_PERSON": "My guarantor",
-  "guarantor.LEGAL_PERSON": "My guarantor company",
-  "guarantor.ORGANISM": "My guarantor organism",
-  "EMPTY": "Empty",
-  "TO_PROCESS":"To process",
-  "VALIDATED":"Validated",
-  "DECLINED":"Declined",
-  "INCOMPLETE":"Incomplete",
-  "remove-guarantor": "Are you sure you want to delete this guarantor?"
-},
-"fr": {
-  "my-guarantor": "Le garant de mon conjoint",
-  "add-new-guarantor": "Ajouter un nouveau garant ?",
-  "guarantor": "Son garant",
-  "guarantor.NATURAL_PERSON": "Son garant",
-  "guarantor.LEGAL_PERSON": "Son entreprise garante",
-  "guarantor.ORGANISM": "Son organisme garant",
-  "EMPTY": "Absent",
-  "TO_PROCESS":"En cours de traitement",
-  "VALIDATED":"Vérifié",
-  "DECLINED":"Modification demandée",
-  "INCOMPLETE":"Non terminé",
-  "remove-guarantor": "Êtes-vous sûr·e de vouloir supprimer ce garant ?"
-  }
-}
-</i18n>

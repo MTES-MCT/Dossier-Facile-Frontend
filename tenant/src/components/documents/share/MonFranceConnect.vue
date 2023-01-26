@@ -1,14 +1,14 @@
 <template>
   <div class="mfc-box" v-if="isDisplayed()">
     <div class="optional fr-px-2w fr-pt-2w fr-pb-1w">
-      <span class="fr-tag">{{ $t("optional") }}</span>
+      <span class="fr-tag">{{ $t("monfranceconnect.optional") }}</span>
     </div>
     <div class="fr-px-2w fr-pb-3w">
       <div class="header fr-icon-attachment-line fr-pb-1w">
-        {{ $t("with-franceconnect-title") }}
+        {{ $t("monfranceconnect.with-franceconnect-title") }}
       </div>
       <div class="fr-px-4w">
-        <div>{{ $t("with-franceconnect-text") }}</div>
+        <div>{{ $t("monfranceconnect.with-franceconnect-text") }}</div>
         <button
           type="button"
           aria-label="Mes justificatifs avec Mon FranceConnect"
@@ -90,17 +90,3 @@ export default class MonFranceConnect extends Vue {
   }
 }
 </style>
-<i18n>
-{
-"en": {
-  "optional": "optional",
-  "with-franceconnect-title": "Your supporting documents with Mon FranceConnect",
-  "with-franceconnect-text": "Mon FranceConnect is a digital state service allowing you to retrieve your supporting documents from different administrations."
-},
-"fr": {
-  "optional": "optionnel",
-  "with-franceconnect-title": "Vos justificatifs avec Mon FranceConnect",
-  "with-franceconnect-text": "Mon FranceConnect est un service numérique de l'État vous permettant de récupérer vos justificatifs provenant de différentes administrations."
-}
-}
-</i18n>

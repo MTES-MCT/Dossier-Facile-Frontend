@@ -610,17 +610,3 @@ export default class LeftEditMenu extends Vue {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "ALONE": "Alone",
-    "COUPLE": "Couple",
-    "GROUP": "Roommate"
-  },
-  "fr": {
-    "ALONE": "Seul·e",
-    "COUPLE": "En couple",
-    "GROUP": "En colocation"
-  }
-}
-</i18n>
