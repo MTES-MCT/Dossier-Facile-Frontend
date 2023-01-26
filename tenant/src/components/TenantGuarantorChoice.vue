@@ -21,8 +21,13 @@
               <GuarantorChoiceHelp></GuarantorChoiceHelp>
             </TroubleshootingModal>
             <div class="remark fr-mt-3w">
-              <div class="fr-h6">{{ $t("tenantguarantorchoice.remark-title") }}</div>
-              <div class="small-font" v-html="$t('tenantguarantorchoice.remark-text')"></div>
+              <div class="fr-h6">
+                {{ $t("tenantguarantorchoice.remark-title") }}
+              </div>
+              <div
+                class="small-font"
+                v-html="$t('tenantguarantorchoice.remark-text')"
+              ></div>
             </div>
           </div>
           <div class="fr-mt-3w fr-mb-2w">
@@ -77,7 +82,9 @@
                   <span v-if="isCotenant">{{
                     $t("tenantguarantorchoice.no-guarantor-cotenant")
                   }}</span>
-                  <span v-else>{{ $t("tenantguarantorchoice.no-guarantor") }}</span>
+                  <span v-else>{{
+                    $t("tenantguarantorchoice.no-guarantor")
+                  }}</span>
                 </div>
               </BigRadio>
             </div>
@@ -88,7 +95,9 @@
           class="bg-purple fr-mt-3w fr-p-5w"
         >
           <div class="fr-grid-row space-between">
-            <div class="fr-h5">{{ $t("tenantguarantorchoice.visale-title") }}</div>
+            <div class="fr-h5">
+              {{ $t("tenantguarantorchoice.visale-title") }}
+            </div>
             <img
               alt="logo visale"
               class="logo-visale"
@@ -171,10 +180,13 @@ export default class TenantGuarantorChoice extends Vue {
 
   setGuarantorType() {
     if (!this.tmpGuarantorType) {
-      this.$toasted.show(this.$i18n.t("tenantguarantorchoice.type-required").toString(), {
-        type: "error",
-        duration: 7000
-      });
+      this.$toasted.show(
+        this.$i18n.t("tenantguarantorchoice.type-required").toString(),
+        {
+          type: "error",
+          duration: 7000
+        }
+      );
       return;
     }
     AnalyticsService.addGuarantor(this.tmpGuarantorType);
@@ -191,7 +203,7 @@ export default class TenantGuarantorChoice extends Vue {
             this.$emit("on-select", this.tmpGuarantorType);
           },
           () => {
-            this.$toasted.show(this.$i18n.t("tenantguarantorchoice.try-again").toString(), {
+            this.$toasted.show(this.$i18n.t("try-again").toString(), {
               type: "error",
               duration: 7000
             });
@@ -316,4 +328,3 @@ h2 {
   }
 }
 </style>
-
