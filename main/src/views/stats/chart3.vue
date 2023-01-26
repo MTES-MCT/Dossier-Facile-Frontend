@@ -91,11 +91,10 @@ export default class Chart3 extends Vue {
 
     for (let i = 1; i < data.length; i++) {
       // Plot the area
-      const localData: any = data[i]
-        .splice(1, 53)
-        .map((v: number, k: number) => {
-          return { key: k + 1, value: v };
-        });
+      let localData: any = data[i].splice(1, 53);
+      localData = localData?.map((v: number, k: number) => {
+        return { key: k + 1, value: v };
+      });
       svg
         .append("path")
         .datum(localData)
