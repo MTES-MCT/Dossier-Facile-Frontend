@@ -6,7 +6,7 @@
           <div class="fr-col-12">
             <h1>
               {{
-                $t(getApplicationType() + ".title", [
+                $t("account.title." + getApplicationType(), [
                   getFirstName(),
                   $t(getGlobalStatus())
                 ])
@@ -129,7 +129,9 @@
               >
                 <h3 class="fr-h4 dflex">
                   <span class="material-icons-outlined md-28">timer</span
-                  >&nbsp;<span>{{ $t("account.instructional-time-title") }}</span>
+                  >&nbsp;<span>{{
+                    $t("account.instructional-time-title")
+                  }}</span>
                 </h3>
                 <p v-html="$t('account.instructional-time-text')"></p>
               </div>
@@ -446,7 +448,9 @@ export default class Account extends Vue {
           .t("couple-with", [`${spouse?.firstName} ${spouse?.lastName}`])
           .toString();
       }
-      return this.$i18n.t("account.couple-with", [this.$i18n.t("someone")]).toString();
+      return this.$i18n
+        .t("account.couple-with", [this.$i18n.t("someone")])
+        .toString();
     }
 
     const roommates = this.user?.apartmentSharing?.tenants
@@ -806,4 +810,3 @@ hr {
   }
 }
 </style>
-
