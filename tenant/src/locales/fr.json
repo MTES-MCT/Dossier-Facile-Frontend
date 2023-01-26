@@ -224,9 +224,11 @@
     }
   },
   "account": {
-    "alone.title": "Bonjour {0}, votre dossier {1} !",
-    "group.title": "Bonjour {0}, votre dossier {1} !",
-    "couple.title": "Bonjour {0}, votre dossier de couple {1} !",
+    "title": {
+      "alone": "Bonjour {0}, votre dossier {1} !",
+      "group": "Bonjour {0}, votre dossier {1} !",
+      "couple": "Bonjour {0}, votre dossier de couple {1} !"
+    },
     "status-description": "{0}, vous avez indiqué être {1}, {2} et {3}.<br>Si votre situation a changé, mettez à jour vos documents !",
     "last-update": "Dernière mise à jour du dossier le {0}",
     "file-update-title": "Mise à jour de votre dossier",
@@ -278,7 +280,9 @@
     "group-with": "en colocation avec {0}",
     "group-with-someone": "en colocation",
     "someone": " quelqu'un",
-    "group.cannot-copy-link": "Votre lien est inactif car le dossier de votre(vos) colocataire(s) n'est pas encore validé",
+    "group": {
+      "cannot-copy-link": "Votre lien est inactif car le dossier de votre(vos) colocataire(s) n'est pas encore validé"
+    },
     "amendment-required-title": "Modifications demandées",
     "amendment-required-text": "Après examen de votre dossier, des modifications vous sont demandées. <br>Consultez votre messagerie pour en connaître le détail.",
     "messaging": "Consulter ma messagerie",
@@ -289,10 +293,14 @@
     "congratulations-text-2": "Vos informations sont protégées !",
     "full-link-copied": "Le lien de mon dossier complet est copié !",
     "public-link-copied": "Le lien de mon dossier de synthèse est copié !",
-    "dossier.status.TO_PROCESS": "En cours de traitement",
-    "dossier.status.VALIDATED": "Vérifé",
-    "dossier.status.DECLINED": "Modification demandée",
-    "dossier.status.INCOMPLETE": "Incomplet"
+    "dossier": {
+      "status": {
+        "TO_PROCESS": "En cours de traitement",
+        "VALIDATED": "Vérifé",
+        "DECLINED": "Modification demandée",
+        "INCOMPLETE": "Incomplet"
+      }
+    }
   },
   "allowchecktax": {
     "forbid-tax": "Je refuse",
@@ -1088,10 +1096,11 @@
   "tenantguarantorlist": {
     "my-guarantor": "Le garant de mon conjoint",
     "add-new-guarantor": "Ajouter un nouveau garant ?",
-    "guarantor": "Son garant",
-    "guarantor.NATURAL_PERSON": "Son garant",
-    "guarantor.LEGAL_PERSON": "Son entreprise garante",
-    "guarantor.ORGANISM": "Son organisme garant",
+    "guarantor": {
+      "NATURAL_PERSON": "Son garant",
+      "LEGAL_PERSON": "Son entreprise garante",
+      "ORGANISM": "Son organisme garant"
+    },
     "EMPTY": "Absent",
     "TO_PROCESS": "En cours de traitement",
     "VALIDATED": "Vérifié",
