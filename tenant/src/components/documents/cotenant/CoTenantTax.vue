@@ -12,6 +12,9 @@
       @on-change-document="changeDocument"
       @enrich-form-data="enrichFormData"
     >
+      <template v-slot:title>
+        {{ $t("cotenanttax.title") }}
+      </template>
       <template v-slot:after-select-block>
         <NakedCard
           class="fr-p-md-5w fr-mb-3w fr-mt-3w"

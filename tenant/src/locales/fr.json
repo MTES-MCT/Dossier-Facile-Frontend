@@ -1,10 +1,33 @@
 {
+  "identity-card": "Carte d’identité française",
+  "passport": "Passeport français",
+  "permit": "Titre de séjour français",
+  "other": "Autre",
+  "tenant": "Locataire",
+  "owner": "Propriétaire",
+  "guest": "Hébergé·e à titre gratuit",
+  "guest-parents": "Vous habitez chez vos parents",
+  "cdi": "CDI",
+  "cdi-trial": "CDI (période d’essai)",
+  "cdd": "CDD",
+  "alternation": "Alternance",
+  "internship": "Stage",
+  "student": "Études",
+  "public": "Fonction publique",
+  "ctt": "CTT (intérimaire)",
+  "retired": "Retraité",
+  "unemployed": "Chômage",
+  "independent": "Indépendant",
+  "my-name": "Vous avez un avis d’imposition à votre nom",
+  "my-parents": "Vous êtes rattaché fiscalement à vos parents",
+  "less-than-year": "Vous êtes en France depuis moins d’un an",
+  "other-tax": "Autre",
   "save-success": "Enregistrement réussi",
   "save-failed": "Erreur lors de l'enregistrement",
   "save-failed-num-pages": "Nombre de pages maximum atteint, veuillez en supprimer",
   "delete-success": "Suppression réussie",
   "delete-failed": "Erreur lors de la suppression",
-  "max-file-default": "Nombre de fichier maximum atteint, veuillez en supprimer",
+  "max-file-default": "Nombre de fichier maximum atteint, veuillez en supprimpersonal-informationer",
   "max-file": "Nombre de fichiers maximum atteint (actuellement : {0} / maximum : {1} ), veuillez en supprimer",
   "error": "Une erreur est survenue",
   "field-required": "Ce champ est requis",
@@ -22,7 +45,38 @@
   "my-cotenant": "Les documents de mon conjoint",
   "my-cotenant-guarantor": "Le garant de mon conjoint",
   "validate-file": "Je valide mon dossier",
+  "noDocument-social": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
+  "noDocument-salary": "Je ne peux pas fournir mes trois derniers bulletins de salaire",
+  "noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",
+  "noDocument-rent": "Je ne peux pas fournir de justificatifs de versement de rente",
+  "noDocument-scholarship": "Je ne peux pas fournir de justificatifs d'attribution de bourse",
+  "ALONE": "Seul·e",
+  "COUPLE": "En couple",
+  "GROUP": "En colocation",
+  "EMPTY": "Absent",
+  "TO_PROCESS": "En cours de traitement",
+  "VALIDATED": "Vérifié",
+  "DECLINED": "Modification demandée",
+  "INCOMPLETE": "Non terminé",
+  "dossier": {
+    "TO_PROCESS": "En cours de traitement",
+    "VALIDATED": "Vérifé",
+    "DECLINED": "Modification demandée",
+    "INCOMPLETE": "Incomplet"
+  },
   "documents": {
+    "identity-card": "Carte d’identité française",
+    "passport": "Passeport français",
+    "permit": "Titre de séjour français",
+    "other": "Autre",
+    "tenant": "Locataire",
+    "owner": "Propriétaire",
+    "guest": "Hébergé·e à titre gratuit",
+    "guest-parents": "Vous habitez chez vos parents",
+    "my-name": "Vous avez un avis d’imposition à votre nom",
+    "my-parents": "Vous êtes rattaché fiscalement à vos parents",
+    "less-than-year": "Vous êtes en France depuis moins d’un an",
+    "other-tax": "Autre",
     "salary": "Revenus professionnels",
     "guarantor_salary": "Revenus professionnels",
     "social-service": "Prestations sociales",
@@ -39,10 +93,8 @@
       "cdi-trial": "J’ajoute mon contrat de travail en cours, complet et signé.\nEt si vous n’avez pas de contrat de travail ? Vous pouvez joindre une attestation de votre employeur signée et datée de moins de 3 mois.",
       "ctt": "J’ajoute mon contrat de travail en cours, complet et signé.\nEt si vous n’avez pas de contrat de travail ? Vous pouvez joindre une attestation de votre employeur signée et datée de moins de 3 mois.",
       "guarantor_salary": "J’ajoute un bulletin de salaire de mon garant de moins de 3 mois, une attestation de son employeur, un justificatif de versement de ses indemnités de stage, un bilan comptable ou un avis d’imposition à son nom, complet et de moins de 2 ans.",
-      "guest":
-        "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, une copie de la pièce d’identité et un justificatif de domicile de mon hébergeant</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne sur le site <a href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement' target='_blank'>service-public.fr</a>",
-      "guest-parents":
-        "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, une copie de la pièce d’identité et un justificatif de domicile du parent</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne sur le site <a href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement' target='_blank'>service-public.fr</a>",
+      "guest": "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, une copie de la pièce d’identité et un justificatif de domicile de mon hébergeant</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne sur le site <a href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement' target='_blank'>service-public.fr</a>",
+      "guest-parents": "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, une copie de la pièce d’identité et un justificatif de domicile du parent</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne sur le site <a href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement' target='_blank'>service-public.fr</a>",
       "identity-card": "Attention veillez à ajouter votre pièce <b>recto-verso !</b>",
       "independent": "J’ajoute mon justificatif d’activité professionnelle indépendante en fonction de mon type d’activité.",
       "internship": "J’ajoute la convention de stage complète et signée de mon garant.",
@@ -71,10 +123,8 @@
       "cdi-trial": "J’ajoute son contrat de travail en cours, complet et signé.\nEt si iel n’a pas de contrat de travail ? Vous pouvez joindre une attestation de son employeur signée et datée de moins de 3 mois.",
       "ctt": "J’ajoute son contrat de travail en cours, complet et signé.\nEt si iel n'a pas de contrat de travail ? Vous pouvez joindre une attestation de son employeur signée et datée de moins de 3 mois.",
       "guarantor_salary": "J’ajoute un bulletin de salaire de son garant de moins de 3 mois, une attestation de son employeur, un justificatif de versement de ses indemnités de stage, un bilan comptable ou un avis d’imposition à son nom, complet et de moins de 2 ans.",
-      "guest": 
-        "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, une copie de la pièce d’identité et un justificatif de domicile de son hébergeant</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne sur le site <a href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement' target='_blank'>service-public.fr</a>",
-      "guest-parents": 
-        "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, une copie de la pièce d’identité et un justificatif de domicile du parent</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne sur le site <a href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement' target='_blank'>service-public.fr</a>",
+      "guest": "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, une copie de la pièce d’identité et un justificatif de domicile de son hébergeant</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne sur le site <a href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement' target='_blank'>service-public.fr</a>",
+      "guest-parents": "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, une copie de la pièce d’identité et un justificatif de domicile du parent</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne sur le site <a href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement' target='_blank'>service-public.fr</a>",
       "identity-card": "Attention veillez à ajouter sa pièce <b>recto-verso !</b>",
       "independent": "J’ajoute son justificatif d’activité professionnelle indépendante en fonction de son type d’activité.",
       "internship": "J’ajoute la convention de stage complète et signée de son garant.",
@@ -534,7 +584,7 @@
     "has-no-income": "Vous avez indiqué ne pas avoir de revenu",
     "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule"
   },
-  "financial": {
+  "financial-page": {
     "delete-financial": "Supprimer ce revenu",
     "register": "Enregistrer",
     "i-have-no-income": "Je n'ai pas de revenu",
@@ -649,11 +699,6 @@
     "guarantor.NATURAL_PERSON": "Mon garant",
     "guarantor.LEGAL_PERSON": "Mon entreprise garante",
     "guarantor.ORGANISM": "Mon organisme garant",
-    "EMPTY": "Absent",
-    "TO_PROCESS": "En cours de traitement",
-    "VALIDATED": "Vérifié",
-    "DECLINED": "Modification demandée",
-    "INCOMPLETE": "Non terminé",
     "remove-guarantor": "Êtes-vous sûr·e de vouloir supprimer ce garant ?"
   },
   "guarantorname": {
@@ -739,11 +784,7 @@
     "warning-no-accepted-doc": "Attention, l'avis de situation déclarative n'est pas accepté.",
     "goto-documentation": "Consulter la documentation"
   },
-  "identification": {
-    "identity-card": "Carte d’identité française",
-    "passport": "Passeport français",
-    "permit": "Titre de séjour français",
-    "other": "Autre",
+  "identification-page": {
     "files": "Documents",
     "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
     "select-label": "Déposez une pièce d'identité en cours de validité.",
@@ -767,11 +808,6 @@
     "title": "Création du mot de passe",
     "already-logged": "Vous êtes déjà en mode connecté, voulez-vous vous déconnecter pour créer ce compte ?",
     "token-expired": "Le lien a expiré, veuillez lancer la procédure de mot de passe oublié"
-  },
-  "lefteditmenu": {
-    "ALONE": "Seul·e",
-    "COUPLE": "En couple",
-    "GROUP": "En colocation"
   },
   "listitem": {
     "FRENCH_IDENTITY_CARD": "Carte d'identité française",
@@ -861,7 +897,7 @@
     "go-to-anil": "Aller sur le site de l'ANIL (nouvelle fenêtre)",
     "go-to-mds": "Aller sur le site de « mes droits sociaux » (nouvelle fenêtre)"
   },
-  "professional": {
+  "professional-page": {
     "cdi": "CDI",
     "cdi-trial": "CDI (période d’essai)",
     "cdd": "CDD",
@@ -910,7 +946,7 @@
     "other": "Autre",
     "select-is-empty": "Sélection requise"
   },
-  "residency": {
+  "residency-page": {
     "tenant": "Locataire",
     "owner": "Propriétaire",
     "guest": "Hébergé·e gratuitement",
@@ -983,7 +1019,7 @@
     "paragraph1": "Vous pouvez désormais <b>télécharger un avis d’imposition sur <a target='_blank' href='https://www.impots.gouv.fr'>www.impots.gouv.fr</a></b>",
     "paragraph2": "Si votre pièce est trop lourde, nous vous conseillons de scanner votre pièce (avec une application gratuite pour smartphone par exemple).<br> Si cela ne suffit pas, contactez-nous par mail à l’adresse <a href='mailto:contact@dossierfacile.fr'>contact@dossierfacile.fr</a>, nous nous efforcerons de répondre au plus vite !"
   },
-  "tax": {
+  "tax-page": {
     "my-name": "Vous avez un avis d’imposition à votre nom",
     "my-parents": "Vous êtes rattaché fiscalement à vos parents",
     "less-than-year": "Vous êtes en France depuis moins d’un an",

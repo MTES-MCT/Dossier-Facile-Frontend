@@ -49,7 +49,9 @@
     >
       <div class="fr-mb-3w">
         <p
-          v-html="$t(`guarantorresidency.explanation-text.${guarantorKey()}.${residencyDocument.key}`)"
+          v-html="
+            $t(`explanation-text.${guarantorKey()}.${residencyDocument.key}`)
+          "
         ></p>
       </div>
       <AllDeclinedMessages

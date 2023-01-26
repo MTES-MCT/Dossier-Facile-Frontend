@@ -76,7 +76,7 @@
       >
         <div class="fr-mb-3w">
           <p
-            v-html="$t(`guarantortax.explanation-text.${guarantorKey()}.${taxDocument.key}`)"
+            v-html="$t(`explanation-text.${guarantorKey()}.${taxDocument.key}`)"
           ></p>
         </div>
         <AllDeclinedMessages

@@ -123,7 +123,7 @@ export default class GuarantorListPage extends Vue {
 
   getStatus(g: Guarantor) {
     if (!g.documents) {
-      return;
+      return "";
     }
     if (
       (g.typeGuarantor === "NATURAL_PERSON" && g.documents.length < 5) ||

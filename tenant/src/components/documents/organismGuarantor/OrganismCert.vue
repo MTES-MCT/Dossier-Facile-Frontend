@@ -92,7 +92,7 @@ export default class OrganismCert extends Vue {
 
   getTitle() {
     const userType = this.isCotenant ? "cotenant" : "tenant";
-    return this.$t(`organismcert.explanation-text.${userType}.organism-guarantor`);
+    return this.$t(`explanation-text.${userType}.organism-guarantor`);
   }
 
   guarantorId() {

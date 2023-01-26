@@ -8,7 +8,7 @@
           v-slot="{ errors, valid }"
         >
           <h1 class="fr-h6">
-            {{ $t("professional.select-label") }}
+            {{ $t("professional-page.select-label") }}
           </h1>
           <TroubleshootingModal>
             <DocumentHelp></DocumentHelp>
@@ -45,7 +45,7 @@
     >
       <div class="fr-mb-3w">
         <p
-          v-html="$t(`professional.explanation-text.tenant.${professionalDocument.key}`)"
+          v-html="$t(`explanation-text.tenant.${professionalDocument.key}`)"
         ></p>
       </div>
       <AllDeclinedMessages
@@ -74,7 +74,7 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("professional.will-delete-files") }}</span>
+      <span>{{ $t("professional-page.will-delete-files") }}</span>
     </ConfirmModal>
   </div>
 </template>

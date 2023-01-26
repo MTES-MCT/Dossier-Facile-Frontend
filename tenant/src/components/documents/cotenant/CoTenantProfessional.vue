@@ -9,6 +9,9 @@
       listType="dropDownList"
       @on-change-document="changeDocumentType"
     >
+      <template v-slot:title>
+        {{ $t("cotenantprofessional.title") }}
+      </template>
     </DocumentDownloader>
   </div>
 </template>

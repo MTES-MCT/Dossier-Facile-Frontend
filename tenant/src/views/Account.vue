@@ -28,7 +28,10 @@
               <h2 class="fr-text-title--grey fr-h4">
                 {{ $t("account.congratulations-title") }}
               </h2>
-              <p class="fr-mb-3w" v-html="$t('account.congratulations-text-1')"></p>
+              <p
+                class="fr-mb-3w"
+                v-html="$t('account.congratulations-text-1')"
+              ></p>
               <p v-html="$t('account.congratulations-text-2')"></p>
             </div>
             <div class="main fr-mt-5w fr-p-4w bg-white">
@@ -168,7 +171,7 @@
                           <ColoredTag
                             class="fr-col-xs-12 fr-col"
                             :status="tenant.status"
-                            :text="$t('account.dossier.status.' + tenant.status)"
+                            :text="$t(`dossier.${tenant.status}`)"
                           ></ColoredTag>
                         </div>
                       </button>

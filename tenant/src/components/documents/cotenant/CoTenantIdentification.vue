@@ -7,6 +7,12 @@
       dispatchMethodName="saveTenantIdentification"
       typeDocument="typeDocumentIdentification"
     >
+      <template v-slot:title>
+        {{ $t("cotenantidentification.title") }}
+      </template>
+      <template v-slot:description>
+        <p>{{ $t("cotenantidentification.description") }}</p>
+      </template>
     </DocumentDownloader>
   </div>
 </template>

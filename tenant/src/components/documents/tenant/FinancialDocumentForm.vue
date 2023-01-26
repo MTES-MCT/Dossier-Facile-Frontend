@@ -33,7 +33,7 @@
                         @input="onSelectChange()"
                       >
                         <div class="fr-grid-col spa">
-                          <span>{{ $t(`financialdocumentform.documents.${d.key}`) }}</span>
+                          <span>{{ $t(`documents.${d.key}`) }}</span>
                         </div>
                       </BigRadio>
                     </div>
@@ -126,7 +126,7 @@
                 <p
                   v-html="
                     $t(
-                      `financialdocumentform.explanation-text.tenant.${financialDocument.documentType.key}`
+                      `explanation-text.tenant.${financialDocument.documentType.key}`
                     )
                   "
                 ></p>

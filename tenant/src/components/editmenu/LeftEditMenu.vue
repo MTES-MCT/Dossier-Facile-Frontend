@@ -5,7 +5,7 @@
         <div class="step-number">{{ getStepNumber("information") }}</div>
         <div class="step-title">
           <router-link :to="{ name: 'TenantName' }" class="fr-link">
-            {{ $t("lefteditmenu.personal-information") }}
+            {{ $t("personal-information") }}
           </router-link>
         </div>
       </div>
@@ -31,7 +31,7 @@
           <router-link
             class="fr-link"
             :to="{ name: 'TenantDocuments', params: { substep: '1' } }"
-            >{{ $t("lefteditmenu.my-document") }}
+            >{{ $t("my-document") }}
           </router-link>
         </div>
       </div>
@@ -73,7 +73,7 @@
         <div class="step-number">{{ getStepNumber("guarantor") }}</div>
         <div class="step-title">
           <router-link class="fr-link" :to="getGuarantorLink()"
-            >{{ $t("lefteditmenu.my-guarantor") }}
+            >{{ $t("my-guarantor") }}
           </router-link>
         </div>
       </div>
@@ -182,7 +182,7 @@
                 tenantId: getCoTenant(0).id
               }
             }"
-            >{{ $t("lefteditmenu.my-cotenant") }}
+            >{{ $t("my-cotenant") }}
           </router-link>
         </div>
       </div>
@@ -265,7 +265,7 @@
               )
             "
           >
-            {{ $t("lefteditmenu.my-cotenant-guarantor") }}
+            {{ $t("my-cotenant-guarantor") }}
           </router-link>
         </div>
       </div>
@@ -384,7 +384,7 @@
               name: 'ValidateFileStep',
               params: { step: getStepNumber('validate') }
             }"
-            >{{ $t("lefteditmenu.validate-file") }}
+            >{{ $t("validate-file") }}
           </router-link>
         </div>
       </div>

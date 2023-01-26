@@ -3,7 +3,7 @@
     <div>
       <NakedCard class="fr-p-md-5w">
         <h1 class="fr-h6">
-          {{ $t("identification.select-label") }}
+          {{ $t("identification-page.select-label") }}
         </h1>
 
         <TroubleshootingModal>
@@ -42,9 +42,7 @@
     >
       <div class="fr-mb-3w">
         <p
-          v-html="
-            $t(`identification.explanation-text.guarantor.${identificationDocument.key}`)
-          "
+          v-html="$t(`explanation-text.tenant.${identificationDocument.key}`)"
         ></p>
       </div>
       <AllDeclinedMessages
@@ -77,7 +75,7 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("identification.will-delete-files") }}</span>
+      <span>{{ $t("identification-page.will-delete-files") }}</span>
     </ConfirmModal>
   </div>
 </template>

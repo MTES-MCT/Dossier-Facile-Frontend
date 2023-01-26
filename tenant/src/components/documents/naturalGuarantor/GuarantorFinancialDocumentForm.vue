@@ -6,7 +6,11 @@
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-12">
               <p>
-                {{ $t("guarantorfinancialdocumentform.warning-no-income-and-file") }}
+                {{
+                  $t(
+                    "guarantorfinancialdocumentform.warning-no-income-and-file"
+                  )
+                }}
               </p>
             </div>
           </div>
@@ -19,7 +23,7 @@
       @cancel="undoSelect()"
     >
       <span>{{
-        $t(`guarantorfinancialdocumentform.explanation-text.${guarantorKey()}.will-delete-files`)
+        $t(`explanation-text.${guarantorKey()}.will-delete-files`)
       }}</span>
     </ConfirmModal>
     <ValidationObserver v-slot="{ validate }">
@@ -58,7 +62,7 @@
                           @input="onSelectChange()"
                         >
                           <div class="fr-grid-col spa">
-                            <span>{{ $t(`guarantorfinancialdocumentform.documents.${d.key}`) }}</span>
+                            <span>{{ $t(`documents.${d.key}`) }}</span>
                           </div>
                         </BigRadio>
                       </div>
@@ -147,7 +151,7 @@
             <p
               v-html="
                 $t(
-                  `guarantorfinancialdocumentform.explanation-text.${guarantorKey()}.${
+                  `explanation-text.${guarantorKey()}.${
                     financialDocument.documentType.key
                   }`
                 )
@@ -184,7 +188,7 @@
             <label for="noDocument">
               {{
                 $t(
-                  `guarantorfinancialdocumentform.explanation-text.${guarantorKey()}.${getCheckboxLabel(
+                  `explanation-text.${guarantorKey()}.${getCheckboxLabel(
                     financialDocument.documentType.key
                   )}`
                 )
@@ -200,7 +204,7 @@
                 <label class="fr-label" for="customText">
                   {{
                     $t(
-                      `guarantorfinancialdocumentform.explanation-text.${guarantorKey()}.${getCustomTextLabel(
+                      `explanation-text.${guarantorKey()}.${getCustomTextLabel(
                         financialDocument.documentType.key
                       )}`
                     )

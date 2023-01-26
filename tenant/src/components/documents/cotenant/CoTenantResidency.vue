@@ -7,6 +7,9 @@
       dispatchMethodName="saveTenantResidency"
       typeDocument="typeDocumentResidency"
     >
+      <template v-slot:title>
+        {{ $t("cotenantresidency.title") }}
+      </template>
     </DocumentDownloader>
   </div>
 </template>

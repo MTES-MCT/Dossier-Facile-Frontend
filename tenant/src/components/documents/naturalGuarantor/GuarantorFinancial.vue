@@ -184,7 +184,7 @@ export default class GuarantorFinancial extends Vue {
   }
 
   private getDocumentName(document: FinancialDocument): string {
-    return this.$t(`guarantorfinancial.documents.${document.documentType.key}`).toString();
+    return this.$t(`documents.${document.documentType.key}`).toString();
   }
 }
 </script>

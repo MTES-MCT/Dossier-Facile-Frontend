@@ -39,7 +39,7 @@ export default class DocumentLink extends Vue {
 
   private getText(): string {
     const translationKey = DocumentTypeTranslations[this.documentType];
-    return this.$t(translationKey).toString();
+    return this.$i18n.t(translationKey).toString();
   }
 
   private getTargetComponent() {

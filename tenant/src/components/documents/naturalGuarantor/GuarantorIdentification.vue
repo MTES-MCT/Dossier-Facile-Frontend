@@ -51,7 +51,7 @@
         <p
           v-html="
             $t(
-              `guarantoridentification.explanation-text.${guarantorKey()}.${identificationDocument.key}`
+              `explanation-text.${guarantorKey()}.${identificationDocument.key}`
             )
           "
         ></p>

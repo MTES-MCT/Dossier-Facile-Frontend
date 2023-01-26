@@ -3,9 +3,9 @@
     <NakedCard class="fr-p-md-5w">
       <div>
         <h1 class="fr-h6">
-          {{ $parent.$t("documentdownloader.title") }}
+          <slot name="title"></slot>
         </h1>
-        <p v-if="$parent.$te('description')">{{ $parent.$t("documentdownloader.description") }}</p>
+        <slot name="description"></slot>
 
         <TroubleshootingModal>
           <DocumentHelp></DocumentHelp>
@@ -64,7 +64,7 @@
                       class="fr-grid-col"
                       :class="{ spa: listType === 'grid' }"
                     >
-                      <span>{{ $parent.$t(d.key) }}</span>
+                      <span>{{ $t(`documents.${d.key}`) }}</span>
                     </div>
                   </BigRadio>
                 </div>
@@ -88,7 +88,7 @@
       v-if="showDownloader && (document.key || documentFiles.length > 0)"
     >
       <div class="fr-mb-3w">
-        <p v-html="$t(`documentdownloader.explanation-text.cotenant.${document.key}`)"></p>
+        <p v-html="$t(`explanation-text.cotenant.${document.key}`)"></p>
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
