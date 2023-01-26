@@ -23,7 +23,7 @@ export default class Chart5 extends Vue {
       )
       .then(response => {
         this.updateChart(
-          response.data["valueRanges"][0]["values"].map((d: any[]) => {
+          response.data["valueRanges"][0]["values"]?.map((d: any[]) => {
             return { label: d[0], value: Number(d[1].replace("%", "")) };
           })
         );
