@@ -79,7 +79,7 @@
                             required: true
                           }"
                         >
-                          <FieldLabel for-input="firstname">
+                          <FieldLabel :required="true" for-input="firstname">
                             {{ t("firstname") }}
                           </FieldLabel>
                           <input
@@ -114,7 +114,7 @@
                             required: true
                           }"
                         >
-                          <FieldLabel for-input="lastname">
+                          <FieldLabel :required="true" for-input="lastname">
                             {{ t("lastname") }}
                           </FieldLabel>
                           <input
