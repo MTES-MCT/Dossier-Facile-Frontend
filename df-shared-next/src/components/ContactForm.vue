@@ -376,7 +376,7 @@ function submitForm() {
     .then(() => {
       status.value = "OK";
     })
-    .catch(error => {
+    .catch((error: any) => {
       console.log(error);
       status.value = "KO";
     });
