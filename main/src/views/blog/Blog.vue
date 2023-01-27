@@ -3,7 +3,7 @@
     <div class="fr-mt-7w fr-container">
       <div class="fr-grid-row justify-content-center">
         <div class="fr-col-md-10 fr-col-lg-8">
-          <h1>{{ $t("blog") }}</h1>
+          <h1>{{ $t("blog-title") }}</h1>
           <hr />
           <BlogExtractTile
             title="Passoires thermiques : top départ du gel des loyers"
