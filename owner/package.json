@@ -91,8 +91,8 @@
   },
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^3.3.0",
-    "@typescript-eslint/eslint-plugin": "^5.14.0",
-    "@typescript-eslint/parser": "^5.14.0",
+    "@typescript-eslint/eslint-plugin": "^5.49.0",
+    "@typescript-eslint/parser": "^5.49.0",
     "@vitejs/plugin-vue": "^2.2.0",
     "cypress": "^10.3.0",
     "eslint": "^8.10.0",
