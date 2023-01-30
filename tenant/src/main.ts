@@ -51,6 +51,7 @@ Vue.use(VueAuthImage);
       config => {
         if ((Vue as any).$keycloak.authenticated) {
           const localToken = (Vue as any).$keycloak.token;
+          config.headers = config.headers ?? {};
           config.headers["Authorization"] = `Bearer ${localToken}`;
         }
         return config;
