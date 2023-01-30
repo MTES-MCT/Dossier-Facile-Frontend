@@ -8,7 +8,7 @@
               {{
                 $t("account.title." + getApplicationType(), [
                   getFirstName(),
-                  $t(getGlobalStatus())
+                  $t(getGlobalStatus()).toLowerCase()
                 ])
               }}
             </h1>
