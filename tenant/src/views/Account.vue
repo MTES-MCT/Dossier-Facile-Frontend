@@ -445,11 +445,13 @@ export default class Account extends Vue {
       });
       if (spouse?.lastName !== undefined && spouse?.lastName !== "") {
         return this.$i18n
-          .t("couple-with", [`${spouse?.firstName} ${spouse?.lastName}`])
+          .t("account.couple-with", [
+            `${spouse?.firstName} ${spouse?.lastName}`
+          ])
           .toString();
       }
       return this.$i18n
-        .t("account.couple-with", [this.$i18n.t("someone")])
+        .t("account.couple-with", [this.$i18n.t("account.someone")])
         .toString();
     }
 
