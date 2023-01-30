@@ -1,5 +1,4 @@
 import { SkipLink } from "./../../../df-shared-next/src/models/SkipLink";
-/* eslint-disable @typescript-eslint/camelcase */
 import Vue from "vue";
 import Vuex from "vuex";
 import { AuthService } from "df-shared/src/services/AuthService";
