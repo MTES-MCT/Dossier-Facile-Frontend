@@ -14,7 +14,7 @@
           <li>{{ $t("allowchecktax.automatic-tax-l3") }}</li>
           <li>{{ $t("allowchecktax.automatic-tax-l4") }}</li>
         </ul>
-        <i18n path="automatic-tax-p2" tag="div">
+        <i18n path="allowchecktax.automatic-tax-p2" tag="div">
           <template v-slot:label>
             <span class="bold-italic">{{ $t("allowchecktax.dgfip-approved-label") }}</span>
           </template>
