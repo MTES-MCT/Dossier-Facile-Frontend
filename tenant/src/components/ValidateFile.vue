@@ -81,25 +81,25 @@
             </NakedCard>
           </div>
         </div>
-        <div v-if="hasErrors()">
-          <NakedCard class="fr-px-5w fr-py-3w ">
-            <div>
-              <h6 class="fr-h6 color--secondary">
-                {{ $t("validatefile.validation-error-title") }}
-              </h6>
-              <p>
-                {{ $t("validatefile.validation-error-description") }}
-              </p>
-            </div>
-          </NakedCard>
-          <FileErrors></FileErrors>
-        </div>
         <ProfileFooter
           @on-back="goBack()"
           :disabled="hasErrors() || !hasMadeChoiceForTaxCheck()"
           :nextLabel="$t('validatefile.validate')"
         ></ProfileFooter>
       </form>
+      <div v-if="hasErrors()">
+        <NakedCard class="fr-px-5w fr-py-3w ">
+          <div>
+            <h6 class="fr-h6 color--secondary">
+              {{ $t("validatefile.validation-error-title") }}
+            </h6>
+            <p>
+              {{ $t("validatefile.validation-error-description") }}
+            </p>
+          </div>
+        </NakedCard>
+        <FileErrors></FileErrors>
+      </div>
     </ValidationObserver>
   </div>
 </template>
