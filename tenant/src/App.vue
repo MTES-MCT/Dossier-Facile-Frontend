@@ -117,7 +117,6 @@ export default class App extends Vue {
         config: {
           id: "UA-50823626-2",
           params: {
-            // eslint-disable-next-line @typescript-eslint/camelcase
             send_page_view: true
           },
           linker: {

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import Vue from "vue";
 import store from "../store";
 
