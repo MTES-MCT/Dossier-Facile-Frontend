@@ -58,9 +58,11 @@
     }
   },
   "account": {
-    "alone.title": "Hello {0}, your file {1}",
-    "group.title": "Hello {0}, your file {1}",
-    "couple.title": "Bonjour {0}, votre dossier de couple {1} !",
+    "title": {
+      "alone": "Hello {0}, your file is {1}!",
+      "group": "Hello {0}, your file is {1}!",
+      "couple": "Hello {0}, your shared file is {1}!"
+    },
     "status-description": "{0}, you are {1}, {2} and {3}.<br>if your situation has changed, please update your documents !",
     "last-update": "Dernière mise à jour du dossier le {0}",
     "file-update-title": "File update",

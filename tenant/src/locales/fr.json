@@ -27,7 +27,7 @@
   "save-failed-num-pages": "Nombre de pages maximum atteint, veuillez en supprimer",
   "delete-success": "Suppression réussie",
   "delete-failed": "Erreur lors de la suppression",
-  "max-file-default": "Nombre de fichier maximum atteint, veuillez en supprimpersonal-informationer",
+  "max-file-default": "Nombre de fichier maximum atteint, veuillez en supprimer",
   "max-file": "Nombre de fichiers maximum atteint (actuellement : {0} / maximum : {1} ), veuillez en supprimer",
   "error": "Une erreur est survenue",
   "field-required": "Ce champ est requis",
@@ -225,9 +225,9 @@
   },
   "account": {
     "title": {
-      "alone": "Bonjour {0}, votre dossier {1} !",
-      "group": "Bonjour {0}, votre dossier {1} !",
-      "couple": "Bonjour {0}, votre dossier de couple {1} !"
+      "alone": "Bonjour {0}, votre dossier est {1} !",
+      "group": "Bonjour {0}, votre dossier est {1} !",
+      "couple": "Bonjour {0}, votre dossier de couple est {1} !"
     },
     "status-description": "{0}, vous avez indiqué être {1}, {2} et {3}.<br>Si votre situation a changé, mettez à jour vos documents !",
     "last-update": "Dernière mise à jour du dossier le {0}",
