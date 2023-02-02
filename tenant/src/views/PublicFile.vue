@@ -9,7 +9,9 @@
                 {{ $t("publicfile.title", [getName()]) }}
               </h1>
               <p class="text-bold color--white">
-                {{ $t("publicfile.description", [getStatus(), getIncomeSum()]) }}
+                {{
+                  $t("publicfile.description", [getStatus(), getIncomeSum()])
+                }}
               </p>
             </div>
           </div>
@@ -56,16 +58,7 @@
             tabindex="0"
           >
             <div>
-              <h2
-                class="fr-h4"
-                v-if="tenant.typeGuarantor === 'NATURAL_PERSON'"
-              >
-                {{ $t("publicfile.guarant") }}
-              </h2>
-              <h2
-                class="fr-h4"
-                v-if="tenant.typeGuarantor !== 'NATURAL_PERSON'"
-              >
+              <h2 class="fr-h4">
                 {{ $t("publicfile.personnal-file") }}
               </h2>
               <ul class="without-padding">
@@ -87,7 +80,9 @@
                 <FileRowListItem
                   v-for="(doc, k) in getDocs(tenant, 'FINANCIAL')"
                   v-bind:key="doc.id"
-                  :label="$t('publicfile.financial') + (k >= 1 ? ' ' + (k + 1) : '')"
+                  :label="
+                    $t('publicfile.financial') + (k >= 1 ? ' ' + (k + 1) : '')
+                  "
                   :document="doc"
                   :enableDownload="false"
                 />
@@ -95,7 +90,9 @@
                   :label="$t('publicfile.tax')"
                   :document="document(tenant, 'TAX')"
                   :tagLabel="
-                    isTenantTaxChecked(tenant) ? $t('publicfile.tax-verified') : $t('tax')
+                    isTenantTaxChecked(tenant)
+                      ? $t('publicfile.tax-verified')
+                      : $t('tax')
                   "
                   :enableDownload="false"
                 >
@@ -117,6 +114,59 @@
                 <div v-if="tenant.guarantors">
                   <div v-for="g in tenant.guarantors" v-bind:key="g.id">
                     <ul
+                      v-if="g.typeGuarantor === 'NATURAL_PERSON'"
+                      class="without-padding"
+                    >
+                      <div>
+                        <b>{{ g | fullName }}</b>
+                      </div>
+                      <FileRowListItem
+                        :label="$t('publicfile.identification')"
+                        :document="document(g, 'IDENTIFICATION')"
+                        :enableDownload="false"
+                      />
+                      <FileRowListItem
+                        :label="$t('publicfile.residency')"
+                        :document="document(g, 'RESIDENCY')"
+                        :enableDownload="false"
+                      />
+                      <FileRowListItem
+                        :label="$t('publicfile.professional')"
+                        :document="document(g, 'PROFESSIONAL')"
+                        :enableDownload="false"
+                      />
+                      <FileRowListItem
+                        v-for="(doc, k) in getDocs(g, 'FINANCIAL')"
+                        v-bind:key="doc.id"
+                        :label="
+                          $t('publicfile.financial') +
+                            (k >= 1 ? ' ' + (k + 1) : '')
+                        "
+                        :document="doc"
+                        :enableDownload="false"
+                      />
+                      <FileRowListItem
+                        :label="$t('publicfile.tax')"
+                        :document="document(g, 'TAX')"
+                        :tagLabel="
+                          isTenantTaxChecked(g)
+                            ? $t('publicfile.tax-verified')
+                            : $t('tax')
+                        "
+                        :enableDownload="false"
+                      >
+                        <template v-slot:postTag>
+                          <div v-if="isTaxChecked()">
+                            <img
+                              src="../assets/images/icons/dgfip-icon.png"
+                              alt="Logo DGFIP"
+                              class="icon-dgfip"
+                            />
+                          </div>
+                        </template>
+                      </FileRowListItem>
+                    </ul>
+                    <ul
                       v-if="g.typeGuarantor === 'LEGAL_PERSON'"
                       class="without-padding"
                     >
@@ -126,7 +176,7 @@
                         :enableDownload="false"
                       />
                       <FileRowListItem
-                        :label="$t('publicfile.identificationn')"
+                        :label="$t('publicfile.identification')"
                         :document="document(g, 'IDENTIFICATION')"
                         :enableDownload="false"
                       />
@@ -222,7 +272,7 @@ export default class File extends Vue {
   }
 
   getTenants() {
-    const users: (User | Guarantor)[] = [];
+    const users: User[] = [];
     this.user?.tenants?.forEach(t => {
       if (
         t.firstName &&
@@ -231,13 +281,6 @@ export default class File extends Vue {
         t.lastName !== ""
       ) {
         users.push(t);
-        if (t.guarantors && t.guarantors.length > 0) {
-          t.guarantors.forEach(g => {
-            if (g.typeGuarantor === "NATURAL_PERSON") {
-              users.push(g);
-            }
-          });
-        }
       }
     });
 
@@ -267,15 +310,7 @@ export default class File extends Vue {
   }
 
   hasGuarantor(tenant: User) {
-    if (!tenant.guarantors || tenant.guarantors.length <= 0) {
-      return false;
-    }
-    for (const g of tenant.guarantors) {
-      if (g.typeGuarantor !== "NATURAL_PERSON") {
-        return true;
-      }
-    }
-    return false;
+    return tenant.guarantors && tenant.guarantors.length > 0;
   }
 
   getStatus() {
@@ -362,4 +397,3 @@ export default class File extends Vue {
   margin-left: 2rem;
 }
 </style>
-
