@@ -516,7 +516,7 @@
   "file": {
     "title": "Dossier locataire de {0}",
     "description": "{0} {1}",
-    "guarant": "Pièces du garant",
+    "guarant": "Pièces du(des) garant(s)",
     "personnal-file": "Pièces du candidat",
     "identification": "Pièce d’identité",
     "residency": "Justificatif de domicile",
@@ -933,7 +933,7 @@
   "publicfile": {
     "title": "Dossier locataire de {0}",
     "description": "{0} {1}",
-    "guarant": "Pièces du garant",
+    "guarant": "Pièces du(des) garant(s)",
     "personnal-file": "Pièces du candidat",
     "identification": "Pièce d’identité",
     "residency": "Justificatif de domicile",
