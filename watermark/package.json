@@ -4,7 +4,9 @@
   "workspaces": {
     "nohoist": [
       "**/connect-history-api-fallback/**",
-      "**/express/**"
+      "**/connect-history-api-fallback",
+      "**/express/**",
+      "**/express"
     ]
   },
   "version": "0.0.0",
