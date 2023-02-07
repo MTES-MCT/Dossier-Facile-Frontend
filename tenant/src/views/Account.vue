@@ -477,7 +477,7 @@ export default class Account extends Vue {
     if (doc?.documentSubCategory === "OTHER") {
       return "";
     }
-    return this.$i18n.t(doc?.documentSubCategory || "none");
+    return this.$i18n.t(`account.${doc?.documentSubCategory || "none"}`);
   }
 
   getIncome() {
