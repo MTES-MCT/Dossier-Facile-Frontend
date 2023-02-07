@@ -107,7 +107,9 @@
               </div>
               <div class="fr-mt-1v alert-container">
                 <div class="red-alert" v-if="notVisibleCotenantNotValidated()">
-                  {{ $t(getApplicationType() + ".cannot-copy-link") }}
+                  {{
+                    $t("account." + getApplicationType() + ".cannot-copy-link")
+                  }}
                 </div>
               </div>
               <div class="main-description fr-mt-2w">
