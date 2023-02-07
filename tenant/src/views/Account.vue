@@ -466,7 +466,7 @@ export default class Account extends Vue {
       });
 
     const listNames = roommates?.join(", ");
-    if (!listNames || listNames.includes("undefined")) {
+    if (!listNames.trim() || listNames.includes("undefined")) {
       return this.$i18n.t("account.group-with-someone").toString();
     }
     return this.$i18n.t("account.group-with", [listNames]).toString();
