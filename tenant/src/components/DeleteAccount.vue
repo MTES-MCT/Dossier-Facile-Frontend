@@ -8,7 +8,7 @@
               <span class="text-danger material-icons-outlined md-38 fr-pr-1w"
                 >cancel</span
               >
-              {{ $t("title") }}
+              {{ $t("deleteaccount.title") }}
             </h4>
           </div>
         </div>
@@ -18,21 +18,23 @@
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-10">
               <div class="fr-mb-3w">
-                <p>{{ $t("confirm-delete") }}</p>
+                <p>{{ $t("deleteaccount.confirm-delete") }}</p>
               </div>
               <div class="align--right">
                 <DfButton
                   class="fr-mr-3w"
                   type="button"
                   @on-click="undoSelect()"
-                  >{{ $t("cancel") }}</DfButton
+                  >{{ $t("deleteaccount.cancel") }}</DfButton
                 >
                 <DfButton
                   type="submit"
                   @on-click="validSelect()"
                   primary="true"
                   >{{
-                    isMobile() ? $t("validate-mobile") : $t("validate")
+                    isMobile()
+                      ? $t("deleteaccount.validate-mobile")
+                      : $t("deleteaccount.validate")
                   }}</DfButton
                 >
               </div>
@@ -69,7 +71,7 @@ export default class DeleteAccount extends Vue {
         AnalyticsService.deleteAccount();
       },
       () => {
-        this.$toasted.show(this.$i18n.t("try-again").toString(), {
+        this.$toasted.show(this.$i18n.t("deleteaccount.try-again").toString(), {
           type: "error",
           duration: 7000
         });
@@ -107,24 +109,3 @@ export default class DeleteAccount extends Vue {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "confirm-delete": "Please confirm the complete deletion of the account :",
-    "validate": "Delete my account",
-    "validate-mobile": "Delete",
-    "cancel": "Cancel",
-    "title": "Account deletion",
-    "title-mobile": "Deletion",
-    "try-again": "An error occured, please try again later."
-  },
-  "fr": {
-    "validate": "Supprimer mon compte",
-    "validate-mobile": "Supprimer",
-    "cancel": "Annuler",
-    "title": "Suppression de compte",
-    "confirm-delete": "Veuillez confirmer la suppression complète du compte",
-    "try-again": "Une erreur est survenue, veuillez réessayer plus tard."
-  }
-}
-</i18n>

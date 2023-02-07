@@ -47,7 +47,7 @@
           <Register :source="true" :email="email" @on-register="onRegister" />
           <h1 class="fr-text--sm text-center fr-mb-5w">
             <a href="#" @click="connect" class="blue-text">
-              {{ $t("existing-account") }}
+              {{ $t("source.existing-account") }}
             </a>
           </h1>
         </div>
@@ -59,10 +59,10 @@
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-12">
               <p>
-                {{ $t("mail-sent") }}
+                {{ $t("source.mail-sent") }}
               </p>
               <p>
-                {{ $t("clic-to-confirm") }}
+                {{ $t("source.clic-to-confirm") }}
               </p>
             </div>
           </div>
@@ -74,7 +74,7 @@
       @valid="validModal()"
       @cancel="closeConfirmModal()"
     >
-      <span>{{ $t("will-link-to-partner") }}</span>
+      <span>{{ $t("source.will-link-to-partner") }}</span>
     </ConfirmModal>
   </div>
 </template>
@@ -130,14 +130,14 @@ export default class Source extends Vue {
   validModal() {
     RegisterService.connectSource(this.internalPartnerId, this.source)
       .then(() => {
-        this.$toasted.show(this.$i18n.t("connected").toString(), {
+        this.$toasted.show(this.$i18n.t("source.connected").toString(), {
           type: "success",
           duration: 3000
         });
         this.$router.push("/account");
       })
       .catch(() => {
-        this.$toasted.show(this.$i18n.t("register-error").toString(), {
+        this.$toasted.show(this.$i18n.t("source.register-error").toString(), {
           type: "error",
           duration: 7000
         });
@@ -164,12 +164,12 @@ export default class Source extends Vue {
                 "email: the emails are already being used"
               ) >= 0
             ) {
-              this.$toasted.show(this.$i18n.t("duplicate-email").toString(), {
+              this.$toasted.show(this.$i18n.t("source.duplicate-email").toString(), {
                 type: "error",
                 duration: 7000
               });
             } else {
-              this.$toasted.show(this.$i18n.t("register-error").toString(), {
+              this.$toasted.show(this.$i18n.t("source.register-error").toString(), {
                 type: "error",
                 duration: 7000
               });
@@ -200,28 +200,6 @@ export default class Source extends Vue {
 }
 </script>
 
-<i18n>
-{
-"en": {
-    "mail-sent": "An email has been sent to the requested address.",
-    "clic-to-confirm": "Please click on the given link to confirm your email and continue you inscription.",
-    "existing-account": "I have an account already",
-    "register": "Register a new account",
-    "register-error": "An error occured",
-    "connected": "Successfully connected to partner",
-    "will-link-to-partner": "Confirm connection to partner"
-},
-"fr": {
-    "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
-    "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre votre inscription.",
-    "existing-account": "Lier un compte existant",
-    "register": "Créer un nouveau compte",
-    "register-error": "Une erreur est survenue",
-    "connected": "Connexion au partenaire réussie",
-    "will-link-to-partner": "Confirmer la connexion au partenaire"
-}
-}
-</i18n>
 
 <style lang="scss">
 body {

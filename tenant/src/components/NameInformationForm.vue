@@ -1,40 +1,34 @@
 <template>
   <div class="fr-mb-15w">
     <NakedCard class="fr-p-5w">
-      <h1 class="fr-h4">{{ $t("title") }}</h1>
-      <p class="fr-mb-0">{{ $t("subtitle") }}</p>
+      <h1 class="fr-h4">{{ $t("nameinformationform.title") }}</h1>
+      <p class="fr-mb-0">{{ $t("nameinformationform.subtitle") }}</p>
       <div>
-        <small>
-          <i18n path="description-required-field">
-            <template v-slot:asterix>
-              <span style="color:red">*</span>
-            </template>
-          </i18n>
-        </small>
+        <RequiredFieldsInstruction></RequiredFieldsInstruction>
         <a
           v-if="user.franceConnect"
           href="#"
           @click="openUnlinkModal = true"
           class="fr-link fr-tag--sm small-font"
-          >{{ $t("unlink-fc-link") }}</a
+          >{{ $t("nameinformationform.unlink-fc-link") }}</a
         >
         <ConfirmModal
           class="fr-px-md-16w"
           v-if="openUnlinkModal"
-          :validateBtnText="$t('unlink-account-btn')"
+          :validateBtnText="$t('nameinformationform.unlink-account-btn')"
           @valid="unlinkFranceConnect()"
           @cancel="openUnlinkModal = false"
         >
           <template v-slot:title>
             <span class="fr-fi-refresh-line"></span>
-            <span> {{ $t("unlink-fc-link") }}</span>
+            <span> {{ $t("nameinformationform.unlink-fc-link") }}</span>
           </template>
           <p>
-            {{ $t("unlink-fc-content") }}
+            {{ $t("nameinformationform.unlink-fc-content") }}
             <span v-if="user.passwordEnabled">
-              {{ $t("unlink-fc-content-password-exists") }}</span
+              {{ $t("nameinformationform.unlink-fc-content-password-exists") }}</span
             >
-            <span v-else>{{ $t("unlink-fc-content-password-undefined") }}</span>
+            <span v-else>{{ $t("nameinformationform.unlink-fc-content-password-undefined") }}</span>
           </p>
         </ConfirmModal>
       </div>
@@ -55,9 +49,9 @@
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
-                  <label class="fr-label" for="lastname"
-                    >{{ $t("lastname") }} * :</label
-                  >
+                  <FieldLabel :required="true" for-input="lastname">
+                    {{ $t("nameinformationform.lastname") }}
+                  </FieldLabel>
                   <input
                     v-model="lastname"
                     class="form-control fr-input validate-required"
@@ -68,7 +62,7 @@
                     id="lastname"
                     name="lastname"
                     autocomplete="family-name"
-                    :placeholder="$t('lastname').toString()"
+                    :placeholder="$t('nameinformationform.lastname').toString()"
                     :disabled="user.franceConnect"
                     type="text"
                     required
@@ -85,9 +79,9 @@
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
-                  <label class="fr-label" for="preferredname"
-                    >{{ $t("preferredname") }} :</label
-                  >
+                  <FieldLabel for-input="preferredname">
+                    {{ $t("nameinformationform.preferredname") }}
+                  </FieldLabel>
                   <input
                     v-model="preferredname"
                     class="form-control fr-input validate-required"
@@ -98,7 +92,7 @@
                     id="preferredname"
                     name="preferredname"
                     autocomplete="off"
-                    :placeholder="$t('preferredname').toString()"
+                    :placeholder="$t('nameinformationform.preferredname').toString()"
                     type="text"
                   />
                   <span class="fr-error-text" v-if="errors[0]">{{
@@ -113,12 +107,12 @@
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
-                  <label for="firstname" class="fr-label"
-                    >{{ $t("firstname") }} * :</label
-                  >
+                  <FieldLabel :required="true" for-input="firstname">
+                    {{ $t("nameinformationform.firstname") }}
+                  </FieldLabel>
                   <input
                     id="firstname"
-                    :placeholder="$t('firstname').toString()"
+                    :placeholder="$t('nameinformationform.firstname').toString()"
                     type="text"
                     v-model="firstname"
                     name="firstname"
@@ -146,12 +140,12 @@
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
-                  <label for="zipcode" class="fr-label"
-                    >{{ $t("zipcode") }} :</label
-                  >
+                  <FieldLabel for-input="zipcode">
+                    {{ $t("nameinformationform.zipcode") }}
+                  </FieldLabel>
                   <input
                     id="zipcode"
-                    :placeholder="$t('zipcode').toString()"
+                    :placeholder="$t('nameinformationform.zipcode').toString()"
                     :class="{
                       'fr-input--valid': valid,
                       'fr-input--error': errors[0]
@@ -183,6 +177,8 @@ import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
 import { required, regex } from "vee-validate/dist/rules";
 import SubmitButton from "df-shared/src/Button/SubmitButton.vue";
+import RequiredFieldsInstruction from "df-shared/src/components/form/RequiredFieldsInstruction.vue";
+import FieldLabel from "df-shared/src/components/form/FieldLabel.vue";
 import NameInformationHelp from "./helps/NameInformationHelp.vue";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { AnalyticsService } from "../services/AnalyticsService";
@@ -220,7 +216,9 @@ extend("lastname", {
     NameInformationHelp,
     ConfirmModal,
     ProfileFooter,
-    NakedCard
+    NakedCard,
+    RequiredFieldsInstruction,
+    FieldLabel
   },
   computed: {
     ...mapGetters({
@@ -299,43 +297,3 @@ export default class NameInformationForm extends Vue {
 
 <style scoped lang="scss"></style>
 
-<i18n>
-{
-"en": {
-"confirm": "Confirm",
-"firstname": "Firstname",
-"lastname": "Lastname",
-"preferredname": "Usage Name (optional)",
-"zipcode": "Zipcode",
-"zipcode-not-valid": "Zipcode not valid.",
-"only-alpha":"Alphabetic characters only",
-"field-required": "This field is required",
-"title": "I fill in my personal information",
-"subtitle": "Please fill in the details of the person whose name will appear on the rental agreement",
-"unlink-fc-link": "Need to update Firstname and Lastname ?",
-"unlink-fc-content": "You have to unlink your FranceConnect account for updating directly your Firstname and Lastname.",
-"unlink-fc-content-password-exists": "You will be able to connect with your previously defined password.",
-"unlink-fc-content-password-undefined": "You will be redirected to create your password.",
-"unlink-account-btn": "Unlink",
-"description-required-field" : "Fields with {asterix} are required."
-},
-"fr": {
-"confirm": "Confirmer",
-"firstname": "Prénom",
-"lastname": "Nom de naissance du locataire",
-"preferredname": "Nom d'usage (facultatif)",
-"zipcode": "Code postal",
-"zipcode-not-valid": "Code postal non valide.",
-"only-alpha":"Seuls les caractères alphabétiques ainsi que [ , -, '] sont autorisés",
-"field-required": "Ce champ est requis",
-"title": "Commençons par vos informations personnelles d’identité.",
-"subtitle": "Veuillez renseigner les informations de la personne dont le nom figurera sur le bail de location.",
-"unlink-fc-link": "Modifier vos informations ?",
-"unlink-fc-content": "Afin d’apporter des modifications sur vos nom et prénoms, il vous faut dissocier vos comptes FranceConnect et DossierFacile.",
-"unlink-fc-content-password-exists": "Vous pourrez alors utiliser le mot de passe que vous avez précédemment défini.",
-"unlink-fc-content-password-undefined": "Vous serez ensuite redirigé sur la page de mise à jour du mot de passe.",
-"unlink-account-btn": "Dissocier mes comptes",
-"description-required-field" : "Les champs marqués d'un {asterix} sont obligatoires."
-}
-}
-</i18n>

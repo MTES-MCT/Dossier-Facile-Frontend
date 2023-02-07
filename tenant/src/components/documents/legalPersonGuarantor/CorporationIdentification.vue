@@ -8,7 +8,7 @@
             :class="errors[0] ? 'fr-input-group--error' : ''"
           >
             <label class="fr-label" for="organismName"
-              >{{ $t("organism-name") }} :</label
+              >{{ $t("corporationidentification.organism-name") }} :</label
             >
             <input
               v-model="organismName"
@@ -19,7 +19,7 @@
               }"
               id="organismName"
               name="organismName"
-              :placeholder="$t('organism-name-placeholder')"
+              :placeholder="$t('corporationidentification.organism-name-placeholder')"
               type="text"
               required
             />
@@ -32,24 +32,14 @@
       <NakedCard class="fr-mt-3w fr-p-md-5w">
         <div>
           <h1 class="fr-label">
-            {{ $t("kbis-label") }}
+            {{ $t("corporationidentification.kbis-label") }}
           </h1>
-          <v-gouv-fr-modal>
-            <template v-slot:button>
-              En difficulté pour répondre à la question ?
-            </template>
-            <template v-slot:title>
-              En difficulté pour répondre à la question ?
-            </template>
-            <template v-slot:content>
-              <p>
-                <DocumentInsert
-                  :allow-list="acceptedProofs"
-                  :block-list="refusedProofs"
-                ></DocumentInsert>
-              </p>
-            </template>
-          </v-gouv-fr-modal>
+          <TroubleshootingModal>
+            <DocumentInsert
+              :allow-list="acceptedProofs"
+              :block-list="refusedProofs"
+            ></DocumentInsert>
+          </TroubleshootingModal>
           <AllDeclinedMessages
             class="fr-mb-3w"
             :documentDeniedReasons="documentDeniedReasons"
@@ -84,8 +74,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { mapState } from "vuex";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import DocumentInsert from "../share/DocumentInsert.vue";
 import FileUpload from "../../uploads/FileUpload.vue";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
@@ -103,6 +92,7 @@ import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import { cloneDeep } from "lodash";
 import GuarantorFooter from "../../footer/GuarantorFooter.vue";
+import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 extend("required", {
   ...required,
@@ -119,28 +109,26 @@ extend("required", {
     ValidationObserver,
     VGouvFrModal,
     NakedCard,
-    GuarantorFooter
-  },
-  computed: {
-    ...mapState({
-      selectedGuarantor: "selectedGuarantor"
-    })
+    GuarantorFooter,
+    TroubleshootingModal
   }
 })
 export default class CorporationIdentification extends Vue {
+  @Prop() tenantId?: number;
+  @Prop() guarantor?: Guarantor;
+
   organismName = "";
   acceptedProofs = [
-    this.$i18n.t("kbis"),
-    this.$i18n.t("status"),
-    this.$i18n.t("all-accepted")
+    this.$i18n.t("corporationidentification.kbis"),
+    this.$i18n.t("corporationidentification.status"),
+    this.$i18n.t("corporationidentification.all-accepted")
   ];
   refusedProofs = [
-    this.$i18n.t("balance-sheet"),
-    this.$i18n.t("urssaf"),
-    this.$i18n.t("all-other")
+    this.$i18n.t("corporationidentification.balance-sheet"),
+    this.$i18n.t("corporationidentification.urssaf"),
+    this.$i18n.t("corporationidentification.all-other")
   ];
 
-  selectedGuarantor!: Guarantor;
   documentDeniedReasons = new DocumentDeniedReasons();
 
   files: File[] = [];
@@ -149,24 +137,39 @@ export default class CorporationIdentification extends Vue {
     [key: string]: { state: string; percentage: number };
   } = {};
 
-  mounted() {
-    this.organismName = this.selectedGuarantor.legalPersonName || "";
+  beforeMount() {
+    this.organismName = this.getGuarantor().legalPersonName || "";
     if (
       this.guarantorIdentificationLegalPersonDocument()?.documentDeniedReasons
     ) {
       this.documentDeniedReasons = cloneDeep(
-        this.guarantorIdentificationLegalPersonDocument().documentDeniedReasons
+        this.guarantorIdentificationLegalPersonDocument()!.documentDeniedReasons!
       );
     }
   }
 
-  addFiles(fileList: File[]) {
-    this.files = [...this.files, ...fileList];
-    this.save();
+  getGuarantor() {
+    if (this.guarantor) {
+      return this.guarantor;
+    }
+    return this.$store.getters.guarantor;
   }
 
   get documentStatus() {
     return this.guarantorIdentificationLegalPersonDocument()?.documentStatus;
+  }
+
+  guarantorIdentificationLegalPersonDocument(): DfDocument {
+    if (this.guarantor) {
+      return this.guarantor.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "IDENTIFICATION_LEGAL_PERSON";
+      }) as DfDocument;
+    }
+    return this.$store.getters.getGuarantorIdentificationLegalPersonDocument;
+  }
+  addFiles(fileList: File[]) {
+    this.files = [...this.files, ...fileList];
+    this.save();
   }
 
   save() {
@@ -177,8 +180,12 @@ export default class CorporationIdentification extends Vue {
     const fieldName = "documents";
     const formData = new FormData();
     formData.append("legalPersonName", this.organismName);
-    if (this.$store.getters.guarantor.id) {
-      formData.append("guarantorId", this.$store.getters.guarantor.id);
+
+    if (this.getGuarantor().id) {
+      formData.append("guarantorId", this.getGuarantor().id);
+    }
+    if (this.tenantId) {
+      formData.append("tenantId", this.tenantId.toString());
     }
 
     const loader = this.$loading.show();
@@ -229,18 +236,17 @@ export default class CorporationIdentification extends Vue {
   }
 
   remove(file: DfFile) {
-    if (file.path && file.id) {
+    if (file.id) {
       RegisterService.deleteFile(file.id);
+      this.guarantorIdentificationLegalPersonDocument().files = this.guarantorIdentificationLegalPersonDocument()?.files?.filter(
+        f => file.id != f.id
+      );
     } else {
       const firstIndex = this.files.findIndex(f => {
         return f.name === file.name && f.size === file.size;
       });
       this.files.splice(firstIndex, 1);
     }
-  }
-
-  guarantorIdentificationLegalPersonDocument() {
-    return this.$store.getters.getGuarantorIdentificationLegalPersonDocument;
   }
 
   listFiles() {
@@ -252,9 +258,7 @@ export default class CorporationIdentification extends Vue {
       };
     });
     const existingFiles =
-      this.$store.getters.getGuarantorDocuments?.find((d: DfDocument) => {
-        return d.documentCategory === "IDENTIFICATION_LEGAL_PERSON";
-      })?.files || [];
+      this.guarantorIdentificationLegalPersonDocument()?.files || [];
     return [...newFiles, ...existingFiles];
   }
 
@@ -282,33 +286,3 @@ td {
 }
 </style>
 
-<i18n>
-{
-"en": {
-  "organism-name": "Company name",
-  "organism-name-placeholder": "Company name",
-  "kbis-label": "I add a K bis of the company, or any other document justifying the legal existence of the company.",
-  "kbis": "Original Kbis of the company",
-  "status": "Company statuses",
-  "all-accepted": "Any other document justifying the legal existence of the company.",
-  "balance-sheet": "Balance sheet",
-  "urssaf": "Urssaf certificate",
-  "all-other": "Any other document",
-  "register": "Register documents",
-  "field-required": "This field is required"
-},
-"fr": {
-  "organism-name": "Nom de la personne morale",
-  "organism-name-placeholder": "Nom de la personne morale",
-  "kbis-label": "J’ajoute un extrait K bis de la société, ou toute autre pièce justifiant de l'existence légale de la personne.",
-  "kbis": "Extrait K bis original de la société",
-  "status": "Statuts de la personne morale",
-  "all-accepted": "Toute autre pièce justifiant de l'existance légale de la personne, prouvant qu'une déclaration a été effectuée auprès d'une administration, une juridiction ou un organisme professionnel.",
-  "balance-sheet": "Bilan comptable",
-  "urssaf": "Attestation cotisation Urssaf",
-  "all-other": "Toute autre pièce",
-  "register": "Enregistrer la pièce",
-  "field-required": "Ce champ est requis"
-}
-}
-</i18n>

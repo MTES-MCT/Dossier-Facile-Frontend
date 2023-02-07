@@ -3,11 +3,17 @@
     <div class="fr-grid-row justify-content-center">
       <div class="fr-col-12">
         <div v-if="file.path">
-          <img slot="image" v-auth-image="file.path" v-if="isImage()" />
+          <img slot="image" v-auth-image="file.path" v-if="isImage()" :alt="$t('showdoc.preview')" />
           <PdfViewer
             :src="pdfContent"
             v-if="!isImage() && isLoaded"
           ></PdfViewer>
+        </div>
+        <div v-else>
+          <div v-if="file.numberOfPages && file.numberOfPages > 0">
+            {{ $t("showdoc.number-of-pages", [file.numberOfPages]) }}
+          </div>
+          <img slot="image" v-auth-image="file.preview" :alt="$t('showdoc.preview')" />
         </div>
       </div>
     </div>
@@ -46,3 +52,4 @@ export default class ShowDoc extends Vue {
   }
 }
 </script>
+

@@ -34,11 +34,11 @@
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@kazupon/vue-i18n-loader": "^0.5.0",
-    "@storybook/addon-actions": "6.5.4",
-    "@storybook/addon-essentials": "6.5.4",
-    "@storybook/addon-links": "6.5.4",
+    "@storybook/addon-actions": "^6.5.15",
+    "@storybook/addon-essentials": "^6.5.15",
+    "@storybook/addon-links": "^6.5.15",
     "@storybook/addon-postcss": "2.0.0",
-    "@storybook/vue": "6.5.4",
+    "@storybook/vue": "^6.5.15",
     "babel-loader": "^8.1.0",
     "react-is": "^17.0.1"
   },
@@ -60,6 +60,7 @@
     "moment": "^2.29.2",
     "eventsource": "2.0.2",
     "got": "11.8.5",
-    "jsdom": "^16.5.0"
+    "jsdom": "^16.5.0",
+    "loader-utils": "^2.0.4"
   }
 }

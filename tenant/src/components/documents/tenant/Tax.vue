@@ -1,28 +1,18 @@
 <template>
   <div class="fr-mb-5w">
     <ValidationObserver v-slot="{ validate }">
-      <NakedCard class="fr-p-md-5w">
-        <h1 class="fr-h6">{{ $t("title") }}</h1>
-        <v-gouv-fr-modal>
-          <template v-slot:button>
-            En difficulté pour répondre à la question ?
-          </template>
-          <template v-slot:title>
-            En difficulté pour répondre à la question ?
-          </template>
-          <template v-slot:content>
-            <p>
-              <TaxHelp></TaxHelp>
-              <DocumentInsert
-                :allow-list="taxDocument.acceptedProofs"
-                :block-list="taxDocument.refusedProofs"
-                v-if="taxDocument.key && taxDocument.acceptedProofs.length > 0"
-              ></DocumentInsert>
-            </p>
-          </template>
-        </v-gouv-fr-modal>
+      <form name="form">
+        <NakedCard class="fr-p-md-5w">
+          <h1 class="fr-h6">{{ $t("tax-page.title") }}</h1>
+          <TroubleshootingModal>
+            <TaxHelp></TaxHelp>
+            <DocumentInsert
+              :allow-list="taxDocument.acceptedProofs"
+              :block-list="taxDocument.refusedProofs"
+              v-if="taxDocument.key && taxDocument.acceptedProofs.length > 0"
+            ></DocumentInsert>
+          </TroubleshootingModal>
 
-        <form name="form" @submit.prevent="validate().then(save)">
           <div class="fr-mt-3w">
             <fieldset class="fr-fieldset">
               <div class="fr-fieldset__content">
@@ -46,100 +36,66 @@
               </div>
             </fieldset>
           </div>
-          <div
-            class="fr-mb-3w"
-            v-if="taxDocument.key && taxDocument.key === 'other-tax'"
-          >
-            <div class="fr-input-group">
+        </NakedCard>
+
+        <NakedCard
+          class="fr-p-md-5w fr-mt-3w"
+          v-if="taxDocument.key && taxDocument.key === 'other-tax'"
+        >
+          <validation-provider rules="required" v-slot="{ errors, valid }">
+            <div
+              class="fr-input-group"
+              :class="errors[0] ? 'fr-input-group--error' : ''"
+            >
               <label class="fr-label" for="customText">{{
-                $t("custom-text")
+                $t("tax-page.custom-text")
               }}</label>
               <input
                 v-model="customText"
                 class="form-control fr-input validate-required"
+                :class="{
+                  'fr-input--valid': valid,
+                  'fr-input--error': errors[0]
+                }"
                 id="customText"
                 name="customText"
                 placeholder=""
                 type="text"
                 required
               />
+              <span class="fr-error-text" v-if="errors[0]">{{
+                $t(errors[0])
+              }}</span>
             </div>
-          </div>
-        </form>
-      </NakedCard>
-      <div
-        class="fr-col-12 fr-mt-3w allowtax-container"
-        v-if="taxDocument.key && taxDocument.key === 'my-name'"
-      >
-        <NakedCard class="fr-p-md-5w bg-transparent">
-          <div class="header fr-icon-attachment-line fr-pb-1w">
-            {{ $t("automatic-tax-title") }}
-          </div>
-          <div class="auth-tax-container">
-            <div>
-              {{ $t("automatic-tax-p1") }}
-            </div>
-            <ul>
-              <li>{{ $t("automatic-tax-l1") }}</li>
-              <li>{{ $t("automatic-tax-l2") }}</li>
-              <li>{{ $t("automatic-tax-l3") }}</li>
-              <li>{{ $t("automatic-tax-l4") }}</li>
-            </ul>
-            <div>
-              {{ $t("automatic-tax-p2-1") }}
-              <b>{{ $t("automatic-tax-p2-2") }}</b>
-              {{ $t("automatic-tax-p2-3") }}
-            </div>
-            <div class="tax-btn-container">
-              <BigRadio
-                :val="'disallow'"
-                v-model="allowTax"
-                @input="onSelectTaxAuth()"
-                class="fr-col-md-3 fr-col-12 disallow-btn no-max-width"
-                :class="{ selected: allowTax === 'disallow' }"
-              >
-                <span>{{ $t("forbid-tax") }}</span>
-              </BigRadio>
-              <BigRadio
-                :val="'allow'"
-                v-model="allowTax"
-                @input="onSelectTaxAuth()"
-                class="fr-col-md-9 fr-col-12 blue-text no-max-width"
-                :class="{ selected: allowTax === 'allow' }"
-              >
-                <span>{{ $t("allow-tax") }}</span>
-              </BigRadio>
-            </div>
-          </div>
+          </validation-provider>
         </NakedCard>
-      </div>
+      </form>
+
       <NakedCard
         class="fr-p-md-5w fr-mt-3w"
-        v-if="
-          ((allowTax === 'allow' || allowTax === 'disallow') &&
-            taxDocument.key === 'my-name') ||
-            taxFiles().length > 0
-        "
+        v-if="taxDocument.key === 'my-name' || taxFiles().length > 0"
       >
         <div class="fr-mb-3w fr-mt-3w" v-if="taxDocument.key === 'my-name'">
-          <div v-html="taxDocument.explanationText"></div>
+          <div class="fr-mb-3w">
+            <p v-html="$t(`explanation-text.tenant.${taxDocument.key}`)"></p>
+          </div>
           <div
             class="fr-background-contrast--info fr-p-2w fr-mt-2w warning-box"
           >
             <div class="fr-text-default--info fr-h6 title">
               <span class="material-icons-outlined"> warning_amber </span>
               <span class="fr-ml-1w">
-                {{ $t("warning-no-accepted-doc") }}
+                {{ $t("tax-page.warning-no-accepted-doc") }}
               </span>
             </div>
             <div class="link">
               <a
                 class="fr-link"
                 href="https://docs.dossierfacile.fr/guide-dutilisation-de-dossierfacile/avis-dimposition"
-                :title="$t('goto-documentation')"
+                :title="$t('tax-page.goto-documentation')"
                 target="_blank"
                 rel="noreferrer"
-                >{{ $t("goto-documentation") }}</a
+                >{{ $t("tax-page.goto-documentation") }}</a
               >
             </div>
           </div>
@@ -158,12 +114,7 @@
             @remove="remove(file)"
           />
         </div>
-        <div
-          v-if="
-            taxDocument.key === 'my-name' &&
-              (allowTax === 'allow' || allowTax === 'disallow')
-          "
-        >
+        <div v-if="taxDocument.key === 'my-name'">
           <div class="fr-mb-3w">
             <FileUpload
               :current-status="fileUploadStatus"
@@ -173,14 +124,14 @@
           </div>
         </div>
       </NakedCard>
+      <ProfileFooter @on-back="goBack" @on-next="validate().then(goNext)"></ProfileFooter>
     </ValidationObserver>
-    <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
     <ConfirmModal
       v-if="isDocDeleteVisible"
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-files") }}</span>
+      <span>{{ $t("tax-page.will-delete-files") }}</span>
     </ConfirmModal>
   </div>
 </template>
@@ -213,7 +164,8 @@ import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import MonFranceConnect from "../share/MonFranceConnect.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import { cloneDeep } from "lodash";
-import axios from "axios";
+import AllowCheckTax from "../share/AllowCheckTax.vue";
+import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 extend("is", {
   ...is,
@@ -236,7 +188,9 @@ extend("is", {
     TaxHelp,
     VGouvFrModal,
     ProfileFooter,
-    NakedCard
+    NakedCard,
+    AllowCheckTax,
+    TroubleshootingModal
   },
   computed: {
     ...mapGetters({
@@ -263,7 +217,6 @@ export default class Tax extends Vue {
   customText = "";
 
   isDocDeleteVisible = false;
-  allowTax = "";
 
   getTaxLocalStorageKey() {
     return "tax_" + this.user.email;
@@ -301,45 +254,6 @@ export default class Tax extends Vue {
         this.tenantTaxDocument.documentDeniedReasons
       );
     }
-
-    if (this.user.allowCheckTax === true) {
-      this.allowTax = "allow";
-    }
-    if (this.user.allowCheckTax === false) {
-      this.allowTax = "disallow";
-    }
-    if (this.user.franceConnect) {
-      if (this.$route.query.refresh) {
-        RegisterService.getFranceConnectToken().then((fcToken: string) => {
-          this.$store.dispatch("saveTaxAuth", {
-            allowTax: this.allowTax,
-            fcToken: fcToken
-          });
-        });
-      }
-    }
-  }
-
-  async onSelectTaxAuth() {
-    if (
-      this.allowTax &&
-      this.user.franceConnect &&
-      process.env.VUE_APP_FEATURE_FLIPPING_DGFIP_API === "true"
-    ) {
-      if (!this.$route.query.refresh) {
-        const currentUrl =
-          process.env.VUE_APP_FULL_TENANT_URL + this.$route.fullPath;
-        const link = await axios.post(
-          `https://${process.env.VUE_APP_API_URL}/api/tenant/linkFranceConnect`,
-          { url: currentUrl + "?refresh=true" }
-        );
-        window.location.href = link.data;
-        return;
-      }
-    }
-    this.$store.dispatch("saveTaxAuth", {
-      allowTax: this.allowTax
-    });
   }
 
   onSelectChange() {
@@ -452,7 +366,7 @@ export default class Tax extends Vue {
         this.taxFiles().length > this.taxDocument.maxFileCount
       ) {
         Vue.toasted.global.max_file({
-          message: this.$i18n.t("max-file", [
+          message: this.$i18n.t("tax.max-file", [
             this.taxFiles().length,
             this.taxDocument.maxFileCount
           ])
@@ -533,7 +447,7 @@ export default class Tax extends Vue {
 
   async remove(file: DfFile, silent = false) {
     AnalyticsService.deleteFile("tax");
-    if (file.path && file.id) {
+    if (file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = this.files.findIndex(f => {
@@ -553,120 +467,14 @@ export default class Tax extends Vue {
   }
 }
 
-.blue-franceconnect {
-  padding: 2rem;
-  color: var(--primary);
-  background-color: var(--bf200-bf300);
-  border-radius: 0.25rem;
-  .fr-h4 {
-    color: var(--primary);
-  }
-}
-
 .warning-box {
   .title {
     display: flex;
   }
+
   .link {
     text-align: right;
   }
 }
-
-.allowtax-container {
-  border-radius: 0.5rem;
-  background-color: var(--blue-france-925);
-  color: var(--info-425-625);
-}
-
-.bg-transparent {
-  background-color: transparent;
-}
-
-.auth-tax-container {
-  margin-left: 1.8rem;
-}
-
-.tax-btn-container {
-  margin-top: 2rem;
-  display: flex;
-  @media all and (max-width: 767px) {
-    flex-direction: column;
-  }
-}
-
-.blue-text:hover {
-  background-color: var(--blue-france-hover);
-}
-
-.disallow-btn:hover {
-  color: var(--primary);
-  background-color: var(--blue-france-hover);
-}
-
-.selected {
-  // TODO replace buttons by radio and clean styles
-  color: var(--primary) !important;
-  background-color: var(--blue-france-hover) !important;
-}
-
-.no-max-width {
-  max-width: none;
-}
 </style>
 
-<i18n>
-{
-"en": {
-  "my-name": "Vous avez un avis d’imposition à votre nom",
-  "my-parents": "Vous êtes rattaché fiscalement à vos parents",
-  "less-than-year": "Vous êtes en France depuis moins d’un an",
-  "other-tax": "Autre",
-  "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
-  "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'imposition. Votre explication sera ajoutée à votre dossier :",
-  "files": "Documents",
-  "register": "Register",
-  "field-required": "This field is required",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-  "title": "My tax notice",
-  "warning-no-accepted-doc": "Attention, l'avis de situation déclarative n'est pas accepté.",
-  "goto-documentation" : "Go To documentation",
-  "forbid-tax": "I forbid",
-  "allow-tax": "I accept automatic verification",
-  "automatic-tax-title": "Your tax automatically checked?",
-  "automatic-tax-p1": "Vous pouvez accepter ou refuser la vérification automatique des données personnelles suivantes :",
-  "automatic-tax-l1": "Mon état civil",
-  "automatic-tax-l2": "Mon adresse déclarée au 1er janvier",
-  "automatic-tax-l3": "La situation de mon foyer fiscal",
-  "automatic-tax-l4": "Le détail de mes revenus",
-  "automatic-tax-p2-1": "Si vous acceptez, la mention",
-  "automatic-tax-p2-2": " \"Revenu fiscal certifié auprès des impôts\" ",
-  "automatic-tax-p2-3": "figurera sur votre dossier et contribuera à renforcer l'image de votre dossier auprès des bailleurs."
-},
-"fr": {
-  "my-name": "Vous avez un avis d’imposition à votre nom",
-  "my-parents": "Vous êtes rattaché fiscalement à vos parents",
-  "less-than-year": "Vous êtes en France depuis moins d’un an",
-  "other-tax": "Autre",
-  "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de ma fiche d'imposition auprès des services des impôts",
-  "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'imposition. Votre explication sera ajoutée à votre dossier :",
-  "files": "Documents",
-  "register": "Enregistrer",
-  "field-required": "Ce champ est requis",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "title": "Mon avis d'imposition",
-  "warning-no-accepted-doc": "Attention, l'avis de situation déclarative n'est pas accepté.",
-  "goto-documentation" : "Consulter la documentation",
-  "forbid-tax": "Je refuse",
-  "allow-tax": "J'accepte la vérification automatique",
-  "automatic-tax-title": "Votre revenu fiscal vérifié automatiquement ?",
-  "automatic-tax-p1": "Vous pouvez accepter ou refuser la vérification automatique des données personnelles suivantes :",
-  "automatic-tax-l1": "Mon état civil",
-  "automatic-tax-l2": "Mon adresse déclarée au 1er janvier",
-  "automatic-tax-l3": "La situation de mon foyer fiscal",
-  "automatic-tax-l4": "Le détail de mes revenus",
-  "automatic-tax-p2-1": "Si vous acceptez, la mention",
-  "automatic-tax-p2-2": " \"Revenu fiscal certifié auprès des impôts\" ",
-  "automatic-tax-p2-3": "figurera sur votre dossier et contribuera à renforcer l'image de votre dossier auprès des bailleurs."
-}
-}
-</i18n>

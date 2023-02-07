@@ -521,20 +521,39 @@
                 compétente.
               </p>
               <h3>7. Cookies</h3>
+
+              <h4>Qu’est-ce qu’un cookie</h4>
+              <p>
+                Un cookie est un petit fichier stocké par un serveur dans le
+                terminal (ordinateur, téléphone, etc.) d’un utilisateur et
+                associé à un domaine web (c'est-à-dire dans la majorité des cas
+                à l’ensemble des pages d’un même site web). Ce fichier est
+                automatiquement renvoyé lors de contacts ultérieurs avec le même
+                domaine.
+              </p>
               <h4>Finalité des cookies</h4>
               <p>
-                Vous êtes informé que l'Éditeur dépose des cookies sur votre
-                terminal. Vous pouvez refuser l’utilisation des cookies non
+                Le site dépose des cookies de mesure d’audience (nombre de
+                visites, pages consultées), respectant les conditions
+                d’exemption du consentement de l’internaute définies par la
+                recommandation « Cookies » de la Commission nationale
+                informatique et libertés (CNIL). Cela signifie, notamment, que
+                ces cookies ne servent qu’à la production de statistiques
+                anonymes et ne permettent pas de suivre la navigation de
+                l’internaute sur d’autres sites.
+              </p>
+
+              <p>
+                Nous utilisons pour cela Matomo, un outil libre, paramétré pour
+                être en conformité avec la recommandation « Cookies » de la
+                CNIL. Cela signifie que votre adresse IP, par exemple, est
+                anonymisée avant d’être enregistrée. Il est donc impossible
+                d’associer vos visites sur ce site à votre personne.
+              </p>
+              <p>
+                En sus, vous pouvez refuser l’utilisation des cookies non
                 obligatoires (c’est-à-dire ceux non strictement nécessaires au
-                fonctionnement du site). Les cookies sont utilisés pour des fins
-                statistiques notamment pour optimiser les services rendus à
-                l'Utilisateur, à partir du traitement des informations
-                concernant la fréquence d'accès, la personnalisation des pages
-                ainsi que les opérations réalisées et les informations
-                consultées. Les cookies enregistrent des informations relatives
-                à la navigation sur le service (les pages que vous avez
-                consultées, la date et l'heure de la consultation...) qui
-                pourront être lues lors de vos visites ultérieures.
+                fonctionnement du site).
               </p>
               <h4>Durée de conservation des cookies</h4>
               <p>
@@ -554,6 +573,51 @@
                 vous permettent de désactiver les cookies en passant par les
                 options de réglage.
               </p>
+
+              <p>
+                Vous pouvez décider de ne jamais être suivi‧e, y compris
+                anonymement sur notre site par l’installation d’un cookie
+                d’exclusion :
+              </p>
+              <p>
+                <input
+                  type="checkbox"
+                  id="consentRemoved"
+                  v-model="consentRemoved"
+                  @change="changeConsentRemoved"
+                />
+                <span v-if="consentRemoved">
+                  Vous n'êtes actuellement pas suivi‧e. Cookie d’exclusion
+                  installé
+                </span>
+                <span v-else>
+                  Vous n'êtes actuellement pas exclu‧e.
+                </span>
+              </p>
+
+              <p>
+                Pour aller plus loin, vous pouvez consulter les fiches proposées
+                par la CNIL :
+              </p>
+              <ul class="fr-mb-4w fr-ml-3w">
+                <li>
+                  <a
+                    href="https://www.cnil.fr/fr/cookies-traceurs-que-dit-la-loi"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    >Cookies et traceurs : que dit la loi ?</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://www.cnil.fr/fr/cookies-les-outils-pour-les-maitriser"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    >Cookies : les outils pour les maîtriser</a
+                  >
+                </li>
+              </ul>
+
               <h3>8. Données techniques</h3>
               <h4>Collecte des données techniques</h4>
               <p>
@@ -694,8 +758,30 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
+declare global {
+  interface Window {
+    _paq: any;
+  }
+}
+
 @Component
-export default class SecuriteDesDonnees extends Vue {}
+export default class MentionsLegales extends Vue {
+  consentRemoved = false;
+
+  beforeMount() {
+    if (Vue.$cookies.get("mtm_consent_removed")) {
+      this.consentRemoved = true;
+    }
+  }
+
+  changeConsentRemoved() {
+    if (this.consentRemoved) {
+      window._paq.push(["optUserOut"]);
+    } else {
+      window._paq.push(["forgetUserOptOut"]);
+    }
+  }
+}
 </script>
 
 <style scoped lang="scss">

@@ -22,7 +22,7 @@
                   value="false"
                   v-model="localSpouseAuthorize"
                 />
-                <label for="authorize">{{ $t("acceptAuthorSpouse") }}</label>
+                <label for="authorize">{{ $t("tenantinformationform.acceptAuthorSpouse") }}</label>
                 <span class="fr-error-text" v-if="errors[0]">{{
                   $t(errors[0])
                 }}</span>
@@ -50,7 +50,7 @@
                   value="false"
                   v-model="localCoTenantAuthorize"
                 />
-                <label for="authorize">{{ $t("acceptAuthorCoTenant") }}</label>
+                <label for="authorize">{{ $t("tenantinformationform.acceptAuthorCoTenant") }}</label>
                 <span class="fr-error-text" v-if="errors[0]">{{
                   $t(errors[0])
                 }}</span>
@@ -63,13 +63,13 @@
     </div>
 
     <div v-if="isOwner()">
-      <ValidationObserver v-slot="{ validate }">
+      <ValidationObserver ref="observer" v-slot="{ validate }">
         <form
           name="form"
           @submit.prevent="validate().then(handleOthersInformation)"
         >
           <NakedCard class="fr-p-md-5w">
-            <h1 class="fr-h6">{{ $t("title") }}</h1>
+            <h1 class="fr-h6">{{ $t("tenantinformationform.title") }}</h1>
             <div class="fr-form-group fr-mt-3w fr-mb-0">
               <fieldset class="fr-fieldset">
                 <div class="fr-fieldset__content">
@@ -86,7 +86,7 @@
                             >person</span
                           >
                         </div>
-                        {{ $t("alone") }}
+                        {{ $t("tenantinformationform.alone") }}
                       </div>
                     </BigRadio>
                     <BigRadio
@@ -102,7 +102,7 @@
                             >group</span
                           >
                         </div>
-                        {{ $t("couple") }}
+                        {{ $t("tenantinformationform.couple") }}
                       </div>
                     </BigRadio>
                     <BigRadio
@@ -114,12 +114,11 @@
                     >
                       <div class="fr-grid-col spa">
                         <div class="icon-container">
-                          <span class="material-icons md-36"
-                                aria-hidden="true"
+                          <span class="material-icons md-36" aria-hidden="true"
                             >groups</span
                           >
                         </div>
-                        {{ $t("roommate") }}
+                        {{ $t("tenantinformationform.roommate") }}
                       </div>
                     </BigRadio>
                   </div>
@@ -127,27 +126,36 @@
               </fieldset>
             </div>
           </NakedCard>
+
+          <CoupleInformation
+            v-model="coTenants"
+            class="fr-mt-2w"
+            v-if="applicationType === 'COUPLE'"
+          >
+          </CoupleInformation>
+          <RoommatesInformation
+            v-model="coTenants"
+            class="fr-mt-2w"
+            v-if="applicationType === 'GROUP'"
+          >
+          </RoommatesInformation>
           <ProfileFooter @on-back="goBack"></ProfileFooter>
         </form>
       </ValidationObserver>
-      <CoupleInformation class="fr-mt-2w" v-if="applicationType === 'COUPLE'">
-      </CoupleInformation>
-      <RoommatesInformation class="fr-mt-2w" v-if="applicationType === 'GROUP'">
-      </RoommatesInformation>
     </div>
     <ConfirmModal
       v-if="isDeleteGroupVisible"
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-roommates") }}</span>
+      <span>{{ $t("tenantinformationform.will-delete-roommates") }}</span>
     </ConfirmModal>
     <ConfirmModal
       v-if="isDeleteCoupleVisible"
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-couple") }}</span>
+      <span>{{ $t("tenantinformationform.will-delete-couple") }}</span>
     </ConfirmModal>
   </div>
 </template>
@@ -196,6 +204,7 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 export default class TenantInformationForm extends Vue {
   user!: User;
   roommates!: User[];
+  coTenants: User[] = [];
   coTenantAuthorize!: boolean;
   spouseAuthorize!: boolean;
   applicationType = "";
@@ -212,39 +221,18 @@ export default class TenantInformationForm extends Vue {
     }
     this.localCoTenantAuthorize = this.coTenantAuthorize;
     this.localSpouseAuthorize = this.spouseAuthorize;
+
+    if (this.applicationType === "GROUP" || this.applicationType === "COUPLE") {
+      this.coTenants = this.roommates;
+    }
   }
 
-  handleOthersInformation() {
-    if (
-      (this.applicationType === "COUPLE" && !this.spouseAuthorize) ||
-      (this.applicationType === "GROUP" && !this.coTenantAuthorize) ||
-      !this.isOwner()
-    ) {
-      return;
-    }
-    let coTenantEmails: string[] = [];
-    coTenantEmails = this.roommates
-      .filter((r: User) => {
-        return r.id != this.user.id;
-      })
-      .map(function(r) {
-        return r.email;
-      });
+  async handleOthersInformation() {
+    const isValid = await (this.$refs.observer as Vue & {
+      validate: () => boolean;
+    }).validate();
 
-    if (this.applicationType === "COUPLE" && coTenantEmails.length < 1) {
-      this.$toasted.show(this.$i18n.t("couple-email-required").toString(), {
-        type: "error",
-        duration: 7000
-      });
-      return;
-    }
-    if (this.applicationType === "GROUP" && coTenantEmails.length < 1) {
-      this.$toasted.show(this.$i18n.t("roommate-email-required").toString(), {
-        type: "error",
-        duration: 7000
-      });
-      return;
-    }
+    if (!isValid) return;
 
     if (this.hasNothingToSave()) {
       this.$router.push({
@@ -254,15 +242,27 @@ export default class TenantInformationForm extends Vue {
       return;
     }
 
-    const data = {
-      applicationType: this.applicationType,
-      coTenantEmail: coTenantEmails,
-      acceptAccess: true
-    };
-
+    const dispatchMethod =
+      this.applicationType === "GROUP"
+        ? () => {
+            const data = {
+              applicationType: this.applicationType,
+              coTenantEmail: this.coTenants.flatMap(t => t.email),
+              acceptAccess: true
+            };
+            return this.$store.dispatch("setRoommates", data);
+          }
+        : () => {
+            const data = {
+              applicationType: this.applicationType,
+              coTenants: this.coTenants,
+              acceptAccess: true
+            };
+            return this.$store.dispatch("setCoTenants", data);
+          };
     const loader = this.$loading.show();
-    this.$store
-      .dispatch("setRoommates", data)
+
+    dispatchMethod()
       .then(
         () => {
           AnalyticsService.confirmType();
@@ -271,14 +271,14 @@ export default class TenantInformationForm extends Vue {
             params: { substep: "1" }
           });
           if (this.applicationType === "COUPLE") {
-            this.$toasted.show(this.$i18n.t("couple-saved").toString(), {
+            this.$toasted.show(this.$i18n.t("tenantinformationform.couple-saved").toString(), {
               type: "show",
               duration: 7000
             });
             return;
           }
           if (this.applicationType === "GROUP") {
-            this.$toasted.show(this.$i18n.t("roommates-saved").toString(), {
+            this.$toasted.show(this.$i18n.t("tenantinformationform.roommates-saved").toString(), {
               type: "show",
               duration: 7000
             });
@@ -286,18 +286,14 @@ export default class TenantInformationForm extends Vue {
           }
         },
         error => {
-          if (
-            error.response.data.message.includes(
-              "emails are already being used"
-            )
-          ) {
-            this.$toasted.show(this.$i18n.t("email-exists").toString(), {
+          if (error.response.data.message.includes("are already being used")) {
+            this.$toasted.show(this.$i18n.t("tenantinformationform.email-exists").toString(), {
               type: "error",
               duration: 7000
             });
             return;
           } else {
-            this.$toasted.show(this.$i18n.t("error").toString(), {
+            this.$toasted.show(this.$i18n.t("tenantinformationform.error").toString(), {
               type: "error",
               duration: 7000
             });
@@ -311,21 +307,22 @@ export default class TenantInformationForm extends Vue {
   }
 
   updateApplicationType(value: string) {
-    this.newApplicationType = value;
-    if (
-      value !== this.applicationType &&
-      (this.user.apartmentSharing?.tenants.length || 0) > 1
-    ) {
-      if (this.applicationType === "COUPLE") {
-        this.isDeleteCoupleVisible = true;
-        return false;
-      }
-      if (this.applicationType === "GROUP") {
-        this.isDeleteGroupVisible = true;
-        return false;
+    if (this.applicationType != value) {
+      this.newApplicationType = value;
+      if (
+        value !== this.applicationType &&
+        (this.user.apartmentSharing?.tenants.length || 0) > 1
+      ) {
+        if (this.applicationType === "COUPLE") {
+          this.isDeleteCoupleVisible = true;
+        } else if (this.applicationType === "GROUP") {
+          this.isDeleteGroupVisible = true;
+        }
+      } else {
+        this.coTenants = [];
+        this.applicationType = this.newApplicationType;
       }
     }
-    this.applicationType = this.newApplicationType;
     return false;
   }
 
@@ -338,9 +335,9 @@ export default class TenantInformationForm extends Vue {
     }
     if (
       this.applicationType === this.user.applicationType &&
-      (this.applicationType === "GROUP" || this.applicationType === "COUPLE")
+      this.applicationType === "GROUP"
     ) {
-      const unregisteredRoommate = this.roommates.find((r: any) => {
+      const unregisteredRoommate = this.coTenants.find((r: any) => {
         return r.id === undefined;
       });
       if (unregisteredRoommate === undefined) {
@@ -369,6 +366,7 @@ export default class TenantInformationForm extends Vue {
           });
       }
     });
+    this.coTenants = [];
     this.isDeleteCoupleVisible = false;
     this.isDeleteGroupVisible = false;
   }
@@ -432,56 +430,3 @@ export default class TenantInformationForm extends Vue {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-  "title": "You want to rent for accommodation :",
-  "confirm": "Confirmer",
-  "firstname": "Prénom du locataire",
-  "lastname": "Nom du locataire",
-  "zipcode": "Code postal",
-  "tenantPresentation": "Le locataire sera {firstname} {lastname}. Vous désirez louer un logement :",
-  "alone": "Alone",
-  "couple": "Couple",
-  "roommate": "Flatsharing",
-  "remove-roommates": "Be careful! Your file will be disconnected from your roommates files",
-  "remove-couple": "Be careful! Your file will be disconnected from your spouse file",
-  "error": "An error occured",
-  "acceptAuthorSpouse": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
-  "acceptAuthorCoTenant": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",
-  "validate": "Validate",
-  "roommates-saved": "Invitation sent to you roommates. Your roommates have been successfully added<br> and an invitation has been sent to create their account.",
-  "email-exists": "This email address already exists in DossierFacile. Please use an other email address.",
-  "roommate-email-required": "You must fill at least one roommate adress.",
-  "couple-email-required": "You must fill your spouse adress.",
-  "will-delete-couple": "This action will delete the link with your spouse",
-  "will-delete-roommates": "This action will delete the link with your roommates",
-  "require-accept": "You must accept the declaration"
-  },
-  "fr": {
-  "title": "Vous désirez louer pour un logement :",
-  "confirm": "Confirmer",
-  "firstname": "Prénom du locataire",
-  "lastname": "Nom du locataire",
-  "zipcode": "Code postal",
-  "tenantPresentation": "Le locataire sera {firstname} {lastname}. Vous désirez louer un logement :",
-  "alone": "Seul·e",
-  "couple": "En couple",
-  "roommate": "En colocation",
-  "remove-roommates": "Attention, cela aura pour effet de dissocier votre dossier de vos colocataires",
-  "remove-couple": "Attention, cela aura pour effet de dissocier votre dossier de celui de votre conjoint·e",
-  "error": "Une erreur est survenue",
-  "acceptAuthorSpouse": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
-  "acceptAuthorCoTenant": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",
-  "validate": "Valider",
-  "roommates-saved": "Invitation envoyée à vos colocataires. Vos colocataires ont bien été<br>ajoutés et une invitation de création de compte leur a été envoyée.",
-  "couple-saved": "Invitation envoyée à votre conjoint·e. Votre conjoint·e a bien été<br>ajouté·e et une invitation de création de compte lui a été envoyée.",
-  "email-exists": "Cette adresse email est déjà utilisée sur DossierFacile.<br>Renseignez une adresse email différente.",
-  "roommate-email-required": "Vous devez saisir l'adresse email d'au moins un colocataire.",
-  "couple-email-required": "Vous devez saisir l'adresse email de votre conjoint·e",
-  "will-delete-couple": "Cette action va supprimer la liaison avec le dossier de votre conjoint·e",
-  "will-delete-roommates": "Cette action va supprimer la liaison avec le dossier de vos colocataires",
-  "require-accept": "Vous devez accepter la déclaration"
-  }
-}
-</i18n>

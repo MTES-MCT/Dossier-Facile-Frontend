@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import Vue from "vue";
 import store from "../store";
 
 export const AnalyticsService = {
   sendEvent(name: string, data: any) {
     if (Vue.$cookies.get("accept-cookie") === "true") {
-      if (store.state.user?.id !== undefined) {
+      if (store.state.user.id !== undefined) {
         data.event_label = store.state.user.id;
       }
       Vue.prototype.$gtag.event(name, data);

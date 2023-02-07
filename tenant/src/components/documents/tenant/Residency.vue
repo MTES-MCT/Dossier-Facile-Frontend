@@ -3,27 +3,17 @@
     <NakedCard class="fr-p-md-5w">
       <div>
         <h1 class="fr-h6">
-          {{ $t("select-label") }}
+          {{ $t("residency-page.select-label") }}
         </h1>
 
-        <v-gouv-fr-modal>
-          <template v-slot:button>
-            En difficulté pour répondre à la question ?
-          </template>
-          <template v-slot:title>
-            En difficulté pour répondre à la question ?
-          </template>
-          <template v-slot:content>
-            <p>
-              <DocumentHelp></DocumentHelp>
-              <DocumentInsert
-                :allow-list="residencyDocument.acceptedProofs"
-                :block-list="residencyDocument.refusedProofs"
-                v-if="residencyDocument.key"
-              ></DocumentInsert>
-            </p>
-          </template>
-        </v-gouv-fr-modal>
+        <TroubleshootingModal>
+          <DocumentHelp></DocumentHelp>
+          <DocumentInsert
+            :allow-list="residencyDocument.acceptedProofs"
+            :block-list="residencyDocument.refusedProofs"
+            v-if="residencyDocument.key"
+          ></DocumentInsert>
+        </TroubleshootingModal>
 
         <div class="fr-mt-3w">
           <fieldset class="fr-fieldset">
@@ -51,7 +41,7 @@
       v-if="residencyDocument.key || residencyFiles().length > 0"
     >
       <div class="fr-mb-3w">
-        <p v-html="residencyDocument.explanationText"></p>
+        <p v-html="$t(`explanation-text.tenant.${residencyDocument.key}`)"></p>
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
@@ -79,7 +69,7 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-files") }}</span>
+      <span>{{ $t("residency-page.will-delete-files") }}</span>
     </ConfirmModal>
   </div>
 </template>
@@ -107,6 +97,7 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import { cloneDeep } from "lodash";
+import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 @Component({
   components: {
@@ -119,7 +110,8 @@ import { cloneDeep } from "lodash";
     VGouvFrModal,
     DocumentHelp,
     AllDeclinedMessages,
-    NakedCard
+    NakedCard,
+    TroubleshootingModal
   },
   computed: {
     ...mapGetters({
@@ -281,7 +273,7 @@ export default class Residency extends Vue {
       this.residencyFiles().length > this.residencyDocument.maxFileCount
     ) {
       Vue.toasted.global.max_file({
-        message: this.$i18n.t("max-file", [
+        message: this.$i18n.t("residency.max-file", [
           this.residencyFiles().length,
           this.residencyDocument.maxFileCount
         ])
@@ -336,7 +328,7 @@ export default class Residency extends Vue {
 
   async remove(file: DfFile, silent = false) {
     AnalyticsService.deleteFile("residency");
-    if (file.path && file.id) {
+    if (file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = this.files.findIndex(f => {
@@ -350,25 +342,3 @@ export default class Residency extends Vue {
 
 <style scoped lang="scss"></style>
 
-<i18n>
-{
-"en": {
-  "tenant": "Locataire",
-  "owner": "Propriétaire",
-  "guest": "Hébergé·e gratuitement",
-  "guest-parents": "Chez mes parents",
-  "files": "Documents",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-  "select-label": "Your current accommodation situation:"
-},
-"fr": {
-  "tenant": "Locataire",
-  "owner": "Propriétaire",
-  "guest": "Hébergé·e gratuitement",
-  "guest-parents": "Chez mes parents",
-  "files": "Documents",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "select-label": "Votre situation d’hébergement actuelle :"
-}
-}
-</i18n>

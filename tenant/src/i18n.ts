@@ -20,7 +20,7 @@ function loadLocaleMessages(): LocaleMessages {
   return messages;
 }
 
-const dateTimeFormats = {
+const dateTimeFormats: VueI18n.DateTimeFormats = {
   en: {
     short: {
       year: "numeric",
@@ -59,5 +59,6 @@ export default new VueI18n({
   locale: "fr",
   fallbackLocale: "en",
   silentFallbackWarn: true,
+  missing: (_, v) => v,
   messages: loadLocaleMessages()
 });

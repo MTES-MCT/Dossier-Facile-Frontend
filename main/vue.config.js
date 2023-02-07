@@ -1,6 +1,5 @@
 const PrerenderSpaPlugin = require("prerender-spa-plugin");
 const path = require("path");
-const Renderer = PrerenderSpaPlugin.PuppeteerRenderer;
 
 const routes = [
   "/",
@@ -22,6 +21,7 @@ const routes = [
   "/blog/la-caution-locative-changement-en-vue-pour-2022",
   "/blog/au-secours-mon-ascenceur-est-en-panne",
   "/blog/usurpation-d-identite-en-france-comment-prevenir-agir",
+  "/blog/passoires-thermiques-top-depart-du-gel-des-loyers",
   "/information",
   "/accessibilite",
   "/mentions-legales",
@@ -59,16 +59,7 @@ module.exports = {
     if (process.env.NODE_ENV !== "production") return;
 
     return {
-      plugins: [
-        new PrerenderSpaPlugin({
-          // args for puppeteer
-          renderer: new Renderer({
-            args: ["--no-sandbox"]
-          }),
-          staticDir: path.resolve(__dirname, "dist"),
-          routes: routes
-        })
-      ]
+      plugins: [new PrerenderSpaPlugin(path.resolve(__dirname, "dist"), routes)]
     };
   }
 };

@@ -32,13 +32,3 @@ h4 {
 }
 </style>
 
-<i18n>
-{
-"en": {
-"title-step": "I fulfill my guarantor"
-},
-"fr": {
-"title-step": "Mon garant"
-}
-}
-</i18n>

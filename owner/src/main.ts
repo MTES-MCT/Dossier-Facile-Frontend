@@ -37,7 +37,7 @@ defineRule('hasValue', (value: any) => {
 });
 defineRule('required', (value: any) => {
   if (typeof value === 'number') {
-    if (!value) {
+    if (!value && value !== 0) {
       return 'field-required';
     }
     return true;
@@ -77,12 +77,22 @@ defineRule('positive', (value: any) => {
   }
   return true;
 });
+defineRule('positiveOrNull', (value: any) => {
+  if (!value || !value.length) {
+    return true;
+  }
+  if (value < 0) {
+    return 'number-not-positive-or-null';
+  }
+  return true;
+});
 
 configure({
   validateOnInput: true,
 });
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
+const OWNER_API_URL = import.meta.env.VITE_OWNER_API_URL;
 
 function mountApp() {
   const app = createApp(App);
@@ -120,7 +130,7 @@ if (!window.location.href.includes('/validConnexion/')) {
       if (auth) {
         axios.interceptors.request.use(
           (config) => {
-            if (keycloak.authenticated && config?.headers) {
+            if (config.url?.includes(OWNER_API_URL) && keycloak.authenticated && config?.headers) {
               const localToken = keycloak.token;
               config.headers.Authorization = `Bearer ${localToken}`;
             }

@@ -35,7 +35,7 @@ const UtilsService = {
           tenantSalary: `${a.totalSalary} €`,
           guarantorSalary: a.totalGuarantorSalary ? `${a.totalGuarantorSalary} €` : '-',
           rate: `${rate}`,
-          status: mainTenant.status,
+          status: a.status,
           token: a.token,
         };
       }

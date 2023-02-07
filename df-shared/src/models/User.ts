@@ -1,5 +1,6 @@
 import { DfDocument } from "./DfDocument";
 import { Guarantor } from "./Guarantor";
+import { ApartmentSharing } from "./ApartmentSharing";
 
 export class User {
   id!: number;
@@ -27,14 +28,10 @@ export class User {
   financial?: string;
   tax?: string;
 
-  apartmentSharing?: {
-    id?: number;
-    tenants: User[];
-    status: string;
-    token: string;
-    tokenPublic: string;
+  apartmentSharing: ApartmentSharing = {
+    tenants: []
   };
-  guarantors?: Guarantor[];
+  guarantors: Guarantor[] = [];
   documents?: DfDocument[];
   allowCheckTax?: boolean;
   linkUrl?: string;

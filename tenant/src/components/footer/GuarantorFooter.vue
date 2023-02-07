@@ -42,11 +42,3 @@ export default class ProfileFooter extends Vue {
 }
 </script>
 
-<i18n>
-{
-"en": {
-},
-"fr": {
-}
-}
-</i18n>

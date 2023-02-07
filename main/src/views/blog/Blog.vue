@@ -3,11 +3,32 @@
     <div class="fr-mt-7w fr-container">
       <div class="fr-grid-row justify-content-center">
         <div class="fr-col-md-10 fr-col-lg-8">
-          <h1>{{ $t("blog") }}</h1>
+          <h1>{{ $t("blog-title") }}</h1>
+          <hr />
+          <BlogExtractTile
+            title="Passoires thermiques : top départ du gel des loyers"
+            :image="require('../../assets/images/blog-article15.webp')"
+            publicationDate="5 janvier 2023"
+            path="/blog/passoires-thermiques-top-depart-du-gel-des-loyers"
+          >
+            <template v-slot:extract>
+              <p>
+                Depuis le 24 août 2022, les propriétaires bailleurs de logements
+                classés F et G (consommation énergétique comprise entre 331 et
+                420 kWh/m²/an pour les F, et au-dessus pour les G) communément
+                appelés
+                <span class="fr-text--bold">« passoires énergétiques »</span>,
+                sont désormais obligés de réaliser des travaux s’ils veulent
+                augmenter les loyers à la signature d’un nouveau bail, lors du
+                renouvellement du bail ou dans le cadre d’une révision annuelle
+                même prévue au contrat...
+              </p>
+            </template>
+          </BlogExtractTile>
           <hr />
           <BlogExtractTile
             title="DossierFacile engagé dans la protection de vos données personnelles"
-            :image="require('../../assets/images/blog-article14.jpg')"
+            :image="require('../../assets/images/blog-article14.webp')"
             publicationDate="24 octobre 2022"
             path="/blog/engage-dans-la-protection-de-vos-donnees-personnelles"
           >
@@ -317,13 +338,3 @@ import BlogExtractTile from "./BlogExtractTile.vue";
 export default class Blog extends Vue {}
 </script>
 
-<i18n>
-{
-  "en": {
-    "blog": "Blog"
-  },
-  "fr": {
-    "blog": "DossierFacile en articles"
-  }
-}
-</i18n>

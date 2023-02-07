@@ -2,21 +2,11 @@
   <ProfileContainer :step="3">
     <NakedCard class="fr-p-md-5w">
       <h1 class="fr-h5">
-        {{ $t("my-guarantor") }}
+        {{ $t("guarantorlistpage.my-guarantor") }}
       </h1>
-      <v-gouv-fr-modal>
-        <template v-slot:button>
-          <span class="small-font">{{ $t("more-information") }}</span>
-        </template>
-        <template v-slot:title>
-          {{ $t("more-information") }}
-        </template>
-        <template v-slot:content>
-          <p>
-            <GuarantorChoiceHelp></GuarantorChoiceHelp>
-          </p>
-        </template>
-      </v-gouv-fr-modal>
+      <TroubleshootingModal>
+        <GuarantorChoiceHelp></GuarantorChoiceHelp>
+      </TroubleshootingModal>
       <div v-for="g in user.guarantors" :key="g.id">
         <CardRow @edit="editGuarantor(g)" @remove="isRemoveGuarantor = true">
           <template v-slot:tag>
@@ -34,12 +24,12 @@
           @valid="removeGuarantor(g)"
           @cancel="isRemoveGuarantor = false"
         >
-          <span>{{ $t("remove-guarantor") }}</span>
+          <span>{{ $t("guarantorlistpage.remove-guarantor") }}</span>
         </ConfirmModal>
       </div>
       <div v-if="hasOneNaturalGuarantor()">
         <button @click="addNaturalGuarantor()" class="add-guarantor-btn">
-          {{ $t("add-new-guarantor") }}
+          {{ $t("guarantorlistpage.add-new-guarantor") }}
         </button>
       </div>
     </NakedCard>
@@ -50,7 +40,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { mapGetters, mapState } from "vuex";
+import { mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
 import GuarantorFooter from "../components/footer/GuarantorFooter.vue";
 import GuarantorChoiceHelp from "../components/helps/GuarantorChoiceHelp.vue";
@@ -62,6 +52,7 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
+import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 @Component({
   components: {
@@ -72,35 +63,37 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
     CardRow,
     ColoredTag,
     VGouvFrModal,
-    ConfirmModal
+    ConfirmModal,
+    TroubleshootingModal
   },
   computed: {
     ...mapState({
       user: "user"
-    }),
-    ...mapGetters({
-      guarantors: "guarantors"
     })
   }
 })
 export default class GuarantorListPage extends Vue {
   user!: User;
-  guarantors!: Guarantor[];
+
   isRemoveGuarantor = false;
+
+  beforeMount() {
+    this.$store.commit("setSelectedGuarantor", undefined);
+  }
 
   getGuarantorName(g: Guarantor) {
     if (g.firstName || g.lastName) {
       return `${g.firstName || ""} ${g.lastName || ""}`;
     }
-    return this.$i18n.t("guarantor");
+    if (g.typeGuarantor === "LEGAL_PERSON" && g.legalPersonName) {
+      return g.legalPersonName;
+    }
+    return this.$i18n.t("guarantorlistpage.guarantor." + g.typeGuarantor);
   }
 
   goBack() {
-    if (this.guarantors.length > 0) {
-      this.$router.push({
-        name: "TenantDocuments",
-        params: { substep: "5" }
-      });
+    if (this.user?.guarantors && this.user?.guarantors.length > 0) {
+      this.$router.push({ name: "TenantDocuments", params: { substep: "5" } });
       return;
     }
     this.$router.push({
@@ -109,6 +102,20 @@ export default class GuarantorListPage extends Vue {
   }
 
   goNext() {
+    if (this.user.applicationType == "COUPLE") {
+      const cotenant = this.user.apartmentSharing?.tenants.find(
+        t => t.id != this.user.id
+      ) as User;
+      this.$router.push({
+        name: "CoTenantDocuments",
+        params: {
+          step: "4",
+          substep: "0",
+          tenantId: cotenant.id.toString()
+        }
+      });
+      return;
+    }
     this.$router.push({
       name: "ValidateFile"
     });
@@ -116,7 +123,7 @@ export default class GuarantorListPage extends Vue {
 
   getStatus(g: Guarantor) {
     if (!g.documents) {
-      return;
+      return "";
     }
     if (
       (g.typeGuarantor === "NATURAL_PERSON" && g.documents.length < 5) ||
@@ -145,9 +152,12 @@ export default class GuarantorListPage extends Vue {
     return "VALIDATED";
   }
 
-  editGuarantor(g: Guarantor) {
+  async editGuarantor(g: Guarantor) {
     this.$store.commit("setSelectedGuarantor", g);
-    this.$router.push({ name: "GuarantorDocuments", params: { substep: "0" } });
+    this.$router.push({
+      name: "GuarantorDocuments",
+      params: { substep: "0" }
+    });
   }
 
   removeGuarantor(g: Guarantor) {
@@ -156,6 +166,7 @@ export default class GuarantorListPage extends Vue {
         if (!this.user.guarantors?.length || 0 >= 1) {
           this.$router.push({ name: "GuarantorChoice" });
         }
+        this.isRemoveGuarantor = false;
       },
       () => {
         Vue.toasted.global.error();
@@ -165,8 +176,9 @@ export default class GuarantorListPage extends Vue {
 
   hasOneNaturalGuarantor() {
     return (
-      this.guarantors.length === 1 &&
-      this.guarantors[0].typeGuarantor === "NATURAL_PERSON"
+      this.user.guarantors &&
+      this.user.guarantors.length === 1 &&
+      this.user.guarantors[0].typeGuarantor === "NATURAL_PERSON"
     );
   }
 
@@ -264,31 +276,3 @@ h2 {
 }
 </style>
 
-<i18n>
-{
-"en": {
-  "more-information": "More information",
-  "my-guarantor": "My guarantor",
-  "add-new-guarantor": "Add a new guarantor ?",
-  "guarantor": "My guarantor",
-  "EMPTY": "Empty",
-  "TO_PROCESS":"To process",
-  "VALIDATED":"Validated",
-  "DECLINED":"Declined",
-  "INCOMPLETE":"Incomplete",
-  "remove-guarantor": "Are you sure you want to delete this guarantor?"
-},
-"fr": {
-  "more-information": "En difficulté pour répondre à la question ?",
-  "my-guarantor": "Mon garant",
-  "add-new-guarantor": "Ajouter un nouveau garant ?",
-  "guarantor": "Mon garant",
-  "EMPTY": "Absent",
-  "TO_PROCESS":"En cours de traitement",
-  "VALIDATED":"Vérifié",
-  "DECLINED":"Modification demandée",
-  "INCOMPLETE":"Non terminé",
-  "remove-guarantor": "Êtes-vous sûr·e de vouloir supprimer ce garant ?"
-  }
-}
-</i18n>

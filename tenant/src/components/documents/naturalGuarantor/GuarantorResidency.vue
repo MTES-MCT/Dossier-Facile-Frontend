@@ -3,27 +3,17 @@
     <NakedCard class="fr-p-md-5w">
       <div>
         <h1 class="fr-h6">
-          {{ $t("select-label") }}
+          {{ $t("guarantorresidency.select-label") }}
         </h1>
 
-        <v-gouv-fr-modal>
-          <template v-slot:button>
-            En difficulté pour répondre à la question ?
-          </template>
-          <template v-slot:title>
-            En difficulté pour répondre à la question ?
-          </template>
-          <template v-slot:content>
-            <p>
-              <GuarantorChoiceHelp></GuarantorChoiceHelp>
-              <DocumentInsert
-                :allow-list="residencyDocument.acceptedProofs"
-                :block-list="residencyDocument.refusedProofs"
-                v-if="residencyDocument.key"
-              ></DocumentInsert>
-            </p>
-          </template>
-        </v-gouv-fr-modal>
+        <TroubleshootingModal>
+          <GuarantorChoiceHelp></GuarantorChoiceHelp>
+          <DocumentInsert
+            :allow-list="residencyDocument.acceptedProofs"
+            :block-list="residencyDocument.refusedProofs"
+            v-if="residencyDocument.key"
+          ></DocumentInsert>
+        </TroubleshootingModal>
 
         <div class="fr-mt-3w">
           <fieldset class="fr-fieldset">
@@ -51,14 +41,18 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-files") }}</span>
+      <span>{{ $t("guarantorresidency.will-delete-files") }}</span>
     </ConfirmModal>
     <NakedCard
       class="fr-p-md-5w fr-mt-3w"
       v-if="residencyDocument.key || residencyFiles().length > 0"
     >
       <div class="fr-mb-3w">
-        <p v-html="$t(residencyDocument.explanationText)"></p>
+        <p
+          v-html="
+            $t(`explanation-text.${guarantorKey()}.${residencyDocument.key}`)
+          "
+        ></p>
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
@@ -85,7 +79,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { mapState } from "vuex";
 import DocumentInsert from "../share/DocumentInsert.vue";
 import FileUpload from "../../uploads/FileUpload.vue";
@@ -106,6 +100,7 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import { cloneDeep } from "lodash";
+import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 @Component({
   components: {
@@ -118,7 +113,8 @@ import { cloneDeep } from "lodash";
     BigRadio,
     GuarantorChoiceHelp,
     VGouvFrModal,
-    NakedCard
+    NakedCard,
+    TroubleshootingModal
   },
   computed: {
     ...mapState({
@@ -126,7 +122,9 @@ import { cloneDeep } from "lodash";
     })
   }
 })
-export default class Residency extends Vue {
+export default class GuarantorResidency extends Vue {
+  @Prop() tenantId?: string;
+
   selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
@@ -268,7 +266,7 @@ export default class Residency extends Vue {
       this.residencyFiles().length > this.residencyDocument.maxFileCount
     ) {
       Vue.toasted.global.max_file({
-        message: this.$i18n.t("max-file", [
+        message: this.$i18n.t("guarantorresidency.max-file", [
           this.residencyFiles().length,
           this.residencyDocument.maxFileCount
         ])
@@ -286,6 +284,9 @@ export default class Residency extends Vue {
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     if (this.$store.getters.guarantor.id) {
       formData.append("guarantorId", this.$store.getters.guarantor.id);
+    }
+    if (this.tenantId) {
+      formData.append("tenantId", this.tenantId);
     }
     const loader = this.$loading.show();
     this.$store
@@ -325,7 +326,7 @@ export default class Residency extends Vue {
   }
 
   async remove(file: DfFile, silent = false) {
-    if (file.path && file.id) {
+    if (file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = this.files.findIndex(f => {
@@ -334,32 +335,15 @@ export default class Residency extends Vue {
       this.files.splice(firstIndex, 1);
     }
   }
+
+  guarantorKey() {
+    if (this.tenantId != null) {
+      return "cotenant-guarantor";
+    }
+    return "guarantor";
+  }
 }
 </script>
 
 <style scoped lang="scss"></style>
 
-<i18n>
-{
-"en": {
-  "tenant": "Vous êtes locataire",
-  "owner": "Vous êtes propriétaire",
-  "guest": "Vous êtes hébergé gratuitement",
-  "guest-parents": "Vous habitez chez vos parents",
-  "files": "Documents",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-  "register": "Register",
-  "select-label": "Your guarantor current accommodation situation:"
-},
-"fr": {
-  "tenant": "Locataire",
-  "owner": "Propriétaire",
-  "guest": "Hébergé·e à titre gratuit",
-  "guest-parents": "Vous habitez chez vos parents",
-  "files": "Documents",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "register": "Enregistrer",
-  "select-label": "Quelle est la situation d’hébergement actuelle de votre garant ?"
-}
-}
-</i18n>

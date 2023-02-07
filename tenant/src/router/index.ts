@@ -110,6 +110,18 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "profile" */ "../views/TenantDocument.vue")
   },
   {
+    path: "/documents-colocataire/:tenantId/:step/:substep/",
+    name: "CoTenantDocuments",
+    meta: {
+      title: "Édition du profil - DossierFacile",
+      requiresAuth: true,
+      hideFooter: true,
+      skipLinks: FUNNEL_SKIP_LINKS
+    },
+    component: () =>
+      import(/* webpackChunkName: "profile" */ "../views/CoTenantDocument.vue")
+  },
+  {
     path: "/choix-garant",
     name: "GuarantorChoice",
     meta: {
@@ -136,10 +148,36 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "profile" */ "../views/GuarantorListPage.vue")
   },
   {
+    path: "/garants-locataire/:tenantId/:step",
+    name: "TenantGuarantors",
+    meta: {
+      title: "Édition du garant du locataire - DossierFacile",
+      requiresAuth: true,
+      hideFooter: true,
+      skipLinks: FUNNEL_SKIP_LINKS
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "profile" */ "../views/TenantGuarantorsPage.vue"
+      )
+  },
+  {
     path: "/validation-dossier",
     name: "ValidateFile",
     meta: {
-      title: "Validation du dossier - DossierFacile",
+      title: "Validation du dossier locataire - DossierFacile",
+      requiresAuth: true,
+      hideFooter: true,
+      skipLinks: FUNNEL_SKIP_LINKS
+    },
+    component: () =>
+      import(/* webpackChunkName: "profile" */ "../views/ValidateFilePage.vue")
+  },
+  {
+    path: "/validation-dossier/:step",
+    name: "ValidateFileStep",
+    meta: {
+      title: "Validation du dossier locataire - DossierFacile",
       requiresAuth: true,
       hideFooter: true,
       skipLinks: FUNNEL_SKIP_LINKS
@@ -169,6 +207,20 @@ const routes: Array<RouteConfig> = [
     component: () =>
       import(
         /* webpackChunkName: "profile" */ "../views/GuarantorDocumentsPage.vue"
+      )
+  },
+  {
+    path: "/info-garant-locataire/:tenantId/:guarantorId/:step/:substep?",
+    name: "TenantGuarantorDocuments",
+    meta: {
+      title: "Édition du garant du locataire - DossierFacile",
+      requiresAuth: true,
+      hideFooter: true,
+      skipLinks: FUNNEL_SKIP_LINKS
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "profile" */ "../views/TenantGuarantorDocumentsPage.vue"
       )
   },
   {
@@ -353,7 +405,7 @@ function keepGoing(to: Route, next: NavigationGuardNext<Vue>) {
     to.matched.some((record: { path: string }) => {
       return record.path === "/account";
     }) &&
-    store.state.user?.status === "INCOMPLETE"
+    store.state.user.status === "INCOMPLETE"
   ) {
     store.dispatch("firstProfilePage");
     return;
@@ -372,7 +424,7 @@ function keepGoing(to: Route, next: NavigationGuardNext<Vue>) {
   next();
 }
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (to.matched.some(record => record.meta.hideFooter)) {
     store.commit("isFunnel", true);
   } else {
@@ -394,15 +446,17 @@ router.beforeEach((to, from, next) => {
       });
     } else {
       // The user was authenticated, and has the app role
-      store.dispatch("loadUser").then(() => {
-        store.dispatch("updateMessages");
-        keepGoing(to, next);
+      await store.dispatch("loadUser").catch(() => {
+        next({ name: "404" });
       });
       setInterval(() => {
         (Vue as any).$keycloak.updateToken(60).catch((err: any) => {
           console.error(err);
         });
       }, 45000);
+      store.dispatch("updateMessages");
+      keepGoing(to, next);
+      return;
     }
   } else if (to.matched.some(record => record.meta.hideForAuth)) {
     if ((Vue as any).$keycloak.authenticated) {

@@ -2,32 +2,23 @@
   <div>
     <NakedCard class="fr-p-md-5w">
       <div>
-        <h1 class="fr-h6">{{ $t("title") }}</h1>
-        <v-gouv-fr-modal>
-          <template v-slot:button>
-            En difficulté pour répondre à la question ?
-          </template>
-          <template v-slot:title>
-            En difficulté pour répondre à la question ?
-          </template>
-          <template v-slot:content>
-            <p>
-              <GuarantorChoiceHelp></GuarantorChoiceHelp>
-              <DocumentInsert
-                :allow-list="professionalDocument.acceptedProofs"
-                :block-list="professionalDocument.refusedProofs"
-                v-if="professionalDocument.key"
-              ></DocumentInsert>
-            </p>
-          </template>
-        </v-gouv-fr-modal>
+        <h1 class="fr-h6">{{ $t("guarantorprofessional.title") }}</h1>
+        <TroubleshootingModal>
+          <GuarantorChoiceHelp></GuarantorChoiceHelp>
+          <DocumentInsert
+            :allow-list="professionalDocument.acceptedProofs"
+            :block-list="professionalDocument.refusedProofs"
+            v-if="professionalDocument.key"
+          ></DocumentInsert>
+        </TroubleshootingModal>
         <div class="fr-mt-3w">
           <validation-provider
             rules="select"
             name="professionalDocument"
             v-slot="{ errors, valid }"
           >
-            <label>{{ $t("select-label") }}</label>
+            <label v-if="isCotenant">{{ $t("guarantorprofessional.select-label-cotenant") }}</label>
+            <label v-else>{{ $t("guarantorprofessional.select-label") }}</label>
             <select
               v-model="professionalDocument"
               class="fr-select fr-mb-3w"
@@ -55,14 +46,18 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-files") }}</span>
+      <span>{{ $t("guarantorprofessional.will-delete-files") }}</span>
     </ConfirmModal>
     <NakedCard
       class="fr-p-md-5w fr-mt-3w"
       v-if="professionalDocument.key || professionalFiles().length > 0"
     >
       <div class="fr-mb-3w">
-        {{ professionalDocument.explanationText }}
+        <p
+          v-html="
+            $t(`explanation-text.${guarantorKey()}.${professionalDocument.key}`)
+          "
+        ></p>
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
@@ -89,7 +84,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import DocumentInsert from "../share/DocumentInsert.vue";
 import FileUpload from "../../uploads/FileUpload.vue";
 import { mapState } from "vuex";
@@ -111,6 +106,7 @@ import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReason
 import { cloneDeep } from "lodash";
 import { ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
+import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 extend("select", {
   message: "select-is-empty",
@@ -134,7 +130,8 @@ extend("select", {
     GuarantorChoiceHelp,
     VGouvFrModal,
     NakedCard,
-    ValidationProvider
+    ValidationProvider,
+    TroubleshootingModal
   },
   computed: {
     ...mapState({
@@ -142,7 +139,10 @@ extend("select", {
     })
   }
 })
-export default class Professional extends Vue {
+export default class GuarantorProfessional extends Vue {
+  @Prop() tenantId?: string;
+  @Prop({ default: false }) isCotenant?: boolean;
+
   selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
@@ -263,7 +263,7 @@ export default class Professional extends Vue {
       this.professionalFiles().length > this.professionalDocument.maxFileCount
     ) {
       Vue.toasted.global.max_file({
-        message: this.$i18n.t("max-file", [
+        message: this.$i18n.t("guarantorprofessional.max-file", [
           this.professionalFiles().length,
           this.professionalDocument.maxFileCount
         ])
@@ -283,6 +283,9 @@ export default class Professional extends Vue {
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     if (this.$store.getters.guarantor.id) {
       formData.append("guarantorId", this.$store.getters.guarantor.id);
+    }
+    if (this.tenantId) {
+      formData.append("tenantId", this.tenantId);
     }
     const loader = this.$loading.show();
     this.$store
@@ -322,7 +325,7 @@ export default class Professional extends Vue {
   }
 
   async remove(file: DfFile, silent = false) {
-    if (file.path && file.id) {
+    if (file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = this.files.findIndex(f => {
@@ -331,50 +334,15 @@ export default class Professional extends Vue {
       this.files.splice(firstIndex, 1);
     }
   }
+
+  guarantorKey() {
+    if (this.tenantId != null) {
+      return "cotenant-guarantor";
+    }
+    return "guarantor";
+  }
 }
 </script>
 
 <style scoped lang="scss"></style>
 
-<i18n>
-{
-"en": {
-  "title": "Proof of professional and financial situation",
-  "cdi": "CDI",
-  "cdi-trial": "CDI (période d’essai)",
-  "cdd": "CDD",
-  "alternation": "Alternance",
-  "internship": "Stage",
-  "student": "Études",
-  "public": "Fonction publique",
-  "ctt": "CTT (intérimaire)",
-  "retired": "Retraité",
-  "unemployed": "Chômage",
-  "independent": "Indépendant",
-  "other": "Autre",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-  "register": "Register",
-  "select-label": "Your current professional situation:",
-  "select-is-empty": "Item selection is required"
-},
-"fr": {
-  "title": "Justificatif de situation professionelle et financière",
-  "cdi": "CDI",
-  "cdi-trial": "CDI (période d’essai)",
-  "cdd": "CDD",
-  "alternation": "Alternance",
-  "internship": "Stage",
-  "student": "Études",
-  "public": "Fonction publique",
-  "ctt": "CTT (intérimaire)",
-  "retired": "Retraité",
-  "unemployed": "Chômage",
-  "independent": "Indépendant",
-  "other": "Autre",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "register": "Enregistrer",
-  "select-label": "La situation professionnelle, actuelle, de mon garant :",
-  "select-is-empty": "Sélection requise"
-}
-}
-</i18n>

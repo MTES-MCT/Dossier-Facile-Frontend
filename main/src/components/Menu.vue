@@ -149,19 +149,3 @@ fr-breadcrumb {
 }
 </style>
 
-<i18n>
-{
-"en": {
-"help": "Help",
-"blog": "Blog",
-"information": "Information",
-"contact-us": "contact us"
-},
-"fr": {
-"help": "Aide",
-"blog": "Blog",
-"information": "Qui sommes-nous?",
-"contact-us": "Nous contacter"
-}
-}
-</i18n>

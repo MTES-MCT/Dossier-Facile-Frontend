@@ -1,10 +1,10 @@
 <template>
   <div>
     <span class="fr-h5 fr-mr-3w">{{
-      $t("title-dossier-" + dossierStatus)
+      $t("filereinsurance.title-dossier-" + dossierStatus)
     }}</span
     ><a href="https://www.dossierfacile.fr" target="_blank" rel="noreferrer">{{
-      $t("know-more")
+      $t("filereinsurance.know-more")
     }}</a>
     <div class="fr-grid-row fr-grid-row--gutters fr-mt-3w">
       <div class="fr-col-12 fr-col-md-3">
@@ -27,7 +27,7 @@
             report_gmailerrorred
           </span>
 
-          <p>{{ $t("documents-" + dossierStatus) }}</p>
+          <p>{{ $t("filereinsurance.documents-" + dossierStatus) }}</p>
         </NakedCard>
       </div>
       <div class="fr-col-12 fr-col-md-3">
@@ -49,7 +49,7 @@
           >
             report_gmailerrorred
           </span>
-          <p>{{ $t("file-" + dossierStatus) }}</p>
+          <p>{{ $t("filereinsurance.file-" + dossierStatus) }}</p>
         </NakedCard>
       </div>
       <div v-if="taxChecked" class="fr-col-12 fr-col-md-3">
@@ -62,7 +62,7 @@
             />
           </div>
           <p>
-            {{ $t("tax-checked") }}
+            {{ $t("filereinsurance.tax-checked") }}
           </p>
         </NakedCard>
       </div>
@@ -70,13 +70,13 @@
         <NakedCard class="h-100 fc">
           <div class="fr-mb-0-5w icon-fc text-fc blue-text">FranceConnect</div>
           <p v-if="tenantCount === 1">
-            {{ $t("france-connect-user") }}
+            {{ $t("filereinsurance.france-connect-user") }}
           </p>
           <p v-else-if="franceConnectTenantCount === tenantCount">
-            {{ $t("france-connect-user-all") }}
+            {{ $t("filereinsurance.france-connect-user-all") }}
           </p>
           <p v-else>
-            {{ $t("france-connect-user-partial", [franceConnectTenantCount]) }}
+            {{ $t("filereinsurance.france-connect-user-partial", [franceConnectTenantCount]) }}
           </p>
         </NakedCard>
       </div>
@@ -154,47 +154,3 @@ export default class FileReinsurance extends Vue {
 }
 </style>
 
-<i18n>
-{
-	"en": {
-    "documents-VALIDATED": "The file contains the required documents",
-    "documents-TO_PROCESS": "Documents are currently under review",
-    "documents-DECLINED": "Still waiting required documents",
-    "documents-INCOMPLETE": "Still waiting required documents",
-    "tax-to_process": "Tax notice currently under review",
-    "tax-nok": "Tax notice cannot be reviewed",
-    "file-VALIDATED": "The parts are consistent and have been reviewed manually by our agents",
-    "file-TO_PROCESS": "Files are currently in review",
-    "file-DECLINED": "Files will be currently review after file completion",
-    "file-INCOMPLETE": "Files will be currently review after file completion",
-		"title-dossier-VALIDATED": "This file has been verified by DossierFacile !",
-    "title-dossier-DECLINED": "This file is incompleted",
-    "title-dossier-TO_PROCESS": "This is currently in progress",
-		"know-more": "Know more about DossierFacile",
-		"france-connect-user": "Candidate identity has been certified by a FranceConnect authentication.",
-    "france-connect-user-all": "Candidates identities have been certified by FranceConnect authentications.",
-    "france-connect-user-partial": "Identity of {0} candidate(s) has been certified by a FranceConnect authentication.",
-    "tax-checked": "Tax income certified with the tax services"
-	},
-	"fr": {
-    "documents-VALIDATED": "Le dossier contient les pièces requises",
-    "documents-TO_PROCESS": "Les pièces du dossier sont en cours de vérification",
-    "documents-DECLINED": "Le dossier ne contient pas encore les pièces requises",
-    "documents-INCOMPLETE": "Le dossier ne contient pas encore les pièces requises",
-    "tax-to_process": "L'avis d'imposition est en cours de vérification",
-    "tax-nok": "L'avis d'imposition n'a pas pu être vérifié",
-		"file-VALIDATED": "Les pièces sont cohérentes et ont été revues manuellement par nos agents",
-    "file-TO_PROCESS": "Nos agents s'assurent de la cohérence de l'ensemble des pièces justificatives",
-    "file-DECLINED": "Les pièces seront revues manuellement par nos agents une fois le dossier complété",
-    "file-INCOMPLETE": "Les pièces seront revues manuellement par nos agents une fois le dossier complété",
-    "title-dossier-VALIDATED": "Ce dossier a été vérifié par DossierFacile !",
-    "title-dossier-DECLINED": "Ce dossier est, pour l'heure, incomplet !",
-    "title-dossier-TO_PROCESS": "Ce dossier est en cours de vérification par DossierFacile !",
-		"know-more": "En savoir plus sur DossierFacile",
-    "france-connect-user": "L'identité du candidat a été certifiée via une authentification FranceConnect.",
-    "france-connect-user-all": "L'identité des candidats a été certifiée via une authentification FranceConnect.",
-    "france-connect-user-partial": "L'identité de {0} candidat(s) a été certifiée via une authentification FranceConnect.",
-    "tax-checked": "Revenu fiscal certifié auprès des services des impôts"
-	}
-}
-</i18n>

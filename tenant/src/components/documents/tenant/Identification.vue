@@ -3,27 +3,17 @@
     <div>
       <NakedCard class="fr-p-md-5w">
         <h1 class="fr-h6">
-          {{ $t("select-label") }}
+          {{ $t("identification-page.select-label") }}
         </h1>
 
-        <v-gouv-fr-modal>
-          <template v-slot:button>
-            En difficulté pour répondre à la question ?
-          </template>
-          <template v-slot:title>
-            En difficulté pour répondre à la question ?
-          </template>
-          <template v-slot:content>
-            <p>
-              <DocumentHelp></DocumentHelp>
-              <DocumentInsert
-                :allow-list="identificationDocument.acceptedProofs"
-                :block-list="identificationDocument.refusedProofs"
-                v-if="identificationDocument.key"
-              ></DocumentInsert>
-            </p>
-          </template>
-        </v-gouv-fr-modal>
+        <TroubleshootingModal>
+          <DocumentHelp></DocumentHelp>
+          <DocumentInsert
+            :allow-list="identificationDocument.acceptedProofs"
+            :block-list="identificationDocument.refusedProofs"
+            v-if="identificationDocument.key"
+          ></DocumentInsert>
+        </TroubleshootingModal>
 
         <div class="fr-mt-3w">
           <fieldset class="fr-fieldset">
@@ -50,11 +40,10 @@
       class="fr-p-md-5w fr-mt-3w"
       v-if="identificationDocument.key || identificationFiles().length > 0"
     >
-      <div v-if="identificationDocument.explanationText">
-        <div
-          class="fr-mb-1w"
-          v-html="identificationDocument.explanationText"
-        ></div>
+      <div class="fr-mb-3w">
+        <p
+          v-html="$t(`explanation-text.tenant.${identificationDocument.key}`)"
+        ></p>
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
@@ -86,7 +75,7 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-files") }}</span>
+      <span>{{ $t("identification-page.will-delete-files") }}</span>
     </ConfirmModal>
   </div>
 </template>
@@ -116,6 +105,7 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import { cloneDeep } from "lodash";
+import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 @Component({
   components: {
@@ -130,7 +120,8 @@ import { cloneDeep } from "lodash";
     BigRadio,
     DocumentHelp,
     VGouvFrModal,
-    NakedCard
+    NakedCard,
+    TroubleshootingModal
   },
   computed: {
     ...mapGetters({
@@ -266,7 +257,7 @@ export default class Identification extends Vue {
         this.identificationDocument.maxFileCount
     ) {
       Vue.toasted.global.max_file({
-        message: this.$i18n.t("max-file", [
+        message: this.$i18n.t("identification.max-file", [
           this.identificationFiles().length,
           this.identificationDocument.maxFileCount
         ])
@@ -350,29 +341,3 @@ td {
 }
 </style>
 
-<i18n>
-{
-"en": {
-  "identity-card": "French identity card",
-  "passport": "French passeport",
-  "permit": "French residence permit",
-  "other": "Autre",
-  "files": "Documents",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-  "select-label": "I add a valid identity document.",
-  "validate": "Validate",
-  "cancel": "Cancel"
-},
-"fr": {
-  "identity-card": "Carte d’identité française",
-  "passport": "Passeport français",
-  "permit": "Titre de séjour français",
-  "other": "Autre",
-  "files": "Documents",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "select-label": "Déposez une pièce d'identité en cours de validité.",
-  "validate": "Valider",
-  "cancel": "Annuler"
-}
-}
-</i18n>

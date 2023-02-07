@@ -7,4 +7,6 @@
   "apartment-unfurnished": "Un appartement non meublé",
   "other-furnished": "Un bien meublé",
   "other-unfurnished": "Un bien non meublé",
+  "number-not-positive": "Le prix doit être positif",
+  "number-not-positive-or-null": "Le prix doit être supérieur ou égal à 0"
 }

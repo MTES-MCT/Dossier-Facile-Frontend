@@ -61,7 +61,7 @@ export default class UploadDocuments extends Vue {
 
   goToGuarantor() {
     AnalyticsService.validateFunnel();
-    if (this.user.guarantors && this.user.guarantors.length > 0) {
+    if (this.user.guarantors.length > 0) {
       this.$router.push({
         name: "GuarantorList"
       });
@@ -140,22 +140,3 @@ h2 {
   line-height: 1.5rem;
 }
 </style>
-
-<i18n>
-{
-"en": {
-"identification": "Pièce d’identité",
-"residency": "Justificatif de domicile",
-"professional": "Justificatif de situation professionnelle",
-"financial": "Proof of resources",
-"tax": "Avis d’imposition"
-},
-"fr": {
-"identification": "Pièce d’identité",
-"residency": "Justificatif de domicile",
-"professional": "Justificatif de situation professionnelle",
-"financial": "Justificatif de ressources",
-"tax": "Avis d’imposition"
-}
-}
-</i18n>

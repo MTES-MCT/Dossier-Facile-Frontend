@@ -6,8 +6,8 @@
     <div v-if="!editFinancialDocument">
       <NakedCard class="fr-p-md-5w fr-mb-3w">
         <div>
-          <h1 class="fr-h6">{{ $t("title") }}</h1>
-          <div>{{ $t("subtitle") }}</div>
+          <h1 class="fr-h6">{{ $t("financial-page.title") }}</h1>
+          <div>{{ $t("financial-page.subtitle") }}</div>
         </div>
       </NakedCard>
       <div v-for="(f, k) in financialDocuments" :key="k">
@@ -19,7 +19,7 @@
           <template v-slot:tag>
             <div class="fixed-width">
               <ColoredTag
-                :text="$t(f.documentType.key)"
+                :text="getDocumentName(f)"
                 :status="tenantFinancialDocument(f).documentStatus"
               ></ColoredTag>
             </div>
@@ -28,10 +28,10 @@
             <div
               class="text-bold"
               :class="{ declined: tenantFinancialDocument(f).documentStatus }"
-              :title="$t('net-monthly')"
+              :title="$t('financial-page.net-monthly')"
               v-show="f.documentType.key !== 'no-income'"
             >
-              {{ f.monthlySum }} {{ $t("monthly") }}
+              {{ f.monthlySum }} {{ $t("financial-page.monthly") }}
             </div>
           </template>
           <template v-slot:bottom>
@@ -49,7 +49,7 @@
           v-if="!hasNoIncome()"
           class="add-income-btn"
         >
-          {{ $t("add-income") }}
+          {{ $t("financial-page.add-income") }}
         </button>
       </div>
       <SimulationCaf class="fr-mt-4w" />
@@ -66,7 +66,6 @@ import { mapGetters } from "vuex";
 import { FinancialDocument } from "df-shared/src/models/FinancialDocument";
 import ListItem from "../../uploads/ListItem.vue";
 import { User } from "df-shared/src/models/User";
-import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
@@ -135,22 +134,6 @@ export default class Financial extends Vue {
     }
   }
 
-  financialFiles(f: FinancialDocument) {
-    const newFiles = f.files.map((file: DfFile) => {
-      return {
-        documentSubCategory: f.documentType?.value,
-        id: file.name,
-        name: file.name,
-        size: file.size
-      };
-    });
-    const existingFiles =
-      this.$store.getters.getTenantDocuments?.find((d: DfDocument) => {
-        return d.id === f.id;
-      })?.files || [];
-    return [...newFiles, ...existingFiles];
-  }
-
   tenantFinancialDocument(f: FinancialDocument) {
     return this.$store.getters.getTenantDocuments?.find((d: DfDocument) => {
       return d.id === f.id;
@@ -175,25 +158,6 @@ export default class Financial extends Vue {
     this.$store.commit("selectDocumentFinancial", undefined);
   }
 
-  getCheckboxLabel(key: string) {
-    if (key === "salary") {
-      return "noDocument-salary";
-    }
-    if (key === "pension") {
-      return "noDocument-pension";
-    }
-    if (key === "rent") {
-      return "noDocument-rent";
-    }
-    if (key === "scholarship") {
-      return "noDocument-scholarship";
-    }
-    if (key === "social-service") {
-      return "noDocument-social";
-    }
-    return "";
-  }
-
   hasNoIncome() {
     return (
       this.financialDocuments.length > 0 &&
@@ -213,6 +177,10 @@ export default class Financial extends Vue {
 
   async selectFinancialDocument(f: FinancialDocument) {
     await this.$store.commit("selectDocumentFinancial", f);
+  }
+
+  private getDocumentName(document: FinancialDocument): string {
+    return this.$t(`documents.${document.documentType.key}`).toString();
   }
 }
 </script>
@@ -239,39 +207,3 @@ export default class Financial extends Vue {
 }
 </style>
 
-<i18n>
-{
-"en": {
-  "salary": "Salary",
-  "social-service": "Social benefit payments",
-  "rent": "Annuities",
-  "pension": "Pensions",
-  "scholarship": "Scholarship",
-  "delete-financial":  "Delete this salary",
-  "register": "Register",
-  "no-income": "No income",
-  "i-have-no-income": "I have no income",
-  "title": "Summary of your income",
-  "subtitle": "Here is the list of income you declared. You can add new income at any time, if necessary.",
-  "monthly": " € net monthly ",
-  "net-monthly": "Net salary monthly",
-  "add-income": "Add a new income ?"
-},
-"fr": {
-  "salary": "Salaire",
-  "social-service": "Prestations sociales",
-  "rent": "Rentes",
-  "pension": "Pensions",
-  "scholarship": "Bourses",
-  "delete-financial":  "Supprimer ce revenu",
-  "register": "Enregistrer",
-  "no-income": "Pas de revenu",
-  "i-have-no-income": "Je n'ai pas de revenu",
-  "title": "Récapitulatif de vos revenus",
-  "subtitle": "Voici la liste des revenus que vous avez déclarés. Vous pouvez, à tout moment ajouter de nouveaux revenus, si cela était nécessaire.",
-  "monthly": " € net mensuel ",
-  "net-monthly": "Net à payer mensuel",
-  "add-income": "Ajouter un nouveau revenu ?"
-}
-}
-</i18n>

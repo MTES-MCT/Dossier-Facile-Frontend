@@ -216,6 +216,18 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Article14.vue")
   },
   {
+    path: "/blog/passoires-thermiques-top-depart-du-gel-des-loyers",
+    name: "Article15",
+    meta: {
+      title: "Passoires thermiques : top départ du gel des loyers",
+      description:
+        "Depuis le 24 août 2022, les propriétaires bailleurs de logements « passoires énergétiques » sont obligés de réaliser des travaux s’ils veulent augmenter les loyers.",
+      image: require("../assets/images/blog-article15.jpg")
+    },
+    component: () =>
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article15.vue")
+  },
+  {
     path: "/information",
     name: "Information",
     meta: {

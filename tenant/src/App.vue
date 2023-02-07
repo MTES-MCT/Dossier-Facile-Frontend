@@ -38,7 +38,9 @@ import Cookies from "df-shared/src/Footer/Cookies.vue";
 import VueGtag from "vue-gtag";
 import router from "./router";
 import Announcement from "df-shared/src/components/Announcement.vue";
+import ModalAnnouncement from "df-shared/src/components/ModalAnnouncement.vue";
 import TenantSkipLinks from "./components/TenantSkipLinks.vue";
+import { User } from "df-shared/src/models/User";
 
 @Component({
   components: {
@@ -47,7 +49,8 @@ import TenantSkipLinks from "./components/TenantSkipLinks.vue";
     TheFooter,
     Menu,
     Cookies,
-    Announcement
+    Announcement,
+    ModalAnnouncement
   },
   computed: {
     ...mapState({
@@ -62,11 +65,17 @@ import TenantSkipLinks from "./components/TenantSkipLinks.vue";
 })
 export default class App extends Vue {
   isFunnel!: boolean;
+  user!: User;
   cookieHidden = this.$cookies.isKey("accept-cookie");
   isLoggedIn!: boolean;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
+  isCoupleModalVisible = false;
+
+  isCouple() {
+    return this.isLoggedIn && this.user.applicationType === "COUPLE";
+  }
 
   onLogout() {
     this.$store.dispatch("logout", this.MAIN_URL);
@@ -108,7 +117,6 @@ export default class App extends Vue {
         config: {
           id: "UA-50823626-2",
           params: {
-            // eslint-disable-next-line @typescript-eslint/camelcase
             send_page_view: true
           },
           linker: {
@@ -169,13 +177,3 @@ export default class App extends Vue {
 }
 </style>
 
-<i18n>
-{
-"en": {
-"home": "Home"
-},
-"fr": {
-"home": "Home"
-}
-}
-</i18n>

@@ -5,4 +5,6 @@ export class DfFile {
   originalName?: string;
   file?: File;
   size?: number;
+  preview?: string;
+  numberOfPages?: number;
 }

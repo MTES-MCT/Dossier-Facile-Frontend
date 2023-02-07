@@ -8,26 +8,16 @@
           v-slot="{ errors, valid }"
         >
           <h1 class="fr-h6">
-            {{ $t("select-label") }}
+            {{ $t("professional-page.select-label") }}
           </h1>
-          <v-gouv-fr-modal>
-            <template v-slot:button>
-              En difficulté pour répondre à la question ?
-            </template>
-            <template v-slot:title>
-              En difficulté pour répondre à la question ?
-            </template>
-            <template v-slot:content>
-              <p>
-                <DocumentHelp></DocumentHelp>
-                <DocumentInsert
-                  :allow-list="professionalDocument.acceptedProofs"
-                  :block-list="professionalDocument.refusedProofs"
-                  v-if="professionalDocument.key"
-                ></DocumentInsert>
-              </p>
-            </template>
-          </v-gouv-fr-modal>
+          <TroubleshootingModal>
+            <DocumentHelp></DocumentHelp>
+            <DocumentInsert
+              :allow-list="professionalDocument.acceptedProofs"
+              :block-list="professionalDocument.refusedProofs"
+              v-if="professionalDocument.key"
+            ></DocumentInsert>
+          </TroubleshootingModal>
           <select
             v-model="professionalDocument"
             class="fr-select fr-mb-3w fr-mt-3w"
@@ -54,7 +44,9 @@
       v-if="professionalDocument.key || professionalFiles().length > 0"
     >
       <div class="fr-mb-3w">
-        {{ professionalDocument.explanationText }}
+        <p
+          v-html="$t(`explanation-text.tenant.${professionalDocument.key}`)"
+        ></p>
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
@@ -82,7 +74,7 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("will-delete-files") }}</span>
+      <span>{{ $t("professional-page.will-delete-files") }}</span>
     </ConfirmModal>
   </div>
 </template>
@@ -111,6 +103,7 @@ import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReason
 import { cloneDeep } from "lodash";
 import { ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
+import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 extend("select", {
   message: "select-is-empty",
@@ -134,7 +127,8 @@ extend("select", {
     DocumentHelp,
     VGouvFrModal,
     NakedCard,
-    ValidationProvider
+    ValidationProvider,
+    TroubleshootingModal
   },
   computed: {
     ...mapGetters({
@@ -278,7 +272,7 @@ export default class Professional extends Vue {
       this.professionalFiles().length > this.professionalDocument.maxFileCount
     ) {
       Vue.toasted.global.max_file({
-        message: this.$i18n.t("max-file", [
+        message: this.$i18n.t("professional.max-file", [
           this.professionalFiles().length,
           this.professionalDocument.maxFileCount
         ])
@@ -335,7 +329,7 @@ export default class Professional extends Vue {
 
   async remove(file: DfFile, silent = false) {
     AnalyticsService.deleteFile("professional");
-    if (file.path && file.id) {
+    if (file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = this.files.findIndex(f => {
@@ -349,41 +343,3 @@ export default class Professional extends Vue {
 
 <style scoped lang="scss"></style>
 
-<i18n>
-{
-"en": {
-  "cdi": "CDI",
-  "cdi-trial": "CDI (période d’essai)",
-  "cdd": "CDD",
-  "alternation": "Alternance",
-  "internship": "Stage",
-  "student": "Études",
-  "public": "Fonction publique",
-  "ctt": "CTT (intérimaire)",
-  "retired": "Retraité",
-  "unemployed": "Chômage",
-  "independent": "Indépendant",
-  "other": "Autre",
-  "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-  "select-label": "Your current professional situation:",
-  "select-is-empty": "Item selection required"
-},
-"fr": {
-  "cdi": "CDI",
-  "cdi-trial": "CDI (période d’essai)",
-  "cdd": "CDD",
-  "alternation": "Alternance",
-  "internship": "Stage",
-  "student": "Études",
-  "public": "Fonction publique",
-  "ctt": "CTT (intérimaire)",
-  "retired": "Retraité",
-  "unemployed": "Chômage",
-  "independent": "Indépendant",
-  "other": "Autre",
-  "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-  "select-label": "Votre situation professionnelle actuelle :",
-  "select-is-empty": "Sélection requise"
-}
-}
-</i18n>

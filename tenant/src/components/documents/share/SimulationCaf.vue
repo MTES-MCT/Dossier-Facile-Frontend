@@ -1,20 +1,20 @@
 <template>
   <div class="caf-box fr-px-md-5w fr-pb-md-2w fr-mb-3w bg-purple">
     <div class="header fr-h6">
-      <div class="header-title">{{ $t("simulation-caf-title") }}</div>
+      <div class="header-title">{{ $t("simulationcaf.simulation-caf-title") }}</div>
       <img alt="logo caf" class="logo-caf" src="../../../assets/caf.svg" />
     </div>
     <div>
-      <div>{{ $t("simulation-caf-text") }}</div>
+      <div>{{ $t("simulationcaf.simulation-caf-text") }}</div>
       <div class="body-btn-container">
         <button
           type="button"
-          :aria-label="$t('btn-caf')"
-          :title="$t('btn-caf')"
+          :aria-label="$t('simulationcaf.btn-caf')"
+          :title="$t('simulationcaf.btn-caf')"
           class="fr-btn fr-btn--secondary"
           @click="openSimulationCAF()"
         >
-          {{ $t("btn-caf") }}
+          {{ $t("simulationcaf.btn-caf") }}
         </button>
       </div>
     </div>
@@ -57,17 +57,3 @@ export default class SimulationCaf extends Vue {
   }
 }
 </style>
-<i18n>
-{
-"en": {
-  "btn-caf": "Do a simulation",
-  "simulation-caft-title": "Are you eligible?",
-  "simulation-caf-text": "Go to caf website to know if you can get a rental subvention."
-},
-"fr": {
-  "btn-caf": "Faire une simulation",
-  "simulation-caf-title": "Êtes-vous éligible ?",
-  "simulation-caf-text": "Découvrez l'estimation de l'aide au logement à laquelle vous pourriez être éligible."
-}
-}
-</i18n>

@@ -17,8 +17,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import LeftEditMenu from "./LeftEditMenu.vue";
-import TopEditMenu from "./TopEditMenu.vue";
+import LeftEditMenu from "./editmenu/LeftEditMenu.vue";
+import TopEditMenu from "./editmenu/TopEditMenu.vue";
 import { UtilsService } from "../services/UtilsService";
 
 @Component({

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <p v-html="$t('paragraph1')"></p>
-    <p v-html="$t('paragraph2')"></p>
-    <p v-html="$t('paragraph3')"></p>
+    <p v-html="$t('roommatesinformationhelp.paragraph1')"></p>
+    <p v-html="$t('roommatesinformationhelp.paragraph2')"></p>
+    <p v-html="$t('roommatesinformationhelp.paragraph3')"></p>
   </div>
 </template>
 
@@ -20,17 +20,3 @@ p {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "paragraph1": "By entering your spouse's email address, she/he will be able to create her/his own file with her/his documents. Your two folders will be linked and your folder-link will be common.",
-    "paragraph2": "Concretely, your spouse will receive an invitation that he or she will have to validate within 48 hours.",
-    "paragraph3": "If your spouse has not been able to confirm her/his registration within 48 hours, then you will have to start over!"
-  },
-  "fr": {
-    "paragraph1": "En renseignant l’adresse email de votre conjoint, celui-ci va pouvoir constituer son propre dossier avec ses pièces. Vos deux dossiers seront liés et votre lien-dossier sera commun.",
-    "paragraph2": "Concrètement, votre conjoint recevra une invitation qu’il ou elle devra valider dans les 48 heures.",
-    "paragraph3": "Dans le cas ou votre conjoint n’a pas pu confirmer son inscription dans les 48 heures, vous devrez alors recommencer !"
-  }
-}
-</i18n>

@@ -6,7 +6,7 @@
         class="fr-nav__link"
         :aria-current="currentPage() === 'Messages' ? 'page' : false"
       >
-        {{ $t("messaging") }}
+        {{ $t("menu.messaging") }}
         <span v-if="newMessage > 0" class="badge">{{ newMessage }}</span>
       </a>
     </li>
@@ -16,12 +16,12 @@
         class="fr-nav__link"
         :aria-current="currentPage() === 'Information' ? 'page' : false"
       >
-        {{ $t("information") }}
+        {{ $t("menu.information") }}
       </a>
     </li>
     <li class="fr-nav__item">
       <a :href="`${MAIN_URL}/blog`" class="fr-nav__link">
-        {{ $t("blog") }}
+        {{ $t("menu.blog") }}
       </a>
     </li>
     <li class="fr-nav__item">
@@ -31,7 +31,7 @@
         target="_blank"
         rel="noreferrer"
       >
-        {{ $t("help") }}
+        {{ $t("menu.help") }}
       </a>
     </li>
     <li class="fr-nav__item break" v-show="isLoggedIn">
@@ -41,7 +41,7 @@
         aria-controls="menu-774"
         :aria-current="currentPage() === 'Account' ? true : false"
       >
-        {{ $t("account") }}
+        {{ $t("menu.account") }}
       </button>
       <div class="fr-collapse fr-menu" id="menu-774">
         <ul class="fr-menu__list">
@@ -51,7 +51,7 @@
               href="/account"
               target="_self"
               :aria-current="currentPage() === 'Account' ? 'page' : false"
-              >{{ $t("file") }}</a
+              >{{ $t("menu.file") }}</a
             >
           </li>
           <li class="warn">
@@ -59,7 +59,7 @@
               class="fr-nav__link"
               @on-click="isDeleteModalVisible = true"
             >
-              {{ $t("deleteAccount") }}
+              {{ $t("menu.deleteAccount") }}
             </DfButton>
             <DeleteAccount
               v-model="isDeleteModalVisible"
@@ -77,7 +77,7 @@
       >
         <div class="fr-tag">
           <span class="material-icons" aria-hidden="true">mail_outline</span>
-          {{ $t("contact-us") }}
+          {{ $t("menu.contact-us") }}
         </div>
       </a>
     </li>
@@ -135,13 +135,19 @@ export default class Menu extends Vue {
 <style scoped lang="scss">
 .badge {
   position: absolute;
-  top: -2px;
-  right: 0px;
-  padding: 5px 10px;
+  top: 0.5rem;
+  right: 0.25rem;
   border-radius: 50%;
   background: red;
   color: white;
   z-index: 1;
+  min-width: 1.6em;
+  height: 1.6em;
+  border: 0.05em solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
 }
 
 .lang {
@@ -200,28 +206,3 @@ fr-breadcrumb {
 }
 </style>
 
-<i18n>
-{
-"en": {
-"help": "Help",
-"account": "Account",
-"file": "File",
-"messaging": "Messaging",
-"faq": "Help",
-"blog": "Blog",
-"information": "Information",
-"contact-us": "contact us",
-"deleteAccount": "Delete my account"
-},
-"fr": {
-"help": "Aide",
-"file": "Mon dossier",
-"account": "Mon compte",
-"messaging": "Messagerie",
-"blog": "Blog",
-"information": "Qui sommes-nous?",
-"contact-us": "Nous contacter",
-"deleteAccount": "Supprimer mon compte"
-}
-}
-</i18n>

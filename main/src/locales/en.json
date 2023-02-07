@@ -1,3 +1,63 @@
 {
-  "message": "hello i18n !!"
+  "tenant": "Tenant",
+  "owner": "Owner",
+  "register-information": "In order to create your account, we need some information. You are…",
+  "faq": "FAQ",
+  "help": "Help",
+  "blog": "Blog",
+  "information": "Information",
+  "contact-us": "contact us",
+  "button": "Build my rental file",
+  "docs": "How to prepare my rental file",
+  "s0": {
+    "title": "Build a concrete rental file to find the accommodation of your dreams",
+    "text": "DossierFacile helps you build a high-quality digital rental",
+    "text2": "file to ensure you have the best possible results."
+  },
+  "s1": {
+    "h1": "Stand out thanks to a quality file",
+    "p1": "Send owners a clear, complete and coherent file to maximize your chances.",
+    "h2": "Be the first to respond to an ad",
+    "p2": "Be the most responsive by sending your digital file with one click.",
+    "h3": "Reassure your future owner",
+    "p3": "After a battery of tests by our operators, your file is certified by the State."
+  },
+  "s2": {
+    "title": "Build your rental file in three steps",
+    "h1": "I upload my documents",
+    "p1": "DossierFacile asks you for the necessary documents and just those!",
+    "u1a": "Identity card",
+    "u1b": "Proof of address",
+    "u1c": "Proof of professional situation",
+    "u1d": "Tax notice",
+    "u1e": "Proof of resources",
+    "h2": "DossierFacile validates my file",
+    "p2": "Our agents check your file and help you correct it if necessary.",
+    "h3": "My file is ready to be sent",
+    "p3": "Your secure file as a URL link or in PDF format is ready to be sent to the owners."
+  },
+  "s3": {
+    "title": "Protect your personal information",
+    "text1": "With DossierFacile, no more identity papers scattered around the countryside!",
+    "text2": "Your documents are covered with watermarks to protect you against fraud by unscrupulous owners.",
+    "text3": "You can configure the opening of your folder link: you can delete it at any time!",
+    "link": "Learn more about data security at DossierFacile"
+  },
+  "s4": {
+    "title1": "Already",
+    "title2": "116 000",
+    "title3": "certified dossiers thanks to DossierFacile",
+    "t1": "Karim's file immediately stood out: it was the only file received that was complete!",
+    "author1": "Joseph, owner in Nantes",
+    "t2": "Simple, efficient and practical: it saved me a lot of time in my apartment search.",
+    "author2": "Caroline, student",
+    "t3": "I never managed to visit an apartment with my foreign file. With DossierFacile, I finally had more visits!",
+    "author3": "Irina, Erasmus student",
+    "link": "Consult our statistics"
+  },
+  "s5": {
+    "title1": "They",
+    "title2": "trust us"
+  },
+  "title": "Statistics"
 }
