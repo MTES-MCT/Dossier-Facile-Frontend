@@ -107,7 +107,9 @@
               </div>
               <div class="fr-mt-1v alert-container">
                 <div class="red-alert" v-if="notVisibleCotenantNotValidated()">
-                  {{ $t(getApplicationType() + ".cannot-copy-link") }}
+                  {{
+                    $t("account." + getApplicationType() + ".cannot-copy-link")
+                  }}
                 </div>
               </div>
               <div class="main-description fr-mt-2w">
@@ -464,7 +466,7 @@ export default class Account extends Vue {
       });
 
     const listNames = roommates?.join(", ");
-    if (!listNames || listNames.includes("undefined")) {
+    if (!listNames.trim() || listNames.includes("undefined")) {
       return this.$i18n.t("account.group-with-someone").toString();
     }
     return this.$i18n.t("account.group-with", [listNames]).toString();
@@ -477,7 +479,7 @@ export default class Account extends Vue {
     if (doc?.documentSubCategory === "OTHER") {
       return "";
     }
-    return this.$i18n.t(doc?.documentSubCategory || "none");
+    return this.$i18n.t(`account.${doc?.documentSubCategory || "none"}`);
   }
 
   getIncome() {
