@@ -145,7 +145,7 @@
       <div class="fr-container fr-mb-7w">
         <h2 class="fr-h2 text-center">
           {{ $t("s4.title1") }}
-          <span class="color--secondary">{{ $t("s4.title2") }}</span>
+          <span class="color--secondary">{{ validatedDossierCount }}</span>
           {{ $t("s4.title3") }}
         </h2>
         <div class="text-center">
@@ -413,6 +413,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import DfButton from "df-shared/src/Button/Button.vue";
 import LogoPartnerComponent from "@/components/LogoPartnerComponent.vue";
+import { StatsService } from "../services/StatsService";
 
 @Component({
   components: {
@@ -424,8 +425,18 @@ export default class LandingPage extends Vue {
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
   DOCS_URL = `//${process.env.VUE_APP_DOCS_URL}`;
 
+  validatedDossierCount = "116000";
+
   getH1Class() {
     return window.innerWidth < 992 ? "fr-h2" : "fr-h1";
+  }
+
+  mounted() {
+    StatsService.getValidatedDossierCount().then(result => {
+      if (result.data) {
+        this.validatedDossierCount = result.data;
+      }
+    });
   }
 
   gotoTenant() {
@@ -579,4 +590,3 @@ img {
   height: 80px;
 }
 </style>
-
