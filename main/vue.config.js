@@ -61,5 +61,8 @@ module.exports = {
     return {
       plugins: [new PrerenderSpaPlugin(path.resolve(__dirname, "dist"), routes)]
     };
+  },
+  devServer: {
+    progress: false
   }
 };

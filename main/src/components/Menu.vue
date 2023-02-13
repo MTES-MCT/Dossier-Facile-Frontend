@@ -33,6 +33,7 @@
         :href="`${MAIN_URL}/contact`"
         :aria-current="currentPage() === 'Contact' ? 'page' : false"
         class="fr-nav__link tag-container"
+        id="contact-us"
       >
         <div class="fr-tag">
           <span class="material-icons" aria-hidden="true">mail_outline</span>

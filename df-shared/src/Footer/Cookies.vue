@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="cookie" v-if="!hidden">
+    <div class="cookie" v-if="!hidden" role="region">
       <p>
         {{ $t("cookies-text") }}
         <router-link to="/mentions-legales">{{ $t("more") }}</router-link>

@@ -20,8 +20,7 @@
     "tsc": "vue-tsc --noEmit",
     "preview": "vite preview",
     "start": "node server.js",
-    "cy:run": "cypress run",
-    "test": "start-server-and-test start http://localhost:3000 cy:run"
+    "cy:run": "cypress run"
   },
   "dependencies": {
     "@gouvfr/dsfr": "^1.5.1",
@@ -48,7 +47,6 @@
     "@typescript-eslint/eslint-plugin": "^5.49.0",
     "@typescript-eslint/parser": "^5.49.0",
     "@vitejs/plugin-vue": "^2.2.0",
-    "cypress": "^10.3.0",
     "eslint": "^8.10.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.4",

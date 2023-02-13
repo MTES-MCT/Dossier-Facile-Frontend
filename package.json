@@ -14,7 +14,8 @@
     "tenant",
     "watermark",
     "df-shared",
-    "df-shared-next"
+    "df-shared-next",
+    "e2e-tests"
   ],
   "scripts": {
     "main": "yarn workspace main",

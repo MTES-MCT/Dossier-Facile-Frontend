@@ -3,7 +3,8 @@ const path = require("path");
 
 module.exports = {
   devServer: {
-    disableHostCheck: true
+    disableHostCheck: true,
+    progress: false
   },
   pluginOptions: {
     i18n: {
