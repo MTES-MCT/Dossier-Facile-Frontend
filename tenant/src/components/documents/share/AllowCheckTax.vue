@@ -47,7 +47,7 @@
       @valid="confirmDecline()"
       @cancel="showConfirmDeclineModal = false"
     >
-      <i18n path="modal.warning-text" tag="p">
+      <i18n path="allowchecktax.modal.warning-text" tag="p">
         <template v-slot:check>
           <span class="fr-text--bold">{{ $t("allowchecktax.modal.automatic-check") }}</span>
         </template>
