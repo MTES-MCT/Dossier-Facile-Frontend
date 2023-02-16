@@ -43,24 +43,24 @@ function getApplicantsCount(p: Property) {
 
 <template>
   <div class="fr-container">
-    <h2 class="fr-h3 fr-mt-3w blue-text">{{ t("title", { name: username }) }}</h2>
+    <h2 class="fr-h3 fr-mt-3w blue-text">{{ t("dashboard.title", { name: username }) }}</h2>
     <NakedCard>
       <div class="fr-grid-row space-between">
-        <h1 class="fr-h4">{{ t("my-properties") }}</h1>
+        <h1 class="fr-h4">{{ t("dashboard.my-properties") }}</h1>
         <div>
-          <Button @onClick="addProperty" :title="t('add-property')" :primary="true">{{
-            t("add-property")
+          <Button @onClick="addProperty" :title="t('dashboard.add-property')" :primary="true">{{
+            t("dashboard.add-property")
           }}</Button>
         </div>
       </div>
 
       <table>
         <tr>
-          <th class="desktop">{{ t("type") }}</th>
-          <th>{{ t("name") }}</th>
-          <th class="desktop">{{ t("address") }}</th>
-          <th>{{ t("applicant") }}</th>
-          <th class="desktop">{{ t("rent") }}</th>
+          <th class="desktop">{{ t("dashboard.type") }}</th>
+          <th>{{ t("dashboard.name") }}</th>
+          <th class="desktop">{{ t("dashboard.address") }}</th>
+          <th>{{ t("dashboard.applicant") }}</th>
+          <th class="desktop">{{ t("dashboard.rent") }}</th>
           <th></th>
         </tr>
         <tr
@@ -82,16 +82,16 @@ function getApplicantsCount(p: Property) {
           <td class="desktop blue-grey">{{ p.address }}</td>
           <td class="blue-grey">
             <span class="tag">
-              {{ t("applicants", { count: getApplicantsCount(p) }) }}
+              {{ t("dashboard.applicants", { count: getApplicantsCount(p) }) }}
             </span>
           </td>
           <td class="desktop text--light-blue">
-            {{ t("rent-cost", { rent: p.rentCost, charges: p.chargesCost }) }}
+            {{ t("dashboard.rent-cost", { rent: p.rentCost, charges: p.chargesCost }) }}
           </td>
           <td class="fr-pr-2w">
             <button
               class="consult-icon"
-              :title="t('consult')"
+              :title="t('dashboard.consult')"
               v-if="p.validated"
               @click="consultProperty(p.id)"
             >
@@ -99,11 +99,11 @@ function getApplicantsCount(p: Property) {
             </button>
             <button
               class="fr-btn fr-btn--secondary"
-              :title="t('edit-title')"
+              :title="t('dashboard.edit-title')"
               v-if="!p.validated"
               @click="editProperty(p.id)"
             >
-              {{ t("edit") }}
+              {{ t("dashboard.edit") }}
             </button>
           </td>
         </tr>
@@ -200,37 +200,3 @@ td:last-child {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "title": "Welcome back, {name}",
-    "my-properties": "My properties",
-    "add-property": "Add a property",
-    "type": "Type",
-    "name": "Name",
-    "address": "Address",
-    "applicant": "Applicant",
-    "rent": "Rent in €",
-    "consult": "Consult the property",
-    "edit": "To finish",
-    "edit-title": "Finish property edition",
-    "applicants": "{count} applicant(s)",
-    "rent-cost": "{rent}€ + {charges}€"
-  },
-  "fr": {
-    "title": "Bon retour parmi nous, {name}",
-    "my-properties": "Mes propriétés",
-    "add-property": "Ajouter une propriété",
-    "type": "Type",
-    "name": "Nom",
-    "address": "Adresse",
-    "applicant": "Candidatures",
-    "rent": "Loyer en €",
-    "consult": "Consulter la propriété",
-    "edit": "À finaliser",
-    "edit-title": "Finaliser l'édition de la propriété",
-    "applicants": "{count} candidature(s)",
-    "rent-cost": "{rent}€ + {charges}€"
-  }
-}
-</i18n>

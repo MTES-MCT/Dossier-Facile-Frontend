@@ -4,7 +4,7 @@
     <div class="fr-container position--relative mt-100 fr-mb-5w">
       <div class="fr-grid-row space-between fr-mb-3w">
         <div class="fr-grid-row">
-          <h1 class="title">{{ t('apply-to', [p.address]) }}</h1>
+          <h1 class="title">{{ t('propertycontainer.apply-to', [p.address]) }}</h1>
         </div>
       </div>
       <NakedCard class="subtitle">
@@ -14,8 +14,8 @@
           </div>
           <div class="fr-col">
             <div>
-              {{ t(titleKey) }} {{ t('rent1') }} <span class="blue-text">{{ p.rentCost }}€</span>
-              {{ t('rent2') }} <span class="blue-text">{{ p.chargesCost }}€</span>
+              {{ t(titleKey) }} {{ t('propertycontainer.rent1') }} <span class="blue-text">{{ p.rentCost }}€</span>
+              {{ t('propertycontainer.rent2') }} <span class="blue-text">{{ p.chargesCost }}€</span>
             </div>
           </div>
         </div>
@@ -89,17 +89,3 @@ const titleKey = computed(() => {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "apply-to": "Apply to {0}",
-    "rent1": "with a rent of ",
-    "rent2": " and charges of ",
-  },
-  "fr": {
-    "apply-to": "Candidater au {0}",
-    "rent1": "dont le loyer mensuel est de ",
-    "rent2": " et les charges de ",
-  }
-}
-</i18n>

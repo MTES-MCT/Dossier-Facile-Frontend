@@ -28,12 +28,12 @@ function onRegister(user: User) {
       },
       (error) => {
         if (error.response?.data?.errors.filter((e: any) => e.code === 'UniqueEmailActiveAccount') !== undefined) {
-          toast.error(t('duplicate-email').toString(), {
+          toast.error(t('signuppage.duplicate-email').toString(), {
             timeout: 7000,
           });
           return;
         }
-        toast.error(t('register-error').toString(), {
+        toast.error(t('signuppage.register-error').toString(), {
           timeout: 7000,
         });
       },
@@ -71,7 +71,7 @@ function onRegister(user: User) {
       <div class="fr-col-lg-6 fr-col-12 bg-white">
         <div class="fr-mt-2w align-end">
           <router-link to="/" class="fr-tag">
-            {{ t("connect") }}
+            {{ t("signuppage.connect") }}
           </router-link>
         </div>
         <div class="margin-auto max-400">
@@ -85,10 +85,10 @@ function onRegister(user: User) {
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-12">
               <p>
-                {{ t("mail-sent") }}
+                {{ t("signuppage.mail-sent") }}
               </p>
               <p>
-                {{ t("clic-to-confirm") }}
+                {{ t("signuppage.clic-to-confirm") }}
               </p>
             </div>
           </div>
@@ -172,21 +172,3 @@ li {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "connect": "Already signed up ? Connect",
-    "mail-sent": "An email has been sent to the requested address.",
-    "clic-to-confirm": "Please click on the given link to confirm your email and continue you inscription.",
-    "duplicate-email": "This email is already used",
-    "register-error": "An error occured"
-  },
-  "fr": {
-    "connect": "Déjà inscrit ? S'identifier",
-    "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
-    "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre votre inscription.",
-    "duplicate-email": "Cet email est déjà utilisé",
-    "register-error": "Une erreur est survenue"
-  }
-}
-</i18n>

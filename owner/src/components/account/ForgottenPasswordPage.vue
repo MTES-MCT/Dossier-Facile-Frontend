@@ -21,7 +21,7 @@ function onForgottenPassword(user: User) {
         isValidModalVisible.value = true;
       },
       () => {
-        toast.error(t('email-not-found').toString(), {
+        toast.error(t('forgottenpasswordpage.email-not-found').toString(), {
           timeout: 7000,
         });
       },
@@ -44,10 +44,10 @@ function closeModal() {
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-12">
               <p>
-                {{ t("mail-sent") }}
+                {{ t("forgottenpasswordpage.mail-sent") }}
               </p>
               <p>
-                {{ t("clic-to-confirm") }}
+                {{ t("forgottenpasswordpage.clic-to-confirm") }}
               </p>
             </div>
           </div>
@@ -57,18 +57,3 @@ function closeModal() {
   </div>
 </template>
 
-<i18n>
-{
-  "en": {
-    "email-not-found": "Email not found",
-    "mail-sent": "An email has been sent to the requested address.",
-    "clic-to-confirm": "Please click on the given link to confirm your email and continue your password modification."
-  },
-  "fr": {
-    "email-not-found": "Email non trouvé",
-    "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
-    "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre le changement de mot de passe."
-  }
-}
-
-</i18n>

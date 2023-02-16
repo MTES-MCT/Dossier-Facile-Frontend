@@ -2,7 +2,7 @@
   <div>
     <div>
       <h2 class="fr-h2 text-center fr-mt-3w fr-mb-5w color--primary">
-        {{ t("title") }}
+        {{ t("register.title") }}
       </h2>
 
       <template v-if="franceConnect">
@@ -25,8 +25,8 @@
                     href="https://franceconnect.gouv.fr/"
                     target="_blank"
                     rel="noopener"
-                    :title="t('whatis-france-connect')"
-                    >{{ t("whatis-france-connect") }}</a
+                    :title="t('register.whatis-france-connect')"
+                    >{{ t("register.whatis-france-connect") }}</a
                   >
                 </p>
               </div>
@@ -34,14 +34,14 @@
           </div>
         </div>
 
-        <div class="separator">{{ t("or") }}</div>
+        <div class="separator">{{ t("register.or") }}</div>
       </template>
 
       <Form @submit="onSubmit">
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-input-group">
-              <label class="fr-label" for="email">{{ t("email") }}</label>
+              <label class="fr-label" for="email">{{ t("register.email") }}</label>
               <Field
                 id="email"
                 name="email"
@@ -56,7 +56,7 @@
                     'fr-input--valid': meta.valid,
                     'fr-input--error': !meta.valid,
                   }"
-                  :placeholder="t('email-placeholder')"
+                  :placeholder="t('register.email-placeholder')"
                   type="email"
                   autocomplete="email"
                 />
@@ -68,7 +68,7 @@
           </div>
           <div class="fr-col-12 fr-mb-1w">
             <div class="fr-input-group">
-              <label class="fr-label" for="password">{{ t("password") }}</label>
+              <label class="fr-label" for="password">{{ t("register.password") }}</label>
               <Field
                 id="password"
                 name="password"
@@ -97,7 +97,7 @@
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-input-group">
               <label class="fr-label" for="confirm-password">
-                {{ t("confirm-password") }}</label
+                {{ t("register.confirm-password") }}</label
               >
               <Field
                 id="confirm-password"
@@ -135,7 +135,7 @@
                 rules="isTrue"
                 :value="true"
               />
-              <label for="terms"><div v-html="t('accept-cgu')"></div></label>
+              <label for="terms"><div v-html="t('register.accept-cgu')"></div></label>
               <ErrorMessage class="fr-error-text" name="terms" v-slot="{ message }">
                 <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
               </ErrorMessage>
@@ -147,7 +147,7 @@
               class="fr-btn full-width-btn"
               type="submit"
             >
-              {{ t("submit") }}
+              {{ t("register.submit") }}
             </button>
           </div>
         </div>
@@ -184,7 +184,7 @@ function generatePlaceholder() {
     "#!?-_.",
   ];
   generatedPwd.value =
-    t("ex") +
+    t("register.ex") +
     [4, 4, 2, 2]
       .map((len, i) =>
         Array(len)
@@ -194,7 +194,7 @@ function generatePlaceholder() {
       )
       .concat()
       .join("")
-      .split("")
+      .split("register.")
       .sort(() => 0.5 - Math.random())
       .join("");
 }
@@ -210,7 +210,7 @@ onMounted(() => {
 });
 
 function onSubmit() {
-  emit("on-register", user);
+  emit("register.on-register", user);
 }
 
 function setScore(s: number) {
@@ -288,47 +288,3 @@ a#social-franceconnect-particulier span {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "title": "Create account",
-    "password": "Password :",
-    "email-placeholder": "E.g.: example{'@'}example.fr",
-    "confirm-password": "Confirm password :",
-    "email": "Email :",
-    "submit": "I create my account",
-    "email-not-valid": "Email not valid",
-    "field-required": "This field is required",
-    "password-not-confirmed": "Password not confirmed",
-    "pwd-not-complex": "Password not secure enough",
-    "accept-cgu": "En cochant cette case et en cliquant sur \"Je crée mon compte\", j’accepte expressément les <a target=\"_blank\" href='https://dossierfacile.fr/mentions-legales#cgu'>Conditions générales d’utilisation</a> de DossierFacile et je comprends que mes données personnelles seront utilisées conformément à la <a target=\"_blank\" href='https://dossierfacile.fr/mentions-legales#politique-de-confidentialite'>Politique de confidentialité</a> de DossierFacile",
-    "require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer",
-    "ex": "E.g.: ",
-    "or": "or",
-    "connect-france-connect": "Connect with FranceConnect",
-    "whatis-france-connect": "What is FranceConnect ?",
-    "strength-not-valid": "Password is too easy",
-    "confirm-not-valid": "Password not valid"
-  },
-  "fr": {
-    "title": "Rejoindre DossierFacile",
-    "password": "Votre mot de passe :",
-    "confirm-password": "Confirmation de votre mot de passe :",
-    "email-placeholder": "Ex : exemple{'@'}exemple.fr",
-    "email": "Votre e-mail :",
-    "submit": "Je crée mon compte",
-    "email-not-valid": "Email non valide",
-    "field-required": "Ce champ est requis",
-    "password-not-confirmed": "Le mot de passe ne correspond pas",
-    "pwd-not-complex": "Mot de passe trop simple",
-    "accept-cgu": "En cochant cette case et en cliquant sur \"Je crée mon compte\", j’accepte expressément les <a class=\"cgu\" target=\"_blank\" href='https://www.dossierfacile.fr/mentions-legales#cgu'>Conditions générales d’utilisation</a> de DossierFacile et je comprends que mes données personnelles seront utilisées conformément à la <a target=\"_blank\" class=\"cgu\" href='https://www.dossierfacile.fr/mentions-legales#politique-de-confidentialite'>Politique de confidentialité</a> de DossierFacile",
-    "require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer",
-    "ex": "Ex : ",
-    "or": "Ou",
-    "connect-france-connect": "Se connecter avec FranceConnect",
-    "whatis-france-connect": "Qu'est-ce que FranceConnect ?",
-    "strength-not-valid": "Le mot de passe est trop simple",
-    "confirm-not-valid": "Le mot de passe ne correspond pas"
-  }
-}
-</i18n>

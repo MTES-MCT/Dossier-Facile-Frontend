@@ -32,7 +32,7 @@ const getParams = id ? { id } : {};
         <div class="step-number">1</div>
         <div class="step-title">
           <router-link :to="{ name: 'AccountName' }" class="fr-link">
-            {{ t('personal-information') }}</router-link
+            {{ t('leftmenu.personal-information') }}</router-link
           >
         </div>
       </div>
@@ -47,7 +47,7 @@ const getParams = id ? { id } : {};
         <div class="step-number">2</div>
         <div class="step-title">
           <router-link :to="{ name: 'PropertyName', params: getParams }" class="fr-link">
-            {{ t('add-property') }}</router-link
+            {{ t('leftmenu.add-property') }}</router-link
           >
         </div>
       </div>
@@ -55,24 +55,27 @@ const getParams = id ? { id } : {};
         <div class="ml-5">
           <router-link :to="{ name: 'PropertyName', params: getParams }" class="fr-link">
             <ColoredTag
-              :text="propertyName ? propertyName : t('property-name')"
+              :text="propertyName ? propertyName : t('leftmenu.property-name')"
               :status="propertyName ? 'FILLED' : 'EMPTY'"
             ></ColoredTag>
           </router-link>
         </div>
         <div class="ml-5">
           <router-link :to="{ name: 'PropertyType', params: getParams }" class="fr-link">
-            <ColoredTag :text="t('property-type')" :status="typeStatus"></ColoredTag>
+            <ColoredTag :text="t('leftmenu.property-type')" :status="typeStatus"></ColoredTag>
           </router-link>
         </div>
         <div class="ml-5">
           <router-link :to="{ name: 'PropertyAddress', params: getParams }" class="fr-link">
-            <ColoredTag :text="t('property-address')" :status="addressStatus"></ColoredTag>
+            <ColoredTag :text="t('leftmenu.property-address')" :status="addressStatus"></ColoredTag>
           </router-link>
         </div>
         <div class="ml-5">
           <router-link :to="{ name: 'PropertyFurniture', params: getParams }" class="fr-link">
-            <ColoredTag :text="t('property-furniture')" :status="furnitureStatus"></ColoredTag>
+            <ColoredTag
+              :text="t('leftmenu.property-furniture')"
+              :status="furnitureStatus"
+            ></ColoredTag>
           </router-link>
         </div>
         <div class="ml-5">
@@ -82,7 +85,10 @@ const getParams = id ? { id } : {};
         </div>
         <div class="ml-5">
           <router-link :to="{ name: 'PropertyRent', params: getParams }" class="fr-link">
-            <ColoredTag :text="t('monthly-rent-and-charges')" :status="rentStatus"></ColoredTag>
+            <ColoredTag
+              :text="t('leftmenu.monthly-rent-and-charges')"
+              :status="rentStatus"
+            ></ColoredTag>
           </router-link>
         </div>
       </div>
@@ -90,7 +96,7 @@ const getParams = id ? { id } : {};
         <div class="step-number">3</div>
         <div class="step-title">
           <router-link :to="{ name: 'ValidateProperty', params: getParams }" class="fr-link">
-            {{ t('validate-property') }}</router-link
+            {{ t('leftmenu.validate-property') }}</router-link
           >
         </div>
       </div>
@@ -172,30 +178,3 @@ const getParams = id ? { id } : {};
   font-size: 14px;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "personal-information": "My personal data",
-    "add-property": "I add my property",
-    "validate-property": "I validate my property",
-    "monthly-rent-and-charges": "Monthly rent and charges",
-    "property-name": "Property name",
-    "property-type": "Type of rent",
-    "property-furniture": "Furniture",
-    "property-address": "Property address",
-    "property-living-space": "Living space"
-  },
-  "fr": {
-    "personal-information": "Mes informations personnelles",
-    "add-property": "J'ajoute un bien",
-    "validate-property": "Je valide ma propriété",
-    "monthly-rent-and-charges": "Loyer et charges mensuels",
-    "property-name": "Nom de la propriété",
-    "property-type": "Type de logement",
-    "property-furniture": "Ameublement",
-    "property-address": "Adresse du logement",
-    "property-living-space": "Surface"
-  }
-}
-</i18n>

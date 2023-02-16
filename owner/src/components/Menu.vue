@@ -23,7 +23,7 @@ function currentPage() {
 }
 
 function changeLang() {
-  emit('on-change-lang');
+  emit('menu.on-change-lang');
 }
 
 function getLanguageSwitchLabel() {
@@ -36,12 +36,12 @@ function getLanguageSwitchLabel() {
   <ul class="fr-nav__list">
     <li class="fr-nav__item">
       <a :href="`${MAIN_URL}/information`" class="fr-nav__link">
-        {{ t('information') }}
+        {{ t('menu.information') }}
       </a>
     </li>
     <li class="fr-nav__item">
       <a :href="`${MAIN_URL}/blog`" class="fr-nav__link">
-        {{ t('blog') }}
+        {{ t('menu.blog') }}
       </a>
     </li>
     <li class="fr-nav__item">
@@ -51,7 +51,7 @@ function getLanguageSwitchLabel() {
         target="_blank"
         rel="noreferrer"
       >
-        {{ t('help') }}
+        {{ t('menu.help') }}
       </a>
     </li>
     <li class="fr-nav__item break" v-show="isLoggedIn">
@@ -63,7 +63,7 @@ function getLanguageSwitchLabel() {
           currentPage() === 'AccountName' || currentPage() === 'Dashboard' ? true : undefined
         "
       >
-        {{ t('account') }}
+        {{ t('menu.account') }}
       </button>
       <div class="fr-collapse fr-menu" id="menu-774">
         <ul class="fr-menu__list">
@@ -73,7 +73,7 @@ function getLanguageSwitchLabel() {
               href="/proprietaire"
               target="_self"
               v-bind:aria-current="currentPage() === 'AccountName' ? 'page' : undefined"
-              >{{ t('personal-data') }}</a
+              >{{ t('menu.personal-data') }}</a
             >
           </li>
           <li>
@@ -82,12 +82,12 @@ function getLanguageSwitchLabel() {
               href="/"
               target="_self"
               v-bind:aria-current="currentPage() === 'Dashboard' ? 'page' : undefined"
-              >{{ t('dashboard') }}</a
+              >{{ t('menu.dashboard') }}</a
             >
           </li>
           <li class="warn">
             <DfButton class="fr-nav__link" @on-click="isDeleteModalVisible = true">
-              {{ t('deleteAccount') }}
+              {{ t('menu.deleteAccount') }}
             </DfButton>
             <DeleteAccount
               @close="isDeleteModalVisible = false"
@@ -105,7 +105,7 @@ function getLanguageSwitchLabel() {
       >
         <div class="fr-tag">
           <span class="material-icons" aria-hidden="true">mail_outline</span>
-          {{ t('contact-us') }}
+          {{ t('menu.contact-us') }}
         </div>
       </a>
     </li>
@@ -168,29 +168,3 @@ function getLanguageSwitchLabel() {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "account": "Account",
-    "dashboard": "File",
-    "messaging": "Messaging",
-    "help": "Help",
-    "blog": "Blog",
-    "information": "Information",
-    "deleteAccount": "Delete my account",
-    "contact-us": "contact us",
-    "personal-data": "My personal data"
-  },
-  "fr": {
-    "dashboard": "Mes propriétés",
-    "account": "Mon compte",
-    "messaging": "Messagerie",
-    "help": "Aide",
-    "blog": "Blog",
-    "deleteAccount": "Supprimer mon compte",
-    "information": "Qui sommes-nous?",
-    "contact-us": "Nous contacter",
-    "personal-data": "Mes informations personnelles"
-  }
-}
-</i18n>

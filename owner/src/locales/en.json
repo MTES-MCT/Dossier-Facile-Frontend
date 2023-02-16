@@ -1,4 +1,12 @@
 {
+  "ALONE": "Alone",
+  "COUPLE": "Couple",
+  "GROUP": "Roommate",
+  "TO_PROCESS": "to process",
+  "VALIDATED": "validated",
+  "DECLINED": "declined",
+  "INCOMPLETE": "incomplete",
+  "property-living-space": "Living space",
   "email-required": "Email is required",
   "field-required": "This field is required",
   "house-furnished": "A furnished house",
@@ -8,5 +16,264 @@
   "other-furnished": "A furnished property",
   "other-unfurnished": "A unfurnished property",
   "number-not-positive": "The price must be more than 0",
-  "number-not-positive-or-null": "The price must be more or equal to 0"
+  "number-not-positive-or-null": "The price must be more or equal to 0",
+  "account": {
+    "title": "Welcome to your owner space. Let's add your property together",
+    "subtitle": "Let's start with your personal identity information."
+  },
+  "backnext": {
+    "back": "Back",
+    "continue": "Continue"
+  },
+  "changepasswordpage": {
+    "error": "Error",
+    "password-update": "The password has been updated",
+    "token-expired": "The token has expired, please run the forgotten password process"
+  },
+  "confirmaccountpage": {
+    "loading": "Loading",
+    "error-occured": "An error occured"
+  },
+  "connectproperty": {
+    "title": "consult",
+    "back": "Back",
+    "modify-property": "Modify my property",
+    "delete-property": "Delete my property",
+    "will-delete-property": "Are you sure you want to delete this property ?",
+    "will-delete-applicants": "Are you sure you want to delete these applicants?",
+    "share-modal-description": "If you want to give access to your property to a candidate, you can copy your file link and paste it into the message you send him.",
+    "copy-link": "Copy",
+    "share-modal-detail": "The copy button will copy this link to your clipboard",
+    "link-copied": "Link copied",
+    "verified-applicants": "My verified applicants ({count})",
+    "date": "Date",
+    "tenant-name": "Tenant name",
+    "tenant-type": "Tenant type",
+    "tenant-salary": "Monthly income",
+    "guarantor-salary": "Guarantor monthly income",
+    "rate": "Rate effort",
+    "status": "Status",
+    "ALONE": "Alone",
+    "COUPLE": "Couple",
+    "GROUP": "Roommate",
+    "TO_PROCESS": "to process",
+    "VALIDATED": "validated",
+    "DECLINED": "declined",
+    "INCOMPLETE": "incomplete",
+    "apply-existing-account": "Apply using my DossierFacile account.",
+    "apply-new-account": "Apply by creating a new DossierFacile account.",
+    "create-account": "Create a DossierFacile",
+    "authorize": "J'accepte que {0}, propriétaire situé au {1} ait accès aux informations de mon dossier et de ceux de mon(ma) conjoint·e ou de mon(mes) colocataire(s) le cas échéant. Conformément au RGPD, je peux révoquer cette autorisation à tout moment.",
+    "connect": "Connect"
+  },
+  "connectpropertyvalidate": {
+    "loading": "Loading",
+    "error-occured": "An error occured",
+    "title": "Your DossierFacile has been shared with the owner !",
+    "subtitle": "The owner will contact you directly your application is accepted.",
+    "oops-title": "Oops, you can't subscribe",
+    "oops-subtitle": "An error occured, please contact the support",
+    "oops-create-subtitle": "You are not the main tenant, please contact {0}"
+  },
+  "consultproperty": {
+    "title": "consult",
+    "back": "Back",
+    "modify-property": "Modify my property",
+    "delete-property": "Delete my property",
+    "will-delete-property": "Are you sure you want to delete this property ?",
+    "will-delete-applicants": "Are you sure you want to delete these applicants?",
+    "share-modal-title": "The link of my property",
+    "share-modal-description": "If you want to give access to your property to a candidate, you can copy your file link and paste it into the message you send him.",
+    "copy-link": "Copy",
+    "share-modal-detail": "The copy button will copy this link to your clipboard",
+    "link-copied": "Link copied",
+    "verified-applicants": "My verified applicants ({count})",
+    "date": "Date",
+    "tenant-name": "Tenant name",
+    "tenant-type": "Tenant type",
+    "tenant-salary": "Monthly income",
+    "guarantor-salary": "Guarantor monthly income",
+    "rate": "Rate effort",
+    "status": "Status",
+    "ALONE": "Alone",
+    "COUPLE": "Couple",
+    "GROUP": "Roommate",
+    "TO_PROCESS": "to process",
+    "VALIDATED": "validated",
+    "DECLINED": "declined",
+    "INCOMPLETE": "incomplete",
+    "house-furnished": "A furnished house",
+    "house-unfurnished": "An unfurnished house",
+    "apartment-furnished": "A furnished apartment",
+    "apartment-unfurnished": "A unfurnished apartment",
+    "other-furnished": "A furnished property",
+    "other-unfurnished": "A unfurnished property",
+    "rent": "with a rent of <span class='blue-text'>{rentCost}€</span> and charges of <span class='blue-text'>{chargesCost}€</span>",
+    "download-full-file": "Download the full file",
+    "income": "of income",
+    "delete-applicants": "Delete applicants",
+    "share-btn": "Share my property",
+    "update-btn": "Update my property",
+    "delete-btn": "Delete my property",
+    "back-label": "Back"
+  },
+  "dashboard": {
+    "title": "Welcome back, {name}",
+    "my-properties": "My properties",
+    "add-property": "Add a property",
+    "type": "Type",
+    "name": "Name",
+    "address": "Address",
+    "applicant": "Applicant",
+    "rent": "Rent in €",
+    "consult": "Consult the property",
+    "edit": "To finish",
+    "edit-title": "Finish property edition",
+    "applicants": "{count} applicant(s)",
+    "rent-cost": "{rent}€ + {charges}€"
+  },
+  "deleteaccount": {
+    "confirm-delete": "Please confirm the complete deletion of the account :",
+    "validate": "Delete my account",
+    "validate-mobile": "Delete",
+    "cancel": "Cancel",
+    "title": "Account deletion",
+    "title-mobile": "Deletion",
+    "delete": "Delete",
+    "try-again": "An error occured, please try again later."
+  },
+  "forgottenpasswordpage": {
+    "email-not-found": "Email not found",
+    "mail-sent": "An email has been sent to the requested address.",
+    "clic-to-confirm": "Please click on the given link to confirm your email and continue your password modification."
+  },
+  "leftmenu": {
+    "personal-information": "My personal data",
+    "add-property": "I add my property",
+    "validate-property": "I validate my property",
+    "monthly-rent-and-charges": "Monthly rent and charges",
+    "property-name": "Property name",
+    "property-type": "Type of rent",
+    "property-furniture": "Furniture",
+    "property-address": "Property address",
+  },
+  "menu": {
+    "account": "Account",
+    "dashboard": "File",
+    "messaging": "Messaging",
+    "help": "Help",
+    "blog": "Blog",
+    "information": "Information",
+    "deleteAccount": "Delete my account",
+    "contact-us": "contact us",
+    "personal-data": "My personal data"
+  },
+  "nameinformationform": {
+    "title": "I enter my personal information",
+    "subtitle": "Please fill in the information of the person whose name will appear on the rental lease",
+    "lastname": "Lastname",
+    "firstname": "Firstname",
+    "email": "Your email",
+    "field-required": "This field is required",
+    "email-not-valid": "Email not valid",
+    "email-exists": "Email already exists"
+  },
+  "profilefooter": {
+    "back": "Back",
+    "continue": "Continue"
+  },
+  "propertyaddress": {
+    "address-title": "Location",
+    "address-subtitle": "Where is the property?",
+    "address-label": "Address of my property"
+  },
+  "propertylivingspace": {
+    "living-space-title": "Living space",
+    "living-space-subtitle": "Indicate the living space",
+    "living-space-label": "Living space of my property",
+    "living-space-placeholder": "size m²",
+    "number-not-positive": "Living space must be more than zero"
+  },
+  "propertyname": {
+    "name-title": "Property name",
+    "name-subtitle": "Indicate the name of the property.",
+    "name-placeholder": "Property name",
+    "name-label": "Property name"
+  },
+  "propertyrent": {
+    "rent-title": "Rent and charges",
+    "rent-subtitle": "Indicate the amount of rent requested as well as the associated charges.",
+    "monthly-rent": "Monthly rent",
+    "rent-amount": "Rent amount",
+    "monthly-charges": "Monthly charges",
+    "charges-amount": "Charges amount"
+  },
+  "propertytype": {
+    "type-title": "Property type",
+    "type-subtitle": "What type of property do you offer to rent ?",
+    "house": "House",
+    "apartment": "Apartment",
+    "other": "Other"
+  },
+  "propertyfurniture": {
+    "furniture-title": "Furniture",
+    "furniture-subtitle": "What type of property do you offer to rent ?",
+    "furnished": "Furnished",
+    "unfurnished": "Unfurnished"
+  },
+  "register": {
+    "title": "Create account",
+    "password": "Password :",
+    "email-placeholder": "E.g.: example{'@'}example.fr",
+    "confirm-password": "Confirm password :",
+    "email": "Email :",
+    "submit": "I create my account",
+    "email-not-valid": "Email not valid",
+    "field-required": "This field is required",
+    "password-not-confirmed": "Password not confirmed",
+    "pwd-not-complex": "Password not secure enough",
+    "accept-cgu": "En cochant cette case et en cliquant sur \"Je crée mon compte\", j’accepte expressément les <a target=\"_blank\" href='https://dossierfacile.fr/mentions-legales#cgu'>Conditions générales d’utilisation</a> de DossierFacile et je comprends que mes données personnelles seront utilisées conformément à la <a target=\"_blank\" href='https://dossierfacile.fr/mentions-legales#politique-de-confidentialite'>Politique de confidentialité</a> de DossierFacile",
+    "require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer",
+    "ex": "E.g.: ",
+    "or": "or",
+    "connect-france-connect": "Connect with FranceConnect",
+    "whatis-france-connect": "What is FranceConnect ?",
+    "strength-not-valid": "Password is too easy",
+    "confirm-not-valid": "Password not valid"
+  },
+  "signuppage": {
+    "connect": "Already signed up ? Connect",
+    "mail-sent": "An email has been sent to the requested address.",
+    "clic-to-confirm": "Please click on the given link to confirm your email and continue you inscription.",
+    "duplicate-email": "This email is already used",
+    "register-error": "An error occured"
+  },
+  "topmenu": {
+    "personal-information": "My personal data",
+    "add-property": "I add my property",
+    "validate-property": "I validate my property",
+    "monthly-rent-and-charges": "Monthly rent and charges",
+    "property-name": "Property name",
+    "property-type": "Type of rent",
+    "property-address": "Property address",
+    "property-furniture": "Furniture",
+    "edit-property": "Property edit"
+  },
+  "updaterowbtn": {
+    "update": "Update"
+  },
+  "validateproperty": {
+    "validate-title": "I confirm the accuracy of the information",
+    "validate-subtitle": "I read and tick the following box to validate my file.",
+    "required": "This field is required",
+    "authorize": "Je certifie sur l'honneur l'exactitude des informations de mon bien",
+    "error-title": "Property not complete",
+    "property-not-valid": "Your property is not valid, please complete the missing fields to submit your property",
+    "property-name": "Property name",
+    "property-type": "Type of rent",
+    "property-furniture": "Furniture",
+    "property-address": "Property address",
+    "property-rent": "Property rent",
+    "try-again": "Please fix errors to submit the property"
+  }
 }

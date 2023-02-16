@@ -43,8 +43,8 @@ function onBack() {
 
 <template>
   <PropertyPage @on-back="onBack" @submit="onSubmit">
-    <h1 class="fr-h4">{{ t("type-title") }}</h1>
-    <p class="fr-mb-md-7w">{{ t("type-subtitle") }}</p>
+    <h1 class="fr-h4">{{ t("propertytype.type-title") }}</h1>
+    <p class="fr-mb-md-7w">{{ t("propertytype.type-subtitle") }}</p>
     <div>
       <Field
         name="type"
@@ -63,7 +63,7 @@ function onBack() {
           <div class="icon-container desktop">
             <div class="material-icons md-36 icon-color">apartment</div>
           </div>
-          <div class="fr-mb-md-5w fr-m-2w">{{ t("apartment") }}</div>
+          <div class="fr-mb-md-5w fr-m-2w">{{ t("propertytype.apartment") }}</div>
         </div>
       </label>
       <Field
@@ -83,7 +83,7 @@ function onBack() {
           <div class="icon-container desktop">
             <div class="material-icons md-36 icon-color">home</div>
           </div>
-          <div class="fr-mb-md-5w fr-m-2w">{{ t("house") }}</div>
+          <div class="fr-mb-md-5w fr-m-2w">{{ t("propertytype.house") }}</div>
         </div>
       </label>
       <Field
@@ -103,7 +103,7 @@ function onBack() {
           <div class="icon-container desktop">
             <div class="material-icons md-36 icon-color">domain</div>
           </div>
-          <div class="fr-mb-md-5w fr-m-2w">{{ t("other") }}</div>
+          <div class="fr-mb-md-5w fr-m-2w">{{ t("propertytype.other") }}</div>
         </div>
       </label>
       <ErrorMessage name="type" v-slot="{ message }">
@@ -186,21 +186,3 @@ input[type="radio"] {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "type-title": "Property type",
-    "type-subtitle": "What type of property do you offer to rent ?",
-    "house": "House",
-    "apartment": "Apartment",
-    "other": "Other"
-  },
-  "fr": {
-    "type-title": "Type de logement",
-    "type-subtitle": "Quel logement proposez-vous à la location ?",
-    "house": "Une maison",
-    "apartment": "Un appartement",
-    "other": "Autres"
-  }
-}
-</i18n>

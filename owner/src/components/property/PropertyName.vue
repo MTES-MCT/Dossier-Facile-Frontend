@@ -40,10 +40,10 @@ function onBack() {
 
 <template>
   <PropertyPage @on-back="onBack" @submit="onSubmit">
-    <h1 class="fr-h4">{{ t("name-title") }}</h1>
-    <p>{{ t("name-subtitle") }}</p>
+    <h1 class="fr-h4">{{ t("propertyname.name-title") }}</h1>
+    <p>{{ t("propertyname.name-subtitle") }}</p>
     <p>
-      <label class="fr-label" for="name">{{ t("name-label") }} :</label>
+      <label class="fr-label" for="name">{{ t("propertyname.name-label") }} :</label>
       <Field
         id="name"
         name="name"
@@ -60,7 +60,7 @@ function onBack() {
             'fr-input--valid': meta.valid,
             'fr-input--error': !meta.valid,
           }"
-          :placeholder="t('name-placeholder')"
+          :placeholder="t('propertyname.name-placeholder')"
           type="text"
         />
       </Field>
@@ -71,19 +71,3 @@ function onBack() {
   </PropertyPage>
 </template>
 
-<i18n>
-{
-  "en": {
-    "name-title": "Property name",
-    "name-subtitle": "Indicate the name of the property.",
-    "name-placeholder": "Property name",
-    "name-label": "Property name"
-  },
-  "fr": {
-    "name-title": "Nom de la propriété",
-    "name-subtitle": "Choisissez un nom pour la propriété (par exemple l'adresse)",
-    "name-placeholder": "Nom de la propriété",
-    "name-label": "Nom de la propriété"
-  }
-}
-</i18n>

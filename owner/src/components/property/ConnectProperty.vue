@@ -4,8 +4,8 @@
       <div class="fr-col-12 fr-col-md-7">
         <NakedCard class="bg-purple-var fr-p-5w h-100">
           <Form @submit="onSubmit" class="h-100 fr-grid-col">
-            <h2 class="fr-h4">{{ t('apply-existing-account') }}</h2>
-            <div>{{ t('apply-existing-text') }}</div>
+            <h2 class="fr-h4">{{ t('connectproperty.apply-existing-account') }}</h2>
+            <div>{{ t('connectproperty.apply-existing-text') }}</div>
 
             <div class="bg-purple fr-checkbox-group">
               <Field
@@ -17,15 +17,15 @@
                 :value="true"
               />
               <label for="authorize"
-                ><div>{{ t('authorize', [p.ownerName, p.address]) }}</div></label
+                ><div>{{ t('connectproperty.authorize', [p.ownerName, p.address]) }}</div></label
               >
               <ErrorMessage class="fr-error-text" name="authorize" v-slot="{ message }">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
             <div class="mt-auto align-end">
-              <DfButton type="submit" :title="t('create-account')" :primary="true">
-                {{ t('connect') }}
+              <DfButton type="submit" :title="t('connectproperty.create-account')" :primary="true">
+                {{ t('connectproperty.connect') }}
               </DfButton>
             </div>
           </Form>
@@ -33,15 +33,15 @@
       </div>
       <div class="fr-col-12 fr-col-md-5">
         <NakedCard class="fr-p-5w h-100 fr-grid-col">
-          <h2 class="fr-h4">{{ t('apply-new-account') }}</h2>
+          <h2 class="fr-h4">{{ t('connectproperty.apply-new-account') }}</h2>
           <p>
-            {{ t('apply-new-text-1') }}
+            {{ t('connectproperty.apply-new-text-1') }}
           </p>
           <p>
-            {{ t('apply-new-text-2') }}
+            {{ t('connectproperty.apply-new-text-2') }}
           </p>
           <div class="align-end mt-auto">
-            <a :href="`${TENANT_URL}/signup`" class="fr-btn fr-mt-3w">{{ t('create-account') }}</a>
+            <a :href="`${TENANT_URL}/signup`" class="fr-btn fr-mt-3w">{{ t('connectproperty.create-account') }}</a>
           </div>
         </NakedCard>
       </div>
@@ -103,74 +103,3 @@ function onSubmit() {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "title": "consult",
-    "back": "Back",
-    "modify-property": "Modify my property",
-    "delete-property": "Delete my property",
-    "will-delete-property": "Are you sure you want to delete this property ?",
-    "will-delete-applicants": "Are you sure you want to delete these applicants?",
-    "share-modal-description": "If you want to give access to your property to a candidate, you can copy your file link and paste it into the message you send him.",
-    "copy-link": "Copy",
-    "share-modal-detail": "The copy button will copy this link to your clipboard",
-    "link-copied": "Link copied",
-    "verified-applicants": "My verified applicants ({count})",
-    "date": "Date",
-    "tenant-name": "Tenant name",
-    "tenant-type": "Tenant type",
-    "tenant-salary": "Monthly income",
-    "guarantor-salary": "Guarantor monthly income",
-    "rate": "Rate effort",
-    "status": "Status",
-    "ALONE": "Alone",
-    "COUPLE": "Couple",
-    "GROUP": "Roommate",
-    "TO_PROCESS": "to process",
-    "VALIDATED": "validated",
-    "DECLINED": "declined",
-    "INCOMPLETE": "incomplete",
-    "apply-existing-account": "Apply using my DossierFacile account.",
-    "apply-new-account": "Apply by creating a new DossierFacile account.",
-    "create-account": "Create a DossierFacile",
-    "authorize": "J'accepte que {0}, propriétaire situé au {1} ait accès aux informations de mon dossier et de ceux de mon(ma) conjoint·e ou de mon(mes) colocataire(s) le cas échéant. Conformément au RGPD, je peux révoquer cette autorisation à tout moment.",
-    "connect": "Connect"
-  },
-  "fr": {
-    "title": "Consultation",
-    "back": "Retour",
-    "modify-property": "Modifier ma propriété",
-    "delete-property": "Supprimer ma propriété",
-    "will-delete-property": "Voulez-vous vraiment supprimer cette propriété ?",
-    "will-delete-applicants": "Voulez-vous vraiment supprimer ce(s) locataire(s) ?",
-    "share-modal-description": "Si vous voulez donner accès à votre propriété à un candidat, vous pouvez copier votre lien dossier et le coller dans le message que vous lui enverrez.",
-    "copy-link": "Copier",
-    "share-modal-detail": "Le bouton copier copiera ce lien dans votre presse papier",
-    "link-copied": "Lien copié",
-    "verified-applicants": "Mes candidatures vérifiées ({count})",
-    "date": "Date de dernière modification",
-    "tenant-name": "Nom du locataire",
-    "tenant-type": "Type de dossier",
-    "tenant-salary": "Revenus nets mensuels",
-    "guarantor-salary": "Revenus Garants nets mensuels",
-    "rate": "Taux d'effort",
-    "status": "Statut",
-    "ALONE": "Seul·e",
-    "COUPLE": "Couple",
-    "GROUP": "Colocation",
-    "TO_PROCESS": "En cours de traitement",
-    "VALIDATED": "Vérifié",
-    "DECLINED": "Modification demandée",
-    "INCOMPLETE": "Non terminé",
-    "apply-existing-account": "Candidater en utilisant mon compte DossierFacile.",
-    "apply-new-account": "Candidater en créant un compte DossierFacile.",
-    "apply-existing-text": "DossierFacile est une startup d'État qui vous permet de créer votre dossier de location intelligent et de le partager avec des propriétaires",
-    "apply-new-text-1": "Si vous n'avez pas de compte, vous pouvez en créer un et revenir ultérieurement sur cette page.",
-    "apply-new-text-2": "Notre dossier est facile à remplir (en moins de 3 minutes c'est promis) et en plus il est conforme à la loi et réutilisable pour toutes vos autres visites !",
-    "create-account": "Créer un DossierFacile",
-    "authorize": "J'accepte que {0}, propriétaire situé au {1} ait accès aux informations de mon dossier et de ceux de mon(ma) conjoint·e ou de mon(mes) colocataire(s) le cas échéant. Conformément au RGPD, je peux révoquer cette autorisation à tout moment.",
-    "connect": "Se connecter"
-  }
-}
-</i18n>

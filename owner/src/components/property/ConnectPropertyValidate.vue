@@ -1,14 +1,14 @@
 <template>
   <PropertyContainer>
     <div class="fr-container">
-      <div v-if="!showError && !showSuccess">{{ t('loading') }}</div>
+      <div v-if="!showError && !showSuccess">{{ t('connectpropertyvalidate.loading') }}</div>
       <div v-if="showError" class="box-container">
         <div class="fr-col-12 fr-col-md-7">
           <NakedCard class="fr-mt-3w bg-purple-var fr-p-5w h-100">
             <p style="font-size:40px">🙊</p>
-            <h2 class="fr-h5">{{ t('oops-title') }}</h2>
-            <div v-if="!isCreate">{{ t('oops-create-subtitle', [mainTenantFirstname]) }}</div>
-            <div v-if="isCreate">{{ t('oops-subtitle') }}</div>
+            <h2 class="fr-h5">{{ t('connectpropertyvalidate.oops-title') }}</h2>
+            <div v-if="!isCreate">{{ t('connectpropertyvalidate.oops-create-subtitle', [mainTenantFirstname]) }}</div>
+            <div v-if="isCreate">{{ t('connectpropertyvalidate.oops-subtitle') }}</div>
             <div class="right-btn-container">
               <a class="fr-mt-7w fr-btn" :href="TENANT_URL">Retourner à mon DossierFacile</a>
             </div>
@@ -19,8 +19,8 @@
         <div class="fr-col-12 fr-col-md-7">
           <NakedCard class="fr-mt-3w bg-purple-var fr-p-5w h-100">
             <p style="font-size:40px">🎉</p>
-            <h2 class="fr-h5">{{ t('title') }}</h2>
-            <div>{{ t('subtitle') }}</div>
+            <h2 class="fr-h5">{{ t('connectpropertyvalidate.title') }}</h2>
+            <div>{{ t('connectpropertyvalidate.subtitle') }}</div>
             <div class="right-btn-container">
               <a class="fr-mt-7w fr-btn" :href="TENANT_URL">Retourner à mon DossierFacile</a>
             </div>
@@ -130,26 +130,3 @@ onMounted(() => {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "loading": "Loading",
-    "error-occured": "An error occured",
-    "title": "Your DossierFacile has been shared with the owner !",
-    "subtitle": "The owner will contact you directly your application is accepted.",
-    "oops-title": "Oops, you can't subscribe",
-    "oops-subtitle": "An error occured, please contact the support",
-    "oops-create-subtitle": "You are not the main tenant, please contact {0}"
-  },
-  "fr": {
-    "loading": "Veuillez patienter",
-    "error-occured": "Une erreur est survenue",
-    "title": "Votre DossierFacile a bien été partagé avec le propriétaire !",
-    "subtitle": "Ce dernier prendra directement contact avec vous si votre dossier est retenu.",
-    "oops-title": "Oups, vous ne pouvez pas candidater…",
-    "oops-subtitle": "Une erreur est survenue, veuillez prendre contact avec le support.",
-    "oops-create-subtitle": "car vous n’êtes pas l’initiateur du dossier de colocation DossierFacile. Prenez contact avec {0} afin qu’il.elle candidate en vos noms."
-  }
-}
-
-</i18n>
