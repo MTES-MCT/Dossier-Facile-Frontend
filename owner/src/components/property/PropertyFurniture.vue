@@ -61,7 +61,7 @@ function onBack() {
       >
         <div class="fr-grid-col">
           <div class="icon-container desktop">
-            <img svg-inline src="../../assets/ico_vide.svg" aria-label="icone meublé" />
+            <img alt="" svg-inline src="../../assets/ico_vide.svg" aria-label="icone meublé" />
           </div>
           <div class="fr-mb-md-5w fr-m-2w">{{ t('propertyfurniture.unfurnished') }}</div>
         </div>
@@ -81,7 +81,12 @@ function onBack() {
       >
         <div class="fr-grid-col">
           <div class="icon-container desktop">
-            <img svg-inline src="../../assets/ico_meuble.svg" aria-label="icone non meublé" />
+            <img
+              alt=""
+              svg-inline
+              src="../../assets/ico_meuble.svg"
+              aria-label="icone non meublé"
+            />
           </div>
           <div class="fr-mb-md-5w fr-m-2w">{{ t('propertyfurniture.furnished') }}</div>
         </div>
