@@ -8,7 +8,7 @@
               <span class="text-danger material-icons-outlined md-38 fr-pr-1w"
                 >cancel</span
               >
-              {{ t("title") }}
+              {{ t("deleteaccount.title") }}
             </h4>
           </div>
         </div>
@@ -18,7 +18,7 @@
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-10">
               <div class="fr-mb-3w">
-                <p>{{ t("confirm-delete") }}</p>
+                <p>{{ t("deleteaccount.confirm-delete") }}</p>
               </div>
               <div class="align--right">
                 <DfButton
@@ -26,14 +26,14 @@
                   class="fr-mr-3w"
                   type="button"
                   @on-click="undoSelect()"
-                  >{{ t("cancel") }}</DfButton
+                  >{{ t("deleteaccount.cancel") }}</DfButton
                 >
                 <DfButton
                   type="submit"
                   :title="t('deleteaccount.delete')"
                   :primary="true"
                   >{{
-                    isMobile() ? t("validate-mobile") : t("validate")
+                    isMobile() ? t("deleteaccount.validate-mobile") : t("validate")
                   }}</DfButton
                 >
               </div>

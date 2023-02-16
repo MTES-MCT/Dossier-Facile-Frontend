@@ -44,10 +44,10 @@ function closeModal() {
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-12">
               <p>
-                {{ t("mail-sent") }}
+                {{ t("forgottenpasswordpage.mail-sent") }}
               </p>
               <p>
-                {{ t("clic-to-confirm") }}
+                {{ t("forgottenpasswordpage.clic-to-confirm") }}
               </p>
             </div>
           </div>

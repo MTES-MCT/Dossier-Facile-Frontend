@@ -9,7 +9,7 @@
         @click="backAction()"
       >
         <span class="color--primary material-icons mobile">keyboard_arrow_left</span>
-        <span class="desktop">{{ t("back") }}</span>
+        <span class="desktop">{{ t("backnext.back") }}</span>
       </VGouvFrButton>
       <div v-if="!showBack"></div>
       <div class="fr-grid-row flex-1">

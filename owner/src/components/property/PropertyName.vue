@@ -40,10 +40,10 @@ function onBack() {
 
 <template>
   <PropertyPage @on-back="onBack" @submit="onSubmit">
-    <h1 class="fr-h4">{{ t("name-title") }}</h1>
-    <p>{{ t("name-subtitle") }}</p>
+    <h1 class="fr-h4">{{ t("propertyname.name-title") }}</h1>
+    <p>{{ t("propertyname.name-subtitle") }}</p>
     <p>
-      <label class="fr-label" for="name">{{ t("name-label") }} :</label>
+      <label class="fr-label" for="name">{{ t("propertyname.name-label") }} :</label>
       <Field
         id="name"
         name="name"

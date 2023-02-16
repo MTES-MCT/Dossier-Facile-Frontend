@@ -88,10 +88,10 @@ function clickItem(data: Address) {
 
 <template>
   <PropertyPage @on-back="onBack" @submit="onSubmit">
-    <h1 class="fr-h4">{{ t("address-title") }}</h1>
-    <p>{{ t("address-subtitle") }}</p>
+    <h1 class="fr-h4">{{ t("propertyaddress.address-title") }}</h1>
+    <p>{{ t("propertyaddress.address-subtitle") }}</p>
     <div>
-      <label class="fr-label" for="address">{{ t("address-label") }} :</label>
+      <label class="fr-label" for="address">{{ t("propertyaddress.address-label") }} :</label>
       <Field
         id="address"
         name="address"

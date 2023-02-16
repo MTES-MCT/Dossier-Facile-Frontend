@@ -2,12 +2,12 @@
   <div class="fr-mb-15w">
     <Form @submit="onSubmit">
       <NakedCard class="fr-p-5w">
-        <h1>{{ t("title") }}</h1>
-        <p>{{ t("subtitle") }}</p>
+        <h1>{{ t("nameinformationform.title") }}</h1>
+        <p>{{ t("nameinformationform.subtitle") }}</p>
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-input-group">
-              <label class="fr-label" for="lastname">{{ t("lastname") }} :</label>
+              <label class="fr-label" for="lastname">{{ t("nameinformationform.lastname") }} :</label>
               <Field
                 name="lastname"
                 v-model="lastname"
@@ -35,7 +35,7 @@
           </div>
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-input-group">
-              <label for="firstname" class="fr-label">{{ t("firstname") }} :</label>
+              <label for="firstname" class="fr-label">{{ t("nameinformationform.firstname") }} :</label>
               <Field
                 name="firstname"
                 v-model="firstname"
@@ -63,7 +63,7 @@
           </div>
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-input-group">
-              <label for="email" class="fr-label">{{ t("email") }} :</label>
+              <label for="email" class="fr-label">{{ t("nameinformationform.email") }} :</label>
               <Field
                 id="email"
                 name="email"

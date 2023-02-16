@@ -71,7 +71,7 @@ function onRegister(user: User) {
       <div class="fr-col-lg-6 fr-col-12 bg-white">
         <div class="fr-mt-2w align-end">
           <router-link to="/" class="fr-tag">
-            {{ t("connect") }}
+            {{ t("signuppage.connect") }}
           </router-link>
         </div>
         <div class="margin-auto max-400">
@@ -85,10 +85,10 @@ function onRegister(user: User) {
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-12">
               <p>
-                {{ t("mail-sent") }}
+                {{ t("signuppage.mail-sent") }}
               </p>
               <p>
-                {{ t("clic-to-confirm") }}
+                {{ t("signuppage.clic-to-confirm") }}
               </p>
             </div>
           </div>

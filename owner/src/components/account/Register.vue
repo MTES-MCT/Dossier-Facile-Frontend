@@ -2,7 +2,7 @@
   <div>
     <div>
       <h2 class="fr-h2 text-center fr-mt-3w fr-mb-5w color--primary">
-        {{ t("title") }}
+        {{ t("register.title") }}
       </h2>
 
       <template v-if="franceConnect">
@@ -26,7 +26,7 @@
                     target="_blank"
                     rel="noopener"
                     :title="t('register.whatis-france-connect')"
-                    >{{ t("whatis-france-connect") }}</a
+                    >{{ t("register.whatis-france-connect") }}</a
                   >
                 </p>
               </div>
@@ -34,14 +34,14 @@
           </div>
         </div>
 
-        <div class="separator">{{ t("or") }}</div>
+        <div class="separator">{{ t("register.or") }}</div>
       </template>
 
       <Form @submit="onSubmit">
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-input-group">
-              <label class="fr-label" for="email">{{ t("email") }}</label>
+              <label class="fr-label" for="email">{{ t("register.email") }}</label>
               <Field
                 id="email"
                 name="email"
@@ -68,7 +68,7 @@
           </div>
           <div class="fr-col-12 fr-mb-1w">
             <div class="fr-input-group">
-              <label class="fr-label" for="password">{{ t("password") }}</label>
+              <label class="fr-label" for="password">{{ t("register.password") }}</label>
               <Field
                 id="password"
                 name="password"
@@ -97,7 +97,7 @@
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-input-group">
               <label class="fr-label" for="confirm-password">
-                {{ t("confirm-password") }}</label
+                {{ t("register.confirm-password") }}</label
               >
               <Field
                 id="confirm-password"
@@ -147,7 +147,7 @@
               class="fr-btn full-width-btn"
               type="submit"
             >
-              {{ t("submit") }}
+              {{ t("register.submit") }}
             </button>
           </div>
         </div>
@@ -184,7 +184,7 @@ function generatePlaceholder() {
     "#!?-_.",
   ];
   generatedPwd.value =
-    t("ex") +
+    t("register.ex") +
     [4, 4, 2, 2]
       .map((len, i) =>
         Array(len)
@@ -194,7 +194,7 @@ function generatePlaceholder() {
       )
       .concat()
       .join("")
-      .split("")
+      .split("register.")
       .sort(() => 0.5 - Math.random())
       .join("");
 }
@@ -210,7 +210,7 @@ onMounted(() => {
 });
 
 function onSubmit() {
-  emit("on-register", user);
+  emit("register.on-register", user);
 }
 
 function setScore(s: number) {

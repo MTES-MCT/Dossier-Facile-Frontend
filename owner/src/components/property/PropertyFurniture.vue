@@ -43,8 +43,8 @@ function onBack() {
 
 <template>
   <PropertyPage @on-back="onBack" @submit="onSubmit">
-    <h1 class="fr-h4">{{ t("furniture-title") }}</h1>
-    <p>{{ t("furniture-subtitle") }}</p>
+    <h1 class="fr-h4">{{ t("propertyfurniture.furniture-title") }}</h1>
+    <p>{{ t("propertyfurniture.furniture-subtitle") }}</p>
     <p>
       <Field
         name="furniture"
@@ -67,7 +67,7 @@ function onBack() {
               aria-label="icone meublé"
             />
           </div>
-          <div class="fr-mb-md-5w fr-m-2w">{{ t("unfurnished") }}</div>
+          <div class="fr-mb-md-5w fr-m-2w">{{ t("propertyfurniture.unfurnished") }}</div>
         </div>
       </label>
       <Field
@@ -91,7 +91,7 @@ function onBack() {
               aria-label="icone non meublé"
             />
           </div>
-          <div class="fr-mb-md-5w fr-m-2w">{{ t("furnished") }}</div>
+          <div class="fr-mb-md-5w fr-m-2w">{{ t("propertyfurniture.furnished") }}</div>
         </div>
         </label
       >
