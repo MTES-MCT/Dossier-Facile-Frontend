@@ -71,19 +71,3 @@ function onBack() {
   </PropertyPage>
 </template>
 
-<i18n>
-{
-  "en": {
-    "name-title": "Property name",
-    "name-subtitle": "Indicate the name of the property.",
-    "name-placeholder": "Property name",
-    "name-label": "Property name"
-  },
-  "fr": {
-    "name-title": "Nom de la propriété",
-    "name-subtitle": "Choisissez un nom pour la propriété (par exemple l'adresse)",
-    "name-placeholder": "Nom de la propriété",
-    "name-label": "Nom de la propriété"
-  }
-}
-</i18n>

@@ -172,21 +172,3 @@ li {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "connect": "Already signed up ? Connect",
-    "mail-sent": "An email has been sent to the requested address.",
-    "clic-to-confirm": "Please click on the given link to confirm your email and continue you inscription.",
-    "duplicate-email": "This email is already used",
-    "register-error": "An error occured"
-  },
-  "fr": {
-    "connect": "Déjà inscrit ? S'identifier",
-    "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
-    "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre votre inscription.",
-    "duplicate-email": "Cet email est déjà utilisé",
-    "register-error": "Une erreur est survenue"
-  }
-}
-</i18n>

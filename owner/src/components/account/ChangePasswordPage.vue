@@ -43,18 +43,3 @@ function onChangePassword(user: User) {
 }
 </script>
 
-<i18n>
-{
-  "en": {
-    "error": "Error",
-    "password-update": "The password has been updated",
-    "token-expired": "The token has expired, please run the forgotten password process"
-  },
-  "fr": {
-    "error": "Erreur",
-    "password-update": "Le mot de passe a été mis à jour",
-    "token-expired": "Le lien a expiré, veuillez lancer la procédure de mot de passe oublié"
-  }
-}
-
-</i18n>

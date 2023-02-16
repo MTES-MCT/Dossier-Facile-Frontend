@@ -43,13 +43,3 @@ const props = defineProps<{ title: string; to: any }>();
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "update": "Update"
-  },
-  "fr": {
-    "update": "Mettre à jour"
-  }
-}
-</i18n>

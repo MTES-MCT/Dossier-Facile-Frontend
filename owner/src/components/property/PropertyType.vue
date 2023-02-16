@@ -186,21 +186,3 @@ input[type="radio"] {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "type-title": "Property type",
-    "type-subtitle": "What type of property do you offer to rent ?",
-    "house": "House",
-    "apartment": "Apartment",
-    "other": "Other"
-  },
-  "fr": {
-    "type-title": "Type de logement",
-    "type-subtitle": "Quel logement proposez-vous à la location ?",
-    "house": "Une maison",
-    "apartment": "Un appartement",
-    "other": "Autres"
-  }
-}
-</i18n>

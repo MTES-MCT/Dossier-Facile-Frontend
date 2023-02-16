@@ -200,37 +200,3 @@ td:last-child {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "title": "Welcome back, {name}",
-    "my-properties": "My properties",
-    "add-property": "Add a property",
-    "type": "Type",
-    "name": "Name",
-    "address": "Address",
-    "applicant": "Applicant",
-    "rent": "Rent in €",
-    "consult": "Consult the property",
-    "edit": "To finish",
-    "edit-title": "Finish property edition",
-    "applicants": "{count} applicant(s)",
-    "rent-cost": "{rent}€ + {charges}€"
-  },
-  "fr": {
-    "title": "Bon retour parmi nous, {name}",
-    "my-properties": "Mes propriétés",
-    "add-property": "Ajouter une propriété",
-    "type": "Type",
-    "name": "Nom",
-    "address": "Adresse",
-    "applicant": "Candidatures",
-    "rent": "Loyer en €",
-    "consult": "Consulter la propriété",
-    "edit": "À finaliser",
-    "edit-title": "Finaliser l'édition de la propriété",
-    "applicants": "{count} candidature(s)",
-    "rent-cost": "{rent}€ + {charges}€"
-  }
-}
-</i18n>

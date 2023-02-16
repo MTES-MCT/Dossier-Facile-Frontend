@@ -179,19 +179,3 @@ input[type="radio"] {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "furniture-title": "Furniture",
-    "furniture-subtitle": "What type of property do you offer to rent ?",
-    "furnished": "Furnished",
-    "unfurnished": "Unfurnished"
-  },
-  "fr": {
-    "furniture-title": "Aménagement",
-    "furniture-subtitle": "Quel type de logement proposez-vous à la location ?",
-    "furnished": "Meublé",
-    "unfurnished": "Vide",
-  }
-}
-</i18n>

@@ -57,16 +57,3 @@ h2 {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "title": "Welcome to your owner space. Let's add your property together",
-    "subtitle": "Let's start with your personal identity information."
-  },
-  "fr": {
-    "title": "Bienvenue dans votre espace propriétaire. Ajoutons ensemble votre propriété",
-    "subtitle": "Commençons par vos informations personnelles d'identité."
-
-  }
-}
-</i18n>

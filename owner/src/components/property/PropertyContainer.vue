@@ -89,17 +89,3 @@ const titleKey = computed(() => {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "apply-to": "Apply to {0}",
-    "rent1": "with a rent of ",
-    "rent2": " and charges of ",
-  },
-  "fr": {
-    "apply-to": "Candidater au {0}",
-    "rent1": "dont le loyer mensuel est de ",
-    "rent2": " et les charges de ",
-  }
-}
-</i18n>

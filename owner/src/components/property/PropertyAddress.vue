@@ -160,17 +160,3 @@ function clickItem(data: Address) {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "address-title": "Location",
-    "address-subtitle": "Where is the property?",
-    "address-label": "Address of my property"
-  },
-  "fr": {
-    "address-title": "Localisation",
-    "address-subtitle": "Où se trouve votre propriété ?",
-    "address-label": "L'adresse de ma propriété"
-  }
-}
-</i18n>

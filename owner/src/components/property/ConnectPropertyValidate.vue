@@ -130,26 +130,3 @@ onMounted(() => {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "loading": "Loading",
-    "error-occured": "An error occured",
-    "title": "Your DossierFacile has been shared with the owner !",
-    "subtitle": "The owner will contact you directly your application is accepted.",
-    "oops-title": "Oops, you can't subscribe",
-    "oops-subtitle": "An error occured, please contact the support",
-    "oops-create-subtitle": "You are not the main tenant, please contact {0}"
-  },
-  "fr": {
-    "loading": "Veuillez patienter",
-    "error-occured": "Une erreur est survenue",
-    "title": "Votre DossierFacile a bien été partagé avec le propriétaire !",
-    "subtitle": "Ce dernier prendra directement contact avec vous si votre dossier est retenu.",
-    "oops-title": "Oups, vous ne pouvez pas candidater…",
-    "oops-subtitle": "Une erreur est survenue, veuillez prendre contact avec le support.",
-    "oops-create-subtitle": "car vous n’êtes pas l’initiateur du dossier de colocation DossierFacile. Prenez contact avec {0} afin qu’il.elle candidate en vos noms."
-  }
-}
-
-</i18n>

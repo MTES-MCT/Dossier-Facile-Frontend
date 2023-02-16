@@ -57,18 +57,3 @@ function closeModal() {
   </div>
 </template>
 
-<i18n>
-{
-  "en": {
-    "email-not-found": "Email not found",
-    "mail-sent": "An email has been sent to the requested address.",
-    "clic-to-confirm": "Please click on the given link to confirm your email and continue your password modification."
-  },
-  "fr": {
-    "email-not-found": "Email non trouvé",
-    "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
-    "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre le changement de mot de passe."
-  }
-}
-
-</i18n>

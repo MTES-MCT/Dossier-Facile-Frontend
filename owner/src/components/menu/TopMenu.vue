@@ -248,29 +248,3 @@ hr {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "personal-information": "My personal data",
-    "add-property": "I add my property",
-    "validate-property": "I validate my property",
-    "monthly-rent-and-charges": "Monthly rent and charges",
-    "property-name": "Property name",
-    "property-type": "Type of rent",
-    "property-address": "Property address",
-    "property-furniture": "Furniture",
-    "edit-property": "Property edit"
-  },
-  "fr": {
-    "personal-information": "Mes informations personnelles",
-    "add-property": "J'ajoute un bien",
-    "validate-property": "Je valide ma propriété",
-    "monthly-rent-and-charges": "Loyer et charges mensuels",
-    "property-name": "Nom de la propriété",
-    "property-type": "Type de logement",
-    "property-address": "Adresse du logement",
-    "property-furniture": "Ameublement",
-    "edit-property": "Édition de la propriété"
-  }
-}
-</i18n>

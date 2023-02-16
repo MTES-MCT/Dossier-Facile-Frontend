@@ -168,29 +168,3 @@ function getLanguageSwitchLabel() {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "account": "Account",
-    "dashboard": "File",
-    "messaging": "Messaging",
-    "help": "Help",
-    "blog": "Blog",
-    "information": "Information",
-    "deleteAccount": "Delete my account",
-    "contact-us": "contact us",
-    "personal-data": "My personal data"
-  },
-  "fr": {
-    "dashboard": "Mes propriétés",
-    "account": "Mon compte",
-    "messaging": "Messagerie",
-    "help": "Aide",
-    "blog": "Blog",
-    "deleteAccount": "Supprimer mon compte",
-    "information": "Qui sommes-nous?",
-    "contact-us": "Nous contacter",
-    "personal-data": "Mes informations personnelles"
-  }
-}
-</i18n>

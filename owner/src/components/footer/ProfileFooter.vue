@@ -43,15 +43,3 @@ function backAction() {
 
 <style lang="scss"></style>
 
-<i18n>
-{
-"en": {
-  "back": "Back",
-  "continue": "Continue"
-},
-"fr": {
-  "back": "Retour",
-  "continue": "Continuer"
-}
-}
-</i18n>

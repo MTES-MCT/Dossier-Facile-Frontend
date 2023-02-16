@@ -72,21 +72,3 @@ function onBack() {
   </PropertyPage>
 </template>
 
-<i18n>
-{
-  "en": {
-    "living-space-title": "Living space",
-    "living-space-subtitle": "Indicate the living space",
-    "living-space-label": "Living space of my property",
-    "living-space-placeholder": "size m²",
-    "number-not-positive": "Living space must be more than zero"
-  },
-  "fr": {
-    "living-space-title": "Surface",
-    "living-space-subtitle": "Quelle est la surface habitable de votre bien ?",
-    "living-space-label": "Surface de ma propriété",
-    "living-space-placeholder": "taille en m²",
-    "number-not-positive": "La surface doit être supérieur à zéro"
-  }
-}
-</i18n>

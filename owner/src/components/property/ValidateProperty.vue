@@ -134,37 +134,3 @@ function onBack() {
   </PropertyPage>
 </template>
 
-<i18n>
-{
-  "en": {
-    "validate-title": "I confirm the accuracy of the information",
-    "validate-subtitle": "I read and tick the following box to validate my file.",
-    "required": "This field is required",
-    "authorize": "Je certifie sur l'honneur l'exactitude des informations de mon bien",
-    "error-title": "Property not complete",
-    "property-not-valid": "Your property is not valid, please complete the missing fields to submit your property",
-    "property-name": "Property name",
-    "property-type": "Type of rent",
-    "property-furniture": "Furniture",
-    "property-address": "Property address",
-    "property-living-space": "Living space",
-    "property-rent": "Property rent",
-    "try-again": "Please fix errors to submit the property"
-  },
-  "fr": {
-    "validate-title": "Je confirme l'exactitude des informations",
-    "validate-subtitle": "Je lis et je coche la case suivante afin de valider mon dossier.",
-    "required": "La case doit être cochée",
-    "authorize": "Je certifie sur l'honneur l'exactitude des informations de mon bien",
-    "error-title": "Bien invalide",
-    "property-not-valid": "Votre propriété n'est pas valide, veuillez compléter les champs manquants pour soumettre votre bien",
-    "property-name": "Nom de la propriété",
-    "property-type": "Type de logement",
-    "property-furniture": "Ameublement",
-    "property-address": "Adresse du logement",
-    "property-living-space": "Surface",
-    "property-rent": "Loyer et charges mensuels",
-    "try-again": "Veuillez corriger les erreurs pour soumettre la propriété"
-  }
-}
-</i18n>

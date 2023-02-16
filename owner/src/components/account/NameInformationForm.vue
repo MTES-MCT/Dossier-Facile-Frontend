@@ -138,27 +138,3 @@ function onSubmit() {
 }
 </script>
 
-<i18n>
-{
-  "en": {
-    "title": "I enter my personal information",
-    "subtitle": "Please fill in the information of the person whose name will appear on the rental lease",
-    "lastname": "Lastname",
-    "firstname": "Firstname",
-    "email": "Your email",
-    "field-required": "This field is required",
-    "email-not-valid": "Email not valid",
-    "email-exists": "Email already exists"
-  },
-  "fr": {
-    "title": "Je renseigne mes informations personnelles",
-    "subtitle": "Veuillez renseigner les informations de la personne dont le nom figurera sur le bail de location",
-    "lastname": "Nom",
-    "firstname": "Prénom",
-    "email": "Votre email",
-    "field-required": "Ce champ est requis",
-    "email-not-valid": "Email non valide",
-    "email-exists": "L'email existe déjà"
-  }
-}
-</i18n>
