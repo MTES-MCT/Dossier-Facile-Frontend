@@ -2,7 +2,7 @@
   <div>
     <div>
       <h2 class="fr-h2 text-center fr-mt-3w fr-mb-5w color--primary">
-        {{ t("register.title") }}
+        {{ t('register.title') }}
       </h2>
 
       <template v-if="franceConnect">
@@ -10,8 +10,8 @@
           <div>
             <div class="text-center">
               <div class="fr-mt-2w fr-mb-2w small-text">
-                FranceConnect est la solution proposée par l’État pour sécuriser et
-                simplifier la connexion à vos services en ligne
+                FranceConnect est la solution proposée par l’État pour sécuriser et simplifier la
+                connexion à vos services en ligne
               </div>
             </div>
             <div id="kc-social-providers" class="fr-mt-5w fr-mb-1w">
@@ -26,7 +26,7 @@
                     target="_blank"
                     rel="noopener"
                     :title="t('register.whatis-france-connect')"
-                    >{{ t("register.whatis-france-connect") }}</a
+                    >{{ t('register.whatis-france-connect') }}</a
                   >
                 </p>
               </div>
@@ -34,14 +34,14 @@
           </div>
         </div>
 
-        <div class="separator">{{ t("register.or") }}</div>
+        <div class="separator">{{ t('register.or') }}</div>
       </template>
 
       <Form @submit="onSubmit">
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-input-group">
-              <label class="fr-label" for="email">{{ t("register.email") }}</label>
+              <label class="fr-label" for="email">{{ t('register.email') }}</label>
               <Field
                 id="email"
                 name="email"
@@ -62,13 +62,13 @@
                 />
               </Field>
               <ErrorMessage name="email" v-slot="{ message }">
-                <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
           </div>
           <div class="fr-col-12 fr-mb-1w">
             <div class="fr-input-group">
-              <label class="fr-label" for="password">{{ t("register.password") }}</label>
+              <label class="fr-label" for="password">{{ t('register.password') }}</label>
               <Field
                 id="password"
                 name="password"
@@ -90,14 +90,14 @@
               </Field>
               <PasswordMeter @score="setScore" :password="user.password || ''" />
               <ErrorMessage name="password" v-slot="{ message }">
-                <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
           </div>
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-input-group">
               <label class="fr-label" for="confirm-password">
-                {{ t("register.confirm-password") }}</label
+                {{ t('register.confirm-password') }}</label
               >
               <Field
                 id="confirm-password"
@@ -121,33 +121,24 @@
                 />
               </Field>
               <ErrorMessage name="confirm-password" v-slot="{ message }">
-                <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
           </div>
 
           <div class="fr-col-12 fr-mb-3w">
             <div class="bg-purple fr-checkbox-group">
-              <Field
-                name="terms"
-                id="terms"
-                type="checkbox"
-                rules="isTrue"
-                :value="true"
-              />
+              <Field name="terms" id="terms" type="checkbox" rules="isTrue" :value="true" />
               <label for="terms"><div v-html="t('register.accept-cgu')"></div></label>
               <ErrorMessage class="fr-error-text" name="terms" v-slot="{ message }">
-                <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
           </div>
 
           <div class="fr-col-12 text-center fr-mb-5w">
-            <button
-              class="fr-btn full-width-btn"
-              type="submit"
-            >
-              {{ t("register.submit") }}
+            <button class="fr-btn full-width-btn" type="submit">
+              {{ t('register.submit') }}
             </button>
           </div>
         </div>
@@ -157,46 +148,41 @@
 </template>
 
 <script setup lang="ts">
-import { User } from "df-shared-next/src/models/User";
-import { ref, onMounted } from "vue";
-import { useI18n } from "vue-i18n";
-import { Form, Field, ErrorMessage } from "vee-validate";
-import PasswordMeter from "df-shared-next/src/components/PasswordMeter/PasswordMeter.vue";
+import { User } from 'df-shared-next/src/models/User';
+import { ref, onMounted } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { Form, Field, ErrorMessage } from 'vee-validate';
+import PasswordMeter from 'df-shared-next/src/components/PasswordMeter/PasswordMeter.vue';
 
 const FRANCE_CONNECT_LOGIN_URL = import.meta.env.VUE_APP_FRANCE_CONNECT_LOGIN_URL;
 
 const { t } = useI18n();
 
-const emit = defineEmits(["on-register"]);
-const franceConnect =
-  window.location.href.includes("locataire-dev") ||
-  window.location.href.includes("localhost");
+const emit = defineEmits(['on-register']);
+const franceConnect = window.location.href.includes('locataire-dev') || window.location.href.includes('localhost');
 
 const user: User = new User();
 const score = ref(0);
-const generatedPwd = ref("");
+const generatedPwd = ref('');
 
 function generatePlaceholder() {
   const chars = [
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-    "0123456789",
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
-    "#!?-_.",
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
+    '0123456789',
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
+    '#!?-_.',
   ];
-  generatedPwd.value =
-    t("register.ex") +
-    [4, 4, 2, 2]
-      .map((len, i) =>
-        Array(len)
-          .fill(chars[i])
-          .map((x) => x[Math.floor(Math.random() * x.length)])
-          .join("")
-      )
+  generatedPwd.value = t('register.ex')
+    + [4, 4, 2, 2]
+      .map((len, i) => Array(len)
+        .fill(chars[i])
+        .map((x) => x[Math.floor(Math.random() * x.length)])
+        .join(''))
       .concat()
-      .join("")
-      .split("register.")
+      .join('')
+      .split('register.')
       .sort(() => 0.5 - Math.random())
-      .join("");
+      .join('');
 }
 
 function loginFranceConnect() {
@@ -210,7 +196,7 @@ onMounted(() => {
 });
 
 function onSubmit() {
-  emit("register.on-register", user);
+  emit('on-register', user);
 }
 
 function setScore(s: number) {
@@ -237,7 +223,7 @@ function setScore(s: number) {
 
 .separator::before,
 .separator::after {
-  content: "";
+  content: '';
   flex: 1;
   border-bottom: 1px solid #cecece;
 }
@@ -287,4 +273,3 @@ a#social-franceconnect-particulier span {
   display: inline-block;
 }
 </style>
-

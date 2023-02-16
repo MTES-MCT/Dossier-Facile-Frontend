@@ -9,7 +9,7 @@
         @click="backAction()"
       >
         <span class="color--primary material-icons mobile">keyboard_arrow_left</span>
-        <span class="desktop">{{ t("backnext.back") }}</span>
+        <span class="desktop">{{ t('backnext.back') }}</span>
       </VGouvFrButton>
       <div v-if="!showBack"></div>
       <div class="fr-grid-row flex-1">
@@ -49,14 +49,13 @@ const emit = defineEmits(['on-next', 'on-back']);
 const { t } = useI18n();
 
 function backAction() {
-  emit('backnext.on-back');
+  emit('on-back');
 }
 
 function nextAction() {
-  emit('backnext.on-next');
+  emit('on-next');
 }
 </script>
-
 
 <style lang="scss" scoped>
 .btn-spacing {

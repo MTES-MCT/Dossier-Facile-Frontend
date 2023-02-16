@@ -54,7 +54,7 @@ const toast = useToast();
 const emit = defineEmits(['close']);
 
 function validDelete() {
-  emit('deleteaccount.close');
+  emit('close');
   store.deleteAccount().then(
     () => {
       window.location.replace(MAIN_URL);
@@ -68,7 +68,7 @@ function validDelete() {
 }
 
 function undoSelect() {
-  emit('deleteaccount.close');
+  emit('close');
   return false;
 }
 
