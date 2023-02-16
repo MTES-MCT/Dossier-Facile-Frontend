@@ -5,10 +5,8 @@
         <div class="fr-container">
           <div class="fr-grid-row justify-content-center">
             <h4 class="fr-col-10 title">
-              <span class="text-danger material-icons-outlined md-38 fr-pr-1w"
-                >cancel</span
-              >
-              {{ t("deleteaccount.title") }}
+              <span class="text-danger material-icons-outlined md-38 fr-pr-1w">cancel</span>
+              {{ t('deleteaccount.title') }}
             </h4>
           </div>
         </div>
@@ -18,7 +16,7 @@
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-10">
               <div class="fr-mb-3w">
-                <p>{{ t("deleteaccount.confirm-delete") }}</p>
+                <p>{{ t('deleteaccount.confirm-delete') }}</p>
               </div>
               <div class="align--right">
                 <DfButton
@@ -26,16 +24,11 @@
                   class="fr-mr-3w"
                   type="button"
                   @on-click="undoSelect()"
-                  >{{ t("deleteaccount.cancel") }}</DfButton
+                  >{{ t('deleteaccount.cancel') }}</DfButton
                 >
-                <DfButton
-                  type="submit"
-                  :title="t('deleteaccount.delete')"
-                  :primary="true"
-                  >{{
-                    isMobile() ? t("deleteaccount.validate-mobile") : t("validate")
-                  }}</DfButton
-                >
+                <DfButton type="submit" :title="t('deleteaccount.delete')" :primary="true">{{
+                  isMobile() ? t('deleteaccount.validate-mobile') : t('deleteaccount.validate')
+                }}</DfButton>
               </div>
             </div>
           </div>
@@ -102,4 +95,3 @@ function isMobile() {
   }
 }
 </style>
-

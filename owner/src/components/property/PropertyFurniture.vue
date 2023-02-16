@@ -43,8 +43,8 @@ function onBack() {
 
 <template>
   <PropertyPage @on-back="onBack" @submit="onSubmit">
-    <h1 class="fr-h4">{{ t("propertyfurniture.furniture-title") }}</h1>
-    <p>{{ t("propertyfurniture.furniture-subtitle") }}</p>
+    <h1 class="fr-h4">{{ t('propertyfurniture.furniture-title') }}</h1>
+    <p>{{ t('propertyfurniture.furniture-subtitle') }}</p>
     <p>
       <Field
         name="furniture"
@@ -61,13 +61,9 @@ function onBack() {
       >
         <div class="fr-grid-col">
           <div class="icon-container desktop">
-            <img
-              svg-inline
-              src="../../assets/ico_vide.svg"
-              aria-label="icone meublé"
-            />
+            <img svg-inline src="../../assets/ico_vide.svg" aria-label="icone meublé" />
           </div>
-          <div class="fr-mb-md-5w fr-m-2w">{{ t("propertyfurniture.unfurnished") }}</div>
+          <div class="fr-mb-md-5w fr-m-2w">{{ t('propertyfurniture.unfurnished') }}</div>
         </div>
       </label>
       <Field
@@ -82,21 +78,16 @@ function onBack() {
         :class="{ selected: furniture === 'FURNISHED' }"
         class="fr-label inline-block label"
         for="furniture-apartment"
-        >
+      >
         <div class="fr-grid-col">
           <div class="icon-container desktop">
-            <img
-              svg-inline
-              src="../../assets/ico_meuble.svg"
-              aria-label="icone non meublé"
-            />
+            <img svg-inline src="../../assets/ico_meuble.svg" aria-label="icone non meublé" />
           </div>
-          <div class="fr-mb-md-5w fr-m-2w">{{ t("propertyfurniture.furnished") }}</div>
+          <div class="fr-mb-md-5w fr-m-2w">{{ t('propertyfurniture.furnished') }}</div>
         </div>
-        </label
-      >
+      </label>
       <ErrorMessage name="furniture" v-slot="{ message }">
-        <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+        <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
       </ErrorMessage>
     </p>
   </PropertyPage>
@@ -156,7 +147,7 @@ function onBack() {
   }
 }
 
-input[type="radio"] {
+input[type='radio'] {
   visibility: hidden;
 }
 
@@ -178,4 +169,3 @@ input[type="radio"] {
   color: var(--icon-color);
 }
 </style>
-

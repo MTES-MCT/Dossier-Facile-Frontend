@@ -72,17 +72,23 @@ const getParams = id ? { id } : {};
         </div>
         <div class="ml-5">
           <router-link :to="{ name: 'PropertyFurniture', params: getParams }" class="fr-link">
-            <ColoredTag :text="t('leftmenu.property-furniture')" :status="furnitureStatus"></ColoredTag>
+            <ColoredTag
+              :text="t('leftmenu.property-furniture')"
+              :status="furnitureStatus"
+            ></ColoredTag>
           </router-link>
         </div>
         <div class="ml-5">
           <router-link :to="{ name: 'PropertyLivingSpace', params: getParams }" class="fr-link">
-            <ColoredTag :text="t('leftmenu.property-living-space')" :status="livingSpaceStatus"></ColoredTag>
+            <ColoredTag :text="t('property-living-space')" :status="livingSpaceStatus"></ColoredTag>
           </router-link>
         </div>
         <div class="ml-5">
           <router-link :to="{ name: 'PropertyRent', params: getParams }" class="fr-link">
-            <ColoredTag :text="t('leftmenu.monthly-rent-and-charges')" :status="rentStatus"></ColoredTag>
+            <ColoredTag
+              :text="t('leftmenu.monthly-rent-and-charges')"
+              :status="rentStatus"
+            ></ColoredTag>
           </router-link>
         </div>
       </div>
@@ -172,4 +178,3 @@ const getParams = id ? { id } : {};
   font-size: 14px;
 }
 </style>
-

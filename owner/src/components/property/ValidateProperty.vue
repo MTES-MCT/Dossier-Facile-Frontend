@@ -113,7 +113,7 @@ function onBack() {
       </div>
       <div v-if="!property.livingSpace || property.livingSpace <= 0">
         <UpdateRowBtn
-          :title="t('validateproperty.property-living-space')"
+          :title="t('property-living-space')"
           :to="{ name: 'PropertyLivingSpace', params: getParams }"
         ></UpdateRowBtn>
       </div>
@@ -133,4 +133,3 @@ function onBack() {
     </div>
   </PropertyPage>
 </template>
-

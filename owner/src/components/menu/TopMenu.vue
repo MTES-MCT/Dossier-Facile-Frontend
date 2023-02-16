@@ -26,8 +26,13 @@ onMounted(() => {
   const tdx = tds[route.meta.position as number];
   const tcontainerval = tcontainer.value as any;
   const tdxval = tdx.value as any;
-  if (tdx === undefined || tdx.value === null || tdxval.offsetLeft === null
-   || tcontainer.value === null || tcontainerval.offsetWidth === null) {
+  if (
+    tdx === undefined
+    || tdx.value === null
+    || tdxval.offsetLeft === null
+    || tcontainer.value === null
+    || tcontainerval.offsetWidth === null
+  ) {
     return;
   }
   left = tdxval.offsetLeft - (tcontainerval.offsetWidth - tdxval.offsetWidth) / 2;
@@ -113,10 +118,7 @@ function getClass(s: number) {
         </router-link>
       </div>
       <div class="ml-5" ref="td3">
-        <router-link
-          :to="{ name: 'PropertyFurniture', params: getParams }"
-          class="fr-link"
-        >
+        <router-link :to="{ name: 'PropertyFurniture', params: getParams }" class="fr-link">
           <ColoredTag
             :text="t('topmenu.property-furniture')"
             :status="furnitureStatus"
@@ -125,10 +127,7 @@ function getClass(s: number) {
       </div>
       <div class="ml-5" ref="td4">
         <router-link :to="{ name: 'PropertyLivingSpace', params: getParams }" class="fr-link">
-          <ColoredTag
-            :text="t('topmenu.property-living-space')"
-            :status="livingSpaceStatus"
-          ></ColoredTag>
+          <ColoredTag :text="t('property-living-space')" :status="livingSpaceStatus"></ColoredTag>
         </router-link>
       </div>
       <div class="ml-5" ref="td5">
@@ -247,4 +246,3 @@ hr {
   overflow: scroll;
 }
 </style>
-
