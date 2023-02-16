@@ -23,7 +23,7 @@ function currentPage() {
 }
 
 function changeLang() {
-  emit('menu.on-change-lang');
+  emit('on-change-lang');
 }
 
 function getLanguageSwitchLabel() {
@@ -167,4 +167,3 @@ function getLanguageSwitchLabel() {
   }
 }
 </style>
-
