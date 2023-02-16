@@ -49,10 +49,10 @@ function onBack() {
 
 <template>
   <PropertyPage @on-back="onBack" @submit="onSubmit">
-    <h1 class="fr-h4">{{ t('rent-title') }}</h1>
-    <p>{{ t('rent-subtitle') }}</p>
+    <h1 class="fr-h4">{{ t('propertyrent.rent-title') }}</h1>
+    <p>{{ t('propertyrent.rent-subtitle') }}</p>
     <p>
-      <label class="fr-label" for="rent">{{ t('monthly-rent') }} :</label>
+      <label class="fr-label" for="rent">{{ t('propertyrent.monthly-rent') }} :</label>
       <Field
         id="rent"
         name="rent"
@@ -70,7 +70,7 @@ function onBack() {
             'fr-input--valid': meta.valid,
             'fr-input--error': !meta.valid,
           }"
-          :placeholder="t('rent-amount')"
+          :placeholder="t('propertyrent.rent-amount')"
           type="number"
         />
       </Field>
@@ -79,7 +79,7 @@ function onBack() {
       </ErrorMessage>
     </p>
     <p>
-      <label class="fr-label" for="charges">{{ t('monthly-charges') }} :</label>
+      <label class="fr-label" for="charges">{{ t('propertyrent.monthly-charges') }} :</label>
       <Field
         id="charges"
         name="charges"
@@ -97,7 +97,7 @@ function onBack() {
             'fr-input--valid': meta.valid,
             'fr-input--error': !meta.valid,
           }"
-          :placeholder="t('charges-amount')"
+          :placeholder="t('propertyrent.charges-amount')"
           type="number"
         />
       </Field>

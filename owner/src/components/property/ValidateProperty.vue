@@ -43,7 +43,7 @@ const hasErrors = computed(
 
 async function onSubmit() {
   if (hasErrors.value) {
-    toast.error(t('try-again').toString(), {
+    toast.error(t('validateproperty.try-again').toString(), {
       timeout: 7000,
     });
     return;
@@ -64,9 +64,9 @@ function onBack() {
 
 <template>
   <PropertyPage @on-back="onBack" @submit="onSubmit">
-    <h1 class="fr-h4">{{ t('validate-title') }}</h1>
+    <h1 class="fr-h4">{{ t('validateproperty.validate-title') }}</h1>
     <div v-if="!hasErrors">
-      <p>{{ t('validate-subtitle') }}</p>
+      <p>{{ t('validateproperty.validate-subtitle') }}</p>
       <div class="bg-purple fr-checkbox-group">
         <Field
           name="authorize"
@@ -76,44 +76,44 @@ function onBack() {
           rules="isTrue"
           :value="true"
         />
-        <label for="authorize"><div v-html="t('authorize')"></div></label>
+        <label for="authorize"><div v-html="t('validateproperty.authorize')"></div></label>
         <ErrorMessage class="fr-error-text" name="authorize" v-slot="{ message }">
           <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
         </ErrorMessage>
       </div>
     </div>
     <div v-else>
-      <h6 class="color--red">{{ t('error-title') }}</h6>
+      <h6 class="color--red">{{ t('validateproperty.error-title') }}</h6>
       <p>
-        {{ t('property-not-valid') }}
+        {{ t('validateproperty.property-not-valid') }}
       </p>
       <div v-if="!property.name">
         <UpdateRowBtn
-          :title="t('property-name')"
+          :title="t('validateproperty.property-name')"
           :to="{ name: 'PropertyName', params: getParams }"
         ></UpdateRowBtn>
       </div>
       <div v-if="!property.type">
         <UpdateRowBtn
-          :title="t('property-type')"
+          :title="t('validateproperty.property-type')"
           :to="{ name: 'PropertyType', params: getParams }"
         ></UpdateRowBtn>
       </div>
       <div v-if="!property.furniture">
         <UpdateRowBtn
-          :title="t('property-furniture')"
+          :title="t('validateproperty.property-furniture')"
           :to="{ name: 'PropertyFurniture', params: getParams }"
         ></UpdateRowBtn>
       </div>
       <div v-if="!property.address">
         <UpdateRowBtn
-          :title="t('property-address')"
+          :title="t('validateproperty.property-address')"
           :to="{ name: 'PropertyAddress', params: getParams }"
         ></UpdateRowBtn>
       </div>
       <div v-if="!property.livingSpace || property.livingSpace <= 0">
         <UpdateRowBtn
-          :title="t('property-living-space')"
+          :title="t('validateproperty.property-living-space')"
           :to="{ name: 'PropertyLivingSpace', params: getParams }"
         ></UpdateRowBtn>
       </div>
@@ -126,7 +126,7 @@ function onBack() {
         "
       >
         <UpdateRowBtn
-          :title="t('property-rent')"
+          :title="t('validateproperty.property-rent')"
           :to="{ name: 'PropertyRent', params: getParams }"
         ></UpdateRowBtn>
       </div>

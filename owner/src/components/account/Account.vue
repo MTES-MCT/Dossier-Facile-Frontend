@@ -12,7 +12,7 @@ const { t } = useI18n();
   >
     <div class="fr-col-xs-12 fr-col-md-4 bg--dark-blue">
       <div class="title-container">
-        <h2>{{ t('title') }}</h2>
+        <h2>{{ t('account.title') }}</h2>
         <h3 class="fr-h5">{{ t("subtitle") }}</h3>
       </div>
     </div>

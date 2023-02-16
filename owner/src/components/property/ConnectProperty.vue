@@ -4,8 +4,8 @@
       <div class="fr-col-12 fr-col-md-7">
         <NakedCard class="bg-purple-var fr-p-5w h-100">
           <Form @submit="onSubmit" class="h-100 fr-grid-col">
-            <h2 class="fr-h4">{{ t('apply-existing-account') }}</h2>
-            <div>{{ t('apply-existing-text') }}</div>
+            <h2 class="fr-h4">{{ t('connectproperty.apply-existing-account') }}</h2>
+            <div>{{ t('connectproperty.apply-existing-text') }}</div>
 
             <div class="bg-purple fr-checkbox-group">
               <Field
@@ -17,15 +17,15 @@
                 :value="true"
               />
               <label for="authorize"
-                ><div>{{ t('authorize', [p.ownerName, p.address]) }}</div></label
+                ><div>{{ t('connectproperty.authorize', [p.ownerName, p.address]) }}</div></label
               >
               <ErrorMessage class="fr-error-text" name="authorize" v-slot="{ message }">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
             <div class="mt-auto align-end">
-              <DfButton type="submit" :title="t('create-account')" :primary="true">
-                {{ t('connect') }}
+              <DfButton type="submit" :title="t('connectproperty.create-account')" :primary="true">
+                {{ t('connectproperty.connect') }}
               </DfButton>
             </div>
           </Form>
@@ -33,15 +33,15 @@
       </div>
       <div class="fr-col-12 fr-col-md-5">
         <NakedCard class="fr-p-5w h-100 fr-grid-col">
-          <h2 class="fr-h4">{{ t('apply-new-account') }}</h2>
+          <h2 class="fr-h4">{{ t('connectproperty.apply-new-account') }}</h2>
           <p>
-            {{ t('apply-new-text-1') }}
+            {{ t('connectproperty.apply-new-text-1') }}
           </p>
           <p>
-            {{ t('apply-new-text-2') }}
+            {{ t('connectproperty.apply-new-text-2') }}
           </p>
           <div class="align-end mt-auto">
-            <a :href="`${TENANT_URL}/signup`" class="fr-btn fr-mt-3w">{{ t('create-account') }}</a>
+            <a :href="`${TENANT_URL}/signup`" class="fr-btn fr-mt-3w">{{ t('connectproperty.create-account') }}</a>
           </div>
         </NakedCard>
       </div>

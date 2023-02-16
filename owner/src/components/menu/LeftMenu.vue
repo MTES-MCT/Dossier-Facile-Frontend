@@ -32,7 +32,7 @@ const getParams = id ? { id } : {};
         <div class="step-number">1</div>
         <div class="step-title">
           <router-link :to="{ name: 'AccountName' }" class="fr-link">
-            {{ t('personal-information') }}</router-link
+            {{ t('leftmenu.personal-information') }}</router-link
           >
         </div>
       </div>
@@ -47,7 +47,7 @@ const getParams = id ? { id } : {};
         <div class="step-number">2</div>
         <div class="step-title">
           <router-link :to="{ name: 'PropertyName', params: getParams }" class="fr-link">
-            {{ t('add-property') }}</router-link
+            {{ t('leftmenu.add-property') }}</router-link
           >
         </div>
       </div>
@@ -55,34 +55,34 @@ const getParams = id ? { id } : {};
         <div class="ml-5">
           <router-link :to="{ name: 'PropertyName', params: getParams }" class="fr-link">
             <ColoredTag
-              :text="propertyName ? propertyName : t('property-name')"
+              :text="propertyName ? propertyName : t('leftmenu.property-name')"
               :status="propertyName ? 'FILLED' : 'EMPTY'"
             ></ColoredTag>
           </router-link>
         </div>
         <div class="ml-5">
           <router-link :to="{ name: 'PropertyType', params: getParams }" class="fr-link">
-            <ColoredTag :text="t('property-type')" :status="typeStatus"></ColoredTag>
+            <ColoredTag :text="t('leftmenu.property-type')" :status="typeStatus"></ColoredTag>
           </router-link>
         </div>
         <div class="ml-5">
           <router-link :to="{ name: 'PropertyAddress', params: getParams }" class="fr-link">
-            <ColoredTag :text="t('property-address')" :status="addressStatus"></ColoredTag>
+            <ColoredTag :text="t('leftmenu.property-address')" :status="addressStatus"></ColoredTag>
           </router-link>
         </div>
         <div class="ml-5">
           <router-link :to="{ name: 'PropertyFurniture', params: getParams }" class="fr-link">
-            <ColoredTag :text="t('property-furniture')" :status="furnitureStatus"></ColoredTag>
+            <ColoredTag :text="t('leftmenu.property-furniture')" :status="furnitureStatus"></ColoredTag>
           </router-link>
         </div>
         <div class="ml-5">
           <router-link :to="{ name: 'PropertyLivingSpace', params: getParams }" class="fr-link">
-            <ColoredTag :text="t('property-living-space')" :status="livingSpaceStatus"></ColoredTag>
+            <ColoredTag :text="t('leftmenu.property-living-space')" :status="livingSpaceStatus"></ColoredTag>
           </router-link>
         </div>
         <div class="ml-5">
           <router-link :to="{ name: 'PropertyRent', params: getParams }" class="fr-link">
-            <ColoredTag :text="t('monthly-rent-and-charges')" :status="rentStatus"></ColoredTag>
+            <ColoredTag :text="t('leftmenu.monthly-rent-and-charges')" :status="rentStatus"></ColoredTag>
           </router-link>
         </div>
       </div>
@@ -90,7 +90,7 @@ const getParams = id ? { id } : {};
         <div class="step-number">3</div>
         <div class="step-title">
           <router-link :to="{ name: 'ValidateProperty', params: getParams }" class="fr-link">
-            {{ t('validate-property') }}</router-link
+            {{ t('leftmenu.validate-property') }}</router-link
           >
         </div>
       </div>

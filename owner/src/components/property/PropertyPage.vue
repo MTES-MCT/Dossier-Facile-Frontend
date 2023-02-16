@@ -9,11 +9,11 @@ import FooterContainer from '../footer/FooterContainer.vue';
 const emit = defineEmits(['submit', 'on-back']);
 
 function onSubmit() {
-  emit('submit');
+  emit('propertypage.submit');
 }
 
 function onBack() {
-  emit('on-back');
+  emit('propertypage.on-back');
 }
 </script>
 

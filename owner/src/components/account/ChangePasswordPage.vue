@@ -23,18 +23,18 @@ function onChangePassword(user: User) {
   u.token = route.params.token.toString();
   store.changePassword(u).then(
     () => {
-      toast.success(t('password-update').toString(), {
+      toast.success(t('changepasswordpage.password-update').toString(), {
         timeout: 7000,
       });
       router.push({ name: 'Dashboard' });
     },
     (error: any) => {
       if (error.response.data.message.includes('password recovery token or is expired')) {
-        toast.error(t('token-expired').toString(), {
+        toast.error(t('changepasswordpage.token-expired').toString(), {
           timeout: 7000,
         });
       } else {
-        toast.error(t('error').toString(), {
+        toast.error(t('changepasswordpage.error').toString(), {
           timeout: 7000,
         });
       }

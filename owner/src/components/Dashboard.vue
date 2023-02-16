@@ -48,7 +48,7 @@ function getApplicantsCount(p: Property) {
       <div class="fr-grid-row space-between">
         <h1 class="fr-h4">{{ t("my-properties") }}</h1>
         <div>
-          <Button @onClick="addProperty" :title="t('add-property')" :primary="true">{{
+          <Button @onClick="addProperty" :title="t('dashboard.add-property')" :primary="true">{{
             t("add-property")
           }}</Button>
         </div>
@@ -91,7 +91,7 @@ function getApplicantsCount(p: Property) {
           <td class="fr-pr-2w">
             <button
               class="consult-icon"
-              :title="t('consult')"
+              :title="t('dashboard.consult')"
               v-if="p.validated"
               @click="consultProperty(p.id)"
             >
@@ -99,7 +99,7 @@ function getApplicantsCount(p: Property) {
             </button>
             <button
               class="fr-btn fr-btn--secondary"
-              :title="t('edit-title')"
+              :title="t('dashboard.edit-title')"
               v-if="!p.validated"
               @click="editProperty(p.id)"
             >

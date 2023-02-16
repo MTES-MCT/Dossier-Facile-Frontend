@@ -33,11 +33,11 @@ withDefaults(
 const emit = defineEmits(['on-next', 'on-back']);
 
 function nextAction() {
-  emit('on-next');
+  emit('profilefooter.on-next');
 }
 
 function backAction() {
-  emit('on-back');
+  emit('profilefooter.on-back');
 }
 </script>
 

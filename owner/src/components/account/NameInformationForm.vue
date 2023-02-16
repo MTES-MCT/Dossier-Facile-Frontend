@@ -23,7 +23,7 @@
                     'fr-input--valid': meta.valid,
                     'fr-input--error': !meta.valid,
                   }"
-                  :placeholder="t('lastname')"
+                  :placeholder="t('nameinformationform.lastname')"
                   :disabled="franceConnect"
                   type="text"
                 />
@@ -51,7 +51,7 @@
                     'fr-input--valid': meta.valid,
                     'fr-input--error': !meta.valid,
                   }"
-                  :placeholder="t('firstname')"
+                  :placeholder="t('nameinformationform.firstname')"
                   :disabled="franceConnect"
                   type="text"
                 />
@@ -81,7 +81,7 @@
                     'fr-input--valid': meta.valid,
                     'fr-input--error': !meta.valid,
                   }"
-                  :placeholder="t('email')"
+                  :placeholder="t('nameinformationform.email')"
                   type="email"
                 />
               </Field>
@@ -130,7 +130,7 @@ function onSubmit() {
     router.push({ name: 'PropertyName' });
   }).catch((err) => {
     if (err.response.data.message.includes('email_exists')) {
-      toast.error(t('email-exists').toString(), {
+      toast.error(t('nameinformationform.email-exists').toString(), {
         timeout: 7000,
       });
     }

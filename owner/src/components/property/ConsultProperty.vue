@@ -5,26 +5,26 @@
       <div class="fr-grid-row space-between fr-mb-3w">
         <div class="fr-grid-row">
           <router-link
-            :title="t('back-label')"
+            :title="t('consultproperty.back-label')"
             class="fr-btn btn--white fr-btn--secondary"
             to="/"
-            >{{ t('back') }}</router-link
+            >{{ t('consultproperty.back') }}</router-link
           >
           <div class="title">{{ name }}</div>
         </div>
         <div class="fr-grid-row">
           <VGouvFrModal>
             <template v-slot:button>
-              <button :title="t('share-btn')" class="fr-btn btn--white fr-btn--secondary">
+              <button :title="t('consultproperty.share-btn')" class="fr-btn btn--white fr-btn--secondary">
                 <span class="material-icons md-24"> share_variant </span>
               </button>
             </template>
             <template v-slot:title>
-              {{ t('share-modal-title') }}
+              {{ t('consultproperty.share-modal-title') }}
             </template>
             <template v-slot:content>
               <p>
-                {{ t('share-modal-description') }}
+                {{ t('consultproperty.share-modal-description') }}
               </p>
               <div class="fr-grid-row fr-mb-3w">
                 <div class="align-self--center">
@@ -32,35 +32,35 @@
                 </div>
                 <div>
                   <button class="fr-btn fr-ml-5w" @click="copyToken">
-                    {{ t('copy-link') }}
+                    {{ t('consultproperty.copy-link') }}
                   </button>
                 </div>
               </div>
               <p>
-                {{ t('share-modal-detail') }}
+                {{ t('consultproperty.share-modal-detail') }}
               </p>
             </template>
           </VGouvFrModal>
           <button
-            :title="t('update-btn')"
+            :title="t('consultproperty.update-btn')"
             @click="editProperty()"
             class="fr-btn btn--white fr-btn--secondary fr-ml-1w"
           >
-            {{ t('modify-property') }}
+            {{ t('consultproperty.modify-property') }}
           </button>
           <button
-            :title="t('delete-btn')"
+            :title="t('consultproperty.delete-btn')"
             class="fr-btn btn--white fr-btn--secondary fr-ml-1w"
             @click="confirmDeleteProperty = true"
           >
-            {{ t('delete-property') }}
+            {{ t('consultproperty.delete-property') }}
           </button>
           <ConfirmModal
             v-if="confirmDeleteProperty"
             @valid="validDeleteFile()"
             @cancel="undoDeleteFile()"
           >
-            {{ t('will-delete-property') }}
+            {{ t('consultproperty.will-delete-property') }}
           </ConfirmModal>
         </div>
       </div>
@@ -72,7 +72,7 @@
           <div class="fr-col">
             <div
               v-html="
-                `${t(titleKey)} ${t('rent', {
+                `${t(titleKey)} ${t('consultproperty.rent', {
                   rentCost: p.rentCost,
                   chargesCost: p.chargesCost,
                 })}`
@@ -83,7 +83,7 @@
       </NakedCard>
       <NakedCard class="fr-mt-3w">
         <h1 class="fr-h4">
-          {{ t('verified-applicants', { count: verifiedApplicantsCount }) }}
+          {{ t('consultproperty.verified-applicants', { count: verifiedApplicantsCount }) }}
         </h1>
         <div class="delete-btn-container">
           <button
@@ -91,14 +91,14 @@
             @click="confirmDeleteApplicants = true"
             :disabled="selectedApplicants.length <= 0"
           >
-            {{ t('delete-applicants') }}
+            {{ t('consultproperty.delete-applicants') }}
           </button>
           <ConfirmModal
             v-if="confirmDeleteApplicants"
             @valid="validDeleteApplicants()"
             @cancel="undoDeleteApplicants()"
           >
-            {{ t('will-delete-applicants') }}
+            {{ t('consultproperty.will-delete-applicants') }}
           </ConfirmModal>
         </div>
         <table>
@@ -106,7 +106,7 @@
             <tr>
               <th></th>
               <th @click="sortTable('date')" class="desktop">
-                {{ t('date') }}
+                {{ t('consultproperty.date') }}
                 <div
                   class="arrow"
                   v-if="'date' == sortColumn"
@@ -114,7 +114,7 @@
                 ></div>
               </th>
               <th @click="sortTable('tenantName')">
-                {{ t('tenant-name') }}
+                {{ t('consultproperty.tenant-name') }}
                 <div
                   class="arrow"
                   v-if="'tenantName' == sortColumn"
@@ -122,7 +122,7 @@
                 ></div>
               </th>
               <th @click="sortTable('tenantType')" class="desktop">
-                {{ t('tenant-type') }}
+                {{ t('consultproperty.tenant-type') }}
                 <div
                   class="arrow"
                   v-if="'tenantType' == sortColumn"
@@ -130,7 +130,7 @@
                 ></div>
               </th>
               <th @click="sortTable('tenantSalary')">
-                {{ t('tenant-salary') }}
+                {{ t('consultproperty.tenant-salary') }}
                 <div
                   class="arrow"
                   v-if="'tenantSalary' == sortColumn"
@@ -138,7 +138,7 @@
                 ></div>
               </th>
               <th @click="sortTable('guarantorSalary')" class="desktop">
-                {{ t('guarantor-salary') }}
+                {{ t('consultproperty.guarantor-salary') }}
                 <div
                   class="arrow"
                   v-if="'guarantorSalary' == sortColumn"
@@ -146,7 +146,7 @@
                 ></div>
               </th>
               <th @click="sortTable('rate')">
-                {{ t('rate') }}
+                {{ t('consultproperty.rate') }}
                 <div
                   class="arrow"
                   v-if="'rate' == sortColumn"
@@ -154,7 +154,7 @@
                 ></div>
               </th>
               <th @click="sortTable('status')">
-                {{ t('status') }}
+                {{ t('consultproperty.status') }}
                 <div
                   class="arrow"
                   v-if="'status' == sortColumn"
@@ -193,7 +193,7 @@
               <td @click="setShowTenant(tenant, k)">
                 <div>
                   <span class="rate" :class="getRateClass(tenant)">{{ tenant.rate }} %</span>
-                  {{ t('income') }}
+                  {{ t('consultproperty.income') }}
                 </div>
               </td>
               <td @click="setShowTenant(tenant, k)">
@@ -215,7 +215,7 @@
               <td colspan="8" class="additional-td">
                 <div class="tenant-token-link fr-mb-3w fr-mt-1w">
                   <a class="fr-btn" :href="`${TENANT_URL}/file/${tenant?.token}`" target="_blank">{{
-                    t('download-full-file')
+                    t('consultproperty.download-full-file')
                   }}</a>
                 </div>
               </td>
@@ -353,7 +353,7 @@ function undoDeleteApplicants() {
 
 function copyToken() {
   navigator.clipboard.writeText(token.value);
-  toast.success(t('link-copied').toString(), {
+  toast.success(t('consultproperty.link-copied').toString(), {
     timeout: 7000,
   });
 }

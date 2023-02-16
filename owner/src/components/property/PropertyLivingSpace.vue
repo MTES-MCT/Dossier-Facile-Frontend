@@ -40,10 +40,10 @@ function onBack() {
 
 <template>
   <PropertyPage @on-back="onBack" @submit="onSubmit">
-    <h1 class="fr-h4">{{ t('living-space-title') }}</h1>
-    <p>{{ t('living-space-subtitle') }}</p>
+    <h1 class="fr-h4">{{ t('propertylivingspace.living-space-title') }}</h1>
+    <p>{{ t('propertylivingspace.living-space-subtitle') }}</p>
     <p>
-      <label class="fr-label" for="living-space">{{ t('living-space-label') }} :</label>
+      <label class="fr-label" for="living-space">{{ t('propertylivingspace.living-space-label') }} :</label>
       <Field
         id="living-space"
         name="living-space"
@@ -61,7 +61,7 @@ function onBack() {
             'fr-input--valid': meta.valid,
             'fr-input--error': !meta.valid,
           }"
-          :placeholder="t('living-space-placeholder')"
+          :placeholder="t('propertylivingspace.living-space-placeholder')"
           type="number"
         />
       </Field>

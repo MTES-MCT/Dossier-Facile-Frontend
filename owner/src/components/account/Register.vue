@@ -25,7 +25,7 @@
                     href="https://franceconnect.gouv.fr/"
                     target="_blank"
                     rel="noopener"
-                    :title="t('whatis-france-connect')"
+                    :title="t('register.whatis-france-connect')"
                     >{{ t("whatis-france-connect") }}</a
                   >
                 </p>
@@ -56,7 +56,7 @@
                     'fr-input--valid': meta.valid,
                     'fr-input--error': !meta.valid,
                   }"
-                  :placeholder="t('email-placeholder')"
+                  :placeholder="t('register.email-placeholder')"
                   type="email"
                   autocomplete="email"
                 />
@@ -135,7 +135,7 @@
                 rules="isTrue"
                 :value="true"
               />
-              <label for="terms"><div v-html="t('accept-cgu')"></div></label>
+              <label for="terms"><div v-html="t('register.accept-cgu')"></div></label>
               <ErrorMessage class="fr-error-text" name="terms" v-slot="{ message }">
                 <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
               </ErrorMessage>

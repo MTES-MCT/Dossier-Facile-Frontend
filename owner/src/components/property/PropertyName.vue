@@ -60,7 +60,7 @@ function onBack() {
             'fr-input--valid': meta.valid,
             'fr-input--error': !meta.valid,
           }"
-          :placeholder="t('name-placeholder')"
+          :placeholder="t('propertyname.name-placeholder')"
           type="text"
         />
       </Field>

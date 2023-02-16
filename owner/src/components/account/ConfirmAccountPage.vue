@@ -25,8 +25,8 @@ AuthService.confirmAccount(token).then(
 
 <template>
   <div class="fr-container">
-    <div v-if="!showError">{{ t('loading') }}</div>
-    <div v-if="showError">{{ t('error-occured') }}</div>
+    <div v-if="!showError">{{ t('confirmaccountpage.loading') }}</div>
+    <div v-if="showError">{{ t('confirmaccountpage.error-occured') }}</div>
   </div>
 </template>
 

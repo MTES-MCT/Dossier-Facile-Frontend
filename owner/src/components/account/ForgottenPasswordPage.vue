@@ -21,7 +21,7 @@ function onForgottenPassword(user: User) {
         isValidModalVisible.value = true;
       },
       () => {
-        toast.error(t('email-not-found').toString(), {
+        toast.error(t('forgottenpasswordpage.email-not-found').toString(), {
           timeout: 7000,
         });
       },

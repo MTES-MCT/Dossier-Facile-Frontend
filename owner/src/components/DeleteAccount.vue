@@ -22,7 +22,7 @@
               </div>
               <div class="align--right">
                 <DfButton
-                  :title="t('cancel')"
+                  :title="t('deleteaccount.cancel')"
                   class="fr-mr-3w"
                   type="button"
                   @on-click="undoSelect()"
@@ -30,7 +30,7 @@
                 >
                 <DfButton
                   type="submit"
-                  :title="t('delete')"
+                  :title="t('deleteaccount.delete')"
                   :primary="true"
                   >{{
                     isMobile() ? t("validate-mobile") : t("validate")
@@ -61,13 +61,13 @@ const toast = useToast();
 const emit = defineEmits(['close']);
 
 function validDelete() {
-  emit('close');
+  emit('deleteaccount.close');
   store.deleteAccount().then(
     () => {
       window.location.replace(MAIN_URL);
     },
     () => {
-      toast.error(t('try-again').toString(), {
+      toast.error(t('deleteaccount.try-again').toString(), {
         timeout: 7000,
       });
     },
@@ -75,7 +75,7 @@ function validDelete() {
 }
 
 function undoSelect() {
-  emit('close');
+  emit('deleteaccount.close');
   return false;
 }
 
