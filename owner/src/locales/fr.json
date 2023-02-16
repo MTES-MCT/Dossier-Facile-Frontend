@@ -1,4 +1,11 @@
 {
+  "ALONE": "Seul·e",
+  "COUPLE": "Couple",
+  "GROUP": "Colocation",
+  "TO_PROCESS": "En cours de traitement",
+  "VALIDATED": "Vérifié",
+  "DECLINED": "Modification demandée",
+  "INCOMPLETE": "Non terminé",
   "property-living-space": "Surface",
   "email-required": "L'email est obligatoire",
   "field-required": "Ce champ est requis",

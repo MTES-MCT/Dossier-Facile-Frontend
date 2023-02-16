@@ -1,4 +1,11 @@
 {
+  "ALONE": "Alone",
+  "COUPLE": "Couple",
+  "GROUP": "Roommate",
+  "TO_PROCESS": "to process",
+  "VALIDATED": "validated",
+  "DECLINED": "declined",
+  "INCOMPLETE": "incomplete",
   "property-living-space": "Living space",
   "email-required": "Email is required",
   "field-required": "This field is required",
