@@ -8,5 +8,262 @@
   "other-furnished": "Un bien meublé",
   "other-unfurnished": "Un bien non meublé",
   "number-not-positive": "Le prix doit être positif",
-  "number-not-positive-or-null": "Le prix doit être supérieur ou égal à 0"
+  "number-not-positive-or-null": "Le prix doit être supérieur ou égal à 0",
+  "account": {
+    "title": "Bienvenue dans votre espace propriétaire. Ajoutons ensemble votre propriété",
+    "subtitle": "Commençons par vos informations personnelles d'identité."
+  },
+  "backnext": {
+    "back": "Retour",
+    "continue": "Continuer"
+  },
+  "changepasswordpage": {
+    "error": "Erreur",
+    "password-update": "Le mot de passe a été mis à jour",
+    "token-expired": "Le lien a expiré, veuillez lancer la procédure de mot de passe oublié"
+  },
+  "confirmaccountpage": {
+    "loading": "Veuillez patienter",
+    "error-occured": "Une erreur est survenue"
+  },
+  "connectproperty": {
+    "title": "Consultation",
+    "back": "Retour",
+    "modify-property": "Modifier ma propriété",
+    "delete-property": "Supprimer ma propriété",
+    "will-delete-property": "Voulez-vous vraiment supprimer cette propriété ?",
+    "will-delete-applicants": "Voulez-vous vraiment supprimer ce(s) locataire(s) ?",
+    "share-modal-description": "Si vous voulez donner accès à votre propriété à un candidat, vous pouvez copier votre lien dossier et le coller dans le message que vous lui enverrez.",
+    "copy-link": "Copier",
+    "share-modal-detail": "Le bouton copier copiera ce lien dans votre presse papier",
+    "link-copied": "Lien copié",
+    "verified-applicants": "Mes candidatures vérifiées ({count})",
+    "date": "Date de dernière modification",
+    "tenant-name": "Nom du locataire",
+    "tenant-type": "Type de dossier",
+    "tenant-salary": "Revenus nets mensuels",
+    "guarantor-salary": "Revenus Garants nets mensuels",
+    "rate": "Taux d'effort",
+    "status": "Statut",
+    "ALONE": "Seul·e",
+    "COUPLE": "Couple",
+    "GROUP": "Colocation",
+    "TO_PROCESS": "En cours de traitement",
+    "VALIDATED": "Vérifié",
+    "DECLINED": "Modification demandée",
+    "INCOMPLETE": "Non terminé",
+    "apply-existing-account": "Candidater en utilisant mon compte DossierFacile.",
+    "apply-new-account": "Candidater en créant un compte DossierFacile.",
+    "apply-existing-text": "DossierFacile est une startup d'État qui vous permet de créer votre dossier de location intelligent et de le partager avec des propriétaires",
+    "apply-new-text-1": "Si vous n'avez pas de compte, vous pouvez en créer un et revenir ultérieurement sur cette page.",
+    "apply-new-text-2": "Notre dossier est facile à remplir (en moins de 3 minutes c'est promis) et en plus il est conforme à la loi et réutilisable pour toutes vos autres visites !",
+    "create-account": "Créer un DossierFacile",
+    "authorize": "J'accepte que {0}, propriétaire situé au {1} ait accès aux informations de mon dossier et de ceux de mon(ma) conjoint·e ou de mon(mes) colocataire(s) le cas échéant. Conformément au RGPD, je peux révoquer cette autorisation à tout moment.",
+    "connect": "Se connecter"
+  },
+  "connectpropertyvalidate": {
+    "loading": "Veuillez patienter",
+    "error-occured": "Une erreur est survenue",
+    "title": "Votre DossierFacile a bien été partagé avec le propriétaire !",
+    "subtitle": "Ce dernier prendra directement contact avec vous si votre dossier est retenu.",
+    "oops-title": "Oups, vous ne pouvez pas candidater…",
+    "oops-subtitle": "Une erreur est survenue, veuillez prendre contact avec le support.",
+    "oops-create-subtitle": "car vous n’êtes pas l’initiateur du dossier de colocation DossierFacile. Prenez contact avec {0} afin qu’il.elle candidate en vos noms."
+  },
+  "consultproperty": {
+    "title": "Consultation",
+    "back": "Retour",
+    "modify-property": "Modifier ma propriété",
+    "delete-property": "Supprimer ma propriété",
+    "will-delete-property": "Voulez-vous vraiment supprimer cette propriété ?",
+    "will-delete-applicants": "Voulez-vous vraiment supprimer ce(s) locataire(s) ?",
+    "share-modal-title": "Le lien de ma propriété",
+    "share-modal-description": "Si vous voulez donner accès à votre propriété à un candidat, vous pouvez copier votre lien dossier et le coller dans le message que vous lui enverrez.",
+    "copy-link": "Copier",
+    "share-modal-detail": "Le bouton copier copiera ce lien dans votre presse papier",
+    "link-copied": "Lien copié",
+    "verified-applicants": "Mes candidatures vérifiées ({count})",
+    "date": "Date de dernière modification",
+    "tenant-name": "Nom du locataire",
+    "tenant-type": "Type de dossier",
+    "tenant-salary": "Revenus nets mensuels",
+    "guarantor-salary": "Revenus Garants nets mensuels",
+    "rate": "Taux d'effort",
+    "status": "Statut",
+    "ALONE": "Seul·e",
+    "COUPLE": "Couple",
+    "GROUP": "Colocation",
+    "TO_PROCESS": "En cours de traitement",
+    "VALIDATED": "Vérifié",
+    "DECLINED": "Modification demandée",
+    "INCOMPLETE": "Non terminé",
+    "house-furnished": "Une maison meublée",
+    "house-unfurnished": "Une maison non meublée",
+    "apartment-furnished": "Un appartement meublé",
+    "apartment-unfurnished": "Un appartement non meublé",
+    "other-furnished": "Un bien meublé",
+    "other-unfurnished": "Un bien non meublé",
+    "rent": "dont le loyer mensuel est de <span class='blue-text'>{rentCost}€</span> et les charges de <span class='blue-text'>{chargesCost}€</span>",
+    "download-full-file": "Voir le dossier complet",
+    "income": "des revenus",
+    "delete-applicants": "Supprimer des candidatures",
+    "share-btn": "Partager ma propriété",
+    "update-btn": "Modifier ma propriété",
+    "delete-btn": "Supprimer ma propriété",
+    "back-label": "Retour"
+  },
+  "dashboard": {
+    "title": "Bon retour parmi nous, {name}",
+    "my-properties": "Mes propriétés",
+    "add-property": "Ajouter une propriété",
+    "type": "Type",
+    "name": "Nom",
+    "address": "Adresse",
+    "applicant": "Candidatures",
+    "rent": "Loyer en €",
+    "consult": "Consulter la propriété",
+    "edit": "À finaliser",
+    "edit-title": "Finaliser l'édition de la propriété",
+    "applicants": "{count} candidature(s)",
+    "rent-cost": "{rent}€ + {charges}€"
+  },
+  "deleteaccount": {
+    "validate": "Supprimer mon compte",
+    "validate-mobile": "Supprimer",
+    "cancel": "Annuler",
+    "title": "Suppression de compte",
+    "confirm-delete": "Veuillez confirmer la suppression complète du compte",
+    "delete": "Supprimer",
+    "try-again": "Une erreur est survenue, veuillez réessayer plus tard."
+  },
+  "forgottenpasswordpage": {
+    "email-not-found": "Email non trouvé",
+    "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
+    "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre le changement de mot de passe."
+  },
+  "leftmenu": {
+    "personal-information": "Mes informations personnelles",
+    "add-property": "J'ajoute un bien",
+    "validate-property": "Je valide ma propriété",
+    "monthly-rent-and-charges": "Loyer et charges mensuels",
+    "property-name": "Nom de la propriété",
+    "property-type": "Type de logement",
+    "property-furniture": "Ameublement",
+    "property-address": "Adresse du logement",
+    "property-living-space": "Surface"
+  },
+  "menu": {
+    "dashboard": "Mes propriétés",
+    "account": "Mon compte",
+    "messaging": "Messagerie",
+    "help": "Aide",
+    "blog": "Blog",
+    "deleteAccount": "Supprimer mon compte",
+    "information": "Qui sommes-nous?",
+    "contact-us": "Nous contacter",
+    "personal-data": "Mes informations personnelles"
+  },
+  "nameinformationform": {
+    "title": "Je renseigne mes informations personnelles",
+    "subtitle": "Veuillez renseigner les informations de la personne dont le nom figurera sur le bail de location",
+    "lastname": "Nom",
+    "firstname": "Prénom",
+    "email": "Votre email",
+    "field-required": "Ce champ est requis",
+    "email-not-valid": "Email non valide",
+    "email-exists": "L'email existe déjà"
+  },
+  "profilefooter": {
+    "back": "Retour",
+    "continue": "Continuer"
+  },
+  "propertyaddress": {
+    "address-title": "Localisation",
+    "address-subtitle": "Où se trouve votre propriété ?",
+    "address-label": "L'adresse de ma propriété"
+  },
+  "propertylivingspace": {
+    "living-space-title": "Surface",
+    "living-space-subtitle": "Quelle est la surface habitable de votre bien ?",
+    "living-space-label": "Surface de ma propriété",
+    "living-space-placeholder": "taille en m²",
+    "number-not-positive": "La surface doit être supérieur à zéro"
+  },
+  "propertyname": {
+    "name-title": "Nom de la propriété",
+    "name-subtitle": "Choisissez un nom pour la propriété (par exemple l'adresse)",
+    "name-placeholder": "Nom de la propriété",
+    "name-label": "Nom de la propriété"
+  },
+  "propertyrent": {
+    "rent-title": "Loyer et charges mensuels",
+    "rent-subtitle": "Indiquez le montant du loyer demandé ainsi que les charges associées.",
+    "monthly-rent": "Loyer mensuel",
+    "rent-amount": "Montant du loyer",
+    "monthly-charges": "Montant des charges mensuel",
+    "charges-amount": "Montant des charges"
+  },
+  "propertytype": {
+    "type-title": "Type de logement",
+    "type-subtitle": "Quel logement proposez-vous à la location ?",
+    "house": "Une maison",
+    "apartment": "Un appartement",
+    "other": "Autres"
+  },
+  "register": {
+    "title": "Rejoindre DossierFacile",
+    "password": "Votre mot de passe :",
+    "confirm-password": "Confirmation de votre mot de passe :",
+    "email-placeholder": "Ex : exemple{'@'}exemple.fr",
+    "email": "Votre e-mail :",
+    "submit": "Je crée mon compte",
+    "email-not-valid": "Email non valide",
+    "field-required": "Ce champ est requis",
+    "password-not-confirmed": "Le mot de passe ne correspond pas",
+    "pwd-not-complex": "Mot de passe trop simple",
+    "accept-cgu": "En cochant cette case et en cliquant sur \"Je crée mon compte\", j’accepte expressément les <a class=\"cgu\" target=\"_blank\" href='https://www.dossierfacile.fr/mentions-legales#cgu'>Conditions générales d’utilisation</a> de DossierFacile et je comprends que mes données personnelles seront utilisées conformément à la <a target=\"_blank\" class=\"cgu\" href='https://www.dossierfacile.fr/mentions-legales#politique-de-confidentialite'>Politique de confidentialité</a> de DossierFacile",
+    "require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer",
+    "ex": "Ex : ",
+    "or": "Ou",
+    "connect-france-connect": "Se connecter avec FranceConnect",
+    "whatis-france-connect": "Qu'est-ce que FranceConnect ?",
+    "strength-not-valid": "Le mot de passe est trop simple",
+    "confirm-not-valid": "Le mot de passe ne correspond pas"
+  },
+  "signuppage": {
+    "connect": "Déjà inscrit ? S'identifier",
+    "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
+    "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre votre inscription.",
+    "duplicate-email": "Cet email est déjà utilisé",
+    "register-error": "Une erreur est survenue"
+  },
+  "topmenu": {
+    "personal-information": "Mes informations personnelles",
+    "add-property": "J'ajoute un bien",
+    "validate-property": "Je valide ma propriété",
+    "monthly-rent-and-charges": "Loyer et charges mensuels",
+    "property-name": "Nom de la propriété",
+    "property-type": "Type de logement",
+    "property-address": "Adresse du logement",
+    "property-furniture": "Ameublement",
+    "edit-property": "Édition de la propriété"
+  },
+  "updaterowbtn": {
+    "update": "Mettre à jour"
+  },
+  "validateproperty": {
+    "validate-title": "Je confirme l'exactitude des informations",
+    "validate-subtitle": "Je lis et je coche la case suivante afin de valider mon dossier.",
+    "required": "La case doit être cochée",
+    "authorize": "Je certifie sur l'honneur l'exactitude des informations de mon bien",
+    "error-title": "Bien invalide",
+    "property-not-valid": "Votre propriété n'est pas valide, veuillez compléter les champs manquants pour soumettre votre bien",
+    "property-name": "Nom de la propriété",
+    "property-type": "Type de logement",
+    "property-furniture": "Ameublement",
+    "property-address": "Adresse du logement",
+    "property-living-space": "Surface",
+    "property-rent": "Loyer et charges mensuels",
+    "try-again": "Veuillez corriger les erreurs pour soumettre la propriété"
+  }
 }
