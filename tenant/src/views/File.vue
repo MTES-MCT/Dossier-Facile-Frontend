@@ -153,7 +153,7 @@
                             ? $t('file.tax-verified')
                             : $t('tax')
                         "
-                        :document="document(tenant, 'TAX')"
+                        :document="document(g, 'TAX')"
                       >
                         <template v-slot:postTag>
                           <div v-if="isTaxChecked()">
