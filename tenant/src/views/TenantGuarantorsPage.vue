@@ -64,6 +64,10 @@ export default class TenantGuarantorsPage extends Vue {
       })?.guarantors || [];
   }
 
+  beforeMount() {
+    this.onCotenantsChange();
+  }
+
   getStep() {
     return Number(this.$route.params.step) || 0;
   }
@@ -137,4 +141,3 @@ h4 {
   margin: 0;
 }
 </style>
-
