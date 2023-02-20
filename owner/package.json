@@ -23,6 +23,7 @@
     "cy:run": "cypress run"
   },
   "dependencies": {
+    "@achrinza/node-ipc": "10.1.7",
     "@gouvfr/dsfr": "^1.5.1",
     "@vee-validate/rules": "^4.5.11",
     "@vue/cli-plugin-babel": "4.5.15",
@@ -39,8 +40,7 @@
     "vue-matomo": "^4.1.0",
     "vue-router": "4",
     "vue-toastification": "^2.0.0-rc.5",
-    "vue3-cookies": "^1.0.6",
-    "@achrinza/node-ipc": "10.1.7"
+    "vue3-cookies": "^1.0.6"
   },
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^3.3.0",
