@@ -15,8 +15,8 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "vbuild": "vite build",
+    "build": "vite build",
+    "fbuild": "vue-tsc --noEmit && vite build",
     "tsc": "vue-tsc --noEmit",
     "preview": "vite preview",
     "start": "node server.js",
