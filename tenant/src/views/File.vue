@@ -403,7 +403,7 @@ export default class File extends Vue {
   getIncomeSum() {
     if (this.user?.tenants) {
       let sum = 0;
-      for (const t of this.user?.tenants) {
+      for (const t of this.user.tenants) {
         const localsum = t.documents
           ?.filter((d: DfDocument) => {
             return d.documentCategory === "FINANCIAL";
