@@ -3915,7 +3915,7 @@
     typescript "~4.1.5"
     watch "^1.0.2"
 
-"@vue/cli@^4.5.17":
+"@vue/cli@^4.5.19":
   version "4.5.19"
   resolved "https://registry.yarnpkg.com/@vue/cli/-/cli-4.5.19.tgz#c356a51a011051eb9ad2be6ea1b540e32e6da4e1"
   integrity sha512-y+rPxbhwMNf9ZL3K1XuRDHaggnX4fVVDsm3oFzbZXKxK674Hi+cM+dc17TfKWNH8LbXiKH6R5KEWFoqIM/AbOA==

@@ -111,7 +111,7 @@
     "@types/webpack": "^4.4.0",
     "@typescript-eslint/eslint-plugin": "^5.49.0",
     "@typescript-eslint/parser": "^5.49.0",
-    "@vue/cli": "^4.5.17",
+    "@vue/cli": "^4.5.19",
     "@vue/cli-plugin-babel": "4.5.17",
     "@vue/cli-plugin-eslint": "^5.0.8",
     "@vue/cli-plugin-router": "^4.5.17",
