@@ -15,15 +15,15 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "vbuild": "vite build",
+    "build": "vite build",
+    "fbuild": "vue-tsc --noEmit && vite build",
     "tsc": "vue-tsc --noEmit",
     "preview": "vite preview",
     "start": "node server.js",
-    "cy:run": "cypress run",
-    "test": "start-server-and-test start http://localhost:3000 cy:run"
+    "cy:run": "cypress run"
   },
   "dependencies": {
+    "@achrinza/node-ipc": "10.1.7",
     "@gouvfr/dsfr": "^1.5.1",
     "@vee-validate/rules": "^4.5.11",
     "@vue/cli-plugin-babel": "4.5.15",
@@ -40,16 +40,14 @@
     "vue-matomo": "^4.1.0",
     "vue-router": "4",
     "vue-toastification": "^2.0.0-rc.5",
-    "vue3-cookies": "^1.0.6",
-    "@achrinza/node-ipc": "10.1.7"
+    "vue3-cookies": "^1.0.6"
   },
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^3.3.0",
     "@typescript-eslint/eslint-plugin": "^5.49.0",
     "@typescript-eslint/parser": "^5.49.0",
     "@vitejs/plugin-vue": "^2.2.0",
-    "cypress": "^10.3.0",
-    "eslint": "^8.10.0",
+    "eslint": "^8.34.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-vue": "^9.0.0",

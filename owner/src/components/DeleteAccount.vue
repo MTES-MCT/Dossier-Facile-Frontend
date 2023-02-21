@@ -5,10 +5,8 @@
         <div class="fr-container">
           <div class="fr-grid-row justify-content-center">
             <h4 class="fr-col-10 title">
-              <span class="text-danger material-icons-outlined md-38 fr-pr-1w"
-                >cancel</span
-              >
-              {{ t("title") }}
+              <span class="text-danger material-icons-outlined md-38 fr-pr-1w">cancel</span>
+              {{ t('deleteaccount.title') }}
             </h4>
           </div>
         </div>
@@ -18,24 +16,19 @@
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-10">
               <div class="fr-mb-3w">
-                <p>{{ t("confirm-delete") }}</p>
+                <p>{{ t('deleteaccount.confirm-delete') }}</p>
               </div>
               <div class="align--right">
                 <DfButton
-                  :title="t('cancel')"
+                  :title="t('deleteaccount.cancel')"
                   class="fr-mr-3w"
                   type="button"
                   @on-click="undoSelect()"
-                  >{{ t("cancel") }}</DfButton
+                  >{{ t('deleteaccount.cancel') }}</DfButton
                 >
-                <DfButton
-                  type="submit"
-                  :title="t('delete')"
-                  :primary="true"
-                  >{{
-                    isMobile() ? t("validate-mobile") : t("validate")
-                  }}</DfButton
-                >
+                <DfButton type="submit" :title="t('deleteaccount.delete')" :primary="true">{{
+                  isMobile() ? t('deleteaccount.validate-mobile') : t('deleteaccount.validate')
+                }}</DfButton>
               </div>
             </div>
           </div>
@@ -67,7 +60,7 @@ function validDelete() {
       window.location.replace(MAIN_URL);
     },
     () => {
-      toast.error(t('try-again').toString(), {
+      toast.error(t('deleteaccount.try-again').toString(), {
         timeout: 7000,
       });
     },
@@ -102,27 +95,3 @@ function isMobile() {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "confirm-delete": "Please confirm the complete deletion of the account :",
-    "validate": "Delete my account",
-    "validate-mobile": "Delete",
-    "cancel": "Cancel",
-    "title": "Account deletion",
-    "title-mobile": "Deletion",
-    "delete": "Delete",
-    "try-again": "An error occured, please try again later."
-  },
-  "fr": {
-    "validate": "Supprimer mon compte",
-    "validate-mobile": "Supprimer",
-    "cancel": "Annuler",
-    "title": "Suppression de compte",
-    "confirm-delete": "Veuillez confirmer la suppression complète du compte",
-    "delete": "Supprimer",
-    "try-again": "Une erreur est survenue, veuillez réessayer plus tard."
-  }
-}
-</i18n>

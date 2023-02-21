@@ -6,7 +6,6 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
-    "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -29,7 +28,6 @@
     "@typescript-eslint/eslint-plugin": "^5.49.0",
     "@typescript-eslint/parser": "^5.49.0",
     "@vue/cli-plugin-babel": "^4.5.15",
-    "@vue/cli-plugin-e2e-cypress": "^4.5.15",
     "@vue/cli-plugin-eslint": "^5.0.8",
     "@vue/cli-plugin-typescript": "^4.5.15",
     "@vue/cli-plugin-unit-mocha": "^5.0.8",
@@ -38,7 +36,7 @@
     "@vue/eslint-config-typescript": "^11.0.2",
     "@vue/test-utils": "^1.0.3",
     "chai": "^4.1.2",
-    "eslint": "^7.32.0",
+    "eslint": "^8.34.0",
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-vue": "^9.0.0",
     "prettier": "1.19.1",
@@ -46,15 +44,5 @@
     "typescript": "4.9.4",
     "vue-template-compiler": "^2.6.11"
   },
-  "resolutions": {
-    "trim": "1.0.1",
-    "merge": "2.1.1",
-    "glob-parent": "5.1.2",
-    "ansi-regex": "5.0.1",
-    "browserslist": "4.16.5",
-    "lodash": "4.17.21",
-    "jsonpointer": "5.0.0",
-    "nth-check": "2.0.1",
-    "immer": "9.0.7"
-  }
+  "resolutions": {}
 }

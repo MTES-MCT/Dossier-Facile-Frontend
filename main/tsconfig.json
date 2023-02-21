@@ -17,7 +17,9 @@
       "webpack-env",
       "mocha",
       "chai",
-      "webpack"
+      "webpack",
+      "cypress",
+      "cypress-axe"
     ],
     "paths": {
       "@/*": [
@@ -35,8 +37,7 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "**/*.ts"
   ],
   "exclude": [
     "node_modules"

@@ -2,12 +2,12 @@
   <div class="fr-mb-15w">
     <Form @submit="onSubmit">
       <NakedCard class="fr-p-5w">
-        <h1>{{ t("title") }}</h1>
-        <p>{{ t("subtitle") }}</p>
+        <h1>{{ t("nameinformationform.title") }}</h1>
+        <p>{{ t("nameinformationform.subtitle") }}</p>
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-input-group">
-              <label class="fr-label" for="lastname">{{ t("lastname") }} :</label>
+              <label class="fr-label" for="lastname">{{ t("nameinformationform.lastname") }} :</label>
               <Field
                 name="lastname"
                 v-model="lastname"
@@ -23,7 +23,7 @@
                     'fr-input--valid': meta.valid,
                     'fr-input--error': !meta.valid,
                   }"
-                  :placeholder="t('lastname')"
+                  :placeholder="t('nameinformationform.lastname')"
                   :disabled="franceConnect"
                   type="text"
                 />
@@ -35,7 +35,7 @@
           </div>
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-input-group">
-              <label for="firstname" class="fr-label">{{ t("firstname") }} :</label>
+              <label for="firstname" class="fr-label">{{ t("nameinformationform.firstname") }} :</label>
               <Field
                 name="firstname"
                 v-model="firstname"
@@ -51,7 +51,7 @@
                     'fr-input--valid': meta.valid,
                     'fr-input--error': !meta.valid,
                   }"
-                  :placeholder="t('firstname')"
+                  :placeholder="t('nameinformationform.firstname')"
                   :disabled="franceConnect"
                   type="text"
                 />
@@ -63,7 +63,7 @@
           </div>
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-input-group">
-              <label for="email" class="fr-label">{{ t("email") }} :</label>
+              <label for="email" class="fr-label">{{ t("nameinformationform.email") }} :</label>
               <Field
                 id="email"
                 name="email"
@@ -81,7 +81,7 @@
                     'fr-input--valid': meta.valid,
                     'fr-input--error': !meta.valid,
                   }"
-                  :placeholder="t('email')"
+                  :placeholder="t('nameinformationform.email')"
                   type="email"
                 />
               </Field>
@@ -130,7 +130,7 @@ function onSubmit() {
     router.push({ name: 'PropertyName' });
   }).catch((err) => {
     if (err.response.data.message.includes('email_exists')) {
-      toast.error(t('email-exists').toString(), {
+      toast.error(t('nameinformationform.email-exists').toString(), {
         timeout: 7000,
       });
     }
@@ -138,27 +138,3 @@ function onSubmit() {
 }
 </script>
 
-<i18n>
-{
-  "en": {
-    "title": "I enter my personal information",
-    "subtitle": "Please fill in the information of the person whose name will appear on the rental lease",
-    "lastname": "Lastname",
-    "firstname": "Firstname",
-    "email": "Your email",
-    "field-required": "This field is required",
-    "email-not-valid": "Email not valid",
-    "email-exists": "Email already exists"
-  },
-  "fr": {
-    "title": "Je renseigne mes informations personnelles",
-    "subtitle": "Veuillez renseigner les informations de la personne dont le nom figurera sur le bail de location",
-    "lastname": "Nom",
-    "firstname": "Prénom",
-    "email": "Votre email",
-    "field-required": "Ce champ est requis",
-    "email-not-valid": "Email non valide",
-    "email-exists": "L'email existe déjà"
-  }
-}
-</i18n>

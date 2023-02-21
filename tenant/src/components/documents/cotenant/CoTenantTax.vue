@@ -7,8 +7,8 @@
       dispatchMethodName="saveTenantTax"
       typeDocument="typeDocumentTax"
       listType="grid"
-      :showDownloader="showDownloader.value"
-      :forceShowDownloader="forceShowDownloader.value"
+      :showDownloader="showDownloader"
+      :forceShowDownloader="forceShowDownloader"
       @on-change-document="changeDocument"
       @enrich-form-data="enrichFormData"
     >
@@ -53,7 +53,6 @@ import { extend, ValidationProvider } from "vee-validate";
 import { is } from "vee-validate/dist/rules";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import { DfDocument } from "df-shared/src/models/DfDocument";
-import { ref } from "@vue/reactivity";
 import FooterContainer from "../../footer/FooterContainer.vue";
 import BackNext from "../../footer/BackNext.vue";
 import AllowCheckTax from "../share/AllowCheckTax.vue";
@@ -79,15 +78,15 @@ export default class CoTenantTax extends Vue {
   documentsDefinitions = DocumentTypeConstants.TAX_DOCS;
   @Prop() coTenantId!: number;
   documentType?: DocumentType;
-  showDownloader = ref(false);
-  forceShowDownloader = ref(false);
+  showDownloader = false;
+  forceShowDownloader = false;
   document!: DfDocument;
 
   changeDocument(docType?: DocumentType, doc?: DfDocument) {
     this.documentType = docType;
     this.document = doc as DfDocument;
-    this.showDownloader.value = this.documentType?.key === "my-name";
-    this.forceShowDownloader.value = this.documentType?.key === "my-name";
+    this.showDownloader = this.documentType?.key === "my-name";
+    this.forceShowDownloader = this.documentType?.key === "my-name";
   }
 
   enrichFormData(formData: FormData) {
@@ -121,10 +120,13 @@ export default class CoTenantTax extends Vue {
         formData.append("customText", this.document.customText);
       } else {
         // TODO : replace by form and validation
-        this.$toasted.show(this.$i18n.t("cotenanttax.custom-text-required").toString(), {
-          type: "error",
-          duration: 7000
-        });
+        this.$toasted.show(
+          this.$i18n.t("cotenanttax.custom-text-required").toString(),
+          {
+            type: "error",
+            duration: 7000
+          }
+        );
         return;
       }
     }
@@ -166,4 +168,3 @@ export default class CoTenantTax extends Vue {
   }
 }
 </script>
-

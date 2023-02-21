@@ -1,0 +1,38 @@
+name: E2E
+
+on:
+  schedule:
+    - cron: '30 4 * * *'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - uses: bahmutov/npm-install@v1
+        with:
+          working-directory: e2e-tests
+      - name: Run e2e tests
+        uses: cypress-io/github-action@v5
+        with:
+          project: ./e2e-tests
+          install: false
+      - name: Upload screenshot
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: e2e-tests/cypress/screenshots
+          retention-days: 1
+      - name: Upload video
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-videos
+          path: e2e-tests/cypress/videos
+          retention-days: 1

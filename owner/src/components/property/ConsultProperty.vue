@@ -5,26 +5,26 @@
       <div class="fr-grid-row space-between fr-mb-3w">
         <div class="fr-grid-row">
           <router-link
-            :title="t('back-label')"
+            :title="t('consultproperty.back-label')"
             class="fr-btn btn--white fr-btn--secondary"
             to="/"
-            >{{ t('back') }}</router-link
+            >{{ t('consultproperty.back') }}</router-link
           >
           <div class="title">{{ name }}</div>
         </div>
         <div class="fr-grid-row">
           <VGouvFrModal>
             <template v-slot:button>
-              <button :title="t('share-btn')" class="fr-btn btn--white fr-btn--secondary">
+              <button :title="t('consultproperty.share-btn')" class="fr-btn btn--white fr-btn--secondary">
                 <span class="material-icons md-24"> share_variant </span>
               </button>
             </template>
             <template v-slot:title>
-              {{ t('share-modal-title') }}
+              {{ t('consultproperty.share-modal-title') }}
             </template>
             <template v-slot:content>
               <p>
-                {{ t('share-modal-description') }}
+                {{ t('consultproperty.share-modal-description') }}
               </p>
               <div class="fr-grid-row fr-mb-3w">
                 <div class="align-self--center">
@@ -32,35 +32,35 @@
                 </div>
                 <div>
                   <button class="fr-btn fr-ml-5w" @click="copyToken">
-                    {{ t('copy-link') }}
+                    {{ t('consultproperty.copy-link') }}
                   </button>
                 </div>
               </div>
               <p>
-                {{ t('share-modal-detail') }}
+                {{ t('consultproperty.share-modal-detail') }}
               </p>
             </template>
           </VGouvFrModal>
           <button
-            :title="t('update-btn')"
+            :title="t('consultproperty.update-btn')"
             @click="editProperty()"
             class="fr-btn btn--white fr-btn--secondary fr-ml-1w"
           >
-            {{ t('modify-property') }}
+            {{ t('consultproperty.modify-property') }}
           </button>
           <button
-            :title="t('delete-btn')"
+            :title="t('consultproperty.delete-btn')"
             class="fr-btn btn--white fr-btn--secondary fr-ml-1w"
             @click="confirmDeleteProperty = true"
           >
-            {{ t('delete-property') }}
+            {{ t('consultproperty.delete-property') }}
           </button>
           <ConfirmModal
             v-if="confirmDeleteProperty"
             @valid="validDeleteFile()"
             @cancel="undoDeleteFile()"
           >
-            {{ t('will-delete-property') }}
+            {{ t('consultproperty.will-delete-property') }}
           </ConfirmModal>
         </div>
       </div>
@@ -72,7 +72,7 @@
           <div class="fr-col">
             <div
               v-html="
-                `${t(titleKey)} ${t('rent', {
+                `${t(titleKey)} ${t('consultproperty.rent', {
                   rentCost: p.rentCost,
                   chargesCost: p.chargesCost,
                 })}`
@@ -83,7 +83,7 @@
       </NakedCard>
       <NakedCard class="fr-mt-3w">
         <h1 class="fr-h4">
-          {{ t('verified-applicants', { count: verifiedApplicantsCount }) }}
+          {{ t('consultproperty.verified-applicants', { count: verifiedApplicantsCount }) }}
         </h1>
         <div class="delete-btn-container">
           <button
@@ -91,14 +91,14 @@
             @click="confirmDeleteApplicants = true"
             :disabled="selectedApplicants.length <= 0"
           >
-            {{ t('delete-applicants') }}
+            {{ t('consultproperty.delete-applicants') }}
           </button>
           <ConfirmModal
             v-if="confirmDeleteApplicants"
             @valid="validDeleteApplicants()"
             @cancel="undoDeleteApplicants()"
           >
-            {{ t('will-delete-applicants') }}
+            {{ t('consultproperty.will-delete-applicants') }}
           </ConfirmModal>
         </div>
         <table>
@@ -106,7 +106,7 @@
             <tr>
               <th></th>
               <th @click="sortTable('date')" class="desktop">
-                {{ t('date') }}
+                {{ t('consultproperty.date') }}
                 <div
                   class="arrow"
                   v-if="'date' == sortColumn"
@@ -114,7 +114,7 @@
                 ></div>
               </th>
               <th @click="sortTable('tenantName')">
-                {{ t('tenant-name') }}
+                {{ t('consultproperty.tenant-name') }}
                 <div
                   class="arrow"
                   v-if="'tenantName' == sortColumn"
@@ -122,7 +122,7 @@
                 ></div>
               </th>
               <th @click="sortTable('tenantType')" class="desktop">
-                {{ t('tenant-type') }}
+                {{ t('consultproperty.tenant-type') }}
                 <div
                   class="arrow"
                   v-if="'tenantType' == sortColumn"
@@ -130,7 +130,7 @@
                 ></div>
               </th>
               <th @click="sortTable('tenantSalary')">
-                {{ t('tenant-salary') }}
+                {{ t('consultproperty.tenant-salary') }}
                 <div
                   class="arrow"
                   v-if="'tenantSalary' == sortColumn"
@@ -138,7 +138,7 @@
                 ></div>
               </th>
               <th @click="sortTable('guarantorSalary')" class="desktop">
-                {{ t('guarantor-salary') }}
+                {{ t('consultproperty.guarantor-salary') }}
                 <div
                   class="arrow"
                   v-if="'guarantorSalary' == sortColumn"
@@ -146,7 +146,7 @@
                 ></div>
               </th>
               <th @click="sortTable('rate')">
-                {{ t('rate') }}
+                {{ t('consultproperty.rate') }}
                 <div
                   class="arrow"
                   v-if="'rate' == sortColumn"
@@ -154,7 +154,7 @@
                 ></div>
               </th>
               <th @click="sortTable('status')">
-                {{ t('status') }}
+                {{ t('consultproperty.status') }}
                 <div
                   class="arrow"
                   v-if="'status' == sortColumn"
@@ -193,7 +193,7 @@
               <td @click="setShowTenant(tenant, k)">
                 <div>
                   <span class="rate" :class="getRateClass(tenant)">{{ tenant.rate }} %</span>
-                  {{ t('income') }}
+                  {{ t('consultproperty.income') }}
                 </div>
               </td>
               <td @click="setShowTenant(tenant, k)">
@@ -215,7 +215,7 @@
               <td colspan="8" class="additional-td">
                 <div class="tenant-token-link fr-mb-3w fr-mt-1w">
                   <a class="fr-btn" :href="`${TENANT_URL}/file/${tenant?.token}`" target="_blank">{{
-                    t('download-full-file')
+                    t('consultproperty.download-full-file')
                   }}</a>
                 </div>
               </td>
@@ -353,7 +353,7 @@ function undoDeleteApplicants() {
 
 function copyToken() {
   navigator.clipboard.writeText(token.value);
-  toast.success(t('link-copied').toString(), {
+  toast.success(t('consultproperty.link-copied').toString(), {
     timeout: 7000,
   });
 }
@@ -601,91 +601,3 @@ tr {
 }
 </style>
 
-<i18n>
-{
-  "en": {
-    "title": "consult",
-    "back": "Back",
-    "modify-property": "Modify my property",
-    "delete-property": "Delete my property",
-    "will-delete-property": "Are you sure you want to delete this property ?",
-    "will-delete-applicants": "Are you sure you want to delete these applicants?",
-    "share-modal-title": "The link of my property",
-    "share-modal-description": "If you want to give access to your property to a candidate, you can copy your file link and paste it into the message you send him.",
-    "copy-link": "Copy",
-    "share-modal-detail": "The copy button will copy this link to your clipboard",
-    "link-copied": "Link copied",
-    "verified-applicants": "My verified applicants ({count})",
-    "date": "Date",
-    "tenant-name": "Tenant name",
-    "tenant-type": "Tenant type",
-    "tenant-salary": "Monthly income",
-    "guarantor-salary": "Guarantor monthly income",
-    "rate": "Rate effort",
-    "status": "Status",
-    "ALONE": "Alone",
-    "COUPLE": "Couple",
-    "GROUP": "Roommate",
-    "TO_PROCESS": "to process",
-    "VALIDATED": "validated",
-    "DECLINED": "declined",
-    "INCOMPLETE": "incomplete",
-    "house-furnished": "A furnished house",
-    "house-unfurnished": "An unfurnished house",
-    "apartment-furnished": "A furnished apartment",
-    "apartment-unfurnished": "A unfurnished apartment",
-    "other-furnished": "A furnished property",
-    "other-unfurnished": "A unfurnished property",
-    "rent": "with a rent of <span class='blue-text'>{rentCost}€</span> and charges of <span class='blue-text'>{chargesCost}€</span>",
-    "download-full-file": "Download the full file",
-    "income": "of income",
-    "delete-applicants": "Delete applicants",
-    "share-btn": "Share my property",
-    "update-btn": "Update my property",
-    "delete-btn": "Delete my property",
-    "back-label": "Back"
-  },
-  "fr": {
-    "title": "Consultation",
-    "back": "Retour",
-    "modify-property": "Modifier ma propriété",
-    "delete-property": "Supprimer ma propriété",
-    "will-delete-property": "Voulez-vous vraiment supprimer cette propriété ?",
-    "will-delete-applicants": "Voulez-vous vraiment supprimer ce(s) locataire(s) ?",
-    "share-modal-title": "Le lien de ma propriété",
-    "share-modal-description": "Si vous voulez donner accès à votre propriété à un candidat, vous pouvez copier votre lien dossier et le coller dans le message que vous lui enverrez.",
-    "copy-link": "Copier",
-    "share-modal-detail": "Le bouton copier copiera ce lien dans votre presse papier",
-    "link-copied": "Lien copié",
-    "verified-applicants": "Mes candidatures vérifiées ({count})",
-    "date": "Date de dernière modification",
-    "tenant-name": "Nom du locataire",
-    "tenant-type": "Type de dossier",
-    "tenant-salary": "Revenus nets mensuels",
-    "guarantor-salary": "Revenus Garants nets mensuels",
-    "rate": "Taux d'effort",
-    "status": "Statut",
-    "ALONE": "Seul·e",
-    "COUPLE": "Couple",
-    "GROUP": "Colocation",
-    "TO_PROCESS": "En cours de traitement",
-    "VALIDATED": "Vérifié",
-    "DECLINED": "Modification demandée",
-    "INCOMPLETE": "Non terminé",
-    "house-furnished": "Une maison meublée",
-    "house-unfurnished": "Une maison non meublée",
-    "apartment-furnished": "Un appartement meublé",
-    "apartment-unfurnished": "Un appartement non meublé",
-    "other-furnished": "Un bien meublé",
-    "other-unfurnished": "Un bien non meublé",
-    "rent": "dont le loyer mensuel est de <span class='blue-text'>{rentCost}€</span> et les charges de <span class='blue-text'>{chargesCost}€</span>",
-    "download-full-file": "Voir le dossier complet",
-    "income": "des revenus",
-    "delete-applicants": "Supprimer des candidatures",
-    "share-btn": "Partager ma propriété",
-    "update-btn": "Modifier ma propriété",
-    "delete-btn": "Supprimer ma propriété",
-    "back-label": "Retour"
-  }
-}
-</i18n>

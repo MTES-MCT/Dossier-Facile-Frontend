@@ -40,10 +40,10 @@ function onBack() {
 
 <template>
   <PropertyPage @on-back="onBack" @submit="onSubmit">
-    <h1 class="fr-h4">{{ t('living-space-title') }}</h1>
-    <p>{{ t('living-space-subtitle') }}</p>
+    <h1 class="fr-h4">{{ t('propertylivingspace.living-space-title') }}</h1>
+    <p>{{ t('propertylivingspace.living-space-subtitle') }}</p>
     <p>
-      <label class="fr-label" for="living-space">{{ t('living-space-label') }} :</label>
+      <label class="fr-label" for="living-space">{{ t('propertylivingspace.living-space-label') }} :</label>
       <Field
         id="living-space"
         name="living-space"
@@ -61,7 +61,7 @@ function onBack() {
             'fr-input--valid': meta.valid,
             'fr-input--error': !meta.valid,
           }"
-          :placeholder="t('living-space-placeholder')"
+          :placeholder="t('propertylivingspace.living-space-placeholder')"
           type="number"
         />
       </Field>
@@ -72,21 +72,3 @@ function onBack() {
   </PropertyPage>
 </template>
 
-<i18n>
-{
-  "en": {
-    "living-space-title": "Living space",
-    "living-space-subtitle": "Indicate the living space",
-    "living-space-label": "Living space of my property",
-    "living-space-placeholder": "size m²",
-    "number-not-positive": "Living space must be more than zero"
-  },
-  "fr": {
-    "living-space-title": "Surface",
-    "living-space-subtitle": "Quelle est la surface habitable de votre bien ?",
-    "living-space-label": "Surface de ma propriété",
-    "living-space-placeholder": "taille en m²",
-    "number-not-positive": "La surface doit être supérieur à zéro"
-  }
-}
-</i18n>

@@ -23,6 +23,13 @@ jobs:
         run: yarn main build
       - name: Run unit tests
         run: yarn main test:unit
+      - name: Run e2e tests
+        uses: cypress-io/github-action@v5
+        with:
+          project: ./main
+          install: false
+          start: yarn main serve
+          wait-on: 'http://localhost:9001'
 
   tenant:
     runs-on: ubuntu-latest

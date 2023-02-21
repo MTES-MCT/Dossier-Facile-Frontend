@@ -26,8 +26,13 @@ onMounted(() => {
   const tdx = tds[route.meta.position as number];
   const tcontainerval = tcontainer.value as any;
   const tdxval = tdx.value as any;
-  if (tdx === undefined || tdx.value === null || tdxval.offsetLeft === null
-   || tcontainer.value === null || tcontainerval.offsetWidth === null) {
+  if (
+    tdx === undefined
+    || tdx.value === null
+    || tdxval.offsetLeft === null
+    || tcontainer.value === null
+    || tcontainerval.offsetWidth === null
+  ) {
     return;
   }
   left = tdxval.offsetLeft - (tcontainerval.offsetWidth - tdxval.offsetWidth) / 2;
@@ -59,12 +64,12 @@ const substep = computed(() => route.meta.position);
 
 function getStepTitle() {
   if (step.value === 0) {
-    return t('personal-information');
+    return t('topmenu.personal-information');
   }
   if (step.value === 2) {
-    return t('validate-property');
+    return t('topmenu.validate-property');
   }
-  return t('edit-property');
+  return t('topmenu.edit-property');
 }
 
 function getClass(s: number) {
@@ -97,44 +102,38 @@ function getClass(s: number) {
       <div class="ml-5" ref="td0">
         <router-link :to="{ name: 'PropertyName', params: getParams }" class="fr-link">
           <ColoredTag
-            :text="propertyName ? propertyName : t('property-name')"
+            :text="propertyName ? propertyName : t('topmenu.property-name')"
             :status="propertyName ? 'FILLED' : 'EMPTY'"
           ></ColoredTag>
         </router-link>
       </div>
       <div class="ml-5" ref="td1">
         <router-link :to="{ name: 'PropertyType', params: getParams }" class="fr-link">
-          <ColoredTag :text="t('property-type')" :status="typeStatus"></ColoredTag>
+          <ColoredTag :text="t('topmenu.property-type')" :status="typeStatus"></ColoredTag>
         </router-link>
       </div>
       <div class="ml-5" ref="td2">
         <router-link :to="{ name: 'PropertyAddress', params: getParams }" class="fr-link">
-          <ColoredTag :text="t('property-address')" :status="addressStatus"></ColoredTag>
+          <ColoredTag :text="t('topmenu.property-address')" :status="addressStatus"></ColoredTag>
         </router-link>
       </div>
       <div class="ml-5" ref="td3">
-        <router-link
-          :to="{ name: 'PropertyFurniture', params: getParams }"
-          class="fr-link"
-        >
+        <router-link :to="{ name: 'PropertyFurniture', params: getParams }" class="fr-link">
           <ColoredTag
-            :text="t('property-furniture')"
+            :text="t('topmenu.property-furniture')"
             :status="furnitureStatus"
           ></ColoredTag>
         </router-link>
       </div>
       <div class="ml-5" ref="td4">
         <router-link :to="{ name: 'PropertyLivingSpace', params: getParams }" class="fr-link">
-          <ColoredTag
-            :text="t('property-living-space')"
-            :status="livingSpaceStatus"
-          ></ColoredTag>
+          <ColoredTag :text="t('property-living-space')" :status="livingSpaceStatus"></ColoredTag>
         </router-link>
       </div>
       <div class="ml-5" ref="td5">
         <router-link :to="{ name: 'PropertyRent', params: getParams }" class="fr-link">
           <ColoredTag
-            :text="t('monthly-rent-and-charges')"
+            :text="t('topmenu.monthly-rent-and-charges')"
             :status="rentStatus"
           ></ColoredTag>
         </router-link>
@@ -247,30 +246,3 @@ hr {
   overflow: scroll;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "personal-information": "My personal data",
-    "add-property": "I add my property",
-    "validate-property": "I validate my property",
-    "monthly-rent-and-charges": "Monthly rent and charges",
-    "property-name": "Property name",
-    "property-type": "Type of rent",
-    "property-address": "Property address",
-    "property-furniture": "Furniture",
-    "edit-property": "Property edit"
-  },
-  "fr": {
-    "personal-information": "Mes informations personnelles",
-    "add-property": "J'ajoute un bien",
-    "validate-property": "Je valide ma propriété",
-    "monthly-rent-and-charges": "Loyer et charges mensuels",
-    "property-name": "Nom de la propriété",
-    "property-type": "Type de logement",
-    "property-address": "Adresse du logement",
-    "property-furniture": "Ameublement",
-    "edit-property": "Édition de la propriété"
-  }
-}
-</i18n>

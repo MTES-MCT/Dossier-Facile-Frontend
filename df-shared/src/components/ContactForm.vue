@@ -71,7 +71,7 @@
                 </div>
               </div>
               <div v-if="status == 'KO'" class="bg-white fr-p-4w fr-px-md-10w">
-                <Modal @close="closeModal">
+                <Modal @close="closeModal" id="submit-error-modal">
                   <template v-slot:body>
                     <div class="fr-container">
                       <div class="fr-grid-row justify-content-center">
