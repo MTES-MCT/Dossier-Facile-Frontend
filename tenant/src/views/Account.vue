@@ -274,7 +274,6 @@ import { extend } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
 import DeleteAccount from "../components/DeleteAccount.vue";
 import FakeAnnouncement from "../components/FakeAnnouncement.vue";
-import GuarantorsSection from "@/components/account/GuarantorsSection.vue";
 import PartnersSection from "@/components/account/PartnersSection.vue";
 import { UtilsService } from "@/services/UtilsService";
 import InfoCard from "@/components/account/InfoCard.vue";
@@ -290,7 +289,6 @@ extend("required", {
     FakeAnnouncement,
     InfoCard,
     PartnersSection,
-    GuarantorsSection,
     ValidationProvider,
     ValidationObserver,
     DfButton,

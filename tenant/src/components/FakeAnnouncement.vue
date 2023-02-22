@@ -19,6 +19,7 @@
             <template v-slot:masecurite>
               <a
                 href="https://www.masecurite.interieur.gouv.fr/fr"
+                rel="noopener"
                 :title="$t('fakeannouncement.link-title').toString()"
                 target="_blank"
                 >{{ $t("fakeannouncement.masecurite") }}</a
@@ -49,7 +50,8 @@ export default class FileErrors extends Vue {
   signal() {
     window.open(
       "https://www.service-public.fr/particuliers/vosdroits/N31138",
-      "_blank"
+      "_blank",
+      "noopener"
     );
   }
 }
