@@ -24,7 +24,12 @@
             >
               <ColoredTag
                 :status="getGuarantorStatus(g, 'IDENTIFICATION')"
-                :text="$t('guarantorssection.s_' + getGuarantorStatus(g, 'IDENTIFICATION'))"
+                :text="
+                  $t(
+                    'guarantorssection.s_' +
+                      getGuarantorStatus(g, 'IDENTIFICATION')
+                  )
+                "
               ></ColoredTag>
             </InfoCard>
 
@@ -36,7 +41,11 @@
             >
               <ColoredTag
                 :status="getGuarantorStatus(g, 'RESIDENCY')"
-                :text="$t('guarantorssection.s_' + getGuarantorStatus(g, 'RESIDENCY'))"
+                :text="
+                  $t(
+                    'guarantorssection.s_' + getGuarantorStatus(g, 'RESIDENCY')
+                  )
+                "
               ></ColoredTag>
             </InfoCard>
 
@@ -48,7 +57,12 @@
             >
               <ColoredTag
                 :status="getGuarantorStatus(g, 'PROFESSIONAL')"
-                :text="$t('guarantorssection.s_' + getGuarantorStatus(g, 'PROFESSIONAL'))"
+                :text="
+                  $t(
+                    'guarantorssection.s_' +
+                      getGuarantorStatus(g, 'PROFESSIONAL')
+                  )
+                "
               ></ColoredTag>
             </InfoCard>
 
@@ -60,7 +74,11 @@
             >
               <ColoredTag
                 :status="getGuarantorStatus(g, 'FINANCIAL')"
-                :text="$t('guarantorssection.s_' + getGuarantorStatus(g, 'FINANCIAL'))"
+                :text="
+                  $t(
+                    'guarantorssection.s_' + getGuarantorStatus(g, 'FINANCIAL')
+                  )
+                "
               ></ColoredTag>
             </InfoCard>
 
@@ -72,7 +90,9 @@
             >
               <ColoredTag
                 :status="getGuarantorStatus(g, 'TAX')"
-                :text="$t('guarantorssection.s_' + getGuarantorStatus(g, 'TAX'))"
+                :text="
+                  $t('guarantorssection.s_' + getGuarantorStatus(g, 'TAX'))
+                "
               ></ColoredTag>
             </InfoCard>
           </div>
@@ -87,7 +107,12 @@
             >
               <ColoredTag
                 :status="getGuarantorStatus(g, 'IDENTIFICATION')"
-                :text="$t('guarantorssection.s_' + getGuarantorStatus(g, 'IDENTIFICATION'))"
+                :text="
+                  $t(
+                    'guarantorssection.s_' +
+                      getGuarantorStatus(g, 'IDENTIFICATION')
+                  )
+                "
               ></ColoredTag>
             </InfoCard>
           </div>
@@ -104,7 +129,8 @@
                 :status="getGuarantorStatus(g, 'IDENTIFICATION_LEGAL_PERSON')"
                 :text="
                   $t(
-                    'guarantorssection.s_' + getGuarantorStatus(g, 'IDENTIFICATION_LEGAL_PERSON')
+                    'guarantorssection.s_' +
+                      getGuarantorStatus(g, 'IDENTIFICATION_LEGAL_PERSON')
                   )
                 "
               ></ColoredTag>
@@ -151,13 +177,15 @@
             href="https://www.visale.fr/#!/"
             rel="noreferrer"
             target="_blank"
-            :title="$t('guarantorssection.go-to-visale')"
+            :title="$t('guarantorssection.go-to-visale').toString()"
           >
             <div class="fr-tile bg-purple">
               <div>{{ $t("guarantorssection.visale-text") }}</div>
               <div class="inline-block-flex space-between">
                 <div>
-                  <div class="fr-h5">{{ $t("guarantorssection.visale-title") }}</div>
+                  <div class="fr-h5">
+                    {{ $t("guarantorssection.visale-title") }}
+                  </div>
                 </div>
                 <div>
                   <img
@@ -213,7 +241,9 @@ export default class GuarantorsSection extends Vue {
         (g.firstName || g.lastName ? " " + g.firstName + " " + g.lastName : "")
       );
     else if (g.typeGuarantor === "LEGAL_PERSON" && g.legalPersonName) {
-      return this.$t("guarantorssection.my-guarantor") + " " + g.legalPersonName;
+      return (
+        this.$t("guarantorssection.my-guarantor") + " " + g.legalPersonName
+      );
     }
     return this.$t("guarantorssection.guarantors-information");
   }
@@ -409,4 +439,3 @@ a.cleana:focus {
   outline-style: auto;
 }
 </style>
-

@@ -513,6 +513,14 @@
     "tenant-invalid-document": "Les documents invalides de mon conjoint :",
     "tenant-invalid-document-guarantor": "Les documents invalides du garant de mon conjoint :"
   },
+  "fakeannouncement": {
+    "fake-announce-title": "Signaler une fausse annonce !",
+    "content": "Si vous pensez avoir affaire à une fausse annonce immobilière, {nodocument}, et faites un signalement sur {masecurite}, site du ministère de l'Intérieur.",
+    "nodocument": "n'envoyez aucun document",
+    "masecurite": "Ma Sécurité",
+    "link-title": "Aller sur le site masecurite.fr (nouvelle fenêtre)",
+    "signal-button": "Signaler une annonce"
+  },
   "file": {
     "title": "Dossier locataire de {0}",
     "description": "{0} {1}",
@@ -907,7 +915,14 @@
     "anil-text": "Une information pratique sur vos droits et obligations ? \n Votre ADIL vous conseille gratuitement",
     "anil-btn": "Contacter mon ADIL",
     "go-to-anil": "Aller sur le site de l'ANIL (nouvelle fenêtre)",
-    "go-to-mds": "Aller sur le site de « mes droits sociaux » (nouvelle fenêtre)"
+    "go-to-mds": "Aller sur le site de « mes droits sociaux » (nouvelle fenêtre)",
+    "go-to-signal": "Aller sur le site de « ma securité » (nouvelle fenêtre)",
+    "signal-title": "Signaler une fausse annonce !",
+    "link-title": "Aller sur le site masecurite.fr (nouvelle fenêtre)",
+    "signal-text": "Si vous pensez avoir affaire à une fausse annonce immobilière, {nodocument}, et faites un signalement sur {masecurite}, site du ministère de l'Intérieur.",
+    "nodocument": "n'envoyez aucun document",
+    "masecurite": "Ma Sécurité",
+    "signal-btn": "Signaler une annonce"
   },
   "professional-page": {
     "cdi": "CDI",
