@@ -34,6 +34,7 @@
               ></p>
               <p v-html="$t('account.congratulations-text-2')"></p>
             </div>
+            <FakeAnnouncement v-if="isAnnouncementVisible()"></FakeAnnouncement>
             <div class="main fr-mt-5w fr-p-4w bg-white">
               <div class="main-bar fr-grid-row">
                 <div class="header-title mobile-margin">
@@ -272,6 +273,7 @@ import { AnalyticsService } from "../services/AnalyticsService";
 import { extend } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
 import DeleteAccount from "../components/DeleteAccount.vue";
+import FakeAnnouncement from "../components/FakeAnnouncement.vue";
 import GuarantorsSection from "@/components/account/GuarantorsSection.vue";
 import PartnersSection from "@/components/account/PartnersSection.vue";
 import { UtilsService } from "@/services/UtilsService";
@@ -285,6 +287,7 @@ extend("required", {
 
 @Component({
   components: {
+    FakeAnnouncement,
     InfoCard,
     PartnersSection,
     GuarantorsSection,
@@ -304,6 +307,8 @@ extend("required", {
 export default class Account extends Vue {
   TENANT_URL = `https://${process.env.VUE_APP_TENANT_URL}`;
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+  FORCE_FAKE_ANNOUNCEMENT_VISIBILITY =
+    process.env.VUE_APP_FORCE_ANNOUNCEMENT_VISIBILITY;
 
   user!: User;
   radioVisible = false;
@@ -554,6 +559,14 @@ export default class Account extends Vue {
         return "group";
     }
     return "alone";
+  }
+
+  isAnnouncementVisible() {
+    const today = new Date();
+    return (
+      (today.getMonth() >= 5 && today.getMonth() <= 8) ||
+      this.FORCE_FAKE_ANNOUNCEMENT_VISIBILITY
+    );
   }
 }
 </script>

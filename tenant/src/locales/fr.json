@@ -513,6 +513,14 @@
     "tenant-invalid-document": "Les documents invalides de mon conjoint :",
     "tenant-invalid-document-guarantor": "Les documents invalides du garant de mon conjoint :"
   },
+  "fakeannouncement": {
+    "fake-announce-title": "Signaler une fausse annonce !",
+    "content": "Si vous pensez avoir affaire à une fausse annonce immobilière, {nodocument}, et faites un signalement sur {masecurite}, site du ministère de l'Intérieur.",
+    "nodocument": "n'envoyez aucun document",
+    "masecurite": "Ma Sécurité",
+    "link-title": "Aller sur le site masecurite.fr (nouvelle fenêtre)",
+    "signal-button": "Signaler une annonce"
+  },
   "file": {
     "title": "Dossier locataire de {0}",
     "description": "{0} {1}",
