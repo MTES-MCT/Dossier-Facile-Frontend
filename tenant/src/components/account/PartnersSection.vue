@@ -66,7 +66,8 @@
           <div class="service-box-btn">
             <a
               class="fr-btn fr-mt-1w fr-ml-2w cleana"
-              href="https://www.masecurite.interieur.gouv.fr/fr"
+              href="#"
+              @click="signal()"
               rel="noreferrer"
               target="_blank"
               :title="$t('partnerssection.go-to-signal').toString()"
@@ -112,6 +113,7 @@
 </template>
 
 <script lang="ts">
+import { AnalyticsService } from "@/services/AnalyticsService";
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
