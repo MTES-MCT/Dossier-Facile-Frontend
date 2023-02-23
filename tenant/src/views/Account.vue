@@ -6,9 +6,9 @@
           <div class="fr-col-12">
             <h1>
               {{
-                $t("account.title." + getApplicationType(), [
+                $t(`account.title.${getApplicationType()}`, [
                   getFirstName(),
-                  $t(getGlobalStatus()).toLowerCase()
+                  $t(`account.${getGlobalStatus()}`)
                 ])
               }}
             </h1>
