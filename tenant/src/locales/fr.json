@@ -64,7 +64,8 @@
     "TO_PROCESS": "En cours de traitement",
     "VALIDATED": "Vérifé",
     "DECLINED": "Modification demandée",
-    "INCOMPLETE": "Incomplet"
+    "INCOMPLETE": "Incomplet",
+    "ARCHIVED": "Archivé"
   },
   "documents": {
     "identity-card": "Carte d’identité française",
@@ -669,8 +670,8 @@
     "remark-title": "Remarque",
     "remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez sélectionner « Je n'ai pas de garant ». Votre dossier sera alors enregistré pour être instruit."
   },
-  "guarantordocumentspage": {},
   "guarantorfinancialdocumentform": {
+    "financial": "Justificatif de ressources",
     "monthlySum": "Montant en euros",
     "monthlySum-label": "J'indique le montant de son revenu mensuel net à payer (avant prélèvement à la source)",
     "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",

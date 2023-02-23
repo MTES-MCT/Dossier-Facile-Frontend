@@ -198,7 +198,7 @@ extend("required", {
 });
 
 extend("lastname", {
-  message: "only-alpha",
+  message: "nameinformationform.only-alpha",
   validate(value) {
     return {
       required: false,
