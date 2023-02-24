@@ -4,7 +4,8 @@
   "description": "End-to-end tests for DossierFacile",
   "scripts": {
     "test": "cypress run",
-    "cy:open": "cypress open --browser electron --e2e"
+    "cy:open": "cypress open --browser electron --e2e",
+    "cy:open-preprod": "cypress open --browser electron --e2e --config-file cypress-preprod.config.ts"
   },
   "dependencies": {
     "@types/cypress": "^1.1.3",

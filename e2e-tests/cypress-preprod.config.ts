@@ -2,12 +2,11 @@ import { defineConfig } from "cypress";
 
 export default defineConfig({
   e2e: {
-    video: false,
-    screenshotOnRunFailure: false,
-    defaultCommandTimeout: 5000
+    video: true,
+    defaultCommandTimeout: 10000
   },
   env: {
-    tenantUrl: "localhost:9002"
+    tenantUrl: "locataire-dev.dossierfacile.fr"
   },
   chromeWebSecurity: false
 });
