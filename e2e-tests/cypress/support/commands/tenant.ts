@@ -4,6 +4,7 @@ Cypress.Commands.add("tenantLogin", (username: string) => {
   cy.visit("www-dev.dossierfacile.fr");
   cy.contains("Se connecter").click();
   cy.loginWithFC(username);
+  cy.visit(Cypress.env("tenantUrl"));
 });
 
 Cypress.Commands.add("uploadDocument", () => {
@@ -39,6 +40,9 @@ Cypress.Commands.add("addFinancialResource", (resourceType: string, monthlySum: 
     .type(monthlySum)
     .uploadDocument()
     .clickOnNext();
+  cy.get(".fr-tag")
+    .contains(resourceType)
+    .should("be.visible");
 });
 
 Cypress.Commands.add("validationStep", () => {

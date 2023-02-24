@@ -1,4 +1,4 @@
-describe("couple tenant flow", () => {
+describe("couple tenant scenario", () => {
   const user = {
     username: "test_FABIEN",
     firstname: "Fabien"
@@ -7,15 +7,13 @@ describe("couple tenant flow", () => {
   before("reset account", () => {
     cy.tenantLogin(user.username);
     cy.deleteAccount();
-    cy.clearCookies();
-    cy.clearAllLocalStorage();
   });
 
   it("validate file", () => {
     cy.tenantLogin(user.username);
     cy.acceptCookies();
 
-    cy.expectPath("/nom-locataire");
+    cy.expectPath("/profile");
     cy.clickOnNext();
 
     cy.expectPath("/type-locataire");
@@ -51,6 +49,7 @@ describe("couple tenant flow", () => {
     cy.uploadDocument().clickOnNext();
 
     cy.expectPath("/liste-garants");
+    cy.contains("Mon organisme garant").should("be.visible");
     cy.clickOnNext();
 
     cy.expectPath("/4/0");

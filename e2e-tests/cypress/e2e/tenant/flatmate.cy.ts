@@ -1,4 +1,4 @@
-describe("flatmate tenant flow", () => {
+describe("flatmate tenant scenario", () => {
   const user = {
     username: "test_ALAIN",
     firstname: "Alain",
@@ -8,15 +8,13 @@ describe("flatmate tenant flow", () => {
   before("reset account", () => {
     cy.tenantLogin(user.username);
     cy.deleteAccount();
-    cy.clearCookies();
-    cy.clearAllLocalStorage();
   });
 
   it("validate file", () => {
     cy.tenantLogin(user.username);
     cy.acceptCookies();
 
-    cy.expectPath("/nom-locataire");
+    cy.expectPath("/profile");
     cy.get("#lastname").should("have.value", user.lastname);
     cy.get("#firstname").should("have.value", user.firstname.toUpperCase());
     cy.clickOnNext();
@@ -57,13 +55,16 @@ describe("flatmate tenant flow", () => {
       .type("Organisme")
       .uploadDocument()
       .clickOnNext();
-    cy.get("#firstName").type("Personne");
+
+    const name = "Personne morale 123";
+    cy.get("#firstName").type(name);
     cy.get("#selectID")
       .select("Autre")
       .uploadDocument()
       .clickOnNext();
 
     cy.expectPath("/liste-garants");
+    cy.contains(name).should("be.visible");
     cy.clickOnNext();
 
     cy.validationStep();

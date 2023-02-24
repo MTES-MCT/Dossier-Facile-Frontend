@@ -1,4 +1,4 @@
-describe("alone tenant flow", () => {
+describe("alone tenant scenario", () => {
   const user = {
     username: "test_THIBAULT",
     firstname: "Thibault",
@@ -8,15 +8,13 @@ describe("alone tenant flow", () => {
   before("reset account", () => {
     cy.tenantLogin(user.username);
     cy.deleteAccount();
-    cy.clearCookies();
-    cy.clearAllLocalStorage();
   });
 
   it("validate file", () => {
     cy.tenantLogin(user.username);
     cy.acceptCookies();
 
-    cy.expectPath("/nom-locataire");
+    cy.expectPath("/profile");
     cy.get("#lastname").should("have.value", user.lastname);
     cy.get("#preferredname").type("Chaise");
     cy.get("#firstname").should("have.value", user.firstname.toUpperCase());
@@ -71,6 +69,7 @@ describe("alone tenant flow", () => {
     cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom");
 
     cy.expectPath("/liste-garants");
+    cy.contains("Jean Dupont").should("be.visible");
     cy.clickOnNext();
 
     cy.validationStep();

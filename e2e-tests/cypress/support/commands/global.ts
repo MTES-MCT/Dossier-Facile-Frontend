@@ -4,7 +4,6 @@ Cypress.Commands.add("loginWithFC", (username: string) => {
   cy.get("#social-oidc").click();
 
   cy.get("#fi-identity-provider-example-faible")
-    .should("be.visible")
     .click();
 
   cy.get(":nth-child(1) > .form-control")
@@ -37,7 +36,6 @@ Cypress.Commands.add("expectPath", (path: string) => {
 
 Cypress.Commands.add("clickOnNext", () => {
   cy.get(".next-btn").click();
-  cy.wait(100);
 });
 
 Cypress.Commands.add("acceptCookies", () => {

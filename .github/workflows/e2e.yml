@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  tests:
+  tests-on-preprod:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -18,10 +18,11 @@ jobs:
         with:
           working-directory: e2e-tests
       - name: Run e2e tests
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v5.0.9
         with:
           project: ./e2e-tests
           install: false
+          config-file: cypress-preprod.config.ts
       - name: Upload screenshot
         uses: actions/upload-artifact@v3
         if: failure()
