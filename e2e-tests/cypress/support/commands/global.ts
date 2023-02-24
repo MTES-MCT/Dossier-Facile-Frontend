@@ -36,7 +36,7 @@ Cypress.Commands.add("expectPath", (path: string) => {
 });
 
 Cypress.Commands.add("clickOnNext", () => {
-  cy.contains("Continuer").click();
+  cy.get(".next-btn").click();
   cy.wait(100);
 });
 

@@ -19,5 +19,16 @@ declare namespace Cypress {
     acceptCookies(): Chainable<void>;
 
     disableTaxVerification(): Chainable<void>;
+
+    simpleUploadDocumentStep(buttonToSelect: string): Chainable<void>;
+
+    selectProfessionalStatusStep(professionalStatus: string): Chainable<void>;
+
+    addFinancialResource(
+      resourceType: string,
+      monthlySum: string
+    ): Chainable<void>;
+
+    validationStep(): Chainable<void>;
   }
 }

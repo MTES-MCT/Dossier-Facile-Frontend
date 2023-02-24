@@ -19,38 +19,22 @@ describe("couple tenant flow", () => {
     cy.clickOnNext();
 
     cy.expectPath("/type-locataire");
-    cy.get("button")
-      .contains("En couple")
-      .click();
+    cy.contains("En couple").click();
     cy.get('input[name="coTenantLastName"]').type("Martin");
     cy.get('input[name="firstName"]').type("Louise");
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/1");
-    cy.contains("Passeport français")
-      .click()
-      .uploadDocument()
-      .clickOnNext();
+    cy.simpleUploadDocumentStep("Passeport français");
 
     cy.expectPath("/documents-locataire/2");
-    cy.contains("Vous habitez chez vos parents")
-      .click()
-      .uploadDocument()
-      .clickOnNext();
+    cy.simpleUploadDocumentStep("Vous habitez chez vos parents");
 
     cy.expectPath("/documents-locataire/3");
-    cy.get("#select")
-      .select("CDD")
-      .uploadDocument()
-      .clickOnNext();
+    cy.selectProfessionalStatusStep("CDD");
 
     cy.expectPath("/documents-locataire/4");
-    cy.contains("Revenus professionnels").click();
-    cy.get("#monthlySum")
-      .type("1000")
-      .uploadDocument()
-      .clickOnNext();
-
+    cy.addFinancialResource("Revenus professionnels", "1000");
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/5");
@@ -59,8 +43,7 @@ describe("couple tenant flow", () => {
       .clickOnNext();
 
     cy.expectPath("/choix-garant");
-    cy.get("button")
-      .contains("Un organisme garant")
+    cy.contains("Un organisme garant")
       .click()
       .clickOnNext();
 
@@ -74,22 +57,13 @@ describe("couple tenant flow", () => {
     cy.clickOnNext();
 
     cy.expectPath("/4/1");
-    cy.contains("Autre")
-      .click()
-      .uploadDocument()
-      .clickOnNext();
+    cy.simpleUploadDocumentStep("Autre");
 
     cy.expectPath("/4/2");
-    cy.contains("Locataire")
-      .click()
-      .uploadDocument()
-      .clickOnNext();
+    cy.simpleUploadDocumentStep("Locataire");
 
     cy.expectPath("/4/3");
-    cy.get("#select")
-      .select("Études")
-      .uploadDocument()
-      .clickOnNext();
+    cy.selectProfessionalStatusStep("Études");
 
     cy.expectPath("/4/4");
     cy.contains("Bourses").click();
@@ -106,12 +80,10 @@ describe("couple tenant flow", () => {
 
     cy.expectPath("/garants-locataire");
     cy.contains("Mon conjoint n'a pas de garant").click();
-    cy.clickOnNext();
+    cy.contains("Continuer").click();
 
     cy.disableTaxVerification();
-
     cy.get('label[for="declaration"]').click();
-
     cy.get("#precision").type("Test");
     cy.contains("Valider mon dossier").click();
 
