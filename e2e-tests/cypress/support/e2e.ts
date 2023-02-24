@@ -16,6 +16,7 @@
 import "./commands/global";
 import "./commands/tenant";
 import "./commands/owner";
+import "cypress-axe";
 import "cypress-iframe";
 
 function hideXhrRequestLogs() {

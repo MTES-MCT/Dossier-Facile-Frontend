@@ -28,6 +28,7 @@
             id="select"
             as="select"
             @change="onSelectChange()"
+            aria-label="Select professional situation"
           >
             <option v-for="d in documents" :value="d" :key="d.key">
               {{ $t(d.key) }}

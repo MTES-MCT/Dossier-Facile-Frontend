@@ -18,6 +18,8 @@ declare namespace Cypress {
 
     acceptCookies(): Chainable<void>;
 
+    testAccessibility(): Chainable<void>;
+
     disableTaxVerification(): Chainable<void>;
 
     simpleUploadDocumentStep(buttonToSelect: string): Chainable<void>;

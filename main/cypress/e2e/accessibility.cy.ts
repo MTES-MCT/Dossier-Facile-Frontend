@@ -1,3 +1,5 @@
+import { terminalLog } from "../../../e2e-tests/cypress/support/accessibility";
+
 const routesToTest = [
   "/",
   "/information",
@@ -17,7 +19,7 @@ describe("accessibility tests", () => {
     it(`${route} has no detectable accessibility violations on load`, () => {
       cy.visit(route);
       cy.injectAxe();
-      cy.checkA11y();
+      cy.checkA11y(undefined, undefined, terminalLog);
     });
   });
 });

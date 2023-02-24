@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+import { terminalLog } from "../accessibility";
+
 Cypress.Commands.add("loginWithFC", (username: string) => {
   cy.get("#social-oidc").click();
 
@@ -45,4 +47,21 @@ Cypress.Commands.add("acceptCookies", () => {
   cy.get(".cookie")
     .contains("Accepter")
     .click();
+});
+
+Cypress.Commands.add("testAccessibility", () => {
+  cy.wait(200);
+  cy.injectAxe();
+  cy.configureAxe({
+    // TODO fix disabled rules
+    rules: [
+      { id: 'color-contrast', enabled: false },
+      { id: 'aria-allowed-attr', enabled: false },
+      { id: 'region', enabled: false },
+      { id: 'label', enabled: false },
+      { id: 'skip-link', enabled: false },
+      { id: 'page-has-heading-one', enabled: false },
+    ]
+  })
+  cy.checkA11y(null, null, terminalLog);
 });
