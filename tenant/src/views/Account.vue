@@ -306,7 +306,7 @@ export default class Account extends Vue {
   TENANT_URL = `https://${process.env.VUE_APP_TENANT_URL}`;
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
   FORCE_FAKE_ANNOUNCEMENT_VISIBILITY =
-    process.env.VUE_APP_FORCE_ANNOUNCEMENT_VISIBILITY;
+    process.env.VUE_APP_FORCE_ANNOUNCEMENT_VISIBILITY || false;
 
   user!: User;
   radioVisible = false;
