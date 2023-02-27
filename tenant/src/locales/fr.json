@@ -516,7 +516,7 @@
   },
   "fakeannouncement": {
     "fake-announce-title": "Signaler une fausse annonce !",
-    "content": "Si vous pensez avoir affaire à une fausse annonce immobilière, {nodocument}, et faites un signalement sur {masecurite}, site du ministère de l'Intérieur.",
+    "content": "Si vous pensez avoir affaire à une escroquerie à la petite annonce, {nodocument}, et faites un signalement sur {masecurite}, site du ministère de l'Intérieur.",
     "nodocument": "n'envoyez aucun document",
     "masecurite": "Ma Sécurité",
     "link-title": "Aller sur le site masecurite.fr (nouvelle fenêtre)",
@@ -920,7 +920,7 @@
     "go-to-signal": "Aller sur le site de « ma securité » (nouvelle fenêtre)",
     "signal-title": "Signaler une fausse annonce !",
     "link-title": "Aller sur le site masecurite.fr (nouvelle fenêtre)",
-    "signal-text": "Si vous pensez avoir affaire à une fausse annonce immobilière, {nodocument}, et faites un signalement sur {masecurite}, site du ministère de l'Intérieur.",
+    "signal-text": "Si vous pensez avoir affaire à une escroquerie à la petite annonce, {nodocument}, et faites un signalement sur {masecurite}, site du ministère de l'Intérieur.",
     "nodocument": "n'envoyez aucun document",
     "masecurite": "Ma Sécurité",
     "signal-btn": "Signaler une annonce"

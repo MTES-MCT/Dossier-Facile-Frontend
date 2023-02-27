@@ -51,7 +51,7 @@ export default class FileErrors extends Vue {
   signal() {
     AnalyticsService.openMaSecurite();
     window.open(
-      "https://www.service-public.fr/particuliers/vosdroits/N31138",
+      "https://www.service-public.fr/particuliers/vosdroits/N31138#2",
       "_blank",
       "noopener"
     );
