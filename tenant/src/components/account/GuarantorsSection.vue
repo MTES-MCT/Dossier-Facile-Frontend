@@ -15,127 +15,58 @@
           >
         </div>
         <div v-if="g.typeGuarantor === 'NATURAL_PERSON'">
-          <div class="fr-grid-row fr-grid-row--gutters">
-            <InfoCard
-              :title="$t('guarantorssection.identification')"
-              editable="true"
-              matIcon="person"
-              @click="setGuarantorSubStep(1, g)"
-            >
-              <ColoredTag
-                :status="getGuarantorStatus(g, 'IDENTIFICATION')"
-                :text="
-                  $t(
-                    'guarantorssection.s_' +
-                      getGuarantorStatus(g, 'IDENTIFICATION')
-                  )
-                "
-              ></ColoredTag>
-            </InfoCard>
-
-            <InfoCard
-              :title="$t('guarantorssection.residency')"
-              editable="true"
-              matIcon="home"
-              @click="setGuarantorSubStep(2, g)"
-            >
-              <ColoredTag
-                :status="getGuarantorStatus(g, 'RESIDENCY')"
-                :text="
-                  $t(
-                    'guarantorssection.s_' + getGuarantorStatus(g, 'RESIDENCY')
-                  )
-                "
-              ></ColoredTag>
-            </InfoCard>
-
-            <InfoCard
-              :title="$t('guarantorssection.professional')"
-              editable="true"
-              matIcon="work"
-              @click="setGuarantorSubStep(3, g)"
-            >
-              <ColoredTag
-                :status="getGuarantorStatus(g, 'PROFESSIONAL')"
-                :text="
-                  $t(
-                    'guarantorssection.s_' +
-                      getGuarantorStatus(g, 'PROFESSIONAL')
-                  )
-                "
-              ></ColoredTag>
-            </InfoCard>
-
-            <InfoCard
-              :title="$t('guarantorssection.financial')"
-              editable="true"
-              matIcon="euro"
-              @click="setGuarantorSubStep(4, g)"
-            >
-              <ColoredTag
-                :status="getGuarantorStatus(g, 'FINANCIAL')"
-                :text="
-                  $t(
-                    'guarantorssection.s_' + getGuarantorStatus(g, 'FINANCIAL')
-                  )
-                "
-              ></ColoredTag>
-            </InfoCard>
-
-            <InfoCard
-              :title="$t('guarantorssection.tax')"
-              editable="true"
-              matIcon="content_copy"
-              @click="setGuarantorSubStep(5, g)"
-            >
-              <ColoredTag
-                :status="getGuarantorStatus(g, 'TAX')"
-                :text="
-                  $t('guarantorssection.s_' + getGuarantorStatus(g, 'TAX'))
-                "
-              ></ColoredTag>
-            </InfoCard>
-          </div>
+          <ul class="without-padding">
+            <FileRowListItem
+              :label="$t('guarantorssection.identification')"
+              :document="document(g, 'IDENTIFICATION')"
+              @clickEdit="setGuarantorSubStep(1, g)"
+            />
+            <FileRowListItem
+              :label="$t('guarantorssection.residency')"
+              :document="document(g, 'RESIDENCY')"
+              @clickEdit="setGuarantorSubStep(2, g)"
+            />
+            <FileRowListItem
+              :label="$t('guarantorssection.professional')"
+              :document="document(g, 'PROFESSIONAL')"
+              @clickEdit="setGuarantorSubStep(3, g)"
+            />
+            <FileRowListItem
+              v-for="(doc, k) in documents(g, 'FINANCIAL')"
+              v-bind:key="doc.id"
+              :label="
+                $t('guarantorssection.financial') +
+                  (k >= 1 ? ' ' + (k + 1) : '') +
+                  ' - ' +
+                  $t('documents.subcategory.' + doc.documentSubCategory)
+              "
+              :document="doc"
+              @clickEdit="setGuarantorSubStep(4, g)"
+            />
+            <FileRowListItem
+              :label="$t('guarantorssection.tax')"
+              :document="document(g, 'TAX')"
+              @clickEdit="setGuarantorSubStep(5, g)"
+            />
+          </ul>
         </div>
         <div v-else-if="g.typeGuarantor === 'ORGANISM'">
-          <div class="fr-grid-row fr-grid-row--gutters">
-            <InfoCard
-              :title="$t('guarantorssection.organism-identification')"
-              editable="true"
-              matIcon="person"
-              @click="setGuarantorSubStep(1, g)"
-            >
-              <ColoredTag
-                :status="getGuarantorStatus(g, 'IDENTIFICATION')"
-                :text="
-                  $t(
-                    'guarantorssection.s_' +
-                      getGuarantorStatus(g, 'IDENTIFICATION')
-                  )
-                "
-              ></ColoredTag>
-            </InfoCard>
-          </div>
+          <ul class="without-padding">
+            <FileRowListItem
+              :label="$t('guarantorssection.organism-identification')"
+              :document="document(g, 'IDENTIFICATION')"
+              @clickEdit="setGuarantorSubStep(1, g)"
+            />
+          </ul>
         </div>
         <div v-else-if="g.typeGuarantor === 'LEGAL_PERSON'">
-          <div class="fr-grid-row fr-grid-row--gutters">
-            <InfoCard
-              :title="$t('guarantorssection.identification-legal-person')"
-              editable="true"
-              matIcon="person"
-              @click="setGuarantorSubStep(1, g)"
-            >
-              <ColoredTag
-                :status="getGuarantorStatus(g, 'IDENTIFICATION_LEGAL_PERSON')"
-                :text="
-                  $t(
-                    'guarantorssection.s_' +
-                      getGuarantorStatus(g, 'IDENTIFICATION_LEGAL_PERSON')
-                  )
-                "
-              ></ColoredTag>
-            </InfoCard>
-          </div>
+          <ul class="without-padding">
+            <FileRowListItem
+              :label="$t('guarantorssection.organism-identification')"
+              :document="document(g, 'IDENTIFICATION_LEGAL_PERSON')"
+              @clickEdit="setGuarantorSubStep(1, g)"
+            />
+          </ul>
         </div>
       </div>
       <ConfirmModal
@@ -214,9 +145,10 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { User } from "df-shared/src/models/User";
 import { mapState } from "vuex";
 import { UtilsService } from "@/services/UtilsService";
+import FileRowListItem from "@/components/documents/FileRowListItem.vue";
 
 @Component({
-  components: { InfoCard, ColoredTag, ConfirmModal },
+  components: { InfoCard, ColoredTag, ConfirmModal, FileRowListItem },
   computed: {
     ...mapState({
       user: "user"
@@ -272,6 +204,17 @@ export default class GuarantorsSection extends Vue {
     }
 
     return "VALIDATED";
+  }
+  document(g: Guarantor, s: string) {
+    return g.documents?.find(d => {
+      return d.documentCategory === s;
+    });
+  }
+
+  documents(g: Guarantor, docType: string) {
+    return g.documents?.filter((d: DfDocument) => {
+      return d.documentCategory === docType;
+    });
   }
 
   getGuarantorStatus(g: Guarantor, docType: string) {

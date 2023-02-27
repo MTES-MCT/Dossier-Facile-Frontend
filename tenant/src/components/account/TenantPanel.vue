@@ -17,64 +17,48 @@
       </div>
       <hr class="fr-mt-4w" />
       <h3 class="fr-h4">{{ $t("tenantpanel.my-files") }}</h3>
+      <ul class="without-padding">
+        <FileRowListItem
+          :label="$t('tenantpanel.identification')"
+          :document="document(tenant, 'IDENTIFICATION')"
+          enableDownload="force"
+          @clickEdit="setTenantStep(1)"
+        />
 
-      <div class="fr-grid-row fr-grid-row--gutters">
-        <InfoCard
-          :title="$t('tenantpanel.identification')"
-          editable="true"
-          matIcon="person"
-          @click="setTenantStep(1)"
-        >
-          <ColoredTag
-            :status="getStatus('IDENTIFICATION')"
-            :text="$t('tenantpanel.s_' + getStatus('IDENTIFICATION'))"
-          ></ColoredTag>
-        </InfoCard>
-        <InfoCard
-          :title="$t('tenantpanel.residency')"
-          editable="true"
-          matIcon="home"
-          @click="setTenantStep(2)"
-        >
-          <ColoredTag
-            :status="getStatus('RESIDENCY')"
-            :text="$t('tenantpanel.s_' + getStatus('RESIDENCY'))"
-          ></ColoredTag>
-        </InfoCard>
-        <InfoCard
-          :title="$t('tenantpanel.professional')"
-          editable="true"
-          matIcon="work"
-          @click="setTenantStep(3)"
-        >
-          <ColoredTag
-            :status="getStatus('PROFESSIONAL')"
-            :text="$t('tenantpanel.s_' + getStatus('PROFESSIONAL'))"
-          ></ColoredTag>
-        </InfoCard>
-        <InfoCard
-          :title="$t('tenantpanel.financial')"
-          editable="true"
-          matIcon="euro"
-          @click="setTenantStep(4)"
-        >
-          <ColoredTag
-            :status="getStatus('FINANCIAL')"
-            :text="$t('tenantpanel.s_' + getStatus('FINANCIAL'))"
-          ></ColoredTag>
-        </InfoCard>
-        <InfoCard
-          :title="$t('tenantpanel.tax')"
-          editable="true"
-          matIcon="content_copy"
-          @click="setTenantStep(5)"
-        >
-          <ColoredTag
-            :status="getStatus('TAX')"
-            :text="$t('tenantpanel.s_' + getStatus('TAX'))"
-          ></ColoredTag>
-        </InfoCard>
-      </div>
+        <FileRowListItem
+          :label="$t('tenantpanel.residency')"
+          :document="document(tenant, 'RESIDENCY')"
+          @clickEdit="setTenantStep(2)"
+        />
+
+        <FileRowListItem
+          :label="$t('tenantpanel.professional')"
+          :document="document(tenant, 'PROFESSIONAL')"
+          @clickEdit="setTenantStep(3)"
+        />
+        <FileRowListItem
+          :label="$t('tenantpanel.financial')"
+          :document="document(tenant, 'FINANCIAL')"
+          @clickEdit="setTenantStep(4)"
+        />
+        <FileRowListItem
+          v-for="(doc, k) in documents(tenant, 'FINANCIAL')"
+          v-bind:key="doc.id"
+          :label="
+            $t('tenantpanel.financial') +
+              (k >= 1 ? ' ' + (k + 1) : '') +
+              ' - ' +
+              $t('documents.subcategory.' + doc.documentSubCategory)
+          "
+          :document="doc"
+          @clickEdit="setTenantStep(4)"
+        />
+        <FileRowListItem
+          :label="$t('tenantpanel.tax')"
+          :document="document(tenant, 'TAX')"
+          @clickEdit="setTenantStep(5)"
+        />
+      </ul>
     </div>
 
     <GuarantorsSection :tenant="tenant" />
@@ -94,6 +78,7 @@ import DeleteAccount from "@/components/DeleteAccount.vue";
 import GuarantorsSection from "@/components/account/GuarantorsSection.vue";
 import PartnersSection from "@/components/account/PartnersSection.vue";
 import InfoCard from "@/components/account/InfoCard.vue";
+import FileRowListItem from "@/components/documents/FileRowListItem.vue";
 
 extend("required", {
   ...required,
@@ -109,7 +94,8 @@ extend("required", {
     ValidationObserver,
     DfButton,
     ColoredTag,
-    DeleteAccount
+    DeleteAccount,
+    FileRowListItem
   }
 })
 export default class TenantPanel extends Vue {
@@ -187,6 +173,18 @@ export default class TenantPanel extends Vue {
         params: { substep: n.toString() }
       });
     }
+  }
+
+  document(u: User, s: string) {
+    return u.documents?.find(d => {
+      return d.documentCategory === s;
+    });
+  }
+
+  documents(g: User, docType: string) {
+    return g.documents?.filter((d: DfDocument) => {
+      return d.documentCategory === docType;
+    });
   }
 }
 </script>
