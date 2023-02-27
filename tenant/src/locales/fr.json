@@ -86,7 +86,22 @@
     "rent": "Rentes",
     "pension": "Pensions",
     "scholarship": "Bourses",
-    "no-income": "Pas de revenus"
+    "no-income": "Pas de revenus",
+    "status": {
+      "TO_PROCESS": "En cours de traitement",
+      "VALIDATED": "Vérifié",
+      "DECLINED": "Modification demandée",
+      "INCOMPLETE": "Non terminé",
+      "EMPTY": "Document manquant"
+    },
+    "subcategory": {
+      "SALARY": "Revenus professionnels",
+      "RENT": "Rentes",
+      "SOCIAL_SERVICE": "Prestations sociales",
+      "PENSION": "Pensions",
+      "SCHOLARSHIP": "Bourses",
+      "NO_INCOME": "Pas de revenus"
+    }
   },
   "explanation-text": {
     "tenant": {
@@ -255,11 +270,6 @@
     "professional": "Justificatif de situation professionnelle",
     "financial": "Justificatif de ressources",
     "tax": "Avis d’imposition",
-    "s_TO_PROCESS": "En cours de traitement",
-    "s_VALIDATED": "Vérifié",
-    "s_DECLINED": "Modification demandée",
-    "s_INCOMPLETE": "Non terminé",
-    "s_EMPTY": "Document manquant",
     "TO_PROCESS": "est en cours de traitement",
     "VALIDATED": "est validé",
     "DECLINED": "nécessite des modifications",
@@ -579,12 +589,8 @@
     "tax-checked": "Revenu fiscal certifié auprès des services des impôts"
   },
   "filerowlistitem": {
-    "see": "Voir",
-    "TO_PROCESS": "En cours de traitement",
-    "VALIDATED": "Vérifié",
-    "DECLINED": "Modification demandée",
-    "INCOMPLETE": "Non terminé",
-    "EMPTY": "Document manquant"
+    "edit": "Mettre à jour",
+    "see": "Voir"
   },
   "fileupload": {
     "send-problem": "Problème d'envoi.",
@@ -682,6 +688,7 @@
     "remark-title": "Remarque",
     "remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez sélectionner « Je n'ai pas de garant ». Votre dossier sera alors enregistré pour être instruit."
   },
+  "guarantordocumentspage": {},
   "guarantorfinancialdocumentform": {
     "financial": "Justificatif de ressources",
     "monthlySum": "Montant en euros",
@@ -708,6 +715,7 @@
     "net-monthly": "Net à payer mensuel",
     "add-income": "Ajouter un nouveau revenu ?"
   },
+  "guarantorfooter": {},
   "guarantoridentification": {
     "identity-card": "Carte d’identité française",
     "passport": "Passeport français",
@@ -718,6 +726,7 @@
     "register": "Enregistrer la pièce",
     "title": "J’ajoute la pièce d’identité, en cours de validité, de mon garant",
     "title-cotenant": "J’ajoute la pièce d’identité, en cours de validité, de son garant",
+    "select-label": "Veuillez à ajouter le recto et le verso !",
     "validate": "Valider",
     "cancel": "Annuler",
     "field-required": "Ce champ est requis"
@@ -787,11 +796,6 @@
     "professional": "Justificatif de situation professionnelle",
     "financial": "Justificatif de ressources",
     "tax": "Avis d’imposition",
-    "s_TO_PROCESS": "En cours de traitement",
-    "s_VALIDATED": "Vérifié",
-    "s_DECLINED": "Modification demandée",
-    "s_INCOMPLETE": "Non terminé",
-    "s_EMPTY": "Document manquant",
     "TO_PROCESS": "est en cours de traitement",
     "VALIDATED": "est vérifié",
     "DECLINED": "nécessite une modification",
@@ -1187,11 +1191,6 @@
     "professional": "Justificatif de situation professionnelle",
     "financial": "Justificatif de ressources",
     "tax": "Avis d’imposition",
-    "s_TO_PROCESS": "En cours de traitement",
-    "s_VALIDATED": "Vérifié",
-    "s_DECLINED": "Modification demandée",
-    "s_INCOMPLETE": "Non terminé",
-    "s_EMPTY": "Document manquant",
     "TO_PROCESS": "est en cours de traitement",
     "VALIDATED": "est vérifié",
     "DECLINED": "nécessite une modification",
