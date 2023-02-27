@@ -4,7 +4,6 @@
       <div>
         <h1 class="fr-h6" v-if="isCotenant">{{ $t("guarantoridentification.title-cotenant") }}</h1>
         <h1 class="fr-h6" v-else>{{ $t("guarantoridentification.title") }}</h1>
-        {{ $t("guarantoridentification.select-label") }}
 
         <TroubleshootingModal>
           <GuarantorChoiceHelp></GuarantorChoiceHelp>

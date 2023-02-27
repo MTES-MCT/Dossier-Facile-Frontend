@@ -1,8 +1,10 @@
 <template>
   <div class="partners">
-    <h2 class="fr-pt-4w fr-pb-2w">{{ $t("partnerssection.partners-services-section") }}</h2>
+    <h2 class="fr-pt-4w fr-pb-2w">
+      {{ $t("partnerssection.partners-services-section") }}
+    </h2>
     <div class="fr-grid-row fr-grid-row--gutters">
-      <div class="fr-col-md-6 fr-col-12">
+      <div class="fr-col-xl-4 fr-col-md-6 fr-col-12">
         <div class="fr-tile bg-purple fr-p-3w cleana">
           <div class="service-box-btn">
             <a
@@ -24,11 +26,13 @@
             <div>
               <h3 class="fr-h5">{{ $t("partnerssection.anil-title") }}</h3>
             </div>
-            <div class="fr-m-0 fr-py-2w">{{ $t("partnerssection.anil-text") }}</div>
+            <div class="fr-m-0 fr-py-2w">
+              {{ $t("partnerssection.anil-text") }}
+            </div>
           </div>
         </div>
       </div>
-      <div class="fr-col-md-6 fr-col-12">
+      <div class="fr-col-xl-4 fr-col-md-6 fr-col-12">
         <div class="fr-tile bg-purple fr-p-3w cleana">
           <div class="service-box-btn">
             <a
@@ -51,7 +55,56 @@
             <div>
               <h3 class="fr-h5">{{ $t("partnerssection.mds-title") }}</h3>
             </div>
-            <div class="fr-m-0 fr-py-2w">{{ $t("partnerssection.mds-text") }}</div>
+            <div class="fr-m-0 fr-py-2w">
+              {{ $t("partnerssection.mds-text") }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="fr-col-xl-4 fr-col-md-6 fr-col-12">
+        <div class="fr-tile bg-purple fr-p-3w cleana">
+          <div class="service-box-btn">
+            <a
+              class="fr-btn fr-mt-1w fr-ml-2w cleana"
+              href="#"
+              @click="signal()"
+              rel="noreferrer"
+              target="_blank"
+              :title="$t('partnerssection.go-to-signal').toString()"
+            >
+              {{ $t("partnerssection.signal-btn") }}
+            </a>
+          </div>
+          <div class=" service-box-content">
+            <img
+              alt="logo mes droits sociaux"
+              class="fr-pl-2w fr-pb-2w"
+              src="../../assets/police_nationale.svg"
+            />
+
+            <div>
+              <h3 class="fr-h5">
+                {{ $t("partnerssection.signal-title") }}
+              </h3>
+            </div>
+            <div class="fr-m-0 fr-py-2w">
+              <i18n path="partnerssection.signal-text">
+                <template v-slot:nodocument>
+                  <span style="font-weight:bold">{{
+                    $t("partnerssection.nodocument")
+                  }}</span>
+                </template>
+                <template v-slot:masecurite>
+                  <a
+                    href="https://www.masecurite.interieur.gouv.fr/fr"
+                    :title="$t('partnerssection.link-title').toString()"
+                    rel="noopener"
+                    target="_blank"
+                    >{{ $t("partnerssection.masecurite") }}</a
+                  >
+                </template>
+              </i18n>
+            </div>
           </div>
         </div>
       </div>
@@ -60,10 +113,20 @@
 </template>
 
 <script lang="ts">
+import { AnalyticsService } from "@/services/AnalyticsService";
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
-export default class GuarantorsSection extends Vue {}
+export default class PartnersSection extends Vue {
+  signal() {
+    AnalyticsService.openMaSecurite();
+    window.open(
+      "https://www.service-public.fr/particuliers/vosdroits/N31138#2",
+      "_blank",
+      "noopener"
+    );
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -103,4 +166,3 @@ h2 {
   text-align: right;
 }
 </style>
-

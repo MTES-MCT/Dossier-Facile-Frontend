@@ -64,7 +64,8 @@
     "TO_PROCESS": "En cours de traitement",
     "VALIDATED": "Vérifé",
     "DECLINED": "Modification demandée",
-    "INCOMPLETE": "Incomplet"
+    "INCOMPLETE": "Incomplet",
+    "ARCHIVED": "Archivé"
   },
   "documents": {
     "identity-card": "Carte d’identité française",
@@ -98,6 +99,9 @@
       "guest": "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, une copie de la pièce d’identité et un justificatif de domicile de mon hébergeant</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne sur le site <a href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement' target='_blank'>service-public.fr</a>",
       "guest-parents": "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, une copie de la pièce d’identité et un justificatif de domicile du parent</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne sur le site <a href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement' target='_blank'>service-public.fr</a>",
       "identity-card": "Attention veillez à ajouter votre pièce <b>recto-verso !</b>",
+      "passport": "Attention veillez à ajouter les pages 2 et 3 de votre passeport.",
+      "permit": "",
+      "other": "",
       "independent": "J’ajoute mon justificatif d’activité professionnelle indépendante en fonction de mon type d’activité.",
       "internship": "J’ajoute la convention de stage complète et signée de mon garant.",
       "less-than-year": "J’ai déclaré être en France depuis moins d’un an.",
@@ -128,6 +132,9 @@
       "guest": "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, une copie de la pièce d’identité et un justificatif de domicile de son hébergeant</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne sur le site <a href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement' target='_blank'>service-public.fr</a>",
       "guest-parents": "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, une copie de la pièce d’identité et un justificatif de domicile du parent</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne sur le site <a href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement' target='_blank'>service-public.fr</a>",
       "identity-card": "Attention veillez à ajouter sa pièce <b>recto-verso !</b>",
+      "passport": "Attention veillez à ajouter les pages 2 et 3 de son passeport.",
+      "permit": "",
+      "other": "",
       "independent": "J’ajoute son justificatif d’activité professionnelle indépendante en fonction de son type d’activité.",
       "internship": "J’ajoute la convention de stage complète et signée de son garant.",
       "less-than-year": "J’ai déclaré être en France depuis moins d’un an.",
@@ -156,7 +163,10 @@
       "ctt": "J’ajoute un bulletin de salaire de moins de 3 mois de mon garant, son contrat de travail complet et signé, une attestation employeur de moins de 3 mois.",
       "guarantor_salary": "J’ajoute un bulletin de salaire de mon garant de moins de 3 mois, une attestation de son employeur, un justificatif de versement de ses indemnités de stage, un bilan comptable ou un avis d’imposition à son nom, complet et de moins de 2 ans.",
       "guest": "J’ajoute une <b>attestation sur l’honneur d’hébergement de mon garant à titre gratuit.</b> Vous pouvez utiliser un modèle en ligne sur le site <a target='_blank' href='//www.service-public.fr'>www.service-public.fr</a>",
-      "identity-card": "J’ajoute <b>une pièce d’identité en cours de validité.</b>",
+      "identity-card": "Attention veillez à ajouter sa pièce <b>recto-verso !</b>",
+      "passport": "Attention veillez à ajouter les pages 2 et 3 de son passeport.",
+      "permit": "",
+      "other": "",
       "independent": "J’ajoute un justificatif d’activité professionnelle indépendante de mon garant.",
       "internship": "J’ajoute la convention de stage complète et signée de mon garant.",
       "less-than-year": "J’ai renseigné l’ensemble des pièces de mon garant",
@@ -193,7 +203,10 @@
       "ctt": "J’ajoute un bulletin de salaire de moins de 3 mois de son garant, son contrat de travail complet et signé, une attestation employeur de moins de 3 mois.",
       "guarantor_salary": "J’ajoute un bulletin de salaire de son garant de moins de 3 mois, une attestation de son employeur, un justificatif de versement de ses indemnités de stage, un bilan comptable ou un avis d’imposition à son nom, complet et de moins de 2 ans.",
       "guest": "J’ajoute une <b>attestation sur l’honneur d’hébergement de son garant à titre gratuit.</b> Vous pouvez utiliser un modèle en ligne sur le site <a target='_blank' href='//www.service-public.fr'>www.service-public.fr</a>",
-      "identity-card": "J’ajoute une <b>pièce d’identité en cours de validité.</b>",
+      "identity-card": "Attention veillez à ajouter sa pièce <b>recto-verso !</b>",
+      "passport": "Attention veillez à ajouter les pages 2 et 3 de son passeport.",
+      "permit": "",
+      "other": "",
       "independent": "J’ajoute un justificatif d’activité professionnelle indépendante de son garant.",
       "internship": "J’ajoute la convention de stage complète et signée de son garant.",
       "less-than-year": "J’ai renseigné l’ensemble des pièces de son garant",
@@ -225,9 +238,9 @@
   },
   "account": {
     "title": {
-      "alone": "Bonjour {0}, votre dossier est {1} !",
-      "group": "Bonjour {0}, votre dossier est {1} !",
-      "couple": "Bonjour {0}, votre dossier de couple est {1} !"
+      "alone": "Bonjour {0}, votre dossier {1} !",
+      "group": "Bonjour {0}, votre dossier {1} !",
+      "couple": "Bonjour {0}, votre dossier de couple {1} !"
     },
     "status-description": "{0}, vous avez indiqué être {1}, {2} et {3}.<br>Si votre situation a changé, mettez à jour vos documents !",
     "last-update": "Dernière mise à jour du dossier le {0}",
@@ -249,7 +262,7 @@
     "s_EMPTY": "Document manquant",
     "TO_PROCESS": "est en cours de traitement",
     "VALIDATED": "est validé",
-    "DECLINED": "nécessite une modification",
+    "DECLINED": "nécessite des modifications",
     "INCOMPLETE": "est incomplet",
     "delete": "Suppression de mon compte",
     "opinion": "Racontez-nous votre expérience DossierFacile.fr",
@@ -513,6 +526,14 @@
     "tenant-invalid-document": "Les documents invalides de mon conjoint :",
     "tenant-invalid-document-guarantor": "Les documents invalides du garant de mon conjoint :"
   },
+  "fakeannouncement": {
+    "fake-announce-title": "Signaler une fausse annonce !",
+    "content": "Si vous pensez avoir affaire à une escroquerie à la petite annonce, {nodocument}, et faites un signalement sur {masecurite}, site du ministère de l'Intérieur.",
+    "nodocument": "n'envoyez aucun document",
+    "masecurite": "Ma Sécurité",
+    "link-title": "Aller sur le site masecurite.fr (nouvelle fenêtre)",
+    "signal-button": "Signaler une annonce"
+  },
   "file": {
     "title": "Dossier locataire de {0}",
     "description": "{0} {1}",
@@ -661,8 +682,8 @@
     "remark-title": "Remarque",
     "remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez sélectionner « Je n'ai pas de garant ». Votre dossier sera alors enregistré pour être instruit."
   },
-  "guarantordocumentspage": {},
   "guarantorfinancialdocumentform": {
+    "financial": "Justificatif de ressources",
     "monthlySum": "Montant en euros",
     "monthlySum-label": "J'indique le montant de son revenu mensuel net à payer (avant prélèvement à la source)",
     "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
@@ -687,7 +708,6 @@
     "net-monthly": "Net à payer mensuel",
     "add-income": "Ajouter un nouveau revenu ?"
   },
-  "guarantorfooter": {},
   "guarantoridentification": {
     "identity-card": "Carte d’identité française",
     "passport": "Passeport français",
@@ -698,7 +718,6 @@
     "register": "Enregistrer la pièce",
     "title": "J’ajoute la pièce d’identité, en cours de validité, de mon garant",
     "title-cotenant": "J’ajoute la pièce d’identité, en cours de validité, de son garant",
-    "select-label": "Veillez à ajouter le recto et le verso !",
     "validate": "Valider",
     "cancel": "Annuler",
     "field-required": "Ce champ est requis"
@@ -907,7 +926,14 @@
     "anil-text": "Une information pratique sur vos droits et obligations ? \n Votre ADIL vous conseille gratuitement",
     "anil-btn": "Contacter mon ADIL",
     "go-to-anil": "Aller sur le site de l'ANIL (nouvelle fenêtre)",
-    "go-to-mds": "Aller sur le site de « mes droits sociaux » (nouvelle fenêtre)"
+    "go-to-mds": "Aller sur le site de « mes droits sociaux » (nouvelle fenêtre)",
+    "go-to-signal": "Aller sur le site de « ma securité » (nouvelle fenêtre)",
+    "signal-title": "Signaler une fausse annonce !",
+    "link-title": "Aller sur le site masecurite.fr (nouvelle fenêtre)",
+    "signal-text": "Si vous pensez avoir affaire à une escroquerie à la petite annonce, {nodocument}, et faites un signalement sur {masecurite}, site du ministère de l'Intérieur.",
+    "nodocument": "n'envoyez aucun document",
+    "masecurite": "Ma Sécurité",
+    "signal-btn": "Signaler une annonce"
   },
   "professional-page": {
     "cdi": "CDI",

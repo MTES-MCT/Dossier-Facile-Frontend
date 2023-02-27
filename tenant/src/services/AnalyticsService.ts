@@ -161,6 +161,9 @@ export const AnalyticsService = {
   openSimulationCAF() {
     this.sendEvent("open-simulation_caf", { event_category: "funnel" });
   },
+  openMaSecurite() {
+    this.sendEvent("open-ma_securite", { event_category: "funnel" });
+  },
 
   getDoctypeByNumber(docType: number) {
     switch (docType) {

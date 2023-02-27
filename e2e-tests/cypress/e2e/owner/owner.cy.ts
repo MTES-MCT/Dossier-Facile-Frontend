@@ -1,4 +1,4 @@
-describe("basic owner flow", () => {
+describe("basic owner scenario", () => {
   const user = {
     username: "test_ALAIN",
     firstname: "Alain",
@@ -8,7 +8,6 @@ describe("basic owner flow", () => {
   before("reset account", () => {
     cy.ownerLogin(user.username);
     cy.deleteAccount();
-    cy.clearCookies();
   });
 
   beforeEach("login", () => {

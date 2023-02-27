@@ -1,4 +1,4 @@
-describe("alone tenant flow", () => {
+describe("alone tenant scenario", () => {
   const user = {
     username: "test_THIBAULT",
     firstname: "Thibault",
@@ -8,15 +8,13 @@ describe("alone tenant flow", () => {
   before("reset account", () => {
     cy.tenantLogin(user.username);
     cy.deleteAccount();
-    cy.clearCookies();
-    cy.clearAllLocalStorage();
   });
 
   it("validate file", () => {
     cy.tenantLogin(user.username);
     cy.acceptCookies();
 
-    cy.expectPath("/nom-locataire");
+    cy.expectPath("/profile");
     cy.get("#lastname").should("have.value", user.lastname);
     cy.get("#preferredname").type("Chaise");
     cy.get("#firstname").should("have.value", user.firstname.toUpperCase());
@@ -26,65 +24,55 @@ describe("alone tenant flow", () => {
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/1");
-    cy.contains("Carte d’identité française")
-      .click()
-      .uploadDocument()
-      .clickOnNext();
+    cy.simpleUploadDocumentStep("Carte d’identité française");
 
     cy.expectPath("/documents-locataire/2");
-    cy.contains("Propriétaire")
-      .click()
-      .uploadDocument()
-      .clickOnNext();
+    cy.simpleUploadDocumentStep("Locataire");
 
     cy.expectPath("/documents-locataire/3");
-    cy.get("#select")
-      .select("CDI")
-      .uploadDocument()
-      .clickOnNext();
+    cy.selectProfessionalStatusStep("CDI");
 
     cy.expectPath("/documents-locataire/4");
-    cy.contains("Revenus professionnels").click();
-    cy.get("#monthlySum")
-      .type("2000")
-      .uploadDocument()
-      .clickOnNext();
-
+    cy.addFinancialResource("Revenus professionnels", "2000");
+    cy.get(".add-income-btn").click();
+    cy.addFinancialResource("Rentes", "500");
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/5");
-    cy.contains("Vous avez un avis d’imposition à votre nom")
-      .click()
-      .uploadDocument()
-      .clickOnNext();
+    cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom");
 
     cy.expectPath("/choix-garant");
     cy.get("button")
-      .contains("Un garant moral")
+      .contains("Un garant physique")
       .click()
       .clickOnNext();
 
     cy.expectPath("/info-garant/0");
-    cy.get("#organismName")
-      .type("Organisme")
-      .uploadDocument()
-      .clickOnNext();
-    cy.get("#firstName").type("Personne");
-    cy.get("#selectID")
-      .select("Autre")
-      .uploadDocument()
-      .clickOnNext();
-
-    cy.expectPath("/liste-garants");
+    cy.get("#lastname").type("Dupont");
+    cy.get("#firstname").type("Jean");
     cy.clickOnNext();
 
-    cy.disableTaxVerification();
+    cy.expectPath("/info-garant/1");
+    cy.simpleUploadDocumentStep("Passeport");
 
-    cy.get('label[for="declaration"]').click();
-    cy.get('label[for="declaration2"]').click();
+    cy.expectPath("/info-garant/2");
+    cy.simpleUploadDocumentStep("Propriétaire");
 
-    cy.get("#precision").type("Test");
-    cy.contains("Valider mon dossier").click();
+    cy.expectPath("/info-garant/3");
+    cy.selectProfessionalStatusStep("Retraité");
+
+    cy.expectPath("/info-garant/4");
+    cy.addFinancialResource("Pension", "2000");
+    cy.clickOnNext();
+
+    cy.expectPath("/info-garant/5");
+    cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom");
+
+    cy.expectPath("/liste-garants");
+    cy.contains("Jean Dupont").should("be.visible");
+    cy.clickOnNext();
+
+    cy.validationStep();
 
     cy.get("h1").should(
       "contain",
