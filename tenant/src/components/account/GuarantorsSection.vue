@@ -31,16 +31,23 @@
               :document="document(g, 'PROFESSIONAL')"
               @clickEdit="setGuarantorSubStep(3, g)"
             />
+            <span v-if="documents(g, 'FINANCIAL').length > 1">
+              <FileRowListItem
+                v-for="(doc, k) in documents(g, 'FINANCIAL')"
+                v-bind:key="doc.id"
+                :label="
+                  $t('guarantorssection.financial') +
+                    (k + 1 + ' - ') +
+                    $t('documents.subcategory.' + doc.documentSubCategory)
+                "
+                :document="doc"
+                @clickEdit="setGuarantorSubStep(4, g)"
+              />
+            </span>
             <FileRowListItem
-              v-for="(doc, k) in documents(g, 'FINANCIAL')"
-              v-bind:key="doc.id"
-              :label="
-                $t('guarantorssection.financial') +
-                  (k >= 1 ? ' ' + (k + 1) : '') +
-                  ' - ' +
-                  $t('documents.subcategory.' + doc.documentSubCategory)
-              "
-              :document="doc"
+              v-else
+              :label="$t('guarantorssection.financial')"
+              :document="document(g, 'FINANCIAL')"
               @clickEdit="setGuarantorSubStep(4, g)"
             />
             <FileRowListItem
@@ -211,12 +218,11 @@ export default class GuarantorsSection extends Vue {
     });
   }
 
-  documents(g: Guarantor, docType: string) {
+  documents(g: Guarantor, docType: string): DfDocument[] {
     return g.documents?.filter((d: DfDocument) => {
       return d.documentCategory === docType;
-    });
+    }) as DfDocument[];
   }
-
   getGuarantorStatus(g: Guarantor, docType: string) {
     if (docType === "FINANCIAL") {
       const docs = g.documents?.filter(d => {
