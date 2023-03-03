@@ -2,12 +2,14 @@
   <div class="fr-mb-15w">
     <Form @submit="onSubmit">
       <NakedCard class="fr-p-5w">
-        <h1>{{ t("nameinformationform.title") }}</h1>
-        <p>{{ t("nameinformationform.subtitle") }}</p>
+        <h1>{{ t('nameinformationform.title') }}</h1>
+        <p>{{ t('nameinformationform.subtitle') }}</p>
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-input-group">
-              <label class="fr-label" for="lastname">{{ t("nameinformationform.lastname") }} :</label>
+              <label class="fr-label" for="lastname"
+                >{{ t('nameinformationform.lastname') }} :</label
+              >
               <Field
                 name="lastname"
                 v-model="lastname"
@@ -29,13 +31,15 @@
                 />
               </Field>
               <ErrorMessage name="lastname" v-slot="{ message }">
-                <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
           </div>
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-input-group">
-              <label for="firstname" class="fr-label">{{ t("nameinformationform.firstname") }} :</label>
+              <label for="firstname" class="fr-label"
+                >{{ t('nameinformationform.firstname') }} :</label
+              >
               <Field
                 name="firstname"
                 v-model="firstname"
@@ -57,13 +61,13 @@
                 />
               </Field>
               <ErrorMessage name="firstname" v-slot="{ message }">
-                <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
           </div>
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-input-group">
-              <label for="email" class="fr-label">{{ t("nameinformationform.email") }} :</label>
+              <label for="email" class="fr-label">{{ t('nameinformationform.email') }} :</label>
               <Field
                 id="email"
                 name="email"
@@ -86,7 +90,7 @@
                 />
               </Field>
               <ErrorMessage name="email" v-slot="{ message }">
-                <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
           </div>
@@ -98,16 +102,14 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  Form, Field, ErrorMessage,
-} from 'vee-validate';
+import { Form, Field, ErrorMessage } from 'vee-validate';
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
-import { computed, onMounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useToast } from 'vue-toastification';
 import router from '../../router';
 import ProfileFooter from '../footer/ProfileFooter.vue';
 import useOwnerStore from '../../store/owner-store';
-import { useToast } from 'vue-toastification';
 
 const { t } = useI18n();
 const store = useOwnerStore();
@@ -122,19 +124,21 @@ const lastname = ref(store.getUser?.lastName || '');
 const email = ref(store.getUser?.email || '');
 
 function onSubmit() {
-  store.saveNames(lastname.value, firstname.value, email.value).then(() => {
-    if (properties.length > 0) {
-      router.push({ name: 'Dashboard' });
-      return;
-    }
-    router.push({ name: 'PropertyName' });
-  }).catch((err) => {
-    if (err.response.data.message.includes('email_exists')) {
-      toast.error(t('nameinformationform.email-exists').toString(), {
-        timeout: 7000,
-      });
-    }
-  });
+  store
+    .saveNames(lastname.value, firstname.value, email.value)
+    .then(() => {
+      if (properties.length > 0) {
+        router.push({ name: 'Dashboard' });
+        return;
+      }
+      router.push({ name: 'PropertyName' });
+    })
+    .catch((err) => {
+      if (err.response.data.message.includes('email_exists')) {
+        toast.error(t('nameinformationform.email-exists').toString(), {
+          timeout: 7000,
+        });
+      }
+    });
 }
 </script>
-
