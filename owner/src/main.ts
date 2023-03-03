@@ -14,6 +14,7 @@ import MatomoPlugin from './plugin/matomo';
 declare global {
   interface Window {
     _paq: any;
+    Beacon: any;
   }
 }
 
