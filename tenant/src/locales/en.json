@@ -37,7 +37,7 @@
       "SOCIAL_SERVICE": "Social benefit payments",
       "PENSION": "Pensions",
       "SCHOLARSHIP": "Scholarship",
-      "NO_INCOME":  "No income"
+      "NO_INCOME": "No income"
     }
   },
   "my-cotenant": "Roommate's documents",
@@ -794,6 +794,7 @@
     "professional": "Professional",
     "financial": "Financial",
     "tax": "Tax",
+    "tax-verified": "Tax income certified with the tax services",
     "ALONE": "Seul",
     "COUPLE": "En couple",
     "GROUP": "En colocation",
