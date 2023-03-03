@@ -29,7 +29,7 @@
         }}</span>
       </DfButton>
       <DfButton
-        v-if="enableDownload"
+        v-if="enableDownload && document && document.name"
         class="fr-btn--icon-left fr-fi-eye-line"
         @on-click="openDocument()"
       >

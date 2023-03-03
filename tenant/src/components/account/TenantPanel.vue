@@ -36,21 +36,23 @@
           :document="document(tenant, 'PROFESSIONAL')"
           @clickEdit="setTenantStep(3)"
         />
+        <span v-if="documents(tenant, 'FINANCIAL').length > 1">
+          <FileRowListItem
+            v-for="(doc, k) in documents(tenant, 'FINANCIAL')"
+            v-bind:key="doc.id"
+            :label="
+              $t('tenantpanel.financial') +
+                (k + 1 + ' - ') +
+                $t('documents.subcategory.' + doc.documentSubCategory)
+            "
+            :document="doc"
+            @clickEdit="setTenantStep(4)"
+          />
+        </span>
         <FileRowListItem
+          v-else
           :label="$t('tenantpanel.financial')"
           :document="document(tenant, 'FINANCIAL')"
-          @clickEdit="setTenantStep(4)"
-        />
-        <FileRowListItem
-          v-for="(doc, k) in documents(tenant, 'FINANCIAL')"
-          v-bind:key="doc.id"
-          :label="
-            $t('tenantpanel.financial') +
-              (k >= 1 ? ' ' + (k + 1) : '') +
-              ' - ' +
-              $t('documents.subcategory.' + doc.documentSubCategory)
-          "
-          :document="doc"
           @clickEdit="setTenantStep(4)"
         />
         <FileRowListItem
@@ -181,10 +183,10 @@ export default class TenantPanel extends Vue {
     });
   }
 
-  documents(g: User, docType: string) {
+  documents(g: User, docType: string) : DfDocument[] {
     return g.documents?.filter((d: DfDocument) => {
       return d.documentCategory === docType;
-    });
+    }) as DfDocument[];
   }
 }
 </script>
