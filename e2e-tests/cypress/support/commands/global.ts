@@ -3,13 +3,16 @@
 Cypress.Commands.add("loginWithFC", (username: string) => {
   cy.get("#social-oidc").click();
 
-  cy.get("#fi-identity-provider-example-faible")
-    .click();
-
-  cy.get(":nth-child(1) > .form-control")
-    .clear()
-    .type(username);
-  cy.get(".button").click();
+  cy.get('body').then(($body: any) => {
+    const providerButton = "#fi-identity-provider-example-faible";
+    if ($body.find(providerButton).length) {
+      cy.get(providerButton).click();
+      cy.get(":nth-child(1) > .form-control")
+        .clear()
+        .type(username);
+      cy.get(".button").click();
+    }
+  })
 
   cy.get("form").submit();
   cy.wait(100);
