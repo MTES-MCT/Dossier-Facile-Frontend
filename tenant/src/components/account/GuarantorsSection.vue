@@ -37,7 +37,7 @@
                 v-bind:key="doc.id"
                 :label="
                   $t('guarantorssection.financial') +
-                    (k + 1 + ' - ') +
+                    (' ' + (k + 1) + ' - ') +
                     $t('documents.subcategory.' + doc.documentSubCategory)
                 "
                 :document="doc"
