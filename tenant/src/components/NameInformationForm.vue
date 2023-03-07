@@ -42,7 +42,7 @@
           <div class="fr-grid-row fr-grid-row--center">
             <div class="fr-col-12 fr-mb-3w">
               <validation-provider
-                rules="required|lastname"
+                rules="required|only-alpha"
                 v-slot="{ errors, valid }"
               >
                 <div
@@ -74,7 +74,7 @@
               </validation-provider>
             </div>
             <div class="fr-col-12 fr-mb-3w">
-              <validation-provider rules="lastname" v-slot="{ errors, valid }">
+              <validation-provider rules="only-alpha" v-slot="{ errors, valid }">
                 <div
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
@@ -102,7 +102,7 @@
               </validation-provider>
             </div>
             <div class="fr-col-12 fr-mb-3w">
-              <validation-provider rules="required" v-slot="{ errors, valid }">
+              <validation-provider rules="required|only-alpha" v-slot="{ errors, valid }">
                 <div
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
@@ -195,17 +195,6 @@ extend("zipcode", {
 extend("required", {
   ...required,
   message: "field-required"
-});
-
-extend("lastname", {
-  message: "nameinformationform.only-alpha",
-  validate(value) {
-    return {
-      required: false,
-      valid: value.match("^[a-zA-Z \\-'éèëêïîöôùüàçÉÊÈËÎÏÔÇ]*$")
-    };
-  },
-  computesRequired: true
 });
 
 @Component({

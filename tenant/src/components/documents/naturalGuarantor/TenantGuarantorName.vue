@@ -10,7 +10,7 @@
           <div>{{ $t("tenantguarantorname.subtitle") }}</div>
           <div class="fr-grid-row fr-grid-row--center fr-mt-4w">
             <div class="fr-col-12 fr-mb-3w">
-              <validation-provider rules="required" v-slot="{ errors, valid }">
+              <validation-provider rules="required|only-alpha" v-slot="{ errors, valid }">
                 <div
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
@@ -38,7 +38,7 @@
               </validation-provider>
             </div>
             <div class="fr-col-12 fr-mb-3w">
-              <validation-provider rules="required" v-slot="{ errors, valid }">
+              <validation-provider rules="required|only-alpha" v-slot="{ errors, valid }">
                 <div
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
