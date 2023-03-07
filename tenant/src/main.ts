@@ -12,6 +12,7 @@ import JQuery from "jquery";
 
 import VueCookies from "vue-cookies";
 import authentication from "./plugins/authentication";
+import "./validation-rules";
 
 const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
 

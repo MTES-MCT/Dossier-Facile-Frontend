@@ -6,7 +6,7 @@
           <h1 class="fr-h6">{{ $t("coupleinformation.partner-name-title") }}</h1>
         </div>
         <div class="fr-col-12 fr-mb-3w">
-          <validation-provider rules="required" v-slot="{ errors }">
+          <validation-provider rules="required|only-alpha" v-slot="{ errors }">
             <div
               class="fr-input-group"
               :class="errors[0] ? 'fr-input-group--error' : ''"
@@ -34,7 +34,7 @@
           </validation-provider>
         </div>
         <div class="fr-col-12 fr-mb-3w">
-          <validation-provider rules="required" v-slot="{ errors }">
+          <validation-provider rules="required|only-alpha" v-slot="{ errors }">
             <div
               class="fr-input-group"
               :class="errors[0] ? 'fr-input-group--error' : ''"
