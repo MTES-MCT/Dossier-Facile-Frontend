@@ -1,16 +1,16 @@
 <template>
   <div>
-    <ValidationObserver v-slot="{ validate }">
-      <form
-        name="tenantGuarantorNameForm"
-        @submit.prevent="validate().then(save)"
-      >
+    <ValidationObserver v-slot="{ handleSubmit }">
+      <form name="tenantGuarantorNameForm" @submit.prevent="handleSubmit(save)">
         <NakedCard class="fr-p-md-5w">
           <h1 class="fr-h6">{{ $t("tenantguarantorname.title") }}</h1>
           <div>{{ $t("tenantguarantorname.subtitle") }}</div>
           <div class="fr-grid-row fr-grid-row--center fr-mt-4w">
             <div class="fr-col-12 fr-mb-3w">
-              <validation-provider rules="required|only-alpha" v-slot="{ errors, valid }">
+              <validation-provider
+                rules="required|only-alpha"
+                v-slot="{ errors, valid }"
+              >
                 <div
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
@@ -40,7 +40,10 @@
               </validation-provider>
             </div>
             <div class="fr-col-12 fr-mb-3w">
-              <validation-provider rules="required|only-alpha" v-slot="{ errors, valid }">
+              <validation-provider
+                rules="required|only-alpha"
+                v-slot="{ errors, valid }"
+              >
                 <div
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"

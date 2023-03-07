@@ -37,11 +37,11 @@
         </ConfirmModal>
       </div>
 
-      <ValidationObserver v-slot="{ validate }">
+      <ValidationObserver v-slot="{ handleSubmit }">
         <form
           class="fr-mt-3w"
           name="nameInformationForm"
-          @submit.prevent="validate().then(handleNameInformation)"
+          @submit.prevent="handleSubmit(handleNameInformation)"
         >
           <div class="fr-grid-row fr-grid-row--center">
             <div class="fr-col-12 fr-mb-3w">
