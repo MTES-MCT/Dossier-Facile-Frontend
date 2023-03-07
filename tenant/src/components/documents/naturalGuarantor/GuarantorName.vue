@@ -1,7 +1,7 @@
 <template>
   <div>
-    <ValidationObserver v-slot="{ validate }">
-      <form name="guarantorNameForm" @submit.prevent="validate().then(save)">
+    <ValidationObserver v-slot="{ handleSubmit }">
+      <form name="guarantorNameForm" @submit.prevent="handleSubmit(save)">
         <NakedCard class="fr-p-md-5w">
           <h1 class="fr-h6">{{ $t("guarantorname.title") }}</h1>
           <div>{{ $t("guarantorname.subtitle") }}</div>

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <ValidationObserver v-slot="{ validate }">
-      <form name="coTenantNameForm" @submit.prevent="validate().then(save)">
+    <ValidationObserver v-slot="{ handleSubmit }">
+      <form name="coTenantNameForm" @submit.prevent="handleSubmit(save)">
         <NakedCard class="fr-p-md-5w">
           <h1 class="fr-h6">{{ $t("cotenantname.title") }}</h1>
           <div>
@@ -106,7 +106,7 @@
           </div>
         </NakedCard>
         <FooterContainer>
-          <BackNext :showBack="true" @on-next="save()" @on-back="goBack()">
+          <BackNext :showBack="true" @on-back="goBack()">
           </BackNext>
         </FooterContainer>
       </form>
