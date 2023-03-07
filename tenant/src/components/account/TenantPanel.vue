@@ -42,7 +42,7 @@
             v-bind:key="doc.id"
             :label="
               $t('tenantpanel.financial') +
-                (k + 1 + ' - ') +
+                (' ' + (k + 1) + ' - ') +
                 $t('documents.subcategory.' + doc.documentSubCategory)
             "
             :document="doc"
