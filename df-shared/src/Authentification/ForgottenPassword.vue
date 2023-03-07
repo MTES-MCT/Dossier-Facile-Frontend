@@ -48,18 +48,6 @@
 import { Component, Vue } from "vue-property-decorator";
 import { User } from "df-shared/src/models/User";
 import { ValidationProvider } from "vee-validate";
-import { extend } from "vee-validate";
-import { required, email } from "vee-validate/dist/rules";
-
-extend("email", {
-  ...email,
-  message: "email-not-valid"
-});
-
-extend("required", {
-  ...required,
-  message: "field-required"
-});
 
 @Component({
   components: {

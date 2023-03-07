@@ -69,23 +69,17 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { ValidationObserver, ValidationProvider, extend } from "vee-validate";
+import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { User } from "df-shared/src/models/User";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import DfButton from "df-shared/src/Button/Button.vue";
 import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 import { AnalyticsService } from "@/services/AnalyticsService";
-import { required } from "vee-validate/dist/rules";
 import DeleteAccount from "@/components/DeleteAccount.vue";
 import GuarantorsSection from "@/components/account/GuarantorsSection.vue";
 import PartnersSection from "@/components/account/PartnersSection.vue";
 import InfoCard from "@/components/account/InfoCard.vue";
 import FileRowListItem from "@/components/documents/FileRowListItem.vue";
-
-extend("required", {
-  ...required,
-  message: "Ce champ est requis"
-});
 
 @Component({
   components: {
@@ -183,7 +177,7 @@ export default class TenantPanel extends Vue {
     });
   }
 
-  documents(g: User, docType: string) : DfDocument[] {
+  documents(g: User, docType: string): DfDocument[] {
     return g.documents?.filter((d: DfDocument) => {
       return d.documentCategory === docType;
     }) as DfDocument[];

@@ -71,7 +71,10 @@
                       }"
                     >
                       <label for="monthlySum" class="fr-label"
-                        >{{ $t("financialdocumentform.monthlySum-label") }} :</label
+                        >{{
+                          $t("financialdocumentform.monthlySum-label")
+                        }}
+                        :</label
                       >
                       <input
                         id="monthlySum"
@@ -177,7 +180,9 @@
                   <div class="fr-input-group">
                     <label class="fr-label" for="customText">
                       {{
-                        $t(`financialdocumentform.customText-${financialDocument.documentType.key}`)
+                        $t(
+                          `financialdocumentform.customText-${financialDocument.documentType.key}`
+                        )
                       }}
                     </label>
                     <textarea
@@ -278,11 +283,10 @@ import ListItem from "../../uploads/ListItem.vue";
 import { User } from "df-shared/src/models/User";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
-import { extend } from "vee-validate";
+import { extend, ValidationObserver, ValidationProvider } from "vee-validate";
 import { RegisterService } from "../../../services/RegisterService";
 import DfButton from "df-shared/src/Button/Button.vue";
-import { ValidationObserver, ValidationProvider } from "vee-validate";
-import { required, regex } from "vee-validate/dist/rules";
+import { regex } from "vee-validate/dist/rules";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
@@ -302,11 +306,6 @@ import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 extend("regex", {
   ...regex,
   message: "number-not-valid"
-});
-
-extend("required", {
-  ...required,
-  message: "field-required"
 });
 
 @Component({
@@ -624,4 +623,3 @@ export default class FinancialDocumentForm extends Vue {
   }
 }
 </script>
-

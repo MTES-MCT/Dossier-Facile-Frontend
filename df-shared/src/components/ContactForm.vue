@@ -170,7 +170,8 @@
                             role="group"
                           >
                             <legend id="radio-profile-legend">
-                              {{ $t("profile") }} <span style="color:red"> *</span> :
+                              {{ $t("profile") }}
+                              <span style="color:red"> *</span> :
                             </legend>
                             <input
                               v-model="contactFormData.profile"
@@ -310,28 +311,16 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator";
-import { ValidationObserver, ValidationProvider } from "vee-validate";
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { extend, ValidationObserver, ValidationProvider } from "vee-validate";
 import Modal from "./Modal.vue";
-import { extend } from "vee-validate";
-import { is, required, email } from "vee-validate/dist/rules";
+import { is } from "vee-validate/dist/rules";
 import DfButton from "df-shared/src/Button/Button.vue";
 import RequiredFieldsInstruction from "df-shared/src/components/form/RequiredFieldsInstruction.vue";
 import FieldLabel from "df-shared/src/components/form/FieldLabel.vue";
 import { ContactFormData } from "df-shared/src/models/ContactFormData";
 import { SupportService } from "df-shared/src/services/SupportService";
 import { User } from "../models/User";
-
-// No message specified.
-extend("email", {
-  ...email,
-  message: "email-not-valid"
-});
-
-extend("required", {
-  ...required,
-  message: "field-required"
-});
 
 extend("is", {
   ...is,

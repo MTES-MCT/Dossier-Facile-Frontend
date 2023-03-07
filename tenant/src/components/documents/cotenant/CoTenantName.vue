@@ -13,7 +13,10 @@
           <RequiredFieldsInstruction></RequiredFieldsInstruction>
           <div class="fr-grid-row fr-grid-row--center fr-mt-3w">
             <div class="fr-col-12 fr-mb-3w">
-              <validation-provider rules="required|only-alpha" v-slot="{ errors, valid }">
+              <validation-provider
+                rules="required|only-alpha"
+                v-slot="{ errors, valid }"
+              >
                 <div
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
@@ -42,7 +45,10 @@
               </validation-provider>
             </div>
             <div class="fr-col-12 fr-mb-3w">
-              <validation-provider rules="required|only-alpha" v-slot="{ errors, valid }">
+              <validation-provider
+                rules="required|only-alpha"
+                v-slot="{ errors, valid }"
+              >
                 <div
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
@@ -109,30 +115,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
-import { ValidationObserver, ValidationProvider, extend } from "vee-validate";
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { ValidationObserver, ValidationProvider } from "vee-validate";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
-import { required, email } from "vee-validate/dist/rules";
 import { User } from "df-shared/src/models/User";
 import FooterContainer from "../../footer/FooterContainer.vue";
 import BackNext from "../../footer/BackNext.vue";
 import { UtilsService } from "@/services/UtilsService";
 import RequiredFieldsInstruction from "df-shared/src/components/form/RequiredFieldsInstruction.vue";
 import FieldLabel from "df-shared/src/components/form/FieldLabel.vue";
-
-extend("required", {
-  ...required,
-  message: "field-required"
-});
-
-extend("email", {
-  ...email,
-  message: "email-not-valid"
-});
 
 @Component({
   components: {
@@ -203,4 +198,3 @@ export default class CoTenantName extends Vue {
 </script>
 
 <style scoped lang="scss"></style>
-

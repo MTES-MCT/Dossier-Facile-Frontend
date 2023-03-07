@@ -105,17 +105,6 @@ import { ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
-extend("select", {
-  message: "select-is-empty",
-  validate(value) {
-    return {
-      required: true,
-      valid: value.key
-    };
-  },
-  computesRequired: true
-});
-
 @Component({
   components: {
     AllDeclinedMessages,

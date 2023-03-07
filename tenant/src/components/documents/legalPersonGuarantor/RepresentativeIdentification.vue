@@ -110,8 +110,6 @@ import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
 import ListItem from "../../uploads/ListItem.vue";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
-import { extend } from "vee-validate";
-import { required } from "vee-validate/dist/rules";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { RegisterService } from "../../../services/RegisterService";
@@ -124,21 +122,6 @@ import { cloneDeep } from "lodash";
 import GuarantorFooter from "../../footer/GuarantorFooter.vue";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
-
-extend("required", {
-  ...required
-});
-
-extend("select", {
-  message: "select-is-empty",
-  validate(value) {
-    return {
-      required: true,
-      valid: value.key
-    };
-  },
-  computesRequired: true
-});
 
 @Component({
   components: {
