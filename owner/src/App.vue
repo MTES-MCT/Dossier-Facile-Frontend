@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import {
+  computed, onMounted, onUnmounted, ref,
+} from 'vue';
 import MyHeader from 'df-shared-next/src/Header/Header.vue';
 import Announcement from 'df-shared-next/src/components/Announcement.vue';
 import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue';
@@ -23,6 +25,14 @@ const isLoggedIn = computed(() => store.isLoggedIn);
 const cookieHidden = ref(cookies.isKey('accept-cookie'));
 
 const hasFooter = computed(() => store.hasFooter);
+
+onMounted(() => {
+  window.Beacon('init', '330e68d2-2a04-4659-8048-c05d242ee8f5');
+});
+
+onUnmounted(() => {
+  window.Beacon('destroy');
+});
 
 function onLoginTenant() {
   window.location.href = TENANT_URL;

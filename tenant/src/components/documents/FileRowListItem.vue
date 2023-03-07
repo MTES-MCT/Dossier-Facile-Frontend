@@ -3,26 +3,39 @@
     class="fr-grid-row file-item"
     :class="{ 'not-validated': documentStatus() != 'VALIDATED' }"
   >
-    <div class="fr-col-12 fr-col-md-4">
+    <div class="fr-col-12 fr-col-md-5">
       <span :class="listItemIconClass()">
         {{ label }}
       </span>
     </div>
-    <div class="fr-col-8 fr-col-md-6 tag-container">
+    <div class="fr-col-5 fr-col-md-3 tag-container">
       <div style="align-self: center">
-        <ColoredTag :text="getTagLabel()" :status="documentStatus()"></ColoredTag>
+        <ColoredTag
+          :text="getTagLabel()"
+          :status="documentStatus()"
+        ></ColoredTag>
       </div>
       <div>
         <slot name="postTag"></slot>
       </div>
     </div>
-    <div class="fr-col-4 fr-col-md-2 fr-btns-group--right">
+    <div class="fr-col-7 fr-col-md-4 fr-btns-group--right">
       <DfButton
-        v-if="enableDownload && documentStatus() == 'VALIDATED'"
+        v-if="hasClickEditionListener()"
+        class="fr-mr-2w fr-btn--icon-left fr-icon-pencil-line"
+        @on-click="$emit('clickEdit')"
+        ><span class="fr-hidden fr-unhidden-lg">{{
+          $t("filerowlistitem.edit")
+        }}</span>
+      </DfButton>
+      <DfButton
+        v-if="enableDownload && document && document.name"
         class="fr-btn--icon-left fr-fi-eye-line"
         @on-click="openDocument()"
       >
-        {{ $t("filerowlistitem.see") }}</DfButton
+        <span class="fr-hidden fr-unhidden-md">
+          {{ $t("filerowlistitem.see") }}</span
+        ></DfButton
       >
     </div>
   </li>
@@ -43,14 +56,25 @@ import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 export default class FileRowListItem extends Vue {
   @Prop() label!: string;
   @Prop() document!: DfDocument;
-  @Prop({ default: true }) enableDownload?: boolean;
+  @Prop({ default: "true" }) enableDownload?: string;
   @Prop() tagLabel?: boolean;
+
+  hasClickEditionListener() {
+    return this.$listeners && this.$listeners.clickEdit;
+  }
+
+  displayDownload() {
+    return (
+      (this.enableDownload == "true" && this.documentStatus() == "VALIDATED") ||
+      this.enableDownload === "force"
+    );
+  }
 
   getTagLabel() {
     if (this.tagLabel) {
       return this.tagLabel;
     }
-    return this.$i18n.t(this.documentStatus());
+    return this.$i18n.t("documents.status." + this.documentStatus());
   }
 
   documentStatus() {
@@ -130,4 +154,3 @@ export default class FileRowListItem extends Vue {
   }
 }
 </style>
-

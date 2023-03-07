@@ -22,6 +22,7 @@
               alt="logo anil"
               class="fr-pl-2w fr-pb-2w"
               src="../../assets/anil.png"
+              height="80px"
             />
             <div>
               <h3 class="fr-h5">{{ $t("partnerssection.anil-title") }}</h3>
@@ -155,6 +156,7 @@ h2 {
 }
 
 .service-box-content {
+  height: inherit;
   display: block;
   img {
     float: right;

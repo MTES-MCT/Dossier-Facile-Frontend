@@ -8,7 +8,7 @@
             <h1 class="fr-h6">{{ $t("validatefile.title") }}</h1>
             <p>{{ getCheckboxInstructions() }}</p>
 
-            <validation-provider rules="is" v-slot="{ errors }">
+            <validation-provider rules="isvalid" v-slot="{ errors }">
               <div
                 class="fr-checkbox-group bg-purple fr-mb-3w"
                 :class="errors[0] ? 'fr-checkbox-group--error' : ''"
@@ -19,14 +19,16 @@
                   value="false"
                   v-model="declaration"
                 />
-                <label for="declaration">{{ $t("validatefile.declaration") }}</label>
+                <label for="declaration">{{
+                  $t("validatefile.declaration")
+                }}</label>
                 <span class="fr-error-text" v-if="errors[0]">{{
                   $t(errors[0])
                 }}</span>
               </div>
             </validation-provider>
             <div v-if="hasGuarantors()">
-              <validation-provider rules="is" v-slot="{ errors }">
+              <validation-provider rules="isvalid" v-slot="{ errors }">
                 <div
                   class="fr-checkbox-group bg-purple fr-mb-3w"
                   :class="errors[0] ? 'fr-checkbox-group--error' : ''"
@@ -52,7 +54,7 @@
 
           <div v-if="user.tenantType === 'CREATE'">
             <NakedCard class="fr-px-5w fr-py-3w fr-mb-2w">
-              <validation-provider rules="is" v-slot="{ errors }">
+              <validation-provider rules="isvalid" v-slot="{ errors }">
                 <div
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
@@ -119,9 +121,9 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllowCheckTax from "../components/documents/share/AllowCheckTax.vue";
 import { RegisterService } from "@/services/RegisterService";
 
-extend("is", {
+extend("isvalid", {
   ...is,
-  message: "require-accept",
+  message: "validatefile.require-accept",
   validate: value => !!value
 });
 
@@ -229,4 +231,3 @@ export default class ValidateFile extends Vue {
   }
 }
 </script>
-

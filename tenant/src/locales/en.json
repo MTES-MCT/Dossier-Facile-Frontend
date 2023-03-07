@@ -23,7 +23,22 @@
     "rent": "Annuities",
     "pension": "Pensions",
     "scholarship": "Scholarship",
-    "no-income": "No income"
+    "no-income": "No income",
+    "status": {
+      "TO_PROCESS": "To process",
+      "VALIDATED": "Validated",
+      "DECLINED": "Declined",
+      "INCOMPLETE": "Incomplete",
+      "EMPTY": "Empty"
+    },
+    "subcategory": {
+      "SALARY": "Professional incomes",
+      "RENT": "Annuities",
+      "SOCIAL_SERVICE": "Social benefit payments",
+      "PENSION": "Pensions",
+      "SCHOLARSHIP": "Scholarship",
+      "NO_INCOME": "No income"
+    }
   },
   "my-cotenant": "Roommate's documents",
   "my-cotenant-guarantor": "CoTenant's guarantor",
@@ -76,11 +91,6 @@
     "professional": "Professional",
     "financial": "Financial",
     "tax": "Tax",
-    "s_TO_PROCESS": "To process",
-    "s_VALIDATED": "Validated",
-    "s_DECLINED": "Declined",
-    "s_INCOMPLETE": "Incomplete",
-    "s_EMPTY": "Empty",
     "TO_PROCESS": "to process",
     "VALIDATED": "is validated",
     "DECLINED": "is declined",
@@ -398,12 +408,8 @@
     "tax-checked": "Tax income certified with the tax services"
   },
   "filerowlistitem": {
-    "see": "See",
-    "TO_PROCESS": "To process",
-    "VALIDATED": "Validated",
-    "DECLINED": "Declined",
-    "INCOMPLETE": "Incomplete",
-    "EMPTY": "Missing Document"
+    "edit": "Edit",
+    "see": "See"
   },
   "fileupload": {
     "send-problem": "Send error.",
@@ -526,6 +532,7 @@
     "net-monthly": "Net salary monthly",
     "add-income": "Add a new income ?"
   },
+  "guarantorfooter": {},
   "guarantoridentification": {
     "identity-card": "French identity card",
     "passport": "French passeport",
@@ -610,11 +617,6 @@
     "professional": "Professional",
     "financial": "Financial",
     "tax": "Tax",
-    "s_TO_PROCESS": "To process",
-    "s_VALIDATED": "Validated",
-    "s_DECLINED": "Declined",
-    "s_INCOMPLETE": "Incomplete",
-    "s_EMPTY": "Empty",
     "TO_PROCESS": "to process",
     "VALIDATED": "is validated",
     "DECLINED": "is declined",
@@ -792,6 +794,7 @@
     "professional": "Professional",
     "financial": "Financial",
     "tax": "Tax",
+    "tax-verified": "Tax income certified with the tax services",
     "ALONE": "Seul",
     "COUPLE": "En couple",
     "GROUP": "En colocation",
@@ -1011,11 +1014,6 @@
     "professional": "Professional",
     "financial": "Financial",
     "tax": "Tax",
-    "s_TO_PROCESS": "To process",
-    "s_VALIDATED": "Validated",
-    "s_DECLINED": "Declined",
-    "s_INCOMPLETE": "Incomplete",
-    "s_EMPTY": "Empty",
     "TO_PROCESS": "to process",
     "VALIDATED": "is validated",
     "DECLINED": "is declined",

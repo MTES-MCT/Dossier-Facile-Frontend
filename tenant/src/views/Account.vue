@@ -34,7 +34,7 @@
               ></p>
               <p v-html="$t('account.congratulations-text-2')"></p>
             </div>
-            <FakeAnnouncement v-if="isAnnouncementVisible()"></FakeAnnouncement>
+            <FakeAnnouncement v-if="isAnnouncementVisible"></FakeAnnouncement>
             <div class="main fr-mt-5w fr-p-4w bg-white">
               <div class="main-bar fr-grid-row">
                 <div class="header-title mobile-margin">
@@ -306,7 +306,9 @@ export default class Account extends Vue {
   TENANT_URL = `https://${process.env.VUE_APP_TENANT_URL}`;
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
   FORCE_FAKE_ANNOUNCEMENT_VISIBILITY =
-    process.env.VUE_APP_FORCE_ANNOUNCEMENT_VISIBILITY;
+    process.env.VUE_APP_FORCE_ANNOUNCEMENT_VISIBILITY || false;
+
+  isAnnouncementVisible = false;
 
   user!: User;
   radioVisible = false;
@@ -319,6 +321,13 @@ export default class Account extends Vue {
 
   mounted() {
     window.Beacon("init", "d949ac15-a9eb-4316-b0c5-f92cecc7118f");
+    const today = new Date();
+    if (
+      (today.getMonth() >= 5 && today.getMonth() <= 8) ||
+      this.FORCE_FAKE_ANNOUNCEMENT_VISIBILITY === "true"
+    ) {
+      this.isAnnouncementVisible = true;
+    }
   }
 
   beforeDestroy() {
@@ -557,14 +566,6 @@ export default class Account extends Vue {
         return "group";
     }
     return "alone";
-  }
-
-  isAnnouncementVisible() {
-    const today = new Date();
-    return (
-      (today.getMonth() >= 5 && today.getMonth() <= 8) ||
-      this.FORCE_FAKE_ANNOUNCEMENT_VISIBILITY
-    );
   }
 }
 </script>
