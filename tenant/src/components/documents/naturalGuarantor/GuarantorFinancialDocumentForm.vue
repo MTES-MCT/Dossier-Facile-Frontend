@@ -97,11 +97,16 @@
                     }"
                   >
                     <label for="monthlySum" class="fr-label"
-                      >{{ $t("guarantorfinancialdocumentform.monthlySum-label") }} :</label
+                      >{{
+                        $t("guarantorfinancialdocumentform.monthlySum-label")
+                      }}
+                      :</label
                     >
                     <input
                       id="monthlySum"
-                      :placeholder="$t('guarantorfinancialdocumentform.monthlySum')"
+                      :placeholder="
+                        $t('guarantorfinancialdocumentform.monthlySum')
+                      "
                       type="number"
                       min="0"
                       step="1"
@@ -246,11 +251,10 @@ import ListItem from "../../uploads/ListItem.vue";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { Guarantor } from "df-shared/src/models/Guarantor";
-import { extend } from "vee-validate";
+import { extend, ValidationObserver, ValidationProvider } from "vee-validate";
 import { RegisterService } from "../../../services/RegisterService";
 import DfButton from "df-shared/src/Button/Button.vue";
-import { ValidationObserver, ValidationProvider } from "vee-validate";
-import { required, regex } from "vee-validate/dist/rules";
+import { regex } from "vee-validate/dist/rules";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
@@ -271,11 +275,6 @@ import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 extend("regex", {
   ...regex,
   message: "number-not-valid"
-});
-
-extend("required", {
-  ...required,
-  message: "field-required"
 });
 
 @Component({
@@ -608,4 +607,3 @@ export default class GuarantorFinancialDocumentForm extends Vue {
 </script>
 
 <style scoped lang="scss"></style>
-

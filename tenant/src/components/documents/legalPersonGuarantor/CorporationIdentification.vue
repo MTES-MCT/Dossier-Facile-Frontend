@@ -19,7 +19,9 @@
               }"
               id="organismName"
               name="organismName"
-              :placeholder="$t('corporationidentification.organism-name-placeholder')"
+              :placeholder="
+                $t('corporationidentification.organism-name-placeholder')
+              "
               type="text"
               required
             />
@@ -80,8 +82,6 @@ import FileUpload from "../../uploads/FileUpload.vue";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
 import ListItem from "../../uploads/ListItem.vue";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
-import { extend } from "vee-validate";
-import { required } from "vee-validate/dist/rules";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import { DfFile } from "df-shared/src/models/DfFile";
 import { RegisterService } from "../../../services/RegisterService";
@@ -93,11 +93,6 @@ import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReason
 import { cloneDeep } from "lodash";
 import GuarantorFooter from "../../footer/GuarantorFooter.vue";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
-
-extend("required", {
-  ...required,
-  message: "field-required"
-});
 
 @Component({
   components: {
@@ -143,7 +138,8 @@ export default class CorporationIdentification extends Vue {
       this.guarantorIdentificationLegalPersonDocument()?.documentDeniedReasons
     ) {
       this.documentDeniedReasons = cloneDeep(
-        this.guarantorIdentificationLegalPersonDocument()!.documentDeniedReasons!
+        this.guarantorIdentificationLegalPersonDocument()!
+          .documentDeniedReasons!
       );
     }
   }
@@ -285,4 +281,3 @@ td {
   border: 1px solid #ececec;
 }
 </style>
-

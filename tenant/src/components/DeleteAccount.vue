@@ -50,15 +50,8 @@
 import { Component, Vue } from "vue-property-decorator";
 import Modal from "df-shared/src/components/Modal.vue";
 import { AnalyticsService } from "../services/AnalyticsService";
-import { extend } from "vee-validate";
-import { required } from "vee-validate/dist/rules";
 import DfButton from "df-shared/src/Button/Button.vue";
 import { UtilsService } from "../services/UtilsService";
-
-extend("required", {
-  ...required,
-  message: "Ce champ est requis"
-});
 
 @Component({
   components: { Modal, DfButton }
@@ -108,4 +101,3 @@ export default class DeleteAccount extends Vue {
   }
 }
 </style>
-

@@ -7,7 +7,9 @@
             <h6>{{ $t("roommatesinformation.title") }}</h6>
             <v-gouv-fr-modal>
               <template v-slot:button>
-                <span class="small-font">{{ $t("roommatesinformation.more-information") }}</span>
+                <span class="small-font">{{
+                  $t("roommatesinformation.more-information")
+                }}</span>
               </template>
               <template v-slot:title>
                 {{ $t("roommatesinformation.more-information") }}
@@ -21,7 +23,10 @@
           </div>
           <div class="fr-col-12 fr-mt-2w">
             <div v-if="showEmailExists" class="fr-callout">
-              <p class="fr-mb-1w" v-html="$t('roommatesinformation.email-exists')"></p>
+              <p
+                class="fr-mb-1w"
+                v-html="$t('roommatesinformation.email-exists')"
+              ></p>
             </div>
             <div v-if="value.length > 0">
               <div
@@ -71,7 +76,9 @@
             </div>
           </div>
           <div class="fr-col-12 fr-col-xl-7 fr-mt-2w">
-            <label class="fr-label fr-mb-1w">{{ $t("roommatesinformation.roommateEmail") }}</label>
+            <label class="fr-label fr-mb-1w">{{
+              $t("roommatesinformation.roommateEmail")
+            }}</label>
             <validation-provider
               :rules="{ email: true, required: value.length == 0 }"
               v-slot="{ errors }"
@@ -124,7 +131,9 @@
               v-model="authorize"
               @change="updateAuthorize()"
             />
-            <label for="authorize">{{ $t("roommatesinformation.acceptAuthor") }}</label>
+            <label for="authorize">{{
+              $t("roommatesinformation.acceptAuthor")
+            }}</label>
             <span class="fr-error-text" v-if="errors[0]">{{
               $t(errors[0])
             }}</span>
@@ -137,9 +146,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { ValidationObserver, ValidationProvider } from "vee-validate";
-import { extend } from "vee-validate";
-import { required, email, is } from "vee-validate/dist/rules";
+import { extend, ValidationObserver, ValidationProvider } from "vee-validate";
+import { is } from "vee-validate/dist/rules";
 import { User } from "df-shared/src/models/User";
 import { mapGetters, mapState } from "vuex";
 import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.vue";
@@ -149,20 +157,10 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
 import { UtilsService } from "../services/UtilsService";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
-extend("email", {
-  ...email,
-  message: "email-not-valid"
-});
-
 extend("is", {
   ...is,
   message: "field-required",
   validate: value => !!value
-});
-
-extend("required", {
-  ...required,
-  message: "field-required"
 });
 
 @Component({
@@ -318,4 +316,3 @@ export default class RoommatesInformation extends Vue {
   }
 }
 </style>
-

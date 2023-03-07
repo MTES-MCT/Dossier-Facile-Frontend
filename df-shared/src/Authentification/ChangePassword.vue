@@ -83,30 +83,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import { User } from "df-shared/src/models/User";
 import { ValidationProvider } from "vee-validate";
-import { extend } from "vee-validate";
-import { required, confirmed } from "vee-validate/dist/rules";
 import Password from "vue-password-strength-meter";
-
-extend("required", {
-  ...required,
-  message: "field-required"
-});
-
-extend("confirmed", {
-  ...confirmed,
-  message: "password-not-confirmed"
-});
-
-const MIN_SCORE = 2;
-extend("strength", {
-  message: "pwd-not-complex",
-  validate: (_value, args: any) => {
-    if (args !== undefined) {
-      return args[0] >= MIN_SCORE;
-    }
-    return true;
-  }
-});
 
 @Component({
   components: {

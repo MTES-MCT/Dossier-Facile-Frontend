@@ -3,7 +3,9 @@
     <NakedCard class="fr-p-md-5w fr-mb-2w">
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12">
-          <h1 class="fr-h6">{{ $t("coupleinformation.partner-name-title") }}</h1>
+          <h1 class="fr-h6">
+            {{ $t("coupleinformation.partner-name-title") }}
+          </h1>
         </div>
         <div class="fr-col-12 fr-mb-3w">
           <validation-provider rules="required|only-alpha" v-slot="{ errors }">
@@ -64,10 +66,14 @@
     <NakedCard class="fr-p-md-5w fr-mb-2w">
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12">
-          <h1 class="fr-h6">{{ $t("coupleinformation.partner-email-title") }}</h1>
+          <h1 class="fr-h6">
+            {{ $t("coupleinformation.partner-email-title") }}
+          </h1>
           <v-gouv-fr-modal>
             <template v-slot:button>
-              <span class="small-font">{{ $t("coupleinformation.more-information") }}</span>
+              <span class="small-font">{{
+                $t("coupleinformation.more-information")
+              }}</span>
             </template>
             <template v-slot:title>
               {{ $t("coupleinformation.more-information") }}
@@ -129,7 +135,9 @@
               v-model="authorize"
               @change="updateAuthorize()"
             />
-            <label for="authorize">{{ $t("coupleinformation.acceptAuthor") }}</label>
+            <label for="authorize">{{
+              $t("coupleinformation.acceptAuthor")
+            }}</label>
             <span class="fr-error-text" v-if="errors[0]">{{
               $t(errors[0])
             }}</span>
@@ -142,9 +150,8 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { ValidationObserver, ValidationProvider } from "vee-validate";
-import { extend } from "vee-validate";
-import { required, email, is } from "vee-validate/dist/rules";
+import { extend, ValidationObserver, ValidationProvider } from "vee-validate";
+import { is } from "vee-validate/dist/rules";
 import { mapGetters, mapState } from "vuex";
 import { User } from "df-shared/src/models/User";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
@@ -152,16 +159,6 @@ import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.v
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import CoupleInformationHelp from "./helps/CoupleInformationHelp.vue";
 import FieldLabel from "df-shared/src/components/form/FieldLabel.vue";
-
-extend("email", {
-  ...email,
-  message: "email-not-valid"
-});
-
-extend("required", {
-  ...required,
-  message: "field-required"
-});
 
 extend("is", {
   ...is,
@@ -300,4 +297,3 @@ export default class CoupleInformation extends Vue {
   }
 }
 </style>
-
