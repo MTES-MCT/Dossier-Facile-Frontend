@@ -202,7 +202,7 @@ import { UtilsService } from "@/services/UtilsService";
 
 extend("zipcode", {
   ...regex,
-  message: "zipcode-not-valid"
+  message: "nameinformationform.zipcode-not-valid"
 });
 
 @Component({

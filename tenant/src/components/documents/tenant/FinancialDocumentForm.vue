@@ -305,7 +305,7 @@ import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 extend("regex", {
   ...regex,
-  message: "number-not-valid"
+  message: "financialdocumentform.number-not-valid"
 });
 
 @Component({
