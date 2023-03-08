@@ -40,7 +40,7 @@
       </template>
 
     <ValidationObserver v-slot="{ validate }">
-      <form name="form" @submit.prevent="validate().then(handleRegister)">
+      <form id="signupForm" name="form" @submit.prevent="validate().then(handleRegister)">
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12 fr-mb-3w">
             <validation-provider rules="required" v-slot="{ errors, valid }">
