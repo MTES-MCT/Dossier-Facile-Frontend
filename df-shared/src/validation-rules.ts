@@ -11,12 +11,12 @@ extend("email", {
   message: "email-not-valid"
 });
 
+export const PASSWORD_MIN_SCORE = 2;
 extend("strength", {
   message: "pwd-not-complex",
   validate: (_value, args: any) => {
-    const minScore = 2;
     if (args !== undefined) {
-      return args[0] >= minScore;
+      return args[0] >= PASSWORD_MIN_SCORE;
     }
     return true;
   }

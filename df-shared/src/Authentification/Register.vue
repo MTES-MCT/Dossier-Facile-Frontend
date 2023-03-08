@@ -191,6 +191,7 @@ import {extend, ValidationObserver, ValidationProvider} from "vee-validate";
 import {is} from "vee-validate/dist/rules";
 import VueRecaptcha from "vue-recaptcha";
 import Password from "vue-password-strength-meter";
+import {PASSWORD_MIN_SCORE} from "../validation-rules";
 
 extend("is", {
   ...is,
@@ -223,7 +224,7 @@ export default class Register extends Vue {
   }
 
   handleRegister() {
-    if (this.score < MIN_SCORE || !this.acceptCgu) {
+    if (this.score < PASSWORD_MIN_SCORE || !this.acceptCgu) {
       return;
     }
     this.$emit("on-register", this.user);
