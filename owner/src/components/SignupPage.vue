@@ -27,7 +27,10 @@ function onRegister(user: User) {
         isValidModalVisible.value = true;
       },
       (error) => {
-        if (error.response?.data?.errors.filter((e: any) => e.code === 'UniqueEmailActiveAccount') !== undefined) {
+        if (
+          error.response?.data?.errors.filter((e: any) => e.code === 'UniqueEmailActiveAccount')
+          !== undefined
+        ) {
           toast.error(t('signuppage.duplicate-email').toString(), {
             timeout: 7000,
           });
@@ -48,22 +51,19 @@ function onRegister(user: User) {
       <div class="fr-col-lg-6 fr-col-12">
         <div class="bg-pic">
           <div class="bg-white max-450 left-row fr-pt-3w fr-mt-7w fr-mb-7w">
-            <h2 class="fr-h5 blue-text text-center fr-mt-3w">DossierFacile Bailleur</h2>
-            <div class="fr-pl-2w fr-pr-2w">
+            <h2 class="fr-h5 blue-text text-center fr-mt-3w">Trouvez votre Perle Rare du Locataire !</h2>
+            <div class="">
               <p>
-                Ajoutez vos biens immobiliers dans votre espace propriétaire et recevez,
-                dans votre espace, les candidatures déposées par les candidats avec leur
-                DossierFacile.
+                Nous vous proposons un espace 100 % gratuit et sécurisé pour recevoir et centraliser
+                les candidatures de vos futurs locataires.
               </p>
-              <p>Avec DossierFacile Bailleur, il est facile de :</p>
-              <ul class="no-bullet">
-                <li class="fr-mt-3w">👉 Partager son bien avec les candidats locataires</li>
-                <li class="fr-mt-3w">
-                  🤩 Recevoir des candidatures DossierFacile, complétées, organisées et
-                  vérifiées.
-                </li>
-                <li class="fr-mt-3w">😇 Choisir votre futur locataire en toute sérénité !</li>
-              </ul>
+              <p>
+                Gagnez du temps, de l’argent grâce à notre équipe qui accompagne vos candidats
+                locataires dans la constitution de leur dossier de location et valide leurs pièces.
+              </p>
+              <p>
+                Vous pouvez maintenant choisir votre futur locataire en toute sérénité
+              </p>
             </div>
           </div>
         </div>
@@ -71,7 +71,7 @@ function onRegister(user: User) {
       <div class="fr-col-lg-6 fr-col-12 bg-white">
         <div class="fr-mt-2w align-end">
           <router-link to="/" class="fr-tag">
-            {{ t("signuppage.connect") }}
+            {{ t('signuppage.connect') }}
           </router-link>
         </div>
         <div class="margin-auto max-400">
@@ -85,10 +85,10 @@ function onRegister(user: User) {
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-12">
               <p>
-                {{ t("signuppage.mail-sent") }}
+                {{ t('signuppage.mail-sent') }}
               </p>
               <p>
-                {{ t("signuppage.clic-to-confirm") }}
+                {{ t('signuppage.clic-to-confirm') }}
               </p>
             </div>
           </div>
@@ -143,7 +143,7 @@ body {
 
 .bg-pic {
   &:before {
-    content: " ";
+    content: ' ';
     background-color: black;
     height: 100%;
     width: 100%;
@@ -151,7 +151,7 @@ body {
 }
 .bg-pic {
   background: linear-gradient(rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.5)),
-    url("../assets/salon.webp") no-repeat;
+    url('../assets/salon.webp') no-repeat;
   background-size: cover;
   height: 100%;
   overflow: hidden;
@@ -171,4 +171,3 @@ li {
   list-style: none;
 }
 </style>
-
