@@ -228,6 +228,18 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Article15.vue")
   },
   {
+    path: "/blog/dossierfacile-un-service-numerique-de-letat-sans-gouv-fr",
+    name: "Article16",
+    meta: {
+      title: "DossierFacile : un service numérique de l’État sans .gouv.fr ?",
+      description:
+        "Vous êtes peut-être surpris de constater que DossierFacile, un site proposé par l'Etat pour faciliter la création de dossiers de location de logement, n'a pas l'extension .gouv.fr.",
+      image: require("../assets/images/blog-article16.jpg")
+    },
+    component: () =>
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article16.vue")
+  },
+  {
     path: "/information",
     name: "Information",
     meta: {
