@@ -290,9 +290,9 @@ ul.fr-follow {
     "accessibility": "Accessibilité : partiellement conforme",
     "statistics": "Statistiques",
     "partner": "Devenir partenaire",
-    "faq-link-title": "Aide - nouvelle fenêtre",
-    "partner-link-title": "Partenaires - nouvelle fenêtre",
-    "accessibility-link": "Déclaration d'accessibilité - nouvelle fenêtre"
+    "faq-link-title": "Aide - Ouvre nouvelle fenêtre",
+    "partner-link-title": "Devenir partenaire - Ouvre nouvelle fenêtre",
+    "accessibility-link": "Accessibilité : partiellement conforme - Ouvre nouvelle fenêtre"
   }
 }
 </i18n>
