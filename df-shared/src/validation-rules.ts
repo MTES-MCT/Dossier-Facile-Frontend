@@ -32,7 +32,10 @@ extend("only-alpha", {
   validate(value) {
     return {
       required: false,
-      valid: value.match("^[a-zA-Z \\-'éèëêïîöôùüàçÉÊÈËÎÏÔÇ]*$")
+      valid: value.match(
+        // cf https://fr.wikipedia.org/wiki/Diacritiques_utilis%C3%A9s_en_fran%C3%A7ais#Patronyme
+        "^[a-zA-Z \\-'’àâäçéèêëîïôöùûüÿæœÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸÆŒ]*$"
+      )
     };
   },
   computesRequired: true
