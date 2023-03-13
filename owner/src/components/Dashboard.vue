@@ -43,38 +43,31 @@ function getApplicantsCount(p: Property) {
 
 <template>
   <div class="fr-container">
-    <h2 class="fr-h3 fr-mt-3w blue-text">{{ t("dashboard.title", { name: username }) }}</h2>
+    <h2 class="fr-h3 fr-mt-3w blue-text">{{ t('dashboard.title', { name: username }) }}</h2>
     <NakedCard>
       <div class="fr-grid-row space-between">
-        <h1 class="fr-h4">{{ t("dashboard.my-properties") }}</h1>
+        <h1 id="my-properties-title" class="fr-h4">{{ t('dashboard.my-properties') }}</h1>
         <div>
           <Button @onClick="addProperty" :title="t('dashboard.add-property')" :primary="true">{{
-            t("dashboard.add-property")
+            t('dashboard.add-property')
           }}</Button>
         </div>
       </div>
 
-      <table>
+      <table aria-labelledby="my-properties-title" :aria-describedby="t('dashboard.my-properties')">
         <tr>
-          <th class="desktop">{{ t("dashboard.type") }}</th>
-          <th>{{ t("dashboard.name") }}</th>
-          <th class="desktop">{{ t("dashboard.address") }}</th>
-          <th>{{ t("dashboard.applicant") }}</th>
-          <th class="desktop">{{ t("dashboard.rent") }}</th>
+          <th class="desktop">{{ t('dashboard.type') }}</th>
+          <th>{{ t('dashboard.name') }}</th>
+          <th class="desktop">{{ t('dashboard.address') }}</th>
+          <th>{{ t('dashboard.applicant') }}</th>
+          <th class="desktop">{{ t('dashboard.rent') }}</th>
           <th></th>
         </tr>
-        <tr
-          class="clickable"
-          v-for="p in properties"
-          :key="p.name"
-          @click="openProperty(p)"
-        >
+        <tr class="clickable" v-for="p in properties" :key="p.name" @click="openProperty(p)">
           <td class="desktop blue-text inline-block">
             <div class="fr-m-1v icon-container">
               <span v-if="p.type === 'HOUSE'" class="material-icons md-24">home</span>
-              <span v-else-if="p.type === 'APARTMENT'" class="material-icons md-24"
-                >apartment</span
-              >
+              <span v-else-if="p.type === 'APARTMENT'" class="material-icons md-24">apartment</span>
               <span v-else class="material-icons md-24">domain</span>
             </div>
           </td>
@@ -82,11 +75,11 @@ function getApplicantsCount(p: Property) {
           <td class="desktop blue-grey">{{ p.address }}</td>
           <td class="blue-grey">
             <span class="tag">
-              {{ t("dashboard.applicants", { count: getApplicantsCount(p) }) }}
+              {{ t('dashboard.applicants', { count: getApplicantsCount(p) }) }}
             </span>
           </td>
           <td class="desktop text--light-blue">
-            {{ t("dashboard.rent-cost", { rent: p.rentCost, charges: p.chargesCost }) }}
+            {{ t('dashboard.rent-cost', { rent: p.rentCost, charges: p.chargesCost }) }}
           </td>
           <td class="fr-pr-2w">
             <button
@@ -103,7 +96,7 @@ function getApplicantsCount(p: Property) {
               v-if="!p.validated"
               @click="editProperty(p.id)"
             >
-              {{ t("dashboard.edit") }}
+              {{ t('dashboard.edit') }}
             </button>
           </td>
         </tr>
@@ -199,4 +192,3 @@ td:last-child {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 </style>
-

@@ -131,7 +131,8 @@
                 v-if="user.status === 'TO_PROCESS'"
               >
                 <h3 class="fr-h4 dflex">
-                  <span class="material-icons-outlined md-28">timer</span
+                  <span aria-hidden="true" class="material-icons-outlined md-28"
+                    >timer</span
                   >&nbsp;<span>{{
                     $t("account.instructional-time-title")
                   }}</span>
