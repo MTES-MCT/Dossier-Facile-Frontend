@@ -270,19 +270,12 @@ import DfButton from "df-shared/src/Button/Button.vue";
 import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { AnalyticsService } from "../services/AnalyticsService";
-import { extend } from "vee-validate";
-import { required } from "vee-validate/dist/rules";
 import DeleteAccount from "../components/DeleteAccount.vue";
 import FakeAnnouncement from "../components/FakeAnnouncement.vue";
 import PartnersSection from "@/components/account/PartnersSection.vue";
 import { UtilsService } from "@/services/UtilsService";
 import InfoCard from "@/components/account/InfoCard.vue";
 import TenantPanel from "@/components/account/TenantPanel.vue";
-
-extend("required", {
-  ...required,
-  message: "Ce champ est requis"
-});
 
 @Component({
   components: {

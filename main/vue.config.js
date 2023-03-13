@@ -22,6 +22,7 @@ const routes = [
   "/blog/au-secours-mon-ascenceur-est-en-panne",
   "/blog/usurpation-d-identite-en-france-comment-prevenir-agir",
   "/blog/passoires-thermiques-top-depart-du-gel-des-loyers",
+  "/blog/dossierfacile-un-service-numerique-de-letat-sans-gouv-fr",
   "/information",
   "/accessibilite",
   "/mentions-legales",

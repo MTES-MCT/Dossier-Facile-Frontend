@@ -26,23 +26,27 @@
           <p>
             {{ $t("nameinformationform.unlink-fc-content") }}
             <span v-if="user.passwordEnabled">
-              {{ $t("nameinformationform.unlink-fc-content-password-exists") }}</span
+              {{
+                $t("nameinformationform.unlink-fc-content-password-exists")
+              }}</span
             >
-            <span v-else>{{ $t("nameinformationform.unlink-fc-content-password-undefined") }}</span>
+            <span v-else>{{
+              $t("nameinformationform.unlink-fc-content-password-undefined")
+            }}</span>
           </p>
         </ConfirmModal>
       </div>
 
-      <ValidationObserver v-slot="{ validate }">
+      <ValidationObserver v-slot="{ handleSubmit }">
         <form
           class="fr-mt-3w"
           name="nameInformationForm"
-          @submit.prevent="validate().then(handleNameInformation)"
+          @submit.prevent="handleSubmit(handleNameInformation)"
         >
           <div class="fr-grid-row fr-grid-row--center">
             <div class="fr-col-12 fr-mb-3w">
               <validation-provider
-                rules="required|lastname"
+                rules="required|only-alpha"
                 v-slot="{ errors, valid }"
               >
                 <div
@@ -74,7 +78,10 @@
               </validation-provider>
             </div>
             <div class="fr-col-12 fr-mb-3w">
-              <validation-provider rules="lastname" v-slot="{ errors, valid }">
+              <validation-provider
+                rules="only-alpha"
+                v-slot="{ errors, valid }"
+              >
                 <div
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
@@ -92,7 +99,9 @@
                     id="preferredname"
                     name="preferredname"
                     autocomplete="off"
-                    :placeholder="$t('nameinformationform.preferredname').toString()"
+                    :placeholder="
+                      $t('nameinformationform.preferredname').toString()
+                    "
                     type="text"
                   />
                   <span class="fr-error-text" v-if="errors[0]">{{
@@ -102,7 +111,10 @@
               </validation-provider>
             </div>
             <div class="fr-col-12 fr-mb-3w">
-              <validation-provider rules="required" v-slot="{ errors, valid }">
+              <validation-provider
+                rules="required|only-alpha"
+                v-slot="{ errors, valid }"
+              >
                 <div
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
@@ -112,7 +124,9 @@
                   </FieldLabel>
                   <input
                     id="firstname"
-                    :placeholder="$t('nameinformationform.firstname').toString()"
+                    :placeholder="
+                      $t('nameinformationform.firstname').toString()
+                    "
                     type="text"
                     v-model="firstname"
                     name="firstname"
@@ -173,9 +187,8 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { User } from "df-shared/src/models/User";
-import { ValidationObserver, ValidationProvider } from "vee-validate";
-import { extend } from "vee-validate";
-import { required, regex } from "vee-validate/dist/rules";
+import { extend, ValidationObserver, ValidationProvider } from "vee-validate";
+import { regex } from "vee-validate/dist/rules";
 import SubmitButton from "df-shared/src/Button/SubmitButton.vue";
 import RequiredFieldsInstruction from "df-shared/src/components/form/RequiredFieldsInstruction.vue";
 import FieldLabel from "df-shared/src/components/form/FieldLabel.vue";
@@ -189,23 +202,7 @@ import { UtilsService } from "@/services/UtilsService";
 
 extend("zipcode", {
   ...regex,
-  message: "zipcode-not-valid"
-});
-
-extend("required", {
-  ...required,
-  message: "field-required"
-});
-
-extend("lastname", {
-  message: "nameinformationform.only-alpha",
-  validate(value) {
-    return {
-      required: false,
-      valid: value.match("^[a-zA-Z \\-'éèëêïîöôùüàçÉÊÈËÎÏÔÇ]*$")
-    };
-  },
-  computesRequired: true
+  message: "nameinformationform.zipcode-not-valid"
 });
 
 @Component({
@@ -296,4 +293,3 @@ export default class NameInformationForm extends Vue {
 </script>
 
 <style scoped lang="scss"></style>
-

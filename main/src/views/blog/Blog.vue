@@ -6,6 +6,23 @@
           <h1>{{ $t("blog-title") }}</h1>
           <hr />
           <BlogExtractTile
+            title="DossierFacile : un service numérique de l’État sans .gouv.fr ?"
+            :image="require('../../assets/images/blog-article16.webp')"
+            publicationDate="14 Mars 2023"
+            path="/blog/dossierfacile-un-service-numerique-de-letat-sans-gouv-fr"
+          >
+            <template v-slot:extract>
+              <p>
+                Vous êtes peut-être surpris de constater que DossierFacile, un
+                site proposé par l'Etat pour faciliter la création de dossiers
+                de location de logement, n'a pas l'extension .gouv.fr. En effet,
+                contrairement à la plupart des sites gouvernementaux,
+                DossierFacile a un nom de domaine en .fr...
+              </p>
+            </template>
+          </BlogExtractTile>
+          <hr />
+          <BlogExtractTile
             title="Passoires thermiques : top départ du gel des loyers"
             :image="require('../../assets/images/blog-article15.webp')"
             publicationDate="5 janvier 2023"

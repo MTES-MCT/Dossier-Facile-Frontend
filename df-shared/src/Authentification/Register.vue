@@ -40,7 +40,7 @@
       </template>
 
     <ValidationObserver v-slot="{ validate }">
-      <form name="form" @submit.prevent="validate().then(handleRegister)">
+      <form id="signupForm" name="form" @submit.prevent="validate().then(handleRegister)">
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12 fr-mb-3w">
             <validation-provider rules="required" v-slot="{ errors, valid }">
@@ -185,41 +185,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import { User } from "df-shared/src/models/User";
-import { ValidationProvider, ValidationObserver } from "vee-validate";
-import { extend } from "vee-validate";
-import { required, email, confirmed, is } from "vee-validate/dist/rules";
+import {Component, Prop, Vue} from "vue-property-decorator";
+import {User} from "df-shared/src/models/User";
+import {extend, ValidationObserver, ValidationProvider} from "vee-validate";
+import {is} from "vee-validate/dist/rules";
 import VueRecaptcha from "vue-recaptcha";
 import Password from "vue-password-strength-meter";
-
-// No message specified.
-extend("email", {
-  ...email,
-  message: "email-not-valid"
-});
-
-// Override the default message.
-extend("required", {
-  ...required,
-  message: "field-required"
-});
-
-extend("confirmed", {
-  ...confirmed,
-  message: "password-not-confirmed"
-});
-
-const MIN_SCORE = 2;
-extend("strength", {
-  message: "pwd-not-complex",
-  validate: (_value, args: any) => {
-    if (args !== undefined) {
-      return args[0] >= MIN_SCORE;
-    }
-    return true;
-  }
-});
+import {PASSWORD_MIN_SCORE} from "../validation-rules";
 
 extend("is", {
   ...is,
@@ -252,7 +224,7 @@ export default class Register extends Vue {
   }
 
   handleRegister() {
-    if (this.score < MIN_SCORE || !this.acceptCgu) {
+    if (this.score < PASSWORD_MIN_SCORE || !this.acceptCgu) {
       return;
     }
     this.$emit("on-register", this.user);

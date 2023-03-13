@@ -1,13 +1,16 @@
 <template>
   <div>
-    <ValidationObserver v-slot="{ validate }">
-      <form name="guarantorNameForm" @submit.prevent="validate().then(save)">
+    <ValidationObserver v-slot="{ handleSubmit }">
+      <form name="guarantorNameForm" @submit.prevent="handleSubmit(save)">
         <NakedCard class="fr-p-md-5w">
           <h1 class="fr-h6">{{ $t("guarantorname.title") }}</h1>
           <div>{{ $t("guarantorname.subtitle") }}</div>
           <div class="fr-grid-row fr-grid-row--center fr-mt-4w">
             <div class="fr-col-12 fr-mb-3w">
-              <validation-provider rules="required" v-slot="{ errors, valid }">
+              <validation-provider
+                rules="required|only-alpha"
+                v-slot="{ errors, valid }"
+              >
                 <div
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
@@ -35,7 +38,10 @@
               </validation-provider>
             </div>
             <div class="fr-col-12 fr-mb-3w">
-              <validation-provider rules="required" v-slot="{ errors, valid }">
+              <validation-provider
+                rules="required|only-alpha"
+                v-slot="{ errors, valid }"
+              >
                 <div
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
@@ -91,13 +97,6 @@ import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import { UtilsService } from "../../../services/UtilsService";
 import GuarantorFooter from "../../footer/GuarantorFooter.vue";
-import { extend } from "vee-validate";
-import { required } from "vee-validate/dist/rules";
-
-extend("required", {
-  ...required,
-  message: "field-required"
-});
 
 @Component({
   components: {
@@ -176,4 +175,3 @@ export default class GuarantorName extends Vue {
 </script>
 
 <style scoped lang="scss"></style>
-

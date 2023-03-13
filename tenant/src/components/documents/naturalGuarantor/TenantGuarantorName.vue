@@ -1,16 +1,16 @@
 <template>
   <div>
-    <ValidationObserver v-slot="{ validate }">
-      <form
-        name="tenantGuarantorNameForm"
-        @submit.prevent="validate().then(save)"
-      >
+    <ValidationObserver v-slot="{ handleSubmit }">
+      <form name="tenantGuarantorNameForm" @submit.prevent="handleSubmit(save)">
         <NakedCard class="fr-p-md-5w">
           <h1 class="fr-h6">{{ $t("tenantguarantorname.title") }}</h1>
           <div>{{ $t("tenantguarantorname.subtitle") }}</div>
           <div class="fr-grid-row fr-grid-row--center fr-mt-4w">
             <div class="fr-col-12 fr-mb-3w">
-              <validation-provider rules="required" v-slot="{ errors, valid }">
+              <validation-provider
+                rules="required|only-alpha"
+                v-slot="{ errors, valid }"
+              >
                 <div
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
@@ -27,7 +27,9 @@
                     }"
                     id="lastname"
                     name="lastname"
-                    :placeholder="$t('tenantguarantorname.lastname-placeholder')"
+                    :placeholder="
+                      $t('tenantguarantorname.lastname-placeholder')
+                    "
                     type="text"
                     required
                   />
@@ -38,7 +40,10 @@
               </validation-provider>
             </div>
             <div class="fr-col-12 fr-mb-3w">
-              <validation-provider rules="required" v-slot="{ errors, valid }">
+              <validation-provider
+                rules="required|only-alpha"
+                v-slot="{ errors, valid }"
+              >
                 <div
                   class="fr-input-group"
                   :class="errors[0] ? 'fr-input-group--error' : ''"
@@ -48,7 +53,9 @@
                   >
                   <input
                     id="firstname"
-                    :placeholder="$t('tenantguarantorname.firstname-placeholder')"
+                    :placeholder="
+                      $t('tenantguarantorname.firstname-placeholder')
+                    "
                     type="text"
                     v-model="firstName"
                     name="firstname"
@@ -81,7 +88,7 @@ import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
 import ListItem from "../../uploads/ListItem.vue";
 import { DfFile } from "df-shared/src/models/DfFile";
-import { ValidationObserver, ValidationProvider, extend } from "vee-validate";
+import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
@@ -93,12 +100,6 @@ import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import { UtilsService } from "../../../services/UtilsService";
 import GuarantorFooter from "../../footer/GuarantorFooter.vue";
-import { required } from "vee-validate/dist/rules";
-
-extend("required", {
-  ...required,
-  message: "field-required"
-});
 
 @Component({
   components: {
@@ -178,4 +179,3 @@ export default class TenantGuarantorName extends Vue {
 </script>
 
 <style scoped lang="scss"></style>
-

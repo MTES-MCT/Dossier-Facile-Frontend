@@ -12,13 +12,7 @@ import JQuery from "jquery";
 
 import VueCookies from "vue-cookies";
 import authentication from "./plugins/authentication";
-
-const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
-
-Vue.use(authentication);
-
-Vue.config.productionTip = false;
-
+import "df-shared/src/validation-rules";
 import "@gouvfr/dsfr/dist/dsfr/dsfr.min.css";
 import "@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css";
 import "@gouvfr/dsfr/dist/utility/icons/icons-business/icons-business.min.css";
@@ -28,6 +22,13 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import VueGtag from "vue-gtag";
 import VueAuthImage from "vue-auth-image";
 import { User } from "df-shared/src/models/User";
+import MatomoPlugin from "./plugins/matomo";
+
+const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+
+Vue.use(authentication);
+
+Vue.config.productionTip = false;
 
 declare global {
   interface Window {
@@ -37,7 +38,6 @@ declare global {
     _paq: any;
   }
 }
-import MatomoPlugin from "./plugins/matomo";
 
 Vue.config.productionTip = false;
 
