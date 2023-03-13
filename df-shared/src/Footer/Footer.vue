@@ -141,7 +141,9 @@
                   title="twitter - ouvre une nouvelle fenêtre"
                   href="https://twitter.com/dossierfacile/"
                   target="_blank"
-                  >twitter</a
+                  ><span class="sr-only"
+                    >Suivre Dossier facile sur twitter</span
+                  ></a
                 >
               </li>
               <li>
@@ -150,7 +152,9 @@
                   title="facebook - ouvre une nouvelle fenêtre"
                   href="https://www.facebook.com/DossierFacile.fr/"
                   target="_blank"
-                  >instagram</a
+                  ><span class="sr-only"
+                    >Suivre Dossier facile sur facebook</span
+                  ></a
                 >
               </li>
               <li>
@@ -160,7 +164,9 @@
                   title="linkedin - ouvre une nouvelle fenêtre"
                   href="https://www.linkedin.com/company/startup-d-etat-locatio/"
                   target="_blank"
-                  >linkedin</a
+                  ><span class="sr-only"
+                    >Suivre Dossier facile sur linkedin</span
+                  ></a
                 >
               </li>
               <li>
@@ -169,7 +175,9 @@
                   title="instagram - ouvre une nouvelle fenêtre"
                   href="https://www.instagram.com/dossierfacile/"
                   target="_blank"
-                  >instagram</a
+                  ><span class="sr-only"
+                    >Suivre Dossier facile sur instagram</span
+                  ></a
                 >
               </li>
               <li>
@@ -178,7 +186,9 @@
                   title="tiktok - ouvre une nouvelle fenêtre"
                   href="https://www.tiktok.com/@dossierfacile/"
                   target="_blank"
-                  >tiktok</a
+                  ><span class="sr-only"
+                    >Suivre Dossier facile sur tiktok</span
+                  ></a
                 >
               </li>
             </ul>
@@ -225,7 +235,6 @@ ul.fr-follow {
     color: grey;
     max-width: 1.5rem;
     vertical-align: middle;
-    visibility: hidden;
     &:before {
       visibility: visible;
     }
