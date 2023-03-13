@@ -54,7 +54,7 @@ function getApplicantsCount(p: Property) {
         </div>
       </div>
 
-      <table aria-labelledby="my-properties-title">
+      <table aria-labelledby="my-properties-title" :aria-describedby="t('dashboard.my-properties')">
         <tr>
           <th class="desktop">{{ t('dashboard.type') }}</th>
           <th>{{ t('dashboard.name') }}</th>
