@@ -63,6 +63,7 @@
               class="fr-footer__bottom-link"
               target="_blank"
               rel="noreferrer"
+              title="Les startups d'Etat - Ouvre une nouvelle fenêtre"
               href="https://beta.gouv.fr/"
             >
               Les startups d'Etat
@@ -71,6 +72,7 @@
           <li class="fr-footer__bottom-item">
             <a
               class="fr-footer__bottom-link"
+              :title="$t('sitemap')"
               :href="`${VUE_APP_MAIN_URL}/plan-du-site`"
             >
               {{ $t("sitemap") }}
@@ -87,6 +89,7 @@
           <li class="fr-footer__bottom-item">
             <a
               class="fr-footer__bottom-link"
+              :title="$t('legals')"
               :href="`${VUE_APP_MAIN_URL}/mentions-legales`"
             >
               {{ $t("legals") }}
@@ -95,6 +98,7 @@
           <li class="fr-footer__bottom-item">
             <a
               class="fr-footer__bottom-link"
+              :title="$t('statistics')"
               :href="`${VUE_APP_MAIN_URL}/stats`"
             >
               {{ $t("statistics") }}
@@ -127,6 +131,7 @@
               class="fr-footer__bottom-link"
               target="_blank"
               rel="noreferrer"
+              :title="$t('sources-title')"
               href="https://github.com/MTES-MCT/Dossier-Facile-Frontend"
             >
               {{ $t("sources") }}
@@ -138,47 +143,57 @@
               <li>
                 <a
                   class="fr-btn--twitter fr-btn"
-                  title="twitter - ouvre une nouvelle fenêtre"
+                  title="Suivre Dossier facile sur twitter - Ouvre une nouvelle fenêtre"
                   href="https://twitter.com/dossierfacile/"
                   target="_blank"
-                  >twitter</a
+                  ><span class="sr-only"
+                    >Suivre Dossier facile sur twitter</span
+                  ></a
                 >
               </li>
               <li>
                 <a
                   class="fr-btn--facebook fr-btn"
-                  title="facebook - ouvre une nouvelle fenêtre"
+                  title="Suivre Dossier facile sur facebook - Ouvre une nouvelle fenêtre"
                   href="https://www.facebook.com/DossierFacile.fr/"
                   target="_blank"
-                  >instagram</a
+                  ><span class="sr-only"
+                    >Suivre Dossier facile sur facebook</span
+                  ></a
                 >
               </li>
               <li>
                 <a
                   class="fr-btn--linkedin fr-btn"
                   lang="en"
-                  title="linkedin - ouvre une nouvelle fenêtre"
+                  title="Suivre Dossier facile sur linkedin - Ouvre une nouvelle fenêtre"
                   href="https://www.linkedin.com/company/startup-d-etat-locatio/"
                   target="_blank"
-                  >linkedin</a
+                  ><span class="sr-only"
+                    >Suivre Dossier facile sur linkedin</span
+                  ></a
                 >
               </li>
               <li>
                 <a
                   class="fr-btn--instagram fr-btn"
-                  title="instagram - ouvre une nouvelle fenêtre"
+                  title="Suivre Dossier facile sur instagram - Ouvre une nouvelle fenêtre"
                   href="https://www.instagram.com/dossierfacile/"
                   target="_blank"
-                  >instagram</a
+                  ><span class="sr-only"
+                    >Suivre Dossier facile sur instagram</span
+                  ></a
                 >
               </li>
               <li>
                 <a
                   class="fr-btn--tiktok fr-btn"
-                  title="tiktok - ouvre une nouvelle fenêtre"
+                  title="Suivre Dossier facile sur tiktok - Ouvre une nouvelle fenêtre"
                   href="https://www.tiktok.com/@dossierfacile/"
                   target="_blank"
-                  >tiktok</a
+                  ><span class="sr-only"
+                    >Suivre Dossier facile sur tiktok</span
+                  ></a
                 >
               </li>
             </ul>
@@ -225,7 +240,6 @@ ul.fr-follow {
     color: grey;
     max-width: 1.5rem;
     vertical-align: middle;
-    visibility: hidden;
     &:before {
       visibility: visible;
     }
@@ -266,12 +280,13 @@ ul.fr-follow {
     "faq": "Help",
     "sitemap": "Sitemap",
     "sources": "Source code",
+    "sources-title": "Source code - Open a new window",
     "accessibility": "Accessibility: partially compliant",
     "statistics": "Statistics",
     "partner": "Become partners",
-    "faq-link-title": "Help - new window",
-    "partner-link-title": "Partners - new window",
-    "accessibility-link": "Accessibility - new window"
+    "faq-link-title": "Help - Open a new window",
+    "partner-link-title": "Partners - Open a new window",
+    "accessibility-link": "Accessibility - Open a new window"
   },
   "fr": {
     "legals": "Mentions légales",
@@ -279,12 +294,13 @@ ul.fr-follow {
     "sitemap": "Plan du site",
     "information": "En savoir plus",
     "sources": "Code source",
+    "sources-title": "Code source - Ouvre une nouvelle fenêtre",
     "accessibility": "Accessibilité : partiellement conforme",
     "statistics": "Statistiques",
     "partner": "Devenir partenaire",
-    "faq-link-title": "Aide - nouvelle fenêtre",
-    "partner-link-title": "Partenaires - nouvelle fenêtre",
-    "accessibility-link": "Déclaration d'accessibilité - nouvelle fenêtre"
+    "faq-link-title": "Aide - Ouvre une nouvelle fenêtre",
+    "partner-link-title": "Devenir partenaire - Ouvre une nouvelle fenêtre",
+    "accessibility-link": "Accessibilité : partiellement conforme - Ouvre une nouvelle fenêtre"
   }
 }
 </i18n>

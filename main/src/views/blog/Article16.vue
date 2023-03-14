@@ -14,7 +14,7 @@
             <div>
               <p>
                 Vous êtes peut-être surpris de constater que DossierFacile, un
-                site proposé par l'Etat pour faciliter la création de dossiers
+                site proposé par l'État pour faciliter la création de dossiers
                 de location de logement, n'a pas l'extension .gouv.fr. En effet,
                 contrairement à la plupart des sites gouvernementaux,
                 DossierFacile a un nom de domaine en .fr.
@@ -29,7 +29,7 @@
               <h2>Mais pourquoi ce choix ?</h2>
               <p>
                 Tout d'abord, il convient de préciser que l'extension .gouv.fr
-                est réservée aux sites institutionnels des services de l'Etat.
+                est réservée aux sites institutionnels des services de l'État.
                 Or, DossierFacile est un service qui vise à simplifier les
                 démarches administratives pour les particuliers et les
                 professionnels, sans être directement lié à une administration
@@ -37,14 +37,15 @@
                 de domaine en .fr permettait ainsi de mieux refléter la vocation
                 de ce service, qui s'adresse à l'ensemble de la population
                 (comme par exemple
-                <a href="https://www.service-public.fr">www.service-public.fr</a>)
+                <a href="https://www.service-public.fr">www.service-public.fr</a
+                >).
               </p>
               <p>
                 De plus, l'utilisation d'un nom de domaine en .fr permettait de
                 renforcer l'image de modernité et d'innovation de DossierFacile,
                 en démarquant ce service des sites gouvernementaux plus
                 traditionnels. Ce choix de nom de domaine témoignait également
-                de la volonté de l'Etat de proposer des services numériques
+                de la volonté de l'État de proposer des services numériques
                 innovants et de qualité, en s'inscrivant dans une logique
                 d'amélioration constante de l'expérience utilisateur.
               </p>
@@ -59,7 +60,7 @@
                 Pourtant pas de doute, nous sommes référencés sur
                 <a
                   href="https://www.service-public.fr/particuliers/vosdroits/R51424"
-                  >le site officiel du service public</a
+                  >le site officiel du Service Public</a
                 >
                 et celui de l’<a
                   href="https://observatoire.numerique.gouv.fr/observatoire/"
@@ -87,11 +88,11 @@
                 informations personnelles à de faux sites gouvernementaux.
               </p>
               <p>
-                Le .gouv est propriété de l’Etat français, et il existe un
+                Le .gouv est propriété de l’État français, et il existe un
                 service, le
                 <a
                   href="https://www.gouvernement.fr/service-d-information-du-gouvernement-sig"
-                  >Service d’information du gouvernement</a
+                  >Service d’information du Gouvernement</a
                 >
                 (SIG) chargé d’accorder aux sites web étatiques le droit de
                 l’utiliser.
@@ -106,7 +107,7 @@
                 handicap, respect de la réglementation sur les cookies,
                 ouverture des données, suivi d’objectifs, outil de mesure
                 d’audience respectant le RGPD, respect du design system de
-                l’Etat… et ce afin de garantir l’image de l’Etat, le bon
+                l’État… et ceci afin de garantir l’image de l’État, le bon
                 fonctionnement du service et son respect de vos droits et de
                 votre sécurité.
               </p>

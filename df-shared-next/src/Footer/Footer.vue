@@ -135,47 +135,57 @@
               <li>
                 <a
                   class="fr-btn--twitter fr-btn"
-                  title="twitter - ouvre une nouvelle fenêtre"
+                  title="Suivre Dossier facile sur twitter - ouvre une nouvelle fenêtre"
                   href="https://twitter.com/dossierfacile/"
                   target="_blank"
-                  >twitter</a
+                  ><span class="sr-only"
+                    >Suivre Dossier facile sur twitter</span
+                  ></a
                 >
               </li>
               <li>
                 <a
                   class="fr-btn--facebook fr-btn"
-                  title="facebook - ouvre une nouvelle fenêtre"
+                  title="Suivre Dossier facile sur facebook - ouvre une nouvelle fenêtre"
                   href="https://www.facebook.com/DossierFacile.fr/"
                   target="_blank"
-                  >instagram</a
+                  ><span class="sr-only"
+                    >Suivre Dossier facile sur facebook</span
+                  ></a
                 >
               </li>
               <li>
                 <a
                   class="fr-btn--linkedin fr-btn"
                   lang="en"
-                  title="linkedin - ouvre une nouvelle fenêtre"
+                  title="Suivre Dossier facile sur linkedin - ouvre une nouvelle fenêtre"
                   href="https://www.linkedin.com/company/startup-d-etat-locatio/"
                   target="_blank"
-                  >linkedin</a
+                  ><span class="sr-only"
+                    >Suivre Dossier facile sur linkedin</span
+                  ></a
                 >
               </li>
               <li>
                 <a
                   class="fr-btn--instagram fr-btn"
-                  title="instagram - ouvre une nouvelle fenêtre"
+                  title="Suivre Dossier facile sur instagram - ouvre une nouvelle fenêtre"
                   href="https://www.instagram.com/dossierfacile/"
                   target="_blank"
-                  >instagram</a
+                  ><span class="sr-only"
+                    >Suivre Dossier facile sur instagram</span
+                  ></a
                 >
               </li>
               <li>
                 <a
                   class="fr-btn--tiktok fr-btn"
-                  title="tiktok - ouvre une nouvelle fenêtre"
+                  title="Suivre Dossier facile sur tiktok - ouvre une nouvelle fenêtre"
                   href="https://www.tiktok.com/@dossierfacile/"
                   target="_blank"
-                  >tiktok</a
+                  ><span class="sr-only"
+                    >Suivre Dossier facile sur tiktok</span
+                  ></a
                 >
               </li>
             </ul>
@@ -222,7 +232,6 @@ ul.fr-follow {
     color: grey;
     max-width: 1.5rem;
     vertical-align: middle;
-    visibility: hidden;
     &:before {
       visibility: visible;
     }
@@ -281,9 +290,9 @@ ul.fr-follow {
     "accessibility": "Accessibilité : partiellement conforme",
     "statistics": "Statistiques",
     "partner": "Devenir partenaire",
-    "faq-link-title": "Aide - nouvelle fenêtre",
-    "partner-link-title": "Partenaires - nouvelle fenêtre",
-    "accessibility-link": "Déclaration d'accessibilité - nouvelle fenêtre"
+    "faq-link-title": "Aide - Ouvre nouvelle fenêtre",
+    "partner-link-title": "Devenir partenaire - Ouvre nouvelle fenêtre",
+    "accessibility-link": "Accessibilité : partiellement conforme - Ouvre nouvelle fenêtre"
   }
 }
 </i18n>

@@ -82,30 +82,36 @@
         <h2 class="fr-h2 s2-title">{{ $t("s2.title") }}</h2>
         <div class="fr-grid-row reverse-mobile">
           <div class="fr-col-md-6 fr-grid-col">
-            <div class="fr-grid-row align-items--center">
-              <div class="step-number">1</div>
-              <h3 class="fr-h4 fr-mb-0">{{ $t("s2.h1") }}</h3>
-            </div>
-            <div>{{ $t("s2.p1") }}</div>
-            <ul class="fr-pt-2w fr-mb-5w">
-              <li>{{ $t("s2.u1a") }}</li>
-              <li>{{ $t("s2.u1b") }}</li>
-              <li>{{ $t("s2.u1c") }}</li>
-              <li>{{ $t("s2.u1d") }}</li>
-              <li>{{ $t("s2.u1e") }}</li>
-            </ul>
-
-            <div class="fr-grid-row align-items--center">
-              <div class="step-number">2</div>
-              <h3 class="fr-h4 fr-mb-0">{{ $t("s2.h2") }}</h3>
-            </div>
-            <p>{{ $t("s2.p2") }}</p>
-
-            <div class="fr-grid-row align-items--center">
-              <div class="step-number">3</div>
-              <h3 class="fr-h4 fr-mb-0">{{ $t("s2.h3") }}</h3>
-            </div>
-            <p>{{ $t("s2.p3") }}</p>
+            <ol>
+              <li>
+                <div class="fr-grid-row align-items--center">
+                  <p class="step-number">1</p>
+                  <h3 class="fr-h4 fr-mb-0">{{ $t("s2.h1") }}</h3>
+                </div>
+                <div>{{ $t("s2.p1") }}</div>
+                <ul class="fr-pt-2w fr-mb-5w">
+                  <li>{{ $t("s2.u1a") }}</li>
+                  <li>{{ $t("s2.u1b") }}</li>
+                  <li>{{ $t("s2.u1c") }}</li>
+                  <li>{{ $t("s2.u1d") }}</li>
+                  <li>{{ $t("s2.u1e") }}</li>
+                </ul>
+              </li>
+              <li>
+                <div class="fr-grid-row align-items--center">
+                  <p class="step-number">2</p>
+                  <h3 class="fr-h4 fr-mb-0">{{ $t("s2.h2") }}</h3>
+                </div>
+                <p>{{ $t("s2.p2") }}</p>
+              </li>
+              <li>
+                <div class="fr-grid-row align-items--center">
+                  <p class="step-number">3</p>
+                  <h3 class="fr-h4 fr-mb-0">{{ $t("s2.h3") }}</h3>
+                </div>
+                <p>{{ $t("s2.p3") }}</p>
+              </li>
+            </ol>
             <DfButton class="fr-mt-2w" @on-click="gotoDocs">
               <span class="text-center full-width">
                 {{ $t("docs") }}
@@ -520,6 +526,7 @@ ul li:before {
   background-color: var(--primary);
   color: white;
   margin-right: 10px;
+  margin-bottom: 0;
   border-radius: 50%;
   display: inline-block;
   height: 25px;
@@ -588,5 +595,13 @@ img {
 .fr-responsive-img {
   width: 80px;
   height: 80px;
+}
+
+ol > li::marker {
+  content: "";
+}
+
+ol {
+  padding-left: 0;
 }
 </style>

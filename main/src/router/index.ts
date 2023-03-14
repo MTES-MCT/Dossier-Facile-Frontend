@@ -404,8 +404,7 @@ const routes: Array<RouteConfig> = [
     path: "/stats",
     name: "Statistiques",
     meta: {
-      title:
-        "Dossier Facile : un service entièrement transparent - DossierFacile",
+      title: "Nos statistiques - DossierFacile",
       description:
         "Consultez nos statistiques sur l’utilisation du service (nombre de dossiers créés, nombre de liens partagés, satisfaction des utilisateurs...)"
     },
@@ -416,7 +415,7 @@ const routes: Array<RouteConfig> = [
     path: "/plan-du-site",
     name: "Plan du site",
     meta: {
-      title: "DossierFacile, le dossier de location numérique de l’État",
+      title: "DossierFacile, le dossier de location numérique de l’État"
     },
     component: () => import("../views/Sitemap.vue")
   },

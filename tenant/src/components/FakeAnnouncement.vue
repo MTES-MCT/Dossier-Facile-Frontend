@@ -5,7 +5,11 @@
         $t("fakeannouncement.fake-announce-title")
       }}
     </h2>
-    <img alt="" src="../assets/police_nationale.svg" class="logo-police" />
+    <img
+      alt="Police nationale"
+      src="../assets/police_nationale.svg"
+      class="logo-police"
+    />
 
     <div class="announcement-container">
       <div class="announcement-text">
