@@ -99,7 +99,10 @@
               >
             </div>
           </div>
-          <MonFranceConnect class="fr-mt-2w"></MonFranceConnect>
+          <MonFranceConnect
+            class="fr-mt-2w"
+            redirection-type="dgfip"
+          ></MonFranceConnect>
         </div>
         <AllDeclinedMessages
           class="fr-mb-3w"
