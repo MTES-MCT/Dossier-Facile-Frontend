@@ -133,6 +133,14 @@
                     )
                   "
                 ></p>
+                <MonFranceConnect
+                  v-if="financialDocument.documentType.key === 'social-service'"
+                  redirection-type="unemploymentBenefit"
+                ></MonFranceConnect>
+                <MonFranceConnect
+                  v-if="financialDocument.documentType.key === 'scholarship'"
+                  redirection-type="scholarship"
+                ></MonFranceConnect>
               </div>
               <AllDeclinedMessages
                 class="fr-mb-3w"
@@ -301,6 +309,7 @@ import { cloneDeep } from "lodash";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import MonFranceConnect from "../share/MonFranceConnect.vue";
+import {REDIRECTIONS} from "../share/MonFranceConnect.vue";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 extend("regex", {
