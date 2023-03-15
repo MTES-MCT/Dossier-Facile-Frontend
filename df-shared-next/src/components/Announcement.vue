@@ -38,15 +38,19 @@ function closeAnnouncement() {
 <template>
   <div class="announcement fr-pt-2w fr-pb-2w" v-if="isVisible()">
     <div class="fr-container message">
-      {{ MESSAGE }}
-      <button class="fr-btn--close close" @click="closeAnnouncement()"></button>
+      <span v-html="MESSAGE"></span>
+      <button
+        title="Fermer l'annonce"
+        class="fr-btn--close close"
+        @click="closeAnnouncement()"
+      ></button>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 .announcement {
-  background-color: #45a07a;
+  background-color: #18753c;
   color: #fff;
 }
 .message {
@@ -55,5 +59,18 @@ function closeAnnouncement() {
 }
 .close {
   color: #fff;
+  &:hover {
+    background-color: rgba(250, 250, 250, 0.7);
+    color: #000;
+  }
+}
+
+.fr-btn--close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:before {
+    margin-left: 0;
+  }
 }
 </style>
