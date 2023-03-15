@@ -47,6 +47,14 @@
         <p
           v-html="$t(`explanation-text.tenant.${professionalDocument.key}`)"
         ></p>
+        <MonFranceConnect
+          v-if="professionalDocument.key === 'student'"
+          redirection-type="student"
+        ></MonFranceConnect>
+        <MonFranceConnect
+          v-if="professionalDocument.key === 'unemployed'"
+          redirection-type="unemployed"
+        ></MonFranceConnect>
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
@@ -104,6 +112,7 @@ import { cloneDeep } from "lodash";
 import { ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
+import MonFranceConnect from "@/components/documents/share/MonFranceConnect.vue";
 
 @Component({
   components: {
@@ -117,7 +126,8 @@ import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
     VGouvFrModal,
     NakedCard,
     ValidationProvider,
-    TroubleshootingModal
+    TroubleshootingModal,
+    MonFranceConnect
   },
   computed: {
     ...mapGetters({
@@ -331,4 +341,3 @@ export default class Professional extends Vue {
 </script>
 
 <style scoped lang="scss"></style>
-

@@ -155,8 +155,8 @@ export const AnalyticsService = {
     this.sendEvent("validate-file", { event_category: "file" });
   },
 
-  openDGFIP() {
-    this.sendEvent("open-dgfip", { event_category: "funnel" });
+  openMonFranceConnect(eventName: string) {
+    this.sendEvent(eventName, { event_category: "funnel" });
   },
   openSimulationCAF() {
     this.sendEvent("open-simulation_caf", { event_category: "funnel" });
