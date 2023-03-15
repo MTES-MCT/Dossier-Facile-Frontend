@@ -78,7 +78,7 @@
           </div>
           <div class=" service-box-content">
             <img
-              alt="logo mes droits sociaux"
+              alt="Police nationale"
               class="fr-pl-2w fr-pb-2w"
               src="../../assets/police_nationale.svg"
             />
