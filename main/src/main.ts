@@ -60,7 +60,6 @@ new Vue({
 
 if (Vue.$cookies.get("accept-cookie") === "true") {
   inspectlet();
-  iphub();
   Vue.use(
     VueGtag,
     {

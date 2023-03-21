@@ -906,6 +906,14 @@
     "spouse": "votre conjoint",
     "prepare-documents": "Préparez vos pièces justificatives :"
   },
+  "ownerbanner": {
+    "title1": "Propriétaire,",
+    "title2": "Trouvez votre Perle Rare du Locataire !",
+    "text1": "Espace 100% gratuit",
+    "text2": "Centralisez vos candidatures",
+    "text3": "Tous les dossiers sont complets !",
+    "btn": "Créer mon compte propriétaire"
+  },
   "ownershare": {
     "title": "Candidatez pour le logement situé au {0}",
     "subtitle": "DossierFacile est une startup d'État qui vous permet de créer votre dossier de location intelligent et de le partager avec des propriétaires",
