@@ -108,4 +108,10 @@ function denyCookies() {
   display: flex;
   align-items: stretch;
 }
+
+#content {
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+}
 </style>

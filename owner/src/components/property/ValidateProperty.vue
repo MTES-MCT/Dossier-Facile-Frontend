@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
@@ -56,7 +57,7 @@ async function onSubmit() {
 
 function onBack() {
   router.push({
-    name: 'PropertyRent',
+    name: 'PropertyDiagnostic',
     params: { id: store.getPropertyToEdit.id },
   });
 }
@@ -64,72 +65,74 @@ function onBack() {
 
 <template>
   <PropertyPage @on-back="onBack" @submit="onSubmit">
-    <h1 class="fr-h4">{{ t('validateproperty.validate-title') }}</h1>
-    <div v-if="!hasErrors">
-      <p>{{ t('validateproperty.validate-subtitle') }}</p>
-      <div class="bg-purple fr-checkbox-group">
-        <Field
-          name="authorize"
-          id="authorize"
-          type="checkbox"
-          v-model="authorize"
-          rules="isTrue"
-          :value="true"
-        />
-        <label for="authorize"><div v-html="t('validateproperty.authorize')"></div></label>
-        <ErrorMessage class="fr-error-text" name="authorize" v-slot="{ message }">
-          <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-        </ErrorMessage>
+    <NakedCard class="fr-p-md-5w">
+      <h1 class="fr-h4">{{ t('validateproperty.validate-title') }}</h1>
+      <div v-if="!hasErrors">
+        <p>{{ t('validateproperty.validate-subtitle') }}</p>
+        <div class="bg-purple fr-checkbox-group">
+          <Field
+            name="authorize"
+            id="authorize"
+            type="checkbox"
+            v-model="authorize"
+            rules="isTrue"
+            :value="true"
+          />
+          <label for="authorize"><div v-html="t('validateproperty.authorize')"></div></label>
+          <ErrorMessage class="fr-error-text" name="authorize" v-slot="{ message }">
+            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+          </ErrorMessage>
+        </div>
       </div>
-    </div>
-    <div v-else>
-      <h6 class="color--red">{{ t('validateproperty.error-title') }}</h6>
-      <p>
-        {{ t('validateproperty.property-not-valid') }}
-      </p>
-      <div v-if="!property.name">
-        <UpdateRowBtn
-          :title="t('validateproperty.property-name')"
-          :to="{ name: 'PropertyName', params: getParams }"
-        ></UpdateRowBtn>
+      <div v-else>
+        <h6 class="color--red">{{ t('validateproperty.error-title') }}</h6>
+        <p>
+          {{ t('validateproperty.property-not-valid') }}
+        </p>
+        <div v-if="!property.name">
+          <UpdateRowBtn
+            :title="t('validateproperty.property-name')"
+            :to="{ name: 'PropertyName', params: getParams }"
+          ></UpdateRowBtn>
+        </div>
+        <div v-if="!property.type">
+          <UpdateRowBtn
+            :title="t('validateproperty.property-type')"
+            :to="{ name: 'PropertyType', params: getParams }"
+          ></UpdateRowBtn>
+        </div>
+        <div v-if="!property.furniture">
+          <UpdateRowBtn
+            :title="t('validateproperty.property-furniture')"
+            :to="{ name: 'PropertyFurniture', params: getParams }"
+          ></UpdateRowBtn>
+        </div>
+        <div v-if="!property.address">
+          <UpdateRowBtn
+            :title="t('validateproperty.property-address')"
+            :to="{ name: 'PropertyAddress', params: getParams }"
+          ></UpdateRowBtn>
+        </div>
+        <div v-if="!property.livingSpace || property.livingSpace <= 0">
+          <UpdateRowBtn
+            :title="t('property-living-space')"
+            :to="{ name: 'PropertyLivingSpace', params: getParams }"
+          ></UpdateRowBtn>
+        </div>
+        <div
+          v-if="
+            !property.rentCost ||
+              property.rentCost <= 0 ||
+              property.chargesCost === undefined ||
+              property.chargesCost < 0
+          "
+        >
+          <UpdateRowBtn
+            :title="t('validateproperty.property-rent')"
+            :to="{ name: 'PropertyRent', params: getParams }"
+          ></UpdateRowBtn>
+        </div>
       </div>
-      <div v-if="!property.type">
-        <UpdateRowBtn
-          :title="t('validateproperty.property-type')"
-          :to="{ name: 'PropertyType', params: getParams }"
-        ></UpdateRowBtn>
-      </div>
-      <div v-if="!property.furniture">
-        <UpdateRowBtn
-          :title="t('validateproperty.property-furniture')"
-          :to="{ name: 'PropertyFurniture', params: getParams }"
-        ></UpdateRowBtn>
-      </div>
-      <div v-if="!property.address">
-        <UpdateRowBtn
-          :title="t('validateproperty.property-address')"
-          :to="{ name: 'PropertyAddress', params: getParams }"
-        ></UpdateRowBtn>
-      </div>
-      <div v-if="!property.livingSpace || property.livingSpace <= 0">
-        <UpdateRowBtn
-          :title="t('property-living-space')"
-          :to="{ name: 'PropertyLivingSpace', params: getParams }"
-        ></UpdateRowBtn>
-      </div>
-      <div
-        v-if="
-          !property.rentCost ||
-            property.rentCost <= 0 ||
-            property.chargesCost === undefined ||
-            property.chargesCost < 0
-        "
-      >
-        <UpdateRowBtn
-          :title="t('validateproperty.property-rent')"
-          :to="{ name: 'PropertyRent', params: getParams }"
-        ></UpdateRowBtn>
-      </div>
-    </div>
+    </NakedCard>
   </PropertyPage>
 </template>

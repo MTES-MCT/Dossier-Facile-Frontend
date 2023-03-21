@@ -4,6 +4,7 @@ import { computed, ref, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import { Address } from 'df-shared-next/src/models/Address';
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
 import UtilsService from '../../services/UtilsService';
 import PropertyPage from './PropertyPage.vue';
 import useOwnerStore from '../../store/owner-store';
@@ -88,54 +89,56 @@ function clickItem(data: Address) {
 
 <template>
   <PropertyPage @on-back="onBack" @submit="onSubmit">
-    <h1 class="fr-h4">{{ t("propertyaddress.address-title") }}</h1>
-    <p>{{ t("propertyaddress.address-subtitle") }}</p>
-    <div>
-      <label class="fr-label" for="address">{{ t("propertyaddress.address-label") }} :</label>
-      <Field
-        id="address"
-        name="address"
-        v-model="address"
-        v-slot="{ field, meta }"
-        :rules="{
-          required: true,
-        }"
-      >
-        <input
-          v-bind="field"
-          ref="autocompleteRef"
-          class="validate-required form-control fr-input"
-          :class="{
-            'fr-input--valid': meta.valid,
-            'fr-input--error': !meta.valid,
+    <NakedCard class="fr-p-md-5w">
+      <h1 class="fr-h4">{{ t('propertyaddress.address-title') }}</h1>
+      <p>{{ t('propertyaddress.address-subtitle') }}</p>
+      <div>
+        <label class="fr-label" for="address">{{ t('propertyaddress.address-label') }} :</label>
+        <Field
+          id="address"
+          name="address"
+          v-model="address"
+          v-slot="{ field, meta }"
+          :rules="{
+            required: true,
           }"
-          :placeholder="'42 rue de la paix'"
-          @input="handleInput"
-          @focus="displayResults"
-          @blur="hideResults"
-          autocomplete="off"
-          type="text"
-        />
-      </Field>
-      <div
-        :style="{ width: inputWidth + 'px' }"
-        class="results-container"
-        v-if="shouldShowResults"
-      >
-        <div
-          v-for="(item, k) in addresses"
-          :key="k"
-          class="results-item"
-          @click="clickItem(item)"
-          @mousedown.prevent
         >
-          {{ item.properties.label }}
+          <input
+            v-bind="field"
+            ref="autocompleteRef"
+            class="validate-required form-control fr-input"
+            :class="{
+              'fr-input--valid': meta.valid,
+              'fr-input--error': !meta.valid,
+            }"
+            :placeholder="'42 rue de la paix'"
+            @input="handleInput"
+            @focus="displayResults"
+            @blur="hideResults"
+            autocomplete="off"
+            type="text"
+          />
+        </Field>
+        <div
+          :style="{ width: inputWidth + 'px' }"
+          class="results-container"
+          v-if="shouldShowResults"
+        >
+          <div
+            v-for="(item, k) in addresses"
+            :key="k"
+            class="results-item"
+            @click="clickItem(item)"
+            @mousedown.prevent
+          >
+            {{ item.properties.label }}
+          </div>
         </div>
+        <ErrorMessage name="address" v-slot="{ message }">
+          <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+        </ErrorMessage>
       </div>
-      <ErrorMessage name="address" v-slot="{ message }">
-        <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
-      </ErrorMessage>
-    </div>
+    </NakedCard>
   </PropertyPage>
 </template>
 
@@ -159,4 +162,3 @@ function clickItem(data: Address) {
   }
 }
 </style>
-
