@@ -54,6 +54,12 @@ export const AnalyticsService = {
     });
   },
 
+  openCreateOwnerAccount() {
+    this.sendEvent("open_owner", {
+      event_category: "misc"
+    });
+  },
+
   editFromMenu(docType: number) {
     this.sendEvent("menu-edit-doc_" + this.getDoctypeByNumber(docType), {
       event_category: "funnel"
