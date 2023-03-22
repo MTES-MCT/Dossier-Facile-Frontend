@@ -35,4 +35,5 @@ export class User {
   documents?: DfDocument[];
   allowCheckTax?: boolean;
   linkUrl?: string;
+  warningMessage?: string;
 }

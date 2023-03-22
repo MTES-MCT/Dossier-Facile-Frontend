@@ -853,6 +853,9 @@ const store = new Vuex.Store({
     isLoggedIn(): boolean {
       return (Vue as any).$keycloak.authenticated;
     },
+    warningMessage(state): string {
+      return state.user.warningMessage as string;
+    },
     userToEdit(state): User | null {
       return state.user;
     },
