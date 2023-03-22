@@ -252,7 +252,7 @@ export default class GuarantorProfessional extends Vue {
       this.professionalFiles().length > this.professionalDocument.maxFileCount
     ) {
       Vue.toasted.global.max_file({
-        message: this.$i18n.t("guarantorprofessional.max-file", [
+        message: this.$i18n.t("max-file", [
           this.professionalFiles().length,
           this.professionalDocument.maxFileCount
         ])

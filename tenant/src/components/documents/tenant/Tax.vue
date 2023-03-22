@@ -369,7 +369,7 @@ export default class Tax extends Vue {
         this.taxFiles().length > this.taxDocument.maxFileCount
       ) {
         Vue.toasted.global.max_file({
-          message: this.$i18n.t("tax.max-file", [
+          message: this.$i18n.t("max-file", [
             this.taxFiles().length,
             this.taxDocument.maxFileCount
           ])

@@ -330,7 +330,7 @@ export default class GuarantorTax extends Vue {
         this.taxFiles().length > this.taxDocument.maxFileCount
       ) {
         Vue.toasted.global.max_file({
-          message: this.$i18n.t("guarantortax.max-file", [
+          message: this.$i18n.t("max-file", [
             this.taxFiles().length,
             this.taxDocument.maxFileCount
           ])

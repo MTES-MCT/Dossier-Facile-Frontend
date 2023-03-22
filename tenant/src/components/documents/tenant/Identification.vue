@@ -257,7 +257,7 @@ export default class Identification extends Vue {
         this.identificationDocument.maxFileCount
     ) {
       Vue.toasted.global.max_file({
-        message: this.$i18n.t("identification.max-file", [
+        message: this.$i18n.t("max-file", [
           this.identificationFiles().length,
           this.identificationDocument.maxFileCount
         ])
