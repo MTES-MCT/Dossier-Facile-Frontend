@@ -277,5 +277,10 @@
     "property-address": "Adresse du logement",
     "property-rent": "Loyer et charges mensuels",
     "try-again": "Veuillez corriger les erreurs pour soumettre la propriété"
+  },
+  "propertycontainer": {
+    "apply-to": "Candidater au {0}",
+    "rent1": "dont le loyer mensuel est de",
+    "rent2": "et les charges de"
   }
 }
