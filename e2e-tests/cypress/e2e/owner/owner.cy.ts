@@ -4,6 +4,7 @@ describe("basic owner scenario", () => {
     firstname: "Alain",
     lastname: "BUREAU"
   };
+  const propertyName = "Appartement 123";
 
   before("reset account", () => {
     cy.ownerLogin(user.username);
@@ -15,12 +16,21 @@ describe("basic owner scenario", () => {
     cy.acceptCookies();
   });
 
+  it("edit personal informations", () => {
+    cy.get(".fr-nav__btn").click();
+    cy.contains("Mes informations personnelles").click();
+
+    cy.get('input[name="email"]')
+      .clear()
+      .type("test@test.fr")
+      .clickOnNext();
+  });
+
   it("add a new property", () => {
     cy.get("button")
       .contains("Ajouter une propriété")
       .click();
 
-    const propertyName = "Appartement 1";
     cy.get('input[name="name"]')
       .type(propertyName)
       .clickOnNext();
@@ -53,6 +63,17 @@ describe("basic owner scenario", () => {
     cy.get("h1")
       .contains("Mes propriétés")
       .should("be.visible");
+  });
+
+  it("share a property", () => {
+    cy.contains(propertyName).click();
+    cy.expectPath("/consulte-propriete");
+
+    cy.contains("Partager ma propriété").click();
+    cy.contains("Copier").click();
+  });
+
+  it("delete a property", () => {
     cy.contains(propertyName).click();
     cy.expectPath("/consulte-propriete");
 
@@ -60,15 +81,5 @@ describe("basic owner scenario", () => {
     cy.get(".modal")
       .contains("Valider")
       .click();
-  });
-
-  it("edit personal informations", () => {
-    cy.get(".fr-nav__btn").click();
-    cy.contains("Mes informations personnelles").click();
-
-    cy.get('input[name="email"]')
-      .clear()
-      .type("test@test.fr")
-      .clickOnNext();
   });
 });
