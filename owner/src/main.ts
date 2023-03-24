@@ -20,7 +20,7 @@ declare global {
 
 defineRule('validateEmail', (value: any) => {
   if (!value) {
-    return 'email-not-valid';
+    return 'register.email-not-valid';
   }
   return true;
 });
@@ -53,19 +53,19 @@ defineRule('email', (value: any) => {
     return true;
   }
   if (!/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/.test(value)) {
-    return 'email-not-valid';
+    return 'register.email-not-valid';
   }
   return true;
 });
 defineRule('strength', (_value: any, [score]: number[]) => {
   if (score < 2) {
-    return 'strength-not-valid';
+    return 'register.strength-not-valid';
   }
   return true;
 });
 defineRule('confirm', (_value: any, [password, confirm]: string[]) => {
   if (password !== confirm) {
-    return 'confirm-not-valid';
+    return 'register.confirm-not-valid';
   }
   return true;
 });

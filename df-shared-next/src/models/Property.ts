@@ -5,6 +5,8 @@ export class Property {
   creation_date!: string;
   count_visit!: number;
   rentCost!: number;
+  co2Emission!: number;
+  energyConsumption!: number;
   chargesCost!: number;
   displayed!: boolean;
   validated!: boolean;

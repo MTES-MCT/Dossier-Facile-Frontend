@@ -18,6 +18,9 @@ const propertyName = computed(() => store.getPropertyToEdit?.name);
 const typeStatus = computed(() => (store.getPropertyToEdit?.type ? 'FILLED' : 'TO_PROCESS'));
 const addressStatus = computed(() => (store.getPropertyToEdit?.address ? 'FILLED' : 'TO_PROCESS'));
 const rentStatus = computed(() => (store.getPropertyToEdit?.rentCost > 0 ? 'FILLED' : 'TO_PROCESS'));
+const diagnosticStatus = computed(() => (store.getPropertyToEdit?.co2Emission && store.getPropertyToEdit?.energyConsumption
+  ? 'FILLED'
+  : 'TO_PROCESS'));
 const furnitureStatus = computed(() => (store.getPropertyToEdit?.furniture ? 'FILLED' : 'TO_PROCESS'));
 const livingSpaceStatus = computed(() => (store.getPropertyToEdit?.livingSpace ? 'FILLED' : 'TO_PROCESS'));
 
@@ -89,6 +92,11 @@ const getParams = id ? { id } : {};
               :text="t('leftmenu.monthly-rent-and-charges')"
               :status="rentStatus"
             ></ColoredTag>
+          </router-link>
+        </div>
+        <div class="ml-5">
+          <router-link :to="{ name: 'PropertyDiagnostic', params: getParams }" class="fr-link">
+            <ColoredTag :text="t('leftmenu.diagnostic')" :status="diagnosticStatus"></ColoredTag>
           </router-link>
         </div>
       </div>

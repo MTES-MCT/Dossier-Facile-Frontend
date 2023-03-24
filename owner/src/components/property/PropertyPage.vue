@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Form } from 'vee-validate';
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
 import LeftMenu from '../menu/LeftMenu.vue';
 import TopMenu from '../menu/TopMenu.vue';
 import BackNext from '../footer/BackNext.vue';
@@ -26,9 +25,7 @@ function onBack() {
     >
       <div class="fr-col-12 max-600 ml">
         <Form @submit="onSubmit">
-          <NakedCard class="fr-p-md-5w">
-            <slot></slot>
-          </NakedCard>
+          <slot></slot>
           <FooterContainer>
             <BackNext @on-back="onBack" :show-back="true"></BackNext>
           </FooterContainer>

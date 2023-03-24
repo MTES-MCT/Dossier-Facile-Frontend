@@ -407,7 +407,7 @@ export default class DocumentDownloader extends Vue {
       futurLength > this.document.maxFileCount
     ) {
       Vue.toasted.global.max_file({
-        message: this.$i18n.t("documentdownloader.max-file", [
+        message: this.$i18n.t("max-file", [
           futurLength,
           this.document.maxFileCount
         ])

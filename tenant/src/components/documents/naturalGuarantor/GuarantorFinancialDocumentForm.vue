@@ -445,7 +445,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
           this.financialDocument.documentType.maxFileCount
       ) {
         Vue.toasted.global.max_file({
-          message: this.$i18n.t("guarantorfinancialdocumentform.max-file", [
+          message: this.$i18n.t("max-file", [
             this.financialFiles().length,
             this.financialDocument.documentType.maxFileCount
           ])

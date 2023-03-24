@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
@@ -43,73 +44,75 @@ function onBack() {
 
 <template>
   <PropertyPage @on-back="onBack" @submit="onSubmit">
-    <h1 class="fr-h4">{{ t("propertytype.type-title") }}</h1>
-    <p class="fr-mb-md-7w">{{ t("propertytype.type-subtitle") }}</p>
-    <div>
-      <Field
-        name="type"
-        id="type-apartment"
-        type="radio"
-        v-model="type"
-        rules="hasValue"
-        :value="'APARTMENT'"
-      />
-      <label
-        :class="{ selected: type === 'APARTMENT' }"
-        class="fr-label inline-block label"
-        for="type-apartment"
-      >
-        <div class="fr-grid-col">
-          <div class="icon-container desktop">
-            <div class="material-icons md-36 icon-color">apartment</div>
+    <NakedCard class="fr-p-md-5w">
+      <h1 class="fr-h4">{{ t('propertytype.type-title') }}</h1>
+      <p class="fr-mb-md-7w">{{ t('propertytype.type-subtitle') }}</p>
+      <div>
+        <Field
+          name="type"
+          id="type-apartment"
+          type="radio"
+          v-model="type"
+          rules="hasValue"
+          :value="'APARTMENT'"
+        />
+        <label
+          :class="{ selected: type === 'APARTMENT' }"
+          class="fr-label inline-block label"
+          for="type-apartment"
+        >
+          <div class="fr-grid-col">
+            <div class="icon-container desktop">
+              <div class="material-icons md-36 icon-color">apartment</div>
+            </div>
+            <div class="fr-mb-md-5w fr-m-2w">{{ t('propertytype.apartment') }}</div>
           </div>
-          <div class="fr-mb-md-5w fr-m-2w">{{ t("propertytype.apartment") }}</div>
-        </div>
-      </label>
-      <Field
-        name="type"
-        id="type-house"
-        type="radio"
-        v-model="type"
-        rules="hasValue"
-        :value="'HOUSE'"
-      />
-      <label
-        :class="{ selected: type === 'HOUSE' }"
-        class="fr-label inline-block label"
-        for="type-house"
-      >
-        <div class="fr-grid-col">
-          <div class="icon-container desktop">
-            <div class="material-icons md-36 icon-color">home</div>
+        </label>
+        <Field
+          name="type"
+          id="type-house"
+          type="radio"
+          v-model="type"
+          rules="hasValue"
+          :value="'HOUSE'"
+        />
+        <label
+          :class="{ selected: type === 'HOUSE' }"
+          class="fr-label inline-block label"
+          for="type-house"
+        >
+          <div class="fr-grid-col">
+            <div class="icon-container desktop">
+              <div class="material-icons md-36 icon-color">home</div>
+            </div>
+            <div class="fr-mb-md-5w fr-m-2w">{{ t('propertytype.house') }}</div>
           </div>
-          <div class="fr-mb-md-5w fr-m-2w">{{ t("propertytype.house") }}</div>
-        </div>
-      </label>
-      <Field
-        name="type"
-        id="type-other"
-        type="radio"
-        v-model="type"
-        rules="hasValue"
-        :value="'OTHER'"
-      />
-      <label
-        :class="{ selected: type === 'OTHER' }"
-        class="fr-label inline-block label"
-        for="type-other"
-      >
-        <div class="fr-grid-col">
-          <div class="icon-container desktop">
-            <div class="material-icons md-36 icon-color">domain</div>
+        </label>
+        <Field
+          name="type"
+          id="type-other"
+          type="radio"
+          v-model="type"
+          rules="hasValue"
+          :value="'OTHER'"
+        />
+        <label
+          :class="{ selected: type === 'OTHER' }"
+          class="fr-label inline-block label"
+          for="type-other"
+        >
+          <div class="fr-grid-col">
+            <div class="icon-container desktop">
+              <div class="material-icons md-36 icon-color">domain</div>
+            </div>
+            <div class="fr-mb-md-5w fr-m-2w">{{ t('propertytype.other') }}</div>
           </div>
-          <div class="fr-mb-md-5w fr-m-2w">{{ t("propertytype.other") }}</div>
-        </div>
-      </label>
-      <ErrorMessage name="type" v-slot="{ message }">
-        <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
-      </ErrorMessage>
-    </div>
+        </label>
+        <ErrorMessage name="type" v-slot="{ message }">
+          <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+        </ErrorMessage>
+      </div>
+    </NakedCard>
   </PropertyPage>
 </template>
 
@@ -163,7 +166,7 @@ function onBack() {
   }
 }
 
-input[type="radio"] {
+input[type='radio'] {
   visibility: hidden;
 }
 
@@ -185,4 +188,3 @@ input[type="radio"] {
   color: var(--icon-color);
 }
 </style>
-

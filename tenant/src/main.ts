@@ -183,23 +183,8 @@ Vue.use(VueAuthImage);
 
     Vue.prototype.inspectlet = inspectlet;
 
-    const iphub = function() {
-      JQuery(document).ready(function() {
-        JQuery(document.body).prepend(
-          "<script src='/iphubb2.js'></script>" +
-            "<script src='/iphubb.js'></script>" +
-            '<noscript> <iframe src="https://3689183.fls.doubleclick.net/activityi;src=3689183;type=dossi0;cat=lpbis;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;npa=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ord=1;num=1?" width="1" height="1" frameborder="0" style="display:none"></iframe> </noscript>' +
-            "<script src='/pixel.js'></script>" +
-            '<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=244308452813031&ev=PageView&noscript=1" /></noscript>' +
-            "<script src='/pixelBtn.js'></script>"
-        );
-      });
-    };
-    Vue.prototype.iphub = iphub;
-
     if (Vue.$cookies.get("accept-cookie") === "true") {
       inspectlet();
-      iphub();
       Vue.use(
         VueGtag,
         {

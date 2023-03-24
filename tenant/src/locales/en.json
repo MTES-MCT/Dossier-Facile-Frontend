@@ -737,6 +737,14 @@
     "spouse": "your spouse",
     "prepare-documents": "Prepare your supporting documents:"
   },
+  "ownerbanner": {
+    "title1": "Owner,",
+    "title2": "Find your tenant !",
+    "text1": "100% free",
+    "text2": "Centralize your applications",
+    "text3": "All files are completed !",
+    "btn": "Create an owner account"
+  },
   "ownershare": {
     "title": "Candidatez pour le logement situé au {0}",
     "subtitle": "DossierFacile est une startup d'État qui vous permet de créer votre dossier de location intelligent et de le partager avec des propriétaires",

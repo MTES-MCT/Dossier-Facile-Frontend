@@ -132,7 +132,7 @@
       "retired": "J’ajoute un bulletin de pension retraite. Et si vous n’en avez pas? Vous pouvez joindre votre dernier avis d’imposition complet de moins de 2 ans.",
       "salary": "J’ajoute mes trois derniers bulletins de salaire, ou un justificatif de mes indemnités de stage, ou mes deux derniers bilans comptables (non-salariés).",
       "scholarship": "J’ajoute un avis d’attribution de bourse.",
-      "social-service": "J’ajoute un justificatif de versement de prestations sociales (ARE, CAF, Crous…) de mon garant de moins de 3 mois, un justificatif d’ouverture de ses droits ou une attestation de simulation pour les aides au logement.",
+      "social-service": "J'ajoute <strong>mes trois derniers justificatifs</strong> de versement de prestations sociales (ARE, CAF...), un justificatif d'ouverture de mes droits ou une attestation de simulation pour les aides au logement.",
       "student": "J’ajoute une copie de ma carte d’étudiant ou un certificat de scolarité pour l’année en cours.",
       "tenant": "J’ajoute mes <b>quittances de loyer pour les trois derniers mois.</b>",
       "unemployed": "J’ajoute une attestation d’ouverture de droits à l’ARE ou un avis de situation Pôle Emploi de moins de 3 mois."
@@ -905,6 +905,14 @@
     "roommate": "votre colocataire",
     "spouse": "votre conjoint",
     "prepare-documents": "Préparez vos pièces justificatives :"
+  },
+  "ownerbanner": {
+    "title1": "Propriétaire,",
+    "title2": "Trouvez votre Perle Rare du Locataire !",
+    "text1": "Espace 100% gratuit",
+    "text2": "Centralisez vos candidatures",
+    "text3": "Tous les dossiers sont complets !",
+    "btn": "Créer mon compte propriétaire"
   },
   "ownershare": {
     "title": "Candidatez pour le logement situé au {0}",
