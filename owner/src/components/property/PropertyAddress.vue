@@ -68,8 +68,10 @@ const shouldShowResults = computed(() => showResults.value && addresses.value.le
 
 function updateAddresses(value: string) {
   UtilsService.getAddresses(value).then((res: any) => {
-    addresses.value = res.data.features;
-    displayResults();
+    if (res.data.type === 'FeatureCollection') {
+      addresses.value = res.data.features;
+      displayResults();
+    }
     return res.data;
   });
 }
