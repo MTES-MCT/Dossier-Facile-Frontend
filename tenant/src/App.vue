@@ -18,7 +18,6 @@
       <Menu />
     </MyHeader>
     <div id="content">
-      <WarningMessage></WarningMessage>
       <Announcement></Announcement>
       <main class="page" role="main">
         <router-view :key="$route.path" />
@@ -40,7 +39,6 @@ import VueGtag from "vue-gtag";
 import router from "./router";
 import Announcement from "df-shared/src/components/Announcement.vue";
 import ModalAnnouncement from "df-shared/src/components/ModalAnnouncement.vue";
-import WarningMessage from "@/components/WarningMessage.vue";
 import TenantSkipLinks from "./components/TenantSkipLinks.vue";
 import { User } from "df-shared/src/models/User";
 
@@ -52,8 +50,7 @@ import { User } from "df-shared/src/models/User";
     Menu,
     Cookies,
     Announcement,
-    ModalAnnouncement,
-    WarningMessage
+    ModalAnnouncement
   },
   computed: {
     ...mapState({
