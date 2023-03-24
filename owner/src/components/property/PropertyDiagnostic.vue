@@ -214,6 +214,7 @@ function redirectFranceRenov() {
         </h2>
         <img
           v-if="globalLetter === 'E' || globalLetter === 'F' || globalLetter === 'G'"
+          alt="France Renov"
           src="../../assets/france_renov.png"
           class="france_renov"
         />
