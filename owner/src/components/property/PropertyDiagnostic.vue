@@ -364,7 +364,7 @@ function redirectFranceRenov() {
     margin-top: -10px;
   }
 
-  width: 105px;
-  height: 60px;
+  width: 140px;
+  height: 80px;
 }
 </style>
