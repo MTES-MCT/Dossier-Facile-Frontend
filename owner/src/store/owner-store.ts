@@ -91,6 +91,12 @@ const useOwnerStore = defineStore('owner', {
     setCharges(charges: number) {
       this.propertyToEdit.chargesCost = charges;
     },
+    setCo2Emission(co2: number) {
+      this.propertyToEdit.co2Emission = co2;
+    },
+    setEnergyConsumption(energy: number) {
+      this.propertyToEdit.energyConsumption = energy;
+    },
     updatePropertyToEdit(id: number) {
       const prop = this.properties.find((p) => p.id === id);
       if (prop) {

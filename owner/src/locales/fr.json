@@ -17,6 +17,7 @@
   "other-unfurnished": "Un bien non meublé",
   "number-not-positive": "Le prix doit être positif",
   "number-not-positive-or-null": "Le prix doit être supérieur ou égal à 0",
+  "register-btn": "Enregistrer",
   "account": {
     "title": "Bienvenue dans votre espace propriétaire. Ajoutons ensemble votre propriété",
     "subtitle": "Commençons par vos informations personnelles d'identité."
@@ -154,10 +155,11 @@
     "add-property": "J'ajoute un bien",
     "validate-property": "Je valide ma propriété",
     "monthly-rent-and-charges": "Loyer et charges mensuels",
+    "diagnostic": "Diagnostic de performance énergétique",
     "property-name": "Nom de la propriété",
     "property-type": "Type de logement",
     "property-furniture": "Ameublement",
-    "property-address": "Adresse du logement",
+    "property-address": "Adresse du logement"
   },
   "menu": {
     "dashboard": "Mes propriétés",
@@ -202,6 +204,15 @@
     "name-placeholder": "Nom de la propriété",
     "name-label": "Nom de la propriété"
   },
+  "propertydiagnostic": {
+    "title": "Je renseigne le DPE de mon bien",
+    "subtitle": "Où trouver ces informations ?",
+    "energy-consumption": "Montant de la consommation énergétique finale (kWh/m²/an)",
+    "energy-consumption-amount": "350",
+    "co2-emission": "Montant des émissions de CO₂ (kg CO₂/m²/an)",
+    "co2-amount": "130",
+    "detail-title": "Mon DPE en détail"
+  },
   "propertyrent": {
     "rent-title": "Loyer et charges mensuels",
     "rent-subtitle": "Indiquez le montant du loyer demandé ainsi que les charges associées.",
@@ -218,7 +229,7 @@
     "other": "Autres"
   },
   "propertyfurniture": {
-    "furniture-title": "Aménagement",
+    "furniture-title": "Ameublement",
     "furniture-subtitle": "Quel type de logement proposez-vous à la location ?",
     "furnished": "Meublé",
     "unfurnished": "Vide"
@@ -259,7 +270,8 @@
     "property-type": "Type de logement",
     "property-address": "Adresse du logement",
     "property-furniture": "Ameublement",
-    "edit-property": "Édition de la propriété"
+    "edit-property": "Édition de la propriété",
+    "diagnostic": "Diagnostic de performance énergétique"
   },
   "updaterowbtn": {
     "update": "Mettre à jour"

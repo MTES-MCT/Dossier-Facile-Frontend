@@ -182,6 +182,17 @@ const routes = [
     component: () => import('../components/property/PropertyRent.vue'),
   },
   {
+    path: '/diagnostic-propriete/:id?',
+    name: 'PropertyDiagnostic',
+    meta: {
+      title: 'Édition du diagnostic énergétique - DossierFacile',
+      requiresAuth: true,
+      hasFooter: false,
+      position: 6,
+    },
+    component: () => import('../components/property/PropertyDiagnostic.vue'),
+  },
+  {
     path: '/valider-propriete/:id?',
     name: 'ValidateProperty',
     meta: {
