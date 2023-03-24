@@ -146,6 +146,10 @@
     "delete": "Delete",
     "try-again": "An error occured, please try again later."
   },
+  "dpe": {
+    "kgco2": "'kg CO₂/m²/year'",
+    "kwhpy": "kWh/m²/year"
+  },
   "forgottenpasswordpage": {
     "email-not-found": "Email not found",
     "mail-sent": "An email has been sent to the requested address.",
@@ -205,7 +209,7 @@
     "name-placeholder": "Property name",
     "name-label": "Property name"
   },
-  "propertydiagnosis": {
+  "propertydiagnostic": {
     "title": "I fill in the energy diagnosis",
     "subtitle": "Where to find this information?",
     "info-text": "The final energy can be found on page 3 of your diagnosis next to the information relating to the primary energies.",
