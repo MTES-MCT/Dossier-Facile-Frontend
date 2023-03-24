@@ -270,7 +270,7 @@ function redirectFranceRenov() {
 
         <div style="display:flex;justify-content: flex-end;margin-top:1rem;">
           <Button type="button" :primary="false" @on-click="redirectFranceRenov()"
-            >Contacter Un conseiller France Rénov</Button
+            >Contacter un conseiller France Rénov</Button
           >
         </div>
       </div>
@@ -290,7 +290,7 @@ function redirectFranceRenov() {
 
         <div style="display:flex;justify-content: flex-end;margin-top:1rem;">
           <Button type="button" :primary="false" @on-click="redirectFranceRenov()"
-            >Contacter Un conseiller France Rénov</Button
+            >Contacter un conseiller France Rénov</Button
           >
         </div>
       </div>
@@ -310,7 +310,7 @@ function redirectFranceRenov() {
 
         <div style="display:flex;justify-content: flex-end;margin-top:1rem;">
           <Button type="button" :primary="false" @on-click="redirectFranceRenov()"
-            >Contacter Un conseiller France Rénov</Button
+            >Contacter un conseiller France Rénov</Button
           >
         </div>
       </div>
@@ -328,7 +328,7 @@ function redirectFranceRenov() {
         proche de chez vous.
         <div style="display:flex;justify-content: flex-end;margin-top:1rem;">
           <Button type="button" :primary="true" @on-click="redirectFranceRenov()"
-            >Contacter Un conseiller France Rénov</Button
+            >Contacter un conseiller France Rénov</Button
           >
         </div>
       </div>
