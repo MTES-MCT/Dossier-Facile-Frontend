@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defineProps, withDefaults } from 'vue';
+import { useI18n } from 'vue-i18n';
 import LeftDpeArrow from './LeftDpeArrow.vue';
 
 const props = withDefaults(
@@ -14,6 +15,8 @@ const props = withDefaults(
 );
 
 const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+
+const { t } = useI18n();
 </script>
 
 <template>
@@ -21,7 +24,7 @@ const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
     <div v-for="l in letters" class="container fr-mb-1v" :class="l" v-bind:key="l">
       <span class="rectangle" :class="l">{{ l }}</span>
       <LeftDpeArrow
-        :label="'kg CO₂/m²/an'"
+        :label="t('dpe.kgco2')"
         :consumption="$props.consumption"
         v-if="$props.letter === l"
       ></LeftDpeArrow>
