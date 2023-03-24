@@ -270,7 +270,7 @@ function redirectFranceRenov() {
           >
         </div>
       </div>
-      <div v-if="globalLetter === 'G'">
+      <div v-if="globalLetter === 'G' && energyConsumption < 450">
         Note G: Votre DPE a obtenu la note de G, dont la consommation énergétique finale est
         inférieure au seuil de 450kWh/m²/an.
         <strong
@@ -290,7 +290,7 @@ function redirectFranceRenov() {
           >
         </div>
       </div>
-      <div v-if="false">
+      <div v-if="globalLetter === 'G' && energyConsumption >= 450">
         Note G+ : Cf. capture Votre DPE a obtenu la note de G, dont la consommation énergétique
         finale est supérieure au seuil de 450kWh/m²/an.
         <strong
