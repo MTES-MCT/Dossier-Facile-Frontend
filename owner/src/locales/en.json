@@ -217,7 +217,18 @@
     "energy-consumption-amount": "350",
     "co2-emission": "Amount of CO₂ emissions (kg CO₂/m²/year)",
     "co2-amount": "130",
-    "detail-title": "My diagnosis in detail"
+    "detail-title": "My diagnosis in detail",
+    "adetail": "Your DPE has obtained the grade of {letter}, whose final energy consumption is below the threshold of 250kWh/m²/year. {bold} 🎉",
+    "adetail-bold": "Your accommodation is currently not affected by any restrictions.",
+    "edetail": "Your DPE has obtained the grade of E, whose final energy consumption is below the threshold of 330kWh/m²/year. { bold } France Rénov’ is your new public housing renovation service, carried by the State with local authorities, and piloted by the National Housing Agency (Anah). France Rénov’ carries out a free diagnosis for you in order to find out about the possibilities for the overall renovation of your home by contacting the France Rénov’ adviser closest to you.",
+    "edetail-bold": "We make you aware of the fact that any increase in rent has been prohibited since August 24, 2022 and housing will be prohibited for renting from January 1, 2034.",
+    "fdetail": "Your DPE has obtained the grade of F,  whose final energy consumption is below the threshold of 420kWh/m²/year. {bold} France Rénov’ is your new public housing renovation service, carried by the State with local authorities, and piloted by the National Housing Agency (Anah). France Rénov’ carries out a free diagnosis for you in order to find out about the possibilities for the overall renovation of your home by contacting the France Rénov’ adviser closest to you.",
+    "fdetail-bold": "We make you aware of the fact that any increase in rent has been prohibited since August 24, 2022 and housing will be prohibited for renting from January 1, 2028.",
+    "gdetail": "Your DPE has obtained the grade of G, whose final energy consumption is below the threshold of 450kWh/m²/year. { bold } France Rénov' is your new public housing renovation service, carried by the State with local authorities, and piloted by the National Housing Agency (Anah). France Rénov’ carries out a free diagnosis for you in order to find out about the possibilities for the overall renovation of your home by contacting the France Rénov’ adviser closest to you.",
+    "gdetail-bold": "We make you aware of the fact that any increase in rent has been prohibited since August 24, 2022 and housing will be prohibited for renting from January 1, 2025.",
+    "gpdetail": "Your DPE has obtained the grade of G+, whose final energy consumption is above the threshold of 450kWh/m²/year. { bold } France Rénov’ is your new public housing renovation service, carried by the State with local authorities, and piloted by the National Housing Agency (Anah).  France Rénov’ carries out a free diagnosis for you in order to find out about the possibilities for the overall renovation of your home by contacting the France Rénov’ adviser closest to you.",
+    "gpdetail-bold": "We make you aware of the fact that the housing is prohibited for renting since January 1, 2023!",
+    "contact-adviser": "Contact a France Rénov adviser"
   },
   "propertyrent": {
     "rent-title": "Rent and charges",

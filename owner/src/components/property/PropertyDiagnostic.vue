@@ -257,85 +257,67 @@ function redirectFranceRenov() {
             globalLetter === 'D'
         "
       >
-        Note A à D : Votre DPE a obtenu la note de {{ globalLetter }}, la consommation énergétique
-        finale est inférieure au seuil de 250kWh/m²/an.
-        <strong>Votre logement n’est, à ce jour, concerné par aucune restriction.</strong> 🎉
+        <i18n-t keypath="propertydiagnostic.adetail">
+          <template v-slot:letter>
+            {{ globalLetter }}
+          </template>
+          <template v-slot:bold>
+            <strong>{{ t('propertydiagnostic.adetail-bold') }}</strong>
+          </template>
+        </i18n-t>
       </div>
       <div v-if="globalLetter === 'E'">
-        Note E: Votre DPE a obtenu la note de E, la consommation énergétique finale est inférieure
-        au seuil de 330kWh/m²/an.
-        <strong
-          >Nous vous sensibilisons au fait que le logement sera interdit à la location à partir du
-          1er janvier 2034.</strong
-        >
-        France Rénov’ est votre nouveau service public de la rénovation de l'habitat, porté par
-        l'État avec les collectivités locales, et piloté par l’Agence nationale de l’habitat (Anah).
-        France Rénov’ réalise pour vous un diagnostic gratuit afin de connaître les possibilités de
-        rénovation globale de votre logement en contactant le conseiller France Rénov’ le plus
-        proche de chez vous.
+        <i18n-t keypath="propertydiagnostic.edetail">
+          <template v-slot:letter>
+            {{ globalLetter }}
+          </template>
+          <template v-slot:bold>
+            <strong>{{ t('propertydiagnostic.edetail-bold') }}</strong>
+          </template>
+        </i18n-t>
 
         <div style="display:flex;justify-content: flex-end;margin-top:1rem;">
-          <Button type="button" :primary="false" @on-click="redirectFranceRenov()"
-            >Contacter un conseiller France Rénov</Button
-          >
+          <Button type="button" :primary="false" @on-click="redirectFranceRenov()">{{
+            t('propertydiagnostic.contact-adviser')
+          }}</Button>
         </div>
       </div>
       <div v-if="globalLetter === 'F'">
-        Note F: Votre DPE a obtenu la note de F, la consommation énergétique finale est inférieure
-        au seuil de 420kWh/m²/an.
-        <strong
-          >Nous vous sensibilisons au fait que toute augmentation du loyer est interdite depuis le
-          24 août 2022 et le logement sera interdit à la location à partir du 1er janvier
-          2028.</strong
-        >
-        France Rénov’ est votre nouveau service public de la rénovation de l'habitat, porté par
-        l'État avec les collectivités locales, et piloté par l’Agence nationale de l’habitat (Anah).
-        France Rénov’ réalise pour vous un diagnostic gratuit afin de connaître les possibilités de
-        rénovation globale de votre logement en contactant le conseiller France Rénov’ le plus
-        proche de chez vous.
+        <i18n-t keypath="propertydiagnostic.fdetail">
+          <template v-slot:bold>
+            <strong>{{ t('propertydiagnostic.fdetail-bold') }}</strong>
+          </template>
+        </i18n-t>
 
         <div style="display:flex;justify-content: flex-end;margin-top:1rem;">
-          <Button type="button" :primary="false" @on-click="redirectFranceRenov()"
-            >Contacter un conseiller France Rénov</Button
-          >
+          <Button type="button" :primary="false" @on-click="redirectFranceRenov()">{{
+            t('propertydiagnostic.contact-adviser')
+          }}</Button>
         </div>
       </div>
-      <div v-if="globalLetter === 'G' && energyConsumption < 450">
-        Note G: Votre DPE a obtenu la note de G, dont la consommation énergétique finale est
-        inférieure au seuil de 450kWh/m²/an.
-        <strong
-          >Nous vous sensibilisons au fait que toute augmentation du loyer est interdite depuis le
-          24 août 2022 et le logement sera interdit à la location à partir du 1er janvier
-          2025.</strong
-        >
-        France Rénov’ est votre nouveau service public de la rénovation de l'habitat, porté par
-        l'État avec les collectivités locales, et piloté par l’Agence nationale de l’habitat (Anah).
-        France Rénov’ réalise pour vous un diagnostic gratuit afin de connaître les possibilités de
-        rénovation globale de votre logement en contactant le conseiller France Rénov’ le plus
-        proche de chez vous.
+      <div v-if="globalLetter === 'G' && localEnergyConsumption < 450">
+        <i18n-t keypath="propertydiagnostic.gdetail">
+          <template v-slot:bold>
+            <strong>{{ t('propertydiagnostic.gdetail-bold') }}</strong>
+          </template>
+        </i18n-t>
 
         <div style="display:flex;justify-content: flex-end;margin-top:1rem;">
-          <Button type="button" :primary="false" @on-click="redirectFranceRenov()"
-            >Contacter un conseiller France Rénov</Button
-          >
+          <Button type="button" :primary="false" @on-click="redirectFranceRenov()">{{
+            t('propertydiagnostic.contact-adviser')
+          }}</Button>
         </div>
       </div>
       <div v-if="globalLetter === 'G' && localEnergyConsumption >= 450">
-        Note G+ : Cf. capture Votre DPE a obtenu la note de G, dont la consommation énergétique
-        finale est supérieure au seuil de 450kWh/m²/an.
-        <strong
-          >Nous vous sensibilisons au fait que votre bien est interdit à la location depuis le 1er
-          janvier 2023 !</strong
-        >
-        France Rénov’ est votre nouveau service public de la rénovation de l'habitat, porté par
-        l'État avec les collectivités locales, et piloté par l’Agence nationale de l’habitat (Anah).
-        France Rénov’ réalise pour vous un diagnostic gratuit afin de connaître les possibilités de
-        rénovation globale de votre logement en contactant le conseiller France Rénov’ le plus
-        proche de chez vous.
+        <i18n-t keypath="propertydiagnostic.gpdetail">
+          <template v-slot:bold>
+            <strong>{{ t('propertydiagnostic.gpdetail-bold') }}</strong>
+          </template>
+        </i18n-t>
         <div style="display:flex;justify-content: flex-end;margin-top:1rem;">
-          <Button type="button" :primary="true" @on-click="redirectFranceRenov()"
-            >Contacter un conseiller France Rénov</Button
-          >
+          <Button type="button" :primary="false" @on-click="redirectFranceRenov()">{{
+            t('propertydiagnostic.contact-adviser')
+          }}</Button>
         </div>
       </div>
     </NakedCard>

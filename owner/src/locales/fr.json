@@ -216,7 +216,18 @@
     "energy-consumption-amount": "350",
     "co2-emission": "Montant des émissions de CO₂ (kg CO₂/m²/an)",
     "co2-amount": "130",
-    "detail-title": "Mon DPE en détail"
+    "detail-title": "Mon DPE en détail",
+    "adetail": "Note A à D : Votre DPE a obtenu la note de {letter}, la consommation énergétique finale est inférieure au seuil de 250kWh/m²/an. {bold} 🎉",
+    "adetail-bold": "Votre logement n’est, à ce jour, concerné par aucune restriction.",
+    "edetail": "Note E: Votre DPE a obtenu la note de E, la consommation énergétique finale est inférieure au seuil de 330kWh/m²/an.  { bold } France Rénov’ est votre nouveau service public de la rénovation de l'habitat, porté par l'État avec les collectivités locales, et piloté par l’Agence nationale de l’habitat (Anah).  France Rénov’ réalise pour vous un diagnostic gratuit afin de connaître les possibilités de rénovation globale de votre logement en contactant le conseiller France Rénov’ le plus proche de chez vous.",
+    "edetail-bold": "Nous vous sensibilisons au fait que le logement sera interdit à la location à partir du 1er janvier 2034.",
+    "fdetail": "Note F: Votre DPE a obtenu la note de F, la consommation énergétique finale est inférieure au seuil de 420kWh/m²/an.  {bold} France Rénov’ est votre nouveau service public de la rénovation de l'habitat, porté par l'État avec les collectivités locales, et piloté par l’Agence nationale de l’habitat (Anah).  France Rénov’ réalise pour vous un diagnostic gratuit afin de connaître les possibilités de rénovation globale de votre logement en contactant le conseiller France Rénov’ le plus proche de chez vous.",
+    "fdetail-bold": "Nous vous sensibilisons au fait que toute augmentation du loyer est interdite depuis le 24 août 2022 et le logement sera interdit à la location à partir du 1er janvier 2028.",
+    "gdetail": "Note G: Votre DPE a obtenu la note de G, dont la consommation énergétique finale est inférieure au seuil de 450kWh/m²/an.  { bold } France Rénov’ est votre nouveau service public de la rénovation de l'habitat, porté par l'État avec les collectivités locales, et piloté par l’Agence nationale de l’habitat (Anah).  France Rénov’ réalise pour vous un diagnostic gratuit afin de connaître les possibilités de rénovation globale de votre logement en contactant le conseiller France Rénov’ le plus proche de chez vous.",
+    "gdetail-bold": "Nous vous sensibilisons au fait que toute augmentation du loyer est interdite depuis le 24 août 2022 et le logement sera interdit à la location à partir du 1er janvier 2025.",
+    "gpdetail": "Note G+ : Cf. capture Votre DPE a obtenu la note de G, dont la consommation énergétique finale est supérieure au seuil de 450kWh/m²/an.  { bold } France Rénov’ est votre nouveau service public de la rénovation de l'habitat, porté par l'État avec les collectivités locales, et piloté par l’Agence nationale de l’habitat (Anah).  France Rénov’ réalise pour vous un diagnostic gratuit afin de connaître les possibilités de rénovation globale de votre logement en contactant le conseiller France Rénov’ le plus proche de chez vous.",
+    "gpdetail-bold": "Nous vous sensibilisons au fait que votre bien est interdit à la location depuis le 1er janvier 2023 !",
+    "contact-adviser": "Contacter un conseiller France Rénov"
   },
   "propertyrent": {
     "rent-title": "Loyer et charges mensuels",
