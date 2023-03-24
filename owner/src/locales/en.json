@@ -17,7 +17,7 @@
   "other-unfurnished": "A unfurnished property",
   "number-not-positive": "The price must be more than 0",
   "number-not-positive-or-null": "The price must be more or equal to 0",
-  "register-btn": "Register",
+  "register-btn": "Save",
   "account": {
     "title": "Welcome to your owner space. Let's add your property together",
     "subtitle": "Let's start with your personal identity information."
@@ -160,6 +160,7 @@
     "property-type": "Type of rent",
     "property-furniture": "Furniture",
     "property-address": "Property address",
+    "diagnostic": "Energy diagnosis"
   },
   "menu": {
     "account": "Account",
@@ -204,7 +205,7 @@
     "name-placeholder": "Property name",
     "name-label": "Property name"
   },
-  "propertydiagnostic": {
+  "propertydiagnosis": {
     "title": "I fill in the energy diagnosis",
     "subtitle": "Where to find this information?",
     "info-text": "The final energy can be found on page 3 of your diagnosis next to the information relating to the primary energies.",
@@ -212,7 +213,7 @@
     "energy-consumption-amount": "350",
     "co2-emission": "Amount of CO₂ emissions (kg CO₂/m²/year)",
     "co2-amount": "130",
-    "detail-title": "My diagnostic in detail"
+    "detail-title": "My diagnosis in detail"
   },
   "propertyrent": {
     "rent-title": "Rent and charges",
