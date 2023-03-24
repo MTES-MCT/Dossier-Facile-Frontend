@@ -70,16 +70,34 @@ function updateDPE() {
     co2Letter.value = 'A';
   } else if (co2Emission.value <= 11) {
     co2Letter.value = 'B';
+    if (energyConsumption.value <= 70) {
+      globalLetter.value = 'B';
+    }
   } else if (co2Emission.value <= 30) {
     co2Letter.value = 'C';
+    if (energyConsumption.value <= 110) {
+      globalLetter.value = 'C';
+    }
   } else if (co2Emission.value <= 50) {
     co2Letter.value = 'D';
+    if (energyConsumption.value <= 180) {
+      globalLetter.value = 'D';
+    }
   } else if (co2Emission.value <= 70) {
     co2Letter.value = 'E';
+    if (energyConsumption.value <= 250) {
+      globalLetter.value = 'E';
+    }
   } else if (co2Emission.value <= 100) {
     co2Letter.value = 'F';
+    if (energyConsumption.value <= 330) {
+      globalLetter.value = 'F';
+    }
   } else {
     co2Letter.value = 'G';
+    if (energyConsumption.value <= 420) {
+      globalLetter.value = 'G';
+    }
   }
 }
 
@@ -290,7 +308,7 @@ function redirectFranceRenov() {
           >
         </div>
       </div>
-      <div v-if="globalLetter === 'G' && energyConsumption >= 450">
+      <div v-if="globalLetter === 'G' && localEnergyConsumption >= 450">
         Note G+ : Cf. capture Votre DPE a obtenu la note de G, dont la consommation énergétique
         finale est supérieure au seuil de 450kWh/m²/an.
         <strong

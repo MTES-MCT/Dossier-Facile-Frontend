@@ -28,8 +28,22 @@ function editProperty(id: number) {
   router.push({ name: 'PropertyName', params: { id } });
 }
 
+function hasNoError(property: Property) {
+  return (
+    property.name
+    && property.address
+    && property.furniture
+    && property.livingSpace
+    && property.livingSpace > 0
+    && property.rentCost
+    && property.rentCost > 0
+    && property.chargesCost !== undefined
+    && property.chargesCost >= 0
+  );
+}
+
 function openProperty(p: Property) {
-  if (p.validated) {
+  if (p.validated && hasNoError(p)) {
     router.push({ name: 'ConsultProperty', params: { id: p.id } });
     return;
   }
