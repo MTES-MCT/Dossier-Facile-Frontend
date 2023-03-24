@@ -9,6 +9,7 @@ import useOwnerStore from '../../store/owner-store';
 import PropertyPage from './PropertyPage.vue';
 import DpeDiagram from './DpeDiagram.vue';
 import DpeCo2Diagram from './DpeCo2Diagram.vue';
+import AnalyticsService from '../../services/AnalyticsService';
 
 const { t } = useI18n();
 
@@ -128,7 +129,12 @@ function getLetterStyle() {
 }
 
 function redirectFranceRenov() {
-  window.open('https://france-renov.gouv.fr/espaces-conseil-fr', '_blank', 'noopener');
+  AnalyticsService.redirectFranceRenov();
+  window.open(
+    'https://france-renov.gouv.fr/espaces-conseil-fr?utm_source=dossierfacile&utm_medium=display&utm_campaign=dossierfacile ',
+    '_blank',
+    'noopener',
+  );
 }
 </script>
 
