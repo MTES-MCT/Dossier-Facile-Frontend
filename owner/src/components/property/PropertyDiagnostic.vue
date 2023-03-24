@@ -136,7 +136,13 @@ function redirectFranceRenov() {
   <PropertyPage @on-back="onBack" @submit="onSubmit">
     <NakedCard class="fr-p-md-5w">
       <h1 class="fr-h4">{{ t('propertydiagnostic.title') }}</h1>
-      <p>{{ t('propertydiagnostic.subtitle') }}</p>
+      <div class="bg-purple fr-mb-2w text--light-blue">
+        <h2 class="fr-h6 text--light-blue fr-mb-1w where-container">
+          <span class="material-icons md-24 fr-mr-1w">info</span>
+          {{ t('propertydiagnostic.subtitle') }}
+        </h2>
+        <p class="fr-mb-1v">{{ t('propertydiagnostic.info-text') }}</p>
+      </div>
       <p>
         <label class="fr-label" for="rent"
           >{{ t('propertydiagnostic.energy-consumption') }} :</label
@@ -366,5 +372,10 @@ function redirectFranceRenov() {
 
   width: 140px;
   height: 80px;
+}
+
+.where-container {
+  display: flex;
+  align-items: center;
 }
 </style>

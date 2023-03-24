@@ -39,6 +39,10 @@ const hasErrors = computed(
       && property.rentCost > 0
       && property.chargesCost !== undefined
       && property.chargesCost >= 0
+      && property.energyConsumption !== undefined
+      && property.energyConsumption >= 0
+      && property.co2Emission !== undefined
+      && property.co2Emission >= 0
   ),
 );
 
@@ -130,6 +134,19 @@ function onBack() {
           <UpdateRowBtn
             :title="t('validateproperty.property-rent')"
             :to="{ name: 'PropertyRent', params: getParams }"
+          ></UpdateRowBtn>
+        </div>
+        <div
+          v-if="
+            !property.energyConsumption ||
+              property.energyConsumption <= 0 ||
+              property.co2Emission === undefined ||
+              property.co2Emission < 0
+          "
+        >
+          <UpdateRowBtn
+            :title="t('validateproperty.property-dpe')"
+            :to="{ name: 'PropertyDiagnostic', params: getParams }"
           ></UpdateRowBtn>
         </div>
       </div>

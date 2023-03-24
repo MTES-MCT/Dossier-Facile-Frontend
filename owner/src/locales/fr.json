@@ -207,6 +207,7 @@
   "propertydiagnostic": {
     "title": "Je renseigne le DPE de mon bien",
     "subtitle": "Où trouver ces informations ?",
+    "info-text": "L'énergie finale se trouve en page 3 de votre diagnostic en regard des informations relatives aux énergies primaires.",
     "energy-consumption": "Montant de la consommation énergétique finale (kWh/m²/an)",
     "energy-consumption-amount": "350",
     "co2-emission": "Montant des émissions de CO₂ (kg CO₂/m²/an)",
@@ -288,6 +289,7 @@
     "property-furniture": "Ameublement",
     "property-address": "Adresse du logement",
     "property-rent": "Loyer et charges mensuels",
+    "property-dpe": "Diagnostic de performance énergétique",
     "try-again": "Veuillez corriger les erreurs pour soumettre la propriété"
   },
   "propertycontainer": {
