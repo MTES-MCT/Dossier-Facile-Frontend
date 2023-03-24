@@ -110,7 +110,7 @@ function getLetterStyle() {
 }
 
 function redirectFranceRenov() {
-  window.open('https://france-renov.gouv.fr/espaces-conseil-fr', '_blank');
+  window.open('https://france-renov.gouv.fr/espaces-conseil-fr', '_blank', 'noopener');
 }
 </script>
 
