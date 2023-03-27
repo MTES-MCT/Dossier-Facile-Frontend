@@ -2,7 +2,9 @@
   <div class="fr-container">
     <div class="fr-grid-row fr-grid-row--center" v-if="owner.owner">
       <div class="fr-col-md-8 fr-col-lg-6">
-        <h1 class="fr-h1 fr-mt-3w">{{ $t("ownershare.title", [getOwnerAddress()]) }}</h1>
+        <h1 class="fr-h1 fr-mt-3w">
+          {{ $t("ownershare.title", [getOwnerAddress()]) }}
+        </h1>
         <p>{{ $t("ownershare.subtitle") }}</p>
         <ValidationObserver v-slot="{ validate }" v-if="isCreate()">
           <form name="form" @submit.prevent="validate().then(connectOwner)">
@@ -42,17 +44,18 @@
         <div v-if="!isCreate()">
           <div class="fr-callout">
             <p class="fr-callout__text">
-              {{ $t('ownershare.join-account')}}
+              {{ $t("ownershare.join-account") }}
             </p>
           </div>
         </div>
         <div v-show="!isLoggedIn">
-          <v-gouv-fr-button class="fr-mt-2w"
-              :label="$t('ownershare.login')"
-              :small="false"
-              :secondary="false"
-              @click="onLogin"
-           ></v-gouv-fr-button>
+          <v-gouv-fr-button
+            class="fr-mt-2w"
+            :label="$t('ownershare.login')"
+            :small="false"
+            :secondary="false"
+            @click="onLogin"
+          ></v-gouv-fr-button>
           <div class="fr-mt-3w fr-mb-5w">
             <div v-html="$t('ownershare.no-account-1')"></div>
             <div v-html="$t('ownershare.no-account-2')"></div>
@@ -93,7 +96,7 @@ extend("is", {
   },
   computed: {
     ...mapState({
-      user: "user",
+      user: "user"
     }),
     ...mapGetters({
       isLoggedIn: "isLoggedIn"
@@ -125,7 +128,10 @@ export default class OwnerShare extends Vue {
   }
 
   enableScroll() {
-    (window as any)["dsfr"].core.removeClass(document.documentElement, "fr-no-scroll");
+    (window as any)["dsfr"].core.removeClass(
+      document.documentElement,
+      "fr-no-scroll"
+    );
   }
 
   connectOwner() {
@@ -134,10 +140,13 @@ export default class OwnerShare extends Vue {
     }
     OwnerService.registerToOwner(this.token).then(
       () => {
-        this.$toasted.show(this.$i18n.t("ownershare.connection-success").toString(), {
-          type: "success",
-          duration: 7000
-        });
+        this.$toasted.show(
+          this.$i18n.t("ownershare.connection-success").toString(),
+          {
+            type: "success",
+            duration: 7000
+          }
+        );
         this.$router.push("/account");
       },
       () => {
@@ -150,7 +159,7 @@ export default class OwnerShare extends Vue {
   }
 
   isCreate() {
-    return !this.user || this.user.tenantType === "CREATE"
+    return !this.user || this.user.tenantType === "CREATE";
   }
 
   getOwnerAddress() {
@@ -158,4 +167,3 @@ export default class OwnerShare extends Vue {
   }
 }
 </script>
-

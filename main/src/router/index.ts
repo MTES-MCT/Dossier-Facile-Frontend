@@ -269,16 +269,6 @@ const routes: Array<RouteConfig> = [
     }
   },
   {
-    path: "/faq",
-    name: "Faq",
-    meta: {
-      title: "FAQ - DossierFacile",
-      description:
-        "Vous rencontrez des difficultés à monter votre dossier de location ? Découvrez toutes nos solutions pour vous aider dans votre démarche"
-    },
-    component: () => import(/* webpackChunkName: "faq" */ "../views/Faq.vue")
-  },
-  {
     path: "/info-proprietaire",
     redirect: () => {
       window.location.replace(`${OWNER_URL}`);
