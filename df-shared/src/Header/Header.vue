@@ -226,21 +226,6 @@ span.material-icons-outlined {
       .fr-btn {
         margin-right: 0;
       }
-      @media all and (max-width: 768px) {
-        border-bottom: 1px;
-        border-bottom-style: solid;
-        border-bottom-color: var(--border-default-grey);
-      }
-    }
-    & > li:last-child,
-    li:nth-last-child(2) {
-      @media all and (min-width: 768px) {
-        border-left: 1px;
-        border-left-style: solid;
-      }
-    }
-    & > li:first-child {
-      border-left-style: none !important;
     }
   }
 }

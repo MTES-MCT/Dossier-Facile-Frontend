@@ -83,7 +83,6 @@ export default class FileErrors extends Vue {
   width: 96px;
   align-self: flex-end;
   margin-bottom: -30px;
-  align-self: flex-end;
   @media all and (max-width: 768px) {
     margin-left: -60px;
   }
