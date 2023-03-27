@@ -5,7 +5,7 @@
         class="men"
         aria-hidden="true"
         alt="Homme debout"
-        src="../assets/owner/Homme_cut.png"
+        src="../assets/owner/Homme.svg"
       />
       <div class="main">
         <h2 class="fr-h6 text--white ">
@@ -22,13 +22,13 @@
         class="tenant"
         aria-hidden="true"
         alt="Locataire"
-        src="../assets/owner/Locataire_cut.png"
+        src="../assets/owner/Locataire.svg"
       />
       <img
         class="dog"
         aria-hidden="true"
         alt="Chien de compagnie"
-        src="../assets/owner/Chien.png"
+        src="../assets/owner/Chien.svg"
         width="154px"
         height="169px"
       />
@@ -69,10 +69,20 @@ export default class FileErrors extends Vue {
   }
 }
 
+.wrapper {
+  overflow: hidden;
+  margin-left: -30px;
+  padding-left: 30px;
+  margin-right: -30px;
+  padding-right: 30px;
+}
+
 .men {
   margin-left: -30px;
-  height: 233px;
-  width: 109px;
+  height: 250px;
+  width: 96px;
+  align-self: flex-end;
+  margin-bottom: -30px;
   align-self: flex-end;
   @media all and (max-width: 768px) {
     margin-left: -60px;
@@ -80,9 +90,11 @@ export default class FileErrors extends Vue {
 }
 
 .tenant {
-  width: 198px;
-  height: 281px;
+  height: 350px;
+  width: 235px;
   align-self: flex-end;
+  margin-bottom: -115px;
+
   @media all and (max-width: 990px) {
     display: none;
   }
