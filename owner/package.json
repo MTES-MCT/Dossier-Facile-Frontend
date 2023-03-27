@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@achrinza/node-ipc": "10.1.7",
-    "@gouvfr/dsfr": "^1.5.1",
+    "@gouvfr/dsfr": "1.9.0",
     "@vee-validate/rules": "^4.5.11",
     "@vue/cli-plugin-babel": "4.5.15",
     "axios": "^0.26.0",
