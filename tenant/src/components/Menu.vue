@@ -55,16 +55,9 @@
             >
           </li>
           <li class="warn">
-            <DfButton
-              class="fr-nav__link"
-              @on-click="isDeleteModalVisible = true"
-            >
+            <DfButton class="fr-nav__link" @on-click="showDeleteAccountModal()">
               {{ $t("menu.deleteAccount") }}
             </DfButton>
-            <DeleteAccount
-              v-model="isDeleteModalVisible"
-              v-show="isDeleteModalVisible"
-            ></DeleteAccount>
           </li>
         </ul>
       </div>
@@ -95,13 +88,11 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import DeleteAccount from "./DeleteAccount.vue";
 import i18n from "../i18n";
 import DfButton from "df-shared/src/Button/Button.vue";
 
 @Component({
   components: {
-    DeleteAccount,
     DfButton
   },
   computed: {
@@ -128,6 +119,9 @@ export default class Menu extends Vue {
   }
   getLanguageSwitchLabel() {
     return i18n.locale === "fr" ? "English version" : "Version française";
+  }
+  showDeleteAccountModal() {
+    this.$store.commit("showDeleteAccountModal", true);
   }
 }
 </script>
