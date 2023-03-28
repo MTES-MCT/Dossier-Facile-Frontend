@@ -1,4 +1,4 @@
-const PrerenderSpaPlugin = require("prerender-spa-plugin");
+const PrerendererWebpackPlugin = require('@prerenderer/webpack-plugin');
 const path = require("path");
 
 const routes = [
@@ -49,21 +49,21 @@ module.exports = {
     }
   },
   chainWebpack: config => {
-        config
-            .plugin('html')
-            .tap(args => {
-                args[0].title = "DossierFacile";
-                return args;
-            })
+    config.plugin("html").tap(args => {
+      args[0].title = "DossierFacile";
+      return args;
+    });
   },
-  configureWebpack: config => {
+  configureWebpack: () => {
     if (process.env.NODE_ENV !== "production") return;
 
     return {
-      plugins: [new PrerenderSpaPlugin(path.resolve(__dirname, "dist"), routes)]
+      plugins: [
+        new PrerendererWebpackPlugin({
+          staticDir: path.resolve(__dirname, "dist"),
+          routes: routes
+        })
+      ]
     };
-  },
-  devServer: {
-    progress: false
   }
 };
