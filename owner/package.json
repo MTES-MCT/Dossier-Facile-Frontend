@@ -36,7 +36,7 @@
     "pinia": "2.0.33",
     "vee-validate": "^4.5.9",
     "vue": "3.2.47",
-    "vue-i18n": "9.2.2",
+    "vue-i18n": "^9.3.0-beta.17",
     "vue-matomo": "^4.1.0",
     "vue-router": "4",
     "vue-toastification": "^2.0.0-rc.5",
