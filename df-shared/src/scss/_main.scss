@@ -312,3 +312,13 @@ img {
 .text--white {
   color: white;
 }
+
+.fr-background-contrast--info{
+  --hover: var(--background-contrast-info-hover)!important;
+  --active: var(--background-contrast-info-active)!important;
+  background-color: var(--background-contrast-info)!important;
+}
+
+.fr-text-default--info {
+    color: var(--text-default-info)!important;
+}
