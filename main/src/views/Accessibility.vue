@@ -6,16 +6,13 @@
           <div class="fr-col-md-10 fr-col-lg-8 fr-mt-5w">
             <h1>Déclaration d’accessibilité</h1>
             <p>
-              Dossier Facile s’engage à rendre ses sites internet, intranet,
-              extranet accessibles conformément à l’article 47 de la loi n°
-              2005-102 du 11 février 2005 et du Décret n° 2019-768 du 24 juillet
-              2019.
+              Le service Dossier Facile s’engage à rendre son site web
+              accessible conformément à l’article 47 de la loi n° 2005-102 du 11
+              février 2005 et du Décret n° 2019-768 du 24 juillet 2019.
             </p>
             <p>
               Cette déclaration d’accessibilité s’applique au site
-              <strong>DossierFacile</strong
-              ><span> (<span>https://www.dossierfacile.fr</span>)</span> et vise
-              à présenter la politique d'accessibilité du site.
+              <strong>DossierFacile</strong> : https://www.dossierfacile.fr.
             </p>
 
             <h2>Qu'est-ce que l'accessibilité numérique ?</h2>
@@ -31,37 +28,37 @@
             <h2>État de conformité</h2>
             <p>
               Le site <strong>DossierFacile</strong
-              ><span> (<span>https://www.dossierfacile.fr</span>)</span> n’est
-              pas en conformité avec le Référentiel Général d’Amélioration de
-              l’Accessibilité (RGAA 4.1). Les non-conformités et les éventuelles
-              dérogations sont énumérées ci-dessous.
+            ><span> (<span>https://www.dossierfacile.fr</span>)</span> est en
+              conformité partielle avec le référentiel général d’amélioration de
+              l’accessibilité en raison des non-conformités ci-dessous.
             </p>
 
             <h2>Résultats des tests</h2>
             <p>
-              L’audit de conformité réalisé par la société Numerik-ea révèle que
-              50.85 % des critères RGAA sont respectés. Ce pourcentage
-              correspond à :
+              L’audit de conformité au RGAA 4.1 réalisé par la société
+              <a href="https://www.numerik-ea.fr/">Numerik-ea</a> révèle que 75%
+              des critères RGAA sont respectés.
             </p>
+            <p>Dans le détail :</p>
             <ul>
-              <li>30 critères conformes</li>
-              <li>29 critères non conformes</li>
-              <li>47 critères non applicables</li>
+              <li>Nombre de critères conformes : 45</li>
+              <li>Nombre de critères non applicables : 46</li>
+              <li>Nombre de critères non conformes : 15</li>
             </ul>
 
             <h2>Contenus non accessibles</h2>
             <p>Liste des critères non conformes :</p>
             <table>
               <tr
-                v-for="criteria in nonCompliantCriteria"
-                v-bind:key="criteria.id"
+                  v-for="criteria in nonCompliantCriteria"
+                  v-bind:key="criteria.id"
               >
                 <td class="text-bold">{{ criteria.id }}</td>
                 <td>{{ criteria.title }}</td>
               </tr>
             </table>
 
-            <br />
+            <br/>
 
             <h3>Contenus non soumis à l’obligation d’accessibilité</h3>
             <ul>
@@ -81,7 +78,7 @@
             </ul>
 
             <h2>Établissement de cette Déclaration d'accessibilité</h2>
-            <p>Cette déclaration a été établie le 27 septembre 2021.</p>
+            <p>Cette déclaration a été établie le 15 mars 2023.</p>
             <p>Technologies utilisées pour la réalisation du site web :</p>
             <ul>
               <li>HTML 5</li>
@@ -97,14 +94,13 @@
               <li>Firefox 79 + NVDA 2020.1 sur Windows 10</li>
               <li>Firefox 79 + Jaws 2019</li>
             </ul>
-            <p>
-              Les outils suivants ont été utilisés lors de l’évaluation :
-            </p>
+            <p>Les outils suivants ont été utilisés lors de l’évaluation :</p>
             <ul>
               <li>Color Contrast Analyser</li>
-              <li>Web Developer Toolbar</li>
-              <li>Axe</li>
-              <li>Arc Toolkit</li>
+              <li>HeadingsMap</li>
+              <li>Web developer</li>
+              <li>ARC Toolkit</li>
+              <li>Stylus</li>
             </ul>
             <p>
               Pages du site ayant fait l’objet de la vérification de conformité
@@ -124,19 +120,19 @@
               autre forme.
             </p>
             <p>
-              Contacter :<br />
+              Contacter :<br/>
               <span class="text-bold">
-                Ministère de la Transition écologique,<br />
+                Ministère de la Transition écologique,<br/>
                 Direction générale de l’Aménagement, du Logement et de la
-                Nature,<br />
-                Direction de l’habitat, de l’urbanisme et des paysages,<br />
+                Nature,<br/>
+                Direction de l’habitat, de l’urbanisme et des paysages,<br/>
                 Service DossierFacile
               </span>
             </p>
 
             <p>
-              1 place Carpeaux<br />
-              92800 Puteaux<br />
+              1 place Carpeaux<br/>
+              92800 Puteaux<br/>
               France
             </p>
             <p>+33 1 40 81 21 22</p>
@@ -154,20 +150,20 @@
               <li>
                 Écrire un message au
                 <a href="https://formulaire.defenseurdesdroits.fr/"
-                  >Défenseur des droits</a
+                >Défenseur des droits</a
                 >
               </li>
               <li>
                 Contacter
                 <a href="https://www.defenseurdesdroits.fr/saisir/delegues"
-                  >le délégué du Défenseur des droits dans votre région</a
+                >le délégué du Défenseur des droits dans votre région</a
                 >
               </li>
               <li>
                 Envoyer un courrier par la poste (gratuit, ne pas mettre de
-                timbre)&nbsp;:<br />
-                Défenseur des droits<br />
-                Libre réponse 71120<br />
+                timbre)&nbsp;:<br/>
+                Défenseur des droits<br/>
+                Libre réponse 71120<br/>
                 75342 Paris CEDEX 07
               </li>
             </ul>
@@ -179,216 +175,147 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import {Component, Vue} from "vue-property-decorator";
 
 @Component
 export default class Accessibility extends Vue {
   nonCompliantCriteria = [
     {
-      id: "1.1",
-      title:
-        "Chaque image porteuse d’information a-t-elle une alternative textuelle ?"
-    },
-    {
       id: "1.2",
       title:
-        "Chaque image de décoration est-elle correctement ignorée par les technologies d’assistance ?"
+          "Chaque image de décoration est-elle correctement ignorée par les technologies d’assistance ?",
     },
     {
-      id: "1.3",
+      id: "1.6",
       title:
-        "Pour chaque image porteuse d'information ayant une alternative textuelle, cette alternative est-elle pertinente (hors cas particuliers) ?"
+          "Chaque image porteuse d’information a-t-elle, si nécessaire, une description détaillée ?",
     },
     {
-      id: "2.2",
+      id: "3.1",
       title:
-        "Pour chaque cadre ayant un titre de cadre, ce titre de cadre est-il pertinent ?"
-    },
-    {
-      id: "3.2",
-      title:
-        "Dans chaque page web, le contraste entre la couleur du texte et la couleur de son arrière-plan est-il suffisamment élevé (hors cas particuliers) ?"
-    },
-    {
-      id: "3.3",
-      title:
-        "Dans chaque page web, les couleurs utilisées dans les composants d’interface ou les éléments graphiques porteurs d’informations sont-elles suffisamment contrastées (hors cas particuliers) ?"
-    },
-    {
-      id: "5.4",
-      title:
-        "Pour chaque tableau de données ayant un titre, le titre est-il correctement associé au tableau de données ?"
+          "Dans chaque page web, l’information ne doit pas être donnée uniquement par la couleur. Cette règle est-elle respectée ?",
     },
     {
       id: "6.1",
-      title: "Chaque lien est-il explicite (hors cas particuliers) ?"
-    },
-    {
-      id: "6.2",
-      title: "Dans chaque page web, chaque lien, a-t-il un intitulé ?"
+      title: "Chaque lien est-il explicite (hors cas particuliers) ?",
     },
     {
       id: "7.1",
       title:
-        "Chaque script est-il, si nécessaire, compatible avec les technologies d’assistance ?"
+          "Chaque script est-il, si nécessaire, compatible avec les technologies d’assistance ?",
     },
     {
-      id: "8.2",
+      id: "8.7",
       title:
-        "Pour chaque page web, le code source généré est-il valide selon le type de document spécifié (hors cas particuliers) ?"
-    },
-    {
-      id: "8.6",
-      title:
-        "Pour chaque page web ayant un titre de page, ce titre est-il pertinent ?"
+          "Dans chaque page web, chaque changement de langue est-il indiqué dans le code source (hors cas particuliers) ?",
     },
     {
       id: "8.9",
       title:
-        "Dans chaque page web, les balises ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?"
+          "Dans chaque page web, les balises ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?",
     },
     {
       id: "9.1",
       title:
-        "Dans chaque page web, l’information est-elle structurée par l’utilisation appropriée de titres ?"
-    },
-    {
-      id: "9.2",
-      title:
-        "Dans chaque page web, la structure du document est-elle cohérente (hors cas particuliers) ?"
-    },
-    {
-      id: "9.3",
-      title:
-        "Dans chaque page web, chaque liste est-elle correctement structurée ?"
-    },
-    {
-      id: "10.2",
-      title:
-        "Dans chaque page web, le contenu visible porteur d’information reste-t-il présent lorsque les feuilles de styles sont désactivées ?"
-    },
-    {
-      id: "10.7",
-      title:
-        "Dans chaque page web, pour chaque élément recevant le focus, la prise de focus est-elle visible ?"
-    },
-    {
-      id: "10.8",
-      title:
-        "Pour chaque page web, les contenus cachés ont-ils vocation à être ignorés par les technologies d’assistance ?"
+          "Dans chaque page web, l’information est-elle structurée par l’utilisation appropriée de titres ?",
     },
     {
       id: "10.11",
       title:
-        "Pour chaque page web, les contenus peuvent-ils être présentés sans avoir recours à la fois à un défilement vertical pour une fenêtre ayant une hauteur de 256px, ou à un défilement horizontal pour une fenêtre ayant une largeur de 320px (hors cas particuliers) ?"
+          "Pour chaque page web, les contenus peuvent-ils être présentés sans avoir recours à la fois à un défilement vertical pour une fenêtre ayant une hauteur de 256px, ou à un défilement horizontal pour une fenêtre ayant une largeur de 320px (hors cas particuliers) ?",
     },
-    { id: "11.1", title: "Chaque champ de formulaire a-t-il une étiquette ?" },
+    {id: "11.1", title: "Chaque champ de formulaire a-t-il une étiquette ?"},
     {
       id: "11.9",
       title:
-        "Dans chaque formulaire, l’intitulé de chaque bouton est-il pertinent (hors cas particuliers) ?"
+          "Dans chaque formulaire, l’intitulé de chaque bouton est-il pertinent (hors cas particuliers) ?",
     },
     {
       id: "11.10",
       title:
-        "Dans chaque formulaire, le contrôle de saisie est-il utilisé de manière pertinente (hors cas particuliers) ?"
+          "Dans chaque formulaire, le contrôle de saisie est-il utilisé de manière pertinente (hors cas particuliers) ?",
     },
     {
       id: "11.11",
       title:
-        "Dans chaque formulaire, le contrôle de saisie est-il accompagné, si nécessaire, de suggestions facilitant la correction des erreurs de saisie ?"
+          "Dans chaque formulaire, le contrôle de saisie est-il accompagné, si nécessaire, de suggestions facilitant la correction des erreurs de saisie ?",
     },
     {
       id: "11.13",
       title:
-        "La finalité d’un champ de saisie peut-elle être déduite pour faciliter le remplissage automatique des champs avec les données de l’utilisateur ?"
-    },
-    {
-      id: "12.1",
-      title:
-        "Chaque ensemble de pages dispose-t-il de deux systèmes de navigation différents, au moins (hors cas particuliers) ?"
-    },
-    {
-      id: "12.6",
-      title:
-        "Les zones de regroupement de contenus présentes dans plusieurs pages web (zones d’en-tête, de navigation principale, de contenu principal, de pied de page et de moteur de recherche) peuvent-elles être atteintes ou évitées ?"
-    },
-    {
-      id: "12.7",
-      title:
-        "Dans chaque page web, le texte reste-t-il lisible lorsque la taille des caractères est augmentée jusqu’à 200%, au moins (hors cas particuliers) ?"
+          "La finalité d’un champ de saisie peut-elle être déduite pour faciliter le remplissage automatique des champs avec les données de l’utilisateur ?",
     },
     {
       id: "12.8",
-      title: "Dans chaque page web, l’ordre de tabulation est-il cohérent ?"
-    }
+      title: "Dans chaque page web, l’ordre de tabulation est-il cohérent ?",
+    },
   ];
 
   pagesVerified = [
     {
       name: "Accueil",
-      url: "https://www.dossierfacile.fr/"
+      url: "https://www.dossierfacile.fr/",
     },
     {
       name: "Blog",
-      url: "https://www.dossierfacile.fr/blog/"
+      url: "https://www.dossierfacile.fr/blog/",
     },
     {
       name: "En savoir plus",
-      url: "https://www.dossierfacile.fr/information/"
+      url: "https://www.dossierfacile.fr/information/",
     },
     {
       name: "Mentions légales",
-      url: "https://www.dossierfacile.fr/mentions-legales/"
+      url: "https://www.dossierfacile.fr/mentions-legales/",
     },
     {
       name: "Contact",
-      url: "https://www.dossierfacile.fr/contact"
+      url: "https://www.dossierfacile.fr/contact",
     },
     {
       name: "Espace Propriétaire",
-      url: "https://proprietaire.dossierfacile.fr/"
+      url: "https://proprietaire.dossierfacile.fr/",
     },
     {
       name: "Statistiques",
-      url: "https://www.dossierfacile.fr/stats/"
+      url: "https://www.dossierfacile.fr/stats/",
     },
     {
       name: "Connexion « Mon dossier »",
-      url: "https://locataire.dossierfacile.fr/signup"
+      url: "https://locataire.dossierfacile.fr/signup",
     },
     {
       name: "Locataire",
-      url: "https://locataire.dossierfacile.fr/nom-locataire"
+      url: "https://locataire.dossierfacile.fr/nom-locataire",
     },
     {
       name: "Type locataire",
-      url: "https://locataire.dossierfacile.fr/type-locataire"
+      url: "https://locataire.dossierfacile.fr/type-locataire",
     },
     {
       name: "Documents locataire",
-      url: "https://locataire.dossierfacile.fr/documents-locataire/1"
+      url: "https://locataire.dossierfacile.fr/documents-locataire/1",
     },
     {
       name: "Validation dossier",
-      url: "https://locataire.dossierfacile.fr/validation-dossier"
+      url: "https://locataire.dossierfacile.fr/validation-dossier",
     },
     {
       name: "Mon compte Locataire",
-      url: "https://locataire.dossierfacile.fr/account"
+      url: "https://locataire.dossierfacile.fr/account",
     },
     {
       name: "Connexion Propriétaire",
-      url: "https://proprietaire.dossierfacile.fr/login"
+      url: "https://proprietaire.dossierfacile.fr/login",
     },
     {
       name: "Ma propriété",
-      url: "https://proprietaire.dossierfacile.fr/"
+      url: "https://proprietaire.dossierfacile.fr/",
     },
     {
       name: "Mon compte propriétaire : Mes informations personnelles",
-      url: "https://proprietaire.dossierfacile.fr/proprietaire"
-    }
+      url: "https://proprietaire.dossierfacile.fr/proprietaire",
+    },
   ];
 }
 </script>
@@ -397,10 +324,12 @@ export default class Accessibility extends Vue {
 table {
   border-collapse: collapse;
 }
+
 td {
   border: 1px solid #dddddd;
   padding: 0.5em;
 }
+
 ul {
   margin-bottom: 1em;
 }
