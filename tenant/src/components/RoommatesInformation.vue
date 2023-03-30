@@ -52,7 +52,11 @@
                           </div>
                           <div class="small-text">
                             {{
-                              $t(roommate.id ? "invite-sent" : "invite-waiting")
+                              $t(
+                                roommate.id
+                                  ? "roommatesinformation.invite-sent"
+                                  : "roommatesinformation.invite-waiting"
+                              )
                             }}
                           </div>
                         </div>
