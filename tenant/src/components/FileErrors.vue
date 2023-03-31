@@ -1,7 +1,29 @@
 <template>
   <div>
-    <NakedCard class="fr-mt-3w fr-p-md-5w" v-if="!documentsFilled()">
-      <div class="fr-text--bold">{{ $t("fileerrors.my-invalid-document") }}</div>
+    <NakedCard
+      class="fr-mt-3w fr-p-md-5w"
+      v-if="!documentsFilled() || !namesFilled()"
+    >
+      <div v-if="!namesFilled()">
+        <div class="fr-text--bold">
+          {{ $t("fileerrors.my-invalid-names") }}
+        </div>
+        <div>
+          <div class="fr-grid-row file-item">
+            <div>{{ $t("fileerrors.user-names") }}</div>
+            <DfButton class="update-btn" @on-click="openTenant('0')">
+              <div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
+              <div v-if="isMobile()">
+                <span class="color--primary material-icons md-16">edit</span>
+              </div>
+            </DfButton>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="!documentsFilled()" class="fr-text--bold">
+        {{ $t("fileerrors.my-invalid-document") }}
+      </div>
       <div v-if="!hasDoc('IDENTIFICATION')">
         <div class="fr-grid-row file-item">
           <div>{{ $t("fileerrors.identification") }}</div>
@@ -61,8 +83,29 @@
 
     <div class="fr-mt-3w" v-for="g in user.guarantors" v-bind:key="g.id">
       <div v-if="g.typeGuarantor === 'NATURAL_PERSON'">
-        <NakedCard v-if="!documentsGuarantorFilled(g)" class="fr-p-md-5w">
-          <div class="fr-text--bold">
+        <NakedCard
+          v-if="!documentsGuarantorFilled(g) || !namesGuarantorFilled(g)"
+          class="fr-p-md-5w"
+        >
+          <div v-if="!namesGuarantorFilled(g)">
+            <div class="fr-text--bold">
+              {{ $t("fileerrors.my-invalid-names-guarantor") }}
+            </div>
+            <div>
+              <div class="fr-grid-row file-item">
+                <div>{{ $t("fileerrors.user-names") }}</div>
+                <DfButton class="update-btn" @on-click="openGuarantor(g, '0')">
+                  <div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
+                  <div v-if="isMobile()">
+                    <span class="color--primary material-icons md-16"
+                      >edit</span
+                    >
+                  </div>
+                </DfButton>
+              </div>
+            </div>
+          </div>
+          <div v-if="!documentsGuarantorFilled(g)" class="fr-text--bold">
             {{ $t("fileerrors.my-invalid-document-guarantor") }}
           </div>
           <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION')">
@@ -123,7 +166,28 @@
         </NakedCard>
       </div>
       <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
-        <NakedCard v-if="!documentsGuarantorFilled(g)" class="fr-p-5w">
+        <NakedCard
+          v-if="!documentsGuarantorFilled(g) ||  !namesGuarantorFilled(g)"
+          class="fr-p-5w"
+        >
+          <div v-if="!namesGuarantorFilled(g)">
+            <div class="fr-text--bold">
+              {{ $t("fileerrors.my-invalid-names-guarantor") }}
+            </div>
+            <div>
+              <div class="fr-grid-row file-item">
+                <div>{{ $t("fileerrors.user-names") }}</div>
+                <DfButton class="update-btn" @on-click="openGuarantor(g, '0')">
+                  <div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
+                  <div v-if="isMobile()">
+                    <span class="color--primary material-icons md-16"
+                      >edit</span
+                    >
+                  </div>
+                </DfButton>
+              </div>
+            </div>
+          </div>
           <div class="fr-text--bold">
             {{ $t("fileerrors.my-invalid-document-guarantor") }}
           </div>
@@ -175,9 +239,28 @@
     <div v-for="(tenant, k) in coTenants" :key="k">
       <NakedCard
         class="fr-mt-3w fr-p-md-5w"
-        v-if="user.applicationType === 'COUPLE' && !documentsFilled(tenant)"
+        v-if="user.applicationType === 'COUPLE' && (!documentsFilled(tenant) || !namesFilled(tenant))"
       >
-        <div class="fr-text--bold">{{ $t("fileerrors.tenant-invalid-document") }}</div>
+        <div v-if="!namesFilled(tenant)">
+          <div class="fr-text--bold">
+            {{ $t("fileerrors.tenant-invalid-names") }}
+          </div>
+          <div>
+            <div class="fr-grid-row file-item">
+              <div>{{ $t("fileerrors.user-names") }}</div>
+              <DfButton class="update-btn" @on-click="openTenant('0', tenant)">
+                <div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
+                <div v-if="isMobile()">
+                  <span class="color--primary material-icons md-16">edit</span>
+                </div>
+              </DfButton>
+            </div>
+          </div>
+        </div>
+
+        <div v-if="!documentsFilled(tenant)" class="fr-text--bold">
+          {{ $t("fileerrors.tenant-invalid-document") }}
+        </div>
         <div v-if="!hasDoc('IDENTIFICATION', tenant)">
           <div class="fr-grid-row file-item">
             <div>{{ $t("fileerrors.identification") }}</div>
@@ -237,8 +320,32 @@
 
       <div class="fr-mt-3w" v-for="g in tenant.guarantors" v-bind:key="g.id">
         <div v-if="g.typeGuarantor === 'NATURAL_PERSON'">
-          <NakedCard v-if="!documentsGuarantorFilled(g)" class="fr-p-md-5w">
-            <div class="fr-text--bold">
+          <NakedCard
+            v-if="!documentsGuarantorFilled(g) || !namesGuarantorFilled(g)"
+            class="fr-p-md-5w"
+          >
+            <div v-if="!namesGuarantorFilled(g)">
+              <div class="fr-text--bold">
+                {{ $t("fileerrors.tenant-invalid-names-guarantor") }}
+              </div>
+              <div>
+                <div class="fr-grid-row file-item">
+                  <div>{{ $t("fileerrors.user-names") }}</div>
+                  <DfButton
+                    class="update-btn"
+                    @on-click="openGuarantor(g, '0', tenant)"
+                  >
+                    <div v-if="!isMobile()">{{ $t("fileerrors.update") }}</div>
+                    <div v-if="isMobile()">
+                      <span class="color--primary material-icons md-16"
+                        >edit</span
+                      >
+                    </div>
+                  </DfButton>
+                </div>
+              </div>
+            </div>
+            <div v-if="!documentsGuarantorFilled(g)" class="fr-text--bold">
               {{ $t("fileerrors.tenant-invalid-document-guarantor") }}
             </div>
             <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION')">
@@ -441,8 +548,21 @@ export default class FileErrors extends Vue {
     return UtilsService.isGuarantorTaxValid(g);
   }
 
+  namesFilled(user?: User) {
+    const u = user ? user : this.user;
+    return u?.firstName && u?.lastName;
+  }
+
   documentsFilled(user?: User) {
     return UtilsService.documentsFilled(user);
+  }
+
+  namesGuarantorFilled(g: Guarantor) {
+    return (
+      (g.typeGuarantor === "NATURAL_PERSON" && g.firstName && g.lastName) ||
+      (g.typeGuarantor === "LEGAL_PERSON" && g.legalPersonName) ||
+      (g.typeGuarantor === "ORGANISM")
+    );
   }
 
   documentsGuarantorFilled(g: Guarantor) {
@@ -457,10 +577,16 @@ export default class FileErrors extends Vue {
       });
       return;
     }
-    this.$router.push({
-      name: "TenantDocuments",
-      params: { substep: substep }
-    });
+    if (substep == '0'){
+        this.$router.push({
+          name: "Profile"
+        });
+      } else {
+        this.$router.push({
+          name: "TenantDocuments",
+          params: { substep: substep }
+        });
+    }
   }
 
   openGuarantor(g: Guarantor, substep: string, tenant?: User) {
@@ -501,4 +627,3 @@ export default class FileErrors extends Vue {
   }
 }
 </style>
-

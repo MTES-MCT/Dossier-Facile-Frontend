@@ -200,7 +200,7 @@ export default class ValidateFile extends Vue {
   }
 
   hasErrors() {
-    return !UtilsService.allDocumentsFilled();
+    return !UtilsService.allDocumentsFilled() || !UtilsService.allNamesFilled();
   }
 
   canValidate() {

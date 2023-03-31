@@ -532,9 +532,14 @@
     "representative-identification": "Identité du représentant de la personne morale",
     "corporation-identification": "Identité de la personne morale",
     "my-invalid-document": "Mes documents invalides :",
+    "my-invalid-names": " Mes informations manquantes",
     "my-invalid-document-guarantor": "Les documents invalides de mon garant :",
+    "my-invalid-names-guarantor": "Le nom ou prénom de mon garant est manquant:",
     "tenant-invalid-document": "Les documents invalides de mon conjoint :",
-    "tenant-invalid-document-guarantor": "Les documents invalides du garant de mon conjoint :"
+    "tenant-invalid-names": "Le nom ou prénom de mon conjoint est manquant:",
+    "tenant-invalid-document-guarantor": "Les documents invalides du garant de mon conjoint :",
+    "tenant-invalid-names-guarantor": "Le informations du garant de mon conjoint sont invalides:",
+    "user-names": "Informations personnelles"
   },
   "fakeannouncement": {
     "fake-announce-title": "Signaler une fausse annonce !",

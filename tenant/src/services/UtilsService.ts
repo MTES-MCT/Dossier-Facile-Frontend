@@ -49,6 +49,30 @@ export const UtilsService = {
     }
     return tenantDocumentsFilled(user) || false;
   },
+  allNamesFilled(): boolean {
+    const userNamesFilled = (u: User) => u.firstName && u.lastName;
+    const guarantorNamesFilled = (g: Guarantor) =>
+      !g ||
+      (g.typeGuarantor === "NATURAL_PERSON" && g.firstName && g.lastName) ||
+      (g.typeGuarantor === "LEGAL_PERSON" && g.legalPersonName) ||
+      g.typeGuarantor === "ORGANISM";
+
+    const user = store.state.user;
+    if (user.applicationType === "COUPLE") {
+      const couple = user.apartmentSharing?.tenants.find(
+        (cotenant: User) => user.id !== cotenant.id
+      ) as User;
+
+      if (
+        !userNamesFilled(couple) ||
+        !couple.guarantors.every(guarantorNamesFilled)
+      ) {
+        return false;
+      }
+    }
+    return (userNamesFilled(user) &&
+      user.guarantors.every(guarantorNamesFilled)) as boolean;
+  },
   documentsFilled(user?: User) {
     return (
       this.hasDoc("IDENTIFICATION", user) &&

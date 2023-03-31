@@ -350,10 +350,15 @@
     "organism-cert": "Organism certificate",
     "corporation-identification": "Identité de la personne morale",
     "representative-identification": "Identité du représentant de la personne morale",
-    "my-invalid-document": " my invalid documents:",
+    "my-invalid-document": " My invalid documents:",
+    "my-invalid-names": " My missing names:",
     "my-invalid-document-guarantor": " Guarantor invalid documents:",
+    "my-invalid-names-guarantor": " Guarantor missing informations:",
     "tenant-invalid-document": "Cotenant Guarantor invalid documents:",
-    "tenant-invalid-document-guarantor": "Cotenant Guarantor invalid documents:"
+    "tenant-invalid-names": "CoTenant missing informations:",
+    "tenant-invalid-document-guarantor": "Cotenant Guarantor invalid documents:",
+    "tenant-invalid-names-guarantor": "CoTenant Guarantor missing informations:",
+    "user-names": "personal informations"
   },
   "fakeannouncement": {
     "fake-announce-title": "Signaler une fausse annonce !",
