@@ -5,7 +5,7 @@ const routesToTest = [
   "/contact",
   "/stats",
   "/plan-du-site",
-  "/accessibilite"
+  "/accessibilite",
 ];
 
 beforeEach(() => {
@@ -13,7 +13,7 @@ beforeEach(() => {
 });
 
 describe("accessibility tests", () => {
-  routesToTest.forEach(route => {
+  routesToTest.forEach((route) => {
     it(`${route} has no detectable accessibility violations on load`, () => {
       cy.visit(route);
       cy.injectAxe();

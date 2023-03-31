@@ -38,9 +38,7 @@ describe("menu", () => {
   it("should toggle language", () => {
     cy.visit("/");
     cy.get("#signin-button").should("contain", "Se connecter");
-    cy.get(".lang")
-      .should("be.visible")
-      .click();
+    cy.get(".lang").should("be.visible").click();
     cy.get("#signin-button").should("contain", "Sign in");
   });
 });
