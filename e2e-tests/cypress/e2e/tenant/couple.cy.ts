@@ -88,7 +88,7 @@ describe("couple tenant scenario", () => {
 
     cy.get("h1").should(
       "contain",
-      `Bonjour ${user.firstname}, votre dossier de couple est en cours de traitement !`
+      `Bonjour ${user.firstname}, votre dossier de couple est incomplet !`
     );
   });
 });
