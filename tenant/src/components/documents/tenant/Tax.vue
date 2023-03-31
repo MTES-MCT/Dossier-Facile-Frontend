@@ -172,6 +172,7 @@ import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReason
 import { cloneDeep } from "lodash";
 import AllowCheckTax from "../share/AllowCheckTax.vue";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
+import { PdfAnalysisService } from "../../../services/PdfAnalysisService";
 
 extend("is", {
   ...is,
@@ -332,6 +333,15 @@ export default class Tax extends Vue {
   }
 
   addFiles(fileList: File[]) {
+    PdfAnalysisService.findRejectedTaxDocuments(fileList).then(
+      (rejectedFiles) => {
+        if (rejectedFiles.length > 0) {
+          console.log(
+            "Avis de situation déclarative détecté : " + rejectedFiles.map((f) => f.name).join(", ")
+          );
+        }
+      }
+    );
     AnalyticsService.uploadFile("tax");
     const nf = Array.from(fileList).map((f) => {
       return { name: f.name, file: f, size: f.size };
