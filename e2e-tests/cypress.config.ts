@@ -7,7 +7,9 @@ export default defineConfig({
     defaultCommandTimeout: 5000
   },
   env: {
-    tenantUrl: "localhost:9002"
+    tenantUrl: "localhost:9002",
+    tenantUser: "elsa",
+    ownerUser: "laurent",
   },
   chromeWebSecurity: false
 });

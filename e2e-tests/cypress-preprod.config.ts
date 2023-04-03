@@ -6,7 +6,9 @@ export default defineConfig({
     defaultCommandTimeout: 10000
   },
   env: {
-    tenantUrl: "locataire-dev.dossierfacile.fr"
+    tenantUrl: "locataire-dev.dossierfacile.fr",
+    tenantUser: "thibault",
+    ownerUser: "william",
   },
   chromeWebSecurity: false
 });
