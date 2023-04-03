@@ -1,9 +1,7 @@
+import { getOwnerUser } from "../../support/users";
+
 describe("basic owner scenario", () => {
-  const user = {
-    username: "test_ALAIN",
-    firstname: "Alain",
-    lastname: "BUREAU"
-  };
+  const user = getOwnerUser();
   const propertyName = "Appartement 123";
 
   before("reset account", () => {

@@ -1,8 +1,7 @@
+import { getTenantUser } from "../../support/users";
+
 describe("couple tenant scenario", () => {
-  const user = {
-    username: "test_FABIEN",
-    firstname: "Fabien"
-  };
+  const user = getTenantUser();
 
   before("reset account", () => {
     cy.tenantLogin(user.username);
