@@ -17,14 +17,16 @@
             name="professionalDocument"
             v-slot="{ errors, valid }"
           >
-            <label v-if="isCotenant">{{ $t("guarantorprofessional.select-label-cotenant") }}</label>
+            <label v-if="isCotenant">{{
+              $t("guarantorprofessional.select-label-cotenant")
+            }}</label>
             <label v-else>{{ $t("guarantorprofessional.select-label") }}</label>
             <select
               v-model="professionalDocument"
               class="fr-select fr-mb-3w"
               :class="{
                 'fr-select--valid': valid,
-                'fr-select--error': errors[0]
+                'fr-select--error': errors[0],
               }"
               id="select"
               as="select"
@@ -120,13 +122,13 @@ import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
     VGouvFrModal,
     NakedCard,
     ValidationProvider,
-    TroubleshootingModal
+    TroubleshootingModal,
   },
   computed: {
     ...mapState({
-      selectedGuarantor: "selectedGuarantor"
-    })
-  }
+      selectedGuarantor: "selectedGuarantor",
+    }),
+  },
 })
 export default class GuarantorProfessional extends Vue {
   @Prop() tenantId?: string;
@@ -229,7 +231,7 @@ export default class GuarantorProfessional extends Vue {
   }
 
   addFiles(fileList: File[]) {
-    const nf = Array.from(fileList).map(f => {
+    const nf = Array.from(fileList).map((f) => {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
@@ -242,7 +244,7 @@ export default class GuarantorProfessional extends Vue {
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    const newFiles = this.files.filter(f => {
+    const newFiles = this.files.filter((f) => {
       return !f.id;
     });
     if (!newFiles.length) return;
@@ -254,12 +256,13 @@ export default class GuarantorProfessional extends Vue {
       Vue.toasted.global.max_file({
         message: this.$i18n.t("max-file", [
           this.professionalFiles().length,
-          this.professionalDocument.maxFileCount
-        ])
+          this.professionalDocument.maxFileCount,
+        ]),
       });
+      this.files = [];
       return;
     }
-    Array.from(Array(newFiles.length).keys()).map(x => {
+    Array.from(Array(newFiles.length).keys()).forEach((x) => {
       const f: File = newFiles[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
     });
@@ -284,7 +287,7 @@ export default class GuarantorProfessional extends Vue {
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         Vue.toasted.global.save_success();
       })
-      .catch(err => {
+      .catch((err) => {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
         if (err.response.data.message.includes("NumberOfPages")) {
           Vue.toasted.global.save_failed_num_pages();
@@ -298,12 +301,12 @@ export default class GuarantorProfessional extends Vue {
   }
 
   professionalFiles() {
-    const newFiles = this.files.map(f => {
+    const newFiles = this.files.map((f) => {
       return {
         documentSubCategory: this.professionalDocument.value,
         id: f.name,
         name: f.name,
-        size: f.size
+        size: f.size,
       };
     });
     const existingFiles =
@@ -314,11 +317,11 @@ export default class GuarantorProfessional extends Vue {
   }
 
   async remove(file: DfFile, silent = false) {
-    if (file.id) {
+    if (file.path && file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
-      const firstIndex = this.files.findIndex(f => {
-        return f.name === file.name && f.file === file.file && !f.id;
+      const firstIndex = this.files.findIndex((f) => {
+        return f.name === file.name && !f.path;
       });
       this.files.splice(firstIndex, 1);
     }
@@ -334,4 +337,3 @@ export default class GuarantorProfessional extends Vue {
 </script>
 
 <style scoped lang="scss"></style>
-
