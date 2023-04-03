@@ -15,7 +15,7 @@
               class="form-control fr-input validate-required"
               :class="{
                 'fr-input--valid': valid,
-                'fr-input--error': errors[0]
+                'fr-input--error': errors[0],
               }"
               id="organismName"
               name="organismName"
@@ -105,8 +105,8 @@ import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
     VGouvFrModal,
     NakedCard,
     GuarantorFooter,
-    TroubleshootingModal
-  }
+    TroubleshootingModal,
+  },
 })
 export default class CorporationIdentification extends Vue {
   @Prop() tenantId?: number;
@@ -116,12 +116,12 @@ export default class CorporationIdentification extends Vue {
   acceptedProofs = [
     this.$i18n.t("corporationidentification.kbis"),
     this.$i18n.t("corporationidentification.status"),
-    this.$i18n.t("corporationidentification.all-accepted")
+    this.$i18n.t("corporationidentification.all-accepted"),
   ];
   refusedProofs = [
     this.$i18n.t("corporationidentification.balance-sheet"),
     this.$i18n.t("corporationidentification.urssaf"),
-    this.$i18n.t("corporationidentification.all-other")
+    this.$i18n.t("corporationidentification.all-other"),
   ];
 
   documentDeniedReasons = new DocumentDeniedReasons();
@@ -204,7 +204,7 @@ export default class CorporationIdentification extends Vue {
         });
     }
 
-    Array.from(Array(this.files.length).keys()).map(x => {
+    Array.from(Array(this.files.length).keys()).map((x) => {
       formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
     });
 
@@ -232,13 +232,14 @@ export default class CorporationIdentification extends Vue {
   }
 
   remove(file: DfFile) {
-    if (file.id) {
+    if (file.path && file.id) {
       RegisterService.deleteFile(file.id);
-      this.guarantorIdentificationLegalPersonDocument().files = this.guarantorIdentificationLegalPersonDocument()?.files?.filter(
-        f => file.id != f.id
-      );
+      this.guarantorIdentificationLegalPersonDocument().files =
+        this.guarantorIdentificationLegalPersonDocument()?.files?.filter(
+          (f) => file.id != f.id
+        );
     } else {
-      const firstIndex = this.files.findIndex(f => {
+      const firstIndex = this.files.findIndex((f) => {
         return f.name === file.name && f.size === file.size;
       });
       this.files.splice(firstIndex, 1);
@@ -246,11 +247,11 @@ export default class CorporationIdentification extends Vue {
   }
 
   listFiles() {
-    const newFiles = this.files.map(f => {
+    const newFiles = this.files.map((f) => {
       return {
         id: f.name,
         name: f.name,
-        size: f.size
+        size: f.size,
       };
     });
     const existingFiles =

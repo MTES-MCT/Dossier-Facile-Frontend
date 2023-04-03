@@ -55,7 +55,7 @@
                 class="form-control fr-input validate-required"
                 :class="{
                   'fr-input--valid': valid,
-                  'fr-input--error': errors[0]
+                  'fr-input--error': errors[0],
                 }"
                 id="customText"
                 name="customText"
@@ -127,7 +127,10 @@
           </div>
         </div>
       </NakedCard>
-      <ProfileFooter @on-back="goBack" @on-next="validate().then(goNext)"></ProfileFooter>
+      <ProfileFooter
+        @on-back="goBack"
+        @on-next="validate().then(goNext)"
+      ></ProfileFooter>
     </ValidationObserver>
     <ConfirmModal
       v-if="isDocDeleteVisible"
@@ -173,7 +176,7 @@ import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 extend("is", {
   ...is,
   message: "field-required",
-  validate: value => !!value
+  validate: (value) => !!value,
 });
 
 @Component({
@@ -193,14 +196,14 @@ extend("is", {
     ProfileFooter,
     NakedCard,
     AllowCheckTax,
-    TroubleshootingModal
+    TroubleshootingModal,
   },
   computed: {
     ...mapGetters({
       user: "userToEdit",
-      tenantTaxDocument: "getTenantTaxDocument"
-    })
-  }
+      tenantTaxDocument: "getTenantTaxDocument",
+    }),
+  },
 })
 export default class Tax extends Vue {
   documents = DocumentTypeConstants.TAX_DOCS;
@@ -330,7 +333,7 @@ export default class Tax extends Vue {
 
   addFiles(fileList: File[]) {
     AnalyticsService.uploadFile("tax");
-    const nf = Array.from(fileList).map(f => {
+    const nf = Array.from(fileList).map((f) => {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
@@ -360,7 +363,7 @@ export default class Tax extends Vue {
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    const newFiles = this.files.filter(f => {
+    const newFiles = this.files.filter((f) => {
       return !f.id;
     });
     if (newFiles.length) {
@@ -371,13 +374,14 @@ export default class Tax extends Vue {
         Vue.toasted.global.max_file({
           message: this.$i18n.t("max-file", [
             this.taxFiles().length,
-            this.taxDocument.maxFileCount
-          ])
+            this.taxDocument.maxFileCount,
+          ]),
         });
+        this.files = [];
         return false;
       }
 
-      Array.from(Array(newFiles.length).keys()).map(x => {
+      Array.from(Array(newFiles.length).keys()).map((x) => {
         const f: File = newFiles[x].file || new File([], "");
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
       });
@@ -417,7 +421,7 @@ export default class Tax extends Vue {
         Vue.toasted.global.save_success();
         return true;
       })
-      .catch(err => {
+      .catch((err) => {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
         if (err.response.data.message.includes("NumberOfPages")) {
           Vue.toasted.global.save_failed_num_pages();
@@ -432,13 +436,13 @@ export default class Tax extends Vue {
   }
 
   taxFiles() {
-    const newFiles = this.files.map(f => {
+    const newFiles = this.files.map((f) => {
       return {
         documentSubCategory: this.taxDocument.value,
         id: f.name,
         name: f.name,
         file: f,
-        size: f.size
+        size: f.size,
       };
     });
     const existingFiles =
@@ -450,11 +454,11 @@ export default class Tax extends Vue {
 
   async remove(file: DfFile, silent = false) {
     AnalyticsService.deleteFile("tax");
-    if (file.id) {
+    if (file.path && file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
-      const firstIndex = this.files.findIndex(f => {
-        return f.name === file.name && f.file === file.file && !f.id;
+      const firstIndex = this.files.findIndex((f) => {
+        return f.name === file.name && !f.path;
       });
       this.files.splice(firstIndex, 1);
     }
@@ -480,4 +484,3 @@ export default class Tax extends Vue {
   }
 }
 </style>
-

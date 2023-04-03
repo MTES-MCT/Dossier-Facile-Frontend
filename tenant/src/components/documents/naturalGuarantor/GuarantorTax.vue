@@ -9,7 +9,9 @@
     </ConfirmModal>
     <ValidationObserver v-slot="{ validate }">
       <NakedCard class="fr-p-md-5w">
-        <h1 class="fr-h6" v-if="isCotenant">{{ $t("guarantortax.title-cotenant") }}</h1>
+        <h1 class="fr-h6" v-if="isCotenant">
+          {{ $t("guarantortax.title-cotenant") }}
+        </h1>
         <h1 class="fr-h6" v-else>{{ $t("guarantortax.title") }}</h1>
         <TroubleshootingModal>
           <TaxHelp></TaxHelp>
@@ -86,9 +88,7 @@
         ></AllDeclinedMessages>
         <div class="fr-background-contrast--info fr-p-2w fr-my-2w warning-box">
           <div class="fr-text-default--info fr-h6 title">
-            <span class="material-icons-outlined">
-              warning_amber
-            </span>
+            <span class="material-icons-outlined"> warning_amber </span>
             <span class="fr-ml-1w">
               {{ $t("guarantortax.warning-no-accepted-doc") }}
             </span>
@@ -157,7 +157,7 @@ import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 extend("is", {
   ...is,
   message: "field-required",
-  validate: value => !!value
+  validate: (value) => !!value,
 });
 
 @Component({
@@ -175,13 +175,13 @@ extend("is", {
     TaxHelp,
     GuarantorFooter,
     NakedCard,
-    TroubleshootingModal
+    TroubleshootingModal,
   },
   computed: {
     ...mapState({
-      selectedGuarantor: "selectedGuarantor"
-    })
-  }
+      selectedGuarantor: "selectedGuarantor",
+    }),
+  },
 })
 export default class GuarantorTax extends Vue {
   @Prop() tenantId?: string;
@@ -303,7 +303,7 @@ export default class GuarantorTax extends Vue {
   }
 
   addFiles(fileList: File[]) {
-    const nf = Array.from(fileList).map(f => {
+    const nf = Array.from(fileList).map((f) => {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
@@ -321,7 +321,7 @@ export default class GuarantorTax extends Vue {
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    const newFiles = this.files.filter(f => {
+    const newFiles = this.files.filter((f) => {
       return !f.id;
     });
     if (newFiles.length) {
@@ -332,13 +332,14 @@ export default class GuarantorTax extends Vue {
         Vue.toasted.global.max_file({
           message: this.$i18n.t("max-file", [
             this.taxFiles().length,
-            this.taxDocument.maxFileCount
-          ])
+            this.taxDocument.maxFileCount,
+          ]),
         });
+        this.files = [];
         return false;
       }
 
-      Array.from(Array(newFiles.length).keys()).map(x => {
+      Array.from(Array(newFiles.length).keys()).map((x) => {
         const f: File = newFiles[x].file || new File([], "");
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
       });
@@ -383,7 +384,7 @@ export default class GuarantorTax extends Vue {
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         Vue.toasted.global.save_success();
       })
-      .catch(err => {
+      .catch((err) => {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
         if (err.response.data.message.includes("NumberOfPages")) {
           Vue.toasted.global.save_failed_num_pages();
@@ -398,13 +399,13 @@ export default class GuarantorTax extends Vue {
   }
 
   taxFiles() {
-    const newFiles = this.files.map(f => {
+    const newFiles = this.files.map((f) => {
       return {
         documentSubCategory: this.taxDocument.value,
         id: f.name,
         name: f.name,
         file: f,
-        size: f.size
+        size: f.size,
       };
     });
     const existingFiles =
@@ -415,11 +416,11 @@ export default class GuarantorTax extends Vue {
   }
 
   async remove(file: DfFile, silent = false) {
-    if (file.id) {
+    if (file.path && file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
-      const firstIndex = this.files.findIndex(f => {
-        return f.name === file.name && f.file === file.file && !f.id;
+      const firstIndex = this.files.findIndex((f) => {
+        return f.name === file.name && !f.path;
       });
       this.files.splice(firstIndex, 1);
     }
@@ -459,4 +460,3 @@ export default class GuarantorTax extends Vue {
   }
 }
 </style>
-

@@ -28,7 +28,7 @@
                 class="fr-select fr-mb-3w fr-mt-3w"
                 :class="{
                   'fr-select--valid': valid,
-                  'fr-select--error': errors[0]
+                  'fr-select--error': errors[0],
                 }"
                 id="select"
                 as="select"
@@ -153,7 +153,7 @@
               class="form-control fr-input validate-required"
               :class="{
                 'fr-input--valid': valid,
-                'fr-input--error': errors[0]
+                'fr-input--error': errors[0],
               }"
               id="customText"
               name="customText"
@@ -242,8 +242,8 @@ import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
     BigRadio,
     NakedCard,
     DocumentHelp,
-    TroubleshootingModal
-  }
+    TroubleshootingModal,
+  },
 })
 export default class DocumentDownloader extends Vue {
   @Prop() coTenantId!: number;
@@ -395,7 +395,7 @@ export default class DocumentDownloader extends Vue {
   }
 
   addFiles(fileList: File[]) {
-    const filesToAdd = Array.from(fileList).map(f => {
+    const filesToAdd = Array.from(fileList).map((f) => {
       return { name: f.name, file: f, size: f.size };
     });
     if (!filesToAdd || filesToAdd.length <= 0) {
@@ -409,8 +409,8 @@ export default class DocumentDownloader extends Vue {
       Vue.toasted.global.max_file({
         message: this.$i18n.t("max-file", [
           futurLength,
-          this.document.maxFileCount
-        ])
+          this.document.maxFileCount,
+        ]),
       });
       return;
     }
@@ -426,7 +426,7 @@ export default class DocumentDownloader extends Vue {
         this.loadDocument(true);
         Vue.toasted.global.save_success();
       })
-      .catch(err => {
+      .catch((err) => {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
         if (err.response.data.message.includes("NumberOfPages")) {
           Vue.toasted.global.save_failed_num_pages();
@@ -442,7 +442,7 @@ export default class DocumentDownloader extends Vue {
   _buildFormData(filesToAdd: any): FormData {
     const formData = new FormData();
     const fieldName = "documents";
-    Array.from(Array(filesToAdd.length).keys()).forEach(x => {
+    Array.from(Array(filesToAdd.length).keys()).forEach((x) => {
       const f: File = filesToAdd[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, filesToAdd[x].name);
     });
@@ -461,18 +461,18 @@ export default class DocumentDownloader extends Vue {
   }
 
   remove(file: DfFile) {
-    if (file.id) {
+    if (file.path && file.id) {
       const loader = this.$loading.show();
       RegisterService.deleteFileById(Number(file.id))
         .then(() => {
           this.dfDocument = this.getDocument();
           this.dfDocument.files = this.dfDocument.files?.filter(
-            f => file.id != f.id
+            (f) => file.id != f.id
           );
 
           Vue.toasted.global.save_success();
         })
-        .catch(err => {
+        .catch((err) => {
           console.log("Unable to delete last element?", err);
           Vue.toasted.global.save_failed();
         })
@@ -501,4 +501,3 @@ td {
   }
 }
 </style>
-

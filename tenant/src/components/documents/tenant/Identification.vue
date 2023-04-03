@@ -121,14 +121,14 @@ import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
     DocumentHelp,
     VGouvFrModal,
     NakedCard,
-    TroubleshootingModal
+    TroubleshootingModal,
   },
   computed: {
     ...mapGetters({
       user: "userToEdit",
-      tenantIdentificationDocument: "getTenantIdentificationDocument"
-    })
-  }
+      tenantIdentificationDocument: "getTenantIdentificationDocument",
+    }),
+  },
 })
 export default class Identification extends Vue {
   documents = DocumentTypeConstants.IDENTIFICATION_DOCS;
@@ -231,7 +231,7 @@ export default class Identification extends Vue {
 
   addFiles(fileList: File[]) {
     AnalyticsService.uploadFile("identification");
-    const nf = Array.from(fileList).map(f => {
+    const nf = Array.from(fileList).map((f) => {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
@@ -246,7 +246,7 @@ export default class Identification extends Vue {
     AnalyticsService.registerFile("identification");
     const fieldName = "documents";
     const formData = new FormData();
-    const newFiles = this.files.filter(f => {
+    const newFiles = this.files.filter((f) => {
       return !f.id;
     });
     if (!newFiles.length) return;
@@ -259,13 +259,14 @@ export default class Identification extends Vue {
       Vue.toasted.global.max_file({
         message: this.$i18n.t("max-file", [
           this.identificationFiles().length,
-          this.identificationDocument.maxFileCount
-        ])
+          this.identificationDocument.maxFileCount,
+        ]),
       });
+      this.files = [];
       return;
     }
 
-    Array.from(Array(newFiles.length).keys()).map(x => {
+    Array.from(Array(newFiles.length).keys()).map((x) => {
       const f: File = newFiles[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
     });
@@ -285,7 +286,7 @@ export default class Identification extends Vue {
         this.files = [];
         Vue.toasted.global.save_success();
       })
-      .catch(err => {
+      .catch((err) => {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
         if (err.response.data.message.includes("NumberOfPages")) {
           Vue.toasted.global.save_failed_num_pages();
@@ -299,13 +300,13 @@ export default class Identification extends Vue {
   }
 
   identificationFiles() {
-    const newFiles = this.files.map(f => {
+    const newFiles = this.files.map((f) => {
       return {
         documentSubCategory: this.identificationDocument.value,
         id: f.name,
         name: f.name,
         file: f.file,
-        size: f.file?.size
+        size: f.file?.size,
       };
     });
     const existingFiles =
@@ -320,8 +321,8 @@ export default class Identification extends Vue {
     if (file.path && file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
-      const firstIndex = this.files.findIndex(f => {
-        return f.name === file.name && f.file === file.file && !f.id;
+      const firstIndex = this.files.findIndex((f) => {
+        return f.name === file.name && !f.path;
       });
       this.files.splice(firstIndex, 1);
     }
@@ -340,4 +341,3 @@ td {
   border: 1px solid #ececec;
 }
 </style>
-
