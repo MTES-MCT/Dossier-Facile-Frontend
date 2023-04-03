@@ -246,7 +246,7 @@ export default class RepresentativeIdentification extends Vue {
       });
       return Promise.reject();
     }
-    Array.from(Array(this.files.length).keys()).map((x) => {
+    Array.from(Array(this.files.length).keys()).forEach((x) => {
       formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
     });
 

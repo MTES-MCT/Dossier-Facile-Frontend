@@ -493,7 +493,7 @@ export default class FinancialDocumentForm extends Vue {
       const newFiles = this.financialDocument.files.filter((f) => {
         return !f.id;
       });
-      Array.from(Array(newFiles.length).keys()).map((x) => {
+      Array.from(Array(newFiles.length).keys()).forEach((x) => {
         const f: File = newFiles[x].file || new File([], "");
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
       });
