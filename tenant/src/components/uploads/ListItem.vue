@@ -143,7 +143,7 @@ export default class ListItem extends Vue {
 
 .size {
   font-size: 12px;
-  color: var(--g500);
+  color: var(--g600);
 }
 
 .doc-container {
