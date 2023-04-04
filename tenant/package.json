@@ -24,7 +24,9 @@
   },
   "dependencies": {
     "@gouvfr/dsfr": "1.9.0",
+    "@prerenderer/webpack-plugin": "5.2.0",
     "@types/lodash": "^4.14.192",
+    "buffer": "^6.0.3",
     "connect-history-api-fallback": "^2.0.0",
     "core-js": "^3.6.5",
     "df-shared": "0.1.0",
@@ -33,7 +35,6 @@
     "keycloak-js": "^21.0.1",
     "lodash.clonedeep": "^4.5.0",
     "merge": "^2.1.1",
-    "@prerenderer/webpack-plugin": "5.2.0",
     "puppeteer": "^19.8.0",
     "sass": "^1.44.0",
     "vee-validate": "3.4.15",

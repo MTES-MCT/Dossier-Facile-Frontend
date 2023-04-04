@@ -3,9 +3,8 @@
     <div class="fr-grid-row justify-content-center">
       <div class="fr-col-12">
         <div v-if="file.path">
-          <img
-            slot="image"
-            v-auth-image="file.path"
+          <AuthImage
+            :src="file.path"
             v-if="isImage()"
             :alt="$t('showdoc.preview')"
           />
@@ -18,11 +17,7 @@
           <div v-if="file.numberOfPages && file.numberOfPages > 0">
             {{ $t("showdoc.number-of-pages", [file.numberOfPages]) }}
           </div>
-          <img
-            slot="image"
-            v-auth-image="file.preview"
-            :alt="$t('showdoc.preview')"
-          />
+          <AuthImage :src="file.preview" :alt="$t('showdoc.preview')" />
         </div>
       </div>
     </div>
@@ -33,12 +28,14 @@
 import { DfFile } from "df-shared/src/models/DfFile";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import PdfViewer from "../../PdfViewer.vue";
+import AuthImage from "df-shared/src/components/AuthImage.vue";
 import { ImageService } from "../../../services/ImageService";
 import axios from "axios";
 
 @Component({
   components: {
     PdfViewer,
+    AuthImage,
   },
 })
 export default class ShowDoc extends Vue {
