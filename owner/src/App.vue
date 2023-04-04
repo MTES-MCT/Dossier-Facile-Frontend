@@ -13,6 +13,7 @@ import { Composer } from 'vue-i18n';
 import i18n from './i18n';
 import Menu from './components/Menu.vue';
 import useOwnerStore from './store/owner-store';
+import DeleteAccount from './components/DeleteAccount.vue';
 
 const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`;
 
@@ -25,6 +26,8 @@ const isLoggedIn = computed(() => store.isLoggedIn);
 const cookieHidden = ref(cookies.isKey('accept-cookie'));
 
 const hasFooter = computed(() => store.hasFooter);
+
+const showDeleteAccountModal = computed(() => store.getShowDeleteAccountModal);
 
 onMounted(() => {
   window.Beacon('init', '330e68d2-2a04-4659-8048-c05d242ee8f5');
@@ -81,6 +84,7 @@ function denyCookies() {
     <Menu @on-change-lang="changeLang" :lang="getLang()"></Menu>
   </MyHeader>
   <div id="content">
+    <DeleteAccount v-show="showDeleteAccountModal"></DeleteAccount>
     <Announcement></Announcement>
     <main class="page" role="main">
       <router-view />

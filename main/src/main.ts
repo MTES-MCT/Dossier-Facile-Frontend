@@ -5,7 +5,6 @@ import store from "./store";
 import i18n from "./i18n";
 import VueCookies from "vue-cookies";
 import VueGtag from "vue-gtag";
-import JQuery from "jquery";
 import "df-shared/src/validation-rules";
 
 declare global {

@@ -58,7 +58,7 @@ import { UtilsService } from "../services/UtilsService";
 })
 export default class DeleteAccount extends Vue {
   validDelete() {
-    this.$emit("input", false);
+    this.$store.commit("showDeleteAccountModal", false);
     this.$store.dispatch("deleteAccount").then(
       () => {
         AnalyticsService.deleteAccount();
@@ -73,7 +73,7 @@ export default class DeleteAccount extends Vue {
   }
 
   undoSelect() {
-    this.$emit("input", false);
+    this.$store.commit("showDeleteAccountModal", false);
     return false;
   }
 

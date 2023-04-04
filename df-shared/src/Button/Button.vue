@@ -39,18 +39,16 @@ export default class DfButton extends Vue {
 
 <style lang="scss">
 .fr-btn.dark {
-  --blue-france-sun-113-625: #8585f6;
-  --border-action-high-blue-france: var(--blue-france-sun-113-625);
-  --text-action-high-blue-france: var(--blue-france-sun-113-625);
+  color: rgb(0, 0, 145);
+  background-color: rgb(133, 133, 246);
 
-  background-color: transparent;
   &:hover {
-    --hover-tint: rgba(52, 52, 52);
+    --hover-tint: rgb(177, 177, 249);
     background-color: var(--hover-tint);
   }
   &:active {
-    --hover-tint: rgba(71, 71, 71);
-    background-color: var(--hover-tint);
+    --active-tint: rgb(198, 198, 251);
+    background-color: var(--active-tint);
   }
 }
 </style>

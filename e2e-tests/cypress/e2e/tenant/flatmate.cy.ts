@@ -23,7 +23,7 @@ describe("flatmate tenant scenario", () => {
     cy.contains("En colocation").click();
     cy.get('input[name="email"]').type("coloc-6829374@yopmail.fr");
     cy.contains("Inviter ce colocataire").click();
-    cy.get("#authorize").click();
+    cy.get('label[for="authorize"').click();
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/1");

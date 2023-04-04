@@ -18,6 +18,7 @@
       <Menu />
     </MyHeader>
     <div id="content">
+      <DeleteAccount v-show="showDeleteAccountModal"></DeleteAccount>
       <Announcement></Announcement>
       <main class="page" role="main">
         <router-view :key="$route.path" />
@@ -41,9 +42,11 @@ import Announcement from "df-shared/src/components/Announcement.vue";
 import ModalAnnouncement from "df-shared/src/components/ModalAnnouncement.vue";
 import TenantSkipLinks from "./components/TenantSkipLinks.vue";
 import { User } from "df-shared/src/models/User";
+import DeleteAccount from "./components/DeleteAccount.vue";
 
 @Component({
   components: {
+    DeleteAccount,
     TenantSkipLinks,
     MyHeader,
     TheFooter,
@@ -59,7 +62,8 @@ import { User } from "df-shared/src/models/User";
       isFunnel: "isFunnel"
     }),
     ...mapGetters({
-      isLoggedIn: "isLoggedIn"
+      isLoggedIn: "isLoggedIn",
+      showDeleteAccountModal: "showDeleteAccountModal"
     })
   }
 })
@@ -71,7 +75,7 @@ export default class App extends Vue {
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
-  isCoupleModalVisible = false;
+  showDeleteAccountModal!: boolean;
 
   isCouple() {
     return this.isLoggedIn && this.user.applicationType === "COUPLE";
