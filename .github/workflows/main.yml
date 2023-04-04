@@ -24,7 +24,7 @@ jobs:
       - name: Run unit tests
         run: yarn main test:unit
       - name: Run e2e tests
-        uses: cypress-io/github-action@v5.0.9
+        uses: cypress-io/github-action@v5.6.1
         with:
           project: ./main
           install: false
@@ -50,7 +50,7 @@ jobs:
       - name: Run unit tests
         run: yarn tenant test:unit
       - name: Run e2e tests
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v5.6.1
         with:
           project: ./e2e-tests
           install: false
@@ -75,7 +75,7 @@ jobs:
         env:
           VITE_OWNER_API_URL: ${{ secrets.PREPROD_OWNER_API_URL }} # for e2e tests
       - name: Run e2e tests
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v5.6.1
         with:
           project: ./e2e-tests
           install: false
