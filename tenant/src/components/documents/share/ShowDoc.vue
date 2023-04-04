@@ -3,7 +3,12 @@
     <div class="fr-grid-row justify-content-center">
       <div class="fr-col-12">
         <div v-if="file.path">
-          <img slot="image" v-auth-image="file.path" v-if="isImage()" :alt="$t('showdoc.preview')" />
+          <img
+            slot="image"
+            v-auth-image="file.path"
+            v-if="isImage()"
+            :alt="$t('showdoc.preview')"
+          />
           <PdfViewer
             :src="pdfContent"
             v-if="!isImage() && isLoaded"
@@ -13,7 +18,11 @@
           <div v-if="file.numberOfPages && file.numberOfPages > 0">
             {{ $t("showdoc.number-of-pages", [file.numberOfPages]) }}
           </div>
-          <img slot="image" v-auth-image="file.preview" :alt="$t('showdoc.preview')" />
+          <img
+            slot="image"
+            v-auth-image="file.preview"
+            :alt="$t('showdoc.preview')"
+          />
         </div>
       </div>
     </div>
@@ -29,8 +38,8 @@ import axios from "axios";
 
 @Component({
   components: {
-    PdfViewer
-  }
+    PdfViewer,
+  },
 })
 export default class ShowDoc extends Vue {
   @Prop({ default: "" }) file!: DfFile;
@@ -42,8 +51,8 @@ export default class ShowDoc extends Vue {
   }
 
   mounted() {
-    if (this.file.path) {
-      axios.get(this.file.path, { responseType: "blob" }).then(response => {
+    if (this.file.path && !this.isImage()) {
+      axios.get(this.file.path, { responseType: "blob" }).then((response) => {
         const blob = new Blob([response.data], { type: "application/pdf" });
         this.pdfContent = window.URL.createObjectURL(blob);
         this.isLoaded = true;
@@ -52,4 +61,3 @@ export default class ShowDoc extends Vue {
   }
 }
 </script>
-
