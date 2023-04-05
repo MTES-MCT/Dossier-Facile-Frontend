@@ -16,7 +16,8 @@ describe("basic owner scenario", () => {
 
   it("edit personal informations", () => {
     cy.get(".fr-nav__btn").click();
-    cy.contains("Mes informations personnelles").click();
+    cy.contains("Mes informations personnelles")
+      .click({ force: true });
 
     cy.get('input[name="email"]')
       .clear()
