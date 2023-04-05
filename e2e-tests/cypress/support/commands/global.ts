@@ -24,7 +24,7 @@ Cypress.Commands.add("deleteAccount", () => {
   cy.get(".fr-nav__btn").click();
   cy.get("button")
     .contains("Supprimer mon compte")
-    .click();
+    .click({ force: true });
   cy.get(".modal")
     .find("button")
     .contains("Supprimer mon compte")
