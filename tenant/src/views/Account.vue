@@ -419,9 +419,8 @@ export default class Account extends Vue {
   copyLink(url: string) {
     try {
       navigator.clipboard.writeText(url);
-      this.$toasted.show(this.$i18n.t("account.copied").toString(), {
-        type: "success",
-        duration: 3000
+      Vue.toasted.global.success_toast({
+        message: "account.copied",
       });
       AnalyticsService.copyLink(this.pub ? "resume" : "full");
     } catch (err) {

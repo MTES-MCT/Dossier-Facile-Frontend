@@ -20,9 +20,8 @@ export default class ChangePasswordPage extends Vue {
       this.$route.params.token != "null" ? this.$route.params.token : "";
     this.$store.dispatch("changePassword", user).then(
       () => {
-        this.$toasted.show(this.$i18n.t("changepasswordpage.password-update").toString(), {
-          type: "success",
-          duration: 7000
+        Vue.toasted.global.success_toast({
+          message: "changepasswordpage.password-update",
         });
         this.$router.push({ name: "Account" });
       },
@@ -32,14 +31,12 @@ export default class ChangePasswordPage extends Vue {
             "password recovery token or is expired"
           )
         ) {
-          this.$toasted.show(this.$i18n.t("changepasswordpage.token-expired").toString(), {
-            type: "error",
-            duration: 7000
+          Vue.toasted.global.error_toast({
+            message: "changepasswordpage.token-expired",
           });
         } else {
-          this.$toasted.show(this.$i18n.t("changepasswordpage.error").toString(), {
-            type: "error",
-            duration: 7000
+          Vue.toasted.global.error_toast({
+            message: "changepasswordpage.error",
           });
         }
       }
