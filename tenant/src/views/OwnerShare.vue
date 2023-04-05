@@ -140,19 +140,14 @@ export default class OwnerShare extends Vue {
     }
     OwnerService.registerToOwner(this.token).then(
       () => {
-        this.$toasted.show(
-          this.$i18n.t("ownershare.connection-success").toString(),
-          {
-            type: "success",
-            duration: 7000
-          }
-        );
+        Vue.toasted.global.success_toast({
+          message: "ownershare.connection-success",
+        });
         this.$router.push("/account");
       },
       () => {
-        this.$toasted.show(this.$i18n.t("ownershare.login-error").toString(), {
-          type: "error",
-          duration: 7000
+        Vue.toasted.global.error_toast({
+          message: "ownershare.login-error",
         });
       }
     );

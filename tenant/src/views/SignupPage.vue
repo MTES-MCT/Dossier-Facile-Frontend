@@ -97,14 +97,12 @@ export default class SignupPage extends Vue {
               "email: the emails are already being used"
             ) || -1) >= 0
           ) {
-            this.$toasted.show(this.$i18n.t("signuppage.duplicate-email").toString(), {
-              type: "error",
-              duration: 7000
+            Vue.toasted.global.error_toast({
+              message: "signuppage.duplicate-email",
             });
           } else {
-            this.$toasted.show(this.$i18n.t("signuppage.register-error").toString(), {
-              type: "error",
-              duration: 7000
+            Vue.toasted.global.error_toast({
+              message: "signuppage.register-error",
             });
           }
         }

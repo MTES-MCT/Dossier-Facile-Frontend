@@ -271,31 +271,27 @@ export default class TenantInformationForm extends Vue {
             params: { substep: "1" }
           });
           if (this.applicationType === "COUPLE") {
-            this.$toasted.show(this.$i18n.t("tenantinformationform.couple-saved").toString(), {
-              type: "show",
-              duration: 7000
+            Vue.toasted.global.info_toast({
+              message: "tenantinformationform.couple-saved",
             });
             return;
           }
           if (this.applicationType === "GROUP") {
-            this.$toasted.show(this.$i18n.t("tenantinformationform.roommates-saved").toString(), {
-              type: "show",
-              duration: 7000
+            Vue.toasted.global.info_toast({
+              message: "tenantinformationform.roommates-saved",
             });
             return;
           }
         },
         error => {
           if (error.response.data.message.includes("are already being used")) {
-            this.$toasted.show(this.$i18n.t("tenantinformationform.email-exists").toString(), {
-              type: "error",
-              duration: 7000
+            Vue.toasted.global.error_toast({
+              message: "tenantinformationform.email-exists",
             });
             return;
           } else {
-            this.$toasted.show(this.$i18n.t("tenantinformationform.error").toString(), {
-              type: "error",
-              duration: 7000
+            Vue.toasted.global.error_toast({
+              message: "tenantinformationform.error",
             });
             return;
           }

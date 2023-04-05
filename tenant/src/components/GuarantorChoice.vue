@@ -245,9 +245,8 @@ export default class GuarantorDocuments extends Vue {
 
   setGuarantorType() {
     if (!this.tmpGuarantorType) {
-      this.$toasted.show(this.$i18n.t("guarantorchoice.type-required").toString(), {
-        type: "error",
-        duration: 7000
+      Vue.toasted.global.error_toast({
+        message: "guarantorchoice.type-required",
       });
       return;
     }

@@ -322,3 +322,11 @@ img {
 .fr-text-default--info {
     color: var(--text-default-info)!important;
 }
+
+.success-toast {
+  background-color: #18753c !important;
+}
+
+.error-toast {
+  background-color: #d50101 !important;
+}

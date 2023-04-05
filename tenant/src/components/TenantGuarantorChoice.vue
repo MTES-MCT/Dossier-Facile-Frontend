@@ -180,13 +180,9 @@ export default class TenantGuarantorChoice extends Vue {
 
   setGuarantorType() {
     if (!this.tmpGuarantorType) {
-      this.$toasted.show(
-        this.$i18n.t("tenantguarantorchoice.type-required").toString(),
-        {
-          type: "error",
-          duration: 7000
-        }
-      );
+      Vue.toasted.global.error_toast({
+        message: "tenantguarantorchoice.type-required",
+      });
       return;
     }
     AnalyticsService.addGuarantor(this.tmpGuarantorType);
@@ -203,9 +199,8 @@ export default class TenantGuarantorChoice extends Vue {
             this.$emit("on-select", this.tmpGuarantorType);
           },
           () => {
-            this.$toasted.show(this.$i18n.t("try-again").toString(), {
-              type: "error",
-              duration: 7000
+            Vue.toasted.global.error_toast({
+              message: "try-again",
             });
           }
         );

@@ -73,13 +73,9 @@ export default class FileUpload extends Vue {
   filesChange(e: any) {
     [...e.target.files].forEach((f: File) => {
       if (f.size > this.size * 1024 * 1024) {
-        this.$toasted.show(
-          this.$i18n.t("fileupload.file-too-big", [this.size]).toString(),
-          {
-            type: "error",
-            duration: 5000
-          }
-        );
+        Vue.toasted.global.error_toast({
+          message: this.$i18n.t("fileupload.file-too-big", [this.size]),
+        });
         return false;
       }
       return true;
