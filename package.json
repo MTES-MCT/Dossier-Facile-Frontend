@@ -15,15 +15,15 @@
     "watermark",
     "df-shared",
     "df-shared-next",
-    "e2e-tests"
+    "e2e-tests",
+    "sb"
   ],
   "scripts": {
     "main": "yarn workspace main",
     "dfowner": "yarn workspace owner",
     "tenant": "yarn workspace tenant",
     "watermark": "yarn workspace watermark",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "sb": "yarn workspace sb"
   },
   "dependencies": {
     "global": "^4.4.0",
@@ -34,14 +34,26 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.21.4",
     "@kazupon/vue-i18n-loader": "^0.5.0",
-    "@storybook/addon-actions": "^6.5.16",
-    "@storybook/addon-essentials": "^6.5.16",
-    "@storybook/addon-links": "^6.5.16",
-    "@storybook/addon-postcss": "2.0.0",
-    "@storybook/vue": "^6.5.16",
+    "@storybook/addon-actions": "7.0.2",
+    "@storybook/addon-essentials": "7.0.2",
+    "@storybook/addon-interactions": "^7.0.2",
+    "@storybook/addon-links": "7.0.2",
+    "@storybook/addon-mdx-gfm": "7.0.2",
+    "@storybook/blocks": "^7.0.2",
+    "@storybook/testing-library": "^0.0.14-next.2",
+    "@storybook/vue": "7.0.2",
+    "@storybook/vue-webpack5": "7.0.2",
+    "@storybook/vue3": "^7.0.2",
+    "@storybook/vue3-webpack5": "^7.0.2",
+    "@vue/compiler-sfc": "^3.2.47",
+    "add": "^2.0.6",
     "babel-loader": "^8.1.0",
-    "react-is": "^17.0.1"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-is": "^17.0.1",
+    "storybook": "^7.0.2"
   },
   "resolutions": {
     "trim": "^1.0.1",
