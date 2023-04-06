@@ -5,7 +5,7 @@ import store from "../store";
 import { CONTENT } from "df-shared/src/models/SkipLink";
 import {
   FUNNEL_SKIP_LINKS,
-  FOOTER_NAVIGATION
+  FOOTER_NAVIGATION,
 } from "../components/TenantSkipLinks.vue";
 
 Vue.use(VueRouter);
@@ -22,8 +22,8 @@ const routes: Array<RouteConfig> = [
       title: "DossierFacile, le dossier de location numérique de l’État",
       description:
         "Créez un dossier de location en ligne complet et vérifié par l'Etat pour trouver votre appartement ou votre logement",
-      hideForAuth: true
-    }
+      hideForAuth: true,
+    },
   },
   {
     path: "/signup",
@@ -31,21 +31,21 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "Création de compte - DossierFacile",
       description: "Créez votre compte en quelques clics sur DossierFacile",
-      hideForAuth: true
+      hideForAuth: true,
     },
     component: () =>
       import(
         /* webpackChunkName: "signup" */
         /* webpackPrefetch: true */
         "../views/SignupPage.vue"
-      )
+      ),
   },
   {
     path: "/login",
     redirect: () => {
       window.location.replace(`${TENANT_URL}/account`);
       return "/account";
-    }
+    },
   },
   {
     path: "/forgotten-password",
@@ -54,12 +54,12 @@ const routes: Array<RouteConfig> = [
       title: "Mot de passe oublié - DossierFacile",
       description:
         "Accédez à la procédure de mot de passe oublié pour votre compte DossierFacile",
-      hideForAuth: true
+      hideForAuth: true,
     },
     component: () =>
       import(
         /* webpackChunkName: "forgottenPassword" */ "../views/ForgottenPasswordPage.vue"
-      )
+      ),
   },
   {
     path: "/profile",
@@ -68,10 +68,10 @@ const routes: Array<RouteConfig> = [
       title: "Édition du profil - DossierFacile",
       requiresAuth: true,
       hideFooter: true,
-      skipLinks: [CONTENT, FOOTER_NAVIGATION]
+      skipLinks: [CONTENT, FOOTER_NAVIGATION],
     },
     component: () =>
-      import(/* webpackChunkName: "profile" */ "../views/NameInformation.vue")
+      import(/* webpackChunkName: "profile" */ "../views/NameInformation.vue"),
   },
   {
     path: "/nom-locataire",
@@ -80,10 +80,10 @@ const routes: Array<RouteConfig> = [
       title: "Édition du profil - DossierFacile",
       requiresAuth: true,
       hideFooter: true,
-      skipLinks: [CONTENT, FOOTER_NAVIGATION]
+      skipLinks: [CONTENT, FOOTER_NAVIGATION],
     },
     component: () =>
-      import(/* webpackChunkName: "profile" */ "../views/NameInformation.vue")
+      import(/* webpackChunkName: "profile" */ "../views/NameInformation.vue"),
   },
   {
     path: "/type-locataire",
@@ -92,10 +92,10 @@ const routes: Array<RouteConfig> = [
       title: "Mes informations - DossierFacile",
       requiresAuth: true,
       hideFooter: true,
-      skipLinks: FUNNEL_SKIP_LINKS
+      skipLinks: FUNNEL_SKIP_LINKS,
     },
     component: () =>
-      import(/* webpackChunkName: "profile" */ "../views/TypeInformation.vue")
+      import(/* webpackChunkName: "profile" */ "../views/TypeInformation.vue"),
   },
   {
     path: "/documents-locataire/:substep",
@@ -104,10 +104,10 @@ const routes: Array<RouteConfig> = [
       title: "Mes documents - DossierFacile",
       requiresAuth: true,
       hideFooter: true,
-      skipLinks: FUNNEL_SKIP_LINKS
+      skipLinks: FUNNEL_SKIP_LINKS,
     },
     component: () =>
-      import(/* webpackChunkName: "profile" */ "../views/TenantDocument.vue")
+      import(/* webpackChunkName: "profile" */ "../views/TenantDocument.vue"),
   },
   {
     path: "/documents-colocataire/:tenantId/:step/:substep/",
@@ -116,10 +116,10 @@ const routes: Array<RouteConfig> = [
       title: "Édition du profil - DossierFacile",
       requiresAuth: true,
       hideFooter: true,
-      skipLinks: FUNNEL_SKIP_LINKS
+      skipLinks: FUNNEL_SKIP_LINKS,
     },
     component: () =>
-      import(/* webpackChunkName: "profile" */ "../views/CoTenantDocument.vue")
+      import(/* webpackChunkName: "profile" */ "../views/CoTenantDocument.vue"),
   },
   {
     path: "/choix-garant",
@@ -128,12 +128,12 @@ const routes: Array<RouteConfig> = [
       title: "Mon garant - DossierFacile",
       requiresAuth: true,
       hideFooter: true,
-      skipLinks: FUNNEL_SKIP_LINKS
+      skipLinks: FUNNEL_SKIP_LINKS,
     },
     component: () =>
       import(
         /* webpackChunkName: "profile" */ "../views/GuarantorChoicePage.vue"
-      )
+      ),
   },
   {
     path: "/liste-garants",
@@ -142,10 +142,12 @@ const routes: Array<RouteConfig> = [
       title: "Mon garant - DossierFacile",
       requiresAuth: true,
       hideFooter: true,
-      skipLinks: FUNNEL_SKIP_LINKS
+      skipLinks: FUNNEL_SKIP_LINKS,
     },
     component: () =>
-      import(/* webpackChunkName: "profile" */ "../views/GuarantorListPage.vue")
+      import(
+        /* webpackChunkName: "profile" */ "../views/GuarantorListPage.vue"
+      ),
   },
   {
     path: "/garants-locataire/:tenantId/:step",
@@ -154,12 +156,12 @@ const routes: Array<RouteConfig> = [
       title: "Édition du garant du locataire - DossierFacile",
       requiresAuth: true,
       hideFooter: true,
-      skipLinks: FUNNEL_SKIP_LINKS
+      skipLinks: FUNNEL_SKIP_LINKS,
     },
     component: () =>
       import(
         /* webpackChunkName: "profile" */ "../views/TenantGuarantorsPage.vue"
-      )
+      ),
   },
   {
     path: "/validation-dossier",
@@ -168,10 +170,10 @@ const routes: Array<RouteConfig> = [
       title: "Validation du dossier locataire - DossierFacile",
       requiresAuth: true,
       hideFooter: true,
-      skipLinks: FUNNEL_SKIP_LINKS
+      skipLinks: FUNNEL_SKIP_LINKS,
     },
     component: () =>
-      import(/* webpackChunkName: "profile" */ "../views/ValidateFilePage.vue")
+      import(/* webpackChunkName: "profile" */ "../views/ValidateFilePage.vue"),
   },
   {
     path: "/validation-dossier/:step",
@@ -180,10 +182,10 @@ const routes: Array<RouteConfig> = [
       title: "Validation du dossier locataire - DossierFacile",
       requiresAuth: true,
       hideFooter: true,
-      skipLinks: FUNNEL_SKIP_LINKS
+      skipLinks: FUNNEL_SKIP_LINKS,
     },
     component: () =>
-      import(/* webpackChunkName: "profile" */ "../views/ValidateFilePage.vue")
+      import(/* webpackChunkName: "profile" */ "../views/ValidateFilePage.vue"),
   },
   {
     path: "/info-garant/:substep/:guarantorId?",
@@ -192,7 +194,7 @@ const routes: Array<RouteConfig> = [
       title: "Mon garant - DossierFacile",
       requiresAuth: true,
       hideFooter: true,
-      skipLinks: FUNNEL_SKIP_LINKS
+      skipLinks: FUNNEL_SKIP_LINKS,
     },
     beforeEnter: async (to, from, next) => {
       if (
@@ -207,7 +209,7 @@ const routes: Array<RouteConfig> = [
     component: () =>
       import(
         /* webpackChunkName: "profile" */ "../views/GuarantorDocumentsPage.vue"
-      )
+      ),
   },
   {
     path: "/info-garant-locataire/:tenantId/:guarantorId/:step/:substep?",
@@ -216,35 +218,35 @@ const routes: Array<RouteConfig> = [
       title: "Édition du garant du locataire - DossierFacile",
       requiresAuth: true,
       hideFooter: true,
-      skipLinks: FUNNEL_SKIP_LINKS
+      skipLinks: FUNNEL_SKIP_LINKS,
     },
     component: () =>
       import(
         /* webpackChunkName: "profile" */ "../views/TenantGuarantorDocumentsPage.vue"
-      )
+      ),
   },
   {
     path: "/public-file/:token",
     name: "File",
     meta: {
-      title: "Dossier - DossierFacile"
+      title: "Dossier - DossierFacile",
     },
     component: () =>
-      import(/* webpackChunkName: "file" */ "../views/PublicFile.vue")
+      import(/* webpackChunkName: "file" */ "../views/PublicFile.vue"),
   },
   {
     path: "/file/:token",
     name: "PublicFile",
     meta: {
-      title: "Dossier - DossierFacile"
+      title: "Dossier - DossierFacile",
     },
-    component: () => import(/* webpackChunkName: "file" */ "../views/File.vue")
+    component: () => import(/* webpackChunkName: "file" */ "../views/File.vue"),
   },
   {
     path: "/source/:source",
     name: "Source",
     meta: {
-      title: "Source - DossierFacile"
+      title: "Source - DossierFacile",
     },
     beforeEnter: (to, from, next) => {
       if ((Vue as any).$keycloak.authenticated) {
@@ -263,85 +265,85 @@ const routes: Array<RouteConfig> = [
       }
     },
     component: () =>
-      import(/* webpackChunkName: "source" */ "../views/Source.vue")
+      import(/* webpackChunkName: "source" */ "../views/Source.vue"),
   },
   {
     path: "/lier-source/:source",
     name: "SourceLink",
     meta: {
       title: "Source - DossierFacile",
-      requiresAuth: true
+      requiresAuth: true,
     },
     component: () =>
-      import(/* webpackChunkName: "source" */ "../views/SourceLink.vue")
+      import(/* webpackChunkName: "source" */ "../views/SourceLink.vue"),
   },
   {
     path: "/account",
     name: "Account",
     meta: {
       title: "Mon dossier - DossierFacile",
-      requiresAuth: true
+      requiresAuth: true,
     },
     component: () =>
-      import(/* webpackChunkName: "account" */ "../views/Account.vue")
+      import(/* webpackChunkName: "account" */ "../views/Account.vue"),
   },
   {
     path: "/messaging",
     name: "Messages",
     meta: {
       title: "Messages - DossierFacile",
-      requiresAuth: true
+      requiresAuth: true,
     },
     component: () =>
-      import(/* webpackChunkName: "messages" */ "../views/Messages.vue")
+      import(/* webpackChunkName: "messages" */ "../views/Messages.vue"),
   },
   {
     path: "/confirmAccount/:token",
     name: "Confirm",
     meta: {
       title: "Confirmation de compte - DossierFacile",
-      hideForAuth: true
+      hideForAuth: true,
     },
     component: () =>
       import(
         /* webpackChunkName: "confirmAccount" */ "../views/ConfirmAccount.vue"
-      )
+      ),
   },
   {
     path: "/ajout-couple/:token",
     name: "Couple",
     meta: {
-      title: "Confirmation de compte - DossierFacile"
+      title: "Confirmation de compte - DossierFacile",
     },
     component: () =>
-      import(/* webpackChunkName: "register" */ "../views/JoinCouple.vue")
+      import(/* webpackChunkName: "register" */ "../views/JoinCouple.vue"),
   },
   {
     path: "/ajout-groupe/:token",
     name: "Group",
     meta: {
-      title: "Confirmation de compte - DossierFacile"
+      title: "Confirmation de compte - DossierFacile",
     },
     component: () =>
-      import(/* webpackChunkName: "register" */ "../views/JoinGroup.vue")
+      import(/* webpackChunkName: "register" */ "../views/JoinGroup.vue"),
   },
   {
     path: "/reset-password/:token",
     name: "Password",
     meta: {
       title: "Nouveau mot de passe - DossierFacile",
-      hideForAuth: false
+      hideForAuth: false,
     },
     component: () =>
       import(
         /* webpackChunkName: "changePassword" */ "../views/ChangePasswordPage.vue"
-      )
+      ),
   },
   {
     path: "/inscription-locataire/:token",
     name: "Inscription",
     meta: {
-      title: "Inscription locataire - DossierFacile"
+      title: "Inscription locataire - DossierFacile",
     },
     beforeEnter: (to, from, next) => {
       if ((Vue as any).$keycloak.authenticated) {
@@ -362,33 +364,33 @@ const routes: Array<RouteConfig> = [
     component: () =>
       import(
         /* webpackChunkName: "inscriptionLocataire" */ "../views/OwnerShare.vue"
-      )
+      ),
   },
   {
     path: "/locataire",
     redirect: () => {
       window.location.replace(`${MAIN_URL}`);
       return "/info-proprietaire";
-    }
+    },
   },
   {
     path: "/contact",
     name: "Contact",
     meta: {
       title: "Contact - DossierFacile",
-      requiresAuth: false
+      requiresAuth: false,
     },
     component: () =>
-      import(/* webpackChunkName: "contact" */ "../views/Contact.vue")
+      import(/* webpackChunkName: "contact" */ "../views/Contact.vue"),
   },
   {
     path: "*",
     name: "404",
     meta: {
-      title: "404 - DossierFacile"
+      title: "404 - DossierFacile",
     },
-    component: () => import(/* webpackChunkName: "404" */ "../views/404.vue")
-  }
+    component: () => import(/* webpackChunkName: "404" */ "../views/404.vue"),
+  },
 ];
 
 const router = new VueRouter({
@@ -397,7 +399,7 @@ const router = new VueRouter({
   routes,
   scrollBehavior() {
     document.getElementById("app")?.scrollIntoView();
-  }
+  },
 });
 
 function keepGoing(to: Route, next: NavigationGuardNext<Vue>) {
@@ -425,30 +427,32 @@ function keepGoing(to: Route, next: NavigationGuardNext<Vue>) {
 }
 
 router.beforeEach(async (to, from, next) => {
-  if (to.matched.some(record => record.meta.hideFooter)) {
+  if (to.matched.some((record) => record.meta.hideFooter)) {
     store.commit("isFunnel", true);
   } else {
     store.commit("isFunnel", false);
   }
 
-  to.matched.some(record => {
+  to.matched.some((record) => {
     store.commit("updateSkipLinks", record.meta.skipLinks);
   });
 
   const lang = Vue.$cookies.get("lang") === "en" ? "en" : "fr";
   store.dispatch("setLang", lang);
 
-  if (to.matched.some(record => record.meta.requiresAuth)) {
+  if ((Vue as any).$keycloak.authenticated) {
+    await store.dispatch("loadUser").catch(() => {
+      next({ name: "404" });
+    });
+  }
+
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!(Vue as any).$keycloak.authenticated) {
       // The page is protected and the user is not authenticated. Force a login.
       (Vue as any).$keycloak.login({
-        redirectUri: TENANT_URL + to.fullPath
+        redirectUri: TENANT_URL + to.fullPath,
       });
     } else {
-      // The user was authenticated, and has the app role
-      await store.dispatch("loadUser").catch(() => {
-        next({ name: "404" });
-      });
       setInterval(() => {
         (Vue as any).$keycloak.updateToken(60).catch((err: any) => {
           console.error(err);
@@ -458,7 +462,7 @@ router.beforeEach(async (to, from, next) => {
       keepGoing(to, next);
       return;
     }
-  } else if (to.matched.some(record => record.meta.hideForAuth)) {
+  } else if (to.matched.some((record) => record.meta.hideForAuth)) {
     if ((Vue as any).$keycloak.authenticated) {
       next({ name: "Profile" });
     }
