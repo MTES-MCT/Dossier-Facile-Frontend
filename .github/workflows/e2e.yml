@@ -2,7 +2,7 @@ name: E2E
 
 on:
   schedule:
-    - cron: '30 4 * * *'
+    - cron: '33 4 * * 1-5'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -39,7 +39,7 @@ jobs:
           retention-days: 1
       - name: Slack notification
         uses: rtCamp/action-slack-notify@v2
-        if: failure()
+        if: failure() && github.event.schedule
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_COLOR: ${{ job.status }}
