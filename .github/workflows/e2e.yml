@@ -23,6 +23,7 @@ jobs:
           project: ./e2e-tests
           install: false
           config-file: cypress-preprod.config.ts
+          browser: chrome
       - name: Upload screenshot
         uses: actions/upload-artifact@v3
         if: failure()
