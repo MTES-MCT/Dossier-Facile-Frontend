@@ -4,6 +4,11 @@ export interface User {
   lastname: string
 }
 
+export enum UserType {
+  TENANT,
+  OWNER
+}
+
 const users: {[id: string]: User} = {
   thibault: {
     username: "test_THIBAULT",
