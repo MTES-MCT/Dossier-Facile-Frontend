@@ -32,7 +32,7 @@ Cypress.Commands.add("deleteAccount", () => {
     .contains("Supprimer mon compte")
     .click();
 
-  cy.wait("@deleteAccount");
+  cy.wait("@deleteAccount").its('response.statusCode').should('eq', 200);
 });
 
 Cypress.Commands.add("expectPath", (path: string) => {
