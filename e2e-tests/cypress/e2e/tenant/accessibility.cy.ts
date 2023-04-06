@@ -14,6 +14,7 @@ describe("accessibility checks", () => {
     cy.testAccessibility();
     cy.clickOnNext();
 
+    cy.expectPath("/type-locataire");
     cy.testAccessibility();
     cy.clickOnNext();
 

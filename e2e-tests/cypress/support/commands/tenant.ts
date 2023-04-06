@@ -10,7 +10,7 @@ Cypress.Commands.add("tenantLogin", (username: string) => {
 Cypress.Commands.add("uploadDocument", () => {
   cy.intercept("POST", "/api/register/document*").as("uploadDocument");
   cy.get(".input-file").selectFile("assets/test-document.pdf");
-  cy.wait("@uploadDocument");
+  cy.wait("@uploadDocument").its('response.statusCode').should('eq', 200);
 });
 
 Cypress.Commands.add("disableTaxVerification", () => {
