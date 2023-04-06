@@ -1,11 +1,12 @@
 /// <reference types="cypress" />
 
 import { terminalLog } from "../accessibility";
+import { UserType } from "../users";
 
 Cypress.Commands.add("loginWithFC", (username: string) => {
   cy.get("#social-oidc").click();
 
-  cy.get('body').then(($body: any) => {
+  cy.get("body").then(($body: any) => {
     const providerButton = "#fi-identity-provider-example-faible";
     if ($body.find(providerButton).length) {
       cy.get(providerButton).click();
@@ -14,13 +15,17 @@ Cypress.Commands.add("loginWithFC", (username: string) => {
         .type(username);
       cy.get(".button").click();
     }
-  })
+  });
 
   cy.get("form").submit();
   cy.wait(100);
 });
 
-Cypress.Commands.add("deleteAccount", () => {
+Cypress.Commands.add("deleteAccount", (username: string, type: UserType) => {
+  cy.visit("www-dev.dossierfacile.fr");
+  cy.contains(type === UserType.TENANT ? "Se connecter" : "Espace propriétaire").click();
+  cy.loginWithFC(username);
+  
   cy.intercept("DELETE", "**/deleteAccount").as("deleteAccount");
 
   cy.get(".fr-nav__btn").click();

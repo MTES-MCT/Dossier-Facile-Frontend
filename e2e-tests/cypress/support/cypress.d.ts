@@ -8,7 +8,7 @@ declare namespace Cypress {
 
     loginWithFC(username: string): Chainable<void>;
 
-    deleteAccount(): Chainable<void>;
+    deleteAccount(username: string, type: number): Chainable<void>;
 
     uploadDocument(): Chainable<void>;
 

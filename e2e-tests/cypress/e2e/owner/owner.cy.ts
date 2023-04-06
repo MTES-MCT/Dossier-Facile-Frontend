@@ -1,12 +1,12 @@
-import { getOwnerUser } from "../../support/users";
+import { getOwnerUser, UserType } from "../../support/users";
 
 describe("basic owner scenario", () => {
   const user = getOwnerUser();
   const propertyName = "Appartement 123";
 
   before("reset account", () => {
-    cy.ownerLogin(user.username);
-    cy.deleteAccount();
+    cy.deleteAccount(user.username, UserType.TENANT);
+    cy.deleteAccount(user.username, UserType.OWNER);
   });
 
   beforeEach("login", () => {
