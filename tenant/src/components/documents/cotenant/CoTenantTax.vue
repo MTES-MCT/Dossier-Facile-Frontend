@@ -120,13 +120,9 @@ export default class CoTenantTax extends Vue {
         formData.append("customText", this.document.customText);
       } else {
         // TODO : replace by form and validation
-        this.$toasted.show(
-          this.$i18n.t("cotenanttax.custom-text-required").toString(),
-          {
-            type: "error",
-            duration: 7000
-          }
-        );
+        Vue.toasted.global.error_toast({
+          message: "cotenanttax.custom-text-required",
+        });
         return;
       }
     }

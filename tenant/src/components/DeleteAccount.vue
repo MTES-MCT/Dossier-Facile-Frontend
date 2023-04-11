@@ -64,9 +64,8 @@ export default class DeleteAccount extends Vue {
         AnalyticsService.deleteAccount();
       },
       () => {
-        this.$toasted.show(this.$i18n.t("deleteaccount.try-again").toString(), {
-          type: "error",
-          duration: 7000
+        Vue.toasted.global.error_toast({
+          message: "deleteaccount.try-again",
         });
       }
     );

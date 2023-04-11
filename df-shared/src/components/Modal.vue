@@ -5,7 +5,6 @@
         class="modal fr-pt-2w"
         role="dialog"
         aria-labelledby="modalTitle"
-        aria-describedby="modalDescription"
       >
         <button
           class="fr-link--close fr-link fr-mr-1w"
@@ -21,7 +20,7 @@
             ><span style="visibility: hidden">title</span></slot
           >
         </header>
-        <section class="modal-body" id="modalDescription">
+        <section class="modal-body">
           <slot name="body"> </slot>
         </section>
         <footer class="modal-footer" v-if="!!$slots['footer']">

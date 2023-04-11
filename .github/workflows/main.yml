@@ -24,10 +24,11 @@ jobs:
       - name: Run unit tests
         run: yarn main test:unit
       - name: Run e2e tests
-        uses: cypress-io/github-action@v5.0.9
+        uses: cypress-io/github-action@v5.6.1
         with:
           project: ./main
           install: false
+          browser: chrome
           start: yarn main run start
           wait-on: 'http://localhost:9001'
         env:
@@ -50,40 +51,16 @@ jobs:
       - name: Run unit tests
         run: yarn tenant test:unit
       - name: Run e2e tests
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v5.6.1
         with:
           project: ./e2e-tests
           install: false
+          browser: chrome
           start: yarn tenant run start
           wait-on: 'http://localhost:9002'
           spec: e2e-tests/cypress/e2e/tenant
         env:
           PORT: 9002
-
-  owner:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-      - uses: bahmutov/npm-install@v1
-        with:
-          useRollingCache: true
-      - name: Build
-        run: yarn dfowner build
-        env:
-          VITE_OWNER_API_URL: ${{ secrets.PREPROD_OWNER_API_URL }} # for e2e tests
-      - name: Run e2e tests
-        uses: cypress-io/github-action@v5
-        with:
-          project: ./e2e-tests
-          install: false
-          start: yarn dfowner run start
-          wait-on: 'http://localhost:3000'
-          spec: e2e-tests/cypress/e2e/owner
-        env:
-          PORT: 3000
 
   others:
     runs-on: ubuntu-latest

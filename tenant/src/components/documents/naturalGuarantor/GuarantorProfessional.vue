@@ -31,6 +31,7 @@
               id="select"
               as="select"
               @change="onSelectChange()"
+              aria-label="Select professional situation"
             >
               <option v-for="d in documents" :value="d" :key="d.key">
                 {{ $t(d.key) }}
@@ -107,7 +108,6 @@ import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import { cloneDeep } from "lodash";
 import { ValidationProvider } from "vee-validate";
-import { extend } from "vee-validate";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 @Component({

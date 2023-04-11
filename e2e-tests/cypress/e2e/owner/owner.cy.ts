@@ -1,14 +1,12 @@
+import { getOwnerUser, UserType } from "../../support/users";
+
 describe("basic owner scenario", () => {
-  const user = {
-    username: "test_ALAIN",
-    firstname: "Alain",
-    lastname: "BUREAU"
-  };
+  const user = getOwnerUser();
   const propertyName = "Appartement 123";
 
   before("reset account", () => {
-    cy.ownerLogin(user.username);
-    cy.deleteAccount();
+    cy.deleteAccount(user.username, UserType.TENANT);
+    cy.deleteAccount(user.username, UserType.OWNER);
   });
 
   beforeEach("login", () => {
@@ -18,7 +16,8 @@ describe("basic owner scenario", () => {
 
   it("edit personal informations", () => {
     cy.get(".fr-nav__btn").click();
-    cy.contains("Mes informations personnelles").click();
+    cy.contains("Mes informations personnelles")
+      .click({ force: true });
 
     cy.get('input[name="email"]')
       .clear()

@@ -2,7 +2,7 @@ name: E2E
 
 on:
   schedule:
-    - cron: '30 4 * * *'
+    - cron: '33 4 * * 1-5'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -18,11 +18,12 @@ jobs:
         with:
           working-directory: e2e-tests
       - name: Run e2e tests
-        uses: cypress-io/github-action@v5.0.9
+        uses: cypress-io/github-action@v5.6.1
         with:
           project: ./e2e-tests
           install: false
           config-file: cypress-preprod.config.ts
+          browser: chrome
       - name: Upload screenshot
         uses: actions/upload-artifact@v3
         if: failure()
@@ -39,7 +40,7 @@ jobs:
           retention-days: 1
       - name: Slack notification
         uses: rtCamp/action-slack-notify@v2
-        if: failure()
+        if: failure() && github.event.schedule
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_COLOR: ${{ job.status }}

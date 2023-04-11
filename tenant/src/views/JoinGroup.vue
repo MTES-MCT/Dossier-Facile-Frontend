@@ -35,9 +35,8 @@ export default class JoinCouple extends Vue {
     user.token = this.$route.params.token;
     this.$store.dispatch("createPasswordGroup", user).then(
       () => {
-        this.$toasted.show(this.$i18n.t("joingroup.password-update").toString(), {
-          type: "success",
-          duration: 7000
+        Vue.toasted.global.success_toast({
+          message: "joingroup.password-update",
         });
         this.$router.push({ name: "TenantName" });
       },
@@ -47,14 +46,12 @@ export default class JoinCouple extends Vue {
             "password recovery token or is expired"
           )
         ) {
-          this.$toasted.show(this.$i18n.t("joingroup.token-expired").toString(), {
-            type: "error",
-            duration: 7000
+          Vue.toasted.global.error_toast({
+            message: "joingroup.token-expired",
           });
         } else {
-          this.$toasted.show(this.$i18n.t("joingroup.error").toString(), {
-            type: "error",
-            duration: 7000
+          Vue.toasted.global.error_toast({
+            message: "joingroup.error",
           });
         }
       }

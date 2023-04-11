@@ -114,35 +114,41 @@ Vue.use(VueAuthImage);
 
     Vue.toasted.register("error", i18n.t("error").toString(), {
       type: "error",
-      duration: 5000
+      duration: 5000,
+      className: ["error-toast"],
     });
     Vue.toasted.register("delete_failed", i18n.t("delete-failed").toString(), {
       type: "error",
-      duration: 5000
+      duration: 5000,
+      className: ["error-toast"],
     });
     Vue.toasted.register(
       "delete_success",
       i18n.t("delete-success").toString(),
       {
         type: "success",
-        duration: 5000
+        duration: 5000,
+        className: ["success-toast"],
       }
     );
     Vue.toasted.register("save_failed", i18n.t("save-failed").toString(), {
       type: "error",
-      duration: 7000
+      duration: 7000,
+      className: ["error-toast"],
     });
     Vue.toasted.register(
       "save_failed_num_pages",
       i18n.t("save-failed-num-pages").toString(),
       {
         type: "error",
-        duration: 7000
+        duration: 7000,
+        className: ["error-toast"],
       }
     );
     Vue.toasted.register("save_success", i18n.t("save-success").toString(), {
       type: "success",
-      duration: 5000
+      duration: 5000,
+      className: ["success-toast"],
     });
     Vue.toasted.register(
       "max_file",
@@ -154,7 +160,34 @@ Vue.use(VueAuthImage);
       },
       {
         type: "error",
-        duration: 7000
+        duration: 7000,
+        className: ["error-toast"],
+      }
+    );
+    Vue.toasted.register(
+      "success_toast",
+      (payload) => i18n.t(payload.message).toString(),
+      {
+        type: "success",
+        duration: 5000,
+        className: ["success-toast"],
+      }
+    );
+    Vue.toasted.register(
+      "error_toast",
+      (payload) => i18n.t(payload.message).toString(),
+      {
+        type: "error",
+        duration: 7000,
+        className: ["error-toast"],
+      }
+    );
+    Vue.toasted.register(
+      "info_toast",
+      (payload) => i18n.t(payload.message).toString(),
+      {
+        type: "show",
+        duration: 7000,
       }
     );
 

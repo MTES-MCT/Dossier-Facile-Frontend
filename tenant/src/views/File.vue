@@ -350,9 +350,8 @@ export default class File extends Vue {
         this.retryDownload(remainingCount - 1);
       } else {
         this.showProgressBar = false;
-        this.$toasted.show(this.$i18n.t("file.download-failed").toString(), {
-          type: "error",
-          duration: 10000
+        Vue.toasted.global.error_toast({
+          message: "file.download-failed",
         });
       }
     }, 15000);

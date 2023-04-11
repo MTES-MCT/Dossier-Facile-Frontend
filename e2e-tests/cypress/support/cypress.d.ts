@@ -8,7 +8,7 @@ declare namespace Cypress {
 
     loginWithFC(username: string): Chainable<void>;
 
-    deleteAccount(): Chainable<void>;
+    deleteAccount(username: string, type: number): Chainable<void>;
 
     uploadDocument(): Chainable<void>;
 
@@ -17,6 +17,8 @@ declare namespace Cypress {
     expectPath(path: string): Chainable<void>;
 
     acceptCookies(): Chainable<void>;
+
+    testAccessibility(): Chainable<void>;
 
     disableTaxVerification(): Chainable<void>;
 

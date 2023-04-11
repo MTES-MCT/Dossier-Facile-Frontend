@@ -130,16 +130,14 @@ export default class Source extends Vue {
   validModal() {
     RegisterService.connectSource(this.internalPartnerId, this.source)
       .then(() => {
-        this.$toasted.show(this.$i18n.t("source.connected").toString(), {
-          type: "success",
-          duration: 3000
+        Vue.toasted.global.success_toast({
+          message: "source.connected",
         });
         this.$router.push("/account");
       })
       .catch(() => {
-        this.$toasted.show(this.$i18n.t("source.register-error").toString(), {
-          type: "error",
-          duration: 7000
+        Vue.toasted.global.error_toast({
+          message: "source.register-error",
         });
       });
   }
@@ -164,14 +162,12 @@ export default class Source extends Vue {
                 "email: the emails are already being used"
               ) >= 0
             ) {
-              this.$toasted.show(this.$i18n.t("source.duplicate-email").toString(), {
-                type: "error",
-                duration: 7000
+              Vue.toasted.global.error_toast({
+                message: "source.duplicate-email",
               });
             } else {
-              this.$toasted.show(this.$i18n.t("source.register-error").toString(), {
-                type: "error",
-                duration: 7000
+              Vue.toasted.global.error_toast({
+                message: "source.register-error",
               });
             }
           }

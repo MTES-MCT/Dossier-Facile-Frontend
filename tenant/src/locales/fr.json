@@ -28,7 +28,7 @@
   "delete-success": "Suppression réussie",
   "delete-failed": "Erreur lors de la suppression",
   "max-file-default": "Nombre de fichier maximum atteint, veuillez en supprimer",
-  "max-file": "Nombre de fichiers maximum atteint (actuellement : {0} / maximum : {1} ), veuillez en supprimer",
+  "max-file": "Nombre de fichiers maximum atteint (actuellement : {0} / maximum : {1}), veuillez en supprimer",
   "error": "Une erreur est survenue",
   "email-not-valid": "Email non valide",
   "field-required": "Ce champ est requis",
