@@ -42,8 +42,8 @@
             v-bind:key="doc.id"
             :label="
               $t('tenantpanel.financial') +
-                (' ' + (k + 1) + ' - ') +
-                $t('documents.subcategory.' + doc.documentSubCategory)
+              (' ' + (k + 1) + ' - ') +
+              $t('documents.subcategory.' + doc.documentSubCategory)
             "
             :document="doc"
             @clickEdit="setTenantStep(4)"
@@ -91,8 +91,8 @@ import FileRowListItem from "@/components/documents/FileRowListItem.vue";
     DfButton,
     ColoredTag,
     DeleteAccount,
-    FileRowListItem
-  }
+    FileRowListItem,
+  },
 })
 export default class TenantPanel extends Vue {
   @Prop() tenant!: User;
@@ -100,7 +100,7 @@ export default class TenantPanel extends Vue {
 
   getStatus(docType: string) {
     if (docType === "FINANCIAL") {
-      const docs = this.tenant.documents?.filter(d => {
+      const docs = this.tenant.documents?.filter((d) => {
         return d.documentCategory === "FINANCIAL";
       });
       return this.isFinancialValid(docs || []);
@@ -144,8 +144,8 @@ export default class TenantPanel extends Vue {
         params: {
           tenantId: this.tenant?.id.toString(),
           step: "4",
-          substep: "0"
-        }
+          substep: "0",
+        },
       });
     } else {
       this.$router.push({ name: "TenantName" });
@@ -160,19 +160,19 @@ export default class TenantPanel extends Vue {
         params: {
           tenantId: this.tenant?.id.toString(),
           step: "4",
-          substep: n.toString()
-        }
+          substep: n.toString(),
+        },
       });
     } else {
       this.$router.push({
         name: "TenantDocuments",
-        params: { substep: n.toString() }
+        params: { substep: n.toString() },
       });
     }
   }
 
   document(u: User, s: string) {
-    return u.documents?.find(d => {
+    return u.documents?.find((d) => {
       return d.documentCategory === s;
     });
   }
@@ -390,13 +390,6 @@ hr {
 
   @media all and (max-width: 600px) {
     width: 100%;
-  }
-}
-
-.main-copy-btn {
-  height: 2.5rem;
-  @media all and (max-width: 600px) {
-    flex: 1;
   }
 }
 

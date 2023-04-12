@@ -313,7 +313,7 @@
     "instructional-time-title": "Durée d'instruction",
     "instructional-time-text": "Une fois votre dossier complété et déposé, il est pris en charge en moyenne en moins de 24h par notre équipe d'opérateurs.",
     "congratulations-title": "🎉 Félicitations ! Votre DossierFacile est disponible !",
-    "congratulations-text-1": "Afin de candidater au logement de vos rêves, envoyez votre lien DossierFacile, par email, SMS, etc. aux propriétaires, bailleurs de votre choix. Pour rappel, DossierFacile ne propose pas de logement.",
+    "congratulations-text-1": "Afin de candidater au logement de vos rêves, partagez votre dossier à un propriétaire de votre choix, avec ou sans justificatifs, soit par email en renseignant son adresse mail dans la section \"Partager mon dossier\" ci-dessous, soit par lien en envoyant votre lien DossierFacile par email, SMS, etc. aux propriétaires, bailleurs de votre choix. Pour rappel, DossierFacile ne propose pas de logement.",
     "congratulations-text-2": "Vos informations sont protégées !",
     "full-link-copied": "Le lien de mon dossier complet est copié !",
     "public-link-copied": "Le lien de mon dossier de synthèse est copié !",
@@ -1031,6 +1031,17 @@
     "more-information": "En quoi cette information nous est utile ?",
     "require-accept": "Vous devez accepter la déclaration"
   },
+  "sharefile": {
+    "title": "Partager mon dossier",
+    "share-btn-email": "Partager",
+    "share-btn-copy": "Copier",
+    "full": "Avec justificatifs",
+    "resume": "Sans justificatif",
+    "by-mail": "Par mail",
+    "by-link": "Par lien",
+    "email-label": "Email du bailleur :",
+    "email-placeholder": "bailleur@exemple.com"
+  },
   "showdoc": {
     "preview": "Prévisualisation du document",
     "number-of-pages": "Prévisualisation page 1 / {0}"
@@ -1245,8 +1256,8 @@
     "instructional-time-title": "Durée d'instruction",
     "instructional-time-text": "Une fois votre dossier complété et déposé, il est pris en charge dans un délai de 24 à 48 heures par notre équipe d'opérateurs.",
     "congratulations-title": "🎉 Félicitations ! Votre DossierFacile est disponible !",
-    "congratulations-text-1": "Afin de candidater au logement de vos rêves, envoyez votre lien DossierFacile, par email, SMS, etc. aux propriétaires, bailleurs de votre choix. Pour rappel, DossierFacile ne propose pas de logement.",
-    "congratulations-text-2": "Vos informations sont protégées !",
+    "congratulations-text-1": "Afin de candidater au logement de vos rêves, partagez votre dossier à un propriétaire de votre choix, avec ou sans justificatifs, soit par email en renseignant son adresse mail dans la section \"Partager mon dossier\" ci-dessous, soit par lien en envoyant votre lien DossierFacile par email, SMS, etc. aux propriétaires, bailleurs de votre choix.",
+    "congratulations-text-2": "Pour rappel, DossierFacile ne propose pas de logement.",
     "full-link-copied": "Le lien de mon dossier complet est copié !",
     "public-link-copied": "Le lien de mon dossier de synthèse est copié !"
   },
