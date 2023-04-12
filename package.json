@@ -25,35 +25,8 @@
     "watermark": "yarn workspace watermark",
     "sb": "yarn workspace sb"
   },
-  "dependencies": {
-    "global": "^4.4.0",
-    "highlight.js": "10.4.1",
-    "immer": "9.0.7",
-    "merge": "^2.1.1",
-    "trim": "^1.0.1"
-  },
   "devDependencies": {
-    "@babel/core": "^7.12.3",
-    "@babel/preset-env": "^7.21.4",
-    "@kazupon/vue-i18n-loader": "^0.5.0",
-    "@storybook/addon-actions": "7.0.2",
-    "@storybook/addon-essentials": "7.0.2",
-    "@storybook/addon-interactions": "^7.0.2",
-    "@storybook/addon-links": "7.0.2",
-    "@storybook/addon-mdx-gfm": "7.0.2",
-    "@storybook/blocks": "^7.0.2",
-    "@storybook/testing-library": "^0.0.14-next.2",
-    "@storybook/vue": "7.0.2",
-    "@storybook/vue-webpack5": "7.0.2",
-    "@storybook/vue3": "^7.0.2",
-    "@storybook/vue3-webpack5": "^7.0.2",
-    "@vue/compiler-sfc": "^3.2.47",
-    "add": "^2.0.6",
-    "babel-loader": "^8.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-is": "^17.0.1",
-    "storybook": "^7.0.2"
+    "@storybook/vue-webpack5": "7.0.2"
   },
   "resolutions": {
     "trim": "^1.0.1",
