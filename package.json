@@ -15,33 +15,18 @@
     "watermark",
     "df-shared",
     "df-shared-next",
-    "e2e-tests"
+    "e2e-tests",
+    "sb"
   ],
   "scripts": {
     "main": "yarn workspace main",
     "dfowner": "yarn workspace owner",
     "tenant": "yarn workspace tenant",
     "watermark": "yarn workspace watermark",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
-  },
-  "dependencies": {
-    "global": "^4.4.0",
-    "highlight.js": "10.4.1",
-    "immer": "9.0.7",
-    "merge": "^2.1.1",
-    "trim": "^1.0.1"
+    "sb": "yarn workspace sb"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.3",
-    "@kazupon/vue-i18n-loader": "^0.5.0",
-    "@storybook/addon-actions": "^6.5.16",
-    "@storybook/addon-essentials": "^6.5.16",
-    "@storybook/addon-links": "^6.5.16",
-    "@storybook/addon-postcss": "2.0.0",
-    "@storybook/vue": "^6.5.16",
-    "babel-loader": "^8.1.0",
-    "react-is": "^17.0.1"
+    "@storybook/vue-webpack5": "7.0.2"
   },
   "resolutions": {
     "trim": "^1.0.1",
