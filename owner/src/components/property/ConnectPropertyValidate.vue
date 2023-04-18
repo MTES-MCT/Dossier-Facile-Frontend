@@ -64,7 +64,6 @@ if (route.params.token) {
 const TENANT_URL = `${import.meta.env.VITE_FULL_TENANT_URL}`;
 const OWNER_URL = `${import.meta.env.VITE_OWNER_URL}`;
 const TENANT_API_URL = `${import.meta.env.VITE_API_URL}`;
-const CLIENT_ID_PRIVATE = `${import.meta.env.VITE_TENANT_SSO_CLIENT_ID_PRIVATE}`;
 
 const isCreate = ref(true);
 const mainTenantFirstname = ref('');
@@ -78,19 +77,19 @@ function subscribe() {
       },
     });
     reqInstance
-      .get(`${TENANT_API_URL}/api-partner-linking/${CLIENT_ID_PRIVATE}`)
+      .get(`${TENANT_API_URL}/dfc/tenant/profile`)
       .then((profile) => {
-        PropertyService.subscribe(profile.data.id, token.value)
+        PropertyService.subscribe(kcToken!, token.value)
           .then(() => {
             showSuccess.value = true;
           })
           .catch(() => {
-            if (profile.data.tenantType !== 'CREATE') {
-              isCreate.value = false;
-              mainTenantFirstname.value = profile.data.apartmentSharing.tenants.find(
-                (tenant: any) => tenant.tenantType === 'CREATE',
-              ).firstName;
-            }
+            const createTenant = profile.data.apartmentSharing.tenants.find(
+              (tenant: any) => tenant.tenantType === 'CREATE',
+            );
+            mainTenantFirstname.value = createTenant.firstName;
+
+            isCreate.value = (createTenant.id === profile.data.connectedTenantId);
             showError.value = true;
           });
       })
@@ -129,4 +128,3 @@ onMounted(() => {
   padding: 0;
 }
 </style>
-

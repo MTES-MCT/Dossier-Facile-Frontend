@@ -6,9 +6,9 @@ const PropertyService = {
   loadProperty(token: string) {
     return axios.get(`${API_URL}property/public/${token}`);
   },
-  subscribe(tenantId: number, token: string) {
-    const url = `${API_URL}property/public/subscribe/${token}/${tenantId}`;
-    return axios.post(url, { access: true });
+  subscribe(kcToken: string, token: string) {
+    const url = `${API_URL}property/public/subscribe/${token}`;
+    return axios.post(url, { access: true, kcToken });
   },
 };
 

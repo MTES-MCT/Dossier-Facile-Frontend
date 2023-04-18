@@ -27,6 +27,10 @@
     {
       "name": "📘 df-shared-next",
       "path": "df-shared-next"
+    },
+    {
+      "name": "storybook",
+      "path": "storybook"
     }
   ],
   "settings": {
@@ -44,6 +48,7 @@
     "editor.tabSize": 2,
     "jest.disabledWorkspaceFolders": [
       "📂 DossierFacile",
+      "storybook",
       "🏠 owner"
     ]
   }
