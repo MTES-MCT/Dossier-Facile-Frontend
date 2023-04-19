@@ -14,7 +14,9 @@
           </div>
           <div class="fr-col">
             <div>
-              {{ t(titleKey) }} {{ t('propertycontainer.rent1') }} <span class="blue-text">{{ p.rentCost }}€</span>
+              {{ t(titleKey) }} {{ t('propertycontainer.rentdpe') }}
+              {{ dpe }} {{ t('propertycontainer.rent1') }}
+              <span class="blue-text">{{ p.rentCost }}€</span>
               {{ t('propertycontainer.rent2') }} <span class="blue-text">{{ p.chargesCost }}€</span>
             </div>
           </div>
@@ -31,6 +33,7 @@ import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
 import { useI18n } from 'vue-i18n';
 import PropertyIcon from './PropertyIcon.vue';
 import useOwnerStore from '../../store/owner-store';
+import UtilsService from '../../services/UtilsService';
 
 const { t } = useI18n();
 const store = useOwnerStore();
@@ -56,6 +59,16 @@ const titleKey = computed(() => {
   }
   return 'other-unfurnished';
 });
+const dpe = computed(
+  () => {
+    const property = store.getPropertyToConsult;
+    return UtilsService.getGlobalLetter(
+      UtilsService.getEnergyConsumptionLetter(property.energyConsumption),
+      UtilsService.getCO2EmissionLetter(property.co2Emission),
+    );
+  },
+);
+
 </script>
 
 <style scoped lang="scss">
@@ -88,4 +101,3 @@ const titleKey = computed(() => {
   z-index: 0;
 }
 </style>
-

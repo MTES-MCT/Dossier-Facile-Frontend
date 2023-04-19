@@ -115,6 +115,7 @@
     "rent": "dont le loyer mensuel est de <span class='blue-text'>{rentCost}€</span> et les charges de <span class='blue-text'>{chargesCost}€</span>",
     "download-full-file": "Voir le dossier complet",
     "income": "des revenus",
+    "no-income": "Pas de revenu indiqué",
     "delete-applicants": "Supprimer des candidatures",
     "share-btn": "Partager ma propriété",
     "update-btn": "Modifier ma propriété",
@@ -310,6 +311,7 @@
   "propertycontainer": {
     "apply-to": "Candidater au {0}",
     "rent1": "dont le loyer mensuel est de",
-    "rent2": "et les charges de"
+    "rent2": "et les charges de",
+    "rentdpe": "avec un DPE"
   }
 }
