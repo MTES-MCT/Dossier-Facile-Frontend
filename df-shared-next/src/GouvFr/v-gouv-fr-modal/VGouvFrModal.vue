@@ -26,7 +26,7 @@
               </div>
               <div class="fr-modal__content">
                 <h1 id="fr-modal-title-modal-1" class="fr-modal__title">
-                  <span class="fr-fi-arrow-right-line fr-fi--lg"></span>
+                  <span class="ri-arrow-right-line"></span>
                   <slot name="title"> </slot>
                 </h1>
                 <slot name="content"> </slot>

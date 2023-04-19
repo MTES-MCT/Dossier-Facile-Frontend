@@ -115,6 +115,7 @@
     "rent": "with a rent of <span class='blue-text'>{rentCost}€</span> and charges of <span class='blue-text'>{chargesCost}€</span>",
     "download-full-file": "Download the full file",
     "income": "of income",
+    "no-income": "Income not filled",
     "delete-applicants": "Delete applicants",
     "share-btn": "Share my property",
     "update-btn": "Update my property",
@@ -305,5 +306,11 @@
     "property-address": "Property address",
     "property-rent": "Property rent",
     "try-again": "Please fix errors to submit the property"
+  },
+  "propertycontainer": {
+    "apply-to": "Apply for {0}",
+    "rent1": "with a monthly rent of",
+    "rent2": "and charges of",
+    "rentdpe": "with a DPE"
   }
 }
