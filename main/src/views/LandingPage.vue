@@ -402,6 +402,13 @@
             height="58px"
             width="243px"
           />
+          <LogoPartnerComponent
+            :image="require('../assets/logos/pap.png')"
+            height="60px"
+            href="https://www.pap.fr"
+            name="PAP - Particulier à Particulier"
+            width="167px"
+          />
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
