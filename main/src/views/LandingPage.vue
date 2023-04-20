@@ -197,13 +197,12 @@
         </h2>
         <div class="fr-grid-row">
           <LogoPartnerComponent
-            :image="require('../assets/logos/monsieur_hugo.webp')"
-            height="39px"
-            href="https://www.monsieurhugo.com/"
-            name="monsieur Hugo"
-            width="210px"
+            :image="require('../assets/logos/pap.png')"
+            height="60px"
+            href="https://www.pap.fr"
+            name="PAP - Particulier à Particulier"
+            width="167px"
           />
-
           <LogoPartnerComponent
             :image="require('../assets/logos/visale.webp')"
             height="60px"
@@ -211,13 +210,39 @@
             name="visale.fr - connecte emploi et logement"
             width="187px"
           />
-
           <LogoPartnerComponent
             :image="require('../assets/logos/loc_service.webp')"
             height="60px"
             href="https://www.locservice.fr/"
             name="locservice.fr - location et colocation entre particuliers"
             width="144px"
+          />
+          <LogoPartnerComponent
+            :image="require('../assets/logos/izzyhom.png')"
+            href="https://www.izzyhom.io/locataire"
+            name="IzzyHom"
+            height="60px"
+            width="60px"
+          />
+          <LogoPartnerComponent
+            height="60px"
+            href="https://www.fastt.org/"
+            name="fastt"
+            width="95px"
+          />
+          <LogoPartnerComponent
+            :image="require('../assets/logos/flatsy.webp')"
+            height="60px"
+            href="https://www.flatsy.fr/"
+            name="flatsy"
+            width="174px"
+          />
+          <LogoPartnerComponent
+            :image="require('../assets/logos/monsieur_hugo.webp')"
+            height="39px"
+            href="https://www.monsieurhugo.com/"
+            name="monsieur Hugo"
+            width="210px"
           />
 
           <LogoPartnerComponent
@@ -239,7 +264,6 @@
             name="click and rent"
             width="209px"
           />
-
           <LogoPartnerComponent
             :image="require('../assets/logos/qlower.webp')"
             height="30px"
@@ -247,7 +271,6 @@
             name="qlower"
             width="148px"
           />
-
           <LogoPartnerComponent
             :image="require('../assets/logos/jelouebien.webp')"
             height="30px"
@@ -255,7 +278,6 @@
             name="jelouebien.com"
             width="227px"
           />
-
           <LogoPartnerComponent
             :image="require('../assets/logos/gererseul.webp')"
             height="44px"
@@ -263,7 +285,6 @@
             name="gererseul – ma gestion locative"
             width="200px"
           />
-
           <LogoPartnerComponent
             :image="require('../assets/logos/pandaloc.webp')"
             height="60px"
@@ -271,7 +292,6 @@
             name="pandaloc"
             width="197px"
           />
-
           <LogoPartnerComponent
             :image="require('../assets/logos/superimmo.webp')"
             height="60px"
@@ -279,7 +299,6 @@
             name="superimmo"
             width="222px"
           />
-
           <LogoPartnerComponent
             :image="require('../assets/logos/wizi.webp')"
             height="60px"
@@ -295,24 +314,11 @@
             width="102px"
           />
           <LogoPartnerComponent
-            :image="require('../assets/logos/flatsy.webp')"
-            height="60px"
-            href="https://www.flatsy.fr/"
-            name="flatsy"
-            width="174px"
-          />
-          <LogoPartnerComponent
             :image="require('../assets/logos/platoimmo.webp')"
             height="60px"
             href="https://www.plato.immo/"
             name="plato.immo"
             width="133px"
-          />
-          <LogoPartnerComponent
-            height="60px"
-            href="https://www.fastt.org/"
-            name="fastt"
-            width="95px"
           />
           <LogoPartnerComponent
             :image="require('../assets/logos/immoloyer.webp')"
@@ -375,13 +381,6 @@
             width="194px"
           />
           <LogoPartnerComponent
-            :image="require('../assets/logos/izzyhom.png')"
-            href="https://www.izzyhom.io/locataire"
-            name="IzzyHom"
-            height="60px"
-            width="60px"
-          />
-          <LogoPartnerComponent
             :image="require('../assets/logos/partir_de_paris.png')"
             href="https://www.partirdeparis.fr/"
             name="Partir de Paris"
@@ -401,13 +400,6 @@
             name="Pautions"
             height="58px"
             width="243px"
-          />
-          <LogoPartnerComponent
-            :image="require('../assets/logos/pap.png')"
-            height="60px"
-            href="https://www.pap.fr"
-            name="PAP - Particulier à Particulier"
-            width="167px"
           />
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
