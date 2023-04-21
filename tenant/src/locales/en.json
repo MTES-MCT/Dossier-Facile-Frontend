@@ -863,7 +863,8 @@
     "by-mail": "By mail",
     "by-link": "By link",
     "email-label": "Owner email :",
-    "email-placeholder": "owner@example.com"
+    "email-placeholder": "owner@example.com",
+    "sent-success": "Your file has been successfully sent"
   },
   "showdoc": {
     "preview": "Document preview",

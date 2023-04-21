@@ -1040,7 +1040,8 @@
     "by-mail": "Par mail",
     "by-link": "Par lien",
     "email-label": "Email du bailleur :",
-    "email-placeholder": "bailleur@exemple.com"
+    "email-placeholder": "bailleur@exemple.com",
+    "sent-success": "Votre dossier a bien été partagé"
   },
   "showdoc": {
     "preview": "Prévisualisation du document",

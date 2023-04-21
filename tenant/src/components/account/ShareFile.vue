@@ -118,11 +118,15 @@ export default class FileErrors extends Vue {
     AnalyticsService.shareByMail(this.shareType === "full" ? "full" : "resume");
     OwnerService.sendFileByMail(this.email, this.shareType)
       .then(() => {
-        // TODO add toast
+        Vue.toasted.global.success_toast({
+          message: "sharefile.sent-success",
+        });
         this.email = "";
       })
       .catch((res) => {
-        // TODO check res if already sent or other
+        Vue.toasted.global.error_toast({
+          message: "error",
+        });
         console.dir(res);
       });
   }
