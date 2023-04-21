@@ -8,7 +8,7 @@
               {{
                 $t(`account.title.${getApplicationType()}`, [
                   getFirstName(),
-                  $t(`account.${getGlobalStatus()}`)
+                  $t(`account.${getGlobalStatus()}`),
                 ])
               }}
             </h1>
@@ -34,6 +34,14 @@
               ></p>
               <p v-html="$t('account.congratulations-text-2')"></p>
             </div>
+
+            <div
+              class="fr-mt-5w fr-mb-5w fr-p-4w bg-white"
+              v-if="canCopyLink()"
+            >
+              <ShareFile></ShareFile>
+            </div>
+
             <FakeAnnouncement v-if="isAnnouncementVisible"></FakeAnnouncement>
             <div class="main fr-mt-5w fr-p-4w bg-white">
               <div class="main-bar fr-grid-row">
@@ -43,67 +51,6 @@
                   >
                     {{ $t("account.my-file") }}
                   </h2>
-                </div>
-                <span class="spacer"></span>
-                <div class="fr-grid-row btn-container">
-                  <DfButton
-                    class="main-copy-btn"
-                    @on-click="copyFullLink()"
-                    primary="true"
-                    size="small"
-                    :disabled="!canCopyLink()"
-                    >{{ $t("account.copy-link") }}</DfButton
-                  >
-                  <div class="grp">
-                    <button
-                      class="fr-btn grp-btn"
-                      title="Copy"
-                      @click="radioVisible = !radioVisible"
-                      :disabled="!canCopyLink()"
-                    >
-                      <span
-                        v-if="radioVisible"
-                        class="material-icons"
-                        aria-hidden="true"
-                        >expand_more</span
-                      >
-                      <span v-else class="material-icons" aria-hidden="true"
-                        >expand_less</span
-                      >
-                    </button>
-                    <div class="grp-modal bg-white" v-show="radioVisible">
-                      <h3 class="fr-h4">{{ $t("account.share-file") }}</h3>
-                      <p class="share-file-description">
-                        {{ $t("account.share-file-description") }}
-                      </p>
-                      <div>
-                        <div class="flex copy-btn">
-                          <button
-                            primary="true"
-                            @click="copyPublicLink"
-                            :class="{ copied: publicLinkCopied }"
-                            v-html="
-                              publicLinkCopied
-                                ? $t('account.public-link-copied')
-                                : $t('account.file-resume')
-                            "
-                          ></button>
-                        </div>
-                        <div class="flex copy-btn fr-mt-3w">
-                          <button
-                            primary="true"
-                            @click="copyFullLink"
-                            :class="{ copied: fullLinkCopied }"
-                            v-html="
-                              fullLinkCopied
-                                ? $t('account.full-link-copied')
-                                : $t('account.file-full')
-                            "
-                          ></button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
               <div class="fr-mt-1v alert-container">
@@ -121,7 +68,7 @@
                       getFirstName(),
                       getPersonnalStatus(),
                       getProfession(),
-                      getIncome()
+                      getIncome(),
                     ])
                   "
                 ></p>
@@ -145,7 +92,7 @@
                 v-if="user.applicationType === 'COUPLE'"
                 class="fr-m-0 fr-p-0 bg-white"
               >
-                <div class="fr-tabs account-tabs ">
+                <div class="fr-tabs account-tabs">
                   <ul
                     class="fr-tabs__list fr-p-0"
                     role="tablist"
@@ -170,7 +117,7 @@
                             {{ tenant | fullName }}
                             <span
                               :class="{
-                                'fr-fi-icon-fc': tenant.franceConnect
+                                'fr-fi-icon-fc': tenant.franceConnect,
                               }"
                             ></span>
                           </div>
@@ -273,6 +220,7 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 import { AnalyticsService } from "../services/AnalyticsService";
 import DeleteAccount from "../components/DeleteAccount.vue";
 import FakeAnnouncement from "../components/FakeAnnouncement.vue";
+import ShareFile from "../components/account/ShareFile.vue";
 import PartnersSection from "@/components/account/PartnersSection.vue";
 import { UtilsService } from "@/services/UtilsService";
 import InfoCard from "@/components/account/InfoCard.vue";
@@ -288,13 +236,14 @@ import TenantPanel from "@/components/account/TenantPanel.vue";
     DfButton,
     ColoredTag,
     DeleteAccount,
-    TenantPanel
+    ShareFile,
+    TenantPanel,
   },
   computed: {
     ...mapState({
-      user: "user"
-    })
-  }
+      user: "user",
+    }),
+  },
 })
 export default class Account extends Vue {
   TENANT_URL = `https://${process.env.VUE_APP_TENANT_URL}`;
@@ -305,11 +254,7 @@ export default class Account extends Vue {
   isAnnouncementVisible = false;
 
   user!: User;
-  radioVisible = false;
-  pub = "false";
   isDeleteModalVisible = false;
-  publicLinkCopied = false;
-  fullLinkCopied = false;
 
   tabIndex = 0;
 
@@ -332,7 +277,7 @@ export default class Account extends Vue {
     const tenants: User[] = [];
     tenants.push(this.user);
 
-    this.user?.apartmentSharing?.tenants?.forEach(t => {
+    this.user?.apartmentSharing?.tenants?.forEach((t) => {
       if (t.id != this.user.id) {
         tenants.push(t);
       }
@@ -341,16 +286,9 @@ export default class Account extends Vue {
     return tenants;
   }
 
-  getToken() {
-    if (this.pub === "true") {
-      return `${this.TENANT_URL}/public-file/${this.user.apartmentSharing?.tokenPublic}`;
-    }
-    return `${this.TENANT_URL}/file/${this.user.apartmentSharing?.token}`;
-  }
-
   getStatus(docType: string) {
     if (docType === "FINANCIAL") {
-      const docs = this.user.documents?.filter(d => {
+      const docs = this.user.documents?.filter((d) => {
         return d.documentCategory === "FINANCIAL";
       });
       return this.isFinancialValid(docs || []);
@@ -391,45 +329,6 @@ export default class Account extends Vue {
     this.$router.push("/messaging");
   }
 
-  removeAnimation() {
-    this.publicLinkCopied = false;
-    this.fullLinkCopied = false;
-  }
-
-  copyPublicLink() {
-    this.copyLink(
-      `${this.TENANT_URL}/public-file/${this.user.apartmentSharing?.tokenPublic}`
-    ).then(() => {
-      this.fullLinkCopied = false;
-      this.publicLinkCopied = true;
-      setTimeout(this.removeAnimation, 4000);
-    });
-  }
-
-  copyFullLink() {
-    this.copyLink(
-      `${this.TENANT_URL}/file/${this.user.apartmentSharing?.token}`
-    ).then(() => {
-      this.publicLinkCopied = false;
-      this.fullLinkCopied = true;
-      setTimeout(this.removeAnimation, 4000);
-    });
-  }
-
-  copyLink(url: string) {
-    try {
-      navigator.clipboard.writeText(url);
-      Vue.toasted.global.success_toast({
-        message: "account.copied",
-      });
-      AnalyticsService.copyLink(this.pub ? "resume" : "full");
-    } catch (err) {
-      alert("Oops, unable to copy");
-      return Promise.reject("error");
-    }
-    return Promise.resolve(true);
-  }
-
   openDeleteModal() {
     this.isDeleteModalVisible = true;
   }
@@ -453,7 +352,7 @@ export default class Account extends Vue {
       if (spouse?.lastName !== undefined && spouse?.lastName !== "") {
         return this.$i18n
           .t("account.couple-with", [
-            `${spouse?.firstName} ${spouse?.lastName}`
+            `${spouse?.firstName} ${spouse?.lastName}`,
           ])
           .toString();
       }
@@ -514,7 +413,7 @@ export default class Account extends Vue {
   notVisibleCotenantNotValidated() {
     return (
       this.user.applicationType === "GROUP" &&
-      this.user.apartmentSharing?.tenants.find(t => {
+      this.user.apartmentSharing?.tenants.find((t) => {
         return t.status !== "VALIDATED";
       }) !== undefined
     );
@@ -522,12 +421,12 @@ export default class Account extends Vue {
 
   isDenied() {
     return (
-      this.user.documents?.find(d => {
+      this.user.documents?.find((d) => {
         return d.documentStatus === "DECLINED";
       }) !== undefined ||
       this.user.guarantors?.find((g: Guarantor) => {
         return (
-          g.documents?.find(d => {
+          g.documents?.find((d) => {
             return d.documentStatus === "DECLINED";
           }) !== undefined
         );
@@ -543,7 +442,7 @@ export default class Account extends Vue {
     AnalyticsService.editFromAccount(n);
     this.$router.push({
       name: "TenantDocuments",
-      params: { substep: n.toString() }
+      params: { substep: n.toString() },
     });
   }
 
@@ -585,11 +484,6 @@ export default class Account extends Vue {
 }
 
 h1 {
-  color: var(--bf500);
-  font-size: 2rem;
-}
-
-h2 {
   color: var(--bf500);
   font-size: 2rem;
 }

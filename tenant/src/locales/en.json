@@ -854,6 +854,18 @@
     "more-information": "En quoi cette information nous est utile ?",
     "require-accept": "You must accept the statement"
   },
+  "sharefile": {
+    "title": "Share my file",
+    "share-btn-email": "Share",
+    "share-btn-copy": "Copy",
+    "full": "With documents",
+    "resume": "Without documents",
+    "by-mail": "By mail",
+    "by-link": "By link",
+    "email-label": "Owner email :",
+    "email-placeholder": "owner@example.com",
+    "sent-success": "Your file has been successfully sent"
+  },
   "showdoc": {
     "preview": "Document preview",
     "number-of-pages": "Preview page 1 / {0}"
