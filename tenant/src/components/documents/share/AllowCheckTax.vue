@@ -5,9 +5,7 @@
         {{ $t("allowchecktax.automatic-tax-title") }}
       </h6>
       <div class="auth-tax-container">
-        <div>
-          {{ $t("allowchecktax.automatic-tax-p1") }}
-        </div>
+        <div>{{ $t("allowchecktax.automatic-tax-p1") }}</div>
         <ul>
           <li>{{ $t("allowchecktax.automatic-tax-l1") }}</li>
           <li>{{ $t("allowchecktax.automatic-tax-l2") }}</li>
@@ -16,7 +14,9 @@
         </ul>
         <i18n path="allowchecktax.automatic-tax-p2" tag="div">
           <template v-slot:label>
-            <span class="bold-italic">{{ $t("allowchecktax.dgfip-approved-label") }}</span>
+            <span class="bold-italic">{{
+              $t("allowchecktax.dgfip-approved-label")
+            }}</span>
           </template>
         </i18n>
         <div class="tax-btn-container">
@@ -49,10 +49,14 @@
     >
       <i18n path="allowchecktax.modal.warning-text" tag="p">
         <template v-slot:check>
-          <span class="fr-text--bold">{{ $t("allowchecktax.modal.automatic-check") }}</span>
+          <span class="fr-text--bold">{{
+            $t("allowchecktax.modal.automatic-check")
+          }}</span>
         </template>
         <template v-slot:label>
-          <span class="bold-italic">{{ $t("allowchecktax.dgfip-approved-label") }}</span>
+          <span class="bold-italic">{{
+            $t("allowchecktax.dgfip-approved-label")
+          }}</span>
         </template>
       </i18n>
     </ConfirmModal>
@@ -72,13 +76,13 @@ import { User } from "df-shared/src/models/User";
   components: {
     BigRadio,
     NakedCard,
-    ConfirmModal
+    ConfirmModal,
   },
   computed: {
     ...mapState({
-      user: "user"
-    })
-  }
+      user: "user",
+    }),
+  },
 })
 export default class AllowCheckTax extends Vue {
   user!: User;
@@ -188,4 +192,3 @@ export default class AllowCheckTax extends Vue {
   font-style: italic;
 }
 </style>
-
