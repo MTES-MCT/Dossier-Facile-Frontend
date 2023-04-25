@@ -77,27 +77,22 @@
       >
         <div class="fr-mb-3w fr-mt-3w" v-if="taxDocument.key === 'my-name'">
           <div class="fr-mb-3w">
-            <p v-html="$t(`explanation-text.tenant.${taxDocument.key}`)"></p>
-          </div>
-          <div
-            class="fr-background-contrast--info fr-p-2w fr-mt-2w warning-box"
-          >
-            <div class="fr-text-default--info fr-h6 title">
-              <span class="material-icons-outlined"> warning_amber </span>
-              <span class="fr-ml-1w">
-                {{ $t("tax-page.warning-no-accepted-doc") }}
-              </span>
-            </div>
-            <div class="link">
-              <a
-                class="fr-link"
-                href="https://docs.dossierfacile.fr/guide-dutilisation-de-dossierfacile/avis-dimposition"
-                :title="$t('tax-page.goto-documentation')"
-                target="_blank"
-                rel="noreferrer"
-                >{{ $t("tax-page.goto-documentation") }}</a
-              >
-            </div>
+            <div
+              v-html="$t(`explanation-text.tenant.${taxDocument.key}`)"
+            ></div>
+            <div
+              style="font-weight: bold"
+              v-html="$t('tax-page.warning-no-accepted-doc')"
+            ></div>
+            <a
+              class="fr-link"
+              href="https://docs.dossierfacile.fr/guide-dutilisation-de-dossierfacile/avis-dimposition"
+              :title="$t('tax-page.goto-documentation')"
+              target="_blank"
+              rel="noreferrer"
+            >
+              {{ $t("tax-page.goto-documentation") }}</a
+            >
           </div>
           <MonFranceConnect
             class="fr-mt-2w"
