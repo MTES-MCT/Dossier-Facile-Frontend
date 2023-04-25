@@ -91,8 +91,8 @@
                   :document="document(tenant, 'TAX')"
                   :tagLabel="
                     isTenantTaxChecked(tenant)
-                      ? $t('publicfile.tax-verified')
-                      : $t('tax')
+                      ? $t('publicfile.tax-verified').toString()
+                      : undefined
                   "
                   :enableDownload="false"
                 >
