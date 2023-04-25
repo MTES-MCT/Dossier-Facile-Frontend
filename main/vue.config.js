@@ -23,6 +23,7 @@ const routes = [
   "/blog/usurpation-d-identite-en-france-comment-prevenir-agir",
   "/blog/passoires-thermiques-top-depart-du-gel-des-loyers",
   "/blog/dossierfacile-un-service-numerique-de-letat-sans-gouv-fr",
+  "/blog/que-verifier-lors-de-la-visite-d-un-logement",
   "/information",
   "/accessibilite",
   "/mentions-legales",
