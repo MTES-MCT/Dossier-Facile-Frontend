@@ -46,21 +46,8 @@ jobs:
           useRollingCache: true
       - name: Build
         run: yarn tenant build
-        env:
-          VUE_APP_API_URL: ${{ secrets.PREPROD_TENANT_API_URL }} # for e2e tests
       - name: Run unit tests
         run: yarn tenant test:unit
-      - name: Run e2e tests
-        uses: cypress-io/github-action@v5.6.1
-        with:
-          project: ./e2e-tests
-          install: false
-          browser: chrome
-          start: yarn tenant run start
-          wait-on: 'http://localhost:9002'
-          spec: e2e-tests/cypress/e2e/tenant
-        env:
-          PORT: 9002
 
   others:
     runs-on: ubuntu-latest

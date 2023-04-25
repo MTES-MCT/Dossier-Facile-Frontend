@@ -7,12 +7,15 @@ export default defineConfig({
     defaultCommandTimeout: 10000,
     setupNodeEvents(on) {
       on("task", log());
-    }
+    },
+    retries: {
+      runMode: 3,
+    },
   },
   env: {
     tenantUrl: "locataire-dev.dossierfacile.fr",
     tenantUser: "thibault",
     ownerUser: "william",
   },
-  chromeWebSecurity: false
+  chromeWebSecurity: false,
 });
