@@ -240,6 +240,18 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Article16.vue")
   },
   {
+    path: "/blog/que-verifier-lors-de-la-visite-d-un-logement",
+    name: "Article17",
+    meta: {
+      title: "Que vérifier lors de la visite d'un logement ?",
+      description:
+        "Lorsque vous voulez emménager dans un nouveau logement, il y a de nombreuses choses à vérifier lors de la visite d’un bien.",
+      image: require("../assets/images/blog-article17.jpg"),
+    },
+    component: () =>
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article17.vue"),
+  },
+  {
     path: "/information",
     name: "Information",
     meta: {

@@ -6,6 +6,22 @@
           <h1>{{ $t("blog-title") }}</h1>
           <hr />
           <BlogExtractTile
+            title="Que vérifier lors de la visite d'un logement ?"
+            :image="require('../../assets/images/blog-article17.webp')"
+            publicationDate="25 Avril 2023"
+            path="/blog/que-verifier-lors-de-la-visite-d-un-logement"
+          >
+            <template v-slot:extract>
+              <p>
+                Lorsque vous voulez emménager dans un nouveau logement, il y a
+                de nombreuses choses à vérifier lors de la visite d’un bien. Au
+                premier coup d'œil, le bien à louer peut sembler parfait,
+                cependant il est important de prêter attention aux points
+                suivants...
+              </p>
+            </template>
+          </BlogExtractTile>
+          <BlogExtractTile
             title="DossierFacile : un service numérique de l’État sans .gouv.fr ?"
             :image="require('../../assets/images/blog-article16.webp')"
             publicationDate="14 Mars 2023"
