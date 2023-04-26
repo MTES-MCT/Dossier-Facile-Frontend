@@ -147,6 +147,18 @@ export const AnalyticsService = {
     });
   },
 
+  avisDetected() {
+    this.sendEvent("avis-detected", {
+      event_category: "funnel",
+    });
+  },
+
+  avisForceUpload() {
+    this.sendEvent("avis-upload-forced", {
+      event_category: "funnel",
+    });
+  },
+
   registerFile(docType: string) {
     this.sendEvent("register-file_" + docType, {
       event_category: "funnel",

@@ -87,7 +87,7 @@
             <a
               class="fr-link"
               href="https://docs.dossierfacile.fr/guide-dutilisation-de-dossierfacile/avis-dimposition"
-              :title="$t('tax-page.goto-documentation')"
+              :title="$t('tax-page.goto-documentation').toString"
               target="_blank"
               rel="noreferrer"
             >
@@ -134,6 +134,34 @@
     >
       <span>{{ $t("tax-page.will-delete-files") }}</span>
     </ConfirmModal>
+    <Modal
+      v-if="isWarningTaxSituationModalVisible"
+      @close="isWarningTaxSituationModalVisible = false"
+    >
+      <template v-slot:body>
+        <div class="warning-tax-modal">
+          <h1 class="avis-title fr-h4">
+            {{ $t("tax-page.avis-detected") }}
+          </h1>
+          <p>
+            {{ $t("tax-page.avis-text1") }}
+          </p>
+          <p>
+            {{ $t("tax-page.avis-text2") }}
+          </p>
+          <div style="align-self: end">
+            <DfButton
+              @on-click="isWarningTaxSituationModalVisible = false"
+              :primary="true"
+              >{{ $t("tax-page.avis-btn") }}</DfButton
+            >
+          </div>
+          <div style="align-self: end" class="fr-mt-2w">
+            <a @click="forceSave" href="#">{{ $t("tax-page.avis-force") }}</a>
+          </div>
+        </div>
+      </template>
+    </Modal>
   </div>
 </template>
 
@@ -156,6 +184,7 @@ import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import BigRadio from "df-shared/src/Button/BigRadio.vue";
+import DfButton from "df-shared/src/Button/Button.vue";
 import TaxHelp from "../../helps/TaxHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import { AnalyticsService } from "../../../services/AnalyticsService";
@@ -168,6 +197,7 @@ import { cloneDeep } from "lodash";
 import AllowCheckTax from "../share/AllowCheckTax.vue";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 import { PdfAnalysisService } from "../../../services/PdfAnalysisService";
+import Modal from "df-shared/src/components/Modal.vue";
 
 extend("is", {
   ...is,
@@ -193,6 +223,8 @@ extend("is", {
     NakedCard,
     AllowCheckTax,
     TroubleshootingModal,
+    Modal,
+    DfButton,
   },
   computed: {
     ...mapGetters({
@@ -219,6 +251,8 @@ export default class Tax extends Vue {
   customText = "";
 
   isDocDeleteVisible = false;
+  isWarningTaxSituationModalVisible = false;
+  newFiles: File[] = [];
 
   getTaxLocalStorageKey() {
     return "tax_" + this.user.email;
@@ -328,22 +362,31 @@ export default class Tax extends Vue {
   }
 
   addFiles(fileList: File[]) {
+    this.newFiles = fileList;
     PdfAnalysisService.findRejectedTaxDocuments(fileList).then(
       (rejectedFiles) => {
         if (rejectedFiles.length > 0) {
-          console.log(
-            "Avis de situation déclarative détecté : " +
-              rejectedFiles.map((f) => f.name).join(", ")
-          );
+          AnalyticsService.avisDetected();
+          this.isWarningTaxSituationModalVisible = true;
+        } else {
+          AnalyticsService.uploadFile("tax");
+          this.saveNewFiles();
         }
       }
     );
-    AnalyticsService.uploadFile("tax");
-    const nf = Array.from(fileList).map((f) => {
+  }
+
+  saveNewFiles() {
+    const nf = Array.from(this.newFiles).map((f) => {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
     this.save();
+  }
+
+  forceSave() {
+    this.isWarningTaxSituationModalVisible = false;
+    this.saveNewFiles();
   }
 
   resetFiles() {
@@ -488,5 +531,15 @@ export default class Tax extends Vue {
   .link {
     text-align: right;
   }
+}
+
+.avis-title {
+  color: #b34000;
+}
+
+.warning-tax-modal {
+  display: flex;
+  flex-direction: column;
+  max-width: 640px;
 }
 </style>
