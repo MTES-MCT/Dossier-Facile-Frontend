@@ -1,9 +1,17 @@
 {
+  "identity-card": "French identity card",
+  "passport": "French passport",
+  "permit": "French residence permit",
+  "other": "Other",
+  "my-name": "I have a tax assessment",
+  "my-parents": "I'm attached to my parents' tax household",
+  "less-than-year": "I've been living in France for less than a year",
+  "other-tax": "Other",
   "save-success": "Saved",
   "save-failed": "Failed",
   "save-failed-num-pages": "Failed due to page number",
-  "delete-success": "Delete ok",
-  "delete-failed": "Delete failed",
+  "delete-success": "Deletion has been successful",
+  "delete-failed": "Deletion has failed",
   "max-file-default": "Too much files uploaded",
   "max-file": "Too much files uploaded (currently : {0} / maximum : {1} )",
   "error": "An error occured",
@@ -12,11 +20,20 @@
   "identification-legal-person": "Legal person identity",
   "identity-represent": "Identity",
   "identification-organism": "Warranty certificate",
-  "identification": "Identification",
-  "professional": "Professional",
-  "residency": "Residency",
-  "financial": "Financial",
-  "tax": "Tax",
+  "identification": "Proof of identity",
+  "residency": "Proof of address",
+  "professional": "Professional status",
+  "financial": "Financial resources",
+  "tax": "Tax assessment",
+  "personal-information": "My personal information",
+  "my-document": "My documents",
+  "my-guarantor": "My guarantor",
+  "my-cotenant": "My partner's documents",
+  "my-cotenant-guarantor": "My partner's guarantor",
+  "validate-file": "Finalize my application",
+  "ALONE": "Alone",
+  "COUPLE": "Couple",
+  "GROUP": "Flatsharing",
   "documents": {
     "salary": "Professional incomes",
     "guarantor_salary": "Professional incomes",
@@ -41,10 +58,13 @@
       "NO_INCOME": "No income"
     }
   },
-  "my-cotenant": "Roommate's documents",
-  "my-cotenant-guarantor": "CoTenant's guarantor",
   "explanation-text": {
-    "tenant": {},
+    "tenant": {
+      "identity-card": "Please be sure to add your <b>double-sided</b> document.",
+      "passport": "Please add the <b>second and third page</b> of your passport.",
+      "permit": "Please be sure to add your <b>double-sided</b> document.",
+      "other": ""
+    },
     "cotenant": {},
     "guarantor": {
       "noDocument-social": "I cannot provide proof of payment of social benefits",
@@ -163,7 +183,7 @@
   },
   "backnext": {
     "back": "Back",
-    "continue": "Continue"
+    "continue": "Next"
   },
   "changepasswordpage": {
     "error": "Error",
@@ -233,7 +253,7 @@
     "subtitle": "Here is the list of income you declared. You can add new income at any time, if necessary.",
     "monthly": " € net monthly ",
     "net-monthly": "Net salary monthly",
-    "add-income": "Add a new income ?"
+    "add-income": "Add a new income?"
   },
   "cotenantidentification": {
     "title": "My spouse's identity",
@@ -289,7 +309,7 @@
     "other-tax": "Other tax's document",
     "accept-verification": "J'accepte que DossierFacile procède à une vérification automatisée de la fiche d'imposition de mon garant auprès des services des impôts",
     "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'imposition. Votre explication sera ajoutée à votre dossier :",
-    "situation": "What is her/his tax situation?",
+    "situation": "What is their tax situation?",
     "warning-no-accepted-doc": "Warning, the declarative situation document is not accepted.",
     "goto-documentation": "Go to documentation",
     "custom-text-required": "Please, fullfil the explanation field"
@@ -416,12 +436,18 @@
     "see": "See"
   },
   "fileupload": {
+    "drag-and-drop-files": "Drag and drop your files",
+    "files-format": "as JPG, PNG or PDF",
+    "or": "or",
+    "browse-files": "Browse your files",
+    "uploading-files": "Uploading files...",
     "send-problem": "Send error.",
     "file-too-big": "The file is limited to {0}MB",
     "pages": "{0} pages maximum",
     "size": " {0}MB maximum per file"
   },
   "financialdocumentform": {
+    "financial": "Financial resources",
     "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
     "monthlySum-label": "Salary (after tax)",
     "monthlySum": "Value in euros",
@@ -444,7 +470,7 @@
     "has-no-income": "You have no income",
     "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule"
   },
-  "financial": {
+  "financial-page": {
     "delete-financial": "Delete this salary",
     "register": "Register",
     "i-have-no-income": "I have no income",
@@ -452,7 +478,7 @@
     "subtitle": "Here is the list of income you declared. You can add new income at any time, if necessary.",
     "monthly": " € net monthly ",
     "net-monthly": "Net salary monthly",
-    "add-income": "Add a new income ?"
+    "add-income": "Add a new income?"
   },
   "forgottenpasswordpage": {
     "email-not-found": "Email not found",
@@ -485,7 +511,7 @@
     "remark-title": "Remark",
     "remark-text": "Adding a guarantor is by no means mandatory. If you do not wish to add a surety, you can select “I don't have a guarantor”.<br> Your file will then be registered for investigation.",
     "type-required": "Please select a choice",
-    "visale-title": "Do you know Visale ?",
+    "visale-title": "Do you know Visale?",
     "visale-text": "Visale is the guarantor of your future accommodation if you are between 18 and 30 years old OR if you are employees over 30 years old (subject to conditions).",
     "visale-btn": "Discover Visale"
   },
@@ -512,6 +538,7 @@
   },
   "guarantordocumentspage": {},
   "guarantorfinancialdocumentform": {
+    "financial": "Financial resources",
     "monthlySum": "Value in euros",
     "monthlySum-label": "Monthly salary (after tax)",
     "high-salary": "You have entered a salary greater than € 10,000 are you sure you have entered your guarantor monthly salary?",
@@ -534,7 +561,7 @@
     "subtitle": "Here is the list of income you declared. You can add new income at any time, if necessary.",
     "monthly": " € net monthly ",
     "net-monthly": "Net salary monthly",
-    "add-income": "Add a new income ?"
+    "add-income": "Add a new income?"
   },
   "guarantorfooter": {},
   "guarantoridentification": {
@@ -554,7 +581,7 @@
   },
   "guarantorlistpage": {
     "my-guarantor": "My guarantor",
-    "add-new-guarantor": "Add a new guarantor ?",
+    "add-new-guarantor": "Add a new guarantor?",
     "guarantor": "My guarantor",
     "guarantor.NATURAL_PERSON": "My guarantor",
     "guarantor.LEGAL_PERSON": "My guarantor company",
@@ -611,9 +638,9 @@
     "identification-legal-person": "Legal person identification",
     "organism-identification": "Organism",
     "delete-guarantor": "Delete guarantor",
-    "confirm-delete-guarantor": "Are you sure to delete this guarantor ?",
-    "add-guarantor": "Add a guarantor ?",
-    "visale-title": "Do you know Visale ?",
+    "confirm-delete-guarantor": "Are you sure to delete this guarantor?",
+    "add-guarantor": "Add a guarantor?",
+    "visale-title": "Do you know Visale?",
     "visale-text": "Visale is the guarantor of your future accommodation if you are between 18 and 30 years old OR if you are employees over 30 years old (subject to conditions).",
     "go-to-visale": "Go to « visale »'s website (new window)",
     "identification": "Identification",
@@ -627,12 +654,6 @@
     "INCOMPLETE": "is incomplete"
   },
   "guarantortax": {
-    "my-name": "I have a Tax notice from my guarantor",
-    "my-name-cotenant": "I have a Tax notice from the guarantor",
-    "less-than-year": "You are in France for less than a year",
-    "less-than-year-cotenant": "The guarantor is in France for less than a year",
-    "other-tax": "Other",
-    "other-tax-cotenant": "Other",
     "custom-text": "To improve your file, please explain your situation:",
     "files": "Documents",
     "register": "Register",
@@ -640,20 +661,16 @@
     "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
     "title": "My guarantor tax file",
     "title-cotenant": "His/her guarantor tax file",
-    "situation": "What is her/his tax situation?",
+    "situation": "What is their tax situation?",
     "warning-no-accepted-doc": "Warning, the declarative situation document is not accepted.",
     "goto-documentation": "Go to documentation"
   },
-  "identification": {
-    "identity-card": "French identity card",
-    "passport": "French passeport",
-    "permit": "French residence permit",
-    "other": "Autre",
+  "identification-page": {
     "files": "Documents",
     "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-    "select-label": "I add a valid identity document.",
-    "validate": "Validate",
-    "cancel": "Cancel"
+    "select-label": "Submit a valid proof of identity",
+    "validate": "Valider",
+    "cancel": "Annuler"
   },
   "infocard": {
     "edit": "Edit",
@@ -663,14 +680,14 @@
     "error": "Error",
     "password-update": "The password has been updated",
     "title": "Create password",
-    "already-logged": "You are already logged-in, do you want to logout to create this account ?",
+    "already-logged": "You are already logged-in, do you want to logout to create this account?",
     "token-expired": "The token has expired, please run the forgotten password process"
   },
   "joingroup": {
     "error": "Error",
     "password-update": "The password has been updated",
     "title": "Create password",
-    "already-logged": "You are already logged-in, do you want to logout to create this account ?",
+    "already-logged": "You are already logged-in, do you want to logout to create this account?",
     "token-expired": "The token has expired, please run the forgotten password process"
   },
   "lefteditmenu": {
@@ -688,17 +705,17 @@
     "show": "Show the file",
     "mb": "MB",
     "kb": "KB",
-    "will-delete-file": "Are you sure you want to delete this file ?"
+    "will-delete-file": "Are you sure you want to delete this file?"
   },
   "menu": {
     "help": "Help",
-    "account": "Account",
-    "file": "File",
-    "messaging": "Messaging",
+    "account": "My account",
+    "file": "My rental file",
+    "messaging": "Messages",
     "faq": "Help",
     "blog": "Blog",
     "information": "Information",
-    "contact-us": "contact us",
+    "contact-us": "Contact us",
     "deleteAccount": "Delete my account"
   },
   "messagespanel": {
@@ -720,9 +737,9 @@
     "zipcode-not-valid": "Zipcode not valid.",
     "only-alpha": "Alphabetic characters only",
     "field-required": "This field is required",
-    "title": "I fill in my personal information",
+    "title": "My personal information",
     "subtitle": "Please fill in the details of the person whose name will appear on the rental agreement",
-    "unlink-fc-link": "Need to update Firstname and Lastname ?",
+    "unlink-fc-link": "Need to update Firstname and Lastname?",
     "unlink-fc-content": "You have to unlink your FranceConnect account for updating directly your Firstname and Lastname.",
     "unlink-fc-content-password-exists": "You will be able to connect with your previously defined password.",
     "unlink-fc-content-password-undefined": "You will be redirected to create your password.",
@@ -735,11 +752,18 @@
     "paragraph3": "Example 1: if you are a student but it is <b> your parents who sign the lease and pay the rent </b>, the information and documents requested are those of the parents. Example 2: If you help a person complete the form but they are the future tenant, the information and documents requested are those of the person you are helping."
   },
   "nameinformation": {
-    "title": "Your rental file in 5 supporting document",
+    "title": "Your rental file in 5 supporting documents!",
     "join-title": "You are only a few steps away from joining {0} rental file!",
-    "roommate": "votre colocataire",
+    "roommate": "your roommate",
     "spouse": "your spouse",
-    "prepare-documents": "Prepare your supporting documents:"
+    "prepare-documents": "Prepare your supporting documents:",
+    "identification": "Proof of identity",
+    "residency": "Proof of address",
+    "professional": "Professional status",
+    "financial": "Financial resources",
+    "tax": "Tax assessment",
+    "same-for-guarantors": "Same thing for your guarantors!",
+    "see-documentation": "More information"
   },
   "ownerbanner": {
     "title1": "Owner,",
@@ -765,17 +789,17 @@
     "login": "Login"
   },
   "partnerssection": {
-    "partners-services-section": "Do you know these services ?",
-    "mds-title": "Are you eligible ?",
+    "partners-services-section": "Do you know these services?",
+    "mds-title": "Are you eligible?",
     "mds-text": "Find fastly the social benefit that you can ask",
     "mds-btn": "Social rights simulator",
-    "anil-title": "A question about accommodation ?",
-    "anil-text": "Need information about your rights and duties ? \n Your ADIL give you some advice for free",
+    "anil-title": "A question about accommodation?",
+    "anil-text": "Need information about your rights and duties? \n Your ADIL give you some advice for free",
     "anil-btn": "Contact your ADIL",
     "go-to-anil": "Go to ANIL's website (new window)",
     "go-to-mds": "Go to « mes droits sociaux »'s website (new window)"
   },
-  "professional": {
+  "professional-page": {
     "cdi": "CDI",
     "cdi-trial": "CDI (période d’essai)",
     "cdd": "CDD",
@@ -794,7 +818,7 @@
   },
   "profilefooter": {
     "back": "Back",
-    "continue": "Continue"
+    "continue": "Next"
   },
   "publicfile": {
     "title": "Rent file of {0}",
@@ -825,12 +849,7 @@
     "other": "Autre",
     "select-is-empty": "Item selection required"
   },
-  "residency": {
-    "tenant": "Locataire",
-    "owner": "Propriétaire",
-    "guest": "Hébergé·e gratuitement",
-    "guest-parents": "Chez mes parents",
-    "files": "Documents",
+  "residency-page": {
     "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
     "select-label": "Your current accommodation situation:"
   },
@@ -844,22 +863,34 @@
     "acceptAuthor": "I agree that the other members of my roommate have access to my documents as well as those of my guarantor, if applicable, once all the files of the roommate have been validated",
     "delete": "Delete",
     "field-required": "This field is required",
-    "title": "Who are your roommates ?",
+    "title": "Who are your roommates?",
     "add-a-roommate": "Add this roommate",
     "invite-waiting": "Waiting for confirmation",
     "invite-sent": "Invitation sent",
     "my-roommates": "My roommates",
     "email-exists": "You can not associate two account with only one email address ! <br>Fullfill a different email address.",
     "email-exists-2": "This email address already exists in DossierFacile. Please use an other email address.",
-    "more-information": "En quoi cette information nous est utile ?",
+    "more-information": "How does it work?",
     "require-accept": "You must accept the statement"
+  },
+  "sharefile": {
+    "title": "Share my file",
+    "share-btn-email": "Share",
+    "share-btn-copy": "Copy",
+    "full": "With documents",
+    "resume": "Without documents",
+    "by-mail": "By mail",
+    "by-link": "By link",
+    "email-label": "Owner email :",
+    "email-placeholder": "owner@example.com",
+    "sent-success": "Your file has been successfully sent"
   },
   "showdoc": {
     "preview": "Document preview",
     "number-of-pages": "Preview page 1 / {0}"
   },
   "signuppage": {
-    "connect": "Already signed up ? Connect",
+    "connect": "Already signed up? Click to sign in",
     "mail-sent": "An email has been sent to the requested address.",
     "clic-to-confirm": "Please click on the given link to confirm your email and continue you inscription.",
     "duplicate-email": "This email is already used",
@@ -870,9 +901,9 @@
     "help-you": "helps you :"
   },
   "simulationcaf": {
-    "btn-caf": "Do a simulation",
-    "simulation-caft-title": "Are you eligible?",
-    "simulation-caf-text": "Go to caf website to know if you can get a rental subvention."
+    "btn-caf": "Run a simulation",
+    "simulation-caf-title": "Are you eligible?",
+    "simulation-caf-text": "Go to CAF website to know if you can get a rental subvention."
   },
   "source": {
     "mail-sent": "An email has been sent to the requested address.",
@@ -897,7 +928,7 @@
     "paragraph1": "You can now <b> download your tax notice on <a target='_blank' href='https://www.impots.gouv.fr'>www.impots.gouv.fr</a></b>",
     "paragraph2": "If your file is too heavy, we recommend that you scan your file (with a free smartphone app for example). <br> If that is not enough, contact us by email at <a href='mailto: contact@dossierfacile.fr'>contact@dossierfacile.fr</a>, we will do our best to respond as quickly as possible!"
   },
-  "tax": {
+  "tax-page": {
     "my-name": "Vous avez un avis d’imposition à votre nom",
     "my-parents": "Vous êtes rattaché fiscalement à vos parents",
     "less-than-year": "Vous êtes en France depuis moins d’un an",
@@ -908,9 +939,9 @@
     "register": "Register",
     "field-required": "This field is required",
     "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
-    "title": "My tax notice",
+    "title": "My tax assessment",
     "warning-no-accepted-doc": "Attention, l'avis de situation déclarative n'est pas accepté.",
-    "goto-documentation": "Go To documentation"
+    "goto-documentation": "See documentation"
   },
   "tenantdocument": {},
   "tenantguarantorchoice": {
@@ -936,7 +967,7 @@
     "remark-title": "Remark",
     "remark-text": "Adding a guarantor is by no means mandatory. If you do not wish to add a surety, you can select “I don't have a guarantor”.<br> Your file will then be registered for investigation.",
     "type-required": "Please select a choice",
-    "visale-title": "Do you know Visale ?",
+    "visale-title": "Do you know Visale?",
     "visale-text": "Visale is the guarantor of your future accommodation if you are between 18 and 30 years old OR if you are employees over 30 years old (subject to conditions).",
     "visale-btn": "Discover Visale"
   },
@@ -961,7 +992,7 @@
   "tenantguarantordocumentspage": {},
   "tenantguarantorlist": {
     "my-guarantor": "My guarantor",
-    "add-new-guarantor": "Add a new guarantor ?",
+    "add-new-guarantor": "Add a new guarantor?",
     "guarantor": "My guarantor",
     "guarantor.NATURAL_PERSON": "My guarantor",
     "guarantor.LEGAL_PERSON": "My guarantor company",
@@ -984,15 +1015,15 @@
   },
   "tenantguarantorspage": {},
   "tenantinformationform": {
-    "title": "You want to rent for accommodation :",
+    "title": "Are you seeking for an accommodation :",
     "confirm": "Confirmer",
     "firstname": "Prénom du locataire",
     "lastname": "Nom du locataire",
     "zipcode": "Code postal",
     "tenantPresentation": "Le locataire sera {firstname} {lastname}. Vous désirez louer un logement :",
     "alone": "Alone",
-    "couple": "Couple",
-    "roommate": "Flatsharing",
+    "couple": "With a partner",
+    "roommate": "With flatmates",
     "remove-roommates": "Be careful! Your file will be disconnected from your roommates files",
     "remove-couple": "Be careful! Your file will be disconnected from your spouse file",
     "error": "An error occured",
@@ -1090,5 +1121,9 @@
     "require-accept": "You must accept the declaration",
     "validation-error-title": "You're so close !",
     "validation-error-description": "Limit update, check your files today"
+  },
+  "modal": {
+    "close": "Close",
+    "close-alt": "Close modal"
   }
 }

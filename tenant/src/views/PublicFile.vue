@@ -91,8 +91,8 @@
                   :document="document(tenant, 'TAX')"
                   :tagLabel="
                     isTenantTaxChecked(tenant)
-                      ? $t('publicfile.tax-verified')
-                      : $t('tax')
+                      ? $t('publicfile.tax-verified').toString()
+                      : undefined
                   "
                   :enableDownload="false"
                 >
@@ -140,7 +140,7 @@
                         v-bind:key="doc.id"
                         :label="
                           $t('publicfile.financial') +
-                            (k >= 1 ? ' ' + (k + 1) : '')
+                          (k >= 1 ? ' ' + (k + 1) : '')
                         "
                         :document="doc"
                         :enableDownload="false"
@@ -225,32 +225,35 @@ import FileRowListItem from "../components/documents/FileRowListItem.vue";
 @Component({
   components: {
     FileReinsurance,
-    FileRowListItem
-  }
+    FileRowListItem,
+  },
 })
 export default class File extends Vue {
   user: FileUser | null = null;
   tabIndex = 0;
 
   franceConnectTenantCount() {
-    return this.user?.tenants?.filter(t => t.franceConnect == true).length;
+    return this.user?.tenants?.filter((t) => t.franceConnect == true).length;
   }
 
   isTaxChecked() {
-    return this.user?.tenants?.filter(t => t.allowCheckTax == true).length;
+    return this.user?.tenants?.filter((t) => t.allowCheckTax == true).length;
   }
 
   getName() {
     if (this.user?.tenants === undefined) {
       return "";
     }
-    const tenantNames = this.user.tenants.map(
-      tenant => `${tenant.firstName}\xa0${tenant.lastName}`
-    );
-    if (tenantNames.length === 2) {
-      return tenantNames.join(this.$i18n.t("publicfile.and").toString());
+    if (this.user?.tenants.length === 2) {
+      const userNames = this.user.tenants
+        .map((o) => this.$options.filters?.fullName(o))
+        .join(this.$i18n.t("file.and").toString());
+      return userNames;
     }
-    return tenantNames.join(", ");
+    const userNames = this.user.tenants
+      .map((o) => this.$options.filters?.fullName(o))
+      .join(", ");
+    return userNames;
   }
 
   mounted() {
@@ -273,7 +276,7 @@ export default class File extends Vue {
 
   getTenants() {
     const users: User[] = [];
-    this.user?.tenants?.forEach(t => {
+    this.user?.tenants?.forEach((t) => {
       if (
         t.firstName &&
         t.lastName &&
@@ -288,14 +291,14 @@ export default class File extends Vue {
   }
   taxDocumentStatus() {
     const taxStatuses = this.user?.tenants?.map(
-      tenant => this.document(tenant, "TAX")?.documentStatus
+      (tenant) => this.document(tenant, "TAX")?.documentStatus
     );
 
-    if (taxStatuses?.every(docStatus => docStatus === "VALIDATED")) {
+    if (taxStatuses?.every((docStatus) => docStatus === "VALIDATED")) {
       return "ok";
     } else if (
       taxStatuses?.every(
-        docStatus => docStatus === "VALIDATED" || docStatus === "TO_PROCESS"
+        (docStatus) => docStatus === "VALIDATED" || docStatus === "TO_PROCESS"
       )
     ) {
       return "to_process";
@@ -304,7 +307,7 @@ export default class File extends Vue {
   }
 
   document(u: User | Guarantor, s: string) {
-    return u.documents?.find(d => {
+    return u.documents?.find((d) => {
       return d.documentCategory === s;
     });
   }

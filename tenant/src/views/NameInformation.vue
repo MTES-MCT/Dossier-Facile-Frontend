@@ -9,21 +9,21 @@
           {{ $t("nameinformation.prepare-documents") }}
         </h3>
         <ul>
-          <li>Pièce d'identité</li>
-          <li>Justificatif de domicile</li>
-          <li>Justificatif de situation professionnelle</li>
-          <li>Justificatif de ressources</li>
-          <li>Avis d'imposition</li>
+          <li>{{ $t("nameinformation.identification") }}</li>
+          <li>{{ $t("nameinformation.residency") }}</li>
+          <li>{{ $t("nameinformation.professional") }}</li>
+          <li>{{ $t("nameinformation.financial") }}</li>
+          <li>{{ $t("nameinformation.tax") }}</li>
         </ul>
         <p>
-          <span class="text-bold">Et la même liste pour vos garants !</span>
+          <span class="text-bold">{{ $t("nameinformation.same-for-guarantors") }}</span>
           <br />
-          😱
+          🧐
           <a
             href="https://docs.dossierfacile.fr/"
             target="_blank"
             rel="noopener"
-            >Consultez notre documentation.</a
+            >{{ $t("nameinformation.see-documentation") }}</a
           >
         </p>
       </div>

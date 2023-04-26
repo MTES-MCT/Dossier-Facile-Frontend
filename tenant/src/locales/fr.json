@@ -114,9 +114,9 @@
       "guarantor_salary": "J’ajoute un bulletin de salaire de mon garant de moins de 3 mois, une attestation de son employeur, un justificatif de versement de ses indemnités de stage, un bilan comptable ou un avis d’imposition à son nom, complet et de moins de 2 ans.",
       "guest": "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, une copie de la pièce d’identité et un justificatif de domicile de mon hébergeant</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne sur le site <a href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement' target='_blank'>service-public.fr</a>",
       "guest-parents": "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, une copie de la pièce d’identité et un justificatif de domicile du parent</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne sur le site <a href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement' target='_blank'>service-public.fr</a>",
-      "identity-card": "Attention veillez à ajouter votre pièce <b>recto-verso !</b>",
-      "passport": "Attention veillez à ajouter les pages 2 et 3 de votre passeport.",
-      "permit": "",
+      "identity-card": "Veillez à ajouter votre pièce <b>recto-verso</b>.",
+      "passport": "Veillez à ajouter les <b>pages 2 et 3</b> de votre passeport, car la signature doit apparaître.",
+      "permit": "Veillez à ajouter votre pièce <b>recto-verso</b>.",
       "other": "",
       "independent": "J’ajoute mon justificatif d’activité professionnelle indépendante en fonction de mon type d’activité.",
       "internship": "J’ajoute la convention de stage complète et signée de mon garant.",
@@ -135,7 +135,7 @@
       "scholarship": "J’ajoute un avis d’attribution de bourse.",
       "social-service": "J'ajoute <strong>mes trois derniers justificatifs</strong> de versement de prestations sociales (ARE, CAF...), un justificatif d'ouverture de mes droits ou une attestation de simulation pour les aides au logement.",
       "student": "J’ajoute une copie de ma carte d’étudiant ou un certificat de scolarité pour l’année en cours.",
-      "tenant": "J’ajoute mes <b>quittances de loyer pour les trois derniers mois.</b>",
+      "tenant": "J’ajoute vos <b>quittances de loyer</b> des <b>trois derniers mois</b>.",
       "unemployed": "J’ajoute une attestation d’ouverture de droits à l’ARE ou un avis de situation Pôle Emploi de moins de 3 mois."
     },
     "cotenant": {
@@ -147,9 +147,9 @@
       "guarantor_salary": "J’ajoute un bulletin de salaire de son garant de moins de 3 mois, une attestation de son employeur, un justificatif de versement de ses indemnités de stage, un bilan comptable ou un avis d’imposition à son nom, complet et de moins de 2 ans.",
       "guest": "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, une copie de la pièce d’identité et un justificatif de domicile de son hébergeant</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne sur le site <a href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement' target='_blank'>service-public.fr</a>",
       "guest-parents": "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, une copie de la pièce d’identité et un justificatif de domicile du parent</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne sur le site <a href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement' target='_blank'>service-public.fr</a>",
-      "identity-card": "Attention veillez à ajouter sa pièce <b>recto-verso !</b>",
-      "passport": "Attention veillez à ajouter les pages 2 et 3 de son passeport.",
-      "permit": "",
+      "identity-card": "Veillez à ajouter sa pièce <b>recto-verso</b>.",
+      "passport": "Veillez à ajouter les <b>pages 2 et 3</b> de son passeport, car la signature doit apparaître.",
+      "permit": "Veillez à ajouter sa pièce <b>recto-verso</b>.",
       "other": "",
       "independent": "J’ajoute son justificatif d’activité professionnelle indépendante en fonction de son type d’activité.",
       "internship": "J’ajoute la convention de stage complète et signée de son garant.",
@@ -179,9 +179,9 @@
       "ctt": "J’ajoute un bulletin de salaire de moins de 3 mois de mon garant, son contrat de travail complet et signé, une attestation employeur de moins de 3 mois.",
       "guarantor_salary": "J’ajoute un bulletin de salaire de mon garant de moins de 3 mois, une attestation de son employeur, un justificatif de versement de ses indemnités de stage, un bilan comptable ou un avis d’imposition à son nom, complet et de moins de 2 ans.",
       "guest": "J’ajoute une <b>attestation sur l’honneur d’hébergement de mon garant à titre gratuit.</b> Vous pouvez utiliser un modèle en ligne sur le site <a target='_blank' href='//www.service-public.fr'>www.service-public.fr</a>",
-      "identity-card": "Attention veillez à ajouter sa pièce <b>recto-verso !</b>",
-      "passport": "Attention veillez à ajouter les pages 2 et 3 de son passeport.",
-      "permit": "",
+      "identity-card": "Veillez à ajouter sa pièce <b>recto-verso</b>.",
+      "passport": "Veillez à ajouter les <b>pages 2 et 3</b> de son passeport, car la signature doit apparaître.",
+      "permit": "Veillez à ajouter sa pièce <b>recto-verso</b>.",
       "other": "",
       "independent": "J’ajoute un justificatif d’activité professionnelle indépendante de mon garant.",
       "internship": "J’ajoute la convention de stage complète et signée de mon garant.",
@@ -219,9 +219,9 @@
       "ctt": "J’ajoute un bulletin de salaire de moins de 3 mois de son garant, son contrat de travail complet et signé, une attestation employeur de moins de 3 mois.",
       "guarantor_salary": "J’ajoute un bulletin de salaire de son garant de moins de 3 mois, une attestation de son employeur, un justificatif de versement de ses indemnités de stage, un bilan comptable ou un avis d’imposition à son nom, complet et de moins de 2 ans.",
       "guest": "J’ajoute une <b>attestation sur l’honneur d’hébergement de son garant à titre gratuit.</b> Vous pouvez utiliser un modèle en ligne sur le site <a target='_blank' href='//www.service-public.fr'>www.service-public.fr</a>",
-      "identity-card": "Attention veillez à ajouter sa pièce <b>recto-verso !</b>",
-      "passport": "Attention veillez à ajouter les pages 2 et 3 de son passeport.",
-      "permit": "",
+      "identity-card": "Veillez à ajouter sa pièce <b>recto-verso</b>.",
+      "passport": "Veillez à ajouter les <b>pages 2 et 3</b> de son passeport, car la signature doit apparaître.",
+      "permit": "Veillez à ajouter sa pièce <b>recto-verso</b>.",
       "other": "",
       "independent": "J’ajoute un justificatif d’activité professionnelle indépendante de son garant.",
       "internship": "J’ajoute la convention de stage complète et signée de son garant.",
@@ -313,7 +313,7 @@
     "instructional-time-title": "Durée d'instruction",
     "instructional-time-text": "Une fois votre dossier complété et déposé, il est pris en charge en moyenne en moins de 24h par notre équipe d'opérateurs.",
     "congratulations-title": "🎉 Félicitations ! Votre DossierFacile est disponible !",
-    "congratulations-text-1": "Afin de candidater au logement de vos rêves, envoyez votre lien DossierFacile, par email, SMS, etc. aux propriétaires, bailleurs de votre choix. Pour rappel, DossierFacile ne propose pas de logement.",
+    "congratulations-text-1": "Afin de candidater au logement de vos rêves, partagez votre dossier à un propriétaire de votre choix, avec ou sans justificatifs, soit par email en renseignant son adresse mail dans la section \"Partager mon dossier\" ci-dessous, soit par lien en envoyant votre lien DossierFacile par email, SMS, etc. aux propriétaires, bailleurs de votre choix. Pour rappel, DossierFacile ne propose pas de logement.",
     "congratulations-text-2": "Vos informations sont protégées !",
     "full-link-copied": "Le lien de mon dossier complet est copié !",
     "public-link-copied": "Le lien de mon dossier de synthèse est copié !",
@@ -598,6 +598,11 @@
     "see": "Voir"
   },
   "fileupload": {
+    "drag-and-drop-files": "Glissez et déposez vos documents",
+    "files-format": "JPG, PNG ou PDF",
+    "or": "ou",
+    "browse-files": "Parcourez vos fichiers",
+    "uploading-files": "Envoi des fichiers...",
     "send-problem": "Problème d'envoi.",
     "file-too-big": "La taille d'un fichier ne doit pas dépasser {0}Mo",
     "pages": "{0} pages maximum",
@@ -807,12 +812,6 @@
     "INCOMPLETE": "est non terminé"
   },
   "guarantortax": {
-    "my-name": "J’ai un avis d’imposition au nom de mon garant",
-    "my-name-cotenant": "J’ai un avis d’imposition au nom de son garant",
-    "less-than-year": "Mon garant est en France depuis moins d'un an",
-    "less-than-year-cotenant": "Son garant est en France depuis moins d'un an",
-    "other-tax": "Autre",
-    "other-tax-cotenant": "Autre",
     "custom-text": "Afin d'améliorer votre dossier, veuillez expliquer ci-dessous pourquoi vous ne recevez pas d'avis d'imposition. Votre explication sera ajoutée à votre dossier :",
     "files": "Documents",
     "register": "Enregistrer",
@@ -827,7 +826,7 @@
   "identification-page": {
     "files": "Documents",
     "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-    "select-label": "Déposez une pièce d'identité en cours de validité.",
+    "select-label": "Déposez une pièce d'identité en cours de validité",
     "validate": "Valider",
     "cancel": "Annuler"
   },
@@ -909,7 +908,14 @@
     "join-title": "Vous n'êtes qu'à quelques étapes de rejoindre le dossier de location de {0} !",
     "roommate": "votre colocataire",
     "spouse": "votre conjoint",
-    "prepare-documents": "Préparez vos pièces justificatives :"
+    "prepare-documents": "Préparez vos pièces justificatives :",
+    "identification": "Pièce d'identité",
+    "residency": "Justificatif de domicile",
+    "professional": "Justificatif de situation professionnelle",
+    "financial": "Justificatif de ressources",
+    "tax": "Avis d’imposition",
+    "same-for-guarantors": "Et la même liste pour vos garants !",
+    "see-documentation": "Consultez notre documentation"
   },
   "ownerbanner": {
     "title1": "Propriétaire,",
@@ -1003,13 +1009,8 @@
     "select-is-empty": "Sélection requise"
   },
   "residency-page": {
-    "tenant": "Locataire",
-    "owner": "Propriétaire",
-    "guest": "Hébergé·e gratuitement",
-    "guest-parents": "Chez mes parents",
-    "files": "Documents",
     "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-    "select-label": "Votre situation d’hébergement actuelle :"
+    "select-label": "Décrivez votre situation d’hébergement actuelle"
   },
   "roommatesinformationhelp": {
     "paragraph1": "En renseignant l’adresse email de votre colocataire, celui-ci va pouvoir constituer son propre dossier avec ses pièces. Vos deux dossiers seront liés et votre lien-dossier sera commun.",
@@ -1030,6 +1031,18 @@
     "email-exists-2": "Cette adresse email est déjà utilisée sur DossierFacile.<br>Renseignez une adresse email différente.",
     "more-information": "En quoi cette information nous est utile ?",
     "require-accept": "Vous devez accepter la déclaration"
+  },
+  "sharefile": {
+    "title": "Partager mon dossier",
+    "share-btn-email": "Partager",
+    "share-btn-copy": "Copier",
+    "full": "Avec justificatifs",
+    "resume": "Sans justificatif",
+    "by-mail": "Par mail",
+    "by-link": "Par lien",
+    "email-label": "Email du bailleur :",
+    "email-placeholder": "bailleur@exemple.com",
+    "sent-success": "Votre dossier a bien été partagé"
   },
   "showdoc": {
     "preview": "Prévisualisation du document",
@@ -1162,7 +1175,7 @@
   },
   "tenantguarantorspage": {},
   "tenantinformationform": {
-    "title": "Vous désirez louer pour un logement :",
+    "title": "Constituez-vous un dossier de location afin d'habiter :",
     "confirm": "Confirmer",
     "firstname": "Prénom du locataire",
     "lastname": "Nom du locataire",
@@ -1245,8 +1258,8 @@
     "instructional-time-title": "Durée d'instruction",
     "instructional-time-text": "Une fois votre dossier complété et déposé, il est pris en charge dans un délai de 24 à 48 heures par notre équipe d'opérateurs.",
     "congratulations-title": "🎉 Félicitations ! Votre DossierFacile est disponible !",
-    "congratulations-text-1": "Afin de candidater au logement de vos rêves, envoyez votre lien DossierFacile, par email, SMS, etc. aux propriétaires, bailleurs de votre choix. Pour rappel, DossierFacile ne propose pas de logement.",
-    "congratulations-text-2": "Vos informations sont protégées !",
+    "congratulations-text-1": "Afin de candidater au logement de vos rêves, partagez votre dossier à un propriétaire de votre choix, avec ou sans justificatifs, soit par email en renseignant son adresse mail dans la section \"Partager mon dossier\" ci-dessous, soit par lien en envoyant votre lien DossierFacile par email, SMS, etc. aux propriétaires, bailleurs de votre choix.",
+    "congratulations-text-2": "Pour rappel, DossierFacile ne propose pas de logement.",
     "full-link-copied": "Le lien de mon dossier complet est copié !",
     "public-link-copied": "Le lien de mon dossier de synthèse est copié !"
   },
@@ -1270,5 +1283,9 @@
     "require-accept": "Vous devez accepter la déclaration",
     "validation-error-title": "Vous y êtes presque !",
     "validation-error-description": "Limitez les modifications, pensez à vérifier votre dossier dès aujourd'hui."
+  },
+  "modal": {
+    "close": "Fermer",
+    "close-alt": "Fermer la fenêtre modale"
   }
 }

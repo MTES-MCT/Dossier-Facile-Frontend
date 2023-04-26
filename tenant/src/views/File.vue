@@ -98,7 +98,10 @@
                   :tagLabel="
                     isTenantTaxChecked(tenant)
                       ? $t('file.tax-verified')
-                      : $t('tax')
+                      : $t(
+                          'documents.status.' +
+                            document(tenant, 'TAX')?.documentStatus
+                        )
                   "
                   :document="document(tenant, 'TAX')"
                 >
@@ -151,7 +154,10 @@
                         :tagLabel="
                           isTenantTaxChecked(g)
                             ? $t('file.tax-verified')
-                            : $t('tax')
+                            : $t(
+                                'documents.status.' +
+                                  document(tenant, 'TAX')?.documentStatus
+                              )
                         "
                         :document="document(g, 'TAX')"
                       >
@@ -199,7 +205,7 @@
         <div class="text-center">
           <DfButton v-if="showProgressBar" primary="true"
             >{{ $t("file.download-all-inprogress")
-            }}<span><ProgressIndicator diameter="22px" border="3px"/></span>
+            }}<span><ProgressIndicator diameter="22px" border="3px" /></span>
           </DfButton>
           <DfButton
             :disabled="user.status != 'VALIDATED'"
@@ -245,8 +251,8 @@ import OwnerBanner from "../components/OwnerBanner.vue";
     DfButton,
     FileReinsurance,
     FileRowListItem,
-    OwnerBanner
-  }
+    OwnerBanner,
+  },
 })
 export default class File extends Vue {
   user: FileUser | null = null;
@@ -254,27 +260,27 @@ export default class File extends Vue {
   showProgressBar = false;
 
   franceConnectTenantCount() {
-    return this.user?.tenants?.filter(t => t.franceConnect == true).length;
+    return this.user?.tenants?.filter((t) => t.franceConnect == true).length;
   }
 
   isTaxChecked() {
-    return this.user?.tenants?.filter(t => t.allowCheckTax == true).length;
+    return this.user?.tenants?.filter((t) => t.allowCheckTax == true).length;
   }
 
   getName() {
-    if (this.user?.tenants !== undefined) {
-      if (this.user?.tenants.length === 2) {
-        const userNames = this.user.tenants
-          .map(o => this.$options.filters?.fullName(o))
-          .join(this.$i18n.t("file.and").toString());
-        return userNames;
-      }
+    if (this.user?.tenants === undefined) {
+      return "";
+    }
+    if (this.user?.tenants.length === 2) {
       const userNames = this.user.tenants
-        .map(o => this.$options.filters?.fullName(o))
-        .join(", ");
+        .map((o) => this.$options.filters?.fullName(o))
+        .join(this.$i18n.t("file.and").toString());
       return userNames;
     }
-    return "";
+    const userNames = this.user.tenants
+      .map((o) => this.$options.filters?.fullName(o))
+      .join(", ");
+    return userNames;
   }
 
   private setUser() {
@@ -301,7 +307,7 @@ export default class File extends Vue {
 
   getTenants() {
     const users: User[] = [];
-    this.user?.tenants?.forEach(t => {
+    this.user?.tenants?.forEach((t) => {
       if (
         t.firstName &&
         t.lastName &&
@@ -317,14 +323,14 @@ export default class File extends Vue {
 
   taxDocumentStatus() {
     const taxStatuses = this.user?.tenants?.map(
-      tenant => this.document(tenant, "TAX")?.documentStatus
+      (tenant) => this.document(tenant, "TAX")?.documentStatus
     );
 
-    if (taxStatuses?.every(docStatus => docStatus === "VALIDATED")) {
+    if (taxStatuses?.every((docStatus) => docStatus === "VALIDATED")) {
       return "ok";
     } else if (
       taxStatuses?.every(
-        docStatus => docStatus === "VALIDATED" || docStatus === "TO_PROCESS"
+        (docStatus) => docStatus === "VALIDATED" || docStatus === "TO_PROCESS"
       )
     ) {
       return "to_process";
@@ -333,7 +339,7 @@ export default class File extends Vue {
   }
 
   document(u: User | Guarantor, s: string) {
-    return u.documents?.find(d => {
+    return u.documents?.find((d) => {
       return d.documentCategory === s;
     });
   }
@@ -359,14 +365,14 @@ export default class File extends Vue {
 
   private downloadFile(url: string) {
     ProfileService.getFile(url)
-      .then(response => {
+      .then((response) => {
         const blob = new Blob([response.data], { type: "application/pdf" });
         const link = document.createElement("a");
         link.href = window.URL.createObjectURL(blob);
         link.download = "dossierFacile-" + this.$route.params.token + ".pdf";
         link.click();
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
         Vue.toasted.global.error();
       })
@@ -385,7 +391,7 @@ export default class File extends Vue {
         .then(() => {
           this.retryDownload(6);
         })
-        .catch(error => {
+        .catch((error) => {
           this.showProgressBar = false;
           console.error(error);
           Vue.toasted.global.error();

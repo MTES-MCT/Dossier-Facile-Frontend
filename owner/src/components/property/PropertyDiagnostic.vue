@@ -10,6 +10,7 @@ import PropertyPage from './PropertyPage.vue';
 import DpeDiagram from './DpeDiagram.vue';
 import DpeCo2Diagram from './DpeCo2Diagram.vue';
 import AnalyticsService from '../../services/AnalyticsService';
+import UtilsService from '../../services/UtilsService';
 
 const { t } = useI18n();
 
@@ -50,56 +51,9 @@ const energyConsumption = computed({
 function updateDPE() {
   localCo2Emission.value = co2Emission.value;
   localEnergyConsumption.value = energyConsumption.value;
-  if (energyConsumption.value <= 70) {
-    energyLetter.value = 'A';
-  } else if (energyConsumption.value <= 110) {
-    energyLetter.value = 'B';
-  } else if (energyConsumption.value <= 180) {
-    energyLetter.value = 'C';
-  } else if (energyConsumption.value <= 250) {
-    energyLetter.value = 'D';
-  } else if (energyConsumption.value <= 330) {
-    energyLetter.value = 'E';
-  } else if (energyConsumption.value <= 420) {
-    energyLetter.value = 'F';
-  } else {
-    energyLetter.value = 'G';
-  }
-  globalLetter.value = energyLetter.value;
-
-  if (co2Emission.value <= 6) {
-    co2Letter.value = 'A';
-  } else if (co2Emission.value <= 11) {
-    co2Letter.value = 'B';
-    if (energyConsumption.value <= 70) {
-      globalLetter.value = 'B';
-    }
-  } else if (co2Emission.value <= 30) {
-    co2Letter.value = 'C';
-    if (energyConsumption.value <= 110) {
-      globalLetter.value = 'C';
-    }
-  } else if (co2Emission.value <= 50) {
-    co2Letter.value = 'D';
-    if (energyConsumption.value <= 180) {
-      globalLetter.value = 'D';
-    }
-  } else if (co2Emission.value <= 70) {
-    co2Letter.value = 'E';
-    if (energyConsumption.value <= 250) {
-      globalLetter.value = 'E';
-    }
-  } else if (co2Emission.value <= 100) {
-    co2Letter.value = 'F';
-    if (energyConsumption.value <= 330) {
-      globalLetter.value = 'F';
-    }
-  } else {
-    co2Letter.value = 'G';
-    if (energyConsumption.value <= 420) {
-      globalLetter.value = 'G';
-    }
-  }
+  energyLetter.value = UtilsService.getEnergyConsumptionLetter(energyConsumption.value);
+  co2Letter.value = UtilsService.getCO2EmissionLetter(co2Emission.value);
+  globalLetter.value = UtilsService.getGlobalLetter(energyLetter.value, co2Letter.value);
 }
 
 onMounted(() => {

@@ -35,7 +35,7 @@ export const UtilsService = {
     const user = store.state.user;
     const tenantDocumentsFilled = (tenant: User) =>
       this.documentsFilled(tenant) &&
-      tenant.guarantors?.every(g => !!this.guarantorDocumentsFilled(g));
+      tenant.guarantors?.every((g) => !!this.guarantorDocumentsFilled(g));
 
     if (user.applicationType === "COUPLE") {
       const cotenants = user.apartmentSharing?.tenants.filter(
@@ -197,6 +197,6 @@ export const UtilsService = {
       return "";
     }
     word = word[0].toUpperCase() + word.slice(1).toLowerCase();
-    return word.replace(/([' -][A-Za-zÀ-ÖØ-öø-ÿ])/g, s => s.toUpperCase());
-  }
+    return word.replace(/([' -][A-Za-zÀ-ÖØ-öø-ÿ])/g, (s) => s.toUpperCase());
+  },
 };

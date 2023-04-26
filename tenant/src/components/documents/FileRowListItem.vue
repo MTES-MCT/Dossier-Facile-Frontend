@@ -50,31 +50,24 @@ import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 @Component({
   components: {
     DfButton,
-    ColoredTag
-  }
+    ColoredTag,
+  },
 })
 export default class FileRowListItem extends Vue {
   @Prop() label!: string;
   @Prop() document!: DfDocument;
-  @Prop({ default: "true" }) enableDownload?: string;
-  @Prop() tagLabel?: boolean;
+  @Prop({ default: true }) enableDownload?: boolean;
+  @Prop() tagLabel?: string;
 
   hasClickEditionListener() {
     return this.$listeners && this.$listeners.clickEdit;
-  }
-
-  displayDownload() {
-    return (
-      (this.enableDownload == "true" && this.documentStatus() == "VALIDATED") ||
-      this.enableDownload === "force"
-    );
   }
 
   getTagLabel() {
     if (this.tagLabel) {
       return this.tagLabel;
     }
-    return this.$i18n.t("documents.status." + this.documentStatus());
+    return this.$i18n.t("documents.status." + this.documentStatus()).toString();
   }
 
   documentStatus() {
