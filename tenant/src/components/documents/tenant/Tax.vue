@@ -337,7 +337,8 @@ export default class Tax extends Vue {
       (rejectedFiles) => {
         if (rejectedFiles.length > 0) {
           console.log(
-            "Avis de situation déclarative détecté : " + rejectedFiles.map((f) => f.name).join(", ")
+            "Avis de situation déclarative détecté : " +
+              rejectedFiles.map((f) => f.name).join(", ")
           );
         }
       }

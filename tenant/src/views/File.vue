@@ -268,19 +268,19 @@ export default class File extends Vue {
   }
 
   getName() {
-    if (this.user?.tenants !== undefined) {
-      if (this.user?.tenants.length === 2) {
-        const userNames = this.user.tenants
-          .map((o) => this.$options.filters?.fullName(o))
-          .join(this.$i18n.t("file.and").toString());
-        return userNames;
-      }
+    if (this.user?.tenants === undefined) {
+      return "";
+    }
+    if (this.user?.tenants.length === 2) {
       const userNames = this.user.tenants
         .map((o) => this.$options.filters?.fullName(o))
-        .join(", ");
+        .join(this.$i18n.t("file.and").toString());
       return userNames;
     }
-    return "";
+    const userNames = this.user.tenants
+      .map((o) => this.$options.filters?.fullName(o))
+      .join(", ");
+    return userNames;
   }
 
   private setUser() {
