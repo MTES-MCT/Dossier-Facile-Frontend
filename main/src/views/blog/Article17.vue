@@ -19,7 +19,7 @@
                 suivants :
               </p>
               <img
-                alt="Image d'exemple d'une famille visitant un appartement."
+                alt=""
                 class="img-center"
                 src="../../assets/images/blog-article17.webp"
               />
