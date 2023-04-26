@@ -69,62 +69,13 @@
           @submit.prevent="validate().then(handleOthersInformation)"
         >
           <NakedCard class="fr-p-md-5w">
-            <h1 class="fr-h6">{{ $t("tenantinformationform.title") }}</h1>
-            <div class="fr-form-group fr-mt-3w fr-mb-0">
-              <fieldset class="fr-fieldset">
-                <div class="fr-fieldset__content">
-                  <div class="fr-grid-row space-between">
-                    <BigRadio
-                      :big="true"
-                      val="ALONE"
-                      :value="applicationType"
-                      @input="updateApplicationType"
-                    >
-                      <div class="fr-grid-col spa">
-                        <div class="icon-container">
-                          <span class="material-icons md-36" aria-hidden="true"
-                            >person</span
-                          >
-                        </div>
-                        {{ $t("tenantinformationform.alone") }}
-                      </div>
-                    </BigRadio>
-                    <BigRadio
-                      :big="true"
-                      class="fr-mt-2w fr-mt-md-0"
-                      val="COUPLE"
-                      :value="applicationType"
-                      @input="updateApplicationType"
-                    >
-                      <div class="fr-grid-col spa">
-                        <div class="icon-container">
-                          <span class="material-icons md-36" aria-hidden="true"
-                            >group</span
-                          >
-                        </div>
-                        {{ $t("tenantinformationform.couple") }}
-                      </div>
-                    </BigRadio>
-                    <BigRadio
-                      :big="true"
-                      class="fr-mt-2w fr-mt-md-0"
-                      val="GROUP"
-                      :value="applicationType"
-                      @input="updateApplicationType"
-                    >
-                      <div class="fr-grid-col spa">
-                        <div class="icon-container">
-                          <span class="material-icons md-36" aria-hidden="true"
-                            >groups</span
-                          >
-                        </div>
-                        {{ $t("tenantinformationform.roommate") }}
-                      </div>
-                    </BigRadio>
-                  </div>
-                </div>
-              </fieldset>
-            </div>
+            <h1 class="fr-h6">
+              {{ $t("tenantinformationform.title") }}
+            </h1>
+            <ApplicationTypeSelector
+              :applicationType="applicationType"
+              @selected="updateApplicationType"
+            ></ApplicationTypeSelector>
           </NakedCard>
 
           <CoupleInformation
@@ -175,6 +126,7 @@ import { AnalyticsService } from "../services/AnalyticsService";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import ProfileFooter from "./footer/ProfileFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import ApplicationTypeSelector from "../components/ApplicationTypeSelector.vue";
 
 @Component({
   computed: {
@@ -198,8 +150,9 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
     DfButton,
     ConfirmModal,
     ProfileFooter,
-    NakedCard
-  }
+    NakedCard,
+    ApplicationTypeSelector,
+  },
 })
 export default class TenantInformationForm extends Vue {
   user!: User;
