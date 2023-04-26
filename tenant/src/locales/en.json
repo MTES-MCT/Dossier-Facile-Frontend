@@ -405,6 +405,7 @@
     "title-dossier-VALIDATED": "This file has been verified by DossierFacile !",
     "title-dossier-DECLINED": "This file is incompleted",
     "title-dossier-TO_PROCESS": "This is currently in progress",
+    "title-dossier-INCOMPLETE": "This file is currently incomplete",
     "know-more": "Know more about DossierFacile",
     "france-connect-user": "Candidate identity has been certified by a FranceConnect authentication.",
     "france-connect-user-all": "Candidates identities have been certified by FranceConnect authentications.",
