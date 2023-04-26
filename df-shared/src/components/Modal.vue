@@ -8,12 +8,12 @@
       >
         <button
           class="fr-link--close fr-link fr-mr-1w"
-          title="Fermer la fenêtre modale"
-          aria-label="Fermer la fenêtre modale"
+          :title="$t('modal.close-alt')"
+          :aria-label="$t('modal.close-alt')"
           @click="close()"
           type="button"
         >
-          Fermer
+          {{ $t("modal.close") }}
         </button>
         <header class="modal-header" id="modalTitle" v-if="!!$slots['header']">
           <slot name="header"

@@ -11,15 +11,17 @@
           accept="image/png, image/jpeg, application/pdf"
         />
         <div v-if="!isSaving()" class="fr-mt-2w fr-mb-2w">
-          Glissez et déposez vos documents
+          {{ $t("fileupload.drag-and-drop-files") }}
           <br />
-          JPG, PNG ou PDF<br />
+          {{ $t("fileupload.files-format") }}<br />
           {{ getSizeLimit() }}<br />
           {{ getPagesLimit() }}<br />
-          ou<br />
-          <a href="#">Parcourez vos fichiers</a>
+          {{ $t("fileupload.or") }}<br />
+          <a href="#">{{ $t("fileupload.browse-files") }}</a>
         </div>
-        <div v-if="isSaving()">Téléchargement des fichiers...</div>
+        <div v-if="isSaving()">
+          {{ $t("fileupload.uploading-files") }}
+        </div>
       </div>
     </form>
   </div>

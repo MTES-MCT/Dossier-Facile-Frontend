@@ -22,7 +22,7 @@ export const DocumentTypeConstants = {
       value: "FRENCH_RESIDENCE_PERMIT",
       acceptedProofs: [
         "Carte de séjour en France temporaire recto-verso en cours de validité, ou périmée si elle est accompagnée du récépissé de la demande de renouvellement de carte de séjour",
-        "Visa de travail ou d’études temporaire en France"
+        "Visa de travail ou d’études temporaire en France, avec le passeport en complément",
       ],
       refusedProofs: ["Tout autre document"],
       maxFileCount: 5
