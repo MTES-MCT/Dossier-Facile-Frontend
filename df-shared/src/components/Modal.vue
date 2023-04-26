@@ -1,11 +1,7 @@
 <template>
   <transition name="modal-fade">
     <div class="modal-backdrop">
-      <div
-        class="modal fr-pt-2w"
-        role="dialog"
-        aria-labelledby="modalTitle"
-      >
+      <div class="modal fr-pt-2w" role="dialog" aria-labelledby="modalTitle">
         <button
           class="fr-link--close fr-link fr-mr-1w"
           :title="$t('modal.close-alt')"
@@ -65,7 +61,10 @@ export default class Modal extends Vue {
   -webkit-backdrop-filter: blur(5px);
   display: flex;
   flex-direction: column;
-  min-width: 400px;
+  min-width: 250px;
+  @media all and (min-width: 480px) {
+    min-width: 400px;
+  }
   max-width: 90%;
   max-height: 98%;
   overflow: auto;

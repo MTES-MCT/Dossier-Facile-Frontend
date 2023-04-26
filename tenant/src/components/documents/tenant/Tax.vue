@@ -139,8 +139,10 @@
       @close="isWarningTaxSituationModalVisible = false"
     >
       <template v-slot:body>
-        <div class="warning-tax-modal">
+        <div class="warning-tax-modal fr-pl-md-3w fr-pr-md-3w fr-pb-md-3w">
           <h1 class="avis-title fr-h4">
+            <i class="ri-alarm-warning-line"></i>
+
             {{ $t("tax-page.avis-detected") }}
           </h1>
           <p>
@@ -149,14 +151,15 @@
           <p>
             {{ $t("tax-page.avis-text2") }}
           </p>
-          <div style="align-self: end">
+          <hr class="mobile" />
+          <div class="btn-align">
             <DfButton
               @on-click="isWarningTaxSituationModalVisible = false"
               :primary="true"
               >{{ $t("tax-page.avis-btn") }}</DfButton
             >
           </div>
-          <div style="align-self: end" class="fr-mt-2w">
+          <div class="btn-align fr-mt-2w">
             <a @click="forceSave" href="#">{{ $t("tax-page.avis-force") }}</a>
           </div>
         </div>
@@ -541,5 +544,12 @@ export default class Tax extends Vue {
   display: flex;
   flex-direction: column;
   max-width: 640px;
+}
+
+.btn-align {
+  align-self: center;
+  @media all and (min-width: 768px) {
+    align-self: end;
+  }
 }
 </style>
