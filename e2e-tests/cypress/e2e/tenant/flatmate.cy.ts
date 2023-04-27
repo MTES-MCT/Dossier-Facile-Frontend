@@ -4,7 +4,7 @@ describe("flatmate tenant scenario", () => {
   const user = getTenantUser();
   const flatmateEmail = `coloc-${Math.floor(Math.random() * 10000)}@yopmail.fr`;
 
-  before("reset account", () => {
+  beforeEach("reset account", () => {
     cy.deleteAccount(user.username, UserType.TENANT);
   });
 

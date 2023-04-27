@@ -3,7 +3,7 @@ import { getTenantUser, UserType } from "../../support/users";
 describe("accessibility checks", () => {
   const username = getTenantUser().username;
 
-  before("reset account", () => {
+  beforeEach("reset account", () => {
     cy.deleteAccount(username, UserType.TENANT);
   });
 
