@@ -3,7 +3,7 @@ import { getTenantUser, UserType } from "../../support/users";
 describe("alone tenant scenario", () => {
   const user = getTenantUser();
 
-  before("reset account", () => {
+  beforeEach("reset account", () => {
     cy.deleteAccount(user.username, UserType.TENANT);
   });
 
