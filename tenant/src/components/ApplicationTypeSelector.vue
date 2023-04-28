@@ -1,34 +1,11 @@
 <template>
   <div>
-    <fieldset class="fr-fieldset" id="radio-rich">
-      <RichRadioButton
-        :label="$tc('tenantinformationform.alone')"
-        icon="fr-icon-user-line"
-        name="application-type"
-        id="alone-choice"
-        optionValue="ALONE"
-        v-model="checkedApplicationType"
-        @input="onChange"
-      ></RichRadioButton>
-      <RichRadioButton
-        :label="$tc('tenantinformationform.couple')"
-        icon="fr-icon-group-line"
-        name="application-type"
-        id="couple-choice"
-        optionValue="COUPLE"
-        v-model="checkedApplicationType"
-        @input="onChange"
-      ></RichRadioButton>
-      <RichRadioButton
-        :label="$tc('tenantinformationform.roommate')"
-        icon="fr-icon-team-line"
-        name="application-type"
-        id="group-choice"
-        optionValue="GROUP"
-        v-model="checkedApplicationType"
-        @input="onChange"
-      ></RichRadioButton>
-    </fieldset>
+    <RichRadioButtons
+      name="application-type-selector"
+      v-model="checkedApplicationType"
+      @input="onChange"
+      :elements="applicationTypeOptions"
+    ></RichRadioButtons>
     <ConfirmModal
       v-if="showConfirmationModal"
       @valid="validSelect()"
@@ -41,7 +18,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import RichRadioButton from "df-shared/src/Button/RichRadioButton.vue";
+import RichRadioButtons from "df-shared/src/Button/RichRadioButtons.vue";
 import { mapGetters, mapState } from "vuex";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { User } from "df-shared/src/models/User";
@@ -55,7 +32,10 @@ import { User } from "df-shared/src/models/User";
       roommates: "getRoommates",
     }),
   },
-  components: { ConfirmModal, RichRadioButton },
+  components: {
+    ConfirmModal,
+    RichRadioButtons,
+  },
 })
 export default class ApplicationTypeSelector extends Vue {
   user!: User;
@@ -65,6 +45,27 @@ export default class ApplicationTypeSelector extends Vue {
   checkedApplicationType = "";
 
   showConfirmationModal = false;
+
+  applicationTypeOptions = [
+    {
+      id: "alone-choice",
+      labelKey: "tenantinformationform.alone",
+      iconClass: "fr-icon-user-line",
+      optionName: "ALONE",
+    },
+    {
+      id: "couple-choice",
+      labelKey: "tenantinformationform.couple",
+      iconClass: "fr-icon-group-line",
+      optionName: "COUPLE",
+    },
+    {
+      id: "group-choice",
+      labelKey: "tenantinformationform.roommate",
+      iconClass: "fr-icon-team-line",
+      optionName: "GROUP",
+    },
+  ];
 
   beforeMount() {
     this.applicationType = this.user.applicationType || "ALONE";
