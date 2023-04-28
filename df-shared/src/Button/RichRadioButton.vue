@@ -5,7 +5,7 @@
         :id="id"
         type="radio"
         :name="name"
-        :checked="checked"
+        :checked="value === optionValue"
         @click="onClick"
       />
       <label class="fr-label" :for="id">
@@ -29,10 +29,11 @@ export default class RichRadioButton extends Vue {
   @Prop() id!: string;
   @Prop() label!: string;
   @Prop() icon!: string;
-  @Prop({ default: false }) checked!: boolean;
+  @Prop() optionValue!: string;
+  @Prop() value!: string;
 
   onClick() {
-    this.$emit("checked");
+    this.$emit("input", this.optionValue);
   }
 }
 </script>
