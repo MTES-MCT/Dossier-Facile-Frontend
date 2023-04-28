@@ -373,23 +373,23 @@ export default class Tax extends Vue {
           this.isWarningTaxSituationModalVisible = true;
         } else {
           AnalyticsService.uploadFile("tax");
-          this.saveNewFiles();
+          this.saveNewFiles(false);
         }
       }
     );
   }
 
-  saveNewFiles() {
+  saveNewFiles(force: boolean) {
     const nf = Array.from(this.newFiles).map((f) => {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
-    this.save();
+    this.save(force);
   }
 
   forceSave() {
     this.isWarningTaxSituationModalVisible = false;
-    this.saveNewFiles();
+    this.saveNewFiles(true);
   }
 
   resetFiles() {
@@ -407,7 +407,7 @@ export default class Tax extends Vue {
     this.$emit("on-back");
   }
 
-  async save(): Promise<boolean> {
+  async save(force = false): Promise<boolean> {
     if (this.taxDocument.key === undefined) {
       return true;
     }
@@ -461,6 +461,10 @@ export default class Tax extends Vue {
         return false;
       }
       formData.append("customText", this.customText);
+    }
+
+    if (force) {
+      formData.append("avisDetected", "true");
     }
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
