@@ -63,21 +63,19 @@
     </div>
 
     <div v-if="isOwner()">
+      <NakedCard class="fr-p-md-5w">
+        <h1 class="fr-h6">
+          {{ $t("tenantinformationform.title") }}
+        </h1>
+        <ApplicationTypeSelector
+          @selected="updateApplicationType"
+        ></ApplicationTypeSelector>
+      </NakedCard>
       <ValidationObserver ref="observer" v-slot="{ validate }">
         <form
           name="form"
           @submit.prevent="validate().then(handleOthersInformation)"
         >
-          <NakedCard class="fr-p-md-5w">
-            <h1 class="fr-h6">
-              {{ $t("tenantinformationform.title") }}
-            </h1>
-            <ApplicationTypeSelector
-              :applicationType="applicationType"
-              @selected="updateApplicationType"
-            ></ApplicationTypeSelector>
-          </NakedCard>
-
           <CoupleInformation
             v-model="coTenants"
             class="fr-mt-2w"
@@ -94,20 +92,6 @@
         </form>
       </ValidationObserver>
     </div>
-    <ConfirmModal
-      v-if="isDeleteGroupVisible"
-      @valid="validSelect()"
-      @cancel="undoSelect()"
-    >
-      <span>{{ $t("tenantinformationform.will-delete-roommates") }}</span>
-    </ConfirmModal>
-    <ConfirmModal
-      v-if="isDeleteCoupleVisible"
-      @valid="validSelect()"
-      @cancel="undoSelect()"
-    >
-      <span>{{ $t("tenantinformationform.will-delete-couple") }}</span>
-    </ConfirmModal>
   </div>
 </template>
 
@@ -161,9 +145,6 @@ export default class TenantInformationForm extends Vue {
   coTenantAuthorize!: boolean;
   spouseAuthorize!: boolean;
   applicationType = "";
-  isDeleteCoupleVisible = false;
-  isDeleteGroupVisible = false;
-  newApplicationType = "";
 
   localCoTenantAuthorize!: boolean;
   localSpouseAuthorize!: boolean;
@@ -256,23 +237,8 @@ export default class TenantInformationForm extends Vue {
   }
 
   updateApplicationType(value: string) {
-    if (this.applicationType != value) {
-      this.newApplicationType = value;
-      if (
-        value !== this.applicationType &&
-        (this.user.apartmentSharing?.tenants.length || 0) > 1
-      ) {
-        if (this.applicationType === "COUPLE") {
-          this.isDeleteCoupleVisible = true;
-        } else if (this.applicationType === "GROUP") {
-          this.isDeleteGroupVisible = true;
-        }
-      } else {
-        this.coTenants = [];
-        this.applicationType = this.newApplicationType;
-      }
-    }
-    return false;
+    this.applicationType = value;
+    this.deleteCoTenants();
   }
 
   hasNothingToSave() {
@@ -296,13 +262,7 @@ export default class TenantInformationForm extends Vue {
     return false;
   }
 
-  undoSelect() {
-    this.isDeleteCoupleVisible = false;
-    this.isDeleteGroupVisible = false;
-  }
-
-  validSelect() {
-    this.applicationType = this.newApplicationType;
+  deleteCoTenants() {
     this.user.apartmentSharing?.tenants.forEach(t => {
       if (t.tenantType !== "CREATE") {
         this.$store
@@ -310,14 +270,11 @@ export default class TenantInformationForm extends Vue {
           .then()
           .catch(() => {
             this.$toasted.global.error();
-            this.undoSelect();
             return;
           });
       }
     });
     this.coTenants = [];
-    this.isDeleteCoupleVisible = false;
-    this.isDeleteGroupVisible = false;
   }
 
   isOwner() {
