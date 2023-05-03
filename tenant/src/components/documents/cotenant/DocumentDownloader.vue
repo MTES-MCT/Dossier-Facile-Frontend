@@ -198,6 +198,37 @@
         </div>
       </template>
     </Modal>
+    <Modal
+      v-if="isWarningTaxSituationModalVisible"
+      @close="isWarningTaxSituationModalVisible = false"
+    >
+      <template v-slot:body>
+        <div class="warning-tax-modal fr-pl-md-3w fr-pr-md-3w fr-pb-md-3w">
+          <h1 class="avis-title fr-h4">
+            <i class="ri-alarm-warning-line"></i>
+
+            {{ $t("tax-page.avis-detected") }}
+          </h1>
+          <p>
+            {{ $t("tax-page.avis-text1") }}
+          </p>
+          <p>
+            {{ $t("tax-page.avis-text2") }}
+          </p>
+          <hr class="mobile" />
+          <div class="btn-align">
+            <DfButton
+              @on-click="isWarningTaxSituationModalVisible = false"
+              :primary="true"
+              >{{ $t("tax-page.avis-btn") }}</DfButton
+            >
+          </div>
+          <div class="btn-align fr-mt-2w">
+            <a @click="forceSave" href="#">{{ $t("tax-page.avis-force") }}</a>
+          </div>
+        </div>
+      </template>
+    </Modal>
   </div>
 </template>
 
@@ -226,6 +257,8 @@ import Modal from "df-shared/src/components/Modal.vue";
 import DocumentHelp from "../../helps/DocumentHelp.vue";
 import { UtilsService } from "@/services/UtilsService";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
+import { PdfAnalysisService } from "../../../services/PdfAnalysisService";
+import { AnalyticsService } from "../../../services/AnalyticsService";
 
 @Component({
   components: {
@@ -256,6 +289,7 @@ export default class DocumentDownloader extends Vue {
   @Prop({ default: true }) showDownloader!: boolean;
   @Prop({ default: false }) allowNoDocument!: boolean;
   @Prop({ default: false }) forceShowDownloader!: boolean;
+  @Prop({ default: false }) testAvisSituation!: boolean;
 
   localEditedDocumentId = this.editedDocumentId;
   documentDeniedReasons = new DocumentDeniedReasons();
@@ -267,6 +301,8 @@ export default class DocumentDownloader extends Vue {
   dfDocument!: DfDocument;
   noDocument = false;
   showIsNoDocumentAndFiles = false;
+  newFiles: File[] = [];
+  isWarningTaxSituationModalVisible = false;
 
   beforeMount() {
     this.loadDocument();
@@ -394,8 +430,33 @@ export default class DocumentDownloader extends Vue {
     }
   }
 
+  forceSave() {
+    this.isWarningTaxSituationModalVisible = false;
+    this.saveNewFiles(true);
+  }
+
   addFiles(fileList: File[]) {
-    const filesToAdd = Array.from(fileList).map((f) => {
+    this.newFiles = fileList;
+    console.dir(this.testAvisSituation);
+    if (this.testAvisSituation) {
+      PdfAnalysisService.findRejectedTaxDocuments(fileList).then(
+        (rejectedFiles) => {
+          if (rejectedFiles.length > 0) {
+            AnalyticsService.avisDetected();
+            this.isWarningTaxSituationModalVisible = true;
+          } else {
+            AnalyticsService.uploadFile("tax");
+            this.saveNewFiles(false);
+          }
+        }
+      );
+    } else {
+      this.saveNewFiles(false);
+    }
+  }
+
+  saveNewFiles(avisDetected: boolean) {
+    const filesToAdd = Array.from(this.newFiles).map((f) => {
       return { name: f.name, file: f, size: f.size };
     });
     if (!filesToAdd || filesToAdd.length <= 0) {
@@ -414,7 +475,7 @@ export default class DocumentDownloader extends Vue {
       });
       return;
     }
-    const formData = this._buildFormData(filesToAdd);
+    const formData = this._buildFormData(filesToAdd, avisDetected);
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
 
@@ -439,7 +500,7 @@ export default class DocumentDownloader extends Vue {
       });
   }
 
-  _buildFormData(filesToAdd: any): FormData {
+  _buildFormData(filesToAdd: any, avisDetected: boolean): FormData {
     const formData = new FormData();
     const fieldName = "documents";
     Array.from(Array(filesToAdd.length).keys()).forEach((x) => {
@@ -453,6 +514,10 @@ export default class DocumentDownloader extends Vue {
       formData.append("id", this.localEditedDocumentId.toString());
     }
     this.$emit("enrich-form-data", formData);
+    if (avisDetected) {
+      formData.append("avisDetected", "true");
+    }
+
     return formData;
   }
 
