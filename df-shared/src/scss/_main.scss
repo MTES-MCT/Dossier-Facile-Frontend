@@ -330,3 +330,10 @@ img {
 .error-toast {
   background-color: #d50101 !important;
 }
+
+.mobile {
+  display: inherit !important;
+  @media all and (min-width: 768px) {
+    display: none !important;
+  }
+}

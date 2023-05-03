@@ -64,7 +64,9 @@ function close() {
   -webkit-backdrop-filter: blur(5px);
   display: flex;
   flex-direction: column;
-  min-width: 400px;
+  @media all and (min-width: 480px) {
+    min-width: 400px;
+  }
   max-width: 90%;
   max-height: 98%;
   overflow: auto;
