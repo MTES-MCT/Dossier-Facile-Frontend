@@ -72,33 +72,27 @@
         {{ $t("menu.contact-us") }}
       </a>
     </li>
-    <li class="fr-nav__item">
-      <button
-        class="fr-nav__link fr-btn fr-ml-3 fr-btn--secondary fr-btn--sm lang"
-        @click="changeLang"
-      >
-        {{ getLanguageSwitchLabel() }}
-      </button>
-    </li>
+    <LanguageSelector :initialLanguage="$i18n.locale" />
   </ul>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import i18n from "../i18n";
 import DfButton from "df-shared/src/Button/Button.vue";
+import LanguageSelector from "df-shared/src/Header/LanguageSelector.vue";
 
 @Component({
   components: {
-    DfButton
+    DfButton,
+    LanguageSelector,
   },
   computed: {
     ...mapGetters({
       newMessage: "newMessage",
-      isLoggedIn: "isLoggedIn"
-    })
-  }
+      isLoggedIn: "isLoggedIn",
+    }),
+  },
 })
 export default class Menu extends Vue {
   isLoggedIn?: boolean;
@@ -111,13 +105,7 @@ export default class Menu extends Vue {
   currentPage() {
     return this.$route.name;
   }
-  changeLang() {
-    const lang = i18n.locale === "fr" ? "en" : "fr";
-    this.$store.dispatch("setLang", lang);
-  }
-  getLanguageSwitchLabel() {
-    return i18n.locale === "fr" ? "English version" : "Version française";
-  }
+
   showDeleteAccountModal() {
     this.$store.commit("showDeleteAccountModal", true);
   }
@@ -140,10 +128,6 @@ export default class Menu extends Vue {
   justify-content: center;
   align-items: center;
   font-size: 0.8em;
-}
-
-.lang {
-  box-shadow: none;
 }
 
 .fr-nav__item {
