@@ -529,31 +529,4 @@ export default class Tax extends Vue {
     width: 14rem;
   }
 }
-
-.warning-box {
-  .title {
-    display: flex;
-  }
-
-  .link {
-    text-align: right;
-  }
-}
-
-.avis-title {
-  color: #b34000;
-}
-
-.warning-tax-modal {
-  display: flex;
-  flex-direction: column;
-  max-width: 640px;
-}
-
-.btn-align {
-  align-self: center;
-  @media all and (min-width: 768px) {
-    align-self: end;
-  }
-}
 </style>

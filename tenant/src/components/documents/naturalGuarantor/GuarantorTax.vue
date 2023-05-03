@@ -509,12 +509,4 @@ export default class GuarantorTax extends Vue {
   min-height: 2rem;
   width: 14rem;
 }
-.warning-box {
-  .title {
-    display: flex;
-  }
-  .link {
-    text-align: right;
-  }
-}
 </style>

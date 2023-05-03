@@ -9,6 +9,7 @@
       listType="grid"
       :showDownloader="showDownloader"
       :forceShowDownloader="forceShowDownloader"
+      :testAvisSituation="true"
       @on-change-document="changeDocument"
       @enrich-form-data="enrichFormData"
     >
@@ -61,7 +62,7 @@ import { UtilsService } from "@/services/UtilsService";
 extend("is", {
   ...is,
   message: "field-required",
-  validate: value => !!value
+  validate: (value) => !!value,
 });
 
 @Component({
@@ -71,8 +72,8 @@ extend("is", {
     NakedCard,
     FooterContainer,
     BackNext,
-    AllowCheckTax
-  }
+    AllowCheckTax,
+  },
 })
 export default class CoTenantTax extends Vue {
   documentsDefinitions = DocumentTypeConstants.TAX_DOCS;
@@ -151,7 +152,7 @@ export default class CoTenantTax extends Vue {
         Vue.toasted.global.save_success();
         this.$emit("on-next");
       })
-      .catch(err => {
+      .catch((err) => {
         if (err.response.data.message.includes("NumberOfPages")) {
           Vue.toasted.global.save_failed_num_pages();
         } else {
