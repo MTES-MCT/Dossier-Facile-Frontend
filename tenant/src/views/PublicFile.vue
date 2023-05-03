@@ -208,6 +208,9 @@
           intermédiaire.
         </div>
       </section>
+      <section class="fr-mb-7w">
+        <OwnerBanner></OwnerBanner>
+      </section>
     </div>
   </div>
 </template>
@@ -221,11 +224,13 @@ import { ProfileService } from "../services/ProfileService";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import FileReinsurance from "../components/FileReinsurance.vue";
 import FileRowListItem from "../components/documents/FileRowListItem.vue";
+import OwnerBanner from "../components/OwnerBanner.vue";
 
 @Component({
   components: {
     FileReinsurance,
     FileRowListItem,
+    OwnerBanner,
   },
 })
 export default class File extends Vue {
