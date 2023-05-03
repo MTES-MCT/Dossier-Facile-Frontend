@@ -132,8 +132,8 @@ export default class Menu extends Vue {
   top: 0.5rem;
   right: 0.25rem;
   border-radius: 50%;
-  background: red;
-  color: white;
+  background: var(--secondary);
+  color: var(--primary);
   z-index: 1;
   min-width: 1.6em;
   height: 1.6em;
@@ -194,8 +194,5 @@ span.material-icons-outlined {
     display: none;
   }
   padding-right: 0.25rem;
-}
-fr-breadcrumb {
-  margin: 0;
 }
 </style>

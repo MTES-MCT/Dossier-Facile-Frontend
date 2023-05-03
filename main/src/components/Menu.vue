@@ -84,21 +84,6 @@ export default class Menu extends Vue {
 </script>
 
 <style scoped lang="scss">
-.badge {
-  position: absolute;
-  top: -2px;
-  right: 0px;
-  padding: 5px 10px;
-  border-radius: 50%;
-  background: red;
-  color: white;
-  z-index: 1;
-}
-
-.lang {
-  box-shadow: none;
-}
-
 .fr-nav__item {
   position: relative;
   .fr-nav__link[aria-current] {
@@ -145,8 +130,4 @@ span.material-icons-outlined {
   }
   padding-right: 0.25rem;
 }
-fr-breadcrumb {
-  margin: 0;
-}
 </style>
-
