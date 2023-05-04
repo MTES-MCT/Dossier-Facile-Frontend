@@ -507,6 +507,8 @@ export default class GuarantorTax extends Vue {
 <style scoped lang="scss">
 .spa {
   min-height: 2rem;
-  width: 14rem;
+  @media all and (min-width: 768px) {
+    width: 14rem;
+  }
 }
 </style>

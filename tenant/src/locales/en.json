@@ -664,7 +664,10 @@
     "title-cotenant": "His/her guarantor tax file",
     "situation": "What is their tax situation?",
     "warning-no-accepted-doc": "Warning, the declarative situation document is not accepted.",
-    "goto-documentation": "Go to documentation"
+    "goto-documentation": "Go to documentation",
+    "my-name-cotenant": "I have the Tax icome - avis d’imposition - of the guarantor",
+    "less-than-year-cotenant": "The guarantor is in France for less than a year",
+    "other-tax-cotenant": "Other"
   },
   "identification-page": {
     "files": "Documents",
