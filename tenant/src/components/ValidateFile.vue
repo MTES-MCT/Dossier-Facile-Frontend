@@ -90,7 +90,7 @@
         ></ProfileFooter>
       </form>
       <div v-if="hasErrors()">
-        <NakedCard class="fr-px-5w fr-py-3w ">
+        <NakedCard class="fr-px-5w fr-py-3w">
           <div>
             <h6 class="fr-h6 color--secondary">
               {{ $t("validatefile.validation-error-title") }}
@@ -124,7 +124,7 @@ import { RegisterService } from "@/services/RegisterService";
 extend("isvalid", {
   ...is,
   message: "validatefile.require-accept",
-  validate: value => !!value
+  validate: (value) => !!value,
 });
 
 @Component({
@@ -134,13 +134,13 @@ extend("isvalid", {
     ProfileFooter,
     FileErrors,
     NakedCard,
-    AllowCheckTax
+    AllowCheckTax,
   },
   computed: {
     ...mapState({
-      user: "user"
-    })
-  }
+      user: "user",
+    }),
+  },
 })
 export default class ValidateFile extends Vue {
   user!: User;
@@ -161,7 +161,7 @@ export default class ValidateFile extends Vue {
           this.$store.dispatch("saveTaxAuth", {
             allowTax: "allow",
             fcToken: fcToken,
-            tenantId: this.user.id
+            tenantId: this.user.id,
           });
         });
       }
@@ -174,13 +174,16 @@ export default class ValidateFile extends Vue {
       return;
     }
 
-    if (this.user.status === "VALIDATED") {
+    if (
+      this.user.status === "VALIDATED" &&
+      this.precision === this.user?.clarification
+    ) {
       this.$router.push("/account");
       return;
     }
     const loader = Vue.$loading.show();
     const params: any = {
-      honorDeclaration: true
+      honorDeclaration: true,
     };
     if (this.user.tenantType === "CREATE") {
       params.clarification = this.precision;
