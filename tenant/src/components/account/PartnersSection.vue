@@ -132,7 +132,6 @@ export default class PartnersSection extends Vue {
 
 <style lang="scss" scoped>
 h2 {
-  color: var(--bf500);
   font-size: 2rem;
 }
 

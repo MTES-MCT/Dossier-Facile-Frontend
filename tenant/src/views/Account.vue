@@ -482,7 +482,6 @@ export default class Account extends Vue {
 }
 
 h1 {
-  color: var(--bf500);
   font-size: 2rem;
 }
 
