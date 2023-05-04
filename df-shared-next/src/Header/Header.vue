@@ -26,13 +26,12 @@
             <div class="fr-header__service">
               <a :href="`${MAIN_URL}/`" title="Dossier Facile - Accueil">
                 <p class="fr-header__service-title">
-                  <img
-                    class="logo"
-                    src="./logo_dossierfacile.svg"
-                    alt="Dossier Facile"
-                  />
+                  <span style="font-weight: normal">Dossier</span>Facile
                 </p>
               </a>
+              <p class="fr-header__service-tagline">
+                Le dossier de location numérique de l'État
+              </p>
             </div>
           </div>
 
