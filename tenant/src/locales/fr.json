@@ -822,7 +822,10 @@
     "title-cotenant": "L'avis d'imposition de son garant",
     "situation": "Quelle est sa situation fiscale ?",
     "warning-no-accepted-doc": "Attention, l'avis de situation déclarative n'est pas accepté.",
-    "goto-documentation": "Consulter la documentation"
+    "goto-documentation": "Consulter la documentation",
+    "my-name-cotenant": "J'ai un avis d'imposition au nom du garant",
+    "less-than-year-cotenant": "Le garant est en France depuis moins d'un an",
+    "other-tax-cotenant": "Autre"
   },
   "identification-page": {
     "files": "Documents",
