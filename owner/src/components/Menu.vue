@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { Composer, useI18n } from 'vue-i18n';
+import { useI18n } from 'vue-i18n';
 import DfButton from 'df-shared-next/src/Button/Button.vue';
-import useOwnerStore from '../store/owner-store';
-import i18n from '../i18n';
+import LanguageSelector from 'df-shared-next/src/Header/LanguageSelector.vue';
+import useOwnerStore from '../store/owner-store.ts';
 
 const store = useOwnerStore();
 const isLoggedIn = computed(() => store.isLoggedIn);
 const route = useRoute();
 const { t } = useI18n();
-const emit = defineEmits(['on-change-lang']);
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`;
@@ -19,13 +18,8 @@ function currentPage() {
   return route.name;
 }
 
-function changeLang() {
-  emit('on-change-lang');
-}
-
-function getLanguageSwitchLabel() {
-  const lang = ((i18n.global as unknown) as Composer).locale.value;
-  return lang === 'fr' ? 'English version' : 'Version française';
+function changeLang(lang: string) {
+  store.setLang(lang);
 }
 
 function showDeleteAccountModal() {
@@ -100,50 +94,24 @@ function showDeleteAccountModal() {
         v-bind:aria-current="currentPage() === 'Contact' ? 'page' : undefined"
         class="fr-nav__link"
       >
-        <div class="fr-tag">
-          <span class="material-icons" aria-hidden="true">mail_outline</span>
+          <span class="fr-icon-mail-line fr-icon--sm" aria-hidden="true"></span>
           {{ t('menu.contact-us') }}
-        </div>
       </a>
     </li>
-    <li class="fr-nav__item" :class="{ break: !isLoggedIn }">
-      <button
-        class="fr-nav__link fr-btn fr-ml-3 fr-btn--secondary fr-btn--sm lang"
-        @click="changeLang"
-      >
-        {{ getLanguageSwitchLabel() }}
-      </button>
+    <li class="fr-nav__item fr-translate">
+        <LanguageSelector @on-change="changeLang"/>
     </li>
   </ul>
 </template>
 
 <style scoped lang="scss">
+@import "@gouvfr/dsfr/dist/utility/icons/icons-business/icons-business.css";
+
 .fr-nav__item {
   position: relative;
 
   a.fr-external-link::after {
     content: '';
-  }
-
-  .fr-nav__link[aria-current] {
-    .fr-tag {
-      color: var(--text-action-high-blue-france) !important;
-    }
-  }
-  .tag-container {
-    @media all and (min-width: 768px) {
-      padding-top: 0.75rem;
-      padding-bottom: 0.4rem;
-    }
-    .fr-tag {
-      @media all and (max-width: 768px) {
-        min-height: inherit;
-        padding: 0;
-        background-color: transparent;
-        color: inherit;
-        font-size: inherit;
-      }
-    }
   }
 }
 
