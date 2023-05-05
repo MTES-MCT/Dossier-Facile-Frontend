@@ -11,9 +11,7 @@
       @on-login-tenant="onLoginTenant"
       @on-create-owner="onCreateOwner"
       @on-logout="onLogout"
-      @on-change-lang="changeLang"
       :showAccessibility="isFunnel"
-      :lang="getLang()"
     >
       <Menu />
     </MyHeader>
@@ -34,7 +32,6 @@ import MyHeader from "df-shared/src/Header/Header.vue";
 import TheFooter from "df-shared/src/Footer/Footer.vue";
 import Menu from "./components/Menu.vue";
 import { mapGetters, mapState } from "vuex";
-import i18n from "./i18n";
 import Cookies from "df-shared/src/Footer/Cookies.vue";
 import VueGtag from "vue-gtag";
 import router from "./router";
@@ -91,15 +88,6 @@ export default class App extends Vue {
 
   onCreateOwner() {
     window.location.href = this.OWNER_URL;
-  }
-
-  getLang() {
-    return i18n.locale;
-  }
-
-  changeLang() {
-    const lang = i18n.locale === "fr" ? "en" : "fr";
-    this.$store.dispatch("setLang", lang);
   }
 
   acceptCookies() {

@@ -6,13 +6,10 @@ import MyHeader from 'df-shared-next/src/Header/Header.vue';
 import Announcement from 'df-shared-next/src/components/Announcement.vue';
 import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue';
 import TheFooter from 'df-shared-next/src/Footer/Footer.vue';
-import Cookies from 'df-shared-next/src/Footer/Cookies.vue';
 import { useRouter } from 'vue-router';
 import { useCookies } from 'vue3-cookies';
-import { Composer } from 'vue-i18n';
-import i18n from './i18n';
 import Menu from './components/Menu.vue';
-import useOwnerStore from './store/owner-store';
+import useOwnerStore from './store/owner-store.ts';
 import DeleteAccount from './components/DeleteAccount.vue';
 
 const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`;
@@ -49,15 +46,6 @@ function onLogout() {
   store.logout(true);
 }
 
-function changeLang() {
-  const lang = ((i18n.global as unknown) as Composer).locale.value === 'fr' ? 'en' : 'fr';
-  store.setLang(lang);
-}
-
-function getLang() {
-  return ((i18n.global as unknown) as Composer).locale.value;
-}
-
 function acceptCookies() {
   cookies.set('accept-cookie', 'true');
   // Vue.prototype.inspectlet();
@@ -81,7 +69,7 @@ function denyCookies() {
     @on-logout="onLogout"
     :showAccessibility="false"
   >
-    <Menu @on-change-lang="changeLang" :lang="getLang()"></Menu>
+    <Menu></Menu>
   </MyHeader>
   <div id="content">
     <DeleteAccount v-show="showDeleteAccountModal"></DeleteAccount>
