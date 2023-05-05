@@ -20,11 +20,14 @@ Cypress.Commands.add("disableTaxVerification", () => {
     .click();
 });
 
-Cypress.Commands.add("simpleUploadDocumentStep", (buttonToSelect: string) => {
+Cypress.Commands.add("simpleUploadDocumentStep", (buttonToSelect: string, waitBeforeNext: number = 0) => {
   cy.contains(buttonToSelect)
     .click()
-    .uploadDocument()
-    .clickOnNext();
+    .uploadDocument();
+  if (waitBeforeNext > 0) {
+    cy.wait(waitBeforeNext);
+  }
+  cy.clickOnNext();
 });
 
 Cypress.Commands.add("selectProfessionalStatusStep", (professionalStatus: string) => {
