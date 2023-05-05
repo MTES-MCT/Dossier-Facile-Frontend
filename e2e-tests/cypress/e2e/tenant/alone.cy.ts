@@ -21,7 +21,7 @@ describe("alone tenant scenario", () => {
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/1");
-    cy.simpleUploadDocumentStep("Carte d’identité française");
+    cy.simpleUploadDocumentStep("Autre");
 
     cy.expectPath("/documents-locataire/2");
     cy.simpleUploadDocumentStep("Locataire");
@@ -36,7 +36,7 @@ describe("alone tenant scenario", () => {
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/5");
-    cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom");
+    cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom", 100);
 
     cy.expectPath("/choix-garant");
     cy.get("button")
@@ -63,7 +63,7 @@ describe("alone tenant scenario", () => {
     cy.clickOnNext();
 
     cy.expectPath("/info-garant/5");
-    cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom");
+    cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom", 100);
 
     cy.expectPath("/liste-garants");
     cy.contains("Jean Dupont").should("be.visible");
