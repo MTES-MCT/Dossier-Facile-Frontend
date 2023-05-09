@@ -34,6 +34,7 @@ export class DfState {
   skipLinks: SkipLink[] = [];
   guarantorFinancialDocumentSelected = new FinancialDocument();
   editGuarantorFinancialDocument = false;
+  showDeleteAccountModal = false;
 }
 
 const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
@@ -131,8 +132,8 @@ const store = new Vuex.Store({
 
       const unreadMessages = state.messageList
         .flat()
-        .filter(message => message.typeMessage === "TO_TENANT")
-        .filter(message => message.status === "UNREAD");
+        .filter((message) => message.typeMessage === "TO_TENANT")
+        .filter((message) => message.status === "UNREAD");
       state.newMessage = unreadMessages.length;
     },
     deleteRoommates(state, email) {
@@ -188,7 +189,10 @@ const store = new Vuex.Store({
         new FinancialDocument()
       );
       Vue.set(state, "editGuarantorFinancialDocument", true);
-    }
+    },
+    showDeleteAccountModal(state, show: boolean) {
+      Vue.set(state, "showDeleteAccountModal", show);
+    },
   },
   actions: {
     logout({ commit }, redirect = true) {
@@ -213,7 +217,7 @@ const store = new Vuex.Store({
     deleteAccount({ commit }) {
       const isFC = this.state.user.franceConnect;
       return AuthService.deleteAccount().then(
-        response => {
+        (response) => {
           commit("logout");
           commit("initState");
           if (isFC) {
@@ -226,18 +230,18 @@ const store = new Vuex.Store({
           }
           return Promise.resolve(response);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
     },
     register({ commit }, { user, source, internalPartnerId }) {
       return AuthService.register(user, source, internalPartnerId).then(
-        response => {
+        (response) => {
           commit("registerSuccess");
           return Promise.resolve(response.data);
         },
-        error => {
+        (error) => {
           commit("registerFailure");
           return Promise.reject(error);
         }
@@ -245,10 +249,10 @@ const store = new Vuex.Store({
     },
     resetPassword(_, user) {
       return AuthService.resetPassword(user).then(
-        user => {
+        (user) => {
           return Promise.resolve(user);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
@@ -265,29 +269,29 @@ const store = new Vuex.Store({
           });
           return commit("unlinkFCSuccess");
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
     },
     loadUser({ commit }) {
       return AuthService.loadUser().then(
-        response => {
+        (response) => {
           commit("loadUser", response.data);
           return Promise.resolve(response.data);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
     },
     loadCoTenant({ commit }, coTenant: User) {
       return ProfileService.getCoTenant(coTenant.id).then(
-        response => {
+        (response) => {
           commit("loadCoTenant", response.data);
           return Promise.resolve(response.data);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
@@ -303,30 +307,30 @@ const store = new Vuex.Store({
         user.preferredName = UtilsService.capitalize(user.preferredName);
       }
       return ProfileService.saveNames(user).then(
-        response => {
+        (response) => {
           return commit("loadUser", response.data);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
     },
     setRoommates({ commit }, data) {
       return ProfileService.saveRoommates(data).then(
-        response => {
+        (response) => {
           return commit("loadUser", response.data);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
     },
     setCoTenants({ commit }, data) {
       return ProfileService.saveCoTenants(data).then(
-        response => {
+        (response) => {
           return commit("loadUser", response.data);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
@@ -359,29 +363,28 @@ const store = new Vuex.Store({
             router.push("/account");
           });
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
     },
     addNaturalGuarantor({ commit }) {
       return ProfileService.setGuarantorType({
-        typeGuarantor: "NATURAL_PERSON"
+        typeGuarantor: "NATURAL_PERSON",
       }).then(
-        response => {
+        (response) => {
           commit("loadUser", response.data);
           if (this.state.user.guarantors === undefined) {
             return Promise.reject();
           }
           this.dispatch("setGuarantorPage", {
-            guarantor: this.state.user.guarantors[
-              this.state.user.guarantors.length - 1
-            ],
-            substep: "0"
+            guarantor:
+              this.state.user.guarantors[this.state.user.guarantors.length - 1],
+            substep: "0",
           });
           return Promise.resolve(response.data);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
@@ -397,62 +400,62 @@ const store = new Vuex.Store({
         () => {
           return this.dispatch("loadUser");
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
     },
     deleteGuarantor(_, g: Guarantor) {
       return ProfileService.deleteGuarantor(g).then(
-        async response => {
+        async (response) => {
           await this.dispatch("loadUser");
           return Promise.resolve(response.data);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
     },
     setGuarantorType({ commit }, guarantorType: Guarantor) {
       return ProfileService.setGuarantorType(guarantorType).then(
-        async response => {
+        async (response) => {
           commit("loadUser", response.data);
           return Promise.resolve(response.data);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
     },
     changePassword({ commit }, user: User) {
       return AuthService.changePassword(user).then(
-        response => {
+        (response) => {
           commit("loadUser", response.data);
           return Promise.resolve(user);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
     },
     createPasswordCouple({ commit }, user: User) {
       return AuthService.createPasswordCouple(user).then(
-        response => {
+        (response) => {
           commit("loadUser", response.data);
           return Promise.resolve(user);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
     },
     createPasswordGroup({ commit }, user: User) {
       return AuthService.createPasswordGroup(user).then(
-        response => {
+        (response) => {
           commit("loadUser", response.data);
           return Promise.resolve(user);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
@@ -462,25 +465,25 @@ const store = new Vuex.Store({
         () => {
           return this.dispatch("loadUser");
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
     },
     updateMessages({ commit }) {
       if (this.getters.isLoggedIn) {
-        MessageService.updateMessages().then(data => {
+        MessageService.updateMessages().then((data) => {
           commit("updateMessages", {
             tenantId: this.state.user.id,
-            messageList: data.data
+            messageList: data.data,
           });
         });
         const spouse = UtilsService.getSpouse();
         if (spouse) {
-          MessageService.updateMessages(spouse.id).then(data => {
+          MessageService.updateMessages(spouse.id).then((data) => {
             commit("updateMessages", {
               tenantId: spouse.id,
-              messageList: data.data
+              messageList: data.data,
             });
           });
         }
@@ -489,7 +492,7 @@ const store = new Vuex.Store({
     sendMessage(_, { message, tenantId }) {
       return MessageService.postMessage({
         tenantId: tenantId,
-        messageBody: message
+        messageBody: message,
       }).then(() => {
         this.dispatch("updateMessages");
       });
@@ -503,7 +506,7 @@ const store = new Vuex.Store({
     async setTenantPage(_, { substep }) {
       router.push({
         name: "TenantDocuments",
-        params: { substep }
+        params: { substep },
       });
     },
     async setGuarantorPage({ commit }, { guarantor, substep, tenantId }) {
@@ -515,118 +518,118 @@ const store = new Vuex.Store({
             step: "5",
             substep: substep,
             tenantId: tenantId,
-            guarantorId: guarantor.id
-          }
+            guarantorId: guarantor.id,
+          },
         });
       } else {
         router.push({
           name: "GuarantorDocuments",
-          params: { substep }
+          params: { substep },
         });
       }
     },
     saveTenantIdentification({ commit }, formData) {
       return RegisterService.saveTenantIdentification(formData).then(
-        response => {
+        (response) => {
           commit("loadUser", response.data);
           return Promise.resolve(response.data);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
     },
     saveTaxAuth({ commit }, { allowTax, fcToken, tenantId }) {
       return RegisterService.saveTaxAuth(allowTax, fcToken, tenantId).then(
-        response => {
+        (response) => {
           commit("loadUser", response.data);
           return Promise.resolve(response.data);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
     },
     saveCoTenantIdentification({ commit }, formData) {
       return RegisterService.saveCoTenantIdentification(formData).then(
-        response => {
+        (response) => {
           commit("loadUser", response.data);
           return Promise.resolve(response.data);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
     },
     saveGuarantorName({ commit }, formData) {
       return RegisterService.saveGuarantorName(formData).then(
-        response => {
+        (response) => {
           commit("loadUser", response.data);
           return Promise.resolve(response.data);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
     },
     saveGuarantorIdentification({ commit }, formData) {
       return RegisterService.saveGuarantorIdentification(formData).then(
-        response => {
+        (response) => {
           commit("loadUser", response.data);
           return Promise.resolve(response.data);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
     },
     saveTenantResidency({ commit }, formData) {
       return RegisterService.saveTenantResidency(formData).then(
-        response => {
+        (response) => {
           commit("loadUser", response.data);
           return Promise.resolve(response.data);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
     },
     saveGuarantorResidency({ commit }, formData) {
       return RegisterService.saveGuarantorResidency(formData).then(
-        response => {
+        (response) => {
           commit("loadUser", response.data);
           return Promise.resolve(response.data);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
     },
     saveTenantProfessional({ commit }, formData) {
       return RegisterService.saveTenantProfessional(formData).then(
-        response => {
+        (response) => {
           commit("loadUser", response.data);
           return Promise.resolve(response.data);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
     },
     saveGuarantorProfessional({ commit }, formData) {
       return RegisterService.saveGuarantorProfessional(formData).then(
-        response => {
+        (response) => {
           commit("loadUser", response.data);
           return Promise.resolve(response.data);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
     },
     saveTenantFinancial({ commit }, formData) {
       return RegisterService.saveTenantFinancial(formData).then(
-        async response => {
+        async (response) => {
           await commit("loadUser", response.data);
           const fd = await this.getters.tenantFinancialDocuments;
           if (fd === undefined) {
@@ -646,14 +649,14 @@ const store = new Vuex.Store({
           }
           return Promise.resolve(response.data);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
     },
     saveGuarantorFinancial({ commit }, formData) {
       return RegisterService.saveGuarantorFinancial(formData)
-        .then(async response => {
+        .then(async (response) => {
           await commit("loadUser", response.data);
           const fd = this.getters.guarantorFinancialDocuments;
           if (fd === undefined) {
@@ -669,28 +672,28 @@ const store = new Vuex.Store({
           }
           return Promise.resolve(response.data);
         })
-        .catch(error => {
+        .catch((error) => {
           return Promise.reject(error);
         });
     },
     saveTenantTax({ commit }, formData) {
       return RegisterService.saveTenantTax(formData).then(
-        response => {
+        (response) => {
           commit("loadUser", response.data);
           return Promise.resolve(response.data);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
     },
     saveGuarantorTax({ commit }, formData) {
       return RegisterService.saveGuarantorTax(formData).then(
-        response => {
+        (response) => {
           commit("loadUser", response.data);
           return Promise.resolve(response.data);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
@@ -782,15 +785,15 @@ const store = new Vuex.Store({
     },
     readMessages({ commit }, tenantId?: number) {
       return MessageService.markMessagesAsRead(tenantId).then(
-        response => {
+        (response) => {
           commit("updateMessages", { tenantId, messageList: response.data });
           return Promise.resolve(response.data);
         },
-        error => {
+        (error) => {
           return Promise.reject(error);
         }
       );
-    }
+    },
   },
   getters: {
     getTenantDocuments(state): DfDocument[] {
@@ -933,11 +936,12 @@ const store = new Vuex.Store({
               f.monthlySum = d.monthlySum || 0;
               f.id = d.id;
 
-              const localDoc = DocumentTypeConstants.GUARANTOR_FINANCIAL_DOCS.find(
-                (d2: DocumentType) => {
-                  return d2.value === d.documentSubCategory;
-                }
-              );
+              const localDoc =
+                DocumentTypeConstants.GUARANTOR_FINANCIAL_DOCS.find(
+                  (d2: DocumentType) => {
+                    return d2.value === d.documentSubCategory;
+                  }
+                );
               if (localDoc !== undefined) {
                 f.documentType = localDoc;
               }
@@ -961,9 +965,12 @@ const store = new Vuex.Store({
     },
     coTenants(state): User[] {
       return state.coTenants;
-    }
+    },
+    showDeleteAccountModal(state): boolean {
+      return state.showDeleteAccountModal;
+    },
   },
-  modules: {}
+  modules: {},
 });
 
 export default store;

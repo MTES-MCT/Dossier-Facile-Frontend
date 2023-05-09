@@ -26,13 +26,12 @@
             <div class="fr-header__service">
               <a :href="`${MAIN_URL}/`" title="Dossier Facile - Accueil">
                 <p class="fr-header__service-title">
-                  <img
-                    class="logo"
-                    src="./logo_dossierfacile.svg"
-                    alt="Dossier Facile"
-                  />
+                  <span style="font-weight: normal">Dossier</span>Facile
                 </p>
               </a>
+              <p class="fr-header__service-tagline">
+                Le dossier de location numérique de l'État
+              </p>
             </div>
           </div>
 
@@ -226,21 +225,6 @@ span.material-icons-outlined {
       .fr-btn {
         margin-right: 0;
       }
-      @media all and (max-width: 768px) {
-        border-bottom: 1px;
-        border-bottom-style: solid;
-        border-bottom-color: var(--border-default-grey);
-      }
-    }
-    & > li:last-child,
-    li:nth-last-child(2) {
-      @media all and (min-width: 768px) {
-        border-left: 1px;
-        border-left-style: solid;
-      }
-    }
-    & > li:first-child {
-      border-left-style: none !important;
     }
   }
 }

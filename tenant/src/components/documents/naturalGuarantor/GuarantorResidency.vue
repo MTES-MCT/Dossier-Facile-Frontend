@@ -114,13 +114,13 @@ import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
     GuarantorChoiceHelp,
     VGouvFrModal,
     NakedCard,
-    TroubleshootingModal
+    TroubleshootingModal,
   },
   computed: {
     ...mapState({
-      selectedGuarantor: "selectedGuarantor"
-    })
-  }
+      selectedGuarantor: "selectedGuarantor",
+    }),
+  },
 })
 export default class GuarantorResidency extends Vue {
   @Prop() tenantId?: string;
@@ -243,7 +243,7 @@ export default class GuarantorResidency extends Vue {
   }
 
   addFiles(fileList: File[]) {
-    const nf = Array.from(fileList).map(f => {
+    const nf = Array.from(fileList).map((f) => {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
@@ -256,7 +256,7 @@ export default class GuarantorResidency extends Vue {
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    const newFiles = this.files.filter(f => {
+    const newFiles = this.files.filter((f) => {
       return !f.id;
     });
     if (!newFiles.length) return;
@@ -266,15 +266,16 @@ export default class GuarantorResidency extends Vue {
       this.residencyFiles().length > this.residencyDocument.maxFileCount
     ) {
       Vue.toasted.global.max_file({
-        message: this.$i18n.t("guarantorresidency.max-file", [
+        message: this.$i18n.t("max-file", [
           this.residencyFiles().length,
-          this.residencyDocument.maxFileCount
-        ])
+          this.residencyDocument.maxFileCount,
+        ]),
       });
+      this.files = [];
       return;
     }
 
-    Array.from(Array(newFiles.length).keys()).map(x => {
+    Array.from(Array(newFiles.length).keys()).forEach((x) => {
       const f: File = newFiles[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
     });
@@ -296,7 +297,7 @@ export default class GuarantorResidency extends Vue {
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         Vue.toasted.global.save_success();
       })
-      .catch(err => {
+      .catch((err) => {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
         if (err.response.data.message.includes("NumberOfPages")) {
           Vue.toasted.global.save_failed_num_pages();
@@ -310,12 +311,12 @@ export default class GuarantorResidency extends Vue {
   }
 
   residencyFiles() {
-    const newFiles = this.files.map(f => {
+    const newFiles = this.files.map((f) => {
       return {
         documentSubCategory: this.residencyDocument.value,
         id: f.name,
         name: f.name,
-        size: f.size
+        size: f.size,
       };
     });
     const existingFiles =
@@ -326,11 +327,11 @@ export default class GuarantorResidency extends Vue {
   }
 
   async remove(file: DfFile, silent = false) {
-    if (file.id) {
+    if (file.path && file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
-      const firstIndex = this.files.findIndex(f => {
-        return f.name === file.name && f.file === file.file && !f.id;
+      const firstIndex = this.files.findIndex((f) => {
+        return f.name === file.name && !f.path;
       });
       this.files.splice(firstIndex, 1);
     }
@@ -346,4 +347,3 @@ export default class GuarantorResidency extends Vue {
 </script>
 
 <style scoped lang="scss"></style>
-

@@ -31,38 +31,32 @@
     <li class="fr-nav__item">
       <a
         :href="`${MAIN_URL}/contact`"
-        :aria-current="currentPage() === 'Contact' ? 'page' : false"
-        class="fr-nav__link tag-container"
+        :aria-current="currentPage() === 'Contact'"
+        class="fr-nav__link"
         id="contact-us"
       >
-        <div class="fr-tag">
-          <span class="material-icons" aria-hidden="true">mail_outline</span>
-          {{ $t("contact-us") }}
-        </div>
+        <span class="fr-icon-mail-line fr-icon--sm" aria-hidden="true"></span>
+        {{ $t("contact-us") }}
       </a>
     </li>
-    <li class="fr-nav__item">
-      <button
-        class="fr-nav__link fr-btn fr-ml-3 fr-btn--secondary fr-btn--sm lang"
-        @click="changeLang"
-      >
-        {{ getLanguageSwitchLabel() }}
-      </button>
-    </li>
+    <LanguageSelector class="fr-nav__item" :initialLanguage="$i18n.locale" />
   </ul>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import i18n from "../i18n";
+import LanguageSelector from "df-shared/src/Header/LanguageSelector.vue";
 
 @Component({
   computed: {
     ...mapGetters({
-      isLoggedIn: "isLoggedIn"
-    })
-  }
+      isLoggedIn: "isLoggedIn",
+    }),
+  },
+  components: {
+    LanguageSelector,
+  },
 })
 export default class Menu extends Vue {
   isLoggedIn?: boolean;
@@ -73,54 +67,15 @@ export default class Menu extends Vue {
   currentPage() {
     return this.$route.name;
   }
-  changeLang() {
-    const lang = i18n.locale === "fr" ? "en" : "fr";
-    this.$store.dispatch("setLang", lang);
-  }
-  getLanguageSwitchLabel() {
-    return i18n.locale === "fr" ? "English version" : "Version française";
-  }
 }
 </script>
 
 <style scoped lang="scss">
-.badge {
-  position: absolute;
-  top: -2px;
-  right: 0px;
-  padding: 5px 10px;
-  border-radius: 50%;
-  background: red;
-  color: white;
-  z-index: 1;
-}
-
-.lang {
-  box-shadow: none;
-}
+@import "@gouvfr/dsfr/dist/utility/icons/icons-business/icons-business.css";
 
 .fr-nav__item {
   position: relative;
-  .fr-nav__link[aria-current] {
-    .fr-tag {
-      color: var(--text-action-high-blue-france) !important;
-    }
-  }
-  .tag-container {
-    @media all and (min-width: 768px) {
-      padding-top: 0.75rem;
-      padding-bottom: 0.4rem;
-    }
-    .fr-tag {
-      @media all and (max-width: 768px) {
-        min-height: inherit;
-        padding: 0;
-        background-color: transparent;
-        color: inherit;
-        font-size: inherit;
-      }
-    }
-  }
+
   a.fr-external-link::after {
     content: "";
   }
@@ -138,15 +93,4 @@ export default class Menu extends Vue {
     color: var(--error);
   }
 }
-span.material-icons,
-span.material-icons-outlined {
-  @media all and (max-width: 768px) {
-    display: none;
-  }
-  padding-right: 0.25rem;
-}
-fr-breadcrumb {
-  margin: 0;
-}
 </style>
-

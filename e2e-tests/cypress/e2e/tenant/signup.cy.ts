@@ -34,7 +34,7 @@ describe("signup page", () => {
       .find("#recaptcha-anchor")
       .click();
 
-    cy.get("#acceptCgu").click();
+    cy.get('label[for="acceptCgu"]').click();
 
     cy.get("#signupForm").submit();
 

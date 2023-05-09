@@ -23,11 +23,12 @@
             class="fr-select fr-mb-3w fr-mt-3w"
             :class="{
               'fr-select--valid': valid,
-              'fr-select--error': errors[0]
+              'fr-select--error': errors[0],
             }"
             id="select"
             as="select"
             @change="onSelectChange()"
+            aria-label="Select professional situation"
           >
             <option v-for="d in documents" :value="d" :key="d.key">
               {{ $t(d.key) }}
@@ -127,14 +128,14 @@ import MonFranceConnect from "@/components/documents/share/MonFranceConnect.vue"
     NakedCard,
     ValidationProvider,
     TroubleshootingModal,
-    MonFranceConnect
+    MonFranceConnect,
   },
   computed: {
     ...mapGetters({
       user: "userToEdit",
-      tenantProfessionalDocument: "getTenantProfessionalDocument"
-    })
-  }
+      tenantProfessionalDocument: "getTenantProfessionalDocument",
+    }),
+  },
 })
 export default class Professional extends Vue {
   documents = DocumentTypeConstants.PROFESSIONAL_DOCS;
@@ -247,7 +248,7 @@ export default class Professional extends Vue {
 
   addFiles(fileList: File[]) {
     AnalyticsService.uploadFile("professional");
-    const nf = Array.from(fileList).map(f => {
+    const nf = Array.from(fileList).map((f) => {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
@@ -261,7 +262,7 @@ export default class Professional extends Vue {
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    const newFiles = this.files.filter(f => {
+    const newFiles = this.files.filter((f) => {
       return !f.id;
     });
     if (!newFiles.length) return;
@@ -271,14 +272,15 @@ export default class Professional extends Vue {
       this.professionalFiles().length > this.professionalDocument.maxFileCount
     ) {
       Vue.toasted.global.max_file({
-        message: this.$i18n.t("professional.max-file", [
+        message: this.$i18n.t("max-file", [
           this.professionalFiles().length,
-          this.professionalDocument.maxFileCount
-        ])
+          this.professionalDocument.maxFileCount,
+        ]),
       });
+      this.files = [];
       return;
     }
-    Array.from(Array(newFiles.length).keys()).map(x => {
+    Array.from(Array(newFiles.length).keys()).forEach((x) => {
       const f: File = newFiles[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
     });
@@ -297,7 +299,7 @@ export default class Professional extends Vue {
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         Vue.toasted.global.save_success();
       })
-      .catch(err => {
+      .catch((err) => {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
         if (err.response.data.message.includes("NumberOfPages")) {
           Vue.toasted.global.save_failed_num_pages();
@@ -311,12 +313,12 @@ export default class Professional extends Vue {
   }
 
   professionalFiles() {
-    const newFiles = this.files.map(f => {
+    const newFiles = this.files.map((f) => {
       return {
         documentSubCategory: this.professionalDocument.value,
         id: f.name,
         name: f.name,
-        size: f.size
+        size: f.size,
       };
     });
     const existingFiles =
@@ -328,11 +330,11 @@ export default class Professional extends Vue {
 
   async remove(file: DfFile, silent = false) {
     AnalyticsService.deleteFile("professional");
-    if (file.id) {
+    if (file.path && file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
-      const firstIndex = this.files.findIndex(f => {
-        return f.name === file.name && f.file === file.file && !f.id;
+      const firstIndex = this.files.findIndex((f) => {
+        return f.name === file.name && !f.path;
       });
       this.files.splice(firstIndex, 1);
     }

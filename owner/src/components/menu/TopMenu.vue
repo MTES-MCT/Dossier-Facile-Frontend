@@ -15,7 +15,8 @@ const td2 = ref(null);
 const td3 = ref(null);
 const td4 = ref(null);
 const td5 = ref(null);
-const tds = [td0, td1, td2, td3, td4, td5];
+const td6 = ref(null);
+const tds = [td0, td1, td2, td3, td4, td5, td6];
 const tcontainer = ref(null);
 
 onMounted(() => {
@@ -44,6 +45,9 @@ const propertyName = computed(() => store.getPropertyToEdit?.name);
 const typeStatus = computed(() => (store.getPropertyToEdit?.type ? 'FILLED' : 'TO_PROCESS'));
 const addressStatus = computed(() => (store.getPropertyToEdit?.address ? 'FILLED' : 'TO_PROCESS'));
 const rentStatus = computed(() => (store.getPropertyToEdit?.rentCost > 0 ? 'FILLED' : 'TO_PROCESS'));
+const diagnosticStatus = computed(() => (store.getPropertyToEdit?.co2Emission && store.getPropertyToEdit?.energyConsumption > 0
+  ? 'FILLED'
+  : 'TO_PROCESS'));
 const furnitureStatus = computed(() => (store.getPropertyToEdit?.furniture ? 'FILLED' : 'TO_PROCESS'));
 const livingSpaceStatus = computed(() => (store.getPropertyToEdit?.livingSpace ? 'FILLED' : 'TO_PROCESS'));
 
@@ -136,6 +140,11 @@ function getClass(s: number) {
             :text="t('topmenu.monthly-rent-and-charges')"
             :status="rentStatus"
           ></ColoredTag>
+        </router-link>
+      </div>
+      <div class="ml-5" ref="td5">
+        <router-link :to="{ name: 'PropertyDiagnostic', params: getParams }" class="fr-link">
+          <ColoredTag :text="t('topmenu.diagnostic')" :status="diagnosticStatus"></ColoredTag>
         </router-link>
       </div>
     </div>

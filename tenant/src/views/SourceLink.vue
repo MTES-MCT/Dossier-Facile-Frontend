@@ -110,16 +110,14 @@ export default class SourceLink extends Vue {
   validModal() {
     RegisterService.connectSource(this.internalPartnerId, this.source)
       .then(() => {
-        this.$toasted.show(this.$i18n.t("sourcelink.connected").toString(), {
-          type: "success",
-          duration: 3000
+        Vue.toasted.global.success_toast({
+          message: "sourcelink.connected",
         });
         this.$router.push("/account");
       })
       .catch(() => {
-        this.$toasted.show(this.$i18n.t("sourcelink.register-error").toString(), {
-          type: "error",
-          duration: 7000
+        Vue.toasted.global.error_toast({
+          message: "sourcelink.register-error",
         });
       });
   }

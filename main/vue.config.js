@@ -1,4 +1,4 @@
-const PrerenderSpaPlugin = require("prerender-spa-plugin");
+const PrerendererWebpackPlugin = require('@prerenderer/webpack-plugin');
 const path = require("path");
 
 const routes = [
@@ -23,6 +23,7 @@ const routes = [
   "/blog/usurpation-d-identite-en-france-comment-prevenir-agir",
   "/blog/passoires-thermiques-top-depart-du-gel-des-loyers",
   "/blog/dossierfacile-un-service-numerique-de-letat-sans-gouv-fr",
+  "/blog/que-verifier-lors-de-la-visite-d-un-logement",
   "/information",
   "/accessibilite",
   "/mentions-legales",
@@ -49,21 +50,21 @@ module.exports = {
     }
   },
   chainWebpack: config => {
-        config
-            .plugin('html')
-            .tap(args => {
-                args[0].title = "DossierFacile";
-                return args;
-            })
+    config.plugin("html").tap(args => {
+      args[0].title = "DossierFacile";
+      return args;
+    });
   },
-  configureWebpack: config => {
+  configureWebpack: () => {
     if (process.env.NODE_ENV !== "production") return;
 
     return {
-      plugins: [new PrerenderSpaPlugin(path.resolve(__dirname, "dist"), routes)]
+      plugins: [
+        new PrerendererWebpackPlugin({
+          staticDir: path.resolve(__dirname, "dist"),
+          routes: routes
+        })
+      ]
     };
-  },
-  devServer: {
-    progress: false
   }
 };

@@ -76,13 +76,13 @@
             class="fr-mt-3w"
             v-if="
               financialDocument.documentType.key &&
-                financialDocument.documentType.key
+              financialDocument.documentType.key
             "
           >
             <div
               v-if="
                 financialDocument.documentType &&
-                  financialDocument.documentType.key
+                financialDocument.documentType.key
               "
             >
               <div>
@@ -93,7 +93,7 @@
                   <div
                     class="fr-input-group"
                     :class="{
-                      'fr-input-group--error': errors[0]
+                      'fr-input-group--error': errors[0],
                     }"
                   >
                     <label for="monthlySum" class="fr-label"
@@ -115,7 +115,7 @@
                       class="validate-required form-control fr-input"
                       :class="{
                         'fr-input--valid': valid,
-                        'fr-input--error': errors[0]
+                        'fr-input--error': errors[0],
                       }"
                       required
                     />
@@ -132,7 +132,7 @@
                       class="fr-error-text"
                       v-if="
                         financialDocument.monthlySum !== '' &&
-                          financialDocument.monthlySum <= 0
+                        financialDocument.monthlySum <= 0
                       "
                     >
                       {{ $t("guarantorfinancialdocumentform.low-salary") }}
@@ -147,9 +147,9 @@
           class="fr-mt-3w"
           v-if="
             financialDocument.documentType.key &&
-              financialDocument.documentType.key !== 'no-income' &&
-              financialDocument.monthlySum >= 0 &&
-              financialDocument.monthlySum !== ''
+            financialDocument.documentType.key !== 'no-income' &&
+            financialDocument.monthlySum >= 0 &&
+            financialDocument.monthlySum !== ''
           "
         >
           <div class="fr-mb-3w">
@@ -220,7 +220,7 @@
                   class="form-control fr-input validate-required"
                   :class="{
                     'fr-input--valid': valid,
-                    'fr-input--error': errors[0]
+                    'fr-input--error': errors[0],
                   }"
                   id="customText"
                   name="customText"
@@ -274,7 +274,7 @@ import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 extend("regex", {
   ...regex,
-  message: "guarantorfinancialdocumentform.number-not-valid"
+  message: "guarantorfinancialdocumentform.number-not-valid",
 });
 
 @Component({
@@ -294,17 +294,17 @@ extend("regex", {
     ProfileFooter,
     NakedCard,
     BigRadio,
-    TroubleshootingModal
+    TroubleshootingModal,
   },
   computed: {
     ...mapState({
-      selectedGuarantor: "selectedGuarantor"
+      selectedGuarantor: "selectedGuarantor",
     }),
     ...mapGetters({
       guarantorFinancialDocumentSelected: "guarantorFinancialDocumentSelected",
-      guarantorFinancialDocuments: "guarantorFinancialDocuments"
-    })
-  }
+      guarantorFinancialDocuments: "guarantorFinancialDocuments",
+    }),
+  },
 })
 export default class GuarantorFinancialDocumentForm extends Vue {
   @Prop() tenantId?: string;
@@ -321,7 +321,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
 
   beforeMount() {
     this.financialDocument = {
-      ...cloneDeep(this.guarantorFinancialDocumentSelected)
+      ...cloneDeep(this.guarantorFinancialDocumentSelected),
     };
     if (this.guarantorFinancialDocument()?.documentDeniedReasons) {
       this.documentDeniedReasons = cloneDeep(
@@ -398,7 +398,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
   }
 
   addFiles(f: FinancialDocument, fileList: File[]) {
-    const nf = Array.from(fileList).map(f => {
+    const nf = Array.from(fileList).map((f) => {
       return { name: f.name, file: f, size: f.size };
     });
     f.files = [...f.files, ...nf];
@@ -434,7 +434,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
     if (!this.financialDocument.noDocument) {
       if (!this.financialFiles().length) {
         Vue.toasted.global.max_file({
-          message: this.$i18n.t("guarantorfinancialdocumentform.missing-file")
+          message: this.$i18n.t("guarantorfinancialdocumentform.missing-file"),
         });
         return Promise.reject(new Error("err"));
       }
@@ -445,18 +445,19 @@ export default class GuarantorFinancialDocumentForm extends Vue {
           this.financialDocument.documentType.maxFileCount
       ) {
         Vue.toasted.global.max_file({
-          message: this.$i18n.t("guarantorfinancialdocumentform.max-file", [
+          message: this.$i18n.t("max-file", [
             this.financialFiles().length,
-            this.financialDocument.documentType.maxFileCount
-          ])
+            this.financialDocument.documentType.maxFileCount,
+          ]),
         });
+        this.financialDocument.files = [];
         return Promise.reject(new Error("max-file"));
       }
 
-      const newFiles = this.financialDocument.files.filter(f => {
+      const newFiles = this.financialDocument.files.filter((f) => {
         return !f.id;
       });
-      Array.from(Array(newFiles.length).keys()).map(x => {
+      Array.from(Array(newFiles.length).keys()).forEach((x) => {
         const f: File = newFiles[x].file || new File([], "");
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
       });
@@ -502,12 +503,12 @@ export default class GuarantorFinancialDocumentForm extends Vue {
       .dispatch("saveGuarantorFinancial", formData)
       .then(() => {
         this.financialDocument = Vue.set(this, "financialDocument", {
-          ...cloneDeep(this.guarantorFinancialDocumentSelected)
+          ...cloneDeep(this.guarantorFinancialDocumentSelected),
         });
         Vue.toasted.global.save_success();
         return Promise.resolve(true);
       })
-      .catch(err => {
+      .catch((err) => {
         this.financialDocument.fileUploadStatus = UploadStatus.STATUS_FAILED;
         if (err.response.data.message.includes("NumberOfPages")) {
           Vue.toasted.global.save_failed_num_pages();
@@ -528,7 +529,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
         documentSubCategory: this.financialDocument.documentType?.value,
         id: file.name,
         name: file.name,
-        size: file.size
+        size: file.size,
       };
     });
     const existingFiles =
@@ -539,11 +540,11 @@ export default class GuarantorFinancialDocumentForm extends Vue {
   }
 
   async remove(f: FinancialDocument, file: DfFile, silent = false) {
-    if (file.id) {
+    if (file.path && file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
-      const firstIndex = f.files.findIndex(f => {
-        return f.name === file.name && f.file === file.file && !f.id;
+      const firstIndex = f.files.findIndex((lf) => {
+        return lf.name === file.name && !lf.path;
       });
       f.files.splice(firstIndex, 1);
     }

@@ -49,7 +49,7 @@ Vue.use(VueAuthImage);
   .init({ onLoad: "check-sso", checkLoginIframe: true })
   .then(() => {
     axios.interceptors.request.use(
-      config => {
+      (config) => {
         if ((Vue as any).$keycloak.authenticated) {
           const localToken = (Vue as any).$keycloak.token;
           config.headers = config.headers ?? {};
@@ -58,16 +58,16 @@ Vue.use(VueAuthImage);
         return config;
       },
 
-      error => {
+      (error) => {
         return Promise.reject(error);
       }
     );
 
     axios.interceptors.response.use(
-      function(response) {
+      function (response) {
         return response;
       },
-      function(error) {
+      function (error) {
         if (
           error.response &&
           (401 === error.response.status || 403 === error.response.status) &&
@@ -79,7 +79,7 @@ Vue.use(VueAuthImage);
           ) &&
           !error.response.request.responseURL.endsWith("/api/user/logout")
         ) {
-          store.dispatch("logout", MAIN_URL).then(null, error => {
+          store.dispatch("logout", MAIN_URL).then(null, (error) => {
             console.dir(error);
           });
         } else {
@@ -96,17 +96,17 @@ Vue.use(VueAuthImage);
       router,
       store,
       i18n,
-      render: h => h(App)
+      render: (h) => h(App),
     });
     app.$mount("#app");
 
-    Vue.filter("fullName", function(user: User) {
+    Vue.filter("fullName", function (user: User) {
       const firstName = UtilsService.capitalize(user.firstName || "");
       const lastName = UtilsService.capitalize(user.lastName || "");
       const preferredName = UtilsService.capitalize(user.preferredName || "");
       return user.preferredName == null || user.preferredName.length == 0
-        ? firstName + " " + lastName
-        : firstName + " " + preferredName;
+        ? firstName + "\xa0" + lastName
+        : firstName + "\xa0" + preferredName;
     });
 
     Vue.use(Loading);
@@ -114,39 +114,45 @@ Vue.use(VueAuthImage);
 
     Vue.toasted.register("error", i18n.t("error").toString(), {
       type: "error",
-      duration: 5000
+      duration: 5000,
+      className: ["error-toast"],
     });
     Vue.toasted.register("delete_failed", i18n.t("delete-failed").toString(), {
       type: "error",
-      duration: 5000
+      duration: 5000,
+      className: ["error-toast"],
     });
     Vue.toasted.register(
       "delete_success",
       i18n.t("delete-success").toString(),
       {
         type: "success",
-        duration: 5000
+        duration: 5000,
+        className: ["success-toast"],
       }
     );
     Vue.toasted.register("save_failed", i18n.t("save-failed").toString(), {
       type: "error",
-      duration: 7000
+      duration: 7000,
+      className: ["error-toast"],
     });
     Vue.toasted.register(
       "save_failed_num_pages",
       i18n.t("save-failed-num-pages").toString(),
       {
         type: "error",
-        duration: 7000
+        duration: 7000,
+        className: ["error-toast"],
       }
     );
     Vue.toasted.register("save_success", i18n.t("save-success").toString(), {
       type: "success",
-      duration: 5000
+      duration: 5000,
+      className: ["success-toast"],
     });
     Vue.toasted.register(
       "max_file",
-      payload => {
+      (payload) => {
         if (!payload.message) {
           return i18n.t("max-file-default").toString();
         }
@@ -154,7 +160,34 @@ Vue.use(VueAuthImage);
       },
       {
         type: "error",
-        duration: 7000
+        duration: 7000,
+        className: ["error-toast"],
+      }
+    );
+    Vue.toasted.register(
+      "success_toast",
+      (payload) => i18n.t(payload.message).toString(),
+      {
+        type: "success",
+        duration: 5000,
+        className: ["success-toast"],
+      }
+    );
+    Vue.toasted.register(
+      "error_toast",
+      (payload) => i18n.t(payload.message).toString(),
+      {
+        type: "error",
+        duration: 7000,
+        className: ["error-toast"],
+      }
+    );
+    Vue.toasted.register(
+      "info_toast",
+      (payload) => i18n.t(payload.message).toString(),
+      {
+        type: "show",
+        duration: 7000,
       }
     );
 
@@ -162,10 +195,10 @@ Vue.use(VueAuthImage);
       app.$store.dispatch("updateMessages");
     }, 60000);
 
-    const inspectlet = function() {
+    const inspectlet = function () {
       window.__insp = window.__insp || [];
       window.__insp.push(["wid", 1921433466]);
-      const ldinsp = function() {
+      const ldinsp = function () {
         if (typeof window.__inspld != "undefined") return;
         window.__inspld = 1;
         const insp = document.createElement("script");
@@ -183,30 +216,15 @@ Vue.use(VueAuthImage);
 
     Vue.prototype.inspectlet = inspectlet;
 
-    const iphub = function() {
-      JQuery(document).ready(function() {
-        JQuery(document.body).prepend(
-          "<script src='/iphubb2.js'></script>" +
-            "<script src='/iphubb.js'></script>" +
-            '<noscript> <iframe src="https://3689183.fls.doubleclick.net/activityi;src=3689183;type=dossi0;cat=lpbis;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;npa=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ord=1;num=1?" width="1" height="1" frameborder="0" style="display:none"></iframe> </noscript>' +
-            "<script src='/pixel.js'></script>" +
-            '<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=244308452813031&ev=PageView&noscript=1" /></noscript>' +
-            "<script src='/pixelBtn.js'></script>"
-        );
-      });
-    };
-    Vue.prototype.iphub = iphub;
-
     if (Vue.$cookies.get("accept-cookie") === "true") {
       inspectlet();
-      iphub();
       Vue.use(
         VueGtag,
         {
           config: {
             id: "UA-50823626-2",
             params: {
-              send_page_view: true
+              send_page_view: true,
             },
             linker: {
               domains: [
@@ -214,10 +232,10 @@ Vue.use(VueAuthImage);
                 "www.dossierfacile.fr",
                 "locataire.dossierfacile.fr",
                 "proprietaire.dossierfacile.fr",
-                "sso.dossierfacile.fr"
-              ]
-            }
-          }
+                "sso.dossierfacile.fr",
+              ],
+            },
+          },
         },
         router
       );

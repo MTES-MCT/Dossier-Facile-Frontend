@@ -15,11 +15,13 @@
               class="form-control fr-input validate-required"
               :class="{
                 'fr-input--valid': valid,
-                'fr-input--error': errors[0]
+                'fr-input--error': errors[0],
               }"
               id="firstName"
               name="firstName"
-              :placeholder="$t('representativeidentification.organism-name-placeholder')"
+              :placeholder="
+                $t('representativeidentification.organism-name-placeholder')
+              "
               type="text"
               required
             />
@@ -47,7 +49,7 @@
               class="fr-select fr-mb-3w"
               :class="{
                 'fr-select--valid': valid,
-                'fr-select--error': errors[0]
+                'fr-select--error': errors[0],
               }"
               id="selectID"
               as="select"
@@ -134,8 +136,8 @@ import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
     VGouvFrModal,
     NakedCard,
     GuarantorFooter,
-    TroubleshootingModal
-  }
+    TroubleshootingModal,
+  },
 })
 export default class RepresentativeIdentification extends Vue {
   @Prop() tenantId?: number;
@@ -237,14 +239,14 @@ export default class RepresentativeIdentification extends Vue {
 
     if (this.listFiles().length > this.MAX_FILE_COUNT) {
       Vue.toasted.global.max_file({
-        message: this.$i18n.t("representativeidentification.max-file", [
+        message: this.$i18n.t("max-file", [
           this.listFiles().length,
-          this.MAX_FILE_COUNT
-        ])
+          this.MAX_FILE_COUNT,
+        ]),
       });
       return Promise.reject();
     }
-    Array.from(Array(this.files.length).keys()).map(x => {
+    Array.from(Array(this.files.length).keys()).forEach((x) => {
       formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
     });
 
@@ -287,10 +289,10 @@ export default class RepresentativeIdentification extends Vue {
   }
 
   remove(file: DfFile) {
-    if (file.id) {
+    if (file.path && file.id) {
       RegisterService.deleteFile(file.id);
     } else {
-      const firstIndex = this.files.findIndex(f => {
+      const firstIndex = this.files.findIndex((f) => {
         return f.name === file.name && f.size === file.size;
       });
       this.files.splice(firstIndex, 1);
@@ -316,4 +318,3 @@ td {
   border: 1px solid #ececec;
 }
 </style>
-

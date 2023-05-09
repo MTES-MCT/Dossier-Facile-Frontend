@@ -28,8 +28,22 @@ function editProperty(id: number) {
   router.push({ name: 'PropertyName', params: { id } });
 }
 
+function hasNoError(property: Property) {
+  return (
+    property.name
+    && property.address
+    && property.furniture
+    && property.livingSpace
+    && property.livingSpace > 0
+    && property.rentCost
+    && property.rentCost > 0
+    && property.chargesCost !== undefined
+    && property.chargesCost >= 0
+  );
+}
+
 function openProperty(p: Property) {
-  if (p.validated) {
+  if (p.validated && hasNoError(p)) {
     router.push({ name: 'ConsultProperty', params: { id: p.id } });
     return;
   }
@@ -42,8 +56,8 @@ function getApplicantsCount(p: Property) {
 </script>
 
 <template>
-  <div class="fr-container">
-    <h2 class="fr-h3 fr-mt-3w blue-text">{{ t('dashboard.title', { name: username }) }}</h2>
+  <div class="fr-container fr-mb-3w fr-mt-3w">
+    <h2 class="fr-h3 blue-text">{{ t('dashboard.title', { name: username }) }}</h2>
     <NakedCard>
       <div class="fr-grid-row space-between">
         <h1 id="my-properties-title" class="fr-h4">{{ t('dashboard.my-properties') }}</h1>

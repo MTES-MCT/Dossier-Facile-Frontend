@@ -3,12 +3,12 @@ import { confirmed, email, required } from "vee-validate/dist/rules";
 
 extend("required", {
   ...required,
-  message: "field-required"
+  message: "field-required",
 });
 
 extend("email", {
   ...email,
-  message: "email-not-valid"
+  message: "email-not-valid",
 });
 
 export const PASSWORD_MIN_SCORE = 2;
@@ -19,12 +19,12 @@ extend("strength", {
       return args[0] >= PASSWORD_MIN_SCORE;
     }
     return true;
-  }
+  },
 });
 
 extend("confirmed", {
   ...confirmed,
-  message: "password-not-confirmed"
+  message: "password-not-confirmed",
 });
 
 extend("only-alpha", {
@@ -35,10 +35,10 @@ extend("only-alpha", {
       valid: value.match(
         // cf https://fr.wikipedia.org/wiki/Diacritiques_utilis%C3%A9s_en_fran%C3%A7ais#Patronyme
         "^[a-zA-Z \\-'’àâäçéèêëîïôöùûüÿæœÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸÆŒ]*$"
-      )
+      ),
     };
   },
-  computesRequired: true
+  computesRequired: true,
 });
 
 extend("select", {
@@ -46,8 +46,8 @@ extend("select", {
   validate(value) {
     return {
       required: true,
-      valid: value.key
+      valid: value.key,
     };
   },
-  computesRequired: true
+  computesRequired: true,
 });

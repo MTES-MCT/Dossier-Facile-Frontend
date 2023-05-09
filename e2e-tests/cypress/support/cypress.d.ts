@@ -8,7 +8,7 @@ declare namespace Cypress {
 
     loginWithFC(username: string): Chainable<void>;
 
-    deleteAccount(): Chainable<void>;
+    deleteAccount(username: string, type: number): Chainable<void>;
 
     uploadDocument(): Chainable<void>;
 
@@ -18,9 +18,11 @@ declare namespace Cypress {
 
     acceptCookies(): Chainable<void>;
 
+    testAccessibility(): Chainable<void>;
+
     disableTaxVerification(): Chainable<void>;
 
-    simpleUploadDocumentStep(buttonToSelect: string): Chainable<void>;
+    simpleUploadDocumentStep(buttonToSelect: string, waitBeforeNext?: number): Chainable<void>;
 
     selectProfessionalStatusStep(professionalStatus: string): Chainable<void>;
 

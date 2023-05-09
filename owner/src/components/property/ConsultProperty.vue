@@ -16,7 +16,7 @@
           <VGouvFrModal>
             <template v-slot:button>
               <button :title="t('consultproperty.share-btn')" class="fr-btn btn--white fr-btn--secondary">
-                <span class="material-icons md-24"> share_variant </span>
+                {{ t('consultproperty.share-btn') }}
               </button>
             </template>
             <template v-slot:title>
@@ -191,7 +191,10 @@
                 <span>{{ tenant.guarantorSalary }}</span>
               </td>
               <td @click="setShowTenant(tenant, k)">
-                <div>
+                <div v-if="tenant.rate == 100">
+                  {{ t('consultproperty.no-income') }}
+                </div>
+                <div v-else>
                   <span class="rate" :class="getRateClass(tenant)">{{ tenant.rate }} %</span>
                   {{ t('consultproperty.income') }}
                 </div>

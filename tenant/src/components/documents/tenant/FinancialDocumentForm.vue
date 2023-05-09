@@ -47,7 +47,7 @@
           class="fr-p-md-5w fr-mb-3w"
           v-if="
             financialDocument.documentType.key &&
-              financialDocument.documentType.key !== 'no-income'
+            financialDocument.documentType.key !== 'no-income'
           "
         >
           <div>
@@ -55,8 +55,8 @@
               <div
                 v-if="
                   financialDocument.documentType &&
-                    financialDocument.documentType.key &&
-                    financialDocument.documentType.key !== 'no-income'
+                  financialDocument.documentType.key &&
+                  financialDocument.documentType.key !== 'no-income'
                 "
               >
                 <div>
@@ -67,7 +67,7 @@
                     <div
                       class="fr-input-group"
                       :class="{
-                        'fr-input-group--error': errors[0]
+                        'fr-input-group--error': errors[0],
                       }"
                     >
                       <label for="monthlySum" class="fr-label"
@@ -87,7 +87,7 @@
                         class="validate-required form-control fr-input"
                         :class="{
                           'fr-input--valid': valid,
-                          'fr-input--error': errors[0]
+                          'fr-input--error': errors[0],
                         }"
                         required
                       />
@@ -104,7 +104,7 @@
                         class="fr-error-text"
                         v-if="
                           financialDocument.monthlySum !== '' &&
-                            financialDocument.monthlySum <= 0
+                          financialDocument.monthlySum <= 0
                         "
                       >
                         {{ $t("financialdocumentform.low-salary") }}
@@ -119,9 +119,9 @@
             class="fr-mt-3w"
             v-if="
               financialDocument.documentType.key &&
-                financialDocument.documentType.key !== 'no-income' &&
-                financialDocument.monthlySum >= 0 &&
-                financialDocument.monthlySum !== ''
+              financialDocument.documentType.key !== 'no-income' &&
+              financialDocument.monthlySum >= 0 &&
+              financialDocument.monthlySum !== ''
             "
           >
             <div>
@@ -150,8 +150,8 @@
               <div
                 v-if="
                   financialDocument.documentType.key &&
-                    financialDocument.documentType.key !== 'no-income' &&
-                    financialFiles().length > 0
+                  financialDocument.documentType.key !== 'no-income' &&
+                  financialFiles().length > 0
                 "
                 class="fr-col-md-12 fr-mb-3w"
               >
@@ -198,7 +198,7 @@
                       class="form-control fr-input validate-required"
                       :class="{
                         'fr-input--valid': valid,
-                        'fr-input--error': errors[0]
+                        'fr-input--error': errors[0],
                       }"
                       id="customText"
                       name="customText"
@@ -225,7 +225,7 @@
     <div
       v-if="
         financialDocument.documentType.key &&
-          financialDocument.documentType.key === 'no-income'
+        financialDocument.documentType.key === 'no-income'
       "
     >
       <NakedCard class="fr-p-md-5w fr-mb-3w">
@@ -242,7 +242,7 @@
                 rows="3"
                 class="form-control fr-input validate-required"
                 :class="{
-                  'fr-input--valid': valid
+                  'fr-input--valid': valid,
                 }"
                 id="customTextNoDocument"
                 name="customText"
@@ -309,12 +309,12 @@ import { cloneDeep } from "lodash";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import MonFranceConnect from "../share/MonFranceConnect.vue";
-import {REDIRECTIONS} from "../share/MonFranceConnect.vue";
+import { REDIRECTIONS } from "../share/MonFranceConnect.vue";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 extend("regex", {
   ...regex,
-  message: "financialdocumentform.number-not-valid"
+  message: "financialdocumentform.number-not-valid",
 });
 
 @Component({
@@ -335,15 +335,15 @@ extend("regex", {
     ProfileFooter,
     NakedCard,
     MonFranceConnect,
-    TroubleshootingModal
+    TroubleshootingModal,
   },
   computed: {
     ...mapGetters({
       user: "userToEdit",
       financialDocumentSelected: "financialDocumentSelected",
-      tenantFinancialDocuments: "tenantFinancialDocuments"
-    })
-  }
+      tenantFinancialDocuments: "tenantFinancialDocuments",
+    }),
+  },
 })
 export default class FinancialDocumentForm extends Vue {
   documents = DocumentTypeConstants.FINANCIAL_DOCS;
@@ -432,7 +432,7 @@ export default class FinancialDocumentForm extends Vue {
 
   addFiles(fileList: File[]) {
     AnalyticsService.uploadFile("financial");
-    const nf = Array.from(fileList).map(f => {
+    const nf = Array.from(fileList).map((f) => {
       return { name: f.name, file: f, size: f.size };
     });
     this.financialDocument.files = [...this.financialDocument.files, ...nf];
@@ -470,8 +470,9 @@ export default class FinancialDocumentForm extends Vue {
         this.financialDocument.documentType.key !== "no-income"
       ) {
         Vue.toasted.global.max_file({
-          message: this.$i18n.t("financialdocumentform.missing-file")
+          message: this.$i18n.t("financialdocumentform.missing-file"),
         });
+        this.financialDocument.files = [];
         return Promise.reject(new Error("missing-file"));
       }
 
@@ -481,18 +482,18 @@ export default class FinancialDocumentForm extends Vue {
           this.financialDocument.documentType.maxFileCount
       ) {
         Vue.toasted.global.max_file({
-          message: this.$i18n.t("financialdocumentform.max-file", [
+          message: this.$i18n.t("max-file", [
             this.financialFiles().length,
-            this.financialDocument.documentType.maxFileCount
-          ])
+            this.financialDocument.documentType.maxFileCount,
+          ]),
         });
         return Promise.reject(new Error("max-file"));
       }
 
-      const newFiles = this.financialDocument.files.filter(f => {
+      const newFiles = this.financialDocument.files.filter((f) => {
         return !f.id;
       });
-      Array.from(Array(newFiles.length).keys()).map(x => {
+      Array.from(Array(newFiles.length).keys()).forEach((x) => {
         const f: File = newFiles[x].file || new File([], "");
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
       });
@@ -546,12 +547,12 @@ export default class FinancialDocumentForm extends Vue {
       .dispatch("saveTenantFinancial", formData)
       .then(() => {
         this.financialDocument = {
-          ...cloneDeep(this.financialDocumentSelected)
+          ...cloneDeep(this.financialDocumentSelected),
         };
         Vue.toasted.global.save_success();
         return Promise.resolve(true);
       })
-      .catch(err => {
+      .catch((err) => {
         this.financialDocument.fileUploadStatus = UploadStatus.STATUS_FAILED;
         if (err.response.data.message.includes("NumberOfPages")) {
           Vue.toasted.global.save_failed_num_pages();
@@ -572,7 +573,7 @@ export default class FinancialDocumentForm extends Vue {
         documentSubCategory: this.financialDocument.documentType?.value,
         id: file.name,
         name: file.name,
-        size: file.size
+        size: file.size,
       };
     });
     const existingFiles =
@@ -584,11 +585,11 @@ export default class FinancialDocumentForm extends Vue {
 
   async remove(f: FinancialDocument, file: DfFile, silent = false) {
     AnalyticsService.deleteFile("financial");
-    if (file.id) {
+    if (file.path && file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
-      const firstIndex = f.files.findIndex(f => {
-        return f.name === file.name && f.file === file.file && !f.id;
+      const firstIndex = f.files.findIndex((lf) => {
+        return lf.name === file.name && !lf.path;
       });
       f.files.splice(firstIndex, 1);
     }

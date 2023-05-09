@@ -12,14 +12,13 @@
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
     "sourceMap": true,
+    "inlineSourceMap": false,
     "baseUrl": ".",
     "types": [
       "webpack-env",
       "mocha",
       "chai",
       "webpack",
-      "cypress",
-      "cypress-axe"
     ],
     "paths": {
       "@/*": [

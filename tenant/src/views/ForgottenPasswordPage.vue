@@ -43,9 +43,8 @@ export default class ForgottenPasswordPage extends Vue {
           this.isValidModalVisible = true;
         },
         () => {
-          this.$toasted.show(this.$i18n.t("forgottenpasswordpage.email-not-found").toString(), {
-            type: "error",
-            duration: 7000
+          Vue.toasted.global.error_toast({
+            message: "forgottenpasswordpage.email-not-found",
           });
         }
       );

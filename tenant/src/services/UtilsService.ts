@@ -35,7 +35,7 @@ export const UtilsService = {
     const user = store.state.user;
     const tenantDocumentsFilled = (tenant: User) =>
       this.documentsFilled(tenant) &&
-      tenant.guarantors?.every(g => !!this.guarantorDocumentsFilled(g));
+      tenant.guarantors?.every((g) => !!this.guarantorDocumentsFilled(g));
 
     if (user.applicationType === "COUPLE") {
       const cotenants = user.apartmentSharing?.tenants.filter(
@@ -48,6 +48,30 @@ export const UtilsService = {
       );
     }
     return tenantDocumentsFilled(user) || false;
+  },
+  allNamesFilled(): boolean {
+    const userNamesFilled = (u: User) => u.firstName && u.lastName;
+    const guarantorNamesFilled = (g: Guarantor) =>
+      !g ||
+      (g.typeGuarantor === "NATURAL_PERSON" && g.firstName && g.lastName) ||
+      (g.typeGuarantor === "LEGAL_PERSON" && g.legalPersonName) ||
+      g.typeGuarantor === "ORGANISM";
+
+    const user = store.state.user;
+    if (user.applicationType === "COUPLE") {
+      const couple = user.apartmentSharing?.tenants.find(
+        (cotenant: User) => user.id !== cotenant.id
+      ) as User;
+
+      if (
+        !userNamesFilled(couple) ||
+        !couple.guarantors.every(guarantorNamesFilled)
+      ) {
+        return false;
+      }
+    }
+    return (userNamesFilled(user) &&
+      user.guarantors.every(guarantorNamesFilled)) as boolean;
   },
   documentsFilled(user?: User) {
     return (
@@ -173,6 +197,6 @@ export const UtilsService = {
       return "";
     }
     word = word[0].toUpperCase() + word.slice(1).toLowerCase();
-    return word.replace(/([' -][A-Za-zÀ-ÖØ-öø-ÿ])/g, s => s.toUpperCase());
-  }
+    return word.replace(/([' -][A-Za-zÀ-ÖØ-öø-ÿ])/g, (s) => s.toUpperCase());
+  },
 };

@@ -5,7 +5,6 @@ import store from "./store";
 import i18n from "./i18n";
 import VueCookies from "vue-cookies";
 import VueGtag from "vue-gtag";
-import JQuery from "jquery";
 import "df-shared/src/validation-rules";
 
 declare global {
@@ -40,17 +39,7 @@ const inspectlet = function() {
   setTimeout(ldinsp, 0);
 };
 
-const iphub = function() {
-  JQuery(document).ready(function() {
-    JQuery(document.body).prepend(
-      "<script src='/iphubb.js'></script>" +
-        '<noscript> <iframe src="https://3689183.fls.doubleclick.net/activityi;src=3689183;type=dossi0;cat=landingp;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;npa=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ord=1;num=1?" width="1" height="1" frameborder="0" style="display:none"></iframe> </noscript>'
-    );
-  });
-};
-
 Vue.prototype.inspectlet = inspectlet;
-Vue.prototype.iphub = iphub;
 
 Vue.config.productionTip = false;
 
@@ -70,7 +59,6 @@ new Vue({
 
 if (Vue.$cookies.get("accept-cookie") === "true") {
   inspectlet();
-  iphub();
   Vue.use(
     VueGtag,
     {

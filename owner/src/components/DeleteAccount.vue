@@ -51,10 +51,8 @@ const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 const { t } = useI18n();
 const toast = useToast();
 
-const emit = defineEmits(['close']);
-
 function validDelete() {
-  emit('close');
+  store.setShowDeleteAccountModal(false);
   store.deleteAccount().then(
     () => {
       window.location.replace(MAIN_URL);
@@ -68,7 +66,7 @@ function validDelete() {
 }
 
 function undoSelect() {
-  emit('close');
+  store.setShowDeleteAccountModal(false);
   return false;
 }
 

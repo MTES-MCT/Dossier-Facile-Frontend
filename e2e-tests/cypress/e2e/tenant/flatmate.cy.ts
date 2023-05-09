@@ -1,13 +1,11 @@
-describe("flatmate tenant scenario", () => {
-  const user = {
-    username: "test_ALAIN",
-    firstname: "Alain",
-    lastname: "BUREAU"
-  };
+import { getTenantUser, UserType } from "../../support/users";
 
-  before("reset account", () => {
-    cy.tenantLogin(user.username);
-    cy.deleteAccount();
+describe("flatmate tenant scenario", () => {
+  const user = getTenantUser();
+  const flatmateEmail = `coloc-${Math.floor(Math.random() * 10000)}@yopmail.fr`;
+
+  beforeEach("reset account", () => {
+    cy.deleteAccount(user.username, UserType.TENANT);
   });
 
   it("validate file", () => {
@@ -21,9 +19,9 @@ describe("flatmate tenant scenario", () => {
 
     cy.expectPath("/type-locataire");
     cy.contains("En colocation").click();
-    cy.get('input[name="email"]').type("coloc-6829374@yopmail.fr");
+    cy.get('input[name="email"]').type(flatmateEmail);
     cy.contains("Inviter ce colocataire").click();
-    cy.get("#authorize").click();
+    cy.get('label[for="authorize"').click();
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/1");

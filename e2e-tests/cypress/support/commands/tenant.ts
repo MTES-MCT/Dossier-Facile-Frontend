@@ -10,7 +10,7 @@ Cypress.Commands.add("tenantLogin", (username: string) => {
 Cypress.Commands.add("uploadDocument", () => {
   cy.intercept("POST", "/api/register/document*").as("uploadDocument");
   cy.get(".input-file").selectFile("assets/test-document.pdf");
-  cy.wait("@uploadDocument");
+  cy.wait("@uploadDocument").its('response.statusCode').should('eq', 200);
 });
 
 Cypress.Commands.add("disableTaxVerification", () => {
@@ -20,11 +20,14 @@ Cypress.Commands.add("disableTaxVerification", () => {
     .click();
 });
 
-Cypress.Commands.add("simpleUploadDocumentStep", (buttonToSelect: string) => {
+Cypress.Commands.add("simpleUploadDocumentStep", (buttonToSelect: string, waitBeforeNext: number = 0) => {
   cy.contains(buttonToSelect)
     .click()
-    .uploadDocument()
-    .clickOnNext();
+    .uploadDocument();
+  if (waitBeforeNext > 0) {
+    cy.wait(waitBeforeNext);
+  }
+  cy.clickOnNext();
 });
 
 Cypress.Commands.add("selectProfessionalStatusStep", (professionalStatus: string) => {

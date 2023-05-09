@@ -18,6 +18,7 @@ interface State {
   properties: Property[];
   propertyToEdit: Property;
   propertyToConsult: Property;
+  showDeleteAccountModal: boolean;
 }
 
 function defaultState(): State {
@@ -28,6 +29,7 @@ function defaultState(): State {
     properties: [],
     propertyToEdit: new Property(),
     propertyToConsult: new Property(),
+    showDeleteAccountModal: false,
   };
   return ownerState;
 }
@@ -44,6 +46,7 @@ const useOwnerStore = defineStore('owner', {
     getProperties: (state: State) => state.properties,
     getPropertyToEdit: (state: State): Property => state.propertyToEdit,
     getPropertyToConsult: (state: State) => state.propertyToConsult,
+    getShowDeleteAccountModal: (state: State) => state.showDeleteAccountModal,
   },
   actions: {
     initState() {
@@ -90,6 +93,12 @@ const useOwnerStore = defineStore('owner', {
     },
     setCharges(charges: number) {
       this.propertyToEdit.chargesCost = charges;
+    },
+    setCo2Emission(co2: number) {
+      this.propertyToEdit.co2Emission = co2;
+    },
+    setEnergyConsumption(energy: number) {
+      this.propertyToEdit.energyConsumption = energy;
     },
     updatePropertyToEdit(id: number) {
       const prop = this.properties.find((p) => p.id === id);
@@ -222,6 +231,9 @@ const useOwnerStore = defineStore('owner', {
     },
     deleteAccount() {
       return AuthService.deleteAccount();
+    },
+    setShowDeleteAccountModal(show: boolean) {
+      this.showDeleteAccountModal = show;
     },
   },
 });

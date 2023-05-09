@@ -9,7 +9,9 @@
     </ConfirmModal>
     <ValidationObserver v-slot="{ validate }">
       <NakedCard class="fr-p-md-5w">
-        <h1 class="fr-h6" v-if="isCotenant">{{ $t("guarantortax.title-cotenant") }}</h1>
+        <h1 class="fr-h6" v-if="isCotenant">
+          {{ $t("guarantortax.title-cotenant") }}
+        </h1>
         <h1 class="fr-h6" v-else>{{ $t("guarantortax.title") }}</h1>
         <TroubleshootingModal>
           <TaxHelp></TaxHelp>
@@ -84,28 +86,21 @@
           :documentDeniedReasons="documentDeniedReasons"
           :documentStatus="documentStatus"
         ></AllDeclinedMessages>
-        <div class="fr-background-contrast--info fr-p-2w fr-my-2w warning-box">
-          <div class="fr-text-default--info fr-h6 title">
-            <span class="material-icons-outlined">
-              warning_amber
-            </span>
-            <span class="fr-ml-1w">
-              {{ $t("guarantortax.warning-no-accepted-doc") }}
-            </span>
-          </div>
-          <div class="link">
-            <a
-              class="fr-link"
-              href="https://docs.dossierfacile.fr/guide-dutilisation-de-dossierfacile/avis-dimposition"
-              :title="$t('guarantortax.goto-documentation')"
-              target="_blank"
-              rel="noreferrer"
-              >{{ $t("guarantortax.goto-documentation") }}</a
-            >
-          </div>
-        </div>
+        <div
+          style="font-weight: bold"
+          v-html="$t('tax-page.warning-no-accepted-doc')"
+        ></div>
+        <a
+          class="fr-link"
+          href="https://docs.dossierfacile.fr/guide-dutilisation-de-dossierfacile/avis-dimposition"
+          :title="$t('tax-page.goto-documentation').toString"
+          target="_blank"
+          rel="noreferrer"
+        >
+          {{ $t("tax-page.goto-documentation") }}</a
+        >
 
-        <div v-if="taxFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
+        <div v-if="taxFiles().length > 0" class="fr-col-md-12 fr-mt-3w">
           <ListItem
             v-for="(file, k) in taxFiles()"
             :key="k"
@@ -113,7 +108,7 @@
             @remove="remove(file)"
           />
         </div>
-        <div class="fr-mb-3w">
+        <div class="fr-mb-3w fr-mt-3w">
           <FileUpload
             :current-status="fileUploadStatus"
             @add-files="addFiles"
@@ -123,6 +118,37 @@
       </NakedCard>
     </ValidationObserver>
     <GuarantorFooter @on-back="goBack" @on-next="goNext"></GuarantorFooter>
+    <Modal
+      v-if="isWarningTaxSituationModalVisible"
+      @close="isWarningTaxSituationModalVisible = false"
+    >
+      <template v-slot:body>
+        <div class="warning-tax-modal fr-pl-md-3w fr-pr-md-3w fr-pb-md-3w">
+          <h1 class="avis-title fr-h4">
+            <i class="ri-alarm-warning-line"></i>
+
+            {{ $t("tax-page.avis-detected") }}
+          </h1>
+          <p>
+            {{ $t("tax-page.avis-text1") }}
+          </p>
+          <p>
+            {{ $t("tax-page.avis-text2") }}
+          </p>
+          <hr class="mobile" />
+          <div class="btn-align">
+            <DfButton
+              @on-click="isWarningTaxSituationModalVisible = false"
+              :primary="true"
+              >{{ $t("tax-page.avis-btn") }}</DfButton
+            >
+          </div>
+          <div class="btn-align fr-mt-2w">
+            <a @click="forceSave" href="#">{{ $t("tax-page.avis-force") }}</a>
+          </div>
+        </div>
+      </template>
+    </Modal>
   </div>
 </template>
 
@@ -153,11 +179,15 @@ import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import { cloneDeep } from "lodash";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
+import { PdfAnalysisService } from "../../../services/PdfAnalysisService";
+import { AnalyticsService } from "../../../services/AnalyticsService";
+import Modal from "df-shared/src/components/Modal.vue";
+import DfButton from "df-shared/src/Button/Button.vue";
 
 extend("is", {
   ...is,
   message: "field-required",
-  validate: value => !!value
+  validate: (value) => !!value,
 });
 
 @Component({
@@ -175,13 +205,15 @@ extend("is", {
     TaxHelp,
     GuarantorFooter,
     NakedCard,
-    TroubleshootingModal
+    TroubleshootingModal,
+    Modal,
+    DfButton,
   },
   computed: {
     ...mapState({
-      selectedGuarantor: "selectedGuarantor"
-    })
-  }
+      selectedGuarantor: "selectedGuarantor",
+    }),
+  },
 })
 export default class GuarantorTax extends Vue {
   @Prop() tenantId?: string;
@@ -200,6 +232,8 @@ export default class GuarantorTax extends Vue {
 
   documents = DocumentTypeConstants.GUARANTOR_TAX_DOCS;
   isDocDeleteVisible = false;
+  newFiles: File[] = [];
+  isWarningTaxSituationModalVisible = false;
 
   getRegisteredDoc() {
     if (this.selectedGuarantor.documents !== null) {
@@ -303,25 +337,45 @@ export default class GuarantorTax extends Vue {
   }
 
   addFiles(fileList: File[]) {
-    const nf = Array.from(fileList).map(f => {
+    this.newFiles = fileList;
+    PdfAnalysisService.findRejectedTaxDocuments(fileList).then(
+      (rejectedFiles) => {
+        if (rejectedFiles.length > 0) {
+          AnalyticsService.avisDetected();
+          this.isWarningTaxSituationModalVisible = true;
+        } else {
+          AnalyticsService.uploadFile("tax");
+          this.saveNewFiles(false);
+        }
+      }
+    );
+  }
+
+  forceSave() {
+    this.isWarningTaxSituationModalVisible = false;
+    this.saveNewFiles(true);
+  }
+
+  saveNewFiles(force: boolean) {
+    const nf = Array.from(this.newFiles).map((f) => {
       return { name: f.name, file: f, size: f.size };
     });
     this.files = [...this.files, ...nf];
-    this.save();
+    this.save(force);
   }
 
   resetFiles() {
     this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
   }
 
-  async save() {
+  async save(force = false) {
     if (!this.taxDocument.key) {
       return true;
     }
     this.uploadProgress = {};
     const fieldName = "documents";
     const formData = new FormData();
-    const newFiles = this.files.filter(f => {
+    const newFiles = this.files.filter((f) => {
       return !f.id;
     });
     if (newFiles.length) {
@@ -330,15 +384,16 @@ export default class GuarantorTax extends Vue {
         this.taxFiles().length > this.taxDocument.maxFileCount
       ) {
         Vue.toasted.global.max_file({
-          message: this.$i18n.t("guarantortax.max-file", [
+          message: this.$i18n.t("max-file", [
             this.taxFiles().length,
-            this.taxDocument.maxFileCount
-          ])
+            this.taxDocument.maxFileCount,
+          ]),
         });
+        this.files = [];
         return false;
       }
 
-      Array.from(Array(newFiles.length).keys()).map(x => {
+      Array.from(Array(newFiles.length).keys()).forEach((x) => {
         const f: File = newFiles[x].file || new File([], "");
         formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
       });
@@ -357,6 +412,10 @@ export default class GuarantorTax extends Vue {
       formData.append("noDocument", "false");
     } else {
       formData.append("noDocument", "true");
+    }
+
+    if (force) {
+      formData.append("avisDetected", "true");
     }
 
     formData.append("typeDocumentTax", this.taxDocument.value);
@@ -383,7 +442,7 @@ export default class GuarantorTax extends Vue {
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         Vue.toasted.global.save_success();
       })
-      .catch(err => {
+      .catch((err) => {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
         if (err.response.data.message.includes("NumberOfPages")) {
           Vue.toasted.global.save_failed_num_pages();
@@ -398,13 +457,13 @@ export default class GuarantorTax extends Vue {
   }
 
   taxFiles() {
-    const newFiles = this.files.map(f => {
+    const newFiles = this.files.map((f) => {
       return {
         documentSubCategory: this.taxDocument.value,
         id: f.name,
         name: f.name,
         file: f,
-        size: f.size
+        size: f.size,
       };
     });
     const existingFiles =
@@ -415,11 +474,11 @@ export default class GuarantorTax extends Vue {
   }
 
   async remove(file: DfFile, silent = false) {
-    if (file.id) {
+    if (file.path && file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
-      const firstIndex = this.files.findIndex(f => {
-        return f.name === file.name && f.file === file.file && !f.id;
+      const firstIndex = this.files.findIndex((f) => {
+        return f.name === file.name && !f.path;
       });
       this.files.splice(firstIndex, 1);
     }
@@ -448,15 +507,8 @@ export default class GuarantorTax extends Vue {
 <style scoped lang="scss">
 .spa {
   min-height: 2rem;
-  width: 14rem;
-}
-.warning-box {
-  .title {
-    display: flex;
-  }
-  .link {
-    text-align: right;
+  @media all and (min-width: 768px) {
+    width: 14rem;
   }
 }
 </style>
-

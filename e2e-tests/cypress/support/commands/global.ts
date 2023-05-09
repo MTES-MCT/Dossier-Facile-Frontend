@@ -1,9 +1,12 @@
 /// <reference types="cypress" />
 
+import { terminalLog } from "../accessibility";
+import { UserType } from "../users";
+
 Cypress.Commands.add("loginWithFC", (username: string) => {
   cy.get("#social-oidc").click();
 
-  cy.get('body').then(($body: any) => {
+  cy.get("body").then(($body: any) => {
     const providerButton = "#fi-identity-provider-example-faible";
     if ($body.find(providerButton).length) {
       cy.get(providerButton).click();
@@ -12,25 +15,29 @@ Cypress.Commands.add("loginWithFC", (username: string) => {
         .type(username);
       cy.get(".button").click();
     }
-  })
+  });
 
   cy.get("form").submit();
   cy.wait(100);
 });
 
-Cypress.Commands.add("deleteAccount", () => {
+Cypress.Commands.add("deleteAccount", (username: string, type: UserType) => {
+  cy.visit("www-dev.dossierfacile.fr");
+  cy.contains(type === UserType.TENANT ? "Se connecter" : "Espace propriétaire").click();
+  cy.loginWithFC(username);
+  
   cy.intercept("DELETE", "**/deleteAccount").as("deleteAccount");
 
   cy.get(".fr-nav__btn").click();
   cy.get("button")
     .contains("Supprimer mon compte")
-    .click();
+    .click({ force: true });
   cy.get(".modal")
     .find("button")
     .contains("Supprimer mon compte")
     .click();
 
-  cy.wait("@deleteAccount");
+  cy.wait("@deleteAccount").its('response.statusCode').should('eq', 200);
 });
 
 Cypress.Commands.add("expectPath", (path: string) => {
@@ -45,4 +52,21 @@ Cypress.Commands.add("acceptCookies", () => {
   cy.get(".cookie")
     .contains("Accepter")
     .click();
+});
+
+Cypress.Commands.add("testAccessibility", () => {
+  cy.wait(200);
+  cy.injectAxe();
+  cy.configureAxe({
+    // TODO fix disabled rules
+    rules: [
+      { id: 'color-contrast', enabled: false },
+      { id: 'aria-allowed-attr', enabled: false },
+      { id: 'region', enabled: false },
+      { id: 'label', enabled: false },
+      { id: 'skip-link', enabled: false },
+      { id: 'page-has-heading-one', enabled: false },
+    ]
+  })
+  cy.checkA11y(null, null, terminalLog);
 });

@@ -11,13 +11,12 @@
       @on-login-tenant="onLoginTenant"
       @on-create-owner="onCreateOwner"
       @on-logout="onLogout"
-      @on-change-lang="changeLang"
       :showAccessibility="isFunnel"
-      :lang="getLang()"
     >
       <Menu />
     </MyHeader>
     <div id="content">
+      <DeleteAccount v-show="showDeleteAccountModal"></DeleteAccount>
       <Announcement></Announcement>
       <main class="page" role="main">
         <router-view :key="$route.path" />
@@ -33,7 +32,6 @@ import MyHeader from "df-shared/src/Header/Header.vue";
 import TheFooter from "df-shared/src/Footer/Footer.vue";
 import Menu from "./components/Menu.vue";
 import { mapGetters, mapState } from "vuex";
-import i18n from "./i18n";
 import Cookies from "df-shared/src/Footer/Cookies.vue";
 import VueGtag from "vue-gtag";
 import router from "./router";
@@ -41,9 +39,11 @@ import Announcement from "df-shared/src/components/Announcement.vue";
 import ModalAnnouncement from "df-shared/src/components/ModalAnnouncement.vue";
 import TenantSkipLinks from "./components/TenantSkipLinks.vue";
 import { User } from "df-shared/src/models/User";
+import DeleteAccount from "./components/DeleteAccount.vue";
 
 @Component({
   components: {
+    DeleteAccount,
     TenantSkipLinks,
     MyHeader,
     TheFooter,
@@ -59,7 +59,8 @@ import { User } from "df-shared/src/models/User";
       isFunnel: "isFunnel"
     }),
     ...mapGetters({
-      isLoggedIn: "isLoggedIn"
+      isLoggedIn: "isLoggedIn",
+      showDeleteAccountModal: "showDeleteAccountModal"
     })
   }
 })
@@ -71,7 +72,7 @@ export default class App extends Vue {
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
-  isCoupleModalVisible = false;
+  showDeleteAccountModal!: boolean;
 
   isCouple() {
     return this.isLoggedIn && this.user.applicationType === "COUPLE";
@@ -87,15 +88,6 @@ export default class App extends Vue {
 
   onCreateOwner() {
     window.location.href = this.OWNER_URL;
-  }
-
-  getLang() {
-    return i18n.locale;
-  }
-
-  changeLang() {
-    const lang = i18n.locale === "fr" ? "en" : "fr";
-    this.$store.dispatch("setLang", lang);
   }
 
   acceptCookies() {
@@ -133,7 +125,6 @@ export default class App extends Vue {
       router
     );
     Vue.prototype.inspectlet();
-    Vue.prototype.iphub();
     this.cookieHidden = true;
   }
 
@@ -176,4 +167,3 @@ export default class App extends Vue {
   align-items: stretch;
 }
 </style>
-

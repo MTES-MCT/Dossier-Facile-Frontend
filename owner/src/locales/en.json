@@ -17,6 +17,7 @@
   "other-unfurnished": "A unfurnished property",
   "number-not-positive": "The price must be more than 0",
   "number-not-positive-or-null": "The price must be more or equal to 0",
+  "register-btn": "Save",
   "account": {
     "title": "Welcome to your owner space. Let's add your property together",
     "subtitle": "Let's start with your personal identity information."
@@ -62,6 +63,9 @@
     "INCOMPLETE": "incomplete",
     "apply-existing-account": "Apply using my DossierFacile account.",
     "apply-new-account": "Apply by creating a new DossierFacile account.",
+    "apply-existing-text": "DossierFacile is a state startup that allows you to create your smart rental file and share it with landlords",
+    "apply-new-text-1": "If you don't have an account, you can create one and come back to this page later.",
+    "apply-new-text-2": "Our file is easy to fill out (in less than 3 minutes, we promise) and in addition it complies with the law and can be reused for all your other visits!",
     "create-account": "Create a DossierFacile",
     "authorize": "J'accepte que {0}, propriétaire situé au {1} ait accès aux informations de mon dossier et de ceux de mon(ma) conjoint·e ou de mon(mes) colocataire(s) le cas échéant. Conformément au RGPD, je peux révoquer cette autorisation à tout moment.",
     "connect": "Connect"
@@ -111,6 +115,7 @@
     "rent": "with a rent of <span class='blue-text'>{rentCost}€</span> and charges of <span class='blue-text'>{chargesCost}€</span>",
     "download-full-file": "Download the full file",
     "income": "of income",
+    "no-income": "Income not filled",
     "delete-applicants": "Delete applicants",
     "share-btn": "Share my property",
     "update-btn": "Update my property",
@@ -142,6 +147,10 @@
     "delete": "Delete",
     "try-again": "An error occured, please try again later."
   },
+  "dpe": {
+    "kgco2": "'kg CO₂/m²/year'",
+    "kwhpy": "kWh/m²/year"
+  },
   "forgottenpasswordpage": {
     "email-not-found": "Email not found",
     "mail-sent": "An email has been sent to the requested address.",
@@ -156,6 +165,7 @@
     "property-type": "Type of rent",
     "property-furniture": "Furniture",
     "property-address": "Property address",
+    "diagnostic": "Energy diagnosis"
   },
   "menu": {
     "account": "Account",
@@ -165,7 +175,7 @@
     "blog": "Blog",
     "information": "Information",
     "deleteAccount": "Delete my account",
-    "contact-us": "contact us",
+    "contact-us": "Contact us",
     "personal-data": "My personal data"
   },
   "nameinformationform": {
@@ -199,6 +209,27 @@
     "name-subtitle": "Indicate the name of the property.",
     "name-placeholder": "Property name",
     "name-label": "Property name"
+  },
+  "propertydiagnostic": {
+    "title": "I fill in the energy diagnosis",
+    "subtitle": "Where to find this information?",
+    "info-text": "The final energy can be found on page 3 of your diagnosis next to the information relating to the primary energies.",
+    "energy-consumption": "Amount of final energy consumption (kWh/m²/year)",
+    "energy-consumption-amount": "350",
+    "co2-emission": "Amount of CO₂ emissions (kg CO₂/m²/year)",
+    "co2-amount": "130",
+    "detail-title": "My diagnosis in detail",
+    "adetail": "Your DPE has obtained the grade of {letter}, whose final energy consumption is below the threshold of 250kWh/m²/year. {bold} 🎉",
+    "adetail-bold": "Your accommodation is currently not affected by any restrictions.",
+    "edetail": "Your DPE has obtained the grade of E, whose final energy consumption is below the threshold of 330kWh/m²/year. { bold } France Rénov’ is your new public housing renovation service, carried by the State with local authorities, and piloted by the National Housing Agency (Anah). France Rénov’ carries out a free diagnosis for you in order to find out about the possibilities for the overall renovation of your home by contacting the France Rénov’ adviser closest to you.",
+    "edetail-bold": "We make you aware of the fact that any increase in rent has been prohibited since August 24, 2022 and housing will be prohibited for renting from January 1, 2034.",
+    "fdetail": "Your DPE has obtained the grade of F,  whose final energy consumption is below the threshold of 420kWh/m²/year. {bold} France Rénov’ is your new public housing renovation service, carried by the State with local authorities, and piloted by the National Housing Agency (Anah). France Rénov’ carries out a free diagnosis for you in order to find out about the possibilities for the overall renovation of your home by contacting the France Rénov’ adviser closest to you.",
+    "fdetail-bold": "We make you aware of the fact that any increase in rent has been prohibited since August 24, 2022 and housing will be prohibited for renting from January 1, 2028.",
+    "gdetail": "Your DPE has obtained the grade of G, whose final energy consumption is below the threshold of 450kWh/m²/year. { bold } France Rénov' is your new public housing renovation service, carried by the State with local authorities, and piloted by the National Housing Agency (Anah). France Rénov’ carries out a free diagnosis for you in order to find out about the possibilities for the overall renovation of your home by contacting the France Rénov’ adviser closest to you.",
+    "gdetail-bold": "We make you aware of the fact that any increase in rent has been prohibited since August 24, 2022 and housing will be prohibited for renting from January 1, 2025.",
+    "gpdetail": "Your DPE has obtained the grade of G+, whose final energy consumption is above the threshold of 450kWh/m²/year. { bold } France Rénov’ is your new public housing renovation service, carried by the State with local authorities, and piloted by the National Housing Agency (Anah).  France Rénov’ carries out a free diagnosis for you in order to find out about the possibilities for the overall renovation of your home by contacting the France Rénov’ adviser closest to you.",
+    "gpdetail-bold": "We make you aware of the fact that the housing is prohibited for renting since January 1, 2023!",
+    "contact-adviser": "Contact a France Rénov adviser"
   },
   "propertyrent": {
     "rent-title": "Rent and charges",
@@ -275,5 +306,11 @@
     "property-address": "Property address",
     "property-rent": "Property rent",
     "try-again": "Please fix errors to submit the property"
+  },
+  "propertycontainer": {
+    "apply-to": "Apply for {0}",
+    "rent1": "with a monthly rent of",
+    "rent2": "and charges of",
+    "rentdpe": "with a DPE"
   }
 }

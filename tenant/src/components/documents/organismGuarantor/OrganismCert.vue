@@ -66,8 +66,8 @@ import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
     ListItem,
     VGouvFrModal,
     NakedCard,
-    TroubleshootingModal
-  }
+    TroubleshootingModal,
+  },
 })
 export default class OrganismCert extends Vue {
   @Prop() tenantId?: number;
@@ -129,7 +129,7 @@ export default class OrganismCert extends Vue {
     const formData = new FormData();
     if (!files.length) return;
 
-    Array.from(Array(files.length).keys()).forEach(x => {
+    Array.from(Array(files.length).keys()).forEach((x) => {
       formData.append(`${fieldName}[${x}]`, files[x], files[x].name);
     });
 
@@ -165,10 +165,10 @@ export default class OrganismCert extends Vue {
   }
 
   remove(file: DfFile) {
-    if (file.id) {
+    if (file.path && file.id) {
       RegisterService.deleteFile(file.id);
     }
-    const firstIndex = this.files.findIndex(f => f.id === file.id);
+    const firstIndex = this.files.findIndex((f) => f.id === file.id);
     this.files.splice(firstIndex, 1);
     this.documentDeniedReasons = undefined;
   }
@@ -183,10 +183,10 @@ export default class OrganismCert extends Vue {
 
   private displayTooManyFilesToast() {
     Vue.toasted.global.max_file({
-      message: this.$i18n.t("organismcert.max-file", [
+      message: this.$i18n.t("max-file", [
         this.files.length,
-        this.MAX_FILE_COUNT
-      ])
+        this.MAX_FILE_COUNT,
+      ]),
     });
   }
 }

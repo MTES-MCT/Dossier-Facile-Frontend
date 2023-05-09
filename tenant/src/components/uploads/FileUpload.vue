@@ -11,15 +11,17 @@
           accept="image/png, image/jpeg, application/pdf"
         />
         <div v-if="!isSaving()" class="fr-mt-2w fr-mb-2w">
-          Glissez et déposez vos documents
+          {{ $t("fileupload.drag-and-drop-files") }}
           <br />
-          JPG, PNG ou PDF<br />
+          {{ $t("fileupload.files-format") }}<br />
           {{ getSizeLimit() }}<br />
           {{ getPagesLimit() }}<br />
-          ou<br />
-          <a href="#">Parcourez vos fichiers</a>
+          {{ $t("fileupload.or") }}<br />
+          <a href="#">{{ $t("fileupload.browse-files") }}</a>
         </div>
-        <div v-if="isSaving()">Téléchargement des fichiers...</div>
+        <div v-if="isSaving()">
+          {{ $t("fileupload.uploading-files") }}
+        </div>
       </div>
     </form>
   </div>
@@ -73,13 +75,9 @@ export default class FileUpload extends Vue {
   filesChange(e: any) {
     [...e.target.files].forEach((f: File) => {
       if (f.size > this.size * 1024 * 1024) {
-        this.$toasted.show(
-          this.$i18n.t("fileupload.file-too-big", [this.size]).toString(),
-          {
-            type: "error",
-            duration: 5000
-          }
-        );
+        Vue.toasted.global.error_toast({
+          message: this.$i18n.t("fileupload.file-too-big", [this.size]),
+        });
         return false;
       }
       return true;

@@ -1,27 +1,22 @@
 <template>
   <transition name="modal-fade">
     <div class="modal-backdrop">
-      <div
-        class="modal fr-pt-2w"
-        role="dialog"
-        aria-labelledby="modalTitle"
-        aria-describedby="modalDescription"
-      >
+      <div class="modal fr-pt-2w" role="dialog" aria-labelledby="modalTitle">
         <button
           class="fr-link--close fr-link fr-mr-1w"
-          title="Fermer la fenêtre modale"
-          aria-label="Fermer la fenêtre modale"
+          :title="$t('modal.close-alt')"
+          :aria-label="$t('modal.close-alt')"
           @click="close()"
           type="button"
         >
-          Fermer
+          {{ $t("modal.close") }}
         </button>
         <header class="modal-header" id="modalTitle" v-if="!!$slots['header']">
           <slot name="header"
             ><span style="visibility: hidden">title</span></slot
           >
         </header>
-        <section class="modal-body" id="modalDescription">
+        <section class="modal-body">
           <slot name="body"> </slot>
         </section>
         <footer class="modal-footer" v-if="!!$slots['footer']">
@@ -66,7 +61,10 @@ export default class Modal extends Vue {
   -webkit-backdrop-filter: blur(5px);
   display: flex;
   flex-direction: column;
-  min-width: 400px;
+  min-width: 250px;
+  @media all and (min-width: 480px) {
+    min-width: 400px;
+  }
   max-width: 90%;
   max-height: 98%;
   overflow: auto;

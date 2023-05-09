@@ -1,12 +1,10 @@
-describe("couple tenant scenario", () => {
-  const user = {
-    username: "test_FABIEN",
-    firstname: "Fabien"
-  };
+import { getTenantUser, UserType } from "../../support/users";
 
-  before("reset account", () => {
-    cy.tenantLogin(user.username);
-    cy.deleteAccount();
+describe("couple tenant scenario", () => {
+  const user = getTenantUser();
+
+  beforeEach("reset account", () => {
+    cy.deleteAccount(user.username, UserType.TENANT);
   });
 
   it("validate file", () => {

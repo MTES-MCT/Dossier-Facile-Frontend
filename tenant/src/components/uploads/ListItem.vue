@@ -24,9 +24,7 @@
         type="button"
         :title="$t('listitem.remove')"
       >
-        <div class="material-icons-outlined md-18 fr-m-1w">
-          delete
-        </div>
+        <div class="material-icons-outlined md-18 fr-m-1w">delete</div>
       </button>
     </div>
     <Modal
@@ -61,8 +59,8 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
     Progress,
     ShowDoc,
     Modal,
-    ConfirmModal
-  }
+    ConfirmModal,
+  },
 })
 export default class ListItem extends Vue {
   @Prop({ default: "" }) file!: DfFile;
@@ -145,7 +143,7 @@ export default class ListItem extends Vue {
 
 .size {
   font-size: 12px;
-  color: var(--g500);
+  color: var(--g600);
 }
 
 .doc-container {
@@ -186,4 +184,3 @@ export default class ListItem extends Vue {
   background-color: var(--background-default-grey);
 }
 </style>
-

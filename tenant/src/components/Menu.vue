@@ -55,16 +55,9 @@
             >
           </li>
           <li class="warn">
-            <DfButton
-              class="fr-nav__link"
-              @on-click="isDeleteModalVisible = true"
-            >
+            <DfButton class="fr-nav__link" @on-click="showDeleteAccountModal()">
               {{ $t("menu.deleteAccount") }}
             </DfButton>
-            <DeleteAccount
-              v-model="isDeleteModalVisible"
-              v-show="isDeleteModalVisible"
-            ></DeleteAccount>
           </li>
         </ul>
       </div>
@@ -72,44 +65,34 @@
     <li class="fr-nav__item" :class="{ break: !isLoggedIn }">
       <a
         href="/contact"
-        :aria-current="currentPage() === 'Contact' ? 'page' : false"
-        class="fr-nav__link tag-container"
+        :aria-current="currentPage() === 'Contact'"
+        class="fr-nav__link"
       >
-        <div class="fr-tag">
-          <span class="material-icons" aria-hidden="true">mail_outline</span>
-          {{ $t("menu.contact-us") }}
-        </div>
+        <span class="fr-icon-mail-line fr-icon--sm" aria-hidden="true"></span>
+        {{ $t("menu.contact-us") }}
       </a>
     </li>
-    <li class="fr-nav__item">
-      <button
-        class="fr-nav__link fr-btn fr-ml-3 fr-btn--secondary fr-btn--sm lang"
-        @click="changeLang"
-      >
-        {{ getLanguageSwitchLabel() }}
-      </button>
-    </li>
+    <LanguageSelector :initialLanguage="$i18n.locale" />
   </ul>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import DeleteAccount from "./DeleteAccount.vue";
-import i18n from "../i18n";
 import DfButton from "df-shared/src/Button/Button.vue";
+import LanguageSelector from "df-shared/src/Header/LanguageSelector.vue";
 
 @Component({
   components: {
-    DeleteAccount,
-    DfButton
+    DfButton,
+    LanguageSelector,
   },
   computed: {
     ...mapGetters({
       newMessage: "newMessage",
-      isLoggedIn: "isLoggedIn"
-    })
-  }
+      isLoggedIn: "isLoggedIn",
+    }),
+  },
 })
 export default class Menu extends Vue {
   isLoggedIn?: boolean;
@@ -122,12 +105,9 @@ export default class Menu extends Vue {
   currentPage() {
     return this.$route.name;
   }
-  changeLang() {
-    const lang = i18n.locale === "fr" ? "en" : "fr";
-    this.$store.dispatch("setLang", lang);
-  }
-  getLanguageSwitchLabel() {
-    return i18n.locale === "fr" ? "English version" : "Version française";
+
+  showDeleteAccountModal() {
+    this.$store.commit("showDeleteAccountModal", true);
   }
 }
 </script>
@@ -138,8 +118,8 @@ export default class Menu extends Vue {
   top: 0.5rem;
   right: 0.25rem;
   border-radius: 50%;
-  background: red;
-  color: white;
+  background: var(--secondary);
+  color: var(--primary);
   z-index: 1;
   min-width: 1.6em;
   height: 1.6em;
@@ -150,32 +130,8 @@ export default class Menu extends Vue {
   font-size: 0.8em;
 }
 
-.lang {
-  box-shadow: none;
-}
-
 .fr-nav__item {
   position: relative;
-  .fr-nav__link[aria-current] {
-    .fr-tag {
-      color: var(--text-action-high-blue-france) !important;
-    }
-  }
-  .tag-container {
-    @media all and (min-width: 768px) {
-      padding-top: 0.75rem;
-      padding-bottom: 0.4rem;
-    }
-    .fr-tag {
-      @media all and (max-width: 768px) {
-        min-height: inherit;
-        padding: 0;
-        background-color: transparent;
-        color: inherit;
-        font-size: inherit;
-      }
-    }
-  }
 
   a.fr-external-link::after {
     content: "";
@@ -193,15 +149,5 @@ export default class Menu extends Vue {
   button {
     color: var(--error);
   }
-}
-span.material-icons,
-span.material-icons-outlined {
-  @media all and (max-width: 768px) {
-    display: none;
-  }
-  padding-right: 0.25rem;
-}
-fr-breadcrumb {
-  margin: 0;
 }
 </style>

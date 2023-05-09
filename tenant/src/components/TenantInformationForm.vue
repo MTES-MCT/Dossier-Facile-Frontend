@@ -63,70 +63,19 @@
     </div>
 
     <div v-if="isOwner()">
+      <NakedCard class="fr-p-md-5w">
+        <h1 class="fr-h6">
+          {{ $t("tenantinformationform.title") }}
+        </h1>
+        <ApplicationTypeSelector
+          @selected="updateApplicationType"
+        ></ApplicationTypeSelector>
+      </NakedCard>
       <ValidationObserver ref="observer" v-slot="{ validate }">
         <form
           name="form"
           @submit.prevent="validate().then(handleOthersInformation)"
         >
-          <NakedCard class="fr-p-md-5w">
-            <h1 class="fr-h6">{{ $t("tenantinformationform.title") }}</h1>
-            <div class="fr-form-group fr-mt-3w fr-mb-0">
-              <fieldset class="fr-fieldset">
-                <div class="fr-fieldset__content">
-                  <div class="fr-grid-row space-between">
-                    <BigRadio
-                      :big="true"
-                      val="ALONE"
-                      :value="applicationType"
-                      @input="updateApplicationType"
-                    >
-                      <div class="fr-grid-col spa">
-                        <div class="icon-container">
-                          <span class="material-icons md-36" aria-hidden="true"
-                            >person</span
-                          >
-                        </div>
-                        {{ $t("tenantinformationform.alone") }}
-                      </div>
-                    </BigRadio>
-                    <BigRadio
-                      :big="true"
-                      class="fr-mt-2w fr-mt-md-0"
-                      val="COUPLE"
-                      :value="applicationType"
-                      @input="updateApplicationType"
-                    >
-                      <div class="fr-grid-col spa">
-                        <div class="icon-container">
-                          <span class="material-icons md-36" aria-hidden="true"
-                            >group</span
-                          >
-                        </div>
-                        {{ $t("tenantinformationform.couple") }}
-                      </div>
-                    </BigRadio>
-                    <BigRadio
-                      :big="true"
-                      class="fr-mt-2w fr-mt-md-0"
-                      val="GROUP"
-                      :value="applicationType"
-                      @input="updateApplicationType"
-                    >
-                      <div class="fr-grid-col spa">
-                        <div class="icon-container">
-                          <span class="material-icons md-36" aria-hidden="true"
-                            >groups</span
-                          >
-                        </div>
-                        {{ $t("tenantinformationform.roommate") }}
-                      </div>
-                    </BigRadio>
-                  </div>
-                </div>
-              </fieldset>
-            </div>
-          </NakedCard>
-
           <CoupleInformation
             v-model="coTenants"
             class="fr-mt-2w"
@@ -143,20 +92,6 @@
         </form>
       </ValidationObserver>
     </div>
-    <ConfirmModal
-      v-if="isDeleteGroupVisible"
-      @valid="validSelect()"
-      @cancel="undoSelect()"
-    >
-      <span>{{ $t("tenantinformationform.will-delete-roommates") }}</span>
-    </ConfirmModal>
-    <ConfirmModal
-      v-if="isDeleteCoupleVisible"
-      @valid="validSelect()"
-      @cancel="undoSelect()"
-    >
-      <span>{{ $t("tenantinformationform.will-delete-couple") }}</span>
-    </ConfirmModal>
   </div>
 </template>
 
@@ -175,6 +110,7 @@ import { AnalyticsService } from "../services/AnalyticsService";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import ProfileFooter from "./footer/ProfileFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import ApplicationTypeSelector from "../components/ApplicationTypeSelector.vue";
 
 @Component({
   computed: {
@@ -198,8 +134,9 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
     DfButton,
     ConfirmModal,
     ProfileFooter,
-    NakedCard
-  }
+    NakedCard,
+    ApplicationTypeSelector,
+  },
 })
 export default class TenantInformationForm extends Vue {
   user!: User;
@@ -208,9 +145,6 @@ export default class TenantInformationForm extends Vue {
   coTenantAuthorize!: boolean;
   spouseAuthorize!: boolean;
   applicationType = "";
-  isDeleteCoupleVisible = false;
-  isDeleteGroupVisible = false;
-  newApplicationType = "";
 
   localCoTenantAuthorize!: boolean;
   localSpouseAuthorize!: boolean;
@@ -271,31 +205,27 @@ export default class TenantInformationForm extends Vue {
             params: { substep: "1" }
           });
           if (this.applicationType === "COUPLE") {
-            this.$toasted.show(this.$i18n.t("tenantinformationform.couple-saved").toString(), {
-              type: "show",
-              duration: 7000
+            Vue.toasted.global.info_toast({
+              message: "tenantinformationform.couple-saved",
             });
             return;
           }
           if (this.applicationType === "GROUP") {
-            this.$toasted.show(this.$i18n.t("tenantinformationform.roommates-saved").toString(), {
-              type: "show",
-              duration: 7000
+            Vue.toasted.global.info_toast({
+              message: "tenantinformationform.roommates-saved",
             });
             return;
           }
         },
         error => {
           if (error.response.data.message.includes("are already being used")) {
-            this.$toasted.show(this.$i18n.t("tenantinformationform.email-exists").toString(), {
-              type: "error",
-              duration: 7000
+            Vue.toasted.global.error_toast({
+              message: "tenantinformationform.email-exists",
             });
             return;
           } else {
-            this.$toasted.show(this.$i18n.t("tenantinformationform.error").toString(), {
-              type: "error",
-              duration: 7000
+            Vue.toasted.global.error_toast({
+              message: "tenantinformationform.error",
             });
             return;
           }
@@ -307,23 +237,8 @@ export default class TenantInformationForm extends Vue {
   }
 
   updateApplicationType(value: string) {
-    if (this.applicationType != value) {
-      this.newApplicationType = value;
-      if (
-        value !== this.applicationType &&
-        (this.user.apartmentSharing?.tenants.length || 0) > 1
-      ) {
-        if (this.applicationType === "COUPLE") {
-          this.isDeleteCoupleVisible = true;
-        } else if (this.applicationType === "GROUP") {
-          this.isDeleteGroupVisible = true;
-        }
-      } else {
-        this.coTenants = [];
-        this.applicationType = this.newApplicationType;
-      }
-    }
-    return false;
+    this.applicationType = value;
+    this.deleteCoTenants();
   }
 
   hasNothingToSave() {
@@ -347,13 +262,7 @@ export default class TenantInformationForm extends Vue {
     return false;
   }
 
-  undoSelect() {
-    this.isDeleteCoupleVisible = false;
-    this.isDeleteGroupVisible = false;
-  }
-
-  validSelect() {
-    this.applicationType = this.newApplicationType;
+  deleteCoTenants() {
     this.user.apartmentSharing?.tenants.forEach(t => {
       if (t.tenantType !== "CREATE") {
         this.$store
@@ -361,14 +270,11 @@ export default class TenantInformationForm extends Vue {
           .then()
           .catch(() => {
             this.$toasted.global.error();
-            this.undoSelect();
             return;
           });
       }
     });
     this.coTenants = [];
-    this.isDeleteCoupleVisible = false;
-    this.isDeleteGroupVisible = false;
   }
 
   isOwner() {

@@ -58,22 +58,21 @@ import { UtilsService } from "../services/UtilsService";
 })
 export default class DeleteAccount extends Vue {
   validDelete() {
-    this.$emit("input", false);
+    this.$store.commit("showDeleteAccountModal", false);
     this.$store.dispatch("deleteAccount").then(
       () => {
         AnalyticsService.deleteAccount();
       },
       () => {
-        this.$toasted.show(this.$i18n.t("deleteaccount.try-again").toString(), {
-          type: "error",
-          duration: 7000
+        Vue.toasted.global.error_toast({
+          message: "deleteaccount.try-again",
         });
       }
     );
   }
 
   undoSelect() {
-    this.$emit("input", false);
+    this.$store.commit("showDeleteAccountModal", false);
     return false;
   }
 

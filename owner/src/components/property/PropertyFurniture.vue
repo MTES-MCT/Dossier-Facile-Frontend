@@ -3,6 +3,7 @@ import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import { Field, ErrorMessage } from 'vee-validate';
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
 import PropertyPage from './PropertyPage.vue';
 import useOwnerStore from '../../store/owner-store';
 
@@ -43,58 +44,60 @@ function onBack() {
 
 <template>
   <PropertyPage @on-back="onBack" @submit="onSubmit">
-    <h1 class="fr-h4">{{ t('propertyfurniture.furniture-title') }}</h1>
-    <p>{{ t('propertyfurniture.furniture-subtitle') }}</p>
-    <p>
-      <Field
-        name="furniture"
-        id="furniture-house"
-        type="radio"
-        v-model="furniture"
-        rules="hasValue"
-        :value="'UNFURNISHED'"
-      />
-      <label
-        :class="{ selected: furniture === 'UNFURNISHED' }"
-        class="fr-label inline-block label"
-        for="furniture-house"
-      >
-        <div class="fr-grid-col">
-          <div class="icon-container desktop">
-            <img alt="" svg-inline src="../../assets/ico_vide.svg" aria-label="icone meublé" />
+    <NakedCard class="fr-p-md-5w">
+      <h1 class="fr-h4">{{ t('propertyfurniture.furniture-title') }}</h1>
+      <p>{{ t('propertyfurniture.furniture-subtitle') }}</p>
+      <p>
+        <Field
+          name="furniture"
+          id="furniture-house"
+          type="radio"
+          v-model="furniture"
+          rules="hasValue"
+          :value="'UNFURNISHED'"
+        />
+        <label
+          :class="{ selected: furniture === 'UNFURNISHED' }"
+          class="fr-label inline-block label"
+          for="furniture-house"
+        >
+          <div class="fr-grid-col">
+            <div class="icon-container desktop">
+              <img alt="" svg-inline src="../../assets/ico_vide.svg" aria-label="icone meublé" />
+            </div>
+            <div class="fr-mb-md-5w fr-m-2w">{{ t('propertyfurniture.unfurnished') }}</div>
           </div>
-          <div class="fr-mb-md-5w fr-m-2w">{{ t('propertyfurniture.unfurnished') }}</div>
-        </div>
-      </label>
-      <Field
-        name="furniture"
-        id="furniture-apartment"
-        type="radio"
-        v-model="furniture"
-        rules="hasValue"
-        :value="'FURNISHED'"
-      />
-      <label
-        :class="{ selected: furniture === 'FURNISHED' }"
-        class="fr-label inline-block label"
-        for="furniture-apartment"
-      >
-        <div class="fr-grid-col">
-          <div class="icon-container desktop">
-            <img
-              alt=""
-              svg-inline
-              src="../../assets/ico_meuble.svg"
-              aria-label="icone non meublé"
-            />
+        </label>
+        <Field
+          name="furniture"
+          id="furniture-apartment"
+          type="radio"
+          v-model="furniture"
+          rules="hasValue"
+          :value="'FURNISHED'"
+        />
+        <label
+          :class="{ selected: furniture === 'FURNISHED' }"
+          class="fr-label inline-block label"
+          for="furniture-apartment"
+        >
+          <div class="fr-grid-col">
+            <div class="icon-container desktop">
+              <img
+                alt=""
+                svg-inline
+                src="../../assets/ico_meuble.svg"
+                aria-label="icone non meublé"
+              />
+            </div>
+            <div class="fr-mb-md-5w fr-m-2w">{{ t('propertyfurniture.furnished') }}</div>
           </div>
-          <div class="fr-mb-md-5w fr-m-2w">{{ t('propertyfurniture.furnished') }}</div>
-        </div>
-      </label>
-      <ErrorMessage name="furniture" v-slot="{ message }">
-        <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
-      </ErrorMessage>
-    </p>
+        </label>
+        <ErrorMessage name="furniture" v-slot="{ message }">
+          <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
+        </ErrorMessage>
+      </p>
+    </NakedCard>
   </PropertyPage>
 </template>
 

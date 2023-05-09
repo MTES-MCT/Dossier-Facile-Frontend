@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
 
@@ -6,11 +7,13 @@ const MESSAGE = `${import.meta.env.VITE_ANNOUNCEMENT_MESSAGE}`;
 const MAIN_URL = `//${import.meta.env.VUE_APP_MAIN_URL}`;
 
 const announcementClosedCookieKey = `announcement-closed-${btoa(MESSAGE)}`;
-let announcementClosed = cookies.get(announcementClosedCookieKey) === "true";
+const announcementClosed = ref(
+  cookies.get(announcementClosedCookieKey) === "true"
+);
 
 function isVisible() {
   const isMessageSet = MESSAGE.trim().length > 0;
-  return isMessageSet && !announcementClosed;
+  return isMessageSet && !announcementClosed.value;
 }
 
 function createAnnouncementClosedCookie() {
@@ -31,7 +34,7 @@ function createAnnouncementClosedCookie() {
 
 function closeAnnouncement() {
   createAnnouncementClosedCookie();
-  announcementClosed = true;
+  announcementClosed.value = true;
 }
 </script>
 
