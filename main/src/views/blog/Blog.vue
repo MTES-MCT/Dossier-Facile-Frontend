@@ -6,6 +6,22 @@
           <h1>{{ $t("blog-title") }}</h1>
           <hr />
           <BlogExtractTile
+            title="Un garant ? Qui ? Comment ? Pourquoi ?  "
+            :image="require('../../assets/images/blog-article18.webp')"
+            publicationDate="9 Mai 2023"
+            path="/blog/un-garant-qui-comment-pourquoi"
+          >
+            <template v-slot:extract>
+              <p>
+                Dans la constitution d’un dossier de location, le choix d’un
+                garant fait souvent figure de passage obligé. Qui peut se porter
+                garant ? Qu’est-ce qu’une garantie de loyer impayé ? Comment
+                faire pour l’intégrer à son dossier de location ? Découvrez nos
+                réponses à toutes vos questions.
+              </p>
+            </template>
+          </BlogExtractTile>
+          <BlogExtractTile
             title="Que vérifier lors de la visite d'un logement ?"
             :image="require('../../assets/images/blog-article17.webp')"
             publicationDate="25 Avril 2023"
@@ -365,9 +381,8 @@ import BlogExtractTile from "./BlogExtractTile.vue";
 
 @Component({
   components: {
-    BlogExtractTile
-  }
+    BlogExtractTile,
+  },
 })
 export default class Blog extends Vue {}
 </script>
-
