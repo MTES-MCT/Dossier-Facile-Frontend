@@ -7,7 +7,7 @@
       :title="getTitle()"
       class="logo-link"
       rel="nofollow"
-      target="_blank"
+      :target="href === '#' ? '' : '_blank'"
     >
       <img
         :alt="name"
