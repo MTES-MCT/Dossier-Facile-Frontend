@@ -22,19 +22,19 @@
           :label="$t('tenantpanel.identification')"
           :document="document(tenant, 'IDENTIFICATION')"
           enableDownload="force"
-          @clickEdit="setTenantStep(1)"
+          @click-edit="setTenantStep(1)"
         />
 
         <FileRowListItem
           :label="$t('tenantpanel.residency')"
           :document="document(tenant, 'RESIDENCY')"
-          @clickEdit="setTenantStep(2)"
+          @click-edit="setTenantStep(2)"
         />
 
         <FileRowListItem
           :label="$t('tenantpanel.professional')"
           :document="document(tenant, 'PROFESSIONAL')"
-          @clickEdit="setTenantStep(3)"
+          @click-edit="setTenantStep(3)"
         />
         <span v-if="documents(tenant, 'FINANCIAL').length > 1">
           <FileRowListItem
@@ -46,19 +46,19 @@
               $t('documents.subcategory.' + doc.documentSubCategory)
             "
             :document="doc"
-            @clickEdit="setTenantStep(4)"
+            @click-edit="setTenantStep(4)"
           />
         </span>
         <FileRowListItem
           v-else
           :label="$t('tenantpanel.financial')"
           :document="document(tenant, 'FINANCIAL')"
-          @clickEdit="setTenantStep(4)"
+          @click-edit="setTenantStep(4)"
         />
         <FileRowListItem
           :label="$t('tenantpanel.tax')"
           :document="document(tenant, 'TAX')"
-          @clickEdit="setTenantStep(5)"
+          @click-edit="setTenantStep(5)"
         />
       </ul>
     </div>
