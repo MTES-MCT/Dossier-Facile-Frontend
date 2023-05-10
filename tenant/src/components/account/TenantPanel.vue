@@ -1,38 +1,25 @@
 <template>
   <div>
     <div class="main-information">
-      <h3 class="fr-h4">{{ $t("tenantpanel.my-personnal-information") }}</h3>
-      <div class="fr-grid-row fr-grid-row--gutters">
-        <InfoCard
-          :title="$t('tenantpanel.my-information')"
-          editable="true"
-          matIcon="person"
-          @click="gotoTenantName()"
-        >
-          <div class="name-email-tile">
-            {{ tenant | fullName }}<br />
-            {{ tenant ? tenant.email : "" }}
-          </div>
-        </InfoCard>
-      </div>
-      <hr class="fr-mt-4w" />
       <h3 class="fr-h4">{{ $t("tenantpanel.my-files") }}</h3>
-      <ul class="without-padding">
+      <ul class="fr-p-0">
+        <RowListItem
+          :label="tenant | fullName"
+          @click-edit="gotoTenantName()"
+        />
         <FileRowListItem
-          :label="$t('tenantpanel.identification')"
+          :label="$tc('tenantpanel.identification')"
           :document="document(tenant, 'IDENTIFICATION')"
           enableDownload="force"
           @click-edit="setTenantStep(1)"
         />
-
         <FileRowListItem
-          :label="$t('tenantpanel.residency')"
+          :label="$tc('tenantpanel.residency')"
           :document="document(tenant, 'RESIDENCY')"
           @click-edit="setTenantStep(2)"
         />
-
         <FileRowListItem
-          :label="$t('tenantpanel.professional')"
+          :label="$tc('tenantpanel.professional')"
           :document="document(tenant, 'PROFESSIONAL')"
           @click-edit="setTenantStep(3)"
         />
@@ -51,12 +38,12 @@
         </span>
         <FileRowListItem
           v-else
-          :label="$t('tenantpanel.financial')"
+          :label="$tc('tenantpanel.financial')"
           :document="document(tenant, 'FINANCIAL')"
           @click-edit="setTenantStep(4)"
         />
         <FileRowListItem
-          :label="$t('tenantpanel.tax')"
+          :label="$tc('tenantpanel.tax')"
           :document="document(tenant, 'TAX')"
           @click-edit="setTenantStep(5)"
         />
@@ -79,6 +66,7 @@ import DeleteAccount from "@/components/DeleteAccount.vue";
 import GuarantorsSection from "@/components/account/GuarantorsSection.vue";
 import PartnersSection from "@/components/account/PartnersSection.vue";
 import InfoCard from "@/components/account/InfoCard.vue";
+import RowListItem from "@/components/documents/RowListItem.vue";
 import FileRowListItem from "@/components/documents/FileRowListItem.vue";
 
 @Component({
@@ -91,6 +79,7 @@ import FileRowListItem from "@/components/documents/FileRowListItem.vue";
     DfButton,
     ColoredTag,
     DeleteAccount,
+    RowListItem,
     FileRowListItem,
   },
 })
