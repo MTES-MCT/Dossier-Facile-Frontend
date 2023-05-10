@@ -19,17 +19,17 @@
             <FileRowListItem
               :label="$t('guarantorssection.identification')"
               :document="document(g, 'IDENTIFICATION')"
-              @clickEdit="setGuarantorSubStep(1, g)"
+              @click-edit="setGuarantorSubStep(1, g)"
             />
             <FileRowListItem
               :label="$t('guarantorssection.residency')"
               :document="document(g, 'RESIDENCY')"
-              @clickEdit="setGuarantorSubStep(2, g)"
+              @click-edit="setGuarantorSubStep(2, g)"
             />
             <FileRowListItem
               :label="$t('guarantorssection.professional')"
               :document="document(g, 'PROFESSIONAL')"
-              @clickEdit="setGuarantorSubStep(3, g)"
+              @click-edit="setGuarantorSubStep(3, g)"
             />
             <span v-if="documents(g, 'FINANCIAL').length > 1">
               <FileRowListItem
@@ -37,23 +37,23 @@
                 v-bind:key="doc.id"
                 :label="
                   $t('guarantorssection.financial') +
-                    (' ' + (k + 1) + ' - ') +
-                    $t('documents.subcategory.' + doc.documentSubCategory)
+                  (' ' + (k + 1) + ' - ') +
+                  $t('documents.subcategory.' + doc.documentSubCategory)
                 "
                 :document="doc"
-                @clickEdit="setGuarantorSubStep(4, g)"
+                @click-edit="setGuarantorSubStep(4, g)"
               />
             </span>
             <FileRowListItem
               v-else
               :label="$t('guarantorssection.financial')"
               :document="document(g, 'FINANCIAL')"
-              @clickEdit="setGuarantorSubStep(4, g)"
+              @click-edit="setGuarantorSubStep(4, g)"
             />
             <FileRowListItem
               :label="$t('guarantorssection.tax')"
               :document="document(g, 'TAX')"
-              @clickEdit="setGuarantorSubStep(5, g)"
+              @click-edit="setGuarantorSubStep(5, g)"
             />
           </ul>
         </div>
@@ -62,7 +62,7 @@
             <FileRowListItem
               :label="$t('guarantorssection.organism-identification')"
               :document="document(g, 'IDENTIFICATION')"
-              @clickEdit="setGuarantorSubStep(1, g)"
+              @click-edit="setGuarantorSubStep(1, g)"
             />
           </ul>
         </div>
@@ -71,7 +71,7 @@
             <FileRowListItem
               :label="$t('guarantorssection.organism-identification')"
               :document="document(g, 'IDENTIFICATION_LEGAL_PERSON')"
-              @clickEdit="setGuarantorSubStep(1, g)"
+              @click-edit="setGuarantorSubStep(1, g)"
             />
           </ul>
         </div>
@@ -88,8 +88,8 @@
     <div
       v-if="
         guarantors.length === 0 ||
-          (guarantors.length === 1 &&
-            guarantors[0].typeGuarantor === 'NATURAL_PERSON')
+        (guarantors.length === 1 &&
+          guarantors[0].typeGuarantor === 'NATURAL_PERSON')
       "
     >
       <hr />
@@ -158,9 +158,9 @@ import FileRowListItem from "@/components/documents/FileRowListItem.vue";
   components: { InfoCard, ColoredTag, ConfirmModal, FileRowListItem },
   computed: {
     ...mapState({
-      user: "user"
-    })
-  }
+      user: "user",
+    }),
+  },
 })
 export default class GuarantorsSection extends Vue {
   @Prop() tenant!: User;
@@ -213,7 +213,7 @@ export default class GuarantorsSection extends Vue {
     return "VALIDATED";
   }
   document(g: Guarantor, s: string) {
-    return g.documents?.find(d => {
+    return g.documents?.find((d) => {
       return d.documentCategory === s;
     });
   }
@@ -225,7 +225,7 @@ export default class GuarantorsSection extends Vue {
   }
   getGuarantorStatus(g: Guarantor, docType: string) {
     if (docType === "FINANCIAL") {
-      const docs = g.documents?.filter(d => {
+      const docs = g.documents?.filter((d) => {
         return d.documentCategory === "FINANCIAL";
       });
       return this.isFinancialValid(docs || []);
@@ -241,7 +241,7 @@ export default class GuarantorsSection extends Vue {
     this.$store.dispatch("setGuarantorPage", {
       guarantor: g,
       substep: n,
-      tenantId: this.tenant.id
+      tenantId: this.tenant.id,
     });
   }
 
@@ -259,7 +259,7 @@ export default class GuarantorsSection extends Vue {
         this.$store
           .dispatch("setGuarantorType", {
             tenantId: this.tenant.id,
-            typeGuarantor: "NATURAL_PERSON"
+            typeGuarantor: "NATURAL_PERSON",
           })
           .then(() => {
             this.guarantors = UtilsService.getTenant(this.tenant.id).guarantors;
@@ -270,8 +270,8 @@ export default class GuarantorsSection extends Vue {
                 step: "5",
                 substep: "0",
                 tenantId: this.tenant.id.toString(),
-                guarantorId: g.id?.toString() as string
-              }
+                guarantorId: g.id?.toString() as string,
+              },
             });
           });
       } else {
@@ -279,8 +279,8 @@ export default class GuarantorsSection extends Vue {
           name: "TenantGuarantors",
           params: {
             tenantId: this.tenant.id.toString(),
-            step: "5"
-          }
+            step: "5",
+          },
         });
       }
     }
@@ -300,7 +300,7 @@ export default class GuarantorsSection extends Vue {
       () => {
         Vue.toasted.global.delete_success();
         this.guarantors = this.guarantors.filter(
-          g => g.id != this.selectedGuarantor?.id
+          (g) => g.id != this.selectedGuarantor?.id
         );
         this.closeConfirmModal();
       },
