@@ -8,7 +8,6 @@ import i18n from "./i18n";
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import Toasted from "vue-toasted";
-import JQuery from "jquery";
 
 import VueCookies from "vue-cookies";
 import authentication from "./plugins/authentication";
@@ -23,6 +22,8 @@ import VueGtag from "vue-gtag";
 import VueAuthImage from "vue-auth-image";
 import { User } from "df-shared/src/models/User";
 import MatomoPlugin from "./plugins/matomo";
+import * as Sentry from "@sentry/vue";
+import { BrowserTracing } from "@sentry/tracing";
 
 const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
 
@@ -87,6 +88,23 @@ Vue.use(VueAuthImage);
         }
       }
     );
+
+    Sentry.init({
+      Vue,
+      dsn: "https://7032afeb9b1740f68e01148573cff778@sentry.incubateur.net/98",
+      integrations: [
+        new BrowserTracing({
+          routingInstrumentation: Sentry.vueRouterInstrumentation(router),
+          tracingOrigins: [
+            "localhost",
+            "www-dev.dossierfacile.fr",
+            "www.dossierfacile.fr",
+            /^\//,
+          ],
+        }),
+      ],
+      tracesSampleRate: 1.0,
+    });
 
     const app = new Vue({
       created() {
