@@ -11,8 +11,8 @@ import StatusIcon from "./StatusIcon.vue";
 
 @Component({
   components: {
-    StatusIcon
-  }
+    StatusIcon,
+  },
 })
 export default class CardRow extends Vue {
   @Prop({ default: "" }) status?: string;
@@ -86,6 +86,7 @@ export default class CardRow extends Vue {
 
 .fr-tag {
   width: fit-content;
+  min-width: fit-content;
   color: var(--g800-plain);
   font-size: 14px;
 }
