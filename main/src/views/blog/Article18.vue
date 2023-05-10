@@ -17,7 +17,7 @@
                 réponses à toutes vos questions.
               </p>
               <img
-                alt=""
+                alt="Deux mains qui lisent des documents"
                 class="img-center"
                 src="../../assets/images/blog-article18.webp"
               />
