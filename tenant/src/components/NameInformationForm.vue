@@ -1,8 +1,10 @@
 <template>
   <div class="fr-mb-15w">
-    <NakedCard class="fr-p-5w">
+    <NakedCard class="fr-p-5w fr-mt-3w">
       <h1 class="fr-h4">{{ $t("nameinformationform.title") }}</h1>
-      <p class="fr-mb-0">{{ $t("nameinformationform.subtitle") }}</p>
+      <div class="fr-alert fr-alert--info fr-mb-1w">
+        <p>{{ $t("nameinformationform.info") }}</p>
+      </div>
       <div>
         <RequiredFieldsInstruction></RequiredFieldsInstruction>
         <a
@@ -66,7 +68,6 @@
                     id="lastname"
                     name="lastname"
                     autocomplete="family-name"
-                    :placeholder="$t('nameinformationform.lastname').toString()"
                     :disabled="user.franceConnect"
                     type="text"
                     required
@@ -74,10 +75,17 @@
                   <span class="fr-error-text" v-if="errors[0]">{{
                     $t(errors[0])
                   }}</span>
+                  <button
+                    class="fr-btn fr-btn--sm fr-btn--tertiary fr-btn--icon-left fr-icon-add-line fr-mt-1w"
+                    v-if="!displayPreferredNameField"
+                    @click="displayPreferredNameField = true"
+                  >
+                    {{ $t("nameinformationform.add-preferredname") }}
+                  </button>
                 </div>
               </validation-provider>
             </div>
-            <div class="fr-col-12 fr-mb-3w">
+            <div class="fr-col-12 fr-mb-3w" v-if="displayPreferredNameField">
               <validation-provider
                 rules="only-alpha"
                 v-slot="{ errors, valid }"
@@ -89,21 +97,27 @@
                   <FieldLabel for-input="preferredname">
                     {{ $t("nameinformationform.preferredname") }}
                   </FieldLabel>
-                  <input
-                    v-model="preferredname"
-                    class="form-control fr-input validate-required"
-                    :class="{
-                      'fr-input--valid': valid,
-                      'fr-input--error': errors[0]
-                    }"
-                    id="preferredname"
-                    name="preferredname"
-                    autocomplete="off"
-                    :placeholder="
-                      $t('nameinformationform.preferredname').toString()
-                    "
-                    type="text"
-                  />
+                  <div class="field-with-button fr-input-wrap">
+                    <input
+                      v-model="preferredname"
+                      class="form-control fr-input validate-required"
+                      :class="{
+                        'fr-input--valid': valid,
+                        'fr-input--error': errors[0],
+                      }"
+                      id="preferredname"
+                      name="preferredname"
+                      autocomplete="off"
+                      type="text"
+                    />
+                    <button
+                      class="fr-btn fr-btn--tertiary fr-icon-close-line fr-ml-1w"
+                      :title="$t('nameinformationform.delete-preferredname')"
+                      @click="deletePreferredName()"
+                    >
+                      {{ $t("nameinformationform.delete-preferredname") }}
+                    </button>
+                  </div>
                   <span class="fr-error-text" v-if="errors[0]">{{
                     $t(errors[0])
                   }}</span>
@@ -124,9 +138,6 @@
                   </FieldLabel>
                   <input
                     id="firstname"
-                    :placeholder="
-                      $t('nameinformationform.firstname').toString()
-                    "
                     type="text"
                     v-model="firstname"
                     name="firstname"
@@ -159,7 +170,6 @@
                   </FieldLabel>
                   <input
                     id="zipcode"
-                    :placeholder="$t('nameinformationform.zipcode').toString()"
                     :class="{
                       'fr-input--valid': valid,
                       'fr-input--error': errors[0]
@@ -215,7 +225,7 @@ extend("zipcode", {
     ProfileFooter,
     NakedCard,
     RequiredFieldsInstruction,
-    FieldLabel
+    FieldLabel,
   },
   computed: {
     ...mapGetters({
@@ -226,6 +236,8 @@ extend("zipcode", {
 export default class NameInformationForm extends Vue {
   public user!: User;
   public openUnlinkModal = false;
+  public displayPreferredNameField = false;
+
   firstname = "";
   lastname = "";
   preferredname = "";
@@ -236,6 +248,12 @@ export default class NameInformationForm extends Vue {
     this.lastname = this.user.lastName || "";
     this.preferredname = UtilsService.capitalize(this.user.preferredName || "");
     this.zipcode = this.user.zipCode || "";
+    this.displayPreferredNameField = this.preferredname !== "";
+  }
+
+  deletePreferredName() {
+    this.preferredname = "";
+    this.displayPreferredNameField = false;
   }
 
   unlinkFranceConnect() {
@@ -292,4 +310,18 @@ export default class NameInformationForm extends Vue {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.field-with-button {
+  display: flex;
+  justify-content: space-between;
+}
+.warning-box {
+  .title {
+    display: flex;
+  }
+
+  .link {
+    text-align: right;
+  }
+}
+</style>
