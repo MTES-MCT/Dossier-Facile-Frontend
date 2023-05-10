@@ -51,18 +51,21 @@ export default class ApplicationTypeSelector extends Vue {
       id: "alone-choice",
       labelKey: "tenantinformationform.alone",
       iconClass: "fr-icon-user-line",
+      iconCount: 1,
       optionName: "ALONE",
     },
     {
       id: "couple-choice",
       labelKey: "tenantinformationform.couple",
-      iconClass: "fr-icon-group-line",
+      iconClass: "fr-icon-user-line",
+      iconCount: 2,
       optionName: "COUPLE",
     },
     {
       id: "group-choice",
       labelKey: "tenantinformationform.roommate",
       iconClass: "fr-icon-team-line",
+      iconCount: 1,
       optionName: "GROUP",
     },
   ];
