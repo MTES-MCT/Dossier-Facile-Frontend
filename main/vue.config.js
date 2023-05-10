@@ -63,7 +63,10 @@ module.exports = {
       plugins: [
         new PrerendererWebpackPlugin({
           staticDir: path.resolve(__dirname, "dist"),
-          routes: routes
+          routes: routes,
+          rendererOptions: {
+            timeout: 60000
+          }
         })
       ]
     };
