@@ -13,7 +13,6 @@ describe("alone tenant scenario", () => {
 
     cy.expectPath("/profile");
     cy.get("#lastname").should("have.value", user.lastname);
-    cy.get("#preferredname").type("Chaise");
     cy.get("#firstname").should("have.value", user.firstname.toUpperCase());
     cy.clickOnNext();
 
