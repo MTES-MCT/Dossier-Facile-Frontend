@@ -220,6 +220,7 @@
           <LogoPartnerComponent
             :image="require('../assets/logos/izzyhom.png')"
             href="#"
+            title="Lien désactivé, site temporairement indisponible"
             name="IzzyHom"
             height="60px"
             width="60px"

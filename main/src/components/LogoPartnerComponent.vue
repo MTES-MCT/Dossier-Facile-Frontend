@@ -30,8 +30,12 @@ export default class LogoPartnerComponent extends Vue {
   @Prop() public href!: string;
   @Prop({ default: "60px" }) public width!: string;
   @Prop({ default: "60px" }) public height!: string;
+  @Prop({ default: "" }) public title?: boolean;
 
   getTitle() {
+    if (this.title) {
+      return this.title;
+    }
     return "aller sur le site « " + this.name + " » (nouvelle fenêtre)";
   }
 
