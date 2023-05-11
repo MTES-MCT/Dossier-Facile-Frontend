@@ -21,6 +21,7 @@
     </div>
     <div class="fr-col-7 fr-col-md-4 fr-btns-group--right">
       <DfButton
+        v-if="hasClickEditionListener()"
         class="fr-mr-2w fr-btn--icon-left fr-icon-pencil-line"
         @on-click="clickEdit()"
         ><span class="fr-hidden fr-unhidden-lg">{{
@@ -57,6 +58,10 @@ export default class FileRowListItem extends Vue {
   @Prop() document!: DfDocument;
   @Prop({ default: true }) enableDownload?: boolean;
   @Prop() tagLabel?: string;
+
+  hasClickEditionListener() {
+    return this.$listeners && this.$listeners["click-edit"];
+  }
 
   clickEdit() {
     this.$emit("click-edit");
