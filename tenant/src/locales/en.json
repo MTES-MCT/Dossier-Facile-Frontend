@@ -744,7 +744,7 @@
     "only-alpha": "Alphabetic characters only",
     "field-required": "This field is required",
     "title": "My personal information",
-    "info": "If you're applying on behalf of another person (e.g. your child), please fill in their information, not yours.",
+    "subtitle": "Please fill in the details of the person whose name will appear on the rental agreement",
     "unlink-fc-link": "Need to update Firstname and Lastname?",
     "unlink-fc-content": "You have to unlink your FranceConnect account for updating directly your Firstname and Lastname.",
     "unlink-fc-content-password-exists": "You will be able to connect with your previously defined password.",
