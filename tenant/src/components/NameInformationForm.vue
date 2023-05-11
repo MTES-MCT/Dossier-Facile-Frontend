@@ -2,9 +2,7 @@
   <div class="fr-mb-15w">
     <NakedCard class="fr-p-5w fr-mt-3w">
       <h1 class="fr-h4">{{ $t("nameinformationform.title") }}</h1>
-      <div class="fr-alert fr-alert--info fr-mb-1w">
-        <p>{{ $t("nameinformationform.info") }}</p>
-      </div>
+      <p class="fr-mb-0">{{ $t("nameinformationform.subtitle") }}</p>
       <div>
         <RequiredFieldsInstruction></RequiredFieldsInstruction>
         <a
