@@ -150,4 +150,10 @@ export default class Menu extends Vue {
     color: var(--error);
   }
 }
+
+.fr-nav__link {
+  &.fr-btn--secondary {
+    box-shadow: none;
+  }
+}
 </style>
