@@ -97,8 +97,8 @@ Vue.use(VueAuthImage);
           routingInstrumentation: Sentry.vueRouterInstrumentation(router),
           tracingOrigins: [
             "localhost",
-            "www-dev.dossierfacile.fr",
-            "www.dossierfacile.fr",
+            "locataire-dev.dossierfacile.fr",
+            "locataire.dossierfacile.fr",
             /^\//,
           ],
         }),
