@@ -1279,6 +1279,9 @@
   "troubleshootingmodal": {
     "more-information": "En difficulté pour répondre à la question ?"
   },
+  "uploaddocuments": {
+    "warning-need-residency-documents": "Attention, il semble qu'il manque des documents pour l'attestation d'hébergement, veuillez compléter dès que possible"
+  },
   "validatefile": {
     "title": "Je valide mon dossier",
     "read-no-guarantor": "Je lis et je coche la case suivante afin de valider mon dossier",
