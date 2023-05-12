@@ -16,7 +16,7 @@
       <Menu />
     </MyHeader>
     <div id="content">
-      <DeleteAccount v-show="showDeleteAccountModal"></DeleteAccount>
+      <DeleteAccount></DeleteAccount>
       <Announcement></Announcement>
       <main class="page" role="main">
         <router-view :key="$route.path" />
@@ -50,19 +50,18 @@ import DeleteAccount from "./components/DeleteAccount.vue";
     Menu,
     Cookies,
     Announcement,
-    ModalAnnouncement
+    ModalAnnouncement,
   },
   computed: {
     ...mapState({
       user: "user",
       status: "status",
-      isFunnel: "isFunnel"
+      isFunnel: "isFunnel",
     }),
     ...mapGetters({
       isLoggedIn: "isLoggedIn",
-      showDeleteAccountModal: "showDeleteAccountModal"
-    })
-  }
+    }),
+  },
 })
 export default class App extends Vue {
   isFunnel!: boolean;
@@ -72,7 +71,6 @@ export default class App extends Vue {
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
-  showDeleteAccountModal!: boolean;
 
   isCouple() {
     return this.isLoggedIn && this.user.applicationType === "COUPLE";
@@ -109,7 +107,7 @@ export default class App extends Vue {
         config: {
           id: "UA-50823626-2",
           params: {
-            send_page_view: true
+            send_page_view: true,
           },
           linker: {
             domains: [
@@ -117,10 +115,10 @@ export default class App extends Vue {
               "www.dossierfacile.fr",
               "locataire.dossierfacile.fr",
               "proprietaire.dossierfacile.fr",
-              "sso.dossierfacile.fr"
-            ]
-          }
-        }
+              "sso.dossierfacile.fr",
+            ],
+          },
+        },
       },
       router
     );

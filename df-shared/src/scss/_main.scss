@@ -338,6 +338,14 @@ img {
   }
 }
 
+.desktop {
+  display: none !important;
+  @media all and (min-width: 768px) {
+    display: inherit !important;
+  }
+}
+
+
 .avis-title {
   color: #b34000 !important;
 }
