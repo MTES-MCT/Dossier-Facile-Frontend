@@ -12,6 +12,7 @@
         <Progress :percentage="percentage" :state="uploadState" />
       </div>
       <button
+        v-if="file.path || file.preview"
         class="fr-btn fr-btn--secondary icon-btn fr-mr-md-2w fr-mr-1w"
         @click="openDoc()"
         :title="$t('listitem.show')"
@@ -27,10 +28,7 @@
         <div class="material-icons-outlined md-18 fr-m-1w">delete</div>
       </button>
     </div>
-    <Modal
-      @close="isDocModalVisible = false"
-      v-if="isDocModalVisible && (file.path || file.preview)"
-    >
+    <Modal @close="isDocModalVisible = false" v-if="isDocModalVisible">
       <template v-slot:body>
         <ShowDoc :file="file"></ShowDoc>
       </template>
