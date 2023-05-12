@@ -43,9 +43,8 @@
                     :small="true"
                     :primary="false"
                     @click="onLogout"
-                    ><span class="material-icons-outlined" aria-hidden="true">
-                      account_circle </span
-                    >{{ $t("logout") }}
+                    ><i class="ri-account-circle-line" aria-hidden="true"></i>
+                      {{ $t("logout") }}
                   </v-gouv-fr-button>
                 </li>
                 <li v-if="!loggedIn">
@@ -54,30 +53,21 @@
                     size="small"
                     @on-click="onLoginTenant"
                   >
-                    <span class="material-icons-outlined" aria-hidden="true">
-                      account_circle
-                    </span>
+                    <i class="ri-account-circle-line" aria-hidden="true"></i>
                     {{ $t("signin") }}
                   </DfButton>
                 </li>
                 <li v-if="!loggedIn">
                   <DfButton size="small" @on-click="onCreateOwner">
-                    <span class="material-icons" aria-hidden="true"
-                      >apartment</span
-                    >
+                      <i class="ri-community-line" aria-hidden="true"></i>
                     {{ $t("owner") }}
                   </DfButton>
                 </li>
                 <li v-if="!loggedIn">
-                  <a
-                    class="fr-external-link fr-btn fr-btn--sm"
-                    href="https://partenaire.dossierfacile.fr"
-                    target="_blank"
-                    rel="noreferrer"
-                    :title="$t('partner-link-title')"
-                  >
+                  <DfButton size="small"  @on-click="goToPartner">
+                    <i class="ri-user-star-line" aria-hidden="true"></i>
                     {{ $t("partner") }}
-                  </a>
+                  </DfButton>
                 </li>
               </ul>
             </div>
@@ -100,8 +90,7 @@
                 :primary="false"
                 size="small"
                 @on-click="onLogout"
-                ><span class="material-icons-outlined" aria-hidden="true">
-                  account_circle </span
+                ><i class="ri-account-circle-line" aria-hidden="true"></i>
                 >{{ $t("logout") }}
               </DfButton>
             </li>
@@ -113,31 +102,21 @@
                 size="small"
                 @on-click="onLoginTenant"
               >
-                <span class="material-icons-outlined" aria-hidden="true">
-                  account_circle
-                </span>
+                  <i class="ri-account-circle-line" aria-hidden="true"></i>
                 {{ $t("signin") }}
               </DfButton>
             </li>
 
             <li v-if="!loggedIn">
               <DfButton size="small" class="fr-ml-3" @on-click="onCreateOwner">
-                <span class="material-icons" aria-hidden="true">apartment</span>
+                <i class="ri-community-line" aria-hidden="true"></i>
                 {{ $t("owner") }}
               </DfButton>
             </li>
             <li v-if="!loggedIn">
-              <DfButton size="small">
-                <a
-                  class="fr-external-link"
-                  href="https://partenaire.dossierfacile.fr"
-                  target="_blank"
-                  rel="noreferrer"
-                  :title="$t('partner-link-title')"
-                >
-                  <span class="material-icons" aria-hidden="true"> </span>
-                  {{ $t("partner") }}
-                </a>
+              <DfButton size="small" @onclick="goToPartner">
+                <i class="ri-home-heart-line" aria-hidden="true"></i>
+                {{ $t("partner") }}
               </DfButton>
             </li>
           </ul>
@@ -182,6 +161,9 @@ export default class MyHeader extends Vue {
   onCreateOwner() {
     this.$emit("on-create-owner");
   }
+  goToPartner(){
+      window.location.href = 'https://partenaire.dossierfacile.fr';
+  }
 }
 </script>
 
@@ -211,10 +193,9 @@ li {
     display: none;
   }
 }
-span.material-icons,
-span.material-icons-outlined {
+header i {
   padding-right: 0.25rem;
-  min-width: 24px;
+  font-size: 24px;
 }
 
 .fr-header {

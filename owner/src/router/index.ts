@@ -1,6 +1,7 @@
 import * as VueRouter from 'vue-router';
 import { useCookies } from 'vue3-cookies';
 import Dashboard from '../components/Dashboard.vue';
+import LandingPage from '../components/LandingPage.vue';
 import useOwnerStore from '../store/owner-store';
 import keycloak from '../plugin/keycloak';
 
@@ -9,6 +10,16 @@ const OWNER_URL = import.meta.env.VITE_OWNER_URL;
 const routes = [
   {
     path: '/',
+    name: 'landing',
+    meta: {
+      title: 'DossierFacile propriétaire',
+      requiresAuth: false,
+      hasFooter: true,
+    },
+    component: LandingPage,
+  },
+  {
+    path: '/home',
     name: 'Dashboard',
     meta: {
       title: 'Dashboard propriétaire - DossierFacile',

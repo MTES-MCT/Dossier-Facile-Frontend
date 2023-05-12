@@ -7,6 +7,26 @@ const AnalyticsService = {
       event_category: 'property',
     });
   },
+  registerWithTopVerticalForm(){
+    this.sendEvent('register-top-form', {
+      event_category: 'owner',
+    });
+  },
+  registerWithBottomInlineForm(){
+    this.sendEvent('register-bottom-form', {
+      event_category: 'owner',
+    });
+  },
+  onFranceConnectWithTopVerticalForm() {
+    this.sendEvent('register-with-fc-top-form', {
+      event_category: 'owner',
+    });
+  },
+  onFranceConnectWithBottomInlineForm() {
+    this.sendEvent('register-with-fc-bottom-form', {
+      event_category: 'owner',
+    });
+  }
 };
 
 export default AnalyticsService;
