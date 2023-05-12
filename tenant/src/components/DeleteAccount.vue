@@ -1,64 +1,43 @@
 <template>
-  <form name="form" @submit.prevent="validDelete">
-    <Modal @close="undoSelect()">
-      <template v-slot:header>
-        <div class="fr-container">
-          <div class="fr-grid-row justify-content-center">
-            <h4 class="fr-col-10 title">
-              <span class="text-danger material-icons-outlined md-38 fr-pr-1w"
-                >cancel</span
-              >
-              {{ $t("deleteaccount.title") }}
-            </h4>
-          </div>
-        </div>
-      </template>
-      <template v-slot:body>
-        <div class="fr-container min-w">
-          <div class="fr-grid-row justify-content-center">
-            <div class="fr-col-10">
-              <div class="fr-mb-3w">
-                <p>{{ $t("deleteaccount.confirm-delete") }}</p>
-              </div>
-              <div class="align--right">
-                <DfButton
-                  class="fr-mr-3w"
-                  type="button"
-                  @on-click="undoSelect()"
-                  >{{ $t("deleteaccount.cancel") }}</DfButton
-                >
-                <DfButton
-                  type="submit"
-                  @on-click="validSelect()"
-                  primary="true"
-                  >{{
-                    isMobile()
-                      ? $t("deleteaccount.validate-mobile")
-                      : $t("deleteaccount.validate")
-                  }}</DfButton
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </template>
-    </Modal>
-  </form>
+  <DSFRSimpleModal modalId="modal-delete-account">
+    <template v-slot:header>
+      <span class="text-danger material-icons-outlined md-38 fr-pr-1w"
+        >cancel</span
+      >
+      {{ $t("deleteaccount.title") }}
+    </template>
+    <template v-slot:body>
+      <p>{{ $t("deleteaccount.confirm-delete") }}</p>
+      <div class="btn-container">
+        <DfButton
+          class="fr-mr-3w"
+          type="button"
+          data-fr-opened="false"
+          aria-controls="modal-delete-account"
+          style="visibility: none"
+          >{{ $t("deleteaccount.cancel") }}</DfButton
+        >
+        <DfButton @on-click="validSelect()" primary="true">
+          <span class="mobile">{{ $t("deleteaccount.validate-mobile") }}</span>
+          <span class="desktop">{{ $t("deleteaccount.validate") }}</span>
+        </DfButton>
+      </div>
+    </template>
+  </DSFRSimpleModal>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Modal from "df-shared/src/components/Modal.vue";
+import DSFRSimpleModal from "df-shared/src/components/DSFRSimpleModal.vue";
 import { AnalyticsService } from "../services/AnalyticsService";
 import DfButton from "df-shared/src/Button/Button.vue";
 import { UtilsService } from "../services/UtilsService";
 
 @Component({
-  components: { Modal, DfButton }
+  components: { DSFRSimpleModal, DfButton },
 })
 export default class DeleteAccount extends Vue {
-  validDelete() {
-    this.$store.commit("showDeleteAccountModal", false);
+  validSelect() {
     this.$store.dispatch("deleteAccount").then(
       () => {
         AnalyticsService.deleteAccount();
@@ -69,11 +48,6 @@ export default class DeleteAccount extends Vue {
         });
       }
     );
-  }
-
-  undoSelect() {
-    this.$store.commit("showDeleteAccountModal", false);
-    return false;
   }
 
   isMobile() {
@@ -98,5 +72,11 @@ export default class DeleteAccount extends Vue {
   @media (min-width: 768px) {
     min-width: 40rem;
   }
+}
+
+.btn-container {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
 }
 </style>

@@ -34,7 +34,6 @@ export class DfState {
   skipLinks: SkipLink[] = [];
   guarantorFinancialDocumentSelected = new FinancialDocument();
   editGuarantorFinancialDocument = false;
-  showDeleteAccountModal = false;
 }
 
 const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
@@ -189,9 +188,6 @@ const store = new Vuex.Store({
         new FinancialDocument()
       );
       Vue.set(state, "editGuarantorFinancialDocument", true);
-    },
-    showDeleteAccountModal(state, show: boolean) {
-      Vue.set(state, "showDeleteAccountModal", show);
     },
   },
   actions: {
@@ -965,9 +961,6 @@ const store = new Vuex.Store({
     },
     coTenants(state): User[] {
       return state.coTenants;
-    },
-    showDeleteAccountModal(state): boolean {
-      return state.showDeleteAccountModal;
     },
   },
   modules: {},

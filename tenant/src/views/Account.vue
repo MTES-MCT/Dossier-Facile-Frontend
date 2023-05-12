@@ -164,14 +164,12 @@
                   <DfButton
                     class="delete-btn"
                     primary="true"
-                    @on-click="isDeleteModalVisible = true"
+                    data-fr-opened="false"
+                    aria-controls="modal-delete-account"
+                    style="visibility: none"
                     >{{ $t("account.delete-account") }}</DfButton
                   >
                 </div>
-                <DeleteAccount
-                  v-model="isDeleteModalVisible"
-                  v-show="isDeleteModalVisible"
-                ></DeleteAccount>
               </div>
             </div>
             <div class="opinion fr-mb-5w">
