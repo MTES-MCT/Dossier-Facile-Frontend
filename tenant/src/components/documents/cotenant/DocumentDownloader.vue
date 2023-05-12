@@ -437,7 +437,6 @@ export default class DocumentDownloader extends Vue {
 
   addFiles(fileList: File[]) {
     this.newFiles = fileList;
-    console.dir(this.testAvisSituation);
     if (this.testAvisSituation) {
       PdfAnalysisService.findRejectedTaxDocuments(fileList).then(
         (rejectedFiles) => {
