@@ -24,6 +24,7 @@
                 class="fr-btn fr-btn--sm fr-btn--tertiary fr-btn--icon-left fr-icon-add-line fr-mt-1w"
                 v-if="!displayPreferredNameField"
                 @click="displayPreferredNameField = true"
+                type="button"
               >
                 {{ $t("nameinformationform.add-preferredname") }}
               </button>
