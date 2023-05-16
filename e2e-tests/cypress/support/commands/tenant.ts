@@ -7,9 +7,10 @@ Cypress.Commands.add("tenantLogin", (username: string) => {
   cy.visit(Cypress.env("tenantUrl"));
 });
 
-Cypress.Commands.add("uploadDocument", () => {
+Cypress.Commands.add("uploadDocument", (numberOfFiles: number = 1) => {
   cy.intercept("POST", "/api/register/document*").as("uploadDocument");
-  cy.get(".input-file").selectFile("assets/test-document.pdf");
+  const files = [...Array(numberOfFiles).keys()].map(_ => "assets/test-document.pdf")
+  cy.get(".input-file").selectFile(files);
   cy.wait("@uploadDocument").its('response.statusCode').should('eq', 200);
 });
 

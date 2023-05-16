@@ -10,7 +10,7 @@ declare namespace Cypress {
 
     deleteAccount(username: string, type: number): Chainable<void>;
 
-    uploadDocument(): Chainable<void>;
+    uploadDocument(numberOfFiles?: number): Chainable<void>;
 
     clickOnNext(): Chainable<void>;
 
