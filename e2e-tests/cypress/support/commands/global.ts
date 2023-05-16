@@ -29,10 +29,10 @@ Cypress.Commands.add("deleteAccount", (username: string, type: UserType) => {
   cy.intercept("DELETE", "**/deleteAccount").as("deleteAccount");
 
   cy.get(".fr-nav__btn").click();
-  cy.get("button")
+  cy.get(".fr-nav__link")
     .contains("Supprimer mon compte")
     .click({ force: true });
-  cy.get(".modal")
+  cy.get("#modal-delete-account")
     .find("button")
     .contains("Supprimer mon compte")
     .click();

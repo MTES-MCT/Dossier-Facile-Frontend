@@ -1,7 +1,7 @@
 <template>
   <div>
     <dialog
-      aria-labelledby="fr-modal-title-modal-1"
+      :aria-labelledby="modalId"
       role="dialog"
       :id="modalId"
       class="fr-modal"
@@ -39,6 +39,6 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
 export default class Modal extends Vue {
-  @Prop({ default: "fr-modal-1" }) modalId?: string;
+  @Prop() modalId!: string;
 }
 </script>
