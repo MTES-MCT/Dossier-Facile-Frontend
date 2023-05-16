@@ -50,7 +50,7 @@
               <label class="fr-label" for="customText">{{
                 $t("tax-page.custom-text")
               }}</label>
-              <input
+              <textarea
                 v-model="customText"
                 class="form-control fr-input validate-required"
                 :class="{
@@ -62,6 +62,8 @@
                 placeholder=""
                 type="text"
                 required
+                maxlength="2000"
+                rows="4"
               />
               <span class="fr-error-text" v-if="errors[0]">{{
                 $t(errors[0])
