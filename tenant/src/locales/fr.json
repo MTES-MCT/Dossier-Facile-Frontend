@@ -1283,7 +1283,9 @@
     "more-information": "En difficulté pour répondre à la question ?"
   },
   "uploaddocuments": {
-    "warning-need-residency-documents": "Attention, il semble qu'il manque des documents pour l'attestation d'hébergement, veuillez compléter dès que possible"
+    "warning-need-residency-documents": "Êtes-vous sûr·e d'avoir bien transmis l'ensemble des documents nécessaires ici ?<ul><li>attestation d'hébergement</li><li>copie de la pièce d'identité de votre hébergeur</li><li>justificatif de domicile de moins de 3 mois de votre hébergeur</li></ul>",
+    "accept-warning": "Ajouter de nouveaux documents",
+    "ignore-warning": "Passer à l'étape suivante"
   },
   "validatefile": {
     "title": "Je valide mon dossier",
