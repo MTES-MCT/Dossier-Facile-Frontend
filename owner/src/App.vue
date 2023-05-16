@@ -8,6 +8,7 @@ import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue';
 import TheFooter from 'df-shared-next/src/Footer/Footer.vue';
 import { useRouter } from 'vue-router';
 import { useCookies } from 'vue3-cookies';
+import Cookies from 'df-shared-next/src/Footer/Cookies.vue';
 import Menu from './components/Menu.vue';
 import useOwnerStore from './store/owner-store.ts';
 import DeleteAccount from './components/DeleteAccount.vue';

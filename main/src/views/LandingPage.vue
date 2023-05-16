@@ -219,7 +219,8 @@
           />
           <LogoPartnerComponent
             :image="require('../assets/logos/izzyhom.png')"
-            href="https://www.izzyhom.io/locataire"
+            href="#"
+            title="Lien désactivé, site temporairement indisponible"
             name="IzzyHom"
             height="60px"
             width="60px"
@@ -423,8 +424,8 @@ import { StatsService } from "../services/StatsService";
 @Component({
   components: {
     LogoPartnerComponent,
-    DfButton
-  }
+    DfButton,
+  },
 })
 export default class LandingPage extends Vue {
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
@@ -437,7 +438,7 @@ export default class LandingPage extends Vue {
   }
 
   mounted() {
-    StatsService.getValidatedDossierCount().then(result => {
+    StatsService.getValidatedDossierCount().then((result) => {
       if (result.data) {
         this.validatedDossierCount = result.data;
       }

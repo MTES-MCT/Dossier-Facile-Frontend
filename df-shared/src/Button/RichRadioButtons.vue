@@ -19,6 +19,8 @@
         <div class="fr-radio-rich__img">
           <div class="icon-container">
             <span
+              v-for="i in element.iconCount"
+              v-bind:key="i"
               :class="element.iconClass + ' fr-icon--lg'"
               aria-hidden="true"
             ></span>
@@ -36,6 +38,7 @@ export interface RadioElement {
   id: string;
   labelKey: string;
   iconClass: string;
+  iconCount: string;
   optionName: string;
 }
 

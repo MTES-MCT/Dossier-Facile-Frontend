@@ -53,6 +53,17 @@
             $t(`explanation-text.${guarantorKey()}.${residencyDocument.key}`)
           "
         ></p>
+        <div
+          class="fr-background-contrast--info fr-p-2w fr-mt-2w warning-box"
+          v-if="residencyDocument.key === 'guest'"
+        >
+          <div class="fr-text-default--info fr-h6 title">
+            <span class="material-icons-outlined"> warning_amber </span>
+            <span class="fr-ml-1w">
+              {{ $t("residency-page.warning-incomplete") }}
+            </span>
+          </div>
+        </div>
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"

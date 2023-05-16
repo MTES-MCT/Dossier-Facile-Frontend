@@ -55,7 +55,12 @@
             >
           </li>
           <li class="warn">
-            <DfButton class="fr-nav__link" @on-click="showDeleteAccountModal()">
+            <DfButton
+              class="fr-nav__link"
+              data-fr-opened="false"
+              aria-controls="modal-delete-account"
+              style="visibility: none"
+            >
               {{ $t("menu.deleteAccount") }}
             </DfButton>
           </li>
@@ -105,10 +110,6 @@ export default class Menu extends Vue {
   currentPage() {
     return this.$route.name;
   }
-
-  showDeleteAccountModal() {
-    this.$store.commit("showDeleteAccountModal", true);
-  }
 }
 </script>
 
@@ -148,6 +149,12 @@ export default class Menu extends Vue {
   background-color: #fdf2f3;
   button {
     color: var(--error);
+  }
+}
+
+.fr-nav__link {
+  &.fr-btn--secondary {
+    box-shadow: none;
   }
 }
 </style>

@@ -24,7 +24,10 @@ describe("couple tenant scenario", () => {
     cy.simpleUploadDocumentStep("Passeport français");
 
     cy.expectPath("/documents-locataire/2");
-    cy.simpleUploadDocumentStep("Vous habitez chez vos parents");
+    cy.contains("Vous habitez chez vos parents")
+      .click()
+      .uploadDocument(3)
+      .clickOnNext();
 
     cy.expectPath("/documents-locataire/3");
     cy.selectProfessionalStatusStep("CDD");
@@ -39,9 +42,7 @@ describe("couple tenant scenario", () => {
       .clickOnNext();
 
     cy.expectPath("/choix-garant");
-    cy.contains("Un organisme garant")
-      .click()
-      .clickOnNext();
+    cy.contains("Un organisme garant").click().clickOnNext();
 
     cy.expectPath("/info-garant/0");
     cy.uploadDocument().clickOnNext();

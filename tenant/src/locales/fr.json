@@ -112,8 +112,8 @@
       "cdi-trial": "J’ajoute mon contrat de travail en cours, complet et signé.\nEt si vous n’avez pas de contrat de travail ? Vous pouvez joindre une attestation de votre employeur signée et datée de moins de 3 mois.",
       "ctt": "J’ajoute mon contrat de travail en cours, complet et signé.\nEt si vous n’avez pas de contrat de travail ? Vous pouvez joindre une attestation de votre employeur signée et datée de moins de 3 mois.",
       "guarantor_salary": "J’ajoute un bulletin de salaire de mon garant de moins de 3 mois, une attestation de son employeur, un justificatif de versement de ses indemnités de stage, un bilan comptable ou un avis d’imposition à son nom, complet et de moins de 2 ans.",
-      "guest": "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, une copie de la pièce d’identité et un justificatif de domicile de mon hébergeant</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne sur le site <a href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement' target='_blank'>service-public.fr</a>",
-      "guest-parents": "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, une copie de la pièce d’identité et un justificatif de domicile du parent</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne sur le site <a href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement' target='_blank'>service-public.fr</a>",
+      "guest": "Merci d'ajouter ici <strong>3 documents :</strong><ul><li><strong>une attestation sur l'honneur</strong> d'hébergement à titre gratuit (nous vous recommandons d'utiliser le modèle d'attestation disponible sur le site <a target='_blank' rel='noopener' title='site pour générer une attestion' href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement'>service-public.fr</a>)</li><li>une copie de <strong>la pièce d'identité de votre hébergeur</strong></li><li>un <strong>justificatif de domicile de votre hébergeur de moins de 3 mois :</strong> avis de taxe foncière, facture de téléphone, quittance de loyer…</li></ul>",
+      "guest-parents": "Merci d'ajouter ici <strong>3 documents :</strong><ul><li><strong>une attestation sur l'honneur</strong> d'hébergement à titre gratuit (nous vous recommandons d'utiliser le modèle d'attestation disponible sur le site <a target='_blank' rel='noopener' title='site pour générer une attestion' href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement'>service-public.fr</a>)</li><li>une copie de <strong>la pièce d'identité du parent</strong></li><li>un <strong>justificatif de domicile de votre parent de moins de 3 mois :</strong> avis de taxe foncière, facture de téléphone, quittance de loyer…</li></ul>",
       "identity-card": "Veillez à ajouter votre pièce <b>recto-verso</b>.",
       "passport": "Veillez à ajouter les <b>pages 2 et 3</b> de votre passeport, car la signature doit apparaître.",
       "permit": "Veillez à ajouter votre pièce <b>recto-verso</b>.",
@@ -145,8 +145,8 @@
       "cdi-trial": "J’ajoute son contrat de travail en cours, complet et signé.\nEt si iel n’a pas de contrat de travail ? Vous pouvez joindre une attestation de son employeur signée et datée de moins de 3 mois.",
       "ctt": "J’ajoute son contrat de travail en cours, complet et signé.\nEt si iel n'a pas de contrat de travail ? Vous pouvez joindre une attestation de son employeur signée et datée de moins de 3 mois.",
       "guarantor_salary": "J’ajoute un bulletin de salaire de son garant de moins de 3 mois, une attestation de son employeur, un justificatif de versement de ses indemnités de stage, un bilan comptable ou un avis d’imposition à son nom, complet et de moins de 2 ans.",
-      "guest": "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, une copie de la pièce d’identité et un justificatif de domicile de son hébergeant</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne sur le site <a href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement' target='_blank'>service-public.fr</a>",
-      "guest-parents": "J’ajoute une <b>attestation sur l’honneur d’hébergement à titre gratuit, une copie de la pièce d’identité et un justificatif de domicile du parent</b> (une facture suffit). Vous pouvez utiliser un modèle en ligne sur le site <a href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement' target='_blank'>service-public.fr</a>",
+      "guest": "Merci d'ajouter ici <strong>3 documents :</strong><ul><li><strong>une attestation sur l'honneur</strong> d'hébergement à titre gratuit (nous vous recommandons d'utiliser le modèle d'attestation disponible sur le site <a target='_blank' rel='noopener' title='site pour générer une attestion' href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement'>service-public.fr</a>)</li><li>une copie de <strong>la pièce d'identité de l'hébergeur</strong></li><li>un <strong>justificatif de domicile de l'hébergeur de moins de 3 mois :</strong> avis de taxe foncière, facture de téléphone, quittance de loyer…</li></ul>",
+      "guest-parents": "Merci d'ajouter ici <strong>3 documents :</strong><ul><li><strong>une attestation sur l'honneur</strong> d'hébergement à titre gratuit (nous vous recommandons d'utiliser le modèle d'attestation disponible sur le site <a target='_blank' rel='noopener' title='site pour générer une attestion' href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement'>service-public.fr</a>)</li><li>une copie de <strong>la pièce d'identité du parent</strong></li><li>un <strong>justificatif de domicile de votre parent de moins de 3 mois :</strong> avis de taxe foncière, facture de téléphone, quittance de loyer…</li></ul>",
       "identity-card": "Veillez à ajouter sa pièce <b>recto-verso</b>.",
       "passport": "Veillez à ajouter les <b>pages 2 et 3</b> de son passeport, car la signature doit apparaître.",
       "permit": "Veillez à ajouter sa pièce <b>recto-verso</b>.",
@@ -178,7 +178,7 @@
       "cdi-trial": "J’ajoute un bulletin de salaire de moins de 3 mois de mon garant, son contrat de travail complet et signé, une attestation employeur de moins de 3 mois.",
       "ctt": "J’ajoute un bulletin de salaire de moins de 3 mois de mon garant, son contrat de travail complet et signé, une attestation employeur de moins de 3 mois.",
       "guarantor_salary": "J’ajoute un bulletin de salaire de mon garant de moins de 3 mois, une attestation de son employeur, un justificatif de versement de ses indemnités de stage, un bilan comptable ou un avis d’imposition à son nom, complet et de moins de 2 ans.",
-      "guest": "J’ajoute une <b>attestation sur l’honneur d’hébergement de mon garant à titre gratuit.</b> Vous pouvez utiliser un modèle en ligne sur le site <a target='_blank' href='//www.service-public.fr'>www.service-public.fr</a>",
+      "guest": "Merci d'ajouter ici <strong>3 documents :</strong><ul><li><strong>une attestation sur l'honneur</strong> d'hébergement à titre gratuit (nous vous recommandons d'utiliser le modèle d'attestation disponible sur le site <a target='_blank' rel='noopener' title='site pour générer une attestion' href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement'>service-public.fr</a>)</li><li>une copie de <strong>la pièce d'identité de l'hébergeur</strong></li><li>un <strong>justificatif de domicile de l'hébergeur de moins de 3 mois :</strong> avis de taxe foncière, facture de téléphone, quittance de loyer…</li></ul>",
       "identity-card": "Veillez à ajouter sa pièce <b>recto-verso</b>.",
       "passport": "Veillez à ajouter les <b>pages 2 et 3</b> de son passeport, car la signature doit apparaître.",
       "permit": "Veillez à ajouter sa pièce <b>recto-verso</b>.",
@@ -431,7 +431,7 @@
   "cotenantname": {
     "lastname": "Nom de naissance",
     "firstname": "Prénom",
-    "preferredname": "Nom d'usage (facultatif)",
+    "preferredname": "Nom d'usage",
     "email": "E-mail",
     "email-not-valid": "Email non valide",
     "lastname-placeholder": "ex: Dupont",
@@ -870,7 +870,7 @@
     "account": "Mon compte",
     "messaging": "Messagerie",
     "blog": "Blog",
-    "information": "Qui sommes-nous?",
+    "information": "Qui sommes-nous ?",
     "contact-us": "Nous contacter",
     "deleteAccount": "Supprimer mon compte"
   },
@@ -887,9 +887,11 @@
   "nameinformationform": {
     "confirm": "Confirmer",
     "firstname": "Prénom",
-    "lastname": "Nom de naissance du locataire",
-    "preferredname": "Nom d'usage (facultatif)",
-    "zipcode": "Code postal",
+    "lastname": "Nom de naissance",
+    "preferredname": "Nom d'usage",
+    "add-preferredname": "Ajouter un nom d'usage",
+    "delete-preferredname": "Supprimer le nom d'usage",
+    "zipcode": "Code postal (uniquement si vous résidez en France)",
     "zipcode-not-valid": "Code postal non valide.",
     "only-alpha": "Seuls les caractères alphabétiques ainsi que [ , -, '] sont autorisés",
     "field-required": "Ce champ est requis",
@@ -1014,7 +1016,8 @@
   },
   "residency-page": {
     "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-    "select-label": "Décrivez votre situation d’hébergement actuelle"
+    "select-label": "Décrivez votre situation d’hébergement actuelle",
+    "warning-incomplete": "Les dossiers incomplets (qui ne présentent pas ces 3 documents) ne seront pas validés."
   },
   "roommatesinformationhelp": {
     "paragraph1": "En renseignant l’adresse email de votre colocataire, celui-ci va pouvoir constituer son propre dossier avec ses pièces. Vos deux dossiers seront liés et votre lien-dossier sera commun.",
@@ -1278,6 +1281,11 @@
   },
   "troubleshootingmodal": {
     "more-information": "En difficulté pour répondre à la question ?"
+  },
+  "uploaddocuments": {
+    "warning-need-residency-documents": "Êtes-vous sûr·e d'avoir bien transmis l'ensemble des documents nécessaires ici ?<ul><li>attestation d'hébergement</li><li>copie de la pièce d'identité de votre hébergeur</li><li>justificatif de domicile de moins de 3 mois de votre hébergeur</li></ul>",
+    "accept-warning": "Ajouter de nouveaux documents",
+    "ignore-warning": "Passer à l'étape suivante"
   },
   "validatefile": {
     "title": "Je valide mon dossier",

@@ -24,6 +24,7 @@ const routes = [
   "/blog/passoires-thermiques-top-depart-du-gel-des-loyers",
   "/blog/dossierfacile-un-service-numerique-de-letat-sans-gouv-fr",
   "/blog/que-verifier-lors-de-la-visite-d-un-logement",
+  "/blog/un-garant-qui-comment-pourquoi",
   "/information",
   "/accessibilite",
   "/mentions-legales",
@@ -62,7 +63,10 @@ module.exports = {
       plugins: [
         new PrerendererWebpackPlugin({
           staticDir: path.resolve(__dirname, "dist"),
-          routes: routes
+          routes: routes,
+          rendererOptions: {
+            timeout: 60000
+          }
         })
       ]
     };

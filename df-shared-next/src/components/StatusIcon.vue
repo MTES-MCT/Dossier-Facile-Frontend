@@ -1,6 +1,8 @@
 <template>
   <div class="icons" v-if="getStatus()">
-    <span class="material-icons-outlined">{{ getStatus() }}</span>
+    <span class="material-icons-outlined" aria-hidden="true">{{
+      getStatus()
+    }}</span>
   </div>
 </template>
 

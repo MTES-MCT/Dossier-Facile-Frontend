@@ -13,95 +13,48 @@
           <RequiredFieldsInstruction></RequiredFieldsInstruction>
           <div class="fr-grid-row fr-grid-row--center fr-mt-3w">
             <div class="fr-col-12 fr-mb-3w">
-              <validation-provider
-                rules="required|only-alpha"
-                v-slot="{ errors, valid }"
+              <TextField
+                name="lastname"
+                :fieldLabel="$tc('cotenantname.lastname')"
+                validation-rules="only-alpha"
+                v-model="lastName"
+                :required="true"
+              />
+              <button
+                class="fr-btn fr-btn--sm fr-btn--tertiary fr-btn--icon-left fr-icon-add-line fr-mt-1w"
+                v-if="!displayPreferredNameField"
+                @click="displayPreferredNameField = true"
+                type="button"
               >
-                <div
-                  class="fr-input-group"
-                  :class="errors[0] ? 'fr-input-group--error' : ''"
-                >
-                  <FieldLabel :required="true" for-input="lastname">
-                    {{ $t("cotenantname.lastname") }}
-                  </FieldLabel>
-                  <input
-                    v-model="lastName"
-                    class="form-control fr-input validate-required"
-                    :class="{
-                      'fr-input--valid': valid,
-                      'fr-input--error': errors[0]
-                    }"
-                    id="lastname"
-                    name="lastname"
-                    :placeholder="$t('cotenantname.lastname-placeholder')"
-                    type="text"
-                    :disabled="selectedCoTenant.franceConnect"
-                    required
-                  />
-                  <span class="fr-error-text" v-if="errors[0]">{{
-                    $t(errors[0])
-                  }}</span>
-                </div>
-              </validation-provider>
+                {{ $t("nameinformationform.add-preferredname") }}
+              </button>
+            </div>
+            <div class="fr-col-12 fr-mb-3w" v-if="displayPreferredNameField">
+              <TextField
+                name="preferredname"
+                :fieldLabel="$tc('cotenantname.preferredname')"
+                validation-rules="only-alpha"
+                v-model="preferredName"
+              >
+                <template v-slot:right>
+                  <button
+                    class="fr-btn fr-btn--tertiary fr-icon-close-line"
+                    :title="$t('nameinformationform.delete-preferredname')"
+                    @click="deletePreferredName()"
+                  >
+                    {{ $t("nameinformationform.delete-preferredname") }}
+                  </button>
+                </template>
+              </TextField>
             </div>
             <div class="fr-col-12 fr-mb-3w">
-              <validation-provider
-                rules="required|only-alpha"
-                v-slot="{ errors, valid }"
-              >
-                <div
-                  class="fr-input-group"
-                  :class="errors[0] ? 'fr-input-group--error' : ''"
-                >
-                  <FieldLabel :required="true" for-input="firstname">
-                    {{ $t("cotenantname.firstname") }}
-                  </FieldLabel>
-                  <input
-                    id="firstname"
-                    :placeholder="$t('cotenantname.firstname-placeholder')"
-                    type="text"
-                    v-model="firstName"
-                    name="firstname"
-                    class="validate-required form-control fr-input"
-                    :class="{
-                      'fr-input--valid': valid,
-                      'fr-input--error': errors[0]
-                    }"
-                    :disabled="selectedCoTenant.franceConnect"
-                    required
-                  />
-                  <span class="fr-error-text" v-if="errors[0]">{{
-                    $t(errors[0])
-                  }}</span>
-                </div>
-              </validation-provider>
-            </div>
-            <div class="fr-col-12 fr-mb-3w">
-              <validation-provider v-slot="{ errors, valid }">
-                <div
-                  class="fr-input-group"
-                  :class="errors[0] ? 'fr-input-group--error' : ''"
-                >
-                  <FieldLabel for-input="preferredname">
-                    {{ $t("cotenantname.preferredname") }}
-                  </FieldLabel>
-                  <input
-                    id="preferredname"
-                    :placeholder="$t('cotenantname.lastname-placeholder')"
-                    type="text"
-                    v-model="preferredName"
-                    name="preferredname"
-                    class="validate-required form-control fr-input"
-                    :class="{
-                      'fr-input--valid': valid,
-                      'fr-input--error': errors[0]
-                    }"
-                  />
-                  <span class="fr-error-text" v-if="errors[0]">{{
-                    $t(errors[0])
-                  }}</span>
-                </div>
-              </validation-provider>
+              <TextField
+                name="firstname"
+                :fieldLabel="$tc('cotenantname.firstname')"
+                validation-rules="only-alpha"
+                v-model="firstName"
+                :required="true"
+              />
             </div>
           </div>
         </NakedCard>
@@ -127,7 +80,7 @@ import FooterContainer from "../../footer/FooterContainer.vue";
 import BackNext from "../../footer/BackNext.vue";
 import { UtilsService } from "@/services/UtilsService";
 import RequiredFieldsInstruction from "df-shared/src/components/form/RequiredFieldsInstruction.vue";
-import FieldLabel from "df-shared/src/components/form/FieldLabel.vue";
+import TextField from "df-shared/src/components/form/TextField.vue";
 
 @Component({
   components: {
@@ -141,8 +94,8 @@ import FieldLabel from "df-shared/src/components/form/FieldLabel.vue";
     VGouvFrModal,
     NakedCard,
     RequiredFieldsInstruction,
-    FieldLabel
-  }
+    TextField,
+  },
 })
 export default class CoTenantName extends Vue {
   @Prop() coTenantId!: number;
@@ -152,6 +105,7 @@ export default class CoTenantName extends Vue {
   firstName = "";
   lastName = "";
   preferredName = "";
+  displayPreferredNameField = false;
 
   isDocDeleteVisible = false;
 
@@ -160,6 +114,12 @@ export default class CoTenantName extends Vue {
     this.firstName = this.selectedCoTenant?.firstName || "";
     this.lastName = this.selectedCoTenant?.lastName || "";
     this.preferredName = this.selectedCoTenant?.preferredName || "";
+    this.displayPreferredNameField = this.preferredName !== "";
+  }
+
+  deletePreferredName() {
+    this.preferredName = "";
+    this.displayPreferredNameField = false;
   }
 
   save() {
@@ -197,4 +157,9 @@ export default class CoTenantName extends Vue {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.field-with-button {
+  display: flex;
+  justify-content: space-between;
+}
+</style>

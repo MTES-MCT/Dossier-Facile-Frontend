@@ -6,6 +6,8 @@ import i18n from "./i18n";
 import VueCookies from "vue-cookies";
 import VueGtag from "vue-gtag";
 import "df-shared/src/validation-rules";
+import * as Sentry from "@sentry/vue";
+import { BrowserTracing } from "@sentry/tracing";
 
 declare global {
   interface Window {
@@ -20,10 +22,10 @@ declare global {
 import "@gouvfr/dsfr/dist/dsfr/dsfr.min.css";
 import MatomoPlugin from "./plugins/matomo";
 
-const inspectlet = function() {
+const inspectlet = function () {
   window.__insp = window.__insp || [];
   window.__insp.push(["wid", 1921433466]);
-  const ldinsp = function() {
+  const ldinsp = function () {
     if (typeof window.__inspld != "undefined") return;
     window.__inspld = 1;
     const insp = document.createElement("script");
@@ -46,6 +48,23 @@ Vue.config.productionTip = false;
 Vue.use(VueCookies);
 Vue.use(MatomoPlugin);
 
+Sentry.init({
+  Vue,
+  dsn: "https://6705728c765748949f37aead7a739c40@sentry.incubateur.net/97",
+  integrations: [
+    new BrowserTracing({
+      routingInstrumentation: Sentry.vueRouterInstrumentation(router),
+      tracingOrigins: [
+        "localhost",
+        "www-dev.dossierfacile.fr",
+        "www.dossierfacile.fr",
+        /^\//,
+      ],
+    }),
+  ],
+  tracesSampleRate: 1.0,
+});
+
 new Vue({
   created() {
     const html = document.documentElement;
@@ -54,7 +73,7 @@ new Vue({
   router,
   store,
   i18n,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");
 
 if (Vue.$cookies.get("accept-cookie") === "true") {
@@ -65,7 +84,7 @@ if (Vue.$cookies.get("accept-cookie") === "true") {
       config: {
         id: "UA-50823626-2",
         params: {
-          send_page_view: true
+          send_page_view: true,
         },
         linker: {
           domains: [
@@ -73,10 +92,10 @@ if (Vue.$cookies.get("accept-cookie") === "true") {
             "www.dossierfacile.fr",
             "locataire.dossierfacile.fr",
             "proprietaire.dossierfacile.fr",
-            "sso.dossierfacile.fr"
-          ]
-        }
-      }
+            "sso.dossierfacile.fr",
+          ],
+        },
+      },
     },
     router
   );

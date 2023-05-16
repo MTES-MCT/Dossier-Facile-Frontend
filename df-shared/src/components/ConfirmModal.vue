@@ -1,5 +1,5 @@
 <template>
-  <Modal @close="undoSelect()">
+  <Modal @close="closeModal()">
     <template v-slot:header>
       <div class="fr-container">
         <h1 id="fr-modal-title-modal-1" class="fr-modal__title">
@@ -25,7 +25,7 @@
                 }}</DfButton
               >
               <DfButton class="fr-mr-3w" @on-click="undoSelect()">{{
-                $t("cancel")
+                cancelBtnText ? cancelBtnText : $t("cancel")
               }}</DfButton>
             </div>
           </div>
@@ -48,6 +48,7 @@ import DfButton from "df-shared/src/Button/Button.vue";
 })
 export default class ConfirmModal extends Vue {
   @Prop() validateBtnText?: string;
+  @Prop() cancelBtnText?: string;
 
   validSelect() {
     this.$emit("valid");
@@ -55,6 +56,14 @@ export default class ConfirmModal extends Vue {
 
   undoSelect() {
     this.$emit("cancel");
+  }
+
+  closeModal() {
+    if (this.$listeners && this.$listeners["close"]) {
+      this.$emit("close");
+    } else {
+      this.$emit("cancel");
+    }
   }
 }
 </script>

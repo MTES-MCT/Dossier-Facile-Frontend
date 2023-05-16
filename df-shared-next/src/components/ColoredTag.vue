@@ -17,7 +17,7 @@ const props = withDefaults(
   }>(),
   {
     status: "",
-    active: false
+    active: false,
   }
 );
 
@@ -88,6 +88,7 @@ function getClasses() {
 
 .fr-tag {
   width: fit-content;
+  min-width: fit-content;
   color: var(--g800-plain);
   font-size: 14px;
 }

@@ -23,7 +23,7 @@
       <DfButton
         v-if="hasClickEditionListener()"
         class="fr-mr-2w fr-btn--icon-left fr-icon-pencil-line"
-        @on-click="$emit('clickEdit')"
+        @on-click="clickEdit()"
         ><span class="fr-hidden fr-unhidden-lg">{{
           $t("filerowlistitem.edit")
         }}</span>
@@ -60,7 +60,11 @@ export default class FileRowListItem extends Vue {
   @Prop() tagLabel?: string;
 
   hasClickEditionListener() {
-    return this.$listeners && this.$listeners.clickEdit;
+    return this.$listeners && this.$listeners["click-edit"];
+  }
+
+  clickEdit() {
+    this.$emit("click-edit");
   }
 
   getTagLabel() {

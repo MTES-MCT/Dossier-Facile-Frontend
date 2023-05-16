@@ -4,6 +4,8 @@ import { globalCookiesConfig } from 'vue3-cookies';
 import Toast from 'vue-toastification';
 import { configure, defineRule } from 'vee-validate';
 import { createPinia } from 'pinia';
+import * as Sentry from '@sentry/vue';
+import { BrowserTracing } from '@sentry/tracing';
 import App from './App.vue';
 import router from './router';
 import i18n from './i18n';
@@ -97,6 +99,27 @@ const OWNER_API_URL = import.meta.env.VITE_OWNER_API_URL;
 
 function mountApp() {
   const app = createApp(App);
+
+  Sentry.init({
+    app,
+    dsn: 'https://33392525504b4dfdaa6623cc1aa56df9@sentry.incubateur.net/99',
+    integrations: [
+      new BrowserTracing({
+        routingInstrumentation: Sentry.vueRouterInstrumentation(router),
+        tracingOrigins: [
+          'localhost',
+          'proprietaire-dev.dossierfacile.fr',
+          'proprietaire.dossierfacile.fr',
+          /^\//,
+        ],
+      }),
+    ],
+    // Set tracesSampleRate to 1.0 to capture 100%
+    // of transactions for performance monitoring.
+    // We recommend adjusting this value in production
+    tracesSampleRate: 1.0,
+  });
+
   app.use(createPinia());
   app.use(router);
   app.use(i18n);
