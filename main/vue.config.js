@@ -3,7 +3,6 @@ const path = require("path");
 
 const routes = [
   "/",
-  "/faq",
   "/blog",
   "/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location",
   "/blog/constituer-votre-dossierFacile",
@@ -12,7 +11,6 @@ const routes = [
   "/blog/5-astuces-pour-booster-votre-dossier-de-location",
   "/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne",
   "/blog/dossierfacile-fait-peau-neuve",
-  "/stats",
   "/blog/un-garant-qui-comment-pourquoi",
   "/blog/tout-comprendre-a-la-vie-en-colocation",
   "/blog/comment-justifier-son-domicile",
