@@ -25,7 +25,7 @@
             <label class="fr-label" for="customText">{{
               $t("cotenanttax.custom-text")
             }}</label>
-            <input
+            <textarea
               v-model="document.customText"
               class="form-control fr-input validate-required"
               id="customText"
@@ -33,6 +33,8 @@
               placeholder=""
               type="text"
               required
+              maxlength="2000"
+              rows="4"
             />
           </div>
         </NakedCard>
