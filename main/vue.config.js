@@ -1,4 +1,4 @@
-const PrerendererWebpackPlugin = require('@prerenderer/webpack-plugin');
+const PrerendererWebpackPlugin = require("@prerenderer/webpack-plugin");
 const path = require("path");
 
 const routes = [
@@ -29,13 +29,13 @@ const routes = [
   "/accessibilite",
   "/mentions-legales",
   "/plan-du-site",
-  "/404"
+  "/404",
 ];
 
 const getSitemapUrls = () => {
   return routes
-    .filter(route => route !== "/404")
-    .map(route => `https://dossierfacile.fr${route}`);
+    .filter((route) => route !== "/404")
+    .map((route) => `https://dossierfacile.fr${route}`);
 };
 
 module.exports = {
@@ -44,14 +44,14 @@ module.exports = {
       locale: "fr",
       fallbackLocale: "en",
       localeDir: "locales",
-      enableInSFC: true
+      enableInSFC: true,
     },
     sitemap: {
-      urls: getSitemapUrls()
-    }
+      urls: getSitemapUrls(),
+    },
   },
-  chainWebpack: config => {
-    config.plugin("html").tap(args => {
+  chainWebpack: (config) => {
+    config.plugin("html").tap((args) => {
       args[0].title = "DossierFacile";
       return args;
     });
@@ -65,10 +65,10 @@ module.exports = {
           staticDir: path.resolve(__dirname, "dist"),
           routes: routes,
           rendererOptions: {
-            timeout: 60000
-          }
-        })
-      ]
+            maxConcurrentRoutes: 10,
+          },
+        }),
+      ],
     };
-  }
+  },
 };
