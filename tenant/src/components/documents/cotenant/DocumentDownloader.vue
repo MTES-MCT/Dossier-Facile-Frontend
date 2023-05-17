@@ -146,7 +146,7 @@
         >
           <div class="fr-input-group">
             <label class="fr-label" for="customText">
-              {{ $parent.$t(`documentdownloader.customText-${document.key}`) }}
+              {{ $t(`cotenantfinancialform.customText-${document.key}`) }}
             </label>
             <textarea
               v-model="dfDocument.customText"
