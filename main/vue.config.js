@@ -63,7 +63,7 @@ module.exports = {
           staticDir: path.resolve(__dirname, "dist"),
           routes: routes,
           rendererOptions: {
-            maxConcurrentRoutes: 10,
+            maxConcurrentRoutes: 20,
           },
         }),
       ],
