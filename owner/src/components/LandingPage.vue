@@ -214,7 +214,7 @@ import useOwnerStore from "../store/owner-store";
 import {useI18n} from "vue-i18n";
 import Modal from "df-shared-next/src/components/Modal.vue";
 
-const FRANCE_CONNECT_LOGIN_URL = import.meta.env.VUE_APP_FRANCE_CONNECT_LOGIN_URL;
+const FRANCE_CONNECT_LOGIN_URL = import.meta.env.VITE_SSO_FRANCE_CONNECT_LOGIN_URL;
 const MAIN_URL = `//${import.meta.env.VITE_OWNER_URL}`;
 
 const store = useOwnerStore();
@@ -261,7 +261,7 @@ function onRegister(user: User) {
 <style scoped lang="scss">
 .df-image-background {
   width: 100%;
-  height: 630px;
+  height: 700px;
   top: 0;
   left: 0;
   background-size: cover !important;

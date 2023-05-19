@@ -277,8 +277,8 @@ header i {
   "en": {
     "logout": "Logout",
     "signup": "Sign-in",
-    "owner": "Owner's area",
-    "tenant": "Tenant's area",
+    "owner": "Owner area",
+    "tenant": "Tenant area",
     "partner": "Become partner",
     "partner-link-title": "Become partner (New Window)"
   },
