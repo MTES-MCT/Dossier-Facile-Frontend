@@ -13,7 +13,7 @@ app.use(function(req, res, next) {
       "font-src 'self' https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/ fonts.gstatic.com fonts.google.com fonts.googleapis.com data:; object-src 'none'; " +
       "prefetch-src 'self'; " +
       "frame-src *.fls.doubleclick.net/; " +
-      "connect-src https://www.google-analytics.com  https://stats.data.gouv.fr *.inspectlet.com wss://ws.inspectlet.com https://stats.g.doubleclick.net https://sheets.googleapis.com *.helpscout.net wss://ws-helpscout.pusher.com https://sockjs-helpscout.pusher.com *.cloudfront.net *.dossierfacile.fr"
+      "connect-src https://sentry.incubateur.net https://www.google-analytics.com  https://stats.data.gouv.fr *.inspectlet.com wss://ws.inspectlet.com https://stats.g.doubleclick.net https://sheets.googleapis.com *.helpscout.net wss://ws-helpscout.pusher.com https://sockjs-helpscout.pusher.com *.cloudfront.net *.dossierfacile.fr"
   );
   res.setHeader("X-Frame-Options", "deny");
   res.setHeader("X-Content-Type-Options", "nosniff");
