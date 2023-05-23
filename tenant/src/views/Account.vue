@@ -39,7 +39,7 @@
             </div>
 
             <div
-              class="fr-mt-5w fr-mb-5w fr-p-4w bg-white"
+              class="fr-mt-3w fr-mb-3w fr-p-4w bg-white"
               v-if="canCopyLink()"
             >
               <ShareFile></ShareFile>
@@ -154,8 +154,8 @@
             <PartnersSection />
 
             <div class="delete">
-              <h2 class="fr-pt-4w fr-pb-2w">{{ $t("account.delete") }}</h2>
-              <div class="bg-white fr-p-4w">
+              <div class="bg-white fr-p-4w fr-mt-3w">
+                <h3>{{ $t("account.delete") }}</h3>
                 <p>
                   Vous pouvez supprimer votre compte DossierFacile à tout
                   moment. La suppression de votre compte entrainera
@@ -174,9 +174,9 @@
                 </div>
               </div>
             </div>
-            <div class="opinion fr-mb-5w">
-              <h2 class="fr-pt-4w fr-pb-2w">{{ $t("account.opinion") }}</h2>
-              <div class="bg-white fr-p-4w">
+            <div class="opinion fr-mb-5w fr-mt-3w">
+              <div class="bg-white fr-p-4w fr-pt-4w">
+                <h3>{{ $t("account.opinion") }}</h3>
                 <p>
                   Nous cherchons constamment à améliorer la qualité de notre
                   service. Dans le cadre de cette démarche d’amélioration, nous
