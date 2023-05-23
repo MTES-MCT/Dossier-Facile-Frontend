@@ -5,6 +5,10 @@
   >
     <div class="fr-col-12 fr-col-md-5">
       {{ label }}
+      <br />
+      <span v-if="subLabel" class="fr-text--xs fr-label--disabled">
+        {{ subLabel }}
+      </span>
     </div>
     <div class="fr-col-5 fr-col-md-3 tag-container">
       <div style="align-self: center">
@@ -54,6 +58,7 @@ import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 })
 export default class FileRowListItem extends Vue {
   @Prop() label!: string;
+  @Prop() subLabel!: string;
   @Prop() document!: DfDocument;
   @Prop({ default: true }) enableDownload?: boolean;
   @Prop() tagLabel?: string;

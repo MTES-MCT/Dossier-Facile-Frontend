@@ -20,18 +20,16 @@
         />
         <FileRowListItem
           :label="$tc('tenantpanel.professional')"
+          :sub-label="getProfessionalSubCategory(tenant)"
           :document="document(tenant, 'PROFESSIONAL')"
           @click-edit="setTenantStep(3)"
         />
         <span v-if="documents(tenant, 'FINANCIAL').length > 1">
           <FileRowListItem
-            v-for="(doc, k) in documents(tenant, 'FINANCIAL')"
+            v-for="doc in documents(tenant, 'FINANCIAL')"
             v-bind:key="doc.id"
-            :label="
-              $t('tenantpanel.financial') +
-              (' ' + (k + 1) + ' - ') +
-              $t('documents.subcategory.' + doc.documentSubCategory)
-            "
+            :label="$tc('tenantpanel.financial')"
+            :sub-label="$tc(`documents.subcategory.${doc.documentSubCategory}`)"
             :document="doc"
             @click-edit="setTenantStep(4)"
           />
@@ -68,6 +66,7 @@ import PartnersSection from "@/components/account/PartnersSection.vue";
 import InfoCard from "@/components/account/InfoCard.vue";
 import RowListItem from "@/components/documents/RowListItem.vue";
 import FileRowListItem from "@/components/documents/FileRowListItem.vue";
+import { DocumentTypeConstants } from "@/components/documents/share/DocumentTypeConstants";
 
 @Component({
   components: {
@@ -170,6 +169,14 @@ export default class TenantPanel extends Vue {
     return g.documents?.filter((d: DfDocument) => {
       return d.documentCategory === docType;
     }) as DfDocument[];
+  }
+
+  getProfessionalSubCategory(u: User): string {
+    const professionalDocument = this.document(u, "PROFESSIONAL");
+    const translationKey = DocumentTypeConstants.PROFESSIONAL_DOCS.find(
+      (doc) => doc.value === professionalDocument?.documentSubCategory
+    )?.key;
+    return this.$tc(translationKey || "");
   }
 }
 </script>
