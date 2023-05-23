@@ -1,11 +1,13 @@
 <template>
   <li
-    class="fr-grid-row file-item"
+    class="fr-grid-row file-list-item fr-p-3w"
     :class="{ 'not-validated': documentStatus() != 'VALIDATED' }"
   >
     <div class="fr-col-12 fr-col-md-5">
-      <span :class="listItemIconClass()">
-        {{ label }}
+      {{ label }}
+      <br />
+      <span v-if="subLabel" class="fr-text--xs fr-label--disabled">
+        {{ subLabel }}
       </span>
     </div>
     <div class="fr-col-5 fr-col-md-3 tag-container">
@@ -21,22 +23,23 @@
     </div>
     <div class="fr-col-7 fr-col-md-4 fr-btns-group--right">
       <DfButton
+        v-if="enableDownload && document && document.name"
+        class="fr-btn--icon-left fr-fi-eye-line fr-mr-1w"
+        @on-click="openDocument()"
+      >
+        <span class="fr-hidden fr-unhidden-md">
+          {{ $t("filerowlistitem.see") }}
+        </span>
+      </DfButton>
+
+      <DfButton
         v-if="hasClickEditionListener()"
-        class="fr-mr-2w fr-btn--icon-left fr-icon-pencil-line"
+        class="fr-btn--icon-left fr-icon-pencil-line"
         @on-click="clickEdit()"
         ><span class="fr-hidden fr-unhidden-lg">{{
           $t("filerowlistitem.edit")
         }}</span>
       </DfButton>
-      <DfButton
-        v-if="enableDownload && document && document.name"
-        class="fr-btn--icon-left fr-fi-eye-line"
-        @on-click="openDocument()"
-      >
-        <span class="fr-hidden fr-unhidden-md">
-          {{ $t("filerowlistitem.see") }}</span
-        ></DfButton
-      >
     </div>
   </li>
 </template>
@@ -55,6 +58,7 @@ import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 })
 export default class FileRowListItem extends Vue {
   @Prop() label!: string;
+  @Prop() subLabel!: string;
   @Prop() document!: DfDocument;
   @Prop({ default: true }) enableDownload?: boolean;
   @Prop() tagLabel?: string;
@@ -106,10 +110,12 @@ export default class FileRowListItem extends Vue {
   margin-right: 0.5rem;
   color: green;
 }
+
 .fr-icon-information-fill:before {
   margin-right: 0.5rem;
   color: var(--purple-text);
 }
+
 .fr-icon-alert-fill:before {
   margin-right: 0.5rem;
   color: var(--danger);
@@ -126,18 +132,20 @@ export default class FileRowListItem extends Vue {
   width: 20px;
   margin: 4px 8px 4px 6px;
 }
-.file-item {
+
+.file-list-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
   padding: 0.5rem;
   border-style: solid;
   border-width: thin;
   border-radius: 0.25rem;
-  border-color: var(--green-menthe-975-75);
+  border-color: var(--grey-900-175);
   min-height: 4rem;
+
   &.not-validated {
     background-color: var(--background-alt-grey);
     border-style: none;

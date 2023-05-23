@@ -1,62 +1,47 @@
 <template>
   <div>
     <div class="main-information">
-      <h3 class="fr-h4">{{ $t("tenantpanel.my-personnal-information") }}</h3>
-      <div class="fr-grid-row fr-grid-row--gutters">
-        <InfoCard
-          :title="$t('tenantpanel.my-information')"
-          editable="true"
-          matIcon="person"
-          @click="gotoTenantName()"
-        >
-          <div class="name-email-tile">
-            {{ tenant | fullName }}<br />
-            {{ tenant ? tenant.email : "" }}
-          </div>
-        </InfoCard>
-      </div>
-      <hr class="fr-mt-4w" />
-      <h3 class="fr-h4">{{ $t("tenantpanel.my-files") }}</h3>
-      <ul class="without-padding">
+      <h3 class="fr-h4">{{ $t("tenantpanel.my-files") + tenant.firstName }}</h3>
+      <ul class="fr-p-0">
+        <RowListItem
+          :label="tenant | fullName"
+          @click-edit="gotoTenantName()"
+        />
         <FileRowListItem
-          :label="$t('tenantpanel.identification')"
+          :label="$tc('tenantpanel.identification')"
           :document="document(tenant, 'IDENTIFICATION')"
           enableDownload="force"
           @click-edit="setTenantStep(1)"
         />
-
         <FileRowListItem
-          :label="$t('tenantpanel.residency')"
+          :label="$tc('tenantpanel.residency')"
           :document="document(tenant, 'RESIDENCY')"
           @click-edit="setTenantStep(2)"
         />
-
         <FileRowListItem
-          :label="$t('tenantpanel.professional')"
+          :label="$tc('tenantpanel.professional')"
+          :sub-label="getProfessionalSubCategory(tenant)"
           :document="document(tenant, 'PROFESSIONAL')"
           @click-edit="setTenantStep(3)"
         />
         <span v-if="documents(tenant, 'FINANCIAL').length > 1">
           <FileRowListItem
-            v-for="(doc, k) in documents(tenant, 'FINANCIAL')"
+            v-for="doc in documents(tenant, 'FINANCIAL')"
             v-bind:key="doc.id"
-            :label="
-              $t('tenantpanel.financial') +
-              (' ' + (k + 1) + ' - ') +
-              $t('documents.subcategory.' + doc.documentSubCategory)
-            "
+            :label="$tc('tenantpanel.financial')"
+            :sub-label="$tc(`documents.subcategory.${doc.documentSubCategory}`)"
             :document="doc"
             @click-edit="setTenantStep(4)"
           />
         </span>
         <FileRowListItem
           v-else
-          :label="$t('tenantpanel.financial')"
+          :label="$tc('tenantpanel.financial')"
           :document="document(tenant, 'FINANCIAL')"
           @click-edit="setTenantStep(4)"
         />
         <FileRowListItem
-          :label="$t('tenantpanel.tax')"
+          :label="$tc('tenantpanel.tax')"
           :document="document(tenant, 'TAX')"
           @click-edit="setTenantStep(5)"
         />
@@ -79,7 +64,9 @@ import DeleteAccount from "@/components/DeleteAccount.vue";
 import GuarantorsSection from "@/components/account/GuarantorsSection.vue";
 import PartnersSection from "@/components/account/PartnersSection.vue";
 import InfoCard from "@/components/account/InfoCard.vue";
+import RowListItem from "@/components/documents/RowListItem.vue";
 import FileRowListItem from "@/components/documents/FileRowListItem.vue";
+import { DocumentTypeConstants } from "@/components/documents/share/DocumentTypeConstants";
 
 @Component({
   components: {
@@ -91,6 +78,7 @@ import FileRowListItem from "@/components/documents/FileRowListItem.vue";
     DfButton,
     ColoredTag,
     DeleteAccount,
+    RowListItem,
     FileRowListItem,
   },
 })
@@ -182,6 +170,14 @@ export default class TenantPanel extends Vue {
       return d.documentCategory === docType;
     }) as DfDocument[];
   }
+
+  getProfessionalSubCategory(u: User): string {
+    const professionalDocument = this.document(u, "PROFESSIONAL");
+    const translationKey = DocumentTypeConstants.PROFESSIONAL_DOCS.find(
+      (doc) => doc.value === professionalDocument?.documentSubCategory
+    )?.key;
+    return this.$tc(translationKey || "");
+  }
 }
 </script>
 
@@ -222,9 +218,9 @@ h2 {
 }
 
 .bg-white {
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 18, 0.16);
   border-radius: 10px;
-  background: var(--background-default-grey);
+  background: var(--grey-1000-50);
 }
 
 .fr-btn.delete-btn {

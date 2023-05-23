@@ -254,18 +254,16 @@
   },
   "account": {
     "title": {
-      "alone": "Bonjour {0}, votre dossier {1} !",
-      "group": "Bonjour {0}, votre dossier {1} !",
-      "couple": "Bonjour {0}, votre dossier de couple {1} !"
+      "alone": "Bonjour {0},<br/>votre dossier {1} !",
+      "group": "Bonjour {0},<br/>votre dossier {1} !",
+      "couple": "Bonjour {0},<br/>votre dossier de couple {1} !"
     },
-    "status-description": "{0}, vous avez indiqué être {1}, {2} et {3}.<br>Si votre situation a changé, mettez à jour vos documents !",
     "last-update": "Dernière mise à jour du dossier le {0}",
     "file-update-title": "Mise à jour de votre dossier",
     "file-update-text": "Vous avez mis à jour votre dossier, pour la dernière fois le {0}.<br> Afin qu'il reste convaincant, il est important de maintenir à jour vos justificatifs.",
     "update-file-btn": "Mettre à jour mes documents",
     "copy-link": "Copier mon lien dossier",
     "share-by-mail": "Partager par mail",
-    "my-file": "Mon dossier de location",
     "identification": "Pièce d'identité",
     "residency": "Justificatif de domicile",
     "professional": "Justificatif de situation professionnelle",
@@ -304,9 +302,6 @@
     "group-with": "en colocation avec {0}",
     "group-with-someone": "en colocation",
     "someone": " quelqu'un",
-    "group": {
-      "cannot-copy-link": "Votre lien est inactif car le dossier de votre(vos) colocataire(s) n'est pas encore validé"
-    },
     "amendment-required-title": "Modifications demandées",
     "amendment-required-text": "Après examen de votre dossier, des modifications vous sont demandées. <br>Consultez votre messagerie pour en connaître le détail.",
     "messaging": "Consulter ma messagerie",
@@ -792,8 +787,8 @@
     "select-label": "Quelle est la situation d’hébergement actuelle de votre garant ?"
   },
   "guarantorssection": {
-    "guarantors-information": "Informations des garants",
-    "my-guarantor": "Pièces justificatives de",
+    "guarantors-information": "Les justificatifs du garant",
+    "my-guarantor": "Les justificatifs de",
     "identification-legal-person": "Identification de la personne morale",
     "organism-identification": "Certificat de l'organisme",
     "delete-guarantor": "Supprimer ce garant",
@@ -1213,7 +1208,6 @@
   },
   "tenantpanel": {
     "title": "Bonjour {0}, votre dossier {1} !",
-    "status-description": "{0}, vous avez indiqué être {1}, {2} et {3}.<br>Si votre situation a changé, mettez à jour vos documents !",
     "last-update": "Dernière mise à jour du dossier le {0}",
     "file-update-title": "Mise à jour de votre dossier",
     "file-update-text": "Vous avez mis à jour votre dossier, pour la dernière fois le {0}.<br> Afin qu'il reste convaincant, il est important de maintenir à jour vos justificatifs.",
@@ -1221,9 +1215,7 @@
     "copy-link": "Copier mon lien dossier",
     "share-by-mail": "Partager par mail",
     "my-file": "Mon dossier de location",
-    "my-personnal-information": "Informations personnelles",
-    "my-information": "Informations",
-    "my-files": "Pièces justificatives",
+    "my-files": "Les justificatifs de ",
     "identification": "Pièce d'identité",
     "residency": "Justificatif de domicile",
     "professional": "Justificatif de situation professionnelle",
