@@ -151,7 +151,7 @@
                   Nous cherchons constamment à améliorer la qualité de notre
                   service. Dans le cadre de cette démarche d’amélioration, nous
                   cherchons à obtenir votre retour d’expérience. En cliquant sur
-                  le bouton ci-dessous, vous pourrez évaluer DossierFacile.fr.
+                  le bouton ci-dessous, vous pourrez évaluer DossierFacile.
                   Vos commentaires nous sont précieux ! Merci.
                 </p>
                 <div class="align--center">
