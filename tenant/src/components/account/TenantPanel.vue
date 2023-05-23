@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="main-information">
-      <h3 class="fr-h4">{{ $t("tenantpanel.my-files") }}</h3>
+      <h3 class="fr-h4">{{ $t("tenantpanel.my-files") + tenant.firstName }}</h3>
       <ul class="fr-p-0">
         <RowListItem
           :label="tenant | fullName"

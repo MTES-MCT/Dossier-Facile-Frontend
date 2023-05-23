@@ -254,9 +254,9 @@
   },
   "account": {
     "title": {
-      "alone": "Bonjour {0}, votre dossier {1} !",
-      "group": "Bonjour {0}, votre dossier {1} !",
-      "couple": "Bonjour {0}, votre dossier de couple {1} !"
+      "alone": "Bonjour {0},<br/>votre dossier {1} !",
+      "group": "Bonjour {0},<br/>votre dossier {1} !",
+      "couple": "Bonjour {0},<br/>votre dossier de couple {1} !"
     },
     "status-description": "{0}, vous avez indiqué être {1}, {2} et {3}.<br>Si votre situation a changé, mettez à jour vos documents !",
     "last-update": "Dernière mise à jour du dossier le {0}",
@@ -792,8 +792,8 @@
     "select-label": "Quelle est la situation d’hébergement actuelle de votre garant ?"
   },
   "guarantorssection": {
-    "guarantors-information": "Informations des garants",
-    "my-guarantor": "Pièces justificatives de",
+    "guarantors-information": "Les justificatifs du garant",
+    "my-guarantor": "Les justificatifs de",
     "identification-legal-person": "Identification de la personne morale",
     "organism-identification": "Certificat de l'organisme",
     "delete-guarantor": "Supprimer ce garant",
@@ -1221,7 +1221,7 @@
     "copy-link": "Copier mon lien dossier",
     "share-by-mail": "Partager par mail",
     "my-file": "Mon dossier de location",
-    "my-files": "Pièces justificatives",
+    "my-files": "Les justificatifs de ",
     "identification": "Pièce d'identité",
     "residency": "Justificatif de domicile",
     "professional": "Justificatif de situation professionnelle",

@@ -4,14 +4,14 @@
       <section class="fr-mt-3w">
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12">
-            <h1>
-              {{
+            <h1
+              v-html="
                 $t(`account.title.${getApplicationType()}`, [
                   getFirstName(),
                   $t(`account.${getGlobalStatus()}`),
                 ])
-              }}
-            </h1>
+              "
+            ></h1>
             <div class="fr-callout warning fr-callout-white" v-if="isDenied()">
               <h2 class="fr-text-title--grey fr-h4">
                 {{ $t("account.amendment-required-title") }}
