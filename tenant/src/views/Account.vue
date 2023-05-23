@@ -4,6 +4,9 @@
       <section class="fr-mt-3w">
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12">
+            <div class="fr-mb-3w" v-if="isAnnouncementVisible">
+              <FakeAnnouncement></FakeAnnouncement>
+            </div>
             <h1
               v-html="
                 $t(`account.title.${getApplicationType()}`, [
@@ -42,7 +45,6 @@
               <ShareFile></ShareFile>
             </div>
 
-            <FakeAnnouncement v-if="isAnnouncementVisible"></FakeAnnouncement>
             <div class="main fr-mt-5w fr-p-4w bg-white">
               <div class="main-bar fr-grid-row">
                 <div class="header-title mobile-margin">
