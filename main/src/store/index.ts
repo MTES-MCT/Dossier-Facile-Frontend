@@ -12,6 +12,7 @@ const store = new Vuex.Store({
   actions: {
     setLang(_, lang) {
       i18n.locale = lang;
+      i18n.fallbackLocale = "fr";
       const html = document.documentElement;
       html.setAttribute("lang", i18n.locale);
       const aYearFromNow = new Date();
