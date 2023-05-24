@@ -65,7 +65,7 @@
                 </li>
                 <li v-if="!loggedIn">
                   <DfButton size="small"  @on-click="goToPartner">
-                    <i class="ri-user-star-line" aria-hidden="true"></i>
+                    <i class="ri-home-heart-line" aria-hidden="true"></i>
                     {{ $t("partner") }}
                   </DfButton>
                 </li>

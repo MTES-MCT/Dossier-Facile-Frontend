@@ -83,6 +83,9 @@
                             <blockquote>
                                 <p>{{ $t("landing.citation.s1") }}</p>
                             </blockquote>
+                            <figcaption>
+                                <p class="fr-quote__author">{{ $t("landing.citation.s1-author") }}</p>
+                            </figcaption>
                         </figure>
                     </div>
                     <div class="fr-col-md-4 fr-grid-col fr-p-2w">
@@ -90,6 +93,9 @@
                             <blockquote>
                                 <p>{{ $t("landing.citation.s2") }}</p>
                             </blockquote>
+                            <figcaption>
+                                <p class="fr-quote__author">{{ $t("landing.citation.s2-author") }}</p>
+                            </figcaption>
                         </figure>
                     </div>
                     <div class="fr-col-md-4 fr-grid-col fr-p-2w">
@@ -97,6 +103,9 @@
                             <blockquote>
                                 <p>{{ $t("landing.citation.s3") }}</p>
                             </blockquote>
+                            <figcaption>
+                                <p class="fr-quote__author">{{ $t("landing.citation.s3-author") }}</p>
+                            </figcaption>
                         </figure>
                     </div>
                 </div>
@@ -298,15 +307,14 @@ function onRegister(user: User) {
 }
 .howto-title {
   display: inline-flex;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 700;
-  line-height: 2rem;
+  line-height: 1.75rem;
 
   :first-child {
     margin-right: 0.5rem;
   }
 }
-
 .text-center {
   text-align: center;
 }
