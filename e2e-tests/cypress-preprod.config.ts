@@ -13,8 +13,11 @@ export default defineConfig({
     },
   },
   env: {
+    configName: "preprod",
+    mainUrl: "www-dev.dossierfacile.fr",
     tenantUrl: "locataire-dev.dossierfacile.fr",
     tenantUser: "thibault",
+    ownerUrl: "proprietaire-dev.dossierfacile.fr",
     ownerUser: "william",
   },
   chromeWebSecurity: false,
