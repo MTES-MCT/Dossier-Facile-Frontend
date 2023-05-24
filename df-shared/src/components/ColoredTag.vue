@@ -1,6 +1,7 @@
 <template>
   <div class="fr-tag" :class="getClasses()">
     <StatusIcon v-if="status" :status="status"></StatusIcon>
+    <span class="fr-text--xs" v-if="label">{{ label }}&nbsp;:&nbsp;</span>
     {{ text }}
   </div>
 </template>
@@ -16,6 +17,7 @@ import StatusIcon from "./StatusIcon.vue";
 })
 export default class CardRow extends Vue {
   @Prop({ default: "" }) status?: string;
+  @Prop() label?: string;
   @Prop() text!: string;
   @Prop({ default: false }) active!: boolean;
 

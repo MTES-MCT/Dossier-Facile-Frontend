@@ -52,9 +52,6 @@
   "noDocument-rent": "Je ne peux pas fournir de justificatifs de versement de rente",
   "noDocument-scholarship": "Je ne peux pas fournir de justificatifs d'attribution de bourse",
   "noDocument-social-service": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
-  "ALONE": "Seul·e",
-  "COUPLE": "En couple",
-  "GROUP": "En colocation",
   "EMPTY": "Absent",
   "TO_PROCESS": "En cours de traitement",
   "VALIDATED": "Vérifié",
@@ -1188,7 +1185,7 @@
     "lastname": "Nom du locataire",
     "zipcode": "Code postal",
     "tenantPresentation": "Le locataire sera {firstname} {lastname}. Vous désirez louer un logement :",
-    "alone": "Seul·e",
+    "alone": "Seul",
     "couple": "En couple",
     "roommate": "En colocation",
     "remove-roommates": "Attention, cela aura pour effet de dissocier votre dossier de vos colocataires",
@@ -1266,6 +1263,13 @@
     "congratulations-text-2": "Pour rappel, DossierFacile ne propose pas de logement.",
     "full-link-copied": "Le lien de mon dossier complet est copié !",
     "public-link-copied": "Le lien de mon dossier de synthèse est copié !"
+  },
+  "lefteditmenu": {
+    "ALONE": "Seul",
+    "COUPLE": "En couple",
+    "GROUP": "En colocation",
+    "identity": "Identité",
+    "file-type": "Type de dossier"
   },
   "topeditmenu": {
     "i-add": "J'ajoute {0}",

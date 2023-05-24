@@ -35,9 +35,6 @@
   "my-cotenant": "My partner's documents",
   "my-cotenant-guarantor": "My partner's guarantor",
   "validate-file": "Finalize my application",
-  "ALONE": "Alone",
-  "COUPLE": "Couple",
-  "GROUP": "Flatsharing",
   "documents": {
     "salary": "Professional incomes",
     "guarantor_salary": "Professional incomes",
@@ -699,7 +696,9 @@
   "lefteditmenu": {
     "ALONE": "Alone",
     "COUPLE": "Couple",
-    "GROUP": "Roommate"
+    "GROUP": "Roommate",
+    "identity": "Identity",
+    "file-type": "Application type"
   },
   "listitem": {
     "FRENCH_IDENTITY_CARD": "Identity card",

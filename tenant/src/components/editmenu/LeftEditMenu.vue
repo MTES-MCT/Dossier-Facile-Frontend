@@ -12,13 +12,18 @@
       <div class="vline" :class="getClass(getStepNumber('information'))">
         <div class="ml-5">
           <router-link :to="{ name: 'Profile' }">
-            <ColoredTag :text="user | fullName" status="NAME" />
+            <ColoredTag
+              :label="$tc('lefteditmenu.identity')"
+              :text="user | fullName"
+              status="NAME"
+            />
           </router-link>
         </div>
         <div class="ml-5" v-if="user.applicationType">
           <router-link :to="{ name: 'TenantType' }">
             <ColoredTag
-              :text="$t(user.applicationType)"
+              :label="$tc('lefteditmenu.file-type')"
+              :text="$tc(`lefteditmenu.${user.applicationType}`)"
               :status="user.applicationType"
               :active="step < 2"
             ></ColoredTag>
