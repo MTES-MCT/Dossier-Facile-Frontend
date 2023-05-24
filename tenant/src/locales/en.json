@@ -35,6 +35,7 @@
   "my-cotenant": "My partner's documents",
   "my-cotenant-guarantor": "My partner's guarantor",
   "validate-file": "Finalize my application",
+  "example-prefix": "E.g.: ",
   "documents": {
     "salary": "Professional incomes",
     "guarantor_salary": "Professional incomes",
