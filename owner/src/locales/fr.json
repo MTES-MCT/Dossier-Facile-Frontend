@@ -323,9 +323,9 @@
     "rentdpe": "avec un DPE"
   },
   "landing": {
-    "title": "Trouver la perle rare du locataire !",
-    "subtitle1": "Avec DossierFacile, facilite-vous la location. Recevez des dossiers de location",
-    "subtitle2": "complets, et vérifiés et choisissez sereinement le locataire idéal !",
+    "title": "Trouvez la perle rare du locataire !",
+    "subtitle1": "Avec DossierFacile, facilitez-vous la location. Recevez des dossiers de location",
+    "subtitle2": "complets et vérifiés et choisissez sereinement le locataire idéal !",
     "purpose": {
       "first":{
         "title": "Nos dossier de location sont complets",
@@ -341,10 +341,13 @@
       }
     },
     "citation": {
-      "title": "Rejoingnez notre comunauté de 22 000 propriétaires.",
+      "title": "Rejoignez notre communauté de 22 000 propriétaires.",
       "s1": "« (…) merci pour votre site vraiment formidable. Je suis enchanté de vos services qui gagnent à être connus et reconnus (...) »",
+      "s1-author": "Katia",
       "s2": "DossierFacile « sécurise mes locations et c’est très dissuasif, j’informe les candidats que leurs justificatifs vont être vérifiés ! »",
-      "s3": "DossierFacile « nous a grandement facilité la vie dans nos démarches en toute sécurité.»"
+      "s2-author": "Farid",
+      "s3": "DossierFacile « nous a grandement facilité la vie dans nos démarches en toute sécurité.»",
+      "s3-author": "François"
     },
     "howto": {
       "title": "Comment ça marche ?",
