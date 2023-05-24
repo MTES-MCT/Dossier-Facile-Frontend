@@ -59,6 +59,8 @@
   "INCOMPLETE": "Non terminé",
   "try-again": "Une erreur est survenue, veuillez réessayer plus tard.",
   "example-prefix": "Ex : ",
+  "next-step": "Passer à l'étape suivante",
+  "add-new-documents": "Ajouter de nouveau documents",
   "dossier": {
     "TO_PROCESS": "En cours de traitement",
     "VALIDATED": "Vérifé",
@@ -364,7 +366,12 @@
     "register": "Enregistrer la pièce",
     "field-required": "Ce champ est requis"
   },
-  "cotenantdocument": {},
+  "cotenantdocument": {
+    "warning-need-residency-documents": "Êtes-vous sûr·e d'avoir bien transmis l'ensemble des documents nécessaires ici ?",
+    "list1": "attestation d'hébergement",
+    "list2": "copie de la pièce d'identité de son hébergeur",
+    "list3": "justificatif de domicile de moins de 3 mois de son hébergeur"
+  },
   "cotenantfinancialform": {
     "title": "Justificatif de ressources",
     "tenant": "Locataire",
@@ -690,7 +697,11 @@
     "no-guarantor": "Je n'ai pas de garant",
     "ask-guarantor": "Souhaitez-vous ajouter :",
     "remark-title": "Remarque",
-    "remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez sélectionner « Je n'ai pas de garant ». Votre dossier sera alors enregistré pour être instruit."
+    "remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez sélectionner « Je n'ai pas de garant ». Votre dossier sera alors enregistré pour être instruit.",
+    "warning-need-residency-documents": "Êtes-vous sûr·e d'avoir bien transmis l'ensemble des documents nécessaires ici ?",
+    "list1": "attestation d'hébergement",
+    "list2": "copie de la pièce d'identité de son hébergeur",
+    "list3": "justificatif de domicile de moins de 3 mois de son hébergeur"
   },
   "guarantordocumentspage": {},
   "guarantorfinancialdocumentform": {
@@ -1280,9 +1291,16 @@
     "more-information": "En difficulté pour répondre à la question ?"
   },
   "uploaddocuments": {
+<<<<<<< HEAD
     "warning-need-residency-documents": "Êtes-vous sûr·e d'avoir bien transmis l'ensemble des documents nécessaires ici ?<ul><li>attestation d'hébergement</li><li>copie de la pièce d'identité de votre hébergeur</li><li>justificatif de domicile de moins de 3 mois de votre hébergeur</li></ul>",
     "accept-warning": "Ajouter de nouveaux documents",
     "ignore-warning": "Passer à l'étape suivante"
+=======
+    "warning-need-residency-documents": "Êtes-vous sûr·e d'avoir bien transmis l'ensemble des documents nécessaires ici ?",
+    "list1": "attestation d'hébergement",
+    "list2": "copie de la pièce d'identité de votre hébergeur",
+    "list3": "justificatif de domicile de moins de 3 mois de votre hébergeur"
+>>>>>>> 8d9a8fc8 (feat(tenant): Add warning modal when not enough file on residency)
   },
   "validatefile": {
     "title": "Je valide mon dossier",

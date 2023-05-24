@@ -23,13 +23,18 @@
     </div>
     <ConfirmModal
       v-if="showNbDocumentsResidency"
-      @valid="showNbDocumentsResidency = false"
-      @close="showNbDocumentsResidency = false"
-      @cancel="goNext()"
       :validate-btn-text="$tc('uploaddocuments.accept-warning')"
       :cancel-btn-text="$tc('uploaddocuments.ignore-warning')"
+      @cancel="goNext()"
+      @close="showNbDocumentsResidency = false"
+      @valid="showNbDocumentsResidency = false"
     >
-      <p v-html="$t('uploaddocuments.warning-need-residency-documents')"></p>
+      {{ $t("uploaddocuments.warning-need-residency-documents") }}
+      <ul>
+        <li>{{ $t("uploaddocuments.list1") }}</li>
+        <li>{{ $t("uploaddocuments.list2") }}</li>
+        <li>{{ $t("uploaddocuments.list3") }}</li>
+      </ul>
     </ConfirmModal>
   </div>
 </template>
