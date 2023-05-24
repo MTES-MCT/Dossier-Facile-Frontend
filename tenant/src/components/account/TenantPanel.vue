@@ -5,6 +5,7 @@
       <ul class="fr-p-0">
         <RowListItem
           :label="tenant | fullName"
+          :sub-label="tenant.email"
           @click-edit="gotoTenantName()"
         />
         <FileRowListItem
