@@ -61,9 +61,6 @@ module.exports = {
         new PrerendererWebpackPlugin({
           staticDir: path.resolve(__dirname, "dist"),
           routes: routes,
-          rendererOptions: {
-            maxConcurrentRoutes: 5,
-          },
         }),
       ],
     };
