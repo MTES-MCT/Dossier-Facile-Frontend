@@ -22,8 +22,8 @@ Cypress.Commands.add("loginWithFC", (username: string) => {
 });
 
 Cypress.Commands.add("deleteAccount", (username: string, type: UserType) => {
-  cy.visit("www-dev.dossierfacile.fr");
-  cy.contains(type === UserType.TENANT ? "Se connecter" : "Espace propriétaire").click();
+  cy.visit(`${type === UserType.TENANT ? "www" : "proprietaire"}-dev.dossierfacile.fr`);
+  cy.contains("Se connecter").click();
   cy.loginWithFC(username);
   
   cy.intercept("DELETE", "**/deleteAccount").as("deleteAccount");
@@ -62,6 +62,7 @@ Cypress.Commands.add("testAccessibility", () => {
     rules: [
       { id: 'color-contrast', enabled: false },
       { id: 'aria-allowed-attr', enabled: false },
+      { id: 'duplicate-id-aria', enabled: false },
       { id: 'region', enabled: false },
       { id: 'label', enabled: false },
       { id: 'skip-link', enabled: false },

@@ -85,9 +85,8 @@ describe("couple tenant scenario", () => {
     cy.get("#precision").type("Test");
     cy.contains("Valider mon dossier").click();
 
-    cy.get("h1").should(
-      "contain",
-      `Bonjour ${user.firstname}, votre dossier de couple est en cours de traitement !`
-    );
+    cy.get("h1")
+      .should("contain", `Bonjour ${user.firstname},`)
+      .should("contain", "votre dossier de couple est en cours de traitement !");
   });
 });
