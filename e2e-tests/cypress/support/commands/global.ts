@@ -22,7 +22,9 @@ Cypress.Commands.add("loginWithFC", (username: string) => {
 });
 
 Cypress.Commands.add("deleteAccount", (username: string, type: UserType) => {
-  cy.visit(`${type === UserType.TENANT ? "www" : "proprietaire"}-dev.dossierfacile.fr`);
+  ignoreErrorsOnSsoPage();
+
+  cy.visit(type === UserType.TENANT ? Cypress.env("tenantUrl") : Cypress.env("ownerUrl"));
   cy.contains("Se connecter").click();
   cy.loginWithFC(username);
   
@@ -71,3 +73,13 @@ Cypress.Commands.add("testAccessibility", () => {
   })
   cy.checkA11y(null, null, terminalLog);
 });
+
+function ignoreErrorsOnSsoPage() {
+  if (Cypress.env("configName") === "local") {
+    cy.origin('https://sso-preprod.dossierfacile.fr', () => {
+      cy.on('uncaught:exception', (_) => {
+        return false
+      })
+    });
+  }
+}

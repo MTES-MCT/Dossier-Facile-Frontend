@@ -35,7 +35,7 @@ describe("alone tenant scenario", () => {
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/5");
-    cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom", 100);
+    cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom", 200);
 
     cy.expectPath("/choix-garant");
     cy.get("button")
