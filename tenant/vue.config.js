@@ -27,7 +27,10 @@ module.exports = {
           // Absolute path to compiled SPA
           staticDir: path.resolve(__dirname, "dist"),
           // List of routes to prerender
-          routes: ["/signup"]
+          routes: ["/signup"],
+          rendererOptions: {
+            timeout: 120000,
+          },
         })
       ]
     };
