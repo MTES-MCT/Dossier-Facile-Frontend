@@ -2,6 +2,10 @@
   <li class="fr-grid-row file-list-item fr-p-3w">
     <div class="fr-col-12 fr-col-md-5">
       {{ label }}
+      <br />
+      <span v-if="subLabel" class="fr-text--xs fr-label--disabled">
+        {{ subLabel }}
+      </span>
     </div>
     <div class="fr-col-7 fr-col-md-4 fr-btns-group--right">
       <slot name="right"></slot>
@@ -31,6 +35,7 @@ import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 })
 export default class RowListItem extends Vue {
   @Prop() label!: string;
+  @Prop() subLabel!: string;
 }
 </script>
 

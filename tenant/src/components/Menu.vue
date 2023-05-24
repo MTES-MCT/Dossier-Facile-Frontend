@@ -53,10 +53,6 @@
               :aria-current="currentPage() === 'Account' ? 'page' : false"
             >
               {{ $t("menu.file") }}
-              <br />
-              <span class="fr-label--disabled fr-text--xs">
-                {{ user.email }}
-              </span>
             </a>
           </li>
           <li class="warn">
@@ -88,10 +84,9 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { mapGetters, mapState } from "vuex";
+import { mapGetters } from "vuex";
 import DfButton from "df-shared/src/Button/Button.vue";
 import LanguageSelector from "df-shared/src/Header/LanguageSelector.vue";
-import { User } from "df-shared/src/models/User";
 
 @Component({
   components: {
@@ -99,9 +94,6 @@ import { User } from "df-shared/src/models/User";
     LanguageSelector,
   },
   computed: {
-    ...mapState({
-      user: "user",
-    }),
     ...mapGetters({
       newMessage: "newMessage",
       isLoggedIn: "isLoggedIn",
@@ -109,7 +101,6 @@ import { User } from "df-shared/src/models/User";
   },
 })
 export default class Menu extends Vue {
-  user!: User;
   isLoggedIn?: boolean;
   newMessage!: number;
   isDeleteModalVisible = false;
