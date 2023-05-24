@@ -20,7 +20,7 @@
                   }}</label>
                   <input
                     id="password"
-                    :placeholder="$t('password-placeholder')"
+                    :placeholder="$t('ex') + passwordExample"
                     type="password"
                     v-model="user.password"
                     name="password"
@@ -53,7 +53,6 @@
                   >
                   <input
                     id="confirm-password"
-                    :placeholder="$t('password-placeholder')"
                     type="password"
                     v-model="user.confirm"
                     name="confirm-password"
@@ -85,6 +84,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { User } from "df-shared/src/models/User";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import Password from "vue-password-strength-meter";
+import { AuthService } from "../services/AuthService";
 
 @Component({
   components: {
@@ -96,6 +96,9 @@ import Password from "vue-password-strength-meter";
 export default class InitPassword extends Vue {
   score = 0;
   user: User = new User();
+
+  passwordExample = AuthService.generatePasswordPlaceholder();
+
   handleRegister() {
     this.$emit("on-init-password", this.user);
   }
@@ -111,7 +114,7 @@ export default class InitPassword extends Vue {
   "en": {
     "password": "Password",
     "confirm-password": "Confirm password :",
-    "password-placeholder": "Ex : 12345679",
+    "ex": "Ex : ",
     "confirm": "Confirm password",
     "password-not-confirmed": "Password not confirmed",
     "pwd-not-complex": "Password not secure enough",
@@ -121,7 +124,7 @@ export default class InitPassword extends Vue {
   "fr": {
     "password": "Mot de passe",
     "confirm-password": "Confirmation du mot de passe :",
-    "password-placeholder": "Ex : 12345679",
+    "ex": "E.g.: ",
     "confirm": "Confirmation du mot de passe",
     "password-not-confirmed": "Le mot de passe ne correspond pas",
     "pwd-not-complex": "Mot de passe trop simple",
