@@ -22,7 +22,7 @@
                 }}</label>
                 <input
                   id="password"
-                  :placeholder="$t('ex') + passwordExample"
+                  :placeholder="$t('example-prefix') + passwordExample"
                   type="password"
                   v-model="user.password"
                   name="password"
@@ -113,7 +113,6 @@ export default class ChangePassword extends Vue {
     "title": "Password update",
     "password": "Password",
     "confirm-password": "Confirm password :",
-    "ex": "Ex : ",
     "confirm": "Confirm password",
     "password-not-confirmed": "Password not confirmed",
     "pwd-not-complex": "Password not secure enough",
@@ -124,7 +123,6 @@ export default class ChangePassword extends Vue {
     "title": "Modification du mot de passe",
     "password": "Nouveau mot de passe",
     "confirm-password": "Confirmation du mot de passe :",
-    "ex": "E.g.: ",
     "confirm": "Confirmation du mot de passe",
     "password-not-confirmed": "Le mot de passe ne correspond pas",
     "pwd-not-complex": "Mot de passe trop simple",
