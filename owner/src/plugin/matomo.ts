@@ -3,7 +3,7 @@ import router from '../router';
 
 export default {
   install(app: any) {
-    if (import.meta.env.VITE_MATOMO_ENABLE) {
+    if (!import.meta.env.VITE_MATOMO_ENABLE) {
       return;
     }
     const options = {
