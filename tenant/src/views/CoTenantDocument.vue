@@ -24,6 +24,7 @@
         :validate-btn-text="$t('add-new-documents')"
         :cancel-btn-text="$t('next-step')"
         @cancel="goNext()"
+        @close="showNbDocumentsResidency = false"
         @valid="showNbDocumentsResidency = false"
       >
         {{ $t("cotenantdocument.warning-need-residency-documents") }}
