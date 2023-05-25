@@ -29,12 +29,7 @@
       @close="showNbDocumentsResidency = false"
       @valid="showNbDocumentsResidency = false"
     >
-      {{ $t("uploaddocuments.warning-need-residency-documents") }}
-      <ul>
-        <li>{{ $t("uploaddocuments.list1") }}</li>
-        <li>{{ $t("uploaddocuments.list2") }}</li>
-        <li>{{ $t("uploaddocuments.list3") }}</li>
-      </ul>
+      <p :v-html="$t('uploaddocuments.warning-need-residency-documents')"></p>
     </ConfirmModal>
   </div>
 </template>
