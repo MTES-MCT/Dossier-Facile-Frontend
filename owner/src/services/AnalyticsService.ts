@@ -1,5 +1,8 @@
 const AnalyticsService = {
   sendEvent(name: string, data: any) {
+    if (import.meta.env.VITE_MATOMO_ENABLE) {
+      return;
+    }
     window._paq.push(['trackEvent', data.event_category, name, data.event_label]);
   },
   redirectFranceRenov() {
@@ -7,12 +10,12 @@ const AnalyticsService = {
       event_category: 'property',
     });
   },
-  registerWithTopVerticalForm(){
+  registerWithTopVerticalForm() {
     this.sendEvent('register-top-form', {
       event_category: 'owner',
     });
   },
-  registerWithBottomInlineForm(){
+  registerWithBottomInlineForm() {
     this.sendEvent('register-bottom-form', {
       event_category: 'owner',
     });
@@ -26,7 +29,7 @@ const AnalyticsService = {
     this.sendEvent('register-with-fc-bottom-form', {
       event_category: 'owner',
     });
-  }
+  },
 };
 
 export default AnalyticsService;

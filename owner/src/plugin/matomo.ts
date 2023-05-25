@@ -3,6 +3,9 @@ import router from '../router';
 
 export default {
   install(app: any) {
+    if (import.meta.env.VITE_MATOMO_ENABLE) {
+      return;
+    }
     const options = {
       host: import.meta.env.VITE_MATOMO_URL,
       siteId: import.meta.env.VITE_MATOMO_SITE_ID,
