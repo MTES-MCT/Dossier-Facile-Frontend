@@ -4,6 +4,9 @@ import { VueConstructor } from "vue";
 
 export default {
   install(Vue: VueConstructor) {
+    if (!process.env.VUE_APP_MATOMO_ENABLE) {
+      return;
+    }
     const options = {
       host: process.env.VUE_APP_MATOMO_URL,
       siteId: process.env.VUE_APP_MATOMO_SITE_ID,
@@ -11,11 +14,10 @@ export default {
       router: router,
       domains: "*.dossierfacile.fr",
       cookieDomain: "*.dossierfacile.fr",
-      userId: undefined
+      userId: undefined,
     };
 
     Vue.use(VueMatomo, options);
     window._paq.push(["trackPageView"]);
-
-  }
+  },
 };
