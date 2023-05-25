@@ -203,6 +203,7 @@ import AllowCheckTax from "../share/AllowCheckTax.vue";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 import { PdfAnalysisService } from "../../../services/PdfAnalysisService";
 import Modal from "df-shared/src/components/Modal.vue";
+import {LoaderComponent} from "vue-loading-overlay";
 
 extend("is", {
   ...is,
@@ -258,6 +259,8 @@ export default class Tax extends Vue {
   isDocDeleteVisible = false;
   isWarningTaxSituationModalVisible = false;
   newFiles: File[] = [];
+
+  loader?: LoaderComponent;
 
   getTaxLocalStorageKey() {
     return "tax_" + this.user.email;
@@ -366,22 +369,19 @@ export default class Tax extends Vue {
     }
   }
 
-  addFiles(fileList: File[]) {
+  async addFiles(fileList: File[]) {
     this.newFiles = fileList;
-    PdfAnalysisService.findRejectedTaxDocuments(fileList).then(
-      (rejectedFiles) => {
-        if (rejectedFiles.length > 0) {
-          AnalyticsService.avisDetected();
-          this.isWarningTaxSituationModalVisible = true;
-        } else {
-          AnalyticsService.uploadFile("tax");
-          this.saveNewFiles(false);
-        }
-      }
-    );
+    this.showLoader();
+    if (await PdfAnalysisService.includesRejectedTaxDocuments(fileList)) {
+      this.isWarningTaxSituationModalVisible = true;
+      this.hideLoader();
+    } else {
+      this.saveNewFiles(false);
+    }
   }
 
   saveNewFiles(force: boolean) {
+    AnalyticsService.uploadFile("tax");
     const nf = Array.from(this.newFiles).map((f) => {
       return { name: f.name, file: f, size: f.size };
     });
@@ -470,7 +470,7 @@ export default class Tax extends Vue {
     }
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
-    const loader = this.$loading.show();
+    this.showLoader();
     return await this.$store
       .dispatch("saveTenantTax", formData)
       .then(() => {
@@ -489,7 +489,7 @@ export default class Tax extends Vue {
         return false;
       })
       .finally(() => {
-        loader.hide();
+        this.hideLoader();
       });
   }
 
@@ -520,6 +520,17 @@ export default class Tax extends Vue {
       });
       this.files.splice(firstIndex, 1);
     }
+  }
+
+  showLoader() {
+    if (this.loader === undefined) {
+      this.loader = this.$loading.show();
+    }
+  }
+
+  hideLoader() {
+    this.loader?.hide();
+    this.loader = undefined;
   }
 }
 </script>

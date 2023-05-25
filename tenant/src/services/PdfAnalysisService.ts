@@ -1,5 +1,6 @@
 import * as pdfjs from "pdfjs-dist/webpack";
 import { PDFDocumentProxy } from "pdfjs-dist";
+import { AnalyticsService } from "./AnalyticsService";
 
 function loadPdfDocument(file: File): Promise<PDFDocumentProxy> {
   return file.arrayBuffer().then((data) => pdfjs.getDocument(data).promise);
@@ -33,13 +34,22 @@ export const PdfAnalysisService = {
     const firstPageContent = await readPdfFirstPage(file);
     return forbiddenTitles.some((title) => firstPageContent.includes(title));
   },
-  async findRejectedTaxDocuments(files: File[]): Promise<File[]> {
-    const rejectedFiles = [];
-    for (const file of files) {
-      if (await this.isRejectedAsTaxDocument(file)) {
-        rejectedFiles.push(file);
+  async includesRejectedTaxDocuments(files: File[]): Promise<boolean> {
+    const includesRejectedTaxDocuments = async (files: File[]) => {
+      for (const file of files) {
+        if (await this.isRejectedAsTaxDocument(file)) {
+          AnalyticsService.avisDetected();
+          return true;
+        }
       }
-    }
-    return rejectedFiles;
+      return false;
+    };
+    const timeout = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+    // If the search for rejected documents takes more than 2s, ignore result and consider the document valid
+    return Promise.race([
+      includesRejectedTaxDocuments(files),
+      timeout(2000).then(() => false),
+    ]).catch(() => false);
   },
 };
