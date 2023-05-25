@@ -29,7 +29,7 @@
       @close="showNbDocumentsResidency = false"
       @valid="showNbDocumentsResidency = false"
     >
-      <p :v-html="$t('uploaddocuments.warning-need-residency-documents')"></p>
+      <p v-html="$t('uploaddocuments.warning-need-residency-documents')"></p>
     </ConfirmModal>
   </div>
 </template>
