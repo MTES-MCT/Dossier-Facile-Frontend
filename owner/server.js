@@ -13,7 +13,6 @@ app.use(function(req, res, next) {
       "img-src 'self' https://www.google-analytics.com https://fonts.gstatic.com https://voxusagers.numerique.gouv.fr https://hn.inspectlet.com *.helpscout.net *.cloudfront.net *.gitbook.com data:; " +
       "font-src 'self' https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/ fonts.google.com https://fonts.gstatic.com fonts.googleapis.com data:; " +
       "object-src 'none'; " +
-      "prefetch-src 'self'; " +
       "connect-src https://sentry.incubateur.net https://www.google-analytics.com *.inspectlet.com wss://ws.inspectlet.com https://stats.g.doubleclick.net https://sso-preprod.dossierfacile.fr *.cloudfront.net *.dossierfacile.fr 'unsafe-eval' *.helpscout.net wss://ws-helpscout.pusher.com https://sockjs-helpscout.pusher.com https://dossierfacile-api-owner-preprod.osc-fr1.scalingo.io https://dossierfacile-api-owner-prod.osc-secnum-fr1.scalingo.io https://stats.data.gouv.fr blob:; " +
       "frame-src https://www.google.com *.dossierfacile.fr ; " +
       "child-src *.dossierfacile.fr"
