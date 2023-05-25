@@ -22,7 +22,7 @@ declare namespace Cypress {
 
     disableTaxVerification(): Chainable<void>;
 
-    simpleUploadDocumentStep(buttonToSelect: string, waitBeforeNext?: number): Chainable<void>;
+    simpleUploadDocumentStep(buttonToSelect: string): Chainable<void>;
 
     selectProfessionalStatusStep(professionalStatus: string): Chainable<void>;
 

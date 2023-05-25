@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 Cypress.Commands.add("tenantLogin", (username: string) => {
-  cy.visit("www-dev.dossierfacile.fr");
+  cy.visit(Cypress.env("tenantUrl"));
   cy.contains("Se connecter").click();
   cy.loginWithFC(username);
   cy.visit(Cypress.env("tenantUrl"));
@@ -11,7 +11,14 @@ Cypress.Commands.add("uploadDocument", (numberOfFiles: number = 1) => {
   cy.intercept("POST", "/api/register/document*").as("uploadDocument");
   const files = [...Array(numberOfFiles).keys()].map(_ => "assets/test-document.pdf")
   cy.get(".input-file").selectFile(files);
-  cy.wait("@uploadDocument").its('response.statusCode').should('eq', 200);
+  cy.wait("@uploadDocument")
+    .its('response.statusCode')
+    .should('eq', 200);
+  cy.waitUntil(
+    // Wait until loader is gone
+    () => Cypress.$('.vld-background').length === 0,
+    { interval: 100 }
+  );
 });
 
 Cypress.Commands.add("disableTaxVerification", () => {
@@ -21,13 +28,10 @@ Cypress.Commands.add("disableTaxVerification", () => {
     .click();
 });
 
-Cypress.Commands.add("simpleUploadDocumentStep", (buttonToSelect: string, waitBeforeNext: number = 0) => {
+Cypress.Commands.add("simpleUploadDocumentStep", (buttonToSelect: string) => {
   cy.contains(buttonToSelect)
     .click()
     .uploadDocument();
-  if (waitBeforeNext > 0) {
-    cy.wait(waitBeforeNext);
-  }
   cy.clickOnNext();
 });
 
