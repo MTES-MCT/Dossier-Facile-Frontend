@@ -12,6 +12,7 @@
     "@types/cypress-axe": "^0.11.0",
     "cypress": "^12.13.0",
     "cypress-iframe": "^1.0.1",
-    "cypress-axe": "^1.3.0"
+    "cypress-axe": "^1.3.0",
+    "cypress-wait-until": "^1.7.2"
   }
 }

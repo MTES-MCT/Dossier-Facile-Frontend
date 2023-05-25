@@ -18,6 +18,7 @@ import "./commands/tenant";
 import "./commands/owner";
 import "cypress-axe";
 import "cypress-iframe";
+import 'cypress-wait-until';
 
 function hideXhrRequestLogs() {
   const app = window.top;
@@ -36,7 +37,5 @@ hideXhrRequestLogs();
 
 // @ts-ignore
 Cypress.on("uncaught:exception", (err, runnable, promise) => {
-  if (promise) {
-    return false;
-  }
+  return false;
 });

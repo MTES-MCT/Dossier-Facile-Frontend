@@ -33,7 +33,7 @@ describe("accessibility checks", () => {
     cy.clickOnNext();
 
     cy.testAccessibility();
-    cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom", 200);
+    cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom");
 
     cy.testAccessibility();
     cy.get("button")
@@ -62,7 +62,7 @@ describe("accessibility checks", () => {
     cy.clickOnNext();
 
     cy.testAccessibility();
-    cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom", 100);
+    cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom");
 
     cy.testAccessibility();
     cy.clickOnNext();
