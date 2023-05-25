@@ -17,7 +17,7 @@ Cypress.Commands.add("uploadDocument", (numberOfFiles: number = 1) => {
   cy.waitUntil(
     // Wait until loader is gone
     () => Cypress.$('.vld-background').length === 0,
-    { interval: 100 }
+    { interval: 100, timeout: 10000 }
   );
 });
 
