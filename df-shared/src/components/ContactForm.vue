@@ -145,6 +145,7 @@
                               }"
                               id="email"
                               name="email"
+                              :disabled="isLoggedIn"
                               autocomplete="email"
                               :placeholder="$t('email')"
                               type="text"
@@ -158,14 +159,10 @@
                       <div class="fr-col-12 fr-mb-3w">
                         <validation-provider
                           rules="required"
-                          v-slot="{ errors, valid }"
+                          v-slot="{ errors }"
                         >
                           <fieldset
                             class="fr-radio-group-container"
-                            :class="{
-                              'fr-fieldset--valid': valid,
-                              'fr-fieldset--error': errors[0]
-                            }"
                             aria-labelledby="radio-profile-legend"
                             role="group"
                           >
@@ -341,12 +338,15 @@ extend("is", {
 export default class ContactForm extends Vue {
   @Prop() user!: User;
 
+  isLoggedIn = false;
+
   acceptCgu = false;
   contactFormData = new ContactFormData();
   status = "NEW"; // NEW, OK, KO
 
   mounted() {
     if (this.user) {
+      this.isLoggedIn = true;
       this.contactFormData.firstname = this.user.firstName;
       this.contactFormData.lastname = this.user.lastName;
       this.contactFormData.email = this.user.email;
