@@ -1162,7 +1162,9 @@
     "more-information": "Having trouble finding the right document?"
   },
   "uploaddocuments": {
-    "warning-need-residency-documents": "Are you sure you have submitted all the necessary documents here? <li>proof of residence</li><li>copy of the host's identification document</li><li>proof of address of the host dated within the last 3 months</li>"
+    "warning-need-residency-documents": "Are you sure you have submitted all the necessary documents here? <li>proof of residence</li><li>copy of the host's identification document</li><li>proof of address of the host dated within the last 3 months</li>",
+    "accept-warning": "Add new documents",
+    "ignore-warning": "Next step"
   },
   "validatefile": {
     "title": "Je valide mon dossier",
