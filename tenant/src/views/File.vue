@@ -19,7 +19,7 @@
                   /></span>
                 </DfButton>
                 <DfButton
-                  :disabled="user.status !== 'VALIDATED'"
+                  :disabled="!user || user.status !== 'VALIDATED'"
                   v-else
                   :title="$t('file.download-disabled-title')"
                   primary="true"
@@ -32,6 +32,7 @@
         </div>
       </section>
       <FileReinsurance
+        v-if="user !== null"
         :dossierStatus="user.status"
         :taxDocumentStatus="taxDocumentStatus()"
         :franceConnectTenantCount="franceConnectTenantCount()"
@@ -208,7 +209,7 @@
             }}<span><ProgressIndicator diameter="22px" border="3px" /></span>
           </DfButton>
           <DfButton
-            :disabled="user.status != 'VALIDATED'"
+            :disabled="!user || user.status != 'VALIDATED'"
             v-else
             :title="$t('file.download-disabled-title')"
             primary="true"
