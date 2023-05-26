@@ -85,7 +85,7 @@
                 }}</label>
                 <input
                   id="password"
-                  :placeholder="generatedPwd"
+                  :placeholder="$tc('example-prefix') + generatedPwd"
                   type="password"
                   v-model="user.password"
                   name="password"
@@ -192,6 +192,7 @@ import {is} from "vee-validate/dist/rules";
 import VueRecaptcha from "vue-recaptcha";
 import Password from "vue-password-strength-meter";
 import {PASSWORD_MIN_SCORE} from "../validation-rules";
+import {AuthService} from "../services/AuthService";
 
 extend("is", {
   ...is,
@@ -220,7 +221,7 @@ export default class Register extends Vue {
 
   mounted() {
     this.user.email = this.email;
-    this.generatePlaceholder();
+    this.generatedPwd = AuthService.generatePasswordPlaceholder();
   }
 
   handleRegister() {
@@ -255,11 +256,6 @@ export default class Register extends Vue {
       lastName: this.$route.query.lastName.toString() || "",
       email: this.$route.query.email.toString() || ""
     }
-  }
-
-  generatePlaceholder() {
-    const chars = ["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz","0123456789", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", "#!?-_."];
-    this.generatedPwd = this.$i18n.t('ex') + [4,4,2,2].map(function(len, i) { return Array(len).fill(chars[i]).map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('') }).concat().join('').split('').sort(function(){return 0.5-Math.random()}).join('');
   }
 
   getLoginLink() {
@@ -352,7 +348,6 @@ export default class Register extends Vue {
 "pwd-not-complex": "Password not secure enough",
 "accept-cgu": "En cochant cette case et en cliquant sur \"Je crée mon compte\", j’accepte expressément les <a target=\"_blank\" href='https://dossierfacile.fr/mentions-legales#cgu'>Conditions générales d’utilisation</a> de DossierFacile et je comprends que mes données personnelles seront utilisées conformément à la <a target=\"_blank\" href='https://dossierfacile.fr/mentions-legales#politique-de-confidentialite'>Politique de confidentialité</a> de DossierFacile",
 "require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer",
-"ex": "E.g.: ",
 "or": "or",
 "connect-france-connect": "Connect with FranceConnect",
 "alert-info-title": "Connection with FranceConnect",
@@ -371,7 +366,6 @@ export default class Register extends Vue {
 "pwd-not-complex": "Mot de passe trop simple",
 "accept-cgu": "En cochant cette case et en cliquant sur \"Je crée mon compte\", j’accepte expressément les <a class=\"cgu\" target=\"_blank\" href='https://www.dossierfacile.fr/mentions-legales#cgu'>Conditions générales d’utilisation</a> de DossierFacile et je comprends que mes données personnelles seront utilisées conformément à la <a target=\"_blank\" class=\"cgu\" href='https://www.dossierfacile.fr/mentions-legales#politique-de-confidentialite'>Politique de confidentialité</a> de DossierFacile",
 "require-accept": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité de DossierFacile pour continuer",
-"ex": "Ex : ",
 "or": "Ou",
 "connect-france-connect": "Se connecter avec FranceConnect",
 "alert-info-title": "Connexion FranceConnect",

@@ -1,6 +1,6 @@
 <template>
   <div class="partners">
-    <h2 class="fr-pt-4w fr-pb-2w">
+    <h2 class="fr-pt-4w">
       {{ $t("partnerssection.partners-services-section") }}
     </h2>
     <div class="fr-grid-row fr-grid-row--gutters">
@@ -132,7 +132,6 @@ export default class PartnersSection extends Vue {
 
 <style lang="scss" scoped>
 h2 {
-  color: var(--bf500);
   font-size: 2rem;
 }
 

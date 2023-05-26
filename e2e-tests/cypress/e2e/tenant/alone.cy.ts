@@ -35,7 +35,7 @@ describe("alone tenant scenario", () => {
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/5");
-    cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom", 100);
+    cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom");
 
     cy.expectPath("/choix-garant");
     cy.get("button")
@@ -62,7 +62,7 @@ describe("alone tenant scenario", () => {
     cy.clickOnNext();
 
     cy.expectPath("/info-garant/5");
-    cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom", 100);
+    cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom");
 
     cy.expectPath("/liste-garants");
     cy.contains("Jean Dupont").should("be.visible");
@@ -70,9 +70,8 @@ describe("alone tenant scenario", () => {
 
     cy.validationStep();
 
-    cy.get("h1").should(
-      "contain",
-      `Bonjour ${user.firstname}, votre dossier est en cours de traitement !`
-    );
+    cy.get("h1")
+      .should("contain", `Bonjour ${user.firstname},`)
+      .should("contain", "votre dossier est en cours de traitement !");
   });
 });

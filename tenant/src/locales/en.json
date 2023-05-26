@@ -7,6 +7,10 @@
   "my-parents": "I'm attached to my parents' tax household",
   "less-than-year": "I've been living in France for less than a year",
   "other-tax": "Other",
+  "tenant": "Tenant",
+  "owner": "Owner",
+  "guest": "Accomodated free of charge",
+  "guest-parents": "You live with your parents",
   "save-success": "Saved",
   "save-failed": "Failed",
   "save-failed-num-pages": "Failed due to page number",
@@ -31,9 +35,12 @@
   "my-cotenant": "My partner's documents",
   "my-cotenant-guarantor": "My partner's guarantor",
   "validate-file": "Finalize my application",
+  "example-prefix": "E.g.: ",
   "ALONE": "Alone",
   "COUPLE": "Couple",
   "GROUP": "Flatsharing",
+  "next-step": "Next step",
+  "add-new-documents": "Add new documents",
   "documents": {
     "salary": "Professional incomes",
     "guarantor_salary": "Professional incomes",
@@ -65,7 +72,39 @@
       "permit": "Please be sure to add your <b>double-sided</b> document.",
       "other": ""
     },
-    "cotenant": {},
+    "cotenant": {
+      "alternation": "I add their current, complete, and signed alternation contract.",
+      "cdd": "I add their current, complete, and signed employment contract.\nAnd if they don't have an employment contract? You can attach a signed and dated attestation from their employer, dated within the last 3 months.",
+      "cdi": "I add their current, complete, and signed employment contract.\nAnd if they don't have an employment contract? You can attach a signed and dated attestation from their employer, dated within the last 3 months.",
+      "cdi-trial": "I add their current, complete, and signed employment contract.\nAnd if they don't have an employment contract? You can attach a signed and dated attestation from their employer, dated within the last 3 months.",
+      "ctt": "I add their current, complete, and signed employment contract.\nAnd if they don't have an employment contract? You can attach a signed and dated attestation from their employer, dated within the last 3 months.",
+      "guarantor_salary": "I add a payslip from their guarantor dated within the last 3 months, an attestation from their employer, proof of internship allowance payment, financial statements, or a tax notice in their name, complete and dated within the last 2 years.",
+      "guest": "Please add <strong>3 documents:</strong><ul><li><strong>a signed letter of accommodation</strong> for free (we recommend using the template available on the <a target='_blank' rel='noopener' title='site to generate a certificate' href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement'>service-public.fr</a> website)</li><li>a copy of <strong>the host's identification document</strong></li><li>a <strong>proof of address of the host dated within the last 3 months:</strong> property tax notice, telephone bill, rent receipt, etc.</li></ul>",
+      "guest-parents": "Please add <strong>3 documents:</strong><ul><li><strong>a signed letter of accommodation</strong> for free (we recommend using the template available on the <a target='_blank' rel='noopener' title='site to generate a certificate' href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement'>service-public.fr</a> website)</li><li>a copy of <strong>the parent's identification document</strong></li><li>a <strong>proof of address of your parent dated within the last 3 months:</strong> property tax notice, telephone bill, rent receipt, etc.</li></ul>",
+      "identity-card": "Please make sure to add their ID card <b>front and back</b>.",
+      "passport": "Please make sure to add <b>pages 2 and 3</b> of their passport, as the signature must be visible.",
+      "permit": "Please make sure to add their permit <b>front and back</b>.",
+      "other": "",
+      "independent": "I add their proof of independent professional activity based on their type of activity.",
+      "internship": "I add the complete and signed internship agreement from their guarantor.",
+      "less-than-year": "I have declared being in France for less than a year.",
+      "my-name": "I add a tax notice in their name.",
+      "my-parents": "They have declared being dependent on my parents' tax domicile.",
+      "no-income": "They have no income.",
+      "organism-guarantor": "I add a certificate or visa issued by the organization guaranteeing for my spouse.",
+      "other-tax": "In order to improve their application, I explain below why I do not receive a tax notice. Their explanation will be added to my application:",
+      "owner": "I add a <b>property tax notice dated within the last year.</b>",
+      "pension": "I add a pension statement, pension attestation, or a tax notice showing the names and pension income.",
+      "public": "I add a nomination decree.",
+      "rent": "I add proof of rent payment or a tax notice showing the names and rental income.",
+      "retired": "I add a retirement pension statement. And if they don't have one? You can attach their most recent complete tax notice dated within the last 2 years.",
+      "salary": "I add their three most recent pay stubs or proof of internship allowance, or their two most recent financial statements (for self-employed individuals).",
+      "scholarship": "I add a scholarship award letter.",
+      "social-service": "I add proof of social benefits payment (ARE, CAF, Crous...) from their guarantor dated within the last 3 months, proof of benefit entitlement, or an attestation of housing assistance simulation.",
+      "student": "I add a copy of their student ID card or a certificate of enrollment for the current year.",
+      "tenant": "I add their <b>rent receipts for the last three months.</b>",
+      "unemployed": "I add a proof of entitlement to ARE or an employment situation statement from Pôle Emploi dated within the last 3 months."
+    },
     "guarantor": {
       "noDocument-social": "I cannot provide proof of payment of social benefits",
       "noDocument-salary": "I cannot provide the last three payslips or a balance sheet of my guarantor",
@@ -77,7 +116,8 @@
       "customText-rent": "In order to improve my file, I explain why I cannot provide the justificatives:",
       "customText-pension": "In order to improve my file, I explain why I cannot provide the justificatives:",
       "customText-scholarship": "In order to improve my file, I explain why I cannot provide the justificatives:",
-      "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again."
+      "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
+      "guest": "Please add <strong>3 documents:</strong><ul><li><strong>a signed letter of accommodation</strong> for free (we recommend using the template available on the <a target='_blank' rel='noopener' title='site to generate a certificate' href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement'>service-public.fr</a> website)</li><li>a copy of <strong>the host's identification document</strong></li><li>a <strong>proof of address of the host dated within the last 3 months:</strong> property tax notice, telephone bill, rent receipt, etc.</li></ul>"
     },
     "cotenant-guarantor": {
       "noDocument-social": "I cannot provide proof of payment of social benefits",
@@ -99,14 +139,12 @@
       "group": "Hello {0}, your file is {1}!",
       "couple": "Hello {0}, your shared file is {1}!"
     },
-    "status-description": "{0}, you are {1}, {2} and {3}.<br>if your situation has changed, please update your documents !",
     "last-update": "Dernière mise à jour du dossier le {0}",
     "file-update-title": "File update",
     "file-update-text": "Vous avez mis à jour votre dossier, pour la dernière fois le {0}.<br> Afin qu'il reste convaincant, il est important de maintenir à jour vos justificatifs.",
     "update-file-btn": "Update my documents",
     "copy-link": "Copy my file link",
     "share-by-mail": "Share by mail",
-    "my-file": "My rent file",
     "identification": "Identification",
     "residency": "Residency",
     "professional": "Professional",
@@ -117,7 +155,7 @@
     "DECLINED": "is declined",
     "INCOMPLETE": "is incomplete",
     "delete": "Deletion of my account",
-    "opinion": "Tell us about your experience DossierFacile.fr",
+    "opinion": "Tell us about your experience DossierFacile",
     "delete-account": "Delete my account",
     "share-file": "Share my file",
     "share-file-description": "Copy your link-file to share it! It's up to you to send it to the owners of your choice (by email, sms, etc.)",
@@ -206,7 +244,12 @@
     "register": "Register documents",
     "field-required": "This field is required"
   },
-  "cotenantdocument": {},
+  "cotenantdocument": {
+    "warning-need-residency-documents": "Are you sure you have submitted all the necessary documents here?",
+    "list1": "proof of residence",
+    "list2": "copy of the host's identification document",
+    "list3": "proof of address of the host dated within the last 3 months"
+  },
   "cotenantfinancialform": {
     "title": "Financial's resources",
     "tenant": "Locataire",
@@ -535,7 +578,11 @@
     "no-guarantor": "I don't have a guarantor",
     "ask-guarantor": "Do you want to add :",
     "remark-title": "Remark",
-    "remark-text": "Adding a guarantor is by no means mandatory. If you do not wish to add a surety, you can select “I don't have a guarantor”. Your file will then be registered for investigation."
+    "remark-text": "Adding a guarantor is by no means mandatory. If you do not wish to add a surety, you can select “I don't have a guarantor”. Your file will then be registered for investigation.",
+    "warning-need-residency-documents": "Are you sure you have submitted all the necessary documents here?",
+    "list1": "proof of residence",
+    "list2": "copy of the host's identification document",
+    "list3": "proof of address of the host dated within the last 3 months"
   },
   "guarantordocumentspage": {},
   "guarantorfinancialdocumentform": {
@@ -697,7 +744,9 @@
   "lefteditmenu": {
     "ALONE": "Alone",
     "COUPLE": "Couple",
-    "GROUP": "Roommate"
+    "GROUP": "Roommate",
+    "identity": "Identity",
+    "file-type": "Application type"
   },
   "listitem": {
     "FRENCH_IDENTITY_CARD": "Identity card",
@@ -857,6 +906,7 @@
   },
   "residency-page": {
     "will-delete-files": "Please note, a change of situation will result in the deletion of your supporting documents. You will have to upload the supporting documents corresponding to your situation again.",
+    "warning-incomplete": "Incomplete files (which do not present these 3 documents) will not be validated.",
     "select-label": "Your current accommodation situation:"
   },
   "roommatesinformationhelp": {
@@ -1046,7 +1096,6 @@
   },
   "tenantpanel": {
     "title": "Hello {0}, your file {1}",
-    "status-description": "{0}, you are {1}, {2} and {3}.<br>if your situation has changed, please update your documents !",
     "last-update": "Dernière mise à jour du dossier le {0}",
     "file-update-title": "File update",
     "file-update-text": "Vous avez mis à jour votre dossier, pour la dernière fois le {0}.<br> Afin qu'il reste convaincant, il est important de maintenir à jour vos justificatifs.",
@@ -1054,8 +1103,6 @@
     "copy-link": "Copy my file link",
     "share-by-mail": "Share by mail",
     "my-file": "My rent file",
-    "my-personnal-information": "My personnal information",
-    "my-information": "My information",
     "my-files": "My documents",
     "identification": "Identification",
     "residency": "Residency",
@@ -1113,6 +1160,11 @@
   },
   "troubleshootingmodal": {
     "more-information": "Having trouble finding the right document?"
+  },
+  "uploaddocuments": {
+    "warning-need-residency-documents": "Are you sure you have submitted all the necessary documents here? <li>proof of residence</li><li>copy of the host's identification document</li><li>proof of address of the host dated within the last 3 months</li>",
+    "accept-warning": "Add new documents",
+    "ignore-warning": "Next step"
   },
   "validatefile": {
     "title": "Je valide mon dossier",

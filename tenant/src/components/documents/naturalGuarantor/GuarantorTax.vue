@@ -59,7 +59,7 @@
               <label class="fr-label" for="customText">{{
                 $t("guarantortax.custom-text")
               }}</label>
-              <input
+              <textarea
                 v-model="customText"
                 class="form-control fr-input validate-required"
                 id="customText"
@@ -67,6 +67,8 @@
                 placeholder=""
                 type="text"
                 required
+                maxlength="2000"
+                rows="4"
               />
             </div>
           </div>
@@ -183,6 +185,7 @@ import { PdfAnalysisService } from "../../../services/PdfAnalysisService";
 import { AnalyticsService } from "../../../services/AnalyticsService";
 import Modal from "df-shared/src/components/Modal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
+import { LoaderComponent } from "vue-loading-overlay";
 
 extend("is", {
   ...is,
@@ -234,6 +237,8 @@ export default class GuarantorTax extends Vue {
   isDocDeleteVisible = false;
   newFiles: File[] = [];
   isWarningTaxSituationModalVisible = false;
+
+  loader?: LoaderComponent;
 
   getRegisteredDoc() {
     if (this.selectedGuarantor.documents !== null) {
@@ -336,19 +341,15 @@ export default class GuarantorTax extends Vue {
     this.updateGuarantorData();
   }
 
-  addFiles(fileList: File[]) {
+  async addFiles(fileList: File[]) {
     this.newFiles = fileList;
-    PdfAnalysisService.findRejectedTaxDocuments(fileList).then(
-      (rejectedFiles) => {
-        if (rejectedFiles.length > 0) {
-          AnalyticsService.avisDetected();
-          this.isWarningTaxSituationModalVisible = true;
-        } else {
-          AnalyticsService.uploadFile("tax");
-          this.saveNewFiles(false);
-        }
-      }
-    );
+    this.showLoader();
+    if (await PdfAnalysisService.includesRejectedTaxDocuments(fileList)) {
+      this.isWarningTaxSituationModalVisible = true;
+      this.hideLoader();
+    } else {
+      this.saveNewFiles(false);
+    }
   }
 
   forceSave() {
@@ -357,6 +358,7 @@ export default class GuarantorTax extends Vue {
   }
 
   saveNewFiles(force: boolean) {
+    AnalyticsService.uploadFile("tax");
     const nf = Array.from(this.newFiles).map((f) => {
       return { name: f.name, file: f, size: f.size };
     });
@@ -434,7 +436,7 @@ export default class GuarantorTax extends Vue {
     if (this.tenantId) {
       formData.append("tenantId", this.tenantId);
     }
-    const loader = this.$loading.show();
+    this.showLoader();
     await this.$store
       .dispatch("saveGuarantorTax", formData)
       .then(() => {
@@ -451,7 +453,7 @@ export default class GuarantorTax extends Vue {
         }
       })
       .finally(() => {
-        loader.hide();
+        this.hideLoader();
       });
     return true;
   }
@@ -500,6 +502,17 @@ export default class GuarantorTax extends Vue {
       return "cotenant-guarantor";
     }
     return "guarantor";
+  }
+
+  showLoader() {
+    if (this.loader === undefined) {
+      this.loader = this.$loading.show();
+    }
+  }
+
+  hideLoader() {
+    this.loader?.hide();
+    this.loader = undefined;
   }
 }
 </script>

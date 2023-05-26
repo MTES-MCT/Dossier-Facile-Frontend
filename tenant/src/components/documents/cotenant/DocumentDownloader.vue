@@ -146,7 +146,7 @@
         >
           <div class="fr-input-group">
             <label class="fr-label" for="customText">
-              {{ $parent.$t(`documentdownloader.customText-${document.key}`) }}
+              {{ $t(`cotenantfinancialform.customText-${document.key}`) }}
             </label>
             <textarea
               v-model="dfDocument.customText"
@@ -258,7 +258,7 @@ import DocumentHelp from "../../helps/DocumentHelp.vue";
 import { UtilsService } from "@/services/UtilsService";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 import { PdfAnalysisService } from "../../../services/PdfAnalysisService";
-import { AnalyticsService } from "../../../services/AnalyticsService";
+import { LoaderComponent } from "vue-loading-overlay";
 
 @Component({
   components: {
@@ -303,6 +303,8 @@ export default class DocumentDownloader extends Vue {
   showIsNoDocumentAndFiles = false;
   newFiles: File[] = [];
   isWarningTaxSituationModalVisible = false;
+
+  loader?: LoaderComponent;
 
   beforeMount() {
     this.loadDocument();
@@ -435,20 +437,15 @@ export default class DocumentDownloader extends Vue {
     this.saveNewFiles(true);
   }
 
-  addFiles(fileList: File[]) {
+  async addFiles(fileList: File[]) {
     this.newFiles = fileList;
-    if (this.testAvisSituation) {
-      PdfAnalysisService.findRejectedTaxDocuments(fileList).then(
-        (rejectedFiles) => {
-          if (rejectedFiles.length > 0) {
-            AnalyticsService.avisDetected();
-            this.isWarningTaxSituationModalVisible = true;
-          } else {
-            AnalyticsService.uploadFile("tax");
-            this.saveNewFiles(false);
-          }
-        }
-      );
+    this.showLoader();
+    if (
+      this.testAvisSituation &&
+      (await PdfAnalysisService.includesRejectedTaxDocuments(fileList))
+    ) {
+      this.isWarningTaxSituationModalVisible = true;
+      this.hideLoader();
     } else {
       this.saveNewFiles(false);
     }
@@ -478,7 +475,7 @@ export default class DocumentDownloader extends Vue {
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
 
-    const loader = this.$loading.show();
+    this.showLoader();
     this.$store
       .dispatch(this.dispatchMethodName, formData)
       .then(() => {
@@ -495,7 +492,7 @@ export default class DocumentDownloader extends Vue {
         }
       })
       .finally(() => {
-        loader.hide();
+        this.hideLoader();
       });
   }
 
@@ -526,7 +523,7 @@ export default class DocumentDownloader extends Vue {
 
   remove(file: DfFile) {
     if (file.id) {
-      const loader = this.$loading.show();
+      this.showLoader();
       RegisterService.deleteFileById(Number(file.id))
         .then(() => {
           this.dfDocument = this.getDocument();
@@ -541,9 +538,20 @@ export default class DocumentDownloader extends Vue {
           Vue.toasted.global.save_failed();
         })
         .finally(() => {
-          loader.hide();
+          this.hideLoader();
         });
     }
+  }
+
+  showLoader() {
+    if (this.loader === undefined) {
+      this.loader = this.$loading.show();
+    }
+  }
+
+  hideLoader() {
+    this.loader?.hide();
+    this.loader = undefined;
   }
 }
 </script>

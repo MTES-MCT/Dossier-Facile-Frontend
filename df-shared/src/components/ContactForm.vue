@@ -145,6 +145,7 @@
                               }"
                               id="email"
                               name="email"
+                              :disabled="isLoggedIn"
                               autocomplete="email"
                               :placeholder="$t('email')"
                               type="text"
@@ -158,14 +159,10 @@
                       <div class="fr-col-12 fr-mb-3w">
                         <validation-provider
                           rules="required"
-                          v-slot="{ errors, valid }"
+                          v-slot="{ errors }"
                         >
                           <fieldset
                             class="fr-radio-group-container"
-                            :class="{
-                              'fr-fieldset--valid': valid,
-                              'fr-fieldset--error': errors[0]
-                            }"
                             aria-labelledby="radio-profile-legend"
                             role="group"
                           >
@@ -341,12 +338,15 @@ extend("is", {
 export default class ContactForm extends Vue {
   @Prop() user!: User;
 
+  isLoggedIn = false;
+
   acceptCgu = false;
   contactFormData = new ContactFormData();
   status = "NEW"; // NEW, OK, KO
 
   mounted() {
     if (this.user) {
+      this.isLoggedIn = true;
       this.contactFormData.firstname = this.user.firstName;
       this.contactFormData.lastname = this.user.lastName;
       this.contactFormData.email = this.user.email;
@@ -476,7 +476,7 @@ fieldset.fr-radio-group-container {
 "accept-cgu" : "I agree with DossierFacile's Conditions and Terms",
 "field-required" : "Field is required",
 "require-accept" : "Accept is required",
-"email-not-valid" : "Email not valid",
+"email-not-valid" : "Invalid address (example: xxx@domainname.com)",
 "our-documentation": "our documentation",
 "contact-description" : "If you have any trouble to create your DossierFacile or if your have question which have not response in {doc_link}, you can fill the following form.",
 "contact-submit-error" : "Oops... Something wrong happened. May I ask you to contact us by mail at: contact@dossierFacile.fr",
@@ -500,7 +500,7 @@ fieldset.fr-radio-group-container {
 "accept-cgu" : "Le support DossierFacile est assuré par des humains travaillant directement pour DossierFacile et qui utilisent le logiciel Helpscout. En contactant le support DossierFacile, je consens à l'utilisation de toutes les données transmises par ce biais à DossierFacile et Helpscout dans le but de répondre à ma demande de support.",
 "field-required" : "Ce champ est requis",
 "require-accept" : "L'acception est requise",
-"email-not-valid" : "Email non-valide",
+"email-not-valid" : "Adresse non valide (exemple : xxx@nomdedomaine.fr)",
 "our-documentation": "notre documentation",
 "contact-description" : "Que vous éprouviez des difficultés à créer votre DossierFacile, que vous souhaitiez obtenir des renseignements plus précis que ce qui est disponible au sein de {doc_link}, ou que ce soit pour glisser un mot sympathique à notre équipe de choc qui traite vos dossiers avec attention, vous pouvez renseigner le formulaire ci-dessous. Nous faisons de notre mieux afin de répondre à tous, dans des délais acceptables.",
 "contact-submit-error" : "Oops... L'envoi du formulaire a échoué. Pourriez-vous nous contacter par mail ici: contact@dossierFacile.fr ?",

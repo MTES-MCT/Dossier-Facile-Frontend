@@ -52,15 +52,15 @@
   "noDocument-rent": "Je ne peux pas fournir de justificatifs de versement de rente",
   "noDocument-scholarship": "Je ne peux pas fournir de justificatifs d'attribution de bourse",
   "noDocument-social-service": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
-  "ALONE": "Seul·e",
-  "COUPLE": "En couple",
-  "GROUP": "En colocation",
   "EMPTY": "Absent",
   "TO_PROCESS": "En cours de traitement",
   "VALIDATED": "Vérifié",
   "DECLINED": "Modification demandée",
   "INCOMPLETE": "Non terminé",
   "try-again": "Une erreur est survenue, veuillez réessayer plus tard.",
+  "example-prefix": "Ex : ",
+  "next-step": "Passer à l'étape suivante",
+  "add-new-documents": "Ajouter de nouveau documents",
   "dossier": {
     "TO_PROCESS": "En cours de traitement",
     "VALIDATED": "Vérifé",
@@ -133,7 +133,7 @@
       "retired": "J’ajoute un bulletin de pension retraite. Et si vous n’en avez pas? Vous pouvez joindre votre dernier avis d’imposition complet de moins de 2 ans.",
       "salary": "J’ajoute mes trois derniers bulletins de salaire, ou un justificatif de mes indemnités de stage, ou mes deux derniers bilans comptables (non-salariés).",
       "scholarship": "J’ajoute un avis d’attribution de bourse.",
-      "social-service": "J'ajoute <strong>mes trois derniers justificatifs</strong> de versement de prestations sociales (ARE, CAF...), un justificatif d'ouverture de mes droits ou une attestation de simulation pour les aides au logement.",
+      "social-service": "J'ajoute <strong>mes trois derniers justificatifs</strong> de versement de prestations sociales (ARE, CAF...), un justificatif d'ouverture de mes droits ou une copie d'écran de simulation d'aide au logement (APL).",
       "student": "J’ajoute une copie de ma carte d’étudiant ou un certificat de scolarité pour l’année en cours.",
       "tenant": "J’ajoute vos <b>quittances de loyer</b> des <b>trois derniers mois</b>.",
       "unemployed": "J’ajoute une attestation d’ouverture de droits à l’ARE ou un avis de situation Pôle Emploi de moins de 3 mois."
@@ -254,18 +254,16 @@
   },
   "account": {
     "title": {
-      "alone": "Bonjour {0}, votre dossier {1} !",
-      "group": "Bonjour {0}, votre dossier {1} !",
-      "couple": "Bonjour {0}, votre dossier de couple {1} !"
+      "alone": "Bonjour {0},<br/>votre dossier {1} !",
+      "group": "Bonjour {0},<br/>votre dossier {1} !",
+      "couple": "Bonjour {0},<br/>votre dossier de couple {1} !"
     },
-    "status-description": "{0}, vous avez indiqué être {1}, {2} et {3}.<br>Si votre situation a changé, mettez à jour vos documents !",
     "last-update": "Dernière mise à jour du dossier le {0}",
     "file-update-title": "Mise à jour de votre dossier",
     "file-update-text": "Vous avez mis à jour votre dossier, pour la dernière fois le {0}.<br> Afin qu'il reste convaincant, il est important de maintenir à jour vos justificatifs.",
     "update-file-btn": "Mettre à jour mes documents",
     "copy-link": "Copier mon lien dossier",
     "share-by-mail": "Partager par mail",
-    "my-file": "Mon dossier de location",
     "identification": "Pièce d'identité",
     "residency": "Justificatif de domicile",
     "professional": "Justificatif de situation professionnelle",
@@ -276,7 +274,7 @@
     "DECLINED": "nécessite des modifications",
     "INCOMPLETE": "est incomplet",
     "delete": "Suppression de mon compte",
-    "opinion": "Racontez-nous votre expérience DossierFacile.fr",
+    "opinion": "Racontez-nous votre expérience DossierFacile",
     "delete-account": "Supprimer mon compte",
     "share-file": "Partager mon dossier",
     "share-file-description": "Copiez votre lien-dossier pour le partager ! À vous de l'envoyer aux propriétaires ou bailleurs de votre choix (par mail, SMS, etc.)",
@@ -304,9 +302,6 @@
     "group-with": "en colocation avec {0}",
     "group-with-someone": "en colocation",
     "someone": " quelqu'un",
-    "group": {
-      "cannot-copy-link": "Votre lien est inactif car le dossier de votre(vos) colocataire(s) n'est pas encore validé"
-    },
     "amendment-required-title": "Modifications demandées",
     "amendment-required-text": "Après examen de votre dossier, des modifications vous sont demandées. <br>Consultez votre messagerie pour en connaître le détail.",
     "messaging": "Consulter ma messagerie",
@@ -371,7 +366,12 @@
     "register": "Enregistrer la pièce",
     "field-required": "Ce champ est requis"
   },
-  "cotenantdocument": {},
+  "cotenantdocument": {
+    "warning-need-residency-documents": "Êtes-vous sûr·e d'avoir bien transmis l'ensemble des documents nécessaires ici ?",
+    "list1": "attestation d'hébergement",
+    "list2": "copie de la pièce d'identité de son hébergeur",
+    "list3": "justificatif de domicile de moins de 3 mois de son hébergeur"
+  },
   "cotenantfinancialform": {
     "title": "Justificatif de ressources",
     "tenant": "Locataire",
@@ -697,7 +697,11 @@
     "no-guarantor": "Je n'ai pas de garant",
     "ask-guarantor": "Souhaitez-vous ajouter :",
     "remark-title": "Remarque",
-    "remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez sélectionner « Je n'ai pas de garant ». Votre dossier sera alors enregistré pour être instruit."
+    "remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez sélectionner « Je n'ai pas de garant ». Votre dossier sera alors enregistré pour être instruit.",
+    "warning-need-residency-documents": "Êtes-vous sûr·e d'avoir bien transmis l'ensemble des documents nécessaires ici ?",
+    "list1": "attestation d'hébergement",
+    "list2": "copie de la pièce d'identité de son hébergeur",
+    "list3": "justificatif de domicile de moins de 3 mois de son hébergeur"
   },
   "guarantordocumentspage": {},
   "guarantorfinancialdocumentform": {
@@ -792,8 +796,8 @@
     "select-label": "Quelle est la situation d’hébergement actuelle de votre garant ?"
   },
   "guarantorssection": {
-    "guarantors-information": "Informations des garants",
-    "my-guarantor": "Pièces justificatives de",
+    "guarantors-information": "Les justificatifs du garant",
+    "my-guarantor": "Les justificatifs de",
     "identification-legal-person": "Identification de la personne morale",
     "organism-identification": "Certificat de l'organisme",
     "delete-guarantor": "Supprimer ce garant",
@@ -1193,7 +1197,7 @@
     "lastname": "Nom du locataire",
     "zipcode": "Code postal",
     "tenantPresentation": "Le locataire sera {firstname} {lastname}. Vous désirez louer un logement :",
-    "alone": "Seul·e",
+    "alone": "Seul",
     "couple": "En couple",
     "roommate": "En colocation",
     "remove-roommates": "Attention, cela aura pour effet de dissocier votre dossier de vos colocataires",
@@ -1213,7 +1217,6 @@
   },
   "tenantpanel": {
     "title": "Bonjour {0}, votre dossier {1} !",
-    "status-description": "{0}, vous avez indiqué être {1}, {2} et {3}.<br>Si votre situation a changé, mettez à jour vos documents !",
     "last-update": "Dernière mise à jour du dossier le {0}",
     "file-update-title": "Mise à jour de votre dossier",
     "file-update-text": "Vous avez mis à jour votre dossier, pour la dernière fois le {0}.<br> Afin qu'il reste convaincant, il est important de maintenir à jour vos justificatifs.",
@@ -1221,9 +1224,7 @@
     "copy-link": "Copier mon lien dossier",
     "share-by-mail": "Partager par mail",
     "my-file": "Mon dossier de location",
-    "my-personnal-information": "Informations personnelles",
-    "my-information": "Informations",
-    "my-files": "Pièces justificatives",
+    "my-files": "Les justificatifs de ",
     "identification": "Pièce d'identité",
     "residency": "Justificatif de domicile",
     "professional": "Justificatif de situation professionnelle",
@@ -1274,6 +1275,13 @@
     "congratulations-text-2": "Pour rappel, DossierFacile ne propose pas de logement.",
     "full-link-copied": "Le lien de mon dossier complet est copié !",
     "public-link-copied": "Le lien de mon dossier de synthèse est copié !"
+  },
+  "lefteditmenu": {
+    "ALONE": "Seul",
+    "COUPLE": "En couple",
+    "GROUP": "En colocation",
+    "identity": "Identité",
+    "file-type": "Type de dossier"
   },
   "topeditmenu": {
     "i-add": "J'ajoute {0}",

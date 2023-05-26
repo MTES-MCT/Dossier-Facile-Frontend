@@ -43,9 +43,8 @@
                     :small="true"
                     :primary="false"
                     @click="onLogout"
-                    ><span class="material-icons-outlined" aria-hidden="true">
-                      account_circle </span
-                    >{{ t("logout") }}
+                    ><i class="ri-account-circle-line" aria-hidden="true"></i>
+                    {{ t("logout") }}
                   </v-gouv-fr-button>
                 </li>
                 <li v-if="!loggedIn">
@@ -53,36 +52,42 @@
                     :primary="true"
                     :title="t('signup')"
                     size="small"
-                    @on-click="onLoginTenant"
+                    @on-click="onLogin"
                   >
-                    <span class="material-icons-outlined" aria-hidden="true">
-                      account_circle
-                    </span>
+                    <i class="ri-account-circle-line" aria-hidden="true"></i>
                     {{ t("signup") }}
                   </DfButton>
                 </li>
                 <li v-if="!loggedIn">
                   <DfButton
+                    v-if="type == 'tenant'"
                     size="small"
                     :title="t('owner')"
-                    @on-click="onCreateOwner"
+                    @on-click="onAccessOwner"
                   >
-                    <span class="material-icons" aria-hidden="true"
-                      >apartment</span
-                    >
+                    <i class="ri-community-line" aria-hidden="true"></i>
                     {{ t("owner") }}
+                  </DfButton>
+                  <DfButton
+                    v-else
+                    size="small"
+                    :title="t('tenant')"
+                    @on-click="onAccessTenant"
+                  >
+                      <i class="ri-user-star-line" aria-hidden="true"></i>
+                      {{ t("tenant") }}
                   </DfButton>
                 </li>
                 <li v-if="!loggedIn">
-                  <a
-                    class="fr-external-link fr-btn fr-btn--sm"
-                    href="https://partenaire.dossierfacile.fr"
-                    target="_blank"
-                    rel="noreferrer"
+                  <DfButton
+                    size="small"
+                    class="fr-external-link"
                     :title="t('partner-link-title')"
+                    @on-click="gotToPartner"
                   >
-                    {{ t("partner") }}
-                  </a>
+                      <i class="ri-home-heart-line" aria-hidden="true"></i>
+                      {{ t("partner") }}
+                  </DfButton>
                 </li>
               </ul>
             </div>
@@ -110,8 +115,8 @@
                 :primary="false"
                 size="small"
                 @on-click="onLogout"
-                ><span class="material-icons-outlined" aria-hidden="true">
-                  account_circle </span
+                >
+                  <i class="ri-account-circle-line" aria-hidden="true"></i>
                 >{{ t("logout") }}
               </DfButton>
             </li>
@@ -121,24 +126,33 @@
                 :title="t('signup')"
                 :primary="false"
                 size="small"
-                @on-click="onLoginTenant"
+                @on-click="onLogin"
               >
-                <span class="material-icons-outlined" aria-hidden="true">
-                  account_circle
-                </span>
+                <i class="ri-account-circle-line" aria-hidden="true"></i>
                 {{ t("signup") }}
               </DfButton>
             </li>
 
             <li v-if="!loggedIn">
               <DfButton
+                v-if="type == 'tenant'"
                 size="small"
                 class="fr-ml-3"
                 :title="t('owner')"
-                @on-click="onCreateOwner"
+                @on-click="onAccessOwner"
               >
-                <span class="material-icons" aria-hidden="true">apartment</span>
+                <i class="ri-community-line" aria-hidden="true"></i>
                 {{ t("owner") }}
+              </DfButton>
+              <DfButton
+                  v-else
+                  size="small"
+                  class="fr-ml-3"
+                  :title="t('tenant')"
+                  @on-click="onAccessTenant"
+              >
+                <i class="ri-user-star-line" aria-hidden="true"></i>
+                {{ t("tenant") }}
               </DfButton>
             </li>
             <li v-if="!loggedIn">
@@ -148,7 +162,7 @@
                 :title="t('partner-link-title')"
                 @on-click="gotToPartner"
               >
-                <span class="material-icons" aria-hidden="true"> </span>
+                <i class="ri-home-heart-line" aria-hidden="true"></i>
                 {{ t("partner") }}
               </DfButton>
             </li>
@@ -176,31 +190,37 @@ import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     loggedIn?: boolean;
     lang?: string;
     showAccessibility?: boolean;
+    type?:string;
   }>(),
   {
     loggedIn: false,
     lang: "fr",
-    showAccessibility: false
+    showAccessibility: false,
+    type: "tenant"
   }
 );
 
-const emit = defineEmits(["on-login-tenant", "on-logout", "on-create-owner"]);
+const emit = defineEmits(["on-login", "on-access-tenant", "on-access-owner", "on-logout",]);
 
-function onLoginTenant() {
-  emit("on-login-tenant");
+function onLogin() {
+  emit("on-login");
 }
 
 function onLogout() {
   emit("on-logout");
 }
 
-function onCreateOwner() {
-  emit("on-create-owner");
+function onAccessTenant() {
+    emit("on-access-tenant");
+}
+
+function onAccessOwner() {
+    emit("on-access-owner");
 }
 
 function gotToPartner() {
@@ -234,13 +254,12 @@ li {
     display: none;
   }
 }
-span.material-icons,
-span.material-icons-outlined {
+header i {
   padding-right: 0.25rem;
-  min-width: 24px;
+  font-size: 24px;
 }
-
 .fr-header {
+
   .fr-links-group {
     li {
       margin-right: 0;
@@ -259,6 +278,7 @@ span.material-icons-outlined {
     "logout": "Logout",
     "signup": "Sign-in",
     "owner": "Owner area",
+    "tenant": "Tenant area",
     "partner": "Become partner",
     "partner-link-title": "Become partner (New Window)"
   },
@@ -266,6 +286,7 @@ span.material-icons-outlined {
     "logout": "Se déconnecter",
     "signup": "Se connecter",
     "owner": "Espace propriétaire",
+    "tenant": "Espace locataire",
     "partner": "Devenir partenaire",
     "partner-link-title": "Devenir partenaire (Nouvelle fenêtre)"
   }

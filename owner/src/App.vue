@@ -35,12 +35,12 @@ onUnmounted(() => {
   window.Beacon('destroy');
 });
 
-function onLoginTenant() {
-  window.location.href = TENANT_URL;
+function onLogin() {
+  router.push({ name: 'Dashboard' });
 }
 
-function onCreateOwner() {
-  router.push({ name: 'Dashboard' });
+function goToTenant() {
+    window.location.href = TENANT_URL;
 }
 
 function onLogout() {
@@ -64,9 +64,10 @@ function denyCookies() {
   <Cookies :hidden="cookieHidden" @accept="acceptCookies" @deny="denyCookies" />
   <SkipLinks></SkipLinks>
   <MyHeader
+    type="owner"
     :logged-in="isLoggedIn"
-    @on-login-tenant="onLoginTenant"
-    @on-create-owner="onCreateOwner"
+    @on-login="onLogin"
+    @on-access-tenant="goToTenant"
     @on-logout="onLogout"
     :showAccessibility="false"
   >

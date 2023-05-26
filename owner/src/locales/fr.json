@@ -173,7 +173,7 @@
     "help": "Aide",
     "blog": "Blog",
     "deleteAccount": "Supprimer mon compte",
-    "information": "Qui sommes-nous?",
+    "information": "Qui sommes-nous ?",
     "contact-us": "Nous contacter",
     "personal-data": "Mes informations personnelles"
   },
@@ -255,9 +255,11 @@
     "title": "Rejoindre DossierFacile",
     "password": "Votre mot de passe :",
     "confirm-password": "Confirmation de votre mot de passe :",
+    "confirm-password-short": "Confirmer le mot de passe :",
     "email-placeholder": "Ex : exemple{'@'}exemple.fr",
     "email": "Votre e-mail :",
     "submit": "Je crée mon compte",
+    "submit-short": "Créer mon espace",
     "email-not-valid": "Email non valide",
     "field-required": "Ce champ est requis",
     "password-not-confirmed": "Le mot de passe ne correspond pas",
@@ -269,7 +271,13 @@
     "connect-france-connect": "Se connecter avec FranceConnect",
     "whatis-france-connect": "Qu'est-ce que FranceConnect ?",
     "strength-not-valid": "Le mot de passe est trop simple",
-    "confirm-not-valid": "Le mot de passe ne correspond pas"
+    "confirm-not-valid": "Le mot de passe ne correspond pas",
+    "title-card": "Créez votre espace propriétaire.",
+    "title-card-1": "C’est 100% gratuit !",
+    "title-register-with-fc": "Se créer un compte avec FranceConnect",
+    "title-register-with-email": "Se créer un compte avec une adresse email",
+    "description-france-connect": "FranceConnect est la solution proposée par l’État pour sécuriser et simplifier la connexion à vos services en ligne",
+    "or-small-caps": "ou"
   },
   "signuppage": {
     "connect": "Déjà inscrit ? S'identifier",
@@ -313,5 +321,54 @@
     "rent1": "dont le loyer mensuel est de",
     "rent2": "et les charges de",
     "rentdpe": "avec un DPE"
+  },
+  "landing": {
+    "title": "Trouvez la perle rare du locataire !",
+    "subtitle1": "Avec DossierFacile, facilitez-vous la location. Recevez des dossiers de location",
+    "subtitle2": "complets et vérifiés et choisissez sereinement le locataire idéal !",
+    "purpose": {
+      "first":{
+        "title": "Nos dossier de location sont complets",
+        "content": "Finis les allers-retours interminables avec les candidats pour obtenir des documents manquants et les heures perdues à trier les dossiers de location."
+      },
+      "second":{
+        "title": "Nos dossiers de location sont vérifiés",
+        "content": "Les dossiers de location sont vérifiés par notre équipe d’opérateurs humains, aidés par des contrôles automatisés utilisant des bases de données de l’État"
+      },
+      "third": {
+        "title": "Vous n’avez plus qu’à choisir le candidat idéal",
+        "content": "Concentrez-vous sur l’essentiel. Nous simplifions le reste. Vous n’avez plus qu’à signer votre bail !"
+      }
+    },
+    "citation": {
+      "title": "Rejoignez notre communauté de 22 000 propriétaires.",
+      "s1": "« (…) merci pour votre site vraiment formidable. Je suis enchanté de vos services qui gagnent à être connus et reconnus (...) »",
+      "s1-author": "Katia",
+      "s2": "DossierFacile « sécurise mes locations et c’est très dissuasif, j’informe les candidats que leurs justificatifs vont être vérifiés ! »",
+      "s2-author": "Farid",
+      "s3": "DossierFacile « nous a grandement facilité la vie dans nos démarches en toute sécurité.»",
+      "s3-author": "François"
+    },
+    "howto": {
+      "title": "Comment ça marche ?",
+      "add-property": {
+        "title": "Ajoutez votre bien",
+        "content": "Renseignez les caractéristiques essentielles de votre bien. Vous pouvez en ajouter plusieurs."
+      },
+      "invite-tenant" :{
+        "title": "Invitez vos candidats locataires",
+        "content": "Envoyez un lien vers votre bien à vos candidats afin qu'ils vous transmettent leur dossier de location."
+      },
+      "manage-tenant" : {
+        "title": "Recevez et centralisez les dossiers de candidatures",
+        "content": "Retrouvez tous vos candidats dans votre espace. Choisissez le candidat idéal pour votre location."
+      }
+    },
+    "result": {
+      "title": "Les dossiers de location de vos candidats sont",
+      "title1": "Complets. Clairs. Cohérents",
+      "title2": "et",
+      "title3": "Vérifiés."
+    }
   }
 }

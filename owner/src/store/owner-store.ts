@@ -126,6 +126,7 @@ const useOwnerStore = defineStore('owner', {
     },
     setLang(lang: string) {
       ((i18n.global as unknown) as Composer).locale.value = lang;
+      i18n.global.fallbackLocale = 'fr';
       const html = document.documentElement;
       html.setAttribute('lang', ((i18n.global as unknown) as Composer).locale.value);
       const { cookies } = useCookies();

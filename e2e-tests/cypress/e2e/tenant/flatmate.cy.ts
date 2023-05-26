@@ -70,9 +70,8 @@ describe("flatmate tenant scenario", () => {
 
     cy.validationStep();
 
-    cy.get("h1").should(
-      "contain",
-      `Bonjour ${user.firstname}, votre dossier est incomplet !`
-    );
+    cy.get("h1")
+      .should("contain", `Bonjour ${user.firstname},`)
+      .should("contain", "votre dossier est incomplet !");
   });
 });

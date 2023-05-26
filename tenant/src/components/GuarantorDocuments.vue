@@ -16,7 +16,7 @@
           <GuarantorResidency></GuarantorResidency>
           <GuarantorFooter
             @on-back="goBack"
-            @on-next="goNext"
+            @on-next="checkResidencyAndGoNext"
           ></GuarantorFooter>
         </div>
         <div v-if="substep === 3">
@@ -65,6 +65,21 @@
     >
       <span>{{ $t("guarantordocuments.will-delete-guarantor") }}</span>
     </ConfirmModal>
+    <ConfirmModal
+      v-if="showNbDocumentsResidency"
+      :validate-btn-text="$t('add-new-documents')"
+      :cancel-btn-text="$t('next-step')"
+      @cancel="goNext()"
+      @close="showNbDocumentsResidency = false"
+      @valid="showNbDocumentsResidency = false"
+    >
+      {{ $t("guarantordocuments.warning-need-residency-documents") }}
+      <ul>
+        <li>{{ $t("guarantordocuments.list1") }}</li>
+        <li>{{ $t("guarantordocuments.list2") }}</li>
+        <li>{{ $t("guarantordocuments.list3") }}</li>
+      </ul>
+    </ConfirmModal>
   </div>
 </template>
 
@@ -91,6 +106,7 @@ import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import ProfileContainer from "./ProfileContainer.vue";
+import { DocumentService } from "@/services/DocumentService";
 import { UtilsService } from "@/services/UtilsService";
 
 @Component({
@@ -112,17 +128,17 @@ import { UtilsService } from "@/services/UtilsService";
     BigRadio,
     VGouvFrModal,
     NakedCard,
-    ProfileContainer
+    ProfileContainer,
   },
   computed: {
     ...mapState({
-      user: "user"
+      user: "user",
     }),
     ...mapGetters({
       guarantor: "guarantor",
-      guarantors: "guarantors"
-    })
-  }
+      guarantors: "guarantors",
+    }),
+  },
 })
 export default class GuarantorDocuments extends Vue {
   @Prop({ default: 0 }) substep!: number;
@@ -131,6 +147,7 @@ export default class GuarantorDocuments extends Vue {
   guarantors!: Guarantor[];
   tmpGuarantorType!: string;
   changeGuarantorVisible = false;
+  showNbDocumentsResidency = false;
 
   beforeMount() {
     const currentGuarantor = this.guarantor.typeGuarantor
@@ -143,7 +160,7 @@ export default class GuarantorDocuments extends Vue {
   updateSubstep(s: number) {
     this.$router.push({
       name: "GuarantorDocuments",
-      params: { substep: this.substep === s ? "0" : s.toString() }
+      params: { substep: this.substep === s ? "0" : s.toString() },
     });
   }
 
@@ -170,11 +187,11 @@ export default class GuarantorDocuments extends Vue {
     if (this.substep > 0) {
       this.$router.push({
         name: "GuarantorDocuments",
-        params: { substep: (this.substep - 1).toString() }
+        params: { substep: (this.substep - 1).toString() },
       });
     } else {
       this.$router.push({
-        name: "GuarantorList"
+        name: "GuarantorList",
       });
     }
   }
@@ -185,8 +202,26 @@ export default class GuarantorDocuments extends Vue {
 
   nextStep() {
     this.$router.push({
-      name: "GuarantorList"
+      name: "GuarantorList",
     });
+  }
+
+  checkResidencyAndGoNext() {
+    const docs = DocumentService.getGuarantorDocs(this.guarantor, "RESIDENCY");
+    if (docs.length === 1) {
+      const d = docs[0];
+      if (d.documentSubCategory === "GUEST") {
+        const nbPages = d.files?.reduce(
+          (s, a) => s + (a.numberOfPages || 0),
+          0
+        );
+        if ((nbPages || 0) < 3) {
+          this.showNbDocumentsResidency = true;
+          return;
+        }
+      }
+    }
+    this.goNext();
   }
 
   addNaturalGuarantor() {
@@ -280,4 +315,3 @@ h2 {
   font-size: 14px;
 }
 </style>
-

@@ -4,14 +4,17 @@
       <section class="fr-mt-3w">
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12">
-            <h1>
-              {{
+            <div class="fr-mb-3w" v-if="isAnnouncementVisible">
+              <FakeAnnouncement></FakeAnnouncement>
+            </div>
+            <h1
+              v-html="
                 $t(`account.title.${getApplicationType()}`, [
                   getFirstName(),
                   $t(`account.${getGlobalStatus()}`),
                 ])
-              }}
-            </h1>
+              "
+            ></h1>
             <div class="fr-callout warning fr-callout-white" v-if="isDenied()">
               <h2 class="fr-text-title--grey fr-h4">
                 {{ $t("account.amendment-required-title") }}
@@ -36,58 +39,27 @@
             </div>
 
             <div
-              class="fr-mt-5w fr-mb-5w fr-p-4w bg-white"
+              class="fr-mt-3w fr-mb-3w fr-p-4w bg-white"
               v-if="canCopyLink()"
             >
               <ShareFile></ShareFile>
             </div>
 
-            <FakeAnnouncement v-if="isAnnouncementVisible"></FakeAnnouncement>
-            <div class="main fr-mt-5w fr-p-4w bg-white">
-              <div class="main-bar fr-grid-row">
-                <div class="header-title mobile-margin">
-                  <h2
-                    class="fr-text-title--grey fr-h4 fr-mr-2w fr-mb-0 fr-mt-0"
-                  >
-                    {{ $t("account.my-file") }}
-                  </h2>
-                </div>
-              </div>
-              <div class="fr-mt-1v alert-container">
-                <div class="red-alert" v-if="notVisibleCotenantNotValidated()">
-                  {{
-                    $t("account." + getApplicationType() + ".cannot-copy-link")
-                  }}
-                </div>
-              </div>
-              <div class="main-description fr-mt-2w">
-                <p
-                  class="description"
-                  v-html="
-                    $t('account.status-description', [
-                      getFirstName(),
-                      getPersonnalStatus(),
-                      getProfession(),
-                      getIncome(),
-                    ])
-                  "
-                ></p>
-              </div>
-              <div
-                class="fr-callout fr-mb-3w"
-                v-if="user.status === 'TO_PROCESS'"
-              >
-                <h3 class="fr-h4 dflex">
+            <div
+              class="fr-callout fr-callout-white fr-mb-3w"
+              v-if="user.status === 'TO_PROCESS'"
+            >
+              <h3 class="fr-h4 dflex">
                   <span aria-hidden="true" class="material-icons-outlined md-28"
                     >timer</span
                   >&nbsp;<span>{{
                     $t("account.instructional-time-title")
                   }}</span>
-                </h3>
-                <p v-html="$t('account.instructional-time-text')"></p>
-              </div>
+              </h3>
+              <p v-html="$t('account.instructional-time-text')"></p>
             </div>
-            <div class="fr-mt-2w fr-p-0w">
+
+            <div class="fr-mt-3w fr-p-0w">
               <section
                 v-if="user.applicationType === 'COUPLE'"
                 class="fr-m-0 fr-p-0 bg-white"
@@ -152,8 +124,8 @@
             <PartnersSection />
 
             <div class="delete">
-              <h2 class="fr-pt-4w fr-pb-2w">{{ $t("account.delete") }}</h2>
-              <div class="bg-white fr-p-4w">
+              <div class="bg-white fr-p-4w fr-mt-3w">
+                <h3>{{ $t("account.delete") }}</h3>
                 <p>
                   Vous pouvez supprimer votre compte DossierFacile à tout
                   moment. La suppression de votre compte entrainera
@@ -172,14 +144,14 @@
                 </div>
               </div>
             </div>
-            <div class="opinion fr-mb-5w">
-              <h2 class="fr-pt-4w fr-pb-2w">{{ $t("account.opinion") }}</h2>
-              <div class="bg-white fr-p-4w">
+            <div class="opinion fr-mb-5w fr-mt-3w">
+              <div class="bg-white fr-p-4w fr-pt-4w">
+                <h3>{{ $t("account.opinion") }}</h3>
                 <p>
                   Nous cherchons constamment à améliorer la qualité de notre
                   service. Dans le cadre de cette démarche d’amélioration, nous
                   cherchons à obtenir votre retour d’expérience. En cliquant sur
-                  le bouton ci-dessous, vous pourrez évaluer DossierFacile.fr.
+                  le bouton ci-dessous, vous pourrez évaluer DossierFacile.
                   Vos commentaires nous sont précieux ! Merci.
                 </p>
                 <div class="align--center">
@@ -408,15 +380,6 @@ export default class Account extends Vue {
     );
   }
 
-  notVisibleCotenantNotValidated() {
-    return (
-      this.user.applicationType === "GROUP" &&
-      this.user.apartmentSharing?.tenants.find((t) => {
-        return t.status !== "VALIDATED";
-      }) !== undefined
-    );
-  }
-
   isDenied() {
     return (
       this.user.documents?.find((d) => {
@@ -482,7 +445,6 @@ export default class Account extends Vue {
 }
 
 h1 {
-  color: var(--bf500);
   font-size: 2rem;
 }
 
@@ -492,9 +454,9 @@ h1 {
 }
 
 .bg-white {
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 18, 0.16);
   border-radius: 10px;
-  background: var(--background-default-grey);
+  background: var(--grey-1000-50);
 }
 .account-tabs {
   > ul {
@@ -650,15 +612,6 @@ hr {
 .alert-container {
   display: flex;
   flex-direction: row-reverse;
-}
-
-.red-alert {
-  background-color: var(--error);
-  color: white;
-  border-radius: 2px;
-  margin-right: 0;
-  margin-left: auto;
-  padding: 0.5rem;
 }
 
 .name-email-tile {

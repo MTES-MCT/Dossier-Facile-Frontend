@@ -13,7 +13,7 @@
           <div class="title">{{ name }}</div>
         </div>
         <div class="fr-grid-row">
-          <VGouvFrModal>
+          <VGouvFrModal id="share-modal">
             <template v-slot:button>
               <button :title="t('consultproperty.share-btn')" class="fr-btn btn--white fr-btn--secondary">
                 {{ t('consultproperty.share-btn') }}

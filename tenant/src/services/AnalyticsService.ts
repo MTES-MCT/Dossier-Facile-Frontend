@@ -3,6 +3,9 @@ import store from "../store";
 
 export const AnalyticsService = {
   sendEvent(name: string, data: any) {
+    if (!process.env.VUE_APP_MATOMO_ENABLE) {
+      return;
+    }
     if (Vue.$cookies.get("accept-cookie") === "true") {
       if (store.state.user.id !== undefined) {
         data.event_label = store.state.user.id;

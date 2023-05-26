@@ -23,11 +23,11 @@
     </div>
     <ConfirmModal
       v-if="showNbDocumentsResidency"
-      @valid="showNbDocumentsResidency = false"
-      @close="showNbDocumentsResidency = false"
-      @cancel="goNext()"
       :validate-btn-text="$tc('uploaddocuments.accept-warning')"
       :cancel-btn-text="$tc('uploaddocuments.ignore-warning')"
+      @cancel="goNext()"
+      @close="showNbDocumentsResidency = false"
+      @valid="showNbDocumentsResidency = false"
     >
       <p v-html="$t('uploaddocuments.warning-need-residency-documents')"></p>
     </ConfirmModal>

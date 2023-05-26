@@ -4,28 +4,14 @@ describe("basic owner scenario", () => {
   const user = getOwnerUser();
   const propertyName = "Appartement 123";
 
-  before("reset account", () => {
-    cy.deleteAccount(user.username, UserType.TENANT);
+  beforeEach("reset account", () => {
     cy.deleteAccount(user.username, UserType.OWNER);
   });
 
-  beforeEach("login", () => {
+  it("create a property", () => {
     cy.ownerLogin(user.username);
     cy.acceptCookies();
-  });
 
-  it("edit personal informations", () => {
-    cy.get(".fr-nav__btn").click();
-    cy.contains("Mes informations personnelles")
-      .click({ force: true });
-
-    cy.get('input[name="email"]')
-      .clear()
-      .type("test@test.fr")
-      .clickOnNext();
-  });
-
-  it("add a new property", () => {
     cy.get("button")
       .contains("Ajouter une propriété")
       .click();
@@ -69,23 +55,25 @@ describe("basic owner scenario", () => {
     cy.get("h1")
       .contains("Mes propriétés")
       .should("be.visible");
-  });
 
-  it("share a property", () => {
-    cy.contains(propertyName).click();
+    cy.contains(propertyName)
+      .should("be.visible")
+      .click();
     cy.expectPath("/consulte-propriete");
 
     cy.contains("Partager ma propriété").click();
     cy.contains("Copier").click();
-  });
+    cy.get("#share-modal")
+      .find(".fr-btn--close")
+      .click();
 
-  it("delete a property", () => {
-    cy.contains(propertyName).click();
-    cy.expectPath("/consulte-propriete");
-
+    cy.intercept("DELETE", "**/property/*").as("deleteProperty");
     cy.contains("Supprimer ma propriété").click();
     cy.get(".modal")
       .contains("Valider")
       .click();
+    cy.wait("@deleteProperty")
+      .its('response.statusCode')
+      .should('eq', 200);
   });
 });

@@ -51,8 +51,13 @@
               href="/account"
               target="_self"
               :aria-current="currentPage() === 'Account' ? 'page' : false"
-              >{{ $t("menu.file") }}</a
             >
+              {{ $t("menu.file") }}
+              <br />
+              <span class="fr-label--disabled fr-text--xs">
+                {{ user.email }}
+              </span>
+            </a>
           </li>
           <li class="warn">
             <DfButton
@@ -83,9 +88,10 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import DfButton from "df-shared/src/Button/Button.vue";
 import LanguageSelector from "df-shared/src/Header/LanguageSelector.vue";
+import { User } from "df-shared/src/models/User";
 
 @Component({
   components: {
@@ -93,6 +99,9 @@ import LanguageSelector from "df-shared/src/Header/LanguageSelector.vue";
     LanguageSelector,
   },
   computed: {
+    ...mapState({
+      user: "user",
+    }),
     ...mapGetters({
       newMessage: "newMessage",
       isLoggedIn: "isLoggedIn",
@@ -100,6 +109,7 @@ import LanguageSelector from "df-shared/src/Header/LanguageSelector.vue";
   },
 })
 export default class Menu extends Vue {
+  user!: User;
   isLoggedIn?: boolean;
   newMessage!: number;
   isDeleteModalVisible = false;
