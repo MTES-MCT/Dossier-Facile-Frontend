@@ -167,9 +167,11 @@ export default class TenantPanel extends Vue {
   }
 
   documents(g: User, docType: string): DfDocument[] {
-    return g.documents?.filter((d: DfDocument) => {
-      return d.documentCategory === docType;
-    }) as DfDocument[];
+    return (
+      (g.documents?.filter((d: DfDocument) => {
+        return d.documentCategory === docType;
+      }) as DfDocument[]) || []
+    );
   }
 
   getProfessionalSubCategory(u: User): string {

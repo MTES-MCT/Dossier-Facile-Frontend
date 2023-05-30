@@ -472,7 +472,7 @@ const store = new Vuex.Store({
         MessageService.updateMessages().then((data) => {
           commit("updateMessages", {
             tenantId: this.state.user.id,
-            messageList: data.data,
+            messageList: data?.data || {},
           });
         });
         const spouse = UtilsService.getSpouse();
@@ -480,7 +480,7 @@ const store = new Vuex.Store({
           MessageService.updateMessages(spouse.id).then((data) => {
             commit("updateMessages", {
               tenantId: spouse.id,
-              messageList: data.data,
+              messageList: data?.data || {},
             });
           });
         }
