@@ -399,8 +399,8 @@
             :image="require('../assets/logos/pautions.png')"
             href="https://pautions.fr"
             name="Pautions"
-            height="58px"
-            width="243px"
+            height="55px"
+            width="232px"
           />
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
