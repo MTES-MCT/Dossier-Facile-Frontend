@@ -48,9 +48,7 @@
                 propriétaire. Se porter caution est donc un engagement important
                 !
               </p>
-              <p>
-                Il existe deux types d’engagement pour la caution :
-              </p>
+              <p>Il existe deux types d’engagement pour la caution :</p>
               <ul>
                 <li>
                   La <u>caution simple</u> : le propriétaire y fait appel
@@ -97,8 +95,8 @@
                   title="Eligibilité visale"
                   target="_blank"
                   rel="noopener"
-                  >Pour y avoir droit, vous devez être âgé de moins de 30 ans, ou
-                  être salarié du secteur privé (hors agricole) ou être
+                  >Pour y avoir droit, vous devez être âgé de moins de 30 ans,
+                  ou être salarié du secteur privé (hors agricole) ou être
                   étudiant.
                 </a>
                 C’est un service <b>totalement gratuit</b>, pour le locataire et
@@ -172,5 +170,12 @@
 
 a {
   color: $light-blue;
+}
+
+.img-center {
+  max-width: 768px;
+  max-height: 576px;
+  width: 100%;
+  height: auto;
 }
 </style>

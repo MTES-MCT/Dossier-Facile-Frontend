@@ -203,9 +203,7 @@
               <ul>
                 <li>mettre en conformité son logement</li>
                 <li>réduire le loyer</li>
-                <li>
-                  payer des dommages et intérêts au locataire.
-                </li>
+                <li>payer des dommages et intérêts au locataire.</li>
               </ul>
               <p>
                 Vous avez donc plusieurs recours possibles si vous louez un
@@ -233,5 +231,12 @@
 
 a {
   color: $light-blue;
+}
+
+.img-center {
+  max-width: 731px;
+  max-height: 486px;
+  width: 100%;
+  height: auto;
 }
 </style>

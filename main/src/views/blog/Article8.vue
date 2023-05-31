@@ -5,9 +5,7 @@
         <div class="fr-col-md-10 fr-col-lg-8">
           <article>
             <div class="text-center fr-mt-3w fr-mb-3w">
-              <h1 class="fr-h1">
-                Comment justifier son domicile
-              </h1>
+              <h1 class="fr-h1">Comment justifier son domicile</h1>
               <p>2 Juin 2021 dans <a href="#">DossierFacile</a></p>
             </div>
             <!--end article title-->
@@ -129,5 +127,12 @@
 
 a {
   color: $light-blue;
+}
+
+.img-center {
+  max-width: 793px;
+  max-height: 496px;
+  width: 100%;
+  height: auto;
 }
 </style>

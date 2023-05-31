@@ -18,7 +18,11 @@
                 Cependant, efficacité et gratuité vont rarement de pair. Alors
                 pourquoi votre dossier de location est-il gratuit ?
               </p>
-              <img alt="" src="../../assets/images/blog-article3.webp" />
+              <img
+                class="img-center"
+                alt=""
+                src="../../assets/images/blog-article3.webp"
+              />
               <h3 class="fr-h3">
                 Pourquoi ce dossier de location est-il gratuit contrairement aux
                 autres ?
@@ -117,5 +121,12 @@
 
 a {
   color: $light-blue;
+}
+
+.img-center {
+  max-width: 793px;
+  max-height: 449px;
+  width: 100%;
+  height: auto;
 }
 </style>

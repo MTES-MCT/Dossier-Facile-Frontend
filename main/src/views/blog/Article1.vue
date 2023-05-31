@@ -23,7 +23,11 @@
                 encore souvent autour des éléments qu’il faut fournir pour avoir
                 un dossier de location complet, clair et cohérent.
               </p>
-              <img alt="" src="../../assets/images/blog-article.webp" />
+              <img
+                alt=""
+                src="../../assets/images/blog-article.webp"
+                class="img-center"
+              />
               <p>
                 Le propriétaire peut exiger auprès du candidat locataire des
                 documents attestant : de l’identité du candidat, de son
@@ -148,5 +152,12 @@
 
 a {
   color: $light-blue;
+}
+
+.img-center {
+  max-width: 731px;
+  max-height: 412px;
+  width: 100%;
+  height: auto;
 }
 </style>
