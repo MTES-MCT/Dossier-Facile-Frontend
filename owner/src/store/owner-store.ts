@@ -113,9 +113,14 @@ const useOwnerStore = defineStore('owner', {
       }
     },
     async setPropertyToConsult(token: string) {
-      const res = await PropertyService.loadProperty(token);
-      if (res.data.name) {
-        Object.assign(this.propertyToConsult, { ...res.data });
+      try {
+        const res = await PropertyService.loadProperty(token);
+        if (res.data.name) {
+          Object.assign(this.propertyToConsult, { ...res.data });
+        }
+        return Promise.resolve();
+      } catch (e) {
+        return Promise.reject();
       }
     },
     setPropertyToEdit(property: Property) {
@@ -125,10 +130,10 @@ const useOwnerStore = defineStore('owner', {
       this.propertyToEdit.validated = validated;
     },
     setLang(lang: string) {
-      ((i18n.global as unknown) as Composer).locale.value = lang;
+      (i18n.global as unknown as Composer).locale.value = lang;
       i18n.global.fallbackLocale = 'fr';
       const html = document.documentElement;
-      html.setAttribute('lang', ((i18n.global as unknown) as Composer).locale.value);
+      html.setAttribute('lang', (i18n.global as unknown as Composer).locale.value);
       const { cookies } = useCookies();
       const expireTimes = new Date();
       expireTimes.setFullYear(expireTimes.getFullYear() + 1);
