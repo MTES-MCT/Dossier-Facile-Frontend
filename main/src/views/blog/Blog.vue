@@ -6,6 +6,22 @@
           <h1>{{ $t("blog-title") }}</h1>
           <hr />
           <BlogExtractTile
+            title="Tout ce que vous devez savoir avant de quitter votre logement"
+            :image="require('../../assets/images/blog-article19.webp')"
+            publicationDate="31 Mai 2023"
+            path="/blog/tout-ce-que-vous-devez-savoir-avant-de-quitter-votre-logement"
+          >
+            <template v-slot:extract>
+              <p>
+                Déménager, c’est souvent le parcours du combattant, entre les
+                recherches de logement, la résiliation du bail, les démarches
+                administratives… Alors pour éviter le stress et les déconvenues,
+                nous vous avons préparé un petit récapitulatif des étapes, pour
+                ne rien oublier. Suivez le guide !
+              </p>
+            </template>
+          </BlogExtractTile>
+          <BlogExtractTile
             title="Un garant ? Qui ? Comment ? Pourquoi ?  "
             :image="require('../../assets/images/blog-article18.webp')"
             publicationDate="9 Mai 2023"

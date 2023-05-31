@@ -46,82 +46,82 @@ export default class Sitemap extends Vue {
   mainPages = [
     {
       name: "Monter mon dossier de location",
-      url: `${this.TENANT_URL}/signup`
+      url: `${this.TENANT_URL}/signup`,
     },
     {
       name: "Se connecter",
-      url: `${this.TENANT_URL}/login`
+      url: `${this.TENANT_URL}/login`,
     },
     {
       name: "Espace propriétaire",
-      url: `${this.OWNER_URL}`
+      url: `${this.OWNER_URL}`,
     },
     {
       name: "Qui sommes-nous ?",
-      url: "/information"
+      url: "/information",
     },
     {
       name: "Devenir partenaire",
-      url: "https://partenaire.dossierfacile.fr"
+      url: "https://partenaire.dossierfacile.fr",
     },
     {
       name: "Blog",
-      url: "/blog"
+      url: "/blog",
     },
     {
       name: "Aide",
-      url: "https://docs.dossierfacile.fr"
+      url: "https://docs.dossierfacile.fr",
     },
     {
       name: "Contact",
-      url: "/contact"
-    }
+      url: "/contact",
+    },
   ];
 
   otherPages = [
     {
       name: "Les startups d’État",
-      url: "https://beta.gouv.fr"
+      url: "https://beta.gouv.fr",
     },
     {
       name: "Accessibilité",
-      url: "/accessibilite"
+      url: "/accessibilite",
     },
     {
       name: "Mentions légales",
-      url: "/mentions-legales"
+      url: "/mentions-legales",
     },
     {
       name: "Statistiques",
-      url: "/stats"
+      url: "/stats",
     },
     {
       name: "Code source",
-      url: "https://github.com/MTES-MCT/Dossier-Facile-Frontend"
-    }
+      url: "https://github.com/MTES-MCT/Dossier-Facile-Frontend",
+    },
   ];
 
   socials = [
     {
       name: "Twitter",
-      url: "https://twitter.com/dossierfacile"
+      url: "https://twitter.com/dossierfacile",
     },
     {
       name: "Facebook",
-      url: "https://www.facebook.com/DossierFacile.fr"
+      url: "https://www.facebook.com/DossierFacile.fr",
     },
     {
       name: "Linkedin",
-      url: "https://www.linkedin.com/company/startup-d-etat-locatio"
+      url: "https://www.linkedin.com/company/startup-d-etat-locatio",
     },
     {
       name: "Instagram",
-      url: "https://www.instagram.com/dossierfacile"
+      url: "https://www.instagram.com/dossierfacile",
     },
     {
       name: "TikTok",
-      url: "https://www.tiktok.com/@dossierfacile"
-    }
+      url: "https://www.tiktok.com/@dossierfacile",
+    },
   ];
 }
 </script>
