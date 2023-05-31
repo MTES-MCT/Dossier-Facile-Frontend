@@ -20,7 +20,11 @@
                 les documents nécessaires sans tomber dans le désordre d’un pdf
                 de cinquante pages ? Existe-t-il un outil facile et gratuit ?
               </p>
-              <img alt="" src="../../assets/images/blog-article2.webp" />
+              <img
+                alt=""
+                src="../../assets/images/blog-article2.webp"
+                class="img-center"
+              />
               <p>
                 Toute la difficulté est ici de rester le plus simple possible.
                 <b>
@@ -129,5 +133,12 @@
 
 a {
   color: $light-blue;
+}
+
+.img-center {
+  max-width: 793px;
+  max-height: 447px;
+  width: 100%;
+  height: auto;
 }
 </style>

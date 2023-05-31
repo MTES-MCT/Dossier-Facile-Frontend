@@ -5,9 +5,7 @@
         <div class="fr-col-md-10 fr-col-lg-8">
           <article>
             <div class="text-center fr-mt-3w fr-mb-3w">
-              <h1 class="fr-h1">
-                DossierFacile fait peau neuve !
-              </h1>
+              <h1 class="fr-h1">DossierFacile fait peau neuve !</h1>
               <p>06 Avril 2021 dans <a href="#">DossierFacile</a></p>
             </div>
             <!--end article title-->
@@ -116,5 +114,12 @@
 
 a {
   color: $light-blue;
+}
+
+.img-center {
+  max-width: 768px;
+  max-height: 513px;
+  width: 100%;
+  height: auto;
 }
 </style>

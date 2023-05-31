@@ -130,4 +130,11 @@
 a {
   color: $light-blue;
 }
+
+.img-center {
+  max-width: 284px;
+  max-height: 177px;
+  width: 100%;
+  height: auto;
+}
 </style>
