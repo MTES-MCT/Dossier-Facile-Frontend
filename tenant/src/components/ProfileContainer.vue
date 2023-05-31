@@ -7,7 +7,7 @@
         class="fr-col-xl-9 fr-col-md-8 fr-col-xs-12 fr-pt-md-4w fr-pt-2w fr-grid-row fr-pb-10w fr-m-2w fr-m-md-0"
         id="step-content"
       >
-        <div class="fr-col-12 max-600 ml">
+        <div class="max-600 ml">
           <slot></slot>
         </div>
       </div>
@@ -24,8 +24,8 @@ import { UtilsService } from "../services/UtilsService";
 @Component({
   components: {
     LeftEditMenu,
-    TopEditMenu
-  }
+    TopEditMenu,
+  },
 })
 export default class ProfileContainer extends Vue {
   @Prop() step!: number;
