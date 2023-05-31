@@ -272,7 +272,10 @@ img {
 }
 
 .max-600 {
-  max-width: 610px !important;
+  max-width: 450px;
+  @media all and (min-width: 1024px) {
+    max-width: 610px !important;
+  }
 }
 
 .small-font {
