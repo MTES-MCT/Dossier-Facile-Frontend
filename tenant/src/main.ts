@@ -26,6 +26,7 @@ import * as Sentry from "@sentry/vue";
 import { BrowserTracing } from "@sentry/tracing";
 
 const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+const ENVIRONMENT = process.env.VUE_APP_ENVIRONMENT || "dev";
 
 Vue.use(authentication);
 
@@ -92,6 +93,7 @@ Vue.use(VueAuthImage);
     Sentry.init({
       Vue,
       dsn: "https://7032afeb9b1740f68e01148573cff778@sentry.incubateur.net/98",
+      environment: ENVIRONMENT,
       integrations: [
         new BrowserTracing({
           routingInstrumentation: Sentry.vueRouterInstrumentation(router),
