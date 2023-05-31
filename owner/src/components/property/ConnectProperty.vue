@@ -1,5 +1,5 @@
 <template>
-  <PropertyContainer>
+  <PropertyContainer v-if="!propertyNotFound">
     <div class="fr-grid-row fr-mt-3w fr-grid-row--gutters stretch">
       <div class="fr-col-12 fr-col-md-7">
         <NakedCard class="bg-purple-var fr-p-5w h-100">
@@ -41,12 +41,21 @@
             {{ t('connectproperty.apply-new-text-2') }}
           </p>
           <div class="align-end mt-auto">
-            <a :href="`${TENANT_URL}/signup`" class="fr-btn fr-mt-3w">{{ t('connectproperty.create-account') }}</a>
+            <a :href="`${TENANT_URL}/signup`" class="fr-btn fr-mt-3w">{{
+              t('connectproperty.create-account')
+            }}</a>
           </div>
         </NakedCard>
       </div>
     </div>
   </PropertyContainer>
+  <div v-if="propertyNotFound" class="not-found-container fr-mt-5w">
+    <div>
+      <NakedCard class="fr-p-5w">
+        {{ t('connectproperty.not-found') }}
+      </NakedCard>
+    </div>
+  </div>
 </template>
 <script setup lang="ts">
 import { computed, ref } from 'vue';
@@ -65,13 +74,12 @@ const store = useOwnerStore();
 
 const token = ref('');
 const authorize = ref(false);
+const propertyNotFound = ref(false);
 
 if (route.params.token) {
   token.value = route.params.token.toString();
-  store.setPropertyToConsult(token.value).then(() => {
-    if (Object.keys(store.getPropertyToConsult).length <= 0) {
-      router.push({ name: 'Dashboard' });
-    }
+  store.setPropertyToConsult(token.value).catch(() => {
+    propertyNotFound.value = true;
   });
 } else {
   router.push({ name: 'Dashboard' });
@@ -101,5 +109,10 @@ function onSubmit() {
 .mt-auto {
   margin-top: auto;
 }
-</style>
 
+.not-found-container {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+</style>
