@@ -165,7 +165,7 @@ export default class OrganismCert extends Vue {
   }
 
   remove(file: DfFile) {
-    if (file.path && file.id) {
+    if (file.id) {
       RegisterService.deleteFile(file.id);
     }
     const firstIndex = this.files.findIndex((f) => f.id === file.id);
