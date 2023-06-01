@@ -318,7 +318,7 @@ export default class Identification extends Vue {
 
   async remove(file: DfFile, silent = false) {
     AnalyticsService.deleteFile("identification");
-    if (file.path && file.id) {
+    if (file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = this.files.findIndex((f) => {
