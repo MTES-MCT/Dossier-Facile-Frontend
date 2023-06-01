@@ -289,7 +289,7 @@ export default class RepresentativeIdentification extends Vue {
   }
 
   remove(file: DfFile) {
-    if (file.path && file.id) {
+    if (file.id) {
       RegisterService.deleteFile(file.id);
     } else {
       const firstIndex = this.files.findIndex((f) => {
