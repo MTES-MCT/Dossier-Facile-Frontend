@@ -476,7 +476,7 @@ export default class GuarantorTax extends Vue {
   }
 
   async remove(file: DfFile, silent = false) {
-    if (file.path && file.id) {
+    if (file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = this.files.findIndex((f) => {
