@@ -26,8 +26,8 @@
               <br />
 
               <h2 class="fr-h6">
-                📁 Étape 1 : Faire son dossier de location sur Dossier<i
-                  >Facile</i
+                📁 Étape 1 : Faire son dossier de location sur Dossier<strong
+                  >Facile</strong
                 >
                 et chercher un nouveau logement !
               </h2>
@@ -264,8 +264,8 @@
               <h2 class="fr-h6">☑️ Check-list départ</h2>
               <p>
                 Pour vous accompagner au mieux dans votre déménagement,
-                <strong>Dossier</strong><i>Facile</i> vous propose une
-                check-list avec toutes les étapes à ne pas oublier :
+                Dossier<strong>Facile</strong> vous propose une check-list avec
+                toutes les étapes à ne pas oublier :
               </p>
               <ul>
                 <li>
