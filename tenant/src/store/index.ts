@@ -206,8 +206,12 @@ const store = new Vuex.Store({
           }
           location.reload();
         })
-        .catch(() => {
-          location.reload();
+        .catch(async () => {
+          console.log("Fail to logout - logout keycloak - force redirect");
+          await (Vue as any).$keycloak.logout();
+          await commit("logout");
+          await commit("initState");
+          window.location.replace(MAIN_URL);
         });
     },
     deleteAccount({ commit }) {

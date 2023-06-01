@@ -185,8 +185,11 @@ const useOwnerStore = defineStore('owner', {
           }
           window.location.reload();
         })
-        .catch(() => {
-          window.location.reload();
+        .catch(async () => {
+          console.log("Fail to logout - redirect to main");
+          await this.logoutCommit();
+          await this.initState();
+          window.location.replace(MAIN_URL);
         });
     },
     resetPassword(user: User) {
