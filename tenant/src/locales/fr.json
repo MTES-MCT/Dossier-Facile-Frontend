@@ -31,6 +31,7 @@
   "max-file": "Nombre de fichiers maximum atteint (actuellement : {0} / maximum : {1}), veuillez en supprimer",
   "error": "Une erreur est survenue",
   "email-not-valid": "Email non valide",
+  "same-email-not-valid": "L'email ne peut pas être la même que votre adresse",
   "field-required": "Ce champ est requis",
   "identification-legal-person": "Identité personne morale",
   "identity-represent": "Identité représentant",
