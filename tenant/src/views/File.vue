@@ -1,6 +1,6 @@
 <template>
   <div class="root">
-    <div class="fr-container">
+    <div class="fr-container" v-if="!fileNotFound">
       <section class="background fr-pb-5w fr-mb-5w">
         <div class="fr-container">
           <div class="fr-col-md-8">
@@ -230,6 +230,13 @@
         <OwnerBanner></OwnerBanner>
       </section>
     </div>
+    <div v-if="fileNotFound" class="not-found-container fr-mt-5w">
+      <div>
+        <NakedCard class="fr-p-5w">
+          {{ $t("file.not-found") }}
+        </NakedCard>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -245,6 +252,7 @@ import FileReinsurance from "../components/FileReinsurance.vue";
 import ProgressIndicator from "@/components/ProgressIndicator.vue";
 import FileRowListItem from "../components/documents/FileRowListItem.vue";
 import OwnerBanner from "../components/OwnerBanner.vue";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 @Component({
   components: {
@@ -253,12 +261,14 @@ import OwnerBanner from "../components/OwnerBanner.vue";
     FileReinsurance,
     FileRowListItem,
     OwnerBanner,
+    NakedCard,
   },
 })
 export default class File extends Vue {
   user: FileUser | null = null;
   tabIndex = 0;
   showProgressBar = false;
+  fileNotFound = false;
 
   franceConnectTenantCount() {
     return this.user?.tenants?.filter((t) => t.franceConnect == true).length;
@@ -286,16 +296,20 @@ export default class File extends Vue {
 
   private setUser() {
     const token = this.$route.params.token;
-    ProfileService.getUserByToken(token).then((d: any) => {
-      this.user = d.data;
-      if (this.user) {
-        this.user.tenants = this.user?.tenants?.sort((t1, t2) => {
-          return t1.tenantType === "CREATE" && t2.tenantType !== "CREATE"
-            ? -1
-            : 1;
-        });
-      }
-    });
+    ProfileService.getUserByToken(token)
+      .then((d: any) => {
+        this.user = d.data;
+        if (this.user) {
+          this.user.tenants = this.user?.tenants?.sort((t1, t2) => {
+            return t1.tenantType === "CREATE" && t2.tenantType !== "CREATE"
+              ? -1
+              : 1;
+          });
+        }
+      })
+      .catch(() => {
+        this.fileNotFound = true;
+      });
   }
 
   mounted() {
@@ -488,5 +502,10 @@ export default class File extends Vue {
 .icon-dgfip {
   height: 46px;
   margin-left: 2rem;
+}
+.not-found-container {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
 }
 </style>
