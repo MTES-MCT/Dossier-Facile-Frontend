@@ -571,7 +571,8 @@
     "identification-legal-person": "Identification de la personne morale",
     "and": " et ",
     "download-failed": "Echec du téléchargement. Ressayez dans quelques minutes.",
-    "download-disabled-title": "Le dossier pourra être téléchargé lorsque celui-ci aura été entièrement vérifié par DossierFacile."
+    "download-disabled-title": "Le dossier pourra être téléchargé lorsque celui-ci aura été entièrement vérifié par DossierFacile.",
+    "not-found": "Le dossier n'a pas été trouvé. Veuillez vérifier le lien fourni."
   },
   "filereinsurance": {
     "documents-VALIDATED": "Le dossier contient les pièces requises",
