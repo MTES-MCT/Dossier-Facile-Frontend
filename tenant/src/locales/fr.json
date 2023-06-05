@@ -62,6 +62,9 @@
   "example-prefix": "Ex : ",
   "next-step": "Passer à l'étape suivante",
   "add-new-documents": "Ajouter de nouveau documents",
+  "ALONE": "Seul·e",
+  "COUPLE": "Couple",
+  "GROUP": "Colocation",
   "dossier": {
     "TO_PROCESS": "En cours de traitement",
     "VALIDATED": "Vérifé",
