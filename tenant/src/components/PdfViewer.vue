@@ -3,15 +3,20 @@
     <div class="fr-grid-col main-content">
       <div class="fr-mb-3w">
         <div class="fr-grid-row">
-          <div class="fr-col-4 fr-col-md-2">
-            <input v-model.number="page" type="number" style="width: 5em" /> /{{
-              numPages
-            }}
-          </div>
-          <div class="fr-col-2 fr-col-md-1">
+          <div class="fr-mr-1v">
             <button @click="decreasePage()">«</button>
           </div>
-          <div class="fr-col-2 fr-col-md-1">
+          <div>
+            <input
+              v-model.number="page"
+              type="number"
+              style="width: 2.5rem"
+              min="1"
+              :max="numPages"
+            />
+            / {{ numPages }}
+          </div>
+          <div class="fr-ml-1v">
             <button @click="increasePage()">»</button>
           </div>
         </div>
@@ -45,7 +50,7 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 import pdf from "vue-pdf";
 
 @Component({
-  components: { pdf }
+  components: { pdf },
 })
 export default class PdfViewer extends Vue {
   @Prop() private src!: string;
@@ -59,11 +64,17 @@ export default class PdfViewer extends Vue {
     if (this.page > 1) {
       this.page--;
     }
+    if (this.page >= this.numPages) {
+      this.page = this.numPages - 1;
+    }
   }
 
   increasePage() {
     if (this.page < this.numPages) {
       this.page++;
+    }
+    if (this.page < 1) {
+      this.page = 1;
     }
   }
 
