@@ -136,9 +136,7 @@
                 abonde Le Figaro Immobilier. Ainsi la plateforme se charge
                 d’éviter aux bailleurs les dossiers falsifiés ainsi que le
                 pénible travail de relance sur des dossiers incomplets, pour
-                <i>
-                  in fine
-                </i>
+                <i> in fine </i>
                 faciliter le choix du bon candidat ! Objectif final : rétablir
                 la confiance entre les locataires et les propriétaires.
               </p>
@@ -177,5 +175,12 @@
 
 a {
   color: $light-blue;
+}
+
+.img-center {
+  max-width: 768px;
+  max-height: 512px;
+  width: 100%;
+  height: auto;
 }
 </style>

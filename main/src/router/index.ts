@@ -262,6 +262,18 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Article18.vue"),
   },
   {
+    path: "/blog/tout-ce-que-vous-devez-savoir-avant-de-quitter-votre-logement",
+    name: "Article19",
+    meta: {
+      title: "Tout ce que vous devez savoir avant de quitter votre logement",
+      description:
+        "Déménager, c’est souvent le parcours du combattant… Pour éviter le stress et les déconvenues, nous vous avons préparé un petit récapitulatif des étapes",
+      image: require("../assets/images/blog-article19.jpg"),
+    },
+    component: () =>
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article19.vue"),
+  },
+  {
     path: "/information",
     name: "Information",
     meta: {

@@ -1,6 +1,6 @@
 <template>
   <div class="root">
-    <div class="fr-container">
+    <div class="fr-container" v-if="!fileNotFound">
       <section class="background fr-pb-5w fr-mb-5w">
         <div class="fr-container">
           <div class="fr-col-md-8">
@@ -212,6 +212,13 @@
         <OwnerBanner></OwnerBanner>
       </section>
     </div>
+    <div v-if="fileNotFound" class="not-found-container fr-mt-5w">
+      <div>
+        <NakedCard class="fr-p-5w">
+          {{ $t("file.not-found") }}
+        </NakedCard>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -225,17 +232,20 @@ import { DfDocument } from "df-shared/src/models/DfDocument";
 import FileReinsurance from "../components/FileReinsurance.vue";
 import FileRowListItem from "../components/documents/FileRowListItem.vue";
 import OwnerBanner from "../components/OwnerBanner.vue";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 @Component({
   components: {
     FileReinsurance,
     FileRowListItem,
     OwnerBanner,
+    NakedCard,
   },
 })
 export default class File extends Vue {
   user: FileUser | null = null;
   tabIndex = 0;
+  fileNotFound = false;
 
   franceConnectTenantCount() {
     return this.user?.tenants?.filter((t) => t.franceConnect == true).length;
@@ -263,16 +273,20 @@ export default class File extends Vue {
 
   mounted() {
     const token = this.$route.params.token;
-    ProfileService.getPublicUserByToken(token).then((d: any) => {
-      this.user = d.data;
-      if (this.user) {
-        this.user.tenants = this.user?.tenants?.sort((t1, t2) => {
-          return t1.tenantType === "CREATE" && t2.tenantType !== "CREATE"
-            ? -1
-            : 1;
-        });
-      }
-    });
+    ProfileService.getPublicUserByToken(token)
+      .then((d: any) => {
+        this.user = d.data;
+        if (this.user) {
+          this.user.tenants = this.user?.tenants?.sort((t1, t2) => {
+            return t1.tenantType === "CREATE" && t2.tenantType !== "CREATE"
+              ? -1
+              : 1;
+          });
+        }
+      })
+      .catch(() => {
+        this.fileNotFound = true;
+      });
     window.Beacon("init", "e9f4da7d-11be-4b40-9514-ac7ce3e68f67");
   }
   beforeDestroy() {
@@ -403,5 +417,11 @@ export default class File extends Vue {
 .icon-dgfip {
   height: 46px;
   margin-left: 2rem;
+}
+
+.not-found-container {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
 }
 </style>

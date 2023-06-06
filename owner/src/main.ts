@@ -96,6 +96,7 @@ configure({
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 const OWNER_API_URL = import.meta.env.VITE_OWNER_API_URL;
+const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT || 'dev';
 
 function mountApp() {
   const app = createApp(App);
@@ -103,6 +104,7 @@ function mountApp() {
   Sentry.init({
     app,
     dsn: 'https://33392525504b4dfdaa6623cc1aa56df9@sentry.incubateur.net/99',
+    environment: ENVIRONMENT,
     integrations: [
       new BrowserTracing({
         routingInstrumentation: Sentry.vueRouterInstrumentation(router),

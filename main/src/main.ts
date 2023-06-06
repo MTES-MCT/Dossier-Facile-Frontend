@@ -48,9 +48,12 @@ Vue.config.productionTip = false;
 Vue.use(VueCookies);
 Vue.use(MatomoPlugin);
 
+const ENVIRONMENT = process.env.VUE_APP_ENVIRONMENT || "dev";
+
 Sentry.init({
   Vue,
   dsn: "https://6705728c765748949f37aead7a739c40@sentry.incubateur.net/97",
+  environment: ENVIRONMENT,
   integrations: [
     new BrowserTracing({
       routingInstrumentation: Sentry.vueRouterInstrumentation(router),

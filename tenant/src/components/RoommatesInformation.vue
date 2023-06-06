@@ -105,7 +105,7 @@
             </validation-provider>
           </div>
 
-          <div class="fr-col-12 fr-col-xl-5 align-bottom">
+          <div class="fr-col-12 fr-col-xl-5 btn-container">
             <div class="fr-grid-row fr-grid-row--right">
               <v-gouv-fr-button
                 class="full-width-xs"
@@ -164,7 +164,7 @@ import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 extend("is", {
   ...is,
   message: "field-required",
-  validate: value => !!value
+  validate: (value) => !!value,
 });
 
 @Component({
@@ -175,16 +175,16 @@ extend("is", {
     RoommatesInformationHelp,
     VGouvFrModal,
     NakedCard,
-    TroubleshootingModal
+    TroubleshootingModal,
   },
   computed: {
     ...mapState({
-      user: "user"
+      user: "user",
     }),
     ...mapGetters({
-      coTenantAuthorize: "coTenantAuthorize"
-    })
-  }
+      coTenantAuthorize: "coTenantAuthorize",
+    }),
+  },
 })
 export default class RoommatesInformation extends Vue {
   @Prop({ default: () => [] }) value!: User[];
@@ -220,13 +220,13 @@ export default class RoommatesInformation extends Vue {
       this.$store.dispatch("deleteCoTenant", tenant).then(() =>
         this.$emit(
           "input",
-          this.value.filter(t => t.email != tenant.email)
+          this.value.filter((t) => t.email != tenant.email)
         )
       );
     } else {
       this.$emit(
         "input",
-        this.value.filter(t => t.email != tenant.email)
+        this.value.filter((t) => t.email != tenant.email)
       );
     }
     return false;
@@ -316,6 +316,12 @@ export default class RoommatesInformation extends Vue {
   max-width: max-content;
   @media all and (max-width: 420px) {
     max-width: 200px;
+  }
+}
+
+.btn-container {
+  @media all and (min-width: 1248px) {
+    margin-top: 3rem;
   }
 }
 </style>

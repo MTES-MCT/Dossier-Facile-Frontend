@@ -139,9 +139,7 @@
                 de se rendre compte qu’on a été victime d’usurpation d'identité
                 !
               </p>
-              <p>
-                Si ça vous arrive, il faut agir rapidement :
-              </p>
+              <p>Si ça vous arrive, il faut agir rapidement :</p>
               <ol type="1">
                 <li>
                   <b>Déposez plainte</b> auprès d’un commissariat de police ou
@@ -209,5 +207,12 @@
 
 a {
   color: $light-blue;
+}
+
+.img-center {
+  max-width: 793px;
+  max-height: 516px;
+  width: 100%;
+  height: auto;
 }
 </style>

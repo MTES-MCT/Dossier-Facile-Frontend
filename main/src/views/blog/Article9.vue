@@ -156,9 +156,7 @@
                     >Titre interbancaire de paiement (TIP) ;</a
                   >
                 </li>
-                <li>
-                  Chèque ;
-                </li>
+                <li>Chèque ;</li>
                 <li>
                   Espèces, à la condition que le montant à payer soit inférieur
                   à 1 000 €
@@ -239,5 +237,12 @@
 
 a {
   color: $light-blue;
+}
+
+.img-center {
+  max-width: 768px;
+  max-height: 510px;
+  width: 100%;
+  height: auto;
 }
 </style>

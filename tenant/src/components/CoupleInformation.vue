@@ -20,7 +20,7 @@
                 v-model="coTenant.lastName"
                 class="form-control validate-required fr-input"
                 :class="{
-                  'fr-input--error': errors[0]
+                  'fr-input--error': errors[0],
                 }"
                 name="coTenantLastName"
                 type="text"
@@ -163,15 +163,15 @@ import FieldLabel from "df-shared/src/components/form/FieldLabel.vue";
 extend("is", {
   ...is,
   message: "field-required",
-  validate: value => !!value
+  validate: (value) => !!value,
 });
 
 extend("custom", {
   ...is,
-  message: "email-not-valid",
+  message: "same-email-not-valid",
   validate: (v1, v2: any) => {
     return v1 !== v2.other;
-  }
+  },
 });
 
 @Component({
@@ -182,16 +182,16 @@ extend("custom", {
     VGouvFrModal,
     CoupleInformationHelp,
     NakedCard,
-    FieldLabel
+    FieldLabel,
   },
   computed: {
     ...mapState({
-      user: "user"
+      user: "user",
     }),
     ...mapGetters({
-      spouseAuthorize: "spouseAuthorize"
-    })
-  }
+      spouseAuthorize: "spouseAuthorize",
+    }),
+  },
 })
 export default class CoupleInformation extends Vue {
   coTenant = new User();
@@ -204,7 +204,7 @@ export default class CoupleInformation extends Vue {
 
   mounted() {
     if ((this.user.apartmentSharing?.tenants.length || 0) > 1) {
-      const partner = this.user.apartmentSharing?.tenants.find(t => {
+      const partner = this.user.apartmentSharing?.tenants.find((t) => {
         return t.email != this.user.email;
       });
       this.coTenant = partner || this.coTenant;
@@ -228,7 +228,7 @@ export default class CoupleInformation extends Vue {
     this.$emit("input", [this.coTenant]);
     if (this.coTenant.email?.length > 0) {
       this.showCheckBox = true;
-      this.$nextTick(function() {
+      this.$nextTick(function () {
         this.scrollToEnd();
       });
     } else {

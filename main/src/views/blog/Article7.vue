@@ -5,9 +5,7 @@
         <div class="fr-col-md-10 fr-col-lg-8">
           <article>
             <div class="text-center fr-mt-3w fr-mb-3w">
-              <h1 class="fr-h1">
-                Tout comprendre à la vie en colocation
-              </h1>
+              <h1 class="fr-h1">Tout comprendre à la vie en colocation</h1>
               <p>03 Mai 2021 dans <a href="#">DossierFacile</a></p>
             </div>
             <!--end article title-->
@@ -122,5 +120,12 @@
 
 a {
   color: $light-blue;
+}
+
+.img-center {
+  max-width: 750px;
+  max-height: 500px;
+  width: 100%;
+  height: auto;
 }
 </style>

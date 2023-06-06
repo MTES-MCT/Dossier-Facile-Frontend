@@ -512,7 +512,7 @@ export default class Tax extends Vue {
 
   async remove(file: DfFile, silent = false) {
     AnalyticsService.deleteFile("tax");
-    if (file.path && file.id) {
+    if (file.id) {
       await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = this.files.findIndex((f) => {
