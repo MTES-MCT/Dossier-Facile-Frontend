@@ -23,7 +23,12 @@
     </div>
     <div class="fr-col-7 fr-col-md-4 fr-btns-group--right">
       <DfButton
-        v-if="enableDownload && document && document.name"
+        v-if="
+          enableDownload &&
+          document &&
+          document.name &&
+          (!showValidated || document.documentStatus === 'VALIDATED')
+        "
         class="fr-btn--icon-left fr-fi-eye-line fr-mr-1w"
         @on-click="openDocument()"
       >
@@ -62,6 +67,7 @@ export default class FileRowListItem extends Vue {
   @Prop() document!: DfDocument;
   @Prop({ default: true }) enableDownload?: boolean;
   @Prop() tagLabel?: string;
+  @Prop({ default: false }) showValidated?: boolean;
 
   hasClickEditionListener() {
     return this.$listeners && this.$listeners["click-edit"];
