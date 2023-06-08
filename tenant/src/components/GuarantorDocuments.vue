@@ -69,7 +69,7 @@
       v-if="showNbDocumentsResidency"
       :validate-btn-text="$t('add-new-documents')"
       :cancel-btn-text="$t('next-step')"
-      @cancel="goNext()"
+      @cancel="cancelAndgoNext()"
       @close="showNbDocumentsResidency = false"
       @valid="showNbDocumentsResidency = false"
     >
@@ -108,6 +108,7 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 import ProfileContainer from "./ProfileContainer.vue";
 import { DocumentService } from "@/services/DocumentService";
 import { UtilsService } from "@/services/UtilsService";
+import { AnalyticsService } from "@/services/AnalyticsService";
 
 @Component({
   components: {
@@ -217,10 +218,16 @@ export default class GuarantorDocuments extends Vue {
         );
         if ((nbPages || 0) < 3) {
           this.showNbDocumentsResidency = true;
+          AnalyticsService.missingResidencyDocumentDetected();
           return;
         }
       }
     }
+    this.goNext();
+  }
+
+  cancelAndgoNext() {
+    AnalyticsService.forceMissingResidencyDocument();
     this.goNext();
   }
 
