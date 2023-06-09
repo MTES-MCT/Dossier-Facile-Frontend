@@ -108,7 +108,7 @@
                 </FileRowListItem>
               </ul>
               <div v-if="hasGuarantor(tenant)">
-                <h2 class="fr-h4">
+                <h2 class="fr-h4 fr-mt-5w">
                   {{ $t("publicfile.guarant") }}
                 </h2>
                 <div v-if="tenant.guarantors">
