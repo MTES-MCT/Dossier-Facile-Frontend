@@ -19,9 +19,10 @@
                   value="false"
                   v-model="declaration"
                 />
-                <label for="declaration">{{
-                  $t("validatefile.declaration")
-                }}</label>
+                <label
+                  for="declaration"
+                  v-html="$t('validatefile.declaration')"
+                ></label>
                 <span class="fr-error-text" v-if="errors[0]">{{
                   $t(errors[0])
                 }}</span>
