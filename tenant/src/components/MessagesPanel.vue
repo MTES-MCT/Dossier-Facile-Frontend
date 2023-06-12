@@ -19,7 +19,9 @@
                 </div>
               </div>
               <div class="row" v-if="hasDoc('RESIDENCY')">
-                <div class="subtitle">Justificatif de domicile</div>
+                <div class="subtitle">
+                  Justificatif de situation d'hébergement
+                </div>
                 <div class="row align--center">
                   <ViewEditBtn
                     :canView="!isCotenant && hasFile('RESIDENCY')"
@@ -98,7 +100,7 @@
                 </div>
               </div>
               <div class="row" v-if="guarantorHasDoc(g, 'RESIDENCY')">
-                <div class="subtitle">Justificatif de domicile</div>
+                <div class="subtitle">Justificatif de situation d'hébergement</div>
                 <div class="row align--center">
                   <ViewEditBtn
                     :canView="!isCotenant && guarantorHasFile(g, 'RESIDENCY')"

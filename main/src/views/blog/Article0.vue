@@ -29,7 +29,7 @@
             <p>
               <ul>
                 <li>Une pièce d'identité</li>
-                <li>Un justificatif de domicile</li>
+                <li>Un justificatif de situation d'hébergement</li>
                 <li>Un justificatif de situation professionnelle</li>
                 <li>Un avis d'imposition</li>
                 <li>Un justificatif de ressources</li>

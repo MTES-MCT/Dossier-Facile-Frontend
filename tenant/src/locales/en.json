@@ -537,7 +537,7 @@
   "guarantorchoice": {
     "my-guarantor": "My guarantor",
     "identification": "Pièce d’identité",
-    "residency": "Justificatif de domicile",
+    "residency": "Justificatif de situation d'hébergement",
     "professional": "Justificatif de situation professionnelle",
     "financial": "Justificatif de ressources",
     "tax": "Avis d’imposition",
@@ -564,7 +564,7 @@
   },
   "guarantordocuments": {
     "identification": "Pièce d’identité",
-    "residency": "Justificatif de domicile",
+    "residency": "Justificatif de situation d'hébergement",
     "professional": "Justificatif de situation professionnelle",
     "financial": "Justificatif de ressources",
     "tax": "Avis d’imposition",
@@ -1004,7 +1004,7 @@
     "my-guarantor": "My guarantor",
     "cotenant-guarantor": "His/her guarantor",
     "identification": "Pièce d’identité",
-    "residency": "Justificatif de domicile",
+    "residency": "Justificatif de situation d'hébergement",
     "professional": "Justificatif de situation professionnelle",
     "financial": "Justificatif de ressources",
     "tax": "Avis d’imposition",
@@ -1029,7 +1029,7 @@
   },
   "tenantguarantordocuments": {
     "identification": "Pièce d’identité",
-    "residency": "Justificatif de domicile",
+    "residency": "Justificatif de situation d'hébergement",
     "professional": "Justificatif de situation professionnelle",
     "financial": "Justificatif de ressources",
     "tax": "Avis d’imposition",
