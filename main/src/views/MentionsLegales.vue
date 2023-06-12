@@ -133,7 +133,7 @@
               <p>
                 Afin de justifier les informations renseignées, l’Utilisateur
                 accepte de télécharger les pièces justificatives suivantes : une
-                pièce d’identité valide, un justificatif de domicile, un
+                pièce d’identité valide, un justificatif de situation d'hébergement, un
                 justificatif de situation professionnelle, un avis d’imposition
                 récent et un justificatif de ressources. Il a la possibilité
                 d’ajouter un garant pour sa caution, il doit alors télécharger

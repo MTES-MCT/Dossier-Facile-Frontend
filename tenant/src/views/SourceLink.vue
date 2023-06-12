@@ -19,7 +19,7 @@
                   Votre pièce d’identité
                 </li>
                 <li>
-                  Un justificatif de domicile
+                  Un justificatif de situation d'hébergement
                 </li>
                 <li>
                   Un justificatif de situation professionnelle
