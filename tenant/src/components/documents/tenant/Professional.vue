@@ -45,9 +45,13 @@
       v-if="professionalDocument.key || professionalFiles().length > 0"
     >
       <div class="fr-mb-3w">
-        <p
-          v-html="$t(`explanation-text.tenant.${professionalDocument.key}`)"
-        ></p>
+        <div
+          v-html="
+            $t(
+              `explanation-text.tenant.professional.${professionalDocument.key}`
+            )
+          "
+        ></div>
         <MonFranceConnect
           v-if="professionalDocument.key === 'student'"
           redirection-type="student"
