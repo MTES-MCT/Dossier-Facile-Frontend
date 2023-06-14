@@ -5,7 +5,7 @@ import axios from "axios";
 import ProgressIndicator from "./ProgressIndicator.vue";
 import { useToast } from "vue-toastification";
 
-const file = ref(null);
+const files = ref([]);
 const token = ref("");
 const wait = ref(false);
 const url = ref("");
@@ -27,18 +27,19 @@ function getFile() {
     .catch(() => {
       setTimeout(function () {
         getFile();
-      }, 2000);
+      }, 3000);
     });
 }
 
 async function handleSubmit() {
-  if (file.value === null) {
+  if (files.value === null) {
     return;
   }
   wait.value = true;
   url.value = "";
   const formData = new FormData();
-  formData.append(`files`, file.value);
+  files.value.forEach( file => formData.append(`files[]`, file));
+
   axios
     .post(`${import.meta.env.VITE_API_URL}/api/document/files`, formData)
     .then((res: any) => {
@@ -53,7 +54,7 @@ async function handleSubmit() {
 
 function handleChange(e: any) {
   url.value = "";
-  file.value = e.target.files[0];
+  files.value = Array.from(e.target.files);
 }
 
 function like() {
@@ -108,13 +109,18 @@ function dislike() {
     <h1 class="fr-h4 fr-mt-3w">
       {{ t("title") }}
     </h1>
+      <div class="fr-hint-text">
+          {{ t("behaviour-1") }}<br/>
+          {{ t("behaviour-2") }}<br/>
+          {{ t("behaviour-3") }}<br/>
+      </div>
     <form name="uploadForm" @submit.prevent="handleSubmit">
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12 fr-mb-3w">
           <div class="fr-input-group">
             <div class="fr-upload-group">
               <label class="fr-label" for="file-upload"
-                >Ajouter des fichiers
+                >{{ t("add-file-label") }}
                 <span class="fr-hint-text">Formats supportés : jpg, png, pdf.</span>
               </label>
               <input
@@ -123,6 +129,7 @@ function dislike() {
                 name="files"
                 @change="handleChange"
                 accept="image/png, image/jpeg, application/pdf"
+                multiple
               />
             </div>
           </div>
@@ -211,6 +218,10 @@ function dislike() {
 {
   "en": {
     "title": "Add a watermark to any file",
+    "behaviour-1": "Watermarked file will be a pdf file.",
+    "behaviour-2": "Original's files will be deleted immediately after the watermarked file generation.",
+    "behaviour-3": "Watermarked file will be deleted immediately after the download (or 10 days if the file is not downloaded).",
+    "add-file-label" : "Add files",
     "submit": "Submit",
     "wait": "Please wait",
     "like": "I liked this app",
@@ -221,6 +232,10 @@ function dislike() {
   },
   "fr": {
     "title": "Ajoutez un filigrane à n'importe quel document",
+    "behaviour-1": "Le fichier filigrané sera au format PDF.",
+    "behaviour-2": "Les fichiers originaux seront effacés après la génération du fichier filigrané.",
+    "behaviour-3": "Le fichier filigrané sera effacé après le premier téléchargement (ou 10 jours après s'il n'y a pas eu de téléchargement).",
+    "add-file-label" : "Ajouter des fichiers",
     "submit": "Envoyer",
     "wait": "Veuillez patienter",
     "like": "J'ai aimé ce service",

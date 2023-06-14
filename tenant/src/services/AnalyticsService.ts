@@ -150,6 +150,17 @@ export const AnalyticsService = {
     });
   },
 
+  missingResidencyDocumentDetected() {
+    this.sendEvent("missing-residency-document-detected", {
+      event_category: "funnel",
+    });
+  },
+  forceMissingResidencyDocument() {
+    this.sendEvent("force-missing-residency-document", {
+      event_category: "funnel",
+    });
+  },
+
   avisDetected() {
     this.sendEvent("avis-detected", {
       event_category: "funnel",

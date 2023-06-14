@@ -25,7 +25,7 @@
       v-if="showNbDocumentsResidency"
       :validate-btn-text="$tc('uploaddocuments.accept-warning')"
       :cancel-btn-text="$tc('uploaddocuments.ignore-warning')"
-      @cancel="goNext()"
+      @cancel="cancelAndgoNext()"
       @close="showNbDocumentsResidency = false"
       @valid="showNbDocumentsResidency = false"
     >
@@ -116,10 +116,16 @@ export default class UploadDocuments extends Vue {
         );
         if ((nbPages || 0) < 3) {
           this.showNbDocumentsResidency = true;
+          AnalyticsService.missingResidencyDocumentDetected();
           return;
         }
       }
     }
+    this.goNext();
+  }
+
+  cancelAndgoNext() {
+    AnalyticsService.forceMissingResidencyDocument();
     this.goNext();
   }
 

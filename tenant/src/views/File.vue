@@ -79,20 +79,24 @@
                 <FileRowListItem
                   :label="$t('file.identification')"
                   :document="document(tenant, 'IDENTIFICATION')"
+                  :showValidated="true"
                 />
                 <FileRowListItem
                   :label="$t('file.residency')"
                   :document="document(tenant, 'RESIDENCY')"
+                  :showValidated="true"
                 />
                 <FileRowListItem
                   :label="$t('file.professional')"
                   :document="document(tenant, 'PROFESSIONAL')"
+                  :showValidated="true"
                 />
                 <FileRowListItem
                   v-for="(doc, k) in getDocs(tenant, 'FINANCIAL')"
                   v-bind:key="doc.id"
                   :label="$t('file.financial') + (k >= 1 ? ' ' + (k + 1) : '')"
                   :document="doc"
+                  :showValidated="true"
                 />
                 <FileRowListItem
                   :label="$t('file.tax')"
@@ -105,6 +109,7 @@
                         )
                   "
                   :document="document(tenant, 'TAX')"
+                  :showValidated="true"
                 >
                   <template v-slot:postTag>
                     <div v-if="isTaxChecked()">
@@ -118,7 +123,7 @@
                 </FileRowListItem>
               </ul>
               <div v-if="hasGuarantor(tenant)">
-                <h2 class="fr-h4">
+                <h2 class="fr-h4 fr-mt-5w">
                   {{ $t("file.guarant") }}
                 </h2>
                 <div v-if="tenant.guarantors">
@@ -133,14 +138,17 @@
                       <FileRowListItem
                         :label="$t('file.identification')"
                         :document="document(g, 'IDENTIFICATION')"
+                        :showValidated="true"
                       />
                       <FileRowListItem
                         :label="$t('file.residency')"
                         :document="document(g, 'RESIDENCY')"
+                        :showValidated="true"
                       />
                       <FileRowListItem
                         :label="$t('file.professional')"
                         :document="document(g, 'PROFESSIONAL')"
+                        :showValidated="true"
                       />
                       <FileRowListItem
                         v-for="(doc, k) in getDocs(g, 'FINANCIAL')"
@@ -149,6 +157,7 @@
                           $t('file.financial') + (k >= 1 ? ' ' + (k + 1) : '')
                         "
                         :document="doc"
+                        :showValidated="true"
                       />
                       <FileRowListItem
                         :label="$t('file.tax')"
@@ -161,6 +170,7 @@
                               )
                         "
                         :document="document(g, 'TAX')"
+                        :showValidated="true"
                       >
                         <template v-slot:postTag>
                           <div v-if="isTaxChecked()">
@@ -180,10 +190,12 @@
                       <FileRowListItem
                         :label="$t('file.identification-legal-person')"
                         :document="document(g, 'IDENTIFICATION_LEGAL_PERSON')"
+                        :showValidated="true"
                       />
                       <FileRowListItem
                         :label="$t('file.identification')"
                         :document="document(g, 'IDENTIFICATION')"
+                        :showValidated="true"
                       />
                     </ul>
                     <ul
@@ -193,6 +205,7 @@
                       <FileRowListItem
                         :label="$t('file.organism')"
                         :document="document(g, 'IDENTIFICATION')"
+                        :showValidated="true"
                       />
                     </ul>
                   </div>

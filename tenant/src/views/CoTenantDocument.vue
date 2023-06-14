@@ -23,7 +23,7 @@
         v-if="showNbDocumentsResidency"
         :validate-btn-text="$t('add-new-documents')"
         :cancel-btn-text="$t('next-step')"
-        @cancel="goNext()"
+        @cancel="cancelAndgoNext()"
         @close="showNbDocumentsResidency = false"
         @valid="showNbDocumentsResidency = false"
       >
@@ -82,6 +82,7 @@ import CoTenantTax from "../components/documents/cotenant/CoTenantTax.vue";
 import { DocumentService } from "@/services/DocumentService";
 import { UtilsService } from "@/services/UtilsService";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
+import { AnalyticsService } from "@/services/AnalyticsService";
 
 @Component({
   components: {
@@ -160,10 +161,16 @@ export default class CoTenantDocument extends Vue {
         );
         if ((nbPages || 0) < 3) {
           this.showNbDocumentsResidency = true;
+          AnalyticsService.missingResidencyDocumentDetected();
           return;
         }
       }
     }
+    this.goNext();
+  }
+
+  cancelAndgoNext() {
+    AnalyticsService.forceMissingResidencyDocument();
     this.goNext();
   }
 
