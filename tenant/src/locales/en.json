@@ -916,10 +916,9 @@
     "unlink-account-btn": "Unlink My Accounts"
   },
   "nameinformationhelp": {
-    "title": "Help",
-    "paragraph1": "Please provide the information and documents <b>of the person whose name will be on the lease agreement.</b>",
-    "paragraph2": "<b>Any request with incorrect tenant information will not be processed.</b>",
-    "paragraph3": "Example 1: If you are a student but <b>your parents are signing the lease and paying the rent</b>, you should provide the information and documents of your parents. Example 2: If you are assisting someone in filling out the form but <b>that person is the future tenant</b>, you should provide their information and documents."
+    "info": "If you are filling out the form on behalf of someone else, such as your child, please provide their information instead of yours.",
+    "info-fc": "The form must be in the name of the prospective tenant. If you are filling out the form on behalf of someone else, such as your child, you need to ",
+    "unlink-fc": "update this information"
   },
   "nameinformation": {
     "title": "Your Rental File in 5 Documents!",
