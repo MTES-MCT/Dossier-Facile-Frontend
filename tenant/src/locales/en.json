@@ -126,6 +126,8 @@
       "owner": "I add a <b>property tax notice issued within the last year.</b>",
       "pension": "I add a pension slip, a pension attestation, or a tax assessment showing the names and income from the pension.",
       "rent": "I add proof of rent payment or a tax assessment showing the names and income from the rent.",
+      "salary": "",
+      "scholarship": "",
       "social-service": "I add <strong>my last three payment proofs</strong> for social benefits (unemployment benefits, family allowances...), proof of eligibility, or a screenshot of housing assistance simulation (APL).",
       "tenant": "I add my <b>rent receipts</b> from the <b>last three months</b>.",
       "professional": {
