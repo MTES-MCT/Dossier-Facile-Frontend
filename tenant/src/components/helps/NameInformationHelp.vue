@@ -1,24 +1,37 @@
 <template>
-<div>
-      <p v-html="$t('nameinformationhelp.paragraph1')"></p>
-      <p v-html="$t('nameinformationhelp.paragraph2')"></p>
-      <p v-html="$t('nameinformationhelp.paragraph3')"></p>
-</div>
+  <div class="fr-alert fr-alert--info fr-mb-1w">
+    <p v-if="isFranceConnected">
+      {{ $t("nameinformationhelp.info-fc") }}
+      <a href="#" @click="updateInformation">
+        {{ $t("nameinformationhelp.unlink-fc") }}
+      </a>
+    </p>
+    <p v-else>
+      {{ $t("nameinformationhelp.info") }}
+    </p>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { mapGetters } from "vuex";
 
-@Component
+@Component({
+  computed: {
+    ...mapGetters({
+      isFranceConnected: "isFranceConnected",
+    }),
+  },
+})
 export default class NameInformationHelp extends Vue {
-  expanded = false;
+  isFranceConnected!: boolean;
+
+  updateInformation() {
+    this.$emit("updateInformation");
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.hidden {
-  display: none;
-}
 </style>
-
