@@ -142,6 +142,8 @@
       "owner": "J’ajoute un <b>avis de taxe foncière de moins d’un an.</b>",
       "pension": "J’ajoute un bulletin de pension, une attestation de pension, ou un avis d’imposition avec noms et revenus de la pension visibles.",
       "rent": "J’ajoute un justificatif de paiement de rente, ou un avis d’imposition avec noms et revenus de la rente visibles.",
+      "salary": "",
+      "scholarship": "",
       "social-service": "J'ajoute <strong>mes trois derniers justificatifs</strong> de versement de prestations sociales (ARE, CAF...), un justificatif d'ouverture de mes droits ou une copie d'écran de simulation d'aide au logement (APL).",
       "tenant": "J’ajoute mes <b>quittances de loyer</b> des <b>trois derniers mois</b>."
     },
