@@ -53,7 +53,7 @@ describe("accessibility checks", () => {
     cy.simpleUploadDocumentStep("Propriétaire");
 
     cy.testAccessibility();
-    cy.selectProfessionalStatusStep("Retraité");
+    cy.selectProfessionalStatusStep("Retraite");
 
     cy.testAccessibility();
     cy.addFinancialResource("Pension", "2000");

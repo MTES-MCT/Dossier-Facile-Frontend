@@ -55,7 +55,7 @@ describe("alone tenant scenario", () => {
     cy.simpleUploadDocumentStep("Propriétaire");
 
     cy.expectPath("/info-garant/3");
-    cy.selectProfessionalStatusStep("Retraité");
+    cy.selectProfessionalStatusStep("Retraite");
 
     cy.expectPath("/info-garant/4");
     cy.addFinancialResource("Pension", "2000");
