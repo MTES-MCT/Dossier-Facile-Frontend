@@ -2,16 +2,9 @@
   <div class="fr-mb-15w">
     <NakedCard class="fr-p-5w fr-mt-3w">
       <h1 class="fr-h4">{{ $t("nameinformationform.title") }}</h1>
-      <p class="fr-mb-0">{{ $t("nameinformationform.subtitle") }}</p>
       <div>
-        <RequiredFieldsInstruction></RequiredFieldsInstruction>
-        <a
-          v-if="user.franceConnect"
-          href="#"
-          @click="openUnlinkModal = true"
-          class="fr-link fr-tag--sm small-font"
-          >{{ $t("nameinformationform.unlink-fc-link") }}</a
-        >
+        <NameInformationHelp @updateInformation="openUnlinkModal = true" />
+        <RequiredFieldsInstruction />
         <ConfirmModal
           class="fr-px-md-16w"
           v-if="openUnlinkModal"
