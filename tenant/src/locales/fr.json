@@ -916,8 +916,8 @@
   },
   "nameinformationhelp": {
     "info": "Si vous remplissez le dossier pour le compte d'une autre personne, par exemple votre enfant, veuillez renseigner ses informations et non les vôtres.",
-    "info-fc": "Le dossier doit être au nom du futur locataire. Si vous remplissez le dossier pour le compte d'une autre personne, par exemple votre enfant, vous pouvez ",
-    "unlink-fc": "modifier ces informations."
+    "info-fc": "Le dossier doit être au nom du futur locataire. Si vous remplissez le dossier pour le compte d'une autre personne, par exemple votre enfant, vous devez ",
+    "unlink-fc": "modifier ces informations"
   },
   "nameinformation": {
     "title": "Votre dossier de location en 5 justificatifs !",
