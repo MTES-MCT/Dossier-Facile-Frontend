@@ -1,63 +1,63 @@
 {
   "tenant": "Tenant",
   "owner": "Owner",
-  "register-information": "In order to create your account, we need some information. You are…",
+  "register-information": "To create your account, we need some information. You are...",
   "faq": "FAQ",
   "help": "Help",
   "blog": "Blog",
-  "blog-title": "DossierFacile en articles",
-  "information": "Information",
-  "contact-us": "Contact us",
-  "button": "Build my rental file",
-  "docs": "How to prepare my rental file",
+  "blog-title": "DossierFacile in Articles",
+  "information": "Who are we?",
+  "contact-us": "Contact Us",
+  "button": "Create My Rental Application",
+  "docs": "How to Prepare My Rental Application",
   "s0": {
-    "title": "Build a concrete rental file to find the accommodation of your dreams",
-    "text": "DossierFacile helps you build a high-quality digital rental",
-    "text2": "file to ensure you have the best possible results."
+    "title": "Create a Solid Rental Application to Find Your Dream Home",
+    "text": "DossierFacile helps you create a high-quality digital rental application",
+    "text2": "to increase your chances of success."
   },
   "s1": {
-    "h1": "Stand out thanks to a quality file",
-    "p1": "Send owners a clear, complete and coherent file to maximize your chances.",
-    "h2": "Be the first to respond to an ad",
-    "p2": "Be the most responsive by sending your digital file with one click.",
-    "h3": "Reassure your future owner",
-    "p3": "After a battery of tests by our operators, your file is certified by the State."
+    "h1": "Stand Out with a Quality Application",
+    "p1": "Provide landlords with a clear, comprehensive, and coherent application to maximize your chances.",
+    "h2": "Be the First to Respond to a Listing",
+    "p2": "Be the most responsive by sending your digital application with just one click.",
+    "h3": "Reassure Your Future Landlord",
+    "p3": "After undergoing rigorous testing by our operators, your application is certified by the government."
   },
   "s2": {
-    "title": "Build your rental file in three steps",
-    "h1": "I upload my documents",
-    "p1": "DossierFacile asks you for the necessary documents and just those!",
-    "u1a": "Identity card",
-    "u1b": "Proof of address",
-    "u1c": "Proof of professional situation",
-    "u1d": "Tax notice",
-    "u1e": "Proof of resources",
-    "h2": "DossierFacile validates my file",
-    "p2": "Our agents check your file and help you correct it if necessary.",
-    "h3": "My file is ready to be sent",
-    "p3": "Your secure file as a URL link or in PDF format is ready to be sent to the owners."
+    "title": "Create Your Rental Application in Three Steps",
+    "h1": "I Upload My Documents",
+    "p1": "DossierFacile asks for the necessary documents and only those!",
+    "u1a": "ID Document",
+    "u1b": "Proof of Accommodation",
+    "u1c": "Proof of Employment",
+    "u1d": "Tax Return",
+    "u1e": "Proof of Income",
+    "h2": "DossierFacile Validates My Application",
+    "p2": "Our agents verify your application and assist you in making any necessary corrections.",
+    "h3": "My Application is Ready to be Sent",
+    "p3": "Your secure application, in the form of a URL link or a PDF file, is ready to be sent to landlords."
   },
   "s3": {
-    "title": "Protect your personal information",
-    "text1": "With DossierFacile, no more identity papers scattered around the countryside!",
-    "text2": "Your documents are covered with watermarks to protect you against fraud by unscrupulous owners.",
-    "text3": "You can configure the opening of your folder link: you can delete it at any time!",
+    "title": "Protect Your Personal Information",
+    "text1": "With DossierFacile, no more scattered identification papers!",
+    "text2": "Your documents are watermarked to protect you from unscrupulous landlords' fraud.",
+    "text3": "You can customize the access to your application link and delete it at any time!",
     "link": "Learn more about data security at DossierFacile"
   },
   "s4": {
     "title1": "Already",
-    "title3": "certified dossiers thanks to DossierFacile",
-    "t1": "Karim's file immediately stood out: it was the only file received that was complete!",
-    "author1": "Joseph, owner in Nantes",
-    "t2": "Simple, efficient and practical: it saved me a lot of time in my apartment search.",
+    "title3": "Applications certified with DossierFacile",
+    "t1": "Karim's application stood out immediately: it was the only complete application received!",
+    "author1": "Joseph, landlord in Nantes",
+    "t2": "Simple, efficient, and practical: it saved me a lot of time in my apartment search.",
     "author2": "Caroline, student",
-    "t3": "I never managed to visit an apartment with my foreign file. With DossierFacile, I finally had more visits!",
+    "t3": "I could never visit an apartment with my foreign application. With DossierFacile, I finally got more viewings!",
     "author3": "Irina, Erasmus student",
-    "link": "Consult our statistics"
+    "link": "View our statistics"
   },
   "s5": {
-    "title1": "They",
-    "title2": "trust us"
+    "title1": "They Trust",
+    "title2": "Us"
   },
   "title": "Statistics"
 }
