@@ -801,8 +801,8 @@
   },
   "nameinformationhelp": {
     "info": "If you're applying on behalf of another person (e.g. your child), please fill in their information, not yours.",
-    "info-fc": "The application needs to bear the name of the future tenant. If you're applying on behalf of another person (e.g. your child), you can ",
-    "unlink-fc": "update these information."
+    "info-fc": "The application needs to bear the name of the future tenant. If you're applying on behalf of another person (e.g. your child), you must ",
+    "unlink-fc": "update these information"
   },
   "nameinformation": {
     "title": "Your rental file in 5 supporting documents!",
