@@ -463,8 +463,7 @@
     "retired": "retraite",
     "unemployed": "Chômage",
     "independent": "Indépendant",
-    "other": "Autre",
-    "select-is-empty": "Sélection requise"
+    "other": "Autre"
   },
   "cotenantresidency": {
     "title": "La situation d’hébergement actuelle de votre conjoint",
@@ -792,8 +791,7 @@
     "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
     "register": "Enregistrer",
     "select-label": "La situation professionnelle, actuelle, de mon garant :",
-    "select-label-cotenant": "La situation professionnelle, actuelle, de son garant :",
-    "select-is-empty": "Sélection requise"
+    "select-label-cotenant": "La situation professionnelle, actuelle, de son garant :"
   },
   "guarantorresidency": {
     "tenant": "Locataire",
@@ -990,8 +988,7 @@
     "independent": "Indépendant",
     "other": "Autre",
     "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-    "select-label": "Votre situation professionnelle actuelle :",
-    "select-is-empty": "Sélection requise"
+    "select-label": "Votre situation professionnelle actuelle :"
   },
   "profilefooter": {
     "back": "Retour",
@@ -1023,8 +1020,7 @@
     "identity-card": "Carte d’identité française",
     "passport": "Passeport français",
     "permit": "Titre de séjour français",
-    "other": "Autre",
-    "select-is-empty": "Sélection requise"
+    "other": "Autre"
   },
   "residency-page": {
     "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",

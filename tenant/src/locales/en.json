@@ -33,6 +33,7 @@
   "email-not-valid": "Invalid email",
   "same-email-not-valid": "The email cannot be the same as your address",
   "field-required": "This field is required",
+  "select-is-empty": "Selection required",
   "identification-legal-person": "Legal Entity Identification",
   "identity-represent": "Representative Identification",
   "identification-organism": "Warranty Certificate",
@@ -463,8 +464,7 @@
     "retired": "Retired",
     "unemployed": "Unemployed",
     "independent": "Self-Employed",
-    "other": "Other",
-    "select-is-empty": "Selection required"
+    "other": "Other"
   },
   "cotenantresidency": {
     "title": "Your Co-tenant's Current Housing Situation",
@@ -792,8 +792,7 @@
     "will-delete-files": "Attention, a change in your situation will result in the deletion of your documents. You will need to upload the corresponding documents again.",
     "register": "Save",
     "select-label": "Current professional status of my guarantor:",
-    "select-label-cotenant": "Current professional status of their guarantor:",
-    "select-is-empty": "Selection required"
+    "select-label-cotenant": "Current professional status of their guarantor:"
   },
   "guarantorresidency": {
     "tenant": "Tenant",
@@ -991,8 +990,7 @@
     "independent": "Self-employed",
     "other": "Other",
     "will-delete-files": "Attention, changing your situation will delete your supporting documents. You will need to upload the documents corresponding to your new situation again.",
-    "select-label": "Your current employment situation:",
-    "select-is-empty": "Selection required"
+    "select-label": "Your current employment situation:"
   },
   "profilefooter": {
     "back": "Back",
@@ -1024,8 +1022,7 @@
     "identity-card": "French Identity Card",
     "passport": "French Passport",
     "permit": "French Residence Permit",
-    "other": "Other",
-    "select-is-empty": "Selection required"
+    "other": "Other"
   },
   "residency-page": {
     "will-delete-files": "Attention, changing your situation will delete your supporting documents. You will need to upload the documents corresponding to your new situation again.",
