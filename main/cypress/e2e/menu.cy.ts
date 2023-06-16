@@ -23,7 +23,7 @@ describe("menu", () => {
     cy.visit("/blog");
 
     const postTitle = "Locatio devient DossierFacile";
-    cy.get(`[title="${postTitle}"]`).click();
+    cy.contains(postTitle).click();
     cy.get(".fr-h1").should("contain", postTitle);
   });
 
