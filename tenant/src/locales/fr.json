@@ -182,9 +182,9 @@
     },
     "guarantor": {
       "alternation": "J’ajoute un bulletin de salaire de moins de 3 mois de mon garant ou son contrat d’alternance complet et signé.",
-      "cdd": "J’ajoute un bulletin de salaire de moins de 3 mois de mon garant, son contrat de travail complet et signé, une attestation employeur de moins de 3 mois.",
-      "cdi": "J’ajoute un bulletin de salaire de moins de 3 mois de mon garant, son contrat de travail complet et signé, une attestation employeur de moins de 3 mois.",
-      "cdi-trial": "J’ajoute un bulletin de salaire de moins de 3 mois de mon garant, son contrat de travail complet et signé, une attestation employeur de moins de 3 mois.",
+      "cdd": "Merci d’ajouter ici l’un des documents suivants :<ul><li>un bulletin de salaire de moins de 3 mois</li><li>son contrat de travail complet et signé</li><li>une attestation employeur de moins de 3 mois</li></ul>",
+      "cdi": "Merci d’ajouter ici l’un des documents suivants :<ul><li>un bulletin de salaire de moins de 3 mois</li><li>son contrat de travail complet et signé</li><li>une attestation employeur de moins de 3 mois</li></ul>",
+      "cdi-trial": "Merci d’ajouter ici l’un des documents suivants :<ul><li>un bulletin de salaire de moins de 3 mois</li><li>son contrat de travail complet et signé</li><li>une attestation employeur de moins de 3 mois</li></ul>",
       "ctt": "J’ajoute un bulletin de salaire de moins de 3 mois de mon garant, son contrat de travail complet et signé, une attestation employeur de moins de 3 mois.",
       "guarantor_salary": "J’ajoute un bulletin de salaire de mon garant de moins de 3 mois, une attestation de son employeur, un justificatif de versement de ses indemnités de stage, un bilan comptable ou un avis d’imposition à son nom, complet et de moins de 2 ans.",
       "guest": "Merci d'ajouter ici <strong>3 documents :</strong><ul><li><strong>une attestation sur l'honneur</strong> d'hébergement à titre gratuit (nous vous recommandons d'utiliser le modèle d'attestation disponible sur le site <a target='_blank' rel='noopener' title='site pour générer une attestion' href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement'>service-public.fr</a>)</li><li>une copie de <strong>la pièce d'identité de l'hébergeur</strong></li><li>un <strong>justificatif de domicile de l'hébergeur de moins de 3 mois :</strong> avis de taxe foncière, facture de téléphone, quittance de loyer…</li></ul>",
