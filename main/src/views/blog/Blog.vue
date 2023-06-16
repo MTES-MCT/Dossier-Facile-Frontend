@@ -4,7 +4,6 @@
       <div class="fr-grid-row justify-content-center">
         <div class="fr-col-md-10 fr-col-lg-8">
           <h1>{{ $t("blog-title") }}</h1>
-          <hr />
           <BlogExtractTile
             title="Tout ce que vous devez savoir avant de quitter votre logement"
             :image="require('../../assets/images/blog-article19.webp')"
@@ -197,12 +196,10 @@
               </p>
               <p>
                 Toutefois, les communes situées en zone tendue sont soumises à
-                <a
-                  href="https://www.service-public.fr/particuliers/vosdroits/F1314"
-                  >l'encadrement des loyers</a
-                >. Dans ces villes, le loyer est plafonné lors de la mise en
-                location du logement (cas d'un nouveau locataire) et lors du
-                renouvellement du bail (cas du même locataire).
+                l'encadrement des loyers. Dans ces villes, le loyer est plafonné
+                lors de la mise en location du logement (cas d'un nouveau
+                locataire) et lors du renouvellement du bail (cas du même
+                locataire).
               </p>
             </template>
           </BlogExtractTile>
@@ -240,7 +237,8 @@
                 la location. Pour le bailleur, la colocation permet de louer
                 plus facilement un grand logement et de bénéficier d’une
                 solidarité entre les locataires.
-                <br />
+              </p>
+              <p>
                 Que ce soit entre amis, en famille ou bien avec des inconnus, la
                 colocation obéit toutefois à de nombreuses règles que nous
                 allons vous présenter.
@@ -257,14 +255,13 @@
             <template v-slot:extract>
               <p>
                 Afin de mieux répondre aux besoins de nos locataires et
-                propriétaires, le service <a href="/">DossierFacile</a> fait
-                peau neuve avec un nouveau site ! Un parcours utilisateur plus
-                simple, un design plus recherché, une visualisation plus claire…
-                Le tout pour un service toujours plus efficace ! On est très
-                fiers de vous présenter le nouveau DossierFacile ! Notre
-                objectif ? Faciliter le téléchargement de vos pièces
-                justificatives : un gain de temps pour vous, pour nous, et pour
-                votre futur propriétaire !
+                propriétaires, le service DossierFacile fait peau neuve avec un
+                nouveau site ! Un parcours utilisateur plus simple, un design
+                plus recherché, une visualisation plus claire… Le tout pour un
+                service toujours plus efficace ! On est très fiers de vous
+                présenter le nouveau DossierFacile ! Notre objectif ? Faciliter
+                le téléchargement de vos pièces justificatives : un gain de
+                temps pour vous, pour nous, et pour votre futur propriétaire !
               </p>
             </template>
           </BlogExtractTile>
@@ -335,15 +332,11 @@
           >
             <template v-slot:extract>
               <p>
-                Dans un contexte de pénurie de logements,
-                <router-link
-                  to="/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location"
-                  title="quelles pieces justificatives fournir pour mon dossier de location"
-                  >le dossier est devenu un facteur démarquant.</router-link
-                >
-                Mais comment constituer un dossier de location qui regroupe tous
-                les documents nécessaires sans tomber dans le désordre d’un pdf
-                de cinquante pages ? Existe-t-il un outil facile et gratuit ?
+                Dans un contexte de pénurie de logements, le dossier de location
+                est devenu un facteur démarquant. Mais comment constituer un
+                dossier de location qui regroupe tous les documents nécessaires
+                sans tomber dans le désordre d’un pdf de cinquante pages ?
+                Existe-t-il un outil facile et gratuit ?
               </p>
             </template>
           </BlogExtractTile>
