@@ -58,7 +58,7 @@
       <div class="fr-mb-3w">
         <p
           v-html="
-            $t(`explanation-text.${guarantorKey()}.professional.${professionalDocument.key}`)
+            $t(`explanation-text.${guarantorKey()}.${professionalDocument.key}`)
           "
         ></p>
       </div>
