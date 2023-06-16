@@ -145,7 +145,7 @@
       "salary": "",
       "scholarship": "",
       "social-service": "J'ajoute <strong>mes trois derniers justificatifs</strong> de versement de prestations sociales (ARE, CAF...), un justificatif d'ouverture de mes droits ou une copie d'écran de simulation d'aide au logement (APL).",
-      "tenant": "J’ajoute mes <b>quittances de loyer</b> des <b>trois derniers mois</b>."
+      "tenant": "J’ajoute <strong>mes 3 dernières quittances de loyer</strong> ou <strong>une attestation de bon paiement des loyers</strong> de moins de 3 mois."
     },
     "cotenant": {
       "alternation": "J’ajoute son contrat d’alternance en cours, complet et signé.",
@@ -1025,7 +1025,8 @@
   "residency-page": {
     "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
     "select-label": "Décrivez votre situation d’hébergement actuelle",
-    "warning-incomplete": "Les dossiers incomplets (qui ne présentent pas ces 3 documents) ne seront pas validés."
+    "warning-incomplete": "Les dossiers incomplets (qui ne présentent pas ces 3 documents) ne seront pas validés.",
+    "warning-only-rent-receipt": "Les justificatifs de domicile (taxe d'habitation, facture EDF, facture de téléphone…) ne sont pas acceptés ici. Seules vos quittances (ou une attestation de bon paiement des loyers) permettent à un propriétaire  de s'assurer que vous payez bien vos loyers."
   },
   "roommatesinformationhelp": {
     "paragraph1": "En renseignant l’adresse email de votre colocataire, celui-ci va pouvoir constituer son propre dossier avec ses pièces. Vos deux dossiers seront liés et votre lien-dossier sera commun.",

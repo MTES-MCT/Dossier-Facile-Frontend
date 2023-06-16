@@ -1027,7 +1027,8 @@
   "residency-page": {
     "will-delete-files": "Attention, changing your situation will delete your supporting documents. You will need to upload the documents corresponding to your new situation again.",
     "select-label": "Describe your current housing situation",
-    "warning-incomplete": "Incomplete files (those that do not include these 3 documents) will not be validated."
+    "warning-incomplete": "Incomplete files (those that do not include these 3 documents) will not be validated.",
+    "warning-only-rent-receipt": "Proof of residence (housing tax, electricity bill, telephone bill, etc.) are not accepted here. Only your receipts (or a certificate of good payment of rents) allow a landlord to ensure that you pay your rents."
   },
   "roommatesinformationhelp": {
     "paragraph1": "By providing your roommate's email address, they will be able to create their own file with their documents. Your two files will be linked, and your shared file link will be common.",
