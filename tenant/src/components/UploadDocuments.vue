@@ -22,6 +22,18 @@
       <Tax @on-back="goBack" @on-next="goNext"></Tax>
     </div>
     <ConfirmModal
+      v-if="showNbDocumentsResidencyTenant"
+      :validate-btn-text="$tc('uploaddocuments.accept-warning')"
+      :cancel-btn-text="$tc('uploaddocuments.ignore-warning')"
+      @cancel="cancelAndgoNext()"
+      @close="showNbDocumentsResidencyTenant = false"
+      @valid="showNbDocumentsResidencyTenant = false"
+    >
+      <p
+        v-html="$t('uploaddocuments.warning-need-residency-documents-tenant')"
+      ></p>
+    </ConfirmModal>
+    <ConfirmModal
       v-if="showNbDocumentsResidency"
       :validate-btn-text="$tc('uploaddocuments.accept-warning')"
       :cancel-btn-text="$tc('uploaddocuments.ignore-warning')"
@@ -68,6 +80,7 @@ export default class UploadDocuments extends Vue {
   @Prop({ default: 0 }) substep!: number;
   user!: User;
   showNbDocumentsResidency = false;
+  showNbDocumentsResidencyTenant = false;
 
   updateSubstep(s: number) {
     this.$router.push({
@@ -106,7 +119,17 @@ export default class UploadDocuments extends Vue {
     const docs = DocumentService.getDocs("RESIDENCY", this.user);
     if (docs.length === 1) {
       const d = docs[0];
-      if (
+      if (d.documentSubCategory === "TENANT") {
+        const nbPages = d.files?.reduce(
+          (s, a) => s + (a.numberOfPages || 0),
+          0
+        );
+        if ((nbPages || 0) < 3) {
+          this.showNbDocumentsResidencyTenant = true;
+          AnalyticsService.missingResidencyDocumentDetected();
+          return;
+        }
+      } else if (
         d.documentSubCategory === "GUEST_PARENTS" ||
         d.documentSubCategory === "GUEST"
       ) {

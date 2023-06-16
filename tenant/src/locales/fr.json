@@ -1298,7 +1298,8 @@
   "uploaddocuments": {
     "warning-need-residency-documents": "Êtes-vous sûr·e d'avoir bien transmis l'ensemble des documents nécessaires ici ?<ul><li>attestation d'hébergement</li><li>copie de la pièce d'identité de votre hébergeur</li><li>justificatif de domicile de moins de 3 mois de votre hébergeur</li></ul>",
     "accept-warning": "Ajouter de nouveaux documents",
-    "ignore-warning": "Passer à l'étape suivante"
+    "ignore-warning": "Passer à l'étape suivante",
+    "warning-need-residency-documents-tenant": "<p>Êtes-vous sûr·e d'avoir bien transmis vos 3 dernières quittances (ou une attestation de bon paiement des loyers) ?<br>Une quittance indique à un propriétaire que vous payez bien votre loyer. <strong>Un document qui ne mentionne que votre adresse (une facture EDF par exemple) ne suffit pas ici.</strong></p><p>Il s'agit d'une erreur très fréquente, et votre dossier ne pourra pas être validé sans ces 3 quittances.</p>"
   },
   "validatefile": {
     "title": "Je valide mon dossier",
