@@ -20,7 +20,6 @@
             <label v-if="isCotenant">{{
               $t("guarantorprofessional.select-label-cotenant")
             }}</label>
-            <label v-else>{{ $t("guarantorprofessional.select-label") }}</label>
             <select
               v-model="professionalDocument"
               class="fr-select fr-mb-3w"
@@ -58,7 +57,7 @@
       <div class="fr-mb-3w">
         <p
           v-html="
-            $t(`explanation-text.${guarantorKey()}.${professionalDocument.key}`)
+            $t(`explanation-text.${guarantorKey()}.professional.${professionalDocument.key}`)
           "
         ></p>
       </div>
