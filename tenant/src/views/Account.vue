@@ -125,13 +125,8 @@
 
             <div class="delete">
               <div class="bg-white fr-p-4w fr-mt-3w">
-                <h3>{{ $t("account.delete") }}</h3>
-                <p>
-                  Vous pouvez supprimer votre compte DossierFacile à tout
-                  moment. La suppression de votre compte entrainera
-                  automatiquement l’effacement définitif de vos pièces
-                  justificatives.
-                </p>
+                <h3>{{ $t("account.delete-bloc.title") }}</h3>
+                <p>{{ $t("account.delete-bloc.content") }}</p>
                 <div class="align--center">
                   <DfButton
                     class="delete-btn"
@@ -139,21 +134,15 @@
                     data-fr-opened="false"
                     aria-controls="modal-delete-account"
                     style="visibility: none"
-                    >{{ $t("account.delete-account") }}</DfButton
+                    >{{ $t("account.delete-bloc.button") }}</DfButton
                   >
                 </div>
               </div>
             </div>
             <div class="opinion fr-mb-5w fr-mt-3w">
               <div class="bg-white fr-p-4w fr-pt-4w">
-                <h3>{{ $t("account.opinion") }}</h3>
-                <p>
-                  Nous cherchons constamment à améliorer la qualité de notre
-                  service. Dans le cadre de cette démarche d’amélioration, nous
-                  cherchons à obtenir votre retour d’expérience. En cliquant sur
-                  le bouton ci-dessous, vous pourrez évaluer DossierFacile.
-                  Vos commentaires nous sont précieux ! Merci.
-                </p>
+                <h3>{{ $t("account.opinion-bloc.title") }}</h3>
+                <p>{{ $t("account.opinion-bloc.content") }}</p>
                 <div class="align--center">
                   <a
                     class="cleana"

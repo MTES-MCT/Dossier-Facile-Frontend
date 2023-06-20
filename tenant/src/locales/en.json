@@ -283,9 +283,15 @@
     "VALIDATED": "is validated",
     "DECLINED": "requires modifications",
     "INCOMPLETE": "is incomplete",
-    "delete": "Delete my account",
-    "opinion": "Tell us about your DossierFacile experience",
-    "delete-account": "Delete my account",
+    "delete-bloc": {
+      "title": "Account deletion",
+      "content": "You can delete your DossierFacile account at any time. This will automatically delete all you documents.",
+      "button": "Delete my account"
+    },
+    "opinion-bloc": {
+      "title": "Tell us about your experience with DossierFacile",
+      "content": "We are constantly looking to improve the quality of our service. As part of this improvement process, we seek your feedback. By clicking on the button below, you will be able to rate DossierFacile. Your feedback is valuable to us! Thank you."
+    },
     "share-file": "Share my file",
     "share-file-description": "Copy your file link to share it! It's up to you to send it to the landlords or property owners of your choice (by email, SMS, etc.)",
     "file-resume": "Share my summary file <br>(without supporting documents)",
