@@ -36,7 +36,7 @@ export const DocumentTypeConstants = {
         "Permis de conduire français ou étranger <b>recto-verso</b>",
         "Carte de résident",
         "Carte de ressortissant d’un État membre de l’UE ou de l’EEE",
-        "Justificatif d'identité fournit par France Identité Numérique",
+        "Justificatif d'identité fourni par France Identité Numérique",
       ],
       refusedProofs: ["Tout autre document"],
       maxFileCount: 5
@@ -80,7 +80,7 @@ export const DocumentTypeConstants = {
         "Permis de conduire français ou étranger <b>recto-verso</b>",
         "Carte de résident",
         "Carte de ressortissant d’un État membre de l’UE ou de l’EEE",
-        "Justificatif d'identité fournit par France Identité Numérique",
+        "Justificatif d'identité fourni par France Identité Numérique",
       ],
       refusedProofs: ["Tout autre document"],
       maxFileCount: 5
@@ -712,7 +712,7 @@ export const DocumentTypeConstants = {
         "Permis de conduire français ou étranger recto-verso",
         "Carte de résident",
         "Carte de ressortissant d’un État membre de l’UE ou de l’EEE",
-        "Justificatif d'identité fournit par France Identité Numérique",
+        "Justificatif d'identité fourni par France Identité Numérique",
       ],
       refusedProofs: ["Tout autre document"]
     }
