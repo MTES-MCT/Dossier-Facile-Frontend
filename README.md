@@ -23,6 +23,10 @@ Clone this repository and run `yarn install` to install all the dependencies.
 
 Go to any app, e.g: `cd main` and run `yarn serve` to launch the project.
 
+## Run end-to-end tests
+
+Start your local applications and run `yarn e2e test`.
+
 ## Use storybook
 
 You can use storybook to test standalone components. You can run `npm run storybook` at the root level of the project.

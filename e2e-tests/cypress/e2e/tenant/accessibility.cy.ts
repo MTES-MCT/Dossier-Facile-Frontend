@@ -21,7 +21,7 @@ describe("accessibility checks", () => {
     cy.simpleUploadDocumentStep("Passeport");
 
     cy.testAccessibility();
-    cy.simpleUploadDocumentStep("Locataire");
+    cy.simpleUploadDocumentStep("Locataire", 3);
 
     cy.testAccessibility();
     cy.selectProfessionalStatusStep("CDI");
@@ -53,7 +53,7 @@ describe("accessibility checks", () => {
     cy.simpleUploadDocumentStep("Propriétaire");
 
     cy.testAccessibility();
-    cy.selectProfessionalStatusStep("Retraité");
+    cy.selectProfessionalStatusStep("Retraite");
 
     cy.testAccessibility();
     cy.addFinancialResource("Pension", "2000");

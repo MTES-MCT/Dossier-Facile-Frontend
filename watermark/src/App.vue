@@ -9,6 +9,7 @@ const files = ref([]);
 const token = ref("");
 const wait = ref(false);
 const url = ref("");
+const watermark = ref("");
 
 const { t } = useI18n();
 const toast = useToast();
@@ -27,7 +28,7 @@ function getFile() {
     .catch(() => {
       setTimeout(function () {
         getFile();
-      }, 3000);
+      }, 5000);
     });
 }
 
@@ -39,6 +40,7 @@ async function handleSubmit() {
   url.value = "";
   const formData = new FormData();
   files.value.forEach( file => formData.append(`files[]`, file));
+  formData.append(`watermark`, watermark.value);
 
   axios
     .post(`${import.meta.env.VITE_API_URL}/api/document/files`, formData)
@@ -130,6 +132,21 @@ function dislike() {
                 @change="handleChange"
                 accept="image/png, image/jpeg, application/pdf"
                 multiple
+              />
+            </div>
+          </div>
+        </div>
+        <div class="fr-col-12 fr-mb-3w">
+          <div class="fr-input-group">
+            <div class="fr-text-group">
+              <label class="fr-label" for="text">
+                {{ t("add-watermark-label") }}
+              </label>
+              <input
+                class="fr-input"
+                type="text"
+                v-model="watermark"
+                :placeholder="'Ex: Document exclusivement destiné à la location immobilière'"
               />
             </div>
           </div>
@@ -228,7 +245,8 @@ function dislike() {
     "dislike": "You can do better",
     "feedback-registered": "Thank you for your feedback",
     "tweet-content": "Usurpation d’identité, escroqueries, interdit bancaire... Découvrez Filigrane Facile, le site de l’État qui protège vos documents de toute réutilisation frauduleuse : https://filigrane.beta.gouv.fr",
-    "share-on-twitter": "Share on twitter"
+    "share-on-twitter": "Share on twitter",
+    "add-watermark-label": "Define the watermark to add"
   },
   "fr": {
     "title": "Ajoutez un filigrane à n'importe quel document",
@@ -242,7 +260,8 @@ function dislike() {
     "dislike": "Vous pouvez mieux faire",
     "feedback-registered": "Merci pour votre retour",
     "tweet-content": "Usurpation d’identité, escroqueries, interdit bancaire... Découvrez Filigrane Facile, le site de l’État qui protège vos documents de toute réutilisation frauduleuse : https://filigrane.beta.gouv.fr",
-    "share-on-twitter": "Partager sur twitter"
+    "share-on-twitter": "Partager sur twitter",
+    "add-watermark-label": "Indiquez le filigrane à insérer"
   }
 }
 </i18n>

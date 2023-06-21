@@ -28,10 +28,10 @@ Cypress.Commands.add("disableTaxVerification", () => {
     .click();
 });
 
-Cypress.Commands.add("simpleUploadDocumentStep", (buttonToSelect: string) => {
+Cypress.Commands.add("simpleUploadDocumentStep", (buttonToSelect: string, numberOfFiles: number = 1) => {
   cy.contains(buttonToSelect)
     .click()
-    .uploadDocument();
+    .uploadDocument(numberOfFiles);
   cy.clickOnNext();
 });
 

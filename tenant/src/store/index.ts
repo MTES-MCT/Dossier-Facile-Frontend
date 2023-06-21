@@ -860,6 +860,9 @@ const store = new Vuex.Store({
     userToEdit(state): User | null {
       return state.user;
     },
+    isFranceConnected(state): boolean {
+      return state.user.franceConnect || false;
+    },
     getRoommates(state): User[] {
       if (state.user.apartmentSharing === undefined) {
         return [];

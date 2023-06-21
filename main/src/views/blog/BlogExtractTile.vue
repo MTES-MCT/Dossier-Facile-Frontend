@@ -1,24 +1,25 @@
 <template>
-  <article class="fr-mb-12w">
-    <div class="text-center">
-      <router-link class="fr-tile__link" :to="path">
-        <h2 class="fr-h2">
-          {{ title }}
-        </h2>
-      </router-link>
-      <p>{{ publicationDate }} dans <a href="#">DossierFacile</a></p>
+  <article class="fr-mb-3w">
+    <div
+      class="fr-card fr-enlarge-link fr-card--horizontal fr-card--horizontal-tier"
+    >
+      <div class="fr-card__body">
+        <div class="fr-card__content">
+          <router-link :to="path" class="fr-card__title">
+            {{ title }}
+          </router-link>
+          <p class="fr-card__desc">
+            <slot name="extract"></slot>
+          </p>
+          <p class="fr-card__detail">{{ publicationDate }}</p>
+        </div>
+      </div>
+      <div class="fr-card__header">
+        <div class="fr-card__img">
+          <img class="fr-responsive-img" :src="image" :alt="title" />
+        </div>
+      </div>
     </div>
-    <!--end article title-->
-    <div class="article__body">
-      <router-link class="fr-tile__link" :to="path">
-        <img class="img-center" :alt="title" :src="image" />
-      </router-link>
-      <slot name="extract"></slot>
-      <router-link :to="path" :title="title">
-        Continuer la lecture »
-      </router-link>
-    </div>
-    <!--end article title-->
   </article>
 </template>
 
@@ -45,6 +46,7 @@ a {
 .fr-h2 {
   width: 100%;
 }
+
 .article__body {
   margin-top: 1rem;
 }
