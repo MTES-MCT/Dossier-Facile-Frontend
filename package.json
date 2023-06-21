@@ -23,6 +23,7 @@
     "dfowner": "yarn workspace owner",
     "tenant": "yarn workspace tenant",
     "watermark": "yarn workspace watermark",
+    "e2e": "yarn workspace e2e-tests",
     "sb": "yarn workspace sb"
   },
   "devDependencies": {
