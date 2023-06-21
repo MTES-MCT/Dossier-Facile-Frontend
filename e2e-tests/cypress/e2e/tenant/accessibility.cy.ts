@@ -21,7 +21,7 @@ describe("accessibility checks", () => {
     cy.simpleUploadDocumentStep("Passeport");
 
     cy.testAccessibility();
-    cy.simpleUploadDocumentStep("Locataire");
+    cy.simpleUploadDocumentStep("Locataire", 3);
 
     cy.testAccessibility();
     cy.selectProfessionalStatusStep("CDI");
