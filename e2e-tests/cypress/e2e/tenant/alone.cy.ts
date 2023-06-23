@@ -38,8 +38,7 @@ describe("alone tenant scenario", () => {
     cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom");
 
     cy.expectPath("/choix-garant");
-    cy.get("button")
-      .contains("Un garant physique")
+    cy.contains("Une personne")
       .click()
       .clickOnNext();
 

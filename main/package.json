@@ -81,7 +81,7 @@
     "axe-core": "^4.6.2",
     "babel-loader": "^9.1.2",
     "chai": "^4.1.2",
-    "cypress": "^12.13.0",
+    "cypress": "^12.15.0",
     "cypress-axe": "^1.3.0",
     "eslint": "^8.34.0",
     "eslint-plugin-prettier": "^4.2.1",

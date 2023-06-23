@@ -42,7 +42,7 @@ describe("couple tenant scenario", () => {
       .clickOnNext();
 
     cy.expectPath("/choix-garant");
-    cy.contains("Un organisme garant").click().clickOnNext();
+    cy.contains("Un organisme").click().clickOnNext();
 
     cy.expectPath("/info-garant/0");
     cy.uploadDocument().clickOnNext();
