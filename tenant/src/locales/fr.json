@@ -43,9 +43,9 @@
   "tax": "Avis d'imposition",
   "personal-information": "Je renseigne mes informations",
   "my-document": "Je joins mes documents",
-  "my-guarantor": "Je renseigne mon garant",
+  "my-guarantor": "J'ajoute mes éventuels garants",
   "my-cotenant": "Les documents de mon conjoint",
-  "my-cotenant-guarantor": "Le garant de mon conjoint",
+  "my-cotenant-guarantor": "Le(s) garant(s) de mon conjoint",
   "validate-file": "Je valide mon dossier",
   "noDocument-social": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
   "noDocument-salary": "Je ne peux pas fournir mes trois derniers bulletins de salaire",
@@ -672,7 +672,7 @@
     "paragraph3": "Attention : vous <b>n’êtes pas obligé‧e d’ajouter un garant.</b> Cependant, certains propriétaires peuvent en exiger un."
   },
   "guarantorchoice": {
-    "my-guarantor": "Mon garant",
+    "add-guarantor": "Voulez-vous ajouter un garant ?",
     "identification": "Pièce d’identité",
     "residency": "Justificatif de situation d'hébergement",
     "professional": "Justificatif de situation professionnelle",
@@ -684,20 +684,29 @@
     "validate": "Valider",
     "will-delete-guarantor": "Voulez-vous vraiment changer le type de garant ?",
     "validate-file": "Étape suivante - Valider le dossier",
-    "natural-person": "Un garant physique classique",
-    "organism": "Un organisme garant",
-    "legal-person": "Un garant moral",
-    "no-guarantor": "Je n'ai pas de garant",
-    "ask-guarantor": "Souhaitez-vous ajouter :",
-    "remark-title": "Remarque",
-    "remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez sélectionner « Je n'ai pas de garant ».<br> Votre dossier sera alors enregistré pour être instruit.",
+    "natural-person": {
+      "label": "Une personne",
+      "description": "Exemple : un parent, un proche"
+    },
+    "organism": {
+      "label": "Un organisme",
+      "description": "Exemple : Visale"
+    },
+    "legal-person": {
+      "label": "Une personne morale",
+      "description": "Exemple : une entreprise"
+    },
+    "no-guarantor": {
+      "tenant": "Je n'ai pas de garant",
+      "cotenant": "Mon conjoint n'a pas de garant"
+    },
+    "ask-guarantor": "Votre garant est :",
+    "optional-guarantor": "Ajouter un garant n’est pas obligatoire. Si vous n'avez pas de garant, vous pouvez sélectionner <em>pas de garant</em> en bas de la page pour passer à l'étape suivante.",
+    "two-guarantors-warning": "Si vous avez 2 garants, ajoutez-les l'un après l'autre.<br/><strong>Les documents de vos 2 garants ne doivent pas être mélangés</strong>.",
     "type-required": "Veuillez sélectionner un choix",
     "visale-title": "Connaissez-vous Visale ?",
     "visale-text": "Visale est le garant de votre futur logement si vous avez entre 18 et 30 ans OU si vous êtes salariés de + de 30 ans (soumis à conditions).",
     "visale-btn": "Découvrir Visale"
-  },
-  "guarantorchoicepage": {
-    "title-step": "Mon garant"
   },
   "guarantordocuments": {
     "identification": "Pièce d’identité",
@@ -709,13 +718,6 @@
     "validate": "Valider",
     "will-delete-guarantor": "Voulez-vous vraiment changer le type de garant ?",
     "validate-file": "Étape suivante - Valider le dossier",
-    "natural-person": "Un garant physique classique",
-    "organism": "Un organisme garant",
-    "legal-person": "Un garant moral",
-    "no-guarantor": "Je n'ai pas de garant",
-    "ask-guarantor": "Souhaitez-vous ajouter :",
-    "remark-title": "Remarque",
-    "remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez sélectionner « Je n'ai pas de garant ». Votre dossier sera alors enregistré pour être instruit.",
     "warning-need-residency-documents": "Êtes-vous sûr·e d'avoir bien transmis l'ensemble des documents nécessaires ici ?",
     "list1": "attestation d'hébergement",
     "list2": "copie de la pièce d'identité de son hébergeur",
@@ -765,7 +767,7 @@
     "field-required": "Ce champ est requis"
   },
   "guarantorlistpage": {
-    "my-guarantor": "Mon garant",
+    "my-guarantor": "Mes garants",
     "add-new-guarantor": "Ajouter un nouveau garant ?",
     "guarantor": {
       "NATURAL_PERSON": "Mon garant",
@@ -1133,8 +1135,6 @@
   },
   "tenantdocument": {},
   "tenantguarantorchoice": {
-    "my-guarantor": "Mon garant",
-    "cotenant-guarantor": "Son garant",
     "identification": "Pièce d’identité",
     "residency": "Justificatif de situation d'hébergement",
     "professional": "Justificatif de situation professionnelle",
@@ -1146,14 +1146,9 @@
     "validate": "Valider",
     "will-delete-guarantor": "Voulez-vous vraiment changer le type de garant ?",
     "validate-file": "Étape suivante - Valider le dossier",
-    "natural-person": "Un garant physique classique",
-    "organism": "Un organisme garant",
-    "legal-person": "Un garant moral",
-    "no-guarantor": "Je n'ai pas de garant",
-    "no-guarantor-cotenant": "Mon conjoint n'a pas de garant",
-    "ask-guarantor": "Souhaitez-vous ajouter :",
-    "remark-title": "Remarque",
-    "remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez sélectionner « Je n'ai pas de garant ».<br> Votre dossier sera alors enregistré pour être instruit.",
+    "ask-guarantor": "Son garant est :",
+    "optional-guarantor": "Ajouter un garant n’est pas obligatoire. Si votre conjoint n'a pas de garant, vous pouvez sélectionner <em>pas de garant</em> en bas de la page pour passer à l'étape suivante.",
+    "two-guarantors-warning": "Si votre conjoint a 2 garants, ajoutez-les l'un après l'autre. <strong>Les documents de ses 2 garants ne doivent pas être mélangés</strong>.",
     "type-required": "Veuillez sélectionner un choix",
     "visale-title": "Connaissez-vous Visale ?",
     "visale-text": "Visale est le garant de votre futur logement si vous avez entre 18 et 30 ans OU si vous êtes salariés de + de 30 ans (soumis à conditions).",
@@ -1168,18 +1163,11 @@
     "guarantor": "Garant",
     "validate": "Valider",
     "will-delete-guarantor": "Voulez-vous vraiment changer le type de garant ?",
-    "validate-file": "Étape suivante - Valider le dossier",
-    "natural-person": "Un garant physique classique",
-    "organism": "Un organisme garant",
-    "legal-person": "Un garant moral",
-    "no-guarantor": "Je n'ai pas de garant",
-    "ask-guarantor": "Souhaitez-vous ajouter :",
-    "remark-title": "Remarque",
-    "remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez sélectionner « Je n'ai pas de garant ». Votre dossier sera alors enregistré pour être instruit."
+    "validate-file": "Étape suivante - Valider le dossier"
   },
   "tenantguarantordocumentspage": {},
   "tenantguarantorlist": {
-    "my-guarantor": "Le garant de mon conjoint",
+    "my-guarantor": "Les garants de mon conjoint",
     "add-new-guarantor": "Ajouter un nouveau garant ?",
     "guarantor": {
       "NATURAL_PERSON": "Son garant",

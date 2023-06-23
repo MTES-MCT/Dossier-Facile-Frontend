@@ -1,81 +1,33 @@
 <template>
   <div>
     <div>
-      <div v-if="isMobile()" class="remark fr-mt-3w fr-mb-3w">
-        <div class="fr-h5">{{ $t("guarantorchoice.remark-title") }}</div>
-        <div v-html="$t('guarantorchoice.remark-text')"></div>
-      </div>
-
       <div ref="guarantor-body-content">
         <NakedCard class="fr-p-md-5w">
-          <div v-if="!isMobile()">
-            <div class="text-bold fr-mb-1w">
-              <h1 class="fr-h5">
-                {{ $t("guarantorchoice.my-guarantor") }}
-              </h1>
-            </div>
-            <TroubleshootingModal>
-              <GuarantorChoiceHelp></GuarantorChoiceHelp>
-            </TroubleshootingModal>
-            <div class="remark fr-mt-3w">
-              <div class="fr-h6">{{ $t("guarantorchoice.remark-title") }}</div>
-              <div class="small-font" v-html="$t('guarantorchoice.remark-text')"></div>
-            </div>
+          <div class="text-bold fr-mb-1w">
+            <h1 class="fr-h5">
+              {{ $t("guarantorchoice.add-guarantor") }}
+            </h1>
           </div>
-          <div class="fr-mt-3w fr-mb-2w">
-            {{ $t("guarantorchoice.ask-guarantor") }}
-          </div>
-          <TroubleshootingModal v-if="isMobile()">
+          <TroubleshootingModal>
             <GuarantorChoiceHelp></GuarantorChoiceHelp>
           </TroubleshootingModal>
-
-          <div class="fr-grid-col">
-            <div class="width--fit-content">
-              <BigRadio
-                val="NATURAL_PERSON"
-                :value="tmpGuarantorType"
-                @input="onSelectChange"
-              >
-                <div class="fr-grid-col spa">
-                  <span>{{ $t("guarantorchoice.natural-person") }}</span>
-                </div>
-              </BigRadio>
-            </div>
-            <div class="width--fit-content">
-              <BigRadio
-                val="ORGANISM"
-                :value="tmpGuarantorType"
-                @input="onSelectChange"
-              >
-                <div class="fr-grid-col spa">
-                  <span>{{ $t("guarantorchoice.organism") }}</span>
-                </div>
-              </BigRadio>
-            </div>
-            <div class="width--fit-content">
-              <BigRadio
-                val="LEGAL_PERSON"
-                :value="tmpGuarantorType"
-                @input="onSelectChange"
-              >
-                <div class="fr-grid-col spa">
-                  <span>{{ $t("guarantorchoice.legal-person") }}</span>
-                </div>
-              </BigRadio>
-            </div>
-            <div class="width--fit-content">
-              <BigRadio
-                class="fr-mt-md-3w"
-                val="NO_GUARANTOR"
-                :value="tmpGuarantorType"
-                @input="onSelectChange"
-              >
-                <div class="fr-grid-col spa">
-                  <span>{{ $t("guarantorchoice.no-guarantor") }}</span>
-                </div>
-              </BigRadio>
+          <div class="fr-mt-3w">
+            <p v-html="$t('guarantorchoice.optional-guarantor')"></p>
+            <div class="fr-alert fr-alert--info">
+              <p v-html="$t('guarantorchoice.two-guarantors-warning')"></p>
             </div>
           </div>
+        </NakedCard>
+        <NakedCard class="fr-p-md-5w fr-mt-3w">
+          <div class="fr-mb-2w">
+            {{ $t("guarantorchoice.ask-guarantor") }}
+          </div>
+
+          <GuarantorTypeSelector
+            :localStorageKey="`guarantorType_${this.user.email}`"
+            @selected="tmpGuarantorType = $event"
+          >
+          </GuarantorTypeSelector>
         </NakedCard>
         <div
           v-if="tmpGuarantorType === 'NO_GUARANTOR'"
@@ -103,13 +55,6 @@
         @on-next="setGuarantorType"
       ></GuarantorFooter>
     </div>
-    <ConfirmModal
-      v-if="changeGuarantorVisible"
-      @valid="validSelect()"
-      @cancel="undoSelect()"
-    >
-      <span>{{ $t("guarantorchoice.will-delete-guarantor") }}</span>
-    </ConfirmModal>
   </div>
 </template>
 
@@ -138,6 +83,7 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 import ProfileContainer from "./ProfileContainer.vue";
 import { UtilsService } from "../services/UtilsService";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
+import GuarantorTypeSelector from "@/components/GuarantorTypeSelector.vue";
 
 @Component({
   components: {
@@ -158,7 +104,8 @@ import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
     BigRadio,
     VGouvFrModal,
     NakedCard,
-    ProfileContainer
+    ProfileContainer,
+    GuarantorTypeSelector
   },
   computed: {
     ...mapState({
@@ -186,54 +133,8 @@ export default class GuarantorDocuments extends Vue {
     window.scrollTo(0, element.lastElementChild.offsetTop);
   }
 
-  getLocalStorageKey() {
-    return "guarantorType_" + this.user.email;
-  }
-
   beforeMount() {
     this.$store.dispatch("updateSelectedGuarantor", this.user.id);
-    if (this.guarantor.typeGuarantor) {
-      this.tmpGuarantorType = this.guarantor.typeGuarantor;
-      localStorage.setItem(
-        this.getLocalStorageKey(),
-        this.guarantor.typeGuarantor
-      );
-    } else {
-      const localType = localStorage.getItem(this.getLocalStorageKey());
-      if (localType) {
-        this.tmpGuarantorType = localType;
-      }
-    }
-  }
-
-  onSelectChange(value: string) {
-    this.tmpGuarantorType = value;
-    localStorage.setItem(this.getLocalStorageKey(), value);
-    if (this.guarantor.typeGuarantor !== null) {
-      if (
-        this.guarantor.typeGuarantor !== value &&
-        (this.user.guarantors.length || 0) > 0
-      ) {
-        this.changeGuarantorVisible = true;
-      }
-    }
-    return false;
-  }
-
-  validSelect() {
-    this.$store.dispatch("deleteAllGuarantors").then(
-      () => {
-        this.changeGuarantorVisible = false;
-      },
-      () => {
-        Vue.toasted.global.error();
-      }
-    );
-  }
-
-  undoSelect() {
-    this.tmpGuarantorType = this.guarantor.typeGuarantor || "";
-    this.changeGuarantorVisible = false;
   }
 
   goBack() {
@@ -287,10 +188,6 @@ export default class GuarantorDocuments extends Vue {
 
   gotoVisale() {
     window.open("https://www.visale.fr", "_blank");
-  }
-
-  isMobile() {
-    return UtilsService.isMobile();
   }
 }
 </script>

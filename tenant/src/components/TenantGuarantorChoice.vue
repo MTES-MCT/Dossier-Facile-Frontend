@@ -1,94 +1,34 @@
 <template>
   <div>
     <div>
-      <div v-if="isMobile()" class="remark fr-mt-3w fr-mb-3w">
-        <div class="fr-h5">{{ $t("tenantguarantorchoice.remark-title") }}</div>
-        <div v-html="$t('tenantguarantorchoice.remark-text')"></div>
-      </div>
-
       <div ref="guarantor-body-content">
         <NakedCard class="fr-p-md-5w">
-          <div v-if="!isMobile()">
-            <div class="text-bold fr-mb-1w">
-              <h1 class="fr-h5" v-if="isCotenant">
-                {{ $t("tenantguarantorchoice.cotenant-guarantor") }}
-              </h1>
-              <h1 class="fr-h5" v-else>
-                {{ $t("tenantguarantorchoice.my-guarantor") }}
-              </h1>
-            </div>
-            <TroubleshootingModal>
-              <GuarantorChoiceHelp></GuarantorChoiceHelp>
-            </TroubleshootingModal>
-            <div class="remark fr-mt-3w">
-              <div class="fr-h6">
-                {{ $t("tenantguarantorchoice.remark-title") }}
-              </div>
-              <div
-                class="small-font"
-                v-html="$t('tenantguarantorchoice.remark-text')"
-              ></div>
-            </div>
+          <div class="text-bold fr-mb-1w">
+            <h1 class="fr-h5">
+              {{ $t("guarantorchoice.add-guarantor") }}
+            </h1>
           </div>
-          <div class="fr-mt-3w fr-mb-2w">
-            {{ $t("tenantguarantorchoice.ask-guarantor") }}
-          </div>
-          <TroubleshootingModal v-if="isMobile()">
+          <TroubleshootingModal>
             <GuarantorChoiceHelp></GuarantorChoiceHelp>
           </TroubleshootingModal>
-
-          <div class="fr-grid-col">
-            <div class="width--fit-content">
-              <BigRadio
-                val="NATURAL_PERSON"
-                :value="tmpGuarantorType"
-                @input="onSelectChange"
-              >
-                <div class="fr-grid-col spa">
-                  <span>{{ $t("tenantguarantorchoice.natural-person") }}</span>
-                </div>
-              </BigRadio>
-            </div>
-            <div class="width--fit-content">
-              <BigRadio
-                val="ORGANISM"
-                :value="tmpGuarantorType"
-                @input="onSelectChange"
-              >
-                <div class="fr-grid-col spa">
-                  <span>{{ $t("tenantguarantorchoice.organism") }}</span>
-                </div>
-              </BigRadio>
-            </div>
-            <div class="width--fit-content">
-              <BigRadio
-                val="LEGAL_PERSON"
-                :value="tmpGuarantorType"
-                @input="onSelectChange"
-              >
-                <div class="fr-grid-col spa">
-                  <span>{{ $t("tenantguarantorchoice.legal-person") }}</span>
-                </div>
-              </BigRadio>
-            </div>
-            <div class="width--fit-content">
-              <BigRadio
-                class="fr-mt-md-3w"
-                val="NO_GUARANTOR"
-                :value="tmpGuarantorType"
-                @input="onSelectChange"
-              >
-                <div class="fr-grid-col spa">
-                  <span v-if="isCotenant">{{
-                    $t("tenantguarantorchoice.no-guarantor-cotenant")
-                  }}</span>
-                  <span v-else>{{
-                    $t("tenantguarantorchoice.no-guarantor")
-                  }}</span>
-                </div>
-              </BigRadio>
+          <div class="fr-mt-3w">
+            <p v-html="$t('tenantguarantorchoice.optional-guarantor')"></p>
+            <div class="fr-alert fr-alert--info">
+              <p v-html="$t('tenantguarantorchoice.two-guarantors-warning')"></p>
             </div>
           </div>
+        </NakedCard>
+        <NakedCard class="fr-p-md-5w fr-mt-3w">
+          <div class="fr-mb-2w">
+            {{ $t("tenantguarantorchoice.ask-guarantor") }}
+          </div>
+
+          <GuarantorTypeSelector
+            :localStorageKey="`cotenantGuarantorType_${this.tenantId}`"
+            :isCotenant="isCotenant"
+            @selected="tmpGuarantorType = $event"
+          >
+          </GuarantorTypeSelector>
         </NakedCard>
         <div
           v-if="tmpGuarantorType === 'NO_GUARANTOR'"
@@ -132,17 +72,19 @@ import { AnalyticsService } from "../services/AnalyticsService";
 import GuarantorFooter from "./footer/GuarantorFooter.vue";
 import GuarantorChoiceHelp from "./helps/GuarantorChoiceHelp.vue";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
+import GuarantorTypeSelector from "@/components/GuarantorTypeSelector.vue";
 
 @Component({
   components: {
+    GuarantorTypeSelector,
     TroubleshootingModal,
     VGouvFrModal,
     DfButton,
     BigRadio,
     NakedCard,
     GuarantorFooter,
-    GuarantorChoiceHelp
-  }
+    GuarantorChoiceHelp,
+  },
 })
 export default class TenantGuarantorChoice extends Vue {
   @Prop() tenantId!: number;
@@ -155,12 +97,6 @@ export default class TenantGuarantorChoice extends Vue {
 
   beforeMount() {
     this.$store.dispatch("updateSelectedGuarantor", this.tenantId);
-
-    // TODO : will be better to have the data on the backend (also valid for main tenant)
-    const localType = localStorage.getItem(this.getLocalStorageKey());
-    if (localType) {
-      this.tmpGuarantorType = localType;
-    }
   }
 
   updated() {
@@ -171,11 +107,6 @@ export default class TenantGuarantorChoice extends Vue {
   scrollToEnd() {
     const element: any = this.$refs["guarantor-body-content"];
     window.scrollTo(0, element.lastElementChild.offsetTop);
-  }
-
-  onSelectChange(value: string) {
-    this.tmpGuarantorType = value;
-    localStorage.setItem(this.getLocalStorageKey(), this.tmpGuarantorType);
   }
 
   setGuarantorType() {
@@ -213,10 +144,6 @@ export default class TenantGuarantorChoice extends Vue {
 
   gotoVisale() {
     window.open("https://www.visale.fr", "_blank");
-  }
-
-  isMobile() {
-    return UtilsService.isMobile();
   }
 }
 </script>

@@ -670,7 +670,7 @@
     "paragraph3": "Attention: <b>you are not required to add a guarantor.</b> However, some landlords may require one."
   },
   "guarantorchoice": {
-    "my-guarantor": "My Guarantor",
+    "add-guarantor": "Add a guarantor?",
     "identification": "Identification Document",
     "residency": "Proof of Residence",
     "professional": "Proof of Professional Status",
@@ -682,20 +682,29 @@
     "validate": "Validate",
     "will-delete-guarantor": "Do you really want to change the type of guarantor?",
     "validate-file": "Next Step - Validate Application",
-    "natural-person": "A Regular Guarantor",
-    "organism": "An Organizational Guarantor",
-    "legal-person": "A Legal Guarantor",
-    "no-guarantor": "I don't have a guarantor",
-    "ask-guarantor": "Do you want to add:",
-    "remark-title": "Note",
-    "remark-text": "Adding a guarantor is not mandatory. If you do not wish to add a guarantor, you can select 'I don't have a guarantor'.<br> Your application will be saved for processing.",
+    "natural-person": {
+      "label": "A person",
+      "description": "Example : a parent, a relative"
+    },
+    "organism": {
+      "label": "An Organizational guarantor",
+      "description": "Example : Visale"
+    },
+    "legal-person": {
+      "label": "A Legal guarantor",
+      "description": "Example : a company"
+    },
+    "no-guarantor": {
+      "tenant": "I don't have a guarantor",
+      "cotenant": "My partner doesn't have a guarantor"
+    },
+    "ask-guarantor": "Your guarantor is:",
+    "optional-guarantor": "Adding a guarantor is not mandatory. If you don't have a guarantor, you can select <em>no guarantor</em> at the bottom of the page to proceed to the next step.",
+    "two-guarantors-warning": "If you have 2 guarantors, add them one after the other. <strong>The documents of your 2 guarantors should not be mixed</strong>.",
     "type-required": "Please select an option",
     "visale-title": "Do you know about Visale?",
     "visale-text": "Visale is the guarantor for your future accommodation if you are between 18 and 30 years old OR if you are over 30 years old and employed (subject to conditions).",
     "visale-btn": "Discover Visale"
-  },
-  "guarantorchoicepage": {
-    "title-step": "My Guarantor"
   },
   "guarantordocuments": {
     "identification": "Identification Document",
@@ -707,13 +716,6 @@
     "validate": "Validate",
     "will-delete-guarantor": "Do you really want to change the type of guarantor?",
     "validate-file": "Next Step - Validate Application",
-    "natural-person": "A Regular Guarantor",
-    "organism": "An Organizational Guarantor",
-    "legal-person": "A Legal Guarantor",
-    "no-guarantor": "I don't have a guarantor",
-    "ask-guarantor": "Do you want to add:",
-    "remark-title": "Note",
-    "remark-text": "Adding a guarantor is not mandatory. If you do not wish to add a guarantor, you can select 'I don't have a guarantor'. Your application will be saved for processing.",
     "warning-need-residency-documents": "Are you sure you have provided all the necessary documents here?",
     "list1": "Proof of accommodation",
     "list2": "Copy of the host's identity document",
@@ -763,7 +765,7 @@
     "field-required": "This field is required"
   },
   "guarantorlistpage": {
-    "my-guarantor": "My Guarantor",
+    "my-guarantor": "My Guarantors",
     "add-new-guarantor": "Add a New Guarantor?",
     "guarantor": {
       "NATURAL_PERSON": "My Guarantor",
@@ -1133,7 +1135,6 @@
   },
   "tenantdocument": {},
   "tenantguarantorchoice": {
-    "my-guarantor": "My guarantor",
     "cotenant-guarantor": "His/her guarantor",
     "identification": "Identification Document",
     "residency": "Proof of Residence",
@@ -1146,14 +1147,9 @@
     "validate": "Validate",
     "will-delete-guarantor": "Are you sure you want to change the guarantor type?",
     "validate-file": "Next Step - Validate the file",
-    "natural-person": "Classic Individual Guarantor",
-    "organism": "Guaranteeing Organization",
-    "legal-person": "Legal Entity Guarantor",
-    "no-guarantor": "I don't have a guarantor",
-    "no-guarantor-cotenant": "My spouse/partner doesn't have a guarantor",
-    "ask-guarantor": "Do you want to add:",
-    "remark-title": "Remark",
-    "remark-text": "Adding a guarantor is not mandatory. If you do not wish to add a guarantor, you can select 'I don't have a guarantor'. Your file will then be saved for processing.",
+    "ask-guarantor": "Their guarantor is:",
+    "optional-guarantor": "Adding a guarantor is not mandatory. If your partner doesn't have a guarantor, you can select <em>no guarantor</em> at the bottom of the page to proceed to the next step.",
+    "two-guarantors-warning": "If your partner has 2 guarantors, add them one after the other. <strong>The documents of the 2 guarantors must not be mixed</strong>.",
     "type-required": "Please select an option",
     "visale-title": "Are you familiar with Visale?",
     "visale-text": "Visale is the guarantor for your future accommodation if you are between 18 and 30 years old OR if you are over 30 and employed (subject to conditions).",
@@ -1168,18 +1164,11 @@
     "guarantor": "Guarantor",
     "validate": "Validate",
     "will-delete-guarantor": "Are you sure you want to change the guarantor type?",
-    "validate-file": "Next Step - Validate the file",
-    "natural-person": "Classic Individual Guarantor",
-    "organism": "Guaranteeing Organization",
-    "legal-person": "Legal Entity Guarantor",
-    "no-guarantor": "I don't have a guarantor",
-    "ask-guarantor": "Do you want to add:",
-    "remark-title": "Remark",
-    "remark-text": "Adding a guarantor is not mandatory. If you do not wish to add a guarantor, you can select 'I don't have a guarantor'. Your file will then be saved for processing."
+    "validate-file": "Next Step - Validate the file"
   },
   "tenantguarantordocumentspage": {},
   "tenantguarantorlist": {
-    "my-guarantor": "My Spouse's Guarantor",
+    "my-guarantor": "My Spouse's Guarantors",
     "add-new-guarantor": "Add a New Guarantor?",
     "guarantor": {
       "NATURAL_PERSON": "Their Guarantor",

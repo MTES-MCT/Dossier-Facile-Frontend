@@ -51,7 +51,6 @@ export default class ApplicationTypeSelector extends Vue {
       id: "alone-choice",
       labelKey: "tenantinformationform.alone",
       iconClass: "fr-icon-user-line",
-      iconCount: 1,
       optionName: "ALONE",
     },
     {
@@ -65,7 +64,6 @@ export default class ApplicationTypeSelector extends Vue {
       id: "group-choice",
       labelKey: "tenantinformationform.roommate",
       iconClass: "fr-icon-team-line",
-      iconCount: 1,
       optionName: "GROUP",
     },
   ];
