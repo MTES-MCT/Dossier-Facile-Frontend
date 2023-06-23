@@ -682,10 +682,22 @@
     "validate": "Validate",
     "will-delete-guarantor": "Do you really want to change the type of guarantor?",
     "validate-file": "Next Step - Validate Application",
-    "natural-person": "A Regular Guarantor",
-    "organism": "An Organizational Guarantor",
-    "legal-person": "A Legal Guarantor",
-    "no-guarantor": "I don't have a guarantor",
+    "natural-person": {
+      "label": "A person",
+      "description": "Example : a parent, a relative"
+    },
+    "organism": {
+      "label": "An Organizational guarantor",
+      "description": "Example : Visale"
+    },
+    "legal-person": {
+      "label": "A Legal guarantor",
+      "description": "Example : a company"
+    },
+    "no-guarantor": {
+      "tenant": "I don't have a guarantor",
+      "cotenant": "My partner doesn't have a guarantor"
+    },
     "ask-guarantor": "Do you want to add:",
     "remark-title": "Note",
     "remark-text": "Adding a guarantor is not mandatory. If you do not wish to add a guarantor, you can select 'I don't have a guarantor'.<br> Your application will be saved for processing.",
@@ -1146,11 +1158,6 @@
     "validate": "Validate",
     "will-delete-guarantor": "Are you sure you want to change the guarantor type?",
     "validate-file": "Next Step - Validate the file",
-    "natural-person": "Classic Individual Guarantor",
-    "organism": "Guaranteeing Organization",
-    "legal-person": "Legal Entity Guarantor",
-    "no-guarantor": "I don't have a guarantor",
-    "no-guarantor-cotenant": "My spouse/partner doesn't have a guarantor",
     "ask-guarantor": "Do you want to add:",
     "remark-title": "Remark",
     "remark-text": "Adding a guarantor is not mandatory. If you do not wish to add a guarantor, you can select 'I don't have a guarantor'. Your file will then be saved for processing.",

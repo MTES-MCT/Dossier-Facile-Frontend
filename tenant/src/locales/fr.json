@@ -681,10 +681,22 @@
     "validate": "Valider",
     "will-delete-guarantor": "Voulez-vous vraiment changer le type de garant ?",
     "validate-file": "Étape suivante - Valider le dossier",
-    "natural-person": "Un garant physique classique",
-    "organism": "Un organisme garant",
-    "legal-person": "Un garant moral",
-    "no-guarantor": "Je n'ai pas de garant",
+    "natural-person": {
+      "label": "Une personne",
+      "description": "Exemple : un parent, un proche"
+    },
+    "organism": {
+      "label": "Un organisme",
+      "description": "Exemple : Visale"
+    },
+    "legal-person": {
+      "label": "Une personne morale",
+      "description": "Exemple : une entreprise"
+    },
+    "no-guarantor": {
+      "tenant": "Je n'ai pas de garant",
+      "cotenant": "Mon conjoint n'a pas de garant"
+    },
     "ask-guarantor": "Souhaitez-vous ajouter :",
     "remark-title": "Remarque",
     "remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez sélectionner « Je n'ai pas de garant ».<br> Votre dossier sera alors enregistré pour être instruit.",
@@ -1143,11 +1155,6 @@
     "validate": "Valider",
     "will-delete-guarantor": "Voulez-vous vraiment changer le type de garant ?",
     "validate-file": "Étape suivante - Valider le dossier",
-    "natural-person": "Un garant physique classique",
-    "organism": "Un organisme garant",
-    "legal-person": "Un garant moral",
-    "no-guarantor": "Je n'ai pas de garant",
-    "no-guarantor-cotenant": "Mon conjoint n'a pas de garant",
     "ask-guarantor": "Souhaitez-vous ajouter :",
     "remark-title": "Remarque",
     "remark-text": "Ajouter un garant n’est en aucun cas obligatoire. Si vous ne souhaitez pas ajouter de garant, vous pouvez sélectionner « Je n'ai pas de garant ».<br> Votre dossier sera alors enregistré pour être instruit.",
