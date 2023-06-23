@@ -697,7 +697,7 @@
       "description": "Exemple : une entreprise"
     },
     "no-guarantor": {
-      "tenant": "Je n'ai pas de garant",
+      "tenant": "Vous n'avez pas de garant",
       "cotenant": "Mon conjoint n'a pas de garant"
     },
     "ask-guarantor": "Votre garant est :",
@@ -782,8 +782,7 @@
     "lastname-placeholder": "ex: Dupont",
     "firstname-placeholder": "ex: Jean",
     "field-required": "Ce champ est requis",
-    "title": "Identité de mon garant",
-    "subtitle": "Je renseigne le nom et prénom de mon garant"
+    "title": "Identité de votre garant"
   },
   "guarantorprofessional": {
     "title": "Situation professionnelle de votre garant",
@@ -1187,8 +1186,7 @@
     "lastname-placeholder": "ex: Dupont",
     "firstname-placeholder": "ex: Jean",
     "field-required": "Ce champ est requis",
-    "title": "Identité du garant de mon conjoint",
-    "subtitle": "Je renseigne le nom et prénom du garant"
+    "title": "Identité de son garant"
   },
   "tenantguarantorspage": {},
   "tenantinformationform": {
