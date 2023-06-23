@@ -15,11 +15,14 @@
         />
         <label class="fr-label" :for="element.id">
           {{ $tc(element.labelKey) }}
+          <span class="fr-hint-text" v-if="element.description">
+            {{ $tc(element.description) }}
+          </span>
         </label>
         <div class="fr-radio-rich__img">
           <div class="icon-container">
             <span
-              v-for="i in element.iconCount"
+              v-for="i in getIconCount(element)"
               v-bind:key="i"
               :class="element.iconClass + ' fr-icon--lg'"
               aria-hidden="true"
@@ -37,8 +40,9 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 export interface RadioElement {
   id: string;
   labelKey: string;
+  description?: string;
   iconClass: string;
-  iconCount: string;
+  iconCount?: string;
   optionName: string;
 }
 
@@ -47,6 +51,10 @@ export default class RichRadioButtons extends Vue {
   @Prop() name!: string;
   @Prop() elements!: RadioElement[];
   @Prop() value!: string;
+
+  getIconCount(element: RadioElement) {
+    return element.iconCount || 1;
+  }
 
   onSelect(applicationType: string) {
     this.$emit("input", applicationType);
