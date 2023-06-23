@@ -1,41 +1,27 @@
 <template>
   <div>
     <div>
-      <div v-if="isMobile()" class="remark fr-mt-3w fr-mb-3w">
-        <div class="fr-h5">{{ $t("tenantguarantorchoice.remark-title") }}</div>
-        <div v-html="$t('tenantguarantorchoice.remark-text')"></div>
-      </div>
-
       <div ref="guarantor-body-content">
         <NakedCard class="fr-p-md-5w">
-          <div v-if="!isMobile()">
-            <div class="text-bold fr-mb-1w">
-              <h1 class="fr-h5" v-if="isCotenant">
-                {{ $t("tenantguarantorchoice.cotenant-guarantor") }}
-              </h1>
-              <h1 class="fr-h5" v-else>
-                {{ $t("tenantguarantorchoice.my-guarantor") }}
-              </h1>
-            </div>
-            <TroubleshootingModal>
-              <GuarantorChoiceHelp></GuarantorChoiceHelp>
-            </TroubleshootingModal>
-            <div class="remark fr-mt-3w">
-              <div class="fr-h6">
-                {{ $t("tenantguarantorchoice.remark-title") }}
-              </div>
-              <div
-                class="small-font"
-                v-html="$t('tenantguarantorchoice.remark-text')"
-              ></div>
-            </div>
+          <div class="text-bold fr-mb-1w">
+            <h1 class="fr-h5">
+              {{ $t("guarantorchoice.add-guarantor") }}
+            </h1>
           </div>
-          <div class="fr-mt-3w fr-mb-2w">
-            {{ $t("tenantguarantorchoice.ask-guarantor") }}
-          </div>
-          <TroubleshootingModal v-if="isMobile()">
+          <TroubleshootingModal>
             <GuarantorChoiceHelp></GuarantorChoiceHelp>
           </TroubleshootingModal>
+          <div class="fr-mt-3w">
+            <p v-html="$t('tenantguarantorchoice.optional-guarantor')"></p>
+            <div class="fr-alert fr-alert--info">
+              <p v-html="$t('tenantguarantorchoice.two-guarantors-warning')"></p>
+            </div>
+          </div>
+        </NakedCard>
+        <NakedCard class="fr-p-md-5w fr-mt-3w">
+          <div class="fr-mb-2w">
+            {{ $t("tenantguarantorchoice.ask-guarantor") }}
+          </div>
 
           <GuarantorTypeSelector
             :localStorageKey="`cotenantGuarantorType_${this.tenantId}`"
@@ -158,10 +144,6 @@ export default class TenantGuarantorChoice extends Vue {
 
   gotoVisale() {
     window.open("https://www.visale.fr", "_blank");
-  }
-
-  isMobile() {
-    return UtilsService.isMobile();
   }
 }
 </script>
