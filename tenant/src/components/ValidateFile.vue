@@ -1,9 +1,8 @@
 <template>
   <div>
-    <AllowCheckTax class="fr-mb-3w" v-if="!hasErrors()"></AllowCheckTax>
     <ValidationObserver v-slot="{ validate }">
       <form name="form" @submit.prevent="validate().then(sendFile)">
-        <div v-if="!hasErrors() && hasMadeChoiceForTaxCheck()">
+        <div v-if="!hasErrors()">
           <NakedCard class="fr-p-md-5w fr-mb-3w">
             <h1 class="fr-h6">{{ $t("validatefile.title") }}</h1>
             <p>{{ getCheckboxInstructions() }}</p>
@@ -19,10 +18,9 @@
                   value="false"
                   v-model="declaration"
                 />
-                <label
-                  for="declaration"
-                  v-html="$t('validatefile.declaration')"
-                ></label>
+                <label for="declaration">
+                  <span v-html="$t('validatefile.declaration')"></span>
+                </label>
                 <span class="fr-error-text" v-if="errors[0]">{{
                   $t(errors[0])
                 }}</span>
@@ -86,7 +84,7 @@
         </div>
         <ProfileFooter
           @on-back="goBack()"
-          :disabled="hasErrors() || !hasMadeChoiceForTaxCheck()"
+          :disabled="hasErrors()"
           :nextLabel="$t('validatefile.validate')"
         ></ProfileFooter>
       </form>
@@ -119,7 +117,6 @@ import { extend } from "vee-validate";
 import { is } from "vee-validate/dist/rules";
 import FileErrors from "./FileErrors.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
-import AllowCheckTax from "../components/documents/share/AllowCheckTax.vue";
 import { RegisterService } from "@/services/RegisterService";
 
 extend("isvalid", {
@@ -135,7 +132,6 @@ extend("isvalid", {
     ProfileFooter,
     FileErrors,
     NakedCard,
-    AllowCheckTax,
   },
   computed: {
     ...mapState({
@@ -155,18 +151,6 @@ export default class ValidateFile extends Vue {
       this.declaration2 = true;
     }
     this.precision = this.user?.clarification || "";
-
-    if (this.user.allowCheckTax && this.user.franceConnect) {
-      if (this.$route.query.refresh) {
-        RegisterService.getFranceConnectToken().then((fcToken: string) => {
-          this.$store.dispatch("saveTaxAuth", {
-            allowTax: "allow",
-            fcToken: fcToken,
-            tenantId: this.user.id,
-          });
-        });
-      }
-    }
   }
 
   sendFile() {
@@ -208,11 +192,7 @@ export default class ValidateFile extends Vue {
   }
 
   canValidate() {
-    return (
-      this.declaration &&
-      (!this.hasGuarantors() || this.declaration2) &&
-      this.hasMadeChoiceForTaxCheck()
-    );
+    return this.declaration && (!this.hasGuarantors() || this.declaration2);
   }
 
   getCheckboxInstructions() {
@@ -228,10 +208,6 @@ export default class ValidateFile extends Vue {
         return g.typeGuarantor !== "ORGANISM";
       }) >= 0
     );
-  }
-
-  hasMadeChoiceForTaxCheck(): boolean {
-    return this.user.allowCheckTax !== undefined;
   }
 }
 </script>
