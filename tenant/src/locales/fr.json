@@ -673,11 +673,6 @@
   },
   "guarantorchoice": {
     "add-guarantor": "Voulez-vous ajouter un garant ?",
-    "identification": "Pièce d’identité",
-    "residency": "Justificatif de situation d'hébergement",
-    "professional": "Justificatif de situation professionnelle",
-    "financial": "Justificatif de ressources",
-    "tax": "Avis d’imposition",
     "representative-identification": "Identité de la personne morale",
     "corporation-identification": "Identité du représentant de la personne morale",
     "guarantor": "Garant",
@@ -696,13 +691,10 @@
       "label": "Une personne morale",
       "description": "Exemple : une entreprise"
     },
-    "no-guarantor": {
-      "tenant": "Vous n'avez pas de garant",
-      "cotenant": "Mon conjoint n'a pas de garant"
-    },
     "ask-guarantor": "Votre garant est :",
     "optional-guarantor": "Ajouter un garant n’est pas obligatoire. Si vous n'avez pas de garant, vous pouvez sélectionner <em>pas de garant</em> en bas de la page pour passer à l'étape suivante.",
     "two-guarantors-warning": "Si vous avez 2 garants, ajoutez-les l'un après l'autre.<br/><strong>Les documents de vos 2 garants ne doivent pas être mélangés</strong>.",
+    "no-guarantor": "Vous n'avez pas de garant",
     "type-required": "Veuillez sélectionner un choix",
     "visale-title": "Connaissez-vous Visale ?",
     "visale-text": "Visale est le garant de votre futur logement si vous avez entre 18 et 30 ans OU si vous êtes salariés de + de 30 ans (soumis à conditions).",
@@ -1148,6 +1140,7 @@
     "ask-guarantor": "Son garant est :",
     "optional-guarantor": "Ajouter un garant n’est pas obligatoire. Si votre conjoint n'a pas de garant, vous pouvez sélectionner <em>pas de garant</em> en bas de la page pour passer à l'étape suivante.",
     "two-guarantors-warning": "Si votre conjoint a 2 garants, ajoutez-les l'un après l'autre. <strong>Les documents de ses 2 garants ne doivent pas être mélangés</strong>.",
+    "no-guarantor": "Votre conjoint n'a pas de garant",
     "type-required": "Veuillez sélectionner un choix",
     "visale-title": "Connaissez-vous Visale ?",
     "visale-text": "Visale est le garant de votre futur logement si vous avez entre 18 et 30 ans OU si vous êtes salariés de + de 30 ans (soumis à conditions).",

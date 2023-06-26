@@ -77,7 +77,7 @@ describe("couple tenant scenario", () => {
     cy.clickOnNext();
 
     cy.expectPath("/garants-locataire");
-    cy.contains("Mon conjoint n'a pas de garant").click();
+    cy.contains("Votre conjoint n'a pas de garant").click();
     cy.contains("Continuer").click();
 
     cy.disableTaxVerification();
