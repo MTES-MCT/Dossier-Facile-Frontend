@@ -12,7 +12,7 @@
               >
               <Field
                 name="lastname"
-                v-model="lastname"
+                v-model.trim="lastname"
                 v-slot="{ field, meta }"
                 :rules="{
                   required: true,
@@ -42,7 +42,7 @@
               >
               <Field
                 name="firstname"
-                v-model="firstname"
+                v-model.trim="firstname"
                 v-slot="{ field, meta }"
                 :rules="{
                   required: true,
