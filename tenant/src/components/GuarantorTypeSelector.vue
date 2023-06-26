@@ -72,9 +72,9 @@ export default class GuarantorTypeSelector extends Vue {
     },
     {
       id: "no-guarantor-choice",
-      labelKey: `guarantorchoice.no-guarantor.${
-        this.isCotenant ? "cotenant" : "tenant"
-      }`,
+      labelKey: `${
+        this.isCotenant ? "tenantguarantorchoice" : "guarantorchoice"
+      }.no-guarantor`,
       iconClass: "fr-icon-close-line",
       optionName: "NO_GUARANTOR",
     },

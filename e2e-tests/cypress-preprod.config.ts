@@ -9,7 +9,7 @@ export default defineConfig({
       on("task", log());
     },
     retries: {
-      runMode: 3,
+      runMode: 5,
     },
   },
   env: {
