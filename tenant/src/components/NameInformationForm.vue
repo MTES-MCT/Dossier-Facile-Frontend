@@ -42,7 +42,7 @@
                 name="lastname"
                 :fieldLabel="$tc('nameinformationform.lastname')"
                 validation-rules="only-alpha"
-                v-model="lastname"
+                v-model.trim="lastname"
                 :required="true"
                 :disabled="user.franceConnect"
               />
@@ -60,7 +60,7 @@
                 name="preferredname"
                 :fieldLabel="$tc('nameinformationform.preferredname')"
                 validation-rules="only-alpha"
-                v-model="preferredname"
+                v-model.trim="preferredname"
               >
                 <template v-slot:right>
                   <button
@@ -78,7 +78,7 @@
                 name="firstname"
                 :fieldLabel="$tc('nameinformationform.firstname')"
                 validation-rules="only-alpha"
-                v-model="firstname"
+                v-model.trim="firstname"
                 :required="true"
                 :disabled="user.franceConnect"
               />

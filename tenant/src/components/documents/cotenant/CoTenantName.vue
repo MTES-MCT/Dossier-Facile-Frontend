@@ -17,7 +17,7 @@
                 name="lastname"
                 :fieldLabel="$tc('cotenantname.lastname')"
                 validation-rules="only-alpha"
-                v-model="lastName"
+                v-model.trim="lastName"
                 :required="true"
               />
               <button
@@ -34,7 +34,7 @@
                 name="preferredname"
                 :fieldLabel="$tc('cotenantname.preferredname')"
                 validation-rules="only-alpha"
-                v-model="preferredName"
+                v-model.trim="preferredName"
               >
                 <template v-slot:right>
                   <button
@@ -52,15 +52,14 @@
                 name="firstname"
                 :fieldLabel="$tc('cotenantname.firstname')"
                 validation-rules="only-alpha"
-                v-model="firstName"
+                v-model.trim="firstName"
                 :required="true"
               />
             </div>
           </div>
         </NakedCard>
         <FooterContainer>
-          <BackNext :showBack="true" @on-back="goBack()">
-          </BackNext>
+          <BackNext :showBack="true" @on-back="goBack()"> </BackNext>
         </FooterContainer>
       </form>
     </ValidationObserver>
