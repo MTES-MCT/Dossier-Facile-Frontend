@@ -403,7 +403,7 @@
           {{ $t("s6.title") }}
         </h2>
         <div class="fr-container">
-          <div class="fr-grid-row gap">
+          <div class="fr-grid-row fr-grid-row--center gap">
             <LogoPartnerComponent
               :image="require('../assets/logos/police_nationale.svg')"
               height="60px"
