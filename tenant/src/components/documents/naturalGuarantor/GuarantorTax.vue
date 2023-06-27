@@ -418,6 +418,13 @@ export default class GuarantorTax extends Vue {
 
     if (force) {
       formData.append("avisDetected", "true");
+    } else {
+      const files = this.files
+        .map((f) => f.file as File)
+        .filter((f) => f !== undefined);
+      if (!(await PdfAnalysisService.includesRejectedTaxDocuments(files))) {
+        formData.append("avisDetected", "false");
+      }
     }
 
     formData.append("typeDocumentTax", this.taxDocument.value);

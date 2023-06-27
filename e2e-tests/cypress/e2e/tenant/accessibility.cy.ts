@@ -36,8 +36,7 @@ describe("accessibility checks", () => {
     cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom");
 
     cy.testAccessibility();
-    cy.get("button")
-      .contains("Un garant physique")
+    cy.contains("Une personne")
       .click()
       .clickOnNext();
 

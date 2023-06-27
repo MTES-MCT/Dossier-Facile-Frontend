@@ -203,7 +203,7 @@ import AllowCheckTax from "../share/AllowCheckTax.vue";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 import { PdfAnalysisService } from "../../../services/PdfAnalysisService";
 import Modal from "df-shared/src/components/Modal.vue";
-import {LoaderComponent} from "vue-loading-overlay";
+import { LoaderComponent } from "vue-loading-overlay";
 
 extend("is", {
   ...is,
@@ -467,6 +467,13 @@ export default class Tax extends Vue {
 
     if (force) {
       formData.append("avisDetected", "true");
+    } else {
+      const files = this.files
+        .map((f) => f.file as File)
+        .filter((f) => f !== undefined);
+      if (!(await PdfAnalysisService.includesRejectedTaxDocuments(files))) {
+        formData.append("avisDetected", "false");
+      }
     }
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;

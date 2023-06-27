@@ -141,9 +141,6 @@
           <p>
             {{ $t("s3.text3") }}
           </p>
-          <!--           <router-link to="/tenant">
-            {{ $t("s3.link") }}
-          </router-link> -->
         </div>
       </div>
     </section>
@@ -204,13 +201,6 @@
             width="167px"
           />
           <LogoPartnerComponent
-            :image="require('../assets/logos/visale.webp')"
-            height="60px"
-            href="https://www.visale.fr/"
-            name="visale.fr - connecte emploi et logement"
-            width="187px"
-          />
-          <LogoPartnerComponent
             :image="require('../assets/logos/loc_service.webp')"
             height="60px"
             href="https://www.locservice.fr/"
@@ -252,11 +242,6 @@
             href="https://www.colivme.com/"
             name="colivme"
             width="174px"
-          />
-          <LogoPartnerComponent
-            :image="require('../assets/logos/anil.webp')"
-            href="https://www.anil.org/"
-            name="ANIL, l’agence nationale pour l’information sur le logement"
           />
           <LogoPartnerComponent
             :image="require('../assets/logos/clickandrent.webp')"
@@ -402,6 +387,70 @@
             height="55px"
             width="232px"
           />
+        </div>
+        <div class="text-center fr-mt-5w fr-mb-5w">
+          <p>
+            <DfButton primary="true" @on-click="gotoTenant">
+              {{ $t("button") }}
+            </DfButton>
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-3w institutional-section">
+      <div class="fr-mb-7w">
+        <h2 class="fr-h2 text-center">
+          {{ $t("s6.title") }}
+        </h2>
+        <div class="fr-container">
+          <div class="fr-grid-row fr-grid-row--center gap">
+            <LogoPartnerComponent
+              :image="require('../assets/logos/police_nationale.svg')"
+              height="60px"
+              href="https://www.police-nationale.interieur.gouv.fr/"
+              name="Police nationale"
+              width="81px"
+              class="institutional-partner"
+            />
+            <LogoPartnerComponent
+              :image="require('../assets/logos/visale.webp')"
+              height="60px"
+              href="https://www.visale.fr/"
+              name="visale.fr - connecte emploi et logement"
+              width="187px"
+              class="institutional-partner"
+            />
+            <LogoPartnerComponent
+              :image="require('../assets/logos/anil.webp')"
+              href="https://www.anil.org/"
+              name="ANIL, l’agence nationale pour l’information sur le logement"
+              class="institutional-partner"
+            />
+            <LogoPartnerComponent
+              :image="require('../assets/logos/UNML.svg')"
+              href="https://www.unml.info/"
+              name="Union nationale des missions locales"
+              class="institutional-partner"
+              height="60px"
+              width="118px"
+            />
+            <LogoPartnerComponent
+              :image="require('../assets/logos/CLLAJ.svg')"
+              href="https://www.uncllaj.org/"
+              name="Comités Locaux pour le Logement Autonome des Jeunes"
+              class="institutional-partner"
+              height="60px"
+              width="137px"
+            />
+            <LogoPartnerComponent
+              :image="require('../assets/logos/FranceUniversites.svg')"
+              href="https://franceuniversites.fr/"
+              name="France Universités"
+              class="institutional-partner"
+              height="60px"
+              width="194px"
+            />
+          </div>
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
@@ -603,5 +652,19 @@ ol > li::marker {
 
 ol {
   padding-left: 0;
+}
+
+.institutional-section {
+  background-color: #f5f5fe;
+}
+
+.institutional-partner {
+  width: 141px;
+  height: 90px;
+  background-color: white;
+}
+
+.gap {
+  gap: 0.5rem;
 }
 </style>

@@ -512,6 +512,8 @@ export default class DocumentDownloader extends Vue {
     this.$emit("enrich-form-data", formData);
     if (avisDetected) {
       formData.append("avisDetected", "true");
+    } else {
+      formData.append("avisDetected", "false");
     }
 
     return formData;

@@ -46,8 +46,7 @@ describe("flatmate tenant scenario", () => {
       .clickOnNext();
 
     cy.expectPath("/choix-garant");
-    cy.get("button")
-      .contains("Un garant moral")
+    cy.contains("Une personne morale")
       .click()
       .clickOnNext();
 

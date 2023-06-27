@@ -74,7 +74,7 @@ function like() {
 
 function dislike() {
   axios
-    .get(`${import.meta.env.VITE_API_URL}/api/feedback/true`)
+    .get(`${import.meta.env.VITE_API_URL}/api/feedback/false`)
     .then((res: any) => {
       toast.info(t("feedback-registered").toString(), {
         timeout: 5000,
