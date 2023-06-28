@@ -403,50 +403,44 @@
           {{ $t("s6.title") }}
         </h2>
         <div class="fr-container">
-          <div class="fr-grid-row fr-grid-row--center gap">
-            <LogoPartnerComponent
+          <div class="fr-grid-row fr-grid-row--gutters">
+            <LogoInstitutionalPartnerComponent
               :image="require('../assets/logos/police_nationale.svg')"
               height="60px"
               href="https://www.police-nationale.interieur.gouv.fr/"
               name="Police nationale"
               width="81px"
-              class="institutional-partner"
             />
-            <LogoPartnerComponent
+            <LogoInstitutionalPartnerComponent
               :image="require('../assets/logos/visale.webp')"
               height="60px"
               href="https://www.visale.fr/"
               name="visale.fr - connecte emploi et logement"
               width="187px"
-              class="institutional-partner"
             />
-            <LogoPartnerComponent
+            <LogoInstitutionalPartnerComponent
               :image="require('../assets/logos/anil.webp')"
               href="https://www.anil.org/"
               name="ANIL, l’agence nationale pour l’information sur le logement"
-              class="institutional-partner"
             />
-            <LogoPartnerComponent
+            <LogoInstitutionalPartnerComponent
               :image="require('../assets/logos/UNML.svg')"
               href="https://www.unml.info/"
               name="Union nationale des missions locales"
-              class="institutional-partner"
               height="60px"
               width="118px"
             />
-            <LogoPartnerComponent
+            <LogoInstitutionalPartnerComponent
               :image="require('../assets/logos/CLLAJ.svg')"
               href="https://www.uncllaj.org/"
               name="Comités Locaux pour le Logement Autonome des Jeunes"
-              class="institutional-partner"
               height="60px"
               width="137px"
             />
-            <LogoPartnerComponent
+            <LogoInstitutionalPartnerComponent
               :image="require('../assets/logos/FranceUniversites.svg')"
               href="https://franceuniversites.fr/"
               name="France Universités"
-              class="institutional-partner"
               height="60px"
               width="194px"
             />
@@ -468,11 +462,13 @@
 import { Component, Vue } from "vue-property-decorator";
 import DfButton from "df-shared/src/Button/Button.vue";
 import LogoPartnerComponent from "@/components/LogoPartnerComponent.vue";
+import LogoInstitutionalPartnerComponent from "@/components/LogoInstitutionalPartnerComponent.vue";
 import { StatsService } from "../services/StatsService";
 
 @Component({
   components: {
     LogoPartnerComponent,
+    LogoInstitutionalPartnerComponent,
     DfButton,
   },
 })
@@ -656,15 +652,5 @@ ol {
 
 .institutional-section {
   background-color: #f5f5fe;
-}
-
-.institutional-partner {
-  width: 141px;
-  height: 90px;
-  background-color: white;
-}
-
-.gap {
-  gap: 0.5rem;
 }
 </style>
