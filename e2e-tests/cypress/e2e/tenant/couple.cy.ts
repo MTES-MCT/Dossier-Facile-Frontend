@@ -21,7 +21,7 @@ describe("couple tenant scenario", () => {
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/1");
-    cy.simpleUploadDocumentStep("Passeport français");
+    cy.simpleUploadDocumentStep("Passeport");
 
     cy.expectPath("/documents-locataire/2");
     cy.contains("Vous habitez chez vos parents")

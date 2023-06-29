@@ -28,12 +28,19 @@ export const DocumentTypeConstants = {
       maxFileCount: 5
     },
     {
+      key: "drivers-license",
+      value: "DRIVERS_LICENSE",
+      acceptedProofs: [
+        "Permis de conduire français ou étranger recto-verso",
+      ],
+      refusedProofs: ["Tout autre document"]
+    },
+    {
       key: "other",
       value: "OTHER_IDENTIFICATION",
       acceptedProofs: [
         "Carte d’identité étrangère <b>recto-verso</b>",
         "Passeport étranger (pages 2 et 3)",
-        "Permis de conduire français ou étranger <b>recto-verso</b>",
         "Carte de résident",
         "Carte de ressortissant d’un État membre de l’UE ou de l’EEE",
         "Justificatif d'identité fourni par France Identité Numérique",
@@ -72,12 +79,19 @@ export const DocumentTypeConstants = {
       maxFileCount: 5
     },
     {
+      key: "drivers-license",
+      value: "DRIVERS_LICENSE",
+      acceptedProofs: [
+        "Permis de conduire français ou étranger recto-verso",
+      ],
+      refusedProofs: ["Tout autre document"]
+    },
+    {
       key: "other",
       value: "OTHER_IDENTIFICATION",
       acceptedProofs: [
         "Carte d’identité étrangère <b>recto-verso</b>",
         "Passeport étranger (pages 2 et 3)",
-        "Permis de conduire français ou étranger <b>recto-verso</b>",
         "Carte de résident",
         "Carte de ressortissant d’un État membre de l’UE ou de l’EEE",
         "Justificatif d'identité fourni par France Identité Numérique",
@@ -782,12 +796,19 @@ export const DocumentTypeConstants = {
       refusedProofs: ["Tout autre document"]
     },
     {
+      key: "drivers-license",
+      value: "DRIVERS_LICENSE",
+      acceptedProofs: [
+        "Permis de conduire français ou étranger recto-verso",
+      ],
+      refusedProofs: ["Tout autre document"]
+    },
+    {
       key: "other",
       value: "OTHER_IDENTIFICATION",
       acceptedProofs: [
         "Carte d’identité étrangère recto-verso",
         "Passeport étranger (pages 2 et 3)",
-        "Permis de conduire français ou étranger recto-verso",
         "Carte de résident",
         "Carte de ressortissant d’un État membre de l’UE ou de l’EEE",
         "Justificatif d'identité fourni par France Identité Numérique",
