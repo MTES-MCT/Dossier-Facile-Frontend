@@ -1,7 +1,8 @@
 {
-  "identity-card": "French Identity Card",
-  "passport": "French Passport",
+  "identity-card": "Identity Card",
+  "passport": "Passport",
   "permit": "French Residence Permit",
+  "drivers-license": "Driver's license",
   "other": "Other",
   "tenant": "Tenant",
   "owner": "Owner",
@@ -77,6 +78,7 @@
     "identity-card": "French Identity Card",
     "passport": "French Passport",
     "permit": "French Residence Permit",
+    "drivers-license": "Driver's license",
     "other": "Other",
     "tenant": "Tenant",
     "owner": "Owner",
