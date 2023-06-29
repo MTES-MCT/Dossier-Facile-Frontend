@@ -311,6 +311,45 @@ export const DocumentTypeConstants = {
       maxFileCount: 20
     },
     {
+      key: "intermittent",
+      value: "INTERMITTENT",
+      acceptedProofs: [
+        "Avis de situation Pôle emploi et contrat de travail éventuel",
+      ],
+      refusedProofs: [],
+      maxFileCount: 20
+    },
+    {
+      key: "artist",
+      value: "ARTIST",
+      acceptedProofs: [
+        "Avis de situation au répertoire SIRENE de moins de 3 mois",
+        "Attestation d’affiliation",
+      ],
+      refusedProofs: [],
+      maxFileCount: 20
+    },
+    {
+      key: "stay-at-home-parent",
+      value: "STAY_AT_HOME_PARENT",
+      acceptedProofs: [
+        "Attestation de paiement de la CAF",
+        "Attestation sur l'honneur qui explique votre situation",
+      ],
+      refusedProofs: [],
+      maxFileCount: 20
+    },
+    {
+      key: "no-activity",
+      value: "NO_ACTIVITY",
+      acceptedProofs: [
+        "Attestation de paiement de pension",
+        "Attestation sur l'honneur qui explique votre situation",
+      ],
+      refusedProofs: [],
+      maxFileCount: 20
+    },
+    {
       key: "other",
       value: "OTHER",
       acceptedProofs: [
@@ -461,6 +500,45 @@ export const DocumentTypeConstants = {
         "Extrait K ou K bis du registre du commerce et des sociétés de moins de 3 mois (commerçant)"
       ],
       refusedProofs: ["Relevés de comptes bancaires"],
+      maxFileCount: 20
+    },
+    {
+      key: "intermittent",
+      value: "INTERMITTENT",
+      acceptedProofs: [
+        "Avis de situation Pôle emploi et contrat de travail éventuel",
+      ],
+      refusedProofs: [],
+      maxFileCount: 20
+    },
+    {
+      key: "artist",
+      value: "ARTIST",
+      acceptedProofs: [
+        "Avis de situation au répertoire SIRENE de moins de 3 mois",
+        "Attestation d’affiliation",
+      ],
+      refusedProofs: [],
+      maxFileCount: 20
+    },
+    {
+      key: "stay-at-home-parent",
+      value: "STAY_AT_HOME_PARENT",
+      acceptedProofs: [
+        "Attestation de paiement de la CAF",
+        "Attestation sur l'honneur qui explique votre situation",
+      ],
+      refusedProofs: [],
+      maxFileCount: 20
+    },
+    {
+      key: "no-activity",
+      value: "NO_ACTIVITY",
+      acceptedProofs: [
+        "Attestation de paiement de pension",
+        "Attestation sur l'honneur qui explique votre situation",
+      ],
+      refusedProofs: [],
       maxFileCount: 20
     },
     {

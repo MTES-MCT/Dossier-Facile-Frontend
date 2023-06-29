@@ -254,7 +254,7 @@ export default class GuarantorTax extends Vue {
     const doc = this.getRegisteredDoc();
     if (doc !== undefined) {
       const localDoc = this.documents.find((d: DocumentType) => {
-        return d.value === doc.documentSubCategory;
+        return d.value === doc.subCategory;
       });
       return localDoc;
     }
@@ -277,7 +277,7 @@ export default class GuarantorTax extends Vue {
       if (doc !== undefined) {
         this.isDocDeleteVisible =
           (doc.files?.length || 0) > 0 &&
-          doc.documentSubCategory !== this.taxDocument.value;
+          doc.subCategory !== this.taxDocument.value;
       }
     }
     return false;
@@ -290,7 +290,7 @@ export default class GuarantorTax extends Vue {
       });
       if (doc !== undefined) {
         const localDoc = this.documents.find((d: DocumentType) => {
-          return d.value === doc.documentSubCategory;
+          return d.value === doc.subCategory;
         });
         if (localDoc !== undefined) {
           this.taxDocument = localDoc;
@@ -403,7 +403,7 @@ export default class GuarantorTax extends Vue {
 
     const d = this.getRegisteredDoc();
     if (
-      this.taxDocument.value === d?.documentSubCategory &&
+      this.taxDocument.value === d?.subCategory &&
       this.customText === (d?.customText || "") &&
       newFiles.length <= 0
     ) {
@@ -468,7 +468,7 @@ export default class GuarantorTax extends Vue {
   taxFiles() {
     const newFiles = this.files.map((f) => {
       return {
-        documentSubCategory: this.taxDocument.value,
+        subCategory: this.taxDocument.value,
         id: f.name,
         name: f.name,
         file: f,

@@ -146,7 +146,7 @@ export default class CoTenantFinancialList extends Vue {
         f.id = d.id;
 
         const localDoc = DocumentTypeConstants.FINANCIAL_DOCS.find(d2 => {
-          return d2.value === d.documentSubCategory;
+          return d2.value === d.subCategory;
         });
         if (localDoc !== undefined) {
           f.documentType = localDoc;

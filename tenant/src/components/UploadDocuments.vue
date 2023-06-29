@@ -119,7 +119,7 @@ export default class UploadDocuments extends Vue {
     const docs = DocumentService.getDocs("RESIDENCY", this.user);
     if (docs.length === 1) {
       const d = docs[0];
-      if (d.documentSubCategory === "TENANT") {
+      if (d.subCategory === "TENANT") {
         const nbPages = d.files?.reduce(
           (s, a) => s + (a.numberOfPages || 0),
           0
@@ -130,8 +130,8 @@ export default class UploadDocuments extends Vue {
           return;
         }
       } else if (
-        d.documentSubCategory === "GUEST_PARENTS" ||
-        d.documentSubCategory === "GUEST"
+        d.subCategory === "GUEST_PARENTS" ||
+        d.subCategory === "GUEST"
       ) {
         const nbPages = d.files?.reduce(
           (s, a) => s + (a.numberOfPages || 0),

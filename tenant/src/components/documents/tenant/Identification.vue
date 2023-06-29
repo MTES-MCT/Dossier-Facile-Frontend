@@ -155,7 +155,7 @@ export default class Identification extends Vue {
       if (this.tenantIdentificationDocument !== undefined) {
         const localDoc = this.documents.find((d: DocumentType) => {
           return (
-            d.value === this.tenantIdentificationDocument?.documentSubCategory
+            d.value === this.tenantIdentificationDocument?.subCategory
           );
         });
         if (localDoc !== undefined) {
@@ -194,7 +194,7 @@ export default class Identification extends Vue {
       if (doc !== undefined) {
         this.isDocDeleteVisible =
           (doc?.files?.length || 0) > 0 &&
-          doc?.documentSubCategory !== this.identificationDocument.value;
+          doc?.subCategory !== this.identificationDocument.value;
       }
     }
     return false;
@@ -205,7 +205,7 @@ export default class Identification extends Vue {
       const doc = this.tenantIdentificationDocument;
       if (doc !== undefined) {
         const localDoc = this.documents.find((d: DocumentType) => {
-          return d.value === doc?.documentSubCategory;
+          return d.value === doc?.subCategory;
         });
         if (localDoc !== undefined) {
           this.identificationDocument = localDoc;
@@ -302,7 +302,7 @@ export default class Identification extends Vue {
   identificationFiles() {
     const newFiles = this.files.map((f) => {
       return {
-        documentSubCategory: this.identificationDocument.value,
+        subCategory: this.identificationDocument.value,
         id: f.name,
         name: f.name,
         file: f.file,

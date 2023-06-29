@@ -332,7 +332,7 @@ export default class DocumentDownloader extends Vue {
       if (doc !== undefined) {
         this.isDocDeleteVisible =
           (doc.files?.length || 0) > 0 &&
-          doc.documentSubCategory !== this.document.value;
+          doc.subCategory !== this.document.value;
       }
     }
     this.$emit("on-change-document", this.document, this.dfDocument);
@@ -385,7 +385,7 @@ export default class DocumentDownloader extends Vue {
 
     // loadDocType
     const localDoc = this.documentsDefinitions.find((d: DocumentType) => {
-      return d.value === this.dfDocument.documentSubCategory;
+      return d.value === this.dfDocument.subCategory;
     });
     if (localDoc !== undefined) {
       this.document = localDoc;
@@ -407,7 +407,7 @@ export default class DocumentDownloader extends Vue {
       const doc = this.getDocument();
       if (doc !== undefined) {
         const localDoc = this.documentsDefinitions.find((d: DocumentType) => {
-          return d.value === doc.documentSubCategory;
+          return d.value === doc.subCategory;
         });
         if (localDoc !== undefined) {
           this.document = localDoc;

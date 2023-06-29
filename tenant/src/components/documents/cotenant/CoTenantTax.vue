@@ -134,7 +134,7 @@ export default class CoTenantTax extends Vue {
 
     const d = this.getRegisteredDoc();
     if (
-      this.documentType?.value === d?.documentSubCategory &&
+      this.documentType?.value === d?.subCategory &&
       this.document.customText === d?.customText
     ) {
       this.$emit("on-next");

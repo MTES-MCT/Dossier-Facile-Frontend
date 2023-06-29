@@ -176,7 +176,7 @@ export default class Residency extends Vue {
       });
       if (doc !== undefined) {
         const localDoc = this.documents.find((d: DocumentType) => {
-          return d.value === doc.documentSubCategory;
+          return d.value === doc.subCategory;
         });
         if (localDoc !== undefined) {
           this.residencyDocument = localDoc;
@@ -213,7 +213,7 @@ export default class Residency extends Vue {
       if (doc !== undefined) {
         this.isDocDeleteVisible =
           (doc.files?.length || 0) > 0 &&
-          doc.documentSubCategory !== this.residencyDocument.value;
+          doc.subCategory !== this.residencyDocument.value;
       }
     }
     return false;
@@ -226,7 +226,7 @@ export default class Residency extends Vue {
       });
       if (doc !== undefined) {
         const localDoc = this.documents.find((d: DocumentType) => {
-          return d.value === doc.documentSubCategory;
+          return d.value === doc.subCategory;
         });
         if (localDoc !== undefined) {
           this.residencyDocument = localDoc;
@@ -259,14 +259,14 @@ export default class Residency extends Vue {
       });
       if (doc !== undefined) {
         if (
-          (doc.documentSubCategory === "GUEST" &&
+          (doc.subCategory === "GUEST" &&
             this.residencyDocument.value === "GUEST_PARENTS") ||
-          (doc.documentSubCategory === "GUEST_PARENTS" &&
+          (doc.subCategory === "GUEST_PARENTS" &&
             this.residencyDocument.value === "GUEST")
         ) {
           return false;
         }
-        return doc.documentSubCategory !== this.residencyDocument.value;
+        return doc.subCategory !== this.residencyDocument.value;
       }
     }
     return false;
@@ -339,7 +339,7 @@ export default class Residency extends Vue {
   residencyFiles() {
     const newFiles = this.files.map((f) => {
       return {
-        documentSubCategory: this.residencyDocument.value,
+        subCategory: this.residencyDocument.value,
         id: f.name,
         name: f.name,
         size: f.size,
