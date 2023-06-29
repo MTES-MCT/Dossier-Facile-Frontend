@@ -885,6 +885,9 @@ const store = new Vuex.Store({
     guarantors(state): Guarantor[] {
       return state.user.guarantors;
     },
+    getMessages(state): DfMessage[][] {
+      return state.messageList;
+    },
     tenantFinancialDocuments(state): FinancialDocument[] {
       const financialDocuments: FinancialDocument[] = [];
       if (state.user.documents !== null) {

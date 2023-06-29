@@ -1,6 +1,6 @@
 <template>
   <ul class="fr-nav__list">
-    <li class="fr-nav__item" v-if="isLoggedIn">
+    <li class="fr-nav__item" v-if="showMessaging()">
       <a
         href="/messaging"
         class="fr-nav__link"
@@ -92,6 +92,7 @@ import { mapGetters, mapState } from "vuex";
 import DfButton from "df-shared/src/Button/Button.vue";
 import LanguageSelector from "df-shared/src/Header/LanguageSelector.vue";
 import { User } from "df-shared/src/models/User";
+import { DfMessage } from "df-shared/src/models/DfMessage";
 
 @Component({
   components: {
@@ -105,6 +106,7 @@ import { User } from "df-shared/src/models/User";
     ...mapGetters({
       newMessage: "newMessage",
       isLoggedIn: "isLoggedIn",
+      messageList: "getMessages",
     }),
   },
 })
@@ -112,6 +114,7 @@ export default class Menu extends Vue {
   user!: User;
   isLoggedIn?: boolean;
   newMessage!: number;
+  messageList!: DfMessage[][];
   isDeleteModalVisible = false;
 
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
@@ -119,6 +122,14 @@ export default class Menu extends Vue {
 
   currentPage() {
     return this.$route.name;
+  }
+
+  showMessaging() {
+    return (
+      (this.isLoggedIn === true && this.user.status !== "INCOMPLETE") ||
+      (this.messageList[this.user.id] !== undefined &&
+        this.messageList[this.user.id].length > 0)
+    );
   }
 }
 </script>
