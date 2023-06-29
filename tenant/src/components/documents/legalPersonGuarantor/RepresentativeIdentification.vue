@@ -161,7 +161,7 @@ export default class RepresentativeIdentification extends Vue {
       const doc = this.guarantorIdentificationDocument();
       if (doc !== undefined) {
         const localDoc = this.documents.find((d: DocumentType) => {
-          return d.value === doc.documentSubCategory;
+          return d.value === doc.subCategory;
         });
         if (localDoc !== undefined) {
           this.identificationDocument = localDoc;

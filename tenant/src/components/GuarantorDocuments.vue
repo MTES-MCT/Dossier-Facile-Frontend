@@ -211,7 +211,7 @@ export default class GuarantorDocuments extends Vue {
     const docs = DocumentService.getGuarantorDocs(this.guarantor, "RESIDENCY");
     if (docs.length === 1) {
       const d = docs[0];
-      if (d.documentSubCategory === "GUEST") {
+      if (d.subCategory === "GUEST") {
         const nbPages = d.files?.reduce(
           (s, a) => s + (a.numberOfPages || 0),
           0

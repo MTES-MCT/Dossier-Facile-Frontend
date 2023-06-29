@@ -139,7 +139,7 @@ export const UtilsService = {
     if (doc.files) {
       return true;
     }
-    if (doc.documentSubCategory !== "my-name") {
+    if (doc.subCategory !== "my-name") {
       return true;
     }
 
@@ -183,7 +183,7 @@ export const UtilsService = {
     if (doc.files) {
       return true;
     }
-    if (doc.documentSubCategory !== "my-name") {
+    if (doc.subCategory !== "my-name") {
       return true;
     }
 

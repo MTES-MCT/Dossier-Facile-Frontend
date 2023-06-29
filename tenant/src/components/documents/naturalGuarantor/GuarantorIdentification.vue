@@ -158,7 +158,7 @@ export default class GuarantorIdentification extends Vue {
       if (doc !== undefined) {
         this.isDocDeleteVisible =
           (doc.files?.length || 0) > 0 &&
-          doc.documentSubCategory !== this.identificationDocument.value;
+          doc.subCategory !== this.identificationDocument.value;
       }
     }
     return false;
@@ -181,7 +181,7 @@ export default class GuarantorIdentification extends Vue {
       });
       if (doc !== undefined) {
         const localDoc = this.documents.find((d: DocumentType) => {
-          return d.value === doc.documentSubCategory;
+          return d.value === doc.subCategory;
         });
         if (localDoc !== undefined) {
           this.identificationDocument = localDoc;
@@ -214,7 +214,7 @@ export default class GuarantorIdentification extends Vue {
       });
       if (doc !== undefined) {
         const localDoc = this.documents.find((d: DocumentType) => {
-          return d.value === doc.documentSubCategory;
+          return d.value === doc.subCategory;
         });
         if (localDoc !== undefined) {
           this.identificationDocument = localDoc;
@@ -308,7 +308,7 @@ export default class GuarantorIdentification extends Vue {
   identificationFiles() {
     const newFiles = this.files.map((f) => {
       return {
-        documentSubCategory: this.identificationDocument.value,
+        subCategory: this.identificationDocument.value,
         id: f.name,
         name: f.name,
         file: f.file,

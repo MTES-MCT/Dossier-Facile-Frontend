@@ -168,7 +168,7 @@ export default class GuarantorProfessional extends Vue {
       });
       if (doc !== undefined) {
         const localDoc = this.documents.find((d: DocumentType) => {
-          return d.value === doc.documentSubCategory;
+          return d.value === doc.subCategory;
         });
         if (localDoc !== undefined) {
           this.professionalDocument = localDoc;
@@ -190,7 +190,7 @@ export default class GuarantorProfessional extends Vue {
       if (doc !== undefined) {
         this.isDocDeleteVisible =
           (doc.files?.length || 0) > 0 &&
-          doc.documentSubCategory !== this.professionalDocument.value;
+          doc.subCategory !== this.professionalDocument.value;
       }
     }
     return false;
@@ -203,7 +203,7 @@ export default class GuarantorProfessional extends Vue {
       });
       if (doc !== undefined) {
         const localDoc = this.documents.find((d: DocumentType) => {
-          return d.value === doc.documentSubCategory;
+          return d.value === doc.subCategory;
         });
         if (localDoc !== undefined) {
           this.professionalDocument = localDoc;
@@ -302,7 +302,7 @@ export default class GuarantorProfessional extends Vue {
   professionalFiles() {
     const newFiles = this.files.map((f) => {
       return {
-        documentSubCategory: this.professionalDocument.value,
+        subCategory: this.professionalDocument.value,
         id: f.name,
         name: f.name,
         size: f.size,

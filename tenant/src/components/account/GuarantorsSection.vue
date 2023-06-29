@@ -38,7 +38,7 @@
                 :label="
                   $t('guarantorssection.financial') +
                   (' ' + (k + 1) + ' - ') +
-                  $t('documents.subcategory.' + doc.documentSubCategory)
+                  $t('documents.subcategory.' + doc.subCategory)
                 "
                 :document="doc"
                 @click-edit="setGuarantorSubStep(4, g)"

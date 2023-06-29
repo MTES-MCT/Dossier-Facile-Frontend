@@ -5,7 +5,7 @@ export class DfDocument {
   id?: number;
   path?: string;
   documentCategory?: string;
-  documentSubCategory?: string;
+  subCategory?: string;
   documentStatus?: string;
   customText?: string;
   monthlySum?: number;

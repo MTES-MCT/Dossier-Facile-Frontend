@@ -908,7 +908,7 @@ const store = new Vuex.Store({
 
               const localDoc = DocumentTypeConstants.FINANCIAL_DOCS.find(
                 (d2: DocumentType) => {
-                  return d2.value === d.documentSubCategory;
+                  return d2.value === d.subCategory;
                 }
               );
               if (localDoc !== undefined) {
@@ -943,7 +943,7 @@ const store = new Vuex.Store({
               const localDoc =
                 DocumentTypeConstants.GUARANTOR_FINANCIAL_DOCS.find(
                   (d2: DocumentType) => {
-                    return d2.value === d.documentSubCategory;
+                    return d2.value === d.subCategory;
                   }
                 );
               if (localDoc !== undefined) {
