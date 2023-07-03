@@ -33,6 +33,8 @@ jobs:
           wait-on: 'http://localhost:9001'
         env:
           PORT: 9001
+          DEBUG: '@cypress/github-action'
+        timeout-minutes: 3
 
   tenant:
     runs-on: ubuntu-latest
