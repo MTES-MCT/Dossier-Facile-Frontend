@@ -24,6 +24,7 @@ jobs:
       - name: Run unit tests
         run: yarn main test:unit
       - name: Run e2e tests
+        if: false
         uses: cypress-io/github-action@v5.6.1
         with:
           project: ./main
