@@ -24,7 +24,8 @@
     "tenant": "yarn workspace tenant",
     "watermark": "yarn workspace watermark",
     "e2e": "yarn workspace e2e-tests",
-    "sb": "yarn workspace sb"
+    "sb": "yarn workspace sb",
+    "update-lockfiles": "yarn && echo main tenant owner watermark e2e-tests sb | xargs -n 1 cp yarn.lock"
   },
   "devDependencies": {
     "@storybook/vue-webpack5": "7.0.2"
@@ -36,6 +37,7 @@
     "glob-parent": "^5.1.2",
     "ejs": "3.1.7",
     "http-cache-semantics": "4.1.1",
-    "@vee-validate/rules": "4.7.4"
+    "@vee-validate/rules": "4.7.4",
+    "minimatch": "^6.1.6"
   }
 }
