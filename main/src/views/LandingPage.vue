@@ -404,6 +404,7 @@
         </h2>
         <div class="fr-container">
           <div class="fr-grid-row fr-grid-row--gutters">
+            <!-- Waiting for approval
             <LogoInstitutionalPartnerComponent
               :image="require('../assets/logos/police_nationale.svg')"
               height="60px"
@@ -411,6 +412,7 @@
               name="Police nationale"
               width="81px"
             />
+            -->
             <LogoInstitutionalPartnerComponent
               :image="require('../assets/logos/visale.webp')"
               height="60px"
