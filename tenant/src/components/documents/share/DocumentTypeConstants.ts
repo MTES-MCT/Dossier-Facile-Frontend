@@ -28,12 +28,19 @@ export const DocumentTypeConstants = {
       maxFileCount: 5
     },
     {
+      key: "drivers-license",
+      value: "DRIVERS_LICENSE",
+      acceptedProofs: [
+        "Permis de conduire français ou étranger recto-verso",
+      ],
+      refusedProofs: ["Tout autre document"]
+    },
+    {
       key: "other",
       value: "OTHER_IDENTIFICATION",
       acceptedProofs: [
         "Carte d’identité étrangère <b>recto-verso</b>",
         "Passeport étranger (pages 2 et 3)",
-        "Permis de conduire français ou étranger <b>recto-verso</b>",
         "Carte de résident",
         "Carte de ressortissant d’un État membre de l’UE ou de l’EEE",
         "Justificatif d'identité fourni par France Identité Numérique",
@@ -72,12 +79,19 @@ export const DocumentTypeConstants = {
       maxFileCount: 5
     },
     {
+      key: "drivers-license",
+      value: "DRIVERS_LICENSE",
+      acceptedProofs: [
+        "Permis de conduire français ou étranger recto-verso",
+      ],
+      refusedProofs: ["Tout autre document"]
+    },
+    {
       key: "other",
       value: "OTHER_IDENTIFICATION",
       acceptedProofs: [
         "Carte d’identité étrangère <b>recto-verso</b>",
         "Passeport étranger (pages 2 et 3)",
-        "Permis de conduire français ou étranger <b>recto-verso</b>",
         "Carte de résident",
         "Carte de ressortissant d’un État membre de l’UE ou de l’EEE",
         "Justificatif d'identité fourni par France Identité Numérique",
@@ -311,6 +325,45 @@ export const DocumentTypeConstants = {
       maxFileCount: 20
     },
     {
+      key: "intermittent",
+      value: "INTERMITTENT",
+      acceptedProofs: [
+        "Avis de situation Pôle emploi et contrat de travail éventuel",
+      ],
+      refusedProofs: [],
+      maxFileCount: 20
+    },
+    {
+      key: "artist",
+      value: "ARTIST",
+      acceptedProofs: [
+        "Avis de situation au répertoire SIRENE de moins de 3 mois",
+        "Attestation d’affiliation",
+      ],
+      refusedProofs: [],
+      maxFileCount: 20
+    },
+    {
+      key: "stay-at-home-parent",
+      value: "STAY_AT_HOME_PARENT",
+      acceptedProofs: [
+        "Attestation de paiement de la CAF",
+        "Attestation sur l'honneur qui explique votre situation",
+      ],
+      refusedProofs: [],
+      maxFileCount: 20
+    },
+    {
+      key: "no-activity",
+      value: "NO_ACTIVITY",
+      acceptedProofs: [
+        "Attestation de paiement de pension",
+        "Attestation sur l'honneur qui explique votre situation",
+      ],
+      refusedProofs: [],
+      maxFileCount: 20
+    },
+    {
       key: "other",
       value: "OTHER",
       acceptedProofs: [
@@ -461,6 +514,45 @@ export const DocumentTypeConstants = {
         "Extrait K ou K bis du registre du commerce et des sociétés de moins de 3 mois (commerçant)"
       ],
       refusedProofs: ["Relevés de comptes bancaires"],
+      maxFileCount: 20
+    },
+    {
+      key: "intermittent",
+      value: "INTERMITTENT",
+      acceptedProofs: [
+        "Avis de situation Pôle emploi et contrat de travail éventuel",
+      ],
+      refusedProofs: [],
+      maxFileCount: 20
+    },
+    {
+      key: "artist",
+      value: "ARTIST",
+      acceptedProofs: [
+        "Avis de situation au répertoire SIRENE de moins de 3 mois",
+        "Attestation d’affiliation",
+      ],
+      refusedProofs: [],
+      maxFileCount: 20
+    },
+    {
+      key: "stay-at-home-parent",
+      value: "STAY_AT_HOME_PARENT",
+      acceptedProofs: [
+        "Attestation de paiement de la CAF",
+        "Attestation sur l'honneur qui explique votre situation",
+      ],
+      refusedProofs: [],
+      maxFileCount: 20
+    },
+    {
+      key: "no-activity",
+      value: "NO_ACTIVITY",
+      acceptedProofs: [
+        "Attestation de paiement de pension",
+        "Attestation sur l'honneur qui explique votre situation",
+      ],
+      refusedProofs: [],
       maxFileCount: 20
     },
     {
@@ -704,12 +796,19 @@ export const DocumentTypeConstants = {
       refusedProofs: ["Tout autre document"]
     },
     {
+      key: "drivers-license",
+      value: "DRIVERS_LICENSE",
+      acceptedProofs: [
+        "Permis de conduire français ou étranger recto-verso",
+      ],
+      refusedProofs: ["Tout autre document"]
+    },
+    {
       key: "other",
       value: "OTHER_IDENTIFICATION",
       acceptedProofs: [
         "Carte d’identité étrangère recto-verso",
         "Passeport étranger (pages 2 et 3)",
-        "Permis de conduire français ou étranger recto-verso",
         "Carte de résident",
         "Carte de ressortissant d’un État membre de l’UE ou de l’EEE",
         "Justificatif d'identité fourni par France Identité Numérique",

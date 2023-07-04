@@ -339,10 +339,10 @@ export default class Account extends Vue {
     const doc = this.user.documents?.find((d: DfDocument) => {
       return d.documentCategory === "PROFESSIONAL";
     });
-    if (doc?.documentSubCategory === "OTHER") {
+    if (doc?.subCategory === "OTHER") {
       return "";
     }
-    return this.$i18n.t(`account.${doc?.documentSubCategory || "none"}`);
+    return this.$i18n.t(`account.${doc?.subCategory || "none"}`);
   }
 
   getIncome() {

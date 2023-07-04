@@ -392,7 +392,7 @@ export default class FinancialDocumentForm extends Vue {
     this.selectedDoc = this.financialDocument;
     this.isDocDeleteVisible =
       (doc.files?.length || 0) > 0 &&
-      doc.documentSubCategory !== this.financialDocument.documentType.value;
+      doc.subCategory !== this.financialDocument.documentType.value;
     return false;
   }
 
@@ -403,7 +403,7 @@ export default class FinancialDocumentForm extends Vue {
       });
       if (doc !== undefined) {
         const localDoc = this.documents.find((d: DocumentType) => {
-          return d.value === doc.documentSubCategory;
+          return d.value === doc.subCategory;
         });
         if (localDoc !== undefined && this.selectedDoc) {
           this.selectedDoc.documentType = localDoc;
@@ -570,7 +570,7 @@ export default class FinancialDocumentForm extends Vue {
   financialFiles() {
     const newFiles = this.financialDocument.files.map((file: DfFile) => {
       return {
-        documentSubCategory: this.financialDocument.documentType?.value,
+        subCategory: this.financialDocument.documentType?.value,
         id: file.name,
         name: file.name,
         size: file.size,

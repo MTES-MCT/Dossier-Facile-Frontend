@@ -30,7 +30,7 @@
             v-for="doc in documents(tenant, 'FINANCIAL')"
             v-bind:key="doc.id"
             :label="$tc('tenantpanel.financial')"
-            :sub-label="$tc(`documents.subcategory.${doc.documentSubCategory}`)"
+            :sub-label="$tc(`documents.subcategory.${doc.subCategory}`)"
             :document="doc"
             @click-edit="setTenantStep(4)"
           />
@@ -177,7 +177,7 @@ export default class TenantPanel extends Vue {
   getProfessionalSubCategory(u: User): string {
     const professionalDocument = this.document(u, "PROFESSIONAL");
     const translationKey = DocumentTypeConstants.PROFESSIONAL_DOCS.find(
-      (doc) => doc.value === professionalDocument?.documentSubCategory
+      (doc) => doc.value === professionalDocument?.subCategory
     )?.key;
     return this.$tc(translationKey || "");
   }
