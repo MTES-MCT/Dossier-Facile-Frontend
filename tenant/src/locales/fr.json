@@ -149,11 +149,11 @@
       "organism-guarantor": "J'ajoute un certificat ou un visa délivré par l'organisme qui se porte garant pour moi.",
       "other-tax": "Afin d’améliorer mon dossier, j’explique ci-dessous pourquoi je ne reçois pas d’avis d’imposition. Mon explication sera ajoutée à mon dossier :",
       "owner": "J’ajoute un <b>avis de taxe foncière de moins d’un an.</b>",
-      "pension": "J’ajoute un bulletin de pension, une attestation de pension, ou un avis d’imposition avec noms et revenus de la pension visibles.",
-      "rent": "J’ajoute un justificatif de paiement de rente, ou un avis d’imposition avec noms et revenus de la rente visibles.",
-      "salary": "",
-      "scholarship": "",
-      "social-service": "J'ajoute <strong>mes trois derniers justificatifs</strong> de versement de prestations sociales (ARE, CAF...), un justificatif d'ouverture de mes droits ou une copie d'écran de simulation d'aide au logement (APL).",
+      "pension": "<p>Merci d’ajouter ici un <strong>bulletin de pension</strong> de moins de 2 ans, une <strong>attestation de pension</strong> ou votre <strong>dernier avis d’imposition</strong>.</p><p>Conseil : si vous n’avez pas de justificatif à fournir ici, vous pouvez ajouter ici une <strong>attestation sur l’honneur</strong> qui explique votre situation. Vous pouvez utiliser ce <a href='https://www.service-public.fr/simulateur/calcul/AttestationHonneur' target='_blank' rel='noopener'>modèle d’attestation sur l’honneur</a>.</p>",
+      "rent": "<p>Merci d’ajouter ici un justificatif de paiement de rente ou votre dernier avis d’imposition mentionnant clairement le montant de la rente. S’il s’agit d’une rente de type immobilière, vous pouvez ajouter ici la ou les dernières quittances de vos locataires.</p><p>Conseil : si vous n’avez pas de justificatif à fournir ici, vous pouvez ajouter ici une <strong>attestation sur l’honneur</strong> qui explique votre situation. Vous pouvez utiliser ce <a href='https://www.service-public.fr/simulateur/calcul/AttestationHonneur' target='_blank' rel='noopener'>modèle d’attestation sur l’honneur</a>.</p>",
+      "salary": "<p><p>Merci d’ajouter ici, en fonction de votre situation :</p><ul><li>salarié·e de plus de 3 mois : vos <strong>3 derniers bulletins de salaire</strong></li><li>salarié·e de 1 à 3 mois : les <strong>bulletins de salaire dont vous disposez</strong> pour le moment</li><li>futur·e salarié·e : la <strong>page de votre contrat</strong> qui mentionne votre rémunération à venir</li><li>indépendant·e : vos <strong>3 dernières déclarations mensuelles de recettes</strong>, un <strong>relevé de situation comptable</strong> ou une <strong>attestation de déclaration de chiffres d’affaires</strong> de moins de 3 mois </li><li>intermittent·e, CTT : <strong>tous vos bulletins de salaire</strong> de ces 3 derniers mois <strong>dans ce seul emplacement</strong> (le montant de vos revenus correspond à la moyenne de ces bulletins de salaire)</li><li>artiste auteur ou autrice : votre <strong>dernier avis d’imposition</strong></li></ul>",
+      "scholarship": "<p>Merci d’ajouter ici votre <strong>dernier avis d’attribution de bourse</strong>.</p><p>Conseil : si vous n’avez pas de justificatif à fournir ici, vous pouvez ajouter ici une <strong>attestation sur l’honneur</strong> qui explique votre situation. Vous pouvez utiliser ce <a href='https://www.service-public.fr/simulateur/calcul/AttestationHonneur' target='_blank' rel='noopener'>modèle d’attestation sur l’honneur</a>.</p>",
+      "social-service": "<p>Merci d’ajouter ici, en fonction de votre situation :</p><ul><li>vos <strong>3 derniers justificatifs de versement de prestations sociales</strong> (ARE, CAF...)</li><li>un <strong>justificatif d'ouverture de vos droits</strong> si vous n’avez pas encore touché de prestation sociale</li><li>une <strong>copie d'écran</strong> de simulation d'aide au logement (APL)</li></ul>",
       "tenant": "J’ajoute <strong>mes 3 dernières quittances de loyer</strong> ou <strong>une attestation de bon paiement des loyers</strong> de moins de 3 mois."
     },
     "cotenant": {
@@ -654,12 +654,14 @@
     "size": " {0}Mo maximum par fichier"
   },
   "financialdocumentform": {
-    "financial": "Justificatif de ressources",
+    "title": "Vos revenus",
     "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-    "monthlySum-label": "J'indique le montant de mon revenu mensuel net à payer (avant prélèvement à la source)",
-    "monthlySum": "Montant en euros",
+    "monthlySum": {
+      "placeholder": "Montant en euros",
+      "label": "Indiquez le montant de vos revenus mensuels nets",
+      "label-tax": "avant prélèvement à la source"
+    },
     "delete-financial": "Supprimer ce revenu",
-    "custom-text": "Afin d'améliorer votre dossier, vous pouvez ajouter une explication :",
     "customText-social-service": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
     "customText-salary": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes trois derniers bulletins de salaire :",
     "customText-pension": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
@@ -674,7 +676,7 @@
     "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers.",
     "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
     "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
-    "has-no-income": "Vous avez indiqué ne pas avoir de revenu",
+    "has-no-income": "Vous avez indiqué ne pas avoir de revenus. Vous pouvez ajouter une explication sur votre situation ici si vous le souhaitez :",
     "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule"
   },
   "financial-page": {
