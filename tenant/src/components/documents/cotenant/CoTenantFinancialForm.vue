@@ -8,7 +8,6 @@
       dispatchMethodName="saveTenantFinancial"
       typeDocument="typeDocumentFinancial"
       :showDownloader="showDownloader"
-      :allowNoDocument="true"
       @enrich-form-data="enrichFormData"
       @on-change-document="changeDocument"
     >
