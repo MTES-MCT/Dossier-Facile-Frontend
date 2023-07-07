@@ -34,10 +34,6 @@
         <form name="form" @submit.prevent="validate().then(save())">
           <div>
             <div>
-              <div>
-                {{ $t("guarantorfinancialdocumentform.select-label") }}
-              </div>
-
               <TroubleshootingModal>
                 <GuarantorChoiceHelp></GuarantorChoiceHelp>
                 <DocumentInsert
@@ -96,16 +92,15 @@
                       'fr-input-group--error': errors[0],
                     }"
                   >
-                    <label for="monthlySum" class="fr-label"
-                      >{{
-                        $t("guarantorfinancialdocumentform.monthlySum-label")
-                      }}
-                      :</label
-                    >
+                    <label for="monthlySum" class="fr-label">
+                      {{ getMonthlySumLabel() }} :
+                    </label>
                     <input
                       id="monthlySum"
                       :placeholder="
-                        $t('guarantorfinancialdocumentform.monthlySum')
+                        $tc(
+                          'guarantorfinancialdocumentform.monthlySum.placeholder'
+                        )
                       "
                       type="number"
                       min="0"
@@ -603,6 +598,20 @@ export default class GuarantorFinancialDocumentForm extends Vue {
       return "cotenant-guarantor";
     }
     return "guarantor";
+  }
+
+  getMonthlySumLabel() {
+    const docType = this.financialDocument?.documentType.key;
+    let label = this.$tc("guarantorfinancialdocumentform.monthlySum.label");
+    if (
+      docType === "guarantor_salary" ||
+      docType === "pension" ||
+      docType === "rent"
+    ) {
+      label += " ";
+      label += this.$tc("guarantorfinancialdocumentform.monthlySum.label-tax");
+    }
+    return label;
   }
 }
 </script>
