@@ -166,54 +166,6 @@
                   @reset-files="resetFiles(financialDocument, ...arguments)"
                 ></FileUpload>
               </div>
-              <div class="fr-col-12 fr-mb-3w bg-purple fr-checkbox-group">
-                <input
-                  type="checkbox"
-                  id="noDocument"
-                  value="false"
-                  v-model="financialDocument.noDocument"
-                />
-                <label for="noDocument">
-                  {{ $t(getCheckboxLabel(financialDocument.documentType.key)) }}
-                </label>
-              </div>
-              <div class="fr-mb-5w" v-if="financialDocument.noDocument">
-                <validation-provider
-                  :rules="{ required: true }"
-                  v-slot="{ errors, valid }"
-                >
-                  <div class="fr-input-group">
-                    <label class="fr-label" for="customText">
-                      {{
-                        $t(
-                          `financialdocumentform.customText-${financialDocument.documentType.key}`
-                        )
-                      }}
-                    </label>
-                    <textarea
-                      v-model="financialDocument.customText"
-                      class="form-control fr-input validate-required"
-                      :class="{
-                        'fr-input--valid': valid,
-                        'fr-input--error': errors[0],
-                      }"
-                      id="customText"
-                      name="customText"
-                      placeholder=""
-                      type="text"
-                      maxlength="2000"
-                      rows="3"
-                      required
-                    />
-                    <span
-                      >{{ financialDocument.customText.length }} / 2000</span
-                    >
-                    <span class="fr-error-text" v-if="errors[0]">{{
-                      $t(errors[0])
-                    }}</span>
-                  </div>
-                </validation-provider>
-              </div>
             </div>
           </div>
         </NakedCard>
