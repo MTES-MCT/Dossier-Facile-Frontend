@@ -230,16 +230,6 @@
       "scholarship": "<p>Merci d’ajouter ici son <strong>dernier avis d’attribution de bourse</strong>.</p><p>Conseil : si vous n’avez pas de justificatif à fournir ici, vous pouvez ajouter ici une <strong>attestation sur l’honneur</strong> qui explique la situation de votre garant. Vous pouvez utiliser ce <a href='https://www.service-public.fr/simulateur/calcul/AttestationHonneur' target='_blank' rel='noopener'>modèle d’attestation sur l’honneur</a>.</p>",
       "social-service": "Merci d’ajouter ici un <strong>justificatif de versement de prestations sociales</strong> de moins de 3 mois (ARE, CAF...)",
       "tenant": "J’ajoute un <b>justificatif de domicile de mon garant</b> datant de <b>moins de trois mois.</b>",
-      "noDocument-social": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
-      "noDocument-salary": "Je ne peux pas fournir les trois derniers bulletins de salaire ou un bilan comptable de mon garant",
-      "noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",
-      "noDocument-rent": "Je ne peux pas fournir de justificatifs de versement de rente",
-      "noDocument-scholarship": "Je ne peux pas fournir de justificatifs d'attribution de bourse",
-      "customText-social": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
-      "customText-salary": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les trois derniers bulletins de salaire ou un bilan comptable de mon garant :",
-      "customText-pension": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
-      "customText-rent": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
-      "customText-scholarship": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon garant :",
       "will-delete-files": "Attention, un changement de situation entraînera la suppression des justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à la situation de votre garant."
     },
     "cotenant-guarantor": {
