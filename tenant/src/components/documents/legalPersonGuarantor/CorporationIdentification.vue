@@ -126,7 +126,7 @@ export default class CorporationIdentification extends Vue {
 
   documentDeniedReasons = new DocumentDeniedReasons();
 
-  files: File[] = [];
+  files: DfFile[] = [];
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   uploadProgress: {
     [key: string]: { state: string; percentage: number };
@@ -164,7 +164,10 @@ export default class CorporationIdentification extends Vue {
     return this.$store.getters.getGuarantorIdentificationLegalPersonDocument;
   }
   addFiles(fileList: File[]) {
-    this.files = [...this.files, ...fileList];
+    const nf = Array.from(fileList).map((f) => {
+      return { name: f.name, file: f, size: f.size };
+    });
+    this.files = [...this.files, ...nf];
     this.save();
   }
 
@@ -205,7 +208,8 @@ export default class CorporationIdentification extends Vue {
     }
 
     Array.from(Array(this.files.length).keys()).map((x) => {
-      formData.append(`${fieldName}[${x}]`, this.files[x], this.files[x].name);
+      const f: File = this.files[x].file || new File([], "");
+      formData.append(`${fieldName}[${x}]`, f, this.files[x].name);
     });
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
@@ -249,9 +253,10 @@ export default class CorporationIdentification extends Vue {
   listFiles() {
     const newFiles = this.files.map((f) => {
       return {
-        id: f.name,
+        id: f.id,
         name: f.name,
-        size: f.size,
+        file: f.file,
+        size: f.file?.size,
       };
     });
     const existingFiles =
