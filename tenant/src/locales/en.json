@@ -425,8 +425,7 @@
     "delete-financial": "Delete this income",
     "field-required": "This field is required",
     "register": "Save",
-    "missing-file": "You must add files to save this income.",
-    "warning-no-income-and-file": "You cannot have files and indicate that you cannot provide files. Please uncheck the box or delete your files."
+    "missing-file": "You must add files to save this income."
   },
   "cotenantfinanciallist": {
     "delete-financial": "Delete this income",
@@ -645,7 +644,6 @@
     "noDocument-rent": "I cannot provide proof of rent payment",
     "noDocument-scholarship": "I cannot provide proof of scholarship award",
     "missing-file": "You must add files to save this income.",
-    "warning-no-income-and-file": "You cannot have files and indicate that you cannot provide all the files. Please uncheck the box or delete your files.",
     "high-salary": "You have entered a salary greater than €10,000. Are you sure you have entered your monthly salary?",
     "low-salary": "You have entered a salary equal to €0. Are you sure you have entered your monthly salary?",
     "has-no-income": "You indicated that you have no income",
@@ -735,15 +733,13 @@
     "field-required": "This field is required",
     "register": "Register",
     "select-label": "Please provide only the guarantor's income.",
-    "missing-file": "You must add files to save this income.",
-    "warning-no-income-and-file": "You cannot have files and indicate that you cannot provide all the files. Please uncheck the box or delete your files."
+    "missing-file": "You must add files to save this income."
   },
   "guarantorfinancial": {
     "delete-financial": "Delete this income",
     "register": "Register",
     "select-label": "Please provide only your own income.",
     "i-have-no-income": "I have no income",
-    "warning-no-income-and-file": "You cannot have files and indicate that you cannot provide all the files. Please uncheck the box or delete your files.",
     "title": "Summary of Guarantor's Income",
     "subtitle": "Here is the list of income you have declared. You can add new income at any time if necessary.",
     "monthly": " monthly net €",

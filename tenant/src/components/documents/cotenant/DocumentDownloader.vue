@@ -118,22 +118,6 @@
       <slot name="after-downloader"></slot>
     </NakedCard>
     <Modal
-      v-show="showIsNoDocumentAndFiles"
-      @close="showIsNoDocumentAndFiles = false"
-    >
-      <template v-slot:body>
-        <div class="fr-container">
-          <div class="fr-grid-row justify-content-center">
-            <div class="fr-col-12">
-              <p>
-                {{ $t("documentdownloader.warning-no-document-and-files") }}
-              </p>
-            </div>
-          </div>
-        </div>
-      </template>
-    </Modal>
-    <Modal
       v-if="isWarningTaxSituationModalVisible"
       @close="isWarningTaxSituationModalVisible = false"
     >
@@ -234,7 +218,6 @@ export default class DocumentDownloader extends Vue {
 
   dfDocument!: DfDocument;
   noDocument = false;
-  showIsNoDocumentAndFiles = false;
   newFiles: File[] = [];
   isWarningTaxSituationModalVisible = false;
 
@@ -246,20 +229,6 @@ export default class DocumentDownloader extends Vue {
     this.$emit("on-change-document", this.document, this.dfDocument);
   }
 
-  changeNoDocument(event: Event) {
-    event.preventDefault();
-    event.stopPropagation();
-    if (!this.noDocument && Number(this.dfDocument?.files?.length) > 0) {
-      this.showIsNoDocumentAndFiles = true;
-      this.dfDocument.noDocument = this.noDocument;
-      return;
-    } else {
-      this.noDocument = !this.noDocument;
-      this.dfDocument.noDocument = this.noDocument;
-    }
-    this.$emit("on-change-document", this.document, this.dfDocument);
-  }
-
   onSelectChange() {
     if (this.selectedCoTenant?.documents !== null) {
       const doc = this.getDocument();
@@ -268,6 +237,9 @@ export default class DocumentDownloader extends Vue {
           (doc.files?.length || 0) > 0 &&
           doc.subCategory !== this.document.value;
       }
+    }
+    if (this.documentCategory === "FINANCIAL" && this.document.key !== "no-income") {
+      this.dfDocument.noDocument = false;
     }
     this.$emit("on-change-document", this.document, this.dfDocument);
     // why ? no
