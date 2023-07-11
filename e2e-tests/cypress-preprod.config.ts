@@ -11,6 +11,7 @@ export default defineConfig({
     retries: {
       runMode: 5,
     },
+    excludeSpecPattern: "**/accessibility.cy.ts"
   },
   env: {
     configName: "preprod",
