@@ -53,10 +53,6 @@
           "
         ></div>
         <MonFranceConnect
-          v-if="professionalDocument.key === 'student'"
-          redirection-type="student"
-        ></MonFranceConnect>
-        <MonFranceConnect
           v-if="professionalDocument.key === 'unemployed'"
           redirection-type="unemployed"
         ></MonFranceConnect>
