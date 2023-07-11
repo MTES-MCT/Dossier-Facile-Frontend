@@ -158,6 +158,7 @@
                     />
                   </a>
                 </div>
+                <p class="fr-mt-3w" v-html="$tc('account.opinion-bloc.warning')"></p>
               </div>
             </div>
           </div>
