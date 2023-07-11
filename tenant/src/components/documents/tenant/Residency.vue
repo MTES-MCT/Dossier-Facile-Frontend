@@ -340,7 +340,7 @@ export default class Residency extends Vue {
     const newFiles = this.files.map((f) => {
       return {
         subCategory: this.residencyDocument.value,
-        id: f.name,
+        id: f.id,
         name: f.name,
         size: f.size,
       };

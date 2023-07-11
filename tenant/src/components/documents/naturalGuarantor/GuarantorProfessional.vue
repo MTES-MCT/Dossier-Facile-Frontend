@@ -303,7 +303,7 @@ export default class GuarantorProfessional extends Vue {
     const newFiles = this.files.map((f) => {
       return {
         subCategory: this.professionalDocument.value,
-        id: f.name,
+        id: f.id,
         name: f.name,
         size: f.size,
       };

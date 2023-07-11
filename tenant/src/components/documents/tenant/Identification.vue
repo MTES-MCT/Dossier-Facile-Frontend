@@ -303,7 +303,7 @@ export default class Identification extends Vue {
     const newFiles = this.files.map((f) => {
       return {
         subCategory: this.identificationDocument.value,
-        id: f.name,
+        id: f.id,
         name: f.name,
         file: f.file,
         size: f.file?.size,

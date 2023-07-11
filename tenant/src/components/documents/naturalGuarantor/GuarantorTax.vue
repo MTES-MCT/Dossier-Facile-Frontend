@@ -469,7 +469,7 @@ export default class GuarantorTax extends Vue {
     const newFiles = this.files.map((f) => {
       return {
         subCategory: this.taxDocument.value,
-        id: f.name,
+        id: f.id,
         name: f.name,
         file: f,
         size: f.size,

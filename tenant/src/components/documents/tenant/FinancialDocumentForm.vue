@@ -500,7 +500,7 @@ export default class FinancialDocumentForm extends Vue {
     const newFiles = this.financialDocument.files.map((file: DfFile) => {
       return {
         subCategory: this.financialDocument.documentType?.value,
-        id: file.name,
+        id: file.id,
         name: file.name,
         size: file.size,
       };
