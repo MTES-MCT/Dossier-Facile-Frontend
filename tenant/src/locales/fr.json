@@ -38,6 +38,7 @@
   "email-not-valid": "Email non valide",
   "same-email-not-valid": "L'email ne peut pas être la même que votre adresse",
   "field-required": "Ce champ est requis",
+  "select-is-empty": "Sélection requise",
   "identification-legal-person": "Identité personne morale",
   "identity-represent": "Identité représentant",
   "identification-organism": "Certificat de garantie",
