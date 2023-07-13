@@ -73,12 +73,13 @@
       @close="showNbDocumentsResidency = false"
       @valid="showNbDocumentsResidency = false"
     >
-      {{ $t("guarantordocuments.warning-need-residency-documents") }}
+      {{ $t("guarantordocuments.warning-need-residency-documents.p1") }}
       <ul>
-        <li>{{ $t("guarantordocuments.list1") }}</li>
-        <li>{{ $t("guarantordocuments.list2") }}</li>
-        <li>{{ $t("guarantordocuments.list3") }}</li>
+        <li>{{ $t("guarantordocuments.warning-need-residency-documents.list1") }}</li>
+        <li>{{ $t("guarantordocuments.warning-need-residency-documents.list2") }}</li>
+        <li>{{ $t("guarantordocuments.warning-need-residency-documents.list3") }}</li>
       </ul>
+      {{ $t("guarantordocuments.warning-need-residency-documents.p2") }}
     </ConfirmModal>
   </div>
 </template>
