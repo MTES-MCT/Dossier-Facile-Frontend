@@ -53,10 +53,6 @@
           "
         ></div>
         <MonFranceConnect
-          v-if="professionalDocument.key === 'student'"
-          redirection-type="student"
-        ></MonFranceConnect>
-        <MonFranceConnect
           v-if="professionalDocument.key === 'unemployed'"
           redirection-type="unemployed"
         ></MonFranceConnect>
@@ -320,7 +316,7 @@ export default class Professional extends Vue {
     const newFiles = this.files.map((f) => {
       return {
         subCategory: this.professionalDocument.value,
-        id: f.name,
+        id: f.id,
         name: f.name,
         size: f.size,
       };

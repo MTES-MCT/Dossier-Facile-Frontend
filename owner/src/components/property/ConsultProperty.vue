@@ -15,7 +15,10 @@
         <div class="fr-grid-row">
           <VGouvFrModal id="share-modal">
             <template v-slot:button>
-              <button :title="t('consultproperty.share-btn')" class="fr-btn btn--white fr-btn--secondary">
+              <button
+                :title="t('consultproperty.share-btn')"
+                class="fr-btn btn--white fr-btn--secondary"
+              >
                 {{ t('consultproperty.share-btn') }}
               </button>
             </template>
@@ -244,6 +247,7 @@ import i18n from '../../i18n';
 import Applicant from './Applicant';
 import UtilsService from '../../services/UtilsService';
 import useOwnerStore from '../../store/owner-store';
+import AnalyticsService from '../../services/AnalyticsService';
 
 const { t } = useI18n();
 const confirmDeleteProperty = ref(false);
@@ -355,6 +359,7 @@ function undoDeleteApplicants() {
 }
 
 function copyToken() {
+  AnalyticsService.copyLink();
   navigator.clipboard.writeText(token.value);
   toast.success(t('consultproperty.link-copied').toString(), {
     timeout: 7000,
@@ -367,7 +372,7 @@ const verifiedApplicantsCount = computed(
 
 function formatDate(date: Date) {
   return format(date, 'dd MMMM yyyy', {
-    locale: ((i18n.global as unknown) as Composer).locale.value === 'fr' ? fr : enUS,
+    locale: (i18n.global as unknown as Composer).locale.value === 'fr' ? fr : enUS,
   });
 }
 
@@ -603,4 +608,3 @@ tr {
   text-align: right;
 }
 </style>
-

@@ -605,17 +605,6 @@ export const DocumentTypeConstants = {
       maxFileCount: 10
     },
     {
-      key: "rent",
-      value: "RENT",
-      acceptedProofs: [
-        "Justification de revenus fonciers, de rentes viagères ou de revenus de valeurs et capitaux mobiliers",
-        "Titre de propriété d’un bien immobilier ou dernier avis de taxe foncière",
-        "Dernier ou avant-dernier avis d’imposition avec nom et revenus de la rente visibles"
-      ],
-      refusedProofs: ["Relevés de comptes bancaires", "RIB"],
-      maxFileCount: 10
-    },
-    {
       key: "pension",
       value: "PENSION",
       acceptedProofs: [
@@ -627,6 +616,17 @@ export const DocumentTypeConstants = {
         "Relevés de comptes bancaires",
         "RIB"
       ],
+      maxFileCount: 10
+    },
+    {
+      key: "rent",
+      value: "RENT",
+      acceptedProofs: [
+        "Justification de revenus fonciers, de rentes viagères ou de revenus de valeurs et capitaux mobiliers",
+        "Titre de propriété d’un bien immobilier ou dernier avis de taxe foncière",
+        "Dernier ou avant-dernier avis d’imposition avec nom et revenus de la rente visibles"
+      ],
+      refusedProofs: ["Relevés de comptes bancaires", "RIB"],
       maxFileCount: 10
     },
     {
@@ -676,21 +676,21 @@ export const DocumentTypeConstants = {
       maxFileCount: 10
     },
     {
-      key: "rent",
-      value: "RENT",
+      key: "pension",
+      value: "PENSION",
       acceptedProofs: [
-        "Justification de revenus fonciers, de rentes viagères ou de revenus de valeurs et capitaux mobiliers",
-        "Titre de propriété d’un bien immobilier ou dernier avis de taxe foncière",
+        "Justificatif de versement des indemnités, retraites, pensions perçues lors des 3 derniers mois ou justificatif de l'ouverture des droits établis par l'organisme payeur",
         "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
       ],
       refusedProofs: ["Relevés de comptes bancaires"],
       maxFileCount: 10
     },
     {
-      key: "pension",
-      value: "PENSION",
+      key: "rent",
+      value: "RENT",
       acceptedProofs: [
-        "Justificatif de versement des indemnités, retraites, pensions perçues lors des 3 derniers mois ou justificatif de l'ouverture des droits établis par l'organisme payeur",
+        "Justification de revenus fonciers, de rentes viagères ou de revenus de valeurs et capitaux mobiliers",
+        "Titre de propriété d’un bien immobilier ou dernier avis de taxe foncière",
         "Avis d’imposition complet de moins de 2 ans avec nom du garant visible"
       ],
       refusedProofs: ["Relevés de comptes bancaires"],

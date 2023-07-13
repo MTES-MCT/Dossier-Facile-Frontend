@@ -35,12 +35,12 @@
                   'fr-input-group--error': errors[0]
                 }"
               >
-                <label for="monthlySum" class="fr-label"
-                  >{{ $t("cotenantfinancialform.monthlySum-label") }} :</label
-                >
+                <label for="monthlySum" class="fr-label">
+                  {{ getMonthlySumLabel() }} :
+                </label>
                 <input
                   id="monthlySum"
-                  :placeholder="$t('cotenantfinancialform.monthlySum')"
+                  :placeholder="$tc('cotenantfinancialform.monthlySum.placeholder')"
                   type="number"
                   min="0"
                   step="1"
@@ -78,7 +78,6 @@
           v-else-if="documentType ? documentType.key === 'no-income' : false"
           class="fr-p-md-5w fr-mb-3w fr-mt-3w"
         >
-          {{ $t("cotenantfinancialform.has-no-income") }}
           <ValidationObserver v-slot="{ validate, valid }">
             <form
               name="customTextForm"
@@ -86,7 +85,7 @@
             >
               <div class="fr-input-group">
                 <label class="fr-label" for="customTextNoDocument">
-                  {{ $t("cotenantfinancialform.custom-text") }}
+                  {{ $t("cotenantfinancialform.has-no-income") }}
                 </label>
                 <textarea
                   v-model="document.customText"
@@ -201,6 +200,16 @@ export default class CoTenantFinancialForm extends Vue {
         this.financialDocument.monthlySum.toString()
       );
     }
+  }
+
+  getMonthlySumLabel() {
+    const docType = this.documentType?.key;
+    let label = this.$tc("cotenantfinancialform.monthlySum.label");
+    if (docType === "salary" || docType === "pension" || docType === "rent") {
+      label += " ";
+      label += this.$tc("cotenantfinancialform.monthlySum.label-tax");
+    }
+    return label;
   }
 
   goBack() {

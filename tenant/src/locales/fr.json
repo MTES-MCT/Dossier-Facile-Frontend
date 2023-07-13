@@ -149,11 +149,11 @@
       "organism-guarantor": "J'ajoute un certificat ou un visa délivré par l'organisme qui se porte garant pour moi.",
       "other-tax": "Afin d’améliorer mon dossier, j’explique ci-dessous pourquoi je ne reçois pas d’avis d’imposition. Mon explication sera ajoutée à mon dossier :",
       "owner": "J’ajoute un <b>avis de taxe foncière de moins d’un an.</b>",
-      "pension": "J’ajoute un bulletin de pension, une attestation de pension, ou un avis d’imposition avec noms et revenus de la pension visibles.",
-      "rent": "J’ajoute un justificatif de paiement de rente, ou un avis d’imposition avec noms et revenus de la rente visibles.",
-      "salary": "",
-      "scholarship": "",
-      "social-service": "J'ajoute <strong>mes trois derniers justificatifs</strong> de versement de prestations sociales (ARE, CAF...), un justificatif d'ouverture de mes droits ou une copie d'écran de simulation d'aide au logement (APL).",
+      "pension": "<p>Merci d’ajouter ici un <strong>bulletin de pension</strong> de moins de 2 ans, une <strong>attestation de pension</strong> ou votre <strong>dernier avis d’imposition</strong>.</p><p>Conseil : si vous n’avez pas de justificatif à fournir ici, vous pouvez ajouter ici une <strong>attestation sur l’honneur</strong> qui explique votre situation. Vous pouvez utiliser ce <a href='https://www.service-public.fr/simulateur/calcul/AttestationHonneur' target='_blank' rel='noopener'>modèle d’attestation sur l’honneur</a>.</p>",
+      "rent": "<p>Merci d’ajouter ici un justificatif de paiement de rente ou votre dernier avis d’imposition mentionnant clairement le montant de la rente. S’il s’agit d’une rente de type immobilière, vous pouvez ajouter ici la ou les dernières quittances de vos locataires.</p><p>Conseil : si vous n’avez pas de justificatif à fournir ici, vous pouvez ajouter ici une <strong>attestation sur l’honneur</strong> qui explique votre situation. Vous pouvez utiliser ce <a href='https://www.service-public.fr/simulateur/calcul/AttestationHonneur' target='_blank' rel='noopener'>modèle d’attestation sur l’honneur</a>.</p>",
+      "salary": "<p>Merci d’ajouter ici, en fonction de votre situation :</p><ul><li>salarié·e de plus de 3 mois : vos <strong>3 derniers bulletins de salaire</strong></li><li>salarié·e de 1 à 3 mois : les <strong>bulletins de salaire dont vous disposez</strong> pour le moment</li><li>futur·e salarié·e : la <strong>page de votre contrat</strong> qui mentionne votre rémunération à venir</li><li>indépendant·e : vos <strong>3 dernières déclarations mensuelles de recettes</strong>, un <strong>relevé de situation comptable</strong> ou une <strong>attestation de déclaration de chiffres d’affaires</strong> de moins de 3 mois </li><li>intermittent·e, CTT : <strong>tous vos bulletins de salaire</strong> de ces 3 derniers mois <strong>dans ce seul emplacement</strong> (le montant de vos revenus correspond à la moyenne de ces bulletins de salaire)</li><li>artiste auteur ou autrice : votre <strong>dernier avis d’imposition</strong></li></ul>",
+      "scholarship": "<p>Merci d’ajouter ici votre <strong>dernier avis d’attribution de bourse</strong>.</p><p>Conseil : si vous n’avez pas de justificatif à fournir ici, vous pouvez ajouter ici une <strong>attestation sur l’honneur</strong> qui explique votre situation. Vous pouvez utiliser ce <a href='https://www.service-public.fr/simulateur/calcul/AttestationHonneur' target='_blank' rel='noopener'>modèle d’attestation sur l’honneur</a>.</p>",
+      "social-service": "<p>Merci d’ajouter ici, en fonction de votre situation :</p><ul><li>vos <strong>3 derniers justificatifs de versement de prestations sociales</strong> (ARE, CAF...)</li><li>un <strong>justificatif d'ouverture de vos droits</strong> si vous n’avez pas encore touché de prestation sociale</li><li>une <strong>copie d'écran</strong> de simulation d'aide au logement (APL)</li></ul>",
       "tenant": "J’ajoute <strong>mes 3 dernières quittances de loyer</strong> ou <strong>une attestation de bon paiement des loyers</strong> de moins de 3 mois."
     },
     "cotenant": {
@@ -179,13 +179,13 @@
       "organism-guarantor": "J'ajoute un certificat ou un visa délivré par l'organisme qui se porte garant pour mon conjoint.",
       "other-tax": "Afin d’améliorer son dossier, j’explique ci-dessous pourquoi je ne reçois pas d’avis d’imposition. Son explication sera ajoutée à mon dossier :",
       "owner": "J’ajoute un <b>avis de taxe foncière de moins d’un an.</b>",
-      "pension": "J’ajoute un bulletin de pension, une attestation de pension, ou un avis d’imposition avec noms et revenus de la pension visibles.",
+      "pension": "<p>Merci d’ajouter ici un <strong>bulletin de pension</strong> de moins de 2 ans, une <strong>attestation de pension</strong> ou son <strong>dernier avis d’imposition</strong>.</p><p>Conseil : si vous n’avez pas de justificatif à fournir ici, vous pouvez ajouter ici une <strong>attestation sur l’honneur</strong> qui explique sa situation. Vous pouvez utiliser ce <a href='https://www.service-public.fr/simulateur/calcul/AttestationHonneur' target='_blank' rel='noopener'>modèle d’attestation sur l’honneur</a>.</p>",
       "public": "J’ajoute un arrêté de nomination.",
-      "rent": "J’ajoute un justificatif de paiement de rente, ou un avis d’imposition avec noms et revenus de la rente visibles.",
+      "rent": "<p>Merci d’ajouter ici un justificatif de paiement de rente ou son dernier avis d’imposition mentionnant clairement le montant de la rente. S’il s’agit d’une rente de type immobilière, vous pouvez ajouter ici la ou les dernières quittances de ses locataires.</p><p>Conseil : si vous n’avez pas de justificatif à fournir ici, vous pouvez ajouter ici une <strong>attestation sur l’honneur</strong> qui explique sa situation. Vous pouvez utiliser ce <a href='https://www.service-public.fr/simulateur/calcul/AttestationHonneur' target='_blank' rel='noopener'>modèle d’attestation sur l’honneur</a>.</p>",
       "retired": "J’ajoute un bulletin de pension retraite. Et si iel n’en a pas? Vous pouvez joindre son otre dernier avis d’imposition complet de moins de 2 ans.",
-      "salary": "J’ajoute ses trois derniers bulletins de salaire, ou un justificatif de ses indemnités de stage, ou ses deux derniers bilans comptables (non-salariés).",
-      "scholarship": "J’ajoute un avis d’attribution de bourse.",
-      "social-service": "J’ajoute un justificatif de versement de prestations sociales (ARE, CAF, Crous…) de son garant de moins de 3 mois, un justificatif d’ouverture de ses droits ou une attestation de simulation pour les aides au logement.",
+      "salary": "<p>Merci d’ajouter ici, en fonction de sa situation :</p><ul><li>salarié·e de plus de 3 mois : ses <strong>3 derniers bulletins de salaire</strong></li><li>salarié·e de 1 à 3 mois : les <strong>bulletins de salaire dont votre conjoint dispose</strong> pour le moment</li><li>futur·e salarié·e : la <strong>page de son contrat</strong> qui mentionne sa rémunération à venir</li><li>indépendant·e : ses <strong>3 dernières déclarations mensuelles de recettes</strong>, un <strong>relevé de situation comptable</strong> ou une <strong>attestation de déclaration de chiffres d’affaires</strong> de moins de 3 mois </li><li>intermittent·e, CTT : <strong>tous ses bulletins de salaire</strong> de ces 3 derniers mois <strong>dans ce seul emplacement</strong> (le montant de ses revenus correspond à la moyenne de ces bulletins de salaire)</li><li>artiste auteur ou autrice : son <strong>dernier avis d’imposition</strong></li></ul>",
+      "scholarship": "<p>Merci d’ajouter ici son <strong>dernier avis d’attribution de bourse</strong>.</p><p>Conseil : si vous n’avez pas de justificatif à fournir ici, vous pouvez ajouter ici une <strong>attestation sur l’honneur</strong> qui explique sa situation. Vous pouvez utiliser ce <a href='https://www.service-public.fr/simulateur/calcul/AttestationHonneur' target='_blank' rel='noopener'>modèle d’attestation sur l’honneur</a>.</p>",
+      "social-service": "<p>Merci d’ajouter ici, en fonction de sa situation :</p><ul><li>ses <strong>3 derniers justificatifs de versement de prestations sociales</strong> (ARE, CAF...)</li><li>un <strong>justificatif d'ouverture de ses droits</strong> si votre conjoint n’a pas encore touché de prestation sociale</li><li>une <strong>copie d'écran</strong> de simulation d'aide au logement (APL)</li></ul>",
       "student": "J’ajoute une copie de sa carte d’étudiant ou un certificat de scolarité pour l’année en cours.",
       "tenant": "J’ajoute ses <b>quittances de loyer pour les trois derniers mois.</b>",
       "unemployed": "J’ajoute une attestation d’ouverture de droits à l’ARE ou un avis de situation Pôle Emploi de moins de 3 mois.",
@@ -213,7 +213,7 @@
         "no-activity": "<p>Si votre garant est en situation de handicap, vous pouvez ajouter ici l’un des documents suivants :</p><ul><li>une <strong>attestation de paiement de pension d'invalidité</strong>⁽¹⁾ de moins de 3 mois</li><li>une <strong>notification de décision MDPH</strong></li><li>sa <strong>carte CMI</strong></li></ul><p>⁽¹⁾ découvrez comment obtenir une <a href='https://www.ameli.fr/roubaix-tourcoing/assure/adresses-et-contacts/l-obtention-d-un-document/obtenir-une-attestation/obtenir-une-attestation-de-paiement-de-pension-d-invalidite-ou-de-rente' target='_blank' rel='noopener'>attestation de paiement de pension d’invalidité</a>.</p><p>Si votre garant est sans emploi et ne touche aucun revenus, vous pouvez ajouter ici une <strong>attestation sur l’honneur</strong> qui explique sa situation.</p><p>Conseil : vous pouvez utiliser ce <a href='https://www.service-public.fr/simulateur/calcul/AttestationHonneur' target='_blank' rel='noopener'>modèle d’attestation sur l’honneur</a>.</p>",
         "artist": "<p>Merci d’ajouter ici l’un des documents suivants : </p><ul><li>un <strong>avis de situation au répertoire SIRENE</strong>⁽¹⁾ de moins de 3 mois</li><li>une <strong>attestation d’affiliation</strong></li></ul><p>⁽¹⁾ découvrez comment obtenir un <a href='https://entreprendre.service-public.fr/vosdroits/R17969' target='_blank' rel='noopener'>avis de situation au répertoire SIRENE</a>.</p>"
       },
-      "guarantor_salary": "J’ajoute un bulletin de salaire de mon garant de moins de 3 mois, une attestation de son employeur, un justificatif de versement de ses indemnités de stage, un bilan comptable ou un avis d’imposition à son nom, complet et de moins de 2 ans.",
+      "guarantor_salary": "<p>Merci d’ajouter ici <strong>l’un des documents suivants, au choix</strong> :</p><ul><li>un <strong>bulletin de salaire</strong> de moins de 3 mois</li><li>ou son dernier ou avant-dernier <strong>avis d’imposition</strong></li><li>ou une <strong>synthèse de bilan comptable</strong>⁽¹⁾ de moins de deux ans</li></ul><p>⁽¹⁾ ses 2 derniers bilans comptables peuvent être acceptés ici. Veuillez toutefois noter qu’il s’agit de documents longs et complexes : des documents de synthèse sont à privilégier.</p><p>Conseil : si vous disposez de plusieurs documents de votre garant (bulletins de salaire et contrat de travail par exemple), répartissez-les entre cette rubrique <em>Revenus</em> et la précédente <em>Situation professionnelle</em> afin de ne pas surcharger votre dossier.</p>",
       "guest": "Merci d'ajouter ici <strong>3 documents :</strong><ul><li><strong>une attestation sur l'honneur</strong> d'hébergement à titre gratuit (nous vous recommandons d'utiliser le modèle d'attestation disponible sur le site <a target='_blank' rel='noopener' title='site pour générer une attestion' href='https://www.service-public.fr/simulateur/calcul/AttestationHebergement'>service-public.fr</a>)</li><li>une copie de <strong>la pièce d'identité de l'hébergeur</strong></li><li>un <strong>justificatif de domicile de l'hébergeur de moins de 3 mois :</strong> avis de taxe foncière, facture de téléphone, quittance de loyer…</li></ul>",
       "identity-card": "Veillez à ajouter sa pièce <b>recto-verso</b>.",
       "passport": "Veillez à ajouter les <b>pages 2 et 3</b> de son passeport, car la signature doit apparaître.",
@@ -224,10 +224,11 @@
       "my-name": "J’ajoute un <b>avis d’imposition de moins de deux ans</b> au nom de mon garant. Le numéro fiscal et le revenu fiscal de référence doivent être lisibles.",
       "other-tax": "Afin d’améliorer mon dossier, j’explique ci-dessous pourquoi je n'ai pas d’avis d’imposition au nom de mon garant. Cette explication sera ajoutée à mon dossier :",
       "owner": "J’ajoute un <b>justificatif de domicile de mon garant</b> datant de <b>moins de trois mois.</b>",
-      "pension": "J’ajoute un bulletin ou une attestation de pension de mon garant, ou un avis d’imposition à son nom, complet et de moins de 2 ans.",
-      "rent": "J’ajoute un justificatif de paiement de rente de mon garant, ou un avis d’imposition à son nom, complet et de moins de 2 ans.",
+      "pension": "<p>Merci d’ajouter ici <strong>l’un des documents suivants, au choix</strong> :</p><ul><li>un <strong>bulletin de pension</strong> de moins de 2 ans</li><li>ou son <strong>titre de pension de retraite</strong></li><li>ou son <strong>dernier ou avant-dernier avis d'imposition</strong> complet (toutes les pages)</li></ul>",
+      "rent": "<p>Merci d’ajouter ici un justificatif de paiement de rente ou un avis d’imposition mentionnant clairement le montant de la rente. S’il s’agit d’une rente de type immobilière, vous pouvez ajouter ici la ou les dernières quittances des locataires.</p><p>Conseil : si vous n’avez pas de justificatif à fournir ici, vous pouvez ajouter ici une <strong>attestation sur l’honneur</strong> qui explique la situation de votre garant. Vous pouvez utiliser ce <a href='https://www.service-public.fr/simulateur/calcul/AttestationHonneur' target='_blank' rel='noopener'>modèle d’attestation sur l’honneur</a>.</p>",
       "salary": "J’ajoute un bulletin de salaire de mon garant de moins de 3 mois, une attestation de son employeur, un justificatif de versement de ses indemnités de stage, un bilan comptable ou un avis d’imposition à son nom, complet et de moins de 2 ans.",
-      "social-service": "J’ajoute un justificatif de versement de prestations sociales (ARE, CAF, Crous…) de mon garant de moins de 3 mois, un justificatif d’ouverture de ses droits ou une attestation de simulation pour les aides au logement.",
+      "scholarship": "<p>Merci d’ajouter ici son <strong>dernier avis d’attribution de bourse</strong>.</p><p>Conseil : si vous n’avez pas de justificatif à fournir ici, vous pouvez ajouter ici une <strong>attestation sur l’honneur</strong> qui explique la situation de votre garant. Vous pouvez utiliser ce <a href='https://www.service-public.fr/simulateur/calcul/AttestationHonneur' target='_blank' rel='noopener'>modèle d’attestation sur l’honneur</a>.</p>",
+      "social-service": "Merci d’ajouter ici un <strong>justificatif de versement de prestations sociales</strong> de moins de 3 mois (ARE, CAF...)",
       "tenant": "J’ajoute un <b>justificatif de domicile de mon garant</b> datant de <b>moins de trois mois.</b>",
       "noDocument-social": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
       "noDocument-salary": "Je ne peux pas fournir les trois derniers bulletins de salaire ou un bilan comptable de mon garant",
@@ -260,7 +261,7 @@
         "no-activity": "<p>Si son garant est en situation de handicap, vous pouvez ajouter ici l’un des documents suivants :</p><ul><li>une <strong>attestation de paiement de pension d'invalidité</strong>⁽¹⁾ de moins de 3 mois</li><li>une <strong>notification de décision MDPH</strong></li><li>sa <strong>carte CMI</strong></li></ul><p>⁽¹⁾ découvrez comment obtenir une <a href='https://www.ameli.fr/roubaix-tourcoing/assure/adresses-et-contacts/l-obtention-d-un-document/obtenir-une-attestation/obtenir-une-attestation-de-paiement-de-pension-d-invalidite-ou-de-rente' target='_blank' rel='noopener'>attestation de paiement de pension d’invalidité</a>.</p><p>Si son garant est sans emploi et ne touche aucun revenus, vous pouvez ajouter ici une <strong>attestation sur l’honneur</strong> qui explique sa situation.</p><p>Conseil : vous pouvez utiliser ce <a href='https://www.service-public.fr/simulateur/calcul/AttestationHonneur' target='_blank' rel='noopener'>modèle d’attestation sur l’honneur</a>.</p>",
         "artist": "<p>Merci d’ajouter ici l’un des documents suivants : </p><ul><li>un <strong>avis de situation au répertoire SIRENE</strong>⁽¹⁾ de moins de 3 mois</li><li>une <strong>attestation d’affiliation</strong></li></ul><p>⁽¹⁾ découvrez comment obtenir un <a href='https://entreprendre.service-public.fr/vosdroits/R17969' target='_blank' rel='noopener'>avis de situation au répertoire SIRENE</a>.</p>"
       },
-      "guarantor_salary": "J’ajoute un bulletin de salaire de son garant de moins de 3 mois, une attestation de son employeur, un justificatif de versement de ses indemnités de stage, un bilan comptable ou un avis d’imposition à son nom, complet et de moins de 2 ans.",
+      "guarantor_salary": "<p>Merci d’ajouter ici <strong>l’un des documents suivants, au choix</strong> :</p><ul><li>un <strong>bulletin de salaire</strong> de moins de 3 mois</li><li>ou son dernier ou avant-dernier <strong>avis d’imposition</strong></li><li>ou une <strong>synthèse de bilan comptable</strong>⁽¹⁾ de moins de deux ans</li></ul><p>⁽¹⁾ ses 2 derniers bilans comptables peuvent être acceptés ici. Veuillez toutefois noter qu’il s’agit de documents longs et complexes : des documents de synthèse sont à privilégier.</p><p>Conseil : si vous disposez de plusieurs documents de son garant (bulletins de salaire et contrat de travail par exemple), répartissez-les entre cette rubrique <em>Revenus</em> et la précédente <em>Situation professionnelle</em> afin de ne pas surcharger votre dossier.</p>",
       "guest": "J’ajoute une <b>attestation sur l’honneur d’hébergement de son garant à titre gratuit.</b> Vous pouvez utiliser un modèle en ligne sur le site <a target='_blank' href='//www.service-public.fr'>www.service-public.fr</a>",
       "identity-card": "Veillez à ajouter sa pièce <b>recto-verso</b>.",
       "passport": "Veillez à ajouter les <b>pages 2 et 3</b> de son passeport, car la signature doit apparaître.",
@@ -271,11 +272,11 @@
       "my-name": "J’ajoute un <b>avis d’imposition de moins de deux ans</b> au nom de son garant. Le numéro fiscal et le revenu fiscal de référence doivent être lisibles.",
       "other-tax": "Afin d’améliorer mon dossier, j’explique ci-dessous pourquoi je n'ai pas d’avis d’imposition au nom de mon garant. Cette explication sera ajoutée à mon dossier :",
       "owner": "J’ajoute un <b>justificatif de domicile de son garant</b> datant de <b>moins de trois mois.</b>",
-      "pension": "J’ajoute un bulletin ou une attestation de pension de son garant, ou un avis d’imposition à son nom, complet et de moins de 2 ans.",
-      "rent": "J’ajoute un justificatif de paiement de rente de son garant, ou un avis d’imposition à son nom, complet et de moins de 2 ans.",
+      "pension": "<p>Merci d’ajouter ici <strong>l’un des documents suivants, au choix</strong> :</p><ul><li>un <strong>bulletin de pension</strong> de moins de 2 ans</li><li>ou son <strong>titre de pension de retraite</strong></li><li>ou son <strong>dernier ou avant-dernier avis d'imposition</strong> complet (toutes les pages)</li></ul>",
+      "rent": "<p>Merci d’ajouter ici un justificatif de paiement de rente ou un avis d’imposition mentionnant clairement le montant de la rente. S’il s’agit d’une rente de type immobilière, vous pouvez ajouter ici la ou les dernières quittances des locataires.</p><p>Conseil : si vous n’avez pas de justificatif à fournir ici, vous pouvez ajouter ici une <strong>attestation sur l’honneur</strong> qui explique la situation de son garant. Vous pouvez utiliser ce <a href='https://www.service-public.fr/simulateur/calcul/AttestationHonneur' target='_blank' rel='noopener'>modèle d’attestation sur l’honneur</a>.</p>",
       "salary": "J’ajoute un bulletin de salaire de son garant de moins de 3 mois, une attestation de son employeur, un justificatif de versement de ses indemnités de stage, un bilan comptable ou un avis d’imposition à son nom, complet et de moins de 2 ans.",
-      "scholarship": "J’ajoute un avis d’attribution de bourse de son garant.",
-      "social-service": "J’ajoute un justificatif de versement de prestations sociales (ARE, CAF, Crous…) de son garant de moins de 3 mois, un justificatif d’ouverture de ses droits ou une attestation de simulation pour les aides au logement.",
+      "scholarship": "<p>Merci d’ajouter ici son <strong>dernier avis d’attribution de bourse</strong>.</p><p>Conseil : si vous n’avez pas de justificatif à fournir ici, vous pouvez ajouter ici une <strong>attestation sur l’honneur</strong> qui explique la situation de son garant. Vous pouvez utiliser ce <a href='https://www.service-public.fr/simulateur/calcul/AttestationHonneur' target='_blank' rel='noopener'>modèle d’attestation sur l’honneur</a>.</p>",
+      "social-service": "Merci d’ajouter ici un <strong>justificatif de versement de prestations sociales</strong> de moins de 3 mois (ARE, CAF...)",
       "tenant": "J’ajoute un <b>justificatif de domicile de son garant</b> datant de <b>moins de trois mois.</b>",
       "noDocument-social": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
       "noDocument-salary": "Je ne peux pas fournir les trois derniers bulletins de salaire ou un bilan comptable de son garant",
@@ -318,7 +319,8 @@
     },
     "opinion-bloc": {
       "title": "Racontez-nous votre expérience DossierFacile",
-      "content": "Nous cherchons constamment à améliorer la qualité de notre service. Dans le cadre de cette démarche d’amélioration, nous cherchons à obtenir votre retour d’expérience. En cliquant sur le bouton ci-dessous, vous pourrez évaluer DossierFacile. Vos commentaires nous sont précieux ! Merci."
+      "content": "Nous cherchons constamment à améliorer la qualité de notre service. Dans le cadre de cette démarche d’amélioration, nous cherchons à obtenir votre retour d’expérience. En cliquant sur le bouton ci-dessous, vous pourrez évaluer DossierFacile. Vos commentaires nous sont précieux ! Merci.",
+      "warning": "Attention : ce formulaire ne nous permet pas de vous répondre. Si vous rencontrez un problème avec votre dossier, contactez plutôt notre équipe de support à cette adresse : <a href=\"mailto:contact@dossierfacile.fr\">contact@dossierfacile.fr</a> ou en utilisant <a href=\"/contact\">ce formulaire de contact</a>."
     },
     "share-file": "Partager mon dossier",
     "share-file-description": "Copiez votre lien-dossier pour le partager ! À vous de l'envoyer aux propriétaires ou bailleurs de votre choix (par mail, SMS, etc.)",
@@ -411,13 +413,19 @@
     "field-required": "Ce champ est requis"
   },
   "cotenantdocument": {
-    "warning-need-residency-documents": "Êtes-vous sûr·e d'avoir bien transmis l'ensemble des documents nécessaires ici ?",
+    "warning-need-residency-documents": {
+      "p1": "Êtes-vous sûr·e d'avoir bien transmis l'ensemble des documents nécessaires ici ?",
+      "list1": "attestation d'hébergement",
+      "list2": "copie de la pièce d'identité de son hébergeur",
+      "list3": "justificatif de domicile de moins de 3 mois de son hébergeur",
+      "p2": "Les dossiers incomplets (qui ne présentent pas ces 3 documents) ne seront pas validés."
+    },
     "list1": "attestation d'hébergement",
     "list2": "copie de la pièce d'identité de son hébergeur",
     "list3": "justificatif de domicile de moins de 3 mois de son hébergeur"
   },
   "cotenantfinancialform": {
-    "title": "Justificatif de ressources",
+    "title": "Revenus de votre conjoint",
     "tenant": "Locataire",
     "owner": "Propriétaire",
     "guest": "Hébergé·e gratuitement",
@@ -430,8 +438,11 @@
     "pension": "Pensions",
     "scholarship": "Bourses",
     "no-income": "Pas de revenus",
-    "monthlySum": "Montant en euros",
-    "monthlySum-label": "J'indique le montant de son revenu mensuel net à payer (avant prélèvement à la source)",
+    "monthlySum": {
+      "placeholder": "Montant en euros",
+      "label": "Indiquez le montant de ses revenus mensuels nets",
+      "label-tax": "avant prélèvement à la source"
+    },
     "noDocument-social-service": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
     "noDocument-salary": "Je ne peux pas fournir ses trois derniers bulletins de salaire ",
     "noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",
@@ -443,10 +454,9 @@
     "customText-rent": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon conjoint :",
     "customText-scholarship": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs de mon conjoint :",
     "customText-undefined": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir les justificatifs",
-    "custom-text": "Afin d'améliorer votre dossier, vous pouvez ajouter une explication :",
     "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
     "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
-    "has-no-income": "Vous avez indiqué l'absence de revenu",
+    "has-no-income": "Vous avez indiqué que votre conjoint n'a pas de revenus. Vous pouvez ajouter une explication sur sa situation ici si vous le souhaitez :",
     "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule",
     "delete-financial": "Supprimer ce revenu",
     "field-required": "Ce champ est requis",
@@ -654,12 +664,14 @@
     "size": " {0}Mo maximum par fichier"
   },
   "financialdocumentform": {
-    "financial": "Justificatif de ressources",
+    "title": "Vos revenus",
     "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
-    "monthlySum-label": "J'indique le montant de mon revenu mensuel net à payer (avant prélèvement à la source)",
-    "monthlySum": "Montant en euros",
+    "monthlySum": {
+      "placeholder": "Montant en euros",
+      "label": "Indiquez le montant de vos revenus mensuels nets",
+      "label-tax": "avant prélèvement à la source"
+    },
     "delete-financial": "Supprimer ce revenu",
-    "custom-text": "Afin d'améliorer votre dossier, vous pouvez ajouter une explication :",
     "customText-social-service": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
     "customText-salary": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes trois derniers bulletins de salaire :",
     "customText-pension": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
@@ -674,7 +686,7 @@
     "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers.",
     "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
     "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
-    "has-no-income": "Vous avez indiqué ne pas avoir de revenu",
+    "has-no-income": "Vous avez indiqué ne pas avoir de revenus. Vous pouvez ajouter une explication sur votre situation ici si vous le souhaitez :",
     "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule"
   },
   "financial-page": {
@@ -736,23 +748,31 @@
     "validate": "Valider",
     "will-delete-guarantor": "Voulez-vous vraiment changer le type de garant ?",
     "validate-file": "Étape suivante - Valider le dossier",
-    "warning-need-residency-documents": "Êtes-vous sûr·e d'avoir bien transmis l'ensemble des documents nécessaires ici ?",
-    "list1": "attestation d'hébergement",
-    "list2": "copie de la pièce d'identité de son hébergeur",
-    "list3": "justificatif de domicile de moins de 3 mois de son hébergeur"
+    "warning-need-residency-documents": {
+      "p1": "Êtes-vous sûr·e d'avoir bien transmis l'ensemble des documents nécessaires ici ?",
+      "list1": "attestation d'hébergement",
+      "list2": "copie de la pièce d'identité de son hébergeur",
+      "list3": "justificatif de domicile de moins de 3 mois de son hébergeur",
+      "p2": "Les dossiers incomplets (qui ne présentent pas ces 3 documents) ne seront pas validés."
+    }
   },
   "guarantordocumentspage": {},
   "guarantorfinancialdocumentform": {
-    "financial": "Justificatif de ressources",
-    "monthlySum": "Montant en euros",
-    "monthlySum-label": "J'indique le montant de son revenu mensuel net à payer (avant prélèvement à la source)",
+    "title": {
+      "guarantor": "Revenus de votre garant",
+      "cotenant-guarantor": "Revenus de son garant"
+    },
+    "monthlySum": {
+      "placeholder": "Montant en euros",
+      "label": "Indiquez le montant de ses revenus mensuels nets",
+      "label-tax": "avant prélèvement à la source"
+    },
     "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
     "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi le salaire mensuel ?",
     "number-not-valid": "Valeur incorrecte - entrez un chiffre sans virgule",
     "delete-financial": "Supprimer ce revenu",
     "field-required": "Ce champ est requis",
     "register": "Enregistrer",
-    "select-label": "Attention, veuillez renseigner uniquement les revenus du garant.",
     "missing-file": "Vous devez ajouter des fichiers pour sauvegarder ce revenu.",
     "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers."
   },
@@ -1309,7 +1329,7 @@
     "more-information": "En difficulté pour répondre à la question ?"
   },
   "uploaddocuments": {
-    "warning-need-residency-documents": "Êtes-vous sûr·e d'avoir bien transmis l'ensemble des documents nécessaires ici ?<ul><li>attestation d'hébergement</li><li>copie de la pièce d'identité de votre hébergeur</li><li>justificatif de domicile de moins de 3 mois de votre hébergeur</li></ul>",
+    "warning-need-residency-documents": "Êtes-vous sûr·e d'avoir bien transmis l'ensemble des documents nécessaires ici ?<ul><li>attestation d'hébergement</li><li>copie de la pièce d'identité de votre hébergeur</li><li>justificatif de domicile de moins de 3 mois de votre hébergeur</li></ul><p>Les dossiers incomplets (qui ne présentent pas ces 3 documents) ne seront pas validés.</p>",
     "accept-warning": "Ajouter de nouveaux documents",
     "ignore-warning": "Passer à l'étape suivante",
     "warning-need-residency-documents-tenant": "<p>Êtes-vous sûr·e d'avoir bien transmis vos 3 dernières quittances (ou une attestation de bon paiement des loyers) ?<br>Une quittance indique à un propriétaire que vous payez bien votre loyer. <strong>Un document qui ne mentionne que votre adresse (une facture EDF par exemple) ne suffit pas ici.</strong></p><p>Il s'agit d'une erreur très fréquente, et votre dossier ne pourra pas être validé sans ces 3 quittances.</p>"

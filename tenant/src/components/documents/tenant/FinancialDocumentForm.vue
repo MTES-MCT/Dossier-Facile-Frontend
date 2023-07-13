@@ -5,7 +5,7 @@
         <NakedCard class="fr-p-md-5w fr-mb-3w">
           <div>
             <h1 class="fr-h6">
-              {{ $t("financialdocumentform.financial") }}
+              {{ $t("financialdocumentform.title") }}
             </h1>
 
             <TroubleshootingModal>
@@ -70,15 +70,12 @@
                         'fr-input-group--error': errors[0],
                       }"
                     >
-                      <label for="monthlySum" class="fr-label"
-                        >{{
-                          $t("financialdocumentform.monthlySum-label")
-                        }}
-                        :</label
-                      >
+                      <label for="monthlySum" class="fr-label">
+                        {{ getMonthlySumLabel() }} :
+                      </label>
                       <input
                         id="monthlySum"
-                        :placeholder="$t('financialdocumentform.monthlySum')"
+                        :placeholder="$tc('financialdocumentform.monthlySum.placeholder')"
                         type="number"
                         min="0"
                         step="1"
@@ -229,12 +226,11 @@
       "
     >
       <NakedCard class="fr-p-md-5w fr-mb-3w">
-        {{ $t("financialdocumentform.has-no-income") }}
         <ValidationObserver v-slot="{ validate, valid }">
           <form name="customTextForm" @submit.prevent="validate().then(save)">
             <div class="fr-input-group">
               <label class="fr-label" for="customTextNoDocument">
-                {{ $t("financialdocumentform.custom-text") }}
+                {{ $t("financialdocumentform.has-no-income") }}
               </label>
               <textarea
                 v-model="financialDocument.customText"
@@ -571,7 +567,7 @@ export default class FinancialDocumentForm extends Vue {
     const newFiles = this.financialDocument.files.map((file: DfFile) => {
       return {
         subCategory: this.financialDocument.documentType?.value,
-        id: file.name,
+        id: file.id,
         name: file.name,
         size: file.size,
       };
@@ -630,6 +626,16 @@ export default class FinancialDocumentForm extends Vue {
       (this.tenantFinancialDocuments.length === 1 &&
         this.tenantFinancialDocuments[0].documentType.key === "no-income")
     );
+  }
+
+  getMonthlySumLabel() {
+    const docType = this.financialDocument?.documentType.key;
+    let label = this.$tc("financialdocumentform.monthlySum.label");
+    if (docType === "salary" || docType === "pension" || docType === "rent") {
+      label += " ";
+      label += this.$tc("financialdocumentform.monthlySum.label-tax");
+    }
+    return label;
   }
 }
 </script>

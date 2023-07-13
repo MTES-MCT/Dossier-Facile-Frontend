@@ -27,12 +27,13 @@
         @close="showNbDocumentsResidency = false"
         @valid="showNbDocumentsResidency = false"
       >
-        {{ $t("cotenantdocument.warning-need-residency-documents") }}
+        {{ $t("cotenantdocument.warning-need-residency-documents.p1") }}
         <ul>
-          <li>{{ $t("cotenantdocument.list1") }}</li>
-          <li>{{ $t("cotenantdocument.list2") }}</li>
-          <li>{{ $t("cotenantdocument.list3") }}</li>
+          <li>{{ $t("cotenantdocument.warning-need-residency-documents.list1") }}</li>
+          <li>{{ $t("cotenantdocument.warning-need-residency-documents.list2") }}</li>
+          <li>{{ $t("cotenantdocument.warning-need-residency-documents.list3") }}</li>
         </ul>
+        {{ $t("cotenantdocument.warning-need-residency-documents.p2") }}
       </ConfirmModal>
       <FooterContainer>
         <BackNext
