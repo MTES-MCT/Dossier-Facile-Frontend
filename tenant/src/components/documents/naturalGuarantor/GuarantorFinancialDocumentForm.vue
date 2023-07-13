@@ -1,5 +1,22 @@
 <template>
   <div>
+    <Modal v-show="isNoIncomeAndFiles" @close="isNoIncomeAndFiles = false">
+      <template v-slot:body>
+        <div class="fr-container">
+          <div class="fr-grid-row justify-content-center">
+            <div class="fr-col-12">
+              <p>
+                {{
+                  $t(
+                    "guarantorfinancialdocumentform.warning-no-income-and-file"
+                  )
+                }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </template>
+    </Modal>
     <ConfirmModal
       v-if="isDocDeleteVisible"
       @valid="validSelect()"
@@ -244,6 +261,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
   documents = DocumentTypeConstants.GUARANTOR_FINANCIAL_DOCS;
   isDocDeleteVisible = false;
   selectedDoc?: FinancialDocument;
+  isNoIncomeAndFiles = false;
 
   beforeMount() {
     this.financialDocument = {
@@ -357,38 +375,42 @@ export default class GuarantorFinancialDocumentForm extends Vue {
       }
     }
     AnalyticsService.registerFile("guarantor-financial");
-    if (!this.financialFiles().length) {
-      Vue.toasted.global.max_file({
-        message: this.$i18n.t("guarantorfinancialdocumentform.missing-file"),
-      });
-      return Promise.reject(new Error("err"));
-    }
+    if (!this.financialDocument.noDocument) {
+      if (!this.financialFiles().length) {
+        Vue.toasted.global.max_file({
+          message: this.$i18n.t("guarantorfinancialdocumentform.missing-file"),
+        });
+        return Promise.reject(new Error("err"));
+      }
 
-    if (
-      this.financialDocument.documentType.maxFileCount &&
-      this.financialFiles().length >
-        this.financialDocument.documentType.maxFileCount
-    ) {
-      Vue.toasted.global.max_file({
-        message: this.$i18n.t("max-file", [
-          this.financialFiles().length,
-          this.financialDocument.documentType.maxFileCount,
-        ]),
-      });
-      this.financialDocument.files = [];
-      return Promise.reject(new Error("max-file"));
-    }
+      if (
+        this.financialDocument.documentType.maxFileCount &&
+        this.financialFiles().length >
+          this.financialDocument.documentType.maxFileCount
+      ) {
+        Vue.toasted.global.max_file({
+          message: this.$i18n.t("max-file", [
+            this.financialFiles().length,
+            this.financialDocument.documentType.maxFileCount,
+          ]),
+        });
+        this.financialDocument.files = [];
+        return Promise.reject(new Error("max-file"));
+      }
 
-    if (this.financialDocument.documentType.key !== "no-income") {
-      this.financialDocument.noDocument = false;
+      const newFiles = this.financialDocument.files.filter((f) => {
+        return !f.id;
+      });
+      Array.from(Array(newFiles.length).keys()).forEach((x) => {
+        const f: File = newFiles[x].file || new File([], "");
+        formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
+      });
+    } else {
+      if (this.financialFiles().length > 0) {
+        this.isNoIncomeAndFiles = true;
+        return Promise.reject(new Error("err"));
+      }
     }
-    const newFiles = this.financialDocument.files.filter((f) => {
-      return !f.id;
-    });
-    Array.from(Array(newFiles.length).keys()).forEach((x) => {
-      const f: File = newFiles[x].file || new File([], "");
-      formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
-    });
 
     const typeDocumentFinancial =
       this.financialDocument.documentType?.value || "";

@@ -434,7 +434,8 @@
     "delete-financial": "Supprimer ce revenu",
     "field-required": "Ce champ est requis",
     "register": "Enregistrer",
-    "missing-file": "Vous devez ajouter des fichiers pour sauvegarder ce revenu."
+    "missing-file": "Vous devez ajouter des fichiers pour sauvegarder ce revenu.",
+    "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir les fichiers. Veuillez décocher la case ou supprimer vos fichiers."
   },
   "cotenantfinanciallist": {
     "delete-financial": "Supprimer ce revenu",
@@ -645,6 +646,7 @@
     },
     "delete-financial": "Supprimer ce revenu",
     "missing-file": "Vous devez ajouter des fichiers pour sauvegarder ce revenu.",
+    "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers.",
     "high-salary": "Vous avez saisi un salaire supérieur à 10 000€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
     "low-salary": "Vous avez saisi un salaire égal à 0€ êtes-vous sûr d'avoir saisi votre salaire mensuel ?",
     "has-no-income": "Vous avez indiqué ne pas avoir de revenus. Vous pouvez ajouter une explication sur votre situation ici si vous le souhaitez :",
@@ -731,13 +733,15 @@
     "delete-financial": "Supprimer ce revenu",
     "field-required": "Ce champ est requis",
     "register": "Enregistrer",
-    "missing-file": "Vous devez ajouter des fichiers pour sauvegarder ce revenu."
+    "missing-file": "Vous devez ajouter des fichiers pour sauvegarder ce revenu.",
+    "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers."
   },
   "guarantorfinancial": {
     "delete-financial": "Supprimer ce revenu",
     "register": "Enregistrer",
     "select-label": "Attention, veuillez renseigner uniquement vos propres revenus.",
     "i-have-no-income": "Je n'ai pas de revenu",
+    "warning-no-income-and-file": "Vous ne pouvez pas avoir des fichiers et indiquer ne pas pouvoir fournir tous les fichiers. Veuillez décocher la case ou supprimer vos fichiers.",
     "title": "Récapitulatif des revenus du garant",
     "subtitle": "Voici la liste des revenus que vous avez déclarés. Vous pouvez, à tout moment ajouter de nouveaux revenus, si cela était nécessaire.",
     "monthly": " € net mensuel ",
