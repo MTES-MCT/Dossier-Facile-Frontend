@@ -1,5 +1,22 @@
 <template>
   <div>
+    <Modal v-show="isNoIncomeAndFiles" @close="isNoIncomeAndFiles = false">
+      <template v-slot:body>
+        <div class="fr-container">
+          <div class="fr-grid-row justify-content-center">
+            <div class="fr-col-12">
+              <p>
+                {{
+                  $t(
+                    "guarantorfinancialdocumentform.warning-no-income-and-file"
+                  )
+                }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </template>
+    </Modal>
     <ConfirmModal
       v-if="isDocDeleteVisible"
       @valid="validSelect()"
@@ -161,6 +178,57 @@
               @reset-files="resetFiles(financialDocument, ...arguments)"
             ></FileUpload>
           </div>
+          <div class="fr-col-12 fr-mb-3w bg-purple fr-checkbox-group">
+            <input
+              type="checkbox"
+              id="noDocument"
+              value="false"
+              v-model="financialDocument.noDocument"
+            />
+            <label for="noDocument">
+              {{
+                $t(
+                  `explanation-text.${guarantorKey()}.${getCheckboxLabel(
+                    financialDocument.documentType.key
+                  )}`
+                )
+              }}
+            </label>
+          </div>
+          <div class="fr-mb-5w" v-if="financialDocument.noDocument">
+            <validation-provider
+              :rules="{ required: true }"
+              v-slot="{ errors, valid }"
+            >
+              <div class="fr-input-group">
+                <label class="fr-label" for="customText">
+                  {{
+                    $t(
+                      `explanation-text.${guarantorKey()}.${getCustomTextLabel(
+                        financialDocument.documentType.key
+                      )}`
+                    )
+                  }}
+                </label>
+                <input
+                  v-model="financialDocument.customText"
+                  class="form-control fr-input validate-required"
+                  :class="{
+                    'fr-input--valid': valid,
+                    'fr-input--error': errors[0],
+                  }"
+                  id="customText"
+                  name="customText"
+                  placeholder=""
+                  type="text"
+                  required
+                />
+                <span class="fr-error-text" v-if="errors[0]">{{
+                  $t(errors[0])
+                }}</span>
+              </div>
+            </validation-provider>
+          </div>
         </div>
       </NakedCard>
     </ValidationObserver>
@@ -244,6 +312,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
   documents = DocumentTypeConstants.GUARANTOR_FINANCIAL_DOCS;
   isDocDeleteVisible = false;
   selectedDoc?: FinancialDocument;
+  isNoIncomeAndFiles = false;
 
   beforeMount() {
     this.financialDocument = {
@@ -357,38 +426,42 @@ export default class GuarantorFinancialDocumentForm extends Vue {
       }
     }
     AnalyticsService.registerFile("guarantor-financial");
-    if (!this.financialFiles().length) {
-      Vue.toasted.global.max_file({
-        message: this.$i18n.t("guarantorfinancialdocumentform.missing-file"),
-      });
-      return Promise.reject(new Error("err"));
-    }
+    if (!this.financialDocument.noDocument) {
+      if (!this.financialFiles().length) {
+        Vue.toasted.global.max_file({
+          message: this.$i18n.t("guarantorfinancialdocumentform.missing-file"),
+        });
+        return Promise.reject(new Error("err"));
+      }
 
-    if (
-      this.financialDocument.documentType.maxFileCount &&
-      this.financialFiles().length >
-        this.financialDocument.documentType.maxFileCount
-    ) {
-      Vue.toasted.global.max_file({
-        message: this.$i18n.t("max-file", [
-          this.financialFiles().length,
-          this.financialDocument.documentType.maxFileCount,
-        ]),
-      });
-      this.financialDocument.files = [];
-      return Promise.reject(new Error("max-file"));
-    }
+      if (
+        this.financialDocument.documentType.maxFileCount &&
+        this.financialFiles().length >
+          this.financialDocument.documentType.maxFileCount
+      ) {
+        Vue.toasted.global.max_file({
+          message: this.$i18n.t("max-file", [
+            this.financialFiles().length,
+            this.financialDocument.documentType.maxFileCount,
+          ]),
+        });
+        this.financialDocument.files = [];
+        return Promise.reject(new Error("max-file"));
+      }
 
-    if (this.financialDocument.documentType.key !== "no-income") {
-      this.financialDocument.noDocument = false;
+      const newFiles = this.financialDocument.files.filter((f) => {
+        return !f.id;
+      });
+      Array.from(Array(newFiles.length).keys()).forEach((x) => {
+        const f: File = newFiles[x].file || new File([], "");
+        formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
+      });
+    } else {
+      if (this.financialFiles().length > 0) {
+        this.isNoIncomeAndFiles = true;
+        return Promise.reject(new Error("err"));
+      }
     }
-    const newFiles = this.financialDocument.files.filter((f) => {
-      return !f.id;
-    });
-    Array.from(Array(newFiles.length).keys()).forEach((x) => {
-      const f: File = newFiles[x].file || new File([], "");
-      formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
-    });
 
     const typeDocumentFinancial =
       this.financialDocument.documentType?.value || "";
@@ -480,6 +553,44 @@ export default class GuarantorFinancialDocumentForm extends Vue {
     this.save().then(() => {
       this.$store.commit("selectGuarantorDocumentFinancial", undefined);
     });
+  }
+
+  getCheckboxLabel(key: string) {
+    if (key === "guarantor_salary") {
+      return "noDocument-salary";
+    }
+    if (key === "pension") {
+      return "noDocument-pension";
+    }
+    if (key === "rent") {
+      return "noDocument-rent";
+    }
+    if (key === "scholarship") {
+      return "noDocument-scholarship";
+    }
+    if (key === "social-service") {
+      return "noDocument-social";
+    }
+    return "";
+  }
+
+  getCustomTextLabel(key: string) {
+    if (key === "guarantor_salary") {
+      return "customText-salary";
+    }
+    if (key === "pension") {
+      return "customText-pension";
+    }
+    if (key === "rent") {
+      return "customText-rent";
+    }
+    if (key === "scholarship") {
+      return "customText-scholarship";
+    }
+    if (key === "social-service") {
+      return "customText-social";
+    }
+    return "";
   }
 
   guarantorKey() {

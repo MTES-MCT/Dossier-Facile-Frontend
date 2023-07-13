@@ -166,6 +166,54 @@
                   @reset-files="resetFiles(financialDocument, ...arguments)"
                 ></FileUpload>
               </div>
+              <div class="fr-col-12 fr-mb-3w bg-purple fr-checkbox-group">
+                <input
+                  type="checkbox"
+                  id="noDocument"
+                  value="false"
+                  v-model="financialDocument.noDocument"
+                />
+                <label for="noDocument">
+                  {{ $t(getCheckboxLabel(financialDocument.documentType.key)) }}
+                </label>
+              </div>
+              <div class="fr-mb-5w" v-if="financialDocument.noDocument">
+                <validation-provider
+                  :rules="{ required: true }"
+                  v-slot="{ errors, valid }"
+                >
+                  <div class="fr-input-group">
+                    <label class="fr-label" for="customText">
+                      {{
+                        $t(
+                          `financialdocumentform.customText-${financialDocument.documentType.key}`
+                        )
+                      }}
+                    </label>
+                    <textarea
+                      v-model="financialDocument.customText"
+                      class="form-control fr-input validate-required"
+                      :class="{
+                        'fr-input--valid': valid,
+                        'fr-input--error': errors[0],
+                      }"
+                      id="customText"
+                      name="customText"
+                      placeholder=""
+                      type="text"
+                      maxlength="2000"
+                      rows="3"
+                      required
+                    />
+                    <span
+                      >{{ financialDocument.customText.length }} / 2000</span
+                    >
+                    <span class="fr-error-text" v-if="errors[0]">{{
+                      $t(errors[0])
+                    }}</span>
+                  </div>
+                </validation-provider>
+              </div>
             </div>
           </div>
         </NakedCard>
@@ -204,6 +252,19 @@
       </NakedCard>
     </div>
     <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
+    <Modal v-show="isNoIncomeAndFiles" @close="isNoIncomeAndFiles = false">
+      <template v-slot:body>
+        <div class="fr-container">
+          <div class="fr-grid-row justify-content-center">
+            <div class="fr-col-12">
+              <p>
+                {{ $t("financialdocumentform.warning-no-income-and-file") }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </template>
+    </Modal>
     <ConfirmModal
       v-if="isDocDeleteVisible"
       @valid="validSelect()"
@@ -244,6 +305,7 @@ import { cloneDeep } from "lodash";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import MonFranceConnect from "../share/MonFranceConnect.vue";
+import { REDIRECTIONS } from "../share/MonFranceConnect.vue";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 
 extend("regex", {
@@ -289,6 +351,7 @@ export default class FinancialDocumentForm extends Vue {
   documentDeniedReasons = new DocumentDeniedReasons();
   isDocDeleteVisible = false;
   selectedDoc?: FinancialDocument;
+  isNoIncomeAndFiles = false;
   financialDocument = new FinancialDocument();
 
   beforeMount() {
@@ -397,41 +460,45 @@ export default class FinancialDocumentForm extends Vue {
       }
     }
     AnalyticsService.registerFile("financial");
-    if (
-      !this.financialFiles().length &&
-      this.financialDocument.documentType.key !== "no-income"
-    ) {
-      Vue.toasted.global.max_file({
-        message: this.$i18n.t("financialdocumentform.missing-file"),
-      });
-      this.financialDocument.files = [];
-      return Promise.reject(new Error("missing-file"));
-    }
+    if (!this.financialDocument.noDocument) {
+      if (
+        !this.financialFiles().length &&
+        this.financialDocument.documentType.key !== "no-income"
+      ) {
+        Vue.toasted.global.max_file({
+          message: this.$i18n.t("financialdocumentform.missing-file"),
+        });
+        this.financialDocument.files = [];
+        return Promise.reject(new Error("missing-file"));
+      }
 
-    if (
-      this.financialDocument.documentType.maxFileCount &&
-      this.financialFiles().length >
-        this.financialDocument.documentType.maxFileCount
-    ) {
-      Vue.toasted.global.max_file({
-        message: this.$i18n.t("max-file", [
-          this.financialFiles().length,
-          this.financialDocument.documentType.maxFileCount,
-        ]),
-      });
-      return Promise.reject(new Error("max-file"));
-    }
+      if (
+        this.financialDocument.documentType.maxFileCount &&
+        this.financialFiles().length >
+          this.financialDocument.documentType.maxFileCount
+      ) {
+        Vue.toasted.global.max_file({
+          message: this.$i18n.t("max-file", [
+            this.financialFiles().length,
+            this.financialDocument.documentType.maxFileCount,
+          ]),
+        });
+        return Promise.reject(new Error("max-file"));
+      }
 
-    if (this.financialDocument.documentType.key !== "no-income") {
-      this.financialDocument.noDocument = false;
+      const newFiles = this.financialDocument.files.filter((f) => {
+        return !f.id;
+      });
+      Array.from(Array(newFiles.length).keys()).forEach((x) => {
+        const f: File = newFiles[x].file || new File([], "");
+        formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
+      });
+    } else {
+      if (this.financialFiles().length > 0) {
+        this.isNoIncomeAndFiles = true;
+        return Promise.reject(new Error("err"));
+      }
     }
-    const newFiles = this.financialDocument.files.filter((f) => {
-      return !f.id;
-    });
-    Array.from(Array(newFiles.length).keys()).forEach((x) => {
-      const f: File = newFiles[x].file || new File([], "");
-      formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
-    });
 
     const typeDocumentFinancial =
       this.financialDocument.documentType?.value || "";

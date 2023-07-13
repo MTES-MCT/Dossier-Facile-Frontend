@@ -84,7 +84,7 @@
 
     <slot name="after-select-block"></slot>
     <NakedCard
-      class="fr-p-md-5w fr-mt-3w fr-mb-6w"
+      class="fr-p-md-5w fr-mt-3w"
       v-if="showDownloader && (document.key || documentFiles.length > 0)"
     >
       <div class="fr-mb-3w">
@@ -115,8 +115,89 @@
           ></FileUpload>
         </div>
       </div>
+      <div
+        v-if="allowNoDocument"
+        class="fr-col-12 fr-mb-3w bg-purple fr-checkbox-group"
+      >
+        <input
+          type="checkbox"
+          id="noDocument"
+          :checked="noDocument"
+          @click="changeNoDocument($event)"
+        />
+        <label for="noDocument">
+          {{
+            document
+              ? $t("noDocument-" + document.key)
+              : $t("documentdownloader.noDocument-default")
+          }}
+        </label>
+      </div>
+
+      <div
+        class="fr-mb-5w"
+        v-if="
+          !forceShowDownloader && (dfDocument ? dfDocument.noDocument : null)
+        "
+      >
+        <validation-provider
+          :rules="{ required: true }"
+          v-slot="{ errors, valid }"
+        >
+          <div class="fr-input-group">
+            <label class="fr-label" for="customText">
+              {{ $t(`cotenantfinancialform.customText-${document.key}`) }}
+            </label>
+            <textarea
+              v-model="dfDocument.customText"
+              class="form-control fr-input validate-required"
+              :class="{
+                'fr-input--valid': valid,
+                'fr-input--error': errors[0],
+              }"
+              id="customText"
+              name="customText"
+              placeholder=""
+              type="text"
+              maxlength="2000"
+              rows="3"
+              required
+            />
+            <span
+              >{{
+                dfDocument
+                  ? dfDocument.customText
+                    ? dfDocument.customText.length
+                    : 0
+                  : 0
+              }}
+              / 2000</span
+            >
+            <span class="fr-error-text" v-if="errors[0]">{{
+              $t(errors[0])
+            }}</span>
+          </div>
+        </validation-provider>
+      </div>
+
       <slot name="after-downloader"></slot>
     </NakedCard>
+    <Modal
+      v-show="showIsNoDocumentAndFiles"
+      @close="showIsNoDocumentAndFiles = false"
+    >
+      <template v-slot:body>
+        <div class="fr-container">
+          <div class="fr-grid-row justify-content-center">
+            <div class="fr-col-12">
+              <p>
+                {{ $t("documentdownloader.warning-no-document-and-files") }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </template>
+    </Modal>
     <Modal
       v-if="isWarningTaxSituationModalVisible"
       @close="isWarningTaxSituationModalVisible = false"
@@ -206,6 +287,7 @@ export default class DocumentDownloader extends Vue {
   @Prop() typeDocument!: string;
   @Prop({ default: "default" }) listType!: string;
   @Prop({ default: true }) showDownloader!: boolean;
+  @Prop({ default: false }) allowNoDocument!: boolean;
   @Prop({ default: false }) forceShowDownloader!: boolean;
   @Prop({ default: false }) testAvisSituation!: boolean;
 
@@ -218,6 +300,7 @@ export default class DocumentDownloader extends Vue {
 
   dfDocument!: DfDocument;
   noDocument = false;
+  showIsNoDocumentAndFiles = false;
   newFiles: File[] = [];
   isWarningTaxSituationModalVisible = false;
 
@@ -229,6 +312,20 @@ export default class DocumentDownloader extends Vue {
     this.$emit("on-change-document", this.document, this.dfDocument);
   }
 
+  changeNoDocument(event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (!this.noDocument && Number(this.dfDocument?.files?.length) > 0) {
+      this.showIsNoDocumentAndFiles = true;
+      this.dfDocument.noDocument = this.noDocument;
+      return;
+    } else {
+      this.noDocument = !this.noDocument;
+      this.dfDocument.noDocument = this.noDocument;
+    }
+    this.$emit("on-change-document", this.document, this.dfDocument);
+  }
+
   onSelectChange() {
     if (this.selectedCoTenant?.documents !== null) {
       const doc = this.getDocument();
@@ -237,9 +334,6 @@ export default class DocumentDownloader extends Vue {
           (doc.files?.length || 0) > 0 &&
           doc.subCategory !== this.document.value;
       }
-    }
-    if (this.documentCategory === "FINANCIAL" && this.document.key !== "no-income") {
-      this.dfDocument.noDocument = false;
     }
     this.$emit("on-change-document", this.document, this.dfDocument);
     // why ? no
