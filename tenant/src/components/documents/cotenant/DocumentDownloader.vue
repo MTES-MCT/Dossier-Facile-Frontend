@@ -84,7 +84,7 @@
 
     <slot name="after-select-block"></slot>
     <NakedCard
-      class="fr-p-md-5w fr-mt-3w fr-mb-6w"
+      class="fr-p-md-5w fr-mt-3w"
       v-if="showDownloader && (document.key || documentFiles.length > 0)"
     >
       <div class="fr-mb-3w">
@@ -115,6 +115,71 @@
           ></FileUpload>
         </div>
       </div>
+      <div
+        v-if="allowNoDocument"
+        class="fr-col-12 fr-mb-3w bg-purple fr-checkbox-group"
+      >
+        <input
+          type="checkbox"
+          id="noDocument"
+          :checked="noDocument"
+          @click="changeNoDocument($event)"
+        />
+        <label for="noDocument">
+          {{
+            document
+              ? $t("noDocument-" + document.key)
+              : $t("documentdownloader.noDocument-default")
+          }}
+        </label>
+      </div>
+
+      <div
+        class="fr-mb-5w"
+        v-if="
+          !forceShowDownloader && (dfDocument ? dfDocument.noDocument : null)
+        "
+      >
+        <validation-provider
+          :rules="{ required: true }"
+          v-slot="{ errors, valid }"
+        >
+          <div class="fr-input-group">
+            <label class="fr-label" for="customText">
+              {{ $t(`cotenantfinancialform.customText-${document.key}`) }}
+            </label>
+            <textarea
+              v-model="dfDocument.customText"
+              class="form-control fr-input validate-required"
+              :class="{
+                'fr-input--valid': valid,
+                'fr-input--error': errors[0],
+              }"
+              id="customText"
+              name="customText"
+              placeholder=""
+              type="text"
+              maxlength="2000"
+              rows="3"
+              required
+            />
+            <span
+              >{{
+                dfDocument
+                  ? dfDocument.customText
+                    ? dfDocument.customText.length
+                    : 0
+                  : 0
+              }}
+              / 2000</span
+            >
+            <span class="fr-error-text" v-if="errors[0]">{{
+              $t(errors[0])
+            }}</span>
+          </div>
+        </validation-provider>
+      </div>
+
       <slot name="after-downloader"></slot>
     </NakedCard>
     <Modal
@@ -222,6 +287,7 @@ export default class DocumentDownloader extends Vue {
   @Prop() typeDocument!: string;
   @Prop({ default: "default" }) listType!: string;
   @Prop({ default: true }) showDownloader!: boolean;
+  @Prop({ default: false }) allowNoDocument!: boolean;
   @Prop({ default: false }) forceShowDownloader!: boolean;
   @Prop({ default: false }) testAvisSituation!: boolean;
 

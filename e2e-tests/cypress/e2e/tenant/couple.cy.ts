@@ -66,7 +66,8 @@ describe("couple tenant scenario", () => {
     cy.expectPath("/4/4");
     cy.contains("Bourses").click();
     cy.get("#monthlySum").type("2000");
-    cy.uploadDocument().clickOnNext();
+    cy.get("#noDocument").click({ force: true });
+    cy.clickOnNext();
 
     cy.clickOnNext();
 
