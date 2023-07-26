@@ -144,10 +144,34 @@ export const DocumentTypeConstants = {
       key: "guest-parents",
       value: "GUEST_PARENTS",
       acceptedProofs: [
-        "Attestation sur l’honneur de l’hébergeant <b>datée de moins de trois mois et signée</b> indiquant que le candidat à la location réside à son domicile, accompagnée d’une pièce d’identité et d’un justificatif de domicile de l’hébergeant (une simple facture suffit)",
-        "Attestation d’élection de domicile <b>datée de moins de trois mois et signée</b> de l’organisme d’hébergement (hébergement d’urgence, placement…) indiquant l’adresse de l’hébergement (téléchargeable sur le site <a target='_blank' href='https://www.service-public.fr/simulateur/calcul/16030'>https://www.service-public.fr/simulateur/calcul/16030</a> ) "
+        "Attestation sur l’honneur de l’hébergeant <b>datée de moins de trois mois et signée</b> indiquant que le candidat à la location réside à son domicile, accompagnée d’une pièce d’identité et d’un justificatif de domicile de l’hébergeant (une simple facture suffit)"
       ],
       refusedProofs: ["Tout autre document"],
+      maxFileCount: 10
+    },
+    {
+      key: "guest-organism",
+      value: "GUEST_ORGANISM",
+      acceptedProofs: [
+        "Attestation d’élection de domicile <b>datée de moins de trois mois et signée</b> de l’organisme d’hébergement (hébergement d’urgence, placement…) indiquant l’adresse de l’hébergement (téléchargeable sur le site <a target='_blank' href='https://www.service-public.fr/simulateur/calcul/16030'>https://www.service-public.fr/simulateur/calcul/16030</a> )"
+      ],
+      refusedProofs: ["Tout autre document"],
+      maxFileCount: 10
+    },
+    {
+      key: "short-term-rental",
+      value: "SHORT_TERM_RENTAL",
+      acceptedProofs: [
+        "Factures datées, signées de moins de 3 mois de l’organisme de l’hôtel, camping, b&b, etc."
+      ],
+      refusedProofs: ["Tout autre document"],
+      maxFileCount: 10
+    },
+    {
+      key: "other-residency",
+      value: "OTHER_RESIDENCY",
+      acceptedProofs: [],
+      refusedProofs: [],
       maxFileCount: 10
     }
   ],
@@ -190,6 +214,31 @@ export const DocumentTypeConstants = {
         "Attestation <b>datée de moins de trois mois et signée</b> de l’organisme d’hébergement (hébergement d’urgence, placement…) indiquant l’adresse de l’hébergement"
       ],
       refusedProofs: ["Tout autre document"],
+      maxFileCount: 10
+    },
+    {
+      key: "guest-organism",
+      value: "GUEST_ORGANISM",
+      acceptedProofs: [
+        "Attestation d’élection de domicile <b>datée de moins de trois mois et signée</b> de l’organisme d’hébergement (hébergement d’urgence, placement…) indiquant l’adresse de l’hébergement (téléchargeable sur le site <a target='_blank' href='https://www.service-public.fr/simulateur/calcul/16030'>https://www.service-public.fr/simulateur/calcul/16030</a> )"
+      ],
+      refusedProofs: ["Tout autre document"],
+      maxFileCount: 10
+    },
+    {
+      key: "short-term-rental",
+      value: "SHORT_TERM_RENTAL",
+      acceptedProofs: [
+        "Factures datées, signées de moins de 3 mois de l’organisme de l’hôtel, camping, b&b, etc."
+      ],
+      refusedProofs: ["Tout autre document"],
+      maxFileCount: 10
+    },
+    {
+      key: "other-residency",
+      value: "OTHER_RESIDENCY",
+      acceptedProofs: [],
+      refusedProofs: [],
       maxFileCount: 10
     }
   ],
