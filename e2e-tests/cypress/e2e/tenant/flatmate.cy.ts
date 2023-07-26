@@ -28,10 +28,7 @@ describe("flatmate tenant scenario", () => {
     cy.simpleUploadDocumentStep("Titre de séjour français");
 
     cy.expectPath("/documents-locataire/2");
-    cy.contains("Hébergé·e à titre gratuit")
-      .click()
-      .uploadDocument(3)
-      .clickOnNext();
+    cy.selectResidencyStep("Hébergé·e à titre gratuit", 3);
 
     cy.expectPath("/documents-locataire/3");
     cy.selectProfessionalStatusStep("Stage");

@@ -23,7 +23,7 @@ describe("alone tenant scenario", () => {
     cy.simpleUploadDocumentStep("Autre");
 
     cy.expectPath("/documents-locataire/2");
-    cy.simpleUploadDocumentStep("Locataire", 3);
+    cy.selectResidencyStep("Locataire", 3);
 
     cy.expectPath("/documents-locataire/3");
     cy.selectProfessionalStatusStep("CDI");
@@ -51,7 +51,7 @@ describe("alone tenant scenario", () => {
     cy.simpleUploadDocumentStep("Passeport");
 
     cy.expectPath("/info-garant/2");
-    cy.simpleUploadDocumentStep("Propriétaire");
+    cy.selectResidencyStep("Propriétaire");
 
     cy.expectPath("/info-garant/3");
     cy.selectProfessionalStatusStep("Retraite");

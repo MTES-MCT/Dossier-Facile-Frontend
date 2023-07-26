@@ -35,6 +35,13 @@ Cypress.Commands.add("simpleUploadDocumentStep", (buttonToSelect: string, number
   cy.clickOnNext();
 });
 
+Cypress.Commands.add("selectResidencyStep", (residencyType: string, numberOfFiles: number = 1) => {
+  cy.get("#select")
+    .select(residencyType)
+    .uploadDocument(numberOfFiles)
+    .clickOnNext();
+});
+
 Cypress.Commands.add("selectProfessionalStatusStep", (professionalStatus: string) => {
   cy.get("#select")
     .select(professionalStatus)

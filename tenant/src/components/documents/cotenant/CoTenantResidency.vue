@@ -4,6 +4,7 @@
       :coTenantId="coTenantId"
       :documentsDefinitions="documentsDefinitions"
       documentCategory="RESIDENCY"
+      listType="dropDownList"
       dispatchMethodName="saveTenantResidency"
       typeDocument="typeDocumentResidency"
     >

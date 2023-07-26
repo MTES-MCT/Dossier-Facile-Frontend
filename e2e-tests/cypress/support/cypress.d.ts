@@ -24,6 +24,8 @@ declare namespace Cypress {
 
     simpleUploadDocumentStep(buttonToSelect: string, numberOfFiles?: number): Chainable<void>;
 
+    selectResidencyStep(residencyType: string, numberOfFiles?: number): Chainable<void>;
+
     selectProfessionalStatusStep(professionalStatus: string): Chainable<void>;
 
     addFinancialResource(
