@@ -111,7 +111,7 @@ function dislike() {
     <h1 class="fr-h4 fr-mt-3w">
       {{ t("title") }}
     </h1>
-      <div class="fr-hint-text">
+      <div class="fr-hint-text fr-mb-3w">
           {{ t("behaviour-1") }}<br/>
           {{ t("behaviour-2") }}<br/>
           {{ t("behaviour-3") }}<br/>
@@ -169,15 +169,18 @@ function dislike() {
         </div>
       </div>
     </form>
-    <div class="fr-mt-12w">
+    <div class="fr-mt-3w">
+      <a target="_blank" rel="noreferrer" class="twitter-share-button"
+         :href="`https://twitter.com/intent/tweet?text=${encodeURIComponent(t('tweet-content' ))}`">
+        <img style="twitter-img" src="./assets/logo_twitter.png" alt="{{ t('share-on-twitter') }}"/>
+      </a
+      >
+    </div>
+    <div class="fr-mb-3w">
       <button type="button" class="like" @click="like">{{ t("like") }}</button>
       <button type="button" class="dislike" @click="dislike">{{ t("dislike") }}</button>
-      <div class="fr-mt-3w">
-        <a target="_blank" rel="noreferrer" class="twitter-share-button"
-         :href="`https://twitter.com/intent/tweet?text=${encodeURIComponent(t('tweet-content' ))}`">
-         <img style="twitter-img" src="./assets/logo_twitter.png" alt="{{ t('share-on-twitter') }}"/>
-          </a
-        >
+      <div class="fr-mt-1w">
+        Une suggestion ? Contactez-nous : <a href='mailto:contact@dossierfacile.fr'>contact@dossierfacile.fr</a>
       </div>
     </div>
   </main>
