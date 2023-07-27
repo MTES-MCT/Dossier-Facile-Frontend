@@ -24,10 +24,7 @@ describe("couple tenant scenario", () => {
     cy.simpleUploadDocumentStep("Passeport");
 
     cy.expectPath("/documents-locataire/2");
-    cy.contains("Vous habitez chez vos parents")
-      .click()
-      .uploadDocument(3)
-      .clickOnNext();
+    cy.selectResidencyStep("Hébergé par ses parents", 3);
 
     cy.expectPath("/documents-locataire/3");
     cy.selectProfessionalStatusStep("CDD");
@@ -58,7 +55,7 @@ describe("couple tenant scenario", () => {
     cy.simpleUploadDocumentStep("Autre");
 
     cy.expectPath("/4/2");
-    cy.simpleUploadDocumentStep("Locataire");
+    cy.selectResidencyStep("Locataire");
 
     cy.expectPath("/4/3");
     cy.selectProfessionalStatusStep("Études");

@@ -111,11 +111,11 @@ function dislike() {
     <h1 class="fr-h4 fr-mt-3w">
       {{ t("title") }}
     </h1>
-      <div class="fr-hint-text">
-          {{ t("behaviour-1") }}<br/>
-          {{ t("behaviour-2") }}<br/>
-          {{ t("behaviour-3") }}<br/>
-      </div>
+    <div class="fr-alert fr-alert--info fr-mb-3w">
+      {{ t("behaviour-1") }}<br/>
+      {{ t("behaviour-2") }}<br/>
+      {{ t("behaviour-3") }}<br/>
+    </div>
     <form name="uploadForm" @submit.prevent="handleSubmit">
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12 fr-mb-3w">
@@ -146,7 +146,7 @@ function dislike() {
                 class="fr-input"
                 type="text"
                 v-model="watermark"
-                :placeholder="'Ex: Document exclusivement destiné à la location immobilière'"
+                :placeholder="'Ex : Document exclusivement destiné à la location immobilière'"
               />
             </div>
           </div>
@@ -165,22 +165,93 @@ function dislike() {
         </div>
 
         <div v-if="url">
-          <a :href="url" target="_blank">Télécharger</a>
+          <a :href="url" target="_blank">
+            Télécharger le document filigrané
+          </a>
         </div>
       </div>
     </form>
-    <div class="fr-mt-12w">
+    <div class="fr-mt-3w">
+      <a target="_blank" rel="noreferrer" class="twitter-share-button"
+         :href="`https://twitter.com/intent/tweet?text=${encodeURIComponent(t('tweet-content' ))}`">
+        <img style="twitter-img" src="./assets/logo_twitter.png" alt="{{ t('share-on-twitter') }}"/>
+      </a
+      >
+    </div>
+    <div class="fr-mb-3w">
       <button type="button" class="like" @click="like">{{ t("like") }}</button>
       <button type="button" class="dislike" @click="dislike">{{ t("dislike") }}</button>
-      <div class="fr-mt-3w">
-        <a target="_blank" rel="noreferrer" class="twitter-share-button"
-         :href="`https://twitter.com/intent/tweet?text=${encodeURIComponent(t('tweet-content' ))}`">
-         <img style="twitter-img" src="./assets/logo_twitter.png" alt="{{ t('share-on-twitter') }}"/>
-          </a
-        >
+      <div class="fr-mt-1w">
+        Une suggestion ? Contactez-nous : <a href='mailto:contact@dossierfacile.fr'>contact@dossierfacile.fr</a>
       </div>
     </div>
   </main>
+  <footer role="contentinfo" id="footer" tabindex="-1">
+    <div class="fr-follow">
+      <div class="fr-container">
+        <div class="fr-grid-row">
+          <div class="fr-col-12">
+            <div class="fr-follow__social">
+              <h2 class="fr-h5">Suivez-nous sur les réseaux sociaux</h2>
+              <ul class="fr-btns-group">
+                <li>
+                  <a
+                    class="fr-btn--twitter fr-btn"
+                    title="Suivre Dossier facile sur twitter - Ouvre une nouvelle fenêtre"
+                    href="https://twitter.com/dossierfacile/"
+                    target="_blank"
+                  >
+                    Suivre Dossier facile sur twitter
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="fr-btn--facebook fr-btn"
+                    title="Suivre Dossier facile sur facebook - Ouvre une nouvelle fenêtre"
+                    href="https://www.facebook.com/DossierFacile.fr/"
+                    target="_blank"
+                  >
+                    Suivre Dossier facile sur facebook
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="fr-btn--linkedin fr-btn"
+                    lang="en"
+                    title="Suivre Dossier facile sur linkedin - Ouvre une nouvelle fenêtre"
+                    href="https://www.linkedin.com/company/startup-d-etat-locatio/"
+                    target="_blank"
+                  >
+                    Suivre Dossier facile sur linkedin
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="fr-btn--instagram fr-btn"
+                    title="Suivre Dossier facile sur instagram - Ouvre une nouvelle fenêtre"
+                    href="https://www.instagram.com/dossierfacile/"
+                    target="_blank"
+                  >
+                    Suivre Dossier facile sur instagram
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="fr-btn--tiktok fr-btn"
+                    title="Suivre Dossier facile sur tiktok - Ouvre une nouvelle fenêtre"
+                    href="https://www.tiktok.com/@dossierfacile/"
+                    target="_blank"
+                  >
+                    Suivre Dossier facile sur tiktok
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
 </template>
 
 <style lang="scss">
@@ -253,15 +324,15 @@ function dislike() {
     "behaviour-1": "Le fichier filigrané sera au format PDF.",
     "behaviour-2": "Les fichiers originaux seront effacés après la génération du fichier filigrané.",
     "behaviour-3": "Le fichier filigrané sera effacé après le premier téléchargement (ou 10 jours après s'il n'y a pas eu de téléchargement).",
-    "add-file-label" : "Ajouter des fichiers",
-    "submit": "Envoyer",
+    "add-file-label" : "Sélectionner des fichiers :",
+    "submit": "Ajouter le filigrane",
     "wait": "Veuillez patienter",
     "like": "J'ai aimé ce service",
     "dislike": "Vous pouvez mieux faire",
     "feedback-registered": "Merci pour votre retour",
     "tweet-content": "Usurpation d’identité, escroqueries, interdit bancaire... Découvrez Filigrane Facile, le site de l’État qui protège vos documents de toute réutilisation frauduleuse : https://filigrane.beta.gouv.fr",
     "share-on-twitter": "Partager sur twitter",
-    "add-watermark-label": "Indiquez le filigrane à insérer"
+    "add-watermark-label": "Indiquez le filigrane à insérer :"
   }
 }
 </i18n>

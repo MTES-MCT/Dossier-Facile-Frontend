@@ -16,23 +16,17 @@
         </TroubleshootingModal>
 
         <div class="fr-mt-3w">
-          <fieldset class="fr-fieldset">
-            <div class="fr-fieldset__content">
-              <div class="fr-grid-row">
-                <div v-for="d in documents" :key="d.key" class="full-width-xs">
-                  <BigRadio
-                    :val="d"
-                    v-model="residencyDocument"
-                    @input="onSelectChange()"
-                  >
-                    <div class="fr-grid-col spa">
-                      <span>{{ $t(d.key) }}</span>
-                    </div>
-                  </BigRadio>
-                </div>
-              </div>
-            </div>
-          </fieldset>
+          <select
+            v-model="residencyDocument"
+            class="fr-select fr-mb-3w fr-mt-3w"
+            id="select"
+            @change="onSelectChange()"
+            aria-label="Select residency type"
+          >
+            <option v-for="d in documents" :value="d" :key="d.key">
+              {{ $t(d.key) }}
+            </option>
+          </select>
         </div>
       </div>
     </NakedCard>
