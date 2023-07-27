@@ -166,13 +166,6 @@ export const DocumentTypeConstants = {
       ],
       refusedProofs: ["Tout autre document"],
       maxFileCount: 10
-    },
-    {
-      key: "other-residency",
-      value: "OTHER_RESIDENCY",
-      acceptedProofs: [],
-      refusedProofs: [],
-      maxFileCount: 10
     }
   ],
 
@@ -232,13 +225,6 @@ export const DocumentTypeConstants = {
         "Factures datées, signées de moins de 3 mois de l’organisme de l’hôtel, camping, b&b, etc."
       ],
       refusedProofs: ["Tout autre document"],
-      maxFileCount: 10
-    },
-    {
-      key: "other-residency",
-      value: "OTHER_RESIDENCY",
-      acceptedProofs: [],
-      refusedProofs: [],
       maxFileCount: 10
     }
   ],
