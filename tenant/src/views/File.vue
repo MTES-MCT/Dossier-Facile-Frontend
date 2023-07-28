@@ -100,19 +100,12 @@
                 />
                 <FileRowListItem
                   :label="$t('file.tax')"
-                  :tagLabel="
-                    isTenantTaxChecked(tenant)
-                      ? $t('file.tax-verified')
-                      : $t(
-                          'documents.status.' +
-                            document(tenant, 'TAX')?.documentStatus
-                        )
-                  "
+                  :tagLabel="getTaxDocumentBadgeLabel(tenant)"
                   :document="document(tenant, 'TAX')"
                   :showValidated="true"
                 >
                   <template v-slot:postTag>
-                    <div v-if="isTaxChecked()">
+                    <div v-if="isTaxAuthentic(tenant)">
                       <img
                         src="../assets/images/icons/dgfip-icon.png"
                         alt="Logo DGFIP"
@@ -161,19 +154,12 @@
                       />
                       <FileRowListItem
                         :label="$t('file.tax')"
-                        :tagLabel="
-                          isTenantTaxChecked(g)
-                            ? $t('file.tax-verified')
-                            : $t(
-                                'documents.status.' +
-                                  document(tenant, 'TAX')?.documentStatus
-                              )
-                        "
+                        :tagLabel="getTaxDocumentBadgeLabel(g)"
                         :document="document(g, 'TAX')"
                         :showValidated="true"
                       >
                         <template v-slot:postTag>
-                          <div v-if="isTaxChecked()">
+                          <div v-if="isTaxAuthentic(g)">
                             <img
                               src="../assets/images/icons/dgfip-icon.png"
                               alt="Logo DGFIP"
@@ -257,7 +243,7 @@
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { User } from "df-shared/src/models/User";
 import { FileUser } from "df-shared/src/models/FileUser";
-import { Vue, Component } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import DfButton from "df-shared/src/Button/Button.vue";
 import { ProfileService } from "../services/ProfileService";
 import { DfDocument } from "df-shared/src/models/DfDocument";
@@ -288,7 +274,13 @@ export default class File extends Vue {
   }
 
   isTaxChecked() {
-    return this.user?.tenants?.filter((t) => t.allowCheckTax == true).length;
+    const hasAuthenticTax = (user: User) =>
+      user.documents?.some(
+        (document: DfDocument) =>
+          document.documentCategory === "TAX" &&
+          document.authenticityStatus === "AUTHENTIC"
+      );
+    return this.user?.tenants?.some((t) => hasAuthenticTax(t));
   }
 
   getName() {
@@ -463,8 +455,16 @@ export default class File extends Vue {
     });
   }
 
-  isTenantTaxChecked(tenant: User) {
-    return tenant.allowCheckTax;
+  isTaxAuthentic(user: User | Guarantor) {
+    const document = this.document(user, "TAX") as DfDocument;
+    return document.authenticityStatus === "AUTHENTIC";
+  }
+
+  getTaxDocumentBadgeLabel(user: User | Guarantor): string {
+    const document = this.document(user, "TAX") as DfDocument;
+    return this.isTaxAuthentic(user)
+      ? this.$tc("file.tax-verified")
+      : this.$tc("documents.status." + document.documentStatus);
   }
 }
 </script>

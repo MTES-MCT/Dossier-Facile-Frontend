@@ -89,15 +89,11 @@
                 <FileRowListItem
                   :label="$t('publicfile.tax')"
                   :document="document(tenant, 'TAX')"
-                  :tagLabel="
-                    isTenantTaxChecked(tenant)
-                      ? $t('publicfile.tax-verified').toString()
-                      : undefined
-                  "
+                  :tagLabel="getTaxDocumentBadgeLabel(tenant)"
                   :enableDownload="false"
                 >
                   <template v-slot:postTag>
-                    <div v-if="isTaxChecked()">
+                    <div v-if="isTaxAuthentic(tenant)">
                       <img
                         src="../assets/images/icons/dgfip-icon.png"
                         alt="Logo DGFIP"
@@ -148,15 +144,11 @@
                       <FileRowListItem
                         :label="$t('publicfile.tax')"
                         :document="document(g, 'TAX')"
-                        :tagLabel="
-                          isTenantTaxChecked(g)
-                            ? $t('publicfile.tax-verified')
-                            : $t('tax')
-                        "
+                        :tagLabel="getTaxDocumentBadgeLabel(g)"
                         :enableDownload="false"
                       >
                         <template v-slot:postTag>
-                          <div v-if="isTaxChecked()">
+                          <div v-if="isTaxAuthentic(g)">
                             <img
                               src="../assets/images/icons/dgfip-icon.png"
                               alt="Logo DGFIP"
@@ -252,7 +244,13 @@ export default class File extends Vue {
   }
 
   isTaxChecked() {
-    return this.user?.tenants?.filter((t) => t.allowCheckTax == true).length;
+    const hasAuthenticTax = (user: User) =>
+      user.documents?.some(
+        (document: DfDocument) =>
+          document.documentCategory === "TAX" &&
+          document.authenticityStatus === "AUTHENTIC"
+      );
+    return this.user?.tenants?.some((t) => hasAuthenticTax(t));
   }
 
   getName() {
@@ -365,8 +363,17 @@ export default class File extends Vue {
       return d.documentCategory === docType;
     });
   }
-  isTenantTaxChecked(tenant: User) {
-    return tenant.allowCheckTax;
+
+  isTaxAuthentic(user: User | Guarantor) {
+    const document = this.document(user, "TAX") as DfDocument;
+    return document.authenticityStatus === "AUTHENTIC";
+  }
+
+  getTaxDocumentBadgeLabel(user: User | Guarantor): string {
+    const document = this.document(user, "TAX") as DfDocument;
+    return this.isTaxAuthentic(user)
+      ? this.$tc("file.tax-verified")
+      : this.$tc("documents.status." + document.documentStatus);
   }
 }
 </script>
