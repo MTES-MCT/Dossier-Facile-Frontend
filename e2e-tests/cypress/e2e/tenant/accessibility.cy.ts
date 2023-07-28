@@ -69,7 +69,6 @@ describe("accessibility checks", () => {
     cy.testAccessibility();
     cy.clickOnNext();
 
-    cy.disableTaxVerification();
     cy.get('label[for="declaration"]').click();
     cy.get('label[for="declaration2"]').click();
 

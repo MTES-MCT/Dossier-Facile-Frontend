@@ -21,13 +21,6 @@ Cypress.Commands.add("uploadDocument", (numberOfFiles: number = 1) => {
   );
 });
 
-Cypress.Commands.add("disableTaxVerification", () => {
-  cy.get(".disallow-btn").click();
-  cy.get(".modal")
-    .contains("Désactiver la vérification automatique")
-    .click();
-});
-
 Cypress.Commands.add("simpleUploadDocumentStep", (buttonToSelect: string, numberOfFiles: number = 1) => {
   cy.contains(buttonToSelect)
     .click()
@@ -61,8 +54,6 @@ Cypress.Commands.add("addFinancialResource", (resourceType: string, monthlySum: 
 });
 
 Cypress.Commands.add("validationStep", () => {
-  cy.disableTaxVerification();
-
   cy.get('label[for="declaration"]').click();
   cy.get('label[for="declaration2"]').click();
 

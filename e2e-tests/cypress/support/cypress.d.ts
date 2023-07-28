@@ -20,8 +20,6 @@ declare namespace Cypress {
 
     testAccessibility(): Chainable<void>;
 
-    disableTaxVerification(): Chainable<void>;
-
     simpleUploadDocumentStep(buttonToSelect: string, numberOfFiles?: number): Chainable<void>;
 
     selectResidencyStep(residencyType: string, numberOfFiles?: number): Chainable<void>;
