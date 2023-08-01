@@ -6,6 +6,7 @@
       documentCategory="TAX"
       dispatchMethodName="saveTenantTax"
       typeDocument="typeDocumentTax"
+      translationKeyPrefix="cotenanttax"
       listType="grid"
       :showDownloader="showDownloader"
       :forceShowDownloader="forceShowDownloader"
