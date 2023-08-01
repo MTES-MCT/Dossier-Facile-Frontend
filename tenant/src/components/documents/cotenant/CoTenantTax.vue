@@ -6,6 +6,7 @@
       documentCategory="TAX"
       dispatchMethodName="saveTenantTax"
       typeDocument="typeDocumentTax"
+      translationKeyPrefix="cotenanttax"
       listType="grid"
       :showDownloader="showDownloader"
       :forceShowDownloader="forceShowDownloader"
@@ -58,7 +59,6 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import FooterContainer from "../../footer/FooterContainer.vue";
 import BackNext from "../../footer/BackNext.vue";
-import AllowCheckTax from "../share/AllowCheckTax.vue";
 import { UtilsService } from "@/services/UtilsService";
 
 extend("is", {
@@ -74,7 +74,6 @@ extend("is", {
     NakedCard,
     FooterContainer,
     BackNext,
-    AllowCheckTax,
   },
 })
 export default class CoTenantTax extends Vue {

@@ -64,7 +64,7 @@
                       class="fr-grid-col"
                       :class="{ spa: listType === 'grid' }"
                     >
-                      <span>{{ $t(`documents.${d.key}`) }}</span>
+                      <span>{{ $t(`${translationKeyPrefix}.${d.key}`) }}</span>
                     </div>
                   </BigRadio>
                 </div>
@@ -290,6 +290,7 @@ export default class DocumentDownloader extends Vue {
   @Prop({ default: false }) allowNoDocument!: boolean;
   @Prop({ default: false }) forceShowDownloader!: boolean;
   @Prop({ default: false }) testAvisSituation!: boolean;
+  @Prop({ default: "documents" }) translationKeyPrefix!: boolean;
 
   localEditedDocumentId = this.editedDocumentId;
   documentDeniedReasons = new DocumentDeniedReasons();

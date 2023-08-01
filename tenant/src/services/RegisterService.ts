@@ -32,13 +32,6 @@ export const RegisterService = {
     );
   },
 
-  saveTaxAuth(allowTax: boolean, fcToken: string, tenantId: number) {
-    return axios.post(
-      `https://${process.env.VUE_APP_API_URL}/api/tenant/allowTax/${allowTax}`,
-      { fcToken, tenantId }
-    );
-  },
-
   saveCoTenantIdentification(formData: FormData) {
     return axios.post(
       `https://${process.env.VUE_APP_API_URL}/api/tenant/coTenant/${formData.get('coTenantId')}/documentIdentification`,

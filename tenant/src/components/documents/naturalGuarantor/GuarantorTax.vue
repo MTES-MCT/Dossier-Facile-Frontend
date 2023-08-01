@@ -43,7 +43,7 @@
                         <span v-if="isCotenant">{{
                           $t(`guarantortax.${d.key}-cotenant`)
                         }}</span>
-                        <span v-else>{{ $t(d.key) }}</span>
+                        <span v-else>{{ $t(`guarantortax.${d.key}`) }}</span>
                       </div>
                     </BigRadio>
                   </div>

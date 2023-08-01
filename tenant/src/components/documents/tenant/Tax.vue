@@ -199,7 +199,6 @@ import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import MonFranceConnect from "../share/MonFranceConnect.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import { cloneDeep } from "lodash";
-import AllowCheckTax from "../share/AllowCheckTax.vue";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 import { PdfAnalysisService } from "../../../services/PdfAnalysisService";
 import Modal from "df-shared/src/components/Modal.vue";
@@ -227,7 +226,6 @@ extend("is", {
     VGouvFrModal,
     ProfileFooter,
     NakedCard,
-    AllowCheckTax,
     TroubleshootingModal,
     Modal,
     DfButton,

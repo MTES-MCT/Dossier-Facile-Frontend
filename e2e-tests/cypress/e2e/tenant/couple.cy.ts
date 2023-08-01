@@ -77,7 +77,6 @@ describe("couple tenant scenario", () => {
     cy.contains("Votre conjoint n'a pas de garant").click();
     cy.contains("Continuer").click();
 
-    cy.disableTaxVerification();
     cy.get('label[for="declaration"]').click();
     cy.get("#precision").type("Test");
     cy.contains("Valider mon dossier").click();

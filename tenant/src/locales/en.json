@@ -339,23 +339,6 @@
       }
     }
   },
-  "allowchecktax": {
-    "forbid-tax": "I refuse",
-    "allow-tax": "I accept automatic verification",
-    "automatic-tax-title": "Automatic verification of tax income",
-    "automatic-tax-p1": "You can accept or refuse the verification of the following data concerning you and your roommate(s), partner, and guarantor(s) if applicable:",
-    "automatic-tax-l1": "marital status",
-    "automatic-tax-l2": "address declared on January 1st",
-    "automatic-tax-l3": "tax household situation",
-    "automatic-tax-l4": "income details",
-    "automatic-tax-p2": "If you accept automatic verification, the label {label} will appear on your file next to each tax notice, which will contribute to enhancing the image of your file with landlords.",
-    "dgfip-approved-label": "\"Certified tax income with tax authorities\"",
-    "modal": {
-      "warning-text": "If you disable {check}, the label {label} will no longer appear on your file, both for you and your guarantors, and all the data retrieved from the tax authorities will not be stored.",
-      "automatic-check": "automatic verification",
-      "disable-button": "Disable automatic verification"
-    }
-  },
   "app": {
     "home": "Accueil"
   },
