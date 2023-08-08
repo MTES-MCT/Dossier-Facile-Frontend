@@ -4,6 +4,7 @@ import { ref } from "vue";
 import axios from "axios";
 import ProgressIndicator from "./ProgressIndicator.vue";
 import { useToast } from "vue-toastification";
+import Downloader from "./components/Downloader.vue";
 
 const files = ref([]);
 const token = ref("");
@@ -164,11 +165,12 @@ function dislike() {
           </button>
         </div>
 
-        <div v-if="url">
-          <a :href="url" target="_blank">
-            Télécharger le document filigrané
-          </a>
-        </div>
+        <Downloader
+          v-if="url"
+          :url="url"
+          :fileName="'document_filigrané_' + token"
+          @on-downloaded="url = ''"
+        />
       </div>
     </form>
     <div class="fr-mt-3w">
