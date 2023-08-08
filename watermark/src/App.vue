@@ -113,9 +113,9 @@ function dislike() {
       {{ t("title") }}
     </h1>
     <div class="fr-alert fr-alert--info fr-mb-3w">
-      {{ t("behaviour-1") }}<br/>
-      {{ t("behaviour-2") }}<br/>
-      {{ t("behaviour-3") }}<br/>
+      <p v-html="t('behaviour-1')"></p>
+      <p v-html="t('behaviour-2')"></p>
+      <p v-html="t('behaviour-3')"></p>
     </div>
     <form name="uploadForm" @submit.prevent="handleSubmit">
       <div class="fr-grid-row fr-grid-row--center">
@@ -310,7 +310,7 @@ function dislike() {
     "title": "Add a watermark to any file",
     "behaviour-1": "Watermarked file will be a pdf file.",
     "behaviour-2": "Original's files will be deleted immediately after the watermarked file generation.",
-    "behaviour-3": "Watermarked file will be deleted immediately after the download (or 10 days if the file is not downloaded).",
+    "behaviour-3": "Watermarked file will be deleted immediately after the download (or 1 day later if the file was not downloaded).",
     "add-file-label" : "Add files",
     "submit": "Submit",
     "wait": "Please wait",
@@ -324,8 +324,8 @@ function dislike() {
   "fr": {
     "title": "Ajoutez un filigrane à n'importe quel document",
     "behaviour-1": "Le fichier filigrané sera au format PDF.",
-    "behaviour-2": "Les fichiers originaux seront effacés après la génération du fichier filigrané.",
-    "behaviour-3": "Le fichier filigrané sera effacé après le premier téléchargement (ou 10 jours après s'il n'y a pas eu de téléchargement).",
+    "behaviour-2": "Les fichiers originaux seront <strong>effacés après la génération</strong> du fichier filigrané.",
+    "behaviour-3": "Le fichier filigrané sera <strong>effacé après le premier téléchargement</strong> (ou au bout d'un jour s'il n'y a pas eu de téléchargement).",
     "add-file-label" : "Sélectionner des fichiers :",
     "submit": "Ajouter le filigrane",
     "wait": "Veuillez patienter",
