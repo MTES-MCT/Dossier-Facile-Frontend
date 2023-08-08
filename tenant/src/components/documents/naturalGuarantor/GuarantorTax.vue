@@ -88,19 +88,7 @@
           :documentDeniedReasons="documentDeniedReasons"
           :documentStatus="documentStatus"
         ></AllDeclinedMessages>
-        <div
-          style="font-weight: bold"
-          v-html="$t('tax-page.warning-no-accepted-doc')"
-        ></div>
-        <a
-          class="fr-link"
-          href="https://docs.dossierfacile.fr/guide-dutilisation-de-dossierfacile/avis-dimposition"
-          :title="$t('tax-page.goto-documentation').toString"
-          target="_blank"
-          rel="noreferrer"
-        >
-          {{ $t("tax-page.goto-documentation") }}</a
-        >
+        <WarningTaxDeclaration />
 
         <div v-if="taxFiles().length > 0" class="fr-col-md-12 fr-mt-3w">
           <ListItem
@@ -186,6 +174,7 @@ import { AnalyticsService } from "../../../services/AnalyticsService";
 import Modal from "df-shared/src/components/Modal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
 import { LoaderComponent } from "vue-loading-overlay";
+import WarningTaxDeclaration from "@/components/documents/share/WarningTaxDeclaration.vue";
 
 extend("is", {
   ...is,
@@ -195,6 +184,7 @@ extend("is", {
 
 @Component({
   components: {
+    WarningTaxDeclaration,
     AllDeclinedMessages,
     DocumentInsert,
     FileUpload,

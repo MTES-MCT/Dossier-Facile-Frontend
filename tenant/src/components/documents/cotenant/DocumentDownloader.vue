@@ -90,6 +90,8 @@
       <div class="fr-mb-3w">
         <p v-html="$t(`explanation-text.cotenant.${document.key}`)"></p>
       </div>
+      <WarningTaxDeclaration class="fr-mb-3w" v-if="document.key === 'my-name'" />
+
       <AllDeclinedMessages
         class="fr-mb-3w"
         :documentDeniedReasons="documentDeniedReasons"
@@ -259,9 +261,11 @@ import { UtilsService } from "@/services/UtilsService";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 import { PdfAnalysisService } from "../../../services/PdfAnalysisService";
 import { LoaderComponent } from "vue-loading-overlay";
+import WarningTaxDeclaration from "@/components/documents/share/WarningTaxDeclaration.vue";
 
 @Component({
   components: {
+    WarningTaxDeclaration,
     AllDeclinedMessages,
     DocumentInsert,
     FileUpload,
