@@ -333,7 +333,7 @@ function dislike() {
     "like": "I liked this app",
     "dislike": "You can do better",
     "feedback-registered": "Thank you for your feedback",
-    "tweet-content": "Usurpation d’identité, escroqueries, interdit bancaire... Découvrez Filigrane Facile, le site de l’État qui protège vos documents de toute réutilisation frauduleuse : https://filigrane.beta.gouv.fr",
+    "tweet-content": "Usurpation d’identité, escroqueries, interdit bancaire...\u000aDécouvrez Filigrane Facile, le site de l’État qui protège vos documents de toute réutilisation frauduleuse : https://filigrane.beta.gouv.fr\u000a#FiligraneFacile #BetaGouv",
     "share-on-twitter": "Share on twitter",
     "add-watermark-label": "Define the watermark to add"
   },
@@ -348,7 +348,7 @@ function dislike() {
     "like": "J'ai aimé ce service",
     "dislike": "Vous pouvez mieux faire",
     "feedback-registered": "Merci pour votre retour",
-    "tweet-content": "Usurpation d’identité, escroqueries, interdit bancaire... Découvrez Filigrane Facile, le site de l’État qui protège vos documents de toute réutilisation frauduleuse : https://filigrane.beta.gouv.fr",
+    "tweet-content": "Usurpation d’identité, escroqueries, interdit bancaire...\u000aDécouvrez Filigrane Facile, le site de l’État qui protège vos documents de toute réutilisation frauduleuse : https://filigrane.beta.gouv.fr\u000a#FiligraneFacile #BetaGouv",
     "share-on-twitter": "Partager sur twitter",
     "add-watermark-label": "Indiquez le filigrane à insérer :"
   }
