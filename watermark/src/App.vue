@@ -6,7 +6,7 @@ import ProgressIndicator from "./ProgressIndicator.vue";
 import { useToast } from "vue-toastification";
 import Downloader from "./components/Downloader.vue";
 
-const files = ref([]);
+const files = ref<File[]>([]);
 const token = ref("");
 const wait = ref(false);
 const url = ref("");
@@ -58,6 +58,11 @@ async function handleSubmit() {
 function handleChange(e: any) {
   url.value = "";
   files.value = Array.from(e.target.files);
+}
+
+function getWatermarkedFileName() {
+  const originalFileNames = files.value.map(file => file.name.split('.')[0]);
+  return originalFileNames.join('_') + '_filigrane';
 }
 
 function like() {
@@ -184,7 +189,7 @@ function dislike() {
         <Downloader
           v-if="url"
           :url="url"
-          :fileName="'document_filigrané_' + token"
+          :fileName="getWatermarkedFileName()"
           @on-downloaded="url = ''"
         />
       </div>
