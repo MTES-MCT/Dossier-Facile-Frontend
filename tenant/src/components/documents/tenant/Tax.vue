@@ -80,21 +80,10 @@
         <div class="fr-mb-3w fr-mt-3w" v-if="taxDocument.key === 'my-name'">
           <div class="fr-mb-3w">
             <div
+              class="fr-mb-2w"
               v-html="$t(`explanation-text.tenant.${taxDocument.key}`)"
             ></div>
-            <div
-              style="font-weight: bold"
-              v-html="$t('tax-page.warning-no-accepted-doc')"
-            ></div>
-            <a
-              class="fr-link"
-              href="https://docs.dossierfacile.fr/guide-dutilisation-de-dossierfacile/avis-dimposition"
-              :title="$t('tax-page.goto-documentation').toString"
-              target="_blank"
-              rel="noreferrer"
-            >
-              {{ $t("tax-page.goto-documentation") }}</a
-            >
+            <WarningTaxDeclaration />
           </div>
           <MonFranceConnect
             class="fr-mt-2w"
@@ -203,6 +192,7 @@ import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 import { PdfAnalysisService } from "../../../services/PdfAnalysisService";
 import Modal from "df-shared/src/components/Modal.vue";
 import { LoaderComponent } from "vue-loading-overlay";
+import WarningTaxDeclaration from "@/components/documents/share/WarningTaxDeclaration.vue";
 
 extend("is", {
   ...is,
@@ -229,6 +219,7 @@ extend("is", {
     TroubleshootingModal,
     Modal,
     DfButton,
+    WarningTaxDeclaration,
   },
   computed: {
     ...mapGetters({
