@@ -274,6 +274,19 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Article19.vue"),
   },
   {
+    path: "/blog/dossierfacile-lance-filigrane-facile",
+    name: "Article20",
+    meta: {
+      title:
+        "DossierFacile lance FiligraneFacile, le service permettant d’ajouter un filigrane à n’importe quel document !",
+      description:
+        "Logement, travail, assurance... Nous envoyons tous les jours des documents personnels dans la nature, sans les protéger.",
+      image: require("../assets/images/blog-article20.jpg"),
+    },
+    component: () =>
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article20.vue"),
+  },
+  {
     path: "/information",
     name: "Information",
     meta: {

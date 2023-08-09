@@ -5,6 +5,22 @@
         <div class="fr-col-md-10 fr-col-lg-8">
           <h1>{{ $t("blog-title") }}</h1>
           <BlogExtractTile
+            title="DossierFacile lance FiligraneFacile, le service permettant d’ajouter un filigrane à n’importe quel document !"
+            :image="require('../../assets/images/blog-article20.webp')"
+            publicationDate="10 Août 2023"
+            path="/blog/dossierfacile-lance-filigrane-facile"
+          >
+            <template v-slot:extract>
+              <p>
+                Logement, travail, assurance... Nous envoyons tous les jours des
+                documents personnels dans la nature, sans les protéger. Tombés
+                entre de mauvaises mains, ces documents peuvent servir à usurper
+                notre identité, et on a vite fait de se retrouver avec des
+                crédits dans tous les sens qu'on n’a jamais contractés.
+              </p>
+            </template>
+          </BlogExtractTile>
+          <BlogExtractTile
             title="Tout ce que vous devez savoir avant de quitter votre logement"
             :image="require('../../assets/images/blog-article19.webp')"
             publicationDate="31 Mai 2023"
