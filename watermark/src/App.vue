@@ -325,38 +325,3 @@ function dislike() {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "title": "Add a watermark to any file",
-    "behaviour-1": "Watermarked file will be a pdf file.",
-    "behaviour-2": "Original's files will be deleted immediately after the watermarked file generation.",
-    "behaviour-3": "Watermarked file will be deleted immediately after the download (or 1 day later if the file was not downloaded).",
-    "add-file-label" : "Add files",
-    "submit": "Submit",
-    "wait": "Please wait",
-    "like": "I liked this app",
-    "dislike": "You can do better",
-    "feedback-registered": "Thank you for your feedback",
-    "tweet-content": "Usurpation d’identité, escroqueries, interdit bancaire...\u000aDécouvrez Filigrane Facile, le site de l’État qui protège vos documents de toute réutilisation frauduleuse : https://filigrane.beta.gouv.fr\u000a#FiligraneFacile #BetaGouv",
-    "share-on-twitter": "Share on twitter",
-    "add-watermark-label": "Define the watermark to add"
-  },
-  "fr": {
-    "title": "Ajoutez un filigrane à n'importe quel document",
-    "behaviour-1": "Le fichier filigrané sera au format PDF.",
-    "behaviour-2": "Les fichiers originaux seront <strong>effacés après la génération</strong> du fichier filigrané.",
-    "behaviour-3": "Le fichier filigrané sera <strong>effacé après le premier téléchargement</strong> (ou au bout d'un jour s'il n'y a pas eu de téléchargement).",
-    "add-file-label" : "Sélectionner des fichiers :",
-    "submit": "Ajouter le filigrane",
-    "wait": "Veuillez patienter",
-    "like": "J'ai aimé ce service",
-    "dislike": "Vous pouvez mieux faire",
-    "feedback-registered": "Merci pour votre retour",
-    "tweet-content": "Usurpation d’identité, escroqueries, interdit bancaire...\u000aDécouvrez Filigrane Facile, le site de l’État qui protège vos documents de toute réutilisation frauduleuse : https://filigrane.beta.gouv.fr\u000a#FiligraneFacile #BetaGouv",
-    "share-on-twitter": "Partager sur twitter",
-    "add-watermark-label": "Indiquez le filigrane à insérer :"
-  }
-}
-</i18n>
