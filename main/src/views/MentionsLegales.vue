@@ -35,8 +35,8 @@
                 +33 1 40 81 21 22<br />
               </p>
               <p>
-                Directeur de publication : Stéphanie Dupuy-Lyon, directrice
-                générale de l’aménagement, du logement et de la nature
+                Directeur de publication : Philippe MAZENC, directeur général de
+                l’aménagement, du logement et de la nature
               </p>
               <p>
                 Prestataire d’hébergement :<br />

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import Downloader from "./Downloader.vue";
-import ProgressIndicator from "./ProgressIndicator.vue";
+import Downloader from "../components/Downloader.vue";
+import ProgressIndicator from "../components/ProgressIndicator.vue";
 import axios from "axios";
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
-import Feedback from "./Feedback.vue";
+import Feedback from "../components/Feedback.vue";
 
 const files = ref<File[]>([]);
 const token = ref("");
@@ -66,7 +66,7 @@ function getFile() {
 </script>
 
 <template>
-  <h1 class="fr-h4 fr-mt-3w">
+  <h1 class="fr-h4">
     {{ t("watermarking-page.title") }}
   </h1>
   <div class="fr-alert fr-alert--info fr-mb-3w">

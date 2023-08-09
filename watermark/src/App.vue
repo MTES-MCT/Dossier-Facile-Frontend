@@ -5,7 +5,7 @@ import Footer from "./components/Footer.vue";
 
 <template>
   <Header />
-  <main class="fr-container" role="main">
+  <main class="fr-container fr-mt-3w" role="main">
     <router-view />
   </main>
   <Footer />
