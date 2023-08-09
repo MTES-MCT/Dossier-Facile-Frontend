@@ -111,6 +111,7 @@ function dislike() {
             <div class="fr-header__service">
                 <p class="fr-header__service-title">
                   <span style="font-weight: normal">Filigrane</span>Facile
+                  <span class="fr-badge fr-badge--sm fr-badge--green-menthe">BÊTA</span>
                 </p>
             </div>
           </div>
