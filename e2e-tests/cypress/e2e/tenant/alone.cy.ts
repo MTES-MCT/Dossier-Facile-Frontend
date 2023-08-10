@@ -61,7 +61,7 @@ describe("alone tenant scenario", () => {
     cy.clickOnNext();
 
     cy.expectPath("/info-garant/5");
-    cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom");
+    cy.simpleUploadDocumentStep("Votre garant a un avis d'imposition à son nom");
 
     cy.expectPath("/liste-garants");
     cy.contains("Jean Dupont").should("be.visible");

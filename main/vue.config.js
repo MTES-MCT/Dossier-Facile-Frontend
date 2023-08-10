@@ -23,6 +23,7 @@ const routes = [
   "/blog/dossierfacile-un-service-numerique-de-letat-sans-gouv-fr",
   "/blog/que-verifier-lors-de-la-visite-d-un-logement",
   "/blog/tout-ce-que-vous-devez-savoir-avant-de-quitter-votre-logement",
+  "/blog/dossierfacile-lance-filigrane-facile",
   "/information",
   "/accessibilite",
   "/mentions-legales",

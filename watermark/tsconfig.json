@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
-    "module": "ESNext",
+    "module": "esnext",
     "moduleResolution": "Node",
     "strict": true,
     "jsx": "preserve",

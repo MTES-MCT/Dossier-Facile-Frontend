@@ -61,7 +61,7 @@ describe("accessibility checks", () => {
     cy.clickOnNext();
 
     cy.testAccessibility();
-    cy.simpleUploadDocumentStep("Vous avez un avis d’imposition à votre nom");
+    cy.simpleUploadDocumentStep("Votre garant a un avis d'imposition à son nom");
 
     cy.testAccessibility();
     cy.clickOnNext();
