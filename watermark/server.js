@@ -13,7 +13,7 @@ app.use(function(req, res, next) {
       "img-src 'self' data:; " +
       "font-src 'self' data:; " +
       "object-src 'none'; " +
-      "connect-src *.dossierfacile.fr dossierfacile-filigrane-prod.osc-secnum-fr1.scalingo.io https://dossierfacile-filigrane-preprod.osc-fr1.scalingo.io blob:; " +
+      "connect-src https://sentry.incubateur.net *.dossierfacile.fr dossierfacile-filigrane-prod.osc-secnum-fr1.scalingo.io https://dossierfacile-filigrane-preprod.osc-fr1.scalingo.io blob:; " +
       "frame-src *.dossierfacile.fr; " +
       "child-src *.dossierfacile.fr"
   );
