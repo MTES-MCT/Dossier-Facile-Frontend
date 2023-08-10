@@ -5,14 +5,16 @@ import axios from "axios";
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
 import Feedback from "../components/Feedback.vue";
+import { useToast } from "vue-toastification";
+
+const { t } = useI18n();
+const toast = useToast();
 
 const files = ref<File[]>([]);
 const token = ref("");
 const wait = ref(false);
 const url = ref("");
 const watermark = ref("");
-
-const { t } = useI18n();
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -27,13 +29,14 @@ async function handleSubmit() {
   formData.append(`watermark`, watermark.value);
 
   axios
-    .post(`${API_URL}/api/document/files`, formData)
+    .post(`${API_URL}/api/document/filess`, formData)
     .then((res: any) => {
       token.value = res.data.token;
       getFile();
     })
     .catch((err: any) => {
       console.dir(err);
+      toast.error("Une erreur est survenu lors de l'envoi des fichiers. Veuillez réessayer.")
       wait.value = false;
     });
 }
@@ -92,6 +95,7 @@ function getFile() {
               @change="handleChange"
               accept="image/png, image/jpeg, application/pdf"
               multiple
+              required
             />
           </div>
         </div>
