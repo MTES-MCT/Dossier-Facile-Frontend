@@ -36,7 +36,7 @@ async function handleSubmit() {
     })
     .catch((err: any) => {
       console.dir(err);
-      toast.error("Une erreur est survenu lors de l'envoi des fichiers. Veuillez réessayer.")
+      toast.error(t("watermarking-page.upload-error"));
       wait.value = false;
     });
 }
@@ -84,9 +84,9 @@ function getFile() {
           <div class="fr-upload-group">
             <label class="fr-label" for="file-upload"
               >{{ t("watermarking-page.add-file-label") }}
-              <span class="fr-hint-text"
-                >Formats supportés : jpg, png, pdf.</span
-              >
+              <span class="fr-hint-text">
+                {{ t("watermarking-page.supported-file-format") }}
+              </span>
             </label>
             <input
               class="fr-upload"
@@ -104,13 +104,13 @@ function getFile() {
         <div class="fr-input-group">
           <div class="fr-text-group">
             <label class="fr-label" for="text">
-              {{ t("watermarking-page.add-watermark-label") }}
+              {{ t("watermarking-page.add-watermark.label") }}
             </label>
             <input
               class="fr-input"
               type="text"
               v-model="watermark"
-              :placeholder="'Ex : Document exclusivement destiné à la location immobilière'"
+              :placeholder="t('watermarking-page.add-watermark.placeholder')"
             />
           </div>
         </div>

@@ -5,9 +5,15 @@
     "behaviour-2": "Les fichiers originaux seront <strong>effacés après la génération</strong> du fichier filigrané.",
     "behaviour-3": "Le fichier filigrané sera <strong>effacé après le premier téléchargement</strong> (ou au bout d'un jour s'il n'y a pas eu de téléchargement).",
     "add-file-label": "Sélectionner des fichiers :",
+    "supported-file-format": "Formats supportés : jpg, png, pdf.",
     "submit": "Ajouter le filigrane",
     "wait": "Veuillez patienter",
-    "add-watermark-label": "Indiquez le filigrane à insérer :"
+    "add-watermark": {
+      "label": "Indiquez le filigrane à insérer :",
+      "placeholder": "Ex : Document exclusivement destiné à la location immobilière"
+    },
+    "upload-error": "Une erreur est survenue lors de l'envoi des fichiers. Veuillez réessayer.",
+    "download-file": "Télécharger le document filigrané"
   },
   "feedback": {
     "like": "J'ai aimé ce service",

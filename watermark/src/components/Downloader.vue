@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import axios from "axios";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 
 const props = defineProps<{
   url: string;
@@ -25,12 +28,8 @@ function downloadFile() {
 </script>
 
 <template>
-  <a
-    :href="props.url"
-    target="_blank"
-    @click.prevent="downloadFile()"
-  >
-    Télécharger le document filigrané
+  <a :href="props.url" target="_blank" @click.prevent="downloadFile()">
+    {{ t("watermarking-page.download-file") }}
   </a>
 </template>
 
