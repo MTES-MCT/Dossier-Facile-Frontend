@@ -29,7 +29,7 @@ async function handleSubmit() {
   formData.append(`watermark`, watermark.value);
 
   axios
-    .post(`${API_URL}/api/document/filess`, formData)
+    .post(`${API_URL}/api/document/files`, formData)
     .then((res: any) => {
       token.value = res.data.token;
       getFile();
