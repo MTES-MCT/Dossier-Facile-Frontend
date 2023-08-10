@@ -8,6 +8,7 @@ import VueGtag from "vue-gtag";
 import "df-shared/src/validation-rules";
 import * as Sentry from "@sentry/vue";
 import { BrowserTracing } from "@sentry/tracing";
+import Toasted from "vue-toasted";
 
 declare global {
   interface Window {
@@ -47,6 +48,7 @@ Vue.config.productionTip = false;
 
 Vue.use(VueCookies);
 Vue.use(MatomoPlugin);
+Vue.use(Toasted);
 
 const ENVIRONMENT = process.env.VUE_APP_ENVIRONMENT || "dev";
 

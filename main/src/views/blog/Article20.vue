@@ -6,8 +6,7 @@
           <article>
             <div class="text-center fr-mt-3w fr-mb-3w">
               <h1 class="fr-h1">
-                DossierFacile lance FiligraneFacile, le service permettant
-                d’ajouter un filigrane à n’importe quel document !
+                {{ title }}
               </h1>
               <p>10 Août 2023 dans <a href="#">DossierFacile</a></p>
             </div>
@@ -155,6 +154,11 @@
             </div>
           </article>
         </div>
+        <ShareArticle
+          class="fr-col-md-10 fr-col-lg-8"
+          :title="title"
+          hashtags="FiligraneFacile"
+        />
       </div>
     </div>
   </section>
@@ -166,21 +170,16 @@
 a {
   color: $light-blue;
 }
-
-.img-center {
-  max-width: 553px;
-  max-height: 311px;
-  width: 100%;
-  height: auto;
-}
-
-ul > li:before {
-  content: "\2610";
-  margin-right: 5px;
-}
-
-ul > li {
-  list-style: none;
-}
 </style>
-<script setup lang="ts"></script>
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import ShareArticle from "@/views/blog/ShareArticle.vue";
+
+@Component({
+  components: { ShareArticle },
+})
+export default class Article20 extends Vue {
+  title =
+    "DossierFacile lance FiligraneFacile, le service permettant d’ajouter un filigrane à n’importe quel document !";
+}
+</script>
