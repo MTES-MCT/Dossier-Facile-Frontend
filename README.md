@@ -1,10 +1,6 @@
 # DossierFacile Front-end
 
-<pre>
-DossierFacile.fr a été créé par le Ministère de la Transition écologique
-pour aider à la réalisation de dossiers de location.
-
-</pre>
+> DossierFacile.fr a été créé par le Ministère de la Transition écologique pour aider à la réalisation de dossiers de location.
 
 The project is available at [DossierFacile.fr](https://dossierfacile.fr)
 We are using [yarn](https://yarnpkg.com/) to build the project with monorepo, [storybook](https://storybook.js.org/) to build components, [Vue](https://vuejs.org/) for the framework.
