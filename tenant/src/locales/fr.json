@@ -75,7 +75,7 @@
   "GROUP": "Colocation",
   "dossier": {
     "TO_PROCESS": "En cours de traitement",
-    "VALIDATED": "Vérifé",
+    "VALIDATED": "Vérifié",
     "DECLINED": "Modification demandée",
     "INCOMPLETE": "Incomplet",
     "ARCHIVED": "Archivé"
@@ -370,7 +370,7 @@
     "dossier": {
       "status": {
         "TO_PROCESS": "En cours de traitement",
-        "VALIDATED": "Vérifé",
+        "VALIDATED": "Vérifié",
         "DECLINED": "Modification demandée",
         "INCOMPLETE": "Incomplet"
       }
