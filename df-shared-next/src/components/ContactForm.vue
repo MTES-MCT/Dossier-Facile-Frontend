@@ -348,6 +348,7 @@ import { User } from "../models/User";
 import { defineProps, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { Form, Field, ErrorMessage } from "vee-validate";
+import '../validators/validationRules';
 
 const { t } = useI18n();
 const props = defineProps<{
