@@ -8,15 +8,17 @@
               <h1 class="fr-h1">
                 {{ title }}
               </h1>
-              <p>14 Avril 2021 dans <a href="#">DossierFacile</a></p>
+              <p>{{ date }} dans <a href="#">DossierFacile</a></p>
             </div>
-            <div></div>
+            <div>
+              <slot></slot>
+            </div>
           </article>
         </div>
         <ShareArticle
           class="fr-col-md-10 fr-col-lg-8"
           :title="title"
-          hashtags="Tag1,Tag2"
+          :hashtags="hashtags"
         />
       </div>
     </div>
@@ -31,13 +33,15 @@ a {
 }
 </style>
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import ShareArticle from "@/views/blog/ShareArticle.vue";
+import { Component, Prop, Vue } from "vue-property-decorator";
+import ShareArticle from "./ShareArticle.vue";
 
 @Component({
   components: { ShareArticle },
 })
-export default class ArticleXX extends Vue {
-  title = "";
+export default class BlogArticle extends Vue {
+  @Prop() title!: string;
+  @Prop() date!: string;
+  @Prop({ default: "" }) hashtags!: string;
 }
 </script>
