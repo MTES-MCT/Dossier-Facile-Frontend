@@ -79,7 +79,7 @@ const routes = [
     name: 'Contact',
     meta: {
       title: 'Contact - DossierFacile',
-      requiresAuth: true,
+      requiresAuth: false,
       hasFooter: true,
     },
     component: () => import('../components/ContactPage.vue'),
