@@ -10,17 +10,14 @@
 </template>
 
 <script lang="ts">
-import axios from "axios";
 import { Component, Vue } from "vue-property-decorator";
 import * as d3 from "d3";
+import { StatsService } from "@/services/StatsService";
 
 @Component
 export default class Chart5 extends Vue {
   mounted() {
-    axios
-      .get(
-        "https://sheets.googleapis.com/v4/spreadsheets/1WI4vLK8eS_3N15t40NZp8SCLZBKV2St9zB68tdqMaMw/values:batchGet?key=AIzaSyAifGFaPrs6tkDizbIW8nLmtl0edfe5Vok&ranges=5.satisfaction!A1:B3&majorDimension=ROWS"
-      )
+    StatsService.getDataFromStatsSpreadsheet("5.satisfaction!A1:B3", "ROWS")
       .then(response => {
         this.updateChart(
           response.data["valueRanges"][0]["values"]?.map((d: any[]) => {
