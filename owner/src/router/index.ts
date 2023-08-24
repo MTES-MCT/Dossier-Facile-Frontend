@@ -260,7 +260,6 @@ router.beforeEach(async (to, _, next) => {
       keycloak.login({ redirectUri: OWNER_URL + to.fullPath });
     }
   }
-  
   updateMetaData(to);
   next();
 });
