@@ -251,17 +251,16 @@ router.beforeEach(async (to, _, next) => {
     next();
     return;
   }
+  if (keycloak.authenticated) {
+    await store.loadUser();
+  }
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (keycloak.authenticated) {
-      await store.loadUser();
-    } else {
+    if (!keycloak.authenticated) {
       keycloak.login({ redirectUri: OWNER_URL + to.fullPath });
     }
-  } else if (keycloak.authenticated) {
-    next({ name: 'Dashboard' });
-    return;
   }
+  
   updateMetaData(to);
   next();
 });
