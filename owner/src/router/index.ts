@@ -17,6 +17,13 @@ const routes = [
       hasFooter: true,
     },
     component: LandingPage,
+    beforeEnter: (_to: any, _from: any, next: any) => {
+      if (keycloak.authenticated) {
+        next('/home');
+      } else {
+        next();
+      }
+    },
   },
   {
     path: '/home',
