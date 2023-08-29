@@ -441,6 +441,7 @@ router.beforeEach(async (to, from, next) => {
   store.dispatch("setLang", lang);
 
   if ((Vue as any).$keycloak.authenticated) {
+    await (Vue as any).$keycloak.loadUserProfile();
     await store.dispatch("loadUser").catch(() => {
       next({ name: "404" });
     });
@@ -453,14 +454,21 @@ router.beforeEach(async (to, from, next) => {
         redirectUri: TENANT_URL + to.fullPath,
       });
     } else {
-      setInterval(() => {
-        (Vue as any).$keycloak.updateToken(60).catch((err: any) => {
-          console.error(err);
+      if ((Vue as any).$keycloak.profile?.emailVerified != true) {
+        // email should be validated before access to the protected page.
+        (Vue as any).$keycloak.logout({
+          redirectUri: "https:" + MAIN_URL + "/#emailNotValidated",
         });
-      }, 45000);
-      store.dispatch("updateMessages");
-      keepGoing(to, next);
-      return;
+      } else {
+        setInterval(() => {
+          (Vue as any).$keycloak.updateToken(60).catch((err: any) => {
+            console.error(err);
+          });
+        }, 45000);
+        store.dispatch("updateMessages");
+        keepGoing(to, next);
+        return;
+      }
     }
   } else if (to.matched.some((record) => record.meta.hideForAuth)) {
     if ((Vue as any).$keycloak.authenticated) {

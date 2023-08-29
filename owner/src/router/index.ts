@@ -17,6 +17,13 @@ const routes = [
       hasFooter: true,
     },
     component: LandingPage,
+    beforeEnter: (_to: any, _from: any, next: any) => {
+      if (keycloak.authenticated) {
+        next('/home');
+      } else {
+        next();
+      }
+    },
   },
   {
     path: '/home',
@@ -79,7 +86,7 @@ const routes = [
     name: 'Contact',
     meta: {
       title: 'Contact - DossierFacile',
-      requiresAuth: true,
+      requiresAuth: false,
       hasFooter: true,
     },
     component: () => import('../components/ContactPage.vue'),
@@ -251,16 +258,14 @@ router.beforeEach(async (to, _, next) => {
     next();
     return;
   }
+  if (keycloak.authenticated) {
+    await store.loadUser();
+  }
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (keycloak.authenticated) {
-      await store.loadUser();
-    } else {
+    if (!keycloak.authenticated) {
       keycloak.login({ redirectUri: OWNER_URL + to.fullPath });
     }
-  } else if (keycloak.authenticated) {
-    next({ name: 'Dashboard' });
-    return;
   }
   updateMetaData(to);
   next();

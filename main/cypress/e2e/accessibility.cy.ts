@@ -5,7 +5,6 @@ const routesToTest = [
   "/information",
   "/blog",
   "/contact",
-  "/stats",
   "/plan-du-site",
   "/accessibilite",
 ];
