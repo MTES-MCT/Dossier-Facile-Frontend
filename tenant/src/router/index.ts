@@ -243,41 +243,6 @@ const routes: Array<RouteConfig> = [
     component: () => import(/* webpackChunkName: "file" */ "../views/File.vue"),
   },
   {
-    path: "/source/:source",
-    name: "Source",
-    meta: {
-      title: "Source - DossierFacile",
-    },
-    beforeEnter: (to, from, next) => {
-      if ((Vue as any).$keycloak.authenticated) {
-        (Vue as any).$keycloak
-          .updateToken(70)
-          .then(() => {
-            store.dispatch("loadUser").then(() => {
-              next();
-            });
-          })
-          .catch((err: any) => {
-            console.error(err);
-          });
-      } else {
-        next();
-      }
-    },
-    component: () =>
-      import(/* webpackChunkName: "source" */ "../views/Source.vue"),
-  },
-  {
-    path: "/lier-source/:source",
-    name: "SourceLink",
-    meta: {
-      title: "Source - DossierFacile",
-      requiresAuth: true,
-    },
-    component: () =>
-      import(/* webpackChunkName: "source" */ "../views/SourceLink.vue"),
-  },
-  {
     path: "/account",
     name: "Account",
     meta: {

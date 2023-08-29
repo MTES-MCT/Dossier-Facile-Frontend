@@ -1075,24 +1075,6 @@
     "simulation-caf-title": "Are you eligible?",
     "simulation-caf-text": "Discover the estimation of housing assistance you could be eligible for."
   },
-  "source": {
-    "mail-sent": "An email has been sent to the provided address.",
-    "clic-to-confirm": "Please click on the link sent to confirm your email address and proceed with your registration.",
-    "existing-account": "Link an existing account",
-    "register": "Create a new account",
-    "register-error": "An error occurred",
-    "connected": "Successfully connected to the partner",
-    "will-link-to-partner": "Confirm connection to the partner"
-  },
-  "sourcelink": {
-    "mail-sent": "An email has been sent to the provided address.",
-    "clic-to-confirm": "Please click on the link sent to confirm your email address and proceed with your registration.",
-    "existing-account": "Link an existing account",
-    "register": "Create a new account",
-    "register-error": "An error occurred",
-    "connected": "Successfully connected to the partner",
-    "will-link-to-partner": "Confirm connection to the partner"
-  },
   "taxhelp": {
     "title": "Help",
     "paragraph1": "You can now <b>download a tax notice from <a target='_blank' href='https://www.impots.gouv.fr'>www.impots.gouv.fr</a></b>",
