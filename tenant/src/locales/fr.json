@@ -1122,24 +1122,6 @@
     "simulation-caf-title": "Êtes-vous éligible ?",
     "simulation-caf-text": "Découvrez l'estimation de l'aide au logement à laquelle vous pourriez être éligible."
   },
-  "source": {
-    "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
-    "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre votre inscription.",
-    "existing-account": "Lier un compte existant",
-    "register": "Créer un nouveau compte",
-    "register-error": "Une erreur est survenue",
-    "connected": "Connexion au partenaire réussie",
-    "will-link-to-partner": "Confirmer la connexion au partenaire"
-  },
-  "sourcelink": {
-    "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
-    "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre votre inscription.",
-    "existing-account": "Lier un compte existant",
-    "register": "Créer un nouveau compte",
-    "register-error": "Une erreur est survenue",
-    "connected": "Connexion au partenaire réussie",
-    "will-link-to-partner": "Confirmer la connexion au partenaire"
-  },
   "taxhelp": {
     "title": "Aide",
     "paragraph1": "Vous pouvez désormais <b>télécharger un avis d’imposition sur <a target='_blank' href='https://www.impots.gouv.fr'>www.impots.gouv.fr</a></b>",
