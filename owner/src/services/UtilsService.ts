@@ -20,7 +20,10 @@ const UtilsService = {
       return [];
     }
 
-    return p.propertiesApartmentSharing.map((pas: any) => {
+    const activeApartmentSharingApplications = p.propertiesApartmentSharing
+      .filter((pas: any) => pas.apartmentSharing.status !== 'ARCHIVED');
+
+    return activeApartmentSharingApplications.map((pas: any) => {
       const a = pas.apartmentSharing;
       if (a !== undefined && a.tenants.length > 0) {
         const rate = a.totalSalary > 0 ? Math.round((p.rentCost / a.totalSalary) * 100) : '100';
