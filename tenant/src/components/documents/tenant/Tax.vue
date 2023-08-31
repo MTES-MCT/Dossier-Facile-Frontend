@@ -85,10 +85,6 @@
             ></div>
             <WarningTaxDeclaration />
           </div>
-          <MonFranceConnect
-            class="fr-mt-2w"
-            redirection-type="dgfip"
-          ></MonFranceConnect>
         </div>
         <AllDeclinedMessages
           class="fr-mb-3w"
@@ -185,7 +181,6 @@ import { AnalyticsService } from "../../../services/AnalyticsService";
 import ProfileFooter from "../../footer/ProfileFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
-import MonFranceConnect from "../share/MonFranceConnect.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import { cloneDeep } from "lodash";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
@@ -206,7 +201,6 @@ extend("is", {
     DocumentInsert,
     FileUpload,
     ListItem,
-    MonFranceConnect,
     ValidationObserver,
     ValidationProvider,
     WarningMessage,

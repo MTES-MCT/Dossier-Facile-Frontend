@@ -885,11 +885,6 @@
     "identity-represent": "Representative Identity",
     "organism": "Organization"
   },
-  "monfranceconnect": {
-    "optional": "optional",
-    "with-franceconnect-title": "Your documents with Mon FranceConnect",
-    "with-franceconnect-text": "Mon FranceConnect is a digital service provided by the State that allows you to retrieve your documents from various government agencies."
-  },
   "nameinformationform": {
     "confirm": "Confirm",
     "firstname": "First Name",
