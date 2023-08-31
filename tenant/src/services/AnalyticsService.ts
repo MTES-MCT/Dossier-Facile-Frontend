@@ -193,9 +193,6 @@ export const AnalyticsService = {
     this.sendEvent("validate-file", { event_category: "file" });
   },
 
-  openMonFranceConnect(eventName: string) {
-    this.sendEvent(eventName, { event_category: "funnel" });
-  },
   openSimulationCAF() {
     this.sendEvent("open-simulation_caf", { event_category: "funnel" });
   },

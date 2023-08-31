@@ -933,11 +933,6 @@
     "identity-represent": "Identité représentant",
     "organism": "Organisme"
   },
-  "monfranceconnect": {
-    "optional": "optionnel",
-    "with-franceconnect-title": "Vos justificatifs avec Mon FranceConnect",
-    "with-franceconnect-text": "Mon FranceConnect est un service numérique de l'État vous permettant de récupérer vos justificatifs provenant de différentes administrations."
-  },
   "nameinformationform": {
     "confirm": "Confirmer",
     "firstname": "Prénom",
