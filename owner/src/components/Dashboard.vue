@@ -60,11 +60,11 @@ function getApplicantsCount(p: Property) {
 </script>
 
 <template>
-  <div class="fr-container fr-mb-3w fr-mt-3w">
-    <h2 class="fr-h3 blue-text">{{ t('dashboard.title', { name: username }) }}</h2>
-    <NakedCard>
+  <div class="fr-container fr-mb-5w fr-mt-5w">
+    <h1 class="fr-h4">{{ t('dashboard.title', { name: username }) }}</h1>
+    <NakedCard class="fr-p-md-3w">
       <div class="fr-grid-row space-between">
-        <h1 id="my-properties-title" class="fr-h4">{{ t('dashboard.my-properties') }}</h1>
+        <h2 id="my-properties-title" class="fr-h6">{{ t('dashboard.my-properties') }}</h2>
         <div>
           <Button @onClick="addProperty" :title="t('dashboard.add-property')" :primary="true">{{
             t('dashboard.add-property')

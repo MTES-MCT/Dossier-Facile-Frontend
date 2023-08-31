@@ -52,7 +52,7 @@ describe("basic owner scenario", () => {
       .click()
       .clickOnNext();
 
-    cy.get("h1")
+    cy.get("h2")
       .contains("Mes propriétés")
       .should("be.visible");
 
