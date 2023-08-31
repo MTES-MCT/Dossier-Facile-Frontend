@@ -371,5 +371,14 @@
       "title2": "et",
       "title3": "Vérifiés."
     }
+  },
+  "gmbi-ad": {
+    "title": "Vous intégrez de nouveaux locataires ?",
+    "call-to-action": "Mettez à jour votre déclaration d'occupation",
+    "made-by": "proposé par"
+  },
+  "feedback-request": {
+    "title": "Partagez votre expérience de DossierFacile",
+    "content": "Dans le cadre de notre démarche d’amélioration, nous cherchons à obtenir votre retour d’expérience. En cliquant sur ce bouton, vous pourrez évaluer anonymement DossierFacile."
   }
 }
