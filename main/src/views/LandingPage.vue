@@ -159,22 +159,34 @@
         </div>
         <div class="fr-grid-row">
           <div class="col fr-p-2w">
-            <blockquote class="bg--blue color--primary quote fr-p-2w">
-              <p class="fr-m-0 fr-mb-3w">{{ $t("s4.t1") }}</p>
-              <cite>{{ $t("s4.author1") }}</cite>
-            </blockquote>
+            <figure class="fr-quote fr-quote--column">
+              <blockquote>
+                <p>{{ $t("s4.t1") }}</p>
+              </blockquote>
+              <figcaption>
+                <p class="fr-quote__author">{{ $t("s4.author1") }}</p>
+              </figcaption>
+            </figure>
           </div>
           <div class="col fr-p-2w">
-            <blockquote class="bg--blue color--primary quote fr-p-2w">
-              <p class="fr-m-0 fr-mb-3w">{{ $t("s4.t2") }}</p>
-              <cite>{{ $t("s4.author2") }}</cite>
-            </blockquote>
+            <figure class="fr-quote fr-quote--column">
+              <blockquote>
+                <p>{{ $t("s4.t2") }}</p>
+              </blockquote>
+              <figcaption>
+                <p class="fr-quote__author">{{ $t("s4.author2") }}</p>
+              </figcaption>
+            </figure>
           </div>
           <div class="col fr-p-2w">
-            <blockquote class="bg--blue color--primary quote fr-p-2w">
-              <p class="fr-m-0 fr-mb-3w">{{ $t("s4.t3") }}</p>
-              <cite>{{ $t("s4.author3") }}</cite>
-            </blockquote>
+            <figure class="fr-quote fr-quote--column">
+              <blockquote>
+                <p>{{ $t("s4.t3") }}</p>
+              </blockquote>
+              <figcaption>
+                <p class="fr-quote__author">{{ $t("s4.author3") }}</p>
+              </figcaption>
+            </figure>
           </div>
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
@@ -654,5 +666,9 @@ ol {
 
 .institutional-section {
   background-color: #f5f5fe;
+}
+
+.fr-quote--column {
+  margin-left: 0;
 }
 </style>
