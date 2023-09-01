@@ -59,7 +59,7 @@
               </span>
             </a>
           </li>
-          <li class="warn">
+          <li>
             <DfButton
               class="fr-nav__link"
               data-fr-opened="false"
@@ -163,13 +163,6 @@ export default class Menu extends Vue {
 .fr-nav__list > li.break {
   @media all and (min-width: 992px) {
     margin-left: auto;
-  }
-}
-
-.warn {
-  background-color: #fdf2f3;
-  button {
-    color: var(--error);
   }
 }
 

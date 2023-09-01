@@ -50,11 +50,9 @@
               v-if="user.status === 'TO_PROCESS'"
             >
               <h3 class="fr-h4 dflex">
-                  <span aria-hidden="true" class="material-icons-outlined md-28"
-                    >timer</span
-                  >&nbsp;<span>{{
-                    $t("account.instructional-time-title")
-                  }}</span>
+                <span aria-hidden="true" class="material-icons-outlined md-28"
+                  >timer</span
+                >&nbsp;<span>{{ $t("account.instructional-time-title") }}</span>
               </h3>
               <p v-html="$t('account.instructional-time-text')"></p>
             </div>
@@ -129,8 +127,6 @@
                 <p>{{ $t("account.delete-bloc.content") }}</p>
                 <div class="align--center">
                   <DfButton
-                    class="delete-btn"
-                    primary="true"
                     data-fr-opened="false"
                     aria-controls="modal-delete-account"
                     style="visibility: none"
@@ -158,7 +154,10 @@
                     />
                   </a>
                 </div>
-                <p class="fr-mt-3w" v-html="$tc('account.opinion-bloc.warning')"></p>
+                <p
+                  class="fr-mt-3w"
+                  v-html="$tc('account.opinion-bloc.warning')"
+                ></p>
               </div>
             </div>
           </div>
@@ -470,12 +469,6 @@ h1 {
   @media (max-width: 706px) {
     padding-top: 1rem;
   }
-}
-
-.fr-btn.delete-btn {
-  background-color: var(--error);
-  --color-hover: rgba(246, 0, 0, 0.5);
-  --color-active: rgba(255, 91, 91, 0.5);
 }
 
 .grp {
