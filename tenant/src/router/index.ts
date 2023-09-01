@@ -393,12 +393,37 @@ function keepGoing(to: Route, next: NavigationGuardNext<Vue>) {
   next();
 }
 
-router.beforeEach(async (to, from, next) => {
+function registerFunnel(to: Route) {
   if (to.matched.some((record) => record.meta.hideFooter)) {
     store.commit("isFunnel", true);
   } else {
     store.commit("isFunnel", false);
   }
+}
+
+async function loadUserIfAuthenticated(next: NavigationGuardNext<Vue>) {
+  if (!(Vue as any).$keycloak.authenticated) {
+    return;
+  }
+  await (Vue as any).$keycloak.loadUserProfile();
+  await store.dispatch("loadUser").catch(() => {
+    next({ name: "404" });
+  });
+}
+
+function updateKeycloakTokenAndMessages() {
+  if (updateTokenInterval === undefined) {
+    updateTokenInterval = setInterval(() => {
+      (Vue as any).$keycloak.updateToken(60).catch((err: any) => {
+        console.error(err);
+      });
+    }, 45000);
+    store.dispatch("updateMessages");
+  }
+}
+
+router.beforeEach(async (to, from, next) => {
+  registerFunnel(to);
 
   to.matched.some((record) => {
     store.commit("updateSkipLinks", record.meta.skipLinks);
@@ -407,12 +432,7 @@ router.beforeEach(async (to, from, next) => {
   const lang = Vue.$cookies.get("lang") === "en" ? "en" : "fr";
   store.dispatch("setLang", lang);
 
-  if ((Vue as any).$keycloak.authenticated) {
-    await (Vue as any).$keycloak.loadUserProfile();
-    await store.dispatch("loadUser").catch(() => {
-      next({ name: "404" });
-    });
-  }
+  await loadUserIfAuthenticated(next);
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!(Vue as any).$keycloak.authenticated) {
@@ -427,14 +447,7 @@ router.beforeEach(async (to, from, next) => {
           redirectUri: "https:" + MAIN_URL + "/#emailNotValidated",
         });
       } else {
-        if (updateTokenInterval === undefined) {
-          updateTokenInterval = setInterval(() => {
-            (Vue as any).$keycloak.updateToken(60).catch((err: any) => {
-              console.error(err);
-            });
-          }, 45000);
-          store.dispatch("updateMessages");
-        }
+        updateKeycloakTokenAndMessages();
         keepGoing(to, next);
         return;
       }
