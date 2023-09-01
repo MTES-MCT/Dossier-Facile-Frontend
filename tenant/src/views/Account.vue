@@ -444,7 +444,6 @@ h1 {
 
 .bg-white {
   box-shadow: 0 2px 6px 0 rgba(0, 0, 18, 0.16);
-  border-radius: 10px;
   background: var(--grey-1000-50);
 }
 .account-tabs {
