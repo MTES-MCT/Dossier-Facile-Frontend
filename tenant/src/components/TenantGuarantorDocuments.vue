@@ -136,14 +136,14 @@ import ProfileContainer from "./ProfileContainer.vue";
     BigRadio,
     VGouvFrModal,
     NakedCard,
-    ProfileContainer
+    ProfileContainer,
   },
   computed: {
     ...mapState({
       coTenants: "coTenants",
-      selectedGuarantor: "selectedGuarantor"
-    })
-  }
+      selectedGuarantor: "selectedGuarantor",
+    }),
+  },
 })
 export default class TenantGuarantorDocuments extends Vue {
   @Prop({ default: 0 }) substep!: number;
@@ -183,8 +183,8 @@ export default class TenantGuarantorDocuments extends Vue {
           step: this.$route.params.step,
           substep: (this.substep - 1).toString(),
           tenantId: this.$route.params.tenantId,
-          guarantorId: this.$route.params.guarantorId
-        }
+          guarantorId: this.$route.params.guarantorId,
+        },
       });
     } else {
       this.$emit("on-next");
@@ -198,8 +198,8 @@ export default class TenantGuarantorDocuments extends Vue {
         step: this.$route.params.step,
         substep: (this.substep + 1).toString(),
         tenantId: this.$route.params.tenantId,
-        guarantorId: this.$route.params.guarantorId
-      }
+        guarantorId: this.$route.params.guarantorId,
+      },
     });
   }
 
@@ -271,7 +271,6 @@ h2 {
 
 .card {
   padding: 1rem;
-  border-radius: 0.25rem;
 }
 
 .card-container {
@@ -284,4 +283,3 @@ h2 {
   font-size: 14px;
 }
 </style>
-

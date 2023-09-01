@@ -13,7 +13,10 @@
             </p>
           </div>
           <div class="bg-white max-550 left-row fr-p-md-5w fr-mt-7w fr-mb-7w">
-            <p><em>Dossier</em><strong>Facile</strong> {{ $t("signuppage.help-you") }}</p>
+            <p>
+              <em>Dossier</em><strong>Facile</strong>
+              {{ $t("signuppage.help-you") }}
+            </p>
             <p>
               🔐 à constituer un
               <strong>dossier numérique conforme, sécurisé</strong> et
@@ -70,8 +73,8 @@ import Modal from "df-shared/src/components/Modal.vue";
 @Component({
   components: {
     Register,
-    Modal
-  }
+    Modal,
+  },
 })
 export default class SignupPage extends Vue {
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
@@ -91,7 +94,7 @@ export default class SignupPage extends Vue {
         () => {
           this.isValidModalVisible = true;
         },
-        error => {
+        (error) => {
           if (
             (error.response?.data?.errors?.indexOf(
               "email: the emails are already being used"
@@ -116,7 +119,6 @@ export default class SignupPage extends Vue {
 }
 </script>
 
-
 <style scoped lang="scss">
 body {
   background-color: var(--g100);
@@ -128,7 +130,6 @@ body {
 
 .bg-purple {
   margin: 8px;
-  border-radius: 4px;
   background-color: #e5e5f4;
 }
 
