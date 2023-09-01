@@ -13,6 +13,8 @@ Vue.use(VueRouter);
 const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
 const TENANT_URL = process.env.VUE_APP_FULL_TENANT_URL;
 
+let updateTokenInterval: NodeJS.Timer;
+
 const routes: Array<RouteConfig> = [
   {
     path: "/",
@@ -425,12 +427,14 @@ router.beforeEach(async (to, from, next) => {
           redirectUri: "https:" + MAIN_URL + "/#emailNotValidated",
         });
       } else {
-        setInterval(() => {
-          (Vue as any).$keycloak.updateToken(60).catch((err: any) => {
-            console.error(err);
-          });
-        }, 45000);
-        store.dispatch("updateMessages");
+        if (updateTokenInterval === undefined) {
+          updateTokenInterval = setInterval(() => {
+            (Vue as any).$keycloak.updateToken(60).catch((err: any) => {
+              console.error(err);
+            });
+          }, 45000);
+          store.dispatch("updateMessages");
+        }
         keepGoing(to, next);
         return;
       }
