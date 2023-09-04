@@ -60,6 +60,16 @@
             </a>
           </li>
           <li>
+            <a
+              class="fr-nav__link"
+              href="/applications"
+              target="_self"
+              :aria-current="currentPage() === 'SharingPage' ? 'page' : false"
+            >
+              {{ $t("menu.applications") }}
+            </a>
+          </li>
+          <li>
             <DfButton
               class="fr-nav__link"
               data-fr-opened="false"

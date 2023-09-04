@@ -1,0 +1,95 @@
+<template>
+  <NakedCard class="fr-p-md-5w">
+    <h2 class="fr-h4">{{ t("title") }}</h2>
+
+    <div
+      class="fr-table fr-table--bordered fr-table--no-caption fr-table--layout-fixed fr-m-0"
+    >
+      <table>
+        <caption>
+          {{
+            t("title")
+          }}
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">{{ t("date") }}</th>
+            <th scope="col" colspan="3">{{ t("contact") }}</th>
+            <th scope="col">{{ t("last-visit") }}</th>
+            <th scope="col">{{ t("link-status") }}</th>
+            <th scope="col">{{ t("action") }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="link in links"
+            v-bind:key="link.id"
+            :class="link.enabled ? '' : 'fr-label--disabled'"
+          >
+            <td>{{ formatDate(link.creationDate) }}</td>
+            <td colspan="3">{{ link.ownerEmail }}</td>
+            <td>{{ formatDateRelativeToNow(link.lastVisit) }}</td>
+            <td>{{ link.enabled ? t("enabled") : t("disabled") }}</td>
+            <td>
+              <Button @on-click="deleteSharedLink(link)">
+                {{ t("delete") }}
+              </Button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </NakedCard>
+</template>
+
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import NakedCard from "df-shared/src/components/NakedCard.vue";
+import { ApartmentSharingLink } from "df-shared/src/models/ApartmentSharingLink";
+import Button from "df-shared-next/src/Button/Button.vue";
+import moment from "moment";
+import { mapState } from "vuex";
+import store from "@/store";
+
+@Component({
+  components: { NakedCard, Button },
+  computed: {
+    ...mapState({
+      links: "apartmentSharingLinks",
+    }),
+  },
+})
+export default class SharedLinks extends Vue {
+  links!: ApartmentSharingLink[];
+
+  deleteSharedLink(link: ApartmentSharingLink) {
+    store.dispatch("deleteApartmentSharingLink", link);
+  }
+
+  formatDate(date: string | undefined) {
+    if (date === undefined) {
+      return "";
+    }
+    return moment(date).format("D MMM YYYY");
+  }
+
+  formatDateRelativeToNow(date: string | undefined) {
+    if (date === undefined) {
+      return this.t("never");
+    }
+    const relativeDate = moment(date).fromNow();
+    return this.capitalizeFirstLetter(relativeDate);
+  }
+
+  capitalizeFirstLetter(str: string) {
+    const firstLetter = str.at(0)?.toUpperCase();
+    return firstLetter + str.substring(1);
+  }
+
+  t(key: string) {
+    return this.$t(`sharing-page.shared-links.${key}`);
+  }
+}
+</script>
+
+<style scoped lang="scss"></style>

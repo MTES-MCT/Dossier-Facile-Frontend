@@ -921,6 +921,7 @@
   "menu": {
     "help": "Aide",
     "file": "Mon dossier",
+    "applications": "Mes candidatures",
     "account": "Mon compte",
     "messaging": "Messagerie",
     "blog": "Blog",
@@ -1318,5 +1319,20 @@
   "modal": {
     "close": "Fermer",
     "close-alt": "Fermer la fenêtre modale"
+  },
+  "sharing-page": {
+    "title": "Mes candidatures",
+    "shared-links": {
+      "title": "Mes liens partagés",
+      "date": "Date",
+      "contact": "Contact",
+      "last-visit": "Dernière visite",
+      "link-status": "Statut du lien",
+      "action": "Action",
+      "enabled": "Activé",
+      "disabled": "Desactivé",
+      "delete": "Supprimer",
+      "never": "Jamais"
+    }
   }
 }
