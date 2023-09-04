@@ -14,4 +14,7 @@ export const ApartmentSharingLinkService = {
   deleteLink(link: ApartmentSharingLink) {
     return axios.delete(`${LINKS_API_URL}/${link.id}`);
   },
+  updateLinkStatus(link: ApartmentSharingLink, enabled: boolean) {
+    return axios.put(`${LINKS_API_URL}/${link.id}?enabled=${enabled}`);
+  },
 };

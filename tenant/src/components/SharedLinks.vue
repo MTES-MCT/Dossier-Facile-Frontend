@@ -29,7 +29,15 @@
             <td>{{ formatDate(link.creationDate) }}</td>
             <td colspan="3">{{ link.ownerEmail }}</td>
             <td>{{ formatDateRelativeToNow(link.lastVisit) }}</td>
-            <td>{{ link.enabled ? t("enabled") : t("disabled") }}</td>
+            <td class="fr-p-0" style="display: flex; justify-content: center">
+              <Toggle
+                :id="link.id"
+                :value="link.enabled"
+                :checkedLabel="t('enabled')"
+                :uncheckedLabel="t('disabled')"
+                @update="updateSharedLinkStatus(link, $event)"
+              />
+            </td>
             <td>
               <Button @on-click="deleteSharedLink(link)">
                 {{ t("delete") }}
@@ -45,6 +53,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import Toggle from "df-shared/src/components/Toggle.vue";
 import { ApartmentSharingLink } from "df-shared/src/models/ApartmentSharingLink";
 import Button from "df-shared-next/src/Button/Button.vue";
 import moment from "moment";
@@ -52,7 +61,7 @@ import { mapState } from "vuex";
 import store from "@/store";
 
 @Component({
-  components: { NakedCard, Button },
+  components: { NakedCard, Button, Toggle },
   computed: {
     ...mapState({
       links: "apartmentSharingLinks",
@@ -64,6 +73,17 @@ export default class SharedLinks extends Vue {
 
   deleteSharedLink(link: ApartmentSharingLink) {
     store.dispatch("deleteApartmentSharingLink", link);
+  }
+
+  updateSharedLinkStatus(link: ApartmentSharingLink, enabled: boolean) {
+    store
+      .dispatch("updateApartmentSharingLinkStatus", { link, enabled })
+      .then(() => {
+        Vue.toasted.global.save_success();
+      })
+      .catch(() => {
+        Vue.toasted.global.save_failed();
+      });
   }
 
   formatDate(date: string | undefined) {

@@ -816,6 +816,19 @@ const store = new Vuex.Store({
         commit("setApartmentSharingLinks", newLinks);
       });
     },
+    async updateApartmentSharingLinkStatus(
+      { commit },
+      { link: linkToUpdate, enabled }
+    ) {
+      await ApartmentSharingLinkService.updateLinkStatus(linkToUpdate, enabled);
+      const updatedLinks = store.state.apartmentSharingLinks.map((link) => {
+        if (link.id === linkToUpdate.id) {
+          link.enabled = enabled;
+        }
+        return link;
+      });
+      commit("setApartmentSharingLinks", updatedLinks);
+    },
   },
   getters: {
     getTenantDocuments(state): DfDocument[] {
