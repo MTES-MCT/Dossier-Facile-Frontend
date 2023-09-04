@@ -421,11 +421,6 @@ export default class Account extends Vue {
   background-color: var(--background-default-grey);
 }
 
-.bg-blue {
-  width: 100%;
-  background-color: var(--bf100-g750);
-}
-
 .fr-callout-white {
   background-color: var(--background-default-grey);
   &.warning {

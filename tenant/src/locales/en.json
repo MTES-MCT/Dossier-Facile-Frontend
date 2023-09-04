@@ -873,6 +873,7 @@
   "menu": {
     "help": "Help",
     "file": "My File",
+    "applications": "My applications",
     "account": "My Account",
     "messaging": "Messaging",
     "blog": "Blog",
@@ -1277,5 +1278,20 @@
   "modal": {
     "close": "Close",
     "close-alt": "Close modal window"
+  },
+  "sharing-page": {
+    "title": "My applications",
+    "shared-links": {
+      "title": "My shared links",
+      "date": "Date",
+      "contact": "Contact",
+      "last-visit": "Last visit",
+      "link-status": "Link status",
+      "action": "Action",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "delete": "Delete",
+      "never": "Never"
+    }
   }
 }

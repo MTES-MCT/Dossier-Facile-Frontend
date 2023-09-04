@@ -122,6 +122,7 @@ export default class FileErrors extends Vue {
           message: "sharefile.sent-success",
         });
         this.email = "";
+        this.$store.dispatch("loadApartmentSharingLinks");
       })
       .catch((res) => {
         Vue.toasted.global.error_toast({

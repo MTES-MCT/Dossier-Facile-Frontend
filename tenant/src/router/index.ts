@@ -255,6 +255,16 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "account" */ "../views/Account.vue"),
   },
   {
+    path: "/applications",
+    name: "SharingPage",
+    meta: {
+      title: "Mes candidatures - DossierFacile",
+      requiresAuth: true,
+    },
+    component: () =>
+      import(/* webpackChunkName: "account" */ "../views/SharingPage.vue"),
+  },
+  {
     path: "/messaging",
     name: "Messages",
     meta: {

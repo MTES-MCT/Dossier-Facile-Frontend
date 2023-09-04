@@ -372,10 +372,6 @@ export default class ContactForm extends Vue {
 </script>
 
 <style scoped lang="scss">
-.bg-blue {
-  width: 100%;
-  background-color: var(--bf100-g750);
-}
 .bg-white {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   background: var(--background-default-grey);
