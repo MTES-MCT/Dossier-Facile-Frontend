@@ -1322,6 +1322,15 @@
   },
   "sharing-page": {
     "title": "Mes candidatures",
+    "file-not-ready": {
+      "title": "Votre dossier {0}",
+      "status": {
+        "TO_PROCESS": "est en cours de traitement",
+        "DECLINED": "nécessite des modifications",
+        "INCOMPLETE": "est incomplet"
+      },
+      "explanation": "Lorsque celui-ci sera validé, vous pourrez le partager et vous retrouverez ci-dessous la liste de vos partages par mail."
+    },
     "shared-links": {
       "title": "Dossiers partagés par mail",
       "date": "Date",

@@ -7,6 +7,16 @@
           <NakedCard class="fr-px-md-3w fr-py-md-4w" v-if="displayShareBloc()">
             <ShareFile></ShareFile>
           </NakedCard>
+          <div class="fr-alert fr-alert--warning fr-mb-0" v-else>
+            <h3 class="fr-h5">
+              {{
+                $t(`sharing-page.file-not-ready.title`, [
+                  $t(`sharing-page.file-not-ready.status.${fileStatus}`),
+                ])
+              }}
+            </h3>
+            <p>{{ $t("sharing-page.file-not-ready.explanation") }}</p>
+          </div>
           <SharedLinks></SharedLinks>
         </div>
       </section>
@@ -40,6 +50,10 @@ export default class SharingPage extends Vue {
 
   beforeMount() {
     this.$store.dispatch("loadApartmentSharingLinks");
+  }
+
+  get fileStatus(): string {
+    return this.user.status || "";
   }
 
   displayShareBloc() {

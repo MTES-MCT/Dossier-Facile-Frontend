@@ -1281,6 +1281,15 @@
   },
   "sharing-page": {
     "title": "My applications",
+    "file-not-ready": {
+      "title": "Your file {0}",
+      "status": {
+        "TO_PROCESS": "is being processed",
+        "DECLINED": "requires modifications",
+        "INCOMPLETE": "is incomplete"
+      },
+      "explanation": "As soon as it is validated, you will be able to share it and to manage the shared files below."
+    },
     "shared-links": {
       "title": "Shared files by email",
       "date": "Date",
@@ -1292,7 +1301,7 @@
       "disabled": "Disabled",
       "delete": "Delete",
       "never": "Never",
-      "no-shared-file": "No shared files"
+      "no-shared-file": "No shared files yet"
     }
   }
 }
