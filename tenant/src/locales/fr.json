@@ -1323,16 +1323,17 @@
   "sharing-page": {
     "title": "Mes candidatures",
     "shared-links": {
-      "title": "Mes liens partagés",
+      "title": "Dossiers partagés par mail",
       "date": "Date",
       "contact": "Contact",
       "last-visit": "Dernière visite",
-      "link-status": "Statut du lien",
+      "link-status": "Statut",
       "action": "Action",
       "enabled": "Activé",
       "disabled": "Desactivé",
       "delete": "Supprimer",
-      "never": "Jamais"
+      "never": "Jamais",
+      "no-shared-file": "Aucun dossier partagé pour l'instant"
     }
   }
 }

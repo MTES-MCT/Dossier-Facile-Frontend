@@ -1282,16 +1282,17 @@
   "sharing-page": {
     "title": "My applications",
     "shared-links": {
-      "title": "My shared links",
+      "title": "Shared files by email",
       "date": "Date",
       "contact": "Contact",
       "last-visit": "Last visit",
-      "link-status": "Link status",
+      "link-status": "Status",
       "action": "Action",
       "enabled": "Enabled",
       "disabled": "Disabled",
       "delete": "Delete",
-      "never": "Never"
+      "never": "Never",
+      "no-shared-file": "No shared files"
     }
   }
 }

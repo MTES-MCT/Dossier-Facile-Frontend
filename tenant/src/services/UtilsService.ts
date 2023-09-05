@@ -199,4 +199,11 @@ export const UtilsService = {
     word = word[0].toUpperCase() + word.slice(1).toLowerCase();
     return word.replace(/([' -][A-Za-zÀ-ÖØ-öø-ÿ])/g, (s) => s.toUpperCase());
   },
+  canShareFile(user: User) {
+    return (
+      user.status === "VALIDATED" &&
+      user.apartmentSharing?.tokenPublic !== undefined &&
+      user.apartmentSharing?.tokenPublic !== ""
+    );
+  },
 };
