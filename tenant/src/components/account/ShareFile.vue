@@ -98,7 +98,7 @@ import { User } from "df-shared/src/models/User";
     }),
   },
 })
-export default class FileErrors extends Vue {
+export default class ShareFile extends Vue {
   TENANT_URL = `https://${process.env.VUE_APP_TENANT_URL}`;
   shareType = "full";
   shareMethod = "mail";

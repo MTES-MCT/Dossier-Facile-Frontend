@@ -362,11 +362,7 @@ export default class Account extends Vue {
   }
 
   canCopyLink() {
-    return (
-      this.user.status === "VALIDATED" &&
-      this.user.apartmentSharing?.tokenPublic !== undefined &&
-      this.user.apartmentSharing?.tokenPublic !== ""
-    );
+    return UtilsService.canShareFile(this.user);
   }
 
   isDenied() {
