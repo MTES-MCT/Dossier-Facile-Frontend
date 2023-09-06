@@ -76,7 +76,7 @@
                           v-model="contactFormData.firstname"
                           v-slot="{ field, meta }"
                           :rules="{
-                            required: true
+                            required: true,
                           }"
                         >
                           <FieldLabel :required="true" for-input="firstname">
@@ -86,7 +86,7 @@
                             id="firstname"
                             :class="{
                               'fr-input--valid': meta.valid,
-                              'fr-input--error': !meta.valid
+                              'fr-input--error': !meta.valid,
                             }"
                             :placeholder="t('firstname')"
                             type="text"
@@ -111,7 +111,7 @@
                           v-model="contactFormData.lastname"
                           v-slot="{ field, meta }"
                           :rules="{
-                            required: true
+                            required: true,
                           }"
                         >
                           <FieldLabel :required="true" for-input="lastname">
@@ -122,7 +122,7 @@
                             class="form-control fr-input validate-required"
                             :class="{
                               'fr-input--valid': meta.valid,
-                              'fr-input--error': !meta.valid
+                              'fr-input--error': !meta.valid,
                             }"
                             id="lastname"
                             name="lastname"
@@ -146,7 +146,7 @@
                         v-slot="{ field, meta }"
                         :rules="{
                           email: true,
-                          required: true
+                          required: true,
                         }"
                       >
                         <FieldLabel :required="true" for-input="email">
@@ -157,7 +157,7 @@
                           class="validate-required form-control fr-input"
                           :class="{
                             'fr-input--valid': meta.valid,
-                            'fr-input--error': !meta.valid
+                            'fr-input--error': !meta.valid,
                           }"
                           v-model="contactFormData.email"
                           id="email"
@@ -180,7 +180,7 @@
                         v-model="contactFormData.profile"
                         v-slot="{ meta }"
                         :rules="{
-                          required: true
+                          required: true,
                         }"
                       >
                         <fieldset
@@ -189,12 +189,12 @@
                           role="group"
                           :class="{
                             'fr-fieldset--valid': meta.valid,
-                            'fr-fieldset--error': !meta.valid
+                            'fr-fieldset--error': !meta.valid,
                           }"
                         >
                           <legend id="radio-profile-legend">
                             {{ t("profile") }}
-                            <span style="color:red"> *</span> :
+                            <span style="color: red"> *</span> :
                           </legend>
                           <input
                             v-model="contactFormData.profile"
@@ -235,7 +235,7 @@
                         v-model="contactFormData.subject"
                         v-slot="{ field, meta }"
                         :rules="{
-                          required: true
+                          required: true,
                         }"
                       >
                         <FieldLabel :required="true" for-input="subject">
@@ -246,7 +246,7 @@
                           class="form-control fr-input validate-required"
                           :class="{
                             'fr-input--valid': meta.valid,
-                            'fr-input--error': !meta.valid
+                            'fr-input--error': !meta.valid,
                           }"
                           id="subject"
                           name="subject"
@@ -268,7 +268,7 @@
                         v-model="contactFormData.message"
                         v-slot="{ field, meta }"
                         :rules="{
-                          required: true
+                          required: true,
                         }"
                       >
                         <FieldLabel :required="true" for-input="message">
@@ -279,7 +279,7 @@
                           class="form-control fr-input validate-required"
                           :class="{
                             'fr-input--valid': meta.valid,
-                            'fr-input--error': !meta.valid
+                            'fr-input--error': !meta.valid,
                           }"
                           id="message"
                           name="message"
@@ -348,7 +348,7 @@ import { User } from "../models/User";
 import { defineProps, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { Form, Field, ErrorMessage } from "vee-validate";
-import '../validators/validationRules';
+import "../validators/validationRules";
 
 const { t } = useI18n();
 const props = defineProps<{
@@ -395,7 +395,6 @@ function closeModal() {
 }
 .bg-white {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  border-radius: 10px;
   background: var(--background-default-grey);
 }
 .text-right {

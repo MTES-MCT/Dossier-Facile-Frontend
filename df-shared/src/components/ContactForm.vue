@@ -141,7 +141,7 @@
                               class="form-control fr-input validate-required"
                               :class="{
                                 'fr-input--valid': valid,
-                                'fr-input--error': errors[0]
+                                'fr-input--error': errors[0],
                               }"
                               id="email"
                               name="email"
@@ -168,7 +168,7 @@
                           >
                             <legend id="radio-profile-legend">
                               {{ $t("profile") }}
-                              <span style="color:red"> *</span> :
+                              <span style="color: red"> *</span> :
                             </legend>
                             <input
                               v-model="contactFormData.profile"
@@ -218,7 +218,7 @@
                               class="form-control fr-input validate-required"
                               :class="{
                                 'fr-input--valid': valid,
-                                'fr-input--error': errors[0]
+                                'fr-input--error': errors[0],
                               }"
                               id="subject"
                               name="subject"
@@ -249,7 +249,7 @@
                               class="form-control fr-input validate-required"
                               :class="{
                                 'fr-input--valid': valid,
-                                'fr-input--error': errors[0]
+                                'fr-input--error': errors[0],
                               }"
                               id="message"
                               name="message"
@@ -272,7 +272,7 @@
                             class="bg-purple fr-checkbox-group"
                             :class="{
                               'fr-input-group--valid': valid,
-                              'fr-input-group--error': errors[0]
+                              'fr-input-group--error': errors[0],
                             }"
                           >
                             <input
@@ -322,7 +322,7 @@ import { User } from "../models/User";
 extend("is", {
   ...is,
   message: "require-accept",
-  validate: value => !!value
+  validate: (value) => !!value,
 });
 
 @Component({
@@ -332,8 +332,8 @@ extend("is", {
     DfButton,
     Modal,
     RequiredFieldsInstruction,
-    FieldLabel
-  }
+    FieldLabel,
+  },
 })
 export default class ContactForm extends Vue {
   @Prop() user!: User;
@@ -359,7 +359,7 @@ export default class ContactForm extends Vue {
       .then(() => {
         this.status = "OK";
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         this.status = "KO";
       });
@@ -372,13 +372,8 @@ export default class ContactForm extends Vue {
 </script>
 
 <style scoped lang="scss">
-.bg-blue {
-  width: 100%;
-  background-color: var(--bf100-g750);
-}
 .bg-white {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  border-radius: 10px;
   background: var(--background-default-grey);
 }
 .text-right {

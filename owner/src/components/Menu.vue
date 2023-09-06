@@ -80,7 +80,7 @@ function showDeleteAccountModal() {
               >{{ t('menu.dashboard') }}</a
             >
           </li>
-          <li class="warn">
+          <li>
             <DfButton class="fr-nav__link" @on-click="showDeleteAccountModal">
               {{ t('menu.deleteAccount') }}
             </DfButton>
@@ -94,31 +94,24 @@ function showDeleteAccountModal() {
         v-bind:aria-current="currentPage() === 'Contact' ? 'page' : undefined"
         class="fr-nav__link"
       >
-          <span class="fr-icon-mail-line fr-icon--sm" aria-hidden="true"></span>
-          {{ t('menu.contact-us') }}
+        <span class="fr-icon-mail-line fr-icon--sm" aria-hidden="true"></span>
+        {{ t('menu.contact-us') }}
       </a>
     </li>
     <li class="fr-nav__item fr-translate">
-        <LanguageSelector @on-change="changeLang"/>
+      <LanguageSelector @on-change="changeLang" />
     </li>
   </ul>
 </template>
 
 <style scoped lang="scss">
-@import "@gouvfr/dsfr/dist/utility/icons/icons-business/icons-business.css";
+@import '@gouvfr/dsfr/dist/utility/icons/icons-business/icons-business.css';
 
 .fr-nav__item {
   position: relative;
 
   a.fr-external-link::after {
     content: '';
-  }
-}
-
-.warn {
-  background-color: #fdf2f3;
-  button {
-    color: var(--error);
   }
 }
 

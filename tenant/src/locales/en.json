@@ -873,6 +873,7 @@
   "menu": {
     "help": "Help",
     "file": "My File",
+    "applications": "My applications",
     "account": "My Account",
     "messaging": "Messaging",
     "blog": "Blog",
@@ -884,11 +885,6 @@
     "identification-legal-person": "Legal Entity Identification",
     "identity-represent": "Representative Identity",
     "organism": "Organization"
-  },
-  "monfranceconnect": {
-    "optional": "optional",
-    "with-franceconnect-title": "Your documents with Mon FranceConnect",
-    "with-franceconnect-text": "Mon FranceConnect is a digital service provided by the State that allows you to retrieve your documents from various government agencies."
   },
   "nameinformationform": {
     "confirm": "Confirm",
@@ -1074,24 +1070,6 @@
     "btn-caf": "Simulate",
     "simulation-caf-title": "Are you eligible?",
     "simulation-caf-text": "Discover the estimation of housing assistance you could be eligible for."
-  },
-  "source": {
-    "mail-sent": "An email has been sent to the provided address.",
-    "clic-to-confirm": "Please click on the link sent to confirm your email address and proceed with your registration.",
-    "existing-account": "Link an existing account",
-    "register": "Create a new account",
-    "register-error": "An error occurred",
-    "connected": "Successfully connected to the partner",
-    "will-link-to-partner": "Confirm connection to the partner"
-  },
-  "sourcelink": {
-    "mail-sent": "An email has been sent to the provided address.",
-    "clic-to-confirm": "Please click on the link sent to confirm your email address and proceed with your registration.",
-    "existing-account": "Link an existing account",
-    "register": "Create a new account",
-    "register-error": "An error occurred",
-    "connected": "Successfully connected to the partner",
-    "will-link-to-partner": "Confirm connection to the partner"
   },
   "taxhelp": {
     "title": "Help",
@@ -1300,5 +1278,30 @@
   "modal": {
     "close": "Close",
     "close-alt": "Close modal window"
+  },
+  "sharing-page": {
+    "title": "My applications",
+    "file-not-ready": {
+      "title": "Your file {0}",
+      "status": {
+        "TO_PROCESS": "is being processed",
+        "DECLINED": "requires modifications",
+        "INCOMPLETE": "is incomplete"
+      },
+      "explanation": "As soon as it is validated, you will be able to share it and to manage the shared files below."
+    },
+    "shared-links": {
+      "title": "Shared files by email",
+      "date": "Date",
+      "contact": "Contact",
+      "last-visit": "Last visit",
+      "link-status": "Status",
+      "action": "Action",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "delete": "Delete",
+      "never": "Never",
+      "no-shared-file": "No shared files yet"
+    }
   }
 }

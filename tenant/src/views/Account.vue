@@ -50,11 +50,9 @@
               v-if="user.status === 'TO_PROCESS'"
             >
               <h3 class="fr-h4 dflex">
-                  <span aria-hidden="true" class="material-icons-outlined md-28"
-                    >timer</span
-                  >&nbsp;<span>{{
-                    $t("account.instructional-time-title")
-                  }}</span>
+                <span aria-hidden="true" class="material-icons-outlined md-28"
+                  >timer</span
+                >&nbsp;<span>{{ $t("account.instructional-time-title") }}</span>
               </h3>
               <p v-html="$t('account.instructional-time-text')"></p>
             </div>
@@ -129,8 +127,6 @@
                 <p>{{ $t("account.delete-bloc.content") }}</p>
                 <div class="align--center">
                   <DfButton
-                    class="delete-btn"
-                    primary="true"
                     data-fr-opened="false"
                     aria-controls="modal-delete-account"
                     style="visibility: none"
@@ -158,7 +154,10 @@
                     />
                   </a>
                 </div>
-                <p class="fr-mt-3w" v-html="$tc('account.opinion-bloc.warning')"></p>
+                <p
+                  class="fr-mt-3w"
+                  v-html="$tc('account.opinion-bloc.warning')"
+                ></p>
               </div>
             </div>
           </div>
@@ -363,11 +362,7 @@ export default class Account extends Vue {
   }
 
   canCopyLink() {
-    return (
-      this.user.status === "VALIDATED" &&
-      this.user.apartmentSharing?.tokenPublic !== undefined &&
-      this.user.apartmentSharing?.tokenPublic !== ""
-    );
+    return UtilsService.canShareFile(this.user);
   }
 
   isDenied() {
@@ -422,11 +417,6 @@ export default class Account extends Vue {
   background-color: var(--background-default-grey);
 }
 
-.bg-blue {
-  width: 100%;
-  background-color: var(--bf100-g750);
-}
-
 .fr-callout-white {
   background-color: var(--background-default-grey);
   &.warning {
@@ -445,7 +435,6 @@ h1 {
 
 .bg-white {
   box-shadow: 0 2px 6px 0 rgba(0, 0, 18, 0.16);
-  border-radius: 10px;
   background: var(--grey-1000-50);
 }
 .account-tabs {
@@ -470,12 +459,6 @@ h1 {
   @media (max-width: 706px) {
     padding-top: 1rem;
   }
-}
-
-.fr-btn.delete-btn {
-  background-color: var(--error);
-  --color-hover: rgba(246, 0, 0, 0.5);
-  --color-active: rgba(255, 91, 91, 0.5);
 }
 
 .grp {

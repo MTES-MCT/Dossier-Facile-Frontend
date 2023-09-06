@@ -7,10 +7,14 @@ import { useRouter } from 'vue-router';
 import { Property } from 'df-shared-next/src/models/Property';
 import UtilsService from '../services/UtilsService';
 import useOwnerStore from '../store/owner-store';
+import GmbiAd from "./GmbiAd.vue";
+import FeedbackRequest from "./FeedbackRequest.vue";
 
 const store = useOwnerStore();
 const { t } = useI18n();
 const router = useRouter();
+
+const displayGmbiAd = import.meta.env.VITE_DISPLAY_GMBI_AD === 'true';
 
 const username = computed(() => store.getUser?.firstName);
 const properties = computed(() => store.getProperties);
@@ -56,11 +60,11 @@ function getApplicantsCount(p: Property) {
 </script>
 
 <template>
-  <div class="fr-container fr-mb-3w fr-mt-3w">
-    <h2 class="fr-h3 blue-text">{{ t('dashboard.title', { name: username }) }}</h2>
-    <NakedCard>
+  <div class="fr-container fr-mb-5w fr-mt-5w">
+    <h1 class="fr-h4">{{ t('dashboard.title', { name: username }) }}</h1>
+    <NakedCard class="fr-p-md-3w">
       <div class="fr-grid-row space-between">
-        <h1 id="my-properties-title" class="fr-h4">{{ t('dashboard.my-properties') }}</h1>
+        <h2 id="my-properties-title" class="fr-h6">{{ t('dashboard.my-properties') }}</h2>
         <div>
           <Button @onClick="addProperty" :title="t('dashboard.add-property')" :primary="true">{{
             t('dashboard.add-property')
@@ -116,6 +120,15 @@ function getApplicantsCount(p: Property) {
         </tr>
       </table>
     </NakedCard>
+    <div class="fr-container--fluid fr-mt-2w">
+      <div class="fr-grid-row" style="gap:1rem" v-if="displayGmbiAd">
+        <GmbiAd class="fr-col-md" />
+        <FeedbackRequest class="fr-col-md" />
+      </div>
+      <div v-else>
+        <FeedbackRequest class="fr-col-md-6" />
+      </div>
+    </div>
   </div>
 </template>
 

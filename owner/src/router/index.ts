@@ -14,16 +14,10 @@ const routes = [
     meta: {
       title: 'DossierFacile propriétaire',
       requiresAuth: false,
+      requiresGuest: true,
       hasFooter: true,
     },
     component: LandingPage,
-    beforeEnter: (_to: any, _from: any, next: any) => {
-      if (keycloak.authenticated) {
-        next('/home');
-      } else {
-        next();
-      }
-    },
   },
   {
     path: '/home',
@@ -31,16 +25,10 @@ const routes = [
     meta: {
       title: 'Dashboard propriétaire - DossierFacile',
       requiresAuth: true,
+      requiresComplete: true,
       hasFooter: true,
     },
     component: Dashboard,
-    beforeEnter: async (_to: any, _from: any, next: any) => {
-      const store = useOwnerStore();
-      if (store.isLoggedIn && (!store.getUser?.firstName || !store.getUser?.lastName)) {
-        next({ name: 'AccountName' });
-      }
-      next();
-    },
   },
   {
     path: '/creation',
@@ -242,6 +230,12 @@ function updateMetaData(to: VueRouter.RouteLocationNormalized) {
 }
 
 router.beforeEach(async (to, _, next) => {
+  if (to.matched.some((record) => record.meta.requiresGuest)) {
+    if (keycloak.authenticated) {
+      next({ name: 'Dashboard' });
+      return;
+    }
+  }
   const store = useOwnerStore();
   if (to.matched.some((record) => record.meta.hasFooter)) {
     store.setHasFooter(true);
@@ -265,6 +259,12 @@ router.beforeEach(async (to, _, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!keycloak.authenticated) {
       keycloak.login({ redirectUri: OWNER_URL + to.fullPath });
+    }
+  }
+  if (to.matched.some((record) => record.meta.requiresComplete)) {
+    if (store.isLoggedIn && (!store.getUser?.firstName || !store.getUser?.lastName)) {
+      next({ name: 'AccountName' });
+      return;
     }
   }
   updateMetaData(to);

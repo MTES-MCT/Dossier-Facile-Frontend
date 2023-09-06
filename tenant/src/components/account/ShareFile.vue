@@ -98,7 +98,7 @@ import { User } from "df-shared/src/models/User";
     }),
   },
 })
-export default class FileErrors extends Vue {
+export default class ShareFile extends Vue {
   TENANT_URL = `https://${process.env.VUE_APP_TENANT_URL}`;
   shareType = "full";
   shareMethod = "mail";
@@ -122,6 +122,7 @@ export default class FileErrors extends Vue {
           message: "sharefile.sent-success",
         });
         this.email = "";
+        this.$store.dispatch("loadApartmentSharingLinks");
       })
       .catch((res) => {
         Vue.toasted.global.error_toast({

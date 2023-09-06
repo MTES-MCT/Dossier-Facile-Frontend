@@ -41,6 +41,11 @@ body {
   background-color: #f2f2f9;
 }
 
+.bg-blue {
+  width: 100%;
+  background-color: var(--bf100-g750);
+}
+
 .material-icons.md-16, .material-icons-outlined.md-16 { font-size: 16px; }
 .material-icons.md-18, .material-icons-outlined.md-18 { font-size: 18px; }
 .material-icons.md-24, .material-icons-outlined.md-24 { font-size: 24px; }
@@ -257,7 +262,6 @@ img {
 
 .bg-purple {
   padding: 1rem;
-  border-radius: 0.25rem;
   background-color: #e5e5f4;
 }
 

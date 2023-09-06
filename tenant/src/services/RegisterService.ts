@@ -132,15 +132,6 @@ export const RegisterService = {
     const url = `https://${process.env.VUE_APP_API_URL}/api/register/guarantorOrganism/documentIdentification`;
     return axios.post(url, formData);
   },
-
-  connectSource(internalPartnerId: string, source: string) {
-    const url = `https://${process.env.VUE_APP_API_URL}/api/tenant/linkTenantToPartner`;
-    return axios.post(url, {
-      internalPartnerId: internalPartnerId,
-      source: source
-    });
-  },
-
   async getFranceConnectToken() {
     return axios
       .get(

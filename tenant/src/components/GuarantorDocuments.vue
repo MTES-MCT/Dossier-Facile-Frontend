@@ -75,9 +75,15 @@
     >
       {{ $t("guarantordocuments.warning-need-residency-documents.p1") }}
       <ul>
-        <li>{{ $t("guarantordocuments.warning-need-residency-documents.list1") }}</li>
-        <li>{{ $t("guarantordocuments.warning-need-residency-documents.list2") }}</li>
-        <li>{{ $t("guarantordocuments.warning-need-residency-documents.list3") }}</li>
+        <li>
+          {{ $t("guarantordocuments.warning-need-residency-documents.list1") }}
+        </li>
+        <li>
+          {{ $t("guarantordocuments.warning-need-residency-documents.list2") }}
+        </li>
+        <li>
+          {{ $t("guarantordocuments.warning-need-residency-documents.list3") }}
+        </li>
       </ul>
       {{ $t("guarantordocuments.warning-need-residency-documents.p2") }}
     </ConfirmModal>
@@ -310,7 +316,6 @@ h2 {
 
 .card {
   padding: 1rem;
-  border-radius: 0.25rem;
 }
 
 .card-container {

@@ -16,6 +16,9 @@ import { FinancialDocument } from "df-shared/src/models/FinancialDocument";
 import { DocumentType } from "df-shared/src/models/Document";
 import { DocumentTypeConstants } from "../components/documents/share/DocumentTypeConstants";
 import { DfMessage } from "df-shared/src/models/DfMessage";
+import moment from "moment";
+import {ApartmentSharingLink} from "../../../df-shared/src/models/ApartmentSharingLink";
+import {ApartmentSharingLinkService} from "@/services/ApartmentSharingLinkService";
 
 Vue.use(Vuex);
 
@@ -34,6 +37,7 @@ export class DfState {
   skipLinks: SkipLink[] = [];
   guarantorFinancialDocumentSelected = new FinancialDocument();
   editGuarantorFinancialDocument = false;
+  apartmentSharingLinks: ApartmentSharingLink[] = [];
 }
 
 const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
@@ -189,6 +193,13 @@ const store = new Vuex.Store({
       );
       Vue.set(state, "editGuarantorFinancialDocument", true);
     },
+    setApartmentSharingLinks(state, links: ApartmentSharingLink[]) {
+      const sortedLinks = links.sort(
+        (a: ApartmentSharingLink, b: ApartmentSharingLink) =>
+          (a.lastVisit || "") > (b.lastVisit || "") ? -1 : 1
+      );
+      Vue.set(state, "apartmentSharingLinks", sortedLinks);
+    },
   },
   actions: {
     logout({ commit }, redirect = true) {
@@ -338,6 +349,7 @@ const store = new Vuex.Store({
     setLang(_, lang) {
       i18n.locale = lang;
       i18n.fallbackLocale = "fr";
+      moment.locale(lang);
       const html = document.documentElement;
       html.setAttribute("lang", i18n.locale);
       const aYearFromNow = new Date();
@@ -783,6 +795,39 @@ const store = new Vuex.Store({
           return Promise.reject(error);
         }
       );
+    },
+    loadApartmentSharingLinks({ commit }) {
+      return ApartmentSharingLinkService.getLinks().then(
+        (response) => {
+          const links = response.data.links;
+          commit("setApartmentSharingLinks", links);
+          return Promise.resolve(links);
+        },
+        (error) => {
+          return Promise.reject(error);
+        }
+      );
+    },
+    deleteApartmentSharingLink({ commit }, linkToDelete: ApartmentSharingLink) {
+      ApartmentSharingLinkService.deleteLink(linkToDelete).then((_) => {
+        const newLinks = store.state.apartmentSharingLinks.filter(
+          (link) => link.id !== linkToDelete.id
+        );
+        commit("setApartmentSharingLinks", newLinks);
+      });
+    },
+    async updateApartmentSharingLinkStatus(
+      { commit },
+      { link: linkToUpdate, enabled }
+    ) {
+      await ApartmentSharingLinkService.updateLinkStatus(linkToUpdate, enabled);
+      const updatedLinks = store.state.apartmentSharingLinks.map((link) => {
+        if (link.id === linkToUpdate.id) {
+          link.enabled = enabled;
+        }
+        return link;
+      });
+      commit("setApartmentSharingLinks", updatedLinks);
     },
   },
   getters: {

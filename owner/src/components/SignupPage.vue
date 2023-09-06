@@ -51,7 +51,9 @@ function onRegister(user: User) {
       <div class="fr-col-lg-6 fr-col-12">
         <div class="bg-pic">
           <div class="bg-white max-450 left-row fr-pt-3w fr-mt-7w fr-mb-7w">
-            <h2 class="fr-h5 blue-text text-center fr-mt-3w">Trouvez votre Perle Rare du Locataire !</h2>
+            <h2 class="fr-h5 blue-text text-center fr-mt-3w">
+              Trouvez votre Perle Rare du Locataire !
+            </h2>
             <div class="">
               <p>
                 Nous vous proposons un espace 100 % gratuit et sécurisé pour recevoir et centraliser
@@ -61,9 +63,7 @@ function onRegister(user: User) {
                 Gagnez du temps, de l’argent grâce à notre équipe qui accompagne vos candidats
                 locataires dans la constitution de leur dossier de location et valide leurs pièces.
               </p>
-              <p>
-                Vous pouvez maintenant choisir votre futur locataire en toute sérénité
-              </p>
+              <p>Vous pouvez maintenant choisir votre futur locataire en toute sérénité</p>
             </div>
           </div>
         </div>
@@ -112,7 +112,6 @@ body {
 
 .bg-purple {
   margin: 8px;
-  border-radius: 4px;
   background-color: #e5e5f4;
 }
 

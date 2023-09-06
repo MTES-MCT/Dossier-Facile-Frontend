@@ -921,6 +921,7 @@
   "menu": {
     "help": "Aide",
     "file": "Mon dossier",
+    "applications": "Mes candidatures",
     "account": "Mon compte",
     "messaging": "Messagerie",
     "blog": "Blog",
@@ -932,11 +933,6 @@
     "identification-legal-person": "Identité personne morale",
     "identity-represent": "Identité représentant",
     "organism": "Organisme"
-  },
-  "monfranceconnect": {
-    "optional": "optionnel",
-    "with-franceconnect-title": "Vos justificatifs avec Mon FranceConnect",
-    "with-franceconnect-text": "Mon FranceConnect est un service numérique de l'État vous permettant de récupérer vos justificatifs provenant de différentes administrations."
   },
   "nameinformationform": {
     "confirm": "Confirmer",
@@ -1121,24 +1117,6 @@
     "btn-caf": "Faire une simulation",
     "simulation-caf-title": "Êtes-vous éligible ?",
     "simulation-caf-text": "Découvrez l'estimation de l'aide au logement à laquelle vous pourriez être éligible."
-  },
-  "source": {
-    "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
-    "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre votre inscription.",
-    "existing-account": "Lier un compte existant",
-    "register": "Créer un nouveau compte",
-    "register-error": "Une erreur est survenue",
-    "connected": "Connexion au partenaire réussie",
-    "will-link-to-partner": "Confirmer la connexion au partenaire"
-  },
-  "sourcelink": {
-    "mail-sent": "Un mail vous a été envoyé à l'adresse indiquée.",
-    "clic-to-confirm": "Veuillez cliquer sur le lien envoyé afin de confirmer votre adresse mail et poursuivre votre inscription.",
-    "existing-account": "Lier un compte existant",
-    "register": "Créer un nouveau compte",
-    "register-error": "Une erreur est survenue",
-    "connected": "Connexion au partenaire réussie",
-    "will-link-to-partner": "Confirmer la connexion au partenaire"
   },
   "taxhelp": {
     "title": "Aide",
@@ -1341,5 +1319,30 @@
   "modal": {
     "close": "Fermer",
     "close-alt": "Fermer la fenêtre modale"
+  },
+  "sharing-page": {
+    "title": "Mes candidatures",
+    "file-not-ready": {
+      "title": "Votre dossier {0}",
+      "status": {
+        "TO_PROCESS": "est en cours de traitement",
+        "DECLINED": "nécessite des modifications",
+        "INCOMPLETE": "est incomplet"
+      },
+      "explanation": "Lorsque celui-ci sera validé, vous pourrez le partager et vous retrouverez ci-dessous la liste de vos partages par mail."
+    },
+    "shared-links": {
+      "title": "Dossiers partagés par mail",
+      "date": "Date",
+      "contact": "Contact",
+      "last-visit": "Dernière visite",
+      "link-status": "Statut",
+      "action": "Action",
+      "enabled": "Activé",
+      "disabled": "Desactivé",
+      "delete": "Supprimer",
+      "never": "Jamais",
+      "no-shared-file": "Aucun dossier partagé pour l'instant"
+    }
   }
 }
