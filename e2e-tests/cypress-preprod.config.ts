@@ -15,10 +15,10 @@ export default defineConfig({
   },
   env: {
     configName: "preprod",
-    mainUrl: "www-dev.dossierfacile.fr",
-    tenantUrl: "locataire-dev.dossierfacile.fr",
+    mainUrl: "https://www-dev.dossierfacile.fr",
+    tenantUrl: "https://locataire-dev.dossierfacile.fr",
     tenantUser: "thibault",
-    ownerUrl: "proprietaire-dev.dossierfacile.fr",
+    ownerUrl: "https://proprietaire-dev.dossierfacile.fr",
     ownerUser: "william",
   },
   chromeWebSecurity: false,
