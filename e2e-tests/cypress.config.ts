@@ -12,10 +12,10 @@ export default defineConfig({
   },
   env: {
     configName: "local",
-    mainUrl: "localhost:9001",
-    tenantUrl: "localhost:9002",
+    mainUrl: "http://localhost:9001",
+    tenantUrl: "http://localhost:9002",
     tenantUser: "elsa",
-    ownerUrl: "localhost:3000",
+    ownerUrl: "http://localhost:3000",
     ownerUser: "laurent",
   },
   chromeWebSecurity: false
