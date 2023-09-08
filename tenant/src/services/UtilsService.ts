@@ -2,6 +2,7 @@ import { User } from "df-shared/src/models/User";
 import { DfDocument } from "../../../df-shared/src/models/DfDocument";
 import { Guarantor } from "../../../df-shared/src/models/Guarantor";
 import store from "../store";
+import moment from "moment";
 import { Vue } from "vue-property-decorator";
 
 export const UtilsService = {
@@ -206,6 +207,14 @@ export const UtilsService = {
       user.apartmentSharing?.tokenPublic !== undefined &&
       user.apartmentSharing?.tokenPublic !== ""
     );
+  },
+  useNewOtherResidencyCategory(): boolean {
+    // TODO remove all code related to this method after 2024-01-29
+    const activationDate = process.env.VUE_APP_OTHER_RESIDENCY_ACTIVATION_DATE;
+    if (activationDate === undefined) {
+      return true;
+    }
+    return moment().isAfter(activationDate);
   },
   handleCommonSaveError(err: any) {
     if (err?.response?.data?.message === null) {

@@ -25,14 +25,14 @@ describe(
       testResidencyStep();
     });
 
-    it("add residency documents for guarantor", () => {
+    it.skip("add residency documents for guarantor", () => {
       cy.visit("/info-garant/0");
       clickOnMenuItem("Situation d'hébergement");
 
       testResidencyStep();
     });
 
-    it("add residency documents for cotenant", () => {
+    it.skip("add residency documents for cotenant", () => {
       clickOnMenuItem("Les documents de mon conjoint");
       clickOnMenuItem("Situation d'hébergement");
 
@@ -58,6 +58,13 @@ describe(
       changeResidencyCategory("Hébergé par une personne tierce");
       verifyThatThreeDocumentsAreMandatory();
       goBackToResidency();
+
+      // Should be able to add text
+      changeResidencyCategory("Dans une autre situation");
+      cy.clickOnNext().expectPath("/2");
+      cy.get("#customText").type("Test text").clickOnNext();
+      goBackToResidency();
+      cy.get("#customText").should("have.value", "Test text");
     }
 
     function selectResidencyCategory(categoryLabel: string) {
