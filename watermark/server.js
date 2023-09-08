@@ -4,16 +4,18 @@ const history = require("connect-history-api-fallback");
 const app = express();
 app.use(history());
 
+const CSP_DOMAIN =  process.env.VITE_CSP_DOMAIN || '*.filigrane.beta.gouv.fr';
+
 app.use(function(req, res, next) {
   res.setHeader(
     "Content-Security-Policy",
     "default-src 'none'; " +
-      "script-src 'self' *.dossierfacile.fr blob:; " +
+      `script-src 'self' ${CSP_DOMAIN}  blob:; ` +
       "style-src 'self'; " +
       "img-src 'self' data:; " +
       "font-src 'self' data:; " +
       "object-src 'none'; " +
-      "connect-src https://sentry.incubateur.net *.dossierfacile.fr dossierfacile-filigrane-prod.osc-secnum-fr1.scalingo.io https://dossierfacile-filigrane-preprod.osc-fr1.scalingo.io blob:; " +
+      `connect-src https://sentry.incubateur.net ${CSP_DOMAIN} blob:; ` +
       "frame-src *.dossierfacile.fr; " +
       "child-src *.dossierfacile.fr"
   );
