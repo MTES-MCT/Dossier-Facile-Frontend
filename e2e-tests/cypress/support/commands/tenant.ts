@@ -17,12 +17,15 @@ Cypress.Commands.add("uploadDocument", (numberOfFiles: number = 1) => {
   cy.wait(`@${alias}`)
     .its('response.statusCode')
     .should('eq', 200);
+  cy.waitUntilLoaderIsGone();
+});
+
+Cypress.Commands.add("waitUntilLoaderIsGone", () => {
   cy.waitUntil(
-    // Wait until loader is gone
     () => Cypress.$('.vld-background').length === 0,
     { interval: 100, timeout: 10000 }
   );
-});
+})
 
 Cypress.Commands.add("simpleUploadDocumentStep", (buttonToSelect: string, numberOfFiles: number = 1) => {
   cy.contains(buttonToSelect)

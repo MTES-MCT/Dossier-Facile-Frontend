@@ -12,6 +12,8 @@ declare namespace Cypress {
 
     uploadDocument(numberOfFiles?: number): Chainable<void>;
 
+    waitUntilLoaderIsGone(): Chainable<void>;
+
     clickOnNext(): Chainable<void>;
 
     expectPath(path: string): Chainable<void>;

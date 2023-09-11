@@ -25,14 +25,14 @@ describe(
       testResidencyStep();
     });
 
-    it.skip("add residency documents for guarantor", () => {
+    it("add residency documents for guarantor", () => {
       cy.visit("/info-garant/0");
       clickOnMenuItem("Situation d'hébergement");
 
       testResidencyStep();
     });
 
-    it.skip("add residency documents for cotenant", () => {
+    it("add residency documents for cotenant", () => {
       clickOnMenuItem("Les documents de mon conjoint");
       clickOnMenuItem("Situation d'hébergement");
 
@@ -43,6 +43,14 @@ describe(
       // Should be able to continue without choosing a category
       cy.clickOnNext();
       goBackToResidency();
+
+      // Should be able to add text
+      selectResidencyCategory("Dans une autre situation");
+      cy.get(".dropbox").should("not.exist");
+      cy.clickOnNext().expectPath("/2");
+      cy.get("#customText").type("Test text").clickOnNext();
+      goBackToResidency();
+      cy.get("#customText").should("have.value", "Test text");
 
       // Should be able to continue without uploading a file
       selectResidencyCategory("Locataire");
@@ -58,13 +66,6 @@ describe(
       changeResidencyCategory("Hébergé par une personne tierce");
       verifyThatThreeDocumentsAreMandatory();
       goBackToResidency();
-
-      // Should be able to add text
-      changeResidencyCategory("Dans une autre situation");
-      cy.clickOnNext().expectPath("/2");
-      cy.get("#customText").type("Test text").clickOnNext();
-      goBackToResidency();
-      cy.get("#customText").should("have.value", "Test text");
     }
 
     function selectResidencyCategory(categoryLabel: string) {
@@ -93,6 +94,7 @@ describe(
         .get("button")
         .contains(buttonLabel)
         .click({ force: true });
+      cy.waitUntilLoaderIsGone();
     }
 
     function goBackToResidency() {

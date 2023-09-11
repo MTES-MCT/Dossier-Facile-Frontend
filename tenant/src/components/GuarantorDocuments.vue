@@ -13,11 +13,10 @@
           ></GuarantorFooter>
         </div>
         <div v-if="substep === 2">
-          <GuarantorResidency></GuarantorResidency>
-          <GuarantorFooter
+          <GuarantorResidency
             @on-back="goBack"
             @on-next="checkResidencyAndGoNext"
-          ></GuarantorFooter>
+          ></GuarantorResidency>
         </div>
         <div v-if="substep === 3">
           <GuarantorProfessional></GuarantorProfessional>
