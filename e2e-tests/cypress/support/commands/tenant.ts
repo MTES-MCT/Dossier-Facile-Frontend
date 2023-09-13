@@ -7,11 +7,14 @@ Cypress.Commands.add("tenantLogin", (username: string) => {
   cy.visit(Cypress.env("tenantUrl"));
 });
 
+let uploadCount = 0;
+
 Cypress.Commands.add("uploadDocument", (numberOfFiles: number = 1) => {
-  cy.intercept("POST", "/api/register/document*").as("uploadDocument");
-  const files = [...Array(numberOfFiles).keys()].map(_ => "assets/test-document.pdf")
+  const alias = "uploadDocument" + uploadCount++;
+  cy.intercept("POST", /.*\/api\/register\/(guarantor[^\/]*\/)?document.*/).as(alias);
+  const files = [...Array(numberOfFiles).keys()].map(_ => "assets/test-document.png")
   cy.get(".input-file").selectFile(files);
-  cy.wait("@uploadDocument")
+  cy.wait(`@${alias}`)
     .its('response.statusCode')
     .should('eq', 200);
   cy.waitUntil(
