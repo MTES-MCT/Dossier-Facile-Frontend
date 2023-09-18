@@ -16,8 +16,6 @@ declare namespace Cypress {
 
     expectPath(path: string): Chainable<void>;
 
-    acceptCookies(): Chainable<void>;
-
     testAccessibility(): Chainable<void>;
 
     simpleUploadDocumentStep(buttonToSelect: string, numberOfFiles?: number): Chainable<void>;

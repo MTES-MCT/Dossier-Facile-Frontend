@@ -9,7 +9,6 @@ describe("accessibility checks", () => {
 
   it("funnel accessibility", () => {
     cy.tenantLogin(username);
-    cy.acceptCookies();
     cy.testAccessibility();
     cy.clickOnNext();
 

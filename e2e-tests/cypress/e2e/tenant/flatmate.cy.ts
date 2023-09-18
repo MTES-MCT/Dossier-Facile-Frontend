@@ -10,7 +10,6 @@ describe("flatmate tenant scenario", () => {
 
   it("validate file", () => {
     cy.tenantLogin(user.username);
-    cy.acceptCookies();
 
     cy.expectPath("/profile");
     cy.get("#lastname").should("have.value", user.lastname);
@@ -44,7 +43,7 @@ describe("flatmate tenant scenario", () => {
 
     cy.expectPath("/choix-garant");
     cy.contains("Une personne morale")
-      .click()
+      .click({force: true})
       .clickOnNext();
 
     cy.expectPath("/info-garant/0");
