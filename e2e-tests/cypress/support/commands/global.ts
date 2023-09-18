@@ -50,12 +50,6 @@ Cypress.Commands.add("clickOnNext", () => {
   cy.get(".next-btn").click();
 });
 
-Cypress.Commands.add("acceptCookies", () => {
-  cy.get(".cookie")
-    .contains("Accepter")
-    .click();
-});
-
 Cypress.Commands.add("testAccessibility", () => {
   cy.wait(200);
   cy.injectAxe();

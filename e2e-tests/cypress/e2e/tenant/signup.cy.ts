@@ -5,7 +5,6 @@ describe("signup page", () => {
 
   beforeEach("visit signup page", () => {
     cy.visit(`${Cypress.env("tenantUrl")}/signup`);
-    cy.acceptCookies();
   });
 
   it("should warn about weak password", () => {

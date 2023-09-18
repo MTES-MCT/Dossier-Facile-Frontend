@@ -9,7 +9,6 @@ describe("alone tenant scenario", () => {
 
   it("validate file", () => {
     cy.tenantLogin(user.username);
-    cy.acceptCookies();
 
     cy.expectPath("/profile");
     cy.get("#lastname").should("have.value", user.lastname);
