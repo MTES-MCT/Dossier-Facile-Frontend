@@ -44,8 +44,8 @@ import router from "./router";
     Menu,
     TheFooter,
     Cookies,
-    SkipLinks
-  }
+    SkipLinks,
+  },
 })
 export default class App extends Vue {
   cookieHidden = this.$cookies.isKey("accept-cookie");
@@ -89,7 +89,7 @@ export default class App extends Vue {
         config: {
           id: "UA-50823626-2",
           params: {
-            send_page_view: true
+            send_page_view: true,
           },
           linker: {
             domains: [
@@ -97,14 +97,13 @@ export default class App extends Vue {
               "www.dossierfacile.fr",
               "locataire.dossierfacile.fr",
               "proprietaire.dossierfacile.fr",
-              "sso.dossierfacile.fr"
-            ]
-          }
-        }
+              "sso.dossierfacile.fr",
+            ],
+          },
+        },
       },
       router
     );
-    Vue.prototype.inspectlet();
     this.cookieHidden = true;
   }
 

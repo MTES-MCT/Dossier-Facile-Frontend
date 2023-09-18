@@ -40,7 +40,7 @@ function onLogin() {
 }
 
 function goToTenant() {
-    window.location.href = TENANT_URL;
+  window.location.href = TENANT_URL;
 }
 
 function onLogout() {
@@ -49,7 +49,6 @@ function onLogout() {
 
 function acceptCookies() {
   cookies.set('accept-cookie', 'true');
-  // Vue.prototype.inspectlet();
 
   cookieHidden.value = true;
 }
