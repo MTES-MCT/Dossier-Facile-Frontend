@@ -139,15 +139,6 @@
               </div>
             </validation-provider>
           </div>
-
-          <div class="fr-col-12 fr-mb-3w">
-            <vue-recaptcha
-              ref="captcha"
-              :sitekey="SITE_KEY"
-              :loadRecaptchaScript="true"
-              @verify="onVerify"
-            ></vue-recaptcha>
-          </div>
           <div class="fr-col-12 fr-mb-3w">
             <validation-provider
               rules="is"
@@ -172,8 +163,7 @@
           </div>
 
           <div class="fr-col-12 text-center fr-mb-5w">
-            <button class="fr-btn full-width-btn" type="submit"
-              onclick="FLOOD3('dossi0', 'bouton') && pixelLead();">
+            <button class="fr-btn full-width-btn" type="submit">
               {{ $t("submit") }}
             </button>
           </div>
@@ -189,7 +179,6 @@ import {Component, Prop, Vue} from "vue-property-decorator";
 import {User} from "df-shared/src/models/User";
 import {extend, ValidationObserver, ValidationProvider} from "vee-validate";
 import {is} from "vee-validate/dist/rules";
-import VueRecaptcha from "vue-recaptcha";
 import Password from "vue-password-strength-meter";
 import {PASSWORD_MIN_SCORE} from "../validation-rules";
 import {AuthService} from "../services/AuthService";
@@ -204,12 +193,10 @@ extend("is", {
   components: {
     ValidationProvider,
     ValidationObserver,
-    VueRecaptcha,
     Password
   }
 })
 export default class Register extends Vue {
-  SITE_KEY = process.env.VUE_APP_CAPTCHA_SITE_KEY;
   FRANCE_CONNECT_LOGIN_URL = process.env.VUE_APP_FRANCE_CONNECT_LOGIN_URL;
 
   @Prop({ default: "" }) email!: string;
@@ -229,11 +216,6 @@ export default class Register extends Vue {
       return;
     }
     this.$emit("on-register", this.user);
-    (this.$refs.captcha as VueRecaptcha).reset();
-  }
-
-  onVerify(captcha: string) {
-    this.user.captcha = captcha;
   }
 
   setScore(s: number) {
