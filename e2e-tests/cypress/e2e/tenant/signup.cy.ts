@@ -30,10 +30,6 @@ describe("signup page", () => {
     cy.get("#password").type(goodPassword);
     cy.get("#confirm-password").type(goodPassword);
 
-    cy.iframe('iframe[title="reCAPTCHA"]')
-      .find("#recaptcha-anchor")
-      .click();
-
     cy.get('label[for="acceptCgu"]').click();
 
     cy.get("#signupForm").submit();
