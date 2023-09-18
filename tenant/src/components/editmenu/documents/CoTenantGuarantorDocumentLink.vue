@@ -5,7 +5,7 @@
       step: 5,
       substep: substep,
       tenantId: coTenant.id,
-      guarantorId: guarantor.id
+      guarantorId: guarantor.id,
     }"
     :document-type="documentType"
     :status="getStatus()"
@@ -23,7 +23,7 @@ import { DocumentType } from "./DocumentType";
 import { User } from "df-shared/src/models/User";
 
 @Component({
-  components: { ColoredTag, DocumentLink }
+  components: { ColoredTag, DocumentLink },
 })
 export default class CoTenantGuarantorDocumentLink extends Vue {
   @Prop() guarantor!: Guarantor;

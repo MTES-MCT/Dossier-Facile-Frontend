@@ -14,13 +14,13 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 @Component({
   components: {
     GuarantorDocuments,
-    ProfileContainer
+    ProfileContainer,
   },
   computed: {
     ...mapGetters({
-      guarantors: "guarantors"
-    })
-  }
+      guarantors: "guarantors",
+    }),
+  },
 })
 export default class GuarantorDocumentsPage extends Vue {
   guarantors!: Guarantor[];
@@ -53,4 +53,3 @@ h4 {
   margin: 0;
 }
 </style>
-

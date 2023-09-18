@@ -46,7 +46,7 @@
               {{ $t("partnerssection.mds-btn") }}
             </a>
           </div>
-          <div class=" service-box-content">
+          <div class="service-box-content">
             <img
               alt="logo mes droits sociaux"
               class="fr-pl-2w fr-pb-2w"
@@ -76,7 +76,7 @@
               {{ $t("partnerssection.signal-btn") }}
             </a>
           </div>
-          <div class=" service-box-content">
+          <div class="service-box-content">
             <img
               alt="Police nationale"
               class="fr-pl-2w fr-pb-2w"
@@ -91,7 +91,7 @@
             <div class="fr-m-0 fr-py-2w">
               <i18n path="partnerssection.signal-text">
                 <template v-slot:nodocument>
-                  <span style="font-weight:bold">{{
+                  <span style="font-weight: bold">{{
                     $t("partnerssection.nodocument")
                   }}</span>
                 </template>

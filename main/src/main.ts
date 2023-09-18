@@ -4,7 +4,6 @@ import router from "./router";
 import store from "./store";
 import i18n from "./i18n";
 import VueCookies from "vue-cookies";
-import VueGtag from "vue-gtag";
 import "df-shared/src/validation-rules";
 import * as Sentry from "@sentry/vue";
 import { BrowserTracing } from "@sentry/tracing";
@@ -59,27 +58,3 @@ new Vue({
   i18n,
   render: (h) => h(App),
 }).$mount("#app");
-
-if (Vue.$cookies.get("accept-cookie") === "true") {
-  Vue.use(
-    VueGtag,
-    {
-      config: {
-        id: "UA-50823626-2",
-        params: {
-          send_page_view: true,
-        },
-        linker: {
-          domains: [
-            "dossierfacile.fr",
-            "www.dossierfacile.fr",
-            "locataire.dossierfacile.fr",
-            "proprietaire.dossierfacile.fr",
-            "sso.dossierfacile.fr",
-          ],
-        },
-      },
-    },
-    router
-  );
-}

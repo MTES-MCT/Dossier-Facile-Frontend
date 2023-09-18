@@ -6,11 +6,8 @@ export const AnalyticsService = {
     if (!process.env.VUE_APP_MATOMO_ENABLE) {
       return;
     }
-    if (Vue.$cookies.get("accept-cookie") === "true") {
-      if (store.state.user.id !== undefined) {
-        data.event_label = store.state.user.id;
-      }
-      Vue.prototype.$gtag.event(name, data);
+    if (store.state.user.id !== undefined) {
+      data.event_label = store.state.user.id;
     }
     // Matomo already manage consent
     window._paq.push([

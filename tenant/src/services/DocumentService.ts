@@ -269,5 +269,5 @@ export const DocumentService = {
           ) || "EMPTY";
     }
     return status;
-  }
+  },
 };

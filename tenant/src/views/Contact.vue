@@ -10,13 +10,13 @@ import ContactForm from "df-shared/src/components/ContactForm.vue";
 
 @Component({
   components: {
-    ContactForm
+    ContactForm,
   },
   computed: {
     ...mapState({
-      user: "user"
-    })
-  }
+      user: "user",
+    }),
+  },
 })
 export default class Contact extends Vue {
   user!: User;
@@ -31,5 +31,4 @@ export default class Contact extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

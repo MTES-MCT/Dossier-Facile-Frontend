@@ -6,9 +6,12 @@
     <div class="fr-tile fr-tile--horizontal">
       <div class="fr-tile__body fr-ml-2w fr-mr-2w">
         <h4 class="fr-tile__title">
-          <a class="fr-tile__link" :title="$t('infocard.edit-title', [title])" href>{{
-            title
-          }}</a>
+          <a
+            class="fr-tile__link"
+            :title="$t('infocard.edit-title', [title])"
+            href
+            >{{ title }}</a
+          >
         </h4>
         <slot></slot>
         <button

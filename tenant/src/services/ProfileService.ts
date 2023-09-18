@@ -16,7 +16,7 @@ export const ProfileService = {
         firstName: user.firstName,
         lastName: user.lastName,
         preferredName: user.preferredName,
-        zipCode: user.zipCode
+        zipCode: user.zipCode,
       }
     );
   },
@@ -90,5 +90,5 @@ export const ProfileService = {
   },
   getFile(fileUrl: string): Promise<any> {
     return axios.get(fileUrl, { responseType: "blob" });
-  }
+  },
 };

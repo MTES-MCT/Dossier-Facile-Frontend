@@ -102,8 +102,8 @@ import { UtilsService } from "@/services/UtilsService";
     ProfileFooter,
     NakedCard,
     CardRow,
-    SimulationCaf
-  }
+    SimulationCaf,
+  },
 })
 export default class CoTenantFinancialList extends Vue {
   @Prop() readonly coTenantId!: number;
@@ -145,7 +145,7 @@ export default class CoTenantFinancialList extends Vue {
         f.monthlySum = d.monthlySum || 0;
         f.id = d.id;
 
-        const localDoc = DocumentTypeConstants.FINANCIAL_DOCS.find(d2 => {
+        const localDoc = DocumentTypeConstants.FINANCIAL_DOCS.find((d2) => {
           return d2.value === d.subCategory;
         });
         if (localDoc !== undefined) {
@@ -171,7 +171,7 @@ export default class CoTenantFinancialList extends Vue {
   private hasNoIncome(financialDocuments?: FinancialDocument[]): boolean {
     return (financialDocuments &&
       financialDocuments.length > 0 &&
-      financialDocuments.find(f => {
+      financialDocuments.find((f) => {
         return f.documentType && f.documentType.key !== "no-income";
       }) === undefined) as boolean;
   }
@@ -182,7 +182,7 @@ export default class CoTenantFinancialList extends Vue {
       this.tenantOriginalDocuments
     );
     if (this.hasNoIncome(this.tenantFinancialDocuments.value)) {
-      this.financialDocument = this.tenantFinancialDocuments.value.find(f => {
+      this.financialDocument = this.tenantFinancialDocuments.value.find((f) => {
         return f.documentType && f.documentType.key === "no-income";
       }) as FinancialDocument;
     } else {
@@ -233,9 +233,8 @@ export default class CoTenantFinancialList extends Vue {
       .dispatch("deleteDocument", f?.id)
       .then(
         () => {
-          this.tenantFinancialDocuments.value = this.tenantFinancialDocuments.value?.filter(
-            d => d.id != f?.id
-          );
+          this.tenantFinancialDocuments.value =
+            this.tenantFinancialDocuments.value?.filter((d) => d.id != f?.id);
         },
         () => {
           Vue.toasted.global.error();
@@ -294,4 +293,3 @@ export default class CoTenantFinancialList extends Vue {
   width: 180px;
 }
 </style>
-

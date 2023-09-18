@@ -1,7 +1,9 @@
 <template>
   <div class="caf-box fr-px-md-5w fr-pb-md-2w fr-mb-3w bg-purple">
     <div class="header fr-h6">
-      <div class="header-title">{{ $t("simulationcaf.simulation-caf-title") }}</div>
+      <div class="header-title">
+        {{ $t("simulationcaf.simulation-caf-title") }}
+      </div>
       <img alt="logo caf" class="logo-caf" src="../../../assets/caf.svg" />
     </div>
     <div>

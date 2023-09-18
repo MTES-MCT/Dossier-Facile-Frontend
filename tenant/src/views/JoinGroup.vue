@@ -20,13 +20,13 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 @Component({
   components: {
     InitPassword,
-    ConfirmModal
+    ConfirmModal,
   },
   computed: {
     ...mapGetters({
-      isLoggedIn: "isLoggedIn"
-    })
-  }
+      isLoggedIn: "isLoggedIn",
+    }),
+  },
 })
 export default class JoinCouple extends Vue {
   isLoggedIn!: boolean;
@@ -67,4 +67,3 @@ export default class JoinCouple extends Vue {
   }
 }
 </script>
-

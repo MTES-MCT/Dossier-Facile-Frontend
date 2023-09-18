@@ -14,7 +14,9 @@
           <div class="fr-mt-3w">
             <p v-html="$t('tenantguarantorchoice.optional-guarantor')"></p>
             <div class="fr-alert fr-alert--info">
-              <p v-html="$t('tenantguarantorchoice.two-guarantors-warning')"></p>
+              <p
+                v-html="$t('tenantguarantorchoice.two-guarantors-warning')"
+              ></p>
             </div>
           </div>
         </NakedCard>
@@ -123,7 +125,7 @@ export default class TenantGuarantorChoice extends Vue {
       this.$store
         .dispatch("setGuarantorType", {
           tenantId: this.tenantId.toString(),
-          typeGuarantor: this.tmpGuarantorType
+          typeGuarantor: this.tmpGuarantorType,
         })
         .then(
           () => {

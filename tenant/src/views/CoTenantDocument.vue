@@ -29,9 +29,15 @@
       >
         {{ $t("cotenantdocument.warning-need-residency-documents.p1") }}
         <ul>
-          <li>{{ $t("cotenantdocument.warning-need-residency-documents.list1") }}</li>
-          <li>{{ $t("cotenantdocument.warning-need-residency-documents.list2") }}</li>
-          <li>{{ $t("cotenantdocument.warning-need-residency-documents.list3") }}</li>
+          <li>
+            {{ $t("cotenantdocument.warning-need-residency-documents.list1") }}
+          </li>
+          <li>
+            {{ $t("cotenantdocument.warning-need-residency-documents.list2") }}
+          </li>
+          <li>
+            {{ $t("cotenantdocument.warning-need-residency-documents.list3") }}
+          </li>
         </ul>
         {{ $t("cotenantdocument.warning-need-residency-documents.p2") }}
       </ConfirmModal>
@@ -152,10 +158,7 @@ export default class CoTenantDocument extends Vue {
     const docs = DocumentService.getDocs("RESIDENCY", user);
     if (docs.length === 1) {
       const d = docs[0];
-      if (
-        d.subCategory === "GUEST_PARENTS" ||
-        d.subCategory === "GUEST"
-      ) {
+      if (d.subCategory === "GUEST_PARENTS" || d.subCategory === "GUEST") {
         const nbPages = d.files?.reduce(
           (s, a) => s + (a.numberOfPages || 0),
           0

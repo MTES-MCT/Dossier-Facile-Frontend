@@ -28,8 +28,8 @@ import DocumentDownloader from "./DocumentDownloader.vue";
   components: {
     DocumentHelp,
     DocumentInsert,
-    DocumentDownloader
-  }
+    DocumentDownloader,
+  },
 })
 export default class CoTenantProfessional extends Vue {
   documentsDefinitions = DocumentTypeConstants.PROFESSIONAL_DOCS;
@@ -43,4 +43,3 @@ export default class CoTenantProfessional extends Vue {
 </script>
 
 <style scoped lang="scss"></style>
-

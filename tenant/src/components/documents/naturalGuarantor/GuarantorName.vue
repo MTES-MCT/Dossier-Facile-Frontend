@@ -25,7 +25,7 @@
                     class="form-control fr-input validate-required"
                     :class="{
                       'fr-input--valid': valid,
-                      'fr-input--error': errors[0]
+                      'fr-input--error': errors[0],
                     }"
                     id="lastname"
                     name="lastname"
@@ -60,7 +60,7 @@
                     class="validate-required form-control fr-input"
                     :class="{
                       'fr-input--valid': valid,
-                      'fr-input--error': errors[0]
+                      'fr-input--error': errors[0],
                     }"
                     required
                   />
@@ -114,13 +114,13 @@ import GuarantorFooter from "../../footer/GuarantorFooter.vue";
     VGouvFrModal,
     BigRadio,
     NakedCard,
-    GuarantorFooter
+    GuarantorFooter,
   },
   computed: {
     ...mapState({
-      selectedGuarantor: "selectedGuarantor"
-    })
-  }
+      selectedGuarantor: "selectedGuarantor",
+    }),
+  },
 })
 export default class GuarantorName extends Vue {
   documents = DocumentTypeConstants.GUARANTOR_IDENTIFICATION_DOCS;

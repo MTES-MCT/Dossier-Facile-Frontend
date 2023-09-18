@@ -32,7 +32,7 @@
               <div
                 class="fr-input-group"
                 :class="{
-                  'fr-input-group--error': errors[0]
+                  'fr-input-group--error': errors[0],
                 }"
               >
                 <label for="monthlySum" class="fr-label">
@@ -40,7 +40,9 @@
                 </label>
                 <input
                   id="monthlySum"
-                  :placeholder="$tc('cotenantfinancialform.monthlySum.placeholder')"
+                  :placeholder="
+                    $tc('cotenantfinancialform.monthlySum.placeholder')
+                  "
                   type="number"
                   min="0"
                   step="1"
@@ -49,7 +51,7 @@
                   class="validate-required form-control fr-input"
                   :class="{
                     'fr-input--valid': valid,
-                    'fr-input--error': errors[0]
+                    'fr-input--error': errors[0],
                   }"
                   @input="updateMonthlySum"
                   required
@@ -93,7 +95,7 @@
                   rows="3"
                   class="form-control fr-input validate-required"
                   :class="{
-                    'fr-input--valid': valid
+                    'fr-input--valid': valid,
                   }"
                   id="customTextNoDocument"
                   name="customText"
@@ -141,8 +143,8 @@ import { ref } from "@vue/reactivity";
     ValidationProvider,
     DocumentDownloader,
     FooterContainer,
-    BackNext
-  }
+    BackNext,
+  },
 })
 export default class CoTenantFinancialForm extends Vue {
   @Prop() coTenantId!: number;
@@ -246,7 +248,7 @@ export default class CoTenantFinancialForm extends Vue {
         .then(() => {
           Vue.toasted.global.save_success();
         })
-        .catch(err => {
+        .catch((err) => {
           if (err.response.data.message.includes("NumberOfPages")) {
             Vue.toasted.global.save_failed_num_pages();
           } else {
@@ -275,4 +277,3 @@ td {
   border: 1px solid #ececec;
 }
 </style>
-

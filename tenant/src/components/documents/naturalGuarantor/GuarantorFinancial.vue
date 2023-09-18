@@ -101,15 +101,15 @@ import ColoredTag from "df-shared/src/components/ColoredTag.vue";
     ProfileFooter,
     NakedCard,
     CardRow,
-    GuarantorFinancialDocumentForm
+    GuarantorFinancialDocumentForm,
   },
   computed: {
     ...mapGetters({
       user: "userToEdit",
       editFinancialDocument: "editGuarantorFinancialDocument",
-      financialDocuments: "guarantorFinancialDocuments"
-    })
-  }
+      financialDocuments: "guarantorFinancialDocuments",
+    }),
+  },
 })
 export default class GuarantorFinancial extends Vue {
   @Prop() tenantId?: string;
@@ -165,7 +165,7 @@ export default class GuarantorFinancial extends Vue {
   hasNoIncome() {
     return (
       this.financialDocuments.length > 0 &&
-      this.financialDocuments.find(f => {
+      this.financialDocuments.find((f) => {
         return f.documentType && f.documentType.key !== "no-income";
       }) === undefined
     );
@@ -221,4 +221,3 @@ export default class GuarantorFinancial extends Vue {
   width: 180px;
 }
 </style>
-

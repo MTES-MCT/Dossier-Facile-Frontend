@@ -75,7 +75,9 @@
                       </label>
                       <input
                         id="monthlySum"
-                        :placeholder="$tc('financialdocumentform.monthlySum.placeholder')"
+                        :placeholder="
+                          $tc('financialdocumentform.monthlySum.placeholder')
+                        "
                         type="number"
                         min="0"
                         step="1"

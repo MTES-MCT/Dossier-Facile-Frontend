@@ -9,9 +9,9 @@ import { mapGetters } from "vuex";
 @Component({
   computed: {
     ...mapGetters({
-      isLoggedIn: "isLoggedIn"
-    })
-  }
+      isLoggedIn: "isLoggedIn",
+    }),
+  },
 })
 export default class Home extends Vue {
   isLoggedIn!: boolean;
@@ -19,7 +19,7 @@ export default class Home extends Vue {
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
 
   mounted() {
-    this.$nextTick(function() {
+    this.$nextTick(function () {
       window.stop();
       if (this.isLoggedIn) {
         window.location.replace(`${this.TENANT_URL}/account`);

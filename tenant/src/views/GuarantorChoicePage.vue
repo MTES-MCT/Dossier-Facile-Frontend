@@ -12,8 +12,8 @@ import ProfileContainer from "../components/ProfileContainer.vue";
 @Component({
   components: {
     GuarantorChoice,
-    ProfileContainer
-  }
+    ProfileContainer,
+  },
 })
 export default class GuarantorChoicePage extends Vue {
   mounted() {
@@ -31,4 +31,3 @@ h4 {
   margin: 0;
 }
 </style>
-

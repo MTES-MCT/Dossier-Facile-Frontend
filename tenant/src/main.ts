@@ -18,7 +18,6 @@ import "@gouvfr/dsfr/dist/utility/icons/icons-business/icons-business.min.css";
 import "@gouvfr/dsfr/dist/utility/icons/icons-design/icons-design.min.css";
 
 import "vue-loading-overlay/dist/vue-loading.css";
-import VueGtag from "vue-gtag";
 import VueAuthImage from "vue-auth-image";
 import { User } from "df-shared/src/models/User";
 import MatomoPlugin from "./plugins/matomo";
@@ -214,28 +213,4 @@ Vue.use(VueAuthImage);
     setInterval(() => {
       app.$store.dispatch("updateMessages");
     }, 60000);
-
-    if (Vue.$cookies.get("accept-cookie") === "true") {
-      Vue.use(
-        VueGtag,
-        {
-          config: {
-            id: "UA-50823626-2",
-            params: {
-              send_page_view: true,
-            },
-            linker: {
-              domains: [
-                "dossierfacile.fr",
-                "www.dossierfacile.fr",
-                "locataire.dossierfacile.fr",
-                "proprietaire.dossierfacile.fr",
-                "sso.dossierfacile.fr",
-              ],
-            },
-          },
-        },
-        router
-      );
-    }
   });

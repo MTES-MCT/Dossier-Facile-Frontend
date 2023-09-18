@@ -7,7 +7,7 @@ import { Component, Vue } from "vue-property-decorator";
 import Card from "df-shared/src/components/Card.vue";
 
 @Component({
-  components: { Card }
+  components: { Card },
 })
 export default class DocumentHelp extends Vue {
   expanded = false;
@@ -20,4 +20,3 @@ export default class DocumentHelp extends Vue {
   display: none;
 }
 </style>
-
