@@ -122,7 +122,6 @@ export default class App extends Vue {
       },
       router
     );
-    Vue.prototype.inspectlet();
     this.cookieHidden = true;
   }
 
