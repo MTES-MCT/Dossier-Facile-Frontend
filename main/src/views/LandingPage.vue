@@ -220,14 +220,6 @@
             width="144px"
           />
           <LogoPartnerComponent
-            :image="require('../assets/logos/izzyhom.png')"
-            href="#"
-            title="Lien désactivé, site temporairement indisponible"
-            name="IzzyHom"
-            height="60px"
-            width="60px"
-          />
-          <LogoPartnerComponent
             height="60px"
             href="https://www.fastt.org/"
             name="fastt"
@@ -246,14 +238,6 @@
             href="https://www.monsieurhugo.com/"
             name="monsieur Hugo"
             width="210px"
-          />
-
-          <LogoPartnerComponent
-            :image="require('../assets/logos/colivme.webp')"
-            height="60px"
-            href="https://www.colivme.com/"
-            name="colivme"
-            width="174px"
           />
           <LogoPartnerComponent
             :image="require('../assets/logos/clickandrent.webp')"
