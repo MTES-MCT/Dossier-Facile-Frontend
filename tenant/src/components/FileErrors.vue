@@ -167,7 +167,7 @@
       </div>
       <div v-if="g.typeGuarantor === 'LEGAL_PERSON'">
         <NakedCard
-          v-if="!documentsGuarantorFilled(g) ||  !namesGuarantorFilled(g)"
+          v-if="!documentsGuarantorFilled(g) || !namesGuarantorFilled(g)"
           class="fr-p-5w"
         >
           <div v-if="!namesGuarantorFilled(g)">
@@ -239,7 +239,10 @@
     <div v-for="(tenant, k) in coTenants" :key="k">
       <NakedCard
         class="fr-mt-3w fr-p-md-5w"
-        v-if="user.applicationType === 'COUPLE' && (!documentsFilled(tenant) || !namesFilled(tenant))"
+        v-if="
+          user.applicationType === 'COUPLE' &&
+          (!documentsFilled(tenant) || !namesFilled(tenant))
+        "
       >
         <div v-if="!namesFilled(tenant)">
           <div class="fr-text--bold">
@@ -510,9 +513,9 @@ import DfButton from "df-shared/src/Button/Button.vue";
   components: { NakedCard, DfButton },
   computed: {
     ...mapState({
-      user: "user"
-    })
-  }
+      user: "user",
+    }),
+  },
 })
 export default class FileErrors extends Vue {
   user!: User;
@@ -561,7 +564,7 @@ export default class FileErrors extends Vue {
     return (
       (g.typeGuarantor === "NATURAL_PERSON" && g.firstName && g.lastName) ||
       (g.typeGuarantor === "LEGAL_PERSON" && g.legalPersonName) ||
-      (g.typeGuarantor === "ORGANISM")
+      g.typeGuarantor === "ORGANISM"
     );
   }
 
@@ -573,19 +576,19 @@ export default class FileErrors extends Vue {
     if (user) {
       this.$router.push({
         name: "CoTenantDocuments",
-        params: { substep: substep, tenantId: user.id.toString(), step: "4" }
+        params: { substep: substep, tenantId: user.id.toString(), step: "4" },
       });
       return;
     }
-    if (substep == '0'){
-        this.$router.push({
-          name: "Profile"
-        });
-      } else {
-        this.$router.push({
-          name: "TenantDocuments",
-          params: { substep: substep }
-        });
+    if (substep == "0") {
+      this.$router.push({
+        name: "Profile",
+      });
+    } else {
+      this.$router.push({
+        name: "TenantDocuments",
+        params: { substep: substep },
+      });
     }
   }
 
@@ -593,7 +596,7 @@ export default class FileErrors extends Vue {
     this.$store.dispatch("setGuarantorPage", {
       guarantor: g,
       substep: substep,
-      tenantId: tenant?.id.toString()
+      tenantId: tenant?.id.toString(),
     });
   }
 

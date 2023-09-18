@@ -23,9 +23,9 @@ import BackNext from "./BackNext.vue";
   components: { VGouvFrButton, FooterContainer, BackNext },
   computed: {
     ...mapGetters({
-      guarantors: "guarantors"
-    })
-  }
+      guarantors: "guarantors",
+    }),
+  },
 })
 export default class ProfileFooter extends Vue {
   @Prop({ default: true }) showBack!: boolean;
@@ -41,4 +41,3 @@ export default class ProfileFooter extends Vue {
   }
 }
 </script>
-

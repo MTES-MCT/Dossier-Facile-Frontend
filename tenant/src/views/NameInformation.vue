@@ -16,7 +16,9 @@
           <li>{{ $t("nameinformation.tax") }}</li>
         </ul>
         <p>
-          <span class="text-bold">{{ $t("nameinformation.same-for-guarantors") }}</span>
+          <span class="text-bold">{{
+            $t("nameinformation.same-for-guarantors")
+          }}</span>
           <br />
           🧐
           <a
@@ -50,13 +52,13 @@ import { User } from "df-shared/src/models/User";
   components: {
     NameInformationForm,
     ProfileContainer,
-    NakedCard
+    NakedCard,
   },
   computed: {
     ...mapState({
-      user: "user"
-    })
-  }
+      user: "user",
+    }),
+  },
 })
 export default class NameInformation extends Vue {
   user!: User;
@@ -113,4 +115,3 @@ li {
   list-style-type: "👉 ";
 }
 </style>
-

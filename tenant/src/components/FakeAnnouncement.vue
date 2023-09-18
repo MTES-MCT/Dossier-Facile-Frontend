@@ -1,6 +1,6 @@
 <template>
   <div class="fakeannouncement">
-    <h2 class="title fr-h6 align-items--center" style="display:flex">
+    <h2 class="title fr-h6 align-items--center" style="display: flex">
       <img alt="" src="../assets/logo_bouclier_secure.svg" />{{
         $t("fakeannouncement.fake-announce-title")
       }}
@@ -16,7 +16,7 @@
         <p>
           <i18n path="fakeannouncement.content">
             <template v-slot:nodocument>
-              <span style="font-weight:bold">{{
+              <span style="font-weight: bold">{{
                 $t("fakeannouncement.nodocument")
               }}</span>
             </template>
@@ -48,8 +48,8 @@ import DfButton from "df-shared/src/Button/Button.vue";
 import { Component, Vue } from "vue-property-decorator";
 @Component({
   components: {
-    DfButton
-  }
+    DfButton,
+  },
 })
 export default class FileErrors extends Vue {
   signal() {

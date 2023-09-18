@@ -20,4 +20,3 @@ export default class TaxHelp extends Vue {
   display: none;
 }
 </style>
-

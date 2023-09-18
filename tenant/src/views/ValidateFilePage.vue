@@ -14,14 +14,14 @@ import { User } from "df-shared/src/models/User";
 @Component({
   components: {
     ValidateFile,
-    ProfileContainer
+    ProfileContainer,
   },
   computed: {
     ...mapState({
       user: "user",
-      coTenants: "coTenants"
-    })
-  }
+      coTenants: "coTenants",
+    }),
+  },
 })
 export default class ValidateFilePage extends Vue {
   user!: User;
@@ -47,8 +47,8 @@ export default class ValidateFilePage extends Vue {
         name: "TenantGuarantors",
         params: {
           tenantId: this.getLastCoTenantId().toString(),
-          step: (this.getStep() - 1).toString()
-        }
+          step: (this.getStep() - 1).toString(),
+        },
       });
     } else {
       if (
@@ -59,7 +59,7 @@ export default class ValidateFilePage extends Vue {
         return;
       }
       this.$router.push({
-        name: "GuarantorList"
+        name: "GuarantorList",
       });
       return;
     }

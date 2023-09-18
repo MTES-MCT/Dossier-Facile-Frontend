@@ -17,8 +17,8 @@ import { DocumentType } from "df-shared/src/models/Document";
 import { DocumentTypeConstants } from "../components/documents/share/DocumentTypeConstants";
 import { DfMessage } from "df-shared/src/models/DfMessage";
 import moment from "moment";
-import {ApartmentSharingLink} from "../../../df-shared/src/models/ApartmentSharingLink";
-import {ApartmentSharingLinkService} from "@/services/ApartmentSharingLinkService";
+import { ApartmentSharingLink } from "../../../df-shared/src/models/ApartmentSharingLink";
+import { ApartmentSharingLinkService } from "@/services/ApartmentSharingLinkService";
 
 Vue.use(Vuex);
 

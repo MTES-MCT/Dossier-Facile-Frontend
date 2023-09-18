@@ -1,10 +1,5 @@
 <template>
   <div id="app">
-    <Cookies
-      :hidden="cookieHidden"
-      @accept="acceptCookies"
-      @deny="denyCookies"
-    />
     <SkipLinks></SkipLinks>
     <MyHeader
       @on-login-tenant="onLoginTenant"
@@ -30,11 +25,8 @@ import TheFooter from "df-shared/src/Footer/Footer.vue";
 import Modal from "df-shared/src/components/Modal.vue";
 import Announcement from "df-shared/src/components/Announcement.vue";
 import SkipLinks from "df-shared/src/components/SkipLinks.vue";
-import Cookies from "df-shared/src/Footer/Cookies.vue";
 import Menu from "./components/Menu.vue";
 import i18n from "./i18n";
-import VueGtag from "vue-gtag";
-import router from "./router";
 
 @Component({
   components: {
@@ -43,13 +35,10 @@ import router from "./router";
     MyHeader,
     Menu,
     TheFooter,
-    Cookies,
     SkipLinks,
   },
 })
 export default class App extends Vue {
-  cookieHidden = this.$cookies.isKey("accept-cookie");
-
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
   TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
@@ -68,58 +57,6 @@ export default class App extends Vue {
 
   onLoginTenant() {
     window.location.replace(`${this.TENANT_URL}/login`);
-  }
-
-  acceptCookies() {
-    const aYearFromNow = new Date();
-    aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1);
-    this.$cookies.set(
-      "accept-cookie",
-      true,
-      aYearFromNow,
-      "",
-      this.MAIN_URL.endsWith("dossierfacile.fr")
-        ? "dossierfacile.fr"
-        : "localhost"
-    );
-
-    Vue.use(
-      VueGtag,
-      {
-        config: {
-          id: "UA-50823626-2",
-          params: {
-            send_page_view: true,
-          },
-          linker: {
-            domains: [
-              "dossierfacile.fr",
-              "www.dossierfacile.fr",
-              "locataire.dossierfacile.fr",
-              "proprietaire.dossierfacile.fr",
-              "sso.dossierfacile.fr",
-            ],
-          },
-        },
-      },
-      router
-    );
-    this.cookieHidden = true;
-  }
-
-  denyCookies() {
-    const d = new Date();
-    d.setDate(d.getDate() + 1);
-    this.$cookies.set(
-      "accept-cookie",
-      false,
-      d.toUTCString(),
-      "",
-      this.MAIN_URL.endsWith("dossierfacile.fr")
-        ? "dossierfacile.fr"
-        : "localhost"
-    );
-    this.cookieHidden = true;
   }
 
   getLang() {

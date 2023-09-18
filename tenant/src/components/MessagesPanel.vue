@@ -100,7 +100,9 @@
                 </div>
               </div>
               <div class="row" v-if="guarantorHasDoc(g, 'RESIDENCY')">
-                <div class="subtitle">Justificatif de situation d'hébergement</div>
+                <div class="subtitle">
+                  Justificatif de situation d'hébergement
+                </div>
                 <div class="row align--center">
                   <ViewEditBtn
                     :canView="!isCotenant && guarantorHasFile(g, 'RESIDENCY')"
@@ -195,7 +197,7 @@
                   <ViewEditBtn
                     :canView="
                       !isCotenant &&
-                        guarantorHasFile(g, 'IDENTIFICATION_LEGAL_PERSON')
+                      guarantorHasFile(g, 'IDENTIFICATION_LEGAL_PERSON')
                     "
                     @view="openGuarantorDoc(g, 'IDENTIFICATION_LEGAL_PERSON')"
                     @edit="setGuarantorSubStep(1, g)"
@@ -208,7 +210,9 @@
                 </div>
               </div>
               <div class="row">
-                <div class="subtitle">{{ $t("messagespanel.identity-represent") }}</div>
+                <div class="subtitle">
+                  {{ $t("messagespanel.identity-represent") }}
+                </div>
                 <div class="row align--center">
                   <ViewEditBtn
                     :canView="
@@ -278,7 +282,7 @@
                 class="message"
                 :class="{
                   tenant: m.typeMessage === 'FROM_TENANT',
-                  operator: m.typeMessage === 'TO_TENANT'
+                  operator: m.typeMessage === 'TO_TENANT',
                 }"
               >
                 <p v-html="m.messageBody"></p>
@@ -357,13 +361,13 @@ import { AnalyticsService } from "../services/AnalyticsService";
     PdfViewer,
     ShowDoc,
     FileStatusIcon,
-    ViewEditBtn
+    ViewEditBtn,
   },
   computed: {
     ...mapState({
-      messageList: "messageList"
-    })
-  }
+      messageList: "messageList",
+    }),
+  },
 })
 export default class MessagesPanel extends Vue {
   messageList!: DfMessage[][];
@@ -378,7 +382,7 @@ export default class MessagesPanel extends Vue {
   mounted() {
     this.tenantMessages = this.messageList[this.tenant.id];
 
-    this.$store.subscribe(mutation => {
+    this.$store.subscribe((mutation) => {
       if (mutation.type == "updateMessages") {
         this.tenantMessages = this.messageList[this.tenant.id];
       }
@@ -398,13 +402,13 @@ export default class MessagesPanel extends Vue {
         params: {
           tenantId: this.tenant?.id.toString(),
           step: "4",
-          substep: n.toString()
-        }
+          substep: n.toString(),
+        },
       });
     } else {
       this.$router.push({
         name: "TenantDocuments",
-        params: { substep: n.toString() }
+        params: { substep: n.toString() },
       });
     }
   }
@@ -413,7 +417,7 @@ export default class MessagesPanel extends Vue {
     this.$store.dispatch("setGuarantorPage", {
       guarantor: g,
       substep: n,
-      tenantId: this.tenant.id
+      tenantId: this.tenant.id,
     });
   }
 
@@ -457,7 +461,7 @@ export default class MessagesPanel extends Vue {
     this.$store
       .dispatch("sendMessage", {
         message: this.sendMessage,
-        tenantId: this.tenant.id
+        tenantId: this.tenant.id,
       })
       .then(() => {
         this.sendMessage = "";
@@ -466,7 +470,7 @@ export default class MessagesPanel extends Vue {
 
   getStatus(docType: string) {
     if (docType === "FINANCIAL") {
-      const docs = this.tenant.documents?.filter(d => {
+      const docs = this.tenant.documents?.filter((d) => {
         return d.documentCategory === "FINANCIAL";
       });
       return this.isFinancialValid(docs || []);
@@ -479,7 +483,7 @@ export default class MessagesPanel extends Vue {
 
   getGuarantorStatus(g: Guarantor, docType: string) {
     if (docType === "FINANCIAL") {
-      const docs = g.documents?.filter(d => {
+      const docs = g.documents?.filter((d) => {
         return d.documentCategory === "FINANCIAL";
       });
       return this.isFinancialValid(docs || []);
@@ -574,4 +578,3 @@ export default class MessagesPanel extends Vue {
   align-items: center;
 }
 </style>
-

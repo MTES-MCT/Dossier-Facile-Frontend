@@ -29,8 +29,8 @@ import Modal from "df-shared/src/components/Modal.vue";
 @Component({
   components: {
     ForgottenPassword,
-    Modal
-  }
+    Modal,
+  },
 })
 export default class ForgottenPasswordPage extends Vue {
   isValidModalVisible = false;
@@ -57,4 +57,3 @@ export default class ForgottenPasswordPage extends Vue {
   }
 }
 </script>
-

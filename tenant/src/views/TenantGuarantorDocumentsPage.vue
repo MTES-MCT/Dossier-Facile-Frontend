@@ -20,13 +20,13 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 @Component({
   components: {
     TenantGuarantorDocuments,
-    ProfileContainer
+    ProfileContainer,
   },
   computed: {
     ...mapState({
-      coTenants: "coTenants"
-    })
-  }
+      coTenants: "coTenants",
+    }),
+  },
 })
 export default class TenantGuarantorDocumentsPage extends Vue {
   @Prop() step!: number;
@@ -66,8 +66,8 @@ export default class TenantGuarantorDocumentsPage extends Vue {
       name: "TenantGuarantors",
       params: {
         tenantId: this.tenantId().toString(),
-        step: this.getStep().toString()
-      }
+        step: this.getStep().toString(),
+      },
     });
   }
 }
@@ -78,4 +78,3 @@ h4 {
   margin: 0;
 }
 </style>
-

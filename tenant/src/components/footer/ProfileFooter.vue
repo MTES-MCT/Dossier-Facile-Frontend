@@ -19,7 +19,7 @@ import FooterContainer from "./FooterContainer.vue";
 import BackNext from "./BackNext.vue";
 
 @Component({
-  components: { VGouvFrButton, FooterContainer, BackNext }
+  components: { VGouvFrButton, FooterContainer, BackNext },
 })
 export default class ProfileFooter extends Vue {
   @Prop({ default: true }) showBack!: boolean;
@@ -37,4 +37,3 @@ export default class ProfileFooter extends Vue {
 </script>
 
 <style lang="scss"></style>
-

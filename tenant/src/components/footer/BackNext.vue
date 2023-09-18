@@ -38,7 +38,7 @@ import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.v
 import { UtilsService } from "../../services/UtilsService";
 
 @Component({
-  components: { VGouvFrButton }
+  components: { VGouvFrButton },
 })
 export default class BackNext extends Vue {
   @Prop({ default: true }) showBack!: boolean;
@@ -58,7 +58,6 @@ export default class BackNext extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 .btn-spacing {

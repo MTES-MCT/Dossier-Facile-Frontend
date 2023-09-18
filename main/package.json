@@ -51,7 +51,6 @@
     "vue-class-component": "^7.2.3",
     "vue-cli-plugin-i18n": "~2.3.2",
     "vue-cookies": "^1.7.4",
-    "vue-gtag": "1.12.0",
     "vue-i18n": "8.28.2",
     "vue-matomo": "^4.1.0",
     "vue-property-decorator": "^9.1.2",

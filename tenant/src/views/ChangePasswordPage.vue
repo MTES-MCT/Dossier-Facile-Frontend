@@ -11,8 +11,8 @@ import ChangePassword from "df-shared/src/Authentification/ChangePassword.vue";
 
 @Component({
   components: {
-    ChangePassword
-  }
+    ChangePassword,
+  },
 })
 export default class ChangePasswordPage extends Vue {
   onChangePassword(user: User) {
@@ -44,4 +44,3 @@ export default class ChangePasswordPage extends Vue {
   }
 }
 </script>
-

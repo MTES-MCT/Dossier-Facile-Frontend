@@ -12,8 +12,8 @@ import ProfileContainer from "../components/ProfileContainer.vue";
 @Component({
   components: {
     TenantInformationForm,
-    ProfileContainer
-  }
+    ProfileContainer,
+  },
 })
 export default class TypeInformation extends Vue {
   mounted() {

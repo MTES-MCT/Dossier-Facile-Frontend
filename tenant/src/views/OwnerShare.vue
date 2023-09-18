@@ -26,7 +26,7 @@
                 <label for="acceptOwner">{{
                   $t("ownershare.accept-owner", [
                     `${owner.owner.firstName} ${owner.owner.lastName}`,
-                    getOwnerAddress()
+                    getOwnerAddress(),
                   ])
                 }}</label>
                 <span class="fr-error-text" v-if="errors[0]">{{
@@ -83,7 +83,7 @@ import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.v
 extend("is", {
   ...is,
   message: "field-required",
-  validate: value => !!value
+  validate: (value) => !!value,
 });
 
 @Component({
@@ -92,16 +92,16 @@ extend("is", {
     ValidationObserver,
     VGouvFrModal,
     DfButton,
-    VGouvFrButton
+    VGouvFrButton,
   },
   computed: {
     ...mapState({
-      user: "user"
+      user: "user",
     }),
     ...mapGetters({
-      isLoggedIn: "isLoggedIn"
-    })
-  }
+      isLoggedIn: "isLoggedIn",
+    }),
+  },
 })
 export default class OwnerShare extends Vue {
   isLoggedIn!: boolean;
@@ -123,7 +123,7 @@ export default class OwnerShare extends Vue {
 
   onLogin() {
     (Vue as any).$keycloak.login({
-      redirectUri: this.$route.query.page
+      redirectUri: this.$route.query.page,
     });
   }
 

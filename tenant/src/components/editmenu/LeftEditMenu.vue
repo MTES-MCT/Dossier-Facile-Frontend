@@ -87,8 +87,8 @@
           <div
             v-if="
               selectedGuarantor.typeGuarantor === 'NATURAL_PERSON' &&
-                selectedGuarantor.firstName !== undefined &&
-                selectedGuarantor.lastName !== undefined
+              selectedGuarantor.firstName !== undefined &&
+              selectedGuarantor.lastName !== undefined
             "
           >
             <div v-for="(g, k) in user.guarantors" :key="k">
@@ -96,7 +96,7 @@
                 <router-link
                   :to="{
                     name: 'GuarantorDocuments',
-                    params: { substep: '0', guarantorId: g.id }
+                    params: { substep: '0', guarantorId: g.id },
                   }"
                 >
                   <ColoredTag
@@ -184,8 +184,8 @@
               params: {
                 step: getStepNumber('coTenant'),
                 substep: '0',
-                tenantId: getCoTenant(0).id
-              }
+                tenantId: getCoTenant(0).id,
+              },
             }"
             >{{ $t("my-cotenant") }}
           </router-link>
@@ -203,7 +203,7 @@
                 <router-link
                   :to="{
                     name: 'CoTenantDocuments',
-                    params: { substep: '0', tenantId: coTenant.id }
+                    params: { substep: '0', tenantId: coTenant.id },
                   }"
                 >
                   <ColoredTag
@@ -283,9 +283,9 @@
           <div
             v-if="
               selectedGuarantor &&
-                selectedGuarantor.typeGuarantor === 'NATURAL_PERSON' &&
-                selectedGuarantor.firstName !== undefined &&
-                selectedGuarantor.lastName !== undefined
+              selectedGuarantor.typeGuarantor === 'NATURAL_PERSON' &&
+              selectedGuarantor.firstName !== undefined &&
+              selectedGuarantor.lastName !== undefined
             "
           >
             <div v-for="(g, k) in getCoTenant(0).guarantors" :key="k">
@@ -297,8 +297,8 @@
                       step: getStepNumber('coTenantGuarantor'),
                       substep: '0',
                       tenantId: getCoTenant(0).id,
-                      guarantorId: g.id
-                    }
+                      guarantorId: g.id,
+                    },
                   }"
                 >
                   <ColoredTag
@@ -387,7 +387,7 @@
             class="fr-link"
             :to="{
               name: 'ValidateFileStep',
-              params: { step: getStepNumber('validate') }
+              params: { step: getStepNumber('validate') },
             }"
             >{{ $t("validate-file") }}
           </router-link>
@@ -420,14 +420,14 @@ import CoTenantGuarantorDocumentLink from "./documents/CoTenantGuarantorDocument
     TenantDocumentLink,
     GuarantorDocumentLink,
     CoTenantDocumentLink,
-    CoTenantGuarantorDocumentLink
+    CoTenantGuarantorDocumentLink,
   },
   computed: {
     ...mapState({
       selectedGuarantor: "selectedGuarantor",
-      user: "user"
-    })
-  }
+      user: "user",
+    }),
+  },
 })
 export default class LeftEditMenu extends Vue {
   @Prop({ default: 0 }) step!: number;
@@ -484,7 +484,7 @@ export default class LeftEditMenu extends Vue {
   getTenantGuarantorLink(tenant: User, stepNum: number) {
     return {
       name: "TenantGuarantors",
-      params: { tenantId: Number(tenant.id), step: stepNum }
+      params: { tenantId: Number(tenant.id), step: stepNum },
     };
   }
 
@@ -614,4 +614,3 @@ export default class LeftEditMenu extends Vue {
   background-image: none;
 }
 </style>
-

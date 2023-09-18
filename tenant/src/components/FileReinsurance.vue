@@ -76,7 +76,11 @@
             {{ $t("filereinsurance.france-connect-user-all") }}
           </p>
           <p v-else>
-            {{ $t("filereinsurance.france-connect-user-partial", [franceConnectTenantCount]) }}
+            {{
+              $t("filereinsurance.france-connect-user-partial", [
+                franceConnectTenantCount,
+              ])
+            }}
           </p>
         </NakedCard>
       </div>
@@ -90,8 +94,8 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 
 @Component({
   components: {
-    NakedCard
-  }
+    NakedCard,
+  },
 })
 export default class FileReinsurance extends Vue {
   @Prop() dossierStatus!: string;
@@ -153,4 +157,3 @@ export default class FileReinsurance extends Vue {
   height: 55px;
 }
 </style>
-

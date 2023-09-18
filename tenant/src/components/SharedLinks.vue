@@ -45,7 +45,9 @@
             </td>
           </tr>
           <tr v-if="links.length === 0">
-            <td colspan="7" style="text-align:center;">{{ t("no-shared-file") }}</td>
+            <td colspan="7" style="text-align: center">
+              {{ t("no-shared-file") }}
+            </td>
           </tr>
         </tbody>
       </table>

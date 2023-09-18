@@ -44,13 +44,13 @@ import CorporationIdentification from "../components/documents/legalPersonGuaran
     ProfileContainer,
     OrganismCert,
     CorporationIdentification,
-    GuarantorFooter
+    GuarantorFooter,
   },
   computed: {
     ...mapGetters({
-      coTenants: "coTenants"
-    })
-  }
+      coTenants: "coTenants",
+    }),
+  },
 })
 export default class TenantGuarantorsPage extends Vue {
   coTenants!: User[];
@@ -59,7 +59,7 @@ export default class TenantGuarantorsPage extends Vue {
   @Watch("coTenants")
   protected onCotenantsChange(): any {
     this.guarantors =
-      this.coTenants.find(t => {
+      this.coTenants.find((t) => {
         return t.id === Number(this.$route.params.tenantId);
       })?.guarantors || [];
   }
@@ -83,8 +83,8 @@ export default class TenantGuarantorsPage extends Vue {
         step: this.getStep().toString(),
         substep: "0",
         tenantId: this.getTenantId().toString(),
-        guarantorId: g.id?.toString() as string
-      }
+        guarantorId: g.id?.toString() as string,
+      },
     });
   }
 
@@ -110,8 +110,8 @@ export default class TenantGuarantorsPage extends Vue {
           step: this.getStep().toString(),
           substep: "0",
           tenantId: this.getTenantId().toString(),
-          guarantorId: this.guarantors[0].id?.toString() || "0"
-        }
+          guarantorId: this.guarantors[0].id?.toString() || "0",
+        },
       });
     }
   }
@@ -122,15 +122,15 @@ export default class TenantGuarantorsPage extends Vue {
       params: {
         step: "4",
         substep: "5",
-        tenantId: this.getTenantId().toString()
-      }
+        tenantId: this.getTenantId().toString(),
+      },
     });
   }
 
   goNext() {
     this.$router.push({
       name: "ValidateFileStep",
-      params: { step: Number(this.getStep() + 1).toString() }
+      params: { step: Number(this.getStep() + 1).toString() },
     });
   }
 }

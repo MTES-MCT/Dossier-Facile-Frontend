@@ -5,7 +5,7 @@ const app = express();
 
 app.use(history());
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.setHeader(
     "Content-Security-Policy",
     "default-src 'self'; " +
@@ -29,6 +29,6 @@ app.use(express.static(__dirname + directory));
 app.use("/robots.txt", express.static(__dirname + "robots.txt"));
 
 const port = process.env.PORT || 3000;
-app.listen(port, function() {
+app.listen(port, function () {
   console.log("Listening on", port);
 });
