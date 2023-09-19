@@ -19,6 +19,7 @@ import { DfMessage } from "df-shared/src/models/DfMessage";
 import moment from "moment";
 import { ApartmentSharingLink } from "../../../df-shared/src/models/ApartmentSharingLink";
 import { ApartmentSharingLinkService } from "@/services/ApartmentSharingLinkService";
+import * as Sentry from "@sentry/vue";
 
 Vue.use(Vuex);
 
@@ -119,6 +120,9 @@ const store = new Vuex.Store({
         }
       }
       Vue.set(state, "selectedGuarantor", new Guarantor());
+      Sentry.setContext("user", {
+        id: user.id,
+      });
     },
     setSelectedGuarantor(state, guarantor: Guarantor) {
       Vue.set(state, "selectedGuarantor", guarantor);
