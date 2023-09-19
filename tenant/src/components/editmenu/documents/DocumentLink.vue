@@ -3,7 +3,7 @@
     <router-link
       :to="{
         name: getTargetComponent(personType),
-        params: routerParams
+        params: routerParams,
       }"
     >
       <ColoredTag
@@ -21,7 +21,7 @@ import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 import { DocumentType, DocumentTypeTranslations } from "./DocumentType";
 
 @Component({
-  components: { ColoredTag }
+  components: { ColoredTag },
 })
 export default class DocumentLink extends Vue {
   @Prop() personType!: PersonType;
@@ -34,7 +34,7 @@ export default class DocumentLink extends Vue {
     TENANT: "TenantDocuments",
     GUARANTOR: "GuarantorDocuments",
     COTENANT: "CoTenantDocuments",
-    COTENANT_GUARANTOR: "TenantGuarantorDocuments"
+    COTENANT_GUARANTOR: "TenantGuarantorDocuments",
   };
 
   private getText(): string {
@@ -51,7 +51,7 @@ export enum PersonType {
   TENANT = "TENANT",
   GUARANTOR = "GUARANTOR",
   COTENANT = "COTENANT",
-  COTENANT_GUARANTOR = "COTENANT_GUARANTOR"
+  COTENANT_GUARANTOR = "COTENANT_GUARANTOR",
 }
 </script>
 

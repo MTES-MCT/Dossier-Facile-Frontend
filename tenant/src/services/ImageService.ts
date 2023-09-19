@@ -6,5 +6,5 @@ export const ImageService = {
       return !file.originalName?.toLowerCase().endsWith("pdf");
     }
     return !file.name?.toLowerCase().endsWith("pdf");
-  }
+  },
 };

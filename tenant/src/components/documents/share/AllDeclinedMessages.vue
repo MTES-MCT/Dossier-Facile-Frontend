@@ -2,10 +2,10 @@
   <div
     v-if="
       documentDeniedReasons !== null &&
-        ((documentDeniedReasons.selectedOptions &&
-          documentDeniedReasons.selectedOptions.length > 0) ||
-          documentDeniedReasons.comment) &&
-        documentStatus !== 'VALIDATED'
+      ((documentDeniedReasons.selectedOptions &&
+        documentDeniedReasons.selectedOptions.length > 0) ||
+        documentDeniedReasons.comment) &&
+      documentStatus !== 'VALIDATED'
     "
     class="fr-mt-3w"
   >
@@ -30,8 +30,8 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({
   components: {
-    DeclinedMessage
-  }
+    DeclinedMessage,
+  },
 })
 export default class AllDeclinedMessages extends Vue {
   @Prop({ default: null }) documentDeniedReasons?: DocumentDeniedReasons | null;

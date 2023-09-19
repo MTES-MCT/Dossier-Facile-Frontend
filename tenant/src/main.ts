@@ -18,7 +18,6 @@ import "@gouvfr/dsfr/dist/utility/icons/icons-business/icons-business.min.css";
 import "@gouvfr/dsfr/dist/utility/icons/icons-design/icons-design.min.css";
 
 import "vue-loading-overlay/dist/vue-loading.css";
-import VueGtag from "vue-gtag";
 import VueAuthImage from "vue-auth-image";
 import { User } from "df-shared/src/models/User";
 import MatomoPlugin from "./plugins/matomo";
@@ -214,50 +213,4 @@ Vue.use(VueAuthImage);
     setInterval(() => {
       app.$store.dispatch("updateMessages");
     }, 60000);
-
-    const inspectlet = function () {
-      window.__insp = window.__insp || [];
-      window.__insp.push(["wid", 1921433466]);
-      const ldinsp = function () {
-        if (typeof window.__inspld != "undefined") return;
-        window.__inspld = 1;
-        const insp = document.createElement("script");
-        insp.type = "text/javascript";
-        insp.async = true;
-        insp.id = "inspsync";
-        insp.src =
-          "https://cdn.inspectlet.com/inspectlet.js?wid=1921433466&r=" +
-          Math.floor(new Date().getTime() / 3600000);
-        const x = document.getElementsByTagName("script")[0];
-        x.parentNode?.insertBefore(insp, x);
-      };
-      setTimeout(ldinsp, 0);
-    };
-
-    Vue.prototype.inspectlet = inspectlet;
-
-    if (Vue.$cookies.get("accept-cookie") === "true") {
-      inspectlet();
-      Vue.use(
-        VueGtag,
-        {
-          config: {
-            id: "UA-50823626-2",
-            params: {
-              send_page_view: true,
-            },
-            linker: {
-              domains: [
-                "dossierfacile.fr",
-                "www.dossierfacile.fr",
-                "locataire.dossierfacile.fr",
-                "proprietaire.dossierfacile.fr",
-                "sso.dossierfacile.fr",
-              ],
-            },
-          },
-        },
-        router
-      );
-    }
   });

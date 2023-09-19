@@ -18,7 +18,7 @@ export default class ProgressIndicator extends Vue {
   cssVars() {
     return {
       "--diameter": this.diameter,
-      "--border": this.border
+      "--border": this.border,
     };
   }
 }

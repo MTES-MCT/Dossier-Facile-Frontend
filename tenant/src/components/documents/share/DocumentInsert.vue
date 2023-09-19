@@ -27,13 +27,13 @@ export default class DocumentInsert extends Vue {
   @Prop({
     default() {
       return [];
-    }
+    },
   })
   allowList!: string[];
   @Prop({
     default() {
       return [];
-    }
+    },
   })
   blockList!: string[];
 }
@@ -107,4 +107,3 @@ a {
   word-break: break-all;
 }
 </style>
-

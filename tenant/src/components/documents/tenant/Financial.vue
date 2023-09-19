@@ -99,15 +99,15 @@ import SimulationCaf from "../share/SimulationCaf.vue";
     NakedCard,
     CardRow,
     FinancialDocumentForm,
-    SimulationCaf
+    SimulationCaf,
   },
   computed: {
     ...mapGetters({
       user: "userToEdit",
       editFinancialDocument: "editFinancialDocument",
-      financialDocuments: "tenantFinancialDocuments"
-    })
-  }
+      financialDocuments: "tenantFinancialDocuments",
+    }),
+  },
 })
 export default class Financial extends Vue {
   user!: User;
@@ -161,7 +161,7 @@ export default class Financial extends Vue {
   hasNoIncome() {
     return (
       this.financialDocuments.length > 0 &&
-      this.financialDocuments.find(f => {
+      this.financialDocuments.find((f) => {
         return f.documentType && f.documentType.key !== "no-income";
       }) === undefined
     );
@@ -206,4 +206,3 @@ export default class Financial extends Vue {
   width: 180px;
 }
 </style>
-

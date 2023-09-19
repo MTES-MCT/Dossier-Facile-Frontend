@@ -6,14 +6,14 @@ module.exports = {
     i18n: {
       locale: "fr",
       localeDir: "locales",
-      enableInSFC: true
+      enableInSFC: true,
     },
     sitemap: {
-      urls: ["https://locataire.dossierfacile.fr/signup"]
-    }
+      urls: ["https://locataire.dossierfacile.fr/signup"],
+    },
   },
-  chainWebpack: config => {
-    config.plugin("html").tap(args => {
+  chainWebpack: (config) => {
+    config.plugin("html").tap((args) => {
       args[0].title = "DossierFacile";
       return args;
     });
@@ -31,8 +31,8 @@ module.exports = {
           rendererOptions: {
             timeout: 120000,
           },
-        })
-      ]
+        }),
+      ],
     };
-  }
+  },
 };

@@ -1,14 +1,10 @@
 <script setup lang="ts">
-import {
-  computed, onMounted, onUnmounted, ref,
-} from 'vue';
+import { computed, onMounted, onUnmounted } from 'vue';
 import MyHeader from 'df-shared-next/src/Header/Header.vue';
 import Announcement from 'df-shared-next/src/components/Announcement.vue';
 import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue';
 import TheFooter from 'df-shared-next/src/Footer/Footer.vue';
 import { useRouter } from 'vue-router';
-import { useCookies } from 'vue3-cookies';
-import Cookies from 'df-shared-next/src/Footer/Cookies.vue';
 import Menu from './components/Menu.vue';
 import useOwnerStore from './store/owner-store.ts';
 import DeleteAccount from './components/DeleteAccount.vue';
@@ -17,11 +13,8 @@ const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`;
 
 const store = useOwnerStore();
 const router = useRouter();
-const { cookies } = useCookies();
 
 const isLoggedIn = computed(() => store.isLoggedIn);
-
-const cookieHidden = ref(cookies.isKey('accept-cookie'));
 
 const hasFooter = computed(() => store.hasFooter);
 
@@ -40,28 +33,15 @@ function onLogin() {
 }
 
 function goToTenant() {
-    window.location.href = TENANT_URL;
+  window.location.href = TENANT_URL;
 }
 
 function onLogout() {
   store.logout(true);
 }
-
-function acceptCookies() {
-  cookies.set('accept-cookie', 'true');
-  // Vue.prototype.inspectlet();
-
-  cookieHidden.value = true;
-}
-
-function denyCookies() {
-  cookies.set('accept-cookie', 'false');
-  cookieHidden.value = true;
-}
 </script>
 
 <template>
-  <Cookies :hidden="cookieHidden" @accept="acceptCookies" @deny="denyCookies" />
   <SkipLinks></SkipLinks>
   <MyHeader
     type="owner"

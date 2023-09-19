@@ -22,12 +22,11 @@ import DocumentDownloader from "./DocumentDownloader.vue";
 
 @Component({
   components: {
-    DocumentDownloader
-  }
+    DocumentDownloader,
+  },
 })
 export default class CoTenantProfessional extends Vue {
   documentsDefinitions = DocumentTypeConstants.RESIDENCY_DOCS;
   @Prop() coTenantId!: number;
 }
 </script>
-

@@ -61,9 +61,9 @@ import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
     ColoredTag,
     VGouvFrModal,
     ConfirmModal,
-    TroubleshootingModal
+    TroubleshootingModal,
   },
-  computed: {}
+  computed: {},
 })
 export default class TenantGuarantorList extends Vue {
   @Prop() step!: number;
@@ -149,7 +149,7 @@ export default class TenantGuarantorList extends Vue {
     this.$store
       .dispatch("setGuarantorType", {
         tenantId: Number(this.$route.params.tenantId),
-        typeGuarantor: "NATURAL_PERSON"
+        typeGuarantor: "NATURAL_PERSON",
       })
       .then(() => {
         this.$emit("on-edit", this.guarantors[this.guarantors.length - 1]);
@@ -242,4 +242,3 @@ h2 {
   }
 }
 </style>
-

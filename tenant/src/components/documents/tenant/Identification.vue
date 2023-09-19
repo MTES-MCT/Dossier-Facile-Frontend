@@ -154,9 +154,7 @@ export default class Identification extends Vue {
     if (this.user.documents !== null) {
       if (this.tenantIdentificationDocument !== undefined) {
         const localDoc = this.documents.find((d: DocumentType) => {
-          return (
-            d.value === this.tenantIdentificationDocument?.subCategory
-          );
+          return d.value === this.tenantIdentificationDocument?.subCategory;
         });
         if (localDoc !== undefined) {
           this.identificationDocument = localDoc;

@@ -10,7 +10,7 @@ function loadLocaleMessages(): LocaleMessages {
     /[A-Za-z0-9-_,\s]+\.json$/i
   );
   const messages: LocaleMessages = {};
-  locales.keys().forEach(key => {
+  locales.keys().forEach((key) => {
     const matched = key.match(/([A-Za-z0-9-_]+)\./i);
     if (matched && matched.length > 1) {
       const locale = matched[1];
@@ -25,22 +25,7 @@ const dateTimeFormats: VueI18n.DateTimeFormats = {
     short: {
       year: "numeric",
       month: "short",
-      day: "numeric"
-    },
-    long: {
-      year: "numeric",
-      month: "long",
       day: "numeric",
-      weekday: "long",
-      hour: "numeric",
-      minute: "numeric"
-    }
-  },
-  fr: {
-    short: {
-      year: "numeric",
-      month: "short",
-      day: "numeric"
     },
     long: {
       year: "numeric",
@@ -49,9 +34,24 @@ const dateTimeFormats: VueI18n.DateTimeFormats = {
       weekday: "long",
       hour: "numeric",
       minute: "numeric",
-      hour12: false
-    }
-  }
+    },
+  },
+  fr: {
+    short: {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    },
+    long: {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      weekday: "long",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: false,
+    },
+  },
 };
 
 export default new VueI18n({
@@ -60,5 +60,5 @@ export default new VueI18n({
   fallbackLocale: "en",
   silentFallbackWarn: true,
   missing: (_, v) => v,
-  messages: loadLocaleMessages()
+  messages: loadLocaleMessages(),
 });

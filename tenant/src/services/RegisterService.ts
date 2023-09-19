@@ -34,7 +34,11 @@ export const RegisterService = {
 
   saveCoTenantIdentification(formData: FormData) {
     return axios.post(
-      `https://${process.env.VUE_APP_API_URL}/api/tenant/coTenant/${formData.get('coTenantId')}/documentIdentification`,
+      `https://${
+        process.env.VUE_APP_API_URL
+      }/api/tenant/coTenant/${formData.get(
+        "coTenantId"
+      )}/documentIdentification`,
       formData
     );
   },
@@ -140,8 +144,8 @@ export const RegisterService = {
       .then((response: any) => {
         return Promise.resolve(response.data.access_token);
       })
-      .catch(err => {
+      .catch((err) => {
         console.dir(err);
       });
-  }
+  },
 };

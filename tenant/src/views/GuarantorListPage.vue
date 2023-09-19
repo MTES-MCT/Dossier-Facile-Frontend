@@ -64,13 +64,13 @@ import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
     ColoredTag,
     VGouvFrModal,
     ConfirmModal,
-    TroubleshootingModal
+    TroubleshootingModal,
   },
   computed: {
     ...mapState({
-      user: "user"
-    })
-  }
+      user: "user",
+    }),
+  },
 })
 export default class GuarantorListPage extends Vue {
   user!: User;
@@ -97,27 +97,27 @@ export default class GuarantorListPage extends Vue {
       return;
     }
     this.$router.push({
-      name: "GuarantorChoice"
+      name: "GuarantorChoice",
     });
   }
 
   goNext() {
     if (this.user.applicationType == "COUPLE") {
       const cotenant = this.user.apartmentSharing?.tenants.find(
-        t => t.id != this.user.id
+        (t) => t.id != this.user.id
       ) as User;
       this.$router.push({
         name: "CoTenantDocuments",
         params: {
           step: "4",
           substep: "0",
-          tenantId: cotenant.id.toString()
-        }
+          tenantId: cotenant.id.toString(),
+        },
       });
       return;
     }
     this.$router.push({
-      name: "ValidateFile"
+      name: "ValidateFile",
     });
   }
 
@@ -156,7 +156,7 @@ export default class GuarantorListPage extends Vue {
     this.$store.commit("setSelectedGuarantor", g);
     this.$router.push({
       name: "GuarantorDocuments",
-      params: { substep: "0" }
+      params: { substep: "0" },
     });
   }
 
@@ -275,4 +275,3 @@ h2 {
   }
 }
 </style>
-

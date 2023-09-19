@@ -90,7 +90,10 @@
       <div class="fr-mb-3w">
         <p v-html="$t(`explanation-text.cotenant.${document.key}`)"></p>
       </div>
-      <WarningTaxDeclaration class="fr-mb-3w" v-if="document.key === 'my-name'" />
+      <WarningTaxDeclaration
+        class="fr-mb-3w"
+        v-if="document.key === 'my-name'"
+      />
 
       <AllDeclinedMessages
         class="fr-mb-3w"

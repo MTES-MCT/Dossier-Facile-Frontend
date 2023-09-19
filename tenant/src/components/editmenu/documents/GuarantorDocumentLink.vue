@@ -17,7 +17,7 @@ import { DocumentService } from "@/services/DocumentService";
 import { DocumentType } from "./DocumentType";
 
 @Component({
-  components: { ColoredTag, DocumentLink }
+  components: { ColoredTag, DocumentLink },
 })
 export default class GuarantorDocumentLink extends Vue {
   @Prop() guarantor!: Guarantor;

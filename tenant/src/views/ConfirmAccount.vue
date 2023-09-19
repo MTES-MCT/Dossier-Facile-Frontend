@@ -24,7 +24,7 @@ export default class ConfirmAccount extends Vue {
       .then(() => {
         this.$router.push({ name: "TenantName" });
       })
-      .catch(err => {
+      .catch((err) => {
         this.error = err;
         if (err.response.status === 404) {
           this.tokenErr = true;
@@ -33,4 +33,3 @@ export default class ConfirmAccount extends Vue {
   }
 }
 </script>
-

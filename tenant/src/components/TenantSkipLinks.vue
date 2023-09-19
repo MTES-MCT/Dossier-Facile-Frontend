@@ -11,31 +11,31 @@ import { SkipLink } from "df-shared/src/models/SkipLink";
 
 @Component({
   components: {
-    SkipLinks
+    SkipLinks,
   },
   computed: {
     ...mapState({
-      skipLinks: "skipLinks"
-    })
-  }
+      skipLinks: "skipLinks",
+    }),
+  },
 })
 export default class TenantSkipLinks extends Vue {}
 
 export const FOOTER_NAVIGATION = {
   anchor: "#footer-navigation",
-  name: "Navigation"
+  name: "Navigation",
 };
 
 export const FUNNEL_SKIP_LINKS: SkipLink[] = [
   {
     anchor: "#funnel-menu",
-    name: "Menu d'ajout des documents"
+    name: "Menu d'ajout des documents",
   },
   {
     anchor: "#step-content",
-    name: "Contenu de l'étape"
+    name: "Contenu de l'étape",
   },
-  FOOTER_NAVIGATION
+  FOOTER_NAVIGATION,
 ];
 </script>
 

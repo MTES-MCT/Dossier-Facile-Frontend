@@ -52,7 +52,7 @@
     <h2 class="small-title" v-if="displayGuarantorName()">
       {{
         $t("topeditmenu.i-add", [
-          `${selectedGuarantor.firstName} ${selectedGuarantor.lastName}`
+          `${selectedGuarantor.firstName} ${selectedGuarantor.lastName}`,
         ])
       }}
     </h2>
@@ -62,8 +62,8 @@
         ref="gcontainer"
         v-if="
           selectedGuarantor.typeGuarantor === 'NATURAL_PERSON' &&
-            selectedGuarantor.firstName !== undefined &&
-            selectedGuarantor.lastName !== undefined
+          selectedGuarantor.firstName !== undefined &&
+          selectedGuarantor.lastName !== undefined
         "
       >
         <GuarantorDocumentLink
@@ -192,8 +192,8 @@
         ref="gcontainer"
         v-if="
           selectedGuarantor.typeGuarantor === 'NATURAL_PERSON' &&
-            selectedGuarantor.firstName !== undefined &&
-            selectedGuarantor.lastName !== undefined
+          selectedGuarantor.firstName !== undefined &&
+          selectedGuarantor.lastName !== undefined
         "
       >
         <CoTenantGuarantorDocumentLink
@@ -304,15 +304,15 @@ import CoTenantGuarantorDocumentLink from "./documents/CoTenantGuarantorDocument
     TenantDocumentLink,
     GuarantorDocumentLink,
     CoTenantDocumentLink,
-    CoTenantGuarantorDocumentLink
+    CoTenantGuarantorDocumentLink,
   },
   computed: {
     ...mapState({
       selectedGuarantor: "selectedGuarantor",
       user: "user",
-      coTenants: "coTenants"
-    })
-  }
+      coTenants: "coTenants",
+    }),
+  },
 })
 export default class TopEditMenu extends Vue {
   @Prop({ default: 0 }) step!: number;
@@ -550,4 +550,3 @@ hr {
   margin-left: 1rem;
 }
 </style>
-

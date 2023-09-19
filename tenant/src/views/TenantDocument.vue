@@ -12,8 +12,8 @@ import ProfileContainer from "../components/ProfileContainer.vue";
 @Component({
   components: {
     UploadDocuments,
-    ProfileContainer
-  }
+    ProfileContainer,
+  },
 })
 export default class TenantDocument extends Vue {
   mounted() {
@@ -35,4 +35,3 @@ h4 {
   margin: 0;
 }
 </style>
-

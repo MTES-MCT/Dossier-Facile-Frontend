@@ -22,7 +22,9 @@
                   value="false"
                   v-model="localSpouseAuthorize"
                 />
-                <label for="authorize">{{ $t("tenantinformationform.acceptAuthorSpouse") }}</label>
+                <label for="authorize">{{
+                  $t("tenantinformationform.acceptAuthorSpouse")
+                }}</label>
                 <span class="fr-error-text" v-if="errors[0]">{{
                   $t(errors[0])
                 }}</span>
@@ -50,7 +52,9 @@
                   value="false"
                   v-model="localCoTenantAuthorize"
                 />
-                <label for="authorize">{{ $t("tenantinformationform.acceptAuthorCoTenant") }}</label>
+                <label for="authorize">{{
+                  $t("tenantinformationform.acceptAuthorCoTenant")
+                }}</label>
                 <span class="fr-error-text" v-if="errors[0]">{{
                   $t(errors[0])
                 }}</span>
@@ -115,13 +119,13 @@ import ApplicationTypeSelector from "../components/ApplicationTypeSelector.vue";
 @Component({
   computed: {
     ...mapState({
-      user: "user"
+      user: "user",
     }),
     ...mapGetters({
       roommates: "getRoommates",
       coTenantAuthorize: "coTenantAuthorize",
-      spouseAuthorize: "spouseAuthorize"
-    })
+      spouseAuthorize: "spouseAuthorize",
+    }),
   },
   components: {
     CoupleInformation,
@@ -162,16 +166,18 @@ export default class TenantInformationForm extends Vue {
   }
 
   async handleOthersInformation() {
-    const isValid = await (this.$refs.observer as Vue & {
-      validate: () => boolean;
-    }).validate();
+    const isValid = await (
+      this.$refs.observer as Vue & {
+        validate: () => boolean;
+      }
+    ).validate();
 
     if (!isValid) return;
 
     if (this.hasNothingToSave()) {
       this.$router.push({
         name: "TenantDocuments",
-        params: { substep: "1" }
+        params: { substep: "1" },
       });
       return;
     }
@@ -181,8 +187,8 @@ export default class TenantInformationForm extends Vue {
         ? () => {
             const data = {
               applicationType: this.applicationType,
-              coTenantEmail: this.coTenants.flatMap(t => t.email),
-              acceptAccess: true
+              coTenantEmail: this.coTenants.flatMap((t) => t.email),
+              acceptAccess: true,
             };
             return this.$store.dispatch("setRoommates", data);
           }
@@ -190,7 +196,7 @@ export default class TenantInformationForm extends Vue {
             const data = {
               applicationType: this.applicationType,
               coTenants: this.coTenants,
-              acceptAccess: true
+              acceptAccess: true,
             };
             return this.$store.dispatch("setCoTenants", data);
           };
@@ -202,7 +208,7 @@ export default class TenantInformationForm extends Vue {
           AnalyticsService.confirmType();
           this.$router.push({
             name: "TenantDocuments",
-            params: { substep: "1" }
+            params: { substep: "1" },
           });
           if (this.applicationType === "COUPLE") {
             Vue.toasted.global.info_toast({
@@ -217,7 +223,7 @@ export default class TenantInformationForm extends Vue {
             return;
           }
         },
-        error => {
+        (error) => {
           if (error.response.data.message.includes("are already being used")) {
             Vue.toasted.global.error_toast({
               message: "tenantinformationform.email-exists",
@@ -263,7 +269,7 @@ export default class TenantInformationForm extends Vue {
   }
 
   deleteCoTenants() {
-    this.user.apartmentSharing?.tenants.forEach(t => {
+    this.user.apartmentSharing?.tenants.forEach((t) => {
       if (t.tenantType !== "CREATE") {
         this.$store
           .dispatch("deleteCoTenant", t)
@@ -335,4 +341,3 @@ export default class TenantInformationForm extends Vue {
   }
 }
 </style>
-

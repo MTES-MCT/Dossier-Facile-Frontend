@@ -105,17 +105,17 @@ import GuarantorTypeSelector from "@/components/GuarantorTypeSelector.vue";
     VGouvFrModal,
     NakedCard,
     ProfileContainer,
-    GuarantorTypeSelector
+    GuarantorTypeSelector,
   },
   computed: {
     ...mapState({
-      user: "user"
+      user: "user",
     }),
     ...mapGetters({
       guarantor: "guarantor",
-      coTenants: "coTenants"
-    })
-  }
+      coTenants: "coTenants",
+    }),
+  },
 })
 export default class GuarantorDocuments extends Vue {
   user!: User;
@@ -140,7 +140,7 @@ export default class GuarantorDocuments extends Vue {
   goBack() {
     this.$router.push({
       name: "TenantDocuments",
-      params: { substep: "5" }
+      params: { substep: "5" },
     });
   }
 
@@ -159,12 +159,12 @@ export default class GuarantorDocuments extends Vue {
           params: {
             step: "4",
             substep: "0",
-            tenantId: this.coTenants[0].id.toString()
-          }
+            tenantId: this.coTenants[0].id.toString(),
+          },
         });
       } else {
         this.$router.push({
-          name: "ValidateFile"
+          name: "ValidateFile",
         });
       }
     } else if (
@@ -176,12 +176,12 @@ export default class GuarantorDocuments extends Vue {
         .then(() => {
           this.$router.push({
             name: "GuarantorDocuments",
-            params: { substep: "0" }
+            params: { substep: "0" },
           });
         });
     } else {
       this.$router.push({
-        name: "GuarantorList"
+        name: "GuarantorList",
       });
     }
   }
@@ -213,4 +213,3 @@ export default class GuarantorDocuments extends Vue {
   }
 }
 </style>
-

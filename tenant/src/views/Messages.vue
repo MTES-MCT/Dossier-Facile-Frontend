@@ -50,13 +50,13 @@ import MessagesPanel from "../components/MessagesPanel.vue";
 
 @Component({
   components: {
-    MessagesPanel
+    MessagesPanel,
   },
   computed: {
     ...mapState({
-      user: "user"
-    })
-  }
+      user: "user",
+    }),
+  },
 })
 export default class Messages extends Vue {
   user!: User;
@@ -75,7 +75,7 @@ export default class Messages extends Vue {
     const tenants: User[] = [];
     tenants.push(this.user);
 
-    this.user?.apartmentSharing?.tenants?.forEach(t => {
+    this.user?.apartmentSharing?.tenants?.forEach((t) => {
       if (t.id != this.user.id) {
         tenants.push(t);
       }

@@ -20,9 +20,8 @@ import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue"
 
 @Component({
   components: {
-    VGouvFrModal
-  }
+    VGouvFrModal,
+  },
 })
 export default class TroubleshootingModal extends Vue {}
 </script>
-

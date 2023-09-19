@@ -13,7 +13,6 @@ export const AuthService = {
       email: user.email,
       password: user.password,
       confirm: user.confirm,
-      reCaptchaResponse: user.captcha,
       firstName: user.firstName,
       lastName: user.lastName,
       source: source,

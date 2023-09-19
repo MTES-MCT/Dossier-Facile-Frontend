@@ -16,7 +16,7 @@ import { DocumentService } from "@/services/DocumentService";
 import { DocumentType } from "./DocumentType";
 
 @Component({
-  components: { ColoredTag, DocumentLink }
+  components: { ColoredTag, DocumentLink },
 })
 export default class TenantDocumentLink extends Vue {
   @Prop() documentType!: DocumentType;

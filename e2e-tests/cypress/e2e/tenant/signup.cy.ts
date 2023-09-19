@@ -5,7 +5,6 @@ describe("signup page", () => {
 
   beforeEach("visit signup page", () => {
     cy.visit(`${Cypress.env("tenantUrl")}/signup`);
-    cy.acceptCookies();
   });
 
   it("should warn about weak password", () => {
@@ -29,10 +28,6 @@ describe("signup page", () => {
     cy.get("#email").type(email);
     cy.get("#password").type(goodPassword);
     cy.get("#confirm-password").type(goodPassword);
-
-    cy.iframe('iframe[title="reCAPTCHA"]')
-      .find("#recaptcha-anchor")
-      .click();
 
     cy.get('label[for="acceptCgu"]').click();
 

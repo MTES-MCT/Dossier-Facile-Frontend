@@ -17,7 +17,7 @@ import { DocumentType } from "./DocumentType";
 import { User } from "df-shared/src/models/User";
 
 @Component({
-  components: { ColoredTag, DocumentLink }
+  components: { ColoredTag, DocumentLink },
 })
 export default class CoTenantDocumentLink extends Vue {
   @Prop() coTenant!: User;

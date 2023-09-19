@@ -1,10 +1,5 @@
 <template>
   <div id="app">
-    <Cookies
-      :hidden="cookieHidden"
-      @accept="acceptCookies"
-      @deny="denyCookies"
-    />
     <TenantSkipLinks></TenantSkipLinks>
     <MyHeader
       :logged-in="isLoggedIn"
@@ -32,9 +27,6 @@ import MyHeader from "df-shared/src/Header/Header.vue";
 import TheFooter from "df-shared/src/Footer/Footer.vue";
 import Menu from "./components/Menu.vue";
 import { mapGetters, mapState } from "vuex";
-import Cookies from "df-shared/src/Footer/Cookies.vue";
-import VueGtag from "vue-gtag";
-import router from "./router";
 import Announcement from "df-shared/src/components/Announcement.vue";
 import ModalAnnouncement from "df-shared/src/components/ModalAnnouncement.vue";
 import TenantSkipLinks from "./components/TenantSkipLinks.vue";
@@ -48,7 +40,6 @@ import DeleteAccount from "./components/DeleteAccount.vue";
     MyHeader,
     TheFooter,
     Menu,
-    Cookies,
     Announcement,
     ModalAnnouncement,
   },
@@ -66,7 +57,6 @@ import DeleteAccount from "./components/DeleteAccount.vue";
 export default class App extends Vue {
   isFunnel!: boolean;
   user!: User;
-  cookieHidden = this.$cookies.isKey("accept-cookie");
   isLoggedIn!: boolean;
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}`;
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
@@ -86,59 +76,6 @@ export default class App extends Vue {
 
   onCreateOwner() {
     window.location.href = this.OWNER_URL;
-  }
-
-  acceptCookies() {
-    const aYearFromNow = new Date();
-    aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1);
-    this.$cookies.set(
-      "accept-cookie",
-      true,
-      aYearFromNow,
-      "",
-      this.MAIN_URL.endsWith("dossierfacile.fr")
-        ? "dossierfacile.fr"
-        : "localhost"
-    );
-
-    Vue.use(
-      VueGtag,
-      {
-        config: {
-          id: "UA-50823626-2",
-          params: {
-            send_page_view: true,
-          },
-          linker: {
-            domains: [
-              "dossierfacile.fr",
-              "www.dossierfacile.fr",
-              "locataire.dossierfacile.fr",
-              "proprietaire.dossierfacile.fr",
-              "sso.dossierfacile.fr",
-            ],
-          },
-        },
-      },
-      router
-    );
-    Vue.prototype.inspectlet();
-    this.cookieHidden = true;
-  }
-
-  denyCookies() {
-    const d = new Date();
-    d.setDate(d.getDate() + 1);
-    this.$cookies.set(
-      "accept-cookie",
-      false,
-      d.toUTCString(),
-      "",
-      this.MAIN_URL.endsWith("dossierfacile.fr")
-        ? "dossierfacile.fr"
-        : "localhost"
-    );
-    this.cookieHidden = true;
   }
 }
 </script>

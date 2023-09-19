@@ -31,12 +31,8 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
 
-const {
-  STATUS_INITIAL,
-  STATUS_SUCCESS,
-  STATUS_SAVING,
-  STATUS_FAILED
-} = UploadStatus;
+const { STATUS_INITIAL, STATUS_SUCCESS, STATUS_SAVING, STATUS_FAILED } =
+  UploadStatus;
 
 @Component
 export default class FileUpload extends Vue {
@@ -149,4 +145,3 @@ export default class FileUpload extends Vue {
   text-align: center;
 }
 </style>
-
