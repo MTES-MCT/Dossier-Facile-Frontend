@@ -109,6 +109,7 @@ import { cloneDeep } from "lodash";
 import { ValidationProvider } from "vee-validate";
 import { extend } from "vee-validate";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
+import { UtilsService } from "@/services/UtilsService";
 
 @Component({
   components: {
@@ -295,11 +296,7 @@ export default class Professional extends Vue {
       })
       .catch((err) => {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
-        if (err.response.data.message.includes("NumberOfPages")) {
-          Vue.toasted.global.save_failed_num_pages();
-        } else {
-          Vue.toasted.global.save_failed();
-        }
+        UtilsService.handleCommonSaveError(err);
       })
       .finally(() => {
         loader.hide();

@@ -2,6 +2,7 @@ import { User } from "df-shared/src/models/User";
 import { DfDocument } from "../../../df-shared/src/models/DfDocument";
 import { Guarantor } from "../../../df-shared/src/models/Guarantor";
 import store from "../store";
+import { Vue } from "vue-property-decorator";
 
 export const UtilsService = {
   getMainUser() {
@@ -205,5 +206,15 @@ export const UtilsService = {
       user.apartmentSharing?.tokenPublic !== undefined &&
       user.apartmentSharing?.tokenPublic !== ""
     );
+  },
+  handleCommonSaveError(err: any) {
+    if (err?.response?.data?.message === null) {
+      return;
+    }
+    if (err.response.data.message.includes("NumberOfPages")) {
+      Vue.toasted.global.save_failed_num_pages();
+    } else {
+      Vue.toasted.global.save_failed();
+    }
   },
 };

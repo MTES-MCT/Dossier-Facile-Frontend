@@ -135,6 +135,7 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
 import FooterContainer from "../../footer/FooterContainer.vue";
 import BackNext from "../../footer/BackNext.vue";
 import { ref } from "@vue/reactivity";
+import { UtilsService } from "@/services/UtilsService";
 
 @Component({
   components: {
@@ -249,11 +250,7 @@ export default class CoTenantFinancialForm extends Vue {
           Vue.toasted.global.save_success();
         })
         .catch((err) => {
-          if (err.response.data.message.includes("NumberOfPages")) {
-            Vue.toasted.global.save_failed_num_pages();
-          } else {
-            Vue.toasted.global.save_failed();
-          }
+          UtilsService.handleCommonSaveError(err);
         })
         .finally(() => {
           loader.hide();

@@ -110,6 +110,7 @@ import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import { cloneDeep } from "lodash";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
+import { UtilsService } from "@/services/UtilsService";
 
 @Component({
   components: {
@@ -294,11 +295,7 @@ export default class GuarantorIdentification extends Vue {
       })
       .catch((err) => {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
-        if (err.response.data.message.includes("NumberOfPages")) {
-          Vue.toasted.global.save_failed_num_pages();
-        } else {
-          Vue.toasted.global.save_failed();
-        }
+        UtilsService.handleCommonSaveError(err);
       })
       .finally(() => {
         loader.hide();
