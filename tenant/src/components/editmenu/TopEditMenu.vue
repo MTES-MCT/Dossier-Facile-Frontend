@@ -431,6 +431,10 @@ export default class TopEditMenu extends Vue {
   isCouple() {
     return this.user.applicationType === "COUPLE";
   }
+
+  getCoTenant(index: number): User {
+    return this.coTenants[index];
+  }
 }
 </script>
 
