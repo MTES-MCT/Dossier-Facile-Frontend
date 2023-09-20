@@ -175,6 +175,7 @@ import Modal from "df-shared/src/components/Modal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
 import { LoaderComponent } from "vue-loading-overlay";
 import WarningTaxDeclaration from "@/components/documents/share/WarningTaxDeclaration.vue";
+import { UtilsService } from "@/services/UtilsService";
 
 extend("is", {
   ...is,
@@ -443,11 +444,7 @@ export default class GuarantorTax extends Vue {
       })
       .catch((err) => {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
-        if (err.response.data.message.includes("NumberOfPages")) {
-          Vue.toasted.global.save_failed_num_pages();
-        } else {
-          Vue.toasted.global.save_failed();
-        }
+        UtilsService.handleCommonSaveError(err);
       })
       .finally(() => {
         this.hideLoader();

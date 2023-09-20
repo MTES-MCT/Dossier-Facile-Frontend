@@ -19,10 +19,10 @@
       </section>
 
       <FileReinsurance
-        :dossierStatus="user.status"
+        :dossierStatus="user?.status || 'TO_PROCESS'"
         :taxDocumentStatus="taxDocumentStatus()"
         :franceConnectTenantCount="franceConnectTenantCount()"
-        :tenantCount="user.tenants.length"
+        :tenantCount="user?.tenants?.length || 0"
         :taxChecked="isTaxChecked()"
       ></FileReinsurance>
 

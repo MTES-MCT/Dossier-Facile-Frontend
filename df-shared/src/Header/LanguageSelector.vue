@@ -36,7 +36,7 @@ export default class LanguageSelector extends Vue {
   availableLanguages: Language[] = [FRENCH, ENGLISH];
 
   currentLanguage: Language =
-    this.availableLanguages.findLast(
+    this.availableLanguages.find(
       (language) => language.id === this.initialLanguage
     ) || FRENCH;
 

@@ -266,6 +266,7 @@ import { AnalyticsService } from "../../../services/AnalyticsService";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
+import { UtilsService } from "@/services/UtilsService";
 
 extend("regex", {
   ...regex,
@@ -505,11 +506,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
       })
       .catch((err) => {
         this.financialDocument.fileUploadStatus = UploadStatus.STATUS_FAILED;
-        if (err.response.data.message.includes("NumberOfPages")) {
-          Vue.toasted.global.save_failed_num_pages();
-        } else {
-          Vue.toasted.global.save_failed();
-        }
+        UtilsService.handleCommonSaveError(err);
         return Promise.reject(new Error("err"));
       })
       .finally(() => {

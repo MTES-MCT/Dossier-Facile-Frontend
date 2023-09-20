@@ -154,11 +154,7 @@ export default class CoTenantTax extends Vue {
         this.$emit("on-next");
       })
       .catch((err) => {
-        if (err.response.data.message.includes("NumberOfPages")) {
-          Vue.toasted.global.save_failed_num_pages();
-        } else {
-          Vue.toasted.global.save_failed();
-        }
+        UtilsService.handleCommonSaveError(err);
       })
       .finally(() => {
         loader.hide();

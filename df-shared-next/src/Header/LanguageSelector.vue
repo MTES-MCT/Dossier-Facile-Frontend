@@ -47,7 +47,7 @@ const availableLanguages: Language[] = [
 ];
 
 function getCurrentLanguage() {
-  return availableLanguages.findLast(
+  return availableLanguages.find(
     (language) => language.id === (i18n.global as Composer).locale.value
   );
 }
