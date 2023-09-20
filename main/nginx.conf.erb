@@ -1,0 +1,26 @@
+location / {
+    if ($uri = /blog) {
+        rewrite .* /blog/index.html break;
+    }
+    if ($uri = /information) {
+        rewrite .* /information/index.html break;
+    }
+    if ($uri = /accessibilite) {
+        rewrite .* /accessibilite/index.html break;
+    }
+    if ($uri = /mentions-legales) {
+        rewrite .* /mentions-legales/index.html break;
+    }
+    if ($uri = /plan-du-site) {
+        rewrite .* /plan-du-site/index.html break;
+    }
+
+    root /app/dist;
+    index index.html;
+    # Manage route with vue
+    try_files $uri $uri.html $uri/ /index.html =404;
+    # Add security header
+    add_header Content-Security-Policy "<%= ENV['MAIN_CSP'] %>";
+    add_header X-Frame-Options "deny";
+    add_header X-Content-Type-Options "nosniff";
+}
