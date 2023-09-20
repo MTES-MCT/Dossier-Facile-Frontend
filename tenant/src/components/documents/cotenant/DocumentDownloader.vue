@@ -493,11 +493,7 @@ export default class DocumentDownloader extends Vue {
       })
       .catch((err) => {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
-        if (err.response.data.message.includes("NumberOfPages")) {
-          Vue.toasted.global.save_failed_num_pages();
-        } else {
-          Vue.toasted.global.save_failed();
-        }
+        UtilsService.handleCommonSaveError(err);
       })
       .finally(() => {
         this.hideLoader();
