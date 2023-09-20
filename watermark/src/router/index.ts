@@ -2,6 +2,7 @@ import * as VueRouter from "vue-router";
 import WatermarkingPage from "../views/WatermarkingPage.vue";
 import LegalNotices from "../views/LegalNotices.vue";
 import TermsAndConditions from "../views/TermsAndConditions.vue";
+import Accessibility from "../views/Accessibility.vue";
 
 const routes = [
   {
@@ -18,6 +19,11 @@ const routes = [
     path: "/conditions-generales-d-utilisation",
     name: "TermsAndConditions",
     component: TermsAndConditions,
+  },
+  {
+    path: "/accessibilite",
+    name: "Accessibility",
+    component: Accessibility,
   },
 ];
 
