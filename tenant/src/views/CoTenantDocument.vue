@@ -18,7 +18,11 @@
       </FooterContainer>
     </div>
     <div v-if="getSubStep() === 2">
-      <CoTenantResidency :coTenantId="getTenantId()"></CoTenantResidency>
+      <CoTenantResidency
+        :coTenantId="getTenantId()"
+        @on-next="checkResidencyAndGoNext"
+        @on-back="goBack()"
+      ></CoTenantResidency>
       <ConfirmModal
         v-if="showNbDocumentsResidency"
         :validate-btn-text="$t('add-new-documents')"
@@ -41,14 +45,6 @@
         </ul>
         {{ $t("cotenantdocument.warning-need-residency-documents.p2") }}
       </ConfirmModal>
-      <FooterContainer>
-        <BackNext
-          :showBack="true"
-          @on-next="checkResidencyAndGoNext"
-          @on-back="goBack()"
-        >
-        </BackNext>
-      </FooterContainer>
     </div>
     <div v-if="getSubStep() === 3">
       <CoTenantProfessional :coTenantId="getTenantId()"></CoTenantProfessional>

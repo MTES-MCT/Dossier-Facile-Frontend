@@ -10,7 +10,7 @@
         <TroubleshootingModal>
           <DocumentHelp></DocumentHelp>
           <DocumentInsert
-            v-if="document ? (document.key ? true : false) : false"
+            v-if="document ? !!document.key : false"
             :allow-list="document ? document.acceptedProofs : null"
             :block-list="document ? document.refusedProofs : null"
           ></DocumentInsert>
@@ -101,7 +101,7 @@
         :documentStatus="documentStatus"
       ></AllDeclinedMessages>
 
-      <div v-if="!(noDocument == true) || forceShowDownloader">
+      <div v-if="!noDocument || forceShowDownloader">
         <div v-if="documentFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
           <ListItem
             v-for="(file, k) in documentFiles()"
@@ -436,6 +436,7 @@ export default class DocumentDownloader extends Vue {
           }
         }
       }
+      doc.customText = undefined;
       this.localEditedDocumentId = -1;
     }
   }
