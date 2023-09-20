@@ -28,10 +28,9 @@ jobs:
         with:
           project: ./main
           install: false
-          start: yarn main run start
+          start: yarn main run serve
           wait-on: 'http://localhost:9001'
         env:
-          PORT: 9001
           DEBUG: '@cypress/github-action'
         timeout-minutes: 3
 
