@@ -2,6 +2,7 @@ import { DfDocument } from "df-shared/src/models/DfDocument";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { User } from "df-shared/src/models/User";
 import store from "../store";
+import { UtilsService } from "@/services/UtilsService";
 
 export const DocumentService = {
   hasDocument() {
@@ -269,5 +270,14 @@ export const DocumentService = {
           ) || "EMPTY";
     }
     return status;
+  },
+  getCoTenantDocument(coTenantId: number, documentCategory: string) {
+    const coTenant = UtilsService.getTenant(Number(coTenantId));
+    if (coTenant.documents !== null) {
+      return coTenant.documents?.find((d: DfDocument) => {
+        return d.documentCategory === documentCategory;
+      });
+    }
+    return undefined;
   },
 };
