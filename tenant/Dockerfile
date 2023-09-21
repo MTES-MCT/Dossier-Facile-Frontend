@@ -1,4 +1,4 @@
-FROM node:16-bullseye-slim as build-stage
+FROM node:18-bullseye-slim as build-stage
 
 WORKDIR /front-tenant
 
@@ -28,7 +28,7 @@ RUN yarn build --mode non-prod
 
 # -----------------------------------------------
 
-FROM node:16-bullseye-slim as deploy-stage
+FROM node:18-bullseye-slim as deploy-stage
 
 WORKDIR /front-tenant
 

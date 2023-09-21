@@ -11,7 +11,7 @@
     ]
   },
   "engines": {
-    "node": "16.x"
+    "node": "18.x"
   },
   "scripts": {
     "serve": "vue-cli-service serve --port 9001",
@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.14.3",
-    "@gouvfr/dsfr": "1.9.0",
+    "@gouvfr/dsfr": "1.10.1",
     "@prerenderer/webpack-plugin": "5.2.0",
     "@sentry/tracing": "^7.51.2",
     "@sentry/vue": "^7.51.2",
