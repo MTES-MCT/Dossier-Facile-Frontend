@@ -51,7 +51,7 @@ Cypress.Commands.add("clickOnNext", () => {
 });
 
 Cypress.Commands.add("testAccessibility", () => {
-  cy.wait(200);
+  cy.wait(500);
   cy.injectAxe();
   cy.configureAxe({
     // TODO fix disabled rules

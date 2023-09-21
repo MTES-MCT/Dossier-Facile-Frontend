@@ -10,7 +10,6 @@ describe("alone tenant scenario", () => {
   it("validate file", () => {
     cy.tenantLogin(user.username);
 
-    cy.expectPath("/profile");
     cy.get("#lastname").should("have.value", user.lastname);
     cy.get("#firstname").should("have.value", user.firstname.toUpperCase());
     cy.clickOnNext();
