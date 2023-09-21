@@ -171,7 +171,6 @@ export default class Identification extends Vue {
           });
           if (localDoc !== undefined) {
             this.identificationDocument = localDoc;
-            this.identificationDocumentKey = localDoc.key;
           }
         }
       }
