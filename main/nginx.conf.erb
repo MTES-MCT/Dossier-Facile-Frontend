@@ -1,20 +1,7 @@
 location / {
-    if ($uri = /blog) {
-        rewrite .* /blog/index.html break;
-    }
-    if ($uri = /information) {
-        rewrite .* /information/index.html break;
-    }
-    if ($uri = /accessibilite) {
-        rewrite .* /accessibilite/index.html break;
-    }
-    if ($uri = /mentions-legales) {
-        rewrite .* /mentions-legales/index.html break;
-    }
-    if ($uri = /plan-du-site) {
-        rewrite .* /plan-du-site/index.html break;
-    }
-
+    rewrite ^/(blog|information|accessibilite|mentions-legales|plan-du-site)/?$1/index.html break;
+    rewrite ^/blog/([a-zA-Z0-9-]+)$ /blog/$1/index.html break;
+    expires 1d;
     root /app/dist;
     index index.html;
     # Manage route with vue
