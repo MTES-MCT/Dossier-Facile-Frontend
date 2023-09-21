@@ -5,6 +5,23 @@
         <div class="fr-col-md-10 fr-col-lg-8">
           <h1>{{ $t("blog-title") }}</h1>
           <BlogExtractTile
+            title="Le Guide Complet des Aides pour les Étudiant·e·s en Recherche de Logements en France"
+            :image="require('../../assets/images/blog-article21.webp')"
+            publicationDate="21 Septembre 2023"
+            path="/blog/guide-aide-etudiant-logement"
+          >
+            <template v-slot:extract>
+              <p>
+                La recherche d'un logement constitue l'une des étapes cruciales
+                de votre parcours universitaire. Chez DossierFacile, nous en
+                avons conscience et nous sommes dévoués à vous faciliter cette
+                démarche. Voici un guide exhaustif des aides publiques (État,
+                collectivités, autres organismes publics) disponibles en France
+                pour t’accompagner dans ta quête de logement.
+              </p>
+            </template>
+          </BlogExtractTile>
+          <BlogExtractTile
             title="DossierFacile lance FiligraneFacile, le service permettant d’ajouter un filigrane à n’importe quel document !"
             :image="require('../../assets/images/blog-article20.webp')"
             publicationDate="10 Août 2023"
