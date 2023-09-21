@@ -31,18 +31,18 @@
               <h2 class="fr-text-title--grey fr-h4">
                 {{ $t("account.congratulations-title") }}
               </h2>
-              <p
-                class="fr-mb-3w"
-                v-html="$t('account.congratulations-text-1')"
-              ></p>
-              <p v-html="$t('account.congratulations-text-2')"></p>
-            </div>
-
-            <div
-              class="fr-mt-3w fr-mb-3w fr-p-4w bg-white"
-              v-if="canCopyLink()"
-            >
-              <ShareFile></ShareFile>
+              <p>
+                {{ $t("account.congratulations-text-1") }}
+                <br />
+                <strong>
+                  {{ $t("account.congratulations-text-2") }}
+                </strong>
+              </p>
+              <router-link to="/applications">
+                <DfButton :primary="true">
+                  {{ $t("account.application-page-redirection") }}
+                </DfButton>
+              </router-link>
             </div>
 
             <div
@@ -179,7 +179,6 @@ import { Guarantor } from "df-shared/src/models/Guarantor";
 import { AnalyticsService } from "../services/AnalyticsService";
 import DeleteAccount from "../components/DeleteAccount.vue";
 import FakeAnnouncement from "../components/FakeAnnouncement.vue";
-import ShareFile from "../components/account/ShareFile.vue";
 import PartnersSection from "@/components/account/PartnersSection.vue";
 import { UtilsService } from "@/services/UtilsService";
 import InfoCard from "@/components/account/InfoCard.vue";
@@ -195,7 +194,6 @@ import TenantPanel from "@/components/account/TenantPanel.vue";
     DfButton,
     ColoredTag,
     DeleteAccount,
-    ShareFile,
     TenantPanel,
   },
   computed: {
