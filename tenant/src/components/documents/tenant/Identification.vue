@@ -6,13 +6,33 @@
           {{ $t("identification-page.select-label") }}
         </h1>
 
+        <TroubleshootingModal>
+          <DocumentHelp></DocumentHelp>
+          <DocumentInsert
+            :allow-list="identificationDocument.acceptedProofs"
+            :block-list="identificationDocument.refusedProofs"
+            v-if="identificationDocument.key"
+          ></DocumentInsert>
+        </TroubleshootingModal>
+
         <div class="fr-mt-3w">
-          <RichRadioButtons
-            name="application-type-selector"
-            v-model="identificationDocumentKey"
-            @input="onSelectChange"
-            :elements="mapDocuments()"
-          ></RichRadioButtons>
+          <fieldset class="fr-fieldset">
+            <div class="fr-fieldset__content">
+              <div class="fr-grid-row">
+                <div v-for="d in documents" :key="d.key" class="full-width-xs">
+                  <BigRadio
+                    :val="d"
+                    v-model="identificationDocument"
+                    @input="onSelectChange()"
+                  >
+                    <div class="fr-grid-col spa">
+                      <span>{{ $t(d.key) }}</span>
+                    </div>
+                  </BigRadio>
+                </div>
+              </div>
+            </div>
+          </fieldset>
         </div>
       </NakedCard>
     </div>
@@ -87,7 +107,6 @@ import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReason
 import { cloneDeep } from "lodash";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 import { UtilsService } from "@/services/UtilsService";
-import RichRadioButtons from "df-shared/src/Button/RichRadioButtons.vue";
 
 @Component({
   components: {
@@ -103,7 +122,6 @@ import RichRadioButtons from "df-shared/src/Button/RichRadioButtons.vue";
     DocumentHelp,
     VGouvFrModal,
     NakedCard,
-    RichRadioButtons,
     TroubleshootingModal,
   },
   computed: {
@@ -123,7 +141,6 @@ export default class Identification extends Vue {
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
   identificationDocument = new DocumentType();
-  identificationDocumentKey = "";
   isDocDeleteVisible = false;
 
   getLocalStorageKey() {
@@ -142,7 +159,6 @@ export default class Identification extends Vue {
         });
         if (localDoc !== undefined) {
           this.identificationDocument = localDoc;
-          this.identificationDocumentKey = localDoc.key;
           localStorage.setItem(
             this.getLocalStorageKey(),
             this.identificationDocument.key || ""
@@ -169,15 +185,9 @@ export default class Identification extends Vue {
   }
 
   onSelectChange() {
-    const localDoc = this.documents.find((d: DocumentType) => {
-      return d.key === this.identificationDocumentKey;
-    });
-    if (localDoc !== undefined) {
-      this.identificationDocument = localDoc;
-    }
     localStorage.setItem(
       this.getLocalStorageKey(),
-      this.identificationDocumentKey
+      this.identificationDocument.key
     );
     if (this.user.documents !== null) {
       const doc = this.tenantIdentificationDocument;
@@ -199,7 +209,6 @@ export default class Identification extends Vue {
         });
         if (localDoc !== undefined) {
           this.identificationDocument = localDoc;
-          this.identificationDocumentKey = localDoc.key;
         }
       }
     }
@@ -314,13 +323,17 @@ export default class Identification extends Vue {
       this.files.splice(firstIndex, 1);
     }
   }
-
-  mapDocuments() {
-    return this.documents.map((d) => {
-      return { id: d.key, labelKey: d.key, iconCount: 0, optionName: d.key };
-    });
-  }
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+table {
+  border-collapse: collapse;
+}
+
+table,
+th,
+td {
+  border: 1px solid #ececec;
+}
+</style>
