@@ -2232,10 +2232,10 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.1.1.tgz#1a5b1959a528e374e8037c4396c3e825d6cf4a83"
   integrity sha512-m0G6wlnhm/AX0H12IOWtK8gASEMffnX08RtKkCgTdHb9JpHKGloI7icFfLg9ZmQeavcvR0PKmzxClyuFPSjKWw==
 
-"@gouvfr/dsfr@1.9.0":
-  version "1.9.0"
-  resolved "https://registry.npmjs.org/@gouvfr/dsfr/-/dsfr-1.9.0.tgz"
-  integrity sha512-CWckBrvCL28QV2K1+GK/AjW40aGHmd1oXnCSFRD4iRhsIgXkE/+t6pH24L+6BKVBCSYfp2RTGAgRwVN06PqGMw==
+"@gouvfr/dsfr@1.10.1":
+  version "1.10.1"
+  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.10.1.tgz#a8470374d1f52d4195bd7c3c2b218fe3aaddac90"
+  integrity sha512-epBjsV9zmaOev+Sv2rrV9jgKfcs0U+gOVirthfG7EymeKUVX0eLQit+ra9yrDzLgk4mm7ZkWfy/6FekOuNgj1w==
 
 "@hapi/hoek@^9.0.0":
   version "9.3.0"
@@ -15005,11 +15005,6 @@ vue-eslint-parser@^9.0.0, vue-eslint-parser@^9.0.1:
     esquery "^1.4.0"
     lodash "^4.17.21"
     semver "^7.3.6"
-
-vue-gtag@1.12.0:
-  version "1.12.0"
-  resolved "https://registry.npmjs.org/vue-gtag/-/vue-gtag-1.12.0.tgz"
-  integrity sha512-besIPtTvF1VhM9/8N1lm/pUaqUKn8zz5mFECUqzlw0WEHfThAWquVbM1gppC7PoBfsHLbcdJVz+GXv5g/1MZrA==
 
 vue-hot-reload-api@^2.3.0:
   version "2.3.4"
