@@ -118,7 +118,6 @@
             :title="$t('guarantorssection.go-to-visale').toString()"
           >
             <div class="fr-tile bg-purple">
-              <div>{{ $t("guarantorssection.visale-text") }}</div>
               <div class="inline-block-flex space-between">
                 <div>
                   <div class="fr-h5">
@@ -133,6 +132,7 @@
                   />
                 </div>
               </div>
+              <div>{{ $t("guarantorssection.visale-text") }}</div>
             </div>
           </a>
         </div>

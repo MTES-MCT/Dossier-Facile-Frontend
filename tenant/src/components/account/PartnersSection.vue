@@ -6,17 +6,6 @@
     <div class="fr-grid-row fr-grid-row--gutters">
       <div class="fr-col-xl-4 fr-col-md-6 fr-col-12">
         <div class="fr-tile bg-purple fr-p-3w cleana">
-          <div class="service-box-btn">
-            <a
-              class="fr-btn fr-mt-1w fr-ml-2w cleana"
-              href="https://www.anil.org/lanil-et-les-adil/votre-adil/"
-              rel="noreferrer"
-              target="_blank"
-              :title="$t('partnerssection.go-to-anil')"
-            >
-              {{ $t("partnerssection.anil-btn") }}
-            </a>
-          </div>
           <div class="service-box-content">
             <img
               alt="logo anil"
@@ -31,21 +20,21 @@
               {{ $t("partnerssection.anil-text") }}
             </div>
           </div>
+          <div class="service-box-btn">
+            <a
+              class="fr-btn fr-mt-1w fr-ml-2w cleana"
+              href="https://www.anil.org/lanil-et-les-adil/votre-adil/"
+              rel="noreferrer"
+              target="_blank"
+              :title="$t('partnerssection.go-to-anil')"
+            >
+              {{ $t("partnerssection.anil-btn") }}
+            </a>
+          </div>
         </div>
       </div>
       <div class="fr-col-xl-4 fr-col-md-6 fr-col-12">
         <div class="fr-tile bg-purple fr-p-3w cleana">
-          <div class="service-box-btn">
-            <a
-              class="fr-btn fr-mt-1w fr-ml-2w cleana"
-              href="https://www.mesdroitssociaux.gouv.fr/votre-simulateur/accueil"
-              rel="noreferrer"
-              target="_blank"
-              :title="$t('partnerssection.go-to-mds')"
-            >
-              {{ $t("partnerssection.mds-btn") }}
-            </a>
-          </div>
           <div class="service-box-content">
             <img
               alt="logo mes droits sociaux"
@@ -60,22 +49,21 @@
               {{ $t("partnerssection.mds-text") }}
             </div>
           </div>
+          <div class="service-box-btn">
+            <a
+              class="fr-btn fr-mt-1w fr-ml-2w cleana"
+              href="https://www.mesdroitssociaux.gouv.fr/votre-simulateur/accueil"
+              rel="noreferrer"
+              target="_blank"
+              :title="$t('partnerssection.go-to-mds')"
+            >
+              {{ $t("partnerssection.mds-btn") }}
+            </a>
+          </div>
         </div>
       </div>
       <div class="fr-col-xl-4 fr-col-md-6 fr-col-12">
         <div class="fr-tile bg-purple fr-p-3w cleana">
-          <div class="service-box-btn">
-            <a
-              class="fr-btn fr-mt-1w fr-ml-2w cleana"
-              href="#"
-              @click="signal()"
-              rel="noreferrer"
-              target="_blank"
-              :title="$t('partnerssection.go-to-signal').toString()"
-            >
-              {{ $t("partnerssection.signal-btn") }}
-            </a>
-          </div>
           <div class="service-box-content">
             <img
               alt="Police nationale"
@@ -106,6 +94,18 @@
                 </template>
               </i18n>
             </div>
+          </div>
+          <div class="service-box-btn">
+            <a
+              class="fr-btn fr-mt-1w fr-ml-2w cleana"
+              href="#"
+              @click="signal()"
+              rel="noreferrer"
+              target="_blank"
+              :title="$t('partnerssection.go-to-signal').toString()"
+            >
+              {{ $t("partnerssection.signal-btn") }}
+            </a>
           </div>
         </div>
       </div>
@@ -165,5 +165,9 @@ h2 {
 }
 .service-box-btn {
   text-align: right;
+}
+
+.fr-tile {
+  text-align: left;
 }
 </style>
