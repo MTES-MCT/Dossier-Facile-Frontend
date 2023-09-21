@@ -1,0 +1,17 @@
+location / {
+    rewrite ^/signup$ /signup/index.html break;
+    expires 1d;
+    root /app/dist;
+    index index.html;
+    # Manage route with vue
+    try_files $uri $uri.html $uri/ /index.html =404;
+    # Add security header
+    add_header Content-Security-Policy "<%= ENV['TENANT_CSP'] %>";
+    add_header X-Frame-Options "deny";
+    add_header X-Content-Type-Options "nosniff";
+
+    # Block indexation accept for the signup and contact pages
+    if ($request_uri != '/signup' && $request_uri != '/contact') {
+        noindex;
+    }
+}
