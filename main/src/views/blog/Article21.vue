@@ -23,6 +23,7 @@
       L'État français propose diverses aides pour soulager le coût du logement.
       <a
         href="https://www.service-public.fr/particuliers/vosdroits/R2972"
+        title="Service public - Aide personnalisée au logement (nouvelle fenêtre)"
         target="_blank"
         rel="noopener"
         >L'Aide Personnalisée au Logement</a
@@ -32,6 +33,7 @@
       celles de votre foyer doivent respecter certaines limites fixées par la
       <a
         href="https://www.service-public.fr/particuliers/vosdroits/F12006"
+        title="Service public - règlementation en vigueur (nouvelle fenêtre)"
         target="_blank"
         rel="noopener"
         >réglementation en vigueur</a
@@ -42,6 +44,7 @@
       <br />
       L'<a
         href="https://www.service-public.fr/particuliers/vosdroits/F1280"
+        title="Service public - allocation de logement social (nouvelle fenêtre)"
         target="_blank"
         re="noopener"
       >
@@ -57,6 +60,7 @@
       <br />
       L'<a
         href="https://www.service-public.fr/particuliers/vosdroits/F13132"
+        title="Service public - allocation de logement familial (nouvelle fenêtre)"
         target="_blank"
         rel="noopener"
       >
@@ -81,6 +85,7 @@
       Pour pouvoir prétendre à une BCS, il est impératif de remplir les
       <a
         href="https://www.service-public.fr/particuliers/vosdroits/F12214"
+        title="Service public - conditions du CROUS (nouvelle fenêtre)"
         target="_blank"
         rel="noopener"
         >conditions fixées par le CROUS</a
@@ -128,6 +133,7 @@
       La démarche pour obtenir une aide du FSL implique de
       <a
         href="https://www.caf.fr/allocataires/caf-de-l-herault/offre-de-service/logement/le-fonds-de-solidarite-logement-fsl#:~:text=O%C3%B9%20et%20comment%20faire%20sa,%C3%A0%20l'Espace%20logement%20H%C3%A9rault."
+        title="CAF - contacter les services sociaux (nouvelle fenêtre)"
         target="_blank"
         rel="noopener"
         >contacter les services sociaux de votre département de résidence</a
@@ -140,6 +146,7 @@
       Certains
       <a
         href="https://travail-emploi.gouv.fr/emploi-et-insertion/accompagnement-des-mutations-economiques/appui-aux-mutations-economiques/article/dispositif-local-d-accompagnement-dla"
+        title="site travail-emploi (nouvelle fenêtre)"
         target="_blank"
         rel="noopener"
       >
@@ -165,6 +172,7 @@
       <br />
       <a
         href="https://www.ecologie.gouv.fr/habiter-logement-social-en-colocation-quelles-conditions"
+        title="site ecologie.gouv.fr (nouvelle fenêtre)"
         target="_blank"
         rel="noopener"
         >Les démarches pour intégrer une CLM varient selon les organismes</a
@@ -193,6 +201,7 @@
       les
       <a
         href="https://www.ecologie.gouv.fr/louer-solidaire-solibail"
+        title="site ecologie.gouv.fr (nouvelle fenêtre)"
         target="_blank"
         rel="noopener"
         >associations qui proposent ce type d'offres</a
@@ -208,6 +217,7 @@
       La
       <a
         href="https://www.visale.fr/visale-pour-les-locataires/avantages/"
+        title="site visale.fr (nouvelle fenêtre)"
         target="_blank"
         rel="noopener"
         >garantie Visale</a
@@ -220,13 +230,21 @@
       de l'étudiant. Cela rassure les propriétaires et facilite l'acceptation de
       votre dossier de location. Visale est accessible aux jeunes de moins de 30
       ans et sous certaines conditions. La demande s'effectue
-      <a href="https://www.visale.fr/" target="_blank" rel="noopener"
+      <a
+        href="https://www.visale.fr/"
+        target="_blank"
+        rel="noopener"
+        title="site visale.fr (nouvelle fenêtre)"
         >en ligne</a
       >.
     </p>
     <h3 class="fr-h7">b. DossierFacile</h3>
     <p>
-      <a href="https://www.dossierfacile.fr/" target="_blank" rel="noopener"
+      <a
+        href="https://www.dossierfacile.fr/"
+        target="_blank"
+        rel="noopener"
+        title="site dossierfacile (nouvelle fenêtre)"
         >Dossier<strong>Facile</strong></a
       >
       est un service public numérique, national et entièrement gratuit. Il vise
@@ -248,6 +266,7 @@
       général, n'hésitez pas à consulter
       <a
         href="https://www.dossierfacile.fr/blog/un-garant-qui-comment-pourquoi"
+        title="site dossierfacile (nouvelle fenêtre)"
         target="_blank"
         rel="noopener"
         >notre article sur le sujet</a
