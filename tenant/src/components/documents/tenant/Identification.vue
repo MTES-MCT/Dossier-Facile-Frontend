@@ -6,13 +6,27 @@
           {{ $t("identification-page.select-label") }}
         </h1>
 
+        <TroubleshootingModal>
+          <DocumentHelp></DocumentHelp>
+          <DocumentInsert
+            :allow-list="identificationDocument.acceptedProofs"
+            :block-list="identificationDocument.refusedProofs"
+            v-if="identificationDocument.key"
+          ></DocumentInsert>
+        </TroubleshootingModal>
+
         <div class="fr-mt-3w">
-          <RichRadioButtons
-            name="application-type-selector"
-            v-model="identificationDocumentKey"
-            @input="onSelectChange"
-            :elements="mapDocuments()"
-          ></RichRadioButtons>
+          <ul class="fr-tags-group">
+            <li v-for="d in documents" :key="d.key">
+              <SelectableTag
+                :val="d"
+                v-model="identificationDocument"
+                @input="onSelectChange()"
+              >
+                {{ $t(d.key) }}
+              </SelectableTag>
+            </li>
+          </ul>
         </div>
       </NakedCard>
     </div>
@@ -77,7 +91,7 @@ import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
-import BigRadio from "df-shared/src/Button/BigRadio.vue";
+import SelectableTag from "df-shared/src/Button/SelectableTag.vue";
 import DocumentHelp from "../../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import { AnalyticsService } from "../../../services/AnalyticsService";
@@ -87,7 +101,6 @@ import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReason
 import { cloneDeep } from "lodash";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 import { UtilsService } from "@/services/UtilsService";
-import RichRadioButtons from "df-shared/src/Button/RichRadioButtons.vue";
 
 @Component({
   components: {
@@ -99,11 +112,10 @@ import RichRadioButtons from "df-shared/src/Button/RichRadioButtons.vue";
     WarningMessage,
     ConfirmModal,
     DfButton,
-    BigRadio,
+    SelectableTag,
     DocumentHelp,
     VGouvFrModal,
     NakedCard,
-    RichRadioButtons,
     TroubleshootingModal,
   },
   computed: {
@@ -123,7 +135,6 @@ export default class Identification extends Vue {
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
   identificationDocument = new DocumentType();
-  identificationDocumentKey = "";
   isDocDeleteVisible = false;
 
   getLocalStorageKey() {
@@ -142,7 +153,6 @@ export default class Identification extends Vue {
         });
         if (localDoc !== undefined) {
           this.identificationDocument = localDoc;
-          this.identificationDocumentKey = localDoc.key;
           localStorage.setItem(
             this.getLocalStorageKey(),
             this.identificationDocument.key || ""
@@ -161,7 +171,6 @@ export default class Identification extends Vue {
           });
           if (localDoc !== undefined) {
             this.identificationDocument = localDoc;
-            this.identificationDocumentKey = localDoc.key;
           }
         }
       }
@@ -169,15 +178,9 @@ export default class Identification extends Vue {
   }
 
   onSelectChange() {
-    const localDoc = this.documents.find((d: DocumentType) => {
-      return d.key === this.identificationDocumentKey;
-    });
-    if (localDoc !== undefined) {
-      this.identificationDocument = localDoc;
-    }
     localStorage.setItem(
       this.getLocalStorageKey(),
-      this.identificationDocumentKey
+      this.identificationDocument.key
     );
     if (this.user.documents !== null) {
       const doc = this.tenantIdentificationDocument;
@@ -199,7 +202,6 @@ export default class Identification extends Vue {
         });
         if (localDoc !== undefined) {
           this.identificationDocument = localDoc;
-          this.identificationDocumentKey = localDoc.key;
         }
       }
     }
@@ -314,13 +316,17 @@ export default class Identification extends Vue {
       this.files.splice(firstIndex, 1);
     }
   }
-
-  mapDocuments() {
-    return this.documents.map((d) => {
-      return { id: d.key, labelKey: d.key, iconCount: 0, optionName: d.key };
-    });
-  }
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+table {
+  border-collapse: collapse;
+}
+
+table,
+th,
+td {
+  border: 1px solid #ececec;
+}
+</style>
