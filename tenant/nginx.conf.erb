@@ -1,6 +1,11 @@
-location / {
+location /signup {
     rewrite ^/signup$ /signup/index.html break;
     expires 1d;
+    root /app/dist;
+    index index.html;
+}
+
+location / {
     root /app/dist;
     index index.html;
     # Manage route with vue
@@ -9,10 +14,5 @@ location / {
     add_header Content-Security-Policy "<%= ENV['TENANT_CSP'] %>";
     add_header X-Frame-Options "deny";
     add_header X-Content-Type-Options "nosniff";
-
-    # Block indexation accept for the signup and contact pages
-    location ~ ^/(?!signup|contact) {
-        add_header X-Robots-Tag "noindex, nofollow";
-    }
-
+    add_header X-Robots-Tag "noindex, nofollow";
 }
