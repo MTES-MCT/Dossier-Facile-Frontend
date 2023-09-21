@@ -11,7 +11,8 @@ location / {
     add_header X-Content-Type-Options "nosniff";
 
     # Block indexation accept for the signup and contact pages
-    if ($uri != '/signup' && $uri != '/contact') {
-        noindex;
+    location ~ ^/(?!signup|contact) {
+        add_header X-Robots-Tag "noindex, nofollow";
     }
+
 }
