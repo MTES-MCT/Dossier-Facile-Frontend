@@ -249,14 +249,6 @@ export default class CoupleInformation extends Vue {
   text-overflow: ellipsis;
 }
 
-.fr-btn {
-  box-shadow: none;
-  background-color: none;
-  --color-hover: none;
-  --color-active: none;
-  padding: 0;
-}
-
 .icon-btn {
   display: block;
   height: 2.5rem;

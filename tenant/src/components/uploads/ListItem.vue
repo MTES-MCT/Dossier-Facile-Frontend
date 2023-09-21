@@ -167,7 +167,6 @@ export default class ListItem extends Vue {
 
 .fr-btn {
   box-shadow: none;
-  background-color: none;
   --color-hover: none;
   --color-active: none;
   padding: 0;

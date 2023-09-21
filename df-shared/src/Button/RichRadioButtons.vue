@@ -27,7 +27,6 @@
               :class="element.iconClass + ' fr-icon--lg'"
               aria-hidden="true"
             ></span>
-            {{ getIconCount(element) }}
           </div>
         </div>
       </div>

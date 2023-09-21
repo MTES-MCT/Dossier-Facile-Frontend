@@ -39,7 +39,6 @@ export default class ViewEditBtn extends Vue {
 <style scoped lang="scss">
 .fr-btn {
   box-shadow: none;
-  background-color: none;
   --color-hover: none;
   --color-active: none;
   padding: 0;
