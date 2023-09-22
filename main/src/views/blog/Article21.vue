@@ -41,7 +41,8 @@
       de votre logement, votre loyer, vos ressources, et la localisation
       géographique de votre logement. Plus le loyer est élevé, plus l'aide peut
       être importante.
-      <br />
+    </p>
+    <p>
       L'<a
         href="https://www.service-public.fr/particuliers/vosdroits/F1280"
         title="Service public - allocation de logement social (nouvelle fenêtre)"
@@ -57,7 +58,8 @@
       fixés. Tout comme l'APL, le montant de l'ALS dépend de plusieurs facteurs,
       notamment la taille du logement, le loyer, les revenus, et la localisation
       géographique du logement.
-      <br />
+    </p>
+    <p>
       L'<a
         href="https://www.service-public.fr/particuliers/vosdroits/F13132"
         title="Service public - allocation de logement familial (nouvelle fenêtre)"
@@ -81,7 +83,9 @@
     <p>
       Attribuées par le CROUS, ces bourses dépendent des revenus du foyer
       fiscal. Elles sont destinées à soutenir financièrement les étudiants en
-      situation précaire.<br />
+      situation précaire.
+    </p>
+    <p>
       Pour pouvoir prétendre à une BCS, il est impératif de remplir les
       <a
         href="https://www.service-public.fr/particuliers/vosdroits/F12214"
@@ -91,12 +95,14 @@
         >conditions fixées par le CROUS</a
       >. Cela inclut généralement des plafonds de ressources à ne pas dépasser
       et la nécessité de déposer un Dossier Social Étudiant (DSE).
-      <br />
+    </p>
+    <p>
       Le montant de la bourse varie en fonction des ressources du foyer, de la
       situation familiale de l'étudiant et du niveau d'études. Il peut couvrir
       diverses dépenses, telles que le loyer, les frais de scolarité ou encore
       les livres.
-      <br />
+    </p>
+    <p>
       Il est important de noter que les BCS doivent être renouvelés chaque
       année. Le maintien de l'éligibilité dépend de la situation financière de
       l'étudiant et de sa progression dans ses études.
@@ -109,8 +115,8 @@
       aides sont destinées aux étudiants locataires et sont déterminées en
       fonction de leur situation financière. Les ressources du foyer et la
       taille du logement sont prises en compte.
-
-      <br />
+    </p>
+    <p>
       Le montant de l'ALE dépend de plusieurs facteurs, cette aide est versée
       directement à l'étudiant, ce qui lui permet de couvrir une partie du
       loyer.
@@ -121,15 +127,18 @@
       prévenir les expulsions et à favoriser l'accès à un logement décent. C’est
       une importante bouée de sauvetage pour les étudiants en difficulté
       financière, en particulier ceux qui risquent l'expulsion.
-      <br />
+    </p>
+    <p>
       Les critères d'obtention du FSL peuvent varier selon les départements. Ils
       prennent généralement en compte la situation financière précaire de
       l'étudiant et les difficultés qu'il rencontre pour maintenir son logement.
-      <br />
+    </p>
+    <p>
       Il peut offrir différentes formes d'aides, comme le paiement d'arriérés de
       loyer, des avances pour le dépôt de garantie, ou encore des aides au
       règlement de factures d'énergie.
-      <br />
+    </p>
+    <p>
       La démarche pour obtenir une aide du FSL implique de
       <a
         href="https://www.caf.fr/allocataires/caf-de-l-herault/offre-de-service/logement/le-fonds-de-solidarite-logement-fsl#:~:text=O%C3%B9%20et%20comment%20faire%20sa,%C3%A0%20l'Espace%20logement%20H%C3%A9rault."
@@ -165,11 +174,13 @@
       proposent des logements partagés à des loyers inférieurs à ceux du marché
       privé, souvent grâce à des subventions publiques ou à des partenariats
       avec des bailleurs sociaux.
-      <br />
+    </p>
+    <p>
       Les critères pour accéder à une CLM peuvent varier en fonction de
       l'organisme gestionnaire. Ils sont généralement liés à la situation
       financière de chaque colocataire et à l'objectif social de la structure.
-      <br />
+    </p>
+    <p>
       <a
         href="https://www.ecologie.gouv.fr/habiter-logement-social-en-colocation-quelles-conditions"
         title="site ecologie.gouv.fr (nouvelle fenêtre)"
@@ -183,20 +194,20 @@
     <p>
       Des associations et organismes mettent en relation des étudiants avec des
       personnes proposant une chambre chez elles à un prix abordable.
-
-      <br />
+    </p>
+    <p>
       Les logements solidaires sont le fruit de partenariats entre des
       associations ou des organismes et des particuliers disposant d'une chambre
       libre. En échange d'un loyer modéré voire symbolique, l'étudiant s'engage
       à rendre des services à la personne hébergeante (courses, compagnie,
       petits travaux, etc.).
-
-      <br />
+    </p>
+    <p>
       Les conditions pour accéder à un logement solidaire peuvent varier, mais
       elles sont généralement basées sur la volonté de l'étudiant de s'engager
       dans des actions d'entraide.
-
-      <br />
+    </p>
+    <p>
       Pour trouver un logement solidaire, il est recommandé de se tourner vers
       les
       <a
@@ -249,7 +260,9 @@
       >
       est un service public numérique, national et entièrement gratuit. Il vise
       à simplifier la constitution du dossier de location pour les candidats
-      locataires.<br />
+      locataires.
+    </p>
+    <p>
       Nous vous guidons pas à pas dans la constitution de votre dossier de
       location grâce à une liste personnalisée des documents à fournir, en
       fonction de votre situation et du type de logement visé. Les avantages :
@@ -261,7 +274,8 @@
       La GLI permet à un organisme tiers de se porter garant pour le paiement du
       loyer en cas de difficultés. Cette garantie peut rassurer les
       propriétaires et faciliter la recherche d'un logement pour les étudiants.
-      <br />
+    </p>
+    <p>
       Pour en savoir plus sur les GLI ou encore les garants et les garanties en
       général, n'hésitez pas à consulter
       <a
@@ -270,18 +284,23 @@
         target="_blank"
         rel="noopener"
         >notre article sur le sujet</a
-      >.<br />
-      Chez Dossier<strong>Facile</strong>, nous comprenons les défis liés à la
-      recherche de logement pour les étudiants.
-      <br />
-      Renseignez-vous auprès des organismes compétents et utilisez ces aides
-      précieuses. La rentrée étudiante doit être une période de découverte et
-      d'épanouissement, et un logement adéquat y contribue grandement.
-
-      <br />
-      L'équipe Dossier<strong>Facile</strong> vous souhaite une excellente
-      rentrée et beaucoup de succès dans votre parcours étudiant !
+      >.
     </p>
+    <section class="fr-mt-5w">
+      <p>
+        Chez Dossier<strong>Facile</strong>, nous comprenons les défis liés à la
+        recherche de logement pour les étudiants.
+      </p>
+      <p>
+        Renseignez-vous auprès des organismes compétents et utilisez ces aides
+        précieuses. La rentrée étudiante doit être une période de découverte et
+        d'épanouissement, et un logement adéquat y contribue grandement.
+      </p>
+      <p>
+        L'équipe Dossier<strong>Facile</strong> vous souhaite une excellente
+        rentrée et beaucoup de succès dans votre parcours étudiant !
+      </p>
+    </section>
   </BlogArticle>
 </template>
 
