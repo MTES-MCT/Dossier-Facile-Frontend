@@ -1,11 +1,9 @@
+root /app/dist;
+
 location / {
-    rewrite ^/(blog|information|accessibilite|mentions-legales|plan-du-site)/?$1/index.html break;
-    rewrite ^/blog/([a-zA-Z0-9-]+)$ /blog/$1/index.html break;
-    expires 1d;
-    root /app/dist;
     index index.html;
     # Manage route with vue
-    try_files $uri $uri.html $uri/ /index.html =404;
+    try_files $uri $uri/index.html /index.html =404;
     # Add security header
     add_header Content-Security-Policy "<%= ENV['MAIN_CSP'] %>";
     add_header X-Frame-Options "deny";
