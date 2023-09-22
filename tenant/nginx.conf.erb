@@ -1,18 +1,20 @@
+root /app/dist;
+
 location /signup {
-    rewrite ^/signup$ /signup/index.html break;
-    expires 1d;
-    root /app/dist;
-    index index.html;
+    try_files $uri /signup/index.html =404;
+    add_header Content-Security-Policy "<%= ENV['TENANT_CSP'] %>";
+    add_header X-Frame-Options "deny";
+    add_header X-Content-Type-Options "nosniff";
 }
 
 location / {
-    root /app/dist;
     index index.html;
-    # Manage route with vue
-    try_files $uri $uri.html $uri/ /index.html =404;
+    # Manage route
+    try_files $uri $uri/index.html /index.html =404;
     # Add security header
     add_header Content-Security-Policy "<%= ENV['TENANT_CSP'] %>";
     add_header X-Frame-Options "deny";
     add_header X-Content-Type-Options "nosniff";
     add_header X-Robots-Tag "noindex, nofollow";
 }
+
