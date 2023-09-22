@@ -5,7 +5,7 @@
         <div class="fr-container">
           <div class="fr-grid-row justify-content-center">
             <h4 class="fr-col-10 title">
-              <span class="text-danger material-icons-outlined md-38 fr-pr-1w">cancel</span>
+              <i class="fr-pr-1w ri-close-circle-line text-danger" style="font-size: 38px"></i>
               {{ t('deleteaccount.title') }}
             </h4>
           </div>

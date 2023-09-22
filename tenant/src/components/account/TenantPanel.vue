@@ -64,14 +64,12 @@ import { AnalyticsService } from "@/services/AnalyticsService";
 import DeleteAccount from "@/components/DeleteAccount.vue";
 import GuarantorsSection from "@/components/account/GuarantorsSection.vue";
 import PartnersSection from "@/components/account/PartnersSection.vue";
-import InfoCard from "@/components/account/InfoCard.vue";
 import RowListItem from "@/components/documents/RowListItem.vue";
 import FileRowListItem from "@/components/documents/FileRowListItem.vue";
 import { DocumentTypeConstants } from "@/components/documents/share/DocumentTypeConstants";
 
 @Component({
   components: {
-    InfoCard,
     PartnersSection,
     GuarantorsSection,
     ValidationProvider,
@@ -312,10 +310,6 @@ p {
 
 .description:first-letter {
   text-transform: uppercase;
-}
-
-.material-icons.md-adapt {
-  font-size: 48px;
 }
 
 .header-title {

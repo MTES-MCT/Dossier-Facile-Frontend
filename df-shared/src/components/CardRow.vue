@@ -16,21 +16,17 @@
       <div class="btn-container">
         <button
           @click="edit()"
-          class="fr-p-0 fr-mr-2w icon-btn"
+          class="fr-mr-2w icon-btn fr-p-1w"
           :class="{ danger: danger, 'color--primary': !danger }"
         >
-          <div class="material-icons md-24 fr-m-1w">
-            edit
-          </div>
+          <i class="ri-pencil-line" style="font-size: 24px"></i>
         </button>
         <button
           @click="remove()"
-          class="fr-p-0 icon-btn"
+          class="fr-p-1w icon-btn"
           :class="{ danger: danger, 'color--primary': !danger }"
         >
-          <div class="material-icons md-24 fr-m-1w">
-            delete
-          </div>
+          <i class="ri-delete-bin-2-fill" style="font-size: 24px"></i>
         </button>
       </div>
     </div>
@@ -46,8 +42,8 @@ import NakedCard from "./NakedCard.vue";
 
 @Component({
   components: {
-    NakedCard
-  }
+    NakedCard,
+  },
 })
 export default class CardRow extends Vue {
   @Prop({ default: false }) danger!: boolean;

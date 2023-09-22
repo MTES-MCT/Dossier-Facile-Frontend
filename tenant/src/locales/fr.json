@@ -895,10 +895,6 @@
     "validate": "Valider",
     "cancel": "Annuler"
   },
-  "infocard": {
-    "edit": "Modifier",
-    "edit-title": "Modifier « {0} »"
-  },
   "joincouple": {
     "error": "Erreur",
     "password-update": "Le mot de passe a été mis à jour",

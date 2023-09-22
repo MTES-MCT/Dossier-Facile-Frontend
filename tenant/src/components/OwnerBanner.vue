@@ -45,7 +45,7 @@ import { Component, Vue } from "vue-property-decorator";
     DfButton
   }
 })
-export default class FileErrors extends Vue {
+export default class OwnerBanner extends Vue {
   OWNER_URL = `//${process.env.VUE_APP_OWNER_URL}/creation`;
   signal() {
     AnalyticsService.openCreateOwnerAccount();
