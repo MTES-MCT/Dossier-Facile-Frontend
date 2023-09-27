@@ -16,17 +16,23 @@
         </TroubleshootingModal>
 
         <div class="fr-mt-3w">
-          <ul class="fr-tags-group">
-            <li v-for="d in documents" :key="d.key">
-              <SelectableTag
-                :val="d"
-                v-model="identificationDocument"
-                @input="onSelectChange()"
-              >
-                {{ $t(d.key) }}
-              </SelectableTag>
-            </li>
-          </ul>
+          <fieldset class="fr-fieldset">
+            <div class="fr-fieldset__content">
+              <div class="fr-grid-row">
+                <div v-for="d in documents" :key="d.key" class="full-width-xs">
+                  <BigRadio
+                    :val="d"
+                    v-model="identificationDocument"
+                    @input="onSelectChange()"
+                  >
+                    <div class="fr-grid-col spa">
+                      <span>{{ $t(d.key) }}</span>
+                    </div>
+                  </BigRadio>
+                </div>
+              </div>
+            </div>
+          </fieldset>
         </div>
       </NakedCard>
     </div>
@@ -91,7 +97,7 @@ import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
-import SelectableTag from "df-shared/src/Button/SelectableTag.vue";
+import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import DocumentHelp from "../../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import { AnalyticsService } from "../../../services/AnalyticsService";
@@ -112,7 +118,7 @@ import { UtilsService } from "@/services/UtilsService";
     WarningMessage,
     ConfirmModal,
     DfButton,
-    SelectableTag,
+    BigRadio,
     DocumentHelp,
     VGouvFrModal,
     NakedCard,
