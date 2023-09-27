@@ -59,7 +59,7 @@ function dislike() {
     </button>
     <div class="fr-mt-1w">
       Une suggestion ? Contactez-nous :
-      <a href="mailto:contact@dossierfacile.fr">contact@dossierfacile.fr</a>
+      <a href="mailto:contact@filigrane.beta.gouv.fr">contact@filigrane.beta.gouv.fr</a>
     </div>
   </div>
 </template>
