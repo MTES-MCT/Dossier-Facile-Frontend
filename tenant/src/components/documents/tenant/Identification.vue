@@ -7,12 +7,12 @@
         </h1>
 
         <div class="fr-mt-3w">
-          <RichRadioButtons
+          <SimpleRadioButtons
             name="application-type-selector"
             v-model="identificationDocumentKey"
             @input="onSelectChange"
             :elements="mapDocuments()"
-          ></RichRadioButtons>
+          ></SimpleRadioButtons>
         </div>
       </NakedCard>
     </div>
@@ -87,7 +87,7 @@ import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReason
 import { cloneDeep } from "lodash";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 import { UtilsService } from "@/services/UtilsService";
-import RichRadioButtons from "df-shared/src/Button/RichRadioButtons.vue";
+import SimpleRadioButtons from "df-shared/src/Button/SimpleRadioButtons.vue";
 
 @Component({
   components: {
@@ -103,7 +103,7 @@ import RichRadioButtons from "df-shared/src/Button/RichRadioButtons.vue";
     DocumentHelp,
     VGouvFrModal,
     NakedCard,
-    RichRadioButtons,
+    SimpleRadioButtons,
     TroubleshootingModal,
   },
   computed: {
