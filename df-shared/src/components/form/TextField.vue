@@ -9,6 +9,7 @@
       </FieldLabel>
       <div class="field-with-button fr-input-wrap">
         <input
+          v-if="!textarea"
           :id="name"
           type="text"
           v-bind:value="value"
@@ -20,6 +21,22 @@
             'fr-input--error': errors[0],
           }"
           :disabled="disabled"
+        />
+        <textarea
+          v-else
+          :id="name"
+          type="text"
+          v-bind:value="value"
+          v-on:input="$emit('input', $event.target.value)"
+          :name="name"
+          class="validate-required form-control fr-input"
+          :class="{
+            'fr-input--valid': valid,
+            'fr-input--error': errors[0],
+          }"
+          :disabled="disabled"
+          maxlength="2000"
+          rows="4"
         />
         <div class="fr-ml-1w" v-if="$slots.right">
           <slot name="right"></slot>
@@ -50,6 +67,7 @@ export default class TextField extends Vue {
   @Prop({ default: "" }) validationRules!: string;
   @Prop({ default: false }) required!: boolean;
   @Prop({ default: false }) disabled!: boolean;
+  @Prop({ default: false }) textarea!: boolean;
 
   getValidationRules(): string {
     const requiredRule = "required";

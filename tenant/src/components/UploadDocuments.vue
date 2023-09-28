@@ -5,11 +5,10 @@
       <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
     </div>
     <div v-if="substep === 2">
-      <Residency></Residency>
-      <ProfileFooter
+      <Residency
         @on-back="goBack"
         @on-next="checkResidencyAndGoNext"
-      ></ProfileFooter>
+      ></Residency>
     </div>
     <div v-if="substep === 3">
       <Professional></Professional>

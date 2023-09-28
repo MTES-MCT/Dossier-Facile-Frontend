@@ -24,6 +24,7 @@ const routes = [
   "/blog/que-verifier-lors-de-la-visite-d-un-logement",
   "/blog/tout-ce-que-vous-devez-savoir-avant-de-quitter-votre-logement",
   "/blog/dossierfacile-lance-filigrane-facile",
+  "/blog/guide-aide-etudiant-logement",
   "/information",
   "/accessibilite",
   "/mentions-legales",

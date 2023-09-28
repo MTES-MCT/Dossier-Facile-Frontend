@@ -21,11 +21,11 @@
           ></GuarantorFooter>
         </div>
         <div v-if="substep === 2">
-          <GuarantorResidency :tenantId="tenantId"></GuarantorResidency>
-          <GuarantorFooter
+          <GuarantorResidency
+            :tenantId="tenantId"
             @on-back="goBack"
             @on-next="goNext"
-          ></GuarantorFooter>
+          ></GuarantorResidency>
         </div>
         <div v-if="substep === 3">
           <GuarantorProfessional

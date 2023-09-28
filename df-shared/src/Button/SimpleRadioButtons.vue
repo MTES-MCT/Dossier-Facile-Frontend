@@ -5,7 +5,7 @@
       v-bind:key="element.id"
       class="fr-fieldset__element"
     >
-      <div class="fr-radio-group fr-radio-rich">
+      <div class="fr-radio-group">
         <input
           :id="element.id"
           type="radio"
@@ -19,16 +19,6 @@
             {{ $tc(element.description) }}
           </span>
         </label>
-        <div class="fr-radio-rich__img" v-if="getIconCount(element) > 0">
-          <div class="icon-container">
-            <span
-              v-for="i in getIconCount(element)"
-              v-bind:key="i"
-              :class="element.iconClass + ' fr-icon--lg'"
-              aria-hidden="true"
-            ></span>
-          </div>
-        </div>
       </div>
     </div>
   </fieldset>
@@ -47,14 +37,10 @@ export interface RadioElement {
 }
 
 @Component
-export default class RichRadioButtons extends Vue {
+export default class SimpleRadioButtons extends Vue {
   @Prop() name!: string;
   @Prop() elements!: RadioElement[];
   @Prop() value!: string;
-
-  getIconCount(element: RadioElement) {
-    return element.iconCount === undefined ? 1 : element.iconCount;
-  }
 
   onSelect(applicationType: string) {
     this.$emit("input", applicationType);

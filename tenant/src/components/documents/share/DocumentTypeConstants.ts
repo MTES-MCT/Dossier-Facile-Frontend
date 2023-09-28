@@ -163,6 +163,13 @@ export const DocumentTypeConstants = {
       refusedProofs: ["Tout autre document"],
       maxFileCount: 10,
     },
+    {
+      key: "other-residency",
+      value: "OTHER_RESIDENCY",
+      acceptedProofs: [],
+      refusedProofs: [],
+      maxFileCount: 0
+    }
   ],
 
   GUARANTOR_RESIDENCY_DOCS: [
@@ -223,6 +230,13 @@ export const DocumentTypeConstants = {
       refusedProofs: ["Tout autre document"],
       maxFileCount: 10,
     },
+    {
+      key: "other-residency",
+      value: "OTHER_RESIDENCY",
+      acceptedProofs: [],
+      refusedProofs: [],
+      maxFileCount: 0
+    }
   ],
 
   PROFESSIONAL_DOCS: [

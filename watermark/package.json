@@ -11,7 +11,7 @@
   },
   "version": "0.0.0",
   "engines": {
-    "node": "16.x"
+    "node": "18.x"
   },
   "scripts": {
     "dev": "vite",
@@ -20,7 +20,7 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "@gouvfr/dsfr": "1.9.0",
+    "@gouvfr/dsfr": "1.10.1",
     "@sentry/tracing": "^7.51.2",
     "@sentry/vue": "^7.51.2",
     "@vee-validate/rules": "^4.5.11",

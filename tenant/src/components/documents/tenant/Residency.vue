@@ -1,88 +1,114 @@
 <template>
   <div>
-    <NakedCard class="fr-p-md-5w">
-      <div>
-        <h1 class="fr-h6">
-          {{ $t("residency-page.select-label") }}
-        </h1>
+    <ValidationObserver v-slot="{ validate }">
+      <NakedCard class="fr-p-md-5w">
+        <div>
+          <h1 class="fr-h6">
+            {{ $t("residency-page.select-label") }}
+          </h1>
 
-        <TroubleshootingModal>
-          <DocumentHelp></DocumentHelp>
-          <DocumentInsert
-            :allow-list="residencyDocument.acceptedProofs"
-            :block-list="residencyDocument.refusedProofs"
-            v-if="residencyDocument.key"
-          ></DocumentInsert>
-        </TroubleshootingModal>
+          <TroubleshootingModal>
+            <DocumentHelp></DocumentHelp>
+            <DocumentInsert
+              :allow-list="residencyDocument.acceptedProofs"
+              :block-list="residencyDocument.refusedProofs"
+              v-if="residencyDocument.key"
+            ></DocumentInsert>
+          </TroubleshootingModal>
 
-        <div class="fr-mt-3w">
-          <select
-            v-model="residencyDocument"
-            class="fr-select fr-mb-3w fr-mt-3w"
-            id="select"
-            @change="onSelectChange()"
-            aria-label="Select residency type"
-          >
-            <option v-for="d in documents" :value="d" :key="d.key">
-              {{ $t(d.key) }}
-            </option>
-          </select>
-        </div>
-      </div>
-    </NakedCard>
-    <NakedCard
-      class="fr-p-md-5w fr-mt-3w"
-      v-if="residencyDocument.key || residencyFiles().length > 0"
-    >
-      <div class="fr-mb-3w">
-        <p v-html="$t(`explanation-text.tenant.${residencyDocument.key}`)"></p>
-        <div
-          class="fr-background-contrast--info fr-p-2w fr-mt-2w warning-box"
-          v-if="residencyDocument.key === 'tenant'"
-        >
-          <div class="fr-text-default--info fr-h6 title">
-            <span class="material-icons-outlined"> warning_amber </span>
-            <span class="fr-ml-1w">
-              {{ $t("residency-page.warning-only-rent-receipt") }}
-            </span>
+          <div class="fr-mt-3w">
+            <select
+              v-model="residencyDocument"
+              class="fr-select fr-mb-3w fr-mt-3w"
+              id="select"
+              @change="onSelectChange()"
+              aria-label="Select residency type"
+            >
+              <option v-for="d in documents" :value="d" :key="d.key">
+                {{ $t(d.key) }}
+              </option>
+            </select>
           </div>
         </div>
-        <div
-          class="fr-background-contrast--info fr-p-2w fr-mt-2w warning-box"
-          v-if="
-            residencyDocument.key === 'guest' ||
-            residencyDocument.key === 'guest-parents'
-          "
-        >
-          <div class="fr-text-default--info fr-h6 title">
-            <span class="material-icons-outlined"> warning_amber </span>
-            <span class="fr-ml-1w">
-              {{ $t("residency-page.warning-incomplete") }}
-            </span>
-          </div>
-        </div>
-      </div>
-      <AllDeclinedMessages
-        class="fr-mb-3w"
-        :documentDeniedReasons="documentDeniedReasons"
-        :documentStatus="documentStatus"
-      ></AllDeclinedMessages>
-      <div v-if="residencyFiles().length > 0" class="fr-col-12 fr-mb-3w">
-        <ListItem
-          v-for="(file, k) in residencyFiles()"
-          :key="k"
-          :file="file"
-          @remove="remove(file)"
+      </NakedCard>
+      <NakedCard
+        class="fr-p-md-5w fr-mt-3w"
+        v-if="
+          residencyDocument.key && residencyDocument.key === 'other-residency'
+        "
+      >
+        <TextField
+          name="customText"
+          :fieldLabel="$tc('residency-page.custom-text')"
+          v-model="customText"
+          validation-rules="required"
+          :textarea="true"
         />
-      </div>
-      <div class="fr-mb-3w">
-        <FileUpload
-          :current-status="fileUploadStatus"
-          @add-files="addFiles"
-          @reset-files="resetFiles"
-        ></FileUpload>
-      </div>
-    </NakedCard>
+      </NakedCard>
+      <NakedCard
+        class="fr-p-md-5w fr-mt-3w"
+        v-if="
+          (residencyDocument.key &&
+            residencyDocument.key !== 'other-residency') ||
+          residencyFiles().length > 0
+        "
+      >
+        <div class="fr-mb-3w">
+          <p
+            v-html="$t(`explanation-text.tenant.${residencyDocument.key}`)"
+          ></p>
+          <div
+            class="fr-background-contrast--info fr-p-2w fr-mt-2w warning-box"
+            v-if="residencyDocument.key === 'tenant'"
+          >
+            <div class="fr-text-default--info fr-h6 title">
+              <span class="material-icons-outlined"> warning_amber </span>
+              <span class="fr-ml-1w">
+                {{ $t("residency-page.warning-only-rent-receipt") }}
+              </span>
+            </div>
+          </div>
+          <div
+            class="fr-background-contrast--info fr-p-2w fr-mt-2w warning-box"
+            v-if="
+              residencyDocument.key === 'guest' ||
+              residencyDocument.key === 'guest-parents'
+            "
+          >
+            <div class="fr-text-default--info fr-h6 title">
+              <span class="material-icons-outlined"> warning_amber </span>
+              <span class="fr-ml-1w">
+                {{ $t("residency-page.warning-incomplete") }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <AllDeclinedMessages
+          class="fr-mb-3w"
+          :documentDeniedReasons="documentDeniedReasons"
+          :documentStatus="documentStatus"
+        ></AllDeclinedMessages>
+        <div v-if="residencyFiles().length > 0" class="fr-col-12 fr-mb-3w">
+          <ListItem
+            v-for="(file, k) in residencyFiles()"
+            :key="k"
+            :file="file"
+            @remove="remove(file)"
+          />
+        </div>
+        <div class="fr-mb-3w">
+          <FileUpload
+            :current-status="fileUploadStatus"
+            @add-files="addFiles"
+            @reset-files="resetFiles"
+          ></FileUpload>
+        </div>
+      </NakedCard>
+      <ProfileFooter
+        @on-back="$emit('on-back')"
+        @on-next="validate().then(goNext)"
+      ></ProfileFooter>
+    </ValidationObserver>
     <ConfirmModal
       v-if="isDocDeleteVisible"
       @valid="validSelect()"
@@ -118,9 +144,16 @@ import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReason
 import { cloneDeep } from "lodash";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 import { UtilsService } from "@/services/UtilsService";
+import { ValidationObserver, ValidationProvider } from "vee-validate";
+import ProfileFooter from "@/components/footer/ProfileFooter.vue";
+import TextField from "df-shared/src/components/form/TextField.vue";
 
 @Component({
   components: {
+    TextField,
+    ValidationObserver,
+    ProfileFooter,
+    ValidationProvider,
     DocumentInsert,
     FileUpload,
     ListItem,
@@ -141,7 +174,7 @@ import { UtilsService } from "@/services/UtilsService";
   },
 })
 export default class Residency extends Vue {
-  documents = DocumentTypeConstants.RESIDENCY_DOCS;
+  documents: any[] = [];
 
   user!: User;
   tenantResidencyDocument!: DfDocument;
@@ -153,6 +186,7 @@ export default class Residency extends Vue {
     [key: string]: { state: string; percentage: number };
   } = {};
   residencyDocument = new DocumentType();
+  customText = "";
 
   isDocDeleteVisible = false;
 
@@ -165,11 +199,17 @@ export default class Residency extends Vue {
   }
 
   beforeMount() {
+    this.documents = DocumentTypeConstants.RESIDENCY_DOCS.filter(
+      (type: any) =>
+        type.key !== "other-residency" ||
+        UtilsService.useNewOtherResidencyCategory()
+    );
     if (this.user.documents !== null) {
       const doc = this.user.documents?.find((d: DfDocument) => {
         return d.documentCategory === "RESIDENCY";
       });
       if (doc !== undefined) {
+        this.customText = doc.customText || "";
         const localDoc = this.documents.find((d: DocumentType) => {
           return d.value === doc.subCategory;
         });
@@ -278,7 +318,15 @@ export default class Residency extends Vue {
   resetFiles() {
     this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
   }
-  save() {
+
+  async goNext() {
+    const saved = await this.save();
+    if (saved) {
+      this.$emit("on-next");
+    }
+  }
+
+  async save(): Promise<boolean> {
     AnalyticsService.registerFile("residency");
     this.uploadProgress = {};
     const fieldName = "documents";
@@ -286,7 +334,13 @@ export default class Residency extends Vue {
     const newFiles = this.files.filter((f) => {
       return !f.id;
     });
-    if (!newFiles.length) return;
+    if (!newFiles.length) {
+      if (this.residencyDocument.key === "other-residency") {
+        formData.append("customText", this.customText);
+      } else {
+        return true;
+      }
+    }
 
     if (
       this.residencyDocument.maxFileCount &&
@@ -299,7 +353,7 @@ export default class Residency extends Vue {
         ]),
       });
       this.files = [];
-      return;
+      return false;
     }
 
     Array.from(Array(newFiles.length).keys()).forEach((x) => {
@@ -311,16 +365,18 @@ export default class Residency extends Vue {
 
     this.fileUploadStatus = UploadStatus.STATUS_SAVING;
     const loader = this.$loading.show();
-    this.$store
+    return await this.$store
       .dispatch("saveTenantResidency", formData)
       .then(() => {
         this.files = [];
         this.fileUploadStatus = UploadStatus.STATUS_INITIAL;
         Vue.toasted.global.save_success();
+        return true;
       })
       .catch((err) => {
         this.fileUploadStatus = UploadStatus.STATUS_FAILED;
         UtilsService.handleCommonSaveError(err);
+        return false;
       })
       .finally(() => {
         loader.hide();

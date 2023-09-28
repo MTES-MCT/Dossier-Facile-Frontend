@@ -9,7 +9,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@gouvfr/dsfr": "1.9.0",
+    "@gouvfr/dsfr": "1.10.1",
     "core-js": "^3.6.5",
     "highlight.js": "11.7.0",
     "loader-utils": "^3.2.1",

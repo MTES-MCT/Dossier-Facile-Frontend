@@ -287,6 +287,19 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Article20.vue"),
   },
   {
+    path: "/blog/guide-aide-etudiant-logement",
+    name: "Article21",
+    meta: {
+      title:
+        "Le Guide Complet des Aides pour les Étudiant·e·s en Recherche de Logements en France",
+      description:
+        "Voici un guide exhaustif des aides publiques (État, collectivités, autres organismes publics) disponibles en France pour t’accompagner dans ta quête de logement",
+      image: require("../assets/images/blog-article21.jpg"),
+    },
+    component: () =>
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article21.vue"),
+  },
+  {
     path: "/information",
     name: "Information",
     meta: {

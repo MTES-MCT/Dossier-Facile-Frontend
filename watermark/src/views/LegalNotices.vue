@@ -48,7 +48,7 @@
   <p>
     Si vous rencontrez un défaut d’accessibilité vous empêchant d’accéder à un
     contenu ou une fonctionnalité de la plateforme, merci de nous en faire part
-    : <a href="mailto:contact@dossierfacile.fr">contact@dossierfacile.fr</a>.
+    : <a href="mailto:contact@filigrane.beta.gouv.fr">contact@filigrane.beta.gouv.fr</a>.
   </p>
   <p>
     Si vous n’obtenez pas de réponse rapide de notre part, vous êtes en droit de
