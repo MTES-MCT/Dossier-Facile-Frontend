@@ -42,7 +42,7 @@ const AuthService = {
   },
 
   loadUser() {
-    return axios.get(`${API_URL}owner/profile`);
+    return axios.get(`${API_URL}owner/profile?nocache=${new Date().getTime()}`);
   },
 
   confirmAccount(token: string) {

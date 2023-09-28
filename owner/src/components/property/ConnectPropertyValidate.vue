@@ -5,9 +5,11 @@
       <div v-if="showError" class="box-container">
         <div class="fr-col-12 fr-col-md-7">
           <NakedCard class="fr-mt-3w bg-purple-var fr-p-5w h-100">
-            <p style="font-size:40px">🙊</p>
+            <p style="font-size: 40px">🙊</p>
             <h2 class="fr-h5">{{ t('connectpropertyvalidate.oops-title') }}</h2>
-            <div v-if="!isCreate">{{ t('connectpropertyvalidate.oops-create-subtitle', [mainTenantFirstname]) }}</div>
+            <div v-if="!isCreate">
+              {{ t('connectpropertyvalidate.oops-create-subtitle', [mainTenantFirstname]) }}
+            </div>
             <div v-if="isCreate">{{ t('connectpropertyvalidate.oops-subtitle') }}</div>
             <div class="right-btn-container">
               <a class="fr-mt-7w fr-btn" :href="TENANT_URL">Retourner à mon DossierFacile</a>
@@ -18,7 +20,7 @@
       <div v-if="showSuccess" class="box-container">
         <div class="fr-col-12 fr-col-md-7">
           <NakedCard class="fr-mt-3w bg-purple-var fr-p-5w h-100">
-            <p style="font-size:40px">🎉</p>
+            <p style="font-size: 40px">🎉</p>
             <h2 class="fr-h5">{{ t('connectpropertyvalidate.title') }}</h2>
             <div>{{ t('connectpropertyvalidate.subtitle') }}</div>
             <div class="right-btn-container">
@@ -89,7 +91,7 @@ function subscribe() {
             );
             mainTenantFirstname.value = createTenant.firstName;
 
-            isCreate.value = (createTenant.id === profile.data.connectedTenantId);
+            isCreate.value = createTenant.id === profile.data.connectedTenantId;
             showError.value = true;
           });
       })

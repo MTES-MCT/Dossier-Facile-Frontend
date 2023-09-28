@@ -74,12 +74,12 @@ export const ProfileService = {
   },
   getUserByToken(token: string) {
     return axios.get(
-      `https://${process.env.VUE_APP_API_URL}/api/application/full/${token}`
+      `https://${process.env.VUE_APP_API_URL}/api/application/full/${token}/`
     );
   },
   getPublicUserByToken(token: string) {
     return axios.get(
-      `https://${process.env.VUE_APP_API_URL}/api/application/light/${token}`
+      `https://${process.env.VUE_APP_API_URL}/api/application/light/${token}/`
     );
   },
   postCreateFullPdf(token: string): Promise<VoidFunction> {
