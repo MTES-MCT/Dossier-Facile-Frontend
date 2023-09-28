@@ -19,7 +19,7 @@
             {{ $tc(element.description) }}
           </span>
         </label>
-        <div class="fr-radio-rich__img">
+        <div class="fr-radio-rich__img" v-if="getIconCount(element) > 0">
           <div class="icon-container">
             <span
               v-for="i in getIconCount(element)"
@@ -42,7 +42,7 @@ export interface RadioElement {
   labelKey: string;
   description?: string;
   iconClass: string;
-  iconCount?: string;
+  iconCount?: number;
   optionName: string;
 }
 
@@ -53,7 +53,7 @@ export default class RichRadioButtons extends Vue {
   @Prop() value!: string;
 
   getIconCount(element: RadioElement) {
-    return element.iconCount || 1;
+    return element.iconCount === undefined ? 1 : element.iconCount;
   }
 
   onSelect(applicationType: string) {
