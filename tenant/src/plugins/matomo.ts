@@ -4,9 +4,6 @@ import { VueConstructor } from "vue";
 
 export default {
   install(Vue: VueConstructor) {
-    if (!process.env.VUE_APP_MATOMO_ENABLE) {
-      return;
-    }
     const options = {
       host: process.env.VUE_APP_MATOMO_URL,
       siteId: process.env.VUE_APP_MATOMO_SITE_ID,
