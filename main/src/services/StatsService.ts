@@ -6,7 +6,7 @@ const STATS_SPREADSHEET_ID = `${process.env.VUE_APP_STATS_SPREADSHEET_ID}`;
 
 export const StatsService = {
   getValidatedDossierCount() {
-    return axios.get(API_URL + "stats/dossiers/validated");
+    return axios.get(API_URL + "stats/dossiers/validated/");
   },
   getDataFromStatsSpreadsheet(ranges: string, majorDimension: string) {
     return axios.get(
