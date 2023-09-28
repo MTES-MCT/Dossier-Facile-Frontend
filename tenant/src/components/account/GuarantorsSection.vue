@@ -146,7 +146,6 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { Guarantor } from "df-shared/src/models/Guarantor";
 import { AnalyticsService } from "@/services/AnalyticsService";
 import { DfDocument } from "df-shared/src/models/DfDocument";
-import InfoCard from "@/components/account/InfoCard.vue";
 import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import { User } from "df-shared/src/models/User";
@@ -155,7 +154,7 @@ import { UtilsService } from "@/services/UtilsService";
 import FileRowListItem from "@/components/documents/FileRowListItem.vue";
 
 @Component({
-  components: { InfoCard, ColoredTag, ConfirmModal, FileRowListItem },
+  components: { ColoredTag, ConfirmModal, FileRowListItem },
   computed: {
     ...mapState({
       user: "user",

@@ -12,7 +12,7 @@ const props = defineProps<{ title: string; to: any }>();
     <router-link class="fr-btn update-btn fr-btn--secondary" :to="props.to">
       <div class="desktop">{{ t('updaterowbtn.update') }}</div>
       <div class="mobile">
-        <span class="color--primary material-icons md-16">edit</span>
+        <i class="color--primary fs-16 ri-pencil-line"></i>
       </div>
     </router-link>
   </div>
@@ -42,4 +42,3 @@ const props = defineProps<{ title: string; to: any }>();
   flex-wrap: nowrap;
 }
 </style>
-

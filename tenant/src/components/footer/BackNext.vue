@@ -11,10 +11,8 @@
         :btn-type="'button'"
         @click="backAction()"
       >
-        <template v-if="isMobile()">
-          <span class="color--primary material-icons">keyboard_arrow_left</span>
-        </template>
-        <span v-if="!isMobile()">{{ $t("backnext.back") }}</span>
+        <i class="color--primary ri-arrow-left-s-line mobile"></i>
+        <span class="desktop">{{ $t("backnext.back") }}</span>
       </v-gouv-fr-button>
       <div v-if="!showBack"></div>
       <div class="fr-grid-row flex-1">

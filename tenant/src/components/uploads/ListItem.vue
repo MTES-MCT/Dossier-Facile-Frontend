@@ -2,7 +2,7 @@
   <div class="list-item fr-mb-1w doc-container">
     <div class="fr-grid-row" style="align-items: center">
       <div class="fr-mr-md-2w fr-mr-1w cursor--pointer" @click="openDoc()">
-        <span class="material-icons big-blue">file_present</span>
+        <i class="ri-article-line fs-32 color--focus"></i>
       </div>
       <div class="text fr-pr-2w cursor--pointer" @click="openDoc()">
         <div class="text-bold">{{ getName() }}</div>
@@ -17,7 +17,7 @@
         @click="openDoc()"
         :title="$t('listitem.show')"
       >
-        <span class="material-icons-outlined md-18 fr-m-1w">visibility</span>
+        <i class="ri-eye-line fs-18 icons fr-m-1w"></i>
       </button>
       <button
         class="fr-btn fr-btn--secondary icon-btn"
@@ -25,7 +25,7 @@
         type="button"
         :title="$t('listitem.remove')"
       >
-        <div class="material-icons-outlined md-18 fr-m-1w">delete</div>
+        <i class="ri-delete-bin-2-fill fs-18 icons fr-m-1w"></i>
       </button>
     </div>
     <Modal @close="isDocModalVisible = false" v-if="isDocModalVisible">
@@ -154,13 +154,7 @@ export default class ListItem extends Vue {
   box-shadow: 0 0.5px 4px 0 #cecece;
 }
 
-.big-blue {
-  color: var(--focus);
-  font-size: 32px;
-}
-
-.material-icons,
-.material-icons-outlined {
+.icons {
   --color-hover: var(--block-color-hover);
   --color-active: var(--block-color-active);
 }

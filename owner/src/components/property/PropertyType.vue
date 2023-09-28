@@ -63,7 +63,7 @@ function onBack() {
         >
           <div class="fr-grid-col">
             <div class="icon-container desktop">
-              <div class="material-icons md-36 icon-color">apartment</div>
+              <i class="fs-36 ri-building-4-line icon-color"></i>
             </div>
             <div class="fr-mb-md-5w fr-m-2w">{{ t('propertytype.apartment') }}</div>
           </div>
@@ -83,7 +83,7 @@ function onBack() {
         >
           <div class="fr-grid-col">
             <div class="icon-container desktop">
-              <div class="material-icons md-36 icon-color">home</div>
+              <i class="fs-36 ri-home-4-fill icon-color"></i>
             </div>
             <div class="fr-mb-md-5w fr-m-2w">{{ t('propertytype.house') }}</div>
           </div>
@@ -103,7 +103,7 @@ function onBack() {
         >
           <div class="fr-grid-col">
             <div class="icon-container desktop">
-              <div class="material-icons md-36 icon-color">domain</div>
+              <i class="fs-36 ri-community-fill icon-color"></i>
             </div>
             <div class="fr-mb-md-5w fr-m-2w">{{ t('propertytype.other') }}</div>
           </div>

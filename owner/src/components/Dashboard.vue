@@ -7,8 +7,8 @@ import { useRouter } from 'vue-router';
 import { Property } from 'df-shared-next/src/models/Property';
 import UtilsService from '../services/UtilsService';
 import useOwnerStore from '../store/owner-store';
-import GmbiAd from "./GmbiAd.vue";
-import FeedbackRequest from "./FeedbackRequest.vue";
+import GmbiAd from './GmbiAd.vue';
+import FeedbackRequest from './FeedbackRequest.vue';
 
 const store = useOwnerStore();
 const { t } = useI18n();
@@ -84,9 +84,9 @@ function getApplicantsCount(p: Property) {
         <tr class="clickable" v-for="p in properties" :key="p.name" @click="openProperty(p)">
           <td class="desktop blue-text inline-block">
             <div class="fr-m-1v icon-container">
-              <span v-if="p.type === 'HOUSE'" class="material-icons md-24">home</span>
-              <span v-else-if="p.type === 'APARTMENT'" class="material-icons md-24">apartment</span>
-              <span v-else class="material-icons md-24">domain</span>
+              <i v-if="p.type === 'HOUSE'" class="fs-24 ri-home-4-fill"></i>
+              <i v-else-if="p.type === 'APARTMENT'" class="fs-24 ri-building-4-line"></i>
+              <i v-else class="fs-24 ri-community-fill"></i>
             </div>
           </td>
           <td class="blue-grey">{{ p.name }}</td>
@@ -121,7 +121,7 @@ function getApplicantsCount(p: Property) {
       </table>
     </NakedCard>
     <div class="fr-container--fluid fr-mt-2w">
-      <div class="fr-grid-row" style="gap:1rem" v-if="displayGmbiAd">
+      <div class="fr-grid-row" style="gap: 1rem" v-if="displayGmbiAd">
         <GmbiAd class="fr-col-md" />
         <FeedbackRequest class="fr-col-md" />
       </div>

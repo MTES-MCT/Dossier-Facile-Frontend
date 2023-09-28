@@ -8,7 +8,7 @@
         :btn-type="'button'"
         @click="backAction()"
       >
-        <span class="color--primary material-icons mobile">keyboard_arrow_left</span>
+        <i class="color--primary ri-arrow-left-s-line mobile"></i>
         <span class="desktop">{{ t('backnext.back') }}</span>
       </VGouvFrButton>
       <div v-if="!showBack"></div>

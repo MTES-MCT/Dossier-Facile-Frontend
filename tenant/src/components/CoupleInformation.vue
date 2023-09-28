@@ -257,14 +257,6 @@ export default class CoupleInformation extends Vue {
   overflow: hidden;
 }
 
-.material-icons,
-.material-icons-outlined {
-  border-radius: 50%;
-  --color-hover: var(--block-color-hover);
-  --color-active: var(--block-color-active);
-  padding: 0.25rem;
-}
-
 .center-icon {
   display: flex;
   align-items: center;

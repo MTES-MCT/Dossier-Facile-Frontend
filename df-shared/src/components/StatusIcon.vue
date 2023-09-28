@@ -1,6 +1,6 @@
 <template>
   <div class="icons" v-if="getStatus()">
-    <span class="material-icons-outlined" aria-hidden="true">{{ getStatus() }}</span>
+    <i :class="getStatus()" aria-hidden="true"></i>
   </div>
 </template>
 
@@ -14,23 +14,23 @@ export default class StatusIcon extends Vue {
   getStatus() {
     switch (this.status) {
       case "EMPTY":
-        return "arrow_forward";
+        return "ri-arrow-right-line";
       case "FILLED":
-        return "attachment";
+        return "ri-attachment-line";
       case "TO_PROCESS":
-        return "schedule";
+        return "ri-time-line";
       case "VALIDATED":
-        return "verified";
+        return "ri-verified-badge-line";
       case "DECLINED":
-        return "report_gmailerrorred";
+        return "ri-close-circle-fill";
       case "NAME":
-        return "badge";
+        return "ri-pass-valid-line";
       case "ALONE":
-        return "person";
+        return "ri-user-line";
       case "COUPLE":
-        return "group";
+        return "ri-group-line";
       case "GROUP":
-        return "groups";
+        return "ri-team-line";
     }
     return undefined;
   }
@@ -39,8 +39,6 @@ export default class StatusIcon extends Vue {
 
 <style scoped lang="scss">
 .icons {
-  padding-top: 4px;
-  line-height: 16px;
   margin-right: 0.5rem;
 }
 .icons > span {
