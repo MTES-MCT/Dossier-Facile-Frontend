@@ -17,7 +17,7 @@ export const AuthService = {
       lastName: user.lastName,
       preferredName: user.preferredName,
       source: source,
-      internalPartnerId: internalPartnerId
+      internalPartnerId: internalPartnerId,
     });
   },
 
@@ -27,28 +27,30 @@ export const AuthService = {
 
   resetPassword(user: User) {
     return axios.post(API_URL + "user/forgotPassword", {
-      email: user.email
+      email: user.email,
     });
   },
 
   changePassword(user: User) {
     return axios.post(`${API_URL}user/createPassword/${user.token}`, {
-      password: user.password
+      password: user.password,
     });
   },
   createPasswordCouple(user: User) {
     return axios.post(`${API_URL}user/createPassword/${user.token}`, {
-      password: user.password
+      password: user.password,
     });
   },
   createPasswordGroup(user: User) {
     return axios.post(`${API_URL}user/createPassword/${user.token}`, {
-      password: user.password
+      password: user.password,
     });
   },
 
   loadUser() {
-    return axios.get(API_URL + "tenant/profile");
+    return axios.get(
+      API_URL + "tenant/profile?nocache=" + new Date().getTime()
+    );
   },
 
   confirmAccount(token: string) {
