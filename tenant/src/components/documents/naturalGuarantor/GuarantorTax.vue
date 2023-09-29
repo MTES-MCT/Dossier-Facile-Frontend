@@ -327,11 +327,6 @@ export default class GuarantorTax extends Vue {
     this.updateGuarantorData();
   }
 
-  @Watch("selectedGuarantor")
-  onGuarantorChange() {
-    this.updateGuarantorData();
-  }
-
   async addFiles(fileList: File[]) {
     this.newFiles = fileList;
     this.showLoader();

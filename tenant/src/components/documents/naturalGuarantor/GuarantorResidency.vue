@@ -175,11 +175,6 @@ export default class GuarantorResidency extends Vue {
   documents: any[] = [];
   isDocDeleteVisible = false;
 
-  @Watch("selectedGuarantor")
-  onGuarantorChange() {
-    this.updateGuarantorData();
-  }
-
   mounted() {
     this.documents = DocumentTypeConstants.GUARANTOR_RESIDENCY_DOCS.filter(
       (type: any) =>

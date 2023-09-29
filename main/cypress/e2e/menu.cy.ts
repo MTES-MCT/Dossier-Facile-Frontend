@@ -39,7 +39,7 @@ describe("menu", () => {
     cy.visit("/");
     cy.get("#signin-button").should("contain", "Se connecter");
     cy.get(".fr-translate").should("be.visible").click();
-    cy.get(":nth-child(2) > .fr-translate__language").click();
+    cy.get(":nth-child(2) > .fr-translate__language").click({ force: true });
     cy.get("#signin-button").should("contain", "Sign in");
   });
 });

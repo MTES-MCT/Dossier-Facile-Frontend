@@ -149,11 +149,6 @@ export default class GuarantorProfessional extends Vue {
   isDocDeleteVisible = false;
   documentDeniedReasons = new DocumentDeniedReasons();
 
-  @Watch("selectedGuarantor")
-  onGuarantorChange() {
-    this.updateGuarantorData();
-  }
-
   mounted() {
     this.updateGuarantorData();
   }
