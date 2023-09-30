@@ -1,4 +1,3 @@
-import { UtilsService } from "./services/UtilsService";
 import "./router/componentHooks"; // <-- Needs to be first
 import Vue from "vue";
 import App from "./App.vue";
@@ -120,9 +119,9 @@ Vue.use(VueAuthImage);
     app.$mount("#app");
 
     Vue.filter("fullName", function (user: User) {
-      const firstName = UtilsService.capitalize(user.firstName || "");
-      const lastName = UtilsService.capitalize(user.lastName || "");
-      const preferredName = UtilsService.capitalize(user.preferredName || "");
+      const firstName = user.firstName || "";
+      const lastName = user.lastName || "";
+      const preferredName = user.preferredName || "";
       return user.preferredName == null || user.preferredName.length == 0
         ? firstName + "\xa0" + lastName
         : firstName + "\xa0" + preferredName;

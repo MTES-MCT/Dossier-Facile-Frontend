@@ -357,7 +357,7 @@ export default class Account extends Vue {
   }
 
   getFirstName() {
-    return UtilsService.capitalize(this.user.firstName || "");
+    return this.user.firstName || "";
   }
 
   canCopyLink() {
