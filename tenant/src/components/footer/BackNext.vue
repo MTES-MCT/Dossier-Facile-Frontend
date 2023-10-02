@@ -10,6 +10,7 @@
         :secondary="true"
         :btn-type="'button'"
         @click="backAction()"
+        :aria-label="$t('backnext.back-aria-label')"
       >
         <i class="color--primary ri-arrow-left-s-line mobile"></i>
         <span class="desktop">{{ $t("backnext.back") }}</span>
@@ -24,6 +25,7 @@
           :btn-type="'submit'"
           :disabled="disabled"
           @click="nextAction()"
+          :aria-label="$t('backnext.continue-aria-label')"
         ></v-gouv-fr-button>
       </div>
     </div>

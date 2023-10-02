@@ -388,7 +388,9 @@
   },
   "backnext": {
     "back": "Retour",
-    "continue": "Continuer"
+    "back-aria-label": "Revenir à l'étape précédente",
+    "continue": "Continuer",
+    "continue-aria-label": "Enregistrer les informations et continuer"
   },
   "changepasswordpage": {
     "error": "Erreur",
