@@ -6,6 +6,7 @@
       :title="iconOnly ? label : undefined"
       @click="pushClick"
       :type="btnType"
+      :aria-label="ariaLabel"
     >
       <template v-if="!$slots.default">
         <span class="sr-only" v-if="iconOnly">{{ label }}</span>
@@ -64,7 +65,11 @@ export default {
     btnType: {
       type: String,
       default: "submit"
-    }
+    },
+    ariaLabel: {
+      type: String,
+      default: undefined
+    },
   },
   computed: {
     //gets type class (primary or secondary)

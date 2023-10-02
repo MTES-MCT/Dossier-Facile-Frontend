@@ -343,8 +343,10 @@
     "home": "Accueil"
   },
   "backnext": {
-    "back": "Retour",
-    "continue": "Continuer"
+    "back": "Back",
+    "back-aria-label": "Go back to previous step",
+    "continue": "Continue",
+    "continue-aria-label": "Save and continue"
   },
   "changepasswordpage": {
     "error": "Error",
