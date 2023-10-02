@@ -6,8 +6,8 @@
           <div class="fr-grid-row height-40">
             <div class="fr-col-12">
               <div>
-                <div class="fr-h1 color--white">La démarche DossierFacile</div>
-                <h1 class="fr-h4 color--white">Qui sommes nous ?</h1>
+                <h1 class="fr-h1 color--white">La démarche DossierFacile</h1>
+                <h2 class="fr-h4 color--white">Qui sommes nous ?</h2>
               </div>
             </div>
           </div>
@@ -19,7 +19,7 @@
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-md-10 fr-col-lg-8">
               <div>
-                <h2 class="fr-h4 fr-mt-3w">La démarche DossierFacile</h2>
+                <h3 class="fr-h4 fr-mt-3w">La démarche DossierFacile</h3>
                 <p>
                   Dans les zones où la demande de logement est plus forte que
                   l’offre, nous savons que le parcours n’est simple ni pour les
@@ -49,7 +49,7 @@
                   vicieux.
                 </p>
 
-                <h2 class="fr-h4">Notre solution ?</h2>
+                <h3 class="fr-h4">Notre solution ?</h3>
                 <p>
                   Remettre la confiance au centre de la relation entre
                   propriétaires et locataire grâce à notre outil 100 % en ligne,
@@ -83,7 +83,7 @@
                   sur contact@dossierfacile.fr.
                 </p>
 
-                <h2 class="fr-h4">La démarche startup d’État</h2>
+                <h3 class="fr-h4">La démarche startup d’État</h3>
                 <p>
                   Depuis juin 2013, l’État a expérimenté une nouvelle manière de
                   construire des services publics numériques. Cette expérience a
@@ -110,7 +110,7 @@
                   votre service : tout simplement !
                 </p>
 
-                <h2 class="fr-h4">La confiance, c’est quoi ?</h2>
+                <h3 class="fr-h4">La confiance, c’est quoi ?</h3>
                 <p>
                   Difficile à établir et pourtant essentielle, la confiance
                   n’est pas un bien comme un autre. Chez DossierFacile, nous
