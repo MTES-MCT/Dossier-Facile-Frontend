@@ -864,6 +864,8 @@
     "CERTIFICATE_VISA": "Visa",
     "remove": "Remove Document",
     "show": "Show Document",
+    "see": "See",
+    "delete": "Delete",
     "mb": "MB",
     "kb": "KB",
     "will-delete-file": "Are you sure you want to delete this file?"

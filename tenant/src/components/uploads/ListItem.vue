@@ -11,22 +11,24 @@
       <div class="progress">
         <Progress :percentage="percentage" :state="uploadState" />
       </div>
-      <button
+      <DfButton
         v-if="file.path || file.preview"
-        class="fr-btn fr-btn--secondary icon-btn fr-mr-md-2w fr-mr-1w"
-        @click="openDoc()"
+        class="fr-btn--icon-left fr-fi-eye-line fr-mr-md-2w fr-mr-1w"
+        @on-click="openDoc()"
         :title="$t('listitem.show')"
       >
-        <i class="ri-eye-line fs-18 icons fr-m-1w"></i>
-      </button>
-      <button
-        class="fr-btn fr-btn--secondary icon-btn"
-        @click="remove()"
+        <span class="fr-hidden fr-unhidden-lg">{{ $t("listitem.see") }}</span>
+      </DfButton>
+      <DfButton
+        @on-click="remove()"
+        class="fr-btn--icon-left fr-icon-delete-line"
         type="button"
         :title="$t('listitem.remove')"
       >
-        <i class="ri-delete-bin-2-fill fs-18 icons fr-m-1w"></i>
-      </button>
+        <span class="fr-hidden fr-unhidden-lg">{{
+          $t("listitem.delete")
+        }}</span>
+      </DfButton>
     </div>
     <Modal @close="isDocModalVisible = false" v-if="isDocModalVisible">
       <template v-slot:body>
@@ -51,6 +53,7 @@ import ShowDoc from "../documents/share/ShowDoc.vue";
 import Modal from "df-shared/src/components/Modal.vue";
 import { AnalyticsService } from "../../services/AnalyticsService";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
+import DfButton from "df-shared/src/Button/Button.vue";
 
 @Component({
   components: {
@@ -58,6 +61,7 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
     ShowDoc,
     Modal,
     ConfirmModal,
+    DfButton,
   },
 })
 export default class ListItem extends Vue {
@@ -152,26 +156,5 @@ export default class ListItem extends Vue {
     padding: 1.5rem;
   }
   box-shadow: 0 0.5px 4px 0 #cecece;
-}
-
-.icons {
-  --color-hover: var(--block-color-hover);
-  --color-active: var(--block-color-active);
-}
-
-.fr-btn {
-  box-shadow: none;
-  --color-hover: none;
-  --color-active: none;
-  padding: 0;
-  min-height: 2rem;
-}
-
-.icon-btn {
-  &:hover {
-    color: #dc3545 !important;
-  }
-  border: 1px solid var(--primary);
-  background-color: var(--background-default-grey);
 }
 </style>
