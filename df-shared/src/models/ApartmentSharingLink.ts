@@ -4,6 +4,7 @@ export class ApartmentSharingLink {
   ownerEmail?: string;
   lastVisit?: string;
   enabled?: boolean;
+  fullData?: boolean;
 }
 
 export class ApartmentSharingLinks {

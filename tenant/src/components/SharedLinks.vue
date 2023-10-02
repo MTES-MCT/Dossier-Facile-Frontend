@@ -3,7 +3,8 @@
     <h2 class="fr-h4">{{ t("title") }}</h2>
 
     <div
-      class="fr-table fr-table--bordered fr-table--no-caption fr-table--layout-fixed fr-m-0"
+      class="fr-table fr-table--bordered fr-table--no-caption fr-m-0"
+      :class="{ 'fr-table--layout-fixed': !isMobile() }"
     >
       <table>
         <caption>
@@ -14,7 +15,8 @@
         <thead>
           <tr>
             <th scope="col">{{ t("date") }}</th>
-            <th scope="col" colspan="3">{{ t("contact") }}</th>
+            <th scope="col" colspan="2">{{ t("contact") }}</th>
+            <th scope="col">{{ t("application-type") }}</th>
             <th scope="col">{{ t("last-visit") }}</th>
             <th scope="col">{{ t("link-status") }}</th>
             <th scope="col">{{ t("action") }}</th>
@@ -27,8 +29,18 @@
             :class="link.enabled ? '' : 'fr-label--disabled'"
           >
             <td>{{ formatDate(link.creationDate) }}</td>
-            <td colspan="3">{{ link.ownerEmail }}</td>
-            <td>{{ formatDateRelativeToNow(link.lastVisit) }}</td>
+            <td colspan="2" class="wrap">{{ link.ownerEmail }}</td>
+            <td>
+              <span v-if="link.fullData">
+                {{ $t("sharefile.full") }}
+              </span>
+              <span v-else class="fr-label--disabled">
+                {{ $t("sharefile.resume") }}
+              </span>
+            </td>
+            <td class="wrap">
+              {{ formatDateRelativeToNow(link.lastVisit) }}
+            </td>
             <td class="fr-p-0" style="display: flex; justify-content: center">
               <Toggle
                 :id="link.id"
@@ -64,6 +76,7 @@ import Button from "df-shared-next/src/Button/Button.vue";
 import moment from "moment";
 import { mapState } from "vuex";
 import store from "@/store";
+import {UtilsService} from "@/services/UtilsService";
 
 @Component({
   components: { NakedCard, Button, Toggle },
@@ -114,7 +127,15 @@ export default class SharedLinks extends Vue {
   t(key: string) {
     return this.$t(`sharing-page.shared-links.${key}`);
   }
+
+  isMobile() {
+    return UtilsService.isMobile();
+  }
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.wrap {
+  word-wrap: break-word;
+}
+</style>
