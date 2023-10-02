@@ -1291,6 +1291,7 @@
       "date": "Date",
       "contact": "Contact",
       "last-visit": "Last visit",
+      "application-type": "Application type",
       "link-status": "Status",
       "action": "Action",
       "enabled": "Enabled",

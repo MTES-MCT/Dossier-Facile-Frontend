@@ -1340,6 +1340,7 @@
       "date": "Date",
       "contact": "Contact",
       "last-visit": "Dernière visite",
+      "application-type": "Type de dossier",
       "link-status": "Statut",
       "action": "Action",
       "enabled": "Activé",
