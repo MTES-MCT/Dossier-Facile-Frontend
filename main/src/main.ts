@@ -8,6 +8,7 @@ import "df-shared/src/validation-rules";
 import * as Sentry from "@sentry/vue";
 import { BrowserTracing } from "@sentry/tracing";
 import Toasted from "vue-toasted";
+import MatomoPlugin from "./plugins/matomo";
 
 declare global {
   interface Window {
@@ -18,15 +19,13 @@ declare global {
     $: any;
   }
 }
-
 import "@gouvfr/dsfr/dist/dsfr/dsfr.min.css";
-import MatomoPlugin from "./plugins/matomo";
 
 Vue.config.productionTip = false;
 
 Vue.use(VueCookies);
-Vue.use(MatomoPlugin);
 Vue.use(Toasted);
+Vue.use(MatomoPlugin);
 
 const ENVIRONMENT = process.env.VUE_APP_ENVIRONMENT || "dev";
 
@@ -57,4 +56,4 @@ new Vue({
   store,
   i18n,
   render: (h) => h(App),
-}).$mount("#app");
+}).$mount("#app", true);

@@ -15,9 +15,10 @@ export default {
       domains: "*.dossierfacile.fr",
       cookieDomain: "*.dossierfacile.fr",
       userId: undefined,
+      enableLinkTracking: true,
+      trackInitialView: true,
     };
 
     Vue.use(VueMatomo, options);
-    window._paq.push(["trackPageView"]);
   },
 };
