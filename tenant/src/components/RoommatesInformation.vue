@@ -134,9 +134,11 @@
               v-model="authorize"
               @change="updateAuthorize()"
             />
-            <label for="authorize">{{
-              $t("roommatesinformation.acceptAuthor")
-            }}</label>
+            <label
+              for="authorize"
+              v-html="$t('roommatesinformation.acceptAuthor')"
+            >
+            </label>
             <span class="fr-error-text" v-if="errors[0]">{{
               $t(errors[0])
             }}</span>
