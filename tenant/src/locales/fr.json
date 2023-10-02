@@ -919,6 +919,8 @@
     "CERTIFICATE_VISA": "Visa",
     "remove": "Supprimer la pièce",
     "show": "Afficher la pièce",
+    "see": "Voir",
+    "delete": "Supprimer",
     "mb": "Mo",
     "kb": "Ko",
     "will-delete-file": "Êtes-vous sûr·e de vouloir supprimer ce fichier ?"
