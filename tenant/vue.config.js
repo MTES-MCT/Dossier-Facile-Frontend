@@ -31,6 +31,26 @@ module.exports = {
           rendererOptions: {
             timeout: 120000,
           },
+          postProcess (renderedRoute) {
+            renderedRoute.route = renderedRoute.originalRoute;
+
+            renderedRoute.html = renderedRoute.html.replace(
+              /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
+              (match) => {
+                const hasSrcAttribute = /src\s*=\s*["'](.*?)["']/.test(match);
+                if (hasSrcAttribute) {
+                  const srcAttribute = match.match(/src\s*=\s*["'](.*?)["']/);
+                  if (srcAttribute && srcAttribute[1].endsWith("matomo.js")) {
+                    return "";
+                  }
+                  return match;
+                }
+                return "";
+              }
+            );
+
+            return renderedRoute;
+          },
         }),
       ],
     };
