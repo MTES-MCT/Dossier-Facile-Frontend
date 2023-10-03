@@ -1,9 +1,7 @@
 <template>
   <div>
     <h2 class="fr-h4 align-items--center" style="display: flex">
-      <span class="material-icons-outlined fr-mr-1w" aria-hidden="true">
-        attach_file
-      </span>
+      <i class="ri-share-line fr-mr-1w" aria-hidden="true"></i>
       {{ $t("sharefile.title") }}
     </h2>
     <form name="form" @submit.prevent="handleSubmit">

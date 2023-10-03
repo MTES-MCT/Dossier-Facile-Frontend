@@ -1,9 +1,7 @@
 <template>
   <DSFRSimpleModal modalId="modal-delete-account">
     <template v-slot:header>
-      <span class="text-danger material-icons-outlined md-38 fr-pr-1w"
-        >cancel</span
-      >
+      <i class="fr-pr-1w ri-close-circle-line text-danger fs-24"></i>
       {{ $t("deleteaccount.title") }}
     </template>
     <template v-slot:body>

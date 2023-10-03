@@ -9,46 +9,36 @@
     <div class="fr-grid-row fr-grid-row--gutters fr-mt-3w">
       <div class="fr-col-12 fr-col-md-3">
         <NakedCard class="h-100">
-          <span
+          <i
             v-if="dossierStatus == 'VALIDATED'"
-            class="material-icons text-green md-48"
-            >check_circle</span
-          >
-          <span
+            class="ri-checkbox-circle-line text-success fs-24"
+          ></i>
+          <i
             v-else-if="dossierStatus == 'TO_PROCESS'"
-            class="fr-mb-2w material-icons-outlined bloc-warning-icon status-toprocess"
-          >
-            schedule
-          </span>
-          <span
+            class="ri-time-fill fs-24 fr-mb-2w bloc-warning-icon status-toprocess"
+          ></i>
+          <i
             v-else
-            class="fr-mb-2w material-icons-outlined bloc-warning-icon status-incomplete"
-          >
-            report_gmailerrorred
-          </span>
+            class="ri-close-circle-fill fs-24 fr-mb-2w bloc-warning-icon status-incomplete"
+          ></i>
 
           <p>{{ $t("filereinsurance.documents-" + dossierStatus) }}</p>
         </NakedCard>
       </div>
       <div class="fr-col-12 fr-col-md-3">
         <NakedCard class="h-100">
-          <span
+          <i
             v-if="dossierStatus == 'VALIDATED'"
-            class="material-icons text-green md-48"
-            >check_circle</span
-          >
-          <span
+            class="ri-checkbox-circle-line text-success fs-24"
+          ></i>
+          <i
             v-else-if="dossierStatus == 'TO_PROCESS'"
-            class="fr-mb-2w material-icons-outlined bloc-warning-icon status-toprocess"
-          >
-            schedule
-          </span>
-          <span
+            class="ri-time-fill fs-24 fr-mb-2w bloc-warning-icon status-toprocess"
+          ></i>
+          <i
             v-else
-            class="fr-mb-2w material-icons-outlined bloc-warning-icon status-incomplete"
-          >
-            report_gmailerrorred
-          </span>
+            class="ri-close-circle-fill fs-24 fr-mb-2w bloc-warning-icon status-incomplete"
+          ></i>
           <p>{{ $t("filereinsurance.file-" + dossierStatus) }}</p>
         </NakedCard>
       </div>

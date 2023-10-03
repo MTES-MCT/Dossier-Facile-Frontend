@@ -7,8 +7,9 @@
         :secondary="true"
         :btn-type="'button'"
         @click="backAction()"
+        :aria-label="t('backnext.back-aria-label')"
       >
-        <span class="color--primary material-icons mobile">keyboard_arrow_left</span>
+        <i class="color--primary ri-arrow-left-s-line mobile"></i>
         <span class="desktop">{{ t('backnext.back') }}</span>
       </VGouvFrButton>
       <div v-if="!showBack"></div>
@@ -20,6 +21,7 @@
           :btn-type="'submit'"
           :disabled="disabled"
           @click="nextAction()"
+          :aria-label="t('backnext.continue-aria-label')"
         ></VGouvFrButton>
       </div>
     </div>

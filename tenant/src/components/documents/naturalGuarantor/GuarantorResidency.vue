@@ -71,7 +71,7 @@
             v-if="residencyDocument.key === 'guest'"
           >
             <div class="fr-text-default--info fr-h6 title">
-              <span class="material-icons-outlined"> warning_amber </span>
+              <i class="ri-error-warning-line"></i>
               <span class="fr-ml-1w">
                 {{ $t("residency-page.warning-incomplete") }}
               </span>
@@ -174,11 +174,6 @@ export default class GuarantorResidency extends Vue {
 
   documents: any[] = [];
   isDocDeleteVisible = false;
-
-  @Watch("selectedGuarantor")
-  onGuarantorChange() {
-    this.updateGuarantorData();
-  }
 
   mounted() {
     this.documents = DocumentTypeConstants.GUARANTOR_RESIDENCY_DOCS.filter(

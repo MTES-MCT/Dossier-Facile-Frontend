@@ -232,9 +232,7 @@
         <NakedCard class="fr-mt-3w fr-mb-2w">
           <div class="fr-grid-row">
             <div class="fr-col-3 fr-p-2w">
-              <span class="text-success material-icons big-icon"
-                >check_circle_outline</span
-              >
+              <i class="ri-checkbox-circle-line text-success fs-48"></i>
             </div>
             <div class="fr-col-9 fr-p-2w">
               Votre pièce est validée ! Plus besoin d’y toucher
@@ -244,9 +242,7 @@
         <NakedCard class="fr-mt-3w fr-mb-2w">
           <div class="fr-grid-row">
             <div class="fr-col-3 fr-p-2w">
-              <span class="text-warning material-icons big-icon"
-                >more_time</span
-              >
+              <i class="ri-time-fill text-warning fs-48"></i>
             </div>
             <div class="fr-col-9 fr-p-2w">
               Nous sommes en cours de traitement de cette pièce
@@ -256,7 +252,7 @@
         <NakedCard class="fr-mt-3w fr-mb-2w">
           <div class="fr-grid-row">
             <div class="fr-col-3 fr-p-2w">
-              <span class="text-danger material-icons big-icon">cancel</span>
+              <i class="ri-close-circle-fill text-danger fs-48"></i>
             </div>
             <div class="fr-col-9 fr-p-2w">
               Vous devez modifier votre pièce afin que nous validions votre
@@ -539,10 +535,6 @@ export default class MessagesPanel extends Vue {
 
 .subtitle {
   font-weight: bold;
-}
-
-.material-icons.md-18 {
-  padding: 0.2rem;
 }
 
 .messages {

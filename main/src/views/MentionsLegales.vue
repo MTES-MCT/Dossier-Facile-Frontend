@@ -6,13 +6,13 @@
           <div class="fr-grid-row height-40">
             <div class="fr-col-md-12">
               <div>
-                <div class="fr-h1 color--white">
+                <h1 class="fr-h1 color--white">
                   Mentions légales
-                </div>
-                <div class="fr-h3 color--white">
+                </h1>
+                <h2 class="fr-h3 color--white">
                   Conditions générales d'utilisation et politique de
                   confidentialité
-                </div>
+                </h2>
               </div>
             </div>
           </div>
@@ -23,7 +23,7 @@
         <div class="fr-container">
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-md-10">
-              <h1 class="fr-h2 fr-mt-3w">Mentions légales</h1>
+              <h3 class="fr-h2 fr-mt-3w">Mentions légales</h3>
               <p>
                 <b>Éditeur du site :</b><br />
                 Ministère de la Transition écologique,<br />
@@ -43,13 +43,13 @@
                 OVH,<br />
                 2 rue Kellermann, 59100 Roubaix, France
               </p>
-              <h2 id="cgu">Conditions générales d’utilisation</h2>
+              <h3 class="fr-h2" id="cgu">Conditions générales d’utilisation</h3>
               <p>
                 DossierFacile est un service numérique du Ministère de la
                 Transition écologique.
               </p>
 
-              <h3>1. Présentation du service</h3>
+              <h4 class="fr-h3">1. Présentation du service</h4>
               <p>
                 DossierFacile est un service numérique de l’administration
                 permettant à l’Utilisateur de constituer un dossier de location
@@ -76,7 +76,7 @@
                 préalable et au respect intégral des présentes Conditions
                 générales d’utilisation (CGU) par l’utilisateur.
               </p>
-              <h3>2. Définitions</h3>
+              <h4 class="fr-h3">2. Définitions</h4>
               <p>
                 L’Éditeur : La personne, physique ou morale, qui édite les
                 services de communication au public en ligne.
@@ -101,7 +101,7 @@
                 l’Utilisateur et se portant caution pour lui dans le cadre de sa
                 recherche de logement.
               </p>
-              <h3>3. Objet</h3>
+              <h4 class="fr-h3">3. Objet</h4>
               <p class="fr-mb-1w">
                 Le service est composé d’une application web qui permet à
                 l’Utilisateur de :
@@ -155,7 +155,7 @@
                 d’appartement”. Les documents sont stockés dans un serveur
                 hébergé par OVH en France.
               </p>
-              <h3>4. Obligations de l'Utilisateur</h3>
+              <h4 class="fr-h3">4. Obligations de l'Utilisateur</h4>
               <p>
                 De manière générale, et sans que cette liste puisse être
                 considérée comme exhaustive, l’Utilisateur s’interdit de :
@@ -189,7 +189,7 @@
                   courtoisie, en particulier dans ses échanges avec le support.
                 </li>
               </ul>
-              <h3>5. Qualité des données publiées</h3>
+              <h4 class="fr-h3">5. Qualité des données publiées</h4>
               <p>
                 Nous publions sur DossierFacile des données publiques à titre
                 informatif. Seules les publications légales font foi, notamment
@@ -213,7 +213,7 @@
                   >contact@dossierfacile.fr</a
                 >
               </p>
-              <h3>6. Propriété intellectuelle</h3>
+              <h4 class="fr-h3">6. Propriété intellectuelle</h4>
               <p>
                 Ce site est la propriété exclusive du Ministère de la Transition
                 écologique. Toute reproduction ou représentation totale ou
@@ -265,7 +265,7 @@
                 </li>
               </ul>
 
-              <h3>7. Limitation de la responsabilité</h3>
+              <h4 class="fr-h3">7. Limitation de la responsabilité</h4>
               <p>
                 Le service fourni par DossierFacile ne saurait être assimilé à
                 une garantie apportée par DossierFacile sur les dossiers ayant
@@ -302,7 +302,7 @@
                 faute ou de responsabilité en cas d’incident relatif à une
                 faille de sécurité.
               </p>
-              <h3>8. Suppression du compte en cas de violation des CGU</h3>
+              <h4 class="fr-h3">8. Suppression du compte en cas de violation des CGU</h4>
               <p>
                 En cas de violation d'une ou de plusieurs dispositions des CGU
                 ou de tout autre document incorporé aux présentes par référence,
@@ -310,7 +310,7 @@
                 aucun avertissement préalable et à sa seule discrétion, votre
                 usage et accès aux services, à votre compte et à tous les Sites.
               </p>
-              <h3>9. Disponibilité du service</h3>
+              <h4 class="fr-h3">9. Disponibilité du service</h4>
               <p>
                 L'Éditeur peut suspendre l’accès à DossierFacile sans
                 information préalable ni préavis, notamment pour des raisons de
@@ -329,20 +329,20 @@
                 Cela nous permet d’anticiper d’éventuelles attaques par déni de
                 service.
               </p>
-              <h3>
+              <h4 class="fr-h3">
                 10. Modification des CGU et de la politique de confidentialité
-              </h3>
+              </h4>
               <p>
                 Nous nous engageons à vous informer en cas de modification
                 substantielle des présentes CGU, et à ne pas baisser le niveau
                 de confidentialité de vos données de manière substantielle sans
                 vous en informer et obtenir votre consentement.
               </p>
-              <h3>11. Droit applicable et modalités de recours</h3>
-              <h4>
+              <h4 class="fr-h3">11. Droit applicable et modalités de recours</h4>
+              <h5 class="fr-h4">
                 Application du droit français (législation CNIL) et compétence
                 des tribunaux
-              </h4>
+              </h5>
               <p>
                 Les présentes CGU et votre utilisation du Site sont régies et
                 interprétées conformément aux lois de France, et notamment à la
@@ -366,10 +366,10 @@
                 tribunaux français.
               </p>
 
-              <h2 id="politique-de-confidentialite">
+              <h3 class="fr-h2" id="politique-de-confidentialite">
                 Vie privée et politique de confidentialité
-              </h2>
-              <h3>1. Données à caractère personnel</h3>
+              </h3>
+              <h4 class="fr-h3">1. Données à caractère personnel</h4>
               <p>
                 Nous nous engageons à ce que la collecte et le traitement de vos
                 données, effectués à partir du site soient conformes au
@@ -383,7 +383,7 @@
                 cadre du traitement des données à caractère personnel de leurs
                 utilisateurs, et ce afin de protéger la vie privée de ceux-ci.
               </p>
-              <h3>2. Responsable du traitement</h3>
+              <h4 class="fr-h3">2. Responsable du traitement</h4>
               <p>
                 Le responsable du traitement de vos données à caractère
                 personnel est :<br />
@@ -394,7 +394,7 @@
                 Service DossierFacile<br />
                 1 place Carpeaux, 92800 Puteaux
               </p>
-              <h3>3. Traitement des données et utilisation</h3>
+              <h4 class="fr-h3">3. Traitement des données et utilisation</h4>
               <p class="fr-mb-1w">
                 L’Editeur ne peut utiliser les données à caractère personnel des
                 Utilisateurs qu’à des fins à la fois légitimes et nécessaires,
@@ -440,7 +440,7 @@
                 </li>
               </ul>
 
-              <h3>4. Données personnelles collectées</h3>
+              <h4 class="fr-h3">4. Données personnelles collectées</h4>
               <p class="fr-mb-1w">
                 Dans le cadre de l'utilisation du Site, l'Éditeur est
                 susceptible de collecter les catégories de données (texte,
@@ -477,10 +477,10 @@
                 l’Utilisateur assure avoir l’autorisation expresse de son
                 Garant.
               </p>
-              <h3>
+              <h4 class="fr-h3">
                 5. Délai de conservation des données personnelles et
                 d’anonymisation
-              </h3>
+              </h4>
               <p>
                 Nous conservons les données personnelles pour la durée
                 strictement nécessaire à la réalisation des finalités décrites
@@ -495,10 +495,10 @@
                 publics en charge des politiques du logement, leur permettant
                 ainsi d’avoir de meilleures connaissance sur le marché locatif.
               </p>
-              <h3>
+              <h4 class="fr-h3">
                 6. Destinataires et communication des données personnelles à des
                 tiers
-              </h3>
+              </h4>
               <p>
                 Vos données personnelles ne sont utilisées que par l’équipe
                 DossierFacile, et ne font l'objet d'aucune communication de la
@@ -520,7 +520,7 @@
                 d'une décision d'une autorité réglementaire ou judiciaire
                 compétente.
               </p>
-              <h3>7. Cookies</h3>
+              <h4 class="fr-h3">7. Cookies</h4>
 
               <h4>Qu’est-ce qu’un cookie</h4>
               <p>
@@ -618,7 +618,7 @@
                 </li>
               </ul>
 
-              <h3>8. Données techniques</h3>
+              <h4 class="fr-h3">8. Données techniques</h4>
               <h4>Collecte des données techniques</h4>
               <p>
                 Afin d’assurer la sécurité informatique du Site et à des fins
@@ -632,7 +632,7 @@
                 Les données techniques anonymisées sont conservées sans
                 limitation de durée.
               </p>
-              <h3>9. Droits des utilisateurs</h3>
+              <h4 class="fr-h3">9. Droits des utilisateurs</h4>
               <p>
                 Nous nous engageons à prendre les mesures techniques et
                 organisationnelles appropriées afin de garantir la sécurité du
@@ -707,10 +707,10 @@
                   >contact@dossierfacile.fr</a
                 >
               </p>
-              <h3>
+              <h4 class="fr-h3">
                 10. Procédure en cas de violations de données à caractère
                 personnel
-              </h3>
+              </h4>
               <p class="fr-mb-1w">
                 Nous nous engageons à mettre en œuvre toutes les mesures
                 techniques et organisationnelles appropriées afin de garantir un
@@ -742,7 +742,7 @@
                 violation ne présente pas de risque pour vos droits et libertés
               </p>
 
-              <h3>11. Stockage des données personnelles à l'étranger</h3>
+              <h4 class="fr-h3">11. Stockage des données personnelles à l'étranger</h4>
               <p>
                 Nous nous engageons à ne pas stocker les données personnelles de
                 nos Utilisateurs en dehors de l’Union européenne, y compris pour

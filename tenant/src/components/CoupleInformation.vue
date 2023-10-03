@@ -135,9 +135,11 @@
               v-model="authorize"
               @change="updateAuthorize()"
             />
-            <label for="authorize">{{
-              $t("coupleinformation.acceptAuthor")
-            }}</label>
+            <label
+              for="authorize"
+              v-html="$t('coupleinformation.acceptAuthor')"
+            >
+            </label>
             <span class="fr-error-text" v-if="errors[0]">{{
               $t(errors[0])
             }}</span>
@@ -255,14 +257,6 @@ export default class CoupleInformation extends Vue {
   width: 2.5rem;
   border-radius: 50%;
   overflow: hidden;
-}
-
-.material-icons,
-.material-icons-outlined {
-  border-radius: 50%;
-  --color-hover: var(--block-color-hover);
-  --color-active: var(--block-color-active);
-  padding: 0.25rem;
 }
 
 .center-icon {

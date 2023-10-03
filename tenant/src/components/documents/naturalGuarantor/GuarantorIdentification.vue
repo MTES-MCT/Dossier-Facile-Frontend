@@ -146,11 +146,6 @@ export default class GuarantorIdentification extends Vue {
   identificationDocument = new DocumentType();
   isDocDeleteVisible = false;
 
-  @Watch("selectedGuarantor")
-  onGuarantorChange() {
-    this.updateGuarantorData();
-  }
-
   onSelectChange() {
     if (this.selectedGuarantor.documents !== null) {
       const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {

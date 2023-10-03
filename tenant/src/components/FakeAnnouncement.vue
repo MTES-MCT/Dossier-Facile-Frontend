@@ -51,7 +51,7 @@ import { Component, Vue } from "vue-property-decorator";
     DfButton,
   },
 })
-export default class FileErrors extends Vue {
+export default class FakeAnnouncement extends Vue {
   signal() {
     AnalyticsService.openMaSecurite();
     window.open(

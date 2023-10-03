@@ -123,7 +123,7 @@ describe(
 
     function clickOnMenuItem(label: string) {
       cy.get("#funnel-menu").contains(label).click();
-      cy.wait(500);
+      cy.wait(1000);
     }
   }
 );

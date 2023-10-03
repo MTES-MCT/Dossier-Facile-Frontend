@@ -9,9 +9,9 @@ app.use(function(req, res, next) {
     "Content-Security-Policy",
     "default-src 'none'; " +
       "script-src 'self' *.dossierfacile.fr https://www.google.com https://www.gstatic.com https://beacon-v2.helpscout.net https://stats.data.gouv.fr 'unsafe-inline' 'unsafe-eval' blob:; " +
-      "style-src 'self' https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.min.css https://fonts.googleapis.com 'unsafe-inline'; " +
+      "style-src 'self' https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.min.css https://fonts.googleapis.com 'unsafe-inline'; " +
       "img-src 'self' https://fonts.gstatic.com https://voxusagers.numerique.gouv.fr *.helpscout.net *.cloudfront.net *.gitbook.com data:; " +
-      "font-src 'self' https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/ fonts.google.com https://fonts.gstatic.com fonts.googleapis.com data:; " +
+      "font-src 'self' https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/ data:; " +
       "object-src 'none'; " +
       "connect-src https://sentry.incubateur.net https://sso-preprod.dossierfacile.fr *.cloudfront.net *.dossierfacile.fr 'unsafe-eval' *.helpscout.net wss://ws-helpscout.pusher.com https://sockjs-helpscout.pusher.com https://dossierfacile-api-owner-preprod.osc-fr1.scalingo.io https://dossierfacile-api-owner-prod.osc-secnum-fr1.scalingo.io https://stats.data.gouv.fr blob:; " +
       "frame-src https://www.google.com *.dossierfacile.fr ; " +

@@ -343,8 +343,10 @@
     "home": "Accueil"
   },
   "backnext": {
-    "back": "Retour",
-    "continue": "Continuer"
+    "back": "Back",
+    "back-aria-label": "Go back to previous step",
+    "continue": "Continue",
+    "continue-aria-label": "Save and continue"
   },
   "changepasswordpage": {
     "error": "Error",
@@ -840,10 +842,6 @@
     "validate": "Validate",
     "cancel": "Cancel"
   },
-  "infocard": {
-    "edit": "Edit",
-    "edit-title": "Edit '{0}'"
-  },
   "joincouple": {
     "error": "Error",
     "password-update": "The password has been updated",
@@ -866,6 +864,8 @@
     "CERTIFICATE_VISA": "Visa",
     "remove": "Remove Document",
     "show": "Show Document",
+    "see": "See",
+    "delete": "Delete",
     "mb": "MB",
     "kb": "KB",
     "will-delete-file": "Are you sure you want to delete this file?"
@@ -1295,6 +1295,7 @@
       "date": "Date",
       "contact": "Contact",
       "last-visit": "Last visit",
+      "application-type": "Application type",
       "link-status": "Status",
       "action": "Action",
       "enabled": "Enabled",

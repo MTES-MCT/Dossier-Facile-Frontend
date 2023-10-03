@@ -98,7 +98,7 @@ function redirectFranceRenov() {
       <h1 class="fr-h4">{{ t('propertydiagnostic.title') }}</h1>
       <div class="bg-purple fr-mb-2w text--light-blue">
         <h2 class="fr-h6 text--light-blue fr-mb-1w where-container">
-          <span class="material-icons md-24 fr-mr-1w">info</span>
+          <i class="ri-information-fill fs-24 fr-mr-1w"></i>
           {{ t('propertydiagnostic.subtitle') }}
         </h2>
         <p class="fr-mb-1v">{{ t('propertydiagnostic.info-text') }}</p>
@@ -206,9 +206,9 @@ function redirectFranceRenov() {
       <div
         v-if="
           globalLetter === 'A' ||
-            globalLetter === 'B' ||
-            globalLetter === 'C' ||
-            globalLetter === 'D'
+          globalLetter === 'B' ||
+          globalLetter === 'C' ||
+          globalLetter === 'D'
         "
       >
         <i18n-t keypath="propertydiagnostic.adetail">
@@ -230,7 +230,7 @@ function redirectFranceRenov() {
           </template>
         </i18n-t>
 
-        <div style="display:flex;justify-content: flex-end;margin-top:1rem;">
+        <div style="display: flex; justify-content: flex-end; margin-top: 1rem">
           <Button type="button" :primary="false" @on-click="redirectFranceRenov()">{{
             t('propertydiagnostic.contact-adviser')
           }}</Button>
@@ -243,7 +243,7 @@ function redirectFranceRenov() {
           </template>
         </i18n-t>
 
-        <div style="display:flex;justify-content: flex-end;margin-top:1rem;">
+        <div style="display: flex; justify-content: flex-end; margin-top: 1rem">
           <Button type="button" :primary="false" @on-click="redirectFranceRenov()">{{
             t('propertydiagnostic.contact-adviser')
           }}</Button>
@@ -256,7 +256,7 @@ function redirectFranceRenov() {
           </template>
         </i18n-t>
 
-        <div style="display:flex;justify-content: flex-end;margin-top:1rem;">
+        <div style="display: flex; justify-content: flex-end; margin-top: 1rem">
           <Button type="button" :primary="false" @on-click="redirectFranceRenov()">{{
             t('propertydiagnostic.contact-adviser')
           }}</Button>
@@ -268,7 +268,7 @@ function redirectFranceRenov() {
             <strong>{{ t('propertydiagnostic.gpdetail-bold') }}</strong>
           </template>
         </i18n-t>
-        <div style="display:flex;justify-content: flex-end;margin-top:1rem;">
+        <div style="display: flex; justify-content: flex-end; margin-top: 1rem">
           <Button type="button" :primary="false" @on-click="redirectFranceRenov()">{{
             t('propertydiagnostic.contact-adviser')
           }}</Button>

@@ -40,29 +40,9 @@ describe("alone tenant scenario", () => {
       .click()
       .clickOnNext();
 
-    cy.expectPath("/info-garant/0");
-    cy.get("#lastname").type("Dupont");
-    cy.get("#firstname").type("Jean");
-    cy.clickOnNext();
-
-    cy.expectPath("/info-garant/1");
-    cy.simpleUploadDocumentStep("Passeport");
-
-    cy.expectPath("/info-garant/2");
-    cy.selectResidencyStep("Propriétaire");
-
-    cy.expectPath("/info-garant/3");
-    cy.selectProfessionalStatusStep("Retraite");
-
-    cy.expectPath("/info-garant/4");
-    cy.addFinancialResource("Pension", "2000");
-    cy.clickOnNext();
-
-    cy.expectPath("/info-garant/5");
-    cy.simpleUploadDocumentStep("Votre garant a un avis d'imposition à son nom");
-
-    cy.expectPath("/liste-garants");
-    cy.contains("Jean Dupont").should("be.visible");
+    createGuarantor("Jean", "Dupont");
+    cy.get(".add-guarantor-btn").click();
+    createGuarantor("Jeanne", "Dupont");
     cy.clickOnNext();
 
     cy.validationStep();
@@ -72,3 +52,29 @@ describe("alone tenant scenario", () => {
       .should("contain", "votre dossier est en cours de traitement !");
   });
 });
+
+function createGuarantor(firstname: string, lastname: string) {
+  cy.expectPath("/info-garant/0");
+  cy.get("#lastname").type(lastname);
+  cy.get("#firstname").type(firstname);
+  cy.clickOnNext();
+
+  cy.expectPath("/info-garant/1");
+  cy.simpleUploadDocumentStep("Passeport");
+
+  cy.expectPath("/info-garant/2");
+  cy.selectResidencyStep("Propriétaire");
+
+  cy.expectPath("/info-garant/3");
+  cy.selectProfessionalStatusStep("Retraite");
+
+  cy.expectPath("/info-garant/4");
+  cy.addFinancialResource("Pension", "2000");
+  cy.clickOnNext();
+
+  cy.expectPath("/info-garant/5");
+  cy.simpleUploadDocumentStep("Votre garant a un avis d'imposition à son nom");
+
+  cy.expectPath("/liste-garants");
+  cy.contains([firstname, lastname].join(" ")).should("be.visible");
+}

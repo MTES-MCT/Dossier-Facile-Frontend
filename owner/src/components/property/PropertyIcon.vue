@@ -8,8 +8,8 @@ defineProps<{
 
 <template>
   <div class="blue-text inline-block fr-m-1w">
-    <span v-if="type === 'HOUSE'" class="material-icons md-36">home</span>
-    <span v-else-if="type === 'APARTMENT'" class="material-icons md-36">apartment</span>
-    <span v-else class="material-icons md-36">domain</span>
+    <i v-if="type === 'HOUSE'" class="fs-36 ri-home-4-fill"></i>
+    <i v-else-if="type === 'APARTMENT'" class="fs-36 ri-building-4-line"></i>
+    <i v-else class="fs-36 ri-community-fill"></i>
   </div>
 </template>

@@ -388,7 +388,9 @@
   },
   "backnext": {
     "back": "Retour",
-    "continue": "Continuer"
+    "back-aria-label": "Revenir à l'étape précédente",
+    "continue": "Continuer",
+    "continue-aria-label": "Enregistrer les informations et continuer"
   },
   "changepasswordpage": {
     "error": "Erreur",
@@ -538,7 +540,7 @@
     "spouseFirstName": "Prénom",
     "spouseLastName": "Nom",
     "spouseEmail": "L’adresse email de votre conjoint·e (facultatif)",
-    "acceptAuthor": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
+    "acceptAuthor": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés.<br/>Je consens aussi au fait que mon partenaire puisse partager les pièces de notre dossier à des propriétaires, des bailleurs ou des services immobiliers partenaires de DossierFacile.",
     "field-required": "Ce champ est requis",
     "partner-name-title": "Qui sera votre conjoint·e ?",
     "partner-email-title": "L'inviter à remplir son dossier ?",
@@ -895,10 +897,6 @@
     "validate": "Valider",
     "cancel": "Annuler"
   },
-  "infocard": {
-    "edit": "Modifier",
-    "edit-title": "Modifier « {0} »"
-  },
   "joincouple": {
     "error": "Erreur",
     "password-update": "Le mot de passe a été mis à jour",
@@ -921,6 +919,8 @@
     "CERTIFICATE_VISA": "Visa",
     "remove": "Supprimer la pièce",
     "show": "Afficher la pièce",
+    "see": "Voir",
+    "delete": "Supprimer",
     "mb": "Mo",
     "kb": "Ko",
     "will-delete-file": "Êtes-vous sûr·e de vouloir supprimer ce fichier ?"
@@ -1081,7 +1081,7 @@
   },
   "roommatesinformation": {
     "roommateEmail": "Ajouter l’adresse email d'un colocataire",
-    "acceptAuthor": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",
+    "acceptAuthor": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés.<br/>Je consens aussi au fait que les autres membres de ma colocation puissent partager les pièces de mon dossier à des propriétaires, des bailleurs ou des services immobiliers partenaires de DossierFacile.",
     "delete": "Supprimer",
     "field-required": "Ce champ est requis",
     "title": "Qui seront vos colocataires ?",
@@ -1217,8 +1217,8 @@
     "remove-roommates": "Attention, cela aura pour effet de dissocier votre dossier de vos colocataires",
     "remove-couple": "Attention, cela aura pour effet de dissocier votre dossier de celui de votre conjoint·e",
     "error": "Une erreur est survenue",
-    "acceptAuthorSpouse": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés",
-    "acceptAuthorCoTenant": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés",
+    "acceptAuthorSpouse": "J’accepte que mon partenaire ait accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que nos deux dossiers auront été validés.<br/>Je consens aussi au fait que mon partenaire puisse partager les pièces de notre dossier à des propriétaires, des bailleurs ou des services immobiliers partenaires de DossierFacile.",
+    "acceptAuthorCoTenant": "J’accepte que les autres membres de ma colocation aient accès à mes documents ainsi qu’à ceux de mon garant le cas échéant une fois que tous les dossiers de la colocation auront été validés.<br/>Je consens aussi au fait que les autres membres de ma colocation puissent partager les pièces de mon dossier à des propriétaires, des bailleurs ou des services immobiliers partenaires de DossierFacile.",
     "validate": "Valider",
     "roommates-saved": "Invitation envoyée à vos colocataires. Vos colocataires ont bien été<br>ajoutés et une invitation de création de compte leur a été envoyée.",
     "couple-saved": "Votre conjoint·e a bien été ajouté·e.<br/>Si un e-mail a été fourni, une invitation de création de compte lui a été envoyée.",
@@ -1344,6 +1344,7 @@
       "date": "Date",
       "contact": "Contact",
       "last-visit": "Dernière visite",
+      "application-type": "Type de dossier",
       "link-status": "Statut",
       "action": "Action",
       "enabled": "Activé",

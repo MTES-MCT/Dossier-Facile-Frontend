@@ -204,13 +204,12 @@
               </td>
               <td @click="setShowTenant(tenant, k)">
                 <div class="tag" :class="getTenantClass(tenant)">
-                  <span v-if="tenant.status === 'DECLINED'" class="material-icons md-18"
-                    >report_gmailerrorred</span
-                  >
-                  <span v-else-if="tenant.status === 'VALIDATED'" class="material-icons md-18"
-                    >verified</span
-                  >
-                  <span v-else class="material-icons md-18">schedule</span>
+                  <i v-if="tenant.status === 'DECLINED'" class="ri-close-circle-fill fs-18"></i>
+                  <i
+                    v-else-if="tenant.status === 'VALIDATED'"
+                    class="ri-chekbox-circle-line fs-18"
+                  ></i>
+                  <i v-else class="ri-time-line fs-18"></i>
                   <span class="fr-ml-1v">
                     {{ t(tenant.status || '') }}
                   </span>

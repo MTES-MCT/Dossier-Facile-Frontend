@@ -50,9 +50,12 @@
               v-if="user.status === 'TO_PROCESS'"
             >
               <h3 class="fr-h4 dflex">
-                <span aria-hidden="true" class="material-icons-outlined md-28"
-                  >timer</span
-                >&nbsp;<span>{{ $t("account.instructional-time-title") }}</span>
+                <i
+                  aria-hidden="true"
+                  class="text-warning ri-time-line fs-28"
+                  style="font-size: 18px"
+                ></i>
+                &nbsp;<span>{{ $t("account.instructional-time-title") }}</span>
               </h3>
               <p v-html="$t('account.instructional-time-text')"></p>
             </div>
@@ -181,13 +184,11 @@ import DeleteAccount from "../components/DeleteAccount.vue";
 import FakeAnnouncement from "../components/FakeAnnouncement.vue";
 import PartnersSection from "@/components/account/PartnersSection.vue";
 import { UtilsService } from "@/services/UtilsService";
-import InfoCard from "@/components/account/InfoCard.vue";
 import TenantPanel from "@/components/account/TenantPanel.vue";
 
 @Component({
   components: {
     FakeAnnouncement,
-    InfoCard,
     PartnersSection,
     ValidationProvider,
     ValidationObserver,
@@ -545,10 +546,6 @@ p {
 
 .description:first-letter {
   text-transform: uppercase;
-}
-
-.material-icons.md-adapt {
-  font-size: 48px;
 }
 
 .header-title {

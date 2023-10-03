@@ -10,11 +10,10 @@
         :secondary="true"
         :btn-type="'button'"
         @click="backAction()"
+        :aria-label="$t('backnext.back-aria-label')"
       >
-        <template v-if="isMobile()">
-          <span class="color--primary material-icons">keyboard_arrow_left</span>
-        </template>
-        <span v-if="!isMobile()">{{ $t("backnext.back") }}</span>
+        <i class="color--primary ri-arrow-left-s-line mobile"></i>
+        <span class="desktop">{{ $t("backnext.back") }}</span>
       </v-gouv-fr-button>
       <div v-if="!showBack"></div>
       <div class="fr-grid-row flex-1">
@@ -26,6 +25,7 @@
           :btn-type="'submit'"
           :disabled="disabled"
           @click="nextAction()"
+          :aria-label="$t('backnext.continue-aria-label')"
         ></v-gouv-fr-button>
       </div>
     </div>

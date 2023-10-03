@@ -22,9 +22,11 @@
                   value="false"
                   v-model="localSpouseAuthorize"
                 />
-                <label for="authorize">{{
-                  $t("tenantinformationform.acceptAuthorSpouse")
-                }}</label>
+                <label
+                  for="authorize"
+                  v-html="$t('tenantinformationform.acceptAuthorSpouse')"
+                >
+                </label>
                 <span class="fr-error-text" v-if="errors[0]">{{
                   $t(errors[0])
                 }}</span>
@@ -52,9 +54,11 @@
                   value="false"
                   v-model="localCoTenantAuthorize"
                 />
-                <label for="authorize">{{
-                  $t("tenantinformationform.acceptAuthorCoTenant")
-                }}</label>
+                <label
+                  for="authorize"
+                  v-html="$t('tenantinformationform.acceptAuthorCoTenant')"
+                >
+                </label>
                 <span class="fr-error-text" v-if="errors[0]">{{
                   $t(errors[0])
                 }}</span>

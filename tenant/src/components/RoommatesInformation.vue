@@ -39,10 +39,9 @@
                     <div class="fr-col-10">
                       <div class="fr-grid-row nowrap">
                         <div class="center-icon fr-mr-1w">
-                          <span
-                            class="color--white material-icons md-24 round-icon"
-                            >person</span
-                          >
+                          <i
+                            class="color--white ri-user-fill fs-24 round-icon icon"
+                          ></i>
                         </div>
                         <div class="fr-grid-col overflow--hidden max-content">
                           <div :title="roommate.email" class="overflow--hidden">
@@ -69,9 +68,9 @@
                         @click="remove(roommate)"
                         type="button"
                       >
-                        <span class="color--primary material-icons md-24"
-                          >delete_forever</span
-                        >
+                        <i
+                          class="fs-24 ri-delete-bin-2-fill color--primary icon"
+                        ></i>
                       </button>
                     </div>
                   </div>
@@ -135,9 +134,11 @@
               v-model="authorize"
               @change="updateAuthorize()"
             />
-            <label for="authorize">{{
-              $t("roommatesinformation.acceptAuthor")
-            }}</label>
+            <label
+              for="authorize"
+              v-html="$t('roommatesinformation.acceptAuthor')"
+            >
+            </label>
             <span class="fr-error-text" v-if="errors[0]">{{
               $t(errors[0])
             }}</span>
@@ -266,8 +267,7 @@ export default class RoommatesInformation extends Vue {
   overflow: hidden;
 }
 
-.material-icons,
-.material-icons-outlined {
+.icon {
   border-radius: 50%;
   --color-hover: var(--block-color-hover);
   --color-active: var(--block-color-active);
