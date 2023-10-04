@@ -24,7 +24,7 @@
           <GuarantorResidency
             :tenantId="tenantId"
             @on-back="goBack"
-            @on-next="goNext"
+            @on-next="checkResidencyAndGoNext"
           ></GuarantorResidency>
         </div>
         <div v-if="substep === 3">
@@ -90,6 +90,28 @@
     >
       <span>{{ $t("tenantguarantordocuments.will-delete-guarantor") }}</span>
     </ConfirmModal>
+    <ConfirmModal
+      v-if="showNbDocumentsResidency"
+      :validate-btn-text="$t('add-new-documents')"
+      :cancel-btn-text="$t('next-step')"
+      @cancel="cancelAndGoNext()"
+      @close="showNbDocumentsResidency = false"
+      @valid="showNbDocumentsResidency = false"
+    >
+      {{ $t("guarantordocuments.warning-need-residency-documents.p1") }}
+      <ul>
+        <li>
+          {{ $t("guarantordocuments.warning-need-residency-documents.list1") }}
+        </li>
+        <li>
+          {{ $t("guarantordocuments.warning-need-residency-documents.list2") }}
+        </li>
+        <li>
+          {{ $t("guarantordocuments.warning-need-residency-documents.list3") }}
+        </li>
+      </ul>
+      {{ $t("guarantordocuments.warning-need-residency-documents.p2") }}
+    </ConfirmModal>
   </div>
 </template>
 
@@ -116,6 +138,8 @@ import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import ProfileContainer from "./ProfileContainer.vue";
+import { DocumentService } from "@/services/DocumentService";
+import { AnalyticsService } from "@/services/AnalyticsService";
 
 @Component({
   components: {
@@ -155,6 +179,7 @@ export default class TenantGuarantorDocuments extends Vue {
   selectedGuarantor!: Guarantor;
   tmpGuarantorType = "";
   changeGuarantorVisible = false;
+  showNbDocumentsResidency = false;
 
   validSelect() {
     this.$store.dispatch("deleteAllGuarantors").then(
@@ -189,6 +214,34 @@ export default class TenantGuarantorDocuments extends Vue {
     } else {
       this.$emit("on-next");
     }
+  }
+
+  checkResidencyAndGoNext() {
+    const docs = DocumentService.getGuarantorDocs(
+      this.selectedGuarantor,
+      "RESIDENCY"
+    );
+    if (docs.length === 1) {
+      const d = docs[0];
+      if (d.subCategory === "GUEST") {
+        const nbPages = d.files?.reduce(
+          (s, a) => s + (a.numberOfPages || 0),
+          0
+        );
+        console.log(nbPages)
+        if ((nbPages || 0) < 3) {
+          this.showNbDocumentsResidency = true;
+          AnalyticsService.missingResidencyDocumentDetected();
+          return;
+        }
+      }
+    }
+    this.goNext();
+  }
+
+  cancelAndGoNext() {
+    AnalyticsService.forceMissingResidencyDocument();
+    this.goNext();
   }
 
   goNext() {
