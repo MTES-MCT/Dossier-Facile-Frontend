@@ -1335,7 +1335,8 @@
       "status": {
         "TO_PROCESS": "est en cours de traitement",
         "DECLINED": "nécessite des modifications",
-        "INCOMPLETE": "est incomplet"
+        "INCOMPLETE": "est incomplet",
+        "VALIDATED": "global n'est pas validé"
       },
       "explanation": "Lorsque celui-ci sera validé, vous pourrez le partager et vous retrouverez ci-dessous la liste de vos partages par mail."
     },
