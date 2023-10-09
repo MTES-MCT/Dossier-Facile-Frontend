@@ -4,7 +4,7 @@ import i18n from "../i18n";
 
 Vue.use(Vuex);
 
-const MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+const DOMAIN = `${process.env.VUE_APP_DOMAIN}`;
 
 const store = new Vuex.Store({
   state: {},
@@ -17,16 +17,10 @@ const store = new Vuex.Store({
       html.setAttribute("lang", i18n.locale);
       const aYearFromNow = new Date();
       aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1);
-      Vue.$cookies.set(
-        "lang",
-        lang,
-        aYearFromNow,
-        "",
-        MAIN_URL.endsWith("dossierfacile.fr") ? "dossierfacile.fr" : "localhost"
-      );
-    }
+      Vue.$cookies.set("lang", lang, aYearFromNow, "", DOMAIN);
+    },
   },
-  modules: {}
+  modules: {},
 });
 
 export default store;

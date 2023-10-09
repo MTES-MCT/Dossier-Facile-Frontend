@@ -23,6 +23,8 @@ import Modal from "./Modal.vue";
 })
 export default class ModalAnnouncement extends Vue {
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+  DOMAIN = `${process.env.VUE_APP_DOMAIN}`;
+
   @Prop() cookiekey!: string;
   @Prop() showmodal!: boolean;
 
@@ -42,16 +44,13 @@ export default class ModalAnnouncement extends Vue {
   createAnnouncementClosedCookie() {
     const expirationDate = new Date();
     expirationDate.setDate(expirationDate.getDate() + 1);
-    const domain = this.MAIN_URL.endsWith("dossierfacile.fr")
-      ? "dossierfacile.fr"
-      : "localhost";
 
     this.$cookies.set(
       this.announcementClosedCookieKey,
       true,
       expirationDate.toUTCString(),
       "",
-      domain
+      this.DOMAIN
     );
   }
 }
