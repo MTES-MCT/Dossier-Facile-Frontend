@@ -18,6 +18,7 @@ import { Vue, Component } from "vue-property-decorator";
 export default class Announcement extends Vue {
   MESSAGE = `${process.env.VUE_APP_ANNOUNCEMENT_MESSAGE}`;
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
+  DOMAIN = `${process.env.VUE_APP_DOMAIN}`;
 
   announcementClosedCookieKey = `announcement-closed-${btoa(this.MESSAGE)}`;
   announcementClosed =
@@ -36,16 +37,13 @@ export default class Announcement extends Vue {
   createAnnouncementClosedCookie() {
     const expirationDate = new Date();
     expirationDate.setDate(expirationDate.getDate() + 1);
-    const domain = this.MAIN_URL.endsWith("dossierfacile.fr")
-      ? "dossierfacile.fr"
-      : "localhost";
 
     this.$cookies.set(
       this.announcementClosedCookieKey,
       true,
       expirationDate.toUTCString(),
       "",
-      domain
+      this.DOMAIN
     );
   }
 }
