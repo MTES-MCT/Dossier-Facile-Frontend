@@ -7,33 +7,13 @@
         </h1>
         <h1 class="fr-h6" v-else>{{ $t("guarantoridentification.title") }}</h1>
 
-        <TroubleshootingModal>
-          <GuarantorChoiceHelp></GuarantorChoiceHelp>
-          <DocumentInsert
-            :allow-list="identificationDocument.acceptedProofs"
-            :block-list="identificationDocument.refusedProofs"
-            v-if="identificationDocument.key"
-          ></DocumentInsert>
-        </TroubleshootingModal>
-
         <div class="fr-mt-3w">
-          <fieldset class="fr-fieldset">
-            <div class="fr-fieldset__content">
-              <div class="fr-grid-row">
-                <div v-for="d in documents" :key="d.key" class="full-width-xs">
-                  <BigRadio
-                    :val="d"
-                    v-model="identificationDocument"
-                    @input="onSelectChange()"
-                  >
-                    <div class="fr-grid-col spa">
-                      <span>{{ $t(d.key) }}</span>
-                    </div>
-                  </BigRadio>
-                </div>
-              </div>
-            </div>
-          </fieldset>
+          <SimpleRadioButtons
+            name="application-type-selector"
+            v-model="identificationDocument"
+            @input="onSelectChange"
+            :elements="mapDocuments()"
+          ></SimpleRadioButtons>
         </div>
       </div>
     </NakedCard>
@@ -87,7 +67,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
-import { mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import DocumentInsert from "../share/DocumentInsert.vue";
 import FileUpload from "../../uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
@@ -104,13 +84,14 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
 import GuarantorChoiceHelp from "../../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
-import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import { cloneDeep } from "lodash";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 import { UtilsService } from "@/services/UtilsService";
+import SimpleRadioButtons from "df-shared/src/Button/SimpleRadioButtons.vue";
+import { User } from "df-shared/src/models/User";
 
 @Component({
   components: {
@@ -124,13 +105,16 @@ import { UtilsService } from "@/services/UtilsService";
     DfButton,
     GuarantorChoiceHelp,
     VGouvFrModal,
-    BigRadio,
     NakedCard,
     TroubleshootingModal,
+    SimpleRadioButtons,
   },
   computed: {
     ...mapState({
       selectedGuarantor: "selectedGuarantor",
+    }),
+    ...mapGetters({
+      user: "userToEdit",
     }),
   },
 })
@@ -138,6 +122,7 @@ export default class GuarantorIdentification extends Vue {
   documents = DocumentTypeConstants.GUARANTOR_IDENTIFICATION_DOCS;
   @Prop() tenantId?: string;
   @Prop({ default: false }) isCotenant?: boolean;
+  user!: User;
 
   documentDeniedReasons = new DocumentDeniedReasons();
   selectedGuarantor!: Guarantor;
@@ -146,15 +131,21 @@ export default class GuarantorIdentification extends Vue {
   identificationDocument = new DocumentType();
   isDocDeleteVisible = false;
 
+  getLocalStorageKey() {
+    return "identification_guarantor_" + this.user.email;
+  }
+
   onSelectChange() {
-    if (this.selectedGuarantor.documents !== null) {
-      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "IDENTIFICATION";
-      });
+    localStorage.setItem(
+      this.getLocalStorageKey(),
+      this.identificationDocument.key
+    );
+    if (this.user.documents !== null) {
+      const doc = this.guarantorIdentificationDocument();
       if (doc !== undefined) {
         this.isDocDeleteVisible =
-          (doc.files?.length || 0) > 0 &&
-          doc.subCategory !== this.identificationDocument.value;
+          (doc?.files?.length || 0) > 0 &&
+          doc?.subCategory !== this.identificationDocument.value;
       }
     }
     return false;
@@ -205,21 +196,34 @@ export default class GuarantorIdentification extends Vue {
 
   updateGuarantorData() {
     if (this.selectedGuarantor.documents !== null) {
-      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "IDENTIFICATION";
-      });
-      if (doc !== undefined) {
+      if (this.guarantorIdentificationDocument() !== undefined) {
         const localDoc = this.documents.find((d: DocumentType) => {
-          return d.value === doc.subCategory;
+          return (
+            d.value === this.guarantorIdentificationDocument()?.subCategory
+          );
         });
         if (localDoc !== undefined) {
           this.identificationDocument = localDoc;
+          localStorage.setItem(
+            this.getLocalStorageKey(),
+            this.identificationDocument.key || ""
+          );
         }
-      }
-      if (this.guarantorIdentificationDocument()?.documentDeniedReasons) {
-        this.documentDeniedReasons = cloneDeep(
-          this.guarantorIdentificationDocument()?.documentDeniedReasons
-        ) as DocumentDeniedReasons;
+        const docDeniedReasons =
+          this.guarantorIdentificationDocument()?.documentDeniedReasons;
+        if (docDeniedReasons !== undefined) {
+          this.documentDeniedReasons = cloneDeep(docDeniedReasons);
+        }
+      } else {
+        const key = localStorage.getItem(this.getLocalStorageKey());
+        if (key) {
+          const localDoc = this.documents.find((d: DocumentType) => {
+            return d.key === key;
+          });
+          if (localDoc !== undefined) {
+            this.identificationDocument = localDoc;
+          }
+        }
       }
     }
   }
@@ -327,6 +331,12 @@ export default class GuarantorIdentification extends Vue {
       return "cotenant-guarantor";
     }
     return "guarantor";
+  }
+
+  mapDocuments() {
+    return this.documents.map((d) => {
+      return { id: d.key, labelKey: d.key, value: d };
+    });
   }
 }
 </script>

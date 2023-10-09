@@ -1,21 +1,18 @@
 <template>
   <div>
-    <div>
-      <NakedCard class="fr-p-md-5w">
-        <h1 class="fr-h6">
-          {{ $t("identification-page.select-label") }}
-        </h1>
-
-        <div class="fr-mt-3w">
-          <SimpleRadioButtons
-            name="application-type-selector"
-            v-model="identificationDocumentKey"
-            @input="onSelectChange"
-            :elements="mapDocuments()"
-          ></SimpleRadioButtons>
-        </div>
-      </NakedCard>
-    </div>
+    <NakedCard class="fr-p-md-5w">
+      <h1 class="fr-h6">
+        {{ $t("identification-page.select-label") }}
+      </h1>
+      <div class="fr-mt-3w">
+        <SimpleRadioButtons
+          name="application-type-selector"
+          v-model="identificationDocument"
+          @input="onSelectChange"
+          :elements="mapDocuments()"
+        ></SimpleRadioButtons>
+      </div>
+    </NakedCard>
     <NakedCard
       class="fr-p-md-5w fr-mt-3w"
       v-if="identificationDocument.key || identificationFiles().length > 0"
@@ -63,7 +60,6 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import DocumentInsert from "../share/DocumentInsert.vue";
 import FileUpload from "../../uploads/FileUpload.vue";
 import { DocumentType } from "df-shared/src/models/Document";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
@@ -77,9 +73,7 @@ import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
-import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import DocumentHelp from "../../helps/DocumentHelp.vue";
-import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import { AnalyticsService } from "../../../services/AnalyticsService";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
@@ -91,7 +85,6 @@ import SimpleRadioButtons from "df-shared/src/Button/SimpleRadioButtons.vue";
 
 @Component({
   components: {
-    DocumentInsert,
     FileUpload,
     ListItem,
     AllDeclinedMessages,
@@ -99,9 +92,7 @@ import SimpleRadioButtons from "df-shared/src/Button/SimpleRadioButtons.vue";
     WarningMessage,
     ConfirmModal,
     DfButton,
-    BigRadio,
     DocumentHelp,
-    VGouvFrModal,
     NakedCard,
     SimpleRadioButtons,
     TroubleshootingModal,
@@ -123,7 +114,6 @@ export default class Identification extends Vue {
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
   files: DfFile[] = [];
   identificationDocument = new DocumentType();
-  identificationDocumentKey = "";
   isDocDeleteVisible = false;
 
   getLocalStorageKey() {
@@ -142,7 +132,6 @@ export default class Identification extends Vue {
         });
         if (localDoc !== undefined) {
           this.identificationDocument = localDoc;
-          this.identificationDocumentKey = localDoc.key;
           localStorage.setItem(
             this.getLocalStorageKey(),
             this.identificationDocument.key || ""
@@ -168,15 +157,9 @@ export default class Identification extends Vue {
   }
 
   onSelectChange() {
-    const localDoc = this.documents.find((d: DocumentType) => {
-      return d.key === this.identificationDocumentKey;
-    });
-    if (localDoc !== undefined) {
-      this.identificationDocument = localDoc;
-    }
     localStorage.setItem(
       this.getLocalStorageKey(),
-      this.identificationDocumentKey
+      this.identificationDocument.key
     );
     if (this.user.documents !== null) {
       const doc = this.tenantIdentificationDocument;
@@ -198,7 +181,6 @@ export default class Identification extends Vue {
         });
         if (localDoc !== undefined) {
           this.identificationDocument = localDoc;
-          this.identificationDocumentKey = localDoc.key;
         }
       }
     }
@@ -316,7 +298,7 @@ export default class Identification extends Vue {
 
   mapDocuments() {
     return this.documents.map((d) => {
-      return { id: d.key, labelKey: d.key, iconCount: 0, optionName: d.key };
+      return { id: d.key, labelKey: d.key, value: d };
     });
   }
 }

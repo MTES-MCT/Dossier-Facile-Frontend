@@ -110,7 +110,6 @@ import RoommatesInformation from "./RoommatesInformation.vue";
 import CoupleInformation from "./CoupleInformation.vue";
 import { mapGetters, mapState } from "vuex";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
-import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import SubmitButton from "df-shared/src/Button/SubmitButton.vue";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
@@ -136,7 +135,6 @@ import ApplicationTypeSelector from "../components/ApplicationTypeSelector.vue";
     RoommatesInformation,
     ValidationObserver,
     ValidationProvider,
-    BigRadio,
     SubmitButton,
     WarningMessage,
     DfButton,

@@ -8,38 +8,13 @@
               {{ $t("financialdocumentform.title") }}
             </h1>
 
-            <TroubleshootingModal>
-              <DocumentHelp></DocumentHelp>
-              <DocumentInsert
-                :allow-list="financialDocument.documentType.acceptedProofs"
-                :block-list="financialDocument.documentType.refusedProofs"
-                v-if="financialDocument.documentType.key"
-              ></DocumentInsert>
-            </TroubleshootingModal>
-
             <div class="fr-mt-3w">
-              <fieldset class="fr-fieldset">
-                <div class="fr-fieldset__content">
-                  <div class="fr-grid-row">
-                    <div
-                      v-for="d in documents"
-                      :key="d.key"
-                      class="full-width-xs"
-                    >
-                      <BigRadio
-                        v-if="d.key !== 'no-income' || hasNoFinancial()"
-                        :val="d"
-                        v-model="financialDocument.documentType"
-                        @input="onSelectChange()"
-                      >
-                        <div class="fr-grid-col spa">
-                          <span>{{ $t(`documents.${d.key}`) }}</span>
-                        </div>
-                      </BigRadio>
-                    </div>
-                  </div>
-                </div>
-              </fieldset>
+              <SimpleRadioButtons
+                name="application-type-selector"
+                v-model="financialDocument.documentType"
+                @input="onSelectChange"
+                :elements="mapDocuments()"
+              ></SimpleRadioButtons>
             </div>
           </div>
         </NakedCard>
@@ -289,7 +264,6 @@ import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import Modal from "df-shared/src/components/Modal.vue";
-import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import DocumentHelp from "../../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import { AnalyticsService } from "../../../services/AnalyticsService";
@@ -300,6 +274,7 @@ import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 import { UtilsService } from "@/services/UtilsService";
+import SimpleRadioButtons from "df-shared/src/Button/SimpleRadioButtons.vue";
 
 extend("regex", {
   ...regex,
@@ -318,12 +293,12 @@ extend("regex", {
     WarningMessage,
     ConfirmModal,
     Modal,
-    BigRadio,
     DocumentHelp,
     VGouvFrModal,
     ProfileFooter,
     NakedCard,
     TroubleshootingModal,
+    SimpleRadioButtons,
   },
   computed: {
     ...mapGetters({
@@ -348,7 +323,8 @@ export default class FinancialDocumentForm extends Vue {
 
   beforeMount() {
     this.financialDocument = { ...cloneDeep(this.financialDocumentSelected) };
-    if (this.tenantFinancialDocument()?.documentDeniedReasons) {
+    const doc = this.tenantFinancialDocument();
+    if (doc?.documentDeniedReasons) {
       this.documentDeniedReasons = cloneDeep(
         this.tenantFinancialDocument().documentDeniedReasons
       );
@@ -624,6 +600,16 @@ export default class FinancialDocumentForm extends Vue {
       label += this.$tc("financialdocumentform.monthlySum.label-tax");
     }
     return label;
+  }
+
+  mapDocuments() {
+    return this.documents.map((d) => {
+      return {
+        id: d.key,
+        labelKey: "documents." + d.key,
+        value: d,
+      };
+    });
   }
 }
 </script>
