@@ -35,7 +35,7 @@ const routes = [
 const getSitemapUrls = () => {
   return routes
     .filter((route) => route !== "/404")
-    .map((route) => `https://dossierfacile.fr${route}`);
+    .map((route) => `https://dossierfacile.logement.gouv.fr${route}`);
 };
 
 module.exports = {
