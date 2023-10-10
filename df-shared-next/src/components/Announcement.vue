@@ -4,7 +4,7 @@ import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
 
 const MESSAGE = `${import.meta.env.VITE_ANNOUNCEMENT_MESSAGE}`;
-const MAIN_URL = `//${import.meta.env.VUE_APP_MAIN_URL}`;
+const DOMAIN = `${import.meta.env.VUE_APP_DOMAIN}`;
 
 const announcementClosedCookieKey = `announcement-closed-${btoa(MESSAGE)}`;
 const announcementClosed = ref(
@@ -19,16 +19,13 @@ function isVisible() {
 function createAnnouncementClosedCookie() {
   const expirationDate = new Date();
   expirationDate.setDate(expirationDate.getDate() + 1);
-  const domain = MAIN_URL.endsWith("dossierfacile.fr")
-    ? "dossierfacile.fr"
-    : "";
 
   cookies.set(
     announcementClosedCookieKey,
     "true",
     expirationDate.toUTCString(),
     "",
-    domain
+    DOMAIN
   );
 }
 

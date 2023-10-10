@@ -1286,7 +1286,8 @@
       "status": {
         "TO_PROCESS": "is being processed",
         "DECLINED": "requires modifications",
-        "INCOMPLETE": "is incomplete"
+        "INCOMPLETE": "is incomplete",
+        "VALIDATED": "is not fully validated"
       },
       "explanation": "As soon as it is validated, you will be able to share it and to manage the shared files below."
     },
