@@ -35,7 +35,7 @@ const routes = [
 const getSitemapUrls = () => {
   return routes
     .filter((route) => route !== "/404")
-    .map((route) => `https://dossierfacile.logement.gouv.fr${route}`);
+    .map((route) => `https://${process.env.VUE_APP_MAIN_URL}${route}`);
 };
 
 module.exports = {
