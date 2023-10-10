@@ -163,7 +163,7 @@
                   <a
                     class="fr-btn--facebook fr-btn"
                     title="Suivre Dossier facile sur facebook - Ouvre une nouvelle fenêtre"
-                    href="https://www.facebook.com/DossierFacile.fr/"
+                    href="https://www.facebook.com/DossierFacile/"
                     target="_blank"
                   >
                     Suivre Dossier facile sur facebook
