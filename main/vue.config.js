@@ -25,6 +25,7 @@ const routes = [
   "/blog/tout-ce-que-vous-devez-savoir-avant-de-quitter-votre-logement",
   "/blog/dossierfacile-lance-filigrane-facile",
   "/blog/guide-aide-etudiant-logement",
+  "/blog/dossierfacile-devient-dossierfacile-logement-gouv-fr",
   "/information",
   "/accessibilite",
   "/mentions-legales",
