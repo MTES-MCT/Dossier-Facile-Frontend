@@ -34,115 +34,77 @@
         <form name="form" @submit.prevent="validate().then(save())">
           <div>
             <div>
-              <TroubleshootingModal>
-                <GuarantorChoiceHelp></GuarantorChoiceHelp>
-                <DocumentInsert
-                  :allow-list="financialDocument.documentType.acceptedProofs"
-                  :block-list="financialDocument.documentType.refusedProofs"
-                  v-if="financialDocument.documentType.key"
-                ></DocumentInsert>
-              </TroubleshootingModal>
-
               <div class="fr-mt-3w">
-                <fieldset class="fr-fieldset">
-                  <div class="fr-fieldset__content">
-                    <div class="fr-grid-row">
-                      <div
-                        v-for="d in documents"
-                        :key="d.key"
-                        class="full-width-xs"
-                      >
-                        <BigRadio
-                          :val="d"
-                          v-model="financialDocument.documentType"
-                          @input="onSelectChange()"
-                        >
-                          <div class="fr-grid-col spa">
-                            <span>{{ $t(`documents.${d.key}`) }}</span>
-                          </div>
-                        </BigRadio>
-                      </div>
-                    </div>
-                  </div>
-                </fieldset>
+                <SimpleRadioButtons
+                  name="application-type-selector"
+                  v-model="financialDocument.documentType"
+                  @input="onSelectChange"
+                  :elements="mapDocuments()"
+                ></SimpleRadioButtons>
               </div>
             </div>
           </div>
-          <div
-            class="fr-mt-3w"
-            v-if="
-              financialDocument.documentType.key &&
-              financialDocument.documentType.key
-            "
-          >
-            <div
-              v-if="
-                financialDocument.documentType &&
-                financialDocument.documentType.key
-              "
-            >
-              <div>
-                <validation-provider
-                  :rules="{ required: true, regex: /^[0-9 ]+$/ }"
-                  v-slot="{ errors, valid }"
+          <div class="fr-mt-3w" v-if="financialDocument.documentType?.key">
+            <div>
+              <validation-provider
+                :rules="{ required: true, regex: /^[0-9 ]+$/ }"
+                v-slot="{ errors, valid }"
+              >
+                <div
+                  class="fr-input-group"
+                  :class="{
+                    'fr-input-group--error': errors[0],
+                  }"
                 >
-                  <div
-                    class="fr-input-group"
+                  <label for="monthlySum" class="fr-label">
+                    {{ getMonthlySumLabel() }} :
+                  </label>
+                  <input
+                    id="monthlySum"
+                    :placeholder="
+                      $tc(
+                        'guarantorfinancialdocumentform.monthlySum.placeholder'
+                      )
+                    "
+                    type="number"
+                    min="0"
+                    step="1"
+                    v-model="financialDocument.monthlySum"
+                    name="monthlySum"
+                    class="validate-required form-control fr-input"
                     :class="{
-                      'fr-input-group--error': errors[0],
+                      'fr-input--valid': valid,
+                      'fr-input--error': errors[0],
                     }"
+                    required
+                  />
+                  <span class="fr-error-text" v-if="errors[0]">{{
+                    $t(errors[0])
+                  }}</span>
+                  <span
+                    class="fr-error-text"
+                    v-if="financialDocument.monthlySum > 10000"
                   >
-                    <label for="monthlySum" class="fr-label">
-                      {{ getMonthlySumLabel() }} :
-                    </label>
-                    <input
-                      id="monthlySum"
-                      :placeholder="
-                        $tc(
-                          'guarantorfinancialdocumentform.monthlySum.placeholder'
-                        )
-                      "
-                      type="number"
-                      min="0"
-                      step="1"
-                      v-model="financialDocument.monthlySum"
-                      name="monthlySum"
-                      class="validate-required form-control fr-input"
-                      :class="{
-                        'fr-input--valid': valid,
-                        'fr-input--error': errors[0],
-                      }"
-                      required
-                    />
-                    <span class="fr-error-text" v-if="errors[0]">{{
-                      $t(errors[0])
-                    }}</span>
-                    <span
-                      class="fr-error-text"
-                      v-if="financialDocument.monthlySum > 10000"
-                    >
-                      {{ $t("guarantorfinancialdocumentform.high-salary") }}
-                    </span>
-                    <span
-                      class="fr-error-text"
-                      v-if="
-                        financialDocument.monthlySum !== '' &&
-                        financialDocument.monthlySum <= 0
-                      "
-                    >
-                      {{ $t("guarantorfinancialdocumentform.low-salary") }}
-                    </span>
-                  </div>
-                </validation-provider>
-              </div>
+                    {{ $t("guarantorfinancialdocumentform.high-salary") }}
+                  </span>
+                  <span
+                    class="fr-error-text"
+                    v-if="
+                      financialDocument.monthlySum !== '' &&
+                      financialDocument.monthlySum <= 0
+                    "
+                  >
+                    {{ $t("guarantorfinancialdocumentform.low-salary") }}
+                  </span>
+                </div>
+              </validation-provider>
             </div>
           </div>
         </form>
         <div
           class="fr-mt-3w"
           v-if="
-            financialDocument.documentType.key &&
-            financialDocument.documentType.key !== 'no-income' &&
+            financialDocument.documentType?.key !== 'no-income' &&
             financialDocument.monthlySum >= 0 &&
             financialDocument.monthlySum !== ''
           "
@@ -260,13 +222,13 @@ import GuarantorChoiceHelp from "../../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import ProfileFooter from "../../footer/ProfileFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
-import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import cloneDeep from "lodash/cloneDeep";
 import { AnalyticsService } from "../../../services/AnalyticsService";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared/src/models/DocumentDeniedReasons";
 import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 import { UtilsService } from "@/services/UtilsService";
+import SimpleRadioButtons from "df-shared/src/Button/SimpleRadioButtons.vue";
 
 extend("regex", {
   ...regex,
@@ -289,8 +251,8 @@ extend("regex", {
     VGouvFrModal,
     ProfileFooter,
     NakedCard,
-    BigRadio,
     TroubleshootingModal,
+    SimpleRadioButtons,
   },
   computed: {
     ...mapState({
@@ -319,10 +281,9 @@ export default class GuarantorFinancialDocumentForm extends Vue {
     this.financialDocument = {
       ...cloneDeep(this.guarantorFinancialDocumentSelected),
     };
-    if (this.guarantorFinancialDocument()?.documentDeniedReasons) {
-      this.documentDeniedReasons = cloneDeep(
-        this.guarantorFinancialDocument()?.documentDeniedReasons
-      );
+    const doc = this.guarantorFinancialDocument();
+    if (doc?.documentDeniedReasons) {
+      this.documentDeniedReasons = cloneDeep(doc?.documentDeniedReasons);
     }
   }
 
@@ -408,7 +369,7 @@ export default class GuarantorFinancialDocumentForm extends Vue {
   async save(): Promise<boolean> {
     const fieldName = "documents";
     const formData = new FormData();
-    if (this.financialDocument.documentType.key === undefined) {
+    if (this.financialDocument.documentType?.key === undefined) {
       return Promise.resolve(true);
     }
 
@@ -609,6 +570,16 @@ export default class GuarantorFinancialDocumentForm extends Vue {
       label += this.$tc("guarantorfinancialdocumentform.monthlySum.label-tax");
     }
     return label;
+  }
+
+  mapDocuments() {
+    return this.documents.map((d) => {
+      return {
+        id: d.key,
+        labelKey: "documents." + d.key,
+        value: d,
+      };
+    });
   }
 }
 </script>

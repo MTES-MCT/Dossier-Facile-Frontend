@@ -4,37 +4,13 @@
       <form name="form">
         <NakedCard class="fr-p-md-5w">
           <h1 class="fr-h6">{{ $t("tax-page.title") }}</h1>
-          <TroubleshootingModal>
-            <TaxHelp></TaxHelp>
-            <DocumentInsert
-              :allow-list="taxDocument.acceptedProofs"
-              :block-list="taxDocument.refusedProofs"
-              v-if="taxDocument.key && taxDocument.acceptedProofs.length > 0"
-            ></DocumentInsert>
-          </TroubleshootingModal>
-
           <div class="fr-mt-3w">
-            <fieldset class="fr-fieldset">
-              <div class="fr-fieldset__content">
-                <div class="fr-grid-row">
-                  <div
-                    v-for="d in documents"
-                    :key="d.key"
-                    class="full-width-xs"
-                  >
-                    <BigRadio
-                      :val="d"
-                      v-model="taxDocument"
-                      @input="onSelectChange()"
-                    >
-                      <div class="fr-grid-col spa">
-                        <span>{{ $t(d.key) }}</span>
-                      </div>
-                    </BigRadio>
-                  </div>
-                </div>
-              </div>
-            </fieldset>
+            <SimpleRadioButtons
+              name="application-type-selector"
+              v-model="taxDocument"
+              @input="onSelectChange"
+              :elements="mapDocuments()"
+            ></SimpleRadioButtons>
           </div>
         </NakedCard>
 
@@ -173,10 +149,8 @@ import { RegisterService } from "../../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
-import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
 import TaxHelp from "../../helps/TaxHelp.vue";
-import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import { AnalyticsService } from "../../../services/AnalyticsService";
 import ProfileFooter from "../../footer/ProfileFooter.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
@@ -189,6 +163,7 @@ import Modal from "df-shared/src/components/Modal.vue";
 import { LoaderComponent } from "vue-loading-overlay";
 import WarningTaxDeclaration from "@/components/documents/share/WarningTaxDeclaration.vue";
 import { UtilsService } from "@/services/UtilsService";
+import SimpleRadioButtons from "df-shared/src/Button/SimpleRadioButtons.vue";
 
 extend("is", {
   ...is,
@@ -206,15 +181,14 @@ extend("is", {
     ValidationProvider,
     WarningMessage,
     ConfirmModal,
-    BigRadio,
     TaxHelp,
-    VGouvFrModal,
     ProfileFooter,
     NakedCard,
     TroubleshootingModal,
     Modal,
     DfButton,
     WarningTaxDeclaration,
+    SimpleRadioButtons,
   },
   computed: {
     ...mapGetters({
@@ -254,46 +228,51 @@ export default class Tax extends Vue {
     return this.tenantTaxDocument?.documentStatus;
   }
 
-  mounted() {
-    const doc = this.getRegisteredDoc();
-    if (doc !== undefined) {
-      this.customText = doc.customText || "";
-    }
-    const localDoc = this.getLocalDoc();
-    if (localDoc !== undefined) {
-      this.taxDocument = localDoc;
-      localStorage.setItem(
-        this.getTaxLocalStorageKey(),
-        this.taxDocument.key || ""
-      );
-    } else {
-      const key = localStorage.getItem(this.getTaxLocalStorageKey());
-      if (key) {
+  beforeMount() {
+    if (this.user.documents !== null) {
+      if (this.tenantTaxDocument !== undefined) {
+        this.customText = this.tenantTaxDocument.customText || "";
         const localDoc = this.documents.find((d: DocumentType) => {
-          return d.key === key;
+          return d.value === this.tenantTaxDocument?.subCategory;
         });
         if (localDoc !== undefined) {
           this.taxDocument = localDoc;
+          localStorage.setItem(
+            this.getLocalStorageKey(),
+            this.taxDocument.key || ""
+          );
+        }
+        if (this.tenantTaxDocument?.documentDeniedReasons) {
+          this.documentDeniedReasons = cloneDeep(
+            this.tenantTaxDocument.documentDeniedReasons
+          );
+        }
+      } else {
+        const key = localStorage.getItem(this.getLocalStorageKey());
+        if (key) {
+          const localDoc = this.documents.find((d: DocumentType) => {
+            return d.key === key;
+          });
+          if (localDoc !== undefined) {
+            this.taxDocument = localDoc;
+          }
         }
       }
     }
-    if (this.tenantTaxDocument?.documentDeniedReasons) {
-      this.documentDeniedReasons = cloneDeep(
-        this.tenantTaxDocument.documentDeniedReasons
-      );
-    }
+  }
+
+  getLocalStorageKey() {
+    return "tax_guarantor_" + this.user.email;
   }
 
   onSelectChange() {
-    localStorage.setItem(this.getTaxLocalStorageKey(), this.taxDocument.key);
+    localStorage.setItem(this.getLocalStorageKey(), this.taxDocument.key);
     if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "TAX";
-      });
+      const doc = this.tenantTaxDocument;
       if (doc !== undefined) {
         this.isDocDeleteVisible =
-          (doc.files?.length || 0) > 0 &&
-          doc.subCategory !== this.taxDocument.value;
+          (doc?.files?.length || 0) > 0 &&
+          doc?.subCategory !== this.taxDocument.value;
       }
     }
     return false;
@@ -322,12 +301,10 @@ export default class Tax extends Vue {
 
   undoSelect() {
     if (this.user.documents !== null) {
-      const doc = this.user.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "TAX";
-      });
+      const doc = this.tenantTaxDocument;
       if (doc !== undefined) {
         const localDoc = this.documents.find((d: DocumentType) => {
-          return d.value === doc.subCategory;
+          return d.value === doc?.subCategory;
         });
         if (localDoc !== undefined) {
           this.taxDocument = localDoc;
@@ -519,14 +496,11 @@ export default class Tax extends Vue {
     this.loader?.hide();
     this.loader = undefined;
   }
-}
-</script>
 
-<style scoped lang="scss">
-.spa {
-  height: 3rem;
-  @media all and (min-width: 768px) {
-    width: 14rem;
+  mapDocuments() {
+    return this.documents.map((d) => {
+      return { id: d.key, labelKey: d.key, value: d };
+    });
   }
 }
-</style>
+</script>

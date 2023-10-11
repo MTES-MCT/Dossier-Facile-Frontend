@@ -7,15 +7,6 @@
         </h1>
         <slot name="description"></slot>
 
-        <TroubleshootingModal>
-          <DocumentHelp></DocumentHelp>
-          <DocumentInsert
-            v-if="document ? !!document.key : false"
-            :allow-list="document ? document.acceptedProofs : null"
-            :block-list="document ? document.refusedProofs : null"
-          ></DocumentInsert>
-        </TroubleshootingModal>
-
         <div class="fr-mt-3w">
           <div v-if="listType == 'dropDownList'">
             <validation-provider
@@ -47,30 +38,13 @@
               </span>
             </validation-provider>
           </div>
-          <fieldset v-else class="fr-fieldset">
-            <div class="fr-fieldset__content">
-              <div class="fr-grid-row">
-                <div
-                  v-for="d in documentsDefinitions"
-                  :key="d.key"
-                  class="full-width-xs"
-                >
-                  <BigRadio
-                    :val="d"
-                    v-model="document"
-                    @input="onSelectChange()"
-                  >
-                    <div
-                      class="fr-grid-col"
-                      :class="{ spa: listType === 'grid' }"
-                    >
-                      <span>{{ $t(`${translationKeyPrefix}.${d.key}`) }}</span>
-                    </div>
-                  </BigRadio>
-                </div>
-              </div>
-            </div>
-          </fieldset>
+          <SimpleRadioButtons
+            v-if="listType !== 'dropDownList'"
+            name="application-type-selector"
+            v-model="document"
+            @input="onSelectChange"
+            :elements="mapDocuments()"
+          ></SimpleRadioButtons>
         </div>
       </div>
     </NakedCard>
@@ -255,7 +229,6 @@ import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
-import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import Modal from "df-shared/src/components/Modal.vue";
@@ -265,6 +238,7 @@ import TroubleshootingModal from "@/components/helps/TroubleshootingModal.vue";
 import { PdfAnalysisService } from "../../../services/PdfAnalysisService";
 import { LoaderComponent } from "vue-loading-overlay";
 import WarningTaxDeclaration from "@/components/documents/share/WarningTaxDeclaration.vue";
+import SimpleRadioButtons from "df-shared/src/Button/SimpleRadioButtons.vue";
 
 @Component({
   components: {
@@ -279,10 +253,10 @@ import WarningTaxDeclaration from "@/components/documents/share/WarningTaxDeclar
     Modal,
     DfButton,
     VGouvFrModal,
-    BigRadio,
     NakedCard,
     DocumentHelp,
     TroubleshootingModal,
+    SimpleRadioButtons,
   },
 })
 export default class DocumentDownloader extends Vue {
@@ -297,7 +271,7 @@ export default class DocumentDownloader extends Vue {
   @Prop({ default: false }) allowNoDocument!: boolean;
   @Prop({ default: false }) forceShowDownloader!: boolean;
   @Prop({ default: false }) testAvisSituation!: boolean;
-  @Prop({ default: "documents" }) translationKeyPrefix!: boolean;
+  @Prop({ default: "documents." }) translationKeyPrefix!: boolean;
 
   localEditedDocumentId = this.editedDocumentId;
   documentDeniedReasons = new DocumentDeniedReasons();
@@ -559,6 +533,16 @@ export default class DocumentDownloader extends Vue {
   hideLoader() {
     this.loader?.hide();
     this.loader = undefined;
+  }
+
+  mapDocuments() {
+    return this.documentsDefinitions.map((d: any) => {
+      return {
+        id: d.key,
+        labelKey: this.translationKeyPrefix + d.key,
+        value: d,
+      };
+    });
   }
 }
 </script>

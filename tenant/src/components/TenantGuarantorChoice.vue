@@ -26,7 +26,7 @@
           </div>
 
           <GuarantorTypeSelector
-            :localStorageKey="`cotenantGuarantorType_${this.tenantId}`"
+            :localStorageKey="`cotenantGuarantorType_${tenantId}`"
             :isCotenant="isCotenant"
             @selected="tmpGuarantorType = $event"
           >
@@ -67,9 +67,7 @@
 import { Component, Vue, Prop } from "vue-property-decorator";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import DfButton from "df-shared/src/Button/Button.vue";
-import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
-import { UtilsService } from "../services/UtilsService";
 import { AnalyticsService } from "../services/AnalyticsService";
 import GuarantorFooter from "./footer/GuarantorFooter.vue";
 import GuarantorChoiceHelp from "./helps/GuarantorChoiceHelp.vue";
@@ -82,7 +80,6 @@ import GuarantorTypeSelector from "@/components/GuarantorTypeSelector.vue";
     TroubleshootingModal,
     VGouvFrModal,
     DfButton,
-    BigRadio,
     NakedCard,
     GuarantorFooter,
     GuarantorChoiceHelp,

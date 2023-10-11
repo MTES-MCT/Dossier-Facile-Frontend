@@ -10,8 +10,8 @@
           :id="element.id"
           type="radio"
           :name="name"
-          :checked="value === element.optionName"
-          @click="onSelect(element.optionName)"
+          :checked="JSON.stringify(value) === JSON.stringify(element.value)"
+          @click="onSelect(element.value)"
         />
         <label class="fr-label" :for="element.id">
           {{ $tc(element.labelKey) }}
@@ -31,16 +31,14 @@ export interface RadioElement {
   id: string;
   labelKey: string;
   description?: string;
-  iconClass: string;
-  iconCount?: number;
-  optionName: string;
+  value: any;
 }
 
 @Component
 export default class SimpleRadioButtons extends Vue {
   @Prop() name!: string;
   @Prop() elements!: RadioElement[];
-  @Prop() value!: string;
+  @Prop() value!: any;
 
   onSelect(applicationType: string) {
     this.$emit("input", applicationType);
