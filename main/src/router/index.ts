@@ -300,6 +300,18 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Article21.vue"),
   },
   {
+    path: "/blog/dossierfacile-devient-dossierfacile-logement-gouv-fr",
+    name: "Article22",
+    meta: {
+      title: "DossierFacile.fr devient enfin DossierFacile.logement.gouv.fr !",
+      description:
+        "DossierFacile est donc enfin accessible depuis l’URL DossierFacile.logement.gouv.fr, une adresse qui reflète mieux notre mission de service public",
+      image: require("../assets/images/blog-article22.jpg"),
+    },
+    component: () =>
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article22.vue"),
+  },
+  {
     path: "/information",
     name: "Information",
     meta: {
