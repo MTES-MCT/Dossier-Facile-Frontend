@@ -108,7 +108,7 @@ export default class Sitemap extends Vue {
     },
     {
       name: "Facebook",
-      url: "https://www.facebook.com/DossierFacile.fr",
+      url: "https://www.facebook.com/DossierFacile",
     },
     {
       name: "Linkedin",

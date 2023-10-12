@@ -72,7 +72,6 @@ import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import Modal from "df-shared/src/components/Modal.vue";
-import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import DocumentHelp from "../../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import ProfileFooter from "../../footer/ProfileFooter.vue";
@@ -95,7 +94,6 @@ import { UtilsService } from "@/services/UtilsService";
     WarningMessage,
     ConfirmModal,
     Modal,
-    BigRadio,
     DocumentHelp,
     CoTenantFinancialForm,
     VGouvFrModal,

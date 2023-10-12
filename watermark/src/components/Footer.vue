@@ -137,7 +137,7 @@
                   <a
                     class="fr-btn--facebook fr-btn"
                     title="Suivre Dossier facile sur facebook - Ouvre une nouvelle fenêtre"
-                    href="https://www.facebook.com/DossierFacile.fr/"
+                    href="https://www.facebook.com/DossierFacile/"
                     target="_blank"
                   >
                     Suivre Dossier facile sur facebook
@@ -147,11 +147,11 @@
                   <a
                     class="fr-btn--linkedin fr-btn"
                     lang="en"
-                    title="Suivre Dossier facile sur linkedin - Ouvre une nouvelle fenêtre"
-                    href="https://www.linkedin.com/company/startup-d-etat-locatio/"
+                    title="Suivre Filigrane Facile sur linkedin - Ouvre une nouvelle fenêtre"
+                    href="https://www.linkedin.com/company/filigranefacile/"
                     target="_blank"
                   >
-                    Suivre Dossier facile sur linkedin
+                    Suivre Filigrane Facile sur linkedin
                   </a>
                 </li>
                 <li>

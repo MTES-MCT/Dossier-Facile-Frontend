@@ -1,79 +1,57 @@
 <template>
   <div>
-    <ConfirmModal
-      v-if="isDocDeleteVisible"
-      @valid="validSelect()"
-      @cancel="undoSelect()"
-    >
-      <span>{{ $t("guarantortax.will-delete-files") }}</span>
-    </ConfirmModal>
     <ValidationObserver v-slot="{ validate }">
-      <NakedCard class="fr-p-md-5w">
-        <h1 class="fr-h6" v-if="isCotenant">
-          {{ $t("guarantortax.title-cotenant") }}
-        </h1>
-        <h1 class="fr-h6" v-else>{{ $t("guarantortax.title") }}</h1>
-        <TroubleshootingModal>
-          <TaxHelp></TaxHelp>
-          <DocumentInsert
-            :allow-list="taxDocument.acceptedProofs"
-            :block-list="taxDocument.refusedProofs"
-            v-if="taxDocument.key && taxDocument.acceptedProofs.length > 0"
-          ></DocumentInsert>
-        </TroubleshootingModal>
+      <form name="form">
+        <NakedCard class="fr-p-md-5w">
+          <h1 class="fr-h6" v-if="isCotenant">
+            {{ $t("guarantortax.title-cotenant") }}
+          </h1>
+          <h1 class="fr-h6" v-else>{{ $t("guarantortax.title") }}</h1>
+          <div class="fr-mt-3w">{{ $t("guarantortax.situation") }}</div>
 
-        <div class="fr-mt-3w">{{ $t("guarantortax.situation") }}</div>
-
-        <form name="form" @submit.prevent="validate().then(save)">
           <div class="fr-mt-3w">
-            <fieldset class="fr-fieldset">
-              <div class="fr-fieldset__content">
-                <div class="fr-grid-row">
-                  <div
-                    v-for="d in documents"
-                    :key="d.key"
-                    class="full-width-xs"
-                  >
-                    <BigRadio
-                      :val="d"
-                      v-model="taxDocument"
-                      @input="onSelectChange()"
-                    >
-                      <div class="fr-grid-col spa">
-                        <span v-if="isCotenant">{{
-                          $t(`guarantortax.${d.key}-cotenant`)
-                        }}</span>
-                        <span v-else>{{ $t(`guarantortax.${d.key}`) }}</span>
-                      </div>
-                    </BigRadio>
-                  </div>
-                </div>
-              </div>
-            </fieldset>
+            <SimpleRadioButtons
+              name="application-type-selector"
+              v-model="taxDocument"
+              @input="onSelectChange"
+              :elements="mapDocuments()"
+            ></SimpleRadioButtons>
           </div>
           <div
             class="fr-mb-3w"
             v-if="taxDocument.key && taxDocument.key === 'other-tax'"
           >
-            <div class="fr-input-group">
-              <label class="fr-label" for="customText">{{
-                $t("guarantortax.custom-text")
-              }}</label>
-              <textarea
-                v-model="customText"
-                class="form-control fr-input validate-required"
-                id="customText"
-                name="customText"
-                placeholder=""
-                type="text"
-                required
-                maxlength="2000"
-                rows="4"
-              />
-            </div>
+            <validation-provider rules="required" v-slot="{ errors, valid }">
+              <div
+                class="fr-input-group"
+                :class="errors[0] ? 'fr-input-group--error' : ''"
+              >
+                <label class="fr-label" for="customText">{{
+                  $t("guarantortax.custom-text")
+                }}</label>
+                <textarea
+                  v-model="customText"
+                  class="form-control fr-input validate-required"
+                  :class="{
+                    'fr-input--valid': valid,
+                    'fr-input--error': errors[0],
+                  }"
+                  id="customText"
+                  name="customText"
+                  placeholder=""
+                  type="text"
+                  required
+                  maxlength="2000"
+                  rows="4"
+                />
+                <span class="fr-error-text" v-if="errors[0]">{{
+                  $t(errors[0])
+                }}</span>
+              </div>
+            </validation-provider>
           </div>
-        </form>
-      </NakedCard>
+        </NakedCard>
+      </form>
       <NakedCard
         class="fr-p-md-5w fr-mt-3w"
         v-if="taxDocument.key === 'my-name' || taxFiles().length > 0"
@@ -106,8 +84,18 @@
           ></FileUpload>
         </div>
       </NakedCard>
+      <GuarantorFooter
+        @on-back="goBack"
+        @on-next="validate().then(goNext)"
+      ></GuarantorFooter>
     </ValidationObserver>
-    <GuarantorFooter @on-back="goBack" @on-next="goNext"></GuarantorFooter>
+    <ConfirmModal
+      v-if="isDocDeleteVisible"
+      @valid="validSelect()"
+      @cancel="undoSelect()"
+    >
+      <span>{{ $t("guarantortax.will-delete-files") }}</span>
+    </ConfirmModal>
     <Modal
       v-if="isWarningTaxSituationModalVisible"
       @close="isWarningTaxSituationModalVisible = false"
@@ -147,7 +135,7 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { DocumentType } from "df-shared/src/models/Document";
 import DocumentInsert from "../share/DocumentInsert.vue";
 import FileUpload from "../../uploads/FileUpload.vue";
-import { mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import { UploadStatus } from "df-shared/src/models/UploadStatus";
 import ListItem from "../../uploads/ListItem.vue";
 import { DfFile } from "df-shared/src/models/DfFile";
@@ -160,7 +148,6 @@ import { RegisterService } from "../../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
-import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import TaxHelp from "../../helps/TaxHelp.vue";
 import GuarantorFooter from "../../footer/GuarantorFooter.vue";
@@ -176,6 +163,8 @@ import DfButton from "df-shared/src/Button/Button.vue";
 import { LoaderComponent } from "vue-loading-overlay";
 import WarningTaxDeclaration from "@/components/documents/share/WarningTaxDeclaration.vue";
 import { UtilsService } from "@/services/UtilsService";
+import { User } from "df-shared/src/models/User";
+import SimpleRadioButtons from "df-shared/src/Button/SimpleRadioButtons.vue";
 
 extend("is", {
   ...is,
@@ -194,7 +183,6 @@ extend("is", {
     ValidationProvider,
     WarningMessage,
     ConfirmModal,
-    BigRadio,
     VGouvFrModal,
     TaxHelp,
     GuarantorFooter,
@@ -202,16 +190,21 @@ extend("is", {
     TroubleshootingModal,
     Modal,
     DfButton,
+    SimpleRadioButtons,
   },
   computed: {
     ...mapState({
       selectedGuarantor: "selectedGuarantor",
+    }),
+    ...mapGetters({
+      user: "userToEdit",
     }),
   },
 })
 export default class GuarantorTax extends Vue {
   @Prop() tenantId?: string;
   @Prop({ default: false }) isCotenant?: boolean;
+  user!: User;
 
   selectedGuarantor!: Guarantor;
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
@@ -260,15 +253,18 @@ export default class GuarantorTax extends Vue {
     return this.$store.getters.getGuarantorTaxDocument;
   }
 
+  getLocalStorageKey() {
+    return "tax_guarantor_" + this.user.email;
+  }
+
   onSelectChange() {
-    if (this.selectedGuarantor.documents !== null) {
-      const doc = this.selectedGuarantor.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "TAX";
-      });
+    localStorage.setItem(this.getLocalStorageKey(), this.taxDocument.key);
+    if (this.user.documents !== null) {
+      const doc = this.guarantorTaxDocument();
       if (doc !== undefined) {
         this.isDocDeleteVisible =
-          (doc.files?.length || 0) > 0 &&
-          doc.subCategory !== this.taxDocument.value;
+          (doc?.files?.length || 0) > 0 &&
+          doc?.subCategory !== this.taxDocument.value;
       }
     }
     return false;
@@ -308,18 +304,35 @@ export default class GuarantorTax extends Vue {
   }
 
   updateGuarantorData() {
-    const doc = this.getRegisteredDoc();
-    if (doc !== undefined) {
-      this.customText = doc.customText || "";
-    }
-    const localDoc = this.getLocalDoc();
-    if (localDoc !== undefined) {
-      this.taxDocument = localDoc;
-    }
-    if (this.guarantorTaxDocument()?.documentDeniedReasons) {
-      this.documentDeniedReasons = cloneDeep(
-        this.guarantorTaxDocument()?.documentDeniedReasons
-      );
+    if (this.selectedGuarantor.documents !== null) {
+      if (this.guarantorTaxDocument() !== undefined) {
+        this.customText = this.guarantorTaxDocument().customText || "";
+        const localDoc = this.documents.find((d: DocumentType) => {
+          return d.value === this.guarantorTaxDocument()?.subCategory;
+        });
+        if (localDoc !== undefined) {
+          this.taxDocument = localDoc;
+          localStorage.setItem(
+            this.getLocalStorageKey(),
+            this.taxDocument.key || ""
+          );
+        }
+        const docDeniedReasons =
+          this.guarantorTaxDocument()?.documentDeniedReasons;
+        if (docDeniedReasons !== undefined) {
+          this.documentDeniedReasons = cloneDeep(docDeniedReasons);
+        }
+      } else {
+        const key = localStorage.getItem(this.getLocalStorageKey());
+        if (key) {
+          const localDoc = this.documents.find((d: DocumentType) => {
+            return d.key === key;
+          });
+          if (localDoc !== undefined) {
+            this.taxDocument = localDoc;
+          }
+        }
+      }
     }
   }
 
@@ -416,8 +429,7 @@ export default class GuarantorTax extends Vue {
     formData.append("typeDocumentTax", this.taxDocument.value);
 
     if (this.taxDocument.key === "other-tax") {
-      if (!this.customText) {
-        // TODO : would be better to validate form
+      if (!this.customText || this.customText === "") {
         return false;
       }
       formData.append("customText", this.customText);
@@ -502,6 +514,17 @@ export default class GuarantorTax extends Vue {
   hideLoader() {
     this.loader?.hide();
     this.loader = undefined;
+  }
+
+  mapDocuments() {
+    const suffixKey = this.isCotenant ? "-cotenant" : "";
+    return this.documents.map((d) => {
+      return {
+        id: d.key,
+        labelKey: "guarantortax." + d.key + suffixKey,
+        value: d,
+      };
+    });
   }
 }
 </script>

@@ -5,6 +5,20 @@
         <div class="fr-col-md-10 fr-col-lg-8">
           <h1>{{ $t("blog-title") }}</h1>
           <BlogExtractTile
+            title="DossierFacile.fr devient enfin DossierFacile.logement.gouv.fr !"
+            :image="require('../../assets/images/blog-article22.webp')"
+            publicationDate="11 Octobre 2023"
+            path="/blog/dossierfacile-devient-dossierfacile-logement-gouv-fr"
+          >
+            <template v-slot:extract>
+              <p>
+                DossierFacile est donc enfin accessible depuis l’URL
+                DossierFacile.logement.gouv.fr, une adresse qui reflète mieux
+                notre mission de service public
+              </p>
+            </template>
+          </BlogExtractTile>
+          <BlogExtractTile
             title="Le Guide Complet des Aides pour les Étudiant·e·s en Recherche de Logements en France"
             :image="require('../../assets/images/blog-article21.webp')"
             publicationDate="21 Septembre 2023"

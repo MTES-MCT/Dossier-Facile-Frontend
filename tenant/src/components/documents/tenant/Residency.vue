@@ -134,7 +134,6 @@ import { RegisterService } from "../../../services/RegisterService";
 import WarningMessage from "df-shared/src/components/WarningMessage.vue";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
-import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import DocumentHelp from "../../helps/DocumentHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import { AnalyticsService } from "../../../services/AnalyticsService";
@@ -159,7 +158,6 @@ import TextField from "df-shared/src/components/form/TextField.vue";
     ListItem,
     WarningMessage,
     ConfirmModal,
-    BigRadio,
     VGouvFrModal,
     DocumentHelp,
     AllDeclinedMessages,

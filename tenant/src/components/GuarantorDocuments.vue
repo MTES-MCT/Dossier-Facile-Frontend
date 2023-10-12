@@ -108,7 +108,6 @@ import ConfirmModal from "df-shared/src/components/ConfirmModal.vue";
 import VGouvFrButton from "df-shared/src/Button/v-gouv-fr-button/VGouvFrButton.vue";
 import GuarantorFooter from "./footer/GuarantorFooter.vue";
 import GuarantorChoiceHelp from "./helps/GuarantorChoiceHelp.vue";
-import BigRadio from "df-shared/src/Button/BigRadio.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import ProfileContainer from "./ProfileContainer.vue";
@@ -132,7 +131,6 @@ import { AnalyticsService } from "@/services/AnalyticsService";
     VGouvFrButton,
     GuarantorFooter,
     GuarantorChoiceHelp,
-    BigRadio,
     VGouvFrModal,
     NakedCard,
     ProfileContainer,
