@@ -27,7 +27,7 @@ export default class DfButton extends Vue {
       "fr-btn--lg": this.size === "large",
       "fr-btn--sm": this.size === "small",
       "fr-btn--icon": this.size === "icon",
-      dark: this.dark
+      dark: this.dark,
     };
   }
 
