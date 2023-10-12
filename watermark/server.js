@@ -17,6 +17,7 @@ app.use(function(req, res, next) {
       "object-src 'none'; " +
       `connect-src https://sentry.incubateur.net ${CSP_DOMAIN} blob:; ` +
       "frame-src *.dossierfacile.fr; " +
+      "manifest-src https://filigrane.beta.gouv.fr; " +
       "child-src *.dossierfacile.fr"
   );
   res.setHeader("X-Frame-Options", "deny");
