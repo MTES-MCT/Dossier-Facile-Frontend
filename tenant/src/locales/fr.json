@@ -1096,6 +1096,10 @@
   },
   "sharefile": {
     "title": "Partager mon dossier",
+    "desc1": "Afin de candidater au logement de vos rêves, partagez votre dossier au propriétaire de votre choix, avec ou sans justificatifs, soit par email en renseignant son adresse mail ci-dessous, soit par lien en envoyant votre lien DossierFacile par email, SMS, etc. aux propriétaires, bailleurs de votre choix.",
+    "desc2": "Pour rappel, DossierFacile ne propose pas de logement.",
+    "desc3": "En utilisant le partage de dossier, vous acceptez que votre adresse email soit partagée au propriétaire.",
+    "lastvisit": "Dernière visite :",
     "share-btn-email": "Partager",
     "share-btn-copy": "Copier",
     "full": "Avec justificatifs",

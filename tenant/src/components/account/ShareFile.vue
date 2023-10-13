@@ -4,9 +4,18 @@
       <i class="ri-share-line fr-mr-1w" aria-hidden="true"></i>
       {{ $t("sharefile.title") }}
     </h2>
+    <p>
+      {{ $t("sharefile.desc1") }}
+    </p>
+    <p class="bold">
+      {{ $t("sharefile.desc2") }}
+    </p>
+    <p class="bold">
+      {{ $t("sharefile.desc3") }}
+    </p>
     <form name="form" @submit.prevent="handleSubmit">
       <div class="form-container">
-        <div class="fr-mt-md-4w">
+        <div class="fr-mt-md-4w full-mobile">
           <validation-provider name="shareType" v-slot="{ errors, valid }">
             <select
               v-model="shareType"
@@ -21,7 +30,7 @@
             </select>
           </validation-provider>
         </div>
-        <div>
+        <div class="full-mobile">
           <validation-provider name="shareMethod" v-slot="{ errors, valid }">
             <select
               v-model="shareMethod"
@@ -36,7 +45,7 @@
             </select>
           </validation-provider>
         </div>
-        <div v-if="shareMethod === 'mail'">
+        <div v-if="shareMethod === 'mail'" class="full-mobile">
           <validation-provider rules="required" v-slot="{ errors, valid }">
             <div
               class="fr-input-group"
@@ -62,15 +71,19 @@
             </div>
           </validation-provider>
         </div>
-        <div v-if="shareMethod === 'link'">
+        <div v-if="shareMethod === 'link'" class="full-mobile">
           <input class="fr-input" type="text" read-only :value="getUrl()" />
         </div>
-        <div>
-          <DfButton type="submit" :primary="true">{{
-            shareMethod === "mail"
-              ? $t("sharefile.share-btn-email")
-              : $t("sharefile.share-btn-copy")
-          }}</DfButton>
+        <div class="full-mobile">
+          <ul class="fr-btns-group">
+            <li>
+              <DfButton type="submit" :primary="true">{{
+                shareMethod === "mail"
+                  ? $t("sharefile.share-btn-email")
+                  : $t("sharefile.share-btn-copy")
+              }}</DfButton>
+            </li>
+          </ul>
         </div>
       </div>
     </form>
@@ -165,5 +178,11 @@ export default class ShareFile extends Vue {
 
 select {
   min-width: 200px;
+}
+
+.full-mobile {
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 }
 </style>

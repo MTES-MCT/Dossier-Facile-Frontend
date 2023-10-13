@@ -605,10 +605,6 @@ export default class LeftEditMenu extends Vue {
   font-size: 14px;
 }
 
-.bold {
-  font-weight: bold;
-}
-
 [href] {
   box-shadow: none;
   background-image: none;

@@ -1,6 +1,6 @@
 <template>
   <div class="fr-tag" :class="getClasses()">
-    <StatusIcon v-if="status" :status="status"></StatusIcon>
+    <StatusIcon v-if="status && !hideIcon" :status="status"></StatusIcon>
     <span class="fr-text--xs" v-if="label">{{ label }}&nbsp;:&nbsp;</span>
     {{ text }}
   </div>
@@ -20,6 +20,7 @@ export default class CardRow extends Vue {
   @Prop() label?: string;
   @Prop() text!: string;
   @Prop({ default: false }) active!: boolean;
+  @Prop({ default: false }) hideIcon!: boolean;
 
   getClasses() {
     const c = this.active ? "active " : "";
@@ -32,6 +33,8 @@ export default class CardRow extends Vue {
         return c + "declined-menu-link";
       case "FILLED":
         return c + "filled-menu-link";
+      case "grey":
+        return c + "grey";
     }
     return c + "empty-menu-link";
   }
@@ -83,6 +86,15 @@ export default class CardRow extends Vue {
     background-color: var(--background-default-grey);
     outline: 1px solid #e5e5f4;
     outline-offset: -2px;
+  }
+}
+
+.fr-tag.grey {
+  background-color: #eeeeee;
+  color: #929292;
+  &.active {
+    background-color: #eeeeee;
+    color: #161616;
   }
 }
 

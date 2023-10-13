@@ -1041,6 +1041,10 @@
   },
   "sharefile": {
     "title": "Share my file",
+    "desc1": "To apply for the home of your dreams, share your application with the landlord of your choice, with or without supporting documents. You can do this either by email, providing their email address below, or by sending your DossierFacile link via email, SMS, etc. to the landlords or property owners of your choice.",
+    "desc2": "Please note, DossierFacile does not offer housing.",
+    "desc3": "By using the application sharing feature, you agree to have your email address shared with the landlord.",
+    "lastvisit": "Last visit :",
     "share-btn-email": "Share",
     "share-btn-copy": "Copy",
     "full": "With supporting documents",

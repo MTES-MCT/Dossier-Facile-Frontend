@@ -3,8 +3,7 @@
     <h2 class="fr-h4">{{ t("title") }}</h2>
 
     <div
-      class="fr-table fr-table--bordered fr-table--no-caption fr-m-0"
-      :class="{ 'fr-table--layout-fixed': !isMobile() }"
+      class="fr-table fr-table--bordered fr-table--no-caption fr-m-0 desktop"
     >
       <table>
         <caption>
@@ -64,6 +63,48 @@
         </tbody>
       </table>
     </div>
+    <div class="mobile">
+      <ul
+        class="fr-p-0"
+        v-for="link in links"
+        v-bind:key="link.id"
+        :class="link.enabled ? '' : 'fr-label--disabled'"
+      >
+        <li class="fr-grid-row file-list-item fr-p-3w">
+          <div class="fr-col-5">
+            {{ formatDate(link.creationDate) }}
+          </div>
+          <div class="fr-col-7 align--right">
+            <ColoredTag
+              :hideIcon="true"
+              :text="
+                link.fullData ? $t('sharefile.full') : $t('sharefile.resume')
+              "
+              :status="'grey'"
+              :active="link.enabled"
+            ></ColoredTag>
+          </div>
+          <div class="fr-col-9 bold mail-container">{{ link.ownerEmail }}</div>
+          <div class="fr-col-3 right">
+            <Toggle
+              class="fr-toggle--label-left"
+              :id="link.id"
+              :value="link.enabled"
+              :checkedLabel="t('enabled')"
+              :uncheckedLabel="t('disabled')"
+              @update="updateSharedLinkStatus(link, $event)"
+            />
+          </div>
+          <div class="fr-col-12 small-text">
+            {{ $t("sharefile.lastvisit") }}
+            {{ formatDateRelativeToNow(link.lastVisit) }}
+          </div>
+        </li>
+      </ul>
+      <div v-if="links.length === 0" style="text-align: center">
+        {{ t("no-shared-file") }}
+      </div>
+    </div>
   </NakedCard>
 </template>
 
@@ -76,10 +117,10 @@ import Button from "df-shared-next/src/Button/Button.vue";
 import moment from "moment";
 import { mapState } from "vuex";
 import store from "@/store";
-import {UtilsService} from "@/services/UtilsService";
+import ColoredTag from "df-shared/src/components/ColoredTag.vue";
 
 @Component({
-  components: { NakedCard, Button, Toggle },
+  components: { NakedCard, Button, ColoredTag, Toggle },
   computed: {
     ...mapState({
       links: "apartmentSharingLinks",
@@ -127,15 +168,40 @@ export default class SharedLinks extends Vue {
   t(key: string) {
     return this.$t(`sharing-page.shared-links.${key}`);
   }
-
-  isMobile() {
-    return UtilsService.isMobile();
-  }
 }
 </script>
 
 <style scoped lang="scss">
 .wrap {
   word-wrap: break-word;
+}
+
+.file-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border-style: solid;
+  border-width: thin;
+  border-radius: 0.25rem;
+  border-color: var(--grey-900-175);
+  min-height: 4rem;
+
+  &.disabled {
+    background-color: var(--background-alt-grey);
+    border-style: none;
+  }
+}
+
+.mail-container {
+  padding-right: 1rem;
+  word-wrap: break-word;
+}
+
+.right {
+  display: flex;
+  flex-direction: row-reverse;
 }
 </style>
