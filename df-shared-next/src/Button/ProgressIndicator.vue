@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, withDefaults } from "vue";
+import { withDefaults } from "vue";
 
 const props = withDefaults(
   defineProps<{

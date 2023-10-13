@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue';
+import { withDefaults } from 'vue';
 import { useI18n } from 'vue-i18n';
 import LeftDpeArrow from './LeftDpeArrow.vue';
 
