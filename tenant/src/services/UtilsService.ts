@@ -79,7 +79,7 @@ export const UtilsService = {
     return (
       this.hasDoc("IDENTIFICATION", user) &&
       this.hasDoc("PROFESSIONAL", user) &&
-      this.hasDoc("RESIDENCY", user) &&
+      this.isResidencyValid(user) &&
       this.isFinancialValid(user) &&
       this.isTaxValid(user)
     );
@@ -89,7 +89,7 @@ export const UtilsService = {
       (g.typeGuarantor === "NATURAL_PERSON" &&
         this.guarantorHasDoc("IDENTIFICATION", g) &&
         this.guarantorHasDoc("PROFESSIONAL", g) &&
-        this.guarantorHasDoc("RESIDENCY", g) &&
+        this.isGuarantorResidencyValid(g) &&
         this.isGuarantorFinancialValid(g) &&
         this.isGuarantorTaxValid(g)) ||
       (g.typeGuarantor === "LEGAL_PERSON" &&
@@ -108,6 +108,26 @@ export const UtilsService = {
       );
     })?.files;
     return f && f.length > 0;
+  },
+  isResidencyValid(user?: User) {
+    const u = user ? user : store.state.user;
+    const docs = u.documents?.filter((d: DfDocument) => {
+      return d.documentCategory === "RESIDENCY";
+    });
+    if (!docs || docs.length === 0) {
+      return false;
+    }
+
+    for (const doc of docs) {
+      if (
+        (!doc.noDocument && (doc.files?.length || 0) <= 0) ||
+        doc.documentStatus === "DECLINED"
+      ) {
+        return false;
+      }
+    }
+
+    return true;
   },
   isFinancialValid(user?: User) {
     const u = user ? user : store.state.user;
@@ -155,6 +175,25 @@ export const UtilsService = {
       );
     })?.files;
     return f && f.length > 0;
+  },
+  isGuarantorResidencyValid(g: Guarantor) {
+    const docs = g.documents?.filter((d: DfDocument) => {
+      return d.documentCategory === "RESIDENCY";
+    });
+    if (!docs || docs.length === 0) {
+      return false;
+    }
+
+    for (const doc of docs) {
+      if (
+        (!doc.noDocument && (doc.files?.length || 0) <= 0) ||
+        doc.documentStatus === "DECLINED"
+      ) {
+        return false;
+      }
+    }
+
+    return true;
   },
   isGuarantorFinancialValid(g: Guarantor) {
     const docs = g.documents?.filter((d: DfDocument) => {
