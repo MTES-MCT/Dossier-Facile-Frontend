@@ -52,7 +52,11 @@ describe("couple tenant scenario", () => {
     cy.simpleUploadDocumentStep("Autre");
 
     cy.expectPath("/4/2");
-    cy.selectResidencyStep("Locataire");
+    cy.get("#select")
+      .select("Dans une autre situation");
+    cy.get("#customText")
+      .type("Test text")
+      .clickOnNext();
 
     cy.expectPath("/4/3");
     cy.selectProfessionalStatusStep("Études");
