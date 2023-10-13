@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { CONTENT, FOOTER, SkipLink } from "../models/SkipLink";
-import { defineProps, PropType } from "vue";
+import { PropType } from "vue";
 
 defineProps({
   links: {

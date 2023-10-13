@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue';
+import { withDefaults } from 'vue';
 import FooterContainer from './FooterContainer.vue';
 import BackNext from './BackNext.vue';
 
