@@ -382,5 +382,17 @@
   "feedback-request": {
     "title": "Partagez votre expérience de DossierFacile",
     "content": "Dans le cadre de notre démarche d’amélioration, nous cherchons à obtenir votre retour d’expérience. En cliquant sur ce bouton, vous pourrez évaluer anonymement DossierFacile."
+  },
+  "404":{
+    "title" : "Page non trouvée",
+    "subtitle" : "Erreur 404",
+    "caption" : "La page que vous cherchez est introuvable. Excusez-nous pour la gène occasionnée.",
+    "content" : {
+      "line1" : "Si vous avez tapé l'adresse web dans le navigateur, vérifiez qu'elle est correcte. La page n’est peut-être plus disponible.",
+      "line2" : "Dans ce cas, pour continuer votre visite vous pouvez consulter notre page d’accueil.",
+      "line3" : "Sinon contactez-nous pour que l’on puisse vous rediriger vers la bonne information."
+    },
+    "homepage" : "Page d'accueil",
+    "contact-us" : "Contactez-nous"
   }
 }
