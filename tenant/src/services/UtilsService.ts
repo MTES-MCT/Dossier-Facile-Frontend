@@ -6,11 +6,6 @@ import moment from "moment";
 import { Vue } from "vue-property-decorator";
 
 export const UtilsService = {
-  getMainUser() {
-    return store.state.user.apartmentSharing.tenants.find((t: any) => {
-      return t.tenantType === "CREATE";
-    });
-  },
   getSpouse() {
     if (store.state.user.apartmentSharing.applicationType === "COUPLE") {
       return store.state.user.apartmentSharing.tenants.find((t: any) => {
@@ -79,9 +74,9 @@ export const UtilsService = {
     return (
       this.hasDoc("IDENTIFICATION", user) &&
       this.hasDoc("PROFESSIONAL", user) &&
-      this.isResidencyValid(user) &&
-      this.isFinancialValid(user) &&
-      this.isTaxValid(user)
+      this.isTenantDocumentValid("RESIDENCY", user) &&
+      this.isTenantDocumentValid("FINANCIAL", user) &&
+      this.isTenantDocumentValid("TAX", user)
     );
   },
   guarantorDocumentsFilled(g: Guarantor) {
@@ -89,9 +84,9 @@ export const UtilsService = {
       (g.typeGuarantor === "NATURAL_PERSON" &&
         this.guarantorHasDoc("IDENTIFICATION", g) &&
         this.guarantorHasDoc("PROFESSIONAL", g) &&
-        this.isGuarantorResidencyValid(g) &&
-        this.isGuarantorFinancialValid(g) &&
-        this.isGuarantorTaxValid(g)) ||
+        this.isGuarantorDocumentValid("RESIDENCY", g) &&
+        this.isGuarantorDocumentValid("FINANCIAL", g) &&
+        this.isGuarantorDocumentValid("TAX", g)) ||
       (g.typeGuarantor === "LEGAL_PERSON" &&
         this.guarantorHasDoc("IDENTIFICATION", g) &&
         this.guarantorHasDoc("IDENTIFICATION_LEGAL_PERSON", g)) ||
@@ -109,63 +104,12 @@ export const UtilsService = {
     })?.files;
     return f && f.length > 0;
   },
-  isResidencyValid(user?: User) {
+  isTenantDocumentValid(docType: string, user?: User) {
     const u = user ? user : store.state.user;
-    const docs = u.documents?.filter((d: DfDocument) => {
-      return d.documentCategory === "RESIDENCY";
+    const document = u.documents?.find((d: DfDocument) => {
+      return d.documentCategory === docType;
     });
-    if (!docs || docs.length === 0) {
-      return false;
-    }
-
-    for (const doc of docs) {
-      if (
-        (!doc.noDocument && (doc.files?.length || 0) <= 0) ||
-        doc.documentStatus === "DECLINED"
-      ) {
-        return false;
-      }
-    }
-
-    return true;
-  },
-  isFinancialValid(user?: User) {
-    const u = user ? user : store.state.user;
-    const docs = u.documents?.filter((d: DfDocument) => {
-      return d.documentCategory === "FINANCIAL";
-    });
-    if (!docs || docs.length === 0) {
-      return false;
-    }
-
-    for (const doc of docs) {
-      if (
-        (!doc.noDocument && (doc.files?.length || 0) <= 0) ||
-        doc.documentStatus === "DECLINED"
-      ) {
-        return false;
-      }
-    }
-
-    return true;
-  },
-
-  isTaxValid(user?: User) {
-    const u = user ? user : store.state.user;
-    const doc = u.documents?.find((d: DfDocument) => {
-      return d.documentCategory === "TAX";
-    });
-    if (!doc) {
-      return false;
-    }
-    if (doc.files) {
-      return true;
-    }
-    if (doc.subCategory !== "my-name") {
-      return true;
-    }
-
-    return false;
+    return this.isDocumentValid(document);
   },
   guarantorHasDoc(docType: string, g: Guarantor | User) {
     const f = g.documents?.find((d: DfDocument) => {
@@ -176,59 +120,23 @@ export const UtilsService = {
     })?.files;
     return f && f.length > 0;
   },
-  isGuarantorResidencyValid(g: Guarantor) {
-    const docs = g.documents?.filter((d: DfDocument) => {
-      return d.documentCategory === "RESIDENCY";
+  isGuarantorDocumentValid(docType: string, g: Guarantor) {
+    const document = g.documents?.find((d: DfDocument) => {
+      return d.documentCategory === docType;
     });
-    if (!docs || docs.length === 0) {
-      return false;
-    }
-
-    for (const doc of docs) {
-      if (
-        (!doc.noDocument && (doc.files?.length || 0) <= 0) ||
-        doc.documentStatus === "DECLINED"
-      ) {
-        return false;
-      }
-    }
-
-    return true;
+    return this.isDocumentValid(document);
   },
-  isGuarantorFinancialValid(g: Guarantor) {
-    const docs = g.documents?.filter((d: DfDocument) => {
-      return d.documentCategory === "FINANCIAL";
-    });
-    if (!docs || docs.length === 0) {
+  isDocumentValid(document?: DfDocument) {
+    if (document === undefined) {
       return false;
     }
-
-    for (const doc of docs) {
-      if (
-        (!doc.noDocument && (doc.files?.length || 0) <= 0) ||
-        doc.documentStatus === "DECLINED"
-      ) {
-        return false;
-      }
+    if (!document.noDocument && (document.files?.length || 0) <= 0) {
+      return false;
     }
-
+    if (document.documentStatus === "DECLINED") {
+      return false;
+    }
     return true;
-  },
-  isGuarantorTaxValid(g: Guarantor) {
-    const doc = g.documents?.find((d: DfDocument) => {
-      return d.documentCategory === "TAX";
-    });
-    if (!doc) {
-      return false;
-    }
-    if (doc.files) {
-      return true;
-    }
-    if (doc.subCategory !== "my-name") {
-      return true;
-    }
-
-    return false;
   },
   isMobile() {
     return window.innerWidth < 768;

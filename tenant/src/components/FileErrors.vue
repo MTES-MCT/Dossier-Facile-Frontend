@@ -448,15 +448,15 @@ export default class FileErrors extends Vue {
   }
 
   isResidencyValid(user?: User) {
-    return UtilsService.isResidencyValid(user);
+    return UtilsService.isTenantDocumentValid("RESIDENCY", user);
   }
 
   isFinancialValid(user?: User) {
-    return UtilsService.isFinancialValid(user);
+    return UtilsService.isTenantDocumentValid("FINANCIAL", user);
   }
 
   isTaxValid(user?: User) {
-    return UtilsService.isTaxValid(user);
+    return UtilsService.isTenantDocumentValid("TAX", user);
   }
 
   guarantorHasDoc(g: Guarantor, docType: string) {
@@ -464,15 +464,15 @@ export default class FileErrors extends Vue {
   }
 
   isGuarantorResidencyValid(g: Guarantor) {
-    return UtilsService.isGuarantorResidencyValid(g);
+    return UtilsService.isGuarantorDocumentValid("RESIDENCY", g);
   }
 
   isGuarantorFinancialValid(g: Guarantor) {
-    return UtilsService.isGuarantorFinancialValid(g);
+    return UtilsService.isGuarantorDocumentValid("FINANCIAL", g);
   }
 
   isGuarantorTaxValid(g: Guarantor) {
-    return UtilsService.isGuarantorTaxValid(g);
+    return UtilsService.isGuarantorDocumentValid("TAX", g);
   }
 
   namesFilled(user?: User) {
