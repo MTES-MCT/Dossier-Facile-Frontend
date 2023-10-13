@@ -4,6 +4,15 @@
       <i class="ri-share-line fr-mr-1w" aria-hidden="true"></i>
       {{ $t("sharefile.title") }}
     </h2>
+    <p>
+      {{ $t("sharefile.desc1") }}
+    </p>
+    <p class="bold">
+      {{ $t("sharefile.desc2") }}
+    </p>
+    <p class="bold">
+      {{ $t("sharefile.desc3") }}
+    </p>
     <form name="form" @submit.prevent="handleSubmit">
       <div class="form-container">
         <div class="fr-mt-md-4w">
