@@ -5,6 +5,9 @@
         <div class="fr-container">
           <div class="fr-col-md-8">
             <div class="fr-grid-col">
+              <p class="fr-badge fr-badge--sm fr-mt-3w">
+                {{ $t("last-update", [getLastUpdateDate()]) }}
+              </p>
               <h1 class="fr-h1 color--white fr-mt-3w" v-if="user">
                 {{ $t("file.title", [getName()]) }}
               </h1>
@@ -251,6 +254,7 @@ import ProgressIndicator from "@/components/ProgressIndicator.vue";
 import FileRowListItem from "../components/documents/FileRowListItem.vue";
 import OwnerBanner from "../components/OwnerBanner.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import moment from "moment";
 
 @Component({
   components: {
@@ -465,6 +469,10 @@ export default class File extends Vue {
       ? this.$tc("file.tax-verified")
       : this.$tc("documents.status." + document.documentStatus);
   }
+
+  getLastUpdateDate() {
+    return moment(this.user?.lastUpdateDate).format("D MMMM YYYY");
+  }
 }
 </script>
 
@@ -519,5 +527,10 @@ export default class File extends Vue {
   width: 100vw;
   display: flex;
   justify-content: center;
+}
+
+.fr-badge {
+  --text-default-grey: #fff;
+  --background-contrast-grey: #1d2437;
 }
 </style>

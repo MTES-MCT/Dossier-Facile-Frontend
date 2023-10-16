@@ -51,6 +51,7 @@
   "financial": "Justificatif de ressources",
   "tax": "Avis d'imposition",
   "personal-information": "Je renseigne mes informations",
+  "last-update": "Dernière mise à jour le {0}",
   "my-document": "Je joins mes documents",
   "my-guarantor": "J'ajoute mes éventuels garants",
   "my-cotenant": "Les documents de mon conjoint",

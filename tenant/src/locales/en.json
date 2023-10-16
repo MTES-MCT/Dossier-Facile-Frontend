@@ -44,6 +44,7 @@
   "financial": "Proof of Income",
   "tax": "Tax Notice",
   "personal-information": "Provide my information",
+  "last-update": "Last update on {0}",
   "my-document": "Upload my documents",
   "my-guarantor": "Provide my guarantor",
   "my-cotenant": "My co-tenant's documents",
