@@ -99,6 +99,18 @@
             {{ $t("sharefile.lastvisit") }}
             {{ formatDateRelativeToNow(link.lastVisit) }}
           </div>
+          <div class="fr-col-12">
+            <ul class="fr-btns-group">
+              <li>
+                <Button
+                  class="fr-btn--tertiary"
+                  @on-click="deleteSharedLink(link)"
+                >
+                  {{ t("delete") }}
+                </Button>
+              </li>
+            </ul>
+          </div>
         </li>
       </ul>
       <div v-if="links.length === 0" style="text-align: center">

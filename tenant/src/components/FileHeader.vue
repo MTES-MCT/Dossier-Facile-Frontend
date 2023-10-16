@@ -83,7 +83,6 @@ export default class File extends Vue {
       }
       return this.$i18n.t("file.income", [sum]);
     }
-    return;
   }
 
   getLastUpdateDate() {
