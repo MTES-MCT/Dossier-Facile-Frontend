@@ -8,4 +8,5 @@ export class FileUser {
   dossierPdfUrl?: string;
   dossierPdfDocumentStatus?: string;
   status?: string;
+  lastUpdateDate?: Date;
 }

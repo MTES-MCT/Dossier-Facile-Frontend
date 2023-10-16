@@ -1,22 +1,7 @@
 <template>
   <div class="root">
     <div class="fr-container" v-if="!fileNotFound">
-      <section class="background fr-pb-5w fr-mb-5w">
-        <div class="fr-container">
-          <div class="fr-col-md-8">
-            <div class="fr-grid-col">
-              <h1 class="fr-h1 color--white fr-mt-3w" v-if="user">
-                {{ $t("publicfile.title", [getName()]) }}
-              </h1>
-              <p class="text-bold color--white">
-                {{
-                  $t("publicfile.description", [getStatus(), getIncomeSum()])
-                }}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <FileHeader :user="user"></FileHeader>
 
       <FileReinsurance
         :dossierStatus="user?.status || 'TO_PROCESS'"
@@ -223,6 +208,7 @@ import { ProfileService } from "../services/ProfileService";
 import { DfDocument } from "df-shared/src/models/DfDocument";
 import FileReinsurance from "../components/FileReinsurance.vue";
 import FileRowListItem from "../components/documents/FileRowListItem.vue";
+import FileHeader from "../components/FileHeader.vue";
 import OwnerBanner from "../components/OwnerBanner.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 
@@ -232,6 +218,7 @@ import NakedCard from "df-shared/src/components/NakedCard.vue";
     FileRowListItem,
     OwnerBanner,
     NakedCard,
+    FileHeader,
   },
 })
 export default class File extends Vue {
@@ -251,22 +238,6 @@ export default class File extends Vue {
           document.authenticityStatus === "AUTHENTIC"
       );
     return this.user?.tenants?.some((t) => hasAuthenticTax(t));
-  }
-
-  getName() {
-    if (this.user?.tenants === undefined) {
-      return "";
-    }
-    if (this.user?.tenants.length === 2) {
-      const userNames = this.user.tenants
-        .map((o) => this.$options.filters?.fullName(o))
-        .join(this.$i18n.t("file.and").toString());
-      return userNames;
-    }
-    const userNames = this.user.tenants
-      .map((o) => this.$options.filters?.fullName(o))
-      .join(", ");
-    return userNames;
   }
 
   mounted() {
@@ -333,31 +304,6 @@ export default class File extends Vue {
     return tenant.guarantors && tenant.guarantors.length > 0;
   }
 
-  getStatus() {
-    if (this.user?.applicationType) {
-      return this.$i18n.t(this.user.applicationType);
-    }
-    return "";
-  }
-
-  getIncomeSum() {
-    if (this.user?.tenants) {
-      let sum = 0;
-      for (const t of this.user.tenants) {
-        const localsum = t.documents
-          ?.filter((d: DfDocument) => {
-            return d.documentCategory === "FINANCIAL";
-          })
-          .reduce((sum, current) => sum + (current.monthlySum || 0), 0);
-        sum += localsum || 0;
-      }
-      if (sum === 0) {
-        return this.$i18n.t("publicfile.no-income");
-      }
-      return this.$i18n.t("publicfile.income", [sum]);
-    }
-    return;
-  }
   getDocs(tenant: User, docType: string) {
     return tenant.documents?.filter((d: DfDocument) => {
       return d.documentCategory === docType;
@@ -430,5 +376,10 @@ export default class File extends Vue {
   width: 100vw;
   display: flex;
   justify-content: center;
+}
+
+.fr-badge {
+  --text-default-grey: #fff;
+  --background-contrast-grey: #1d2437;
 }
 </style>
