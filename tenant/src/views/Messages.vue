@@ -13,12 +13,9 @@
               :id="`tabpanel-${k}`"
               :tabindex="tabIndex === k ? 0 : -1"
               role="tab"
-              :aria-selected="tabIndex === k"
+              aria-selected="false"
               :aria-controls="`tabpanel-${k}-panel`"
-              @click="
-                tabIndex = k;
-                markMessagesAsRead(tenant.id);
-              "
+              @click="markMessagesAsRead(tenant.id)"
             >
               {{ tenant | fullName }}
             </button>
@@ -29,9 +26,9 @@
           v-bind:key="`t${k}`"
           :id="`tabpanel-${k}-panel`"
           class="fr-tabs__panel"
-          :class="{ 'fr-tabs__panel--selected': tabIndex === k }"
+          aria-selected="false"
           role="tabpanel"
-          tabindex="0"
+          :tabindex="k"
         >
           <MessagesPanel :tenant="tenant" :isCotenant="tenant.id != user.id" />
         </div>
