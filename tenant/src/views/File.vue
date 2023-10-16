@@ -54,9 +54,8 @@
                 :id="`tabpanel-${k}`"
                 :tabindex="tabIndex === k ? 0 : -1"
                 role="tab"
-                :aria-selected="tabIndex === k"
+                aria-selected="false"
                 :aria-controls="`tabpanel-${k}-panel`"
-                @click="tabIndex = k"
               >
                 {{ tenant | fullName }}
               </button>
@@ -67,9 +66,9 @@
             v-bind:key="`t${k}`"
             :id="`tabpanel-${k}-panel`"
             class="fr-tabs__panel"
-            :class="{ 'fr-tabs__panel--selected': tabIndex === k }"
+            aria-selected="false"
             role="tabpanel"
-            tabindex="0"
+            :tabindex="k"
           >
             <div>
               <h2 class="fr-h4">
