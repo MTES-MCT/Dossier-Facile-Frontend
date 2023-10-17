@@ -2,7 +2,10 @@
   <div>
     <NakedCard class="fr-p-md-5w">
       <div>
-        <h1 class="fr-h6">{{ $t("guarantorprofessional.title") }}</h1>
+        <h1 class="fr-h6" v-if="isCotenant">
+          {{ $t("guarantorprofessional.title-cotenant") }}
+        </h1>
+        <h1 class="fr-h6" v-else>{{ $t("guarantorprofessional.title") }}</h1>
         <TroubleshootingModal>
           <GuarantorChoiceHelp></GuarantorChoiceHelp>
           <DocumentInsert

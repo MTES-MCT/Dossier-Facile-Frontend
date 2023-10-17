@@ -826,6 +826,7 @@
   },
   "guarantorprofessional": {
     "title": "Situation professionnelle de votre garant",
+    "title-cotenant": "Situation professionnelle de son garant",
     "cdi": "CDI",
     "cdi-trial": "CDI (période d’essai)",
     "cdd": "CDD",

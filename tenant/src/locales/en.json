@@ -773,6 +773,7 @@
   },
   "guarantorprofessional": {
     "title": "Proof of Professional Status",
+    "title-cotenant": "Proof of Professional Status",
     "cdi": "Permanent Contract",
     "cdi-trial": "Permanent Contract (Trial Period)",
     "cdd": "Fixed-Term Contract",
