@@ -30,7 +30,7 @@
       propriétaire dès que vous aurez trouvé le logement de vos rêves !
     </p>
     <p>
-      <a href="https://www.dossierfacile.fr" rel="noopener">DossierFacile</a>
+      <a href="https://www.dossierfacile.logement.gouv.fr" rel="noopener">DossierFacile</a>
       vous aide à constituer un dossier de location numérique en béton et 100%
       gratuit et 100% sécurisé !
     </p>
@@ -38,7 +38,7 @@
       Vous pouvez ensuite suivre tous nos conseils pour trouver l’appartement de
       vos rêves :
       <a
-        href="https://www.dossierfacile.fr/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne/
+        href="https://www.dossierfacile.logement.gouv.fr/blog/5-conseils-pour-trouver-l-appartement-de-ses-reves-en-region-parisienne/
 "
         target="_blank"
         rel="noopener"

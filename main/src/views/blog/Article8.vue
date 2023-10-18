@@ -2,7 +2,7 @@
   <BlogArticle title="Comment justifier son domicile" date="2 Juin 2021">
     <p>
       <a
-        href="https://www.dossierfacile.fr/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location"
+        href="https://www.dossierfacile.logement.gouv.fr/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location"
         >Dans un article précédent</a
       >, nous avons vu les pièces nécessaires à la constitution d’un dossier de
       location, mais l’une d’entre elles est plus compliquée à fournir car elle

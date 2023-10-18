@@ -189,7 +189,7 @@
       vérifier le
       <strong>DPE</strong> sur les annonces immobilières et de faire votre
       dossier de location avec
-      <a href="https://www.dossierfacile.fr/"
+      <a href="https://www.dossierfacile.logement.gouv.fr/"
         ><em>Dossier</em><strong>Facile</strong></a
       ><strong>.</strong>
     </p>

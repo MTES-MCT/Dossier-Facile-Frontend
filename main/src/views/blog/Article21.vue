@@ -252,7 +252,7 @@
     <h3 class="fr-h7">b. DossierFacile</h3>
     <p>
       <a
-        href="https://www.dossierfacile.fr/"
+        href="https://www.dossierfacile.logement.gouv.fr/"
         target="_blank"
         rel="noopener"
         title="site dossierfacile (nouvelle fenêtre)"
@@ -279,7 +279,7 @@
       Pour en savoir plus sur les GLI ou encore les garants et les garanties en
       général, n'hésitez pas à consulter
       <a
-        href="https://www.dossierfacile.fr/blog/un-garant-qui-comment-pourquoi"
+        href="https://www.dossierfacile.logement.gouv.fr/blog/un-garant-qui-comment-pourquoi"
         title="site dossierfacile (nouvelle fenêtre)"
         target="_blank"
         rel="noopener"

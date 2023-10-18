@@ -10,9 +10,9 @@
       dossiers de location et l’accès au logement, n'avait pas l'extension
       .gouv.fr. Nous avions d’ailleurs publié un article à ce sujet récemment :
       <a
-        href="https://www.dossierfacile.fr/blog/dossierfacile-un-service-numerique-de-letat-sans-gouv-fr"
+        href="https://www.dossierfacile.logement.gouv.fr/blog/dossierfacile-un-service-numerique-de-letat-sans-gouv-fr"
       >
-        https://www.dossierfacile.fr/blog/dossierfacile-un-service-numerique-de-letat-sans-gouv-fr</a
+        https://www.dossierfacile.logement.gouv.fr/blog/dossierfacile-un-service-numerique-de-letat-sans-gouv-fr</a
       >
     </p>
     <p>C’est désormais chose faite et nous vous en disons plus ci-dessous.</p>
