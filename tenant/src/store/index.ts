@@ -724,7 +724,7 @@ const store = new Vuex.Store({
         router.push({ name: "TenantDocuments", params: { substep: "1" } });
         return;
       }
-      if (!UtilsService.hasDoc("RESIDENCY")) {
+      if (!UtilsService.isTenantDocumentValid("RESIDENCY")) {
         router.push({ name: "TenantDocuments", params: { substep: "2" } });
         return;
       }
@@ -732,11 +732,11 @@ const store = new Vuex.Store({
         router.push({ name: "TenantDocuments", params: { substep: "3" } });
         return;
       }
-      if (!UtilsService.isFinancialValid()) {
+      if (!UtilsService.isTenantDocumentValid("FINANCIAL")) {
         router.push({ name: "TenantDocuments", params: { substep: "4" } });
         return;
       }
-      if (!UtilsService.isTaxValid()) {
+      if (!UtilsService.isTenantDocumentValid("TAX")) {
         router.push({ name: "TenantDocuments", params: { substep: "5" } });
         return;
       }
@@ -746,7 +746,7 @@ const store = new Vuex.Store({
             this.dispatch("setGuarantorPage", { guarantor: g, substep: 1 });
             return;
           }
-          if (!UtilsService.guarantorHasDoc("RESIDENCY", g)) {
+          if (!UtilsService.isGuarantorDocumentValid("RESIDENCY", g)) {
             this.dispatch("setGuarantorPage", { guarantor: g, substep: 2 });
             return;
           }
@@ -754,11 +754,11 @@ const store = new Vuex.Store({
             this.dispatch("setGuarantorPage", { guarantor: g, substep: 3 });
             return;
           }
-          if (!UtilsService.isGuarantorFinancialValid(g)) {
+          if (!UtilsService.isGuarantorDocumentValid("FINANCIAL", g)) {
             this.dispatch("setGuarantorPage", { guarantor: g, substep: 4 });
             return;
           }
-          if (!UtilsService.isGuarantorTaxValid(g)) {
+          if (!UtilsService.isGuarantorDocumentValid("TAX", g)) {
             this.dispatch("setGuarantorPage", { guarantor: g, substep: 5 });
             return;
           }

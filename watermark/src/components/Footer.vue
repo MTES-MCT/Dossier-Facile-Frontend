@@ -19,7 +19,7 @@
           <p class="fr-footer__content-desc">
             FiligraneFacile est géré par
             <a
-              href="https://www.dossierfacile.fr"
+              href="https://www.dossierfacile.logement.gouv.fr"
               target="_blank"
               rel="noreferrer noopener"
               >DossierFacile</a

@@ -345,7 +345,7 @@ import FieldLabel from "df-shared-next/src/components/form/FieldLabel.vue";
 import { ContactFormData } from "df-shared-next/src/models/ContactFormData";
 import { SupportService } from "df-shared-next/src/services/SupportService";
 import { User } from "../models/User";
-import { defineProps, onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import "../validators/validationRules";

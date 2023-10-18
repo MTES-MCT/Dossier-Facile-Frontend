@@ -31,7 +31,7 @@
 <script setup lang="ts">
 import VGouvFrButton from 'df-shared-next/src/Button/v-gouv-fr-button/VGouvFrButton.vue';
 import { useI18n } from 'vue-i18n';
-import { defineProps, withDefaults } from 'vue';
+import { withDefaults } from 'vue';
 
 withDefaults(
   defineProps<{

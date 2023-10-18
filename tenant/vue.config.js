@@ -9,7 +9,7 @@ module.exports = {
       enableInSFC: true,
     },
     sitemap: {
-      urls: ["https://locataire.dossierfacile.fr/signup"],
+      urls: ["https://locataire.dossierfacile.logement.gouv.fr/signup"],
     },
   },
   chainWebpack: (config) => {

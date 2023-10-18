@@ -44,6 +44,7 @@
   "financial": "Proof of Income",
   "tax": "Tax Notice",
   "personal-information": "Provide my information",
+  "last-update": "Last update on {0}",
   "my-document": "Upload my documents",
   "my-guarantor": "Provide my guarantor",
   "my-cotenant": "My co-tenant's documents",
@@ -516,7 +517,7 @@
   },
   "documenthelp": {
     "title": "Help",
-    "paragraph1": "If your document is too large, we recommend scanning it (using a free app for smartphones, for example).<br>If that doesn't work, contact us by email at <a href='mailto:contact@dossierfacile.fr'>contact@dossierfacile.fr</a>, and we'll do our best to respond as quickly as possible!"
+    "paragraph1": "If your document is too large, we recommend scanning it (using a free app for smartphones, for example).<br>If that doesn't work, contact us by email at <a href='mailto:contact@dossierfacile.logement.gouv.fr'>contact@dossierfacile.logement.gouv.fr</a>, and we'll do our best to respond as quickly as possible!"
   },
   "documentinsert": {},
   "fileerrors": {
@@ -772,6 +773,7 @@
   },
   "guarantorprofessional": {
     "title": "Proof of Professional Status",
+    "title-cotenant": "Proof of Professional Status",
     "cdi": "Permanent Contract",
     "cdi-trial": "Permanent Contract (Trial Period)",
     "cdd": "Fixed-Term Contract",
@@ -1041,6 +1043,10 @@
   },
   "sharefile": {
     "title": "Share my file",
+    "desc1": "To apply for the home of your dreams, share your application with the landlord of your choice, with or without supporting documents. You can do this either by email, providing their email address below, or by sending your DossierFacile link via email, SMS, etc. to the landlords or property owners of your choice.",
+    "desc2": "Please note, DossierFacile does not offer housing.",
+    "desc3": "By using the application sharing feature, you agree to have your email address shared with the landlord.",
+    "lastvisit": "Last visit :",
     "share-btn-email": "Share",
     "share-btn-copy": "Copy",
     "full": "With supporting documents",
@@ -1074,7 +1080,7 @@
   "taxhelp": {
     "title": "Help",
     "paragraph1": "You can now <b>download a tax notice from <a target='_blank' href='https://www.impots.gouv.fr'>www.impots.gouv.fr</a></b>",
-    "paragraph2": "If your document is too large, we recommend scanning it (using a free smartphone application, for example).<br> If that doesn't work, contact us by email at <a href='mailto:contact@dossierfacile.fr'>contact@dossierfacile.fr</a>, and we will do our best to respond as quickly as possible!"
+    "paragraph2": "If your document is too large, we recommend scanning it (using a free smartphone application, for example).<br> If that doesn't work, contact us by email at <a href='mailto:contact@dossierfacile.logement.gouv.fr'>contact@dossierfacile.logement.gouv.fr</a>, and we will do our best to respond as quickly as possible!"
   },
   "tax-page": {
     "my-name": "You have a tax notice in your name",

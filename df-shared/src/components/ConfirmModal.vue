@@ -68,12 +68,6 @@ export default class ConfirmModal extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
-.align--right {
-  text-align: right;
-}
-</style>
-
 <i18n>
 {
   "en": {

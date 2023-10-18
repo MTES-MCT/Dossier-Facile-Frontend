@@ -76,7 +76,7 @@
     </p>
     <p>
       N’hésitez pas à nous donner votre avis sur notre service via l’adresse
-      <a href="mailto:contact@dossierfacile.fr">contact@dossierfacile.fr</a>
+      <a href="mailto:contact@dossierfacile.logement.gouv.fr">contact@dossierfacile.logement.gouv.fr</a>
       ! Nous serons ravis d’échanger avec vous sur votre expérience, et
       d’écouter vos recommandations !
     </p>

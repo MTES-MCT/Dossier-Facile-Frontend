@@ -3,14 +3,14 @@
     class="fr-grid-row file-list-item fr-p-3w"
     :class="{ 'not-validated': documentStatus() != 'VALIDATED' }"
   >
-    <div class="fr-col-12 fr-col-md-5">
+    <div class="fr-col-7 fr-col-md-5 fr-mb-2w">
       {{ label }}
       <br />
-      <span v-if="subLabel" class="fr-text--xs fr-label--disabled">
+      <span v-if="subLabel" class="fr-text--xs fr-label--disabled desktop">
         {{ subLabel }}
       </span>
     </div>
-    <div class="fr-col-5 fr-col-md-3 tag-container">
+    <div class="fr-col-5 fr-col-md-3 tag-container fr-mb-2w">
       <div style="align-self: center">
         <ColoredTag
           :text="getTagLabel()"
@@ -21,7 +21,7 @@
         <slot name="postTag"></slot>
       </div>
     </div>
-    <div class="fr-col-7 fr-col-md-4 fr-btns-group--right">
+    <div class="fr-col-12 fr-col-md-4 fr-btns-group--right">
       <DfButton
         v-if="
           enableDownload &&
@@ -32,18 +32,15 @@
         class="fr-btn--icon-left fr-fi-eye-line fr-mr-1w"
         @on-click="openDocument()"
       >
-        <span class="fr-hidden fr-unhidden-md">
-          {{ $t("filerowlistitem.see") }}
-        </span>
+        {{ $t("filerowlistitem.see") }}
       </DfButton>
 
       <DfButton
         v-if="hasClickEditionListener()"
         class="fr-btn--icon-left fr-icon-pencil-line"
         @on-click="clickEdit()"
-        ><span class="fr-hidden fr-unhidden-lg">{{
-          $t("filerowlistitem.edit")
-        }}</span>
+      >
+        {{ $t("filerowlistitem.edit") }}
       </DfButton>
     </div>
   </li>

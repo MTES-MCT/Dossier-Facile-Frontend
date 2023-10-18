@@ -23,7 +23,7 @@
           <ol>
             <li>
               Téléchargez vos pièces justificatives sur notre site internet
-              <a href="https://www.dossierfacile.fr">www.dossierfacile.fr</a>,
+              <a href="https://www.dossierfacile.logement.gouv.fr">www.dossierfacile.logement.gouv.fr</a>,
               notamment :
             </li>
             <p>

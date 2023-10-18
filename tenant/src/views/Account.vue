@@ -81,9 +81,8 @@
                         :id="`tabpanel-${k}`"
                         :tabindex="tabIndex === k ? 0 : -1"
                         role="tab"
-                        :aria-selected="tabIndex === k"
+                        aria-selected="false"
                         :aria-controls="`tabpanel-${k}-panel`"
-                        @click="tabIndex = k"
                       >
                         <div class="fr-grid-row">
                           <div class="name fr-col-xs-12 fr-col fr-mr-1w">
@@ -108,9 +107,9 @@
                     v-bind:key="`t${k}`"
                     :id="`tabpanel-${k}-panel`"
                     class="fr-tabs__panel"
-                    :class="{ 'fr-tabs__panel--selected': tabIndex === k }"
+                    aria-selected="false"
                     role="tabpanel"
-                    tabindex="0"
+                    :tabindex="k"
                   >
                     <TenantPanel
                       class="panel"
@@ -439,7 +438,6 @@ h1 {
 .account-tabs {
   > ul {
     background-color: var(--blue-france-200);
-    overflow-y: hidden;
     > li > button.fr-tabs__tab {
       &:not([aria-selected="true"]) {
         background-color: #f2f2f9;

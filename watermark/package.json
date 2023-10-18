@@ -41,6 +41,7 @@
     "sass": "^1.54.0",
     "typescript": "5.0.2",
     "vite": "^4.2.3",
+    "vite-plugin-pwa": "^0.16.5",
     "vue-tsc": "^1.2.0"
   },
   "eslintConfig": {

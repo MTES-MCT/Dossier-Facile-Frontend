@@ -84,12 +84,12 @@
               <p>
                 Le Site : se réfère indistinctement à l’application web et à
                 l’interface de programmation applicative (API) ayant pour
-                adresse www.dossierfacile.fr et les sous-domaines suivants :<br />
-                <a href="https://locataire.dossierfacile.fr"
-                  >https://locataire.dossierfacile.fr</a
+                adresse www.dossierfacile.logement.gouv.fr et les sous-domaines suivants :<br />
+                <a href="https://locataire.dossierfacile.logement.gouv.fr"
+                  >https://locataire.dossierfacile.logement.gouv.fr</a
                 ><br />
-                <a href="https://proprietaire.dossierfacile.fr"
-                  >https://proprietaire.dossierfacile.fr</a
+                <a href="https://proprietaire.dossierfacile.logement.gouv.fr"
+                  >https://proprietaire.dossierfacile.logement.gouv.fr</a
                 >
               </p>
               <p>
@@ -209,8 +209,8 @@
                 peuvent encore comporter des erreurs ou omissions. Si vous
                 constatez une erreur ou omission parmi ces données, nous vous
                 invitons à nous la signaler par courriel à l’adresse
-                <a href="mailto:contact@dossierfacile.fr"
-                  >contact@dossierfacile.fr</a
+                <a href="mailto:contact@dossierfacile.logement.gouv.fr"
+                  >contact@dossierfacile.logement.gouv.fr</a
                 >
               </p>
               <h4 class="fr-h3">6. Propriété intellectuelle</h4>
@@ -225,8 +225,8 @@
               <p>
                 Si vous souhaitez reproduire ou réutiliser des contenus présents
                 sur ce site, veuillez nous contacter à l’adresse
-                <a href="mailto:contact@dossierfacile.fr"
-                  >contact@dossierfacile.fr</a
+                <a href="mailto:contact@dossierfacile.logement.gouv.fr"
+                  >contact@dossierfacile.logement.gouv.fr</a
                 >
                 pour connaître les conditions de réutilisation applicables.
               </p>
@@ -280,8 +280,8 @@
                 omissions. Si vous constatez une erreur ou omission parmi ces
                 données, nous vous invitons à nous la signaler par courriel à
                 l’adresse
-                <a href="mailto:contact@dossierfacile.fr"
-                  >contact@dossierfacile.fr</a
+                <a href="mailto:contact@dossierfacile.logement.gouv.fr"
+                  >contact@dossierfacile.logement.gouv.fr</a
                 >
               </p>
               <p>
@@ -647,8 +647,8 @@
                 <ul>
                   <li>
                     Par mail :
-                    <a href="mailto:contact@dossierfacile.fr"
-                      >contact@dossierfacile.fr</a
+                    <a href="mailto:contact@dossierfacile.logement.gouv.fr"
+                      >contact@dossierfacile.logement.gouv.fr</a
                     >
                   </li>
                   <li>
@@ -703,8 +703,8 @@
                 possibilité de demander la suppression de vos données, que vous
                 pouvez exercer à tout moment depuis votre espace DossierFacile
                 ou en nous contactant directement à l’adresse
-                <a href="mailto:contact@dossierfacile.fr"
-                  >contact@dossierfacile.fr</a
+                <a href="mailto:contact@dossierfacile.logement.gouv.fr"
+                  >contact@dossierfacile.logement.gouv.fr</a
                 >
               </p>
               <h4 class="fr-h3">

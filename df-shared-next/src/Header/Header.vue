@@ -182,7 +182,7 @@
 </template>
 
 <script setup lang="ts">
-import { withDefaults, defineProps } from "vue";
+import { withDefaults } from "vue";
 import DfButton from "../Button/Button.vue";
 import VGouvFrButton from "../Button/v-gouv-fr-button/VGouvFrButton.vue";
 import { useI18n } from "vue-i18n";

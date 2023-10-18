@@ -80,7 +80,7 @@
                   stress et leur fatigue lorsqu’ils déménagent ou cherchent un
                   logement. Ainsi, ils gagnent en confiance et en efficacité au
                   travail ! Pour devenir un de nos partenaires, contactez-nous
-                  sur contact@dossierfacile.fr.
+                  sur contact@dossierfacile.logement.gouv.fr.
                 </p>
 
                 <h3 class="fr-h4">La démarche startup d’État</h3>
@@ -149,8 +149,8 @@
                 </p>
                 <p>
                   N’hésitez pas à nous écrire à
-                  <a href="mailto:contact@dossierfacile.fr">
-                    contact@dossierfacile.fr
+                  <a href="mailto:contact@dossierfacile.logement.gouv.fr">
+                    contact@dossierfacile.logement.gouv.fr
                   </a>
                 </p>
               </div>

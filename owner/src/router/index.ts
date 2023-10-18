@@ -208,6 +208,16 @@ const routes = [
     },
     component: () => import('../components/property/ValidateProperty.vue'),
   },
+  {
+    path: '/:pathMatch(.*)*',
+    name: '404',
+    meta: {
+      title: '404 - DossierFacile',
+      requiresAuth: false,
+      hasFooter: true,
+    },
+    component: () => import('../components/NotFound404.vue'),
+  },
 ];
 
 const router = VueRouter.createRouter({

@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { withDefaults, defineProps } from "vue";
+import { withDefaults } from "vue";
 import StatusIcon from "./StatusIcon.vue";
 
 const props = withDefaults(
