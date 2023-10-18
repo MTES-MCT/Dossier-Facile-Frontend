@@ -345,7 +345,7 @@ export default class ContactForm extends Vue {
   status = "NEW"; // NEW, OK, KO
 
   mounted() {
-    if (this.user) {
+    if (this.user.email) {
       this.isLoggedIn = true;
       this.contactFormData.firstname = this.user.firstName;
       this.contactFormData.lastname = this.user.lastName;
