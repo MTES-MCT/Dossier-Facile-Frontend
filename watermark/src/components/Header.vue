@@ -31,7 +31,7 @@
                 <li>
                   <a
                     class="fr-btn fr-icon-add-circle-line"
-                    href="https://www.dossierfacile.fr"
+                    href="https://www.dossierfacile.logement.gouv.fr"
                     target="_blank"
                   >
                     Vous constituez un dossier de location ? Essayez

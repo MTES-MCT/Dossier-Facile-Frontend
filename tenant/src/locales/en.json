@@ -517,7 +517,7 @@
   },
   "documenthelp": {
     "title": "Help",
-    "paragraph1": "If your document is too large, we recommend scanning it (using a free app for smartphones, for example).<br>If that doesn't work, contact us by email at <a href='mailto:contact@dossierfacile.fr'>contact@dossierfacile.fr</a>, and we'll do our best to respond as quickly as possible!"
+    "paragraph1": "If your document is too large, we recommend scanning it (using a free app for smartphones, for example).<br>If that doesn't work, contact us by email at <a href='mailto:contact@dossierfacile.logement.gouv.fr'>contact@dossierfacile.logement.gouv.fr</a>, and we'll do our best to respond as quickly as possible!"
   },
   "documentinsert": {},
   "fileerrors": {
@@ -1080,7 +1080,7 @@
   "taxhelp": {
     "title": "Help",
     "paragraph1": "You can now <b>download a tax notice from <a target='_blank' href='https://www.impots.gouv.fr'>www.impots.gouv.fr</a></b>",
-    "paragraph2": "If your document is too large, we recommend scanning it (using a free smartphone application, for example).<br> If that doesn't work, contact us by email at <a href='mailto:contact@dossierfacile.fr'>contact@dossierfacile.fr</a>, and we will do our best to respond as quickly as possible!"
+    "paragraph2": "If your document is too large, we recommend scanning it (using a free smartphone application, for example).<br> If that doesn't work, contact us by email at <a href='mailto:contact@dossierfacile.logement.gouv.fr'>contact@dossierfacile.logement.gouv.fr</a>, and we will do our best to respond as quickly as possible!"
   },
   "tax-page": {
     "my-name": "You have a tax notice in your name",

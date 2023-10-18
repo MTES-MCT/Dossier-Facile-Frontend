@@ -38,8 +38,8 @@ Sentry.init({
       routingInstrumentation: Sentry.vueRouterInstrumentation(router),
       tracingOrigins: [
         "localhost",
-        "www-dev.dossierfacile.fr",
-        "www.dossierfacile.fr",
+        "www-preprod.dossierfacile.fr",
+        "dossierfacile.logement.gouv.fr",
         /^\//,
       ],
     }),

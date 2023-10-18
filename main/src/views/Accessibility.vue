@@ -12,7 +12,7 @@
             </p>
             <p>
               Cette déclaration d’accessibilité s’applique au site
-              <strong>DossierFacile</strong> : https://www.dossierfacile.fr.
+              <strong>DossierFacile</strong> : https://www.dossierfacile.logement.gouv.fr.
             </p>
 
             <h2>Qu'est-ce que l'accessibilité numérique ?</h2>
@@ -28,7 +28,7 @@
             <h2>État de conformité</h2>
             <p>
               Le site <strong>DossierFacile</strong
-            ><span> (<span>https://www.dossierfacile.fr</span>)</span> est en
+            ><span> (<span>https://www.dossierfacile.logement.gouv.fr</span>)</span> est en
               conformité partielle avec le référentiel général d’amélioration de
               l’accessibilité en raison des non-conformités ci-dessous.
             </p>
@@ -254,67 +254,67 @@ export default class Accessibility extends Vue {
   pagesVerified = [
     {
       name: "Accueil",
-      url: "https://www.dossierfacile.fr/",
+      url: "https://www.dossierfacile.logement.gouv.fr/",
     },
     {
       name: "Blog",
-      url: "https://www.dossierfacile.fr/blog/",
+      url: "https://www.dossierfacile.logement.gouv.fr/blog/",
     },
     {
       name: "En savoir plus",
-      url: "https://www.dossierfacile.fr/information/",
+      url: "https://www.dossierfacile.logement.gouv.fr/information/",
     },
     {
       name: "Mentions légales",
-      url: "https://www.dossierfacile.fr/mentions-legales/",
+      url: "https://www.dossierfacile.logement.gouv.fr/mentions-legales/",
     },
     {
       name: "Contact",
-      url: "https://www.dossierfacile.fr/contact",
+      url: "https://www.dossierfacile.logement.gouv.fr/contact",
     },
     {
       name: "Espace Propriétaire",
-      url: "https://proprietaire.dossierfacile.fr/",
+      url: "https://proprietaire.dossierfacile.logement.gouv.fr/",
     },
     {
       name: "Statistiques",
-      url: "https://www.dossierfacile.fr/stats/",
+      url: "https://www.dossierfacile.logement.gouv.fr/stats/",
     },
     {
       name: "Connexion « Mon dossier »",
-      url: "https://locataire.dossierfacile.fr/signup",
+      url: "https://locataire.dossierfacile.logement.gouv.fr/signup",
     },
     {
       name: "Locataire",
-      url: "https://locataire.dossierfacile.fr/nom-locataire",
+      url: "https://locataire.dossierfacile.logement.gouv.fr/nom-locataire",
     },
     {
       name: "Type locataire",
-      url: "https://locataire.dossierfacile.fr/type-locataire",
+      url: "https://locataire.dossierfacile.logement.gouv.fr/type-locataire",
     },
     {
       name: "Documents locataire",
-      url: "https://locataire.dossierfacile.fr/documents-locataire/1",
+      url: "https://locataire.dossierfacile.logement.gouv.fr/documents-locataire/1",
     },
     {
       name: "Validation dossier",
-      url: "https://locataire.dossierfacile.fr/validation-dossier",
+      url: "https://locataire.dossierfacile.logement.gouv.fr/validation-dossier",
     },
     {
       name: "Mon compte Locataire",
-      url: "https://locataire.dossierfacile.fr/account",
+      url: "https://locataire.dossierfacile.logement.gouv.fr/account",
     },
     {
       name: "Connexion Propriétaire",
-      url: "https://proprietaire.dossierfacile.fr/login",
+      url: "https://proprietaire.dossierfacile.logement.gouv.fr/login",
     },
     {
       name: "Ma propriété",
-      url: "https://proprietaire.dossierfacile.fr/",
+      url: "https://proprietaire.dossierfacile.logement.gouv.fr/",
     },
     {
       name: "Mon compte propriétaire : Mes informations personnelles",
-      url: "https://proprietaire.dossierfacile.fr/proprietaire",
+      url: "https://proprietaire.dossierfacile.logement.gouv.fr/proprietaire",
     },
   ];
 }
