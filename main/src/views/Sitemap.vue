@@ -62,7 +62,7 @@ export default class Sitemap extends Vue {
     },
     {
       name: "Devenir partenaire",
-      url: "https://partenaire.dossierfacile.fr",
+      url: "https://partenaire.dossierfacile.logement.gouv.fr",
     },
     {
       name: "Blog",

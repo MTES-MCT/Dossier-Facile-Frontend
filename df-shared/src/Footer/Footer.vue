@@ -185,7 +185,7 @@
             <li class="fr-footer__bottom-item">
               <a
                 class="fr-footer__bottom-link"
-                href="https://partenaire.dossierfacile.fr"
+                href="https://partenaire.dossierfacile.logement.gouv.fr"
                 target="_blank"
                 rel="noreferrer"
                 :title="$t('partner-link-title')"
