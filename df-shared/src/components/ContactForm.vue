@@ -39,7 +39,7 @@
                 <i18n path="contact-description" tag="p">
                   <template v-slot:doc_link>
                     <a
-                      href="https://docs.dossierfacile.fr"
+                      href="https://docs.dossierfacile.logement.gouv.fr"
                       title="Documentation DossierFacile"
                       target="_blank"
                       >{{ $t("our-documentation") }}</a
@@ -61,7 +61,7 @@
                   <DfButton class="" primary="true">
                     <a
                       class="fr-external-link"
-                      href="https://docs.dossierfacile.fr"
+                      href="https://docs.dossierfacile.logement.gouv.fr"
                       title="Documentation DossierFacile"
                       target="_blank"
                       rel="noreferrer noopener "

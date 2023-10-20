@@ -70,7 +70,7 @@ export default class Sitemap extends Vue {
     },
     {
       name: "Aide",
-      url: "https://docs.dossierfacile.fr",
+      url: "https://docs.dossierfacile.logement.gouv.fr",
     },
     {
       name: "Contact",
