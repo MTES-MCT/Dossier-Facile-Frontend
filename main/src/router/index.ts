@@ -497,7 +497,8 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: "404 - DossierFacile",
     },
-    component: () => import(/* webpackChunkName: "404" */ "../views/NotFound404.vue"),
+    component: () =>
+      import(/* webpackChunkName: "404" */ "../views/NotFound404.vue"),
   },
 ];
 

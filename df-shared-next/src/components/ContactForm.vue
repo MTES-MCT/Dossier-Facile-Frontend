@@ -352,10 +352,9 @@ import "../validators/validationRules";
 
 const { t } = useI18n();
 const props = defineProps<{
-  user: User;
+  user?: User;
 }>();
 
-const acceptCgu = ref(false);
 const contactFormData = new ContactFormData();
 const status = ref("NEW"); // NEW, OK, KO
 

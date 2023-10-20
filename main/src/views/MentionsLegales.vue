@@ -6,9 +6,7 @@
           <div class="fr-grid-row height-40">
             <div class="fr-col-md-12">
               <div>
-                <h1 class="fr-h1 color--white">
-                  Mentions légales
-                </h1>
+                <h1 class="fr-h1 color--white">Mentions légales</h1>
                 <h2 class="fr-h3 color--white">
                   Conditions générales d'utilisation et politique de
                   confidentialité
@@ -57,9 +55,7 @@
                 Le service permet également à l’Utilisateur de protéger les
                 documents envoyés par l’ajout d’un filigrane.
               </p>
-              <p>
-                Ce service est destiné aux particuliers.
-              </p>
+              <p>Ce service est destiné aux particuliers.</p>
               <p>
                 Les présentes Conditions générales d’utilisation ont pour objet
                 de régler les relations entre les différents intervenants sur le
@@ -84,7 +80,8 @@
               <p>
                 Le Site : se réfère indistinctement à l’application web et à
                 l’interface de programmation applicative (API) ayant pour
-                adresse www.dossierfacile.logement.gouv.fr et les sous-domaines suivants :<br />
+                adresse www.dossierfacile.logement.gouv.fr et les sous-domaines
+                suivants :<br />
                 <a href="https://locataire.dossierfacile.logement.gouv.fr"
                   >https://locataire.dossierfacile.logement.gouv.fr</a
                 ><br />
@@ -133,11 +130,11 @@
               <p>
                 Afin de justifier les informations renseignées, l’Utilisateur
                 accepte de télécharger les pièces justificatives suivantes : une
-                pièce d’identité valide, un justificatif de situation d'hébergement, un
-                justificatif de situation professionnelle, un avis d’imposition
-                récent et un justificatif de ressources. Il a la possibilité
-                d’ajouter un garant pour sa caution, il doit alors télécharger
-                les mêmes documents pour son garant.
+                pièce d’identité valide, un justificatif de situation
+                d'hébergement, un justificatif de situation professionnelle, un
+                avis d’imposition récent et un justificatif de ressources. Il a
+                la possibilité d’ajouter un garant pour sa caution, il doit
+                alors télécharger les mêmes documents pour son garant.
               </p>
               <p>
                 Ces documents correspondent aux standards en vigueur dans la
@@ -302,7 +299,9 @@
                 faute ou de responsabilité en cas d’incident relatif à une
                 faille de sécurité.
               </p>
-              <h4 class="fr-h3">8. Suppression du compte en cas de violation des CGU</h4>
+              <h4 class="fr-h3">
+                8. Suppression du compte en cas de violation des CGU
+              </h4>
               <p>
                 En cas de violation d'une ou de plusieurs dispositions des CGU
                 ou de tout autre document incorporé aux présentes par référence,
@@ -338,7 +337,9 @@
                 de confidentialité de vos données de manière substantielle sans
                 vous en informer et obtenir votre consentement.
               </p>
-              <h4 class="fr-h3">11. Droit applicable et modalités de recours</h4>
+              <h4 class="fr-h3">
+                11. Droit applicable et modalités de recours
+              </h4>
               <h5 class="fr-h4">
                 Application du droit français (législation CNIL) et compétence
                 des tribunaux
@@ -590,9 +591,7 @@
                   Vous n'êtes actuellement pas suivi‧e. Cookie d’exclusion
                   installé
                 </span>
-                <span v-else>
-                  Vous n'êtes actuellement pas exclu‧e.
-                </span>
+                <span v-else> Vous n'êtes actuellement pas exclu‧e. </span>
               </p>
 
               <p>
@@ -672,9 +671,7 @@
                 transition écologique et solidaire peut également être contacté
                 à l’adresse suivante :
               </p>
-              <p>
-                dpd.daj.sg@developpement-durable.gouv.fr
-              </p>
+              <p>dpd.daj.sg@developpement-durable.gouv.fr</p>
               <p>
                 Conformément au règlement général sur la protection des données,
                 vous disposez du droit d’introduire une réclamation auprès de la
@@ -742,7 +739,9 @@
                 violation ne présente pas de risque pour vos droits et libertés
               </p>
 
-              <h4 class="fr-h3">11. Stockage des données personnelles à l'étranger</h4>
+              <h4 class="fr-h3">
+                11. Stockage des données personnelles à l'étranger
+              </h4>
               <p>
                 Nous nous engageons à ne pas stocker les données personnelles de
                 nos Utilisateurs en dehors de l’Union européenne, y compris pour

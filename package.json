@@ -10,6 +10,7 @@
   },
   "workspaces": [
     "main",
+    "www",
     "owner",
     "tenant",
     "watermark",
@@ -20,12 +21,13 @@
   ],
   "scripts": {
     "main": "yarn workspace main",
+    "www": "yarn workspace www",
     "dfowner": "yarn workspace owner",
     "tenant": "yarn workspace tenant",
     "watermark": "yarn workspace watermark",
     "e2e": "yarn workspace e2e-tests",
     "sb": "yarn workspace sb",
-    "update-lockfiles": "yarn && echo main tenant owner watermark e2e-tests sb | xargs -n 1 cp yarn.lock"
+    "update-lockfiles": "yarn && echo main www tenant owner watermark e2e-tests sb | xargs -n 1 cp yarn.lock"
   },
   "devDependencies": {
     "@storybook/vue-webpack5": "7.0.2"

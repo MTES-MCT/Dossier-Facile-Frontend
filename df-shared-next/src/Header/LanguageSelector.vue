@@ -3,10 +3,10 @@
     class="fr-translate__btn fr-nav__link fr-mb-0"
     aria-controls="select-language"
     aria-expanded="false"
-    :title="getCurrentLanguage().selectLabel"
+    :title="currentLanguage.selectLabel"
   >
-    {{ getCurrentLanguage().code }}
-    <span class="fr-hidden-lg"> - {{ getCurrentLanguage().name }}</span>
+    {{ currentLanguage.code }}
+    <span class="fr-hidden-lg"> - {{ currentLanguage.name }}</span>
   </button>
   <div class="fr-collapse fr-translate__menu fr-menu" id="select-language">
     <ul class="fr-menu__list">
@@ -16,44 +16,52 @@
           :hreflang="language.id"
           :lang="language.id"
           href="#"
-          :aria-current="getCurrentLanguage() === language ? true : undefined"
+          :aria-current="
+            currentLanguage.code === language.code ? 'page' : undefined
+          "
           @click="selectLanguage(language)"
+          >{{ language.code }} - {{ language.name }}</a
         >
-          {{ language.code }} - {{ language.name }}
-        </a>
       </li>
     </ul>
   </div>
 </template>
 <script setup lang="ts">
-import i18n from "owner/src/i18n";
-import { Composer } from "vue-i18n";
+import { ref } from "vue";
+
+const FRENCH = {
+  id: "fr",
+  code: "FR",
+  name: "Français",
+  selectLabel: "Sélectionner une langue",
+};
+
+const ENGLISH = {
+  id: "en",
+  code: "EN",
+  name: "English",
+  selectLabel: "Select a language",
+};
 
 const emit = defineEmits(["on-change-lang"]);
 
-const availableLanguages: Language[] = [
-  {
-    id: "fr",
-    code: "FR",
-    name: "Français",
-    selectLabel: "Sélectionner une langue",
-  },
-  {
-    id: "en",
-    code: "EN",
-    name: "English",
-    selectLabel: "Select a language",
-  },
-];
+const props = withDefaults(defineProps<{ initialLanguage: string }>(), {
+  initialLanguage: "fr",
+});
 
-function getCurrentLanguage() {
-  return availableLanguages.find(
-    (language) => language.id === (i18n.global as Composer).locale.value
-  );
-}
+const availableLanguages: Language[] = [FRENCH, ENGLISH];
 
-function selectLanguage(language: Language) {
-  emit("on-change", language.id);
+const currentLanguage = ref(FRENCH);
+
+currentLanguage.value =
+  availableLanguages.find(
+    (language) => language.id === props.initialLanguage
+  ) || FRENCH;
+
+function selectLanguage(l: Language) {
+  emit("on-change-lang", l.id);
+  currentLanguage.value =
+    availableLanguages.find((language) => language.id === l.id) || FRENCH;
 }
 
 interface Language {
@@ -63,4 +71,3 @@ interface Language {
   selectLabel: string;
 }
 </script>
-<style scoped lang="scss"></style>
