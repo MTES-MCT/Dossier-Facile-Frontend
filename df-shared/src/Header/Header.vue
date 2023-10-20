@@ -162,7 +162,7 @@ export default class MyHeader extends Vue {
     this.$emit("on-create-owner");
   }
   goToPartner(){
-      window.location.href = 'https://partenaire.dossierfacile.fr';
+      window.location.href = 'https://partenaire.dossierfacile.logement.gouv.fr';
   }
 }
 </script>
