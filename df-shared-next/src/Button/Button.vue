@@ -22,7 +22,7 @@ const props = withDefaults(
   }>(),
   {
     primary: false,
-    size: "normal",
+    size: "normal"
   }
 );
 
@@ -31,7 +31,7 @@ function classes() {
     "fr-btn--secondary": !props.primary,
     "fr-btn--lg": props.size === "large",
     "fr-btn--sm": props.size === "small",
-    "fr-btn--icon": props.size === "icon",
+    "fr-btn--icon": props.size === "icon"
   };
 }
 

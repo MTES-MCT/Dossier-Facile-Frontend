@@ -39,13 +39,10 @@
             <div class="fr-header__tools-links">
               <ul class="fr-btns-group">
                 <li v-if="loggedIn">
-                  <v-gouv-fr-button
-                    :small="true"
-                    :primary="false"
-                    @click="onLogout"
+                  <DfButton :small="true" :primary="false" @on-click="onLogout"
                     ><i class="ri-account-circle-line" aria-hidden="true"></i>
                     {{ t("logout") }}
-                  </v-gouv-fr-button>
+                  </DfButton>
                 </li>
                 <li v-if="!loggedIn">
                   <DfButton
@@ -74,8 +71,8 @@
                     :title="t('tenant')"
                     @on-click="onAccessTenant"
                   >
-                      <i class="ri-user-star-line" aria-hidden="true"></i>
-                      {{ t("tenant") }}
+                    <i class="ri-user-star-line" aria-hidden="true"></i>
+                    {{ t("tenant") }}
                   </DfButton>
                 </li>
                 <li v-if="!loggedIn">
@@ -85,8 +82,8 @@
                     :title="t('partner-link-title')"
                     @on-click="gotToPartner"
                   >
-                      <i class="ri-home-heart-line" aria-hidden="true"></i>
-                      {{ t("partner") }}
+                    <i class="ri-home-heart-line" aria-hidden="true"></i>
+                    {{ t("partner") }}
                   </DfButton>
                 </li>
               </ul>
@@ -115,8 +112,8 @@
                 :primary="false"
                 size="small"
                 @on-click="onLogout"
-                >
-                  <i class="ri-account-circle-line" aria-hidden="true"></i>
+              >
+                <i class="ri-account-circle-line" aria-hidden="true"></i>
                 >{{ t("logout") }}
               </DfButton>
             </li>
@@ -145,11 +142,11 @@
                 {{ t("owner") }}
               </DfButton>
               <DfButton
-                  v-else
-                  size="small"
-                  class="fr-ml-3"
-                  :title="t('tenant')"
-                  @on-click="onAccessTenant"
+                v-else
+                size="small"
+                class="fr-ml-3"
+                :title="t('tenant')"
+                @on-click="onAccessTenant"
               >
                 <i class="ri-user-star-line" aria-hidden="true"></i>
                 {{ t("tenant") }}
@@ -184,7 +181,6 @@
 <script setup lang="ts">
 import { withDefaults } from "vue";
 import DfButton from "../Button/Button.vue";
-import VGouvFrButton from "../Button/v-gouv-fr-button/VGouvFrButton.vue";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
@@ -195,7 +191,7 @@ const props = withDefaults(
     loggedIn?: boolean;
     lang?: string;
     showAccessibility?: boolean;
-    type?:string;
+    type?: string;
   }>(),
   {
     loggedIn: false,
@@ -205,7 +201,12 @@ const props = withDefaults(
   }
 );
 
-const emit = defineEmits(["on-login", "on-access-tenant", "on-access-owner", "on-logout",]);
+const emit = defineEmits([
+  "on-login",
+  "on-access-tenant",
+  "on-access-owner",
+  "on-logout"
+]);
 
 function onLogin() {
   emit("on-login");
@@ -216,11 +217,11 @@ function onLogout() {
 }
 
 function onAccessTenant() {
-    emit("on-access-tenant");
+  emit("on-access-tenant");
 }
 
 function onAccessOwner() {
-    emit("on-access-owner");
+  emit("on-access-owner");
 }
 
 function gotToPartner() {
@@ -259,7 +260,6 @@ header i {
   font-size: 24px;
 }
 .fr-header {
-
   .fr-links-group {
     li {
       margin-right: 0;

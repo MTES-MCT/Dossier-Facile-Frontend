@@ -20,30 +20,35 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+<script setup lang="ts">
+import { withDefaults } from "vue";
 
-@Component
-export default class LogoInstitutionalPartnerComponent extends Vue {
-  @Prop() public name!: string;
-  @Prop() public image: unknown;
-  @Prop() public href!: string;
-  @Prop({ default: "60px" }) public width!: string;
-  @Prop({ default: "60px" }) public height!: string;
-  @Prop({ default: "" }) public title?: boolean;
-
-  getTitle() {
-    if (this.title) {
-      return this.title;
-    }
-    return "aller sur le site « " + this.name + " » (nouvelle fenêtre)";
+const props = withDefaults(
+  defineProps<{
+    name: string;
+    image: unknown;
+    href: string;
+    width: string;
+    height: string;
+    title?: string;
+  }>(),
+  {
+    width: "60px",
+    height: "60px",
   }
+);
 
-  getImage() {
-    if (this.image) return this.image;
-    // fallback - Try to find logo in default logo assets
-    return require("../assets/logos/" + this.name + ".webp");
+function getTitle() {
+  if (props.title) {
+    return props.title;
   }
+  return "aller sur le site « " + props.name + " » (nouvelle fenêtre)";
+}
+
+function getImage() {
+  if (props.image) return props.image;
+  // fallback - Try to find logo in default logo assets
+  return require("../assets/logos/" + props.name + ".webp");
 }
 </script>
 

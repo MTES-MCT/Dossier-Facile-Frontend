@@ -1,7 +1,7 @@
 <template>
   <label class="fr-label" :for="props.forInput">
     <slot></slot>
-    <span v-if="props.required" style="color:red"> *</span>
+    <span v-if="props.required" style="color: red"> *</span>
     <span> :</span>
   </label>
 </template>
@@ -12,5 +12,3 @@ const props = defineProps<{
   forInput?: string;
 }>();
 </script>
-
-<style scoped lang="scss"></style>

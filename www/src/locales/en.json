@@ -1,0 +1,83 @@
+{
+  "tenant": "Tenant",
+  "owner": "Owner",
+  "register-information": "To create your account, we need some information. You are...",
+  "register.email-not-valid": "This email is not valid",
+  "faq": "FAQ",
+  "help": "Help",
+  "blog": "Blog",
+  "blog-title": "DossierFacile in Articles",
+  "information": "Who are we?",
+  "contact-us": "Contact Us",
+  "button": "Create My Rental Application",
+  "docs": "How to Prepare My Rental Application",
+  "s0": {
+    "title": "Create a Solid Rental Application to Find Your Dream Home",
+    "text": "DossierFacile helps you create a high-quality digital rental application",
+    "text2": "to increase your chances of success."
+  },
+  "s1": {
+    "h1": "Stand Out with a Quality Application",
+    "p1": "Provide landlords with a clear, comprehensive, and coherent application to maximize your chances.",
+    "h2": "Be the First to Respond to a Listing",
+    "p2": "Be the most responsive by sending your digital application with just one click.",
+    "h3": "Reassure Your Future Landlord",
+    "p3": "After undergoing rigorous testing by our operators, your application is certified by the government."
+  },
+  "s2": {
+    "title": "Create Your Rental Application in Three Steps",
+    "h1": "I Upload My Documents",
+    "p1": "DossierFacile asks for the necessary documents and only those!",
+    "u1a": "ID Document",
+    "u1b": "Proof of Accommodation",
+    "u1c": "Proof of Employment",
+    "u1d": "Tax Return",
+    "u1e": "Proof of Income",
+    "h2": "DossierFacile Validates My Application",
+    "p2": "Our agents verify your application and assist you in making any necessary corrections.",
+    "h3": "My Application is Ready to be Sent",
+    "p3": "Your secure application, in the form of a URL link or a PDF file, is ready to be sent to landlords."
+  },
+  "s3": {
+    "title": "Protect Your Personal Information",
+    "text1": "With DossierFacile, no more scattered identification papers!",
+    "text2": "Your documents are watermarked to protect you from unscrupulous landlords' fraud.",
+    "text3": "You can customize the access to your application link and delete it at any time!",
+    "link": "Learn more about data security at DossierFacile"
+  },
+  "s4": {
+    "title1": "Already",
+    "title3": "Applications certified with DossierFacile",
+    "t1": "Karim's application stood out immediately: it was the only complete application received!",
+    "author1": "Joseph, landlord in Nantes",
+    "t2": "Simple, efficient, and practical: it saved me a lot of time in my apartment search.",
+    "author2": "Caroline, student",
+    "t3": "I could never visit an apartment with my foreign application. With DossierFacile, I finally got more viewings!",
+    "author3": "Irina, Erasmus student",
+    "link": "View our statistics"
+  },
+  "s5": {
+    "title1": "They Trust",
+    "title2": "Us"
+  },
+  "s6": {
+    "title": "Our institutional partners"
+  },
+  "title": "Statistics",
+  "404": {
+    "title": "Page not found",
+    "subtitle": "Error 404",
+    "caption": "This is not the web page you are lookingfor.",
+    "content": {
+      "line1": "If you typed the web address in the browser, make sure it is correct. The page may no longer be available.",
+      "line2": "In this case, to continue your visit, you can check out our homepage.",
+      "line3": "Otherwise, contact us so that we can redirect you to the right information."
+    },
+    "homepage": "Homepage",
+    "contact-us": "Contact us"
+  },
+  "modal": {
+    "close": "Close",
+    "close-alt": "Close modal window"
+  }
+}
