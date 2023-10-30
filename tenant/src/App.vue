@@ -14,8 +14,8 @@
       <DeleteAccount></DeleteAccount>
       <Announcement></Announcement>
       <main role="main">
-        <div>
-          <router-view class="page" :key="$route.path" />
+        <div class="page">
+          <router-view :key="$route.path" />
         </div>
         <FollowSocials />
       </main>
