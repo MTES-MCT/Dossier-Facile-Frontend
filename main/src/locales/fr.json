@@ -74,5 +74,9 @@
     },
     "homepage" : "Page d'accueil",
     "contact-us" : "Contactez-nous"
+  },
+  "modal": {
+    "close": "Fermer",
+    "close-alt": "Fermer la fenêtre modale"
   }
 }
