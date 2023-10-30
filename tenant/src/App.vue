@@ -13,18 +13,21 @@
     <div id="content">
       <DeleteAccount></DeleteAccount>
       <Announcement></Announcement>
-      <main class="page" role="main">
-        <router-view :key="$route.path" />
+      <main role="main">
+        <div>
+          <router-view class="page" :key="$route.path" />
+        </div>
+        <FollowSocials />
       </main>
     </div>
-    <TheFooter v-if="!isFunnel" />
+    <Footer v-if="!isFunnel" />
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import MyHeader from "df-shared/src/Header/Header.vue";
-import TheFooter from "df-shared/src/Footer/Footer.vue";
+import Footer from "df-shared/src/Footer/Footer.vue";
 import Menu from "./components/Menu.vue";
 import { mapGetters, mapState } from "vuex";
 import Announcement from "df-shared/src/components/Announcement.vue";
@@ -32,16 +35,18 @@ import ModalAnnouncement from "df-shared/src/components/ModalAnnouncement.vue";
 import TenantSkipLinks from "./components/TenantSkipLinks.vue";
 import { User } from "df-shared/src/models/User";
 import DeleteAccount from "./components/DeleteAccount.vue";
+import FollowSocials from "../../df-shared/src/Footer/FollowSocials.vue";
 
 @Component({
   components: {
     DeleteAccount,
     TenantSkipLinks,
     MyHeader,
-    TheFooter,
+    Footer,
     Menu,
     Announcement,
     ModalAnnouncement,
+    FollowSocials,
   },
   computed: {
     ...mapState({
