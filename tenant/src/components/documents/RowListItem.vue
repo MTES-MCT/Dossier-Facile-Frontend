@@ -1,9 +1,9 @@
 <template>
   <li class="fr-grid-row file-list-item fr-p-3w">
-    <div class="fr-col-12 fr-col-md-9 fr-mb-2w">
+    <div class="fr-col-12 fr-col-md-10 fr-mb-2w">
       {{ label }}
       <br />
-      <span v-if="subLabel" class="fr-text--xs fr-label--disabled">
+      <span v-if="subLabel" class="fr-text--sm">
         {{ subLabel }}
       </span>
     </div>

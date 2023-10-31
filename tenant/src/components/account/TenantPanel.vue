@@ -4,6 +4,12 @@
       <h3 class="fr-h4">{{ $t("tenantpanel.my-files") + tenant.firstName }}</h3>
       <ul class="fr-p-0">
         <RowListItem
+          v-if="!isCotenant"
+          :label="$tc('tenantpanel.clarification-title')"
+          :subLabel="tenant.clarification"
+          @click-edit="goToValidationPage()"
+        />
+        <RowListItem
           :label="tenant | fullName"
           @click-edit="gotoTenantName()"
         />
@@ -136,6 +142,10 @@ export default class TenantPanel extends Vue {
     } else {
       this.$router.push({ name: "TenantName" });
     }
+  }
+
+  goToValidationPage() {
+    this.$router.push({ name: "ValidateFile" });
   }
 
   setTenantStep(n: number) {
