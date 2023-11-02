@@ -3,7 +3,8 @@ import { computed, onMounted, onUnmounted } from 'vue';
 import MyHeader from 'df-shared-next/src/Header/Header.vue';
 import Announcement from 'df-shared-next/src/components/Announcement.vue';
 import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue';
-import TheFooter from 'df-shared-next/src/Footer/Footer.vue';
+import Footer from 'df-shared-next/src/Footer/Footer.vue';
+import FollowSocials from 'df-shared-next/src/Footer/FollowSocials.vue';
 import { useRouter } from 'vue-router';
 import Menu from './components/Menu.vue';
 import useOwnerStore from './store/owner-store.ts';
@@ -56,12 +57,15 @@ function onLogout() {
   <div id="content">
     <DeleteAccount v-show="showDeleteAccountModal"></DeleteAccount>
     <Announcement></Announcement>
-    <main class="page" role="main">
-      <router-view />
+    <main role="main">
+      <div class="page">
+        <router-view />
+      </div>
+      <FollowSocials />
     </main>
   </div>
   <div v-if="hasFooter">
-    <TheFooter />
+    <Footer />
   </div>
 </template>
 

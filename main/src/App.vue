@@ -12,16 +12,18 @@
       <Announcement></Announcement>
       <main class="page" role="main">
         <router-view />
+        <FollowSocials />
       </main>
     </div>
-    <TheFooter />
+    <Footer />
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import MyHeader from "df-shared/src/Header/Header.vue";
-import TheFooter from "df-shared/src/Footer/Footer.vue";
+import Footer from "df-shared/src/Footer/Footer.vue";
+import FollowSocials from "df-shared/src/Footer/FollowSocials.vue";
 import Modal from "df-shared/src/components/Modal.vue";
 import Announcement from "df-shared/src/components/Announcement.vue";
 import SkipLinks from "df-shared/src/components/SkipLinks.vue";
@@ -34,8 +36,9 @@ import i18n from "./i18n";
     Announcement,
     MyHeader,
     Menu,
-    TheFooter,
+    Footer,
     SkipLinks,
+    FollowSocials,
   },
 })
 export default class App extends Vue {

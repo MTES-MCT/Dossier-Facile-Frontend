@@ -47,6 +47,11 @@
                 {{ $t("publicfile.personnal-file") }}
               </h2>
               <ul class="without-padding">
+                <RowListItem
+                  v-if="tenant.clarification !== undefined"
+                  :label="$tc('tenantpanel.clarification-title')"
+                  :subLabel="tenant.clarification"
+                />
                 <FileRowListItem
                   :label="$t('publicfile.identification')"
                   :document="document(tenant, 'IDENTIFICATION')"
@@ -211,9 +216,11 @@ import FileRowListItem from "../components/documents/FileRowListItem.vue";
 import FileHeader from "../components/FileHeader.vue";
 import OwnerBanner from "../components/OwnerBanner.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
+import RowListItem from "@/components/documents/RowListItem.vue";
 
 @Component({
   components: {
+    RowListItem,
     FileReinsurance,
     FileRowListItem,
     OwnerBanner,

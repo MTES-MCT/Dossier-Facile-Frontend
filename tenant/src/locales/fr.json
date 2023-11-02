@@ -1145,7 +1145,7 @@
     "field-required": "Ce champ est requis",
     "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
     "title": "Votre avis d'imposition",
-    "warning-no-accepted-doc": "<p><strong>L’avis de situation déclarative n’est pas un avis d’imposition, il sera donc systématiquement refusé.</strong></p><p>Regardez bien le titre du document que vous transmettez ! Il s’agit d’une <a href='https://docs.dossierfacile.fr/guide-dutilisation-de-dossierfacile/avis-dimposition' target='_blank' rel='noopener'>erreur très courante</a>.</p>",
+    "warning-no-accepted-doc": "<p><strong>L’avis de situation déclarative n’est pas un avis d’imposition, il sera donc systématiquement refusé.</strong></p><p>Regardez bien le titre du document que vous transmettez ! Il s’agit d’une <a href='https://docs.dossierfacile.logement.gouv.fr/guide-dutilisation-de-dossierfacile/avis-dimposition' target='_blank' rel='noopener'>erreur très courante</a>.</p>",
     "avis-detected": "Avis de situation déclarative détecté",
     "avis-text1": "Nous avons détecté un avis de situation déclarative en tant que justificatif d'imposition. Ce document étant purement déclaratif, il n'est malheureusement pas recevable.",
     "avis-text2": "Nous vous invitons à déposer un avis d'imposition concernant vos revenus de l'année N-1.",
@@ -1245,6 +1245,7 @@
     "share-by-mail": "Partager par mail",
     "my-file": "Mon dossier de location",
     "my-files": "Les justificatifs de ",
+    "clarification-title": "Mot du locataire",
     "identification": "Pièce d'identité",
     "residency": "Justificatif de situation d'hébergement",
     "professional": "Justificatif de situation professionnelle",
@@ -1360,5 +1361,17 @@
       "never": "Jamais",
       "no-shared-file": "Aucun dossier partagé pour l'instant"
     }
+  },
+  "404":{
+    "title" : "Page non trouvée",
+    "subtitle" : "Erreur 404",
+    "caption" : "La page que vous cherchez est introuvable. Veuillez nous excuser pour la gêne occasionnée.",
+    "content" : {
+      "line1" : "Si vous avez tapé l'adresse web dans le navigateur, vérifiez qu'elle est correcte. La page n’est peut-être plus disponible.",
+      "line2" : "Dans ce cas, pour continuer votre visite vous pouvez consulter notre page d’accueil.",
+      "line3" : "Sinon contactez-nous pour que l’on puisse vous rediriger vers la bonne information."
+    },
+    "homepage" : "Page d'accueil",
+    "contact-us" : "Contactez-nous"
   }
 }

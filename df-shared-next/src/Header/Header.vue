@@ -224,7 +224,7 @@ function onAccessOwner() {
 }
 
 function gotToPartner() {
-  window.open("https://partenaire.dossierfacile.fr", "_blank");
+  window.open("https://partenaire.dossierfacile.logement.gouv.fr", "_blank");
 }
 </script>
 
