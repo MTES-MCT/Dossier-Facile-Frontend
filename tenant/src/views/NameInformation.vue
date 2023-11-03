@@ -22,7 +22,7 @@
           <br />
           🧐
           <a
-            href="https://docs.dossierfacilelogement.gouv.fr/"
+            href="https://docs.dossierfacile.logement.gouv.fr/"
             target="_blank"
             rel="noopener"
             >{{ $t("nameinformation.see-documentation") }}</a
