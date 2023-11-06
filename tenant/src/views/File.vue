@@ -1,5 +1,5 @@
 <template>
-  <div class="root">
+  <div class="root" :class="{ 'blue-background': !fileNotFound }">
     <div class="fr-container" v-if="!fileNotFound">
       <FileHeader :user="user">
         <div>
@@ -206,26 +206,17 @@
             >{{ $t("file.download-all") }}</DfButton
           >
         </div>
-        <div class="fr-mt-3w fr-text-mention--grey">
-          Le service fourni par DossierFacile ne saurait être assimilé à une
-          garantie apportée par DossierFacile sur les dossiers ayant fait
-          l’objet d’une labellisation. DossierFacile ne saurait être tenu
-          responsable ni être engagé directement ou indirectement dans le cadre
-          d'un litige entre un locataire et son bailleur ou tout autre
-          intermédiaire.
-        </div>
-      </section>
-      <section class="fr-mb-7w">
-        <OwnerBanner></OwnerBanner>
       </section>
     </div>
     <div v-if="fileNotFound" class="not-found-container fr-mt-5w">
-      <div>
-        <NakedCard class="fr-p-5w">
-          {{ $t("file.not-found") }}
-        </NakedCard>
-      </div>
+      <FileNotFound></FileNotFound>
     </div>
+    <section class="fr-mb-7w fr-container">
+      <div class="fr-mt-3w fr-text--sm fr-label--disabled">
+        {{ $t("file.disclaimer") }}
+      </div>
+      <OwnerBanner></OwnerBanner>
+    </section>
   </div>
 </template>
 
@@ -244,9 +235,11 @@ import OwnerBanner from "../components/OwnerBanner.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import FileHeader from "../components/FileHeader.vue";
 import RowListItem from "@/components/documents/RowListItem.vue";
+import FileNotFound from "@/views/FileNotFound.vue";
 
 @Component({
   components: {
+    FileNotFound,
     RowListItem,
     ProgressIndicator,
     DfButton,
@@ -438,6 +431,8 @@ export default class File extends Vue {
 }
 .root {
   width: 100%;
+}
+.blue-background {
   background-color: var(--bf100-g750);
 }
 .without-padding {

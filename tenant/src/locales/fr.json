@@ -627,7 +627,12 @@
     "and": " et ",
     "download-failed": "Echec du téléchargement. Ressayez dans quelques minutes.",
     "download-disabled-title": "Le dossier pourra être téléchargé lorsque celui-ci aura été entièrement vérifié par DossierFacile.",
-    "not-found": "Le dossier n'a pas été trouvé. Veuillez vérifier le lien fourni."
+    "not-found": {
+      "title": "Dossier introuvable",
+      "line1": "Ce dossier de location est introuvable.",
+      "line2": "Le lien est erroné ou il a été supprimé par le candidat."
+    },
+    "disclaimer": "Le service fourni par DossierFacile ne saurait être assimilé à une garantie apportée par DossierFacile sur les dossiers ayant fait l’objet d’une labellisation. DossierFacile ne saurait être tenu responsable ni être engagé directement ou indirectement dans le cadre d'un litige entre un locataire et son bailleur ou tout autre intermédiaire."
   },
   "filereinsurance": {
     "documents-VALIDATED": "Le dossier contient les pièces requises",
