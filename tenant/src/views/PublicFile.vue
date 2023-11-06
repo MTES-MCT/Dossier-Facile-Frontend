@@ -180,27 +180,16 @@
           </div>
         </div>
       </section>
-      <section class="fr-mb-7w">
-        <div class="fr-mt-3w fr-text-mention--grey">
-          Le service fourni par DossierFacile ne saurait être assimilé à une
-          garantie apportée par DossierFacile sur les dossiers ayant fait
-          l’objet d’une labellisation. DossierFacile ne saurait être tenu
-          responsable ni être engagé directement ou indirectement dans le cadre
-          d'un litige entre un locataire et son bailleur ou tout autre
-          intermédiaire.
-        </div>
-      </section>
-      <section class="fr-mb-7w">
-        <OwnerBanner></OwnerBanner>
-      </section>
     </div>
     <div v-if="fileNotFound" class="not-found-container fr-mt-5w">
-      <div>
-        <NakedCard class="fr-p-5w">
-          {{ $t("file.not-found") }}
-        </NakedCard>
-      </div>
+      <FileNotFound></FileNotFound>
     </div>
+    <section class="fr-container fr-mb-7w">
+      <div class="fr-mt-3w fr-text--sm fr-label--disabled">
+        {{ $t("file.disclaimer") }}
+      </div>
+      <OwnerBanner></OwnerBanner>
+    </section>
   </div>
 </template>
 
@@ -217,9 +206,11 @@ import FileHeader from "../components/FileHeader.vue";
 import OwnerBanner from "../components/OwnerBanner.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
 import RowListItem from "@/components/documents/RowListItem.vue";
+import FileNotFound from "@/views/FileNotFound.vue";
 
 @Component({
   components: {
+    FileNotFound,
     RowListItem,
     FileReinsurance,
     FileRowListItem,
