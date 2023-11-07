@@ -24,6 +24,9 @@ server {
     }
 
     location / {
+        if ($request_method !~ ^(GET|HEAD)$ ) {
+            return 403;
+        }
         proxy_pass <%= ENV['PRIVATE_METABASE_URL'] %>;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
