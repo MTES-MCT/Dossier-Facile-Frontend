@@ -15,6 +15,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 import Modal from "./Modal.vue";
+import { CookiesService } from "../services/CookiesService";
 
 @Component({
   components: {
@@ -23,7 +24,6 @@ import Modal from "./Modal.vue";
 })
 export default class ModalAnnouncement extends Vue {
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
-  DOMAIN = `${process.env.VUE_APP_DOMAIN}`;
 
   @Prop() cookiekey!: string;
   @Prop() showmodal!: boolean;
@@ -42,15 +42,10 @@ export default class ModalAnnouncement extends Vue {
   }
 
   createAnnouncementClosedCookie() {
-    const expirationDate = new Date();
-    expirationDate.setDate(expirationDate.getDate() + 1);
-
-    this.$cookies.set(
+    CookiesService.setCookie(
       this.announcementClosedCookieKey,
-      true,
-      expirationDate.toUTCString(),
-      "",
-      this.DOMAIN
+      "true",
+      CookiesService.datePlusDaysFromNow(1)
     );
   }
 }

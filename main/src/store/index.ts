@@ -1,10 +1,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import i18n from "../i18n";
+import { CookiesService } from "df-shared/src/services/CookiesService";
 
 Vue.use(Vuex);
-
-const DOMAIN = `${process.env.VUE_APP_DOMAIN}`;
 
 const store = new Vuex.Store({
   state: {},
@@ -15,9 +14,11 @@ const store = new Vuex.Store({
       i18n.fallbackLocale = "fr";
       const html = document.documentElement;
       html.setAttribute("lang", i18n.locale);
-      const aYearFromNow = new Date();
-      aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1);
-      Vue.$cookies.set("lang", lang, aYearFromNow, "", DOMAIN);
+      CookiesService.setCookie(
+        "lang",
+        lang,
+        CookiesService.datePlusDaysFromNow(365)
+      );
     },
   },
   modules: {},
