@@ -514,6 +514,16 @@ router.beforeEach((to, from, next) => {
   const lang = CookiesService.getCookie("lang") === "en" ? "en" : "fr";
   store.dispatch("setLang", lang);
 
+  CookiesService.setJsonCookie(
+    "acquisition",
+    {
+      campaign: to.query.mtm_campaign,
+      source: to.query.mtm_source,
+      medium: to.query.mtm_medium,
+    },
+    CookiesService.datePlusDaysFromNow(1)
+  );
+
   document.title = to.meta?.title;
   if (to.meta?.description) {
     const tag = document.querySelector('meta[name="description"]');
