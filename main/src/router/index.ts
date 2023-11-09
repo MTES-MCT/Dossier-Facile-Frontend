@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter, { Route, RouteConfig } from "vue-router";
 import LandingPage from "../views/LandingPage.vue";
 import store from "../store";
+import { CookiesService } from "df-shared/src/services/CookiesService";
 
 Vue.use(VueRouter);
 
@@ -510,7 +511,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const lang = Vue.$cookies.get("lang") === "en" ? "en" : "fr";
+  const lang = CookiesService.getCookie("lang") === "en" ? "en" : "fr";
   store.dispatch("setLang", lang);
 
   document.title = to.meta?.title;
