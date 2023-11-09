@@ -471,7 +471,7 @@ import { StatsService } from "../services/StatsService";
   },
 })
 export default class LandingPage extends Vue {
-  TENANT_URL = `//${process.env.VUE_APP_TENANT_URL}`;
+  REGISTER_TENANT_URL = `//${process.env.VUE_APP_REGISTER_URL}`;
   DOCS_URL = `//${process.env.VUE_APP_DOCS_URL}`;
 
   validatedDossierCount = "116000";
@@ -489,7 +489,7 @@ export default class LandingPage extends Vue {
   }
 
   gotoTenant() {
-    window.location.replace(`${this.TENANT_URL}/signup`);
+    window.location.replace(`${this.REGISTER_TENANT_URL}`);
   }
 
   gotoDocs() {
