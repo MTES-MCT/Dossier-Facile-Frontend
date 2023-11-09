@@ -17,7 +17,7 @@
         <div class="page">
           <router-view :key="$route.path" />
         </div>
-        <FollowSocials />
+        <FollowSocials v-if="!isFunnel" />
       </main>
     </div>
     <Footer v-if="!isFunnel" />

@@ -61,7 +61,7 @@ function onLogout() {
       <div class="page">
         <router-view />
       </div>
-      <FollowSocials />
+      <FollowSocials v-if="hasFooter" />
     </main>
   </div>
   <div v-if="hasFooter">
