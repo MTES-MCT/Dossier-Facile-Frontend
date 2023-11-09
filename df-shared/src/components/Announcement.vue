@@ -1,7 +1,7 @@
 <template>
   <div class="announcement fr-pt-2w fr-pb-2w" v-if="isVisible()">
     <div class="fr-container message">
-      {{ MESSAGE }}
+      <span v-html="MESSAGE"></span>
       <button
         aria-label="Fermer"
         class="fr-btn--close close"
