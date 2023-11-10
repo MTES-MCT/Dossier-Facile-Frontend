@@ -46,12 +46,6 @@ export const AuthService = {
     });
   },
 
-  loadUser() {
-    return axios.get(
-      API_URL + "tenant/profile?nocache=" + new Date().getTime()
-    );
-  },
-
   confirmAccount(token: string) {
     return axios.get(`${API_URL}register/confirmAccount/${token}`);
   },
