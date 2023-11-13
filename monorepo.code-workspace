@@ -17,6 +17,10 @@
       "path": "tenant"
     },
     {
+      "name": "🙂 tenant v3",
+      "path": "tenantv3"
+    },
+    {
       "name": "🏠 owner",
       "path": "owner"
     },

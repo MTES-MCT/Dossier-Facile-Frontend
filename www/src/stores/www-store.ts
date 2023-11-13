@@ -34,7 +34,7 @@ const useOwnerStore = defineStore('www', {
         lang,
         expireTimes,
         '/',
-        MAIN_URL.endsWith('dossierfacile.logement.gouv.fr') ? 'dossierfacile.logement.gouv.fr' : 'localhost',
+        import.meta.env.COOKIE_DOMAIN || 'localhost'
       );
     },
   },

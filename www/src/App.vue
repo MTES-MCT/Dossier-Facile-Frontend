@@ -50,6 +50,7 @@ import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue';
 <style lang="scss">
 @import "df-shared-next/src/scss/_main.scss";
 @import '../node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.min.css';
+@import 'vue3-toastify/dist/index.css';
 
 #app {
   min-height: 100vh;

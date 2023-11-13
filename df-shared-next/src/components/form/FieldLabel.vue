@@ -7,8 +7,13 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
-  required: boolean;
-  forInput?: string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    required?: boolean;
+    forInput?: string;
+  }>(),
+  {
+    required: false
+  }
+);
 </script>

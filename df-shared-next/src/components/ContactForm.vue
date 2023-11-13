@@ -242,7 +242,7 @@
                           {{ t("subject") }}
                         </FieldLabel>
                         <input
-                          v-model="contactFormData.subject"
+                          v-bind="field"
                           class="form-control fr-input validate-required"
                           :class="{
                             'fr-input--valid': meta.valid,
@@ -275,7 +275,7 @@
                           {{ t("message") }}
                         </FieldLabel>
                         <textarea
-                          v-model="contactFormData.message"
+                          v-bind="field"
                           class="form-control fr-input validate-required"
                           :class="{
                             'fr-input--valid': meta.valid,
@@ -351,9 +351,15 @@ import { Form, Field, ErrorMessage } from "vee-validate";
 import "../validators/validationRules";
 
 const { t } = useI18n();
-const props = defineProps<{
-  user?: User;
-}>();
+const props = withDefaults(
+  defineProps<{
+    user?: User;
+    profile?: string;
+  }>(),
+  {
+    profile: "profile-owner",
+  }
+);
 
 const contactFormData = new ContactFormData();
 const status = ref("NEW"); // NEW, OK, KO
@@ -367,7 +373,7 @@ onMounted(() => {
       contactFormData.lastname = props.user.lastName;
     }
     contactFormData.email = props.user.email;
-    contactFormData.profile = "profile-owner";
+    contactFormData.profile = props.profile;
   }
 });
 

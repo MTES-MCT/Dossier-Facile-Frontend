@@ -137,13 +137,7 @@ const useOwnerStore = defineStore('owner', {
       const { cookies } = useCookies();
       const expireTimes = new Date();
       expireTimes.setFullYear(expireTimes.getFullYear() + 1);
-      cookies.set(
-        'lang',
-        lang,
-        expireTimes,
-        '/',
-        MAIN_URL.endsWith('dossierfacile.fr') ? 'dossierfacile.fr' : 'localhost',
-      );
+      cookies.set('lang', lang, expireTimes, '/', import.meta.env.COOKIE_DOMAIN || 'localhost');
     },
     registerSuccess() {
       this.status.loggedIn = false;
@@ -186,7 +180,7 @@ const useOwnerStore = defineStore('owner', {
           window.location.reload();
         })
         .catch(async () => {
-          console.log("Fail to logout - redirect to main");
+          console.log('Fail to logout - redirect to main');
           await this.logoutCommit();
           await this.initState();
           window.location.replace(MAIN_URL);

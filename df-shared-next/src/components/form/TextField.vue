@@ -1,0 +1,115 @@
+<template>
+  <div class="fr-input-group">
+    <FieldLabel :required="required" :for-input="name">
+      {{ fieldLabel }}
+    </FieldLabel>
+    <div class="field-with-button fr-input-wrap">
+      <div v-if="!textarea">
+        <Field
+          v-if="!textarea"
+          :id="name"
+          :name="name"
+          :value="modelValue"
+          v-on:input="updateModel($event)"
+          v-slot="{ field, meta }"
+          :rules="getValidationRules()"
+        >
+          <input
+            v-bind="field"
+            class="validate-required form-control fr-input"
+            :class="{
+              'fr-input--valid': meta.valid,
+              'fr-input--error': !meta.valid,
+            }"
+            type="text"
+            :disabled="disabled"
+          />
+        </Field>
+        <ErrorMessage :name="name" v-slot="{ message }">
+          <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+        </ErrorMessage>
+      </div>
+      <div v-else>
+        <Field
+          :id="name"
+          :name="name"
+          :value="modelValue"
+          v-on:input="updateModel($event)"
+          v-slot="{ field, meta }"
+          :rules="{
+            required: true,
+          }"
+        >
+          <textarea
+            v-bind="field"
+            type="text"
+            :value="modelValue"
+            class="validate-required form-control fr-input"
+            :class="{
+              'fr-input--valid': meta.valid,
+              'fr-input--error': !meta.valid,
+            }"
+            :disabled="disabled"
+            maxlength="2000"
+            rows="4"
+          />
+        </Field>
+        <ErrorMessage :name="name" v-slot="{ message }">
+          <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+        </ErrorMessage>
+      </div>
+      <div class="fr-ml-1w" v-if="$slots.right">
+        <slot name="right"></slot>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { useI18n } from "vue-i18n";
+import FieldLabel from "./FieldLabel.vue";
+import { Field, ErrorMessage } from "vee-validate";
+
+const { t } = useI18n();
+
+const emit = defineEmits(["update:modelValue"]);
+
+const props = withDefaults(
+  defineProps<{
+    modelValue: string;
+    fieldLabel: string;
+    name: string;
+    validationRules?: string;
+    required?: boolean;
+    disabled?: boolean;
+    textarea?: boolean;
+  }>(),
+  {
+    validationRules: "",
+    required: false,
+    disabled: false,
+    textarea: false,
+  }
+);
+
+function getValidationRules(): string {
+  const requiredRule = "required";
+  if (props.required && !props.validationRules.includes(requiredRule)) {
+    return [props.validationRules, requiredRule]
+      .filter((rule) => rule !== "")
+      .join("|");
+  }
+  return props.validationRules;
+}
+
+function updateModel(event: Event) {
+  emit("update:modelValue", (event.target as HTMLInputElement).value);
+}
+</script>
+
+<style scoped lang="scss">
+.field-with-button {
+  display: flex;
+  justify-content: space-between;
+}
+</style>

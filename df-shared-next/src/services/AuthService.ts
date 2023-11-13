@@ -1,7 +1,8 @@
 import { User } from "../models/User";
 import axios from "axios";
+import { CookiesService } from "./CookiesService";
 
-const API_URL = `https://${process.env.VUE_APP_API_URL}/api/`;
+const API_URL = `${import.meta.env.VITE_API_URL}/api/`;
 
 export const AuthService = {
   logout() {
@@ -44,6 +45,20 @@ export const AuthService = {
     return axios.post(`${API_URL}user/createPassword/${user.token}`, {
       password: user.password,
     });
+  },
+
+  loadUser() {
+    return axios
+      .get(API_URL + "tenant/profile", {
+        params: {
+          nocache: new Date().getTime(),
+          ...CookiesService.getJsonCookie("acquisition"),
+        },
+      })
+      .then((res) => {
+        CookiesService.deleteCookie("acquisition");
+        return res;
+      });
   },
 
   confirmAccount(token: string) {

@@ -6,4 +6,7 @@ export class FileUser {
 
   tenants?: User[];
   dossierPdfUrl?: string;
+  dossierPdfDocumentStatus?: string;
+  status?: string;
+  lastUpdateDate?: Date;
 }

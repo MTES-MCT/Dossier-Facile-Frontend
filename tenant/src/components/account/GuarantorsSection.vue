@@ -19,17 +19,17 @@
             <FileRowListItem
               :label="$t('guarantorssection.identification')"
               :document="document(g, 'IDENTIFICATION')"
-              @click-edit="setGuarantorSubStep(1, g)"
+              @clickEdit="setGuarantorSubStep(1, g)"
             />
             <FileRowListItem
               :label="$t('guarantorssection.residency')"
               :document="document(g, 'RESIDENCY')"
-              @click-edit="setGuarantorSubStep(2, g)"
+              @clickEdit="setGuarantorSubStep(2, g)"
             />
             <FileRowListItem
               :label="$t('guarantorssection.professional')"
               :document="document(g, 'PROFESSIONAL')"
-              @click-edit="setGuarantorSubStep(3, g)"
+              @clickEdit="setGuarantorSubStep(3, g)"
             />
             <span v-if="documents(g, 'FINANCIAL').length > 1">
               <FileRowListItem
@@ -41,19 +41,19 @@
                   $t('documents.subcategory.' + doc.subCategory)
                 "
                 :document="doc"
-                @click-edit="setGuarantorSubStep(4, g)"
+                @clickEdit="setGuarantorSubStep(4, g)"
               />
             </span>
             <FileRowListItem
               v-else
               :label="$t('guarantorssection.financial')"
               :document="document(g, 'FINANCIAL')"
-              @click-edit="setGuarantorSubStep(4, g)"
+              @clickEdit="setGuarantorSubStep(4, g)"
             />
             <FileRowListItem
               :label="$t('guarantorssection.tax')"
               :document="document(g, 'TAX')"
-              @click-edit="setGuarantorSubStep(5, g)"
+              @clickEdit="setGuarantorSubStep(5, g)"
             />
           </ul>
         </div>
@@ -62,7 +62,7 @@
             <FileRowListItem
               :label="$t('guarantorssection.organism-identification')"
               :document="document(g, 'IDENTIFICATION')"
-              @click-edit="setGuarantorSubStep(1, g)"
+              @clickEdit="setGuarantorSubStep(1, g)"
             />
           </ul>
         </div>
@@ -71,7 +71,7 @@
             <FileRowListItem
               :label="$t('guarantorssection.organism-identification')"
               :document="document(g, 'IDENTIFICATION_LEGAL_PERSON')"
-              @click-edit="setGuarantorSubStep(1, g)"
+              @clickEdit="setGuarantorSubStep(1, g)"
             />
           </ul>
         </div>
