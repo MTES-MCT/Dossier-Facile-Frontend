@@ -516,7 +516,7 @@ export default class FileErrors extends Vue {
     }
   }
 
-  openGuarantor(g: Guarantor, substep: string, tenant?: User) {
+  openGuarantor(g: Guarantor, substep: number, tenant?: User) {
     this.$store.dispatch("setGuarantorPage", {
       guarantor: g,
       substep: substep,

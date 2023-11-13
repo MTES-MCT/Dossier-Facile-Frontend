@@ -1,23 +1,26 @@
 <template>
   <div class="fr-tag" :class="getClasses()">
-    <StatusIcon v-if="status" :status="status"></StatusIcon>
+    <StatusIcon v-if="status && !hideIcon" :status="status"></StatusIcon>
+    <span class="fr-text--xs" v-if="label">{{ label }}&nbsp;:&nbsp;</span>
     {{ text }}
   </div>
 </template>
 
 <script setup lang="ts">
-import { withDefaults } from "vue";
 import StatusIcon from "./StatusIcon.vue";
 
 const props = withDefaults(
   defineProps<{
     status?: string;
+    label?: string;
     text: string;
     active?: boolean;
+    hideIcon?: boolean;
   }>(),
   {
     status: "",
     active: false,
+    hideIcon: false,
   }
 );
 
@@ -32,6 +35,8 @@ function getClasses() {
       return c + "declined-menu-link";
     case "FILLED":
       return c + "filled-menu-link";
+    case "grey":
+      return c + "grey";
   }
   return c + "empty-menu-link";
 }
@@ -47,21 +52,20 @@ function getClasses() {
     outline-offset: -2px;
   }
 }
-
 .fr-tag.to-process-menu-link {
-  background-color: #fffaf5;
-  color: #7d4e5b;
+  background-color: var(--purple-background);
+  color: var(--purple-text);
   &.active {
-    outline: 1px solid #7d4e5b;
+    outline: 1px solid var(--purple-text);
     outline-offset: -2px;
   }
 }
 
 .fr-tag.declined-menu-link {
-  background-color: #fdf9f7;
-  color: #e10600;
+  background-color: var(--warning-950-100);
+  color: var(--danger);
   &.active {
-    outline: 1px solid #e10600;
+    outline: 1px solid var(--danger);
     outline-offset: -2px;
   }
 }
@@ -83,6 +87,15 @@ function getClasses() {
     background-color: var(--background-default-grey);
     outline: 1px solid #e5e5f4;
     outline-offset: -2px;
+  }
+}
+
+.fr-tag.grey {
+  background-color: #eeeeee;
+  color: #929292;
+  &.active {
+    background-color: #eeeeee;
+    color: #161616;
   }
 }
 

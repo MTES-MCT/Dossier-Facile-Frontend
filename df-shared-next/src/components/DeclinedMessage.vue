@@ -2,13 +2,10 @@
   <div class="declined" v-html="'🤖 ' + message"></div>
 </template>
 
-<script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-
-@Component
-export default class DeclinedMessage extends Vue {
-  @Prop({ default: "" }) message?: string;
-}
+<script setup lang="ts">
+const props = withDefaults(defineProps<{ message?: string }>(), {
+  message: "",
+});
 </script>
 
 <style scoped lang="scss">

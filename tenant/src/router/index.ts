@@ -405,9 +405,9 @@ function keepGoing(to: Route, next: NavigationGuardNext<Vue>) {
 
 function registerFunnel(to: Route) {
   if (to.matched.some((record) => record.meta.hideFooter)) {
-    store.commit("isFunnel", true);
+    store.commit("updateIsFunnel", true);
   } else {
-    store.commit("isFunnel", false);
+    store.commit("updateIsFunnel", false);
   }
 }
 

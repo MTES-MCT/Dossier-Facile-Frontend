@@ -18,11 +18,13 @@
   </span>
 </template>
 
-<script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-
-@Component
-export default class FileStatusIcon extends Vue {
-  @Prop({ default: "TO_PROCESS" }) status?: string;
-}
+<script setup lang="ts">
+const props = withDefaults(
+  defineProps<{
+    status?: string;
+  }>(),
+  {
+    status: "TO_PROCESS",
+  }
+);
 </script>

@@ -3,4 +3,5 @@ export class DfMessage {
   creationDateTime?: Date;
   messageBody?: string;
   typeMessage?: string;
+  status?: string;
 }

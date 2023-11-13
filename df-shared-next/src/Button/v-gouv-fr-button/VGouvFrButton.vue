@@ -18,93 +18,70 @@
     </button>
   </div>
 </template>
-<script>
-export default {
-  name: "v-gouv-fr-button",
-  props: {
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    icon: {
-      type: String,
-      default: ""
-    },
-    iconPosition: {
-      type: String,
-      default: "left"
-    },
-    iconOnly: {
-      type: Boolean,
-      default: false
-    },
-    label: {
-      type: String,
-      default: "Bouton"
-    },
-    primary: {
-      type: Boolean,
-      default: false
-    },
-    secondary: {
-      type: Boolean,
-      default: false
-    },
-    small: {
-      type: Boolean,
-      default: false
-    },
-    large: {
-      type: Boolean,
-      default: false
-    },
-    fullWidth: {
-      type: Boolean,
-      default: false
-    },
-    btnType: {
-      type: String,
-      default: "submit"
-    },
-    ariaLabel: {
-      type: String,
-      default: undefined
-    },
-  },
-  computed: {
-    //gets type class (primary or secondary)
-    typeClass: function() {
-      if (this.secondary && !this.primary) {
-        return "fr-btn--secondary "; //trailing space for next classes
-      }
-      return "";
-    },
-    //gets size class (small, medium or large)
-    sizeClass: function() {
-      if (this.small) return "fr-btn--sm ";
-      else if (this.large) return "fr-btn--lg ";
-      else if (this.fullWidth) return "full-width ";
-      return "";
-    },
-    //gets icon class
-    iconClass: function() {
-      if (
-        this.icon === "" ||
-        (this.iconPosition !== "left" && this.iconPosition !== "right")
-      )
-        return "";
+<script setup lang="ts">
+import { computed } from "vue";
 
-      let computedIconClass = "fr-fi-" + this.icon;
-      if (!this.iconOnly) {
-        computedIconClass += " fr-btn--icon-" + this.iconPosition;
-      }
-      return computedIconClass;
-    }
-  },
-  methods: {
-    pushClick(e) {
-      this.$emit("click", e);
-    }
+const props = withDefaults(
+  defineProps<{
+    disabled?: boolean;
+    icon?: string;
+    iconPosition?: string;
+    iconOnly?: boolean;
+    label?: string;
+    primary?: boolean;
+    secondary?: boolean;
+    small?: boolean;
+    large?: boolean;
+    fullWidth?: boolean;
+    btnType?: "submit" | "button" | "reset" | undefined;
+    ariaLabel?: string;
+  }>(),
+  {
+    disabled: false,
+    icon: "",
+    iconPosition: "left",
+    iconOnly: false,
+    label: "Bouton",
+    primary: false,
+    secondary: false,
+    small: false,
+    large: false,
+    fullWidth: false,
+    btnType: "submit",
   }
-};
+);
+const emit = defineEmits(["click"]);
+
+//gets type class (primary or secondary)
+const typeClass = computed(() => {
+  if (props.secondary && !props.primary) {
+    return "fr-btn--secondary "; //trailing space for next classes
+  }
+  return "";
+});
+//gets size class (small, medium or large)
+const sizeClass = computed(() => {
+  if (props.small) return "fr-btn--sm ";
+  else if (props.large) return "fr-btn--lg ";
+  else if (props.fullWidth) return "full-width ";
+  return "";
+});
+//gets icon class
+const iconClass = computed(() => {
+  if (
+    props.icon === "" ||
+    (props.iconPosition !== "left" && props.iconPosition !== "right")
+  )
+    return "";
+
+  let computedIconClass = "fr-fi-" + props.icon;
+  if (!props.iconOnly) {
+    computedIconClass += " fr-btn--icon-" + props.iconPosition;
+  }
+  return computedIconClass;
+});
+
+function pushClick(e: any) {
+  emit("click", e);
+}
 </script>

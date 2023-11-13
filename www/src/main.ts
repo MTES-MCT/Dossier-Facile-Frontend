@@ -3,6 +3,7 @@ import { createPinia } from 'pinia'
 import i18n from './i18n';
 import { ViteSSG } from 'vite-ssg'
 import App from './App.vue'
+import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify';
 
 import routes from "./router/index"
 
@@ -23,5 +24,9 @@ export const createApp:any = ViteSSG(
     const pinia = createPinia();
     app.use(pinia)
     app.use(i18n)
+    app.use(Vue3Toastify, {
+      autoClose: 6000,
+      theme: "colored"
+    } as ToastContainerOptions);
   },
 )

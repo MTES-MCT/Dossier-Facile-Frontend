@@ -13,7 +13,7 @@
           :id="name"
           type="text"
           v-bind:value="value"
-          v-on:input="$emit('input', $event.target.value)"
+          v-on:input="$emit('input', $event.target?.value)"
           :name="name"
           class="validate-required form-control fr-input"
           :class="{
@@ -27,7 +27,7 @@
           :id="name"
           type="text"
           v-bind:value="value"
-          v-on:input="$emit('input', $event.target.value)"
+          v-on:input="$emit('input', $event.target?.value)"
           :name="name"
           class="validate-required form-control fr-input"
           :class="{

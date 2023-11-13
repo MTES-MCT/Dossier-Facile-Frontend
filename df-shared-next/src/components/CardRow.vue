@@ -36,25 +36,20 @@
   </NakedCard>
 </template>
 
-<script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+<script setup lang="ts">
 import NakedCard from "./NakedCard.vue";
 
-@Component({
-  components: {
-    NakedCard,
-  },
-})
-export default class CardRow extends Vue {
-  @Prop({ default: false }) danger!: boolean;
+const props = withDefaults(defineProps<{ danger?: boolean }>(), {
+  danger: false,
+});
+const emit = defineEmits(["edit", "remove"]);
 
-  edit() {
-    this.$emit("edit");
-  }
+function edit() {
+  emit("edit");
+}
 
-  remove() {
-    this.$emit("remove");
-  }
+function remove() {
+  emit("remove");
 }
 </script>
 

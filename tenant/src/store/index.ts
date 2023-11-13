@@ -157,7 +157,7 @@ const store = new Vuex.Store({
     updateCoTenantAuthorize(state, authorize) {
       state.coTenantAuthorize = authorize;
     },
-    isFunnel(state, isFunnel) {
+    updateIsFunnel(state, isFunnel) {
       state.isFunnel = isFunnel;
     },
     updateSkipLinks(state, skipLinks) {

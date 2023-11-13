@@ -13,6 +13,7 @@
     "www",
     "owner",
     "tenant",
+    "tenantv3",
     "watermark",
     "df-shared",
     "df-shared-next",
@@ -24,10 +25,11 @@
     "www": "yarn workspace www",
     "dfowner": "yarn workspace owner",
     "tenant": "yarn workspace tenant",
+    "tenantv3": "yarn workspace tenantv3",
     "watermark": "yarn workspace watermark",
     "e2e": "yarn workspace e2e-tests",
     "sb": "yarn workspace sb",
-    "update-lockfiles": "yarn && echo main www tenant owner watermark e2e-tests sb | xargs -n 1 cp yarn.lock"
+    "update-lockfiles": "yarn && echo main www tenant tenantv3 owner watermark e2e-tests sb | xargs -n 1 cp yarn.lock"
   },
   "devDependencies": {
     "@storybook/vue-webpack5": "7.0.2"
