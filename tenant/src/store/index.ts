@@ -20,6 +20,7 @@ import moment from "moment";
 import { ApartmentSharingLink } from "../../../df-shared/src/models/ApartmentSharingLink";
 import { ApartmentSharingLinkService } from "@/services/ApartmentSharingLinkService";
 import * as Sentry from "@sentry/vue";
+import { CookiesService } from "df-shared/src/services/CookiesService";
 
 Vue.use(Vuex);
 
@@ -356,14 +357,10 @@ const store = new Vuex.Store({
       moment.locale(lang);
       const html = document.documentElement;
       html.setAttribute("lang", i18n.locale);
-      const aYearFromNow = new Date();
-      aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1);
-      Vue.$cookies.set(
+      CookiesService.setCookie(
         "lang",
         lang,
-        aYearFromNow,
-        "",
-        MAIN_URL.endsWith("dossierfacile.fr") ? "dossierfacile.fr" : "localhost"
+        CookiesService.datePlusDaysFromNow(365)
       );
     },
     validateFile(

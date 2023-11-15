@@ -1,7 +1,7 @@
 <template>
   <div class="announcement fr-pt-2w fr-pb-2w" v-if="isVisible()">
     <div class="fr-container message">
-      {{ MESSAGE }}
+      <span v-html="MESSAGE"></span>
       <button
         aria-label="Fermer"
         class="fr-btn--close close"
@@ -13,16 +13,15 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
+import { CookiesService } from "../services/CookiesService";
 
 @Component
 export default class Announcement extends Vue {
   MESSAGE = `${process.env.VUE_APP_ANNOUNCEMENT_MESSAGE}`;
   MAIN_URL = `//${process.env.VUE_APP_MAIN_URL}`;
-  DOMAIN = `${process.env.VUE_APP_DOMAIN}`;
 
   announcementClosedCookieKey = `announcement-closed-${btoa(this.MESSAGE)}`;
-  announcementClosed =
-    this.$cookies.get(this.announcementClosedCookieKey) === "true";
+  announcementClosed = CookiesService.isTrue(this.announcementClosedCookieKey);
 
   isVisible() {
     const isMessageSet = this.MESSAGE.trim().length > 0;
@@ -35,15 +34,10 @@ export default class Announcement extends Vue {
   }
 
   createAnnouncementClosedCookie() {
-    const expirationDate = new Date();
-    expirationDate.setDate(expirationDate.getDate() + 1);
-
-    this.$cookies.set(
+    CookiesService.setCookie(
       this.announcementClosedCookieKey,
-      true,
-      expirationDate.toUTCString(),
-      "",
-      this.DOMAIN
+      "true",
+      CookiesService.datePlusDaysFromNow(1)
     );
   }
 }

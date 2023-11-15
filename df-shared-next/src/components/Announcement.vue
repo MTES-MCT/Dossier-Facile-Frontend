@@ -4,7 +4,7 @@ import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
 
 const MESSAGE = `${import.meta.env.VITE_ANNOUNCEMENT_MESSAGE}`;
-const DOMAIN = `${import.meta.env.VUE_APP_DOMAIN}`;
+const DOMAIN = `${import.meta.env.VITE_DOMAIN}`;
 
 const announcementClosedCookieKey = `announcement-closed-${btoa(MESSAGE)}`;
 const announcementClosed = ref(

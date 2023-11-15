@@ -1,5 +1,6 @@
 import { User } from 'df-shared-next/src/models/User';
 import axios from 'axios';
+import { CookiesService } from 'df-shared-next/src/services/CookiesService';
 
 const API_URL = `${import.meta.env.VITE_OWNER_API_URL}/api/`;
 
@@ -42,7 +43,17 @@ const AuthService = {
   },
 
   loadUser() {
-    return axios.get(`${API_URL}owner/profile?nocache=${new Date().getTime()}`);
+    return axios
+      .get(`${API_URL}owner/profile`, {
+        params: {
+          nocache: new Date().getTime(),
+          ...CookiesService.getJsonCookie('acquisition'),
+        },
+      })
+      .then((res) => {
+        CookiesService.deleteCookie('acquisition');
+        return res;
+      });
   },
 
   confirmAccount(token: string) {

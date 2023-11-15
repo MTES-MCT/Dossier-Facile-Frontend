@@ -1,5 +1,6 @@
 import { User } from "../models/User";
 import axios from "axios";
+import { CookiesService } from "df-shared/src/services/CookiesService";
 
 const API_URL = `https://${process.env.VUE_APP_API_URL}/api/`;
 
@@ -48,9 +49,17 @@ export const AuthService = {
   },
 
   loadUser() {
-    return axios.get(
-      API_URL + "tenant/profile?nocache=" + new Date().getTime()
-    );
+    return axios
+      .get(API_URL + "tenant/profile", {
+        params: {
+          nocache: new Date().getTime(),
+          ...CookiesService.getJsonCookie("acquisition"),
+        },
+      })
+      .then((res) => {
+        CookiesService.deleteCookie("acquisition");
+        return res;
+      });
   },
 
   confirmAccount(token: string) {

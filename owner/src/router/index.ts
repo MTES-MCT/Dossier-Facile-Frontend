@@ -1,5 +1,6 @@
 import * as VueRouter from 'vue-router';
 import { useCookies } from 'vue3-cookies';
+import { CookiesService } from 'df-shared-next/src/services/CookiesService';
 import Dashboard from '../components/Dashboard.vue';
 import LandingPage from '../components/LandingPage.vue';
 import useOwnerStore from '../store/owner-store';
@@ -256,6 +257,14 @@ router.beforeEach(async (to, _, next) => {
   const { cookies } = useCookies();
   const lang = cookies.get('lang') === 'en' ? 'en' : 'fr';
   store.setLang(lang);
+
+  if (to.query.mtm_campaign !== undefined || to.query.mtm_source !== undefined || to.query.mtm_medium !== undefined) {
+    CookiesService.setJsonCookie('acquisition', {
+      campaign: to.query.mtm_campaign,
+      source: to.query.mtm_source,
+      medium: to.query.mtm_medium,
+    }, CookiesService.datePlusDaysFromNow(1));
+  }
 
   if (to.matched.some((record) => record.meta.anonymous)) {
     updateMetaData(to);
