@@ -48,7 +48,10 @@
               </h2>
               <ul class="without-padding">
                 <RowListItem
-                  v-if="tenant.clarification !== undefined"
+                  v-if="
+                    tenant.clarification !== undefined &&
+                    tenant.clarification.trim() !== ''
+                  "
                   :label="$tc('tenantpanel.clarification-title')"
                   :subLabel="tenant.clarification"
                 />
