@@ -299,8 +299,12 @@ function keepGoing(to: RouteLocationNormalized, next: NavigationGuardNext) {
     }) &&
     store.user.status === "INCOMPLETE"
   ) {
-    store.firstProfilePage();
-    return;
+    const d: any = store.firstProfilePage();
+    if (d) {
+      next(d);
+    } else {
+      next();
+    }
   }
   document.title = to.meta?.title as string;
   if (to.meta?.description) {
