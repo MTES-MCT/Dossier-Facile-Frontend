@@ -1118,7 +1118,6 @@ const useTenantStore = defineStore('tenant', {
       this.setApartmentSharingLinks(updatedLinks);
     },
   deleteFile(id: number | string, silent = false) {
-    console.log("deletenisr")
     const $loading = useLoading({});
     const loader = $loading.show();
     const url = `${import.meta.env.VITE_API_URL}/api/file/${id}`;

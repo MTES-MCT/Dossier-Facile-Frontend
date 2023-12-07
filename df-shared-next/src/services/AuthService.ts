@@ -1,3 +1,4 @@
+import { apiService } from "./../../../tenantv3/src/services/ApiService";
 import { User } from "../models/User";
 import axios from "axios";
 import { CookiesService } from "./CookiesService";
@@ -48,8 +49,8 @@ export const AuthService = {
   },
 
   loadUser() {
-    return axios
-      .get(API_URL + "tenant/profile", {
+    return apiService
+      .get("tenant/profile", {
         params: {
           nocache: new Date().getTime(),
           ...CookiesService.getJsonCookie("acquisition"),
