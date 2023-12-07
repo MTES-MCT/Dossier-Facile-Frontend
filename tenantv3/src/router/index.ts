@@ -25,6 +25,13 @@ const router = createRouter({
     },
   },
   {
+    path: "/login",
+    redirect: () => {
+      window.location.replace(`${TENANT_URL}/account`);
+      return "/account";
+    },
+  },
+  {
     path: "/profile",
     name: "Profile",
     meta: {
