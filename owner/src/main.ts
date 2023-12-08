@@ -111,7 +111,7 @@ function mountApp() {
         tracingOrigins: [
           'localhost',
           'proprietaire-dev.dossierfacile.fr',
-          'proprietaire.dossierfacile.fr',
+          'proprietaire.dossierfacile.logement.gouv.fr',
           /^\//,
         ],
       }),

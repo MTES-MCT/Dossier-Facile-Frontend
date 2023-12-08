@@ -18,6 +18,9 @@ import {LoadingPlugin} from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/css/index.css';
 import { defineRule } from 'vee-validate';
 import MatomoPlugin from './plugin/matomo';
+import * as Sentry from '@sentry/vue';
+
+const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT;
 
 defineRule('onlyAlpha', (value: any) => {
   if (!value.match("^[a-zA-Z \\-'’àâäçéèêëîïôöùûüÿæœÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸÆŒ]*$")) {
@@ -156,6 +159,14 @@ keycloak
     }
 
     const app = createApp(App)
+
+    Sentry.init({
+      app,
+      dsn: "https://7032afeb9b1740f68e01148573cff778@sentry.incubateur.net/98",
+      environment: ENVIRONMENT,
+      tracesSampleRate: 1.0,
+    });
+
     app.use(createPinia())
     app.use(router)
     app.use(i18n)

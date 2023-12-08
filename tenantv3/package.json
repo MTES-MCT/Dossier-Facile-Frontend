@@ -22,7 +22,7 @@
   "dependencies": {
     "@gouvfr/dsfr": "^1.10.2",
     "@intlify/vite-plugin-vue-i18n": "^7.0.0",
-    "@sentry/vue": "^7.80.0",
+    "@sentry/vue": "^7.86.0",
     "@vee-validate/rules": "^4.12.2",
     "axios": "^1.6.2",
     "df-shared-next": "0.1.0",
