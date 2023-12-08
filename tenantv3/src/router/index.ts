@@ -298,21 +298,21 @@ const router = createRouter({
   },
 })
 
-function keepGoing(to: RouteLocationNormalized, next: NavigationGuardNext) {
-  const store = useTenantStore();
-  if (
-    to.matched.some((record: { path: string }) => {
-      return record.path === "/account";
-    }) &&
-    store.user.status === "INCOMPLETE"
-  ) {
-    const d: any = store.firstProfilePage();
-    if (d) {
-      next(d);
-    } else {
-      next();
-    }
-  }
+async function keepGoing(to: RouteLocationNormalized, next: NavigationGuardNext) {
+  // TODO : put back redirect to first profile page, "next" is currently  broken
+  // const store = useTenantStore();
+  // if (
+  //   to.matched.some((record: { path: string }) => {
+  //     return record.path === "/account";
+  //   }) &&
+  //   store.user.status === "INCOMPLETE"
+  // ) {
+  //   const d: any = await store.firstProfilePage();
+  //   if (d) {
+  //     next(d);
+  //     return;
+  //   }
+  // }
   document.title = to.meta?.title as string;
   if (to.meta?.description) {
     const tag = document.querySelector('meta[name="description"]');
