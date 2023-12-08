@@ -27,7 +27,7 @@ Sentry.init({
       ],
     }),
   ],
-  tracesSampleRate: 1.0,
+  tracesSampleRate: 0.01,
 });
 
 app.use(i18n);
