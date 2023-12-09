@@ -14,284 +14,295 @@ let updateTokenInterval: NodeJS.Timer;
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-  {
-    path: "/",
-    name: "Home",
-    component: Home,
-    meta: {
-      title: "DossierFacile, le dossier de location numérique de l’État",
-      description:
-        "Créez un dossier de location en ligne complet et vérifié par l'Etat pour trouver votre appartement ou votre logement",
+    {
+      path: "/",
+      name: "Home",
+      component: Home,
+      meta: {
+        title: "DossierFacile, le dossier de location numérique de l’État",
+        description:
+          "Créez un dossier de location en ligne complet et vérifié par l'Etat pour trouver votre appartement ou votre logement",
+      },
     },
-  },
-  {
-    path: "/login",
-    redirect: () => {
-      window.location.replace(`${TENANT_URL}/account`);
-      return "/account";
+    {
+      path: "/login",
+      redirect: () => {
+        window.location.replace(`${TENANT_URL}/account`);
+        return "/account";
+      },
     },
-  },
-  {
-    path: "/profile",
-    name: "Profile",
-    meta: {
-      title: "Édition du profil - DossierFacile",
-      requiresAuth: true,
-      hideFooter: true,
-      skipLinks: [CONTENT, FOOTER_NAVIGATION],
+    {
+      path: "/profile",
+      name: "Profile",
+      meta: {
+        title: "Édition du profil - DossierFacile",
+        requiresAuth: true,
+        hideFooter: true,
+        skipLinks: [CONTENT, FOOTER_NAVIGATION],
+      },
+      component: () =>
+        import(/* webpackChunkName: "profile" */ "../views/NameInformation.vue"),
     },
-    component: () =>
-      import(/* webpackChunkName: "profile" */ "../views/NameInformation.vue"),
-  },
-  {
-    path: "/nom-locataire",
-    name: "TenantName",
-    meta: {
-      title: "Édition du profil - DossierFacile",
-      requiresAuth: true,
-      hideFooter: true,
-      skipLinks: [CONTENT, FOOTER_NAVIGATION],
+    {
+      path: "/nom-locataire",
+      name: "TenantName",
+      meta: {
+        title: "Édition du profil - DossierFacile",
+        requiresAuth: true,
+        hideFooter: true,
+        skipLinks: [CONTENT, FOOTER_NAVIGATION],
+      },
+      component: () =>
+        import(/* webpackChunkName: "profile" */ "../views/NameInformation.vue"),
     },
-    component: () =>
-      import(/* webpackChunkName: "profile" */ "../views/NameInformation.vue"),
-  },
-  {
-    path: "/type-locataire",
-    name: "TenantType",
-    meta: {
-      title: "Mes informations - DossierFacile",
-      requiresAuth: true,
-      hideFooter: true,
-      skipLinks: FUNNEL_SKIP_LINKS,
+    {
+      path: "/type-locataire",
+      name: "TenantType",
+      meta: {
+        title: "Mes informations - DossierFacile",
+        requiresAuth: true,
+        hideFooter: true,
+        skipLinks: FUNNEL_SKIP_LINKS,
+      },
+      component: () =>
+        import(/* webpackChunkName: "profile" */ "../views/TypeInformation.vue"),
     },
-    component: () =>
-      import(/* webpackChunkName: "profile" */ "../views/TypeInformation.vue"),
-  },
-  {
-    path: "/documents-locataire/:substep",
-    name: "TenantDocuments",
-    meta: {
-      title: "Mes documents - DossierFacile",
-      requiresAuth: true,
-      hideFooter: true,
-      skipLinks: FUNNEL_SKIP_LINKS,
+    {
+      path: "/documents-locataire/:substep",
+      name: "TenantDocuments",
+      meta: {
+        title: "Mes documents - DossierFacile",
+        requiresAuth: true,
+        hideFooter: true,
+        skipLinks: FUNNEL_SKIP_LINKS,
+      },
+      component: () =>
+        import(/* webpackChunkName: "profile" */ "../views/TenantDocument.vue"),
     },
-    component: () =>
-      import(/* webpackChunkName: "profile" */ "../views/TenantDocument.vue"),
-  },
-  {
-    path: "/documents-colocataire/:tenantId/:step/:substep/",
-    name: "CoTenantDocuments",
-    meta: {
-      title: "Édition du profil - DossierFacile",
-      requiresAuth: true,
-      hideFooter: true,
-      skipLinks: FUNNEL_SKIP_LINKS,
+    {
+      path: "/documents-colocataire/:tenantId/:step/:substep/",
+      name: "CoTenantDocuments",
+      meta: {
+        title: "Édition du profil - DossierFacile",
+        requiresAuth: true,
+        hideFooter: true,
+        skipLinks: FUNNEL_SKIP_LINKS,
+      },
+      component: () =>
+        import(/* webpackChunkName: "profile" */ "../views/CoTenantDocument.vue"),
     },
-    component: () =>
-      import(/* webpackChunkName: "profile" */ "../views/CoTenantDocument.vue"),
-  },
-  {
-    path: "/choix-garant",
-    name: "GuarantorChoice",
-    meta: {
-      title: "Mon garant - DossierFacile",
-      requiresAuth: true,
-      hideFooter: true,
-      skipLinks: FUNNEL_SKIP_LINKS,
-    },
-    component: () =>
-      import(
+    {
+      path: "/choix-garant",
+      name: "GuarantorChoice",
+      meta: {
+        title: "Mon garant - DossierFacile",
+        requiresAuth: true,
+        hideFooter: true,
+        skipLinks: FUNNEL_SKIP_LINKS,
+      },
+      component: () =>
+        import(
         /* webpackChunkName: "profile" */ "../views/GuarantorChoicePage.vue"
-      ),
-  },
-  {
-    path: "/liste-garants",
-    name: "GuarantorList",
-    meta: {
-      title: "Mon garant - DossierFacile",
-      requiresAuth: true,
-      hideFooter: true,
-      skipLinks: FUNNEL_SKIP_LINKS,
+        ),
     },
-    component: () =>
-      import(
+    {
+      path: "/liste-garants",
+      name: "GuarantorList",
+      meta: {
+        title: "Mon garant - DossierFacile",
+        requiresAuth: true,
+        hideFooter: true,
+        skipLinks: FUNNEL_SKIP_LINKS,
+      },
+      component: () =>
+        import(
         /* webpackChunkName: "profile" */ "../views/GuarantorListPage.vue"
-      ),
-  },
-  {
-    path: "/garants-locataire/:tenantId/:step",
-    name: "TenantGuarantors",
-    meta: {
-      title: "Édition du garant du locataire - DossierFacile",
-      requiresAuth: true,
-      hideFooter: true,
-      skipLinks: FUNNEL_SKIP_LINKS,
+        ),
     },
-    component: () =>
-      import(
+    {
+      path: "/garants-locataire/:tenantId/:step",
+      name: "TenantGuarantors",
+      meta: {
+        title: "Édition du garant du locataire - DossierFacile",
+        requiresAuth: true,
+        hideFooter: true,
+        skipLinks: FUNNEL_SKIP_LINKS,
+      },
+      component: () =>
+        import(
         /* webpackChunkName: "profile" */ "../views/TenantGuarantorsPage.vue"
-      ),
-  },
-  {
-    path: "/validation-dossier",
-    name: "ValidateFile",
-    meta: {
-      title: "Validation du dossier locataire - DossierFacile",
-      requiresAuth: true,
-      hideFooter: true,
-      skipLinks: FUNNEL_SKIP_LINKS,
+        ),
     },
-    component: () =>
-      import(/* webpackChunkName: "profile" */ "../views/ValidateFilePage.vue"),
-  },
-  {
-    path: "/validation-dossier/:step",
-    name: "ValidateFileStep",
-    meta: {
-      title: "Validation du dossier locataire - DossierFacile",
-      requiresAuth: true,
-      hideFooter: true,
-      skipLinks: FUNNEL_SKIP_LINKS,
+    {
+      path: "/validation-dossier",
+      name: "ValidateFile",
+      meta: {
+        title: "Validation du dossier locataire - DossierFacile",
+        requiresAuth: true,
+        hideFooter: true,
+        skipLinks: FUNNEL_SKIP_LINKS,
+      },
+      component: () =>
+        import(/* webpackChunkName: "profile" */ "../views/ValidateFilePage.vue"),
     },
-    component: () =>
-      import(/* webpackChunkName: "profile" */ "../views/ValidateFilePage.vue"),
-  },
-  {
-    path: "/info-garant/:substep/:guarantorId?",
-    name: "GuarantorDocuments",
-    meta: {
-      title: "Mon garant - DossierFacile",
-      requiresAuth: true,
-      hideFooter: true,
-      skipLinks: FUNNEL_SKIP_LINKS,
+    {
+      path: "/validation-dossier/:step",
+      name: "ValidateFileStep",
+      meta: {
+        title: "Validation du dossier locataire - DossierFacile",
+        requiresAuth: true,
+        hideFooter: true,
+        skipLinks: FUNNEL_SKIP_LINKS,
+      },
+      component: () =>
+        import(/* webpackChunkName: "profile" */ "../views/ValidateFilePage.vue"),
     },
-    beforeEnter: async (to, from, next) => {
-      const store = useTenantStore();
-      if (
-        (!store.selectedGuarantor?.firstName ||
-          !store.selectedGuarantor?.lastName) &&
-        to.params.substep !== "0"
-      ) {
-        next({ name: "GuarantorDocuments", params: { substep: "0" } });
-      }
-      next();
-    },
-    component: () =>
-      import(
+    {
+      path: "/info-garant/:substep/:guarantorId?",
+      name: "GuarantorDocuments",
+      meta: {
+        title: "Mon garant - DossierFacile",
+        requiresAuth: true,
+        hideFooter: true,
+        skipLinks: FUNNEL_SKIP_LINKS,
+      },
+      beforeEnter: async (to, from, next) => {
+        const store = useTenantStore();
+        if (
+          (!store.selectedGuarantor?.firstName ||
+            !store.selectedGuarantor?.lastName) &&
+          to.params.substep !== "0"
+        ) {
+          next({ name: "GuarantorDocuments", params: { substep: "0" } });
+        }
+        next();
+      },
+      component: () =>
+        import(
         /* webpackChunkName: "profile" */ "../views/GuarantorDocumentsPage.vue"
-      ),
-  },
-  {
-    path: "/info-garant-locataire/:tenantId/:guarantorId/:step/:substep?",
-    name: "TenantGuarantorDocuments",
-    meta: {
-      title: "Édition du garant du locataire - DossierFacile",
-      requiresAuth: true,
-      hideFooter: true,
-      skipLinks: FUNNEL_SKIP_LINKS,
+        ),
     },
-    component: () =>
-      import(
+    {
+      path: "/info-garant-locataire/:tenantId/:guarantorId/:step/:substep?",
+      name: "TenantGuarantorDocuments",
+      meta: {
+        title: "Édition du garant du locataire - DossierFacile",
+        requiresAuth: true,
+        hideFooter: true,
+        skipLinks: FUNNEL_SKIP_LINKS,
+      },
+      component: () =>
+        import(
         /* webpackChunkName: "profile" */ "../views/TenantGuarantorDocumentsPage.vue"
-      ),
-  },
-  {
-    path: "/public-file/:token",
-    name: "File",
-    meta: {
-      title: "Dossier - DossierFacile",
+        ),
     },
-    component: () =>
-      import(/* webpackChunkName: "file" */ "../views/PublicFile.vue"),
-  },
-  {
-    path: "/file/:token",
-    name: "PublicFile",
-    meta: {
-      title: "Dossier - DossierFacile",
+    {
+      path: "/public-file/:token",
+      name: "File",
+      meta: {
+        title: "Dossier - DossierFacile",
+      },
+      component: () =>
+        import(/* webpackChunkName: "file" */ "../views/PublicFile.vue"),
     },
-    component: () => import(/* webpackChunkName: "file" */ "../views/File.vue"),
-  },
-  {
-    path: "/account",
-    name: "Account",
-    meta: {
-      title: "Mon dossier - DossierFacile",
-      requiresAuth: true,
+    {
+      path: "/file/:token",
+      name: "PublicFile",
+      meta: {
+        title: "Dossier - DossierFacile",
+      },
+      component: () => import(/* webpackChunkName: "file" */ "../views/File.vue"),
     },
-    component: () =>
-      import(/* webpackChunkName: "account" */ "../views/Account.vue"),
-  },
-  {
-    path: "/applications",
-    name: "SharingPage",
-    meta: {
-      title: "Mes candidatures - DossierFacile",
-      requiresAuth: true,
+    {
+      path: "/account",
+      name: "Account",
+      meta: {
+        title: "Mon dossier - DossierFacile",
+        requiresAuth: true,
+      },
+      beforeEnter: async (to, from, next) => {
+        const store = useTenantStore();
+        if ( store.user.status === "INCOMPLETE") {
+          const d: any = await store.firstProfilePage();
+          if (d) {
+            next(d);
+            return;
+          }
+        }
+        next()
+      },
+      component: () =>
+        import(/* webpackChunkName: "account" */ "../views/Account.vue"),
     },
-    component: () =>
-      import(/* webpackChunkName: "account" */ "../views/SharingPage.vue"),
-  },
-  {
-    path: "/messaging",
-    name: "Messages",
-    meta: {
-      title: "Messages - DossierFacile",
-      requiresAuth: true,
+    {
+      path: "/applications",
+      name: "SharingPage",
+      meta: {
+        title: "Mes candidatures - DossierFacile",
+        requiresAuth: true,
+      },
+      component: () =>
+        import(/* webpackChunkName: "account" */ "../views/SharingPage.vue"),
     },
-    component: () =>
-      import(/* webpackChunkName: "messages" */ "../views/Messages.vue"),
-  },
-  // {
-  //   path: "/confirmAccount/:token",
-  //   name: "Confirm",
-  //   meta: {
-  //     title: "Confirmation de compte - DossierFacile",
-  //     hideForAuth: true,
-  //   },
-  //   component: () =>
-  //     import(
-  //       /* webpackChunkName: "confirmAccount" */ "../views/ConfirmAccount.vue"
-  //     ),
-  // },
-  // {
-  //   path: "/ajout-couple/:token",
-  //   name: "Couple",
-  //   meta: {
-  //     title: "Confirmation de compte - DossierFacile",
-  //   },
-  //   component: () =>
-  //     import(/* webpackChunkName: "register" */ "../views/JoinCouple.vue"),
-  // },
-  // {
-  //   path: "/ajout-groupe/:token",
-  //   name: "Group",
-  //   meta: {
-  //     title: "Confirmation de compte - DossierFacile",
-  //   },
-  //   component: () =>
-  //     import(/* webpackChunkName: "register" */ "../views/JoinGroup.vue"),
-  // },
-  {
-    path: "/contact",
-    name: "Contact",
-    meta: {
-      title: "Contact - DossierFacile",
-      requiresAuth: false,
+    {
+      path: "/messaging",
+      name: "Messages",
+      meta: {
+        title: "Messages - DossierFacile",
+        requiresAuth: true,
+      },
+      component: () =>
+        import(/* webpackChunkName: "messages" */ "../views/Messages.vue"),
     },
-    component: () =>
-      import(/* webpackChunkName: "contact" */ "../views/Contact.vue"),
-  },
-  {
-    path: '/:pathMatch(.*)',
-    name: "catchall",
-    meta: {
-      title: "404 - DossierFacile",
+    // {
+    //   path: "/confirmAccount/:token",
+    //   name: "Confirm",
+    //   meta: {
+    //     title: "Confirmation de compte - DossierFacile",
+    //     hideForAuth: true,
+    //   },
+    //   component: () =>
+    //     import(
+    //       /* webpackChunkName: "confirmAccount" */ "../views/ConfirmAccount.vue"
+    //     ),
+    // },
+    // {
+    //   path: "/ajout-couple/:token",
+    //   name: "Couple",
+    //   meta: {
+    //     title: "Confirmation de compte - DossierFacile",
+    //   },
+    //   component: () =>
+    //     import(/* webpackChunkName: "register" */ "../views/JoinCouple.vue"),
+    // },
+    // {
+    //   path: "/ajout-groupe/:token",
+    //   name: "Group",
+    //   meta: {
+    //     title: "Confirmation de compte - DossierFacile",
+    //   },
+    //   component: () =>
+    //     import(/* webpackChunkName: "register" */ "../views/JoinGroup.vue"),
+    // },
+    {
+      path: "/contact",
+      name: "Contact",
+      meta: {
+        title: "Contact - DossierFacile",
+        requiresAuth: false,
+      },
+      component: () =>
+        import(/* webpackChunkName: "contact" */ "../views/Contact.vue"),
     },
-    component: () =>
-      import(/* webpackChunkName: "404" */ "../views/NotFound404.vue"),
-  },
+    {
+      path: '/:pathMatch(.*)',
+      name: "catchall",
+      meta: {
+        title: "404 - DossierFacile",
+      },
+      component: () =>
+        import(/* webpackChunkName: "404" */ "../views/NotFound404.vue"),
+    },
   ],
   scrollBehavior() {
     document.getElementById("app")?.scrollIntoView();
@@ -299,20 +310,6 @@ const router = createRouter({
 })
 
 async function keepGoing(to: RouteLocationNormalized, next: NavigationGuardNext) {
-  // TODO : put back redirect to first profile page, "next" is currently  broken
-  // const store = useTenantStore();
-  // if (
-  //   to.matched.some((record: { path: string }) => {
-  //     return record.path === "/account";
-  //   }) &&
-  //   store.user.status === "INCOMPLETE"
-  // ) {
-  //   const d: any = await store.firstProfilePage();
-  //   if (d) {
-  //     next(d);
-  //     return;
-  //   }
-  // }
   document.title = to.meta?.title as string;
   if (to.meta?.description) {
     const tag = document.querySelector('meta[name="description"]');
@@ -371,7 +368,7 @@ router.beforeEach(async (to: RouteLocationNormalized, from, next: NavigationGuar
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!keycloak.authenticated) {
-    // The page is protected and the user is not authenticated. Force a login.
+      // The page is protected and the user is not authenticated. Force a login.
       keycloak.login({
         redirectUri: TENANT_URL + to.fullPath,
       });
