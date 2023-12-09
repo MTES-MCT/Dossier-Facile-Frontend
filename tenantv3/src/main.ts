@@ -107,7 +107,7 @@ defineRule('positiveOrNull', (value: any) => {
 });
 
 const TENANT_API_URL = import.meta.env.VITE_API_URL;
-const MAIN_URL = import.meta.env.VITE_MAIN_URL;
+const COOKIE_DOMAIN = import.meta.env.VITE_COOKIE_DOMAIN;
 
 keycloak
   .init({ onLoad: 'check-sso', checkLoginIframe: false })
@@ -117,7 +117,7 @@ keycloak
           globalCookiesConfig({
             expireTimes: aYearFromNow.toUTCString(),
             path: '/',
-            domain: MAIN_URL,
+            domain: COOKIE_DOMAIN,
             secure: true,
             sameSite: 'None',
           });

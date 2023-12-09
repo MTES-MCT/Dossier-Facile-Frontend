@@ -86,7 +86,6 @@
                         {{ t("financialdocumentform.low-salary") }}
                       </span>
                     </div>
-                  <!-- </validation-provider> -->
                 </div>
               </div>
             </div>
@@ -149,10 +148,6 @@
                 </label>
               </div>
               <div class="fr-mb-5w" v-if="financialDocument.noDocument">
-                <!-- <validation-provider
-                  :rules="{ required: true }"
-                  v-slot="{ errors, valid }"
-                > -->
                   <div class="fr-input-group">
                     <label class="fr-label" for="customText">
                       {{
@@ -161,29 +156,36 @@
                         )
                       }}
                     </label>
-                      <!-- :class="{
-                        'fr-input--valid': valid,
-                        'fr-input--error': errors[0],
-                      }" -->
+          <Field
+            name="customText"
+            v-slot="{ field, meta }"
+            v-model="financialDocument.customText"
+            :rules="{
+              required: true,
+            }"
+          >
                     <textarea
-                      v-model="financialDocument.customText"
+                      v-bind="field"
                       class="form-control fr-input validate-required"
                       id="customText"
-                      name="customText"
                       placeholder=""
                       type="text"
                       maxlength="2000"
                       rows="3"
+                      :class="{
+                        'fr-input--valid': meta.valid,
+                        'fr-input--error': !meta.valid,
+                      }"
                       required
                     />
                     <span
                       >{{ financialDocument.customText.length }} / 2000</span
                     >
-                    <!-- <span class="fr-error-text" v-if="errors[0]">{{
-                      t(errors[0])
-                    }}</span> -->
+                    </Field>
+            <ErrorMessage name="customText" v-slot="{ message }">
+              <span role="alert" class="fr-error-text">{{ $t(message || "") }}</span>
+            </ErrorMessage>
                   </div>
-                <!-- </validation-provider> -->
               </div>
             </div>
           </div>
@@ -269,6 +271,7 @@ import useTenantStore from "@/stores/tenant-store";
 import { computed, onBeforeMount, ref } from "vue";
 import { ToastService } from "@/services/ToastService";
 import { useLoading } from 'vue-loading-overlay';
+import { Form, Field, ErrorMessage } from "vee-validate";
 
     const store = useTenantStore();
     const user = computed(() => {

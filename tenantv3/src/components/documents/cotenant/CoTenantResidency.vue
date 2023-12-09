@@ -56,7 +56,7 @@
       <FooterContainer>
         <BackNext
           :showBack="true"
-          @on-next="!invalidCustomText && goNext"
+          @on-next="(documentType.key !== 'other-residency' || !invalidCustomText) && goNext()"
           @on-back="goBack()"
         >
         </BackNext>
@@ -78,7 +78,7 @@ import { ToastService } from "@/services/ToastService";
 import { useLoading } from 'vue-loading-overlay';
 import { onBeforeMount, ref } from "vue";
 import useTenantStore from "@/stores/tenant-store";
-import { Field, ErrorMessage, useFieldError } from "vee-validate";
+import { Field, useFieldError } from "vee-validate";
 
 const invalidCustomText = useFieldError("customText");
 
