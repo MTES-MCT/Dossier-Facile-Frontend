@@ -1,6 +1,6 @@
 import { useCookies } from "vue3-cookies";
 
-const DOMAIN = `${import.meta.env.VITE_DOMAIN}`;
+const DOMAIN = `${import.meta.env.VITE_COOKIE_DOMAIN}`;
 
 const { cookies } = useCookies();
 

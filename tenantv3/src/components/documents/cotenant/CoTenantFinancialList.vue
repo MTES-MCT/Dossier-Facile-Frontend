@@ -9,7 +9,6 @@
         @on-next="goNext"
         @on-back="goBack"
       ></CoTenantFinancialForm>
-      {{  financialDocument }}
     </div>
     <div v-else>
       <NakedCard class="fr-p-md-5w fr-mb-3w">
@@ -246,7 +245,7 @@ const { t } = useI18n();
   function allowNoIncome(): boolean {
     return (
       !hasFinancial() ||
-      financialDocument.value.documentType.key === "no-income"
+      financialDocument.value?.documentType.key === "no-income"
     );
   }
 </script>

@@ -86,7 +86,7 @@
                       >
                         <div class="fr-grid-row">
                           <div class="name fr-col-xs-12 fr-col fr-mr-1w">
-                            {{ tenantFullName }}
+                            {{ UtilsService.tenantFullName(tenant) }}
                             <span
                               :class="{
                                 'fr-fi-icon-fc': tenant.franceConnect,
@@ -188,10 +188,6 @@ import { useRouter } from "vue-router";
   const user = computed(() => store.user);
   const tabIndex = ref(0);
   const router = useRouter();
-
-  const tenantFullName = computed(() => {
-    return UtilsService.tenantFullName(user.value);
-  });
 
   onMounted(() => {
     window.Beacon("init", "d949ac15-a9eb-4316-b0c5-f92cecc7118f");
