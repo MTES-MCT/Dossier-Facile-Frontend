@@ -216,7 +216,6 @@ const { t } = useI18n();
   }
 
 function setMonthlySum($event: any) {
-  console.dir(document.value)
   document.value.monthlySum = $event.target.value
   console.dir(document.value)
   emit('update:modelValue', document.value)

@@ -245,7 +245,7 @@ const { t } = useI18n();
   function allowNoIncome(): boolean {
     return (
       !hasFinancial() ||
-      financialDocument.value?.documentType.key === "no-income"
+      financialDocument.value?.documentType?.key === "no-income"
     );
   }
 </script>
