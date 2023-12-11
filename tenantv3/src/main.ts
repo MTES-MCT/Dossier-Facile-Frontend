@@ -16,7 +16,7 @@ import keycloak from './plugin/keycloak';
 import axios from 'axios';
 import {LoadingPlugin} from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/css/index.css';
-import { defineRule } from 'vee-validate';
+import { configure, defineRule } from 'vee-validate';
 import MatomoPlugin from './plugin/matomo';
 import * as Sentry from '@sentry/vue';
 
@@ -104,6 +104,9 @@ defineRule('positiveOrNull', (value: any) => {
     return 'number-not-positive-or-null';
   }
   return true;
+});
+configure({
+  validateOnInput: true,
 });
 
 const TENANT_API_URL = import.meta.env.VITE_API_URL;
