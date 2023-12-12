@@ -2,14 +2,13 @@
   <small>
     <i18n-t keypath="instruction">
       <template v-slot:asterix>
-        <span style="color:red">*</span>
+        <span style="color: red">*</span>
       </template>
     </i18n-t>
   </small>
 </template>
 
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <style scoped lang="scss"></style>
 
