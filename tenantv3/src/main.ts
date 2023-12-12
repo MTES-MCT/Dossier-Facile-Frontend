@@ -22,6 +22,13 @@ import * as Sentry from '@sentry/vue';
 
 const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT;
 
+declare global {
+  interface Window {
+    _paq: any;
+    Beacon: any;
+  }
+}
+
 defineRule('onlyAlpha', (value: any) => {
   if (!value.match("^[a-zA-Z \\-'’àâäçéèêëîïôöùûüÿæœÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸÆŒ]*$")) {
     return 'only-alpha';
