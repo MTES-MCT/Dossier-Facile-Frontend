@@ -5,16 +5,8 @@
       "path": "."
     },
     {
-      "name": "🚀 main",
-      "path": "main"
-    },
-    {
       "name": "🚀 www",
       "path": "www"
-    },
-    {
-      "name": "🙂 tenant",
-      "path": "tenant"
     },
     {
       "name": "🙂 tenant v3",
@@ -27,10 +19,6 @@
     {
       "name": "📝 watermark",
       "path": "waterkmark"
-    },
-    {
-      "name": "📘 df-shared",
-      "path": "df-shared"
     },
     {
       "name": "📘 df-shared-next",
