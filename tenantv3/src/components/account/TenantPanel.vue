@@ -196,68 +196,6 @@ h2 {
   position: relative;
 }
 
-.grp-modal {
-  position: absolute;
-  border-radius: 5px;
-  right: 0;
-  left: auto;
-  width: max-content;
-  z-index: 2;
-  padding: 1rem;
-  width: 330px;
-
-  @media all and (max-width: 768px) {
-    max-width: 300px;
-  }
-
-  &:before {
-    top: -16px;
-    right: 9px;
-    left: auto;
-    border: 8px solid transparent;
-    border-bottom: 8px solid var(--color-border-overlay);
-    position: absolute;
-    display: inline-block;
-    content: "";
-  }
-}
-
-.copy-btn {
-  max-width: 100%;
-  > button {
-    width: 100%;
-    text-align: justify;
-    border-radius: 0.25rem;
-    padding: 1rem;
-    font-size: 1rem;
-    box-shadow: 0 0.5px 4px 0 #cecece;
-    border: 1px solid transparent;
-
-    -webkit-transition: all 0.5s linear;
-    -moz-transition: all 0.5s linear;
-    -o-transition: all 0.5s linear;
-    transition: all 0.5s linear;
-
-    &:hover {
-      box-shadow: none;
-      border: 1px solid var(--primary);
-      box-shadow: 0 0.5px 4px 0 transparent;
-      background-image: none;
-    }
-
-    &.copied {
-      color: var(--primary);
-      background-color: var(--background-action-low-blue-france);
-      border: 1px solid var(--primary);
-      box-shadow: 0 0.5px 4px 0 transparent;
-      -webkit-transition: all 0.5s linear;
-      -moz-transition: all 0.5s linear;
-      -o-transition: all 0.5s linear;
-      transition: all 0.5s linear;
-    }
-  }
-}
-
 p {
   word-break: break-word;
 }

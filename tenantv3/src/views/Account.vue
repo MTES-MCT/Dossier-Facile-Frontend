@@ -458,13 +458,6 @@ hr {
   }
 }
 
-.main-copy-btn {
-  height: 2.5rem;
-  @media all and (max-width: 600px) {
-    flex: 1;
-  }
-}
-
 .share-file-description {
   max-width: fit-content;
 }
