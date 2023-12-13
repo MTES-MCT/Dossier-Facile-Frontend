@@ -44,6 +44,8 @@
   "max-file": "Nombre de fichiers maximum atteint (actuellement : {0} / maximum : {1}), veuillez en supprimer",
   "error": "Une erreur est survenue",
   "unable-to-copy": "Impossible de copier",
+  "strength-not-valid": "Le mot de passe est trop simple",
+  "confirm-not-valid": "Le mot de passe ne correspond pas",
   "email-not-valid": "Email non valide",
   "zipcode-not-valid": "Code postal non valide.",
   "only-alpha": "Seuls les caractères alphabétiques ainsi que [ , -, '] sont autorisés",

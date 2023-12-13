@@ -37,6 +37,8 @@
   "max-file": "Maximum number of files reached (currently: {0} / maximum: {1}), please delete some",
   "error": "An error occurred",
   "unable-to-copy": "unable to copy",
+  "strength-not-valid": "The password is too weak",
+  "confirm-not-valid": "The password does not match",
   "email-not-valid": "Invalid email",
   "zipcode-not-valid": "Invalid postal code.",
   "only-alpha": "Only alphabetic characters, [ , -, '] are allowed",
