@@ -37,8 +37,17 @@ defineRule('onlyAlpha', (value: any) => {
 })
 
 defineRule('zipcode', (value: any) => {
+  if (!value) {
+    return true;
+  }
   if (!value.match("^[0-9]{5}$")) {
     return "zipcode-not-valid"
+  }
+  return true
+})
+defineRule('regex', (_value: any, [regex]: number[]) => {
+  if (!_value.toString().match(regex)) {
+    return "regex-not-valid"
   }
   return true
 })

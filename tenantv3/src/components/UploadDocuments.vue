@@ -22,8 +22,8 @@
     </div>
     <ConfirmModal
       v-if="showNbDocumentsResidencyTenant"
-      :validate-btn-text="$tc('uploaddocuments.accept-warning')"
-      :cancel-btn-text="$tc('uploaddocuments.ignore-warning')"
+      :validate-btn-text="$t('uploaddocuments.accept-warning')"
+      :cancel-btn-text="$t('uploaddocuments.ignore-warning')"
       @cancel="cancelAndgoNext()"
       @close="showNbDocumentsResidencyTenant = false"
       @valid="showNbDocumentsResidencyTenant = false"
@@ -34,8 +34,8 @@
     </ConfirmModal>
     <ConfirmModal
       v-if="showNbDocumentsResidency"
-      :validate-btn-text="$tc('uploaddocuments.accept-warning')"
-      :cancel-btn-text="$tc('uploaddocuments.ignore-warning')"
+      :validate-btn-text="$t('uploaddocuments.accept-warning')"
+      :cancel-btn-text="$t('uploaddocuments.ignore-warning')"
       @cancel="cancelAndgoNext()"
       @close="showNbDocumentsResidency = false"
       @valid="showNbDocumentsResidency = false"
@@ -51,12 +51,11 @@ import Residency from "./documents/tenant/Residency.vue";
 import Professional from "./documents/tenant/Professional.vue";
 import Financial from "./documents/tenant/Financial.vue";
 import Tax from "./documents/tenant/Tax.vue";
-import { User } from "df-shared-next/src/models/User";
 import { AnalyticsService } from "../services/AnalyticsService";
 import ProfileFooter from "./footer/ProfileFooter.vue";
-import { DocumentService } from "@/services/DocumentService";
+import { DocumentService } from "../services/DocumentService";
 import ConfirmModal from "df-shared-next/src/components/ConfirmModal.vue";
-import useTenantStore from "@/stores/tenant-store";
+import useTenantStore from "../stores/tenant-store";
 import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 
@@ -108,7 +107,7 @@ import { useRouter } from "vue-router";
       const d = docs[0];
       if (d.subCategory === "TENANT") {
         const nbPages = d.files?.reduce(
-          (s, a) => s + (a.numberOfPages || 0),
+          (s: any, a: any) => s + (a.numberOfPages || 0),
           0
         );
         if ((nbPages || 0) < 3) {
@@ -121,7 +120,7 @@ import { useRouter } from "vue-router";
         d.subCategory === "GUEST"
       ) {
         const nbPages = d.files?.reduce(
-          (s, a) => s + (a.numberOfPages || 0),
+          (s:any, a: any) => s + (a.numberOfPages || 0),
           0
         );
         if ((nbPages || 0) < 3) {
@@ -135,6 +134,8 @@ import { useRouter } from "vue-router";
   }
 
   function cancelAndgoNext() {
+    showNbDocumentsResidency.value = false
+    showNbDocumentsResidencyTenant.value = false
     AnalyticsService.forceMissingResidencyDocument();
     goNext();
   }

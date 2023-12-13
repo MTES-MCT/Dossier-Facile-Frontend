@@ -1,13 +1,13 @@
 <template>
   <div class="fr-mb-5w">
-      <Form name="form">
+      <Form name="form" @submit="goNext">
         <NakedCard class="fr-p-md-5w">
           <h1 class="fr-h6">{{ $t("tax-page.title") }}</h1>
           <div class="fr-mt-3w">
             <SimpleRadioButtons
               name="application-type-selector"
               :value="taxDocument"
-              @input="onSelectChange"
+              @input="onSelectChange($event)"
               :elements="mapDocuments()"
             ></SimpleRadioButtons>
           </div>
@@ -32,10 +32,10 @@
               <textarea
                 v-bind="field"
                 class="form-control fr-input validate-required"
-              :class="{
-                'fr-input--valid': meta.valid,
-                'fr-input--error': !meta.valid,
-              }"
+                :class="{
+                  'fr-input--valid': meta.valid,
+                  'fr-input--error': !meta.valid,
+                }"
                 placeholder=""
                 type="text"
                 required
@@ -47,6 +47,10 @@
               <span role="alert" class="fr-error-text">{{ $t(message || "") }}</span>
             </ErrorMessage>
         </NakedCard>
+        <ProfileFooter
+          @on-back="goBack"
+          @on-next="goNext"
+        ></ProfileFooter>
       </Form>
 
       <NakedCard
@@ -85,10 +89,6 @@
           </div>
         </div>
       </NakedCard>
-      <ProfileFooter
-        @on-back="goBack"
-        @on-next="goNext"
-      ></ProfileFooter>
     <ConfirmModal
       v-if="isDocDeleteVisible"
       @valid="validSelect()"
@@ -137,7 +137,6 @@ import { UploadStatus } from "df-shared-next/src/models/UploadStatus";
 import ListItem from "../../uploads/ListItem.vue";
 import { DfFile } from "df-shared-next/src/models/DfFile";
 import { DfDocument } from "df-shared-next/src/models/DfDocument";
-// import { extend } from "vee-validate";
 import { RegisterService } from "../../../services/RegisterService";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared-next/src/components/ConfirmModal.vue";
@@ -150,14 +149,15 @@ import { DocumentDeniedReasons } from "df-shared-next/src/models/DocumentDeniedR
 import { cloneDeep } from "lodash";
 import { PdfAnalysisService } from "../../../services/PdfAnalysisService";
 import Modal from "df-shared-next/src/components/Modal.vue";
-import WarningTaxDeclaration from "@/components/documents/share/WarningTaxDeclaration.vue";
-import { UtilsService } from "@/services/UtilsService";
+import WarningTaxDeclaration from "../../../components/documents/share/WarningTaxDeclaration.vue";
+import { UtilsService } from "../../../services/UtilsService";
 import SimpleRadioButtons from "df-shared-next/src/Button/SimpleRadioButtons.vue";
 import { computed, onBeforeMount, ref } from "vue";
-import useTenantStore from "@/stores/tenant-store";
+import useTenantStore from "../../../stores/tenant-store";
 import { useI18n } from "vue-i18n";
-import { ToastService } from "@/services/ToastService";
+import { ToastService } from "../../../services/ToastService";
 import {useLoading} from 'vue-loading-overlay'
+import {Form, Field, ErrorMessage} from "vee-validate";
 
 const emit = defineEmits(["on-next", "on-back"]);
 const { t } = useI18n();
@@ -231,7 +231,8 @@ const uploadProgress = ref({} as {
     return "tax_guarantor_" + user.value?.email;
   }
 
-  function onSelectChange() {
+function onSelectChange($event: DocumentType) {
+    taxDocument.value = $event
     localStorage.setItem(getLocalStorageKey(), taxDocument.value.key);
     if (user.value?.documents !== null) {
       const doc = tenantTaxDocument.value;

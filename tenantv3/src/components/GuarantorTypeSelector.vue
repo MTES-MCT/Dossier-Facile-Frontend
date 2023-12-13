@@ -28,7 +28,7 @@ import { computed, onBeforeMount, ref } from "vue";
   const guarantor = computed(() => store.guarantor);
 
   const props = withDefaults(defineProps<{
-    isCotenant: boolean;
+    isCotenant?: boolean;
     localStorageKey: string;
   }>(), {
     isCotenant: false,
