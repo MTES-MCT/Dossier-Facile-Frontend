@@ -266,24 +266,24 @@ const router = createRouter({
     //       /* webpackChunkName: "confirmAccount" */ "../views/ConfirmAccount.vue"
     //     ),
     // },
-    // {
-    //   path: "/ajout-couple/:token",
-    //   name: "Couple",
-    //   meta: {
-    //     title: "Confirmation de compte - DossierFacile",
-    //   },
-    //   component: () =>
-    //     import(/* webpackChunkName: "register" */ "../views/JoinCouple.vue"),
-    // },
-    // {
-    //   path: "/ajout-groupe/:token",
-    //   name: "Group",
-    //   meta: {
-    //     title: "Confirmation de compte - DossierFacile",
-    //   },
-    //   component: () =>
-    //     import(/* webpackChunkName: "register" */ "../views/JoinGroup.vue"),
-    // },
+    {
+      path: "/ajout-couple/:token",
+      name: "Couple",
+      meta: {
+        title: "Confirmation de compte - DossierFacile",
+      },
+      component: () =>
+        import(/* webpackChunkName: "register" */ "../views/JoinCouple.vue"),
+    },
+    {
+      path: "/ajout-groupe/:token",
+      name: "Group",
+      meta: {
+        title: "Confirmation de compte - DossierFacile",
+      },
+      component: () =>
+        import(/* webpackChunkName: "register" */ "../views/JoinGroup.vue"),
+    },
     {
       path: "/contact",
       name: "Contact",

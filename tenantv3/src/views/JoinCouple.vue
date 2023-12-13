@@ -10,34 +10,26 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { User } from "df-shared-next/src/models/User";
-import { Component, Vue } from "vue-property-decorator";
 import InitPassword from "df-shared-next/src/Authentification/InitPassword.vue";
-import { mapGetters } from "vuex";
 import ConfirmModal from "df-shared-next/src/components/ConfirmModal.vue";
-import { ToastService } from "@/services/ToastService";
+import { ToastService } from "../services/ToastService";
+import useTenantStore from "../stores/tenant-store";
+import { computed, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
 
-@Component({
-  components: {
-    InitPassword,
-    ConfirmModal,
-  },
-  computed: {
-    ...mapGetters({
-      isLoggedIn: "isLoggedIn",
-    }),
-  },
-})
-export default class JoinCouple extends Vue {
-  isLoggedIn!: boolean;
+const store = useTenantStore();
+      const isLoggedIn = computed(() => store.isLoggedIn);
+      const route = useRoute();
+      const router = useRouter();
 
-  onInitPassword(user: User) {
-    user.token = this.$route.params.token;
-    this.$store.dispatch("createPasswordCouple", user).then(
+  function onInitPassword(user: User) {
+    user.token = route.params.token.toString();
+    store.createPasswordCouple(user).then(
       () => {
         ToastService.success("joincouple.password-update");
-        this.$router.push({ name: "TenantName" });
+        router.push({ name: "TenantName" });
       },
       (error: any) => {
         if (
@@ -53,12 +45,11 @@ export default class JoinCouple extends Vue {
     );
   }
 
-  async logout() {
-    await this.$store.dispatch("logout", false);
+  async function logout() {
+    await store.logout(false);
   }
 
-  redirect() {
-    this.$router.push({ name: "Account" });
+  function redirect() {
+    router.push({ name: "Account" });
   }
-}
 </script>

@@ -84,13 +84,13 @@ defineRule('email', (value: any) => {
 });
 defineRule('strength', (_value: any, [score]: number[]) => {
   if (score < 2) {
-    return 'register.strength-not-valid';
+    return 'strength-not-valid';
   }
   return true;
 });
 defineRule('confirm', (_value: any, [password, confirm]: string[]) => {
   if (password !== confirm) {
-    return 'register.confirm-not-valid';
+    return 'confirm-not-valid';
   }
   return true;
 });
