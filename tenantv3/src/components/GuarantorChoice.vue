@@ -81,7 +81,7 @@ const guarantorbodycontent = ref();
   })
 
   function scrollToEnd() {
-    guarantorbodycontent.value?.scrollIntoView({ behavior: "smooth" });
+    guarantorbodycontent.value?.scrollIntoView({ behavior: "smooth", block: "end" });
   }
 
   onBeforeMount(() => {

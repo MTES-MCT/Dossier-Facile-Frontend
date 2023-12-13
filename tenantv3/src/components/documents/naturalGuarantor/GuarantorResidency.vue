@@ -29,7 +29,7 @@
       >
         <TextField
           name="customText"
-          :fieldLabel="$tc('residency-page.custom-text')"
+          :fieldLabel="$t('residency-page.custom-text')"
           v-model="customText"
           validation-rules="required"
           :textarea="true"

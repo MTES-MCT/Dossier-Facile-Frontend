@@ -11,7 +11,7 @@
               <SimpleRadioButtons
                 name="application-type-selector"
                 :value="financialDocument.documentType"
-                @input="onSelectChange"
+                @input="onSelectChange($event)"
                 :elements="mapDocuments()"
               ></SimpleRadioButtons>
             </div>
@@ -316,7 +316,8 @@ onBeforeMount(() => {
     });
   }
 
-  function onSelectChange() {
+  function onSelectChange($event: DocumentType) {
+    financialDocument.value.documentType = $event
     if (financialDocument.value.id === null) {
       return false;
     }
