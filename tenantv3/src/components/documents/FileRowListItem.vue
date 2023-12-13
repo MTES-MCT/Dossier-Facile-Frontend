@@ -115,7 +115,6 @@ const props = withDefaults(
 }
 
 .fr-icon-circle-empty:before {
-  margin-right: 0.5rem;
   background-color: transparent;
   color: grey;
   border-radius: 50%;
