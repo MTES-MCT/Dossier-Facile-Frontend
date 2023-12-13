@@ -16,6 +16,7 @@ import useTenantStore from '../stores/tenant-store';
 import { ToastService } from '../services/ToastService';
 import { User } from 'df-shared-next/src/models/User';
 import { useRoute, useRouter } from 'vue-router';
+import InitPassword from 'df-shared-next/src/Authentification/InitPassword.vue';
 
     const store = useTenantStore();
     const isLoggedIn = computed(() => store.isLoggedIn);
