@@ -245,6 +245,17 @@ const router = createRouter({
         import(/* webpackChunkName: "account" */ "../views/SharingPage.vue"),
     },
     {
+      path: "/partners",
+      name: "PartnerAccessPage",
+      meta: {
+        title: "Mes partages - DossierFacile",
+        requiresAuth: true,
+      },
+      component: () =>
+        import(
+          /* webpackChunkName: "account" */ "../views/PartnerAccessPage.vue"),
+    },
+    {
       path: "/messaging",
       name: "Messages",
       meta: {
