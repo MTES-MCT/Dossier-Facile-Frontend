@@ -355,6 +355,9 @@ const useTenantStore = defineStore('tenant', {
           UtilsService.guarantorHasDoc("IDENTIFICATION", g))
       );
     },
+    getApartmentSharingLinks(state: State): ApartmentSharingLink[] {
+      return state.apartmentSharingLinks;
+    },
   },
   actions: {
     initState() {
@@ -508,7 +511,7 @@ const useTenantStore = defineStore('tenant', {
         (a: ApartmentSharingLink, b: ApartmentSharingLink) =>
           (a.lastVisit || "") > (b.lastVisit || "") ? -1 : 1
       );
-      Object.assign(this.apartmentSharingLinks, sortedLinks);
+      this.apartmentSharingLinks = sortedLinks;
     },
     logout(redirect: boolean = true) {
       const isFC = this.user.franceConnect;
