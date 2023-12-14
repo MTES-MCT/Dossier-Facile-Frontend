@@ -164,7 +164,9 @@ const router = useRouter();
   }
 
   function addNaturalGuarantor() {
-    store.addNaturalGuarantor();
+    store.addNaturalGuarantor().then((data: any) => {
+      router.push(data)
+    });
   }
 </script>
 

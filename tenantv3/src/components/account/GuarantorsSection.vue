@@ -234,7 +234,9 @@ const router = useRouter();
 
     if (user.value.id === props.tenant?.id) {
       if (guarantors.value.length > 0) {
-        store.addNaturalGuarantor();
+        store.addNaturalGuarantor().then((data: any) => {
+          router.push(data)
+        });
       } else {
         router.push({ name: "GuarantorChoice" });
       }

@@ -695,11 +695,11 @@ const useTenantStore = defineStore('tenant', {
           if (this.user.guarantors === undefined) {
             return Promise.reject();
           }
-          this.setGuarantorPage(
+          const pageData = this.setGuarantorPage(
               this.user.guarantors[this.user.guarantors.length - 1],
             0
           );
-          return Promise.resolve(response.data);
+          return Promise.resolve(pageData);
         },
         (error) => {
           return Promise.reject(error);
