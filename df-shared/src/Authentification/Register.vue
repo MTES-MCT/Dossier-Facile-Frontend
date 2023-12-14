@@ -8,7 +8,15 @@
       <template>
         <div class="fr-mt-5w fr-mb-5w">
           <div v-if="getParams() !== undefined">
-            <router-link :to="{name: 'SourceLink', params: getParams(), query: getQuery()}" class="color--primary">{{ $t('connect-france-connect') }}</router-link>
+            <router-link
+              :to="{
+                name: 'SourceLink',
+                params: getParams(),
+                query: getQuery(),
+              }"
+              class="color--primary"
+              >{{ $t("connect-france-connect") }}</router-link
+            >
           </div>
           <div v-else>
             <div class="fr-alert fr-alert--info">
@@ -17,184 +25,197 @@
             </div>
             <div class="text-center">
               <div class="fr-mt-2w fr-mb-2w small-text">
-                FranceConnect est la solution proposée par l’État pour sécuriser et simplifier la connexion à vos services en ligne
+                FranceConnect est la solution proposée par l’État pour sécuriser
+                et simplifier la connexion à vos services en ligne
               </div>
             </div>
             <div id="kc-social-providers" class="fr-mt-5w fr-mb-1w text-center">
               <ul>
-                <a id="social-franceconnect-particulier" class="inline-block"
-                  type="button" :href="getLoginLink()">
-                  <span>{{ $t('connect-france-particulier') }}</span>
+                <a
+                  id="social-franceconnect-particulier"
+                  class="inline-block"
+                  type="button"
+                  :href="getLoginLink()"
+                >
+                  <span>{{ $t("connect-france-particulier") }}</span>
                 </a>
               </ul>
             </div>
             <div class="text-center">
-              <a href="https://app.franceconnect.gouv.fr/en-savoir-plus" id="cQuoiFCGauche" target="_blank" rel="noopener">
-                  Qu'est-ce que FranceConnect?
+              <a
+                href="https://app.franceconnect.gouv.fr/en-savoir-plus"
+                id="cQuoiFCGauche"
+                target="_blank"
+                rel="noopener"
+              >
+                Qu'est-ce que FranceConnect?
               </a>
             </div>
           </div>
         </div>
 
-        <div class="separator">{{ $t('or') }}</div>
+        <div class="separator">{{ $t("or") }}</div>
       </template>
 
-    <ValidationObserver v-slot="{ validate }">
-      <form id="signupForm" name="form" @submit.prevent="validate().then(handleRegister)">
-        <div class="fr-grid-row fr-grid-row--center">
-          <div class="fr-col-12 fr-mb-3w">
-            <validation-provider rules="required" v-slot="{ errors, valid }">
-              <div
-                class="fr-input-group"
-                :class="errors[0] ? 'fr-input-group--error' : ''"
-              >
-                <label class="fr-label" for="email">{{ $t("email") }}</label>
-                <input
-                  v-model="user.email"
-                  class="form-control validate-required fr-input"
-                  :class="{
-                    'fr-input--valid': valid,
-                    'fr-input--error': errors[0]
-                  }"
-                  id="email"
-                  name="email"
-                  :placeholder="$t('email-placeholder')"
-                  type="email"
-                  autocomplete="email"
-                  required
-                />
-                <span class="fr-error-text" v-if="errors[0]">{{
-                  $t(errors[0])
-                }}</span>
-              </div>
-            </validation-provider>
-          </div>
-          <div class="fr-col-12 fr-mb-1w">
-            <validation-provider
-              :rules="`required|strength:${score}`"
-              v-slot="{ errors, valid }"
-              name="password"
-              vid="password"
-            >
-              <div
-                class="fr-input-group"
-                :class="errors[0] ? 'fr-input-group--error' : ''"
-              >
-                <label class="fr-label" for="password">{{
-                  $t("password")
-                }}</label>
-                <input
-                  id="password"
-                  :placeholder="$tc('example-prefix') + generatedPwd"
-                  type="password"
-                  v-model="user.password"
-                  name="password"
-                  class="validate-required form-control fr-input"
-                  :class="{
-                    'fr-input--valid': valid,
-                    'fr-input--error': errors[0]
-                  }"
-                  autocomplete="new-password"
-                  required
-                />
-                <password
-                  v-model="user.password"
-                  :strength-meter-only="true"
-                  @score="setScore"
-                />
-                <span class="fr-error-text" v-if="errors[0]">{{
-                  $t(errors[0])
-                }}</span>
-              </div>
-            </validation-provider>
-          </div>
-          <div class="fr-col-12 fr-mb-3w">
-            <validation-provider
-              rules="required|confirmed:password"
-              v-slot="{ errors, valid }"
-            >
-              <div
-                class="fr-input-group"
-                :class="errors[0] ? 'fr-input-group--error' : ''"
-              >
-                <label class="fr-label" for="confirm-password">
-                  {{ $t("confirm-password") }}</label
+      <ValidationObserver v-slot="{ validate }">
+        <form
+          id="signupForm"
+          name="form"
+          @submit.prevent="validate().then(handleRegister)"
+        >
+          <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-mb-3w">
+              <validation-provider rules="required" v-slot="{ errors, valid }">
+                <div
+                  class="fr-input-group"
+                  :class="errors[0] ? 'fr-input-group--error' : ''"
                 >
-                <input
-                  id="confirm-password"
-                  type="password"
-                  v-model="user.confirm"
-                  name="confirm-password"
-                  class="validate-required form-control fr-input"
-                  :class="{
-                    'fr-input--valid': valid,
-                    'fr-input--error': errors[0]
-                  }"
-                  autocomplete="new-password"
-                  required
-                />
-                <span class="fr-error-text" v-if="errors[0]">{{
-                  $t(errors[0])
-                }}</span>
-              </div>
-            </validation-provider>
-          </div>
-          <div class="fr-col-12 fr-mb-3w">
-            <validation-provider
-              rules="is"
-              v-slot="{ errors }"
-            >
-              <div
-                class="bg-purple fr-checkbox-group"
-                :class="errors[0] ? 'fr-input-group--error' : ''"
+                  <label class="fr-label" for="email">{{ $t("email") }}</label>
+                  <input
+                    v-model="user.email"
+                    class="form-control validate-required fr-input"
+                    :class="{
+                      'fr-input--valid': valid,
+                      'fr-input--error': errors[0],
+                    }"
+                    id="email"
+                    name="email"
+                    :placeholder="$t('email-placeholder')"
+                    type="email"
+                    autocomplete="email"
+                    required
+                  />
+                  <span class="fr-error-text" v-if="errors[0]">{{
+                    $t(errors[0])
+                  }}</span>
+                </div>
+              </validation-provider>
+            </div>
+            <div class="fr-col-12 fr-mb-1w">
+              <validation-provider
+                :rules="`required|strength:${score}`"
+                v-slot="{ errors, valid }"
+                name="password"
+                vid="password"
               >
-                <input
-                  type="checkbox"
-                  id="acceptCgu"
-                  value="false"
-                  v-model="acceptCgu"
-                />
-                <label for="acceptCgu"><div v-html="$t('accept-cgu')"></div></label>
-                <span class="fr-error-text" v-if="errors[0]">{{
-                  $t(errors[0])
-                }}</span>
-              </div>
-            </validation-provider>
-          </div>
+                <div
+                  class="fr-input-group"
+                  :class="errors[0] ? 'fr-input-group--error' : ''"
+                >
+                  <label class="fr-label" for="password">{{
+                    $t("password")
+                  }}</label>
+                  <input
+                    id="password"
+                    :placeholder="$tc('example-prefix') + generatedPwd"
+                    type="password"
+                    v-model="user.password"
+                    name="password"
+                    class="validate-required form-control fr-input"
+                    :class="{
+                      'fr-input--valid': valid,
+                      'fr-input--error': errors[0],
+                    }"
+                    autocomplete="new-password"
+                    required
+                  />
+                  <password
+                    v-model="user.password"
+                    :strength-meter-only="true"
+                    @score="setScore"
+                  />
+                  <span class="fr-error-text" v-if="errors[0]">{{
+                    $t(errors[0])
+                  }}</span>
+                </div>
+              </validation-provider>
+            </div>
+            <div class="fr-col-12 fr-mb-3w">
+              <validation-provider
+                rules="required|confirmed:password"
+                v-slot="{ errors, valid }"
+              >
+                <div
+                  class="fr-input-group"
+                  :class="errors[0] ? 'fr-input-group--error' : ''"
+                >
+                  <label class="fr-label" for="confirm-password">
+                    {{ $t("confirm-password") }}</label
+                  >
+                  <input
+                    id="confirm-password"
+                    type="password"
+                    v-model="user.confirm"
+                    name="confirm-password"
+                    class="validate-required form-control fr-input"
+                    :class="{
+                      'fr-input--valid': valid,
+                      'fr-input--error': errors[0],
+                    }"
+                    autocomplete="new-password"
+                    required
+                  />
+                  <span class="fr-error-text" v-if="errors[0]">{{
+                    $t(errors[0])
+                  }}</span>
+                </div>
+              </validation-provider>
+            </div>
+            <div class="fr-col-12 fr-mb-3w">
+              <validation-provider rules="is" v-slot="{ errors }">
+                <div
+                  class="bg-purple fr-checkbox-group"
+                  :class="errors[0] ? 'fr-input-group--error' : ''"
+                >
+                  <input
+                    type="checkbox"
+                    id="acceptCgu"
+                    value="false"
+                    v-model="acceptCgu"
+                  />
+                  <label for="acceptCgu"
+                    ><div v-html="$t('accept-cgu')"></div
+                  ></label>
+                  <span class="fr-error-text" v-if="errors[0]">{{
+                    $t(errors[0])
+                  }}</span>
+                </div>
+              </validation-provider>
+            </div>
 
-          <div class="fr-col-12 text-center fr-mb-5w">
-            <button class="fr-btn full-width-btn" type="submit">
-              {{ $t("submit") }}
-            </button>
+            <div class="fr-col-12 text-center fr-mb-5w">
+              <button class="fr-btn full-width-btn" type="submit">
+                {{ $t("submit") }}
+              </button>
+            </div>
           </div>
-        </div>
-      </form>
-    </ValidationObserver>
+        </form>
+      </ValidationObserver>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import {Component, Prop, Vue} from "vue-property-decorator";
-import {User} from "df-shared/src/models/User";
-import {extend, ValidationObserver, ValidationProvider} from "vee-validate";
-import {is} from "vee-validate/dist/rules";
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { User } from "df-shared/src/models/User";
+import { extend, ValidationObserver, ValidationProvider } from "vee-validate";
+import { is } from "vee-validate/dist/rules";
 import Password from "vue-password-strength-meter";
-import {PASSWORD_MIN_SCORE} from "../validation-rules";
-import {AuthService} from "../services/AuthService";
+import { PASSWORD_MIN_SCORE } from "../validation-rules";
+import { AuthService } from "../services/AuthService";
 
 extend("is", {
   ...is,
   message: "require-accept",
-  validate: value => !!value
+  validate: (value) => !!value,
 });
 
 @Component({
   components: {
     ValidationProvider,
     ValidationObserver,
-    Password
-  }
+    Password,
+  },
 })
 export default class Register extends Vue {
   FRANCE_CONNECT_LOGIN_URL = process.env.VUE_APP_FRANCE_CONNECT_LOGIN_URL;
@@ -203,8 +224,8 @@ export default class Register extends Vue {
 
   user: User = new User();
   score = 0;
-  acceptCgu=false;
-  generatedPwd ="";
+  acceptCgu = false;
+  generatedPwd = "";
 
   mounted() {
     this.user.email = this.email;
@@ -228,7 +249,7 @@ export default class Register extends Vue {
     }
     return {
       source: this.$route.params.source,
-    }
+    };
   }
 
   getQuery() {
@@ -236,8 +257,8 @@ export default class Register extends Vue {
       internalPartnerId: this.$route.query.internalPartnerId.toString() || "",
       firstName: this.$route.query.firstName.toString() || "",
       lastName: this.$route.query.lastName.toString() || "",
-      email: this.$route.query.email.toString() || ""
-    }
+      email: this.$route.query.email.toString() || "",
+    };
   }
 
   getLoginLink() {
@@ -262,7 +283,7 @@ export default class Register extends Vue {
 
 .separator::before,
 .separator::after {
-  content: '';
+  content: "";
   flex: 1;
   border-bottom: 1px solid #cecece;
 }
@@ -274,45 +295,45 @@ export default class Register extends Vue {
 .separator:not(:empty)::after {
   margin-left: 2rem;
 }
-    
-    a.zocial.franceconnect-particulier {
-	background: url(../assets/fc/franceconnect-bouton@2x.png) no-repeat left top;
-	height: 70px;
-	width: auto;
-	padding-top: 60px;
-    }
-    
-    a.zocial.franceconnect-particulier:hover {
-	background: url(../assets/fc/franceconnect-bouton-hover@2x.png) no-repeat left top !important;
-	height: 70px;
-	width: auto;
-    }
-    
-    a.zocial.franceconnect-particulier span {
-	display:none;
-    }
-    
-    a#social-franceconnect-particulier {
-	background: url(../assets/fc/franceconnect-bouton.png) no-repeat left top;
-	height: 60px;
-	width: 230px;
-       
-    }
-    
-    a#social-franceconnect-particulier:hover {
-	background: url(../assets/fc/franceconnect-bouton-hover.png) no-repeat left top !important;
-	height: 60px;
-	width: 230px;
-    }
-    
-    a#social-franceconnect-particulier span {
-	display:none;
-    }
 
-    .inline-block {
-      display: inline-block;
-    }
+a.zocial.franceconnect-particulier {
+  background: url(../assets/fc/franceconnect-bouton@2x.png) no-repeat left top;
+  height: 70px;
+  width: auto;
+  padding-top: 60px;
+}
 
+a.zocial.franceconnect-particulier:hover {
+  background: url(../assets/fc/franceconnect-bouton-hover@2x.png) no-repeat left
+    top !important;
+  height: 70px;
+  width: auto;
+}
+
+a.zocial.franceconnect-particulier span {
+  display: none;
+}
+
+a#social-franceconnect-particulier {
+  background: url(../assets/fc/franceconnect-bouton.png) no-repeat left top;
+  height: 60px;
+  width: 230px;
+}
+
+a#social-franceconnect-particulier:hover {
+  background: url(../assets/fc/franceconnect-bouton-hover.png) no-repeat left
+    top !important;
+  height: 60px;
+  width: 230px;
+}
+
+a#social-franceconnect-particulier span {
+  display: none;
+}
+
+.inline-block {
+  display: inline-block;
+}
 </style>
 
 <i18n>
@@ -320,7 +341,7 @@ export default class Register extends Vue {
 "en": {
 "title": "Create account",
 "password": "Password :",
-"email-placeholder": "E.g.: example@example.fr",
+"email-placeholder": "E.g.: example{'@'}example.fr",
 "confirm-password": "Confirm password :",
 "email": "Email :",
 "submit": "I create my account",
@@ -339,7 +360,7 @@ export default class Register extends Vue {
 "title": "Rejoindre DossierFacile",
 "password": "Votre mot de passe :",
 "confirm-password": "Confirmation de votre mot de passe :",
-"email-placeholder": "Ex : exemple@exemple.fr",
+"email-placeholder": "Ex : exemple{'@'}exemple.fr",
 "email": "Votre e-mail :",
 "submit": "Je crée mon compte",
 "email-not-valid": "Email non valide",

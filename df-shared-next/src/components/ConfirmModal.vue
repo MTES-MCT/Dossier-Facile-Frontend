@@ -1,5 +1,12 @@
 <template>
-  <Modal @close="undoSelect()">
+  <Modal @close="closeModal()">
+    <template v-slot:header>
+      <div class="fr-container">
+        <h1 id="fr-modal-title-modal-1" class="fr-modal__title">
+          <slot name="title"></slot>
+        </h1>
+      </div>
+    </template>
     <template v-slot:body>
       <div class="fr-container">
         <div class="fr-grid-row justify-content-center">
@@ -13,15 +20,13 @@
                 class="fr-mr-3w"
                 @on-click="validSelect()"
                 :primary="true"
-                :title="t('validate')"
-                >{{ t("validate") }}</DfButton
+                >{{
+                  validateBtnText ? validateBtnText : t("validate")
+                }}</DfButton
               >
-              <DfButton
-                class="fr-mr-3w"
-                :title="t('cancel')"
-                @on-click="undoSelect()"
-                >{{ t("cancel") }}</DfButton
-              >
+              <DfButton class="fr-mr-3w" @on-click="undoSelect()">{{
+                cancelBtnText ? cancelBtnText : t("cancel")
+              }}</DfButton>
             </div>
           </div>
         </div>
@@ -31,12 +36,19 @@
 </template>
 
 <script setup lang="ts">
-import Modal from "df-shared-next/src/components/Modal.vue";
-import DfButton from "df-shared-next/src/Button/Button.vue";
+import Modal from "./Modal.vue";
+import DfButton from "../Button/Button.vue";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
-const emit = defineEmits(["valid", "cancel"]);
+
+const emit = defineEmits(["valid", "cancel", "close"]);
+
+const props = defineProps<{
+  validateBtnText?: string;
+  cancelBtnText?: string;
+  onClose?: Function;
+}>();
 
 function validSelect() {
   emit("valid");
@@ -45,13 +57,15 @@ function validSelect() {
 function undoSelect() {
   emit("cancel");
 }
-</script>
 
-<style scoped lang="scss">
-.align--right {
-  text-align: right;
+function closeModal() {
+  if (props.onClose) {
+    emit("close");
+  } else {
+    emit("cancel");
+  }
 }
-</style>
+</script>
 
 <i18n>
 {

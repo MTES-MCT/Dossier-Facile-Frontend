@@ -1,21 +1,27 @@
 <template>
   <div>
-    <ValidationObserver>
+  <Form name="form" @submit="goNext">
       <NakedCard class="fr-p-md-5w">
-        <validation-provider rules="required" v-slot="{ errors, valid }">
+          <Field
+            name="organismName"
+            v-model="organismName"
+            v-slot="{ field, meta }"
+            :rules="{
+              required: true,
+            }"
+          >
           <div
             class="fr-input-group"
-            :class="errors[0] ? 'fr-input-group--error' : ''"
           >
             <label class="fr-label" for="organismName"
               >{{ $t("corporationidentification.organism-name") }} :</label
             >
             <input
-              v-model="organismName"
+              v-bind="field"
               class="form-control fr-input validate-required"
               :class="{
-                'fr-input--valid': valid,
-                'fr-input--error': errors[0],
+                'fr-input--valid': meta.valid,
+                'fr-input--error': !meta.valid,
               }"
               id="organismName"
               name="organismName"
@@ -25,11 +31,11 @@
               type="text"
               required
             />
-            <span class="fr-error-text" v-if="errors[0]">{{
-              $t(errors[0])
-            }}</span>
+            <ErrorMessage name="organismName" v-slot="{ message }">
+              <span role="alert" class="fr-error-text">{{ $t(message || "") }}</span>
+            </ErrorMessage>
           </div>
-        </validation-provider>
+        </Field>
       </NakedCard>
       <NakedCard class="fr-mt-3w fr-p-md-5w">
         <div>
@@ -64,8 +70,8 @@
           </div>
         </div>
       </NakedCard>
-    </ValidationObserver>
-    <GuarantorFooter @on-back="goBack" @on-next="goNext"></GuarantorFooter>
+    <GuarantorFooter @on-back="goBack"></GuarantorFooter>
+  </Form>
   </div>
 </template>
 
@@ -73,7 +79,6 @@
 import FileUpload from "../../uploads/FileUpload.vue";
 import { UploadStatus } from "df-shared-next/src/models/UploadStatus";
 import ListItem from "../../uploads/ListItem.vue";
-// import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { DfDocument } from "df-shared-next/src/models/DfDocument";
 import { DfFile } from "df-shared-next/src/models/DfFile";
 import { RegisterService } from "../../../services/RegisterService";
@@ -87,6 +92,7 @@ import { computed, onBeforeMount, ref } from "vue";
 import useTenantStore from "@/stores/tenant-store";
 import { ToastService } from "@/services/ToastService";
 import { useLoading } from 'vue-loading-overlay';
+import { Form, Field, ErrorMessage } from "vee-validate";
 
 const store = useTenantStore();
 
@@ -202,7 +208,7 @@ const gId = getGuarantor()?.id
         return Promise.reject(err);
       })
       .finally(() => {
-        // loader.hide();
+        loader.hide();
       });
   }
 

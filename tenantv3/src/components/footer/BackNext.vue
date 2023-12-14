@@ -10,7 +10,7 @@
         :secondary="true"
         :btn-type="'button'"
         @click="backAction()"
-        :aria-label="t('backnext.back-aria-label')"
+        :aria-label="t('backnext.back')"
       >
         <i class="color--primary ri-arrow-left-s-line mobile"></i>
         <span class="desktop">{{ t("backnext.back") }}</span>

@@ -303,6 +303,20 @@ const router = createRouter({
       component: () =>
         import(/* webpackChunkName: "404" */ "../views/NotFound404.vue"),
     },
+    {
+      path: "/signup",
+      name: "Signup",
+      meta: {
+        title: "Création de compte - DossierFacile",
+        description: "Créez votre compte en quelques clics sur DossierFacile",
+        hideForAuth: true,
+      },
+      component: () =>
+        import(
+          /* webpackChunkName: "signup" */
+          "../views/SignupPage.vue"
+        ),
+    },
   ],
   scrollBehavior() {
     document.getElementById("app")?.scrollIntoView();

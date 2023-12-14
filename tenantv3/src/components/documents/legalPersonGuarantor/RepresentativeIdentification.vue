@@ -1,21 +1,27 @@
 <template>
   <div>
-    <ValidationObserver>
+    <Form name="form" @submit="goNext">
       <NakedCard class="fr-p-md-5w">
-        <validation-provider rules="required" v-slot="{ errors, valid }">
+          <Field
+            name="firstName"
+            v-model="firstName"
+            v-slot="{ field, meta }"
+            :rules="{
+              required: true,
+            }"
+          >
           <div
             class="fr-input-group"
-            :class="errors[0] ? 'fr-input-group--error' : ''"
           >
             <h1 class="fr-label fr-text--regular" for="firstName">
               {{ $t("representativeidentification.organism-name") }} :
             </h1>
             <input
-              v-model="firstName"
+              v-bind="field"
               class="form-control fr-input validate-required"
               :class="{
-                'fr-input--valid': valid,
-                'fr-input--error': errors[0],
+                'fr-input--valid': meta.valid,
+                'fr-input--error': !meta.valid,
               }"
               id="firstName"
               name="firstName"
@@ -25,18 +31,13 @@
               type="text"
               required
             />
-            <span class="fr-error-text" v-if="errors[0]">{{
-              $t(errors[0])
-            }}</span>
+            <ErrorMessage name="firstName" v-slot="{ message }">
+              <span role="alert" class="fr-error-text">{{ $t(message || "") }}</span>
+            </ErrorMessage>
           </div>
-        </validation-provider>
+          </Field>
       </NakedCard>
       <NakedCard class="fr-mt-3w fr-p-md-5w">
-        <validation-provider
-          rules="select"
-          name="identificationDocument"
-          v-slot="{ errors, valid }"
-        >
           <div class="fr-select-group">
             <label class="fr-label" for="select">
               <b>
@@ -47,10 +48,6 @@
             <select
               v-model="identificationDocument"
               class="fr-select fr-mb-3w"
-              :class="{
-                'fr-select--valid': valid,
-                'fr-select--error': errors[0],
-              }"
               id="selectID"
               as="select"
             >
@@ -59,11 +56,7 @@
               </option>
             </select>
 
-            <span class="fr-error-text" v-if="errors[0]">
-              {{ $t(errors[0]) }}
-            </span>
           </div>
-        </validation-provider>
         <div v-if="identificationDocument && identificationDocument.key">
           <AllDeclinedMessages
             class="fr-mb-3w"
@@ -93,8 +86,8 @@
           </div>
         </div>
       </NakedCard>
-    </ValidationObserver>
-    <GuarantorFooter @on-back="goBack" @on-next="goNext"></GuarantorFooter>
+    <GuarantorFooter @on-back="goBack"></GuarantorFooter>
+    </Form>
   </div>
 </template>
 
@@ -103,13 +96,11 @@ import FileUpload from "../../uploads/FileUpload.vue";
 import { DocumentType } from "df-shared-next/src/models/Document";
 import { UploadStatus } from "df-shared-next/src/models/UploadStatus";
 import ListItem from "../../uploads/ListItem.vue";
-// import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { DfDocument } from "df-shared-next/src/models/DfDocument";
 import { DfFile } from "df-shared-next/src/models/DfFile";
 import { RegisterService } from "../../../services/RegisterService";
 import { Guarantor } from "df-shared-next/src/models/Guarantor";
 import NakedCard from "df-shared-next/src/components/NakedCard.vue";
-import VGouvFrModal from "df-shared-next/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared-next/src/models/DocumentDeniedReasons";
 import { cloneDeep } from "lodash";
@@ -119,6 +110,7 @@ import { computed, onBeforeMount, ref } from "vue";
 import useTenantStore from "@/stores/tenant-store";
 import { ToastService } from "@/services/ToastService";
 import { useLoading } from 'vue-loading-overlay';
+import { Form, Field, ErrorMessage } from "vee-validate";
 
   const documents = DocumentTypeConstants.REPRESENTATIVE_IDENTIFICATION;
   const props = defineProps<{
@@ -238,7 +230,8 @@ const uploadProgress = ref({} as {
     );
 
     fileUploadStatus.value = UploadStatus.STATUS_SAVING;
-    // const loader = this.$loading.show();
+    const $loading = useLoading({});
+    const loader = $loading.show();
     return RegisterService.saveRepresentativeIdentification(formData)
       .then(() => {
         fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
@@ -252,7 +245,7 @@ const uploadProgress = ref({} as {
         return Promise.reject();
       })
       .finally(() => {
-        // loader.hide();
+        loader.hide();
       });
   }
 
