@@ -429,7 +429,8 @@ const useTenantStore = defineStore('tenant', {
       if (!this.selectedGuarantor) {
         return;
       }
-      Object.assign(this.selectedGuarantor, new Guarantor());
+      // Object.assign(this.selectedGuarantor, new Guarantor());
+      this.selectedGuarantor = new Guarantor();
       Sentry.setContext("user", {
         id: user.id,
       });

@@ -7,7 +7,6 @@
       <div v-if="!textarea">
         <Field
           v-if="!textarea"
-          :id="name"
           :name="name"
           :value="modelValue"
           v-on:input="updateModel($event)"
@@ -16,10 +15,11 @@
         >
           <input
             v-bind="field"
+            :id="name"
             class="validate-required form-control fr-input"
             :class="{
               'fr-input--valid': meta.valid,
-              'fr-input--error': !meta.valid,
+              'fr-input--error': !meta.valid
             }"
             type="text"
             :disabled="disabled"
@@ -31,23 +31,23 @@
       </div>
       <div v-else>
         <Field
-          :id="name"
           :name="name"
           :value="modelValue"
           v-on:input="updateModel($event)"
           v-slot="{ field, meta }"
           :rules="{
-            required: true,
+            required: true
           }"
         >
           <textarea
             v-bind="field"
+            :id="name"
             type="text"
             :value="modelValue"
             class="validate-required form-control fr-input"
             :class="{
               'fr-input--valid': meta.valid,
-              'fr-input--error': !meta.valid,
+              'fr-input--error': !meta.valid
             }"
             :disabled="disabled"
             maxlength="2000"
@@ -88,7 +88,7 @@ const props = withDefaults(
     validationRules: "",
     required: false,
     disabled: false,
-    textarea: false,
+    textarea: false
   }
 );
 

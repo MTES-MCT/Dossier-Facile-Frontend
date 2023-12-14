@@ -20,31 +20,9 @@
     <div v-if="getSubStep() === 2">
       <CoTenantResidency
         :coTenantId="getTenantId()"
-        @on-next="checkResidencyAndGoNext"
+        @on-next="goNext()"
         @on-back="goBack()"
       ></CoTenantResidency>
-      <ConfirmModal
-        v-if="showNbDocumentsResidency"
-        :validate-btn-text="t('add-new-documents')"
-        :cancel-btn-text="t('next-step')"
-        @cancel="cancelAndgoNext()"
-        @close="showNbDocumentsResidency = false"
-        @valid="showNbDocumentsResidency = false"
-      >
-        {{ t("cotenantdocument.warning-need-residency-documents.p1") }}
-        <ul>
-          <li>
-            {{ t("cotenantdocument.warning-need-residency-documents.list1") }}
-          </li>
-          <li>
-            {{ t("cotenantdocument.warning-need-residency-documents.list2") }}
-          </li>
-          <li>
-            {{ t("cotenantdocument.warning-need-residency-documents.list3") }}
-          </li>
-        </ul>
-        {{ t("cotenantdocument.warning-need-residency-documents.p2") }}
-      </ConfirmModal>
     </div>
     <div v-if="getSubStep() === 3">
       <CoTenantProfessional :coTenantId="getTenantId()"></CoTenantProfessional>
@@ -80,13 +58,9 @@ import CoTenantName from "../components/documents/cotenant/CoTenantName.vue";
 import CoTenantProfessional from "../components/documents/cotenant/CoTenantProfessional.vue";
 import CoTenantFinancialList from "../components/documents/cotenant/CoTenantFinancialList.vue";
 import CoTenantTax from "../components/documents/cotenant/CoTenantTax.vue";
-import { DocumentService } from "@/services/DocumentService";
-import ConfirmModal from "df-shared-next/src/components/ConfirmModal.vue";
-import { AnalyticsService } from "@/services/AnalyticsService";
 import { useI18n } from "vue-i18n";
-import { onBeforeUnmount, onMounted, ref } from "vue";
+import { onBeforeUnmount, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import useTenantStore from "@/stores/tenant-store";
 
 
 declare global {
@@ -97,11 +71,9 @@ declare global {
 }
 
 const { t } = useI18n();
-const store = useTenantStore();
 
 const router = useRouter();
 const route = useRoute();
-  const showNbDocumentsResidency = ref(false);
 
   onMounted(() => {
     window.Beacon("init", "e9f4da7d-11be-4b40-9514-ac7ce3e68f67");
@@ -146,31 +118,6 @@ const route = useRoute();
         },
       });
     }
-  }
-
-  function checkResidencyAndGoNext() {
-    const user = store.getTenant(Number(getTenantId()));
-    const docs = DocumentService.getDocs("RESIDENCY", user);
-    if (docs.length === 1) {
-      const d = docs[0];
-      if (d.subCategory === "GUEST_PARENTS" || d.subCategory === "GUEST") {
-        const nbPages = d.files?.reduce(
-          (s, a) => s + (a.numberOfPages || 0),
-          0
-        );
-        if ((nbPages || 0) < 3) {
-          showNbDocumentsResidency.value = true;
-          AnalyticsService.missingResidencyDocumentDetected();
-          return;
-        }
-      }
-    }
-    goNext();
-  }
-
-  function cancelAndgoNext() {
-    AnalyticsService.forceMissingResidencyDocument();
-    goNext();
   }
 
   function getTenantId() {

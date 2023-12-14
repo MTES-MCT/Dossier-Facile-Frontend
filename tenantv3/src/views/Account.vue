@@ -107,7 +107,6 @@
                     v-bind:key="`t${k}`"
                     :id="`tabpanel-${k}-panel`"
                     class="fr-tabs__panel"
-                    aria-selected="false"
                     role="tabpanel"
                     :tabindex="k"
                   >

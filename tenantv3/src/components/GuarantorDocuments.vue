@@ -180,6 +180,7 @@ function goBack() {
 }
 
 function goNext() {
+  showNbDocumentsResidency.value = false
   updateSubstep(props.substep + 1);
 }
 
@@ -210,6 +211,7 @@ function checkResidencyAndGoNext() {
 
 function cancelAndgoNext() {
   AnalyticsService.forceMissingResidencyDocument();
+  showNbDocumentsResidency.value = false;
   goNext();
 }
 

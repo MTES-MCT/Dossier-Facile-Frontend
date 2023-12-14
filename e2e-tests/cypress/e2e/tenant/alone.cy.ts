@@ -59,8 +59,8 @@ describe("alone tenant scenario", () => {
 
 function createGuarantor(firstname: string, lastname: string) {
   cy.expectPath("/info-garant/0");
-  cy.get("#lastname").type(lastname);
-  cy.get("#firstname").type(firstname);
+  cy.get("#lastname").clear().type(lastname);
+  cy.get("#firstname").clear().type(firstname);
   cy.clickOnNext();
 
   cy.expectPath("/info-garant/1");
@@ -80,5 +80,5 @@ function createGuarantor(firstname: string, lastname: string) {
   cy.simpleUploadDocumentStep("Votre garant a un avis d'imposition à son nom");
 
   cy.expectPath("/liste-garants");
-  cy.contains([firstname, lastname].join(" ")).should("be.visible");
+  cy.get("#step-content").contains([firstname, lastname].join(" ")).should("be.visible");
 }

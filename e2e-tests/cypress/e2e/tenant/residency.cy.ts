@@ -75,12 +75,14 @@ describe(
     function changeResidencyCategory(categoryLabel: string) {
       selectResidencyCategory(categoryLabel);
       clickOnModalButton("Valider");
+      cy.wait(200);
     }
 
     function verifyThatThreeDocumentsAreMandatory() {
       cy.uploadDocument(1).clickOnNext();
       clickOnModalButton("Passer à l'étape suivante");
 
+      cy.wait(200)
       goBackToResidency();
 
       cy.uploadDocument(1).clickOnNext();
@@ -93,8 +95,8 @@ describe(
         .should("be.visible")
         .get("button")
         .contains(buttonLabel)
-        .click({ force: true });
-      cy.waitUntilLoaderIsGone();
+        .click();
+      cy.waitUntilModalIsGone();
     }
 
     function goBackToResidency() {
@@ -114,10 +116,12 @@ describe(
     }
 
     function createCotenant() {
+      cy.wait(500);
       cy.visit("/type-locataire");
+      cy.wait(5000);
       cy.contains("En couple").click();
       cy.get('input[name="coTenantLastName"]').type("Martin");
-      cy.get('input[name="firstName"]').type("Louise");
+      cy.get('input[name="coTenantFirstName"]').type("Louise");
       cy.clickOnNext();
     }
 

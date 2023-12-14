@@ -33,7 +33,7 @@
         <Form
           class="fr-mt-3w"
           name="nameInformationForm"
-         @submit="handleNameInformation">
+          @submit="handleNameInformation">
           <div class="fr-grid-row fr-grid-row--center">
             <div class="fr-col-12 fr-mb-3w">
               <TextField
@@ -49,6 +49,7 @@
                 v-if="!displayPreferredNameField"
                 @click="displayPreferredNameField = true"
                 type="button"
+                title="{{ $t('nameinformationform.add-preferredname') }}"
               >
                 {{ $t("nameinformationform.add-preferredname") }}
               </button>

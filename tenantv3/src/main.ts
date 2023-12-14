@@ -121,6 +121,7 @@ defineRule('positiveOrNull', (value: any) => {
   }
   return true;
 });
+
 configure({
   validateOnInput: true,
 });

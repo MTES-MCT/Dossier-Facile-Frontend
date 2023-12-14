@@ -1,7 +1,7 @@
 <template>
   <div class="fr-alert fr-alert--info">
     <div v-html="t('tax-page.warning-no-accepted-doc')"></div>
-    <img src="../../../assets/images/tax-help.png" />
+    <img alt="Entête Impôt sur les revenus" src="../../../assets/images/tax-help.png" />
   </div>
 </template>
 
