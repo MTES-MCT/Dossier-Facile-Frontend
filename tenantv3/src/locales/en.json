@@ -886,6 +886,7 @@
     "help": "Help",
     "file": "My File",
     "applications": "My applications",
+    "partners": "My shared data",
     "account": "My Account",
     "messaging": "Messaging",
     "blog": "Blog",
@@ -1317,6 +1318,19 @@
       "delete": "Delete",
       "never": "Never",
       "no-shared-file": "No shared files yet"
+    }
+  },
+  "partners-page": {
+    "title": "My shared data",
+    "accesses": {
+      "title": "Partners with access to my data",
+      "date": "Date",
+      "since-date": "Since ",
+      "default-date": "Since 2023",
+      "partner": "Partner",
+      "action": "Action",
+      "revoke": "Revoke",
+      "no-access": "You didn't give access to any partner"
     }
   },
   "404": {

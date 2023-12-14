@@ -26,6 +26,8 @@ import { ToastService } from '@/services/ToastService';
 import {useLoading} from 'vue-loading-overlay'
 import { useCookies } from 'vue3-cookies';
 import type { Composer } from 'vue-i18n';
+import type { PartnerAccess } from "../../../df-shared-next/src/models/PartnerAccess";
+import { PartnerAccessService } from "@/services/PartnerAccessService";
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 const FC_LOGOUT_URL = import.meta.env.VITE_FC_LOGOUT_URL || "";
@@ -48,6 +50,7 @@ interface State {
   guarantorFinancialDocumentSelected: FinancialDocument | undefined;
   editGuarantorFinancialDocument: boolean;
   apartmentSharingLinks: ApartmentSharingLink[];
+  partnerAccesses: PartnerAccess[];
 }
 
 function defaultState(): State {
@@ -66,7 +69,8 @@ function defaultState(): State {
   skipLinks : [],
   guarantorFinancialDocumentSelected : new FinancialDocument(),
   editGuarantorFinancialDocument : false,
-  apartmentSharingLinks : []
+  apartmentSharingLinks : [],
+  partnerAccesses : [],
   };
   return tenantState;
 }
@@ -506,6 +510,9 @@ const useTenantStore = defineStore('tenant', {
     createGuarantorDocumentFinancial() {
       this.guarantorFinancialDocumentSelected= new FinancialDocument();
       this.editGuarantorFinancialDocument = true;
+    },
+    setPartnerAccesses(accesses: PartnerAccess[]) {
+      this.partnerAccesses = accesses;
     },
     setApartmentSharingLinks(links: ApartmentSharingLink[]) {
       const sortedLinks = links.sort(
@@ -1120,6 +1127,26 @@ const useTenantStore = defineStore('tenant', {
         return link;
       });
       this.setApartmentSharingLinks(updatedLinks);
+    },
+    loadPartnerAccesses() {
+      return PartnerAccessService.getPartners().then(
+        (response) => {
+          const accesses = response.data || [];
+          this.setPartnerAccesses(accesses);
+          return Promise.resolve(accesses);
+        },
+        (error) => {
+          return Promise.reject(error);
+        }
+      );
+    },
+    revokePartnerAccess(accessToRevoke: PartnerAccess) {
+      PartnerAccessService.revokeAccess(accessToRevoke).then((_) => {
+        const newList = this.partnerAccesses.filter(
+          (access) => access.id !== accessToRevoke.id
+        );
+        this.setPartnerAccesses(newList);
+      });
     },
   deleteFile(id: number | string, silent = false) {
     const $loading = useLoading({});

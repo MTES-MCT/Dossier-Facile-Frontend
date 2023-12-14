@@ -59,6 +59,16 @@
               </span>
             </a>
           </li>
+          <li v-if="partners.length > 0">
+            <a
+              class="fr-nav__link"
+              href="/partners"
+              target="_self"
+              :aria-current="currentPage === '/partners' ? 'page' : undefined"
+            >
+              {{ $t("menu.partners") }}
+            </a>
+          </li>
           <li>
             <a
               class="fr-nav__link"
@@ -106,20 +116,26 @@ import { useI18n, type Composer } from "vue-i18n";
 import { computed, onMounted, ref } from "vue";
 import useTenantStore from "@/stores/tenant-store";
 import i18n from "@/i18n";
+import { onBeforeMount } from "vue";
 
-  const { t } = useI18n();
-  const store = useTenantStore();
-  const user = computed(() => store.user);
-  const isLoggedIn = computed(() => store.isLoggedIn);
-  const newMessage = computed(() => store.getNewMessage);
-  const messageList = computed(() => store.getMessages);
+const { t } = useI18n();
+const store = useTenantStore();
+const user = computed(() => store.user);
+const isLoggedIn = computed(() => store.isLoggedIn);
+const newMessage = computed(() => store.getNewMessage);
+const messageList = computed(() => store.getMessages);
+const partners = computed(() => store.partnerAccesses);
 
-  const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
-  const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`;
+const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
+const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`;
 
 const currentPage = ref("/")
 
-      const lang: string = (i18n.global as unknown as Composer).locale.value;
+const lang: string = (i18n.global as unknown as Composer).locale.value;
+
+onBeforeMount(() => {
+  store.loadPartnerAccesses();
+})
 
 onMounted(() => {
   currentPage.value = window.location.pathname;

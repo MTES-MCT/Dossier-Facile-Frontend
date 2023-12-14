@@ -1,9 +1,9 @@
 <template>
   <NakedCard class="fr-p-md-5w">
-    <h2 class="fr-h4">{{ t("title") }}</h2>
+    <h2 class="fr-h4">{{ t("sharing-page.shared-links.title") }}</h2>
 
     <div
-      class="fr-table fr-table--bordered fr-table--no-caption fr-m-0 desktop"
+      class="fr-table fr-table--bordered fr-table--no-caption fr-m-0 fr-table--layout-fixed desktop"
     >
       <table>
         <caption>
@@ -106,7 +106,7 @@
                   class="fr-btn--tertiary"
                   @on-click="deleteSharedLink(link)"
                 >
-                  {{ t("delete") }}
+                  {{ t("sharing-page.shared-links.delete") }}
                 </Button>
               </li>
             </ul>
