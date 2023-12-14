@@ -127,13 +127,13 @@ import { ApartmentSharingLink } from "df-shared-next/src/models/ApartmentSharing
 import Button from "df-shared-next/src/Button/Button.vue";
 import moment from "moment";
 import ColoredTag from "df-shared-next/src/components/ColoredTag.vue";
-import { ToastService } from "@/services/ToastService";
-import useTenantStore from "@/stores/tenant-store";
+import { ToastService } from "../services/ToastService";
+import useTenantStore from "../stores/tenant-store";
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 
 const store = useTenantStore();
-const links = computed(() => store.apartmentSharingLinks);
+const links = computed(() => store.getApartmentSharingLinks);
 const { t } = useI18n();
 
   function deleteSharedLink(link: ApartmentSharingLink) {
