@@ -72,7 +72,6 @@ import { UploadStatus } from "df-shared-next/src/models/UploadStatus";
 import ListItem from "../../uploads/ListItem.vue";
 import { DfFile } from "df-shared-next/src/models/DfFile";
 import { DfDocument } from "df-shared-next/src/models/DfDocument";
-// import { ValidationProvider } from "vee-validate";
 import { RegisterService } from "../../../services/RegisterService";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared-next/src/components/ConfirmModal.vue";

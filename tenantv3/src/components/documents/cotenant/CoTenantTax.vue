@@ -52,7 +52,6 @@
 import { DocumentType } from "df-shared-next/src/models/Document";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import DocumentDownloader from "./DocumentDownloader.vue";
-// import { extend, ValidationProvider } from "vee-validate";
 import NakedCard from "df-shared-next/src/components/NakedCard.vue";
 import { DfDocument } from "df-shared-next/src/models/DfDocument";
 import FooterContainer from "../../footer/FooterContainer.vue";

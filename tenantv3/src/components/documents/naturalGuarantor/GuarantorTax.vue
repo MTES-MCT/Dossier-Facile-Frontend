@@ -1,7 +1,6 @@
 <template>
   <div>
-    <!-- <ValidationObserver v-slot="{ validate }"> -->
-    <form name="form">
+    <Form name="form">
       <NakedCard class="fr-p-md-5w">
         <h1 class="fr-h6" v-if="isCotenant">
           {{ $t("guarantortax.title-cotenant") }}
@@ -18,18 +17,18 @@
           ></SimpleRadioButtons>
         </div>
         <div class="fr-mb-3w" v-if="taxDocument.key && taxDocument.key === 'other-tax'">
-          <!-- <validation-provider rules="required" v-slot="{ errors, valid }"> -->
-          <!-- :class="errors[0] ? 'fr-input-group--error' : ''" -->
           <div class="fr-input-group">
             <label class="fr-label" for="customText">{{
               $t("guarantortax.custom-text")
             }}</label>
-            <!-- :class="{
-                'fr-input--valid': valid,
-                'fr-input--error': errors[0],
-              }" -->
-            <textarea
+            <Field
+              name="customText"
               v-model="customText"
+              v-slot="{ field, meta }"
+              :rules="{required: true}"
+            >
+            <textarea
+              v-bind="field"
               class="form-control fr-input validate-required"
               id="customText"
               name="customText"
@@ -37,16 +36,22 @@
               type="text"
               required
               maxlength="2000"
+              :class="{
+                'fr-input--valid': meta.valid,
+                'fr-input--error': !meta.valid
+              }"
               rows="4"
             />
-            <!-- <span class="fr-error-text" v-if="errors[0]">{{
-              $t(errors[0])
-            }}</span> -->
+            <ErrorMessage name="customText" v-slot="{ message }">
+              <span role="alert" class="fr-error-text">{{
+                t(message || "")
+              }}</span>
+            </ErrorMessage>
+            </Field>
           </div>
-          <!-- </validation-provider> -->
         </div>
       </NakedCard>
-    </form>
+    </Form>
     <NakedCard
       class="fr-p-md-5w fr-mt-3w"
       v-if="taxDocument.key === 'my-name' || taxFiles().length > 0"
@@ -78,7 +83,6 @@
       </div>
     </NakedCard>
     <GuarantorFooter @on-back="goBack" @on-next="goNext"></GuarantorFooter>
-    <!-- </ValidationObserver> -->
     <ConfirmModal v-if="isDocDeleteVisible" @valid="validSelect()" @cancel="undoSelect()">
       <span>{{ $t("guarantortax.will-delete-files") }}</span>
     </ConfirmModal>
@@ -123,7 +127,6 @@ import { UploadStatus } from "df-shared-next/src/models/UploadStatus";
 import ListItem from "../../uploads/ListItem.vue";
 import { DfFile } from "df-shared-next/src/models/DfFile";
 import { DfDocument } from "df-shared-next/src/models/DfDocument";
-// import { ValidationObserver, ValidationProvider } from "vee-validate";
 import { RegisterService } from "../../../services/RegisterService";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import ConfirmModal from "df-shared-next/src/components/ConfirmModal.vue";
@@ -144,6 +147,7 @@ import useTenantStore from "@/stores/tenant-store";
 import { useI18n } from "vue-i18n";
 import { ToastService } from "@/services/ToastService";
 import { useLoading } from "vue-loading-overlay";
+import { Form, Field, ErrorMessage } from "vee-validate";
 
 // TODO
 // extend("is", {

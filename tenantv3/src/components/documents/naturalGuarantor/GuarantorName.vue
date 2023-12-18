@@ -1,8 +1,6 @@
 <template>
   <div>
-    <!-- <ValidationObserver v-slot="{ handleSubmit }"> -->
-      <!-- <form name="guarantorNameForm" @submit.prevent="handleSubmit(save)"> -->
-      <form name="guarantorNameForm" @submit.prevent="save">
+      <Form name="guarantorNameForm" @submit="save">
         <NakedCard class="fr-p-md-5w">
           <h1 class="fr-h6">{{ t("guarantorname.title") }}</h1>
           <div class="fr-alert fr-alert--info">
@@ -10,79 +8,83 @@
           </div>
           <div class="fr-grid-row fr-grid-row--center fr-mt-4w">
             <div class="fr-col-12 fr-mb-3w">
-              <!-- <validation-provider
-                rules="required|onlyAlpha"
-                v-slot="{ errors, valid }"
-              > -->
-                  <!-- :class="errors[0] ? 'fr-input-group--error' : ''" -->
+            <Field
+              name="lastname"
+              v-model="lastName"
+              v-slot="{ field, meta }"
+              :rules="{required: true, onlyAlpha: true}"
+            >
                 <div
                   class="fr-input-group"
                 >
                   <label class="fr-label" for="lastname"
                     >{{ t("guarantorname.lastname") }} :</label
                   >
-                  <!-- TODO -->
-                    <!-- :class="{
-                      'fr-input--valid': valid,
-                      'fr-input--error': errors[0],
-                    }" -->
                   <input
-                    v-model="lastName"
+                    v-bind="field"
                     class="form-control fr-input validate-required"
                     id="lastname"
                     name="lastname"
                     :placeholder="t('guarantorname.lastname-placeholder')"
                     type="text"
+                    :class="{
+                      'fr-input--valid': meta.valid,
+                      'fr-input--error': !meta.valid
+                    }"
                     required
                   />
-                  <!-- <span class="fr-error-text" v-if="errors[0]">{{
-                    t(errors[0])
-                  }}</span> -->
+            <ErrorMessage name="lastname" v-slot="{ message }">
+              <span role="alert" class="fr-error-text">{{
+                t(message || "")
+              }}</span>
+            </ErrorMessage>
                 </div>
-              <!-- </validation-provider> -->
+            </Field>
             </div>
             <div class="fr-col-12 fr-mb-3w">
-              <!-- <validation-provider
-                rules="required|onlyAlpha"
-                v-slot="{ errors, valid }"
-              > -->
-                  <!-- :class="errors[0] ? 'fr-input-group--error' : ''" -->
+            <Field
+              name="firstname"
+              v-model="firstName"
+              v-slot="{ field, meta }"
+              :rules="{required: true, onlyAlpha: true}"
+            >
                 <div
                   class="fr-input-group"
                 >
                   <label for="firstname" class="fr-label"
                     >{{ t("guarantorname.firstname") }} :</label
                   >
-                    <!-- :class="{
-                      'fr-input--valid': valid,
-                      'fr-input--error': errors[0],
-                    }" -->
                   <input
                     id="firstname"
                     :placeholder="t('guarantorname.firstname-placeholder')"
                     type="text"
-                    v-model="firstName"
+                    v-bind="field"
                     name="firstname"
                     class="validate-required form-control fr-input"
+                    :class="{
+                      'fr-input--valid': meta.valid,
+                      'fr-input--error': !meta.valid,
+                    }"
                     required
                   />
-                  <!-- <span class="fr-error-text" v-if="errors[0]">{{
-                    t(errors[0])
-                  }}</span> -->
+
+            <ErrorMessage name="firstname" v-slot="{ message }">
+              <span role="alert" class="fr-error-text">{{
+                t(message || "")
+              }}</span>
+            </ErrorMessage>
                 </div>
-              <!-- </validation-provider> -->
+                </Field>
             </div>
           </div>
         </NakedCard>
         <GuarantorFooter @on-back="goBack"></GuarantorFooter>
-      </form>
-    <!-- </ValidationObserver> -->
+      </Form>
   </div>
 </template>
 
 <script setup lang="ts">
 import { UploadStatus } from "df-shared-next/src/models/UploadStatus";
-// import { ValidationObserver, ValidationProvider } from "vee-validate";
 import NakedCard from "df-shared-next/src/components/NakedCard.vue";
 import { UtilsService } from "../../../services/UtilsService";
 import GuarantorFooter from "../../footer/GuarantorFooter.vue";
@@ -91,6 +93,7 @@ import useTenantStore from "@/stores/tenant-store";
 import { useI18n } from "vue-i18n";
 import { ToastService } from "@/services/ToastService";
 import { useLoading } from 'vue-loading-overlay';
+import { Form, Field, ErrorMessage } from 'vee-validate';
 
 const store = useTenantStore();
 const selectedGuarantor = computed(() => store.selectedGuarantor);

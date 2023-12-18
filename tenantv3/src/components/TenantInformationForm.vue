@@ -1,38 +1,46 @@
 <template>
   <div>
     <div v-if="!isOwner()">
+    <Form name="form" @submit="authorize">
       <NakedCard class="fr-p-md-5w">
         <div
           class="fr-grid-row fr-grid-row--center"
           v-if="applicationType === 'COUPLE'"
         >
           <div class="fr-col-12">
-    <!-- TODO -->
-            <validation-provider
-              rules="is"
-              v-slot="{ errors }"
-              class="fr-col-10"
+
+            <Field
+              name="authorize"
+              v-model="localSpouseAuthorize"
+              v-slot="{ field, meta }"
+              :rules="{isTrue: true}"
+              :value="true"
             >
               <div
                 class="fr-checkbox-group bg-purple"
-                :class="errors[0] ? 'fr-input-group--error' : ''"
               >
                 <input
                   type="checkbox"
                   id="authorize"
                   value="false"
-                  v-model="localSpouseAuthorize"
+                  v-bind="field"
+                  :class="{
+                    'fr-input--valid': meta.valid,
+                    'fr-input--error': !meta.valid,
+                  }"
                 />
                 <label
                   for="authorize"
                   v-html="$t('tenantinformationform.acceptAuthorSpouse')"
                 >
                 </label>
-                <span class="fr-error-text" v-if="errors[0]">{{
-                  $t(errors[0])
-                }}</span>
+            <ErrorMessage name="authorize" v-slot="{ message }">
+              <span role="alert" class="fr-error-text">{{
+                t(message || "")
+              }}</span>
+            </ErrorMessage>
               </div>
-            </validation-provider>
+              </Field>
           </div>
         </div>
         <div
@@ -40,35 +48,43 @@
           v-if="applicationType === 'GROUP'"
         >
           <div class="fr-col-12">
-            <validation-provider
-              rules="is"
-              v-slot="{ errors }"
-              class="fr-col-10"
+            <Field
+              name="authorize"
+              v-model="localCoTenantAuthorize"
+              v-slot="{ field, meta }"
+              :rules="{isTrue: true}"
+              :value="true"
             >
               <div
                 class="fr-checkbox-group bg-purple"
-                :class="errors[0] ? 'fr-input-group--error' : ''"
               >
                 <input
                   type="checkbox"
                   id="authorize"
                   value="false"
-                  v-model="localCoTenantAuthorize"
+                  v-bind="field"
+                  :class="{
+                    'fr-input--valid': meta.valid,
+                    'fr-input--error': !meta.valid,
+                  }"
                 />
                 <label
                   for="authorize"
                   v-html="$t('tenantinformationform.acceptAuthorCoTenant')"
                 >
                 </label>
-                <span class="fr-error-text" v-if="errors[0]">{{
-                  $t(errors[0])
-                }}</span>
+            <ErrorMessage name="authorize" v-slot="{ message }">
+              <span role="alert" class="fr-error-text">{{
+                t(message || "")
+              }}</span>
+            </ErrorMessage>
               </div>
-            </validation-provider>
+            </Field>
           </div>
         </div>
       </NakedCard>
-      <ProfileFooter @on-back="goBack" @on-next="authorize()"></ProfileFooter>
+      <ProfileFooter @on-back="goBack"></ProfileFooter>
+    </Form>
     </div>
 
     <div v-if="isOwner()">
