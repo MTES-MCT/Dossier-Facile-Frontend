@@ -203,9 +203,6 @@
               <label class="fr-label" for="customTextNoDocument">
                 {{ t("financialdocumentform.has-no-income") }}
               </label>
-                <!-- :class="{
-                  'fr-input--valid': valid,
-                }" -->
               <textarea
                 v-model="financialDocument.customText"
                 maxlength="2000"
@@ -219,7 +216,6 @@
               <span>{{ financialDocument.customText.length }} / 2000</span>
             </div>
           </Form>
-        <!-- </ValidationObserver> -->
       </NakedCard>
     </div>
     <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
