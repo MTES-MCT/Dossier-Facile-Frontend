@@ -189,7 +189,11 @@
           </div>
 
           <div class="fr-col-12 text-center fr-mb-5w">
-            <button class="fr-btn full-width-btn" type="submit">
+            <button
+              id="signup-submit"
+              class="fr-btn full-width-btn"
+              type="submit"
+            >
               {{ t("submit") }}
             </button>
           </div>
