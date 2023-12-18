@@ -138,7 +138,6 @@ function goBack() {
 }
 
   function checkResidencyAndGoNext() {
-    // TODO user is not updated
       if (documentType.value.value === "GUEST_PARENTS" || documentType.value.value === "GUEST") {
         const nbPages = document.value.files?.reduce(
           (s, a) => s + (a.numberOfPages || 0),

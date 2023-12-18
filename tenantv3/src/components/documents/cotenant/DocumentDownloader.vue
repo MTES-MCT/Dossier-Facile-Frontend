@@ -272,7 +272,6 @@ const store = useTenantStore();
   onBeforeMount(() => {
     loadDocument();
     noDocument.value = dfDocument.value?.noDocument == true;
-    emit("on-change-document", document.value, dfDocument.value);
   })
 
   function changeNoDocument(event: Event) {
@@ -364,6 +363,7 @@ const documentStatus = computed(() => {
         dfDocument.value?.documentDeniedReasons
       ) as DocumentDeniedReasons;
     }
+    emit("on-change-document", document.value, dfDocument.value);
   }
 
   function getDocument(): DfDocument {

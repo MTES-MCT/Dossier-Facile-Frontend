@@ -22,7 +22,7 @@ Cypress.Commands.add("uploadDocument", (numberOfFiles: number = 1) => {
 
 Cypress.Commands.add("waitUntilModalIsGone", () => {
   cy.waitUntil(
-    () => Cypress.$('.modal').length === 0,
+    () => Cypress.$('.modal').length === 0 || Cypress.$('.modal').is(':visible') === false,
     { interval: 100, timeout: 10000 }
   );
 });

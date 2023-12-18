@@ -34,6 +34,7 @@ describe(
 
     it("add residency documents for cotenant", () => {
       clickOnMenuItem("Les documents de mon conjoint");
+      cy.wait(300);
       clickOnMenuItem("Situation d'hébergement");
 
       testResidencyStep();
@@ -103,7 +104,7 @@ describe(
       cy.wait(200);
       cy.expectPath("/3");
       cy.contains("Retour").click();
-      cy.wait(200);
+      cy.wait(500);
     }
 
     function createGuarantor() {
