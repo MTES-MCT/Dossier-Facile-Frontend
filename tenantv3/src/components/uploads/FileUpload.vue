@@ -1,8 +1,10 @@
 <template>
   <div class="file-upload fr-col-md-12">
     <form name="uploadForm" enctype="multipart/form-data" novalidate>
+      <label for="file" class="visually-hidden">Ajouter un document</label>
       <div class="dropbox">
         <input
+          id="file"
           type="file"
           multiple
           :disabled="isSaving()"
