@@ -24,13 +24,7 @@ function createAnnouncementClosedCookie() {
   const expirationDate = new Date();
   expirationDate.setDate(expirationDate.getDate() + 1);
 
-  cookies.set(
-    announcementClosedCookieKey,
-    "true",
-    expirationDate.toUTCString(),
-    "",
-    DOMAIN
-  );
+  cookies.set(announcementClosedCookieKey, "true", expirationDate, "/", DOMAIN);
 }
 
 function closeAnnouncement() {

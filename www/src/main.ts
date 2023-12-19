@@ -1,3 +1,4 @@
+import { CookiesService } from 'df-shared-next/src/services/CookiesService';
 import './assets/main.css'
 import { createPinia } from 'pinia'
 import i18n from './i18n';
@@ -28,5 +29,26 @@ export const createApp:any = ViteSSG(
       autoClose: 6000,
       theme: "colored"
     } as ToastContainerOptions);
+
+    router.beforeEach((to, from, next) => {
+      if (
+        to.query.mtm_campaign !== undefined ||
+        to.query.mtm_source !== undefined ||
+        to.query.mtm_medium !== undefined
+      ) {
+        CookiesService.setJsonCookie(
+          "acquisition",
+          {
+            campaign: to.query.mtm_campaign,
+            source: to.query.mtm_source,
+            medium: to.query.mtm_medium,
+          },
+          CookiesService.datePlusDaysFromNow(1)
+        );
+    }
+
+      next()
+    })
+
   },
 )

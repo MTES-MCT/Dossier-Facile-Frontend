@@ -5,6 +5,7 @@ import { CONTENT, type SkipLink } from 'df-shared-next/src/models/SkipLink';
 import keycloak from '../plugin/keycloak';
 import Home from '../views/Home.vue';
 import { FOOTER_NAVIGATION, FUNNEL_SKIP_LINKS } from '@/models/SkipLinkModel';
+import { CookiesService } from 'df-shared-next/src/services/CookiesService';
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 const TENANT_URL = import.meta.env.VITE_FULL_TENANT_URL;
@@ -383,6 +384,21 @@ function updateKeycloakTokenAndMessages() {
 
 router.beforeEach(async (to: RouteLocationNormalized, from, next: NavigationGuardNext) => {
   registerFunnel(to);
+  if (
+    to.query.mtm_campaign !== undefined ||
+    to.query.mtm_source !== undefined ||
+    to.query.mtm_medium !== undefined
+  ) {
+    CookiesService.setJsonCookie(
+      "acquisition",
+      {
+        campaign: to.query.mtm_campaign,
+        source: to.query.mtm_source,
+        medium: to.query.mtm_medium,
+      },
+      CookiesService.datePlusDaysFromNow(1)
+    );
+  }
 
   to.matched.some((record) => {
     const store = useTenantStore();
