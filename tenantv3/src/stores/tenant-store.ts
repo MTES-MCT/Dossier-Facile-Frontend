@@ -671,7 +671,7 @@ const useTenantStore = defineStore('tenant', {
         lang,
         expireTimes,
         '/',
-        import.meta.env.COOKIE_DOMAIN || 'localhost',
+        import.meta.env.VITE_COOKIE_DOMAIN || 'localhost',
       );
     },
     validateFile(
