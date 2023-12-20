@@ -355,23 +355,23 @@
       "s3-author": "François"
     },
     "howto": {
-      "title": "Comment ça marche ?",
+      "title": "Comment fonctionne la vérification des dossiers ?",
       "add-property": {
-        "title": "Ajoutez votre bien",
+        "title": "Ajoutez votre bien à louer",
         "content": "Renseignez les caractéristiques essentielles de votre bien. Vous pouvez en ajouter plusieurs."
       },
       "invite-tenant": {
-        "title": "Invitez vos candidats locataires",
-        "content": "Envoyez un lien vers votre bien à vos candidats afin qu'ils vous transmettent leur dossier de location."
+        "title": "Invitez vos candidats locataires à déposer leur justificatifs",
+        "content": "Envoyez un simple lien. Ils devront transmettre toutes les pièce nécessaire pour passer à l'étapse suivante : la vérification"
       },
       "manage-tenant": {
-        "title": "Recevez et centralisez les dossiers de candidatures",
-        "content": "Retrouvez tous vos candidats dans votre espace. Choisissez le candidat idéal pour votre location."
+        "title": "Nous vérifions les dossiers en 48h",
+        "content": "Notre équiope analyse les jutificatifs pour vérifier leur exactitude. Si besoin, nous demandons aux candidats des compléments"
       }
     },
     "result": {
-      "title": "Les dossiers de location de vos candidats sont",
-      "title1": "Complets. Clairs. Cohérents",
+      "title": "Avant ou après une visite, les dossiers de location de vos candidats sont",
+      "title1": "Complets ",
       "title2": "et",
       "title3": "Vérifiés."
     }
