@@ -96,7 +96,6 @@ import DfButton from "df-shared/src/Button/Button.vue";
 import GuarantorChoiceHelp from "../../helps/GuarantorChoiceHelp.vue";
 import VGouvFrModal from "df-shared/src/GouvFr/v-gouv-fr-modal/VGouvFrModal.vue";
 import NakedCard from "df-shared/src/components/NakedCard.vue";
-import { UtilsService } from "../../../services/UtilsService";
 import GuarantorFooter from "../../footer/GuarantorFooter.vue";
 
 @Component({
@@ -146,10 +145,10 @@ export default class GuarantorName extends Vue {
     }
     const formData = new FormData();
     if (this.firstName) {
-      formData.append("firstName", UtilsService.capitalize(this.firstName));
+      formData.append("firstName", this.firstName);
     }
     if (this.lastName) {
-      formData.append("lastName", UtilsService.capitalize(this.lastName));
+      formData.append("lastName", this.lastName);
     }
     formData.append("guarantorId", this.$store.getters.guarantor.id);
     const loader = this.$loading.show();
