@@ -275,7 +275,7 @@
     "whatis-france-connect": "Qu'est-ce que FranceConnect ?",
     "strength-not-valid": "Le mot de passe est trop simple",
     "confirm-not-valid": "Le mot de passe ne correspond pas",
-    "title-card": "Créez votre espace propriétaire.",
+    "title-card": "Inscrivez-vous et faite verifier un dossier de location.",
     "title-card-1": "C’est 100% gratuit !",
     "title-register-with-fc": "Se créer un compte avec FranceConnect",
     "title-register-with-email": "Se créer un compte avec une adresse email",
@@ -326,50 +326,52 @@
     "rentdpe": "avec un DPE"
   },
   "landing": {
-    "title": "Trouvez la perle rare du locataire !",
-    "subtitle1": "Avec DossierFacile, facilitez-vous la location. Recevez des dossiers de location",
-    "subtitle2": "complets et vérifiés et choisissez sereinement le locataire idéal !",
+    "title": "Nous vérifions les dossiers de location à votre place",
+    "subtitle1": "Nos équipes vérifient l’exactitude et la complétude des pièces justificative de location, avant ou après une visite.",
+    "subtitle2": "Vous n’avez plus qu’à choisir le bon candidat.",
+    "subtitle3": "Un service gratuit proposé par le Ministère du logement.",
+    "tagline": "Un service gratuit proposé aux propriétaires par le Ministère du logement",
     "purpose": {
       "first": {
-        "title": "Nos dossiers de location sont complets",
-        "content": "Finis les allers-retours interminables avec les candidats pour obtenir des documents manquants et les heures perdues à trier les dossiers de location."
+        "title": "Fini les faux dossiers ",
+        "content": "Une équipe de 15 personnes vérifie chaque dossier, 5j/7 . Ils sont  aidés par des contrôles automatisés utilisant des bases de données de l’État. Réponse en 48h . Gratuitement."
       },
       "second": {
-        "title": "Nos dossiers de location sont vérifiés",
-        "content": "Les dossiers de location sont vérifiés par notre équipe d’opérateurs humains, aidés par des contrôles automatisés utilisant des bases de données de l’État"
+        "title": "Fini les échanges d’emails",
+        "content": "Finis les allers-retours interminables avec les candidats pour obtenir des documents manquants et les heures perdues à trier les dossiers de location. Partager leur un unique lien. "
       },
       "third": {
-        "title": "Vous n’avez plus qu’à choisir le candidat idéal",
-        "content": "Concentrez-vous sur l’essentiel. Nous simplifions le reste. Vous n’avez plus qu’à signer votre bail !"
+        "title": "Ne faite visiter votre bien qu’aux candidats ayant un dossier complet",
+        "content": "Trop de demande de visites ? Demandez avant aux candidats d’importer leur justificatifs sur Dossier Facile. Fini les visites inutiles"
       }
     },
     "citation": {
-      "title": "Rejoignez notre communauté de 22 000 propriétaires.",
-      "s1": "« (…) merci pour votre site vraiment formidable. Je suis enchanté de vos services qui gagnent à être connus et reconnus (...) »",
-      "s1-author": "Katia",
+      "title": "Déjà 374 056 Dossiers vérifiés",
+      "s1": "«Le dossier de Karim s'est tout de suite démarqué : c'était le seul dossier reçu complet ! »",
+      "s1-author": "Joseph, propriétaire à Nantes",
       "s2": "DossierFacile « sécurise mes locations et c’est très dissuasif, j’informe les candidats que leurs justificatifs vont être vérifiés ! »",
       "s2-author": "Farid",
       "s3": "DossierFacile « nous a grandement facilité la vie dans nos démarches en toute sécurité.»",
       "s3-author": "François"
     },
     "howto": {
-      "title": "Comment ça marche ?",
+      "title": "Comment fonctionne la vérification des dossiers ?",
       "add-property": {
-        "title": "Ajoutez votre bien",
+        "title": "Ajoutez votre bien à louer",
         "content": "Renseignez les caractéristiques essentielles de votre bien. Vous pouvez en ajouter plusieurs."
       },
       "invite-tenant": {
-        "title": "Invitez vos candidats locataires",
-        "content": "Envoyez un lien vers votre bien à vos candidats afin qu'ils vous transmettent leur dossier de location."
+        "title": "Invitez vos candidats locataires à déposer leur justificatifs",
+        "content": "Envoyez un simple lien. Ils devront transmettre toutes les pièce nécessaire pour passer à l'étapse suivante : la vérification"
       },
       "manage-tenant": {
-        "title": "Recevez et centralisez les dossiers de candidatures",
-        "content": "Retrouvez tous vos candidats dans votre espace. Choisissez le candidat idéal pour votre location."
+        "title": "Nous vérifions les dossiers en 48h",
+        "content": "Notre équiope analyse les jutificatifs pour vérifier leur exactitude. Si besoin, nous demandons aux candidats des compléments"
       }
     },
     "result": {
-      "title": "Les dossiers de location de vos candidats sont",
-      "title1": "Complets. Clairs. Cohérents",
+      "title": "Avant ou après une visite, les dossiers de location de vos candidats sont",
+      "title1": "Complets ",
       "title2": "et",
       "title3": "Vérifiés."
     }
