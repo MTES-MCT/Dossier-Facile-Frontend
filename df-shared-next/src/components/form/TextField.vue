@@ -4,60 +4,57 @@
       {{ fieldLabel }}
     </FieldLabel>
     <div class="field-with-button fr-input-wrap">
-      <div v-if="!textarea">
-        <Field
-          v-if="!textarea"
-          :name="name"
-          :value="modelValue"
-          v-on:input="updateModel($event)"
-          v-slot="{ field, meta }"
-          :rules="getValidationRules()"
-        >
-          <input
-            v-bind="field"
-            :id="name"
-            class="validate-required form-control fr-input"
-            :class="{
-              'fr-input--valid': meta.valid,
-              'fr-input--error': !meta.valid
-            }"
-            type="text"
-            :disabled="disabled"
-          />
-        </Field>
-        <ErrorMessage :name="name" v-slot="{ message }">
-          <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
-        </ErrorMessage>
-      </div>
-      <div v-else>
-        <Field
-          :name="name"
-          :value="modelValue"
-          v-on:input="updateModel($event)"
-          v-slot="{ field, meta }"
-          :rules="{
-            required: true
+      <Field
+        v-if="!textarea"
+        :name="name"
+        :value="modelValue"
+        v-on:input="updateModel($event)"
+        v-slot="{ field, meta }"
+        :rules="getValidationRules()"
+      >
+        <input
+          v-bind="field"
+          :id="name"
+          class="validate-required form-control fr-input"
+          :class="{
+            'fr-input--valid': meta.valid,
+            'fr-input--error': !meta.valid,
           }"
-        >
-          <textarea
-            v-bind="field"
-            :id="name"
-            type="text"
-            :value="modelValue"
-            class="validate-required form-control fr-input"
-            :class="{
-              'fr-input--valid': meta.valid,
-              'fr-input--error': !meta.valid
-            }"
-            :disabled="disabled"
-            maxlength="2000"
-            rows="4"
-          />
-        </Field>
+          type="text"
+          :disabled="disabled"
+        />
         <ErrorMessage :name="name" v-slot="{ message }">
           <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
         </ErrorMessage>
-      </div>
+      </Field>
+      <Field
+        v-else
+        :name="name"
+        :value="modelValue"
+        v-on:input="updateModel($event)"
+        v-slot="{ field, meta }"
+        :rules="{
+          required: true,
+        }"
+      >
+        <textarea
+          v-bind="field"
+          :id="name"
+          type="text"
+          :value="modelValue"
+          class="validate-required form-control fr-input"
+          :class="{
+            'fr-input--valid': meta.valid,
+            'fr-input--error': !meta.valid,
+          }"
+          :disabled="disabled"
+          maxlength="2000"
+          rows="4"
+        />
+        <ErrorMessage :name="name" v-slot="{ message }">
+          <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+        </ErrorMessage>
+      </Field>
       <div class="fr-ml-1w" v-if="$slots.right">
         <slot name="right"></slot>
       </div>
@@ -88,7 +85,7 @@ const props = withDefaults(
     validationRules: "",
     required: false,
     disabled: false,
-    textarea: false
+    textarea: false,
   }
 );
 

@@ -11,7 +11,7 @@
       </div>
       <div class="vline" :class="getClass(getStepNumber('information'))">
         <div class="ml-5">
-          <router-link :to="{ name: 'Profile' }">
+          <router-link :to="{ name: 'TenantName' }">
             <ColoredTag
               :label="t('lefteditmenu.identity')"
               :text="UtilsService.tenantFullName(user)"

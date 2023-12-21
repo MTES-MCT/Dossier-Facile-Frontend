@@ -502,7 +502,7 @@ const router = useRouter();
     }
     if (substep == 0) {
       router.push({
-        name: "Profile",
+        name: "TenantName",
       });
     } else {
       router.push({
