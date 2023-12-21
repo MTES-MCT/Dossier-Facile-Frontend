@@ -32,16 +32,6 @@
         v-html="$t('uploaddocuments.warning-need-residency-documents-tenant')"
       ></p>
     </ConfirmModal>
-    <ConfirmModal
-      v-if="showNbDocumentsResidency"
-      :validate-btn-text="$t('uploaddocuments.accept-warning')"
-      :cancel-btn-text="$t('uploaddocuments.ignore-warning')"
-      @cancel="cancelAndgoNext()"
-      @close="showNbDocumentsResidency = false"
-      @valid="showNbDocumentsResidency = false"
-    >
-      <p v-html="$t('uploaddocuments.warning-need-residency-documents')"></p>
-    </ConfirmModal>
   </div>
 </template>
 
@@ -65,7 +55,6 @@ import { useRouter } from "vue-router";
 
     const props = defineProps<{ substep: number }>();
 
-  const showNbDocumentsResidency = ref(false);
   const showNbDocumentsResidencyTenant = ref(false);
 
   function updateSubstep(s: number) {
@@ -115,26 +104,12 @@ import { useRouter } from "vue-router";
           AnalyticsService.missingResidencyDocumentDetected();
           return;
         }
-      } else if (
-        d.subCategory === "GUEST_PARENTS" ||
-        d.subCategory === "GUEST"
-      ) {
-        const nbPages = d.files?.reduce(
-          (s:any, a: any) => s + (a.numberOfPages || 0),
-          0
-        );
-        if ((nbPages || 0) < 3) {
-          showNbDocumentsResidency.value = true;
-          AnalyticsService.missingResidencyDocumentDetected();
-          return;
-        }
       }
     }
     goNext();
   }
 
   function cancelAndgoNext() {
-    showNbDocumentsResidency.value = false
     showNbDocumentsResidencyTenant.value = false
     AnalyticsService.forceMissingResidencyDocument();
     goNext();

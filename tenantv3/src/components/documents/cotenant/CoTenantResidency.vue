@@ -56,34 +56,12 @@
       <BackNext
         :showBack="true"
         @on-next="
-          (documentType.key !== 'other-residency' || !invalidCustomText) && checkResidencyAndGoNext()
+          (documentType.key !== 'other-residency' || !invalidCustomText) && goNext()
         "
         @on-back="goBack()"
       >
       </BackNext>
     </FooterContainer>
-      <ConfirmModal
-        v-if="showNbDocumentsResidency"
-        :validate-btn-text="$t('add-new-documents')"
-        :cancel-btn-text="$t('next-step')"
-        @cancel="cancelAndgoNext()"
-        @close="showNbDocumentsResidency = false"
-        @valid="showNbDocumentsResidency = false"
-      >
-        {{ $t("cotenantdocument.warning-need-residency-documents.p1") }}
-        <ul>
-          <li>
-            {{ $t("cotenantdocument.warning-need-residency-documents.list1") }}
-          </li>
-          <li>
-            {{ $t("cotenantdocument.warning-need-residency-documents.list2") }}
-          </li>
-          <li>
-            {{ $t("cotenantdocument.warning-need-residency-documents.list3") }}
-          </li>
-        </ul>
-        {{ $t("cotenantdocument.warning-need-residency-documents.p2") }}
-      </ConfirmModal>
   </div>
 </template>
 
@@ -102,8 +80,6 @@ import { useLoading } from "vue-loading-overlay";
 import { onBeforeMount, ref } from "vue";
 import useTenantStore from "@/stores/tenant-store";
 import { Field, useFieldError } from "vee-validate";
-import ConfirmModal from "df-shared-next/src/components/ConfirmModal.vue";
-import { AnalyticsService } from "../../../services/AnalyticsService";
 
 const invalidCustomText = useFieldError("customText");
 
@@ -117,7 +93,6 @@ const documentsDefinitions = ref({});
 const documentType = ref(new DocumentType());
 const document = ref(new DfDocument());
 const showDownloader = ref(false);
-const showNbDocumentsResidency = ref(false);
 
 onBeforeMount(() => {
   documentsDefinitions.value = DocumentTypeConstants.RESIDENCY_DOCS.filter(
@@ -136,28 +111,6 @@ function changeDocument(docType: DocumentType, doc: DfDocument) {
 function goBack() {
   emit("on-back");
 }
-
-  function checkResidencyAndGoNext() {
-      if (documentType.value.value === "GUEST_PARENTS" || documentType.value.value === "GUEST") {
-        const nbPages = document.value.files?.reduce(
-          (s, a) => s + (a.numberOfPages || 0),
-          0
-        );
-        if ((nbPages || 0) < 3) {
-          showNbDocumentsResidency.value = true;
-          AnalyticsService.missingResidencyDocumentDetected();
-          return;
-        }
-      }
-    goNext();
-  }
-
-  function cancelAndgoNext() {
-    showNbDocumentsResidency.value = false;
-    AnalyticsService.forceMissingResidencyDocument();
-    goNext();
-  }
-
 
 function goNext() {
   if (documentType.value?.key !== "other-residency" || documentHasNotChanged()) {

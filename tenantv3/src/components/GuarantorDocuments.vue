@@ -15,7 +15,7 @@
         <div v-if="substep === 2">
           <GuarantorResidency
           @on-back="goBack"
-          @on-next="checkResidencyAndGoNext"
+          @on-next="goNext"
           ></GuarantorResidency>
         </div>
         <div v-if="substep === 3">
@@ -64,28 +64,6 @@
     >
     <span>{{ $t("guarantordocuments.will-delete-guarantor") }}</span>
   </ConfirmModal>
-  <ConfirmModal
-  v-if="showNbDocumentsResidency"
-  :validate-btn-text="$t('add-new-documents')"
-  :cancel-btn-text="$t('next-step')"
-  @cancel="cancelAndgoNext()"
-  @close="showNbDocumentsResidency = false"
-  @valid="showNbDocumentsResidency = false"
-  >
-  {{ $t("guarantordocuments.warning-need-residency-documents.p1") }}
-  <ul>
-    <li>
-      {{ $t("guarantordocuments.warning-need-residency-documents.list1") }}
-    </li>
-    <li>
-      {{ $t("guarantordocuments.warning-need-residency-documents.list2") }}
-    </li>
-    <li>
-      {{ $t("guarantordocuments.warning-need-residency-documents.list3") }}
-    </li>
-  </ul>
-  {{ $t("guarantordocuments.warning-need-residency-documents.p2") }}
-</ConfirmModal>
 </div>
 </template>
 
@@ -101,9 +79,7 @@ import GuarantorFinancial from "./documents/naturalGuarantor/GuarantorFinancial.
 import GuarantorTax from "./documents/naturalGuarantor/GuarantorTax.vue";
 import ConfirmModal from "df-shared-next/src/components/ConfirmModal.vue";
 import GuarantorFooter from "./footer/GuarantorFooter.vue";
-import { DocumentService } from "@/services/DocumentService";
 import { UtilsService } from "@/services/UtilsService";
-import { AnalyticsService } from "@/services/AnalyticsService";
 import useTenantStore from "@/stores/tenant-store";
 import { computed, onBeforeMount, ref } from "vue";
 import { useRouter } from "vue-router";
@@ -130,7 +106,6 @@ const router = useRouter();
 
 const tmpGuarantorType = ref("");
 const changeGuarantorVisible = ref(false);
-const showNbDocumentsResidency = ref(false);
 
 onBeforeMount(() => {
   const currentGuarantor = guarantor.value?.typeGuarantor
@@ -180,7 +155,6 @@ function goBack() {
 }
 
 function goNext() {
-  showNbDocumentsResidency.value = false
   updateSubstep(props.substep + 1);
 }
 
@@ -189,32 +163,6 @@ function nextStep() {
     name: "GuarantorList",
   });
 }
-
-function checkResidencyAndGoNext() {
-  const docs = DocumentService.getGuarantorDocs(guarantor.value, "RESIDENCY");
-  if (docs.length === 1) {
-    const d = docs[0];
-    if (d.subCategory === "GUEST") {
-      const nbPages = d.files?.reduce(
-      (s, a) => s + (a.numberOfPages || 0),
-      0
-      );
-      if ((nbPages || 0) < 3) {
-        showNbDocumentsResidency.value = true;
-        AnalyticsService.missingResidencyDocumentDetected();
-        return;
-      }
-    }
-  }
-  goNext();
-}
-
-function cancelAndgoNext() {
-  AnalyticsService.forceMissingResidencyDocument();
-  showNbDocumentsResidency.value = false;
-  goNext();
-}
-
 </script>
 
 <style scoped lang="scss">

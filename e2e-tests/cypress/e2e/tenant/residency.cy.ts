@@ -23,6 +23,11 @@ describe(
       cy.visit("/documents-locataire/2");
 
       testResidencyStep();
+
+      // Should get warning for category needing at least 3 files
+      changeResidencyCategory("Locataire");
+      verifyThatThreeDocumentsAreMandatory();
+      goBackToResidency();
     });
 
     it("add residency documents for guarantor", () => {
@@ -61,11 +66,6 @@ describe(
       // Should upload a file and continue
       selectResidencyCategory("Propriétaire");
       cy.uploadDocument(1).clickOnNext();
-      goBackToResidency();
-
-      // Should get warning for category needing at least 3 files
-      changeResidencyCategory("Hébergé par une personne tierce");
-      verifyThatThreeDocumentsAreMandatory();
       goBackToResidency();
     }
 

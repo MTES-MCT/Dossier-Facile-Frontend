@@ -90,28 +90,6 @@
     >
       <span>{{ $t("tenantguarantordocuments.will-delete-guarantor") }}</span>
     </ConfirmModal>
-    <ConfirmModal
-      v-if="showNbDocumentsResidency"
-      :validate-btn-text="$t('add-new-documents')"
-      :cancel-btn-text="$t('next-step')"
-      @cancel="cancelAndGoNext()"
-      @close="showNbDocumentsResidency = false"
-      @valid="showNbDocumentsResidency = false"
-    >
-      {{ $t("guarantordocuments.warning-need-residency-documents.p1") }}
-      <ul>
-        <li>
-          {{ $t("guarantordocuments.warning-need-residency-documents.list1") }}
-        </li>
-        <li>
-          {{ $t("guarantordocuments.warning-need-residency-documents.list2") }}
-        </li>
-        <li>
-          {{ $t("guarantordocuments.warning-need-residency-documents.list3") }}
-        </li>
-      </ul>
-      {{ $t("guarantordocuments.warning-need-residency-documents.p2") }}
-    </ConfirmModal>
   </div>
 </template>
 
@@ -128,8 +106,6 @@ import GuarantorTax from "./documents/naturalGuarantor/GuarantorTax.vue";
 import { User } from "df-shared-next/src/models/User";
 import ConfirmModal from "df-shared-next/src/components/ConfirmModal.vue";
 import GuarantorFooter from "./footer/GuarantorFooter.vue";
-import { DocumentService } from "@/services/DocumentService";
-import { AnalyticsService } from "@/services/AnalyticsService";
 import { ToastService } from "@/services/ToastService";
 import useTenantStore from "@/stores/tenant-store";
 import { computed, ref } from "vue";
@@ -156,7 +132,6 @@ const emit = defineEmits(["on-next"]);
   const user= ref(new User());
   const tmpGuarantorType = ref("");
   const changeGuarantorVisible = ref(false);
-  const showNbDocumentsResidency = ref(false);
 
   function validSelect() {
     store.deleteAllGuarantors().then(
@@ -197,30 +172,6 @@ const emit = defineEmits(["on-next"]);
     if (!selectedGuarantor.value) {
       return
     }
-    const docs = DocumentService.getGuarantorDocs(
-      selectedGuarantor.value,
-      "RESIDENCY"
-    );
-    if (docs.length === 1) {
-      const d = docs[0];
-      if (d.subCategory === "GUEST") {
-        const nbPages = d.files?.reduce(
-          (s, a) => s + (a.numberOfPages || 0),
-          0
-        );
-        if ((nbPages || 0) < 3) {
-          showNbDocumentsResidency.value = true;
-          AnalyticsService.missingResidencyDocumentDetected();
-          return;
-        }
-      }
-    }
-    goNext();
-  }
-
-  function cancelAndGoNext() {
-    showNbDocumentsResidency.value = false;
-    AnalyticsService.forceMissingResidencyDocument();
     goNext();
   }
 
