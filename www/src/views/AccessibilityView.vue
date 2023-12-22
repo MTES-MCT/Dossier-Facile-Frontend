@@ -266,7 +266,7 @@ useHead({
     },
     {
       name: "Blog",
-      url: "https://www.dossierfacile.logement.gouv.fr/blog-dossierfacile",
+      url: "https://www.dossierfacile.logement.gouv.fr/blog",
     },
     {
       name: "En savoir plus",

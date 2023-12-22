@@ -11,9 +11,9 @@
     </li>
     <li class="fr-nav__item">
       <a
-        :href="`${MAIN_URL}/blog-dossierfacile`"
+        :href="`${MAIN_URL}/blog`"
         class="fr-nav__link"
-        :aria-current="currentPage === '/blog-dossierfacile' ? 'page' : undefined"
+        :aria-current="currentPage === '/blog' ? 'page' : undefined"
       >
         {{ t("blog") }}
       </a>

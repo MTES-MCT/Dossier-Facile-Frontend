@@ -67,7 +67,7 @@ useHead({
     },
     {
       name: "Blog",
-      url: "/blog-dossierfacile",
+      url: "/blog",
     },
     {
       name: "Aide",

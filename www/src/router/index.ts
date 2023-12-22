@@ -13,12 +13,6 @@ const routes = [
       import(/* webpackChunkName: "blog" */ "../views/blog/BlogView.vue"),
   },
   {
-    path: "/blog-dossierfacile",
-    name: "Blog",
-    component: () =>
-      import(/* webpackChunkName: "blog" */ "../views/blog/BlogView.vue"),
-  },
-  {
     path: "/blog/quelles-pieces-justificatives-fournir-pour-mon-dossier-de-location",
     name: "Article1",
     component: () =>
