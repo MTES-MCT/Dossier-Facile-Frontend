@@ -111,7 +111,7 @@ import { ToastService } from "@/services/ToastService";
 
 const store = useTenantStore();
 const guarantor = computed(() => {
-  return store.guarantor;
+  return store.selectedGuarantor;
 });
 const user = computed(() => {
   return store.user;
