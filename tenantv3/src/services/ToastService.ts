@@ -12,7 +12,7 @@ export const ToastService = {
 	info(message: string) {
 		toast.info(i18n.global.t(message));
 	},
-	success(message: string = "error") {
+	success(message: string) {
 		toast.success(i18n.global.t(message));
 	},
 	saveFailed() {

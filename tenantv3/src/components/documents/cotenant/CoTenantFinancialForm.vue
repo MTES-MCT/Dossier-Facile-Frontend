@@ -264,7 +264,7 @@ function setMonthlySum($event: any) {
       store
         .saveTenantFinancial(formData)
         .then(() => {
-          ToastService.success();
+          ToastService.saveSuccess();
         })
         .catch((err) => {
           UtilsService.handleCommonSaveError(err);

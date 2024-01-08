@@ -289,7 +289,7 @@ const uploadProgress = ref({} as {
       .then(() => {
         files.value = [];
         fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
-        ToastService.success();
+        ToastService.saveSuccess();
         return true;
       })
       .catch((err) => {
