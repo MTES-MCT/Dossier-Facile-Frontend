@@ -91,7 +91,7 @@
                   <span
                     class="fr-error-text"
                     v-if="
-                      financialDocument.monthlySum &&
+                      financialDocument.monthlySum !== undefined &&
                       financialDocument.monthlySum <= 0
                     "
                   >
@@ -105,7 +105,7 @@
           class="fr-mt-3w"
           v-if="
             financialDocument.documentType?.key !== 'no-income' &&
-            financialDocument.monthlySum &&
+            financialDocument.monthlySum !== undefined &&
             financialDocument.monthlySum >= 0
           "
         >
