@@ -179,6 +179,7 @@ const uploadProgress = ref({} as {
 
   function save() {
     if (!firstName.value) {
+      files.value = [];
       return Promise.reject();
     }
     uploadProgress.value = {};
