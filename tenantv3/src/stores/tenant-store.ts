@@ -4,6 +4,9 @@ import type { SkipLink } from 'df-shared-next/src/models/SkipLink';
 import { DfMessage } from 'df-shared-next/src/models/DfMessage';
 import { FinancialDocument } from 'df-shared-next/src/models/FinancialDocument';
 import i18n from '../i18n';
+import dayjs from 'dayjs';
+import "dayjs/locale/fr";
+import "dayjs/locale/en";
 
 import { User } from 'df-shared-next/src/models/User';
 import { Guarantor } from 'df-shared-next/src/models/Guarantor';
@@ -17,7 +20,6 @@ import { UtilsService } from '@/services/UtilsService';
 import { ProfileService } from '@/services/ProfileService';
 
 import * as Sentry from "@sentry/vue";
-import moment from 'moment';
 import { MessageService } from '@/services/MessageService';
 import { ApartmentSharingLinkService } from '@/services/ApartmentSharingLinkService';
 import { RegisterService } from '@/services/RegisterService';
@@ -667,7 +669,7 @@ const useTenantStore = defineStore('tenant', {
     setLang(lang: any) {
       (i18n.global as unknown as Composer).locale.value = lang;
       i18n.global.fallbackLocale = 'fr' as any;
-      moment.locale(lang);
+      dayjs.locale(lang);
       const html = document.documentElement;
       html.setAttribute('lang', (i18n.global as unknown as Composer).locale.value);
       const { cookies } = useCookies();

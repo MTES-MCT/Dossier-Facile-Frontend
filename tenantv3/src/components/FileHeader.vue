@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import { FileUser } from "df-shared-next/src/models/FileUser";
 import { DfDocument } from "df-shared-next/src/models/DfDocument";
-import moment from "moment";
+import dayjs from "dayjs";
 import { useI18n } from "vue-i18n";
 import { UtilsService } from "@/services/UtilsService";
 
@@ -73,7 +73,7 @@ const { t } = useI18n();
   }
 
   function getLastUpdateDate() {
-    return moment(props.user?.lastUpdateDate).format("D MMMM YYYY");
+    return dayjs(props.user?.lastUpdateDate).format("D MMMM YYYY");
   }
 </script>
 

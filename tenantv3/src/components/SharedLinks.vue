@@ -125,7 +125,8 @@ import NakedCard from "df-shared-next/src/components/NakedCard.vue";
 import Toggle from "df-shared-next/src/components/Toggle.vue";
 import { ApartmentSharingLink } from "df-shared-next/src/models/ApartmentSharingLink";
 import Button from "df-shared-next/src/Button/Button.vue";
-import moment from "moment";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import ColoredTag from "df-shared-next/src/components/ColoredTag.vue";
 import { ToastService } from "../services/ToastService";
 import useTenantStore from "../stores/tenant-store";
@@ -135,6 +136,7 @@ import { useI18n } from "vue-i18n";
 const store = useTenantStore();
 const links = computed(() => store.getApartmentSharingLinks);
 const { t } = useI18n();
+dayjs.extend(relativeTime);
 
   function deleteSharedLink(link: ApartmentSharingLink) {
     store.deleteApartmentSharingLink(link);
@@ -154,14 +156,14 @@ const { t } = useI18n();
     if (date === undefined) {
       return "";
     }
-    return moment(date).format("D MMM YYYY");
+    return dayjs(date).format("D MMM YYYY");
   }
 
   function formatDateRelativeToNow(date: string | undefined) {
     if (date === undefined) {
       return t("sharing-page.shared-links.never");
     }
-    const relativeDate = moment(date).fromNow();
+    const relativeDate = dayjs(date).fromNow();
     return capitalizeFirstLetter(relativeDate);
   }
 

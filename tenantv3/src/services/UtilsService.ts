@@ -1,7 +1,7 @@
 import { User } from "df-shared-next/src/models/User";
 import { DfDocument } from "../../../df-shared-next/src/models/DfDocument";
 import { Guarantor } from "../../../df-shared-next/src/models/Guarantor";
-import moment from "moment";
+import dayjs from "dayjs";
 import { ToastService } from "./ToastService";
 
 export const UtilsService = {
@@ -61,7 +61,7 @@ export const UtilsService = {
     if (activationDate === undefined) {
       return true;
     }
-    return moment().isAfter(activationDate);
+    return dayjs().isAfter(activationDate);
   },
   handleCommonSaveError(err: any) {
     if (err?.response?.data?.message === null) {

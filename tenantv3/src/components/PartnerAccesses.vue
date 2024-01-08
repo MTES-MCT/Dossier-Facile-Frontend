@@ -88,7 +88,7 @@
 <script setup lang="ts">
 import NakedCard from "df-shared-next/src/components/NakedCard.vue";
 import Button from "df-shared-next/src/Button/Button.vue";
-import moment from "moment";
+import dayjs from "dayjs";
 import useTenantStore from "@/stores/tenant-store";
 import {computed, ref} from "vue";
 import type {Ref} from "vue";
@@ -120,7 +120,7 @@ function formatDate(date: string | undefined) {
   if (date === undefined || date === "") {
     return t("partners-page.accesses.default-date");
   }
-  return t("partners-page.accesses.since-date") + moment(date).format("D MMM YYYY");
+  return t("partners-page.accesses.since-date") + dayjs(date).format("D MMM YYYY");
 }
 </script>
 
