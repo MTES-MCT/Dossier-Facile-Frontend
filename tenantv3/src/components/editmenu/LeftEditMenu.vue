@@ -4,14 +4,14 @@
       <div class="step" :class="getClass(getStepNumber('information'))">
         <div class="step-number">{{ getStepNumber("information") }}</div>
         <div class="step-title">
-          <router-link :to="{ name: 'TenantName' }" class="fr-link">
+          <router-link :to="{ name: 'TenantName', force: true }" class="fr-link">
             {{ t("personal-information") }}
           </router-link>
         </div>
       </div>
       <div class="vline" :class="getClass(getStepNumber('information'))">
         <div class="ml-5">
-          <router-link :to="{ name: 'TenantName' }">
+          <router-link :to="{ name: 'TenantName', force: true }">
             <ColoredTag
               :label="t('lefteditmenu.identity')"
               :text="UtilsService.tenantFullName(user)"
@@ -20,7 +20,7 @@
           </router-link>
         </div>
         <div class="ml-5" v-if="user.applicationType">
-          <router-link :to="{ name: 'TenantType' }">
+          <router-link :to="{ name: 'TenantType', force: true }">
             <ColoredTag
               :label="t('lefteditmenu.file-type')"
               :text="t(`lefteditmenu.${user.applicationType}`)"
@@ -35,7 +35,7 @@
         <div class="step-title">
           <router-link
             class="fr-link"
-            :to="{ name: 'TenantDocuments', params: { substep: '1' } }"
+            :to="{ name: 'TenantDocuments', force: true, params: { substep: '1' } }"
             >{{ t("my-document") }}
           </router-link>
         </div>
@@ -96,6 +96,7 @@
                 <router-link
                   :to="{
                     name: 'GuarantorDocuments',
+                    force: true,
                     params: { substep: '0', guarantorId: g.id },
                   }"
                 >
@@ -181,6 +182,7 @@
             class="fr-link"
             :to="{
               name: 'CoTenantDocuments',
+              force: true,
               params: {
                 step: getStepNumber('coTenant'),
                 substep: '0',
@@ -203,6 +205,7 @@
                 <router-link
                   :to="{
                     name: 'CoTenantDocuments',
+                    force: true,
                     params: { substep: '0', tenantId: coTenant.id },
                   }"
                 >
@@ -293,6 +296,7 @@
                 <router-link
                   :to="{
                     name: 'TenantGuarantorDocuments',
+                    force: true,
                     params: {
                       step: getStepNumber('coTenantGuarantor'),
                       substep: '0',
@@ -387,6 +391,7 @@
             class="fr-link"
             :to="{
               name: 'ValidateFileStep',
+              force: true,
               params: { step: getStepNumber('validate') },
             }"
             >{{ t("validate-file") }}
@@ -408,7 +413,7 @@ import TenantDocumentLink from "./documents/TenantDocumentLink.vue";
 import CoTenantDocumentLink from "./documents/CoTenantDocumentLink.vue";
 import CoTenantGuarantorDocumentLink from "./documents/CoTenantGuarantorDocumentLink.vue";
 import useTenantStore from "@/stores/tenant-store";
-import { computed, onBeforeMount, ref } from "vue";
+import { computed } from "vue";
 import { useRoute } from "vue-router";
 import { UtilsService } from "@/services/UtilsService";
 import { useI18n } from "vue-i18n";
@@ -466,14 +471,15 @@ const c =user.value.apartmentSharing?.tenants?.filter((r: User) => {
 
   function getGuarantorLink() {
     if (user.value.guarantors.length > 0) {
-      return { name: "GuarantorList" };
+      return { name: "GuarantorList", force: true };
     }
-    return { name: "GuarantorChoice" };
+    return { name: "GuarantorChoice", force: true };
   }
 
   function getTenantGuarantorLink(tenant: User, stepNum: number) {
     return {
       name: "TenantGuarantors",
+      force: true,
       params: { tenantId: Number(tenant.id), step: stepNum },
     };
   }

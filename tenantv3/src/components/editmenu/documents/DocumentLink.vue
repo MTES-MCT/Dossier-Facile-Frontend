@@ -3,6 +3,7 @@
     <router-link
       :to="{
         name: getTargetComponent(),
+        force: true,
         params: routerParams,
       }"
     >

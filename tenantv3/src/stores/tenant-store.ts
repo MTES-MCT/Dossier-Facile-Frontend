@@ -442,10 +442,7 @@ const useTenantStore = defineStore('tenant', {
       });
     },
     setSelectedGuarantor(guarantor: Guarantor | undefined) {
-      if (!this.selectedGuarantor) {
-        return;
-      }
-      Object.assign(this.selectedGuarantor, guarantor);
+      this.selectedGuarantor = guarantor;
     },
     createCoTenant(mail: string) {
       const u = new User();

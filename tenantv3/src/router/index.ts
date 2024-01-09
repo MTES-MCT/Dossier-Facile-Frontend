@@ -6,6 +6,7 @@ import keycloak from '../plugin/keycloak';
 import Home from '../views/Home.vue';
 import { FOOTER_NAVIGATION, FUNNEL_SKIP_LINKS } from '@/models/SkipLinkModel';
 import { CookiesService } from 'df-shared-next/src/services/CookiesService';
+import type { Guarantor } from 'df-shared-next/src/models/Guarantor';
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 const TENANT_URL = import.meta.env.VITE_FULL_TENANT_URL;
@@ -169,9 +170,11 @@ const router = createRouter({
       },
       beforeEnter: async (to, from, next) => {
         const store = useTenantStore();
+        const g = store.guarantors.find((g: Guarantor) => {
+          return g.id?.toString() == to.params.guarantorId;
+        });
         if (
-          (!store.selectedGuarantor?.firstName ||
-            !store.selectedGuarantor?.lastName) &&
+          (g === undefined || !g?.firstName || !g?.lastName) &&
           to.params.substep !== "0"
         ) {
           next({ name: "GuarantorDocuments", params: { substep: "0" } });
