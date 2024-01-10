@@ -14,7 +14,6 @@ function defaultState(): State {
 }
 
 const initialStore = defaultState();
-const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL?.toString()}`;
 
 const useOwnerStore = defineStore('www', {
   state: (): State => ({ ...initialStore }),
