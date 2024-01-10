@@ -49,7 +49,6 @@
         </NakedCard>
         <ProfileFooter
           @on-back="goBack"
-          @on-next="goNext"
         ></ProfileFooter>
       </Form>
 
