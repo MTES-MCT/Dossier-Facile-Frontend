@@ -77,6 +77,7 @@
             v-slot="{ field, meta }"
             :rules="{
               email: true,
+              required: true
             }"
           >
             <input
