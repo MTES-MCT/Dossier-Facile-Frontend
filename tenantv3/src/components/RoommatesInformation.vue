@@ -77,7 +77,7 @@
             v-slot="{ field, meta }"
             :rules="{
               email: true,
-              required: true
+              atLeastOneEmail: modelValue,
             }"
           >
             <input
@@ -156,7 +156,14 @@ import VGouvFrModal from "df-shared-next/src/GouvFr/v-gouv-fr-modal/VGouvFrModal
 import { UtilsService } from "../services/UtilsService";
 import useTenantStore from "@/stores/tenant-store";
 import { computed, onMounted, ref } from "vue";
-import { Field, ErrorMessage, useFieldError } from "vee-validate";
+import { Field, ErrorMessage, useFieldError, defineRule } from "vee-validate";
+
+defineRule('atLeastOneEmail', (email: any, [otherEmails]: any[]) => {
+  if (email === '' && otherEmails === undefined) {
+    return 'field-required';
+  }
+  return true;
+});
 
 const emit = defineEmits(["update:modelValue"]);
 
