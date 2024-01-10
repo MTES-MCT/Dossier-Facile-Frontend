@@ -45,7 +45,7 @@ const ENGLISH = {
 
 const emit = defineEmits(["on-change-lang"]);
 
-const props = withDefaults(defineProps<{ initialLanguage: string }>(), {
+const props = withDefaults(defineProps<{ initialLanguage?: string }>(), {
   initialLanguage: "fr",
 });
 
