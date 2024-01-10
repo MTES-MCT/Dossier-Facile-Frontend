@@ -194,7 +194,8 @@ keycloak
 
     app.use(Vue3Toastify, {
       autoClose: 6000,
-      theme: "colored"
+      theme: "colored",
+      clearOnUrlChange: false,
     } as ToastContainerOptions);
     app.use(MatomoPlugin);
     app.mount('#app')

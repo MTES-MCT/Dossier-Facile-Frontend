@@ -27,7 +27,8 @@ export const createApp:any = ViteSSG(
     app.use(i18n)
     app.use(Vue3Toastify, {
       autoClose: 6000,
-      theme: "colored"
+      theme: "colored",
+      clearOnUrlChange: false,
     } as ToastContainerOptions);
 
     router.beforeEach((to, from, next) => {

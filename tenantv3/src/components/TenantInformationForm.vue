@@ -197,7 +197,6 @@ const router = useRouter();
         () => {
           AnalyticsService.confirmType();
           loader.hide();
-          // TODO : keep toast when changing route
           if (applicationType.value === "COUPLE") {
             ToastService.info("tenantinformationform.couple-saved");
           }
