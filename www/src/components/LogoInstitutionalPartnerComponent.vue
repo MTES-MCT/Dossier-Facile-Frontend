@@ -28,8 +28,8 @@ const props = withDefaults(
     name: string;
     image: string;
     href: string;
-    width: string;
-    height: string;
+    width?: string;
+    height?: string;
     title?: string;
   }>(),
   {
