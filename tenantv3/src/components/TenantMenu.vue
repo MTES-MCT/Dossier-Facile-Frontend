@@ -116,7 +116,6 @@ import { useI18n, type Composer } from "vue-i18n";
 import { computed, onMounted, ref } from "vue";
 import useTenantStore from "@/stores/tenant-store";
 import i18n from "@/i18n";
-import { onBeforeMount } from "vue";
 
 const { t } = useI18n();
 const store = useTenantStore();
@@ -132,10 +131,6 @@ const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`;
 const currentPage = ref("/")
 
 const lang: string = (i18n.global as unknown as Composer).locale.value;
-
-onBeforeMount(() => {
-  store.loadPartnerAccesses();
-})
 
 onMounted(() => {
   currentPage.value = window.location.pathname;

@@ -368,7 +368,9 @@ async function loadUserIfAuthenticated(next: NavigationGuardNext) {
   }
   await keycloak.loadUserProfile();
   const store = useTenantStore();
-  await store.loadUser().catch(() => {
+  await store.loadUser().then(() => {
+          store.loadPartnerAccesses();
+  }).catch(() => {
     next({ name: "404" });
   });
 }
