@@ -88,7 +88,8 @@
         <input
           type="checkbox"
           id="noDocument"
-          :checked="noDocument"
+          v-model="noDocument"
+          value="false"
           @click="changeNoDocument($event)"
         />
         <label for="noDocument">
@@ -275,17 +276,16 @@ const store = useTenantStore();
   })
 
   function changeNoDocument(event: Event) {
-    event.preventDefault();
-    event.stopPropagation();
     if (!noDocument.value && Number(dfDocument.value?.files?.length) > 0) {
       showIsNoDocumentAndFiles.value = true;
       dfDocument.value.noDocument = noDocument.value;
-      return;
+      return true;
     } else {
       noDocument.value = !noDocument.value;
       dfDocument.value.noDocument = noDocument.value;
     }
     emit("on-change-document", document.value, dfDocument.value);
+    return true;
   }
 function onSelectChange($event: any) {
     const d = props.documentsDefinitions.find((d: any) => d.key === $event?.value);
