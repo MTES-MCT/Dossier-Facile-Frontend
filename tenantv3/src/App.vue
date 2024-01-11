@@ -55,7 +55,7 @@ const router = useRouter();
       <Announcement></Announcement>
       <main role="main">
         <div class="page">
-          <RouterView />
+          <RouterView :key="$route.path" />
         </div>
         <FollowSocials v-if="!isFunnel" />
       </main>

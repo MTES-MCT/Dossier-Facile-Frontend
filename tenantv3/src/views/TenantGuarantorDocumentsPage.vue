@@ -23,19 +23,12 @@ const router = useRouter();
       const store = useTenantStore();
       const coTenants = computed(() => store.coTenants);
 
-  const props = defineProps<{
-    step: number
-  }>();
-
-
   onBeforeMount(() => {
     window.Beacon("init", "e9f4da7d-11be-4b40-9514-ac7ce3e68f67");
     const coTenant = coTenants.value.find((r: User) => {
-      console.log("tenid=" + r.id + r.firstName);
       return r.id === tenantId();
     });
     const guarantor = coTenant?.guarantors?.find((g: Guarantor) => {
-      console.log("gid=" + g.id);
       return g.id === guarantorId();
     }) as Guarantor;
     store.setSelectedGuarantor(guarantor);
