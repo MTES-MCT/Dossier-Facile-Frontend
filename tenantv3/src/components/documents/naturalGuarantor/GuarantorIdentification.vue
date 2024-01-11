@@ -104,16 +104,8 @@ import { useLoading } from 'vue-loading-overlay';
   const identificationDocument = ref(new DocumentType());
   const isDocDeleteVisible = ref(false);
 
-  function getLocalStorageKey() {
-    return "identification_guarantor_" + user.value?.email;
-  }
-
   function onSelectChange($event: any) {
     identificationDocument.value = $event
-    localStorage.setItem(
-      getLocalStorageKey(),
-      identificationDocument.value.key
-    );
     if (user.value?.documents !== null) {
       const doc = guarantorIdentificationDocument();
       if (doc !== undefined) {
@@ -178,25 +170,11 @@ import { useLoading } from 'vue-loading-overlay';
         });
         if (localDoc !== undefined) {
           identificationDocument.value = localDoc;
-          localStorage.setItem(
-            getLocalStorageKey(),
-            identificationDocument.value.key || ""
-          );
         }
         const docDeniedReasons =
           guarantorIdentificationDocument()?.documentDeniedReasons;
         if (docDeniedReasons !== undefined) {
           documentDeniedReasons.value = cloneDeep(docDeniedReasons);
-        }
-      } else {
-        const key = localStorage.getItem(getLocalStorageKey());
-        if (key) {
-          const localDoc = documents.find((d: DocumentType) => {
-            return d.key === key;
-          });
-          if (localDoc !== undefined) {
-            identificationDocument.value = localDoc;
-          }
         }
       }
     }

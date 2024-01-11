@@ -149,13 +149,6 @@ import { ToastService } from "@/services/ToastService";
 import { useLoading } from "vue-loading-overlay";
 import { Form, Field, ErrorMessage } from "vee-validate";
 
-// TODO
-// extend("is", {
-//   ...is,
-//   message: "field-required",
-//   validate: (value) => !!value,
-// });
-
 const emit = defineEmits(["on-back", "on-next"]);
 
 const { t } = useI18n();
@@ -214,13 +207,8 @@ function guarantorTaxDocument() {
   return store.getGuarantorTaxDocument;
 }
 
-function getLocalStorageKey() {
-  return "tax_guarantor_" + user.value?.email;
-}
-
 function onSelectChange($event: any) {
   taxDocument.value = $event;
-  localStorage.setItem(getLocalStorageKey(), taxDocument.value.key);
   if (user.value?.documents !== null) {
     const doc = guarantorTaxDocument();
     if (doc !== undefined) {
@@ -273,21 +261,10 @@ function updateGuarantorData() {
       });
       if (localDoc !== undefined) {
         taxDocument.value = localDoc;
-        localStorage.setItem(getLocalStorageKey(), taxDocument.value.key || "");
       }
       const docDeniedReasons = guarantorTaxDocument()?.documentDeniedReasons;
       if (docDeniedReasons !== undefined) {
         documentDeniedReasons.value = cloneDeep(docDeniedReasons);
-      }
-    } else {
-      const key = localStorage.getItem(getLocalStorageKey());
-      if (key) {
-        const localDoc = documents.value.find((d: DocumentType) => {
-          return d.key === key;
-        });
-        if (localDoc !== undefined) {
-          taxDocument.value = localDoc;
-        }
       }
     }
   }
@@ -403,7 +380,7 @@ async function save(force = false) {
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
       ToastService.saveSuccess();
     })
-    .catch((err) => {
+    .catch((err: any) => {
       fileUploadStatus.value = UploadStatus.STATUS_FAILED;
       UtilsService.handleCommonSaveError(err);
     })
