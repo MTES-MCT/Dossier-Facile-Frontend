@@ -219,6 +219,7 @@ const emit = defineEmits(["on-next"]);
   }
 
   function cancelAndGoNext() {
+    showNbDocumentsResidency.value = false;
     AnalyticsService.forceMissingResidencyDocument();
     goNext();
   }
