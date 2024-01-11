@@ -426,7 +426,7 @@
   },
   "cotenantdocument": {
     "warning-need-residency-documents": {
-      "p1": "Êtes-vous sûr·e d'avoir bien transmis l'ensemble des documents nécessaires ici ?",
+      "p1": "Êtes-vous sûr d'avoir bien transmis l'ensemble des documents nécessaires ici ?",
       "list1": "attestation d'hébergement",
       "list2": "copie de la pièce d'identité de son hébergeur",
       "list3": "justificatif de domicile de moins de 3 mois de son hébergeur",
@@ -940,7 +940,7 @@
     "delete": "Supprimer",
     "mb": "Mo",
     "kb": "Ko",
-    "will-delete-file": "Êtes-vous sûr·e de vouloir supprimer ce fichier ?"
+    "will-delete-file": "Êtes-vous sûr de vouloir supprimer ce fichier ?"
   },
   "menu": {
     "help": "Aide",
