@@ -11,6 +11,7 @@
 
             <Field
               name="authorize"
+              type="checkbox"
               v-model="localSpouseAuthorize"
               v-slot="{ field, meta }"
               :rules="{isTrue: true}"
@@ -50,6 +51,7 @@
           <div class="fr-col-12">
             <Field
               name="authorize"
+              type="checkbox"
               v-model="localCoTenantAuthorize"
               v-slot="{ field, meta }"
               :rules="{isTrue: true}"
@@ -132,7 +134,7 @@ import { computed, onBeforeMount, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import useTenantStore from "@/stores/tenant-store";
 import { useRouter } from "vue-router";
-import { Form } from "vee-validate";
+import { Form, Field, ErrorMessage } from "vee-validate";
 
 const router = useRouter();
     const store = useTenantStore();
