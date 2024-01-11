@@ -51,6 +51,7 @@
               id="selectID"
               as="select"
             >
+              <option v-if="!identificationDocument" selected disabled></option>
               <option v-for="d in documents" :value="d" :key="d.key">
                 {{ $t(d.key) }}
               </option>

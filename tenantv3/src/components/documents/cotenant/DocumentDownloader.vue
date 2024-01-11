@@ -16,6 +16,7 @@
                 id="select"
                 as="select"
               >
+                <option v-if="!document.key" selected disabled></option>
                 <option
                   v-for="d in documentsDefinitions"
                   :value="d.key"

@@ -18,6 +18,7 @@
               @change="onSelectChange()"
               aria-label="Select professional situation"
             >
+              <option v-if="!professionalDocument" selected disabled></option>
               <option v-for="d in documents" :value="d" :key="d.key">
                 {{ t(d.key) }}
               </option>
