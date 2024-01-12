@@ -47,8 +47,9 @@
             </ul>
 
             <h2>Contenus non accessibles</h2>
-            <p>Liste des critères non conformes :</p>
             <table>
+              <caption>Liste des critères non conformes :</caption>
+              <th></th>
               <tr
                   v-for="criteria in nonCompliantCriteria"
                   v-bind:key="criteria.id"
@@ -339,5 +340,9 @@ td {
 
 ul {
   margin-bottom: 1em;
+}
+
+caption {
+  text-align: start;
 }
 </style>
