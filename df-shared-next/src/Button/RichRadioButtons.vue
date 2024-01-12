@@ -1,5 +1,6 @@
 <template>
   <fieldset class="fr-fieldset" :id="name">
+    <legend class="fr-fieldset__legend"><slot></slot></legend>
     <div
       v-for="element in elements"
       v-bind:key="element.id"
