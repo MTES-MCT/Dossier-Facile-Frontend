@@ -38,35 +38,35 @@
           <div class="fr-header__tools">
             <div class="fr-header__tools-links">
               <ul class="fr-links-group">
-                <li v-if="props.loggedIn">
+                <li v-if="props?.loggedIn">
                   <v-gouv-fr-button
                     :small="true"
                     :primary="false"
                     @click="onLogout"
                     ><i class="ri-account-circle-line" aria-hidden="true"></i>
-                    {{ $t("logout") }}
+                    {{ t("logout") }}
                   </v-gouv-fr-button>
                 </li>
-                <li v-if="!props.loggedIn">
+                <li v-if="!props?.loggedIn">
                   <DfButton
                     :primary="true"
                     size="small"
                     @on-click="onLoginTenant"
                   >
                     <i class="ri-account-circle-line" aria-hidden="true"></i>
-                    {{ $t("signin") }}
+                    {{ t("signin") }}
                   </DfButton>
                 </li>
-                <li v-if="!props.loggedIn">
+                <li v-if="!props?.loggedIn">
                   <DfButton size="small" @on-click="onCreateOwner">
                     <i class="ri-community-line" aria-hidden="true"></i>
-                    {{ $t("owner-header") }}
+                    {{ t("owner-header") }}
                   </DfButton>
                 </li>
-                <li v-if="!props.loggedIn">
+                <li v-if="!props?.loggedIn">
                   <DfButton size="small" @on-click="goToPartner">
                     <i class="ri-home-heart-line" aria-hidden="true"></i>
-                    {{ $t("partner") }}
+                    {{ t("partner") }}
                   </DfButton>
                 </li>
               </ul>
@@ -84,18 +84,18 @@
         <div class="fr-header__menu-links" style="display: none"></div>
         <div class="fr-header__menu-links-hack">
           <ul class="fr-links-group">
-            <li v-if="props.loggedIn">
+            <li v-if="props?.loggedIn">
               <DfButton
                 class="fr-ml-3"
                 :primary="false"
                 size="small"
                 @on-click="onLogout"
                 ><i class="ri-account-circle-line" aria-hidden="true"></i> >{{
-                  $t("logout")
+                  t("logout")
                 }}
               </DfButton>
             </li>
-            <li v-if="!props.loggedIn">
+            <li v-if="!props?.loggedIn">
               <DfButton
                 class="fr-ml-3"
                 id="signin-button"
@@ -104,20 +104,20 @@
                 @on-click="onLoginTenant"
               >
                 <i class="ri-account-circle-line" aria-hidden="true"></i>
-                {{ $t("signin") }}
+                {{ t("signin") }}
               </DfButton>
             </li>
 
-            <li v-if="!props.loggedIn">
+            <li v-if="!props?.loggedIn">
               <DfButton size="small" class="fr-ml-3" @on-click="onCreateOwner">
                 <i class="ri-community-line" aria-hidden="true"></i>
-                {{ $t("owner") }}
+                {{ t("owner") }}
               </DfButton>
             </li>
-            <li v-if="!props.loggedIn">
+            <li v-if="!props?.loggedIn">
               <DfButton size="small" @onclick="goToPartner">
                 <i class="ri-home-heart-line" aria-hidden="true"></i>
-                {{ $t("partner") }}
+                {{ t("partner") }}
               </DfButton>
             </li>
           </ul>
@@ -138,8 +138,10 @@
 <script setup lang="ts">
 import DfButton from "df-shared-next/src/Button/Button.vue";
 import VGouvFrButton from "df-shared-next/src/Button/v-gouv-fr-button/VGouvFrButton.vue";
+import { useI18n } from "vue-i18n";
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
+const { t } = useI18n();
 
 const emit = defineEmits(["on-login-tenant", "on-logout", "on-create-owner"]);
 
