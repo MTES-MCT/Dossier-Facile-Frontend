@@ -32,7 +32,7 @@ const { t } = useI18n();
   function openSimulationCAF() {
     AnalyticsService.openSimulationCAF();
     window.open(
-      "https://wwwd.caf.fr/wps/portal/caffr/aidesetservices/lesservicesenligne/estimervosdroits/lelogement#/stateaccueil",
+      "https://wwwd.caf.fr/wps/portal/caffr/aidesetdemarches/mesdemarches/faireunesimulation/lelogement#/preparation",
       "_blank"
     );
   }
