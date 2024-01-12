@@ -1,5 +1,5 @@
 <template>
-  <img slot="image" :src="imageData" />
+  <img :alt="alt" slot="image" :src="imageData" />
 </template>
 
 <script setup lang="ts">
@@ -9,6 +9,7 @@ import { onMounted, ref } from "vue";
 
 const props = defineProps<{
   src: string;
+  alt?: string;
 }>();
 
 const imageData = ref("");
