@@ -6,7 +6,7 @@
     <div class="fr-col-7 fr-col-md-5 fr-mb-2w">
       {{ label }}
       <br />
-      <span v-if="subLabel" class="fr-text--xs desktop">
+      <span v-if="subLabel" class="fr-text--xs">
         {{ subLabel }}
       </span>
     </div>
