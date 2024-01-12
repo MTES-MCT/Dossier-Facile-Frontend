@@ -7,40 +7,58 @@
         documentDeniedReasons.comment) &&
       documentStatus !== 'VALIDATED'
     "
-    class="fr-mt-3w"
+    class="declined"
   >
-    <div
-      class="m1"
-      v-for="(o, k) in documentDeniedReasons.selectedOptions"
-      :key="k"
-    >
-      <DeclinedMessage :message="o.label"></DeclinedMessage>
+    <div>
+      <span class="fr-icon-message-2-fill fr-mr-1v" aria-hidden="true"></span>
+      <span class="fr-text--bold">{{ $t('declined-messages.header') }}</span>
     </div>
-    <div class="m1" v-if="documentDeniedReasons.comment">
-      <DeclinedMessage
-        :message="documentDeniedReasons.comment"
-      ></DeclinedMessage>
+    <div>
+      <ul v-if="messages.length > 1">
+        <li v-for="(message, k) in messages" :key="k" v-html="message"></li>
+      </ul>
+      <div v-else v-html="messages[0]" class="fr-mt-1w"></div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import DeclinedMessage from "df-shared-next/src/components/DeclinedMessage.vue";
-import { DocumentDeniedReasons } from "df-shared-next/src/models/DocumentDeniedReasons";
+import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
+import { onBeforeMount, ref } from 'vue'
 
-  const props = withDefaults(defineProps<{
-    documentDeniedReasons?: DocumentDeniedReasons | null;
-    documentStatus?: string;
-  }>(), {
+const props = withDefaults(
+  defineProps<{
+    documentDeniedReasons?: DocumentDeniedReasons | null
+    documentStatus?: string
+  }>(),
+  {
     documentDeniedReasons: null,
-    documentStatus: "",
-  });
+    documentStatus: ''
+  }
+)
+
+const messages = ref<string[]>([])
+
+onBeforeMount(() => {
+  const deniedReasons = props.documentDeniedReasons?.selectedOptions
+  if (deniedReasons !== undefined) {
+    messages.value = messages.value.concat(deniedReasons.map((r) => r.label))
+  }
+  const comment = props.documentDeniedReasons?.comment
+  if (comment !== undefined) {
+    messages.value.push(comment)
+  }
+  return messages
+})
 </script>
 
 <style scoped lang="scss">
-.m1 {
-  margin: 0 0 1rem;
-  &:last-child {
-    margin-bottom: 0;
-  }
+@import '@gouvfr/dsfr/dist/utility/icons/icons-communication/icons-communication.css';
+
+.declined {
+  padding: 1rem 1rem 0.75rem;
+  border-radius: 0.25rem;
+  background-color: #fce5e7;
+  color: #525252;
+  line-height: 2;
 }
 </style>

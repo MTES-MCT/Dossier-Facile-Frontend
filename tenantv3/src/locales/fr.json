@@ -1384,5 +1384,8 @@
     },
     "homepage": "Page d'accueil",
     "contact-us": "Contactez-nous"
+  },
+  "declined-messages": {
+    "header": "Message de notre équipe de validation :"
   }
 }

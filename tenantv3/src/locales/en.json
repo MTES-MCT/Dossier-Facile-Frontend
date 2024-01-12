@@ -1344,5 +1344,8 @@
     },
     "homepage": "Homepage",
     "contact-us": "Contact us"
+  },
+  "declined-messages": {
+    "header": "Message from our validation team:"
   }
 }
