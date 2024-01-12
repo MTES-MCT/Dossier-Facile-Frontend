@@ -325,7 +325,6 @@ h1 {
   border-radius: 5px;
   right: 0;
   left: auto;
-  width: max-content;
   z-index: 2;
   padding: 1rem;
   width: 330px;
@@ -363,7 +362,6 @@ h1 {
     transition: all 0.5s linear;
 
     &:hover {
-      box-shadow: none;
       border: 1px solid var(--primary);
       box-shadow: 0 0.5px 4px 0 transparent;
       background-image: none;
