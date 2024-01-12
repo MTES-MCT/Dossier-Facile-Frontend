@@ -55,7 +55,7 @@
                 class="fr-btn"
                 :href="`${TENANT_URL}/signup`"
               >
-                {{ $t("button") }}
+                {{ t("button") }}
               </a>
           </p>
         </div>
@@ -67,6 +67,9 @@
 <script setup lang="ts">
 import { useHead } from '@unhead/vue'
 import image from "../../assets/cover-features.jpg";
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const title= "Locatio devient DossierFacile";
 const description = "Locatio, le service d’Etat permettant de monter un dossier de location en ligne certifié clair, complet et cohérent,change de nom et devient DossierFacile.fr" ;
