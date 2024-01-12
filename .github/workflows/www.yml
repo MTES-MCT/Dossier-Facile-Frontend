@@ -27,7 +27,7 @@ jobs:
         with:
           project: ./www
           install: false
-          start: yarn www run serve
+          start: yarn www dev
           wait-on: "http://localhost:9001"
         env:
           DEBUG: "@cypress/github-action"
