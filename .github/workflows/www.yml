@@ -44,9 +44,9 @@ jobs:
         with:
           useRollingCache: true
       - name: Build
-        run: yarn tenant build
+        run: yarn tenantv3 build
       - name: Run unit tests
-        run: yarn tenant test:unit
+        run: yarn tenantv3 test:unit
 
   others:
     runs-on: ubuntu-latest
