@@ -188,7 +188,7 @@ const gId = getGuarantor()?.id
         });
     }
 
-    Array.from(Array(files.value.length).keys()).map((x) => {
+    Array.from(Array(files.value.length).keys()).forEach((x) => {
       const f: File = files.value[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, files.value[x].name);
     });
