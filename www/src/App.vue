@@ -11,8 +11,15 @@ import SkipLinks from 'df-shared-next/src/components/SkipLinks.vue';
   const OWNER_URL = `${import.meta.env.VITE_OWNER_URL}`;
 
   onMounted(() => {
-    // TODO init lang
-    window.Beacon("init", "e9f4da7d-11be-4b40-9514-ac7ce3e68f67");
+    setTimeout(function () {
+      let beaconScript = document.createElement('script')
+      beaconScript.setAttribute('src', '/js/helpscout.js')
+      // beaconScript.setAttribute('id', 'beacon')
+      document.head.appendChild(beaconScript)
+      beaconScript.addEventListener('load', () => {
+        window.Beacon("init", "e9f4da7d-11be-4b40-9514-ac7ce3e68f67");
+      })
+    }, 10000)
   })
 
   onBeforeUnmount(() => {
