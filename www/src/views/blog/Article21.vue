@@ -307,10 +307,11 @@
 <script setup lang="ts">
 import BlogArticle from "@/views/blog/BlogArticle.vue";
 import { useHead } from '@unhead/vue'
-  import image from "../../assets/images/blog-article21.jpg";
+import image from "../../assets/images/blog-article21.jpg";
 
-      const title= "Le Guide Complet des Aides pour les Étudiant·e·s en Recherche de Logements en France";
-   const description= " Voici un guide exhaustif des aides publiques (État, collectivités, autres organismes publics) disponibles en France pour t’accompagner dans ta quête de logement" ;
+const title= "Le Guide Complet des Aides pour les Étudiant·e·s en Recherche de Logements en France";
+const description= " Voici un guide exhaustif des aides publiques (État, collectivités, autres organismes publics) disponibles en France pour t’accompagner dans ta quête de logement" ;
+
 useHead({
   title: title,
   meta: [
