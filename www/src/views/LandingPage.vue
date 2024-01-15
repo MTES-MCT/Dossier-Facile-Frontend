@@ -528,6 +528,7 @@ onMounted(() => {
     if (result.data) {
       validatedDossierCount.value = result.data;
     }
+  }).catch(() => {
   });
 });
 
