@@ -9,6 +9,7 @@ describe("accessibility checks", () => {
 
   it("funnel accessibility", () => {
     cy.tenantLogin(username);
+    cy.wait(3000);
     cy.testAccessibility();
     cy.clickOnNext();
 
@@ -73,6 +74,7 @@ describe("accessibility checks", () => {
 
     cy.testAccessibility();
     cy.contains("Valider mon dossier").click();
+    cy.wait(300)
 
     cy.testAccessibility();
   });

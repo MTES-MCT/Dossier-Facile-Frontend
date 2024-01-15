@@ -31,7 +31,7 @@ describe("signup page", () => {
 
     cy.get('label[for="acceptCgu"]').click();
 
-    cy.get("#signupForm").submit();
+    cy.get("#signup-submit").click();
 
     cy.wait("@createAccount");
 

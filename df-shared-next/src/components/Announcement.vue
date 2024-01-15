@@ -1,15 +1,19 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
 
-const MESSAGE = `${import.meta.env.VITE_ANNOUNCEMENT_MESSAGE}`;
-const DOMAIN = `${import.meta.env.VITE_DOMAIN}`;
+const MESSAGE = `${import.meta.env.VITE_ANNOUNCEMENT_MESSAGE || ""}`;
+const DOMAIN = `${import.meta.env.VITE_COOKIE_DOMAIN}`;
 
 const announcementClosedCookieKey = `announcement-closed-${btoa(MESSAGE)}`;
-const announcementClosed = ref(
-  cookies.get(announcementClosedCookieKey) === "true"
-);
+const announcementClosed = ref(false);
+
+onMounted(() => {
+  if (cookies.get(announcementClosedCookieKey) === "true") {
+    announcementClosed.value = true;
+  }
+});
 
 function isVisible() {
   const isMessageSet = MESSAGE.trim().length > 0;
@@ -20,13 +24,7 @@ function createAnnouncementClosedCookie() {
   const expirationDate = new Date();
   expirationDate.setDate(expirationDate.getDate() + 1);
 
-  cookies.set(
-    announcementClosedCookieKey,
-    "true",
-    expirationDate.toUTCString(),
-    "",
-    DOMAIN
-  );
+  cookies.set(announcementClosedCookieKey, "true", expirationDate, "/", DOMAIN);
 }
 
 function closeAnnouncement() {

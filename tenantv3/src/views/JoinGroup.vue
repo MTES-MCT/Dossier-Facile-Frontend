@@ -1,0 +1,55 @@
+<template>
+  <div class="fr-container">
+    <h2 class="fr-h2 text-center fr-mt-7w fr-mb-5w">
+      {{ $t("joingroup.title") }}
+    </h2>
+    <InitPassword @on-init-password="onInitPassword" />
+    <ConfirmModal v-if="isLoggedIn" @valid="logout()" @cancel="redirect()">
+      <span>{{ $t("joingroup.already-logged") }}</span>
+    </ConfirmModal>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue';
+import useTenantStore from '../stores/tenant-store';
+import { ToastService } from '../services/ToastService';
+import { User } from 'df-shared-next/src/models/User';
+import { useRoute, useRouter } from 'vue-router';
+import InitPassword from 'df-shared-next/src/Authentification/InitPassword.vue';
+
+    const store = useTenantStore();
+    const isLoggedIn = computed(() => store.isLoggedIn);
+
+    const route = useRoute();
+    const router = useRouter();
+
+  function onInitPassword(user: User) {
+    user.token = route.params.token.toString();
+    store.createPasswordGroup(user).then(
+      () => {
+        ToastService.success("joingroup.password-update");
+        router.push({ name: "TenantName" });
+      },
+      (error: any) => {
+        if (
+          error.response.data.message.includes(
+            "password recovery token or is expired"
+          )
+        ) {
+          ToastService.error("joingroup.token-expired");
+        } else {
+          ToastService.error("joingroup.error");
+        }
+      }
+    );
+  }
+
+  async function logout() {
+    await store.logout(false);
+  }
+
+   function redirect() {
+    router.push({ name: "Account" });
+  }
+</script>

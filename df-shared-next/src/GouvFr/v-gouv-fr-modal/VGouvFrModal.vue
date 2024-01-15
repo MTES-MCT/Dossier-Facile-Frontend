@@ -1,8 +1,8 @@
 <template>
   <div class="v-gouv-fr-modal">
-    <div @click="isOpened = true">
+    <a href="#" @click="isOpened = true" class="fr-link fr-link--sm">
       <slot name="button"> </slot>
-    </div>
+    </a>
     <dialog
       aria-labelledby="fr-modal-title-modal-1"
       role="dialog"

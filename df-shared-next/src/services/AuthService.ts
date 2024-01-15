@@ -1,7 +1,9 @@
+import { apiService } from "./../../../tenantv3/src/services/ApiService";
 import { User } from "../models/User";
 import axios from "axios";
+import { CookiesService } from "./CookiesService";
 
-const API_URL = `https://${process.env.VUE_APP_API_URL}/api/`;
+const API_URL = `${import.meta.env.VITE_API_URL}/api/`;
 
 export const AuthService = {
   logout() {
@@ -46,7 +48,45 @@ export const AuthService = {
     });
   },
 
+  loadUser() {
+    return apiService
+      .get("tenant/profile", {
+        params: {
+          nocache: new Date().getTime(),
+          ...CookiesService.getJsonCookie("acquisition"),
+        },
+      })
+      .then((res) => {
+        CookiesService.deleteCookie("acquisition");
+        return res;
+      });
+  },
+
   confirmAccount(token: string) {
     return axios.get(`${API_URL}register/confirmAccount/${token}`);
+  },
+  generatePasswordPlaceholder() {
+    const chars = [
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+      "0123456789",
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+      "#!?-_.",
+    ];
+    return [4, 4, 2, 2]
+      .map(function (len, i) {
+        return Array(len)
+          .fill(chars[i])
+          .map(function (x) {
+            return x[Math.floor(Math.random() * x.length)];
+          })
+          .join("");
+      })
+      .concat()
+      .join("")
+      .split("")
+      .sort(function () {
+        return 0.5 - Math.random();
+      })
+      .join("");
   },
 };

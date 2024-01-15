@@ -1,5 +1,6 @@
 import { DfDocument } from "./DfDocument";
 import { Guarantor } from "./Guarantor";
+import { ApartmentSharing } from "./ApartmentSharing";
 
 export class User {
   id!: number;
@@ -9,6 +10,7 @@ export class User {
   confirm?: string;
   captcha?: string;
   lastName?: string;
+  preferredName?: string;
   firstName?: string;
   zipCode?: string;
   applicationType?: string;
@@ -18,6 +20,7 @@ export class User {
   honorDeclaration?: boolean;
   clarification?: string;
   franceConnect?: boolean;
+  passwordEnabled?: boolean;
 
   identification?: string;
   residency?: string;
@@ -25,13 +28,11 @@ export class User {
   financial?: string;
   tax?: string;
 
-  apartmentSharing?: {
-    id?: number;
-    tenants: User[];
-    status: string;
-    token: string;
-    tokenPublic: string;
+  apartmentSharing: ApartmentSharing = {
+    tenants: [],
   };
-  guarantors?: Guarantor[];
+  guarantors: Guarantor[] = [];
   documents?: DfDocument[];
+  allowCheckTax?: boolean;
+  linkUrl?: string;
 }
