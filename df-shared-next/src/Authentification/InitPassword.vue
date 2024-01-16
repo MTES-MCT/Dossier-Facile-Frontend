@@ -10,19 +10,17 @@
               v-slot="{ field, meta }"
               :rules="`required|strength:${score}`"
             >
-              <label class="fr-label" for="password">{{
-                $t("password")
-              }}</label>
+              <label class="fr-label" for="password">{{ t("password") }}</label>
               <input
                 id="password"
-                :placeholder="$t('example-prefix') + passwordExample"
+                :placeholder="t('example-prefix') + passwordExample"
                 type="password"
                 v-bind="field"
                 name="password"
                 class="validate-required form-control fr-input"
                 :class="{
                   'fr-input--valid': meta.valid,
-                  'fr-input--error': !meta.valid
+                  'fr-input--error': !meta.valid,
                 }"
                 autocomplete="username"
                 required
@@ -45,12 +43,12 @@
               v-slot="{ field, meta }"
               :rules="{
                 required: true,
-                confirm: [user.password, user.confirm]
+                confirm: [user.password, user.confirm],
               }"
             >
               <div class="fr-input-group">
                 <label class="fr-label" for="confirm-password">
-                  {{ $t("confirm-password") }}</label
+                  {{ t("confirm-password") }}</label
                 >
                 <input
                   id="confirm-password"
@@ -60,7 +58,7 @@
                   class="validate-required form-control fr-input"
                   :class="{
                     'fr-input--valid': meta.valid,
-                    'fr-input--error': !meta.valid
+                    'fr-input--error': !meta.valid,
                   }"
                   autocomplete="username"
                   required
@@ -76,7 +74,7 @@
 
           <div class="fr-col-12 text-center fr-mb-5w">
             <button class="fr-btn" type="submit">
-              {{ $t("submit") }}
+              {{ t("submit") }}
             </button>
           </div>
         </div>
