@@ -33,9 +33,9 @@
     <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-2w">
       <div class="fr-container">
         <div class="fr-grid-row fr-p-4w">
-          <h2 class="fr-h2 text-center">
+          <span class="fr-h2 text-center">
             {{ $t('landing.tagline') }}
-          </h2>
+          </span>
         </div>
       </div>
     </section>
