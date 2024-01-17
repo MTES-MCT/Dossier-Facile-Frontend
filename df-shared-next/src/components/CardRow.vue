@@ -16,12 +16,14 @@
       <div class="btn-container">
         <button
           @click="edit()"
+          :title="t('edit')"
           class="fr-p-1w fr-mr-2w icon-btn"
           :class="{ danger: danger, 'color--primary': !danger }"
         >
           <i class="fs-24 ri-pencil-line"></i>
         </button>
         <button
+          :title="t('remove')"
           @click="remove()"
           class="fr-p-1w icon-btn"
           :class="{ danger: danger, 'color--primary': !danger }"
@@ -36,25 +38,23 @@
   </NakedCard>
 </template>
 
-<script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+<script setup lang="ts">
+import { useI18n } from "vue-i18n";
 import NakedCard from "./NakedCard.vue";
 
-@Component({
-  components: {
-    NakedCard,
-  },
-})
-export default class CardRow extends Vue {
-  @Prop({ default: false }) danger!: boolean;
+const { t } = useI18n();
 
-  edit() {
-    this.$emit("edit");
-  }
+const props = withDefaults(defineProps<{ danger?: boolean }>(), {
+  danger: false,
+});
+const emit = defineEmits(["edit", "remove"]);
 
-  remove() {
-    this.$emit("remove");
-  }
+function edit() {
+  emit("edit");
+}
+
+function remove() {
+  emit("remove");
 }
 </script>
 
@@ -109,3 +109,16 @@ export default class CardRow extends Vue {
   color: var(--danger);
 }
 </style>
+
+<i18n>
+  {
+    "en": {
+      "edit": "Edit",
+      "remove": "Remove"
+    },
+    "fr": {
+      "edit": "Modifier",
+      "remove": "Supprimer"
+    }
+  }
+</i18n>

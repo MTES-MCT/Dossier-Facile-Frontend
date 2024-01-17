@@ -23,6 +23,11 @@ describe(
       cy.visit("/documents-locataire/2");
 
       testResidencyStep();
+
+      // Should get warning for category needing at least 3 files
+      changeResidencyCategory("Locataire");
+      verifyThatThreeDocumentsAreMandatory();
+      goBackToResidency();
     });
 
     it("add residency documents for guarantor", () => {
@@ -34,6 +39,7 @@ describe(
 
     it("add residency documents for cotenant", () => {
       clickOnMenuItem("Les documents de mon conjoint");
+      cy.wait(300);
       clickOnMenuItem("Situation d'hébergement");
 
       testResidencyStep();
@@ -61,11 +67,6 @@ describe(
       selectResidencyCategory("Propriétaire");
       cy.uploadDocument(1).clickOnNext();
       goBackToResidency();
-
-      // Should get warning for category needing at least 3 files
-      changeResidencyCategory("Hébergé par une personne tierce");
-      verifyThatThreeDocumentsAreMandatory();
-      goBackToResidency();
     }
 
     function selectResidencyCategory(categoryLabel: string) {
@@ -75,12 +76,14 @@ describe(
     function changeResidencyCategory(categoryLabel: string) {
       selectResidencyCategory(categoryLabel);
       clickOnModalButton("Valider");
+      cy.wait(200);
     }
 
     function verifyThatThreeDocumentsAreMandatory() {
       cy.uploadDocument(1).clickOnNext();
       clickOnModalButton("Passer à l'étape suivante");
 
+      cy.wait(200)
       goBackToResidency();
 
       cy.uploadDocument(1).clickOnNext();
@@ -93,15 +96,15 @@ describe(
         .should("be.visible")
         .get("button")
         .contains(buttonLabel)
-        .click({ force: true });
-      cy.waitUntilLoaderIsGone();
+        .click();
+      cy.waitUntilModalIsGone();
     }
 
     function goBackToResidency() {
       cy.wait(200);
       cy.expectPath("/3");
       cy.contains("Retour").click();
-      cy.wait(200);
+      cy.wait(500);
     }
 
     function createGuarantor() {
@@ -114,10 +117,12 @@ describe(
     }
 
     function createCotenant() {
+      cy.wait(500);
       cy.visit("/type-locataire");
+      cy.wait(5000);
       cy.contains("En couple").click();
       cy.get('input[name="coTenantLastName"]').type("Martin");
-      cy.get('input[name="firstName"]').type("Louise");
+      cy.get('input[name="coTenantFirstName"]').type("Louise");
       cy.clickOnNext();
     }
 

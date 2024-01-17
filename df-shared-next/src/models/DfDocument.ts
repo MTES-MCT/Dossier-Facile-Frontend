@@ -13,4 +13,5 @@ export class DfDocument {
   noDocument?: boolean;
   name?: string;
   documentDeniedReasons?: DocumentDeniedReasons;
+  authenticityStatus?: string;
 }

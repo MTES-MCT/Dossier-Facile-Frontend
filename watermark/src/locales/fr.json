@@ -7,6 +7,7 @@
     "add-file-label": "Sélectionner des fichiers :",
     "supported-file-format": "Formats supportés : jpg, png, pdf.",
     "submit": "Ajouter le filigrane",
+    "subtitle-cnil": "L’ajout d’un filigrane sur vos documents est une bonne pratique mais certains organismes peuvent avoir besoin d’un document vierge (banques, services publics, etc.)",
     "wait": "Veuillez patienter",
     "add-watermark": {
       "label": "Indiquez le filigrane à insérer :",

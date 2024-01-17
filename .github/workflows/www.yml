@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [develop]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  www:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+      - uses: bahmutov/npm-install@v1
+        with:
+          useRollingCache: true
+      - name: Build
+        run: yarn www build
+      - name: Run unit tests
+        run: yarn www test:unit
+      - name: Run e2e tests
+        uses: cypress-io/github-action@v5.6.1
+        with:
+          project: ./www
+          install: false
+          start: yarn www dev --host
+          wait-on: "http://localhost:9001"
+        env:
+          DEBUG: "@cypress/github-action"
+        timeout-minutes: 3
+
+  tenant:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+      - uses: bahmutov/npm-install@v1
+        with:
+          useRollingCache: true
+      - name: Build
+        run: yarn tenantv3 build
+      - name: Run unit tests
+        run: yarn tenantv3 test:unit
+
+  others:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+      - uses: bahmutov/npm-install@v1
+        with:
+          useRollingCache: true
+      - run: yarn dfowner build
+      - run: yarn watermark build

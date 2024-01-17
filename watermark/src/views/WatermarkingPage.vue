@@ -72,6 +72,7 @@ function getFile() {
   <h1 class="fr-h4">
     {{ t("watermarking-page.title") }}
   </h1>
+  <p>{{ t("watermarking-page.subtitle-cnil") }}</p>
   <div class="fr-alert fr-alert--info fr-mb-3w">
     <p v-html="t('watermarking-page.behaviour-1')"></p>
     <p v-html="t('watermarking-page.behaviour-2')"></p>

@@ -14,7 +14,7 @@ describe("couple tenant scenario", () => {
     cy.expectPath("/type-locataire");
     cy.contains("En couple").click();
     cy.get('input[name="coTenantLastName"]').type("Martin");
-    cy.get('input[name="firstName"]').type("Louise");
+    cy.get('input[name="coTenantFirstName"]').type("Louise");
     cy.clickOnNext();
 
     cy.expectPath("/documents-locataire/1");

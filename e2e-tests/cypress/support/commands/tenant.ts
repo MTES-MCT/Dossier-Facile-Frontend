@@ -20,12 +20,19 @@ Cypress.Commands.add("uploadDocument", (numberOfFiles: number = 1) => {
   cy.waitUntilLoaderIsGone();
 });
 
+Cypress.Commands.add("waitUntilModalIsGone", () => {
+  cy.waitUntil(
+    () => Cypress.$('.modal').length === 0 || Cypress.$('.modal').is(':visible') === false,
+    { interval: 100, timeout: 10000 }
+  );
+});
+
 Cypress.Commands.add("waitUntilLoaderIsGone", () => {
   cy.waitUntil(
     () => Cypress.$('.vld-background').length === 0,
     { interval: 100, timeout: 10000 }
   );
-})
+});
 
 Cypress.Commands.add("simpleUploadDocumentStep", (buttonToSelect: string, numberOfFiles: number = 1) => {
   cy.contains(buttonToSelect)

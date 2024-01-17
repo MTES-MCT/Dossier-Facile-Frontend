@@ -21,7 +21,7 @@
                   class="form-control validate-required fr-input"
                   :class="{
                     'fr-input--valid': meta.valid,
-                    'fr-input--error': !meta.valid
+                    'fr-input--error': !meta.valid,
                   }"
                   placeholder="DF-DC520!x"
                   type="password"
@@ -51,7 +51,7 @@
                 v-slot="{ field, meta }"
                 :rules="{
                   required: true,
-                  confirm: [user.password, user.confirm]
+                  confirm: [user.password, user.confirm],
                 }"
               >
                 <input
@@ -59,7 +59,7 @@
                   class="validate-required form-control fr-input"
                   :class="{
                     'fr-input--valid': meta.valid,
-                    'fr-input--error': !meta.valid
+                    'fr-input--error': !meta.valid,
                   }"
                   type="password"
                   autocomplete="new-password"

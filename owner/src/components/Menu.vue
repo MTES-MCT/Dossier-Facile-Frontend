@@ -99,7 +99,7 @@ function showDeleteAccountModal() {
       </a>
     </li>
     <li class="fr-nav__item fr-translate">
-      <LanguageSelector @on-change="changeLang" />
+      <LanguageSelector @on-change-lang="changeLang" />
     </li>
   </ul>
 </template>
