@@ -326,28 +326,28 @@
   "rentdpe": "avec un DPE"
 },
 "landing": {
-  "title": "Vous mettez un logement en location? Nous vérifions les dossiers de location à votre place.",
+  "title": "Vous mettez un logement en location ? Nous vérifions les dossiers de location à votre place.",
   "subtitle1": "Nos équipes vérifient l’exactitude et la complétude des pièces justificatives de location, avant ou après une visite.",
   "subtitle2": "Vous n’avez plus qu’à choisir le bon candidat.",
   "subtitle3": "Un service gratuit proposé par le Ministère du Logement.",
   "tagline": "Un service gratuit proposé aux propriétaires par le Ministère du Logement",
   "purpose": {
     "first": {
-      "title": "Fini les faux dossiers ",
-      "content": "Une équipe de 15 personnes vérifie chaque dossier, 5j/7 . Ils sont  aidés par des contrôles automatisés utilisant des bases de données de l’État. Réponse en 48h . Gratuitement."
+      "title": "Fini les faux dossiers",
+      "content": "Une équipe de 15 personnes vérifie chaque dossier, 5j/7. Ils sont aidés par des contrôles automatisés utilisant des bases de données de l’État. Réponse en 48h. Gratuitement."
     },
     "second": {
-      "title": "Fini les échanges d’emails",
-      "content": "Finis les allers-retours interminables avec les candidats pour obtenir des documents manquants et les heures perdues à trier les dossiers de location. Partager-leur un unique lien. "
+      "title": "Fini les échanges d’e-mails",
+      "content": "Fini les allers-retours interminables avec les candidats pour obtenir des documents manquants et les heures perdues à trier les dossiers de location. Partager-leur un unique lien."
     },
     "third": {
       "title": "Ne faites visiter votre bien qu’aux candidats ayant un dossier complet",
-      "content": "Trop de demande de visites ? Demandez avant aux candidats d’importer leurs justificatifs sur Dossier Facile. Fini les visites inutiles"
+      "content": "Trop de demandes de visite ? Demandez avant aux candidats d’importer leurs justificatifs sur Dossier Facile. Fini les visites inutiles"
     }
   },
   "citation": {
     "title": "Déjà 374 056 Dossiers vérifiés",
-    "s1": "«Le dossier de Karim s'est tout de suite démarqué : c'était le seul dossier reçu complet ! »",
+    "s1": "« Le dossier de Karim s'est tout de suite démarqué : c'était le seul dossier reçu complet ! »",
     "s1-author": "Joseph, propriétaire à Nantes",
     "s2": "DossierFacile « sécurise mes locations et c’est très dissuasif, j’informe les candidats que leurs justificatifs vont être vérifiés ! »",
     "s2-author": "Farid",
