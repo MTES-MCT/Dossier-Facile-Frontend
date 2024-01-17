@@ -204,7 +204,7 @@
 </template>
 
 <script setup lang="ts">
-import { User } from "df-shared/src/models/User";
+import { User } from "df-shared-next/src/models/User";
 import { AuthService } from "../services/AuthService";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";

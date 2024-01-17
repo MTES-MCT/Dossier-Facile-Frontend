@@ -12,7 +12,6 @@
     "core-js": "^3.6.5",
     "highlight.js": "11.7.0",
     "loader-utils": "^3.2.1",
-    "vee-validate": "4.12.2",
     "sass": "^1.45.0"
   },
   "peerDependencies": {
@@ -20,6 +19,7 @@
     "@gouvfr/dsfr": "^1.10.1",
     "vue": "^3.2.47",
     "vue-i18n": "^9",
+    "vee-validate": "4.12.2",
     "vue3-cookies": "1.0.6"
   },
   "devDependencies": {

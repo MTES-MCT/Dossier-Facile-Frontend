@@ -9,13 +9,10 @@
     "url": "git@github.com:MTES-MCT/Dossier-Facile-Frontend.git"
   },
   "workspaces": [
-    "main",
     "www",
     "owner",
-    "tenant",
     "tenantv3",
     "watermark",
-    "df-shared",
     "df-shared-next",
     "e2e-tests",
     "sb"

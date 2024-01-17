@@ -1,9 +1,0 @@
-{
-  "extends": "../tsconfig.json",
-  "compilerOptions": {
-    "target": "es2020",
-    "lib": ["esnext", "dom"],
-    "types": ["cypress", "cypress-axe"],
-    "sourceMap": false
-  }
-}
