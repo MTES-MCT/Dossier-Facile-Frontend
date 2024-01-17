@@ -141,8 +141,4 @@ import { Form } from "vee-validate";
 </script>
 
 <style scoped lang="scss">
-.field-with-button {
-  display: flex;
-  justify-content: space-between;
-}
 </style>

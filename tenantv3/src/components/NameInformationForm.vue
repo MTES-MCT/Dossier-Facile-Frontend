@@ -199,10 +199,6 @@ const router = useRouter();
 </script>
 
 <style scoped lang="scss">
-.field-with-button {
-  display: flex;
-  justify-content: space-between;
-}
 .warning-box {
   .title {
     display: flex;

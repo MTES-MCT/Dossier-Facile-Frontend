@@ -3,7 +3,8 @@
     <FieldLabel :required="required" :for-input="name">
       {{ fieldLabel }}
     </FieldLabel>
-    <div class="field-with-button fr-input-wrap">
+    <div class="field-with-button">
+      <div class="fr-input-wrap">
       <Field
         v-if="!textarea"
         :name="name"
@@ -55,6 +56,7 @@
           <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
         </ErrorMessage>
       </Field>
+      </div>
       <div class="fr-ml-1w" v-if="$slots.right">
         <slot name="right"></slot>
       </div>
@@ -108,5 +110,9 @@ function updateModel(event: Event) {
 .field-with-button {
   display: flex;
   justify-content: space-between;
+}
+
+.fr-input-wrap {
+  flex-grow: 1;
 }
 </style>
