@@ -86,7 +86,7 @@
 </template>
 
 <script setup lang="ts">
-import { User } from "df-shared/src/models/User";
+import { User } from "df-shared-next/src/models/User";
 import { AuthService } from "../services/AuthService";
 import { ref } from "vue";
 import PasswordMeter from "df-shared-next/src/components/PasswordMeter/PasswordMeter.vue";
