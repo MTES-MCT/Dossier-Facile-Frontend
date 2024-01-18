@@ -43,11 +43,12 @@ useHead({
 })
   const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`;
   const OWNER_URL = import.meta.env.VITE_OWNER_URL;
+  const REGISTER_URL = import.meta.env.VITE_REGISTER_URL;
 
   const mainPages = [
     {
       name: "Monter mon dossier de location",
-      url: `${TENANT_URL}/signup`,
+      url: REGISTER_URL,
     },
     {
       name: "Se connecter",

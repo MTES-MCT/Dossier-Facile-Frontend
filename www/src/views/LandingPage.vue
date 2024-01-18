@@ -12,7 +12,7 @@
               {{ t("s0.text2") }}
             </p>
             <p>
-              <a :href="`${TENANT_URL}/signup`" class="fr-btn fr-mt-2w">
+              <a :href="REGISTER_URL" class="fr-btn fr-mt-2w">
                 <span class="text-center full-width">
                   {{ t("button") }}
                 </span>
@@ -119,7 +119,7 @@
                 {{ t("docs") }}
               </span>
             </a>
-            <a :href="`${TENANT_URL}/signup`" class="fr-btn fr-mt-2w">
+            <a :href="REGISTER_URL" class="fr-btn fr-mt-2w">
               <span class="text-center full-width">
                 {{ t("button") }}
               </span>
@@ -193,7 +193,7 @@
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
-            <a :href="`${TENANT_URL}/signup`" class="fr-btn fr-mt-2w">
+            <a :href="REGISTER_URL" class="fr-btn fr-mt-2w">
               <span class="text-center full-width">
                 {{ t("button") }}
               </span>
@@ -394,7 +394,7 @@
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
-            <a :href="`${TENANT_URL}/signup`" class="fr-btn fr-mt-2w">
+            <a :href="REGISTER_URL" class="fr-btn fr-mt-2w">
               <span class="text-center full-width">
                 {{ t("button") }}
               </span>
@@ -447,7 +447,7 @@
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
-            <a :href="`${TENANT_URL}/signup`" class="fr-btn fr-mt-2w">
+            <a :href="REGISTER_URL" class="fr-btn fr-mt-2w">
               <span class="text-center full-width">
                 {{ t("button") }}
               </span>
@@ -518,7 +518,7 @@ useHead({
 
 const { t } = useI18n();
 
-const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`;
+const REGISTER_URL = import.meta.env.VITE_REGISTER_URL;
 const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`;
 
 const validatedDossierCount = ref("116000");

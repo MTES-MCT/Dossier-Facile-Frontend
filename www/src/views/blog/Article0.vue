@@ -53,7 +53,7 @@
           <p class="p-btn">
               <a
                 class="fr-btn"
-                :href="`${TENANT_URL}/signup`"
+                :href="REGISTER_URL"
               >
                 {{ t("button") }}
               </a>
@@ -70,6 +70,7 @@ import image from "../../assets/cover-features.jpg";
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
+const REGISTER_URL = import.meta.env.VITE_REGISTER_URL;
 
 const title= "Locatio devient DossierFacile";
 const description = "Locatio, le service d’Etat permettant de monter un dossier de location en ligne certifié clair, complet et cohérent,change de nom et devient DossierFacile.fr" ;
