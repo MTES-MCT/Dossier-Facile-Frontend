@@ -269,18 +269,6 @@ const router = createRouter({
       component: () =>
         import(/* webpackChunkName: "messages" */ "../views/Messages.vue"),
     },
-    // {
-    //   path: "/confirmAccount/:token",
-    //   name: "Confirm",
-    //   meta: {
-    //     title: "Confirmation de compte - DossierFacile",
-    //     hideForAuth: true,
-    //   },
-    //   component: () =>
-    //     import(
-    //       /* webpackChunkName: "confirmAccount" */ "../views/ConfirmAccount.vue"
-    //     ),
-    // },
     {
       path: "/ajout-couple/:token",
       name: "Couple",
@@ -326,11 +314,10 @@ const router = createRouter({
         description: "Créez votre compte en quelques clics sur DossierFacile",
         hideForAuth: true,
       },
-      component: () =>
-        import(
-          /* webpackChunkName: "signup" */
-          "../views/SignupPage.vue"
-        ),
+      redirect: () => {
+        window.location.replace(`https://sso-preprod.dossierfacile.fr/auth/realms/dossier-facile/protocol/openid-connect/registrations?client_id=dossier-facile-frontend-localhost&redirect_uri=https%3A%2F%2Flocataire-preprod.dossierfacile.fr%2Fprofile&response_type=code&scope=openid`);
+        return "/signup";
+      },
     },
   ],
   scrollBehavior() {
