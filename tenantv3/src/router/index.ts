@@ -315,7 +315,7 @@ const router = createRouter({
         hideForAuth: true,
       },
       redirect: () => {
-        window.location.replace(`https://sso-preprod.dossierfacile.fr/auth/realms/dossier-facile/protocol/openid-connect/registrations?client_id=dossier-facile-frontend-localhost&redirect_uri=https%3A%2F%2Flocataire-preprod.dossierfacile.fr%2Fprofile&response_type=code&scope=openid`);
+        window.location.replace(`https://sso.dossierfacile.logement.gouv.fr/auth/realms/dossier-facile/protocol/openid-connect/auth?client_id=dossier-facile-frontend&redirect_uri=https%3A%2F%2Flocataire.dossierfacile.logement.gouv.fr%2Faccount&response_mode=fragment&response_type=code&scope=openid&&kc_idp_hint=oidc`);
         return "/signup";
       },
     },
