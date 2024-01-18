@@ -1,7 +1,7 @@
 root /app/dist;
 
 location /signup {
-    try_files $uri /signup/index.html =404;
+    try_files $uri $uri.html /signup/index.html =404;
     add_header Content-Security-Policy "<%= ENV['TENANT_CSP'] %>";
     add_header X-Frame-Options "deny";
     add_header X-Content-Type-Options "nosniff";
@@ -10,7 +10,7 @@ location /signup {
 location / {
     index index.html;
     # Manage route
-    try_files $uri $uri/index.html /index.html =404;
+    try_files $uri $uri.html $uri/index.html /index.html =404;
     # Add security header
     add_header Content-Security-Policy "<%= ENV['TENANT_CSP'] %>";
     add_header X-Frame-Options "deny";
