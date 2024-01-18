@@ -188,6 +188,8 @@ useHead({
   ],
 })
 
+const REGISTER_URL = import.meta.env.VITE_REGISTER_URL
+
   const nonCompliantCriteria = [
     {
       id: "1.2",
@@ -291,7 +293,7 @@ useHead({
     },
     {
       name: "Connexion « Mon dossier »",
-      url: "https://locataire.dossierfacile.logement.gouv.fr/signup",
+      url: REGISTER_URL,
     },
     {
       name: "Locataire",
