@@ -14,6 +14,7 @@
         :height="height"
         :src="getImage()"
         :width="width"
+        loading="lazy"
         class="partner-logo"
       />
     </a>
