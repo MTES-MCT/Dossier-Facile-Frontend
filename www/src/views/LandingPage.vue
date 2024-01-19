@@ -126,7 +126,7 @@
             </a>
           </div>
           <div class="fr-col-md-6 mx-auto">
-            <img src="../assets/icons/justif.webp" alt="" class="justif-img" />
+            <img loading="lazy" src="../assets/icons/justif.webp" alt="" class="justif-img" />
           </div>
         </div>
       </div>
@@ -420,6 +420,8 @@
             <LogoInstitutionalPartnerComponent
               :image="anilUrl"
               href="https://www.anil.org/"
+              height="80"
+              width="80"
               name="ANIL, l’agence nationale pour l’information sur le logement"
             />
             <LogoInstitutionalPartnerComponent
@@ -541,10 +543,10 @@ onMounted(() => {
   left: 0;
   background-size: cover !important;
   background-position: 50% 50% !important;
-  background-image: url("../assets/cover-features.webp");
+  background-image: url("/cover-features-0119.webp");
   background-color: #6277a0;
   @media (max-width: 768px) {
-    background-image: url("../assets/cover-features-mobile.webp");
+    background-image: url("/cover-features-mobile-0119.webp");
   }
 
   z-index: 0;
