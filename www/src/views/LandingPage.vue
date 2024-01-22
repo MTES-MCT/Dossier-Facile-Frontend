@@ -51,11 +51,7 @@
                 <p class="fr-tile__desc">{{ t("s1.p2") }}</p>
               </div>
               <div class="fr-tile__img">
-                <img
-                  src="../assets/icons/sports.svg"
-                  class="fr-responsive-img"
-                  alt=""
-                />
+                <img src="../assets/icons/sports.svg" class="fr-responsive-img" alt="" />
               </div>
             </div>
           </div>
@@ -68,11 +64,7 @@
                 <p class="fr-tile__desc">{{ t("s1.p3") }}</p>
               </div>
               <div class="fr-tile__img">
-                <img
-                  src="../assets/icons/reading.svg"
-                  class="fr-responsive-img"
-                  alt=""
-                />
+                <img src="../assets/icons/reading.svg" class="fr-responsive-img" alt="" />
               </div>
             </div>
           </div>
@@ -126,7 +118,27 @@
             </a>
           </div>
           <div class="fr-col-md-6 mx-auto">
-            <img loading="lazy" src="../assets/icons/justif.webp" alt="" class="justif-img" />
+            <picture>
+              <source
+                media="(max-width: 499px)"
+                srcset="
+                  ../assets/icons/justif-300.webp,
+                  ../assets/icons/justif-450.webp 1.5x,
+                  ../assets/icons/justif.webp     2x
+                "
+              />
+              <source
+                media="(min-width: 500px) and (max-width: 1200px)"
+                srcset="../assets/icons/justif-450.webp, ../assets/icons/justif.webp 1.5x"
+              />
+              <source media="(min-width: 1200px)" srcset="../assets/icons/justif.webp" />
+              <img
+                loading="lazy"
+                src="../assets/icons/justif-300.webp"
+                alt=""
+                class="justif-img"
+              />
+            </picture>
           </div>
         </div>
       </div>
@@ -468,55 +480,56 @@ import { StatsService } from "../services/StatsService";
 import { onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
-import papUrl from '../assets/logos/pap.png'
-import locserviceUrl from '../assets/logos/loc_service.webp'
-import fasttUrl from '../assets/logos/fastt.webp'
-import flatsyUrl from '../assets/logos/flatsy.webp'
-import hugoUrl from '../assets/logos/monsieur_hugo.webp'
-import clickandrentUrl from '../assets/logos/clickandrent.webp'
-import qlowerUrl from '../assets/logos/qlower.webp'
-import jelouebienUrl from '../assets/logos/jelouebien.webp'
-import gererseulUrl from '../assets/logos/gererseul.webp'
-import pandalocUrl from '../assets/logos/pandaloc.webp'
-import superimmoUrl from '../assets/logos/superimmo.webp'
-import wiziUrl from '../assets/logos/wizi.webp'
-import rentilaUrl from '../assets/logos/rentila.webp'
-import platoimmoUrl from '../assets/logos/platoimmo.webp'
-import immoloyerUrl from '../assets/logos/immoloyer.webp'
-import emjysoftUrl from '../assets/logos/emjysoft_gestion_locative.webp'
-import timciUrl from '../assets/logos/timci.webp'
-import ispUrl from '../assets/logos/isp_group.webp'
-import jsoftUrl from '../assets/logos/jsoft.webp'
-import mclUrl from '../assets/logos/mon_carnet_logement.png'
-import pdpUrl from '../assets/logos/partir_de_paris.png'
-import goodlizUrl from '../assets/logos/goodliz.png'
-import pautionsUrl from '../assets/logos/pautions.png'
-import visaleUrl from '../assets/logos/visale.webp'
-import anilUrl from '../assets/logos/anil.webp'
-import unmlUrl from '../assets/logos/UNML.svg'
-import cllajUrl from '../assets/logos/CLLAJ.svg'
-import fuUrl from '../assets/logos/FranceUniversites.svg'
-import immopadUrl from '../assets/logos/immopad.webp'
-import mydomusUrl from '../assets/logos/mydomus.webp'
-import omnireaUrl from '../assets/logos/omnirea.webp'
+import papUrl from "../assets/logos/pap.png";
+import locserviceUrl from "../assets/logos/loc_service.webp";
+import fasttUrl from "../assets/logos/fastt.webp";
+import flatsyUrl from "../assets/logos/flatsy.webp";
+import hugoUrl from "../assets/logos/monsieur_hugo.webp";
+import clickandrentUrl from "../assets/logos/clickandrent.webp";
+import qlowerUrl from "../assets/logos/qlower.webp";
+import jelouebienUrl from "../assets/logos/jelouebien.webp";
+import gererseulUrl from "../assets/logos/gererseul.webp";
+import pandalocUrl from "../assets/logos/pandaloc.webp";
+import superimmoUrl from "../assets/logos/superimmo.webp";
+import wiziUrl from "../assets/logos/wizi.webp";
+import rentilaUrl from "../assets/logos/rentila.webp";
+import platoimmoUrl from "../assets/logos/platoimmo.webp";
+import immoloyerUrl from "../assets/logos/immoloyer.webp";
+import emjysoftUrl from "../assets/logos/emjysoft_gestion_locative.webp";
+import timciUrl from "../assets/logos/timci.webp";
+import ispUrl from "../assets/logos/isp_group.webp";
+import jsoftUrl from "../assets/logos/jsoft.webp";
+import mclUrl from "../assets/logos/mon_carnet_logement.png";
+import pdpUrl from "../assets/logos/partir_de_paris.png";
+import goodlizUrl from "../assets/logos/goodliz.png";
+import pautionsUrl from "../assets/logos/pautions.png";
+import visaleUrl from "../assets/logos/visale.webp";
+import anilUrl from "../assets/logos/anil.webp";
+import unmlUrl from "../assets/logos/UNML.svg";
+import cllajUrl from "../assets/logos/CLLAJ.svg";
+import fuUrl from "../assets/logos/FranceUniversites.svg";
+import immopadUrl from "../assets/logos/immopad.webp";
+import mydomusUrl from "../assets/logos/mydomus.webp";
+import omnireaUrl from "../assets/logos/omnirea.webp";
 
-import { useHead } from '@unhead/vue'
+import { useHead } from "@unhead/vue";
 import image from "../assets/icons/justif.jpg";
 
-const title= "DossierFacile, le dossier de location numérique de l’État";
-const description= "Avec DossierFacile, créez un dossier de location en ligne complet et vérifié par l'Etat pour trouver votre appartement ou votre logement";
+const title = "DossierFacile, le dossier de location numérique de l’État";
+const description =
+  "Avec DossierFacile, créez un dossier de location en ligne complet et vérifié par l'Etat pour trouver votre appartement ou votre logement";
 useHead({
   title: title,
   meta: [
-    { name: 'og:title', content: title },
-    { name: 'twitter:title', content: title },
-    { name: 'description', content: description },
-    { name: 'og:description', content: description },
-    { name: 'twitter:description', content: description },
-    { name: 'og:image', content: image },
-    { name: 'twitter:image', content: image },
+    { name: "og:title", content: title },
+    { name: "twitter:title", content: title },
+    { name: "description", content: description },
+    { name: "og:description", content: description },
+    { name: "twitter:description", content: description },
+    { name: "og:image", content: image },
+    { name: "twitter:image", content: image },
   ],
-})
+});
 
 const { t } = useI18n();
 
@@ -526,14 +539,14 @@ const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`;
 const validatedDossierCount = ref("116000");
 
 onMounted(() => {
-  StatsService.getValidatedDossierCount().then((result: {data: string}) => {
-    if (result.data) {
-      validatedDossierCount.value = result.data;
-    }
-  }).catch(() => {
-  });
+  StatsService.getValidatedDossierCount()
+    .then((result: { data: string }) => {
+      if (result.data) {
+        validatedDossierCount.value = result.data;
+      }
+    })
+    .catch(() => {});
 });
-
 </script>
 
 <style scoped lang="scss">
