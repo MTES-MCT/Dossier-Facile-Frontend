@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@gouvfr/dsfr": "^1.10.2",
+    "@sentry/vue": "^7.94.1",
     "df-shared-next": "0.1.0",
     "pinia": "^2.1.7",
     "vee-validate": "^4.11.8",
