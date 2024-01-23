@@ -200,7 +200,7 @@
                       guarantorHasFile(g, 'IDENTIFICATION_LEGAL_PERSON')
                     "
                     @view="openGuarantorDoc(g, 'IDENTIFICATION_LEGAL_PERSON')"
-                    @edit="setGuarantorSubStep(1, g)"
+                    @edit="setGuarantorSubStep(0, g)"
                   ></ViewEditBtn>
                   <FileStatusIcon
                     :status="
@@ -219,7 +219,7 @@
                       !isCotenant && guarantorHasFile(g, 'IDENTIFICATION')
                     "
                     @view="openGuarantorDoc(g, 'IDENTIFICATION')"
-                    @edit="setGuarantorSubStep(2, g)"
+                    @edit="setGuarantorSubStep(1, g)"
                   ></ViewEditBtn>
                   <FileStatusIcon
                     :status="getGuarantorStatus(g, 'IDENTIFICATION')"

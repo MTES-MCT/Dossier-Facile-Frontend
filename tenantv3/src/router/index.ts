@@ -174,7 +174,7 @@ const router = createRouter({
           return g.id?.toString() == to.params.guarantorId;
         });
         if (
-          (g === undefined || !g?.firstName || !g?.lastName) &&
+          (g === undefined || (g.typeGuarantor === 'NATURAL_PERSON' && (!g?.firstName || !g?.lastName))) &&
           to.params.substep !== "0"
         ) {
           next({ name: "GuarantorDocuments", params: { substep: "0" } });

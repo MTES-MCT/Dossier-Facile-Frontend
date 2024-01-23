@@ -846,7 +846,7 @@ const useTenantStore = defineStore('tenant', {
       } else {
         return {
           name: "GuarantorDocuments",
-          params: { substep },
+          params: { substep, guarantorId: guarantor.id },
         };
       }
     },
