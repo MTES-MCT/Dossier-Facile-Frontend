@@ -69,8 +69,15 @@
         <div v-else-if="g.typeGuarantor === 'LEGAL_PERSON'">
           <ul class="without-padding">
             <FileRowListItem
-              :label="$t('guarantorssection.organism-identification')"
+              :label="$t('guarantorssection.identification-legal-person')"
               :document="document(g, 'IDENTIFICATION_LEGAL_PERSON')"
+              @clickEdit="setGuarantorSubStep(0, g)"
+            />
+          </ul>
+          <ul class="without-padding">
+            <FileRowListItem
+              :label="$t('guarantorssection.identity-represent')"
+              :document="document(g, 'IDENTIFICATION')"
               @clickEdit="setGuarantorSubStep(1, g)"
             />
           </ul>
