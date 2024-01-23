@@ -424,10 +424,10 @@
           <div class="fr-grid-row fr-grid-row--gutters">
             <LogoInstitutionalPartnerComponent
               :image="visaleUrl"
-              height="60"
+              height="48"
               href="https://www.visale.fr/"
               name="visale.fr - connecte emploi et logement"
-              width="187"
+              width="150"
             />
             <LogoInstitutionalPartnerComponent
               :image="anilUrl"
