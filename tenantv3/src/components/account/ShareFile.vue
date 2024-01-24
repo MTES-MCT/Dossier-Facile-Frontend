@@ -91,15 +91,11 @@
           <input class="fr-input" type="text" read-only :value="getUrl()" />
         </div>
         <div class="full-mobile">
-          <ul class="fr-btns-group">
-            <li>
-              <DfButton type="submit" :primary="true">{{
-                shareMethod === "mail"
-                  ? $t("sharefile.share-btn-email")
-                  : $t("sharefile.share-btn-copy")
-              }}</DfButton>
-            </li>
-          </ul>
+          <DfButton class="full-mobile" type="submit" :primary="true">{{
+            shareMethod === "mail"
+              ? $t("sharefile.share-btn-email")
+              : $t("sharefile.share-btn-copy")
+          }}</DfButton>
         </div>
       </div>
     </Form>
@@ -183,6 +179,7 @@ select {
 
 .full-mobile {
   @media (max-width: 768px) {
+    justify-content: center;
     width: 100%;
   }
 }
