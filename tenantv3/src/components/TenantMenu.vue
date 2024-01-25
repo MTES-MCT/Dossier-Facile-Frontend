@@ -1,20 +1,19 @@
 <template>
   <ul class="fr-nav__list">
     <li class="fr-nav__item" v-if="showMessaging()">
-      <a
-        href="/messaging"
+      <router-link
+        to="/messaging"
         class="fr-nav__link"
-        :aria-current="currentPage === '/messaging' ? 'page' : undefined"
+        :aria-current="currentPage === 'Messages' ? 'page' : undefined"
       >
         {{ t("menu.messaging") }}
         <span v-if="newMessage > 0" class="badge">{{ newMessage }}</span>
-      </a>
+      </router-link>
     </li>
     <li class="fr-nav__item" v-else>
       <a
         :href="`${MAIN_URL}/information`"
         class="fr-nav__link"
-        :aria-current="currentPage === '/information' ? 'page' : undefined"
       >
         {{ t("menu.information") }}
       </a>
@@ -39,45 +38,45 @@
         class="fr-nav__btn"
         aria-expanded="false"
         aria-controls="menu-774"
-        :aria-current="currentPage === '/account' ? true : undefined"
+        :aria-current="currentPage === 'Account' ? true : undefined"
       >
         {{ t("menu.account") }}
       </button>
       <div class="fr-collapse fr-menu" id="menu-774">
         <ul class="fr-menu__list">
           <li>
-            <a
+            <router-link
               class="fr-nav__link"
-              href="/account"
+              to="/account"
               target="_self"
-              :aria-current="currentPage === '/account' ? 'page' : undefined"
+              :aria-current="currentPage === 'Account' ? 'page' : undefined"
             >
               {{ t("menu.file") }}
               <br />
               <span class="fr-label--disabled fr-text--xs">
                 {{ user.email }}
               </span>
-            </a>
+            </router-link>
           </li>
           <li v-if="partners.length > 0">
-            <a
+            <router-link
               class="fr-nav__link"
-              href="/partners"
+              to="/partners"
               target="_self"
-              :aria-current="currentPage === '/partners' ? 'page' : undefined"
+              :aria-current="currentPage === 'PartnerAccessPage' ? 'page' : undefined"
             >
               {{ $t("menu.partners") }}
-            </a>
+            </router-link>
           </li>
           <li>
-            <a
+            <router-link
               class="fr-nav__link"
-              href="/applications"
+              to="/applications"
               target="_self"
-              :aria-current="currentPage === '/applications' ? 'page' : undefined"
+              :aria-current="currentPage === 'SharingPage' ? 'page' : undefined"
             >
               {{ t("menu.applications") }}
-            </a>
+            </router-link>
           </li>
           <li>
             <DfButton
@@ -93,14 +92,14 @@
       </div>
     </li>
     <li class="fr-nav__item" :class="{ break: !isLoggedIn }">
-      <a
-        href="/contact"
-        :aria-current="currentPage === '/contact' ? 'page' : undefined"
+      <router-link
+        to="/contact"
+        :aria-current="currentPage === 'Contact' ? 'page' : undefined"
         class="fr-nav__link"
       >
         <span class="fr-icon-mail-line fr-icon--sm" aria-hidden="true"></span>
         {{ t("menu.contact-us") }}
-      </a>
+      </router-link>
     </li>
     <li class="fr-nav__item fr-translate">
       <LanguageSelector :initial-language="lang" @on-change-lang="changeLang" />
@@ -116,6 +115,7 @@ import { useI18n, type Composer } from "vue-i18n";
 import { computed, onMounted, ref } from "vue";
 import useTenantStore from "@/stores/tenant-store";
 import i18n from "@/i18n";
+import { useRoute } from "vue-router";
 
 const { t } = useI18n();
 const store = useTenantStore();
@@ -127,14 +127,13 @@ const partners = computed(() => store.partnerAccesses);
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`;
+const route = useRoute();
 
-const currentPage = ref("/")
+const currentPage = computed(() => {
+  return route.name;
+});
 
 const lang: string = (i18n.global as unknown as Composer).locale.value;
-
-onMounted(() => {
-  currentPage.value = window.location.pathname;
-});
 
   function showMessaging() {
     return (
