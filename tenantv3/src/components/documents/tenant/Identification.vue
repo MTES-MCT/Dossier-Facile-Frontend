@@ -75,7 +75,7 @@ import { cloneDeep } from "lodash";
 import { UtilsService } from "@/services/UtilsService";
 import SimpleRadioButtons from "df-shared-next/src/Button/SimpleRadioButtons.vue";
 import useTenantStore from "@/stores/tenant-store";
-import {computed, onBeforeMount, onMounted, ref} from "vue";
+import { computed, onBeforeMount, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { ToastService } from "@/services/ToastService";
 import { useLoading } from 'vue-loading-overlay';
@@ -86,7 +86,7 @@ const user = computed(() => {
 });
 const { t } = useI18n();
 
-const documents = ref([] as any);
+const documents = DocumentTypeConstants.IDENTIFICATION_DOCS;
 const tenantIdentificationDocument = computed(() => {
   return store.getTenantIdentificationDocument;
 });
@@ -106,12 +106,9 @@ const documentStatus = computed(() => {
 
 
 onBeforeMount(() => {
-  documents.value = DocumentTypeConstants.GUARANTOR_IDENTIFICATION_DOCS.filter(
-    (type: any) => UtilsService.isSubCategoryEnabled(type)
-  );
   if (user.value?.documents !== null) {
     if (tenantIdentificationDocument.value !== undefined) {
-      const localDoc = documents.value.find((d: DocumentType) => {
+      const localDoc = documents.find((d: DocumentType) => {
         return d.value === tenantIdentificationDocument.value?.subCategory;
       });
       if (localDoc !== undefined) {
@@ -129,7 +126,7 @@ onBeforeMount(() => {
     } else {
       const key = localStorage.getItem(getLocalStorageKey());
       if (key) {
-        const localDoc = documents.value.find((d: DocumentType) => {
+        const localDoc = documents.find((d: DocumentType) => {
           return d.key === key;
         });
         if (localDoc !== undefined) {
@@ -161,7 +158,7 @@ function undoSelect() {
   if (user.value?.documents !== null) {
     const doc = tenantIdentificationDocument.value;
     if (doc !== undefined) {
-      const localDoc = documents.value.find((d: DocumentType) => {
+      const localDoc = documents.find((d: DocumentType) => {
         return d.value === doc?.subCategory;
       });
       if (localDoc !== undefined) {
@@ -278,7 +275,7 @@ function save() {
   }
   
   function mapDocuments() {
-    return documents.value.map((d) => {
+    return documents.map((d) => {
       return { id: d.key, labelKey: d.key, value: d };
     });
   }

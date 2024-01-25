@@ -63,20 +63,6 @@ export const UtilsService = {
     }
     return dayjs().isAfter(activationDate);
   },
-  isSubCategoryEnabled(type: any): boolean {
-    if (type.key === "france-identite") {
-      return this.getBooleanToggle(import.meta.env.VITE_ENABLE_FRANCE_IDENTITE_CATEGORY);
-    }
-    return true;
-  },
-  getBooleanToggle(toggle: string): boolean {
-    try {
-      return JSON.parse(toggle.toLowerCase());
-    }
-    catch (e) {
-      return false;
-    }
-  },
   handleCommonSaveError(err: any) {
     if (err?.response?.data?.message === null) {
       return;
