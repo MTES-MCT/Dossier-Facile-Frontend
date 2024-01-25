@@ -112,7 +112,7 @@ import DfButton from "df-shared-next/src/Button/Button.vue";
 import LanguageSelector from "df-shared-next/src/Header/LanguageSelector.vue";
 
 import { useI18n, type Composer } from "vue-i18n";
-import { computed, onMounted, ref } from "vue";
+import { computed } from "vue";
 import useTenantStore from "@/stores/tenant-store";
 import i18n from "@/i18n";
 import { useRoute } from "vue-router";
