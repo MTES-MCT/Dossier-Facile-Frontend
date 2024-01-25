@@ -1067,7 +1067,8 @@
     "sent-success": "Your file has been successfully shared"
   },
   "showdoc": {
-    "preview": "Document Preview",
+    "preview": "Document preview loading…",
+    "error": "Error in preview",
     "number-of-pages": "Preview page 1 / {0}",
     "loading": "Loading"
   },
