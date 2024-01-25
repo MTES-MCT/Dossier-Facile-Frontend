@@ -1114,7 +1114,8 @@
     "sent-success": "Votre dossier a bien été partagé"
   },
   "showdoc": {
-    "preview": "Prévisualisation du document",
+    "preview": "Prévisualisation du document en cours…",
+    "error": "Erreur de prévisualisation",
     "number-of-pages": "Prévisualisation page 1 / {0}",
     "loading": "Chargement du fichier en cours"
   },
