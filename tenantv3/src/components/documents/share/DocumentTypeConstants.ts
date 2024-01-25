@@ -34,6 +34,12 @@ export const DocumentTypeConstants = {
       refusedProofs: ["Tout autre document"],
     },
     {
+      key: "france-identite",
+      value: "FRANCE_IDENTITE",
+      acceptedProofs: ["Justificatif France Identité"],
+      refusedProofs: ["Tout autre document"],
+    },
+    {
       key: "other",
       value: "OTHER_IDENTIFICATION",
       acceptedProofs: [
@@ -80,6 +86,12 @@ export const DocumentTypeConstants = {
       key: "drivers-license",
       value: "DRIVERS_LICENSE",
       acceptedProofs: ["Permis de conduire français ou étranger recto-verso"],
+      refusedProofs: ["Tout autre document"],
+    },
+    {
+      key: "france-identite",
+      value: "FRANCE_IDENTITE",
+      acceptedProofs: ["Justificatif France Identité"],
       refusedProofs: ["Tout autre document"],
     },
     {
@@ -844,6 +856,12 @@ export const DocumentTypeConstants = {
       key: "drivers-license",
       value: "DRIVERS_LICENSE",
       acceptedProofs: ["Permis de conduire français ou étranger recto-verso"],
+      refusedProofs: ["Tout autre document"],
+    },
+    {
+      key: "france-identite",
+      value: "FRANCE_IDENTITE",
+      acceptedProofs: ["Justificatif France Identité"],
       refusedProofs: ["Tout autre document"],
     },
     {
