@@ -90,7 +90,8 @@ import { useLoading } from 'vue-loading-overlay';
   const user = computed(() => store.userToEdit);
   const selectedGuarantor = computed(() => store.selectedGuarantor);
 
-  const documents = DocumentTypeConstants.GUARANTOR_IDENTIFICATION_DOCS;
+  const documents = ref([] as any);
+
   const props = withDefaults(defineProps<{
     tenantId?: number;
     isCotenant?: boolean;
@@ -103,6 +104,13 @@ import { useLoading } from 'vue-loading-overlay';
   const files = ref([] as DfFile[]);
   const identificationDocument = ref(new DocumentType());
   const isDocDeleteVisible = ref(false);
+
+  onMounted(() => {
+    documents.value = DocumentTypeConstants.GUARANTOR_IDENTIFICATION_DOCS.filter(
+      (type: any) => UtilsService.isSubCategoryEnabled(type)
+    );
+    updateGuarantorData();
+  })
 
   function onSelectChange($event: any) {
     identificationDocument.value = $event
@@ -133,7 +141,7 @@ import { useLoading } from 'vue-loading-overlay';
         return d.documentCategory === "IDENTIFICATION";
       });
       if (doc !== undefined) {
-        const localDoc = documents.find((d: DocumentType) => {
+        const localDoc = documents.value.find((d: DocumentType) => {
           return d.value === doc.subCategory;
         });
         if (localDoc !== undefined) {
@@ -163,7 +171,7 @@ import { useLoading } from 'vue-loading-overlay';
   function updateGuarantorData() {
     if (selectedGuarantor.value?.documents !== null) {
       if (guarantorIdentificationDocument() !== undefined) {
-        const localDoc = documents.find((d: DocumentType) => {
+        const localDoc = documents.value.find((d: DocumentType) => {
           return (
             d.value === guarantorIdentificationDocument()?.subCategory
           );
@@ -179,10 +187,6 @@ import { useLoading } from 'vue-loading-overlay';
       }
     }
   }
-
-  onMounted(() => {
-    updateGuarantorData();
-  })
 
   function addFiles(fileList: File[]) {
     const nf = Array.from(fileList).map((f) => {
@@ -282,7 +286,7 @@ import { useLoading } from 'vue-loading-overlay';
   }
 
   function mapDocuments() {
-    return documents.map((d) => {
+    return documents.value.map((d) => {
       return { id: d.key, labelKey: d.key, value: d };
     });
   }
