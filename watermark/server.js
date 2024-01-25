@@ -10,15 +10,15 @@ app.use(function(req, res, next) {
   res.setHeader(
     "Content-Security-Policy",
     "default-src 'none'; " +
-      `script-src 'self' ${CSP_DOMAIN}  blob:; ` +
-      "style-src 'self'; " +
-      "img-src 'self' data:; " +
+      `script-src 'self' ${CSP_DOMAIN} 'unsafe-inline' 'unsafe-eval' stats.beta.gouv.fr blob:; ` +
+      "style-src 'self' 'unsafe-inline'; " +
+      "img-src 'self' stats.beta.gouv.fr data:; " +
       "font-src 'self' data:; " +
       "object-src 'none'; " +
-      `connect-src https://sentry.incubateur.net ${CSP_DOMAIN} blob:; ` +
+      `connect-src https://sentry.incubateur.net stats.beta.gouv.fr ${CSP_DOMAIN} blob:; ` +
       "frame-src *.dossierfacile.fr; " +
       "manifest-src https://filigrane.beta.gouv.fr; " +
-      "child-src *.dossierfacile.fr"
+      "child-src *.dossierfacile.fr 'self'"
   );
   res.setHeader("X-Frame-Options", "deny");
   res.setHeader("X-Content-Type-Options", "nosniff");
