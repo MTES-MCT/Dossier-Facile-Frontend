@@ -138,7 +138,7 @@
           class="ml-5"
           id="gd0"
           :guarantor="selectedGuarantor"
-          :document-type="DocumentType.IDENTIFICATION_ORGANISM"
+          :document-type="DocumentType.GUARANTEE_PROVIDER_CERTIFICATE"
           :substep="0"
           :active="getGuarantorCurrentStep(0, undefined)"
         />
@@ -276,7 +276,7 @@
           id="gd0"
           :guarantor="selectedGuarantor"
           :co-tenant="getCoTenant(0)"
-          :document-type="DocumentType.IDENTIFICATION_ORGANISM"
+          :document-type="DocumentType.GUARANTEE_PROVIDER_CERTIFICATE"
           :substep="0"
           :active="getGuarantorCurrentStep(0, selectedGuarantor)"
         />

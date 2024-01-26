@@ -358,7 +358,7 @@ const useTenantStore = defineStore('tenant', {
           UtilsService.guarantorHasDoc("IDENTIFICATION", g) &&
           UtilsService.guarantorHasDoc("IDENTIFICATION_LEGAL_PERSON", g)) ||
         (g.typeGuarantor === "ORGANISM" &&
-          UtilsService.guarantorHasDoc("IDENTIFICATION", g))
+          UtilsService.guarantorHasDoc("GUARANTEE_PROVIDER_CERTIFICATE", g))
       );
     },
     getApartmentSharingLinks(state: State): ApartmentSharingLink[] {

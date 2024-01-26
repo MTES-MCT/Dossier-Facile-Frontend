@@ -164,7 +164,7 @@
             <GuarantorDocumentLink
               class="ml-5"
               :guarantor="selectedGuarantor"
-              :document-type="DocumentType.IDENTIFICATION_ORGANISM"
+              :document-type="DocumentType.GUARANTEE_PROVIDER_CERTIFICATE"
               :substep="0"
               :active="getGuarantorCurrentStep(0, undefined)"
             />
@@ -377,7 +377,7 @@
               class="ml-5"
               :guarantor="selectedGuarantor"
               :co-tenant="getCoTenant(0)"
-              :document-type="DocumentType.IDENTIFICATION_ORGANISM"
+              :document-type="DocumentType.GUARANTEE_PROVIDER_CERTIFICATE"
               :substep="0"
               :active="getGuarantorCurrentStep(0, selectedGuarantor)"
             />

@@ -61,7 +61,7 @@
           <ul class="without-padding">
             <FileRowListItem
               :label="$t('guarantorssection.organism-identification')"
-              :document="document(g, 'IDENTIFICATION')"
+              :document="document(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
               @clickEdit="setGuarantorSubStep(1, g)"
             />
           </ul>
