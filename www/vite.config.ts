@@ -8,7 +8,14 @@ import vueI18n from '@intlify/vite-plugin-vue-i18n'
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
-    port: 9001
+    port: 9001,
+    fs: {
+      allow: [
+        './src',
+        '../node_modules',
+        './node_modules'
+      ]
+    }
   },
   plugins: [
     vue(),

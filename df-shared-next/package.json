@@ -41,6 +41,7 @@
     "prettier": "2.8.7",
     "sass-loader": "^13.2.2",
     "typescript": "5.0.2",
+    "remixicon": "^4.1.0",
     "vue-template-compiler": "^2.6.11"
   },
   "resolutions": {}
