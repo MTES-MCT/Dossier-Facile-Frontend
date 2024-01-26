@@ -35,6 +35,7 @@
     "express": "^4.17.3",
     "keycloak-js": "21.0.1",
     "pinia": "2.0.33",
+    "remixicon": "^4.1.0",
     "vee-validate": "4.12.2",
     "vue": "3.3.11",
     "vue-i18n": "^9.3.0-beta.17",
