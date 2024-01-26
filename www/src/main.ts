@@ -1,5 +1,4 @@
 import { CookiesService } from 'df-shared-next/src/services/CookiesService';
-import './assets/main.css'
 import { createPinia } from 'pinia'
 import i18n from './i18n';
 import { ViteSSG } from 'vite-ssg'
