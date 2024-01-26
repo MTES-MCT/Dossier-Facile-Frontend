@@ -212,6 +212,13 @@ export const DocumentService = {
     }
     return doc.documentStatus || "";
   },
+  getGuaranteeProviderCertificateStatus(guarantor: Guarantor): string {
+    const doc = this.guarantorHasDoc(guarantor, "GUARANTEE_PROVIDER_CERTIFICATE");
+    if (!doc) {
+      return "";
+    }
+    return doc.documentStatus || "";
+  },
   tenantStatus(documentType: string, user?: User) {
     const tenant = user == undefined ? store.user : user;
     let status;
@@ -265,11 +272,17 @@ export const DocumentService = {
           "EMPTY";
         break;
       case "IDENTIFICATION":
-      case "IDENTIFICATION_ORGANISM":
         status =
           DocumentService.getGuarantorLegalPersonRepresentantStatus(
             guarantor
           ) || "EMPTY";
+        break;
+      case "GUARANTEE_PROVIDER_CERTIFICATE":
+        status =
+          DocumentService.getGuaranteeProviderCertificateStatus(
+            guarantor
+          ) || "EMPTY";
+        break;
     }
     return status;
   },

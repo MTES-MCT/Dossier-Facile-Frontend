@@ -6,7 +6,7 @@ export enum DocumentType {
   TAX = "TAX",
   IDENTIFICATION_LEGAL_PERSON = "IDENTIFICATION_LEGAL_PERSON",
   IDENTIFICATION = "IDENTIFICATION",
-  IDENTIFICATION_ORGANISM = "IDENTIFICATION_ORGANISM",
+  GUARANTEE_PROVIDER_CERTIFICATE = "GUARANTEE_PROVIDER_CERTIFICATE",
 }
 
 export const DocumentTypeTranslations: { [type in DocumentType]: string } = {
@@ -17,5 +17,5 @@ export const DocumentTypeTranslations: { [type in DocumentType]: string } = {
   TAX: "tax",
   IDENTIFICATION_LEGAL_PERSON: "identification-legal-person",
   IDENTIFICATION: "identity-represent",
-  IDENTIFICATION_ORGANISM: "identification-organism",
+  GUARANTEE_PROVIDER_CERTIFICATE: "guarantee-provider-certificate",
 };

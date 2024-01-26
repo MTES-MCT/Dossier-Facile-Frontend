@@ -171,13 +171,13 @@
                 <div class="row align--center">
                   <ViewEditBtn
                     :canView="
-                      !isCotenant && guarantorHasFile(g, 'IDENTIFICATION')
+                      !isCotenant && guarantorHasFile(g, 'GUARANTEE_PROVIDER_CERTIFICATE')
                     "
-                    @view="openGuarantorDoc(g, 'IDENTIFICATION')"
+                    @view="openGuarantorDoc(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
                     @edit="setGuarantorSubStep(1, g)"
                   ></ViewEditBtn>
                   <FileStatusIcon
-                    :status="getGuarantorStatus(g, 'IDENTIFICATION')"
+                    :status="getGuarantorStatus(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
                   ></FileStatusIcon>
                 </div>
               </div>

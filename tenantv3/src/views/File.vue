@@ -180,7 +180,7 @@
                     >
                       <FileRowListItem
                         :label="t('file.organism')"
-                        :document="document(g, 'IDENTIFICATION')"
+                        :document="document(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
                         :showValidated="true"
                       />
                     </ul>
