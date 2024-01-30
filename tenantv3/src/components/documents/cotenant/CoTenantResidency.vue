@@ -68,7 +68,6 @@
 <script setup lang="ts">
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import DocumentDownloader from "./DocumentDownloader.vue";
-import { UtilsService } from "@/services/UtilsService";
 import { DocumentType } from "df-shared-next/src/models/Document";
 import { DfDocument } from "df-shared-next/src/models/DfDocument";
 import NakedCard from "df-shared-next/src/components/NakedCard.vue";
@@ -77,7 +76,7 @@ import BackNext from "@/components/footer/BackNext.vue";
 import { DocumentService } from "@/services/DocumentService";
 import { ToastService } from "@/services/ToastService";
 import { useLoading } from "vue-loading-overlay";
-import { onBeforeMount, ref } from "vue";
+import { ref } from "vue";
 import useTenantStore from "@/stores/tenant-store";
 import { Field, useFieldError } from "vee-validate";
 
@@ -89,17 +88,10 @@ const props = defineProps<{
 const store = useTenantStore();
 const emit = defineEmits(["on-back", "on-next"]);
 
-const documentsDefinitions = ref({});
+const documentsDefinitions = DocumentTypeConstants.RESIDENCY_DOCS;
 const documentType = ref(new DocumentType());
 const document = ref(new DfDocument());
 const showDownloader = ref(false);
-
-onBeforeMount(() => {
-  documentsDefinitions.value = DocumentTypeConstants.RESIDENCY_DOCS.filter(
-    (type: any) =>
-      type.key !== "other-residency" || UtilsService.useNewOtherResidencyCategory()
-  );
-});
 
 function changeDocument(docType: DocumentType, doc: DfDocument) {
   documentType.value = docType;

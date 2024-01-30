@@ -1,7 +1,6 @@
 import { User } from "df-shared-next/src/models/User";
 import { DfDocument } from "../../../df-shared-next/src/models/DfDocument";
 import { Guarantor } from "../../../df-shared-next/src/models/Guarantor";
-import dayjs from "dayjs";
 import { ToastService } from "./ToastService";
 
 export const UtilsService = {
@@ -54,14 +53,6 @@ export const UtilsService = {
       user.apartmentSharing?.tokenPublic !== undefined &&
       user.apartmentSharing?.tokenPublic !== ""
     );
-  },
-  useNewOtherResidencyCategory(): boolean {
-    // TODO remove all code related to this method after 2024-01-29
-    const activationDate = import.meta.env.VITE_OTHER_RESIDENCY_ACTIVATION_DATE;
-    if (activationDate === undefined) {
-      return true;
-    }
-    return dayjs().isAfter(activationDate);
   },
   handleCommonSaveError(err: any) {
     if (err?.response?.data?.message === null) {

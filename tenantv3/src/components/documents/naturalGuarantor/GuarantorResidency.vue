@@ -125,16 +125,11 @@ const uploadProgress = ref({} as {
   const documentDeniedReasons = ref(new DocumentDeniedReasons());
   const customText = ref("");
 
-  const documents = ref([] as any);
+  const documents = DocumentTypeConstants.GUARANTOR_RESIDENCY_DOCS;
   const isDocDeleteVisible = ref(false);
   const emit = defineEmits(["on-back", "on-next"]);
 
   onMounted(() => {
-    documents.value = DocumentTypeConstants.GUARANTOR_RESIDENCY_DOCS.filter(
-      (type: any) =>
-        type.key !== "other-residency" ||
-        UtilsService.useNewOtherResidencyCategory()
-    );
     updateGuarantorData();
   })
 
