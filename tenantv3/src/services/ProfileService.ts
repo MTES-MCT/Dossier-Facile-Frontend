@@ -20,16 +20,6 @@ export const ProfileService = {
       }
     );
   },
-  saveRoommates(data: {
-    applicationType: string;
-    coTenantEmail: string[];
-    acceptAccess: boolean;
-  }) {
-    return axios.post(
-      `${import.meta.env.VITE_API_URL}/api/register/application`,
-      data
-    );
-  },
   saveCoTenants(data: {
     applicationType: string;
     coTenants: User[];

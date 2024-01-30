@@ -643,16 +643,6 @@ const useTenantStore = defineStore('tenant', {
         }
       );
     },
-    setRoommates(data: any) {
-      return ProfileService.saveRoommates(data).then(
-        (response) => {
-          return this.loadUserCommit(response.data);
-        },
-        (error) => {
-          return Promise.reject(error);
-        }
-      );
-    },
     setCoTenants(data: any) {
       return ProfileService.saveCoTenants(data).then(
         (response) => {
