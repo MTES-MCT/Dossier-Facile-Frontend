@@ -118,6 +118,11 @@ const useTenantStore = defineStore('tenant', {
         return d.documentCategory === "IDENTIFICATION";
       });
     },
+    getGuaranteeProviderCertificateDocument(state: State): DfDocument | undefined {
+      return state.selectedGuarantor?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "GUARANTEE_PROVIDER_CERTIFICATE";
+      });
+    },
     getGuarantorResidencyDocument(state: State): DfDocument | undefined {
       return state.selectedGuarantor?.documents?.find((d: DfDocument) => {
         return d.documentCategory === "RESIDENCY";

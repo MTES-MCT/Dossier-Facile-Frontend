@@ -148,7 +148,7 @@ const uploadProgress = ref({} as {
       });
       if (doc !== undefined) {
         customText.value = doc.customText || "";
-        const localDoc = documents.value.find((d: DocumentType) => {
+        const localDoc = documents.find((d: DocumentType) => {
           return d.value === doc.subCategory;
         });
         if (localDoc !== undefined) {
@@ -182,7 +182,7 @@ const uploadProgress = ref({} as {
         return d.documentCategory === "RESIDENCY";
       });
       if (doc !== undefined) {
-        const localDoc = documents.value.find((d: DocumentType) => {
+        const localDoc = documents.find((d: DocumentType) => {
           return d.value === doc.subCategory;
         });
         if (localDoc !== undefined) {
