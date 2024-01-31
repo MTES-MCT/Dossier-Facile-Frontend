@@ -28,6 +28,11 @@
           residencyDocument.key && residencyDocument.key === 'other-residency'
         "
       >
+        <AllDeclinedMessages
+          class="fr-mb-3w"
+          :documentDeniedReasons="documentDeniedReasons"
+          :documentStatus="documentStatus"
+        ></AllDeclinedMessages>
         <TextField
           name="customText"
           :fieldLabel="t('residency-page.custom-text')"
