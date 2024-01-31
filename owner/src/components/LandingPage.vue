@@ -9,10 +9,10 @@
               <h1 class="fr-h1 color--white">
                 {{ $t('landing.title') }}
               </h1>
-              <H4 class="text-bold color--white">
+              <p class="text-bold color--white fr-h4">
                 {{ $t('landing.subtitle1') }}
                 {{ $t('landing.subtitle2') }}
-              </H4>
+              </p>
               <p class="text-bold color--white">
                 {{ $t('landing.subtitle3') }}
               </p>
