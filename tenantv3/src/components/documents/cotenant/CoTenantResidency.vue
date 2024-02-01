@@ -18,6 +18,9 @@
           class="fr-p-md-5w fr-mb-3w fr-mt-3w"
           v-if="documentType.key === 'other-residency'"
         >
+          <div class="fr-alert fr-alert--warning fr-mb-3w">
+            {{ $t('residency-page.warning-other-residency') }}
+          </div>
           <div class="fr-input-group">
             <label class="fr-label" for="customText">{{
               $t("residency-page.custom-text")
