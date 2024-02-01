@@ -16,7 +16,7 @@
   "guest-parents": "Hébergé par ses parents",
   "guest-organism": "Hébergé par un organisme (hébergement d’urgence, placement)",
   "short-term-rental": "À l’hôtel, au camping ou en location de tourisme (B&B)",
-  "other-residency": "Dans une autre situation",
+  "other-residency": "Sans abri ou dans une autre situation",
   "cdi": "CDI",
   "cdi-trial": "CDI (période d’essai)",
   "cdd": "CDD",
@@ -106,7 +106,7 @@
     "guest-parents": "Hébergé par ses parents",
     "guest-organism": "Hébergé par un organisme (hébergement d’urgence, placement)",
     "short-term-rental": "À l’hôtel, au camping ou en location de tourisme (B&B)",
-    "other-residency": "Dans une autre situation",
+    "other-residency": "Sans abri ou dans une autre situation",
     "salary": "Revenus professionnels",
     "guarantor_salary": "Revenus professionnels",
     "social-service": "Prestations sociales",
@@ -1073,6 +1073,7 @@
   "residency-page": {
     "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
     "select-label": "Décrivez votre situation d’hébergement actuelle",
+    "warning-other-residency": "Si vous êtes locataire ou hébergé gratuitement, veuillez sélectionner l'option correspondante, sinon votre dossier sera refusé.",
     "custom-text": "Merci d’expliquer ici votre situation d'hébergement. Votre explication sera ajoutée à votre dossier",
     "warning-only-rent-receipt": "Les justificatifs de domicile (taxe d'habitation, facture EDF, facture de téléphone…) ne sont pas acceptés ici. Seules vos quittances (ou une attestation de bon paiement des loyers) permettent à un propriétaire  de s'assurer que vous payez bien vos loyers."
   },

@@ -28,6 +28,9 @@
           residencyDocument.key && residencyDocument.key === 'other-residency'
         "
       >
+        <div class="fr-alert fr-alert--warning fr-mb-3w">
+          {{ $t('residency-page.warning-other-residency') }}
+        </div>
         <AllDeclinedMessages
           class="fr-mb-3w"
           :documentDeniedReasons="documentDeniedReasons"
