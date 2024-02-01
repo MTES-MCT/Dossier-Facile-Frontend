@@ -184,7 +184,7 @@ keycloak
       app,
       dsn: "https://7032afeb9b1740f68e01148573cff778@sentry.incubateur.net/98",
       environment: ENVIRONMENT,
-      tracesSampleRate: 1.0,
+      tracesSampleRate: 0.05,
     });
 
     app.use(createPinia())

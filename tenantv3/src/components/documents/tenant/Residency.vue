@@ -28,6 +28,14 @@
           residencyDocument.key && residencyDocument.key === 'other-residency'
         "
       >
+        <div class="fr-alert fr-alert--warning fr-mb-3w">
+          {{ t('residency-page.warning-other-residency') }}
+        </div>
+        <AllDeclinedMessages
+          class="fr-mb-3w"
+          :documentDeniedReasons="documentDeniedReasons"
+          :documentStatus="documentStatus"
+        ></AllDeclinedMessages>
         <TextField
           name="customText"
           :fieldLabel="t('residency-page.custom-text')"
@@ -124,7 +132,7 @@ const emit = defineEmits(["on-next", "on-back"]);
   const store = useTenantStore();
   const user = computed(() => store.userToEdit);
   const tenantResidencyDocument = computed(() => store.getTenantResidencyDocument);
-  const documents = ref([] as any[]);
+  const documents = DocumentTypeConstants.RESIDENCY_DOCS;
 
   const documentDeniedReasons = ref(new DocumentDeniedReasons());
   const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL);
@@ -144,18 +152,13 @@ const emit = defineEmits(["on-next", "on-back"]);
   })
 
   onBeforeMount(() => {
-    documents.value = DocumentTypeConstants.RESIDENCY_DOCS.filter(
-      (type: any) =>
-        type.key !== "other-residency" ||
-        UtilsService.useNewOtherResidencyCategory()
-    );
     if (user.value?.documents !== null) {
       const doc = user.value?.documents?.find((d: DfDocument) => {
         return d.documentCategory === "RESIDENCY";
       });
       if (doc !== undefined) {
         customText.value = doc.customText || "";
-        const localDoc = documents.value.find((d: DocumentType) => {
+        const localDoc = documents.find((d: DocumentType) => {
           return d.value === doc.subCategory;
         });
         if (localDoc !== undefined) {
@@ -173,7 +176,7 @@ const emit = defineEmits(["on-next", "on-back"]);
       } else {
         const key = localStorage.getItem(getLocalStorageKey());
         if (key) {
-          const localDoc = documents.value.find((d: DocumentType) => {
+          const localDoc = documents.find((d: DocumentType) => {
             return d.key === key;
           });
           if (localDoc !== undefined) {
@@ -205,7 +208,7 @@ const emit = defineEmits(["on-next", "on-back"]);
         return d.documentCategory === "RESIDENCY";
       });
       if (doc !== undefined) {
-        const localDoc = documents.value.find((d: DocumentType) => {
+        const localDoc = documents.find((d: DocumentType) => {
           return d.value === doc.subCategory;
         });
         if (localDoc !== undefined) {

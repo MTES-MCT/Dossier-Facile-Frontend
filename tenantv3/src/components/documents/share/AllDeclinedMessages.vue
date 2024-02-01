@@ -23,7 +23,7 @@
 </template>
 <script setup lang="ts">
 import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
-import { onBeforeMount, ref } from 'vue'
+import { computed } from 'vue'
 
 const props = withDefaults(
   defineProps<{
@@ -36,18 +36,17 @@ const props = withDefaults(
   }
 )
 
-const messages = ref<string[]>([])
-
-onBeforeMount(() => {
+const messages = computed(() => {
+  let allMessages = [] as string[]
   const deniedReasons = props.documentDeniedReasons?.selectedOptions
   if (deniedReasons !== undefined) {
-    messages.value = messages.value.concat(deniedReasons.map((r) => r.label))
+    allMessages = allMessages.concat(deniedReasons.map((r) => r.label))
   }
   const comment = props.documentDeniedReasons?.comment
   if (comment !== undefined) {
-    messages.value.push(comment)
+    allMessages.push(comment)
   }
-  return messages
+  return allMessages
 })
 </script>
 

@@ -95,10 +95,10 @@ const uploadProgress = ref({} as {
   function guarantorIdentificationDocument(): DfDocument | undefined {
     if (props.guarantor) {
       return props.guarantor.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "IDENTIFICATION";
+        return d.documentCategory === "GUARANTEE_PROVIDER_CERTIFICATE";
       }) as DfDocument;
     }
-    return store.getGuarantorIdentificationDocument;
+    return store.getGuaranteeProviderCertificateDocument;
   }
 
   function addFiles(newFiles: File[]) {
@@ -119,7 +119,7 @@ const uploadProgress = ref({} as {
       formData.append(`${fieldName}[${x}]`, files[x], files[x].name);
     });
 
-    formData.append("noDocument", "false");
+    formData.append("typeDocumentCertificate", "OTHER_GUARANTEE");
 
     const gId = guarantorId()
     if (gId) {

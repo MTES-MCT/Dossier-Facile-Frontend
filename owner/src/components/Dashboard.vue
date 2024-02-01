@@ -211,7 +211,6 @@ td:last-child {
 
 .icon-container {
   background-color: white;
-  width: fit-content;
   padding: 0.5rem;
   border-radius: 6px;
   width: 40px;

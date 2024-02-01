@@ -137,7 +137,7 @@ export const RegisterService = {
   },
 
   saveOrganismIdentification(formData: FormData) {
-    const url = `${import.meta.env.VITE_API_URL}/api/register/guarantorOrganism/documentIdentification`;
+    const url = `${import.meta.env.VITE_API_URL}/api/register/guarantorOrganism/documentCertificate`;
     return axios.post(url, formData);
   },
   async getFranceConnectToken() {

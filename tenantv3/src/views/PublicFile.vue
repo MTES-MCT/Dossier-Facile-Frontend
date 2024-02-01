@@ -169,7 +169,7 @@
                     >
                       <FileRowListItem
                         :label="t('publicfile.organism')"
-                        :document="document(g, 'IDENTIFICATION')"
+                        :document="document(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
                         :enableDownload="false"
                       />
                     </ul>

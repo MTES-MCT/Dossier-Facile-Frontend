@@ -28,6 +28,14 @@
           residencyDocument.key && residencyDocument.key === 'other-residency'
         "
       >
+        <div class="fr-alert fr-alert--warning fr-mb-3w">
+          {{ $t('residency-page.warning-other-residency') }}
+        </div>
+        <AllDeclinedMessages
+          class="fr-mb-3w"
+          :documentDeniedReasons="documentDeniedReasons"
+          :documentStatus="documentStatus"
+        ></AllDeclinedMessages>
         <TextField
           name="customText"
           :fieldLabel="$t('residency-page.custom-text')"
@@ -125,16 +133,11 @@ const uploadProgress = ref({} as {
   const documentDeniedReasons = ref(new DocumentDeniedReasons());
   const customText = ref("");
 
-  const documents = ref([] as any);
+  const documents = DocumentTypeConstants.GUARANTOR_RESIDENCY_DOCS;
   const isDocDeleteVisible = ref(false);
   const emit = defineEmits(["on-back", "on-next"]);
 
   onMounted(() => {
-    documents.value = DocumentTypeConstants.GUARANTOR_RESIDENCY_DOCS.filter(
-      (type: any) =>
-        type.key !== "other-residency" ||
-        UtilsService.useNewOtherResidencyCategory()
-    );
     updateGuarantorData();
   })
 
@@ -153,7 +156,7 @@ const uploadProgress = ref({} as {
       });
       if (doc !== undefined) {
         customText.value = doc.customText || "";
-        const localDoc = documents.value.find((d: DocumentType) => {
+        const localDoc = documents.find((d: DocumentType) => {
           return d.value === doc.subCategory;
         });
         if (localDoc !== undefined) {
@@ -187,7 +190,7 @@ const uploadProgress = ref({} as {
         return d.documentCategory === "RESIDENCY";
       });
       if (doc !== undefined) {
-        const localDoc = documents.value.find((d: DocumentType) => {
+        const localDoc = documents.find((d: DocumentType) => {
           return d.value === doc.subCategory;
         });
         if (localDoc !== undefined) {

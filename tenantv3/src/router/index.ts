@@ -10,6 +10,7 @@ import type { Guarantor } from 'df-shared-next/src/models/Guarantor';
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
 const TENANT_URL = import.meta.env.VITE_FULL_TENANT_URL;
+const REGISTER_URL = import.meta.env.VITE_REGISTER_URL
 
 let updateTokenInterval: NodeJS.Timer;
 
@@ -174,7 +175,7 @@ const router = createRouter({
           return g.id?.toString() == to.params.guarantorId;
         });
         if (
-          (g === undefined || !g?.firstName || !g?.lastName) &&
+          (g === undefined || (g.typeGuarantor === 'NATURAL_PERSON' && (!g?.firstName || !g?.lastName))) &&
           to.params.substep !== "0"
         ) {
           next({ name: "GuarantorDocuments", params: { substep: "0" } });
@@ -315,7 +316,7 @@ const router = createRouter({
         hideForAuth: true,
       },
       redirect: () => {
-        window.location.replace(`https://sso.dossierfacile.logement.gouv.fr/auth/realms/dossier-facile/protocol/openid-connect/auth?client_id=dossier-facile-frontend&redirect_uri=https%3A%2F%2Flocataire.dossierfacile.logement.gouv.fr%2Faccount&response_mode=fragment&response_type=code&scope=openid&&kc_idp_hint=oidc`);
+        window.location.replace(REGISTER_URL);
         return "/signup";
       },
     },

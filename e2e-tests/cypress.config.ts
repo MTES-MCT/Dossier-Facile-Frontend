@@ -18,5 +18,7 @@ export default defineConfig({
     ownerUrl: "http://localhost:3000",
     ownerUser: "laurent",
   },
+  viewportWidth: 1200,
+  viewportHeight: 800,
   chromeWebSecurity: false
 });

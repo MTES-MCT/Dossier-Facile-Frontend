@@ -187,7 +187,7 @@
           <div class="fr-text--bold">
             {{ $t("fileerrors.my-invalid-document-guarantor") }}
           </div>
-          <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION')">
+          <div v-if="!guarantorHasDoc(g, 'GUARANTEE_PROVIDER_CERTIFICATE')">
             <div class="fr-grid-row file-item">
               <div>{{ $t("fileerrors.organism-cert") }}</div>
               <DfButton class="update-btn" @on-click="openGuarantor(g, 1)">
@@ -398,7 +398,7 @@
             <div class="fr-text--bold">
               {{ $t("fileerrors.tenant-invalid-document-guarantor") }}
             </div>
-            <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION')">
+            <div v-if="!guarantorHasDoc(g, 'GUARANTEE_PROVIDER_CERTIFICATE')">
               <div class="fr-grid-row file-item">
                 <div>{{ $t("fileerrors.organism-cert") }}</div>
                 <DfButton

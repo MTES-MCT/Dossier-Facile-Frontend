@@ -173,24 +173,14 @@ const router = useRouter();
       return;
     }
 
-    const dispatchMethod =
-      applicationType.value === "GROUP"
-        ? () => {
-            const data = {
-              applicationType: applicationType.value,
-              coTenantEmail: coTenants.value.flatMap((t) => t.email),
-              acceptAccess: true,
-            };
-            return store.setRoommates(data);
-          }
-        : () => {
-            const data = {
-              applicationType: applicationType.value,
-              coTenants: coTenants.value,
-              acceptAccess: true,
-            };
-            return store.setCoTenants(data);
-          };
+    const dispatchMethod = () => {
+      const data = {
+        applicationType: applicationType.value,
+        coTenants: coTenants.value,
+        acceptAccess: true,
+      };
+      return store.setCoTenants(data);
+    };
     const $loading = useLoading({});
     const loader = $loading.show();
 

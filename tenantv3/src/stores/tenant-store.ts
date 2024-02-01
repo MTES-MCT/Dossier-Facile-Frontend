@@ -118,6 +118,11 @@ const useTenantStore = defineStore('tenant', {
         return d.documentCategory === "IDENTIFICATION";
       });
     },
+    getGuaranteeProviderCertificateDocument(state: State): DfDocument | undefined {
+      return state.selectedGuarantor?.documents?.find((d: DfDocument) => {
+        return d.documentCategory === "GUARANTEE_PROVIDER_CERTIFICATE";
+      });
+    },
     getGuarantorResidencyDocument(state: State): DfDocument | undefined {
       return state.selectedGuarantor?.documents?.find((d: DfDocument) => {
         return d.documentCategory === "RESIDENCY";
@@ -358,7 +363,7 @@ const useTenantStore = defineStore('tenant', {
           UtilsService.guarantorHasDoc("IDENTIFICATION", g) &&
           UtilsService.guarantorHasDoc("IDENTIFICATION_LEGAL_PERSON", g)) ||
         (g.typeGuarantor === "ORGANISM" &&
-          UtilsService.guarantorHasDoc("IDENTIFICATION", g))
+          UtilsService.guarantorHasDoc("GUARANTEE_PROVIDER_CERTIFICATE", g))
       );
     },
     getApartmentSharingLinks(state: State): ApartmentSharingLink[] {
@@ -643,16 +648,6 @@ const useTenantStore = defineStore('tenant', {
         }
       );
     },
-    setRoommates(data: any) {
-      return ProfileService.saveRoommates(data).then(
-        (response) => {
-          return this.loadUserCommit(response.data);
-        },
-        (error) => {
-          return Promise.reject(error);
-        }
-      );
-    },
     setCoTenants(data: any) {
       return ProfileService.saveCoTenants(data).then(
         (response) => {
@@ -846,7 +841,7 @@ const useTenantStore = defineStore('tenant', {
       } else {
         return {
           name: "GuarantorDocuments",
-          params: { substep },
+          params: { substep, guarantorId: guarantor.id },
         };
       }
     },

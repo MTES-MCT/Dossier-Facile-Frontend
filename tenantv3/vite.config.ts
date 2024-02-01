@@ -9,7 +9,11 @@ export default defineConfig({
   server: {
     port: 9002,
     fs: {
-      allow: ['..']
+      allow: [
+        './src',
+        '../node_modules',
+        './node_modules'
+      ]
     }
   },
   plugins: [

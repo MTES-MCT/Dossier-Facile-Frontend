@@ -13,6 +13,7 @@
   "owner": "Owner",
   "guest": "Free Accommodation",
   "guest-parents": "You live with your parents",
+  "other-residency": "Homeless or in another situation",
   "cdi": "Permanent Contract",
   "cdi-trial": "Permanent Contract (Probation Period)",
   "cdd": "Fixed-term Contract",
@@ -47,7 +48,7 @@
   "select-is-empty": "Selection required",
   "identification-legal-person": "Legal Entity Identification",
   "identity-represent": "Representative Identification",
-  "identification-organism": "Warranty Certificate",
+  "guarantee-provider-certificate": "Warranty Certificate",
   "identification": "Identity Document",
   "residency": "Proof of Residence",
   "professional": "Professional Status",
@@ -95,6 +96,7 @@
     "owner": "Owner",
     "guest": "Free Accommodation",
     "guest-parents": "You live with your parents",
+    "other-residency": "Homeless or in another situation",
     "my-name": "You have a tax notice in your name",
     "my-parents": "You are financially dependent on your parents",
     "less-than-year": "You have been in France for less than a year",
@@ -873,7 +875,6 @@
     "FRENCH_PASSPORT": "French Passport",
     "FRENCH_RESIDENCE_PERMIT": "French Residence Permit",
     "OTHER_IDENTIFICATION": "Other",
-    "CERTIFICATE_VISA": "Visa",
     "remove": "Remove Document",
     "show": "Show Document",
     "see": "See",
@@ -1027,6 +1028,7 @@
   "residency-page": {
     "will-delete-files": "Attention, changing your situation will delete your supporting documents. You will need to upload the documents corresponding to your new situation again.",
     "select-label": "Describe your current housing situation",
+    "warning-other-residency": "If you are a tenant or you are accommodated free of charge, please select the relevent option, otherwise your file won't be validated.",
     "warning-incomplete": "Incomplete files (those that do not include these 3 documents) will not be validated.",
     "warning-only-rent-receipt": "Proof of residence (housing tax, electricity bill, telephone bill, etc.) are not accepted here. Only your receipts (or a certificate of good payment of rents) allow a landlord to ensure that you pay your rents."
   },
@@ -1067,7 +1069,8 @@
     "sent-success": "Your file has been successfully shared"
   },
   "showdoc": {
-    "preview": "Document Preview",
+    "preview": "Document preview loading…",
+    "error": "Error in preview",
     "number-of-pages": "Preview page 1 / {0}",
     "loading": "Loading"
   },
