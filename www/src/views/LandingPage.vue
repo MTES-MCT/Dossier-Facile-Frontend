@@ -71,7 +71,7 @@
         </div>
       </div>
     </section>
-    <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-3w bg-blue-grey">
+    <section class="fr-pb-5w fr-pt-md-9w fr-pt-3w bg-blue-grey">
       <div class="fr-container">
         <h2 class="fr-h2 s2-title">{{ t("s2.title") }}</h2>
         <div class="fr-grid-row reverse-mobile">
