@@ -827,6 +827,23 @@ export const DocumentTypeConstants = {
     },
   ],
 
+  GUARANTOR_ORGANISM_DOCS: [
+    {
+      key: "visale",
+      value: "VISALE",
+      acceptedProofs: [],
+      refusedProofs: [],
+      maxFileCount: 5,
+    },
+    {
+      key: "other-guarantee",
+      value: "OTHER_GUARANTEE",
+      acceptedProofs: [],
+      refusedProofs: [],
+      maxFileCount: 5,
+    },
+  ],
+
   REPRESENTATIVE_IDENTIFICATION: [
     {
       key: "identity-card",

@@ -36,6 +36,8 @@
   "my-parents": "Vous êtes rattaché fiscalement à vos parents",
   "less-than-year": "Vous êtes en France depuis moins d’un an",
   "other-tax": "Autre situation",
+  "visale": "Garantie Visale",
+  "other-guarantee": "Autre organisme",
   "save-success": "Enregistrement réussi",
   "save-failed": "Erreur lors de l'enregistrement",
   "save-failed-num-pages": "Nombre de pages maximum atteint, veuillez en supprimer",
