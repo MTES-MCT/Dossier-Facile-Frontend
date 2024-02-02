@@ -29,6 +29,8 @@
   "my-parents": "You are financially dependent on your parents",
   "less-than-year": "You have been in France for less than a year",
   "other-tax": "Other",
+  "visale": "Visale guarantee",
+  "other-guarantee": "Other guarantee",
   "save-success": "Save successful",
   "save-failed": "Error while saving",
   "save-failed-num-pages": "Maximum number of pages reached, please delete some",
