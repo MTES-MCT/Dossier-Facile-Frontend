@@ -11,9 +11,11 @@ const { t } = useI18n();
     <div style="display: flex; justify-content: space-between">
       <div>
         <h6>{{ t("gmbi-ad.title") }}</h6>
-        <Button class="gmbi-button" primary="true"
+        <a href="https://cfspart.impots.gouv.fr/enp/gmbi.do">
+          <Button class="gmbi-button" :primary=true
           >{{ t("gmbi-ad.call-to-action") }}
-        </Button>
+          </Button>
+        </a>
       </div>
       <img src="../assets/logo_GMBI.svg" alt="Logo GMBI" />
     </div>
