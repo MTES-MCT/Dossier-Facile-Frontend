@@ -14,8 +14,6 @@ const store = useOwnerStore();
 const { t } = useI18n();
 const router = useRouter();
 
-const displayGmbiAd = import.meta.env.VITE_DISPLAY_GMBI_AD === 'true';
-
 const username = computed(() => store.getUser?.firstName);
 const properties = computed(() => store.getProperties);
 
@@ -121,12 +119,9 @@ function getApplicantsCount(p: Property) {
       </table>
     </NakedCard>
     <div class="fr-container--fluid fr-mt-2w">
-      <div class="fr-grid-row" style="gap: 1rem" v-if="displayGmbiAd">
+      <div class="fr-grid-row" style="gap: 1rem">
         <GmbiAd class="fr-col-md" />
         <FeedbackRequest class="fr-col-md" />
-      </div>
-      <div v-else>
-        <FeedbackRequest class="fr-col-md-6" />
       </div>
     </div>
   </div>
