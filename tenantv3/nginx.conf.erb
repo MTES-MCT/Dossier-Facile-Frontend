@@ -11,3 +11,7 @@ location / {
     add_header X-Robots-Tag "noindex, nofollow";
 }
 
+location /signup {
+    rewrite ^  <%= ENV['REGISTER_URL'] %> permanent;
+}
+
