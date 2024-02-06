@@ -12,6 +12,6 @@ location / {
 }
 
 location /signup {
-    rewrite ^  <%= ENV['REGISTER_URL'] %> permanent;
+    rewrite ^  <%= ENV['VITE_REGISTER_URL'] %> permanent;
 }
 
