@@ -2,35 +2,33 @@
 
 > DossierFacile.fr a été créé par le Ministère de la Transition écologique pour aider à la réalisation de dossiers de location.
 
-The project is available at [DossierFacile.fr](https://dossierfacile.fr)
-We are using [yarn](https://yarnpkg.com/) to build the project with monorepo, [storybook](https://storybook.js.org/) to build components, [Vue](https://vuejs.org/) for the framework.
+Ce projet correspond aux sites [DossierFacile](https://dossierfacile.logement.gouv.fr) et [FiligraneFacile](https://filigrane.beta.gouv.fr)
+Nous utilisons [yarn](https://yarnpkg.com/) pour compiler le projet en monorepo, nous utilisons le framework [Vue](https://vuejs.org/).
 
-The project is composed of 4 apps : **main** for the homepage, blog etc. **tenant** for the tenant private part, **owner** for the owner private part and **bo** for the back-office used by the operators to validate records.
+Ce projet est composé de 4 apps : **www** pour la page d'accueil, blog etc. **tenantv3** pour la partie locataire, **owner** pour la partie propriétaire et **watermark** pour le site Filigrane.
 
-The apps use standalone components available in the shared folder.
+Des composants partagés entre les applis sont également disponible dans le répertoire df-shared-next.
 
-## Pre-requisites
+Pour finir, des tests end to end sont présents dans le répertoire e2e-tests
 
-You will need [node](https://nodejs.org/en/) and [yarn](https://yarnpkg.com/) to build the project.
+## Pré-requis
+
+Vous aurez besoin de [node](https://nodejs.org/en/) et [yarn](https://yarnpkg.com/) pour construire le projet.
 
 ## Installation
 
-Clone this repository and run `yarn install` to install all the dependencies.
+Cloner ce repository et exécutez `yarn install` pour installer les dépendences.
 
-Go to any app, e.g: `cd main` and run `yarn serve` to launch the project.
+vous pouvez lancer les applications depuis la racine avec `yarn www dev` `yarn tenantv3 dev` `yarn dfowner dev` et `yarn watermark dev`. Dans certains cas, des variables d'environnement seront nécessaires.
 
-## Run end-to-end tests
 
-Start your local applications and run `yarn e2e test`.
+## Lancer les tests end-to-end
 
-## Use storybook
+Démarrez les applications locales et lancez `yarn e2e test`.
 
-You can use storybook to test standalone components. You can run `npm run storybook` at the root level of the project.
+## Contributions
 
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
+Les pull requests sont possibles. Pour des changements majeurs, veuillez d'abord contacter l'équipe sur l'adresse contact@dossierfacile.fr.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
