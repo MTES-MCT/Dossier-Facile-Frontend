@@ -279,7 +279,7 @@
           />
           <LogoPartnerComponent
             :image="gererseulUrl"
-            height="44"
+            height="46"
             href="https://www.gererseul.com/"
             name="gererseul – ma gestion locative"
             width="200"
