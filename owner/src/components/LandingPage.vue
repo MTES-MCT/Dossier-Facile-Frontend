@@ -1,7 +1,6 @@
 <template>
-  <div class="full-width bg--white">
-    <div class="df-image-background position--absolute"></div>
-    <section class="position--relative">
+  <div class="full-width bg--grey">
+    <section class="df-image-background">
       <div class="fr-container">
         <div class="fr-grid-row">
           <div class="fr-col-12 fr-col-md-7 fr-pr-2w">
