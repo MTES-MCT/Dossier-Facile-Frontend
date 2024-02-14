@@ -326,9 +326,10 @@
     "rentdpe": "with an EPC"
   },
   "landing": {
-    "title": "Find the Perfect Tenant!",
-    "subtitle1": "With DossierFacile, simplify your rental process. Receive complete and verified rental applications",
-    "subtitle2": "and choose the ideal tenant with peace of mind!",
+    "title": "Are you letting a property? We'll check the rental files for you.",
+    "subtitle1": "Our teams check the accuracy and completeness of the rental documentation, before or after a visit.",
+    "subtitle2": "All you have to do is choose the right candidate.",
+    "subtitle3": "A free service offered by the Ministry of Housing.",
     "purpose": {
       "first": {
         "title": "Our rental applications are comprehensive",
