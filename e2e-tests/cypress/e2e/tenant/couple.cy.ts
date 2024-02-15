@@ -39,6 +39,7 @@ describe("couple tenant scenario", () => {
     cy.contains("Un organisme").click().clickOnNext();
 
     cy.expectPath("/info-garant/0");
+    cy.contains("Visale").click();
     cy.uploadDocument().clickOnNext();
 
     cy.expectPath("/liste-garants");
@@ -53,7 +54,7 @@ describe("couple tenant scenario", () => {
 
     cy.expectPath("/4/2");
     cy.get("#select")
-      .select("Dans une autre situation");
+      .select("Dans une autre situation (sans-abri, logement de fonction, etc.)");
     cy.get("#customText")
       .type("Test text")
       .clickOnNext();
