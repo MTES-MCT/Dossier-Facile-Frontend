@@ -1,10 +1,23 @@
 <template>
   <div>
     <NakedCard class="fr-p-md-5w">
+      <h1 class="fr-h6">
+        {{ getTitle() }}
+      </h1>
+      <div class="fr-mt-3w">
+        <SimpleRadioButtons
+          name="organism-type-selector"
+          :value="selectedDocumentType"
+          @input="onSelectChange($event)"
+          :elements="documentTypes()"
+        ></SimpleRadioButtons>
+      </div>
+    </NakedCard>
+    <NakedCard
+      class="fr-p-md-5w fr-mt-3w"
+      v-if="selectedDocumentType.key || files.length > 0"
+    >
       <div>
-        <h1 class="fr-h6">
-          {{ getTitle() }}
-        </h1>
         <AllDeclinedMessages
           class="fr-mb-3w"
           :documentDeniedReasons="documentDeniedReasons"
@@ -15,7 +28,7 @@
             v-for="(file, k) in files"
             :key="k"
             :file="file"
-            @remove="remove(file)"
+            @remove="remove(Number(file.id))"
             :uploadState="
               file.id && uploadProgress[file.id] ? uploadProgress[file.id].state : 'idle'
             "
@@ -33,6 +46,13 @@
         </div>
       </div>
     </NakedCard>
+    <ConfirmModal
+      v-if="isDocDeleteVisible"
+      @valid="validSelect()"
+      @cancel="undoSelect()"
+    >
+      <span>{{ $t("identification-page.will-delete-files") }}</span>
+    </ConfirmModal>
   </div>
 </template>
 
@@ -47,11 +67,16 @@ import NakedCard from "df-shared-next/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared-next/src/models/DocumentDeniedReasons";
 import { Guarantor } from "df-shared-next/src/models/Guarantor";
-import { computed, onMounted, ref } from "vue";
+import {computed, onBeforeMount, onMounted, ref} from "vue";
 import { useI18n } from "vue-i18n";
 import useTenantStore from "@/stores/tenant-store";
 import { ToastService } from "@/services/ToastService";
 import { useLoading } from 'vue-loading-overlay';
+import SimpleRadioButtons from "df-shared-next/src/Button/SimpleRadioButtons.vue";
+import {DocumentType} from "df-shared-next/src/models/Document";
+import {DocumentTypeConstants} from "@/components/documents/share/DocumentTypeConstants";
+import ConfirmModal from "df-shared-next/src/components/ConfirmModal.vue";
+import {AnalyticsService} from "@/services/AnalyticsService";
 
   const props = defineProps<{
     tenantId?: number,
@@ -61,8 +86,17 @@ import { useLoading } from 'vue-loading-overlay';
 
 const { t } = useI18n();
 const store = useTenantStore();
+const user = computed(() => store.userToEdit)
 
   const MAX_FILE_COUNT = 5;
+
+  const documentTypeOptions = DocumentTypeConstants.GUARANTOR_ORGANISM_DOCS;
+  const certificateDocument = computed(() => {
+    return guarantorCertificateDocument();
+  });
+
+  const selectedDocumentType = ref(new DocumentType());
+  const isDocDeleteVisible = ref(false);
 
   const documentDeniedReasons = ref(new DocumentDeniedReasons());
 
@@ -72,7 +106,7 @@ const uploadProgress = ref({} as {
     [key: string]: { state: string; percentage: number };
   });
 
-  onMounted(() => {
+  onBeforeMount(() => {
     loadDocument();
   })
 
@@ -89,16 +123,49 @@ const uploadProgress = ref({} as {
   }
 
   const documentStatus = computed(() =>  {
-    return guarantorIdentificationDocument()?.documentStatus;
+    return certificateDocument.value?.documentStatus;
   })
 
-  function guarantorIdentificationDocument(): DfDocument | undefined {
+  function guarantorCertificateDocument(): DfDocument | undefined {
     if (props.guarantor) {
       return props.guarantor.documents?.find((d: DfDocument) => {
         return d.documentCategory === "GUARANTEE_PROVIDER_CERTIFICATE";
       }) as DfDocument;
     }
     return store.getGuaranteeProviderCertificateDocument;
+  }
+
+  function onSelectChange($event: DocumentType) {
+    selectedDocumentType.value = $event
+    if (user.value?.documents !== null) {
+      const doc = certificateDocument.value;
+      if (doc !== undefined) {
+        isDocDeleteVisible.value =
+          (doc?.files?.length || 0) > 0 &&
+          doc?.subCategory !== selectedDocumentType.value.value;
+      }
+    }
+    return false;
+  }
+
+  function undoSelect() {
+    if (user.value?.documents !== null) {
+      const doc = certificateDocument.value;
+      if (doc !== undefined) {
+        const localDoc = documentTypeOptions.find((d: DocumentType) => {
+          return d.value === doc?.subCategory;
+        });
+        if (localDoc !== undefined) {
+          selectedDocumentType.value = localDoc;
+        }
+      }
+    }
+    isDocDeleteVisible.value = false;
+  }
+
+  async function validSelect() {
+    isDocDeleteVisible.value = false;
+    await removeAllFiles();
   }
 
   function addFiles(newFiles: File[]) {
@@ -119,7 +186,7 @@ const uploadProgress = ref({} as {
       formData.append(`${fieldName}[${x}]`, files[x], files[x].name);
     });
 
-    formData.append("typeDocumentCertificate", "OTHER_GUARANTEE");
+    formData.append("typeDocumentCertificate", selectedDocumentType.value.value);
 
     const gId = guarantorId()
     if (gId) {
@@ -152,29 +219,51 @@ const uploadProgress = ref({} as {
     fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
   }
 
-  function remove(file: DfFile) {
-    if (file.id) {
-      RegisterService.deleteFile(file.id);
+  async function removeAllFiles() {
+    const ids = files.value.map((f: DfFile) => Number(f.id));
+    for (const fileId of ids) {
+      await remove(fileId, true);
     }
-    const firstIndex = files.value.findIndex((f) => f.id === file.id);
+  }
+
+  async function remove(fileId: number, silent = false) {
+    AnalyticsService.deleteFile("guarantee-provider-certificate");
+    if (fileId) {
+      await RegisterService.deleteFile(fileId, silent);
+    }
+    const firstIndex = files.value.findIndex((f) => f.id === fileId);
     files.value.splice(firstIndex, 1);
-    documentDeniedReasons.value = new DocumentDeniedReasons();
   }
 
   function loadDocument() {
     // This is a needed workaround for now, since we can't identify the currently
     // edited guarantor (and thus the corresponding document) from state
-    const document = guarantorIdentificationDocument();
-    if (document?.documentDeniedReasons) {
-      documentDeniedReasons.value = document.documentDeniedReasons;
-    } else {
-      documentDeniedReasons.value = new DocumentDeniedReasons();
+    if (certificateDocument.value !== undefined) {
+      const localDoc = documentTypeOptions.find((d: DocumentType) => {
+        return d.value === certificateDocument.value?.subCategory;
+      });
+      if (localDoc !== undefined) {
+        selectedDocumentType.value = localDoc;
+      }
+      //const document = guarantorCertificateDocument();
+      if (certificateDocument.value.documentDeniedReasons) {
+        documentDeniedReasons.value = certificateDocument.value.documentDeniedReasons;
+      } else {
+        documentDeniedReasons.value = new DocumentDeniedReasons();
+      }
+      files.value = certificateDocument.value?.files || [];
+      console.log(files.value)
     }
-    files.value = document?.files || [];
   }
 
   function displayTooManyFilesToast() {
     ToastService.maxFileError(files.value.length, MAX_FILE_COUNT);
+  }
+
+  function documentTypes() {
+    return documentTypeOptions.map((d) => {
+      return { id: d.key, labelKey: d.key, value: d };
+    });
   }
 </script>
 

@@ -1,7 +1,6 @@
 <template>
-  <div class="full-width bg--white">
-    <div class="df-image-background position--absolute"></div>
-    <section class="position--relative">
+  <div class="full-width bg--grey">
+    <section class="df-image-background">
       <div class="fr-container">
         <div class="fr-grid-row">
           <div class="fr-col-12 fr-col-md-7 fr-pr-2w">
@@ -9,9 +8,12 @@
               <h1 class="fr-h1 color--white">
                 {{ $t('landing.title') }}
               </h1>
-              <p class="text-bold color--white">
+              <p class="text-bold color--white fr-h4">
                 {{ $t('landing.subtitle1') }}
                 {{ $t('landing.subtitle2') }}
+              </p>
+              <p class="text-bold color--white">
+                {{ $t('landing.subtitle3') }}
               </p>
             </div>
           </div>
@@ -26,6 +28,15 @@
     </section>
     <section class="screenshot">
       <img src="../assets/landing/screenshot-top.png" alt="" class="justif-img" />
+    </section>
+    <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-2w">
+      <div class="fr-container">
+        <div class="fr-grid-row fr-p-4w">
+          <span class="fr-h2 text-center">
+            {{ $t('landing.tagline') }}
+          </span>
+        </div>
+      </div>
     </section>
     <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-2w">
       <div class="fr-container">
@@ -275,7 +286,7 @@ function onRegister(user: User) {
   z-index: 0;
 }
 .main-title-block {
-  top: 260px;
+  top: 100px;
   position: relative;
   @media (max-width: 992px) {
     top: 30px;

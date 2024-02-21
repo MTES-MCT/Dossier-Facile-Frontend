@@ -35,6 +35,13 @@ const router = createRouter({
       },
     },
     {
+      path: "/signup",
+      redirect: () => {
+        window.location.replace(REGISTER_URL);
+        return "/signup";
+      },
+    },
+    {
       path: "/profile",
       name: "Profile",
       meta: {
@@ -306,19 +313,6 @@ const router = createRouter({
       },
       component: () =>
         import(/* webpackChunkName: "404" */ "../views/NotFound404.vue"),
-    },
-    {
-      path: "/signup",
-      name: "Signup",
-      meta: {
-        title: "Création de compte - DossierFacile",
-        description: "Créez votre compte en quelques clics sur DossierFacile",
-        hideForAuth: true,
-      },
-      redirect: () => {
-        window.location.replace(REGISTER_URL);
-        return "/signup";
-      },
     },
   ],
   scrollBehavior() {
