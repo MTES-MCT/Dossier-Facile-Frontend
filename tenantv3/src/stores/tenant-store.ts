@@ -281,10 +281,10 @@ const useTenantStore = defineStore('tenant', {
         return r.id === id;
       }) as User;
     },
-    allDocumentsFilled(state: State): boolean {
+    allDocumentsPreValidated(state: State): boolean {
       const user = state.user;
-      const tenantDocumentsFilled = (tenant: User) =>
-        this.documentsFilled(tenant) &&
+      const tenantDocumentsPreValidated = (tenant: User) =>
+        this.documentsPreValidated(tenant) &&
         tenant.guarantors?.every((g) => !!this.guarantorDocumentsFilled(g));
 
       if (user.applicationType === "COUPLE") {
@@ -292,12 +292,12 @@ const useTenantStore = defineStore('tenant', {
           (cotenant: User) => user.id !== cotenant.id
         );
         return (
-          (tenantDocumentsFilled(user) &&
-            cotenants.every(tenantDocumentsFilled)) ||
+          (tenantDocumentsPreValidated(user) &&
+            cotenants.every(tenantDocumentsPreValidated)) ||
           false
         );
       }
-      return tenantDocumentsFilled(user) || false;
+      return tenantDocumentsPreValidated(user) || false;
     },
     allNamesFilled(state: State): boolean {
       const userNamesFilled = (u: User) => u.firstName && u.lastName;
@@ -340,15 +340,14 @@ const useTenantStore = defineStore('tenant', {
       });
       return UtilsService.isDocumentValid(document);
     },
-    documentsFilled(state: State) {
+    documentsPreValidated(state: State) {
       return (user?: User) => {
-        return (
-          this.hasDoc("IDENTIFICATION", user) &&
-          this.hasDoc("PROFESSIONAL", user) &&
-          this.isTenantDocumentValid("RESIDENCY", user) &&
-          this.isTenantDocumentValid("FINANCIAL", user) &&
-          this.isTenantDocumentValid("TAX", user)
-        );
+        for (var category of ["IDENTIFICATION", "PROFESSIONAL", "RESIDENCY", "FINANCIAL", "TAX"]) {
+          if (!this.isTenantDocumentValid(category, user)) {
+            return false;
+          }
+        }
+        return true;
       }
     },
     guarantorDocumentsFilled: (state: State) => (g: Guarantor) => {

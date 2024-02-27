@@ -35,6 +35,9 @@ export const UtilsService = {
     if (document.documentStatus === "DECLINED") {
       return false;
     }
+    if ( import.meta.env.VITE_FEATURE_FLIPPING_PRE_VALIDATE === 'true' && document.documentAnalysisReport?.analysisStatus === "DENIED") {
+      return false;
+    }
     return true;
   },
   isMobile() {
@@ -76,5 +79,14 @@ export const UtilsService = {
     const firstName = this.capitalize(user.firstName || "");
     const lastName = this.capitalize(user.lastName || "");
     return firstName + "\xa0" + lastName;
+  },
+  hasBrokenRules(documents: DfDocument[]): boolean {
+    const documentsDenied = documents.find(doc => doc.documentAnalysisReport?.analysisStatus === 'DENIED')
+    return documentsDenied !== undefined;
+  },
+  getTenantDocumentByType(user: User, docType: string): DfDocument | undefined {
+    return user.documents?.find((d: DfDocument) => {
+      return d.documentCategory === docType;
+    });
   },
 };
