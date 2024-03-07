@@ -8,7 +8,9 @@
         <div class="fr-text--bold">
           {{ t(`fileerrors.${keyprefix}-invalid-names-guarantor`) }}
         </div>
-        <UpdateComponent @on-update="openGuarantor(g, 0)">{{ t("fileerrors.user-names") }}</UpdateComponent>
+        <UpdateComponent @on-update="openGuarantor(g, 0)">{{
+          t("fileerrors.user-names")
+        }}</UpdateComponent>
       </div>
       <div v-if="!documentsGuarantorFilled(g)" class="fr-text--bold">
         {{ t(`fileerrors.${keyprefix}-invalid-document-guarantor`) }}
@@ -25,7 +27,11 @@
         :key="k"
       >
         <div v-if="!isGuarantorDocumentValid(v)">
-          <UpdateComponent @on-update="openGuarantor(g, k + 1)">{{ t(`fileerrors.${v}`) }}</UpdateComponent>
+          <UpdateComponent
+            :broken-rules="getDocumentBrokenRules(g, v)"
+            @on-update="openGuarantor(g, k + 1)"
+            >{{ t(`fileerrors.${v}`) }}</UpdateComponent
+          >
         </div>
       </div>
     </NakedCard>
@@ -39,16 +45,26 @@
         <div class="fr-text--bold">
           {{ t(`fileerrors.${keyprefix}-invalid-names-guarantor`) }}
         </div>
-        <UpdateComponent @on-update="openGuarantor(g, 0)">{{ t("fileerrors.user-names") }}</UpdateComponent>
+        <UpdateComponent @on-update="openGuarantor(g, 0)">{{
+          t("fileerrors.user-names")
+        }}</UpdateComponent>
       </div>
       <div class="fr-text--bold">
         {{ t(`fileerrors.${keyprefix}-invalid-document-guarantor`) }}
       </div>
       <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION')">
-        <UpdateComponent @on-update="openGuarantor(g, 1)">{{ t("fileerrors.corporation-identification") }}</UpdateComponent>
+        <UpdateComponent
+          :broken-rules="getDocumentBrokenRules(g, 'IDENTIFICATION')"
+          @on-update="openGuarantor(g, 1)"
+          >{{ t("fileerrors.corporation-identification") }}</UpdateComponent
+        >
       </div>
       <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION_LEGAL_PERSON')">
-        <UpdateComponent @on-update="openGuarantor(g, 2)">{{ t("fileerrors.representative-identification") }}</UpdateComponent>
+        <UpdateComponent
+          :broken-rules="getDocumentBrokenRules(g, 'IDENTIFICATION_LEGAL_PERSON')"
+          @on-update="openGuarantor(g, 2)"
+          >{{ t("fileerrors.representative-identification") }}</UpdateComponent
+        >
       </div>
     </NakedCard>
   </div>
@@ -58,7 +74,11 @@
         {{ t(`fileerrors.${keyprefix}-invalid-document-guarantor`) }}
       </div>
       <div v-if="!guarantorHasDoc(g, 'GUARANTEE_PROVIDER_CERTIFICATE')">
-        <UpdateComponent @on-update="openGuarantor(g, 1)">{{ t("fileerrors.organism-cert") }}</UpdateComponent>
+        <UpdateComponent
+          :broken-rules="getDocumentBrokenRules(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
+          @on-update="openGuarantor(g, 1)"
+          >{{ t("fileerrors.organism-cert") }}</UpdateComponent
+        >
       </div>
     </NakedCard>
   </div>
@@ -70,10 +90,9 @@ import { useI18n } from "vue-i18n";
 import useTenantStore from "../../stores/tenant-store";
 import { useRouter } from "vue-router";
 import NakedCard from "df-shared-next/src/components/NakedCard.vue";
-import DfButton from "df-shared-next/src/Button/Button.vue";
 import { Guarantor } from "df-shared-next/src/models/Guarantor";
 import { UtilsService } from "../../services/UtilsService";
-import UpdateComponent from "./UpdateComponent.vue"
+import UpdateComponent from "./UpdateComponent.vue";
 
 const store = useTenantStore();
 const { t } = useI18n();
@@ -82,6 +101,15 @@ const props = defineProps<{
   g: Guarantor;
   keyprefix: string;
 }>();
+
+function getDocumentBrokenRules(g: Guarantor, docType: string) {
+  // TODO: handle multiple financial documents
+  return (
+    g.documents?.find((d) => d.documentCategory === docType)?.documentAnalysisReport
+      ?.brokenRules || []
+  );
+}
+
 function guarantorHasDoc(g: Guarantor, docType: string) {
   return UtilsService.guarantorHasDoc(docType, g);
 }

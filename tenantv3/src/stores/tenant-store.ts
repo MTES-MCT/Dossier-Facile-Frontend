@@ -335,6 +335,7 @@ const useTenantStore = defineStore('tenant', {
     },
     isTenantDocumentValid: (state: State) => (docType: string, user?: User) => {
       const u = user ? user : state.user;
+      // TODO : handle multiple financial documents
       const document = u.documents?.find((d: DfDocument) => {
         return d.documentCategory === docType;
       });

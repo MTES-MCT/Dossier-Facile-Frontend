@@ -7,8 +7,10 @@
         <i class="color--primary ri-pencil-line fs-16 mobile"></i>
       </DfButton>
     </div>
-    <div v-for="(b, k) in brokenRules" :key="k">
-    {{ b.message }}
+    <div v-if="brokenRules && brokenRules.length > 0">
+      <div v-for="(b, k) in brokenRules" :key="k">
+        {{ b.message }}
+      </div>
     </div>
   </div>
 </template>
