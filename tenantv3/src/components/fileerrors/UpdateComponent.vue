@@ -1,16 +1,20 @@
 <template>
-  <div>
+  <div class="update-component">
     <div class="fr-grid-row file-item">
       <div><slot></slot></div>
+      <!-- TODO : bouton voir -->
       <DfButton class="update-btn" @on-click="update">
         <span class="desktop">{{ t("fileerrors.update") }}</span>
         <i class="color--primary ri-pencil-line fs-16 mobile"></i>
       </DfButton>
     </div>
-    <div v-if="brokenRules && brokenRules.length > 0">
-      <div v-for="(b, k) in brokenRules" :key="k">
-        {{ b.message }}
-      </div>
+    <div class="rules-container" v-if="brokenRules && brokenRules.length > 0">
+      <p class="fr-badge fr-badge--error">{{ t("updatecomponent.invalid") }}</p>
+      <p class="fr-mt-3w">
+        <div v-for="(b, k) in brokenRules" :key="k">
+          <strong>{{ b.message }}</strong>
+        </div>
+      </p>
     </div>
   </div>
 </template>
@@ -33,14 +37,17 @@ function update() {
 </script>
 
 <style>
+.update-component {
+  background-color: var(--g200);
+  padding: 1rem;
+}
+
 .file-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--g200);
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
-  padding: 1rem;
   flex-wrap: nowrap;
 }
 
@@ -54,5 +61,12 @@ function update() {
     min-height: 1rem;
     line-height: 1rem;
   }
+}
+
+.rules-container {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border: 1px solid #b34000;
+  background-color: white;
 }
 </style>

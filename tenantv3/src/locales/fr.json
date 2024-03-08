@@ -1314,6 +1314,9 @@
     "i-add": "J'ajoute {0}",
     "my-guarantor": "Mon garant"
   },
+  "updatecomponent": {
+    "invalid": "Document invalide"
+  },
   "uploaddocuments": {
     "accept-warning": "Ajouter de nouveaux documents",
     "ignore-warning": "Passer à l'étape suivante",
