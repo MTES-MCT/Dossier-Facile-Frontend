@@ -19,7 +19,6 @@
     "@sentry/vue": "^7.94.1",
     "df-shared-next": "0.1.0",
     "pinia": "^2.1.7",
-    "remixicon": "^4.1.0",
     "vee-validate": "^4.11.8",
     "vue": "^3.3.4",
     "vue-i18n": "9",

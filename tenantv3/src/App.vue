@@ -66,7 +66,6 @@ const router = useRouter();
 <style lang="scss">
 @import "df-shared-next/src/scss/_main.scss";
 @import 'vue3-toastify/dist/index.css';
-@import '../../node_modules/remixicon/fonts/remixicon.css';
 
 #content {
   flex: auto;

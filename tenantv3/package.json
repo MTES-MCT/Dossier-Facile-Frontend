@@ -30,7 +30,6 @@
     "lodash.clonedeep": "^4.5.0",
     "pdfjs-dist": "^4.0.189",
     "pinia": "^2.1.7",
-    "remixicon": "^4.1.0",
     "vee-validate": "4.12.2",
     "vue": "3.4.10",
     "vue-i18n": "9",
