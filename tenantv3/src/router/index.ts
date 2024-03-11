@@ -296,6 +296,16 @@ const router = createRouter({
         import(/* webpackChunkName: "register" */ "../views/JoinGroup.vue"),
     },
     {
+      path: "/confirmAccount/:token",
+      name: "Confirm",
+      meta: {
+        title: "Conserver ses documents - DossierFacile",
+        hideForAuth: true,
+      },
+      component: () =>
+          import(/* webpackChunkName: "confirmAccount" */ "../views/ConfirmAccount.vue"),
+    },
+    {
       path: "/contact",
       name: "Contact",
       meta: {
