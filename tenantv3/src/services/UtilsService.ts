@@ -35,7 +35,9 @@ export const UtilsService = {
     if (document.documentStatus === "DECLINED") {
       return false;
     }
-    if ( import.meta.env.VITE_FEATURE_FLIPPING_PRE_VALIDATE === 'true' && document.documentAnalysisReport?.analysisStatus === "DENIED") {
+    if (import.meta.env.VITE_FEATURE_FLIPPING_PRE_VALIDATE === 'true' &&
+      document.documentAnalysisReport?.analysisStatus === "DENIED" &&
+      document.documentAnalysisReport?.comment === null) {
       return false;
     }
     return true;
