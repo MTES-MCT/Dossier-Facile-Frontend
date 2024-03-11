@@ -1,35 +1,40 @@
 <template>
   <div class="fr-container fr-grid-row fr-mt-9w fr-grid-row--center">
-    <div v-if="tokenErr" class="fr-col-6">
-      <p v-html="$t('confirmaccount.token-err')"></p>
+    <div v-if="successMessage" class="fr-col-6">
+      <p v-html="successMessage"></p>
     </div>
-    <div v-if="!tokenErr" class="fr-col-6">
-      {{ error }}
+    <div v-if="error" class="fr-col-6">
+      <p v-html="error"></p>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { AuthService } from "df-shared-next/src/services/AuthService";
-import { Vue, Component } from "vue-property-decorator";
+<script setup lang="ts">
+import { AuthService } from 'df-shared-next/src/services/AuthService';
+import { useRouter, useRoute } from 'vue-router';
+import { ref, onMounted } from 'vue';
+import { useI18n } from 'vue-i18n';
 
-@Component
-export default class ConfirmAccount extends Vue {
-  error?: any = null;
-  tokenErr = false;
+const error = ref(null);
+const successMessage = ref(null);
+const router = useRouter();
+const route = useRoute();
+const { t } = useI18n();
 
-  mounted() {
-    const token = this.$route.params.token;
-    AuthService.confirmAccount(token)
+onMounted(() => {
+  const token = route.params.token;
+  AuthService.confirmAccount(token)
       .then(() => {
-        this.$router.push({ name: "TenantName" });
+        successMessage.value = t('confirmaccount.action-confirmed');
+        setTimeout(() => {
+          router.push({ name: 'TenantName' });
+        }, 10000);
       })
       .catch((err) => {
-        this.error = err;
+        error.value = err;
         if (err.response.status === 404) {
-          this.tokenErr = true;
+          error.value = t('confirmaccount.token-err')
         }
       });
-  }
-}
+});
 </script>
