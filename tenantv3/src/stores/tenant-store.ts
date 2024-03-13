@@ -443,7 +443,7 @@ const useTenantStore = defineStore('tenant', {
       // Object.assign(this.selectedGuarantor, new Guarantor());
       this.selectedGuarantor = new Guarantor();
       Sentry.setContext("user", {
-        id: user.id,
+        id: this.user.id,
       });
     },
     setSelectedGuarantor(guarantor: Guarantor | undefined) {
@@ -1169,6 +1169,16 @@ const useTenantStore = defineStore('tenant', {
       return func(formData);
     }
     return 
+    },
+  commentAnalysis(formData: any) {
+    return RegisterService.commentAnalysis(formData).then(
+      (response) => {
+        this.loadUserCommit(response.data);
+        return Promise.resolve(response.data);
+      },
+      (error) => {
+        return Promise.reject(error);
+      })
   }
   },
 });

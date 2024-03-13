@@ -1,4 +1,5 @@
 {
+  "register": "Enregistrer",
   "logout": "Se déconnecter",
   "signin": "Se connecter",
   "owner-header": "Espace propriétaire",
@@ -1315,7 +1316,8 @@
     "my-guarantor": "Mon garant"
   },
   "updatecomponent": {
-    "invalid": "Document invalide"
+    "invalid": "Document invalide",
+    "force-message": "Vous pensez que la vérification automatique commet une erreur. Apportez les précisions qui permettront la clarification de votre situation"
   },
   "uploaddocuments": {
     "accept-warning": "Ajouter de nouveaux documents",
