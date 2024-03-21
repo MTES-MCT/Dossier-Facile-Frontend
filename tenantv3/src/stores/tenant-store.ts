@@ -354,16 +354,16 @@ const useTenantStore = defineStore('tenant', {
     guarantorDocumentsFilled: (state: State) => (g: Guarantor) => {
       return (
         (g.typeGuarantor === "NATURAL_PERSON" &&
-          UtilsService.guarantorHasDoc("IDENTIFICATION", g) &&
-          UtilsService.guarantorHasDoc("PROFESSIONAL", g) &&
+          UtilsService.isGuarantorDocumentValid("IDENTIFICATION", g) &&
+          UtilsService.isGuarantorDocumentValid("PROFESSIONAL", g) &&
           UtilsService.isGuarantorDocumentValid("RESIDENCY", g) &&
           UtilsService.isGuarantorDocumentValid("FINANCIAL", g) &&
           UtilsService.isGuarantorDocumentValid("TAX", g)) ||
         (g.typeGuarantor === "LEGAL_PERSON" &&
-          UtilsService.guarantorHasDoc("IDENTIFICATION", g) &&
-          UtilsService.guarantorHasDoc("IDENTIFICATION_LEGAL_PERSON", g)) ||
+          UtilsService.isGuarantorDocumentValid("IDENTIFICATION", g) &&
+          UtilsService.isGuarantorDocumentValid("IDENTIFICATION_LEGAL_PERSON", g)) ||
         (g.typeGuarantor === "ORGANISM" &&
-          UtilsService.guarantorHasDoc("GUARANTEE_PROVIDER_CERTIFICATE", g))
+          UtilsService.isGuarantorDocumentValid("GUARANTEE_PROVIDER_CERTIFICATE", g))
       );
     },
     getApartmentSharingLinks(state: State): ApartmentSharingLink[] {

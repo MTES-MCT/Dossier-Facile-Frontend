@@ -28,7 +28,7 @@
       >
         <div v-if="!isGuarantorDocumentValid(v)">
           <UpdateComponent
-            :broken-rules="getDocumentBrokenRules(g, v)"
+            :document="getDocument(g, v)"
             @on-update="openGuarantor(g, k + 1)"
             >{{ t(`fileerrors.${v}`) }}</UpdateComponent
           >
@@ -54,14 +54,14 @@
       </div>
       <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION')">
         <UpdateComponent
-          :broken-rules="getDocumentBrokenRules(g, 'IDENTIFICATION')"
+          :document="getDocument(g, 'IDENTIFICATION')"
           @on-update="openGuarantor(g, 1)"
           >{{ t("fileerrors.corporation-identification") }}</UpdateComponent
         >
       </div>
       <div v-if="!guarantorHasDoc(g, 'IDENTIFICATION_LEGAL_PERSON')">
         <UpdateComponent
-          :broken-rules="getDocumentBrokenRules(g, 'IDENTIFICATION_LEGAL_PERSON')"
+          :document="getDocument(g, 'IDENTIFICATION_LEGAL_PERSON')"
           @on-update="openGuarantor(g, 2)"
           >{{ t("fileerrors.representative-identification") }}</UpdateComponent
         >
@@ -75,7 +75,7 @@
       </div>
       <div v-if="!guarantorHasDoc(g, 'GUARANTEE_PROVIDER_CERTIFICATE')">
         <UpdateComponent
-          :broken-rules="getDocumentBrokenRules(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
+          :document="getDocument(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
           @on-update="openGuarantor(g, 1)"
           >{{ t("fileerrors.organism-cert") }}</UpdateComponent
         >
@@ -102,12 +102,9 @@ const props = defineProps<{
   keyprefix: string;
 }>();
 
-function getDocumentBrokenRules(g: Guarantor, docType: string) {
+function getDocument(g: Guarantor, docType: string) {
   // TODO: handle multiple financial documents
-  return (
-    g.documents?.find((d) => d.documentCategory === docType)?.documentAnalysisReport
-      ?.brokenRules || []
-  );
+  return g.documents?.find((d) => d.documentCategory === docType);
 }
 
 function guarantorHasDoc(g: Guarantor, docType: string) {
