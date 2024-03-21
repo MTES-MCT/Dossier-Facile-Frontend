@@ -1,18 +1,16 @@
 <template>
   <div>
-  <Form name="form" @submit="goNext">
+    <Form name="form" @submit="goNext">
       <NakedCard class="fr-p-md-5w">
-          <Field
-            name="organismName"
-            v-model="organismName"
-            v-slot="{ field, meta }"
-            :rules="{
-              required: true,
-            }"
-          >
-          <div
-            class="fr-input-group"
-          >
+        <Field
+          name="organismName"
+          v-model="organismName"
+          v-slot="{ field, meta }"
+          :rules="{
+            required: true,
+          }"
+        >
+          <div class="fr-input-group">
             <label class="fr-label" for="organismName"
               >{{ $t("corporationidentification.organism-name") }} :</label
             >
@@ -25,9 +23,7 @@
               }"
               id="organismName"
               name="organismName"
-              :placeholder="
-                $t('corporationidentification.organism-name-placeholder')
-              "
+              :placeholder="$t('corporationidentification.organism-name-placeholder')"
               type="text"
               required
             />
@@ -44,6 +40,8 @@
           </h1>
           <AllDeclinedMessages
             class="fr-mb-3w"
+            :user-id="user?.id"
+            :document="guarantorIdentificationLegalPersonDocument()"
             :documentDeniedReasons="documentDeniedReasons"
             :documentStatus="documentStatus"
           ></AllDeclinedMessages>
@@ -54,10 +52,14 @@
               :file="file"
               @remove="remove(file)"
               :uploadState="
-                file.id && uploadProgress[file.id] ? uploadProgress[file.id].state : 'idle'
+                file.id && uploadProgress[file.id]
+                  ? uploadProgress[file.id].state
+                  : 'idle'
               "
               :percentage="
-                file.id && uploadProgress[file.id] ? uploadProgress[file.id].percentage : 0
+                file.id && uploadProgress[file.id]
+                  ? uploadProgress[file.id].percentage
+                  : 0
               "
             />
           </div>
@@ -70,8 +72,8 @@
           </div>
         </div>
       </NakedCard>
-    <GuarantorFooter @on-back="goBack"></GuarantorFooter>
-  </Form>
+      <GuarantorFooter @on-back="goBack"></GuarantorFooter>
+    </Form>
   </div>
 </template>
 
@@ -91,110 +93,86 @@ import GuarantorFooter from "../../footer/GuarantorFooter.vue";
 import { computed, onBeforeMount, ref } from "vue";
 import useTenantStore from "@/stores/tenant-store";
 import { ToastService } from "@/services/ToastService";
-import { useLoading } from 'vue-loading-overlay';
+import { useLoading } from "vue-loading-overlay";
 import { Form, Field, ErrorMessage } from "vee-validate";
 
 const store = useTenantStore();
+const user = computed(() => store.userToEdit);
 
-  const props = defineProps<{
-    tenantId?: number;
-    guarantor?: Guarantor;
-  }>();
+const props = defineProps<{
+  tenantId?: number;
+  guarantor?: Guarantor;
+}>();
 
-  const organismName = ref("");
+const organismName = ref("");
 
-  const documentDeniedReasons = ref(new DocumentDeniedReasons());
+const documentDeniedReasons = ref(new DocumentDeniedReasons());
 
-  const files = ref([] as DfFile[]);
-  const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL);
-const uploadProgress = ref({} as {
+const files = ref([] as DfFile[]);
+const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL);
+const uploadProgress = ref(
+  {} as {
     [key: string]: { state: string; percentage: number };
+  }
+);
+const emit = defineEmits(["on-back", "on-next"]);
+
+onBeforeMount(() => {
+  organismName.value = getGuarantor()?.legalPersonName || "";
+  if (guarantorIdentificationLegalPersonDocument()?.documentDeniedReasons) {
+    documentDeniedReasons.value = cloneDeep(
+      guarantorIdentificationLegalPersonDocument()!.documentDeniedReasons!
+    );
+  }
+});
+
+function getGuarantor() {
+  if (props.guarantor) {
+    return props.guarantor;
+  }
+  return store.guarantor;
+}
+
+const documentStatus = computed(() => {
+  return guarantorIdentificationLegalPersonDocument()?.documentStatus;
+});
+
+function guarantorIdentificationLegalPersonDocument(): DfDocument | undefined {
+  if (props.guarantor) {
+    return props.guarantor.documents?.find((d: DfDocument) => {
+      return d.documentCategory === "IDENTIFICATION_LEGAL_PERSON";
+    }) as DfDocument;
+  }
+  return store.getGuarantorIdentificationLegalPersonDocument;
+}
+function addFiles(fileList: File[]) {
+  const nf = Array.from(fileList).map((f) => {
+    return { name: f.name, file: f, size: f.size };
   });
-  const emit = defineEmits(["on-back", "on-next"]);
+  files.value = [...files.value, ...nf];
+  save();
+}
 
-  onBeforeMount(() => {
-    organismName.value = getGuarantor()?.legalPersonName || "";
-    if (
-      guarantorIdentificationLegalPersonDocument()?.documentDeniedReasons
-    ) {
-      documentDeniedReasons.value = cloneDeep(
-        guarantorIdentificationLegalPersonDocument()!
-          .documentDeniedReasons!
-      );
-    }
-  })
-
-  function getGuarantor() {
-    if (props.guarantor) {
-      return props.guarantor;
-    }
-    return store.guarantor;
+function save() {
+  if (!organismName.value) {
+    return Promise.resolve(true);
+  }
+  uploadProgress.value = {};
+  const fieldName = "documents";
+  const formData = new FormData();
+  formData.append("legalPersonName", organismName.value);
+  const gId = getGuarantor()?.id;
+  if (gId) {
+    formData.append("guarantorId", gId.toString());
+  }
+  if (props.tenantId) {
+    formData.append("tenantId", props.tenantId.toString());
   }
 
-  const documentStatus = computed(() => {
-    return guarantorIdentificationLegalPersonDocument()?.documentStatus;
-  })
-
-  function guarantorIdentificationLegalPersonDocument(): DfDocument | undefined {
-    if (props.guarantor) {
-      return props.guarantor.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "IDENTIFICATION_LEGAL_PERSON";
-      }) as DfDocument;
-    }
-    return store.getGuarantorIdentificationLegalPersonDocument;
-  }
-  function addFiles(fileList: File[]) {
-    const nf = Array.from(fileList).map((f) => {
-      return { name: f.name, file: f, size: f.size };
-    });
-    files.value = [...files.value, ...nf];
-    save();
-  }
-
-  function save() {
-    if (!organismName.value) {
-      return Promise.resolve(true);
-    }
-    uploadProgress.value = {};
-    const fieldName = "documents";
-    const formData = new FormData();
-    formData.append("legalPersonName", organismName.value);
-const gId = getGuarantor()?.id
-    if (gId) {
-      formData.append("guarantorId", gId.toString());
-    }
-    if (props.tenantId) {
-      formData.append("tenantId", props.tenantId.toString());
-    }
-
-    const $loading = useLoading({});
-    const loader = $loading.show();
-    if (!files.value.length) {
-      return RegisterService.saveCorporationName(formData)
-        .then(() => {
-          files.value = [];
-          fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
-          store.loadUser();
-          ToastService.saveSuccess();
-          return Promise.resolve(true);
-        })
-        .catch((err: unknown) => {
-          fileUploadStatus.value = UploadStatus.STATUS_FAILED;
-          ToastService.saveFailed();
-          return Promise.reject(err);
-        })
-        .finally(() => {
-          loader.hide();
-        });
-    }
-
-    Array.from(Array(files.value.length).keys()).forEach((x) => {
-      const f: File = files.value[x].file || new File([], "");
-      formData.append(`${fieldName}[${x}]`, f, files.value[x].name);
-    });
-
-    fileUploadStatus.value = UploadStatus.STATUS_SAVING;
-    return RegisterService.saveCorporationIdentification(formData)
+  const $loading = useLoading({});
+  const loader = $loading.show();
+  if (!files.value.length) {
+    return RegisterService.saveCorporationName(formData)
       .then(() => {
         files.value = [];
         fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
@@ -212,44 +190,67 @@ const gId = getGuarantor()?.id
       });
   }
 
-  function resetFiles() {
-    fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
-  }
+  Array.from(Array(files.value.length).keys()).forEach((x) => {
+    const f: File = files.value[x].file || new File([], "");
+    formData.append(`${fieldName}[${x}]`, f, files.value[x].name);
+  });
 
-  function remove(file: DfFile) {
-    if (file.id) {
-      RegisterService.deleteFile(file.id);
-    } else {
-      const firstIndex = files.value.findIndex((f) => {
-        return f.name === file.name && f.size === file.size;
-      });
-      files.value.splice(firstIndex, 1);
-    }
-  }
-
-  function listFiles() {
-    const newFiles = files.value.map((f) => {
-      return {
-        id: f.id,
-        name: f.name,
-        file: f.file,
-        size: f.file?.size,
-      };
+  fileUploadStatus.value = UploadStatus.STATUS_SAVING;
+  return RegisterService.saveCorporationIdentification(formData)
+    .then(() => {
+      files.value = [];
+      fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
+      store.loadUser();
+      ToastService.saveSuccess();
+      return Promise.resolve(true);
+    })
+    .catch((err: unknown) => {
+      fileUploadStatus.value = UploadStatus.STATUS_FAILED;
+      ToastService.saveFailed();
+      return Promise.reject(err);
+    })
+    .finally(() => {
+      loader.hide();
     });
-    const existingFiles =
-      guarantorIdentificationLegalPersonDocument()?.files || [];
-    return [...newFiles, ...existingFiles];
-  }
+}
 
-  function goBack() {
-    emit("on-back");
-  }
+function resetFiles() {
+  fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
+}
 
-  function goNext() {
-    save().then(() => {
-      emit("on-next");
+function remove(file: DfFile) {
+  if (file.id) {
+    RegisterService.deleteFile(file.id);
+  } else {
+    const firstIndex = files.value.findIndex((f) => {
+      return f.name === file.name && f.size === file.size;
     });
+    files.value.splice(firstIndex, 1);
   }
+}
+
+function listFiles() {
+  const newFiles = files.value.map((f) => {
+    return {
+      id: f.id,
+      name: f.name,
+      file: f.file,
+      size: f.file?.size,
+    };
+  });
+  const existingFiles = guarantorIdentificationLegalPersonDocument()?.files || [];
+  return [...newFiles, ...existingFiles];
+}
+
+function goBack() {
+  emit("on-back");
+}
+
+function goNext() {
+  save().then(() => {
+    emit("on-next");
+  });
+}
 </script>
 
 <style scoped lang="scss">
