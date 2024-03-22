@@ -8,7 +8,7 @@
         <div class="fr-text--bold">
           {{ t(`fileerrors.${keyprefix}-invalid-names-guarantor`) }}
         </div>
-        <UpdateComponent @on-update="openGuarantor(g, 0)">{{
+        <UpdateComponent :user-id="user.id" @on-update="openGuarantor(g, 0)">{{
           t("fileerrors.user-names")
         }}</UpdateComponent>
       </div>
@@ -29,6 +29,7 @@
         <div v-if="!isGuarantorDocumentValid(v)">
           <UpdateComponent
             :document="getDocument(g, v)"
+            :user-id="user.id"
             @on-update="openGuarantor(g, k + 1)"
             >{{ t(`fileerrors.${v}`) }}</UpdateComponent
           >
@@ -99,6 +100,7 @@ const { t } = useI18n();
 const router = useRouter();
 const props = defineProps<{
   g: Guarantor;
+  user: User;
   keyprefix: string;
 }>();
 
@@ -126,8 +128,8 @@ function documentsGuarantorFilled(g: Guarantor) {
   return store.guarantorDocumentsFilled(g);
 }
 
-async function openGuarantor(g: Guarantor, substep: number, tenant?: User) {
-  const page = await store.setGuarantorPage(g, substep, tenant?.id);
+async function openGuarantor(g: Guarantor, substep: number) {
+  const page = await store.setGuarantorPage(g, substep);
   router.push(page);
 }
 </script>

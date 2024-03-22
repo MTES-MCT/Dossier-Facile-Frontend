@@ -2,7 +2,7 @@
   <TenantErrors :user="user" :keyprefix="keyprefix"></TenantErrors>
 
   <div class="fr-mt-3w" v-for="g in user.guarantors" v-bind:key="g.id">
-    <GuarantorErrors :g="g" :keyprefix="keyprefix"></GuarantorErrors>
+    <GuarantorErrors :user="user" :g="g" :keyprefix="keyprefix"></GuarantorErrors>
   </div>
 </template>
 
