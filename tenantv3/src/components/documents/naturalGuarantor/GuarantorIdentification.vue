@@ -119,7 +119,6 @@ function guarantorIdentificationDocument(): DfDocument {
   const doc = selectedGuarantor.value?.documents?.find((d: DfDocument) => {
     return d.documentCategory === "IDENTIFICATION";
   }) as DfDocument;
-  console.dir(doc);
   return doc;
 }
 

@@ -45,7 +45,7 @@ import DfButton from "df-shared-next/src/Button/Button.vue";
 import useTenantStore from "../../stores/tenant-store";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import FieldLabel from "df-shared-next/src/components/form/FieldLabel.vue";
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { DfDocument } from "df-shared-next/src/models/DfDocument";
 const { t } = useI18n();
 
@@ -58,9 +58,8 @@ const props = defineProps<{
   document?: DfDocument
 }>();
 
-const comment = computed(() => {
-  return props.document?.documentAnalysisReport?.comment;
-});
+const comment = ref('');
+
 const brokenRules = computed(() => {
   return props.document?.documentAnalysisReport?.brokenRules || [];
 })
