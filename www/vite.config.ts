@@ -23,7 +23,8 @@ export default defineConfig({
   ],
   ssgOptions: {
     onFinished: () => {
-      generateSiteMap()
+      const baseURL =  'https://' + process.env.VITE_MAIN_URL;
+      generateSiteMap({ hostname: baseURL})
     }
   },
   resolve: {
