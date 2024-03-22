@@ -16,7 +16,9 @@ export default defineConfig({
   ],
   ssgOptions: {
     onFinished: () => {
-      generateSiteMap()
+      const hostname = import.meta.env.VITE_MAIN_URL | 'www.dossierfacile.logement.gouv.fr';
+      const baseURL =  `https://`+ hostname;
+      generateSiteMap({ hostname: baseURL})
     }
   },
   resolve: {
