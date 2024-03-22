@@ -6,7 +6,6 @@
       <strong>{{ b.message }}</strong>
     </div>
     <div class="form-container fr-mb-3w">
-    --{{ userId }}
       <Form name="form" @submit="commentAnalysis">
         <FieldLabel for-input="comment">{{ t("updatecomponent.force-message") }}</FieldLabel>
         <Field name="comment" v-model="comment" v-slot="{ field, meta }">

@@ -418,7 +418,7 @@ const useTenantStore = defineStore('tenant', {
       }
       if (this.selectedGuarantor?.id) {
         if (user === undefined) {
-          console.dir(user)
+          debugger
         }
         let guarantor = user.guarantors.find((g: Guarantor) => {
           return g.id === this.selectedGuarantor?.id;
@@ -1176,8 +1176,8 @@ const useTenantStore = defineStore('tenant', {
   commentAnalysis(formData: any) {
     return RegisterService.commentAnalysis(formData).then(
       (response) => {
-        this.loadUserCommit(response.data);
-        return Promise.resolve(response.data);
+        this.loadUserCommit(response);
+        return Promise.resolve(response);
       },
       (error) => {
         return Promise.reject(error);
