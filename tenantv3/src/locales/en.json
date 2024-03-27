@@ -1,4 +1,5 @@
 {
+  "register": "Save",
   "logout": "Logout",
   "signin": "Sign in",
   "owner-header": "Owner area",
@@ -536,11 +537,11 @@
   },
   "documentinsert": {},
   "fileerrors": {
-    "identification": "Proof of Identity",
-    "residency": "Proof of Residence",
-    "professional": "Proof of Employment",
-    "financial": "Proof of Income",
-    "tax": "Tax Notice",
+    "IDENTIFICATION": "Proof of Identity",
+    "RESIDENCY": "Proof of Residence",
+    "PROFESSIONAL": "Proof of Employment",
+    "FINANCIAL": "Proof of Income",
+    "TAX": "Tax Notice",
     "file-not-valid": "Your application is not valid. Please complete the missing documents or modify the rejected documents to submit your application",
     "error-title": "Invalid Application",
     "error-title-guarantor": "Invalid Guarantor Application",
@@ -1274,6 +1275,10 @@
   "topeditmenu": {
     "i-add": "I Add {0}",
     "my-guarantor": "My Guarantor"
+  },
+  "updatecomponent": {
+    "invalid": "Invalid document",
+    "force-message": "You think the automatic check is making an error. Provide the details that will clarify your situation"
   },
   "uploaddocuments": {
     "warning-need-residency-documents": "Are you sure you have submitted all the necessary documents here?<ul><li>Proof of residence</li><li>Copy of your host's identity document</li><li>Proof of address (less than 3 months old) of your host</li></ul>",

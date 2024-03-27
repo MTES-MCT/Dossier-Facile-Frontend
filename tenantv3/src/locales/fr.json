@@ -1,4 +1,5 @@
 {
+  "register": "Enregistrer",
   "logout": "Se déconnecter",
   "signin": "Se connecter",
   "owner-header": "Espace propriétaire",
@@ -580,11 +581,11 @@
   },
   "documentinsert": {},
   "fileerrors": {
-    "identification": "Pièce d'identité",
-    "residency": "Justificatif de situation d'hébergement",
-    "professional": "Justificatif de situation professionnelle",
-    "financial": "Justificatif de ressources",
-    "tax": "Avis d'imposition",
+    "IDENTIFICATION": "Pièce d'identité",
+    "RESIDENCY": "Justificatif de situation d'hébergement",
+    "PROFESSIONAL": "Justificatif de situation professionnelle",
+    "FINANCIAL": "Justificatif de ressources",
+    "TAX": "Avis d'imposition",
     "file-not-valid": "Votre dossier n'est pas valide, veuillez compléter les documents manquants ou modifier les documents refusés pour soumettre votre dossier",
     "error-title": "Dossier invalide",
     "error-title-guarantor": "Dossier garant invalide",
@@ -1313,6 +1314,10 @@
   "topeditmenu": {
     "i-add": "J'ajoute {0}",
     "my-guarantor": "Mon garant"
+  },
+  "updatecomponent": {
+    "invalid": "Document invalide",
+    "force-message": "Vous pensez que la vérification automatique commet une erreur. Apportez les précisions qui permettront la clarification de votre situation"
   },
   "uploaddocuments": {
     "accept-warning": "Ajouter de nouveaux documents",

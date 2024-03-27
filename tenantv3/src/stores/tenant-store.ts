@@ -281,10 +281,10 @@ const useTenantStore = defineStore('tenant', {
         return r.id === id;
       }) as User;
     },
-    allDocumentsFilled(state: State): boolean {
+    allDocumentsPreValidated(state: State): boolean {
       const user = state.user;
-      const tenantDocumentsFilled = (tenant: User) =>
-        this.documentsFilled(tenant) &&
+      const tenantDocumentsPreValidated = (tenant: User) =>
+        this.documentsPreValidated(tenant) &&
         tenant.guarantors?.every((g) => !!this.guarantorDocumentsFilled(g));
 
       if (user.applicationType === "COUPLE") {
@@ -292,12 +292,12 @@ const useTenantStore = defineStore('tenant', {
           (cotenant: User) => user.id !== cotenant.id
         );
         return (
-          (tenantDocumentsFilled(user) &&
-            cotenants.every(tenantDocumentsFilled)) ||
+          (tenantDocumentsPreValidated(user) &&
+            cotenants.every(tenantDocumentsPreValidated)) ||
           false
         );
       }
-      return tenantDocumentsFilled(user) || false;
+      return tenantDocumentsPreValidated(user) || false;
     },
     allNamesFilled(state: State): boolean {
       const userNamesFilled = (u: User) => u.firstName && u.lastName;
@@ -335,35 +335,35 @@ const useTenantStore = defineStore('tenant', {
     },
     isTenantDocumentValid: (state: State) => (docType: string, user?: User) => {
       const u = user ? user : state.user;
+      // TODO : handle multiple financial documents
       const document = u.documents?.find((d: DfDocument) => {
         return d.documentCategory === docType;
       });
       return UtilsService.isDocumentValid(document);
     },
-    documentsFilled(state: State) {
+    documentsPreValidated(state: State) {
       return (user?: User) => {
-        return (
-          this.hasDoc("IDENTIFICATION", user) &&
-          this.hasDoc("PROFESSIONAL", user) &&
-          this.isTenantDocumentValid("RESIDENCY", user) &&
-          this.isTenantDocumentValid("FINANCIAL", user) &&
-          this.isTenantDocumentValid("TAX", user)
-        );
+        for (var category of ["IDENTIFICATION", "PROFESSIONAL", "RESIDENCY", "FINANCIAL", "TAX"]) {
+          if (!this.isTenantDocumentValid(category, user)) {
+            return false;
+          }
+        }
+        return true;
       }
     },
     guarantorDocumentsFilled: (state: State) => (g: Guarantor) => {
       return (
         (g.typeGuarantor === "NATURAL_PERSON" &&
-          UtilsService.guarantorHasDoc("IDENTIFICATION", g) &&
-          UtilsService.guarantorHasDoc("PROFESSIONAL", g) &&
+          UtilsService.isGuarantorDocumentValid("IDENTIFICATION", g) &&
+          UtilsService.isGuarantorDocumentValid("PROFESSIONAL", g) &&
           UtilsService.isGuarantorDocumentValid("RESIDENCY", g) &&
           UtilsService.isGuarantorDocumentValid("FINANCIAL", g) &&
           UtilsService.isGuarantorDocumentValid("TAX", g)) ||
         (g.typeGuarantor === "LEGAL_PERSON" &&
-          UtilsService.guarantorHasDoc("IDENTIFICATION", g) &&
-          UtilsService.guarantorHasDoc("IDENTIFICATION_LEGAL_PERSON", g)) ||
+          UtilsService.isGuarantorDocumentValid("IDENTIFICATION", g) &&
+          UtilsService.isGuarantorDocumentValid("IDENTIFICATION_LEGAL_PERSON", g)) ||
         (g.typeGuarantor === "ORGANISM" &&
-          UtilsService.guarantorHasDoc("GUARANTEE_PROVIDER_CERTIFICATE", g))
+          UtilsService.isGuarantorDocumentValid("GUARANTEE_PROVIDER_CERTIFICATE", g))
       );
     },
     getApartmentSharingLinks(state: State): ApartmentSharingLink[] {
@@ -417,6 +417,9 @@ const useTenantStore = defineStore('tenant', {
           ));
       }
       if (this.selectedGuarantor?.id) {
+        if (user === undefined) {
+          debugger
+        }
         let guarantor = user.guarantors.find((g: Guarantor) => {
           return g.id === this.selectedGuarantor?.id;
         });
@@ -443,7 +446,7 @@ const useTenantStore = defineStore('tenant', {
       // Object.assign(this.selectedGuarantor, new Guarantor());
       this.selectedGuarantor = new Guarantor();
       Sentry.setContext("user", {
-        id: user.id,
+        id: this.user.id,
       });
     },
     setSelectedGuarantor(guarantor: Guarantor | undefined) {
@@ -1169,6 +1172,16 @@ const useTenantStore = defineStore('tenant', {
       return func(formData);
     }
     return 
+    },
+  commentAnalysis(formData: any) {
+    return RegisterService.commentAnalysis(formData).then(
+      (response) => {
+        this.loadUserCommit(response);
+        return Promise.resolve(response);
+      },
+      (error) => {
+        return Promise.reject(error);
+      })
   }
   },
 });

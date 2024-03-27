@@ -2,22 +2,22 @@
   <div>
     <NakedCard class="fr-p-md-5w">
       <div>
-          <h1 class="fr-h6">
-            {{ t("professional-page.select-label") }}
-          </h1>
-          <select
-            v-model="professionalDocument"
-            class="fr-select fr-mb-3w fr-mt-3w"
-            id="select"
-            as="select"
-            @change="onSelectChange()"
-            aria-label="Select professional situation"
-          >
-            <option v-if="!professionalDocument" selected disabled></option>
-            <option v-for="d in documents" :value="d" :key="d.key">
-              {{ t(d.key) }}
-            </option>
-          </select>
+        <h1 class="fr-h6">
+          {{ t("professional-page.select-label") }}
+        </h1>
+        <select
+          v-model="professionalDocument"
+          class="fr-select fr-mb-3w fr-mt-3w"
+          id="select"
+          as="select"
+          @change="onSelectChange()"
+          aria-label="Select professional situation"
+        >
+          <option v-if="!professionalDocument" selected disabled></option>
+          <option v-for="d in documents" :value="d" :key="d.key">
+            {{ t(d.key) }}
+          </option>
+        </select>
       </div>
     </NakedCard>
     <NakedCard
@@ -26,11 +26,7 @@
     >
       <div class="fr-mb-3w">
         <div
-          v-html="
-            t(
-              `explanation-text.tenant.professional.${professionalDocument.key}`
-            )
-          "
+          v-html="t(`explanation-text.tenant.professional.${professionalDocument.key}`)"
         ></div>
       </div>
       <AllDeclinedMessages
@@ -54,11 +50,7 @@
         ></FileUpload>
       </div>
     </NakedCard>
-    <ConfirmModal
-      v-if="isDocDeleteVisible"
-      @valid="validSelect()"
-      @cancel="undoSelect()"
-    >
+    <ConfirmModal v-if="isDocDeleteVisible" @valid="validSelect()" @cancel="undoSelect()">
       <span>{{ t("professional-page.will-delete-files") }}</span>
     </ConfirmModal>
   </div>
@@ -84,7 +76,7 @@ import useTenantStore from "@/stores/tenant-store";
 import { computed, onBeforeMount, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { ToastService } from "@/services/ToastService";
-import { useLoading } from 'vue-loading-overlay';
+import { useLoading } from "vue-loading-overlay";
 
 const { t } = useI18n();
 
@@ -92,195 +84,192 @@ const store = useTenantStore();
 const user = computed(() => store.userToEdit);
 const tenantProfessionalDocument = computed(() => store.getTenantProfessionalDocument);
 
-  const documents = ref(DocumentTypeConstants.PROFESSIONAL_DOCS);
+const documents = ref(DocumentTypeConstants.PROFESSIONAL_DOCS);
 
-  const documentDeniedReasons = ref(new DocumentDeniedReasons());
-  const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL);
-  const files = ref([] as DfFile[]);
-const uploadProgress = ref({} as {
+const documentDeniedReasons = ref(new DocumentDeniedReasons());
+const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL);
+const files = ref([] as DfFile[]);
+const uploadProgress = ref(
+  {} as {
     [key: string]: { state: string; percentage: number };
-  });
-  const professionalDocument = ref(new DocumentType());
-  const isDocDeleteVisible = ref(false);
-
-  function getLocalStorageKey() {
-    return "professional_" + user.value?.email;
   }
+);
+const professionalDocument = ref(new DocumentType());
+const isDocDeleteVisible = ref(false);
 
-  const documentStatus = computed(() => {
-    return tenantProfessionalDocument.value?.documentStatus;
-  })
+function getLocalStorageKey() {
+  return "professional_" + user.value?.email;
+}
 
-  onBeforeMount(() => {
-    if (user.value?.documents !== null) {
-      const doc = user.value?.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "PROFESSIONAL";
-      });
-      if (doc !== undefined) {
-        const localDoc = documents.value.find((d: DocumentType) => {
-          return d.value === doc.subCategory;
-        });
-        if (localDoc !== undefined) {
-          professionalDocument.value = localDoc;
-          localStorage.setItem(
-            getLocalStorageKey(),
-            professionalDocument.value.key || ""
-          );
-        }
-        if (tenantProfessionalDocument.value?.documentDeniedReasons) {
-          documentDeniedReasons.value = cloneDeep(
-            tenantProfessionalDocument.value.documentDeniedReasons
-          );
-        }
-      } else {
-        const key = localStorage.getItem(getLocalStorageKey());
-        if (key) {
-          const localDoc = documents.value.find((d: DocumentType) => {
-            return d.key === key;
-          });
-          if (localDoc !== undefined) {
-            professionalDocument.value = localDoc;
-          }
-        }
-      }
-    }
-  })
+const documentStatus = computed(() => {
+  return tenantProfessionalDocument.value?.documentStatus;
+});
 
-  function onSelectChange() {
-    localStorage.setItem(
-      getLocalStorageKey(),
-      professionalDocument.value.key
-    );
-    if (user.value?.documents !== null) {
-      const doc = user.value?.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "PROFESSIONAL";
-      });
-      if (doc !== undefined) {
-        isDocDeleteVisible.value =
-          (doc.files?.length || 0) > 0 &&
-          doc.subCategory !== professionalDocument.value.value;
-      }
-    }
-    return false;
-  }
-
-  function undoSelect() {
-    if (user.value?.documents !== null) {
-      const doc = user.value?.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "PROFESSIONAL";
-      });
-      if (doc !== undefined) {
-        const localDoc = documents.value.find((d: DocumentType) => {
-          return d.value === doc.subCategory;
-        });
-        if (localDoc !== undefined) {
-          professionalDocument.value = localDoc;
-        }
-      }
-    }
-    isDocDeleteVisible.value = false;
-  }
-
-  async function validSelect() {
-    isDocDeleteVisible.value = false;
-    if (user.value?.documents !== null) {
-      const doc = user.value?.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "PROFESSIONAL";
-      });
-      if (doc?.files !== undefined) {
-        for (const f of doc.files) {
-          if (f.id) {
-            await remove(f, true);
-          }
-        }
-      }
-    }
-  }
-
-  function addFiles(fileList: File[]) {
-    AnalyticsService.uploadFile("professional");
-    const nf = Array.from(fileList).map((f) => {
-      return { name: f.name, file: f, size: f.size };
+onBeforeMount(() => {
+  if (user.value?.documents !== null) {
+    const doc = user.value?.documents?.find((d: DfDocument) => {
+      return d.documentCategory === "PROFESSIONAL";
     });
-    files.value = [...files.value, ...nf];
-    save();
-  }
-  function resetFiles() {
-    fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
-  }
-  function save() {
-    AnalyticsService.registerFile("professional");
-    uploadProgress.value = {};
-    const fieldName = "documents";
-    const formData = new FormData();
-    const newFiles = files.value.filter((f) => {
-      return !f.id;
-    });
-    if (!newFiles.length) return;
-
-    if (
-      professionalDocument.value.maxFileCount &&
-      professionalFiles().length > professionalDocument.value.maxFileCount
-    ) {
-      ToastService.maxFileError(professionalFiles().length, professionalDocument.value.maxFileCount)
-      files.value = [];
-      return;
-    }
-    Array.from(Array(newFiles.length).keys()).forEach((x) => {
-      const f: File = newFiles[x].file || new File([], "");
-      formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
-    });
-
-    formData.append(
-      "typeDocumentProfessional",
-      professionalDocument.value.value
-    );
-
-    fileUploadStatus.value = UploadStatus.STATUS_SAVING;
-    const $loading = useLoading({});
-    const loader = $loading.show();
-    store.saveTenantProfessional(formData)
-      .then(() => {
-        files.value = [];
-        fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
-        ToastService.saveSuccess();
-      })
-      .catch((err) => {
-        fileUploadStatus.value = UploadStatus.STATUS_FAILED;
-        UtilsService.handleCommonSaveError(err);
-      })
-      .finally(() => {
-        loader.hide();
+    if (doc !== undefined) {
+      const localDoc = documents.value.find((d: DocumentType) => {
+        return d.value === doc.subCategory;
       });
-  }
-
-  function professionalFiles() {
-    const newFiles = files.value.map((f) => {
-      return {
-        subCategory: professionalDocument.value.value,
-        id: f.id,
-        name: f.name,
-        size: f.size,
-      };
-    });
-    const existingFiles =
-      store.getTenantDocuments?.find((d: DfDocument) => {
-        return d.documentCategory === "PROFESSIONAL";
-      })?.files || [];
-    return [...newFiles, ...existingFiles];
-  }
-
-  async function remove(file: DfFile, silent = false) {
-    AnalyticsService.deleteFile("professional");
-    if (file.id) {
-      await RegisterService.deleteFile(file.id, silent);
+      if (localDoc !== undefined) {
+        professionalDocument.value = localDoc;
+        localStorage.setItem(getLocalStorageKey(), professionalDocument.value.key || "");
+      }
+      if (tenantProfessionalDocument.value?.documentDeniedReasons) {
+        documentDeniedReasons.value = cloneDeep(
+          tenantProfessionalDocument.value.documentDeniedReasons
+        );
+      }
     } else {
-      const firstIndex = files.value.findIndex((f) => {
-        return f.name === file.name && !f.path;
-      });
-      files.value.splice(firstIndex, 1);
+      const key = localStorage.getItem(getLocalStorageKey());
+      if (key) {
+        const localDoc = documents.value.find((d: DocumentType) => {
+          return d.key === key;
+        });
+        if (localDoc !== undefined) {
+          professionalDocument.value = localDoc;
+        }
+      }
     }
   }
+});
+
+function onSelectChange() {
+  localStorage.setItem(getLocalStorageKey(), professionalDocument.value.key);
+  if (user.value?.documents !== null) {
+    const doc = user.value?.documents?.find((d: DfDocument) => {
+      return d.documentCategory === "PROFESSIONAL";
+    });
+    if (doc !== undefined) {
+      isDocDeleteVisible.value =
+        (doc.files?.length || 0) > 0 &&
+        doc.subCategory !== professionalDocument.value.value;
+    }
+  }
+  return false;
+}
+
+function undoSelect() {
+  if (user.value?.documents !== null) {
+    const doc = user.value?.documents?.find((d: DfDocument) => {
+      return d.documentCategory === "PROFESSIONAL";
+    });
+    if (doc !== undefined) {
+      const localDoc = documents.value.find((d: DocumentType) => {
+        return d.value === doc.subCategory;
+      });
+      if (localDoc !== undefined) {
+        professionalDocument.value = localDoc;
+      }
+    }
+  }
+  isDocDeleteVisible.value = false;
+}
+
+async function validSelect() {
+  isDocDeleteVisible.value = false;
+  if (user.value?.documents !== null) {
+    const doc = user.value?.documents?.find((d: DfDocument) => {
+      return d.documentCategory === "PROFESSIONAL";
+    });
+    if (doc?.files !== undefined) {
+      for (const f of doc.files) {
+        if (f.id) {
+          await remove(f, true);
+        }
+      }
+    }
+  }
+}
+
+function addFiles(fileList: File[]) {
+  AnalyticsService.uploadFile("professional");
+  const nf = Array.from(fileList).map((f) => {
+    return { name: f.name, file: f, size: f.size };
+  });
+  files.value = [...files.value, ...nf];
+  save();
+}
+function resetFiles() {
+  fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
+}
+function save() {
+  AnalyticsService.registerFile("professional");
+  uploadProgress.value = {};
+  const fieldName = "documents";
+  const formData = new FormData();
+  const newFiles = files.value.filter((f) => {
+    return !f.id;
+  });
+  if (!newFiles.length) return;
+
+  if (
+    professionalDocument.value.maxFileCount &&
+    professionalFiles().length > professionalDocument.value.maxFileCount
+  ) {
+    ToastService.maxFileError(
+      professionalFiles().length,
+      professionalDocument.value.maxFileCount
+    );
+    files.value = [];
+    return;
+  }
+  Array.from(Array(newFiles.length).keys()).forEach((x) => {
+    const f: File = newFiles[x].file || new File([], "");
+    formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
+  });
+
+  formData.append("typeDocumentProfessional", professionalDocument.value.value);
+
+  fileUploadStatus.value = UploadStatus.STATUS_SAVING;
+  const $loading = useLoading({});
+  const loader = $loading.show();
+  store
+    .saveTenantProfessional(formData)
+    .then(() => {
+      files.value = [];
+      fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
+      ToastService.saveSuccess();
+    })
+    .catch((err) => {
+      fileUploadStatus.value = UploadStatus.STATUS_FAILED;
+      UtilsService.handleCommonSaveError(err);
+    })
+    .finally(() => {
+      loader.hide();
+    });
+}
+
+function professionalFiles() {
+  const newFiles = files.value.map((f) => {
+    return {
+      subCategory: professionalDocument.value.value,
+      id: f.id,
+      name: f.name,
+      size: f.size,
+    };
+  });
+  const existingFiles =
+    store.getTenantDocuments?.find((d: DfDocument) => {
+      return d.documentCategory === "PROFESSIONAL";
+    })?.files || [];
+  return [...newFiles, ...existingFiles];
+}
+
+async function remove(file: DfFile, silent = false) {
+  AnalyticsService.deleteFile("professional");
+  if (file.id) {
+    await RegisterService.deleteFile(file.id, silent);
+  } else {
+    const firstIndex = files.value.findIndex((f) => {
+      return f.name === file.name && !f.path;
+    });
+    files.value.splice(firstIndex, 1);
+  }
+}
 </script>
 
 <style scoped lang="scss"></style>

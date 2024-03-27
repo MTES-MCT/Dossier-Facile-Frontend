@@ -124,7 +124,7 @@
 
 <script setup lang="ts">
 import ProfileFooter from "./footer/ProfileFooter.vue";
-import FileErrors from "./FileErrors.vue";
+import FileErrors from "./fileerrors/FileErrors.vue";
 import NakedCard from "df-shared-next/src/components/NakedCard.vue";
 import { useLoading } from "vue-loading-overlay";
 import useTenantStore from "@/stores/tenant-store";
@@ -134,12 +134,6 @@ import { ToastService } from "@/services/ToastService";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { Form, Field, ErrorMessage } from "vee-validate";
-
-// extend("isvalid", {
-//   ...is,
-//   message: "validatefile.require-accept",
-//   validate: (value) => !!value,
-// });
 
 const { t } = useI18n();
 
@@ -202,7 +196,7 @@ function goBack() {
 }
 
 function hasErrors() {
-  return !store.allDocumentsFilled || !store.allNamesFilled;
+  return !store.allDocumentsPreValidated || !store.allNamesFilled;
 }
 
 function canValidate() {

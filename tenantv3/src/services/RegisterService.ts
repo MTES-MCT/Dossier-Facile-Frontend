@@ -152,4 +152,17 @@ export const RegisterService = {
         console.dir(err);
       });
   },
+  commentAnalysis(formData: any) {
+    return axios
+      .post(
+        `${import.meta.env.VITE_API_URL}/api/document/commentAnalysis`,
+        formData
+      )
+      .then((response: any) => {
+        return Promise.resolve(response.data);
+      })
+      .catch((err) => {
+        console.dir(err);
+      });
+  }
 };
