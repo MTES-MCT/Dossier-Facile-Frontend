@@ -1152,7 +1152,7 @@
     "field-required": "Ce champ est requis",
     "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
     "title": "Votre avis d'imposition",
-    "warning-no-accepted-doc": "<p><strong>L’avis de situation déclarative n’est pas un avis d’imposition, il sera donc systématiquement refusé.</strong></p><p>Regardez bien le titre du document que vous transmettez ! Il s’agit d’une <a href='https://docs.dossierfacile.logement.gouv.fr/guide-dutilisation-de-dossierfacile/avis-dimposition' target='_blank' rel='noopener'>erreur très courante</a>.</p>",
+    "warning-no-accepted-doc": "<p><strong>L’avis de situation déclarative n’est pas un avis d’imposition, il sera donc systématiquement refusé.</strong></p><p>Regardez bien le titre du document que vous transmettez ! Il s’agit d’une <a href='https://docs.dossierfacile.logement.gouv.fr/article/88-avis-dimposition' target='_blank' rel='noopener'>erreur très courante</a>.</p>",
     "avis-detected": "Avis de situation déclarative détecté",
     "avis-text1": "Nous avons détecté un avis de situation déclarative en tant que justificatif d'imposition. Ce document étant purement déclaratif, il n'est malheureusement pas recevable.",
     "avis-text2": "Nous vous invitons à déposer un avis d'imposition concernant vos revenus de l'année N-1.",
