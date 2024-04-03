@@ -641,6 +641,7 @@
     "customText-pension": "To improve my file, I explain why I cannot provide my documents:",
     "customText-rent": "To improve my file, I explain why I cannot provide my documents:",
     "customText-scholarship": "To improve my file, I explain why I cannot provide my documents:",
+    "income-zero": "If you don't have any income, please select 'No income'",
     "noDocument-social": "I cannot provide proof of social benefits payment",
     "noDocument-salary": "I cannot provide my three most recent payslips",
     "noDocument-pension": "I cannot provide proof of pension payment",
