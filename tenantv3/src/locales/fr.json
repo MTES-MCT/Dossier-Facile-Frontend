@@ -692,6 +692,7 @@
     "customText-pension": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
     "customText-rent": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
     "customText-scholarship": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
+    "income-zero": "Si vous n'avez pas de revenus, veuillez sélectionner la catégorie 'Pas de revenus'",
     "noDocument-social": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
     "noDocument-salary": "Je ne peux pas fournir de document permettant de justifier ces revenus ",
     "noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",
