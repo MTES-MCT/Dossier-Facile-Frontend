@@ -15,5 +15,6 @@ export class Property {
   livingSpace!: number;
   address?: string;
   propertiesApartmentSharing: any;
+  propertyApartmentSharingCount?: number;
   ownerName?: string;
 }

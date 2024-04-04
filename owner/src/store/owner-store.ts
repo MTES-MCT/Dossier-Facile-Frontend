@@ -109,6 +109,7 @@ const useOwnerStore = defineStore('owner', {
     updatePropertyToConsult(id: number) {
       const prop = this.properties.find((p) => p.id === id);
       if (prop) {
+        // TODO : get full data
         Object.assign(this.propertyToConsult, { ...prop });
       }
     },
