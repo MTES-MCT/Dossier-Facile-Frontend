@@ -262,17 +262,6 @@ const ascending = ref(false);
 const tenantIdToShow = ref(-1);
 const selectedApplicants = ref([]);
 
-const id = ref(0);
-if (route.params.id) {
-  id.value = Number(route.params.id);
-  store.updatePropertyToConsult(id.value);
-  if (Object.keys(store.getPropertyToConsult).length <= 0) {
-    router.push({ name: 'Dashboard' });
-  }
-} else {
-  router.push({ name: 'Dashboard' });
-}
-
 const TENANT_URL = `https://${import.meta.env.VITE_TENANT_URL}`;
 const OWNER_URL = `${import.meta.env.VITE_OWNER_URL}`;
 const token = computed(() => {
@@ -288,6 +277,8 @@ const propertyFurnished = computed(() => store.getPropertyToConsult?.furniture);
 
 const tenants = ref<Array<Applicant>>([]);
 
+const id = ref(0);
+
 function getTenants(): Applicant[] {
   return UtilsService.getTenants(p.value).sort((a: any, b: any) => {
     if (a[sortColumn.value] < b[sortColumn.value]) {
@@ -300,8 +291,18 @@ function getTenants(): Applicant[] {
   });
 }
 
-onMounted(() => {
-  tenants.value = getTenants();
+onMounted(async () => {
+  if (route.params.id) {
+    id.value = Number(route.params.id);
+    await store.updatePropertyToConsult(id.value);
+    if (Object.keys(store.getPropertyToConsult).length <= 0) {
+      router.push({ name: 'Dashboard' });
+    } else {
+      tenants.value = getTenants();
+    }
+  } else {
+    router.push({ name: 'Dashboard' });
+  }
 });
 
 const titleKey = computed(() => {
@@ -605,5 +606,13 @@ tr {
   margin-left: auto;
   margin-right: 0;
   text-align: right;
+}
+</style>
+
+<style lang="scss">
+.v-gouv-fr-modal {
+  >a {
+    background-image: none;
+  }
 }
 </style>

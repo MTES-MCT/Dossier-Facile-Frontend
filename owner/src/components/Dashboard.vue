@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n';
-import { computed } from 'vue';
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
-import Button from 'df-shared-next/src/Button/Button.vue';
-import { useRouter } from 'vue-router';
-import { Property } from 'df-shared-next/src/models/Property';
-import UtilsService from '../services/UtilsService';
-import useOwnerStore from '../store/owner-store';
-import GmbiAd from './GmbiAd.vue';
-import FeedbackRequest from './FeedbackRequest.vue';
+import { useI18n } from "vue-i18n";
+import { computed } from "vue";
+import NakedCard from "df-shared-next/src/components/NakedCard.vue";
+import Button from "df-shared-next/src/Button/Button.vue";
+import { useRouter } from "vue-router";
+import { Property } from "df-shared-next/src/models/Property";
+import UtilsService from "../services/UtilsService";
+import useOwnerStore from "../store/owner-store";
+import GmbiAd from "./GmbiAd.vue";
+import FeedbackRequest from "./FeedbackRequest.vue";
 
 const store = useOwnerStore();
 const { t } = useI18n();
@@ -19,37 +19,37 @@ const properties = computed(() => store.getProperties);
 
 function addProperty() {
   store.newProperty();
-  router.push({ name: 'PropertyName' });
+  router.push({ name: "PropertyName" });
 }
 
 function consultProperty(id: number) {
-  router.push({ name: 'ConsultProperty', params: { id } });
+  router.push({ name: "ConsultProperty", params: { id } });
 }
 
 function editProperty(id: number) {
-  router.push({ name: 'PropertyName', params: { id } });
+  router.push({ name: "PropertyName", params: { id } });
 }
 
 function hasNoError(property: Property) {
   return (
-    property.name
-    && property.address
-    && property.furniture
-    && property.livingSpace
-    && property.livingSpace > 0
-    && property.rentCost
-    && property.rentCost > 0
-    && property.chargesCost !== undefined
-    && property.chargesCost >= 0
+    property.name &&
+    property.address &&
+    property.furniture &&
+    property.livingSpace &&
+    property.livingSpace > 0 &&
+    property.rentCost &&
+    property.rentCost > 0 &&
+    property.chargesCost !== undefined &&
+    property.chargesCost >= 0
   );
 }
 
 function openProperty(p: Property) {
   if (p.validated && hasNoError(p)) {
-    router.push({ name: 'ConsultProperty', params: { id: p.id } });
+    router.push({ name: "ConsultProperty", params: { id: p.id } });
     return;
   }
-  router.push({ name: 'PropertyName', params: { id: p.id } });
+  router.push({ name: "PropertyName", params: { id: p.id } });
 }
 
 function getApplicantsCount(p: Property) {
@@ -59,27 +59,38 @@ function getApplicantsCount(p: Property) {
 
 <template>
   <div class="fr-container fr-mb-5w fr-mt-5w">
-    <h1 class="fr-h4">{{ t('dashboard.title', { name: username }) }}</h1>
+    <h1 class="fr-h4">{{ t("dashboard.title", { name: username }) }}</h1>
     <NakedCard class="fr-p-md-3w">
       <div class="fr-grid-row space-between">
-        <h2 id="my-properties-title" class="fr-h6">{{ t('dashboard.my-properties') }}</h2>
+        <h2 id="my-properties-title" class="fr-h6">{{ t("dashboard.my-properties") }}</h2>
         <div>
-          <Button @onClick="addProperty" :title="t('dashboard.add-property')" :primary="true">{{
-            t('dashboard.add-property')
-          }}</Button>
+          <Button
+            @onClick="addProperty"
+            :title="t('dashboard.add-property')"
+            :primary="true"
+            >{{ t("dashboard.add-property") }}</Button
+          >
         </div>
       </div>
 
-      <table aria-labelledby="my-properties-title" :aria-describedby="t('dashboard.my-properties')">
+      <table
+        aria-labelledby="my-properties-title"
+        :aria-describedby="t('dashboard.my-properties')"
+      >
         <tr>
-          <th class="desktop">{{ t('dashboard.type') }}</th>
-          <th>{{ t('dashboard.name') }}</th>
-          <th class="desktop">{{ t('dashboard.address') }}</th>
-          <th>{{ t('dashboard.applicant') }}</th>
-          <th class="desktop">{{ t('dashboard.rent') }}</th>
+          <th class="desktop">{{ t("dashboard.type") }}</th>
+          <th>{{ t("dashboard.name") }}</th>
+          <th class="desktop">{{ t("dashboard.address") }}</th>
+          <th>{{ t("dashboard.applicant") }}</th>
+          <th class="desktop">{{ t("dashboard.rent") }}</th>
           <th></th>
         </tr>
-        <tr class="clickable" v-for="p in properties" :key="p.name" @click="openProperty(p)">
+        <tr
+          class="clickable"
+          v-for="p in properties"
+          :key="p.name"
+          @click="openProperty(p)"
+        >
           <td class="desktop blue-text inline-block">
             <div class="fr-m-1v icon-container">
               <i v-if="p.type === 'HOUSE'" class="fs-24 ri-home-4-fill"></i>
@@ -91,11 +102,11 @@ function getApplicantsCount(p: Property) {
           <td class="desktop blue-grey">{{ p.address }}</td>
           <td class="blue-grey">
             <span class="tag">
-              {{ t('dashboard.applicants', { count: getApplicantsCount(p) }) }}
+              {{ t("dashboard.applicants", { count: p.propertyApartmentSharingCount }) }}
             </span>
           </td>
           <td class="desktop text--light-blue">
-            {{ t('dashboard.rent-cost', { rent: p.rentCost, charges: p.chargesCost }) }}
+            {{ t("dashboard.rent-cost", { rent: p.rentCost, charges: p.chargesCost }) }}
           </td>
           <td class="fr-pr-2w">
             <button
@@ -112,7 +123,7 @@ function getApplicantsCount(p: Property) {
               v-if="!p.validated"
               @click="editProperty(p.id)"
             >
-              {{ t('dashboard.edit') }}
+              {{ t("dashboard.edit") }}
             </button>
           </td>
         </tr>
