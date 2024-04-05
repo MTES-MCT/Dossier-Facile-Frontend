@@ -11,7 +11,7 @@
   },
   "version": "0.0.0",
   "engines": {
-    "node": "18.x"
+    "node": "20.x"
   },
   "scripts": {
     "dev": "vite",
@@ -23,7 +23,6 @@
     "cy:run": "cypress run"
   },
   "dependencies": {
-    "@achrinza/node-ipc": "10.1.7",
     "@gouvfr/dsfr": "1.10.1",
     "@sentry/tracing": "^7.51.2",
     "@sentry/vue": "^7.51.2",

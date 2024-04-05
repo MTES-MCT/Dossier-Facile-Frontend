@@ -7,23 +7,6 @@
   resolved "https://registry.yarnpkg.com/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz#bd9154aec9983f77b3a034ecaa015c2e4201f6cf"
   integrity sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==
 
-"@achrinza/event-pubsub@5.0.8":
-  version "5.0.8"
-  resolved "https://registry.yarnpkg.com/@achrinza/event-pubsub/-/event-pubsub-5.0.8.tgz#4dec147508024c3b68bd51152022c70935d38d98"
-  integrity sha512-2FupDKPCvK3ceontoqmleg6DeQPECvmwvVTONzlWDCjk4gNQ/0Spt4+kwq9Rb0hHdAGiEaA487+8WXsTXBI4JA==
-  dependencies:
-    "@achrinza/strong-type" "0.1.10"
-
-"@achrinza/node-ipc@10.1.7":
-  version "10.1.7"
-  resolved "https://registry.yarnpkg.com/@achrinza/node-ipc/-/node-ipc-10.1.7.tgz#0e2d5a69a117dd8ea1294fb04c476dc3f49a1cf0"
-  integrity sha512-xuSoaImTsihgO7pM+R6J61/AMBA9v+rJIGax1g/T16GKa8TO/cuuDXZA4ZN6q0zdUuUeCXIac9UPQZw8ofKBzQ==
-  dependencies:
-    "@achrinza/event-pubsub" "5.0.8"
-    "@node-ipc/js-queue" "2.0.3"
-    js-message "1.0.7"
-    strong-type "1.0.1"
-
 "@achrinza/node-ipc@^9.2.5":
   version "9.2.8"
   resolved "https://registry.yarnpkg.com/@achrinza/node-ipc/-/node-ipc-9.2.8.tgz#aabfe9fe84406c90bfb7319d5e68b5b517dd8686"
@@ -32,11 +15,6 @@
     "@node-ipc/js-queue" "2.0.3"
     event-pubsub "4.3.0"
     js-message "1.0.7"
-
-"@achrinza/strong-type@0.1.10":
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/@achrinza/strong-type/-/strong-type-0.1.10.tgz#8d15e63c29fd2ee1361520c7035d671118300df3"
-  integrity sha512-0FdEy7yj3PzgMvDSMdIZPmMfo+5SvMaDU6KZB9AOBEmvZHXFJIf4i6b30iDVkMiEMUJDaExBvwMLBsLVNV25yA==
 
 "@ampproject/remapping@^2.2.0":
   version "2.2.1"
@@ -13885,11 +13863,6 @@ strip-literal@^1.0.1:
   integrity sha512-PugKzOsyXpArk0yWmUwqOZecSO0GH0bPoctLcqNDH9J04pVW3lflYE0ujElBGTloevcxF5MofAOZ7C5l2b+wLg==
   dependencies:
     acorn "^8.10.0"
-
-strong-type@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/strong-type/-/strong-type-1.0.1.tgz#501d15117a0750472c39c09cad49b74a191daaca"
-  integrity sha512-K8KEzne00nA5HG3eSIPy44adqGTAMnNlpfvRWtiv8QvRsRm0/rMLHtSoppJ11iFtnmzzpgeYogzdY2YMgrUgOA==
 
 style-loader@^3.3.1:
   version "3.3.4"
