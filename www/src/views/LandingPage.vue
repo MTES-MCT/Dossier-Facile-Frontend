@@ -403,6 +403,13 @@
             height="55"
             width="232"
           />
+          <LogoPartnerComponent
+            :image="jinkaUrl"
+            href="https://www.jinka.fr"
+            name="Jinka"
+            height="60"
+            width="185"
+          />
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
@@ -499,10 +506,11 @@ import emjysoftUrl from "../assets/logos/emjysoft_gestion_locative.webp";
 import timciUrl from "../assets/logos/timci.webp";
 import ispUrl from "../assets/logos/isp_group.webp";
 import jsoftUrl from "../assets/logos/jsoft.webp";
-import mclUrl from "../assets/logos/mon_carnet_logement.png";
-import pdpUrl from "../assets/logos/partir_de_paris.png";
-import goodlizUrl from "../assets/logos/goodliz.png";
-import pautionsUrl from "../assets/logos/pautions.png";
+import mclUrl from "../assets/logos/mon_carnet_logement.webp";
+import pdpUrl from "../assets/logos/partir_de_paris.webp";
+import goodlizUrl from "../assets/logos/goodliz.webp";
+import pautionsUrl from "../assets/logos/pautions.webp";
+import jinkaUrl from "../assets/logos/jinka.webp";
 import visaleUrl from "../assets/logos/visale.webp";
 import anilUrl from "../assets/logos/anil.webp";
 import unmlUrl from "../assets/logos/UNML.webp";
