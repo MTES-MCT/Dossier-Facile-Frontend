@@ -1,6 +1,6 @@
 <template>
+    <Form name="form" @submit="saveAndGoNext">
   <div>
-    <Form name="form" @submit="save">
       <NakedCard class="fr-p-md-5w fr-mb-3w">
         <div>
           <h1 class="fr-h6">
@@ -50,9 +50,6 @@
                     <input
                       id="monthlySum"
                       :placeholder="t('financialdocumentform.monthlySum.placeholder')"
-                      type="number"
-                      min="0"
-                      step="1"
                       v-bind="field"
                       name="monthlySum"
                       class="validate-required form-control fr-input"
@@ -184,7 +181,6 @@
           </div>
         </div>
       </NakedCard>
-    </Form>
     <div
       v-if="
         financialDocument.documentType.key &&
@@ -192,7 +188,6 @@
       "
     >
       <NakedCard class="fr-p-md-5w fr-mb-3w">
-        <Form name="customTextForm" @submit="save">
           <div class="fr-input-group">
             <label class="fr-label" for="customTextNoDocument">
               {{ t("financialdocumentform.has-no-income") }}
@@ -209,10 +204,9 @@
             />
             <span>{{ financialDocument.customText.length }} / 2000</span>
           </div>
-        </Form>
       </NakedCard>
     </div>
-    <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
+    <ProfileFooter @on-back="goBack"></ProfileFooter>
     <Modal v-show="isNoIncomeAndFiles" @close="isNoIncomeAndFiles = false">
       <template v-slot:body>
         <div class="fr-container">
@@ -230,6 +224,7 @@
       <span>{{ t("financialdocumentform.will-delete-files") }}</span>
     </ConfirmModal>
   </div>
+  </Form>
 </template>
 
 <script setup lang="ts">
@@ -453,7 +448,7 @@ async function save(): Promise<boolean> {
       ToastService.error("financialdocumentform.income-zero");
       return Promise.reject(new Error("err"));
     }
-    formData.append("monthlySum", financialDocument.value.monthlySum.toString());
+    formData.append("monthlySum", Math.trunc(financialDocument.value.monthlySum).toString());
   } else {
     return Promise.reject(new Error("err"));
   }
@@ -535,10 +530,12 @@ function goBack() {
   store.selectDocumentFinancial(undefined);
 }
 
+function saveAndGoNext() {
+  save().then(goNext);
+}
+
 function goNext() {
-  save().then(() => {
-    store.selectDocumentFinancial(undefined);
-  });
+  store.selectDocumentFinancial(undefined);
 }
 
 function getMonthlySumLabel() {
