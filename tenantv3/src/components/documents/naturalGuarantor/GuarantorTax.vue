@@ -25,28 +25,26 @@
               name="customText"
               v-model="customText"
               v-slot="{ field, meta }"
-              :rules="{required: true}"
+              :rules="{ required: true }"
             >
-            <textarea
-              v-bind="field"
-              class="form-control fr-input validate-required"
-              id="customText"
-              name="customText"
-              placeholder=""
-              type="text"
-              required
-              maxlength="2000"
-              :class="{
-                'fr-input--valid': meta.valid,
-                'fr-input--error': !meta.valid
-              }"
-              rows="4"
-            />
-            <ErrorMessage name="customText" v-slot="{ message }">
-              <span role="alert" class="fr-error-text">{{
-                t(message || "")
-              }}</span>
-            </ErrorMessage>
+              <textarea
+                v-bind="field"
+                class="form-control fr-input validate-required"
+                id="customText"
+                name="customText"
+                placeholder=""
+                type="text"
+                required
+                maxlength="2000"
+                :class="{
+                  'fr-input--valid': meta.valid,
+                  'fr-input--error': !meta.valid,
+                }"
+                rows="4"
+              />
+              <ErrorMessage name="customText" v-slot="{ message }">
+                <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+              </ErrorMessage>
             </Field>
           </div>
         </div>
@@ -61,6 +59,8 @@
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
+        :user-id="user?.id"
+        :document="guarantorTaxDocument()"
         :documentDeniedReasons="documentDeniedReasons"
         :documentStatus="documentStatus"
       ></AllDeclinedMessages>

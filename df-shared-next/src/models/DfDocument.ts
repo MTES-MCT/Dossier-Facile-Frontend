@@ -1,4 +1,5 @@
 import { DfFile } from "./DfFile";
+import { DocumentAnalysisReport } from "./DocumentAnalysisReport";
 import { DocumentDeniedReasons } from "./DocumentDeniedReasons";
 
 export class DfDocument {
@@ -14,4 +15,5 @@ export class DfDocument {
   name?: string;
   documentDeniedReasons?: DocumentDeniedReasons;
   authenticityStatus?: string;
+  documentAnalysisReport?: DocumentAnalysisReport;
 }

@@ -1,4 +1,5 @@
 {
+  "register": "Save",
   "logout": "Logout",
   "signin": "Sign in",
   "owner-header": "Owner area",
@@ -296,6 +297,10 @@
     "professional": "Proof of professional situation",
     "financial": "Proof of income",
     "tax": "Tax notice",
+    "denied": "Unverified documents",
+    "download-not-validated-title": "Download my unverified documents",
+    "download-not-validated-text": "In order to apply during the verification of your file, you can download your unverified and watermarked documents.",
+    "download-zip": "Download",
     "TO_PROCESS": "is being processed",
     "VALIDATED": "is validated",
     "DECLINED": "requires modifications",
@@ -536,11 +541,11 @@
   },
   "documentinsert": {},
   "fileerrors": {
-    "identification": "Proof of Identity",
-    "residency": "Proof of Residence",
-    "professional": "Proof of Employment",
-    "financial": "Proof of Income",
-    "tax": "Tax Notice",
+    "IDENTIFICATION": "Proof of Identity",
+    "RESIDENCY": "Proof of Residence",
+    "PROFESSIONAL": "Proof of Employment",
+    "FINANCIAL": "Proof of Income",
+    "TAX": "Tax Notice",
     "file-not-valid": "Your application is not valid. Please complete the missing documents or modify the rejected documents to submit your application",
     "error-title": "Invalid Application",
     "error-title-guarantor": "Invalid Guarantor Application",
@@ -640,6 +645,7 @@
     "customText-pension": "To improve my file, I explain why I cannot provide my documents:",
     "customText-rent": "To improve my file, I explain why I cannot provide my documents:",
     "customText-scholarship": "To improve my file, I explain why I cannot provide my documents:",
+    "income-zero": "If you don't have any income, please select 'No income'",
     "noDocument-social": "I cannot provide proof of social benefits payment",
     "noDocument-salary": "I cannot provide my three most recent payslips",
     "noDocument-pension": "I cannot provide proof of pension payment",
@@ -1274,6 +1280,10 @@
   "topeditmenu": {
     "i-add": "I Add {0}",
     "my-guarantor": "My Guarantor"
+  },
+  "updatecomponent": {
+    "invalid": "Invalid document",
+    "force-message": "You think the automatic check is making an error. Provide the details that will clarify your situation"
   },
   "uploaddocuments": {
     "warning-need-residency-documents": "Are you sure you have submitted all the necessary documents here?<ul><li>Proof of residence</li><li>Copy of your host's identity document</li><li>Proof of address (less than 3 months old) of your host</li></ul>",

@@ -15,17 +15,60 @@
                 ])
               "
             ></h1>
-            <div class="fr-callout warning fr-callout-white" v-if="isDenied()">
-              <h2 class="fr-text-title--grey fr-h4">
-                {{ $t("account.amendment-required-title") }}
-              </h2>
-              <p
-                class="fr-callout__text"
-                v-html="$t('account.amendment-required-text')"
-              ></p>
-              <DfButton @on-click="goToMessaging" :primary="true">{{
-                $t("account.messaging")
-              }}</DfButton>
+            <div v-if="isDenied() || user.status === 'TO_PROCESS'">
+              <div class="fr-grid-row fr-grid-row--gutters">
+                <div class="fr-col" v-if="isDenied()">
+                  <div class="fr-callout warning fr-callout-white">
+                    <h2 class="fr-m-1w fr-text-title--grey fr-h4">
+                      {{ $t("account.amendment-required-title") }}
+                    </h2>
+                    <p
+                      class="fr-m-1w fr-callout__text"
+                      v-html="$t('account.amendment-required-text')"
+                    ></p>
+                    <DfButton class="fr-m-1w" @on-click="goToMessaging" :primary="true">{{
+                      $t("account.messaging")
+                    }}</DfButton>
+                  </div>
+                </div>
+                <div class="fr-col" v-if="user.status === 'TO_PROCESS'">
+                  <div class="fr-callout to-process fr-callout-white fr-mb-3w">
+                    <h2 class="fr-h4 dflex">
+                      <i
+                        aria-hidden="true"
+                        class="text-to-process ri-time-line fs-28"
+                        style="font-size: 18px"
+                      ></i>
+                      &nbsp;<span>{{ $t("account.instructional-time-title") }}</span>
+                    </h2>
+                    <p v-html="$t('account.instructional-time-text')"></p>
+                  </div>
+                </div>
+                <div class="fr-col-12 fr-col-lg-4">
+                  <div class="fr-callout warning fr-callout-white">
+                    <ColoredTag
+                      class="fr-m-1w"
+                      :status="'DECLINED'"
+                      :text="$t('account.denied')"
+                    ></ColoredTag>
+                    <h2 class="fr-m-1w fr-text-title--grey fr-h4">
+                      {{ $t("account.download-not-validated-title") }}
+                    </h2>
+                    <p
+                      class="fr-m-1w fr-callout__text"
+                      v-html="$t('account.download-not-validated-text')"
+                    ></p>
+                    <a
+                      href="#"
+                      :title="$t('account.download-not-validated-title')"
+                      class="float--right"
+                      @click="downloadZip"
+                      >{{ $t("account.download-zip") }}
+                      <i class="ri-download-line" style="font-size: 18px"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="fr-callout fr-callout-white" v-if="canCopyLink()">
               <h2 class="fr-text-title--grey fr-h4">
@@ -45,32 +88,13 @@
               </router-link>
             </div>
 
-            <div
-              class="fr-callout fr-callout-white fr-mb-3w"
-              v-if="user.status === 'TO_PROCESS'"
-            >
-              <h3 class="fr-h4 dflex">
-                <i
-                  aria-hidden="true"
-                  class="text-warning ri-time-line fs-28"
-                  style="font-size: 18px"
-                ></i>
-                &nbsp;<span>{{ $t("account.instructional-time-title") }}</span>
-              </h3>
-              <p v-html="$t('account.instructional-time-text')"></p>
-            </div>
-
             <div class="fr-mt-3w fr-p-0w">
               <section
                 v-if="user.applicationType === 'COUPLE'"
                 class="fr-m-0 fr-p-0 bg-white"
               >
                 <div class="fr-tabs account-tabs">
-                  <ul
-                    class="fr-tabs__list fr-p-0"
-                    role="tablist"
-                    aria-label="tab-list"
-                  >
+                  <ul class="fr-tabs__list fr-p-0" role="tablist" aria-label="tab-list">
                     <li
                       v-for="(tenant, k) in getTenants()"
                       v-bind:key="`li${k}`"
@@ -118,7 +142,12 @@
                   </div>
                 </div>
               </section>
-              <TenantPanel v-else :tenant="user" class="fr-p-4w bg-white" :isCotenant="false" />
+              <TenantPanel
+                v-else
+                :tenant="user"
+                class="fr-p-4w bg-white"
+                :isCotenant="false"
+              />
             </div>
             <PartnersSection />
 
@@ -155,10 +184,7 @@
                     />
                   </a>
                 </div>
-                <p
-                  class="fr-mt-3w"
-                  v-html="$t('account.opinion-bloc.warning')"
-                ></p>
+                <p class="fr-mt-3w" v-html="$t('account.opinion-bloc.warning')"></p>
               </div>
             </div>
           </div>
@@ -180,82 +206,99 @@ import TenantPanel from "@/components/account/TenantPanel.vue";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import useTenantStore from "@/stores/tenant-store";
 import { useRouter } from "vue-router";
+import { ProfileService } from "../services/ProfileService";
+import { ToastService } from "../services/ToastService";
 
-  const FORCE_FAKE_ANNOUNCEMENT_VISIBILITY = import.meta.env.VITE_FORCE_ANNOUNCEMENT_VISIBILITY || false;
-  const isAnnouncementVisible = ref(false);
-  const store = useTenantStore();
-  const user = computed(() => store.user);
-  const tabIndex = ref(0);
-  const router = useRouter();
+const FORCE_FAKE_ANNOUNCEMENT_VISIBILITY =
+  import.meta.env.VITE_FORCE_ANNOUNCEMENT_VISIBILITY || false;
+const isAnnouncementVisible = ref(false);
+const store = useTenantStore();
+const user = computed(() => store.user);
+const tabIndex = ref(0);
+const router = useRouter();
 
-  onMounted(() => {
-    window.Beacon("init", "d949ac15-a9eb-4316-b0c5-f92cecc7118f");
-    const today = new Date();
-    if (
-      (today.getMonth() >= 5 && today.getMonth() <= 8) ||
-      FORCE_FAKE_ANNOUNCEMENT_VISIBILITY === "true"
-    ) {
-      isAnnouncementVisible.value = true;
+onMounted(() => {
+  window.Beacon("init", "d949ac15-a9eb-4316-b0c5-f92cecc7118f");
+  const today = new Date();
+  if (
+    (today.getMonth() >= 5 && today.getMonth() <= 8) ||
+    FORCE_FAKE_ANNOUNCEMENT_VISIBILITY === "true"
+  ) {
+    isAnnouncementVisible.value = true;
+  }
+});
+
+onBeforeUnmount(() => {
+  window.Beacon("destroy");
+});
+
+function getTenants() {
+  const tenants: User[] = [];
+  tenants.push(user.value);
+
+  user.value?.apartmentSharing?.tenants?.forEach((t) => {
+    if (t.id != user.value.id) {
+      tenants.push(t);
     }
-  })
+  });
 
-  onBeforeUnmount(() => {
-    window.Beacon("destroy");
-  })
+  return tenants;
+}
 
-  function getTenants() {
-    const tenants: User[] = [];
-    tenants.push(user.value);
-
-    user.value?.apartmentSharing?.tenants?.forEach((t) => {
-      if (t.id != user.value.id) {
-        tenants.push(t);
-      }
+function downloadZip() {
+  ProfileService.downloadZip()
+    .then((response) => {
+      const blob = new Blob([response.data], { type: "application/zip" });
+      const link = window.document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = "dossierFacile.zip";
+      link.click();
+    })
+    .catch((error) => {
+      ToastService.error();
     });
+}
 
-    return tenants;
-  }
+function goToMessaging() {
+  router.push("/messaging");
+}
 
-  function goToMessaging() {
-    router.push("/messaging");
-  }
+function getFirstName() {
+  return UtilsService.capitalize(user.value.firstName || "");
+}
 
-  function getFirstName() {
-    return UtilsService.capitalize(user.value.firstName || "");
-  }
+function canCopyLink() {
+  return UtilsService.canShareFile(user.value);
+}
 
-  function canCopyLink() {
-    return UtilsService.canShareFile(user.value);
-  }
+function isDenied() {
+  return (
+    user.value.documents?.find((d) => {
+      return d.documentStatus === "DECLINED";
+    }) !== undefined ||
+    user.value.guarantors?.find((g: Guarantor) => {
+      return (
+        g.documents?.find((d) => {
+          return d.documentStatus === "DECLINED";
+        }) !== undefined
+      );
+    })
+  );
+}
 
-  function isDenied() {
-    return (
-      user.value.documents?.find((d) => {
-        return d.documentStatus === "DECLINED";
-      }) !== undefined ||
-      user.value.guarantors?.find((g: Guarantor) => {
-        return (
-          g.documents?.find((d) => {
-            return d.documentStatus === "DECLINED";
-          }) !== undefined
-        );
-      })
-    );
-  }
+function getGlobalStatus(): string {
+  return user.value.apartmentSharing?.status as string | "INCOMPLETE";
+}
 
-  function getGlobalStatus(): string {
-    return user.value.apartmentSharing?.status as string | "INCOMPLETE";
+function getApplicationType() {
+  switch (user.value.applicationType) {
+    case "COUPLE":
+      return "couple";
+    case "GROUP":
+      return "group";
   }
-
-  function getApplicationType() {
-    switch (user.value.applicationType) {
-      case "COUPLE":
-        return "couple";
-      case "GROUP":
-        return "group";
-    }
-    return "alone";
-  }
+  return "alone";
+}
 </script>
 
 <style scoped lang="scss">
@@ -472,4 +515,15 @@ hr {
     margin-left: 0.5rem;
   }
 }
+
+.fr-callout-white {
+  background-color: var(--background-default-grey);
+  &.warning {
+    box-shadow: inset 0.25rem 0 0 0 var(--error) !important;
+  }
+  &.to-process {
+    box-shadow: inset 0.25rem 0 0 0 var(--purple-glycine-main-494) !important;
+  }
+}
+
 </style>

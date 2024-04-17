@@ -153,13 +153,6 @@ const { t } = useI18n();
   background-color: var(--background-default-grey);
 }
 
-.fr-callout-white {
-  background-color: var(--background-default-grey);
-  &.warning {
-    box-shadow: inset 0.25rem 0 0 0 var(--error) !important;
-  }
-}
-
 h1 {
   color: var(--bf500);
   font-size: 2rem;

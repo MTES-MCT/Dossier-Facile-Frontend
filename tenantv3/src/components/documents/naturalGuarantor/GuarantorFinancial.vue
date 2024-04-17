@@ -2,7 +2,7 @@
   <div>
     <div v-if="editFinancialDocument">
       <GuarantorFinancialDocumentForm
-      :tenantId="tenantId"
+        :tenantId="tenantId"
       ></GuarantorFinancialDocumentForm>
     </div>
     <div v-if="!editFinancialDocument">
@@ -14,48 +14,50 @@
       </NakedCard>
       <div v-for="(f, k) in financialDocuments" :key="k">
         <CardRow
-        @edit="selectFinancialDocument(f)"
-        @remove="removeFinancial(f)"
-        :danger="guarantorFinancialDocument(f)?.documentStatus === 'DECLINED'"
+          @edit="selectFinancialDocument(f)"
+          @remove="removeFinancial(f)"
+          :danger="guarantorFinancialDocument(f)?.documentStatus === 'DECLINED'"
         >
-        <template v-slot:tag>
-          <div class="fixed-width">
-            <ColoredTag
-            :text="getDocumentName(f)"
-            :status="guarantorFinancialDocument(f)?.documentStatus"
-            ></ColoredTag>
-          </div>
-        </template>
-        <template v-slot:text>
-          <div
-          class="text-bold"
-          :title="t('guarantorfinancial.net-monthly')"
-          v-show="f.documentType.key !== 'no-income'"
-          >
-          {{ f.monthlySum }} {{ t("guarantorfinancial.monthly") }}
-        </div>
-      </template>
-      <template v-slot:bottom>
-        <AllDeclinedMessages
-        class="fr-mb-0"
-        :documentDeniedReasons="documentDeniedReasons(f)"
-        :documentStatus="documentStatus(f)"
-        ></AllDeclinedMessages>
-      </template>
-    </CardRow>
+          <template v-slot:tag>
+            <div class="fixed-width">
+              <ColoredTag
+                :text="getDocumentName(f)"
+                :status="guarantorFinancialDocument(f)?.documentStatus"
+              ></ColoredTag>
+            </div>
+          </template>
+          <template v-slot:text>
+            <div
+              class="text-bold"
+              :title="t('guarantorfinancial.net-monthly')"
+              v-show="f.documentType.key !== 'no-income'"
+            >
+              {{ f.monthlySum }} {{ t("guarantorfinancial.monthly") }}
+            </div>
+          </template>
+          <template v-slot:bottom>
+            <AllDeclinedMessages
+              class="fr-mb-0"
+              :user-id="user?.id"
+              :document="f"
+              :documentDeniedReasons="documentDeniedReasons(f)"
+              :documentStatus="documentStatus(f)"
+            ></AllDeclinedMessages>
+          </template>
+        </CardRow>
+      </div>
+      <div>
+        <button
+          @click="addAndSelectFinancial()"
+          v-if="!hasNoIncome()"
+          class="add-income-btn"
+        >
+          {{ t("guarantorfinancial.add-income") }}
+        </button>
+      </div>
+      <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
+    </div>
   </div>
-  <div>
-    <button
-    @click="addAndSelectFinancial()"
-    v-if="!hasNoIncome()"
-    class="add-income-btn"
-    >
-    {{ t("guarantorfinancial.add-income") }}
-  </button>
-</div>
-<ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
-</div>
-</div>
 </template>
 
 <script setup lang="ts">
@@ -71,23 +73,24 @@ import useTenantStore from "@/stores/tenant-store";
 import { computed, onBeforeMount } from "vue";
 import { useI18n } from "vue-i18n";
 import { ToastService } from "@/services/ToastService";
-import {useLoading} from 'vue-loading-overlay'
+import { useLoading } from "vue-loading-overlay";
 
 const { t } = useI18n();
 
 const store = useTenantStore();
 const editFinancialDocument = computed(() => store.getEditGuarantorFinancialDocument);
 const financialDocuments = computed(() => store.guarantorFinancialDocuments);
+const user = computed(() => store.userToEdit);
 
 const emit = defineEmits(["on-back", "on-next"]);
 
 const props = defineProps<{
-  tenantId?: number
+  tenantId?: number;
 }>();
 
 onBeforeMount(() => {
   initialize();
-})
+});
 
 function initialize() {
   store.selectGuarantorDocumentFinancial(undefined);
@@ -121,23 +124,23 @@ function removeFinancial(f: DfDocument) {
   const $loading = useLoading({});
   const loader = $loading.show();
   store
-  .deleteDocument(f.id)
-  .then(null, () => {
-    ToastService.error();
-  })
-  .finally(() => {
-    loader.hide();
-    initialize();
-  });
+    .deleteDocument(f.id)
+    .then(null, () => {
+      ToastService.error();
+    })
+    .finally(() => {
+      loader.hide();
+      initialize();
+    });
   store.selectGuarantorDocumentFinancial(undefined);
 }
 
 function hasNoIncome() {
   return (
-  financialDocuments.value.length > 0 &&
-  financialDocuments.value.find((f) => {
-    return f.documentType && f.documentType.key !== "no-income";
-  }) === undefined
+    financialDocuments.value.length > 0 &&
+    financialDocuments.value.find((f) => {
+      return f.documentType && f.documentType.key !== "no-income";
+    }) === undefined
   );
 }
 

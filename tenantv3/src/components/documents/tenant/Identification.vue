@@ -6,55 +6,48 @@
       </h1>
       <div class="fr-mt-3w">
         <SimpleRadioButtons
-        name="application-type-selector"
-        :value="identificationDocument"
-        @input="onSelectChange"
-        :elements="mapDocuments()"
+          name="application-type-selector"
+          :value="identificationDocument"
+          @input="onSelectChange"
+          :elements="mapDocuments()"
         ></SimpleRadioButtons>
       </div>
     </NakedCard>
     <NakedCard
-    class="fr-p-md-5w fr-mt-3w"
-    v-if="identificationDocument.key || identificationFiles().length > 0"
+      class="fr-p-md-5w fr-mt-3w"
+      v-if="identificationDocument.key || identificationFiles().length > 0"
     >
-    <div class="fr-mb-3w">
-      <p
-      v-html="$t(`explanation-text.tenant.${identificationDocument.key}`)"
-      ></p>
-    </div>
-    <AllDeclinedMessages
-    class="fr-mb-3w"
-    :documentDeniedReasons="documentDeniedReasons"
-    :documentStatus="documentStatus"
-    ></AllDeclinedMessages>
-    <div
-    v-if="identificationFiles().length > 0"
-    class="fr-col-md-12 fr-mb-3w"
-    >
-    <ListItem
-    v-for="(file, k) in identificationFiles()"
-    :key="k"
-    :file="file"
-    @remove="remove(file)"
-    />
+      <div class="fr-mb-3w">
+        <p v-html="$t(`explanation-text.tenant.${identificationDocument.key}`)"></p>
+      </div>
+      <AllDeclinedMessages
+        class="fr-mb-3w"
+        :user-id="user?.id"
+        :document="tenantIdentificationDocument"
+        :documentDeniedReasons="documentDeniedReasons"
+        :documentStatus="documentStatus"
+      ></AllDeclinedMessages>
+      <div v-if="identificationFiles().length > 0" class="fr-col-md-12 fr-mb-3w">
+        <ListItem
+          v-for="(file, k) in identificationFiles()"
+          :key="k"
+          :file="file"
+          @remove="remove(file)"
+        />
+      </div>
+      <div class="fr-mb-3w">
+        <FileUpload
+          :current-status="fileUploadStatus"
+          :page="4"
+          @add-files="addFiles"
+          @reset-files="resetFiles"
+        ></FileUpload>
+      </div>
+    </NakedCard>
+    <ConfirmModal v-if="isDocDeleteVisible" @valid="validSelect()" @cancel="undoSelect()">
+      <span>{{ $t("identification-page.will-delete-files") }}</span>
+    </ConfirmModal>
   </div>
-  <div class="fr-mb-3w">
-    <FileUpload
-    :current-status="fileUploadStatus"
-    :page="4"
-    @add-files="addFiles"
-    @reset-files="resetFiles"
-    ></FileUpload>
-  </div>
-</NakedCard>
-<ConfirmModal
-v-if="isDocDeleteVisible"
-@valid="validSelect()"
-@cancel="undoSelect()"
->
-<span>{{ $t("identification-page.will-delete-files") }}</span>
-</ConfirmModal>
-</div>
 </template>
 
 <script setup lang="ts">
@@ -78,7 +71,7 @@ import useTenantStore from "@/stores/tenant-store";
 import { computed, onBeforeMount, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { ToastService } from "@/services/ToastService";
-import { useLoading } from 'vue-loading-overlay';
+import { useLoading } from "vue-loading-overlay";
 
 const store = useTenantStore();
 const user = computed(() => {
@@ -102,8 +95,7 @@ function getLocalStorageKey() {
 
 const documentStatus = computed(() => {
   return tenantIdentificationDocument.value?.documentStatus;
-})
-
+});
 
 onBeforeMount(() => {
   if (user.value?.documents !== null) {
@@ -114,13 +106,13 @@ onBeforeMount(() => {
       if (localDoc !== undefined) {
         identificationDocument.value = localDoc;
         localStorage.setItem(
-        getLocalStorageKey(),
-        identificationDocument.value.key || ""
+          getLocalStorageKey(),
+          identificationDocument.value.key || ""
         );
       }
       if (tenantIdentificationDocument.value?.documentDeniedReasons) {
         documentDeniedReasons.value = cloneDeep(
-        tenantIdentificationDocument.value.documentDeniedReasons
+          tenantIdentificationDocument.value.documentDeniedReasons
         );
       }
     } else {
@@ -135,20 +127,17 @@ onBeforeMount(() => {
       }
     }
   }
-})
+});
 
 function onSelectChange($event: any) {
   identificationDocument.value = $event;
-  localStorage.setItem(
-  getLocalStorageKey(),
-  identificationDocument.value.key
-  );
+  localStorage.setItem(getLocalStorageKey(), identificationDocument.value.key);
   if (user.value?.documents !== null) {
     const doc = tenantIdentificationDocument.value;
     if (doc !== undefined) {
       isDocDeleteVisible.value =
-      (doc?.files?.length || 0) > 0 &&
-      doc?.subCategory !== identificationDocument.value.value;
+        (doc?.files?.length || 0) > 0 &&
+        doc?.subCategory !== identificationDocument.value.value;
     }
   }
   return false;
@@ -204,32 +193,31 @@ function save() {
     return !f.id;
   });
   if (!newFiles.length) return;
-  
+
   if (
-  identificationDocument.value.maxFileCount &&
-  identificationFiles().length >
-  identificationDocument.value.maxFileCount
+    identificationDocument.value.maxFileCount &&
+    identificationFiles().length > identificationDocument.value.maxFileCount
   ) {
-    ToastService.maxFileError(identificationFiles().length, identificationDocument.value.maxFileCount)
-      files.value = [];
-      return;
-    }
-    
-    Array.from(Array(newFiles.length).keys()).forEach((x) => {
-      const f: File = newFiles[x].file || new File([], "");
-      formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
-    });
-    
-    formData.append(
-    "typeDocumentIdentification",
-    identificationDocument.value.value
+    ToastService.maxFileError(
+      identificationFiles().length,
+      identificationDocument.value.maxFileCount
     );
-    
-    fileUploadStatus.value = UploadStatus.STATUS_SAVING;
-    // TODO : remove loader when upload status is well handled (be carefull with multiple save at the same time)
-    const $loading = useLoading({});
-    const loader = $loading.show();
-    store
+    files.value = [];
+    return;
+  }
+
+  Array.from(Array(newFiles.length).keys()).forEach((x) => {
+    const f: File = newFiles[x].file || new File([], "");
+    formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
+  });
+
+  formData.append("typeDocumentIdentification", identificationDocument.value.value);
+
+  fileUploadStatus.value = UploadStatus.STATUS_SAVING;
+  // TODO : remove loader when upload status is well handled (be carefull with multiple save at the same time)
+  const $loading = useLoading({});
+  const loader = $loading.show();
+  store
     .saveTenantIdentification(formData)
     .then(() => {
       fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
@@ -243,42 +231,42 @@ function save() {
     .finally(() => {
       loader.hide();
     });
-  }
-  
-  function identificationFiles() {
-    const newFiles = files.value.map((f) => {
-      return {
-        subCategory: identificationDocument.value,
-        id: f.id,
-        name: f.name,
-        file: f.file,
-        size: f.file?.size,
-      };
-    });
-    const existingFiles =
+}
+
+function identificationFiles() {
+  const newFiles = files.value.map((f) => {
+    return {
+      subCategory: identificationDocument.value,
+      id: f.id,
+      name: f.name,
+      file: f.file,
+      size: f.file?.size,
+    };
+  });
+  const existingFiles =
     store.getTenantDocuments?.find((d: DfDocument) => {
       return d.documentCategory === "IDENTIFICATION";
     })?.files || [];
-    return [...newFiles, ...existingFiles];
-  }
-  
-  async function remove(file: DfFile, silent = false) {
-    AnalyticsService.deleteFile("identification");
-    if (file.id) {
-      await RegisterService.deleteFile(file.id, silent);
-    } else {
-      const firstIndex = files.value.findIndex((f) => {
-        return f.name === file.name && !f.path;
-      });
-      files.value.splice(firstIndex, 1);
-    }
-  }
-  
-  function mapDocuments() {
-    return documents.map((d) => {
-      return { id: d.key, labelKey: d.key, value: d };
+  return [...newFiles, ...existingFiles];
+}
+
+async function remove(file: DfFile, silent = false) {
+  AnalyticsService.deleteFile("identification");
+  if (file.id) {
+    await RegisterService.deleteFile(file.id, silent);
+  } else {
+    const firstIndex = files.value.findIndex((f) => {
+      return f.name === file.name && !f.path;
     });
+    files.value.splice(firstIndex, 1);
   }
+}
+
+function mapDocuments() {
+  return documents.map((d) => {
+    return { id: d.key, labelKey: d.key, value: d };
+  });
+}
 </script>
 
 <style scoped lang="scss"></style>

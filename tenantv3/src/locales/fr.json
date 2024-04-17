@@ -1,4 +1,5 @@
 {
+  "register": "Enregistrer",
   "logout": "Se déconnecter",
   "signin": "Se connecter",
   "owner-header": "Espace propriétaire",
@@ -342,6 +343,10 @@
     "professional": "Justificatif de situation professionnelle",
     "financial": "Justificatif de ressources",
     "tax": "Avis d’imposition",
+    "denied": "Documents non vérifiés",
+    "download-not-validated-title": "Télécharger mes documents non vérifiés",
+    "download-not-validated-text": "Afin de candidater pendant la vérification de votre dossier, vous pouvez télécharger vos documents non vérifiés et filigranés.",
+    "download-zip": "Télécharger",
     "TO_PROCESS": "est en cours de traitement",
     "VALIDATED": "est validé",
     "DECLINED": "nécessite des modifications",
@@ -580,11 +585,11 @@
   },
   "documentinsert": {},
   "fileerrors": {
-    "identification": "Pièce d'identité",
-    "residency": "Justificatif de situation d'hébergement",
-    "professional": "Justificatif de situation professionnelle",
-    "financial": "Justificatif de ressources",
-    "tax": "Avis d'imposition",
+    "IDENTIFICATION": "Pièce d'identité",
+    "RESIDENCY": "Justificatif de situation d'hébergement",
+    "PROFESSIONAL": "Justificatif de situation professionnelle",
+    "FINANCIAL": "Justificatif de ressources",
+    "TAX": "Avis d'imposition",
     "file-not-valid": "Votre dossier n'est pas valide, veuillez compléter les documents manquants ou modifier les documents refusés pour soumettre votre dossier",
     "error-title": "Dossier invalide",
     "error-title-guarantor": "Dossier garant invalide",
@@ -691,6 +696,7 @@
     "customText-pension": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
     "customText-rent": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
     "customText-scholarship": "Afin d'améliorer mon dossier, j'explique pourquoi je ne peux pas fournir mes justificatifs :",
+    "income-zero": "Si vous n'avez pas de revenus, veuillez sélectionner la catégorie 'Pas de revenus'",
     "noDocument-social": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
     "noDocument-salary": "Je ne peux pas fournir de document permettant de justifier ces revenus ",
     "noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",
@@ -1151,7 +1157,7 @@
     "field-required": "Ce champ est requis",
     "will-delete-files": "Attention, un changement de situation entraînera la suppression de vos justificatifs. Vous devrez charger de nouveau les justificatifs correspondant à votre situation.",
     "title": "Votre avis d'imposition",
-    "warning-no-accepted-doc": "<p><strong>L’avis de situation déclarative n’est pas un avis d’imposition, il sera donc systématiquement refusé.</strong></p><p>Regardez bien le titre du document que vous transmettez ! Il s’agit d’une <a href='https://docs.dossierfacile.logement.gouv.fr/guide-dutilisation-de-dossierfacile/avis-dimposition' target='_blank' rel='noopener'>erreur très courante</a>.</p>",
+    "warning-no-accepted-doc": "<p><strong>L’avis de situation déclarative n’est pas un avis d’imposition, il sera donc systématiquement refusé.</strong></p><p>Regardez bien le titre du document que vous transmettez ! Il s’agit d’une <a href='https://docs.dossierfacile.logement.gouv.fr/article/88-avis-dimposition' target='_blank' rel='noopener'>erreur très courante</a>.</p>",
     "avis-detected": "Avis de situation déclarative détecté",
     "avis-text1": "Nous avons détecté un avis de situation déclarative en tant que justificatif d'imposition. Ce document étant purement déclaratif, il n'est malheureusement pas recevable.",
     "avis-text2": "Nous vous invitons à déposer un avis d'imposition concernant vos revenus de l'année N-1.",
@@ -1313,6 +1319,10 @@
   "topeditmenu": {
     "i-add": "J'ajoute {0}",
     "my-guarantor": "Mon garant"
+  },
+  "updatecomponent": {
+    "invalid": "Document invalide",
+    "force-message": "Vous pensez que la vérification automatique commet une erreur. Apportez les précisions qui permettront la clarification de votre situation"
   },
   "uploaddocuments": {
     "accept-warning": "Ajouter de nouveaux documents",

@@ -64,12 +64,12 @@ export const ProfileService = {
   },
   getUserByToken(token: string) {
     return axios.get(
-      `${import.meta.env.VITE_API_URL}/api/application/full/${token}/`
+      `${import.meta.env.VITE_API_URL}/api/application/full/${token}`
     );
   },
   getPublicUserByToken(token: string) {
     return axios.get(
-      `${import.meta.env.VITE_API_URL}/api/application/light/${token}/`
+      `${import.meta.env.VITE_API_URL}/api/application/light/${token}`
     );
   },
   postCreateFullPdf(token: string): Promise<VoidFunction> {
@@ -81,4 +81,9 @@ export const ProfileService = {
   getFile(fileUrl: string): Promise<any> {
     return axios.get(fileUrl, { responseType: "blob" });
   },
+  downloadZip() {
+    return axios.get(`${import.meta.env.VITE_API_URL}/api/application/zip`, {
+      responseType: "blob",
+    });
+  }
 };
