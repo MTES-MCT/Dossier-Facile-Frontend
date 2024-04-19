@@ -151,6 +151,12 @@ const routes = [
       import(/* webpackChunkName: "blog" */ "../views/blog/Article22.vue"),
   },
   {
+    path: "/blog/proprietaire-comment-detecter-fausse-fiche-paie",
+    name: "Article23",
+    component: () =>
+      import(/* webpackChunkName: "blog" */ "../views/blog/Article23.vue"),
+  },
+  {
     path: "/information",
     name: "Information",
     component: () =>
