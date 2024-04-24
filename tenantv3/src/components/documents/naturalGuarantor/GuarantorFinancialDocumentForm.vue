@@ -1,5 +1,6 @@
 <template>
   <div>
+      <Form name="form" @submit="goNext">
     <Modal v-show="isNoIncomeAndFiles" @close="isNoIncomeAndFiles = false">
       <template v-slot:body>
         <div class="fr-container">
@@ -20,7 +21,6 @@
       <h1 class="fr-h6">
         {{ $t(`guarantorfinancialdocumentform.title.${guarantorKey()}`) }}
       </h1>
-      <Form name="form" @submit="save">
         <div>
           <div>
             <div class="fr-mt-3w">
@@ -45,6 +45,7 @@
                 v-model="financialDocument.monthlySum"
                 :rules="{
                   required: true,
+                  regex: /^[0-9 ]+$/,
                 }"
               >
                 <input
@@ -52,9 +53,6 @@
                   :placeholder="
                     $t('guarantorfinancialdocumentform.monthlySum.placeholder')
                   "
-                  type="number"
-                  min="0"
-                  step="1"
                   v-bind="field"
                   name="monthlySum"
                   class="validate-required form-control fr-input"
@@ -86,7 +84,6 @@
             </div>
           </div>
         </div>
-      </Form>
       <div
         class="fr-mt-3w"
         v-if="
@@ -182,7 +179,8 @@
         </div>
       </div>
     </NakedCard>
-    <ProfileFooter @on-back="goBack" @on-next="goNext"></ProfileFooter>
+    <ProfileFooter @on-back="goBack"></ProfileFooter>
+      </Form>
   </div>
 </template>
 
@@ -386,7 +384,7 @@ async function save(): Promise<boolean> {
   formData.append("customText", financialDocument.value.customText);
 
   if (financialDocument.value.monthlySum) {
-    formData.append("monthlySum", financialDocument.value.monthlySum.toString());
+    formData.append("monthlySum", Math.trunc(financialDocument.value.monthlySum).toString());
   } else {
     return Promise.reject(new Error("err"));
   }
