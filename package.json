@@ -15,7 +15,7 @@
     "watermark",
     "df-shared-next",
     "e2e-tests",
-    "sb"
+    "storybook"
   ],
   "scripts": {
     "www": "yarn workspace www",
@@ -23,8 +23,8 @@
     "tenantv3": "yarn workspace tenantv3",
     "watermark": "yarn workspace watermark",
     "e2e": "yarn workspace e2e-tests",
-    "sb": "yarn workspace sb",
-    "update-lockfiles": "yarn && echo www tenantv3 owner watermark e2e-tests sb | xargs -n 1 cp yarn.lock"
+    "storybook": "yarn workspace storybook",
+    "update-lockfiles": "yarn && echo www tenantv3 owner watermark e2e-tests storybook | xargs -n 1 cp yarn.lock"
   },
   "devDependencies": {
     "@storybook/vue-webpack5": "7.0.2"

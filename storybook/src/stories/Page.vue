@@ -1,8 +1,8 @@
 <template>
   <article>
-    <my-header :user="user" @login="onLogin" @logout="onLogout" @createAccount="onCreateAccount" />
+    <my-header :user="user" @login="onLogin" @logout="onLogout" @create-account="onCreateAccount" />
 
-    <section>
+    <section class="storybook-page">
       <h2>Pages in Storybook</h2>
       <p>
         We recommend building UIs with a
@@ -53,31 +53,21 @@
   </article>
 </template>
 
-<script>
+<script lang="ts" setup>
 import './page.css';
 import MyHeader from './Header.vue';
 
-export default {
-  name: 'my-page',
+import { ref } from 'vue';
 
-  components: { MyHeader },
+const user = ref<{ name: string } | null>(null);
 
-  data() {
-    return {
-      user: null,
-    };
-  },
-
-  methods: {
-    onLogin() {
-      this.user = { name: 'Jane Doe' };
-    },
-    onLogout() {
-      this.user = null;
-    },
-    onCreateAccount() {
-      this.user = { name: 'Jane Doe' };
-    },
-  },
+const onLogin = () => {
+  user.value = { name: 'Jane Doe' };
+};
+const onLogout = () => {
+  user.value = null;
+};
+const onCreateAccount = () => {
+  user.value = { name: 'Jane Doe' };
 };
 </script>
