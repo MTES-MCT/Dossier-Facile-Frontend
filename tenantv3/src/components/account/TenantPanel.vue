@@ -145,13 +145,6 @@ const { t } = useI18n();
 </script>
 
 <style scoped lang="scss">
-.main-bar {
-  display: flex;
-}
-
-.main {
-  background-color: var(--background-default-grey);
-}
 
 h1 {
   color: var(--bf500);
@@ -203,12 +196,6 @@ p {
 
 .description:first-letter {
   text-transform: uppercase;
-}
-
-.header-title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 hr {

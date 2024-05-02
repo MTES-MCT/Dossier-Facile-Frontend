@@ -302,14 +302,6 @@ function getApplicationType() {
 </script>
 
 <style scoped lang="scss">
-.main-bar {
-  display: flex;
-}
-
-.main {
-  background-color: var(--background-default-grey);
-}
-
 .fr-callout-white {
   background-color: var(--background-default-grey);
   &.warning {
@@ -437,12 +429,6 @@ p {
 
 .description:first-letter {
   text-transform: uppercase;
-}
-
-.header-title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 hr {

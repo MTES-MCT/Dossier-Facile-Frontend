@@ -1,14 +1,29 @@
 <template>
-  <div class="bg-blue">
-    <div class="fr-container">
-      <section>
+      <section class="bg-white fr-p-4w fr-px-md-10w">
+        <h1>
+          {{ t("contact.title") }}
+        </h1>
+        <div class="fr-callout">
+          <h2 class="fr-callout__title">Vous avez besoin de renseignements ?</h2>
+          <p class="fr-callout__text">
+          Notre aide en ligne rassemble de nombreuses informations :
+            <ul>
+            <li>de la documentation, comme <a href="https://docs.dossierfacile.logement.gouv.fr/article/93-liste-des-documents-a-fournir-2-0" target="_blank">la liste des documents à fournir</a> pour créer un DossierFacile</li>
+            <li>des tutoriels : comment créer un <a href="https://docs.dossierfacile.logement.gouv.fr/article/48-dossier-couple-2023" target="_blank">DossierFacile en couple ?</a> Comment créer un <a href="https://docs.dossierfacile.logement.gouv.fr/article/7-ajout-dun-colocataire" target="_blank">DossierFacile en colocation ?</a></li>
+            <li>des informations plus générales, à propos de la <a href="https://docs.dossierfacile.logement.gouv.fr/article/31-gestion-des-donnees-et-securite" target="_blank">sécurité de vos documents</a> par exemple</li>
+            </ul>
+          </p>
+          <a class="fr-btn" href="https://docs.dossierfacile.logement.gouv.fr" target="_blank">Consulter notre aide en ligne</a>
+        </div>
+
+
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12">
-            <div class="main fr-p-4w">
+            <div class="main">
               <div class="main-bar fr-grid-row">
                 <div class="header-title mobile-margin">
-                  <h1 class="fr-mr-2w fr-mb-0 fr-mt-0">
-                    {{ t("title-contact") }}
+                  <h1>
+                    {{ t("contact.title") }}
                   </h1>
                 </div>
               </div>
@@ -26,7 +41,7 @@
               </div>
               <div
                 v-if="status == 'OK'"
-                class="bg-white fr-px-md-14w mail-success-container"
+                class="fr-px-md-14w mail-success-container"
               >
                 <div class="fr-py-4w text-center green-title">
                   {{ t("message-sent-title") }}
@@ -47,7 +62,7 @@
                   </DfButton>
                 </div>
               </div>
-              <div v-if="status === 'KO'" class="bg-white fr-p-4w fr-px-md-10w">
+              <div v-if="status === 'KO'">
                 <Modal @close="closeModal">
                   <template v-slot:body>
                     <div class="fr-container">
@@ -62,7 +77,7 @@
                   </template>
                 </Modal>
               </div>
-              <div v-if="status !== 'OK'" class="bg-white fr-p-4w fr-px-md-10w">
+              <div v-if="status !== 'OK'">
                 <Form name="form" @submit="submitForm">
                   <div class="fr-grid-row fr-grid-row--center">
                     <div class="fr-col-12 fr-mb-3w">
@@ -333,8 +348,6 @@
           </div>
         </div>
       </section>
-    </div>
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -404,10 +417,6 @@ function closeModal() {
 }
 .text-right {
   text-align: right;
-}
-.fr-breadcrumb {
-  margin-top: 0;
-  margin-bottom: 0;
 }
 textarea {
   height: 12rem;
@@ -526,7 +535,6 @@ fieldset.fr-radio-group-container {
 <i18n>
 {
   "en": {
-    "title-contact": "Contact Us",
     "firstname": "Firstname",
     "lastname": "Lastname",
     "email": "Email",
@@ -550,7 +558,6 @@ fieldset.fr-radio-group-container {
     "see-breadcrumb": "See breadcrumb"
   },
   "fr": {
-    "title-contact": "Contactez notre support",
     "firstname": "Prénom",
     "lastname": "Nom",
     "email": "Votre adresse e-mail",
