@@ -12,6 +12,7 @@ export default defineConfig({
     fs: {
       allow: [
         './src',
+        '../df-shared-next',
         '../node_modules',
         './node_modules'
       ]
