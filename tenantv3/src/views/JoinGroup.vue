@@ -32,14 +32,11 @@ import InitPassword from 'df-shared-next/src/Authentification/InitPassword.vue';
         router.push({ name: "TenantName" });
       },
       (error: any) => {
-        if (
-          error.response.data.message.includes(
-            "password recovery token or is expired"
-          )
-        ) {
-          ToastService.error("joingroup.token-expired");
+        console.log("Erreur " + error.message)
+        if (error.code == "ERR_BAD_REQUEST"){
+          ToastService.error("joingroup.bad-request");
         } else {
-          ToastService.error("joingroup.error");
+          ToastService.error("joingroup.error" + " " + error.code);
         }
       }
     );
