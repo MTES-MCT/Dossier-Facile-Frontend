@@ -878,6 +878,7 @@
     "password-update": "The password has been updated",
     "title": "Create Password",
     "already-logged": "You are already in connected mode. Do you want to log out to create this account?",
+    "bad-request": "Provided token in URL sounds wrong",
     "token-expired": "The link has expired. Please initiate the forgot password procedure again."
   },
   "listitem": {
