@@ -28,7 +28,7 @@
     "df-shared-next": "0.1.0",
     "keycloak-js": "^22.0.5",
     "lodash.clonedeep": "^4.5.0",
-    "pdfjs-dist": "^4.0.189",
+    "pdfjs-dist": "^4.2.67",
     "pinia": "^2.1.7",
     "remixicon": "^4.1.0",
     "vee-validate": "4.12.2",
