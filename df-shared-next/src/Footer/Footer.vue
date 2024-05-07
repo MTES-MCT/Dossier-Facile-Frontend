@@ -30,28 +30,32 @@
           </p>
           <ul class="fr-footer__content-list">
             <li class="fr-footer__content-item">
-              <a
-                class="fr-footer__content-link"
-                href="https://legifrance.gouv.fr"
-                >legifrance.gouv.fr</a
-              >
+              <a class="fr-footer__content-link"
+                 title="legifrance.gouv.fr - nouvelle fenêtre"
+                 rel="noreferrer noopener"
+                 target="_blank"
+                 href="https://www.legifrance.gouv.fr/">legifrance.gouv.fr</a>
             </li>
             <li class="fr-footer__content-item">
-              <a class="fr-footer__content-link" href="https://gouvernement.fr"
-                >gouvernement.fr</a
-              >
+              <a class="fr-footer__content-link"
+                 title="info.gouv.fr - nouvelle fenêtre"
+                 rel="noreferrer noopener"
+                 target="_blank"
+                 href="https://www.info.gouv.fr/">info.gouv.fr</a>
             </li>
             <li class="fr-footer__content-item">
-              <a
-                class="fr-footer__content-link"
-                href="https://service-public.fr"
-                >service-public.fr</a
-              >
+              <a class="fr-footer__content-link"
+                 title="service-public.fr - nouvelle fenêtre"
+                 rel="noreferrer noopener"
+                 target="_blank"
+                 href="https://service-public.fr">service-public.fr</a>
             </li>
             <li class="fr-footer__content-item">
-              <a class="fr-footer__content-link" href="https://data.gouv.fr"
-                >data.gouv.fr</a
-              >
+              <a class="fr-footer__content-link"
+                 title="data.gouv.fr - nouvelle fenêtre"
+                 rel="noreferrer noopener"
+                 target="_blank"
+                 href="https://data.gouv.fr">data.gouv.fr</a>
             </li>
           </ul>
         </div>
