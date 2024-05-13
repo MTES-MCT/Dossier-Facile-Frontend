@@ -25,7 +25,7 @@
               <div class="fr-fieldset__element fr-fieldset__element--inline">
                   <div class="fr-radio-group fr-radio-rich">
                       <input type="radio" id="radio-rich-inline-1" name="radio-rich-inline"
-                            v-model="profile"
+                            v-model="contactFormData.profile"
                             value="tenant"
                       >
                       <label class="fr-label" for="radio-rich-inline-1">
@@ -43,7 +43,7 @@
               <div class="fr-fieldset__element fr-fieldset__element--inline">
                   <div class="fr-radio-group fr-radio-rich">
                       <input type="radio" id="radio-rich-inline-2" name="radio-rich-inline"
-                            v-model="profile"
+                            v-model="contactFormData.profile"
                             value="owner"
                       >
                       <label class="fr-label" for="radio-rich-inline-2">
@@ -63,14 +63,14 @@
             </fieldset>
         </div>
 
-        <div v-if="profile === 'tenant'" class="fr-mt-3w">
+        <div v-if="contactFormData.profile === 'tenant'" class="fr-mt-3w">
           <TenantHelpAccordion></TenantHelpAccordion>
         </div>
-        <div v-if="profile === 'owner'" class="fr-mt-3w">
+        <div v-if="contactFormData.profile === 'owner'" class="fr-mt-3w">
           <OwnerHelpAccordion></OwnerHelpAccordion>
         </div>
 
-        <div v-if="profile !== ''" class="fr-mt-7w">
+        <div v-if="contactFormData.profile !== ''" class="fr-mt-7w">
           <div class="fr-accordions-group">
             <section class="fr-accordion fr-accordion--form">
                 <h3 class="fr-accordion__title">
@@ -359,19 +359,13 @@ import { Form, Field, ErrorMessage } from "vee-validate";
 import "../validators/validationRules";
 
 const { t } = useI18n();
-const props = withDefaults(
-  defineProps<{
+const props = defineProps<{
     user?: User;
     profile?: string;
-  }>(),
-  {
-    profile: "profile-owner",
-  }
-);
+  }>();
 
 const contactFormData = ref(new ContactFormData());
 const status = ref("NEW"); // NEW, OK, KO
-const profile = ref("");
 
 onMounted(() => {
   if (props.user) {
@@ -382,7 +376,7 @@ onMounted(() => {
       contactFormData.value.lastname = props.user.lastName;
     }
     contactFormData.value.email = props.user.email;
-    contactFormData.value.profile = props.profile;
+    contactFormData.value.profile = props.profile || "";
   }
 });
 

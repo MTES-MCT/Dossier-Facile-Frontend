@@ -1,5 +1,5 @@
 <template>
-  <ContactForm profile="profile-tenant" :user="user" />
+  <ContactForm profile="tenant" :user="user" />
 </template>
 
 <script setup lang="ts">
