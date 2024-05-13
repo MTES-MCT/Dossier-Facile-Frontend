@@ -1363,6 +1363,9 @@
     "homepage": "Homepage",
     "contact-us": "Contact us"
   },
+  "contact": {
+    "title": "How can we help you?"
+  },
   "declined-messages": {
     "header": "Message from our validation team:"
   }

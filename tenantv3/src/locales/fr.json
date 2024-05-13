@@ -1407,6 +1407,9 @@
     "homepage": "Page d'accueil",
     "contact-us": "Contactez-nous"
   },
+  "contact": {
+    "title": "Comment pouvons-nous vous aider ?"
+  },
   "declined-messages": {
     "header": "Message de notre équipe de validation :"
   }
