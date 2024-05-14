@@ -375,7 +375,7 @@
     "token-expired": "The link has expired, please start the forgot password procedure"
   },
   "confirmaccount": {
-    "action-confirmed" : "Your action has been taken account.",
+    "action-confirmed": "Your action has been taken account.",
     "token-err": "An error occurred, if you have already confirmed your account you can log in, otherwise you can start the <a href='/forgotten-password'>password reset procedure</a>"
   },
   "corporationidentification": {
@@ -1362,6 +1362,9 @@
     },
     "homepage": "Homepage",
     "contact-us": "Contact us"
+  },
+  "contact": {
+    "title": "How can we help you?"
   },
   "declined-messages": {
     "header": "Message from our validation team:"

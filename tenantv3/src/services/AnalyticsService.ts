@@ -17,6 +17,12 @@ export const AnalyticsService = {
     ]);
   },
 
+  contactEvent(tag: string) {
+    this.sendEvent(tag, {
+      event_category: "contact"
+    })
+  },
+
   loginSuccess() {
     this.sendEvent("login-success", {
       event_category: "login",

@@ -1,68 +1,87 @@
 <template>
-  <div class="bg-blue">
-    <div class="fr-container">
-      <section>
-        <div class="fr-grid-row fr-grid-row--center">
-          <div class="fr-col-12">
-            <div class="main fr-p-4w">
-              <div class="main-bar fr-grid-row">
-                <div class="header-title mobile-margin">
-                  <h1 class="fr-mr-2w fr-mb-0 fr-mt-0">
-                    {{ t("title-contact") }}
-                  </h1>
-                </div>
-              </div>
-              <div class="main-description fr-mt-2w">
-                <i18n-t keypath="contact-description" tag="p">
-                  <template v-slot:doc_link>
-                    <a
-                      href="https://docs.dossierfacile.logement.gouv.fr"
-                      title="Documentation DossierFacile"
-                      target="_blank"
-                      >{{ t("our-documentation") }}</a
-                    >
-                  </template>
-                </i18n-t>
-              </div>
-              <div
-                v-if="status == 'OK'"
-                class="bg-white fr-px-md-14w mail-success-container"
-              >
-                <div class="fr-py-4w text-center green-title">
-                  {{ t("message-sent-title") }}
-                </div>
-                <div class="fr-pb-4w fr-px-md-7w text-center">
-                  {{ t("message-sent-text") }}
-                </div>
-                <div class="fr-pb-4w text-center">
-                  <DfButton class="" :primary="true">
-                    <a
-                      class="fr-external-link"
-                      href="https://docs.dossierfacile.logement.gouv.fr"
-                      title="Documentation DossierFacile"
-                      target="_blank"
-                      rel="noreferrer noopener "
-                      >{{ t("consult-our-documentation") }}</a
-                    >
-                  </DfButton>
-                </div>
-              </div>
-              <div v-if="status === 'KO'" class="bg-white fr-p-4w fr-px-md-10w">
-                <Modal @close="closeModal">
-                  <template v-slot:body>
-                    <div class="fr-container">
-                      <div class="fr-grid-row justify-content-center">
-                        <div class="fr-col-12">
-                          <p>
-                            {{ t("contact-submit-error") }}
-                          </p>
-                        </div>
+      <section class="fr-background-default--grey fr-p-4w fr-px-md-10w">
+        <h1>
+          {{ t("title") }}
+        </h1>
+        <div class="fr-callout">
+          <h2 class="fr-callout__title">Vous avez besoin de renseignements ?</h2>
+          <p class="fr-callout__text">
+            Notre aide en ligne rassemble de nombreuses informations :
+            <ul>
+            <li>de la documentation, comme <a href="https://docs.dossierfacile.logement.gouv.fr/article/93-liste-des-documents-a-fournir-2-0" rel="noopener" target="_blank">la liste des documents à fournir</a> pour créer un DossierFacile</li>
+            <li>des tutoriels : comment créer un <a href="https://docs.dossierfacile.logement.gouv.fr/article/48-dossier-couple-2023" rel="noopener" target="_blank">DossierFacile en couple ?</a> Comment créer un <a href="https://docs.dossierfacile.logement.gouv.fr/article/7-ajout-dun-colocataire" rel="noopener" target="_blank">DossierFacile en colocation ?</a></li>
+            <li>des informations plus générales, à propos de la <a href="https://docs.dossierfacile.logement.gouv.fr/article/31-gestion-des-donnees-et-securite" rel="noopener" target="_blank">sécurité de vos documents</a> par exemple</li>
+            </ul>
+          </p>
+          <a class="fr-btn" href="https://docs.dossierfacile.logement.gouv.fr" rel="noopener" target="_blank">Consulter notre aide en ligne</a>
+        </div>
+
+        <div class="fr-background-alt--blue-france fr-p-3w">
+          <h2 class="fr-text-title--blue-france fr-h6">Quelle est votre situation ?</h2>
+            <fieldset class="fr-fieldset" id="radio-rich-inline" aria-labelledby="radio-rich-inline-legend radio-rich-inline-messages">
+              <legend class="fr-fieldset__legend--regular fr-fieldset__legend" id="radio-rich-inline-legend">
+                Vous avez créé :
+              </legend>
+              <div class="fr-fieldset__element fr-fieldset__element--inline">
+                  <div class="fr-radio-group fr-radio-rich">
+                      <input type="radio" id="radio-rich-inline-1" name="radio-rich-inline"
+                            v-model="contactFormData.profile"
+                            @change="onProfileChange"
+                            value="tenant"
+                      >
+                      <label class="fr-label" for="radio-rich-inline-1">
+                          Un dossier locataire
+                      </label>
+                      <div class="fr-radio-rich__img">
+                        <svg class="fr-artwork" aria-hidden="true" viewBox="0 0 80 80" width="80px" height="80px">
+                          <use class="fr-artwork-decorative" xlink:href="../../../node_modules/@gouvfr/dsfr/src/core/asset/artwork/pictograms/document/document.svg#artwork-decorative"></use>
+                          <use class="fr-artwork-minor" xlink:href="../../../node_modules/@gouvfr/dsfr/src/core/asset/artwork/pictograms/document/document.svg#artwork-minor"></use>
+                          <use class="fr-artwork-major" xlink:href="../../../node_modules/@gouvfr/dsfr/src/core/asset/artwork/pictograms/document/document.svg#artwork-major"></use>
+                        </svg>
                       </div>
-                    </div>
-                  </template>
-                </Modal>
+                  </div>
               </div>
-              <div v-if="status !== 'OK'" class="bg-white fr-p-4w fr-px-md-10w">
+              <div class="fr-fieldset__element fr-fieldset__element--inline">
+                  <div class="fr-radio-group fr-radio-rich">
+                      <input type="radio" id="radio-rich-inline-2" name="radio-rich-inline"
+                            v-model="contactFormData.profile"
+                            @change="onProfileChange"
+                            value="owner"
+                      >
+                      <label class="fr-label" for="radio-rich-inline-2">
+                          Un compte propriétaire
+                      </label>
+                      <div class="fr-radio-rich__img">
+                        <svg class="fr-artwork" aria-hidden="true" viewBox="0 0 80 80" width="80px" height="80px">
+                          <use class="fr-artwork-decorative" xlink:href="../../../node_modules/@gouvfr/dsfr/src/core/asset/artwork/pictograms/buildings/house.svg#artwork-decorative"></use>
+                          <use class="fr-artwork-minor" xlink:href="../../../node_modules/@gouvfr/dsfr/src/core/asset/artwork/pictograms/buildings/house.svg#artwork-minor"></use>
+                          <use class="fr-artwork-major" xlink:href="../../../node_modules/@gouvfr/dsfr/src/core/asset/artwork/pictograms/buildings/house.svg#artwork-major"></use>
+                        </svg>
+                      </div>
+                  </div>
+              </div>
+              <div class="fr-messages-group" id="radio-rich-inline-messages" aria-live="assertive">
+              </div>
+            </fieldset>
+        </div>
+
+        <div v-if="contactFormData.profile === 'tenant'" class="fr-mt-3w">
+          <TenantHelpAccordion @accordion-clicked="accordionClicked"></TenantHelpAccordion>
+        </div>
+        <div v-if="contactFormData.profile === 'owner'" class="fr-mt-3w">
+          <OwnerHelpAccordion @accordion-clicked="accordionClicked"></OwnerHelpAccordion>
+        </div>
+
+        <div v-if="contactFormData.profile === 'tenant' || contactFormData.profile === 'owner'" class="fr-mt-7w">
+          <div class="fr-accordions-group">
+            <section class="fr-accordion fr-accordion--form">
+                <h3 class="fr-accordion__title">
+                    <button class="fr-accordion__btn fr-background-default--grey fr-text-title--grey" aria-expanded="false" aria-controls="accordion-form">Je ne trouve pas la réponse à ma question</button>
+                </h3>
+                <div class="fr-collapse" id="accordion-form">
+                <p>
+                  Si votre question ne figure pas dans cette liste, vous pouvez contacter notre équipe d’assistance en utilisant ce formulaire.
+                </p>
                 <Form name="form" @submit="submitForm">
                   <div class="fr-grid-row fr-grid-row--center">
                     <div class="fr-col-12 fr-mb-3w">
@@ -175,61 +194,6 @@
                     </div>
                     <div class="fr-col-12 fr-mb-3w">
                       <Field
-                        id="profile"
-                        name="profile"
-                        v-model="contactFormData.profile"
-                        v-slot="{ meta }"
-                        :rules="{
-                          required: true,
-                        }"
-                      >
-                        <fieldset
-                          class="fr-radio-group-container"
-                          aria-labelledby="radio-profile-legend"
-                          role="group"
-                          :class="{
-                            'fr-fieldset--valid': meta.valid,
-                            'fr-fieldset--error': !meta.valid,
-                          }"
-                        >
-                          <legend id="radio-profile-legend">
-                            {{ t("profile") }}
-                            <span style="color: red"> *</span> :
-                          </legend>
-                          <input
-                            v-model="contactFormData.profile"
-                            id="profile-tenant"
-                            type="radio"
-                            name="profile"
-                            value="profile-tenant"
-                          />
-                          <label
-                            class="fr-ml-md-4w fr-px-8w fr-py-2w"
-                            for="profile-tenant"
-                            >{{ t("tenant") }}</label
-                          >
-                          <input
-                            v-model="contactFormData.profile"
-                            id="profile-owner"
-                            type="radio"
-                            name="profile"
-                            value="profile-owner"
-                          />
-                          <label
-                            class="fr-ml-md-2w fr-px-8w fr-py-2w"
-                            for="profile-owner"
-                            >{{ t("owner") }}</label
-                          >
-                        </fieldset>
-                        <ErrorMessage name="profile" v-slot="{ message }">
-                          <span role="alert" class="fr-error-text">{{
-                            t(message || "")
-                          }}</span>
-                        </ErrorMessage>
-                      </Field>
-                    </div>
-                    <div class="fr-col-12 fr-mb-3w">
-                      <Field
                         id="subject"
                         name="subject"
                         v-model="contactFormData.subject"
@@ -298,8 +262,8 @@
                         </ErrorMessage>
                       </Field>
                     </div>
-                    <div class="fr-col-12 fr-mb-3w">
-                      <div class="bg-purple fr-checkbox-group">
+                    <div class="fr-background-alt--blue-france fr-p-2w fr-col-12 fr-mb-3w">
+                      <div class="fr-checkbox-group">
                         <Field
                           name="acceptCgu"
                           id="acceptCgu"
@@ -328,19 +292,65 @@
                     </div>
                   </div>
                 </Form>
-              </div>
-            </div>
+                </div>
+            </section>
           </div>
         </div>
+
+
+              <div
+                v-if="status == 'OK'">
+                <Modal @close="closeModal">
+                  <template v-slot:body>
+              <div
+                class="fr-px-md-14w mail-success-container"
+              >
+                <div class="fr-py-4w text-center green-title">
+                  {{ t("message-sent-title") }}
+                </div>
+                <div class="fr-pb-4w fr-px-md-7w text-center">
+                  {{ t("message-sent-text") }}
+                </div>
+                <div class="fr-pb-4w text-center">
+                  <DfButton class="" :primary="true">
+                    <a
+                      class="fr-external-link"
+                      href="https://docs.dossierfacile.logement.gouv.fr"
+                      title="Documentation DossierFacile"
+                      target="_blank"
+                      rel="noreferrer noopener "
+                      >{{ t("consult-our-documentation") }}</a
+                    >
+                  </DfButton>
+                </div>
+              </div>
+              </template>
+              </Modal>
+              </div>
+              <div v-if="status === 'KO'">
+                <Modal @close="closeModal">
+                  <template v-slot:body>
+                    <div class="fr-container">
+                      <div class="fr-grid-row justify-content-center">
+                        <div class="fr-col-12">
+                          <p>
+                            {{ t("contact-submit-error") }}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </template>
+                </Modal>
+              </div>
       </section>
-    </div>
-  </div>
 </template>
 
 <script setup lang="ts">
 import Modal from "./Modal.vue";
 import DfButton from "df-shared-next/src/Button/Button.vue";
 import RequiredFieldsInstruction from "df-shared-next/src/components/form/RequiredFieldsInstruction.vue";
+import OwnerHelpAccordion from "./contact/OwnerHelpAccordion.vue";
+import TenantHelpAccordion from "./contact/TenantHelpAccordion.vue";
 import FieldLabel from "df-shared-next/src/components/form/FieldLabel.vue";
 import { ContactFormData } from "df-shared-next/src/models/ContactFormData";
 import { SupportService } from "df-shared-next/src/services/SupportService";
@@ -351,36 +361,43 @@ import { Form, Field, ErrorMessage } from "vee-validate";
 import "../validators/validationRules";
 
 const { t } = useI18n();
-const props = withDefaults(
-  defineProps<{
+const props = defineProps<{
     user?: User;
     profile?: string;
-  }>(),
-  {
-    profile: "profile-owner",
-  }
-);
+  }>();
 
-const contactFormData = new ContactFormData();
+const contactFormData = ref(new ContactFormData());
 const status = ref("NEW"); // NEW, OK, KO
+const emit = defineEmits(["on-profile-change", "on-send-message", "on-accordion-clicked"]);
 
 onMounted(() => {
   if (props.user) {
     if (props.user.firstName) {
-      contactFormData.firstname = props.user.firstName;
+      contactFormData.value.firstname = props.user.firstName;
     }
     if (props.user.lastName) {
-      contactFormData.lastname = props.user.lastName;
+      contactFormData.value.lastname = props.user.lastName;
     }
-    contactFormData.email = props.user.email;
-    contactFormData.profile = props.profile;
+    contactFormData.value.email = props.user.email;
+    contactFormData.value.profile = props.profile || "";
   }
 });
 
+function accordionClicked(tag: string) {
+  emit('on-accordion-clicked', tag)
+}
+
+function onProfileChange($event: any) {
+  emit("on-profile-change", contactFormData.value.profile);
+}
+
 function submitForm() {
-  SupportService.sendMail(contactFormData)
+  emit("on-send-message", contactFormData.value.profile);
+  SupportService.sendMail(contactFormData.value)
     .then(() => {
       status.value = "OK";
+      contactFormData.value.subject = "";
+      contactFormData.value.message = "";
     })
     .catch((error: any) => {
       console.log(error);
@@ -394,70 +411,11 @@ function closeModal() {
 </script>
 
 <style scoped lang="scss">
-.bg-blue {
-  width: 100%;
-  background-color: var(--bf100-g750);
-}
-.bg-white {
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  background: var(--background-default-grey);
-}
 .text-right {
   text-align: right;
 }
-.fr-breadcrumb {
-  margin-top: 0;
-  margin-bottom: 0;
-}
 textarea {
   height: 12rem;
-}
-fieldset.fr-radio-group-container {
-  border: none;
-  padding: 0;
-  margin: 0;
-  text-align: left;
-  input[type="radio"] {
-    clip: rect(1px, 1px, 1px, 1px);
-    position: absolute !important;
-  }
-  input[type="radio"]:checked + label {
-    background: var(--blue-france-925);
-    outline-color: #0a76f6;
-    outline-offset: -1px;
-    outline-style: auto;
-    outline-width: 1px;
-    text-shadow: 0 0 1px rgba(0, 0, 0, 0.7);
-  }
-  input[type="radio"]:focus + label {
-    outline-color: #0a76f6;
-    outline-offset: 2px;
-    outline-style: auto;
-    outline-width: 2px;
-  }
-  label {
-    @media all and (min-width: 768px) {
-      display: inline-block;
-    }
-    @media all and (max-width: 767px) {
-      margin-right: 0;
-      display: flex;
-      margin-bottom: 1rem;
-    }
-    background-color: var(--background-contrast-grey);
-    border-radius: 10px;
-  }
-  legend {
-    @media all and (min-width: 992px) {
-      display: contents;
-    }
-    margin-bottom: 1rem;
-  }
-}
-.fr-fieldset--error {
-  legend {
-    color: var(--text-default-error);
-  }
 }
 .green-title {
   color: green;
@@ -466,7 +424,7 @@ fieldset.fr-radio-group-container {
   padding-top: 0 !important;
 }
 .mail-success-container:before {
-  content: url("../assets/enveloppe.webp");
+  content: url(../assets/enveloppe.webp);
   text-align: center;
   position: relative;
   margin: 0;
@@ -479,54 +437,22 @@ fieldset.fr-radio-group-container {
   content: "";
 }
 
-fieldset.fr-radio-group-container {
-  border: none;
-  padding: 0;
-  margin: 0;
-  text-align: left;
-  input[type="radio"] {
-    clip: rect(1px, 1px, 1px, 1px);
-    position: absolute !important;
-  }
-  input[type="radio"]:checked + label {
-    background: var(--blue-france-925);
-    outline-color: #0a76f6;
-    outline-offset: -1px;
-    outline-style: auto;
-    outline-width: 1px;
-    text-shadow: 0 0 1px rgba(0, 0, 0, 0.7);
-  }
-  input[type="radio"]:focus + label {
-    outline-color: #0a76f6;
-    outline-offset: 2px;
-    outline-style: auto;
-    outline-width: 2px;
-  }
-  label {
-    @media all and (min-width: 768px) {
-      display: inline-block;
-    }
-    @media all and (max-width: 767px) {
-      margin-right: 0;
-      display: flex;
-      margin-bottom: 1rem;
-    }
-    background-color: var(--background-contrast-grey);
-    border-radius: 10px;
-  }
-  legend {
-    @media all and (min-width: 992px) {
-      display: contents;
-    }
-    margin-bottom: 1rem;
-  }
+.fr-accordion--form::before {
+  box-shadow: 0px 0 0 1px var(--border-default-grey);
+}
+
+</style>
+
+<style lang="scss">
+.fr-accordion::before {
+  box-shadow: none;
 }
 </style>
 
 <i18n>
 {
   "en": {
-    "title-contact": "Contact Us",
+    "title": "How can we help you ?",
     "firstname": "Firstname",
     "lastname": "Lastname",
     "email": "Email",
@@ -550,7 +476,7 @@ fieldset.fr-radio-group-container {
     "see-breadcrumb": "See breadcrumb"
   },
   "fr": {
-    "title-contact": "Contactez notre support",
+    "title": "Comment pouvons-nous vous aider ?",
     "firstname": "Prénom",
     "lastname": "Nom",
     "email": "Votre adresse e-mail",
@@ -561,7 +487,7 @@ fieldset.fr-radio-group-container {
     "submit" : "Envoyer mon message",
     "owner": "Propriétaire",
     "tenant": "Locataire",
-    "accept-cgu" : "Le support DossierFacile est assuré par des humains travaillant directement pour DossierFacile et qui utilisent le logiciel Helpscout. En contactant le support DossierFacile, je consens à l'utilisation de toutes les données transmises par ce biais à DossierFacile et Helpscout dans le but de répondre à ma demande de support.",
+    "accept-cgu" : "Vous acceptez que ces informations soient transmises à notre équipe de support et à Helpscout, notre outil d’assistance, afin de répondre à votre demande.",
     "field-required" : "Ce champ est requis",
     "require-accept" : "L'acception est requise",
     "email-not-valid" : "Email non-valide",

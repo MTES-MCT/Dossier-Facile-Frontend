@@ -8,7 +8,9 @@ export default defineConfig({
   server: {
     port: 9184,
     fs: {
-      allow: ['..']
+      allow: [
+        '../df-shared-next',
+        '..']
     }
   },
   plugins: [vue(),

@@ -80,5 +80,8 @@
   "modal": {
     "close": "Close",
     "close-alt": "Close modal window"
+  },
+  "contact": {
+    "title": "How can we help you?"
   }
 }
