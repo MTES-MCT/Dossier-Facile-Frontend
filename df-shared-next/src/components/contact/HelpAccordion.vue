@@ -2,7 +2,7 @@
     <div class="fr-accordions-group">
         <section class="fr-accordion" v-for="e in elements" :key="e.id">
             <h3 class="fr-accordion__title">
-                <button class="fr-accordion__btn" aria-expanded="false" :aria-controls="e.id"><i class="ri-arrow-right-circle-fill fs-32"></i>&nbsp;{{ e.title }}</button>
+                <button class="fr-accordion__btn" @click="accordionClicked(e.tag)" aria-expanded="false" :aria-controls="e.id"><i class="ri-arrow-right-circle-fill fs-32"></i>&nbsp;{{ e.title }}</button>
             </h3>
             <div class="fr-collapse" :id="e.id">
                 <p v-html="e.content"></p>
@@ -20,5 +20,11 @@ import { AccordionHelpModel } from '@/models/AccordionHelpModel';
 const props = defineProps<{
     elements: AccordionHelpModel[],
 }>();
+
+const emit = defineEmits(["accordion-clicked"]);
+
+function accordionClicked(tag: string) {
+    emit('accordion-clicked', tag)
+}
 
 </script>

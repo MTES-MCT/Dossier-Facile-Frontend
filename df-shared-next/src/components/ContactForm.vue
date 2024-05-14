@@ -26,6 +26,7 @@
                   <div class="fr-radio-group fr-radio-rich">
                       <input type="radio" id="radio-rich-inline-1" name="radio-rich-inline"
                             v-model="contactFormData.profile"
+                            @change="onProfileChange"
                             value="tenant"
                       >
                       <label class="fr-label" for="radio-rich-inline-1">
@@ -44,6 +45,7 @@
                   <div class="fr-radio-group fr-radio-rich">
                       <input type="radio" id="radio-rich-inline-2" name="radio-rich-inline"
                             v-model="contactFormData.profile"
+                            @change="onProfileChange"
                             value="owner"
                       >
                       <label class="fr-label" for="radio-rich-inline-2">
@@ -64,10 +66,10 @@
         </div>
 
         <div v-if="contactFormData.profile === 'tenant'" class="fr-mt-3w">
-          <TenantHelpAccordion></TenantHelpAccordion>
+          <TenantHelpAccordion @accordion-clicked="accordionClicked"></TenantHelpAccordion>
         </div>
         <div v-if="contactFormData.profile === 'owner'" class="fr-mt-3w">
-          <OwnerHelpAccordion></OwnerHelpAccordion>
+          <OwnerHelpAccordion @accordion-clicked="accordionClicked"></OwnerHelpAccordion>
         </div>
 
         <div v-if="contactFormData.profile !== ''" class="fr-mt-7w">
@@ -366,6 +368,7 @@ const props = defineProps<{
 
 const contactFormData = ref(new ContactFormData());
 const status = ref("NEW"); // NEW, OK, KO
+const emit = defineEmits(["on-profile-change", "on-send-message", "on-accordion-clicked"]);
 
 onMounted(() => {
   if (props.user) {
@@ -380,7 +383,16 @@ onMounted(() => {
   }
 });
 
+function accordionClicked(tag: string) {
+  emit('on-accordion-clicked', tag)
+}
+
+function onProfileChange($event: any) {
+  emit("on-profile-change", contactFormData.value.profile);
+}
+
 function submitForm() {
+  emit("on-send-message", contactFormData.value.profile);
   SupportService.sendMail(contactFormData.value)
     .then(() => {
       status.value = "OK";

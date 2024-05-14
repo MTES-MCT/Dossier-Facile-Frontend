@@ -2,7 +2,7 @@
   <div class="bg-blue">
     <div class="fr-container">
       <Breadcrumb :currentPage="t('contact.title')"/>
-      <ContactForm profile="tenant" :user="user" />
+      <ContactForm @on-profile-change="profileChanged" @on-send-message="contactMessageSent" @on-accordion-clicked="accordionClicked" profile="tenant" :user="user" />
     </div>
   </div>
 </template>
@@ -13,6 +13,7 @@ import Breadcrumb from "df-shared-next/src/components/dsfr/Breadcrumb.vue";
 import useTenantStore from "@/stores/tenant-store";
 import { computed, onBeforeUnmount, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
+import { AnalyticsService } from "../services/AnalyticsService";
 
 const store = useTenantStore();
 const user = computed(() => { return store.user });
@@ -25,6 +26,22 @@ const { t } = useI18n();
   onBeforeUnmount(() => {
     window.Beacon("destroy");
   })
+
+function profileChanged(profile: string) {
+    if (profile === 'tenant') {
+      AnalyticsService.contactEvent('contact_questions_rent')
+    } else {
+      AnalyticsService.contactEvent('contact_questions_owner')
+    }
+  }
+
+  function contactMessageSent() {
+    AnalyticsService.contactEvent('contact_send_message');
+  }
+
+  function accordionClicked(tag: string) {
+    AnalyticsService.contactEvent(tag);
+  }
 </script>
 
 <style scoped lang="scss"></style>

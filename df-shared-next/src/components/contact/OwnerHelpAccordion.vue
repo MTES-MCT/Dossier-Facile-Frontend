@@ -1,34 +1,39 @@
 <template>
-<HelpAccordion :elements="elements"></HelpAccordion>
+<HelpAccordion @accordion-clicked="emit('accordion-clicked', $event)" :elements="elements"></HelpAccordion>
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import HelpAccordion from './HelpAccordion.vue';
+import { AccordionHelpModel } from '@/models/AccordionHelpModel';
 
 
 const { t } = useI18n();
+const emit = defineEmits(["accordion-clicked"]);
 
 const elements = [
-    {
-        id: 'element-1',
-        title: t('title-1'),
-        content: t('content-1'),
-        highlight: t('highlight-1'),
-    },
-    {
-        id: 'element-2',
-        title: t('title-2'),
-        content: t('content-2'),
-        highlight: t('highlight-2'),
-    },
-    {
-        id: 'element-3',
-        title: t('title-3'),
-        content: t('content-3'),
-        highlight: t('highlight-3'),
-    },
-]
+  {
+    id: 'element-1',
+    title: t('title-1'),
+    content: t('content-1'),
+    highlight: t('highlight-1'),
+    tag: 'contact_why_no_view_folder'
+  },
+  {
+    id: 'element-2',
+    title: t('title-2'),
+    content: t('content-2'),
+    highlight: t('highlight-2'),
+    tag: 'contact_where_folder'
+  },
+  {
+    id: 'element-3',
+    title: t('title-3'),
+    content: t('content-3'),
+    highlight: t('highlight-3'),
+    tag: 'contact_connect_owner'
+  },
+] as AccordionHelpModel[];
 
 </script>
 
