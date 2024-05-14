@@ -410,6 +410,13 @@
             height="60"
             width="185"
           />
+          <LogoPartnerComponent
+            :image="lokappyUrl"
+            height="60"
+            href="https://lokappy.co/"
+            name="lokappy"
+            width="231"
+          />
         </div>
         <div class="text-center fr-mt-5w fr-mb-5w">
           <p>
@@ -511,6 +518,7 @@ import pdpUrl from "../assets/logos/partir_de_paris.webp";
 import goodlizUrl from "../assets/logos/goodliz.webp";
 import pautionsUrl from "../assets/logos/pautions.webp";
 import jinkaUrl from "../assets/logos/jinka.webp";
+import lokappyUrl from "../assets/logos/lokappy.webp";
 import visaleUrl from "../assets/logos/visale.webp";
 import anilUrl from "../assets/logos/anil.webp";
 import unmlUrl from "../assets/logos/UNML.webp";
