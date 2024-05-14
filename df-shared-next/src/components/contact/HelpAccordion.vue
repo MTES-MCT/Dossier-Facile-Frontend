@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { AccordionHelpModel } from '@/models/AccordionHelpModel';
+import { AccordionHelpModel } from '../../models/AccordionHelpModel';
 
 const props = defineProps<{
     elements: AccordionHelpModel[],

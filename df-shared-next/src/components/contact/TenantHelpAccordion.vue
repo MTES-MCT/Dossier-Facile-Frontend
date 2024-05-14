@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import HelpAccordion from './HelpAccordion.vue';
-import { AccordionHelpModel } from '@/models/AccordionHelpModel';
+import { AccordionHelpModel } from '../../models/AccordionHelpModel';
 
 
 const { t } = useI18n();
