@@ -8,12 +8,12 @@
           <p class="fr-callout__text">
             Notre aide en ligne rassemble de nombreuses informations :
             <ul>
-            <li>de la documentation, comme <a href="https://docs.dossierfacile.logement.gouv.fr/article/93-liste-des-documents-a-fournir-2-0" target="_blank">la liste des documents à fournir</a> pour créer un DossierFacile</li>
-            <li>des tutoriels : comment créer un <a href="https://docs.dossierfacile.logement.gouv.fr/article/48-dossier-couple-2023" target="_blank">DossierFacile en couple ?</a> Comment créer un <a href="https://docs.dossierfacile.logement.gouv.fr/article/7-ajout-dun-colocataire" target="_blank">DossierFacile en colocation ?</a></li>
-            <li>des informations plus générales, à propos de la <a href="https://docs.dossierfacile.logement.gouv.fr/article/31-gestion-des-donnees-et-securite" target="_blank">sécurité de vos documents</a> par exemple</li>
+            <li>de la documentation, comme <a href="https://docs.dossierfacile.logement.gouv.fr/article/93-liste-des-documents-a-fournir-2-0" rel="noopener" target="_blank">la liste des documents à fournir</a> pour créer un DossierFacile</li>
+            <li>des tutoriels : comment créer un <a href="https://docs.dossierfacile.logement.gouv.fr/article/48-dossier-couple-2023" rel="noopener" target="_blank">DossierFacile en couple ?</a> Comment créer un <a href="https://docs.dossierfacile.logement.gouv.fr/article/7-ajout-dun-colocataire" rel="noopener" target="_blank">DossierFacile en colocation ?</a></li>
+            <li>des informations plus générales, à propos de la <a href="https://docs.dossierfacile.logement.gouv.fr/article/31-gestion-des-donnees-et-securite" rel="noopener" target="_blank">sécurité de vos documents</a> par exemple</li>
             </ul>
           </p>
-          <a class="fr-btn" href="https://docs.dossierfacile.logement.gouv.fr" target="_blank">Consulter notre aide en ligne</a>
+          <a class="fr-btn" href="https://docs.dossierfacile.logement.gouv.fr" rel="noopener" target="_blank">Consulter notre aide en ligne</a>
         </div>
 
         <div class="fr-background-alt--blue-france fr-p-3w">
@@ -72,7 +72,7 @@
           <OwnerHelpAccordion @accordion-clicked="accordionClicked"></OwnerHelpAccordion>
         </div>
 
-        <div v-if="contactFormData.profile !== ''" class="fr-mt-7w">
+        <div v-if="contactFormData.profile === 'tenant' || contactFormData.profile === 'owner'" class="fr-mt-7w">
           <div class="fr-accordions-group">
             <section class="fr-accordion fr-accordion--form">
                 <h3 class="fr-accordion__title">
