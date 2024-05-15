@@ -24,7 +24,7 @@
     "watermark": "yarn workspace watermark",
     "e2e": "yarn workspace e2e-tests",
     "storybook": "yarn workspace storybook",
-    "update-lockfiles": "yarn && echo www tenantv3 owner watermark e2e-tests storybook | xargs -n 1 cp yarn.lock"
+    "update-lockfiles": "yarn && echo www tenantv3 owner watermark e2e-tests | xargs -n 1 cp yarn.lock"
   },
   "devDependencies": {
     "@storybook/vue-webpack5": "7.0.2"
