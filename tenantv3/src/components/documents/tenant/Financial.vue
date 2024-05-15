@@ -1,5 +1,51 @@
 <template>
   <div>
+    <Modal v-show="showContracts == true" @close="showContracts = false" >
+      <template v-slot:header>
+        <div class="fr-container">
+          <h1 id="fr-modal-title-modal-1" class="fr-modal__title">
+            Dîtes le nous une fois !
+          </h1>
+        </div>
+      </template>
+      <template v-slot:body>
+        <div class="fr-container my-modal">
+          <div class="fr-grid-row justify-content-center">
+            <fieldset class="fr-fieldset" id="checkboxes-hint-el-sm"
+                      aria-labelledby="checkboxes-hint-el-sm-legend checkboxes-hint-el-sm-messages">
+              <legend class="fr-fieldset__legend--regular fr-fieldset__legend" id="checkboxes-hint-el-sm-legend">
+                Sélectionnez les justificatif de revenus que vous souhaitez ajouter:
+              </legend>
+              <div
+                  v-for="contract in user.contracts"
+                  v-bind:key="contract.id"
+                  class="fr-fieldset__element"
+              >
+                <div class="fr-checkbox-group fr-checkbox-group--sm">
+
+                  <input
+                         :id="'checkboxes-hint-el-sm-1' + contract.id" type="checkbox"
+                         aria-describedby="checkboxes-hint-el-sm-1-messages">
+                  <label class="fr-label" :for="'checkboxes-hint-el-sm-1' + contract.id"> <b>{{ contract.company }}</b>&nbsp; depuis le {{contract.debut}} <span
+                      class="fr-hint-text">{{ contract.nature }} - Montant moyen mens. {{ contract.averageAmount }} </span> </label>
+                  <div class="fr-messages-group" id="checkboxes-hint-el-sm-1-messages" aria-live="assertive"></div>
+
+                </div>
+              </div>
+
+              <div class="fr-messages-group" id="checkboxes-hint-el-sm-messages" aria-live="assertive"></div>
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="btn-align">
+          <DfButton
+              @on-click="addRevenus()"
+              :primary="true"
+          >Ajouter les revenus </DfButton>
+        </div>
+      </template>
+    </Modal>
     <div v-if="editFinancialDocument">
       <FinancialDocumentForm></FinancialDocumentForm>
     </div>
@@ -69,17 +115,25 @@ import FinancialDocumentForm from "./FinancialDocumentForm.vue";
 import ColoredTag from "df-shared-next/src/components/ColoredTag.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import SimulationCaf from "../share/SimulationCaf.vue";
-import { computed, onBeforeMount } from "vue";
+import {computed, onBeforeMount, ref} from "vue";
 import useTenantStore from "@/stores/tenant-store";
 import { useI18n } from "vue-i18n";
 import { ToastService } from "@/services/ToastService";
 import {useLoading} from 'vue-loading-overlay'
+import DocumentInsert from "@/components/documents/share/DocumentInsert.vue";
+import WarningTaxDeclaration from "@/components/documents/share/WarningTaxDeclaration.vue";
+import Modal from "df-shared-next/src/components/Modal.vue";
+import ConfirmModal from "df-shared-next/src/components/ConfirmModal.vue";
+import DfButton from "df-shared-next/src/Button/Button.vue";
+import {DSNService} from "../../../../../df-shared-next/src/services/DSNService";
+import keycloak from "owner/src/plugin/keycloak";
 
 const { t } = useI18n();
 const store = useTenantStore();
     const user = computed(() => store.userToEdit);
     const editFinancialDocument = computed(() => store.editFinancialDocument);
-    const financialDocuments = computed(() => store.tenantFinancialDocuments);
+    let financialDocuments = computed(() => store.tenantFinancialDocuments);
+    const showContracts = ref(true);
 
   const documents = DocumentTypeConstants.FINANCIAL_DOCS;
 
@@ -155,6 +209,18 @@ const store = useTenantStore();
   function getDocumentName(document: FinancialDocument): string {
     return t(`documents.${document.documentType.key}`).toString();
   }
+  function addRevenus() {
+    DSNService.addRevenu()
+        .then( () =>
+
+              store.loadUser().then(() => {
+                initialize();
+                showContracts.value = false
+
+              } )
+        );
+  }
+
 </script>
 
 <style scoped lang="scss">
@@ -173,7 +239,9 @@ const store = useTenantStore();
     background: var(--blue-france-active);
   }
 }
-
+.my-modal{
+  width:650px;
+}
 .fixed-width {
   width: 180px;
 }

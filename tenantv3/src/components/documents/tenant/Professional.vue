@@ -1,5 +1,52 @@
 <template>
   <div>
+    <Modal v-show="showContracts == true" @close="showContracts = false" >
+      <template v-slot:header>
+        <div class="fr-container">
+          <h1 id="fr-modal-title-modal-1" class="fr-modal__title">
+            Dîtes le nous une fois !
+          </h1>
+        </div>
+      </template>
+      <template v-slot:body>
+        <div class="fr-container my-modal">
+          <div class="fr-grid-row justify-content-center">
+            <fieldset class="fr-fieldset" id="checkboxes-hint-el-sm"
+                      aria-labelledby="checkboxes-hint-el-sm-legend checkboxes-hint-el-sm-messages">
+              <legend class="fr-fieldset__legend--regular fr-fieldset__legend" id="checkboxes-hint-el-sm-legend">
+                Sélectionnez les justificatif de situation professionelle que vous souhaitez ajouter:
+              </legend>
+              <div
+                  v-for="contract in user.contracts"
+                  v-bind:key="contract.id"
+                  class="fr-fieldset__element"
+              >
+                <div class="fr-radio-group fr-radio-group--sm">
+
+                  <input
+                      :id="'checkboxes-hint-el-sm-1' + contract.id" type="radio"
+                      name="radio-hint-element"
+                      aria-describedby="checkboxes-hint-el-sm-1-messages">
+                  <label class="fr-label" :for="'checkboxes-hint-el-sm-1' + contract.id">{{ contract.company }} depuis le {{contract.debut}} <span
+                      class="fr-hint-text">{{ contract.nature }} </span> </label>
+                  <div class="fr-messages-group" id="checkboxes-hint-el-sm-1-messages" aria-live="assertive"></div>
+
+                </div>
+              </div>
+
+              <div class="fr-messages-group" id="checkboxes-hint-el-sm-messages" aria-live="assertive"></div>
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="btn-align">
+          <DfButton
+              @on-click="addResource()"
+              :primary="true"
+          >Ajouter le justificatif de situation </DfButton>
+        </div>
+      </template>
+    </Modal>
     <NakedCard class="fr-p-md-5w">
       <div>
         <h1 class="fr-h6">
@@ -77,6 +124,9 @@ import { computed, onBeforeMount, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { ToastService } from "@/services/ToastService";
 import { useLoading } from "vue-loading-overlay";
+import Modal from "df-shared-next/src/components/Modal.vue";
+import DfButton from "df-shared-next/src/Button/Button.vue";
+import {DSNService} from "df-shared-next/src/services/DSNService";
 
 const { t } = useI18n();
 
@@ -270,6 +320,27 @@ async function remove(file: DfFile, silent = false) {
     files.value.splice(firstIndex, 1);
   }
 }
+
+const showContracts = ref(true);
+
+function addResource() {
+  DSNService.addResource()
+      .then( () =>
+
+          store.loadUser().then(() => {
+           // initialize();
+            showContracts.value = false
+
+          } )
+      );
+}
+
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+
+.my-modal{
+  width:650px;
+}
+
+</style>

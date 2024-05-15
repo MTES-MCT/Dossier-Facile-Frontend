@@ -27,7 +27,7 @@ export class User {
   professional?: string;
   financial?: string;
   tax?: string;
-
+  contracts?: any[];
   apartmentSharing: ApartmentSharing = {
     tenants: [],
   };
