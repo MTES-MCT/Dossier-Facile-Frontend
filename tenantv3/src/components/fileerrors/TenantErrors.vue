@@ -1,7 +1,7 @@
 <template>
   <NakedCard
     class="fr-mt-3w fr-p-md-5w"
-    v-if="!allDocumentsPreValidated() || !namesFilled()"
+    v-if="!allTenantDocumentsPreValidated() || !namesFilled()"
   >
     <div v-if="!namesFilled()">
       <div class="fr-text--bold">
@@ -12,7 +12,7 @@
       }}</UpdateComponent>
     </div>
 
-    <div v-if="!allDocumentsPreValidated()" class="fr-text--bold">
+    <div v-if="!allTenantDocumentsPreValidated()" class="fr-text--bold">
       {{ t(`fileerrors.${keyprefix}-invalid-document`) }}
     </div>
     <div
@@ -60,8 +60,19 @@ function namesFilled() {
   return u?.firstName && u?.lastName;
 }
 
-function allDocumentsPreValidated() {
-  return store.allDocumentsPreValidated;
+function allTenantDocumentsPreValidated() {
+  for (const v of [
+        'IDENTIFICATION',
+        'RESIDENCY',
+        'PROFESSIONAL',
+        'FINANCIAL',
+        'TAX'
+  ]) {
+    if (!isDocumentValid(v)) {
+      return false;
+    }
+  }
+  return true;
 }
 
 function getDocument(docType: string) {
