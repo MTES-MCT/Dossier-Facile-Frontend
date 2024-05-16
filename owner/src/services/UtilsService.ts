@@ -109,7 +109,7 @@ const UtilsService = {
     if (energyLetter === 'A' || co2Letter === 'A') {
       return 'A';
     }
-    return 'G';
+    return 'X';
   },
 };
 
