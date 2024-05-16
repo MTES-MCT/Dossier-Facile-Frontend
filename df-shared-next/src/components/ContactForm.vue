@@ -34,9 +34,9 @@
                       </label>
                       <div class="fr-radio-rich__img">
                         <svg class="fr-artwork" aria-hidden="true" viewBox="0 0 80 80" width="80px" height="80px">
-                          <use class="fr-artwork-decorative" :xlink:href="documentSprite + '#artwork-decorative'"></use>
-                          <use class="fr-artwork-minor" :xlink:href="documentSprite + '#artwork-minor'"></use>
-                          <use class="fr-artwork-major" :xlink:href="documentSprite + '#artwork-major'"></use>
+                          <use class="fr-artwork-decorative" href="@gouvfr/dsfr/src/core/asset/artwork/pictograms/document/document.svg#artwork-decorative"></use>
+                          <use class="fr-artwork-minor" href="@gouvfr/dsfr/src/core/asset/artwork/pictograms/document/document.svg#artwork-minor"></use>
+                          <use class="fr-artwork-major" href="@gouvfr/dsfr/src/core/asset/artwork/pictograms/document/document.svg#artwork-major"></use>
                         </svg>
                       </div>
                   </div>
@@ -53,9 +53,9 @@
                       </label>
                       <div class="fr-radio-rich__img">
                         <svg class="fr-artwork" aria-hidden="true" viewBox="0 0 80 80" width="80px" height="80px">
-                          <use class="fr-artwork-decorative" :xlink:href="houseSprite + '#artwork-decorative'"></use>
-                          <use class="fr-artwork-minor" :xlink:href="houseSprite + '#artwork-minor'"></use>
-                          <use class="fr-artwork-major" :xlink:href="houseSprite + '#artwork-major'"></use>
+                          <use class="fr-artwork-decorative" href="@gouvfr/dsfr/src/core/asset/artwork/pictograms/buildings/house.svg#artwork-decorative"></use>
+                          <use class="fr-artwork-minor" href="@gouvfr/dsfr/src/core/asset/artwork/pictograms/buildings/house.svg#artwork-minor"></use>
+                          <use class="fr-artwork-major" href="@gouvfr/dsfr/src/core/asset/artwork/pictograms/buildings/house.svg#artwork-major"></use>
                         </svg>
                       </div>
                   </div>
@@ -359,8 +359,6 @@ import { onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import "../validators/validationRules";
-import documentSprite from '@gouvfr/dsfr/src/core/asset/artwork/pictograms/document/document.svg';
-import houseSprite from '@gouvfr/dsfr/src/core/asset/artwork/pictograms/buildings/house.svg';
 
 const { t } = useI18n();
 const props = defineProps<{
