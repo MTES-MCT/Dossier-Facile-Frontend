@@ -58,7 +58,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
@@ -76,14 +76,16 @@ const token = ref('');
 const authorize = ref(false);
 const propertyNotFound = ref(false);
 
-if (route.params.token) {
-  token.value = route.params.token.toString();
-  store.setPropertyToConsult(token.value).catch(() => {
-    propertyNotFound.value = true;
-  });
-} else {
-  router.push({ name: 'Dashboard' });
-}
+onMounted(() => {
+  if (route.params.token) {
+    token.value = route.params.token.toString();
+    store.setPropertyToConsult(token.value).catch(() => {
+      propertyNotFound.value = true;
+    });
+  } else {
+    router.push({ name: 'Dashboard' });
+  }
+})
 
 const TENANT_URL = `${import.meta.env.VITE_FULL_TENANT_URL}`;
 const p = computed(() => store.getPropertyToConsult);
