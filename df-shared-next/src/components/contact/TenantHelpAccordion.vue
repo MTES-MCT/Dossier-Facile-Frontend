@@ -59,7 +59,21 @@ const elements = [
 <i18n>
 {
   "en": {
-    "title-1" : "Fields with {asterix} are required."
+    "title-1": "Why was my file rejected?",
+    "content-1": "Our team reviewed your file and rejected it. Check our comments in <a href='https://locataire.dossierfacile.fr/messaging' target='_blank'>your messaging</a> and correct the indicated errors.",
+    "highlight-1": "Need more information? Check out the <a href='https://docs.dossierfacile.logement.gouv.fr/article/34-les-modifications-demandees' target='_blank'>Correct a DossierFacile</a> page or the <a href='https://docs.dossierfacile.logement.gouv.fr/article/34-les-modifications-demandees#Tutoriel-vido-_CaV2' target='_blank'>video tutorial</a> in our <a href='https://docs.dossierfacile.logement.gouv.fr/' target='_blank'>online help</a>.",
+    "title-2": "Why is my roommate file incomplete even though it has been validated?",
+    "content-2": "Your file is validated, but your roommate's (or roommates') file is not validated. Your shared file will be complete and shareable once all roommates' files are validated.<br>We recommend contacting your roommate(s) for more information.",
+    "highlight-2": "Need more information? Check out the <a href='https://docs.dossierfacile.logement.gouv.fr/article/7-ajout-dun-colocataire' target='_blank'>Creating a rental file with family or friends</a> page in our <a href='https://docs.dossierfacile.logement.gouv.fr/' target='_blank'>online help</a>.",
+    "title-3": "How do I send my DossierFacile to a landlord?",
+    "content-3": "To send your DossierFacile to a landlord, go to the <a href='https://locataire.dossierfacile.logement.gouv.fr/applications' target='_blank'>Share your file</a> page. If you have their email address, you can send it directly via email. Otherwise, you can send them a simple link to your DossierFacile.",
+    "highlight-3": "Need more information? Check out the <a href='https://docs.dossierfacile.logement.gouv.fr/article/90-visualiserpartagerson-dossier-valide#Visualiser-son-dossier-complet-avec-les-pices-s9OWQ' target='_blank'>View and share your validated file</a> page in our <a href='https://docs.dossierfacile.logement.gouv.fr/' target='_blank'>online help</a>.",
+    "title-4": "How do I create a DossierFacile for my child?",
+    "content-4": "A DossierFacile must be in the name of the person who signs the lease. If your child occupies the accommodation, the DossierFacile must be in their name.",
+    "highlight-4": "Did you use your FranceConnect account to create your child's file, and our team rejected your file? You need to separate your FranceConnect and DossierFacile accounts. Check out the <a href='https://docs.dossierfacile.logement.gouv.fr/article/45-franceconnect#dissociation' target='_blank'>Separate your FranceConnect and DossierFacile accounts</a> page in our <a href='https://docs.dossierfacile.logement.gouv.fr/' target='_blank'>online help</a>.",
+    "title-5": "Where are your rental property listings?",
+    "content-5": "DossierFacile does not offer properties for rent. DossierFacile only helps you create a clear, complete, and coherent digital rental file that you can then send to different landlords.",
+    "highlight-5": "Need more information? Check out the <a href='https://dossierfacile.helpscoutdocs.com/article/28-dossierfacile-ne-propose-pas-de-logements' target='_blank'>What is DossierFacile?</a> page in our <a href='https://docs.dossierfacile.logement.gouv.fr/' target='_blank'>online help</a>."
   },
   "fr": {
     "title-1" : "Pourquoi mon dossier a-t-il été refusé ?",

@@ -41,7 +41,15 @@ const elements = [
 <i18n>
 {
   "en": {
-    "title-1" : "Fields with {asterix} are required."
+    "title-1": "Why can't I view the files sent by candidates?",
+    "content-1": "You cannot view files that are being filled out, being processed, or have been rejected. You can only view files that have been validated by our team.",
+    "highlight-1": "Need more information? Check out the <a href='https://docs.dossierfacile.logement.gouv.fr/category/125-faq-proprietaire' target='_blank'>FAQ</a> in our <a href='https://docs.dossierfacile.logement.gouv.fr/' target='_blank'>online help</a> for landlords.",
+    "title-2": "A candidate sent me their validated file but I can't see it on the site?",
+    "content-2": "The candidate needs to join your landlord space. You can send them the link to <a href='https://dossierfacile.helpscoutdocs.com/article/39-candidater-au-bien-dun-proprietaire' target='_blank'>our help page on this topic</a>.",
+    "highlight-2": "Need more information? Check out the <a href='https://docs.dossierfacile.logement.gouv.fr/category/125-faq-proprietaire' target='_blank'>FAQ</a> in our <a href='https://docs.dossierfacile.logement.gouv.fr/' target='_blank'>online help</a> for landlords.",
+    "title-3": "I can't log into my landlord account.",
+    "content-3": "Go to the <a href='https://proprietaire.dossierfacile.logement.gouv.fr/' target='_blank'>landlord space</a> and log in. You can enter the email address and password of your landlord space on the site and click the <a href='https://proprietaire.dossierfacile.logement.gouv.fr/home' target='_blank'>log in</a> button at the top of the page.",
+    "highlight-3": "Your email address and password not working? We recommend <a href='https://proprietaire.dossierfacile.logement.gouv.fr/mot-de-passe-oublie' target='_blank'>resetting your password</a>."
   },
   "fr": {
     "title-1" : "Pourquoi ne puis-je pas consulter les dossiers envoyés par les candidats ?",
