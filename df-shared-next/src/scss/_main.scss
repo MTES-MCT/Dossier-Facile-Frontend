@@ -481,3 +481,17 @@ h1 {
 .visually-hidden-focusable:not(:focus):not(:focus-within):not(caption) {
   position: absolute !important;
 }
+
+.circle {
+  background-color: var(--primary);
+  color: white;
+  margin: 0 5px;
+  border-radius: 50%;
+  display: inline-block;
+  height: 2.25rem;
+  width: 2.25rem;
+  min-width: 2.25rem;
+  line-height: 2.25rem;
+  text-align: center;
+  z-index: 1;
+}
