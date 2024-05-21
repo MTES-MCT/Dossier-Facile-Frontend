@@ -188,7 +188,7 @@ onMounted(() => {
 
 </script>
 
-<style>
+<style scoped>
 .fr-label {
     font-size: 0.8rem;
 }
