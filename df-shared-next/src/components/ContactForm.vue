@@ -395,6 +395,10 @@ textarea {
 .fr-accordion::before {
   box-shadow: none;
 }
+
+.fr-fieldset__element--inline {
+  flex: 1;
+}
 </style>
 
 <i18n>
