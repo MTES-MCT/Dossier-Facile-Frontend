@@ -7,7 +7,7 @@
       <h2 class="fr-callout__title">Vous avez besoin de renseignements ?</h2>
       <p class="fr-callout__text">
         Notre aide en ligne rassemble de nombreuses informations :
-      <ul>
+      <ul class="fr-callout__text">
         <li>de la documentation, comme <a
             href="https://docs.dossierfacile.logement.gouv.fr/article/93-liste-des-documents-a-fournir-2-0"
             rel="noopener" target="_blank">la liste des documents à fournir</a> pour créer un DossierFacile</li>
