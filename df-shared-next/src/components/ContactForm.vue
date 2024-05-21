@@ -399,6 +399,10 @@ textarea {
 .fr-fieldset__element--inline {
   flex: 1;
 }
+
+.fr-accordion .fr-collapse{
+  margin:0;
+}
 </style>
 
 <i18n>
