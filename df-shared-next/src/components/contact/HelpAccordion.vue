@@ -2,7 +2,7 @@
     <div class="fr-accordions-group">
         <section class="fr-accordion" v-for="e in elements" :key="e.id">
             <h3 class="fr-accordion__title">
-                <button class="fr-accordion__btn" @click="accordionClicked(e.tag)" aria-expanded="false" :aria-controls="e.id"><i class="circle ri-arrow-right-line fs-22"></i>&nbsp;{{ e.title }}</button>
+                <button class="fr-accordion__btn fr-h3" @click="accordionClicked(e.tag)" aria-expanded="false" :aria-controls="e.id"><i class="circle ri-arrow-right-line fs-22"></i>&nbsp;{{ e.title }}</button>
             </h3>
             <div class="fr-collapse" :id="e.id">
                 <p v-html="e.content"></p>
