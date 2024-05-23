@@ -1,5 +1,5 @@
 <template>
-  <section class="fr-background-default--grey fr-p-4w fr-px-md-10w">
+  <section class="fr-background-default--grey fr-p-2w fr-p-md-4w">
     <h1>
       {{ t("title") }}
     </h1>
@@ -391,7 +391,7 @@ textarea {
 }
 </style>
 
-<style lang="scss">
+<style scoped lang="scss">
 .fr-accordion::before {
   box-shadow: none;
 }
