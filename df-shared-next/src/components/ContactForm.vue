@@ -21,7 +21,7 @@
             target="_blank">sécurité de vos documents</a> par exemple</li>
       </ul>
       </p>
-      <a class="fr-btn" href="https://docs.dossierfacile.logement.gouv.fr" rel="noopener" target="_blank">Consulter
+      <a class="fr-btn" @click="accordionClicked('contact_need_information')" href="https://docs.dossierfacile.logement.gouv.fr" rel="noopener" target="_blank">Consulter
         notre aide en ligne</a>
     </div>
 
@@ -88,7 +88,7 @@
       <div class="fr-accordions-group">
         <section class="fr-accordion fr-accordion--form">
           <h3 class="fr-accordion__title">
-            <button class="fr-accordion__btn fr-background-default--grey fr-text-title--grey" aria-expanded="false"
+            <button @click="accordionClicked('contact_dont_find_question')" class="fr-accordion__btn fr-background-default--grey fr-text-title--grey" aria-expanded="false"
               aria-controls="accordion-form">Je ne trouve pas la réponse à ma question</button>
           </h3>
           <div class="fr-collapse" id="accordion-form">
