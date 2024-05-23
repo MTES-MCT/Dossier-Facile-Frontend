@@ -21,7 +21,7 @@
             target="_blank">sécurité de vos documents</a> par exemple</li>
       </ul>
       </p>
-      <a class="fr-btn" href="https://docs.dossierfacile.logement.gouv.fr" rel="noopener" target="_blank">Consulter
+      <a class="fr-btn" @click="accordionClicked('contact_need_information')" href="https://docs.dossierfacile.logement.gouv.fr" rel="noopener" target="_blank">Consulter
         notre aide en ligne</a>
     </div>
 
