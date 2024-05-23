@@ -28,3 +28,9 @@ function accordionClicked(tag: string) {
 }
 
 </script>
+
+<style scoped lang="scss">
+.fr-h3 {
+    font-weight: 400 !important;
+}
+</style>
