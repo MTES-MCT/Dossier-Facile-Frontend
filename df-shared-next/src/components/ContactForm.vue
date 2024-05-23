@@ -88,7 +88,7 @@
       <div class="fr-accordions-group">
         <section class="fr-accordion fr-accordion--form">
           <h3 class="fr-accordion__title">
-            <button class="fr-accordion__btn fr-background-default--grey fr-text-title--grey" aria-expanded="false"
+            <button @click="accordionClicked('contact_dont_find_question')" class="fr-accordion__btn fr-background-default--grey fr-text-title--grey" aria-expanded="false"
               aria-controls="accordion-form">Je ne trouve pas la réponse à ma question</button>
           </h3>
           <div class="fr-collapse" id="accordion-form">
