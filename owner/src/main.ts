@@ -12,6 +12,11 @@ import i18n from './i18n';
 import 'vue-toastification/dist/index.css';
 import keycloak from './plugin/keycloak';
 import MatomoPlugin from './plugin/matomo';
+import HelpscoutPlugin from './plugin/helpscout.js';
+import CrispPlugin from './plugin/crisp.js';
+
+const CRISP_WEBSITE_ID = import.meta.env.VITE_CRISP_WEBSITE_ID
+const CRISP_ENABLED = import.meta.env.VITE_CRISP_ENABLED
 
 declare global {
   interface Window {
@@ -127,6 +132,11 @@ function mountApp() {
   app.use(i18n);
   app.use(Toast);
   app.use(MatomoPlugin);
+  if (CRISP_ENABLED === 'true') {
+    app.use(CrispPlugin, { websiteId: CRISP_WEBSITE_ID});
+  } else {
+    app.use(HelpscoutPlugin);
+  }
   app.mount('#app');
 }
 

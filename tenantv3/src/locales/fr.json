@@ -423,7 +423,7 @@
     "token-expired": "Le lien a expiré, veuillez lancer la procédure de mot de passe oublié"
   },
   "confirmaccount": {
-    "action-confirmed" : "Votre action a bien été prise en compte.",
+    "action-confirmed": "Votre action a bien été prise en compte.",
     "token-err": "Une erreur est survenue, si vous avez déjà confirmé votre compte vous pouvez vous connecter, sinon vous pouvez lancer la procédure de <a href='/forgotten-password'>changement de mot de passe</a>"
   },
   "corporationidentification": {
@@ -1332,12 +1332,12 @@
   },
   "validatefile": {
     "title": "Je valide mon dossier",
-    "read-no-guarantor": "Je lis et je coche la case suivante afin de valider mon dossier",
+    "read-no-guarantor": "Je lis et je coche la case suivante afin de valider mon dossier.",
     "declaration": "Je déclare avoir pris connaissance de l'article <a href='https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006418753' target='_blank' rel='noopener'>441-1 du code pénal</a> qui punit le faux et l'usage de faux de trois ans d'emprisonnement et de 45000 euros d'amende.",
     "precision": "Si je le souhaite, je peux préciser certains éléments importants de ma situation à mes futurs propriétaires. Mon texte sera ajouté au début de mon dossier :",
     "placeholder": "Renseignez votre commentaire ici",
     "validate": "Valider mon dossier",
-    "read": "Je lis et je coche les cases suivantes afin de valider mon dossier",
+    "read": "Je lis et je coche les cases suivantes afin de valider mon dossier.",
     "declaration2": "Je déclare avoir obtenu le consentement des personnes physiques (conjoint, colocataires ou garants) à utiliser leurs justificatifs nominatifs pour les lier à mon dossier.",
     "declaration2-plural": "Je déclare sur l'honneur avoir reçu le consentement de mes garants pour que leurs données soient traitées dans le cadre du processus de location",
     "require-accept": "Vous devez accepter la déclaration",
@@ -1406,6 +1406,9 @@
     },
     "homepage": "Page d'accueil",
     "contact-us": "Contactez-nous"
+  },
+  "contact": {
+    "title": "Comment pouvons-nous vous aider ?"
   },
   "declined-messages": {
     "header": "Message de notre équipe de validation :"

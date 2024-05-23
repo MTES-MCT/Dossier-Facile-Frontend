@@ -71,6 +71,7 @@ function onLogout() {
 
 <style lang="scss">
 @import '../../node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.min.css';
+@import '../../node_modules/@gouvfr/dsfr/dist/utility/colors/colors.min.css';
 @import 'df-shared-next/src/scss/_main.scss';
 @import '../../node_modules/remixicon/fonts/remixicon.css';
 

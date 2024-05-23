@@ -7,6 +7,7 @@ import App from './App.vue'
 import router from './router'
 import i18n from './i18n';
 import "@gouvfr/dsfr/dist/dsfr/dsfr.min.css";
+import "@gouvfr/dsfr/dist/utility/colors/colors.min.css";
 import "@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css";
 import "@gouvfr/dsfr/dist/utility/icons/icons-user/icons-user.min.css";
 import "@gouvfr/dsfr/dist/utility/icons/icons-business/icons-business.min.css";
@@ -20,7 +21,12 @@ import { configure, defineRule } from 'vee-validate';
 import MatomoPlugin from './plugin/matomo';
 import * as Sentry from '@sentry/vue';
 
+import HelpscoutPlugin from './plugin/helpscout.js';
+import CrispPlugin from './plugin/crisp.js';
+
 const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT;
+const CRISP_WEBSITE_ID = import.meta.env.VITE_CRISP_WEBSITE_ID;
+const CRISP_ENABLED = import.meta.env.VITE_CRISP_ENABLED;
 
 declare global {
   interface Window {
@@ -198,6 +204,11 @@ keycloak
       clearOnUrlChange: false,
     } as ToastContainerOptions);
     app.use(MatomoPlugin);
+    if (CRISP_ENABLED === 'true') {
+        app.use(CrispPlugin, { websiteId: CRISP_WEBSITE_ID});
+    } else {
+        app.use(HelpscoutPlugin);
+    }
     app.mount('#app')
   })
     .catch(() => {

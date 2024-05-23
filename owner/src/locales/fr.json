@@ -396,5 +396,8 @@
     },
     "homepage": "Page d'accueil",
     "contact-us": "Contactez-nous"
+  },
+  "contact": {
+    "title": "Comment pouvons-nous vous aider ?"
   }
 }

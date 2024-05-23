@@ -375,16 +375,19 @@
       "title3": "Verified."
     }
   },
-  "404":{
-    "title" : "Page not found",
-    "subtitle" : "Error 404",
-    "caption" : "This is not the web page you are lookingfor.",
-    "content" : {
-      "line1" : "If you typed the web address in the browser, make sure it is correct. The page may no longer be available.",
-      "line2" : "In this case, to continue your visit, you can check out our homepage.",
-      "line3" : "Otherwise, contact us so that we can redirect you to the right information."
+  "404": {
+    "title": "Page not found",
+    "subtitle": "Error 404",
+    "caption": "This is not the web page you are lookingfor.",
+    "content": {
+      "line1": "If you typed the web address in the browser, make sure it is correct. The page may no longer be available.",
+      "line2": "In this case, to continue your visit, you can check out our homepage.",
+      "line3": "Otherwise, contact us so that we can redirect you to the right information."
     },
-    "homepage" : "Homepage",
-    "contact-us" : "Contact us"
+    "homepage": "Homepage",
+    "contact-us": "Contact us"
+  },
+  "contact": {
+    "title": "How can we help you?"
   }
 }

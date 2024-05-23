@@ -195,7 +195,7 @@ onMounted(() => {
 
 </script>
 
-<style>
+<style scoped>
 .df-image-background {
     width: 100%;
     top: 0;
