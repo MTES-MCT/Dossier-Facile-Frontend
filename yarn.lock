@@ -1600,20 +1600,10 @@
   resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.10.1.tgz#a8470374d1f52d4195bd7c3c2b218fe3aaddac90"
   integrity sha512-epBjsV9zmaOev+Sv2rrV9jgKfcs0U+gOVirthfG7EymeKUVX0eLQit+ra9yrDzLgk4mm7ZkWfy/6FekOuNgj1w==
 
-"@gouvfr/dsfr@1.10.2":
-  version "1.10.2"
-  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.10.2.tgz#364916777d6e2a54e991c9883d63516918759e20"
-  integrity sha512-twPj+VFMTOKUfI9vbBnK8fH1iDpXuDVWeMJzgmmQ5LKjRtZdUsvSbHNlp7HWcDvhWxDGNHxSboErC7UB3oskYQ==
-
-"@gouvfr/dsfr@^1.10.1":
+"@gouvfr/dsfr@1.11.2", "@gouvfr/dsfr@^1.10.1":
   version "1.11.2"
   resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.11.2.tgz#aa815e458b266acd8e457bdad35b7e3ad5e6c2ab"
   integrity sha512-S7idT4rCCw6M1pqxJS8y4nUSq/Rus+Kucoifmv0CrZD/eoBA34HWqWYzR9GIxvtAX/TQ1XC7Hz+54THtVzMeqQ==
-
-"@gouvfr/dsfr@^1.10.2":
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.11.0.tgz#79d1ce472b91468659256cf2cd5cdb1f8272ecf2"
-  integrity sha512-RD+kUk9iJJ4B7xFdAFCNQz0LRqYiMy9dajlKfgnmDPSrYHm+JCJpYCzXhNjYyp4FJggMafRd1ZqJJ6KW6aM0Jw==
 
 "@hapi/hoek@^9.0.0", "@hapi/hoek@^9.3.0":
   version "9.3.0"
