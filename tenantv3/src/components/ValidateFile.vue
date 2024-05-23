@@ -26,7 +26,7 @@
                 v-bind="field"
               />
             </Field>
-            <label for="declaration" v-html="t('validatefile.declaration')"> </label>
+            <label for="declaration" htmlFor="declaration" v-html="t('validatefile.declaration')"> </label>
             <ErrorMessage name="declaration" v-slot="{ message }">
               <span role="alert" class="fr-error-text">{{ $t(message || "") }}</span>
             </ErrorMessage>
