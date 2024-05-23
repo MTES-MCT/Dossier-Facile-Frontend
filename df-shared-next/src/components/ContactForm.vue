@@ -391,7 +391,7 @@ textarea {
 }
 </style>
 
-<style scoped lang="scss">
+<style lang="scss">
 .fr-accordion::before {
   box-shadow: none;
 }
