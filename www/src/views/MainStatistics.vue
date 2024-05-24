@@ -5,10 +5,8 @@
       <iframe
         title="Statistiques sur metabase"
         :src="metabaseUrl"
-        frameborder="0"
         width="100%"
         height="1000"
-        allowtransparency
       ></iframe>
     </div>
   </div>
