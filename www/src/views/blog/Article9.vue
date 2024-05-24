@@ -220,7 +220,7 @@
 <script setup lang="ts">
 import BlogArticle from "@/views/blog/BlogArticle.vue";
 import { useHead } from '@unhead/vue'
- import image from "../../assets/images/blog-article9.jpg";
+ import image from "../../assets/images/blog-article9.webp";
 
       const title= "Le loyer : locataire ou bailleur - DossierFacile";
        const description= "Le loyer : tout ce qu’il faut savoir quand on est locataire ou bailleur";

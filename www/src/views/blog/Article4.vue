@@ -114,7 +114,7 @@
 <script setup lang="ts">
 import BlogArticle from "@/views/blog/BlogArticle.vue";
 import { useHead } from '@unhead/vue'
- import image from "../../assets/images/blog-article4.jpg";
+ import image from "../../assets/images/blog-article4.webp";
 
       const title= "5 astuces pour booster votre dossier de location - DossierFacile";
        const description= "Pour se distinguer des autres, un seul moyen : constituer un dossier de location clair, cohérent et complet";

@@ -126,7 +126,7 @@
 <script setup lang="ts">
 import BlogArticle from "./BlogArticle.vue";
 import { useHead } from '@unhead/vue'
-import image from "../../assets/images/blog-article.jpg";
+import image from "../../assets/images/blog-article.webp";
 
       const title= "Quelles pièces justificatives fournir pour mon dossier de location - Blog - DossierFacile";
        const description= "A cause de l’augmentation de la demande immobilière, il devient de plus en plus difficile de trouver un bon appartement à louer.";

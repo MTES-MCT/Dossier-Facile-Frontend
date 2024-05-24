@@ -93,7 +93,7 @@
 <script setup lang="ts">
 import BlogArticle from "@/views/blog/BlogArticle.vue";
 import { useHead } from '@unhead/vue'
-import image from "../../assets/images/blog-article22.jpg";
+import image from "../../assets/images/blog-article22.webp";
 
 const title= "DossierFacile.fr devient enfin DossierFacile.logement.gouv.fr !";
 const  description= "DossierFacile est donc enfin accessible depuis l’URL DossierFacile.logement.gouv.fr, une adresse qui reflète mieux notre mission de service public" ;

@@ -101,7 +101,7 @@
 <script setup lang="ts">
 import BlogArticle from "@/views/blog/BlogArticle.vue";
 import { useHead } from '@unhead/vue'
- import image from "../../assets/images/blog-article5.jpg";
+ import image from "../../assets/images/blog-article5.webp";
 
       const title= "5 conseils pour trouver l’appartement de ses rêves en région parisienne - DossierFacile";
        const description= "Trouver l’appartement de ses rêves à Paris ou en région parisienne est un vrai défi";

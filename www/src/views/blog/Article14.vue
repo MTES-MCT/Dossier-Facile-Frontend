@@ -191,7 +191,7 @@
 <script setup lang="ts">
 import BlogArticle from "@/views/blog/BlogArticle.vue";
 import { useHead } from '@unhead/vue'
-  import image from "../../assets/images/blog-article14.jpg";
+  import image from "../../assets/images/blog-article14.webp";
 
       const title= "DossierFacile engagé dans la protection de vos données personnelles";
        const description= "Une « donnée personnelle » désigne « toute information se rapportant à une personne physique identifiée ou identifiabe ».";

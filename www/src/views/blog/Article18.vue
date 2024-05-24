@@ -216,7 +216,7 @@
 <script setup lang="ts">
 import BlogArticle from "@/views/blog/BlogArticle.vue";
 import { useHead } from '@unhead/vue'
-  import image from "../../assets/images/blog-article18.jpg";
+  import image from "../../assets/images/blog-article18.webp";
 
       const title= "Un garant ? Qui ? Comment ? Pourquoi ?";
        const description= "Qui peut se porter garant ? Qu’est-ce qu’une garantie de loyer impayé ? Comment faire pour l’intégrer à son dossier de location ?";
