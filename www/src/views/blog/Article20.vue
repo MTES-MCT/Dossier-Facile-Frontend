@@ -142,7 +142,7 @@
 <script setup lang="ts">
 import BlogArticle from "@/views/blog/BlogArticle.vue";
 import { useHead } from '@unhead/vue'
-  import image from "../../assets/images/blog-article20.jpg";
+  import image from "../../assets/images/blog-article20.webp";
 
       const title= "DossierFacile lance FiligraneFacile, le service permettant d’ajouter un filigrane à n’importe quel document !";
        const description= "Logement, travail, assurance... Nous envoyons tous les jours des documents personnels dans la nature, sans les protéger.";

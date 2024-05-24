@@ -133,7 +133,7 @@
 <script setup lang="ts">
 import BlogArticle from "@/views/blog/BlogArticle.vue";
 import { useHead } from '@unhead/vue'
-  import image from "../../assets/images/blog-article12.jpg";
+  import image from "../../assets/images/blog-article12.webp";
 
       const title= "Au secours mon ascenceur est en panne !";
        const description= "Vous vivez au 6e étage de l’immeuble et l’ascenseur est en panne depuis plusieurs mois ?";

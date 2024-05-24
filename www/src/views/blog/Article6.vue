@@ -94,7 +94,7 @@
 <script setup lang="ts">
 import BlogArticle from "@/views/blog/BlogArticle.vue";
 import { useHead } from '@unhead/vue'
- import image from "../../assets/images/blog-article6.jpg";
+ import image from "../../assets/images/blog-article6.webp";
 
       const title= "DossierFacile fait peau neuve ! - DossierFacile";
        const description= "Afin de mieux répondre aux besoins de nos locataires et propriétaires, le service DossierFacile fait peau neuve avec un nouveau site";

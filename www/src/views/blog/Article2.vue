@@ -119,7 +119,7 @@
 <script setup lang="ts">
 import BlogArticle from "@/views/blog/BlogArticle.vue";
 import { useHead } from '@unhead/vue'
- import image from "../../assets/images/blog-article2.jpg";
+ import image from "../../assets/images/blog-article2.webp";
 
       const title= "Constituer votre DossierFacile - Blog - DossierFacile";
       const description= "Mais coconstituer un dos sier de location qui regroupe tous les documents nécessaires sans tomber dans le désordre d’un pdf de cinquante pages ? Existe-t-il un outil facile et gratuit ?";

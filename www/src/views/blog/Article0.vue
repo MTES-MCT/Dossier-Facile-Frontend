@@ -66,7 +66,7 @@
 
 <script setup lang="ts">
 import { useHead } from '@unhead/vue'
-import image from "../../assets/cover-features.jpg";
+import image from "../../assets/cover-features.webp";
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();

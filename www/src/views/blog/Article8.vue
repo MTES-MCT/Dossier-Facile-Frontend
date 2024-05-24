@@ -108,7 +108,7 @@
 <script setup lang="ts">
 import BlogArticle from "@/views/blog/BlogArticle.vue";
 import { useHead } from '@unhead/vue'
- import image from "../../assets/images/blog-article8.jpg";
+ import image from "../../assets/images/blog-article8.webp";
 
   const title= "Comment justifier son domicile - DossierFacile";
        const description= "On peut distinguer quatre cas classiques de justificatif de domicile mais il en existe en fait bien plus";
