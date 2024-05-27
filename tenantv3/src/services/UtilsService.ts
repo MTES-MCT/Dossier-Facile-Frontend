@@ -25,7 +25,7 @@ export const UtilsService = {
     });
     return this.isDocumentValid(document);
   },
-  isDocumentValid(document?: DfDocument) {
+  isDocumentValid(document?: DfDocument, preValidationActivated?: boolean) {
     if (document === undefined) {
       return false;
     }
@@ -36,8 +36,9 @@ export const UtilsService = {
       return false;
     }
     if (import.meta.env.VITE_FEATURE_FLIPPING_PRE_VALIDATE === 'true' &&
-      document.documentAnalysisReport?.analysisStatus === "DENIED" &&
-      document.documentAnalysisReport?.comment === null) {
+        preValidationActivated &&
+        document.documentAnalysisReport?.analysisStatus === "DENIED" &&
+        document.documentAnalysisReport?.comment === null) {
       return false;
     }
     return true;
