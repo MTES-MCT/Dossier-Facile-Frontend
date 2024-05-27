@@ -212,6 +212,7 @@ import { useLoading } from "vue-loading-overlay";
 import { computed, onBeforeMount, ref } from "vue";
 import useTenantStore from "@/stores/tenant-store";
 import { Field, ErrorMessage } from "vee-validate";
+import { AnalyticsService } from "../../../services/AnalyticsService";
 
 const store = useTenantStore();
 
@@ -385,6 +386,7 @@ function validSelect() {
 
 function forceSave() {
   isWarningTaxSituationModalVisible.value = false;
+  AnalyticsService.avisForceUpload();
   saveNewFiles(true);
 }
 

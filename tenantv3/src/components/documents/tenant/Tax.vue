@@ -318,6 +318,7 @@ function onSelectChange($event: DocumentType) {
 
   function forceSave() {
     isWarningTaxSituationModalVisible.value = false;
+    AnalyticsService.avisForceUpload();
     saveNewFiles(true);
   }
 

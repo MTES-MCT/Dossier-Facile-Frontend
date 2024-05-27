@@ -287,6 +287,7 @@ async function addFiles(fileList: File[]) {
 
 function forceSave() {
   isWarningTaxSituationModalVisible.value = false;
+  AnalyticsService.avisForceUpload();
   saveNewFiles(true);
 }
 
