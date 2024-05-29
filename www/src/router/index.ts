@@ -169,6 +169,18 @@ const routes = [
       import(/* webpackChunkName: "security" */ "../views/MentionsLegales.vue"),
   },
   {
+    path: "/politique-de-confidentialite",
+    name: "PolitiqueDeConfidentialite",
+    component: () =>
+        import(/* webpackChunkName: "security" */ "../views/PolitiqueDeConfidentialite.vue"),
+  },
+  {
+    path: "/CGU",
+    name: "CGU",
+    component: () =>
+        import(/* webpackChunkName: "security" */ "../views/CGU.vue"),
+  },
+  {
     path: "/accessibilite",
     name: "Accessibility",
     component: () =>
