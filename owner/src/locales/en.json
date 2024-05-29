@@ -286,7 +286,7 @@
     "field-required": "This field is required",
     "password-not-confirmed": "Password does not match",
     "pwd-not-complex": "Password is too weak",
-    "accept-cgu": "By checking this box and clicking \"Create my account\", I expressly accept the <a class=\"cgu\" target=\"_blank\" href='https://www.dossierfacile.fr/mentions-legales#cgu'>Terms of Use</a> of DossierFacile and understand that my personal data will be used in accordance with the <a target=\"_blank\" class=\"cgu\" href='https://www.dossierfacile.fr/mentions-legales#politique-de-confidentialite'>Privacy Policy</a> of DossierFacile.",
+    "accept-cgu": "By checking this box and clicking \"Create my account\", I expressly accept the <a class=\"cgu\" target=\"_blank\" href='https://www.dossierfacile.logement.gouv.fr/cgu'>Terms of Use</a> of DossierFacile and understand that my personal data will be used in accordance with the <a target=\"_blank\" class=\"cgu\" href='https://www.dossierfacile.logement.gouv.fr/politique-de-confidentialite'>Privacy Policy</a> of DossierFacile.",
     "require-accept": "You must accept the Terms of Use and Privacy Policy of DossierFacile to continue",
     "ex": "E.g., ",
     "or": "Or",
