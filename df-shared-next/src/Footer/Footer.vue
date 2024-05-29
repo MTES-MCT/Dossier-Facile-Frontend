@@ -65,16 +65,6 @@
           <li class="fr-footer__bottom-item">
             <a
               class="fr-footer__bottom-link"
-              target="_blank"
-              rel="noreferrer"
-              href="https://beta.gouv.fr/"
-            >
-              Les startups d'Etat
-            </a>
-          </li>
-          <li class="fr-footer__bottom-item">
-            <a
-              class="fr-footer__bottom-link"
               :href="`${VITE_MAIN_URL}/plan-du-site`"
             >
               {{ t("sitemap") }}
@@ -94,6 +84,23 @@
               :href="`${VITE_MAIN_URL}/mentions-legales`"
             >
               {{ t("legals") }}
+            </a>
+          </li>
+          <li class="fr-footer__bottom-item">
+            <a
+                class="fr-footer__bottom-link"
+                :href="`${VITE_MAIN_URL}/politique-de-confidentialite`"
+            >
+              {{ t("privacy-policy") }}
+            </a>
+          </li>
+          <li class="fr-footer__bottom-item">
+            <a
+                class="fr-footer__bottom-link"
+                :title="t('cgu-link-title')"
+                :href="`${VITE_MAIN_URL}/cgu`"
+            >
+              {{ t("cgu") }}
             </a>
           </li>
           <li class="fr-footer__bottom-item">
@@ -128,6 +135,7 @@
               class="fr-footer__bottom-link"
               target="_blank"
               rel="noreferrer"
+              :title="t('sources-link-title')"
               href="https://github.com/MTES-MCT/Dossier-Facile-Frontend"
             >
               {{ t("sources") }}
@@ -214,18 +222,24 @@ ul.fr-follow {
 {
   "en": {
     "legals": "Legal notice",
+    "privacy-policy": "Privacy Policy",
+    "cgu": "GCU",
     "faq": "Help",
     "sitemap": "Sitemap",
     "sources": "Source code",
     "accessibility": "Accessibility: partially compliant",
     "statistics": "Statistics",
     "partner": "Become partners",
+    "cgu-link-title": "General condition of use",
     "faq-link-title": "Help - new window",
     "partner-link-title": "Partners - new window",
-    "accessibility-link": "Accessibility - new window"
+    "accessibility-link": "Accessibility - new window",
+    "sources-link-title": "Source code - new window"
   },
   "fr": {
     "legals": "Mentions légales",
+    "privacy-policy": "Politique de confidentialité",
+    "cgu": "CGU",
     "faq": "Aide",
     "sitemap": "Plan du site",
     "information": "En savoir plus",
@@ -233,9 +247,11 @@ ul.fr-follow {
     "accessibility": "Accessibilité : partiellement conforme",
     "statistics": "Statistiques",
     "partner": "Devenir partenaire",
+    "cgu-link-title": "Conditions générales d’utilisation",
     "faq-link-title": "Aide - Ouvre nouvelle fenêtre",
     "partner-link-title": "Devenir partenaire - Ouvre nouvelle fenêtre",
-    "accessibility-link": "Accessibilité : partiellement conforme - Ouvre nouvelle fenêtre"
+    "accessibility-link": "Accessibilité : partiellement conforme - Ouvre nouvelle fenêtre",
+    "sources-link-title": "Code source - Ouvre nouvelle fenêtre"
   }
 }
 </i18n>

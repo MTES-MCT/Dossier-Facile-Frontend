@@ -82,16 +82,20 @@ useHead({
 
   const otherPages = [
     {
-      name: "Les startups d’État",
-      url: "https://beta.gouv.fr",
-    },
-    {
       name: "Accessibilité",
       url: "/accessibilite",
     },
     {
       name: "Mentions légales",
       url: "/mentions-legales",
+    },
+    {
+      name: "Politique de confidentialité",
+      url: "/politique-de-confidentialite",
+    },
+    {
+      name: "Conditions générales d'utilisation",
+      url: "/cgu",
     },
     {
       name: "Statistiques",
