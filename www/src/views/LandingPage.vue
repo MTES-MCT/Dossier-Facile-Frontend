@@ -529,7 +529,7 @@ import mydomusUrl from "../assets/logos/mydomus.webp";
 import omnireaUrl from "../assets/logos/omnirea.webp";
 
 import { useHead } from "@unhead/vue";
-import image from "../assets/icons/justif.jpg";
+import image from "../assets/icons/justif.webp";
 
 const title = "DossierFacile, le dossier de location numérique de l’État";
 const description =

@@ -108,7 +108,7 @@
 <script setup lang="ts">
 import BlogArticle from "@/views/blog/BlogArticle.vue";
 import { useHead } from '@unhead/vue'
- import image from "../../assets/images/blog-article7.jpg";
+ import image from "../../assets/images/blog-article7.webp";
 
       const title= "Tout comprendre à la vie en colocation - DossierFacile";
        const description= "Quelles sont les règles à respecter avant de se mettre en colocation ? DossierFacile vous aide à y voir plus clair !";

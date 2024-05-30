@@ -105,7 +105,7 @@
 <script setup lang="ts">
 import BlogArticle from "@/views/blog/BlogArticle.vue";
 import { useHead } from '@unhead/vue'
- import image from "../../assets/images/blog-article3.jpg";
+ import image from "../../assets/images/blog-article3.webp";
 
       const title= "Pourquoi Dossier Facile est-il gratuit - Blog - DossierFacile";
        const description= "DossierFacile propose une solution numérique simple et gratuite pour remettre la confiance au cœur du processus de location";

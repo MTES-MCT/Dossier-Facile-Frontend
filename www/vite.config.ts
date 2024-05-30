@@ -9,7 +9,7 @@ import vueI18n from '@intlify/vite-plugin-vue-i18n'
 export default defineConfig({
   build: {
     assetsInlineLimit: (file) => {
-      return !file.endsWith('.svg');
+      return !file.endsWith('.svg') && !file.endsWith('.min.js');
     }
   },
   server: {

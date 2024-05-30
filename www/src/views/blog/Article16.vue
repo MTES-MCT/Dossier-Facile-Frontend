@@ -116,7 +116,7 @@
 <script setup lang="ts">
 import BlogArticle from "@/views/blog/BlogArticle.vue";
 import { useHead } from '@unhead/vue'
-  import image from "../../assets/images/blog-article16.jpg";
+  import image from "../../assets/images/blog-article16.webp";
 
       const title= "DossierFacile : un service numérique de l’État sans .gouv.fr ?";
       const description= "Vous êtes peut-être  surpris de constater que DossierFacile, un site proposé par l'Etat pour faciliter la création de dossiers de location de logement, n'a pas l'extension .gouv.fr." ;
