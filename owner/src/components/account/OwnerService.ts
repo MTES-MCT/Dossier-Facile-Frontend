@@ -14,6 +14,9 @@ const OwnerService = {
       ...property,
     });
   },
+  deleteDpe(propertyId: number) {
+    return axios.delete(`${API_URL}property/dpe/${propertyId}`);
+  },
   deleteProperty(id: number) {
     return axios.delete(`${API_URL}property/${id}`);
   },

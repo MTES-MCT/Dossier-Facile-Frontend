@@ -213,7 +213,7 @@
     "name-label": "Property name"
   },
   "propertydiagnostic": {
-    "title": "Enter the Energy Performance Certificate (DPE) of my property",
+    "title": "Number of your Energy Performance Diagnosis (DPE)",
     "subtitle": "Where to find this information?",
     "info-text": "The final energy consumption can be found on page 3 of your certificate, next to the information about primary energies.",
     "energy-consumption": "Amount of final energy consumption (kWh/m²/year)",
@@ -231,7 +231,10 @@
     "gdetail-bold": "Please note that any rent increase has been prohibited since August 24, 2022, and the property will be prohibited from renting from January 1, 2025.",
     "gpdetail": "Grade G+: See screenshot Your DPE has obtained a grade of G, and the final energy consumption is above the threshold of 450 kWh/m²/year. {bold} France Rénov’ is your new public service for home renovation, supported by the State and local authorities, and managed by the National Agency for Housing (Anah). France Rénov’ offers you a free diagnosis to assess the possibilities of comprehensive renovation for your property by contacting the nearest France Rénov’ advisor.",
     "gpdetail-bold": "Please note that your property has been prohibited from renting since January 1, 2023!",
-    "contact-adviser": "Contact a France Rénov’ advisor"
+    "contact-adviser": "Contact a France Rénov’ advisor",
+    "title-where": "Où trouver le numéro de DPE ?",
+    "text-where": "Le numéro de votre DPE se trouve en page 1 de votre diagnostic. Il comporte 13 caractères. Sans ce numéro d'identification, le DPE n'est pas valable.",
+    "understand-dpe": "Comprendre le DPE"
   },
   "propertyrent": {
     "rent-title": "Monthly Rent and Charges",

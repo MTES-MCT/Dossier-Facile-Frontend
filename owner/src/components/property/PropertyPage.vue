@@ -7,6 +7,15 @@ import FooterContainer from '../footer/FooterContainer.vue';
 
 const emit = defineEmits(['submit', 'on-back']);
 
+withDefaults(
+  defineProps<{
+    skipForm?: boolean;
+  }>(),
+  {
+    skipForm: false,
+  },
+);
+
 function onSubmit() {
   emit('submit');
 }
@@ -20,10 +29,11 @@ function onBack() {
   <div class="full-height fr-grid-row-desktop fr-container fr-container-full-size">
     <TopMenu tMenu></TopMenu>
     <LeftMenu tMenu class="fr-col-md-4 fr-col-xl-3"></LeftMenu>
-    <div
-      class="fr-col-xl-9 fr-col-md-8 fr-col-xs-12 fr-pt-md-4w fr-pt-2w fr-grid-row fr-pb-10w fr-m-2w fr-m-md-0"
-    >
-      <div class="fr-col-12 max-600 ml">
+    <div class="fr-col-xl-9 fr-col-md-8 fr-col-xs-12 fr-pt-md-4w fr-pt-2w fr-grid-row fr-pb-10w fr-m-2w fr-m-md-0">
+      <div class="fr-col-12 max-600 ml" v-if="skipForm">
+          <slot></slot>
+      </div>
+      <div class="fr-col-12 max-600 ml" v-if="!skipForm">
         <Form @submit="onSubmit">
           <slot></slot>
           <FooterContainer>
