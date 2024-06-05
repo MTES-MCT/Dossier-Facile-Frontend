@@ -1335,7 +1335,10 @@
       "disabled": "Disabled",
       "delete": "Delete",
       "never": "Never",
-      "no-shared-file": "No shared files yet"
+      "no-shared-file": "No shared files yet",
+      "resend": "Resend",
+      "resend-success": "Resend succeed.",
+      "resend-failed": "resend Failed! Try again later"
     }
   },
   "partners-page": {

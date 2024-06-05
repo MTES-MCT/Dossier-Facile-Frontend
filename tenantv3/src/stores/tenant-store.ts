@@ -1116,6 +1116,17 @@ const useTenantStore = defineStore('tenant', {
         this.setApartmentSharingLinks(newLinks);
       });
     },
+    async resendApartmentSharingLink(linkToResend: ApartmentSharingLink) {
+      await ApartmentSharingLinkService.resendLink(linkToResend).then(
+          (response) => {
+            return Promise.resolve(response);
+          },
+          (error) => {
+            return Promise.reject(error);
+          }
+        );
+    },
+
     async updateApartmentSharingLinkStatus(linkToUpdate: ApartmentSharingLink, enabled: boolean
     ) {
       await ApartmentSharingLinkService.updateLinkStatus(linkToUpdate, enabled);
