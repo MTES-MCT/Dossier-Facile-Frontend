@@ -3,7 +3,7 @@
     <h2 class="fr-h4">{{ t("sharing-page.shared-links.title") }}</h2>
 
     <div
-      class="fr-table fr-table--bordered fr-table--no-caption fr-m-0 fr-table--layout-fixed desktop"
+      class="fr-table fr-table--bordered fr-table--no-caption fr-m-0 desktop"
     >
       <table>
         <caption>
@@ -50,9 +50,17 @@
               />
             </td>
             <td>
-              <Button @on-click="deleteSharedLink(link)">
-                {{ t("sharing-page.shared-links.delete") }}
-              </Button>
+              <div>
+                <Button class="fr-mr-2w" @on-click="deleteSharedLink(link)">
+                  {{ t("sharing-page.shared-links.delete") }}
+                </Button>
+                <Button
+                    :disabled="!link.enabled"
+                    @on-click="resendLink(link)"
+                >
+                  {{ t("sharing-page.shared-links.resend") }}
+                </Button>
+                </div>
             </td>
           </tr>
           <tr v-if="links.length === 0">
@@ -108,6 +116,15 @@
                 >
                   {{ t("sharing-page.shared-links.delete") }}
                 </Button>
+                </li>
+              <li>
+                <Button
+                    :disabled="!link.enabled"
+                    class="fr-btn--tertiary"
+                    @on-click="resendLink(link)"
+                >
+                  {{ t("sharing-page.shared-links.resend") }}
+                </Button>
               </li>
             </ul>
           </div>
@@ -140,6 +157,15 @@ dayjs.extend(relativeTime);
 
   function deleteSharedLink(link: ApartmentSharingLink) {
     store.deleteApartmentSharingLink(link);
+  }
+  function resendLink(link: ApartmentSharingLink) {
+    store.resendApartmentSharingLink(link)
+        .then(() => {
+          ToastService.success("sharing-page.shared-links.resend-success");
+        })
+        .catch(() => {
+          ToastService.error("sharing-page.shared-links.resend-failed");
+        });
   }
 
   function updateSharedLinkStatus(link: ApartmentSharingLink, enabled: boolean) {
@@ -177,7 +203,9 @@ dayjs.extend(relativeTime);
 .wrap {
   word-wrap: break-word;
 }
-
+.desktop table {
+  display: table;
+}
 .file-list-item {
   display: flex;
   justify-content: space-between;

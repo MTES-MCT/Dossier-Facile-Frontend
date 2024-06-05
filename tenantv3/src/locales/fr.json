@@ -1372,7 +1372,10 @@
       "disabled": "Desactivé",
       "delete": "Supprimer",
       "never": "Jamais",
-      "no-shared-file": "Aucun dossier partagé pour l'instant"
+      "no-shared-file": "Aucun dossier partagé pour l'instant",
+      "resend": "Renvoyer",
+      "resend-success": "Envoi réussi.",
+      "resend-failed": "Echec de l'envoi. Veuillez ré-essayer plus tard"
     }
   },
   "partners-page": {
