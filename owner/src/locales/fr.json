@@ -76,8 +76,24 @@
   "connectpropertyvalidate": {
     "loading": "Veuillez patienter",
     "error-occured": "Une erreur est survenue",
-    "title": "Votre DossierFacile a bien été partagé avec le propriétaire !",
-    "subtitle": "Ce dernier prendra directement contact avec vous si votre dossier est retenu.",
+    "title": {
+      "VALIDATED": "Votre DossierFacile a bien été partagé",
+      "DECLINED": "Le propriétaire a reçu votre candidature, mais il ne peut pas consulter votre dossier refusé",
+      "INCOMPLETE": "Le propriétaire a reçu votre candidature, mais il ne peut pas consulter votre dossier incomplet",
+      "TO_PROCESS": "Le propriétaire a reçu votre candidature, mais il ne peut pas consulter votre dossier pour le moment"
+    },
+    "subtitle": {
+      "VALIDATED": "Le propriétaire a désormais accès à tous les documents que vous avez transmis. Il vous contactera s’il retient votre candidature.",
+      "DECLINED": "Notre équipe a examiné votre dossier et l’a refusé. Les propriétaires ne peuvent consulter que les dossiers totalement validés.<b> Consultez nos commentaires dans votre messagerie et corrigez les erreurs indiquées.</b> ",
+      "INCOMPLETE": "Votre dossier est actuellement incomplet. Les propriétaires ne peuvent consulter que les dossiers complets et validés par notre équipe.<b> Complétez votre dossier dès maintenant !</b>",
+      "TO_PROCESS": "<b>Votre dossier est actuellement en cours de traitement par notre équipe.</b> Les propriétaires ne peuvent consulter que les dossiers totalement validés.<b> Vous recevrez un e-mail lorsque votre dossier aura été traité.</b>"
+    },
+    "back-to-tenant-button-text":{
+      "VALIDATED":"Retourner à votre dossier",
+      "DECLINED": "Consulter votre messagerie",
+      "INCOMPLETE": "Compléter votre dossier",
+      "TO_PROCESS": "Consulter l’état de votre dossier"
+    },
     "oops-title": "Oups, vous ne pouvez pas candidater…",
     "oops-subtitle": "Une erreur est survenue, veuillez prendre contact avec le support.",
     "oops-create-subtitle": "car vous n’êtes pas l’initiateur du dossier de colocation DossierFacile. Prenez contact avec {0} afin qu’il.elle candidate en vos noms."

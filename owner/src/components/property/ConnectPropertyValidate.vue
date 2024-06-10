@@ -19,14 +19,20 @@
       </div>
       <div v-if="showSuccess" class="box-container">
         <div class="fr-col-12 fr-col-md-7">
-          <NakedCard class="fr-mt-3w bg-purple-var fr-p-5w h-100">
-            <p style="font-size: 40px">🎉</p>
-            <h2 class="fr-h5">{{ t('connectpropertyvalidate.title') }}</h2>
-            <div>{{ t('connectpropertyvalidate.subtitle') }}</div>
-            <div class="right-btn-container">
-              <a class="fr-mt-7w fr-btn" :href="TENANT_URL">Retourner à mon DossierFacile</a>
-            </div>
-          </NakedCard>
+          <div class="fr-callout fr-mt-3w"
+          :class="{'success fr-icon-success-line': apartmentSharing?.status === 'VALIDATED',
+          'error fr-icon-error-line': apartmentSharing?.status === 'DECLINED' || apartmentSharing?.status === 'INCOMPLETE',
+          'neutral fr-icon-time-line': apartmentSharing?.status === 'TO_PROCESS',
+          }">
+            <h3 class="fr-callout__title">{{ t('connectpropertyvalidate.title.' + apartmentSharing?.status) }}</h3>
+            <p class="fr-callout__text">
+              <div v-html="t('connectpropertyvalidate.subtitle.' + apartmentSharing?.status)" />
+            </p>
+            <a class="fr-btn"
+               :href="TENANT_URL + ((apartmentSharing?.status === 'DECLINED')? '/messaging' : '')">
+              {{ t('connectpropertyvalidate.back-to-tenant-button-text.' + apartmentSharing?.status) }}
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -42,6 +48,7 @@ import keycloakTenant from '../../plugin/KeycloakTenant';
 import PropertyService from './PropertyService';
 import PropertyContainer from './PropertyContainer.vue';
 import useOwnerStore from '../../store/owner-store';
+
 
 const route = useRoute();
 const router = useRouter();
@@ -69,6 +76,7 @@ const TENANT_API_URL = `${import.meta.env.VITE_API_URL}`;
 
 const isCreate = ref(true);
 const mainTenantFirstname = ref('');
+const apartmentSharing = ref(null)
 
 function subscribe() {
   if (keycloakTenant.authenticated) {
@@ -81,6 +89,7 @@ function subscribe() {
     reqInstance
       .get(`${TENANT_API_URL}/dfc/tenant/profile`)
       .then((profile) => {
+        apartmentSharing.value = profile.data.apartmentSharing
         PropertyService.subscribe(kcToken!, token.value)
           .then(() => {
             showSuccess.value = true;
@@ -90,7 +99,6 @@ function subscribe() {
               (tenant: any) => tenant.tenantType === 'CREATE',
             );
             mainTenantFirstname.value = createTenant.firstName;
-
             isCreate.value = createTenant.id === profile.data.connectedTenantId;
             showError.value = true;
           });
@@ -118,6 +126,8 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
+@import '@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.css';
+
 .box-container {
   display: flex;
   justify-content: center;
@@ -128,5 +138,32 @@ onMounted(() => {
   justify-content: flex-end;
   width: 100%;
   padding: 0;
+}
+.fr-callout {
+  background-color: white;
+}
+.fr-callout__title {
+  font-size: 1.25rem;
+}
+.fr-callout__text {
+  font-size: 1rem;
+}
+.fr-callout.success {
+  background-image: linear-gradient(0deg, var(--success), var(--success));
+}
+.fr-callout.success:before {
+  color: var(--success);
+}
+.fr-callout.error {
+  background-image: linear-gradient(0deg, var(--red-marianne-425-625), var(--red-marianne-425-625));
+}
+.fr-callout.error:before {
+  color: var(--red-marianne-425-625);
+}
+.fr-callout.neutral {
+  background-image: linear-gradient(0deg, var(--blue-france-main-525), var(--blue-france-main-525));
+}
+.fr-callout.neutral:before {
+  color: var(--blue-france-main-525);
 }
 </style>

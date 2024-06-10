@@ -76,8 +76,24 @@
   "connectpropertyvalidate": {
     "loading": "Please wait",
     "error-occured": "An error occurred",
-    "title": "Your DossierFacile has been shared with the owner!",
-    "subtitle": "They will contact you directly if your application is approved.",
+    "title": {
+      "VALIDATED": "Your DossierFacile has been successfully shared",
+      "DECLINED": "The landlord received your application, but cannot view your declined file",
+      "INCOMPLETE": "The landlord received your application, but cannot view your incomplete file",
+      "TO_PROCESS": "The landlord received your application, but cannot view your file at the moment"
+    },
+    "subtitle": {
+      "VALIDATED": "The landlord now has access to all the documents you have submitted. They will contact you if they decide to proceed with your application.",
+      "DECLINED": "Our team has reviewed your file and it has been declined. Landlords can only view fully validated files. <b>Check our comments in your messages and correct the indicated errors.</b>",
+      "INCOMPLETE": "Your file is currently incomplete. Landlords can only view complete and validated files by our team. <b>Complete your file now!</b>",
+      "TO_PROCESS": "<b>Your file is currently being processed by our team.</b> Landlords can only view fully validated files. <b>You will receive an email when your file has been processed.</b>"
+    },
+    "back-to-tenant-button-text": {
+      "VALIDATED": "Return to your file",
+      "DECLINED": "Check your messages",
+      "INCOMPLETE": "Complete your file",
+      "TO_PROCESS": "Check the status of your file"
+    },
     "oops-title": "Oops, you can't apply...",
     "oops-subtitle": "An error occurred, please contact support.",
     "oops-create-subtitle": "because you are not the initiator of the DossierFacile roommate file. Contact {0} to apply on your behalf."
