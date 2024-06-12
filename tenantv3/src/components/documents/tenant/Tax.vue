@@ -109,9 +109,6 @@
           <p>
             {{ $t("tax-page.avis-text1") }}
           </p>
-          <p>
-            {{ $t("tax-page.avis-text2") }}
-          </p>
           <hr class="mobile" />
           <div class="btn-align">
             <DfButton
@@ -121,7 +118,8 @@
             >
           </div>
           <div class="btn-align fr-mt-2w">
-            <a @click="forceSave" href="#">{{ $t("tax-page.avis-force") }}</a>
+            <a href="https://docs.dossierfacile.logement.gouv.fr/article/88-avis-dimposition" rel="noopener"
+               target="_blank">{{ $t("tax-page.avis-link-to-doc") }}</a>
           </div>
         </div>
       </template>
@@ -314,11 +312,6 @@ function onSelectChange($event: DocumentType) {
     });
     files.value = [...files.value, ...nf];
     save(force);
-  }
-
-  function forceSave() {
-    isWarningTaxSituationModalVisible.value = false;
-    saveNewFiles(true);
   }
 
   function resetFiles() {

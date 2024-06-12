@@ -1160,10 +1160,9 @@
     "title": "Votre avis d'imposition",
     "warning-no-accepted-doc": "<p><strong>L’avis de situation déclarative n’est pas un avis d’imposition, il sera donc systématiquement refusé.</strong></p><p>Regardez bien le titre du document que vous transmettez ! Il s’agit d’une <a href='https://docs.dossierfacile.logement.gouv.fr/article/88-avis-dimposition' target='_blank' rel='noopener'>erreur très courante</a>.</p>",
     "avis-detected": "Avis de situation déclarative détecté",
-    "avis-text1": "Nous avons détecté un avis de situation déclarative en tant que justificatif d'imposition. Ce document étant purement déclaratif, il n'est malheureusement pas recevable.",
-    "avis-text2": "Nous vous invitons à déposer un avis d'imposition concernant vos revenus de l'année N-1.",
-    "avis-btn": "Déposer un document valide",
-    "avis-force": "Vous pensez qu'il s'agit d'une erreur ? Ignorer et poursuivre"
+    "avis-text1": "Vous avez fourni un avis de situation déclarative (voir titre du document). Ce document n’est pas valide. Merci de le remplacer par votre avis d’imposition.",
+    "avis-btn": "Déposer votre avis d’imposition",
+    "avis-link-to-doc": "Besoin d'aide ? Consultez notre aide en ligne"
   },
   "tenantdocument": {},
   "tenantguarantorchoice": {
