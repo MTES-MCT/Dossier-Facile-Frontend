@@ -33,7 +33,7 @@ const { t } = useI18n();
                 </ul>
             </div>
             <div class="fr-col-12 fr-col-md-3 fr-col-offset-md-1 fr-px-6w fr-px-md-0 fr-py-0">
-              <svg xmlns="http://www.w3.org/2000/svg" class="fr-responsive-img fr-artwork" aria-hidden="true" width="160" height="200" viewBox="0 0 160 200">
+              <svg aria-label="Fond ecran" xmlns="http://www.w3.org/2000/svg" class="fr-responsive-img fr-artwork" aria-hidden="true" width="160" height="200" viewBox="0 0 160 200">
                     <use class="fr-artwork-motif" :href="ovoidSprite + '#artwork-motif'"></use>
                     <use class="fr-artwork-background" :href="ovoidSprite + '#artwork-background'"></use>
                     <g transform="translate(40, 60)">
