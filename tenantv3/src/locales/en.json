@@ -1121,10 +1121,9 @@
     "warning-no-accepted-doc": "Warning, the declarative situation notice is not accepted.",
     "goto-documentation": "View documentation",
     "avis-detected": "Declarative Situation Notice Detected",
-    "avis-text1": "We have detected a declarative situation notice as a proof of tax. Unfortunately, this document is purely declarative and is not acceptable.",
-    "avis-text2": "We invite you to submit a tax notice concerning your income from the previous year.",
+    "avis-text1": "You have provided a declarative statement notice (see document title). This document is not valid. Please replace it with your tax assessment notice.",
     "avis-btn": "Submit a valid document",
-    "avis-force": "Do you think this is an error? Ignore and proceed"
+    "avis-link-to-doc": "Need help ? Go to documentation"
   },
   "tenantdocument": {},
   "tenantguarantorchoice": {
