@@ -3,7 +3,7 @@
     <PropertyDiagnosticForm @on-back="onBack" @submit="onSubmit"></PropertyDiagnosticForm>
     <div v-if="hasDpe">
       <PropertyDiagnosticResult :dpe="dpe"></PropertyDiagnosticResult>
-      <PropertyDiagnosticEnergySieves></PropertyDiagnosticEnergySieves>
+      <PropertyDiagnosticEnergySieves :letter="dpe.etiquetteBilan"></PropertyDiagnosticEnergySieves>
       <PropertyDiagnosticExpiryWarning class="fr-mt-3w" v-if="dpe?.statut === 'EXPIRE'">
       </PropertyDiagnosticExpiryWarning>
     </div>
@@ -18,6 +18,7 @@ import PropertyDiagnosticForm from './PropertyDiagnosticForm.vue';
 import PropertyDiagnosticResult from './PropertyDiagnosticResult.vue';
 import PropertyPage from './PropertyPage.vue';
 import PropertyDiagnosticExpiryWarning from './PropertyDiagnosticExpiryWarning.vue';
+import PropertyDiagnosticEnergySieves from './PropertyDiagnosticEnergySieves.vue';
 
 const store = useOwnerStore();
 const route = useRoute();
