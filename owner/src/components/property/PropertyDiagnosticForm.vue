@@ -65,7 +65,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';
-import { Field, ErrorMessage } from 'vee-validate';
+import { Form, Field, ErrorMessage } from 'vee-validate';
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
 import PropertyDiagnosticDetailForm from './PropertyDiagnosticDetailForm.vue';
 import useOwnerStore from '../../store/owner-store';
@@ -102,6 +102,10 @@ function search() {
 
 function onBack() {
   emit('on-back');
+}
+
+function onSubmit() {
+  emit('submit');
 }
 
 </script>
