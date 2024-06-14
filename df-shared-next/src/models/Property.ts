@@ -7,6 +7,7 @@ export class Property {
   rentCost!: number;
   co2Emission!: number;
   energyConsumption!: number;
+  dpeDate!: string;
   chargesCost!: number;
   displayed!: boolean;
   validated!: boolean;
@@ -17,4 +18,6 @@ export class Property {
   propertiesApartmentSharing: any;
   propertyApartmentSharingCount?: number;
   ownerName?: string;
+  ademeNumber?: string;
+  ademeApiResult?: any;
 }

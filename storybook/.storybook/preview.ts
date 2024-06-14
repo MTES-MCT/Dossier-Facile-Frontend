@@ -8,15 +8,16 @@ import '../../node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.min.css'
 import '../../node_modules/@gouvfr/dsfr/dist/utility/colors/colors.min.css'
 
 import { setup } from "@storybook/vue3";
+import i18n from '../../owner/src/i18n';
 
-const i18n = createI18n({
-  legacy: false,
-  locale: 'fr',
-  messages: {
-    "en": {},
-    "fr": {},
-  },
-});
+// const i18n = createI18n({
+//   legacy: false,
+//   locale: 'fr',
+//   messages: {
+//     "en": {},
+//     "fr": {},
+//   },
+// });
 
 setup((app) => {
     app.use(i18n);

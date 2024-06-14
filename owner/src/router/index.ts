@@ -197,7 +197,7 @@ const routes = [
       hasFooter: false,
       position: 6,
     },
-    component: () => import('../components/property/PropertyDiagnostic.vue'),
+    component: () => import('../components/property/PropertyDiagnosticAdeme.vue'),
   },
   {
     path: '/valider-propriete/:id?',

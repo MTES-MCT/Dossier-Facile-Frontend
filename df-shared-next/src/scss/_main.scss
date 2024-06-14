@@ -1,4 +1,5 @@
 @import "variables";
+@import "@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.css";
 
 #app {
   min-height: 100vh;
@@ -28,7 +29,7 @@ body {
 }
 
 .color--red {
-  color: red !important;
+  color: var(--red-marianne-main-472) !important;
 }
 
 .color--white {
@@ -258,7 +259,7 @@ img {
 }
 
 .blue-text {
-  color: #000091;
+  color: var(--blue-france-sun-113-625);
 }
 
 .text--light-blue {
@@ -361,10 +362,6 @@ img {
   border: 0;
 }
 
-.text--white {
-  color: white;
-}
-
 .fr-background-contrast--info {
   --hover: var(--background-contrast-info-hover) !important;
   --active: var(--background-contrast-info-active) !important;
@@ -442,23 +439,8 @@ img {
   display: inline-block;
 }
 
-.align-items--center {
-  align-items: center;
-}
-
 .bg-purple-var {
   --background-default-grey: #e5e5f4;
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
 }
 
 h1 {
@@ -494,4 +476,16 @@ h1 {
   text-align: center;
   z-index: 1;
   margin-right: 0.5rem;
+}
+
+.text-align--right {
+  text-align: right;
+}
+
+.display--flex {
+  display: flex;
+}
+
+.flex--1 {
+  flex: 1;
 }
