@@ -1,5 +1,5 @@
 <template>
-  <PropertyContainer>
+  <PropertyContainer v-if="!propertyNotFound">
     <div class="fr-container">
       <div v-if="!showError && !showSuccess">{{ t('connectpropertyvalidate.loading') }}</div>
       <div v-if="showError" class="box-container">
@@ -58,10 +58,12 @@ const token = ref('');
 const showError = ref(false);
 const showSuccess = ref(false);
 const store = useOwnerStore();
+const propertyNotFound = ref(true);
 
 if (route.params.token) {
   token.value = route.params.token.toString();
   store.setPropertyToConsult(token.value).then(() => {
+    propertyNotFound.value = false;
     if (Object.keys(store.getPropertyToConsult).length <= 0) {
       router.push({ name: 'Dashboard' });
     }
