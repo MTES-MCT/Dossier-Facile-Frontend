@@ -39,8 +39,8 @@ const { t } = useI18n();
 const store = useOwnerStore();
 
 const p = computed(() => store.getPropertyToConsult);
-const propertyType = computed(() => store.getPropertyToConsult?.type);
-const propertyFurnished = computed(() => store.getPropertyToConsult?.furniture);
+const propertyType = computed(() => p.value?.type);
+const propertyFurnished = computed(() => p.value?.furniture);
 const titleKey = computed(() => {
   if (propertyType.value === 'HOUSE') {
     if (propertyFurnished.value === 'FURNISHED') {
@@ -60,13 +60,10 @@ const titleKey = computed(() => {
   return 'other-unfurnished';
 });
 const dpe = computed(
-  () => {
-    const property = store.getPropertyToConsult;
-    return UtilsService.getGlobalLetter(
-      UtilsService.getEnergyConsumptionLetter(property.energyConsumption),
-      UtilsService.getCO2EmissionLetter(property.co2Emission),
-    );
-  },
+  () => UtilsService.getGlobalLetter(
+    UtilsService.getEnergyConsumptionLetter(p.value?.energyConsumption),
+    UtilsService.getCO2EmissionLetter(p.value?.co2Emission),
+  ),
 );
 
 </script>

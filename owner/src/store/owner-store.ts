@@ -119,6 +119,8 @@ const useOwnerStore = defineStore('owner', {
         const res = await PropertyService.loadProperty(token);
         if (res.data.name) {
           Object.assign(this.propertyToConsult, { ...res.data });
+        } else {
+          return Promise.reject();
         }
         return Promise.resolve();
       } catch (e) {

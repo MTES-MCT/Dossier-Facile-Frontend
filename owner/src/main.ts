@@ -149,7 +149,7 @@ if (!window.location.href.includes('/validConnexion/')) {
       globalCookiesConfig({
         expireTimes: aYearFromNow.toUTCString(),
         path: '/',
-        domain: MAIN_URL.endsWith('dossierfacile.fr') ? 'dossierfacile.fr' : 'localhost',
+        domain: MAIN_URL.endsWith('dossierfacile.logement.gouv.fr') ? 'dossierfacile.logement.gouv.fr' : 'localhost',
         secure: true,
         sameSite: 'None',
       });
