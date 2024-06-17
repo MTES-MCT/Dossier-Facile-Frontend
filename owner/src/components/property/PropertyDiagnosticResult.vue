@@ -147,7 +147,7 @@ const props = defineProps<{
   dpe: any;
 }>();
 
-const energyConsumption = computed(() => props.dpe.consommationEnergieFinale);
+const energyConsumption = computed(() => props.dpe.consommation);
 const energyLetter = computed(() => UtilsService.getEnergyConsumptionLetter(energyConsumption.value));
 
 const co2Emission = computed(() => props.dpe.emission);
