@@ -62,12 +62,11 @@ const propertyNotFound = ref(true);
 
 if (route.params.token) {
   token.value = route.params.token.toString();
-  store.setPropertyToConsult(token.value).then(() => {
-    propertyNotFound.value = false;
-    if (Object.keys(store.getPropertyToConsult).length <= 0) {
-      router.push({ name: 'Dashboard' });
-    }
-  });
+  store.setPropertyToConsult(token.value);
+  propertyNotFound.value = false;
+  if (Object.keys(store.getPropertyToConsult).length <= 0) {
+    router.push({ name: 'Dashboard' });
+  }
 } else {
   router.push({ name: 'Dashboard' });
 }

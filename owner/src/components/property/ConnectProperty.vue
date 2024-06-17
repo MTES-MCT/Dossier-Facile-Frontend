@@ -79,9 +79,8 @@ const propertyNotFound = ref(true);
 onMounted(() => {
   if (route.params.token) {
     token.value = route.params.token.toString();
-    store.setPropertyToConsult(token.value).catch(() => {
-      propertyNotFound.value = false;
-    });
+    store.setPropertyToConsult(token.value);
+    propertyNotFound.value = false;
   } else {
     router.push({ name: 'Dashboard' });
   }
