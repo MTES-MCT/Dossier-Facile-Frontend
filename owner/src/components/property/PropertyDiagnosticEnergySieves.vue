@@ -40,7 +40,7 @@ function getForbiddenDate() {
 }
 
 function redirectFranceRenov() {
-  AnalyticsService.redirectFranceRenov();
+  AnalyticsService.dpeEvent('dpe_contact_FranceRenov');
   window.open(
     'https://france-renov.gouv.fr/espaces-conseil-fr?utm_source=dossierfacile&utm_medium=display&utm_campaign=dossierfacile ',
     '_blank',

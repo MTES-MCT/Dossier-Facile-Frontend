@@ -9,6 +9,7 @@ import useOwnerStore from '../../store/owner-store';
 import DpeDiagram from 'df-shared-next/src/components/dpe/DpeDiagram.vue';
 import DpeCo2Diagram from 'df-shared-next/src/components/dpe/DpeCo2Diagram.vue';
 import UtilsService from '../../services/UtilsService';
+import AnalyticsService from '../../services/AnalyticsService';
 
 const { t } = useI18n();
 
@@ -67,6 +68,7 @@ onMounted(() => {
 });
 
 function register() {
+  AnalyticsService.dpeEvent('dpe_manual_information');
   store.saveProperty().then(() => {
     updateDPE();
   });

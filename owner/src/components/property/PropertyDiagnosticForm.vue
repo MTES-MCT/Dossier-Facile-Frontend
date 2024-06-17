@@ -39,15 +39,18 @@
     <div class="fr-accordions-group">
       <section class="fr-accordion">
         <h3 class="fr-accordion__title">
-          <button class="fr-accordion__btn fr-h4" aria-expanded="false" aria-controls="noDPE"><i
+          <button class="fr-accordion__btn fr-h4" aria-expanded="false" aria-controls="noDPE"
+           @click="AnalyticsService.dpeEvent('dpe_no_number')"><i
               class="circle ri-arrow-right-line fs-22"></i>{{ t('propertydiagnostic.no-dpe-btn') }}</button>
         </h3>
         <div class="fr-collapse" id="noDPE">
           <p :v-html="t('propertydiagnostic.no-dpe-text')"></p>
           <div class="fr-highlight">
-            <li><span v-html="t('propertydiagnostic.no-dpe-list-1')"></span></li>
-            <li><span v-html="t('propertydiagnostic.no-dpe-list-2')"></span></li>
-            <li><span v-html="t('propertydiagnostic.no-dpe-list-3')"></span></li>
+            <ul>
+              <li><span v-html="t('propertydiagnostic.no-dpe-list-1')"></span></li>
+              <li><span v-html="t('propertydiagnostic.no-dpe-list-2')"></span></li>
+              <li><span v-html="t('propertydiagnostic.no-dpe-list-3')"></span></li>
+            </ul>
           </div>
           <PropertyDiagnosticDetailForm></PropertyDiagnosticDetailForm>
         </div>
@@ -72,6 +75,7 @@ import useOwnerStore from '../../store/owner-store';
 import { useToast } from 'vue-toastification';
 import BackNext from '../footer/BackNext.vue';
 import FooterContainer from '../footer/FooterContainer.vue';
+import AnalyticsService from '../../services/AnalyticsService';
 
 const { t } = useI18n();
 const dpe = ref('');
@@ -81,6 +85,7 @@ const toast = useToast();
 const emit = defineEmits(['submit', 'on-back']);
 
 function search() {
+  AnalyticsService.dpeEvent('dpe_search_number');
   if (!dpe.value || !dpe.value.length) {
     toast.error(t('propertydiagnosticform.dpe-required').toString(), {
       timeout: 7000,
