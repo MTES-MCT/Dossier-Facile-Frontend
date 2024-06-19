@@ -39,7 +39,7 @@
     <div class="fr-accordions-group">
       <section class="fr-accordion">
         <h3 class="fr-accordion__title">
-          <button class="fr-accordion__btn fr-h4" aria-expanded="false" aria-controls="noDPE"
+          <button class="fr-accordion__btn" aria-expanded="false" aria-controls="noDPE"
            @click="AnalyticsService.dpeEvent('dpe_no_number')"><i
               class="circle ri-arrow-right-line fs-22"></i>{{ t('propertydiagnostic.no-dpe-btn') }}</button>
         </h3>
@@ -147,5 +147,10 @@ function onSubmit() {
 
   width: 140px;
   height: 80px;
+}
+
+.fr-accordion__btn {
+  font-size: 1.5rem;
+  font-weight: 400;
 }
 </style>
