@@ -1,6 +1,6 @@
 <template>
   <NakedCard class="fr-p-md-5w">
-    <h1 class="fr-h4 fr-label--info">{{ t("propertydiagnostic.title") }}</h1>
+    <h1 class="fr-h4">{{ t("propertydiagnostic.title") }}</h1>
     <div class="fr-background-alt--blue-france fr-label--info fr-p-3w" style="position: relative">
       <h2 class="fr-h6 fr-label--info">
         <span class="fr-icon-info-fill fr-label--info" aria-hidden="true"></span>
