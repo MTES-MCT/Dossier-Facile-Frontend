@@ -489,3 +489,10 @@ h1 {
 .flex--1 {
   flex: 1;
 }
+
+.full-mobile {
+  @media (max-width: 768px) {
+    justify-content: center;
+    width: 100%;
+  }
+}

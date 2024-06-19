@@ -8,7 +8,7 @@
           <p v-html="t('propertydiagnostic.details.good-dpe', [letter])"></p>
         </div>
       </div>
-      <div class="fr-background-contrast--blue-france fr-mt-3w fr-p-3w desktop" v-if="getForbiddenDate()">
+      <div class="fr-background-contrast--blue-france fr-mt-3w fr-p-3w" v-if="getForbiddenDate()">
         <div class="title-icon-container">
           <h2 class="fr-h6">{{ t("propertydiagnostic.details.title") }}</h2>
           <img alt="France Renov" src="../../assets/FranceRenov.svg" class="france_renov" />
@@ -23,7 +23,7 @@
         <p v-html="t('propertydiagnostic.details.france-renov-text1')"></p>
         <p v-html="t('propertydiagnostic.details.france-renov-text2')"></p>
         <div class="text-align--right">
-          <a class="fr-btn fr-btn--secondary" href="#" @click="redirectFranceRenov">{{
+          <a class="fr-btn fr-btn--secondary full-mobile" href="#" @click="redirectFranceRenov">{{
             t("propertydiagnostic.details.contact-france-renov") }}</a>
         </div>
       </div>

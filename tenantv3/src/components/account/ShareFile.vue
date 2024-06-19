@@ -177,10 +177,4 @@ select {
   min-width: 200px;
 }
 
-.full-mobile {
-  @media (max-width: 768px) {
-    justify-content: center;
-    width: 100%;
-  }
-}
 </style>
