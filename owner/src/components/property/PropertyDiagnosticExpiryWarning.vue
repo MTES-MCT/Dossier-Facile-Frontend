@@ -1,6 +1,6 @@
 <template>
   <div class="fr-alert fr-alert--error">
-    <h2>{{ t('propertydiagnosticexpirywarning.expiry-title') }}</h2>
+    <h2 class="fr-h6">{{ t('propertydiagnosticexpirywarning.expiry-title') }}</h2>
     <p>{{ t('propertydiagnosticexpirywarning.expiry-text-1') }}</p>
     <p>{{ t('propertydiagnosticexpirywarning.expiry-text-2') }}</p>
     <div class="text-align--right">
