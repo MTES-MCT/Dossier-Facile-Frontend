@@ -110,7 +110,7 @@
           {{ t("propertydiagnosticresult.dpe.my-dpe-detail") }}:
           <span :class="dpe.etiquetteBilan">{{ dpe.etiquetteBilan }}</span>
         </h2>
-      <div class="display--flex">
+      <div class="dpe-container">
         <DpeDiagram
           class="flex--1"
           :letter="energyLetter"
@@ -199,5 +199,13 @@ function formatDate(d: string) {
     font-size: 14px;
     font-weight: 400;
     color: #666666;
+  }
+
+  .dpe-container {
+  display: flex;
+  @media all and (max-width: 768px) {
+    flex-direction: column;
+    gap: 2rem;
+  }
   }
 </style>
