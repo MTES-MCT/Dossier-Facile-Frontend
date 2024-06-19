@@ -22,10 +22,10 @@
             'fr-input--valid': meta.valid,
             'fr-input--error': !meta.valid,
           }" placeholder="Exemple : 1312V1020002U" type="text" />
-          <button type="submit" class="desktop fr-btn fr-btn--icon-left fr-icon-checkbox-circle-line">
+          <button type="submit" class="desktop fr-btn fr-btn--icon-left fr-icon-search-line">
             {{ t('search') }}
           </button>
-          <button type="submit" class="mobile fr-btn fr-btn--icon fr-icon-checkbox-circle-line"
+          <button type="submit" class="mobile fr-btn fr-btn--icon fr-icon-search-line"
             title="{{ t('search')}}">
             {{ t('search') }}
           </button>
