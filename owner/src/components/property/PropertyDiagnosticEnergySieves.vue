@@ -72,3 +72,12 @@ function redirectFranceRenov() {
 }
 
 </script>
+
+<style scoped>
+  .title-icon-container {
+    @media all and (min-width: 768px) {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+</style>

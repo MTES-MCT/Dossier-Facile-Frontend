@@ -45,8 +45,4 @@ function onSubmit() {
 </script>
 
 <style scoped>
-.title-icon-container {
-  display: flex;
-  justify-content: space-between;
-}
 </style>
