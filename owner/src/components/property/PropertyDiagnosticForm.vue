@@ -39,7 +39,8 @@
     <div class="fr-accordions-group">
       <section class="fr-accordion">
         <h3 class="fr-accordion__title">
-          <button class="fr-accordion__btn" aria-expanded="false" aria-controls="noDPE"
+          <button class="fr-accordion__btn" :aria-expanded="hasDPE ? 'true' : 'false'"
+           aria-controls="noDPE"
            @click="AnalyticsService.dpeEvent('dpe_no_number')"><i
               class="circle ri-arrow-right-line fs-22"></i>{{ t('propertydiagnostic.no-dpe-btn') }}</button>
         </h3>
@@ -67,7 +68,7 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { Form, Field, ErrorMessage } from 'vee-validate';
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
 import PropertyDiagnosticDetailForm from './PropertyDiagnosticDetailForm.vue';
@@ -83,6 +84,8 @@ const store = useOwnerStore();
 const toast = useToast();
 
 const emit = defineEmits(['submit', 'on-back']);
+
+const hasDPE = computed(() => store.propertyToEdit?.co2Emission > 0 || store.propertyToEdit?.energyConsumption > 0);
 
 function search() {
   AnalyticsService.dpeEvent('dpe_search_number');
