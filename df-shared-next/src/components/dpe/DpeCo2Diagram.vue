@@ -19,6 +19,9 @@ const props = withDefaults(
 const letters = computed(() => props.short ? [props.letter] :  ['A', 'B', 'C', 'D', 'E', 'F', 'G'] );
 
 const { t } = useI18n();
+
+const consumption = computed(() => Math.round(props.consumption));
+
 </script>
 
 <template>
@@ -27,7 +30,7 @@ const { t } = useI18n();
       <span class="rectangle" :class="l">{{ l }}</span>
       <LeftDpeArrow
         :label="t('dpe.kgco2')"
-        :consumption="$props.consumption"
+        :consumption="consumption"
         v-if="!$props.short && $props.letter === l"
       ></LeftDpeArrow>
     </div>

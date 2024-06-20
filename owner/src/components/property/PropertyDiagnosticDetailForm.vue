@@ -166,6 +166,10 @@ function getLetterStyle() {
 
 .dpe-container {
   display: flex;
+  @media all and (max-width: 768px) {
+    flex-direction: column;
+    gap: 2rem;
+  }
 }
 
 .dpe-diagram {

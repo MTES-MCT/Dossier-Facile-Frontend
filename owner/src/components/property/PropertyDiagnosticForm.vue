@@ -1,6 +1,6 @@
 <template>
   <NakedCard class="fr-p-md-5w">
-    <h1 class="fr-h4 fr-label--info">{{ t("propertydiagnostic.title") }}</h1>
+    <h1 class="fr-h4">{{ t("propertydiagnostic.title") }}</h1>
     <div class="fr-background-alt--blue-france fr-label--info fr-p-3w" style="position: relative">
       <h2 class="fr-h6 fr-label--info">
         <span class="fr-icon-info-fill fr-label--info" aria-hidden="true"></span>
@@ -22,10 +22,10 @@
             'fr-input--valid': meta.valid,
             'fr-input--error': !meta.valid,
           }" placeholder="Exemple : 1312V1020002U" type="text" />
-          <button type="submit" class="desktop fr-btn fr-btn--icon-left fr-icon-checkbox-circle-line">
+          <button type="submit" class="desktop fr-btn fr-btn--icon-left fr-icon-search-line">
             {{ t('search') }}
           </button>
-          <button type="submit" class="mobile fr-btn fr-btn--icon fr-icon-checkbox-circle-line"
+          <button type="submit" class="mobile fr-btn fr-btn--icon fr-icon-search-line"
             title="{{ t('search')}}">
             {{ t('search') }}
           </button>
@@ -39,7 +39,8 @@
     <div class="fr-accordions-group">
       <section class="fr-accordion">
         <h3 class="fr-accordion__title">
-          <button class="fr-accordion__btn fr-h4" aria-expanded="false" aria-controls="noDPE"
+          <button class="fr-accordion__btn" :aria-expanded="hasDPE ? 'true' : 'false'"
+           aria-controls="noDPE"
            @click="AnalyticsService.dpeEvent('dpe_no_number')"><i
               class="circle ri-arrow-right-line fs-22"></i>{{ t('propertydiagnostic.no-dpe-btn') }}</button>
         </h3>
@@ -67,7 +68,7 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { Form, Field, ErrorMessage } from 'vee-validate';
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
 import PropertyDiagnosticDetailForm from './PropertyDiagnosticDetailForm.vue';
@@ -83,6 +84,8 @@ const store = useOwnerStore();
 const toast = useToast();
 
 const emit = defineEmits(['submit', 'on-back']);
+
+const hasDPE = computed(() => store.propertyToEdit?.co2Emission > 0 || store.propertyToEdit?.energyConsumption > 0);
 
 function search() {
   AnalyticsService.dpeEvent('dpe_search_number');
@@ -147,5 +150,10 @@ function onSubmit() {
 
   width: 140px;
   height: 80px;
+}
+
+.fr-accordion__btn {
+  font-size: 1.5rem;
+  font-weight: 400;
 }
 </style>

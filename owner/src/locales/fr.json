@@ -94,8 +94,8 @@
       "INCOMPLETE": "Votre dossier est actuellement incomplet. Les propriétaires ne peuvent consulter que les dossiers complets et validés par notre équipe.<b> Complétez votre dossier dès maintenant !</b>",
       "TO_PROCESS": "<b>Votre dossier est actuellement en cours de traitement par notre équipe.</b> Les propriétaires ne peuvent consulter que les dossiers totalement validés.<b> Vous recevrez un e-mail lorsque votre dossier aura été traité.</b>"
     },
-    "back-to-tenant-button-text":{
-      "VALIDATED":"Retourner à votre dossier",
+    "back-to-tenant-button-text": {
+      "VALIDATED": "Retourner à votre dossier",
       "DECLINED": "Consulter votre messagerie",
       "INCOMPLETE": "Compléter votre dossier",
       "TO_PROCESS": "Consulter l’état de votre dossier"
@@ -268,13 +268,14 @@
     "details": {
       "title": "Votre DPE en détail",
       "subtitle": "Votre logement est classé {0}, cela signifie :",
-      "list1": "que sa consommation énergétique est comprise entre 331 et 420 kWh/m²/an ",
+      "list1": "que sa consommation énergétique est {0}",
       "list2": "que <strong>toute augmentation de loyer est interdite depuis le 24 août 2022</strong>",
       "list3": "que <strong>votre logement sera interdit à la location à partir du {0}</strong>",
       "france-renov-title": "Connaissez-vous France Rénov' ?",
       "france-renov-text1": "<strong>France Rénov’ est le service public de la rénovation de l'habitat</strong>, porté par l'État avec les collectivités locales, et piloté par l’Agence nationale de l’habitat (Anah). France Rénov’ vous accompagne dans vos projets de rénovation : identifier vos travaux, estimer vos aides financières, trouver des professionnels compétents…",
       "france-renov-text2": "<strong>Plus de 2 500 conseillers France Rénov’ vous conseillent gratuitement et vous aident à réaliser vos travaux de rénovation.</strong>",
-      "contact-france-renov": "Contacter un conseiller France Rénov’"
+      "contact-france-renov": "Contacter un conseiller France Rénov’",
+      "good-dpe": "Votre logement est classé {0}, cela signifie que sa consommation énergétique est inférieure à 330 kWh/m²/an. <strong>Votre logement n’est concerné par aucune mesure de gel de loyer ou d’interdiction de location.</strong>"
     }
   },
   "propertydiagnosticform": {

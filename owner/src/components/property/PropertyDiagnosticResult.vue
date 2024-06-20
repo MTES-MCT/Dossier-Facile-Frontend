@@ -20,24 +20,26 @@
     </div>
     <hr />
     <div class="dpe-address-container">
-      <div class="display--flex">
-        <div class="flex--1 fr-mb-2w">
+      <div class="fr-grid-row">
+        <div class="fr-col-12 fr-col-lg-8">
           <strong>{{ dpe.adresse }}, {{ dpe.codePostal }} {{ dpe.commune }}</strong>
         </div>
         <DpeDiagram
+          class="fr-col-3 fr-col-lg-2"
           v-if="dpe?.statut !== 'EXPIRE'"
           :short="true"
           :letter="energyLetter"
           :consumption="energyConsumption"
         ></DpeDiagram>
         <DpeCo2Diagram
+          class="fr-col-3 fr-col-lg-2"
           v-if="dpe?.statut !== 'EXPIRE'"
           :short="true"
           :letter="co2Letter"
           :consumption="co2Emission"
         ></DpeCo2Diagram>
       </div>
-      <div class="display--flex">
+      <div class="display--flex fr-mt-2w">
         <div class="flex--1">
           <div class="label">{{ t("propertydiagnosticresult.dpe.status") }}</div>
           <div :class="{ 'color--red': dpe?.statut !== 'ACTIF' }"><strong>{{ t(dpe.statut) }}</strong></div>
@@ -110,7 +112,7 @@
           {{ t("propertydiagnosticresult.dpe.my-dpe-detail") }}:
           <span :class="dpe.etiquetteBilan">{{ dpe.etiquetteBilan }}</span>
         </h2>
-      <div class="display--flex">
+      <div class="dpe-container">
         <DpeDiagram
           class="flex--1"
           :letter="energyLetter"
@@ -199,5 +201,13 @@ function formatDate(d: string) {
     font-size: 14px;
     font-weight: 400;
     color: #666666;
+  }
+
+  .dpe-container {
+  display: flex;
+  @media all and (max-width: 768px) {
+    flex-direction: column;
+    gap: 2rem;
+  }
   }
 </style>

@@ -17,6 +17,7 @@ const props = withDefaults(
 );
 
 const letters = computed(() => props.short ? [props.letter] :  ['A', 'B', 'C', 'D', 'E', 'F', 'G'] );
+const consumption = computed(() => Math.round(props.consumption));
 
 const { t } = useI18n();
 </script>
@@ -28,7 +29,7 @@ const { t } = useI18n();
       <span class="arrow-right"></span>
       <LeftDpeArrow
         :label="t('dpe.kwhpy')"
-        :consumption="$props.consumption"
+        :consumption="consumption"
         v-if="!$props.short && $props.letter === l"
       ></LeftDpeArrow>
     </div>
