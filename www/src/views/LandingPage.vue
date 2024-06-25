@@ -229,6 +229,13 @@
             width="167"
           />
           <LogoPartnerComponent
+              :image="jinkaUrl"
+              href="https://www.jinka.fr"
+              name="Jinka"
+              height="60"
+              width="185"
+          />
+          <LogoPartnerComponent
             :image="locserviceUrl"
             height="60"
             href="https://www.locservice.fr/"
@@ -285,11 +292,11 @@
             width="200"
           />
           <LogoPartnerComponent
-            :image="pandalocUrl"
+            :image="unDeuxTroisLogerUrl"
             height="60"
-            href="https://www.pandaloc.com/"
-            name="pandaloc"
-            width="197"
+            href="https://www.123loger.com/"
+            name="123Loger"
+            width="60"
           />
           <LogoPartnerComponent
             :image="superimmoUrl"
@@ -404,13 +411,6 @@
             width="232"
           />
           <LogoPartnerComponent
-            :image="jinkaUrl"
-            href="https://www.jinka.fr"
-            name="Jinka"
-            height="60"
-            width="185"
-          />
-          <LogoPartnerComponent
             :image="lokappyUrl"
             height="60"
             href="https://lokappy.co/"
@@ -503,7 +503,7 @@ import clickandrentUrl from "../assets/logos/clickandrent.webp";
 import qlowerUrl from "../assets/logos/qlower.webp";
 import jelouebienUrl from "../assets/logos/jelouebien.webp";
 import gererseulUrl from "../assets/logos/gererseul.webp";
-import pandalocUrl from "../assets/logos/pandaloc.webp";
+import unDeuxTroisLogerUrl from "../assets/logos/123Loger.webp";
 import superimmoUrl from "../assets/logos/superimmo.webp";
 import wiziUrl from "../assets/logos/wizi.webp";
 import rentilaUrl from "../assets/logos/rentila.webp";
