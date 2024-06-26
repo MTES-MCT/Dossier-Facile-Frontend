@@ -74,18 +74,17 @@ const store = useOwnerStore();
 
 const token = ref('');
 const authorize = ref(false);
-const propertyNotFound = ref(false);
+const propertyNotFound = ref(true);
 
 onMounted(() => {
   if (route.params.token) {
     token.value = route.params.token.toString();
-    store.setPropertyToConsult(token.value).catch(() => {
-      propertyNotFound.value = true;
-    });
+    store.setPropertyToConsult(token.value);
+    propertyNotFound.value = false;
   } else {
     router.push({ name: 'Dashboard' });
   }
-})
+});
 
 const TENANT_URL = `${import.meta.env.VITE_FULL_TENANT_URL}`;
 const p = computed(() => store.getPropertyToConsult);

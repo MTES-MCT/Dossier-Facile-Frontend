@@ -5,10 +5,15 @@ const AnalyticsService = {
     }
     window._paq.push(['trackEvent', data.event_category, name, data.event_label]);
   },
+  dpeEvent(tag: string) {
+    this.sendEvent(tag, {
+      event_category: 'dpe',
+    });
+  },
   contactEvent(tag: string) {
     this.sendEvent(tag, {
-      event_category: "contact"
-    })
+      event_category: 'contact',
+    });
   },
   redirectFranceRenov() {
     this.sendEvent('france-renov', {

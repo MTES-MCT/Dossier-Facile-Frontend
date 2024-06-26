@@ -44,21 +44,15 @@ function onLogout() {
 
 <template>
   <SkipLinks></SkipLinks>
-  <MyHeader
-    type="owner"
-    :logged-in="isLoggedIn"
-    @on-login="onLogin"
-    @on-access-tenant="goToTenant"
-    @on-logout="onLogout"
-    :showAccessibility="false"
-  >
+  <MyHeader type="owner" :logged-in="isLoggedIn" @on-login="onLogin" @on-access-tenant="goToTenant"
+    @on-logout="onLogout" :showAccessibility="false">
     <Menu></Menu>
   </MyHeader>
   <div id="content">
     <DeleteAccount v-show="showDeleteAccountModal"></DeleteAccount>
     <Announcement></Announcement>
     <main role="main">
-      <div class="page">
+      <div class="page fr-background-alt--blue-france">
         <router-view />
       </div>
       <FollowSocials v-if="hasFooter" />
@@ -70,9 +64,10 @@ function onLogout() {
 </template>
 
 <style lang="scss">
-@import '../../node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.min.css';
-@import '../../node_modules/@gouvfr/dsfr/dist/utility/colors/colors.min.css';
+@import '@gouvfr/dsfr/dist/dsfr/dsfr.min.css';
+@import '@gouvfr/dsfr/dist/utility/colors/colors.min.css';
 @import 'df-shared-next/src/scss/_main.scss';
+@import 'df-shared-next/src/scss/_variables.scss';
 @import '../../node_modules/remixicon/fonts/remixicon.css';
 
 #app {
@@ -82,7 +77,6 @@ function onLogout() {
 }
 
 .page {
-  background-color: #f5f5fe;
   flex: auto;
   min-height: 300px;
   display: flex;

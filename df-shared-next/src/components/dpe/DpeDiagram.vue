@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { withDefaults } from 'vue';
+import { computed, withDefaults } from 'vue';
 import { useI18n } from 'vue-i18n';
 import LeftDpeArrow from './LeftDpeArrow.vue';
 
@@ -7,14 +7,17 @@ const props = withDefaults(
   defineProps<{
     letter?: string;
     consumption?: number;
+    short: boolean;
   }>(),
   {
     letter: 'A',
     consumption: 0,
+    short: false,
   },
 );
 
-const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+const letters = computed(() => props.short ? [props.letter] :  ['A', 'B', 'C', 'D', 'E', 'F', 'G'] );
+const consumption = computed(() => Math.round(props.consumption));
 
 const { t } = useI18n();
 </script>
@@ -26,8 +29,8 @@ const { t } = useI18n();
       <span class="arrow-right"></span>
       <LeftDpeArrow
         :label="t('dpe.kwhpy')"
-        :consumption="$props.consumption"
-        v-if="$props.letter === l"
+        :consumption="consumption"
+        v-if="!$props.short && $props.letter === l"
       ></LeftDpeArrow>
     </div>
   </div>
@@ -97,3 +100,14 @@ const { t } = useI18n();
   }
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "dpe.kwhpy": "kWh/m²/year"
+  },
+  "fr": {
+    "dpe.kwhpy": "kWh/m²/an"
+  }
+}
+</i18n>

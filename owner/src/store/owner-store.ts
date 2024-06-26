@@ -100,6 +100,9 @@ const useOwnerStore = defineStore('owner', {
     setEnergyConsumption(energy: number) {
       this.propertyToEdit.energyConsumption = energy;
     },
+    setDpeDate(dpeDate: string) {
+      this.propertyToEdit.dpeDate = dpeDate;
+    },
     updatePropertyToEdit(id: number) {
       const prop = this.properties.find((p) => p.id === id);
       if (prop) {
@@ -116,6 +119,8 @@ const useOwnerStore = defineStore('owner', {
         const res = await PropertyService.loadProperty(token);
         if (res.data.name) {
           Object.assign(this.propertyToConsult, { ...res.data });
+        } else {
+          return Promise.reject();
         }
         return Promise.resolve();
       } catch (e) {
@@ -161,7 +166,7 @@ const useOwnerStore = defineStore('owner', {
     loadUser() {
       return AuthService.loadUser().then(
         async (response: any) => {
-          await this.loadUserCommit(response.data);
+          this.loadUserCommit(response.data);
           return Promise.resolve(response.data);
         },
         (error: any) => Promise.reject(error),
@@ -170,8 +175,8 @@ const useOwnerStore = defineStore('owner', {
     logout(redirect = true) {
       return AuthService.logout()
         .then(async () => {
-          await this.logoutCommit();
-          await this.initState();
+          this.logoutCommit();
+          this.initState();
           if (redirect) {
             window.location.replace(MAIN_URL);
             return;
@@ -179,9 +184,8 @@ const useOwnerStore = defineStore('owner', {
           window.location.reload();
         })
         .catch(async () => {
-          console.log('Fail to logout - redirect to main');
-          await this.logoutCommit();
-          await this.initState();
+          this.logoutCommit();
+          this.initState();
           window.location.replace(MAIN_URL);
         });
     },
@@ -194,7 +198,7 @@ const useOwnerStore = defineStore('owner', {
     changePassword(user: User) {
       return AuthService.changePassword(user).then(
         async (response) => {
-          await this.loadUserCommit(response.data);
+          this.loadUserCommit(response.data);
           return Promise.resolve(user);
         },
         (error) => Promise.reject(error),
@@ -223,7 +227,7 @@ const useOwnerStore = defineStore('owner', {
     },
     deleteProperty(id: number) {
       return OwnerService.deleteProperty(id).then(async (response) => {
-        await this.loadUserCommit(response.data);
+        this.loadUserCommit(response.data);
         return Promise.resolve(response.data);
       });
     },
@@ -236,6 +240,20 @@ const useOwnerStore = defineStore('owner', {
     },
     setShowDeleteAccountModal(show: boolean) {
       this.showDeleteAccountModal = show;
+    },
+    searchDpe(dpe: string) {
+      const property = this.propertyToEdit;
+      property.ademeNumber = dpe;
+      return OwnerService.saveProperty(this.propertyToEdit).then((response) => {
+        this.setPropertyToEdit(response.data);
+        return Promise.resolve(response.data);
+      });
+    },
+    deleteDpe() {
+      return OwnerService.deleteDpe(this.propertyToEdit.id).then((response) => {
+        this.setPropertyToEdit(response.data);
+        return Promise.resolve(response.data);
+      });
     },
   },
 });

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { withDefaults } from 'vue';
+import { computed, withDefaults } from 'vue';
 import { useI18n } from 'vue-i18n';
 import LeftDpeArrow from './LeftDpeArrow.vue';
 
@@ -7,16 +7,21 @@ const props = withDefaults(
   defineProps<{
     letter?: string;
     consumption?: number;
+    short: boolean;
   }>(),
   {
     letter: 'A',
     consumption: 0,
+    short: false,
   },
 );
 
-const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+const letters = computed(() => props.short ? [props.letter] :  ['A', 'B', 'C', 'D', 'E', 'F', 'G'] );
 
 const { t } = useI18n();
+
+const consumption = computed(() => Math.round(props.consumption));
+
 </script>
 
 <template>
@@ -25,8 +30,8 @@ const { t } = useI18n();
       <span class="rectangle" :class="l">{{ l }}</span>
       <LeftDpeArrow
         :label="t('dpe.kgco2')"
-        :consumption="$props.consumption"
-        v-if="$props.letter === l"
+        :consumption="consumption"
+        v-if="!$props.short && $props.letter === l"
       ></LeftDpeArrow>
     </div>
   </div>
@@ -88,3 +93,14 @@ const { t } = useI18n();
   }
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "dpe.kgco2": "kg CO₂/m²/year"
+  },
+  "fr": {
+    "dpe.kgco2": "kg CO₂/m²/an"
+  }
+}
+</i18n>

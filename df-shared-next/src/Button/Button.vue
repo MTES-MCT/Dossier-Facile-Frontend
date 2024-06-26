@@ -16,27 +16,33 @@ import { withDefaults } from "vue";
 const emit = defineEmits(["on-click"]);
 
 const props = withDefaults(
-  defineProps<{
+  defineProps < {
     title?: string;
     primary?: boolean;
     size?: string;
     dark?: boolean;
     disabled?: boolean;
+    tertiary?: boolean;
+    tertiaryNoOutline ?: boolean;
   }>(),
   {
     primary: false,
     size: "normal",
     dark: false,
     disabled: false,
+    tertiary: false,
+    tertiaryNoOutline: false
   }
 );
 
 function classes() {
   return {
-    "fr-btn--secondary": !props.primary,
+    "fr-btn--secondary": !props.primary && !props.tertiary && !props.tertiaryNoOutline,
     "fr-btn--lg": props.size === "large",
     "fr-btn--sm": props.size === "small",
     "fr-btn--icon": props.size === "icon",
+    "fr-btn--tertiary": props.tertiary,
+    "fr-btn--tertiary-no-outline": props.tertiaryNoOutline,
     dark: props.dark,
   };
 }

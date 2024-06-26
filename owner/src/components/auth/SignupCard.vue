@@ -72,7 +72,6 @@
                                         {{ t('register.confirm-password-short') }}</label
                                     >
                                     <Field
-                                            id="confirm-password"
                                             name="confirm-password"
                                             v-model="user.confirm"
                                             v-slot="{ field, meta }"
@@ -82,6 +81,7 @@
                                             }"
                                     >
                                         <input
+                                            id="confirm-password"
                                                 v-bind="field"
                                                 class="validate-required form-control fr-input"
                                                 :class="{

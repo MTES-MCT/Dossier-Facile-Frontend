@@ -64,7 +64,10 @@ const UtilsService = {
     if (energyConsumption <= 420) {
       return 'F';
     }
-    return 'G';
+    if (energyConsumption <= 13121110) {
+      return 'G';
+    }
+    return '-';
   },
   getCO2EmissionLetter(co2Emission: number) {
     if (co2Emission <= 6) {
@@ -85,7 +88,10 @@ const UtilsService = {
     if (co2Emission <= 100) {
       return 'F';
     }
-    return 'G';
+    if (co2Emission <= 13121110) {
+      return 'G';
+    }
+    return '-';
   },
   getGlobalLetter(energyLetter: string, co2Letter:string) {
     if (energyLetter === 'G' || co2Letter === 'G') {

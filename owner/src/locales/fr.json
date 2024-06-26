@@ -6,6 +6,10 @@
   "VALIDATED": "Vérifié",
   "DECLINED": "Modification demandée",
   "INCOMPLETE": "Non terminé",
+  "ACTIF": "Actif",
+  "EXPIRE": "Expiré",
+  "REMPLACE": "Remplacé",
+  "date-not-valid": "Format de date non valide",
   "property-living-space": "Surface",
   "email-required": "L'email est obligatoire",
   "field-required": "Ce champ est requis",
@@ -18,6 +22,8 @@
   "number-not-positive": "Le prix doit être positif",
   "number-not-positive-or-null": "Le prix doit être supérieur ou égal à 0",
   "register-btn": "Enregistrer",
+  "search": "Rechercher",
+  "try-again": "Une erreur est survenue, veuillez réessayer plus tard.",
   "account": {
     "title": "Bienvenue dans votre espace propriétaire. Ajoutons ensemble votre propriété",
     "subtitle": "Commençons par vos informations personnelles d'identité."
@@ -88,8 +94,8 @@
       "INCOMPLETE": "Votre dossier est actuellement incomplet. Les propriétaires ne peuvent consulter que les dossiers complets et validés par notre équipe.<b> Complétez votre dossier dès maintenant !</b>",
       "TO_PROCESS": "<b>Votre dossier est actuellement en cours de traitement par notre équipe.</b> Les propriétaires ne peuvent consulter que les dossiers totalement validés.<b> Vous recevrez un e-mail lorsque votre dossier aura été traité.</b>"
     },
-    "back-to-tenant-button-text":{
-      "VALIDATED":"Retourner à votre dossier",
+    "back-to-tenant-button-text": {
+      "VALIDATED": "Retourner à votre dossier",
       "DECLINED": "Consulter votre messagerie",
       "INCOMPLETE": "Compléter votre dossier",
       "TO_PROCESS": "Consulter l’état de votre dossier"
@@ -229,7 +235,7 @@
     "name-label": "Nom de la propriété"
   },
   "propertydiagnostic": {
-    "title": "Je renseigne le DPE de mon bien",
+    "title": "Numéro de votre Diagnostic de Performance Énergétique (DPE)",
     "subtitle": "Où trouver ces informations ?",
     "info-text": "L'énergie finale se trouve en page 3 de votre diagnostic en regard des informations relatives aux énergies primaires.",
     "energy-consumption": "Montant de la consommation énergétique finale (kWh/m²/an)",
@@ -247,7 +253,58 @@
     "gdetail-bold": "Nous vous sensibilisons au fait que toute augmentation du loyer est interdite depuis le 24 août 2022 et le logement sera interdit à la location à partir du 1er janvier 2025.",
     "gpdetail": "Note G+ : Cf. capture Votre DPE a obtenu la note de G, dont la consommation énergétique finale est supérieure au seuil de 450kWh/m²/an.  { bold } France Rénov’ est votre nouveau service public de la rénovation de l'habitat, porté par l'État avec les collectivités locales, et piloté par l’Agence nationale de l’habitat (Anah).  France Rénov’ réalise pour vous un diagnostic gratuit afin de connaître les possibilités de rénovation globale de votre logement en contactant le conseiller France Rénov’ le plus proche de chez vous.",
     "gpdetail-bold": "Nous vous sensibilisons au fait que votre bien est interdit à la location depuis le 1er janvier 2023 !",
-    "contact-adviser": "Contacter un conseiller France Rénov"
+    "contact-adviser": "Contacter un conseiller France Rénov",
+    "title-where": "Où trouver le numéro de DPE ?",
+    "text-where": "Le numéro de votre DPE se trouve en page 1 de votre diagnostic. Il comporte 13 caractères. Sans ce numéro d'identification, le DPE n'est pas valable.",
+    "understand-dpe": "Comprendre le DPE",
+    "dpe-label": "Numéro de votre DPE :",
+    "no-dpe-btn": "Vous n'avez pas de numéro de DPE",
+    "no-dpe-text": "Si votre diagnostiqueur n'a pas fourni de numéro DPE, vous vous trouvez dans une situation non conforme à la législation. Dans ce cas, vous disposez de plusieurs recours pour remédier à cette situation :",
+    "no-dpe-list-1": "Faire un signalement auprès de l’organisme de certification du diagnostiqueur (renseigné sur le PDF du DPE).",
+    "no-dpe-list-2": "<a href='https://signal.conso.gouv.fr/fr/immobilier/faire-un-signalement' target='_blank' rel='noopener noreferrer'>Faire un signalement à la DGCCRF</a> (Direction Générale de la Concurrence, de la Consommation et de la Répression des Fraudes).",
+    "no-dpe-list-3": "<a href='https://www.anil.org/lanil-et-les-adil/votre-adil/' target='_blank' rel='noopener noreferrer'>Contacter l’ANIL ou l’ADIL la plus proche</a>, ils pourront vous renseigner sur les recours juridiques à votre disposition.",
+    "detail-form-title": "Si vous n’avez pas de numéro DPE, veuillez remplir les informations suivantes :",
+    "date-dpe": "Date de votre DPE",
+    "details": {
+      "title": "Votre DPE en détail",
+      "subtitle": "Votre logement est classé {0}, cela signifie :",
+      "list1": "que sa consommation énergétique est {0}",
+      "list2": "que <strong>toute augmentation de loyer est interdite depuis le 24 août 2022</strong>",
+      "list3": "que <strong>votre logement sera interdit à la location à partir du {0}</strong>",
+      "france-renov-title": "Connaissez-vous France Rénov' ?",
+      "france-renov-text1": "<strong>France Rénov’ est le service public de la rénovation de l'habitat</strong>, porté par l'État avec les collectivités locales, et piloté par l’Agence nationale de l’habitat (Anah). France Rénov’ vous accompagne dans vos projets de rénovation : identifier vos travaux, estimer vos aides financières, trouver des professionnels compétents…",
+      "france-renov-text2": "<strong>Plus de 2 500 conseillers France Rénov’ vous conseillent gratuitement et vous aident à réaliser vos travaux de rénovation.</strong>",
+      "contact-france-renov": "Contacter un conseiller France Rénov’",
+      "good-dpe": "Votre logement est classé {0}, cela signifie que sa consommation énergétique est inférieure à 330 kWh/m²/an. <strong>Votre logement n’est concerné par aucune mesure de gel de loyer ou d’interdiction de location.</strong>"
+    }
+  },
+  "propertydiagnosticform": {
+    "dpe-required": "Veuillez saisir un numéro de DPE",
+    "not-found": "Le DPE n'a pas été trouvé"
+  },
+  "propertydiagnosticexpirywarning": {
+    "expiry-title": "Votre DPE a expiré, que faire ?",
+    "expiry-text-1": "Un Diagnostic de Performance Énergétique (DPE) en cours de validité est obligatoire pour tous les logements.",
+    "expiry-text-2": "Contactez un diagnostiqueur immobilier certifié afin de renouveler votre DPE.",
+    "know-more": "En savoir plus sur le DPE",
+    "find-inspector": "Trouver un diagnostiqueur"
+  },
+  "propertydiagnosticresult": {
+    "dpe": {
+      "number": "Numéro de DPE",
+      "status": "Statut du DPE",
+      "date": "Établi le",
+      "validity-date": "Valable jusqu'au",
+      "replacement-number": "Numéro du DPE remplaçant",
+      "delete": "Supprimer",
+      "property-type": "Type de logement",
+      "year-construction": "Année de construction",
+      "living-space": "Surface habitable",
+      "energetic-performance": "Performance énergétique",
+      "my-dpe-detail": "Mon DPE en détail",
+      "replaced-number": "Numéro du DPE remplacé",
+      "replaced-number-reason": "Motif du remplacement"
+    }
   },
   "propertyrent": {
     "rent-title": "Loyer et charges mensuels",
