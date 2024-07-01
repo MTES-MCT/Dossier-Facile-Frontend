@@ -34,6 +34,7 @@ const consumption = computed(() => Math.round(props.consumption));
         v-if="!$props.short && $props.letter === l"
       ></LeftDpeArrow>
     </div>
+    <span v-if="!$props.short" class="small-text" v-html="t('dpe.gaz-emission')"></span>
   </div>
 </template>
 
@@ -97,10 +98,12 @@ const consumption = computed(() => Math.round(props.consumption));
 <i18n>
 {
   "en": {
-    "dpe.kgco2": "kg CO₂/m²/year"
+    "dpe.kgco2": "kg CO₂/m²/year",
+    "dpe.gaz-emission": "Greenhouse gas emissions"
   },
   "fr": {
-    "dpe.kgco2": "kg CO₂/m²/an"
+    "dpe.kgco2": "kg CO₂/m²/an",
+    "dpe.gaz-emission": "Emission de gaz<br>à effet de serre"
   }
 }
 </i18n>

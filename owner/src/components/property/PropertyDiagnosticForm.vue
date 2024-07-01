@@ -22,11 +22,7 @@
             'fr-input--valid': meta.valid,
             'fr-input--error': !meta.valid,
           }" placeholder="Exemple : 1312V1020002U" type="text" />
-          <button type="submit" class="desktop fr-btn fr-btn--icon-left fr-icon-search-line">
-            {{ t('search') }}
-          </button>
-          <button type="submit" class="mobile fr-btn fr-btn--icon fr-icon-search-line"
-            title="{{ t('search')}}">
+          <button type="submit" class="fr-btn fr-btn--icon-left fr-icon-search-line">
             {{ t('search') }}
           </button>
         </div>
@@ -39,7 +35,7 @@
     <div class="fr-accordions-group">
       <section class="fr-accordion">
         <h3 class="fr-accordion__title">
-          <button class="fr-accordion__btn" :aria-expanded="hasDPE ? 'true' : 'false'"
+          <button class="fr-accordion__btn" :aria-expanded="expandNoDPE ? 'true' : 'false'"
            aria-controls="noDPE"
            @click="AnalyticsService.dpeEvent('dpe_no_number')"><i
               class="circle ri-arrow-right-line fs-22"></i>{{ t('propertydiagnostic.no-dpe-btn') }}</button>
@@ -85,7 +81,8 @@ const toast = useToast();
 
 const emit = defineEmits(['submit', 'on-back']);
 
-const hasDPE = computed(() => store.propertyToEdit?.co2Emission > 0 || store.propertyToEdit?.energyConsumption > 0);
+const expandNoDPE = computed(() => (store.propertyToEdit?.co2Emission > 0 || store.propertyToEdit?.energyConsumption > 0)
+   && !store.propertyToEdit?.ademeNumber);
 
 function search() {
   AnalyticsService.dpeEvent('dpe_search_number');
