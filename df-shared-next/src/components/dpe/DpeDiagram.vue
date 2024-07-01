@@ -33,6 +33,7 @@ const { t } = useI18n();
         v-if="!$props.short && $props.letter === l"
       ></LeftDpeArrow>
     </div>
+    <span v-if="!$props.short" class="small-text" v-html="t('dpe.energy-consumption')"></span>
   </div>
 </template>
 
@@ -104,10 +105,12 @@ const { t } = useI18n();
 <i18n>
 {
   "en": {
-    "dpe.kwhpy": "kWh/m²/year"
+    "dpe.kwhpy": "kWh/m²/year",
+    "dpe.energy-consumption": "Energy consumption"
   },
   "fr": {
-    "dpe.kwhpy": "kWh/m²/an"
+    "dpe.kwhpy": "kWh/m²/an",
+    "dpe.energy-consumption": "Consommation d'énergie"
   }
 }
 </i18n>
