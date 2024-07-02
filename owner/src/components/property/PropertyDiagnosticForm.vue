@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="fr-input-group fr-mt-3w">
-    <Form @submit="search">
+    <Form ref="dpeform" @submit="search">
       <label class="fr-label" for="dpe">{{ t('propertydiagnostic.dpe-label') }}</label>
       <Field id="dpe" name="dpe" v-model="dpe" v-slot="{ field, meta }">
         <div class="input-btn-container">
@@ -78,6 +78,7 @@ const { t } = useI18n();
 const dpe = ref('');
 const store = useOwnerStore();
 const toast = useToast();
+const dpeform = ref(null);
 
 const emit = defineEmits(['submit', 'on-back']);
 
@@ -110,7 +111,12 @@ function onBack() {
 }
 
 function onSubmit() {
-  emit('submit');
+  if ((store.propertyToEdit?.co2Emission > 0 && store.propertyToEdit?.energyConsumption > 0)
+   || store.propertyToEdit?.ademeNumber) {
+    emit('submit');
+  } else if (dpeform.value) {
+    dpeform.value.$el.requestSubmit();
+  }
 }
 
 </script>
