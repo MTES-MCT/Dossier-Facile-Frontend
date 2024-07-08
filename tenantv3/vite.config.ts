@@ -9,7 +9,7 @@ export default defineConfig({
   build: {
     target: "es2022",
     assetsInlineLimit: (file) => {
-      return !file.endsWith('.svg');
+      return !file.endsWith('.svg') && !file.endsWith('.min.js') && !file.endsWith('.woff') && !file.endsWith('.woff2');
     }
   },
   esbuild: {
