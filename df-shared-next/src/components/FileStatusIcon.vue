@@ -6,7 +6,7 @@
       style="font-size: 18px"
     ></i>
     <i
-      v-if="status === 'DECLINED'"
+      v-if="status === 'DECLINED' || status === 'INCOMPLETE'"
       class="ri-close-circle-fill text-danger"
       style="font-size: 18px"
     ></i>
@@ -24,7 +24,7 @@ const props = withDefaults(
     status?: string;
   }>(),
   {
-    status: "TO_PROCESS",
+    status: "INCOMPLETE",
   }
 );
 </script>

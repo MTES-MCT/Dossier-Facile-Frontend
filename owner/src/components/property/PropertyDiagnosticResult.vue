@@ -39,7 +39,7 @@
           :consumption="co2Emission"
         ></DpeCo2Diagram>
       </div>
-      <div class="display--flex fr-mt-2w">
+      <div class="fr-grid-row fr-mt-2w">
         <div class="flex--1">
           <div class="label">{{ t("propertydiagnosticresult.dpe.status") }}</div>
           <div :class="{ 'color--red': dpe?.statut !== 'ACTIF' }"><strong>{{ t(dpe.statut) }}</strong></div>
@@ -52,7 +52,8 @@
           </strong>
           </div>
         </div>
-        <div class="flex--1">
+        <div class="break"></div>
+        <div class="flex--1 fr-mt-2w">
           <div class="label">{{ t("propertydiagnosticresult.dpe.validity-date") }}</div>
           <div :class="{ 'color--red': dpe?.statut !== 'ACTIF' }">
           <strong>
@@ -60,7 +61,8 @@
           </strong>
           </div>
         </div>
-        <div class="flex--1" v-if="dpe.statut === 'REMPLACE'">
+        <div class="break"></div>
+        <div class="flex--1 fr-mt-2w" v-if="dpe.statut === 'REMPLACE'">
           <div class="label">
             {{ t("propertydiagnosticresult.dpe.replacement-number") }}
           </div>
@@ -86,7 +88,7 @@
       <hr />
     </div>
     <div class="property-details-container">
-      <div class="display--flex">
+      <div class="fr-grid-row">
         <div class="flex--1">
           <div class="label">
           {{ t("propertydiagnosticresult.dpe.property-type") }}</div>
@@ -96,7 +98,8 @@
           <div class="label">{{ t("propertydiagnosticresult.dpe.year-construction") }}</div>
           <div><strong>{{ dpe.anneeConstruction }}</strong></div>
         </div>
-        <div class="flex--1">
+        <div class="break"></div>
+        <div class="flex--1 fr-mt-2w">
           <div class="label">{{ t("propertydiagnosticresult.dpe.living-space") }}</div>
           <div><strong>{{ dpe.surfaceHabitable }}m²</strong></div>
         </div>
@@ -209,5 +212,14 @@ function formatDate(d: string) {
     flex-direction: column;
     gap: 2rem;
   }
+  }
+
+  .break {
+    display: none;
+    @media all and (max-width: 768px) {
+      display: block;
+      flex-basis: 100%;
+      height: 0;
+    }
   }
 </style>

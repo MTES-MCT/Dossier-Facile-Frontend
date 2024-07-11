@@ -600,10 +600,7 @@ const useTenantStore = defineStore('tenant', {
       }
       return ProfileService.unlinkFranceConnect().then(
         () => {
-          // Force reload because some backend's GET endpoints retrieve and save user data by using JWT's information.
-          keycloak.updateToken(-1).catch((err: any) => {
-            console.error("Unlink FC Error" + err);
-          });
+          // token should be stay alive for allowing the reset password on KC
           return this.unlinkFCSuccess();
         },
         (error) => {

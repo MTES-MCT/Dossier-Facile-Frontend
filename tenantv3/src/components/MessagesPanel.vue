@@ -5,7 +5,7 @@
         <NakedCard class="fr-mt-3w fr-mb-2w">
           <div class="fr-card__desc">
             <section>
-              <div class="row" v-if="hasDoc('IDENTIFICATION')">
+              <div class="row">
                 <div class="subtitle">Pièce d’identité</div>
                 <div class="row align--center">
                   <ViewEditBtn
@@ -18,7 +18,7 @@
                   ></FileStatusIcon>
                 </div>
               </div>
-              <div class="row" v-if="hasDoc('RESIDENCY')">
+              <div class="row">
                 <div class="subtitle">
                   Justificatif de situation d'hébergement
                 </div>
@@ -33,7 +33,7 @@
                   ></FileStatusIcon>
                 </div>
               </div>
-              <div class="row" v-if="hasDoc('PROFESSIONAL')">
+              <div class="row">
                 <div class="subtitle">
                   Justificatif de situation professionnelle
                 </div>
@@ -48,7 +48,7 @@
                   ></FileStatusIcon>
                 </div>
               </div>
-              <div class="row" v-if="hasDoc('FINANCIAL')">
+              <div class="row">
                 <div class="subtitle">Justificatif de ressources</div>
                 <div class="row align--center">
                   <ViewEditBtn
@@ -61,7 +61,7 @@
                   ></FileStatusIcon>
                 </div>
               </div>
-              <div class="row" v-if="hasDoc('TAX')">
+              <div class="row">
                 <div class="subtitle">Avis d’imposition</div>
                 <div class="row align--center">
                   <ViewEditBtn
@@ -84,7 +84,7 @@
             <div class="boxed boxed--lg boxed--border">
               <h5>Les documents du garant</h5>
 
-              <div class="row" v-if="guarantorHasDoc(g, 'IDENTIFICATION')">
+              <div class="row">
                 <div class="subtitle">Pièce d’identité</div>
                 <div class="row align--center">
                   <ViewEditBtn
@@ -99,7 +99,7 @@
                   ></FileStatusIcon>
                 </div>
               </div>
-              <div class="row" v-if="guarantorHasDoc(g, 'RESIDENCY')">
+              <div class="row">
                 <div class="subtitle">
                   Justificatif de situation d'hébergement
                 </div>
@@ -114,7 +114,7 @@
                   ></FileStatusIcon>
                 </div>
               </div>
-              <div class="row" v-if="guarantorHasDoc(g, 'PROFESSIONAL')">
+              <div class="row">
                 <div class="subtitle">
                   Justificatif de situation professionnelle
                 </div>
@@ -131,7 +131,7 @@
                   ></FileStatusIcon>
                 </div>
               </div>
-              <div class="row" v-if="guarantorHasDoc(g, 'FINANCIAL')">
+              <div class="row">
                 <div class="subtitle">Justificatif de ressources</div>
                 <div class="row align--center">
                   <ViewEditBtn
@@ -144,7 +144,7 @@
                   ></FileStatusIcon>
                 </div>
               </div>
-              <div class="row" v-if="guarantorHasDoc(g, 'TAX')">
+              <div class="row">
                 <div class="subtitle">Avis d’imposition</div>
                 <div class="row align--center">
                   <ViewEditBtn
@@ -448,7 +448,7 @@ const tenantMessages = computed(() => messageList.value[props.tenant.id]);
     const doc = props.tenant.documents?.find((d: DfDocument) => {
       return d.documentCategory === docType;
     });
-    return doc?.documentStatus;
+    return doc?.documentStatus || "INCOMPLETE";
   }
 
   function getGuarantorStatus(g: Guarantor, docType: string) {
@@ -461,7 +461,7 @@ const tenantMessages = computed(() => messageList.value[props.tenant.id]);
     const doc = g.documents?.find((d: DfDocument) => {
       return d.documentCategory === docType;
     });
-    return doc?.documentStatus;
+    return doc?.documentStatus || "INCOMPLETE";
   }
 
   function isFinancialValid(docs: any[]) {

@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="fr-input-group fr-mt-3w">
-    <Form @submit="search">
+    <Form ref="dpeform" @submit="search">
       <label class="fr-label" for="dpe">{{ t('propertydiagnostic.dpe-label') }}</label>
       <Field id="dpe" name="dpe" v-model="dpe" v-slot="{ field, meta }">
         <div class="input-btn-container">
@@ -22,11 +22,7 @@
             'fr-input--valid': meta.valid,
             'fr-input--error': !meta.valid,
           }" placeholder="Exemple : 1312V1020002U" type="text" />
-          <button type="submit" class="desktop fr-btn fr-btn--icon-left fr-icon-search-line">
-            {{ t('search') }}
-          </button>
-          <button type="submit" class="mobile fr-btn fr-btn--icon fr-icon-search-line"
-            title="{{ t('search')}}">
+          <button type="submit" class="fr-btn fr-btn--icon-left fr-icon-search-line">
             {{ t('search') }}
           </button>
         </div>
@@ -39,7 +35,7 @@
     <div class="fr-accordions-group">
       <section class="fr-accordion">
         <h3 class="fr-accordion__title">
-          <button class="fr-accordion__btn" :aria-expanded="hasDPE ? 'true' : 'false'"
+          <button class="fr-accordion__btn" :aria-expanded="expandNoDPE ? 'true' : 'false'"
            aria-controls="noDPE"
            @click="AnalyticsService.dpeEvent('dpe_no_number')"><i
               class="circle ri-arrow-right-line fs-22"></i>{{ t('propertydiagnostic.no-dpe-btn') }}</button>
@@ -82,10 +78,12 @@ const { t } = useI18n();
 const dpe = ref('');
 const store = useOwnerStore();
 const toast = useToast();
+const dpeform = ref(null);
 
 const emit = defineEmits(['submit', 'on-back']);
 
-const hasDPE = computed(() => store.propertyToEdit?.co2Emission > 0 || store.propertyToEdit?.energyConsumption > 0);
+const expandNoDPE = computed(() => (store.propertyToEdit?.co2Emission > 0 || store.propertyToEdit?.energyConsumption > 0)
+   && !store.propertyToEdit?.ademeNumber);
 
 function search() {
   AnalyticsService.dpeEvent('dpe_search_number');
@@ -113,7 +111,12 @@ function onBack() {
 }
 
 function onSubmit() {
-  emit('submit');
+  if ((store.propertyToEdit?.co2Emission > 0 && store.propertyToEdit?.energyConsumption > 0)
+   || store.propertyToEdit?.ademeNumber) {
+    emit('submit');
+  } else if (dpeform.value) {
+    dpeform.value.$el.requestSubmit();
+  }
 }
 
 </script>
