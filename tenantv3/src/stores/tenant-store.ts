@@ -827,7 +827,7 @@ const useTenantStore = defineStore('tenant', {
       this.deleteRoommates(tenant.email);
     },
     async setGuarantorPage(guarantor: Guarantor, substep: number, tenantId: number | undefined = undefined ) {
-      await this.setSelectedGuarantor(guarantor);
+      this.setSelectedGuarantor(guarantor);
       if (tenantId && tenantId != this.user.id) {
         return {
           name: "TenantGuarantorDocuments",
