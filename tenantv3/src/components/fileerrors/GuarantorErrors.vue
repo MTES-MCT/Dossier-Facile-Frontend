@@ -109,10 +109,6 @@ function getDocument(g: Guarantor, docType: string) {
   return g.documents?.find((d) => d.documentCategory === docType);
 }
 
-function guarantorHasDoc(g: Guarantor, docType: string) {
-  return UtilsService.guarantorHasDoc(docType, g);
-}
-
 function isGuarantorDocumentValid(docType: string) {
   return UtilsService.isGuarantorDocumentValid(docType, props.g);
 }
@@ -129,7 +125,7 @@ function documentsGuarantorFilled(g: Guarantor) {
 }
 
 async function openGuarantor(g: Guarantor, substep: number) {
-  const page = await store.setGuarantorPage(g, substep);
+  const page = await store.setGuarantorPage(g, substep, props.user.id);
   router.push(page);
 }
 </script>
