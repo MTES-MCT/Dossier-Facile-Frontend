@@ -30,7 +30,7 @@
                 {{ t('consultproperty.share-modal-description') }}
               </p>
               <div class="fr-grid-row fr-mb-3w">
-                <div class="align-self--center">
+                <div class="align-self--center long-link">
                   {{ token }}
                 </div>
                 <div>
@@ -614,5 +614,10 @@ tr {
   >a {
     background-image: none;
   }
+}
+
+.long-link {
+  word-wrap: break-word;
+  max-width: 50%;
 }
 </style>
