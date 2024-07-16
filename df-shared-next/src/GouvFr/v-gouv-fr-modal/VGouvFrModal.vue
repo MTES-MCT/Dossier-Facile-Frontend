@@ -9,7 +9,7 @@
       class="fr-modal"
       :class="{ 'fr-modal--opened': isOpened }"
     >
-      <div class="fr-container--fluid fr-container-md">
+      <div class="fr-container fr-container--fluid fr-container-md">
         <div class="fr-grid-row fr-grid-row--center">
           <div class="fr-col-12">
             <div class="fr-modal__body">
