@@ -257,7 +257,7 @@
     "title-where": "Où trouver le numéro de DPE ?",
     "text-where": "Le numéro de votre DPE se trouve en page 1 de votre diagnostic. Il comporte 13 caractères. Sans ce numéro d'identification, le DPE n'est pas valable.",
     "understand-dpe": "Comprendre le DPE",
-    "dpe-label": "Numéro de votre DPE :",
+    "dpe-label": "Numéro de votre DPE (numéro ADEME) :",
     "no-dpe-btn": "Vous n'avez pas de numéro de DPE",
     "no-dpe-text": "Si votre diagnostiqueur n'a pas fourni de numéro DPE, vous vous trouvez dans une situation non conforme à la législation. Dans ce cas, vous disposez de plusieurs recours pour remédier à cette situation :",
     "no-dpe-list-1": "Faire un signalement auprès de l’organisme de certification du diagnostiqueur (renseigné sur le PDF du DPE).",
