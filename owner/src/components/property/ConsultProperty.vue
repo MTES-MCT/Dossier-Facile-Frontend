@@ -3,16 +3,17 @@
     <div class="bg-pic position--absolute"></div>
     <div class="fr-container position--relative mt-100 fr-mb-5w">
       <div class="fr-grid-row space-between fr-mb-3w">
-        <div class="fr-grid-row">
-          <router-link
-            :title="t('consultproperty.back-label')"
-            class="fr-btn btn--white fr-btn--secondary"
-            to="/"
-            >{{ t('consultproperty.back') }}</router-link
-          >
+        <div ref="headContainer" class="head-container">
+          <div>
+            <router-link
+              :title="t('consultproperty.back-label')"
+              class="fr-btn btn--white fr-btn--secondary"
+              to="/"
+              >{{ t('consultproperty.back') }}</router-link
+            >
+          </div>
           <div class="title">{{ name }}</div>
-        </div>
-        <div class="fr-grid-row">
+          <div class="spacer"></div>
           <VGouvFrModal id="share-modal">
             <template v-slot:button>
               <button
@@ -47,13 +48,13 @@
           <button
             :title="t('consultproperty.update-btn')"
             @click="editProperty()"
-            class="fr-btn btn--white fr-btn--secondary fr-ml-1w"
+            class="fr-btn btn--white fr-btn--secondary"
           >
             {{ t('consultproperty.modify-property') }}
           </button>
           <button
             :title="t('consultproperty.delete-btn')"
-            class="fr-btn btn--white fr-btn--secondary fr-ml-1w"
+            class="fr-btn btn--white fr-btn--secondary"
             @click="confirmDeleteProperty = true"
           >
             {{ t('consultproperty.delete-property') }}
@@ -412,6 +413,9 @@ function getRateClass(applicant: Applicant) {
 .bg-pic {
   width: 100%;
   height: 320px;
+  @media (max-width: 768px) {
+    height: 550px;
+  }
   top: 0;
   left: 0;
   background-size: cover !important;
@@ -442,9 +446,12 @@ function getRateClass(applicant: Applicant) {
 
 .title {
   color: white;
-  margin-left: 2rem;
   font-size: 2rem;
   line-height: 2rem;
+}
+
+.left-auto {
+  margin-left: auto;
 }
 
 .md-24 {
@@ -606,6 +613,22 @@ tr {
   margin-left: auto;
   margin-right: 0;
   text-align: right;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+.head-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 1rem;
+  @media all and (max-width: 768px) {
+    flex-direction: column;
+  }
 }
 </style>
 
