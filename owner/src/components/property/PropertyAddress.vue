@@ -8,6 +8,7 @@ import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
 import UtilsService from '../../services/UtilsService';
 import PropertyPage from './PropertyPage.vue';
 import useOwnerStore from '../../store/owner-store';
+import AnalyticsService from '../../services/AnalyticsService';
 
 const { t } = useI18n();
 
@@ -43,6 +44,7 @@ const address = computed({
 });
 
 function onSubmit() {
+  AnalyticsService.propertyData('adresse_register');
   store.saveProperty().then(() => {
     router.push({
       name: 'PropertyFurniture',

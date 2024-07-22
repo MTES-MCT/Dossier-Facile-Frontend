@@ -6,6 +6,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { Field, ErrorMessage } from 'vee-validate';
 import PropertyPage from './PropertyPage.vue';
 import useOwnerStore from '../../store/owner-store';
+import AnalyticsService from '../../services/AnalyticsService';
 
 const { t } = useI18n();
 
@@ -29,6 +30,7 @@ const type = computed({
 });
 
 function onSubmit() {
+  AnalyticsService.propertyData('type_register');
   store.saveProperty().then((data) => {
     router.push({ name: 'PropertyAddress', params: { id: data.id } });
   });
