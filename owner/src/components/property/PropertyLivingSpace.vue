@@ -6,6 +6,7 @@ import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import useOwnerStore from '../../store/owner-store';
 import PropertyPage from './PropertyPage.vue';
+import AnalyticsService from '../../services/AnalyticsService';
 
 const { t } = useI18n();
 
@@ -29,6 +30,7 @@ const livingSpace = computed({
 });
 
 function onSubmit() {
+  AnalyticsService.propertyData('surface_register');
   store.saveProperty().then(() => {
     router.push({ name: 'PropertyRent', params: { id: store.getPropertyToEdit.id } });
   });

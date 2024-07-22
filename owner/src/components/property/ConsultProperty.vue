@@ -19,6 +19,7 @@
               <button
                 :title="t('consultproperty.share-btn')"
                 class="fr-btn btn--white fr-btn--secondary"
+                @click="shareBtnClicked()"
               >
                 {{ t('consultproperty.share-btn') }}
               </button>
@@ -55,7 +56,7 @@
           <button
             :title="t('consultproperty.delete-btn')"
             class="fr-btn btn--white fr-btn--secondary"
-            @click="confirmDeleteProperty = true"
+            @click="showDeletePropertyModal()"
           >
             {{ t('consultproperty.delete-property') }}
           </button>
@@ -292,6 +293,10 @@ function getTenants(): Applicant[] {
   });
 }
 
+function shareBtnClicked() {
+  AnalyticsService.propertyData('partager');
+}
+
 onMounted(async () => {
   if (route.params.id) {
     id.value = Number(route.params.id);
@@ -326,6 +331,7 @@ const titleKey = computed(() => {
 });
 
 function editProperty() {
+  AnalyticsService.propertyData('modifier');
   router.push({ name: 'PropertyName', params: { id: id.value } });
 }
 
@@ -338,13 +344,20 @@ function sortTable(col: string) {
   }
 }
 
+function showDeletePropertyModal() {
+  confirmDeleteProperty.value = true;
+  AnalyticsService.propertyData('supprimer');
+}
+
 function validDeleteFile() {
+  AnalyticsService.propertyData('supprimer_valider');
   store.deleteProperty(id.value).then(() => {
     router.push({ name: 'Dashboard' });
   });
   confirmDeleteProperty.value = false;
 }
 function undoDeleteFile() {
+  AnalyticsService.propertyData('supprimer_annuler');
   confirmDeleteProperty.value = false;
 }
 function validDeleteApplicants() {
@@ -360,7 +373,7 @@ function undoDeleteApplicants() {
 }
 
 function copyToken() {
-  AnalyticsService.copyLink();
+  AnalyticsService.propertyData("partager_copylink");
   navigator.clipboard.writeText(token.value);
   toast.success(t('consultproperty.link-copied').toString(), {
     timeout: 7000,

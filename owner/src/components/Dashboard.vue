@@ -9,6 +9,7 @@ import UtilsService from "../services/UtilsService";
 import useOwnerStore from "../store/owner-store";
 import GmbiAd from "./GmbiAd.vue";
 import FeedbackRequest from "./FeedbackRequest.vue";
+import AnalyticsService from "../services/AnalyticsService";
 
 const store = useOwnerStore();
 const { t } = useI18n();
@@ -23,6 +24,7 @@ function addProperty() {
 }
 
 function consultProperty(id: number) {
+  AnalyticsService.propertyData('visit');
   router.push({ name: "ConsultProperty", params: { id } });
 }
 
