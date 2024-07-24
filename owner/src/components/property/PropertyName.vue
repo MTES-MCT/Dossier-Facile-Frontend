@@ -6,6 +6,7 @@ import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import useOwnerStore from '../../store/owner-store';
 import PropertyPage from './PropertyPage.vue';
+import AnalyticsService from '../../services/AnalyticsService';
 
 const { t } = useI18n();
 
@@ -29,6 +30,7 @@ const name = computed({
 });
 
 function onSubmit() {
+  AnalyticsService.propertyData('nom_register');
   store.saveProperty().then((data) => {
     router.push({ name: 'PropertyType', params: { id: data.id } });
   });

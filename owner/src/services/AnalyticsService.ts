@@ -40,11 +40,11 @@ const AnalyticsService = {
       event_category: 'owner',
     });
   },
-  copyLink() {
-    this.sendEvent('copy-link', {
+  propertyData(data: string) {
+    this.sendEvent('property_' + data, {
       event_category: 'property',
-    });
-  },
+    })
+  }
 };
 
 export default AnalyticsService;

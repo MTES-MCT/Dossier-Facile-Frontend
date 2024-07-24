@@ -88,6 +88,9 @@ const dpe = computed(
 .bg-pic {
   width: 100%;
   height: 320px;
+  @media (max-width: 768px) {
+    height: 550px;
+  }
   top: 0;
   left: 0;
   background-size: cover !important;

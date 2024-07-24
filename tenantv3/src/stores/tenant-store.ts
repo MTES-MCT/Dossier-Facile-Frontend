@@ -339,6 +339,7 @@ const useTenantStore = defineStore('tenant', {
       const document = u.documents?.find((d: DfDocument) => {
         return d.documentCategory === docType;
       });
+      console.dir("preValidationActivated", state.user.preValidationActivated);
       return UtilsService.isDocumentValid(document, state.user.preValidationActivated);
     },
     documentsPreValidated(state: State) {

@@ -6,6 +6,7 @@ import { Field, ErrorMessage } from 'vee-validate';
 import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
 import PropertyPage from './PropertyPage.vue';
 import useOwnerStore from '../../store/owner-store';
+import AnalyticsService from '../../services/AnalyticsService';
 
 const { t } = useI18n();
 
@@ -29,6 +30,7 @@ const furniture = computed({
 });
 
 function onSubmit() {
+  AnalyticsService.propertyData('ameublement_register');
   store.saveProperty().then((data) => {
     router.push({ name: 'PropertyLivingSpace', params: { id: data.id } });
   });
