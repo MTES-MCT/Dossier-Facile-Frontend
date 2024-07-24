@@ -196,7 +196,6 @@ function goBack() {
 }
 
 function hasErrors() {
-  console.dir(store.allDocumentsPreValidated);
   return !store.allDocumentsPreValidated || !store.allNamesFilled;
 }
 
