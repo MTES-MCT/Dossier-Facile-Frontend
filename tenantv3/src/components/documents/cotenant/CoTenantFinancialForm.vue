@@ -192,7 +192,7 @@ function enrichFormData(formData: FormData) {
 }
 
 function setMonthlySum($event: any) {
-  document.value.monthlySum = Math.trunc($event.target.value);
+  document.value.monthlySum = Math.trunc($event.target.value.replace(/\s+/g, ''));
   emit("update:modelValue", document.value);
   updateMonthlySum();
 }

@@ -41,7 +41,8 @@
                   <Field
                     name="monthlySum"
                     v-slot="{ field, meta }"
-                    v-model="financialDocument.monthlySum"
+                    :value="financialDocument.monthlySum"
+                    @input="financialDocument.monthlySum = $event.target.value.replace(/\s+/g, '')"
                     :rules="{
                       required: true,
                       regex: /^[0-9 ]+$/,
