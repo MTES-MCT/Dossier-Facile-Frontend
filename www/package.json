@@ -17,6 +17,7 @@
   "dependencies": {
     "@gouvfr/dsfr": "1.11.2",
     "@sentry/vue": "^7.94.1",
+    "axios": "^1.7.4",
     "df-shared-next": "0.1.0",
     "pinia": "^2.1.7",
     "remixicon": "4.2.0",
