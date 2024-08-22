@@ -12565,7 +12565,7 @@ stackback@0.0.2:
   resolved "https://registry.yarnpkg.com/stackback/-/stackback-0.0.2.tgz#1ac8a0d9483848d1695e418b6d031a3c3ce68e3b"
   integrity sha512-1XMJE5fQo1jGH6Y/7ebnwPOBEkIEnT4QF32d5R1+VXdXveM0IBMJt8zfaxX1P3QhVwrYe+576+jkANtSS2mBbw==
 
-start-server-and-test@^2.0.0, start-server-and-test@^2.0.1:
+start-server-and-test@^2.0.1:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/start-server-and-test/-/start-server-and-test-2.0.3.tgz#15c53c85e23cba7698b498b8a2598cab95f3f802"
   integrity sha512-QsVObjfjFZKJE6CS6bSKNwWZCKBG6975/jKRPPGFfFh+yOQglSeGXiNWjzgQNXdphcBI9nXbyso9tPfX4YAUhg==

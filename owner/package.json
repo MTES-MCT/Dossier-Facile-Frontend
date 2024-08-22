@@ -53,7 +53,6 @@
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-vue": "^9.0.0",
     "sass": "^1.49.7",
-    "start-server-and-test": "^2.0.0",
     "typescript": "5.0.2",
     "vite": "5.2.11",
     "vue-tsc": "1.8.19",
