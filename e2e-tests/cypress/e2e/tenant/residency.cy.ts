@@ -51,7 +51,7 @@ describe(
       goBackToResidency();
 
       // Should be able to add text
-      selectResidencyCategory("Dans une autre situation (sans-abri, logement de fonction, etc.)");
+      selectResidencyCategory("Dans une autre situation (sans-abri, etc.)");
       cy.get(".dropbox").should("not.exist");
       cy.clickOnNext().expectPath("/2");
       cy.get("#customText").type("Test text").clickOnNext();

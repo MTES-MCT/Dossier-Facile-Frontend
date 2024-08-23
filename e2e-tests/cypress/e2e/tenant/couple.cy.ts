@@ -54,7 +54,7 @@ describe("couple tenant scenario", () => {
 
     cy.expectPath("/4/2");
     cy.get("#select")
-      .select("Dans une autre situation (sans-abri, logement de fonction, etc.)");
+      .select("Dans une autre situation (sans-abri, etc.)");
     cy.get("#customText")
       .type("Test text")
       .clickOnNext();
