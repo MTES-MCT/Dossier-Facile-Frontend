@@ -375,6 +375,7 @@ async function save(): Promise<boolean> {
     });
     if (
       original &&
+      financialDocument.value.documentType.key === original.documentType.key &&
       financialDocument.value.noDocument === original.noDocument &&
       financialDocument.value.monthlySum === original.monthlySum &&
       financialDocument.value.files.length === original.files.length &&
