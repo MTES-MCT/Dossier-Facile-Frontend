@@ -29,7 +29,7 @@ import TopEditMenu from "./editmenu/TopEditMenu.vue";
 @import "df-shared-next/src/scss/_variables.scss";
 
 .ml {
-  @media all and (min-width: 768px) {
+  @media all and (min-width: 1024px) {
     margin-left: 10%;
   }
 }
