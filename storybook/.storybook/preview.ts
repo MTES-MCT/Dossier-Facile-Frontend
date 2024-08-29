@@ -9,6 +9,7 @@ import '../../node_modules/@gouvfr/dsfr/dist/utility/colors/colors.min.css'
 
 import { setup } from "@storybook/vue3";
 import i18n from '../../owner/src/i18n';
+import { createPinia } from 'pinia';
 
 // const i18n = createI18n({
 //   legacy: false,
@@ -19,7 +20,10 @@ import i18n from '../../owner/src/i18n';
 //   },
 // });
 
+const pinia = createPinia();
+
 setup((app) => {
+    app.use(pinia);
     app.use(i18n);
 });
 

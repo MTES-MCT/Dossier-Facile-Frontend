@@ -142,7 +142,7 @@ function mountApp() {
 
 if (!window.location.href.includes('/validConnexion/')) {
   keycloak
-    .init({ onLoad: 'check-sso', checkLoginIframe: false })
+    .init({ onLoad: 'check-sso', checkLoginIframe: true })
     .then((auth) => {
       const aYearFromNow = new Date();
       aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1);
