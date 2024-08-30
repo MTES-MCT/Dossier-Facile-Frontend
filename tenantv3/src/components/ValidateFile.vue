@@ -26,7 +26,7 @@
                 v-bind="field"
               />
             </Field>
-            <label for="declaration" htmlFor="declaration" v-html="t('validatefile.declaration')"> </label>
+            <label for="declaration" v-html="t('validatefile.declaration')"> </label>
             <ErrorMessage name="declaration" v-slot="{ message }">
               <span role="alert" class="fr-error-text">{{ $t(message || "") }}</span>
             </ErrorMessage>
@@ -162,7 +162,7 @@ function sendFile() {
   }
 
   if (
-    user.value.status === "VALIDATED" &&
+    declaration.value === user.value?.honorDeclaration &&
     precision.value === user.value?.clarification
   ) {
     router.push("/account");
@@ -196,7 +196,6 @@ function goBack() {
 }
 
 function hasErrors() {
-  console.dir(store.allDocumentsPreValidated);
   return !store.allDocumentsPreValidated || !store.allNamesFilled;
 }
 
