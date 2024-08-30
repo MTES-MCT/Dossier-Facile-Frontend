@@ -252,7 +252,6 @@ function loadDocument() {
       documentDeniedReasons.value = new DocumentDeniedReasons();
     }
     files.value = certificateDocument.value?.files || [];
-    console.log(files.value);
   }
 }
 
