@@ -7,6 +7,12 @@ const routes = [
     component: LandingPage,
   },
   {
+    path: "/partenaires",
+    name: "Partenaires",
+    component: () =>
+      import(/* webpackChunkName: "partners" */ "../views/PartnersView.vue"),
+  },
+  {
     path: "/blog",
     name: "Blog",
     component: () =>
