@@ -1,23 +1,25 @@
 <template>
   <div
-    class="fr-col-lg-3 fr-col-md-4 fr-col-sm-6 fr-col-12 text-center fr-p-2w logo-container"
+    class="fr-col-md-3 fr-col-6 justify-content-center"
   >
-    <a
-      :href="href"
-      :title="getTitle()"
-      class="logo-link"
-      rel="nofollow"
-      :target="href === '#' ? '' : '_blank'"
-    >
-      <img
-        :alt="name"
-        :height="height"
-        :src="getImage()"
-        :width="width"
-        loading="lazy"
-        class="partner-logo"
-      />
-    </a>
+    <div class="fr-background-alt--grey logo-container">
+      <a
+        :href="href"
+        :title="getTitle()"
+        class="logo-link"
+        rel="nofollow"
+        :target="href === '#' ? '' : '_blank'"
+      >
+        <img
+          :alt="name"
+          :height="height"
+          :src="getImage()"
+          :width="width"
+          loading="lazy"
+          class="partner-logo"
+        />
+      </a>
+    </div>
   </div>
 </template>
 
@@ -68,8 +70,6 @@ a[target="_blank"].logo-link::after {
   display: flex;
   align-items: center;
   justify-content: center;
-  @media (min-width: 768px) {
-    min-height: 100px;
-  }
+  height: 180px;
 }
 </style>

@@ -1,3 +1,4 @@
+import { type SkipLink } from "df-shared-next/src/models/SkipLink";
 
 
 export const FOOTER_NAVIGATION = {
