@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fr-col-md-3 fr-col-6"
+    class="fr-col-md-3 fr-col-6 justify-content-center"
   >
     <div class="fr-background-alt--grey logo-container">
       <a
