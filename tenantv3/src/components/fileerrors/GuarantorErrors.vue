@@ -94,6 +94,8 @@ import NakedCard from "df-shared-next/src/components/NakedCard.vue";
 import { Guarantor } from "df-shared-next/src/models/Guarantor";
 import { UtilsService } from "../../services/UtilsService";
 import UpdateComponent from "./UpdateComponent.vue";
+import { onMounted } from "vue";
+import { AnalyticsService } from "../../services/AnalyticsService";
 
 const store = useTenantStore();
 const { t } = useI18n();
@@ -103,6 +105,26 @@ const props = defineProps<{
   user: User;
   keyprefix: string;
 }>();
+
+onMounted(() => {
+  if (import.meta.env.VITE_FEATURE_FLIPPING_PRE_VALIDATE !== 'true' ||
+      !props.user.preValidationActivated) {
+    return;
+  }
+  for (const v of [
+        'IDENTIFICATION',
+        'RESIDENCY',
+        'PROFESSIONAL',
+        'FINANCIAL',
+        'TAX'
+  ]) {
+    if (isGuarantorDocumentValid(v)) {
+      AnalyticsService.prevalidationEvent(v, "CHECKED");
+    } else {
+      AnalyticsService.prevalidationEvent(v, "DENIED");
+    }
+  }
+})
 
 function getDocument(g: Guarantor, docType: string) {
   // TODO: handle multiple financial documents

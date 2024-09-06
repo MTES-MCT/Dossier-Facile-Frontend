@@ -43,6 +43,10 @@ export const UtilsService = {
     }
     return true;
   },
+  getAllDocuments(user: User) {
+    const docs = user.documents || [];
+    return docs;
+  },
   isMobile() {
     return window.innerWidth < 768;
   },

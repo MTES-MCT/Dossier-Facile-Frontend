@@ -17,6 +17,18 @@ export const AnalyticsService = {
     ]);
   },
 
+  prevalidationEvent(documentType: string, status: string) {
+    let tag = ""
+    if (status === "DENIED") {
+      tag = "pv_print_denied_"+documentType
+    } else {
+      tag = "pv_print_checked_"+documentType
+    }
+    this.sendEvent(tag, {
+      event_category: "prevalidation",
+    })
+  },
+
   contactEvent(tag: string) {
     this.sendEvent(tag, {
       event_category: "contact"

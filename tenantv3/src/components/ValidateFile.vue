@@ -14,7 +14,7 @@
               :rules="{
                 isTrue: true,
               }"
-            :value="true"
+              :value="true"
             >
               <input
                 id="declaration"
@@ -41,7 +41,7 @@
                 :rules="{
                   isTrue: true,
                 }"
-            :value="true"
+                :value="true"
               >
                 <input
                   type="checkbox"
@@ -127,13 +127,17 @@ import ProfileFooter from "./footer/ProfileFooter.vue";
 import FileErrors from "./fileerrors/FileErrors.vue";
 import NakedCard from "df-shared-next/src/components/NakedCard.vue";
 import { useLoading } from "vue-loading-overlay";
-import useTenantStore from "@/stores/tenant-store";
+import useTenantStore from "../stores/tenant-store";
 import { computed, onMounted, ref } from "vue";
 import type { Guarantor } from "df-shared-next/src/models/Guarantor";
-import { ToastService } from "@/services/ToastService";
+import { ToastService } from "../services/ToastService";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { Form, Field, ErrorMessage } from "vee-validate";
+import { AnalyticsService } from "../services/AnalyticsService";
+import { User } from "df-shared-next/src/models/User";
+import { UtilsService } from "../services/UtilsService";
+import { DfDocument } from "df-shared-next/src/models/DfDocument";
 
 const { t } = useI18n();
 
@@ -153,7 +157,34 @@ onMounted(() => {
     declaration2.value = true;
   }
   precision.value = user.value?.clarification || "";
+  sendEventPrevalidation(user.value);
 });
+
+function sendEventPrevalidation(user: User) {
+  if (
+    import.meta.env.VITE_FEATURE_FLIPPING_PRE_VALIDATE !== "true" ||
+    !user.preValidationActivated
+  ) {
+    return;
+  }
+  UtilsService.getAllDocuments(user).forEach((d: DfDocument) => {
+    if (d.documentAnalysisReport?.analysisStatus === "DENIED" &&
+      !d.documentAnalysisReport?.comment) {
+            AnalyticsService.prevalidationEvent(d.subCategory || "", "DENIED");
+    } else if (d.documentAnalysisReport?.analysisStatus === "CHECKED") {
+            AnalyticsService.prevalidationEvent(d.subCategory || "", "CHECKED");
+    }
+  })
+
+  if (user.applicationType === "COUPLE") {
+    const cotenants = user.apartmentSharing?.tenants.filter(
+      (cotenant: User) => user.id !== cotenant.id
+    );
+    cotenants.forEach((cotenant: User) => {
+      sendEventPrevalidation(cotenant);
+    });
+  }
+}
 
 function sendFile() {
   if (!canValidate()) {
