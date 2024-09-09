@@ -256,6 +256,9 @@ function professionalFiles() {
 async function remove(file: DfFile, silent = false) {
   AnalyticsService.deleteFile("professional");
   if (file.id) {
+      if (tenantProfessionalDocument.value?.files?.length === 1 && tenantProfessionalDocument.value?.documentAnalysisReport?.analysisStatus === "DENIED") {
+        AnalyticsService.removeDeniedDocument(tenantProfessionalDocument.value?.subCategory || "")
+      }
     await RegisterService.deleteFile(file.id, silent);
   } else {
     const firstIndex = files.value.findIndex((f) => {

@@ -437,9 +437,12 @@ function financialFiles() {
   return [...newFiles, ...existingFiles];
 }
 
-async function remove(f: FinancialDocument, file: DfFile, silent = false) {
+function remove(f: FinancialDocument, file: DfFile, silent = false) {
   if (file.id) {
-    await RegisterService.deleteFile(file.id, silent);
+    if (f.files.length === 1 && guarantorFinancialDocumentSelected.value?.documentAnalysisReport?.analysisStatus === "DENIED") {
+      AnalyticsService.removeDeniedDocument(guarantorFinancialDocumentSelected.value.subCategory || "")
+    }
+    RegisterService.deleteFile(file.id, silent);
   } else {
     const firstIndex = f.files.findIndex((lf) => {
       return lf.name === file.name && !lf.path;

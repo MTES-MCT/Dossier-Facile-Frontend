@@ -90,6 +90,7 @@ import useTenantStore from "../../../stores/tenant-store";
 import { computed, onMounted, ref } from "vue";
 import { ToastService } from "../../../services/ToastService";
 import { useLoading } from "vue-loading-overlay";
+import { AnalyticsService } from "../../../services/AnalyticsService";
 
 const { t } = useI18n();
 const store = useTenantStore();
@@ -275,6 +276,9 @@ function professionalFiles() {
 
 async function remove(file: DfFile, silent = false) {
   if (file.id) {
+    if (files.value.length === 1 && guarantorProfessionalDocument()?.documentAnalysisReport?.analysisStatus === "DENIED") {
+      AnalyticsService.removeDeniedDocument(guarantorProfessionalDocument()?.documentCategory || "")
+    }
     await RegisterService.deleteFile(file.id, silent);
   } else {
     const firstIndex = files.value.findIndex((f) => {

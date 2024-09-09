@@ -104,6 +104,7 @@ import { ToastService } from "../../../services/ToastService";
 import { useLoading } from "vue-loading-overlay";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { useI18n } from "vue-i18n";
+import { AnalyticsService } from "../../../services/AnalyticsService";
 
 const { t } = useI18n();
 const documents = DocumentTypeConstants.REPRESENTATIVE_IDENTIFICATION;
@@ -254,6 +255,9 @@ function resetFiles() {
 
 function remove(file: DfFile) {
   if (file.id) {
+    if (files.value.length === 1 && guarantorIdentificationDocument()?.documentAnalysisReport?.analysisStatus === "DENIED") {
+      AnalyticsService.removeDeniedDocument(guarantorIdentificationDocument()?.documentCategory || "")
+    }
     RegisterService.deleteFile(file.id);
   } else {
     const firstIndex = files.value.findIndex((f) => {

@@ -159,9 +159,9 @@ import {Form, Field, ErrorMessage} from "vee-validate";
 const emit = defineEmits(["on-next", "on-back"]);
 const { t } = useI18n();
 
-      const store = useTenantStore()
-      const user = computed(() => store.userToEdit)
-      const tenantTaxDocument = computed(() => store.getTenantTaxDocument)
+  const store = useTenantStore()
+  const user = computed(() => store.userToEdit)
+  const tenantTaxDocument = computed(() => store.getTenantTaxDocument)
 
   const documents = ref(DocumentTypeConstants.TAX_DOCS);
 
@@ -179,10 +179,6 @@ const { t } = useI18n();
 
   const $loading = useLoading({});
   let loader: any;
-
-  function getTaxLocalStorageKey() {
-    return "tax_" + user.value?.email;
-  }
 
   const documentStatus = computed(() => {
     return tenantTaxDocument.value?.documentStatus;
@@ -416,6 +412,9 @@ function onSelectChange($event: DocumentType) {
   async function remove(file: DfFile, silent = false) {
     AnalyticsService.deleteFile("tax");
     if (file.id) {
+      if (tenantTaxDocument.value?.files?.length === 1 && tenantTaxDocument.value?.documentAnalysisReport?.analysisStatus === "DENIED") {
+        AnalyticsService.removeDeniedDocument(tenantTaxDocument.value?.subCategory || "")
+      }
       await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = files.value.findIndex((f) => {

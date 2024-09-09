@@ -216,6 +216,9 @@ async function removeAllFiles() {
 async function remove(fileId: number, silent = false) {
   AnalyticsService.deleteFile("guarantee-provider-certificate");
   if (fileId) {
+    if (files.value.length === 1 && certificateDocument.value?.documentAnalysisReport?.analysisStatus === "DENIED") {
+      AnalyticsService.removeDeniedDocument(certificateDocument.value.documentCategory || "")
+    }
     await RegisterService.deleteFile(fileId, silent);
   }
   const firstIndex = files.value.findIndex((f) => f.id === fileId);

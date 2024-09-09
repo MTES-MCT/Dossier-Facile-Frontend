@@ -234,26 +234,6 @@ const emit = defineEmits(["on-next", "on-back"]);
     }
   }
 
-  function isNewDocument() {
-    if (user.value?.documents !== null) {
-      const doc = user.value?.documents?.find((d: DfDocument) => {
-        return d.documentCategory === "RESIDENCY";
-      });
-      if (doc !== undefined) {
-        if (
-          (doc.subCategory === "GUEST" &&
-            residencyDocument.value.value === "GUEST_PARENTS") ||
-          (doc.subCategory === "GUEST_PARENTS" &&
-            residencyDocument.value.value === "GUEST")
-        ) {
-          return false;
-        }
-        return doc.subCategory !== residencyDocument.value.value;
-      }
-    }
-    return false;
-  }
-
   function addFiles(fileList: File[]) {
     AnalyticsService.uploadFile("residency");
     const nf = Array.from(fileList).map((f) => {
@@ -347,6 +327,9 @@ const emit = defineEmits(["on-next", "on-back"]);
   async function remove(file: DfFile, silent = false) {
     AnalyticsService.deleteFile("residency");
     if (file.id) {
+      if (tenantResidencyDocument.value?.files?.length === 1 && tenantResidencyDocument.value?.documentAnalysisReport?.analysisStatus === "DENIED") {
+        AnalyticsService.removeDeniedDocument(tenantResidencyDocument.value?.subCategory || "")
+      }
       await RegisterService.deleteFile(file.id, silent);
     } else {
       const firstIndex = files.value.findIndex((f) => {

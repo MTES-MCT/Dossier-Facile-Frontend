@@ -396,6 +396,9 @@ function taxFiles() {
 
 async function remove(file: DfFile, silent = false) {
   if (file.id) {
+    if (files.value.length === 1 && guarantorTaxDocument()?.documentAnalysisReport?.analysisStatus === "DENIED") {
+      AnalyticsService.removeDeniedDocument(guarantorTaxDocument()?.documentCategory || "")
+    }
     await RegisterService.deleteFile(file.id, silent);
   } else {
     const firstIndex = files.value.findIndex((f) => {

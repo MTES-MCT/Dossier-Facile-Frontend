@@ -77,6 +77,7 @@ import { computed, onMounted, ref } from "vue";
 import { ToastService } from "../../../services/ToastService";
 import { useLoading } from "vue-loading-overlay";
 import { useI18n } from "vue-i18n";
+import { AnalyticsService } from "../../../services/AnalyticsService";
 
 const { t } = useI18n();
 
@@ -259,6 +260,9 @@ function identificationFiles() {
 
 async function remove(file: DfFile, silent = false) {
   if (file.id) {
+    if (files.value.length === 1 && guarantorIdentificationDocument()?.documentAnalysisReport?.analysisStatus === "DENIED") {
+      AnalyticsService.removeDeniedDocument(guarantorIdentificationDocument()?.documentCategory || "")
+    }
     await RegisterService.deleteFile(file.id, silent);
   } else {
     const firstIndex = files.value.findIndex((f) => {
