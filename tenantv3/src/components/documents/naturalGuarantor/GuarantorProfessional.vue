@@ -84,11 +84,11 @@ import NakedCard from "df-shared-next/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared-next/src/models/DocumentDeniedReasons";
 import { cloneDeep } from "lodash";
-import { UtilsService } from "@/services/UtilsService";
+import { UtilsService } from "../../../services/UtilsService";
 import { useI18n } from "vue-i18n";
-import useTenantStore from "@/stores/tenant-store";
+import useTenantStore from "../../../stores/tenant-store";
 import { computed, onMounted, ref } from "vue";
-import { ToastService } from "@/services/ToastService";
+import { ToastService } from "../../../services/ToastService";
 import { useLoading } from "vue-loading-overlay";
 
 const { t } = useI18n();
@@ -111,11 +111,6 @@ const props = withDefaults(
 
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL);
 const files = ref([] as DfFile[]);
-const uploadProgress = ref(
-  {} as {
-    [key: string]: { state: string; percentage: number };
-  }
-);
 const professionalDocument = ref(new DocumentType());
 const documents = ref(DocumentTypeConstants.GUARANTOR_PROFESSIONAL_DOCS);
 const isDocDeleteVisible = ref(false);
@@ -211,7 +206,6 @@ function resetFiles() {
   fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
 }
 function save() {
-  uploadProgress.value = {};
   const fieldName = "documents";
   const formData = new FormData();
   const newFiles = files.value.filter((f) => {
@@ -297,5 +291,3 @@ function guarantorKey() {
   return "guarantor";
 }
 </script>
-
-<style scoped lang="scss"></style>

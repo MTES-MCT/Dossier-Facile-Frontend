@@ -89,11 +89,6 @@ const documents = ref(DocumentTypeConstants.PROFESSIONAL_DOCS);
 const documentDeniedReasons = ref(new DocumentDeniedReasons());
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL);
 const files = ref([] as DfFile[]);
-const uploadProgress = ref(
-  {} as {
-    [key: string]: { state: string; percentage: number };
-  }
-);
 const professionalDocument = ref(new DocumentType());
 const isDocDeleteVisible = ref(false);
 
@@ -198,7 +193,6 @@ function resetFiles() {
 }
 function save() {
   AnalyticsService.registerFile("professional");
-  uploadProgress.value = {};
   const fieldName = "documents";
   const formData = new FormData();
   const newFiles = files.value.filter((f) => {
@@ -271,5 +265,3 @@ async function remove(file: DfFile, silent = false) {
   }
 }
 </script>
-
-<style scoped lang="scss"></style>

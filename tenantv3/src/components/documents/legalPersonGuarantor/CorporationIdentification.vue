@@ -23,12 +23,12 @@
               }"
               id="organismName"
               name="organismName"
-              :placeholder="$t('corporationidentification.organism-name-placeholder')"
+              :placeholder="t('corporationidentification.organism-name-placeholder')"
               type="text"
               required
             />
             <ErrorMessage name="organismName" v-slot="{ message }">
-              <span role="alert" class="fr-error-text">{{ $t(message || "") }}</span>
+              <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
             </ErrorMessage>
           </div>
         </Field>
@@ -51,16 +51,6 @@
               :key="k"
               :file="file"
               @remove="remove(file)"
-              :uploadState="
-                file.id && uploadProgress[file.id]
-                  ? uploadProgress[file.id].state
-                  : 'idle'
-              "
-              :percentage="
-                file.id && uploadProgress[file.id]
-                  ? uploadProgress[file.id].percentage
-                  : 0
-              "
             />
           </div>
           <div class="fr-mt-3w fr-mb-3w">
@@ -95,9 +85,11 @@ import useTenantStore from "@/stores/tenant-store";
 import { ToastService } from "@/services/ToastService";
 import { useLoading } from "vue-loading-overlay";
 import { Form, Field, ErrorMessage } from "vee-validate";
+import { useI18n } from "vue-i18n";
 
 const store = useTenantStore();
 const user = computed(() => store.userToEdit);
+const { t } = useI18n();
 
 const props = defineProps<{
   tenantId?: number;
@@ -110,11 +102,6 @@ const documentDeniedReasons = ref(new DocumentDeniedReasons());
 
 const files = ref([] as DfFile[]);
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL);
-const uploadProgress = ref(
-  {} as {
-    [key: string]: { state: string; percentage: number };
-  }
-);
 const emit = defineEmits(["on-back", "on-next"]);
 
 onBeforeMount(() => {
@@ -157,7 +144,6 @@ function save() {
   if (!organismName.value) {
     return Promise.resolve(true);
   }
-  uploadProgress.value = {};
   const fieldName = "documents";
   const formData = new FormData();
   formData.append("legalPersonName", organismName.value);

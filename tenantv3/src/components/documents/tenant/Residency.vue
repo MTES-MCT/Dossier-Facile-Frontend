@@ -137,7 +137,6 @@ const emit = defineEmits(["on-next", "on-back"]);
   const documentDeniedReasons = ref(new DocumentDeniedReasons());
   const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL);
   const files = ref([] as any[]);
-  const uploadProgress = ref({} as { [key: string]: { state: string; percentage: number } })
   const residencyDocument = ref(new DocumentType());
   const customText = ref("");
 
@@ -276,7 +275,6 @@ const emit = defineEmits(["on-next", "on-back"]);
 
   async function save(): Promise<boolean> {
     AnalyticsService.registerFile("residency");
-    uploadProgress.value = {};
     const fieldName = "documents";
     const formData = new FormData();
     const newFiles = files.value.filter((f) => {
@@ -358,5 +356,3 @@ const emit = defineEmits(["on-next", "on-back"]);
     }
   }
 </script>
-
-<style scoped lang="scss"></style>

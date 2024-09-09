@@ -170,11 +170,6 @@ const props = withDefaults(
 
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL);
 const files = ref([] as DfFile[]);
-const uploadProgress = ref(
-  {} as {
-    [key: string]: { state: string; percentage: number };
-  }
-);
 const taxDocument = ref(new DocumentType());
 const documentDeniedReasons = ref(new DocumentDeniedReasons());
 
@@ -300,7 +295,6 @@ async function save(force = false) {
   if (!taxDocument.value.key) {
     return true;
   }
-  uploadProgress.value = {};
   const fieldName = "documents";
   const formData = new FormData();
   const newFiles = files.value.filter((f) => {

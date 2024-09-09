@@ -116,11 +116,6 @@ const props = defineProps<{
 
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL);
 const files = ref([] as DfFile[]);
-const uploadProgress = ref(
-  {} as {
-    [key: string]: { state: string; percentage: number };
-  }
-);
 const residencyDocument = ref(new DocumentType());
 const documentDeniedReasons = ref(new DocumentDeniedReasons());
 const customText = ref("");
@@ -228,7 +223,6 @@ function resetFiles() {
 }
 
 async function save(): Promise<boolean> {
-  uploadProgress.value = {};
   const fieldName = "documents";
   const formData = new FormData();
   const newFiles = files.value.filter((f) => {
@@ -323,5 +317,3 @@ function guarantorKey() {
   return "guarantor";
 }
 </script>
-
-<style scoped lang="scss"></style>

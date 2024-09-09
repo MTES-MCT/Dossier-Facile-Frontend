@@ -29,6 +29,12 @@ export const AnalyticsService = {
     })
   },
 
+  removeDeniedDocument(documentType: string) {
+    this.sendEvent("pv_deleteted_denied_"+documentType, {
+      event_category: "prevalidation",
+    })
+  },
+
   contactEvent(tag: string) {
     this.sendEvent(tag, {
       event_category: "contact"

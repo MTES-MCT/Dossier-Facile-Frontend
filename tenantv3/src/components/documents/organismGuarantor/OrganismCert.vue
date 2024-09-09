@@ -15,8 +15,7 @@
     </NakedCard>
     <NakedCard
       class="fr-p-md-5w fr-mt-3w"
-      v-if="selectedDocumentType.key || files.length > 0"
-    >
+      v-if="selectedDocumentType.key || files.length > 0">
       <div>
         <AllDeclinedMessages
           class="fr-mb-3w"
@@ -31,12 +30,6 @@
             :key="k"
             :file="file"
             @remove="remove(Number(file.id))"
-            :uploadState="
-              file.id && uploadProgress[file.id] ? uploadProgress[file.id].state : 'idle'
-            "
-            :percentage="
-              file.id && uploadProgress[file.id] ? uploadProgress[file.id].percentage : 0
-            "
           />
         </div>
         <div class="fr-mt-3w fr-mb-3w">
@@ -49,7 +42,7 @@
       </div>
     </NakedCard>
     <ConfirmModal v-if="isDocDeleteVisible" @valid="validSelect()" @cancel="undoSelect()">
-      <span>{{ $t("identification-page.will-delete-files") }}</span>
+      <span>{{ t("identification-page.will-delete-files") }}</span>
     </ConfirmModal>
   </div>
 </template>
@@ -65,16 +58,16 @@ import NakedCard from "df-shared-next/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared-next/src/models/DocumentDeniedReasons";
 import { Guarantor } from "df-shared-next/src/models/Guarantor";
-import { computed, onBeforeMount, onMounted, ref } from "vue";
+import { computed, onBeforeMount, ref } from "vue";
 import { useI18n } from "vue-i18n";
-import useTenantStore from "@/stores/tenant-store";
-import { ToastService } from "@/services/ToastService";
+import useTenantStore from "../../../stores/tenant-store";
+import { ToastService } from "../../../services/ToastService";
 import { useLoading } from "vue-loading-overlay";
 import SimpleRadioButtons from "df-shared-next/src/Button/SimpleRadioButtons.vue";
 import { DocumentType } from "df-shared-next/src/models/Document";
-import { DocumentTypeConstants } from "@/components/documents/share/DocumentTypeConstants";
+import { DocumentTypeConstants } from "../../documents/share/DocumentTypeConstants";
 import ConfirmModal from "df-shared-next/src/components/ConfirmModal.vue";
-import { AnalyticsService } from "@/services/AnalyticsService";
+import { AnalyticsService } from "../../../services/AnalyticsService";
 
 const props = defineProps<{
   tenantId?: number;
@@ -100,11 +93,6 @@ const documentDeniedReasons = ref(new DocumentDeniedReasons());
 
 const files = ref([] as DfFile[]);
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL);
-const uploadProgress = ref(
-  {} as {
-    [key: string]: { state: string; percentage: number };
-  }
-);
 
 onBeforeMount(() => {
   loadDocument();
@@ -177,7 +165,6 @@ function addFiles(newFiles: File[]) {
 }
 
 function save(files: File[]) {
-  uploadProgress.value = {};
   const fieldName = "documents";
   const formData = new FormData();
   if (!files.length) return;
@@ -245,7 +232,6 @@ function loadDocument() {
     if (localDoc !== undefined) {
       selectedDocumentType.value = localDoc;
     }
-    //const document = guarantorCertificateDocument();
     if (certificateDocument.value.documentDeniedReasons) {
       documentDeniedReasons.value = certificateDocument.value.documentDeniedReasons;
     } else {

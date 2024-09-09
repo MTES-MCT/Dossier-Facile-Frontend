@@ -2,7 +2,7 @@
   <div class="fr-mb-5w">
       <Form name="form" @submit="goNext">
         <NakedCard class="fr-p-md-5w">
-          <h1 class="fr-h6">{{ $t("tax-page.title") }}</h1>
+          <h1 class="fr-h6">{{ t("tax-page.title") }}</h1>
           <div class="fr-mt-3w">
             <SimpleRadioButtons
               name="application-type-selector"
@@ -18,7 +18,7 @@
           v-if="taxDocument.key && taxDocument.key === 'other-tax'"
         >
               <label class="fr-label" for="customText">{{
-                $t("tax-page.custom-text")
+                t("tax-page.custom-text")
               }}</label>
           <Field
             id="customText"
@@ -44,7 +44,7 @@
               />
               </Field>
             <ErrorMessage name="customText" v-slot="{ message }">
-              <span role="alert" class="fr-error-text">{{ $t(message || "") }}</span>
+              <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
             </ErrorMessage>
         </NakedCard>
         <ProfileFooter
@@ -60,7 +60,7 @@
           <div class="fr-mb-3w">
             <div
               class="fr-mb-2w"
-              v-html="$t(`explanation-text.tenant.${taxDocument.key}`)"
+              v-html="t(`explanation-text.tenant.${taxDocument.key}`)"
             ></div>
             <WarningTaxDeclaration />
           </div>
@@ -93,7 +93,7 @@
       @valid="validSelect()"
       @cancel="undoSelect()"
     >
-      <span>{{ $t("tax-page.will-delete-files") }}</span>
+      <span>{{ t("tax-page.will-delete-files") }}</span>
     </ConfirmModal>
     <Modal
       v-if="isWarningTaxSituationModalVisible"
@@ -104,22 +104,22 @@
           <h1 class="avis-title fr-h4">
             <i class="ri-alarm-warning-line"></i>
 
-            {{ $t("tax-page.avis-detected") }}
+            {{ t("tax-page.avis-detected") }}
           </h1>
           <p>
-            {{ $t("tax-page.avis-text1") }}
+            {{ t("tax-page.avis-text1") }}
           </p>
           <hr class="mobile" />
           <div class="btn-align">
             <DfButton
               @on-click="isWarningTaxSituationModalVisible = false"
               :primary="true"
-              >{{ $t("tax-page.avis-btn") }}</DfButton
+              >{{ t("tax-page.avis-btn") }}</DfButton
             >
           </div>
           <div class="btn-align fr-mt-2w">
             <a href="https://docs.dossierfacile.logement.gouv.fr/article/88-avis-dimposition" rel="noopener"
-               target="_blank">{{ $t("tax-page.avis-link-to-doc") }}</a>
+               target="_blank">{{ t("tax-page.avis-link-to-doc") }}</a>
           </div>
         </div>
       </template>
@@ -169,9 +169,6 @@ const { t } = useI18n();
 
   const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL);
   const files = ref([] as DfFile[] );
-const uploadProgress = ref({} as {
-    [key: string]: { state: string; percentage: number };
-  });
   const taxDocument = ref(new DocumentType());
 
   const customText = ref("");
@@ -252,17 +249,6 @@ function onSelectChange($event: DocumentType) {
     return undefined;
   }
 
-  function getLocalDoc() {
-    const doc = getRegisteredDoc();
-    if (doc !== undefined) {
-      const localDoc = documents.value.find((d: DocumentType) => {
-        return d.value === doc.subCategory;
-      });
-      return localDoc;
-    }
-    return undefined;
-  }
-
   function undoSelect() {
     if (user.value?.documents !== null) {
       const doc = tenantTaxDocument.value;
@@ -334,7 +320,6 @@ function onSelectChange($event: DocumentType) {
       return true;
     }
     AnalyticsService.registerFile("tax");
-    uploadProgress.value = {};
     const fieldName = "documents";
     const formData = new FormData();
     const newFiles = files.value.filter((f) => {

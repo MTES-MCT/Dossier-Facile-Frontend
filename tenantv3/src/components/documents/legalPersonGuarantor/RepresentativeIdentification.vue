@@ -12,7 +12,7 @@
         >
           <div class="fr-input-group">
             <h1 class="fr-label fr-text--regular" for="firstName">
-              {{ $t("representativeidentification.organism-name") }} :
+              {{ t("representativeidentification.organism-name") }} :
             </h1>
             <input
               v-bind="field"
@@ -23,12 +23,12 @@
               }"
               id="firstName"
               name="firstName"
-              :placeholder="$t('representativeidentification.organism-name-placeholder')"
+              :placeholder="t('representativeidentification.organism-name-placeholder')"
               type="text"
               required
             />
             <ErrorMessage name="firstName" v-slot="{ message }">
-              <span role="alert" class="fr-error-text">{{ $t(message || "") }}</span>
+              <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
             </ErrorMessage>
           </div>
         </Field>
@@ -49,7 +49,7 @@
           >
             <option v-if="!identificationDocument" selected disabled></option>
             <option v-for="d in documents" :value="d" :key="d.key">
-              {{ $t(d.key) }}
+              {{ t(d.key) }}
             </option>
           </select>
         </div>
@@ -67,16 +67,6 @@
               :key="k"
               :file="file"
               @remove="remove(file)"
-              :uploadState="
-                file.id && uploadProgress[file.id]
-                  ? uploadProgress[file.id].state
-                  : 'idle'
-              "
-              :percentage="
-                file.id && uploadProgress[file.id]
-                  ? uploadProgress[file.id].percentage
-                  : 0
-              "
             />
           </div>
           <div class="fr-mb-3w">
@@ -109,11 +99,13 @@ import { cloneDeep } from "lodash";
 import GuarantorFooter from "../../footer/GuarantorFooter.vue";
 import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
 import { computed, onBeforeMount, ref } from "vue";
-import useTenantStore from "@/stores/tenant-store";
-import { ToastService } from "@/services/ToastService";
+import useTenantStore from "../../../stores/tenant-store";
+import { ToastService } from "../../../services/ToastService";
 import { useLoading } from "vue-loading-overlay";
 import { Form, Field, ErrorMessage } from "vee-validate";
+import { useI18n } from "vue-i18n";
 
+const { t } = useI18n();
 const documents = DocumentTypeConstants.REPRESENTATIVE_IDENTIFICATION;
 const props = defineProps<{
   tenantId?: number;
@@ -130,11 +122,6 @@ const documentDeniedReasons = ref(new DocumentDeniedReasons());
 
 const files = ref([] as File[]);
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL);
-const uploadProgress = ref(
-  {} as {
-    [key: string]: { state: string; percentage: number };
-  }
-);
 const firstName = ref("");
 
 onBeforeMount(() => {
@@ -187,7 +174,6 @@ function save() {
     files.value = [];
     return Promise.reject();
   }
-  uploadProgress.value = {};
   const fieldName = "documents";
   const formData = new FormData();
   const gId = getGuarantor()?.id;
@@ -276,6 +262,7 @@ function remove(file: DfFile) {
     files.value.splice(firstIndex, 1);
   }
 }
+
 function listFiles() {
   const existingFiles = guarantorIdentificationDocument()?.files || [];
   return existingFiles;
