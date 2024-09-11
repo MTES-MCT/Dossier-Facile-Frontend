@@ -31,7 +31,7 @@
     "connect-history-api-fallback": "^2.0.0",
     "date-fns": "^2.28.0",
     "df-shared-next": "0.1.0",
-    "express": "^4.19.2",
+    "express": "^4.20.0",
     "keycloak-js": "21.0.1",
     "pinia": "2.0.33",
     "remixicon": "4.2.0",
