@@ -344,8 +344,6 @@
     "amendment-required-title": "Requested modifications",
     "amendment-required-text": "After reviewing your file, modifications are requested. <br>Check your messages for details.",
     "messaging": "Check my messages",
-    "instructional-time-title": "Processing time",
-    "instructional-time-text": "Once your file is completed and submitted, it is typically processed within 24 hours by our team of operators.",
     "congratulations-title": "🎉 Congratulations! Your DossierFacile is available!",
     "congratulations-text-1": "To apply for the housing of your dreams, share your file with a landlord of your choice, with or without supporting documents, either by email by entering their email address in the section \"Share my file\" below, or by link by sending your DossierFacile link by email, SMS, etc. to the landlords of your choice. Please note that DossierFacile does not offer housing.",
     "congratulations-text-2": "Your information is protected!",
@@ -358,6 +356,16 @@
         "DECLINED": "Modification requested",
         "INCOMPLETE": "Incomplete"
       }
+    },
+    "processing-bloc": {
+      "title": "Processing Delay",
+      "text": "Your Files are currently in process. You will receive an e-ameil after processing.",
+      "badge": "Estimated time : From {0}h to {1}h",
+      "badge-undefined": "Estimated time not available",
+      "delay": "Yours Files will be process {0} between {1} and {2}",
+      "delay-on-2days": "Yours Files will be process from {0} to {1}",
+      "delay-undefined": "Estimated time computation is currently in progress. Files are typically processed within 24 hours on average.",
+      "last-update": "Last files update : {0}"
     }
   },
   "app": {
@@ -1263,8 +1271,6 @@
     "amendment-required-title": "Modification Required",
     "amendment-required-text": "After reviewing your application, modifications are required. <br>Check your messages for details.",
     "messaging": "Check My Messages",
-    "instructional-time-title": "Processing Time",
-    "instructional-time-text": "Once your application is completed and submitted, it will be processed within 24 to 48 hours by our team of operators.",
     "congratulations-title": "🎉 Congratulations! Your DossierFacile is Ready!",
     "congratulations-text-1": "To apply for your dream accommodation, share your application with a landlord of your choice, with or without supporting documents. You can do this by email, by providing their email address in the \"Share My Application\" section below, or by sending your DossierFacile link via email, SMS, etc. to the landlords or property owners of your choice.",
     "congratulations-text-2": "Please note that DossierFacile does not provide accommodation.",

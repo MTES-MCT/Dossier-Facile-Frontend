@@ -391,8 +391,6 @@
     "amendment-required-title": "Modifications demandées",
     "amendment-required-text": "Après examen de votre dossier, des modifications vous sont demandées. <br>Consultez votre messagerie pour en connaître le détail.",
     "messaging": "Consulter ma messagerie",
-    "instructional-time-title": "Durée d'instruction",
-    "instructional-time-text": "Une fois votre dossier complété et déposé, il est pris en charge en moyenne en moins de 24h par notre équipe d'opérateurs.",
     "congratulations-title": "🎉 Félicitations ! Votre DossierFacile est disponible !",
     "congratulations-text-1": "Afin de candidater au logement de vos rêves, partagez votre dossier à un propriétaire de votre choix, avec ou sans justificatifs, soit par email en renseignant son adresse mail dans la section \"Mes candidatures\" depuis le menu individuel, soit par lien en envoyant votre lien DossierFacile par email, SMS, etc. aux propriétaires, bailleurs de votre choix.",
     "congratulations-text-2": "Pour rappel, DossierFacile ne propose pas de logement.",
@@ -406,6 +404,16 @@
         "DECLINED": "Modification demandée",
         "INCOMPLETE": "Incomplet"
       }
+    },
+    "processing-bloc": {
+      "title": "Délai de traitement",
+      "text": "Votre dossier est actuellement en cours de traitement. Vous recevrez un e-mail lorsque notre équipe l’aura traité.",
+      "badge": "Temps estimé : Entre {0}h et {1}h",
+      "badge-undefined": "Temps estimé non disponible",
+      "delay": "Votre dossier sera traité le {0} entre {1} et {2}",
+      "delay-on-2days": "Votre dossier sera traité entre le {0} et le {1}",
+      "delay-undefined": "Votre horaire de passage est en cours de calcul. Le délai de traitement moyen est de moins de 24h.",
+      "last-update": "Date de dernière modification : {0}"
     }
   },
   "app": {
@@ -1301,8 +1309,6 @@
     "amendment-required-title": "Modifications demandées",
     "amendment-required-text": "Après examen de votre dossier, des modifications vous sont demandées. <br>Consultez votre messagerie pour en connaître le détail.",
     "messaging": "Consulter ma messagerie",
-    "instructional-time-title": "Durée d'instruction",
-    "instructional-time-text": "Une fois votre dossier complété et déposé, il est pris en charge dans un délai de 24 à 48 heures par notre équipe d'opérateurs.",
     "congratulations-title": "🎉 Félicitations ! Votre DossierFacile est disponible !",
     "congratulations-text-1": "Afin de candidater au logement de vos rêves, partagez votre dossier à un propriétaire de votre choix, avec ou sans justificatifs, soit par email en renseignant son adresse mail dans la section \"Partager mon dossier\" ci-dessous, soit par lien en envoyant votre lien DossierFacile par email, SMS, etc. aux propriétaires, bailleurs de votre choix.",
     "congratulations-text-2": "Pour rappel, DossierFacile ne propose pas de logement.",
