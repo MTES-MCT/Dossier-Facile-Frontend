@@ -105,6 +105,7 @@ import useTenantStore from "@/stores/tenant-store";
 import { computed, onMounted, ref } from "vue";
 import { ToastService } from "@/services/ToastService";
 import { useLoading } from "vue-loading-overlay";
+import { AnalyticsService } from "../../../services/AnalyticsService";
 
 const store = useTenantStore();
 const user = computed(() => store.userToEdit);
@@ -116,11 +117,6 @@ const props = defineProps<{
 
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL);
 const files = ref([] as DfFile[]);
-const uploadProgress = ref(
-  {} as {
-    [key: string]: { state: string; percentage: number };
-  }
-);
 const residencyDocument = ref(new DocumentType());
 const documentDeniedReasons = ref(new DocumentDeniedReasons());
 const customText = ref("");
@@ -228,7 +224,6 @@ function resetFiles() {
 }
 
 async function save(): Promise<boolean> {
-  uploadProgress.value = {};
   const fieldName = "documents";
   const formData = new FormData();
   const newFiles = files.value.filter((f) => {
@@ -307,6 +302,9 @@ function residencyFiles() {
 
 async function remove(file: DfFile, silent = false) {
   if (file.id) {
+    if (files.value.length === 1 && guarantorResidencyDocument()?.documentAnalysisReport?.analysisStatus === "DENIED") {
+      AnalyticsService.removeDeniedDocument(guarantorResidencyDocument()?.documentCategory || "")
+    }
     await RegisterService.deleteFile(file.id, silent);
   } else {
     const firstIndex = files.value.findIndex((f) => {
@@ -323,5 +321,3 @@ function guarantorKey() {
   return "guarantor";
 }
 </script>
-
-<style scoped lang="scss"></style>

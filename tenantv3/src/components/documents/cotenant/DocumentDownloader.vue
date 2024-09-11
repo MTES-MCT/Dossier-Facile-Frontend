@@ -210,6 +210,7 @@ import { useLoading } from "vue-loading-overlay";
 import { computed, onBeforeMount, ref } from "vue";
 import useTenantStore from "@/stores/tenant-store";
 import { Field, ErrorMessage } from "vee-validate";
+import { AnalyticsService } from "../../../services/AnalyticsService";
 
 const store = useTenantStore();
 
@@ -460,8 +461,10 @@ function remove(file: DfFile) {
     showLoader();
     RegisterService.deleteFileById(Number(file.id))
       .then(() => {
-        dfDocument.value = getDocument();
         dfDocument.value.files = dfDocument.value.files?.filter((f) => file.id != f.id);
+        if (dfDocument.value.files?.length === 0 && dfDocument.value.documentAnalysisReport?.analysisStatus === "DENIED") {
+          AnalyticsService.removeDeniedDocument(dfDocument.value.subCategory || "");
+        }
 
         ToastService.saveSuccess();
       })

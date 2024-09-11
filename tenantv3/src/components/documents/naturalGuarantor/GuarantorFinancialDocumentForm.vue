@@ -7,7 +7,7 @@
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-12">
               <p>
-                {{ $t("guarantorfinancialdocumentform.warning-no-income-and-file") }}
+                {{ t("guarantorfinancialdocumentform.warning-no-income-and-file") }}
               </p>
             </div>
           </div>
@@ -15,11 +15,11 @@
       </template>
     </Modal>
     <ConfirmModal v-if="isDocDeleteVisible" @valid="validSelect()" @cancel="undoSelect()">
-      <span>{{ $t(`explanation-text.${guarantorKey()}.will-delete-files`) }}</span>
+      <span>{{ t(`explanation-text.${guarantorKey()}.will-delete-files`) }}</span>
     </ConfirmModal>
     <NakedCard class="fr-p-md-5w fr-mb-3w">
       <h1 class="fr-h6">
-        {{ $t(`guarantorfinancialdocumentform.title.${guarantorKey()}`) }}
+        {{ t(`guarantorfinancialdocumentform.title.${guarantorKey()}`) }}
       </h1>
         <div>
           <div>
@@ -52,7 +52,7 @@
                 <input
                   id="monthlySum"
                   :placeholder="
-                    $t('guarantorfinancialdocumentform.monthlySum.placeholder')
+                    t('guarantorfinancialdocumentform.monthlySum.placeholder')
                   "
                   v-bind="field"
                   name="monthlySum"
@@ -65,13 +65,13 @@
                 />
               </Field>
               <ErrorMessage name="monthlySum" v-slot="{ message }">
-                <span role="alert" class="fr-error-text">{{ $t(message || "") }}</span>
+                <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
               </ErrorMessage>
               <span
                 class="fr-error-text"
                 v-if="(financialDocument.monthlySum || 0) > 10000"
               >
-                {{ $t("guarantorfinancialdocumentform.high-salary") }}
+                {{ t("guarantorfinancialdocumentform.high-salary") }}
               </span>
               <span
                 class="fr-error-text"
@@ -80,7 +80,7 @@
                   financialDocument.monthlySum <= 0
                 "
               >
-                {{ $t("guarantorfinancialdocumentform.low-salary") }}
+                {{ t("guarantorfinancialdocumentform.low-salary") }}
               </span>
             </div>
           </div>
@@ -96,7 +96,7 @@
         <div class="fr-mb-3w">
           <p
             v-html="
-              $t(
+              t(
                 `explanation-text.${guarantorKey()}.${financialDocument.documentType.key}`
               )
             "
@@ -133,7 +133,7 @@
           />
           <label for="noDocument">
             {{
-              $t(
+              t(
                 `explanation-text.${guarantorKey()}.${getCheckboxLabel(
                   financialDocument.documentType.key
                 )}`
@@ -145,7 +145,7 @@
           <div class="fr-input-group">
             <label class="fr-label" for="customText">
               {{
-                $t(
+                t(
                   `explanation-text.${guarantorKey()}.${getCustomTextLabel(
                     financialDocument.documentType.key
                   )}`
@@ -174,7 +174,7 @@
               />
             </Field>
             <ErrorMessage name="customText" v-slot="{ message }">
-              <span role="alert" class="fr-error-text">{{ $t(message || "") }}</span>
+              <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
             </ErrorMessage>
           </div>
         </div>
@@ -203,12 +203,12 @@ import cloneDeep from "lodash/cloneDeep";
 import { AnalyticsService } from "../../../services/AnalyticsService";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared-next/src/models/DocumentDeniedReasons";
-import { UtilsService } from "@/services/UtilsService";
+import { UtilsService } from "../../../services/UtilsService";
 import SimpleRadioButtons from "df-shared-next/src/Button/SimpleRadioButtons.vue";
-import useTenantStore from "@/stores/tenant-store";
+import useTenantStore from "../../../stores/tenant-store";
 import { computed, onBeforeMount, ref } from "vue";
 import { useI18n } from "vue-i18n";
-import { ToastService } from "@/services/ToastService";
+import { ToastService } from "../../../services/ToastService";
 import { useLoading } from "vue-loading-overlay";
 import { Form, Field, ErrorMessage } from "vee-validate";
 
@@ -371,12 +371,10 @@ async function save(): Promise<boolean> {
       const f: File = newFiles[x].file || new File([], "");
       formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
     });
-  } else {
-    if (financialFiles().length > 0) {
+  } else if (financialFiles().length > 0) {
       isNoIncomeAndFiles.value = true;
       return Promise.reject(new Error("err"));
     }
-  }
 
   const typeDocumentFinancial = financialDocument.value.documentType?.value || "";
   formData.append("typeDocumentFinancial", typeDocumentFinancial);
@@ -439,9 +437,12 @@ function financialFiles() {
   return [...newFiles, ...existingFiles];
 }
 
-async function remove(f: FinancialDocument, file: DfFile, silent = false) {
+function remove(f: FinancialDocument, file: DfFile, silent = false) {
   if (file.id) {
-    await RegisterService.deleteFile(file.id, silent);
+    if (f.files.length === 1 && guarantorFinancialDocumentSelected.value?.documentAnalysisReport?.analysisStatus === "DENIED") {
+      AnalyticsService.removeDeniedDocument(guarantorFinancialDocumentSelected.value.subCategory || "")
+    }
+    RegisterService.deleteFile(file.id, silent);
   } else {
     const firstIndex = f.files.findIndex((lf) => {
       return lf.name === file.name && !lf.path;
@@ -525,5 +526,3 @@ function mapDocuments() {
   });
 }
 </script>
-
-<style scoped lang="scss"></style>

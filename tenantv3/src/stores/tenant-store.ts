@@ -28,7 +28,7 @@ import { ToastService } from '@/services/ToastService';
 import {useLoading} from 'vue-loading-overlay'
 import { useCookies } from 'vue3-cookies';
 import type { Composer } from 'vue-i18n';
-import type { PartnerAccess } from "../../../df-shared-next/src/models/PartnerAccess";
+import type { PartnerAccess } from "df-shared-next/src/models/PartnerAccess";
 import { PartnerAccessService } from "@/services/PartnerAccessService";
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;

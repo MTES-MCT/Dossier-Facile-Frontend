@@ -63,7 +63,7 @@
                   </Field>
                   <ErrorMessage name="monthlySum" v-slot="{ message }">
                     <span role="alert" class="fr-error-text">{{
-                      $t(message || "")
+                      t(message || "")
                     }}</span>
                   </ErrorMessage>
                   <span
@@ -175,7 +175,7 @@
                   <span>{{ financialDocument.customText.length }} / 2000</span>
                 </Field>
                 <ErrorMessage name="customText" v-slot="{ message }">
-                  <span role="alert" class="fr-error-text">{{ $t(message || "") }}</span>
+                  <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
                 </ErrorMessage>
               </div>
             </div>
@@ -497,10 +497,13 @@ function financialFiles() {
   return [...newFiles, ...existingFiles];
 }
 
-async function remove(f: FinancialDocument, file: DfFile, silent = false) {
+function remove(f: FinancialDocument, file: DfFile, silent = false) {
   AnalyticsService.deleteFile("financial");
   if (file.id) {
-    await RegisterService.deleteFile(file.id, silent);
+    if (f.files.length === 1 && financialDocumentSelected.value?.documentAnalysisReport?.analysisStatus === "DENIED") {
+      AnalyticsService.removeDeniedDocument(financialDocumentSelected.value.subCategory || "")
+    }
+    RegisterService.deleteFile(file.id, silent);
   } else {
     const firstIndex = f.files.findIndex((lf) => {
       return lf.name === file.name && !lf.path;

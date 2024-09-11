@@ -139,5 +139,3 @@ function getFile() {
   </form>
   <Feedback />
 </template>
-
-<style scoped lang="scss"></style>
