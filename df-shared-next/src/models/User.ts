@@ -16,7 +16,7 @@ export class User {
   applicationType?: string;
   tenantType?: string;
   status?: string;
-  lastUpdate?: string;
+  lastUpdateDate?: any;
   honorDeclaration?: boolean;
   clarification?: string;
   franceConnect?: boolean;

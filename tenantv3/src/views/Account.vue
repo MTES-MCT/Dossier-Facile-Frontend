@@ -33,15 +33,30 @@
                 </div>
                 <div class="fr-col" v-if="user.status === 'TO_PROCESS'">
                   <div class="fr-callout to-process fr-callout-white fr-mb-3w">
-                    <h2 class="fr-h4 dflex">
-                      <i
-                        aria-hidden="true"
-                        class="text-to-process ri-time-line fs-28"
-                        style="font-size: 18px"
-                      ></i>
-                      &nbsp;<span>{{ $t("account.instructional-time-title") }}</span>
-                    </h2>
-                    <p v-html="$t('account.instructional-time-text')"></p>
+                      <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+                        <div class="fr-col-6">
+                          <h2 class="fr-h4 dflex">
+                            <i
+                                aria-hidden="true"
+                                class="text-to-process ri-time-line fs-28"
+                                style="font-size: 18px"
+                            ></i>
+                            &nbsp;<span>{{ $t("account.processing-bloc.title") }}</span>
+                          </h2>
+                        </div>
+                        <div class="fr-col-6 text-align--right">
+                          <p class="fr-badge fr-badge--purple-glycine">{{ processBadgeText }}</p>
+                        </div>
+                    </div>
+                    <div>
+                      <p>{{ $t('account.processing-bloc.text') }}</p>
+                    </div>
+                    <div class="fr-text--bold fr-my-2w">
+                      {{ processBlocDelayText }}
+                    </div>
+                    <div>
+                    <p class="small-text" v-html="$t('account.processing-bloc.last-update', [lastModifiedDate()])"></p>
+                    </div>
                   </div>
                 </div>
                 <div class="fr-col-12 fr-col-lg-4">
@@ -208,14 +223,21 @@ import useTenantStore from "@/stores/tenant-store";
 import { useRouter } from "vue-router";
 import { ProfileService } from "../services/ProfileService";
 import { ToastService } from "../services/ToastService";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 
 const FORCE_FAKE_ANNOUNCEMENT_VISIBILITY =
   import.meta.env.VITE_FORCE_ANNOUNCEMENT_VISIBILITY || false;
+const PROCESSING_TIME_DELTA = import.meta.env.VITE_PROCESSING_TIME_DELTA || 3;
 const isAnnouncementVisible = ref(false);
 const store = useTenantStore();
 const user = computed(() => store.user);
 const tabIndex = ref(0);
 const router = useRouter();
+dayjs.extend(relativeTime);
+const expectedDate = ref( null as any );
 
 onMounted(() => {
   window.Beacon("init", "d949ac15-a9eb-4316-b0c5-f92cecc7118f");
@@ -226,11 +248,48 @@ onMounted(() => {
   ) {
     isAnnouncementVisible.value = true;
   }
+  loadExpectedProcessingTime(user.value.id)
 });
 
 onBeforeUnmount(() => {
   window.Beacon("destroy");
 });
+
+function loadExpectedProcessingTime(tenantId: number) {
+  ProfileService.getExpectedProcessingTime(tenantId).then((response)=> {
+    if (response && response.data) {
+        expectedDate.value = dayjs(response.data);
+    }
+  });
+}
+
+const processBadgeText = computed(() => {
+  if (expectedDate && expectedDate.value != null) {
+    const currentDate = dayjs();
+    const delayFrom = expectedDate.value.diff(currentDate, 'hour');
+    const delayTo = delayFrom + PROCESSING_TIME_DELTA;
+
+    return t('account.processing-bloc.badge', [delayFrom, delayTo]);
+  }
+  return t('account.processing-bloc.badge-undefined');
+});
+
+const processBlocDelayText = computed(() => {
+  if (expectedDate && expectedDate.value != null) {
+    const processFromDate = dayjs(expectedDate.value);
+    const processToDate = dayjs(expectedDate.value).add(PROCESSING_TIME_DELTA, 'hour');
+
+    if (dayjs(processFromDate).isSame(dayjs(processToDate), 'day')){
+      return t('account.processing-bloc.delay', [processFromDate.format("D MMMM") , processFromDate.format("HH[h]mm"), processToDate.format("HH[h]mm")]);
+    }
+    return t('account.processing-bloc.delay-on-2days', [processFromDate.format("DD/MM à HH[h]mm"), processToDate.format("DD/MM à HH[h]mm")]);
+  }
+  return t('account.processing-bloc.delay-undefined');
+});
+
+function lastModifiedDate() : string {
+  return dayjs(user.value.lastUpdateDate).format("D MMMM YYYY à HH[h]mm");
+}
 
 function getTenants() {
   const tenants: User[] = [];
