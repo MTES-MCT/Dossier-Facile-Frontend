@@ -112,7 +112,6 @@ TODO
  */
 function revoke(access: PartnerAccess) {
   store.revokePartnerAccess(access);
-  console.log("revoke " + access.name)
   revokingAccess.value = undefined;
 }
 

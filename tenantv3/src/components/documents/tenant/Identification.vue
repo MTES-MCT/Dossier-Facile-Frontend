@@ -252,7 +252,11 @@ function identificationFiles() {
 
 async function remove(file: DfFile, silent = false) {
   AnalyticsService.deleteFile("identification");
+  debugger
   if (file.id) {
+      if (tenantIdentificationDocument.value?.files?.length === 1 && tenantIdentificationDocument.value?.documentAnalysisReport?.analysisStatus === "DENIED") {
+        AnalyticsService.removeDeniedDocument(tenantIdentificationDocument.value?.subCategory || "")
+      }
     await RegisterService.deleteFile(file.id, silent);
   } else {
     const firstIndex = files.value.findIndex((f) => {
@@ -268,5 +272,3 @@ function mapDocuments() {
   });
 }
 </script>
-
-<style scoped lang="scss"></style>

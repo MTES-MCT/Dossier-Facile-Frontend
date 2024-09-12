@@ -28,7 +28,7 @@ import { ToastService } from '@/services/ToastService';
 import {useLoading} from 'vue-loading-overlay'
 import { useCookies } from 'vue3-cookies';
 import type { Composer } from 'vue-i18n';
-import type { PartnerAccess } from "../../../df-shared-next/src/models/PartnerAccess";
+import type { PartnerAccess } from "df-shared-next/src/models/PartnerAccess";
 import { PartnerAccessService } from "@/services/PartnerAccessService";
 
 const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
@@ -324,7 +324,7 @@ const useTenantStore = defineStore('tenant', {
         user.guarantors.every(guarantorNamesFilled)) as boolean;
     },
     hasDoc: (state: State) => (docType: string, user?: User) => {
-      const u = user ? user : state.user;
+      const u = user || state.user;
       const f = u.documents?.find((d: DfDocument) => {
         return (
           d.documentCategory === docType &&
@@ -339,7 +339,6 @@ const useTenantStore = defineStore('tenant', {
       const document = u.documents?.find((d: DfDocument) => {
         return d.documentCategory === docType;
       });
-      console.dir("preValidationActivated", state.user.preValidationActivated);
       return UtilsService.isDocumentValid(document, state.user.preValidationActivated);
     },
     documentsPreValidated(state: State) {
@@ -432,7 +431,6 @@ const useTenantStore = defineStore('tenant', {
             });
             if (tmpGuarantor !== undefined) {
               guarantor = tmpGuarantor;
-              return;
             }
           });
         }
@@ -444,7 +442,6 @@ const useTenantStore = defineStore('tenant', {
       if (!this.selectedGuarantor) {
         return;
       }
-      // Object.assign(this.selectedGuarantor, new Guarantor());
       this.selectedGuarantor = new Guarantor();
       Sentry.setContext("user", {
         id: this.user.id,
@@ -533,8 +530,8 @@ const useTenantStore = defineStore('tenant', {
       const isFC = this.user.franceConnect;
       return AuthService.logout()
         .then(async () => {
-          await this.logoutCommit();
-          await this.initState();
+          this.logoutCommit();
+          this.initState();
           if (isFC) {
             window.location.replace(FC_LOGOUT_URL);
             return;
@@ -547,8 +544,8 @@ const useTenantStore = defineStore('tenant', {
         .catch(async () => {
           console.log("Fail to logout - logout keycloak - force redirect");
           await keycloak.logout();
-          await this.logoutCommit();
-          await this.initState();
+          this.logoutCommit();
+          this.initState();
           window.location.replace(MAIN_URL);
         });
     },
@@ -937,7 +934,7 @@ const useTenantStore = defineStore('tenant', {
     saveTenantFinancial(formData: any) {
       return RegisterService.saveTenantFinancial(formData).then(
         async (response) => {
-          await this.loadUserCommit(response.data);
+          this.loadUserCommit(response.data);
           const fd = this.tenantFinancialDocuments;
           if (fd === undefined) {
             return Promise.resolve(response.data);
@@ -947,12 +944,12 @@ const useTenantStore = defineStore('tenant', {
               return f.id.toString() === formData.get("id");
             });
             if (s !== undefined) {
-              await this.selectDocumentFinancial(s);
+              this.selectDocumentFinancial(s);
             } else {
-              await this.selectDocumentFinancial(fd[fd.length - 1]);
+              this.selectDocumentFinancial(fd[fd.length - 1]);
             }
           } else {
-            await this.selectDocumentFinancial(fd[fd.length - 1]);
+            this.selectDocumentFinancial(fd[fd.length - 1]);
           }
           return Promise.resolve(response.data);
         },
@@ -964,7 +961,7 @@ const useTenantStore = defineStore('tenant', {
     saveGuarantorFinancial(formData: any) {
       return RegisterService.saveGuarantorFinancial(formData)
         .then(async (response) => {
-          await this.loadUserCommit(response.data);
+          this.loadUserCommit(response.data);
           const fd = this.guarantorFinancialDocuments;
           if (fd === undefined) {
             return Promise.resolve(response.data);
@@ -976,9 +973,9 @@ const useTenantStore = defineStore('tenant', {
             if (s === undefined) {
               return Promise.reject("Document not found");
             }
-            await this.selectGuarantorDocumentFinancial(s);
+            this.selectGuarantorDocumentFinancial(s);
           } else {
-            await this.selectGuarantorDocumentFinancial(fd[fd.length - 1]);
+            this.selectGuarantorDocumentFinancial(fd[fd.length - 1]);
           }
           return Promise.resolve(response.data);
         })
@@ -1180,8 +1177,7 @@ const useTenantStore = defineStore('tenant', {
     if (func) {
       return func(formData);
     }
-    return 
-    },
+  },
   commentAnalysis(formData: any) {
     return RegisterService.commentAnalysis(formData).then(
       (response) => {

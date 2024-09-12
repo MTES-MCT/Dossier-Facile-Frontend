@@ -20,6 +20,15 @@
     </li>
     <li class="fr-nav__item">
       <a
+        :href="`${MAIN_URL}/partenaires`"
+        class="fr-nav__link"
+        :aria-current="currentPage === '/partenaires' ? 'page' : undefined"
+      >
+        {{ t("partners.menu") }}
+      </a>
+    </li>
+    <li class="fr-nav__item">
+      <a
         :href="`${DOCS_URL}`"
         class="fr-nav__link fr-external-link"
         target="_blank"

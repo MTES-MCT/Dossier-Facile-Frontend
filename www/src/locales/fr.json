@@ -12,6 +12,11 @@
   "button": "Monter mon dossier de location",
   "docs": "Comment préparer mon dossier de location",
   "copy-success": "Le lien a été copié dans le presse-papier",
+  "all-partners": "Voir tous les partenaires",
+  "partners": {
+    "menu": "Partenaires",
+    "title": "Partenaires de DossierFacile"
+  },
   "s0": {
     "title": "Montez un dossier de location en béton pour trouver le logement de vos rêves",
     "text": "DossierFacile vous aide à constituer un dossier de location numérique ",

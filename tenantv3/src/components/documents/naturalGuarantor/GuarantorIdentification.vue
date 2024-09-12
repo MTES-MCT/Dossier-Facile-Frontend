@@ -3,9 +3,9 @@
     <NakedCard class="fr-p-md-5w">
       <div>
         <h1 class="fr-h6" v-if="isCotenant">
-          {{ $t("guarantoridentification.title-cotenant") }}
+          {{ t("guarantoridentification.title-cotenant") }}
         </h1>
-        <h1 class="fr-h6" v-else>{{ $t("guarantoridentification.title") }}</h1>
+        <h1 class="fr-h6" v-else>{{ t("guarantoridentification.title") }}</h1>
 
         <div class="fr-mt-3w">
           <SimpleRadioButtons
@@ -18,7 +18,7 @@
       </div>
     </NakedCard>
     <ConfirmModal v-if="isDocDeleteVisible" @valid="validSelect()" @cancel="undoSelect()">
-      <span>{{ $t("guarantoridentification.will-delete-files") }}</span>
+      <span>{{ t("guarantoridentification.will-delete-files") }}</span>
     </ConfirmModal>
     <NakedCard
       class="fr-p-md-5w fr-mt-3w"
@@ -26,7 +26,7 @@
     >
       <div class="fr-mb-3w">
         <p
-          v-html="$t(`explanation-text.${guarantorKey()}.${identificationDocument.key}`)"
+          v-html="t(`explanation-text.${guarantorKey()}.${identificationDocument.key}`)"
         ></p>
       </div>
       <AllDeclinedMessages
@@ -70,12 +70,16 @@ import NakedCard from "df-shared-next/src/components/NakedCard.vue";
 import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
 import { DocumentDeniedReasons } from "df-shared-next/src/models/DocumentDeniedReasons";
 import { cloneDeep } from "lodash";
-import { UtilsService } from "@/services/UtilsService";
+import { UtilsService } from "../../../services/UtilsService";
 import SimpleRadioButtons from "df-shared-next/src/Button/SimpleRadioButtons.vue";
-import useTenantStore from "@/stores/tenant-store";
+import useTenantStore from "../../../stores/tenant-store";
 import { computed, onMounted, ref } from "vue";
-import { ToastService } from "@/services/ToastService";
+import { ToastService } from "../../../services/ToastService";
 import { useLoading } from "vue-loading-overlay";
+import { useI18n } from "vue-i18n";
+import { AnalyticsService } from "../../../services/AnalyticsService";
+
+const { t } = useI18n();
 
 const store = useTenantStore();
 const user = computed(() => store.userToEdit);
@@ -256,6 +260,9 @@ function identificationFiles() {
 
 async function remove(file: DfFile, silent = false) {
   if (file.id) {
+    if (files.value.length === 1 && guarantorIdentificationDocument()?.documentAnalysisReport?.analysisStatus === "DENIED") {
+      AnalyticsService.removeDeniedDocument(guarantorIdentificationDocument()?.documentCategory || "")
+    }
     await RegisterService.deleteFile(file.id, silent);
   } else {
     const firstIndex = files.value.findIndex((f) => {

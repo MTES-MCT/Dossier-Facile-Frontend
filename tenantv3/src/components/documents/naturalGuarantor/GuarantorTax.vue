@@ -170,11 +170,6 @@ const props = withDefaults(
 
 const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL);
 const files = ref([] as DfFile[]);
-const uploadProgress = ref(
-  {} as {
-    [key: string]: { state: string; percentage: number };
-  }
-);
 const taxDocument = ref(new DocumentType());
 const documentDeniedReasons = ref(new DocumentDeniedReasons());
 
@@ -300,7 +295,6 @@ async function save(force = false) {
   if (!taxDocument.value.key) {
     return true;
   }
-  uploadProgress.value = {};
   const fieldName = "documents";
   const formData = new FormData();
   const newFiles = files.value.filter((f) => {
@@ -402,6 +396,9 @@ function taxFiles() {
 
 async function remove(file: DfFile, silent = false) {
   if (file.id) {
+    if (files.value.length === 1 && guarantorTaxDocument()?.documentAnalysisReport?.analysisStatus === "DENIED") {
+      AnalyticsService.removeDeniedDocument(guarantorTaxDocument()?.documentCategory || "")
+    }
     await RegisterService.deleteFile(file.id, silent);
   } else {
     const firstIndex = files.value.findIndex((f) => {

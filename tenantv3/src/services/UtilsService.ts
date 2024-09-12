@@ -35,12 +35,6 @@ export const UtilsService = {
     if (document.documentStatus === "DECLINED") {
       return false;
     }
-    console.dir(import.meta.env.VITE_FEATURE_FLIPPING_PRE_VALIDATE)
-    console.dir(import.meta.env.VITE_FEATURE_FLIPPING_PRE_VALIDATE === 'true')
-    console.dir(preValidationActivated)
-    console.dir(document.documentAnalysisReport?.analysisStatus)
-    console.dir(document.documentAnalysisReport?.comment)
-    console.log('--------------')
     if (import.meta.env.VITE_FEATURE_FLIPPING_PRE_VALIDATE === 'true' &&
         preValidationActivated &&
         document.documentAnalysisReport?.analysisStatus === "DENIED" &&
@@ -48,6 +42,10 @@ export const UtilsService = {
       return false;
     }
     return true;
+  },
+  getAllDocuments(user: User) {
+    const docs = user.documents || [];
+    return docs;
   },
   isMobile() {
     return window.innerWidth < 768;
