@@ -218,7 +218,7 @@ import FakeAnnouncement from "../components/FakeAnnouncement.vue";
 import PartnersSection from "@/components/account/PartnersSection.vue";
 import { UtilsService } from "@/services/UtilsService";
 import TenantPanel from "@/components/account/TenantPanel.vue";
-import { computed, onBeforeUnmount, onMounted, ref } from "vue";
+import {computed, onBeforeUnmount, onMounted, ref, watch} from "vue";
 import useTenantStore from "@/stores/tenant-store";
 import { useRouter } from "vue-router";
 import { ProfileService } from "../services/ProfileService";
@@ -248,12 +248,21 @@ onMounted(() => {
   ) {
     isAnnouncementVisible.value = true;
   }
-  loadExpectedProcessingTime(user.value.id)
 });
 
 onBeforeUnmount(() => {
   window.Beacon("destroy");
 });
+
+watch(
+    () => user.value,
+    (tenant) => {
+      if (tenant && tenant.id) {
+        loadExpectedProcessingTime(tenant.id);
+      }
+    },
+    { immediate: true }
+);
 
 function loadExpectedProcessingTime(tenantId: number) {
   ProfileService.getExpectedProcessingTime(tenantId).then((response)=> {
