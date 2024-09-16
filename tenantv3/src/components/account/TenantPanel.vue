@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="main-information">
-      <h3 class="fr-h4">{{ $t("tenantpanel.my-files") + props.tenant.firstName }}</h3>
+      <h3 class="fr-h4">{{ t("tenantpanel.my-files") + props.tenant.firstName }}</h3>
       <ul class="fr-p-0">
         <RowListItem
           v-if="!isCotenant"
-          :label="$t('tenantpanel.clarification-title')"
+          :label="t('tenantpanel.clarification-title')"
           :subLabel="props.tenant.clarification || ''"
           @clickEdit="goToValidationPage()"
         />
@@ -14,18 +14,18 @@
           @clickEdit="gotoTenantName()"
         />
         <FileRowListItem
-          :label="$t('tenantpanel.identification')"
+          :label="t('tenantpanel.identification')"
           :document="document(props.tenant, 'IDENTIFICATION')"
           :enableDownload="true"
           @clickEdit="setTenantStep(1)"
         />
         <FileRowListItem
-          :label="$t('tenantpanel.residency')"
+          :label="t('tenantpanel.residency')"
           :document="document(props.tenant, 'RESIDENCY')"
           @clickEdit="setTenantStep(2)"
         />
         <FileRowListItem
-          :label="$t('tenantpanel.professional')"
+          :label="t('tenantpanel.professional')"
           :sub-label="getProfessionalSubCategory(props.tenant)"
           :document="document(props.tenant, 'PROFESSIONAL')"
           @clickEdit="setTenantStep(3)"
@@ -34,20 +34,20 @@
           <FileRowListItem
             v-for="doc in documents(props.tenant, 'FINANCIAL')"
             v-bind:key="doc.id"
-            :label="$t('tenantpanel.financial')"
-            :sub-label="$t(`documents.subcategory.${doc.subCategory}`)"
+            :label="t('tenantpanel.financial')"
+            :sub-label="t(`documents.subcategory.${doc.subCategory}`)"
             :document="doc"
             @clickEdit="setTenantStep(4)"
           />
         </span>
         <FileRowListItem
           v-else
-          :label="$t('tenantpanel.financial')"
+          :label="t('tenantpanel.financial')"
           :document="document(props.tenant, 'FINANCIAL')"
           @clickEdit="setTenantStep(4)"
         />
         <FileRowListItem
-          :label="$t('tenantpanel.tax')"
+          :label="t('tenantpanel.tax')"
           :document="document(props.tenant, 'TAX')"
           @clickEdit="setTenantStep(5)"
         />
@@ -61,14 +61,14 @@
 <script setup lang="ts">
 import { User } from "df-shared-next/src/models/User";
 import { DfDocument } from "df-shared-next/src/models/DfDocument";
-import { AnalyticsService } from "@/services/AnalyticsService";
-import GuarantorsSection from "@/components/account/GuarantorsSection.vue";
-import RowListItem from "@/components/documents/RowListItem.vue";
-import FileRowListItem from "@/components/documents/FileRowListItem.vue";
-import { DocumentTypeConstants } from "@/components/documents/share/DocumentTypeConstants";
+import { AnalyticsService } from "../../services/AnalyticsService";
+import GuarantorsSection from "../../components/account/GuarantorsSection.vue";
+import RowListItem from "../../components/documents/RowListItem.vue";
+import FileRowListItem from "../../components/documents/FileRowListItem.vue";
+import { DocumentTypeConstants } from "../../components/documents/share/DocumentTypeConstants";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
-import { UtilsService } from "@/services/UtilsService";
+import { UtilsService } from "../../services/UtilsService";
 
 const props = withDefaults(
   defineProps<{
