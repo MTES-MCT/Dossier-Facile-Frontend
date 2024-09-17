@@ -51,21 +51,25 @@
                   v-if="tenant.clarification !== undefined"
                   :label="t('tenantpanel.clarification-title')"
                   :subLabel="tenant.clarification"
+                  :canEdit="false"
                 />
                 <FileRowListItem
                   :label="t('publicfile.identification')"
                   :document="document(tenant, 'IDENTIFICATION')"
                   :enableDownload="false"
+                  :canEdit="false"
                 />
                 <FileRowListItem
                   :label="t('publicfile.residency')"
                   :document="document(tenant, 'RESIDENCY')"
                   :enableDownload="false"
+                  :canEdit="false"
                 />
                 <FileRowListItem
                   :label="t('publicfile.professional')"
                   :document="document(tenant, 'PROFESSIONAL')"
                   :enableDownload="false"
+                  :canEdit="false"
                 />
                 <FileRowListItem
                   v-for="(doc, k) in getDocs(tenant, 'FINANCIAL')"
@@ -75,12 +79,14 @@
                   "
                   :document="doc"
                   :enableDownload="false"
+                  :canEdit="false"
                 />
                 <FileRowListItem
                   :label="t('publicfile.tax')"
                   :document="document(tenant, 'TAX')"
                   :tagLabel="getTaxDocumentBadgeLabel(tenant)"
                   :enableDownload="false"
+                  :canEdit="false"
                 >
                   <template v-slot:postTag>
                     <div v-if="isTaxAuthentic(tenant)">
@@ -110,16 +116,19 @@
                         :label="t('publicfile.identification')"
                         :document="document(g, 'IDENTIFICATION')"
                         :enableDownload="false"
+                        :canEdit="false"
                       />
                       <FileRowListItem
                         :label="t('publicfile.residency')"
                         :document="document(g, 'RESIDENCY')"
                         :enableDownload="false"
+                        :canEdit="false"
                       />
                       <FileRowListItem
                         :label="t('publicfile.professional')"
                         :document="document(g, 'PROFESSIONAL')"
                         :enableDownload="false"
+                        :canEdit="false"
                       />
                       <FileRowListItem
                         v-for="(doc, k) in getDocs(g, 'FINANCIAL')"
@@ -130,12 +139,14 @@
                         "
                         :document="doc"
                         :enableDownload="false"
+                        :canEdit="false"
                       />
                       <FileRowListItem
                         :label="t('publicfile.tax')"
                         :document="document(g, 'TAX')"
                         :tagLabel="getTaxDocumentBadgeLabel(g)"
                         :enableDownload="false"
+                        :canEdit="false"
                       >
                         <template v-slot:postTag>
                           <div v-if="isTaxAuthentic(g)">
@@ -156,11 +167,13 @@
                         :label="t('publicfile.identification-legal-person')"
                         :document="document(g, 'IDENTIFICATION_LEGAL_PERSON')"
                         :enableDownload="false"
+                        :canEdit="false"
                       />
                       <FileRowListItem
                         :label="t('publicfile.identification')"
                         :document="document(g, 'IDENTIFICATION')"
                         :enableDownload="false"
+                        :canEdit="false"
                       />
                     </ul>
                     <ul
@@ -171,6 +184,7 @@
                         :label="t('publicfile.organism')"
                         :document="document(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
                         :enableDownload="false"
+                        :canEdit="false"
                       />
                     </ul>
                   </div>
@@ -203,12 +217,12 @@ import FileReinsurance from "../components/FileReinsurance.vue";
 import FileRowListItem from "../components/documents/FileRowListItem.vue";
 import FileHeader from "../components/FileHeader.vue";
 import OwnerBanner from "../components/OwnerBanner.vue";
-import RowListItem from "@/components/documents/RowListItem.vue";
-import FileNotFound from "@/views/FileNotFound.vue";
+import RowListItem from "../components/documents/RowListItem.vue";
+import FileNotFound from "../views/FileNotFound.vue";
 import { useI18n } from "vue-i18n";
 import { onBeforeUnmount, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
-import { UtilsService } from "@/services/UtilsService";
+import { UtilsService } from "../services/UtilsService";
 
 const { t } = useI18n();
 

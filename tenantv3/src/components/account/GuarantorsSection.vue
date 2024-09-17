@@ -9,25 +9,25 @@
           </h4>
           <a
             href=""
-            :title="$t('guarantorssection.delete-guarantor')"
+            :title="t('guarantorssection.delete-guarantor')"
             @click.prevent="openConfirmModal(g)"
-            >{{ $t("guarantorssection.delete-guarantor") }}</a
+            >{{ t("guarantorssection.delete-guarantor") }}</a
           >
         </div>
         <div v-if="g.typeGuarantor === 'NATURAL_PERSON'">
           <ul class="without-padding">
             <FileRowListItem
-              :label="$t('guarantorssection.identification')"
+              :label="t('guarantorssection.identification')"
               :document="document(g, 'IDENTIFICATION')"
               @clickEdit="setGuarantorSubStep(1, g)"
             />
             <FileRowListItem
-              :label="$t('guarantorssection.residency')"
+              :label="t('guarantorssection.residency')"
               :document="document(g, 'RESIDENCY')"
               @clickEdit="setGuarantorSubStep(2, g)"
             />
             <FileRowListItem
-              :label="$t('guarantorssection.professional')"
+              :label="t('guarantorssection.professional')"
               :document="document(g, 'PROFESSIONAL')"
               @clickEdit="setGuarantorSubStep(3, g)"
             />
@@ -36,9 +36,9 @@
                 v-for="(doc, k) in documents(g, 'FINANCIAL')"
                 v-bind:key="doc.id"
                 :label="
-                  $t('guarantorssection.financial') +
+                  t('guarantorssection.financial') +
                   (' ' + (k + 1) + ' - ') +
-                  $t('documents.subcategory.' + doc.subCategory)
+                  t('documents.subcategory.' + doc.subCategory)
                 "
                 :document="doc"
                 @clickEdit="setGuarantorSubStep(4, g)"
@@ -46,12 +46,12 @@
             </span>
             <FileRowListItem
               v-else
-              :label="$t('guarantorssection.financial')"
+              :label="t('guarantorssection.financial')"
               :document="document(g, 'FINANCIAL')"
               @clickEdit="setGuarantorSubStep(4, g)"
             />
             <FileRowListItem
-              :label="$t('guarantorssection.tax')"
+              :label="t('guarantorssection.tax')"
               :document="document(g, 'TAX')"
               @clickEdit="setGuarantorSubStep(5, g)"
             />
@@ -60,7 +60,7 @@
         <div v-else-if="g.typeGuarantor === 'ORGANISM'">
           <ul class="without-padding">
             <FileRowListItem
-              :label="$t('guarantorssection.organism-identification')"
+              :label="t('guarantorssection.organism-identification')"
               :document="document(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
               @clickEdit="setGuarantorSubStep(1, g)"
             />
@@ -69,14 +69,14 @@
         <div v-else-if="g.typeGuarantor === 'LEGAL_PERSON'">
           <ul class="without-padding">
             <FileRowListItem
-              :label="$t('guarantorssection.identification-legal-person')"
+              :label="t('guarantorssection.identification-legal-person')"
               :document="document(g, 'IDENTIFICATION_LEGAL_PERSON')"
               @clickEdit="setGuarantorSubStep(0, g)"
             />
           </ul>
           <ul class="without-padding">
             <FileRowListItem
-              :label="$t('guarantorssection.identity-represent')"
+              :label="t('guarantorssection.identity-represent')"
               :document="document(g, 'IDENTIFICATION')"
               @clickEdit="setGuarantorSubStep(1, g)"
             />
@@ -88,7 +88,7 @@
         @valid="removeSelectedGuarantor()"
         @cancel="closeConfirmModal()"
       >
-        <div>{{ $t("guarantorssection.confirm-delete-guarantor") }}</div>
+        <div>{{ t("guarantorssection.confirm-delete-guarantor") }}</div>
       </ConfirmModal>
     </div>
 
@@ -101,7 +101,7 @@
     >
       <hr />
       <h4 v-if="guarantors.length === 0">
-        {{ $t("guarantorssection.guarantors-information") }}
+        {{ t("guarantorssection.guarantors-information") }}
       </h4>
       <div class="fr-grid-row fr-grid-row--gutters">
         <div class="fr-col-12 fr-col-md-6 fr-col-xl-4 fr-pt-1w">
@@ -109,7 +109,7 @@
             class="bg-purple add-guarantor-btn"
             @click.prevent="setAddGuarantorStep()"
           >
-            {{ $t("guarantorssection.add-guarantor") }}
+            {{ t("guarantorssection.add-guarantor") }}
           </button>
         </div>
 
@@ -122,13 +122,13 @@
             href="https://www.visale.fr/#!/"
             rel="noreferrer"
             target="_blank"
-            :title="$t('guarantorssection.go-to-visale').toString()"
+            :title="t('guarantorssection.go-to-visale').toString()"
           >
             <div class="fr-tile bg-purple">
               <div class="inline-block-flex space-between">
                 <div>
                   <div class="fr-h5">
-                    {{ $t("guarantorssection.visale-title") }}
+                    {{ t("guarantorssection.visale-title") }}
                   </div>
                 </div>
                 <div>
@@ -139,7 +139,7 @@
                   />
                 </div>
               </div>
-              <div>{{ $t("guarantorssection.visale-text") }}</div>
+              <div>{{ t("guarantorssection.visale-text") }}</div>
             </div>
           </a>
         </div>
@@ -150,17 +150,16 @@
 
 <script setup lang="ts">
 import { Guarantor } from "df-shared-next/src/models/Guarantor";
-import { AnalyticsService } from "@/services/AnalyticsService";
+import { AnalyticsService } from "../../services/AnalyticsService";
 import { DfDocument } from "df-shared-next/src/models/DfDocument";
 import ConfirmModal from "df-shared-next/src/components/ConfirmModal.vue";
 import { User } from "df-shared-next/src/models/User";
-import { UtilsService } from "@/services/UtilsService";
 import FileRowListItem from "../documents/FileRowListItem.vue";
-import useTenantStore from "@/stores/tenant-store";
+import useTenantStore from "../../stores/tenant-store";
 import { computed, onBeforeMount, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
-import { ToastService } from "@/services/ToastService";
+import { ToastService } from "../../services/ToastService";
 
 const store = useTenantStore();
 const router = useRouter();
@@ -169,7 +168,7 @@ const router = useRouter();
   const user = computed(() => store.user);
   const guarantors = ref([] as Guarantor[]);
   const showConfirmModal = ref(false);
-  var selectedGuarantor: Guarantor | undefined;
+  let selectedGuarantor: Guarantor | undefined;
 
   const { t } = useI18n();
 
@@ -193,31 +192,6 @@ const router = useRouter();
     return t("guarantorssection.guarantors-information");
   }
 
-  function isFinancialValid(docs: DfDocument[]) {
-    if (!docs || docs.length === 0) {
-      return "INCOMPLETE";
-    }
-
-    for (const doc of docs) {
-      if (!doc.noDocument && (doc.files?.length || 0) <= 0) {
-        return "INCOMPLETE";
-      }
-    }
-
-    for (const doc of docs) {
-      if (doc.documentStatus === "DECLINED") {
-        return "DECLINED";
-      }
-    }
-
-    for (const doc of docs) {
-      if (doc.documentStatus === "TO_PROCESS") {
-        return "TO_PROCESS";
-      }
-    }
-
-    return "VALIDATED";
-  }
   function document(g: Guarantor, s: string) {
     return g.documents?.find((d) => {
       return d.documentCategory === s;

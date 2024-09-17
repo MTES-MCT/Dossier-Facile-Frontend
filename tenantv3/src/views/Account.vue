@@ -105,7 +105,7 @@
 
             <div class="fr-mt-3w fr-p-0w">
               <section
-                v-if="user.applicationType === 'COUPLE'"
+                v-if="user.applicationType !== 'ALONE'"
                 class="fr-m-0 fr-p-0 bg-white"
               >
                 <div class="fr-tabs account-tabs">
@@ -153,6 +153,7 @@
                       class="panel"
                       :tenant="tenant"
                       :isCotenant="tenant.id != user.id"
+                      :isCouple="user.applicationType === 'COUPLE'"
                     />
                   </div>
                 </div>

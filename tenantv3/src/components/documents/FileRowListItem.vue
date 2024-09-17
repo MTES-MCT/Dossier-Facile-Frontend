@@ -32,15 +32,15 @@
         class="fr-btn--icon-left fr-fi-eye-line fr-mr-1w"
         @on-click="openDocument()"
       >
-        {{ $t("filerowlistitem.see") }}
+        {{ t("filerowlistitem.see") }}
       </DfButton>
 
       <DfButton
-        v-if="onClickEdit"
+        v-if="canEdit"
         class="fr-btn--icon-left fr-icon-pencil-line"
         @on-click="clickEdit()"
       >
-        {{ $t("filerowlistitem.edit") }}
+        {{ t("filerowlistitem.edit") }}
       </DfButton>
     </div>
   </li>
@@ -63,11 +63,12 @@ const props = withDefaults(
     enableDownload?: boolean,
     tagLabel?: string,
     showValidated?: boolean,
-    onClickEdit?: Function;
+    canEdit?: boolean,
   }>(),
   {
     enableDownload: true,
-    showValidated: false
+    showValidated: false,
+    canEdit: false
   }
 );
 

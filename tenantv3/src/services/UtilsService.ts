@@ -75,12 +75,19 @@ export const UtilsService = {
     }
   },
   tenantFullName(user: User) {
-    const firstName = this.capitalize(user.firstName || "");
-    const lastName = this.capitalize(user.lastName || "");
-    const preferredName = this.capitalize(user.preferredName || "");
-    return user.preferredName == null || user.preferredName.length == 0
-      ? firstName + "\xa0" + lastName
-      : firstName + "\xa0" + preferredName;
+    const firstName = this.capitalize(user.firstName ?? "");
+    const lastName = this.capitalize(user.lastName ?? "");
+    const preferredName = this.capitalize(user.preferredName ?? "");
+    let usedLastName = preferredName;
+    if (preferredName == null || preferredName.length == 0) {
+      usedLastName = lastName;
+    }
+
+    if (firstName === usedLastName) {
+      return user.email;
+    }
+
+    return firstName + "\xa0" + usedLastName;
   },
   guarantorFullName(user: Guarantor) {
     const firstName = this.capitalize(user.firstName || "");
