@@ -33,9 +33,9 @@
                 </div>
                 <div class="fr-col" v-if="user.status === 'TO_PROCESS'">
                   <div class="fr-callout to-process fr-callout-white fr-mb-3w">
-                      <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-                        <div class="fr-col-6">
-                          <h2 class="fr-h4 dflex">
+                      <div class="fr-mb-1w fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+                        <div class="fr-col-12 fr-col-md-6">
+                          <h2 class="fr-h4 fr-mb-0">
                             <i
                                 aria-hidden="true"
                                 class="text-to-process ri-time-line fs-28"
@@ -44,7 +44,7 @@
                             &nbsp;<span>{{ $t("account.processing-bloc.title") }}</span>
                           </h2>
                         </div>
-                        <div class="fr-col-6 text-align--right">
+                        <div class="fr-col-12 fr-col-md-6 badge-container">
                           <p class="fr-badge fr-badge--purple-glycine">{{ processBadgeText }}</p>
                         </div>
                     </div>
@@ -579,5 +579,9 @@ hr {
     box-shadow: inset 0.25rem 0 0 0 var(--purple-glycine-main-494) !important;
   }
 }
-
+.badge-container {
+  @media (min-width: 768px) {
+    text-align: right;
+  }
+}
 </style>
