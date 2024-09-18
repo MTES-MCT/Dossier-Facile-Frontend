@@ -21,7 +21,7 @@
         <slot name="postTag"></slot>
       </div>
     </div>
-    <div class="fr-col-12 fr-col-md-4 fr-btns-group--right">
+    <div class="fr-col-12 fr-col-md-4 fr-btns-group--right" v-if="enableDownload || canEdit">
       <DfButton
         v-if="
           enableDownload &&
@@ -31,6 +31,7 @@
         "
         class="fr-btn--icon-left fr-fi-eye-line fr-mr-1w"
         @on-click="openDocument()"
+        @on-keypress="openDocument()"
       >
         {{ t("filerowlistitem.see") }}
       </DfButton>
@@ -39,6 +40,7 @@
         v-if="canEdit"
         class="fr-btn--icon-left fr-icon-pencil-line"
         @on-click="clickEdit()"
+        @on-keypress="openDocument()"
       >
         {{ t("filerowlistitem.edit") }}
       </DfButton>

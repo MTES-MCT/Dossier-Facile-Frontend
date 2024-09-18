@@ -7,32 +7,34 @@
           v-if="!isCotenant"
           :label="t('tenantpanel.clarification-title')"
           :subLabel="props.tenant.clarification || ''"
-          :canEdit="canEdit"
+          :canEdit="showButtons"
           @clickEdit="goToValidationPage()"
         />
         <RowListItem
           :label="UtilsService.tenantFullName(props.tenant)"
-          :canEdit="canEdit"
+          :canEdit="showButtons"
           @clickEdit="gotoTenantName()"
         />
         <FileRowListItem
           :label="t('tenantpanel.identification')"
           :document="document(props.tenant, 'IDENTIFICATION')"
-          :enableDownload="true"
-          :canEdit="canEdit"
+          :canEdit="showButtons"
+          :enableDownload="showButtons"
           @clickEdit="setTenantStep(1)"
         />
         <FileRowListItem
           :label="t('tenantpanel.residency')"
           :document="document(props.tenant, 'RESIDENCY')"
-          :canEdit="canEdit"
+          :canEdit="showButtons"
+          :enableDownload="showButtons"
           @clickEdit="setTenantStep(2)"
         />
         <FileRowListItem
           :label="t('tenantpanel.professional')"
           :sub-label="getProfessionalSubCategory(props.tenant)"
           :document="document(props.tenant, 'PROFESSIONAL')"
-          :canEdit="canEdit"
+          :canEdit="showButtons"
+          :enableDownload="showButtons"
           @clickEdit="setTenantStep(3)"
         />
         <span v-if="documents(props.tenant, 'FINANCIAL').length > 1">
@@ -42,7 +44,8 @@
             :label="t('tenantpanel.financial')"
             :sub-label="t(`documents.subcategory.${doc.subCategory}`)"
             :document="doc"
-            :canEdit="canEdit"
+            :canEdit="showButtons"
+            :enableDownload="showButtons"
             @clickEdit="setTenantStep(4)"
           />
         </span>
@@ -50,19 +53,21 @@
           v-else
           :label="t('tenantpanel.financial')"
           :document="document(props.tenant, 'FINANCIAL')"
-          :canEdit="canEdit"
+          :canEdit="showButtons"
+          :enableDownload="showButtons"
           @clickEdit="setTenantStep(4)"
         />
         <FileRowListItem
           :label="t('tenantpanel.tax')"
           :document="document(props.tenant, 'TAX')"
-          :canEdit="canEdit"
+          :canEdit="showButtons"
+          :enableDownload="showButtons"
           @clickEdit="setTenantStep(5)"
         />
       </ul>
     </div>
 
-    <GuarantorsSection v-if="!isCotenant || isCouple" :tenant="props.tenant" />
+    <GuarantorsSection :canEdit="showButtons" :enableDownload="showButtons" :tenant="props.tenant" />
   </div>
 </template>
 
@@ -94,7 +99,7 @@ const props = withDefaults(
 const router = useRouter();
 const { t } = useI18n();
 
-const canEdit = computed(() => {
+const showButtons = computed(() => {
   return !props.isCotenant || props.isCouple;
 })
 

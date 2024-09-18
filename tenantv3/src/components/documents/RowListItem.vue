@@ -12,6 +12,7 @@
         <li>
           <DfButton
             v-if="canEdit"
+            @on-keypress="$emit('click-edit')"
             @on-click="$emit('click-edit')"
           >
             <i class="ri-pencil-line fr-mr-1w" aria-hidden="true"></i>
@@ -23,6 +24,7 @@
     <div class="desktop fr-col-12 fr-col-md-2 fr-btns-group--right">
       <DfButton
         v-if="canEdit"
+        @on-keypress="$emit('click-edit')"
         @on-click="$emit('click-edit')"
       >
         <i class="ri-pencil-line fr-mr-1w" aria-hidden="true"></i>
