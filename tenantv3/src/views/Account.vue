@@ -135,7 +135,8 @@
                           <ColoredTag
                             class="fr-col-xs-12 fr-col"
                             :status="tenant.status"
-                            :text="t(`dossier.${tenant.status}`)"
+                            :warn="true"
+                            :text="t(`dossier.warn-${tenant.status}`)"
                           ></ColoredTag>
                         </div>
                       </button>
