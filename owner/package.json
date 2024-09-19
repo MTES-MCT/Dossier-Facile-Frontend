@@ -54,7 +54,7 @@
     "eslint-plugin-vue": "^9.0.0",
     "sass": "^1.49.7",
     "typescript": "5.0.2",
-    "vite": "5.2.11",
+    "vite": "5.2.14",
     "vue-tsc": "1.8.19",
     "yup": "^1.0.2"
   },
