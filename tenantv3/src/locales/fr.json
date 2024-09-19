@@ -95,7 +95,12 @@
     "VALIDATED": "Vérifié",
     "DECLINED": "Modification demandée",
     "INCOMPLETE": "Incomplet",
-    "ARCHIVED": "Archivé"
+    "ARCHIVED": "Archivé",
+    "warn-TO_PROCESS": "En cours de traitement",
+    "warn-VALIDATED": "Vérifié",
+    "warn-DECLINED": "Modification demandée",
+    "warn-INCOMPLETE": "Dossier INCOMPLET",
+    "warn-ARCHIVED": "Archivé"
   },
   "documents": {
     "identity-card": "Carte d’identité",

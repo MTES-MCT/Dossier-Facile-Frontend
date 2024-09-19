@@ -9,9 +9,9 @@
             </div>
             <h1
               v-html="
-                $t(`account.title.${getApplicationType()}`, [
+                t(`account.title.${getApplicationType()}`, [
                   getFirstName(),
-                  $t(`account.${getGlobalStatus()}`),
+                  t(`account.${getGlobalStatus()}`),
                 ])
               "
             ></h1>
@@ -20,14 +20,14 @@
                 <div class="fr-col" v-if="isDenied()">
                   <div class="fr-callout warning fr-callout-white">
                     <h2 class="fr-m-1w fr-text-title--grey fr-h4">
-                      {{ $t("account.amendment-required-title") }}
+                      {{ t("account.amendment-required-title") }}
                     </h2>
                     <p
                       class="fr-m-1w fr-callout__text"
-                      v-html="$t('account.amendment-required-text')"
+                      v-html="t('account.amendment-required-text')"
                     ></p>
                     <DfButton class="fr-m-1w" @on-click="goToMessaging" :primary="true">{{
-                      $t("account.messaging")
+                      t("account.messaging")
                     }}</DfButton>
                   </div>
                 </div>
@@ -41,7 +41,7 @@
                                 class="text-to-process ri-time-line fs-28"
                                 style="font-size: 18px"
                             ></i>
-                            &nbsp;<span>{{ $t("account.processing-bloc.title") }}</span>
+                            &nbsp;<span>{{ t("account.processing-bloc.title") }}</span>
                           </h2>
                         </div>
                         <div class="fr-col-12 fr-col-md-6 badge-container">
@@ -49,13 +49,13 @@
                         </div>
                     </div>
                     <div>
-                      <p>{{ $t('account.processing-bloc.text') }}</p>
+                      <p>{{ t('account.processing-bloc.text') }}</p>
                     </div>
                     <div class="fr-text--bold fr-my-2w">
                       {{ processBlocDelayText }}
                     </div>
                     <div>
-                    <p class="small-text" v-html="$t('account.processing-bloc.last-update', [lastModifiedDate()])"></p>
+                    <p class="small-text" v-html="t('account.processing-bloc.last-update', [lastModifiedDate()])"></p>
                     </div>
                   </div>
                 </div>
@@ -64,21 +64,21 @@
                     <ColoredTag
                       class="fr-m-1w"
                       :status="'DECLINED'"
-                      :text="$t('account.denied')"
+                      :text="t('account.denied')"
                     ></ColoredTag>
                     <h2 class="fr-m-1w fr-text-title--grey fr-h4">
-                      {{ $t("account.download-not-validated-title") }}
+                      {{ t("account.download-not-validated-title") }}
                     </h2>
                     <p
                       class="fr-m-1w fr-callout__text"
-                      v-html="$t('account.download-not-validated-text')"
+                      v-html="t('account.download-not-validated-text')"
                     ></p>
                     <a
                       href="#"
-                      :title="$t('account.download-not-validated-title')"
+                      :title="t('account.download-not-validated-title')"
                       class="float--right"
                       @click="downloadZip"
-                      >{{ $t("account.download-zip") }}
+                      >{{ t("account.download-zip") }}
                       <i class="ri-download-line" style="font-size: 18px"></i>
                     </a>
                   </div>
@@ -87,25 +87,25 @@
             </div>
             <div class="fr-callout fr-callout-white" v-if="canCopyLink()">
               <h2 class="fr-text-title--grey fr-h4">
-                {{ $t("account.congratulations-title") }}
+                {{ t("account.congratulations-title") }}
               </h2>
               <p>
-                {{ $t("account.congratulations-text-1") }}
+                {{ t("account.congratulations-text-1") }}
                 <br />
                 <strong>
-                  {{ $t("account.congratulations-text-2") }}
+                  {{ t("account.congratulations-text-2") }}
                 </strong>
               </p>
               <router-link to="/applications">
                 <DfButton :primary="true">
-                  {{ $t("account.application-page-redirection") }}
+                  {{ t("account.application-page-redirection") }}
                 </DfButton>
               </router-link>
             </div>
 
             <div class="fr-mt-3w fr-p-0w">
               <section
-                v-if="user.applicationType === 'COUPLE'"
+                v-if="user.applicationType !== 'ALONE'"
                 class="fr-m-0 fr-p-0 bg-white"
               >
                 <div class="fr-tabs account-tabs">
@@ -135,7 +135,8 @@
                           <ColoredTag
                             class="fr-col-xs-12 fr-col"
                             :status="tenant.status"
-                            :text="$t(`dossier.${tenant.status}`)"
+                            :warn="true"
+                            :text="t(`dossier.warn-${tenant.status}`)"
                           ></ColoredTag>
                         </div>
                       </button>
@@ -153,6 +154,7 @@
                       class="panel"
                       :tenant="tenant"
                       :isCotenant="tenant.id != user.id"
+                      :isCouple="user.applicationType === 'COUPLE'"
                     />
                   </div>
                 </div>
@@ -168,22 +170,22 @@
 
             <div class="delete">
               <div class="bg-white fr-p-4w fr-mt-3w">
-                <h3>{{ $t("account.delete-bloc.title") }}</h3>
-                <p>{{ $t("account.delete-bloc.content") }}</p>
+                <h3>{{ t("account.delete-bloc.title") }}</h3>
+                <p>{{ t("account.delete-bloc.content") }}</p>
                 <div class="align--center">
                   <DfButton
                     data-fr-opened="false"
                     aria-controls="modal-delete-account"
                     style="visibility: none"
-                    >{{ $t("account.delete-bloc.button") }}</DfButton
+                    >{{ t("account.delete-bloc.button") }}</DfButton
                   >
                 </div>
               </div>
             </div>
             <div class="opinion fr-mb-5w fr-mt-3w">
               <div class="bg-white fr-p-4w fr-pt-4w">
-                <h3>{{ $t("account.opinion-bloc.title") }}</h3>
-                <p>{{ $t("account.opinion-bloc.content") }}</p>
+                <h3>{{ t("account.opinion-bloc.title") }}</h3>
+                <p>{{ t("account.opinion-bloc.content") }}</p>
                 <div class="align--center">
                   <a
                     class="cleana"
@@ -199,7 +201,7 @@
                     />
                   </a>
                 </div>
-                <p class="fr-mt-3w" v-html="$t('account.opinion-bloc.warning')"></p>
+                <p class="fr-mt-3w" v-html="t('account.opinion-bloc.warning')"></p>
               </div>
             </div>
           </div>
@@ -215,11 +217,11 @@ import DfButton from "df-shared-next/src/Button/Button.vue";
 import ColoredTag from "df-shared-next/src/components/ColoredTag.vue";
 import { Guarantor } from "df-shared-next/src/models/Guarantor";
 import FakeAnnouncement from "../components/FakeAnnouncement.vue";
-import PartnersSection from "@/components/account/PartnersSection.vue";
-import { UtilsService } from "@/services/UtilsService";
-import TenantPanel from "@/components/account/TenantPanel.vue";
-import {computed, onBeforeUnmount, onMounted, ref, watch} from "vue";
-import useTenantStore from "@/stores/tenant-store";
+import PartnersSection from "../components/account/PartnersSection.vue";
+import { UtilsService } from "../services/UtilsService";
+import TenantPanel from "../components/account/TenantPanel.vue";
+import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
+import useTenantStore from "../stores/tenant-store";
 import { useRouter } from "vue-router";
 import { ProfileService } from "../services/ProfileService";
 import { ToastService } from "../services/ToastService";
@@ -374,6 +376,9 @@ function getApplicationType() {
   background-color: var(--background-default-grey);
   &.warning {
     box-shadow: inset 0.25rem 0 0 0 var(--error) !important;
+  }
+  &.to-process {
+    box-shadow: inset 0.25rem 0 0 0 var(--purple-glycine-main-494) !important;
   }
 }
 
@@ -570,15 +575,6 @@ hr {
   }
 }
 
-.fr-callout-white {
-  background-color: var(--background-default-grey);
-  &.warning {
-    box-shadow: inset 0.25rem 0 0 0 var(--error) !important;
-  }
-  &.to-process {
-    box-shadow: inset 0.25rem 0 0 0 var(--purple-glycine-main-494) !important;
-  }
-}
 .badge-container {
   @media (min-width: 768px) {
     text-align: right;

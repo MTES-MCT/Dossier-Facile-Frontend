@@ -65,21 +65,25 @@
                   v-if="tenant.clarification !== undefined"
                   :label="t('tenantpanel.clarification-title')"
                   :subLabel="tenant.clarification"
+                  :canEdit="false"
                 />
                 <FileRowListItem
                   :label="t('file.identification')"
                   :document="document(tenant, 'IDENTIFICATION')"
                   :showValidated="true"
+                  :canEdit="false"
                 />
                 <FileRowListItem
                   :label="t('file.residency')"
                   :document="document(tenant, 'RESIDENCY')"
                   :showValidated="true"
+                  :canEdit="false"
                 />
                 <FileRowListItem
                   :label="t('file.professional')"
                   :document="document(tenant, 'PROFESSIONAL')"
                   :showValidated="true"
+                  :canEdit="false"
                 />
                 <FileRowListItem
                   v-for="(doc, k) in getDocs(tenant, 'FINANCIAL')"
@@ -87,12 +91,14 @@
                   :label="t('file.financial') + (k >= 1 ? ' ' + (k + 1) : '')"
                   :document="doc"
                   :showValidated="true"
+                  :canEdit="false"
                 />
                 <FileRowListItem
                   :label="t('file.tax')"
                   :tagLabel="getTaxDocumentBadgeLabel(tenant)"
                   :document="document(tenant, 'TAX')"
                   :showValidated="true"
+                  :canEdit="false"
                 >
                   <template v-slot:postTag>
                     <div v-if="isTaxAuthentic(tenant)">
@@ -122,16 +128,19 @@
                         :label="t('file.identification')"
                         :document="document(g, 'IDENTIFICATION')"
                         :showValidated="true"
+                        :canEdit="false"
                       />
                       <FileRowListItem
                         :label="t('file.residency')"
                         :document="document(g, 'RESIDENCY')"
                         :showValidated="true"
+                        :canEdit="false"
                       />
                       <FileRowListItem
                         :label="t('file.professional')"
                         :document="document(g, 'PROFESSIONAL')"
                         :showValidated="true"
+                        :canEdit="false"
                       />
                       <FileRowListItem
                         v-for="(doc, k) in getDocs(g, 'FINANCIAL')"
@@ -141,12 +150,14 @@
                         "
                         :document="doc"
                         :showValidated="true"
+                        :canEdit="false"
                       />
                       <FileRowListItem
                         :label="t('file.tax')"
                         :tagLabel="getTaxDocumentBadgeLabel(g)"
                         :document="document(g, 'TAX')"
                         :showValidated="true"
+                        :canEdit="false"
                       >
                         <template v-slot:postTag>
                           <div v-if="isTaxAuthentic(g)">
@@ -167,11 +178,13 @@
                         :label="t('file.identification-legal-person')"
                         :document="document(g, 'IDENTIFICATION_LEGAL_PERSON')"
                         :showValidated="true"
+                        :canEdit="false"
                       />
                       <FileRowListItem
                         :label="t('file.identification')"
                         :document="document(g, 'IDENTIFICATION')"
                         :showValidated="true"
+                        :canEdit="false"
                       />
                     </ul>
                     <ul
@@ -182,6 +195,7 @@
                         :label="t('file.organism')"
                         :document="document(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
                         :showValidated="true"
+                        :canEdit="false"
                       />
                     </ul>
                   </div>

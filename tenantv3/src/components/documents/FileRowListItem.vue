@@ -21,7 +21,7 @@
         <slot name="postTag"></slot>
       </div>
     </div>
-    <div class="fr-col-12 fr-col-md-4 fr-btns-group--right">
+    <div class="fr-col-12 fr-col-md-4 fr-btns-group--right" v-if="enableDownload || canEdit">
       <DfButton
         v-if="
           enableDownload &&
@@ -31,16 +31,18 @@
         "
         class="fr-btn--icon-left fr-fi-eye-line fr-mr-1w"
         @on-click="openDocument()"
+        @on-keypress="openDocument()"
       >
-        {{ $t("filerowlistitem.see") }}
+        {{ t("filerowlistitem.see") }}
       </DfButton>
 
       <DfButton
-        v-if="onClickEdit"
+        v-if="canEdit"
         class="fr-btn--icon-left fr-icon-pencil-line"
         @on-click="clickEdit()"
+        @on-keypress="openDocument()"
       >
-        {{ $t("filerowlistitem.edit") }}
+        {{ t("filerowlistitem.edit") }}
       </DfButton>
     </div>
   </li>
@@ -63,11 +65,12 @@ const props = withDefaults(
     enableDownload?: boolean,
     tagLabel?: string,
     showValidated?: boolean,
-    onClickEdit?: Function;
+    canEdit?: boolean,
   }>(),
   {
     enableDownload: true,
-    showValidated: false
+    showValidated: false,
+    canEdit: false
   }
 );
 

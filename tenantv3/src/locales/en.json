@@ -88,7 +88,12 @@
     "VALIDATED": "Verified",
     "DECLINED": "Modification Requested",
     "INCOMPLETE": "Incomplete",
-    "ARCHIVED": "Archived"
+    "ARCHIVED": "Archived",
+    "warn-TO_PROCESS": "Processing",
+    "warn-VALIDATED": "Verified",
+    "warn-DECLINED": "Modification Requested",
+    "warn-INCOMPLETE": "Incomplete",
+    "warn-ARCHIVED": "Archived"
   },
   "documents": {
     "identity-card": "French Identity Card",
