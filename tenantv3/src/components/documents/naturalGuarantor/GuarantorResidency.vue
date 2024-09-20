@@ -3,7 +3,7 @@
     <NakedCard class="fr-p-md-5w">
       <div>
         <h1 class="fr-h6">
-          {{ $t("guarantorresidency.select-label") }}
+          {{ t("guarantorresidency.select-label") }}
         </h1>
 
         <div class="fr-mt-3w">
@@ -16,7 +16,7 @@
           >
             <option v-if="!residencyDocument" selected disabled></option>
             <option v-for="d in documents" :value="d" :key="d.key">
-              {{ $t(d.key) }}
+              {{ t(d.key) }}
             </option>
           </select>
         </div>
@@ -27,7 +27,7 @@
       v-if="residencyDocument.key && residencyDocument.key === 'other-residency'"
     >
       <div class="fr-alert fr-alert--warning fr-mb-3w">
-        {{ $t("residency-page.warning-other-residency") }}
+        {{ t("residency-page.warning-other-residency") }}
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
@@ -38,14 +38,14 @@
       ></AllDeclinedMessages>
       <TextField
         name="customText"
-        :fieldLabel="$t('residency-page.custom-text')"
+        :fieldLabel="t('residency-page.custom-text')"
         v-model="customText"
         validation-rules="required"
         :textarea="true"
       />
     </NakedCard>
     <ConfirmModal v-if="isDocDeleteVisible" @valid="validSelect()" @cancel="undoSelect()">
-      <span>{{ $t("guarantorresidency.will-delete-files") }}</span>
+      <span>{{ t("guarantorresidency.will-delete-files") }}</span>
     </ConfirmModal>
     <NakedCard
       class="fr-p-md-5w fr-mt-3w"
@@ -54,8 +54,11 @@
         residencyFiles().length > 0
       "
     >
+      <div class="fr-alert fr-alert--warning fr-mb-3w" v-if="residencyDocument.key === 'owner' || residencyDocument.key === 'tenant'">
+        {{ t("residency-page.warning-tax") }}
+      </div>
       <div class="fr-mb-3w">
-        <p v-html="$t(`explanation-text.${guarantorKey()}.${residencyDocument.key}`)"></p>
+        <p v-html="t(`explanation-text.${guarantorKey()}.${residencyDocument.key}`)"></p>
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
@@ -106,10 +109,12 @@ import { computed, onMounted, ref } from "vue";
 import { ToastService } from "@/services/ToastService";
 import { useLoading } from "vue-loading-overlay";
 import { AnalyticsService } from "../../../services/AnalyticsService";
+import { useI18n } from "vue-i18n";
 
 const store = useTenantStore();
 const user = computed(() => store.userToEdit);
 const selectedGuarantor = computed(() => store.selectedGuarantor);
+const { t } = useI18n();
 
 const props = defineProps<{
   tenantId?: number;

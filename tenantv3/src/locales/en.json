@@ -1054,7 +1054,8 @@
     "select-label": "Describe your current housing situation",
     "warning-other-residency": "If you are a tenant or you are accommodated free of charge, please select the relevent option, otherwise your file won't be validated.",
     "warning-incomplete": "Incomplete files (those that do not include these 3 documents) will not be validated.",
-    "warning-only-rent-receipt": "Proof of residence (housing tax, electricity bill, telephone bill, etc.) are not accepted here. Only your receipts (or a certificate of good payment of rents) allow a landlord to ensure that you pay your rents."
+    "warning-only-rent-receipt": "Proof of residence (housing tax, electricity bill, telephone bill, etc.) are not accepted here. Only your receipts (or a certificate of good payment of rents) allow a landlord to ensure that you pay your rents.",
+    "warning-tax": "The tax notice is not an accepted document here."
   },
   "roommatesinformationhelp": {
     "paragraph1": "By providing your roommate's email address, they will be able to create their own file with their documents. Your two files will be linked, and your shared file link will be common.",
