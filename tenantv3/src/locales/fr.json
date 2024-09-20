@@ -1098,7 +1098,8 @@
     "select-label": "Décrivez votre situation d’hébergement actuelle",
     "warning-other-residency": "Si vous êtes locataire ou hébergé gratuitement, veuillez sélectionner l'option correspondante, sinon votre dossier sera refusé.",
     "custom-text": "Merci d’expliquer ici votre situation d'hébergement. Votre explication sera ajoutée à votre dossier",
-    "warning-only-rent-receipt": "Les justificatifs de domicile (taxe d'habitation, facture EDF, facture de téléphone…) ne sont pas acceptés ici. Seules vos quittances (ou une attestation de bon paiement des loyers) permettent à un propriétaire  de s'assurer que vous payez bien vos loyers."
+    "warning-only-rent-receipt": "Les justificatifs de domicile (taxe d'habitation, facture EDF, facture de téléphone…) ne sont pas acceptés ici. Seules vos quittances (ou une attestation de bon paiement des loyers) permettent à un propriétaire  de s'assurer que vous payez bien vos loyers.",
+    "warning-tax": "L'avis d'imposition n'est pas un document accepté ici."
   },
   "roommatesinformationhelp": {
     "paragraph1": "En renseignant l’adresse email de votre colocataire, celui-ci va pouvoir constituer son propre dossier avec ses pièces. Vos deux dossiers seront liés et votre lien-dossier sera commun.",
