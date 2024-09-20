@@ -2,7 +2,7 @@
   <ProfileContainer :step="3">
     <NakedCard class="fr-p-md-5w">
       <h1 class="fr-h5">
-        {{ $t("guarantorlistpage.my-guarantor") }}
+        {{ t("guarantorlistpage.my-guarantor") }}
       </h1>
       <div v-for="g in user.guarantors" :key="g.id">
         <CardRow @edit="editGuarantor(g)" @remove="isRemoveGuarantor = true">
@@ -11,7 +11,7 @@
           </template>
           <template v-slot:text>
             <ColoredTag
-              :text="$t(getStatus(g))"
+              :text="t(getStatus(g))"
               :status="getStatus(g)"
             ></ColoredTag>
           </template>
@@ -21,12 +21,12 @@
           @valid="removeGuarantor(g)"
           @cancel="isRemoveGuarantor = false"
         >
-          <span>{{ $t("guarantorlistpage.remove-guarantor") }}</span>
+          <span>{{ t("guarantorlistpage.remove-guarantor") }}</span>
         </ConfirmModal>
       </div>
       <div v-if="hasOneNaturalGuarantor()">
-        <button @click="addNaturalGuarantor()" class="add-guarantor-btn">
-          {{ $t("guarantorlistpage.add-new-guarantor") }}
+        <button @click.once="addNaturalGuarantor()" class="add-guarantor-btn">
+          {{ t("guarantorlistpage.add-new-guarantor") }}
         </button>
       </div>
     </NakedCard>
