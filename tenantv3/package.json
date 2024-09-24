@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "workspaces": {},
+  "type": "module",
   "engines": {
     "node": "20.x"
   },
