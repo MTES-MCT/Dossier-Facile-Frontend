@@ -18,7 +18,7 @@
             >
               <option v-if="!document.key" selected disabled></option>
               <option v-for="d in documentsDefinitions" :value="d.key" :key="d.key">
-                {{ $t(d.key) }}
+                {{ t(d.key) }}
               </option>
             </select>
           </div>
@@ -33,7 +33,7 @@
       </div>
     </NakedCard>
     <ConfirmModal v-if="isDocDeleteVisible" @valid="validSelect()" @cancel="undoSelect()">
-      <span>{{ $t('documentdownloader.will-delete-files') }}</span>
+      <span>{{ t('documentdownloader.will-delete-files') }}</span>
     </ConfirmModal>
 
     <slot name="after-select-block"></slot>
@@ -42,7 +42,7 @@
       v-if="showDownloader && (document.key || documentFiles.length > 0)"
     >
       <div class="fr-mb-3w">
-        <p v-html="$t(`explanation-text.cotenant.${document.key}`)"></p>
+        <p v-html="t(`explanation-text.cotenant.${document.key}`)"></p>
       </div>
       <WarningTaxDeclaration class="fr-mb-3w" v-if="document.key === 'my-name'" />
 
@@ -83,9 +83,7 @@
         />
         <label for="noDocument">
           {{
-            document
-              ? $t('noDocument-' + document.key)
-              : $t('documentdownloader.noDocument-default')
+            document ? t('noDocument-' + document.key) : t('documentdownloader.noDocument-default')
           }}
         </label>
       </div>
@@ -96,7 +94,7 @@
       >
         <div class="fr-input-group">
           <label class="fr-label" for="customText">
-            {{ $t(`cotenantfinancialform.customText-${document.key}`) }}
+            {{ t(`cotenantfinancialform.customText-${document.key}`) }}
           </label>
           <Field
             name="customText"
@@ -127,7 +125,7 @@
             >
           </Field>
           <ErrorMessage name="customText" v-slot="{ message }">
-            <span role="alert" class="fr-error-text">{{ $t(message || '') }}</span>
+            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>
       </div>
@@ -140,7 +138,7 @@
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-12">
               <p>
-                {{ $t('documentdownloader.warning-no-document-and-files') }}
+                {{ t('documentdownloader.warning-no-document-and-files') }}
               </p>
             </div>
           </div>
@@ -156,15 +154,15 @@
           <h1 class="avis-title fr-h4">
             <i class="ri-alarm-warning-line"></i>
 
-            {{ $t('tax-page.avis-detected') }}
+            {{ t('tax-page.avis-detected') }}
           </h1>
           <p>
-            {{ $t('tax-page.avis-text1') }}
+            {{ t('tax-page.avis-text1') }}
           </p>
           <hr class="mobile" />
           <div class="btn-align">
             <DfButton @on-click="isWarningTaxSituationModalVisible = false" :primary="true">{{
-              $t('tax-page.avis-btn')
+              t('tax-page.avis-btn')
             }}</DfButton>
           </div>
           <div class="btn-align fr-mt-2w">
@@ -172,7 +170,7 @@
               href="https://docs.dossierfacile.logement.gouv.fr/article/88-avis-dimposition"
               rel="noopener"
               target="_blank"
-              >{{ $t('tax-page.avis-link-to-doc') }}</a
+              >{{ t('tax-page.avis-link-to-doc') }}</a
             >
           </div>
         </div>
@@ -207,7 +205,9 @@ import { computed, onBeforeMount, ref } from 'vue'
 import useTenantStore from '@/stores/tenant-store'
 import { Field, ErrorMessage } from 'vee-validate'
 import { AnalyticsService } from '../../../services/AnalyticsService'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const store = useTenantStore()
 
 const props = withDefaults(

@@ -2,7 +2,7 @@
   <div>
     <NakedCard class="fr-p-md-5w">
       <h1 class="fr-h6">
-        {{ $t('identification-page.select-label') }}
+        {{ t('identification-page.select-label') }}
       </h1>
       <div class="fr-mt-3w">
         <SimpleRadioButtons
@@ -18,7 +18,7 @@
       v-if="identificationDocument.key || identificationFiles().length > 0"
     >
       <div class="fr-mb-3w">
-        <p v-html="$t(`explanation-text.tenant.${identificationDocument.key}`)"></p>
+        <p v-html="t(`explanation-text.tenant.${identificationDocument.key}`)"></p>
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
@@ -45,7 +45,7 @@
       </div>
     </NakedCard>
     <ConfirmModal v-if="isDocDeleteVisible" @valid="validSelect()" @cancel="undoSelect()">
-      <span>{{ $t('identification-page.will-delete-files') }}</span>
+      <span>{{ t('identification-page.will-delete-files') }}</span>
     </ConfirmModal>
   </div>
 </template>

@@ -2,23 +2,23 @@
   <aside class="name-container fr-container fr-container-full-size bg--grey fr-grid-row">
     <div class="fr-col-xs-12 fr-col-md-4 bg--dark-blue">
       <div class="title-container">
-        <h2 class="fr-h1">{{ $t('nameinformation.title') }}</h2>
+        <h2 class="fr-h1">{{ t('nameinformation.title') }}</h2>
         <h3 class="fr-h5 fr-mb-1w text-bold">
-          {{ $t('nameinformation.prepare-documents') }}
+          {{ t('nameinformation.prepare-documents') }}
         </h3>
         <ul>
-          <li>{{ $t('nameinformation.identification') }}</li>
-          <li>{{ $t('nameinformation.residency') }}</li>
-          <li>{{ $t('nameinformation.professional') }}</li>
-          <li>{{ $t('nameinformation.financial') }}</li>
-          <li>{{ $t('nameinformation.tax') }}</li>
+          <li>{{ t('nameinformation.identification') }}</li>
+          <li>{{ t('nameinformation.residency') }}</li>
+          <li>{{ t('nameinformation.professional') }}</li>
+          <li>{{ t('nameinformation.financial') }}</li>
+          <li>{{ t('nameinformation.tax') }}</li>
         </ul>
         <p>
-          <span class="text-bold">{{ $t('nameinformation.same-for-guarantors') }}</span>
+          <span class="text-bold">{{ t('nameinformation.same-for-guarantors') }}</span>
           <br />
           🧐
           <a href="https://docs.dossierfacile.logement.gouv.fr/" target="_blank" rel="noopener">{{
-            $t('nameinformation.see-documentation')
+            t('nameinformation.see-documentation')
           }}</a>
         </p>
       </div>
@@ -35,7 +35,9 @@
 import NameInformationForm from '../components/NameInformationForm.vue'
 import useTenantStore from '@/stores/tenant-store'
 import { computed, onBeforeUnmount, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const store = useTenantStore()
 const user = computed(() => {
   return store.user

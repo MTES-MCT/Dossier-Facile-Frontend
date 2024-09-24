@@ -5,19 +5,19 @@
         <NakedCard class="fr-p-md-5w">
           <div class="text-bold fr-mb-1w">
             <h1 class="fr-h5">
-              {{ $t('guarantorchoice.add-guarantor') }}
+              {{ t('guarantorchoice.add-guarantor') }}
             </h1>
           </div>
           <div class="fr-mt-3w">
-            <p v-html="$t('guarantorchoice.optional-guarantor')"></p>
+            <p v-html="t('guarantorchoice.optional-guarantor')"></p>
             <div class="fr-alert fr-alert--info">
-              <p v-html="$t('guarantorchoice.two-guarantors-warning')"></p>
+              <p v-html="t('guarantorchoice.two-guarantors-warning')"></p>
             </div>
           </div>
         </NakedCard>
         <NakedCard class="fr-p-md-5w fr-mt-3w">
           <div class="fr-mb-2w">
-            {{ $t('guarantorchoice.ask-guarantor') }}
+            {{ t('guarantorchoice.ask-guarantor') }}
           </div>
 
           <GuarantorTypeSelector
@@ -28,13 +28,13 @@
         </NakedCard>
         <div v-if="tmpGuarantorType === 'NO_GUARANTOR'" class="bg-purple fr-mt-3w fr-p-5w">
           <div class="fr-grid-row space-between">
-            <div class="fr-h5">{{ $t('guarantorchoice.visale-title') }}</div>
+            <div class="fr-h5">{{ t('guarantorchoice.visale-title') }}</div>
             <img alt="logo visale" class="logo-visale" src="../assets/visale.svg" />
           </div>
-          <p>{{ $t('guarantorchoice.visale-text') }}</p>
+          <p>{{ t('guarantorchoice.visale-text') }}</p>
           <div style="text-align: right">
             <DfButton :primary="true" @on-click="gotoVisale()">
-              {{ $t('guarantorchoice.visale-btn') }}
+              {{ t('guarantorchoice.visale-btn') }}
             </DfButton>
           </div>
         </div>
@@ -55,7 +55,9 @@ import { ToastService } from '@/services/ToastService'
 import useTenantStore from '@/stores/tenant-store'
 import { computed, onBeforeMount, onUpdated, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const router = useRouter()
 const store = useTenantStore()
 const user = computed(() => store.user)

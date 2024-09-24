@@ -72,7 +72,7 @@
       </div>
     </div>
     <ConfirmModal v-if="changeGuarantorVisible" @valid="validSelect()" @cancel="undoSelect()">
-      <span>{{ $t('tenantguarantordocuments.will-delete-guarantor') }}</span>
+      <span>{{ t('tenantguarantordocuments.will-delete-guarantor') }}</span>
     </ConfirmModal>
   </div>
 </template>
@@ -94,11 +94,15 @@ import { ToastService } from '@/services/ToastService'
 import useTenantStore from '@/stores/tenant-store'
 import { computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
 const route = useRoute()
 const router = useRouter()
 const emit = defineEmits(['on-next'])
+
 const store = useTenantStore()
+const { t } = useI18n()
+
 const coTenants = computed(() => store.coTenants)
 const selectedGuarantor = computed(() => store.selectedGuarantor)
 

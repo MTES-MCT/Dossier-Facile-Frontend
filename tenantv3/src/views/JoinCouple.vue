@@ -1,11 +1,11 @@
 <template>
   <div class="fr-container">
     <h2 class="fr-h2 text-center fr-mt-7w fr-mb-5w">
-      {{ $t('joincouple.title') }}
+      {{ t('joincouple.title') }}
     </h2>
     <InitPassword @on-init-password="onInitPassword" />
     <ConfirmModal v-if="isLoggedIn" @valid="logout()" @cancel="redirect()">
-      <span>{{ $t('joincouple.already-logged') }}</span>
+      <span>{{ t('joincouple.already-logged') }}</span>
     </ConfirmModal>
   </div>
 </template>
@@ -18,7 +18,9 @@ import { ToastService } from '../services/ToastService'
 import useTenantStore from '../stores/tenant-store'
 import { computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const store = useTenantStore()
 const isLoggedIn = computed(() => store.isLoggedIn)
 const route = useRoute()

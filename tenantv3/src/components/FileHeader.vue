@@ -4,13 +4,13 @@
       <div class="fr-col-md-8">
         <div class="fr-grid-col">
           <p class="fr-badge fr-badge--sm fr-mt-3w">
-            {{ $t('last-update', [getLastUpdateDate()]) }}
+            {{ t('last-update', [getLastUpdateDate()]) }}
           </p>
           <h1 class="fr-h1 color--white fr-mt-3w" v-if="user">
-            {{ $t('file.title', [getName()]) }}
+            {{ t('file.title', [getName()]) }}
           </h1>
           <p class="text-bold color--white">
-            {{ $t('file.description', [getStatus(), getIncomeSum()]) }}
+            {{ t('file.description', [getStatus(), getIncomeSum()]) }}
           </p>
           <slot></slot>
         </div>

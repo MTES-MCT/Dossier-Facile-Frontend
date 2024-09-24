@@ -1,27 +1,27 @@
 <template>
   <div class="fr-mb-15w">
     <NakedCard class="fr-p-5w fr-mt-3w">
-      <h1 class="fr-h4">{{ $t('nameinformationform.title') }}</h1>
+      <h1 class="fr-h4">{{ t('nameinformationform.title') }}</h1>
       <div>
         <NameInformationHelp @updateInformation="openUnlinkModal = true" />
         <RequiredFieldsInstruction />
         <ConfirmModal
           class="fr-px-md-16w"
           v-if="openUnlinkModal"
-          :validateBtnText="$t('nameinformationform.unlink-account-btn')"
+          :validateBtnText="t('nameinformationform.unlink-account-btn')"
           @valid="unlinkFranceConnect()"
           @cancel="openUnlinkModal = false"
         >
           <template v-slot:title>
             <span class="fr-fi-refresh-line"></span>
-            <span> {{ $t('nameinformationform.unlink-fc-link') }}</span>
+            <span> {{ t('nameinformationform.unlink-fc-link') }}</span>
           </template>
           <p>
-            {{ $t('nameinformationform.unlink-fc-content') }}
+            {{ t('nameinformationform.unlink-fc-content') }}
             <span v-if="user?.passwordEnabled">
-              {{ $t('nameinformationform.unlink-fc-content-password-exists') }}</span
+              {{ t('nameinformationform.unlink-fc-content-password-exists') }}</span
             >
-            <span v-else>{{ $t('nameinformationform.unlink-fc-content-password-undefined') }}</span>
+            <span v-else>{{ t('nameinformationform.unlink-fc-content-password-undefined') }}</span>
           </p>
         </ConfirmModal>
       </div>
@@ -31,7 +31,7 @@
           <div class="fr-col-12 fr-mb-3w">
             <TextField
               name="lastname"
-              :fieldLabel="$t('nameinformationform.lastname')"
+              :fieldLabel="t('nameinformationform.lastname')"
               validation-rules="onlyAlpha"
               v-model.trim="lastname"
               :required="true"
@@ -42,25 +42,25 @@
               v-if="!displayPreferredNameField"
               @click="displayPreferredNameField = true"
               type="button"
-              title="{{ $t('nameinformationform.add-preferredname') }}"
+              title="{{ t('nameinformationform.add-preferredname') }}"
             >
-              {{ $t('nameinformationform.add-preferredname') }}
+              {{ t('nameinformationform.add-preferredname') }}
             </button>
           </div>
           <div class="fr-col-12 fr-mb-3w" v-if="displayPreferredNameField">
             <TextField
               name="preferredname"
-              :fieldLabel="$t('nameinformationform.preferredname')"
+              :fieldLabel="t('nameinformationform.preferredname')"
               validation-rules="onlyAlpha"
               v-model.trim="preferredname"
             >
               <template v-slot:right>
                 <button
                   class="fr-btn fr-btn--tertiary fr-icon-close-line"
-                  :title="$t('nameinformationform.delete-preferredname')"
+                  :title="t('nameinformationform.delete-preferredname')"
                   @click="deletePreferredName()"
                 >
-                  {{ $t('nameinformationform.delete-preferredname') }}
+                  {{ t('nameinformationform.delete-preferredname') }}
                 </button>
               </template>
             </TextField>
@@ -68,7 +68,7 @@
           <div class="fr-col-12 fr-mb-3w">
             <TextField
               name="firstname"
-              :fieldLabel="$t('nameinformationform.firstname')"
+              :fieldLabel="t('nameinformationform.firstname')"
               validation-rules="onlyAlpha"
               v-model.trim="firstname"
               :required="true"
@@ -78,7 +78,7 @@
           <div class="fr-col-12 fr-mb-3w">
             <TextField
               name="zipcode"
-              :fieldLabel="$t('nameinformationform.zipcode')"
+              :fieldLabel="t('nameinformationform.zipcode')"
               validation-rules="zipcode"
               v-model="zipcode"
             />
@@ -104,7 +104,9 @@ import useTenantStore from '@/stores/tenant-store'
 import { computed, onBeforeMount, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useLoading } from 'vue-loading-overlay'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const store = useTenantStore()
 const user = computed(() => store.userToEdit)
 

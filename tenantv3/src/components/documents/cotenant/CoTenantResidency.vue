@@ -11,7 +11,7 @@
       @on-change-document="changeDocument"
     >
       <template v-slot:title>
-        {{ $t('cotenantresidency.title') }}
+        {{ t('cotenantresidency.title') }}
       </template>
       <template v-slot:after-select-block>
         <NakedCard
@@ -19,10 +19,10 @@
           v-if="documentType.key === 'other-residency'"
         >
           <div class="fr-alert fr-alert--warning fr-mb-3w">
-            {{ $t('residency-page.warning-other-residency') }}
+            {{ t('residency-page.warning-other-residency') }}
           </div>
           <div class="fr-input-group">
-            <label class="fr-label" for="customText">{{ $t('residency-page.custom-text') }}</label>
+            <label class="fr-label" for="customText">{{ t('residency-page.custom-text') }}</label>
             <Field
               name="customText"
               v-model="document.customText"
@@ -46,7 +46,7 @@
                 rows="4"
               ></textarea>
               <div v-if="errors[0]">
-                <span role="alert" class="fr-error-text">{{ $t(errors[0] || '') }}</span>
+                <span role="alert" class="fr-error-text">{{ t(errors[0] || '') }}</span>
               </div>
             </Field>
           </div>
@@ -78,7 +78,9 @@ import { useLoading } from 'vue-loading-overlay'
 import { ref } from 'vue'
 import useTenantStore from '@/stores/tenant-store'
 import { Field, useFieldError } from 'vee-validate'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const invalidCustomText = useFieldError('customText')
 
 const props = defineProps<{

@@ -80,7 +80,7 @@
           <div class="fr-col-7 align--right">
             <ColoredTag
               :hideIcon="true"
-              :text="link.fullData ? t('sharefile.full') : $t('sharefile.resume')"
+              :text="link.fullData ? t('sharefile.full') : t('sharefile.resume')"
               :status="'grey'"
               :active="link.enabled"
             ></ColoredTag>

@@ -15,7 +15,7 @@
       @enrich-form-data="enrichFormData"
     >
       <template v-slot:title>
-        {{ $t('cotenanttax.title') }}
+        {{ t('cotenanttax.title') }}
       </template>
       <template v-slot:after-select-block>
         <NakedCard
@@ -23,7 +23,7 @@
           v-if="documentType ? documentType.key === 'other-tax' : false"
         >
           <div class="fr-input-group">
-            <label class="fr-label" for="customText">{{ $t('cotenanttax.custom-text') }}</label>
+            <label class="fr-label" for="customText">{{ t('cotenanttax.custom-text') }}</label>
             <textarea
               v-model="document.customText"
               class="form-control fr-input validate-required"
@@ -58,6 +58,7 @@ import { ToastService } from '@/services/ToastService'
 import { useLoading } from 'vue-loading-overlay'
 import useTenantStore from '@/stores/tenant-store'
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 const documentsDefinitions = DocumentTypeConstants.TAX_DOCS
 
@@ -66,6 +67,7 @@ const props = defineProps<{
 }>()
 const emit = defineEmits(['on-back', 'on-next'])
 const store = useTenantStore()
+const { t } = useI18n()
 
 const documentType = ref(new DocumentType())
 const showDownloader = ref(false)

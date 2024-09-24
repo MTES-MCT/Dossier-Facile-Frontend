@@ -48,7 +48,7 @@
                   />
                 </Field>
                 <ErrorMessage name="monthlySum" v-slot="{ message }">
-                  <span role="alert" class="fr-error-text">{{ $t(message || '') }}</span>
+                  <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
                 </ErrorMessage>
                 <span
                   class="fr-error-text"
@@ -98,7 +98,7 @@
                 >
               </Field>
               <ErrorMessage name="customTextNoDocument" v-slot="{ message }">
-                <span role="alert" class="fr-error-text">{{ $t(message || '') }}</span>
+                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
           </NakedCard>

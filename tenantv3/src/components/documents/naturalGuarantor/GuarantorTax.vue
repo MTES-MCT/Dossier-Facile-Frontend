@@ -3,10 +3,10 @@
     <Form name="form">
       <NakedCard class="fr-p-md-5w">
         <h1 class="fr-h6" v-if="isCotenant">
-          {{ $t('guarantortax.title-cotenant') }}
+          {{ t('guarantortax.title-cotenant') }}
         </h1>
-        <h1 class="fr-h6" v-else>{{ $t('guarantortax.title') }}</h1>
-        <div class="fr-mt-3w">{{ $t('guarantortax.situation') }}</div>
+        <h1 class="fr-h6" v-else>{{ t('guarantortax.title') }}</h1>
+        <div class="fr-mt-3w">{{ t('guarantortax.situation') }}</div>
 
         <div class="fr-mt-3w">
           <SimpleRadioButtons
@@ -18,7 +18,7 @@
         </div>
         <div class="fr-mb-3w" v-if="taxDocument.key && taxDocument.key === 'other-tax'">
           <div class="fr-input-group">
-            <label class="fr-label" for="customText">{{ $t('guarantortax.custom-text') }}</label>
+            <label class="fr-label" for="customText">{{ t('guarantortax.custom-text') }}</label>
             <Field
               name="customText"
               v-model="customText"
@@ -53,7 +53,7 @@
       v-if="taxDocument.key === 'my-name' || taxFiles().length > 0"
     >
       <div class="fr-mb-3w">
-        <p v-html="$t(`explanation-text.${guarantorKey()}.${taxDocument.key}`)"></p>
+        <p v-html="t(`explanation-text.${guarantorKey()}.${taxDocument.key}`)"></p>
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
@@ -77,7 +77,7 @@
     </NakedCard>
     <GuarantorFooter @on-back="goBack" @on-next="goNext"></GuarantorFooter>
     <ConfirmModal v-if="isDocDeleteVisible" @valid="validSelect()" @cancel="undoSelect()">
-      <span>{{ $t('guarantortax.will-delete-files') }}</span>
+      <span>{{ t('guarantortax.will-delete-files') }}</span>
     </ConfirmModal>
     <Modal
       v-if="isWarningTaxSituationModalVisible"
@@ -88,15 +88,15 @@
           <h1 class="avis-title fr-h4">
             <i class="ri-alarm-warning-line"></i>
 
-            {{ $t('tax-page.avis-detected') }}
+            {{ t('tax-page.avis-detected') }}
           </h1>
           <p>
-            {{ $t('tax-page.avis-text1') }}
+            {{ t('tax-page.avis-text1') }}
           </p>
           <hr class="mobile" />
           <div class="btn-align">
             <DfButton @on-click="isWarningTaxSituationModalVisible = false" :primary="true">{{
-              $t('tax-page.avis-btn')
+              t('tax-page.avis-btn')
             }}</DfButton>
           </div>
           <div class="btn-align fr-mt-2w">
@@ -104,7 +104,7 @@
               href="https://docs.dossierfacile.logement.gouv.fr/article/88-avis-dimposition"
               rel="noopener"
               target="_blank"
-              >{{ $t('tax-page.avis-link-to-doc') }}</a
+              >{{ t('tax-page.avis-link-to-doc') }}</a
             >
           </div>
         </div>

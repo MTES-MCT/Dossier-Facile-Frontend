@@ -2,11 +2,11 @@
   <div>
     <Form name="coTenantNameForm" @submit="save">
       <NakedCard class="fr-p-md-5w">
-        <h1 class="fr-h6">{{ $t('cotenantname.title') }}</h1>
+        <h1 class="fr-h6">{{ t('cotenantname.title') }}</h1>
         <div>
-          {{ $t('cotenantname.subtitle') }}
+          {{ t('cotenantname.subtitle') }}
           <span v-if="selectedCoTenant.franceConnect">
-            {{ $t('cotenantname.franceconnect-account') }}
+            {{ t('cotenantname.franceconnect-account') }}
           </span>
         </div>
         <RequiredFieldsInstruction></RequiredFieldsInstruction>
@@ -14,7 +14,7 @@
           <div class="fr-col-12 fr-mb-3w">
             <TextField
               name="lastname"
-              :fieldLabel="$t('cotenantname.lastname')"
+              :fieldLabel="t('cotenantname.lastname')"
               validation-rules="onlyAlpha"
               v-model.trim="lastName"
               :required="true"
@@ -25,23 +25,23 @@
               @click="displayPreferredNameField = true"
               type="button"
             >
-              {{ $t('nameinformationform.add-preferredname') }}
+              {{ t('nameinformationform.add-preferredname') }}
             </button>
           </div>
           <div class="fr-col-12 fr-mb-3w" v-if="displayPreferredNameField">
             <TextField
               name="preferredname"
-              :fieldLabel="$t('cotenantname.preferredname')"
+              :fieldLabel="t('cotenantname.preferredname')"
               validation-rules="onlyAlpha"
               v-model.trim="preferredName"
             >
               <template v-slot:right>
                 <button
                   class="fr-btn fr-btn--tertiary fr-icon-close-line"
-                  :title="$t('nameinformationform.delete-preferredname')"
+                  :title="t('nameinformationform.delete-preferredname')"
                   @click="deletePreferredName()"
                 >
-                  {{ $t('nameinformationform.delete-preferredname') }}
+                  {{ t('nameinformationform.delete-preferredname') }}
                 </button>
               </template>
             </TextField>
@@ -49,7 +49,7 @@
           <div class="fr-col-12 fr-mb-3w">
             <TextField
               name="firstname"
-              :fieldLabel="$t('cotenantname.firstname')"
+              :fieldLabel="t('cotenantname.firstname')"
               validation-rules="onlyAlpha"
               v-model.trim="firstName"
               :required="true"
@@ -76,12 +76,14 @@ import { useLoading } from 'vue-loading-overlay'
 import { onBeforeMount, ref } from 'vue'
 import useTenantStore from '@/stores/tenant-store'
 import { Form } from 'vee-validate'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
   coTenantId: number
 }>()
 
 const selectedCoTenant = ref(new User())
+const { t } = useI18n()
 const store = useTenantStore()
 
 const firstName = ref('')

@@ -4,12 +4,12 @@
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12">
           <h1 class="fr-h6">
-            {{ $t('coupleinformation.partner-name-title') }}
+            {{ t('coupleinformation.partner-name-title') }}
           </h1>
         </div>
         <div class="fr-col-12 fr-mb-3w">
           <FieldLabel :required="true">
-            {{ $t('coupleinformation.spouseLastName') }}
+            {{ t('coupleinformation.spouseLastName') }}
           </FieldLabel>
           <Field
             id="coTenantLastName"
@@ -34,12 +34,12 @@
             />
           </Field>
           <ErrorMessage name="coTenantLastName" v-slot="{ message }">
-            <span role="alert" class="fr-error-text">{{ $t(message || '') }}</span>
+            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>
         <div class="fr-col-12 fr-mb-3w">
           <FieldLabel :required="true">
-            {{ $t('coupleinformation.spouseFirstName') }}
+            {{ t('coupleinformation.spouseFirstName') }}
           </FieldLabel>
           <Field
             id="coTenantFirstName"
@@ -64,7 +64,7 @@
             />
           </Field>
           <ErrorMessage name="coTenantFirstName" v-slot="{ message }">
-            <span role="alert" class="fr-error-text">{{ $t(message || '') }}</span>
+            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>
       </div>
@@ -73,14 +73,14 @@
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12">
           <h1 class="fr-h6">
-            {{ $t('coupleinformation.partner-email-title') }}
+            {{ t('coupleinformation.partner-email-title') }}
           </h1>
           <v-gouv-fr-modal>
             <template v-slot:button>
-              <span class="small-font">{{ $t('coupleinformation.more-information') }}</span>
+              <span class="small-font">{{ t('coupleinformation.more-information') }}</span>
             </template>
             <template v-slot:title>
-              {{ $t('coupleinformation.more-information') }}
+              {{ t('coupleinformation.more-information') }}
             </template>
             <template v-slot:content>
               <p>
@@ -91,7 +91,7 @@
         </div>
         <div class="fr-col-12 fr-mt-3w fr-mb-3w">
           <FieldLabel for-input="email">
-            {{ $t('coupleinformation.spouseEmail') }}
+            {{ t('coupleinformation.spouseEmail') }}
           </FieldLabel>
           <Field
             id="email"
@@ -118,7 +118,7 @@
             />
           </Field>
           <ErrorMessage name="email" v-slot="{ message }">
-            <span role="alert" class="fr-error-text">{{ $t(message || '') }}</span>
+            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>
       </div>
@@ -146,10 +146,10 @@
                 'fr-input--error': !meta.valid
               }"
             />
-            <label for="authorize" v-html="$t('coupleinformation.acceptAuthor')"> </label>
+            <label for="authorize" v-html="t('coupleinformation.acceptAuthor')"> </label>
           </Field>
           <ErrorMessage name="coTenantLastName" v-slot="{ message }">
-            <span role="alert" class="fr-error-text">{{ $t(message || '') }}</span>
+            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>
       </div>
@@ -166,6 +166,7 @@ import FieldLabel from 'df-shared-next/src/components/form/FieldLabel.vue'
 import { computed, onMounted, ref } from 'vue'
 import useTenantStore from '@/stores/tenant-store'
 import { Field, ErrorMessage, defineRule } from 'vee-validate'
+import { useI18n } from 'vue-i18n'
 
 defineRule('custom', (v1: any, [v2]: any[]) => {
   if (v1 === v2) {
@@ -176,6 +177,7 @@ defineRule('custom', (v1: any, [v2]: any[]) => {
 
 const emit = defineEmits(['update:modelValue'])
 
+const { t } = useI18n()
 const store = useTenantStore()
 const user = computed(() => store.user)
 const spouseAuthorize = computed(() => store.spouseAuthorize)

@@ -1,11 +1,11 @@
 <template>
   <div class="fr-container">
     <h2 class="fr-h2 text-center fr-mt-7w fr-mb-5w">
-      {{ $t('joingroup.title') }}
+      {{ t('joingroup.title') }}
     </h2>
     <InitPassword @on-init-password="onInitPassword" />
     <ConfirmModal v-if="isLoggedIn" @valid="logout()" @cancel="redirect()">
-      <span>{{ $t('joingroup.already-logged') }}</span>
+      <span>{{ t('joingroup.already-logged') }}</span>
     </ConfirmModal>
   </div>
 </template>
@@ -17,7 +17,9 @@ import { ToastService } from '../services/ToastService'
 import { User } from 'df-shared-next/src/models/User'
 import { useRoute, useRouter } from 'vue-router'
 import InitPassword from 'df-shared-next/src/Authentification/InitPassword.vue'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const store = useTenantStore()
 const isLoggedIn = computed(() => store.isLoggedIn)
 

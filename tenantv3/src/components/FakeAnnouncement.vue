@@ -2,7 +2,7 @@
   <div class="fakeannouncement">
     <h2 class="title fr-h6 align-items--center" style="display: flex">
       <img alt="" src="../assets/logo_bouclier_secure.svg" />{{
-        $t('fakeannouncement.fake-announce-title')
+        t('fakeannouncement.fake-announce-title')
       }}
     </h2>
     <img alt="Police nationale" src="../assets/police_nationale.svg" class="logo-police" />
@@ -12,21 +12,21 @@
         <p>
           <i18n-t keypath="fakeannouncement.content">
             <template v-slot:nodocument>
-              <span style="font-weight: bold">{{ $t('fakeannouncement.nodocument') }}</span>
+              <span style="font-weight: bold">{{ t('fakeannouncement.nodocument') }}</span>
             </template>
             <template v-slot:masecurite>
               <a
                 href="https://www.masecurite.interieur.gouv.fr/fr"
                 rel="noopener"
-                :title="$t('fakeannouncement.link-title').toString()"
+                :title="t('fakeannouncement.link-title').toString()"
                 target="_blank"
-                >{{ $t('fakeannouncement.masecurite') }}</a
+                >{{ t('fakeannouncement.masecurite') }}</a
               >
             </template>
           </i18n-t>
         </p>
         <DfButton class="fr-mr-3w" @on-click="signal()">{{
-          $t('fakeannouncement.signal-button')
+          t('fakeannouncement.signal-button')
         }}</DfButton>
       </div>
       <div class="announce-card">
@@ -39,6 +39,9 @@
 <script setup lang="ts">
 import { AnalyticsService } from '@/services/AnalyticsService'
 import DfButton from 'df-shared-next/src/Button/Button.vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 function signal() {
   AnalyticsService.openMaSecurite()
   window.open('https://www.service-public.fr/particuliers/vosdroits/N31138#2', '_blank', 'noopener')

@@ -2,15 +2,15 @@
   <div>
     <Form name="tenantGuarantorNameForm" @submit="save">
       <NakedCard class="fr-p-md-5w">
-        <h1 class="fr-h6">{{ $t('tenantguarantorname.title') }}</h1>
+        <h1 class="fr-h6">{{ t('tenantguarantorname.title') }}</h1>
         <div class="fr-alert fr-alert--info">
-          <p v-html="$t('tenantguarantorchoice.two-guarantors-warning')"></p>
+          <p v-html="t('tenantguarantorchoice.two-guarantors-warning')"></p>
         </div>
         <div class="fr-grid-row fr-grid-row--center fr-mt-4w">
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-input-group">
               <label class="fr-label" for="lastname"
-                >{{ $t('tenantguarantorname.lastname') }} :</label
+                >{{ t('tenantguarantorname.lastname') }} :</label
               >
               <Field
                 name="lastname"
@@ -30,7 +30,7 @@
                   }"
                   id="lastname"
                   name="lastname"
-                  :placeholder="$t('tenantguarantorname.lastname-placeholder')"
+                  :placeholder="t('tenantguarantorname.lastname-placeholder')"
                   type="text"
                   required
                 />
@@ -43,7 +43,7 @@
           <div class="fr-col-12 fr-mb-3w">
             <div class="fr-input-group">
               <label for="firstname" class="fr-label"
-                >{{ $t('tenantguarantorname.firstname') }} :</label
+                >{{ t('tenantguarantorname.firstname') }} :</label
               >
               <Field
                 name="firstname"
@@ -56,7 +56,7 @@
               >
                 <input
                   id="firstname"
-                  :placeholder="$t('tenantguarantorname.firstname-placeholder')"
+                  :placeholder="t('tenantguarantorname.firstname-placeholder')"
                   type="text"
                   v-bind="field"
                   class="validate-required form-control fr-input"
@@ -68,7 +68,7 @@
                 />
               </Field>
               <ErrorMessage name="firstname" v-slot="{ message }">
-                <span role="alert" class="fr-error-text">{{ $t(message || '') }}</span>
+                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
           </div>

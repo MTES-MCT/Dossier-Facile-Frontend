@@ -6,8 +6,8 @@
     <div v-if="!editFinancialDocument">
       <NakedCard class="fr-p-md-5w fr-mb-3w">
         <div>
-          <h1 class="fr-h6">{{ $t('financial-page.title') }}</h1>
-          <div>{{ $t('financial-page.subtitle') }}</div>
+          <h1 class="fr-h6">{{ t('financial-page.title') }}</h1>
+          <div>{{ t('financial-page.subtitle') }}</div>
         </div>
       </NakedCard>
       <div v-for="(f, k) in financialDocuments" :key="k">
@@ -28,10 +28,10 @@
             <div
               class="text-bold"
               :class="{ declined: tenantFinancialDocument(f)?.documentStatus }"
-              :title="$t('financial-page.net-monthly')"
+              :title="t('financial-page.net-monthly')"
               v-show="f.documentType.key !== 'no-income'"
             >
-              {{ f.monthlySum }} {{ $t('financial-page.monthly') }}
+              {{ f.monthlySum }} {{ t('financial-page.monthly') }}
             </div>
           </template>
           <template v-slot:bottom>
@@ -45,7 +45,7 @@
       </div>
       <div>
         <button @click="addAndSelectFinancial()" v-if="!hasNoIncome()" class="add-income-btn">
-          {{ $t('financial-page.add-income') }}
+          {{ t('financial-page.add-income') }}
         </button>
       </div>
       <SimulationCaf class="fr-mt-4w" />

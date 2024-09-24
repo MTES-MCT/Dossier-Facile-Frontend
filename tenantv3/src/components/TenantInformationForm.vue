@@ -24,7 +24,7 @@
                       'fr-input--error': !meta.valid
                     }"
                   />
-                  <label for="authorize" v-html="$t('tenantinformationform.acceptAuthorSpouse')">
+                  <label for="authorize" v-html="t('tenantinformationform.acceptAuthorSpouse')">
                   </label>
                   <ErrorMessage name="authorize" v-slot="{ message }">
                     <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
@@ -54,7 +54,7 @@
                       'fr-input--error': !meta.valid
                     }"
                   />
-                  <label for="authorize" v-html="$t('tenantinformationform.acceptAuthorCoTenant')">
+                  <label for="authorize" v-html="t('tenantinformationform.acceptAuthorCoTenant')">
                   </label>
                   <ErrorMessage name="authorize" v-slot="{ message }">
                     <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
@@ -71,7 +71,7 @@
     <div v-if="isOwner()">
       <NakedCard class="fr-p-md-5w">
         <h1 class="fr-h6">
-          {{ $t('tenantinformationform.title') }}
+          {{ t('tenantinformationform.title') }}
         </h1>
         <ApplicationTypeSelector @selected="updateApplicationType"></ApplicationTypeSelector>
       </NakedCard>

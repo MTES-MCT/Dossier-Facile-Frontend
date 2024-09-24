@@ -28,7 +28,7 @@
             </Field>
             <label for="declaration" v-html="t('validatefile.declaration')"> </label>
             <ErrorMessage name="declaration" v-slot="{ message }">
-              <span role="alert" class="fr-error-text">{{ $t(message || '') }}</span>
+              <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
             </ErrorMessage>
           </div>
           <div v-if="hasGuarantors()">
@@ -59,7 +59,7 @@
                   : t('validatefile.declaration2')
               }}</label>
               <ErrorMessage name="declaration2" v-slot="{ message }">
-                <span role="alert" class="fr-error-text">{{ $t(message || '') }}</span>
+                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </div>
           </div>
@@ -89,7 +89,7 @@
               </Field>
               <span>{{ precision.length }} / 2000</span>
               <ErrorMessage name="precision" v-slot="{ message }">
-                <span role="alert" class="fr-error-text">{{ $t(message || '') }}</span>
+                <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
               </ErrorMessage>
             </p>
           </NakedCard>

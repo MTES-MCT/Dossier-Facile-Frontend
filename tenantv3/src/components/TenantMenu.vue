@@ -62,7 +62,7 @@
               target="_self"
               :aria-current="currentPage === 'PartnerAccessPage' ? 'page' : undefined"
             >
-              {{ $t('menu.partners') }}
+              {{ t('menu.partners') }}
             </router-link>
           </li>
           <li>

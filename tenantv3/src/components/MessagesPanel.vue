@@ -133,7 +133,7 @@
               <h5>Les documents de mon garant</h5>
 
               <div class="row">
-                <div class="subtitle">{{ $t('messagespanel.organism') }}</div>
+                <div class="subtitle">{{ t('messagespanel.organism') }}</div>
                 <div class="row align--center">
                   <ViewEditBtn
                     :canView="!isCotenant && guarantorHasFile(g, 'GUARANTEE_PROVIDER_CERTIFICATE')"
@@ -152,7 +152,7 @@
               <h5>Les documents de mon garant</h5>
               <div class="row">
                 <div class="subtitle">
-                  {{ $t('messagespanel.identification-legal-person') }}
+                  {{ t('messagespanel.identification-legal-person') }}
                 </div>
                 <div class="row align--center">
                   <ViewEditBtn
@@ -167,7 +167,7 @@
               </div>
               <div class="row">
                 <div class="subtitle">
-                  {{ $t('messagespanel.identity-represent') }}
+                  {{ t('messagespanel.identity-represent') }}
                 </div>
                 <div class="row align--center">
                   <ViewEditBtn
@@ -292,7 +292,9 @@ import { AnalyticsService } from '../services/AnalyticsService'
 import useTenantStore from '@/stores/tenant-store'
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const router = useRouter()
 const store = useTenantStore()
 const messageList = computed(() => store.messageList)

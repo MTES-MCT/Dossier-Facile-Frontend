@@ -9,15 +9,18 @@
       listType="dropDownList"
     >
       <template v-slot:title>
-        {{ $t('cotenantprofessional.title') }}
+        {{ t('cotenantprofessional.title') }}
       </template>
     </DocumentDownloader>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import { DocumentTypeConstants } from '../share/DocumentTypeConstants'
 import DocumentDownloader from './DocumentDownloader.vue'
+
+const { t } = useI18n()
 
 const documentsDefinitions = DocumentTypeConstants.PROFESSIONAL_DOCS
 

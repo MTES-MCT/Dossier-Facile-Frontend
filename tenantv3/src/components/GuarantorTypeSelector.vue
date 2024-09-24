@@ -11,7 +11,7 @@
       @valid="confirmGuarantorTypeChange()"
       @cancel="undoGuarantorTypeChange()"
     >
-      <span>{{ $t('guarantorchoice.will-delete-guarantor') }}</span>
+      <span>{{ t('guarantorchoice.will-delete-guarantor') }}</span>
     </ConfirmModal>
   </div>
 </template>
@@ -22,7 +22,9 @@ import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
 import { ToastService } from '@/services/ToastService'
 import useTenantStore from '@/stores/tenant-store'
 import { computed, onBeforeMount, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const store = useTenantStore()
 const user = computed(() => store.user)
 const guarantor = computed(() => store.guarantor)

@@ -12,7 +12,7 @@
   >
     <div>
       <span class="fr-icon-message-2-fill fr-mr-1v" aria-hidden="true"></span>
-      <span class="fr-text--bold">{{ $t('declined-messages.header') }}</span>
+      <span class="fr-text--bold">{{ t('declined-messages.header') }}</span>
     </div>
     <div>
       <ul v-if="messages.length > 1">
@@ -27,6 +27,9 @@ import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedR
 import PreValidationMessages from './PreValidationMessages.vue'
 import { computed } from 'vue'
 import { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const props = withDefaults(
   defineProps<{

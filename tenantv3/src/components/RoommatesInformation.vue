@@ -3,13 +3,13 @@
     <NakedCard class="fr-p-md-5w">
       <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12">
-          <h6>{{ $t('roommatesinformation.title') }}</h6>
+          <h6>{{ t('roommatesinformation.title') }}</h6>
           <v-gouv-fr-modal>
             <template v-slot:button>
-              <span class="small-font">{{ $t('roommatesinformation.more-information') }}</span>
+              <span class="small-font">{{ t('roommatesinformation.more-information') }}</span>
             </template>
             <template v-slot:title>
-              {{ $t('roommatesinformation.more-information') }}
+              {{ t('roommatesinformation.more-information') }}
             </template>
             <template v-slot:content>
               <p>
@@ -20,7 +20,7 @@
         </div>
         <div class="fr-col-12 fr-mt-2w">
           <div v-if="showEmailExists" class="fr-callout">
-            <p class="fr-mb-1w" v-html="$t('roommatesinformation.email-exists')"></p>
+            <p class="fr-mb-1w" v-html="t('roommatesinformation.email-exists')"></p>
           </div>
           <div v-if="modelValue.length > 0">
             <div v-for="(roommate, key) in modelValue" v-bind:key="key" class="fr-mb-1w">
@@ -39,7 +39,7 @@
                         </div>
                         <div class="small-text">
                           {{
-                            $t(
+                            t(
                               roommate.id
                                 ? 'roommatesinformation.invite-sent'
                                 : 'roommatesinformation.invite-waiting'
@@ -52,7 +52,7 @@
                   <div class="fr-col-2 center-icon">
                     <button
                       class="fr-btn fr-btn--secondary icon-btn"
-                      :title="$t('roommatesinformation.delete')"
+                      :title="t('roommatesinformation.delete')"
                       @click="remove(roommate)"
                       type="button"
                     >
@@ -65,7 +65,7 @@
           </div>
         </div>
         <div class="fr-col-12 fr-col-xl-7 fr-mt-2w">
-          <label class="fr-label fr-mb-1w">{{ $t('roommatesinformation.roommateEmail') }}</label>
+          <label class="fr-label fr-mb-1w">{{ t('roommatesinformation.roommateEmail') }}</label>
           <Field
             id="email"
             name="email"
@@ -89,7 +89,7 @@
             />
           </Field>
           <ErrorMessage name="email" v-slot="{ message }">
-            <span role="alert" class="fr-error-text">{{ $t(message || '') }}</span>
+            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>
 
@@ -99,7 +99,7 @@
               class="full-width-xs"
               :fullWidth="isMobile()"
               :secondary="true"
-              :label="$t('roommatesinformation.add-a-roommate')"
+              :label="t('roommatesinformation.add-a-roommate')"
               :btn-type="'button'"
               :disabled="invalidEmail != null || !newRoommate || false"
               @click="addMail"
@@ -131,10 +131,10 @@
                 'fr-input--error': !meta.valid
               }"
             />
-            <label for="authorize" v-html="$t('roommatesinformation.acceptAuthor')"> </label>
+            <label for="authorize" v-html="t('roommatesinformation.acceptAuthor')"> </label>
           </Field>
           <ErrorMessage name="authorize" v-slot="{ message }">
-            <span role="alert" class="fr-error-text">{{ $t(message || '') }}</span>
+            <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
           </ErrorMessage>
         </div>
       </div>
@@ -152,6 +152,7 @@ import { UtilsService } from '../services/UtilsService'
 import useTenantStore from '@/stores/tenant-store'
 import { computed, onMounted, ref } from 'vue'
 import { Field, ErrorMessage, useFieldError, defineRule } from 'vee-validate'
+import { useI18n } from 'vue-i18n'
 
 defineRule('atLeastOneEmail', (email: any, [otherEmails]: any[]) => {
   if (email === '' && otherEmails === undefined) {
@@ -162,6 +163,7 @@ defineRule('atLeastOneEmail', (email: any, [otherEmails]: any[]) => {
 
 const emit = defineEmits(['update:modelValue'])
 
+const { t } = useI18n()
 const store = useTenantStore()
 const user = computed(() => store.user)
 const coTenantAuthorize = computed(() => store.coTenantAuthorize)

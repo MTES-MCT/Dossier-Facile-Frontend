@@ -335,7 +335,13 @@ const useTenantStore = defineStore('tenant', {
     },
     documentsPreValidated(state: State) {
       return (user?: User) => {
-        for (const category of ['IDENTIFICATION', 'PROFESSIONAL', 'RESIDENCY', 'FINANCIAL', 'TAX']) {
+        for (const category of [
+          'IDENTIFICATION',
+          'PROFESSIONAL',
+          'RESIDENCY',
+          'FINANCIAL',
+          'TAX'
+        ]) {
           if (!this.isTenantDocumentValid(category, user)) {
             return false
           }

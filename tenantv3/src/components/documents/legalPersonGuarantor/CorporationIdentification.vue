@@ -12,7 +12,7 @@
         >
           <div class="fr-input-group">
             <label class="fr-label" for="organismName"
-              >{{ $t('corporationidentification.organism-name') }} :</label
+              >{{ t('corporationidentification.organism-name') }} :</label
             >
             <input
               v-bind="field"
@@ -36,7 +36,7 @@
       <NakedCard class="fr-mt-3w fr-p-md-5w">
         <div>
           <h1 class="fr-label">
-            {{ $t('corporationidentification.kbis-label') }}
+            {{ t('corporationidentification.kbis-label') }}
           </h1>
           <AllDeclinedMessages
             class="fr-mb-3w"

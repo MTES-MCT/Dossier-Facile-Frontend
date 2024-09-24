@@ -5,19 +5,19 @@
         <NakedCard class="fr-p-md-5w">
           <div class="text-bold fr-mb-1w">
             <h1 class="fr-h5">
-              {{ $t('guarantorchoice.add-guarantor') }}
+              {{ t('guarantorchoice.add-guarantor') }}
             </h1>
           </div>
           <div class="fr-mt-3w">
-            <p v-html="$t('tenantguarantorchoice.optional-guarantor')"></p>
+            <p v-html="t('tenantguarantorchoice.optional-guarantor')"></p>
             <div class="fr-alert fr-alert--info">
-              <p v-html="$t('tenantguarantorchoice.two-guarantors-warning')"></p>
+              <p v-html="t('tenantguarantorchoice.two-guarantors-warning')"></p>
             </div>
           </div>
         </NakedCard>
         <NakedCard class="fr-p-md-5w fr-mt-3w">
           <div class="fr-mb-2w">
-            {{ $t('tenantguarantorchoice.ask-guarantor') }}
+            {{ t('tenantguarantorchoice.ask-guarantor') }}
           </div>
 
           <GuarantorTypeSelector
@@ -30,14 +30,14 @@
         <div v-if="tmpGuarantorType === 'NO_GUARANTOR'" class="bg-purple fr-mt-3w fr-mb-5w fr-p-5w">
           <div class="fr-grid-row space-between">
             <div class="fr-h5">
-              {{ $t('tenantguarantorchoice.visale-title') }}
+              {{ t('tenantguarantorchoice.visale-title') }}
             </div>
             <img alt="logo visale" class="logo-visale" src="../assets/visale.svg" />
           </div>
-          <p>{{ $t('tenantguarantorchoice.visale-text') }}</p>
+          <p>{{ t('tenantguarantorchoice.visale-text') }}</p>
           <div style="text-align: right">
             <DfButton :primary="true" @on-click="gotoVisale()">
-              {{ $t('tenantguarantorchoice.visale-btn') }}
+              {{ t('tenantguarantorchoice.visale-btn') }}
             </DfButton>
           </div>
         </div>
@@ -57,6 +57,7 @@ import GuarantorTypeSelector from '@/components/GuarantorTypeSelector.vue'
 import { ToastService } from '@/services/ToastService'
 import { onBeforeMount, onUpdated, ref } from 'vue'
 import useTenantStore from '@/stores/tenant-store'
+import { useI18n } from 'vue-i18n'
 
 const props = withDefaults(
   defineProps<{
@@ -69,6 +70,7 @@ const props = withDefaults(
 )
 const emit = defineEmits(['on-back', 'on-select'])
 const store = useTenantStore()
+const { t } = useI18n()
 
 const tmpGuarantorType = ref('')
 const guarantorbodycontent = ref()
