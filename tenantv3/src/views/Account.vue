@@ -270,7 +270,7 @@ function loadExpectedProcessingTime(tenantId: number) {
 }
 
 const processBadgeText = computed(() => {
-  if (expectedDate && expectedDate.value != null) {
+  if (expectedDate.value && expectedDate.value != null) {
     const currentDate = dayjs()
     const delayFrom = expectedDate.value.diff(currentDate, 'hour')
     const delayTo = delayFrom + PROCESSING_TIME_DELTA
@@ -281,7 +281,7 @@ const processBadgeText = computed(() => {
 })
 
 const processBlocDelayText = computed(() => {
-  if (expectedDate && expectedDate.value != null) {
+  if (expectedDate.value && expectedDate.value != null) {
     const processFromDate = dayjs(expectedDate.value)
     const processToDate = dayjs(expectedDate.value).add(PROCESSING_TIME_DELTA, 'hour')
 

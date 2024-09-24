@@ -16,7 +16,7 @@ const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`
 onMounted(() => {
   nextTick(function () {
     window.stop()
-    if (isLoggedIn) {
+    if (isLoggedIn.value) {
       window.location.replace(`${TENANT_URL}/account`)
     } else {
       window.location.replace(MAIN_URL)
