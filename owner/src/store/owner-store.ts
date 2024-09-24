@@ -157,7 +157,7 @@ const useOwnerStore = defineStore('owner', {
           this.registerSuccess();
           return Promise.resolve(response.data);
         },
-        (error) => {
+        (error: Error) => {
           this.registerFailure();
           return Promise.reject(error);
         },
@@ -169,7 +169,7 @@ const useOwnerStore = defineStore('owner', {
           this.loadUserCommit(response.data);
           return Promise.resolve(response.data);
         },
-        (error: any) => Promise.reject(error),
+        (error: Error) => Promise.reject(error),
       );
     },
     logout(redirect = true) {
@@ -192,7 +192,7 @@ const useOwnerStore = defineStore('owner', {
     resetPassword(user: User) {
       return AuthService.resetPassword(user).then(
         (u) => Promise.resolve(u),
-        (error) => Promise.reject(error),
+        (error: Error) => Promise.reject(error),
       );
     },
     changePassword(user: User) {
@@ -201,7 +201,7 @@ const useOwnerStore = defineStore('owner', {
           this.loadUserCommit(response.data);
           return Promise.resolve(user);
         },
-        (error) => Promise.reject(error),
+        (error: Error) => Promise.reject(error),
       );
     },
     saveNames(lastName: string, firstName: string, email: string) {
@@ -214,7 +214,7 @@ const useOwnerStore = defineStore('owner', {
           this.loadUserCommit(response.data);
           return Promise.resolve(response.data);
         })
-        .catch((error) => Promise.reject(error));
+        .catch((error: Error) => Promise.reject(error));
     },
     saveProperty() {
       return OwnerService.saveProperty(this.propertyToEdit).then((response) => {
@@ -255,6 +255,9 @@ const useOwnerStore = defineStore('owner', {
         return Promise.resolve(response.data);
       });
     },
+    setAdemeNumber(ademeNumber: string) {
+      this.propertyToEdit.ademeNumber = ademeNumber;
+    }
   },
 });
 
