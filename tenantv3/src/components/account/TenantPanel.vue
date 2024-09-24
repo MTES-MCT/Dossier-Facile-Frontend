@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="main-information">
-      <h3 class="fr-h4">{{ t("tenantpanel.my-files") + props.tenant.firstName }}</h3>
+      <h3 class="fr-h4">{{ t('tenantpanel.my-files') + props.tenant.firstName }}</h3>
       <ul class="fr-p-0">
         <RowListItem
           v-if="!isCotenant"
@@ -67,105 +67,108 @@
       </ul>
     </div>
 
-    <GuarantorsSection :canEdit="showButtons" :enableDownload="showButtons" :tenant="props.tenant" />
+    <GuarantorsSection
+      :canEdit="showButtons"
+      :enableDownload="showButtons"
+      :tenant="props.tenant"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { User } from "df-shared-next/src/models/User";
-import { DfDocument } from "df-shared-next/src/models/DfDocument";
-import { AnalyticsService } from "../../services/AnalyticsService";
-import GuarantorsSection from "../../components/account/GuarantorsSection.vue";
-import RowListItem from "../../components/documents/RowListItem.vue";
-import FileRowListItem from "../../components/documents/FileRowListItem.vue";
-import { DocumentTypeConstants } from "../../components/documents/share/DocumentTypeConstants";
-import { useRouter } from "vue-router";
-import { useI18n } from "vue-i18n";
-import { UtilsService } from "../../services/UtilsService";
-import { computed } from "vue";
+import { User } from 'df-shared-next/src/models/User'
+import { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import { AnalyticsService } from '../../services/AnalyticsService'
+import GuarantorsSection from '../../components/account/GuarantorsSection.vue'
+import RowListItem from '../../components/documents/RowListItem.vue'
+import FileRowListItem from '../../components/documents/FileRowListItem.vue'
+import { DocumentTypeConstants } from '../../components/documents/share/DocumentTypeConstants'
+import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+import { UtilsService } from '../../services/UtilsService'
+import { computed } from 'vue'
 
 const props = withDefaults(
   defineProps<{
-    tenant: User;
-    isCotenant: boolean;
-    isCouple: boolean;
+    tenant: User
+    isCotenant: boolean
+    isCouple: boolean
   }>(),
   {
     isCotenant: false,
-    isCouple: false,
+    isCouple: false
   }
-);
+)
 
-const router = useRouter();
-const { t } = useI18n();
+const router = useRouter()
+const { t } = useI18n()
 
 const showButtons = computed(() => {
-  return !props.isCotenant || props.isCouple;
+  return !props.isCotenant || props.isCouple
 })
 
-  function gotoTenantName() {
-    if (props.isCotenant) {
-      router.push({
-        name: "CoTenantDocuments",
-        params: {
-          tenantId: props.tenant?.id.toString(),
-          step: "4",
-          substep: "0",
-        },
-      });
-    } else {
-      router.push({ name: "TenantName" });
-    }
+function gotoTenantName() {
+  if (props.isCotenant) {
+    router.push({
+      name: 'CoTenantDocuments',
+      params: {
+        tenantId: props.tenant?.id.toString(),
+        step: '4',
+        substep: '0'
+      }
+    })
+  } else {
+    router.push({ name: 'TenantName' })
   }
+}
 
-  function goToValidationPage() {
-    router.push({ name: "ValidateFile" });
-  }
+function goToValidationPage() {
+  router.push({ name: 'ValidateFile' })
+}
 
-  function setTenantStep(n: number) {
-    AnalyticsService.editFromAccount(n);
-    if (props.isCotenant) {
-      router.push({
-        name: "CoTenantDocuments",
-        params: {
-          tenantId: props.tenant?.id.toString(),
-          step: "4",
-          substep: n.toString(),
-        },
-      });
-    } else {
-      router.push({
-        name: "TenantDocuments",
-        params: { substep: n.toString() },
-      });
-    }
+function setTenantStep(n: number) {
+  AnalyticsService.editFromAccount(n)
+  if (props.isCotenant) {
+    router.push({
+      name: 'CoTenantDocuments',
+      params: {
+        tenantId: props.tenant?.id.toString(),
+        step: '4',
+        substep: n.toString()
+      }
+    })
+  } else {
+    router.push({
+      name: 'TenantDocuments',
+      params: { substep: n.toString() }
+    })
   }
+}
 
-  function document(u: User, s: string) {
-    return u.documents?.find((d) => {
-      return d.documentCategory === s;
-    });
-  }
+function document(u: User, s: string) {
+  return u.documents?.find((d) => {
+    return d.documentCategory === s
+  })
+}
 
-  function documents(g: User, docType: string): DfDocument[] {
-    return (
-      (g.documents?.filter((d: DfDocument) => {
-        return d.documentCategory === docType;
-      }) as DfDocument[]) || []
-    );
-  }
+function documents(g: User, docType: string): DfDocument[] {
+  return (
+    (g.documents?.filter((d: DfDocument) => {
+      return d.documentCategory === docType
+    }) as DfDocument[]) || []
+  )
+}
 
-  function getProfessionalSubCategory(u: User): string {
-    const professionalDocument = document(u, "PROFESSIONAL");
-    const translationKey = DocumentTypeConstants.PROFESSIONAL_DOCS.find(
-      (doc) => doc.value === professionalDocument?.subCategory
-    )?.key;
-    return t(translationKey || "");
-  }
+function getProfessionalSubCategory(u: User): string {
+  const professionalDocument = document(u, 'PROFESSIONAL')
+  const translationKey = DocumentTypeConstants.PROFESSIONAL_DOCS.find(
+    (doc) => doc.value === professionalDocument?.subCategory
+  )?.key
+  return t(translationKey || '')
+}
 </script>
 
 <style scoped lang="scss">
-
 h1 {
   color: var(--bf500);
   font-size: 2rem;

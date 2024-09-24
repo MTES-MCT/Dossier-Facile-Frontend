@@ -33,7 +33,7 @@
       </div>
     </NakedCard>
     <ConfirmModal v-if="isDocDeleteVisible" @valid="validSelect()" @cancel="undoSelect()">
-      <span>{{ $t("documentdownloader.will-delete-files") }}</span>
+      <span>{{ $t('documentdownloader.will-delete-files') }}</span>
     </ConfirmModal>
 
     <slot name="after-select-block"></slot>
@@ -84,8 +84,8 @@
         <label for="noDocument">
           {{
             document
-              ? $t("noDocument-" + document.key)
-              : $t("documentdownloader.noDocument-default")
+              ? $t('noDocument-' + document.key)
+              : $t('documentdownloader.noDocument-default')
           }}
         </label>
       </div>
@@ -103,7 +103,7 @@
             v-model="dfDocument.customText"
             v-slot="{ field, meta }"
             :rules="{
-              required: true,
+              required: true
             }"
           >
             <textarea
@@ -111,7 +111,7 @@
               class="form-control fr-input validate-required"
               :class="{
                 'fr-input--valid': meta.valid,
-                'fr-input--error': !meta.valid,
+                'fr-input--error': !meta.valid
               }"
               id="customText"
               name="customText"
@@ -122,18 +122,12 @@
               required
             />
             <span
-              >{{
-                dfDocument
-                  ? dfDocument.customText
-                    ? dfDocument.customText.length
-                    : 0
-                  : 0
-              }}
-              / 2000</span
+              >{{ dfDocument ? (dfDocument.customText ? dfDocument.customText.length : 0) : 0 }} /
+              2000</span
             >
           </Field>
           <ErrorMessage name="customText" v-slot="{ message }">
-            <span role="alert" class="fr-error-text">{{ $t(message || "") }}</span>
+            <span role="alert" class="fr-error-text">{{ $t(message || '') }}</span>
           </ErrorMessage>
         </div>
       </div>
@@ -146,7 +140,7 @@
           <div class="fr-grid-row justify-content-center">
             <div class="fr-col-12">
               <p>
-                {{ $t("documentdownloader.warning-no-document-and-files") }}
+                {{ $t('documentdownloader.warning-no-document-and-files') }}
               </p>
             </div>
           </div>
@@ -162,22 +156,24 @@
           <h1 class="avis-title fr-h4">
             <i class="ri-alarm-warning-line"></i>
 
-            {{ $t("tax-page.avis-detected") }}
+            {{ $t('tax-page.avis-detected') }}
           </h1>
           <p>
-            {{ $t("tax-page.avis-text1") }}
+            {{ $t('tax-page.avis-text1') }}
           </p>
           <hr class="mobile" />
           <div class="btn-align">
-            <DfButton
-              @on-click="isWarningTaxSituationModalVisible = false"
-              :primary="true"
-              >{{ $t("tax-page.avis-btn") }}</DfButton
-            >
+            <DfButton @on-click="isWarningTaxSituationModalVisible = false" :primary="true">{{
+              $t('tax-page.avis-btn')
+            }}</DfButton>
           </div>
           <div class="btn-align fr-mt-2w">
-            <a href="https://docs.dossierfacile.logement.gouv.fr/article/88-avis-dimposition" rel="noopener"
-               target="_blank">{{ $t("tax-page.avis-link-to-doc") }}</a>
+            <a
+              href="https://docs.dossierfacile.logement.gouv.fr/article/88-avis-dimposition"
+              rel="noopener"
+              target="_blank"
+              >{{ $t('tax-page.avis-link-to-doc') }}</a
+            >
           </div>
         </div>
       </template>
@@ -186,308 +182,310 @@
 </template>
 
 <script setup lang="ts">
-import { RegisterService } from "@/services/RegisterService";
-import { DfDocument } from "df-shared-next/src/models/DfDocument";
-import { DfFile } from "df-shared-next/src/models/DfFile";
-import { DocumentType } from "df-shared-next/src/models/Document";
-import { DocumentDeniedReasons } from "df-shared-next/src/models/DocumentDeniedReasons";
-import { UploadStatus } from "df-shared-next/src/models/UploadStatus";
-import { User } from "df-shared-next/src/models/User";
-import { cloneDeep } from "lodash";
-import FileUpload from "../../uploads/FileUpload.vue";
-import ListItem from "../../uploads/ListItem.vue";
-import ConfirmModal from "df-shared-next/src/components/ConfirmModal.vue";
-import DfButton from "df-shared-next/src/Button/Button.vue";
-import NakedCard from "df-shared-next/src/components/NakedCard.vue";
-import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
-import Modal from "df-shared-next/src/components/Modal.vue";
-import { UtilsService } from "@/services/UtilsService";
-import { PdfAnalysisService } from "../../../services/PdfAnalysisService";
-import WarningTaxDeclaration from "@/components/documents/share/WarningTaxDeclaration.vue";
-import SimpleRadioButtons from "df-shared-next/src/Button/SimpleRadioButtons.vue";
-import { ToastService } from "@/services/ToastService";
-import { useLoading } from "vue-loading-overlay";
-import { computed, onBeforeMount, ref } from "vue";
-import useTenantStore from "@/stores/tenant-store";
-import { Field, ErrorMessage } from "vee-validate";
-import { AnalyticsService } from "../../../services/AnalyticsService";
+import { RegisterService } from '@/services/RegisterService'
+import { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import { DfFile } from 'df-shared-next/src/models/DfFile'
+import { DocumentType } from 'df-shared-next/src/models/Document'
+import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
+import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
+import { User } from 'df-shared-next/src/models/User'
+import { cloneDeep } from 'lodash'
+import FileUpload from '../../uploads/FileUpload.vue'
+import ListItem from '../../uploads/ListItem.vue'
+import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
+import DfButton from 'df-shared-next/src/Button/Button.vue'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
+import Modal from 'df-shared-next/src/components/Modal.vue'
+import { UtilsService } from '@/services/UtilsService'
+import { PdfAnalysisService } from '../../../services/PdfAnalysisService'
+import WarningTaxDeclaration from '@/components/documents/share/WarningTaxDeclaration.vue'
+import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
+import { ToastService } from '@/services/ToastService'
+import { useLoading } from 'vue-loading-overlay'
+import { computed, onBeforeMount, ref } from 'vue'
+import useTenantStore from '@/stores/tenant-store'
+import { Field, ErrorMessage } from 'vee-validate'
+import { AnalyticsService } from '../../../services/AnalyticsService'
 
-const store = useTenantStore();
+const store = useTenantStore()
 
 const props = withDefaults(
   defineProps<{
-    coTenantId: number;
-    documentsDefinitions: any;
-    documentCategory: string;
-    editedDocumentId?: number;
-    dispatchMethodName: string;
-    typeDocument: string;
-    listType?: string;
-    showDownloader?: boolean;
-    allowNoDocument?: boolean;
-    forceShowDownloader?: boolean;
-    testAvisSituation?: boolean;
-    translationKeyPrefix?: string;
+    coTenantId: number
+    documentsDefinitions: any
+    documentCategory: string
+    editedDocumentId?: number
+    dispatchMethodName: string
+    typeDocument: string
+    listType?: string
+    showDownloader?: boolean
+    allowNoDocument?: boolean
+    forceShowDownloader?: boolean
+    testAvisSituation?: boolean
+    translationKeyPrefix?: string
   }>(),
   {
-    listType: "default",
+    listType: 'default',
     showDownloader: true,
     allowNoDocument: false,
     forceShowDownloader: false,
     testAvisSituation: false,
-    translationKeyPrefix: "documents.",
+    translationKeyPrefix: 'documents.'
   }
-);
+)
 
-const localEditedDocumentId = ref(props.editedDocumentId);
-const documentDeniedReasons = ref(new DocumentDeniedReasons());
-const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL);
-const document = ref(new DocumentType());
-const isDocDeleteVisible = ref(false);
-const selectedCoTenant = ref(new User());
+const localEditedDocumentId = ref(props.editedDocumentId)
+const documentDeniedReasons = ref(new DocumentDeniedReasons())
+const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
+const document = ref(new DocumentType())
+const isDocDeleteVisible = ref(false)
+const selectedCoTenant = ref(new User())
 
-const dfDocument = ref(new DfDocument());
-const noDocument = ref(false);
-const showIsNoDocumentAndFiles = ref(false);
-const newFiles = ref([] as File[]);
-const isWarningTaxSituationModalVisible = ref(false);
+const dfDocument = ref(new DfDocument())
+const noDocument = ref(false)
+const showIsNoDocumentAndFiles = ref(false)
+const newFiles = ref([] as File[])
+const isWarningTaxSituationModalVisible = ref(false)
 
-const emit = defineEmits(["on-change-document", "enrich-form-data"]);
+const emit = defineEmits(['on-change-document', 'enrich-form-data'])
 
-var loader: any;
+var loader: any
 
 onBeforeMount(() => {
-  loadDocument();
-  noDocument.value = dfDocument.value?.noDocument == true;
-});
+  loadDocument()
+  noDocument.value = dfDocument.value?.noDocument == true
+})
 
 function changeNoDocument(event: Event) {
   if (!noDocument.value && Number(dfDocument.value?.files?.length) > 0) {
-    showIsNoDocumentAndFiles.value = true;
-    dfDocument.value.noDocument = noDocument.value;
-    return true;
+    showIsNoDocumentAndFiles.value = true
+    dfDocument.value.noDocument = noDocument.value
+    return true
   } else {
-    noDocument.value = !noDocument.value;
-    dfDocument.value.noDocument = noDocument.value;
+    noDocument.value = !noDocument.value
+    dfDocument.value.noDocument = noDocument.value
   }
-  emit("on-change-document", document.value, dfDocument.value);
-  return true;
+  emit('on-change-document', document.value, dfDocument.value)
+  return true
 }
 function onSelectChange($event: any) {
-  const d = props.documentsDefinitions.find((d: any) => d.key === $event?.value);
-  onEventChange(d);
+  const d = props.documentsDefinitions.find((d: any) => d.key === $event?.value)
+  onEventChange(d)
 }
 
 function onEventChange($event: any) {
-  document.value = $event;
+  document.value = $event
   if (selectedCoTenant.value?.documents !== null) {
-    const doc = getDocument();
+    const doc = getDocument()
     if (doc !== undefined) {
       isDocDeleteVisible.value =
-        (doc.files?.length || 0) > 0 && doc.subCategory !== document.value.value;
+        (doc.files?.length || 0) > 0 && doc.subCategory !== document.value.value
     }
   }
-  emit("on-change-document", document.value, dfDocument.value);
+  emit('on-change-document', document.value, dfDocument.value)
   // why ? no
-  noDocument.value = dfDocument.value?.noDocument == true;
-  return false;
+  noDocument.value = dfDocument.value?.noDocument == true
+  return false
 }
 
 const documentStatus = computed(() => {
-  return getDocument()?.documentStatus;
-});
+  return getDocument()?.documentStatus
+})
 function documentFiles(): DfFile[] {
-  return getDocument().files ? (getDocument().files as DfFile[]) : [];
+  return getDocument().files ? (getDocument().files as DfFile[]) : []
 }
 
 function loadDocument(forceLoadLast?: boolean) {
-  selectedCoTenant.value = store.getTenant(Number(props.coTenantId));
+  selectedCoTenant.value = store.getTenant(Number(props.coTenantId))
   if (localEditedDocumentId.value) {
     const doc = selectedCoTenant.value.documents
       ? (selectedCoTenant.value.documents.find((d: DfDocument) => {
           return (
-            d.documentCategory === props.documentCategory &&
-            d.id === localEditedDocumentId.value
-          );
+            d.documentCategory === props.documentCategory && d.id === localEditedDocumentId.value
+          )
         }) as DfDocument)
-      : undefined;
+      : undefined
 
-    dfDocument.value = doc ? doc : new DfDocument();
+    dfDocument.value = doc ? doc : new DfDocument()
     if (localEditedDocumentId.value == -1 && forceLoadLast) {
       const docs = selectedCoTenant.value.documents?.filter((d: DfDocument) => {
-        return d.documentCategory === props.documentCategory;
-      }) as DfDocument[];
+        return d.documentCategory === props.documentCategory
+      }) as DfDocument[]
 
-      dfDocument.value = docs[docs.length - 1];
-      localEditedDocumentId.value = dfDocument.value.id;
+      dfDocument.value = docs[docs.length - 1]
+      localEditedDocumentId.value = dfDocument.value.id
     }
   } else {
     const doc = selectedCoTenant.value.documents
       ? (selectedCoTenant.value.documents.find((d: DfDocument) => {
-          return d.documentCategory === props.documentCategory;
+          return d.documentCategory === props.documentCategory
         }) as DfDocument)
-      : undefined;
+      : undefined
 
-    dfDocument.value = doc ? doc : new DfDocument();
+    dfDocument.value = doc ? doc : new DfDocument()
   }
 
   // loadDocType
   const localDoc = props.documentsDefinitions.find((d: DocumentType) => {
-    return d.value === dfDocument.value.subCategory;
-  });
+    return d.value === dfDocument.value.subCategory
+  })
   if (localDoc !== undefined) {
-    document.value = localDoc;
+    document.value = localDoc
   }
 
   if (dfDocument.value?.documentDeniedReasons) {
     documentDeniedReasons.value = cloneDeep(
       dfDocument.value?.documentDeniedReasons
-    ) as DocumentDeniedReasons;
+    ) as DocumentDeniedReasons
   }
-  emit("on-change-document", document.value, dfDocument.value);
+  emit('on-change-document', document.value, dfDocument.value)
 }
 
 function getDocument(): DfDocument {
-  return dfDocument.value;
+  return dfDocument.value
 }
 
 function undoSelect() {
   if (selectedCoTenant.value?.documents !== null) {
-    const doc = getDocument();
+    const doc = getDocument()
     if (doc !== undefined) {
       const localDoc = props.documentsDefinitions.find((d: DocumentType) => {
-        return d.value === doc.subCategory;
-      });
+        return d.value === doc.subCategory
+      })
       if (localDoc !== undefined) {
-        document.value = localDoc;
+        document.value = localDoc
       }
     }
   }
-  isDocDeleteVisible.value = false;
+  isDocDeleteVisible.value = false
 }
 
 function validSelect() {
-  isDocDeleteVisible.value = false;
+  isDocDeleteVisible.value = false
   if (selectedCoTenant.value.documents !== null) {
-    const doc = getDocument();
+    const doc = getDocument()
     if (doc?.files !== undefined) {
       for (const f of doc.files) {
         if (f.id) {
-          remove(f);
+          remove(f)
         }
       }
     }
-    doc.customText = undefined;
-    localEditedDocumentId.value = -1;
+    doc.customText = undefined
+    localEditedDocumentId.value = -1
   }
 }
 
 async function addFiles(fileList: File[]) {
-  newFiles.value = fileList;
-  showLoader();
+  newFiles.value = fileList
+  showLoader()
   if (
     props.testAvisSituation &&
     (await PdfAnalysisService.includesRejectedTaxDocuments(fileList))
   ) {
-    isWarningTaxSituationModalVisible.value = true;
-    hideLoader();
+    isWarningTaxSituationModalVisible.value = true
+    hideLoader()
   } else {
-    saveNewFiles(false);
+    saveNewFiles(false)
   }
 }
 
 function saveNewFiles(avisDetected: boolean) {
   const filesToAdd = Array.from(newFiles.value).map((f) => {
-    return { name: f.name, file: f, size: f.size };
-  });
+    return { name: f.name, file: f, size: f.size }
+  })
   if (!filesToAdd || filesToAdd.length <= 0) {
-    return;
+    return
   }
-  const futurLength = filesToAdd.length + documentFiles().length;
+  const futurLength = filesToAdd.length + documentFiles().length
   if (document.value.maxFileCount && futurLength > document.value.maxFileCount) {
-    ToastService.maxFileError(futurLength, document.value.maxFileCount);
-    return;
+    ToastService.maxFileError(futurLength, document.value.maxFileCount)
+    return
   }
-  const formData = _buildFormData(filesToAdd, avisDetected);
+  const formData = _buildFormData(filesToAdd, avisDetected)
 
-  fileUploadStatus.value = UploadStatus.STATUS_SAVING;
+  fileUploadStatus.value = UploadStatus.STATUS_SAVING
 
-  showLoader();
+  showLoader()
   store
     .dispatchByName(props.dispatchMethodName, formData)
     .then(() => {
-      fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
-      loadDocument(true);
-      ToastService.saveSuccess();
+      fileUploadStatus.value = UploadStatus.STATUS_INITIAL
+      loadDocument(true)
+      ToastService.saveSuccess()
     })
     .catch((err: any) => {
-      fileUploadStatus.value = UploadStatus.STATUS_FAILED;
-      UtilsService.handleCommonSaveError(err);
+      fileUploadStatus.value = UploadStatus.STATUS_FAILED
+      UtilsService.handleCommonSaveError(err)
     })
     .finally(() => {
-      hideLoader();
-    });
+      hideLoader()
+    })
 }
 
 function _buildFormData(filesToAdd: any, avisDetected: boolean): FormData {
-  const formData = new FormData();
-  const fieldName = "documents";
+  const formData = new FormData()
+  const fieldName = 'documents'
   Array.from(Array(filesToAdd.length).keys()).forEach((x) => {
-    const f: File = filesToAdd[x].file || new File([], "");
-    formData.append(`${fieldName}[${x}]`, f, filesToAdd[x].name);
-  });
+    const f: File = filesToAdd[x].file || new File([], '')
+    formData.append(`${fieldName}[${x}]`, f, filesToAdd[x].name)
+  })
 
-  formData.append(props.typeDocument, document.value.value);
-  formData.append("tenantId", props.coTenantId.toString());
+  formData.append(props.typeDocument, document.value.value)
+  formData.append('tenantId', props.coTenantId.toString())
   if (localEditedDocumentId.value && localEditedDocumentId.value > 0) {
-    formData.append("id", localEditedDocumentId.value.toString());
+    formData.append('id', localEditedDocumentId.value.toString())
   }
-  emit("enrich-form-data", formData);
+  emit('enrich-form-data', formData)
   if (avisDetected) {
-    formData.append("avisDetected", "true");
+    formData.append('avisDetected', 'true')
   } else {
-    formData.append("avisDetected", "false");
+    formData.append('avisDetected', 'false')
   }
 
-  return formData;
+  return formData
 }
 
 function resetFiles() {
-  fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
+  fileUploadStatus.value = UploadStatus.STATUS_INITIAL
 }
 
 function remove(file: DfFile) {
   if (file.id) {
-    showLoader();
+    showLoader()
     RegisterService.deleteFileById(Number(file.id))
       .then(() => {
-        dfDocument.value.files = dfDocument.value.files?.filter((f) => file.id != f.id);
-        if (dfDocument.value.files?.length === 0 && dfDocument.value.documentAnalysisReport?.analysisStatus === "DENIED") {
-          AnalyticsService.removeDeniedDocument(dfDocument.value.subCategory || "");
+        dfDocument.value.files = dfDocument.value.files?.filter((f) => file.id != f.id)
+        if (
+          dfDocument.value.files?.length === 0 &&
+          dfDocument.value.documentAnalysisReport?.analysisStatus === 'DENIED'
+        ) {
+          AnalyticsService.removeDeniedDocument(dfDocument.value.subCategory || '')
         }
 
-        ToastService.saveSuccess();
+        ToastService.saveSuccess()
       })
       .catch((err) => {
-        console.log("Unable to delete last element?", err);
-        ToastService.saveFailed();
+        console.log('Unable to delete last element?', err)
+        ToastService.saveFailed()
       })
       .finally(() => {
-        hideLoader();
-      });
+        hideLoader()
+      })
   }
 }
 
 function showLoader() {
   if (loader === undefined) {
-    const $loading = useLoading({});
-    loader = $loading.show();
+    const $loading = useLoading({})
+    loader = $loading.show()
   }
 }
 
 function hideLoader() {
-  loader?.hide();
-  loader = undefined;
+  loader?.hide()
+  loader = undefined
 }
 
 function mapDocuments() {
@@ -495,9 +493,9 @@ function mapDocuments() {
     return {
       id: d.key,
       labelKey: props.translationKeyPrefix + d.key,
-      value: d,
-    };
-  });
+      value: d
+    }
+  })
 }
 </script>
 

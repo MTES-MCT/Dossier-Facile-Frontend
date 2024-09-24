@@ -20,17 +20,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref } from 'vue'
 import VuePdfEmbed from 'vue-pdf-embed'
 
-const pdfcontent = ref();
+const pdfcontent = ref()
 
-  const props = defineProps<{
-    src: string
-  }>();
+const props = defineProps<{
+  src: string
+}>()
 
-  const loadedRatio = ref(0);
-
+const loadedRatio = ref(0)
 </script>
 
 <style scoped lang="scss">

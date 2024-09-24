@@ -20,17 +20,20 @@
 </template>
 
 <script setup lang="ts">
-  const props = withDefaults(defineProps<{
-    allowList: string[],
-    blockList: string[],
-  }>(), {
+const props = withDefaults(
+  defineProps<{
+    allowList: string[]
+    blockList: string[]
+  }>(),
+  {
     allowList: () => [],
-    blockList: () => [],
-  });
+    blockList: () => []
+  }
+)
 </script>
 
 <style scoped lang="scss">
-@import "df-shared-next/src/scss/_variables.scss";
+@import 'df-shared-next/src/scss/_variables.scss';
 
 .fr-grid-row {
   width: 100%;
@@ -50,7 +53,7 @@
   position: relative;
   &:after {
     position: absolute;
-    content: "";
+    content: '';
     border-left: 1px solid $primary;
     height: 70%;
     transform: translateY(-50%);
@@ -76,14 +79,14 @@ ul li {
 }
 
 .check:before {
-  content: "\2713";
+  content: '\2713';
   display: inline-block;
   color: limegreen;
   padding: 0 6px 0 0;
 }
 
 .times:before {
-  content: "\d7";
+  content: '\d7';
   display: inline-block;
   color: red;
   padding: 0 6px 0 0;

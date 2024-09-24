@@ -1,37 +1,31 @@
 <template>
   <div>
     <FooterContainer>
-      <BackNext
-      :showBack="showBack"
-      @on-next="nextAction()"
-      @on-back="backAction()"
-      >
-    </BackNext>
-  </FooterContainer>
-</div>
+      <BackNext :showBack="showBack" @on-next="nextAction()" @on-back="backAction()"> </BackNext>
+    </FooterContainer>
+  </div>
 </template>
 
 <script setup lang="ts">
-import FooterContainer from "./FooterContainer.vue";
-import BackNext from "./BackNext.vue";
+import FooterContainer from './FooterContainer.vue'
+import BackNext from './BackNext.vue'
 
-const emit = defineEmits(["on-next", "on-back"]);
-
+const emit = defineEmits(['on-next', 'on-back'])
 
 const props = withDefaults(
-defineProps<{
-  showBack?: boolean;
-}>(),
-{
-  showBack: true,
-}
-);
+  defineProps<{
+    showBack?: boolean
+  }>(),
+  {
+    showBack: true
+  }
+)
 
 function nextAction() {
-  emit("on-next");
+  emit('on-next')
 }
 
 function backAction() {
-  emit("on-back");
+  emit('on-back')
 }
 </script>

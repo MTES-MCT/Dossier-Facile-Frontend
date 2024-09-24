@@ -13,9 +13,7 @@
         ></SimpleRadioButtons>
       </div>
     </NakedCard>
-    <NakedCard
-      class="fr-p-md-5w fr-mt-3w"
-      v-if="selectedDocumentType.key || files.length > 0">
+    <NakedCard class="fr-p-md-5w fr-mt-3w" v-if="selectedDocumentType.key || files.length > 0">
       <div>
         <AllDeclinedMessages
           class="fr-mb-3w"
@@ -42,187 +40,189 @@
       </div>
     </NakedCard>
     <ConfirmModal v-if="isDocDeleteVisible" @valid="validSelect()" @cancel="undoSelect()">
-      <span>{{ t("identification-page.will-delete-files") }}</span>
+      <span>{{ t('identification-page.will-delete-files') }}</span>
     </ConfirmModal>
   </div>
 </template>
 
 <script setup lang="ts">
-import FileUpload from "../../uploads/FileUpload.vue";
-import { UploadStatus } from "df-shared-next/src/models/UploadStatus";
-import ListItem from "../../uploads/ListItem.vue";
-import { DfDocument } from "df-shared-next/src/models/DfDocument";
-import { DfFile } from "df-shared-next/src/models/DfFile";
-import { RegisterService } from "../../../services/RegisterService";
-import NakedCard from "df-shared-next/src/components/NakedCard.vue";
-import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
-import { DocumentDeniedReasons } from "df-shared-next/src/models/DocumentDeniedReasons";
-import { Guarantor } from "df-shared-next/src/models/Guarantor";
-import { computed, onBeforeMount, ref } from "vue";
-import { useI18n } from "vue-i18n";
-import useTenantStore from "../../../stores/tenant-store";
-import { ToastService } from "../../../services/ToastService";
-import { useLoading } from "vue-loading-overlay";
-import SimpleRadioButtons from "df-shared-next/src/Button/SimpleRadioButtons.vue";
-import { DocumentType } from "df-shared-next/src/models/Document";
-import { DocumentTypeConstants } from "../../documents/share/DocumentTypeConstants";
-import ConfirmModal from "df-shared-next/src/components/ConfirmModal.vue";
-import { AnalyticsService } from "../../../services/AnalyticsService";
+import FileUpload from '../../uploads/FileUpload.vue'
+import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
+import ListItem from '../../uploads/ListItem.vue'
+import { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import { DfFile } from 'df-shared-next/src/models/DfFile'
+import { RegisterService } from '../../../services/RegisterService'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
+import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
+import { Guarantor } from 'df-shared-next/src/models/Guarantor'
+import { computed, onBeforeMount, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import useTenantStore from '../../../stores/tenant-store'
+import { ToastService } from '../../../services/ToastService'
+import { useLoading } from 'vue-loading-overlay'
+import SimpleRadioButtons from 'df-shared-next/src/Button/SimpleRadioButtons.vue'
+import { DocumentType } from 'df-shared-next/src/models/Document'
+import { DocumentTypeConstants } from '../../documents/share/DocumentTypeConstants'
+import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
+import { AnalyticsService } from '../../../services/AnalyticsService'
 
 const props = defineProps<{
-  tenantId?: number;
-  isCotenant?: boolean;
-  guarantor?: Guarantor;
-}>();
+  tenantId?: number
+  isCotenant?: boolean
+  guarantor?: Guarantor
+}>()
 
-const { t } = useI18n();
-const store = useTenantStore();
-const user = computed(() => store.userToEdit);
+const { t } = useI18n()
+const store = useTenantStore()
+const user = computed(() => store.userToEdit)
 
-const MAX_FILE_COUNT = 5;
+const MAX_FILE_COUNT = 5
 
-const documentTypeOptions = DocumentTypeConstants.GUARANTOR_ORGANISM_DOCS;
+const documentTypeOptions = DocumentTypeConstants.GUARANTOR_ORGANISM_DOCS
 const certificateDocument = computed(() => {
-  return guarantorCertificateDocument();
-});
+  return guarantorCertificateDocument()
+})
 
-const selectedDocumentType = ref(new DocumentType());
-const isDocDeleteVisible = ref(false);
+const selectedDocumentType = ref(new DocumentType())
+const isDocDeleteVisible = ref(false)
 
-const documentDeniedReasons = ref(new DocumentDeniedReasons());
+const documentDeniedReasons = ref(new DocumentDeniedReasons())
 
-const files = ref([] as DfFile[]);
-const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL);
+const files = ref([] as DfFile[])
+const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
 
 onBeforeMount(() => {
-  loadDocument();
-});
+  loadDocument()
+})
 
 function getTitle() {
-  const userType = props.isCotenant ? "cotenant" : "tenant";
-  return t(`explanation-text.${userType}.organism-guarantor`);
+  const userType = props.isCotenant ? 'cotenant' : 'tenant'
+  return t(`explanation-text.${userType}.organism-guarantor`)
 }
 
 function guarantorId() {
   if (props.guarantor) {
-    return props.guarantor.id;
+    return props.guarantor.id
   }
-  return store.guarantor?.id;
+  return store.guarantor?.id
 }
 
 const documentStatus = computed(() => {
-  return certificateDocument.value?.documentStatus;
-});
+  return certificateDocument.value?.documentStatus
+})
 
 function guarantorCertificateDocument(): DfDocument | undefined {
   if (props.guarantor) {
     return props.guarantor.documents?.find((d: DfDocument) => {
-      return d.documentCategory === "GUARANTEE_PROVIDER_CERTIFICATE";
-    }) as DfDocument;
+      return d.documentCategory === 'GUARANTEE_PROVIDER_CERTIFICATE'
+    }) as DfDocument
   }
-  return store.getGuaranteeProviderCertificateDocument;
+  return store.getGuaranteeProviderCertificateDocument
 }
 
 function onSelectChange($event: DocumentType) {
-  selectedDocumentType.value = $event;
+  selectedDocumentType.value = $event
   if (user.value?.documents !== null) {
-    const doc = certificateDocument.value;
+    const doc = certificateDocument.value
     if (doc !== undefined) {
       isDocDeleteVisible.value =
-        (doc?.files?.length || 0) > 0 &&
-        doc?.subCategory !== selectedDocumentType.value.value;
+        (doc?.files?.length || 0) > 0 && doc?.subCategory !== selectedDocumentType.value.value
     }
   }
-  return false;
+  return false
 }
 
 function undoSelect() {
   if (user.value?.documents !== null) {
-    const doc = certificateDocument.value;
+    const doc = certificateDocument.value
     if (doc !== undefined) {
       const localDoc = documentTypeOptions.find((d: DocumentType) => {
-        return d.value === doc?.subCategory;
-      });
+        return d.value === doc?.subCategory
+      })
       if (localDoc !== undefined) {
-        selectedDocumentType.value = localDoc;
+        selectedDocumentType.value = localDoc
       }
     }
   }
-  isDocDeleteVisible.value = false;
+  isDocDeleteVisible.value = false
 }
 
 async function validSelect() {
-  isDocDeleteVisible.value = false;
-  await removeAllFiles();
+  isDocDeleteVisible.value = false
+  await removeAllFiles()
 }
 
 function addFiles(newFiles: File[]) {
   if (files.value.length >= MAX_FILE_COUNT) {
-    displayTooManyFilesToast();
-    return;
+    displayTooManyFilesToast()
+    return
   }
-  save(newFiles);
+  save(newFiles)
 }
 
 function save(files: File[]) {
-  const fieldName = "documents";
-  const formData = new FormData();
-  if (!files.length) return;
+  const fieldName = 'documents'
+  const formData = new FormData()
+  if (!files.length) return
 
   Array.from(Array(files.length).keys()).forEach((x) => {
-    formData.append(`${fieldName}[${x}]`, files[x], files[x].name);
-  });
+    formData.append(`${fieldName}[${x}]`, files[x], files[x].name)
+  })
 
-  formData.append("typeDocumentCertificate", selectedDocumentType.value.value);
+  formData.append('typeDocumentCertificate', selectedDocumentType.value.value)
 
-  const gId = guarantorId();
+  const gId = guarantorId()
   if (gId) {
-    formData.append("guarantorId", gId.toString());
+    formData.append('guarantorId', gId.toString())
   }
   if (props.tenantId) {
-    formData.append("tenantId", props.tenantId.toString());
+    formData.append('tenantId', props.tenantId.toString())
   }
 
-  fileUploadStatus.value = UploadStatus.STATUS_SAVING;
-  const $loading = useLoading({});
-  const loader = $loading.show();
+  fileUploadStatus.value = UploadStatus.STATUS_SAVING
+  const $loading = useLoading({})
+  const loader = $loading.show()
   RegisterService.saveOrganismIdentification(formData)
     .then(async (response: any) => {
-      fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
-      ToastService.saveSuccess();
-      await store.loadUserCommit(response.data);
-      loadDocument();
+      fileUploadStatus.value = UploadStatus.STATUS_INITIAL
+      ToastService.saveSuccess()
+      await store.loadUserCommit(response.data)
+      loadDocument()
     })
     .catch(() => {
-      fileUploadStatus.value = UploadStatus.STATUS_FAILED;
-      ToastService.saveFailed();
+      fileUploadStatus.value = UploadStatus.STATUS_FAILED
+      ToastService.saveFailed()
     })
     .finally(() => {
-      loader.hide();
-    });
+      loader.hide()
+    })
 }
 
 function resetFiles() {
-  fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
+  fileUploadStatus.value = UploadStatus.STATUS_INITIAL
 }
 
 async function removeAllFiles() {
-  const ids = files.value.map((f: DfFile) => Number(f.id));
+  const ids = files.value.map((f: DfFile) => Number(f.id))
   for (const fileId of ids) {
-    await remove(fileId, true);
+    await remove(fileId, true)
   }
 }
 
 async function remove(fileId: number, silent = false) {
-  AnalyticsService.deleteFile("guarantee-provider-certificate");
+  AnalyticsService.deleteFile('guarantee-provider-certificate')
   if (fileId) {
-    if (files.value.length === 1 && certificateDocument.value?.documentAnalysisReport?.analysisStatus === "DENIED") {
-      AnalyticsService.removeDeniedDocument(certificateDocument.value.documentCategory || "")
+    if (
+      files.value.length === 1 &&
+      certificateDocument.value?.documentAnalysisReport?.analysisStatus === 'DENIED'
+    ) {
+      AnalyticsService.removeDeniedDocument(certificateDocument.value.documentCategory || '')
     }
-    await RegisterService.deleteFile(fileId, silent);
+    await RegisterService.deleteFile(fileId, silent)
   }
-  const firstIndex = files.value.findIndex((f) => f.id === fileId);
-  files.value.splice(firstIndex, 1);
+  const firstIndex = files.value.findIndex((f) => f.id === fileId)
+  files.value.splice(firstIndex, 1)
 }
 
 function loadDocument() {
@@ -230,28 +230,28 @@ function loadDocument() {
   // edited guarantor (and thus the corresponding document) from state
   if (certificateDocument.value !== undefined) {
     const localDoc = documentTypeOptions.find((d: DocumentType) => {
-      return d.value === certificateDocument.value?.subCategory;
-    });
+      return d.value === certificateDocument.value?.subCategory
+    })
     if (localDoc !== undefined) {
-      selectedDocumentType.value = localDoc;
+      selectedDocumentType.value = localDoc
     }
     if (certificateDocument.value.documentDeniedReasons) {
-      documentDeniedReasons.value = certificateDocument.value.documentDeniedReasons;
+      documentDeniedReasons.value = certificateDocument.value.documentDeniedReasons
     } else {
-      documentDeniedReasons.value = new DocumentDeniedReasons();
+      documentDeniedReasons.value = new DocumentDeniedReasons()
     }
-    files.value = certificateDocument.value?.files || [];
+    files.value = certificateDocument.value?.files || []
   }
 }
 
 function displayTooManyFilesToast() {
-  ToastService.maxFileError(files.value.length, MAX_FILE_COUNT);
+  ToastService.maxFileError(files.value.length, MAX_FILE_COUNT)
 }
 
 function documentTypes() {
   return documentTypeOptions.map((d) => {
-    return { id: d.key, labelKey: d.key, value: d };
-  });
+    return { id: d.key, labelKey: d.key, value: d }
+  })
 }
 </script>
 

@@ -7,29 +7,17 @@
         </div>
         <div v-if="substep === 1">
           <GuarantorIdentification></GuarantorIdentification>
-          <GuarantorFooter
-          @on-back="goBack"
-          @on-next="goNext"
-          ></GuarantorFooter>
+          <GuarantorFooter @on-back="goBack" @on-next="goNext"></GuarantorFooter>
         </div>
         <div v-if="substep === 2">
-          <GuarantorResidency
-          @on-back="goBack"
-          @on-next="goNext"
-          ></GuarantorResidency>
+          <GuarantorResidency @on-back="goBack" @on-next="goNext"></GuarantorResidency>
         </div>
         <div v-if="substep === 3">
           <GuarantorProfessional></GuarantorProfessional>
-          <GuarantorFooter
-          @on-back="goBack"
-          @on-next="goNext"
-          ></GuarantorFooter>
+          <GuarantorFooter @on-back="goBack" @on-next="goNext"></GuarantorFooter>
         </div>
         <div v-if="substep === 4">
-          <GuarantorFinancial
-          @on-back="goBack"
-          @on-next="goNext"
-          ></GuarantorFinancial>
+          <GuarantorFinancial @on-back="goBack" @on-next="goNext"></GuarantorFinancial>
         </div>
         <div v-if="substep === 5">
           <GuarantorTax @on-back="goBack" @on-next="nextStep"></GuarantorTax>
@@ -37,136 +25,129 @@
       </div>
       <div v-if="guarantor?.typeGuarantor === 'ORGANISM'">
         <OrganismCert :guarantor="guarantor"></OrganismCert>
-        <GuarantorFooter
-        @on-back="goBack"
-        @on-next="nextStep"
-        ></GuarantorFooter>
+        <GuarantorFooter @on-back="goBack" @on-next="nextStep"></GuarantorFooter>
       </div>
       <div v-if="guarantor?.typeGuarantor === 'LEGAL_PERSON'">
         <div v-if="substep === 0">
           <CorporationIdentification
-          @on-back="goBack"
-          @on-next="goNext"
+            @on-back="goBack"
+            @on-next="goNext"
           ></CorporationIdentification>
         </div>
         <div v-if="substep === 1">
           <RepresentativeIdentification
-          @on-back="goBack"
-          @on-next="nextStep"
+            @on-back="goBack"
+            @on-next="nextStep"
           ></RepresentativeIdentification>
         </div>
       </div>
     </div>
-    <ConfirmModal
-    v-if="changeGuarantorVisible"
-    @valid="validSelect()"
-    @cancel="undoSelect()"
-    >
-    <span>{{ $t("guarantordocuments.will-delete-guarantor") }}</span>
-  </ConfirmModal>
-</div>
+    <ConfirmModal v-if="changeGuarantorVisible" @valid="validSelect()" @cancel="undoSelect()">
+      <span>{{ $t('guarantordocuments.will-delete-guarantor') }}</span>
+    </ConfirmModal>
+  </div>
 </template>
 
 <script setup lang="ts">
-import GuarantorIdentification from "./documents/naturalGuarantor/GuarantorIdentification.vue";
-import GuarantorName from "./documents/naturalGuarantor/GuarantorName.vue";
-import RepresentativeIdentification from "./documents/legalPersonGuarantor/RepresentativeIdentification.vue";
-import CorporationIdentification from "./documents/legalPersonGuarantor/CorporationIdentification.vue";
-import OrganismCert from "./documents/organismGuarantor/OrganismCert.vue";
-import GuarantorResidency from "./documents/naturalGuarantor/GuarantorResidency.vue";
-import GuarantorProfessional from "./documents/naturalGuarantor/GuarantorProfessional.vue";
-import GuarantorFinancial from "./documents/naturalGuarantor/GuarantorFinancial.vue";
-import GuarantorTax from "./documents/naturalGuarantor/GuarantorTax.vue";
-import ConfirmModal from "df-shared-next/src/components/ConfirmModal.vue";
-import GuarantorFooter from "./footer/GuarantorFooter.vue";
-import { UtilsService } from "@/services/UtilsService";
-import useTenantStore from "@/stores/tenant-store";
-import { computed, onBeforeMount, ref } from "vue";
-import { useRouter } from "vue-router";
-import { ToastService } from "@/services/ToastService";
+import GuarantorIdentification from './documents/naturalGuarantor/GuarantorIdentification.vue'
+import GuarantorName from './documents/naturalGuarantor/GuarantorName.vue'
+import RepresentativeIdentification from './documents/legalPersonGuarantor/RepresentativeIdentification.vue'
+import CorporationIdentification from './documents/legalPersonGuarantor/CorporationIdentification.vue'
+import OrganismCert from './documents/organismGuarantor/OrganismCert.vue'
+import GuarantorResidency from './documents/naturalGuarantor/GuarantorResidency.vue'
+import GuarantorProfessional from './documents/naturalGuarantor/GuarantorProfessional.vue'
+import GuarantorFinancial from './documents/naturalGuarantor/GuarantorFinancial.vue'
+import GuarantorTax from './documents/naturalGuarantor/GuarantorTax.vue'
+import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
+import GuarantorFooter from './footer/GuarantorFooter.vue'
+import { UtilsService } from '@/services/UtilsService'
+import useTenantStore from '@/stores/tenant-store'
+import { computed, onBeforeMount, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { ToastService } from '@/services/ToastService'
 
-const store = useTenantStore();
+const store = useTenantStore()
 const guarantor = computed(() => {
-  return store.selectedGuarantor;
-});
+  return store.selectedGuarantor
+})
 const user = computed(() => {
-  return store.user;
-});
+  return store.user
+})
 
 const props = withDefaults(
-defineProps<{
-  substep: number;
-}>(),
-{
-  substep: 0,
-}
-);
+  defineProps<{
+    substep: number
+  }>(),
+  {
+    substep: 0
+  }
+)
 
-const router = useRouter();
+const router = useRouter()
 
-const tmpGuarantorType = ref("");
-const changeGuarantorVisible = ref(false);
+const tmpGuarantorType = ref('')
+const changeGuarantorVisible = ref(false)
 
 onBeforeMount(() => {
   const currentGuarantor = guarantor.value?.typeGuarantor
-  ? guarantor.value
-  : UtilsService.getLastAddedGuarantor(user.value);
-  store.setSelectedGuarantor(currentGuarantor);
-  tmpGuarantorType.value = currentGuarantor?.typeGuarantor as string;
+    ? guarantor.value
+    : UtilsService.getLastAddedGuarantor(user.value)
+  store.setSelectedGuarantor(currentGuarantor)
+  tmpGuarantorType.value = currentGuarantor?.typeGuarantor as string
 })
 
 function updateSubstep(s: number) {
   router.push({
-    name: "GuarantorDocuments",
-    params: { substep: props.substep === s ? "0" : s.toString() },
-  });
+    name: 'GuarantorDocuments',
+    params: { substep: props.substep === s ? '0' : s.toString() }
+  })
 }
 
 function validSelect() {
   store.deleteAllGuarantors().then(
-  () => {
-    changeGuarantorVisible.value = false;
-    if (!user.value.guarantors.length || 0 >= 1) {
-      router.push({ name: "GuarantorChoice" });
+    () => {
+      changeGuarantorVisible.value = false
+      if (!user.value.guarantors.length || 0 >= 1) {
+        router.push({ name: 'GuarantorChoice' })
+      }
+    },
+    () => {
+      ToastService.error()
     }
-  },
-  () => {
-    ToastService.error();
-  }
-  );
+  )
 }
 
 function undoSelect() {
-  tmpGuarantorType.value = guarantor.value?.typeGuarantor || "";
-  changeGuarantorVisible.value = false;
+  tmpGuarantorType.value = guarantor.value?.typeGuarantor || ''
+  changeGuarantorVisible.value = false
 }
 
 function goBack() {
   if (props.substep > 0) {
     router.push({
-      name: "GuarantorDocuments",
-      params: { substep: (props.substep - 1).toString() },
-    });
+      name: 'GuarantorDocuments',
+      params: { substep: (props.substep - 1).toString() }
+    })
   } else {
     router.push({
-      name: "GuarantorList",
-    });
+      name: 'GuarantorList'
+    })
   }
 }
 
 function goNext() {
-  updateSubstep(props.substep + 1);
+  updateSubstep(props.substep + 1)
 }
 
 function nextStep() {
   router.push({
-    name: "GuarantorList",
-  });
+    name: 'GuarantorList'
+  })
 }
 </script>
 
 <style scoped lang="scss">
-@import "df-shared-next/src/scss/_variables.scss";
+@import 'df-shared-next/src/scss/_variables.scss';
 
 h2 {
   font-size: 1rem;

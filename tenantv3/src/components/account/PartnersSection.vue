@@ -1,7 +1,7 @@
 <template>
   <div class="partners">
     <h2 class="fr-pt-4w">
-      {{ $t("partnerssection.partners-services-section") }}
+      {{ $t('partnerssection.partners-services-section') }}
     </h2>
     <div class="fr-grid-row fr-grid-row--gutters">
       <div class="fr-col-xl-4 fr-col-md-6 fr-col-12">
@@ -14,10 +14,10 @@
               height="80px"
             />
             <div>
-              <h3 class="fr-h5">{{ $t("partnerssection.anil-title") }}</h3>
+              <h3 class="fr-h5">{{ $t('partnerssection.anil-title') }}</h3>
             </div>
             <div class="fr-m-0 fr-py-2w">
-              {{ $t("partnerssection.anil-text") }}
+              {{ $t('partnerssection.anil-text') }}
             </div>
           </div>
           <div class="service-box-btn">
@@ -28,7 +28,7 @@
               target="_blank"
               :title="$t('partnerssection.go-to-anil')"
             >
-              {{ $t("partnerssection.anil-btn") }}
+              {{ $t('partnerssection.anil-btn') }}
             </a>
           </div>
         </div>
@@ -43,10 +43,10 @@
             />
 
             <div>
-              <h3 class="fr-h5">{{ $t("partnerssection.mds-title") }}</h3>
+              <h3 class="fr-h5">{{ $t('partnerssection.mds-title') }}</h3>
             </div>
             <div class="fr-m-0 fr-py-2w">
-              {{ $t("partnerssection.mds-text") }}
+              {{ $t('partnerssection.mds-text') }}
             </div>
           </div>
           <div class="service-box-btn">
@@ -57,7 +57,7 @@
               target="_blank"
               :title="$t('partnerssection.go-to-mds')"
             >
-              {{ $t("partnerssection.mds-btn") }}
+              {{ $t('partnerssection.mds-btn') }}
             </a>
           </div>
         </div>
@@ -73,15 +73,13 @@
 
             <div>
               <h3 class="fr-h5">
-                {{ $t("partnerssection.signal-title") }}
+                {{ $t('partnerssection.signal-title') }}
               </h3>
             </div>
             <div class="fr-m-0 fr-py-2w">
               <i18n-t keypath="partnerssection.signal-text">
                 <template v-slot:nodocument>
-                  <span style="font-weight: bold">{{
-                    $t("partnerssection.nodocument")
-                  }}</span>
+                  <span style="font-weight: bold">{{ $t('partnerssection.nodocument') }}</span>
                 </template>
                 <template v-slot:masecurite>
                   <a
@@ -89,7 +87,7 @@
                     :title="$t('partnerssection.link-title').toString()"
                     rel="noopener"
                     target="_blank"
-                    >{{ $t("partnerssection.masecurite") }}</a
+                    >{{ $t('partnerssection.masecurite') }}</a
                   >
                 </template>
               </i18n-t>
@@ -104,7 +102,7 @@
               target="_blank"
               :title="$t('partnerssection.go-to-signal').toString()"
             >
-              {{ $t("partnerssection.signal-btn") }}
+              {{ $t('partnerssection.signal-btn') }}
             </a>
           </div>
         </div>
@@ -114,16 +112,12 @@
 </template>
 
 <script setup lang="ts">
-import { AnalyticsService } from "@/services/AnalyticsService";
+import { AnalyticsService } from '@/services/AnalyticsService'
 
-  function signal() {
-    AnalyticsService.openMaSecurite();
-    window.open(
-      "https://www.service-public.fr/particuliers/vosdroits/N31138#2",
-      "_blank",
-      "noopener"
-    );
-  }
+function signal() {
+  AnalyticsService.openMaSecurite()
+  window.open('https://www.service-public.fr/particuliers/vosdroits/N31138#2', '_blank', 'noopener')
+}
 </script>
 
 <style lang="scss" scoped>

@@ -7,12 +7,12 @@
 </template>
 
 <script setup lang="ts">
-import { User } from "df-shared-next/src/models/User";
-import TenantErrors from "./TenantErrors.vue";
-import GuarantorErrors from "./GuarantorErrors.vue";
+import { User } from 'df-shared-next/src/models/User'
+import TenantErrors from './TenantErrors.vue'
+import GuarantorErrors from './GuarantorErrors.vue'
 
 const props = defineProps<{
-  user: User;
-  keyprefix: string;
-}>();
+  user: User
+  keyprefix: string
+}>()
 </script>

@@ -6,8 +6,8 @@
     <div v-if="!editFinancialDocument">
       <NakedCard class="fr-p-md-5w fr-mb-3w">
         <div>
-          <h1 class="fr-h6">{{ $t("financial-page.title") }}</h1>
-          <div>{{ $t("financial-page.subtitle") }}</div>
+          <h1 class="fr-h6">{{ $t('financial-page.title') }}</h1>
+          <div>{{ $t('financial-page.subtitle') }}</div>
         </div>
       </NakedCard>
       <div v-for="(f, k) in financialDocuments" :key="k">
@@ -31,7 +31,7 @@
               :title="$t('financial-page.net-monthly')"
               v-show="f.documentType.key !== 'no-income'"
             >
-              {{ f.monthlySum }} {{ $t("financial-page.monthly") }}
+              {{ f.monthlySum }} {{ $t('financial-page.monthly') }}
             </div>
           </template>
           <template v-slot:bottom>
@@ -44,12 +44,8 @@
         </CardRow>
       </div>
       <div>
-        <button
-          @click="addAndSelectFinancial()"
-          v-if="!hasNoIncome()"
-          class="add-income-btn"
-        >
-          {{ $t("financial-page.add-income") }}
+        <button @click="addAndSelectFinancial()" v-if="!hasNoIncome()" class="add-income-btn">
+          {{ $t('financial-page.add-income') }}
         </button>
       </div>
       <SimulationCaf class="fr-mt-4w" />
@@ -59,102 +55,103 @@
 </template>
 
 <script setup lang="ts">
-import { FinancialDocument } from "df-shared-next/src/models/FinancialDocument";
-import { DfDocument } from "df-shared-next/src/models/DfDocument";
-import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
-import ProfileFooter from "../../footer/ProfileFooter.vue";
-import NakedCard from "df-shared-next/src/components/NakedCard.vue";
-import CardRow from "df-shared-next/src/components/CardRow.vue";
-import FinancialDocumentForm from "./FinancialDocumentForm.vue";
-import ColoredTag from "df-shared-next/src/components/ColoredTag.vue";
-import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
-import SimulationCaf from "../share/SimulationCaf.vue";
-import { computed, onBeforeMount } from "vue";
-import useTenantStore from "@/stores/tenant-store";
-import { useI18n } from "vue-i18n";
-import { ToastService } from "@/services/ToastService";
-import {useLoading} from 'vue-loading-overlay'
+import { FinancialDocument } from 'df-shared-next/src/models/FinancialDocument'
+import { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import { DocumentTypeConstants } from '../share/DocumentTypeConstants'
+import ProfileFooter from '../../footer/ProfileFooter.vue'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import CardRow from 'df-shared-next/src/components/CardRow.vue'
+import FinancialDocumentForm from './FinancialDocumentForm.vue'
+import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
+import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
+import SimulationCaf from '../share/SimulationCaf.vue'
+import { computed, onBeforeMount } from 'vue'
+import useTenantStore from '@/stores/tenant-store'
+import { useI18n } from 'vue-i18n'
+import { ToastService } from '@/services/ToastService'
+import { useLoading } from 'vue-loading-overlay'
 
-const { t } = useI18n();
-const store = useTenantStore();
-    const user = computed(() => store.userToEdit);
-    const editFinancialDocument = computed(() => store.editFinancialDocument);
-    const financialDocuments = computed(() => store.tenantFinancialDocuments);
+const { t } = useI18n()
+const store = useTenantStore()
+const user = computed(() => store.userToEdit)
+const editFinancialDocument = computed(() => store.editFinancialDocument)
+const financialDocuments = computed(() => store.tenantFinancialDocuments)
 
-  const documents = DocumentTypeConstants.FINANCIAL_DOCS;
+const documents = DocumentTypeConstants.FINANCIAL_DOCS
 
-  const emit = defineEmits(["on-back", "on-next"]);
+const emit = defineEmits(['on-back', 'on-next'])
 
-  onBeforeMount(() => {
-    initialize();
+onBeforeMount(() => {
+  initialize()
+})
+
+function documentDeniedReasons(f: FinancialDocument) {
+  return tenantFinancialDocument(f)?.documentDeniedReasons
+}
+
+function documentStatus(f: FinancialDocument) {
+  return tenantFinancialDocument(f)?.documentStatus
+}
+
+function initialize() {
+  store.selectDocumentFinancial(undefined)
+  if (financialDocuments.value.length === 0) {
+    addAndSelectFinancial()
+  }
+}
+
+function tenantFinancialDocument(f: FinancialDocument) {
+  return store.getTenantDocuments?.find((d: DfDocument) => {
+    return d.id === f.id
   })
+}
 
-  function documentDeniedReasons(f: FinancialDocument) {
-    return tenantFinancialDocument(f)?.documentDeniedReasons;
-  }
+async function addAndSelectFinancial() {
+  await store.createDocumentFinancial()
+}
 
-  function documentStatus(f: FinancialDocument) {
-    return tenantFinancialDocument(f)?.documentStatus;
+function removeFinancial(f: DfDocument) {
+  if (f.id === undefined) {
+    return
   }
+  const $loading = useLoading({})
+  const loader = $loading.show()
+  store
+    .deleteDocument(f.id)
+    .then(null, () => {
+      ToastService.error()
+    })
+    .finally(() => {
+      loader.hide()
+      initialize()
+    })
+  store.selectDocumentFinancial(undefined)
+}
 
-  function initialize() {
-    store.selectDocumentFinancial(undefined);
-    if (financialDocuments.value.length === 0) {
-      addAndSelectFinancial();
-    }
-  }
+function hasNoIncome() {
+  return (
+    financialDocuments.value.length > 0 &&
+    financialDocuments.value.find((f) => {
+      return f.documentType && f.documentType.key !== 'no-income'
+    }) === undefined
+  )
+}
 
-  function tenantFinancialDocument(f: FinancialDocument) {
-    return store.getTenantDocuments?.find((d: DfDocument) => {
-      return d.id === f.id;
-    });
-  }
+function goBack() {
+  emit('on-back')
+}
 
-  async function addAndSelectFinancial() {
-    await store.createDocumentFinancial();
-  }
+function goNext() {
+  emit('on-next')
+}
 
-  function removeFinancial(f: DfDocument) {
-    if (f.id === undefined) {
-      return;
-    }
-    const $loading = useLoading({});
-    const loader = $loading.show();
-    store.deleteDocument(f.id)
-      .then(null, () => {
-        ToastService.error();
-      })
-      .finally(() => {
-        loader.hide();
-        initialize();
-      });
-    store.selectDocumentFinancial(undefined);
-  }
+async function selectFinancialDocument(f: FinancialDocument) {
+  await store.selectDocumentFinancial(f)
+}
 
-  function hasNoIncome() {
-    return (
-      financialDocuments.value.length > 0 &&
-      financialDocuments.value.find((f) => {
-        return f.documentType && f.documentType.key !== "no-income";
-      }) === undefined
-    );
-  }
-
-  function goBack() {
-    emit("on-back");
-  }
-
-  function goNext() {
-    emit("on-next");
-  }
-
-  async function selectFinancialDocument(f: FinancialDocument) {
-    await store.selectDocumentFinancial(f);
-  }
-
-  function getDocumentName(document: FinancialDocument): string {
-    return t(`documents.${document.documentType.key}`).toString();
-  }
+function getDocumentName(document: FinancialDocument): string {
+  return t(`documents.${document.documentType.key}`).toString()
+}
 </script>
 
 <style scoped lang="scss">

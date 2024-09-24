@@ -2,12 +2,12 @@
   <div class="caf-box fr-px-md-5w fr-pb-md-2w fr-mb-3w bg-purple">
     <div class="header fr-h6">
       <div class="header-title">
-        {{ t("simulationcaf.simulation-caf-title") }}
+        {{ t('simulationcaf.simulation-caf-title') }}
       </div>
       <img alt="logo caf" class="logo-caf" src="../../../assets/caf.svg" />
     </div>
     <div>
-      <div>{{ t("simulationcaf.simulation-caf-text") }}</div>
+      <div>{{ t('simulationcaf.simulation-caf-text') }}</div>
       <div class="body-btn-container">
         <button
           type="button"
@@ -16,7 +16,7 @@
           class="fr-btn fr-btn--secondary"
           @click="openSimulationCAF()"
         >
-          {{ t("simulationcaf.btn-caf") }}
+          {{ t('simulationcaf.btn-caf') }}
         </button>
       </div>
     </div>
@@ -24,18 +24,18 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
-import { AnalyticsService } from "../../../services/AnalyticsService";
+import { useI18n } from 'vue-i18n'
+import { AnalyticsService } from '../../../services/AnalyticsService'
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-  function openSimulationCAF() {
-    AnalyticsService.openSimulationCAF();
-    window.open(
-      "https://wwwd.caf.fr/wps/portal/caffr/aidesetdemarches/mesdemarches/faireunesimulation/lelogement#/preparation",
-      "_blank"
-    );
-  }
+function openSimulationCAF() {
+  AnalyticsService.openSimulationCAF()
+  window.open(
+    'https://wwwd.caf.fr/wps/portal/caffr/aidesetdemarches/mesdemarches/faireunesimulation/lelogement#/preparation',
+    '_blank'
+  )
+}
 </script>
 <style lang="scss" scoped>
 .header {

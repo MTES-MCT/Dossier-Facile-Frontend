@@ -12,7 +12,7 @@
   >
     <div>
       <span class="fr-icon-message-2-fill fr-mr-1v" aria-hidden="true"></span>
-      <span class="fr-text--bold">{{ $t("declined-messages.header") }}</span>
+      <span class="fr-text--bold">{{ $t('declined-messages.header') }}</span>
     </div>
     <div>
       <ul v-if="messages.length > 1">
@@ -23,40 +23,40 @@
   </div>
 </template>
 <script setup lang="ts">
-import { DocumentDeniedReasons } from "df-shared-next/src/models/DocumentDeniedReasons";
-import PreValidationMessages from "./PreValidationMessages.vue";
-import { computed } from "vue";
-import { DfDocument } from "df-shared-next/src/models/DfDocument";
+import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
+import PreValidationMessages from './PreValidationMessages.vue'
+import { computed } from 'vue'
+import { DfDocument } from 'df-shared-next/src/models/DfDocument'
 
 const props = withDefaults(
   defineProps<{
-    documentDeniedReasons?: DocumentDeniedReasons | null;
-    documentStatus?: string;
-    userId?: number;
-    document?: DfDocument;
+    documentDeniedReasons?: DocumentDeniedReasons | null
+    documentStatus?: string
+    userId?: number
+    document?: DfDocument
   }>(),
   {
     documentDeniedReasons: null,
-    documentStatus: "",
+    documentStatus: ''
   }
-);
+)
 
 const messages = computed(() => {
-  let allMessages = [] as string[];
-  const deniedReasons = props.documentDeniedReasons?.selectedOptions;
+  let allMessages = [] as string[]
+  const deniedReasons = props.documentDeniedReasons?.selectedOptions
   if (deniedReasons !== undefined) {
-    allMessages = allMessages.concat(deniedReasons.map((r) => r.label));
+    allMessages = allMessages.concat(deniedReasons.map((r) => r.label))
   }
-  const comment = props.documentDeniedReasons?.comment;
+  const comment = props.documentDeniedReasons?.comment
   if (comment !== undefined) {
-    allMessages.push(comment);
+    allMessages.push(comment)
   }
-  return allMessages;
-});
+  return allMessages
+})
 </script>
 
 <style scoped lang="scss">
-@import "@gouvfr/dsfr/dist/utility/icons/icons-communication/icons-communication.css";
+@import '@gouvfr/dsfr/dist/utility/icons/icons-communication/icons-communication.css';
 
 .declined {
   padding: 1rem 1rem 0.75rem;
