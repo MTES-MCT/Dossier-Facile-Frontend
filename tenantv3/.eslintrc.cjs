@@ -5,7 +5,7 @@ module.exports = {
   root: true,
   env: {
     browser: true,
-    es2021: true,
+    es2021: true
   },
   extends: [
     'plugin:vue/vue3-essential',
@@ -15,21 +15,14 @@ module.exports = {
   ],
   overrides: [
     {
-      files: [
-        'cypress/e2e/**/*.{cy,spec}.{js,ts,jsx,tsx}'
-      ],
-      'extends': [
-        'plugin:cypress/recommended'
-      ]
+      files: ['cypress/e2e/**/*.{cy,spec}.{js,ts,jsx,tsx}'],
+      extends: ['plugin:cypress/recommended']
     }
   ],
   parserOptions: {
     ecmaVersion: 'latest',
     parser: '@typescript-eslint/parser',
-    sourceType: 'module',
+    sourceType: 'module'
   },
-  plugins: [
-    'vue',
-    '@typescript-eslint',
-  ]
+  plugins: ['vue']
 }
