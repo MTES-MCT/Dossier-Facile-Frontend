@@ -2,10 +2,10 @@
   <div class="left-edit-menu fr-pt-7w fr-pb-12w" id="funnel-menu">
     <div class="inner-left-edit">
       <div class="step" :class="getClass(getStepNumber('information'))">
-        <div class="step-number">{{ getStepNumber("information") }}</div>
+        <div class="step-number">{{ getStepNumber('information') }}</div>
         <div class="step-title">
           <router-link :to="{ name: 'TenantName', force: true }" class="fr-link">
-            {{ t("personal-information") }}
+            {{ t('personal-information') }}
           </router-link>
         </div>
       </div>
@@ -31,12 +31,12 @@
         </div>
       </div>
       <div class="step" :class="getClass(getStepNumber('documents'))">
-        <div class="step-number">{{ getStepNumber("documents") }}</div>
+        <div class="step-number">{{ getStepNumber('documents') }}</div>
         <div class="step-title">
           <router-link
             class="fr-link"
             :to="{ name: 'TenantDocuments', force: true, params: { substep: '1' } }"
-            >{{ t("my-document") }}
+            >{{ t('my-document') }}
           </router-link>
         </div>
       </div>
@@ -75,10 +75,10 @@
         </div>
       </div>
       <div class="step" :class="getClass(getStepNumber('guarantor'))">
-        <div class="step-number">{{ getStepNumber("guarantor") }}</div>
+        <div class="step-number">{{ getStepNumber('guarantor') }}</div>
         <div class="step-title">
           <router-link class="fr-link" :to="getGuarantorLink()"
-            >{{ t("my-guarantor") }}
+            >{{ t('my-guarantor') }}
           </router-link>
         </div>
       </div>
@@ -97,7 +97,7 @@
                   :to="{
                     name: 'GuarantorDocuments',
                     force: true,
-                    params: { substep: '0', guarantorId: g.id },
+                    params: { substep: '0', guarantorId: g.id }
                   }"
                 >
                   <ColoredTag
@@ -171,12 +171,8 @@
           </div>
         </div>
       </div>
-      <div
-        v-if="isCouple()"
-        class="step"
-        :class="getClass(getStepNumber('coTenant'))"
-      >
-        <div class="step-number">{{ getStepNumber("coTenant") }}</div>
+      <div v-if="isCouple()" class="step" :class="getClass(getStepNumber('coTenant'))">
+        <div class="step-number">{{ getStepNumber('coTenant') }}</div>
         <div class="step-title">
           <router-link
             class="fr-link"
@@ -186,18 +182,14 @@
               params: {
                 step: getStepNumber('coTenant'),
                 substep: '0',
-                tenantId: getCoTenant(0).id,
-              },
+                tenantId: getCoTenant(0).id
+              }
             }"
-            >{{ t("my-cotenant") }}
+            >{{ t('my-cotenant') }}
           </router-link>
         </div>
       </div>
-      <div
-        v-if="isCouple()"
-        class="vline"
-        :class="getClass(getStepNumber('coTenant'))"
-      >
+      <div v-if="isCouple()" class="vline" :class="getClass(getStepNumber('coTenant'))">
         <div v-if="step === getStepNumber('coTenant')">
           <div>
             <div v-for="(coTenant, k) in coTenants" :key="k">
@@ -206,7 +198,7 @@
                   :to="{
                     name: 'CoTenantDocuments',
                     force: true,
-                    params: { substep: '0', tenantId: coTenant.id },
+                    params: { substep: '0', tenantId: coTenant.id }
                   }"
                 >
                   <ColoredTag
@@ -255,33 +247,20 @@
           </div>
         </div>
       </div>
-      <div
-        v-if="isCouple()"
-        class="step"
-        :class="getClass(getStepNumber('coTenantGuarantor'))"
-      >
+      <div v-if="isCouple()" class="step" :class="getClass(getStepNumber('coTenantGuarantor'))">
         <div class="step-number">
-          {{ getStepNumber("coTenantGuarantor") }}
+          {{ getStepNumber('coTenantGuarantor') }}
         </div>
         <div class="step-title">
           <router-link
             class="fr-link"
-            :to="
-              getTenantGuarantorLink(
-                getCoTenant(0),
-                getStepNumber('coTenantGuarantor')
-              )
-            "
+            :to="getTenantGuarantorLink(getCoTenant(0), getStepNumber('coTenantGuarantor'))"
           >
-            {{ t("my-cotenant-guarantor") }}
+            {{ t('my-cotenant-guarantor') }}
           </router-link>
         </div>
       </div>
-      <div
-        v-if="isCouple()"
-        class="vline"
-        :class="getClass(getStepNumber('coTenantGuarantor'))"
-      >
+      <div v-if="isCouple()" class="vline" :class="getClass(getStepNumber('coTenantGuarantor'))">
         <div v-if="step === getStepNumber('coTenantGuarantor')">
           <div
             v-if="
@@ -301,8 +280,8 @@
                       step: getStepNumber('coTenantGuarantor'),
                       substep: '0',
                       tenantId: getCoTenant(0).id,
-                      guarantorId: g.id,
-                    },
+                      guarantorId: g.id
+                    }
                   }"
                 >
                   <ColoredTag
@@ -385,16 +364,16 @@
         </div>
       </div>
       <div class="step" :class="getClass(getStepNumber('validate'))">
-        <div class="step-number">{{ getStepNumber("validate") }}</div>
+        <div class="step-number">{{ getStepNumber('validate') }}</div>
         <div class="step-title">
           <router-link
             class="fr-link"
             :to="{
               name: 'ValidateFileStep',
               force: true,
-              params: { step: getStepNumber('validate') },
+              params: { step: getStepNumber('validate') }
             }"
-            >{{ t("validate-file") }}
+            >{{ t('validate-file') }}
           </router-link>
         </div>
       </div>
@@ -405,126 +384,126 @@
 </template>
 
 <script setup lang="ts">
-import { Guarantor } from "df-shared-next/src/models/Guarantor";
-import ColoredTag from "df-shared-next/src/components/ColoredTag.vue";
-import { User } from "df-shared-next/src/models/User";
-import GuarantorDocumentLink from "./documents/GuarantorDocumentLink.vue";
-import TenantDocumentLink from "./documents/TenantDocumentLink.vue";
-import CoTenantDocumentLink from "./documents/CoTenantDocumentLink.vue";
-import CoTenantGuarantorDocumentLink from "./documents/CoTenantGuarantorDocumentLink.vue";
-import useTenantStore from "@/stores/tenant-store";
-import { computed } from "vue";
-import { useRoute } from "vue-router";
-import { UtilsService } from "@/services/UtilsService";
-import { useI18n } from "vue-i18n";
-import { DocumentType } from "./documents/DocumentType";
+import { Guarantor } from 'df-shared-next/src/models/Guarantor'
+import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
+import { User } from 'df-shared-next/src/models/User'
+import GuarantorDocumentLink from './documents/GuarantorDocumentLink.vue'
+import TenantDocumentLink from './documents/TenantDocumentLink.vue'
+import CoTenantDocumentLink from './documents/CoTenantDocumentLink.vue'
+import CoTenantGuarantorDocumentLink from './documents/CoTenantGuarantorDocumentLink.vue'
+import useTenantStore from '@/stores/tenant-store'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+import { UtilsService } from '@/services/UtilsService'
+import { useI18n } from 'vue-i18n'
+import { DocumentType } from './documents/DocumentType'
 
-    const store = useTenantStore();
-    const route = useRoute();
-    const selectedGuarantor = computed(() => store.selectedGuarantor)
-    const user = computed(() => store.user)
-const { t } = useI18n();
+const store = useTenantStore()
+const route = useRoute()
+const selectedGuarantor = computed(() => store.selectedGuarantor)
+const user = computed(() => store.user)
+const { t } = useI18n()
 
-  const props = withDefaults(
-    defineProps<{
-      step: number;
-    }>(),
-    {
-      step: 0,
-    }
-  );
+const props = withDefaults(
+  defineProps<{
+    step: number
+  }>(),
+  {
+    step: 0
+  }
+)
 
 const coTenants = computed(() => {
-const c =user.value.apartmentSharing?.tenants?.filter((r: User) => {
-      return r.id != user.value.id;
-    }) as User[];
+  const c = user.value.apartmentSharing?.tenants?.filter((r: User) => {
+    return r.id != user.value.id
+  }) as User[]
   if (!c) {
-      return []
-    }
-    return c
-  });
+    return []
+  }
+  return c
+})
 
-  function getClass(s: number) {
-    if (s <= props.step) {
-      return "active";
-    }
-    return "";
+function getClass(s: number) {
+  if (s <= props.step) {
+    return 'active'
+  }
+  return ''
+}
+
+function getTenantCurrentStep(substep: number): boolean {
+  const s = Number(route.params.substep) || 0
+  return props.step === 2 && s === substep
+}
+
+function getGuarantorCurrentStep(substep: number, g: Guarantor | undefined): boolean {
+  const s = Number(route.params.substep) || 0
+  return (
+    (props.step === 3 || props.step === 5) &&
+    s === substep &&
+    (g === undefined || selectedGuarantor.value?.id === g.id)
+  )
+}
+
+function getCurrentSubStep() {
+  return Number(route.params.substep) || 0
+}
+
+function getGuarantorLink() {
+  if (user.value.guarantors.length > 0) {
+    return { name: 'GuarantorList', force: true }
+  }
+  return { name: 'GuarantorChoice', force: true }
+}
+
+function getTenantGuarantorLink(tenant: User, stepNum: number) {
+  return {
+    name: 'TenantGuarantors',
+    force: true,
+    params: { tenantId: Number(tenant.id), step: stepNum }
+  }
+}
+
+function isCouple() {
+  return user.value.applicationType === 'COUPLE'
+}
+
+function getCoTenant(index: number): User {
+  if (coTenants.value[index]) {
+    return coTenants.value[index]
+  }
+  return new User()
+}
+
+function getStepNumber(stepName: string): number {
+  switch (stepName) {
+    case 'information':
+      return 1
+    case 'documents':
+      return 2
+    case 'guarantor':
+      return 3
+    case 'coTenant':
+      return 4
+    case 'coTenantGuarantor':
+      return 5
+    case 'validate':
+      return user.value.applicationType == 'COUPLE' ? 6 : 4
   }
 
-  function getTenantCurrentStep(substep: number): boolean {
-    const s = Number(route.params.substep) || 0;
-    return props.step === 2 && s === substep;
-  }
+  return -1
+}
 
-  function getGuarantorCurrentStep(substep: number, g: Guarantor | undefined): boolean {
-    const s = Number(route.params.substep) || 0;
-    return (
-      (props.step === 3 || props.step === 5) &&
-      s === substep &&
-      (g === undefined || selectedGuarantor.value?.id === g.id)
-    );
+function getName(user: User): string {
+  if (user.preferredName) {
+    return `${user.firstName} ${user.preferredName}`
   }
-
-  function getCurrentSubStep() {
-    return Number(route.params.substep) || 0;
-  }
-
-  function getGuarantorLink() {
-    if (user.value.guarantors.length > 0) {
-      return { name: "GuarantorList", force: true };
-    }
-    return { name: "GuarantorChoice", force: true };
-  }
-
-  function getTenantGuarantorLink(tenant: User, stepNum: number) {
-    return {
-      name: "TenantGuarantors",
-      force: true,
-      params: { tenantId: Number(tenant.id), step: stepNum },
-    };
-  }
-
-  function isCouple() {
-    return user.value.applicationType === "COUPLE";
-  }
-
-  function getCoTenant(index: number): User {
-    if (coTenants.value[index]) {
-      return coTenants.value[index];
-    }
-    return new User();
-  }
-
-  function getStepNumber(stepName: string): number {
-    switch (stepName) {
-      case "information":
-        return 1;
-      case "documents":
-        return 2;
-      case "guarantor":
-        return 3;
-      case "coTenant":
-        return 4;
-      case "coTenantGuarantor":
-        return 5;
-      case "validate":
-        return user.value.applicationType == "COUPLE" ? 6 : 4;
-    }
-
-    return -1;
-  }
-
-  function getName(user: User): string {
-    if (user.preferredName) {
-      return `${user.firstName} ${user.preferredName}`;
-    }
-    return `${user.firstName} ${user.lastName}`;
-  }
+  return `${user.firstName} ${user.lastName}`
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-@import "df-shared-next/src/scss/_variables.scss";
+@import 'df-shared-next/src/scss/_variables.scss';
 
 .left-edit-menu {
   background-color: var(--background-default-grey);

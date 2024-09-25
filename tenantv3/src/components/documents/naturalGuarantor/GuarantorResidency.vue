@@ -3,7 +3,7 @@
     <NakedCard class="fr-p-md-5w">
       <div>
         <h1 class="fr-h6">
-          {{ t("guarantorresidency.select-label") }}
+          {{ t('guarantorresidency.select-label') }}
         </h1>
 
         <div class="fr-mt-3w">
@@ -27,7 +27,7 @@
       v-if="residencyDocument.key && residencyDocument.key === 'other-residency'"
     >
       <div class="fr-alert fr-alert--warning fr-mb-3w">
-        {{ t("residency-page.warning-other-residency") }}
+        {{ t('residency-page.warning-other-residency') }}
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
@@ -45,7 +45,7 @@
       />
     </NakedCard>
     <ConfirmModal v-if="isDocDeleteVisible" @valid="validSelect()" @cancel="undoSelect()">
-      <span>{{ t("guarantorresidency.will-delete-files") }}</span>
+      <span>{{ t('guarantorresidency.will-delete-files') }}</span>
     </ConfirmModal>
     <NakedCard
       class="fr-p-md-5w fr-mt-3w"
@@ -54,8 +54,11 @@
         residencyFiles().length > 0
       "
     >
-      <div class="fr-alert fr-alert--warning fr-mb-3w" v-if="residencyDocument.key === 'owner' || residencyDocument.key === 'tenant'">
-        {{ t("residency-page.warning-tax") }}
+      <div
+        class="fr-alert fr-alert--warning fr-mb-3w"
+        v-if="residencyDocument.key === 'owner' || residencyDocument.key === 'tenant'"
+      >
+        {{ t('residency-page.warning-tax') }}
       </div>
       <div class="fr-mb-3w">
         <p v-html="t(`explanation-text.${guarantorKey()}.${residencyDocument.key}`)"></p>
@@ -88,77 +91,77 @@
 </template>
 
 <script setup lang="ts">
-import FileUpload from "../../uploads/FileUpload.vue";
-import { DocumentType } from "df-shared-next/src/models/Document";
-import { UploadStatus } from "df-shared-next/src/models/UploadStatus";
-import ListItem from "../../uploads/ListItem.vue";
-import { DfFile } from "df-shared-next/src/models/DfFile";
-import { DfDocument } from "df-shared-next/src/models/DfDocument";
-import { RegisterService } from "../../../services/RegisterService";
-import { DocumentTypeConstants } from "../share/DocumentTypeConstants";
-import ConfirmModal from "df-shared-next/src/components/ConfirmModal.vue";
-import NakedCard from "df-shared-next/src/components/NakedCard.vue";
-import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
-import { DocumentDeniedReasons } from "df-shared-next/src/models/DocumentDeniedReasons";
-import { cloneDeep } from "lodash";
-import { UtilsService } from "@/services/UtilsService";
-import ProfileFooter from "@/components/footer/ProfileFooter.vue";
-import TextField from "df-shared-next/src/components/form/TextField.vue";
-import useTenantStore from "@/stores/tenant-store";
-import { computed, onMounted, ref } from "vue";
-import { ToastService } from "@/services/ToastService";
-import { useLoading } from "vue-loading-overlay";
-import { AnalyticsService } from "../../../services/AnalyticsService";
-import { useI18n } from "vue-i18n";
+import FileUpload from '../../uploads/FileUpload.vue'
+import { DocumentType } from 'df-shared-next/src/models/Document'
+import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
+import ListItem from '../../uploads/ListItem.vue'
+import { DfFile } from 'df-shared-next/src/models/DfFile'
+import { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import { RegisterService } from '../../../services/RegisterService'
+import { DocumentTypeConstants } from '../share/DocumentTypeConstants'
+import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
+import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
+import { cloneDeep } from 'lodash'
+import { UtilsService } from '@/services/UtilsService'
+import ProfileFooter from '@/components/footer/ProfileFooter.vue'
+import TextField from 'df-shared-next/src/components/form/TextField.vue'
+import useTenantStore from '@/stores/tenant-store'
+import { computed, onMounted, ref } from 'vue'
+import { ToastService } from '@/services/ToastService'
+import { useLoading } from 'vue-loading-overlay'
+import { AnalyticsService } from '../../../services/AnalyticsService'
+import { useI18n } from 'vue-i18n'
 
-const store = useTenantStore();
-const user = computed(() => store.userToEdit);
-const selectedGuarantor = computed(() => store.selectedGuarantor);
-const { t } = useI18n();
+const store = useTenantStore()
+const user = computed(() => store.userToEdit)
+const selectedGuarantor = computed(() => store.selectedGuarantor)
+const { t } = useI18n()
 
 const props = defineProps<{
-  tenantId?: number;
-}>();
+  tenantId?: number
+}>()
 
-const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL);
-const files = ref([] as DfFile[]);
-const residencyDocument = ref(new DocumentType());
-const documentDeniedReasons = ref(new DocumentDeniedReasons());
-const customText = ref("");
+const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
+const files = ref([] as DfFile[])
+const residencyDocument = ref(new DocumentType())
+const documentDeniedReasons = ref(new DocumentDeniedReasons())
+const customText = ref('')
 
-const documents = DocumentTypeConstants.GUARANTOR_RESIDENCY_DOCS;
-const isDocDeleteVisible = ref(false);
-const emit = defineEmits(["on-back", "on-next"]);
+const documents = DocumentTypeConstants.GUARANTOR_RESIDENCY_DOCS
+const isDocDeleteVisible = ref(false)
+const emit = defineEmits(['on-back', 'on-next'])
 
 onMounted(() => {
-  updateGuarantorData();
-});
+  updateGuarantorData()
+})
 
 const documentStatus = computed(() => {
-  return guarantorResidencyDocument()?.documentStatus;
-});
+  return guarantorResidencyDocument()?.documentStatus
+})
 
 function guarantorResidencyDocument() {
-  return store.getGuarantorResidencyDocument;
+  return store.getGuarantorResidencyDocument
 }
 
 function updateGuarantorData() {
   if (selectedGuarantor.value?.documents !== null) {
     const doc = selectedGuarantor.value?.documents?.find((d: DfDocument) => {
-      return d.documentCategory === "RESIDENCY";
-    });
+      return d.documentCategory === 'RESIDENCY'
+    })
     if (doc !== undefined) {
-      customText.value = doc.customText || "";
+      customText.value = doc.customText || ''
       const localDoc = documents.find((d: DocumentType) => {
-        return d.value === doc.subCategory;
-      });
+        return d.value === doc.subCategory
+      })
       if (localDoc !== undefined) {
-        residencyDocument.value = localDoc;
+        residencyDocument.value = localDoc
       }
     }
-    const ddr = guarantorResidencyDocument()?.documentDeniedReasons;
+    const ddr = guarantorResidencyDocument()?.documentDeniedReasons
     if (ddr) {
-      documentDeniedReasons.value = cloneDeep(ddr);
+      documentDeniedReasons.value = cloneDeep(ddr)
     }
   }
 }
@@ -166,43 +169,43 @@ function updateGuarantorData() {
 function onSelectChange() {
   if (selectedGuarantor.value?.documents !== null) {
     const doc = selectedGuarantor.value?.documents?.find((d: DfDocument) => {
-      return d.documentCategory === "RESIDENCY";
-    });
+      return d.documentCategory === 'RESIDENCY'
+    })
     if (doc !== undefined) {
       isDocDeleteVisible.value =
-        (doc.files?.length || 0) > 0 && doc.subCategory !== residencyDocument.value.value;
+        (doc.files?.length || 0) > 0 && doc.subCategory !== residencyDocument.value.value
     }
   }
-  return false;
+  return false
 }
 
 function undoSelect() {
   if (selectedGuarantor.value?.documents !== null) {
     const doc = selectedGuarantor.value?.documents?.find((d: DfDocument) => {
-      return d.documentCategory === "RESIDENCY";
-    });
+      return d.documentCategory === 'RESIDENCY'
+    })
     if (doc !== undefined) {
       const localDoc = documents.find((d: DocumentType) => {
-        return d.value === doc.subCategory;
-      });
+        return d.value === doc.subCategory
+      })
       if (localDoc !== undefined) {
-        residencyDocument.value = localDoc;
+        residencyDocument.value = localDoc
       }
     }
   }
-  isDocDeleteVisible.value = false;
+  isDocDeleteVisible.value = false
 }
 
 async function validSelect() {
-  isDocDeleteVisible.value = false;
+  isDocDeleteVisible.value = false
   if (selectedGuarantor.value?.documents !== null) {
     const doc = selectedGuarantor.value?.documents?.find((d: DfDocument) => {
-      return d.documentCategory === "RESIDENCY";
-    });
+      return d.documentCategory === 'RESIDENCY'
+    })
     if (doc?.files !== undefined) {
       for (const f of doc.files) {
         if (f.id) {
-          await remove(f, true);
+          await remove(f, true)
         }
       }
     }
@@ -210,36 +213,36 @@ async function validSelect() {
 }
 
 async function goNext() {
-  const saved = await save();
+  const saved = await save()
   if (saved) {
-    emit("on-next");
+    emit('on-next')
   }
 }
 
 function addFiles(fileList: File[]) {
   const nf = Array.from(fileList).map((f) => {
-    return { name: f.name, file: f, size: f.size };
-  });
-  files.value = [...files.value, ...nf];
-  save();
+    return { name: f.name, file: f, size: f.size }
+  })
+  files.value = [...files.value, ...nf]
+  save()
 }
 
 function resetFiles() {
-  fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
+  fileUploadStatus.value = UploadStatus.STATUS_INITIAL
 }
 
 async function save(): Promise<boolean> {
-  const fieldName = "documents";
-  const formData = new FormData();
+  const fieldName = 'documents'
+  const formData = new FormData()
   const newFiles = files.value.filter((f) => {
-    return !f.id;
-  });
+    return !f.id
+  })
 
   if (!newFiles.length) {
-    if (residencyDocument.value.key === "other-residency") {
-      formData.append("customText", customText.value);
+    if (residencyDocument.value.key === 'other-residency') {
+      formData.append('customText', customText.value)
     } else {
-      return true;
+      return true
     }
   }
 
@@ -247,46 +250,43 @@ async function save(): Promise<boolean> {
     residencyDocument.value.maxFileCount &&
     residencyFiles().length > residencyDocument.value.maxFileCount
   ) {
-    ToastService.maxFileError(
-      residencyFiles().length,
-      residencyDocument.value.maxFileCount
-    );
-    files.value = [];
-    return false;
+    ToastService.maxFileError(residencyFiles().length, residencyDocument.value.maxFileCount)
+    files.value = []
+    return false
   }
 
   Array.from(Array(newFiles.length).keys()).forEach((x) => {
-    const f: File = newFiles[x].file || new File([], "");
-    formData.append(`${fieldName}[${x}]`, f, newFiles[x].name);
-  });
+    const f: File = newFiles[x].file || new File([], '')
+    formData.append(`${fieldName}[${x}]`, f, newFiles[x].name)
+  })
 
-  formData.append("typeDocumentResidency", residencyDocument.value.value);
+  formData.append('typeDocumentResidency', residencyDocument.value.value)
 
-  fileUploadStatus.value = UploadStatus.STATUS_SAVING;
+  fileUploadStatus.value = UploadStatus.STATUS_SAVING
   if (store.guarantor?.id) {
-    formData.append("guarantorId", store.guarantor.id.toString());
+    formData.append('guarantorId', store.guarantor.id.toString())
   }
   if (props.tenantId) {
-    formData.append("tenantId", props.tenantId.toString());
+    formData.append('tenantId', props.tenantId.toString())
   }
-  const $loading = useLoading({});
-  const loader = $loading.show();
+  const $loading = useLoading({})
+  const loader = $loading.show()
   return await store
     .saveGuarantorResidency(formData)
     .then(() => {
-      files.value = [];
-      fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
-      ToastService.saveSuccess();
-      return true;
+      files.value = []
+      fileUploadStatus.value = UploadStatus.STATUS_INITIAL
+      ToastService.saveSuccess()
+      return true
     })
     .catch((err) => {
-      fileUploadStatus.value = UploadStatus.STATUS_FAILED;
-      UtilsService.handleCommonSaveError(err);
-      return false;
+      fileUploadStatus.value = UploadStatus.STATUS_FAILED
+      UtilsService.handleCommonSaveError(err)
+      return false
     })
     .finally(() => {
-      loader.hide();
-    });
+      loader.hide()
+    })
 }
 
 function residencyFiles() {
@@ -295,34 +295,37 @@ function residencyFiles() {
       subCategory: residencyDocument.value.value,
       id: f.id,
       name: f.name,
-      size: f.size,
-    };
-  });
+      size: f.size
+    }
+  })
   const existingFiles =
     store.getGuarantorDocuments?.find((d: DfDocument) => {
-      return d.documentCategory === "RESIDENCY";
-    })?.files || [];
-  return [...newFiles, ...existingFiles];
+      return d.documentCategory === 'RESIDENCY'
+    })?.files || []
+  return [...newFiles, ...existingFiles]
 }
 
 async function remove(file: DfFile, silent = false) {
   if (file.id) {
-    if (files.value.length === 1 && guarantorResidencyDocument()?.documentAnalysisReport?.analysisStatus === "DENIED") {
-      AnalyticsService.removeDeniedDocument(guarantorResidencyDocument()?.documentCategory || "")
+    if (
+      files.value.length === 1 &&
+      guarantorResidencyDocument()?.documentAnalysisReport?.analysisStatus === 'DENIED'
+    ) {
+      AnalyticsService.removeDeniedDocument(guarantorResidencyDocument()?.documentCategory || '')
     }
-    await RegisterService.deleteFile(file.id, silent);
+    await RegisterService.deleteFile(file.id, silent)
   } else {
     const firstIndex = files.value.findIndex((f) => {
-      return f.name === file.name && !f.path;
-    });
-    files.value.splice(firstIndex, 1);
+      return f.name === file.name && !f.path
+    })
+    files.value.splice(firstIndex, 1)
   }
 }
 
 function guarantorKey() {
   if (props.tenantId != null) {
-    return "cotenant-guarantor";
+    return 'cotenant-guarantor'
   }
-  return "guarantor";
+  return 'guarantor'
 }
 </script>

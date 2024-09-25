@@ -1,5 +1,5 @@
-import VueMatomo from 'vue-matomo';
-import router from '../router';
+import VueMatomo from 'vue-matomo'
+import router from '../router'
 
 export default {
   install(app: any) {
@@ -12,9 +12,9 @@ export default {
       cookieDomain: import.meta.env.VITE_MATOMO_DOMAIN,
       userId: undefined,
       enableLinkTracking: true,
-      trackInitialView: true,
-    };
+      trackInitialView: true
+    }
 
-    app.use(VueMatomo, options);
-  },
-};
+    app.use(VueMatomo, options)
+  }
+}

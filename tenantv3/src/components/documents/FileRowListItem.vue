@@ -12,10 +12,7 @@
     </div>
     <div class="fr-col-5 fr-col-md-3 tag-container fr-mb-2w">
       <div style="align-self: center">
-        <ColoredTag
-          :text="getTagLabel()"
-          :status="documentStatus()"
-        ></ColoredTag>
+        <ColoredTag :text="getTagLabel()" :status="documentStatus()"></ColoredTag>
       </div>
       <div>
         <slot name="postTag"></slot>
@@ -33,7 +30,7 @@
         @on-click="openDocument()"
         @on-keypress="openDocument()"
       >
-        {{ t("filerowlistitem.see") }}
+        {{ t('filerowlistitem.see') }}
       </DfButton>
 
       <DfButton
@@ -42,63 +39,59 @@
         @on-click="clickEdit()"
         @on-keypress="openDocument()"
       >
-        {{ t("filerowlistitem.edit") }}
+        {{ t('filerowlistitem.edit') }}
       </DfButton>
     </div>
   </li>
 </template>
 
 <script setup lang="ts">
-import DfButton from "df-shared-next/src/Button/Button.vue";
-import { DfDocument } from "df-shared-next/src/models/DfDocument";
-import ColoredTag from "df-shared-next/src/components/ColoredTag.vue";
-import { useI18n } from "vue-i18n";
+import DfButton from 'df-shared-next/src/Button/Button.vue'
+import { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import ColoredTag from 'df-shared-next/src/components/ColoredTag.vue'
+import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n();
-const emit = defineEmits(["click-edit"]);
+const { t } = useI18n()
+const emit = defineEmits(['click-edit'])
 
 const props = withDefaults(
   defineProps<{
-    label: string,
-    subLabel?: string,
-    document?: DfDocument,
-    enableDownload?: boolean,
-    tagLabel?: string,
-    showValidated?: boolean,
-    canEdit?: boolean,
+    label: string
+    subLabel?: string
+    document?: DfDocument
+    enableDownload?: boolean
+    tagLabel?: string
+    showValidated?: boolean
+    canEdit?: boolean
   }>(),
   {
     enableDownload: true,
     showValidated: false,
     canEdit: false
   }
-);
+)
 
+function clickEdit() {
+  emit('click-edit')
+}
 
-  function clickEdit() {
-    emit("click-edit");
+function getTagLabel() {
+  if (props.tagLabel) {
+    return props.tagLabel
   }
+  return t('documents.status.' + documentStatus()).toString()
+}
 
-  function getTagLabel() {
-    if (props.tagLabel) {
-      return props.tagLabel;
-    }
-    return t("documents.status." + documentStatus()).toString();
+function documentStatus() {
+  if (props.document) {
+    return props.document?.documentStatus ? props.document?.documentStatus : 'EMPTY'
   }
+  return 'EMPTY'
+}
 
-  function documentStatus() {
-    if (props.document) {
-      return props.document?.documentStatus
-        ? props.document?.documentStatus
-        : "EMPTY";
-    }
-    return "EMPTY";
-  }
-
-  function openDocument() {
-    window.open(props.document?.name, "_blank");
-  }
-
+function openDocument() {
+  window.open(props.document?.name, '_blank')
+}
 </script>
 
 <style lang="scss">

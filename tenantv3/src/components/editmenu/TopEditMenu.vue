@@ -51,9 +51,7 @@
     </div>
     <h2 class="small-title" v-if="displayGuarantorName()">
       {{
-        t("topeditmenu.i-add", [
-          `${selectedGuarantor?.firstName} ${selectedGuarantor?.lastName}`,
-        ])
+        t('topeditmenu.i-add', [`${selectedGuarantor?.firstName} ${selectedGuarantor?.lastName}`])
       }}
     </h2>
     <div v-if="step === 3 && selectedGuarantor">
@@ -286,164 +284,163 @@
 </template>
 
 <script setup lang="ts">
-import { Guarantor } from "df-shared-next/src/models/Guarantor";
-import { User } from "df-shared-next/src/models/User";
-import TenantDocumentLink from "./documents/TenantDocumentLink.vue";
-import GuarantorDocumentLink from "./documents/GuarantorDocumentLink.vue";
-import CoTenantDocumentLink from "./documents/CoTenantDocumentLink.vue";
-import CoTenantGuarantorDocumentLink from "./documents/CoTenantGuarantorDocumentLink.vue";
-import { useI18n } from "vue-i18n";
-import useTenantStore from "@/stores/tenant-store";
-import { computed, onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
-import { DocumentType } from "./documents/DocumentType";
+import { Guarantor } from 'df-shared-next/src/models/Guarantor'
+import { User } from 'df-shared-next/src/models/User'
+import TenantDocumentLink from './documents/TenantDocumentLink.vue'
+import GuarantorDocumentLink from './documents/GuarantorDocumentLink.vue'
+import CoTenantDocumentLink from './documents/CoTenantDocumentLink.vue'
+import CoTenantGuarantorDocumentLink from './documents/CoTenantGuarantorDocumentLink.vue'
+import { useI18n } from 'vue-i18n'
+import useTenantStore from '@/stores/tenant-store'
+import { computed, onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
+import { DocumentType } from './documents/DocumentType'
 
-const store = useTenantStore();
-const selectedGuarantor = computed(() => store.selectedGuarantor);
-const user = computed(() => store.user);
-const coTenants = computed(() => store.coTenants);
-const route = useRoute();
+const store = useTenantStore()
+const selectedGuarantor = computed(() => store.selectedGuarantor)
+const user = computed(() => store.user)
+const coTenants = computed(() => store.coTenants)
+const route = useRoute()
 
-const { t } = useI18n();
+const { t } = useI18n()
 
 const tds = {
- td0 : ref(),
- td1 : ref(),
- td2 : ref(),
- td3 : ref(),
- td4 : ref(),
- td5 : ref()
+  td0: ref(),
+  td1: ref(),
+  td2: ref(),
+  td3: ref(),
+  td4: ref(),
+  td5: ref()
 }
 
 const gds = {
-   gd0 : ref(),
- gd1 : ref(),
- gd2 : ref(),
- gd3 : ref(),
- gd4 : ref(),
- gd5 : ref()
+  gd0: ref(),
+  gd1: ref(),
+  gd2: ref(),
+  gd3: ref(),
+  gd4: ref(),
+  gd5: ref()
 }
 // const tcontainer = ref();
 // const gcontainer = ref();
 
-  const props = withDefaults(
-    defineProps<{
-      step: number;
-    }>(),
-    {
-      step: 0,
-    }
-  );
-
-
-  onMounted(() => {
-    const tel = document.getElementById("td" + route.params.substep)
-    tel?.scrollIntoView();
-    const gel = document.getElementById("gd" + route.params.substep)
-    gel?.scrollIntoView();
-  })
-
-  function displayGuarantorName(): boolean {
-    const isGuarantorSelected =
-      !!selectedGuarantor.value?.lastName && !!selectedGuarantor.value?.firstName;
-    if (props.step === 3) {
-      return isGuarantorSelected;
-    }
-    if (props.step === 5 && isCouple()) {
-      return isGuarantorSelected;
-    }
-    return false;
+const props = withDefaults(
+  defineProps<{
+    step: number
+  }>(),
+  {
+    step: 0
   }
+)
 
-  function getClass(s: number) {
-    let res = "";
-    if (props.step !== s + 1) {
-      res += " small ";
-    }
-    if (props.step === 2 && s === 1) {
-      res += ` rad${route.params.substep} `;
-    }
-    if (getStep(s)) {
-      return res + "active";
-    }
-    return res;
-  }
+onMounted(() => {
+  const tel = document.getElementById('td' + route.params.substep)
+  tel?.scrollIntoView()
+  const gel = document.getElementById('gd' + route.params.substep)
+  gel?.scrollIntoView()
+})
 
-  function getStep(s: number) {
-    switch (props.step) {
-      case 0:
-      case 1:
-        return s <= 0;
-      case 2:
-        return s <= 1;
-      case 3:
-        return s <= 2;
-      case 4:
-        return s <= 3;
-      case 5:
-        return s <= 4;
-      case 6:
-        return s <= 5;
-      default:
-        return s <= 0;
-    }
+function displayGuarantorName(): boolean {
+  const isGuarantorSelected =
+    !!selectedGuarantor.value?.lastName && !!selectedGuarantor.value?.firstName
+  if (props.step === 3) {
+    return isGuarantorSelected
   }
+  if (props.step === 5 && isCouple()) {
+    return isGuarantorSelected
+  }
+  return false
+}
 
-  function getStepTitle() {
-    if (props.step <= 1) {
-      return t("personal-information");
-    }
-    if (props.step === 2) {
-      return t("my-document");
-    }
-    if (props.step === 3) {
-      return t("my-guarantor");
-    }
-    if (props.step === 4 && isCouple()) {
-      return t("my-cotenant");
-    }
-    if (props.step === 5 && isCouple()) {
-      return t("my-cotenant-guarantor");
-    }
-    if (props.step === 6 && isCouple()) {
-      return t("validate-file");
-    }
-    if (props.step === 4 && !isCouple()) {
-      return t("validate-file");
-    }
-    return "";
+function getClass(s: number) {
+  let res = ''
+  if (props.step !== s + 1) {
+    res += ' small '
   }
+  if (props.step === 2 && s === 1) {
+    res += ` rad${route.params.substep} `
+  }
+  if (getStep(s)) {
+    return res + 'active'
+  }
+  return res
+}
 
-  function getGuarantorCurrentStep(substep: number, g: Guarantor | undefined): boolean {
-    const s = Number(route.params.substep) || 0;
-    return (
-      (props.step === 3 || props.step === 5) &&
-      s === substep &&
-      (g === undefined || selectedGuarantor.value?.id === g.id)
-    );
+function getStep(s: number) {
+  switch (props.step) {
+    case 0:
+    case 1:
+      return s <= 0
+    case 2:
+      return s <= 1
+    case 3:
+      return s <= 2
+    case 4:
+      return s <= 3
+    case 5:
+      return s <= 4
+    case 6:
+      return s <= 5
+    default:
+      return s <= 0
   }
+}
 
-  function getCurrentSubStep() {
-    return Number(route.params.substep) || 0;
+function getStepTitle() {
+  if (props.step <= 1) {
+    return t('personal-information')
   }
+  if (props.step === 2) {
+    return t('my-document')
+  }
+  if (props.step === 3) {
+    return t('my-guarantor')
+  }
+  if (props.step === 4 && isCouple()) {
+    return t('my-cotenant')
+  }
+  if (props.step === 5 && isCouple()) {
+    return t('my-cotenant-guarantor')
+  }
+  if (props.step === 6 && isCouple()) {
+    return t('validate-file')
+  }
+  if (props.step === 4 && !isCouple()) {
+    return t('validate-file')
+  }
+  return ''
+}
 
-  function getTenantCurrentStep(substep: number): boolean {
-    const s = Number(route.params.substep) || 0;
-    return props.step === 2 && s === substep;
-  }
+function getGuarantorCurrentStep(substep: number, g: Guarantor | undefined): boolean {
+  const s = Number(route.params.substep) || 0
+  return (
+    (props.step === 3 || props.step === 5) &&
+    s === substep &&
+    (g === undefined || selectedGuarantor.value?.id === g.id)
+  )
+}
 
-  function isCouple() {
-    return user.value.applicationType === "COUPLE";
-  }
+function getCurrentSubStep() {
+  return Number(route.params.substep) || 0
+}
 
-  function getCoTenant(index: number): User {
-    return coTenants.value[index];
-  }
+function getTenantCurrentStep(substep: number): boolean {
+  const s = Number(route.params.substep) || 0
+  return props.step === 2 && s === substep
+}
+
+function isCouple() {
+  return user.value.applicationType === 'COUPLE'
+}
+
+function getCoTenant(index: number): User {
+  return coTenants.value[index]
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-@import "df-shared-next/src/scss/_variables.scss";
+@import 'df-shared-next/src/scss/_variables.scss';
 
 h1 {
   font-size: 0.9rem;

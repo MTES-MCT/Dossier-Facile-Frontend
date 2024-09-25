@@ -1,28 +1,17 @@
 <template>
-  <NakedCard
-    class="fr-mt-3w fr-p-md-5w"
-    v-if="!allTenantDocumentsPreValidated() || !namesFilled()"
-  >
+  <NakedCard class="fr-mt-3w fr-p-md-5w" v-if="!allTenantDocumentsPreValidated() || !namesFilled()">
     <div v-if="!namesFilled()">
       <div class="fr-text--bold">
         {{ t(`fileerrors.${keyprefix}-invalid-names`) }}
       </div>
-      <UpdateComponent @on-update="openTenant(0)">{{
-        t("fileerrors.update")
-      }}</UpdateComponent>
+      <UpdateComponent @on-update="openTenant(0)">{{ t('fileerrors.update') }}</UpdateComponent>
     </div>
 
     <div v-if="!allTenantDocumentsPreValidated()" class="fr-text--bold">
       {{ t(`fileerrors.${keyprefix}-invalid-document`) }}
     </div>
     <div
-      v-for="(v, k) in [
-        'IDENTIFICATION',
-        'RESIDENCY',
-        'PROFESSIONAL',
-        'FINANCIAL',
-        'TAX',
-      ]"
+      v-for="(v, k) in ['IDENTIFICATION', 'RESIDENCY', 'PROFESSIONAL', 'FINANCIAL', 'TAX']"
       :key="k"
     >
       <div v-if="!isDocumentValid(v)">
@@ -39,74 +28,68 @@
 </template>
 
 <script setup lang="ts">
-import { User } from "df-shared-next/src/models/User";
-import { useI18n } from "vue-i18n";
-import useTenantStore from "../../stores/tenant-store";
-import { useRouter } from "vue-router";
-import NakedCard from "df-shared-next/src/components/NakedCard.vue";
-import UpdateComponent from "./UpdateComponent.vue";
-import { UtilsService } from "../../services/UtilsService";
+import { User } from 'df-shared-next/src/models/User'
+import { useI18n } from 'vue-i18n'
+import useTenantStore from '../../stores/tenant-store'
+import { useRouter } from 'vue-router'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import UpdateComponent from './UpdateComponent.vue'
+import { UtilsService } from '../../services/UtilsService'
 
-const store = useTenantStore();
-const { t } = useI18n();
-const router = useRouter();
+const store = useTenantStore()
+const { t } = useI18n()
+const router = useRouter()
 
 const props = defineProps<{
-  user: User;
-  keyprefix: string;
-}>();
+  user: User
+  keyprefix: string
+}>()
 function namesFilled() {
-  const u = props.user;
-  return u?.firstName && u?.lastName;
+  const u = props.user
+  return u?.firstName && u?.lastName
 }
 
 function allTenantDocumentsPreValidated() {
-  for (const v of [
-        'IDENTIFICATION',
-        'RESIDENCY',
-        'PROFESSIONAL',
-        'FINANCIAL',
-        'TAX'
-  ]) {
+  for (const v of ['IDENTIFICATION', 'RESIDENCY', 'PROFESSIONAL', 'FINANCIAL', 'TAX']) {
     if (!isDocumentValid(v)) {
-      return false;
+      return false
     }
   }
-  return true;
+  return true
 }
 
 function getDocument(docType: string) {
-  return UtilsService.getTenantDocumentByType(props.user, docType);
+  return UtilsService.getTenantDocumentByType(props.user, docType)
 }
 
 function getDocumentBrokenRules(docType: string) {
   return (
     UtilsService.getTenantDocumentByType(props.user, docType)?.documentAnalysisReport
       ?.brokenRules || []
-  );
+  )
 }
 
 function isDocumentValid(docType: string) {
-  return store.isTenantDocumentValid(docType, props.user);
+  return store.isTenantDocumentValid(docType, props.user)
 }
 
 function openTenant(substep: number) {
-  if (props.keyprefix === "tenant") {
+  if (props.keyprefix === 'tenant') {
     router.push({
-      name: "CoTenantDocuments",
-      params: { substep: substep, tenantId: props.user.id.toString(), step: "4" },
-    });
-    return;
+      name: 'CoTenantDocuments',
+      params: { substep: substep, tenantId: props.user.id.toString(), step: '4' }
+    })
+    return
   }
   if (substep == 0) {
     router.push({
-      name: "TenantName",
-    });
+      name: 'TenantName'
+    })
   } else {
     router.push({
-      name: "TenantDocuments",
-      params: { substep: substep },
-    });
+      name: 'TenantDocuments',
+      params: { substep: substep }
+    })
   }
 }
 </script>
