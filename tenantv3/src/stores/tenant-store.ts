@@ -260,11 +260,13 @@ const useTenantStore = defineStore('tenant', {
     getCoTenants(state: State): User[] {
       return state.coTenants
     },
-    getSpouse(): any {
+    getSpouse(): User | null {
       if (this.user.apartmentSharing.applicationType === 'COUPLE') {
-        return this.user.apartmentSharing.tenants.find((t: any) => {
-          return t.id != this.user.id
-        })
+        return (
+          this.user.apartmentSharing.tenants.find((t) => {
+            return t.id != this.user.id
+          }) ?? null
+        )
       }
       return null
     },
@@ -456,7 +458,7 @@ const useTenantStore = defineStore('tenant', {
       u.lastName = ''
       this.user.apartmentSharing.tenants.push(u)
     },
-    updateMessagesCommit(tenantId: number, messageList: any) {
+    updateMessagesCommit(tenantId: number, messageList: DfMessage[]) {
       this.messageList[tenantId] = messageList
 
       const unreadMessages = this.messageList
@@ -649,7 +651,7 @@ const useTenantStore = defineStore('tenant', {
         }
       )
     },
-    setLang(lang: any) {
+    setLang(lang: string) {
       ;(i18n.global as unknown as Composer).locale.value = lang
       i18n.global.fallbackLocale = 'fr' as any
       dayjs.locale(lang)
@@ -783,12 +785,12 @@ const useTenantStore = defineStore('tenant', {
     updateMessages() {
       if (keycloak.authenticated) {
         MessageService.updateMessages().then((data) => {
-          this.updateMessagesCommit(this.user.id, data?.data || {})
+          this.updateMessagesCommit(this.user.id, data?.data || [])
         })
         const spouse = this.getSpouse
         if (spouse) {
           MessageService.updateMessages(spouse.id).then((data) => {
-            this.updateMessagesCommit(spouse.id, data?.data || {})
+            this.updateMessagesCommit(spouse.id, data?.data || [])
           })
         }
       }
@@ -1068,15 +1070,7 @@ const useTenantStore = defineStore('tenant', {
       if (tenantId === undefined) {
         return
       }
-      return MessageService.markMessagesAsRead(tenantId).then(
-        (response) => {
-          this.updateMessagesCommit(tenantId, response.data)
-          return Promise.resolve(response.data)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+      return MessageService.markMessagesAsRead(tenantId)
     },
     loadApartmentSharingLinks() {
       return ApartmentSharingLinkService.getLinks().then(
