@@ -231,7 +231,7 @@
               >
                 <p v-html="m.messageBody"></p>
                 <div class="date">
-                  {{ $d(new Date(m.creationDateTime || Date.now()), 'long') }}
+                  {{ d(new Date(m.creationDateTime || Date.now()), 'long') }}
                 </div>
               </div>
             </div>
@@ -296,7 +296,7 @@ import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n()
+const { t, d } = useI18n()
 const router = useRouter()
 const store = useTenantStore()
 const messageList = computed(() => store.messageList)
