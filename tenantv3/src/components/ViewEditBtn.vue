@@ -1,41 +1,32 @@
 <template>
   <div style="display: flex">
-    <button
-      class="fr-btn fr-btn--secondary icon-btn"
-      title="View"
-      @click="view"
-      v-if="canView"
-    >
+    <button class="fr-btn fr-btn--secondary icon-btn" title="View" @click="view" v-if="canView">
       <i class="ri-eye-line color--primary fs-18 icons"></i>
     </button>
-    <button
-      class="fr-btn fr-btn--secondary icon-btn"
-      title="Edit"
-      @click="edit"
-    >
+    <button class="fr-btn fr-btn--secondary icon-btn" title="Edit" @click="edit">
       <i class="ri-pencil-line color--primary fs-18 icons"></i>
     </button>
   </div>
 </template>
 
 <script setup lang="ts">
-const emit = defineEmits(["view", "edit"]);
+const emit = defineEmits(['view', 'edit'])
 
-  const props = withDefaults(
-    defineProps<{
-      canView?: boolean;
-    }>(),
-    {
-      canView: true,
-    }
-  );
+const props = withDefaults(
+  defineProps<{
+    canView?: boolean
+  }>(),
+  {
+    canView: true
+  }
+)
 
-  function view() {
-    emit("view");
-  }
-  function edit() {
-    emit("edit");
-  }
+function view() {
+  emit('view')
+}
+function edit() {
+  emit('edit')
+}
 </script>
 
 <style scoped lang="scss">

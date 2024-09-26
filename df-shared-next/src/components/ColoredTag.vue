@@ -1,6 +1,6 @@
 <template>
   <div class="fr-tag" :class="getClasses()">
-    <StatusIcon v-if="status && !hideIcon" :status="status"></StatusIcon>
+    <StatusIcon v-if="status && !hideIcon" :status="status" :warn="warn"></StatusIcon>
     <span class="fr-text--xs" v-if="label">{{ label }}&nbsp;:&nbsp;</span>
     {{ text }}
   </div>
@@ -16,11 +16,13 @@ const props = withDefaults(
     text: string;
     active?: boolean;
     hideIcon?: boolean;
+    warn?: boolean;
   }>(),
   {
     status: "",
     active: false,
     hideIcon: false,
+    warn: false
   }
 );
 
@@ -35,6 +37,11 @@ function getClasses() {
       return c + "declined-menu-link";
     case "FILLED":
       return c + "filled-menu-link";
+    case "INCOMPLETE":
+      if (props.warn) {
+        return c + "declined-menu-link";
+      }
+      return c + "empty-menu-link";
     case "grey":
       return c + "grey";
   }

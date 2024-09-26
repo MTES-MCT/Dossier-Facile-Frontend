@@ -16,17 +16,16 @@
 </template>
 
 <script setup lang="ts">
-import LeftEditMenu from "./editmenu/LeftEditMenu.vue";
-import TopEditMenu from "./editmenu/TopEditMenu.vue";
+import LeftEditMenu from './editmenu/LeftEditMenu.vue'
+import TopEditMenu from './editmenu/TopEditMenu.vue'
 
-  const props = defineProps<{
-    step: number
-  }>();
-
+const props = defineProps<{
+  step: number
+}>()
 </script>
 
 <style lang="scss" scoped>
-@import "df-shared-next/src/scss/_variables.scss";
+@import 'df-shared-next/src/scss/_variables.scss';
 
 .ml {
   @media all and (min-width: 1024px) {

@@ -18,7 +18,7 @@
         type="button"
         :title="t('listitem.show')"
       >
-        <span class="fr-hidden fr-unhidden-lg">{{ t("listitem.see") }}</span>
+        <span class="fr-hidden fr-unhidden-lg">{{ t('listitem.see') }}</span>
       </DfButton>
       <DfButton
         @on-click="remove()"
@@ -26,9 +26,7 @@
         type="button"
         :title="t('listitem.remove')"
       >
-        <span class="fr-hidden fr-unhidden-lg">{{
-          t("listitem.delete")
-        }}</span>
+        <span class="fr-hidden fr-unhidden-lg">{{ t('listitem.delete') }}</span>
       </DfButton>
     </div>
     <Modal @close="isDocModalVisible = false" v-if="isDocModalVisible">
@@ -36,76 +34,75 @@
         <ShowDoc :file="file"></ShowDoc>
       </template>
     </Modal>
-    <ConfirmModal
-      v-if="confirmDeleteFile"
-      @valid="validDeleteFile()"
-      @cancel="undoDeleteFile()"
-    >
-      {{ t("listitem.will-delete-file") }}
+    <ConfirmModal v-if="confirmDeleteFile" @valid="validDeleteFile()" @cancel="undoDeleteFile()">
+      {{ t('listitem.will-delete-file') }}
     </ConfirmModal>
   </div>
 </template>
 
 <script setup lang="ts">
-import { DfFile } from "df-shared-next/src/models/DfFile";
-import Progress from "./Progress.vue";
-import ShowDoc from "../documents/share/ShowDoc.vue";
-import Modal from "df-shared-next/src/components/Modal.vue";
-import { AnalyticsService } from "../../services/AnalyticsService";
-import ConfirmModal from "df-shared-next/src/components/ConfirmModal.vue";
-import DfButton from "df-shared-next/src/Button/Button.vue";
-import { useI18n } from "vue-i18n";
-import { ref } from "vue";
+import { DfFile } from 'df-shared-next/src/models/DfFile'
+import Progress from './Progress.vue'
+import ShowDoc from '../documents/share/ShowDoc.vue'
+import Modal from 'df-shared-next/src/components/Modal.vue'
+import { AnalyticsService } from '../../services/AnalyticsService'
+import ConfirmModal from 'df-shared-next/src/components/ConfirmModal.vue'
+import DfButton from 'df-shared-next/src/Button/Button.vue'
+import { useI18n } from 'vue-i18n'
+import { ref } from 'vue'
 
-const { t } = useI18n();
-const emit = defineEmits(["remove"]);
+const { t } = useI18n()
+const emit = defineEmits(['remove'])
 
-const props = withDefaults(defineProps<{
-  file: DfFile;
-  uploadState?: string;
-  percentage?: number;
-}>(), {
-  uploadState: "idle",
-  percentage: 0,
-});
-
-  const isDocModalVisible = ref(false);
-  const confirmDeleteFile = ref(false);
-
-  function remove() {
-    confirmDeleteFile.value = true;
+const props = withDefaults(
+  defineProps<{
+    file: DfFile
+    uploadState?: string
+    percentage?: number
+  }>(),
+  {
+    uploadState: 'idle',
+    percentage: 0
   }
+)
 
-  function validDeleteFile() {
-    emit("remove");
-    confirmDeleteFile.value = false;
-  }
+const isDocModalVisible = ref(false)
+const confirmDeleteFile = ref(false)
 
-  function undoDeleteFile() {
-    confirmDeleteFile.value = false;
-    return false;
-  }
+function remove() {
+  confirmDeleteFile.value = true
+}
 
-  function openDoc() {
-    AnalyticsService.viewFromMain();
-    isDocModalVisible.value = true;
-  }
+function validDeleteFile() {
+  emit('remove')
+  confirmDeleteFile.value = false
+}
 
-  function getSize() {
-    if (props.file.size) {
-      const kb = props.file.size / 1000;
-      if (kb > 1000) {
-        const mb = kb / 1000;
-        return `${mb.toFixed(2)} ${t("listitem.mb")}`;
-      }
-      return `${kb.toFixed(2)} ${t("listitem.kb")}`;
+function undoDeleteFile() {
+  confirmDeleteFile.value = false
+  return false
+}
+
+function openDoc() {
+  AnalyticsService.viewFromMain()
+  isDocModalVisible.value = true
+}
+
+function getSize() {
+  if (props.file.size) {
+    const kb = props.file.size / 1000
+    if (kb > 1000) {
+      const mb = kb / 1000
+      return `${mb.toFixed(2)} ${t('listitem.mb')}`
     }
-    return "-";
+    return `${kb.toFixed(2)} ${t('listitem.kb')}`
   }
+  return '-'
+}
 
-  function getName() {
-    return props.file.name ? props.file.name : props.file.originalName;
-  }
+function getName() {
+  return props.file.name ? props.file.name : props.file.originalName
+}
 </script>
 
 <style scoped lang="scss">

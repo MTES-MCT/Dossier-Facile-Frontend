@@ -5,9 +5,12 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   status: string;
-}>();
+  warn: boolean;
+}>(),{
+  warn: false
+});
 
 function getStatus() {
   switch (props.status) {
@@ -29,6 +32,11 @@ function getStatus() {
       return "ri-group-line";
     case "GROUP":
       return "ri-team-line";
+    case "INCOMPLETE":
+      if (props.warn) {
+        return "ri-alert-line";
+      }
+      return "ri-close-circle-line";
   }
   return undefined;
 }

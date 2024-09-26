@@ -7,19 +7,19 @@
           v-model="organismName"
           v-slot="{ field, meta }"
           :rules="{
-            required: true,
+            required: true
           }"
         >
           <div class="fr-input-group">
             <label class="fr-label" for="organismName"
-              >{{ $t("corporationidentification.organism-name") }} :</label
+              >{{ t('corporationidentification.organism-name') }} :</label
             >
             <input
               v-bind="field"
               class="form-control fr-input validate-required"
               :class="{
                 'fr-input--valid': meta.valid,
-                'fr-input--error': !meta.valid,
+                'fr-input--error': !meta.valid
               }"
               id="organismName"
               name="organismName"
@@ -28,7 +28,7 @@
               required
             />
             <ErrorMessage name="organismName" v-slot="{ message }">
-              <span role="alert" class="fr-error-text">{{ t(message || "") }}</span>
+              <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
             </ErrorMessage>
           </div>
         </Field>
@@ -36,7 +36,7 @@
       <NakedCard class="fr-mt-3w fr-p-md-5w">
         <div>
           <h1 class="fr-label">
-            {{ $t("corporationidentification.kbis-label") }}
+            {{ t('corporationidentification.kbis-label') }}
           </h1>
           <AllDeclinedMessages
             class="fr-mb-3w"
@@ -68,155 +68,161 @@
 </template>
 
 <script setup lang="ts">
-import FileUpload from "../../uploads/FileUpload.vue";
-import { UploadStatus } from "df-shared-next/src/models/UploadStatus";
-import ListItem from "../../uploads/ListItem.vue";
-import { DfDocument } from "df-shared-next/src/models/DfDocument";
-import { DfFile } from "df-shared-next/src/models/DfFile";
-import { RegisterService } from "../../../services/RegisterService";
-import { Guarantor } from "df-shared-next/src/models/Guarantor";
-import NakedCard from "df-shared-next/src/components/NakedCard.vue";
-import AllDeclinedMessages from "../share/AllDeclinedMessages.vue";
-import { DocumentDeniedReasons } from "df-shared-next/src/models/DocumentDeniedReasons";
-import { cloneDeep } from "lodash";
-import GuarantorFooter from "../../footer/GuarantorFooter.vue";
-import { computed, onBeforeMount, ref } from "vue";
-import useTenantStore from "@/stores/tenant-store";
-import { ToastService } from "@/services/ToastService";
-import { useLoading } from "vue-loading-overlay";
-import { Form, Field, ErrorMessage } from "vee-validate";
-import { useI18n } from "vue-i18n";
-import { AnalyticsService } from "../../../services/AnalyticsService";
+import FileUpload from '../../uploads/FileUpload.vue'
+import { UploadStatus } from 'df-shared-next/src/models/UploadStatus'
+import ListItem from '../../uploads/ListItem.vue'
+import { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import { DfFile } from 'df-shared-next/src/models/DfFile'
+import { RegisterService } from '../../../services/RegisterService'
+import { Guarantor } from 'df-shared-next/src/models/Guarantor'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import AllDeclinedMessages from '../share/AllDeclinedMessages.vue'
+import { DocumentDeniedReasons } from 'df-shared-next/src/models/DocumentDeniedReasons'
+import { cloneDeep } from 'lodash'
+import GuarantorFooter from '../../footer/GuarantorFooter.vue'
+import { computed, onBeforeMount, ref } from 'vue'
+import useTenantStore from '@/stores/tenant-store'
+import { ToastService } from '@/services/ToastService'
+import { useLoading } from 'vue-loading-overlay'
+import { Form, Field, ErrorMessage } from 'vee-validate'
+import { useI18n } from 'vue-i18n'
+import { AnalyticsService } from '../../../services/AnalyticsService'
 
-const store = useTenantStore();
-const user = computed(() => store.userToEdit);
-const { t } = useI18n();
+const store = useTenantStore()
+const user = computed(() => store.userToEdit)
+const { t } = useI18n()
 
 const props = defineProps<{
-  tenantId?: number;
-  guarantor?: Guarantor;
-}>();
+  tenantId?: number
+  guarantor?: Guarantor
+}>()
 
-const organismName = ref("");
+const organismName = ref('')
 
-const documentDeniedReasons = ref(new DocumentDeniedReasons());
+const documentDeniedReasons = ref(new DocumentDeniedReasons())
 
-const files = ref([] as DfFile[]);
-const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL);
-const emit = defineEmits(["on-back", "on-next"]);
+const files = ref([] as DfFile[])
+const fileUploadStatus = ref(UploadStatus.STATUS_INITIAL)
+const emit = defineEmits(['on-back', 'on-next'])
 
 onBeforeMount(() => {
-  organismName.value = getGuarantor()?.legalPersonName || "";
+  organismName.value = getGuarantor()?.legalPersonName || ''
   if (guarantorIdentificationLegalPersonDocument()?.documentDeniedReasons) {
     documentDeniedReasons.value = cloneDeep(
       guarantorIdentificationLegalPersonDocument()!.documentDeniedReasons!
-    );
+    )
   }
-});
+})
 
 function getGuarantor() {
   if (props.guarantor) {
-    return props.guarantor;
+    return props.guarantor
   }
-  return store.guarantor;
+  return store.guarantor
 }
 
 const documentStatus = computed(() => {
-  return guarantorIdentificationLegalPersonDocument()?.documentStatus;
-});
+  return guarantorIdentificationLegalPersonDocument()?.documentStatus
+})
 
 function guarantorIdentificationLegalPersonDocument(): DfDocument | undefined {
   if (props.guarantor) {
     return props.guarantor.documents?.find((d: DfDocument) => {
-      return d.documentCategory === "IDENTIFICATION_LEGAL_PERSON";
-    }) as DfDocument;
+      return d.documentCategory === 'IDENTIFICATION_LEGAL_PERSON'
+    }) as DfDocument
   }
-  return store.getGuarantorIdentificationLegalPersonDocument;
+  return store.getGuarantorIdentificationLegalPersonDocument
 }
 function addFiles(fileList: File[]) {
   const nf = Array.from(fileList).map((f) => {
-    return { name: f.name, file: f, size: f.size };
-  });
-  files.value = [...files.value, ...nf];
-  save();
+    return { name: f.name, file: f, size: f.size }
+  })
+  files.value = [...files.value, ...nf]
+  save()
 }
 
 function save() {
   if (!organismName.value) {
-    return Promise.resolve(true);
+    return Promise.resolve(true)
   }
-  const fieldName = "documents";
-  const formData = new FormData();
-  formData.append("legalPersonName", organismName.value);
-  const gId = getGuarantor()?.id;
+  const fieldName = 'documents'
+  const formData = new FormData()
+  formData.append('legalPersonName', organismName.value)
+  const gId = getGuarantor()?.id
   if (gId) {
-    formData.append("guarantorId", gId.toString());
+    formData.append('guarantorId', gId.toString())
   }
   if (props.tenantId) {
-    formData.append("tenantId", props.tenantId.toString());
+    formData.append('tenantId', props.tenantId.toString())
   }
 
-  const $loading = useLoading({});
-  const loader = $loading.show();
+  const $loading = useLoading({})
+  const loader = $loading.show()
   if (!files.value.length) {
     return RegisterService.saveCorporationName(formData)
       .then(() => {
-        files.value = [];
-        fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
-        store.loadUser();
-        ToastService.saveSuccess();
-        return Promise.resolve(true);
+        files.value = []
+        fileUploadStatus.value = UploadStatus.STATUS_INITIAL
+        store.loadUser()
+        ToastService.saveSuccess()
+        return Promise.resolve(true)
       })
       .catch((err: unknown) => {
-        fileUploadStatus.value = UploadStatus.STATUS_FAILED;
-        ToastService.saveFailed();
-        return Promise.reject(err);
+        fileUploadStatus.value = UploadStatus.STATUS_FAILED
+        ToastService.saveFailed()
+        return Promise.reject(err)
       })
       .finally(() => {
-        loader.hide();
-      });
+        loader.hide()
+      })
   }
 
   Array.from(Array(files.value.length).keys()).forEach((x) => {
-    const f: File = files.value[x].file || new File([], "");
-    formData.append(`${fieldName}[${x}]`, f, files.value[x].name);
-  });
+    const f: File = files.value[x].file || new File([], '')
+    formData.append(`${fieldName}[${x}]`, f, files.value[x].name)
+  })
 
-  fileUploadStatus.value = UploadStatus.STATUS_SAVING;
+  fileUploadStatus.value = UploadStatus.STATUS_SAVING
   return RegisterService.saveCorporationIdentification(formData)
     .then(() => {
-      files.value = [];
-      fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
-      store.loadUser();
-      ToastService.saveSuccess();
-      return Promise.resolve(true);
+      files.value = []
+      fileUploadStatus.value = UploadStatus.STATUS_INITIAL
+      store.loadUser()
+      ToastService.saveSuccess()
+      return Promise.resolve(true)
     })
     .catch((err: unknown) => {
-      fileUploadStatus.value = UploadStatus.STATUS_FAILED;
-      ToastService.saveFailed();
-      return Promise.reject(err);
+      fileUploadStatus.value = UploadStatus.STATUS_FAILED
+      ToastService.saveFailed()
+      return Promise.reject(err)
     })
     .finally(() => {
-      loader.hide();
-    });
+      loader.hide()
+    })
 }
 
 function resetFiles() {
-  fileUploadStatus.value = UploadStatus.STATUS_INITIAL;
+  fileUploadStatus.value = UploadStatus.STATUS_INITIAL
 }
 
 function remove(file: DfFile) {
   if (file.id) {
-    if (files.value.length === 1 && guarantorIdentificationLegalPersonDocument()?.documentAnalysisReport?.analysisStatus === "DENIED") {
-      AnalyticsService.removeDeniedDocument(guarantorIdentificationLegalPersonDocument()?.documentCategory || "")
+    if (
+      files.value.length === 1 &&
+      guarantorIdentificationLegalPersonDocument()?.documentAnalysisReport?.analysisStatus ===
+        'DENIED'
+    ) {
+      AnalyticsService.removeDeniedDocument(
+        guarantorIdentificationLegalPersonDocument()?.documentCategory || ''
+      )
     }
 
-    RegisterService.deleteFile(file.id);
+    RegisterService.deleteFile(file.id)
   } else {
     const firstIndex = files.value.findIndex((f) => {
-      return f.name === file.name && f.size === file.size;
-    });
-    files.value.splice(firstIndex, 1);
+      return f.name === file.name && f.size === file.size
+    })
+    files.value.splice(firstIndex, 1)
   }
 }
 
@@ -226,21 +232,21 @@ function listFiles() {
       id: f.id,
       name: f.name,
       file: f.file,
-      size: f.file?.size,
-    };
-  });
-  const existingFiles = guarantorIdentificationLegalPersonDocument()?.files || [];
-  return [...newFiles, ...existingFiles];
+      size: f.file?.size
+    }
+  })
+  const existingFiles = guarantorIdentificationLegalPersonDocument()?.files || []
+  return [...newFiles, ...existingFiles]
 }
 
 function goBack() {
-  emit("on-back");
+  emit('on-back')
 }
 
 function goNext() {
   save().then(() => {
-    emit("on-next");
-  });
+    emit('on-next')
+  })
 }
 </script>
 

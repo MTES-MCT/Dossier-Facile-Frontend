@@ -13,7 +13,7 @@
         :aria-label="t('backnext.back')"
       >
         <i class="color--primary ri-arrow-left-s-line mobile"></i>
-        <span class="desktop">{{ t("backnext.back") }}</span>
+        <span class="desktop">{{ t('backnext.back') }}</span>
       </v-gouv-fr-button>
       <div v-if="!showBack"></div>
       <div class="fr-grid-row flex-1">
@@ -33,30 +33,33 @@
 </template>
 
 <script setup lang="ts">
-import VGouvFrButton from "df-shared-next/src/Button/v-gouv-fr-button/VGouvFrButton.vue";
-import { UtilsService } from "../../services/UtilsService";
-import { useI18n } from "vue-i18n";
+import VGouvFrButton from 'df-shared-next/src/Button/v-gouv-fr-button/VGouvFrButton.vue'
+import { UtilsService } from '../../services/UtilsService'
+import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-  const props = withDefaults(defineProps<{ showBack?: boolean, disabled?: boolean, nextLabel?: string }>(), {
+const props = withDefaults(
+  defineProps<{ showBack?: boolean; disabled?: boolean; nextLabel?: string }>(),
+  {
     showBack: true,
     disabled: false
-  });
-
-  const emit = defineEmits(["on-back", "on-next"]);
-
-  function isMobile() {
-    return UtilsService.isMobile();
   }
+)
 
-  function backAction() {
-    emit("on-back");
-  }
+const emit = defineEmits(['on-back', 'on-next'])
 
-  function nextAction() {
-    emit("on-next");
-  }
+function isMobile() {
+  return UtilsService.isMobile()
+}
+
+function backAction() {
+  emit('on-back')
+}
+
+function nextAction() {
+  emit('on-next')
+}
 </script>
 
 <style lang="scss" scoped>

@@ -95,7 +95,12 @@
     "VALIDATED": "Vérifié",
     "DECLINED": "Modification demandée",
     "INCOMPLETE": "Incomplet",
-    "ARCHIVED": "Archivé"
+    "ARCHIVED": "Archivé",
+    "warn-TO_PROCESS": "En cours de traitement",
+    "warn-VALIDATED": "Vérifié",
+    "warn-DECLINED": "Modification demandée",
+    "warn-INCOMPLETE": "Dossier INCOMPLET",
+    "warn-ARCHIVED": "Archivé"
   },
   "documents": {
     "identity-card": "Carte d’identité",
@@ -255,13 +260,13 @@
       "less-than-year": "J’ai renseigné l’ensemble des pièces de mon garant",
       "my-name": "<p>Merci d’ajouter ici <strong>l’avis d’imposition le plus récent</strong>⁽¹⁾ de votre garant, qu'il soit imposable ou non. Attention à bien fournir toutes les pages du document.</p><p>⁽¹⁾ les avis d’imposition sont disponibles dans l’espace particulier du site <a href='https://www.impots.gouv.fr/accueil' target='_blank' rel='noopener'>impots.gouv.fr</a>. N’hésitez pas à consulter <a href='https://www.impots.gouv.fr/particulier/questions/jai-perdu-mon-avis-dimpot-sur-le-revenu-puis-je-en-obtenir-une-copie' target='_blank' rel='noopener'>cette page</a> pour plus d’informations.</p><p>Note :  les avis des années précédentes peuvent également être ajoutés si vous le souhaitez, mais ils ne sont pas suffisants.</p>",
       "other-tax": "Afin d’améliorer mon dossier, j’explique ci-dessous pourquoi je n'ai pas d’avis d’imposition au nom de mon garant. Cette explication sera ajoutée à mon dossier :",
-      "owner": "J’ajoute un <b>justificatif de domicile de mon garant</b> datant de <b>moins de trois mois.</b>",
       "pension": "<p>Merci d’ajouter ici <strong>l’un des documents suivants, au choix</strong> :</p><ul><li>un <strong>bulletin de pension</strong> de moins de 2 ans</li><li>ou son <strong>titre de pension de retraite</strong></li><li>ou son <strong>dernier ou avant-dernier avis d'imposition</strong> complet (toutes les pages)</li></ul>",
       "rent": "<p>Merci d’ajouter ici un justificatif de paiement de rente ou un avis d’imposition mentionnant clairement le montant de la rente. S’il s’agit d’une rente de type immobilière, vous pouvez ajouter ici la ou les dernières quittances des locataires.</p><p>Conseil : si vous n’avez pas de justificatif à fournir ici, vous pouvez ajouter ici une <strong>attestation sur l’honneur</strong> qui explique la situation de votre garant. Vous pouvez utiliser ce <a href='https://www.service-public.fr/simulateur/calcul/AttestationHonneur' target='_blank' rel='noopener'>modèle d’attestation sur l’honneur</a>.</p>",
       "salary": "J’ajoute un bulletin de salaire de mon garant de moins de 3 mois, une attestation de son employeur, un justificatif de versement de ses indemnités de stage, un bilan comptable ou un avis d’imposition à son nom, complet et de moins de 2 ans.",
       "scholarship": "<p>Merci d’ajouter ici son <strong>dernier avis d’attribution de bourse</strong>.</p><p>Conseil : si vous n’avez pas de justificatif à fournir ici, vous pouvez ajouter ici une <strong>attestation sur l’honneur</strong> qui explique la situation de votre garant. Vous pouvez utiliser ce <a href='https://www.service-public.fr/simulateur/calcul/AttestationHonneur' target='_blank' rel='noopener'>modèle d’attestation sur l’honneur</a>.</p>",
       "social-service": "Merci d’ajouter ici un <strong>justificatif de versement de prestations sociales</strong> de moins de 3 mois (ARE, CAF...)",
-      "tenant": "J’ajoute un <b>justificatif de domicile de mon garant</b> datant de <b>moins de trois mois.</b>",
+      "owner": "Merci d’ajouter ici le <b>dernier avis de taxe foncière</b> de votre garant.",
+      "tenant": "Merci d’ajouter ici un <b>justificatif de domicile de moins de 3 mois</b> au nom de votre garant : facture de téléphone, d'énergie (gaz, électricité…), d’eau ou attestation d’assurance habitation par exemple.",
       "noDocument-social": "Je ne peux pas fournir de justificatifs de versement de prestations sociales",
       "noDocument-salary": "Je ne peux pas fournir les trois derniers bulletins de salaire ou un bilan comptable de mon garant",
       "noDocument-pension": "Je ne peux pas fournir de justificatifs de versement de pension",
@@ -391,8 +396,6 @@
     "amendment-required-title": "Modifications demandées",
     "amendment-required-text": "Après examen de votre dossier, des modifications vous sont demandées. <br>Consultez votre messagerie pour en connaître le détail.",
     "messaging": "Consulter ma messagerie",
-    "instructional-time-title": "Durée d'instruction",
-    "instructional-time-text": "Une fois votre dossier complété et déposé, il est pris en charge en moyenne en moins de 24h par notre équipe d'opérateurs.",
     "congratulations-title": "🎉 Félicitations ! Votre DossierFacile est disponible !",
     "congratulations-text-1": "Afin de candidater au logement de vos rêves, partagez votre dossier à un propriétaire de votre choix, avec ou sans justificatifs, soit par email en renseignant son adresse mail dans la section \"Mes candidatures\" depuis le menu individuel, soit par lien en envoyant votre lien DossierFacile par email, SMS, etc. aux propriétaires, bailleurs de votre choix.",
     "congratulations-text-2": "Pour rappel, DossierFacile ne propose pas de logement.",
@@ -406,6 +409,16 @@
         "DECLINED": "Modification demandée",
         "INCOMPLETE": "Incomplet"
       }
+    },
+    "processing-bloc": {
+      "title": "Délai de traitement",
+      "text": "Votre dossier est actuellement en cours de traitement. Vous recevrez un e-mail lorsque notre équipe l’aura traité.",
+      "badge": "Temps estimé : Entre {0}h et {1}h",
+      "badge-undefined": "Temps estimé non disponible",
+      "delay": "Votre dossier sera traité le {0} entre {1} et {2}",
+      "delay-on-2days": "Votre dossier sera traité entre le {0} et le {1}",
+      "delay-undefined": "Votre horaire de passage est en cours de calcul. Le délai de traitement moyen est de moins de 24h.",
+      "last-update": "Date de dernière modification : {0}"
     }
   },
   "app": {
@@ -1085,7 +1098,8 @@
     "select-label": "Décrivez votre situation d’hébergement actuelle",
     "warning-other-residency": "Si vous êtes locataire ou hébergé gratuitement, veuillez sélectionner l'option correspondante, sinon votre dossier sera refusé.",
     "custom-text": "Merci d’expliquer ici votre situation d'hébergement. Votre explication sera ajoutée à votre dossier",
-    "warning-only-rent-receipt": "Les justificatifs de domicile (taxe d'habitation, facture EDF, facture de téléphone…) ne sont pas acceptés ici. Seules vos quittances (ou une attestation de bon paiement des loyers) permettent à un propriétaire  de s'assurer que vous payez bien vos loyers."
+    "warning-only-rent-receipt": "Les justificatifs de domicile (taxe d'habitation, facture EDF, facture de téléphone…) ne sont pas acceptés ici. Seules vos quittances (ou une attestation de bon paiement des loyers) permettent à un propriétaire  de s'assurer que vous payez bien vos loyers.",
+    "warning-tax": "L'avis d'imposition n'est pas un document accepté ici."
   },
   "roommatesinformationhelp": {
     "paragraph1": "En renseignant l’adresse email de votre colocataire, celui-ci va pouvoir constituer son propre dossier avec ses pièces. Vos deux dossiers seront liés et votre lien-dossier sera commun.",
@@ -1301,8 +1315,6 @@
     "amendment-required-title": "Modifications demandées",
     "amendment-required-text": "Après examen de votre dossier, des modifications vous sont demandées. <br>Consultez votre messagerie pour en connaître le détail.",
     "messaging": "Consulter ma messagerie",
-    "instructional-time-title": "Durée d'instruction",
-    "instructional-time-text": "Une fois votre dossier complété et déposé, il est pris en charge dans un délai de 24 à 48 heures par notre équipe d'opérateurs.",
     "congratulations-title": "🎉 Félicitations ! Votre DossierFacile est disponible !",
     "congratulations-text-1": "Afin de candidater au logement de vos rêves, partagez votre dossier à un propriétaire de votre choix, avec ou sans justificatifs, soit par email en renseignant son adresse mail dans la section \"Partager mon dossier\" ci-dessous, soit par lien en envoyant votre lien DossierFacile par email, SMS, etc. aux propriétaires, bailleurs de votre choix.",
     "congratulations-text-2": "Pour rappel, DossierFacile ne propose pas de logement.",

@@ -10,55 +10,55 @@
 </template>
 
 <script setup lang="ts">
-import TenantGuarantorDocuments from "../components/TenantGuarantorDocuments.vue";
-import ProfileContainer from "../components/ProfileContainer.vue";
-import { User } from "df-shared-next/src/models/User";
-import { Guarantor } from "df-shared-next/src/models/Guarantor";
-import useTenantStore from "@/stores/tenant-store";
-import { computed, onBeforeMount, onBeforeUnmount } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import TenantGuarantorDocuments from '../components/TenantGuarantorDocuments.vue'
+import ProfileContainer from '../components/ProfileContainer.vue'
+import { User } from 'df-shared-next/src/models/User'
+import { Guarantor } from 'df-shared-next/src/models/Guarantor'
+import useTenantStore from '@/stores/tenant-store'
+import { computed, onBeforeMount, onBeforeUnmount } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
-const route = useRoute();
-const router = useRouter();
-      const store = useTenantStore();
-      const coTenants = computed(() => store.coTenants);
+const route = useRoute()
+const router = useRouter()
+const store = useTenantStore()
+const coTenants = computed(() => store.coTenants)
 
-  onBeforeMount(() => {
-    window.Beacon("init", "e9f4da7d-11be-4b40-9514-ac7ce3e68f67");
-    const coTenant = coTenants.value.find((r: User) => {
-      return r.id === tenantId();
-    });
-    const guarantor = coTenant?.guarantors?.find((g: Guarantor) => {
-      return g.id === guarantorId();
-    }) as Guarantor;
-    store.setSelectedGuarantor(guarantor);
+onBeforeMount(() => {
+  window.Beacon('init', 'e9f4da7d-11be-4b40-9514-ac7ce3e68f67')
+  const coTenant = coTenants.value.find((r: User) => {
+    return r.id === tenantId()
   })
+  const guarantor = coTenant?.guarantors?.find((g: Guarantor) => {
+    return g.id === guarantorId()
+  }) as Guarantor
+  store.setSelectedGuarantor(guarantor)
+})
 
-  onBeforeUnmount(() => {
-    window.Beacon("destroy");
+onBeforeUnmount(() => {
+  window.Beacon('destroy')
+})
+
+function getSubStep() {
+  return Number(route.params.substep) || 0
+}
+function getStep() {
+  return Number(route.params.step) || 0
+}
+function tenantId() {
+  return Number(route.params.tenantId) || 0
+}
+function guarantorId() {
+  return Number(route.params.guarantorId)
+}
+function goNext() {
+  router.push({
+    name: 'TenantGuarantors',
+    params: {
+      tenantId: tenantId().toString(),
+      step: getStep().toString()
+    }
   })
-
-  function getSubStep() {
-    return Number(route.params.substep) || 0;
-  }
-  function getStep() {
-    return Number(route.params.step) || 0;
-  }
-  function tenantId() {
-    return Number(route.params.tenantId) || 0;
-  }
-  function guarantorId() {
-    return Number(route.params.guarantorId);
-  }
-  function goNext() {
-    router.push({
-      name: "TenantGuarantors",
-      params: {
-        tenantId: tenantId().toString(),
-        step: getStep().toString(),
-      },
-    });
-  }
+}
 </script>
 
 <style lang="scss" scoped>
