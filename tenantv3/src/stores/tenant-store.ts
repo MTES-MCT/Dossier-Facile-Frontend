@@ -1070,15 +1070,7 @@ const useTenantStore = defineStore('tenant', {
       if (tenantId === undefined) {
         return
       }
-      return MessageService.markMessagesAsRead(tenantId).then(
-        (response) => {
-          this.updateMessagesCommit(tenantId, response.data)
-          return Promise.resolve(response.data)
-        },
-        (error) => {
-          return Promise.reject(error)
-        }
-      )
+      return MessageService.markMessagesAsRead(tenantId)
     },
     loadApartmentSharingLinks() {
       return ApartmentSharingLinkService.getLinks().then(
