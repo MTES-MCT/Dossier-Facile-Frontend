@@ -16,7 +16,7 @@
           >
             <option v-if="!residencyDocument" selected disabled></option>
             <option v-for="d in documents" :value="d" :key="d.key">
-              {{ t(d.key) }}
+              {{ t("documents." + d.key) }}
             </option>
           </select>
         </div>
