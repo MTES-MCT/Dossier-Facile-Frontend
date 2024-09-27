@@ -5,6 +5,21 @@
         <div class="fr-col-md-10 fr-col-lg-8">
           <h1>{{ t('blog-title') }}</h1>
           <BlogExtractTile
+            title="Guide étape par étape pour trouver un appartement idéal"
+            :image="article24Img"
+            publicationDate="27 septembre 2024"
+            path="/blog/guide-etape-par-etape-pour-trouver-appartement-ideal"
+          >
+            <template v-slot:extract>
+              <p>
+                Trouver un appartement idéal n'est pas facile. Il faut chercher, comparer, visiter,
+                négocier... Heureusement, nous avons créé un guide étape par étape pour vous
+                simplifier la vie. Quel que soit votre profil, vous y trouverez des conseils utiles,
+                des astuces et des exemples. Suivez le guide !
+              </p>
+            </template>
+          </BlogExtractTile>
+          <BlogExtractTile
             title="[Propriétaires] Comment détecter une fausse fiche de paie ?"
             :image="article23Img"
             publicationDate="19 Avril 2024"
@@ -442,6 +457,7 @@ import article20Img from '../../assets/images/blog-article20.webp'
 import article21Img from '../../assets/images/blog-article21.webp'
 import article22Img from '../../assets/images/blog-article22.webp'
 import article23Img from '../../assets/images/blog-article23.webp'
+import article24Img from '../../assets/images/blog-article24.webp'
 
 import { useHead } from '@unhead/vue'
 

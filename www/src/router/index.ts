@@ -137,6 +137,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article23.vue')
   },
   {
+    path: '/blog/guide-etape-par-etape-pour-trouver-appartement-ideal',
+    name: 'Article24',
+    component: () => import(/* webpackChunkName: "blog" */ '../views/blog/Article24.vue')
+  },
+  {
     path: '/information',
     name: 'Information',
     component: () => import(/* webpackChunkName: "information" */ '../views/InformationView.vue')
