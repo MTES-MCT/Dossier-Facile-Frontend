@@ -97,8 +97,8 @@
     "INCOMPLETE": "Incomplet",
     "ARCHIVED": "Archivé",
     "warn-TO_PROCESS": "En cours de traitement",
-    "warn-VALIDATED": "Dossier Validé",
-    "warn-DECLINED": "Modification demandée",
+    "warn-VALIDATED": "Dossier VALIDÉ",
+    "warn-DECLINED": "Dossier REFUSÉ",
     "warn-INCOMPLETE": "Dossier INCOMPLET",
     "warn-ARCHIVED": "Archivé"
   },
