@@ -4,7 +4,7 @@ import unmlUrl from '../assets/logos/UNML.webp'
 import cllajUrl from '../assets/logos/CLLAJ.webp'
 import fuUrl from '../assets/logos/FranceUniversites.webp'
 
-import papUrl from '../assets/logos/pap.png'
+import papUrl from '../assets/logos/pap.webp'
 import locserviceUrl from '../assets/logos/loc_service.webp'
 import fasttUrl from '../assets/logos/fastt.webp'
 import flatsyUrl from '../assets/logos/flatsy.webp'
