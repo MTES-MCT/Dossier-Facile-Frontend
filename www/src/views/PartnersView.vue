@@ -13,62 +13,60 @@
     </div>
     <div>
       <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-3w">
-          <AllPartnersComponent></AllPartnersComponent>
-          <div class="text-center fr-mt-5w fr-mb-5w">
-            <p>
-              <a :href="REGISTER_URL" class="fr-btn fr-mt-2w">
-                <span class="text-center full-width">
-                  {{ t("button") }}
-                </span>
-              </a>
-            </p>
-          </div>
+        <AllPartnersComponent></AllPartnersComponent>
+        <div class="text-center fr-mt-5w fr-mb-5w">
+          <p>
+            <a :href="REGISTER_URL" class="fr-btn fr-mt-2w">
+              <span class="text-center full-width">
+                {{ t('button') }}
+              </span>
+            </a>
+          </p>
+        </div>
       </section>
       <section class="fr-pb-md-5w fr-pt-md-9w fr-pt-3w fr-background-alt--blue-france">
         <AllInstitutionalPartnersComponent></AllInstitutionalPartnersComponent>
-          <div class="text-center fr-mt-5w fr-mb-5w">
-            <p>
-              <a :href="REGISTER_URL" class="fr-btn fr-mt-2w">
-                <span class="text-center full-width">
-                  {{ t("button") }}
-                </span>
-              </a>
-            </p>
-          </div>
+        <div class="text-center fr-mt-5w fr-mb-5w">
+          <p>
+            <a :href="REGISTER_URL" class="fr-btn fr-mt-2w">
+              <span class="text-center full-width">
+                {{ t('button') }}
+              </span>
+            </a>
+          </p>
+        </div>
       </section>
     </div>
   </article>
 </template>
 
 <script setup lang="ts">
-import { useHead } from '@unhead/vue';
-import image from "../assets/cover-features.webp";
-import { useI18n } from 'vue-i18n';
-import AllInstitutionalPartnersComponent from "../components/AllInstitutionalPartnersComponent.vue";
-import AllPartnersComponent from "../components/AllPartnersComponent.vue";
+import { useHead } from '@unhead/vue'
+import image from '../assets/cover-features.webp'
+import { useI18n } from 'vue-i18n'
+import AllInstitutionalPartnersComponent from '../components/AllInstitutionalPartnersComponent.vue'
+import AllPartnersComponent from '../components/AllPartnersComponent.vue'
 
-const { t } = useI18n();
-const REGISTER_URL = import.meta.env.VITE_REGISTER_URL;
+const { t } = useI18n()
+const REGISTER_URL = import.meta.env.VITE_REGISTER_URL
 
-const title = "Les partenaires de DossierFacile";
-const description =
-  "Liste de tous les organismes avec lesquels DossierFacile est en partenariat.";
+const title = 'Les partenaires de DossierFacile'
+const description = 'Liste de tous les organismes avec lesquels DossierFacile est en partenariat.'
 useHead({
   title: title,
   meta: [
-    { name: "og:title", content: title },
-    { name: "twitter:title", content: title },
-    { name: "description", content: description },
-    { name: "og:description", content: description },
-    { name: "twitter:description", content: description },
-    { name: "og:image", content: image },
-    { name: "twitter:image", content: image },
-  ],
-});
+    { name: 'og:title', content: title },
+    { name: 'twitter:title', content: title },
+    { name: 'description', content: description },
+    { name: 'og:description', content: description },
+    { name: 'twitter:description', content: description },
+    { name: 'og:image', content: image },
+    { name: 'twitter:image', content: image }
+  ]
+})
 </script>
 
 <style scoped lang="scss">
-
 .height-30 {
   height: auto;
   align-items: center;
@@ -83,9 +81,8 @@ useHead({
   left: 0;
   background-size: cover !important;
   background-position: 50% 50% !important;
-  background-image: url("../assets/cover-features.webp");
+  background-image: url('../assets/cover-features.webp');
   background-color: #314467;
   z-index: 0;
 }
-
 </style>

@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="fr-col-md-3 fr-col-6 justify-content-center"
-  >
+  <div class="fr-col-md-3 fr-col-6 justify-content-center">
     <div class="fr-background-alt--grey logo-container">
       <a
         :href="href"
@@ -24,40 +22,40 @@
 </template>
 
 <script setup lang="ts">
-import { withDefaults } from "vue";
+import { withDefaults } from 'vue'
 
 const props = withDefaults(
   defineProps<{
-    name?: string;
-    image?: string;
-    href?: string;
-    width?: string;
-    height?: string;
-    title?: string;
+    name?: string
+    image?: string
+    href?: string
+    width?: string
+    height?: string
+    title?: string
   }>(),
   {
-    width: "60",
-    height: "60",
+    width: '60',
+    height: '60'
   }
-);
+)
 
 function getTitle() {
   if (props.title) {
-    return props.title;
+    return props.title
   }
-  return "aller sur le site « " + props.name + " » (nouvelle fenêtre)";
+  return 'aller sur le site « ' + props.name + ' » (nouvelle fenêtre)'
 }
 
 function getImage() {
   if (props.image) {
-    return props.image;
+    return props.image
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-a[target="_blank"].logo-link::after {
+a[target='_blank'].logo-link::after {
   content: none;
 }
 
