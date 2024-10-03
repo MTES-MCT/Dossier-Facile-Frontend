@@ -65,6 +65,7 @@
       </div>
       <AllDeclinedMessages
         class="fr-mb-3w"
+        :document="tenantResidencyDocument"
         :documentDeniedReasons="documentDeniedReasons"
         :documentStatus="documentStatus"
       ></AllDeclinedMessages>
