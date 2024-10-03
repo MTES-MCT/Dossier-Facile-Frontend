@@ -248,7 +248,6 @@ function identificationFiles() {
 
 async function remove(file: DfFile, silent = false) {
   AnalyticsService.deleteFile('identification')
-  debugger
   if (file.id) {
     if (
       tenantIdentificationDocument.value?.files?.length === 1 &&

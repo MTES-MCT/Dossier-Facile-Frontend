@@ -1,6 +1,6 @@
 import { User } from 'df-shared-next/src/models/User'
-import { DfDocument } from '../../../df-shared-next/src/models/DfDocument'
-import { Guarantor } from '../../../df-shared-next/src/models/Guarantor'
+import { DfDocument } from 'df-shared-next/src/models/DfDocument'
+import { Guarantor } from 'df-shared-next/src/models/Guarantor'
 import { ToastService } from './ToastService'
 
 export const UtilsService = {
