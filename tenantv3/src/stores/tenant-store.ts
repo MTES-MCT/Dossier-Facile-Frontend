@@ -418,9 +418,6 @@ const useTenantStore = defineStore('tenant', {
         )
       }
       if (this.selectedGuarantor?.id) {
-        if (user === undefined) {
-          debugger
-        }
         let guarantor = user.guarantors.find((g: Guarantor) => {
           return g.id === this.selectedGuarantor?.id
         })
