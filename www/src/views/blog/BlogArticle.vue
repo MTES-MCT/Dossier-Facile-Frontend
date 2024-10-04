@@ -40,7 +40,7 @@ const props = withDefaults(
   defineProps<{
     title: string
     date: string
-    hashtags: string
+    hashtags?: string
   }>(),
   {
     hashtags: ''

@@ -1,6 +1,7 @@
 {
   "name": "watermark",
   "private": true,
+  "type": "module",
   "workspaces": {
     "nohoist": [
       "**/connect-history-api-fallback/**",
@@ -15,6 +16,7 @@
   },
   "scripts": {
     "dev": "vite",
+    "tsc": "vue-tsc --noEmit",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "start": "node server.js"
@@ -30,19 +32,19 @@
     "df-shared-next": "0.1.0",
     "express": "^4.20.0",
     "vee-validate": "^4.11.3",
-    "vue": "^3.3.4",
+    "vue": "3.5.11",
     "vue-i18n": "^9.3.0-beta.17",
     "vue-router": "4",
     "vue-toastification": "^2.0.0-rc.5"
   },
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^7.0.0",
-    "@vitejs/plugin-vue": "^4.1.0",
-    "sass": "^1.54.0",
-    "typescript": "5.0.2",
-    "vite": "5.2.14",
+    "@vitejs/plugin-vue": "5.1.4",
+    "sass": "1.79.4",
+    "typescript": "5.6.2",
+    "vite": "5.4.8",
     "vite-plugin-pwa": "^0.16.5",
-    "vue-tsc": "^1.2.0"
+    "vue-tsc": "2.1.6"
   },
   "eslintConfig": {
     "no-param-reassign": [
