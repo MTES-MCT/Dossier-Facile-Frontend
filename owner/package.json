@@ -1,6 +1,7 @@
 {
   "name": "owner",
   "private": true,
+  "type": "module",
   "workspaces": {
     "nohoist": [
       "**/connect-history-api-fallback/**",
@@ -14,7 +15,7 @@
     "node": "20.x"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --force",
     "build": "vite build",
     "fbuild": "vue-tsc --noEmit && vite build",
     "tsc": "vue-tsc --noEmit",
@@ -26,7 +27,6 @@
     "@gouvfr/dsfr": "1.11.2",
     "@sentry/tracing": "^7.51.2",
     "@sentry/vue": "^7.51.2",
-    "@vue/cli-plugin-babel": "5.0.8",
     "axios": "^1.7.4",
     "connect-history-api-fallback": "^2.0.0",
     "date-fns": "^2.28.0",
@@ -36,26 +36,27 @@
     "pinia": "2.0.33",
     "remixicon": "4.2.0",
     "vee-validate": "4.12.2",
-    "vue": "3.3.11",
+    "vue": "3.5.11",
     "vue-i18n": "^9.3.0-beta.17",
     "vue-matomo": "^4.1.0",
     "vue-router": "4",
     "vue-toastification": "^2.0.0-rc.5",
-    "vue3-cookies": "^1.0.6"
+    "vue3-cookies": "1.0.6"
   },
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^7.0.0",
+    "@types/node": "22.7.4",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
-    "@vitejs/plugin-vue": "^4.1.0",
+    "@vitejs/plugin-vue": "5.1.4",
     "eslint": "^8.34.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-vue": "^9.0.0",
     "sass": "^1.49.7",
-    "typescript": "5.0.2",
-    "vite": "5.2.14",
-    "vue-tsc": "1.8.19",
+    "typescript": "5.6.2",
+    "vite": "5.4.8",
+    "vue-tsc": "2.1.6",
     "yup": "^1.0.2"
   },
   "eslintConfig": {
