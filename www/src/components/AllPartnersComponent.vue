@@ -28,14 +28,14 @@ import { computed } from 'vue'
 
 const { t } = useI18n()
 
-const partners = computed(() => PARTNERS.splice(0, props.limit))
-
 const props = withDefaults(
   defineProps<{
-    limit: number
+    limit?: number
   }>(),
   {
     limit: 200
   }
 )
+
+const partners = computed(() => PARTNERS.splice(0, props.limit))
 </script>
