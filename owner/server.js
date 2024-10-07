@@ -1,5 +1,5 @@
-const express = require('express')
-const history = require('connect-history-api-fallback')
+import express from 'express'
+import history from 'connect-history-api-fallback'
 
 const app = express()
 app.use(history())
@@ -12,9 +12,9 @@ app.use(function (req, res, next) {
 })
 
 const directory = '/' + (process.env.STATIC_DIR || 'dist')
-app.use(express.static(__dirname + directory))
+app.use(express.static(import.meta.dirname + directory))
 
-app.use(express.static(__dirname + directory))
+app.use(express.static(import.meta.dirname + directory))
 
 const port = process.env.PORT || 3000
 app.listen(port, function () {
