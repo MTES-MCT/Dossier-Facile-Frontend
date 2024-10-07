@@ -54,7 +54,7 @@
                   class="form-control validate-required fr-input"
                   :class="{
                     'fr-input--valid': meta.valid,
-                    'fr-input--error': !meta.valid,
+                    'fr-input--error': !meta.valid
                   }"
                   :placeholder="t('register.email-placeholder')"
                   type="email"
@@ -81,7 +81,7 @@
                   class="form-control validate-required fr-input"
                   :class="{
                     'fr-input--valid': meta.valid,
-                    'fr-input--error': !meta.valid,
+                    'fr-input--error': !meta.valid
                   }"
                   :placeholder="generatedPwd"
                   type="password"
@@ -106,7 +106,7 @@
                 v-slot="{ field, meta }"
                 :rules="{
                   required: true,
-                  confirm: [user.password, user.confirm],
+                  confirm: [user.password, user.confirm]
                 }"
               >
                 <input
@@ -114,7 +114,7 @@
                   class="validate-required form-control fr-input"
                   :class="{
                     'fr-input--valid': meta.valid,
-                    'fr-input--error': !meta.valid,
+                    'fr-input--error': !meta.valid
                   }"
                   type="password"
                   autocomplete="new-password"
@@ -148,59 +148,63 @@
 </template>
 
 <script setup lang="ts">
-import { User } from 'df-shared-next/src/models/User';
-import { ref, onMounted } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { Form, Field, ErrorMessage } from 'vee-validate';
-import PasswordMeter from 'df-shared-next/src/components/PasswordMeter/PasswordMeter.vue';
+import { User } from 'df-shared-next/src/models/User'
+import { ref, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { Form, Field, ErrorMessage } from 'vee-validate'
+import PasswordMeter from 'df-shared-next/src/components/PasswordMeter/PasswordMeter.vue'
 
-const FRANCE_CONNECT_LOGIN_URL = import.meta.env.VUE_APP_FRANCE_CONNECT_LOGIN_URL;
+const FRANCE_CONNECT_LOGIN_URL = import.meta.env.VUE_APP_FRANCE_CONNECT_LOGIN_URL
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const emit = defineEmits(['on-register']);
-const franceConnect = window.location.href.includes('locataire-dev') || window.location.href.includes('localhost');
+const emit = defineEmits(['on-register'])
+const franceConnect =
+  window.location.href.includes('locataire-dev') || window.location.href.includes('localhost')
 
-const user: User = new User();
-const score = ref(0);
-const generatedPwd = ref('');
+const user: User = new User()
+const score = ref(0)
+const generatedPwd = ref('')
 
 function generatePlaceholder() {
   const chars = [
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
     '0123456789',
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
-    '#!?-_.',
-  ];
-  generatedPwd.value = t('register.ex')
-    + [4, 4, 2, 2]
-      .map((len, i) => Array(len)
-        .fill(chars[i])
-        .map((x) => x[Math.floor(Math.random() * x.length)])
-        .join(''))
+    '#!?-_.'
+  ]
+  generatedPwd.value =
+    t('register.ex') +
+    [4, 4, 2, 2]
+      .map((len, i) =>
+        Array(len)
+          .fill(chars[i])
+          .map((x) => x[Math.floor(Math.random() * x.length)])
+          .join('')
+      )
       .concat()
       .join('')
       .split('register.')
       .sort(() => 0.5 - Math.random())
-      .join('');
+      .join('')
 }
 
 function loginFranceConnect() {
   if (FRANCE_CONNECT_LOGIN_URL) {
-    window.location.href = FRANCE_CONNECT_LOGIN_URL.toString();
+    window.location.href = FRANCE_CONNECT_LOGIN_URL.toString()
   }
 }
 
 onMounted(() => {
-  generatePlaceholder();
-});
+  generatePlaceholder()
+})
 
 function onSubmit() {
-  emit('on-register', user);
+  emit('on-register', user)
 }
 
 function setScore(s: number) {
-  score.value = s;
+  score.value = s
 }
 </script>
 

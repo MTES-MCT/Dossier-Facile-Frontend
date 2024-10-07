@@ -4,7 +4,9 @@
       <div class="fr-col-12 fr-col-md-7">
         <NakedCard class="bg-purple-var fr-p-5w h-100">
           <Form @submit="onSubmit" class="h-100 fr-grid-col">
-            <h2 class="fr-h4">{{ t('connectproperty.apply-existing-account') }}</h2>
+            <h2 class="fr-h4">
+              {{ t('connectproperty.apply-existing-account') }}
+            </h2>
             <div>{{ t('connectproperty.apply-existing-text') }}</div>
 
             <div class="bg-purple fr-checkbox-group">
@@ -17,7 +19,9 @@
                 :value="true"
               />
               <label for="authorize"
-                ><div>{{ t('connectproperty.authorize', [p.ownerName, p.address]) }}</div></label
+                ><div>
+                  {{ t('connectproperty.authorize', [p.ownerName, p.address]) }}
+                </div></label
               >
               <ErrorMessage class="fr-error-text" name="authorize" v-slot="{ message }">
                 <span role="alert" class="fr-error-text">{{ t(message || '') }}</span>
@@ -58,39 +62,39 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { useRoute, useRouter } from 'vue-router';
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
-import { Form, Field, ErrorMessage } from 'vee-validate';
-import DfButton from 'df-shared-next/src/Button/Button.vue';
-import useOwnerStore from '../../store/owner-store';
-import PropertyContainer from './PropertyContainer.vue';
+import { computed, onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRoute, useRouter } from 'vue-router'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import { Form, Field, ErrorMessage } from 'vee-validate'
+import DfButton from 'df-shared-next/src/Button/Button.vue'
+import useOwnerStore from '../../store/owner-store'
+import PropertyContainer from './PropertyContainer.vue'
 
-const { t } = useI18n();
-const route = useRoute();
-const router = useRouter();
-const store = useOwnerStore();
+const { t } = useI18n()
+const route = useRoute()
+const router = useRouter()
+const store = useOwnerStore()
 
-const token = ref('');
-const authorize = ref(false);
-const propertyNotFound = ref(true);
+const token = ref('')
+const authorize = ref(false)
+const propertyNotFound = ref(true)
 
 onMounted(() => {
   if (route.params.token) {
-    token.value = route.params.token.toString();
-    store.setPropertyToConsult(token.value);
-    propertyNotFound.value = false;
+    token.value = route.params.token.toString()
+    store.setPropertyToConsult(token.value)
+    propertyNotFound.value = false
   } else {
-    router.push({ name: 'Dashboard' });
+    router.push({ name: 'Dashboard' })
   }
-});
+})
 
-const TENANT_URL = `${import.meta.env.VITE_FULL_TENANT_URL}`;
-const p = computed(() => store.getPropertyToConsult);
+const TENANT_URL = `${import.meta.env.VITE_FULL_TENANT_URL}`
+const p = computed(() => store.getPropertyToConsult)
 
 function onSubmit() {
-  window.location.replace(`/validConnexion/${token.value}`);
+  window.location.replace(`/validConnexion/${token.value}`)
 }
 </script>
 

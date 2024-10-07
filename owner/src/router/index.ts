@@ -1,12 +1,12 @@
-import * as VueRouter from 'vue-router';
-import { useCookies } from 'vue3-cookies';
-import { CookiesService } from 'df-shared-next/src/services/CookiesService';
-import Dashboard from '../components/Dashboard.vue';
-import LandingPage from '../components/LandingPage.vue';
-import useOwnerStore from '../store/owner-store';
-import keycloak from '../plugin/keycloak';
+import * as VueRouter from 'vue-router'
+import { useCookies } from 'vue3-cookies'
+import { CookiesService } from 'df-shared-next/src/services/CookiesService'
+import Dashboard from '../components/Dashboard.vue'
+import LandingPage from '../components/LandingPage.vue'
+import useOwnerStore from '../store/owner-store'
+import keycloak from '../plugin/keycloak'
 
-const OWNER_URL = import.meta.env.VITE_OWNER_URL;
+const OWNER_URL = import.meta.env.VITE_OWNER_URL
 
 const routes = [
   {
@@ -16,9 +16,9 @@ const routes = [
       title: 'DossierFacile propriétaire',
       requiresAuth: false,
       requiresGuest: true,
-      hasFooter: true,
+      hasFooter: true
     },
-    component: LandingPage,
+    component: LandingPage
   },
   {
     path: '/home',
@@ -27,9 +27,9 @@ const routes = [
       title: 'Dashboard propriétaire - DossierFacile',
       requiresAuth: true,
       requiresComplete: true,
-      hasFooter: true,
+      hasFooter: true
     },
-    component: Dashboard,
+    component: Dashboard
   },
   {
     path: '/creation',
@@ -37,9 +37,9 @@ const routes = [
     meta: {
       title: 'Création de compte propriétaire - DossierFacile',
       requiresAuth: false,
-      hasFooter: true,
+      hasFooter: true
     },
-    component: () => import('../components/SignupPage.vue'),
+    component: () => import('../components/SignupPage.vue')
   },
   {
     path: '/confirmerCompte/:token',
@@ -47,9 +47,9 @@ const routes = [
     meta: {
       title: 'Confirmation de compte propriétaire - DossierFacile',
       requiresAuth: false,
-      hasFooter: true,
+      hasFooter: true
     },
-    component: () => import('../components/account/ConfirmAccountPage.vue'),
+    component: () => import('../components/account/ConfirmAccountPage.vue')
   },
   {
     path: '/mot-de-passe-oublie',
@@ -57,18 +57,18 @@ const routes = [
     meta: {
       title: 'Mot de passe oublié - DossierFacile',
       description: 'Accédez à la procédure de mot de passe oublié pour votre compte DossierFacile',
-      hideForAuth: true,
+      hideForAuth: true
     },
-    component: () => import('../components/account/ForgottenPasswordPage.vue'),
+    component: () => import('../components/account/ForgottenPasswordPage.vue')
   },
   {
     path: '/modifier-mot-de-passe/:token',
     name: 'ChangePassword',
     meta: {
       title: 'Nouveau mot de passe - DossierFacile',
-      hideForAuth: true,
+      hideForAuth: true
     },
-    component: () => import('../components/account/ChangePasswordPage.vue'),
+    component: () => import('../components/account/ChangePasswordPage.vue')
   },
   {
     path: '/contact',
@@ -76,9 +76,9 @@ const routes = [
     meta: {
       title: 'Contact - DossierFacile',
       requiresAuth: false,
-      hasFooter: true,
+      hasFooter: true
     },
-    component: () => import('../components/ContactPage.vue'),
+    component: () => import('../components/ContactPage.vue')
   },
   {
     path: '/proprietaire',
@@ -86,9 +86,9 @@ const routes = [
     meta: {
       title: 'Édition de compte propriétaire - DossierFacile',
       requiresAuth: true,
-      hasFooter: false,
+      hasFooter: false
     },
-    component: () => import('../components/account/Account.vue'),
+    component: () => import('../components/account/Account.vue')
   },
   {
     path: '/consulte-propriete/:id',
@@ -96,9 +96,9 @@ const routes = [
     meta: {
       title: 'Propriété - DossierFacile',
       requiresAuth: true,
-      hasFooter: true,
+      hasFooter: true
     },
-    component: () => import('../components/property/ConsultProperty.vue'),
+    component: () => import('../components/property/ConsultProperty.vue')
   },
   {
     path: '/candidater/:token',
@@ -107,9 +107,9 @@ const routes = [
       title: 'Candidater - DossierFacile',
       requiresAuth: false,
       anonymous: true,
-      hasFooter: true,
+      hasFooter: true
     },
-    component: () => import('../components/property/ConnectProperty.vue'),
+    component: () => import('../components/property/ConnectProperty.vue')
   },
   {
     path: '/validConnexion/:token',
@@ -118,9 +118,9 @@ const routes = [
       title: 'Candidater - DossierFacile',
       requiresAuth: false,
       anonymous: true,
-      hasFooter: true,
+      hasFooter: true
     },
-    component: () => import('../components/property/ConnectPropertyValidate.vue'),
+    component: () => import('../components/property/ConnectPropertyValidate.vue')
   },
   {
     path: '/nom-propriete/:id?',
@@ -129,9 +129,9 @@ const routes = [
       title: 'Édition du nom - DossierFacile',
       requiresAuth: true,
       hasFooter: false,
-      position: 0,
+      position: 0
     },
-    component: () => import('../components/property/PropertyName.vue'),
+    component: () => import('../components/property/PropertyName.vue')
   },
   {
     path: '/type-propriete/:id?',
@@ -140,9 +140,9 @@ const routes = [
       title: 'Édition du type - DossierFacile',
       requiresAuth: true,
       hasFooter: false,
-      position: 1,
+      position: 1
     },
-    component: () => import('../components/property/PropertyType.vue'),
+    component: () => import('../components/property/PropertyType.vue')
   },
   {
     path: '/adresse-propriete/:id?',
@@ -151,9 +151,9 @@ const routes = [
       title: "Édition de l'adresse - DossierFacile",
       requiresAuth: true,
       hasFooter: false,
-      position: 2,
+      position: 2
     },
-    component: () => import('../components/property/PropertyAddress.vue'),
+    component: () => import('../components/property/PropertyAddress.vue')
   },
   {
     path: '/amenagement-propriete/:id?',
@@ -162,9 +162,9 @@ const routes = [
       title: "Édition de l'aménagement - DossierFacile",
       requiresAuth: true,
       hasFooter: false,
-      position: 3,
+      position: 3
     },
-    component: () => import('../components/property/PropertyFurniture.vue'),
+    component: () => import('../components/property/PropertyFurniture.vue')
   },
   {
     path: '/surface/:id?',
@@ -173,9 +173,9 @@ const routes = [
       title: 'Édition de la surface - DossierFacile',
       requiresAuth: true,
       hasFooter: false,
-      position: 4,
+      position: 4
     },
-    component: () => import('../components/property/PropertyLivingSpace.vue'),
+    component: () => import('../components/property/PropertyLivingSpace.vue')
   },
   {
     path: '/loyer-propriete/:id?',
@@ -184,9 +184,9 @@ const routes = [
       title: 'Édition du loyer - DossierFacile',
       requiresAuth: true,
       hasFooter: false,
-      position: 5,
+      position: 5
     },
-    component: () => import('../components/property/PropertyRent.vue'),
+    component: () => import('../components/property/PropertyRent.vue')
   },
   {
     path: '/diagnostic-propriete/:id?',
@@ -195,9 +195,9 @@ const routes = [
       title: 'Édition du diagnostic énergétique - DossierFacile',
       requiresAuth: true,
       hasFooter: false,
-      position: 6,
+      position: 6
     },
-    component: () => import('../components/property/PropertyDiagnosticAdeme.vue'),
+    component: () => import('../components/property/PropertyDiagnosticAdeme.vue')
   },
   {
     path: '/valider-propriete/:id?',
@@ -205,9 +205,9 @@ const routes = [
     meta: {
       title: 'Validation de la propriété - DossierFacile',
       requiresAuth: true,
-      hasFooter: false,
+      hasFooter: false
     },
-    component: () => import('../components/property/ValidateProperty.vue'),
+    component: () => import('../components/property/ValidateProperty.vue')
   },
   {
     path: '/:pathMatch(.*)*',
@@ -215,79 +215,87 @@ const routes = [
     meta: {
       title: '404 - DossierFacile',
       requiresAuth: false,
-      hasFooter: true,
+      hasFooter: true
     },
-    component: () => import('../components/NotFound404.vue'),
-  },
-];
+    component: () => import('../components/NotFound404.vue')
+  }
+]
 
 const router = VueRouter.createRouter({
   history: VueRouter.createWebHistory(),
-  routes,
-});
+  routes
+})
 
 function updateMetaData(to: VueRouter.RouteLocationNormalized) {
-  document.title = (to.meta?.title as string) || '';
+  document.title = (to.meta?.title as string) || ''
   if (to.meta?.description) {
-    const tag = document.querySelector('meta[name="description"]');
-    tag?.setAttribute('content', to.meta.description as string);
+    const tag = document.querySelector('meta[name="description"]')
+    tag?.setAttribute('content', to.meta.description as string)
 
-    const prop = document.querySelector('meta[property="og:description"]');
-    prop?.setAttribute('content', to.meta.description as string);
+    const prop = document.querySelector('meta[property="og:description"]')
+    prop?.setAttribute('content', to.meta.description as string)
 
-    const title = document.querySelector('meta[property="og:title"]');
-    title?.setAttribute('content', to.meta.title as string);
+    const title = document.querySelector('meta[property="og:title"]')
+    title?.setAttribute('content', to.meta.title as string)
   }
 }
 
 router.beforeEach(async (to, _, next) => {
   if (to.matched.some((record) => record.meta.requiresGuest)) {
     if (keycloak.authenticated) {
-      next({ name: 'Dashboard' });
-      return;
+      next({ name: 'Dashboard' })
+      return
     }
   }
-  const store = useOwnerStore();
+  const store = useOwnerStore()
   if (to.matched.some((record) => record.meta.hasFooter)) {
-    store.setHasFooter(true);
+    store.setHasFooter(true)
   } else {
-    store.setHasFooter(false);
+    store.setHasFooter(false)
   }
 
-  const { cookies } = useCookies();
-  const lang = cookies.get('lang') === 'en' ? 'en' : 'fr';
-  store.setLang(lang);
+  const { cookies } = useCookies()
+  const lang = cookies.get('lang') === 'en' ? 'en' : 'fr'
+  store.setLang(lang)
 
-  if (to.query.mtm_campaign !== undefined || to.query.mtm_source !== undefined || to.query.mtm_medium !== undefined) {
-    CookiesService.setJsonCookie('acquisition', {
-      campaign: to.query.mtm_campaign,
-      source: to.query.mtm_source,
-      medium: to.query.mtm_medium,
-    }, CookiesService.datePlusDaysFromNow(1));
+  if (
+    to.query.mtm_campaign !== undefined ||
+    to.query.mtm_source !== undefined ||
+    to.query.mtm_medium !== undefined
+  ) {
+    CookiesService.setJsonCookie(
+      'acquisition',
+      {
+        campaign: to.query.mtm_campaign,
+        source: to.query.mtm_source,
+        medium: to.query.mtm_medium
+      },
+      CookiesService.datePlusDaysFromNow(1)
+    )
   }
 
   if (to.matched.some((record) => record.meta.anonymous)) {
-    updateMetaData(to);
-    next();
-    return;
+    updateMetaData(to)
+    next()
+    return
   }
   if (keycloak.authenticated) {
-    await store.loadUser();
+    await store.loadUser()
   }
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!keycloak.authenticated) {
-      keycloak.login({ redirectUri: OWNER_URL + to.fullPath });
+      keycloak.login({ redirectUri: OWNER_URL + to.fullPath })
     }
   }
   if (to.matched.some((record) => record.meta.requiresComplete)) {
     if (store.isLoggedIn && (!store.getUser?.firstName || !store.getUser?.lastName)) {
-      next({ name: 'AccountName' });
-      return;
+      next({ name: 'AccountName' })
+      return
     }
   }
-  updateMetaData(to);
-  next();
-});
+  updateMetaData(to)
+  next()
+})
 
-export default router;
+export default router

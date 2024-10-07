@@ -1,46 +1,46 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n';
-import Modal from 'df-shared-next/src/components/Modal.vue';
-import { ref } from 'vue';
-import { User } from 'df-shared-next/src/models/User';
-import { useToast } from 'vue-toastification';
-import Register from './account/Register.vue';
-import useOwnerStore from '../store/owner-store';
+import { useI18n } from 'vue-i18n'
+import Modal from 'df-shared-next/src/components/Modal.vue'
+import { ref } from 'vue'
+import { User } from 'df-shared-next/src/models/User'
+import { useToast } from 'vue-toastification'
+import Register from './account/Register.vue'
+import useOwnerStore from '../store/owner-store'
 
-const { t } = useI18n();
-const store = useOwnerStore();
-const toast = useToast();
+const { t } = useI18n()
+const store = useOwnerStore()
+const toast = useToast()
 
-const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
+const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
 
-const isValidModalVisible = ref(false);
+const isValidModalVisible = ref(false)
 
 function closeModal() {
-  isValidModalVisible.value = false;
-  window.location.replace(MAIN_URL);
+  isValidModalVisible.value = false
+  window.location.replace(MAIN_URL)
 }
 
 function onRegister(user: User) {
   if (user.email && user.password) {
     store.register(user).then(
       () => {
-        isValidModalVisible.value = true;
+        isValidModalVisible.value = true
       },
       (error) => {
         if (
-          error.response?.data?.errors.filter((e: any) => e.code === 'UniqueEmailActiveAccount')
-          !== undefined
+          error.response?.data?.errors.filter((e: any) => e.code === 'UniqueEmailActiveAccount') !==
+          undefined
         ) {
           toast.error(t('signuppage.duplicate-email').toString(), {
-            timeout: 7000,
-          });
-          return;
+            timeout: 7000
+          })
+          return
         }
         toast.error(t('signuppage.register-error').toString(), {
-          timeout: 7000,
-        });
-      },
-    );
+          timeout: 7000
+        })
+      }
+    )
   }
 }
 </script>
@@ -149,7 +149,8 @@ body {
   }
 }
 .bg-pic {
-  background: linear-gradient(rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.5)),
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.5)),
     url('../assets/salon.webp') no-repeat;
   background-size: cover;
   height: 100%;

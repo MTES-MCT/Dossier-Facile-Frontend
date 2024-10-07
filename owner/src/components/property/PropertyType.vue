@@ -1,46 +1,46 @@
 <script setup lang="ts">
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
-import { computed, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { useRoute, useRouter } from 'vue-router';
-import { Field, ErrorMessage } from 'vee-validate';
-import PropertyPage from './PropertyPage.vue';
-import useOwnerStore from '../../store/owner-store';
-import AnalyticsService from '../../services/AnalyticsService';
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRoute, useRouter } from 'vue-router'
+import { Field, ErrorMessage } from 'vee-validate'
+import PropertyPage from './PropertyPage.vue'
+import useOwnerStore from '../../store/owner-store'
+import AnalyticsService from '../../services/AnalyticsService'
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const route = useRoute();
-const router = useRouter();
-const store = useOwnerStore();
+const route = useRoute()
+const router = useRouter()
+const store = useOwnerStore()
 
-const id = ref(0);
+const id = ref(0)
 if (route.params.id) {
-  id.value = Number(route.params.id);
-  store.updatePropertyToEdit(id.value);
+  id.value = Number(route.params.id)
+  store.updatePropertyToEdit(id.value)
 }
 
 const type = computed({
   get() {
-    return store.getPropertyToEdit?.type || '';
+    return store.getPropertyToEdit?.type || ''
   },
   set(val: string) {
-    store.setType(val);
-  },
-});
+    store.setType(val)
+  }
+})
 
 function onSubmit() {
-  AnalyticsService.propertyData('type_register');
+  AnalyticsService.propertyData('type_register')
   store.saveProperty().then((data) => {
-    router.push({ name: 'PropertyAddress', params: { id: data.id } });
-  });
+    router.push({ name: 'PropertyAddress', params: { id: data.id } })
+  })
 }
 
 function onBack() {
   router.push({
     name: 'PropertyName',
-    params: { id: store.getPropertyToEdit.id },
-  });
+    params: { id: store.getPropertyToEdit.id }
+  })
 }
 </script>
 
@@ -67,7 +67,9 @@ function onBack() {
             <div class="icon-container desktop">
               <i class="fs-36 ri-building-4-line icon-color"></i>
             </div>
-            <div class="fr-mb-md-5w fr-m-2w">{{ t('propertytype.apartment') }}</div>
+            <div class="fr-mb-md-5w fr-m-2w">
+              {{ t('propertytype.apartment') }}
+            </div>
           </div>
         </label>
         <Field

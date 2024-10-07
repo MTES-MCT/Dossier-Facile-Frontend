@@ -1,1 +1,1 @@
-declare module "vue-matomo";
+declare module 'vue-matomo'

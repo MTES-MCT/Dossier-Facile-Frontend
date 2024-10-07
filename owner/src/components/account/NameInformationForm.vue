@@ -15,7 +15,7 @@
                 v-model.trim="lastname"
                 v-slot="{ field, meta }"
                 :rules="{
-                  required: true,
+                  required: true
                 }"
               >
                 <input
@@ -23,7 +23,7 @@
                   class="validate-required form-control fr-input"
                   :class="{
                     'fr-input--valid': meta.valid,
-                    'fr-input--error': !meta.valid,
+                    'fr-input--error': !meta.valid
                   }"
                   :placeholder="t('nameinformationform.lastname')"
                   :disabled="franceConnect"
@@ -45,7 +45,7 @@
                 v-model.trim="firstname"
                 v-slot="{ field, meta }"
                 :rules="{
-                  required: true,
+                  required: true
                 }"
               >
                 <input
@@ -53,7 +53,7 @@
                   class="validate-required form-control fr-input"
                   :class="{
                     'fr-input--valid': meta.valid,
-                    'fr-input--error': !meta.valid,
+                    'fr-input--error': !meta.valid
                   }"
                   :placeholder="t('nameinformationform.firstname')"
                   :disabled="franceConnect"
@@ -75,7 +75,7 @@
                 v-slot="{ field, meta }"
                 :rules="{
                   email: true,
-                  required: true,
+                  required: true
                 }"
               >
                 <input
@@ -83,7 +83,7 @@
                   class="validate-required form-control fr-input"
                   :class="{
                     'fr-input--valid': meta.valid,
-                    'fr-input--error': !meta.valid,
+                    'fr-input--error': !meta.valid
                   }"
                   :placeholder="t('nameinformationform.email')"
                   type="email"
@@ -102,43 +102,43 @@
 </template>
 
 <script lang="ts" setup>
-import { Form, Field, ErrorMessage } from 'vee-validate';
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
-import { computed, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { useToast } from 'vue-toastification';
-import router from '../../router';
-import ProfileFooter from '../footer/ProfileFooter.vue';
-import useOwnerStore from '../../store/owner-store';
+import { Form, Field, ErrorMessage } from 'vee-validate'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useToast } from 'vue-toastification'
+import router from '../../router'
+import ProfileFooter from '../footer/ProfileFooter.vue'
+import useOwnerStore from '../../store/owner-store'
 
-const { t } = useI18n();
-const store = useOwnerStore();
-const toast = useToast();
+const { t } = useI18n()
+const store = useOwnerStore()
+const toast = useToast()
 
-const properties = store.getProperties;
+const properties = store.getProperties
 
-const franceConnect = computed(() => store.getUser?.franceConnect);
+const franceConnect = computed(() => store.getUser?.franceConnect)
 
-const firstname = ref(store.getUser?.firstName || '');
-const lastname = ref(store.getUser?.lastName || '');
-const email = ref(store.getUser?.email || '');
+const firstname = ref(store.getUser?.firstName || '')
+const lastname = ref(store.getUser?.lastName || '')
+const email = ref(store.getUser?.email || '')
 
 function onSubmit() {
   store
     .saveNames(lastname.value, firstname.value, email.value)
     .then(() => {
       if (properties.length > 0) {
-        router.push({ name: 'Dashboard' });
-        return;
+        router.push({ name: 'Dashboard' })
+        return
       }
-      router.push({ name: 'PropertyName' });
+      router.push({ name: 'PropertyName' })
     })
     .catch((err) => {
       if (err.response.data.message.includes('email_exists')) {
         toast.error(t('nameinformationform.email-exists').toString(), {
-          timeout: 7000,
-        });
+          timeout: 7000
+        })
       }
-    });
+    })
 }
 </script>
