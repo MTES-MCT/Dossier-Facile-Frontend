@@ -12,7 +12,7 @@ const OWNER_URL = `${import.meta.env.VITE_OWNER_URL}`
 
 onMounted(() => {
   setTimeout(function () {
-    let beaconScript = document.createElement('script')
+    const beaconScript = document.createElement('script')
     beaconScript.setAttribute('src', '/js/helpscout.js')
     // beaconScript.setAttribute('id', 'beacon')
     document.head.appendChild(beaconScript)

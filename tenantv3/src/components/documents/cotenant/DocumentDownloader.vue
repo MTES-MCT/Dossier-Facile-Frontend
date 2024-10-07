@@ -250,7 +250,7 @@ const isWarningTaxSituationModalVisible = ref(false)
 
 const emit = defineEmits(['on-change-document', 'enrich-form-data'])
 
-var loader: any
+let loader: any
 
 onBeforeMount(() => {
   loadDocument()

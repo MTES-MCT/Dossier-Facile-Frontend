@@ -19,7 +19,7 @@ const watermark = ref("");
 const API_URL = import.meta.env.VITE_API_URL;
 
 async function handleSubmit() {
-  if (files.value === null) {
+  if (files.value.length === 0) {
     return;
   }
   wait.value = true;
@@ -30,20 +30,22 @@ async function handleSubmit() {
 
   axios
     .post(`${API_URL}/api/document/files`, formData)
-    .then((res: any) => {
+    .then((res) => {
       token.value = res.data.token;
       getFile();
     })
-    .catch((err: any) => {
+    .catch((err) => {
       console.dir(err);
       toast.error(t("watermarking-page.upload-error"));
       wait.value = false;
     });
 }
 
-function handleChange(e: any) {
+function handleChange(e: Event) {
   url.value = "";
-  files.value = Array.from(e.target.files);
+  if (e.target instanceof HTMLInputElement) {
+    files.value = Array.from(e.target.files || []);
+  }
 }
 
 function getWatermarkedFileName() {
@@ -54,7 +56,7 @@ function getWatermarkedFileName() {
 function getFile() {
   axios
     .get(`${API_URL}/api/document/url/${token.value}`)
-    .then((res: any) => {
+    .then((res) => {
       if (res.data.url) {
         url.value = `${API_URL}/api/document/${token.value}`;
         wait.value = false;

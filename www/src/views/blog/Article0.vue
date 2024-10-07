@@ -24,7 +24,7 @@
             <li>
               Téléchargez vos pièces justificatives sur notre site internet
               <a href="https://www.dossierfacile.logement.gouv.fr">www.dossierfacile.logement.gouv.fr</a>,
-              notamment :
+              notamment&nbsp;:
             </li>
             <p>
               <ul>
@@ -87,7 +87,6 @@ useHead({
     { name: 'twitter:image', content: new URL(image, import.meta.url).href },
   ],
 })
-  const TENANT_URL = `//${import.meta.env.VITE_TENANT_URL}`;
 </script>
 
 <style scoped lang="scss">
@@ -100,12 +99,11 @@ useHead({
   background-size: cover !important;
   background-position: 50% 50% !important;
   background-image: url("../../assets/cover-features.webp");
+  z-index: 0;
 
   @media (max-width: 768px) {
     background-image: url("../../assets/cover-features-mobile.webp");
   }
-
-  z-index: 0;
 }
 
 .p-btn {

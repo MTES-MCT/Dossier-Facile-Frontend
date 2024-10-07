@@ -430,9 +430,6 @@ function getRateClass(applicant: Applicant) {
 .bg-pic {
   width: 100%;
   height: 320px;
-  @media (max-width: 768px) {
-    height: 550px;
-  }
   top: 0;
   left: 0;
   background-size: cover !important;
@@ -441,6 +438,9 @@ function getRateClass(applicant: Applicant) {
     url('../../assets/salon.webp');
   background-color: #314467;
   z-index: 0;
+  @media (max-width: 768px) {
+    height: 550px;
+  }
 }
 
 .mt-100 {

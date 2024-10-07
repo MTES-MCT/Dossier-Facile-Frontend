@@ -9,6 +9,6 @@ import router from "./router";
 const app = createApp(App);
 
 app.use(i18n);
-app.use(Toast as any);
+app.use(Toast);
 app.use(router);
 app.mount("#app");
