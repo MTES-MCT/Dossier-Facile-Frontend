@@ -142,7 +142,7 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-@import '@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.css';
+@import '@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css';
 
 .box-container {
   display: flex;

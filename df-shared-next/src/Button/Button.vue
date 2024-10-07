@@ -11,8 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import { withDefaults } from "vue";
-
 const emit = defineEmits(["on-click"]);
 
 const props = withDefaults(

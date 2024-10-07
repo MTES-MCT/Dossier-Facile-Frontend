@@ -52,10 +52,10 @@ function onLoginTenant() {
 
 <style lang="scss">
 @import 'df-shared-next/src/scss/_main.scss';
-@import '../../node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.min.css';
-@import '../../node_modules/@gouvfr/dsfr/dist/utility/colors/colors.min.css';
+@import '@gouvfr/dsfr/dist/dsfr/dsfr.min.css';
+@import '@gouvfr/dsfr/dist/utility/colors/colors.min.css';
 @import 'vue3-toastify/dist/index.css';
-@import '../../node_modules/remixicon/fonts/remixicon.css';
+@import 'remixicon/fonts/remixicon.css';
 
 #app {
   min-height: 100vh;

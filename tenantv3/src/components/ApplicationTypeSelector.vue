@@ -97,5 +97,5 @@ function hideConfirmationModal() {
 </script>
 
 <style scoped lang="scss">
-@import '@gouvfr/dsfr/dist/utility/icons/icons-user/icons-user.css';
+@import '@gouvfr/dsfr/dist/utility/icons/icons-user/icons-user.min.css';
 </style>

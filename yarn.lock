@@ -1569,11 +1569,6 @@
   resolved "https://registry.yarnpkg.com/@fullhuman/vue-cli-plugin-purgecss/-/vue-cli-plugin-purgecss-5.0.0.tgz#2efb7cfbab0c7623684462abaccc33f09ace430d"
   integrity sha512-xzzlVa/+bKpKHJsGfcSWdZU1WTnfznYrA/3t867LWptUTV+QaXV8RUgxSrSpiw9zNlwWGc6cPBcdFycP3CCxlg==
 
-"@gouvfr/dsfr@1.10.1":
-  version "1.10.1"
-  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.10.1.tgz#a8470374d1f52d4195bd7c3c2b218fe3aaddac90"
-  integrity sha512-epBjsV9zmaOev+Sv2rrV9jgKfcs0U+gOVirthfG7EymeKUVX0eLQit+ra9yrDzLgk4mm7ZkWfy/6FekOuNgj1w==
-
 "@gouvfr/dsfr@1.11.2", "@gouvfr/dsfr@^1.10.1":
   version "1.11.2"
   resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.11.2.tgz#aa815e458b266acd8e457bdad35b7e3ad5e6c2ab"
