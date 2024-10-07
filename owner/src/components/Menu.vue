@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
-import { useI18n } from 'vue-i18n';
-import DfButton from 'df-shared-next/src/Button/Button.vue';
-import LanguageSelector from 'df-shared-next/src/Header/LanguageSelector.vue';
-import useOwnerStore from '../store/owner-store.ts';
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+import DfButton from 'df-shared-next/src/Button/Button.vue'
+import LanguageSelector from 'df-shared-next/src/Header/LanguageSelector.vue'
+import useOwnerStore from '../store/owner-store.ts'
 
-const store = useOwnerStore();
-const isLoggedIn = computed(() => store.isLoggedIn);
-const route = useRoute();
-const { t } = useI18n();
+const store = useOwnerStore()
+const isLoggedIn = computed(() => store.isLoggedIn)
+const route = useRoute()
+const { t } = useI18n()
 
-const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
-const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`;
+const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
+const DOCS_URL = `//${import.meta.env.VITE_DOCS_URL}`
 
 function currentPage() {
-  return route.name;
+  return route.name
 }
 
 function changeLang(lang: string) {
-  store.setLang(lang);
+  store.setLang(lang)
 }
 
 function showDeleteAccountModal() {
-  store.setShowDeleteAccountModal(true);
+  store.setShowDeleteAccountModal(true)
 }
 </script>
 

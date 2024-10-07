@@ -1,46 +1,46 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { useRoute, useRouter } from 'vue-router';
-import { Field, ErrorMessage } from 'vee-validate';
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
-import PropertyPage from './PropertyPage.vue';
-import useOwnerStore from '../../store/owner-store';
-import AnalyticsService from '../../services/AnalyticsService';
+import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRoute, useRouter } from 'vue-router'
+import { Field, ErrorMessage } from 'vee-validate'
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import PropertyPage from './PropertyPage.vue'
+import useOwnerStore from '../../store/owner-store'
+import AnalyticsService from '../../services/AnalyticsService'
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const route = useRoute();
-const router = useRouter();
-const store = useOwnerStore();
+const route = useRoute()
+const router = useRouter()
+const store = useOwnerStore()
 
-const id = ref(0);
+const id = ref(0)
 if (route.params.id) {
-  id.value = Number(route.params.id);
-  store.updatePropertyToEdit(id.value);
+  id.value = Number(route.params.id)
+  store.updatePropertyToEdit(id.value)
 }
 
 const furniture = computed({
   get() {
-    return store.getPropertyToEdit?.furniture || '';
+    return store.getPropertyToEdit?.furniture || ''
   },
   set(val: string) {
-    store.setFurniture(val);
-  },
-});
+    store.setFurniture(val)
+  }
+})
 
 function onSubmit() {
-  AnalyticsService.propertyData('ameublement_register');
+  AnalyticsService.propertyData('ameublement_register')
   store.saveProperty().then((data) => {
-    router.push({ name: 'PropertyLivingSpace', params: { id: data.id } });
-  });
+    router.push({ name: 'PropertyLivingSpace', params: { id: data.id } })
+  })
 }
 
 function onBack() {
   router.push({
     name: 'PropertyAddress',
-    params: { id: store.getPropertyToEdit.id },
-  });
+    params: { id: store.getPropertyToEdit.id }
+  })
 }
 </script>
 
@@ -67,7 +67,9 @@ function onBack() {
             <div class="icon-container desktop">
               <img alt="" svg-inline src="../../assets/ico_vide.svg" aria-label="icone meublé" />
             </div>
-            <div class="fr-mb-md-5w fr-m-2w">{{ t('propertyfurniture.unfurnished') }}</div>
+            <div class="fr-mb-md-5w fr-m-2w">
+              {{ t('propertyfurniture.unfurnished') }}
+            </div>
           </div>
         </label>
         <Field
@@ -92,7 +94,9 @@ function onBack() {
                 aria-label="icone non meublé"
               />
             </div>
-            <div class="fr-mb-md-5w fr-m-2w">{{ t('propertyfurniture.furnished') }}</div>
+            <div class="fr-mb-md-5w fr-m-2w">
+              {{ t('propertyfurniture.furnished') }}
+            </div>
           </div>
         </label>
         <ErrorMessage name="furniture" v-slot="{ message }">

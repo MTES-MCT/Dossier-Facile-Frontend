@@ -1,69 +1,70 @@
 <script setup lang="ts">
-import NakedCard from 'df-shared-next/src/components/NakedCard.vue';
-import { computed, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { useRoute, useRouter } from 'vue-router';
-import { Field, ErrorMessage } from 'vee-validate';
-import { useToast } from 'vue-toastification';
-import PropertyPage from './PropertyPage.vue';
-import useOwnerStore from '../../store/owner-store';
-import UpdateRowBtn from './UpdateRowBtn.vue';
+import NakedCard from 'df-shared-next/src/components/NakedCard.vue'
+import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRoute, useRouter } from 'vue-router'
+import { Field, ErrorMessage } from 'vee-validate'
+import { useToast } from 'vue-toastification'
+import PropertyPage from './PropertyPage.vue'
+import useOwnerStore from '../../store/owner-store'
+import UpdateRowBtn from './UpdateRowBtn.vue'
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const route = useRoute();
-const router = useRouter();
-const store = useOwnerStore();
-const authorize = ref(false);
-const toast = useToast();
+const route = useRoute()
+const router = useRouter()
+const store = useOwnerStore()
+const authorize = ref(false)
+const toast = useToast()
 
-const id = ref(0);
+const id = ref(0)
 if (route.params.id) {
-  id.value = Number(route.params.id);
-  store.updatePropertyToEdit(Number(id.value));
-  authorize.value = store.getPropertyToEdit.validated;
+  id.value = Number(route.params.id)
+  store.updatePropertyToEdit(Number(id.value))
+  authorize.value = store.getPropertyToEdit.validated
 }
 
-const getParams = id.value > 0 ? { id: id.value } : {};
+const getParams = id.value > 0 ? { id: id.value } : {}
 
-const property = store.getPropertyToEdit;
+const property = store.getPropertyToEdit
 
 const hasErrors = computed(
-  () => !(
-    property.name
-      && property.address
-      && property.furniture
-      && property.livingSpace
-      && property.livingSpace > 0
-      && property.rentCost
-      && property.rentCost > 0
-      && property.chargesCost !== undefined
-      && property.chargesCost >= 0
-      && property.energyConsumption !== undefined
-      && property.energyConsumption >= 0
-      && property.co2Emission !== undefined
-      && property.co2Emission >= 0
-  ),
-);
+  () =>
+    !(
+      property.name &&
+      property.address &&
+      property.furniture &&
+      property.livingSpace &&
+      property.livingSpace > 0 &&
+      property.rentCost &&
+      property.rentCost > 0 &&
+      property.chargesCost !== undefined &&
+      property.chargesCost >= 0 &&
+      property.energyConsumption !== undefined &&
+      property.energyConsumption >= 0 &&
+      property.co2Emission !== undefined &&
+      property.co2Emission >= 0
+    )
+)
 
 async function onSubmit() {
   if (hasErrors.value) {
     toast.error(t('validateproperty.try-again').toString(), {
-      timeout: 7000,
-    });
-    return;
+      timeout: 7000
+    })
+    return
   }
-  await store.setPropertyValidated(true);
+  await store.setPropertyValidated(true)
   store.saveProperty().then(() => {
-    router.push({ name: 'Dashboard' });
-  });
+    router.push({ name: 'Dashboard' })
+  })
 }
 
 function onBack() {
   router.push({
     name: 'PropertyDiagnostic',
-    params: { id: store.getPropertyToEdit.id },
-  });
+    params: { id: store.getPropertyToEdit.id }
+  })
 }
 </script>
 
@@ -126,9 +127,9 @@ function onBack() {
         <div
           v-if="
             !property.rentCost ||
-              property.rentCost <= 0 ||
-              property.chargesCost === undefined ||
-              property.chargesCost < 0
+            property.rentCost <= 0 ||
+            property.chargesCost === undefined ||
+            property.chargesCost < 0
           "
         >
           <UpdateRowBtn
@@ -139,9 +140,9 @@ function onBack() {
         <div
           v-if="
             !property.energyConsumption ||
-              property.energyConsumption <= 0 ||
-              property.co2Emission === undefined ||
-              property.co2Emission < 0
+            property.energyConsumption <= 0 ||
+            property.co2Emission === undefined ||
+            property.co2Emission < 0
           "
         >
           <UpdateRowBtn

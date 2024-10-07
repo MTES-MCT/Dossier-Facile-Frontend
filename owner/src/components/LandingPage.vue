@@ -45,9 +45,13 @@
             <div class="fr-tile fr-enlarge-link">
               <div class="fr-tile__body">
                 <h2 class="fr-tile__title">
-                  <div class="fr-tile__link">{{ t('landing.purpose.first.title') }}</div>
+                  <div class="fr-tile__link">
+                    {{ t('landing.purpose.first.title') }}
+                  </div>
                 </h2>
-                <p class="fr-tile__desc">{{ t('landing.purpose.first.content') }}</p>
+                <p class="fr-tile__desc">
+                  {{ t('landing.purpose.first.content') }}
+                </p>
               </div>
               <div class="fr-tile__img">
                 <i class="ri-checkbox-circle-line purpose-icon"></i>
@@ -58,9 +62,13 @@
             <div class="fr-tile fr-enlarge-link">
               <div class="fr-tile__body">
                 <h2 class="fr-tile__title">
-                  <div class="fr-tile__link">{{ t('landing.purpose.second.title') }}</div>
+                  <div class="fr-tile__link">
+                    {{ t('landing.purpose.second.title') }}
+                  </div>
                 </h2>
-                <p class="fr-tile__desc">{{ t('landing.purpose.second.content') }}</p>
+                <p class="fr-tile__desc">
+                  {{ t('landing.purpose.second.content') }}
+                </p>
               </div>
               <div class="fr-tile__img">
                 <i class="ri-eye-2-line purpose-icon"></i>
@@ -71,9 +79,13 @@
             <div class="fr-tile fr-enlarge-link">
               <div class="fr-tile__body">
                 <h2 class="fr-tile__title">
-                  <div class="fr-tile__link">{{ t('landing.purpose.third.title') }}</div>
+                  <div class="fr-tile__link">
+                    {{ t('landing.purpose.third.title') }}
+                  </div>
                 </h2>
-                <p class="fr-tile__desc">{{ t('landing.purpose.third.content') }}</p>
+                <p class="fr-tile__desc">
+                  {{ t('landing.purpose.third.content') }}
+                </p>
               </div>
               <div class="fr-tile__img">
                 <i class="ri-timer-flash-line purpose-icon"></i>
@@ -95,7 +107,9 @@
                 <p>{{ t('landing.citation.s1') }}</p>
               </blockquote>
               <figcaption>
-                <p class="fr-quote__author">{{ t('landing.citation.s1-author') }}</p>
+                <p class="fr-quote__author">
+                  {{ t('landing.citation.s1-author') }}
+                </p>
               </figcaption>
             </figure>
           </div>
@@ -105,7 +119,9 @@
                 <p>{{ t('landing.citation.s2') }}</p>
               </blockquote>
               <figcaption>
-                <p class="fr-quote__author">{{ t('landing.citation.s2-author') }}</p>
+                <p class="fr-quote__author">
+                  {{ t('landing.citation.s2-author') }}
+                </p>
               </figcaption>
             </figure>
           </div>
@@ -115,7 +131,9 @@
                 <p>{{ t('landing.citation.s3') }}</p>
               </blockquote>
               <figcaption>
-                <p class="fr-quote__author">{{ t('landing.citation.s3-author') }}</p>
+                <p class="fr-quote__author">
+                  {{ t('landing.citation.s3-author') }}
+                </p>
               </figcaption>
             </figure>
           </div>
@@ -134,7 +152,9 @@
                 <div class="ri-checkbox-circle-line"></div>
                 {{ t('landing.howto.add-property.title') }}
               </div>
-              <div class="fr-col-12">{{ t('landing.howto.add-property.content') }}</div>
+              <div class="fr-col-12">
+                {{ t('landing.howto.add-property.content') }}
+              </div>
               <div class="fr-col-12">
                 <img src="../assets/landing/add-property.svg" alt="" class="justif-img" />
               </div>
@@ -151,7 +171,9 @@
                 <div class="ri-eye-2-line"></div>
                 {{ t('landing.howto.invite-tenant.title') }}
               </div>
-              <div class="fr-col-12">{{ t('landing.howto.invite-tenant.content') }}</div>
+              <div class="fr-col-12">
+                {{ t('landing.howto.invite-tenant.content') }}
+              </div>
               <div class="fr-col-12">
                 <img src="../assets/landing/invite-tenant.svg" alt="" class="justif-img" />
               </div>
@@ -168,7 +190,9 @@
                 <div class="ri-timer-flash-line"></div>
                 {{ t('landing.howto.manage-tenant.title') }}
               </div>
-              <div class="fr-col-12">{{ t('landing.howto.manage-tenant.content') }}</div>
+              <div class="fr-col-12">
+                {{ t('landing.howto.manage-tenant.content') }}
+              </div>
               <div class="fr-col-12">
                 <img src="../assets/landing/manage-tenant.svg" alt="" class="justif-img" />
               </div>

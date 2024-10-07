@@ -21,6 +21,7 @@
     "tsc": "vue-tsc --noEmit",
     "preview": "vite preview",
     "start": "node server.js",
+    "format": "prettier --write src/",
     "cy:run": "cypress run"
   },
   "dependencies": {

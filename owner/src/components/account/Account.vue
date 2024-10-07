@@ -1,24 +1,19 @@
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
-import NameInformationForm from "./NameInformationForm.vue"
+import { useI18n } from 'vue-i18n'
+import NameInformationForm from './NameInformationForm.vue'
 
-const { t } = useI18n();
-
+const { t } = useI18n()
 </script>
 
 <template>
-  <div
-    class="name-container fr-container fr-container-full-size bg--grey fr-grid-row"
-  >
+  <div class="name-container fr-container fr-container-full-size bg--grey fr-grid-row">
     <div class="fr-col-xs-12 fr-col-md-4 bg--dark-blue">
       <div class="title-container">
         <h2>{{ t('account.title') }}</h2>
-        <h3 class="fr-h5">{{ t("account.subtitle") }}</h3>
+        <h3 class="fr-h5">{{ t('account.subtitle') }}</h3>
       </div>
     </div>
-    <div
-      class="fr-col-md-8 fr-col-xs-12 fr-grid-row fr-grid-row--center d-p-200"
-    >
+    <div class="fr-col-md-8 fr-col-xs-12 fr-grid-row fr-grid-row--center d-p-200">
       <div class="fr-col-xs-12 fr-col-md-10 max-600">
         <NameInformationForm></NameInformationForm>
       </div>
@@ -56,4 +51,3 @@ h2 {
   }
 }
 </style>
-

@@ -1,13 +1,13 @@
-import { User } from 'df-shared-next/src/models/User';
+import { User } from 'df-shared-next/src/models/User'
 
 export default class Applicant extends User {
-  lastUpdateDate?: Date;
+  lastUpdateDate?: Date
 
-  tenantName?: string;
+  tenantName?: string
 
-  tenantSalary?: number;
+  tenantSalary?: number
 
-  guarantorSalary?: number;
+  guarantorSalary?: number
 
-  rate?: number;
+  rate?: number
 }

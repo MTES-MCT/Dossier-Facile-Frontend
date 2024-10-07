@@ -1,110 +1,110 @@
-import { createApp } from 'vue';
-import axios from 'axios';
-import { globalCookiesConfig } from 'vue3-cookies';
-import Toast from 'vue-toastification';
-import { configure, defineRule } from 'vee-validate';
-import { createPinia } from 'pinia';
-import * as Sentry from '@sentry/vue';
-import { BrowserTracing } from '@sentry/tracing';
-import App from './App.vue';
-import router from './router';
-import i18n from './i18n';
-import 'vue-toastification/dist/index.css';
-import keycloak from './plugin/keycloak';
-import MatomoPlugin from './plugin/matomo';
-import HelpscoutPlugin from './plugin/helpscout.js';
-import CrispPlugin from './plugin/crisp.js';
+import { createApp } from 'vue'
+import axios from 'axios'
+import { globalCookiesConfig } from 'vue3-cookies'
+import Toast from 'vue-toastification'
+import { configure, defineRule } from 'vee-validate'
+import { createPinia } from 'pinia'
+import * as Sentry from '@sentry/vue'
+import { BrowserTracing } from '@sentry/tracing'
+import App from './App.vue'
+import router from './router'
+import i18n from './i18n'
+import 'vue-toastification/dist/index.css'
+import keycloak from './plugin/keycloak'
+import MatomoPlugin from './plugin/matomo'
+import HelpscoutPlugin from './plugin/helpscout.js'
+import CrispPlugin from './plugin/crisp.js'
 
 const CRISP_WEBSITE_ID = import.meta.env.VITE_CRISP_WEBSITE_ID
 const CRISP_ENABLED = import.meta.env.VITE_CRISP_ENABLED
 
 declare global {
   interface Window {
-    _paq: any;
-    Beacon: any;
+    _paq: any
+    Beacon: any
   }
 }
 
 defineRule('validateEmail', (value: any) => {
   if (!value) {
-    return 'register.email-not-valid';
+    return 'register.email-not-valid'
   }
-  return true;
-});
+  return true
+})
 defineRule('isTrue', (value: any) => {
   if (!value) {
-    return 'field-required';
+    return 'field-required'
   }
-  return true;
-});
+  return true
+})
 defineRule('hasValue', (value: any) => {
   if (!value) {
-    return 'field-required';
+    return 'field-required'
   }
-  return true;
-});
+  return true
+})
 defineRule('required', (value: any) => {
   if (typeof value === 'number') {
     if (!value && value !== 0) {
-      return 'field-required';
+      return 'field-required'
     }
-    return true;
+    return true
   }
   if (!value || !value.length) {
-    return 'field-required';
+    return 'field-required'
   }
-  return true;
-});
+  return true
+})
 defineRule('email', (value: any) => {
   if (!value || !value.length) {
-    return true;
+    return true
   }
   if (!/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/.test(value)) {
-    return 'register.email-not-valid';
+    return 'register.email-not-valid'
   }
-  return true;
-});
+  return true
+})
 defineRule('strength', (_value: any, [score]: number[]) => {
   if (score < 2) {
-    return 'register.strength-not-valid';
+    return 'register.strength-not-valid'
   }
-  return true;
-});
+  return true
+})
 defineRule('confirm', (_value: any, [password, confirm]: string[]) => {
   if (password !== confirm) {
-    return 'register.confirm-not-valid';
+    return 'register.confirm-not-valid'
   }
-  return true;
-});
+  return true
+})
 defineRule('positive', (value: any) => {
   if (!value || !value.length) {
-    return true;
+    return true
   }
   if (value <= 0) {
-    return 'number-not-positive';
+    return 'number-not-positive'
   }
-  return true;
-});
+  return true
+})
 defineRule('positiveOrNull', (value: any) => {
   if (!value || !value.length) {
-    return true;
+    return true
   }
   if (value < 0) {
-    return 'number-not-positive-or-null';
+    return 'number-not-positive-or-null'
   }
-  return true;
-});
+  return true
+})
 
 configure({
-  validateOnInput: true,
-});
+  validateOnInput: true
+})
 
-const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`;
-const OWNER_API_URL = import.meta.env.VITE_OWNER_API_URL;
-const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT || 'dev';
+const MAIN_URL = `//${import.meta.env.VITE_MAIN_URL}`
+const OWNER_API_URL = import.meta.env.VITE_OWNER_API_URL
+const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT || 'dev'
 
 function mountApp() {
-  const app = createApp(App);
+  const app = createApp(App)
 
   Sentry.init({
     app,
@@ -117,42 +117,44 @@ function mountApp() {
           'localhost',
           'proprietaire-dev.dossierfacile.fr',
           'proprietaire.dossierfacile.logement.gouv.fr',
-          /^\//,
-        ],
-      }),
+          /^\//
+        ]
+      })
     ],
     // Set tracesSampleRate to 1.0 to capture 100%
     // of transactions for performance monitoring.
     // We recommend adjusting this value in production
-    tracesSampleRate: 0.05,
-  });
+    tracesSampleRate: 0.05
+  })
 
-  app.use(createPinia());
-  app.use(router);
-  app.use(i18n);
-  app.use(Toast);
-  app.use(MatomoPlugin);
+  app.use(createPinia())
+  app.use(router)
+  app.use(i18n)
+  app.use(Toast)
+  app.use(MatomoPlugin)
   if (CRISP_ENABLED === 'true') {
-    app.use(CrispPlugin, { websiteId: CRISP_WEBSITE_ID});
+    app.use(CrispPlugin, { websiteId: CRISP_WEBSITE_ID })
   } else {
-    app.use(HelpscoutPlugin);
+    app.use(HelpscoutPlugin)
   }
-  app.mount('#app');
+  app.mount('#app')
 }
 
 if (!window.location.href.includes('/validConnexion/')) {
   keycloak
     .init({ onLoad: 'check-sso', checkLoginIframe: true })
     .then((auth) => {
-      const aYearFromNow = new Date();
-      aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1);
+      const aYearFromNow = new Date()
+      aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1)
       globalCookiesConfig({
         expireTimes: aYearFromNow.toUTCString(),
         path: '/',
-        domain: MAIN_URL.endsWith('dossierfacile.logement.gouv.fr') ? 'dossierfacile.logement.gouv.fr' : 'localhost',
+        domain: MAIN_URL.endsWith('dossierfacile.logement.gouv.fr')
+          ? 'dossierfacile.logement.gouv.fr'
+          : 'localhost',
         secure: true,
-        sameSite: 'None',
-      });
+        sameSite: 'None'
+      })
 
       // Token Refresh
       setInterval(() => {
@@ -160,42 +162,42 @@ if (!window.location.href.includes('/validConnexion/')) {
           .updateToken(70)
           .then()
           .catch(() => {
-            console.log('Failed to refresh token');
-          });
-      }, 6000);
+            console.log('Failed to refresh token')
+          })
+      }, 6000)
       if (auth) {
         axios.interceptors.request.use(
           (config) => {
             if (config.url?.includes(OWNER_API_URL) && keycloak.authenticated && config?.headers) {
-              const localToken = keycloak.token;
-              config.headers.Authorization = `Bearer ${localToken}`;
+              const localToken = keycloak.token
+              config.headers.Authorization = `Bearer ${localToken}`
             }
-            return config;
+            return config
           },
 
-          (error) => Promise.reject(error),
-        );
+          (error) => Promise.reject(error)
+        )
 
         axios.interceptors.response.use(
           (response) => response,
           (error) => {
             if (
-              error.response
-              && (error.response.status === 401 || error.response.status === 403)
+              error.response &&
+              (error.response.status === 401 || error.response.status === 403)
             ) {
-              console.log('err');
+              console.log('err')
             }
-            return Promise.reject(error);
-          },
-        );
+            return Promise.reject(error)
+          }
+        )
       }
 
-      mountApp();
+      mountApp()
     })
     .catch(() => {
-      console.log('Authenticated Failed');
-      window.location.reload();
-    });
+      console.log('Authenticated Failed')
+      window.location.reload()
+    })
 } else {
-  mountApp();
+  mountApp()
 }

@@ -13,31 +13,31 @@
 </template>
 
 <script setup lang="ts">
-import { withDefaults } from 'vue';
-import FooterContainer from './FooterContainer.vue';
-import BackNext from './BackNext.vue';
+import { withDefaults } from 'vue'
+import FooterContainer from './FooterContainer.vue'
+import BackNext from './BackNext.vue'
 
 withDefaults(
   defineProps<{
-    showBack?: boolean;
-    disabled?: boolean;
-    nextLabel?: string;
+    showBack?: boolean
+    disabled?: boolean
+    nextLabel?: string
   }>(),
   {
     showBack: true,
     disabled: false,
-    nextLabel: '',
-  },
-);
+    nextLabel: ''
+  }
+)
 
-const emit = defineEmits(['on-next', 'on-back']);
+const emit = defineEmits(['on-next', 'on-back'])
 
 function nextAction() {
-  emit('on-next');
+  emit('on-next')
 }
 
 function backAction() {
-  emit('on-back');
+  emit('on-back')
 }
 </script>
 

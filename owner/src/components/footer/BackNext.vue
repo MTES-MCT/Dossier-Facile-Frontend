@@ -29,33 +29,33 @@
 </template>
 
 <script setup lang="ts">
-import VGouvFrButton from 'df-shared-next/src/Button/v-gouv-fr-button/VGouvFrButton.vue';
-import { useI18n } from 'vue-i18n';
-import { withDefaults } from 'vue';
+import VGouvFrButton from 'df-shared-next/src/Button/v-gouv-fr-button/VGouvFrButton.vue'
+import { useI18n } from 'vue-i18n'
+import { withDefaults } from 'vue'
 
 withDefaults(
   defineProps<{
-    showBack?: boolean;
-    disabled?: boolean;
-    nextLabel?: string;
+    showBack?: boolean
+    disabled?: boolean
+    nextLabel?: string
   }>(),
   {
     showBack: true,
     disabled: false,
-    nextLabel: '',
-  },
-);
+    nextLabel: ''
+  }
+)
 
-const emit = defineEmits(['on-next', 'on-back']);
+const emit = defineEmits(['on-next', 'on-back'])
 
-const { t } = useI18n();
+const { t } = useI18n()
 
 function backAction() {
-  emit('on-back');
+  emit('on-back')
 }
 
 function nextAction() {
-  emit('on-next');
+  emit('on-next')
 }
 </script>
 
