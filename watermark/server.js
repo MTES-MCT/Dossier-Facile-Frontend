@@ -1,3 +1,4 @@
+/* eslint-env node */
 import express from "express";
 import history from "connect-history-api-fallback";
 
