@@ -22,6 +22,7 @@
     "preview": "vite preview",
     "start": "node server.js",
     "format": "prettier --write src/",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore",
     "cy:run": "cypress run"
   },
   "dependencies": {

@@ -34,7 +34,6 @@ a {
 </style>
 <script setup lang="ts">
 import ShareArticle from './ShareArticle.vue'
-import { withDefaults } from 'vue'
 
 const props = withDefaults(
   defineProps<{

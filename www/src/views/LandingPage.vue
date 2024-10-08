@@ -284,11 +284,11 @@ onMounted(() => {
   background-position: 50% 50% !important;
   background-image: url('/cover-features-0119.webp');
   background-color: #6277a0;
+  z-index: 0;
+
   @media (max-width: 768px) {
     background-image: url('/cover-features-mobile-0119.webp');
   }
-
-  z-index: 0;
 }
 
 .s1-icons {

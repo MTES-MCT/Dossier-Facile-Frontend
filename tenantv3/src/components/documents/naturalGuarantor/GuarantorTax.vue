@@ -175,7 +175,7 @@ const isDocDeleteVisible = ref(false)
 const newFiles = ref([] as File[])
 const isWarningTaxSituationModalVisible = ref(false)
 
-var loader: any
+let loader: any
 
 function getRegisteredDoc() {
   if (selectedGuarantor.value?.documents !== null) {

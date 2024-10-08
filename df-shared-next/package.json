@@ -4,12 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "tsc": "vue-tsc --noEmit"
+    "tsc": "vue-tsc --noEmit",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore"
   },
   "dependencies": {
-    "core-js": "^3.6.5",
-    "highlight.js": "11.7.0",
-    "loader-utils": "^3.2.1",
     "sass": "1.79.4"
   },
   "peerDependencies": {
@@ -20,13 +18,9 @@
     "vue3-cookies": "1.0.6"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.11",
-    "@types/mocha": "^10.0.1",
-    "@typescript-eslint/eslint-plugin": "^5.57.0",
-    "@typescript-eslint/parser": "^5.57.0",
-    "@vue/eslint-config-prettier": "^7.1.0",
-    "@vue/eslint-config-typescript": "^11.0.2",
-    "chai": "^4.1.2",
+    "@rushstack/eslint-patch": "1.10.4",
+    "@vue/eslint-config-prettier": "10.0.0",
+    "@vue/eslint-config-typescript": "12.0.0",
     "eslint": "^8.34.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.0.0",

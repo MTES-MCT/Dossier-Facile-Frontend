@@ -78,7 +78,7 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-@import '@gouvfr/dsfr/dist/utility/icons/icons-business/icons-business.css';
+@import '@gouvfr/dsfr/dist/utility/icons/icons-business/icons-business.min.css';
 
 .fr-nav__item {
   position: relative;

@@ -129,6 +129,6 @@ function resetType() {
 </script>
 
 <style scoped lang="scss">
-@import '@gouvfr/dsfr/dist/utility/icons/icons-user/icons-user.css';
-@import '@gouvfr/dsfr/dist/utility/icons/icons-buildings/icons-buildings.css';
+@import '@gouvfr/dsfr/dist/utility/icons/icons-user/icons-user.min.css';
+@import '@gouvfr/dsfr/dist/utility/icons/icons-buildings/icons-buildings.min.css';
 </style>

@@ -64,6 +64,7 @@ import keycloakTenant from '../../plugin/KeycloakTenant'
 import PropertyService from './PropertyService'
 import PropertyContainer from './PropertyContainer.vue'
 import useOwnerStore from '../../store/owner-store'
+import { ApartmentSharing } from 'df-shared-next/src/models/ApartmentSharing'
 
 const route = useRoute()
 const router = useRouter()
@@ -92,7 +93,7 @@ const TENANT_API_URL = `${import.meta.env.VITE_API_URL}`
 
 const isCreate = ref(true)
 const mainTenantFirstname = ref('')
-const apartmentSharing = ref(null)
+const apartmentSharing = ref<ApartmentSharing | null>(null)
 
 function subscribe() {
   if (keycloakTenant.authenticated) {
@@ -103,7 +104,7 @@ function subscribe() {
       }
     })
     reqInstance
-      .get(`${TENANT_API_URL}/dfc/tenant/profile`)
+      .get<{connectedTenantId: number, apartmentSharing: ApartmentSharing }>(`${TENANT_API_URL}/dfc/tenant/profile`)
       .then((profile) => {
         apartmentSharing.value = profile.data.apartmentSharing
         PropertyService.subscribe(kcToken!, token.value)
@@ -112,10 +113,10 @@ function subscribe() {
           })
           .catch(() => {
             const createTenant = profile.data.apartmentSharing.tenants.find(
-              (tenant: any) => tenant.tenantType === 'CREATE'
+              (tenant) => tenant.tenantType === 'CREATE'
             )
-            mainTenantFirstname.value = createTenant.firstName
-            isCreate.value = createTenant.id === profile.data.connectedTenantId
+            mainTenantFirstname.value = createTenant?.firstName ??''
+            isCreate.value = createTenant?.id === profile.data.connectedTenantId
             showError.value = true
           })
       })
@@ -142,7 +143,7 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-@import '@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.css';
+@import '@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css';
 
 .box-container {
   display: flex;

@@ -22,5 +22,10 @@ export default defineConfig({
       allow: ['./src', '../df-shared-next', '../node_modules', './node_modules']
     }
   },
+  css: {
+    preprocessorOptions: {
+      scss: { api: 'modern' }
+    }
+  },
   plugins: [vue(), vueI18n({})]
 })
