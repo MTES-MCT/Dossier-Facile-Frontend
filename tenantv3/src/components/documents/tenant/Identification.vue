@@ -101,7 +101,7 @@ onBeforeMount(() => {
   if (user.value?.documents !== null) {
     if (tenantIdentificationDocument.value !== undefined) {
       const localDoc = documents.find((d: DocumentType) => {
-        return d.value === tenantIdentificationDocument.value?.subCategory
+        return d.value === tenantIdentificationDocument.value?.documentSubCategory
       })
       if (localDoc !== undefined) {
         identificationDocument.value = localDoc
@@ -133,7 +133,7 @@ function onSelectChange($event: any) {
     const doc = tenantIdentificationDocument.value
     if (doc !== undefined) {
       isDocDeleteVisible.value =
-        (doc?.files?.length || 0) > 0 && doc?.subCategory !== identificationDocument.value.value
+        (doc?.files?.length || 0) > 0 && doc?.documentSubCategory !== identificationDocument.value.value
     }
   }
   return false
@@ -144,7 +144,7 @@ function undoSelect() {
     const doc = tenantIdentificationDocument.value
     if (doc !== undefined) {
       const localDoc = documents.find((d: DocumentType) => {
-        return d.value === doc?.subCategory
+        return d.value === doc?.documentSubCategory
       })
       if (localDoc !== undefined) {
         identificationDocument.value = localDoc
@@ -232,7 +232,7 @@ function save() {
 function identificationFiles() {
   const newFiles = files.value.map((f) => {
     return {
-      subCategory: identificationDocument.value,
+      documentSubCategory: identificationDocument.value,
       id: f.id,
       name: f.name,
       file: f.file,
@@ -253,7 +253,7 @@ async function remove(file: DfFile, silent = false) {
       tenantIdentificationDocument.value?.files?.length === 1 &&
       tenantIdentificationDocument.value?.documentAnalysisReport?.analysisStatus === 'DENIED'
     ) {
-      AnalyticsService.removeDeniedDocument(tenantIdentificationDocument.value?.subCategory || '')
+      AnalyticsService.removeDeniedDocument(tenantIdentificationDocument.value?.documentSubCategory || '')
     }
     await RegisterService.deleteFile(file.id, silent)
   } else {

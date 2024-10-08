@@ -42,7 +42,7 @@
             v-for="doc in documents(props.tenant, 'FINANCIAL')"
             v-bind:key="doc.id"
             :label="t('tenantpanel.financial')"
-            :sub-label="t(`documents.subcategory.${doc.subCategory}`)"
+            :sub-label="t(`documents.subcategory.${doc.documentSubCategory}`)"
             :document="doc"
             :canEdit="showButtons"
             :enableDownload="showButtons"
@@ -162,7 +162,7 @@ function documents(g: User, docType: string): DfDocument[] {
 function getProfessionalSubCategory(u: User): string {
   const professionalDocument = document(u, 'PROFESSIONAL')
   const translationKey = DocumentTypeConstants.PROFESSIONAL_DOCS.find(
-    (doc) => doc.value === professionalDocument?.subCategory
+    (doc) => doc.value === professionalDocument?.documentSubCategory
   )?.key
   return t(translationKey || '')
 }

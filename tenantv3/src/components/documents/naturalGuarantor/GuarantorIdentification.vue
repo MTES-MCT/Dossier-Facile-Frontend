@@ -106,7 +106,7 @@ function onSelectChange($event: any) {
     const doc = guarantorIdentificationDocument()
     if (doc !== undefined) {
       isDocDeleteVisible.value =
-        (doc?.files?.length || 0) > 0 && doc?.subCategory !== identificationDocument.value.value
+        (doc?.files?.length || 0) > 0 && doc?.documentSubCategory !== identificationDocument.value.value
     }
   }
   return false
@@ -130,7 +130,7 @@ function undoSelect() {
     })
     if (doc !== undefined) {
       const localDoc = documents.find((d: DocumentType) => {
-        return d.value === doc.subCategory
+        return d.value === doc.documentSubCategory
       })
       if (localDoc !== undefined) {
         identificationDocument.value = localDoc
@@ -160,7 +160,7 @@ function updateGuarantorData() {
   if (selectedGuarantor.value?.documents !== null) {
     if (guarantorIdentificationDocument() !== undefined) {
       const localDoc = documents.find((d: DocumentType) => {
-        return d.value === guarantorIdentificationDocument()?.subCategory
+        return d.value === guarantorIdentificationDocument()?.documentSubCategory
       })
       if (localDoc !== undefined) {
         identificationDocument.value = localDoc
@@ -244,7 +244,7 @@ function save() {
 function identificationFiles() {
   const newFiles = files.value.map((f) => {
     return {
-      subCategory: identificationDocument.value.value,
+      documentSubCategory: identificationDocument.value.value,
       id: f.id,
       name: f.name,
       file: f.file,

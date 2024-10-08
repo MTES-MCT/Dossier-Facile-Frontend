@@ -167,9 +167,9 @@ function sendEventPrevalidation(user: User) {
       d.documentAnalysisReport?.analysisStatus === 'DENIED' &&
       !d.documentAnalysisReport?.comment
     ) {
-      AnalyticsService.prevalidationEvent(d.subCategory || '', 'DENIED')
+      AnalyticsService.prevalidationEvent(d.documentSubCategory || '', 'DENIED')
     } else if (d.documentAnalysisReport?.analysisStatus === 'CHECKED') {
-      AnalyticsService.prevalidationEvent(d.subCategory || '', 'CHECKED')
+      AnalyticsService.prevalidationEvent(d.documentSubCategory || '', 'CHECKED')
     }
   })
 

@@ -7,7 +7,7 @@ export class FinancialDocument {
   id?: number;
   documentType = new DocumentType();
   documentCategory?: string;
-  subCategory?: string;
+  documentSubCategory?: string;
   noDocument = false;
   files: DfFile[] = [];
   fileUploadStatus = UploadStatus.STATUS_INITIAL;
